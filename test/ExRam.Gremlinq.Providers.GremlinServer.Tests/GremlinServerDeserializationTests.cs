@@ -10,7 +10,7 @@ using Xunit.Abstractions;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
-    public class GremlinServerDeserializationTests : QueryExecutionTest
+    public class GremlinServerDeserializationTests : QueryDeserializationTest
     {
         [ThreadStatic]
         private static Context? XUnitContext;
@@ -22,10 +22,12 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
                     {
                         if (XUnitContext is { } context)
                         {
+                            var prefix = context.ClassName.Substring(0, context.ClassName.Length - "DeserializationTests".Length);
+
                             try
                             {
                                 var jArray = JsonConvert.DeserializeObject<JArray>(
-                                    File.ReadAllText(System.IO.Path.Combine(context.SourceDirectory, "GremlinServerIntegrationTests." + XUnitContext.MethodName + ".verified.json")));
+                                    File.ReadAllText(System.IO.Path.Combine(context.SourceDirectory, prefix + "IntegrationTests." + XUnitContext.MethodName + ".verified.json")));
 
                                 return jArray.Count == 1
                                     ? new[] {jArray[0]}.ToAsyncEnumerable()
