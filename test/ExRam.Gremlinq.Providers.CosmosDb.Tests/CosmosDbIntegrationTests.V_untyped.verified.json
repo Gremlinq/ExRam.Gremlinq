@@ -390,7 +390,7 @@
       "Duration": [
         {
           "id": "scrubbed id",
-          "value": 7200000
+          "value": 7200000.0
         }
       ],
       "Enabled": [
@@ -402,7 +402,7 @@
       "StartTime": [
         {
           "id": "scrubbed id",
-          "value": 28800000
+          "value": 28800000.0
         }
       ]
     }
