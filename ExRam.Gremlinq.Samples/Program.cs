@@ -183,19 +183,15 @@ namespace ExRam.Gremlinq.Samples
                     .V(ripple.Id!))
                 .FirstAsync();
 
-            await _g
-                .V(_josh.Id!)
-                .AddE<Created>()
-                .To(__ => __
-                    .V(lop.Id!))
-                .FirstAsync();
+            // Creates multiple edges in a single query
+            // Note that query ends with ToArrayAsync
 
             await _g
-                .V(_peter.Id!)
-                .AddE<Created>()
-                .To(__ => __
-                    .V(lop.Id!))
-                .FirstAsync();
+              .V(_josh.Id!, _peter.Id!)
+              .AddE<Created>()
+              .To(__ => __
+                  .V(lop.Id!))
+              .ToArrayAsync();
 
             await _g
                 .V(_josh.Id!)
