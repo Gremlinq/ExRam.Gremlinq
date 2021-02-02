@@ -1,11 +1,16 @@
-﻿using ExRam.Gremlinq.Core.Tests;
+﻿using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Core.Tests;
 using Xunit.Abstractions;
+using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
     public class GremlinServerDeserializationTests : QueryDeserializationTest
     {
-        public GremlinServerDeserializationTests(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
+        public GremlinServerDeserializationTests(ITestOutputHelper testOutputHelper) : base(
+            g.ConfigureEnvironment(
+                env => env.UseDeserializer(GremlinQueryExecutionResultDeserializer.FromJToken)),
+            testOutputHelper)
         {
         }
     }
