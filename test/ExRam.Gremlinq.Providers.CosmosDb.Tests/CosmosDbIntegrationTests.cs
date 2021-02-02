@@ -24,11 +24,8 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
             fixture.Create().Wait();
         }
 
-        [Fact(Skip = "x")]
-        public override async Task AddE_With_Ignored()
-        {
-            //Gremlin Query Compilation Error: AddE should follow by a Vertex
-        }
+        [Fact(Skip = "Gremlin Query Compilation Error: AddE should follow by a Vertex")]
+        public override async Task AddE_With_Ignored() { }
 
         [Fact(Skip = "Gremlin Query Compilation Error: AddE should follow by a Vertex")]
         public override async Task AddE_from_to() { }
