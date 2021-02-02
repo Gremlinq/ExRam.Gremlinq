@@ -168,10 +168,6 @@ namespace ExRam.Gremlinq.Core
                         : recurse.TryDeserialize(jToken, type.GetGenericArguments()[0], env)
                     : overridden(jToken, type, env, recurse);
             })
-            .Override<JValue>((jToken, type, _, _, _) =>
-            {
-                return jToken.ToObject(type);
-            })
             .Override<JValue>((jToken, type, env, overridden, recurse) =>
             {
                 return typeof(Property).IsAssignableFrom(type) && type.IsGenericType
