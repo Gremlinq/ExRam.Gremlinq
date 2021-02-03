@@ -37,6 +37,13 @@ namespace ExRam.Gremlinq.Core
                 behaviour => behaviour | SerializationBehaviour.IgnoreAlways);
         }
 
+        public IMemberMetadataConfigurator<TElement> ResetSerializationBehaviour<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression)
+        {
+            return SetSerializationBehaviour(
+                propertyExpression,
+                _ => SerializationBehaviour.Default);
+        }
+
         public IMemberMetadataConfigurator<TElement> ConfigureName<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression, string name)
         {
             return Configure(
