@@ -190,11 +190,11 @@ namespace ExRam.Gremlinq.Core
                 {
                     return _members.GetOrAdd(
                         member,
-                        (closureMember, closureModel) =>
+                        (closureMember, @this) =>
                         {
                             var name = closureMember.Name;
 
-                            if (closureModel.MemberMetadata.TryGetValue(closureMember, out var metadata))
+                            if (@this._model.MemberMetadata.TryGetValue(closureMember, out var metadata))
                             {
                                 if (metadata.Key.RawKey is T t)
                                     return t;
@@ -202,11 +202,11 @@ namespace ExRam.Gremlinq.Core
                                 name = (string)metadata.Key.RawKey;
                             }
 
-                            return DefaultTs.TryGetValue(name, out var defaultT) && !_configuredTs.Contains(defaultT)
+                            return DefaultTs.TryGetValue(name, out var defaultT) && !@this._configuredTs.Contains(defaultT)
                                 ? (Key)defaultT
                                 : name;
                         },
-                        _model);
+                        this);
                 }
             }
 
