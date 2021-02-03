@@ -23,6 +23,7 @@ namespace ExRam.Gremlinq.Core
         }
 
         internal static IReadOnlyDictionary<TKey, TValue> Fast<TKey, TValue>(this IImmutableDictionary<TKey, TValue> dict)
+            where TKey : notnull
         {
             return (IReadOnlyDictionary<TKey, TValue>)FastDictionaries
                 .GetOrAdd(
