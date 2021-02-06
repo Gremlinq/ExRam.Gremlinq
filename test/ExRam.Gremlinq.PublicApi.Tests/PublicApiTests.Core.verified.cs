@@ -1552,9 +1552,15 @@ namespace ExRam.Gremlinq.Core
     {
         protected Step() { }
     }
-    public abstract class StepLabel
+    public abstract class StepLabel : System.IEquatable<ExRam.Gremlinq.Core.StepLabel>
     {
         protected StepLabel() { }
+        public virtual ExRam.Gremlinq.Core.StepLabel<TNewValue> Cast<TNewValue>() { }
+        public bool Equals(ExRam.Gremlinq.Core.StepLabel? other) { }
+        public override bool Equals(object? obj) { }
+        public override int GetHashCode() { }
+        public static bool operator !=(ExRam.Gremlinq.Core.StepLabel? left, ExRam.Gremlinq.Core.StepLabel? right) { }
+        public static bool operator ==(ExRam.Gremlinq.Core.StepLabel? left, ExRam.Gremlinq.Core.StepLabel? right) { }
     }
     public class StepLabel<TElement> : ExRam.Gremlinq.Core.StepLabel
     {
@@ -1570,6 +1576,8 @@ namespace ExRam.Gremlinq.Core
         where TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
     {
         public StepLabel() { }
+        [System.Runtime.CompilerServices.PreserveBaseOverrides]
+        public virtual ExRam.Gremlinq.Core.StepLabel<ExRam.Gremlinq.Core.IValueGremlinQuery<TNewValue>, TNewValue> Cast<TNewValue>() { }
     }
     public sealed class SumStep : ExRam.Gremlinq.Core.Step
     {
