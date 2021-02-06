@@ -572,6 +572,17 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task As_followed_by_casted_Select()
+        {
+            await _g
+                .V<Person>()
+                .As((_, stepLabel1) => _
+                    .Out()
+                    .Select(stepLabel1.Cast<object>()))
+                .Verify(this);
+        }
+
+        [Fact]
         public virtual async Task As_idempotency_is_detected()
         {
             await _g
