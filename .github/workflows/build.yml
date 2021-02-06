@@ -151,18 +151,13 @@ jobs:
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/rel' }}
 
     steps:
-    - name: Bump version and push tag
-      uses: mathieudutour/github-tag-action@v5.1
-      with:
-        custom_tag: ${{ needs.build.outputs.semVer2 }}
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-
     - name: Draft release
       uses: release-drafter/release-drafter@v5.13.0
       with:
         name: ExRam.Gremlinq ${{ needs.build.outputs.semVer2 }}
         prerelease: ${{ needs.build.outputs.isPrerelease }}
         tag: ${{ needs.build.outputs.semVer2 }}
+        commitish: ${{ github.ref }}
         publish: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
