@@ -332,6 +332,7 @@ namespace ExRam.Gremlinq.Core
         public static readonly ExRam.Gremlinq.Core.IGremlinQueryExecutionResultDeserializer FromJToken;
         public static readonly ExRam.Gremlinq.Core.IGremlinQueryExecutionResultDeserializer Identity;
         public static readonly ExRam.Gremlinq.Core.IGremlinQueryExecutionResultDeserializer Invalid;
+        [System.Obsolete("To be removed in an upcoming major release.")]
         public static readonly ExRam.Gremlinq.Core.IGremlinQueryExecutionResultDeserializer ToGraphsonString;
         [System.Obsolete("Use GremlinQueryExecutionResultDeserializer.Identity.ConfigureFragmentDeserialize" +
             "r(_ => _.AddToStringFallback()) instead.")]
