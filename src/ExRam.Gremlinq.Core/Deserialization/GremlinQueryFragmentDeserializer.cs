@@ -8,9 +8,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Xml;
 using ExRam.Gremlinq.Core.GraphElements;
-
 using Gremlin.Net.Structure.IO.GraphSON;
-
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
