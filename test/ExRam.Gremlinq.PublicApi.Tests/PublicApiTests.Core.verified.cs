@@ -326,6 +326,7 @@ namespace ExRam.Gremlinq.Core
     }
     public static class GremlinQueryExecutionResultDeserializer
     {
+        public static readonly ExRam.Gremlinq.Core.IGremlinQueryExecutionResultDeserializer Default;
         [System.Obsolete("Use GremlinQueryExecutionResultDeserializer.Identity.ConfigureFragmentDeserialize" +
             "r(_ => _.AddNewtonsoftJson()) instead.")]
         public static readonly ExRam.Gremlinq.Core.IGremlinQueryExecutionResultDeserializer FromJToken;
