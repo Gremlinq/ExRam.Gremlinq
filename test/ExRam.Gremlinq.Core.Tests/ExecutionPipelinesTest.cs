@@ -49,7 +49,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void Echo_wrong_type()
         {
-            GremlinQuerySource.g
+            g
                 .ConfigureEnvironment(env => env
                     .EchoGraphsonString())
                 .V<Person>()
