@@ -210,19 +210,12 @@ namespace ExRam.Gremlinq.Core
 
         public static readonly IGremlinQueryFragmentDeserializer Identity = new GremlinQueryFragmentDeserializerImpl(ImmutableDictionary<Type, Delegate>.Empty);
 
-        internal static IGremlinQueryFragmentDeserializer ToGraphsonString(this IGremlinQueryFragmentDeserializer deserializer)
-        {
-            return deserializer
-                .Override<object>((data, type, env, overridden, recurse) => type.IsAssignableFrom(typeof(string))
-                    ? new GraphSON2Writer().WriteObject(data)
-                    : overridden(data, type, env, recurse));
-        }
-
         public static IGremlinQueryFragmentDeserializer AddToStringFallback(this IGremlinQueryFragmentDeserializer deserializer) => deserializer
             .Override<object>((data, type, env, overridden, recurse) => type == typeof(string)
                 ? data.ToString()
                 : overridden(data, type, env, recurse));
 
+        // ReSharper disable ConvertToLambdaExpression
         public static IGremlinQueryFragmentDeserializer AddNewtonsoftJson(this IGremlinQueryFragmentDeserializer deserializer) => deserializer
             .Override<JToken>((jToken, type, env, overridden, recurse) =>
             {
@@ -492,5 +485,14 @@ namespace ExRam.Gremlinq.Core
                 return array?.ToArray(elementType) ?? Array.CreateInstance(elementType, 0);
             });
         // ReSharper restore ConvertToLambdaExpression
+
+        internal static IGremlinQueryFragmentDeserializer ToGraphsonString(this IGremlinQueryFragmentDeserializer deserializer)
+        {
+            return deserializer
+                .Override<object>((data, type, env, overridden, recurse) => type.IsAssignableFrom(typeof(string))
+                    ? new GraphSON2Writer().WriteObject(data)
+                    : overridden(data, type, env, recurse));
+        }
+
     }
 }
