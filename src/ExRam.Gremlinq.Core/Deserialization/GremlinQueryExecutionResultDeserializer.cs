@@ -88,26 +88,13 @@ namespace ExRam.Gremlinq.Core
                 {
                     if (type.IsArray)
                     {
-                        if (data is Array array)
-                        {
-                            var arrayList = new ArrayList();
+                        var elementType = type.GetElementType()!;
+                        var ret = Array.CreateInstance(elementType, 1);
 
-                            foreach(var item in array)
-                            {
-                                arrayList.Add(recurse.TryDeserialize(item, type.GetElementType()!, env));
-                            }
+                        ret
+                            .SetValue(recurse.TryDeserialize(data, elementType, env), 0);
 
-                            return arrayList.ToArray(type.GetElementType()!);
-                        }
-                        else
-                        {
-                            var ret = Array.CreateInstance(type.GetElementType()!, 1);
-
-                            ret
-                                .SetValue(recurse.TryDeserialize(data, type.GetElementType()!, env), 0);
-
-                            return ret;
-                        }
+                        return ret;
                     }
 
                     return overridden(data, type, env, recurse);
