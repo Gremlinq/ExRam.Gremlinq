@@ -210,12 +210,9 @@ namespace ExRam.Gremlinq.Core
         public static readonly IGremlinQueryFragmentDeserializer Identity = new GremlinQueryFragmentDeserializerImpl(ImmutableDictionary<Type, Delegate>.Empty);
 
         public static IGremlinQueryFragmentDeserializer AddToStringFallback(this IGremlinQueryFragmentDeserializer deserializer) => deserializer
-            .Override<object>((data, type, env, overridden, recurse) =>
-            {
-                return type == typeof(string)
-                    ? data.ToString()
-                    : overridden(data, type, env, recurse);
-            });
+            .Override<object>((data, type, env, overridden, recurse) => type == typeof(string)
+                ? data.ToString()
+                : overridden(data, type, env, recurse));
 
         public static IGremlinQueryFragmentDeserializer AddNewtonsoftJson(this IGremlinQueryFragmentDeserializer deserializer) => deserializer
             .Override<JToken>((jToken, type, env, overridden, recurse) =>
