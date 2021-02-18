@@ -86,16 +86,7 @@ namespace ExRam.Gremlinq.Core
 
         public static new readonly IGremlinQueryExecutionResultDeserializer ToString = Identity
             .ConfigureFragmentDeserializer(_ => _
-                .Override<object>((data, type, _, _, _) =>
-                {
-                    if (type.IsAssignableFrom(typeof(string)))
-                        return data.ToString();
-
-                    if (type.IsAssignableFrom(typeof(string[])))
-                        return new[] { data.ToString() };
-
-                    throw new InvalidOperationException($"Can't deserialize a string to {type.Name}. Make sure you cast call {nameof(IGremlinQueryBase.Cast)}<{nameof(String)}>() on the query before executing it.");
-                }));
+                .AddToStringFallback());
 
         // ReSharper disable ConvertToLambdaExpression
         [Obsolete("Use GremlinQueryExecutionResultDeserializer.Identity.ConfigureFragmentDeserializer(_ => _.AddNewtonsoftJson()) instead.")]
