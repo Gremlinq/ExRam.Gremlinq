@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-
 using Gremlin.Net.Structure.IO.GraphSON;
 
 namespace ExRam.Gremlinq.Core
