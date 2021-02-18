@@ -57,28 +57,6 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        private sealed class ToStringGremlinQueryExecutionResultDeserializer : IGremlinQueryExecutionResultDeserializer
-        {
-            public IAsyncEnumerable<TElement> Deserialize<TElement>(object result, IGremlinQueryEnvironment environment)
-            {
-                return AsyncEnumerable.Create(Core);
-
-                async IAsyncEnumerator<TElement> Core(CancellationToken ct)
-                {
-                    if (!typeof(TElement).IsAssignableFrom(typeof(string)))
-                        throw new InvalidOperationException($"Can't deserialize a string to {typeof(TElement).Name}. Make sure you cast call Cast<string>() on the query before executing it.");
-
-                    if (result.ToString() is { } str)
-                        yield return (TElement)(object)str;
-                }
-            }
-
-            public IGremlinQueryExecutionResultDeserializer ConfigureFragmentDeserializer(Func<IGremlinQueryFragmentDeserializer, IGremlinQueryFragmentDeserializer> transformation)
-            {
-                throw new InvalidOperationException($"{nameof(ConfigureFragmentDeserializer)} cannot be called on {nameof(GremlinQueryExecutionResultDeserializer)}.{nameof(GremlinQueryExecutionResultDeserializer.ToString)}.");
-            }
-        }
-
         private sealed class ToGraphsonGremlinQueryExecutionResultDeserializer : IGremlinQueryExecutionResultDeserializer
         {
             public IAsyncEnumerable<TElement> Deserialize<TElement>(object result, IGremlinQueryEnvironment environment)
@@ -106,7 +84,18 @@ namespace ExRam.Gremlinq.Core
 
         public static readonly IGremlinQueryExecutionResultDeserializer ToGraphsonString = new ToGraphsonGremlinQueryExecutionResultDeserializer();
 
-        public static new readonly IGremlinQueryExecutionResultDeserializer ToString = new ToStringGremlinQueryExecutionResultDeserializer();
+        public static new readonly IGremlinQueryExecutionResultDeserializer ToString = Identity
+            .ConfigureFragmentDeserializer(_ => _
+                .Override<object>((data, type, _, _, _) =>
+                {
+                    if (type.IsAssignableFrom(typeof(string)))
+                        return data.ToString();
+
+                    if (type.IsAssignableFrom(typeof(string[])))
+                        return new[] { data.ToString() };
+
+                    throw new InvalidOperationException($"Can't deserialize a string to {type.Name}. Make sure you cast call {nameof(IGremlinQueryBase.Cast)}<{nameof(String)}>() on the query before executing it.");
+                }));
 
         // ReSharper disable ConvertToLambdaExpression
         [Obsolete("Use GremlinQueryExecutionResultDeserializer.Identity.ConfigureFragmentDeserializer(_ => _.AddNewtonsoftJson()) instead.")]
