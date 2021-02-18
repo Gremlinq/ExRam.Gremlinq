@@ -149,9 +149,7 @@ namespace ExRam.Gremlinq.Core
             {
                 return type == typeof(string)
                     ? data.ToString()
-                    : type == typeof(string[])
-                        ? new[] { data.ToString() }
-                        : overridden(data, type, env, recurse);
+                    : overridden(data, type, env, recurse);
             });
 
         public static IGremlinQueryFragmentDeserializer AddNewtonsoftJson(this IGremlinQueryFragmentDeserializer deserializer) => deserializer

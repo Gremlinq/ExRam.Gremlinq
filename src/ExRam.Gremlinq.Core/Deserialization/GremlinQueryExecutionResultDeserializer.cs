@@ -84,6 +84,34 @@ namespace ExRam.Gremlinq.Core
 
         public static readonly IGremlinQueryExecutionResultDeserializer Default = Identity
             .ConfigureFragmentDeserializer(_ => _
+                .Override<object>((data, type, env, overridden, recurse) =>
+                {
+                    if (type.IsArray)
+                    {
+                        if (data is Array array)
+                        {
+                            var arrayList = new ArrayList();
+
+                            foreach(var item in array)
+                            {
+                                arrayList.Add(recurse.TryDeserialize(item, type.GetElementType()!, env));
+                            }
+
+                            return arrayList.ToArray(type.GetElementType()!);
+                        }
+                        else
+                        {
+                            var ret = Array.CreateInstance(type.GetElementType()!, 1);
+
+                            ret
+                                .SetValue(recurse.TryDeserialize(data, type.GetElementType()!, env), 0);
+
+                            return ret;
+                        }
+                    }
+
+                    return overridden(data, type, env, recurse);
+                })
                 .AddToStringFallback());
 
         public static readonly IGremlinQueryExecutionResultDeserializer ToGraphsonString = new ToGraphsonGremlinQueryExecutionResultDeserializer();
