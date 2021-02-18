@@ -86,6 +86,9 @@ namespace ExRam.Gremlinq.Core
             .ConfigureFragmentDeserializer(_ => _
                 .Override<object>((data, type, env, overridden, recurse) =>
                 {
+                    if (type.IsInstanceOfType(data))
+                        return data;
+
                     if (type.IsArray)
                     {
                         var elementType = type.GetElementType()!;
