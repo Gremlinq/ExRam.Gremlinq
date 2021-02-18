@@ -84,9 +84,7 @@ namespace ExRam.Gremlinq.Core
 
         public static readonly IGremlinQueryExecutionResultDeserializer ToGraphsonString = Default
             .ConfigureFragmentDeserializer(_ => _
-                .Override<object>((data, type, env, overridden, recurse) => type.IsAssignableFrom(typeof(string))
-                    ? new GraphSON2Writer().WriteObject(data)
-                    : overridden(data, type, env, recurse)));
+                .ToGraphsonString());
 
         [Obsolete("Use GremlinQueryExecutionResultDeserializer.Identity.ConfigureFragmentDeserializer(_ => _.AddToStringFallback()) instead.")]
         public static new readonly IGremlinQueryExecutionResultDeserializer ToString = Default;

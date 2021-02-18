@@ -8,6 +8,9 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Xml;
 using ExRam.Gremlinq.Core.GraphElements;
+
+using Gremlin.Net.Structure.IO.GraphSON;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -208,6 +211,14 @@ namespace ExRam.Gremlinq.Core
         }
 
         public static readonly IGremlinQueryFragmentDeserializer Identity = new GremlinQueryFragmentDeserializerImpl(ImmutableDictionary<Type, Delegate>.Empty);
+
+        internal static IGremlinQueryFragmentDeserializer ToGraphsonString(this IGremlinQueryFragmentDeserializer deserializer)
+        {
+            return deserializer
+                .Override<object>((data, type, env, overridden, recurse) => type.IsAssignableFrom(typeof(string))
+                    ? new GraphSON2Writer().WriteObject(data)
+                    : overridden(data, type, env, recurse));
+        }
 
         public static IGremlinQueryFragmentDeserializer AddToStringFallback(this IGremlinQueryFragmentDeserializer deserializer) => deserializer
             .Override<object>((data, type, env, overridden, recurse) => type == typeof(string)

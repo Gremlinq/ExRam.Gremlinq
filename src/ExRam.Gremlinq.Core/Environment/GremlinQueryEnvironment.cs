@@ -1,4 +1,7 @@
 ﻿using System;
+
+using Gremlin.Net.Structure.IO.GraphSON;
+
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Newtonsoft.Json.Linq;
@@ -92,7 +95,9 @@ namespace ExRam.Gremlinq.Core
             return environment
                 .UseSerializer(GremlinQuerySerializer.Default)
                 .UseExecutor(GremlinQueryExecutor.Identity)
-                .UseDeserializer(GremlinQueryExecutionResultDeserializer.ToGraphsonString);
+                .ConfigureDeserializer(_ => _
+                    .ConfigureFragmentDeserializer(_ => _
+                        .ToGraphsonString()));
         }
 
         public static IGremlinQueryEnvironment EchoGroovyString(this IGremlinQueryEnvironment environment)
