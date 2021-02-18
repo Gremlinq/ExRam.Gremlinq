@@ -14,7 +14,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
                 .ConfigureEnvironment(env => env
                     .UseGremlinServer(builder => builder
                         .AtLocalhost())
-                    .UseDeserializer(GremlinQueryExecutionResultDeserializer.Identity)),
+                    .UseDeserializer(GremlinQueryExecutionResultDeserializer.Default)),
             testOutputHelper)
         {
         }
