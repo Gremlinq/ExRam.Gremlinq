@@ -110,6 +110,7 @@ namespace ExRam.Gremlinq.Core
         public static new readonly IGremlinQueryExecutionResultDeserializer ToString = new ToStringGremlinQueryExecutionResultDeserializer();
 
         // ReSharper disable ConvertToLambdaExpression
+        [Obsolete("Use GremlinQueryExecutionResultDeserializer.Identity.ConfigureFragmentDeserializer(_ => _.AddNewtonsoftJson()) instead.")]
         public static readonly IGremlinQueryExecutionResultDeserializer FromJToken = Identity
             .ConfigureFragmentDeserializer(_ => _
                 .AddNewtonsoftJson());
