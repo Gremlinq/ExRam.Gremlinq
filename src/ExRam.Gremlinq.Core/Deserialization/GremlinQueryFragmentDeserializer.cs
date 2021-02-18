@@ -147,9 +147,9 @@ namespace ExRam.Gremlinq.Core
         public static IGremlinQueryFragmentDeserializer AddToStringFallback(this IGremlinQueryFragmentDeserializer deserializer) => deserializer
             .Override<object>((data, type, env, overridden, recurse) =>
             {
-                return type.IsAssignableFrom(typeof(string))
+                return type == typeof(string)
                     ? data.ToString()
-                    : type.IsAssignableFrom(typeof(string[]))
+                    : type == typeof(string[])
                         ? new[] { data.ToString() }
                         : overridden(data, type, env, recurse);
             });
