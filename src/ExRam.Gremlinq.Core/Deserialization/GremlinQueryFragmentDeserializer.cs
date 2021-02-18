@@ -493,6 +493,5 @@ namespace ExRam.Gremlinq.Core
                     ? new GraphSON2Writer().WriteObject(data)
                     : overridden(data, type, env, recurse));
         }
-
     }
 }

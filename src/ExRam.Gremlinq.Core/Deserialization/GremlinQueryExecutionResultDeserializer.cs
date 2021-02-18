@@ -81,7 +81,7 @@ namespace ExRam.Gremlinq.Core
                 })
                 .AddToStringFallback());
 
-        [Obsolete("To be removed in an upcoming major release.")]
+        [Obsolete("To be removed in an upcoming major release. To still get this functionality, refer to https://github.com/ExRam/ExRam.Gremlinq/blob/92f546ff65cf3306be51566641b8512c71d1eac0/src/ExRam.Gremlinq.Core/Deserialization/GremlinQueryExecutionResultDeserializer.cs#L85.")]
         public static readonly IGremlinQueryExecutionResultDeserializer ToGraphsonString = Default
             .ConfigureFragmentDeserializer(_ => _
                 .ToGraphsonString());
