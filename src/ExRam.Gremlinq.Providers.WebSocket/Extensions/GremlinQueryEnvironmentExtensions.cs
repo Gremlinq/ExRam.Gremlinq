@@ -253,7 +253,9 @@ namespace ExRam.Gremlinq.Core
 
             return environment
                 .UseExecutor(builderTransformation(builder).Build())
-                .UseDeserializer(GremlinQueryExecutionResultDeserializer.FromJToken);
+                .ConfigureDeserializer(d => d
+                    .ConfigureFragmentDeserializer(f => f
+                        .AddNewtonsoftJson()));
         }
     }
 }
