@@ -145,15 +145,13 @@ namespace ExRam.Gremlinq.Core
         public static readonly IGremlinQueryFragmentDeserializer Identity = new GremlinQueryFragmentDeserializerImpl(ImmutableDictionary<Type, Delegate>.Empty);
 
         public static IGremlinQueryFragmentDeserializer AddToStringFallback(this IGremlinQueryFragmentDeserializer deserializer) => deserializer
-            .Override<object>((data, type, _, _, _) =>
+            .Override<object>((data, type, env, overridden, recurse) =>
             {
-                if (type.IsAssignableFrom(typeof(string)))
-                    return data.ToString();
-
-                if (type.IsAssignableFrom(typeof(string[])))
-                    return new[] { data.ToString() };
-
-                throw new InvalidOperationException($"Can't deserialize a string to {type.Name}. Make sure you cast call {nameof(IGremlinQueryBase.Cast)}<{nameof(String)}>() on the query before executing it.");
+                return type.IsAssignableFrom(typeof(string))
+                    ? data.ToString()
+                    : type.IsAssignableFrom(typeof(string[]))
+                        ? new[] { data.ToString() }
+                        : overridden(data, type, env, recurse);
             });
 
         public static IGremlinQueryFragmentDeserializer AddNewtonsoftJson(this IGremlinQueryFragmentDeserializer deserializer) => deserializer
