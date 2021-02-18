@@ -1,7 +1,4 @@
 ﻿using System;
-
-using Gremlin.Net.Structure.IO.GraphSON;
-
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Newtonsoft.Json.Linq;
