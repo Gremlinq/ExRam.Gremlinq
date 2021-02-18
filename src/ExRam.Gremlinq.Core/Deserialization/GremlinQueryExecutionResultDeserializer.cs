@@ -82,15 +82,17 @@ namespace ExRam.Gremlinq.Core
 
         public static readonly IGremlinQueryExecutionResultDeserializer Invalid = new InvalidQueryExecutionResultDeserializer();
 
-        public static readonly IGremlinQueryExecutionResultDeserializer ToGraphsonString = new ToGraphsonGremlinQueryExecutionResultDeserializer();
-
-        [Obsolete("Use GremlinQueryExecutionResultDeserializer.Identity.ConfigureFragmentDeserializer(_ => _.AddToStringFallback()) instead.")]
-        public static new readonly IGremlinQueryExecutionResultDeserializer ToString = Identity
+        public static readonly IGremlinQueryExecutionResultDeserializer Default = Identity
             .ConfigureFragmentDeserializer(_ => _
                 .AddToStringFallback());
 
+        public static readonly IGremlinQueryExecutionResultDeserializer ToGraphsonString = new ToGraphsonGremlinQueryExecutionResultDeserializer();
+
+        [Obsolete("Use GremlinQueryExecutionResultDeserializer.Identity.ConfigureFragmentDeserializer(_ => _.AddToStringFallback()) instead.")]
+        public static new readonly IGremlinQueryExecutionResultDeserializer ToString = Default;
+
         [Obsolete("Use GremlinQueryExecutionResultDeserializer.Identity.ConfigureFragmentDeserializer(_ => _.AddNewtonsoftJson()) instead.")]
-        public static readonly IGremlinQueryExecutionResultDeserializer FromJToken = Identity
+        public static readonly IGremlinQueryExecutionResultDeserializer FromJToken = Default
             .ConfigureFragmentDeserializer(_ => _
                 .AddNewtonsoftJson());
     }

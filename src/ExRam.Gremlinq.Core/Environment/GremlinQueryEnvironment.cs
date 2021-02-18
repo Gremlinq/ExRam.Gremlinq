@@ -70,7 +70,8 @@ namespace ExRam.Gremlinq.Core
             .UseModel(GraphModel.Default(lookup => lookup
                 .IncludeAssembliesFromAppDomain()))
             .UseSerializer(GremlinQuerySerializer.Default)
-            .UseExecutor(GremlinQueryExecutor.Invalid);
+            .UseExecutor(GremlinQueryExecutor.Invalid)
+            .UseDeserializer(GremlinQueryExecutionResultDeserializer.Default);
 
         internal static readonly Step NoneWorkaround = new NotStep(IdentityStep.Instance);
 
@@ -99,9 +100,7 @@ namespace ExRam.Gremlinq.Core
             return environment
                 .ConfigureSerializer(serializer => serializer.ToGroovy())
                 .UseExecutor(GremlinQueryExecutor.Identity)
-                .UseDeserializer(GremlinQueryExecutionResultDeserializer.Identity
-                    .ConfigureFragmentDeserializer(_ => _
-                        .AddToStringFallback()));
+                .UseDeserializer(GremlinQueryExecutionResultDeserializer.Default);
         }
 
         public static IGremlinQueryEnvironment StoreTimeSpansAsNumbers(this IGremlinQueryEnvironment environment)
