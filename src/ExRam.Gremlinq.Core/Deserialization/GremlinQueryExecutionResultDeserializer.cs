@@ -84,11 +84,11 @@ namespace ExRam.Gremlinq.Core
 
         public static readonly IGremlinQueryExecutionResultDeserializer ToGraphsonString = new ToGraphsonGremlinQueryExecutionResultDeserializer();
 
+        [Obsolete("Use GremlinQueryExecutionResultDeserializer.Identity.ConfigureFragmentDeserializer(_ => _.AddToStringFallback()) instead.")]
         public static new readonly IGremlinQueryExecutionResultDeserializer ToString = Identity
             .ConfigureFragmentDeserializer(_ => _
                 .AddToStringFallback());
 
-        // ReSharper disable ConvertToLambdaExpression
         [Obsolete("Use GremlinQueryExecutionResultDeserializer.Identity.ConfigureFragmentDeserializer(_ => _.AddNewtonsoftJson()) instead.")]
         public static readonly IGremlinQueryExecutionResultDeserializer FromJToken = Identity
             .ConfigureFragmentDeserializer(_ => _

@@ -99,7 +99,9 @@ namespace ExRam.Gremlinq.Core
             return environment
                 .ConfigureSerializer(serializer => serializer.ToGroovy())
                 .UseExecutor(GremlinQueryExecutor.Identity)
-                .UseDeserializer(GremlinQueryExecutionResultDeserializer.ToString);
+                .UseDeserializer(GremlinQueryExecutionResultDeserializer.Identity
+                    .ConfigureFragmentDeserializer(_ => _
+                        .AddToStringFallback()));
         }
 
         public static IGremlinQueryEnvironment StoreTimeSpansAsNumbers(this IGremlinQueryEnvironment environment)
