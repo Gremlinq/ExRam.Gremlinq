@@ -56,7 +56,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Awaiting(async _ => await _
                     .ToArrayAsync())
                 .Should()
-                .Throw<InvalidOperationException>();
+                .Throw<InvalidCastException>();
         }
 
         [Fact]

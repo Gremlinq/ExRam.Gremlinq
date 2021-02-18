@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
+using FluentAssertions;
 using Newtonsoft.Json.Linq;
 using VerifyXunit;
 using Xunit;
@@ -53,7 +55,18 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await Verifier.Verify(GremlinQueryFragmentDeserializer.Identity
                 .Override<string>((serialized, type, env, overridden, recurse) => recurse.TryDeserialize(36, type, env))
-                .TryDeserialize("serialized", typeof(string), GremlinQueryEnvironment.Empty));
+                .TryDeserialize("serialized", typeof(int), GremlinQueryEnvironment.Empty));
+        }
+
+        [Fact]
+        public void Recurse_wrong_type()
+        {
+            GremlinQueryFragmentDeserializer.Identity
+                .Override<string>((serialized, type, env, overridden, recurse) => recurse.TryDeserialize(36, type, env))
+                .Invoking(_ => _
+                    .TryDeserialize("serialized", typeof(string), GremlinQueryEnvironment.Empty))
+                .Should()
+                .Throw<InvalidCastException>();
         }
 
         [Fact]
@@ -62,7 +75,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await Verifier.Verify(GremlinQueryFragmentDeserializer.Identity
                 .Override<int>((serialized, type, env, overridden, recurse) => overridden(37, type, env, recurse))
                 .Override<string>((serialized, type, env, overridden, recurse) => recurse.TryDeserialize(36, type, env))
-                .TryDeserialize("serialized", typeof(string), GremlinQueryEnvironment.Empty));
+                .TryDeserialize("serialized", typeof(int), GremlinQueryEnvironment.Empty));
         }
 
         [Fact]
@@ -71,7 +84,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await Verifier.Verify(GremlinQueryFragmentDeserializer.Identity
                 .Override<string>((serialized, type, env, overridden, recurse) => recurse.TryDeserialize(36, type, env))
                 .Override<int>((serialized, type, env, overridden, recurse) => overridden(37, type, env, recurse))
-                .TryDeserialize("serialized", typeof(string), GremlinQueryEnvironment.Empty));
+                .TryDeserialize("serialized", typeof(int), GremlinQueryEnvironment.Empty));
         }
     }
 }

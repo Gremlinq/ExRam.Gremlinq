@@ -37,9 +37,13 @@ namespace ExRam.Gremlinq.Core
 
             public object? TryDeserialize<TSerialized>(TSerialized serializedData, Type fragmentType, IGremlinQueryEnvironment environment)
             {
-                return TryGetDeserializer(typeof(TSerialized), serializedData!.GetType()) is Func<TSerialized, Type, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, object?> del
+                var ret = TryGetDeserializer(typeof(TSerialized), serializedData!.GetType()) is Func<TSerialized, Type, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, object?> del
                     ? del(serializedData, fragmentType, environment, this)
                     : serializedData;
+
+                return ret == null || fragmentType.IsInstanceOfType(ret)
+                    ? ret
+                    : throw new InvalidCastException($"A result of type {ret.GetType().FullName} can't be interpreted as {fragmentType.FullName}.")
             }
 
             public IGremlinQueryFragmentDeserializer Override<TSerialized>(GremlinQueryFragmentDeserializerDelegate<TSerialized> deserializer)
