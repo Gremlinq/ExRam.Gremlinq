@@ -352,6 +352,7 @@ namespace ExRam.Gremlinq.Core
     public static class GremlinQueryFragmentDeserializer
     {
         public static readonly ExRam.Gremlinq.Core.IGremlinQueryFragmentDeserializer Identity;
+        public static ExRam.Gremlinq.Core.IGremlinQueryFragmentDeserializer AddNewtonsoftJson(this ExRam.Gremlinq.Core.IGremlinQueryFragmentDeserializer deserializer) { }
     }
     public delegate object? GremlinQueryFragmentDeserializerDelegate<TSerialized>(TSerialized serializedData, System.Type requestedType, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, System.Func<TSerialized, System.Type, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.IGremlinQueryFragmentDeserializer, object?> overridden, ExRam.Gremlinq.Core.IGremlinQueryFragmentDeserializer recurse);
     public static class GremlinQueryFragmentSerializer

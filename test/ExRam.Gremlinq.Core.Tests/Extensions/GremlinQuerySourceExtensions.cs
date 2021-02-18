@@ -27,7 +27,9 @@ namespace ExRam.Gremlinq.Providers.Tests
             return source.ConfigureEnvironment(env => env
                 .UseSerializer(GremlinQuerySerializer.Default)
                 .UseExecutor(new TestJsonQueryExecutor(json))
-                .UseDeserializer(GremlinQueryExecutionResultDeserializer.FromJToken));
+                .ConfigureDeserializer(d => d
+                    .ConfigureFragmentDeserializer(f => f
+                        .AddNewtonsoftJson())));
         }
     }
 }

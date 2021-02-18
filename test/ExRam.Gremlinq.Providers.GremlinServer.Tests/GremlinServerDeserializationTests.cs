@@ -8,8 +8,10 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
     public class GremlinServerDeserializationTests : QueryDeserializationTest
     {
         public GremlinServerDeserializationTests(ITestOutputHelper testOutputHelper) : base(
-            g.ConfigureEnvironment(
-                env => env.UseDeserializer(GremlinQueryExecutionResultDeserializer.FromJToken)),
+            g.ConfigureEnvironment(env => env
+                .ConfigureDeserializer(d => d
+                    .ConfigureFragmentDeserializer(f => f
+                        .AddNewtonsoftJson()))),
             testOutputHelper)
         {
         }
