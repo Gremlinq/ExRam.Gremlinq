@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using Gremlin.Net.Structure.IO.GraphSON;
 
 namespace ExRam.Gremlinq.Core
@@ -57,27 +56,6 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        private sealed class ToGraphsonGremlinQueryExecutionResultDeserializer : IGremlinQueryExecutionResultDeserializer
-        {
-            public IAsyncEnumerable<TElement> Deserialize<TElement>(object result, IGremlinQueryEnvironment environment)
-            {
-                return AsyncEnumerable.Create(Core);
-
-                async IAsyncEnumerator<TElement> Core(CancellationToken ct)
-                {
-                    if (!typeof(TElement).IsAssignableFrom(typeof(string)))
-                        throw new InvalidOperationException($"Can't deserialize a string to {typeof(TElement).Name}. Make sure you cast call Cast<string>() on the query before executing it.");
-
-                    yield return (TElement)(object)new GraphSON2Writer().WriteObject(result);
-                }
-            }
-
-            public IGremlinQueryExecutionResultDeserializer ConfigureFragmentDeserializer(Func<IGremlinQueryFragmentDeserializer, IGremlinQueryFragmentDeserializer> transformation)
-            {
-                throw new InvalidOperationException($"{nameof(ConfigureFragmentDeserializer)} cannot be called on {nameof(GremlinQueryExecutionResultDeserializer)}.{nameof(ToGraphsonString)}.");
-            }
-        }
-
         public static readonly IGremlinQueryExecutionResultDeserializer Identity = new GremlinQueryExecutionResultDeserializerImpl(GremlinQueryFragmentDeserializer.Identity);
 
         public static readonly IGremlinQueryExecutionResultDeserializer Invalid = new InvalidQueryExecutionResultDeserializer();
@@ -104,7 +82,11 @@ namespace ExRam.Gremlinq.Core
                 })
                 .AddToStringFallback());
 
-        public static readonly IGremlinQueryExecutionResultDeserializer ToGraphsonString = new ToGraphsonGremlinQueryExecutionResultDeserializer();
+        public static readonly IGremlinQueryExecutionResultDeserializer ToGraphsonString = Default
+            .ConfigureFragmentDeserializer(_ => _
+                .Override<object>((data, type, env, overridden, recurse) => type.IsAssignableFrom(typeof(string))
+                    ? new GraphSON2Writer().WriteObject(data)
+                    : overridden(data, type, env, recurse)));
 
         [Obsolete("Use GremlinQueryExecutionResultDeserializer.Identity.ConfigureFragmentDeserializer(_ => _.AddToStringFallback()) instead.")]
         public static new readonly IGremlinQueryExecutionResultDeserializer ToString = Default;
