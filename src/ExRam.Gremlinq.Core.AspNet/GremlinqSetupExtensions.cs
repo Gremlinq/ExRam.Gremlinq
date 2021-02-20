@@ -12,7 +12,7 @@ namespace ExRam.Gremlinq.Core.AspNet
 
             public UseModelTransformation(IGraphModel model)
             {
-                this._model = model;
+                _model = model;
             }
 
             public IGremlinQueryEnvironment Transform(IGremlinQueryEnvironment environment)
@@ -40,7 +40,7 @@ namespace ExRam.Gremlinq.Core.AspNet
         {
             return setup.RegisterTypes(serviceCollection => serviceCollection
                 .AddSingleton<IGremlinqConfiguration>(serviceProvider => new GremlinqConfiguration(serviceProvider
-                    .GetServiceOrThrow<IConfiguration>()
+                    .GetRequiredService<IConfiguration>()
                     .GetSection(sectionName)
                     .GetSection("Gremlinq"))));
         }
