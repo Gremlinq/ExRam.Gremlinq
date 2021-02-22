@@ -49,10 +49,14 @@ namespace ExRam.Gremlinq.Samples.Shared
         {
             // Create a graph very similar to the one
             // found at http://tinkerpop.apache.org/docs/current/reference/#graph-computing.
+            
+            await _writer.WriteAsync("Clearing the database...");
 
             await _g
                 .V()
                 .Drop();
+
+            await _writer.WriteAsync("creating a new database...");
 
             _marko = await _g
                 .AddV(new Person { Name = "Marko", Age = 29 })
@@ -161,6 +165,8 @@ namespace ExRam.Gremlinq.Samples.Shared
                 .To(__ => __
                     .V(catmanJohn.Id!))
                 .FirstAsync();
+
+            await _writer.WriteLineAsync("done.");
         }
 
         private async Task Create_vertices_and_a_relation_in_one_query()

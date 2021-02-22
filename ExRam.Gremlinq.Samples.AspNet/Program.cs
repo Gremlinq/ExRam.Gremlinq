@@ -14,7 +14,15 @@ namespace ExRam.Gremlinq.Samples.AspNet
             .CreateDefaultBuilder(args)
             .ConfigureWebHostDefaults(webBuilder =>
             {
-                webBuilder.UseStartup<Startup>();
+                webBuilder
+                    .UseStartup<Startup>()
+                    .ConfigureKestrel(options =>
+                    {
+                        //This is done because we in GremlinqController.Index, we set the AutoFlush-property of the
+                        //response stream writer to true. This is only for demonstration purposes and should not 
+                        //be done in production code.
+                        options.AllowSynchronousIO = true;
+                    });
             });
     }
 }
