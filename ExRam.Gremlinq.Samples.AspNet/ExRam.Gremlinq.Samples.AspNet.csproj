@@ -4,7 +4,11 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="'$(SolutionName)' == 'ExRam.Gremlinq'">
+    <ProjectReference Include="..\..\ExRam.Gremlinq.Providers.CosmosDb.AspNet\ExRam.Gremlinq.Providers.CosmosDb.AspNet.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(SolutionName)' == 'ExRam.Gremlinq.Samples'">
     <PackageReference Include="ExRam.Gremlinq.Providers.CosmosDb.AspNet" Version="8.1.2" />
   </ItemGroup>
 

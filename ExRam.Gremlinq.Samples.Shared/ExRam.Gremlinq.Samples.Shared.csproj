@@ -4,7 +4,11 @@
     <TargetFramework>netstandard2.1</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="'$(SolutionName)' == 'ExRam.Gremlinq'">
+    <ProjectReference Include="..\..\ExRam.Gremlinq.Core\ExRam.Gremlinq.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(SolutionName)' == 'ExRam.Gremlinq.Samples'">
     <PackageReference Include="ExRam.Gremlinq.Core" Version="8.1.2" />
   </ItemGroup>
 
