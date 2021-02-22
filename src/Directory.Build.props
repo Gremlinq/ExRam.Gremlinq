@@ -10,7 +10,7 @@
     </WeaverConfiguration>
   </PropertyGroup>
   
-  <PropertyGroup Condition="!$(MSBuildProjectName.EndsWith('Samples')) AND '$(Configuration)' == 'Release'" >
+  <PropertyGroup Condition="!$(MSBuildProjectName.StartsWith('ExRam.Gremlinq.Samples')) AND '$(Configuration)' == 'Release'" >
     <PackageIcon>grey-icon.png</PackageIcon>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
@@ -28,7 +28,7 @@
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
   </PropertyGroup>
 
-  <ItemGroup Condition="!$(MSBuildProjectName.EndsWith('Samples')) AND '$(Configuration)' == 'Release'" >
+  <ItemGroup Condition="!$(MSBuildProjectName.StartsWith('ExRam.Gremlinq.Samples')) AND '$(Configuration)' == 'Release'" >
     <None Include="..\..\assets\$(PackageIcon)">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
@@ -40,7 +40,7 @@
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
   </ItemGroup>
 
-  <ItemGroup Condition="!$(MSBuildProjectName.EndsWith('Samples'))">
+  <ItemGroup Condition="!$(MSBuildProjectName.StartsWith('ExRam.Gremlinq.Samples'))">
     <PackageReference Include="Fody" Version="6.3.0" PrivateAssets="All" />
     <PackageReference Include="NullGuard.Fody" Version="3.0.0" PrivateAssets="All" />
   </ItemGroup>
