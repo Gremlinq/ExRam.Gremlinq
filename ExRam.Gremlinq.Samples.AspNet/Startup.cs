@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ExRam.Gremlinq.Core.AspNet;
+using ExRam.Gremlinq.Samples.Shared;
 using Microsoft.OpenApi.Models;
 
 namespace ExRam.Gremlinq.Samples.AspNet

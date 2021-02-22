@@ -1,6 +1,6 @@
 ﻿using ExRam.Gremlinq.Core.GraphElements;
 
-namespace ExRam.Gremlinq.Samples
+namespace ExRam.Gremlinq.Samples.Shared
 {
     public abstract class Mammal : Vertex
     {

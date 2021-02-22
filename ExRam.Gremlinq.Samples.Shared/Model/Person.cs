@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Samples
+﻿namespace ExRam.Gremlinq.Samples.Shared
 {
     public class Person : Mammal
     {

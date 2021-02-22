@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using System.Threading;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Samples.Shared;
 
 namespace ExRam.Gremlinq.Samples.AspNet.Controllers
 {
