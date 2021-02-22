@@ -26,6 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ExRam.Gremlinq.Samples.Model\ExRam.Gremlinq.Samples.Model.csproj" />
+    <ProjectReference Include="..\ExRam.Gremlinq.Samples.Model\ExRam.Gremlinq.Samples.Shared.csproj" />
   </ItemGroup>
 </Project>
