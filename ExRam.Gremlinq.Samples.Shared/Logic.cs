@@ -167,6 +167,7 @@ namespace ExRam.Gremlinq.Samples.Shared
                 .FirstAsync();
 
             await _writer.WriteLineAsync("done.");
+            await _writer.WriteLineAsync();
         }
 
         private async Task Create_vertices_and_a_relation_in_one_query()
