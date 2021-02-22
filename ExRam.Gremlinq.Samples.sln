@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Samples", "ExRam.Gremlinq.Samples\ExRam.Gremlinq.Samples.csproj", "{334D0EDF-06BA-4085-A743-6110076E3CDC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Samples.Console", "ExRam.Gremlinq.Samples.Console\ExRam.Gremlinq.Samples.Console.csproj", "{334D0EDF-06BA-4085-A743-6110076E3CDC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Samples.Shared", "ExRam.Gremlinq.Samples.Shared\ExRam.Gremlinq.Samples.Shared.csproj", "{1A9435A4-2E8B-4089-B27E-EAD6D366E5F2}"
 EndProject
