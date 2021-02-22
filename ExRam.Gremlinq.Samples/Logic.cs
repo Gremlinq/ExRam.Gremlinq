@@ -39,9 +39,6 @@ namespace ExRam.Gremlinq.Samples
             await Whose_age_is_29_30_or_31();
 
             await Set_and_get_metadata_on_Marko();
-
-            Console.Write("Press any key...");
-            Console.Read();
         }
 
         private async Task Create_the_graph()

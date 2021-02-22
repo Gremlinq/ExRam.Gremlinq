@@ -3,6 +3,7 @@
 //#define AWSNeptune
 //#define JanusGraph
 
+using System;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Providers.WebSocket;
@@ -63,7 +64,11 @@ namespace ExRam.Gremlinq.Samples
                         .AtLocalhost()));
 #endif
 
-            await new Logic(gremlinQuerySource).Run();
+            await new Logic(gremlinQuerySource)
+                .Run();
+
+            Console.Write("Press any key...");
+            Console.Read();
         }
     }
 }
