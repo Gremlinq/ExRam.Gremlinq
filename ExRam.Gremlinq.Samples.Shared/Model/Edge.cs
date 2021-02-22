@@ -1,8 +1,6 @@
-﻿using ExRam.Gremlinq.Core.GraphElements;
-
-namespace ExRam.Gremlinq.Samples.Shared
+﻿namespace ExRam.Gremlinq.Samples.Shared
 {
-    public class Edge : IEdge
+    public class Edge
     {
         public object? Id { get; set; }
         public string? Label { get; set; }
