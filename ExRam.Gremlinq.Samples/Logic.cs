@@ -50,8 +50,9 @@ namespace ExRam.Gremlinq.Samples
             // Create a graph very similar to the one
             // found at http://tinkerpop.apache.org/docs/current/reference/#graph-computing.
 
-            // Uncomment to delete the whole graph on every run.
-            //await _g.V().Drop();
+            await _g
+                .V()
+                .Drop();
 
             _marko = await _g
                 .AddV(new Person { Name = "Marko", Age = 29 })
