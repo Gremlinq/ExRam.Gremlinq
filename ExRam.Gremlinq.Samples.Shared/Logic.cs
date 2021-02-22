@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Core;
 
-namespace ExRam.Gremlinq.Samples
+namespace ExRam.Gremlinq.Samples.Shared
 {
     public class Logic
     {
