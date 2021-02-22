@@ -6,7 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ExRam.Gremlinq.Core.AspNet;
 using ExRam.Gremlinq.Samples.Shared;
-using Microsoft.OpenApi.Models;
 
 namespace ExRam.Gremlinq.Samples.AspNet
 {
@@ -35,10 +34,6 @@ namespace ExRam.Gremlinq.Samples.AspNet
                                 .ConfigureElement<Vertex>(conf => conf
                                     .IgnoreOnUpdate(x => x.PartitionKey))));
                 })
-                .AddSwaggerGen(c =>
-                {
-                    c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApplication1", Version = "v1" });
-                })
                 .AddControllers();
         }
 
@@ -48,8 +43,6 @@ namespace ExRam.Gremlinq.Samples.AspNet
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApplication1 v1"));
             }
 
             app
