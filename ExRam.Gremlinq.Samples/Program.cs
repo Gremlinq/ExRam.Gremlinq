@@ -64,7 +64,7 @@ namespace ExRam.Gremlinq.Samples
                         .AtLocalhost()));
 #endif
 
-            await new Logic(gremlinQuerySource)
+            await new Logic(gremlinQuerySource, Console.Out)
                 .Run();
 
             Console.Write("Press any key...");

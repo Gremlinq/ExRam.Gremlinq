@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Core;
@@ -12,11 +13,14 @@ namespace ExRam.Gremlinq.Samples
         private Person? _peter;
         private Person? _daniel;
         private Person? _vadas;
+
+        private readonly TextWriter _writer;
         private readonly IGremlinQuerySource _g;
 
-        public Logic(IGremlinQuerySource g)
+        public Logic(IGremlinQuerySource g, TextWriter writer)
         {
             _g = g;
+            _writer = writer;
         }
 
         public async Task Run()
@@ -184,14 +188,14 @@ namespace ExRam.Gremlinq.Samples
                 .Values(x => x.Name!)
                 .ToArrayAsync();
 
-            Console.WriteLine("Who does Marko know?");
+            await _writer.WriteLineAsync("Who does Marko know?");
 
             foreach (var person in knownPersonsToMarko)
             {
-                Console.WriteLine($" Marko knows {person}.");
+                await _writer.WriteLineAsync($" Marko knows {person}.");
             }
 
-            Console.WriteLine();
+            await _writer.WriteLineAsync();
         }
 
         private async Task Who_Is_Known_By_Both_Marko_And_Peter()
@@ -219,14 +223,14 @@ namespace ExRam.Gremlinq.Samples
                     .OfType<Person>()
                     .Where(petersFriend => markosFriends.Value.Contains(petersFriend)).Dedup());
 
-            Console.WriteLine("Who is known by both Marko and Peter?");
+            await _writer.WriteLineAsync("Who is known by both Marko and Peter?");
 
             foreach (var people in whoIsKnownByBothMarkoAndPeter)
             {
-                Console.WriteLine($" {people.Name?.Value} is known by both Marko and Peter");
+                await _writer.WriteLineAsync($" {people.Name?.Value} is known by both Marko and Peter");
             }
 
-            Console.WriteLine();
+            await _writer.WriteLineAsync();
         }
 
         private async Task Who_is_older_than_30()
@@ -246,14 +250,14 @@ namespace ExRam.Gremlinq.Samples
                 .V<Person>()
                 .Where(x => x.Age > 30);
 
-            Console.WriteLine("Who is older than 30?");
+            await _writer.WriteLineAsync("Who is older than 30?");
 
             foreach (var person in personsOlderThan30)
             {
-                Console.WriteLine($" {person.Name!.Value} is older than 30.");
+                await _writer.WriteLineAsync($" {person.Name!.Value} is older than 30.");
             }
 
-            Console.WriteLine();
+            await _writer.WriteLineAsync();
         }
 
         private async Task Whose_name_starts_with_B()
@@ -267,14 +271,14 @@ namespace ExRam.Gremlinq.Samples
                 .Where(x => x.Name!.Value.StartsWith("B"))
                 .ToArrayAsync();
 
-            Console.WriteLine("Whose name starts with 'B'?");
+            await _writer.WriteLineAsync("Whose name starts with 'B'?");
 
             foreach (var person in nameStartsWithB)
             {
-                Console.WriteLine($" {person.Name?.Value}'s name starts with a 'B'.");
+                await _writer.WriteLineAsync($" {person.Name?.Value}'s name starts with a 'B'.");
             }
 
-            Console.WriteLine();
+            await _writer.WriteLineAsync();
         }
 
         private async Task Who_knows_who()
@@ -297,14 +301,14 @@ namespace ExRam.Gremlinq.Samples
                     .As((__, friend) => __
                         .Select(person, friend)));
 
-            Console.WriteLine("Who knows who?");
+            await _writer.WriteLineAsync("Who knows who?");
 
             foreach (var (person1, person2) in friendTuples)
             {
-                Console.WriteLine($" {person1.Name?.Value} knows {person2.Name?.Value}.");
+                await _writer.WriteLineAsync($" {person1.Name?.Value} knows {person2.Name?.Value}.");
             }
 
-            Console.WriteLine();
+            await _writer.WriteLineAsync();
         }
 
         private async Task Who_does_what()
@@ -321,14 +325,14 @@ namespace ExRam.Gremlinq.Samples
                         .As((__, what) => __
                             .Select(person, edge, what))));
 
-            Console.WriteLine("Who does what?");
+            await _writer.WriteLineAsync("Who does what?");
 
             foreach (var (person, does, what) in tuples)
             {
-                Console.WriteLine($" {person.Name?.Value} {does.Label} a {what.Label}.");
+                await _writer.WriteLineAsync($" {person.Name?.Value} {does.Label} a {what.Label}.");
             }
 
-            Console.WriteLine();
+            await _writer.WriteLineAsync();
         }
 
         private async Task What_pets_are_around()
@@ -339,14 +343,14 @@ namespace ExRam.Gremlinq.Samples
             var pets = await _g
                 .V<Pet>();
 
-            Console.WriteLine("What pets are around?");
+            await _writer.WriteLineAsync("What pets are around?");
 
             foreach (var pet in pets)
             {
-                Console.WriteLine($" There's a {pet.GetType().Name} named {pet.Name?.Value}.");
+                await _writer.WriteLineAsync($" There's a {pet.GetType().Name} named {pet.Name?.Value}.");
             }
 
-            Console.WriteLine();
+            await _writer.WriteLineAsync();
         }
 
         private async Task How_many_pets_does_everybody_have()
@@ -355,7 +359,7 @@ namespace ExRam.Gremlinq.Samples
             // ExRam.Gremlinq. It can project to a ValueTuple or to a dynamic.
             // In the latter case, the user may specify the name of each projection.
 
-            Console.WriteLine("How many pets does everybody have?");
+            await _writer.WriteLineAsync("How many pets does everybody have?");
 
             var dynamics = await _g
                 .V<Person>()
@@ -372,10 +376,10 @@ namespace ExRam.Gremlinq.Samples
 
             foreach (var d in dynamics)
             {
-                Console.WriteLine($" {d.Name} owns {d.count} pets.");
+                await _writer.WriteLineAsync($" {d.Name} owns {d.count} pets.");
             }
 
-            Console.WriteLine();
+            await _writer.WriteLineAsync();
         }
 
         private async Task Who_has_that_phone_number()
@@ -385,7 +389,7 @@ namespace ExRam.Gremlinq.Samples
             // you want to call things like "Contains" on them! Surprise: ExRam.Gremlinq
             // recognizes these expressions!
 
-            Console.WriteLine("Who got the phone number +491234567 ?");
+            await _writer.WriteLineAsync("Who got the phone number +491234567 ?");
 
             var personWithThatPhoneNumber = await _g
                 .V<Person>()
@@ -394,11 +398,11 @@ namespace ExRam.Gremlinq.Samples
                     .Contains("+491234567"))
                 .FirstOrDefaultAsync();
 
-            Console.WriteLine(personWithThatPhoneNumber != null
+            await _writer.WriteLineAsync(personWithThatPhoneNumber != null
                 ? $" {personWithThatPhoneNumber.Name?.Value} has a phone with the number +491234567"
                 : " Nobody got a phone with the phone number +491234567");
 
-            Console.WriteLine();
+            await _writer.WriteLineAsync();
         }
 
         private async Task Who_has_a_phone()
@@ -406,7 +410,7 @@ namespace ExRam.Gremlinq.Samples
             // Another example of an expression on the Person-POCO that ExRam.Gremlinq
             // recognizes:
 
-            Console.WriteLine("Who has got a phone?");
+            await _writer.WriteLineAsync("Who has got a phone?");
 
             var personsWithPhoneNumber = await _g
                 .V<Person>()
@@ -416,17 +420,17 @@ namespace ExRam.Gremlinq.Samples
 
             foreach (var person in personsWithPhoneNumber)
             {
-                Console.WriteLine($" {person.Name?.Value} has a phone!");
+                await _writer.WriteLineAsync($" {person.Name?.Value} has a phone!");
             }
 
-            Console.WriteLine();
+            await _writer.WriteLineAsync();
         }
 
         private async Task What_entities_are_there()
         {
             // "Group" also has a beautiful fluent interface!
 
-            Console.WriteLine("What entities are there?");
+            await _writer.WriteLineAsync("What entities are there?");
 
             var entityGroups = await _g
                 .V()
@@ -437,10 +441,10 @@ namespace ExRam.Gremlinq.Samples
 
             foreach (var entityGroup in entityGroups)
             {
-                Console.WriteLine($" There {(entityGroup.Value == 1 ? "is" : "are")} {entityGroup.Value} instance{(entityGroup.Value == 1 ? "" : "s")} of {entityGroup.Key}.");
+                await _writer.WriteLineAsync($" There {(entityGroup.Value == 1 ? "is" : "are")} {entityGroup.Value} instance{(entityGroup.Value == 1 ? "" : "s")} of {entityGroup.Key}.");
             }
 
-            Console.WriteLine();
+            await _writer.WriteLineAsync();
         }
 
         private async Task Who_created_some_software()
@@ -450,7 +454,7 @@ namespace ExRam.Gremlinq.Samples
             // came from is actually encoded in the interface, so on calling "OutV",
             // ExRam.Gremlinq remembers that we're now on "Persons" again.
 
-            Console.WriteLine("Who created some software?");
+            await _writer.WriteLineAsync("Who created some software?");
 
             var creators = await _g
                 .V<Person>()
@@ -460,10 +464,10 @@ namespace ExRam.Gremlinq.Samples
 
             foreach (var creator in creators)
             {
-                Console.WriteLine($" {creator.Name?.Value} created some software.");
+                await _writer.WriteLineAsync($" {creator.Name?.Value} created some software.");
             }
 
-            Console.WriteLine();
+            await _writer.WriteLineAsync();
         }
 
         private async Task Whose_age_is_29_30_or_31()
@@ -478,7 +482,7 @@ namespace ExRam.Gremlinq.Samples
             // Then, we ask for all the persons whose age is contained within the array
             // that the 'ages' step label references.
 
-            Console.WriteLine("Whose age is either 29, 30 or 31?");
+            await _writer.WriteLineAsync("Whose age is either 29, 30 or 31?");
 
             var personsWithSpecificAges = await _g
                 .Inject(29, 30, 31)
@@ -489,10 +493,10 @@ namespace ExRam.Gremlinq.Samples
 
             foreach (var person in personsWithSpecificAges)
             {
-                Console.WriteLine($" {person.Name?.Value}'s age is either 29, 30 or 31.");
+                await _writer.WriteLineAsync($" {person.Name?.Value}'s age is either 29, 30 or 31.");
             }
 
-            Console.WriteLine();
+            await _writer.WriteLineAsync();
         }
 
         private async Task Set_and_get_metadata_on_Marko()
@@ -517,14 +521,14 @@ namespace ExRam.Gremlinq.Samples
                     .Properties()
                     .ToArrayAsync();
 
-                Console.WriteLine("Meta properties on Vertex properties:");
+                await _writer.WriteLineAsync("Meta properties on Vertex properties:");
 
                 foreach (var metaProperty in metaProperties)
                 {
-                    Console.WriteLine($" {metaProperty}");
+                    await _writer.WriteLineAsync($" {metaProperty}");
                 }
 
-                Console.WriteLine();
+                await _writer.WriteLineAsync();
             }
         }
     }
