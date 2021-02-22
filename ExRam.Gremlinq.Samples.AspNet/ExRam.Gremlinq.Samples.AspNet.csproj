@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ExRam.Gremlinq.Samples.Model\ExRam.Gremlinq.Samples.Shared.csproj" />
+    <ProjectReference Include="..\ExRam.Gremlinq.Samples.Shared\ExRam.Gremlinq.Samples.Shared.csproj" />
   </ItemGroup>
 
 </Project>
