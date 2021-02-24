@@ -105,6 +105,7 @@ namespace ExRam.Gremlinq.Core
                     };
 
                     var verbosity = environment.Options.GetValue(WebSocketGremlinqOptions.QueryLogVerbosity);
+                    var formatting = environment.Options.GetValue(WebSocketGremlinqOptions.QueryLogFormatting);
 
                     environment.Logger.Log(
                         logLevel,
@@ -117,7 +118,8 @@ namespace ExRam.Gremlinq.Core
                                 Bindings = (verbosity & QueryLogVerbosity.IncludeBindings) > QueryLogVerbosity.QueryOnly
                                     ? gremlinQuery.Bindings
                                     : null
-                            }));
+                            },
+                            formatting));
                 }
             }
         }
