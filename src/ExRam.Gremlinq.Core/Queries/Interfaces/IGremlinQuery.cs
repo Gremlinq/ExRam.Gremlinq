@@ -60,7 +60,7 @@ namespace ExRam.Gremlinq.Core
 
         IVertexGremlinQuery<TElement> ForceVertex();
         IVertexPropertyGremlinQuery<TElement, TValue> ForceVertexProperty<TValue>();
-        IVertexPropertyGremlinQuery<TElement, TValue, TMeta> ForceVertexProperty<TValue, TMeta>() where TMeta : class;
+        IVertexPropertyGremlinQuery<TElement, TValue, TMeta> ForceVertexProperty<TValue, TMeta>();
 
         IPropertyGremlinQuery<TElement> ForceProperty();
 

@@ -31,7 +31,6 @@ namespace ExRam.Gremlinq.Core
                 .WithComparers(MemberInfoEqualityComparer.Instance));
 
         public static IGraphElementPropertyModel ConfigureElement<TElement>(this IGraphElementPropertyModel model, Func<IMemberMetadataConfigurator<TElement>, IImmutableDictionary<MemberInfo, MemberMetadata>> transformation)
-            where TElement : class
         {
             return model.ConfigureMemberMetadata(
                 metadata => transformation(new MemberMetadataConfigurator<TElement>(metadata)));

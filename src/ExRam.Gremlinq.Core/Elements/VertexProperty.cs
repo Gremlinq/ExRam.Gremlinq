@@ -4,7 +4,6 @@ using System.Collections.Generic;
 namespace ExRam.Gremlinq.Core.GraphElements
 {
     public class VertexProperty<TValue, TMeta> : Property<TValue>, IVertexProperty
-        where TMeta : class
     {
         public VertexProperty(TValue value) : base(value)
         {
