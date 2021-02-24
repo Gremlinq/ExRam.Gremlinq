@@ -13,7 +13,7 @@ jobs:
 
     outputs:
       semVer2: ${{ steps.nbgv.outputs.SemVer2 }}
-      isPrerelease: ${{ !!steps.nbgv.outputs.PrereleaseVersionNoLeadingHyphen }}
+      isPrerelease: ${{ steps.nbgv.outputs.PrereleaseVersionNoLeadingHyphen != '' }}
 
     steps:
     - name: Checkout
