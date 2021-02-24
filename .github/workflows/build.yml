@@ -73,26 +73,6 @@ jobs:
 
   test-windows:
     runs-on: windows-latest
-    #if: ${{ false }}
-
-    #services:
-    #  cosmosDbEmulator:
-    #    image: mcr.microsoft.com/cosmosdb/winsrv2019/azure-cosmos-emulator:latest
-    #    options: --name azure-cosmosdb-emulator --memory 2GB --mount "type=bind,source=%hostDirectory%,destination=C:\CosmosDB.Emulator\bind-mount" --interactive --tty
-    #    ports:
-    #      - 8081:8081
-    #      - 8182:8182
-    #      - 8900:8900
-    #      - 8901:8901
-    #      - 8902:8902 
-    #      - 10250:10250 
-    #      - 10251:10251 
-    #      - 10252:10252 
-    #      - 10253:10253 
-    #      - 10254:10254 
-    #      - 10255:10255 
-    #      - 10256:10256 
-    #      - 10350:10350
 
     steps:
     - name: Checkout
