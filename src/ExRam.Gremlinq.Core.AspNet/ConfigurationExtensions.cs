@@ -6,10 +6,9 @@ namespace Microsoft.Extensions.Configuration
     {
         public static string GetRequiredConfiguration(this IConfiguration configuration, string key)
         {
-            if (configuration[key] is { } value)
-                return value;
-
-            throw new InvalidOperationException($"Missing required configuration for {key}.");
+            return configuration[key] is { } value
+                ? value
+                : throw new InvalidOperationException($"Missing required configuration for {(configuration is ConfigurationSection section ? $"{section.Path}:{key}" : key)}.");
         }
     }
 }
