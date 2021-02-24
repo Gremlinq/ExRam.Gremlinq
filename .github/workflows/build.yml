@@ -33,8 +33,6 @@ jobs:
     - name: Determine semantic version
       uses: dotnet/nbgv@master
       id: nbgv
-      
-    - run: echo ${{ steps.nbgv.outputs.PrereleaseVersionNoLeadingHyphen != '' }}
 
     - name: Build
       run: dotnet build --configuration Release -p:ContinuousIntegrationBuild=true
