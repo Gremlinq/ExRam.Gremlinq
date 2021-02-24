@@ -1,5 +1,4 @@
-using ExRam.Gremlinq.Core;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,18 +21,8 @@ namespace ExRam.Gremlinq.Samples.AspNet
         public void ConfigureServices(IServiceCollection services)
         {
             services
-                .AddGremlinq(setup =>
-                {
-                    setup
-                        .UseCosmosDb()
-                        .UseModel(GraphModel
-                            .FromBaseTypes<Vertex, Edge>(lookup => lookup
-                                .IncludeAssembliesOfBaseTypes())
-                            //For CosmosDB, we exclude the 'PartitionKey' property from being included in updates.
-                            .ConfigureProperties(model => model
-                                .ConfigureElement<Vertex>(conf => conf
-                                    .IgnoreOnUpdate(x => x.PartitionKey))));
-                })
+                .AddGremlinq(setup => setup
+                    .UseCosmosDb<Vertex, Edge>(x => x.PartitionKey))
                 .AddControllers();
         }
 
