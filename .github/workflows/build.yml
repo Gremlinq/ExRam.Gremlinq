@@ -7,6 +7,9 @@ on:
       - rel
   pull_request:
 
+env:
+  IsOriginalRepository: ${{ github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -69,7 +72,7 @@ jobs:
         dotnet-version: 5.0.102
 
     - name: Test
-      run: dotnet test  --configuration Release --verbosity normal -p:RunGremlinServerIntegrationTests=${{ github.event_name == 'push' }}
+      run: dotnet test  --configuration Release --verbosity normal -p:RunGremlinServerIntegrationTests=${{ env.IsOriginalRepository }}
 
   test-windows:
     runs-on: windows-latest
@@ -92,7 +95,7 @@ jobs:
         dotnet-version: 5.0.102
 
     - name: Test
-      run: dotnet test  --configuration Release --verbosity normal -p:RunCosmosDbEmulatorIntegrationTests=${{ github.event_name == 'push' }}
+      run: dotnet test  --configuration Release --verbosity normal -p:RunCosmosDbEmulatorIntegrationTests=${{ env.IsOriginalRepository }}
 
   publish:
     needs: [ build, test-linux, test-windows ]
