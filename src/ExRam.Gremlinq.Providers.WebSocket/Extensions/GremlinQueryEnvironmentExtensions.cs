@@ -159,30 +159,15 @@ namespace ExRam.Gremlinq.Core
                 _clientTransformation = clientTransformation;
             }
 
-            public IWebSocketGremlinQueryExecutorBuilder At(Uri uri)
-            {
-                return new WebSocketGremlinQueryExecutorBuilderImpl(Environment, uri, _format, _auth, _alias, _clientTransformation, _additionalSerializers, _additionalDeserializers, _connectionPoolSettings);
-            }
+            public IWebSocketGremlinQueryExecutorBuilder At(Uri uri) => new WebSocketGremlinQueryExecutorBuilderImpl(Environment, uri, _format, _auth, _alias, _clientTransformation, _additionalSerializers, _additionalDeserializers, _connectionPoolSettings);
 
-            public IWebSocketGremlinQueryExecutorBuilder ConfigureGremlinClient(Func<IGremlinClient, IGremlinClient> transformation)
-            {
-                return new WebSocketGremlinQueryExecutorBuilderImpl(Environment, _uri, _format, _auth, _alias, _ => transformation(_clientTransformation(_)), _additionalSerializers, _additionalDeserializers, _connectionPoolSettings);
-            }
+            public IWebSocketGremlinQueryExecutorBuilder ConfigureGremlinClient(Func<IGremlinClient, IGremlinClient> transformation) => new WebSocketGremlinQueryExecutorBuilderImpl(Environment, _uri, _format, _auth, _alias, _ => transformation(_clientTransformation(_)), _additionalSerializers, _additionalDeserializers, _connectionPoolSettings);
 
-            public IWebSocketGremlinQueryExecutorBuilder SetSerializationFormat(SerializationFormat version)
-            {
-                return new WebSocketGremlinQueryExecutorBuilderImpl(Environment, _uri, version, _auth, _alias, _clientTransformation, _additionalSerializers, _additionalDeserializers, _connectionPoolSettings);
-            }
+            public IWebSocketGremlinQueryExecutorBuilder SetSerializationFormat(SerializationFormat version) => new WebSocketGremlinQueryExecutorBuilderImpl(Environment, _uri, version, _auth, _alias, _clientTransformation, _additionalSerializers, _additionalDeserializers, _connectionPoolSettings);
 
-            public IWebSocketGremlinQueryExecutorBuilder AuthenticateBy(string username, string password)
-            {
-                return new WebSocketGremlinQueryExecutorBuilderImpl(Environment, _uri, _format, (username, password), _alias, _clientTransformation, _additionalSerializers, _additionalDeserializers, _connectionPoolSettings);
-            }
+            public IWebSocketGremlinQueryExecutorBuilder AuthenticateBy(string username, string password) => new WebSocketGremlinQueryExecutorBuilderImpl(Environment, _uri, _format, (username, password), _alias, _clientTransformation, _additionalSerializers, _additionalDeserializers, _connectionPoolSettings);
 
-            public IWebSocketGremlinQueryExecutorBuilder SetAlias(string alias)
-            {
-                return new WebSocketGremlinQueryExecutorBuilderImpl(Environment, _uri, _format, _auth, alias, _clientTransformation, _additionalSerializers, _additionalDeserializers, _connectionPoolSettings);
-            }
+            public IWebSocketGremlinQueryExecutorBuilder SetAlias(string alias) => new WebSocketGremlinQueryExecutorBuilderImpl(Environment, _uri, _format, _auth, alias, _clientTransformation, _additionalSerializers, _additionalDeserializers, _connectionPoolSettings);
 
             public IWebSocketGremlinQueryExecutorBuilder ConfigureConnectionPool(Action<ConnectionPoolSettings> transformation)
             {
@@ -197,21 +182,14 @@ namespace ExRam.Gremlinq.Core
                 return new WebSocketGremlinQueryExecutorBuilderImpl(Environment, _uri, _format, _auth, _alias, _clientTransformation, _additionalSerializers, _additionalDeserializers, newConnectionPoolSettings);
             }
 
-            public IWebSocketGremlinQueryExecutorBuilder AddGraphSONSerializer(Type type, IGraphSONSerializer serializer)
-            {
-                return new WebSocketGremlinQueryExecutorBuilderImpl(Environment, _uri, _format, _auth, _alias, _clientTransformation, _additionalSerializers.SetItem(type, serializer), _additionalDeserializers, _connectionPoolSettings);
-            }
+            public IWebSocketGremlinQueryExecutorBuilder AddGraphSONSerializer(Type type, IGraphSONSerializer serializer) => new WebSocketGremlinQueryExecutorBuilderImpl(Environment, _uri, _format, _auth, _alias, _clientTransformation, _additionalSerializers.SetItem(type, serializer), _additionalDeserializers, _connectionPoolSettings);
 
-            public IWebSocketGremlinQueryExecutorBuilder AddGraphSONDeserializer(string typename, IGraphSONDeserializer deserializer)
-            {
-                return new WebSocketGremlinQueryExecutorBuilderImpl(Environment, _uri, _format, _auth, _alias, _clientTransformation, _additionalSerializers, _additionalDeserializers.SetItem(typename, deserializer), _connectionPoolSettings);
-            }
+            public IWebSocketGremlinQueryExecutorBuilder AddGraphSONDeserializer(string typename, IGraphSONDeserializer deserializer) => new WebSocketGremlinQueryExecutorBuilderImpl(Environment, _uri, _format, _auth, _alias, _clientTransformation, _additionalSerializers, _additionalDeserializers.SetItem(typename, deserializer), _connectionPoolSettings);
 
             public IGremlinQueryExecutor Build()
             {
                 if (_uri == null)
-                    throw new InvalidOperationException(
-                        $"No valid Gremlin endpoint found. Configure {nameof(GremlinQuerySource.g)} with {nameof(UseWebSocket)} and use {nameof(At)} on the builder to set a valid Gremlin endpoint.");
+                    throw new InvalidOperationException($"No valid Gremlin endpoint found. Configure {nameof(GremlinQuerySource.g)} with {nameof(UseWebSocket)} and use {nameof(At)} on the builder to set a valid Gremlin endpoint.");
 
                 if (!"ws".Equals(_uri.Scheme, StringComparison.OrdinalIgnoreCase) && !"wss".Equals(_uri.Scheme, StringComparison.OrdinalIgnoreCase))
                     throw new ArgumentException("Expected the Uri-Scheme to be either \"ws\" or \"wss\".");
