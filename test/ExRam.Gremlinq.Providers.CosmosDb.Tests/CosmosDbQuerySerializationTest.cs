@@ -31,6 +31,17 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         }
 
         [Fact]
+        public async Task Inlined_CosmosDbKey()
+        {
+            await _g
+                .ConfigureEnvironment(e => e
+                    .ConfigureSerializer(s => s
+                        .ToGroovy(GroovyFormatting.AllowInlining)))
+                .V<Person>(new CosmosDbKey("pk", "id"))
+                .Verify(this);
+        }
+
+        [Fact]
         public async Task CosmosDbKey_with_null_partitionKey()
         {
             await _g

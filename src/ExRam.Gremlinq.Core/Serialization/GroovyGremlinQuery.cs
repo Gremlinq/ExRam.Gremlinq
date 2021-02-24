@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace ExRam.Gremlinq.Core
@@ -64,6 +65,10 @@ namespace ExRam.Gremlinq.Core
                         case { } obj when obj.GetType().IsEnum && obj.GetType().GetEnumUnderlyingType() == typeof(int):
                         {
                             return ((int)obj).ToString();
+                        }
+                        case string[] { Length: <= 8 } strs:
+                        {
+                            return $"[{string.Join(",", strs.Select(x => $"'{x}'") )}]";
                         }
                         default:
                         {
