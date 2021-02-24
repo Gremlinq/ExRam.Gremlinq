@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using Microsoft.Extensions.DependencyInjection;
 using ExRam.Gremlinq.Providers.CosmosDb;
 using Microsoft.Extensions.Configuration;
@@ -45,6 +47,18 @@ namespace ExRam.Gremlinq.Core.AspNet
             return setup
                 .UseWebSocket()
                 .RegisterTypes(serviceCollection => serviceCollection.AddSingleton<IGremlinQueryEnvironmentTransformation, UseCosmosDbGremlinQueryEnvironmentTransformation>());
+        }
+
+        public static GremlinqSetup UseCosmosDb<TVertex, TEdge>(this GremlinqSetup setup, Expression<Func<TVertex, object>> partitionKeyExpression) where TVertex : class
+        {
+            return setup
+                .UseCosmosDb()
+                .UseModel(GraphModel
+                    .FromBaseTypes<TVertex, TEdge>(lookup => lookup
+                        .IncludeAssembliesOfBaseTypes())
+                    .ConfigureProperties(model => model
+                        .ConfigureElement<TVertex>(conf => conf
+                            .IgnoreOnUpdate(partitionKeyExpression))));
         }
     }
 }
