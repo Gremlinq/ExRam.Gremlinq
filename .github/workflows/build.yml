@@ -143,6 +143,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Send announcement tweet!
+      if: ${{ !needs.build.outputs.isPrerelease }}
       uses: ethomson/send-tweet-action@v1
       with:
         status: |
