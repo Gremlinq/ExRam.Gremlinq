@@ -36,5 +36,14 @@ namespace ExRam.Gremlinq.Core.AspNet
                 .UseWebSocket()
                 .RegisterTypes(serviceCollection => serviceCollection.AddSingleton<IGremlinQueryEnvironmentTransformation, UseJanusGraphGremlinQueryEnvironmentTransformation>());
         }
+
+        public static GremlinqSetup UseJanusGraph<TVertex, TEdge>(this GremlinqSetup setup)
+        {
+            return setup
+                .UseJanusGraph()
+                .UseModel(GraphModel
+                    .FromBaseTypes<TVertex, TEdge>(lookup => lookup
+                        .IncludeAssembliesOfBaseTypes()));
+        }
     }
 }
