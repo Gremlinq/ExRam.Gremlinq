@@ -46,7 +46,6 @@ namespace ExRam.Gremlinq.Samples.AspNet
             }
 
             app
-                .UseHttpsRedirection()
                 .UseRouting()
                 .UseAuthorization()
                 .UseEndpoints(endpoints =>
