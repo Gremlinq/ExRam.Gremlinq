@@ -147,7 +147,7 @@ jobs:
       uses: ethomson/send-tweet-action@v1
       with:
         status: |
-          Announcing the release of ExRam Gremlinq ${{ needs.build.outputs.semVer2 }}!
+          Announcing the release of ExRam.Gremlinq ${{ needs.build.outputs.semVer2 }}!
           
           ExRam.Gremlinq is the first #dotnet object-graph-mapper for @apachetinkerpop #gremlin enabled #graphdb‎s like @AzureCosmosDB, #AWS #Neptune or @JanusGraph.
           
