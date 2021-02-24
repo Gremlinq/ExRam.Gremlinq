@@ -92,7 +92,6 @@ namespace ExRam.Gremlinq.Core
             private static void Log(object serializedQuery, Guid requestId, IGremlinQueryEnvironment environment)
             {
                 var logLevel = environment.Options.GetValue(WebSocketGremlinqOptions.QueryLogLogLevel);
-                var verbosity = environment.Options.GetValue(WebSocketGremlinqOptions.QueryLogVerbosity);
 
                 if (environment.Logger.IsEnabled(logLevel))
                 {
@@ -104,6 +103,8 @@ namespace ExRam.Gremlinq.Core
                             : groovyGremlinQuery,
                         _ => throw new ArgumentException($"Cannot handle serialized query of type {serializedQuery.GetType()}.")
                     };
+
+                    var verbosity = environment.Options.GetValue(WebSocketGremlinqOptions.QueryLogVerbosity);
 
                     environment.Logger.Log(
                         logLevel,
