@@ -35,5 +35,14 @@ namespace ExRam.Gremlinq.Core.AspNet
                 .UseWebSocket()
                 .RegisterTypes(serviceCollection => serviceCollection.AddSingleton<IGremlinQueryEnvironmentTransformation, UseNeptuneGremlinQueryEnvironmentTransformation>());
         }
+
+        public static GremlinqSetup UseNeptune<TVertex, TEdge>(this GremlinqSetup setup)
+        {
+            return setup
+                .UseNeptune()
+                .UseModel(GraphModel
+                    .FromBaseTypes<TVertex, TEdge>(lookup => lookup
+                        .IncludeAssembliesOfBaseTypes()));
+        }
     }
 }
