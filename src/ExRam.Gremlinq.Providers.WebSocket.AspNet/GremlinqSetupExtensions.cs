@@ -47,6 +47,9 @@ namespace ExRam.Gremlinq.Core.AspNet
 
                         if (Enum.TryParse<Formatting>(_loggingSection[$"{nameof(Formatting)}"], out var formatting))
                             options = options.SetValue(WebSocketGremlinqOptions.QueryLogFormatting, formatting);
+                        
+                        if (Enum.TryParse<GroovyFormatting>(_loggingSection[$"{nameof(GroovyFormatting)}"], out var groovyFormatting))
+                            options = options.SetValue(WebSocketGremlinqOptions.QueryLogGroovyFormatting, groovyFormatting);
 
                         return options;
                     });
