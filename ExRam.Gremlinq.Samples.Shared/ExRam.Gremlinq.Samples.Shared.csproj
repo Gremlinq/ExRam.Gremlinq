@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(SolutionName)' == 'ExRam.Gremlinq.Samples'">
-    <PackageReference Include="ExRam.Gremlinq.Core" Version="8.1.2" />
+    <PackageReference Include="ExRam.Gremlinq.Core" Version="8.2.0" />
   </ItemGroup>
 
 </Project>
