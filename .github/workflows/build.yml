@@ -8,7 +8,7 @@ on:
   pull_request:
 
 env:
-  IsOriginalRepository: ${{ github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository }}
+  IsForkedRepository: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository }}
 
 jobs:
   build:
@@ -72,7 +72,7 @@ jobs:
         dotnet-version: 5.0.102
 
     - name: Test
-      run: dotnet test  --configuration Release --verbosity normal -p:RunGremlinServerIntegrationTests=${{ env.IsOriginalRepository }}
+      run: dotnet test  --configuration Release --verbosity normal -p:RunGremlinServerIntegrationTests=${{ !env.IsForkedRepository }}
 
   test-windows:
     runs-on: windows-latest
@@ -95,7 +95,7 @@ jobs:
         dotnet-version: 5.0.102
 
     - name: Test
-      run: dotnet test  --configuration Release --verbosity normal -p:RunCosmosDbEmulatorIntegrationTests=${{ env.IsOriginalRepository }}
+      run: dotnet test  --configuration Release --verbosity normal -p:RunCosmosDbEmulatorIntegrationTests=${{ !env.IsForkedRepository }}
 
   publish:
     needs: [ build, test-linux, test-windows ]
