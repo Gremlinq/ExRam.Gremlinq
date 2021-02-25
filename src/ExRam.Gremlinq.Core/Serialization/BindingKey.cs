@@ -4,11 +4,19 @@ namespace ExRam.Gremlinq.Core
 {
     internal readonly struct BindingKey
     {
-        private readonly int? _key;
+        private readonly string? _stringKey;
 
-        public BindingKey(int? key)
+        public BindingKey(int key)
         {
-            _key = key;
+            var stringKey = string.Empty;
+
+            do
+            {
+                stringKey = (char)('a' + key % 26) + stringKey;
+                key /= 26;
+            } while (key > 0);
+
+            _stringKey = "_" + stringKey;
         }
 
         public static implicit operator BindingKey(int key)
@@ -18,20 +26,18 @@ namespace ExRam.Gremlinq.Core
 
         public static implicit operator string(BindingKey key)
         {
-            if (key._key is { } intKey)
-            {
-                var ret = string.Empty;
-                
-                do
-                {
-                    ret = (char)('a' + intKey % 26) + ret;
-                    intKey /= 26;
-                } while (intKey > 0);
-
-                return "_" + ret;
-            }
+            if (key._stringKey is { } stringKey)
+                return stringKey;
 
             throw new ArgumentException();
+        }
+
+        public override string ToString()
+        {
+            if (_stringKey is { } stringKey)
+                return stringKey;
+
+            return "(invalid)";
         }
     }
 }
