@@ -28,25 +28,14 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        public static implicit operator BindingKey(int key)
-        {
-            return new(key);
-        }
+        public static implicit operator BindingKey(int key) => new(key);
 
-        public static implicit operator string(BindingKey key)
-        {
-            if (key._stringKey is { } stringKey)
-                return stringKey;
+        public static implicit operator string(BindingKey key) => key._stringKey is { } stringKey
+            ? stringKey
+            : throw new ArgumentException();
 
-            throw new ArgumentException();
-        }
-
-        public override string ToString()
-        {
-            if (_stringKey is { } stringKey)
-                return stringKey;
-
-            return "(invalid)";
-        }
+        public override string ToString() => _stringKey is { } stringKey
+            ? stringKey
+            : "(invalid)";
     }
 }
