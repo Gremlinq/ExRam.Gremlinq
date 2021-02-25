@@ -11,7 +11,7 @@ namespace ExRam.Gremlinq.Core
         public static GroovyGremlinQuery ToGroovy(this Bytecode bytecode, GroovyFormatting formatting = GroovyFormatting.BindingsOnly)
         {
             var builder = new StringBuilder();
-            var bindings = new Dictionary<object, string>();
+            var bindings = new Dictionary<object, BindingKey>();
             var variables = new Dictionary<string, object>();
 
             void Append(object obj, bool allowEnumerableExpansion = false)
@@ -142,15 +142,7 @@ namespace ExRam.Gremlinq.Core
                     {
                         if (!bindings.TryGetValue(obj, out var bindingKey))
                         {
-                            var next = bindings.Count;
-
-                            do
-                            {
-                                bindingKey = (char)('a' + next % 26) + bindingKey;
-                                next /= 26;
-                            } while (next > 0);
-
-                            bindingKey = "_" + bindingKey;
+                            bindingKey = bindings.Count;
                             bindings.Add(obj, bindingKey);
 
                             variables[bindingKey] = obj;
