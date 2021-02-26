@@ -9,14 +9,14 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 namespace ExRam.Gremlinq.Core.Tests
 {
     [UsesVerify]
-    public class OutOfTheBoxTest : XunitContextBase
+    public class OutOfTheBoxTest : VerifyBase
     {
         private class SomeEntity
         {
 
         }
 
-        public OutOfTheBoxTest(ITestOutputHelper output) : base(output)
+        public OutOfTheBoxTest() : base()
         {
 
         }

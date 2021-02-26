@@ -4,7 +4,6 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using VerifyTests;
 using VerifyXunit;
-using Xunit;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
@@ -24,7 +23,7 @@ namespace ExRam.Gremlinq.Core.Tests
 #endif
         }
 
-        public static async Task Verify<TElement>(this IGremlinQueryBase<TElement> query, XunitContextBase contextBase)
+        public static async Task Verify<TElement>(this IGremlinQueryBase<TElement> query, VerifyBase contextBase)
         {
             if (contextBase is QuerySerializationTest && typeof(TElement) != typeof(object))
             {
@@ -49,10 +48,9 @@ namespace ExRam.Gremlinq.Core.Tests
                         "\"scrubbed id\"")
                     : data;
 
-                await Verifier.Verify(
+                await contextBase.Verify(
                     serialized,
-                    Settings,
-                    contextBase.SourceFile);
+                    Settings);
             }
         }
     }

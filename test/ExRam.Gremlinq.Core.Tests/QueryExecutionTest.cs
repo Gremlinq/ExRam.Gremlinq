@@ -19,7 +19,7 @@ namespace ExRam.Gremlinq.Core.Tests
 {
     [UsesVerify]
     [TestCaseOrderer("ExRam.Gremlinq.Core.Tests.SideEffectTestCaseOrderer", "ExRam.Gremlinq.Core.Tests")]
-    public abstract class QueryExecutionTest : XunitContextBase
+    public abstract class QueryExecutionTest : VerifyBase
     {
         private sealed class XunitLogger : ILogger, IDisposable
         {
@@ -55,7 +55,7 @@ namespace ExRam.Gremlinq.Core.Tests
         private static readonly string Id = "id";
 
         // ReSharper disable once ExplicitCallerInfoArgument
-        protected QueryExecutionTest(IGremlinQuerySource g, ITestOutputHelper testOutputHelper, [CallerFilePath] string callerFilePath = "") : base(testOutputHelper, callerFilePath)
+        protected QueryExecutionTest(IGremlinQuerySource g, ITestOutputHelper testOutputHelper, [CallerFilePath] string callerFilePath = "") : base(sourceFile: callerFilePath)
         {
             _g = g
                 .ConfigureEnvironment(env => env

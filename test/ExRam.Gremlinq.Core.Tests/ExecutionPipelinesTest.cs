@@ -10,7 +10,7 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 namespace ExRam.Gremlinq.Core.Tests
 {
     [UsesVerify]
-    public class ExecutionPipelinesTest : XunitContextBase
+    public class ExecutionPipelinesTest : VerifyBase
     {
         private interface IFancyId
         {
@@ -22,7 +22,7 @@ namespace ExRam.Gremlinq.Core.Tests
             public string? Id { get; set; }
         }
 
-        public ExecutionPipelinesTest(ITestOutputHelper output) : base(output)
+        public ExecutionPipelinesTest() : base()
         {
 
         }

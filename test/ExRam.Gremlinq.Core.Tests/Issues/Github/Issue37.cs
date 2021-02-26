@@ -2,13 +2,12 @@
 using ExRam.Gremlinq.Core.GraphElements;
 using VerifyXunit;
 using Xunit;
-using Xunit.Abstractions;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
     [UsesVerify]
-    public class Issue37 : XunitContextBase
+    public class Issue37 : VerifyBase
     {
         public class VertexBase : IVertex
         {
@@ -34,7 +33,7 @@ namespace ExRam.Gremlinq.Core.Tests
             public override string PartitionKey { get; set; } = "MyKey";
         }
 
-        public Issue37(ITestOutputHelper output) : base(output)
+        public Issue37() : base()
         {
 
         }
