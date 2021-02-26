@@ -2,12 +2,16 @@
 using VerifyTests;
 using VerifyXunit;
 
+using Xunit;
+using Xunit.Abstractions;
+
 namespace ExRam.Gremlinq.Core.Tests
 {
     public abstract class GremlinqTestBase : VerifyBase
     {
-        protected GremlinqTestBase([CallerFilePath] string sourceFile = "") : base(CreateSettings(), sourceFile)
+        protected GremlinqTestBase(ITestOutputHelper testOutputHelper, [CallerFilePath] string sourceFile = "") : base(CreateSettings(), sourceFile)
         {
+            XunitContext.Register(testOutputHelper, sourceFile);
         }
 
         private static VerifySettings CreateSettings()

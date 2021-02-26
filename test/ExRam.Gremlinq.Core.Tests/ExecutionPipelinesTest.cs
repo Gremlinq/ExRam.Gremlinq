@@ -22,7 +22,7 @@ namespace ExRam.Gremlinq.Core.Tests
             public string? Id { get; set; }
         }
 
-        public ExecutionPipelinesTest() : base()
+        public ExecutionPipelinesTest(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
 
         }

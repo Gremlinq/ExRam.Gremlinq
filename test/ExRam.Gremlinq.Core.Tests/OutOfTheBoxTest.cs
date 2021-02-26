@@ -16,7 +16,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         }
 
-        public OutOfTheBoxTest() : base()
+        public OutOfTheBoxTest(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
 
         }

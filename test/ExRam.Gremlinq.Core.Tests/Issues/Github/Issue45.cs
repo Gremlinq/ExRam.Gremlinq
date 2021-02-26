@@ -1,6 +1,8 @@
 ﻿using System.Threading.Tasks;
 using VerifyXunit;
 using Xunit;
+using Xunit.Abstractions;
+
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
@@ -8,7 +10,7 @@ namespace ExRam.Gremlinq.Core.Tests
     [UsesVerify]
     public class Issue45 : GremlinqTestBase
     {
-        public Issue45() : base()
+        public Issue45(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
 
         }

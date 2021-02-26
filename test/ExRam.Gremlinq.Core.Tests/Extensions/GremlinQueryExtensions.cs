@@ -4,6 +4,8 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using VerifyXunit;
 
+using Xunit;
+
 namespace ExRam.Gremlinq.Core.Tests
 {
     public static class GremlinQueryExtensions
