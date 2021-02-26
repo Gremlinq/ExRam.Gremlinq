@@ -13,15 +13,15 @@ namespace ExRam.Gremlinq.Core.Tests
         private static readonly Regex IdRegex1 = new Regex("(\"id\"\\s*[:,]\\s*{\\s*\"@type\"\\s*:\\s*\"g:Int64\"\\s*,\\s*\"@value\":\\s*)([^\\s{}]+)(\\s*})", RegexOptions.IgnoreCase);
         private static readonly Regex IdRegex2 = new Regex("\"[0-9a-f]{8}[-]?([0-9a-f]{4}[-]?){3}[0-9a-f]{12}([|]PartitionKey)?\"", RegexOptions.IgnoreCase);
 
-        public static async Task Verify<TElement>(this IGremlinQueryBase<TElement> query, VerifyBase contextBase)
+        public static async Task Verify<TElement>(this IGremlinQueryBase<TElement> query, GremlinqTestBase testBase)
         {
-            if (contextBase is QuerySerializationTest && typeof(TElement) != typeof(object))
+            if (testBase is QuerySerializationTest && typeof(TElement) != typeof(object))
             {
-                await query.Cast<object>().Verify(contextBase);
+                await query.Cast<object>().Verify(testBase);
             }
-            else if (contextBase is QueryIntegrationTest && typeof(TElement) != typeof(JToken))
+            else if (testBase is QueryIntegrationTest && typeof(TElement) != typeof(JToken))
             {
-                await query.Cast<JToken>().Verify(contextBase);
+                await query.Cast<JToken>().Verify(testBase);
             }
             else
             {
@@ -30,7 +30,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .ToArrayAsync(),
                     Formatting.Indented);
 
-                var serialized = contextBase is QueryIntegrationTest
+                var serialized = testBase is QueryIntegrationTest
                     ? IdRegex2.Replace(
                         IdRegex1.Replace(
                             data,
@@ -38,8 +38,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         "\"scrubbed id\"")
                     : data;
 
-                await contextBase.Verify(
-                    serialized);
+                await testBase.Verify(serialized);
             }
         }
     }
