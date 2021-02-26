@@ -20,6 +20,9 @@ jobs:
       isPrerelease: ${{ steps.nbgv.outputs.PrereleaseVersionNoLeadingHyphen != '' }}
 
     steps:
+    - run: echo ${{ github.event.pull_request.head.repo.full_name }}
+    - run: echo ${{ github.repository }}
+    
     - name: Checkout
       uses: actions/checkout@v2
       with:
