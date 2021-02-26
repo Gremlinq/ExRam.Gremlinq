@@ -73,7 +73,7 @@ jobs:
         dotnet-version: ${{ env.DotNetVersion }}
 
     - name: Test
-      run: dotnet test  --configuration Release --verbosity normal -p:RunGremlinServerIntegrationTests=${{ !env.IsForkedRepository }}
+      run: dotnet test  --configuration Release --verbosity normal -p:RunGremlinServerIntegrationTests=${{ env.IsForkedRepository == 'false' }}
 
   test-windows:
     runs-on: windows-latest
@@ -96,7 +96,7 @@ jobs:
         dotnet-version: ${{ env.DotNetVersion }}
 
     - name: Test
-      run: dotnet test  --configuration Release --verbosity normal -p:RunCosmosDbEmulatorIntegrationTests=${{ !env.IsForkedRepository }}
+      run: dotnet test  --configuration Release --verbosity normal -p:RunCosmosDbEmulatorIntegrationTests=${{ env.IsForkedRepository == 'false ' }}
 
   publish:
     needs: [ build, test-linux, test-windows ]
