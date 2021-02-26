@@ -13,15 +13,17 @@ namespace ExRam.Gremlinq.Core.Tests
         private static readonly Regex IdRegex1 = new Regex("(\"id\"\\s*[:,]\\s*{\\s*\"@type\"\\s*:\\s*\"g:Int64\"\\s*,\\s*\"@value\":\\s*)([^\\s{}]+)(\\s*})", RegexOptions.IgnoreCase);
         private static readonly Regex IdRegex2 = new Regex("\"[0-9a-f]{8}[-]?([0-9a-f]{4}[-]?){3}[0-9a-f]{12}([|]PartitionKey)?\"", RegexOptions.IgnoreCase);
 
-        public static async Task Verify<TElement>(this IGremlinQueryBase<TElement> query, GremlinqTestBase testBase)
+        public static async Task Verify<TElement>(this IGremlinQueryBase<TElement> query)
         {
+            var testBase = GremlinqTestBase.Current;
+
             if (testBase is QuerySerializationTest && typeof(TElement) != typeof(object))
             {
-                await query.Cast<object>().Verify(testBase);
+                await query.Cast<object>().Verify();
             }
             else if (testBase is QueryIntegrationTest && typeof(TElement) != typeof(JToken))
             {
-                await query.Cast<JToken>().Verify(testBase);
+                await query.Cast<JToken>().Verify();
             }
             else
             {

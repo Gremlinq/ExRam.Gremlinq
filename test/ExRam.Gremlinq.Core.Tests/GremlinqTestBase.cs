@@ -1,4 +1,7 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
+using System.Threading;
+
 using VerifyTests;
 using VerifyXunit;
 
@@ -9,8 +12,11 @@ namespace ExRam.Gremlinq.Core.Tests
 {
     public abstract class GremlinqTestBase : VerifyBase
     {
+        private static readonly AsyncLocal<GremlinqTestBase> CurrentTestBase = new();
+
         protected GremlinqTestBase(ITestOutputHelper testOutputHelper, [CallerFilePath] string sourceFile = "") : base(CreateSettings(), sourceFile)
         {
+            CurrentTestBase.Value = this;
             XunitContext.Register(testOutputHelper, sourceFile);
         }
 
@@ -27,5 +33,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             return settings;
         }
+
+        public static GremlinqTestBase Current { get => CurrentTestBase.Value ?? throw new InvalidOperationException(); }
     }
 }

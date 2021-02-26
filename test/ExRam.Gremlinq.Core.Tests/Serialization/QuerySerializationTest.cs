@@ -23,7 +23,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .V<Person>("id")
-                .Verify(this);
+                .Verify();
         }
 
         [Fact]
@@ -41,7 +41,7 @@ namespace ExRam.Gremlinq.Core.Tests
                                 },
                                 env)))))
                 .E()
-                .Verify(this);
+                .Verify();
         }
 
         [Fact]
@@ -58,7 +58,7 @@ namespace ExRam.Gremlinq.Core.Tests
                                     new OutEStep(ImmutableArray<string>.Empty)
                                 }))))
                 .E()
-                .Verify(this);
+                .Verify();
         }
     }
 }

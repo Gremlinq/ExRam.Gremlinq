@@ -48,7 +48,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .EchoGroovyString())
                 .AddV(new Item { Value = "MyValue" })
                 .Cast<string>()
-                .Verify(this);
+                .Verify();
         }
 
         [Fact]
@@ -59,7 +59,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .EchoGroovyString())
                 .AddV(new ItemOverride { Value = "MyValue" })
                 .Cast<string>()
-                .Verify(this);
+                .Verify();
         }
     }
 }

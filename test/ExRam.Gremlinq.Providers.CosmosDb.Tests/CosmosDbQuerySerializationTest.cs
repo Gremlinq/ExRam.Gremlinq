@@ -27,7 +27,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         {
             await _g
                 .V<Person>(new CosmosDbKey("pk", "id"))
-                .Verify(this);
+                .Verify();
         }
 
         [Fact]
@@ -38,7 +38,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                     .ConfigureSerializer(s => s
                         .ToGroovy(GroovyFormatting.AllowInlining)))
                 .V<Person>(new CosmosDbKey("pk", "id"))
-                .Verify(this);
+                .Verify();
         }
 
         [Fact]
@@ -46,7 +46,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         {
             await _g
                 .V<Person>(new CosmosDbKey("id"))
-                .Verify(this);
+                .Verify();
         }
 
         [Fact]
@@ -54,7 +54,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         {
             await _g
                 .V<Person>(new CosmosDbKey("pk", "id"), "id2")
-                .Verify(this);
+                .Verify();
         }
 
         [Fact]
@@ -62,7 +62,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         {
             await _g
                 .V<Person>(new CosmosDbKey("id"), "id2")
-                .Verify(this);
+                .Verify();
         }
     }
 }

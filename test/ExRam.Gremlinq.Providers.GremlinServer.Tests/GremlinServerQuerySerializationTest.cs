@@ -29,7 +29,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
                     .ConfigureOptions(options => options
                         .SetValue(GremlinServerGremlinqOptions.WorkaroundTinkerpop2112, true)))
                 .AddV(new Person { Id = 1, Gender = Gender.Female })
-                .Verify(this);
+                .Verify();
         }
     }
 }

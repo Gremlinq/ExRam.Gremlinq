@@ -44,7 +44,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .UseDeserializer(GremlinQueryExecutionResultDeserializer.Default))
                 .V<SomeEntity>()
                 .Cast<GroovyGremlinQuery>()
-                .Verify(this);
+                .Verify();
         }
     }
 }

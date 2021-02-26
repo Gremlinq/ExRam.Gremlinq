@@ -24,7 +24,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Drop()
                 .Cast<string>()
-                .Verify(this);
+                .Verify();
         }
     }
 }

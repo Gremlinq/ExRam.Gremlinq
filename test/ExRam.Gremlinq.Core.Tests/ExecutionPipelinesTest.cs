@@ -43,7 +43,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Where(x => x.Age == 36)
                 .Cast<string>()
-                .Verify(this);
+                .Verify();
         }
 
         [Fact]
@@ -73,7 +73,7 @@ namespace ExRam.Gremlinq.Core.Tests
                             .Override<FancyId>((key, env, overridden, recurse) => recurse.Serialize(key.Id, env)))))
                 .V<Person>(new FancyId { Id = "someId" })
                 .Cast<string>()
-                .Verify(this);
+                .Verify();
         }
 
         [Fact]
@@ -90,7 +90,7 @@ namespace ExRam.Gremlinq.Core.Tests
                             .Override<FancyId>((key, env, overridden, recurse) => recurse.Serialize(key.Id, env)))))
                 .V<Person>(new EvenMoreFancyId { Id = "someId" })
                 .Cast<string>()
-                .Verify(this);
+                .Verify();
         }
 
         [Fact]
@@ -107,7 +107,7 @@ namespace ExRam.Gremlinq.Core.Tests
                             .Override<IFancyId>((key, env, overridden, recurse) => recurse.Serialize(key.Id, env)))))
                 .V<Person>(new FancyId { Id = "someId" })
                 .Cast<string>()
-                .Verify(this);
+                .Verify();
         }
 
         [Fact]
@@ -124,7 +124,7 @@ namespace ExRam.Gremlinq.Core.Tests
                             .Override<IFancyId>((key, env, overridden, recurse) => recurse.Serialize(key.Id, env)))))
                 .V<Person>(new FancyId { Id = "someId" })
                 .Cast<string>()
-                .Verify(this);
+                .Verify();
         }
     }
 }
