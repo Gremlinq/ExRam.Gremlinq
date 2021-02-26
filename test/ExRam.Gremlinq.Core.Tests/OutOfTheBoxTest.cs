@@ -9,7 +9,7 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 namespace ExRam.Gremlinq.Core.Tests
 {
     [UsesVerify]
-    public class OutOfTheBoxTest : VerifyBase
+    public class OutOfTheBoxTest : GremlinqTestBase
     {
         private class SomeEntity
         {

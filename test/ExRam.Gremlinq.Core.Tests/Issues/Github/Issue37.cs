@@ -7,7 +7,7 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 namespace ExRam.Gremlinq.Core.Tests
 {
     [UsesVerify]
-    public class Issue37 : VerifyBase
+    public class Issue37 : GremlinqTestBase
     {
         public class VertexBase : IVertex
         {

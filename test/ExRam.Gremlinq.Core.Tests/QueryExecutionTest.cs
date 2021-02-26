@@ -11,6 +11,7 @@ using FluentAssertions;
 using Gremlin.Net.Process.Traversal;
 using Gremlin.Net.Process.Traversal.Strategy.Decoration;
 using Microsoft.Extensions.Logging;
+
 using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
@@ -19,7 +20,7 @@ namespace ExRam.Gremlinq.Core.Tests
 {
     [UsesVerify]
     [TestCaseOrderer("ExRam.Gremlinq.Core.Tests.SideEffectTestCaseOrderer", "ExRam.Gremlinq.Core.Tests")]
-    public abstract class QueryExecutionTest : VerifyBase
+    public abstract class QueryExecutionTest : GremlinqTestBase
     {
         private sealed class XunitLogger : ILogger, IDisposable
         {
@@ -57,6 +58,8 @@ namespace ExRam.Gremlinq.Core.Tests
         // ReSharper disable once ExplicitCallerInfoArgument
         protected QueryExecutionTest(IGremlinQuerySource g, ITestOutputHelper testOutputHelper, [CallerFilePath] string callerFilePath = "") : base(sourceFile: callerFilePath)
         {
+            XunitContext.Register(testOutputHelper, callerFilePath);
+
             _g = g
                 .ConfigureEnvironment(env => env
                     .UseLogger(new XunitLogger(testOutputHelper))

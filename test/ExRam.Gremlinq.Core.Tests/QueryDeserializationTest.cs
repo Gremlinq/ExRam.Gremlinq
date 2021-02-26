@@ -36,7 +36,6 @@ namespace ExRam.Gremlinq.Core.Tests
             testOutputHelper,
             callerFilePath)
         {
-            XunitContext.Register(testOutputHelper, callerFilePath);
         }
     }
 }
