@@ -5,6 +5,7 @@
     <TargetFrameworks>net5.0</TargetFrameworks>
     <DefineConstants Condition=" '$(RunGremlinServerIntegrationTests)' == 'true' ">$(DefineConstants);RUNGREMLINSERVERINTEGRATIONTESTS</DefineConstants>
     <DefineConstants Condition=" '$(RunCosmosDbEmulatorIntegrationTests)' == 'true' ">$(DefineConstants);RUNCOSMOSDBEMULATORINTEGRATIONTESTS</DefineConstants>
+    <DefineConstants Condition=" '$(RunJanusGraphIntegrationTests)' == 'true' ">$(DefineConstants);RUNJANUSGRAPHINTEGRATIONTESTS</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
