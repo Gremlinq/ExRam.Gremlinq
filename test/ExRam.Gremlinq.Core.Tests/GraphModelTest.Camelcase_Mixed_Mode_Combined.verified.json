@@ -1,0 +1,10 @@
+{
+  "Item1": {
+    "Label": "timeFrame"
+  },
+  "Item2": {
+    "Key": {
+      "RawKey": "registrationDate"
+    }
+  }
+}

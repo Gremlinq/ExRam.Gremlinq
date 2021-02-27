@@ -1,8 +1,0 @@
-[
-  {
-    Ids: [
-      id,
-      another id
-    ]
-  }
-]

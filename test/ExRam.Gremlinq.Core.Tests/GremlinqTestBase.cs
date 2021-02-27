@@ -14,6 +14,11 @@ namespace ExRam.Gremlinq.Core.Tests
     {
         private static readonly AsyncLocal<GremlinqTestBase> CurrentTestBase = new();
 
+        static GremlinqTestBase()
+        {
+            VerifierSettings.UseStrictJson();
+        }
+
         protected GremlinqTestBase(ITestOutputHelper testOutputHelper, [CallerFilePath] string sourceFile = "") : base(CreateSettings(), sourceFile)
         {
             CurrentTestBase.Value = this;
