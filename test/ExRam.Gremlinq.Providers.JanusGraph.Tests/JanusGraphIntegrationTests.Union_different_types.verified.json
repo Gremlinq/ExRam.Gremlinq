@@ -1,0 +1,188 @@
+[
+  {
+    "@type": "g:List",
+    "@value": [
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Vertex",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label": "Company"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Edge",
+            "@value": {
+              "id": {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "74f-9ko-dg5-cqg"
+                }
+              },
+              "label": "LivesIn",
+              "inVLabel": "Country",
+              "outVLabel": "Person",
+              "inV": {
+                "@type": "g:Int64",
+                "@value": 16504
+              },
+              "outV": {
+                "@type": "g:Int64",
+                "@value": 12408
+              }
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Edge",
+            "@value": {
+              "id": {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "1zp-3ag-dg5-3co"
+                }
+              },
+              "label": "LivesIn",
+              "inVLabel": "Country",
+              "outVLabel": "Person",
+              "inV": {
+                "@type": "g:Int64",
+                "@value": 4344
+              },
+              "outV": {
+                "@type": "g:Int64",
+                "@value": 4264
+              }
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Vertex",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label": "Company"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Edge",
+            "@value": {
+              "id": {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "4rf-9nc-dg5-394"
+                }
+              },
+              "label": "LivesIn",
+              "inVLabel": "Country",
+              "outVLabel": "Person",
+              "inV": {
+                "@type": "g:Int64",
+                "@value": 4216
+              },
+              "outV": {
+                "@type": "g:Int64",
+                "@value": 12504
+              }
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Vertex",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label": "Company"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Edge",
+            "@value": {
+              "id": {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "2sf-6ig-dg5-6hk"
+                }
+              },
+              "label": "LivesIn",
+              "inVLabel": "Country",
+              "outVLabel": "Person",
+              "inV": {
+                "@type": "g:Int64",
+                "@value": 8408
+              },
+              "outV": {
+                "@type": "g:Int64",
+                "@value": 8440
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
+]

@@ -1,0 +1,232 @@
+[
+  {
+    "@type": "g:List",
+    "@value": [
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "16z-388-745"
+                }
+              },
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              },
+              "label": "Age"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "2rz-6ew-745"
+                }
+              },
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              },
+              "label": "Age"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "5jj-9ko-745"
+                }
+              },
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              },
+              "label": "Age"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "179-3ag-745"
+                }
+              },
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              },
+              "label": "Age"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "17d-3bc-745"
+                }
+              },
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              },
+              "label": "Age"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "36j-9nc-745"
+                }
+              },
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              },
+              "label": "Age"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "5y3-ct4-745"
+                }
+              },
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              },
+              "label": "Age"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "7x7-fyw-745"
+                }
+              },
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              },
+              "label": "Age"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "1zz-6ig-745"
+                }
+              },
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              },
+              "label": "Age"
+            }
+          }
+        }
+      }
+    ]
+  }
+]
