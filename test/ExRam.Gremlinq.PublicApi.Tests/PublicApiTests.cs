@@ -1,15 +1,23 @@
 ﻿using System.Reflection;
 using PublicApiGenerator;
 using Xunit;
-using VerifyXunit;
 using System.Threading.Tasks;
 using VerifyTests;
 using System.Runtime.CompilerServices;
 
+using Xunit.Abstractions;
+
+using GremlinqTestBase = ExRam.Gremlinq.Core.Tests.GremlinqTestBase;
+
 namespace ExRam.Gremlinq.PublicApi.Tests
 {
-    public class PublicApiTests
+    public class PublicApiTests : GremlinqTestBase
     {
+        public PublicApiTests(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
+        {
+
+        }
+
         [Fact]
         public Task Core() => Verify("ExRam.Gremlinq.Core");
 
@@ -46,7 +54,7 @@ namespace ExRam.Gremlinq.PublicApi.Tests
         [Fact]
         public Task WebSocketAspNet() => Verify("ExRam.Gremlinq.Providers.WebSocket.AspNet");
 
-        private static Task Verify(string assemblyName, [CallerFilePath] string sourceFile = "")
+        private Task Verify(string assemblyName, [CallerFilePath] string sourceFile = "")
         {
             var verifySettings = new VerifySettings();
             verifySettings.UseExtension("cs");
@@ -56,12 +64,11 @@ namespace ExRam.Gremlinq.PublicApi.Tests
                 IncludeAssemblyAttributes = false
             };
 
-            return Verifier.Verify(
+            return Verify(
                 Assembly
                     .Load(assemblyName)
                     .GeneratePublicApi(options),
-                verifySettings,
-                sourceFile);
+                verifySettings);
         }
     }
 }
