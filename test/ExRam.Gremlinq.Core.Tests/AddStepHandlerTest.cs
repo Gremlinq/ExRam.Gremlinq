@@ -1,12 +1,10 @@
 ﻿using System.Collections.Immutable;
 using System.Threading.Tasks;
-using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    [UsesVerify]
     public class AddStepHandlerTest : GremlinqTestBase
     {
         public AddStepHandlerTest(ITestOutputHelper testOutputHelper) : base(testOutputHelper)

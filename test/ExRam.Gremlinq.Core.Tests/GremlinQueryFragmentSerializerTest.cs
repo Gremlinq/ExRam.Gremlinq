@@ -1,13 +1,11 @@
 ﻿using System.Collections.Immutable;
 using System.Threading.Tasks;
 using System.Linq;
-using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    [UsesVerify]
     public class GremlinQueryFragmentSerializerTest : GremlinqTestBase
     {
         public GremlinQueryFragmentSerializerTest(ITestOutputHelper testOutputHelper) : base(testOutputHelper)

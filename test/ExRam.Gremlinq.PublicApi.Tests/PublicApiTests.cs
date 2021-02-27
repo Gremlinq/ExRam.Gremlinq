@@ -8,7 +8,6 @@ using System.Runtime.CompilerServices;
 
 namespace ExRam.Gremlinq.PublicApi.Tests
 {
-    [UsesVerify]
     public class PublicApiTests
     {
         [Fact]

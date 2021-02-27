@@ -7,16 +7,13 @@ using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Tests.Entities;
 using Newtonsoft.Json.Linq;
-using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
-
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.Tests
 {
-    [UsesVerify]
-    public class GraphsonSupportTest :  GremlinqTestBase
+    public class GraphsonSupportTest : GremlinqTestBase
     {
         private sealed class MetaPoco
         {

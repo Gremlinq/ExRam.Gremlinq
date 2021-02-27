@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using ExRam.Gremlinq.Core.GraphElements;
-using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -8,7 +7,6 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    [UsesVerify]
     public class Issue37 : GremlinqTestBase
     {
         public class VertexBase : IVertex

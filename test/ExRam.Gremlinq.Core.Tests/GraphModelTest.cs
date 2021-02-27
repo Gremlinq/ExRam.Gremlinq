@@ -5,13 +5,10 @@ using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Tests.Entities;
 using FluentAssertions;
 using Xunit;
-using VerifyXunit;
-
 using Xunit.Abstractions;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    [UsesVerify]
     public class GraphModelTest : GremlinqTestBase
     {
         private sealed class VertexOutsideHierarchy

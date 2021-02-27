@@ -8,15 +8,14 @@ using AutoFixture.Kernel;
 using ExRam.Gremlinq.Core.GraphElements;
 using FluentAssertions;
 using Gremlin.Net.Process.Traversal;
-using VerifyXunit;
 using Xunit;
+using Xunit.Abstractions;
 
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    [UsesVerify]
-    public class TypeSystemTest
+    public class TypeSystemTest : GremlinqTestBase
     {
         private sealed class Vertex
         {
@@ -120,10 +119,15 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ToArray();
         }
 
+        public TypeSystemTest(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
+        {
+
+        }
+
         [Fact]
         public async Task All_Steps_can_be_created()
         {
-            await Verifier.Verify(AllSteps.Select(step => (step.GetType(), step)));
+            await Verify(AllSteps.Select(step => (step.GetType(), step)));
         }
 
         [Fact]

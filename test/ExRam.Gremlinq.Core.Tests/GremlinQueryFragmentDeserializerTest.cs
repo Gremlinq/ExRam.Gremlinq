@@ -2,13 +2,11 @@
 using System.Threading.Tasks;
 using FluentAssertions;
 using Newtonsoft.Json.Linq;
-using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    [UsesVerify]
     public class GremlinQueryFragmentDeserializerTest : GremlinqTestBase
     {
         public GremlinQueryFragmentDeserializerTest(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
