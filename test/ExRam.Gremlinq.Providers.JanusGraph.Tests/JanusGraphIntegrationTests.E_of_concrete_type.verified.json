@@ -16,7 +16,7 @@
               {
                 "@type": "janusgraph:RelationIdentifier",
                 "@value": {
-                  "relationId": "1zf-388-8ph-3bs"
+                  "relationId": "35y-6cw-8ph-380"
                 }
               },
               "label",
@@ -57,7 +57,7 @@
               {
                 "@type": "janusgraph:RelationIdentifier",
                 "@value": {
-                  "relationId": "1zt-3bc-8ph-9o8"
+                  "relationId": "6c6-9m8-8ph-6ds"
                 }
               },
               "label",
@@ -71,13 +71,13 @@
                     "@type": "g:Date",
                     "@value": 1586270616000
                   },
+                  "Role",
+                  "Admin",
                   "From",
                   {
                     "@type": "g:Date",
                     "@value": 1586270616000
-                  },
-                  "Role",
-                  "Admin"
+                  }
                 ]
               }
             ]
@@ -98,7 +98,7 @@
               {
                 "@type": "janusgraph:RelationIdentifier",
                 "@value": {
-                  "relationId": "6qj-ct4-8ph-6f4"
+                  "relationId": "5y5-9ns-8ph-9nc"
                 }
               },
               "label",

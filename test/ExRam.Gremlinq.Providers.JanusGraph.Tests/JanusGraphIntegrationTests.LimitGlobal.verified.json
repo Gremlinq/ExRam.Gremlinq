@@ -23,6 +23,56 @@
               {
                 "@type": "g:Map",
                 "@value": [
+                  "Gender",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "1kx-360-7wl"
+                            }
+                          },
+                          "label",
+                          "Gender",
+                          "value",
+                          {
+                            "@type": "g:Int32",
+                            "@value": 0
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "RegistrationDate",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "2dd-360-cn9"
+                            }
+                          },
+                          "label",
+                          "RegistrationDate",
+                          "value",
+                          {
+                            "@type": "g:Date",
+                            "@value": 1586270616000
+                          }
+                        ]
+                      }
+                    ]
+                  },
                   "Age",
                   {
                     "@type": "g:List",
@@ -34,7 +84,7 @@
                           {
                             "@type": "janusgraph:RelationIdentifier",
                             "@value": {
-                              "relationId": "16z-388-745"
+                              "relationId": "16p-360-745"
                             }
                           },
                           "label",
@@ -48,7 +98,7 @@
                       }
                     ]
                   },
-                  "Gender",
+                  "Name",
                   {
                     "@type": "g:List",
                     "@value": [
@@ -59,16 +109,13 @@
                           {
                             "@type": "janusgraph:RelationIdentifier",
                             "@value": {
-                              "relationId": "1l7-388-7wl"
+                              "relationId": "1z5-360-but"
                             }
                           },
                           "label",
-                          "Gender",
+                          "Name",
                           "value",
-                          {
-                            "@type": "g:Int32",
-                            "@value": 0
-                          }
+                          "Bob"
                         ]
                       }
                     ]

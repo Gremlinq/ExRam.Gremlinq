@@ -27,6 +27,16 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
+            "@value": 5
+          },
+          "value": "Company"
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
             "@value": 1
           },
           "value": "TimeFrame"
@@ -40,16 +50,6 @@
             "@value": 7
           },
           "value": "Country"
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 5
-          },
-          "value": "Company"
         }
       }
     ]

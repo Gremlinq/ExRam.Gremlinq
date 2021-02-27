@@ -9,7 +9,10 @@
             "@type": "g:Int64",
             "@value": 1
           },
-          "value": "Germany"
+          "value": {
+            "@type": "g:Date",
+            "@value": 1546304400000
+          }
         }
       },
       {
@@ -29,10 +32,7 @@
             "@type": "g:Int64",
             "@value": 1
           },
-          "value": {
-            "@type": "g:Date",
-            "@value": 1546304400000
-          }
+          "value": "Germany"
         }
       }
     ]

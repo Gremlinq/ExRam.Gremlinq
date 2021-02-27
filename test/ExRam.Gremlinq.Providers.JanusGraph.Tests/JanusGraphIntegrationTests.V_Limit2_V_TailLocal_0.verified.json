@@ -34,7 +34,7 @@
                           {
                             "@type": "janusgraph:RelationIdentifier",
                             "@value": {
-                              "relationId": "du3-388-7wl"
+                              "relationId": "a9t-360-7wl"
                             }
                           },
                           "label",
@@ -59,7 +59,7 @@
                           {
                             "@type": "janusgraph:RelationIdentifier",
                             "@value": {
-                              "relationId": "e8b-388-cn9"
+                              "relationId": "ao1-360-cn9"
                             }
                           },
                           "label",
@@ -84,7 +84,7 @@
                           {
                             "@type": "janusgraph:RelationIdentifier",
                             "@value": {
-                              "relationId": "c97-388-745"
+                              "relationId": "8ox-360-745"
                             }
                           },
                           "label",
@@ -109,7 +109,7 @@
                           {
                             "@type": "janusgraph:RelationIdentifier",
                             "@value": {
-                              "relationId": "d1n-388-but"
+                              "relationId": "9hd-360-but"
                             }
                           },
                           "label",

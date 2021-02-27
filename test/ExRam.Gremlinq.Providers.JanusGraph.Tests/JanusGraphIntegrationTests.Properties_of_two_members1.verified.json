@@ -15,7 +15,29 @@
               "id": {
                 "@type": "janusgraph:RelationIdentifier",
                 "@value": {
-                  "relationId": "173-394-1l1"
+                  "relationId": "366-9kg-but"
+                }
+              },
+              "value": "GER",
+              "label": "Name"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "7iu-cs0-1l1"
                 }
               },
               "value": "+49",
@@ -37,7 +59,7 @@
               "id": {
                 "@type": "janusgraph:RelationIdentifier",
                 "@value": {
-                  "relationId": "b2n-m7s-but"
+                  "relationId": "93q-fxs-but"
                 }
               },
               "value": "GER",
@@ -59,29 +81,7 @@
               "id": {
                 "@type": "janusgraph:RelationIdentifier",
                 "@value": {
-                  "relationId": "3yt-9m0-but"
-                }
-              },
-              "value": "GER",
-              "label": "Name"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "janusgraph:RelationIdentifier",
-                "@value": {
-                  "relationId": "36h-6h4-1l1"
+                  "relationId": "17f-3bs-1l1"
                 }
               },
               "value": "+49",

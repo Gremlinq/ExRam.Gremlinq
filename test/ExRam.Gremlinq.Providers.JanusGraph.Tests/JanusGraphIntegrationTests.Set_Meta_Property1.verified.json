@@ -15,7 +15,7 @@
               "id": {
                 "@type": "janusgraph:RelationIdentifier",
                 "@value": {
-                  "relationId": "b2n-m7s-but"
+                  "relationId": "366-9kg-but"
                 }
               },
               "value": "GER",
@@ -37,7 +37,7 @@
               "id": {
                 "@type": "janusgraph:RelationIdentifier",
                 "@value": {
-                  "relationId": "3yt-9m0-but"
+                  "relationId": "93q-fxs-but"
                 }
               },
               "value": "GER",

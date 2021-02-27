@@ -44,12 +44,12 @@
                 "@value": "scrubbed id"
               },
               "label",
-              "TimeFrame",
+              "Language",
               "properties",
               {
                 "@type": "g:Map",
                 "@value": [
-                  "StartTime",
+                  "IetfLanguageTag",
                   {
                     "@type": "g:List",
                     "@value": [
@@ -60,63 +60,13 @@
                           {
                             "@type": "janusgraph:RelationIdentifier",
                             "@value": {
-                              "relationId": "4qz-9js-hdx"
+                              "relationId": "16u-374-35x"
                             }
                           },
                           "label",
-                          "StartTime",
+                          "IetfLanguageTag",
                           "value",
-                          {
-                            "@type": "gx:Duration",
-                            "@value": "PT8H"
-                          }
-                        ]
-                      }
-                    ]
-                  },
-                  "Enabled",
-                  {
-                    "@type": "g:List",
-                    "@value": [
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "id",
-                          {
-                            "@type": "janusgraph:RelationIdentifier",
-                            "@value": {
-                              "relationId": "4cr-9js-glh"
-                            }
-                          },
-                          "label",
-                          "Enabled",
-                          "value",
-                          false
-                        ]
-                      }
-                    ]
-                  },
-                  "Duration",
-                  {
-                    "@type": "g:List",
-                    "@value": [
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "id",
-                          {
-                            "@type": "janusgraph:RelationIdentifier",
-                            "@value": {
-                              "relationId": "3yj-9js-ft1"
-                            }
-                          },
-                          "label",
-                          "Duration",
-                          "value",
-                          {
-                            "@type": "gx:Duration",
-                            "@value": "PT2H"
-                          }
+                          "en"
                         ]
                       }
                     ]

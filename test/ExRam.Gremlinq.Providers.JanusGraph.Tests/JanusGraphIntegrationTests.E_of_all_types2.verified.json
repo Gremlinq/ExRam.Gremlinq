@@ -16,7 +16,110 @@
               {
                 "@type": "janusgraph:RelationIdentifier",
                 "@value": {
-                  "relationId": "1zf-388-8ph-3bs"
+                  "relationId": "2rl-360-dg5-cs0"
+                }
+              },
+              "label",
+              "LivesIn",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": []
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "35y-6cw-8ph-380"
+                }
+              },
+              "label",
+              "WorksFor",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "Role",
+                  "Admin",
+                  "To",
+                  {
+                    "@type": "g:Date",
+                    "@value": 1586270616000
+                  },
+                  "From",
+                  {
+                    "@type": "g:Date",
+                    "@value": 1586270616000
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "4d2-6gg-dg5-3bk"
+                }
+              },
+              "label",
+              "LivesIn",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "Since",
+                  {
+                    "@type": "g:Date",
+                    "@value": 1586270616000
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "6c6-9m8-8ph-6ds"
                 }
               },
               "label",
@@ -57,7 +160,7 @@
               {
                 "@type": "janusgraph:RelationIdentifier",
                 "@value": {
-                  "relationId": "1lb-394-3yt-39c"
+                  "relationId": "7x2-cs0-3yt-9jk"
                 }
               },
               "label",
@@ -85,132 +188,7 @@
               {
                 "@type": "janusgraph:RelationIdentifier",
                 "@value": {
-                  "relationId": "4cv-394-dg5-6ew"
-                }
-              },
-              "label",
-              "LivesIn",
-              "properties",
-              {
-                "@type": "g:Map",
-                "@value": []
-              }
-            ]
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": [
-              "id",
-              {
-                "@type": "janusgraph:RelationIdentifier",
-                "@value": {
-                  "relationId": "74f-9ko-dg5-cqg"
-                }
-              },
-              "label",
-              "LivesIn",
-              "properties",
-              {
-                "@type": "g:Map",
-                "@value": []
-              }
-            ]
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": [
-              "id",
-              {
-                "@type": "janusgraph:RelationIdentifier",
-                "@value": {
-                  "relationId": "1zp-3ag-dg5-3co"
-                }
-              },
-              "label",
-              "LivesIn",
-              "properties",
-              {
-                "@type": "g:Map",
-                "@value": []
-              }
-            ]
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": [
-              "id",
-              {
-                "@type": "janusgraph:RelationIdentifier",
-                "@value": {
-                  "relationId": "1zt-3bc-8ph-9o8"
-                }
-              },
-              "label",
-              "WorksFor",
-              "properties",
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "From",
-                  {
-                    "@type": "g:Date",
-                    "@value": 1586270616000
-                  },
-                  "To",
-                  {
-                    "@type": "g:Date",
-                    "@value": 1586270616000
-                  },
-                  "Role",
-                  "Admin"
-                ]
-              }
-            ]
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": [
-              "id",
-              {
-                "@type": "janusgraph:RelationIdentifier",
-                "@value": {
-                  "relationId": "3kp-6h4-3yt-3ao"
+                  "relationId": "1ln-3bs-3yt-374"
                 }
               },
               "label",
@@ -238,7 +216,7 @@
               {
                 "@type": "janusgraph:RelationIdentifier",
                 "@value": {
-                  "relationId": "4rf-9nc-dg5-394"
+                  "relationId": "1zv-3bs-dg5-3ao"
                 }
               },
               "label",
@@ -266,21 +244,15 @@
               {
                 "@type": "janusgraph:RelationIdentifier",
                 "@value": {
-                  "relationId": "6qj-ct4-8ph-6f4"
+                  "relationId": "1zx-3c8-dg5-3c0"
                 }
               },
               "label",
-              "WorksFor",
+              "LivesIn",
               "properties",
               {
                 "@type": "g:Map",
-                "@value": [
-                  "To",
-                  {
-                    "@type": "g:Date",
-                    "@value": 1586270616000
-                  }
-                ]
+                "@value": []
               }
             ]
           }
@@ -300,7 +272,7 @@
               {
                 "@type": "janusgraph:RelationIdentifier",
                 "@value": {
-                  "relationId": "2sf-6ig-dg5-6hk"
+                  "relationId": "3z1-6i0-dg5-6hk"
                 }
               },
               "label",
@@ -308,8 +280,36 @@
               "properties",
               {
                 "@type": "g:Map",
+                "@value": []
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "5y5-9ns-8ph-9nc"
+                }
+              },
+              "label",
+              "WorksFor",
+              "properties",
+              {
+                "@type": "g:Map",
                 "@value": [
-                  "Since",
+                  "To",
                   {
                     "@type": "g:Date",
                     "@value": 1586270616000

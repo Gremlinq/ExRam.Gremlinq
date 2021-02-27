@@ -23,7 +23,7 @@
               {
                 "@type": "g:Map",
                 "@value": [
-                  "lang",
+                  "IetfLanguageTag",
                   {
                     "@type": "g:List",
                     "@value": [
@@ -34,11 +34,11 @@
                           {
                             "@type": "janusgraph:RelationIdentifier",
                             "@value": {
-                              "relationId": "8bj-j5k-mx1"
+                              "relationId": "9wd-j54-35x"
                             }
                           },
                           "label",
-                          "lang",
+                          "IetfLanguageTag",
                           "value",
                           "en"
                         ]
