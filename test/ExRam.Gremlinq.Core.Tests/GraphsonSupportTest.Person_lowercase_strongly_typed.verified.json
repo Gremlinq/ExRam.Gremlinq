@@ -1,18 +1,28 @@
 [
   {
-    Age: 36,
-    RegistrationDate: DateTimeOffset_1,
-    PhoneNumbers: [
+    "Age": 36,
+    "Gender": 0,
+    "Image": "",
+    "RegistrationDate": "2016-12-14T21:14:36.295+00:00",
+    "PhoneNumbers": [
       {
-        Id: 3,
-        Value: +123456
+        "Id": 3,
+        "Label": null,
+        "Properties": {},
+        "Value": "+123456",
+        "Key": null
       },
       {
-        Id: 4,
-        Value: +234567
+        "Id": 4,
+        "Label": null,
+        "Properties": {},
+        "Value": "+234567",
+        "Key": null
       }
     ],
-    Id: 14,
-    Label: Person
+    "SomeObscureProperty": null,
+    "Name": null,
+    "Id": 14,
+    "Label": "Person"
   }
 ]

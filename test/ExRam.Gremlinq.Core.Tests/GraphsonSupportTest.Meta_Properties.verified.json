@@ -1,14 +1,19 @@
 [
   {
-    Name: {
-      Id: 1,
-      Properties: {
-        de: Deutschland,
-        en: Germany
+    "Name": {
+      "Id": 1,
+      "Label": null,
+      "Properties": {
+        "de": "Deutschland",
+        "en": "Germany"
       },
-      Value: GER
+      "Value": "GER",
+      "Key": null
     },
-    Id: 3,
-    Label: Country
+    "Languages": [],
+    "CountryCallingCode": null,
+    "LocalizableDescription": null,
+    "Id": 3,
+    "Label": "Country"
   }
 ]

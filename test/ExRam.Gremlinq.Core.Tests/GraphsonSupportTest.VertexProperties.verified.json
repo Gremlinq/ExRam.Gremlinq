@@ -1,17 +1,25 @@
 [
   {
-    Label: Property1,
-    Properties: {
-      metaKey: MetaValue
+    "Id": null,
+    "Label": "Property1",
+    "Properties": {
+      "metaKey": "MetaValue"
     },
-    Value: 1540202009475
+    "Value": 1540202009475,
+    "Key": null
   },
   {
-    Label: Property2,
-    Value: Some string
+    "Id": null,
+    "Label": "Property2",
+    "Properties": {},
+    "Value": "Some string",
+    "Key": null
   },
   {
-    Label: Property3,
-    Value: 36
+    "Id": null,
+    "Label": "Property3",
+    "Properties": {},
+    "Value": 36,
+    "Key": null
   }
 ]

@@ -1,11 +1,16 @@
 [
   {
-    FoundingDate: DateTime_1,
-    Name: {
-      Id: Guid_1,
-      Value: Company!
+    "FoundingDate": "2018-12-17T08:00:00Z",
+    "PhoneNumbers": [],
+    "Locations": [],
+    "Name": {
+      "Id": "af8d9d94-3814-400a-91b8-1a6bef584a9a",
+      "Label": null,
+      "Properties": null,
+      "Value": "Company!",
+      "Key": null
     },
-    Id: Guid_2,
-    Label: Company
+    "Id": "b9b89d7f-9313-4eed-b354-2760ba7a3fbe",
+    "Label": "Company"
   }
 ]

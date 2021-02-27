@@ -1,8 +1,15 @@
 [
   [
     {
-      Id: Guid_1,
-      Label: vertex
+      "Age": 0,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": null,
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": "3110d0db-17c0-4f82-89d8-0a7e9ae41c27",
+      "Label": "vertex"
     }
   ]
 ]

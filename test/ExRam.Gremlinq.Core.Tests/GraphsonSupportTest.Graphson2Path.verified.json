@@ -1,21 +1,21 @@
 [
   [
     {
-      Labels: [
+      "Labels": [
         [
-          edge
+          "edge"
         ]
       ],
-      Objects: [
+      "Objects": [
         {
-          IetfLanguageTag: de,
-          Id: 1,
-          Label: Language
+          "IetfLanguageTag": "de",
+          "Id": 1,
+          "Label": "Language"
         },
         {
-          IetfLanguageTag: en,
-          Id: 2,
-          Label: Language
+          "IetfLanguageTag": "en",
+          "Id": 2,
+          "Label": "Language"
         }
       ]
     }

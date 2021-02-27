@@ -1,10 +1,10 @@
 [
   {
-    Value: metaValue1,
-    Key: metaKey1
+    "Value": "metaValue1",
+    "Key": "metaKey1"
   },
   {
-    Value: 36,
-    Key: metaKey2
+    "Value": 36,
+    "Key": "metaKey2"
   }
 ]

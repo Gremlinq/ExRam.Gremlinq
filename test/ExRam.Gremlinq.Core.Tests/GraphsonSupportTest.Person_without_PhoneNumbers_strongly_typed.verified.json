@@ -1,8 +1,13 @@
 [
   {
-    Age: 36,
-    RegistrationDate: DateTimeOffset_1,
-    Id: 15,
-    Label: Person
+    "Age": 36,
+    "Gender": 0,
+    "Image": "",
+    "RegistrationDate": "2016-12-14T21:14:36.295+00:00",
+    "PhoneNumbers": [],
+    "SomeObscureProperty": null,
+    "Name": null,
+    "Id": 15,
+    "Label": "Person"
   }
 ]

@@ -1,10 +1,19 @@
 [
   {
-    Name: {
-      Id: 1,
-      Value: nameValue
+    "Age": 0,
+    "Gender": 0,
+    "Image": "",
+    "RegistrationDate": null,
+    "PhoneNumbers": [],
+    "SomeObscureProperty": null,
+    "Name": {
+      "Id": 1,
+      "Label": null,
+      "Properties": null,
+      "Value": "nameValue",
+      "Key": null
     },
-    Id: 13,
-    Label: Person
+    "Id": 13,
+    "Label": "Person"
   }
 ]
