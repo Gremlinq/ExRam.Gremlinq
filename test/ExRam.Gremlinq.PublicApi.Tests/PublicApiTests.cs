@@ -4,9 +4,7 @@ using Xunit;
 using System.Threading.Tasks;
 using VerifyTests;
 using System.Runtime.CompilerServices;
-
 using Xunit.Abstractions;
-
 using GremlinqTestBase = ExRam.Gremlinq.Core.Tests.GremlinqTestBase;
 
 namespace ExRam.Gremlinq.PublicApi.Tests
