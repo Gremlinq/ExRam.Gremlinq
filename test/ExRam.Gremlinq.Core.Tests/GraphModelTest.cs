@@ -7,10 +7,12 @@ using FluentAssertions;
 using Xunit;
 using VerifyXunit;
 
+using Xunit.Abstractions;
+
 namespace ExRam.Gremlinq.Core.Tests
 {
     [UsesVerify]
-    public class GraphModelTest
+    public class GraphModelTest : GremlinqTestBase
     {
         private sealed class VertexOutsideHierarchy
         {
@@ -19,6 +21,11 @@ namespace ExRam.Gremlinq.Core.Tests
 
         private sealed class VertexInsideHierarchy : Vertex
         {
+        }
+
+        public GraphModelTest(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
+        {
+
         }
 
         [Fact]
@@ -60,14 +67,14 @@ namespace ExRam.Gremlinq.Core.Tests
             var model = GraphModel.Default(lookup => lookup
                 .IncludeAssembliesFromAppDomain());
 
-            await Verifier.Verify(model.VerticesModel
+            await Verify(model.VerticesModel
                 .TryGetFilterLabels(typeof(Authority), FilterLabelsVerbosity.Maximum) ?? ImmutableArray<string>.Empty);
         }
 
         [Fact]
         public async Task Hierarchy_inside_model()
         {
-            await Verifier.Verify(GraphModel
+            await Verify(GraphModel
                 .FromBaseTypes<Vertex, Edge>(lookup => lookup
                     .IncludeAssembliesOfBaseTypes())
                 .VerticesModel
@@ -78,7 +85,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public async Task Hierarchy_outside_model()
         {
-            await Verifier.Verify(GraphModel
+            await Verify(GraphModel
                 .FromBaseTypes<Vertex, Edge>(lookup => lookup
                     .IncludeAssembliesOfBaseTypes())
                 .VerticesModel
@@ -89,7 +96,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public async Task Outside_hierarchy()
         {
-            await Verifier.Verify(GraphModel
+            await Verify(GraphModel
                 .FromBaseTypes<Vertex, Edge>(lookup => lookup
                     .IncludeAssembliesOfBaseTypes())
                 .VerticesModel
@@ -100,7 +107,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public async Task Lowercase()
         {
-            await Verifier.Verify(GraphModel
+            await Verify(GraphModel
                 .FromBaseTypes<Vertex, Edge>(lookup => lookup
                     .IncludeAssembliesOfBaseTypes())
                 .ConfigureElements(em => em
@@ -113,7 +120,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public async Task CamelcaseLabel_Vertices()
         {
-            await Verifier.Verify(GraphModel
+            await Verify(GraphModel
                 .FromBaseTypes<Vertex, Edge>(lookup => lookup
                     .IncludeAssembliesOfBaseTypes())
                 .ConfigureElements(em => em
@@ -126,7 +133,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public async Task Camelcase_Edges()
         {
-            await Verifier.Verify(GraphModel
+            await Verify(GraphModel
                 .FromBaseTypes<Vertex, Edge>(lookup => lookup
                     .IncludeAssembliesOfBaseTypes())
                 .ConfigureElements(em => em
@@ -139,7 +146,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public async Task Camelcase_Identifier_By_MemberExpression()
         {
-            await Verifier.Verify(GraphModel
+            await Verify(GraphModel
                 .FromBaseTypes<Vertex, Edge>(lookup => lookup
                     .IncludeAssembliesOfBaseTypes())
                 .ConfigureProperties(pm => pm
@@ -153,7 +160,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public async Task Lowercase_Identifier_By_ParameterExpression()
         {
-            await Verifier.Verify(GraphModel
+            await Verify(GraphModel
                 .FromBaseTypes<Vertex, Edge>(lookup => lookup
                     .IncludeAssembliesOfBaseTypes())
                 .ConfigureProperties(pm => pm
@@ -174,7 +181,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .ConfigureMemberMetadata(m => m
                         .UseCamelCaseNames()));
 
-            await Verifier.Verify((
+            await Verify((
                 model
                     .VerticesModel
                     .Metadata
@@ -194,7 +201,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ConfigureElements(pm => pm
                     .UseCamelCaseLabels());
 
-            await Verifier.Verify((
+            await Verify((
                 model
                     .VerticesModel
                     .Metadata
@@ -217,7 +224,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .ConfigureMemberMetadata(m => m
                         .UseCamelCaseNames()));
 
-            await Verifier.Verify((
+            await Verify((
                 model
                     .VerticesModel
                     .Metadata
@@ -240,7 +247,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ConfigureElements(em => em
                     .UseCamelCaseLabels());
 
-            await Verifier.Verify((
+            await Verify((
                 model
                     .VerticesModel
                     .Metadata
@@ -254,7 +261,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public async Task Configuration_IgnoreOnUpdate()
         {
-            await Verifier.Verify(GraphModel
+            await Verify(GraphModel
                 .FromBaseTypes<Vertex, Edge>(lookup => lookup
                     .IncludeAssembliesOfBaseTypes())
                 .ConfigureProperties(pm => pm
@@ -268,7 +275,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public async Task Configuration_can_be_found_for_base_class()
         {
-            await Verifier.Verify(GraphModel
+            await Verify(GraphModel
                 .FromBaseTypes<Vertex, Edge>(lookup => lookup
                     .IncludeAssembliesOfBaseTypes())
                 .ConfigureProperties(pm => pm
@@ -282,7 +289,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public async Task Configuration_can_be_found_for_derived_class()
         {
-            await Verifier.Verify(GraphModel
+            await Verify(GraphModel
                 .FromBaseTypes<Vertex, Edge>(lookup => lookup
                     .IncludeAssembliesOfBaseTypes())
                 .ConfigureProperties(pm => pm
@@ -307,13 +314,13 @@ namespace ExRam.Gremlinq.Core.Tests
                     .ConfigureElement<Person>(conf => conf
                         .IgnoreOnUpdate(p => p.Name)));
 
-            await Verifier.Verify(model1.PropertiesModel.MemberMetadata.Count == model2.PropertiesModel.MemberMetadata.Count);
+            await Verify(model1.PropertiesModel.MemberMetadata.Count == model2.PropertiesModel.MemberMetadata.Count);
         }
 
         [Fact]
         public async Task Configuration_IgnoreAlways()
         {
-            await Verifier.Verify(GraphModel
+            await Verify(GraphModel
                 .FromBaseTypes<Vertex, Edge>(lookup => lookup
                     .IncludeAssembliesOfBaseTypes())
                 .ConfigureProperties(pm => pm
@@ -327,7 +334,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public async Task Configuration_IgnoreAlways_Id()
         {
-            await Verifier.Verify(GraphModel
+            await Verify(GraphModel
                 .FromBaseTypes<Vertex, Edge>(lookup => lookup
                     .IncludeAssembliesOfBaseTypes())
                 .ConfigureProperties(pm => pm
@@ -341,7 +348,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public async Task Configuration_Unconfigured()
         {
-            await Verifier.Verify(GraphModel
+            await Verify(GraphModel
                 .FromBaseTypes<Vertex, Edge>(lookup => lookup
                     .IncludeAssembliesOfBaseTypes())
                 .PropertiesModel
@@ -363,7 +370,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ConfigureElements(em => em
                     .UseCamelCaseLabels());
 
-            await Verifier.Verify((
+            await Verify((
                 model
                     .VerticesModel
                     .Metadata
@@ -392,7 +399,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ConfigureElements(em => em
                     .UseCamelCaseLabels());
 
-            await Verifier.Verify((
+            await Verify((
                 model
                     .VerticesModel
                     .Metadata
