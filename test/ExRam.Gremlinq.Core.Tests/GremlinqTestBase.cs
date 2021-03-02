@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Collections.Immutable;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 using System.Threading;
-
 using VerifyTests;
 using VerifyXunit;
-
 using Xunit;
 using Xunit.Abstractions;
 
@@ -37,6 +37,11 @@ namespace ExRam.Gremlinq.Core.Tests
 #endif
 
             return settings;
+        }
+
+        public virtual IImmutableList<Func<string, string>> Scrubbers()
+        {
+            return ImmutableList<Func<string, string>>.Empty;
         }
 
         public static GremlinqTestBase Current { get => CurrentTestBase.Value ?? throw new InvalidOperationException(); }

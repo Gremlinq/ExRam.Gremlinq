@@ -1,4 +1,4 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -7,9 +7,6 @@ namespace ExRam.Gremlinq.Core.Tests
 {
     public static class GremlinQueryExtensions
     {
-        private static readonly Regex IdRegex1 = new Regex("(\"id\"\\s*[:,]\\s*{\\s*\"@type\"\\s*:\\s*\"g:Int64\"\\s*,\\s*\"@value\":\\s*)([^\\s{}]+)(\\s*})", RegexOptions.IgnoreCase);
-        private static readonly Regex IdRegex2 = new Regex("\"[0-9a-f]{8}[-]?([0-9a-f]{4}[-]?){3}[0-9a-f]{12}([|]PartitionKey)?\"", RegexOptions.IgnoreCase);
-
         public static async Task Verify<TElement>(this IGremlinQueryBase<TElement> query)
         {
             var testBase = GremlinqTestBase.Current;
@@ -29,13 +26,9 @@ namespace ExRam.Gremlinq.Core.Tests
                         .ToArrayAsync(),
                     Formatting.Indented);
 
-                var serialized = testBase is QueryIntegrationTest
-                    ? IdRegex2.Replace(
-                        IdRegex1.Replace(
-                            data,
-                            "$1\"scrubbed id\"$3"),
-                        "\"scrubbed id\"")
-                    : data;
+                var serialized = testBase
+                    .Scrubbers()
+                    .Aggregate(data, (s, func) => func(s));
 
                 await testBase.Verify(serialized);
             }
