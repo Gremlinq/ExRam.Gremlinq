@@ -225,7 +225,7 @@ namespace ExRam.Gremlinq.Core
 
                 var ret = jToken.ToObject(type, populatingSerializer);
 
-                if (!(ret is JToken) && jToken is JObject element)
+                if (ret is not JToken && ret is not IProperty && jToken is JObject element)
                 {
                     var ignoringSerializer = env
                         .GetCache()
