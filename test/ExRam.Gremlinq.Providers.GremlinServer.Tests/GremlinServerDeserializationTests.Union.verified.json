@@ -15,7 +15,7 @@
       "Id": "scrubbed id",
       "Label": "LocalizableDescription",
       "Properties": {
-        "key": "value"
+        "someKey": "value"
       },
       "Value": "",
       "Key": null
@@ -31,7 +31,7 @@
       "Id": "scrubbed id",
       "Label": "LocalizableDescription",
       "Properties": {
-        "key": "value"
+        "someKey": "value"
       },
       "Value": "",
       "Key": null
@@ -47,7 +47,7 @@
       "Id": "scrubbed id",
       "Label": "LocalizableDescription",
       "Properties": {
-        "key": "value"
+        "someKey": "value"
       },
       "Value": "",
       "Key": null
@@ -71,7 +71,7 @@
       "Id": "scrubbed id",
       "Label": "LocalizableDescription",
       "Properties": {
-        "key": "value"
+        "someKey": "value"
       },
       "Value": "",
       "Key": null
