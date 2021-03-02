@@ -3068,7 +3068,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 {
                     Properties = new Dictionary<string, string>
                     {
-                        { "key", "value" }
+                        { "someKey", "value" }
                     }
                 })
                 .Verify();
@@ -3084,7 +3084,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     {
                         Properties = new Dictionary<string, string>
                         {
-                            { "key", "value" }
+                            { "someKey", "value" }
                         }
                     }))
                 .Should()
