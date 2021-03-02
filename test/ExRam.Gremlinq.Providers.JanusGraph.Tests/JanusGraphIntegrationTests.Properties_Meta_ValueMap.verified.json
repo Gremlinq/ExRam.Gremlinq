@@ -25,10 +25,10 @@
           "value": {
             "@type": "g:Map",
             "@value": [
-              "en",
-              "Germany",
               "de",
-              "Deutschland"
+              "Deutschland",
+              "en",
+              "Germany"
             ]
           }
         }

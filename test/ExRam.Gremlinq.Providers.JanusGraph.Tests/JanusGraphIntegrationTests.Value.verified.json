@@ -76,16 +76,6 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 2
-          },
-          "value": "+49"
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
             "@value": 5
           },
           "value": {
@@ -99,9 +89,9 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 1
+            "@value": 2
           },
-          "value": "Aachen"
+          "value": "+49"
         }
       },
       {
@@ -147,17 +137,7 @@
             "@type": "g:Int64",
             "@value": 1
           },
-          "value": "+4912345"
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": "+4923456"
+          "value": "Aachen"
         }
       }
     ]

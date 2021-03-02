@@ -17,9 +17,9 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 10
+            "@value": 7
           },
-          "value": "Language"
+          "value": "Country"
         }
       },
       {
@@ -27,9 +27,9 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 7
+            "@value": 10
           },
-          "value": "Country"
+          "value": "Language"
         }
       },
       {

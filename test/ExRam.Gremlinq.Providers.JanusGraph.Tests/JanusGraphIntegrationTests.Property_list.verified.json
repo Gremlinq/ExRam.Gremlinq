@@ -42,6 +42,38 @@
                           "value",
                           "+4912345"
                         ]
+                      },
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "scrubbed"
+                            }
+                          },
+                          "label",
+                          "PhoneNumbers",
+                          "value",
+                          "+4912345"
+                        ]
+                      },
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "scrubbed"
+                            }
+                          },
+                          "label",
+                          "PhoneNumbers",
+                          "value",
+                          "+4923456"
+                        ]
                       }
                     ]
                   },

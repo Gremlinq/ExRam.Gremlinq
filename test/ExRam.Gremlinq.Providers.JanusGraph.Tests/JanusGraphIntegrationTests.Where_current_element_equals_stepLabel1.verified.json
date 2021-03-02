@@ -97,7 +97,105 @@
               "properties",
               {
                 "@type": "g:Map",
+                "@value": [
+                  "IetfLanguageTag",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "scrubbed"
+                            }
+                          },
+                          "label",
+                          "IetfLanguageTag",
+                          "value",
+                          "en"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
+              "Language",
+              "properties",
+              {
+                "@type": "g:Map",
                 "@value": []
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
+              "Language",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "IetfLanguageTag",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "scrubbed"
+                            }
+                          },
+                          "label",
+                          "IetfLanguageTag",
+                          "value",
+                          "en"
+                        ]
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           }
@@ -319,105 +417,7 @@
               "properties",
               {
                 "@type": "g:Map",
-                "@value": [
-                  "IetfLanguageTag",
-                  {
-                    "@type": "g:List",
-                    "@value": [
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "id",
-                          {
-                            "@type": "janusgraph:RelationIdentifier",
-                            "@value": {
-                              "relationId": "scrubbed"
-                            }
-                          },
-                          "label",
-                          "IetfLanguageTag",
-                          "value",
-                          "en"
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": [
-              "id",
-              {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "label",
-              "Language",
-              "properties",
-              {
-                "@type": "g:Map",
                 "@value": []
-              }
-            ]
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": [
-              "id",
-              {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "label",
-              "Language",
-              "properties",
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "IetfLanguageTag",
-                  {
-                    "@type": "g:List",
-                    "@value": [
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "id",
-                          {
-                            "@type": "janusgraph:RelationIdentifier",
-                            "@value": {
-                              "relationId": "scrubbed"
-                            }
-                          },
-                          "label",
-                          "IetfLanguageTag",
-                          "value",
-                          "en"
-                        ]
-                      }
-                    ]
-                  }
-                ]
               }
             ]
           }

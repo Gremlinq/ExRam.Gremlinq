@@ -23,42 +23,11 @@
               "outVLabel": "Person",
               "inV": {
                 "@type": "g:Int64",
-                "@value": 8328
+                "@value": 8216
               },
               "outV": {
-                "@type": "g:Int64",
-                "@value": 8216
-              }
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Edge",
-            "@value": {
-              "id": {
-                "@type": "janusgraph:RelationIdentifier",
-                "@value": {
-                  "relationId": "scrubbed"
-                }
-              },
-              "label": "LivesIn",
-              "inVLabel": "Country",
-              "outVLabel": "Person",
-              "inV": {
                 "@type": "g:Int64",
                 "@value": 4120
-              },
-              "outV": {
-                "@type": "g:Int64",
-                "@value": 20504
               }
             }
           }
@@ -123,7 +92,38 @@
               "outVLabel": "Person",
               "inV": {
                 "@type": "g:Int64",
-                "@value": 8416
+                "@value": 4200
+              },
+              "outV": {
+                "@type": "g:Int64",
+                "@value": 12456
+              }
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Edge",
+            "@value": {
+              "id": {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "scrubbed"
+                }
+              },
+              "label": "LivesIn",
+              "inVLabel": "Country",
+              "outVLabel": "Person",
+              "inV": {
+                "@type": "g:Int64",
+                "@value": 8296
               },
               "outV": {
                 "@type": "g:Int64",
@@ -141,25 +141,6 @@
             "@value": 1
           },
           "value": {
-            "@type": "g:Vertex",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "label": "Company"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
             "@type": "g:Edge",
             "@value": {
               "id": {
@@ -173,12 +154,31 @@
               "outVLabel": "Person",
               "inV": {
                 "@type": "g:Int64",
-                "@value": 8384
+                "@value": 12312
               },
               "outV": {
                 "@type": "g:Int64",
-                "@value": 4320
+                "@value": 8376
               }
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Vertex",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label": "Company"
             }
           }
         }

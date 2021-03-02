@@ -47,9 +47,9 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 2
+            "@value": 5
           },
-          "value": "CountryCallingCode"
+          "value": "FoundingDate"
         }
       },
       {
@@ -57,9 +57,9 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 5
+            "@value": 2
           },
-          "value": "FoundingDate"
+          "value": "PhoneNumbers"
         }
       },
       {
@@ -77,9 +77,9 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 1
+            "@value": 2
           },
-          "value": "Locations"
+          "value": "CountryCallingCode"
         }
       },
       {
@@ -119,7 +119,7 @@
             "@type": "g:Int64",
             "@value": 1
           },
-          "value": "lang"
+          "value": "Locations"
         }
       },
       {
@@ -127,9 +127,9 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 2
+            "@value": 1
           },
-          "value": "PhoneNumbers"
+          "value": "lang"
         }
       }
     ]

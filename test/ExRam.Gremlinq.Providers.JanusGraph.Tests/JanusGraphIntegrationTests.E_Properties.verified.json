@@ -31,8 +31,11 @@
           "value": {
             "@type": "g:Property",
             "@value": {
-              "key": "Role",
-              "value": "Admin"
+              "key": "From",
+              "value": {
+                "@type": "g:Date",
+                "@value": 1586270616000
+              }
             }
           }
         }
@@ -47,11 +50,8 @@
           "value": {
             "@type": "g:Property",
             "@value": {
-              "key": "From",
-              "value": {
-                "@type": "g:Date",
-                "@value": 1586270616000
-              }
+              "key": "Role",
+              "value": "Admin"
             }
           }
         }

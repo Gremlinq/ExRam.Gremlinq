@@ -20,118 +20,6 @@
                 }
               },
               "label",
-              "Speaks",
-              "properties",
-              {
-                "@type": "g:Map",
-                "@value": []
-              }
-            ]
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": [
-              "id",
-              {
-                "@type": "janusgraph:RelationIdentifier",
-                "@value": {
-                  "relationId": "scrubbed"
-                }
-              },
-              "label",
-              "LivesIn",
-              "properties",
-              {
-                "@type": "g:Map",
-                "@value": []
-              }
-            ]
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": [
-              "id",
-              {
-                "@type": "janusgraph:RelationIdentifier",
-                "@value": {
-                  "relationId": "scrubbed"
-                }
-              },
-              "label",
-              "LivesIn",
-              "properties",
-              {
-                "@type": "g:Map",
-                "@value": []
-              }
-            ]
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": [
-              "id",
-              {
-                "@type": "janusgraph:RelationIdentifier",
-                "@value": {
-                  "relationId": "scrubbed"
-                }
-              },
-              "label",
-              "Speaks",
-              "properties",
-              {
-                "@type": "g:Map",
-                "@value": []
-              }
-            ]
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": [
-              "id",
-              {
-                "@type": "janusgraph:RelationIdentifier",
-                "@value": {
-                  "relationId": "scrubbed"
-                }
-              },
-              "label",
               "LivesIn",
               "properties",
               {
@@ -194,24 +82,164 @@
                 }
               },
               "label",
+              "Speaks",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": []
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "scrubbed"
+                }
+              },
+              "label",
+              "LivesIn",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": []
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "scrubbed"
+                }
+              },
+              "label",
+              "Speaks",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": []
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "scrubbed"
+                }
+              },
+              "label",
               "WorksFor",
               "properties",
               {
                 "@type": "g:Map",
                 "@value": [
-                  "From",
-                  {
-                    "@type": "g:Date",
-                    "@value": 1586270616000
-                  },
                   "To",
                   {
                     "@type": "g:Date",
                     "@value": 1586270616000
                   },
                   "Role",
-                  "Admin"
+                  "Admin",
+                  "From",
+                  {
+                    "@type": "g:Date",
+                    "@value": 1586270616000
+                  }
                 ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "scrubbed"
+                }
+              },
+              "label",
+              "LivesIn",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": []
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "scrubbed"
+                }
+              },
+              "label",
+              "LivesIn",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": []
               }
             ]
           }
@@ -287,34 +315,6 @@
                     "@value": 1586270616000
                   }
                 ]
-              }
-            ]
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": [
-              "id",
-              {
-                "@type": "janusgraph:RelationIdentifier",
-                "@value": {
-                  "relationId": "scrubbed"
-                }
-              },
-              "label",
-              "LivesIn",
-              "properties",
-              {
-                "@type": "g:Map",
-                "@value": []
               }
             ]
           }

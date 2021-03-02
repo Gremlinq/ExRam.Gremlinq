@@ -67,7 +67,7 @@
                           "value",
                           {
                             "@type": "g:Int32",
-                            "@value": 1
+                            "@value": 0
                           }
                         ]
                       }

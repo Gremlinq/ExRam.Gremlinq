@@ -29,7 +29,7 @@
                     "@type": "g:Int64",
                     "@value": "scrubbed id"
                   },
-                  "label": "Language"
+                  "label": "Country"
                 }
               }
             ]
