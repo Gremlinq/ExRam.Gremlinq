@@ -1,59 +1,39 @@
 [
   {
-    "@type": "g:List",
-    "@value": [
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": [
-              "id",
-              {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "label",
-              "Country",
-              "properties",
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "Name",
-                  {
-                    "@type": "g:List",
-                    "@value": [
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "id",
-                          {
-                            "@type": "g:Int64",
-                            "@value": "scrubbed id"
-                          },
-                          "label",
-                          "Name",
-                          "value",
-                          "GER",
-                          "properties",
-                          {
-                            "@type": "g:Map",
-                            "@value": []
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
+    "id": {
+      "@type": "g:Int64",
+      "@value": "scrubbed id"
+    },
+    "label": "Country",
+    "properties": {
+      "@type": "g:Map",
+      "@value": [
+        "Name",
+        {
+          "@type": "g:List",
+          "@value": [
+            {
+              "@type": "g:Map",
+              "@value": [
+                "id",
+                {
+                  "@type": "g:Int64",
+                  "@value": "scrubbed id"
+                },
+                "label",
+                "Name",
+                "value",
+                "GER",
+                "properties",
+                {
+                  "@type": "g:Map",
+                  "@value": []
+                }
+              ]
+            }
+          ]
         }
-      }
-    ]
+      ]
+    }
   }
 ]

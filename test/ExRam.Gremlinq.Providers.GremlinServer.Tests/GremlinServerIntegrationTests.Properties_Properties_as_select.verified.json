@@ -1,39 +1,10 @@
 [
   {
-    "@type": "g:List",
-    "@value": [
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Property",
-            "@value": {
-              "key": "de",
-              "value": "Deutschland"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Property",
-            "@value": {
-              "key": "en",
-              "value": "Germany"
-            }
-          }
-        }
-      }
-    ]
+    "key": "de",
+    "value": "Deutschland"
+  },
+  {
+    "key": "en",
+    "value": "Germany"
   }
 ]

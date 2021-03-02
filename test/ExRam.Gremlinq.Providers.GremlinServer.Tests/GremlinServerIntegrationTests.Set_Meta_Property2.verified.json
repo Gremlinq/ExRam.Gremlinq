@@ -1,67 +1,26 @@
 [
   {
-    "@type": "g:List",
-    "@value": [
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "value": "Marko",
-              "label": "Name"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "value": "Bob",
-              "label": "Name"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "value": "Bob",
-              "label": "Name"
-            }
-          }
-        }
-      }
-    ]
+    "id": {
+      "@type": "g:Int64",
+      "@value": "scrubbed id"
+    },
+    "value": "Marko",
+    "label": "Name"
+  },
+  {
+    "id": {
+      "@type": "g:Int64",
+      "@value": "scrubbed id"
+    },
+    "value": "Bob",
+    "label": "Name"
+  },
+  {
+    "id": {
+      "@type": "g:Int64",
+      "@value": "scrubbed id"
+    },
+    "value": "Bob",
+    "label": "Name"
   }
 ]

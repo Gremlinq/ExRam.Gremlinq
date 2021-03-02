@@ -1,87 +1,34 @@
 [
   {
-    "@type": "g:List",
-    "@value": [
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "value": "+49",
-              "label": "CountryCallingCode"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "value": "GER",
-              "label": "Name"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "value": "GER",
-              "label": "Name"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "value": "+49",
-              "label": "CountryCallingCode"
-            }
-          }
-        }
-      }
-    ]
+    "id": {
+      "@type": "g:Int64",
+      "@value": "scrubbed id"
+    },
+    "value": "+49",
+    "label": "CountryCallingCode"
+  },
+  {
+    "id": {
+      "@type": "g:Int64",
+      "@value": "scrubbed id"
+    },
+    "value": "GER",
+    "label": "Name"
+  },
+  {
+    "id": {
+      "@type": "g:Int64",
+      "@value": "scrubbed id"
+    },
+    "value": "GER",
+    "label": "Name"
+  },
+  {
+    "id": {
+      "@type": "g:Int64",
+      "@value": "scrubbed id"
+    },
+    "value": "+49",
+    "label": "CountryCallingCode"
   }
 ]
