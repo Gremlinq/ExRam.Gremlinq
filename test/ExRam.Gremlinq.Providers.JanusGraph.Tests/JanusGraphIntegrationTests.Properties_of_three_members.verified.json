@@ -40,8 +40,8 @@
                   "relationId": "scrubbed"
                 }
               },
-              "value": "GER",
-              "label": "Name"
+              "value": "+49",
+              "label": "CountryCallingCode"
             }
           }
         }
@@ -62,8 +62,8 @@
                   "relationId": "scrubbed"
                 }
               },
-              "value": "+49",
-              "label": "CountryCallingCode"
+              "value": "GER",
+              "label": "Name"
             }
           }
         }

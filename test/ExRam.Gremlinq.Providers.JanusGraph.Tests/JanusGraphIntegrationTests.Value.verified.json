@@ -7,48 +7,9 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 1
+            "@value": 2
           },
-          "value": {
-            "@type": "gx:Duration",
-            "@value": "PT2H"
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": false
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "gx:Duration",
-            "@value": "PT8H"
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 5
-          },
-          "value": {
-            "@type": "g:Date",
-            "@value": -62135596800000
-          }
+          "value": "+49"
         }
       },
       {
@@ -115,9 +76,12 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 2
+            "@value": 5
           },
-          "value": "+49"
+          "value": {
+            "@type": "g:Date",
+            "@value": -62135596800000
+          }
         }
       },
       {
@@ -125,9 +89,45 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 2
+            "@value": 1
           },
-          "value": "GER"
+          "value": "Aachen"
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "gx:Duration",
+            "@value": "PT2H"
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": false
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "gx:Duration",
+            "@value": "PT8H"
+          }
         }
       },
       {
@@ -155,9 +155,9 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 1
+            "@value": 2
           },
-          "value": "Aachen"
+          "value": "GER"
         }
       }
     ]

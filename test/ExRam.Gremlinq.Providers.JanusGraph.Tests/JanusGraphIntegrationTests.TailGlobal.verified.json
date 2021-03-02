@@ -18,12 +18,12 @@
                 "@value": "scrubbed id"
               },
               "label",
-              "Language",
+              "Country",
               "properties",
               {
                 "@type": "g:Map",
                 "@value": [
-                  "IetfLanguageTag",
+                  "Name",
                   {
                     "@type": "g:List",
                     "@value": [
@@ -38,9 +38,9 @@
                             }
                           },
                           "label",
-                          "IetfLanguageTag",
+                          "Name",
                           "value",
-                          "en"
+                          "GER"
                         ]
                       }
                     ]

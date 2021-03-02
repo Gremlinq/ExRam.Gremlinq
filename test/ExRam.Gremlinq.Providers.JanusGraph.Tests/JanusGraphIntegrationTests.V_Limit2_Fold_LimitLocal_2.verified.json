@@ -19,7 +19,7 @@
                     "@type": "g:Int64",
                     "@value": "scrubbed id"
                   },
-                  "label": "TimeFrame"
+                  "label": "Country"
                 }
               },
               {
@@ -29,7 +29,7 @@
                     "@type": "g:Int64",
                     "@value": "scrubbed id"
                   },
-                  "label": "Company"
+                  "label": "Person"
                 }
               }
             ]

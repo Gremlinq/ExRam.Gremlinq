@@ -7,19 +7,9 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 1
+            "@value": 7
           },
-          "value": "TimeFrame"
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 5
-          },
-          "value": "Company"
+          "value": "Country"
         }
       },
       {
@@ -47,9 +37,19 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 7
+            "@value": 5
           },
-          "value": "Country"
+          "value": "Company"
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": "TimeFrame"
         }
       }
     ]

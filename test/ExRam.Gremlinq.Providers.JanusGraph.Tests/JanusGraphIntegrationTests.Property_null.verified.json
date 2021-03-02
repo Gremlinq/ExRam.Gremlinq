@@ -23,6 +23,28 @@
               {
                 "@type": "g:Map",
                 "@value": [
+                  "Locations",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "scrubbed"
+                            }
+                          },
+                          "label",
+                          "Locations",
+                          "value",
+                          "Aachen"
+                        ]
+                      }
+                    ]
+                  },
                   "FoundingDate",
                   {
                     "@type": "g:List",

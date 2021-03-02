@@ -23,7 +23,7 @@
               {
                 "@type": "g:Map",
                 "@value": [
-                  "FoundingDate",
+                  "Locations",
                   {
                     "@type": "g:List",
                     "@value": [
@@ -38,43 +38,13 @@
                             }
                           },
                           "label",
-                          "FoundingDate",
+                          "Locations",
                           "value",
-                          {
-                            "@type": "g:Date",
-                            "@value": -62135596800000
-                          }
+                          "Aachen"
                         ]
                       }
                     ]
-                  }
-                ]
-              }
-            ]
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": [
-              "id",
-              {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "label",
-              "Company",
-              "properties",
-              {
-                "@type": "g:Map",
-                "@value": [
+                  },
                   "FoundingDate",
                   {
                     "@type": "g:List",
@@ -269,7 +239,7 @@
               {
                 "@type": "g:Map",
                 "@value": [
-                  "Locations",
+                  "FoundingDate",
                   {
                     "@type": "g:List",
                     "@value": [
@@ -284,13 +254,43 @@
                             }
                           },
                           "label",
-                          "Locations",
+                          "FoundingDate",
                           "value",
-                          "Aachen"
+                          {
+                            "@type": "g:Date",
+                            "@value": -62135596800000
+                          }
                         ]
                       }
                     ]
-                  },
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
+              "Company",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
                   "FoundingDate",
                   {
                     "@type": "g:List",

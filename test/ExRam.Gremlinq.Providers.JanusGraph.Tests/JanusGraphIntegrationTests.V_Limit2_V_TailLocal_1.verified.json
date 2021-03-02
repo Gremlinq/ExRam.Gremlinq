@@ -18,12 +18,12 @@
                 "@value": "scrubbed id"
               },
               "label",
-              "TimeFrame",
+              "Country",
               "properties",
               {
                 "@type": "g:Map",
                 "@value": [
-                  "StartTime",
+                  "CountryCallingCode",
                   {
                     "@type": "g:List",
                     "@value": [
@@ -38,59 +38,9 @@
                             }
                           },
                           "label",
-                          "StartTime",
+                          "CountryCallingCode",
                           "value",
-                          {
-                            "@type": "gx:Duration",
-                            "@value": "PT8H"
-                          }
-                        ]
-                      }
-                    ]
-                  },
-                  "Enabled",
-                  {
-                    "@type": "g:List",
-                    "@value": [
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "id",
-                          {
-                            "@type": "janusgraph:RelationIdentifier",
-                            "@value": {
-                              "relationId": "scrubbed"
-                            }
-                          },
-                          "label",
-                          "Enabled",
-                          "value",
-                          false
-                        ]
-                      }
-                    ]
-                  },
-                  "Duration",
-                  {
-                    "@type": "g:List",
-                    "@value": [
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "id",
-                          {
-                            "@type": "janusgraph:RelationIdentifier",
-                            "@value": {
-                              "relationId": "scrubbed"
-                            }
-                          },
-                          "label",
-                          "Duration",
-                          "value",
-                          {
-                            "@type": "gx:Duration",
-                            "@value": "PT2H"
-                          }
+                          "+49"
                         ]
                       }
                     ]
@@ -117,12 +67,12 @@
                 "@value": "scrubbed id"
               },
               "label",
-              "Company",
+              "Person",
               "properties",
               {
                 "@type": "g:Map",
                 "@value": [
-                  "FoundingDate",
+                  "Gender",
                   {
                     "@type": "g:List",
                     "@value": [
@@ -137,12 +87,84 @@
                             }
                           },
                           "label",
-                          "FoundingDate",
+                          "Gender",
+                          "value",
+                          {
+                            "@type": "g:Int32",
+                            "@value": 0
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "RegistrationDate",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "scrubbed"
+                            }
+                          },
+                          "label",
+                          "RegistrationDate",
                           "value",
                           {
                             "@type": "g:Date",
-                            "@value": -62135596800000
+                            "@value": 1586270616000
                           }
+                        ]
+                      }
+                    ]
+                  },
+                  "Age",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "scrubbed"
+                            }
+                          },
+                          "label",
+                          "Age",
+                          "value",
+                          {
+                            "@type": "g:Int32",
+                            "@value": 21
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "Name",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "scrubbed"
+                            }
+                          },
+                          "label",
+                          "Name",
+                          "value",
+                          "Marko"
                         ]
                       }
                     ]

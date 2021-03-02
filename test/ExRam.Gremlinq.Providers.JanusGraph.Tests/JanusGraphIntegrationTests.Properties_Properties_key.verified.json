@@ -9,7 +9,7 @@
             "@type": "g:Int64",
             "@value": 1
           },
-          "value": "en"
+          "value": "de"
         }
       },
       {
@@ -19,7 +19,7 @@
             "@type": "g:Int64",
             "@value": 1
           },
-          "value": "de"
+          "value": "en"
         }
       }
     ]

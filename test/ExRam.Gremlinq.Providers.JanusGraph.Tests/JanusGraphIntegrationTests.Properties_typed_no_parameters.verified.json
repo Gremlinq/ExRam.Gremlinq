@@ -18,272 +18,6 @@
                   "relationId": "scrubbed"
                 }
               },
-              "value": {
-                "@type": "gx:Duration",
-                "@value": "PT2H"
-              },
-              "label": "Duration"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "janusgraph:RelationIdentifier",
-                "@value": {
-                  "relationId": "scrubbed"
-                }
-              },
-              "value": false,
-              "label": "Enabled"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "janusgraph:RelationIdentifier",
-                "@value": {
-                  "relationId": "scrubbed"
-                }
-              },
-              "value": {
-                "@type": "gx:Duration",
-                "@value": "PT8H"
-              },
-              "label": "StartTime"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "janusgraph:RelationIdentifier",
-                "@value": {
-                  "relationId": "scrubbed"
-                }
-              },
-              "value": {
-                "@type": "g:Date",
-                "@value": -62135596800000
-              },
-              "label": "FoundingDate"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "janusgraph:RelationIdentifier",
-                "@value": {
-                  "relationId": "scrubbed"
-                }
-              },
-              "value": {
-                "@type": "g:Int32",
-                "@value": 0
-              },
-              "label": "Age"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "janusgraph:RelationIdentifier",
-                "@value": {
-                  "relationId": "scrubbed"
-                }
-              },
-              "value": {
-                "@type": "g:Int32",
-                "@value": 1
-              },
-              "label": "Gender"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "janusgraph:RelationIdentifier",
-                "@value": {
-                  "relationId": "scrubbed"
-                }
-              },
-              "value": {
-                "@type": "g:Int32",
-                "@value": 0
-              },
-              "label": "Age"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "janusgraph:RelationIdentifier",
-                "@value": {
-                  "relationId": "scrubbed"
-                }
-              },
-              "value": {
-                "@type": "g:Int32",
-                "@value": 0
-              },
-              "label": "Gender"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "janusgraph:RelationIdentifier",
-                "@value": {
-                  "relationId": "scrubbed"
-                }
-              },
-              "value": "Marko",
-              "label": "Name"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "janusgraph:RelationIdentifier",
-                "@value": {
-                  "relationId": "scrubbed"
-                }
-              },
-              "value": {
-                "@type": "g:Date",
-                "@value": 1586270616000
-              },
-              "label": "RegistrationDate"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "janusgraph:RelationIdentifier",
-                "@value": {
-                  "relationId": "scrubbed"
-                }
-              },
-              "value": "en",
-              "label": "lang"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "janusgraph:RelationIdentifier",
-                "@value": {
-                  "relationId": "scrubbed"
-                }
-              },
               "value": "+49",
               "label": "CountryCallingCode"
             }
@@ -356,11 +90,152 @@
                   "relationId": "scrubbed"
                 }
               },
+              "value": "Bob",
+              "label": "Name"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "scrubbed"
+                }
+              },
+              "value": {
+                "@type": "g:Date",
+                "@value": 1586270616000
+              },
+              "label": "RegistrationDate"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "scrubbed"
+                }
+              },
+              "value": "en",
+              "label": "IetfLanguageTag"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "scrubbed"
+                }
+              },
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              },
+              "label": "Age"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "scrubbed"
+                }
+              },
+              "value": {
+                "@type": "g:Int32",
+                "@value": 1
+              },
+              "label": "Gender"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "scrubbed"
+                }
+              },
               "value": {
                 "@type": "g:Date",
                 "@value": -62135596800000
               },
               "label": "FoundingDate"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "scrubbed"
+                }
+              },
+              "value": "Aachen",
+              "label": "Locations"
             }
           }
         }
@@ -431,8 +306,8 @@
                   "relationId": "scrubbed"
                 }
               },
-              "value": "en",
-              "label": "IetfLanguageTag"
+              "value": "+49",
+              "label": "CountryCallingCode"
             }
           }
         }
@@ -475,8 +350,58 @@
                   "relationId": "scrubbed"
                 }
               },
-              "value": "GER",
-              "label": "Name"
+              "value": {
+                "@type": "gx:Duration",
+                "@value": "PT2H"
+              },
+              "label": "Duration"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "scrubbed"
+                }
+              },
+              "value": false,
+              "label": "Enabled"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "scrubbed"
+                }
+              },
+              "value": {
+                "@type": "gx:Duration",
+                "@value": "PT8H"
+              },
+              "label": "StartTime"
             }
           }
         }
@@ -499,6 +424,100 @@
               },
               "value": "en",
               "label": "IetfLanguageTag"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "scrubbed"
+                }
+              },
+              "value": "en",
+              "label": "IetfLanguageTag"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "scrubbed"
+                }
+              },
+              "value": "en",
+              "label": "lang"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "scrubbed"
+                }
+              },
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              },
+              "label": "Age"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "scrubbed"
+                }
+              },
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              },
+              "label": "Gender"
             }
           }
         }
@@ -639,31 +658,6 @@
                 }
               },
               "value": {
-                "@type": "g:Date",
-                "@value": -62135596800000
-              },
-              "label": "FoundingDate"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "janusgraph:RelationIdentifier",
-                "@value": {
-                  "relationId": "scrubbed"
-                }
-              },
-              "value": {
                 "@type": "g:Int32",
                 "@value": 0
               },
@@ -760,8 +754,8 @@
                   "relationId": "scrubbed"
                 }
               },
-              "value": "en",
-              "label": "IetfLanguageTag"
+              "value": "Marko",
+              "label": "Name"
             }
           }
         }
@@ -782,8 +776,33 @@
                   "relationId": "scrubbed"
                 }
               },
-              "value": "+49",
-              "label": "CountryCallingCode"
+              "value": {
+                "@type": "g:Date",
+                "@value": 1586270616000
+              },
+              "label": "RegistrationDate"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "scrubbed"
+                }
+              },
+              "value": "en",
+              "label": "IetfLanguageTag"
             }
           }
         }
@@ -829,8 +848,111 @@
                   "relationId": "scrubbed"
                 }
               },
-              "value": "Aachen",
-              "label": "Locations"
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              },
+              "label": "Age"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "scrubbed"
+                }
+              },
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              },
+              "label": "Gender"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "scrubbed"
+                }
+              },
+              "value": {
+                "@type": "g:Date",
+                "@value": -62135596800000
+              },
+              "label": "FoundingDate"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "scrubbed"
+                }
+              },
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              },
+              "label": "Age"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "scrubbed"
+                }
+              },
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              },
+              "label": "Gender"
             }
           }
         }
@@ -874,204 +996,60 @@
                 }
               },
               "value": {
-                "@type": "g:Int32",
-                "@value": 0
-              },
-              "label": "Age"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "janusgraph:RelationIdentifier",
-                "@value": {
-                  "relationId": "scrubbed"
-                }
-              },
-              "value": {
-                "@type": "g:Int32",
-                "@value": 0
-              },
-              "label": "Gender"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "janusgraph:RelationIdentifier",
-                "@value": {
-                  "relationId": "scrubbed"
-                }
-              },
-              "value": "en",
-              "label": "IetfLanguageTag"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "janusgraph:RelationIdentifier",
-                "@value": {
-                  "relationId": "scrubbed"
-                }
-              },
-              "value": {
-                "@type": "g:Int32",
-                "@value": 0
-              },
-              "label": "Age"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "janusgraph:RelationIdentifier",
-                "@value": {
-                  "relationId": "scrubbed"
-                }
-              },
-              "value": {
-                "@type": "g:Int32",
-                "@value": 0
-              },
-              "label": "Gender"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "janusgraph:RelationIdentifier",
-                "@value": {
-                  "relationId": "scrubbed"
-                }
-              },
-              "value": {
-                "@type": "g:Int32",
-                "@value": 0
-              },
-              "label": "Age"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "janusgraph:RelationIdentifier",
-                "@value": {
-                  "relationId": "scrubbed"
-                }
-              },
-              "value": {
-                "@type": "g:Int32",
-                "@value": 0
-              },
-              "label": "Gender"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "janusgraph:RelationIdentifier",
-                "@value": {
-                  "relationId": "scrubbed"
-                }
-              },
-              "value": "Bob",
-              "label": "Name"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "janusgraph:RelationIdentifier",
-                "@value": {
-                  "relationId": "scrubbed"
-                }
-              },
-              "value": {
                 "@type": "g:Date",
-                "@value": 1586270616000
+                "@value": -62135596800000
               },
-              "label": "RegistrationDate"
+              "label": "FoundingDate"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "scrubbed"
+                }
+              },
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              },
+              "label": "Age"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "scrubbed"
+                }
+              },
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              },
+              "label": "Gender"
             }
           }
         }
@@ -1094,6 +1072,28 @@
               },
               "value": "en",
               "label": "IetfLanguageTag"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "scrubbed"
+                }
+              },
+              "value": "GER",
+              "label": "Name"
             }
           }
         }
