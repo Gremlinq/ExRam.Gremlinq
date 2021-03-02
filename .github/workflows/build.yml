@@ -172,7 +172,6 @@ jobs:
         name: test-cosmosdb-received-snapshots
 
     - name: Rename received files
-      if: failure()
       run: find . -type f -name '*.received.*' | while read FILE ; do newfile="$(echo ${FILE} |sed -e 's/received/verified/')"; mv "${FILE}" "${newfile}"; done 
 
     - name: Create snapshot changes pull request
