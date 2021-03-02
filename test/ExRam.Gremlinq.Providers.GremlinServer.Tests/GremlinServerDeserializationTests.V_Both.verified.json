@@ -50,10 +50,10 @@
       "Id": "scrubbed id",
       "Label": "LocalizableDescription",
       "Properties": {
-        "key": "value"
+        "someKey": "value"
       },
       "Value": "",
-      "Key": "value"
+      "Key": null
     },
     "Id": "scrubbed id",
     "Label": "Country"
@@ -66,10 +66,10 @@
       "Id": "scrubbed id",
       "Label": "LocalizableDescription",
       "Properties": {
-        "key": "value"
+        "someKey": "value"
       },
       "Value": "",
-      "Key": "value"
+      "Key": null
     },
     "Id": "scrubbed id",
     "Label": "Country"
@@ -82,10 +82,10 @@
       "Id": "scrubbed id",
       "Label": "LocalizableDescription",
       "Properties": {
-        "key": "value"
+        "someKey": "value"
       },
       "Value": "",
-      "Key": "value"
+      "Key": null
     },
     "Id": "scrubbed id",
     "Label": "Country"
@@ -125,10 +125,10 @@
       "Id": "scrubbed id",
       "Label": "LocalizableDescription",
       "Properties": {
-        "key": "value"
+        "someKey": "value"
       },
       "Value": "",
-      "Key": "value"
+      "Key": null
     },
     "Id": "scrubbed id",
     "Label": "Country"
@@ -160,10 +160,10 @@
       "Id": "scrubbed id",
       "Label": "LocalizableDescription",
       "Properties": {
-        "key": "value"
+        "someKey": "value"
       },
       "Value": "",
-      "Key": "value"
+      "Key": null
     },
     "Id": "scrubbed id",
     "Label": "Country"
@@ -195,10 +195,10 @@
       "Id": "scrubbed id",
       "Label": "LocalizableDescription",
       "Properties": {
-        "key": "value"
+        "someKey": "value"
       },
       "Value": "",
-      "Key": "value"
+      "Key": null
     },
     "Id": "scrubbed id",
     "Label": "Country"
@@ -257,10 +257,10 @@
       "Id": "scrubbed id",
       "Label": "LocalizableDescription",
       "Properties": {
-        "key": "value"
+        "someKey": "value"
       },
       "Value": "",
-      "Key": "value"
+      "Key": null
     },
     "Id": "scrubbed id",
     "Label": "Country"
