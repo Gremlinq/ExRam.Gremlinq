@@ -51,7 +51,7 @@ jobs:
         path: ./**/ExRam.*.nupkg
         if-no-files-found: error
 
-  test-linux:
+  test-gremlinserver:
     runs-on: ubuntu-latest
 
     services:
@@ -83,13 +83,52 @@ jobs:
       if: failure()
       uses: peter-evans/create-pull-request@v3
       with:
-        commit-message: Fix snapshots.
-        title: Fix snapshots.
-        body: Fix snapshots.
+        commit-message: Update snapshots.
+        title: Update snapshots.
+        body: Update snapshots.
         base: ${{ github.head_ref }}
         branch-suffix: short-commit-hash
 
-  test-windows:
+  test-janusgraph:
+    runs-on: ubuntu-latest
+
+    services:
+      janusgraph:
+        image: janusgraph/janusgraph
+        ports:
+          - 8182:8182
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        ref: ${{ github.head_ref }}
+        fetch-depth: 0
+        submodules: 'true'
+
+    - name: Setup .NET Core ${{ env.DotNetVersion }}
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: ${{ env.DotNetVersion }}
+
+    - name: Test
+      run: dotnet test  --configuration Release --verbosity normal -p:RunJanusGraphIntegrationTests=${{ env.IsForkedRepository == 'false' }}
+
+    - name: Rename received files
+      if: failure()
+      run: find . -type f -name '*.received.*' | while read FILE ; do newfile="$(echo ${FILE} |sed -e 's/received/verified/')"; mv "${FILE}" "${newfile}"; done 
+
+    - name: Create snapshot changes pull request
+      if: failure()
+      uses: peter-evans/create-pull-request@v3
+      with:
+        commit-message: Update snapshots.
+        title: Update snapshots.
+        body: Update snapshots.
+        base: ${{ github.head_ref }}
+        branch-suffix: short-commit-hash
+
+  test-cosmosdb:
     runs-on: windows-latest
 
     steps:
@@ -127,7 +166,7 @@ jobs:
         branch-suffix: short-commit-hash
 
   publish:
-    needs: [ build, test-linux, test-windows ]
+    needs: [ build, test-gremlinserver, test-janusgraph, test-cosmosdb ]
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'push' }}
 
