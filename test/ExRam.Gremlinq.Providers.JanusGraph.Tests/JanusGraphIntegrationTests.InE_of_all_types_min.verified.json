@@ -1,0 +1,325 @@
+[
+  {
+    "@type": "g:List",
+    "@value": [
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "2rv-6e0-8ph-37s"
+                }
+              },
+              "label",
+              "WorksFor",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "To",
+                  {
+                    "@type": "g:Date",
+                    "@value": 1586270616000
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "366-6eo-dg5-388"
+                }
+              },
+              "label",
+              "LivesIn",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": []
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "4rf-6hk-dg5-38o"
+                }
+              },
+              "label",
+              "LivesIn",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": []
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "74d-cq0-8ph-9k8"
+                }
+              },
+              "label",
+              "WorksFor",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "Role",
+                  "Admin",
+                  "From",
+                  {
+                    "@type": "g:Date",
+                    "@value": 1586270616000
+                  },
+                  "To",
+                  {
+                    "@type": "g:Date",
+                    "@value": 1586270616000
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "1l9-38o-3yt-38w"
+                }
+              },
+              "label",
+              "Speaks",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": []
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "1zv-3bs-8ph-3a0"
+                }
+              },
+              "label",
+              "WorksFor",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "To",
+                  {
+                    "@type": "g:Date",
+                    "@value": 1586270616000
+                  },
+                  "From",
+                  {
+                    "@type": "g:Date",
+                    "@value": 1586270616000
+                  },
+                  "Role",
+                  "Admin"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "1zh-38o-dg5-6fs"
+                }
+              },
+              "label",
+              "LivesIn",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": []
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "3yl-6eg-dg5-9lk"
+                }
+              },
+              "label",
+              "LivesIn",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": []
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "1zs-3b4-dg5-crc"
+                }
+              },
+              "label",
+              "LivesIn",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "Since",
+                  {
+                    "@type": "g:Date",
+                    "@value": 1586270616000
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "7wz-j2w-3yt-fx4"
+                }
+              },
+              "label",
+              "Speaks",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": []
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+]
