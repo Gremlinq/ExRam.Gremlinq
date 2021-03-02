@@ -21,16 +21,16 @@ namespace ExRam.Gremlinq.Core.Tests
             }
             else
             {
-                var data = JsonConvert.SerializeObject(
+                var serialized = JsonConvert.SerializeObject(
                     await query
                         .ToArrayAsync(),
                     Formatting.Indented);
 
-                var serialized = testBase
+                var scrubbed = testBase
                     .Scrubbers()
-                    .Aggregate(data, (s, func) => func(s));
+                    .Aggregate(serialized, (s, func) => func(s));
 
-                await testBase.Verify(serialized);
+                await testBase.Verify(scrubbed);
             }
         }
     }
