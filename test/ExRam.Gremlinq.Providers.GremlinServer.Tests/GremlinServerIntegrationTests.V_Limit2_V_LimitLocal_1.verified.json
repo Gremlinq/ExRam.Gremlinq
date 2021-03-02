@@ -68,7 +68,7 @@
                           {
                             "@type": "g:Map",
                             "@value": [
-                              "key",
+                              "someKey",
                               "value"
                             ]
                           }
