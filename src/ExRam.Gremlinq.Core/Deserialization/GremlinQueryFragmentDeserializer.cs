@@ -231,7 +231,7 @@ namespace ExRam.Gremlinq.Core
                         .GetCache()
                         .GetIgnoringJsonSerializer(recurse);
 
-                    if (element.TryGetElementProperties(recurse, env) is { } propertiesToken)
+                    if (element.TryGetElementProperties(env, recurse) is { } propertiesToken)
                         ignoringSerializer.Populate(new JTokenReader(propertiesToken), ret);
                 }
 
@@ -387,7 +387,7 @@ namespace ExRam.Gremlinq.Core
             .Override<JObject>((jObject, type, env, overridden, recurse) =>
             {
                 //@type == "g:Map"
-                return jObject.TryUnmap(recurse, env) is { } unmappedObject
+                return jObject.TryUnmap(env, recurse) is { } unmappedObject
                     ? recurse.TryDeserialize(unmappedObject, type, env)
                     : overridden(jObject, type, env, recurse);
             })
