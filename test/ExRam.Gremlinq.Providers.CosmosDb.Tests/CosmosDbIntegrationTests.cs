@@ -21,7 +21,8 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .UseCosmosDb(builder => builder
                     .At(new Uri("ws://localhost:8901"), "db", "graph")
                     .AuthenticateBy(
-                        "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw=="))),
+                        "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw=="))
+                .UseDeserializer(GremlinQueryExecutionResultDeserializer.Default)),
             testOutputHelper)
         {
             fixture.Create().Wait();
