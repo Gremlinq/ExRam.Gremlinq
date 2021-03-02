@@ -1,0 +1,106 @@
+[
+  {
+    "@type": "g:List",
+    "@value": [
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
+              "TimeFrame",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "StartTime",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "1zt-3bc-hdx"
+                            }
+                          },
+                          "label",
+                          "StartTime",
+                          "value",
+                          {
+                            "@type": "gx:Duration",
+                            "@value": "PT8H"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "Enabled",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "1ll-3bc-glh"
+                            }
+                          },
+                          "label",
+                          "Enabled",
+                          "value",
+                          false
+                        ]
+                      }
+                    ]
+                  },
+                  "Duration",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "17d-3bc-ft1"
+                            }
+                          },
+                          "label",
+                          "Duration",
+                          "value",
+                          {
+                            "@type": "gx:Duration",
+                            "@value": "PT2H"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+]

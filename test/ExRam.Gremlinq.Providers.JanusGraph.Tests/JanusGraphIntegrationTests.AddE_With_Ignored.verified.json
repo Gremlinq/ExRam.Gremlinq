@@ -1,0 +1,41 @@
+[
+  {
+    "@type": "g:List",
+    "@value": [
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "6ce-cts-8ph-9o0"
+                }
+              },
+              "label",
+              "WorksFor",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "To",
+                  {
+                    "@type": "g:Date",
+                    "@value": 1586270616000
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+]

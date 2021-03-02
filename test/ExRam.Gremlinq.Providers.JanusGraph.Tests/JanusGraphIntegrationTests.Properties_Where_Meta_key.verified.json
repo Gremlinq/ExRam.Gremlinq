@@ -1,0 +1,29 @@
+[
+  {
+    "@type": "g:List",
+    "@value": [
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "aou-mb4-iyt"
+                }
+              },
+              "value": "Aachen",
+              "label": "Locations"
+            }
+          }
+        }
+      }
+    ]
+  }
+]
