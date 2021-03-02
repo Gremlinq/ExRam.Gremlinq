@@ -10,7 +10,7 @@
         "key": "value"
       },
       "Value": "",
-      "Key": "value"
+      "Key": null
     },
     "Id": "scrubbed id",
     "Label": "Country"
