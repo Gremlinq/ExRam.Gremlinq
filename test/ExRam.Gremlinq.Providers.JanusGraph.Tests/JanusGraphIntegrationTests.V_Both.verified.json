@@ -1,0 +1,1429 @@
+[
+  {
+    "@type": "g:List",
+    "@value": [
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 3
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
+              "Country",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "CountryCallingCode",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "16u-374-1l1"
+                            }
+                          },
+                          "label",
+                          "CountryCallingCode",
+                          "value",
+                          "+49"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
+              "Person",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "Gender",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "miw-6dc-7wl"
+                            }
+                          },
+                          "label",
+                          "Gender",
+                          "value",
+                          {
+                            "@type": "g:Int32",
+                            "@value": 0
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "RegistrationDate",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "mx4-6dc-cn9"
+                            }
+                          },
+                          "label",
+                          "RegistrationDate",
+                          "value",
+                          {
+                            "@type": "g:Date",
+                            "@value": 1586270616000
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "Age",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "k5k-6dc-745"
+                            }
+                          },
+                          "label",
+                          "Age",
+                          "value",
+                          {
+                            "@type": "g:Int32",
+                            "@value": 21
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "Name",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "ky0-6dc-but"
+                            }
+                          },
+                          "label",
+                          "Name",
+                          "value",
+                          "Marko"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
+              "Person",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "Gender",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "lqg-37k-7wl"
+                            }
+                          },
+                          "label",
+                          "Gender",
+                          "value",
+                          {
+                            "@type": "g:Int32",
+                            "@value": 0
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "RegistrationDate",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "m4o-37k-cn9"
+                            }
+                          },
+                          "label",
+                          "RegistrationDate",
+                          "value",
+                          {
+                            "@type": "g:Date",
+                            "@value": 1586270616000
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "Age",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "iko-37k-745"
+                            }
+                          },
+                          "label",
+                          "Age",
+                          "value",
+                          {
+                            "@type": "g:Int32",
+                            "@value": 21
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "Name",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "jd4-37k-but"
+                            }
+                          },
+                          "label",
+                          "Name",
+                          "value",
+                          "Marko"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
+              "Person",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "Gender",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "dg0-9kw-7wl"
+                            }
+                          },
+                          "label",
+                          "Gender",
+                          "value",
+                          {
+                            "@type": "g:Int32",
+                            "@value": 0
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "RegistrationDate",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "du8-9kw-cn9"
+                            }
+                          },
+                          "label",
+                          "RegistrationDate",
+                          "value",
+                          {
+                            "@type": "g:Date",
+                            "@value": 1586270616000
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "Age",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "bv4-9kw-745"
+                            }
+                          },
+                          "label",
+                          "Age",
+                          "value",
+                          {
+                            "@type": "g:Int32",
+                            "@value": 21
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "Name",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "cnk-9kw-but"
+                            }
+                          },
+                          "label",
+                          "Name",
+                          "value",
+                          "Marko"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
+              "Language",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "IetfLanguageTag",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "16r-36g-35x"
+                            }
+                          },
+                          "label",
+                          "IetfLanguageTag",
+                          "value",
+                          "en"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
+              "Person",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "Gender",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "c93-37c-7wl"
+                            }
+                          },
+                          "label",
+                          "Gender",
+                          "value",
+                          {
+                            "@type": "g:Int32",
+                            "@value": 0
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "RegistrationDate",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "cnb-37c-cn9"
+                            }
+                          },
+                          "label",
+                          "RegistrationDate",
+                          "value",
+                          {
+                            "@type": "g:Date",
+                            "@value": 1586270616000
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "Age",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "ao7-37c-745"
+                            }
+                          },
+                          "label",
+                          "Age",
+                          "value",
+                          {
+                            "@type": "g:Int32",
+                            "@value": 21
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "Name",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "bgn-37c-but"
+                            }
+                          },
+                          "label",
+                          "Name",
+                          "value",
+                          "Marko"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
+              "Person",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "Gender",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "e85-6co-7wl"
+                            }
+                          },
+                          "label",
+                          "Gender",
+                          "value",
+                          {
+                            "@type": "g:Int32",
+                            "@value": 0
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "RegistrationDate",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "emd-6co-cn9"
+                            }
+                          },
+                          "label",
+                          "RegistrationDate",
+                          "value",
+                          {
+                            "@type": "g:Date",
+                            "@value": 1586270616000
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "Age",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "cn9-6co-745"
+                            }
+                          },
+                          "label",
+                          "Age",
+                          "value",
+                          {
+                            "@type": "g:Int32",
+                            "@value": 21
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "Name",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "dfp-6co-but"
+                            }
+                          },
+                          "label",
+                          "Name",
+                          "value",
+                          "Marko"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
+              "Person",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "Gender",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "xzf-6e0-7wl"
+                            }
+                          },
+                          "label",
+                          "Gender",
+                          "value",
+                          {
+                            "@type": "g:Int32",
+                            "@value": 0
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "RegistrationDate",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "ydn-6e0-cn9"
+                            }
+                          },
+                          "label",
+                          "RegistrationDate",
+                          "value",
+                          {
+                            "@type": "g:Date",
+                            "@value": 1586270616000
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "Age",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "sgb-6e0-745"
+                            }
+                          },
+                          "label",
+                          "Age",
+                          "value",
+                          {
+                            "@type": "g:Int32",
+                            "@value": 21
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "Name",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "t8r-6e0-but"
+                            }
+                          },
+                          "label",
+                          "Name",
+                          "value",
+                          "Marko"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
+              "Company",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "FoundingDate",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "16t-36w-5j9"
+                            }
+                          },
+                          "label",
+                          "FoundingDate",
+                          "value",
+                          {
+                            "@type": "g:Date",
+                            "@value": -62135596800000
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
+              "Country",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": []
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
+              "Language",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "IetfLanguageTag",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "1zk-6f4-35x"
+                            }
+                          },
+                          "label",
+                          "IetfLanguageTag",
+                          "value",
+                          "en"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
+              "Country",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": []
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
+              "Country",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": []
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
+              "Company",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "FoundingDate",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "17g-3c0-5j9"
+                            }
+                          },
+                          "label",
+                          "FoundingDate",
+                          "value",
+                          {
+                            "@type": "g:Date",
+                            "@value": -62135596800000
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
+              "Person",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "Gender",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "x6z-388-7wl"
+                            }
+                          },
+                          "label",
+                          "Gender",
+                          "value",
+                          {
+                            "@type": "g:Int32",
+                            "@value": 0
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "RegistrationDate",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "xl7-388-cn9"
+                            }
+                          },
+                          "label",
+                          "RegistrationDate",
+                          "value",
+                          {
+                            "@type": "g:Date",
+                            "@value": 1586270616000
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "Age",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "qvf-388-745"
+                            }
+                          },
+                          "label",
+                          "Age",
+                          "value",
+                          {
+                            "@type": "g:Int32",
+                            "@value": 21
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "Name",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "rnv-388-but"
+                            }
+                          },
+                          "label",
+                          "Name",
+                          "value",
+                          "Marko"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
+              "Country",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "CountryCallingCode",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "554-9j4-1l1"
+                            }
+                          },
+                          "label",
+                          "CountryCallingCode",
+                          "value",
+                          "+49"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
+              "Company",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "FoundingDate",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "551-9ig-5j9"
+                            }
+                          },
+                          "label",
+                          "FoundingDate",
+                          "value",
+                          {
+                            "@type": "g:Date",
+                            "@value": -62135596800000
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
+              "Person",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "Gender",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "yrv-9js-7wl"
+                            }
+                          },
+                          "label",
+                          "Gender",
+                          "value",
+                          {
+                            "@type": "g:Int32",
+                            "@value": 0
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "RegistrationDate",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "z63-9js-cn9"
+                            }
+                          },
+                          "label",
+                          "RegistrationDate",
+                          "value",
+                          {
+                            "@type": "g:Date",
+                            "@value": 1586270616000
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "Age",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "u17-9js-745"
+                            }
+                          },
+                          "label",
+                          "Age",
+                          "value",
+                          {
+                            "@type": "g:Int32",
+                            "@value": 21
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "Name",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "utn-9js-but"
+                            }
+                          },
+                          "label",
+                          "Name",
+                          "value",
+                          "Marko"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+]

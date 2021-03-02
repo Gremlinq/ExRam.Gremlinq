@@ -1,0 +1,188 @@
+[
+  {
+    "@type": "g:List",
+    "@value": [
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Edge",
+            "@value": {
+              "id": {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "3yd-6co-dg5-374"
+                }
+              },
+              "label": "LivesIn",
+              "inVLabel": "Country",
+              "outVLabel": "Person",
+              "inV": {
+                "@type": "g:Int64",
+                "@value": 4144
+              },
+              "outV": {
+                "@type": "g:Int64",
+                "@value": 8232
+              }
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Vertex",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label": "Company"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Edge",
+            "@value": {
+              "id": {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "3yg-6dc-dg5-6c8"
+                }
+              },
+              "label": "LivesIn",
+              "inVLabel": "Country",
+              "outVLabel": "Person",
+              "inV": {
+                "@type": "g:Int64",
+                "@value": 8216
+              },
+              "outV": {
+                "@type": "g:Int64",
+                "@value": 8256
+              }
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Edge",
+            "@value": {
+              "id": {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "1zf-388-dg5-39c"
+                }
+              },
+              "label": "LivesIn",
+              "inVLabel": "Country",
+              "outVLabel": "Person",
+              "inV": {
+                "@type": "g:Int64",
+                "@value": 4224
+              },
+              "outV": {
+                "@type": "g:Int64",
+                "@value": 4184
+              }
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Edge",
+            "@value": {
+              "id": {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "3yj-6e0-dg5-6d4"
+                }
+              },
+              "label": "LivesIn",
+              "inVLabel": "Country",
+              "outVLabel": "Person",
+              "inV": {
+                "@type": "g:Int64",
+                "@value": 8248
+              },
+              "outV": {
+                "@type": "g:Int64",
+                "@value": 8280
+              }
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Vertex",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label": "Company"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Vertex",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label": "Company"
+            }
+          }
+        }
+      }
+    ]
+  }
+]
