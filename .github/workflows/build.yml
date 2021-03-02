@@ -75,6 +75,20 @@ jobs:
     - name: Test
       run: dotnet test  --configuration Release --verbosity normal -p:RunGremlinServerIntegrationTests=${{ env.IsForkedRepository == 'false' }}
 
+    - name: Rename received files
+      if: failure()
+      run: find . -type f -name '*.received.*' | while read FILE ; do newfile="$(echo ${FILE} |sed -e 's/received/verified/')"; mv "${FILE}" "${newfile}"; done 
+
+    - name: Create snapshot changes pull request
+      if: failure()
+      uses: peter-evans/create-pull-request@v3
+      with:
+        commit-message: Fix snapshots.
+        title: Fix snapshots.
+        body: Fix snapshots.
+        base: ${{ github.head_ref }}
+        branch-suffix: short-commit-hash
+
   test-windows:
     runs-on: windows-latest
 
@@ -97,6 +111,20 @@ jobs:
 
     - name: Test
       run: dotnet test  --configuration Release --verbosity normal -p:RunCosmosDbEmulatorIntegrationTests=${{ env.IsForkedRepository == 'false ' }}
+
+    - name: Rename received files
+      if: failure()
+      run: find . -type f -name '*.received.*' | while read FILE ; do newfile="$(echo ${FILE} |sed -e 's/received/verified/')"; mv "${FILE}" "${newfile}"; done 
+
+    - name: Create snapshot changes pull request
+      if: failure()
+      uses: peter-evans/create-pull-request@v3
+      with:
+        commit-message: Fix snapshots.
+        title: Fix snapshots.
+        body: Fix snapshots.
+        base: ${{ github.head_ref }}
+        branch-suffix: short-commit-hash
 
   publish:
     needs: [ build, test-linux, test-windows ]
