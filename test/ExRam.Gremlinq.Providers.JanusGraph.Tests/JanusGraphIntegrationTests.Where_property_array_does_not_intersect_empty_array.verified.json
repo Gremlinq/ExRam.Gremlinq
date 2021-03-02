@@ -1,0 +1,289 @@
+[
+  {
+    "@type": "g:List",
+    "@value": [
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
+              "Company",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "FoundingDate",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "2dd-6bs-5j9"
+                            }
+                          },
+                          "label",
+                          "FoundingDate",
+                          "value",
+                          {
+                            "@type": "g:Date",
+                            "@value": -62135596800000
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
+              "Company",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "FoundingDate",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "16y-380-5j9"
+                            }
+                          },
+                          "label",
+                          "FoundingDate",
+                          "value",
+                          {
+                            "@type": "g:Date",
+                            "@value": -62135596800000
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
+              "Company",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "FoundingDate",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "368-6f4-5j9"
+                            }
+                          },
+                          "label",
+                          "FoundingDate",
+                          "value",
+                          {
+                            "@type": "g:Date",
+                            "@value": -62135596800000
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
+              "Company",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "Locations",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "5jk-cqo-iyt"
+                            }
+                          },
+                          "label",
+                          "Locations",
+                          "value",
+                          "Aachen"
+                        ]
+                      }
+                    ]
+                  },
+                  "FoundingDate",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "55c-cqo-5j9"
+                            }
+                          },
+                          "label",
+                          "FoundingDate",
+                          "value",
+                          {
+                            "@type": "g:Date",
+                            "@value": -62135596800000
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
+              "Company",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "FoundingDate",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "janusgraph:RelationIdentifier",
+                            "@value": {
+                              "relationId": "6qe-cs0-5j9"
+                            }
+                          },
+                          "label",
+                          "FoundingDate",
+                          "value",
+                          {
+                            "@type": "g:Date",
+                            "@value": -62135596800000
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+]

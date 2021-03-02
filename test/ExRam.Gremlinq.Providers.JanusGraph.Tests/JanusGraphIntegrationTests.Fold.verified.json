@@ -1,0 +1,351 @@
+[
+  {
+    "@type": "g:List",
+    "@value": [
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Vertex",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": "scrubbed id"
+                  },
+                  "label": "Language"
+                }
+              },
+              {
+                "@type": "g:Vertex",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": "scrubbed id"
+                  },
+                  "label": "Company"
+                }
+              },
+              {
+                "@type": "g:Vertex",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": "scrubbed id"
+                  },
+                  "label": "Language"
+                }
+              },
+              {
+                "@type": "g:Vertex",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": "scrubbed id"
+                  },
+                  "label": "Language"
+                }
+              },
+              {
+                "@type": "g:Vertex",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": "scrubbed id"
+                  },
+                  "label": "Company"
+                }
+              },
+              {
+                "@type": "g:Vertex",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": "scrubbed id"
+                  },
+                  "label": "Country"
+                }
+              },
+              {
+                "@type": "g:Vertex",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": "scrubbed id"
+                  },
+                  "label": "Person"
+                }
+              },
+              {
+                "@type": "g:Vertex",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": "scrubbed id"
+                  },
+                  "label": "Country"
+                }
+              },
+              {
+                "@type": "g:Vertex",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": "scrubbed id"
+                  },
+                  "label": "Language"
+                }
+              },
+              {
+                "@type": "g:Vertex",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": "scrubbed id"
+                  },
+                  "label": "Person"
+                }
+              },
+              {
+                "@type": "g:Vertex",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": "scrubbed id"
+                  },
+                  "label": "Language"
+                }
+              },
+              {
+                "@type": "g:Vertex",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": "scrubbed id"
+                  },
+                  "label": "Person"
+                }
+              },
+              {
+                "@type": "g:Vertex",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": "scrubbed id"
+                  },
+                  "label": "Company"
+                }
+              },
+              {
+                "@type": "g:Vertex",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": "scrubbed id"
+                  },
+                  "label": "Language"
+                }
+              },
+              {
+                "@type": "g:Vertex",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": "scrubbed id"
+                  },
+                  "label": "Company"
+                }
+              },
+              {
+                "@type": "g:Vertex",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": "scrubbed id"
+                  },
+                  "label": "Person"
+                }
+              },
+              {
+                "@type": "g:Vertex",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": "scrubbed id"
+                  },
+                  "label": "Country"
+                }
+              },
+              {
+                "@type": "g:Vertex",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": "scrubbed id"
+                  },
+                  "label": "TimeFrame"
+                }
+              },
+              {
+                "@type": "g:Vertex",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": "scrubbed id"
+                  },
+                  "label": "Person"
+                }
+              },
+              {
+                "@type": "g:Vertex",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": "scrubbed id"
+                  },
+                  "label": "Language"
+                }
+              },
+              {
+                "@type": "g:Vertex",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": "scrubbed id"
+                  },
+                  "label": "Country"
+                }
+              },
+              {
+                "@type": "g:Vertex",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": "scrubbed id"
+                  },
+                  "label": "Person"
+                }
+              },
+              {
+                "@type": "g:Vertex",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": "scrubbed id"
+                  },
+                  "label": "Person"
+                }
+              },
+              {
+                "@type": "g:Vertex",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": "scrubbed id"
+                  },
+                  "label": "Language"
+                }
+              },
+              {
+                "@type": "g:Vertex",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": "scrubbed id"
+                  },
+                  "label": "Country"
+                }
+              },
+              {
+                "@type": "g:Vertex",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": "scrubbed id"
+                  },
+                  "label": "Country"
+                }
+              },
+              {
+                "@type": "g:Vertex",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": "scrubbed id"
+                  },
+                  "label": "Country"
+                }
+              },
+              {
+                "@type": "g:Vertex",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": "scrubbed id"
+                  },
+                  "label": "Language"
+                }
+              },
+              {
+                "@type": "g:Vertex",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": "scrubbed id"
+                  },
+                  "label": "Person"
+                }
+              },
+              {
+                "@type": "g:Vertex",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": "scrubbed id"
+                  },
+                  "label": "Company"
+                }
+              },
+              {
+                "@type": "g:Vertex",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": "scrubbed id"
+                  },
+                  "label": "Person"
+                }
+              },
+              {
+                "@type": "g:Vertex",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": "scrubbed id"
+                  },
+                  "label": "Person"
+                }
+              },
+              {
+                "@type": "g:Vertex",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": "scrubbed id"
+                  },
+                  "label": "Language"
+                }
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+]

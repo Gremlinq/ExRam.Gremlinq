@@ -1,0 +1,35 @@
+[
+  {
+    "@type": "g:List",
+    "@value": [
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "janusgraph:RelationIdentifier",
+                "@value": {
+                  "relationId": "2s6-3ao-3yt-6gg"
+                }
+              },
+              "label",
+              "Speaks",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": []
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+]
