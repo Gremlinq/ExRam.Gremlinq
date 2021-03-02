@@ -48,7 +48,7 @@ namespace ExRam.Gremlinq.Core
                     ? StepLabel(stepLabel!, stepLabelExpression)
                     : Constant(expression.GetValue() switch
                     {
-                        IEnumerable enumerable when !(enumerable is ICollection) && !model.NativeTypes.Contains(enumerable.GetType()) => enumerable.Cast<object>().ToArray(),
+                        IEnumerable enumerable when enumerable is not ICollection && !model.NativeTypes.Contains(enumerable.GetType()) => enumerable.Cast<object>().ToArray(),
                         { } val => val,
                         _ => null
                     });

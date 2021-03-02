@@ -1130,7 +1130,7 @@ namespace ExRam.Gremlinq.Core
                                 switch (memberSemantics)
                                 {
                                     // x => x.Value == P.xy(...)
-                                    case WellKnownMember.PropertyValue when !(right.GetValue() is StepLabel):
+                                    case WellKnownMember.PropertyValue when right.GetValue() is not StepLabel:
                                         return AddStep(new HasValueStep(effectivePredicate));
                                     case WellKnownMember.PropertyKey:
                                         return Where(__ => __
