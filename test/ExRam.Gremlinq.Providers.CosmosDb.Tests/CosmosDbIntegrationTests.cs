@@ -1,9 +1,10 @@
 ﻿#if RELEASE && NET5_0 && RUNCOSMOSDBEMULATORINTEGRATIONTESTS
 using System;
+using System.Collections.Immutable;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
-
 using Xunit;
 using Xunit.Abstractions;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
@@ -12,6 +13,8 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
     public class CosmosDbIntegrationTests : QueryIntegrationTest, IClassFixture<CosmosDbEmulatorFixture>
     {
+        private static readonly Regex IdRegex2 = new("\"[0-9a-f]{8}[-]?([0-9a-f]{4}[-]?){3}[0-9a-f]{12}([|]PartitionKey)?\"", RegexOptions.IgnoreCase);
+
         public CosmosDbIntegrationTests(CosmosDbEmulatorFixture fixture, ITestOutputHelper testOutputHelper) : base(
             g.ConfigureEnvironment(env => env
                 .AddFakePartitionKey()
@@ -22,6 +25,12 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
             testOutputHelper)
         {
             fixture.Create().Wait();
+        }
+
+        public override IImmutableList<Func<string, string>> Scrubbers()
+        {
+            return base.Scrubbers()
+                .Add(x => IdRegex2.Replace(x, "\"scrubbed id\""));
         }
 
         [Fact(Skip = "Gremlin Query Compilation Error: AddE should follow by a Vertex")]
