@@ -148,6 +148,8 @@ jobs:
     if: always()
     runs-on: ubuntu-latest
     needs: [ test-gremlinserver, test-janusgraph, test-cosmosdb ]
+    env:
+      pr-message: 'Fix snapshots for #${{ github.event.number }}.'
 
     steps:
     - name: Checkout
@@ -176,9 +178,9 @@ jobs:
     - name: Create snapshot changes pull request
       uses: peter-evans/create-pull-request@v3
       with:
-        commit-message: Fix snapshots.
-        title: Fix snapshots.
-        body: Fix snapshots.
+        commit-message: ${{ env.pr-message }}
+        title: ${{ env.pr-message }}
+        body: ${{ env.pr-message }}
         base: ${{ github.head_ref }}
         branch-suffix: short-commit-hash
 
