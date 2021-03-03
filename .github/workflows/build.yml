@@ -83,7 +83,6 @@ jobs:
         path: ./**/*.received.*
 
   test-janusgraph:
-    if: ${{ false }}
     runs-on: ubuntu-latest
 
     services:
@@ -184,7 +183,7 @@ jobs:
         branch-suffix: short-commit-hash
 
   publish:
-    needs: [ build, test-gremlinserver, test-cosmosdb ]     #TODO: add test-janusgraph
+    needs: [ build, test-gremlinserver, test-janusgraph, test-cosmosdb ]
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'push' }}
 
