@@ -22,7 +22,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             var anon = g.ConfigureEnvironment(_ => _).V().AsAdmin();
 
-            var interfaces = typeof(GremlinQuery)
+            var interfaces = typeof(IGremlinQueryBase)
                 .Assembly
                 .GetTypes()
                 .Where(iface => iface.IsInterface)
