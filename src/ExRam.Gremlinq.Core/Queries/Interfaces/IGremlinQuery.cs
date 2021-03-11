@@ -97,6 +97,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery Choose<TTargetQuery>(Func<IChooseBuilder<TSelf>, IChooseBuilderWithCaseOrDefault<TTargetQuery>> continuation) where TTargetQuery : IGremlinQueryBase;
 
         TTargetQuery Coalesce<TTargetQuery>(params Func<TSelf, TTargetQuery>[] traversals) where TTargetQuery : IGremlinQueryBase;
+        IValueGremlinQuery<object> Coalesce(params Func<TSelf, IGremlinQueryBase>[] traversals);
 
         TSelf CyclicPath();
 
