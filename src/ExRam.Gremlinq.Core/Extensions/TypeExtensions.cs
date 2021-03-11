@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace ExRam.Gremlinq.Core
 {
-    internal static class TypeExtensions
+    public static class TypeExtensions
     {
-        public static IEnumerable<Type> GetTypeHierarchy(this Type type)
+        internal static IEnumerable<Type> GetTypeHierarchy(this Type type)
         {
             var currentType = (Type?)type;
 
@@ -18,22 +18,41 @@ namespace ExRam.Gremlinq.Core
 
         public static QuerySemantics? TryGetQuerySemantics(this Type type)
         {
+            var typeName = type.Name;
             var semantics = default(QuerySemantics?);
-            var containsEdge = type.Name.Contains("Edge");
-            var containsValue = type.Name.Contains("Value");
-            var containsVertex = type.Name.Contains("Vertex");
-            var containsProperty = type.Name.Contains("Property");
 
-            if (containsValue)
-                semantics = QuerySemantics.Value;
-            else if (containsVertex && containsProperty)
-                semantics = QuerySemantics.VertexProperty;
-            else if (containsVertex && !containsEdge)
-                semantics = QuerySemantics.Vertex;
-            else if (containsProperty)
-                semantics = QuerySemantics.Property;
-            else if (containsEdge && !containsVertex)
-                semantics = QuerySemantics.Edge;
+            if (typeName.Contains("Query"))
+            {
+                if (typeName.Contains("Value"))
+                    semantics = QuerySemantics.Value;
+                else if (typeName.Contains("Element"))
+                    semantics = QuerySemantics.Element;
+                else
+                {
+                    var containsVertex = typeName.Contains("Vertex");
+                    var containsProperty = typeName.Contains("Property");
+
+                    if (containsProperty)
+                    {
+                        semantics = containsVertex
+                            ? QuerySemantics.VertexProperty
+                            : QuerySemantics.Property;
+                    }
+                    else
+                    {
+                        var containsEdge = typeName.Contains("Edge");
+
+                        if (containsVertex)
+                        {
+                            semantics = containsEdge
+                                ? QuerySemantics.EdgeOrVertex
+                                : QuerySemantics.Vertex;
+                        }
+                        else if (containsEdge)
+                            semantics = QuerySemantics.Edge;
+                    }
+                }
+            }
 
             return semantics;
         }
