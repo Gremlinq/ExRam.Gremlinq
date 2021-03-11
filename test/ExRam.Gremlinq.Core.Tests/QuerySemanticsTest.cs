@@ -2,12 +2,15 @@
 using System.Threading.Tasks;
 using VerifyXunit;
 using Xunit;
+using Xunit.Abstractions;
+
+using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public class QuerySemanticsTest : VerifyBase
+    public class QuerySemanticsTest : GremlinqTestBase
     {
-        public QuerySemanticsTest() : base()
+        public QuerySemanticsTest(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
 
         }
@@ -20,6 +23,19 @@ namespace ExRam.Gremlinq.Core.Tests
                 .GetTypes()
                 .Where(x => x.IsInterface)
                 .ToDictionary(x => x, x => x.TryGetQuerySemantics()));
+        }
+
+        [Fact]
+        public virtual Task Coalesce_with_2_subQueries_has_right_type()
+        {
+            return Verify(g
+                .ConfigureEnvironment(_ => _)
+                .V()
+                .Coalesce(
+                    _ => _.Out(),
+                    _ => _.In())
+                .AsAdmin()
+                .Semantics);
         }
     }
 }
