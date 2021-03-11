@@ -251,6 +251,8 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<TElement> IGremlinQueryBaseRec<IGremlinQuery<TElement>>.Mute() => Mute();
 
+        QuerySemantics IGremlinQueryAdmin.Semantics => Semantics;
+
         TTargetQuery IGremlinQueryAdmin.ConfigureSteps<TTargetQuery>(Func<IImmutableStack<Step>, IImmutableStack<Step>> transformation) => ConfigureSteps<TElement>(transformation).ChangeQueryType<TTargetQuery>(false);
 
         TTargetQuery IGremlinQueryAdmin.AddStep<TTargetQuery>(Step step) => AddStep(step).ChangeQueryType<TTargetQuery>();
