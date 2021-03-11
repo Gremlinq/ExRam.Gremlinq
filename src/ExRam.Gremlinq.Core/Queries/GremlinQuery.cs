@@ -537,9 +537,16 @@ namespace ExRam.Gremlinq.Core
                 .Select(traversal => Continue(traversal))
                 .ToArray();
 
-            return (coalesceQueries.All(x => x.IsIdentity())
-                ? this
-                : AddStep(new CoalesceStep(coalesceQueries.Select(x => x.ToTraversal()).ToImmutableArray()), QuerySemantics.Value)).ChangeQueryType<TTargetQuery>();
+            if (coalesceQueries.All(x => x.IsIdentity()))
+                return this.ChangeQueryType<TTargetQuery>();
+
+            var aggregatedSemantics = coalesceQueries
+                .Select(x => x.AsAdmin().Semantics)
+                .Aggregate((x, y) => x & y);
+
+            return this
+                .AddStep(new CoalesceStep(coalesceQueries.Select(x => x.ToTraversal()).ToImmutableArray()))
+                .ChangeQueryType<TTargetQuery>(aggregatedSemantics);
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Coin(double probability) => AddStep(new CoinStep(probability));

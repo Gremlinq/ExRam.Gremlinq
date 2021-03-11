@@ -80,6 +80,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IGremlinQueryBaseRec<TElement, IGremlinQuery<TElement>>.Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<IGremlinQuery<TElement>, TTargetQuery> trueChoice) => Choose(predicate, trueChoice);
 
         TTargetQuery IGremlinQueryBaseRec<IGremlinQuery<TElement>>.Coalesce<TTargetQuery>(params Func<IGremlinQuery<TElement>, TTargetQuery>[] traversals) => Coalesce(traversals);
+        IValueGremlinQuery<object> IGremlinQueryBaseRec<IGremlinQuery<TElement>>.Coalesce(params Func<IGremlinQuery<TElement>, IGremlinQueryBase>[] traversals) => Coalesce(traversals).AsAdmin().ChangeQueryType<IValueGremlinQuery<object>>();
 
         IGremlinQuery<TElement> IGremlinQueryBaseRec<IGremlinQuery<TElement>>.Coin(double probability) => Coin(probability);
 
@@ -177,6 +178,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IGremlinQueryBaseRec<TElement, IValueGremlinQuery<TElement>>.Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<IValueGremlinQuery<TElement>, TTargetQuery> trueChoice) => Choose(predicate, trueChoice);
 
         TTargetQuery IGremlinQueryBaseRec<IValueGremlinQuery<TElement>>.Coalesce<TTargetQuery>(params Func<IValueGremlinQuery<TElement>, TTargetQuery>[] traversals) => Coalesce(traversals);
+        IValueGremlinQuery<object> IGremlinQueryBaseRec<IValueGremlinQuery<TElement>>.Coalesce(params Func<IValueGremlinQuery<TElement>, IGremlinQueryBase>[] traversals) => Coalesce(traversals).AsAdmin().ChangeQueryType<IValueGremlinQuery<object>>();
 
         IValueGremlinQuery<TElement> IGremlinQueryBaseRec<IValueGremlinQuery<TElement>>.Coin(double probability) => Coin(probability);
 
@@ -274,6 +276,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IGremlinQueryBaseRec<TElement, IValueTupleGremlinQuery<TElement>>.Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<IValueTupleGremlinQuery<TElement>, TTargetQuery> trueChoice) => Choose(predicate, trueChoice);
 
         TTargetQuery IGremlinQueryBaseRec<IValueTupleGremlinQuery<TElement>>.Coalesce<TTargetQuery>(params Func<IValueTupleGremlinQuery<TElement>, TTargetQuery>[] traversals) => Coalesce(traversals);
+        IValueGremlinQuery<object> IGremlinQueryBaseRec<IValueTupleGremlinQuery<TElement>>.Coalesce(params Func<IValueTupleGremlinQuery<TElement>, IGremlinQueryBase>[] traversals) => Coalesce(traversals).AsAdmin().ChangeQueryType<IValueGremlinQuery<object>>();
 
         IValueTupleGremlinQuery<TElement> IGremlinQueryBaseRec<IValueTupleGremlinQuery<TElement>>.Coin(double probability) => Coin(probability);
 
@@ -371,6 +374,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IGremlinQueryBaseRec<TElement, IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>, TTargetQuery> trueChoice) => Choose(predicate, trueChoice);
 
         TTargetQuery IGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.Coalesce<TTargetQuery>(params Func<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>, TTargetQuery>[] traversals) => Coalesce(traversals);
+        IValueGremlinQuery<object> IGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.Coalesce(params Func<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>, IGremlinQueryBase>[] traversals) => Coalesce(traversals).AsAdmin().ChangeQueryType<IValueGremlinQuery<object>>();
 
         IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.Coin(double probability) => Coin(probability);
 
@@ -468,6 +472,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IGremlinQueryBaseRec<TElement, IElementGremlinQuery<TElement>>.Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<IElementGremlinQuery<TElement>, TTargetQuery> trueChoice) => Choose(predicate, trueChoice);
 
         TTargetQuery IGremlinQueryBaseRec<IElementGremlinQuery<TElement>>.Coalesce<TTargetQuery>(params Func<IElementGremlinQuery<TElement>, TTargetQuery>[] traversals) => Coalesce(traversals);
+        IValueGremlinQuery<object> IGremlinQueryBaseRec<IElementGremlinQuery<TElement>>.Coalesce(params Func<IElementGremlinQuery<TElement>, IGremlinQueryBase>[] traversals) => Coalesce(traversals).AsAdmin().ChangeQueryType<IValueGremlinQuery<object>>();
 
         IElementGremlinQuery<TElement> IGremlinQueryBaseRec<IElementGremlinQuery<TElement>>.Coin(double probability) => Coin(probability);
 
@@ -565,6 +570,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IGremlinQueryBaseRec<TElement, IEdgeOrVertexGremlinQuery<TElement>>.Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<IEdgeOrVertexGremlinQuery<TElement>, TTargetQuery> trueChoice) => Choose(predicate, trueChoice);
 
         TTargetQuery IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<TElement>>.Coalesce<TTargetQuery>(params Func<IEdgeOrVertexGremlinQuery<TElement>, TTargetQuery>[] traversals) => Coalesce(traversals);
+        IValueGremlinQuery<object> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<TElement>>.Coalesce(params Func<IEdgeOrVertexGremlinQuery<TElement>, IGremlinQueryBase>[] traversals) => Coalesce(traversals).AsAdmin().ChangeQueryType<IValueGremlinQuery<object>>();
 
         IEdgeOrVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<TElement>>.Coin(double probability) => Coin(probability);
 
@@ -662,6 +668,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IGremlinQueryBaseRec<TElement, IVertexGremlinQuery<TElement>>.Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<IVertexGremlinQuery<TElement>, TTargetQuery> trueChoice) => Choose(predicate, trueChoice);
 
         TTargetQuery IGremlinQueryBaseRec<IVertexGremlinQuery<TElement>>.Coalesce<TTargetQuery>(params Func<IVertexGremlinQuery<TElement>, TTargetQuery>[] traversals) => Coalesce(traversals);
+        IValueGremlinQuery<object> IGremlinQueryBaseRec<IVertexGremlinQuery<TElement>>.Coalesce(params Func<IVertexGremlinQuery<TElement>, IGremlinQueryBase>[] traversals) => Coalesce(traversals).AsAdmin().ChangeQueryType<IValueGremlinQuery<object>>();
 
         IVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IVertexGremlinQuery<TElement>>.Coin(double probability) => Coin(probability);
 
@@ -759,6 +766,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IGremlinQueryBaseRec<TElement, IEdgeGremlinQuery<TElement>>.Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<IEdgeGremlinQuery<TElement>, TTargetQuery> trueChoice) => Choose(predicate, trueChoice);
 
         TTargetQuery IGremlinQueryBaseRec<IEdgeGremlinQuery<TElement>>.Coalesce<TTargetQuery>(params Func<IEdgeGremlinQuery<TElement>, TTargetQuery>[] traversals) => Coalesce(traversals);
+        IValueGremlinQuery<object> IGremlinQueryBaseRec<IEdgeGremlinQuery<TElement>>.Coalesce(params Func<IEdgeGremlinQuery<TElement>, IGremlinQueryBase>[] traversals) => Coalesce(traversals).AsAdmin().ChangeQueryType<IValueGremlinQuery<object>>();
 
         IEdgeGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeGremlinQuery<TElement>>.Coin(double probability) => Coin(probability);
 
@@ -856,6 +864,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IGremlinQueryBaseRec<TElement, IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>, TTargetQuery> trueChoice) => Choose(predicate, trueChoice);
 
         TTargetQuery IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.Coalesce<TTargetQuery>(params Func<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>, TTargetQuery>[] traversals) => Coalesce(traversals);
+        IValueGremlinQuery<object> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.Coalesce(params Func<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>, IGremlinQueryBase>[] traversals) => Coalesce(traversals).AsAdmin().ChangeQueryType<IValueGremlinQuery<object>>();
 
         IInOrOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.Coin(double probability) => Coin(probability);
 
@@ -953,6 +962,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IGremlinQueryBaseRec<TElement, IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, TTargetQuery> trueChoice) => Choose(predicate, trueChoice);
 
         TTargetQuery IGremlinQueryBaseRec<IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.Coalesce<TTargetQuery>(params Func<IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, TTargetQuery>[] traversals) => Coalesce(traversals);
+        IValueGremlinQuery<object> IGremlinQueryBaseRec<IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.Coalesce(params Func<IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, IGremlinQueryBase>[] traversals) => Coalesce(traversals).AsAdmin().ChangeQueryType<IValueGremlinQuery<object>>();
 
         IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IGremlinQueryBaseRec<IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.Coin(double probability) => Coin(probability);
 
@@ -1050,6 +1060,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IGremlinQueryBaseRec<TElement, IInEdgeGremlinQuery<TElement, TInVertex>>.Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<IInEdgeGremlinQuery<TElement, TInVertex>, TTargetQuery> trueChoice) => Choose(predicate, trueChoice);
 
         TTargetQuery IGremlinQueryBaseRec<IInEdgeGremlinQuery<TElement, TInVertex>>.Coalesce<TTargetQuery>(params Func<IInEdgeGremlinQuery<TElement, TInVertex>, TTargetQuery>[] traversals) => Coalesce(traversals);
+        IValueGremlinQuery<object> IGremlinQueryBaseRec<IInEdgeGremlinQuery<TElement, TInVertex>>.Coalesce(params Func<IInEdgeGremlinQuery<TElement, TInVertex>, IGremlinQueryBase>[] traversals) => Coalesce(traversals).AsAdmin().ChangeQueryType<IValueGremlinQuery<object>>();
 
         IInEdgeGremlinQuery<TElement, TInVertex> IGremlinQueryBaseRec<IInEdgeGremlinQuery<TElement, TInVertex>>.Coin(double probability) => Coin(probability);
 
@@ -1147,6 +1158,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IGremlinQueryBaseRec<TElement, IOutEdgeGremlinQuery<TElement, TOutVertex>>.Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<IOutEdgeGremlinQuery<TElement, TOutVertex>, TTargetQuery> trueChoice) => Choose(predicate, trueChoice);
 
         TTargetQuery IGremlinQueryBaseRec<IOutEdgeGremlinQuery<TElement, TOutVertex>>.Coalesce<TTargetQuery>(params Func<IOutEdgeGremlinQuery<TElement, TOutVertex>, TTargetQuery>[] traversals) => Coalesce(traversals);
+        IValueGremlinQuery<object> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<TElement, TOutVertex>>.Coalesce(params Func<IOutEdgeGremlinQuery<TElement, TOutVertex>, IGremlinQueryBase>[] traversals) => Coalesce(traversals).AsAdmin().ChangeQueryType<IValueGremlinQuery<object>>();
 
         IOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<TElement, TOutVertex>>.Coin(double probability) => Coin(probability);
 
@@ -1244,6 +1256,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar>>.Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<IVertexPropertyGremlinQuery<TElement, TScalar>, TTargetQuery> trueChoice) => Choose(predicate, trueChoice);
 
         TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Coalesce<TTargetQuery>(params Func<IVertexPropertyGremlinQuery<TElement, TScalar>, TTargetQuery>[] traversals) => Coalesce(traversals);
+        IValueGremlinQuery<object> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Coalesce(params Func<IVertexPropertyGremlinQuery<TElement, TScalar>, IGremlinQueryBase>[] traversals) => Coalesce(traversals).AsAdmin().ChangeQueryType<IValueGremlinQuery<object>>();
 
         IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Coin(double probability) => Coin(probability);
 
@@ -1341,6 +1354,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, TTargetQuery> trueChoice) => Choose(predicate, trueChoice);
 
         TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Coalesce<TTargetQuery>(params Func<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, TTargetQuery>[] traversals) => Coalesce(traversals);
+        IValueGremlinQuery<object> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Coalesce(params Func<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, IGremlinQueryBase>[] traversals) => Coalesce(traversals).AsAdmin().ChangeQueryType<IValueGremlinQuery<object>>();
 
         IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Coin(double probability) => Coin(probability);
 
@@ -1438,6 +1452,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IGremlinQueryBaseRec<TElement, IPropertyGremlinQuery<TElement>>.Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<IPropertyGremlinQuery<TElement>, TTargetQuery> trueChoice) => Choose(predicate, trueChoice);
 
         TTargetQuery IGremlinQueryBaseRec<IPropertyGremlinQuery<TElement>>.Coalesce<TTargetQuery>(params Func<IPropertyGremlinQuery<TElement>, TTargetQuery>[] traversals) => Coalesce(traversals);
+        IValueGremlinQuery<object> IGremlinQueryBaseRec<IPropertyGremlinQuery<TElement>>.Coalesce(params Func<IPropertyGremlinQuery<TElement>, IGremlinQueryBase>[] traversals) => Coalesce(traversals).AsAdmin().ChangeQueryType<IValueGremlinQuery<object>>();
 
         IPropertyGremlinQuery<TElement> IGremlinQueryBaseRec<IPropertyGremlinQuery<TElement>>.Coin(double probability) => Coin(probability);
 
