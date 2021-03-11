@@ -72,7 +72,7 @@ namespace ExRam.Gremlinq.Core
 
                     var stepsParameter = Expression.Parameter(typeof(IImmutableStack<Step>));
                     var environmentParameter = Expression.Parameter(typeof(IGremlinQueryEnvironment));
-                    var semanticsParameter = Expression.Parameter(typeof(QuerySemantics));
+                    var defaultSemanticsParameter = Expression.Parameter(typeof(QuerySemantics));
                     var stepLabelSemanticsParameter = Expression.Parameter(typeof(IImmutableDictionary<StepLabel, QuerySemantics>));
                     var flagsParameter = Expression.Parameter(typeof(QueryFlags));
 
@@ -83,7 +83,7 @@ namespace ExRam.Gremlinq.Core
                                 {
                                     stepsParameter.Type,
                                     environmentParameter.Type,
-                                    semanticsParameter.Type,
+                                    defaultSemanticsParameter.Type,
                                     stepLabelSemanticsParameter.Type,
                                     flagsParameter.Type
                                 })!,
@@ -91,12 +91,12 @@ namespace ExRam.Gremlinq.Core
                                 environmentParameter,
                                 semantics != null
                                     ? (Expression)Expression.Constant(semantics.Value, typeof(QuerySemantics))
-                                    : semanticsParameter,
+                                    : defaultSemanticsParameter,
                                 stepLabelSemanticsParameter,
                                 flagsParameter),
                             stepsParameter,
                             environmentParameter,
-                            semanticsParameter,
+                            defaultSemanticsParameter,
                             stepLabelSemanticsParameter,
                             flagsParameter)
                         .Compile();
