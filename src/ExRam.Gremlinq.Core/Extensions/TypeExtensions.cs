@@ -25,7 +25,7 @@ namespace ExRam.Gremlinq.Core
             var containsProperty = type.Name.Contains("Property");
 
             if (containsValue)
-                semantics = QuerySemantics.None;
+                semantics = QuerySemantics.Value;
             else if (containsVertex && containsProperty)
                 semantics = QuerySemantics.VertexProperty;
             else if (containsVertex && !containsEdge)

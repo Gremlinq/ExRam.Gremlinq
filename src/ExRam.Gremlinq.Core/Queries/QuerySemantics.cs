@@ -3,9 +3,10 @@
     internal enum QuerySemantics
     {
         None = 0,
-        Vertex = 1,
-        Edge = 2,
-        Property = 3,
-        VertexProperty = 4
+        Value = 1,
+        Vertex = 2,
+        Edge = 3,
+        Property = 4,
+        VertexProperty = 5
     }
 }
