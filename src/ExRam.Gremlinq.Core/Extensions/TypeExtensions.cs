@@ -18,18 +18,19 @@ namespace ExRam.Gremlinq.Core
 
         public static QuerySemantics? TryGetQuerySemantics(this Type type)
         {
+            var typeName = type.Name;
             var semantics = default(QuerySemantics?);
 
-            if (type.Name.Contains("Query"))
+            if (typeName.Contains("Query"))
             {
-                if (type.Name.Contains("Value"))
+                if (typeName.Contains("Value"))
                     semantics = QuerySemantics.Value;
-                else if (type.Name.Contains("Element"))
+                else if (typeName.Contains("Element"))
                     semantics = QuerySemantics.Element;
                 else
                 {
-                    var containsVertex = type.Name.Contains("Vertex");
-                    var containsProperty = type.Name.Contains("Property");
+                    var containsVertex = typeName.Contains("Vertex");
+                    var containsProperty = typeName.Contains("Property");
 
                     if (containsProperty)
                     {
@@ -39,7 +40,7 @@ namespace ExRam.Gremlinq.Core
                     }
                     else
                     {
-                        var containsEdge = type.Name.Contains("Edge");
+                        var containsEdge = typeName.Contains("Edge");
 
                         if (containsVertex)
                         {
