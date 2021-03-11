@@ -4,7 +4,6 @@ using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
 {
-    //TODO: Generic restrictions!
     public interface IOrderBuilder<out TSourceQuery>
         where TSourceQuery : IGremlinQueryBase
     {

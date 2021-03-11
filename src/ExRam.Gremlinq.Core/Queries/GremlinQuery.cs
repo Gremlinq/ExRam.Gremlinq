@@ -1154,7 +1154,7 @@ namespace ExRam.Gremlinq.Core
                             {
                                 // x => x.Name.Value == P.xy(...)
                                 if (memberSemantics == WellKnownMember.PropertyValue)
-                                    leftMemberExpression = leftLeftMemberExpression;    //TODO: What else ?
+                                    leftMemberExpression = leftLeftMemberExpression;
                             }
                             else
                                 break;
@@ -1215,7 +1215,6 @@ namespace ExRam.Gremlinq.Core
                 {
                     var ret = AddStep(new WhereStepLabelAndPredicateStep(leftStepLabel, effectivePredicate));
 
-                    //TODO: What if x < x.Value.Prop ? i.e only one by operator?
                     if (left.Expression is MemberExpression leftStepValueExpression)
                         ret = ret.AddStep(new WherePredicateStep.ByMemberStep(GetKey(leftStepValueExpression)));
 
