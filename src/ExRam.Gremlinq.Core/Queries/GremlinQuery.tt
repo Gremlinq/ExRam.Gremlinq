@@ -45,6 +45,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IGremlinQueryBaseRec<TElement, <#= iface #>>.Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<<#= iface #>, TTargetQuery> trueChoice) => Choose(predicate, trueChoice);
 
         TTargetQuery IGremlinQueryBaseRec<<#= iface #>>.Coalesce<TTargetQuery>(params Func<<#= iface #>, TTargetQuery>[] traversals) => Coalesce(traversals);
+        IValueGremlinQuery<object> IGremlinQueryBaseRec<<#= iface #>>.Coalesce(params Func<<#= iface #>, IGremlinQueryBase>[] traversals) => Coalesce(traversals).AsAdmin().ChangeQueryType<IValueGremlinQuery<object>>();
 
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Coin(double probability) => Coin(probability);
 
