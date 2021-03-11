@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Immutable;
+using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -50,7 +51,7 @@ namespace ExRam.Gremlinq.Core
                 targetQueryType,
                 closureType =>
                 {
-                    var semantics = closureType.GetQuerySemantics();
+                    var semantics = closureType.TryGetQuerySemantics();
 
                     var elementType = GetMatchingType(closureType, "TElement", "TVertex", "TEdge", "TProperty", "TArray") ?? typeof(object);
                     var outVertexType = GetMatchingType(closureType, "TOutVertex", "TAdjacentVertex");

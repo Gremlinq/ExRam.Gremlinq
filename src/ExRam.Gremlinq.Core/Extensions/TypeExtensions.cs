@@ -16,7 +16,7 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        public static QuerySemantics? GetQuerySemantics(this Type type)
+        public static QuerySemantics? TryGetQuerySemantics(this Type type)
         {
             var semantics = default(QuerySemantics?);
             var containsEdge = type.Name.Contains("Edge");
