@@ -22,21 +22,35 @@ namespace ExRam.Gremlinq.Core
 
             if (type.Name.Contains("Query"))
             {
-                var containsEdge = type.Name.Contains("Edge");
-                var containsValue = type.Name.Contains("Value");
-                var containsVertex = type.Name.Contains("Vertex");
-                var containsProperty = type.Name.Contains("Property");
-
-                if (containsValue)
+                if (type.Name.Contains("Value"))
                     semantics = QuerySemantics.Value;
-                else if (containsVertex && containsProperty)
-                    semantics = QuerySemantics.VertexProperty;
-                else if (containsVertex && !containsEdge)
-                    semantics = QuerySemantics.Vertex;
-                else if (containsProperty)
-                    semantics = QuerySemantics.Property;
-                else if (containsEdge && !containsVertex)
-                    semantics = QuerySemantics.Edge;
+                else if (type.Name.Contains("Element"))
+                    semantics = QuerySemantics.Element;
+                else
+                {
+                    var containsVertex = type.Name.Contains("Vertex");
+                    var containsProperty = type.Name.Contains("Property");
+
+                    if (containsProperty)
+                    {
+                        semantics = containsVertex
+                            ? QuerySemantics.VertexProperty
+                            : QuerySemantics.Property;
+                    }
+                    else
+                    {
+                        var containsEdge = type.Name.Contains("Edge");
+
+                        if (containsVertex)
+                        {
+                            semantics = containsEdge
+                                ? QuerySemantics.EdgeOrVertex
+                                : QuerySemantics.Vertex;
+                        }
+                        else if (containsEdge)
+                            semantics = QuerySemantics.Edge;
+                    }
+                }
             }
 
             return semantics;
