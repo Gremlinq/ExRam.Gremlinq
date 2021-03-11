@@ -80,7 +80,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Where(x => x.Age > 36)
                 .Out<LivesIn>()
                 .OfType<Country>()
-                .Debug());
+                .Debug(GroovyFormatting.AllowInlining, false));
         }
     }
 }

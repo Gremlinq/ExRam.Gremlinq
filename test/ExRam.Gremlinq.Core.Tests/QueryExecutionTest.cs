@@ -3784,7 +3784,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Invoking(x => x
                     .Where(y => y != null)
-                    .Debug())
+                    .Debug(GroovyFormatting.AllowInlining, false))
                 .Should()
                 .Throw<NotSupportedException>();
         }

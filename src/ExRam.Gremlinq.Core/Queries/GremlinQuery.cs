@@ -9,6 +9,7 @@ using System.Linq.Expressions;
 using ExRam.Gremlinq.Core.GraphElements;
 using Gremlin.Net.Process.Traversal;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -554,6 +555,17 @@ namespace ExRam.Gremlinq.Core
             Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> environmentTransformation) => new(stepsTransformation(Steps), environmentTransformation(Environment), Semantics, StepLabelSemantics, Flags);
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> CyclicPath() => AddStep(new CyclicPathStep());
+
+        private string Debug(GroovyFormatting groovyFormatting, bool indented)
+        {
+            return JsonConvert.SerializeObject(
+                Environment.Serializer
+                    .ToGroovy(groovyFormatting)
+                    .Serialize(this),
+                indented
+                    ? Formatting.Indented
+                    : Formatting.None);
+        }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> DedupGlobal() => AddStep(DedupStep.Global);
 
