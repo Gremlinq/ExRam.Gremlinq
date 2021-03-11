@@ -1,6 +1,6 @@
 ﻿namespace ExRam.Gremlinq.Core
 {
-    internal enum QuerySemantics
+    public enum QuerySemantics
     {
         None = 0,
         Value = 1,

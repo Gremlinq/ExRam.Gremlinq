@@ -1497,6 +1497,15 @@ namespace ExRam.Gremlinq.Core
         QueryOnly = 0,
         IncludeBindings = 1,
     }
+    public enum QuerySemantics
+    {
+        None = 0,
+        Value = 1,
+        Vertex = 2,
+        Edge = 3,
+        Property = 4,
+        VertexProperty = 5,
+    }
     public sealed class RangeStep : ExRam.Gremlinq.Core.Step
     {
         public RangeStep(long lower, long upper, Gremlin.Net.Process.Traversal.Scope scope) { }
@@ -1606,6 +1615,10 @@ namespace ExRam.Gremlinq.Core
         public static ExRam.Gremlinq.Core.Traversal op_Implicit(ExRam.Gremlinq.Core.Step step) { }
         public static ExRam.Gremlinq.Core.Traversal op_Implicit(ExRam.Gremlinq.Core.Step[] steps) { }
         public static ExRam.Gremlinq.Core.Traversal op_Implicit(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Step> steps) { }
+    }
+    public static class TypeExtensions
+    {
+        public static ExRam.Gremlinq.Core.QuerySemantics? TryGetQuerySemantics(this System.Type type) { }
     }
     public sealed class UnfoldStep : ExRam.Gremlinq.Core.Step
     {
