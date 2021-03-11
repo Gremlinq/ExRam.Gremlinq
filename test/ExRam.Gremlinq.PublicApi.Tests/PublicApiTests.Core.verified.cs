@@ -659,6 +659,7 @@ namespace ExRam.Gremlinq.Core
     {
         System.Type ElementType { get; }
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment Environment { get; }
+        ExRam.Gremlinq.Core.QuerySemantics Semantics { get; }
         System.Collections.Immutable.IImmutableStack<ExRam.Gremlinq.Core.Step> Steps { get; }
         TTargetQuery AddStep<TTargetQuery>(ExRam.Gremlinq.Core.Step step)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
@@ -1497,6 +1498,17 @@ namespace ExRam.Gremlinq.Core
         QueryOnly = 0,
         IncludeBindings = 1,
     }
+    public enum QuerySemantics
+    {
+        None = 0,
+        Value = 1,
+        Element = 2,
+        EdgeOrVertex = 3,
+        Vertex = 4,
+        Edge = 5,
+        Property = 6,
+        VertexProperty = 7,
+    }
     public sealed class RangeStep : ExRam.Gremlinq.Core.Step
     {
         public RangeStep(long lower, long upper, Gremlin.Net.Process.Traversal.Scope scope) { }
@@ -1606,6 +1618,10 @@ namespace ExRam.Gremlinq.Core
         public static ExRam.Gremlinq.Core.Traversal op_Implicit(ExRam.Gremlinq.Core.Step step) { }
         public static ExRam.Gremlinq.Core.Traversal op_Implicit(ExRam.Gremlinq.Core.Step[] steps) { }
         public static ExRam.Gremlinq.Core.Traversal op_Implicit(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Step> steps) { }
+    }
+    public static class TypeExtensions
+    {
+        public static ExRam.Gremlinq.Core.QuerySemantics? TryGetQuerySemantics(this System.Type type) { }
     }
     public sealed class UnfoldStep : ExRam.Gremlinq.Core.Step
     {

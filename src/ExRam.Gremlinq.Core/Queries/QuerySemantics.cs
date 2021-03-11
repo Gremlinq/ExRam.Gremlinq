@@ -1,12 +1,14 @@
 ﻿namespace ExRam.Gremlinq.Core
 {
-    internal enum QuerySemantics
+    public enum QuerySemantics
     {
         None = 0,
         Value = 1,
-        Vertex = 2,
-        Edge = 3,
-        Property = 4,
-        VertexProperty = 5
+        Element = 2,
+        EdgeOrVertex = 3,
+        Vertex = 4,
+        Edge = 5,
+        Property = 6,
+        VertexProperty = 7
     }
 }
