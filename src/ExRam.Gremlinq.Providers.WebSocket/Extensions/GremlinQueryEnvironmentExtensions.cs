@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Providers.WebSocket;
@@ -19,6 +20,8 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class WebSocketGremlinQueryExecutor : IGremlinQueryExecutor, IDisposable
         {
+            private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, Action<object, Guid>> Loggers = new();
+
             private readonly string _alias;
             private readonly Dictionary<string, string> _aliasArgs;
             private readonly Lazy<Task<IGremlinClient>> _lazyGremlinClient;
@@ -67,7 +70,11 @@ namespace ExRam.Gremlinq.Core
                         var task = client
                             .SubmitAsync<JToken>(requestMessage);
 
-                        Log(serializedQuery, requestMessage.RequestId, environment);
+                        var logger = Loggers.GetValue(
+                            environment,
+                            environment => GetLoggingFunction(environment));
+
+                        logger(serializedQuery, requestMessage.RequestId);
 
                         results = await task
                             .ConfigureAwait(false);
@@ -89,40 +96,41 @@ namespace ExRam.Gremlinq.Core
                 }
             }
 
-            private static void Log(object serializedQuery, Guid requestId, IGremlinQueryEnvironment environment)
+            private static Action<object, Guid> GetLoggingFunction(IGremlinQueryEnvironment environment)
             {
                 var logLevel = environment.Options.GetValue(WebSocketGremlinqOptions.QueryLogLogLevel);
+                var verbosity = environment.Options.GetValue(WebSocketGremlinqOptions.QueryLogVerbosity);
+                var formatting = environment.Options.GetValue(WebSocketGremlinqOptions.QueryLogFormatting);
+                var groovyFormatting = environment.Options.GetValue(WebSocketGremlinqOptions.QueryLogGroovyFormatting);
 
-                if (environment.Logger.IsEnabled(logLevel))
+                return (serializedQuery, requestId) =>
                 {
-                    var groovyFormatting = environment.Options.GetValue(WebSocketGremlinqOptions.QueryLogGroovyFormatting);
-
-                    var gremlinQuery = serializedQuery switch
+                    if (environment.Logger.IsEnabled(logLevel))
                     {
-                        Bytecode bytecode => bytecode.ToGroovy(groovyFormatting),
-                        GroovyGremlinQuery groovyGremlinQuery => groovyFormatting == GroovyFormatting.AllowInlining
-                            ? groovyGremlinQuery.Inline()
-                            : groovyGremlinQuery,
-                        _ => throw new ArgumentException($"Cannot handle serialized query of type {serializedQuery.GetType()}.")
-                    };
+                        var gremlinQuery = serializedQuery switch
+                        {
+                            Bytecode bytecode => bytecode.ToGroovy(groovyFormatting),
+                            GroovyGremlinQuery groovyGremlinQuery => groovyFormatting == GroovyFormatting.AllowInlining
+                                ? groovyGremlinQuery.Inline()
+                                : groovyGremlinQuery,
+                            _ => throw new ArgumentException($"Cannot handle serialized query of type {serializedQuery.GetType()}.")
+                        };
 
-                    var verbosity = environment.Options.GetValue(WebSocketGremlinqOptions.QueryLogVerbosity);
-                    var formatting = environment.Options.GetValue(WebSocketGremlinqOptions.QueryLogFormatting);
-
-                    environment.Logger.Log(
-                        logLevel,
-                        "Executing Gremlin query {0}.",
-                        JsonConvert.SerializeObject(
-                            new
-                            {
-                                RequestId = requestId,
-                                gremlinQuery.Script,
-                                Bindings = (verbosity & QueryLogVerbosity.IncludeBindings) > QueryLogVerbosity.QueryOnly
-                                    ? gremlinQuery.Bindings
-                                    : null
-                            },
-                            formatting));
-                }
+                        environment.Logger.Log(
+                            logLevel,
+                            "Executing Gremlin query {0}.",
+                            JsonConvert.SerializeObject(
+                                new
+                                {
+                                    RequestId = requestId,
+                                    gremlinQuery.Script,
+                                    Bindings = (verbosity & QueryLogVerbosity.IncludeBindings) > QueryLogVerbosity.QueryOnly
+                                        ? gremlinQuery.Bindings
+                                        : null
+                                },
+                                formatting));
+                    }
+                };
             }
         }
 
