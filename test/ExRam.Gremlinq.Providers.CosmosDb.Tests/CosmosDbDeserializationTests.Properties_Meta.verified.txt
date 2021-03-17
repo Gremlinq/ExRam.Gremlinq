@@ -1,18 +1,1 @@
-[
-  {
-    "Id": "scrubbed id",
-    "Label": "Name",
-    "Properties": null,
-    "Value": "GER",
-    "Key": null
-  },
-  {
-    "Id": "scrubbed id",
-    "Label": "Name",
-    "Properties": {
-      "ValidFrom": "0001-01-01T00:00:00+00:00"
-    },
-    "Value": "GER",
-    "Key": null
-  }
-]
+[]

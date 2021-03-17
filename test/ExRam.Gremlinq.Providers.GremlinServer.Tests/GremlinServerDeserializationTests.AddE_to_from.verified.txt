@@ -1,9 +1,1 @@
-[
-  {
-    "Role": "Admin",
-    "From": "2020-04-07T14:43:36Z",
-    "To": "2020-04-07T14:43:36Z",
-    "Id": "scrubbed id",
-    "Label": "WorksFor"
-  }
-]
+[]

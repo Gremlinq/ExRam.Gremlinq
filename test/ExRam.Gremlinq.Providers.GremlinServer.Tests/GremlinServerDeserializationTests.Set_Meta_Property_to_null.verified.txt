@@ -1,16 +1,1 @@
-[
-  {
-    "Id": "scrubbed id",
-    "Label": "Name",
-    "Properties": {},
-    "Value": "GER",
-    "Key": null
-  },
-  {
-    "Id": "scrubbed id",
-    "Label": "Name",
-    "Properties": {},
-    "Value": "GER",
-    "Key": null
-  }
-]
+[]
