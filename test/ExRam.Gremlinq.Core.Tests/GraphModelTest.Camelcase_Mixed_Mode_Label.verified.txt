@@ -1,0 +1,10 @@
+{
+  Item1: {
+    Label: TimeFrame
+  },
+  Item2: {
+    Key: {
+      RawKey: registrationDate
+    }
+  }
+}
