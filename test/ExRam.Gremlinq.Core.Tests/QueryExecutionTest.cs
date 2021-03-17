@@ -848,6 +848,30 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual Task Coalesce_with_2_subQueries()
+        {
+            return _g
+                .ConfigureEnvironment(_ => _)
+                .V()
+                .Coalesce(
+                    _ => _.Out(),
+                    _ => _.In())
+                .Verify();
+        }
+
+        [Fact]
+        public virtual Task Coalesce_with_2_not_matching_subQueries()
+        {
+            return _g
+                .ConfigureEnvironment(_ => _)
+                .V()
+                .Coalesce(
+                    _ => _.OutE(),
+                    _ => _.In())
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task Constant()
         {
             await _g
