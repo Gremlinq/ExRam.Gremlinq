@@ -248,7 +248,7 @@ namespace ExRam.Gremlinq.Core
 
         QuerySemantics IGremlinQueryAdmin.Semantics => Semantics;
 
-        TTargetQuery IGremlinQueryAdmin.ConfigureSteps<TTargetQuery>(Func<IImmutableStack<Step>, IImmutableStack<Step>> transformation) => ConfigureSteps<TElement>(transformation).ChangeQueryType<TTargetQuery>(false);
+        TTargetQuery IGremlinQueryAdmin.ConfigureSteps<TTargetQuery>(Func<IImmutableStack<Step>, IImmutableStack<Step>> transformation) => ConfigureSteps<TElement>(transformation).ChangeQueryType<TTargetQuery>(Semantics);
 
         TTargetQuery IGremlinQueryAdmin.AddStep<TTargetQuery>(Step step) => AddStep(step).ChangeQueryType<TTargetQuery>();
 

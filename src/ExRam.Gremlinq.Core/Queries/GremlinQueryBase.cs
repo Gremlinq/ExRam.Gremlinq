@@ -30,7 +30,7 @@ namespace ExRam.Gremlinq.Core
             StepLabelSemantics = stepLabelSemantics;
         }
 
-        protected TTargetQuery ChangeQueryType<TTargetQuery>(bool eraseSemantics = true)
+        protected TTargetQuery ChangeQueryType<TTargetQuery>(QuerySemantics? forcedSemantics = null)
         {
             var targetQueryType = typeof(TTargetQuery);
 
@@ -79,7 +79,7 @@ namespace ExRam.Gremlinq.Core
                         .Compile();
                 });
 
-            return (TTargetQuery)constructor(Steps, Environment, eraseSemantics ? QuerySemantics.Value : Semantics, StepLabelSemantics, Flags);
+            return (TTargetQuery)constructor(Steps, Environment, forcedSemantics ?? QuerySemantics.Value, StepLabelSemantics, Flags);
         }
 
         private static Expression<Func<IImmutableStack<Step>, IGremlinQueryEnvironment, QuerySemantics, IImmutableDictionary<StepLabel, QuerySemantics>, QueryFlags, IGremlinQueryBase>> GetCreateExpression<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(QuerySemantics? determinedSemantics)
