@@ -1,0 +1,6 @@
+[
+  {
+    "Script": "V().hasLabel('Company').properties('Locations').properties().where(__.key().is('someKey'))",
+    "Bindings": {}
+  }
+]

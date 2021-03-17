@@ -1,0 +1,28 @@
+[
+  {
+    "SourceInstructions": [],
+    "StepInstructions": [
+      {
+        "OperatorName": "V",
+        "Arguments": []
+      },
+      {
+        "OperatorName": "hasLabel",
+        "Arguments": [
+          "Person"
+        ]
+      },
+      {
+        "OperatorName": "properties",
+        "Arguments": []
+      },
+      {
+        "OperatorName": "has",
+        "Arguments": [
+          "MetaKey",
+          "MetaValue"
+        ]
+      }
+    ]
+  }
+]

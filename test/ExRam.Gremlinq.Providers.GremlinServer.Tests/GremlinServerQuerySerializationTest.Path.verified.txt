@@ -1,0 +1,23 @@
+[
+  {
+    "SourceInstructions": [],
+    "StepInstructions": [
+      {
+        "OperatorName": "V",
+        "Arguments": []
+      },
+      {
+        "OperatorName": "out",
+        "Arguments": []
+      },
+      {
+        "OperatorName": "out",
+        "Arguments": []
+      },
+      {
+        "OperatorName": "path",
+        "Arguments": []
+      }
+    ]
+  }
+]

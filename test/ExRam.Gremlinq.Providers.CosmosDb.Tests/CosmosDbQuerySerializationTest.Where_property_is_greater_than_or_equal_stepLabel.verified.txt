@@ -1,0 +1,10 @@
+[
+  {
+    "Script": "V().hasLabel(_a).values(_b).as(_c).V().hasLabel(_a).has(_b, __.where(gte(_c)))",
+    "Bindings": {
+      "_a": "Person",
+      "_b": "Age",
+      "_c": "l1"
+    }
+  }
+]

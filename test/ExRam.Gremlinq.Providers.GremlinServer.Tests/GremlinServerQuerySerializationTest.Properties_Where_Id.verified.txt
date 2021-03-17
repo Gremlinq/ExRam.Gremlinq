@@ -1,0 +1,33 @@
+[
+  {
+    "SourceInstructions": [],
+    "StepInstructions": [
+      {
+        "OperatorName": "V",
+        "Arguments": []
+      },
+      {
+        "OperatorName": "hasLabel",
+        "Arguments": [
+          "Country"
+        ]
+      },
+      {
+        "OperatorName": "properties",
+        "Arguments": [
+          "Languages"
+        ]
+      },
+      {
+        "OperatorName": "has",
+        "Arguments": [
+          {
+            "EnumName": "T",
+            "EnumValue": "id"
+          },
+          "id"
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,3 @@
+[
+  "{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"V\"],[\"limit\",{\"@type\":\"g:Int64\",\"@value\":1}],[\"fold\"],[\"range\",{\"@type\":\"g:Scope\",\"@value\":\"local\"},{\"@type\":\"g:Int64\",\"@value\":0},{\"@type\":\"g:Int64\",\"@value\":1}]]}}"
+]

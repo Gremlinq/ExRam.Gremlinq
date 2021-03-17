@@ -1,0 +1,24 @@
+[
+  {
+    "SourceInstructions": [],
+    "StepInstructions": [
+      {
+        "OperatorName": "V",
+        "Arguments": []
+      },
+      {
+        "OperatorName": "fold",
+        "Arguments": []
+      },
+      {
+        "OperatorName": "dedup",
+        "Arguments": [
+          {
+            "EnumName": "Scope",
+            "EnumValue": "local"
+          }
+        ]
+      }
+    ]
+  }
+]

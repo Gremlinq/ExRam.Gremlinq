@@ -1,0 +1,10 @@
+[
+  {
+    "Item1": null,
+    "Item2": null,
+    "Item3": "someString",
+    "Item4": "someString",
+    "Item5": null,
+    "Item6": null
+  }
+]

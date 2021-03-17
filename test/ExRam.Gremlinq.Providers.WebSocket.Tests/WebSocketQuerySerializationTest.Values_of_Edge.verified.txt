@@ -1,0 +1,23 @@
+[
+  {
+    "SourceInstructions": [],
+    "StepInstructions": [
+      {
+        "OperatorName": "E",
+        "Arguments": []
+      },
+      {
+        "OperatorName": "hasLabel",
+        "Arguments": [
+          "LivesIn"
+        ]
+      },
+      {
+        "OperatorName": "values",
+        "Arguments": [
+          "Since"
+        ]
+      }
+    ]
+  }
+]

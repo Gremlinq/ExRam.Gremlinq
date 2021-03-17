@@ -1,0 +1,11 @@
+[
+  {
+    "Script": "addV(_a).property(_b, _b).property(single, _c, _d)",
+    "Bindings": {
+      "_a": "Language",
+      "_b": "PartitionKey",
+      "_c": "IetfLanguageTag",
+      "_d": "en"
+    }
+  }
+]

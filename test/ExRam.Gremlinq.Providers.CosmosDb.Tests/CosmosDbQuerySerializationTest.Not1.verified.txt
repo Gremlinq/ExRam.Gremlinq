@@ -1,0 +1,8 @@
+[
+  {
+    "Script": "V().not(__.out(_a))",
+    "Bindings": {
+      "_a": "WorksFor"
+    }
+  }
+]

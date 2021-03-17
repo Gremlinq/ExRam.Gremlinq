@@ -1,0 +1,10 @@
+[
+  {
+    "Script": "V().hasLabel(_a).properties(_b).has(label, neq(_c))",
+    "Bindings": {
+      "_a": "Country",
+      "_b": "Languages",
+      "_c": "label"
+    }
+  }
+]

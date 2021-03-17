@@ -1,0 +1,15 @@
+[
+  {
+    "SourceInstructions": [],
+    "StepInstructions": [
+      {
+        "OperatorName": "inject",
+        "Arguments": [
+          36,
+          37,
+          38
+        ]
+      }
+    ]
+  }
+]

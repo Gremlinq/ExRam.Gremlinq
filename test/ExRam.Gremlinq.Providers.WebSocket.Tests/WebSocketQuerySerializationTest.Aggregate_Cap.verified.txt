@@ -1,0 +1,29 @@
+[
+  {
+    "SourceInstructions": [],
+    "StepInstructions": [
+      {
+        "OperatorName": "V",
+        "Arguments": []
+      },
+      {
+        "OperatorName": "hasLabel",
+        "Arguments": [
+          "Person"
+        ]
+      },
+      {
+        "OperatorName": "aggregate",
+        "Arguments": [
+          "l1"
+        ]
+      },
+      {
+        "OperatorName": "cap",
+        "Arguments": [
+          "l1"
+        ]
+      }
+    ]
+  }
+]

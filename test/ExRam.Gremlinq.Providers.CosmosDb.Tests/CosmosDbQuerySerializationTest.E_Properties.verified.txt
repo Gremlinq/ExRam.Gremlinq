@@ -1,0 +1,6 @@
+[
+  {
+    "Script": "E().properties()",
+    "Bindings": {}
+  }
+]

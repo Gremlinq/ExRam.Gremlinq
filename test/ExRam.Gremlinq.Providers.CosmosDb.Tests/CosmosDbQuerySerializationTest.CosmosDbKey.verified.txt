@@ -1,0 +1,12 @@
+[
+  {
+    "Script": "V(_a).hasLabel(_b)",
+    "Bindings": {
+      "_a": [
+        "pk",
+        "id"
+      ],
+      "_b": "Person"
+    }
+  }
+]

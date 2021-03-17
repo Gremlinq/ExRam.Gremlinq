@@ -1,0 +1,6 @@
+[
+  {
+    "Script": "V().fold().sideEffect(__.identity()).unfold()",
+    "Bindings": {}
+  }
+]

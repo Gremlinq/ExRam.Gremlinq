@@ -1,0 +1,29 @@
+[
+  {
+    "SourceInstructions": [],
+    "StepInstructions": [
+      {
+        "OperatorName": "V",
+        "Arguments": []
+      },
+      {
+        "OperatorName": "group",
+        "Arguments": []
+      },
+      {
+        "OperatorName": "by",
+        "Arguments": [
+          {
+            "SourceInstructions": [],
+            "StepInstructions": [
+              {
+                "OperatorName": "label",
+                "Arguments": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,6 @@
+[
+  {
+    "Script": "V().choose(__.values(), __.out())",
+    "Bindings": {}
+  }
+]

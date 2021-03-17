@@ -1,0 +1,6 @@
+[
+  {
+    "Script": "V().hasLabel('Country').properties('Name', 'CountryCallingCode')",
+    "Bindings": {}
+  }
+]

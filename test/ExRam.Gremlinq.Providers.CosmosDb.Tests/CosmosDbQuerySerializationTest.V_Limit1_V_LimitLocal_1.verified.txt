@@ -1,0 +1,8 @@
+[
+  {
+    "Script": "V().limit(_a).limit(local, _a)",
+    "Bindings": {
+      "_a": 1
+    }
+  }
+]

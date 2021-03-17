@@ -1,0 +1,6 @@
+[
+  {
+    "Script": "V().label()",
+    "Bindings": {}
+  }
+]

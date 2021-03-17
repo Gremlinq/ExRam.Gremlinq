@@ -1,0 +1,9 @@
+[
+  {
+    "Script": "V().hasLabel(_a).values(_b).max()",
+    "Bindings": {
+      "_a": "Person",
+      "_b": "Age"
+    }
+  }
+]

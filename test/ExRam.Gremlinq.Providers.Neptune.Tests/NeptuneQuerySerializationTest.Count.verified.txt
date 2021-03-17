@@ -1,0 +1,15 @@
+[
+  {
+    "SourceInstructions": [],
+    "StepInstructions": [
+      {
+        "OperatorName": "V",
+        "Arguments": []
+      },
+      {
+        "OperatorName": "count",
+        "Arguments": []
+      }
+    ]
+  }
+]

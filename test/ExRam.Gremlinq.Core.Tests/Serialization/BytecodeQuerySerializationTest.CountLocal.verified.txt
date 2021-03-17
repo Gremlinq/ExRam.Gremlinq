@@ -1,0 +1,20 @@
+[
+  {
+    "SourceInstructions": [],
+    "StepInstructions": [
+      {
+        "OperatorName": "V",
+        "Arguments": []
+      },
+      {
+        "OperatorName": "count",
+        "Arguments": [
+          {
+            "EnumName": "Scope",
+            "EnumValue": "local"
+          }
+        ]
+      }
+    ]
+  }
+]

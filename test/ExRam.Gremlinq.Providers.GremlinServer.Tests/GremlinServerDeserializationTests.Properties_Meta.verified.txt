@@ -1,0 +1,16 @@
+[
+  {
+    "Id": "scrubbed id",
+    "Label": "Name",
+    "Properties": null,
+    "Value": "GER",
+    "Key": null
+  },
+  {
+    "Id": "scrubbed id",
+    "Label": "Name",
+    "Properties": null,
+    "Value": "GER",
+    "Key": null
+  }
+]

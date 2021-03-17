@@ -1,0 +1,133 @@
+[
+  {
+    "SourceInstructions": [],
+    "StepInstructions": [
+      {
+        "OperatorName": "V",
+        "Arguments": []
+      },
+      {
+        "OperatorName": "hasLabel",
+        "Arguments": [
+          "Person"
+        ]
+      },
+      {
+        "OperatorName": "sideEffect",
+        "Arguments": [
+          {
+            "SourceInstructions": [],
+            "StepInstructions": [
+              {
+                "OperatorName": "properties",
+                "Arguments": [
+                  "Gender",
+                  "RegistrationDate"
+                ]
+              },
+              {
+                "OperatorName": "drop",
+                "Arguments": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "OperatorName": "property",
+        "Arguments": [
+          {
+            "EnumName": "Cardinality",
+            "EnumValue": "single"
+          },
+          "Gender",
+          0
+        ]
+      },
+      {
+        "OperatorName": "property",
+        "Arguments": [
+          {
+            "EnumName": "Cardinality",
+            "EnumValue": "single"
+          },
+          "RegistrationDate",
+          "2020-04-07T14:43:36+00:00"
+        ]
+      },
+      {
+        "OperatorName": "outE",
+        "Arguments": [
+          "WorksFor"
+        ]
+      },
+      {
+        "OperatorName": "sideEffect",
+        "Arguments": [
+          {
+            "SourceInstructions": [],
+            "StepInstructions": [
+              {
+                "OperatorName": "properties",
+                "Arguments": [
+                  "To"
+                ]
+              },
+              {
+                "OperatorName": "drop",
+                "Arguments": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "OperatorName": "property",
+        "Arguments": [
+          "To",
+          "2020-04-07T14:43:36+00:00"
+        ]
+      },
+      {
+        "OperatorName": "project",
+        "Arguments": [
+          "id",
+          "label",
+          "properties"
+        ]
+      },
+      {
+        "OperatorName": "by",
+        "Arguments": [
+          {
+            "EnumName": "T",
+            "EnumValue": "id"
+          }
+        ]
+      },
+      {
+        "OperatorName": "by",
+        "Arguments": [
+          {
+            "EnumName": "T",
+            "EnumValue": "label"
+          }
+        ]
+      },
+      {
+        "OperatorName": "by",
+        "Arguments": [
+          {
+            "SourceInstructions": [],
+            "StepInstructions": [
+              {
+                "OperatorName": "valueMap",
+                "Arguments": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

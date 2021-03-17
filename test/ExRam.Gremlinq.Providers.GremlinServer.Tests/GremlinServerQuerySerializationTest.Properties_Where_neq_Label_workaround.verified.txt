@@ -1,0 +1,37 @@
+[
+  {
+    "SourceInstructions": [],
+    "StepInstructions": [
+      {
+        "OperatorName": "V",
+        "Arguments": []
+      },
+      {
+        "OperatorName": "hasLabel",
+        "Arguments": [
+          "Country"
+        ]
+      },
+      {
+        "OperatorName": "properties",
+        "Arguments": [
+          "Languages"
+        ]
+      },
+      {
+        "OperatorName": "has",
+        "Arguments": [
+          {
+            "EnumName": "T",
+            "EnumValue": "label"
+          },
+          {
+            "OperatorName": "neq",
+            "Value": "label",
+            "Other": null
+          }
+        ]
+      }
+    ]
+  }
+]

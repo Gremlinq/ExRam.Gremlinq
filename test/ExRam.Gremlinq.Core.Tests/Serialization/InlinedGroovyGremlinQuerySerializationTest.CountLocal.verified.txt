@@ -1,0 +1,6 @@
+[
+  {
+    "Script": "V().count(local)",
+    "Bindings": {}
+  }
+]

@@ -1,0 +1,6 @@
+[
+  {
+    "Script": "V().hasLabel('Person').union(__.out('WorksFor'), __.outE('LivesIn'))",
+    "Bindings": {}
+  }
+]

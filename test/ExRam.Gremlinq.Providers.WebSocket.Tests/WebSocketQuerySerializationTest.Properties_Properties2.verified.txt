@@ -1,0 +1,27 @@
+[
+  {
+    "SourceInstructions": [],
+    "StepInstructions": [
+      {
+        "OperatorName": "V",
+        "Arguments": []
+      },
+      {
+        "OperatorName": "hasLabel",
+        "Arguments": [
+          "Company"
+        ]
+      },
+      {
+        "OperatorName": "properties",
+        "Arguments": [
+          "Locations"
+        ]
+      },
+      {
+        "OperatorName": "properties",
+        "Arguments": []
+      }
+    ]
+  }
+]

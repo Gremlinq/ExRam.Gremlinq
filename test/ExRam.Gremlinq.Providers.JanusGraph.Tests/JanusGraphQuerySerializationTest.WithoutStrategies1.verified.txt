@@ -1,0 +1,120 @@
+[
+  {
+    "SourceInstructions": [
+      {
+        "OperatorName": "withoutStrategies",
+        "Arguments": [
+          "Gremlin.Net.Process.Traversal.Strategy.Decoration.SubgraphStrategy, Gremlin.Net, Version=3.4.0.0, Culture=neutral, PublicKeyToken=d2035e9aa387a711"
+        ]
+      }
+    ],
+    "StepInstructions": [
+      {
+        "OperatorName": "V",
+        "Arguments": []
+      },
+      {
+        "OperatorName": "project",
+        "Arguments": [
+          "id",
+          "label",
+          "properties"
+        ]
+      },
+      {
+        "OperatorName": "by",
+        "Arguments": [
+          {
+            "EnumName": "T",
+            "EnumValue": "id"
+          }
+        ]
+      },
+      {
+        "OperatorName": "by",
+        "Arguments": [
+          {
+            "EnumName": "T",
+            "EnumValue": "label"
+          }
+        ]
+      },
+      {
+        "OperatorName": "by",
+        "Arguments": [
+          {
+            "SourceInstructions": [],
+            "StepInstructions": [
+              {
+                "OperatorName": "properties",
+                "Arguments": []
+              },
+              {
+                "OperatorName": "group",
+                "Arguments": []
+              },
+              {
+                "OperatorName": "by",
+                "Arguments": [
+                  {
+                    "EnumName": "T",
+                    "EnumValue": "label"
+                  }
+                ]
+              },
+              {
+                "OperatorName": "by",
+                "Arguments": [
+                  {
+                    "SourceInstructions": [],
+                    "StepInstructions": [
+                      {
+                        "OperatorName": "project",
+                        "Arguments": [
+                          "id",
+                          "label",
+                          "value"
+                        ]
+                      },
+                      {
+                        "OperatorName": "by",
+                        "Arguments": [
+                          {
+                            "EnumName": "T",
+                            "EnumValue": "id"
+                          }
+                        ]
+                      },
+                      {
+                        "OperatorName": "by",
+                        "Arguments": [
+                          {
+                            "EnumName": "T",
+                            "EnumValue": "label"
+                          }
+                        ]
+                      },
+                      {
+                        "OperatorName": "by",
+                        "Arguments": [
+                          {
+                            "EnumName": "T",
+                            "EnumValue": "value"
+                          }
+                        ]
+                      },
+                      {
+                        "OperatorName": "fold",
+                        "Arguments": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

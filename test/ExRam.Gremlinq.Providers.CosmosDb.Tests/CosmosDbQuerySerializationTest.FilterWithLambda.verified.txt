@@ -1,0 +1,9 @@
+[
+  {
+    "Script": "V().hasLabel(_a).has(_b).filter({it.get().property('Name').value().length() == 2})",
+    "Bindings": {
+      "_a": "Person",
+      "_b": "Name"
+    }
+  }
+]

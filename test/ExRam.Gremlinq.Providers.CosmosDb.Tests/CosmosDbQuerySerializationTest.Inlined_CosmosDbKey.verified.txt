@@ -1,0 +1,6 @@
+[
+  {
+    "Script": "V(['pk','id']).hasLabel('Person')",
+    "Bindings": {}
+  }
+]

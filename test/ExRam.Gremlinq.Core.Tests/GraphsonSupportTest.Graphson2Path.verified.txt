@@ -1,0 +1,23 @@
+[
+  [
+    {
+      "Labels": [
+        [
+          "edge"
+        ]
+      ],
+      "Objects": [
+        {
+          "IetfLanguageTag": "de",
+          "Id": 1,
+          "Label": "Language"
+        },
+        {
+          "IetfLanguageTag": "en",
+          "Id": 2,
+          "Label": "Language"
+        }
+      ]
+    }
+  ]
+]

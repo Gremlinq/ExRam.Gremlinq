@@ -1,0 +1,12 @@
+[
+  {
+    "Script": "V().hasLabel(_a).property(single, _b, _c, _d, _e)",
+    "Bindings": {
+      "_a": "Person",
+      "_b": "Age",
+      "_c": 36,
+      "_d": "Meta",
+      "_e": "value"
+    }
+  }
+]

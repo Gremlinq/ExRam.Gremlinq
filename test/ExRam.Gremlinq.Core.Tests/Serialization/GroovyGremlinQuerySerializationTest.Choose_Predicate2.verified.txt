@@ -1,0 +1,9 @@
+[
+  {
+    "Script": "V().id().choose(eq(_a), __.constant(_b))",
+    "Bindings": {
+      "_a": 42,
+      "_b": true
+    }
+  }
+]

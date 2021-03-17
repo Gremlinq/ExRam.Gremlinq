@@ -1,0 +1,30 @@
+[
+  {
+    "SourceInstructions": [],
+    "StepInstructions": [
+      {
+        "OperatorName": "V",
+        "Arguments": []
+      },
+      {
+        "OperatorName": "hasLabel",
+        "Arguments": [
+          "Company"
+        ]
+      },
+      {
+        "OperatorName": "properties",
+        "Arguments": [
+          "Locations"
+        ]
+      },
+      {
+        "OperatorName": "has",
+        "Arguments": [
+          "ValidFrom",
+          "2019-01-01T01:00:00+00:00"
+        ]
+      }
+    ]
+  }
+]

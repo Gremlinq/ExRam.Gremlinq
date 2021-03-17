@@ -1,0 +1,10 @@
+[
+  {
+    "Script": "V().hasLabel(_a).and(__.outE(_b), __.inE(_c), __.outE(_c))",
+    "Bindings": {
+      "_a": "Person",
+      "_b": "LivesIn",
+      "_c": "WorksFor"
+    }
+  }
+]

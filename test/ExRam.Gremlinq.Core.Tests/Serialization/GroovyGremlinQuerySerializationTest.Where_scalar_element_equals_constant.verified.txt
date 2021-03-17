@@ -1,0 +1,10 @@
+[
+  {
+    "Script": "V().hasLabel(_a).values(_b).is(_c)",
+    "Bindings": {
+      "_a": "Person",
+      "_b": "Age",
+      "_c": 36
+    }
+  }
+]

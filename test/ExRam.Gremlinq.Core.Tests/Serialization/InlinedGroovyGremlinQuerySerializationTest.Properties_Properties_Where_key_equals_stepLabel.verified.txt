@@ -1,0 +1,6 @@
+[
+  {
+    "Script": "inject('hello').as('l1').V().hasLabel('Company').properties('Locations').properties().where(__.key().where(eq('l1')))",
+    "Bindings": {}
+  }
+]

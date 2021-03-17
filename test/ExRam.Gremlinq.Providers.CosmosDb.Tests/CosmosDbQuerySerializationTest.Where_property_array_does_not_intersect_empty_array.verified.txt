@@ -1,0 +1,8 @@
+[
+  {
+    "Script": "V().hasLabel(_a)",
+    "Bindings": {
+      "_a": "Company"
+    }
+  }
+]

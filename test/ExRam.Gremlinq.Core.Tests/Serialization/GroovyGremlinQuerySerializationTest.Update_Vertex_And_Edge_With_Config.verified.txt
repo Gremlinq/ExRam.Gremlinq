@@ -1,0 +1,17 @@
+[
+  {
+    "Script": "V().hasLabel(_a).sideEffect(__.properties(_b, _c).drop()).property(single, _b, _d).property(single, _c, _e).outE(_f).sideEffect(__.properties(_g).drop()).property(_g, _e).project(_h, _i, _j).by(id).by(label).by(__.valueMap())",
+    "Bindings": {
+      "_a": "Person",
+      "_b": "Gender",
+      "_c": "RegistrationDate",
+      "_d": 0,
+      "_e": "2020-04-07T14:43:36+00:00",
+      "_f": "WorksFor",
+      "_g": "To",
+      "_h": "id",
+      "_i": "label",
+      "_j": "properties"
+    }
+  }
+]

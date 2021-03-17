@@ -1,0 +1,12 @@
+[
+  {
+    "Script": "V().hasLabel(_a).hasNot(_b).has(_c, eq(_d).or(eq(_e)))",
+    "Bindings": {
+      "_a": "Person",
+      "_b": "Name",
+      "_c": "Age",
+      "_d": 42,
+      "_e": 99
+    }
+  }
+]

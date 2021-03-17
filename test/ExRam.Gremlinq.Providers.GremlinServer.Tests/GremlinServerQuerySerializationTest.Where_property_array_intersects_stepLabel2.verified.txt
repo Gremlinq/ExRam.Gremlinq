@@ -1,0 +1,173 @@
+[
+  {
+    "SourceInstructions": [],
+    "StepInstructions": [
+      {
+        "OperatorName": "inject",
+        "Arguments": [
+          "+4912345"
+        ]
+      },
+      {
+        "OperatorName": "fold",
+        "Arguments": []
+      },
+      {
+        "OperatorName": "as",
+        "Arguments": [
+          "l1"
+        ]
+      },
+      {
+        "OperatorName": "V",
+        "Arguments": []
+      },
+      {
+        "OperatorName": "hasLabel",
+        "Arguments": [
+          "Company"
+        ]
+      },
+      {
+        "OperatorName": "has",
+        "Arguments": [
+          "PhoneNumbers",
+          {
+            "SourceInstructions": [],
+            "StepInstructions": [
+              {
+                "OperatorName": "where",
+                "Arguments": [
+                  {
+                    "OperatorName": "within",
+                    "Value": [
+                      "l1"
+                    ],
+                    "Other": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "OperatorName": "project",
+        "Arguments": [
+          "id",
+          "label",
+          "properties"
+        ]
+      },
+      {
+        "OperatorName": "by",
+        "Arguments": [
+          {
+            "EnumName": "T",
+            "EnumValue": "id"
+          }
+        ]
+      },
+      {
+        "OperatorName": "by",
+        "Arguments": [
+          {
+            "EnumName": "T",
+            "EnumValue": "label"
+          }
+        ]
+      },
+      {
+        "OperatorName": "by",
+        "Arguments": [
+          {
+            "SourceInstructions": [],
+            "StepInstructions": [
+              {
+                "OperatorName": "properties",
+                "Arguments": []
+              },
+              {
+                "OperatorName": "group",
+                "Arguments": []
+              },
+              {
+                "OperatorName": "by",
+                "Arguments": [
+                  {
+                    "EnumName": "T",
+                    "EnumValue": "label"
+                  }
+                ]
+              },
+              {
+                "OperatorName": "by",
+                "Arguments": [
+                  {
+                    "SourceInstructions": [],
+                    "StepInstructions": [
+                      {
+                        "OperatorName": "project",
+                        "Arguments": [
+                          "id",
+                          "label",
+                          "value",
+                          "properties"
+                        ]
+                      },
+                      {
+                        "OperatorName": "by",
+                        "Arguments": [
+                          {
+                            "EnumName": "T",
+                            "EnumValue": "id"
+                          }
+                        ]
+                      },
+                      {
+                        "OperatorName": "by",
+                        "Arguments": [
+                          {
+                            "EnumName": "T",
+                            "EnumValue": "label"
+                          }
+                        ]
+                      },
+                      {
+                        "OperatorName": "by",
+                        "Arguments": [
+                          {
+                            "EnumName": "T",
+                            "EnumValue": "value"
+                          }
+                        ]
+                      },
+                      {
+                        "OperatorName": "by",
+                        "Arguments": [
+                          {
+                            "SourceInstructions": [],
+                            "StepInstructions": [
+                              {
+                                "OperatorName": "valueMap",
+                                "Arguments": []
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "OperatorName": "fold",
+                        "Arguments": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

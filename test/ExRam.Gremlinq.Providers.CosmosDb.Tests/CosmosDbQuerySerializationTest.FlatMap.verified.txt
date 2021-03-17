@@ -1,0 +1,9 @@
+[
+  {
+    "Script": "V().hasLabel(_a).flatMap(__.out(_b))",
+    "Bindings": {
+      "_a": "Person",
+      "_b": "WorksFor"
+    }
+  }
+]

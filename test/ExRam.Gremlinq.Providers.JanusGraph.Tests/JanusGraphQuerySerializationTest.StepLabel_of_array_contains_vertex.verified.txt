@@ -1,0 +1,47 @@
+[
+  {
+    "SourceInstructions": [],
+    "StepInstructions": [
+      {
+        "OperatorName": "V",
+        "Arguments": []
+      },
+      {
+        "OperatorName": "fold",
+        "Arguments": []
+      },
+      {
+        "OperatorName": "as",
+        "Arguments": [
+          "l1"
+        ]
+      },
+      {
+        "OperatorName": "V",
+        "Arguments": []
+      },
+      {
+        "OperatorName": "hasLabel",
+        "Arguments": [
+          "Person"
+        ]
+      },
+      {
+        "OperatorName": "where",
+        "Arguments": [
+          {
+            "OperatorName": "within",
+            "Value": [
+              "l1"
+            ],
+            "Other": null
+          }
+        ]
+      },
+      {
+        "OperatorName": "count",
+        "Arguments": []
+      }
+    ]
+  }
+]

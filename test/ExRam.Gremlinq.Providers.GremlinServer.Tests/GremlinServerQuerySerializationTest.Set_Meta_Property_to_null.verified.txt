@@ -1,0 +1,43 @@
+[
+  {
+    "SourceInstructions": [],
+    "StepInstructions": [
+      {
+        "OperatorName": "V",
+        "Arguments": []
+      },
+      {
+        "OperatorName": "hasLabel",
+        "Arguments": [
+          "Country"
+        ]
+      },
+      {
+        "OperatorName": "properties",
+        "Arguments": [
+          "Name"
+        ]
+      },
+      {
+        "OperatorName": "sideEffect",
+        "Arguments": [
+          {
+            "SourceInstructions": [],
+            "StepInstructions": [
+              {
+                "OperatorName": "properties",
+                "Arguments": [
+                  "metaKey"
+                ]
+              },
+              {
+                "OperatorName": "drop",
+                "Arguments": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

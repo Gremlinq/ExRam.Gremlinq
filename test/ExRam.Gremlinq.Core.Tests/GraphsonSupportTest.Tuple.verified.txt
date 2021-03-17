@@ -1,0 +1,26 @@
+[
+  {
+    "Item1": {
+      "Age": 36,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": null,
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": {
+        "Id": 1,
+        "Label": null,
+        "Properties": null,
+        "Value": "Name of some base entity",
+        "Key": null
+      },
+      "Id": 16,
+      "Label": "Person"
+    },
+    "Item2": {
+      "IetfLanguageTag": "de",
+      "Id": 17,
+      "Label": "Language"
+    }
+  }
+]

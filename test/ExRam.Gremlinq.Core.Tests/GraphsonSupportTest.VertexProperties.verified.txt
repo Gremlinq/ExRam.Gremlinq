@@ -1,0 +1,25 @@
+[
+  {
+    "Id": null,
+    "Label": "Property1",
+    "Properties": {
+      "metaKey": "MetaValue"
+    },
+    "Value": 1540202009475,
+    "Key": null
+  },
+  {
+    "Id": null,
+    "Label": "Property2",
+    "Properties": {},
+    "Value": "Some string",
+    "Key": null
+  },
+  {
+    "Id": null,
+    "Label": "Property3",
+    "Properties": {},
+    "Value": 36,
+    "Key": null
+  }
+]

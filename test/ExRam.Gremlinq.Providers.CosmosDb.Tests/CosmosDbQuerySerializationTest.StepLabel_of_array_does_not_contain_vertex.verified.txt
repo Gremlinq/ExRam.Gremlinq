@@ -1,0 +1,9 @@
+[
+  {
+    "Script": "V().fold().as(_a).V().hasLabel(_b).not(__.where(within(_a))).count()",
+    "Bindings": {
+      "_a": "l1",
+      "_b": "Person"
+    }
+  }
+]

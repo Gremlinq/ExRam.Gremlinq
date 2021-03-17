@@ -1,0 +1,15 @@
+[
+  {
+    "id": 10,
+    "label": "Language",
+    "type": "vertex",
+    "properties": {
+      "IetfLanguageTag": [
+        {
+          "id": 1,
+          "value": "de"
+        }
+      ]
+    }
+  }
+]
