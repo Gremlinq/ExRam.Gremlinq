@@ -1502,13 +1502,13 @@ namespace ExRam.Gremlinq.Core
     }
     public enum QuerySemantics
     {
-        Value = 0,
-        Element = 1,
-        EdgeOrVertex = 2,
-        Vertex = 3,
-        Edge = 4,
-        Property = 5,
-        VertexProperty = 6,
+        Value = 1,
+        Element = 3,
+        EdgeOrVertex = 7,
+        Vertex = 15,
+        Edge = 23,
+        Property = 33,
+        VertexProperty = 99,
     }
     public sealed class RangeStep : ExRam.Gremlinq.Core.Step
     {

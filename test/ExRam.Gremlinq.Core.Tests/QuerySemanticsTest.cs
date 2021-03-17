@@ -1,5 +1,9 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
+
+using FluentAssertions;
+
 using Xunit;
 using Xunit.Abstractions;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
@@ -34,6 +38,23 @@ namespace ExRam.Gremlinq.Core.Tests
                     _ => _.In())
                 .AsAdmin()
                 .Semantics);
+        }
+
+        [Fact]
+        public void LowestCommon()
+        {
+            var values = (QuerySemantics[])Enum.GetValues(typeof(QuerySemantics));
+
+            foreach (var value1 in values)
+            {
+                foreach (var value2 in values)
+                {
+                    Enum
+                        .IsDefined(value1 & value2)
+                        .Should()
+                        .BeTrue();
+                }
+            }
         }
     }
 }
