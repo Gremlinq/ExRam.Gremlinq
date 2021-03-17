@@ -63,13 +63,13 @@ namespace ExRam.Gremlinq.Core
                         (TryGetDeserializerExpression(staticType, actualType), staticType, fragmentType),
                         typeTuple =>
                         {
-                            var serializedParameter = Expression.Parameter(staticType);
+                            var serializedParameter = Expression.Parameter(typeTuple.staticType);
                             var fragmentTypeParameter = Expression.Parameter(typeof(Type));
                             var environmentParameter = Expression.Parameter(typeof(IGremlinQueryEnvironment));
                             var recurseParameter = Expression.Parameter(typeof(IGremlinQueryFragmentDeserializer));
 
                             var staticFuncType = typeof(Func<,,,,>).MakeGenericType(
-                                staticType,
+                                typeTuple.staticType,
                                 fragmentTypeParameter.Type,
                                 environmentParameter.Type,
                                 recurseParameter.Type,
@@ -86,7 +86,7 @@ namespace ExRam.Gremlinq.Core
                                                 fragmentTypeParameter,
                                                 environmentParameter,
                                                 recurseParameter),
-                                            fragmentType),
+                                            typeTuple.fragmentType),
                                         typeof(object)),
                                     serializedParameter,
                                     fragmentTypeParameter,
