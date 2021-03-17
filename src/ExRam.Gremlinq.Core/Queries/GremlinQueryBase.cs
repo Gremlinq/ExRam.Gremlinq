@@ -4,6 +4,7 @@ using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -54,55 +55,42 @@ namespace ExRam.Gremlinq.Core
                     var semantics = closureType.TryGetQuerySemantics();
 
                     var elementType = GetMatchingType(closureType, "TElement", "TVertex", "TEdge", "TProperty", "TArray") ?? typeof(object);
-                    var outVertexType = GetMatchingType(closureType, "TOutVertex", "TAdjacentVertex");
-                    var inVertexType = GetMatchingType(closureType, "TInVertex");
+                    var outVertexType = GetMatchingType(closureType, "TOutVertex", "TAdjacentVertex") ?? typeof(object);
+                    var inVertexType = GetMatchingType(closureType, "TInVertex") ?? typeof(object);
                     var scalarType = GetMatchingType(closureType, "TValue", "TArrayItem");
-                    var metaType = GetMatchingType(closureType, "TMeta");
-                    var queryType = GetMatchingType(closureType, "TOriginalQuery");
+                    var metaType = GetMatchingType(closureType, "TMeta") ?? typeof(object);
+                    var queryType = GetMatchingType(closureType, "TOriginalQuery") ?? typeof(object);
 
-                    var genericType = typeof(GremlinQuery<,,,,,>).MakeGenericType(
-                        elementType,
-                        outVertexType ?? typeof(object),
-                        inVertexType ?? typeof(object),
-                        scalarType ?? (elementType.IsArray
-                            ? elementType.GetElementType()!
-                            : typeof(object)),
-                        metaType ?? typeof(object),
-                        queryType ?? typeof(object));
+                    var expression = (Expression<Func<IImmutableStack<Step>, IGremlinQueryEnvironment, QuerySemantics, IImmutableDictionary<StepLabel, QuerySemantics>, QueryFlags, IGremlinQueryBase>>)typeof(GremlinQueryBase)
+                        .GetMethod(
+                            nameof(GetCreateExpression),
+                            BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.InvokeMethod)!
+                        .MakeGenericMethod(
+                            elementType,
+                            outVertexType,
+                            inVertexType,
+                            scalarType ?? (elementType.IsArray
+                                ? elementType.GetElementType()!
+                                : typeof(object)),
+                            metaType,
+                            queryType)
+                        .Invoke(null, new object?[] { semantics })!;
 
-                    var stepsParameter = Expression.Parameter(typeof(IImmutableStack<Step>));
-                    var environmentParameter = Expression.Parameter(typeof(IGremlinQueryEnvironment));
-                    var defaultSemanticsParameter = Expression.Parameter(typeof(QuerySemantics));
-                    var stepLabelSemanticsParameter = Expression.Parameter(typeof(IImmutableDictionary<StepLabel, QuerySemantics>));
-                    var flagsParameter = Expression.Parameter(typeof(QueryFlags));
-
-                    return Expression
-                        .Lambda<Func<IImmutableStack<Step>, IGremlinQueryEnvironment, QuerySemantics, IImmutableDictionary<StepLabel, QuerySemantics>, QueryFlags, IGremlinQueryBase>>(
-                            Expression.New(
-                                genericType.GetConstructor(new[]
-                                {
-                                    stepsParameter.Type,
-                                    environmentParameter.Type,
-                                    defaultSemanticsParameter.Type,
-                                    stepLabelSemanticsParameter.Type,
-                                    flagsParameter.Type
-                                })!,
-                                stepsParameter,
-                                environmentParameter,
-                                semantics != null
-                                    ? (Expression)Expression.Constant(semantics.Value, typeof(QuerySemantics))
-                                    : defaultSemanticsParameter,
-                                stepLabelSemanticsParameter,
-                                flagsParameter),
-                            stepsParameter,
-                            environmentParameter,
-                            defaultSemanticsParameter,
-                            stepLabelSemanticsParameter,
-                            flagsParameter)
+                    return expression!
                         .Compile();
                 });
 
             return (TTargetQuery)constructor(Steps, Environment, eraseSemantics ? QuerySemantics.Value : Semantics, StepLabelSemantics, Flags);
+        }
+
+        private static Expression<Func<IImmutableStack<Step>, IGremlinQueryEnvironment, QuerySemantics, IImmutableDictionary<StepLabel, QuerySemantics>, QueryFlags, IGremlinQueryBase>> GetCreateExpression<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(QuerySemantics? determinedSemantics)
+        {
+            return (steps, environment, existingSemantics, stepLabelSemantics, flags) => new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(
+                steps,
+                environment,
+                determinedSemantics ?? existingSemantics,
+                stepLabelSemantics,
+                flags);
         }
 
         private static Type? GetMatchingType(Type interfaceType, params string[] argumentNames)
