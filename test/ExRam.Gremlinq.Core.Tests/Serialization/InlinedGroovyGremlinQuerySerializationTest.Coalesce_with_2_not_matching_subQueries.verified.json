@@ -1,0 +1,6 @@
+[
+  {
+    "Script": "V().coalesce(__.outE(), __.in())",
+    "Bindings": {}
+  }
+]
