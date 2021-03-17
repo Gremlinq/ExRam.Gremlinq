@@ -1,0 +1,6 @@
+{
+  Key: {
+    RawKey: Name
+  },
+  SerializationBehaviour: IgnoreOnUpdate
+}
