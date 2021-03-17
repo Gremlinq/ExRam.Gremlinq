@@ -1,0 +1,6 @@
+{
+  Ids: [
+    id,
+    another id
+  ]
+}
