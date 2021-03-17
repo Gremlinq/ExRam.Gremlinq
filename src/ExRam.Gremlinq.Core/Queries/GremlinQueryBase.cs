@@ -36,7 +36,7 @@ namespace ExRam.Gremlinq.Core
 
             if (targetQueryType.IsAssignableFrom(GetType()))
             {
-                if (targetQueryType == GetType() || targetQueryType.IsGenericType && Semantics != QuerySemantics.None)
+                if (targetQueryType == GetType() || targetQueryType.IsGenericType && Semantics != QuerySemantics.Value)
                     return (TTargetQuery)(object)this;
             }
 
@@ -102,7 +102,7 @@ namespace ExRam.Gremlinq.Core
                         .Compile();
                 });
 
-            return (TTargetQuery)constructor(Steps, Environment, eraseSemantics ? QuerySemantics.None : Semantics, StepLabelSemantics, Flags);
+            return (TTargetQuery)constructor(Steps, Environment, eraseSemantics ? QuerySemantics.Value : Semantics, StepLabelSemantics, Flags);
         }
 
         private static Type? GetMatchingType(Type interfaceType, params string[] argumentNames)
