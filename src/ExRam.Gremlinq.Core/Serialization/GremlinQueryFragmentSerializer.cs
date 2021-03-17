@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
+
 using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
@@ -13,6 +15,9 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class GremlinQueryFragmentSerializerImpl : IGremlinQueryFragmentSerializer
         {
+            private static readonly MethodInfo ExpressionMethod1 = typeof(GremlinQueryFragmentSerializerImpl).GetMethod(nameof(Expression1))!;
+            private static readonly MethodInfo ExpressionMethod2 = typeof(GremlinQueryFragmentSerializerImpl).GetMethod(nameof(Expression2))!;
+
             private readonly IImmutableDictionary<Type, Delegate> _dict;
             private readonly ConcurrentDictionary<(Type staticType, Type actualType), Delegate?> _fastDict = new();
 
@@ -49,52 +54,20 @@ namespace ExRam.Gremlinq.Core
 
                             if (@this.InnerLookup(actualType) is { } del)
                             {
-                                //return (TStatic fragment, IGremlinQueryEnvironment environment, IGremlinQueryFragmentSerializer recurse) => del((TEffective)fragment, environment, (TEffective _, IGremlinQueryEnvironment, IGremlinQueryFragmentSerializer) => _, recurse);
+                                var effectiveType = del
+                                    .GetType()
+                                    .GetGenericArguments()[0];
 
-                                var effectiveType = del.GetType().GetGenericArguments()[0];
-                                var environmentParameter = Expression.Parameter(typeof(IGremlinQueryEnvironment));
-                                var recurseParameter = Expression.Parameter(typeof(IGremlinQueryFragmentSerializer));
+                                var method = effectiveType == staticType
+                                    ? ExpressionMethod1
+                                        .MakeGenericMethod(staticType)
+                                    : ExpressionMethod2
+                                        .MakeGenericMethod(staticType, effectiveType);
 
-                                var argument3Parameter1 = Expression.Parameter(effectiveType);
-                                var argument3Parameter2 = Expression.Parameter(typeof(IGremlinQueryEnvironment));
-                                var argument3Parameter3 = Expression.Parameter(typeof(IGremlinQueryFragmentSerializer));
+                                var lambda = (LambdaExpression)method
+                                    .Invoke(null, new object[] { del })!;
 
-                                var fragmentParameterExpression = Expression.Parameter(staticType);
-
-                                var staticTypeFunc = typeof(Func<,,,>).MakeGenericType(
-                                    staticType,
-                                    environmentParameter.Type,
-                                    recurseParameter.Type,
-                                    typeof(object));
-
-                                var effectiveTypeFunc = typeof(Func<,,,>).MakeGenericType(
-                                    argument3Parameter1.Type,
-                                    argument3Parameter2.Type,
-                                    argument3Parameter3.Type,
-                                    typeof(object));
-
-                                var retCall = Expression.Invoke(
-                                    Expression.Constant(del),
-                                    Expression.Convert(
-                                        fragmentParameterExpression,
-                                        effectiveType),
-                                    environmentParameter,
-                                    Expression.Lambda(
-                                        effectiveTypeFunc,
-                                        Expression.Convert(argument3Parameter1, typeof(object)),
-                                        argument3Parameter1,
-                                        argument3Parameter2,
-                                        argument3Parameter3),
-                                    recurseParameter);
-
-                                return Expression
-                                    .Lambda(
-                                        staticTypeFunc,
-                                        retCall,
-                                        fragmentParameterExpression,
-                                        environmentParameter,
-                                        recurseParameter)
-                                    .Compile();
+                                return lambda.Compile();
                             }
 
                             return null;
@@ -119,6 +92,10 @@ namespace ExRam.Gremlinq.Core
                     ? baseSerializer
                     : null;
             }
+
+            public static Expression<Func<TStatic, IGremlinQueryEnvironment, IGremlinQueryFragmentSerializer, object>> Expression1<TStatic>(GremlinQueryFragmentSerializerDelegate<TStatic> del) => (fragment, environment, recurse) => del(fragment!, environment, (_, e, s) => _!, recurse);
+
+            public static Expression<Func<TStatic, IGremlinQueryEnvironment, IGremlinQueryFragmentSerializer, object>> Expression2<TStatic, TEffective>(GremlinQueryFragmentSerializerDelegate<TEffective> del) => (fragment, environment, recurse) => del((TEffective)(object)fragment!, environment, (_, e, s) => _!, recurse);
         }
 
         public static readonly IGremlinQueryFragmentSerializer Identity = new GremlinQueryFragmentSerializerImpl(ImmutableDictionary<Type, Delegate>.Empty);
