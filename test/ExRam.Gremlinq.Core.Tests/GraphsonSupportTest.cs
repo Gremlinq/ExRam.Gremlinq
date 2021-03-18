@@ -401,6 +401,16 @@ namespace ExRam.Gremlinq.Providers.Tests
         }
 
         [Fact]
+        public async Task LargeGraphson3Path()
+        {
+            await _g
+                .WithExecutor(GetJson("Large_Graphson3_Paths"))
+                .V<Person>()
+                .Cast<Core.GraphElements.Path[]>()
+                .Verify();
+        }
+
+        [Fact]
         public async Task Array()
         {
             await _g
