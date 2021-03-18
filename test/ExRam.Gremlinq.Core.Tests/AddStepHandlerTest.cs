@@ -11,7 +11,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
 
         }
-
+        
         [Fact]
         public async Task Empty()
         {
