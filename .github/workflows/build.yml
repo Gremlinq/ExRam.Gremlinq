@@ -145,7 +145,7 @@ jobs:
         path: ./**/*.received.*
 
   create-snapshot-fix-pr:
-    if: always()
+    if: ${{ always() && github.event_name == 'pull_request' }}
     runs-on: ubuntu-latest
     needs: [ test-gremlinserver, test-janusgraph, test-cosmosdb ]
     env:
