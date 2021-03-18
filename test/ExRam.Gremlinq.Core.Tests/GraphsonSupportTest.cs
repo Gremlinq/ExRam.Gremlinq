@@ -26,52 +26,7 @@ namespace ExRam.Gremlinq.Providers.Tests
             public Language? Value { get; set; }
         }
 
-        private static readonly string SinglePersonJson;
-        private static readonly string ArrayOfLanguages;
-        private static readonly string Graphson2Paths;
-        private static readonly string Graphson3Paths;
-        private static readonly string SingleCompanyJson;
-        private static readonly string SinglePersonStringId;
-        private static readonly string SingleLanguageJson;
-        private static readonly string SingleWorksFor;
-        private static readonly string SingleTimeFrameJson;
-        private static readonly string SinglePersonWithNullJson;
-        private static readonly string TupleOfPersonLanguageJson;
-        private static readonly string Graphson3ReferenceVertex;
-        private static readonly string ThreeCompaniesAsTraverser;
-        private static readonly string CountryWithMetaProperties;
-        private static readonly string NestedArrayOfLanguagesJson;
-        private static readonly string NamedTupleOfPersonLanguageJson;
-        private static readonly string SingleTimeFrameWithNumbersJson;
-        private static readonly string SinglePersonWithoutPhoneNumbersJson;
-        private static readonly string SinglePersonLowercasePropertiesJson;
-        private static readonly string Graphson3TupleOfPersonLanguageJson;
-
         private readonly IGremlinQuerySource _g;
-
-        static GraphsonSupportTest()
-        {
-            SingleLanguageJson = GetJson("Single_Language");
-            SingleCompanyJson = GetJson("Single_Company");
-            ThreeCompaniesAsTraverser = GetJson("Traverser");
-            SinglePersonJson = GetJson("Single_Person");
-            SinglePersonWithNullJson = GetJson("Single_Person_with_null");
-            SinglePersonLowercasePropertiesJson = GetJson("Single_Person_lowercase_properties");
-            SinglePersonWithoutPhoneNumbersJson = GetJson("Single_Person_without_PhoneNumbers");
-            TupleOfPersonLanguageJson = GetJson("Tuple_of_Person_Language");
-            NamedTupleOfPersonLanguageJson = GetJson("Named_tuple_of_Person_Language");
-            ArrayOfLanguages = GetJson("Array_of_Languages");
-            Graphson2Paths = GetJson("Graphson2_Paths");
-            Graphson3Paths = GetJson("Graphson3_Paths");
-            NestedArrayOfLanguagesJson = GetJson("Nested_array_of_Languages");
-            SingleTimeFrameJson = GetJson("Single_TimeFrame");
-            SingleTimeFrameWithNumbersJson = GetJson("Single_TimeFrame_with_numbers");
-            SingleWorksFor = GetJson("Single_WorksFor");
-            Graphson3TupleOfPersonLanguageJson = GetJson("Graphson3_Tuple_of_Person_Language");
-            Graphson3ReferenceVertex = GetJson("Graphson3ReferenceVertex");
-            CountryWithMetaProperties = GetJson("Country_with_meta_properties");
-            SinglePersonStringId = GetJson("Single_Person_String_Id");
-        }
 
         public GraphsonSupportTest(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
@@ -83,7 +38,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         [Fact]
         public void JToken_Load_does_not_reuse()
         {
-            var token = JToken.Parse(SingleLanguageJson);
+            var token = JToken.Parse(GetJson("Single_Language"));
 
             var readToken1 = JToken.Load(new JTokenReader(token));
             var readToken2 = JToken.Load(new JTokenReader(token));
@@ -97,7 +52,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task GraphSon3ReferenceVertex()
         {
             await _g
-                .WithExecutor(Graphson3ReferenceVertex)
+                .WithExecutor(GetJson("Graphson3ReferenceVertex"))
                 .V()
                 .Verify();
         }
@@ -120,7 +75,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task IsDescribedIn()
         {
             await _g
-                .WithExecutor(SingleWorksFor)
+                .WithExecutor(GetJson("Single_WorksFor"))
                 .E<WorksFor>()
                 .Verify();
         }
@@ -219,7 +174,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task DateTime_is_UTC()
         {
             await _g
-                .WithExecutor(SingleCompanyJson)
+                .WithExecutor(GetJson("Single_Company"))
                 .V<Company>()
                 .Verify();
         }
@@ -228,7 +183,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task SingleCompany_dynamic()
         {
             await _g
-                .WithExecutor(SingleCompanyJson)
+                .WithExecutor(GetJson("Single_Company"))
                 .V<dynamic>()
                 .Verify();
         }
@@ -237,7 +192,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Language_unknown_type()
         {
             await _g
-                .WithExecutor(SingleLanguageJson)
+                .WithExecutor(GetJson("Single_Language"))
                 .V<object>()
                 .Verify();
         }
@@ -248,7 +203,7 @@ namespace ExRam.Gremlinq.Providers.Tests
             await _g
                 .ConfigureEnvironment(env => env
                     .UseModel(GraphModel.Empty))
-                .WithExecutor(SingleLanguageJson)
+                .WithExecutor(GetJson("Single_Language"))
                 .V()
                 .Cast<object>()
                 .Verify();
@@ -258,7 +213,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Language_strongly_typed()
         {
             await _g
-                .WithExecutor(SingleLanguageJson)
+                .WithExecutor(GetJson("Single_Language"))
                 .V<Language>()
                 .Verify();
         }
@@ -269,7 +224,7 @@ namespace ExRam.Gremlinq.Providers.Tests
             await _g
                 .ConfigureEnvironment(env => env
                     .UseModel(GraphModel.Empty))
-                .WithExecutor(SingleLanguageJson)
+                .WithExecutor(GetJson("Single_Language"))
                 .V()
                 .Cast<Language>()
                 .Verify();
@@ -279,7 +234,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Language_to_generic_vertex()
         {
             await _g
-                .WithExecutor(SingleLanguageJson)
+                .WithExecutor(GetJson("Single_Language"))
                 .V<Vertex>()
                 .Verify();
         }
@@ -288,7 +243,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Languages_to_object()
         {
             await _g
-                .WithExecutor(ArrayOfLanguages)
+                .WithExecutor(GetJson("Array_of_Languages"))
                 .V<object>()
                 .Verify();
         }
@@ -297,7 +252,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Person_strongly_typed()
         {
             await _g
-                .WithExecutor(SinglePersonJson)
+                .WithExecutor(GetJson("Single_Person"))
                 .V<Person>()
                 .Verify();
         }
@@ -306,7 +261,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Person_with_null()
         {
             await _g
-                .WithExecutor(SinglePersonWithNullJson)
+                .WithExecutor(GetJson("Single_Person_with_null"))
                 .V<Person>()
                 .Verify();
         }
@@ -315,7 +270,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Person_StringId()
         {
             await _g
-                .WithExecutor(SinglePersonStringId)
+                .WithExecutor(GetJson("Single_Person_String_Id"))
                 .V<Person>()
                 .Verify();
         }
@@ -324,7 +279,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Person_lowercase_strongly_typed()
         {
             await _g
-                .WithExecutor(SinglePersonLowercasePropertiesJson)
+                .WithExecutor(GetJson("Single_Person_lowercase_properties"))
                 .V<Person>()
                 .Verify();
         }
@@ -333,7 +288,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Person_without_PhoneNumbers_strongly_typed()
         {
             await _g
-                .WithExecutor(SinglePersonWithoutPhoneNumbersJson)
+                .WithExecutor(GetJson("Single_Person_without_PhoneNumbers"))
                 .V<Person>()
                 .Verify();
         }
@@ -342,7 +297,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task TimeFrame_strongly_typed()
         {
             await _g
-                .WithExecutor(SingleTimeFrameJson)
+                .WithExecutor(GetJson("Single_TimeFrame"))
                 .V<TimeFrame>()
                 .Verify();
         }
@@ -351,7 +306,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task TimeFrame_with_numbers_strongly_typed()
         {
             await _g
-                .WithExecutor(SingleTimeFrameWithNumbersJson)
+                .WithExecutor(GetJson("Single_TimeFrame_with_numbers"))
                 .V<TimeFrame>()
                 .Verify();
         }
@@ -360,7 +315,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Language_by_vertex_inheritance()
         {
             await _g
-                .WithExecutor(SingleLanguageJson)
+                .WithExecutor(GetJson("Single_Language"))
                 .V()
                 .Verify();
         }
@@ -369,7 +324,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Tuple()
         {
             await _g
-                .WithExecutor(TupleOfPersonLanguageJson)
+                .WithExecutor(GetJson("Tuple_of_Person_Language"))
                 .V()
                 .Cast<(Person, Language)>()
                 .Verify();
@@ -379,7 +334,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Tuple_vertex_vertex()
         {
             await _g
-                .WithExecutor(TupleOfPersonLanguageJson)
+                .WithExecutor(GetJson("Tuple_of_Person_Language"))
                 .V()
                 .Cast<(Vertex, Vertex)>()
                 .Verify();
@@ -389,7 +344,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task NamedTuple()
         {
             await _g
-                .WithExecutor(NamedTupleOfPersonLanguageJson)
+                .WithExecutor(GetJson("Named_tuple_of_Person_Language"))
                 .V()
                 .Cast<PersonLanguageTuple>()
                 .Verify();
@@ -399,7 +354,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Graphson3_Tuple()
         {
             await _g
-                .WithExecutor(Graphson3TupleOfPersonLanguageJson)
+                .WithExecutor(GetJson("Graphson3_Tuple_of_Person_Language"))
                 .V()
                 .Cast<(Person, Language)>()
                 .Verify();
@@ -430,7 +385,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Graphson2Path()
         {
             await _g
-                .WithExecutor(Graphson2Paths)
+                .WithExecutor(GetJson("Graphson2_Paths"))
                 .V<Language>()
                 .Cast<Core.GraphElements.Path[]>()
                 .Verify();
@@ -440,7 +395,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Graphson3Path()
         {
             await _g
-                .WithExecutor(Graphson3Paths)
+                .WithExecutor(GetJson("Graphson3_Paths"))
                 .V<Person>()
                 .Cast<Core.GraphElements.Path[]>()
                 .Verify();
@@ -450,7 +405,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Array()
         {
             await _g
-                .WithExecutor(ArrayOfLanguages)
+                .WithExecutor(GetJson("Array_of_Languages"))
                 .V()
                 .Cast<Language[]>()
                 .Verify();
@@ -460,7 +415,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Nested_Array()
         {
             await _g
-                .WithExecutor(NestedArrayOfLanguagesJson)
+                .WithExecutor(GetJson("Nested_array_of_Languages"))
                 .V()
                 .Cast<Language[][]>()
                 .Verify();
@@ -480,7 +435,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Meta_Properties()
         {
             await _g
-                .WithExecutor(CountryWithMetaProperties)
+                .WithExecutor(GetJson("Country_with_meta_properties"))
                 .V<Country>()
                 .Verify();
         }
@@ -570,7 +525,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Traverser()
         {
             await _g
-                .WithExecutor(ThreeCompaniesAsTraverser)
+                .WithExecutor(GetJson("Traverser"))
                 .V<Company>()
                 .Verify();
         }
