@@ -88,6 +88,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Samples.Shar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Samples.AspNet", "src\ExRam.Gremlinq.Samples\ExRam.Gremlinq.Samples.AspNet\ExRam.Gremlinq.Samples.AspNet.csproj", "{F344A88E-52F0-4235-9515-59A3E07F04EC}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BenchmarkRunner", "src\Benchmarks\BenchmarkRunner\BenchmarkRunner.csproj", "{08B239B3-1A9A-4D29-AF18-50B8EEAFF97A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -238,6 +240,10 @@ Global
 		{F344A88E-52F0-4235-9515-59A3E07F04EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F344A88E-52F0-4235-9515-59A3E07F04EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F344A88E-52F0-4235-9515-59A3E07F04EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08B239B3-1A9A-4D29-AF18-50B8EEAFF97A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08B239B3-1A9A-4D29-AF18-50B8EEAFF97A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08B239B3-1A9A-4D29-AF18-50B8EEAFF97A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08B239B3-1A9A-4D29-AF18-50B8EEAFF97A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -273,6 +279,7 @@ Global
 		{2DEAF295-8965-4660-93FE-8AD3ED985CB3} = {E944FDE9-B35D-4B16-B7A1-BF3644F5B7FA}
 		{9DF9E51E-EECE-4340-B353-0B821547017E} = {46327945-05FC-4F8C-8575-E3415C6AE901}
 		{F344A88E-52F0-4235-9515-59A3E07F04EC} = {46327945-05FC-4F8C-8575-E3415C6AE901}
+		{08B239B3-1A9A-4D29-AF18-50B8EEAFF97A} = {2CD9652B-1596-4A02-AF9B-6CE149AB3F65}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7A76E21B-5855-4DA7-AAAE-4EBEE631CB3A}
