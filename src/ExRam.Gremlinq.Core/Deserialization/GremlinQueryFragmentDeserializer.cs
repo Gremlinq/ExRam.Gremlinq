@@ -6,6 +6,7 @@ using System.Collections.Immutable;
 using System.Dynamic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Xml;
 using ExRam.Gremlinq.Core.GraphElements;
 using Gremlin.Net.Structure.IO.GraphSON;
@@ -28,10 +29,13 @@ namespace ExRam.Gremlinq.Core
 
         private sealed class GremlinQueryFragmentDeserializerImpl : IGremlinQueryFragmentDeserializer
         {
+            private static readonly MethodInfo ExpressionMethod1 = typeof(GremlinQueryFragmentDeserializerImpl).GetMethod(nameof(InnerExpression1), BindingFlags.NonPublic | BindingFlags.Static)!;
+            private static readonly MethodInfo ExpressionMethod2 = typeof(GremlinQueryFragmentDeserializerImpl).GetMethod(nameof(InnerExpression2), BindingFlags.NonPublic | BindingFlags.Static)!;
+            private static readonly MethodInfo ExpressionMethod3 = typeof(GremlinQueryFragmentDeserializerImpl).GetMethod(nameof(InnerExpression3), BindingFlags.NonPublic | BindingFlags.Static)!;
+
             private readonly IImmutableDictionary<Type, Delegate> _dict;
             private readonly ConcurrentDictionary<(Type staticType, Type actualType), Delegate> _unconvertedDelegates = new();
-            private readonly ConcurrentDictionary<(Type staticType, Type actualType), LambdaExpression> _expressionDict = new();
-            private readonly ConcurrentDictionary<(Expression? expression, Type staticType, Type fragmentType), Delegate> _convertedDelegates = new();
+            private readonly ConcurrentDictionary<(Delegate? expression, Type staticType, Type fragmentType), Delegate> _convertedDelegates = new();
 
             public GremlinQueryFragmentDeserializerImpl(IImmutableDictionary<Type, Delegate> dict)
             {
@@ -40,7 +44,7 @@ namespace ExRam.Gremlinq.Core
 
             public object? TryDeserialize<TSerialized>(TSerialized serializedData, Type fragmentType, IGremlinQueryEnvironment environment)
             {
-                if (TryGetDeserializer(typeof(TSerialized), serializedData!.GetType(), fragmentType) is Func<TSerialized, Type, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, object?> del)
+                if (GetConvertedDeserializer(typeof(TSerialized), serializedData!.GetType(), fragmentType) is Func<TSerialized, Type, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, object?> del)
                     return del(serializedData, fragmentType, environment, this);
 
                 throw new ArgumentException($"Could not find a deserializer for {fragmentType.FullName}.");
@@ -51,142 +55,66 @@ namespace ExRam.Gremlinq.Core
                 return new GremlinQueryFragmentDeserializerImpl(
                     _dict.SetItem(
                         typeof(TSerialized),
-                        TryGetDeserializer(typeof(TSerialized), typeof(TSerialized)) is Func<TSerialized, Type, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, object?> existingFragmentDeserializer
+                        GetUnconvertedDeserializer(typeof(TSerialized), typeof(TSerialized)) is Func<TSerialized, Type, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, object?> existingFragmentDeserializer
                             ? (fragment, type, env, _, recurse) => deserializer(fragment, type, env, existingFragmentDeserializer, recurse)
                             : deserializer));
             }
 
-            private Delegate TryGetDeserializer(Type staticType, Type actualType, Type fragmentType)
+            private Delegate GetConvertedDeserializer(Type staticType, Type actualType, Type fragmentType)
             {
                 return _convertedDelegates
                     .GetOrAdd(
-                        (TryGetDeserializerExpression(staticType, actualType), staticType, fragmentType),
+                        (GetUnconvertedDeserializer(staticType, actualType), staticType, fragmentType),
                         typeTuple =>
                         {
-                            var serializedParameter = Expression.Parameter(typeTuple.staticType);
-                            var fragmentTypeParameter = Expression.Parameter(typeof(Type));
-                            var environmentParameter = Expression.Parameter(typeof(IGremlinQueryEnvironment));
-                            var recurseParameter = Expression.Parameter(typeof(IGremlinQueryFragmentDeserializer));
+                            var (del, staticType, fragmentType) = typeTuple;
 
-                            var staticFuncType = typeof(Func<,,,,>).MakeGenericType(
-                                typeTuple.staticType,
-                                fragmentTypeParameter.Type,
-                                environmentParameter.Type,
-                                recurseParameter.Type,
-                                typeof(object));
-
-                            return Expression
-                                .Lambda(
-                                    staticFuncType,
-                                    Expression.Convert(
-                                        Expression.Convert(
-                                            Expression.Invoke(
-                                                typeTuple.expression!,
-                                                serializedParameter,
-                                                fragmentTypeParameter,
-                                                environmentParameter,
-                                                recurseParameter),
-                                            typeTuple.fragmentType),
-                                        typeof(object)),
-                                    serializedParameter,
-                                    fragmentTypeParameter,
-                                    environmentParameter,
-                                    recurseParameter)
-                                .Compile();
+                            return ((LambdaExpression)ExpressionMethod3
+                                .MakeGenericMethod(staticType, fragmentType)
+                                .Invoke(null, new[] { del })!).Compile();
                         });
-
             }
 
-            private Delegate TryGetDeserializer(Type staticType, Type actualType)
+            private Delegate GetUnconvertedDeserializer(Type staticType, Type actualType)
             {
                 return _unconvertedDelegates
                     .GetOrAdd(
                         (staticType, actualType),
-                        (typeTuple, @this) => @this
-                            .TryGetDeserializerExpression(typeTuple.staticType, typeTuple.actualType)
-                            .Compile(),
+                        (typeTuple, @this) =>
+                        {
+                            var (staticType, actualType) = typeTuple;
+                        
+                            if (@this.InnerLookup(actualType) is { } del)
+                            {
+                                var effectiveType = del
+                                    .GetType()
+                                    .GetGenericArguments()[0];
+
+                                return ((LambdaExpression)ExpressionMethod1
+                                    .MakeGenericMethod(staticType, effectiveType)
+                                    .Invoke(null, new[] { del })!).Compile();
+                            }
+
+                            return ((LambdaExpression)ExpressionMethod2
+                                .MakeGenericMethod(staticType)
+                                .Invoke(null, Array.Empty<object>())!).Compile();
+                        },
                         this);
             }
 
-            private LambdaExpression TryGetDeserializerExpression(Type staticType, Type actualType)
-            { 
-                return _expressionDict
-                    .GetOrAdd(
-                        (staticType, actualType),
-                        (typeTuple, @this) =>
-                        {
-                            //return (TStatic serialized, Type fragmentType, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse) => del((TEffective)serialized, fragmentType, environment, (TEffective _, Type, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer) => _, recurse);
+            private static Expression<Func<TStatic, Type, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, object?>> InnerExpression1<TStatic, TEffective>(GremlinQueryFragmentDeserializerDelegate<TEffective> del)
+            {
+                return (serialized, fragmentType, environment, recurse) => del((TEffective)(object)serialized!, fragmentType, environment, (e, t, env, recurse) => e, recurse);
+            }
 
-                            var (staticType, actualType) = typeTuple;
+            private static Expression<Func<TStatic, Type, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, object?>> InnerExpression2<TStatic>()
+            {
+                return (serialized, fragmentType, environment, recurse) => serialized;
+            }
 
-                            var serializedParameter = Expression.Parameter(staticType);
-                            var fragmentTypeParameter = Expression.Parameter(typeof(Type));
-                            var environmentParameter = Expression.Parameter(typeof(IGremlinQueryEnvironment));
-                            var recurseParameter = Expression.Parameter(typeof(IGremlinQueryFragmentDeserializer));
-
-                            var staticFuncType = typeof(Func<,,,,>).MakeGenericType(
-                                staticType,
-                                fragmentTypeParameter.Type,
-                                environmentParameter.Type,
-                                recurseParameter.Type,
-                                typeof(object));
-
-                            if (@this.InnerLookup(actualType) is { } del)
-                            {
-                                var effectiveType = del.GetType().GetGenericArguments()[0];
-
-                                var argument4Parameter1 = Expression.Parameter(effectiveType);
-                                var argument4Parameter2 = Expression.Parameter(typeof(Type));
-                                var argument4Parameter3 = Expression.Parameter(typeof(IGremlinQueryEnvironment));
-                                var argument4Parameter4 = Expression.Parameter(typeof(IGremlinQueryFragmentDeserializer));
-
-                                var overrideFuncType = typeof(Func<,,,,>).MakeGenericType(
-                                    argument4Parameter1.Type,
-                                    argument4Parameter2.Type,
-                                    argument4Parameter3.Type,
-                                    argument4Parameter4.Type,
-                                    typeof(object));
-
-                                var retCall = Expression.Invoke(
-                                    Expression.Constant(del),
-                                    Expression.Convert(
-                                        serializedParameter,
-                                        effectiveType),
-                                    fragmentTypeParameter,
-                                    environmentParameter,
-                                    Expression.Lambda(
-                                        overrideFuncType,
-                                        Expression.Convert(
-                                            argument4Parameter1,
-                                            typeof(object)),
-                                        argument4Parameter1,
-                                        argument4Parameter2,
-                                        argument4Parameter3,
-                                        argument4Parameter4),
-                                    recurseParameter);
-
-                                return Expression
-                                    .Lambda(
-                                        staticFuncType,
-                                        retCall,
-                                        serializedParameter,
-                                        fragmentTypeParameter,
-                                        environmentParameter,
-                                        recurseParameter);
-                            }
-
-                            return Expression
-                                .Lambda(
-                                    staticFuncType,
-                                    Expression.Convert(
-                                        serializedParameter,
-                                        typeof(object)),
-                                    serializedParameter,
-                                    fragmentTypeParameter,
-                                    environmentParameter,
-                                    recurseParameter);
-                        },
-                        this);
+            private static Expression<Func<TSerialized, Type, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, object?>> InnerExpression3<TSerialized, TFragment>(Func<TSerialized, Type, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, object?> del)
+            {
+                return (serialized, fragmentType, environment, recurse) => (TFragment)del(serialized!, fragmentType, environment, recurse)!;
             }
 
             private Delegate? InnerLookup(Type actualType)
