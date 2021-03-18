@@ -1,7 +1,6 @@
 ﻿using System;
 using FluentAssertions;
 using System.IO;
-using System.Reflection;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
@@ -541,7 +540,7 @@ namespace ExRam.Gremlinq.Providers.Tests
 
         private static string GetJson(string name)
         {
-            return new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream($"ExRam.Gremlinq.Core.Tests.Json.{name}.json")!).ReadToEnd();
+            return new StreamReader(File.OpenRead($"..\\..\\..\\..\\..\\files\\GraphSon\\{name}.json")).ReadToEnd();
         }
     }
 }
