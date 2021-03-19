@@ -253,6 +253,12 @@ namespace ExRam.Gremlinq.Core
                         : recurse.TryDeserialize(jToken, type.GetGenericArguments()[0], env)
                     : overridden(jToken, type, env, recurse);
             })
+            .Override<JValue>((jValue, type, env, overridden, recurse) =>
+            {
+                return jValue.Value is { } value && type.IsInstanceOfType(value)
+                    ? value
+                    : overridden(jValue, type, env, recurse);
+            })
             .Override<JObject>((jObject, type, env, overridden, recurse) =>
             {
                 if (type == typeof(object))
