@@ -287,24 +287,27 @@ namespace ExRam.Gremlinq.Core
             })
             .Override<JObject>((jObject, type, env, overridden, recurse) =>
             {
-                // Elements
-                var modelTypes = env.GetCache().ModelTypes;
-                var label = jObject["label"]?.ToString();
-
-                var modelType = label != null && modelTypes.TryGetValue(label, out var types)
-                    ? types.FirstOrDefault(possibleType => type.IsAssignableFrom(possibleType))
-                    : default;
-
-                if (modelType == null)
+                if (!type.IsSealed)
                 {
-                    if (type == typeof(IVertex))
-                        modelType = typeof(VertexImpl);
-                    else if (type == typeof(IEdge))
-                        modelType = typeof(EdgeImpl);
-                }
+                    // Elements
+                    var modelTypes = env.GetCache().ModelTypes;
+                    var label = jObject["label"]?.ToString();
 
-                if (modelType != null && modelType != type)
-                    return recurse.TryDeserialize(jObject, modelType, env);
+                    var modelType = label != null && modelTypes.TryGetValue(label, out var types)
+                        ? types.FirstOrDefault(possibleType => type.IsAssignableFrom(possibleType))
+                        : default;
+
+                    if (modelType == null)
+                    {
+                        if (type == typeof(IVertex))
+                            modelType = typeof(VertexImpl);
+                        else if (type == typeof(IEdge))
+                            modelType = typeof(EdgeImpl);
+                    }
+
+                    if (modelType != null && modelType != type)
+                        return recurse.TryDeserialize(jObject, modelType, env);
+                }
 
                 return overridden(jObject, type, env, recurse);
             })
