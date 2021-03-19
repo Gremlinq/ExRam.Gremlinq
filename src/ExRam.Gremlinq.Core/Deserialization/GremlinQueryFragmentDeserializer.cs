@@ -255,9 +255,18 @@ namespace ExRam.Gremlinq.Core
             })
             .Override<JValue>((jValue, type, env, overridden, recurse) =>
             {
-                return jValue.Value is { } value && type.IsInstanceOfType(value)
-                    ? value
-                    : overridden(jValue, type, env, recurse);
+                if (jValue.Value is { } value)
+                {
+                    if (type.IsInstanceOfType(value))
+                        return value;
+
+                    if (type == typeof(int) || type == typeof(byte) || type == typeof(sbyte) || type == typeof(ushort) || type == typeof(short) || type == typeof(uint) || type == typeof(ulong) || type == typeof(long) || type == typeof(float) || type == typeof(double))
+                        return Convert.ChangeType(value, type);
+
+                    return overridden(jValue, type, env, recurse);
+                }
+
+                return null;
             })
             .Override<JObject>((jObject, type, env, overridden, recurse) =>
             {
