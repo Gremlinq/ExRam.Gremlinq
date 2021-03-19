@@ -29,9 +29,7 @@ namespace ExRam.Gremlinq.Core
         public static JObject? TryGetElementProperties(this JObject jObject, IGremlinQueryEnvironment env, IGremlinQueryFragmentDeserializer recurse)
         {
             return jObject.ContainsKey("id") && jObject.TryGetValue("label", out var label) && label.Type == JTokenType.String && jObject["properties"] is JObject propertiesToken
-                ? recurse.TryDeserialize(propertiesToken, typeof(JObject), env) is JObject unmapped
-                    ? unmapped
-                    : propertiesToken
+                ? propertiesToken
                 : null;
         }
     }
