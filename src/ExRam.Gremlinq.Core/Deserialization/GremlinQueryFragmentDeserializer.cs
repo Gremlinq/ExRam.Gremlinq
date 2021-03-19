@@ -155,7 +155,7 @@ namespace ExRam.Gremlinq.Core
 
                 if (ret is not JToken && ret is not IProperty && jToken is JObject element)
                 {
-                    if (element.TryGetElementProperties(env, recurse) is { } propertiesToken)
+                    if (element.TryGetElementProperties() is { } propertiesToken)
                     {
                         env
                             .GetCache()
@@ -331,7 +331,7 @@ namespace ExRam.Gremlinq.Core
             .Override<JObject>((jObject, type, env, overridden, recurse) =>
             {
                 //@type == "g:Map"
-                return jObject.TryUnmap(env, recurse) is { } unmappedObject
+                return jObject.TryUnmap() is { } unmappedObject
                     ? recurse.TryDeserialize(unmappedObject, type, env)
                     : overridden(jObject, type, env, recurse);
             })
