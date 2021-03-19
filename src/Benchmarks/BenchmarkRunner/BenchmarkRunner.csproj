@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\test\ExRam.Gremlinq.Providers.Tests\ExRam.Gremlinq.Providers.Tests.csproj" />
     <ProjectReference Include="..\..\ExRam.Gremlinq.Core\ExRam.Gremlinq.Core.csproj" />
   </ItemGroup>
 
