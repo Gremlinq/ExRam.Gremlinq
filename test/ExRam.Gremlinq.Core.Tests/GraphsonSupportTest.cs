@@ -550,7 +550,7 @@ namespace ExRam.Gremlinq.Providers.Tests
 
         private static string GetJson(string name)
         {
-            return new StreamReader(File.OpenRead($"..\\..\\..\\..\\..\\files\\GraphSon\\{name}.json")).ReadToEnd();
+            return new StreamReader(File.OpenRead($"../../../../../files/GraphSon/{name}.json")).ReadToEnd();
         }
     }
 }
