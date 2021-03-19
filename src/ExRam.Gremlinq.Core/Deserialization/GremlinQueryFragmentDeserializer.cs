@@ -155,12 +155,13 @@ namespace ExRam.Gremlinq.Core
 
                 if (ret is not JToken && ret is not IProperty && jToken is JObject element)
                 {
-                    var ignoringSerializer = env
-                        .GetCache()
-                        .GetIgnoringJsonSerializer(recurse);
-
                     if (element.TryGetElementProperties(env, recurse) is { } propertiesToken)
-                        ignoringSerializer.Populate(new JTokenReader(propertiesToken), ret);
+                    {
+                        env
+                            .GetCache()
+                            .GetIgnoringJsonSerializer(recurse)
+                            .Populate(new JTokenReader(propertiesToken), ret);
+                    }
                 }
 
                 return ret;
