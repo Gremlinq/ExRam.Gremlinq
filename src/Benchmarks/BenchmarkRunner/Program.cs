@@ -4,7 +4,7 @@ namespace Benchmarks
 {
     public class Program
     {
-        static void Main()
+        private static void Main()
         {
             Run<Benchmarks>();
         }

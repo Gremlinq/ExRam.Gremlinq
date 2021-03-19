@@ -86,34 +86,33 @@ namespace ExRam.Gremlinq.Core
             IChooseBuilderWithCase<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TPickElement, TTargetQuery>
             where TTargetQuery : IGremlinQueryBase
         {
-            private readonly TTargetQuery _targetQuery;
             private readonly GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> _sourceQuery;
 
             public ChooseBuilder(GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> sourceQuery, TTargetQuery targetQuery)
             {
                 _sourceQuery = sourceQuery;
-                _targetQuery = targetQuery;
+                TargetQuery = targetQuery;
             }
 
             public IChooseBuilderWithCondition<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TNewPickElement> On<TNewPickElement>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase<TNewPickElement>> chooseTraversal)
             {
                 return new ChooseBuilder<TTargetQuery, TNewPickElement>(
                     _sourceQuery,
-                    _targetQuery.AsAdmin().AddStep<TTargetQuery>(new ChooseOptionTraversalStep(_sourceQuery.Continue(chooseTraversal).ToTraversal())));
+                    TargetQuery.AsAdmin().AddStep<TTargetQuery>(new ChooseOptionTraversalStep(_sourceQuery.Continue(chooseTraversal).ToTraversal())));
             }
 
             public IChooseBuilderWithCase<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TPickElement, TNewTargetQuery> Case<TNewTargetQuery>(TPickElement element, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TNewTargetQuery> continuation) where TNewTargetQuery : IGremlinQueryBase
             {
                 return new ChooseBuilder<TNewTargetQuery, TPickElement>(
                     _sourceQuery,
-                    _targetQuery.AsAdmin().AddStep<TNewTargetQuery>(new OptionTraversalStep(element, _sourceQuery.Continue(continuation).ToTraversal())));
+                    TargetQuery.AsAdmin().AddStep<TNewTargetQuery>(new OptionTraversalStep(element, _sourceQuery.Continue(continuation).ToTraversal())));
             }
 
             public IChooseBuilderWithCaseOrDefault<TNewTargetQuery> Default<TNewTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TNewTargetQuery> continuation) where TNewTargetQuery : IGremlinQueryBase
             {
                 return new ChooseBuilder<TNewTargetQuery, TPickElement>(
                     _sourceQuery,
-                    _targetQuery.AsAdmin().AddStep<TNewTargetQuery>(new OptionTraversalStep(default, _sourceQuery.Continue(continuation).ToTraversal())));
+                    TargetQuery.AsAdmin().AddStep<TNewTargetQuery>(new OptionTraversalStep(default, _sourceQuery.Continue(continuation).ToTraversal())));
             }
 
             public IChooseBuilderWithCase<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TPickElement, TTargetQuery> Case(TPickElement element, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> continuation) => Case<TTargetQuery>(element, continuation);
@@ -122,7 +121,7 @@ namespace ExRam.Gremlinq.Core
 
             public TTargetQuery TargetQuery
             {
-                get => _targetQuery;
+                get;
             }
         }
 

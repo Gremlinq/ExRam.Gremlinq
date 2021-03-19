@@ -1,5 +1,4 @@
-﻿#pragma warning disable xUnit1004
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -11,7 +10,6 @@ using FluentAssertions;
 using Gremlin.Net.Process.Traversal;
 using Gremlin.Net.Process.Traversal.Strategy.Decoration;
 using Microsoft.Extensions.Logging;
-using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
 
