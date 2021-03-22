@@ -27,12 +27,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>GremlinQuery.generated.cs</LastGenOutput>
     </None>
-    <None Update="Queries\T4\HelperMethods.tt">
-      <Generator></Generator>
-    </None>
-    <None Update="Queries\T4\Constants.tt">
-      <Generator></Generator>
-    </None>
   </ItemGroup>
   
   <ItemGroup>
