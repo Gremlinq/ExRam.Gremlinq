@@ -51,7 +51,7 @@ jobs:
         path: ./**/ExRam.*.nupkg
         if-no-files-found: error
 
-  test-gremlinserver:
+  test-linux:
     runs-on: ubuntu-latest
 
     services:
@@ -59,43 +59,15 @@ jobs:
         image: tinkerpop/gremlin-server
         ports:
           - 8182:8182
-
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
-        submodules: 'true'
-
-    - name: Setup .NET Core ${{ env.DotNetVersion }}
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: ${{ env.DotNetVersion }}
-
-    - name: Test
-      run: dotnet test  --configuration Release --verbosity normal -p:RunGremlinServerIntegrationTests=${{ env.IsForkedRepository == 'false' }}
-
-    - name: Copy *.received-files to artifacts
-      if: always()
-      uses: actions/upload-artifact@v2
-      with:
-        name: test-gremlinserver-received-snapshots
-        path: ./**/*.received.*
-
-  test-janusgraph:
-    runs-on: ubuntu-latest
-
-    services:
       janusgraph:
         image: janusgraph/janusgraph
         ports:
-          - 8182:8182
+          - 8183:8182
 
     steps:
     - name: Checkout
       uses: actions/checkout@v2
       with:
-        ref: ${{ github.head_ref }}
         fetch-depth: 0
         submodules: 'true'
 
@@ -105,16 +77,16 @@ jobs:
         dotnet-version: ${{ env.DotNetVersion }}
 
     - name: Test
-      run: dotnet test  --configuration Release --verbosity normal -p:RunJanusGraphIntegrationTests=${{ env.IsForkedRepository == 'false' }}
+      run: dotnet test  --configuration Release --verbosity normal -p:RunGremlinServerIntegrationTests=${{ env.IsForkedRepository == 'false' }} -p:RunJanusGraphIntegrationTests=${{ env.IsForkedRepository == 'false' }}
 
     - name: Copy *.received-files to artifacts
       if: always()
       uses: actions/upload-artifact@v2
       with:
-        name: test-janusgraph-received-snapshots
+        name: test-linux-received-snapshots
         path: ./**/*.received.*
 
-  test-cosmosdb:
+  test-windows:
     runs-on: windows-latest
 
     steps:
@@ -141,13 +113,13 @@ jobs:
       if: always()
       uses: actions/upload-artifact@v2
       with:
-        name: test-cosmosdb-received-snapshots
+        name: test-windows-received-snapshots
         path: ./**/*.received.*
 
   create-snapshot-fix-pr:
     if: ${{ always() && github.event_name == 'pull_request' }}
     runs-on: ubuntu-latest
-    needs: [ test-gremlinserver, test-janusgraph, test-cosmosdb ]
+    needs: [ test-linux, test-windows ]
     env:
       pr-message: 'Fix snapshots for #${{ github.event.number }}.'
 
@@ -160,17 +132,12 @@ jobs:
     - uses: actions/download-artifact@v2
       continue-on-error: true
       with:
-        name: test-gremlinserver-received-snapshots
+        name: test-linux-received-snapshots
         
     - uses: actions/download-artifact@v2
       continue-on-error: true
       with:
-        name: test-janusgraph-received-snapshots
-        
-    - uses: actions/download-artifact@v2
-      continue-on-error: true
-      with:
-        name: test-cosmosdb-received-snapshots
+        name: test-windows-received-snapshots
 
     - name: Rename received files
       run: find . -type f -name '*.received.*' | while read FILE ; do newfile="$(echo ${FILE} |sed -e 's/received/verified/')"; mv "${FILE}" "${newfile}"; done 
@@ -185,7 +152,7 @@ jobs:
         branch-suffix: short-commit-hash
 
   publish:
-    needs: [ build, test-gremlinserver, test-janusgraph, test-cosmosdb ]
+    needs: [ build, test-linux, test-windows ]
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'push' }}
 

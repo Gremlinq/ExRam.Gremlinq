@@ -22,7 +22,7 @@ namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
             g
                 .ConfigureEnvironment(env => env
                     .UseJanusGraph(builder => builder
-                        .AtLocalhost())
+                        .At("ws://localhost:8183"))
                     .ConfigureExecutor(_ => _
                         .TransformResult(_ => AsyncEnumerable.Empty<object>()))),
             testOutputHelper)
