@@ -24,8 +24,7 @@ namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
                     .UseJanusGraph(builder => builder
                         .AtLocalhost())
                     .ConfigureExecutor(_ => _
-                        .TransformResult(_ => _
-                            .Select(_ => JToken.Parse("\"nondeterministic\""))))),
+                        .TransformResult(_ => AsyncEnumerable.Empty<object>()))),
             testOutputHelper)
         {
         }
