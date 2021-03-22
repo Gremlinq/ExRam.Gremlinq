@@ -541,6 +541,7 @@ namespace ExRam.Gremlinq.Core
 
             var aggregatedSemantics = coalesceQueries
                 .Select(x => x.AsAdmin().Semantics)
+                // ReSharper disable once BitwiseOperatorOnEnumWithoutFlags
                 .Aggregate((x, y) => x & y);
 
             return this
@@ -908,13 +909,9 @@ namespace ExRam.Gremlinq.Core
         private TTargetQuery Select<TTargetQuery>(params Expression[] projections)
         {
             var keys = projections
-                .Select(projection =>
-                {
-                    if (projection is LambdaExpression lambdaExpression && lambdaExpression.Body is MemberExpression memberExpression && memberExpression.Expression == lambdaExpression.Parameters[0])
-                        return (Key)memberExpression.Member.Name;
-
-                    throw new ExpressionNotSupportedException(projection);
-                })
+                .Select(projection => projection is LambdaExpression {Body: MemberExpression memberExpression} lambdaExpression && memberExpression.Expression == lambdaExpression.Parameters[0]
+                    ? (Key)memberExpression.Member.Name
+                    : throw new ExpressionNotSupportedException(projection))
                 .ToImmutableArray();
 
             return AddStep(new SelectKeysStep(keys))
@@ -1074,17 +1071,17 @@ namespace ExRam.Gremlinq.Core
                     {
                         return Where(lambdaExpression.Body);
                     }
-                    case UnaryExpression unaryExpression when unaryExpression.NodeType == ExpressionType.Not:
+                    case UnaryExpression { NodeType: ExpressionType.Not } unaryExpression:
                     {
                         return Not(_ => _.Where(unaryExpression.Operand));
                     }
-                    case BinaryExpression binary when binary.NodeType == ExpressionType.OrElse:
+                    case BinaryExpression { NodeType: ExpressionType.OrElse } binary:
                     {
                         return Or(
                             Continue(__ => __.Where(binary.Left)),
                             Continue(__ => __.Where(binary.Right)));
                     }
-                    case BinaryExpression binary when binary.NodeType == ExpressionType.AndAlso:
+                    case BinaryExpression { NodeType: ExpressionType.AndAlso } binary:
                     {
                         return this
                             .Where(binary.Left)
@@ -1198,7 +1195,7 @@ namespace ExRam.Gremlinq.Core
 
                             return Has(leftMemberExpression, effectivePredicate);
                         }
-                        case ParameterExpression _:
+                        case ParameterExpression:
                         {
                             // x => x == P.xy(...)
                             if (right.GetValue() is StepLabel)

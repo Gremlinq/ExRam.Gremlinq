@@ -35,7 +35,7 @@ namespace ExRam.Gremlinq.Core
 
             private readonly IImmutableDictionary<Type, Delegate> _dict;
             private readonly ConcurrentDictionary<(Type staticType, Type actualType), Delegate> _unconvertedDelegates = new();
-            private readonly ConcurrentDictionary<(Delegate? expression, Type staticType, Type fragmentType), Delegate> _convertedDelegates = new();
+            private readonly ConcurrentDictionary<(Delegate expression, Type staticType, Type fragmentType), Delegate> _convertedDelegates = new();
 
             public GremlinQueryFragmentDeserializerImpl(IImmutableDictionary<Type, Delegate> dict)
             {
@@ -71,7 +71,7 @@ namespace ExRam.Gremlinq.Core
 
                             return ((LambdaExpression)ExpressionMethod3
                                 .MakeGenericMethod(staticType, fragmentType)
-                                .Invoke(null, new[] { del })!).Compile();
+                                .Invoke(null, new object[] { del })!).Compile();
                         });
             }
 
@@ -92,7 +92,7 @@ namespace ExRam.Gremlinq.Core
 
                                 return ((LambdaExpression)ExpressionMethod1
                                     .MakeGenericMethod(staticType, effectiveType)
-                                    .Invoke(null, new[] { del })!).Compile();
+                                    .Invoke(null, new object[] { del })!).Compile();
                             }
 
                             return ((LambdaExpression)ExpressionMethod2

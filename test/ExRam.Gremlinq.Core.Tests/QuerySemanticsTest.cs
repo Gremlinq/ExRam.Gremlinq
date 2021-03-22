@@ -61,11 +61,21 @@ namespace ExRam.Gremlinq.Core.Tests
                 foreach (var value2 in values)
                 {
                     Enum
+                        // ReSharper disable once BitwiseOperatorOnEnumWithoutFlags
                         .IsDefined(value1 & value2)
                         .Should()
                         .BeTrue();
                 }
             }
+        }
+
+        [Fact]
+        public void QuerySemantics_should_not_be_marked_Flags_by_any_review()
+        {
+            typeof(QuerySemantics)
+                .GetCustomAttributes(typeof(FlagsAttribute), true)
+                .Should()
+                .BeEmpty();
         }
     }
 }
