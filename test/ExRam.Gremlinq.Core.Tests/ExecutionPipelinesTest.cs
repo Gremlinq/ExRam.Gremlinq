@@ -51,7 +51,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ConfigureEnvironment(env => env
                     .EchoGraphsonString())
                 .V<Person>()
-                .Awaiting(async _ => await _
+                .Awaiting(_ => _
                     .ToArrayAsync())
                 .Should()
                 .Throw<InvalidCastException>();

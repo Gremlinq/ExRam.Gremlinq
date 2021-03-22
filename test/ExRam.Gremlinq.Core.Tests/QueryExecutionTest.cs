@@ -228,7 +228,7 @@ namespace ExRam.Gremlinq.Core.Tests
                             .FromBaseTypes<VertexWithListId, Edge>(lookup => lookup
                                 .IncludeAssembliesOfBaseTypes())))
                     .AddV(new VertexWithListId { Id = new[] { "123", "456" } })
-                    .Awaiting(async x => await x.FirstAsync())
+                    .Awaiting(x => x.FirstAsync())
                     .Should()
                     .Throw<NotSupportedException>();
             }

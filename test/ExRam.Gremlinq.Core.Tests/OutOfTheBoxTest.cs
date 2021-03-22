@@ -23,7 +23,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Execution()
         {
             g
-                .Awaiting(async _ => await _
+                .Awaiting(_ => _
                     .ConfigureEnvironment(_ => _)
                     .V()
                     .ToArrayAsync())
