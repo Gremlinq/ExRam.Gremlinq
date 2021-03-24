@@ -1,6 +1,6 @@
 [
   {
-    "Script": "V().where(__.properties()).choose(__.values()).option(3, __.constant(1))",
+    "Script": "V().where(__.properties()).choose(__.values()).option(3,__.constant(1))",
     "Bindings": {}
   }
 ]

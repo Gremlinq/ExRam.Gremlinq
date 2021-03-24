@@ -1,6 +1,6 @@
 [
   {
-    "Script": "V().hasLabel(_a).as(_b).V().hasLabel(_a).as(_c).where(_b, gte(_c)).by(_d).by(_d)",
+    "Script": "V().hasLabel(_a).as(_b).V().hasLabel(_a).as(_c).where(_b,gte(_c)).by(_d).by(_d)",
     "Bindings": {
       "_a": "Person",
       "_b": "l1",

@@ -1,6 +1,6 @@
 [
   {
-    "Script": "V().hasLabel(_a).has(_b, eq(_c).and(eq(_d)).and(eq(_e))).project(_f, _g, _h).by(id).by(label).by(__.properties().group().by(label).by(__.project(_f, _g, _i, _h).by(id).by(label).by(value).by(__.valueMap()).fold()))",
+    "Script": "V().hasLabel(_a).has(_b,eq(_c).and(eq(_d)).and(eq(_e))).project(_f,_g,_h).by(id).by(label).by(__.properties().group().by(label).by(__.project(_f,_g,_i,_h).by(id).by(label).by(value).by(__.valueMap()).fold()))",
     "Bindings": {
       "_a": "Person",
       "_b": "Age",

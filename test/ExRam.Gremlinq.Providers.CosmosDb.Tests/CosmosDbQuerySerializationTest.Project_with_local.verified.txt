@@ -1,6 +1,6 @@
 [
   {
-    "Script": "V().where(__.properties()).project(_a, _b).by(__.properties()).by(__.identity())",
+    "Script": "V().where(__.properties()).project(_a,_b).by(__.properties()).by(__.identity())",
     "Bindings": {
       "_a": "Item2",
       "_b": "name"

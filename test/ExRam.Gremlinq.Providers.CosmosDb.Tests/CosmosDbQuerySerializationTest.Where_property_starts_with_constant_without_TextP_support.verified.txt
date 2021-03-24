@@ -1,6 +1,6 @@
 [
   {
-    "Script": "V().hasLabel(_a).has(_b, between(_c, _d))",
+    "Script": "V().hasLabel(_a).has(_b,between(_c,_d))",
     "Bindings": {
       "_a": "Country",
       "_b": "CountryCallingCode",

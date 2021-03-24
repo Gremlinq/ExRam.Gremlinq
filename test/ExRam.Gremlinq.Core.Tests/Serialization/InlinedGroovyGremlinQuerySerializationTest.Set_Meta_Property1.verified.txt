@@ -1,6 +1,6 @@
 [
   {
-    "Script": "V().hasLabel('Country').properties('Name').property('metaKey', 1)",
+    "Script": "V().hasLabel('Country').properties('Name').property('metaKey',1)",
     "Bindings": {}
   }
 ]

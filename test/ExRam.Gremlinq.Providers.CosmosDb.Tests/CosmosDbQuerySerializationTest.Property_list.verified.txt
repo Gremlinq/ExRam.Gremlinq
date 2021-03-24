@@ -1,6 +1,6 @@
 [
   {
-    "Script": "V().hasLabel(_a).limit(_b).property(list, _c, _d)",
+    "Script": "V().hasLabel(_a).limit(_b).property(list,_c,_d)",
     "Bindings": {
       "_a": "Company",
       "_b": 1,
