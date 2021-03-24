@@ -114,7 +114,7 @@ namespace ExRam.Gremlinq.Core
                         foreach (var argument in objectArray)
                         {
                             if (comma)
-                                builder.Append(", ");
+                                builder.Append(',');
                             else
                                 comma = true;
 
@@ -129,7 +129,7 @@ namespace ExRam.Gremlinq.Core
                         foreach (var argument in enumerable)
                         {
                             if (comma)
-                                builder.Append(", ");
+                                builder.Append(',');
                             else
                                 comma = true;
 
