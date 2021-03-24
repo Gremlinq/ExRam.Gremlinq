@@ -8,24 +8,28 @@ namespace ExRam.Gremlinq.Core
 {
     public static class AddStepHandler
     {
-        private sealed class AddStepHandlerImpl : IAddStepHandler
+        private abstract class AddStepHandlerBase : IAddStepHandler
         {
             private readonly IImmutableDictionary<Type, Delegate> _dict;
             private readonly ConcurrentDictionary<(Type staticType, Type actualType), Delegate?> _fastDict = new();
+            
+            protected AddStepHandlerBase() : this(ImmutableDictionary<Type, Delegate>.Empty)
+            {
+            }
 
-            public AddStepHandlerImpl(IImmutableDictionary<Type, Delegate> dict)
+            protected AddStepHandlerBase(IImmutableDictionary<Type, Delegate> dict)
             {
                 _dict = dict;
             }
 
-            public IImmutableStack<Step> AddStep<TStep>(IImmutableStack<Step> steps, TStep step, IGremlinQueryEnvironment environment) where TStep : Step
+            public virtual IImmutableStack<Step> AddStep<TStep>(IImmutableStack<Step> steps, TStep step, IGremlinQueryEnvironment environment) where TStep : Step
             {
                 return TryGetAddHandler(typeof(TStep), step.GetType()) is Func<IImmutableStack<Step>, TStep, IGremlinQueryEnvironment, IAddStepHandler, IImmutableStack<Step>> del
                     ? del(steps, step, environment, this)
                     : steps.Push(step);
             }
 
-            public IAddStepHandler Override<TStep>(Func<IImmutableStack<Step>, TStep, IGremlinQueryEnvironment, Func<IImmutableStack<Step>, TStep, IGremlinQueryEnvironment, IAddStepHandler, IImmutableStack<Step>>, IAddStepHandler, IImmutableStack<Step>> addStepHandler) where TStep : Step
+            public virtual IAddStepHandler Override<TStep>(Func<IImmutableStack<Step>, TStep, IGremlinQueryEnvironment, Func<IImmutableStack<Step>, TStep, IGremlinQueryEnvironment, IAddStepHandler, IImmutableStack<Step>>, IAddStepHandler, IImmutableStack<Step>> addStepHandler) where TStep : Step
             {
                 return new AddStepHandlerImpl(
                     _dict.SetItem(
@@ -121,7 +125,19 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        public static readonly IAddStepHandler Empty = new AddStepHandlerImpl(ImmutableDictionary<Type, Delegate>.Empty);
+        private sealed class AddStepHandlerImpl : AddStepHandlerBase
+        {
+            public AddStepHandlerImpl(IImmutableDictionary<Type, Delegate> dict) : base(dict)
+            {
+            }
+        }
+
+        private sealed class EmptyAddStepHandler : AddStepHandlerBase
+        {
+            public override IImmutableStack<Step> AddStep<TStep>(IImmutableStack<Step> steps, TStep step, IGremlinQueryEnvironment environment) => steps.Push(step);
+        }
+
+        public static readonly IAddStepHandler Empty = new EmptyAddStepHandler();
 
         public static readonly IAddStepHandler Default = Empty
             .Override<AsStep>((steps, step, env, overridden, recurse) => steps.PeekOrDefault() is AsStep asStep && ReferenceEquals(asStep.StepLabel, step.StepLabel)
