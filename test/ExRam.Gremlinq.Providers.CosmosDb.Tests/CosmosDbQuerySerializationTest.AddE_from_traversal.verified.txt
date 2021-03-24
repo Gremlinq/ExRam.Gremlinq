@@ -1,6 +1,6 @@
 [
   {
-    "Script": "addV(_a).property(_b, _b).property(single, _c, _d).property(single, _e, _f).property(single, _g, _h).property(single, _i, _j).addE(_k).from(__.V().hasLabel(_l).has(_m, _n))",
+    "Script": "addV(_a).property(_b,_b).property(single,_c,_d).property(single,_e,_f).property(single,_g,_h).property(single,_i,_j).addE(_k).from(__.V().hasLabel(_l).has(_m,_n))",
     "Bindings": {
       "_a": "Person",
       "_b": "PartitionKey",

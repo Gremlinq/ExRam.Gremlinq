@@ -1,6 +1,6 @@
 [
   {
-    "Script": "addV(_a).property(single, _b, _c).as(_d).addV(_e).property(single, _f, _g).addE(_h).to(_d).project(_i, _j, _k).by(id).by(label).by(__.valueMap())",
+    "Script": "addV(_a).property(single,_b,_c).as(_d).addV(_e).property(single,_f,_g).addE(_h).to(_d).project(_i,_j,_k).by(id).by(label).by(__.valueMap())",
     "Bindings": {
       "_a": "Language",
       "_b": "IetfLanguageTag",

@@ -1,6 +1,6 @@
 [
   {
-    "Script": "E().hasLabel(_a).sideEffect(__.properties(_b).drop()).property(_b, _c)",
+    "Script": "E().hasLabel(_a).sideEffect(__.properties(_b).drop()).property(_b,_c)",
     "Bindings": {
       "_a": "WorksFor",
       "_b": "To",

@@ -1,6 +1,6 @@
 [
   {
-    "Script": "E().hasLabel(_a).project(_b, _c, _d).by(id).by(label).by(__.valueMap())",
+    "Script": "E().hasLabel(_a).project(_b,_c,_d).by(id).by(label).by(__.valueMap())",
     "Bindings": {
       "_a": "WorksFor",
       "_b": "id",

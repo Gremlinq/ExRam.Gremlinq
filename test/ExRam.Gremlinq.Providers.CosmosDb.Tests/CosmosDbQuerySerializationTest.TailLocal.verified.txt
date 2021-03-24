@@ -1,6 +1,6 @@
 [
   {
-    "Script": "V().tail(local, _a)",
+    "Script": "V().tail(local,_a)",
     "Bindings": {
       "_a": 1
     }

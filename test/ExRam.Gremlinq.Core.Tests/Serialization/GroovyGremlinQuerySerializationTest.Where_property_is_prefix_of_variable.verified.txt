@@ -1,6 +1,6 @@
 [
   {
-    "Script": "V().hasLabel(_a).has(_b, within(_c, _d, _e, _f, _g, _h, _i)).project(_j, _k, _l).by(id).by(label).by(__.properties().group().by(label).by(__.project(_j, _k, _m, _l).by(id).by(label).by(value).by(__.valueMap()).fold()))",
+    "Script": "V().hasLabel(_a).has(_b,within(_c,_d,_e,_f,_g,_h,_i)).project(_j,_k,_l).by(id).by(label).by(__.properties().group().by(label).by(__.project(_j,_k,_m,_l).by(id).by(label).by(value).by(__.valueMap()).fold()))",
     "Bindings": {
       "_a": "Country",
       "_b": "CountryCallingCode",

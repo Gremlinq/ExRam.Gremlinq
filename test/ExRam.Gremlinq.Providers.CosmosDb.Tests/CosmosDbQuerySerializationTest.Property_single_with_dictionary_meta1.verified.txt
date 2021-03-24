@@ -1,6 +1,6 @@
 [
   {
-    "Script": "V().hasLabel(_a).property(single, _b, _c, _d, _e)",
+    "Script": "V().hasLabel(_a).property(single,_b,_c,_d,_e)",
     "Bindings": {
       "_a": "Country",
       "_b": "LocalizableDescription",

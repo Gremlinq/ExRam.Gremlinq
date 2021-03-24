@@ -1,6 +1,6 @@
 [
   {
-    "Script": "V().where(__.properties()).project('Item1', 'Item2').by(__.identity().project('id', 'label', 'properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id', 'label', 'value', 'properties').by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.properties())",
+    "Script": "V().where(__.properties()).project('Item1','Item2').by(__.identity().project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.properties())",
     "Bindings": {}
   }
 ]

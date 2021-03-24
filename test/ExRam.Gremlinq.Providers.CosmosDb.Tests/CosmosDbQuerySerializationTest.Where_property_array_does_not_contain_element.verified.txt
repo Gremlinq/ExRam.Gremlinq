@@ -1,6 +1,6 @@
 [
   {
-    "Script": "V().hasLabel(_a).not(__.has(_b, _c))",
+    "Script": "V().hasLabel(_a).not(__.has(_b,_c))",
     "Bindings": {
       "_a": "Company",
       "_b": "PhoneNumbers",

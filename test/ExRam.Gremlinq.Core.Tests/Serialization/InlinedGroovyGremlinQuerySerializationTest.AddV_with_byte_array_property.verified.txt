@@ -1,6 +1,6 @@
 [
   {
-    "Script": "addV('Person').property(single, 'Age', 0).property(single, 'Gender', 0).property(single, 'Image', _g).project('id', 'label', 'properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id', 'label', 'value', 'properties').by(id).by(label).by(value).by(__.valueMap()).fold()))",
+    "Script": "addV('Person').property(single,'Age',0).property(single,'Gender',0).property(single,'Image',_g).project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold()))",
     "Bindings": {
       "_g": "AQIDBAUGBwg="
     }

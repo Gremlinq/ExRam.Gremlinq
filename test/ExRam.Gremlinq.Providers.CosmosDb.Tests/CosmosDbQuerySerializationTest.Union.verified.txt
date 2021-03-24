@@ -1,6 +1,6 @@
 [
   {
-    "Script": "V().hasLabel(_a).union(__.out(_b), __.out(_c))",
+    "Script": "V().hasLabel(_a).union(__.out(_b),__.out(_c))",
     "Bindings": {
       "_a": "Person",
       "_b": "WorksFor",

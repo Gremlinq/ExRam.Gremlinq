@@ -1,6 +1,6 @@
 [
   {
-    "Script": "V().where(__.in()).where(__.out()).where(__.properties()).project('Item1', 'Item2', 'Item3', 'Item4').by(__.in().project('id', 'label', 'properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id', 'label', 'value', 'properties').by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.out().project('id', 'label', 'properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id', 'label', 'value', 'properties').by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.count()).by(__.properties())",
+    "Script": "V().where(__.in()).where(__.out()).where(__.properties()).project('Item1','Item2','Item3','Item4').by(__.in().project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.out().project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.count()).by(__.properties())",
     "Bindings": {}
   }
 ]

@@ -1,6 +1,6 @@
 [
   {
-    "Script": "V().outE().project('id', 'label', 'properties').by(id).by(label).by(__.valueMap())",
+    "Script": "V().outE().project('id','label','properties').by(id).by(label).by(__.valueMap())",
     "Bindings": {}
   }
 ]

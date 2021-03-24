@@ -1,6 +1,6 @@
 [
   {
-    "Script": "V().hasLabel('Person').has('Name').where(__.values('Gender')).order().by(__.values('Name'), incr).by('Gender', decr).project('id', 'label', 'properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id', 'label', 'value', 'properties').by(id).by(label).by(value).by(__.valueMap()).fold()))",
+    "Script": "V().hasLabel('Person').has('Name').where(__.values('Gender')).order().by(__.values('Name'),incr).by('Gender',decr).project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold()))",
     "Bindings": {}
   }
 ]
