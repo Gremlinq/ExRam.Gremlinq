@@ -1,6 +1,6 @@
 [
   {
-    "Script": "V().hasLabel(_a, _b)",
+    "Script": "V().hasLabel(_a,_b)",
     "Bindings": {
       "_a": "Company",
       "_b": "Person"

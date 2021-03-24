@@ -1,6 +1,6 @@
 [
   {
-    "Script": "V().limit(_a).range(local, _a, _b)",
+    "Script": "V().limit(_a).range(local,_a,_b)",
     "Bindings": {
       "_a": 0,
       "_b": 2

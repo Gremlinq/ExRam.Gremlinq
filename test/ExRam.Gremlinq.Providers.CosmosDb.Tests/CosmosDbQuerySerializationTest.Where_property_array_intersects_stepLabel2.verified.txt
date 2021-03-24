@@ -1,6 +1,6 @@
 [
   {
-    "Script": "inject(_a).fold().as(_b).V().hasLabel(_c).has(_d, __.where(within(_b)))",
+    "Script": "inject(_a).fold().as(_b).V().hasLabel(_c).has(_d,__.where(within(_b)))",
     "Bindings": {
       "_a": "+4912345",
       "_b": "l1",

@@ -1,6 +1,6 @@
 [
   {
-    "Script": "V().hasLabel(_a).has(_b, endingWith(_c))",
+    "Script": "V().hasLabel(_a).has(_b,endingWith(_c))",
     "Bindings": {
       "_a": "Country",
       "_b": "CountryCallingCode",

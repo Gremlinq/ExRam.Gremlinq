@@ -1,6 +1,6 @@
 [
   {
-    "Script": "addV(_a).property(single, _b, _c).property(single, _d, _e).addE(_f).to(__.addV(_g)).outV().project(_h, _i, _j).by(id).by(label).by(__.properties().group().by(label).by(__.project(_h, _i, _k, _j).by(id).by(label).by(value).by(__.valueMap()).fold()))",
+    "Script": "addV(_a).property(single,_b,_c).property(single,_d,_e).addE(_f).to(__.addV(_g)).outV().project(_h,_i,_j).by(id).by(label).by(__.properties().group().by(label).by(__.project(_h,_i,_k,_j).by(id).by(label).by(value).by(__.valueMap()).fold()))",
     "Bindings": {
       "_a": "Person",
       "_b": "Age",

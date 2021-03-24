@@ -1,6 +1,6 @@
 [
   {
-    "Script": "V().limit(0).fold().range(local, 0, 0)",
+    "Script": "V().limit(0).fold().range(local,0,0)",
     "Bindings": {}
   }
 ]

@@ -1,6 +1,6 @@
 [
   {
-    "Script": "addV(_a).property(_b, _b).property(single, _c, _d).property(single, _e, _f).property(single, _g, _h)",
+    "Script": "addV(_a).property(_b,_b).property(single,_c,_d).property(single,_e,_f).property(single,_g,_h)",
     "Bindings": {
       "_a": "TimeFrame",
       "_b": "PartitionKey",

@@ -1,6 +1,6 @@
 [
   {
-    "Script": "addE(_a).property(_b, _c).property(_d, _e).property(_f, _c).from(__.addV(_g).property(_h, _h).property(single, _i, _j).property(single, _k, _l)).to(__.addV(_m).property(_h, _h).property(single, _n, _o))",
+    "Script": "addE(_a).property(_b,_c).property(_d,_e).property(_f,_c).from(__.addV(_g).property(_h,_h).property(single,_i,_j).property(single,_k,_l)).to(__.addV(_m).property(_h,_h).property(single,_n,_o))",
     "Bindings": {
       "_a": "WorksFor",
       "_b": "From",

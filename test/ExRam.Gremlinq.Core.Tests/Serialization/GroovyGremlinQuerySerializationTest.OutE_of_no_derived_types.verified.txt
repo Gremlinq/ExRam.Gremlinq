@@ -1,6 +1,6 @@
 [
   {
-    "Script": "V().outE(_a).project(_b, _c, _d).by(id).by(label).by(__.valueMap())",
+    "Script": "V().outE(_a).project(_b,_c,_d).by(id).by(label).by(__.valueMap())",
     "Bindings": {
       "_a": "String",
       "_b": "id",

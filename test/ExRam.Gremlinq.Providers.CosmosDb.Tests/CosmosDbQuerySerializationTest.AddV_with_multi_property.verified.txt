@@ -1,6 +1,6 @@
 [
   {
-    "Script": "addV(_a).property(_b, _b).property(single, _c, _d).property(list, _e, _f).property(list, _e, _g)",
+    "Script": "addV(_a).property(_b,_b).property(single,_c,_d).property(list,_e,_f).property(list,_e,_g)",
     "Bindings": {
       "_a": "Company",
       "_b": "PartitionKey",

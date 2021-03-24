@@ -1,6 +1,6 @@
 [
   {
-    "Script": "inject(_a, _b, _c)",
+    "Script": "inject(_a,_b,_c)",
     "Bindings": {
       "_a": 36,
       "_b": 37,

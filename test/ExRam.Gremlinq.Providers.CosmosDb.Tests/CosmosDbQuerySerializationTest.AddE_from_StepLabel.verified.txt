@@ -1,6 +1,6 @@
 [
   {
-    "Script": "addV(_a).property(_b, _b).property(single, _c, _d).as(_e).addV(_f).property(_b, _b).property(single, _g, _h).addE(_i).from(_e)",
+    "Script": "addV(_a).property(_b,_b).property(single,_c,_d).as(_e).addV(_f).property(_b,_b).property(single,_g,_h).addE(_i).from(_e)",
     "Bindings": {
       "_a": "Country",
       "_b": "PartitionKey",

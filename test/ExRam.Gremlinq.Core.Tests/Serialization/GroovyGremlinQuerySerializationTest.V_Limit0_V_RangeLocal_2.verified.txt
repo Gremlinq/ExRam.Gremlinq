@@ -1,6 +1,6 @@
 [
   {
-    "Script": "V().limit(_a).range(local, _a, _b).project(_c, _d, _e).by(id).by(label).by(__.properties().group().by(label).by(__.project(_c, _d, _f, _e).by(id).by(label).by(value).by(__.valueMap()).fold()))",
+    "Script": "V().limit(_a).range(local,_a,_b).project(_c,_d,_e).by(id).by(label).by(__.properties().group().by(label).by(__.project(_c,_d,_f,_e).by(id).by(label).by(value).by(__.valueMap()).fold()))",
     "Bindings": {
       "_a": 0,
       "_b": 2,

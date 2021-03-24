@@ -1,6 +1,6 @@
 [
   {
-    "Script": "V().hasLabel(_a).has(_b).order().by(__.values(_b), decr)",
+    "Script": "V().hasLabel(_a).has(_b).order().by(__.values(_b),decr)",
     "Bindings": {
       "_a": "Person",
       "_b": "Name"

@@ -1,6 +1,6 @@
 [
   {
-    "Script": "withoutStrategies(SubgraphStrategy, ElementIdStrategy).V()",
+    "Script": "withoutStrategies(SubgraphStrategy,ElementIdStrategy).V()",
     "Bindings": {}
   }
 ]

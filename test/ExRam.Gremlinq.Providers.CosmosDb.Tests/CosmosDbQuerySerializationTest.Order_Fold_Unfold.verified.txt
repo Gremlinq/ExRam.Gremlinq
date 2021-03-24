@@ -1,6 +1,6 @@
 [
   {
-    "Script": "V().hasLabel(_a, _b, _c, _d, _e).order().by(id, incr).fold().unfold()",
+    "Script": "V().hasLabel(_a,_b,_c,_d,_e).order().by(id,incr).fold().unfold()",
     "Bindings": {
       "_a": "Company",
       "_b": "Country",

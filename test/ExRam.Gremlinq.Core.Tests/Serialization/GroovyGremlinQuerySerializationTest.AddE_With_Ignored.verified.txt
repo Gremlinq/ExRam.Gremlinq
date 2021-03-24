@@ -1,6 +1,6 @@
 [
   {
-    "Script": "addE(_a).property(_b, _c).from(__.addV(_d).property(single, _e, _f).property(single, _g, _h)).to(__.addV(_i).property(single, _j, _k)).project(_l, _m, _n).by(id).by(label).by(__.valueMap())",
+    "Script": "addE(_a).property(_b,_c).from(__.addV(_d).property(single,_e,_f).property(single,_g,_h)).to(__.addV(_i).property(single,_j,_k)).project(_l,_m,_n).by(id).by(label).by(__.valueMap())",
     "Bindings": {
       "_a": "WorksFor",
       "_b": "To",
