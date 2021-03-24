@@ -17,166 +17,166 @@ namespace ExRam.Gremlinq.Core
 
             try
             {
-            var bindings = new Dictionary<object, BindingKey>();
-            var variables = new Dictionary<string, object>();
+                var bindings = new Dictionary<object, BindingKey>();
+                var variables = new Dictionary<string, object>();
 
-            void Append(object obj, bool allowEnumerableExpansion = false)
-            {
-                switch (obj)
+                void Append(object obj, bool allowEnumerableExpansion = false)
                 {
-                    case Bytecode byteCode:
+                    switch (obj)
                     {
-                        if (builder.Length > 0)
-                            builder.Append("__");
-
-                        foreach (var instruction in byteCode.SourceInstructions)
+                        case Bytecode byteCode:
                         {
-                            Append(instruction);
-                        }
+                            if (builder.Length > 0)
+                                builder.Append("__");
 
-                        foreach (var instruction in byteCode.StepInstructions)
+                            foreach (var instruction in byteCode.SourceInstructions)
+                            {
+                                Append(instruction);
+                            }
+
+                            foreach (var instruction in byteCode.StepInstructions)
+                            {
+                                Append(instruction);
+                            }
+
+                            break;
+                        }
+                        case Instruction instruction:
                         {
-                            Append(instruction);
+                            if (builder.Length != 0)
+                                builder.Append('.');
+
+                            builder
+                                .Append(instruction.OperatorName)
+                                .Append('(');
+
+                            Append(instruction.Arguments, true);
+
+                            builder
+                                .Append(')');
+
+                            break;
                         }
-
-                        break;
-                    }
-                    case Instruction instruction:
-                    {
-                        if (builder.Length != 0)
-                            builder.Append('.');
-
-                        builder
-                            .Append(instruction.OperatorName)
-                            .Append('(');
-
-                        Append(instruction.Arguments, true);
-
-                        builder
-                            .Append(')');
-
-                        break;
-                    }
-                    case P {Value: P p1} p:
-                    {
-                        Append(p1);
-
-                        builder
-                            .Append('.')
-                            .Append(p.OperatorName)
-                            .Append('(');
-
-                        Append(p.Other);
-
-                        builder
-                            .Append(')');
-
-                        break;
-                    }
-                    case P p:
-                    {
-                        builder
-                            .Append(p.OperatorName)
-                            .Append('(');
-
-                        Append(p.Value, true);
-
-                        builder
-                            .Append(')');
-
-                        break;
-                    }
-                    case EnumWrapper t:
-                    {
-                        builder.Append(t.EnumValue);
-
-                        break;
-                    }
-                    case ILambda lambda:
-                    {
-                        builder
-                            .Append('{')
-                            .Append(lambda.LambdaExpression)
-                            .Append('}');
-
-                        break;
-                    }
-                    case string str when allowEnumerableExpansion:
-                    {
-                        // ReSharper disable once TailRecursiveCall
-                        Append(str);
-
-                        break;
-                    }
-                    case Type type:
-                    {
-                        builder.Append(type.Name);
-
-                        break;
-                    }
-                    case object[] objectArray when allowEnumerableExpansion:
-                    {
-                        var comma = false;
-                        foreach (var argument in objectArray)
+                        case P {Value: P p1} p:
                         {
-                            if (comma)
-                                builder.Append(',');
-                            else
-                                comma = true;
+                            Append(p1);
 
-                            Append(argument);
+                            builder
+                                .Append('.')
+                                .Append(p.OperatorName)
+                                .Append('(');
+
+                            Append(p.Other);
+
+                            builder
+                                .Append(')');
+
+                            break;
                         }
-
-                        break;
-                    }
-                    case IEnumerable enumerable when allowEnumerableExpansion:
-                    {
-                        var comma = false;
-                        foreach (var argument in enumerable)
+                        case P p:
                         {
-                            if (comma)
-                                builder.Append(',');
-                            else
-                                comma = true;
+                            builder
+                                .Append(p.OperatorName)
+                                .Append('(');
 
-                            Append(argument);
+                            Append(p.Value, true);
+
+                            builder
+                                .Append(')');
+
+                            break;
                         }
-
-                        break;
-                    }
-                    default:
-                    {
-                        if (!bindings.TryGetValue(obj, out var bindingKey))
+                        case EnumWrapper t:
                         {
-                            bindingKey = bindings.Count;
-                            bindings.Add(obj, bindingKey);
+                            builder.Append(t.EnumValue);
 
-                            variables[bindingKey] = obj;
+                            break;
                         }
+                        case ILambda lambda:
+                        {
+                            builder
+                                .Append('{')
+                                .Append(lambda.LambdaExpression)
+                                .Append('}');
 
-                        builder.Append(bindingKey);
+                            break;
+                        }
+                        case string str when allowEnumerableExpansion:
+                        {
+                            // ReSharper disable once TailRecursiveCall
+                            Append(str);
 
-                        break;
+                            break;
+                        }
+                        case Type type:
+                        {
+                            builder.Append(type.Name);
+
+                            break;
+                        }
+                        case object[] objectArray when allowEnumerableExpansion:
+                        {
+                            var comma = false;
+                            foreach (var argument in objectArray)
+                            {
+                                if (comma)
+                                    builder.Append(',');
+                                else
+                                    comma = true;
+
+                                Append(argument);
+                            }
+
+                            break;
+                        }
+                        case IEnumerable enumerable when allowEnumerableExpansion:
+                        {
+                            var comma = false;
+                            foreach (var argument in enumerable)
+                            {
+                                if (comma)
+                                    builder.Append(',');
+                                else
+                                    comma = true;
+
+                                Append(argument);
+                            }
+
+                            break;
+                        }
+                        default:
+                        {
+                            if (!bindings.TryGetValue(obj, out var bindingKey))
+                            {
+                                bindingKey = bindings.Count;
+                                bindings.Add(obj, bindingKey);
+
+                                variables[bindingKey] = obj;
+                            }
+
+                            builder.Append(bindingKey);
+
+                            break;
+                        }
                     }
                 }
+
+                Append(bytecode);
+
+                var ret = new GroovyGremlinQuery(
+                    builder.ToString(),
+                    variables,
+                    true,
+                    false);
+
+                return formatting == GroovyFormatting.AllowInlining
+                    ? ret.Inline()
+                    : ret;
             }
-
-            Append(bytecode);
-
-            var ret = new GroovyGremlinQuery(
-                builder.ToString(),
-                variables,
-                true,
-                false);
-
-            return formatting == GroovyFormatting.AllowInlining
-                ? ret.Inline()
-                : ret;
-        }
             finally
             {
                 builder.Clear();
-    }
+            }
         }
     }
 }
