@@ -1,0 +1,10 @@
+[
+  {
+    "Script": "V().project(_a,_b).by(__.label()).by(__.fold()).where(__.select(_b).count(local).is(lt(_c)))",
+    "Bindings": {
+      "_a": "Item1",
+      "_b": "Item2",
+      "_c": 3
+    }
+  }
+]

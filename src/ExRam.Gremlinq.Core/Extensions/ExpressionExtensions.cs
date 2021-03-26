@@ -148,6 +148,11 @@ namespace ExRam.Gremlinq.Core
                         actualExpression = methodCallExpression.Object;
                         break;
                     }
+                    case UnaryExpression unaryExpression:
+                    {
+                        actualExpression = unaryExpression.Operand;
+                        break;
+                    }
                     default:
                     {
                         return false;
