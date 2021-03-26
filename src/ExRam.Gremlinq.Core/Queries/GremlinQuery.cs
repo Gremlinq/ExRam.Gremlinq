@@ -909,9 +909,12 @@ namespace ExRam.Gremlinq.Core
         private TTargetQuery Select<TTargetQuery>(params Expression[] projections)
         {
             var keys = projections
-                .Select(projection => projection is LambdaExpression {Body: MemberExpression memberExpression} lambdaExpression && memberExpression.Expression == lambdaExpression.Parameters[0]
-                    ? (Key)memberExpression.Member.Name
-                    : throw new ExpressionNotSupportedException(projection))
+                .Select(projection => projection switch
+                {
+                    LambdaExpression {Body: MemberExpression memberExpression} lambdaExpression when memberExpression.Expression == lambdaExpression.Parameters[0] => (Key)memberExpression.Member.Name,
+                    MemberExpression memberExpression when memberExpression.Expression is ParameterExpression => (Key)memberExpression.Member.Name,
+                    _ => throw new ExpressionNotSupportedException(projection)
+                 })
                 .ToImmutableArray();
 
             return AddStep(new SelectKeysStep(keys))
@@ -1219,6 +1222,21 @@ namespace ExRam.Gremlinq.Core
                                 if (methodCallExpression.Arguments[0].Strip()!.GetValue() is string key)
                                     return Has(key, effectivePredicate);
                             }
+
+                            break;
+                        }
+                        case UnaryExpression unaryExpression:
+                        {
+                            switch (unaryExpression.NodeType)
+                            {
+                                case ExpressionType.ArrayLength:
+                                {
+                                    return Where(__ => __.Select<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>(unaryExpression.Operand)
+                                        .AddStep(CountStep.Local)
+                                        .AddStep(new IsStep(effectivePredicate)));
+                                }
+                            }
+
 
                             break;
                         }

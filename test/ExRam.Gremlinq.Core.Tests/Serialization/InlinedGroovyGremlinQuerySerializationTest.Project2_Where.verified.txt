@@ -1,0 +1,6 @@
+[
+  {
+    "Script": "V().project('Item1','Item2').by(__.label()).by(__.fold()).where(__.select('Item2').count(local).is(3))",
+    "Bindings": {}
+  }
+]

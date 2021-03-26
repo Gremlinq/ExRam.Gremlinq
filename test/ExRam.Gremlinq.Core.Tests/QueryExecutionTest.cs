@@ -2497,6 +2497,32 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task Project2_Where()
+        {
+            await _g
+                .V()
+                .Project(__ => __
+                    .ToTuple()
+                    .By(__ => __.Label())
+                    .By(__ => __.Fold()))
+                .Where(x => x.Item2.Length == 3)
+                .Verify();
+        }
+
+        [Fact]
+        public virtual async Task Project2_Where_lower()
+        {
+            await _g
+                .V()
+                .Project(__ => __
+                    .ToTuple()
+                    .By(__ => __.Label())
+                    .By(__ => __.Fold()))
+                .Where(x => x.Item2.Length < 3)
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task Project3()
         {
             await _g
@@ -2526,7 +2552,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Select(x => x.Item1)
                 .Verify();
         }
-
+        
         [Fact]
         public virtual async Task Project3_Select2()
         {
