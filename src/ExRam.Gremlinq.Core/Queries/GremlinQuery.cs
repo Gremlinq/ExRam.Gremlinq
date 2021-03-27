@@ -1116,7 +1116,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Where<TProjection>(Expression<Func<TElement, TProjection>> predicate, Func<IGremlinQueryBase<TProjection>, IGremlinQueryBase> propertyTraversal)
         {
-            return predicate.RefersToParameter() && predicate.Body is MemberExpression memberExpression
+            return predicate.TryGetReferredParameter() is not null && predicate.Body is MemberExpression memberExpression
                 ? Has(memberExpression, Cast<TProjection>().Continue(propertyTraversal))
                 : throw new ExpressionNotSupportedException(predicate);
         }

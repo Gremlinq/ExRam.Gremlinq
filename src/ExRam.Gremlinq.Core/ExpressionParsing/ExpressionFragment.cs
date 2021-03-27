@@ -42,7 +42,7 @@ namespace ExRam.Gremlinq.Core
 
         public static ExpressionFragment Create(Expression expression, IGraphModel model)
         {
-            return expression.RefersToParameter()
+            return expression.TryGetReferredParameter() is not null
                 ? Parameter(expression)
                 : expression.TryParseStepLabelExpression(out var stepLabel, out var stepLabelExpression)
                     ? StepLabel(stepLabel!, stepLabelExpression)
