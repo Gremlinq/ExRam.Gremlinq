@@ -1236,10 +1236,14 @@ namespace ExRam.Gremlinq.Core
                             {
                                 case ExpressionType.ArrayLength:
                                 {
+                                    var countStep = (unaryExpression.TryGetReferredParameter() is { } parameterExpression && Environment.GetCache().ModelTypes.Contains(parameterExpression.Type))
+                                        ? CountStep.Global
+                                        : CountStep.Local;
+
                                     return AddStep(
                                         new WhereTraversalStep(ImmutableArray.Create<Step>(
                                             Select(unaryExpression.Operand),
-                                            CountStep.Local,
+                                            countStep,
                                             new IsStep(effectivePredicate))));
                                 }
                             }
