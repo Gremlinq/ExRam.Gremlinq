@@ -46,10 +46,6 @@ namespace ExRam.Gremlinq.Core
                         expression = unaryExpression.Operand;
                         break;
                     }
-                    case MemberExpression memberExpression when memberExpression.TryGetWellKnownMember() == WellKnownMember.StepLabelValue:
-                    {
-                        return memberExpression.Expression!;
-                    }
                     default:
                     {
                         return expression;
