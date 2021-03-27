@@ -1228,11 +1228,14 @@ namespace ExRam.Gremlinq.Core
                                     {
                                         if (GetKey(unaryExpression.Operand).RawKey is string stringKey)
                                         {
-                                            return AddStep(
-                                                new WhereTraversalStep(ImmutableArray.Create<Step>(
-                                                    new PropertiesStep(ImmutableArray.Create(stringKey)),
-                                                    CountStep.Global,
-                                                    new IsStep(effectivePredicate))));
+                                            if (!Environment.GetCache().FastNativeTypes.ContainsKey(unaryExpression.Operand.Type))
+                                            {
+                                                return AddStep(
+                                                    new WhereTraversalStep(ImmutableArray.Create<Step>(
+                                                        new PropertiesStep(ImmutableArray.Create(stringKey)),
+                                                        CountStep.Global,
+                                                        new IsStep(effectivePredicate))));
+                                            }
                                         }
                                     }
                                     else

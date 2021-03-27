@@ -4541,6 +4541,16 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task Where_native_type_property_length()
+        {
+            _g
+                .V<Person>()
+                .Invoking(_ => _.Where(t => t.Image!.Length == 3))
+                .Should()
+                .Throw<ExpressionNotSupportedException>();
+        }
+
+        [Fact]
         public virtual async Task Where_property_array_contains_element()
         {
             await _g
