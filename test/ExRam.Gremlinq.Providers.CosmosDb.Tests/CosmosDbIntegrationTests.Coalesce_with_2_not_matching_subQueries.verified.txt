@@ -1,0 +1,202 @@
+[
+  [
+    {
+      "id": "scrubbed id",
+      "label": "Speaks",
+      "type": "edge",
+      "inVLabel": "Language",
+      "outVLabel": "Country",
+      "inV": "scrubbed id",
+      "outV": "scrubbed id"
+    },
+    {
+      "id": "scrubbed id",
+      "label": "LivesIn",
+      "type": "edge",
+      "inVLabel": "Person",
+      "outVLabel": "Country",
+      "inV": "scrubbed id",
+      "outV": "scrubbed id"
+    },
+    {
+      "id": "scrubbed id",
+      "label": "Country",
+      "type": "vertex",
+      "properties": {
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
+          }
+        ],
+        "CountryCallingCode": [
+          {
+            "id": "scrubbed id",
+            "value": "+49"
+          }
+        ]
+      }
+    },
+    {
+      "id": "scrubbed id",
+      "label": "Country",
+      "type": "vertex",
+      "properties": {
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
+          }
+        ],
+        "CountryCallingCode": [
+          {
+            "id": "scrubbed id",
+            "value": "+49"
+          }
+        ]
+      }
+    },
+    {
+      "id": "scrubbed id",
+      "label": "LivesIn",
+      "type": "edge",
+      "inVLabel": "Country",
+      "outVLabel": "Person",
+      "inV": "scrubbed id",
+      "outV": "scrubbed id"
+    },
+    {
+      "id": "scrubbed id",
+      "label": "Person",
+      "type": "vertex",
+      "properties": {
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
+          }
+        ],
+        "Age": [
+          {
+            "id": "scrubbed id",
+            "value": 0
+          }
+        ],
+        "Gender": [
+          {
+            "id": "scrubbed id",
+            "value": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "scrubbed id",
+      "label": "LivesIn",
+      "type": "edge",
+      "inVLabel": "Country",
+      "outVLabel": "Person",
+      "inV": "scrubbed id",
+      "outV": "scrubbed id"
+    },
+    {
+      "id": "scrubbed id",
+      "label": "Person",
+      "type": "vertex",
+      "properties": {
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
+          }
+        ],
+        "Age": [
+          {
+            "id": "scrubbed id",
+            "value": 0
+          }
+        ],
+        "Gender": [
+          {
+            "id": "scrubbed id",
+            "value": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "scrubbed id",
+      "label": "LivesIn",
+      "type": "edge",
+      "inVLabel": "Country",
+      "outVLabel": "Person",
+      "inV": "scrubbed id",
+      "outV": "scrubbed id",
+      "properties": {
+        "Since": 1586270616000
+      }
+    },
+    {
+      "id": "scrubbed id",
+      "label": "Person",
+      "type": "vertex",
+      "properties": {
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
+          }
+        ],
+        "Age": [
+          {
+            "id": "scrubbed id",
+            "value": 0
+          }
+        ],
+        "Gender": [
+          {
+            "id": "scrubbed id",
+            "value": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "scrubbed id",
+      "label": "Country",
+      "type": "vertex",
+      "properties": {
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
+          }
+        ],
+        "CountryCallingCode": [
+          {
+            "id": "scrubbed id",
+            "value": "+49"
+          }
+        ]
+      }
+    },
+    {
+      "id": "scrubbed id",
+      "label": "Speaks",
+      "type": "edge",
+      "inVLabel": "Language",
+      "outVLabel": "Country",
+      "inV": "scrubbed id",
+      "outV": "scrubbed id"
+    },
+    {
+      "id": "scrubbed id",
+      "label": "LivesIn",
+      "type": "edge",
+      "inVLabel": "Country",
+      "outVLabel": "Person",
+      "inV": "scrubbed id",
+      "outV": "scrubbed id"
+    }
+  ]
+]

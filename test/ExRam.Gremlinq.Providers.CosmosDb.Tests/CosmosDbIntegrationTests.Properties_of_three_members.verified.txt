@@ -1,0 +1,28 @@
+[
+  [
+    {
+      "id": "scrubbed id",
+      "value": "+49",
+      "label": "CountryCallingCode"
+    },
+    {
+      "id": "scrubbed id",
+      "value": "+49",
+      "label": "CountryCallingCode"
+    },
+    {
+      "id": "scrubbed id",
+      "value": "GER",
+      "label": "Name"
+    },
+    {
+      "id": "scrubbed id",
+      "value": "GER",
+      "label": "Name",
+      "properties": {
+        "de": "Deutschland",
+        "en": "Germany"
+      }
+    }
+  ]
+]
