@@ -1224,15 +1224,28 @@ namespace ExRam.Gremlinq.Core
                             {
                                 case ExpressionType.ArrayLength:
                                 {
-                                    var countStep = (unaryExpression.TryGetReferredParameter() is { } parameterExpression && Environment.GetCache().ModelTypes.Contains(parameterExpression.Type))
-                                        ? CountStep.Global
-                                        : CountStep.Local;
+                                    if (unaryExpression.TryGetReferredParameter() is { } parameterExpression && Environment.GetCache().ModelTypes.Contains(parameterExpression.Type))
+                                    {
+                                        if (GetKey(unaryExpression.Operand).RawKey is string stringKey)
+                                        {
+                                            return AddStep(
+                                                new WhereTraversalStep(ImmutableArray.Create<Step>(
+                                                    new PropertiesStep(ImmutableArray.Create(stringKey)),
+                                                    CountStep.Global,
+                                                    new IsStep(effectivePredicate))));
+                                        }
+                                    }
+                                    else
+                                    {
+                                        return AddStep(
+                                            new WhereTraversalStep(ImmutableArray.Create<Step>(
+                                                new SelectKeysStep(
+                                                    ImmutableArray.Create(GetKey(unaryExpression.Operand))),
+                                                CountStep.Local,
+                                                new IsStep(effectivePredicate))));
+                                    }
 
-                                    return AddStep(
-                                        new WhereTraversalStep(ImmutableArray.Create<Step>(
-                                            new SelectKeysStep(ImmutableArray.Create(GetKey(unaryExpression.Operand))),
-                                            countStep,
-                                            new IsStep(effectivePredicate))));
+                                    break;
                                 }
                             }
                             

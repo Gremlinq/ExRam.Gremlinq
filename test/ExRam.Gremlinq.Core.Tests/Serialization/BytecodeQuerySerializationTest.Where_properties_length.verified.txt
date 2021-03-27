@@ -19,7 +19,7 @@
             "SourceInstructions": [],
             "StepInstructions": [
               {
-                "OperatorName": "select",
+                "OperatorName": "properties",
                 "Arguments": [
                   "PhoneNumbers"
                 ]

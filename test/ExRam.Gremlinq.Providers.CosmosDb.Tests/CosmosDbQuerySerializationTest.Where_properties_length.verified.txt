@@ -1,6 +1,6 @@
 [
   {
-    "Script": "V().hasLabel(_a).where(__.select(_b).count().is(_c))",
+    "Script": "V().hasLabel(_a).where(__.properties(_b).count().is(_c))",
     "Bindings": {
       "_a": "Person",
       "_b": "PhoneNumbers",
