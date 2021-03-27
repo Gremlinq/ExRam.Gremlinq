@@ -364,13 +364,17 @@ namespace ExRam.Gremlinq.Core
                     {
                         if (typeof(IList).IsAssignableFrom(methodInfo.DeclaringType) && methodInfo.Name == nameof(List<object>.Contains))
                             return WellKnownMember.ListContains;
-                        else if (methodInfo == StringStartsWith)
+
+                        if (methodInfo == StringStartsWith)
                             return WellKnownMember.StringStartsWith;
-                        else if (methodInfo == StringEndsWith)
+
+                        if (methodInfo == StringEndsWith)
                             return WellKnownMember.StringEndsWith;
-                        else if (methodInfo == StringContains)
+
+                        if (methodInfo == StringContains)
                             return WellKnownMember.StringContains;
-                        else if (methodInfo == StringCompareTo)
+
+                        if (methodInfo == StringCompareTo)
                             return WellKnownMember.StringCompareTo;
                     }
 
