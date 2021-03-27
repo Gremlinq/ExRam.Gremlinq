@@ -4532,6 +4532,15 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task Where_properties_length()
+        {
+            await _g
+                .V<Person>()
+                .Where(t => t.PhoneNumbers!.Length == 3)
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task Where_property_array_contains_element()
         {
             await _g
