@@ -175,10 +175,10 @@ namespace ExRam.Gremlinq.Core
 
             if (maybeExpression is { } expression)
             {
+                var wellKnownMember = expression.Left.Expression?.TryGetWellKnownMember();
+
                 if (expression.Left.Expression is MethodCallExpression leftMethodCallExpression)
                 {
-                    var wellKnownMember = leftMethodCallExpression.TryGetWellKnownMember();
-
                     if (wellKnownMember == WellKnownMember.StringCompareTo && expression.Right.GetValue() is int comparison)
                     {
                         var semantics = CompareToMatrix[(int)expression.Semantics - 2][Math.Min(2, Math.Max(-2, comparison)) + 2];
@@ -187,9 +187,32 @@ namespace ExRam.Gremlinq.Core
                         {
                             ExpressionSemantics.True => GremlinExpression.True,
                             ExpressionSemantics.False => GremlinExpression.False,
-                            _ => new GremlinExpression(ExpressionFragment.Create(leftMethodCallExpression.Object!, model), semantics, ExpressionFragment.Create(leftMethodCallExpression.Arguments[0], model))
+                            _ => new GremlinExpression(
+                                ExpressionFragment.Create(leftMethodCallExpression.Object!, model),
+                                default,
+                                semantics,
+                                ExpressionFragment.Create(leftMethodCallExpression.Arguments[0], model))
                         };
                     }
+                }
+                else if (expression.Left.Expression is UnaryExpression unaryExpression)
+                {
+                    if (unaryExpression.NodeType == ExpressionType.ArrayLength)
+                    {
+                        return new GremlinExpression(
+                            ExpressionFragment.Create(unaryExpression.Operand, model),
+                            WellKnownMember.ArrayLength,
+                            expression.Semantics,
+                            expression.Right);
+                    }
+                }
+                else if (expression.Left.Expression is MemberExpression {Expression: {} memberExpressionExpression} && wellKnownMember != null)
+                {
+                    return new GremlinExpression(
+                        ExpressionFragment.Create(memberExpressionExpression.Strip(), model),
+                        wellKnownMember,
+                        expression.Semantics,
+                        expression.Right);
                 }
             }
 
@@ -204,6 +227,7 @@ namespace ExRam.Gremlinq.Core
                 {
                     return new GremlinExpression(
                         ExpressionFragment.Create(memberExpression, model),
+                        default,
                         ExpressionSemantics.Equals,
                         ExpressionFragment.True);
                 }
@@ -211,6 +235,7 @@ namespace ExRam.Gremlinq.Core
                 {
                     return new GremlinExpression(
                         ExpressionFragment.Create(binaryExpression.Left.Strip(), model),
+                        default,
                         binaryExpression.NodeType.ToSemantics(),
                         ExpressionFragment.Create(binaryExpression.Right.Strip(), model));
                 }
@@ -226,6 +251,7 @@ namespace ExRam.Gremlinq.Core
 
                             return new GremlinExpression(
                                 ExpressionFragment.Create(arguments[0].Strip(), model),
+                                default,
                                 ExpressionSemantics.Intersects,
                                 ExpressionFragment.Create(arguments[1].Strip(), model));
                         }
@@ -233,6 +259,7 @@ namespace ExRam.Gremlinq.Core
                         {
                             return new GremlinExpression(
                                 ExpressionFragment.Create(methodCallExpression.Arguments[0].Strip(), model),
+                                default,
                                 ExpressionSemantics.NotEquals,
                                 ExpressionFragment.Null);
                         }
@@ -240,6 +267,7 @@ namespace ExRam.Gremlinq.Core
                         {
                             return new GremlinExpression(
                                 ExpressionFragment.Create(methodCallExpression.Arguments[0].Strip(), model),
+                                default,
                                 ExpressionSemantics.Contains,
                                 ExpressionFragment.Create(methodCallExpression.Arguments[1].Strip(), model));
                         }
@@ -247,6 +275,7 @@ namespace ExRam.Gremlinq.Core
                         {
                             return new GremlinExpression(
                                 ExpressionFragment.Create(methodCallExpression.Object!, model),
+                                default,
                                 ExpressionSemantics.Contains,
                                 ExpressionFragment.Create(methodCallExpression.Arguments[0].Strip(), model));
                         }
@@ -263,6 +292,7 @@ namespace ExRam.Gremlinq.Core
                                 {
                                     return new GremlinExpression(
                                         ExpressionFragment.Constant(stringValue),
+                                        default,
                                         ExpressionSemantics.StartsWith,
                                         ExpressionFragment.Create(argumentExpression, model));
                                 }
@@ -273,6 +303,7 @@ namespace ExRam.Gremlinq.Core
                                 {
                                     return new GremlinExpression(
                                         ExpressionFragment.Create(instanceExpression, model),
+                                        default,
                                         wellKnownMember switch
                                         {
                                             WellKnownMember.StringStartsWith => ExpressionSemantics.StartsWith,

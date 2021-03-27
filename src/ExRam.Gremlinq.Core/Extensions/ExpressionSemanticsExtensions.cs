@@ -53,6 +53,7 @@ namespace ExRam.Gremlinq.Core
                 ExpressionSemantics.GreaterThanOrEqual => new P("gte", value),
                 ExpressionSemantics.LowerThanOrEqual => new P("lte", value),
                 ExpressionSemantics.IsContainedIn => P.Within(value),
+
                 _ => throw new ExpressionNotSupportedException()
             };
         }

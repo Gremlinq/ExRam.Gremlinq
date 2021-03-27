@@ -16,6 +16,8 @@
         StringContains,
         StringCompareTo,
         StringStartsWith,
-        StringEndsWith
+        StringEndsWith,
+
+        ArrayLength
     }
 }
