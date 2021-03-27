@@ -107,7 +107,7 @@ jobs:
         dotnet-version: ${{ env.DotNetVersion }}
 
     - name: Test
-      run: dotnet test  --configuration Release --verbosity normal -p:RunCosmosDbEmulatorIntegrationTests=${{ env.IsForkedRepository == 'false ' }}
+      run: dotnet test  --configuration Release --verbosity normal -p:RunCosmosDbEmulatorIntegrationTests=${{ env.IsForkedRepository == 'false' }}
 
     - name: Copy *.received-files to artifacts
       if: always()
