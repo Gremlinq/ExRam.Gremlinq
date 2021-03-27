@@ -906,21 +906,11 @@ namespace ExRam.Gremlinq.Core
             throw new InvalidOperationException($"Invalid use of unknown {nameof(StepLabel)} in {nameof(Select)}. Make sure you only pass in a {nameof(StepLabel)} that comes from a previous {nameof(As)}-continuation or has previously been passed to an appropriate overload of {nameof(As)}.");
         }
 
-        private ImmutableArray<Key> GetKeys(params Expression[] projections)
-        {
-            return projections
-                .Select(projection => projection switch
-                {
-                    LambdaExpression { Body: MemberExpression memberExpression } lambdaExpression when memberExpression.Expression == lambdaExpression.Parameters[0] => (Key)memberExpression.Member.Name,
-                    MemberExpression memberExpression when memberExpression.Expression is ParameterExpression => (Key)memberExpression.Member.Name,
-                    _ => throw new ExpressionNotSupportedException(projection)
-                })
-                .ToImmutableArray();
-        }
-
         private TTargetQuery Select<TTargetQuery>(params Expression[] projections)
         {
-            return AddStep(new SelectKeysStep(GetKeys(projections)))
+            return AddStep(new SelectKeysStep(projections
+                    .Select(GetKey)
+                    .ToImmutableArray()))
                 .ChangeQueryType<TTargetQuery>();
         }
 
@@ -1240,7 +1230,7 @@ namespace ExRam.Gremlinq.Core
 
                                     return AddStep(
                                         new WhereTraversalStep(ImmutableArray.Create<Step>(
-                                            new SelectKeysStep(GetKeys(unaryExpression.Operand)),
+                                            new SelectKeysStep(ImmutableArray.Create(GetKey(unaryExpression.Operand))),
                                             countStep,
                                             new IsStep(effectivePredicate))));
                                 }
