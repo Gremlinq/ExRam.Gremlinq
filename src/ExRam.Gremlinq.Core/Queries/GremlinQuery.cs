@@ -1271,13 +1271,15 @@ namespace ExRam.Gremlinq.Core
                 {
                     if (left.Expression is MemberExpression && right.Expression is MemberExpression rightMember)
                     {
-                        return As<StepLabel<TElement>, GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>(
-                            (_, label) => _
-                                .Where(
-                                    left,
-                                    default,
-                                    semantics,
-                                    ExpressionFragment.StepLabel(label, rightMember)));
+                        var newStepLabel = new StepLabel<TElement>();
+
+                        return this
+                            .AddStep(new AsStep(newStepLabel))
+                            .Where(
+                                left,
+                                default,
+                                semantics,
+                                ExpressionFragment.StepLabel(newStepLabel, rightMember));
                     }
                 }
             }
