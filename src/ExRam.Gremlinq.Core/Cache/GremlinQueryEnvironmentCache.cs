@@ -232,7 +232,7 @@ namespace ExRam.Gremlinq.Core
                     _environment,
                     closure);
 
-                ModelTypes = environment.Model
+                ModelTypesForLabels = environment.Model
                     .VerticesModel
                     .Metadata
                     .Concat(environment.Model.EdgesModel.Metadata)
@@ -292,7 +292,7 @@ namespace ExRam.Gremlinq.Core
 
             public Key GetKey(MemberInfo member) => _keyLookup.GetKey(member);
 
-            public IReadOnlyDictionary<string, Type[]> ModelTypes { get; }
+            public IReadOnlyDictionary<string, Type[]> ModelTypesForLabels { get; }
         }
 
         private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, IGremlinQueryEnvironmentCache> Caches = new();
