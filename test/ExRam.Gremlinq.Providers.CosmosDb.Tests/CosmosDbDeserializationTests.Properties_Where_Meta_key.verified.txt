@@ -1,1 +1,11 @@
-[]
+[
+  {
+    "Id": "scrubbed id",
+    "Label": "Locations",
+    "Properties": {
+      "ValidFrom": "2019-01-01T01:00:00+00:00"
+    },
+    "Value": "Aachen",
+    "Key": null
+  }
+]
