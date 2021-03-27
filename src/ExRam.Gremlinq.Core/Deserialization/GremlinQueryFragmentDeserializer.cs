@@ -290,7 +290,7 @@ namespace ExRam.Gremlinq.Core
                 if (!type.IsSealed)
                 {
                     // Elements
-                    var modelTypes = env.GetCache().ModelTypes;
+                    var modelTypes = env.GetCache().ModelTypesForLabels;
                     var label = jObject["label"]?.ToString();
 
                     var modelType = label != null && modelTypes.TryGetValue(label, out var types)
