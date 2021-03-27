@@ -385,13 +385,6 @@ namespace ExRam.Gremlinq.Core
             return null;
         }
 
-        public static MemberInfo GetMemberInfo(this LambdaExpression expression)
-        {
-            return expression.Body.Strip() is MemberExpression memberExpression
-                ? memberExpression.Member
-                : throw new ExpressionNotSupportedException(expression);
-        }
-
         private static MethodInfo Get(Expression<Action> expression)
         {
             return ((MethodCallExpression)expression.Body).Method;

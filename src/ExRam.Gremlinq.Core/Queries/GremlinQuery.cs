@@ -839,7 +839,8 @@ namespace ExRam.Gremlinq.Core
         {
             return Properties<TNewElement, TNewPropertyValue, TNewMeta>(
                 projections
-                    .Select(projection => projection.GetMemberInfo().Name),
+                    .Select(projection => GetKey(projection).RawKey)
+                    .OfType<string>(),
                 querySemantics);
         }
 
