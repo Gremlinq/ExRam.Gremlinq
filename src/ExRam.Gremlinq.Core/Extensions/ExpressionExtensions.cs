@@ -116,22 +116,22 @@ namespace ExRam.Gremlinq.Core
             return false;
         }
 
-        public static bool RefersToParameter(this Expression expression)
+        public static ParameterExpression? TryGetReferredParameter(this Expression expression)
         {
             var actualExpression = (Expression?)expression;
 
             while (true)
             {
                 if (actualExpression is null)
-                    return false;
+                    break;
 
                 actualExpression = actualExpression.Strip();
 
                 switch (actualExpression)
                 {
-                    case ParameterExpression:
+                    case ParameterExpression parameterExpression:
                     {
-                        return true;
+                        return parameterExpression;
                     }
                     case LambdaExpression lambdaExpression:
                     {
@@ -155,10 +155,13 @@ namespace ExRam.Gremlinq.Core
                     }
                     default:
                     {
-                        return false;
+                        actualExpression = null;
+                        break;
                     }
                 }
             }
+
+            return null;
         }
 
         public static bool IsIdentityExpression(this LambdaExpression expression)
@@ -197,7 +200,7 @@ namespace ExRam.Gremlinq.Core
         {
             switch (body)
             {
-                case MemberExpression memberExpression when memberExpression.RefersToParameter() && memberExpression.Member is PropertyInfo property && property.PropertyType == typeof(bool):
+                case MemberExpression memberExpression when memberExpression.TryGetReferredParameter() is not null && memberExpression.Member is PropertyInfo property && property.PropertyType == typeof(bool):
                 {
                     return new GremlinExpression(
                         ExpressionFragment.Create(memberExpression, model),
@@ -254,7 +257,7 @@ namespace ExRam.Gremlinq.Core
                             var instanceExpression = methodCallExpression.Object!.Strip();
                             var argumentExpression = methodCallExpression.Arguments[0].Strip();
 
-                            if (wellKnownMember == WellKnownMember.StringStartsWith && argumentExpression.RefersToParameter())
+                            if (wellKnownMember == WellKnownMember.StringStartsWith && argumentExpression.TryGetReferredParameter() is not null)
                             {
                                 if (instanceExpression.GetValue() is string stringValue)
                                 {
@@ -264,7 +267,7 @@ namespace ExRam.Gremlinq.Core
                                         ExpressionFragment.Create(argumentExpression, model));
                                 }
                             }
-                            else if (instanceExpression.RefersToParameter())
+                            else if (instanceExpression.TryGetReferredParameter() is not null)
                             {
                                 if (argumentExpression.GetValue() is string stringValue)
                                 {
