@@ -232,6 +232,10 @@ namespace ExRam.Gremlinq.Core
                     _environment,
                     closure);
 
+                ModelTypes = new HashSet<Type>(environment.Model
+                    .VerticesModel.Metadata.Keys
+                    .Concat(environment.Model.EdgesModel.Metadata.Keys));
+
                 ModelTypesForLabels = environment.Model
                     .VerticesModel
                     .Metadata
@@ -287,6 +291,8 @@ namespace ExRam.Gremlinq.Core
                             .ToArray(),
                         _environment);
             }
+
+            public HashSet<Type> ModelTypes { get; }
 
             public IReadOnlyDictionary<Type, object?> FastNativeTypes { get; }
 
