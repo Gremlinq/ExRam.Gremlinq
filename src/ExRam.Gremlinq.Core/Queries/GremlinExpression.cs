@@ -25,7 +25,7 @@ namespace ExRam.Gremlinq.Core
                 Semantics = semantics;
             }
 
-            LeftWellKnownMember = leftWellKnownMember;
+            LeftWellKnownMember = leftWellKnownMember ?? Left.Expression?.TryGetWellKnownMember();
         }
 
         public bool Equals(GremlinExpression other) => Left.Equals(other.Left) && Right.Equals(other.Right) && Semantics == other.Semantics;

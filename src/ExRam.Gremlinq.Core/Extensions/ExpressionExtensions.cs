@@ -171,11 +171,9 @@ namespace ExRam.Gremlinq.Core
 
             if (maybeExpression is { } expression)
             {
-                var wellKnownMember = expression.Left.Expression?.TryGetWellKnownMember();
-
                 if (expression.Left.Expression is MethodCallExpression leftMethodCallExpression)
                 {
-                    if (wellKnownMember == WellKnownMember.StringCompareTo && expression.Right.GetValue() is int comparison)
+                    if (expression.LeftWellKnownMember == WellKnownMember.StringCompareTo && expression.Right.GetValue() is int comparison)
                     {
                         var semantics = CompareToMatrix[(int)expression.Semantics - 2][Math.Min(2, Math.Max(-2, comparison)) + 2];
 
@@ -202,11 +200,11 @@ namespace ExRam.Gremlinq.Core
                             expression.Right);
                     }
                 }
-                else if (expression.Left.Expression is MemberExpression {Expression: {} memberExpressionExpression} && wellKnownMember != null)
+                else if (expression.Left.Expression is MemberExpression {Expression: {} memberExpressionExpression} && expression.LeftWellKnownMember != null)
                 {
                     return new GremlinExpression(
                         ExpressionFragment.Create(memberExpressionExpression.Strip(), model),
-                        wellKnownMember,
+                        expression.LeftWellKnownMember,
                         expression.Semantics,
                         expression.Right);
                 }
