@@ -69,9 +69,9 @@ namespace ExRam.Gremlinq.Core
                         {
                             var (del, staticType, fragmentType) = typeTuple;
 
-                            return ((LambdaExpression)ExpressionMethod3
+                            return (Delegate)ExpressionMethod3
                                 .MakeGenericMethod(staticType, fragmentType)
-                                .Invoke(null, new object[] { del })!).Compile();
+                                .Invoke(null, new object[] { del })!;
                         });
             }
 
@@ -90,29 +90,29 @@ namespace ExRam.Gremlinq.Core
                                     .GetType()
                                     .GetGenericArguments()[0];
 
-                                return ((LambdaExpression)ExpressionMethod1
+                                return (Delegate)ExpressionMethod1
                                     .MakeGenericMethod(staticType, effectiveType)
-                                    .Invoke(null, new object[] { del })!).Compile();
+                                    .Invoke(null, new object[] { del })!;
                             }
 
-                            return ((LambdaExpression)ExpressionMethod2
+                            return (Delegate)ExpressionMethod2
                                 .MakeGenericMethod(staticType)
-                                .Invoke(null, Array.Empty<object>())!).Compile();
+                                .Invoke(null, Array.Empty<object>())!;
                         },
                         this);
             }
 
-            private static Expression<Func<TStatic, Type, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, object?>> InnerExpression1<TStatic, TEffective>(GremlinQueryFragmentDeserializerDelegate<TEffective> del)
+            private static Func<TStatic, Type, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, object?> InnerExpression1<TStatic, TEffective>(GremlinQueryFragmentDeserializerDelegate<TEffective> del)
             {
                 return (serialized, fragmentType, environment, recurse) => del((TEffective)(object)serialized!, fragmentType, environment, (e, t, env, recurse) => e, recurse);
             }
 
-            private static Expression<Func<TStatic, Type, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, object?>> InnerExpression2<TStatic>()
+            private static Func<TStatic, Type, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, object?> InnerExpression2<TStatic>()
             {
                 return (serialized, fragmentType, environment, recurse) => serialized;
             }
 
-            private static Expression<Func<TSerialized, Type, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, object?>> InnerExpression3<TSerialized, TFragment>(Func<TSerialized, Type, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, object?> del)
+            private static Func<TSerialized, Type, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, object?> InnerExpression3<TSerialized, TFragment>(Func<TSerialized, Type, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, object?> del)
             {
                 return (serialized, fragmentType, environment, recurse) => (TFragment)del(serialized!, fragmentType, environment, recurse)!;
             }

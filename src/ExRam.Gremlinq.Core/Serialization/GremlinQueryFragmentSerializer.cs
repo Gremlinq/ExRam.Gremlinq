@@ -63,10 +63,8 @@ namespace ExRam.Gremlinq.Core
                                     : ExpressionMethod2
                                         .MakeGenericMethod(staticType, effectiveType);
 
-                                var lambda = (LambdaExpression)method
+                                return (Delegate)method
                                     .Invoke(null, new object[] { del })!;
-
-                                return lambda.Compile();
                             }
 
                             return null;
@@ -92,9 +90,9 @@ namespace ExRam.Gremlinq.Core
                     : null;
             }
 
-            public static Expression<Func<TStatic, IGremlinQueryEnvironment, IGremlinQueryFragmentSerializer, object>> Expression1<TStatic>(GremlinQueryFragmentSerializerDelegate<TStatic> del) => (fragment, environment, recurse) => del(fragment!, environment, (_, e, s) => _!, recurse);
+            public static Func<TStatic, IGremlinQueryEnvironment, IGremlinQueryFragmentSerializer, object> Expression1<TStatic>(GremlinQueryFragmentSerializerDelegate<TStatic> del) => (fragment, environment, recurse) => del(fragment!, environment, (_, e, s) => _!, recurse);
 
-            public static Expression<Func<TStatic, IGremlinQueryEnvironment, IGremlinQueryFragmentSerializer, object>> Expression2<TStatic, TEffective>(GremlinQueryFragmentSerializerDelegate<TEffective> del) => (fragment, environment, recurse) => del((TEffective)(object)fragment!, environment, (_, e, s) => _!, recurse);
+            public static Func<TStatic, IGremlinQueryEnvironment, IGremlinQueryFragmentSerializer, object> Expression2<TStatic, TEffective>(GremlinQueryFragmentSerializerDelegate<TEffective> del) => (fragment, environment, recurse) => del((TEffective)(object)fragment!, environment, (_, e, s) => _!, recurse);
         }
 
         public static readonly IGremlinQueryFragmentSerializer Identity = new GremlinQueryFragmentSerializerImpl(ImmutableDictionary<Type, Delegate>.Empty);
