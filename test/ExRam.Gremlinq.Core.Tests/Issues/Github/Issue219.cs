@@ -1,6 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Globalization;
+using System.Threading.Tasks;
 
 using ExRam.Gremlinq.Providers.Tests;
+
+using Newtonsoft.Json;
 
 using Xunit;
 using Xunit.Abstractions;
@@ -19,15 +23,26 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public async Task Repro()
         {
-            var expected = "2021-03-31T14:57:20.3482309Z";
+            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+            {
+                DateParseHandling = DateParseHandling.None
+            };
 
-            var actual = await g
+            await g
                 .ConfigureEnvironment(_ => _)
-                .WithExecutor($"[\"{expected}\"]")
+                .WithExecutor("[\"2021-03-31T14:57:20.3482309Z\"]")
                 .V<string>()
-                .SingleAsync();
+                .Verify();
+        }
 
-            Assert.Equal(expected, actual);
+        [Fact]
+        public async Task Deserialize_to_DateTime()
+        {
+            await g
+                .ConfigureEnvironment(_ => _)
+                .WithExecutor("[\"2021-03-31T14:57:20.3482309Z\"]")
+                .V<DateTime>()
+                .Verify();
         }
     }
 }
