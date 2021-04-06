@@ -72,8 +72,23 @@ namespace ExRam.Gremlinq.Core
                             .Select(argument => argument.GetValue())
                             .ToArray()
                         : Array.Empty<object>()),
+                NewArrayExpression newArrayExpression => CreateArrayFromExpression(newArrayExpression),
                 _ => Expression.Lambda<Func<object>>(expression.Type.IsClass ? expression : Expression.Convert(expression, typeof(object))).Compile()()
             };
+        }
+
+        private static Array CreateArrayFromExpression(NewArrayExpression expression)
+        {
+            var array = Array.CreateInstance(expression.Type.GetElementType()!, expression.Expressions.Count);
+
+            for (var i = 0; i < expression.Expressions.Count; i++)
+            {
+                array.SetValue(
+                    expression.Expressions[i].GetValue(),
+                    i);
+            }
+
+            return array;
         }
 
         public static bool TryParseStepLabelExpression(this Expression expression, out StepLabel? stepLabel, out MemberExpression? stepLabelValueMemberExpression)
