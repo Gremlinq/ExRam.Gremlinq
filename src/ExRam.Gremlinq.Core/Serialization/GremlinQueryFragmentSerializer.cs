@@ -95,11 +95,10 @@ namespace ExRam.Gremlinq.Core
         }
 
         public static readonly IGremlinQueryFragmentSerializer Identity = new GremlinQueryFragmentSerializerImpl(ImmutableDictionary<Type, Delegate>.Empty);
-
         public static readonly IGremlinQueryFragmentSerializer Default = Identity.UseDefaultGremlinStepSerializationHandlers();
 
-        private static readonly ImmutableArray<Step> IdentitySteps = ImmutableArray.Create((Step)IdentityStep.Instance);
         private static readonly ConcurrentDictionary<string, Instruction> SimpleInstructions = new();
+        private static readonly ImmutableArray<Step> IdentitySteps = ImmutableArray.Create((Step)IdentityStep.Instance);
 
         public static IGremlinQueryFragmentSerializer UseDefaultGremlinStepSerializationHandlers(this IGremlinQueryFragmentSerializer fragmentSerializer)
         {
