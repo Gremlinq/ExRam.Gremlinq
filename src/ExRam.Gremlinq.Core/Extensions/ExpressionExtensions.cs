@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -184,20 +185,34 @@ namespace ExRam.Gremlinq.Core
             {
                 if (expression.Left.Expression is MethodCallExpression leftMethodCallExpression)
                 {
-                    if (expression.LeftWellKnownMember == WellKnownMember.StringCompareTo && Convert.ToInt32(expression.Right.GetValue()) is { } comparison)
+                    if (expression.LeftWellKnownMember == WellKnownMember.StringCompareTo && expression.Right.GetValue() is IConvertible convertible)
                     {
-                        var semantics = CompareToMatrix[(int)expression.Semantics - 2][Math.Min(2, Math.Max(-2, comparison)) + 2];
+                        var maybeComparison = default(int?);
 
-                        return semantics switch
+                        try
                         {
-                            ExpressionSemantics.True => GremlinExpression.True,
-                            ExpressionSemantics.False => GremlinExpression.False,
-                            _ => new GremlinExpression(
-                                ExpressionFragment.Create(leftMethodCallExpression.Object!, model),
-                                default,
-                                semantics,
-                                ExpressionFragment.Create(leftMethodCallExpression.Arguments[0], model))
-                        };
+                            maybeComparison = convertible.ToInt32(CultureInfo.InvariantCulture);
+                        }
+                        catch (FormatException)
+                        {
+                            
+                        }
+
+                        if (maybeComparison is { } comparison)
+                        {
+                            var semantics = CompareToMatrix[(int)expression.Semantics - 2][Math.Min(2, Math.Max(-2, comparison)) + 2];
+
+                            return semantics switch
+                            {
+                                ExpressionSemantics.True => GremlinExpression.True,
+                                ExpressionSemantics.False => GremlinExpression.False,
+                                _ => new GremlinExpression(
+                                    ExpressionFragment.Create(leftMethodCallExpression.Object!, model),
+                                    default,
+                                    semantics,
+                                    ExpressionFragment.Create(leftMethodCallExpression.Arguments[0], model))
+                            };
+                        }
                     }
                 }
                 else if (expression.Left.Expression is UnaryExpression unaryExpression)
