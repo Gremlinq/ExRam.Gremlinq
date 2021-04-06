@@ -40,9 +40,6 @@ namespace ExRam.Gremlinq.Core
                 {
                     case UnaryExpression unaryExpression when expression.NodeType == ExpressionType.Convert:
                     {
-                        if (expression.CanGetValue())
-                            return Expression.Constant(unaryExpression.GetValue());
-
                         expression = unaryExpression.Operand;
                         break;
                     }
@@ -52,20 +49,6 @@ namespace ExRam.Gremlinq.Core
                     }
                 }
             }
-        }
-
-        public static bool CanGetValue(this Expression expression)
-        {
-            return expression switch
-            {
-                ConstantExpression => true,
-                MemberExpression memberExpression => (memberExpression.Expression?.CanGetValue()).GetValueOrDefault(),
-                LambdaExpression lambdaExpression => lambdaExpression.Parameters.Count == 0,
-                UnaryExpression unaryExpression when !typeof(StepLabel).IsAssignableFrom(unaryExpression.Operand.Type) => unaryExpression.NodeType == ExpressionType.Convert
-                    ? !(unaryExpression.Type.IsValueType && unaryExpression.Operand.Type.IsClass) && unaryExpression.Operand.CanGetValue()
-                    : unaryExpression.Operand.CanGetValue(),
-                _ => false
-            };
         }
 
         public static object? GetValue(this Expression expression)
@@ -173,7 +156,7 @@ namespace ExRam.Gremlinq.Core
             {
                 if (expression.Left.Expression is MethodCallExpression leftMethodCallExpression)
                 {
-                    if (expression.LeftWellKnownMember == WellKnownMember.StringCompareTo && expression.Right.GetValue() is int comparison)
+                    if (expression.LeftWellKnownMember == WellKnownMember.StringCompareTo && Convert.ToInt32(expression.Right.GetValue()) is { } comparison)
                     {
                         var semantics = CompareToMatrix[(int)expression.Semantics - 2][Math.Min(2, Math.Max(-2, comparison)) + 2];
 
