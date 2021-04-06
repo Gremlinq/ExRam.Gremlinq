@@ -60,7 +60,7 @@ namespace ExRam.Gremlinq.Core
                     var metaType = GetMatchingType(closureType, "TMeta") ?? typeof(object);
                     var queryType = GetMatchingType(closureType, "TOriginalQuery") ?? typeof(object);
 
-                    var expression = (Expression<Func<IImmutableStack<Step>, IGremlinQueryEnvironment, QuerySemantics, IImmutableDictionary<StepLabel, QuerySemantics>, QueryFlags, IGremlinQueryBase>>)typeof(GremlinQueryBase)
+                    return (Func<IImmutableStack<Step>, IGremlinQueryEnvironment, QuerySemantics, IImmutableDictionary<StepLabel, QuerySemantics>, QueryFlags, IGremlinQueryBase>)typeof(GremlinQueryBase)
                         .GetMethod(
                             nameof(GetCreateExpression),
                             BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.InvokeMethod)!
@@ -74,15 +74,12 @@ namespace ExRam.Gremlinq.Core
                             metaType,
                             queryType)
                         .Invoke(null, new object?[] { semantics })!;
-
-                    return expression!
-                        .Compile();
                 });
 
             return (TTargetQuery)constructor(Steps, Environment, forcedSemantics ?? QuerySemantics.Value, StepLabelSemantics, Flags);
         }
 
-        private static Expression<Func<IImmutableStack<Step>, IGremlinQueryEnvironment, QuerySemantics, IImmutableDictionary<StepLabel, QuerySemantics>, QueryFlags, IGremlinQueryBase>> GetCreateExpression<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(QuerySemantics? determinedSemantics)
+        private static Func<IImmutableStack<Step>, IGremlinQueryEnvironment, QuerySemantics, IImmutableDictionary<StepLabel, QuerySemantics>, QueryFlags, IGremlinQueryBase> GetCreateExpression<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(QuerySemantics? determinedSemantics)
         {
             return (steps, environment, existingSemantics, stepLabelSemantics, flags) => new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(
                 steps,
