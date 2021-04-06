@@ -56,6 +56,11 @@ namespace ExRam.Gremlinq.Core
             return expression switch
             {
                 ConstantExpression constantExpression => constantExpression.Value,
+                MethodCallExpression methodCallExpression => methodCallExpression.Method.Invoke(
+                    methodCallExpression.Object?.GetValue(),
+                    methodCallExpression.Arguments.Count > 0
+                        ? methodCallExpression.Arguments.Select(argument => argument.GetValue()).ToArray()
+                        : Array.Empty<object>()),
                 MemberExpression { Member: PropertyInfo propertyInfo } propertyExpression => propertyInfo.GetValue(propertyExpression.Expression?.GetValue()),
                 MemberExpression { Member: FieldInfo fieldInfo } fieldExpression => fieldInfo.GetValue(fieldExpression.Expression?.GetValue()),
                 LambdaExpression lambdaExpression when lambdaExpression.Parameters.Count == 0 => lambdaExpression.Compile().DynamicInvoke(),
