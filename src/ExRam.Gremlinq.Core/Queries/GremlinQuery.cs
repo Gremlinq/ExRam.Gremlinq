@@ -157,24 +157,16 @@ namespace ExRam.Gremlinq.Core
 
             public IGremlinQueryBase<TKey> KeyQuery
             {
-                get
-                {
-                    if (_keyQuery is { } keyQuery)
-                        return keyQuery;
-
-                    throw new InvalidOperationException();
-                }
+                get => _keyQuery is { } keyQuery
+                    ? keyQuery
+                    : throw new InvalidOperationException();
             }
 
             public IGremlinQueryBase<TValue> ValueQuery
             {
-                get
-                {
-                    if (_valueQuery is { } valueQuery)
-                        return valueQuery;
-
-                    throw new InvalidOperationException();
-                }
+                get => _valueQuery is { } valueQuery
+                    ? valueQuery
+                    : throw new InvalidOperationException();
             }
         }
 

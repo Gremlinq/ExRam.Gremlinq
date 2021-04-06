@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Dynamic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
 using System.Xml;
 using ExRam.Gremlinq.Core.GraphElements;
