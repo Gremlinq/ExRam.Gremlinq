@@ -3,7 +3,6 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
 using Gremlin.Net.Process.Traversal;
 
@@ -32,21 +31,10 @@ namespace ExRam.Gremlinq.Core
                         {
                             if (iface.IsGenericType && iface.GetGenericTypeDefinition() == typeof(IDictionary<,>))
                             {
-                                var method = typeof(ObjectExtensions)
-                                    .GetMethod(nameof(SerializeDictionary), BindingFlags.Static | BindingFlags.NonPublic)!
-                                    .MakeGenericMethod(iface.GetGenericArguments()[0], iface.GetGenericArguments()[1]);
-
-                                var closureObjParameter = Expression.Parameter(typeof(object));
-                                var closureEnvParameter = Expression.Parameter(typeof(IGremlinQueryEnvironment));
-                                var closureBehaviourParameter = Expression.Parameter(typeof(SerializationBehaviour));
-
-                                return Expression
-                                    .Lambda<Func<object, IGremlinQueryEnvironment, SerializationBehaviour, IEnumerable<(Key key, object value)>>>(
-                                        Expression.Call(method, Expression.Convert(closureObjParameter, iface)),
-                                        closureObjParameter,
-                                        closureEnvParameter,
-                                        closureBehaviourParameter)
-                                    .Compile();
+                                return (Func<object, IGremlinQueryEnvironment, SerializationBehaviour, IEnumerable<(Key key, object value)>>)typeof(ObjectExtensions)
+                                    .GetMethod(nameof(CreateSerializeDictionaryFunc), BindingFlags.Static | BindingFlags.NonPublic)!
+                                    .MakeGenericMethod(iface.GetGenericArguments()[0], iface.GetGenericArguments()[1])
+                                    .Invoke(null, Array.Empty<object>())!;
                             }
                         }
 
@@ -65,6 +53,11 @@ namespace ExRam.Gremlinq.Core
             return propertyInfo?.GetValue(element) is { } value
                 ? value
                 : throw new InvalidOperationException($"Unable to determine Id for {element}");
+        }
+
+        private static Func<object, IGremlinQueryEnvironment, SerializationBehaviour, IEnumerable<(Key key, object value)>> CreateSerializeDictionaryFunc<TKey, TValue>()
+        {
+            return (dict, _, _) => SerializeDictionary((IDictionary<TKey, TValue>)dict);
         }
 
         private static IEnumerable<(Key key, object value)> SerializeDictionary<TKey, TValue>(IDictionary<TKey, TValue> dict)
