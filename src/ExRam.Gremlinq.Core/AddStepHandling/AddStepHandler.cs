@@ -2,7 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Immutable;
 using System.Linq;
-using System.Linq.Expressions;
+using System.Reflection;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -10,6 +10,8 @@ namespace ExRam.Gremlinq.Core
     {
         private abstract class AddStepHandlerBase : IAddStepHandler
         {
+            private static readonly MethodInfo CreateMethod = typeof(AddStepHandlerBase).GetMethod(nameof(Create))!;
+
             private readonly IImmutableDictionary<Type, Delegate> _dict;
             private readonly ConcurrentDictionary<(Type staticType, Type actualType), Delegate?> _fastDict = new();
             
@@ -50,64 +52,13 @@ namespace ExRam.Gremlinq.Core
 
                             if (@this.InnerLookup(actualType) is { } del)
                             {
-                                //return (IImmutableStack<Step> steps, TStatic step, IGremlinQueryEnvironment environment, IAddStepHandler recurse) => del(steps, (TEffective)step, env, (steps, TEffective step, IGremlinQueryEnvironment, IAddStepHandler) => _.Push(__), recurse);
-
                                 var effectiveType = del.GetType().GetGenericArguments()[1];
 
-                                var argument3Parameter1 = Expression.Parameter(typeof(IImmutableStack<Step>));
-                                var argument3Parameter2 = Expression.Parameter(effectiveType);
-                                var argument3Parameter3 = Expression.Parameter(typeof(IGremlinQueryEnvironment));
-                                var argument3Parameter4 = Expression.Parameter(typeof(IAddStepHandler));
+                                var method = CreateMethod
+                                    .MakeGenericMethod(staticType, effectiveType);
 
-                                var stepsParameterExpression = Expression.Parameter(typeof(IImmutableStack<Step>));
-                                var stepParameterExpression = Expression.Parameter(staticType);
-                                var environmentParameterExpression = Expression.Parameter(typeof(IGremlinQueryEnvironment));
-                                var recurseParameterExpression = Expression.Parameter(typeof(IAddStepHandler));
-
-                                var staticFuncType = typeof(Func<,,,,>).MakeGenericType(
-                                    stepsParameterExpression.Type,
-                                    staticType,
-                                    environmentParameterExpression.Type,
-                                    recurseParameterExpression.Type,
-                                    typeof(IImmutableStack<Step>));
-
-                                var overrideFuncType = typeof(Func<,,,,>).MakeGenericType(
-                                    argument3Parameter1.Type,
-                                    argument3Parameter2.Type,
-                                    argument3Parameter3.Type,
-                                    argument3Parameter4.Type,
-                                    typeof(IImmutableStack<Step>));
-
-                                var pushCall = Expression.Call(
-                                    argument3Parameter1,
-                                    typeof(IImmutableStack<Step>).GetMethod(nameof(IImmutableStack<Step>.Push))!,
-                                    argument3Parameter2);
-
-                                var retCall = Expression.Invoke(
-                                    Expression.Constant(del),
-                                    stepsParameterExpression,
-                                    Expression.Convert(
-                                        stepParameterExpression,
-                                        effectiveType),
-                                    environmentParameterExpression,
-                                    Expression.Lambda(
-                                        overrideFuncType,
-                                        pushCall,
-                                        argument3Parameter1,
-                                        argument3Parameter2,
-                                        argument3Parameter3,
-                                        argument3Parameter4),
-                                    recurseParameterExpression);
-
-                                return Expression
-                                    .Lambda(
-                                        staticFuncType,
-                                        retCall,
-                                        stepsParameterExpression,
-                                        stepParameterExpression,
-                                        environmentParameterExpression,
-                                        recurseParameterExpression)
-                                    .Compile();
+                                return (Delegate)method
+                                    .Invoke(null, new object[] { del })!;
                             }
 
                             return null;
@@ -122,6 +73,13 @@ namespace ExRam.Gremlinq.Core
                     : actualType.BaseType is { } baseType && InnerLookup(baseType) is { } baseHandler
                         ? baseHandler
                         : null;
+            }
+
+            public static Func<IImmutableStack<Step>, TStatic, IGremlinQueryEnvironment, IAddStepHandler, IImmutableStack<Step>> Create<TStatic, TEffective>(Func<IImmutableStack<Step>, TEffective, IGremlinQueryEnvironment, Func<IImmutableStack<Step>, TEffective, IGremlinQueryEnvironment, IAddStepHandler, IImmutableStack<Step>>, IAddStepHandler, IImmutableStack<Step>> del)
+                where TEffective : Step
+                where TStatic : Step
+            {
+                return (steps, step, environment, recurse) => del(steps, (TEffective)(Step)step!, environment, (steps, step, _, _) => steps.Push(step), recurse);
             }
         }
 
