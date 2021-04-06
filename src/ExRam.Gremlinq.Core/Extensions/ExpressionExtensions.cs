@@ -64,6 +64,10 @@ namespace ExRam.Gremlinq.Core
                 MemberExpression { Member: PropertyInfo propertyInfo } propertyExpression => propertyInfo.GetValue(propertyExpression.Expression?.GetValue()),
                 MemberExpression { Member: FieldInfo fieldInfo } fieldExpression => fieldInfo.GetValue(fieldExpression.Expression?.GetValue()),
                 LambdaExpression lambdaExpression when lambdaExpression.Parameters.Count == 0 => lambdaExpression.Compile().DynamicInvoke(),
+                NewExpression { Constructor: { } constructor, Members: null } newExpression => constructor.Invoke(
+                    newExpression.Arguments.Count > 0
+                        ? newExpression.Arguments.Select(argument => argument.GetValue()).ToArray()
+                        : Array.Empty<object>()),
                 _ => Expression.Lambda<Func<object>>(expression.Type.IsClass ? expression : Expression.Convert(expression, typeof(object))).Compile()()
             };
         }
