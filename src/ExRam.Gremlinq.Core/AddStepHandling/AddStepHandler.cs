@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq.Core
     {
         private abstract class AddStepHandlerBase : IAddStepHandler
         {
-            private static readonly MethodInfo CreateMethod = typeof(AddStepHandlerBase).GetMethod(nameof(Create))!;
+            private static readonly MethodInfo CreateFuncMethod = typeof(AddStepHandlerBase).GetMethod(nameof(CreateFunc), BindingFlags.Static | BindingFlags.NonPublic)!;
 
             private readonly IImmutableDictionary<Type, Delegate> _dict;
             private readonly ConcurrentDictionary<(Type staticType, Type actualType), Delegate?> _fastDict = new();
@@ -52,9 +52,11 @@ namespace ExRam.Gremlinq.Core
 
                             if (@this.InnerLookup(actualType) is { } del)
                             {
-                                var effectiveType = del.GetType().GetGenericArguments()[1];
+                                var effectiveType = del
+                                    .GetType()
+                                    .GetGenericArguments()[1];
 
-                                var method = CreateMethod
+                                var method = CreateFuncMethod
                                     .MakeGenericMethod(staticType, effectiveType);
 
                                 return (Delegate)method
@@ -75,7 +77,7 @@ namespace ExRam.Gremlinq.Core
                         : null;
             }
 
-            public static Func<IImmutableStack<Step>, TStatic, IGremlinQueryEnvironment, IAddStepHandler, IImmutableStack<Step>> Create<TStatic, TEffective>(Func<IImmutableStack<Step>, TEffective, IGremlinQueryEnvironment, Func<IImmutableStack<Step>, TEffective, IGremlinQueryEnvironment, IAddStepHandler, IImmutableStack<Step>>, IAddStepHandler, IImmutableStack<Step>> del)
+            private static Func<IImmutableStack<Step>, TStatic, IGremlinQueryEnvironment, IAddStepHandler, IImmutableStack<Step>> CreateFunc<TStatic, TEffective>(Func<IImmutableStack<Step>, TEffective, IGremlinQueryEnvironment, Func<IImmutableStack<Step>, TEffective, IGremlinQueryEnvironment, IAddStepHandler, IImmutableStack<Step>>, IAddStepHandler, IImmutableStack<Step>> del)
                 where TEffective : Step
                 where TStatic : Step
             {
