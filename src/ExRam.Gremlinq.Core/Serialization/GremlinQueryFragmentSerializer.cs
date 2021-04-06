@@ -13,8 +13,8 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class GremlinQueryFragmentSerializerImpl : IGremlinQueryFragmentSerializer
         {
-            private static readonly MethodInfo CreateFuncMethod1 = typeof(GremlinQueryFragmentSerializerImpl).GetMethod(nameof(CreateFunc1))!;
-            private static readonly MethodInfo CreateFuncMethod2 = typeof(GremlinQueryFragmentSerializerImpl).GetMethod(nameof(CreateFunc2))!;
+            private static readonly MethodInfo CreateFuncMethod1 = typeof(GremlinQueryFragmentSerializerImpl).GetMethod(nameof(CreateFunc1), BindingFlags.NonPublic | BindingFlags.Static)!;
+            private static readonly MethodInfo CreateFuncMethod2 = typeof(GremlinQueryFragmentSerializerImpl).GetMethod(nameof(CreateFunc2), BindingFlags.NonPublic | BindingFlags.Static)!;
 
             private readonly IImmutableDictionary<Type, Delegate> _dict;
             private readonly ConcurrentDictionary<(Type staticType, Type actualType), Delegate?> _fastDict = new();
@@ -89,9 +89,9 @@ namespace ExRam.Gremlinq.Core
                     : null;
             }
 
-            public static Func<TStatic, IGremlinQueryEnvironment, IGremlinQueryFragmentSerializer, object> CreateFunc1<TStatic>(GremlinQueryFragmentSerializerDelegate<TStatic> del) => (fragment, environment, recurse) => del(fragment!, environment, (_, e, s) => _!, recurse);
+            private static Func<TStatic, IGremlinQueryEnvironment, IGremlinQueryFragmentSerializer, object> CreateFunc1<TStatic>(GremlinQueryFragmentSerializerDelegate<TStatic> del) => (fragment, environment, recurse) => del(fragment!, environment, (_, e, s) => _!, recurse);
 
-            public static Func<TStatic, IGremlinQueryEnvironment, IGremlinQueryFragmentSerializer, object> CreateFunc2<TStatic, TEffective>(GremlinQueryFragmentSerializerDelegate<TEffective> del) => (fragment, environment, recurse) => del((TEffective)(object)fragment!, environment, (_, e, s) => _!, recurse);
+            private static Func<TStatic, IGremlinQueryEnvironment, IGremlinQueryFragmentSerializer, object> CreateFunc2<TStatic, TEffective>(GremlinQueryFragmentSerializerDelegate<TEffective> del) => (fragment, environment, recurse) => del((TEffective)(object)fragment!, environment, (_, e, s) => _!, recurse);
         }
 
         public static readonly IGremlinQueryFragmentSerializer Identity = new GremlinQueryFragmentSerializerImpl(ImmutableDictionary<Type, Delegate>.Empty);
