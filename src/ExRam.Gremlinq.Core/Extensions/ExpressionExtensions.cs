@@ -74,7 +74,7 @@ namespace ExRam.Gremlinq.Core
             {
                 ConstantExpression constantExpression => constantExpression.Value,
                 MemberExpression {Member: FieldInfo fieldInfo, Expression: ConstantExpression constant} => fieldInfo.GetValue(constant.Value),
-                LambdaExpression lambdaExpression => lambdaExpression.Compile().DynamicInvoke(),
+                LambdaExpression lambdaExpression when lambdaExpression.Parameters.Count == 0 => lambdaExpression.Compile().DynamicInvoke(),
                 _ => Expression.Lambda<Func<object>>(expression.Type.IsClass ? expression : Expression.Convert(expression, typeof(object))).Compile()()
             };
         }
