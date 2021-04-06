@@ -72,7 +72,6 @@ namespace ExRam.Gremlinq.Core
                             .ToArray()
                         : Array.Empty<object>()),
                 NewArrayExpression newArrayExpression => newArrayExpression.GetValue(),
-                LambdaExpression lambdaExpression when lambdaExpression.Parameters.Count == 0 => lambdaExpression.Compile().DynamicInvoke(),
                 _ => Expression.Lambda<Func<object>>(expression.Type.IsClass ? expression : Expression.Convert(expression, typeof(object))).Compile()()
             };
         }
