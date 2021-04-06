@@ -71,13 +71,13 @@ namespace ExRam.Gremlinq.Core
                             .Select(argument => argument.GetValue())
                             .ToArray()
                         : Array.Empty<object>()),
-                NewArrayExpression newArrayExpression => CreateArrayFromExpression(newArrayExpression),
+                NewArrayExpression newArrayExpression => newArrayExpression.GetValue(),
                 LambdaExpression lambdaExpression when lambdaExpression.Parameters.Count == 0 => lambdaExpression.Compile().DynamicInvoke(),
                 _ => Expression.Lambda<Func<object>>(expression.Type.IsClass ? expression : Expression.Convert(expression, typeof(object))).Compile()()
             };
         }
 
-        private static Array CreateArrayFromExpression(NewArrayExpression expression)
+        private static Array GetValue(this NewArrayExpression expression)
         {
             var array = Array.CreateInstance(expression.Type.GetElementType()!, expression.Expressions.Count);
 
