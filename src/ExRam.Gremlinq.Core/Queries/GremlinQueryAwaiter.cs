@@ -5,6 +5,7 @@ namespace ExRam.Gremlinq.Core
 {
     public struct GremlinQueryAwaiter<TElement> : ICriticalNotifyCompletion
     {
+        // ReSharper disable once FieldCanBeMadeReadOnly.Local
         private TaskAwaiter<TElement[]> _valueTaskAwaiter;
 
         internal GremlinQueryAwaiter(TaskAwaiter<TElement[]> valueTaskAwaiter)

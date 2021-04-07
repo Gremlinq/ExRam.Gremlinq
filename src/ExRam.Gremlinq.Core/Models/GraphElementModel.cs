@@ -43,7 +43,8 @@ namespace ExRam.Gremlinq.Core
                     try
                     {
                         return assembly
-                            .DefinedTypes;
+                            .DefinedTypes
+                            .Select(x => x.AsType());
                     }
                     catch (ReflectionTypeLoadException ex)
                     {
