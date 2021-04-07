@@ -183,33 +183,33 @@ jobs:
         --skip-duplicate
 
   announce:
-    needs: [ build, publish ]
+    needs: [ build ] #, publish ]
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/rel' }}
+    # if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/rel' }}
 
     steps:
     - name: Draft release
       uses: release-drafter/release-drafter@v5.15.0
       with:
         name: ExRam.Gremlinq ${{ needs.build.outputs.semVer2 }}
-        prerelease: ${{ needs.build.outputs.isPrerelease }}
+        prerelease: false # ${{ needs.build.outputs.isPrerelease }}
         tag: ${{ needs.build.outputs.semVer2 }}
-        commitish: ${{ github.ref }}
-        publish: true
+        commitish: 'MaybeSha'
+        publish: true # false #true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Send announcement tweet!
-      if: ${{ needs.build.outputs.isPrerelease == 'false' }}
-      uses: ethomson/send-tweet-action@v1
-      with:
-        status: |
-          Announcing the release of ExRam.Gremlinq ${{ needs.build.outputs.semVer2 }}!
-          
-          ExRam.Gremlinq is the first #dotnet object-graph-mapper for @apachetinkerpop #gremlin enabled #graphdb‎s like @AzureCosmosDB, #AWS #Neptune or @JanusGraph.
-          
-          https://github.com/ExRam/ExRam.Gremlinq/releases/tag/${{ needs.build.outputs.semVer2 }}
-        consumer-key: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
-        consumer-secret: ${{ secrets.TWITTER_CONSUMER_API_SECRET }}
-        access-token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
-        access-token-secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
+#    - name: Send announcement tweet!
+#      if: ${{ needs.build.outputs.isPrerelease == 'false' }}
+#      uses: ethomson/send-tweet-action@v1
+#      with:
+#        status: |
+#          Announcing the release of ExRam.Gremlinq ${{ needs.build.outputs.semVer2 }}!
+#          
+#          ExRam.Gremlinq is the first #dotnet object-graph-mapper for @apachetinkerpop #gremlin enabled #graphdb‎s like @AzureCosmosDB, #AWS #Neptune or @JanusGraph.
+#          
+#          https://github.com/ExRam/ExRam.Gremlinq/releases/tag/${{ needs.build.outputs.semVer2 }}
+#        consumer-key: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
+#        consumer-secret: ${{ secrets.TWITTER_CONSUMER_API_SECRET }}
+#        access-token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+#        access-token-secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
