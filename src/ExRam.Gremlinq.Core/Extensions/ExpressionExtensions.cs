@@ -59,19 +59,10 @@ namespace ExRam.Gremlinq.Core
                 ConstantExpression constantExpression => constantExpression.Value,
                 MethodCallExpression methodCallExpression => methodCallExpression.Method.Invoke(
                     methodCallExpression.Object?.GetValue(),
-                    methodCallExpression.Arguments.Count > 0
-                        ? methodCallExpression.Arguments
-                            .Select(argument => argument.GetValue())
-                            .ToArray()
-                        : Array.Empty<object>()),
+                    methodCallExpression.GetArguments()),
                 MemberExpression { Member: PropertyInfo propertyInfo } propertyExpression => propertyInfo.GetValue(propertyExpression.Expression?.GetValue()),
                 MemberExpression { Member: FieldInfo fieldInfo } fieldExpression => fieldInfo.GetValue(fieldExpression.Expression?.GetValue()),
-                NewExpression { Constructor: { } constructor, Members: null } newExpression => constructor.Invoke(
-                    newExpression.Arguments.Count > 0
-                        ? newExpression.Arguments
-                            .Select(argument => argument.GetValue())
-                            .ToArray()
-                        : Array.Empty<object>()),
+                NewExpression { Constructor: { } constructor, Members: null } newExpression => constructor.Invoke(newExpression.GetArguments()),
                 NewArrayExpression newArrayExpression => newArrayExpression.GetValue(),
                 _ => Expression.Lambda<Func<object>>(expression.Type.IsClass ? expression : Expression.Convert(expression, typeof(object))).Compile()()
             };
@@ -79,7 +70,9 @@ namespace ExRam.Gremlinq.Core
 
         private static Array GetValue(this NewArrayExpression expression)
         {
-            var array = Array.CreateInstance(expression.Type.GetElementType()!, expression.Expressions.Count);
+            var array = Array.CreateInstance(
+                expression.Type.GetElementType()!,
+                expression.Expressions.Count);
 
             for (var i = 0; i < expression.Expressions.Count; i++)
             {
@@ -89,6 +82,23 @@ namespace ExRam.Gremlinq.Core
             }
 
             return array;
+        }
+
+        private static object?[] GetArguments(this IArgumentProvider argumentProvider)
+        {
+            if (argumentProvider.ArgumentCount > 0)
+            {
+                var arguments = new object?[argumentProvider.ArgumentCount];
+
+                for (var i = 0; i < arguments.Length; i++)
+                {
+                    arguments[i] = argumentProvider.GetArgument(i)?.GetValue();
+                }
+
+                return arguments;
+            }
+
+            return Array.Empty<object>();
         }
 
         public static bool TryParseStepLabelExpression(this Expression expression, out StepLabel? stepLabel, out MemberExpression? stepLabelValueMemberExpression)
