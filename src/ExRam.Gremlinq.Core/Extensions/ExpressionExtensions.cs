@@ -239,7 +239,7 @@ namespace ExRam.Gremlinq.Core
                 else if (expression.Left.Expression is MemberExpression {Expression: {} memberExpressionExpression} && expression.LeftWellKnownMember != null)
                 {
                     return new GremlinExpression(
-                        ExpressionFragment.Create(memberExpressionExpression.Strip(), model),
+                        ExpressionFragment.Create(memberExpressionExpression, model),
                         expression.LeftWellKnownMember,
                         expression.Semantics,
                         expression.Right);
@@ -264,10 +264,10 @@ namespace ExRam.Gremlinq.Core
                 case BinaryExpression binaryExpression when binaryExpression.NodeType != ExpressionType.AndAlso && binaryExpression.NodeType != ExpressionType.OrElse:
                 {
                     return new GremlinExpression(
-                        ExpressionFragment.Create(binaryExpression.Left.Strip(), model),
+                        ExpressionFragment.Create(binaryExpression.Left, model),
                         default,
                         binaryExpression.NodeType.ToSemantics(),
-                        ExpressionFragment.Create(binaryExpression.Right.Strip(), model));
+                        ExpressionFragment.Create(binaryExpression.Right, model));
                 }
                 case MethodCallExpression methodCallExpression:
                 {
@@ -280,15 +280,15 @@ namespace ExRam.Gremlinq.Core
                             var arguments = ((MethodCallExpression)methodCallExpression.Arguments[0].Strip()).Arguments;
 
                             return new GremlinExpression(
-                                ExpressionFragment.Create(arguments[0].Strip(), model),
+                                ExpressionFragment.Create(arguments[0], model),
                                 default,
                                 ExpressionSemantics.Intersects,
-                                ExpressionFragment.Create(arguments[1].Strip(), model));
+                                ExpressionFragment.Create(arguments[1], model));
                         }
                         case WellKnownMember.EnumerableAny:
                         {
                             return new GremlinExpression(
-                                ExpressionFragment.Create(methodCallExpression.Arguments[0].Strip(), model),
+                                ExpressionFragment.Create(methodCallExpression.Arguments[0], model),
                                 default,
                                 ExpressionSemantics.NotEquals,
                                 ExpressionFragment.Null);
@@ -296,10 +296,10 @@ namespace ExRam.Gremlinq.Core
                         case WellKnownMember.EnumerableContains:
                         {
                             return new GremlinExpression(
-                                ExpressionFragment.Create(methodCallExpression.Arguments[0].Strip(), model),
+                                ExpressionFragment.Create(methodCallExpression.Arguments[0], model),
                                 default,
                                 ExpressionSemantics.Contains,
-                                ExpressionFragment.Create(methodCallExpression.Arguments[1].Strip(), model));
+                                ExpressionFragment.Create(methodCallExpression.Arguments[1], model));
                         }
                         case WellKnownMember.ListContains:
                         {
@@ -307,7 +307,7 @@ namespace ExRam.Gremlinq.Core
                                 ExpressionFragment.Create(methodCallExpression.Object!, model),
                                 default,
                                 ExpressionSemantics.Contains,
-                                ExpressionFragment.Create(methodCallExpression.Arguments[0].Strip(), model));
+                                ExpressionFragment.Create(methodCallExpression.Arguments[0], model));
                         }
                         case WellKnownMember.StringStartsWith:
                         case WellKnownMember.StringEndsWith:
