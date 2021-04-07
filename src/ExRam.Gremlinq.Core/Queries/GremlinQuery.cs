@@ -657,23 +657,23 @@ namespace ExRam.Gremlinq.Core
                 yield return new ValuesStep(stringKeys?.ToImmutableArray() ?? ImmutableArray<string>.Empty);
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Has(MemberExpression expression, P predicate)
+        private Step Has(MemberExpression expression, P predicate)
         {
             return predicate.EqualsConstant(false)
-                ? None()
+                ? NoneStep.Instance
                 : Has(
                     GetKey(expression),
                     predicate);
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Has(Key key, P predicate)
+        private HasPredicateStep Has(Key key, P predicate)
         {
-            return AddStep(new HasPredicateStep(key, predicate));
+            return new HasPredicateStep(key, predicate);
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Has(MemberExpression expression, IGremlinQueryBase traversal)
+        private HasTraversalStep Has(MemberExpression expression, IGremlinQueryBase traversal)
         {
-            return AddStep(new HasTraversalStep(GetKey(expression), traversal.ToTraversal()));
+            return new HasTraversalStep(GetKey(expression), traversal.ToTraversal());
         }
 
         private GremlinQuery<object, object, object, object, object, object> Id() => AddStepWithObjectTypes<object>(IdStep.Instance, QuerySemantics.Value);
@@ -684,7 +684,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TNewElement, object, object, object, object, object> InV<TNewElement>() => AddStepWithObjectTypes<TNewElement>(InVStep.Instance, QuerySemantics.Vertex);
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Is(P predicate) => AddStep(new IsStep(predicate));
+        private IsStep Is(P predicate) => new IsStep(predicate);
 
         private GremlinQuery<string, object, object, object, object, object> Key() => AddStepWithObjectTypes<string>(KeyStep.Instance, QuerySemantics.Value);
 
@@ -1084,7 +1084,7 @@ namespace ExRam.Gremlinq.Core
                         ? this
                         : gremlinExpression.Equals(GremlinExpression.False)
                             ? None()
-                            : Where(gremlinExpression);
+                            : AddSteps(Where(gremlinExpression));
                 }
             }
             catch (ExpressionNotSupportedException ex)
@@ -1098,11 +1098,11 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Where<TProjection>(Expression<Func<TElement, TProjection>> predicate, Func<IGremlinQueryBase<TProjection>, IGremlinQueryBase> propertyTraversal)
         {
             return predicate.TryGetReferredParameter() is not null && predicate.Body is MemberExpression memberExpression
-                ? Has(memberExpression, Cast<TProjection>().Continue(propertyTraversal))
+                ? AddStep(Has(memberExpression, Cast<TProjection>().Continue(propertyTraversal)))
                 : throw new ExpressionNotSupportedException(predicate);
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Where(GremlinExpression gremlinExpression)
+        private IEnumerable<Step> Where(GremlinExpression gremlinExpression)
         {
             return Where(
                 gremlinExpression.Left,
@@ -1111,7 +1111,7 @@ namespace ExRam.Gremlinq.Core
                 gremlinExpression.Right);
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Where(ExpressionFragment left, WellKnownMember? leftWellKnownMember, ExpressionSemantics semantics, ExpressionFragment right)
+        private IEnumerable<Step> Where(ExpressionFragment left, WellKnownMember? leftWellKnownMember, ExpressionSemantics semantics, ExpressionFragment right)
         {
             if (right.Type == ExpressionFragmentType.Constant)
             {
@@ -1137,22 +1137,24 @@ namespace ExRam.Gremlinq.Core
                                         {
                                             if (!Environment.GetCache().FastNativeTypes.ContainsKey(leftMemberExpression.Type))
                                             {
-                                                return AddStep(
-                                                    new WhereTraversalStep(ImmutableArray.Create<Step>(
-                                                        new PropertiesStep(ImmutableArray.Create(stringKey)),
-                                                        CountStep.Global,
-                                                        new IsStep(effectivePredicate))));
+                                                yield return new WhereTraversalStep(ImmutableArray.Create<Step>(
+                                                    new PropertiesStep(ImmutableArray.Create(stringKey)),
+                                                    CountStep.Global,
+                                                    new IsStep(effectivePredicate)));
+
+                                                yield break;
                                             }
                                         }
                                     }
                                     else
                                     {
-                                        return AddStep(
-                                            new WhereTraversalStep(ImmutableArray.Create<Step>(
-                                                new SelectKeysStep(
-                                                    ImmutableArray.Create(GetKey(leftMemberExpression))),
-                                                CountStep.Local,
-                                                new IsStep(effectivePredicate))));
+                                        yield return new WhereTraversalStep(ImmutableArray.Create<Step>(
+                                            new SelectKeysStep(
+                                                ImmutableArray.Create(GetKey(leftMemberExpression))),
+                                            CountStep.Local,
+                                            new IsStep(effectivePredicate)));
+
+                                        yield break;
                                     }
                                     
                                     break;
@@ -1172,23 +1174,25 @@ namespace ExRam.Gremlinq.Core
                             {
                                 if (right.Expression is MemberExpression memberExpression)
                                 {
-                                    var ret = this
-                                        .AddStep(new WherePredicateStep(effectivePredicate))
-                                        .AddStep(new WherePredicateStep.ByMemberStep(GetKey(leftMemberExpression)));
+                                    yield return new WherePredicateStep(effectivePredicate);
+                                    yield return new WherePredicateStep.ByMemberStep(GetKey(leftMemberExpression));
 
                                     if (memberExpression.Member != leftMemberExpression.Member)
-                                        ret = ret.AddStep(new WherePredicateStep.ByMemberStep(GetKey(memberExpression)));
+                                        yield return new WherePredicateStep.ByMemberStep(GetKey(memberExpression));
 
-                                    return ret;
+                                    yield break;
                                 }
 
-                                return Has(
+                                yield return Has(
                                     leftMemberExpression,
                                     Continue(__ => __
                                         .AddStep(new WherePredicateStep(effectivePredicate))));
+
+                                yield break;
                             }
 
-                            return Has(leftMemberExpression, effectivePredicate);
+                            yield return Has(leftMemberExpression, effectivePredicate);
+                            yield break;
                         }
                         case ParameterExpression parameterExpression:
                         {
@@ -1196,39 +1200,55 @@ namespace ExRam.Gremlinq.Core
                             {
                                 // x => x.Value == P.xy(...)
                                 case WellKnownMember.PropertyValue when right.GetValue() is not StepLabel:
-                                    return AddStep(new HasValueStep(effectivePredicate));
+                                {
+                                    yield return new HasValueStep(effectivePredicate);
+                                    yield break;
+                                }
                                 case WellKnownMember.PropertyKey:
-                                    return Where(__ => __
-                                        .Key()
+                                {
+                                    yield return new WhereTraversalStep(new Traversal(this
                                         .Where(
                                             ExpressionFragment.Create(parameterExpression, Environment.Model),
                                             default,
                                             semantics,
-                                            right));
+                                            right)
+                                        .Prepend(KeyStep.Instance)));
+
+                                    yield break;
+                                }
                                 case WellKnownMember.VertexPropertyLabel when right.GetValue() is StepLabel:
-                                    return Where(__ => __
-                                        .Label()
-                                        .Where(
-                                            ExpressionFragment.Create(parameterExpression, Environment.Model),
-                                            default,
-                                            semantics,
-                                            right));
+                                {
+                                    yield return new WhereTraversalStep(
+                                        new Traversal(this
+                                            .Where(
+                                                ExpressionFragment.Create(parameterExpression, Environment.Model),
+                                                default,
+                                                semantics,
+                                                right)
+                                            .Prepend(LabelStep.Instance)));
+
+                                    yield break;
+                                }
                                 case WellKnownMember.VertexPropertyLabel:
-                                    return AddStep(new HasKeyStep(effectivePredicate));
+                                {
+                                    yield return new HasKeyStep(effectivePredicate);
+                                    yield break;
+                                }
                             }
 
                             // x => x == P.xy(...)
                             if (right.GetValue() is StepLabel)
                             {
-                                var ret = AddStep(new WherePredicateStep(effectivePredicate));
+                                yield return new WherePredicateStep(effectivePredicate);
 
                                 if (right.Expression is MemberExpression memberExpression)
-                                    ret = ret.AddStep(new WherePredicateStep.ByMemberStep(GetKey(memberExpression)));
+                                    yield return new WherePredicateStep.ByMemberStep(GetKey(memberExpression));
 
-                                return ret;
+                                yield break;
                             }
 
-                            return Is(effectivePredicate);
+                            yield return Is(effectivePredicate);
+                            yield break;
                         }
                         case MethodCallExpression methodCallExpression:
                         {
@@ -1237,7 +1257,10 @@ namespace ExRam.Gremlinq.Core
                             if (targetExpression != null && typeof(IDictionary<string, object>).IsAssignableFrom(targetExpression.Type) && methodCallExpression.Method.Name == "get_Item")
                             {
                                 if (methodCallExpression.Arguments[0].Strip()!.GetValue() is string key)
-                                    return Has(key, effectivePredicate);
+                                {
+                                    yield return Has(key, effectivePredicate);
+                                    yield break;
+                                }
                             }
 
                             break;
@@ -1246,15 +1269,15 @@ namespace ExRam.Gremlinq.Core
                 }
                 else if (left.Type == ExpressionFragmentType.Constant && left.GetValue() is StepLabel leftStepLabel && right.GetValue() is StepLabel)
                 {
-                    var ret = AddStep(new WhereStepLabelAndPredicateStep(leftStepLabel, effectivePredicate));
+                    yield return new WhereStepLabelAndPredicateStep(leftStepLabel, effectivePredicate);
 
                     if (left.Expression is MemberExpression leftStepValueExpression)
-                        ret = ret.AddStep(new WherePredicateStep.ByMemberStep(GetKey(leftStepValueExpression)));
+                        yield return new WherePredicateStep.ByMemberStep(GetKey(leftStepValueExpression));
 
                     if (right.Expression is MemberExpression rightStepValueExpression)
-                        ret = ret.AddStep(new WherePredicateStep.ByMemberStep(GetKey(rightStepValueExpression)));
+                        yield return new WherePredicateStep.ByMemberStep(GetKey(rightStepValueExpression));
 
-                    return ret;
+                    yield break;
                 }
             }
             else if (right.Type == ExpressionFragmentType.Parameter)
@@ -1265,13 +1288,20 @@ namespace ExRam.Gremlinq.Core
                     {
                         var newStepLabel = new StepLabel<TElement>();
 
-                        return this
-                            .AddStep(new AsStep(newStepLabel))
-                            .Where(
-                                left,
-                                default,
-                                semantics,
-                                ExpressionFragment.StepLabel(newStepLabel, rightMember));
+                        yield return new AsStep(newStepLabel);
+
+                        var subSteps = Where(
+                            left,
+                            default,
+                            semantics,
+                            ExpressionFragment.StepLabel(newStepLabel, rightMember));
+
+                        foreach (var step in subSteps)
+                        {
+                            yield return step;
+                        }
+
+                        yield break;
                     }
                 }
             }
