@@ -656,26 +656,7 @@ namespace ExRam.Gremlinq.Core
             if (stringKeys?.Count > 0 || !hasYielded)
                 yield return new ValuesStep(stringKeys?.ToImmutableArray() ?? ImmutableArray<string>.Empty);
         }
-
-        private Step Has(MemberExpression expression, P predicate)
-        {
-            return predicate.EqualsConstant(false)
-                ? NoneStep.Instance
-                : Has(
-                    GetKey(expression),
-                    predicate);
-        }
-
-        private HasPredicateStep Has(Key key, P predicate)
-        {
-            return new HasPredicateStep(key, predicate);
-        }
-
-        private HasTraversalStep Has(MemberExpression expression, IGremlinQueryBase traversal)
-        {
-            return new HasTraversalStep(GetKey(expression), traversal.ToTraversal());
-        }
-
+        
         private GremlinQuery<object, object, object, object, object, object> Id() => AddStepWithObjectTypes<object>(IdStep.Instance, QuerySemantics.Value);
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Identity() => this;
@@ -683,8 +664,6 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Inject<TNewElement>(IEnumerable<TNewElement> elements) => AddStep<TNewElement>(new InjectStep(elements.Cast<object>().Where(x => x is not null).Select(x => x!).ToImmutableArray()), QuerySemantics.Value);
 
         private GremlinQuery<TNewElement, object, object, object, object, object> InV<TNewElement>() => AddStepWithObjectTypes<TNewElement>(InVStep.Instance, QuerySemantics.Vertex);
-
-        private IsStep Is(P predicate) => new IsStep(predicate);
 
         private GremlinQuery<string, object, object, object, object, object> Key() => AddStepWithObjectTypes<string>(KeyStep.Instance, QuerySemantics.Value);
 
@@ -1098,7 +1077,7 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Where<TProjection>(Expression<Func<TElement, TProjection>> predicate, Func<IGremlinQueryBase<TProjection>, IGremlinQueryBase> propertyTraversal)
         {
             return predicate.TryGetReferredParameter() is not null && predicate.Body is MemberExpression memberExpression
-                ? AddStep(Has(memberExpression, Cast<TProjection>().Continue(propertyTraversal)))
+                ? AddStep(new HasTraversalStep(GetKey(memberExpression), Cast<TProjection>().Continue(propertyTraversal).ToTraversal()))
                 : throw new ExpressionNotSupportedException(predicate);
         }
 
@@ -1183,15 +1162,18 @@ namespace ExRam.Gremlinq.Core
                                     yield break;
                                 }
 
-                                yield return Has(
-                                    leftMemberExpression,
+                                yield return new HasTraversalStep(
+                                    GetKey(leftMemberExpression),
                                     Continue(__ => __
-                                        .AddStep(new WherePredicateStep(effectivePredicate))));
+                                        .AddStep(new WherePredicateStep(effectivePredicate))).ToTraversal());
 
                                 yield break;
                             }
 
-                            yield return Has(leftMemberExpression, effectivePredicate);
+                            yield return effectivePredicate.EqualsConstant(false)
+                                ? NoneStep.Instance
+                                : new HasPredicateStep(GetKey(leftMemberExpression), effectivePredicate);
+
                             yield break;
                         }
                         case ParameterExpression parameterExpression:
@@ -1247,7 +1229,7 @@ namespace ExRam.Gremlinq.Core
                                 yield break;
                             }
 
-                            yield return Is(effectivePredicate);
+                            yield return new IsStep(effectivePredicate);
                             yield break;
                         }
                         case MethodCallExpression methodCallExpression:
@@ -1258,7 +1240,7 @@ namespace ExRam.Gremlinq.Core
                             {
                                 if (methodCallExpression.Arguments[0].Strip()!.GetValue() is string key)
                                 {
-                                    yield return Has(key, effectivePredicate);
+                                    yield return new HasPredicateStep((Key) key, effectivePredicate);
                                     yield break;
                                 }
                             }
