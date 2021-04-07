@@ -2,15 +2,13 @@
 using FluentAssertions;
 using System.IO;
 using System.Threading.Tasks;
-using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Tests.Entities;
 using Newtonsoft.Json.Linq;
 using Xunit;
 using Xunit.Abstractions;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
-namespace ExRam.Gremlinq.Providers.Tests
+namespace ExRam.Gremlinq.Core.Tests
 {
     public class GraphsonSupportTest : GremlinqTestBase
     {

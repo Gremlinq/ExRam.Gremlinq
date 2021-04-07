@@ -3,7 +3,7 @@ using System.Linq;
 using ExRam.Gremlinq.Core;
 using Newtonsoft.Json.Linq;
 
-namespace ExRam.Gremlinq.Providers.Tests
+namespace ExRam.Gremlinq.Core.Tests
 {
     public static class GremlinQuerySourceExtensions
     {
