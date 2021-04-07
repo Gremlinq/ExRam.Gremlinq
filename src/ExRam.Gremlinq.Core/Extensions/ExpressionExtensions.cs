@@ -92,7 +92,7 @@ namespace ExRam.Gremlinq.Core
 
                 for (var i = 0; i < arguments.Length; i++)
                 {
-                    arguments[i] = argumentProvider.GetArgument(i)?.GetValue();
+                    arguments[i] = argumentProvider.GetArgument(i).GetValue();
                 }
 
                 return arguments;

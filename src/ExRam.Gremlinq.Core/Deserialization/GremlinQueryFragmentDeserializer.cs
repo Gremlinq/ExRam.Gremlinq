@@ -103,7 +103,7 @@ namespace ExRam.Gremlinq.Core
 
             private static Func<TStatic, Type, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, object?> CreateFunc1<TStatic, TEffective>(GremlinQueryFragmentDeserializerDelegate<TEffective> del)
             {
-                return (serialized, fragmentType, environment, recurse) => del((TEffective)(object)serialized!, fragmentType, environment, (e, t, env, recurse) => e, recurse);
+                return (serialized, fragmentType, environment, recurse) => del((TEffective)(object)serialized!, fragmentType, environment, (serialized, _, _, _) => serialized, recurse);
             }
 
             private static Func<TStatic, Type, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, object?> CreateFunc2<TStatic>()

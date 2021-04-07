@@ -27,21 +27,11 @@ namespace ExRam.Gremlinq.Core
             
         }
 
-        public bool Equals(MemberInfo? x, MemberInfo? y)
-        {
-            if (x is null)
-                return y is null;
+        public bool Equals(MemberInfo? x, MemberInfo? y) => x is null
+            ? y is null
+            : y is not null && InnerMemberInfoEqualityComparer.Instance.Equals(GetBaseMemberInfo(x), GetBaseMemberInfo(y));
 
-            if (y is null)
-                return false;
-
-            return InnerMemberInfoEqualityComparer.Instance.Equals(GetBaseMemberInfo(x), GetBaseMemberInfo(y));
-        }
-
-        public int GetHashCode(MemberInfo obj)
-        {
-            return InnerMemberInfoEqualityComparer.Instance.GetHashCode(GetBaseMemberInfo(obj));
-        }
+        public int GetHashCode(MemberInfo obj) => InnerMemberInfoEqualityComparer.Instance.GetHashCode(GetBaseMemberInfo(obj));
 
         private static MemberInfo GetBaseMemberInfo(MemberInfo member)
         {
