@@ -9,12 +9,12 @@ namespace ExRam.Gremlinq.Core
         {
             return type switch
             {
-                ExpressionType.Equal => ExpressionSemantics.Equals,
-                ExpressionType.NotEqual => ExpressionSemantics.NotEquals,
-                ExpressionType.LessThan => ExpressionSemantics.LowerThan,
-                ExpressionType.LessThanOrEqual => ExpressionSemantics.LowerThanOrEqual,
-                ExpressionType.GreaterThanOrEqual => ExpressionSemantics.GreaterThanOrEqual,
-                ExpressionType.GreaterThan => ExpressionSemantics.GreaterThan,
+                ExpressionType.Equal => ObjectExpressionSemantics.Equals,
+                ExpressionType.NotEqual => ObjectExpressionSemantics.NotEquals,
+                ExpressionType.LessThan => NumericExpressionSemantics.LowerThan,
+                ExpressionType.LessThanOrEqual => NumericExpressionSemantics.LowerThanOrEqual,
+                ExpressionType.GreaterThanOrEqual => NumericExpressionSemantics.GreaterThanOrEqual,
+                ExpressionType.GreaterThan => NumericExpressionSemantics.GreaterThan,
                 _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
             };
         }

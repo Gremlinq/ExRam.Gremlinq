@@ -22,15 +22,6 @@ namespace ExRam.Gremlinq.Core
         private static readonly MethodInfo StringContains = Get(() => string.Empty.Contains(string.Empty));
         private static readonly MethodInfo StringEndsWith = Get(() => string.Empty.EndsWith(string.Empty));
 
-        private static readonly ExpressionSemantics[][] CompareToMatrix = {
-            new [] { ExpressionSemantics.False, ExpressionSemantics.False,              ExpressionSemantics.LowerThan,          ExpressionSemantics.LowerThanOrEqual, ExpressionSemantics.True },
-            new [] { ExpressionSemantics.False, ExpressionSemantics.LowerThan,          ExpressionSemantics.LowerThanOrEqual,   ExpressionSemantics.True,             ExpressionSemantics.True },
-            new [] { ExpressionSemantics.False, ExpressionSemantics.LowerThan,          ExpressionSemantics.Equals,             ExpressionSemantics.GreaterThan,      ExpressionSemantics.False },
-            new [] { ExpressionSemantics.True,  ExpressionSemantics.True,               ExpressionSemantics.GreaterThanOrEqual, ExpressionSemantics.GreaterThan,      ExpressionSemantics.False },
-            new [] { ExpressionSemantics.True,  ExpressionSemantics.GreaterThanOrEqual, ExpressionSemantics.GreaterThan,        ExpressionSemantics.False,            ExpressionSemantics.False },
-            new [] { ExpressionSemantics.True, ExpressionSemantics.GreaterThanOrEqual,  ExpressionSemantics.NotEquals,          ExpressionSemantics.LowerThanOrEqual, ExpressionSemantics.True }
-        };
-
         public static Expression Strip(this Expression expression)
         {
             while (true)
@@ -208,18 +199,22 @@ namespace ExRam.Gremlinq.Core
 
                         if (maybeComparison is { } comparison)
                         {
-                            var semantics = CompareToMatrix[(int)expression.Semantics - 2][Math.Min(2, Math.Max(-2, comparison)) + 2];
-
-                            return semantics switch
+                            if (expression.Semantics is ObjectExpressionSemantics objectExpressionSemantics)
                             {
-                                ExpressionSemantics.True => GremlinExpression.True,
-                                ExpressionSemantics.False => GremlinExpression.False,
-                                _ => new GremlinExpression(
+                                var transformed = objectExpressionSemantics.TransformCompareTo(comparison);
+
+                                if (transformed == ConstantExpressionSemantics.True)
+                                    return GremlinExpression.True;
+
+                                if (transformed == ConstantExpressionSemantics.False)
+                                    return GremlinExpression.False;
+
+                                return new GremlinExpression(
                                     ExpressionFragment.Create(leftMethodCallExpression.Object!, model),
                                     default,
-                                    semantics,
-                                    ExpressionFragment.Create(leftMethodCallExpression.Arguments[0], model))
-                            };
+                                    transformed,
+                                    ExpressionFragment.Create(leftMethodCallExpression.Arguments[0], model));
+                            }
                         }
                     }
                 }
@@ -256,7 +251,7 @@ namespace ExRam.Gremlinq.Core
                     return new GremlinExpression(
                         ExpressionFragment.Create(memberExpression, model),
                         default,
-                        ExpressionSemantics.Equals,
+                        ObjectExpressionSemantics.Equals,
                         ExpressionFragment.True);
                 }
                 case BinaryExpression binaryExpression when binaryExpression.NodeType != ExpressionType.AndAlso && binaryExpression.NodeType != ExpressionType.OrElse:
@@ -280,7 +275,7 @@ namespace ExRam.Gremlinq.Core
                             return new GremlinExpression(
                                 ExpressionFragment.Create(arguments[0], model),
                                 default,
-                                ExpressionSemantics.Intersects,
+                                EnumerableExpressionSemantics.Intersects,
                                 ExpressionFragment.Create(arguments[1], model));
                         }
                         case WellKnownMember.EnumerableAny:
@@ -288,7 +283,7 @@ namespace ExRam.Gremlinq.Core
                             return new GremlinExpression(
                                 ExpressionFragment.Create(methodCallExpression.Arguments[0], model),
                                 default,
-                                ExpressionSemantics.NotEquals,
+                                ObjectExpressionSemantics.NotEquals,
                                 ExpressionFragment.Null);
                         }
                         case WellKnownMember.EnumerableContains:
@@ -296,7 +291,7 @@ namespace ExRam.Gremlinq.Core
                             return new GremlinExpression(
                                 ExpressionFragment.Create(methodCallExpression.Arguments[0], model),
                                 default,
-                                ExpressionSemantics.Contains,
+                                EnumerableExpressionSemantics.Contains,
                                 ExpressionFragment.Create(methodCallExpression.Arguments[1], model));
                         }
                         case WellKnownMember.ListContains:
@@ -304,7 +299,7 @@ namespace ExRam.Gremlinq.Core
                             return new GremlinExpression(
                                 ExpressionFragment.Create(methodCallExpression.Object!, model),
                                 default,
-                                ExpressionSemantics.Contains,
+                                EnumerableExpressionSemantics.Contains,
                                 ExpressionFragment.Create(methodCallExpression.Arguments[0], model));
                         }
                         case WellKnownMember.StringStartsWith:
@@ -321,7 +316,7 @@ namespace ExRam.Gremlinq.Core
                                     return new GremlinExpression(
                                         ExpressionFragment.Constant(stringValue),
                                         default,
-                                        ExpressionSemantics.StartsWith,
+                                        StringExpressionSemantics.StartsWith,
                                         ExpressionFragment.Create(argumentExpression, model));
                                 }
                             }
@@ -334,9 +329,9 @@ namespace ExRam.Gremlinq.Core
                                         default,
                                         wellKnownMember switch
                                         {
-                                            WellKnownMember.StringStartsWith => ExpressionSemantics.StartsWith,
-                                            WellKnownMember.StringContains => ExpressionSemantics.HasInfix,
-                                            WellKnownMember.StringEndsWith => ExpressionSemantics.EndsWith,
+                                            WellKnownMember.StringStartsWith => StringExpressionSemantics.StartsWith,
+                                            WellKnownMember.StringContains => StringExpressionSemantics.HasInfix,
+                                            WellKnownMember.StringEndsWith => StringExpressionSemantics.EndsWith,
                                             _ => throw new ExpressionNotSupportedException(methodCallExpression)
                                         },
                                         ExpressionFragment.Constant(stringValue));

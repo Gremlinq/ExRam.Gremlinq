@@ -4,8 +4,8 @@ namespace ExRam.Gremlinq.Core
 {
     internal readonly struct GremlinExpression : IEquatable<GremlinExpression>
     {
-        public static readonly GremlinExpression True = new(ExpressionFragment.True, default, ExpressionSemantics.Equals, ExpressionFragment.True);
-        public static readonly GremlinExpression False = new(ExpressionFragment.True, default, ExpressionSemantics.Equals, ExpressionFragment.False);
+        public static readonly GremlinExpression True = new(ExpressionFragment.True, default, ObjectExpressionSemantics.Equals, ExpressionFragment.True);
+        public static readonly GremlinExpression False = new(ExpressionFragment.True, default, ObjectExpressionSemantics.Equals, ExpressionFragment.False);
 
         public GremlinExpression(ExpressionFragment left, WellKnownMember? leftWellKnownMember, ExpressionSemantics semantics, ExpressionFragment right)
         {
@@ -38,7 +38,7 @@ namespace ExRam.Gremlinq.Core
             {
                 var hashCode = Left.GetHashCode();
                 hashCode = (hashCode * 397) ^ Right.GetHashCode();
-                hashCode = (hashCode * 397) ^ (int) Semantics;
+                hashCode = (hashCode * 397) ^ Semantics.GetHashCode();
                 return hashCode;
             }
         }
