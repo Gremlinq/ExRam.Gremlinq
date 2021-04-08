@@ -24,9 +24,9 @@ namespace ExRam.Gremlinq.Core.Tests
                             var jArray = JsonConvert.DeserializeObject<JArray>(
                                 File.ReadAllText(System.IO.Path.Combine(context.SourceDirectory, prefix + "IntegrationTests." + XunitContext.Context.MethodName + ".verified.txt")));
 
-                            return jArray
+                            return jArray?
                                 .Select(x => (object)x)
-                                .ToAsyncEnumerable();
+                                .ToAsyncEnumerable() ?? AsyncEnumerable.Empty<object>();
                         }
                         catch (IOException)
                         {
