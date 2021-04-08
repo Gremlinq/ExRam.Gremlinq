@@ -29,7 +29,7 @@ namespace ExRam.Gremlinq.Core
         {
             unchecked
             {
-                var hashCode = (_value != null ? _value.GetHashCode() : 0);
+                var hashCode = _value != null ? _value.GetHashCode() : 0;
                 hashCode = (hashCode * 397) ^ (Expression != null ? Expression.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (int) Type;
                 return hashCode;

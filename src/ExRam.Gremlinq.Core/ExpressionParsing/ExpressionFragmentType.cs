@@ -3,6 +3,6 @@
     internal enum ExpressionFragmentType
     {
         Constant,
-        Parameter,
+        Parameter
     }
 }
