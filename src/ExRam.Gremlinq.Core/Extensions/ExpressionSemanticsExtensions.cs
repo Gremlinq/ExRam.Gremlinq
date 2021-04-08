@@ -6,56 +6,69 @@ namespace ExRam.Gremlinq.Core
     internal static class ExpressionSemanticsExtensions
     {
         private static readonly P PNeqNull = P.Neq(new object?[] { null });
-
-        public static ExpressionSemantics Flip(this ExpressionSemantics semantics)
-        {
-            return semantics switch
-            {
-                ExpressionSemantics.Contains => ExpressionSemantics.IsContainedIn,
-                ExpressionSemantics.StartsWith => ExpressionSemantics.IsPrefixOf,
-                ExpressionSemantics.EndsWith => ExpressionSemantics.IsSuffixOf,
-                ExpressionSemantics.HasInfix => ExpressionSemantics.IsInfixOf,
-                ExpressionSemantics.LowerThan => ExpressionSemantics.GreaterThan,
-                ExpressionSemantics.GreaterThan => ExpressionSemantics.LowerThan,
-                ExpressionSemantics.Equals => ExpressionSemantics.Equals,
-                ExpressionSemantics.Intersects => ExpressionSemantics.Intersects,
-                ExpressionSemantics.GreaterThanOrEqual => ExpressionSemantics.LowerThanOrEqual,
-                ExpressionSemantics.LowerThanOrEqual => ExpressionSemantics.GreaterThanOrEqual,
-                ExpressionSemantics.NotEquals => ExpressionSemantics.NotEquals,
-                ExpressionSemantics.IsContainedIn => ExpressionSemantics.Contains,
-                ExpressionSemantics.IsInfixOf => ExpressionSemantics.HasInfix,
-                ExpressionSemantics.IsPrefixOf => ExpressionSemantics.StartsWith,
-                ExpressionSemantics.IsSuffixOf => ExpressionSemantics.EndsWith,
-                _ => throw new ArgumentOutOfRangeException(nameof(semantics), semantics, null)
-            };
-        }
-
+        
         public static P ToP(this ExpressionSemantics semantics, object? value)
         {
-            return semantics switch
-            {
-                ExpressionSemantics.Contains => new P("eq", value),
-                ExpressionSemantics.IsPrefixOf when value is string stringValue => P.Within(SubStrings(stringValue)),
-                ExpressionSemantics.HasInfix when value is string stringValue => stringValue.Length > 0
-                    ? TextP.Containing(stringValue)
-                    : PNeqNull,
-                ExpressionSemantics.StartsWith when value is string stringValue => stringValue.Length > 0
-                    ? TextP.StartingWith(stringValue)
-                    : PNeqNull,
-                ExpressionSemantics.EndsWith when value is string stringValue => stringValue.Length > 0
-                    ? TextP.EndingWith(stringValue)
-                    : PNeqNull,
-                ExpressionSemantics.LowerThan => new P("lt", value),
-                ExpressionSemantics.GreaterThan => new P("gt", value),
-                ExpressionSemantics.Equals => new P("eq", value),
-                ExpressionSemantics.NotEquals => new P("neq", value),
-                ExpressionSemantics.Intersects => P.Within(value),
-                ExpressionSemantics.GreaterThanOrEqual => new P("gte", value),
-                ExpressionSemantics.LowerThanOrEqual => new P("lte", value),
-                ExpressionSemantics.IsContainedIn => P.Within(value),
+            if (semantics == EnumerableExpressionSemantics.Contains)
+                return new P("eq", value);
 
-                _ => throw new ExpressionNotSupportedException()
-            };
+            if (semantics == EnumerableExpressionSemantics.Intersects)
+                return P.Within(value);
+
+            if (semantics == EnumerableExpressionSemantics.IsContainedIn)
+                return P.Within(value);
+
+            if (semantics is StringExpressionSemantics && value is string stringValue)
+            {
+                if (semantics == StringExpressionSemantics.IsPrefixOf)
+                    return P.Within(SubStrings(stringValue));
+
+                if (semantics == StringExpressionSemantics.HasInfix)
+                {
+                    return stringValue.Length > 0
+                        ? TextP.Containing(stringValue)
+                        : PNeqNull;
+                }
+
+                if (semantics == StringExpressionSemantics.StartsWith)
+                {
+                    return stringValue.Length > 0
+                        ? TextP.StartingWith(stringValue)
+                        : PNeqNull;
+                }
+
+                if (semantics == StringExpressionSemantics.EndsWith)
+                {
+                    return stringValue.Length > 0
+                        ? TextP.EndingWith(stringValue)
+                        : PNeqNull;
+                }
+            }
+            else if (semantics is ObjectExpressionSemantics)
+            {
+                if (semantics == ObjectExpressionSemantics.Equals)
+                    return new P("eq", value);
+
+                if (semantics == ObjectExpressionSemantics.NotEquals)
+                    return new P("neq", value);
+
+                if (semantics is NumericExpressionSemantics)
+                {
+                    if (semantics == NumericExpressionSemantics.LowerThan)
+                        return new P("lt", value);
+
+                    if (semantics == NumericExpressionSemantics.GreaterThan)
+                        return new P("gt", value);
+
+                    if (semantics == NumericExpressionSemantics.GreaterThanOrEqual)
+                        return new P("gte", value);
+
+                    if (semantics == NumericExpressionSemantics.LowerThanOrEqual)
+                        return new P("lte", value);
+                }
+            }
+
+            throw new ExpressionNotSupportedException();
         }
 
         private static object[] SubStrings(string value)
