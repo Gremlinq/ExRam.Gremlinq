@@ -25,9 +25,9 @@ namespace ExRam.Gremlinq.Core
             };
         }
 
-        public static P WorkaroundLimitations(this P p, IGremlinqOptions gremlinqOptions)
+        public static P WorkaroundLimitations(this P p, IGremlinQueryEnvironment environment)
         {
-            var disabledTextPredicates = gremlinqOptions.GetValue(GremlinqOption.DisabledTextPredicates);
+            var disabledTextPredicates = environment.Options.GetValue(GremlinqOption.DisabledTextPredicates);
 
             if (p is TextP textP)
             {
