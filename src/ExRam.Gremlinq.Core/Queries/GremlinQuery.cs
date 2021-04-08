@@ -1156,8 +1156,10 @@ namespace ExRam.Gremlinq.Core
 
                                 yield return new HasTraversalStep(
                                     GetKey(leftMemberExpression),
-                                    Continue(__ => __
-                                        .AddStep(new WherePredicateStep(effectivePredicate))).ToTraversal());
+                                    this
+                                        .Continue(__ => __
+                                            .AddStep(new WherePredicateStep(effectivePredicate)))
+                                        .ToTraversal());
 
                                 yield break;
                             }
