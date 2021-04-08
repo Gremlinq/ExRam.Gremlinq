@@ -3942,6 +3942,15 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task Where_property_not_equals_string()
+        {
+            await _g
+                .V<Person>()
+                .Where(t => t.Name!.Value.CompareTo("Some name") != 0)
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task Where_property_greater_than_string()
         {
             await _g
@@ -3997,6 +4006,15 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task Where_property_not_lower_than_string_3()
+        {
+            await _g
+                .V<Person>()
+                .Where(t => t.Name!.Value.CompareTo("Some name") != -1)
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task Where_property_greater_or_equal_string_2()
         {
             await _g
@@ -4042,6 +4060,15 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task Where_property_not_greater_than_string_2()
+        {
+            await _g
+                .V<Person>()
+                .Where(t => t.Name!.Value.CompareTo("Some name") != 1)
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task Where_property_comparison_to_string_always_false()
         {
             await _g
@@ -4083,6 +4110,15 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(t => t.Name!.Value.CompareTo("Some name") == 2)
+                .Verify();
+        }
+
+        [Fact]
+        public virtual async Task Where_property_comparison_to_string_not_always_false_2()
+        {
+            await _g
+                .V<Person>()
+                .Where(t => t.Name!.Value.CompareTo("Some name") != 2)
                 .Verify();
         }
 

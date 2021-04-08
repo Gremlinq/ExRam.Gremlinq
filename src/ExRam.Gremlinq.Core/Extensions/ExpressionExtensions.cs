@@ -27,7 +27,8 @@ namespace ExRam.Gremlinq.Core
             new [] { ExpressionSemantics.False, ExpressionSemantics.LowerThan,          ExpressionSemantics.LowerThanOrEqual,   ExpressionSemantics.True,             ExpressionSemantics.True },
             new [] { ExpressionSemantics.False, ExpressionSemantics.LowerThan,          ExpressionSemantics.Equals,             ExpressionSemantics.GreaterThan,      ExpressionSemantics.False },
             new [] { ExpressionSemantics.True,  ExpressionSemantics.True,               ExpressionSemantics.GreaterThanOrEqual, ExpressionSemantics.GreaterThan,      ExpressionSemantics.False },
-            new [] { ExpressionSemantics.True,  ExpressionSemantics.GreaterThanOrEqual, ExpressionSemantics.GreaterThan,        ExpressionSemantics.False,            ExpressionSemantics.False }
+            new [] { ExpressionSemantics.True,  ExpressionSemantics.GreaterThanOrEqual, ExpressionSemantics.GreaterThan,        ExpressionSemantics.False,            ExpressionSemantics.False },
+            new [] { ExpressionSemantics.True, ExpressionSemantics.GreaterThanOrEqual,  ExpressionSemantics.NotEquals,          ExpressionSemantics.LowerThanOrEqual, ExpressionSemantics.True }
         };
 
         public static Expression Strip(this Expression expression)
