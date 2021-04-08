@@ -21,9 +21,6 @@ namespace ExRam.Gremlinq.Core
         private static readonly MethodInfo StringStartsWith = Get(() => string.Empty.StartsWith(string.Empty));
         private static readonly MethodInfo StringContains = Get(() => string.Empty.Contains(string.Empty));
         private static readonly MethodInfo StringEndsWith = Get(() => string.Empty.EndsWith(string.Empty));
-        // ReSharper disable once StringCompareToIsCultureSpecific
-        private static readonly MethodInfo StringCompareTo = Get(() => string.Empty.CompareTo(string.Empty));
-        // ReSharper restore ReturnValueOfPureMethodIsNotUsed
 
         private static readonly ExpressionSemantics[][] CompareToMatrix = {
             new [] { ExpressionSemantics.False, ExpressionSemantics.False,              ExpressionSemantics.LowerThan,          ExpressionSemantics.LowerThanOrEqual, ExpressionSemantics.True },
@@ -195,7 +192,7 @@ namespace ExRam.Gremlinq.Core
             {
                 if (expression.Left.Expression is MethodCallExpression leftMethodCallExpression)
                 {
-                    if (expression.LeftWellKnownMember == WellKnownMember.StringCompareTo && expression.Right.GetValue() is IConvertible convertible)
+                    if (expression.LeftWellKnownMember == WellKnownMember.ComparableCompareTo && expression.Right.GetValue() is IConvertible convertible)
                     {
                         var maybeComparison = default(int?);
 
@@ -410,8 +407,8 @@ namespace ExRam.Gremlinq.Core
                         if (methodInfo == StringContains)
                             return WellKnownMember.StringContains;
 
-                        if (methodInfo == StringCompareTo)
-                            return WellKnownMember.StringCompareTo;
+                        if (methodInfo.Name == nameof(IComparable.CompareTo) && methodInfo.GetParameters().Length == 1 && methodInfo.ReturnType == typeof(int))
+                            return WellKnownMember.ComparableCompareTo;
                     }
 
                     break;

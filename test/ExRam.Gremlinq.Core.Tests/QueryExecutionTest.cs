@@ -3960,6 +3960,16 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task Where_property_greater_than_or_equal_string_with_IComparable()
+        {
+            await _g
+                .V<Person>()
+                // ReSharper disable once RedundantCast
+                .Where(t => ((IComparable<string>)t.Name!.Value).CompareTo("Some name") >= 0)
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task Where_property_compared_to_string_always_false()
         {
             await _g

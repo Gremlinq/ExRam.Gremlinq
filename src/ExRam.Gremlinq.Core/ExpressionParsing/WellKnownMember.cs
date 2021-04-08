@@ -14,9 +14,10 @@
         ListContains,
 
         StringContains,
-        StringCompareTo,
         StringStartsWith,
         StringEndsWith,
+
+        ComparableCompareTo,
 
         ArrayLength
     }
