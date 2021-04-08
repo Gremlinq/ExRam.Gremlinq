@@ -17,7 +17,7 @@ namespace ExRam.Gremlinq.Core
             get
             {
                 if (_key == null)
-                    throw new InvalidOperationException();
+                    throw new InvalidOperationException($"Cannot retrieve the {nameof(Key)} property of an uninitialized {nameof(MemberMetadata)} struct.");
 
                 return _key.Value;
             }

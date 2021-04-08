@@ -12,7 +12,7 @@ namespace ExRam.Gremlinq.Core
             if (left.Type != ExpressionFragmentType.Parameter && right.Type == ExpressionFragmentType.Parameter)
             {
                 if (leftWellKnownMember != null)
-                    throw new NotSupportedException();
+                    throw new ExpressionNotSupportedException();
 
                 Left = right;
                 Semantics = semantics.Flip();
