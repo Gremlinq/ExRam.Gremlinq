@@ -22,5 +22,14 @@ namespace ExRam.Gremlinq.Core.Tests
 
             ((StepLabel)stepLabel == castStepLabel).Should().BeTrue();
         }
+
+        [Fact]
+        public void Identity_is_preserved_through_when_created_from_string()
+        {
+            StepLabel stepLabel1 = "stepLabel";
+            StepLabel stepLabel2 = "stepLabel";
+
+            stepLabel1.Should().Be(stepLabel2);
+        }
     }
 }

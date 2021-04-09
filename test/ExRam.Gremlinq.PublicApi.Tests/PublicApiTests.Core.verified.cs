@@ -1572,6 +1572,7 @@ namespace ExRam.Gremlinq.Core
         public bool Equals(ExRam.Gremlinq.Core.StepLabel? other) { }
         public override bool Equals(object? obj) { }
         public override int GetHashCode() { }
+        public static ExRam.Gremlinq.Core.StepLabel op_Implicit(string str) { }
         public static bool operator !=(ExRam.Gremlinq.Core.StepLabel? left, ExRam.Gremlinq.Core.StepLabel? right) { }
         public static bool operator ==(ExRam.Gremlinq.Core.StepLabel? left, ExRam.Gremlinq.Core.StepLabel? right) { }
     }
@@ -1580,6 +1581,7 @@ namespace ExRam.Gremlinq.Core
         public StepLabel() { }
         public TElement Value { get; }
         public static TElement op_Implicit(ExRam.Gremlinq.Core.StepLabel<TElement>? stepLabel) { }
+        public new static ExRam.Gremlinq.Core.StepLabel<TElement> op_Implicit(string str) { }
         public static bool operator !=(ExRam.Gremlinq.Core.StepLabel<TElement>? b, TElement? a) { }
         public static bool operator !=(TElement? a, ExRam.Gremlinq.Core.StepLabel<TElement>? b) { }
         public static bool operator ==(ExRam.Gremlinq.Core.StepLabel<TElement>? b, TElement? a) { }

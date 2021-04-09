@@ -1012,6 +1012,16 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task Explicit_As_with_string()
+        {
+            await _g
+                .V<Person>()
+                .As("stepLabel")
+                .Select<Person>("stepLabel")
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task FilterWithLambda()
         {
             await _g
