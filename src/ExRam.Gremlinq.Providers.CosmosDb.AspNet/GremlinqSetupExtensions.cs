@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq.Expressions;
 using Microsoft.Extensions.DependencyInjection;
 using ExRam.Gremlinq.Providers.CosmosDb;
@@ -12,14 +11,11 @@ namespace ExRam.Gremlinq.Core.AspNet
         private sealed class UseCosmosDbGremlinQueryEnvironmentTransformation : IGremlinQueryEnvironmentTransformation
         {
             private readonly IConfiguration _configuration;
-            private readonly IEnumerable<IWebSocketGremlinQueryExecutorBuilderTransformation> _webSocketTransformations;
 
             // ReSharper disable once SuggestBaseTypeForParameter
             public UseCosmosDbGremlinQueryEnvironmentTransformation(
-                IGremlinqConfiguration configuration,
-                IEnumerable<IWebSocketGremlinQueryExecutorBuilderTransformation> webSocketTransformations)
+                IGremlinqConfiguration configuration)
             {
-                _webSocketTransformations = webSocketTransformations;
                 _configuration = configuration
                     .GetSection("CosmosDb");
             }
@@ -36,8 +32,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                                 _configuration.GetRequiredConfiguration("Graph"))
                             .AuthenticateBy(_configuration.GetRequiredConfiguration("AuthKey"))
                             .ConfigureWebSocket(builder => builder
-                                .Configure(_configuration)
-                                .Transform(_webSocketTransformations));
+                                .Configure(_configuration));
                     });
             }
         }

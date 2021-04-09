@@ -10,14 +10,11 @@ namespace ExRam.Gremlinq.Core.AspNet
         private sealed class UseNeptuneGremlinQueryEnvironmentTransformation : IGremlinQueryEnvironmentTransformation
         {
             private readonly IConfiguration _configuration;
-            private readonly IEnumerable<IWebSocketGremlinQueryExecutorBuilderTransformation> _webSocketTransformations;
 
             // ReSharper disable once SuggestBaseTypeForParameter
             public UseNeptuneGremlinQueryEnvironmentTransformation(
-                IGremlinqConfiguration configuration,
-                IEnumerable<IWebSocketGremlinQueryExecutorBuilderTransformation> webSocketTransformations)
+                IGremlinqConfiguration configuration)
             {
-                _webSocketTransformations = webSocketTransformations;
                 _configuration = configuration
                     .GetSection("Neptune");
             }
@@ -28,8 +25,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                     .UseNeptune(builder => builder
                         .At(new Uri("ws://localhost:8182"))
                         .ConfigureWebSocket(_ => _
-                            .Configure(_configuration)
-                            .Transform(_webSocketTransformations)));
+                            .Configure(_configuration)));
             }
         }
 

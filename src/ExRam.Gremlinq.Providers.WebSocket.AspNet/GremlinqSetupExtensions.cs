@@ -9,21 +9,6 @@ namespace ExRam.Gremlinq.Core.AspNet
 {
     public static class GremlinqSetupExtensions
     {
-        private sealed class ConfigureWebSocketGremlinQueryExecutorBuilderTransformation : IWebSocketGremlinQueryExecutorBuilderTransformation
-        {
-            private readonly Func<IWebSocketConfigurator, IWebSocketConfigurator> _transformation;
-
-            public ConfigureWebSocketGremlinQueryExecutorBuilderTransformation(Func<IWebSocketConfigurator, IWebSocketConfigurator> transformation)
-            {
-                _transformation = transformation;
-            }
-
-            public IWebSocketConfigurator Transform(IWebSocketConfigurator builder)
-            {
-                return _transformation(builder);
-            }
-        }
-
         private sealed class ConfigureLoggingGremlinQueryEnvironmentTransformation : IGremlinQueryEnvironmentTransformation
         {
             private readonly IConfiguration _loggingSection;
@@ -60,12 +45,6 @@ namespace ExRam.Gremlinq.Core.AspNet
         {
             return setup.RegisterTypes(serviceCollection => serviceCollection
                 .AddSingleton<IGremlinQueryEnvironmentTransformation, ConfigureLoggingGremlinQueryEnvironmentTransformation>());
-        }
-
-        public static GremlinqSetup ConfigureWebSocketBuilder(this GremlinqSetup setup, Func<IWebSocketConfigurator, IWebSocketConfigurator> transformation)
-        {
-            return setup.RegisterTypes(serviceCollection => serviceCollection
-                .AddSingleton<IWebSocketGremlinQueryExecutorBuilderTransformation>(_ => new ConfigureWebSocketGremlinQueryExecutorBuilderTransformation(transformation)));
         }
     }
 }
