@@ -5525,5 +5525,25 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Verify();
         }
+
+        [Fact]
+        public virtual async Task WithSideEffect1()
+        {
+            var stepLabel = new StepLabel<int>();
+
+            await _g
+                .WithSideEffect(stepLabel, 36)
+                .V()
+                .Verify();
+        }
+
+        [Fact]
+        public virtual async Task WithSideEffect2()
+        {
+            await _g
+                .WithSideEffect("sideEffectLabel", 36)
+                .V()
+                .Verify();
+        }
     }
 }
