@@ -1,15 +1,30 @@
-﻿using System;
-
-namespace ExRam.Gremlinq.Core
+﻿namespace ExRam.Gremlinq.Core
 {
-    internal sealed class ConstantExpressionSemantics : ExpressionSemantics
+    internal sealed class TrueExpressionSemantics : ConstantExpressionSemantics
     {
-        public static readonly ExpressionSemantics False = new ConstantExpressionSemantics(() => False!);
-        public static readonly ExpressionSemantics True = new ConstantExpressionSemantics(() => True!);
+        public static readonly TrueExpressionSemantics Instance = new();
 
-        private ConstantExpressionSemantics(Func<ExpressionSemantics> flip) : base(flip)
+        private TrueExpressionSemantics()
         {
 
         }
+
+        public override ExpressionSemantics Flip() => FalseExpressionSemantics.Instance;
+    }
+
+    internal sealed class FalseExpressionSemantics : ConstantExpressionSemantics
+    {
+        public static readonly FalseExpressionSemantics Instance = new();
+
+        private FalseExpressionSemantics()
+        {
+
+        }
+
+        public override ExpressionSemantics Flip() => TrueExpressionSemantics.Instance;
+    }
+
+    internal abstract class ConstantExpressionSemantics : ExpressionSemantics
+    {
     }
 }

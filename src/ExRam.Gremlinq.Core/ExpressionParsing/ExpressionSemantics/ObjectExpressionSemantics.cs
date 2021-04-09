@@ -2,92 +2,80 @@
 
 namespace ExRam.Gremlinq.Core
 {
+    internal sealed class EqualsExpressionSemantics : ObjectExpressionSemantics
+    {
+        public static readonly EqualsExpressionSemantics Instance = new ();
+
+        private EqualsExpressionSemantics()
+        {
+
+        }
+
+        public override ExpressionSemantics Flip() => this;
+    }
+
+    internal sealed class NotEqualsExpressionSemantics : ObjectExpressionSemantics
+    {
+        public static readonly NotEqualsExpressionSemantics Instance = new();
+
+        private NotEqualsExpressionSemantics()
+        {
+
+        }
+
+        public override ExpressionSemantics Flip() => this;
+    }
+
     internal abstract class ObjectExpressionSemantics : ExpressionSemantics
     {
-        private sealed class ObjectExpressionSemanticsImpl : ObjectExpressionSemantics
-        {
-            public ObjectExpressionSemanticsImpl(Func<ExpressionSemantics> flip) : base(flip)
-            {
-
-            }
-        }
-
-        public static new readonly ObjectExpressionSemantics Equals = new ObjectExpressionSemanticsImpl(() => Equals!);
-        public static readonly ObjectExpressionSemantics NotEquals = new ObjectExpressionSemanticsImpl(() => NotEquals!);
-
-        protected ObjectExpressionSemantics(Func<ExpressionSemantics> flip) : base(flip)
-        {
-        }
-
         public ExpressionSemantics TransformCompareTo(int comparison)
         {
-            if (this == NumericExpressionSemantics.LowerThan)
+            return this switch
             {
-                return comparison switch
+                LowerThanExpressionSemantics => comparison switch
                 {
-                    0 => NumericExpressionSemantics.LowerThan,
-                    1 => NumericExpressionSemantics.LowerThanOrEqual,
-                    > 1 => ConstantExpressionSemantics.True,
-                    _ => ConstantExpressionSemantics.False
-                };
-            }
-
-            if (this == NumericExpressionSemantics.LowerThanOrEqual)
-            {
-                return comparison switch
+                    0 => LowerThanExpressionSemantics.Instance,
+                    1 => LowerThanOrEqualExpressionSemantics.Instance,
+                    > 1 => TrueExpressionSemantics.Instance,
+                    _ => FalseExpressionSemantics.Instance
+                },
+                LowerThanOrEqualExpressionSemantics => comparison switch
                 {
-                    -1 => NumericExpressionSemantics.LowerThan,
-                    0 => NumericExpressionSemantics.LowerThanOrEqual,
-                    > 0 => ConstantExpressionSemantics.True,
-                    _ => ConstantExpressionSemantics.False
-                };
-            }
-
-            if (this == Equals)
-            {
-                return comparison switch
+                    -1 => LowerThanExpressionSemantics.Instance,
+                    0 => LowerThanOrEqualExpressionSemantics.Instance,
+                    > 0 => TrueExpressionSemantics.Instance,
+                    _ => FalseExpressionSemantics.Instance
+                },
+                EqualsExpressionSemantics => comparison switch
                 {
-                    -1 => NumericExpressionSemantics.LowerThan,
-                    0 => Equals,
-                    1 => NumericExpressionSemantics.GreaterThan,
-                    _ => ConstantExpressionSemantics.False
-                };
-            }
-
-            if (this == NumericExpressionSemantics.GreaterThanOrEqual)
-            {
-                return comparison switch
+                    -1 => LowerThanExpressionSemantics.Instance,
+                    0 => EqualsExpressionSemantics.Instance,
+                    1 => GreaterThanExpressionSemantics.Instance,
+                    _ => FalseExpressionSemantics.Instance
+                },
+                GreaterThanOrEqualExpressionSemantics => comparison switch
                 {
-                    <= -1 => ConstantExpressionSemantics.True,
-                    0 => NumericExpressionSemantics.GreaterThanOrEqual,
-                    1 => NumericExpressionSemantics.GreaterThan,
-                    _ => ConstantExpressionSemantics.False
-                };
-            }
-
-            if (this == NumericExpressionSemantics.GreaterThan)
-            {
-                return comparison switch
+                    <= -1 => TrueExpressionSemantics.Instance,
+                    0 => GreaterThanOrEqualExpressionSemantics.Instance,
+                    1 => GreaterThanExpressionSemantics.Instance,
+                    _ => FalseExpressionSemantics.Instance
+                },
+                GreaterThanExpressionSemantics => comparison switch
                 {
-                    < -1 => ConstantExpressionSemantics.True,
-                    -1 => NumericExpressionSemantics.GreaterThanOrEqual,
-                    0 => NumericExpressionSemantics.GreaterThan,
-                    _ => ConstantExpressionSemantics.False
-                };
-            }
-
-            if (this == NotEquals)
-            {
-                return comparison switch
+                    < -1 => TrueExpressionSemantics.Instance,
+                    -1 => GreaterThanOrEqualExpressionSemantics.Instance,
+                    0 => GreaterThanExpressionSemantics.Instance,
+                    _ => FalseExpressionSemantics.Instance
+                },
+                NotEqualsExpressionSemantics => comparison switch
                 {
-                    -1 => NumericExpressionSemantics.GreaterThanOrEqual,
-                    0 => NotEquals,
-                    1 => NumericExpressionSemantics.LowerThanOrEqual,
-                    _ => ConstantExpressionSemantics.True
-                };
-            }
-
-            throw new ArgumentException();
+                    -1 => GreaterThanOrEqualExpressionSemantics.Instance,
+                    0 => NotEqualsExpressionSemantics.Instance,
+                    1 => LowerThanOrEqualExpressionSemantics.Instance,
+                    _ => TrueExpressionSemantics.Instance
+                },
+                _ => throw new ArgumentException()
+            };
         }
     }
 }

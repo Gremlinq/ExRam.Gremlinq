@@ -1,16 +1,42 @@
-﻿using System;
-
-namespace ExRam.Gremlinq.Core
+﻿namespace ExRam.Gremlinq.Core
 {
-    internal sealed class EnumerableExpressionSemantics : ExpressionSemantics
+    internal sealed class IntersectsExpressionSemantics : EnumerableExpressionSemantics
     {
-        public static readonly EnumerableExpressionSemantics Intersects = new(() => Intersects!);
-        public static readonly EnumerableExpressionSemantics Contains = new(() => IsContainedIn!);
-        public static readonly EnumerableExpressionSemantics IsContainedIn = new(() => Contains!);
+        public static readonly IntersectsExpressionSemantics Instance = new();
 
-        private EnumerableExpressionSemantics(Func<ExpressionSemantics> flip) : base(flip)
+        private IntersectsExpressionSemantics()
         {
 
         }
+
+        public override ExpressionSemantics Flip() => this;
+    }
+
+    internal sealed class ContainsExpressionSemantics : EnumerableExpressionSemantics
+    {
+        public static readonly ContainsExpressionSemantics Instance = new();
+
+        private ContainsExpressionSemantics()
+        {
+
+        }
+
+        public override ExpressionSemantics Flip() => IsContainedInExpressionSemantics.Instance;
+    }
+
+    internal sealed class IsContainedInExpressionSemantics : EnumerableExpressionSemantics
+    {
+        public static readonly IsContainedInExpressionSemantics Instance = new();
+
+        private IsContainedInExpressionSemantics()
+        {
+
+        }
+
+        public override ExpressionSemantics Flip() => ContainsExpressionSemantics.Instance;
+    }
+
+    internal abstract class EnumerableExpressionSemantics : ExpressionSemantics
+    {
     }
 }
