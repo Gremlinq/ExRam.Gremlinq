@@ -12,12 +12,17 @@ namespace ExRam.Gremlinq.Core
 
         }
 
-        public override ExpressionSemantics Flip() => Comparison switch
+        public override ExpressionSemantics Flip() => IsInfixOfExpressionSemantics.Get(Comparison);
+
+        public static HasInfixExpressionSemantics Get(StringComparison comparison)
         {
-            StringComparison.Ordinal => IsInfixOfExpressionSemantics.CaseSensitive,
-            StringComparison.OrdinalIgnoreCase => IsInfixOfExpressionSemantics.CaseInsensitive,
-            _ => throw new ExpressionNotSupportedException()
-        };
+            return comparison switch
+            {
+                StringComparison.Ordinal => CaseSensitive,
+                StringComparison.OrdinalIgnoreCase => CaseInsensitive,
+                _ => throw new ExpressionNotSupportedException()
+            };
+        }
     }
 
     internal sealed class StartsWithExpressionSemantics : StringExpressionSemantics
@@ -30,12 +35,17 @@ namespace ExRam.Gremlinq.Core
 
         }
 
-        public override ExpressionSemantics Flip() => Comparison switch
+        public override ExpressionSemantics Flip() => IsPrefixOfExpressionSemantics.Get(Comparison);
+
+        public static StartsWithExpressionSemantics Get(StringComparison comparison)
         {
-            StringComparison.Ordinal => IsPrefixOfExpressionSemantics.CaseSensitive,
-            StringComparison.OrdinalIgnoreCase => IsPrefixOfExpressionSemantics.CaseInsensitive,
-            _ => throw new ExpressionNotSupportedException()
-        };
+            return comparison switch
+            {
+                StringComparison.Ordinal => CaseSensitive,
+                StringComparison.OrdinalIgnoreCase => CaseInsensitive,
+                _ => throw new ExpressionNotSupportedException()
+            };
+        }
     }
 
     internal sealed class EndsWithExpressionSemantics : StringExpressionSemantics
@@ -48,12 +58,17 @@ namespace ExRam.Gremlinq.Core
 
         }
 
-        public override ExpressionSemantics Flip() => Comparison switch
+        public override ExpressionSemantics Flip() => IsSuffixOfExpressionSemantics.Get(Comparison);
+
+        public static EndsWithExpressionSemantics Get(StringComparison comparison)
         {
-            StringComparison.Ordinal => IsSuffixOfExpressionSemantics.CaseSensitive,
-            StringComparison.OrdinalIgnoreCase => IsSuffixOfExpressionSemantics.CaseInsensitive,
-            _ => throw new ExpressionNotSupportedException()
-        };
+            return comparison switch
+            {
+                StringComparison.Ordinal => CaseSensitive,
+                StringComparison.OrdinalIgnoreCase => CaseInsensitive,
+                _ => throw new ExpressionNotSupportedException()
+            };
+        }
     }
 
     internal sealed class IsInfixOfExpressionSemantics : StringExpressionSemantics
@@ -66,12 +81,17 @@ namespace ExRam.Gremlinq.Core
 
         }
 
-        public override ExpressionSemantics Flip() => Comparison switch
+        public override ExpressionSemantics Flip() => HasInfixExpressionSemantics.Get(Comparison);
+
+        public static IsInfixOfExpressionSemantics Get(StringComparison comparison)
         {
-            StringComparison.Ordinal => HasInfixExpressionSemantics.CaseSensitive,
-            StringComparison.OrdinalIgnoreCase => HasInfixExpressionSemantics.CaseInsensitive,
-            _ => throw new ExpressionNotSupportedException()
-        };
+            return comparison switch
+            {
+                StringComparison.Ordinal => CaseSensitive,
+                StringComparison.OrdinalIgnoreCase => CaseInsensitive,
+                _ => throw new ExpressionNotSupportedException()
+            };
+        }
     }
 
     internal sealed class IsPrefixOfExpressionSemantics : StringExpressionSemantics
@@ -84,12 +104,17 @@ namespace ExRam.Gremlinq.Core
 
         }
 
-        public override ExpressionSemantics Flip() => Comparison switch
+        public override ExpressionSemantics Flip() => StartsWithExpressionSemantics.Get(Comparison);
+
+        public static IsPrefixOfExpressionSemantics Get(StringComparison comparison)
         {
-            StringComparison.Ordinal => StartsWithExpressionSemantics.CaseSensitive,
-            StringComparison.OrdinalIgnoreCase => StartsWithExpressionSemantics.CaseInsensitive,
-            _ => throw new ExpressionNotSupportedException()
-        };
+            return comparison switch
+            {
+                StringComparison.Ordinal => CaseSensitive,
+                StringComparison.OrdinalIgnoreCase => CaseInsensitive,
+                _ => throw new ExpressionNotSupportedException()
+            };
+        }
     }
 
     internal sealed class IsSuffixOfExpressionSemantics : StringExpressionSemantics
@@ -102,12 +127,17 @@ namespace ExRam.Gremlinq.Core
 
         }
 
-        public override ExpressionSemantics Flip() => Comparison switch
+        public override ExpressionSemantics Flip() => EndsWithExpressionSemantics.Get(Comparison);
+
+        public static IsSuffixOfExpressionSemantics Get(StringComparison comparison)
         {
-            StringComparison.Ordinal => EndsWithExpressionSemantics.CaseSensitive,
-            StringComparison.OrdinalIgnoreCase => EndsWithExpressionSemantics.CaseInsensitive,
-            _ => throw new ExpressionNotSupportedException()
-        };
+            return comparison switch
+            {
+                StringComparison.Ordinal => CaseSensitive,
+                StringComparison.OrdinalIgnoreCase => CaseInsensitive,
+                _ => throw new ExpressionNotSupportedException()
+            };
+        }
     }
     
     internal abstract class StringExpressionSemantics : ExpressionSemantics
