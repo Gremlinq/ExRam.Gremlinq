@@ -4,16 +4,6 @@ using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
 {
-    public interface INeptuneConfigurationBuilder
-    {
-        INeptuneConfigurationBuilderWithUri At(Uri uri);
-    }
-
-    public interface INeptuneConfigurationBuilderWithUri : IGremlinQueryExecutorBuilder
-    {
-        IGremlinQueryExecutorBuilder ConfigureWebSocket(Func<IWebSocketGremlinQueryExecutorBuilder, IWebSocketGremlinQueryExecutorBuilder> transformation);
-    }
-
     public static class GremlinQueryEnvironmentExtensions
     {
         private sealed class NeptuneConfigurationBuilder :
