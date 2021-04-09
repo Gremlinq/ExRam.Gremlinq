@@ -19,7 +19,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                     .GetSection("JanusGraph");
             }
 
-            public IConfigurableGremlinQuerySource Transform(IConfigurableGremlinQuerySource source)
+            public IGremlinQuerySource Transform(IGremlinQuerySource source)
             {
                 return source
                    .UseJanusGraph(builder => builder

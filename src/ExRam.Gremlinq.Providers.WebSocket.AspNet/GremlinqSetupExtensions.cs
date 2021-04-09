@@ -19,7 +19,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                     .GetSection("QueryLogging");
             }
 
-            public IConfigurableGremlinQuerySource Transform(IConfigurableGremlinQuerySource source)
+            public IGremlinQuerySource Transform(IGremlinQuerySource source)
             {
                 return source
                     .ConfigureEnvironment(environment => environment

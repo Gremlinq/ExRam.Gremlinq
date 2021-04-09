@@ -192,7 +192,7 @@ namespace ExRam.Gremlinq.Core
 
             public IWebSocketConfigurator AddGraphSONDeserializer(string typename, IGraphSONDeserializer deserializer) => new WebSocketConfigurator(_uri, _format, _auth, _alias, _clientTransformation, _additionalSerializers, _additionalDeserializers.SetItem(typename, deserializer), _connectionPoolSettings);
 
-            public IConfigurableGremlinQuerySource Transform(IConfigurableGremlinQuerySource source)
+            public IGremlinQuerySource Transform(IGremlinQuerySource source)
             {
                 return source
                     .ConfigureEnvironment(environment => environment
@@ -246,7 +246,7 @@ namespace ExRam.Gremlinq.Core
                 new ConnectionPoolSettings());
 
             return builderTransformation(builder)
-                .Transform(source)
+                .Transform(source.ConfigureEnvironment(_ => _))
                 .ConfigureEnvironment(environment => environment
                     .ConfigureDeserializer(d => d
                         .ConfigureFragmentDeserializer(f => f
