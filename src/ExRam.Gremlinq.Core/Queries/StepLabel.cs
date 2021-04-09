@@ -39,6 +39,8 @@ namespace ExRam.Gremlinq.Core
 
         public static bool operator !=(StepLabel? left, StepLabel? right) => !Equals(left, right);
 
+        public static implicit operator StepLabel(string str) => new StepLabel<object>(str);
+
         internal object Identity { get; }
     }
 
@@ -53,6 +55,8 @@ namespace ExRam.Gremlinq.Core
         }
 
         public static implicit operator TElement(StepLabel<TElement>? stepLabel) => ThrowConversion();
+
+        public static implicit operator StepLabel<TElement>(string str) => new(str);
 
         public static bool operator ==(TElement? a, StepLabel<TElement>? b) => ThrowEquality();
 
