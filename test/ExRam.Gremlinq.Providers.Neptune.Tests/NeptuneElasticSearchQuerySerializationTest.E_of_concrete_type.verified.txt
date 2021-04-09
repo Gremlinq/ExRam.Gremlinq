@@ -1,0 +1,65 @@
+[
+  {
+    "SourceInstructions": [
+      {
+        "OperatorName": "withSideEffect",
+        "Arguments": [
+          "Neptune#fts.endpoint",
+          "http://elastic.search.server/"
+        ]
+      }
+    ],
+    "StepInstructions": [
+      {
+        "OperatorName": "E",
+        "Arguments": []
+      },
+      {
+        "OperatorName": "hasLabel",
+        "Arguments": [
+          "WorksFor"
+        ]
+      },
+      {
+        "OperatorName": "project",
+        "Arguments": [
+          "id",
+          "label",
+          "properties"
+        ]
+      },
+      {
+        "OperatorName": "by",
+        "Arguments": [
+          {
+            "EnumName": "T",
+            "EnumValue": "id"
+          }
+        ]
+      },
+      {
+        "OperatorName": "by",
+        "Arguments": [
+          {
+            "EnumName": "T",
+            "EnumValue": "label"
+          }
+        ]
+      },
+      {
+        "OperatorName": "by",
+        "Arguments": [
+          {
+            "SourceInstructions": [],
+            "StepInstructions": [
+              {
+                "OperatorName": "valueMap",
+                "Arguments": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

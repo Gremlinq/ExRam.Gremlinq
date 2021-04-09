@@ -1,0 +1,170 @@
+[
+  {
+    "SourceInstructions": [
+      {
+        "OperatorName": "withSideEffect",
+        "Arguments": [
+          "Neptune#fts.endpoint",
+          "http://elastic.search.server/"
+        ]
+      }
+    ],
+    "StepInstructions": [
+      {
+        "OperatorName": "V",
+        "Arguments": []
+      },
+      {
+        "OperatorName": "hasLabel",
+        "Arguments": [
+          "Person"
+        ]
+      },
+      {
+        "OperatorName": "sideEffect",
+        "Arguments": [
+          {
+            "SourceInstructions": [],
+            "StepInstructions": [
+              {
+                "OperatorName": "properties",
+                "Arguments": [
+                  "Name",
+                  "RegistrationDate"
+                ]
+              },
+              {
+                "OperatorName": "drop",
+                "Arguments": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "OperatorName": "property",
+        "Arguments": [
+          {
+            "EnumName": "Cardinality",
+            "EnumValue": "single"
+          },
+          "Name",
+          "Marko"
+        ]
+      },
+      {
+        "OperatorName": "property",
+        "Arguments": [
+          {
+            "EnumName": "Cardinality",
+            "EnumValue": "single"
+          },
+          "RegistrationDate",
+          "2020-04-07T14:43:36+00:00"
+        ]
+      },
+      {
+        "OperatorName": "project",
+        "Arguments": [
+          "id",
+          "label",
+          "properties"
+        ]
+      },
+      {
+        "OperatorName": "by",
+        "Arguments": [
+          {
+            "EnumName": "T",
+            "EnumValue": "id"
+          }
+        ]
+      },
+      {
+        "OperatorName": "by",
+        "Arguments": [
+          {
+            "EnumName": "T",
+            "EnumValue": "label"
+          }
+        ]
+      },
+      {
+        "OperatorName": "by",
+        "Arguments": [
+          {
+            "SourceInstructions": [],
+            "StepInstructions": [
+              {
+                "OperatorName": "properties",
+                "Arguments": []
+              },
+              {
+                "OperatorName": "group",
+                "Arguments": []
+              },
+              {
+                "OperatorName": "by",
+                "Arguments": [
+                  {
+                    "EnumName": "T",
+                    "EnumValue": "label"
+                  }
+                ]
+              },
+              {
+                "OperatorName": "by",
+                "Arguments": [
+                  {
+                    "SourceInstructions": [],
+                    "StepInstructions": [
+                      {
+                        "OperatorName": "project",
+                        "Arguments": [
+                          "id",
+                          "label",
+                          "value"
+                        ]
+                      },
+                      {
+                        "OperatorName": "by",
+                        "Arguments": [
+                          {
+                            "EnumName": "T",
+                            "EnumValue": "id"
+                          }
+                        ]
+                      },
+                      {
+                        "OperatorName": "by",
+                        "Arguments": [
+                          {
+                            "EnumName": "T",
+                            "EnumValue": "label"
+                          }
+                        ]
+                      },
+                      {
+                        "OperatorName": "by",
+                        "Arguments": [
+                          {
+                            "EnumName": "T",
+                            "EnumValue": "value"
+                          }
+                        ]
+                      },
+                      {
+                        "OperatorName": "fold",
+                        "Arguments": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

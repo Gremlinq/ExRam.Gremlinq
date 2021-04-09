@@ -1,0 +1,89 @@
+[
+  {
+    "SourceInstructions": [
+      {
+        "OperatorName": "withSideEffect",
+        "Arguments": [
+          "Neptune#fts.endpoint",
+          "http://elastic.search.server/"
+        ]
+      }
+    ],
+    "StepInstructions": [
+      {
+        "OperatorName": "V",
+        "Arguments": []
+      },
+      {
+        "OperatorName": "project",
+        "Arguments": [
+          "Item1",
+          "Item2"
+        ]
+      },
+      {
+        "OperatorName": "by",
+        "Arguments": [
+          {
+            "SourceInstructions": [],
+            "StepInstructions": [
+              {
+                "OperatorName": "label",
+                "Arguments": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "OperatorName": "by",
+        "Arguments": [
+          {
+            "SourceInstructions": [],
+            "StepInstructions": [
+              {
+                "OperatorName": "fold",
+                "Arguments": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "OperatorName": "where",
+        "Arguments": [
+          {
+            "SourceInstructions": [],
+            "StepInstructions": [
+              {
+                "OperatorName": "select",
+                "Arguments": [
+                  "Item2"
+                ]
+              },
+              {
+                "OperatorName": "count",
+                "Arguments": [
+                  {
+                    "EnumName": "Scope",
+                    "EnumValue": "local"
+                  }
+                ]
+              },
+              {
+                "OperatorName": "is",
+                "Arguments": [
+                  {
+                    "OperatorName": "lt",
+                    "Value": 3,
+                    "Other": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
