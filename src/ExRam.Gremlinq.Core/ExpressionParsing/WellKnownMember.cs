@@ -2,6 +2,8 @@
 {
     internal enum WellKnownMember
     {
+        Equals,
+
         PropertyValue,
         PropertyKey,
         StepLabelValue,

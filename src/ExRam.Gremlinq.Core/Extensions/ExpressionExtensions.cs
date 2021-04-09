@@ -262,6 +262,14 @@ namespace ExRam.Gremlinq.Core
 
                     switch (wellKnownMember)
                     {
+                        case WellKnownMember.Equals:
+                        {
+                            return new GremlinExpression(
+                                ExpressionFragment.Create(methodCallExpression.Object!, model),
+                                default,
+                                EqualsExpressionSemantics.Instance,
+                                ExpressionFragment.Create(methodCallExpression.Arguments[0], model));
+                        }
                         case WellKnownMember.EnumerableIntersectAny:
                         {
                             var arguments = ((MethodCallExpression)methodCallExpression.Arguments[0].Strip()).Arguments;
@@ -407,6 +415,9 @@ namespace ExRam.Gremlinq.Core
                                 }
                             }
                         }
+
+                        if (methodInfo.Name == nameof(object.Equals))
+                            return WellKnownMember.Equals;
 
                         if (methodInfo.Name == nameof(IComparable.CompareTo) && methodInfo.GetParameters().Length == 1 && methodInfo.ReturnType == typeof(int))
                             return WellKnownMember.ComparableCompareTo;
