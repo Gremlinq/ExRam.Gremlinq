@@ -876,7 +876,7 @@ namespace ExRam.Gremlinq.Core
     }
     public interface IGremlinQuerySourceTransformation
     {
-        ExRam.Gremlinq.Core.IConfigurableGremlinQuerySource Transform(ExRam.Gremlinq.Core.IConfigurableGremlinQuerySource source);
+        ExRam.Gremlinq.Core.IGremlinQuerySource Transform(ExRam.Gremlinq.Core.IGremlinQuerySource source);
     }
     public interface IGremlinQuery<TElement> : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<ExRam.Gremlinq.Core.IGremlinQuery<TElement>>, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TElement, ExRam.Gremlinq.Core.IGremlinQuery<TElement>>, ExRam.Gremlinq.Core.IGremlinQueryBase<TElement>, ExRam.Gremlinq.Core.IStartGremlinQuery { }
     public interface IGremlinqOption { }
