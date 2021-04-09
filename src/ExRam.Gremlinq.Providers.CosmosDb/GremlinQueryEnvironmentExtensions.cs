@@ -34,22 +34,20 @@ namespace ExRam.Gremlinq.Core
                     _collectionName);
             }
 
-            public IGremlinQueryExecutorBuilder ConfigureWebSocket(Func<IWebSocketGremlinQueryExecutorBuilder, IWebSocketGremlinQueryExecutorBuilder> transformation)
+            public IGremlinQueryEnvironmentTransformation ConfigureWebSocket(Func<IWebSocketGremlinQueryExecutorBuilder, IWebSocketGremlinQueryExecutorBuilder> transformation)
             {
                 return new CosmosDbConfigurationBuilder(
                     transformation(_webSocketBuilder),
                     _collectionName);
             }
 
-            public IGremlinQueryExecutor Build()
+            public IGremlinQueryEnvironment Transform(IGremlinQueryEnvironment environment)
             {
-                return _webSocketBuilder.Build();
+                return _webSocketBuilder.Transform(environment);
             }
-
-            public IGremlinQueryEnvironment Environment => _webSocketBuilder.Environment;
         }
 
-        public static IGremlinQueryEnvironment UseCosmosDb(this IGremlinQueryEnvironment env, Func<ICosmosDbConfigurationBuilder, IGremlinQueryExecutorBuilder> transformation)
+        public static IGremlinQueryEnvironment UseCosmosDb(this IGremlinQueryEnvironment env, Func<ICosmosDbConfigurationBuilder, IGremlinQueryEnvironmentTransformation> transformation)
         {
             return env
                 .UseWebSocket(builder => transformation(new CosmosDbConfigurationBuilder(builder.SetSerializationFormat(SerializationFormat.GraphSonV2))))

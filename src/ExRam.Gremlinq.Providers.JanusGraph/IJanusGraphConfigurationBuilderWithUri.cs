@@ -1,12 +1,11 @@
 ﻿using System;
-
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Providers.WebSocket;
 
 namespace ExRam.Gremlinq.Providers.JanusGraph
 {
-    public interface IJanusGraphConfigurationBuilderWithUri : IGremlinQueryExecutorBuilder
+    public interface IJanusGraphConfigurationBuilderWithUri : IGremlinQueryEnvironmentTransformation
     {
-        IGremlinQueryExecutorBuilder ConfigureWebSocket(Func<IWebSocketGremlinQueryExecutorBuilder, IWebSocketGremlinQueryExecutorBuilder> transformation);
+        IGremlinQueryEnvironmentTransformation ConfigureWebSocket(Func<IWebSocketGremlinQueryExecutorBuilder, IWebSocketGremlinQueryExecutorBuilder> transformation);
     }
 }

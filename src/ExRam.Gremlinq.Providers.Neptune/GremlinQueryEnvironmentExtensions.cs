@@ -23,21 +23,19 @@ namespace ExRam.Gremlinq.Core
                 return new NeptuneConfigurationBuilder(_webSocketBuilder.At(uri));
             }
 
-            public IGremlinQueryExecutorBuilder ConfigureWebSocket(Func<IWebSocketGremlinQueryExecutorBuilder, IWebSocketGremlinQueryExecutorBuilder> transformation)
+            public IGremlinQueryEnvironmentTransformation ConfigureWebSocket(Func<IWebSocketGremlinQueryExecutorBuilder, IWebSocketGremlinQueryExecutorBuilder> transformation)
             {
                 return new NeptuneConfigurationBuilder(
                     transformation(_webSocketBuilder));
             }
 
-            public IGremlinQueryExecutor Build()
+            public IGremlinQueryEnvironment Transform(IGremlinQueryEnvironment environment)
             {
-                return _webSocketBuilder.Build();
+                return _webSocketBuilder.Transform(environment);
             }
-
-            public IGremlinQueryEnvironment Environment => _webSocketBuilder.Environment;
         }
 
-        public static IGremlinQueryEnvironment UseNeptune(this IGremlinQueryEnvironment environment, Func<INeptuneConfigurationBuilder, IGremlinQueryExecutorBuilder> transformation)
+        public static IGremlinQueryEnvironment UseNeptune(this IGremlinQueryEnvironment environment, Func<INeptuneConfigurationBuilder, IGremlinQueryEnvironmentTransformation> transformation)
         {
             return environment
                 .UseWebSocket(builder => transformation(new NeptuneConfigurationBuilder(builder)))

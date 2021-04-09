@@ -5,7 +5,7 @@ using Gremlin.Net.Structure.IO.GraphSON;
 
 namespace ExRam.Gremlinq.Providers.WebSocket
 {
-    public interface IWebSocketGremlinQueryExecutorBuilder : IGremlinQueryExecutorBuilder
+    public interface IWebSocketGremlinQueryExecutorBuilder : IGremlinQueryEnvironmentTransformation
     {
         IWebSocketGremlinQueryExecutorBuilder At(Uri uri);
 

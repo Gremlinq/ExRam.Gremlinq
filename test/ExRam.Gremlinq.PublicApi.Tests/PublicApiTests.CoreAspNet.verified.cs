@@ -12,10 +12,6 @@ namespace ExRam.Gremlinq.Core.AspNet
         public static ExRam.Gremlinq.Core.AspNet.GremlinqSetup UseConfigurationSection(this ExRam.Gremlinq.Core.AspNet.GremlinqSetup setup, string sectionName) { }
         public static ExRam.Gremlinq.Core.AspNet.GremlinqSetup UseModel(this ExRam.Gremlinq.Core.AspNet.GremlinqSetup setup, ExRam.Gremlinq.Core.IGraphModel model) { }
     }
-    public interface IGremlinQueryEnvironmentTransformation
-    {
-        ExRam.Gremlinq.Core.IGremlinQueryEnvironment Transform(ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment);
-    }
     public interface IGremlinqConfiguration : Microsoft.Extensions.Configuration.IConfiguration { }
 }
 namespace Microsoft.Extensions.Configuration
