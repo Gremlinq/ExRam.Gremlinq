@@ -314,7 +314,7 @@ namespace ExRam.Gremlinq.Core
                                     return new GremlinExpression(
                                         ExpressionFragment.Constant(stringValue),
                                         default,
-                                        StartsWithExpressionSemantics.Instance,
+                                        StartsWithExpressionSemantics.CaseSensitive,
                                         ExpressionFragment.Create(argumentExpression, model));
                                 }
                             }
@@ -327,9 +327,9 @@ namespace ExRam.Gremlinq.Core
                                         default,
                                         wellKnownMember switch
                                         {
-                                            WellKnownMember.StringStartsWith => StartsWithExpressionSemantics.Instance,
-                                            WellKnownMember.StringContains => HasInfixExpressionSemantics.Instance,
-                                            WellKnownMember.StringEndsWith => EndsWithExpressionSemantics.Instance,
+                                            WellKnownMember.StringStartsWith => StartsWithExpressionSemantics.CaseSensitive,
+                                            WellKnownMember.StringContains => HasInfixExpressionSemantics.CaseSensitive,
+                                            WellKnownMember.StringEndsWith => EndsWithExpressionSemantics.CaseSensitive,
                                             _ => throw new ExpressionNotSupportedException(methodCallExpression)
                                         },
                                         ExpressionFragment.Constant(stringValue));
