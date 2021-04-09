@@ -10,9 +10,8 @@ namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
     {
         public JanusGraphQuerySerializationTest(ITestOutputHelper testOutputHelper) : base(
             g
-                .ConfigureEnvironment(env => env
-                    .UseJanusGraph(builder => builder
-                        .At(new Uri("ws://localhost:8182")))),
+                .UseJanusGraph(builder => builder
+                    .At(new Uri("ws://localhost:8182"))),
             testOutputHelper)
         {
 

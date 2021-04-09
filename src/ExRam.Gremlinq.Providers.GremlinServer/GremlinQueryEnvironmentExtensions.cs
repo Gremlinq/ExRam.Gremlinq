@@ -10,24 +10,25 @@ namespace ExRam.Gremlinq.Core
 {
     public static class GremlinQueryEnvironmentExtensions
     {
-        public static IGremlinQueryEnvironment UseGremlinServer(this IGremlinQueryEnvironment environment, Func<IWebSocketConfigurator, IGremlinQueryEnvironmentTransformation> builderAction)
+        public static IConfigurableGremlinQuerySource UseGremlinServer(this IConfigurableGremlinQuerySource source, Func<IWebSocketConfigurator, IGremlinQuerySourceTransformation> builderAction)
         {
-            return environment
+            return source
                 .UseWebSocket(builderAction)
-                .ConfigureFeatureSet(featureSet => featureSet
-                    .ConfigureGraphFeatures(graphFeatures => graphFeatures & ~(GraphFeatures.Transactions | GraphFeatures.ThreadedTransactions | GraphFeatures.ConcurrentAccess))
-                    .ConfigureVertexFeatures(vertexFeatures => vertexFeatures & ~(VertexFeatures.Upsert | VertexFeatures.CustomIds))
-                    .ConfigureVertexPropertyFeatures(vPropertiesFeatures => vPropertiesFeatures & ~(VertexPropertyFeatures.CustomIds))
-                    .ConfigureEdgeFeatures(edgeProperties => edgeProperties & ~(EdgeFeatures.Upsert | EdgeFeatures.CustomIds)))
-                .ConfigureSerializer(s => s
-                    .ConfigureFragmentSerializer(fragmentSerializer => fragmentSerializer
-                        .Override<IGremlinQueryBase>((query, env, overridden, recurse) =>
-                        {
-                            if (env.Options.GetValue(GremlinServerGremlinqOptions.WorkaroundTinkerpop2112))
-                                query = query.AsAdmin().ConfigureSteps<IGremlinQueryBase>(steps => ImmutableStack.Create(steps.Reverse().WorkaroundTINKERPOP_2112().ToArray()));
+                .ConfigureEnvironment(environment => environment
+                    .ConfigureFeatureSet(featureSet => featureSet
+                        .ConfigureGraphFeatures(graphFeatures => graphFeatures & ~(GraphFeatures.Transactions | GraphFeatures.ThreadedTransactions | GraphFeatures.ConcurrentAccess))
+                        .ConfigureVertexFeatures(vertexFeatures => vertexFeatures & ~(VertexFeatures.Upsert | VertexFeatures.CustomIds))
+                        .ConfigureVertexPropertyFeatures(vPropertiesFeatures => vPropertiesFeatures & ~(VertexPropertyFeatures.CustomIds))
+                        .ConfigureEdgeFeatures(edgeProperties => edgeProperties & ~(EdgeFeatures.Upsert | EdgeFeatures.CustomIds)))
+                    .ConfigureSerializer(s => s
+                        .ConfigureFragmentSerializer(fragmentSerializer => fragmentSerializer
+                            .Override<IGremlinQueryBase>((query, env, overridden, recurse) =>
+                            {
+                                if (env.Options.GetValue(GremlinServerGremlinqOptions.WorkaroundTinkerpop2112))
+                                    query = query.AsAdmin().ConfigureSteps<IGremlinQueryBase>(steps => ImmutableStack.Create(steps.Reverse().WorkaroundTINKERPOP_2112().ToArray()));
 
-                            return overridden(query, env, recurse);
-                        })));
+                                return overridden(query, env, recurse);
+                            }))));
         }
 
         //https://issues.apache.org/jira/browse/TINKERPOP-2112.

@@ -10,9 +10,8 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
     {
         public NeptuneQuerySerializationTest(ITestOutputHelper testOutputHelper) : base(
             g
-                .ConfigureEnvironment(env => env
-                    .UseNeptune(builder => builder
-                        .At(new Uri("ws://localhost:8182")))),
+                .UseNeptune(builder => builder
+                    .At(new Uri("ws://localhost:8182"))),
             testOutputHelper)
         {
         }

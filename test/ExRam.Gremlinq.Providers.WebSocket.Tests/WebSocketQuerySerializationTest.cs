@@ -8,10 +8,8 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
     public class WebSocketQuerySerializationTest : QuerySerializationTest
     {
         public WebSocketQuerySerializationTest(ITestOutputHelper testOutputHelper) : base(
-            g
-                .ConfigureEnvironment(env => env
-                    .UseWebSocket(builder => builder
-                        .AtLocalhost())),
+            g.UseWebSocket(builder => builder
+                .AtLocalhost()),
             testOutputHelper)
         {
 

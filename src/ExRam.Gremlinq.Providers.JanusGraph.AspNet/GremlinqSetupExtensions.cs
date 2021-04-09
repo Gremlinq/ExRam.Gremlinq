@@ -7,22 +7,22 @@ namespace ExRam.Gremlinq.Core.AspNet
 {
     public static class GremlinqSetupExtensions
     {
-        private sealed class UseJanusGraphGremlinQueryEnvironmentTransformation : IGremlinQueryEnvironmentTransformation
+        private sealed class UseJanusGraphGremlinQuerySourceTransformation : IGremlinQuerySourceTransformation
         {
             private readonly IConfiguration _configuration;
 
             // ReSharper disable once SuggestBaseTypeForParameter
-            public UseJanusGraphGremlinQueryEnvironmentTransformation(
+            public UseJanusGraphGremlinQuerySourceTransformation(
                 IGremlinqConfiguration configuration)
             {
                 _configuration = configuration
                     .GetSection("JanusGraph");
             }
 
-            public IGremlinQueryEnvironment Transform(IGremlinQueryEnvironment environment)
+            public IConfigurableGremlinQuerySource Transform(IConfigurableGremlinQuerySource source)
             {
-                return environment
-                    .UseJanusGraph(builder => builder
+                return source
+                   .UseJanusGraph(builder => builder
                         .At(new Uri("ws://localhost:8182"))
                         .ConfigureWebSocket(_ => _
                             .Configure(_configuration)));
@@ -33,7 +33,7 @@ namespace ExRam.Gremlinq.Core.AspNet
         {
             return setup
                 .UseWebSocket()
-                .RegisterTypes(serviceCollection => serviceCollection.AddSingleton<IGremlinQueryEnvironmentTransformation, UseJanusGraphGremlinQueryEnvironmentTransformation>());
+                .RegisterTypes(serviceCollection => serviceCollection.AddSingleton<IGremlinQuerySourceTransformation, UseJanusGraphGremlinQuerySourceTransformation>());
         }
 
         public static GremlinqSetup UseJanusGraph<TVertex, TEdge>(this GremlinqSetup setup)

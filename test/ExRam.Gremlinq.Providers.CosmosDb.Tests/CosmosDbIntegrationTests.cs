@@ -16,12 +16,13 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         private static readonly Regex IdRegex2 = new("\"[0-9a-f]{8}[-]?([0-9a-f]{4}[-]?){3}[0-9a-f]{12}([|]PartitionKey)?\"", RegexOptions.IgnoreCase);
 
         public CosmosDbIntegrationTests(CosmosDbEmulatorFixture fixture, ITestOutputHelper testOutputHelper) : base(
-            g.ConfigureEnvironment(env => env
-                .AddFakePartitionKey()
+            g
                 .UseCosmosDb(builder => builder
                     .At(new Uri("ws://localhost:8901"), "db", "graph")
                     .AuthenticateBy(
-                        "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw=="))),
+                        "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw=="))
+                .ConfigureEnvironment(env => env
+                    .AddFakePartitionKey()),
             testOutputHelper)
         {
             fixture.Create().Wait();

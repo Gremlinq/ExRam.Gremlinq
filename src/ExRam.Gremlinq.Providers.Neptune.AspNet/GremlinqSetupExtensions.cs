@@ -7,21 +7,21 @@ namespace ExRam.Gremlinq.Core.AspNet
 {
     public static class GremlinqSetupExtensions
     {
-        private sealed class UseNeptuneGremlinQueryEnvironmentTransformation : IGremlinQueryEnvironmentTransformation
+        private sealed class UseNeptuneGremlinQuerySourceTransformation : IGremlinQuerySourceTransformation
         {
             private readonly IConfiguration _configuration;
 
             // ReSharper disable once SuggestBaseTypeForParameter
-            public UseNeptuneGremlinQueryEnvironmentTransformation(
+            public UseNeptuneGremlinQuerySourceTransformation(
                 IGremlinqConfiguration configuration)
             {
                 _configuration = configuration
                     .GetSection("Neptune");
             }
 
-            public IGremlinQueryEnvironment Transform(IGremlinQueryEnvironment environment)
+            public IConfigurableGremlinQuerySource Transform(IConfigurableGremlinQuerySource source)
             {
-                return environment
+                return source
                     .UseNeptune(builder => builder
                         .At(new Uri("ws://localhost:8182"))
                         .ConfigureWebSocket(_ => _
@@ -33,7 +33,7 @@ namespace ExRam.Gremlinq.Core.AspNet
         {
             return setup
                 .UseWebSocket()
-                .RegisterTypes(serviceCollection => serviceCollection.AddSingleton<IGremlinQueryEnvironmentTransformation, UseNeptuneGremlinQueryEnvironmentTransformation>());
+                .RegisterTypes(serviceCollection => serviceCollection.AddSingleton<IGremlinQuerySourceTransformation, UseNeptuneGremlinQuerySourceTransformation>());
         }
 
         public static GremlinqSetup UseNeptune<TVertex, TEdge>(this GremlinqSetup setup)

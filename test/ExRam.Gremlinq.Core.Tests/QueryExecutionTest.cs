@@ -52,7 +52,7 @@ namespace ExRam.Gremlinq.Core.Tests
         private static readonly string Id = "id";
 
         // ReSharper disable once ExplicitCallerInfoArgument
-        protected QueryExecutionTest(IGremlinQuerySource g, ITestOutputHelper testOutputHelper, [CallerFilePath] string callerFilePath = "") : base(testOutputHelper, callerFilePath)
+        protected QueryExecutionTest(IConfigurableGremlinQuerySource g, ITestOutputHelper testOutputHelper, [CallerFilePath] string callerFilePath = "") : base(testOutputHelper, callerFilePath)
         {
             _g = g
                 .ConfigureEnvironment(env => env

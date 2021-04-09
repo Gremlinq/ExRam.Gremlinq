@@ -18,9 +18,9 @@ namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
 
         public JanusGraphIntegrationTests(ITestOutputHelper testOutputHelper) : base(
             g
-                .ConfigureEnvironment(env => env
-                    .UseJanusGraph(builder => builder
-                        .At(new Uri("ws://localhost:8183")))
+                .UseJanusGraph(builder => builder
+                    .At(new Uri("ws://localhost:8183")))
+                .ConfigureEnvironment(environment => environment
                     .ConfigureExecutor(_ => _
                         .TransformResult(_ => AsyncEnumerable.Empty<object>()))),
             testOutputHelper)
