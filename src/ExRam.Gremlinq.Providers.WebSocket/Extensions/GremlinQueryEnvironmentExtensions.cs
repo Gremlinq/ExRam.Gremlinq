@@ -192,9 +192,11 @@ namespace ExRam.Gremlinq.Core
 
             public IWebSocketConfigurator AddGraphSONDeserializer(string typename, IGraphSONDeserializer deserializer) => new WebSocketConfigurator(_uri, _format, _auth, _alias, _clientTransformation, _additionalSerializers, _additionalDeserializers.SetItem(typename, deserializer), _connectionPoolSettings);
 
-            public IGremlinQueryEnvironment Transform(IGremlinQueryEnvironment environment)
+            public IConfigurableGremlinQuerySource Transform(IConfigurableGremlinQuerySource source)
             {
-                return environment.UseExecutor(Build());
+                return source
+                    .ConfigureEnvironment(environment => environment
+                        .UseExecutor(Build()));
             }
 
             private IGremlinQueryExecutor Build()
@@ -229,9 +231,9 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        public static IGremlinQueryEnvironment UseWebSocket(
-            this IGremlinQueryEnvironment environment,
-            Func<IWebSocketConfigurator, IGremlinQueryEnvironmentTransformation> builderTransformation)
+        public static IConfigurableGremlinQuerySource UseWebSocket(
+            this IConfigurableGremlinQuerySource source,
+            Func<IWebSocketConfigurator, IGremlinQuerySourceTransformation> builderTransformation)
         {
             var builder = new WebSocketConfigurator(
                 default,
@@ -244,10 +246,11 @@ namespace ExRam.Gremlinq.Core
                 new ConnectionPoolSettings());
 
             return builderTransformation(builder)
-                .Transform(environment)
-                .ConfigureDeserializer(d => d
-                    .ConfigureFragmentDeserializer(f => f
-                        .AddNewtonsoftJson()));
+                .Transform(source)
+                .ConfigureEnvironment(environment => environment
+                    .ConfigureDeserializer(d => d
+                        .ConfigureFragmentDeserializer(f => f
+                            .AddNewtonsoftJson())));
         }
     }
 }

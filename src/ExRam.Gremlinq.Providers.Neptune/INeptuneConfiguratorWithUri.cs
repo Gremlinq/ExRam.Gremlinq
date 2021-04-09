@@ -4,8 +4,8 @@ using ExRam.Gremlinq.Providers.WebSocket;
 
 namespace ExRam.Gremlinq.Providers.Neptune
 {
-    public interface INeptuneConfiguratorWithUri : IGremlinQueryEnvironmentTransformation
+    public interface INeptuneConfiguratorWithUri : IGremlinQuerySourceTransformation
     {
-        IGremlinQueryEnvironmentTransformation ConfigureWebSocket(Func<IWebSocketConfigurator, IWebSocketConfigurator> transformation);
+        IGremlinQuerySourceTransformation ConfigureWebSocket(Func<IWebSocketConfigurator, IWebSocketConfigurator> transformation);
     }
 }

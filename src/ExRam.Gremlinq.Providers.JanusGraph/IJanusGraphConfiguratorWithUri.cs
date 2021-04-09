@@ -4,8 +4,8 @@ using ExRam.Gremlinq.Providers.WebSocket;
 
 namespace ExRam.Gremlinq.Providers.JanusGraph
 {
-    public interface IJanusGraphConfiguratorWithUri : IGremlinQueryEnvironmentTransformation
+    public interface IJanusGraphConfiguratorWithUri : IGremlinQuerySourceTransformation
     {
-        IGremlinQueryEnvironmentTransformation ConfigureWebSocket(Func<IWebSocketConfigurator, IWebSocketConfigurator> transformation);
+        IGremlinQuerySourceTransformation ConfigureWebSocket(Func<IWebSocketConfigurator, IWebSocketConfigurator> transformation);
     }
 }

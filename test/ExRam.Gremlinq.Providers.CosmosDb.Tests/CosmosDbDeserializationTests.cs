@@ -3,14 +3,15 @@ using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
 using Xunit;
 using Xunit.Abstractions;
+using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
     public class CosmosDbDeserializationTests : QueryDeserializationTest
     {
         public CosmosDbDeserializationTests(ITestOutputHelper testOutputHelper) : base(
-            GremlinQuerySource.g.ConfigureEnvironment(
-                env => env.UseCosmosDb(_ => _.At("ws://localhost", "", "").AuthenticateBy(""))),
+            g
+                .UseCosmosDb(_ => _.At("ws://localhost", "", "").AuthenticateBy("")),
             testOutputHelper)
         {
         }

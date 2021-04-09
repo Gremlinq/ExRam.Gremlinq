@@ -10,20 +10,22 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtensions
     {
-        private sealed class UseLoggerGremlinQueryEnvironmentTransformation : IGremlinQueryEnvironmentTransformation
+        private sealed class UseLoggerGremlinQuerySourceTransformation : IGremlinQuerySourceTransformation
         {
             private readonly ILogger<GremlinqQueries>? _logger;
 
-            public UseLoggerGremlinQueryEnvironmentTransformation(ILogger<GremlinqQueries>? logger = default)
+            public UseLoggerGremlinQuerySourceTransformation(ILogger<GremlinqQueries>? logger = default)
             {
                 _logger = logger;
             }
 
-            public IGremlinQueryEnvironment Transform(IGremlinQueryEnvironment environment)
+            public IConfigurableGremlinQuerySource Transform(IConfigurableGremlinQuerySource source)
             {
                 return _logger != null
-                    ? environment.UseLogger(_logger)
-                    : environment;
+                    ? source
+                        .ConfigureEnvironment(environment => environment
+                            .UseLogger(_logger))
+                    : source;
             }
         }
 
@@ -31,21 +33,18 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             serviceCollection
                 .AddSingleton<IGremlinqConfiguration>(serviceProvider => new GremlinqConfiguration(serviceProvider.GetRequiredService<IConfiguration>().GetSection("Gremlinq")))
-                .AddSingleton<IGremlinQueryEnvironmentTransformation, UseLoggerGremlinQueryEnvironmentTransformation>()
+                .AddSingleton<IGremlinQuerySourceTransformation, UseLoggerGremlinQuerySourceTransformation>()
                 .AddSingleton(c =>
                 {
-                    var transformations = c.GetRequiredService<IEnumerable<IGremlinQueryEnvironmentTransformation>>();
+                    var ret = g;
+                    var transformations = c.GetRequiredService<IEnumerable<IGremlinQuerySourceTransformation>>();
 
-                    return g
-                        .ConfigureEnvironment(env =>
-                        {
-                            foreach (var transformation in transformations)
-                            {
-                                env = transformation.Transform(env);
-                            }
+                    foreach (var transformation in transformations)
+                    {
+                        ret = transformation.Transform(ret);
+                    }
 
-                            return env;
-                        });
+                    return ret;
                 });
 
             configuration(new GremlinqSetup(serviceCollection));

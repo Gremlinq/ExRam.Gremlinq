@@ -5,21 +5,21 @@ namespace ExRam.Gremlinq.Core.AspNet
 {
     public static class GremlinqSetupExtensions
     {
-        private sealed class UseGremlinServerGremlinQueryEnvironmentTransformation : IGremlinQueryEnvironmentTransformation
+        private sealed class UseGremlinServerGremlinQuerySourceTransformation : IGremlinQuerySourceTransformation
         {
             private readonly IConfiguration _configuration;
 
             // ReSharper disable once SuggestBaseTypeForParameter
-            public UseGremlinServerGremlinQueryEnvironmentTransformation(
+            public UseGremlinServerGremlinQuerySourceTransformation(
                 IGremlinqConfiguration configuration)
             {
                 _configuration = configuration
                     .GetSection("GremlinServer");
             }
 
-            public IGremlinQueryEnvironment Transform(IGremlinQueryEnvironment environment)
+            public IConfigurableGremlinQuerySource Transform(IConfigurableGremlinQuerySource source)
             {
-                return environment
+                return source
                     .UseGremlinServer(builder => builder
                         .Configure(_configuration));
             }
@@ -29,7 +29,7 @@ namespace ExRam.Gremlinq.Core.AspNet
         {
             return setup
                 .UseWebSocket()
-                .RegisterTypes(serviceCollection => serviceCollection.AddSingleton<IGremlinQueryEnvironmentTransformation, UseGremlinServerGremlinQueryEnvironmentTransformation>());
+                .RegisterTypes(serviceCollection => serviceCollection.AddSingleton<IGremlinQuerySourceTransformation, UseGremlinServerGremlinQuerySourceTransformation>());
         }
 
         public static GremlinqSetup UseGremlinServer<TVertex, TEdge>(this GremlinqSetup setup)
