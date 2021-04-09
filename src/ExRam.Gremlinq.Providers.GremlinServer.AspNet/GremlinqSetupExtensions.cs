@@ -17,7 +17,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                     .GetSection("GremlinServer");
             }
 
-            public IConfigurableGremlinQuerySource Transform(IConfigurableGremlinQuerySource source)
+            public IGremlinQuerySource Transform(IGremlinQuerySource source)
             {
                 return source
                     .UseGremlinServer(builder => builder

@@ -19,7 +19,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                     .GetSection("Neptune");
             }
 
-            public IConfigurableGremlinQuerySource Transform(IConfigurableGremlinQuerySource source)
+            public IGremlinQuerySource Transform(IGremlinQuerySource source)
             {
                 return source
                     .UseNeptune(builder => builder

@@ -2,6 +2,6 @@
 {
     public interface IGremlinQuerySourceTransformation
     {
-        IConfigurableGremlinQuerySource Transform(IConfigurableGremlinQuerySource source);
+        IGremlinQuerySource Transform(IGremlinQuerySource source);
     }
 }

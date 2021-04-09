@@ -15,7 +15,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                 _model = model;
             }
 
-            public IConfigurableGremlinQuerySource Transform(IConfigurableGremlinQuerySource source)
+            public IGremlinQuerySource Transform(IGremlinQuerySource source)
             {
                 return source
                     .ConfigureEnvironment(environment => environment
@@ -25,14 +25,14 @@ namespace ExRam.Gremlinq.Core.AspNet
 
         private sealed class SourceTransformation : IGremlinQuerySourceTransformation
         {
-            private readonly Func<IConfigurableGremlinQuerySource, IConfigurableGremlinQuerySource> _sourceTransformation;
+            private readonly Func<IGremlinQuerySource, IGremlinQuerySource> _sourceTransformation;
 
-            public SourceTransformation(Func<IConfigurableGremlinQuerySource, IConfigurableGremlinQuerySource> sourceTransformation)
+            public SourceTransformation(Func<IGremlinQuerySource, IGremlinQuerySource> sourceTransformation)
             {
                 _sourceTransformation = sourceTransformation;
             }
 
-            public IConfigurableGremlinQuerySource Transform(IConfigurableGremlinQuerySource source)
+            public IGremlinQuerySource Transform(IGremlinQuerySource source)
             {
                 return _sourceTransformation(source);
             }
@@ -47,7 +47,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                 _environmentTransformation = environmentTransformation;
             }
 
-            public IConfigurableGremlinQuerySource Transform(IConfigurableGremlinQuerySource source)
+            public IGremlinQuerySource Transform(IGremlinQuerySource source)
             {
                 return source.ConfigureEnvironment(_environmentTransformation);
             }
@@ -76,7 +76,7 @@ namespace ExRam.Gremlinq.Core.AspNet
             return setup;
         }
 
-        public static GremlinqSetup ConfigureQuerySource(this GremlinqSetup setup, Func<IConfigurableGremlinQuerySource, IConfigurableGremlinQuerySource> sourceTranformation)
+        public static GremlinqSetup ConfigureQuerySource(this GremlinqSetup setup, Func<IGremlinQuerySource, IGremlinQuerySource> sourceTranformation)
         {
             return setup.RegisterTypes(serviceCollection => serviceCollection
                 .AddSingleton<IGremlinQuerySourceTransformation>(new SourceTransformation(sourceTranformation)));

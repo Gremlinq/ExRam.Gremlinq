@@ -38,14 +38,14 @@ namespace ExRam.Gremlinq.Core
                     _collectionName);
             }
 
-            public IConfigurableGremlinQuerySource Transform(IConfigurableGremlinQuerySource source)
+            public IGremlinQuerySource Transform(IGremlinQuerySource source)
             {
                 return _webSocketBuilder
                     .Transform(source);
             }
         }
 
-        public static IConfigurableGremlinQuerySource UseCosmosDb(this IConfigurableGremlinQuerySource source, Func<ICosmosDbConfigurationBuilder, IGremlinQuerySourceTransformation> transformation)
+        public static IGremlinQuerySource UseCosmosDb(this IConfigurableGremlinQuerySource source, Func<ICosmosDbConfigurationBuilder, IGremlinQuerySourceTransformation> transformation)
         {
             return source
                 .UseWebSocket(builder => transformation(new CosmosDbConfigurationBuilder(builder.SetSerializationFormat(SerializationFormat.GraphSonV2))))
