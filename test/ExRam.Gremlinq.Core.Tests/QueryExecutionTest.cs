@@ -56,6 +56,8 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g = g
                 .ConfigureEnvironment(env => env
+                    .ConfigureOptions(options => options
+                        .SetValue(GremlinqOption.StringComparisonTranslationStrictness, StringComparisonTranslationStrictness.Lenient))
                     .UseLogger(new XunitLogger(testOutputHelper))
                     .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>(lookup => lookup
                         .IncludeAssembliesOfBaseTypes())));

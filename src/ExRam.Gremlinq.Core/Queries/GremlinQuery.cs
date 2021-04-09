@@ -1087,7 +1087,7 @@ namespace ExRam.Gremlinq.Core
             if (right.Type == ExpressionFragmentType.Constant)
             {
                 var effectivePredicate = semantics
-                    .ToP(right.GetValue())
+                    .ToP(right.GetValue(), Environment)
                     .WorkaroundLimitations(Environment);
 
                 if (left.Type == ExpressionFragmentType.Parameter)
