@@ -1,4 +1,6 @@
-﻿using Gremlin.Net.Process.Traversal;
+﻿using System;
+
+using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -6,7 +8,7 @@ namespace ExRam.Gremlinq.Core
     {
         private static readonly P PNeqNull = P.Neq(new object?[] { null });
         
-        public static P ToP(this ExpressionSemantics semantics, object? value)
+        public static P ToP(this ExpressionSemantics semantics, object? value, IGremlinQueryEnvironment environment)
         {
             switch (semantics)
             {
@@ -22,35 +24,38 @@ namespace ExRam.Gremlinq.Core
                 {
                     return P.Within(value);
                 }
-                case StringExpressionSemantics when value is string stringValue:
+                case StringExpressionSemantics stringExpressionSemantics when value is string stringValue:
                 {
-                    switch (semantics)
+                    if (stringExpressionSemantics.Comparison == StringComparison.Ordinal || environment.Options.GetValue(GremlinqOption.StringComparisonTranslationStrictness) == StringComparisonTranslationStrictness.Lenient)
                     {
-                        case StringEqualsExpressionSemantics:
+                        switch (stringExpressionSemantics)
                         {
-                            return new P("eq", value);
-                        }
-                        case IsPrefixOfExpressionSemantics:
-                        {
-                            return P.Within(SubStrings(stringValue));
-                        }
-                        case HasInfixExpressionSemantics:
-                        {
-                            return stringValue.Length > 0
-                                ? TextP.Containing(stringValue)
-                                : PNeqNull;
-                        }
-                        case StartsWithExpressionSemantics:
-                        {
-                            return stringValue.Length > 0
-                                ? TextP.StartingWith(stringValue)
-                                : PNeqNull;
-                        }
-                        case EndsWithExpressionSemantics:
-                        {
-                            return stringValue.Length > 0
-                                ? TextP.EndingWith(stringValue)
-                                : PNeqNull;
+                            case StringEqualsExpressionSemantics:
+                            {
+                                return new P("eq", value);
+                            }
+                            case IsPrefixOfExpressionSemantics:
+                            {
+                                return P.Within(SubStrings(stringValue));
+                            }
+                            case HasInfixExpressionSemantics:
+                            {
+                                return stringValue.Length > 0
+                                    ? TextP.Containing(stringValue)
+                                    : PNeqNull;
+                            }
+                            case StartsWithExpressionSemantics:
+                            {
+                                return stringValue.Length > 0
+                                    ? TextP.StartingWith(stringValue)
+                                    : PNeqNull;
+                            }
+                            case EndsWithExpressionSemantics:
+                            {
+                                return stringValue.Length > 0
+                                    ? TextP.EndingWith(stringValue)
+                                    : PNeqNull;
+                            }
                         }
                     }
 
