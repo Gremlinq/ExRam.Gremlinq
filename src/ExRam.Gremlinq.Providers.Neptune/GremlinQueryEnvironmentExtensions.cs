@@ -27,7 +27,7 @@ namespace ExRam.Gremlinq.Core
                     transformation(_webSocketBuilder));
             }
 
-            public IConfigurableGremlinQuerySource Transform(IConfigurableGremlinQuerySource source)
+            public IGremlinQuerySource Transform(IGremlinQuerySource source)
             {
                 return _webSocketBuilder
                     .Transform(source);

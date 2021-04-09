@@ -20,7 +20,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                     .GetSection("CosmosDb");
             }
 
-            public IConfigurableGremlinQuerySource Transform(IConfigurableGremlinQuerySource source)
+            public IGremlinQuerySource Transform(IGremlinQuerySource source)
             {
                 return source
                     .UseCosmosDb(builder =>

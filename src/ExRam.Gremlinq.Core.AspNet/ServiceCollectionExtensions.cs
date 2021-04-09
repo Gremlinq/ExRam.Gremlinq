@@ -19,7 +19,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 _logger = logger;
             }
 
-            public IConfigurableGremlinQuerySource Transform(IConfigurableGremlinQuerySource source)
+            public IGremlinQuerySource Transform(IGremlinQuerySource source)
             {
                 return _logger != null
                     ? source
@@ -36,7 +36,9 @@ namespace Microsoft.Extensions.DependencyInjection
                 .AddSingleton<IGremlinQuerySourceTransformation, UseLoggerGremlinQuerySourceTransformation>()
                 .AddSingleton(c =>
                 {
-                    var ret = g;
+                    var ret = g
+                        .ConfigureEnvironment(_ => _);
+
                     var transformations = c.GetRequiredService<IEnumerable<IGremlinQuerySourceTransformation>>();
 
                     foreach (var transformation in transformations)
