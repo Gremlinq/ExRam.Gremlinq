@@ -1,6 +1,6 @@
 ﻿namespace ExRam.Gremlinq.Core
 {
-    internal sealed class LowerThanExpressionSemantics : NumericExpressionSemantics
+    internal sealed class LowerThanExpressionSemantics : ObjectExpressionSemantics
     {
         public static readonly LowerThanExpressionSemantics Instance = new ();
 
@@ -12,7 +12,7 @@
         public override ExpressionSemantics Flip() => GreaterThanExpressionSemantics.Instance;
     }
 
-    internal sealed class LowerThanOrEqualExpressionSemantics : NumericExpressionSemantics
+    internal sealed class LowerThanOrEqualExpressionSemantics : ObjectExpressionSemantics
     {
         public static readonly LowerThanOrEqualExpressionSemantics Instance = new();
 
@@ -24,7 +24,7 @@
         public override ExpressionSemantics Flip() => GreaterThanOrEqualExpressionSemantics.Instance;
     }
 
-    internal sealed class GreaterThanOrEqualExpressionSemantics : NumericExpressionSemantics
+    internal sealed class GreaterThanOrEqualExpressionSemantics : ObjectExpressionSemantics
     {
         public static readonly GreaterThanOrEqualExpressionSemantics Instance = new();
 
@@ -36,7 +36,7 @@
         public override ExpressionSemantics Flip() => LowerThanOrEqualExpressionSemantics.Instance;
     }
 
-    internal sealed class GreaterThanExpressionSemantics : NumericExpressionSemantics
+    internal sealed class GreaterThanExpressionSemantics : ObjectExpressionSemantics
     {
         public static readonly GreaterThanExpressionSemantics Instance = new();
 
@@ -46,10 +46,5 @@
         }
 
         public override ExpressionSemantics Flip() => LowerThanExpressionSemantics.Instance;
-    }
-
-    internal abstract class NumericExpressionSemantics : ObjectExpressionSemantics
-    {
-
     }
 }

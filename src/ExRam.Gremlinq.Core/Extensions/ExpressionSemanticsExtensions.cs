@@ -62,26 +62,23 @@ namespace ExRam.Gremlinq.Core
                 }
                 case ObjectExpressionSemantics:
                 {
-                    if (semantics is NumericExpressionSemantics)
+                    switch (semantics)
                     {
-                        switch (semantics)
+                        case LowerThanExpressionSemantics:
                         {
-                            case LowerThanExpressionSemantics:
-                            {
-                                return new P("lt", value);
-                            }
-                            case GreaterThanExpressionSemantics:
-                            {
-                                return new P("gt", value);
-                            }
-                            case GreaterThanOrEqualExpressionSemantics:
-                            {
-                                return new P("gte", value);
-                            }
-                            case LowerThanOrEqualExpressionSemantics:
-                            {
-                                return new P("lte", value);
-                            }
+                            return new P("lt", value);
+                        }
+                        case GreaterThanExpressionSemantics:
+                        {
+                            return new P("gt", value);
+                        }
+                        case GreaterThanOrEqualExpressionSemantics:
+                        {
+                            return new P("gte", value);
+                        }
+                        case LowerThanOrEqualExpressionSemantics:
+                        {
+                            return new P("lte", value);
                         }
                     }
 
