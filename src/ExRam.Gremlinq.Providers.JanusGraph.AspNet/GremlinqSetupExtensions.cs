@@ -10,14 +10,11 @@ namespace ExRam.Gremlinq.Core.AspNet
         private sealed class UseJanusGraphGremlinQueryEnvironmentTransformation : IGremlinQueryEnvironmentTransformation
         {
             private readonly IConfiguration _configuration;
-            private readonly IEnumerable<IWebSocketGremlinQueryExecutorBuilderTransformation> _webSocketTransformations;
 
             // ReSharper disable once SuggestBaseTypeForParameter
             public UseJanusGraphGremlinQueryEnvironmentTransformation(
-                IGremlinqConfiguration configuration,
-                IEnumerable<IWebSocketGremlinQueryExecutorBuilderTransformation> webSocketTransformations)
+                IGremlinqConfiguration configuration)
             {
-                _webSocketTransformations = webSocketTransformations;
                 _configuration = configuration
                     .GetSection("JanusGraph");
             }
@@ -28,8 +25,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                     .UseJanusGraph(builder => builder
                         .At(new Uri("ws://localhost:8182"))
                         .ConfigureWebSocket(_ => _
-                            .Configure(_configuration)
-                            .Transform(_webSocketTransformations)));
+                            .Configure(_configuration)));
             }
         }
 

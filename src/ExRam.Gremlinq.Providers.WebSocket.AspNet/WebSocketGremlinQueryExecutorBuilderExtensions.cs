@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using ExRam.Gremlinq.Providers.WebSocket;
 using Gremlin.Net.Driver;
 using Microsoft.Extensions.Configuration;
@@ -34,18 +33,6 @@ namespace ExRam.Gremlinq.Core.AspNet
 
             if (Enum.TryParse<SerializationFormat>(configuration[$"{nameof(SerializationFormat)}"], out var graphsonVersion))
                 builder = builder.SetSerializationFormat(graphsonVersion);
-
-            return builder;
-        }
-
-        public static IWebSocketConfigurator Transform(
-            this IWebSocketConfigurator builder,
-            IEnumerable<IWebSocketGremlinQueryExecutorBuilderTransformation> webSocketTransformations)
-        {
-            foreach (var webSocketTransformation in webSocketTransformations)
-            {
-                builder = webSocketTransformation.Transform(builder);
-            }
 
             return builder;
         }
