@@ -109,8 +109,7 @@ namespace ExRam.Gremlinq.Core
             _ => throw new ExpressionNotSupportedException()
         };
     }
-
-
+    
     internal abstract class StringExpressionSemantics : ExpressionSemantics
     {
         protected StringExpressionSemantics(StringComparison comparison)

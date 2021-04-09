@@ -74,7 +74,7 @@ namespace ExRam.Gremlinq.Core
                     1 => LowerThanOrEqualExpressionSemantics.Instance,
                     _ => TrueExpressionSemantics.Instance
                 },
-                _ => throw new ArgumentException()
+                _ => throw new ExpressionNotSupportedException()
             };
         }
     }
