@@ -87,6 +87,12 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 
         [Fact(Skip = "OrderBy Id no good idea")]
         public override async Task Order_Fold_Unfold() { }
+
+        [Fact(Skip="Unable to find any method 'withSideEffect'")]
+        public override async Task WithSideEffect1() { }
+
+        [Fact(Skip = "Unable to find any method 'withSideEffect'")]
+        public override async Task WithSideEffect2() { }
     }
 }
 #endif
