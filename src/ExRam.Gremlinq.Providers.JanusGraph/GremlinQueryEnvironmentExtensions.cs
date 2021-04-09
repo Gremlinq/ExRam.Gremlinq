@@ -6,25 +6,25 @@ namespace ExRam.Gremlinq.Core
 {
     public static class GremlinQueryEnvironmentExtensions
     {
-        private sealed class JanusGraphConfigurationBuilder :
-            IJanusGraphConfigurationBuilder,
-            IJanusGraphConfigurationBuilderWithUri
+        private sealed class JanusGraphConfigurator :
+            IJanusGraphConfigurator,
+            IJanusGraphConfiguratorWithUri
         {
-            private readonly IWebSocketGremlinQueryExecutorBuilder _webSocketBuilder;
+            private readonly IWebSocketConfigurator _webSocketBuilder;
 
-            public JanusGraphConfigurationBuilder(IWebSocketGremlinQueryExecutorBuilder webSocketBuilder)
+            public JanusGraphConfigurator(IWebSocketConfigurator webSocketBuilder)
             {
                 _webSocketBuilder = webSocketBuilder;
             }
 
-            public IJanusGraphConfigurationBuilderWithUri At(Uri uri)
+            public IJanusGraphConfiguratorWithUri At(Uri uri)
             {
-                return new JanusGraphConfigurationBuilder(_webSocketBuilder.At(uri));
+                return new JanusGraphConfigurator(_webSocketBuilder.At(uri));
             }
 
-            public IGremlinQueryEnvironmentTransformation ConfigureWebSocket(Func<IWebSocketGremlinQueryExecutorBuilder, IWebSocketGremlinQueryExecutorBuilder> transformation)
+            public IGremlinQueryEnvironmentTransformation ConfigureWebSocket(Func<IWebSocketConfigurator, IWebSocketConfigurator> transformation)
             {
-                return new JanusGraphConfigurationBuilder(
+                return new JanusGraphConfigurator(
                     transformation(_webSocketBuilder));
             }
 
@@ -34,10 +34,10 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        public static IGremlinQueryEnvironment UseJanusGraph(this IGremlinQueryEnvironment environment, Func<IJanusGraphConfigurationBuilder, IGremlinQueryEnvironmentTransformation> transformation)
+        public static IGremlinQueryEnvironment UseJanusGraph(this IGremlinQueryEnvironment environment, Func<IJanusGraphConfigurator, IGremlinQueryEnvironmentTransformation> transformation)
         {
             return environment
-                .UseGremlinServer(builder => transformation(new JanusGraphConfigurationBuilder(builder)))
+                .UseGremlinServer(builder => transformation(new JanusGraphConfigurator(builder)))
                 .ConfigureFeatureSet(featureSet => featureSet
                     .ConfigureGraphFeatures(_ => GraphFeatures.Computer | GraphFeatures.Transactions | GraphFeatures.ThreadedTransactions | GraphFeatures.Persistence)
                     .ConfigureVariableFeatures(_ => VariableFeatures.MapValues)

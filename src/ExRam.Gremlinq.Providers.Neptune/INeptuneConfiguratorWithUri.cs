@@ -2,9 +2,9 @@
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Providers.WebSocket;
 
-namespace ExRam.Gremlinq.Providers.CosmosDb
+namespace ExRam.Gremlinq.Providers.Neptune
 {
-    public interface ICosmosDbConfigurationBuilderWithAuthKey : IGremlinQueryEnvironmentTransformation
+    public interface INeptuneConfiguratorWithUri : IGremlinQueryEnvironmentTransformation
     {
         IGremlinQueryEnvironmentTransformation ConfigureWebSocket(Func<IWebSocketConfigurator, IWebSocketConfigurator> transformation);
     }
