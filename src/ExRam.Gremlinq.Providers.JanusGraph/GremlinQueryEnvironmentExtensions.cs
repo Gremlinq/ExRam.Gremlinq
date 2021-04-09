@@ -22,21 +22,19 @@ namespace ExRam.Gremlinq.Core
                 return new JanusGraphConfigurationBuilder(_webSocketBuilder.At(uri));
             }
 
-            public IGremlinQueryExecutorBuilder ConfigureWebSocket(Func<IWebSocketGremlinQueryExecutorBuilder, IWebSocketGremlinQueryExecutorBuilder> transformation)
+            public IGremlinQueryEnvironmentTransformation ConfigureWebSocket(Func<IWebSocketGremlinQueryExecutorBuilder, IWebSocketGremlinQueryExecutorBuilder> transformation)
             {
                 return new JanusGraphConfigurationBuilder(
                     transformation(_webSocketBuilder));
             }
 
-            public IGremlinQueryExecutor Build()
+            public IGremlinQueryEnvironment Transform(IGremlinQueryEnvironment environment)
             {
-                return _webSocketBuilder.Build();
+                return _webSocketBuilder.Transform(environment);
             }
-
-            public IGremlinQueryEnvironment Environment => _webSocketBuilder.Environment;
         }
 
-        public static IGremlinQueryEnvironment UseJanusGraph(this IGremlinQueryEnvironment environment, Func<IJanusGraphConfigurationBuilder, IGremlinQueryExecutorBuilder> transformation)
+        public static IGremlinQueryEnvironment UseJanusGraph(this IGremlinQueryEnvironment environment, Func<IJanusGraphConfigurationBuilder, IGremlinQueryEnvironmentTransformation> transformation)
         {
             return environment
                 .UseGremlinServer(builder => transformation(new JanusGraphConfigurationBuilder(builder)))

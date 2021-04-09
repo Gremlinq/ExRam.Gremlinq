@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Core.AspNet
+﻿namespace ExRam.Gremlinq.Core
 {
     public interface IGremlinQueryEnvironmentTransformation
     {
