@@ -4849,6 +4849,15 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task Where_property_equals_constant_with_Equals()
+        {
+            await _g
+                .V<Person>()
+                .Where(t => t.Age.Equals(36))
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task Where_property_equals_converted_expression()
         {
             await _g
