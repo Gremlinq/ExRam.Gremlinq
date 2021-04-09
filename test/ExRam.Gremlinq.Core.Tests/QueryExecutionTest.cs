@@ -4725,6 +4725,15 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task Where_property_contains_constant_with_TextP_support_case_insensitive()
+        {
+            await _g
+                .V<Country>()
+                .Where(c => c.CountryCallingCode!.Contains("456", StringComparison.OrdinalIgnoreCase))
+                .Verify();
+        }
+
+        [Fact]
         public virtual void Where_property_contains_constant_without_TextP_support()
         {
             _g
@@ -4744,6 +4753,15 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Country>()
                 .Where(c => c.CountryCallingCode!.Contains(""))
+                .Verify();
+        }
+
+        [Fact]
+        public virtual async Task Where_property_contains_empty_string_with_TextP_support_case_insensitive()
+        {
+            await _g
+                .V<Country>()
+                .Where(c => c.CountryCallingCode!.Contains("", StringComparison.OrdinalIgnoreCase))
                 .Verify();
         }
 
@@ -4769,6 +4787,15 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task Where_property_ends_with_constant_with_TextP_support_case_insensitive()
+        {
+            await _g
+                .V<Country>()
+                .Where(c => c.CountryCallingCode!.EndsWith("7890", StringComparison.OrdinalIgnoreCase))
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task Where_property_ends_with_constant_without_TextP_support()
         {
             _g
@@ -4788,6 +4815,15 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Country>()
                 .Where(c => c.CountryCallingCode!.EndsWith(""))
+                .Verify();
+        }
+
+        [Fact]
+        public virtual async Task Where_property_ends_with_empty_string_with_TextP_support_case_insensitive()
+        {
+            await _g
+                .V<Country>()
+                .Where(c => c.CountryCallingCode!.EndsWith("", StringComparison.OrdinalIgnoreCase))
                 .Verify();
         }
 
@@ -5080,6 +5116,46 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Country>()
                 .Where(c => str.StartsWith(c.CountryCallingCode!))
+                .Verify();
+        }
+        
+        [Fact]
+        public virtual async Task Where_property_is_prefix_of_constant_case_insensitive()
+        {
+            await _g
+                .V<Country>()
+                .Where(c => "+49123".StartsWith(c.CountryCallingCode!, StringComparison.OrdinalIgnoreCase))
+                .Verify();
+        }
+
+        [Fact]
+        public virtual async Task Where_property_is_prefix_of_empty_string_case_insensitive()
+        {
+            await _g
+                .V<Country>()
+                .Where(c => "".StartsWith(c.CountryCallingCode!, StringComparison.OrdinalIgnoreCase))
+                .Verify();
+        }
+
+        [Fact]
+        public virtual async Task Where_property_is_prefix_of_expression_case_insensitive()
+        {
+            const string str = "+49123xxx";
+
+            await _g
+                .V<Country>()
+                .Where(c => str.Substring(0, 6).StartsWith(c.CountryCallingCode!, StringComparison.OrdinalIgnoreCase))
+                .Verify();
+        }
+
+        [Fact]
+        public virtual async Task Where_property_is_prefix_of_variable_case_insensitive()
+        {
+            const string str = "+49123";
+
+            await _g
+                .V<Country>()
+                .Where(c => str.StartsWith(c.CountryCallingCode!, StringComparison.OrdinalIgnoreCase))
                 .Verify();
         }
 
