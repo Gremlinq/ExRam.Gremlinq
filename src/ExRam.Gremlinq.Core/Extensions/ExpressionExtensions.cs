@@ -22,6 +22,14 @@ namespace ExRam.Gremlinq.Core
         private static readonly MethodInfo StringContains = Get(() => string.Empty.Contains(string.Empty));
         private static readonly MethodInfo StringEndsWith = Get(() => string.Empty.EndsWith(string.Empty));
 
+        private static readonly MethodInfo StringStartsWithStringComparison = Get(() => string.Empty.StartsWith(string.Empty, StringComparison.Ordinal));
+
+        #if (!NETSTANDARD2_0)
+        private static readonly MethodInfo StringContainsStringComparison = Get(() => string.Empty.Contains(string.Empty, StringComparison.Ordinal));
+        #endif
+
+        private static readonly MethodInfo StringEndsWithStringComparison = Get(() => string.Empty.EndsWith(string.Empty, StringComparison.Ordinal));
+
         public static Expression Strip(this Expression expression)
         {
             while (true)
@@ -307,6 +315,10 @@ namespace ExRam.Gremlinq.Core
                             var instanceExpression = methodCallExpression.Object!.Strip();
                             var argumentExpression = methodCallExpression.Arguments[0].Strip();
 
+                            var stringComparison = methodCallExpression.Arguments.Count >= 2 && methodCallExpression.Arguments[1] is { } secondArgument && secondArgument.Type == typeof(StringComparison)
+                                ? (StringComparison)secondArgument.GetValue()!
+                                : StringComparison.Ordinal;
+
                             if (wellKnownMember == WellKnownMember.StringStartsWith && argumentExpression.TryGetReferredParameter() is not null)
                             {
                                 if (instanceExpression.GetValue() is string stringValue)
@@ -314,7 +326,7 @@ namespace ExRam.Gremlinq.Core
                                     return new GremlinExpression(
                                         ExpressionFragment.Constant(stringValue),
                                         default,
-                                        StartsWithExpressionSemantics.CaseSensitive,
+                                        StartsWithExpressionSemantics.Get(stringComparison),
                                         ExpressionFragment.Create(argumentExpression, model));
                                 }
                             }
@@ -327,9 +339,9 @@ namespace ExRam.Gremlinq.Core
                                         default,
                                         wellKnownMember switch
                                         {
-                                            WellKnownMember.StringStartsWith => StartsWithExpressionSemantics.CaseSensitive,
-                                            WellKnownMember.StringContains => HasInfixExpressionSemantics.CaseSensitive,
-                                            WellKnownMember.StringEndsWith => EndsWithExpressionSemantics.CaseSensitive,
+                                            WellKnownMember.StringStartsWith => StartsWithExpressionSemantics.Get(stringComparison),
+                                            WellKnownMember.StringContains => HasInfixExpressionSemantics.Get(stringComparison),
+                                            WellKnownMember.StringEndsWith => EndsWithExpressionSemantics.Get(stringComparison),
                                             _ => throw new ExpressionNotSupportedException(methodCallExpression)
                                         },
                                         ExpressionFragment.Constant(stringValue));
@@ -392,14 +404,19 @@ namespace ExRam.Gremlinq.Core
                         if (typeof(IList).IsAssignableFrom(methodInfo.DeclaringType) && methodInfo.Name == nameof(List<object>.Contains))
                             return WellKnownMember.ListContains;
 
-                        if (methodInfo == StringStartsWith)
+                        if (methodInfo == StringStartsWith || methodInfo == StringStartsWithStringComparison)
                             return WellKnownMember.StringStartsWith;
 
-                        if (methodInfo == StringEndsWith)
+                        if (methodInfo == StringEndsWith || methodInfo == StringEndsWithStringComparison)
                             return WellKnownMember.StringEndsWith;
 
                         if (methodInfo == StringContains)
                             return WellKnownMember.StringContains;
+
+#if (!NETSTANDARD2_0)
+                        if (methodInfo == StringContainsStringComparison)
+                            return WellKnownMember.StringContains;
+#endif
 
                         if (methodInfo.Name == nameof(IComparable.CompareTo) && methodInfo.GetParameters().Length == 1 && methodInfo.ReturnType == typeof(int))
                             return WellKnownMember.ComparableCompareTo;
