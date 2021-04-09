@@ -7,12 +7,12 @@ namespace ExRam.Gremlinq.Core
     }
     public static class GremlinQueryEnvironmentExtensions
     {
-        public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseWebSocket(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, System.Func<ExRam.Gremlinq.Providers.WebSocket.IWebSocketGremlinQueryExecutorBuilder, ExRam.Gremlinq.Core.IGremlinQueryExecutorBuilder> builderTransformation) { }
+        public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseWebSocket(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, System.Func<ExRam.Gremlinq.Providers.WebSocket.IWebSocketGremlinQueryExecutorBuilder, ExRam.Gremlinq.Core.IGremlinQueryEnvironmentTransformation> builderTransformation) { }
     }
 }
 namespace ExRam.Gremlinq.Providers.WebSocket
 {
-    public interface IWebSocketGremlinQueryExecutorBuilder : ExRam.Gremlinq.Core.IGremlinQueryExecutorBuilder
+    public interface IWebSocketGremlinQueryExecutorBuilder : ExRam.Gremlinq.Core.IGremlinQueryEnvironmentTransformation
     {
         ExRam.Gremlinq.Providers.WebSocket.IWebSocketGremlinQueryExecutorBuilder AddGraphSONDeserializer(string typename, Gremlin.Net.Structure.IO.GraphSON.IGraphSONDeserializer serializer);
         ExRam.Gremlinq.Providers.WebSocket.IWebSocketGremlinQueryExecutorBuilder AddGraphSONSerializer(System.Type type, Gremlin.Net.Structure.IO.GraphSON.IGraphSONSerializer serializer);
