@@ -304,6 +304,7 @@ namespace ExRam.Gremlinq.Core
                                 ContainsExpressionSemantics.Instance,
                                 ExpressionFragment.Create(methodCallExpression.Arguments[0], model));
                         }
+                        case WellKnownMember.StringEquals:
                         case WellKnownMember.StringStartsWith:
                         case WellKnownMember.StringEndsWith:
                         case WellKnownMember.StringContains:
@@ -335,6 +336,7 @@ namespace ExRam.Gremlinq.Core
                                         default,
                                         wellKnownMember switch
                                         {
+                                            WellKnownMember.StringEquals => StringEqualsExpressionSemantics.Get(stringComparison),
                                             WellKnownMember.StringStartsWith => StartsWithExpressionSemantics.Get(stringComparison),
                                             WellKnownMember.StringContains => HasInfixExpressionSemantics.Get(stringComparison),
                                             WellKnownMember.StringEndsWith => EndsWithExpressionSemantics.Get(stringComparison),
@@ -406,6 +408,8 @@ namespace ExRam.Gremlinq.Core
                             {
                                 switch (methodInfo.Name)
                                 {
+                                    case nameof(object.Equals):
+                                        return WellKnownMember.StringEquals;
                                     case nameof(string.StartsWith):
                                         return WellKnownMember.StringStartsWith;
                                     case nameof(string.EndsWith):
@@ -416,7 +420,7 @@ namespace ExRam.Gremlinq.Core
                             }
                         }
 
-                        if (methodInfo.Name == nameof(object.Equals))
+                        if (methodInfo.Name == nameof(object.Equals) && methodInfo.GetParameters().Length == 1 && methodInfo.ReturnType == typeof(bool))
                             return WellKnownMember.Equals;
 
                         if (methodInfo.Name == nameof(IComparable.CompareTo) && methodInfo.GetParameters().Length == 1 && methodInfo.ReturnType == typeof(int))

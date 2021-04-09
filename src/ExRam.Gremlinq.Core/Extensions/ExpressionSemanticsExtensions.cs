@@ -26,6 +26,10 @@ namespace ExRam.Gremlinq.Core
                 {
                     switch (semantics)
                     {
+                        case StringEqualsExpressionSemantics:
+                        {
+                            return new P("eq", value);
+                        }
                         case IsPrefixOfExpressionSemantics:
                         {
                             return P.Within(SubStrings(stringValue));
