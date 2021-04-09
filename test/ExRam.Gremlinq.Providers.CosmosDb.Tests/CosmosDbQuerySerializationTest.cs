@@ -5,18 +5,19 @@ using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Tests.Entities;
 using Xunit;
 using Xunit.Abstractions;
+using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
     public sealed class CosmosDbQuerySerializationTest : QuerySerializationTest
     {
         public CosmosDbQuerySerializationTest(ITestOutputHelper testOutputHelper) : base(
-            GremlinQuerySource.g
+            g
+                .UseCosmosDb(builder => builder
+                    .At(new Uri("wss://localhost"), "database", "graph")
+                    .AuthenticateBy("authKey"))
                 .ConfigureEnvironment(env => env
-                    .AddFakePartitionKey()
-                    .UseCosmosDb(builder => builder
-                        .At(new Uri("wss://localhost"), "database", "graph")
-                        .AuthenticateBy("authKey"))),
+                    .AddFakePartitionKey()),
             testOutputHelper)
         {
 

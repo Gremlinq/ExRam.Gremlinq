@@ -11,9 +11,8 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
     {
         public GremlinServerIntegrationTests(ITestOutputHelper testOutputHelper) : base(
             g
-                .ConfigureEnvironment(env => env
-                    .UseGremlinServer(builder => builder
-                        .AtLocalhost())),
+                .UseGremlinServer(builder => builder
+                    .AtLocalhost()),
             testOutputHelper)
         {
         }

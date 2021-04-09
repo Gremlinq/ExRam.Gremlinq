@@ -841,10 +841,6 @@ namespace ExRam.Gremlinq.Core
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureOptions(System.Func<ExRam.Gremlinq.Core.IGremlinqOptions, ExRam.Gremlinq.Core.IGremlinqOptions> optionsTransformation);
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureSerializer(System.Func<ExRam.Gremlinq.Core.IGremlinQuerySerializer, ExRam.Gremlinq.Core.IGremlinQuerySerializer> serializerTransformation);
     }
-    public interface IGremlinQueryEnvironmentTransformation
-    {
-        ExRam.Gremlinq.Core.IGremlinQueryEnvironment Transform(ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment);
-    }
     public interface IGremlinQueryExecutionResultDeserializer
     {
         ExRam.Gremlinq.Core.IGremlinQueryExecutionResultDeserializer ConfigureFragmentDeserializer(System.Func<ExRam.Gremlinq.Core.IGremlinQueryFragmentDeserializer, ExRam.Gremlinq.Core.IGremlinQueryFragmentDeserializer> transformation);
@@ -876,6 +872,10 @@ namespace ExRam.Gremlinq.Core
         ExRam.Gremlinq.Core.IEdgeGremlinQuery<TEdge> E<TEdge>(params object[] ids);
         ExRam.Gremlinq.Core.IEdgeGremlinQuery<TNewEdge> ReplaceE<TNewEdge>(TNewEdge edge);
         ExRam.Gremlinq.Core.IGremlinQuerySource WithoutStrategies(params System.Type[] strategyTypes);
+    }
+    public interface IGremlinQuerySourceTransformation
+    {
+        ExRam.Gremlinq.Core.IConfigurableGremlinQuerySource Transform(ExRam.Gremlinq.Core.IConfigurableGremlinQuerySource source);
     }
     public interface IGremlinQuery<TElement> : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<ExRam.Gremlinq.Core.IGremlinQuery<TElement>>, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TElement, ExRam.Gremlinq.Core.IGremlinQuery<TElement>>, ExRam.Gremlinq.Core.IGremlinQueryBase<TElement>, ExRam.Gremlinq.Core.IStartGremlinQuery { }
     public interface IGremlinqOption { }

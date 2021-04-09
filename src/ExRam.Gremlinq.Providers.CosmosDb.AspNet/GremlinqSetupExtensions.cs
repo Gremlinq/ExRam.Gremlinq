@@ -8,21 +8,21 @@ namespace ExRam.Gremlinq.Core.AspNet
 {
     public static class GremlinqSetupExtensions
     {
-        private sealed class UseCosmosDbGremlinQueryEnvironmentTransformation : IGremlinQueryEnvironmentTransformation
+        private sealed class UseCosmosDbGremlinQuerySourceTransformation : IGremlinQuerySourceTransformation
         {
             private readonly IConfiguration _configuration;
 
             // ReSharper disable once SuggestBaseTypeForParameter
-            public UseCosmosDbGremlinQueryEnvironmentTransformation(
+            public UseCosmosDbGremlinQuerySourceTransformation(
                 IGremlinqConfiguration configuration)
             {
                 _configuration = configuration
                     .GetSection("CosmosDb");
             }
 
-            public IGremlinQueryEnvironment Transform(IGremlinQueryEnvironment environment)
+            public IConfigurableGremlinQuerySource Transform(IConfigurableGremlinQuerySource source)
             {
-                return environment
+                return source
                     .UseCosmosDb(builder =>
                     {
                         return builder
@@ -41,7 +41,7 @@ namespace ExRam.Gremlinq.Core.AspNet
         {
             return setup
                 .UseWebSocket()
-                .RegisterTypes(serviceCollection => serviceCollection.AddSingleton<IGremlinQueryEnvironmentTransformation, UseCosmosDbGremlinQueryEnvironmentTransformation>());
+                .RegisterTypes(serviceCollection => serviceCollection.AddSingleton<IGremlinQuerySourceTransformation, UseCosmosDbGremlinQuerySourceTransformation>());
         }
 
         public static GremlinqSetup UseCosmosDb<TVertex, TEdge>(this GremlinqSetup setup, Expression<Func<TVertex, object>> partitionKeyExpression)

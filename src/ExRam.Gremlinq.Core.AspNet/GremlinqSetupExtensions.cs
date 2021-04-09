@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq.Core.AspNet
 {
     public static class GremlinqSetupExtensions
     {
-        private sealed class UseModelTransformation : IGremlinQueryEnvironmentTransformation
+        private sealed class UseModelTransformation : IGremlinQuerySourceTransformation
         {
             private readonly IGraphModel _model;
 
@@ -15,13 +15,30 @@ namespace ExRam.Gremlinq.Core.AspNet
                 _model = model;
             }
 
-            public IGremlinQueryEnvironment Transform(IGremlinQueryEnvironment environment)
+            public IConfigurableGremlinQuerySource Transform(IConfigurableGremlinQuerySource source)
             {
-                return environment.UseModel(_model);
+                return source
+                    .ConfigureEnvironment(environment => environment
+                        .UseModel(_model));
             }
         }
 
-        private sealed class EnvironmentTransformation : IGremlinQueryEnvironmentTransformation
+        private sealed class SourceTransformation : IGremlinQuerySourceTransformation
+        {
+            private readonly Func<IConfigurableGremlinQuerySource, IConfigurableGremlinQuerySource> _sourceTransformation;
+
+            public SourceTransformation(Func<IConfigurableGremlinQuerySource, IConfigurableGremlinQuerySource> sourceTransformation)
+            {
+                _sourceTransformation = sourceTransformation;
+            }
+
+            public IConfigurableGremlinQuerySource Transform(IConfigurableGremlinQuerySource source)
+            {
+                return _sourceTransformation(source);
+            }
+        }
+
+        private sealed class EnvironmentTransformation : IGremlinQuerySourceTransformation
         {
             private readonly Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> _environmentTransformation;
 
@@ -30,9 +47,9 @@ namespace ExRam.Gremlinq.Core.AspNet
                 _environmentTransformation = environmentTransformation;
             }
 
-            public IGremlinQueryEnvironment Transform(IGremlinQueryEnvironment environment)
+            public IConfigurableGremlinQuerySource Transform(IConfigurableGremlinQuerySource source)
             {
-                return _environmentTransformation(environment);
+                return source.ConfigureEnvironment(_environmentTransformation);
             }
         }
 
@@ -49,7 +66,7 @@ namespace ExRam.Gremlinq.Core.AspNet
         {
             return setup.RegisterTypes(serviceCollection => serviceCollection
                 .AddSingleton(model)
-                .AddSingleton<IGremlinQueryEnvironmentTransformation, UseModelTransformation>());
+                .AddSingleton<IGremlinQuerySourceTransformation, UseModelTransformation>());
         }
 
         public static GremlinqSetup RegisterTypes(this GremlinqSetup setup, Action<IServiceCollection> registration)
@@ -59,10 +76,16 @@ namespace ExRam.Gremlinq.Core.AspNet
             return setup;
         }
 
+        public static GremlinqSetup ConfigureQuerySource(this GremlinqSetup setup, Func<IConfigurableGremlinQuerySource, IConfigurableGremlinQuerySource> sourceTranformation)
+        {
+            return setup.RegisterTypes(serviceCollection => serviceCollection
+                .AddSingleton<IGremlinQuerySourceTransformation>(new SourceTransformation(sourceTranformation)));
+        }
+
         public static GremlinqSetup ConfigureEnvironment(this GremlinqSetup setup, Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> environmentTransformation)
         {
             return setup.RegisterTypes(serviceCollection => serviceCollection
-                .AddSingleton<IGremlinQueryEnvironmentTransformation>(new EnvironmentTransformation(environmentTransformation)));
+                .AddSingleton<IGremlinQuerySourceTransformation>(new EnvironmentTransformation(environmentTransformation)));
         }
     }
 }
