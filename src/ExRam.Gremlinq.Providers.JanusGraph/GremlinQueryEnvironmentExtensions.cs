@@ -6,9 +6,7 @@ namespace ExRam.Gremlinq.Core
 {
     public static class GremlinQueryEnvironmentExtensions
     {
-        private sealed class JanusGraphConfigurator :
-            IJanusGraphConfigurator,
-            IJanusGraphConfiguratorWithUri
+        private sealed class JanusGraphConfigurator : IJanusGraphConfigurator, IJanusGraphConfiguratorWithUri
         {
             private readonly IWebSocketConfigurator _webSocketBuilder;
 

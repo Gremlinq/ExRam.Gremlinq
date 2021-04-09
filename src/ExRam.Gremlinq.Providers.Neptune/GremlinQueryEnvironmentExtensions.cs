@@ -7,9 +7,7 @@ namespace ExRam.Gremlinq.Core
 {
     public static class GremlinQueryEnvironmentExtensions
     {
-        private sealed class NeptuneConfigurator :
-            INeptuneConfigurator,
-            INeptuneConfiguratorWithUri
+        private sealed class NeptuneConfigurator : INeptuneConfigurator, INeptuneConfiguratorWithUri
         {
             private readonly IWebSocketConfigurator _webSocketBuilder;
 

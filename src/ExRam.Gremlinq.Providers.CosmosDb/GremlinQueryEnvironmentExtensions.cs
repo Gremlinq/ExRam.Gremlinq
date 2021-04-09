@@ -8,10 +8,7 @@ namespace ExRam.Gremlinq.Core
 {
     public static class GremlinQueryEnvironmentExtensions
     {
-        private sealed class CosmosDbConfigurationBuilder :
-            ICosmosDbConfigurationBuilder,
-            ICosmosDbConfigurationBuilderWithUri,
-            ICosmosDbConfigurationBuilderWithAuthKey
+        private sealed class CosmosDbConfigurationBuilder : ICosmosDbConfigurationBuilder, ICosmosDbConfigurationBuilderWithUri, ICosmosDbConfigurationBuilderWithAuthKey
         {
             private readonly string? _collectionName;
             private readonly IWebSocketConfigurator _webSocketBuilder;
