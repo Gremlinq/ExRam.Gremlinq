@@ -419,6 +419,7 @@ namespace ExRam.Gremlinq.Core
                 .Override<WhereTraversalStep>((step, env, overridden, recurse) => CreateInstruction("where", recurse, env, step.Traversal))
                 .Override<WithStrategiesStep>((step, env, overridden, recurse) => CreateInstruction("withStrategies", recurse, env, step.Traversal))
                 .Override<WithoutStrategiesStep>((step, env, overridden, recurse) => CreateInstruction("withoutStrategies", recurse, env, step.StrategyTypes))
+                .Override<WithSideEffectStep>((step, env, overridden, recurse) => CreateInstruction("withSideEffect", recurse, env, step.Label, step.Value))
                 .Override<WherePredicateStep>((step, env, overridden, recurse) => CreateInstruction("where", recurse, env, step.Predicate))
                 .Override<WherePredicateStep.ByMemberStep>((step, env, overridden, recurse) => step.Key != null
                     ? CreateInstruction("by", recurse, env, step.Key)

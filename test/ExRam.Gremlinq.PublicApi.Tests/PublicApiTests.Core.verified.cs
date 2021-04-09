@@ -871,6 +871,7 @@ namespace ExRam.Gremlinq.Core
         ExRam.Gremlinq.Core.IEdgeGremlinQuery<object> E(params object[] ids);
         ExRam.Gremlinq.Core.IEdgeGremlinQuery<TEdge> E<TEdge>(params object[] ids);
         ExRam.Gremlinq.Core.IEdgeGremlinQuery<TNewEdge> ReplaceE<TNewEdge>(TNewEdge edge);
+        ExRam.Gremlinq.Core.IGremlinQuerySource WithSideEffect<TSideEffect>(ExRam.Gremlinq.Core.StepLabel<TSideEffect> label, TSideEffect value);
         ExRam.Gremlinq.Core.IGremlinQuerySource WithoutStrategies(params System.Type[] strategyTypes);
     }
     public interface IGremlinQuerySourceTransformation
@@ -1763,6 +1764,12 @@ namespace ExRam.Gremlinq.Core
     {
         public WhereTraversalStep(ExRam.Gremlinq.Core.Traversal traversal) { }
         public ExRam.Gremlinq.Core.Traversal Traversal { get; }
+    }
+    public sealed class WithSideEffectStep : ExRam.Gremlinq.Core.Step
+    {
+        public WithSideEffectStep(ExRam.Gremlinq.Core.StepLabel label, object value) { }
+        public ExRam.Gremlinq.Core.StepLabel Label { get; }
+        public object Value { get; }
     }
     public sealed class WithStrategiesStep : ExRam.Gremlinq.Core.Step
     {
