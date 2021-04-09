@@ -17,18 +17,6 @@ namespace ExRam.Gremlinq.Core
 #pragma warning disable 8625
         private static readonly MethodInfo EnumerableContainsElement = Get(() => Enumerable.Contains<object>(default!, default)).GetGenericMethodDefinition()!;
 #pragma warning restore 8625
-        // ReSharper disable once RedundantTypeSpecificationInDefaultExpression
-        private static readonly MethodInfo StringStartsWith = Get(() => string.Empty.StartsWith(string.Empty));
-        private static readonly MethodInfo StringContains = Get(() => string.Empty.Contains(string.Empty));
-        private static readonly MethodInfo StringEndsWith = Get(() => string.Empty.EndsWith(string.Empty));
-
-        private static readonly MethodInfo StringStartsWithStringComparison = Get(() => string.Empty.StartsWith(string.Empty, StringComparison.Ordinal));
-
-        #if (!NETSTANDARD2_0)
-        private static readonly MethodInfo StringContainsStringComparison = Get(() => string.Empty.Contains(string.Empty, StringComparison.Ordinal));
-        #endif
-
-        private static readonly MethodInfo StringEndsWithStringComparison = Get(() => string.Empty.EndsWith(string.Empty, StringComparison.Ordinal));
 
         public static Expression Strip(this Expression expression)
         {
@@ -404,19 +392,21 @@ namespace ExRam.Gremlinq.Core
                         if (typeof(IList).IsAssignableFrom(methodInfo.DeclaringType) && methodInfo.Name == nameof(List<object>.Contains))
                             return WellKnownMember.ListContains;
 
-                        if (methodInfo == StringStartsWith || methodInfo == StringStartsWithStringComparison)
-                            return WellKnownMember.StringStartsWith;
-
-                        if (methodInfo == StringEndsWith || methodInfo == StringEndsWithStringComparison)
-                            return WellKnownMember.StringEndsWith;
-
-                        if (methodInfo == StringContains)
-                            return WellKnownMember.StringContains;
-
-#if (!NETSTANDARD2_0)
-                        if (methodInfo == StringContainsStringComparison)
-                            return WellKnownMember.StringContains;
-#endif
+                        if (methodInfo.DeclaringType == typeof(string) && methodInfo.GetParameters() is { Length: 1 or 2} parameters)
+                        {
+                            if (parameters[0].ParameterType == typeof(string) && (parameters.Length == 1 || parameters[1].ParameterType == typeof(StringComparison)))
+                            {
+                                switch (methodInfo.Name)
+                                {
+                                    case nameof(string.StartsWith):
+                                        return WellKnownMember.StringStartsWith;
+                                    case nameof(string.EndsWith):
+                                        return WellKnownMember.StringEndsWith;
+                                    case nameof(string.Contains):
+                                        return WellKnownMember.StringContains;
+                                }
+                            }
+                        }
 
                         if (methodInfo.Name == nameof(IComparable.CompareTo) && methodInfo.GetParameters().Length == 1 && methodInfo.ReturnType == typeof(int))
                             return WellKnownMember.ComparableCompareTo;
