@@ -2,6 +2,29 @@
 
 namespace ExRam.Gremlinq.Core
 {
+    internal sealed class StringEqualsExpressionSemantics : StringExpressionSemantics
+    {
+        public static readonly StringEqualsExpressionSemantics CaseSensitive = new(StringComparison.Ordinal);
+        public static readonly StringEqualsExpressionSemantics CaseInsensitive = new(StringComparison.OrdinalIgnoreCase);
+
+        private StringEqualsExpressionSemantics(StringComparison comparison) : base(comparison)
+        {
+
+        }
+
+        public override ExpressionSemantics Flip() => Get(Comparison);
+
+        public static StringEqualsExpressionSemantics Get(StringComparison comparison)
+        {
+            return comparison switch
+            {
+                StringComparison.Ordinal => CaseSensitive,
+                StringComparison.OrdinalIgnoreCase => CaseInsensitive,
+                _ => throw new ExpressionNotSupportedException()
+            };
+        }
+    }
+
     internal sealed class HasInfixExpressionSemantics : StringExpressionSemantics
     {
         public static readonly HasInfixExpressionSemantics CaseSensitive = new(StringComparison.Ordinal);

@@ -15,6 +15,7 @@
 
         ListContains,
 
+        StringEquals,
         StringContains,
         StringStartsWith,
         StringEndsWith,

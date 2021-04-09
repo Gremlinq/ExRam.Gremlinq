@@ -5187,6 +5187,24 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task Where_string_property_equals()
+        {
+            await _g
+                .V<Country>()
+                .Where(c => c.CountryCallingCode!.Equals("+49123"))
+                .Verify();
+        }
+
+        [Fact]
+        public virtual async Task Where_string_property_equals_case_insensitive()
+        {
+            await _g
+                .V<Country>()
+                .Where(c => c.CountryCallingCode!.StartsWith("+49123", StringComparison.OrdinalIgnoreCase))
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task Where_property_starts_with_constant_with_TextP_support()
         {
             await _g
