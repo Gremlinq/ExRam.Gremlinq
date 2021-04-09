@@ -14,9 +14,9 @@ namespace ExRam.Gremlinq.Core
             ICosmosDbConfigurationBuilderWithAuthKey
         {
             private readonly string? _collectionName;
-            private readonly IWebSocketGremlinQueryExecutorBuilder _webSocketBuilder;
+            private readonly IWebSocketConfigurator _webSocketBuilder;
 
-            public CosmosDbConfigurationBuilder(IWebSocketGremlinQueryExecutorBuilder webSocketBuilder, string? collectionName = default)
+            public CosmosDbConfigurationBuilder(IWebSocketConfigurator webSocketBuilder, string? collectionName = default)
             {
                 _collectionName = collectionName;
                 _webSocketBuilder = webSocketBuilder;
@@ -34,7 +34,7 @@ namespace ExRam.Gremlinq.Core
                     _collectionName);
             }
 
-            public IGremlinQueryEnvironmentTransformation ConfigureWebSocket(Func<IWebSocketGremlinQueryExecutorBuilder, IWebSocketGremlinQueryExecutorBuilder> transformation)
+            public IGremlinQueryEnvironmentTransformation ConfigureWebSocket(Func<IWebSocketConfigurator, IWebSocketConfigurator> transformation)
             {
                 return new CosmosDbConfigurationBuilder(
                     transformation(_webSocketBuilder),

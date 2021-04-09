@@ -8,8 +8,8 @@ namespace ExRam.Gremlinq.Core.AspNet
 {
     public static class WebSocketGremlinQueryExecutorBuilderExtensions
     {
-        public static IWebSocketGremlinQueryExecutorBuilder Configure(
-            this IWebSocketGremlinQueryExecutorBuilder builder,
+        public static IWebSocketConfigurator Configure(
+            this IWebSocketConfigurator builder,
             IConfiguration configuration)
         {
             var authenticationSection = configuration.GetSection("Authentication");
@@ -38,8 +38,8 @@ namespace ExRam.Gremlinq.Core.AspNet
             return builder;
         }
 
-        public static IWebSocketGremlinQueryExecutorBuilder Transform(
-            this IWebSocketGremlinQueryExecutorBuilder builder,
+        public static IWebSocketConfigurator Transform(
+            this IWebSocketConfigurator builder,
             IEnumerable<IWebSocketGremlinQueryExecutorBuilderTransformation> webSocketTransformations)
         {
             foreach (var webSocketTransformation in webSocketTransformations)

@@ -4,6 +4,6 @@ namespace ExRam.Gremlinq.Core.AspNet
 {
     public interface IWebSocketGremlinQueryExecutorBuilderTransformation
     {
-        IWebSocketGremlinQueryExecutorBuilder Transform(IWebSocketGremlinQueryExecutorBuilder builder);
+        IWebSocketConfigurator Transform(IWebSocketConfigurator builder);
     }
 }

@@ -7,25 +7,25 @@ namespace ExRam.Gremlinq.Core
 {
     public static class GremlinQueryEnvironmentExtensions
     {
-        private sealed class NeptuneConfigurationBuilder :
-            INeptuneConfigurationBuilder,
-            INeptuneConfigurationBuilderWithUri
+        private sealed class NeptuneConfigurator :
+            INeptuneConfigurator,
+            INeptuneConfiguratorWithUri
         {
-            private readonly IWebSocketGremlinQueryExecutorBuilder _webSocketBuilder;
+            private readonly IWebSocketConfigurator _webSocketBuilder;
 
-            public NeptuneConfigurationBuilder(IWebSocketGremlinQueryExecutorBuilder webSocketBuilder)
+            public NeptuneConfigurator(IWebSocketConfigurator webSocketBuilder)
             {
                 _webSocketBuilder = webSocketBuilder;
             }
 
-            public INeptuneConfigurationBuilderWithUri At(Uri uri)
+            public INeptuneConfiguratorWithUri At(Uri uri)
             {
-                return new NeptuneConfigurationBuilder(_webSocketBuilder.At(uri));
+                return new NeptuneConfigurator(_webSocketBuilder.At(uri));
             }
 
-            public IGremlinQueryEnvironmentTransformation ConfigureWebSocket(Func<IWebSocketGremlinQueryExecutorBuilder, IWebSocketGremlinQueryExecutorBuilder> transformation)
+            public IGremlinQueryEnvironmentTransformation ConfigureWebSocket(Func<IWebSocketConfigurator, IWebSocketConfigurator> transformation)
             {
-                return new NeptuneConfigurationBuilder(
+                return new NeptuneConfigurator(
                     transformation(_webSocketBuilder));
             }
 
@@ -35,10 +35,10 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        public static IGremlinQueryEnvironment UseNeptune(this IGremlinQueryEnvironment environment, Func<INeptuneConfigurationBuilder, IGremlinQueryEnvironmentTransformation> transformation)
+        public static IGremlinQueryEnvironment UseNeptune(this IGremlinQueryEnvironment environment, Func<INeptuneConfigurator, IGremlinQueryEnvironmentTransformation> transformation)
         {
             return environment
-                .UseWebSocket(builder => transformation(new NeptuneConfigurationBuilder(builder)))
+                .UseWebSocket(builder => transformation(new NeptuneConfigurator(builder)))
                 .ConfigureSerializer(serializer => serializer
                     .ConfigureFragmentSerializer(fragmentSerializer => fragmentSerializer
                         .Override<PropertyStep>((step, env, overridden, recurse) => overridden(Cardinality.List.Equals(step.Cardinality) ? new PropertyStep(step.Key, step.Value, step.MetaProperties, Cardinality.Set) : step, env, recurse))))
