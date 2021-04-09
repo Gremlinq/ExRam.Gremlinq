@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -24,8 +25,11 @@ namespace ExRam.Gremlinq.Core.AspNet
             public IGremlinQueryEnvironment Transform(IGremlinQueryEnvironment environment)
             {
                 return environment
-                    .UseNeptune(builder => builder.Configure(_configuration)
-                        .Transform(_webSocketTransformations));
+                    .UseNeptune(builder => builder
+                        .At(new Uri("ws://localhost:8182"))
+                        .ConfigureWebSocket(_ => _
+                            .Configure(_configuration)
+                            .Transform(_webSocketTransformations)));
             }
         }
 

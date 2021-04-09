@@ -1,6 +1,6 @@
-﻿using ExRam.Gremlinq.Core;
+﻿using System;
+using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
-using ExRam.Gremlinq.Providers.WebSocket;
 using Xunit.Abstractions;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
@@ -11,7 +11,8 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
         public NeptuneQuerySerializationTest(ITestOutputHelper testOutputHelper) : base(
             g
                 .ConfigureEnvironment(env => env
-                    .UseNeptune(builder => builder.AtLocalhost())),
+                    .UseNeptune(builder => builder
+                        .At(new Uri("ws://localhost:8182")))),
             testOutputHelper)
         {
         }
