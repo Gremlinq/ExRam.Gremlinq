@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ExRam.Gremlinq.Core.AspNet
@@ -9,14 +8,11 @@ namespace ExRam.Gremlinq.Core.AspNet
         private sealed class UseGremlinServerGremlinQueryEnvironmentTransformation : IGremlinQueryEnvironmentTransformation
         {
             private readonly IConfiguration _configuration;
-            private readonly IEnumerable<IWebSocketGremlinQueryExecutorBuilderTransformation> _webSocketTransformations;
 
             // ReSharper disable once SuggestBaseTypeForParameter
             public UseGremlinServerGremlinQueryEnvironmentTransformation(
-                IGremlinqConfiguration configuration,
-                IEnumerable<IWebSocketGremlinQueryExecutorBuilderTransformation> webSocketTransformations)
+                IGremlinqConfiguration configuration)
             {
-                _webSocketTransformations = webSocketTransformations;
                 _configuration = configuration
                     .GetSection("GremlinServer");
             }
@@ -25,8 +21,7 @@ namespace ExRam.Gremlinq.Core.AspNet
             {
                 return environment
                     .UseGremlinServer(builder => builder
-                        .Configure(_configuration)
-                        .Transform(_webSocketTransformations));
+                        .Configure(_configuration));
             }
         }
 
