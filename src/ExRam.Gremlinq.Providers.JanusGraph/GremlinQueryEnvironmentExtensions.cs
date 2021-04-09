@@ -1,14 +1,45 @@
 ﻿using System;
+using ExRam.Gremlinq.Providers.JanusGraph;
 using ExRam.Gremlinq.Providers.WebSocket;
 
 namespace ExRam.Gremlinq.Core
 {
     public static class GremlinQueryEnvironmentExtensions
     {
-        public static IGremlinQueryEnvironment UseJanusGraph(this IGremlinQueryEnvironment environment, Func<IWebSocketGremlinQueryExecutorBuilder, IWebSocketGremlinQueryExecutorBuilder> builderAction)
+        private sealed class JanusGraphConfigurationBuilder :
+            IJanusGraphConfigurationBuilder,
+            IJanusGraphConfigurationBuilderWithUri
+        {
+            private readonly IWebSocketGremlinQueryExecutorBuilder _webSocketBuilder;
+
+            public JanusGraphConfigurationBuilder(IWebSocketGremlinQueryExecutorBuilder webSocketBuilder)
+            {
+                _webSocketBuilder = webSocketBuilder;
+            }
+
+            public IJanusGraphConfigurationBuilderWithUri At(Uri uri)
+            {
+                return new JanusGraphConfigurationBuilder(_webSocketBuilder.At(uri));
+            }
+
+            public IGremlinQueryExecutorBuilder ConfigureWebSocket(Func<IWebSocketGremlinQueryExecutorBuilder, IWebSocketGremlinQueryExecutorBuilder> transformation)
+            {
+                return new JanusGraphConfigurationBuilder(
+                    transformation(_webSocketBuilder));
+            }
+
+            public IGremlinQueryExecutor Build()
+            {
+                return _webSocketBuilder.Build();
+            }
+
+            public IGremlinQueryEnvironment Environment => _webSocketBuilder.Environment;
+        }
+
+        public static IGremlinQueryEnvironment UseJanusGraph(this IGremlinQueryEnvironment environment, Func<IJanusGraphConfigurationBuilder, IGremlinQueryExecutorBuilder> transformation)
         {
             return environment
-                .UseGremlinServer(builderAction)
+                .UseGremlinServer(builder => transformation(new JanusGraphConfigurationBuilder(builder)))
                 .ConfigureFeatureSet(featureSet => featureSet
                     .ConfigureGraphFeatures(_ => GraphFeatures.Computer | GraphFeatures.Transactions | GraphFeatures.ThreadedTransactions | GraphFeatures.Persistence)
                     .ConfigureVariableFeatures(_ => VariableFeatures.MapValues)
