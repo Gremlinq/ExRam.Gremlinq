@@ -231,7 +231,7 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        public static IConfigurableGremlinQuerySource UseWebSocket(
+        public static IGremlinQuerySource UseWebSocket(
             this IConfigurableGremlinQuerySource source,
             Func<IWebSocketConfigurator, IGremlinQuerySourceTransformation> builderTransformation)
         {

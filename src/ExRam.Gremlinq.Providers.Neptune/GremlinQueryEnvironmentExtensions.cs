@@ -34,7 +34,7 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        public static IConfigurableGremlinQuerySource UseNeptune(this IConfigurableGremlinQuerySource source, Func<INeptuneConfigurator, IGremlinQuerySourceTransformation> transformation)
+        public static IGremlinQuerySource UseNeptune(this IConfigurableGremlinQuerySource source, Func<INeptuneConfigurator, IGremlinQuerySourceTransformation> transformation)
         {
             return source
                 .UseWebSocket(builder => transformation(new NeptuneConfigurator(builder)))
