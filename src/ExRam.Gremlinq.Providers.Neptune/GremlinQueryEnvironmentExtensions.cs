@@ -9,16 +9,23 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class NeptuneConfigurator : INeptuneConfigurator, INeptuneConfiguratorWithUri
         {
+            private readonly Uri? _elasticSearchEndPoint;
             private readonly IWebSocketConfigurator _webSocketBuilder;
 
-            public NeptuneConfigurator(IWebSocketConfigurator webSocketBuilder)
+            public NeptuneConfigurator(IWebSocketConfigurator webSocketBuilder, Uri? elasticSearchEndPoint = default)
             {
                 _webSocketBuilder = webSocketBuilder;
+                _elasticSearchEndPoint = elasticSearchEndPoint;
             }
 
             public INeptuneConfiguratorWithUri At(Uri uri)
             {
                 return new NeptuneConfigurator(_webSocketBuilder.At(uri));
+            }
+
+            public IGremlinQuerySourceTransformation UseElasticSearch(Uri endPoint)
+            {
+                return new NeptuneConfigurator(_webSocketBuilder, endPoint);
             }
 
             public IGremlinQuerySourceTransformation ConfigureWebSocket(Func<IWebSocketConfigurator, IWebSocketConfigurator> transformation)
@@ -29,8 +36,13 @@ namespace ExRam.Gremlinq.Core
 
             public IGremlinQuerySource Transform(IGremlinQuerySource source)
             {
-                return _webSocketBuilder
+                var ret = _webSocketBuilder
                     .Transform(source);
+
+                if (_elasticSearchEndPoint is { } endPoint)
+                    ret = ret.WithSideEffect("Neptune#fts.endpoint", endPoint.ToString());
+
+                return ret;
             }
         }
 

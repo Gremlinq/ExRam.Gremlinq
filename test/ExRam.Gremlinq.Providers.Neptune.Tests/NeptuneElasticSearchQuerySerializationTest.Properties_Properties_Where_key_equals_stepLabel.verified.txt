@@ -1,0 +1,71 @@
+[
+  {
+    "SourceInstructions": [
+      {
+        "OperatorName": "withSideEffect",
+        "Arguments": [
+          "Neptune#fts.endpoint",
+          "http://elastic.search.server/"
+        ]
+      }
+    ],
+    "StepInstructions": [
+      {
+        "OperatorName": "inject",
+        "Arguments": [
+          "hello"
+        ]
+      },
+      {
+        "OperatorName": "as",
+        "Arguments": [
+          "l2"
+        ]
+      },
+      {
+        "OperatorName": "V",
+        "Arguments": []
+      },
+      {
+        "OperatorName": "hasLabel",
+        "Arguments": [
+          "Company"
+        ]
+      },
+      {
+        "OperatorName": "properties",
+        "Arguments": [
+          "Locations"
+        ]
+      },
+      {
+        "OperatorName": "properties",
+        "Arguments": []
+      },
+      {
+        "OperatorName": "where",
+        "Arguments": [
+          {
+            "SourceInstructions": [],
+            "StepInstructions": [
+              {
+                "OperatorName": "key",
+                "Arguments": []
+              },
+              {
+                "OperatorName": "where",
+                "Arguments": [
+                  {
+                    "OperatorName": "eq",
+                    "Value": "l2",
+                    "Other": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

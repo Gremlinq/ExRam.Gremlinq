@@ -1,0 +1,27 @@
+[
+  {
+    "SourceInstructions": [
+      {
+        "OperatorName": "withSideEffect",
+        "Arguments": [
+          "Neptune#fts.endpoint",
+          "http://elastic.search.server/"
+        ]
+      }
+    ],
+    "StepInstructions": [
+      {
+        "OperatorName": "V",
+        "Arguments": []
+      },
+      {
+        "OperatorName": "properties",
+        "Arguments": []
+      },
+      {
+        "OperatorName": "label",
+        "Arguments": []
+      }
+    ]
+  }
+]
