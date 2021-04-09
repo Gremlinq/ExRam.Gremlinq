@@ -1,5 +1,4 @@
-﻿using System;
-using Gremlin.Net.Process.Traversal;
+﻿using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -9,62 +8,84 @@ namespace ExRam.Gremlinq.Core
         
         public static P ToP(this ExpressionSemantics semantics, object? value)
         {
-            if (semantics == EnumerableExpressionSemantics.Contains)
-                return new P("eq", value);
-
-            if (semantics == EnumerableExpressionSemantics.Intersects)
-                return P.Within(value);
-
-            if (semantics == EnumerableExpressionSemantics.IsContainedIn)
-                return P.Within(value);
-
-            if (semantics is StringExpressionSemantics && value is string stringValue)
+            switch (semantics)
             {
-                if (semantics == StringExpressionSemantics.IsPrefixOf)
-                    return P.Within(SubStrings(stringValue));
-
-                if (semantics == StringExpressionSemantics.HasInfix)
+                case ContainsExpressionSemantics:
                 {
-                    return stringValue.Length > 0
-                        ? TextP.Containing(stringValue)
-                        : PNeqNull;
-                }
-
-                if (semantics == StringExpressionSemantics.StartsWith)
-                {
-                    return stringValue.Length > 0
-                        ? TextP.StartingWith(stringValue)
-                        : PNeqNull;
-                }
-
-                if (semantics == StringExpressionSemantics.EndsWith)
-                {
-                    return stringValue.Length > 0
-                        ? TextP.EndingWith(stringValue)
-                        : PNeqNull;
-                }
-            }
-            else if (semantics is ObjectExpressionSemantics)
-            {
-                if (semantics == ObjectExpressionSemantics.Equals)
                     return new P("eq", value);
-
-                if (semantics == ObjectExpressionSemantics.NotEquals)
-                    return new P("neq", value);
-
-                if (semantics is NumericExpressionSemantics)
+                }
+                case IntersectsExpressionSemantics:
                 {
-                    if (semantics == NumericExpressionSemantics.LowerThan)
-                        return new P("lt", value);
+                    return P.Within(value);
+                }
+                case IsContainedInExpressionSemantics:
+                {
+                    return P.Within(value);
+                }
+                case StringExpressionSemantics when value is string stringValue:
+                {
+                    switch (semantics)
+                    {
+                        case IsPrefixOfExpressionSemantics:
+                        {
+                            return P.Within(SubStrings(stringValue));
+                        }
+                        case HasInfixExpressionSemantics:
+                        {
+                            return stringValue.Length > 0
+                                ? TextP.Containing(stringValue)
+                                : PNeqNull;
+                        }
+                        case StartsWithExpressionSemantics:
+                        {
+                            return stringValue.Length > 0
+                                ? TextP.StartingWith(stringValue)
+                                : PNeqNull;
+                        }
+                        case EndsWithExpressionSemantics:
+                        {
+                            return stringValue.Length > 0
+                                ? TextP.EndingWith(stringValue)
+                                : PNeqNull;
+                        }
+                    }
 
-                    if (semantics == NumericExpressionSemantics.GreaterThan)
-                        return new P("gt", value);
+                    break;
+                }
+                case EqualsExpressionSemantics:
+                {
+                    return new P("eq", value);
+                }
+                case NotEqualsExpressionSemantics:
+                {
+                    return new P("neq", value);
+                }
+                case ObjectExpressionSemantics:
+                {
+                    if (semantics is NumericExpressionSemantics)
+                    {
+                        switch (semantics)
+                        {
+                            case LowerThanExpressionSemantics:
+                            {
+                                return new P("lt", value);
+                            }
+                            case GreaterThanExpressionSemantics:
+                            {
+                                return new P("gt", value);
+                            }
+                            case GreaterThanOrEqualExpressionSemantics:
+                            {
+                                return new P("gte", value);
+                            }
+                            case LowerThanOrEqualExpressionSemantics:
+                            {
+                                return new P("lte", value);
+                            }
+                        }
+                    }
 
-                    if (semantics == NumericExpressionSemantics.GreaterThanOrEqual)
-                        return new P("gte", value);
-
-                    if (semantics == NumericExpressionSemantics.LowerThanOrEqual)
-                        return new P("lte", value);
+                    break;
                 }
             }
 
