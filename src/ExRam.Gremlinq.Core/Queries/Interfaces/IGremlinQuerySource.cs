@@ -10,6 +10,7 @@ namespace ExRam.Gremlinq.Core
         IEdgeGremlinQuery<TNewEdge> ReplaceE<TNewEdge>(TNewEdge edge);
 
         IGremlinQuerySource WithoutStrategies(params Type[] strategyTypes);
+        IGremlinQuerySource WithSideEffect<TSideEffect>(StepLabel<TSideEffect> label, TSideEffect value);
 
         IGremlinQueryEnvironment Environment { get; }
     }

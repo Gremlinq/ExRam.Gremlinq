@@ -1162,6 +1162,16 @@
     }
   },
   {
+    Item1: WithSideEffectStep,
+    Item2: {
+      OperatorName: withSideEffect,
+      Arguments: [
+        {},
+        string
+      ]
+    }
+  },
+  {
     Item1: WithStrategiesStep,
     Item2: {
       OperatorName: withStrategies,
