@@ -7,25 +7,16 @@
           "Neptune#fts.endpoint",
           "http://elastic.search.server/"
         ]
+      },
+      {
+        "OperatorName": "withSideEffect",
+        "Arguments": [
+          "Neptune#fts.queryType",
+          "query_string"
+        ]
       }
     ],
     "StepInstructions": [
-      {
-        "OperatorName": "V",
-        "Arguments": []
-      },
-      {
-        "OperatorName": "hasLabel",
-        "Arguments": [
-          "Person"
-        ]
-      },
-      {
-        "OperatorName": "as",
-        "Arguments": [
-          "l2"
-        ]
-      },
       {
         "OperatorName": "V",
         "Arguments": []
@@ -43,12 +34,28 @@
         ]
       },
       {
+        "OperatorName": "V",
+        "Arguments": []
+      },
+      {
+        "OperatorName": "hasLabel",
+        "Arguments": [
+          "Person"
+        ]
+      },
+      {
+        "OperatorName": "as",
+        "Arguments": [
+          "l4"
+        ]
+      },
+      {
         "OperatorName": "where",
         "Arguments": [
-          "l2",
+          "l3",
           {
             "OperatorName": "gte",
-            "Value": "l3",
+            "Value": "l4",
             "Other": null
           }
         ]

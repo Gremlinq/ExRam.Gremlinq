@@ -7,6 +7,13 @@
           "Neptune#fts.endpoint",
           "http://elastic.search.server/"
         ]
+      },
+      {
+        "OperatorName": "withSideEffect",
+        "Arguments": [
+          "Neptune#fts.queryType",
+          "query_string"
+        ]
       }
     ],
     "StepInstructions": [
@@ -23,7 +30,7 @@
       {
         "OperatorName": "as",
         "Arguments": [
-          "l2"
+          "l3"
         ]
       },
       {
@@ -33,7 +40,7 @@
       {
         "OperatorName": "select",
         "Arguments": [
-          "l2"
+          "l3"
         ]
       },
       {
