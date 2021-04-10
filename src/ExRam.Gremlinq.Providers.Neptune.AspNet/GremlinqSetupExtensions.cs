@@ -12,8 +12,7 @@ namespace ExRam.Gremlinq.Core.AspNet
             private readonly IConfiguration _configuration;
 
             // ReSharper disable once SuggestBaseTypeForParameter
-            public UseNeptuneGremlinQuerySourceTransformation(
-                IGremlinqConfiguration configuration)
+            public UseNeptuneGremlinQuerySourceTransformation(IGremlinqConfiguration configuration)
             {
                 _configuration = configuration
                     .GetSection("Neptune");
@@ -22,10 +21,19 @@ namespace ExRam.Gremlinq.Core.AspNet
             public IGremlinQuerySource Transform(IGremlinQuerySource source)
             {
                 return source
-                    .UseNeptune(builder => builder
-                        .At(new Uri("ws://localhost:8182"))
-                        .ConfigureWebSocket(_ => _
-                            .Configure(_configuration)));
+                    .UseNeptune(builder =>
+                    {
+                        var builderWithUri = builder
+                            .At(new Uri("ws://localhost:8182"));
+
+                        var tranformation = (_configuration["ElasticSearchEndPoint"] is { } endPoint)
+                            ? builderWithUri.UseElasticSearch(new Uri(endPoint))
+                            : builderWithUri;
+
+                        return tranformation
+                            .ConfigureWebSocket(_ => _
+                                .Configure(_configuration));
+                    });
             }
         }
 
