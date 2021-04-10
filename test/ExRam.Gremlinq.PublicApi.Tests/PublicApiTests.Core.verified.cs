@@ -790,8 +790,8 @@ namespace ExRam.Gremlinq.Core
         TSelf As(ExRam.Gremlinq.Core.StepLabel<TElement> stepLabel);
         TTargetQuery As<TTargetQuery>(System.Func<TSelf, ExRam.Gremlinq.Core.StepLabel<TSelf, TElement>, TTargetQuery> continuation)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
-        TTargetQuery Choose<TTargetQuery>(System.Linq.Expressions.Expression<System.Func<TElement, bool>> predicate, System.Func<TSelf, TTargetQuery> trueChoice)
-            where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
+        ExRam.Gremlinq.Core.IValueGremlinQuery<object> Choose(System.Linq.Expressions.Expression<System.Func<TElement, bool>> predicate, System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase> trueChoice);
+        TSelf Choose(System.Linq.Expressions.Expression<System.Func<TElement, bool>> predicate, System.Func<TSelf, TSelf> trueChoice);
         TTargetQuery Choose<TTargetQuery>(System.Linq.Expressions.Expression<System.Func<TElement, bool>> predicate, System.Func<TSelf, TTargetQuery> trueChoice, System.Func<TSelf, TTargetQuery> falseChoice)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
         ExRam.Gremlinq.Core.IArrayGremlinQuery<TElement[], TElement, TSelf> Fold();
