@@ -1891,6 +1891,11 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
         protected ObjectExpressionSemantics() { }
         public ExRam.Gremlinq.Core.ExpressionParsing.ExpressionSemantics TransformCompareTo(int comparison) { }
     }
+    public static class PFactory
+    {
+        public static readonly ExRam.Gremlinq.Core.ExpressionParsing.IPFactory Default;
+        public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.ExpressionParsing.IPFactory> PFactoryOption;
+    }
     public sealed class StartsWithExpressionSemantics : ExRam.Gremlinq.Core.ExpressionParsing.StringExpressionSemantics
     {
         public static readonly ExRam.Gremlinq.Core.ExpressionParsing.StartsWithExpressionSemantics CaseInsensitive;
