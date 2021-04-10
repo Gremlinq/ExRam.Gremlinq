@@ -1,4 +1,6 @@
 ﻿using System;
+
+using ExRam.Gremlinq.Core.ExpressionParsing;
 using ExRam.Gremlinq.Providers.Neptune;
 using ExRam.Gremlinq.Providers.WebSocket;
 using Gremlin.Net.Process.Traversal;
@@ -9,6 +11,32 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class NeptuneConfigurator : INeptuneConfigurator, INeptuneConfiguratorWithUri
         {
+            private sealed class ElasticSearchAwarePFactory : IPFactory
+            {
+                private readonly IPFactory _baseFactory;
+
+                public ElasticSearchAwarePFactory(IPFactory baseFactory)
+                {
+                    _baseFactory = baseFactory;
+                }
+
+                public P? TryGetP(ExpressionSemantics semantics, object? value, IGremlinQueryEnvironment environment)
+                {
+                    if (semantics is StringExpressionSemantics { Comparison: StringComparison.OrdinalIgnoreCase } stringExpressionSemantics)
+                    {
+                        return stringExpressionSemantics switch
+                        {
+                            StartsWithExpressionSemantics startsWith => P.Eq($"Neptune#fts {value}*"),
+                            EndsWithExpressionSemantics endsWith => P.Eq($"Neptune#fts *{value}"),
+                            HasInfixExpressionSemantics hasInfix => P.Eq($"Neptune#fts *{value}*"),
+                            _ => null
+                        };
+                    }
+                    
+                    return _baseFactory.TryGetP(semantics, value, environment);
+                }
+            }
+
             private readonly Uri? _elasticSearchEndPoint;
             private readonly IWebSocketConfigurator _webSocketBuilder;
 
@@ -40,7 +68,15 @@ namespace ExRam.Gremlinq.Core
                     .Transform(source);
 
                 if (_elasticSearchEndPoint is { } endPoint)
-                    ret = ret.WithSideEffect("Neptune#fts.endpoint", endPoint.ToString());
+                {
+                    ret = ret
+                        .WithSideEffect("Neptune#fts.endpoint", endPoint.ToString())
+                        .ConfigureEnvironment(env => env
+                            .ConfigureOptions(options => options
+                                .ConfigureValue(
+                                    PFactory.PFactoryOption,
+                                    factory => new ElasticSearchAwarePFactory(factory))));
+                }
 
                 return ret;
             }
