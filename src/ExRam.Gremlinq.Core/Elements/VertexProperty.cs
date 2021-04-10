@@ -37,8 +37,6 @@ namespace ExRam.Gremlinq.Core.GraphElements
         public object? Id { get; set; }
         public string? Label { get; set; }
         public TMeta? Properties { get; set; }
-
-        object? IVertexProperty.Id { get => Id; }
     }
 
     public class VertexProperty<TValue> : VertexProperty<TValue, IDictionary<string, object>>
