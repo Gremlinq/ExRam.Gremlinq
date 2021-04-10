@@ -16,6 +16,7 @@
   IMemberMetadataConfigurator<>: null,
   IGremlinqOption: null,
   IGremlinqOptions: null,
+  IPFactory: null,
   IChooseBuilder<>: null,
   IChooseBuilderWithCase<, , >: null,
   IChooseBuilderWithCaseOrDefault<>: null,
