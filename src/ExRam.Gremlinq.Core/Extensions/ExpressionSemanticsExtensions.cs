@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq.Core
     {
         private static readonly P PNeqNull = P.Neq(new object?[] { null });
         
-        public static P ToP(this ExpressionSemantics semantics, object? value, IGremlinQueryEnvironment environment)
+        public static P? TryGetP(this ExpressionSemantics semantics, object? value, IGremlinQueryEnvironment environment)
         {
             switch (semantics)
             {
