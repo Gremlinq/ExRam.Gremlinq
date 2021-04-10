@@ -24,11 +24,7 @@
         "OperatorName": "has",
         "Arguments": [
           "CountryCallingCode",
-          {
-            "OperatorName": "containing",
-            "Value": "456",
-            "Other": null
-          }
+          "Neptune#fts *456*"
         ]
       },
       {
