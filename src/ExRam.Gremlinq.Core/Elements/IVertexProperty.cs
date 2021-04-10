@@ -6,6 +6,6 @@ namespace ExRam.Gremlinq.Core.GraphElements
     {
         IEnumerable<KeyValuePair<string, object>> GetProperties(IGremlinQueryEnvironment environment);
 
-        object? Id { get; set; }
+        object? Id { get; }
     }
 }

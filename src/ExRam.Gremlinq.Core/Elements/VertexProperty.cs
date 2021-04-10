@@ -38,7 +38,7 @@ namespace ExRam.Gremlinq.Core.GraphElements
         public string? Label { get; set; }
         public TMeta? Properties { get; set; }
 
-        object? IVertexProperty.Id { get => Id; set => throw new InvalidOperationException($"Can't set the {nameof(Id)}-property of a {nameof(VertexProperty<TValue, TMeta>)}."); }
+        object? IVertexProperty.Id { get => Id; }
     }
 
     public class VertexProperty<TValue> : VertexProperty<TValue, IDictionary<string, object>>
