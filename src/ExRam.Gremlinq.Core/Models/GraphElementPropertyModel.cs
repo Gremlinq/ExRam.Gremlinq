@@ -4,7 +4,6 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-
 using ExRam.Gremlinq.Core.ExpressionParsing;
 
 namespace ExRam.Gremlinq.Core
@@ -20,8 +19,7 @@ namespace ExRam.Gremlinq.Core
             
             public IGraphElementPropertyModel ConfigureMemberMetadata(Func<IImmutableDictionary<MemberInfo, MemberMetadata>, IImmutableDictionary<MemberInfo, MemberMetadata>> transformation)
             {
-                return new GraphElementPropertyModelImpl(
-                    transformation(MemberMetadata));
+                return new GraphElementPropertyModelImpl(transformation(MemberMetadata));
             }
 
             public IImmutableDictionary<MemberInfo, MemberMetadata> MemberMetadata { get; }
@@ -31,12 +29,15 @@ namespace ExRam.Gremlinq.Core
         {
             public IGraphElementPropertyModel ConfigureMemberMetadata(Func<IImmutableDictionary<MemberInfo, MemberMetadata>, IImmutableDictionary<MemberInfo, MemberMetadata>> transformation)
             {
-                throw new InvalidOperationException(); //TODO: Message
+                throw new InvalidOperationException($"{nameof(ConfigureMemberMetadata)} must not be called on {nameof(GraphElementPropertyModel)}.{Invalid}. Configure a valid model for the environment first.");
             }
 
             public IImmutableDictionary<MemberInfo, MemberMetadata> MemberMetadata
             {
-                get => throw new InvalidOperationException(); //TODO: Message
+                get
+                {
+                    throw new InvalidOperationException($"{nameof(MemberMetadata)} must not be called on {nameof(GraphElementPropertyModel)}.{Invalid}. Configure a valid model for the environment first.");
+                }
             }
         }
 
