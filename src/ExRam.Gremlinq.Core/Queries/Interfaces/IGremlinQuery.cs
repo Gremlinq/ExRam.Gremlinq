@@ -92,7 +92,8 @@ namespace ExRam.Gremlinq.Core
         TSelf Barrier();
 
         TTargetQuery Choose<TTargetQuery>(Func<TSelf, IGremlinQueryBase> traversalPredicate, Func<TSelf, TTargetQuery> trueChoice, Func<TSelf, TTargetQuery> falseChoice) where TTargetQuery : IGremlinQueryBase;
-        TTargetQuery Choose<TTargetQuery>(Func<TSelf, IGremlinQueryBase> traversalPredicate, Func<TSelf, TTargetQuery> trueChoice) where TTargetQuery : IGremlinQueryBase;
+        TSelf Choose(Func<TSelf, IGremlinQueryBase> traversalPredicate, Func<TSelf, TSelf> trueChoice);
+        IValueGremlinQuery<object> Choose(Func<TSelf, IGremlinQueryBase> traversalPredicate, Func<TSelf, IGremlinQueryBase> trueChoice);
 
         TTargetQuery Choose<TTargetQuery>(Func<IChooseBuilder<TSelf>, IChooseBuilderWithCaseOrDefault<TTargetQuery>> continuation) where TTargetQuery : IGremlinQueryBase;
 
