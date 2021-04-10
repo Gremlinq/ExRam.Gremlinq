@@ -27,10 +27,25 @@ namespace ExRam.Gremlinq.Core
             public IImmutableDictionary<MemberInfo, MemberMetadata> MemberMetadata { get; }
         }
 
+        private sealed class InvalidGraphElementPropertyModel : IGraphElementPropertyModel
+        {
+            public IGraphElementPropertyModel ConfigureMemberMetadata(Func<IImmutableDictionary<MemberInfo, MemberMetadata>, IImmutableDictionary<MemberInfo, MemberMetadata>> transformation)
+            {
+                throw new InvalidOperationException(); //TODO: Message
+            }
+
+            public IImmutableDictionary<MemberInfo, MemberMetadata> MemberMetadata
+            {
+                get => throw new InvalidOperationException(); //TODO: Message
+            }
+        }
+
         public static readonly IGraphElementPropertyModel Empty = new GraphElementPropertyModelImpl(
             ImmutableDictionary<MemberInfo, MemberMetadata>
                 .Empty
                 .WithComparers(MemberInfoEqualityComparer.Instance));
+
+        public static readonly IGraphElementPropertyModel Invalid = new InvalidGraphElementPropertyModel();
 
         public static IGraphElementPropertyModel ConfigureElement<TElement>(this IGraphElementPropertyModel model, Func<IMemberMetadataConfigurator<TElement>, IImmutableDictionary<MemberInfo, MemberMetadata>> transformation)
         {

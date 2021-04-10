@@ -12,15 +12,21 @@ namespace ExRam.Gremlinq.Core.Tests
 {
     public class GremlinQueryTest : GremlinqTestBase
     {
+        private readonly IGremlinQuerySource _g;
+
         public GremlinQueryTest(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
-
+            _g = g
+                .ConfigureEnvironment(_ => _
+                    .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>()));
         }
 
         [Fact]
         public void ChangeQueryType()
         {
-            var anon = g.ConfigureEnvironment(_ => _).V().AsAdmin();
+            var anon = _g
+                .V()
+                .AsAdmin();
 
             var interfaces = typeof(IGremlinQueryBase)
                 .Assembly
@@ -42,7 +48,8 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void ChangeQueryType_optimizes()
         {
-            var query = g.ConfigureEnvironment(_ => _).V<Person>();
+            var query = _g
+                .V<Person>();
 
             query.AsAdmin().ChangeQueryType<IVertexGremlinQuery<Person>>()
                 .Should()
@@ -64,7 +71,8 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void ChangeQueryType_takes_array_element_types_into_account()
         {
-            var query = g.ConfigureEnvironment(_ => _).V<Person>();
+            var query = _g
+                .V<Person>();
 
             query.AsAdmin().ChangeQueryType<IGremlinQueryBase<Person[]>>()
                 .Should()
@@ -74,8 +82,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public async Task Debug()
         {
-            await Verify(g
-                .ConfigureEnvironment(_ => _)
+            await Verify(_g
                 .V<Person>()
                 .Where(x => x.Age > 36)
                 .Out<LivesIn>()

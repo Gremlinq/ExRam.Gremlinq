@@ -49,7 +49,10 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             g
                 .ConfigureEnvironment(env => env
-                    .EchoGraphsonString())
+                    .UseModel(GraphModel
+                        .FromBaseTypes<Vertex, Edge>(lookup => lookup
+                            .IncludeAssembliesOfBaseTypes()))
+                    .EchoGroovyString())
                 .V<Person>()
                 .Awaiting(_ => _
                     .ToArrayAsync())

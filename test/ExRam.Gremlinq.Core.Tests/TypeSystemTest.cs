@@ -100,7 +100,9 @@ namespace ExRam.Gremlinq.Core.Tests
 
         public static readonly Step[] AllSteps;
 
-        private readonly IGremlinQuerySource _g = g.ConfigureEnvironment(_ => _);
+        private readonly IGremlinQuerySource _g = g
+            .ConfigureEnvironment(_ => _
+                .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>()));
 
         static TypeSystemTest()
         {

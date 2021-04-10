@@ -18,7 +18,19 @@ namespace ExRam.Gremlinq.Core
             public IImmutableDictionary<Type, ElementMetadata> Metadata { get; }
         }
 
+        private sealed class InvalidGraphElementModel : IGraphElementModel
+        {
+            public IImmutableDictionary<Type, ElementMetadata> Metadata
+            {
+                get
+                {
+                    throw new InvalidOperationException();//TODO: Message!
+                }
+            }
+        }
+
         public static readonly IGraphElementModel Empty = new GraphElementModelImpl(ImmutableDictionary<Type, ElementMetadata>.Empty);
+        public static readonly IGraphElementModel Invalid = new InvalidGraphElementModel();
 
         public static IGraphElementModel FromTypes(IEnumerable<Type> types)
         {

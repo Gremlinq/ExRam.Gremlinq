@@ -1,5 +1,8 @@
 ﻿using System.Threading.Tasks;
 using ExRam.Gremlinq.Core.GraphElements;
+
+using Gremlin.Net.Structure;
+
 using Xunit;
 using Xunit.Abstractions;
 
@@ -43,6 +46,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await g
                 .ConfigureEnvironment(env => env
+                    .UseModel(GraphModel.FromBaseTypes<VertexBase, Edge>())
                     .EchoGroovyString())
                 .AddV(new Item { Value = "MyValue" })
                 .Cast<string>()
@@ -54,6 +58,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await g
                 .ConfigureEnvironment(env => env
+                    .UseModel(GraphModel.FromBaseTypes<VertexBase, Edge>())
                     .EchoGroovyString())
                 .AddV(new ItemOverride { Value = "MyValue" })
                 .Cast<string>()

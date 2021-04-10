@@ -262,6 +262,7 @@ namespace ExRam.Gremlinq.Core
     public static class GraphElementModel
     {
         public static readonly ExRam.Gremlinq.Core.IGraphElementModel Empty;
+        public static readonly ExRam.Gremlinq.Core.IGraphElementModel Invalid;
         public static ExRam.Gremlinq.Core.IGraphElementModel ConfigureLabels(this ExRam.Gremlinq.Core.IGraphElementModel model, System.Func<System.Type, string, string> overrideTransformation) { }
         public static ExRam.Gremlinq.Core.IGraphElementModel FromBaseType(System.Type baseType, System.Collections.Generic.IEnumerable<System.Reflection.Assembly>? assemblies) { }
         public static ExRam.Gremlinq.Core.IGraphElementModel FromBaseType<TType>(System.Collections.Generic.IEnumerable<System.Reflection.Assembly>? assemblies) { }
@@ -273,6 +274,7 @@ namespace ExRam.Gremlinq.Core
     public static class GraphElementPropertyModel
     {
         public static readonly ExRam.Gremlinq.Core.IGraphElementPropertyModel Empty;
+        public static readonly ExRam.Gremlinq.Core.IGraphElementPropertyModel Invalid;
         public static ExRam.Gremlinq.Core.IGraphElementPropertyModel ConfigureElement<TElement>(this ExRam.Gremlinq.Core.IGraphElementPropertyModel model, System.Func<ExRam.Gremlinq.Core.IMemberMetadataConfigurator<TElement>, System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.MemberMetadata>> transformation) { }
     }
     [System.Flags]
@@ -291,10 +293,10 @@ namespace ExRam.Gremlinq.Core
     public static class GraphModel
     {
         public static readonly ExRam.Gremlinq.Core.IGraphModel Empty;
+        public static readonly ExRam.Gremlinq.Core.IGraphModel Invalid;
         public static ExRam.Gremlinq.Core.IGraphModel ConfigureElements(this ExRam.Gremlinq.Core.IGraphModel model, System.Func<ExRam.Gremlinq.Core.IGraphElementModel, ExRam.Gremlinq.Core.IGraphElementModel> transformation) { }
-        public static ExRam.Gremlinq.Core.IGraphModel Default(System.Func<ExRam.Gremlinq.Core.IAssemblyLookupBuilder, ExRam.Gremlinq.Core.IAssemblyLookupSet> assemblyLookupTransformation) { }
         public static ExRam.Gremlinq.Core.IGraphModel FromBaseTypes(System.Type vertexBaseType, System.Type edgeBaseType, System.Func<ExRam.Gremlinq.Core.IAssemblyLookupBuilder, ExRam.Gremlinq.Core.IAssemblyLookupSet> assemblyLookupTransformation) { }
-        public static ExRam.Gremlinq.Core.IGraphModel FromBaseTypes<TVertex, TEdge>(System.Func<ExRam.Gremlinq.Core.IAssemblyLookupBuilder, ExRam.Gremlinq.Core.IAssemblyLookupSet> assemblyLookupTransformation) { }
+        public static ExRam.Gremlinq.Core.IGraphModel FromBaseTypes<TVertex, TEdge>(System.Func<ExRam.Gremlinq.Core.IAssemblyLookupBuilder, ExRam.Gremlinq.Core.IAssemblyLookupSet>? assemblyLookupTransformation = null) { }
         public static ExRam.Gremlinq.Core.IGraphModel FromTypes(System.Type[] vertexTypes, System.Type[] edgeTypes) { }
     }
     public static class GremlinQueryAdmin
