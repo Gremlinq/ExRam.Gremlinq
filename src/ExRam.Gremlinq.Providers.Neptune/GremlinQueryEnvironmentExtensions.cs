@@ -1,5 +1,4 @@
 ﻿using System;
-
 using ExRam.Gremlinq.Core.ExpressionParsing;
 using ExRam.Gremlinq.Providers.Neptune;
 using ExRam.Gremlinq.Providers.WebSocket;
@@ -22,15 +21,17 @@ namespace ExRam.Gremlinq.Core
 
                 public P? TryGetP(ExpressionSemantics semantics, object? value, IGremlinQueryEnvironment environment)
                 {
-                    if (semantics is StringExpressionSemantics { Comparison: StringComparison.OrdinalIgnoreCase } stringExpressionSemantics)
+                    if (value is string { Length: > 0 } && semantics is StringExpressionSemantics { Comparison: StringComparison.OrdinalIgnoreCase } stringExpressionSemantics)
                     {
-                        return stringExpressionSemantics switch
+                        switch (stringExpressionSemantics)
                         {
-                            StartsWithExpressionSemantics startsWith => P.Eq($"Neptune#fts {value}*"),
-                            EndsWithExpressionSemantics endsWith => P.Eq($"Neptune#fts *{value}"),
-                            HasInfixExpressionSemantics hasInfix => P.Eq($"Neptune#fts *{value}*"),
-                            _ => null
-                        };
+                            case StartsWithExpressionSemantics:
+                                return P.Eq($"Neptune#fts {value}*");
+                            case EndsWithExpressionSemantics:
+                                return P.Eq($"Neptune#fts *{value}");
+                            case HasInfixExpressionSemantics:
+                                return P.Eq($"Neptune#fts *{value}*");
+                        }
                     }
                     
                     return _baseFactory.TryGetP(semantics, value, environment);

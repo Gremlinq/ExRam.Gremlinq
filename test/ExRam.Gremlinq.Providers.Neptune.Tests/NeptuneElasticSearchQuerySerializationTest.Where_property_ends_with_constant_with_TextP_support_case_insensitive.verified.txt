@@ -24,11 +24,7 @@
         "OperatorName": "has",
         "Arguments": [
           "CountryCallingCode",
-          {
-            "OperatorName": "endingWith",
-            "Value": "7890",
-            "Other": null
-          }
+          "Neptune#fts *7890"
         ]
       },
       {
