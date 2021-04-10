@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-
 using ExRam.Gremlinq.Tests.Entities;
-
 using FluentAssertions;
 using Xunit;
 using Xunit.Abstractions;

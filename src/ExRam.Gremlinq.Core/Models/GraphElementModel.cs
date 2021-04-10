@@ -24,7 +24,7 @@ namespace ExRam.Gremlinq.Core
             {
                 get
                 {
-                    throw new InvalidOperationException();//TODO: Message!
+                    throw new InvalidOperationException($"{nameof(Metadata)} must not be called on {nameof(GraphElementModel)}.{Invalid}. Configure a valid model for the environment first.");
                 }
             }
         }
