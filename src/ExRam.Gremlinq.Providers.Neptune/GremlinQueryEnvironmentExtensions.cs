@@ -52,12 +52,12 @@ namespace ExRam.Gremlinq.Core
                 return new NeptuneConfigurator(_webSocketBuilder.At(uri));
             }
 
-            public IGremlinQuerySourceTransformation UseElasticSearch(Uri endPoint)
+            public INeptuneConfiguratorWithUri UseElasticSearch(Uri endPoint)
             {
                 return new NeptuneConfigurator(_webSocketBuilder, endPoint);
             }
 
-            public IGremlinQuerySourceTransformation ConfigureWebSocket(Func<IWebSocketConfigurator, IWebSocketConfigurator> transformation)
+            public INeptuneConfiguratorWithUri ConfigureWebSocket(Func<IWebSocketConfigurator, IWebSocketConfigurator> transformation)
             {
                 return new NeptuneConfigurator(
                     transformation(_webSocketBuilder));
