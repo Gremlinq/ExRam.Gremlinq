@@ -11,7 +11,7 @@ namespace ExRam.Gremlinq.Core
     {
         private static readonly ThreadLocal<StringBuilder> Builder = new(() => new StringBuilder());
 
-        public static GroovyGremlinQuery ToGroovy(this Bytecode bytecode, GroovyFormatting formatting = GroovyFormatting.BindingsOnly)
+        public static GroovyGremlinQuery ToGroovy(this Bytecode bytecode, GroovyFormatting formatting = GroovyFormatting.WithBindings)
         {
             var builder = Builder.Value!;
 
@@ -169,7 +169,7 @@ namespace ExRam.Gremlinq.Core
                     true,
                     false);
 
-                return formatting == GroovyFormatting.AllowInlining
+                return formatting == GroovyFormatting.Inline
                     ? ret.Inline()
                     : ret;
             }

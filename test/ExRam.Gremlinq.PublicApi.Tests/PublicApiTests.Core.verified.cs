@@ -403,8 +403,8 @@ namespace ExRam.Gremlinq.Core
     }
     public enum GroovyFormatting
     {
-        BindingsOnly = 0,
-        AllowInlining = 1,
+        WithBindings = 0,
+        Inline = 1,
     }
     public sealed class GroovyGremlinQuery
     {

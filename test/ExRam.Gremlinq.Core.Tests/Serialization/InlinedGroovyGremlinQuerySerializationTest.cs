@@ -7,7 +7,7 @@ namespace ExRam.Gremlinq.Core.Tests
     {
         public InlinedGroovyGremlinQuerySerializationTest(ITestOutputHelper testOutputHelper) : base(
             g.ConfigureEnvironment(_ => _
-                .UseSerializer(GremlinQuerySerializer.Default.ToGroovy(GroovyFormatting.AllowInlining))),
+                .UseSerializer(GremlinQuerySerializer.Default.ToGroovy(GroovyFormatting.Inline))),
             testOutputHelper)
         {
         }

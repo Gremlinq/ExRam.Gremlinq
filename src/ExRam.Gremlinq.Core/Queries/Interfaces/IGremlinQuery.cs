@@ -19,7 +19,7 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<TValue> Constant<TValue>(TValue constant);
 
         [Obsolete("Use Debug(GroovyFormatting, bool) instead.")]
-        string Debug(GroovyFormatting groovyFormatting = GroovyFormatting.AllowInlining, Formatting jsonFormatting = Formatting.None);
+        string Debug(GroovyFormatting groovyFormatting = GroovyFormatting.Inline, Formatting jsonFormatting = Formatting.None);
 
         string Debug(GroovyFormatting groovyFormatting, bool indented);
 

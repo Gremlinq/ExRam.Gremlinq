@@ -102,12 +102,12 @@ namespace ExRam.Gremlinq.Core
             return new SelectGremlinQuerySerializer(serializer, projection);
         }
 
-        public static IGremlinQuerySerializer ToGroovy(this IGremlinQuerySerializer serializer, GroovyFormatting formatting = GroovyFormatting.BindingsOnly)
+        public static IGremlinQuerySerializer ToGroovy(this IGremlinQuerySerializer serializer, GroovyFormatting formatting = GroovyFormatting.WithBindings)
         {
             return serializer
                 .Select(serialized => serialized switch
                 {
-                    GroovyGremlinQuery serializedQuery => formatting == GroovyFormatting.AllowInlining
+                    GroovyGremlinQuery serializedQuery => formatting == GroovyFormatting.Inline
                         ? serializedQuery.Inline()
                         : serializedQuery,
                     Bytecode byteCode => byteCode.ToGroovy(formatting),

@@ -37,7 +37,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
             await _g
                 .ConfigureEnvironment(e => e
                     .ConfigureSerializer(s => s
-                        .ToGroovy(GroovyFormatting.AllowInlining)))
+                        .ToGroovy(GroovyFormatting.Inline)))
                 .V<Person>(new CosmosDbKey("pk", "id"))
                 .Verify();
         }
