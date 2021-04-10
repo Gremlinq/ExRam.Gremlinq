@@ -80,6 +80,20 @@ namespace ExRam.Gremlinq.Core
                         if (_model.MemberMetadata.TryGetValue(member, out var key) && key.Key.RawKey is string name)
                             property.PropertyName = name;
 
+                        if (member.DeclaringType is { } declaringType)
+                        {
+                            if (declaringType == typeof(Property))
+                            {
+                                if (member.Name == nameof(Property.Key))
+                                    property.Writable = true;
+                            }
+                            else if (declaringType.IsGenericType && declaringType.GetGenericTypeDefinition() == typeof(VertexProperty<,>))
+                            {
+                                if (member.Name == nameof(VertexProperty<object>.Id) || member.Name == nameof(VertexProperty<object>.Label))
+                                    property.Writable = true;
+                            }
+                        }
+
                         return property;
                     }
 

@@ -1934,7 +1934,7 @@ namespace ExRam.Gremlinq.Core.GraphElements
     public abstract class Property
     {
         protected Property() { }
-        public string? Key { get; set; }
+        public string? Key { get; }
         protected abstract object? GetValue();
         public override string ToString() { }
     }
@@ -1958,8 +1958,8 @@ namespace ExRam.Gremlinq.Core.GraphElements
     public class VertexProperty<TValue, TMeta> : ExRam.Gremlinq.Core.GraphElements.Property<TValue>
     {
         public VertexProperty(TValue value) { }
-        public object? Id { get; set; }
-        public string? Label { get; set; }
+        public object? Id { get; }
+        public string? Label { get; }
         public TMeta Properties { get; set; }
         protected virtual System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<string, object>> GetProperties(ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
         public override string ToString() { }

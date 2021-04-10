@@ -12,7 +12,7 @@ namespace ExRam.Gremlinq.Core.GraphElements
 
         protected internal abstract object? GetValue();
 
-        public string? Key { get; set; }    //TODO: Remove setter? Remove nullability?
+        public string? Key { get; private set; }
     }
 
     public class Property<TValue> : Property

@@ -34,8 +34,8 @@ namespace ExRam.Gremlinq.Core.GraphElements
 
         IEnumerable<KeyValuePair<string, object>> IVertexProperty.GetProperties(IGremlinQueryEnvironment environment) => GetProperties(environment);
 
-        public object? Id { get; set; }
-        public string? Label { get; set; }
+        public object? Id { get; private set; }
+        public string? Label { get; private set; }
         public TMeta? Properties { get; set; }
     }
 
