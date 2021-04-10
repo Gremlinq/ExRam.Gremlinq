@@ -9,6 +9,6 @@ namespace ExRam.Gremlinq.Providers.WebSocket
         public static GremlinqOption<LogLevel> QueryLogLogLevel = new(LogLevel.Debug);
         public static GremlinqOption<Formatting> QueryLogFormatting = new(Formatting.None);
         public static GremlinqOption<QueryLogVerbosity> QueryLogVerbosity = new(Core.QueryLogVerbosity.QueryOnly);
-        public static GremlinqOption<GroovyFormatting> QueryLogGroovyFormatting = new(GroovyFormatting.BindingsOnly);
+        public static GremlinqOption<GroovyFormatting> QueryLogGroovyFormatting = new(GroovyFormatting.WithBindings);
     }
 }
