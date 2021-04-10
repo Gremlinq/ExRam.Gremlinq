@@ -100,6 +100,12 @@ namespace ExRam.Gremlinq.Core
         private static readonly ConcurrentDictionary<string, Instruction> SimpleInstructions = new();
         private static readonly ImmutableArray<Step> IdentitySteps = ImmutableArray.Create((Step)IdentityStep.Instance);
 
+        private static readonly HashSet<string> SourceStepNames = new()
+        {
+            "withStrategies",
+            "withoutStrategies"
+        };
+
         public static IGremlinQueryFragmentSerializer UseDefaultGremlinStepSerializationHandlers(this IGremlinQueryFragmentSerializer fragmentSerializer)
         {
             return fragmentSerializer
@@ -362,7 +368,7 @@ namespace ExRam.Gremlinq.Core
                         {
                             case Instruction instruction:
                             {
-                                if (instruction.OperatorName.Equals("withoutStrategies"))
+                                if (SourceStepNames.Contains(instruction.OperatorName))
                                     byteCode.SourceInstructions.Add(instruction);
                                 else
                                     byteCode.StepInstructions.Add(instruction);
