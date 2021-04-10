@@ -1089,7 +1089,7 @@ namespace ExRam.Gremlinq.Core
             if (right.Type == ExpressionFragmentType.Constant)
             {
                 var maybeEffectivePredicate = Environment.Options
-                    .GetValue(GremlinqOption.PFactory)
+                    .GetValue(PFactory.PFactoryOption)
                     .TryGetP(semantics, right.GetValue(), Environment)
                     ?.WorkaroundLimitations(Environment);
 

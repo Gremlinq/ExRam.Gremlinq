@@ -2,7 +2,7 @@
 
 namespace ExRam.Gremlinq.Core.ExpressionParsing
 {
-    internal sealed class StringEqualsExpressionSemantics : StringExpressionSemantics
+    public sealed class StringEqualsExpressionSemantics : StringExpressionSemantics
     {
         public static readonly StringEqualsExpressionSemantics CaseSensitive = new(StringComparison.Ordinal);
         public static readonly StringEqualsExpressionSemantics CaseInsensitive = new(StringComparison.OrdinalIgnoreCase);
@@ -25,7 +25,7 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
         }
     }
 
-    internal sealed class HasInfixExpressionSemantics : StringExpressionSemantics
+    public sealed class HasInfixExpressionSemantics : StringExpressionSemantics
     {
         public static readonly HasInfixExpressionSemantics CaseSensitive = new(StringComparison.Ordinal);
         public static readonly HasInfixExpressionSemantics CaseInsensitive = new(StringComparison.OrdinalIgnoreCase);
@@ -48,7 +48,7 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
         }
     }
 
-    internal sealed class StartsWithExpressionSemantics : StringExpressionSemantics
+    public sealed class StartsWithExpressionSemantics : StringExpressionSemantics
     {
         public static readonly StartsWithExpressionSemantics CaseSensitive = new(StringComparison.Ordinal);
         public static readonly StartsWithExpressionSemantics CaseInsensitive = new(StringComparison.OrdinalIgnoreCase);
@@ -71,7 +71,7 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
         }
     }
 
-    internal sealed class EndsWithExpressionSemantics : StringExpressionSemantics
+    public sealed class EndsWithExpressionSemantics : StringExpressionSemantics
     {
         public static readonly EndsWithExpressionSemantics CaseSensitive = new(StringComparison.Ordinal);
         public static readonly EndsWithExpressionSemantics CaseInsensitive = new(StringComparison.OrdinalIgnoreCase);
@@ -94,7 +94,7 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
         }
     }
 
-    internal sealed class IsInfixOfExpressionSemantics : StringExpressionSemantics
+    public sealed class IsInfixOfExpressionSemantics : StringExpressionSemantics
     {
         public static readonly IsInfixOfExpressionSemantics CaseSensitive = new(StringComparison.Ordinal);
         public static readonly IsInfixOfExpressionSemantics CaseInsensitive = new(StringComparison.OrdinalIgnoreCase);
@@ -117,7 +117,7 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
         }
     }
 
-    internal sealed class IsPrefixOfExpressionSemantics : StringExpressionSemantics
+    public sealed class IsPrefixOfExpressionSemantics : StringExpressionSemantics
     {
         public static readonly IsPrefixOfExpressionSemantics CaseSensitive = new(StringComparison.Ordinal);
         public static readonly IsPrefixOfExpressionSemantics CaseInsensitive = new(StringComparison.OrdinalIgnoreCase);
@@ -140,7 +140,7 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
         }
     }
 
-    internal sealed class IsSuffixOfExpressionSemantics : StringExpressionSemantics
+    public sealed class IsSuffixOfExpressionSemantics : StringExpressionSemantics
     {
         public static readonly IsSuffixOfExpressionSemantics CaseSensitive = new(StringComparison.Ordinal);
         public static readonly IsSuffixOfExpressionSemantics CaseInsensitive = new(StringComparison.OrdinalIgnoreCase);
@@ -162,8 +162,8 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
             };
         }
     }
-    
-    internal abstract class StringExpressionSemantics : ExpressionSemantics
+
+    public abstract class StringExpressionSemantics : ExpressionSemantics
     {
         protected StringExpressionSemantics(StringComparison comparison)
         {

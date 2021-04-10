@@ -1,6 +1,6 @@
 ﻿namespace ExRam.Gremlinq.Core.ExpressionParsing
 {
-    internal sealed class TrueExpressionSemantics : ConstantExpressionSemantics
+    public sealed class TrueExpressionSemantics : ConstantExpressionSemantics
     {
         public static readonly TrueExpressionSemantics Instance = new();
 
@@ -12,7 +12,7 @@
         public override ExpressionSemantics Flip() => FalseExpressionSemantics.Instance;
     }
 
-    internal sealed class FalseExpressionSemantics : ConstantExpressionSemantics
+    public sealed class FalseExpressionSemantics : ConstantExpressionSemantics
     {
         public static readonly FalseExpressionSemantics Instance = new();
 
@@ -24,7 +24,7 @@
         public override ExpressionSemantics Flip() => TrueExpressionSemantics.Instance;
     }
 
-    internal abstract class ConstantExpressionSemantics : ExpressionSemantics
+    public abstract class ConstantExpressionSemantics : ExpressionSemantics
     {
     }
 }

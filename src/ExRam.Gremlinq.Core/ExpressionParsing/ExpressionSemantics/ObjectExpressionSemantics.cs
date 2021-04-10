@@ -1,6 +1,6 @@
 ﻿namespace ExRam.Gremlinq.Core.ExpressionParsing
 {
-    internal sealed class EqualsExpressionSemantics : ObjectExpressionSemantics
+    public sealed class EqualsExpressionSemantics : ObjectExpressionSemantics
     {
         public static readonly EqualsExpressionSemantics Instance = new ();
 
@@ -12,7 +12,7 @@
         public override ExpressionSemantics Flip() => this;
     }
 
-    internal sealed class NotEqualsExpressionSemantics : ObjectExpressionSemantics
+    public sealed class NotEqualsExpressionSemantics : ObjectExpressionSemantics
     {
         public static readonly NotEqualsExpressionSemantics Instance = new();
 
@@ -24,7 +24,7 @@
         public override ExpressionSemantics Flip() => this;
     }
 
-    internal abstract class ObjectExpressionSemantics : ExpressionSemantics
+    public abstract class ObjectExpressionSemantics : ExpressionSemantics
     {
         public ExpressionSemantics TransformCompareTo(int comparison)
         {
