@@ -11,6 +11,13 @@
       {
         "OperatorName": "withSideEffect",
         "Arguments": [
+          "Neptune#fts.queryType",
+          "query_string"
+        ]
+      },
+      {
+        "OperatorName": "withSideEffect",
+        "Arguments": [
           "sideEffectLabel",
           36
         ]

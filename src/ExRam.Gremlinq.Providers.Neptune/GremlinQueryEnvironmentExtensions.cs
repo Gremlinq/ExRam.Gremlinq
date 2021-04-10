@@ -72,6 +72,7 @@ namespace ExRam.Gremlinq.Core
                 {
                     ret = ret
                         .WithSideEffect("Neptune#fts.endpoint", endPoint.ToString())
+                        .WithSideEffect("Neptune#fts.queryType", "query_string")
                         .ConfigureEnvironment(env => env
                             .ConfigureOptions(options => options
                                 .ConfigureValue(
