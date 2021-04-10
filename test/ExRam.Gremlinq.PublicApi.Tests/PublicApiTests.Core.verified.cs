@@ -1782,6 +1782,140 @@ namespace ExRam.Gremlinq.Core
         public System.Collections.Immutable.ImmutableArray<System.Type> StrategyTypes { get; }
     }
 }
+namespace ExRam.Gremlinq.Core.ExpressionParsing
+{
+    public abstract class ConstantExpressionSemantics : ExRam.Gremlinq.Core.ExpressionParsing.ExpressionSemantics
+    {
+        protected ConstantExpressionSemantics() { }
+    }
+    public sealed class ContainsExpressionSemantics : ExRam.Gremlinq.Core.ExpressionParsing.EnumerableExpressionSemantics
+    {
+        public static readonly ExRam.Gremlinq.Core.ExpressionParsing.ContainsExpressionSemantics Instance;
+        public override ExRam.Gremlinq.Core.ExpressionParsing.ExpressionSemantics Flip() { }
+    }
+    public sealed class EndsWithExpressionSemantics : ExRam.Gremlinq.Core.ExpressionParsing.StringExpressionSemantics
+    {
+        public static readonly ExRam.Gremlinq.Core.ExpressionParsing.EndsWithExpressionSemantics CaseInsensitive;
+        public static readonly ExRam.Gremlinq.Core.ExpressionParsing.EndsWithExpressionSemantics CaseSensitive;
+        public override ExRam.Gremlinq.Core.ExpressionParsing.ExpressionSemantics Flip() { }
+        public static ExRam.Gremlinq.Core.ExpressionParsing.EndsWithExpressionSemantics Get(System.StringComparison comparison) { }
+    }
+    public abstract class EnumerableExpressionSemantics : ExRam.Gremlinq.Core.ExpressionParsing.ExpressionSemantics
+    {
+        protected EnumerableExpressionSemantics() { }
+    }
+    public sealed class EqualsExpressionSemantics : ExRam.Gremlinq.Core.ExpressionParsing.ObjectExpressionSemantics
+    {
+        public static readonly ExRam.Gremlinq.Core.ExpressionParsing.EqualsExpressionSemantics Instance;
+        public override ExRam.Gremlinq.Core.ExpressionParsing.ExpressionSemantics Flip() { }
+    }
+    public abstract class ExpressionSemantics
+    {
+        protected ExpressionSemantics() { }
+        public abstract ExRam.Gremlinq.Core.ExpressionParsing.ExpressionSemantics Flip();
+    }
+    public sealed class FalseExpressionSemantics : ExRam.Gremlinq.Core.ExpressionParsing.ConstantExpressionSemantics
+    {
+        public static readonly ExRam.Gremlinq.Core.ExpressionParsing.FalseExpressionSemantics Instance;
+        public override ExRam.Gremlinq.Core.ExpressionParsing.ExpressionSemantics Flip() { }
+    }
+    public sealed class GreaterThanExpressionSemantics : ExRam.Gremlinq.Core.ExpressionParsing.ObjectExpressionSemantics
+    {
+        public static readonly ExRam.Gremlinq.Core.ExpressionParsing.GreaterThanExpressionSemantics Instance;
+        public override ExRam.Gremlinq.Core.ExpressionParsing.ExpressionSemantics Flip() { }
+    }
+    public sealed class GreaterThanOrEqualExpressionSemantics : ExRam.Gremlinq.Core.ExpressionParsing.ObjectExpressionSemantics
+    {
+        public static readonly ExRam.Gremlinq.Core.ExpressionParsing.GreaterThanOrEqualExpressionSemantics Instance;
+        public override ExRam.Gremlinq.Core.ExpressionParsing.ExpressionSemantics Flip() { }
+    }
+    public sealed class HasInfixExpressionSemantics : ExRam.Gremlinq.Core.ExpressionParsing.StringExpressionSemantics
+    {
+        public static readonly ExRam.Gremlinq.Core.ExpressionParsing.HasInfixExpressionSemantics CaseInsensitive;
+        public static readonly ExRam.Gremlinq.Core.ExpressionParsing.HasInfixExpressionSemantics CaseSensitive;
+        public override ExRam.Gremlinq.Core.ExpressionParsing.ExpressionSemantics Flip() { }
+        public static ExRam.Gremlinq.Core.ExpressionParsing.HasInfixExpressionSemantics Get(System.StringComparison comparison) { }
+    }
+    public interface IPFactory
+    {
+        Gremlin.Net.Process.Traversal.P? TryGetP(ExRam.Gremlinq.Core.ExpressionParsing.ExpressionSemantics semantics, object? value, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment);
+    }
+    public sealed class IntersectsExpressionSemantics : ExRam.Gremlinq.Core.ExpressionParsing.EnumerableExpressionSemantics
+    {
+        public static readonly ExRam.Gremlinq.Core.ExpressionParsing.IntersectsExpressionSemantics Instance;
+        public override ExRam.Gremlinq.Core.ExpressionParsing.ExpressionSemantics Flip() { }
+    }
+    public sealed class IsContainedInExpressionSemantics : ExRam.Gremlinq.Core.ExpressionParsing.EnumerableExpressionSemantics
+    {
+        public static readonly ExRam.Gremlinq.Core.ExpressionParsing.IsContainedInExpressionSemantics Instance;
+        public override ExRam.Gremlinq.Core.ExpressionParsing.ExpressionSemantics Flip() { }
+    }
+    public sealed class IsInfixOfExpressionSemantics : ExRam.Gremlinq.Core.ExpressionParsing.StringExpressionSemantics
+    {
+        public static readonly ExRam.Gremlinq.Core.ExpressionParsing.IsInfixOfExpressionSemantics CaseInsensitive;
+        public static readonly ExRam.Gremlinq.Core.ExpressionParsing.IsInfixOfExpressionSemantics CaseSensitive;
+        public override ExRam.Gremlinq.Core.ExpressionParsing.ExpressionSemantics Flip() { }
+        public static ExRam.Gremlinq.Core.ExpressionParsing.IsInfixOfExpressionSemantics Get(System.StringComparison comparison) { }
+    }
+    public sealed class IsPrefixOfExpressionSemantics : ExRam.Gremlinq.Core.ExpressionParsing.StringExpressionSemantics
+    {
+        public static readonly ExRam.Gremlinq.Core.ExpressionParsing.IsPrefixOfExpressionSemantics CaseInsensitive;
+        public static readonly ExRam.Gremlinq.Core.ExpressionParsing.IsPrefixOfExpressionSemantics CaseSensitive;
+        public override ExRam.Gremlinq.Core.ExpressionParsing.ExpressionSemantics Flip() { }
+        public static ExRam.Gremlinq.Core.ExpressionParsing.IsPrefixOfExpressionSemantics Get(System.StringComparison comparison) { }
+    }
+    public sealed class IsSuffixOfExpressionSemantics : ExRam.Gremlinq.Core.ExpressionParsing.StringExpressionSemantics
+    {
+        public static readonly ExRam.Gremlinq.Core.ExpressionParsing.IsSuffixOfExpressionSemantics CaseInsensitive;
+        public static readonly ExRam.Gremlinq.Core.ExpressionParsing.IsSuffixOfExpressionSemantics CaseSensitive;
+        public override ExRam.Gremlinq.Core.ExpressionParsing.ExpressionSemantics Flip() { }
+        public static ExRam.Gremlinq.Core.ExpressionParsing.IsSuffixOfExpressionSemantics Get(System.StringComparison comparison) { }
+    }
+    public sealed class LowerThanExpressionSemantics : ExRam.Gremlinq.Core.ExpressionParsing.ObjectExpressionSemantics
+    {
+        public static readonly ExRam.Gremlinq.Core.ExpressionParsing.LowerThanExpressionSemantics Instance;
+        public override ExRam.Gremlinq.Core.ExpressionParsing.ExpressionSemantics Flip() { }
+    }
+    public sealed class LowerThanOrEqualExpressionSemantics : ExRam.Gremlinq.Core.ExpressionParsing.ObjectExpressionSemantics
+    {
+        public static readonly ExRam.Gremlinq.Core.ExpressionParsing.LowerThanOrEqualExpressionSemantics Instance;
+        public override ExRam.Gremlinq.Core.ExpressionParsing.ExpressionSemantics Flip() { }
+    }
+    public sealed class NotEqualsExpressionSemantics : ExRam.Gremlinq.Core.ExpressionParsing.ObjectExpressionSemantics
+    {
+        public static readonly ExRam.Gremlinq.Core.ExpressionParsing.NotEqualsExpressionSemantics Instance;
+        public override ExRam.Gremlinq.Core.ExpressionParsing.ExpressionSemantics Flip() { }
+    }
+    public abstract class ObjectExpressionSemantics : ExRam.Gremlinq.Core.ExpressionParsing.ExpressionSemantics
+    {
+        protected ObjectExpressionSemantics() { }
+        public ExRam.Gremlinq.Core.ExpressionParsing.ExpressionSemantics TransformCompareTo(int comparison) { }
+    }
+    public sealed class StartsWithExpressionSemantics : ExRam.Gremlinq.Core.ExpressionParsing.StringExpressionSemantics
+    {
+        public static readonly ExRam.Gremlinq.Core.ExpressionParsing.StartsWithExpressionSemantics CaseInsensitive;
+        public static readonly ExRam.Gremlinq.Core.ExpressionParsing.StartsWithExpressionSemantics CaseSensitive;
+        public override ExRam.Gremlinq.Core.ExpressionParsing.ExpressionSemantics Flip() { }
+        public static ExRam.Gremlinq.Core.ExpressionParsing.StartsWithExpressionSemantics Get(System.StringComparison comparison) { }
+    }
+    public sealed class StringEqualsExpressionSemantics : ExRam.Gremlinq.Core.ExpressionParsing.StringExpressionSemantics
+    {
+        public static readonly ExRam.Gremlinq.Core.ExpressionParsing.StringEqualsExpressionSemantics CaseInsensitive;
+        public static readonly ExRam.Gremlinq.Core.ExpressionParsing.StringEqualsExpressionSemantics CaseSensitive;
+        public override ExRam.Gremlinq.Core.ExpressionParsing.ExpressionSemantics Flip() { }
+        public static ExRam.Gremlinq.Core.ExpressionParsing.StringEqualsExpressionSemantics Get(System.StringComparison comparison) { }
+    }
+    public abstract class StringExpressionSemantics : ExRam.Gremlinq.Core.ExpressionParsing.ExpressionSemantics
+    {
+        protected StringExpressionSemantics(System.StringComparison comparison) { }
+        public System.StringComparison Comparison { get; }
+    }
+    public sealed class TrueExpressionSemantics : ExRam.Gremlinq.Core.ExpressionParsing.ConstantExpressionSemantics
+    {
+        public static readonly ExRam.Gremlinq.Core.ExpressionParsing.TrueExpressionSemantics Instance;
+        public override ExRam.Gremlinq.Core.ExpressionParsing.ExpressionSemantics Flip() { }
+    }
+}
 namespace ExRam.Gremlinq.Core.GraphElements
 {
     public interface IEdge : ExRam.Gremlinq.Core.GraphElements.IElement { }
