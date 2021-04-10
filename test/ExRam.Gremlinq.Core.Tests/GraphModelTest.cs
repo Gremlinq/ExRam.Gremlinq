@@ -336,7 +336,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .FromBaseTypes<Vertex, Edge>(lookup => lookup
                     .IncludeAssembliesOfBaseTypes())
                 .ConfigureProperties(pm => pm
-                    .ConfigureElement<IVertex>(conf => conf
+                    .ConfigureElement<Vertex>(conf => conf
                         .IgnoreAlways(p => p.Id)))
                 .PropertiesModel
                 .MemberMetadata

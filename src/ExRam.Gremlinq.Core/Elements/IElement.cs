@@ -1,6 +1,6 @@
 ﻿namespace ExRam.Gremlinq.Core.GraphElements
 {
-    public interface IElement
+    internal interface IElement
     {
         object? Id { get; set; }
     }
