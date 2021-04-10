@@ -103,7 +103,8 @@ namespace ExRam.Gremlinq.Core
         private static readonly HashSet<string> SourceStepNames = new()
         {
             "withStrategies",
-            "withoutStrategies"
+            "withoutStrategies",
+            "withSideEffect"
         };
 
         public static IGremlinQueryFragmentSerializer UseDefaultGremlinStepSerializationHandlers(this IGremlinQueryFragmentSerializer fragmentSerializer)
