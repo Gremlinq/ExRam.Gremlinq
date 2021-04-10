@@ -16,16 +16,6 @@ namespace ExRam.Gremlinq.Core
 {
     public static class GremlinQueryFragmentDeserializer
     {
-        private sealed class VertexImpl
-        {
-            public object? Id { get; set; }
-        }
-
-        private sealed class EdgeImpl
-        {
-            public object? Id { get; set; }
-        }
-
         private sealed class GremlinQueryFragmentDeserializerImpl : IGremlinQueryFragmentDeserializer
         {
             private static readonly MethodInfo CreateFuncMethod1 = typeof(GremlinQueryFragmentDeserializerImpl).GetMethod(nameof(CreateFunc1), BindingFlags.NonPublic | BindingFlags.Static)!;
