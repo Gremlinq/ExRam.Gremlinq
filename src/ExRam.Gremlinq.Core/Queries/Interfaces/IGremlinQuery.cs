@@ -167,8 +167,8 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery As<TTargetQuery>(Func<TSelf, StepLabel<TSelf, TElement>, TTargetQuery> continuation) where TTargetQuery : IGremlinQueryBase;
 
         TTargetQuery Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<TSelf, TTargetQuery> trueChoice, Func<TSelf, TTargetQuery> falseChoice) where TTargetQuery : IGremlinQueryBase;
-        //TODO: The return type of this query is plain wrong. It'll return a stream of TElement in case trueChoice does not hold!
-        TTargetQuery Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<TSelf, TTargetQuery> trueChoice) where TTargetQuery : IGremlinQueryBase;
+        TSelf Choose(Expression<Func<TElement, bool>> predicate, Func<TSelf, TSelf> trueChoice);
+        IValueGremlinQuery<object> Choose(Expression<Func<TElement, bool>> predicate, Func<TSelf, IGremlinQueryBase> trueChoice);
 
         IArrayGremlinQuery<TElement[], TElement, TSelf> Fold();
 
