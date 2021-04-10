@@ -87,7 +87,7 @@ namespace ExRam.Gremlinq.Core
         {
         }
 
-#if NET5_0 //TODO: Use OR_LATER in the future.
+#if NET5_0_OR_GREATER
         public override StepLabel<IValueGremlinQuery<TNewValue>, TNewValue> Cast<TNewValue>()
         {
             return new(Identity);
