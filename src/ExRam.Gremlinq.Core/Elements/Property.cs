@@ -10,11 +10,11 @@ namespace ExRam.Gremlinq.Core.GraphElements
             return $"p[{Key}->{GetValue()}]";
         }
 
-        protected abstract object GetValue();
+        protected abstract object? GetValue();
 
         public string? Key { get; set; }    //TODO: Remove setter? Remove nullability?
 
-        object IProperty.Value { get => GetValue(); }
+        object? IProperty.Value { get => GetValue(); }
     }
 
     public class Property<TValue> : Property
@@ -30,7 +30,7 @@ namespace ExRam.Gremlinq.Core.GraphElements
         public static implicit operator Property<TValue>(TValue[] value) => throw new NotSupportedException("This conversion is only intended to be used in expressions. It can't be executed reasonably.");
         public static implicit operator Property<TValue>(Property<TValue>[] value) => throw new NotSupportedException("This conversion is only intended to be used in expressions. It can't be executed reasonably.");
 
-        protected override object GetValue() => Value!;
+        protected override object? GetValue() => Value;
 
         public TValue Value
         {

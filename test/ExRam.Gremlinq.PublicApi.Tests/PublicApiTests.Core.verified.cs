@@ -1935,14 +1935,14 @@ namespace ExRam.Gremlinq.Core.GraphElements
     {
         protected Property() { }
         public string? Key { get; set; }
-        protected abstract object GetValue();
+        protected abstract object? GetValue();
         public override string ToString() { }
     }
     public class Property<TValue> : ExRam.Gremlinq.Core.GraphElements.Property
     {
         public Property(TValue value) { }
         public TValue Value { get; set; }
-        protected override object GetValue() { }
+        protected override object? GetValue() { }
         public static ExRam.Gremlinq.Core.GraphElements.Property<TValue> op_Implicit(ExRam.Gremlinq.Core.GraphElements.Property<>[] value) { }
         public static ExRam.Gremlinq.Core.GraphElements.Property<TValue> op_Implicit(TValue value) { }
         public static ExRam.Gremlinq.Core.GraphElements.Property<TValue> op_Implicit(TValue[] value) { }

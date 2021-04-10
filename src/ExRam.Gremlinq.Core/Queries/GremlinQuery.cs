@@ -299,18 +299,23 @@ namespace ExRam.Gremlinq.Core
 
                 foreach (var item in enumerable)
                 {
-                    yield return GetPropertyStep(key, item, Cardinality.List);
+                    if (TryGetPropertyStep(key, item, Cardinality.List) is { } step)
+                        yield return step;
                 }
             }
             else
-                yield return GetPropertyStep(key, value, allowExplicitCardinality ? Cardinality.Single : default);
+            {
+                if (TryGetPropertyStep(key, value, allowExplicitCardinality ? Cardinality.Single : default) is { } step)
+                    yield return step;
+            }
         }
 
-        private PropertyStep GetPropertyStep(Key key, object value, Cardinality? cardinality)
+        private PropertyStep? TryGetPropertyStep(Key key, object value, Cardinality? cardinality)
         {
+            object? actualValue = value;
             var metaProperties = ImmutableArray<KeyValuePair<string, object>>.Empty;
 
-            if (value is IProperty property)
+            if (actualValue is IProperty property)
             {
                 if (property is IVertexProperty vertexProperty)
                 {
@@ -318,10 +323,12 @@ namespace ExRam.Gremlinq.Core
                         .ToImmutableArray();
                 }
 
-                value = property.Value;
+                actualValue = property.Value;
             }
 
-            return new PropertyStep(key, value, metaProperties, cardinality);
+            return actualValue != null
+                ? new PropertyStep(key, actualValue, metaProperties, cardinality)
+                : null;
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> AddSteps(IEnumerable<Step> steps, QuerySemantics? querySemantics = null, IImmutableDictionary<StepLabel, QuerySemantics>? stepLabelSemantics = null, QueryFlags additionalFlags = QueryFlags.None) => AddSteps<TElement>(steps, querySemantics, stepLabelSemantics, additionalFlags);
