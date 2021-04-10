@@ -152,7 +152,7 @@ namespace ExRam.Gremlinq.Core
 
                 var ret = jToken.ToObject(type, populatingSerializer);
 
-                if (ret is not JToken && ret is not IProperty && jToken is JObject element)
+                if (ret is not JToken && ret is not Property && jToken is JObject element)
                 {
                     if (element.TryGetElementProperties() is { } propertiesToken)
                     {

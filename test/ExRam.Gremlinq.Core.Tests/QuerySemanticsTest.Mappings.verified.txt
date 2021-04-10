@@ -118,6 +118,5 @@
   IGremlinQueryFragmentSerializer: null,
   IGremlinQuerySerializer: null,
   IPFactory: null,
-  IProperty: null,
   IVertexProperty: null
 }
