@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Linq.Expressions;
-
 using ExRam.Gremlinq.Core.ExpressionParsing;
 using ExRam.Gremlinq.Core.GraphElements;
 using Gremlin.Net.Process.Traversal;
@@ -315,7 +314,7 @@ namespace ExRam.Gremlinq.Core
             object? actualValue = value;
             var metaProperties = ImmutableArray<KeyValuePair<string, object>>.Empty;
 
-            if (actualValue is IProperty property)
+            if (actualValue is Property property)
             {
                 if (property is IVertexProperty vertexProperty)
                 {
@@ -323,7 +322,7 @@ namespace ExRam.Gremlinq.Core
                         .ToImmutableArray();
                 }
 
-                actualValue = property.Value;
+                actualValue = property.GetValue();
             }
 
             return actualValue != null
