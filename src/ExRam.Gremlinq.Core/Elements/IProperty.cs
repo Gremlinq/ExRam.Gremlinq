@@ -2,6 +2,6 @@
 {
     internal interface IProperty
     {
-        object Value { get; }
+        object? Value { get; }
     }
 }
