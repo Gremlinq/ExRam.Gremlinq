@@ -1,6 +1,6 @@
 ﻿namespace ExRam.Gremlinq.Core.ExpressionParsing
 {
-    internal sealed class IntersectsExpressionSemantics : EnumerableExpressionSemantics
+    public sealed class IntersectsExpressionSemantics : EnumerableExpressionSemantics
     {
         public static readonly IntersectsExpressionSemantics Instance = new();
 
@@ -12,7 +12,7 @@
         public override ExpressionSemantics Flip() => this;
     }
 
-    internal sealed class ContainsExpressionSemantics : EnumerableExpressionSemantics
+    public sealed class ContainsExpressionSemantics : EnumerableExpressionSemantics
     {
         public static readonly ContainsExpressionSemantics Instance = new();
 
@@ -24,7 +24,7 @@
         public override ExpressionSemantics Flip() => IsContainedInExpressionSemantics.Instance;
     }
 
-    internal sealed class IsContainedInExpressionSemantics : EnumerableExpressionSemantics
+    public sealed class IsContainedInExpressionSemantics : EnumerableExpressionSemantics
     {
         public static readonly IsContainedInExpressionSemantics Instance = new();
 
@@ -36,7 +36,7 @@
         public override ExpressionSemantics Flip() => ContainsExpressionSemantics.Instance;
     }
 
-    internal abstract class EnumerableExpressionSemantics : ExpressionSemantics
+    public abstract class EnumerableExpressionSemantics : ExpressionSemantics
     {
     }
 }

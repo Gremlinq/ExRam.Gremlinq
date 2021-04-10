@@ -1,10 +1,9 @@
 ﻿using System;
-using ExRam.Gremlinq.Core.ExpressionParsing;
 using Gremlin.Net.Process.Traversal;
 
-namespace ExRam.Gremlinq.Core
+namespace ExRam.Gremlinq.Core.ExpressionParsing
 {
-    internal static class PFactory
+    public static class PFactory
     {
         private sealed class DefaultPFactory : IPFactory
         {
@@ -114,5 +113,7 @@ namespace ExRam.Gremlinq.Core
         }
 
         public static readonly IPFactory Default = new DefaultPFactory();
+
+        public static readonly GremlinqOption<IPFactory> PFactoryOption = new(Default);
     }
 }
