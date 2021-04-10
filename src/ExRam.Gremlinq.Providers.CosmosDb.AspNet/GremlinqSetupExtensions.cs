@@ -13,8 +13,7 @@ namespace ExRam.Gremlinq.Core.AspNet
             private readonly IConfiguration _configuration;
 
             // ReSharper disable once SuggestBaseTypeForParameter
-            public UseCosmosDbGremlinQuerySourceTransformation(
-                IGremlinqConfiguration configuration)
+            public UseCosmosDbGremlinQuerySourceTransformation(IGremlinqConfiguration configuration)
             {
                 _configuration = configuration
                     .GetSection("CosmosDb");

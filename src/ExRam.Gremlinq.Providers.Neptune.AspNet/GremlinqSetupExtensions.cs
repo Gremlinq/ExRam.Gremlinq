@@ -26,11 +26,11 @@ namespace ExRam.Gremlinq.Core.AspNet
                         var builderWithUri = builder
                             .At(new Uri("ws://localhost:8182"));
 
-                        var tranformation = (_configuration["ElasticSearchEndPoint"] is { } endPoint)
+                        var transformation = (_configuration["ElasticSearchEndPoint"] is { } endPoint)
                             ? builderWithUri.UseElasticSearch(new Uri(endPoint))
                             : builderWithUri;
 
-                        return tranformation
+                        return transformation
                             .ConfigureWebSocket(_ => _
                                 .Configure(_configuration));
                     });
