@@ -187,7 +187,7 @@ namespace ExRam.Gremlinq.Core
                     recurse,
                     env,
                     step.Argument is P { OperatorName: "eq" } p
-                        ? p.Value
+                        ? (object)p.Value
                         : step.Argument))
                 .Override<HasPredicateStep>((step, env, overridden, recurse) =>
                 {
@@ -245,7 +245,7 @@ namespace ExRam.Gremlinq.Core
                     recurse,
                     env,
                     step.Argument is P { OperatorName: "eq" } p
-                        ? p.Value
+                        ? (object)p.Value
                         : step.Argument))
                 .Override<IdentityStep>((step, env, overridden, recurse) => CreateInstruction("identity"))
                 .Override<IdStep>((step, env, overridden, recurse) => CreateInstruction("id"))
@@ -259,7 +259,7 @@ namespace ExRam.Gremlinq.Core
                     recurse,
                     env,
                     step.Predicate.OperatorName == "eq"
-                        ? step.Predicate.Value
+                        ? (object)step.Predicate.Value
                         : step.Predicate))
                 .Override<Key>((key, env, overridden, recurse) => recurse.Serialize(key.RawKey, env))
                 .Override<KeyStep>((step, env, overridden, recurse) => CreateInstruction("key"))
