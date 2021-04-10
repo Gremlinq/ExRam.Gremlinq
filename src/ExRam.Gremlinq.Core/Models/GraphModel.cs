@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Immutable;
 using System.Reflection;
-using ExRam.Gremlinq.Core.GraphElements;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -91,14 +90,14 @@ namespace ExRam.Gremlinq.Core
             GraphElementModel.Empty,
             GraphElementPropertyModel.Empty);
 
-        public static IGraphModel Default(Func<IAssemblyLookupBuilder, IAssemblyLookupSet> assemblyLookupTransformation)
-        {
-            return FromBaseTypes<IVertex, IEdge>(assemblyLookupTransformation);
-        }
+        public static readonly IGraphModel Invalid = new GraphModelImpl(
+            GraphElementModel.Invalid,
+            GraphElementModel.Invalid,
+            GraphElementPropertyModel.Invalid);
 
-        public static IGraphModel FromBaseTypes<TVertex, TEdge>(Func<IAssemblyLookupBuilder, IAssemblyLookupSet> assemblyLookupTransformation)
+        public static IGraphModel FromBaseTypes<TVertex, TEdge>(Func<IAssemblyLookupBuilder, IAssemblyLookupSet>? assemblyLookupTransformation = null)
         {
-            return FromBaseTypes(typeof(TVertex), typeof(TEdge), assemblyLookupTransformation);
+            return FromBaseTypes(typeof(TVertex), typeof(TEdge), assemblyLookupTransformation ?? (_ => _.IncludeAssembliesFromAppDomain()));
         }
 
         public static IGraphModel FromBaseTypes(Type vertexBaseType, Type edgeBaseType, Func<IAssemblyLookupBuilder, IAssemblyLookupSet> assemblyLookupTransformation)

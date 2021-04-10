@@ -56,7 +56,7 @@ namespace ExRam.Gremlinq.Core
         }
 
         public static readonly IGremlinQueryEnvironment Empty = new GremlinQueryEnvironmentImpl(
-            GraphModel.Empty,
+            GraphModel.Invalid,
             AddStepHandler.Empty,
             GremlinQuerySerializer.Identity,
             GremlinQueryExecutor.Empty,
@@ -67,8 +67,6 @@ namespace ExRam.Gremlinq.Core
 
         public static readonly IGremlinQueryEnvironment Default = Empty
             .UseAddStepHandler(AddStepHandler.Default)
-            .UseModel(GraphModel.Default(lookup => lookup
-                .IncludeAssembliesFromAppDomain()))
             .UseSerializer(GremlinQuerySerializer.Default)
             .UseExecutor(GremlinQueryExecutor.Invalid)
             .UseDeserializer(GremlinQueryExecutionResultDeserializer.Default);

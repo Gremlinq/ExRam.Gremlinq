@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
+
+using ExRam.Gremlinq.Tests.Entities;
+
 using FluentAssertions;
 using Xunit;
 using Xunit.Abstractions;
@@ -37,6 +40,9 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await g
                 .ConfigureEnvironment(e => e
+                    .UseModel(GraphModel
+                        .FromBaseTypes<Vertex, Edge>(lookup => lookup
+                            .IncludeAssembliesOfBaseTypes()))
                     .ConfigureSerializer(s => s.ToGroovy())
                     .UseExecutor(GremlinQueryExecutor.Identity)
                     .UseDeserializer(GremlinQueryExecutionResultDeserializer.Default))

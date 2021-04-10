@@ -16,12 +16,12 @@ namespace ExRam.Gremlinq.Core
 {
     public static class GremlinQueryFragmentDeserializer
     {
-        private sealed class VertexImpl : IVertex
+        private sealed class VertexImpl
         {
             public object? Id { get; set; }
         }
 
-        private sealed class EdgeImpl : IEdge
+        private sealed class EdgeImpl
         {
             public object? Id { get; set; }
         }
@@ -295,14 +295,6 @@ namespace ExRam.Gremlinq.Core
                     var modelType = label != null && modelTypes.TryGetValue(label, out var types)
                         ? types.FirstOrDefault(possibleType => type.IsAssignableFrom(possibleType))
                         : default;
-
-                    if (modelType == null)
-                    {
-                        if (type == typeof(IVertex))
-                            modelType = typeof(VertexImpl);
-                        else if (type == typeof(IEdge))
-                            modelType = typeof(EdgeImpl);
-                    }
 
                     if (modelType != null && modelType != type)
                         return recurse.TryDeserialize(jObject, modelType, env);
