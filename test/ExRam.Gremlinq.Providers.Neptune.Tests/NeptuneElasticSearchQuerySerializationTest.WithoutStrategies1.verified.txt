@@ -2,13 +2,6 @@
   {
     "SourceInstructions": [
       {
-        "OperatorName": "withSideEffect",
-        "Arguments": [
-          "Neptune#fts.endpoint",
-          "http://elastic.search.server/"
-        ]
-      },
-      {
         "OperatorName": "withoutStrategies",
         "Arguments": [
           "Gremlin.Net.Process.Traversal.Strategy.Decoration.SubgraphStrategy, Gremlin.Net, Version=3.4.0.0, Culture=neutral, PublicKeyToken=d2035e9aa387a711"
@@ -16,6 +9,13 @@
       }
     ],
     "StepInstructions": [
+      {
+        "OperatorName": "withSideEffect",
+        "Arguments": [
+          "Neptune#fts.endpoint",
+          "http://elastic.search.server/"
+        ]
+      },
       {
         "OperatorName": "V",
         "Arguments": []

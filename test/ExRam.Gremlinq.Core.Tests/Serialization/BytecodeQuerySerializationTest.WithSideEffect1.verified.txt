@@ -1,15 +1,14 @@
 [
   {
-    "SourceInstructions": [
+    "SourceInstructions": [],
+    "StepInstructions": [
       {
         "OperatorName": "withSideEffect",
         "Arguments": [
           "l1",
           36
         ]
-      }
-    ],
-    "StepInstructions": [
+      },
       {
         "OperatorName": "V",
         "Arguments": []

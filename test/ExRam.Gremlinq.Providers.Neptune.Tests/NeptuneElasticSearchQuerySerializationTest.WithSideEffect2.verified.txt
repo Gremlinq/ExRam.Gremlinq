@@ -1,6 +1,7 @@
 [
   {
-    "SourceInstructions": [
+    "SourceInstructions": [],
+    "StepInstructions": [
       {
         "OperatorName": "withSideEffect",
         "Arguments": [
@@ -14,9 +15,7 @@
           "sideEffectLabel",
           36
         ]
-      }
-    ],
-    "StepInstructions": [
+      },
       {
         "OperatorName": "V",
         "Arguments": []
