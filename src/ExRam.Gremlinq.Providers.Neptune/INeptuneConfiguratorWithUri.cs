@@ -6,8 +6,8 @@ namespace ExRam.Gremlinq.Providers.Neptune
 {
     public interface INeptuneConfiguratorWithUri : IGremlinQuerySourceTransformation
     {
-        IGremlinQuerySourceTransformation UseElasticSearch(Uri endPoint);
+        INeptuneConfiguratorWithUri UseElasticSearch(Uri endPoint);
 
-        IGremlinQuerySourceTransformation ConfigureWebSocket(Func<IWebSocketConfigurator, IWebSocketConfigurator> transformation);
+        INeptuneConfiguratorWithUri ConfigureWebSocket(Func<IWebSocketConfigurator, IWebSocketConfigurator> transformation);
     }
 }
