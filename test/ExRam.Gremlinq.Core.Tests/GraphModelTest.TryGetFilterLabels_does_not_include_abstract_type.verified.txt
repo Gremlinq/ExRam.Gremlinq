@@ -1,4 +1,1 @@
-[
-  Company,
-  Person
-]
+[]

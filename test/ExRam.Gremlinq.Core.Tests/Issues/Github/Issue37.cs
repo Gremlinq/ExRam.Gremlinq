@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Core.Tests
 {
     public class Issue37 : GremlinqTestBase
     {
-        public class VertexBase : IVertex
+        public class VertexBase
         {
             public string PartitionKey { get; set; } = "MyKey";
             public object? Id { get; set; }
@@ -20,7 +20,7 @@ namespace ExRam.Gremlinq.Core.Tests
             public string? Value { get; set; }
         }
 
-        public abstract class VertexBaseAbstract : IVertex
+        public abstract class VertexBaseAbstract
         {
             public abstract string PartitionKey { get; set; }
             public object? Id { get; set; }

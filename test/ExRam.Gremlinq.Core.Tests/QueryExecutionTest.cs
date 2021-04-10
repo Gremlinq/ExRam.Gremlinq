@@ -2142,7 +2142,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public virtual async Task Order_Fold_Unfold()
         {
             await _g
-                .V<IVertex>()
+                .V<Vertex>()
                 .Order(b => b
                     .By(x => x.Id))
                 .Fold()
@@ -5458,15 +5458,6 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(x => x.Name!.Value == "SomeName")
-                .Verify();
-        }
-
-        [Fact]
-        public virtual async Task Where_IVertexProperty_Value()
-        {
-            await _g
-                .V<Person>()
-                .Where(x => ((IVertexProperty)x.Name!).Value == (object)"SomeName")
                 .Verify();
         }
 

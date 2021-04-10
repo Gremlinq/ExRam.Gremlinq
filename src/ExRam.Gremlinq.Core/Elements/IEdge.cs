@@ -1,6 +1,6 @@
 ﻿namespace ExRam.Gremlinq.Core.GraphElements
 {
-    public interface IEdge : IElement
+    internal interface IEdge : IElement
     {
 
     }

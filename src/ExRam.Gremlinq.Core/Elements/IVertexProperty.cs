@@ -2,7 +2,7 @@
 
 namespace ExRam.Gremlinq.Core.GraphElements
 {
-    public interface IVertexProperty : IProperty, IElement
+    internal interface IVertexProperty : IProperty, IElement
     {
         IEnumerable<KeyValuePair<string, object>> GetProperties(IGremlinQueryEnvironment environment);
     }

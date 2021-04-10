@@ -1,8 +1,6 @@
-﻿using ExRam.Gremlinq.Core.GraphElements;
-
-namespace ExRam.Gremlinq.Tests.Entities
+﻿namespace ExRam.Gremlinq.Tests.Entities
 {
-    public abstract class Vertex : IVertex
+    public abstract class Vertex
     {
         public object? Id { get; set; }
 
