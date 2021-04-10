@@ -1,4 +1,5 @@
 ﻿using System;
+using ExRam.Gremlinq.Core.ExpressionParsing;
 
 namespace ExRam.Gremlinq.Core
 {

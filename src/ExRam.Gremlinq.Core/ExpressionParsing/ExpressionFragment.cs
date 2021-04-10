@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace ExRam.Gremlinq.Core
+namespace ExRam.Gremlinq.Core.ExpressionParsing
 {
     internal readonly struct ExpressionFragment
     {

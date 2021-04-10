@@ -1,4 +1,6 @@
-﻿using Gremlin.Net.Process.Traversal;
+﻿using ExRam.Gremlinq.Core.ExpressionParsing;
+
+using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
 {

@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Core
+﻿namespace ExRam.Gremlinq.Core.ExpressionParsing
 {
     internal enum WellKnownMember
     {
