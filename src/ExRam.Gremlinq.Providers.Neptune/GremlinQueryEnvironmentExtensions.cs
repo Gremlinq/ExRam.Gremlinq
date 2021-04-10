@@ -26,11 +26,11 @@ namespace ExRam.Gremlinq.Core
                         switch (stringExpressionSemantics)
                         {
                             case StartsWithExpressionSemantics:
-                                return P.Eq($"Neptune#fts {value}*");
+                                return new P("eq", $"Neptune#fts {value}*");
                             case EndsWithExpressionSemantics:
-                                return P.Eq($"Neptune#fts *{value}");
+                                return new P("eq", $"Neptune#fts *{value}");
                             case HasInfixExpressionSemantics:
-                                return P.Eq($"Neptune#fts *{value}*");
+                                return new P("eq", $"Neptune#fts *{value}*");
                         }
                     }
                     
