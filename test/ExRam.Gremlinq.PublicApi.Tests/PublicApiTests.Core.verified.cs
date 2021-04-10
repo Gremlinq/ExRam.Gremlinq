@@ -385,6 +385,7 @@ namespace ExRam.Gremlinq.Core
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.DisabledTextPredicates> DisabledTextPredicates;
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<System.Collections.Immutable.IImmutableList<ExRam.Gremlinq.Core.Step>> EdgeProjectionSteps;
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.FilterLabelsVerbosity> FilterLabelsVerbosity;
+        public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.IPFactory> PFactory;
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.StringComparisonTranslationStrictness> StringComparisonTranslationStrictness;
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<System.Collections.Immutable.IImmutableDictionary<Gremlin.Net.Process.Traversal.T, ExRam.Gremlinq.Core.SerializationBehaviour>> TSerializationBehaviourOverrides;
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<System.Collections.Immutable.IImmutableList<ExRam.Gremlinq.Core.Step>> VertexProjectionSteps;
@@ -978,6 +979,10 @@ namespace ExRam.Gremlinq.Core
         ExRam.Gremlinq.Core.IBothEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> To<TInVertex>(System.Func<ExRam.Gremlinq.Core.IVertexGremlinQuery<TOutVertex>, ExRam.Gremlinq.Core.IVertexGremlinQueryBase<TInVertex>> toVertexTraversal);
     }
     public interface IOutEdgeGremlinQuery<TEdge, TOutVertex> : ExRam.Gremlinq.Core.IEdgeGremlinQueryBase, ExRam.Gremlinq.Core.IEdgeGremlinQueryBaseRec<ExRam.Gremlinq.Core.IOutEdgeGremlinQuery<TEdge, TOutVertex>>, ExRam.Gremlinq.Core.IEdgeGremlinQueryBaseRec<TEdge, ExRam.Gremlinq.Core.IOutEdgeGremlinQuery<TEdge, TOutVertex>>, ExRam.Gremlinq.Core.IEdgeGremlinQueryBase<TEdge>, ExRam.Gremlinq.Core.IEdgeOrVertexGremlinQueryBase, ExRam.Gremlinq.Core.IEdgeOrVertexGremlinQueryBaseRec<ExRam.Gremlinq.Core.IOutEdgeGremlinQuery<TEdge, TOutVertex>>, ExRam.Gremlinq.Core.IEdgeOrVertexGremlinQueryBaseRec<TEdge, ExRam.Gremlinq.Core.IOutEdgeGremlinQuery<TEdge, TOutVertex>>, ExRam.Gremlinq.Core.IEdgeOrVertexGremlinQueryBase<TEdge>, ExRam.Gremlinq.Core.IElementGremlinQueryBase, ExRam.Gremlinq.Core.IElementGremlinQueryBaseRec<ExRam.Gremlinq.Core.IOutEdgeGremlinQuery<TEdge, TOutVertex>>, ExRam.Gremlinq.Core.IElementGremlinQueryBaseRec<TEdge, ExRam.Gremlinq.Core.IOutEdgeGremlinQuery<TEdge, TOutVertex>>, ExRam.Gremlinq.Core.IElementGremlinQueryBase<TEdge>, ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<ExRam.Gremlinq.Core.IOutEdgeGremlinQuery<TEdge, TOutVertex>>, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TEdge, ExRam.Gremlinq.Core.IOutEdgeGremlinQuery<TEdge, TOutVertex>>, ExRam.Gremlinq.Core.IGremlinQueryBase<TEdge>, ExRam.Gremlinq.Core.IOutEdgeGremlinQueryBase, ExRam.Gremlinq.Core.IOutEdgeGremlinQueryBaseRec<ExRam.Gremlinq.Core.IOutEdgeGremlinQuery<TEdge, TOutVertex>>, ExRam.Gremlinq.Core.IOutEdgeGremlinQueryBaseRec<TEdge, TOutVertex, ExRam.Gremlinq.Core.IOutEdgeGremlinQuery<TEdge, TOutVertex>>, ExRam.Gremlinq.Core.IOutEdgeGremlinQueryBase<TEdge, TOutVertex>, ExRam.Gremlinq.Core.IStartGremlinQuery { }
+    public interface IPFactory
+    {
+        Gremlin.Net.Process.Traversal.P? TryGetP(ExRam.Gremlinq.Core.ExpressionParsing.ExpressionSemantics semantics, object? value, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment);
+    }
     public interface IProjectBuilder<out TSourceQuery, TElement>
         where out TSourceQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
     {
@@ -1835,10 +1840,6 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
         public static readonly ExRam.Gremlinq.Core.ExpressionParsing.HasInfixExpressionSemantics CaseSensitive;
         public override ExRam.Gremlinq.Core.ExpressionParsing.ExpressionSemantics Flip() { }
         public static ExRam.Gremlinq.Core.ExpressionParsing.HasInfixExpressionSemantics Get(System.StringComparison comparison) { }
-    }
-    public interface IPFactory
-    {
-        Gremlin.Net.Process.Traversal.P? TryGetP(ExRam.Gremlinq.Core.ExpressionParsing.ExpressionSemantics semantics, object? value, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment);
     }
     public sealed class IntersectsExpressionSemantics : ExRam.Gremlinq.Core.ExpressionParsing.EnumerableExpressionSemantics
     {
