@@ -16,7 +16,7 @@
             "EnumValue": "single"
           },
           "Duration",
-          "02:00:00"
+          7200000.0
         ]
       },
       {
@@ -38,7 +38,7 @@
             "EnumValue": "single"
           },
           "StartTime",
-          "08:00:00"
+          28800000.0
         ]
       },
       {
