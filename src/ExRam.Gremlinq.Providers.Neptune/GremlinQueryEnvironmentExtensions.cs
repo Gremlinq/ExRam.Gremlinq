@@ -92,6 +92,7 @@ namespace ExRam.Gremlinq.Core
                     .ConfigureSerializer(serializer => serializer
                         .ConfigureFragmentSerializer(fragmentSerializer => fragmentSerializer
                             .Override<PropertyStep>((step, env, overridden, recurse) => overridden(Cardinality.List.Equals(step.Cardinality) ? new PropertyStep(step.Key, step.Value, step.MetaProperties, Cardinality.Set) : step, env, recurse))))
+                    .StoreTimeSpansAsNumbers()
                     .StoreByteArraysAsBase64String()
                     .ConfigureFeatureSet(featureSet => featureSet
                         .ConfigureGraphFeatures(_ => GraphFeatures.Transactions | GraphFeatures.Persistence | GraphFeatures.ConcurrentAccess)
