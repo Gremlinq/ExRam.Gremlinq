@@ -10,8 +10,8 @@ namespace ExRam.Gremlinq.Core.Tests
     {
         private static readonly Regex IdRegex = new ("(\"id\"\\s*[:,]\\s*{\\s*\"@type\"\\s*:\\s*\"g:Int64\"\\s*,\\s*\"@value\":\\s*)([^\\s{}]+)(\\s*})", RegexOptions.IgnoreCase);
 
-        protected QueryIntegrationTest(IConfigurableGremlinQuerySource g, ITestOutputHelper testOutputHelper, [CallerFilePath] string callerFilePath = "") : base(
-            g
+        protected QueryIntegrationTest(IIntegrationTestFixture fixture, ITestOutputHelper testOutputHelper, [CallerFilePath] string callerFilePath = "") : base(
+            fixture.GremlinQuerySource
                 .ConfigureEnvironment(env => env
                     .UseDeserializer(GremlinQueryExecutionResultDeserializer.Default)),
             testOutputHelper,

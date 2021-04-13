@@ -1,28 +1,21 @@
 ﻿#if RELEASE && NET5_0 && RUNJANUSGRAPHINTEGRATIONTESTS
 using System;
 using System.Collections.Immutable;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using ExRam.Gremlinq.Core;
+
 using ExRam.Gremlinq.Core.Tests;
 using Xunit;
 using Xunit.Abstractions;
-using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
 {
-    public class JanusGraphIntegrationTests : QueryIntegrationTest
+    public class JanusGraphIntegrationTests : QueryIntegrationTest, IClassFixture<JanusGraphFixture>
     {
         private static readonly Regex RelationIdRegex = new("\"relationId\":[\\s]?\"[0-9a-z]{3}([-][0-9a-z]{3})*\"", RegexOptions.IgnoreCase);
 
-        public JanusGraphIntegrationTests(ITestOutputHelper testOutputHelper) : base(
-            g
-                .UseJanusGraph(builder => builder
-                    .At(new Uri("ws://localhost:8183")))
-                .ConfigureEnvironment(environment => environment
-                    .ConfigureExecutor(_ => _
-                        .TransformResult(_ => AsyncEnumerable.Empty<object>()))),
+        public JanusGraphIntegrationTests(JanusGraphFixture fixture, ITestOutputHelper testOutputHelper) : base(
+            fixture,
             testOutputHelper)
         {
         }
