@@ -115,5 +115,16 @@ namespace ExRam.Gremlinq.Core
                             ? TimeSpan.FromMilliseconds(jValue.Value<double>())
                             : overridden(jValue, type, env, recurse))));
         }
+
+        public static IGremlinQueryEnvironment StoreByteArraysAsBase64String(this IGremlinQueryEnvironment environment)
+        {
+            return environment
+                .ConfigureModel(model => model
+                    .ConfigureNativeTypes(types => types
+                        .Remove(typeof(byte[]))))
+                .ConfigureSerializer(_ => _
+                    .ConfigureFragmentSerializer(_ => _
+                        .Override<byte[]>((bytes, env, overridden, recurse) => recurse.Serialize(Convert.ToBase64String(bytes), env))));
+        }
     }
 }
