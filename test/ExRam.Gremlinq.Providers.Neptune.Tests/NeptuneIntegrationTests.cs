@@ -79,6 +79,12 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
         public override Task Properties_ValueMap_untyped() => base.Properties_ValueMap_untyped();
 
         [Fact(Skip = "Properties on a vertex property is not supported")]
+        public override Task Properties_Values_typed() => base.Properties_Values_typed();
+
+        [Fact(Skip = "Properties on a vertex property is not supported")]
+        public override Task Properties_Values_untyped() => base.Properties_Values_untyped();
+
+        [Fact(Skip = "Properties on a vertex property is not supported")]
         public override Task Properties_Values2() => base.Properties_Values2();
 
         [Fact(Skip = "Properties on a vertex property is not supported")]
@@ -95,7 +101,24 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
 
         [Fact(Skip = "Properties on a vertex property is not supported")]
         public override Task Variable_wrap() => base.Variable_wrap();
-    }
 
+        [Fact(Skip = "An unexpected error has occurred in Neptune.")]
+        public override Task Properties_Where_Dictionary_key1() => base.Properties_Where_Dictionary_key1();
+
+        [Fact(Skip = "An unexpected error has occurred in Neptune.")]
+        public override Task Properties_Where_Dictionary_key2() => base.Properties_Where_Dictionary_key2();
+
+        [Fact(Skip = "An unexpected error has occurred in Neptune.")]
+        public override Task Properties_Where_Meta_key() => base.Properties_Where_Meta_key();
+
+        [Fact(Skip = "An unexpected error has occurred in Neptune.")]
+        public override Task Properties_Where_Meta_key_reversed() => base.Properties_Where_Meta_key_reversed();
+
+        [Fact(Skip = "An unexpected error has occurred in Neptune.")]
+        public override Task Properties_Where_neq_Label() => base.Properties_Where_neq_Label();
+
+        [Fact(Skip = "UnsupportedOperationException")]
+        public override Task Set_Meta_Property_to_null() => base.Set_Meta_Property_to_null();
+    }
 }
 #endif
