@@ -31,5 +31,15 @@ namespace ExRam.Gremlinq.Core.Tests
                     .ConfigureFragmentDeserializer(f => f
                         .AddNewtonsoftJson())));
         }
+
+        public static IGremlinQueryExecutor Canonicalize(this IGremlinQueryExecutor executor)
+        {
+            return executor.TransformResult(enumerable => enumerable
+                .Select(x => x switch
+                {
+                    JToken token => token.Canonicalize(),
+                    { } other => other
+                }));
+        }
     }
 }
