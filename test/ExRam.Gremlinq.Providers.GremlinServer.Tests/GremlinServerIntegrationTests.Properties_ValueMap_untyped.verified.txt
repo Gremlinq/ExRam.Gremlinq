@@ -25,11 +25,10 @@
           "value": {
             "@type": "g:Map",
             "@value": [
-              "ValidFrom",
-              {
-                "@type": "g:Date",
-                "@value": 1546304400000
-              }
+              "de",
+              "Deutschland",
+              "en",
+              "Germany"
             ]
           }
         }
@@ -44,10 +43,11 @@
           "value": {
             "@type": "g:Map",
             "@value": [
-              "de",
-              "Deutschland",
-              "en",
-              "Germany"
+              "ValidFrom",
+              {
+                "@type": "g:Date",
+                "@value": 1546304400000
+              }
             ]
           }
         }

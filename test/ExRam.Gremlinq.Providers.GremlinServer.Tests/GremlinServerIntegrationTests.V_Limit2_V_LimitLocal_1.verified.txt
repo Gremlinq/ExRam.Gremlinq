@@ -14,16 +14,16 @@
             "@value": [
               "id",
               {
-                "@type": "g:Int64",
+                "@type": "g:UUID",
                 "@value": "scrubbed id"
               },
               "label",
-              "Country",
+              "Person",
               "properties",
               {
                 "@type": "g:Map",
                 "@value": [
-                  "CountryCallingCode",
+                  "Gender",
                   {
                     "@type": "g:List",
                     "@value": [
@@ -36,9 +36,12 @@
                             "@value": "scrubbed id"
                           },
                           "label",
-                          "CountryCallingCode",
+                          "Gender",
                           "value",
-                          "+49",
+                          {
+                            "@type": "g:Int32",
+                            "@value": 0
+                          },
                           "properties",
                           {
                             "@type": "g:Map",
@@ -48,7 +51,7 @@
                       }
                     ]
                   },
-                  "LocalizableDescription",
+                  "RegistrationDate",
                   {
                     "@type": "g:List",
                     "@value": [
@@ -61,16 +64,69 @@
                             "@value": "scrubbed id"
                           },
                           "label",
-                          "LocalizableDescription",
+                          "RegistrationDate",
                           "value",
-                          "",
+                          {
+                            "@type": "g:Date",
+                            "@value": 1586270616000
+                          },
                           "properties",
                           {
                             "@type": "g:Map",
-                            "@value": [
-                              "someKey",
-                              "value"
-                            ]
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "Age",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": "scrubbed id"
+                          },
+                          "label",
+                          "Age",
+                          "value",
+                          {
+                            "@type": "g:Int32",
+                            "@value": 21
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "Name",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": "scrubbed id"
+                          },
+                          "label",
+                          "Name",
+                          "value",
+                          "Marko",
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
                           }
                         ]
                       }
@@ -94,16 +150,16 @@
             "@value": [
               "id",
               {
-                "@type": "g:Int64",
+                "@type": "g:UUID",
                 "@value": "scrubbed id"
               },
               "label",
-              "Language",
+              "Country",
               "properties",
               {
                 "@type": "g:Map",
                 "@value": [
-                  "IetfLanguageTag",
+                  "LocalizableDescription",
                   {
                     "@type": "g:List",
                     "@value": [
@@ -116,13 +172,16 @@
                             "@value": "scrubbed id"
                           },
                           "label",
-                          "IetfLanguageTag",
+                          "LocalizableDescription",
                           "value",
-                          "en",
+                          "",
                           "properties",
                           {
                             "@type": "g:Map",
-                            "@value": []
+                            "@value": [
+                              "someKey",
+                              "value"
+                            ]
                           }
                         ]
                       }
