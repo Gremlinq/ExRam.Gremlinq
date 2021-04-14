@@ -9,10 +9,11 @@ namespace ExRam.Gremlinq.Core.Tests
 {
     public abstract class QuerySerializationTest : QueryExecutionTest
     {
-        protected QuerySerializationTest(IConfigurableGremlinQuerySource g, ITestOutputHelper testOutputHelper, [CallerFilePath] string callerFilePath = "") : base(
-            g
-                .ConfigureEnvironment(env => env
-                    .UseExecutor(GremlinQueryExecutor.Identity)),
+        protected QuerySerializationTest(IIntegrationTestFixture fixture, ITestOutputHelper testOutputHelper, [CallerFilePath] string callerFilePath = "") : base(
+            fixture
+                .Configure(g => g
+                    .ConfigureEnvironment(env => env
+                        .UseExecutor(GremlinQueryExecutor.Identity))),
             testOutputHelper,
             callerFilePath)
         {

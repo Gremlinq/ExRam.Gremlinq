@@ -9,15 +9,22 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
-    public sealed class CosmosDbQuerySerializationTest : QuerySerializationTest
+    public sealed class CosmosDbQuerySerializationTest : QuerySerializationTest, IClassFixture<CosmosDbQuerySerializationTest.Fixture>
     {
-        public CosmosDbQuerySerializationTest(ITestOutputHelper testOutputHelper) : base(
-            g
+        public sealed class Fixture : IntegrationTestFixture
+        {
+            public Fixture() : base(g
                 .UseCosmosDb(builder => builder
                     .At(new Uri("wss://localhost"), "database", "graph")
                     .AuthenticateBy("authKey"))
                 .ConfigureEnvironment(env => env
-                    .AddFakePartitionKey()),
+                    .AddFakePartitionKey()))
+            {
+            }
+        }
+
+        public CosmosDbQuerySerializationTest(Fixture fixture, ITestOutputHelper testOutputHelper) : base(
+            fixture,
             testOutputHelper)
         {
 

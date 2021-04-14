@@ -7,11 +7,18 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
-    public class CosmosDbDeserializationTests : QueryDeserializationTest
+    public sealed class CosmosDbDeserializationTests : QueryDeserializationTest, IClassFixture<CosmosDbDeserializationTests.Fixture>
     {
-        public CosmosDbDeserializationTests(ITestOutputHelper testOutputHelper) : base(
-            g
-                .UseCosmosDb(_ => _.At("ws://localhost", "", "").AuthenticateBy("")),
+        public sealed class Fixture : IntegrationTestFixture
+        {
+            public Fixture() : base(g
+                .UseCosmosDb(_ => _.At("ws://localhost", "", "").AuthenticateBy("")))
+            {
+            }
+        }
+
+        public CosmosDbDeserializationTests(Fixture fixture, ITestOutputHelper testOutputHelper) : base(
+            fixture,
             testOutputHelper)
         {
         }

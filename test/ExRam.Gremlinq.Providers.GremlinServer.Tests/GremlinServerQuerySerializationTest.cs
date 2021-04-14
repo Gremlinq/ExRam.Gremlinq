@@ -9,12 +9,19 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
-    public sealed class GremlinServerQuerySerializationTest : QuerySerializationTest
+    public sealed class GremlinServerQuerySerializationTest : QuerySerializationTest, IClassFixture<GremlinServerQuerySerializationTest.Fixture>
     {
-        public GremlinServerQuerySerializationTest(ITestOutputHelper testOutputHelper) : base(
-            g
+        public sealed class Fixture : IntegrationTestFixture
+        {
+            public Fixture() : base(g
                 .UseGremlinServer(builder => builder
-                    .AtLocalhost()),
+                    .AtLocalhost()))
+            {
+            }
+        }
+
+        public GremlinServerQuerySerializationTest(Fixture fixture, ITestOutputHelper testOutputHelper) : base(
+            fixture,
             testOutputHelper)
         {
 
