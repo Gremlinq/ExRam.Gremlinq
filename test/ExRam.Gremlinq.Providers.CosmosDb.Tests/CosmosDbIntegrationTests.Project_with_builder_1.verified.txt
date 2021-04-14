@@ -24,48 +24,6 @@
     {
       "in!": {
         "id": "scrubbed id",
-        "label": "Country",
-        "properties": {
-          "CountryCallingCode": [
-            {
-              "id": "scrubbed id",
-              "value": "+49"
-            }
-          ],
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ]
-        },
-        "type": "vertex"
-      }
-    },
-    {
-      "in!": {
-        "id": "scrubbed id",
-        "label": "Country",
-        "properties": {
-          "CountryCallingCode": [
-            {
-              "id": "scrubbed id",
-              "value": "+49"
-            }
-          ],
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ]
-        },
-        "type": "vertex"
-      }
-    },
-    {
-      "in!": {
-        "id": "scrubbed id",
         "label": "Person",
         "properties": {
           "Age": [
@@ -123,6 +81,48 @@
             {
               "id": "scrubbed id",
               "value": 1586270616000
+            }
+          ]
+        },
+        "type": "vertex"
+      }
+    },
+    {
+      "in!": {
+        "id": "scrubbed id",
+        "label": "Country",
+        "properties": {
+          "CountryCallingCode": [
+            {
+              "id": "scrubbed id",
+              "value": "+49"
+            }
+          ],
+          "PartitionKey": [
+            {
+              "id": "scrubbed id",
+              "value": "PartitionKey"
+            }
+          ]
+        },
+        "type": "vertex"
+      }
+    },
+    {
+      "in!": {
+        "id": "scrubbed id",
+        "label": "Country",
+        "properties": {
+          "CountryCallingCode": [
+            {
+              "id": "scrubbed id",
+              "value": "+49"
+            }
+          ],
+          "PartitionKey": [
+            {
+              "id": "scrubbed id",
+              "value": "PartitionKey"
             }
           ]
         },

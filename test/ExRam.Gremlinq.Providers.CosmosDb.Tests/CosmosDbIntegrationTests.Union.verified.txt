@@ -26,12 +26,6 @@
       "id": "scrubbed id",
       "label": "Country",
       "properties": {
-        "CountryCallingCode": [
-          {
-            "id": "scrubbed id",
-            "value": "+49"
-          }
-        ],
         "LocalizableDescription": [
           {
             "id": "scrubbed id",
@@ -54,6 +48,12 @@
       "id": "scrubbed id",
       "label": "Country",
       "properties": {
+        "CountryCallingCode": [
+          {
+            "id": "scrubbed id",
+            "value": "+49"
+          }
+        ],
         "LocalizableDescription": [
           {
             "id": "scrubbed id",

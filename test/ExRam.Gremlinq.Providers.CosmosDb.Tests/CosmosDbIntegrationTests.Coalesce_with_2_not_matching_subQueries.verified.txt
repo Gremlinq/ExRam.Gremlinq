@@ -3,86 +3,30 @@
     {
       "id": "scrubbed id",
       "inV": "scrubbed id",
-      "inVLabel": "Country",
+      "inVLabel": "Person",
       "label": "LivesIn",
-      "outV": "scrubbed id",
-      "outVLabel": "Person",
-      "type": "edge"
-    },
-    {
-      "id": "scrubbed id",
-      "inV": "scrubbed id",
-      "inVLabel": "Country",
-      "label": "LivesIn",
-      "outV": "scrubbed id",
-      "outVLabel": "Person",
-      "type": "edge"
-    },
-    {
-      "id": "scrubbed id",
-      "label": "Country",
-      "properties": {
-        "CountryCallingCode": [
-          {
-            "id": "scrubbed id",
-            "value": "+49"
-          }
-        ],
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ]
-      },
-      "type": "vertex"
-    },
-    {
-      "id": "scrubbed id",
-      "label": "Country",
-      "properties": {
-        "CountryCallingCode": [
-          {
-            "id": "scrubbed id",
-            "value": "+49"
-          }
-        ],
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ]
-      },
-      "type": "vertex"
-    },
-    {
-      "id": "scrubbed id",
-      "label": "Country",
-      "properties": {
-        "CountryCallingCode": [
-          {
-            "id": "scrubbed id",
-            "value": "+49"
-          }
-        ],
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ]
-      },
-      "type": "vertex"
-    },
-    {
-      "id": "scrubbed id",
-      "inV": "scrubbed id",
-      "inVLabel": "Language",
-      "label": "Speaks",
       "outV": "scrubbed id",
       "outVLabel": "Country",
       "type": "edge"
+    },
+    {
+      "id": "scrubbed id",
+      "label": "Country",
+      "properties": {
+        "CountryCallingCode": [
+          {
+            "id": "scrubbed id",
+            "value": "+49"
+          }
+        ],
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
+          }
+        ]
+      },
+      "type": "vertex"
     },
     {
       "id": "scrubbed id",
@@ -108,6 +52,33 @@
         ]
       },
       "type": "vertex"
+    },
+    {
+      "id": "scrubbed id",
+      "inV": "scrubbed id",
+      "inVLabel": "Language",
+      "label": "Speaks",
+      "outV": "scrubbed id",
+      "outVLabel": "Country",
+      "type": "edge"
+    },
+    {
+      "id": "scrubbed id",
+      "inV": "scrubbed id",
+      "inVLabel": "Language",
+      "label": "Speaks",
+      "outV": "scrubbed id",
+      "outVLabel": "Country",
+      "type": "edge"
+    },
+    {
+      "id": "scrubbed id",
+      "inV": "scrubbed id",
+      "inVLabel": "Country",
+      "label": "LivesIn",
+      "outV": "scrubbed id",
+      "outVLabel": "Person",
+      "type": "edge"
     },
     {
       "id": "scrubbed id",
@@ -123,18 +94,12 @@
     },
     {
       "id": "scrubbed id",
-      "label": "Person",
+      "label": "Country",
       "properties": {
-        "Age": [
+        "CountryCallingCode": [
           {
             "id": "scrubbed id",
-            "value": 0
-          }
-        ],
-        "Gender": [
-          {
-            "id": "scrubbed id",
-            "value": 0
+            "value": "+49"
           }
         ],
         "PartitionKey": [
@@ -148,18 +113,12 @@
     },
     {
       "id": "scrubbed id",
-      "label": "Person",
+      "label": "Country",
       "properties": {
-        "Age": [
+        "CountryCallingCode": [
           {
             "id": "scrubbed id",
-            "value": 0
-          }
-        ],
-        "Gender": [
-          {
-            "id": "scrubbed id",
-            "value": 0
+            "value": "+49"
           }
         ],
         "PartitionKey": [
@@ -174,19 +133,10 @@
     {
       "id": "scrubbed id",
       "inV": "scrubbed id",
-      "inVLabel": "Language",
-      "label": "Speaks",
-      "outV": "scrubbed id",
-      "outVLabel": "Country",
-      "type": "edge"
-    },
-    {
-      "id": "scrubbed id",
-      "inV": "scrubbed id",
-      "inVLabel": "Person",
+      "inVLabel": "Country",
       "label": "LivesIn",
       "outV": "scrubbed id",
-      "outVLabel": "Country",
+      "outVLabel": "Person",
       "type": "edge"
     },
     {
@@ -197,6 +147,56 @@
       "outV": "scrubbed id",
       "outVLabel": "Person",
       "type": "edge"
+    },
+    {
+      "id": "scrubbed id",
+      "label": "Person",
+      "properties": {
+        "Age": [
+          {
+            "id": "scrubbed id",
+            "value": 0
+          }
+        ],
+        "Gender": [
+          {
+            "id": "scrubbed id",
+            "value": 0
+          }
+        ],
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
+          }
+        ]
+      },
+      "type": "vertex"
+    },
+    {
+      "id": "scrubbed id",
+      "label": "Person",
+      "properties": {
+        "Age": [
+          {
+            "id": "scrubbed id",
+            "value": 0
+          }
+        ],
+        "Gender": [
+          {
+            "id": "scrubbed id",
+            "value": 0
+          }
+        ],
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
+          }
+        ]
+      },
+      "type": "vertex"
     }
   ]
 ]

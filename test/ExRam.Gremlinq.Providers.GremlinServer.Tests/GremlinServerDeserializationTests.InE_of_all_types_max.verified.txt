@@ -1,14 +1,5 @@
 [
   {
-    "Since": null,
-    "Id": "scrubbed id",
-    "Label": "LivesIn"
-  },
-  {
-    "Id": "scrubbed id",
-    "Label": "Speaks"
-  },
-  {
     "Role": "Admin",
     "From": "2020-04-07T14:43:36Z",
     "To": "2020-04-07T14:43:36Z",
@@ -48,6 +39,15 @@
   {
     "Id": "scrubbed id",
     "Label": "Speaks"
+  },
+  {
+    "Id": "scrubbed id",
+    "Label": "Speaks"
+  },
+  {
+    "Since": null,
+    "Id": "scrubbed id",
+    "Label": "LivesIn"
   },
   {
     "Role": null,
