@@ -1,60 +1,8 @@
 [
   {
-    "Id": "scrubbed id",
-    "Label": "Speaks"
-  },
-  {
     "Since": null,
     "Id": "scrubbed id",
     "Label": "LivesIn"
-  },
-  {
-    "Name": null,
-    "Languages": [],
-    "CountryCallingCode": "+49",
-    "LocalizableDescription": null,
-    "Id": "scrubbed id",
-    "Label": "Country"
-  },
-  {
-    "Name": null,
-    "Languages": [],
-    "CountryCallingCode": "+49",
-    "LocalizableDescription": null,
-    "Id": "scrubbed id",
-    "Label": "Country"
-  },
-  {
-    "Since": null,
-    "Id": "scrubbed id",
-    "Label": "LivesIn"
-  },
-  {
-    "Age": 0,
-    "Gender": 0,
-    "Image": "",
-    "RegistrationDate": null,
-    "PhoneNumbers": [],
-    "SomeObscureProperty": null,
-    "Name": null,
-    "Id": "scrubbed id",
-    "Label": "Person"
-  },
-  {
-    "Since": null,
-    "Id": "scrubbed id",
-    "Label": "LivesIn"
-  },
-  {
-    "Age": 0,
-    "Gender": 0,
-    "Image": "",
-    "RegistrationDate": null,
-    "PhoneNumbers": [],
-    "SomeObscureProperty": null,
-    "Name": null,
-    "Id": "scrubbed id",
-    "Label": "Person"
   },
   {
     "Since": {
@@ -76,6 +24,48 @@
     "Label": "Person"
   },
   {
+    "Since": null,
+    "Id": "scrubbed id",
+    "Label": "LivesIn"
+  },
+  {
+    "Since": null,
+    "Id": "scrubbed id",
+    "Label": "LivesIn"
+  },
+  {
+    "Age": 0,
+    "Gender": 0,
+    "Image": "",
+    "RegistrationDate": null,
+    "PhoneNumbers": [],
+    "SomeObscureProperty": null,
+    "Name": null,
+    "Id": "scrubbed id",
+    "Label": "Person"
+  },
+  {
+    "Since": null,
+    "Id": "scrubbed id",
+    "Label": "LivesIn"
+  },
+  {
+    "Name": null,
+    "Languages": [],
+    "CountryCallingCode": "+49",
+    "LocalizableDescription": null,
+    "Id": "scrubbed id",
+    "Label": "Country"
+  },
+  {
+    "Name": null,
+    "Languages": [],
+    "CountryCallingCode": "+49",
+    "LocalizableDescription": null,
+    "Id": "scrubbed id",
+    "Label": "Country"
+  },
+  {
     "Name": null,
     "Languages": [],
     "CountryCallingCode": "+49",
@@ -88,8 +78,18 @@
     "Label": "Speaks"
   },
   {
-    "Since": null,
+    "Age": 0,
+    "Gender": 0,
+    "Image": "",
+    "RegistrationDate": null,
+    "PhoneNumbers": [],
+    "SomeObscureProperty": null,
+    "Name": null,
     "Id": "scrubbed id",
-    "Label": "LivesIn"
+    "Label": "Person"
+  },
+  {
+    "Id": "scrubbed id",
+    "Label": "Speaks"
   }
 ]

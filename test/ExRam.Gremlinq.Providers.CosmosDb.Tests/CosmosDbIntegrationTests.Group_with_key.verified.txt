@@ -49,11 +49,11 @@
             "PhoneNumbers": [
               {
                 "id": "scrubbed id",
-                "value": "+4923456"
+                "value": "+4912345"
               },
               {
                 "id": "scrubbed id",
-                "value": "+4912345"
+                "value": "+4923456"
               }
             ]
           },
@@ -61,6 +61,19 @@
         }
       ],
       "Country": [
+        {
+          "id": "scrubbed id",
+          "label": "Country",
+          "properties": {
+            "PartitionKey": [
+              {
+                "id": "scrubbed id",
+                "value": "PartitionKey"
+              }
+            ]
+          },
+          "type": "vertex"
+        },
         {
           "id": "scrubbed id",
           "label": "Country",
@@ -88,89 +101,76 @@
           "id": "scrubbed id",
           "label": "Country",
           "properties": {
-            "PartitionKey": [
-              {
-                "id": "scrubbed id",
-                "value": "PartitionKey"
-              }
-            ]
-          },
-          "type": "vertex"
-        },
-        {
-          "id": "scrubbed id",
-          "label": "Country",
-          "properties": {
-            "PartitionKey": [
-              {
-                "id": "scrubbed id",
-                "value": "PartitionKey"
-              }
-            ]
-          },
-          "type": "vertex"
-        },
-        {
-          "id": "scrubbed id",
-          "label": "Country",
-          "properties": {
-            "PartitionKey": [
-              {
-                "id": "scrubbed id",
-                "value": "PartitionKey"
-              }
-            ]
-          },
-          "type": "vertex"
-        },
-        {
-          "id": "scrubbed id",
-          "label": "Country",
-          "properties": {
-            "CountryCallingCode": [
-              {
-                "id": "scrubbed id",
-                "value": "+49"
-              }
-            ],
-            "PartitionKey": [
-              {
-                "id": "scrubbed id",
-                "value": "PartitionKey"
-              }
-            ]
-          },
-          "type": "vertex"
-        },
-        {
-          "id": "scrubbed id",
-          "label": "Country",
-          "properties": {
-            "CountryCallingCode": [
-              {
-                "id": "scrubbed id",
-                "value": "+49"
-              }
-            ],
-            "PartitionKey": [
-              {
-                "id": "scrubbed id",
-                "value": "PartitionKey"
-              }
-            ]
-          },
-          "type": "vertex"
-        },
-        {
-          "id": "scrubbed id",
-          "label": "Country",
-          "properties": {
             "Name": [
               {
                 "id": "scrubbed id",
                 "value": "GER"
               }
             ],
+            "PartitionKey": [
+              {
+                "id": "scrubbed id",
+                "value": "PartitionKey"
+              }
+            ]
+          },
+          "type": "vertex"
+        },
+        {
+          "id": "scrubbed id",
+          "label": "Country",
+          "properties": {
+            "CountryCallingCode": [
+              {
+                "id": "scrubbed id",
+                "value": "+49"
+              }
+            ],
+            "PartitionKey": [
+              {
+                "id": "scrubbed id",
+                "value": "PartitionKey"
+              }
+            ]
+          },
+          "type": "vertex"
+        },
+        {
+          "id": "scrubbed id",
+          "label": "Country",
+          "properties": {
+            "CountryCallingCode": [
+              {
+                "id": "scrubbed id",
+                "value": "+49"
+              }
+            ],
+            "PartitionKey": [
+              {
+                "id": "scrubbed id",
+                "value": "PartitionKey"
+              }
+            ]
+          },
+          "type": "vertex"
+        },
+        {
+          "id": "scrubbed id",
+          "label": "Country",
+          "properties": {
+            "PartitionKey": [
+              {
+                "id": "scrubbed id",
+                "value": "PartitionKey"
+              }
+            ]
+          },
+          "type": "vertex"
+        },
+        {
+          "id": "scrubbed id",
+          "label": "Country",
+          "properties": {
             "PartitionKey": [
               {
                 "id": "scrubbed id",
@@ -186,19 +186,6 @@
           "id": "scrubbed id",
           "label": "Language",
           "properties": {
-            "PartitionKey": [
-              {
-                "id": "scrubbed id",
-                "value": "PartitionKey"
-              }
-            ]
-          },
-          "type": "vertex"
-        },
-        {
-          "id": "scrubbed id",
-          "label": "Language",
-          "properties": {
             "IetfLanguageTag": [
               {
                 "id": "scrubbed id",
@@ -218,44 +205,6 @@
           "id": "scrubbed id",
           "label": "Language",
           "properties": {
-            "PartitionKey": [
-              {
-                "id": "scrubbed id",
-                "value": "PartitionKey"
-              }
-            ]
-          },
-          "type": "vertex"
-        },
-        {
-          "id": "scrubbed id",
-          "label": "Language",
-          "properties": {
-            "IetfLanguageTag": [
-              {
-                "id": "scrubbed id",
-                "value": "en"
-              }
-            ],
-            "PartitionKey": [
-              {
-                "id": "scrubbed id",
-                "value": "PartitionKey"
-              }
-            ]
-          },
-          "type": "vertex"
-        },
-        {
-          "id": "scrubbed id",
-          "label": "Language",
-          "properties": {
-            "IetfLanguageTag": [
-              {
-                "id": "scrubbed id",
-                "value": "en"
-              }
-            ],
             "PartitionKey": [
               {
                 "id": "scrubbed id",
@@ -345,6 +294,57 @@
                 "value": "en"
               }
             ],
+            "PartitionKey": [
+              {
+                "id": "scrubbed id",
+                "value": "PartitionKey"
+              }
+            ]
+          },
+          "type": "vertex"
+        },
+        {
+          "id": "scrubbed id",
+          "label": "Language",
+          "properties": {
+            "IetfLanguageTag": [
+              {
+                "id": "scrubbed id",
+                "value": "en"
+              }
+            ],
+            "PartitionKey": [
+              {
+                "id": "scrubbed id",
+                "value": "PartitionKey"
+              }
+            ]
+          },
+          "type": "vertex"
+        },
+        {
+          "id": "scrubbed id",
+          "label": "Language",
+          "properties": {
+            "IetfLanguageTag": [
+              {
+                "id": "scrubbed id",
+                "value": "en"
+              }
+            ],
+            "PartitionKey": [
+              {
+                "id": "scrubbed id",
+                "value": "PartitionKey"
+              }
+            ]
+          },
+          "type": "vertex"
+        },
+        {
+          "id": "scrubbed id",
+          "label": "Language",
+          "properties": {
             "PartitionKey": [
               {
                 "id": "scrubbed id",
@@ -490,10 +490,23 @@
                 "value": 0
               }
             ],
+            "PartitionKey": [
+              {
+                "id": "scrubbed id",
+                "value": "PartitionKey"
+              }
+            ]
+          },
+          "type": "vertex"
+        },
+        {
+          "id": "scrubbed id",
+          "label": "Person",
+          "properties": {
             "Name": [
               {
                 "id": "scrubbed id",
-                "value": "Bob"
+                "value": "Marko"
               }
             ],
             "PartitionKey": [
@@ -527,23 +540,10 @@
                 "value": 0
               }
             ],
-            "PartitionKey": [
-              {
-                "id": "scrubbed id",
-                "value": "PartitionKey"
-              }
-            ]
-          },
-          "type": "vertex"
-        },
-        {
-          "id": "scrubbed id",
-          "label": "Person",
-          "properties": {
             "Name": [
               {
                 "id": "scrubbed id",
-                "value": "Marko"
+                "value": "Bob"
               }
             ],
             "PartitionKey": [

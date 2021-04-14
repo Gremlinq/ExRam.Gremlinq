@@ -1,11 +1,6 @@
 [
   {
-    "IetfLanguageTag": "en",
-    "Id": "scrubbed id",
-    "Label": "Language"
-  },
-  {
-    "IetfLanguageTag": "en",
+    "IetfLanguageTag": null,
     "Id": "scrubbed id",
     "Label": "Language"
   },
@@ -35,7 +30,12 @@
     "Label": "Language"
   },
   {
-    "IetfLanguageTag": null,
+    "IetfLanguageTag": "en",
+    "Id": "scrubbed id",
+    "Label": "Language"
+  },
+  {
+    "IetfLanguageTag": "en",
     "Id": "scrubbed id",
     "Label": "Language"
   },

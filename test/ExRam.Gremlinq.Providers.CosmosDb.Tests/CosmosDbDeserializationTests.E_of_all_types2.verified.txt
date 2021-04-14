@@ -1,19 +1,5 @@
 [
   {
-    "Id": "scrubbed id",
-    "Label": "Speaks"
-  },
-  {
-    "Since": null,
-    "Id": "scrubbed id",
-    "Label": "LivesIn"
-  },
-  {
-    "Since": null,
-    "Id": "scrubbed id",
-    "Label": "LivesIn"
-  },
-  {
     "Since": null,
     "Id": "scrubbed id",
     "Label": "LivesIn"
@@ -27,12 +13,26 @@
     "Label": "LivesIn"
   },
   {
+    "Since": null,
     "Id": "scrubbed id",
-    "Label": "Speaks"
+    "Label": "LivesIn"
   },
   {
     "Since": null,
     "Id": "scrubbed id",
     "Label": "LivesIn"
+  },
+  {
+    "Since": null,
+    "Id": "scrubbed id",
+    "Label": "LivesIn"
+  },
+  {
+    "Id": "scrubbed id",
+    "Label": "Speaks"
+  },
+  {
+    "Id": "scrubbed id",
+    "Label": "Speaks"
   }
 ]
