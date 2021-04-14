@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq.Core.Tests
 {
     public abstract class QueryIntegrationTest : QueryExecutionTest
     {
-        private static readonly Regex IdRegex = new ("(\"id\"\\s*[:,]\\s*{\\s*\"@type\"\\s*:\\s*\"g:Int64\"\\s*,\\s*\"@value\":\\s*)([^\\s{}]+)(\\s*})", RegexOptions.IgnoreCase);
+        private static readonly Regex IdRegex = new ("(\"id\"\\s*[:,]\\s*{\\s*\"@type\"\\s*:\\s*\"g:Int(32|64)\"\\s*,\\s*\"@value\":\\s*)([^\\s{}]+)(\\s*})", RegexOptions.IgnoreCase);
 
         protected QueryIntegrationTest(IIntegrationTestFixture fixture, ITestOutputHelper testOutputHelper, [CallerFilePath] string callerFilePath = "") : base(
             fixture.GremlinQuerySource
@@ -22,7 +22,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public override IImmutableList<Func<string, string>> Scrubbers()
         {
             return base.Scrubbers()
-                .Add(x => IdRegex.Replace(x, "$1\"scrubbed id\"$3"));
+                .Add(x => IdRegex.Replace(x, "$1\"scrubbed id\"$4"));
         }
     }
 }
