@@ -10,7 +10,7 @@
       "Id": "scrubbed id",
       "Label": null,
       "Properties": null,
-      "Value": "Bob",
+      "Value": "Marko",
       "Key": null
     },
     "Id": "scrubbed id",
@@ -19,7 +19,7 @@
   {
     "Age": 0,
     "Gender": 0,
-    "Image": "AQIDBAUGBwg=",
+    "Image": "",
     "RegistrationDate": null,
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
@@ -38,7 +38,7 @@
       "Id": "scrubbed id",
       "Label": null,
       "Properties": null,
-      "Value": "Marko",
+      "Value": "Bob",
       "Key": null
     },
     "Id": "scrubbed id",
@@ -97,7 +97,7 @@
   {
     "Age": 0,
     "Gender": 0,
-    "Image": "",
+    "Image": "AQIDBAUGBwg=",
     "RegistrationDate": null,
     "PhoneNumbers": [],
     "SomeObscureProperty": null,

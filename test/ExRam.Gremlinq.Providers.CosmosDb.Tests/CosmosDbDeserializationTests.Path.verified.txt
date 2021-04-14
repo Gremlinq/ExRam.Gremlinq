@@ -75,17 +75,17 @@
         "Label": "Person"
       },
       {
-        "IetfLanguageTag": "en",
-        "Id": "scrubbed id",
-        "Label": "Language"
-      },
-      {
         "Name": null,
         "Languages": [],
         "CountryCallingCode": "+49",
         "LocalizableDescription": null,
         "Id": "scrubbed id",
         "Label": "Country"
+      },
+      {
+        "IetfLanguageTag": "en",
+        "Id": "scrubbed id",
+        "Label": "Language"
       }
     ]
   }
