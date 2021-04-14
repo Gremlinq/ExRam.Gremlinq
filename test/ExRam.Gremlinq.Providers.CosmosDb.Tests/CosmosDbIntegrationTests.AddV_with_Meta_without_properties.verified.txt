@@ -3,21 +3,21 @@
     {
       "id": "scrubbed id",
       "label": "Country",
-      "type": "vertex",
       "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ],
         "Name": [
           {
             "id": "scrubbed id",
             "value": "GER"
           }
+        ],
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
+          }
         ]
-      }
+      },
+      "type": "vertex"
     }
   ]
 ]

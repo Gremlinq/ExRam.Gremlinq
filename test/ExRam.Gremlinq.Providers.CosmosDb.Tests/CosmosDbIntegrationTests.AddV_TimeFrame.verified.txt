@@ -3,14 +3,7 @@
     {
       "id": "scrubbed id",
       "label": "TimeFrame",
-      "type": "vertex",
       "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ],
         "Duration": [
           {
             "id": "scrubbed id",
@@ -23,13 +16,20 @@
             "value": false
           }
         ],
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
+          }
+        ],
         "StartTime": [
           {
             "id": "scrubbed id",
             "value": 28800000.0
           }
         ]
-      }
+      },
+      "type": "vertex"
     }
   ]
 ]

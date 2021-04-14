@@ -16,8 +16,8 @@
                 "@type": "g:Int64",
                 "@value": "scrubbed id"
               },
-              "value": "Aachen",
-              "label": "Locations"
+              "label": "Locations",
+              "value": "Aachen"
             }
           }
         }

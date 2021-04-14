@@ -7,9 +7,9 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 7
+            "@value": 1
           },
-          "value": "Country"
+          "value": "TimeFrame"
         }
       },
       {
@@ -47,9 +47,9 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 1
+            "@value": 7
           },
-          "value": "TimeFrame"
+          "value": "Country"
         }
       }
     ]

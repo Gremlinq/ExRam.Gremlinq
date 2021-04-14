@@ -7,9 +7,9 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 2
+            "@value": 1
           },
-          "value": "+49"
+          "value": "+4912345"
         }
       },
       {
@@ -17,9 +17,9 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 7
+            "@value": 1
           },
-          "value": ""
+          "value": "+4923456"
         }
       },
       {
@@ -27,9 +27,68 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 7
+            "@value": 1
           },
-          "value": "en"
+          "value": "Aachen"
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "gx:ByteBuffer",
+            "@value": "AQIDBAUGBwg="
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "gx:Duration",
+            "@value": "PT2H"
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "gx:Duration",
+            "@value": "PT8H"
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": false
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 11
+          },
+          "value": "Marko"
         }
       },
       {
@@ -63,19 +122,6 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "gx:ByteBuffer",
-            "@value": "AQIDBAUGBwg="
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
             "@value": 11
           },
           "value": {
@@ -89,9 +135,19 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 11
+            "@value": 2
           },
-          "value": "Marko"
+          "value": "+49"
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 2
+          },
+          "value": "GER"
         }
       },
       {
@@ -112,9 +168,9 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 1
+            "@value": 7
           },
-          "value": "Aachen"
+          "value": ""
         }
       },
       {
@@ -122,65 +178,9 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 2
+            "@value": 7
           },
-          "value": "GER"
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": "+4912345"
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": "+4923456"
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "gx:Duration",
-            "@value": "PT8H"
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": false
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "gx:Duration",
-            "@value": "PT2H"
-          }
+          "value": "en"
         }
       }
     ]
