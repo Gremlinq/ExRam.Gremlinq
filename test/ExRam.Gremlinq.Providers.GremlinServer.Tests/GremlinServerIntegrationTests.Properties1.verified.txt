@@ -16,8 +16,8 @@
                 "@type": "g:Int64",
                 "@value": "scrubbed id"
               },
-              "value": "+49",
-              "label": "CountryCallingCode"
+              "label": "CountryCallingCode",
+              "value": "+49"
             }
           }
         }
@@ -36,51 +36,11 @@
                 "@type": "g:Int64",
                 "@value": "scrubbed id"
               },
-              "value": "en",
-              "label": "IetfLanguageTag"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "value": "en",
-              "label": "IetfLanguageTag"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
+              "label": "Age",
               "value": {
                 "@type": "g:Int32",
                 "@value": 0
-              },
-              "label": "Gender"
+              }
             }
           }
         }
@@ -99,34 +59,11 @@
                 "@type": "g:Int64",
                 "@value": "scrubbed id"
               },
-              "value": {
-                "@type": "gx:ByteBuffer",
-                "@value": "AQIDBAUGBwg="
-              },
-              "label": "Image"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
+              "label": "Gender",
               "value": {
                 "@type": "g:Int32",
                 "@value": 0
-              },
-              "label": "Age"
+              }
             }
           }
         }
@@ -145,11 +82,8 @@
                 "@type": "g:Int64",
                 "@value": "scrubbed id"
               },
-              "value": {
-                "@type": "g:Date",
-                "@value": -62135596800000
-              },
-              "label": "FoundingDate"
+              "label": "Name",
+              "value": "Bob"
             }
           }
         }
@@ -168,103 +102,11 @@
                 "@type": "g:Int64",
                 "@value": "scrubbed id"
               },
-              "value": {
-                "@type": "g:Int32",
-                "@value": 1
-              },
-              "label": "Gender"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "value": {
-                "@type": "g:Int32",
-                "@value": 0
-              },
-              "label": "Age"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "value": {
-                "@type": "g:Int32",
-                "@value": 0
-              },
-              "label": "Gender"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "value": {
-                "@type": "g:Int32",
-                "@value": 0
-              },
-              "label": "Age"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
+              "label": "RegistrationDate",
               "value": {
                 "@type": "g:Date",
                 "@value": 1586270616000
-              },
-              "label": "RegistrationDate"
+              }
             }
           }
         }
@@ -283,8 +125,11 @@
                 "@type": "g:Int64",
                 "@value": "scrubbed id"
               },
-              "value": "Marko",
-              "label": "Name"
+              "label": "Age",
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              }
             }
           }
         }
@@ -303,11 +148,321 @@
                 "@type": "g:Int64",
                 "@value": "scrubbed id"
               },
+              "label": "Gender",
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              }
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label": "Age",
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              }
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label": "Gender",
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              }
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label": "Age",
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              }
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label": "Gender",
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              }
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label": "IetfLanguageTag",
+              "value": "en"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label": "FoundingDate",
+              "value": {
+                "@type": "g:Date",
+                "@value": -62135596800000
+              }
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label": "Age",
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              }
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label": "Gender",
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              }
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label": "IetfLanguageTag",
+              "value": "en"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label": "CountryCallingCode",
+              "value": "+49"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label": "Age",
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              }
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label": "Gender",
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              }
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label": "Name",
+              "value": "Bob"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label": "RegistrationDate",
               "value": {
                 "@type": "g:Date",
                 "@value": 1586270616000
-              },
-              "label": "RegistrationDate"
+              }
             }
           }
         }
@@ -326,97 +481,11 @@
                 "@type": "g:Int64",
                 "@value": "scrubbed id"
               },
-              "value": {
-                "@type": "g:Int32",
-                "@value": 0
-              },
-              "label": "Gender"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "value": {
-                "@type": "g:Int32",
-                "@value": 0
-              },
-              "label": "Age"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "value": "Bob",
-              "label": "Name"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "value": "en",
-              "label": "IetfLanguageTag"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
+              "label": "FoundingDate",
               "value": {
                 "@type": "g:Date",
                 "@value": -62135596800000
-              },
-              "label": "FoundingDate"
+              }
             }
           }
         }
@@ -435,31 +504,11 @@
                 "@type": "g:Int64",
                 "@value": "scrubbed id"
               },
-              "value": "Aachen",
-              "label": "Locations"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
+              "label": "Age",
               "value": {
                 "@type": "g:Int32",
                 "@value": 0
-              },
-              "label": "Gender"
+              }
             }
           }
         }
@@ -478,11 +527,11 @@
                 "@type": "g:Int64",
                 "@value": "scrubbed id"
               },
+              "label": "Gender",
               "value": {
                 "@type": "g:Int32",
                 "@value": 0
-              },
-              "label": "Age"
+              }
             }
           }
         }
@@ -501,8 +550,8 @@
                 "@type": "g:Int64",
                 "@value": "scrubbed id"
               },
-              "value": "GER",
-              "label": "Name"
+              "label": "IetfLanguageTag",
+              "value": "en"
             }
           }
         }
@@ -521,536 +570,11 @@
                 "@type": "g:Int64",
                 "@value": "scrubbed id"
               },
-              "value": "GER",
-              "label": "Name"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "value": {
-                "@type": "g:Int32",
-                "@value": 0
-              },
-              "label": "Gender"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "value": {
-                "@type": "g:Int32",
-                "@value": 0
-              },
-              "label": "Age"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "value": "+4912345",
-              "label": "PhoneNumbers"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "value": "+4923456",
-              "label": "PhoneNumbers"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "value": {
-                "@type": "g:Date",
-                "@value": -62135596800000
-              },
-              "label": "FoundingDate"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "value": {
-                "@type": "g:Int32",
-                "@value": 0
-              },
-              "label": "Gender"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "value": {
-                "@type": "g:Int32",
-                "@value": 0
-              },
-              "label": "Age"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "value": "en",
-              "label": "lang"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "value": {
-                "@type": "g:Date",
-                "@value": -62135596800000
-              },
-              "label": "FoundingDate"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "value": {
-                "@type": "g:Int32",
-                "@value": 0
-              },
-              "label": "Gender"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "value": {
-                "@type": "g:Int32",
-                "@value": 0
-              },
-              "label": "Age"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "value": "en",
-              "label": "IetfLanguageTag"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "value": "+49",
-              "label": "CountryCallingCode"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "value": {
-                "@type": "g:Date",
-                "@value": 1586270616000
-              },
-              "label": "RegistrationDate"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "value": {
-                "@type": "g:Int32",
-                "@value": 0
-              },
-              "label": "Gender"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "value": {
-                "@type": "g:Int32",
-                "@value": 0
-              },
-              "label": "Age"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "value": "Bob",
-              "label": "Name"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "value": {
-                "@type": "g:Date",
-                "@value": -62135596800000
-              },
-              "label": "FoundingDate"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "value": {
-                "@type": "g:Int32",
-                "@value": 0
-              },
-              "label": "Gender"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "value": {
-                "@type": "g:Int32",
-                "@value": 0
-              },
-              "label": "Age"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "value": "en",
-              "label": "IetfLanguageTag"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "value": {
-                "@type": "gx:Duration",
-                "@value": "PT8H"
-              },
-              "label": "StartTime"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "value": false,
-              "label": "Enabled"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
+              "label": "Duration",
               "value": {
                 "@type": "gx:Duration",
                 "@value": "PT2H"
-              },
-              "label": "Duration"
+              }
             }
           }
         }
@@ -1069,8 +593,484 @@
                 "@type": "g:Int64",
                 "@value": "scrubbed id"
               },
-              "value": "en",
-              "label": "IetfLanguageTag"
+              "label": "FoundingDate",
+              "value": {
+                "@type": "g:Date",
+                "@value": -62135596800000
+              }
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label": "Enabled",
+              "value": false
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label": "StartTime",
+              "value": {
+                "@type": "gx:Duration",
+                "@value": "PT8H"
+              }
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label": "IetfLanguageTag",
+              "value": "en"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label": "IetfLanguageTag",
+              "value": "en"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label": "Age",
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              }
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label": "Gender",
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              }
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label": "Image",
+              "value": {
+                "@type": "gx:ByteBuffer",
+                "@value": "AQIDBAUGBwg="
+              }
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label": "Age",
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              }
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label": "Gender",
+              "value": {
+                "@type": "g:Int32",
+                "@value": 1
+              }
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label": "Name",
+              "value": "Marko"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label": "RegistrationDate",
+              "value": {
+                "@type": "g:Date",
+                "@value": 1586270616000
+              }
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label": "IetfLanguageTag",
+              "value": "en"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label": "Age",
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              }
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label": "FoundingDate",
+              "value": {
+                "@type": "g:Date",
+                "@value": -62135596800000
+              }
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label": "Locations",
+              "value": "Aachen"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label": "Name",
+              "value": "GER"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label": "Name",
+              "value": "GER"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label": "FoundingDate",
+              "value": {
+                "@type": "g:Date",
+                "@value": -62135596800000
+              }
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label": "PhoneNumbers",
+              "value": "+4912345"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label": "PhoneNumbers",
+              "value": "+4923456"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label": "Gender",
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              }
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label": "lang",
+              "value": "en"
             }
           }
         }

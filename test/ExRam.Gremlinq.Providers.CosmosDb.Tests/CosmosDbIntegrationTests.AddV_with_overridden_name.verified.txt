@@ -3,21 +3,21 @@
     {
       "id": "scrubbed id",
       "label": "Language",
-      "type": "vertex",
       "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ],
         "lang": [
           {
             "id": "scrubbed id",
             "value": "en"
           }
+        ],
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
+          }
         ]
-      }
+      },
+      "type": "vertex"
     }
   ]
 ]

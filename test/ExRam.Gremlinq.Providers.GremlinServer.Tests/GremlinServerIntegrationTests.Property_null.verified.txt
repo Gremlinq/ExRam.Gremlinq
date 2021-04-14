@@ -37,15 +37,15 @@
                           },
                           "label",
                           "FoundingDate",
-                          "value",
-                          {
-                            "@type": "g:Date",
-                            "@value": -62135596800000
-                          },
                           "properties",
                           {
                             "@type": "g:Map",
                             "@value": []
+                          },
+                          "value",
+                          {
+                            "@type": "g:Date",
+                            "@value": -62135596800000
                           }
                         ]
                       }

@@ -41,13 +41,13 @@
                               },
                               "label",
                               "CountryCallingCode",
-                              "value",
-                              "+49",
                               "properties",
                               {
                                 "@type": "g:Map",
                                 "@value": []
-                              }
+                              },
+                              "value",
+                              "+49"
                             ]
                           }
                         ]

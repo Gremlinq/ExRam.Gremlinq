@@ -16,8 +16,8 @@
                 "@type": "g:Int64",
                 "@value": "scrubbed id"
               },
-              "value": "GER",
-              "label": "Name"
+              "label": "Name",
+              "value": "GER"
             }
           }
         }
@@ -36,8 +36,8 @@
                 "@type": "g:Int64",
                 "@value": "scrubbed id"
               },
-              "value": "GER",
-              "label": "Name"
+              "label": "Name",
+              "value": "GER"
             }
           }
         }
