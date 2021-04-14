@@ -4,14 +4,7 @@
       {
         "id": "scrubbed id",
         "label": "Country",
-        "type": "vertex",
         "properties": {
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ],
           "CountryCallingCode": [
             {
               "id": "scrubbed id",
@@ -21,13 +14,20 @@
           "LocalizableDescription": [
             {
               "id": "scrubbed id",
-              "value": "",
               "properties": {
                 "someKey": "value"
-              }
+              },
+              "value": ""
+            }
+          ],
+          "PartitionKey": [
+            {
+              "id": "scrubbed id",
+              "value": "PartitionKey"
             }
           ]
-        }
+        },
+        "type": "vertex"
       }
     ]
   ]

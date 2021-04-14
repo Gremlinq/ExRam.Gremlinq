@@ -7,7 +7,7 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 1
+            "@value": "scrubbed id"
           },
           "value": {
             "@type": "g:Map",
@@ -41,13 +41,13 @@
                               },
                               "label",
                               "CountryCallingCode",
-                              "value",
-                              "+49",
                               "properties",
                               {
                                 "@type": "g:Map",
                                 "@value": []
-                              }
+                              },
+                              "value",
+                              "+49"
                             ]
                           }
                         ]
@@ -59,7 +59,7 @@
               "Item2",
               {
                 "@type": "g:Int32",
-                "@value": 0
+                "@value": "scrubbed id"
               }
             ]
           }

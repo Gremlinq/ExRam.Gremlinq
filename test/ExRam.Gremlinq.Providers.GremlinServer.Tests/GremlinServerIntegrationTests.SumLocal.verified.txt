@@ -7,11 +7,11 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 1
+            "@value": "scrubbed id"
           },
           "value": {
             "@type": "g:Int32",
-            "@value": 396
+            "@value": "scrubbed id"
           }
         }
       }

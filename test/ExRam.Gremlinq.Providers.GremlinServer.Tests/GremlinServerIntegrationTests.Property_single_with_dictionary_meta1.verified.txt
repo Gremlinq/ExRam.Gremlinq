@@ -7,7 +7,7 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 1
+            "@value": "scrubbed id"
           },
           "value": {
             "@type": "g:Map",
@@ -37,13 +37,13 @@
                           },
                           "label",
                           "CountryCallingCode",
-                          "value",
-                          "+49",
                           "properties",
                           {
                             "@type": "g:Map",
                             "@value": []
-                          }
+                          },
+                          "value",
+                          "+49"
                         ]
                       }
                     ]
@@ -62,8 +62,6 @@
                           },
                           "label",
                           "LocalizableDescription",
-                          "value",
-                          "",
                           "properties",
                           {
                             "@type": "g:Map",
@@ -71,7 +69,9 @@
                               "someKey",
                               "value"
                             ]
-                          }
+                          },
+                          "value",
+                          ""
                         ]
                       }
                     ]
@@ -87,7 +87,87 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 1
+            "@value": "scrubbed id"
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
+              "Country",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "CountryCallingCode",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": "scrubbed id"
+                          },
+                          "label",
+                          "CountryCallingCode",
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          },
+                          "value",
+                          "+49"
+                        ]
+                      }
+                    ]
+                  },
+                  "LocalizableDescription",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": "scrubbed id"
+                          },
+                          "label",
+                          "LocalizableDescription",
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": [
+                              "someKey",
+                              "value"
+                            ]
+                          },
+                          "value",
+                          ""
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": "scrubbed id"
           },
           "value": {
             "@type": "g:Map",
@@ -117,8 +197,6 @@
                           },
                           "label",
                           "LocalizableDescription",
-                          "value",
-                          "",
                           "properties",
                           {
                             "@type": "g:Map",
@@ -126,7 +204,174 @@
                               "someKey",
                               "value"
                             ]
-                          }
+                          },
+                          "value",
+                          ""
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": "scrubbed id"
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
+              "Country",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "LocalizableDescription",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": "scrubbed id"
+                          },
+                          "label",
+                          "LocalizableDescription",
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": [
+                              "someKey",
+                              "value"
+                            ]
+                          },
+                          "value",
+                          ""
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": "scrubbed id"
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
+              "Country",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "LocalizableDescription",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": "scrubbed id"
+                          },
+                          "label",
+                          "LocalizableDescription",
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": [
+                              "someKey",
+                              "value"
+                            ]
+                          },
+                          "value",
+                          ""
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": "scrubbed id"
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
+              "Country",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "LocalizableDescription",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": "scrubbed id"
+                          },
+                          "label",
+                          "LocalizableDescription",
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": [
+                              "someKey",
+                              "value"
+                            ]
+                          },
+                          "value",
+                          ""
                         ]
                       }
                     ]
@@ -145,143 +390,6 @@
                           },
                           "label",
                           "Name",
-                          "value",
-                          "GER",
-                          "properties",
-                          {
-                            "@type": "g:Map",
-                            "@value": []
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": [
-              "id",
-              {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "label",
-              "Country",
-              "properties",
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "LocalizableDescription",
-                  {
-                    "@type": "g:List",
-                    "@value": [
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "id",
-                          {
-                            "@type": "g:Int64",
-                            "@value": "scrubbed id"
-                          },
-                          "label",
-                          "LocalizableDescription",
-                          "value",
-                          "",
-                          "properties",
-                          {
-                            "@type": "g:Map",
-                            "@value": [
-                              "someKey",
-                              "value"
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": [
-              "id",
-              {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "label",
-              "Country",
-              "properties",
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "LocalizableDescription",
-                  {
-                    "@type": "g:List",
-                    "@value": [
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "id",
-                          {
-                            "@type": "g:Int64",
-                            "@value": "scrubbed id"
-                          },
-                          "label",
-                          "LocalizableDescription",
-                          "value",
-                          "",
-                          "properties",
-                          {
-                            "@type": "g:Map",
-                            "@value": [
-                              "someKey",
-                              "value"
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  },
-                  "Name",
-                  {
-                    "@type": "g:List",
-                    "@value": [
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "id",
-                          {
-                            "@type": "g:Int64",
-                            "@value": "scrubbed id"
-                          },
-                          "label",
-                          "Name",
-                          "value",
-                          "GER",
                           "properties",
                           {
                             "@type": "g:Map",
@@ -291,7 +399,9 @@
                               "en",
                               "Germany"
                             ]
-                          }
+                          },
+                          "value",
+                          "GER"
                         ]
                       }
                     ]
@@ -307,7 +417,7 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 1
+            "@value": "scrubbed id"
           },
           "value": {
             "@type": "g:Map",
@@ -337,8 +447,6 @@
                           },
                           "label",
                           "LocalizableDescription",
-                          "value",
-                          "",
                           "properties",
                           {
                             "@type": "g:Map",
@@ -346,119 +454,14 @@
                               "someKey",
                               "value"
                             ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": [
-              "id",
-              {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "label",
-              "Country",
-              "properties",
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "LocalizableDescription",
-                  {
-                    "@type": "g:List",
-                    "@value": [
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "id",
-                          {
-                            "@type": "g:Int64",
-                            "@value": "scrubbed id"
                           },
-                          "label",
-                          "LocalizableDescription",
                           "value",
-                          "",
-                          "properties",
-                          {
-                            "@type": "g:Map",
-                            "@value": [
-                              "someKey",
-                              "value"
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": [
-              "id",
-              {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "label",
-              "Country",
-              "properties",
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "CountryCallingCode",
-                  {
-                    "@type": "g:List",
-                    "@value": [
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "id",
-                          {
-                            "@type": "g:Int64",
-                            "@value": "scrubbed id"
-                          },
-                          "label",
-                          "CountryCallingCode",
-                          "value",
-                          "+49",
-                          "properties",
-                          {
-                            "@type": "g:Map",
-                            "@value": []
-                          }
+                          ""
                         ]
                       }
                     ]
                   },
-                  "LocalizableDescription",
+                  "Name",
                   {
                     "@type": "g:List",
                     "@value": [
@@ -471,17 +474,14 @@
                             "@value": "scrubbed id"
                           },
                           "label",
-                          "LocalizableDescription",
-                          "value",
-                          "",
+                          "Name",
                           "properties",
                           {
                             "@type": "g:Map",
-                            "@value": [
-                              "someKey",
-                              "value"
-                            ]
-                          }
+                            "@value": []
+                          },
+                          "value",
+                          "GER"
                         ]
                       }
                     ]

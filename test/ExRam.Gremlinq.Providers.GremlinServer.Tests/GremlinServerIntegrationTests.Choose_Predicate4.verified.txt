@@ -7,9 +7,9 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 15
+            "@value": "scrubbed id"
           },
-          "value": true
+          "value": false
         }
       },
       {
@@ -17,9 +17,9 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 19
+            "@value": "scrubbed id"
           },
-          "value": false
+          "value": true
         }
       }
     ]

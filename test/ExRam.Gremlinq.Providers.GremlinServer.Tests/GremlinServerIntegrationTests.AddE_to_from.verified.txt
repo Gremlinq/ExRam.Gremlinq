@@ -7,7 +7,7 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 1
+            "@value": "scrubbed id"
           },
           "value": {
             "@type": "g:Map",
@@ -23,13 +23,13 @@
               {
                 "@type": "g:Map",
                 "@value": [
-                  "Role",
-                  "Admin",
                   "From",
                   {
                     "@type": "g:Date",
                     "@value": 1586270616000
                   },
+                  "Role",
+                  "Admin",
                   "To",
                   {
                     "@type": "g:Date",

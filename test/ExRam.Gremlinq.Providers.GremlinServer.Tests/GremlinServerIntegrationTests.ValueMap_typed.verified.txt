@@ -7,7 +7,7 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 11
+            "@value": "scrubbed id"
           },
           "value": {
             "@type": "g:Map",
@@ -18,7 +18,7 @@
                 "@value": [
                   {
                     "@type": "g:Int32",
-                    "@value": 21
+                    "@value": "scrubbed id"
                   }
                 ]
               }

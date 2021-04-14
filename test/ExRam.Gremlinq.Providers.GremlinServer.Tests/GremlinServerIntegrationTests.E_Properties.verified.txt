@@ -7,23 +7,7 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 2
-          },
-          "value": {
-            "@type": "g:Property",
-            "@value": {
-              "key": "Role",
-              "value": "Admin"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 2
+            "@value": "scrubbed id"
           },
           "value": {
             "@type": "g:Property",
@@ -42,12 +26,28 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 3
+            "@value": "scrubbed id"
           },
           "value": {
             "@type": "g:Property",
             "@value": {
-              "key": "To",
+              "key": "Role",
+              "value": "Admin"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": "scrubbed id"
+          },
+          "value": {
+            "@type": "g:Property",
+            "@value": {
+              "key": "Since",
               "value": {
                 "@type": "g:Date",
                 "@value": 1586270616000
@@ -61,12 +61,12 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 1
+            "@value": "scrubbed id"
           },
           "value": {
             "@type": "g:Property",
             "@value": {
-              "key": "Since",
+              "key": "To",
               "value": {
                 "@type": "g:Date",
                 "@value": 1586270616000
