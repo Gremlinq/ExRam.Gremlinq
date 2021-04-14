@@ -18,7 +18,7 @@
   {
     "Name": null,
     "Languages": [],
-    "CountryCallingCode": null,
+    "CountryCallingCode": "+49",
     "LocalizableDescription": {
       "Id": "scrubbed id",
       "Label": null,
@@ -34,7 +34,7 @@
   {
     "Name": null,
     "Languages": [],
-    "CountryCallingCode": "+49",
+    "CountryCallingCode": null,
     "LocalizableDescription": {
       "Id": "scrubbed id",
       "Label": null,

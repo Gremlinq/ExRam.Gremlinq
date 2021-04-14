@@ -1,6 +1,11 @@
 [
   [
     {
+      "IetfLanguageTag": "en",
+      "Id": "scrubbed id",
+      "Label": "Language"
+    },
+    {
       "Name": null,
       "Languages": [],
       "CountryCallingCode": "+49",
@@ -15,11 +20,6 @@
       },
       "Id": "scrubbed id",
       "Label": "Country"
-    },
-    {
-      "IetfLanguageTag": "en",
-      "Id": "scrubbed id",
-      "Label": "Language"
     }
   ]
 ]

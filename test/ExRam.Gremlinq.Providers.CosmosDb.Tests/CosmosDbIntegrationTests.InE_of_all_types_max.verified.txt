@@ -3,19 +3,22 @@
     {
       "id": "scrubbed id",
       "inV": "scrubbed id",
-      "inVLabel": "Country",
-      "label": "LivesIn",
+      "inVLabel": "Language",
+      "label": "Speaks",
       "outV": "scrubbed id",
-      "outVLabel": "Person",
+      "outVLabel": "Country",
       "type": "edge"
     },
     {
       "id": "scrubbed id",
       "inV": "scrubbed id",
-      "inVLabel": "Language",
-      "label": "Speaks",
+      "inVLabel": "Country",
+      "label": "LivesIn",
       "outV": "scrubbed id",
-      "outVLabel": "Country",
+      "outVLabel": "Person",
+      "properties": {
+        "Since": 1586270616000
+      },
       "type": "edge"
     },
     {
@@ -43,9 +46,6 @@
       "label": "LivesIn",
       "outV": "scrubbed id",
       "outVLabel": "Person",
-      "properties": {
-        "Since": 1586270616000
-      },
       "type": "edge"
     },
     {

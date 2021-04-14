@@ -8,9 +8,19 @@
     "Label": "Country"
   },
   {
+    "IetfLanguageTag": "en",
+    "Id": "scrubbed id",
+    "Label": "Language"
+  },
+  {
+    "IetfLanguageTag": "en",
+    "Id": "scrubbed id",
+    "Label": "Language"
+  },
+  {
     "Name": null,
     "Languages": [],
-    "CountryCallingCode": null,
+    "CountryCallingCode": "+49",
     "LocalizableDescription": null,
     "Id": "scrubbed id",
     "Label": "Country"
@@ -35,15 +45,10 @@
   {
     "Name": null,
     "Languages": [],
-    "CountryCallingCode": "+49",
+    "CountryCallingCode": null,
     "LocalizableDescription": null,
     "Id": "scrubbed id",
     "Label": "Country"
-  },
-  {
-    "IetfLanguageTag": "en",
-    "Id": "scrubbed id",
-    "Label": "Language"
   },
   {
     "Name": null,
@@ -52,10 +57,5 @@
     "LocalizableDescription": null,
     "Id": "scrubbed id",
     "Label": "Country"
-  },
-  {
-    "IetfLanguageTag": "en",
-    "Id": "scrubbed id",
-    "Label": "Language"
   }
 ]

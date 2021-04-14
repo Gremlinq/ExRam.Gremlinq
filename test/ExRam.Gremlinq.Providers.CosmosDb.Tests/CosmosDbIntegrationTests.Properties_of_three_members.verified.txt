@@ -2,8 +2,8 @@
   [
     {
       "id": "scrubbed id",
-      "label": "Name",
-      "value": "GER"
+      "label": "CountryCallingCode",
+      "value": "+49"
     },
     {
       "id": "scrubbed id",
@@ -21,8 +21,8 @@
     },
     {
       "id": "scrubbed id",
-      "label": "CountryCallingCode",
-      "value": "+49"
+      "label": "Name",
+      "value": "GER"
     }
   ]
 ]
