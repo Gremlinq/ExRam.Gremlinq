@@ -1,12 +1,9 @@
 [
   {
     "Item1": {
-      "Name": null,
-      "Languages": [],
-      "CountryCallingCode": null,
-      "LocalizableDescription": null,
+      "IetfLanguageTag": "en",
       "Id": "scrubbed id",
-      "Label": "Country"
+      "Label": "Language"
     },
     "Item2": {
       "Id": "scrubbed id",
@@ -18,12 +15,21 @@
   },
   {
     "Item1": {
-      "Name": null,
-      "Languages": [],
-      "CountryCallingCode": "+49",
-      "LocalizableDescription": null,
+      "Age": 0,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": "2020-04-07T14:43:36+00:00",
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": {
+        "Id": "scrubbed id",
+        "Label": null,
+        "Properties": null,
+        "Value": "Bob",
+        "Key": null
+      },
       "Id": "scrubbed id",
-      "Label": "Country"
+      "Label": "Person"
     },
     "Item2": {
       "Id": "scrubbed id",
@@ -78,6 +84,187 @@
       "LocalizableDescription": null,
       "Id": "scrubbed id",
       "Label": "Country"
+    },
+    "Item2": {
+      "Id": "scrubbed id",
+      "Label": "PartitionKey",
+      "Properties": {},
+      "Value": "PartitionKey",
+      "Key": null
+    }
+  },
+  {
+    "Item1": {
+      "IetfLanguageTag": "en",
+      "Id": "scrubbed id",
+      "Label": "Language"
+    },
+    "Item2": {
+      "Id": "scrubbed id",
+      "Label": "PartitionKey",
+      "Properties": {},
+      "Value": "PartitionKey",
+      "Key": null
+    }
+  },
+  {
+    "Item1": {
+      "Name": null,
+      "Languages": [],
+      "CountryCallingCode": null,
+      "LocalizableDescription": null,
+      "Id": "scrubbed id",
+      "Label": "Country"
+    },
+    "Item2": {
+      "Id": "scrubbed id",
+      "Label": "PartitionKey",
+      "Properties": {},
+      "Value": "PartitionKey",
+      "Key": null
+    }
+  },
+  {
+    "Item1": {
+      "Name": null,
+      "Languages": [],
+      "CountryCallingCode": "+49",
+      "LocalizableDescription": null,
+      "Id": "scrubbed id",
+      "Label": "Country"
+    },
+    "Item2": {
+      "Id": "scrubbed id",
+      "Label": "PartitionKey",
+      "Properties": {},
+      "Value": "PartitionKey",
+      "Key": null
+    }
+  },
+  {
+    "Item1": {
+      "Name": null,
+      "Languages": [],
+      "CountryCallingCode": null,
+      "LocalizableDescription": null,
+      "Id": "scrubbed id",
+      "Label": "Country"
+    },
+    "Item2": {
+      "Id": "scrubbed id",
+      "Label": "PartitionKey",
+      "Properties": {},
+      "Value": "PartitionKey",
+      "Key": null
+    }
+  },
+  {
+    "Item1": {
+      "Age": 0,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": null,
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": "scrubbed id",
+      "Label": "Person"
+    },
+    "Item2": {
+      "Id": "scrubbed id",
+      "Label": "PartitionKey",
+      "Properties": {},
+      "Value": "PartitionKey",
+      "Key": null
+    }
+  },
+  {
+    "Item1": {
+      "Age": 0,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": null,
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": "scrubbed id",
+      "Label": "Person"
+    },
+    "Item2": {
+      "Id": "scrubbed id",
+      "Label": "PartitionKey",
+      "Properties": {},
+      "Value": "PartitionKey",
+      "Key": null
+    }
+  },
+  {
+    "Item1": {
+      "Enabled": false,
+      "StartTime": "08:00:00",
+      "Duration": "02:00:00",
+      "Id": "scrubbed id",
+      "Label": "TimeFrame"
+    },
+    "Item2": {
+      "Id": "scrubbed id",
+      "Label": "PartitionKey",
+      "Properties": {},
+      "Value": "PartitionKey",
+      "Key": null
+    }
+  },
+  {
+    "Item1": {
+      "Age": 0,
+      "Gender": 0,
+      "Image": "AQIDBAUGBwg=",
+      "RegistrationDate": null,
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": "scrubbed id",
+      "Label": "Person"
+    },
+    "Item2": {
+      "Id": "scrubbed id",
+      "Label": "PartitionKey",
+      "Properties": {},
+      "Value": "PartitionKey",
+      "Key": null
+    }
+  },
+  {
+    "Item1": {
+      "Age": 0,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": "2020-04-07T14:43:36+00:00",
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": {
+        "Id": "scrubbed id",
+        "Label": null,
+        "Properties": null,
+        "Value": "Marko",
+        "Key": null
+      },
+      "Id": "scrubbed id",
+      "Label": "Person"
+    },
+    "Item2": {
+      "Id": "scrubbed id",
+      "Label": "PartitionKey",
+      "Properties": {},
+      "Value": "PartitionKey",
+      "Key": null
+    }
+  },
+  {
+    "Item1": {
+      "IetfLanguageTag": "en",
+      "Id": "scrubbed id",
+      "Label": "Language"
     },
     "Item2": {
       "Id": "scrubbed id",
@@ -129,46 +316,6 @@
   },
   {
     "Item1": {
-      "Age": 0,
-      "Gender": 0,
-      "Image": "",
-      "RegistrationDate": null,
-      "PhoneNumbers": [],
-      "SomeObscureProperty": null,
-      "Name": null,
-      "Id": "scrubbed id",
-      "Label": "Person"
-    },
-    "Item2": {
-      "Id": "scrubbed id",
-      "Label": "PartitionKey",
-      "Properties": {},
-      "Value": "PartitionKey",
-      "Key": null
-    }
-  },
-  {
-    "Item1": {
-      "Age": 0,
-      "Gender": 0,
-      "Image": "",
-      "RegistrationDate": null,
-      "PhoneNumbers": [],
-      "SomeObscureProperty": null,
-      "Name": null,
-      "Id": "scrubbed id",
-      "Label": "Person"
-    },
-    "Item2": {
-      "Id": "scrubbed id",
-      "Label": "PartitionKey",
-      "Properties": {},
-      "Value": "PartitionKey",
-      "Key": null
-    }
-  },
-  {
-    "Item1": {
       "IetfLanguageTag": "en",
       "Id": "scrubbed id",
       "Label": "Language"
@@ -183,24 +330,7 @@
   },
   {
     "Item1": {
-      "Name": null,
-      "Languages": [],
-      "CountryCallingCode": null,
-      "LocalizableDescription": null,
-      "Id": "scrubbed id",
-      "Label": "Country"
-    },
-    "Item2": {
-      "Id": "scrubbed id",
-      "Label": "PartitionKey",
-      "Properties": {},
-      "Value": "PartitionKey",
-      "Key": null
-    }
-  },
-  {
-    "Item1": {
-      "IetfLanguageTag": "en",
+      "IetfLanguageTag": null,
       "Id": "scrubbed id",
       "Label": "Language"
     },
@@ -248,21 +378,18 @@
   },
   {
     "Item1": {
-      "Age": 0,
-      "Gender": 0,
-      "Image": "",
-      "RegistrationDate": "2020-04-07T14:43:36+00:00",
-      "PhoneNumbers": [],
-      "SomeObscureProperty": null,
       "Name": {
         "Id": "scrubbed id",
         "Label": null,
-        "Properties": null,
-        "Value": "Bob",
+        "Properties": {},
+        "Value": "GER",
         "Key": null
       },
+      "Languages": [],
+      "CountryCallingCode": null,
+      "LocalizableDescription": null,
       "Id": "scrubbed id",
-      "Label": "Person"
+      "Label": "Country"
     },
     "Item2": {
       "Id": "scrubbed id",
@@ -274,53 +401,7 @@
   },
   {
     "Item1": {
-      "Age": 0,
-      "Gender": 0,
-      "Image": "",
-      "RegistrationDate": "2020-04-07T14:43:36+00:00",
-      "PhoneNumbers": [],
-      "SomeObscureProperty": null,
-      "Name": {
-        "Id": "scrubbed id",
-        "Label": null,
-        "Properties": null,
-        "Value": "Marko",
-        "Key": null
-      },
-      "Id": "scrubbed id",
-      "Label": "Person"
-    },
-    "Item2": {
-      "Id": "scrubbed id",
-      "Label": "PartitionKey",
-      "Properties": {},
-      "Value": "PartitionKey",
-      "Key": null
-    }
-  },
-  {
-    "Item1": {
-      "Age": 0,
-      "Gender": 0,
-      "Image": "AQIDBAUGBwg=",
-      "RegistrationDate": null,
-      "PhoneNumbers": [],
-      "SomeObscureProperty": null,
-      "Name": null,
-      "Id": "scrubbed id",
-      "Label": "Person"
-    },
-    "Item2": {
-      "Id": "scrubbed id",
-      "Label": "PartitionKey",
-      "Properties": {},
-      "Value": "PartitionKey",
-      "Key": null
-    }
-  },
-  {
-    "Item1": {
-      "IetfLanguageTag": "en",
+      "IetfLanguageTag": null,
       "Id": "scrubbed id",
       "Label": "Language"
     },
@@ -348,37 +429,9 @@
   },
   {
     "Item1": {
-      "Enabled": false,
-      "StartTime": "08:00:00",
-      "Duration": "02:00:00",
+      "IetfLanguageTag": null,
       "Id": "scrubbed id",
-      "Label": "TimeFrame"
-    },
-    "Item2": {
-      "Id": "scrubbed id",
-      "Label": "PartitionKey",
-      "Properties": {},
-      "Value": "PartitionKey",
-      "Key": null
-    }
-  },
-  {
-    "Item1": {
-      "Name": {
-        "Id": "scrubbed id",
-        "Label": null,
-        "Properties": {
-          "de": "Deutschland",
-          "en": "Germany"
-        },
-        "Value": "GER",
-        "Key": null
-      },
-      "Languages": [],
-      "CountryCallingCode": null,
-      "LocalizableDescription": null,
-      "Id": "scrubbed id",
-      "Label": "Country"
+      "Label": "Language"
     },
     "Item2": {
       "Id": "scrubbed id",
@@ -392,36 +445,13 @@
     "Item1": {
       "FoundingDate": "0001-01-01T00:00:00",
       "PhoneNumbers": [
-        "+4912345",
-        "+4923456"
+        "+4923456",
+        "+4912345"
       ],
       "Locations": [],
       "Name": null,
       "Id": "scrubbed id",
       "Label": "Company"
-    },
-    "Item2": {
-      "Id": "scrubbed id",
-      "Label": "PartitionKey",
-      "Properties": {},
-      "Value": "PartitionKey",
-      "Key": null
-    }
-  },
-  {
-    "Item1": {
-      "Name": {
-        "Id": "scrubbed id",
-        "Label": null,
-        "Properties": {},
-        "Value": "GER",
-        "Key": null
-      },
-      "Languages": [],
-      "CountryCallingCode": null,
-      "LocalizableDescription": null,
-      "Id": "scrubbed id",
-      "Label": "Country"
     },
     "Item2": {
       "Id": "scrubbed id",
@@ -460,51 +490,21 @@
   },
   {
     "Item1": {
-      "IetfLanguageTag": "en",
+      "Name": {
+        "Id": "scrubbed id",
+        "Label": null,
+        "Properties": {
+          "de": "Deutschland",
+          "en": "Germany"
+        },
+        "Value": "GER",
+        "Key": null
+      },
+      "Languages": [],
+      "CountryCallingCode": null,
+      "LocalizableDescription": null,
       "Id": "scrubbed id",
-      "Label": "Language"
-    },
-    "Item2": {
-      "Id": "scrubbed id",
-      "Label": "PartitionKey",
-      "Properties": {},
-      "Value": "PartitionKey",
-      "Key": null
-    }
-  },
-  {
-    "Item1": {
-      "IetfLanguageTag": null,
-      "Id": "scrubbed id",
-      "Label": "Language"
-    },
-    "Item2": {
-      "Id": "scrubbed id",
-      "Label": "PartitionKey",
-      "Properties": {},
-      "Value": "PartitionKey",
-      "Key": null
-    }
-  },
-  {
-    "Item1": {
-      "IetfLanguageTag": null,
-      "Id": "scrubbed id",
-      "Label": "Language"
-    },
-    "Item2": {
-      "Id": "scrubbed id",
-      "Label": "PartitionKey",
-      "Properties": {},
-      "Value": "PartitionKey",
-      "Key": null
-    }
-  },
-  {
-    "Item1": {
-      "IetfLanguageTag": null,
-      "Id": "scrubbed id",
-      "Label": "Language"
+      "Label": "Country"
     },
     "Item2": {
       "Id": "scrubbed id",

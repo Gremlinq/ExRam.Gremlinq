@@ -148,12 +148,12 @@
         },
         {
           "id": "scrubbed id",
-          "label": "Language",
+          "label": "Country",
           "properties": {
-            "IetfLanguageTag": [
+            "CountryCallingCode": [
               {
                 "id": "scrubbed id",
-                "value": "en"
+                "value": "+49"
               }
             ],
             "PartitionKey": [
@@ -167,12 +167,12 @@
         },
         {
           "id": "scrubbed id",
-          "label": "Country",
+          "label": "Language",
           "properties": {
-            "CountryCallingCode": [
+            "IetfLanguageTag": [
               {
                 "id": "scrubbed id",
-                "value": "+49"
+                "value": "en"
               }
             ],
             "PartitionKey": [

@@ -5,13 +5,17 @@
     "Label": "LivesIn"
   },
   {
-    "Since": null,
     "Id": "scrubbed id",
-    "Label": "LivesIn"
+    "Label": "Speaks"
   },
   {
     "Id": "scrubbed id",
     "Label": "Speaks"
+  },
+  {
+    "Since": null,
+    "Id": "scrubbed id",
+    "Label": "LivesIn"
   },
   {
     "Since": {
@@ -20,10 +24,6 @@
     },
     "Id": "scrubbed id",
     "Label": "LivesIn"
-  },
-  {
-    "Id": "scrubbed id",
-    "Label": "Speaks"
   },
   {
     "Since": null,
