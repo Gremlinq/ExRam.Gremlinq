@@ -3,19 +3,10 @@
     {
       "id": "scrubbed id",
       "inV": "scrubbed id",
-      "inVLabel": "Country",
+      "inVLabel": "Person",
       "label": "LivesIn",
       "outV": "scrubbed id",
-      "outVLabel": "Person",
-      "type": "edge"
-    },
-    {
-      "id": "scrubbed id",
-      "inV": "scrubbed id",
-      "inVLabel": "Country",
-      "label": "LivesIn",
-      "outV": "scrubbed id",
-      "outVLabel": "Person",
+      "outVLabel": "Country",
       "type": "edge"
     },
     {
@@ -25,6 +16,24 @@
       "label": "Speaks",
       "outV": "scrubbed id",
       "outVLabel": "Country",
+      "type": "edge"
+    },
+    {
+      "id": "scrubbed id",
+      "inV": "scrubbed id",
+      "inVLabel": "Language",
+      "label": "Speaks",
+      "outV": "scrubbed id",
+      "outVLabel": "Country",
+      "type": "edge"
+    },
+    {
+      "id": "scrubbed id",
+      "inV": "scrubbed id",
+      "inVLabel": "Country",
+      "label": "LivesIn",
+      "outV": "scrubbed id",
+      "outVLabel": "Person",
       "type": "edge"
     },
     {
@@ -42,19 +51,10 @@
     {
       "id": "scrubbed id",
       "inV": "scrubbed id",
-      "inVLabel": "Language",
-      "label": "Speaks",
-      "outV": "scrubbed id",
-      "outVLabel": "Country",
-      "type": "edge"
-    },
-    {
-      "id": "scrubbed id",
-      "inV": "scrubbed id",
-      "inVLabel": "Person",
+      "inVLabel": "Country",
       "label": "LivesIn",
       "outV": "scrubbed id",
-      "outVLabel": "Country",
+      "outVLabel": "Person",
       "type": "edge"
     },
     {

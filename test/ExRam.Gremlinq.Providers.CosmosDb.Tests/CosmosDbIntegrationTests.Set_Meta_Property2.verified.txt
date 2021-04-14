@@ -14,7 +14,7 @@
       "properties": {
         "ValidFrom": 1586270616000
       },
-      "value": "Marko"
+      "value": "Bob"
     },
     {
       "id": "scrubbed id",
@@ -22,7 +22,7 @@
       "properties": {
         "ValidFrom": 1586270616000
       },
-      "value": "Bob"
+      "value": "Marko"
     }
   ]
 ]

@@ -7,6 +7,14 @@
     ],
     "Objects": [
       {
+        "Name": null,
+        "Languages": [],
+        "CountryCallingCode": null,
+        "LocalizableDescription": null,
+        "Id": "scrubbed id",
+        "Label": "Country"
+      },
+      {
         "Age": 0,
         "Gender": 0,
         "Image": "",
@@ -16,14 +24,6 @@
         "Name": null,
         "Id": "scrubbed id",
         "Label": "Person"
-      },
-      {
-        "Name": null,
-        "Languages": [],
-        "CountryCallingCode": null,
-        "LocalizableDescription": null,
-        "Id": "scrubbed id",
-        "Label": "Country"
       },
       {
         "Age": 0,
@@ -46,17 +46,6 @@
     ],
     "Objects": [
       {
-        "Age": 0,
-        "Gender": 0,
-        "Image": "",
-        "RegistrationDate": null,
-        "PhoneNumbers": [],
-        "SomeObscureProperty": null,
-        "Name": null,
-        "Id": "scrubbed id",
-        "Label": "Person"
-      },
-      {
         "Name": null,
         "Languages": [],
         "CountryCallingCode": null,
@@ -68,6 +57,17 @@
         "IetfLanguageTag": null,
         "Id": "scrubbed id",
         "Label": "Language"
+      },
+      {
+        "Age": 0,
+        "Gender": 0,
+        "Image": "",
+        "RegistrationDate": null,
+        "PhoneNumbers": [],
+        "SomeObscureProperty": null,
+        "Name": null,
+        "Id": "scrubbed id",
+        "Label": "Person"
       }
     ]
   }
