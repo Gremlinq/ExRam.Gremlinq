@@ -22,7 +22,7 @@
         "Arguments": []
       },
       {
-        "OperatorName": "id",
+        "OperatorName": "count",
         "Arguments": []
       },
       {

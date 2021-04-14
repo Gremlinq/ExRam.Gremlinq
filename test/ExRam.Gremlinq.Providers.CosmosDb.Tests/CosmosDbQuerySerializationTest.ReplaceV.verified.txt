@@ -2,7 +2,7 @@
   {
     "Script": "V(_a).hasLabel(_b).sideEffect(__.properties(_c,_d,_e,_f).drop()).property(single,_c,_g).property(single,_d,_h).property(single,_e,_i).property(single,_f,_j)",
     "Bindings": {
-      "_a": 0,
+      "_a": "D2678284-7052-45B9-8082-D91C98A2C463",
       "_b": "Person",
       "_c": "Age",
       "_d": "Gender",
