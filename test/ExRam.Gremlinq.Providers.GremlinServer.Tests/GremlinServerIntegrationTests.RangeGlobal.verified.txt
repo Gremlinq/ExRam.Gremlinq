@@ -14,16 +14,16 @@
             "@value": [
               "id",
               {
-                "@type": "g:Int64",
+                "@type": "g:UUID",
                 "@value": "scrubbed id"
               },
               "label",
-              "Language",
+              "Country",
               "properties",
               {
                 "@type": "g:Map",
                 "@value": [
-                  "IetfLanguageTag",
+                  "LocalizableDescription",
                   {
                     "@type": "g:List",
                     "@value": [
@@ -36,13 +36,16 @@
                             "@value": "scrubbed id"
                           },
                           "label",
-                          "IetfLanguageTag",
+                          "LocalizableDescription",
                           "value",
-                          "en",
+                          "",
                           "properties",
                           {
                             "@type": "g:Map",
-                            "@value": []
+                            "@value": [
+                              "someKey",
+                              "value"
+                            ]
                           }
                         ]
                       }
@@ -66,7 +69,7 @@
             "@value": [
               "id",
               {
-                "@type": "g:Int64",
+                "@type": "g:UUID",
                 "@value": "scrubbed id"
               },
               "label",
