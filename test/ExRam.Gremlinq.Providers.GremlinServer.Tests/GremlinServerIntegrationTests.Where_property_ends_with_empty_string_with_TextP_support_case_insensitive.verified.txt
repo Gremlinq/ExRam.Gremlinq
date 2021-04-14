@@ -14,7 +14,7 @@
             "@value": [
               "id",
               {
-                "@type": "g:Int64",
+                "@type": "g:UUID",
                 "@value": "scrubbed id"
               },
               "label",
@@ -94,7 +94,7 @@
             "@value": [
               "id",
               {
-                "@type": "g:Int64",
+                "@type": "g:UUID",
                 "@value": "scrubbed id"
               },
               "label",

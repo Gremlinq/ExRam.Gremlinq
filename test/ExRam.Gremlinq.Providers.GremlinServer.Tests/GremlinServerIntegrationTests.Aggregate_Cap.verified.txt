@@ -16,7 +16,7 @@
                 "@type": "g:Vertex",
                 "@value": {
                   "id": {
-                    "@type": "g:Int64",
+                    "@type": "g:UUID",
                     "@value": "scrubbed id"
                   },
                   "label": "Person"
@@ -30,7 +30,7 @@
                 "@type": "g:Vertex",
                 "@value": {
                   "id": {
-                    "@type": "g:Int64",
+                    "@type": "g:UUID",
                     "@value": "scrubbed id"
                   },
                   "label": "Person"
@@ -44,7 +44,7 @@
                 "@type": "g:Vertex",
                 "@value": {
                   "id": {
-                    "@type": "g:Int64",
+                    "@type": "g:UUID",
                     "@value": "scrubbed id"
                   },
                   "label": "Person"
@@ -58,7 +58,7 @@
                 "@type": "g:Vertex",
                 "@value": {
                   "id": {
-                    "@type": "g:Int64",
+                    "@type": "g:UUID",
                     "@value": "scrubbed id"
                   },
                   "label": "Person"
@@ -72,7 +72,7 @@
                 "@type": "g:Vertex",
                 "@value": {
                   "id": {
-                    "@type": "g:Int64",
+                    "@type": "g:UUID",
                     "@value": "scrubbed id"
                   },
                   "label": "Person"
@@ -86,7 +86,7 @@
                 "@type": "g:Vertex",
                 "@value": {
                   "id": {
-                    "@type": "g:Int64",
+                    "@type": "g:UUID",
                     "@value": "scrubbed id"
                   },
                   "label": "Person"
@@ -100,7 +100,7 @@
                 "@type": "g:Vertex",
                 "@value": {
                   "id": {
-                    "@type": "g:Int64",
+                    "@type": "g:UUID",
                     "@value": "scrubbed id"
                   },
                   "label": "Person"
@@ -114,7 +114,7 @@
                 "@type": "g:Vertex",
                 "@value": {
                   "id": {
-                    "@type": "g:Int64",
+                    "@type": "g:UUID",
                     "@value": "scrubbed id"
                   },
                   "label": "Person"
@@ -128,7 +128,7 @@
                 "@type": "g:Vertex",
                 "@value": {
                   "id": {
-                    "@type": "g:Int64",
+                    "@type": "g:UUID",
                     "@value": "scrubbed id"
                   },
                   "label": "Person"
@@ -142,7 +142,7 @@
                 "@type": "g:Vertex",
                 "@value": {
                   "id": {
-                    "@type": "g:Int64",
+                    "@type": "g:UUID",
                     "@value": "scrubbed id"
                   },
                   "label": "Person"
@@ -156,7 +156,7 @@
                 "@type": "g:Vertex",
                 "@value": {
                   "id": {
-                    "@type": "g:Int64",
+                    "@type": "g:UUID",
                     "@value": "scrubbed id"
                   },
                   "label": "Person"

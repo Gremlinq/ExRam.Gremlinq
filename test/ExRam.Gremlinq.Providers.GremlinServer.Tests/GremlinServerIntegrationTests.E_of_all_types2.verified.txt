@@ -100,7 +100,45 @@
               "properties",
               {
                 "@type": "g:Map",
-                "@value": []
+                "@value": [
+                  "Since",
+                  {
+                    "@type": "g:Date",
+                    "@value": 1586270616000
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
+              "WorksFor",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "To",
+                  {
+                    "@type": "g:Date",
+                    "@value": 1586270616000
+                  }
+                ]
               }
             ]
           }
@@ -134,38 +172,6 @@
                     "@type": "g:Date",
                     "@value": 1586270616000
                   },
-                  "To",
-                  {
-                    "@type": "g:Date",
-                    "@value": 1586270616000
-                  }
-                ]
-              }
-            ]
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": [
-              "id",
-              {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "label",
-              "WorksFor",
-              "properties",
-              {
-                "@type": "g:Map",
-                "@value": [
                   "To",
                   {
                     "@type": "g:Date",
@@ -288,13 +294,7 @@
               "properties",
               {
                 "@type": "g:Map",
-                "@value": [
-                  "Since",
-                  {
-                    "@type": "g:Date",
-                    "@value": 1586270616000
-                  }
-                ]
+                "@value": []
               }
             ]
           }

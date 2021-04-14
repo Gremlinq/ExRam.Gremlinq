@@ -10,8 +10,8 @@
             "@value": 1
           },
           "value": {
-            "@type": "g:Int64",
-            "@value": 66
+            "@type": "g:UUID",
+            "@value": "f05b2c34-a6c8-40d7-8c8c-da4f4d5ceb2f"
           }
         }
       },
@@ -23,8 +23,8 @@
             "@value": 1
           },
           "value": {
-            "@type": "g:Int64",
-            "@value": 70
+            "@type": "g:UUID",
+            "@value": "96ceb8a9-76b4-4f89-88aa-84ed035bb595"
           }
         }
       },
@@ -36,8 +36,8 @@
             "@value": 1
           },
           "value": {
-            "@type": "g:Int64",
-            "@value": 7
+            "@type": "g:UUID",
+            "@value": "ec9ae89c-7f93-4872-9b3f-176c8138ab57"
           }
         }
       },
@@ -49,8 +49,8 @@
             "@value": 1
           },
           "value": {
-            "@type": "g:Int64",
-            "@value": 73
+            "@type": "g:UUID",
+            "@value": "3005eb9e-9180-4955-9fba-2b0966289ff4"
           }
         }
       },
@@ -62,8 +62,8 @@
             "@value": 1
           },
           "value": {
-            "@type": "g:Int64",
-            "@value": 11
+            "@type": "g:UUID",
+            "@value": "a01e23db-2072-4062-ae3f-76db34badf68"
           }
         }
       },
@@ -75,8 +75,8 @@
             "@value": 1
           },
           "value": {
-            "@type": "g:Int64",
-            "@value": 17
+            "@type": "g:UUID",
+            "@value": "3d81fa85-adce-490b-b63d-671a91095b5f"
           }
         }
       },
@@ -88,8 +88,8 @@
             "@value": 1
           },
           "value": {
-            "@type": "g:Int64",
-            "@value": 22
+            "@type": "g:UUID",
+            "@value": "3209a757-29e4-4667-8b77-33476934172b"
           }
         }
       },
@@ -101,8 +101,8 @@
             "@value": 1
           },
           "value": {
-            "@type": "g:Int64",
-            "@value": 27
+            "@type": "g:UUID",
+            "@value": "be9f0c85-dd34-4441-a5e9-b0a5b6eaeafb"
           }
         }
       },
@@ -114,8 +114,8 @@
             "@value": 1
           },
           "value": {
-            "@type": "g:Int64",
-            "@value": 34
+            "@type": "g:UUID",
+            "@value": "f07eee12-d01d-467a-8f8c-4c4b869bc465"
           }
         }
       },
@@ -127,8 +127,8 @@
             "@value": 1
           },
           "value": {
-            "@type": "g:Int64",
-            "@value": 43
+            "@type": "g:UUID",
+            "@value": "a3c32e6f-9c67-4d18-b6a5-93f0e8cfabbf"
           }
         }
       },
@@ -140,8 +140,8 @@
             "@value": 1
           },
           "value": {
-            "@type": "g:Int64",
-            "@value": 51
+            "@type": "g:UUID",
+            "@value": "c3cbfe4c-e7f1-4e01-8d55-9fc307d9bf02"
           }
         }
       }

@@ -7,9 +7,19 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 7
+            "@value": 11
           },
-          "value": "Country"
+          "value": "Person"
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 5
+          },
+          "value": "Company"
         }
       },
       {
@@ -27,19 +37,9 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 11
+            "@value": 7
           },
-          "value": "Person"
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 5
-          },
-          "value": "Company"
+          "value": "Country"
         }
       },
       {

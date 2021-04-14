@@ -14,16 +14,16 @@
             "@value": [
               "id",
               {
-                "@type": "g:Int64",
+                "@type": "g:UUID",
                 "@value": "scrubbed id"
               },
               "label",
-              "Country",
+              "Person",
               "properties",
               {
                 "@type": "g:Map",
                 "@value": [
-                  "CountryCallingCode",
+                  "Age",
                   {
                     "@type": "g:List",
                     "@value": [
@@ -36,9 +36,40 @@
                             "@value": "scrubbed id"
                           },
                           "label",
-                          "CountryCallingCode",
+                          "Age",
                           "value",
-                          "+49",
+                          {
+                            "@type": "g:Int32",
+                            "@value": 0
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "Gender",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": "scrubbed id"
+                          },
+                          "label",
+                          "Gender",
+                          "value",
+                          {
+                            "@type": "g:Int32",
+                            "@value": 1
+                          },
                           "properties",
                           {
                             "@type": "g:Map",
