@@ -13,7 +13,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
     public class CosmosDbIntegrationTests : QueryIntegrationTest, IClassFixture<CosmosDbIntegrationTests.Fixture>
     {
-        public sealed class Fixture : IntegrationTestFixture
+        public sealed class Fixture : GremlinqTestFixture
         {
             private readonly Task _task;
 

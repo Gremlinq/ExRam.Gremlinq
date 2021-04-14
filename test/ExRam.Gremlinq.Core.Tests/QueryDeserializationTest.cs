@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq.Core.Tests
 {
     public abstract class QueryDeserializationTest : QueryExecutionTest
     {
-        protected QueryDeserializationTest(IIntegrationTestFixture fixture, ITestOutputHelper testOutputHelper, [CallerFilePath] string callerFilePath = "") : base(
+        protected QueryDeserializationTest(IGremlinqTestFixture fixture, ITestOutputHelper testOutputHelper, [CallerFilePath] string callerFilePath = "") : base(
             fixture
                 .Configure(g => g
                     .ConfigureEnvironment(env => env
