@@ -13,7 +13,7 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
 {
     public class NeptuneIntegrationTests : QueryIntegrationTest, IClassFixture<NeptuneIntegrationTests.Fixture>
     {
-        public sealed class Fixture : IntegrationTestFixture
+        public sealed class Fixture : GremlinqTestFixture
         {
             public Fixture() : base(Core.GremlinQuerySource.g
                 .UseNeptune(builder => builder

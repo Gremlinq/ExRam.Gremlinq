@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
     public sealed class GremlinServerDeserializationTests : QueryDeserializationTest, IClassFixture<GremlinServerDeserializationTests.Fixture>
     {
-        public sealed class Fixture : IntegrationTestFixture
+        public sealed class Fixture : GremlinqTestFixture
         {
             public Fixture() : base(g
                 .ConfigureEnvironment(env => env

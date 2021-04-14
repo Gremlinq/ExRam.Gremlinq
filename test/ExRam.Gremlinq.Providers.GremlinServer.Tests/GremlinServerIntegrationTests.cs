@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
     public class GremlinServerIntegrationTests : QueryIntegrationTest, IClassFixture<GremlinServerIntegrationTests.Fixture>
     {
-        public sealed class Fixture : IntegrationTestFixture
+        public sealed class Fixture : GremlinqTestFixture
         {
             public Fixture() : base(Core.GremlinQuerySource.g
                 .UseGremlinServer(builder => builder
