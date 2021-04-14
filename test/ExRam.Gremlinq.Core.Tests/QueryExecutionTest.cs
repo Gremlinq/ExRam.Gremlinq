@@ -293,7 +293,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .ConfigureProperties(_ => _
                             .ConfigureElement<Language>(conf => conf
                                 .IgnoreOnAdd(p => p.Id)))))
-                .AddV(new Language { Id = 300, IetfLanguageTag = "en" })
+                .AddV(new Language { Id = "300", IetfLanguageTag = "en" })
                 .Verify();
         }
 
@@ -700,8 +700,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .V()
-                .Id()
-                .Cast<int>()
+                .Count()
                 .Choose(
                     x => x < 42,
                     _ => _.Constant(true),
@@ -714,8 +713,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .V()
-                .Id()
-                .Cast<int>()
+                .Count()
                 .Choose(
                     x => 42 > x,
                     _ => _.Constant(true),
@@ -728,8 +726,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .V()
-                .Id()
-                .Cast<int>()
+                .Count()
                 .Choose(
                     x => 0 < x && x < 42,
                     _ => _.Constant(true),
@@ -742,8 +739,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .V()
-                .Id()
-                .Cast<int>()
+                .Count()
                 .Choose(
                     x => 0 < x && x < 42 || x != 37,
                     _ => _.Constant(true),
@@ -756,8 +752,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .V()
-                .Id()
-                .Cast<int>()
+                .Count()
                 .Choose(
                     x => 0 < x || x < 42 && x != 37,
                     _ => _.Constant(true),
@@ -3234,7 +3229,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public virtual async Task ReplaceV()
         {
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
-            var person = new Person { Id = 0, Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
+            var person = new Person { Id = "D2678284-7052-45B9-8082-D91C98A2C463", Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
 
             await _g
                 .ReplaceV(person)
@@ -3245,7 +3240,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public virtual async Task ReplaceV_With_Config()
         {
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
-            var person = new Person { Id = 0, Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
+            var person = new Person { Id = "D2678284-7052-45B9-8082-D91C98A2C463", Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
 
             await _g
                 .ConfigureEnvironment(env => env
@@ -3769,7 +3764,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .V<Person>()
-                .Values(x => x.Name, x => x.Id)
+                .Values(x => x.Name!, x => x.Id!)
                 .Verify();
         }
 
@@ -3778,7 +3773,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .V<Person>()
-                .Values(x => x.Name, x => x.Gender, x => x.Id)
+                .Values(x => x.Name!, x => x.Gender, x => x.Id!)
                 .Verify();
         }
 
@@ -4317,7 +4312,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .Values(x => x.Name!.Value)
                     .Or(
                         __ => __.Where(x => x! == null!),
-                        __ => __.Where(x => (object)x! == "")))
+                        __ => __.Where(x => x! == "")))
                 .Verify();
         }
 
@@ -4377,7 +4372,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .V<Language>()
-                .Where(t => (int)t.Id! == 1)
+                .Where(t => t.Id! == "2B51B506-2D22-44F9-B28B-EB2D8C0FE97A")
                 .Verify();
         }
 
@@ -4506,7 +4501,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .V<Language>()
-                .Where(t => t.Id == (object)1)
+                .Where(t => t.Id == "2B51B506-2D22-44F9-B28B-EB2D8C0FE97A")
                 .Verify();
         }
 
@@ -4588,7 +4583,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .UseModel(GraphModel.FromBaseTypes<VertexWithStringId, EdgeWithStringId>(lookup => lookup
                         .IncludeAssembliesOfBaseTypes())))
                 .V<VertexWithStringId>()
-                .Where(x => x.Id == (object)0)
+                .Where(x => x.Id == "2B51B506-2D22-44F9-B28B-EB2D8C0FE97A")
                 .Verify();
         }
 
@@ -4892,11 +4887,11 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public virtual async Task Where_property_equals_local_string_constant()
         {
-            const int local = 1;
+            const string local = "2B51B506-2D22-44F9-B28B-EB2D8C0FE97A";
 
             await _g
                 .V<Language>()
-                .Where(t => t.Id == (object)local)
+                .Where(t => t.Id == local)
                 .Verify();
         }
 
@@ -4915,11 +4910,11 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public virtual async Task Where_property_equals_value_of_anonymous_object()
         {
-            var local = new { Value = 1 };
+            var local = new { Value = "2B51B506-2D22-44F9-B28B-EB2D8C0FE97A" };
 
             await _g
                 .V<Language>()
-                .Where(t => t.Id == (object)local.Value)
+                .Where(t => t.Id == local.Value)
                 .Verify();
         }
 
@@ -5437,7 +5432,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Where(x => x
                     .Values(x => x.Id)
-                    .Where(id => (long)id! == 1L))
+                    .Where(id => id! == "2B51B506-2D22-44F9-B28B-EB2D8C0FE97A"))
                 .Verify();
         }
 
