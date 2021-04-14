@@ -12,6 +12,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             protected Fixture(IGremlinQuerySource source) : base(source
                 .ConfigureEnvironment(env => env
+                    .ConfigureExecutor(e => e.Canonicalize())
                     .UseDeserializer(GremlinQueryExecutionResultDeserializer.Default)))
             {
             }
