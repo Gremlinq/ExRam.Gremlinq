@@ -17,58 +17,6 @@
               "value": 0
             }
           ],
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ]
-        },
-        "type": "vertex"
-      },
-      "Item2": {
-        "id": "scrubbed id",
-        "label": "Person",
-        "properties": {
-          "Age": [
-            {
-              "id": "scrubbed id",
-              "value": 0
-            }
-          ],
-          "Gender": [
-            {
-              "id": "scrubbed id",
-              "value": 0
-            }
-          ],
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ]
-        },
-        "type": "vertex"
-      }
-    },
-    {
-      "Item1": {
-        "id": "scrubbed id",
-        "label": "Person",
-        "properties": {
-          "Age": [
-            {
-              "id": "scrubbed id",
-              "value": 0
-            }
-          ],
-          "Gender": [
-            {
-              "id": "scrubbed id",
-              "value": 0
-            }
-          ],
           "Name": [
             {
               "id": "scrubbed id",
@@ -197,22 +145,10 @@
               "value": 0
             }
           ],
-          "Name": [
-            {
-              "id": "scrubbed id",
-              "value": "Bob"
-            }
-          ],
           "PartitionKey": [
             {
               "id": "scrubbed id",
               "value": "PartitionKey"
-            }
-          ],
-          "RegistrationDate": [
-            {
-              "id": "scrubbed id",
-              "value": 1586270616000
             }
           ]
         },
@@ -234,22 +170,10 @@
               "value": 0
             }
           ],
-          "Name": [
-            {
-              "id": "scrubbed id",
-              "value": "Bob"
-            }
-          ],
           "PartitionKey": [
             {
               "id": "scrubbed id",
               "value": "PartitionKey"
-            }
-          ],
-          "RegistrationDate": [
-            {
-              "id": "scrubbed id",
-              "value": 1586270616000
             }
           ]
         },
@@ -273,10 +197,22 @@
               "value": 0
             }
           ],
+          "Name": [
+            {
+              "id": "scrubbed id",
+              "value": "Bob"
+            }
+          ],
           "PartitionKey": [
             {
               "id": "scrubbed id",
               "value": "PartitionKey"
+            }
+          ],
+          "RegistrationDate": [
+            {
+              "id": "scrubbed id",
+              "value": 1586270616000
             }
           ]
         },
@@ -298,10 +234,22 @@
               "value": 0
             }
           ],
+          "Name": [
+            {
+              "id": "scrubbed id",
+              "value": "Bob"
+            }
+          ],
           "PartitionKey": [
             {
               "id": "scrubbed id",
               "value": "PartitionKey"
+            }
+          ],
+          "RegistrationDate": [
+            {
+              "id": "scrubbed id",
+              "value": 1586270616000
             }
           ]
         },
@@ -360,6 +308,58 @@
             {
               "id": "scrubbed id",
               "value": "AQIDBAUGBwg="
+            }
+          ],
+          "PartitionKey": [
+            {
+              "id": "scrubbed id",
+              "value": "PartitionKey"
+            }
+          ]
+        },
+        "type": "vertex"
+      }
+    },
+    {
+      "Item1": {
+        "id": "scrubbed id",
+        "label": "Person",
+        "properties": {
+          "Age": [
+            {
+              "id": "scrubbed id",
+              "value": 0
+            }
+          ],
+          "Gender": [
+            {
+              "id": "scrubbed id",
+              "value": 0
+            }
+          ],
+          "PartitionKey": [
+            {
+              "id": "scrubbed id",
+              "value": "PartitionKey"
+            }
+          ]
+        },
+        "type": "vertex"
+      },
+      "Item2": {
+        "id": "scrubbed id",
+        "label": "Person",
+        "properties": {
+          "Age": [
+            {
+              "id": "scrubbed id",
+              "value": 0
+            }
+          ],
+          "Gender": [
+            {
+              "id": "scrubbed id",
+              "value": 0
             }
           ],
           "PartitionKey": [

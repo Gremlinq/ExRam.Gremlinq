@@ -3,6 +3,8 @@
     "Id": "scrubbed id",
     "Label": "Name",
     "Properties": {
+      "de": "Deutschland",
+      "en": "Germany",
       "metaKey": 1
     },
     "Value": "GER",
@@ -12,8 +14,6 @@
     "Id": "scrubbed id",
     "Label": "Name",
     "Properties": {
-      "de": "Deutschland",
-      "en": "Germany",
       "metaKey": 1
     },
     "Value": "GER",

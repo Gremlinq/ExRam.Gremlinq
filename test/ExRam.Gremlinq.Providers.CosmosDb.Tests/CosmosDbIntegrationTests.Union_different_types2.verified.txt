@@ -25,6 +25,9 @@
       "label": "LivesIn",
       "outV": "scrubbed id",
       "outVLabel": "Person",
+      "properties": {
+        "Since": 1586270616000
+      },
       "type": "edge"
     },
     {
@@ -34,9 +37,6 @@
       "label": "LivesIn",
       "outV": "scrubbed id",
       "outVLabel": "Person",
-      "properties": {
-        "Since": 1586270616000
-      },
       "type": "edge"
     }
   ]

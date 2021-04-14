@@ -3,6 +3,25 @@
     [
       {
         "id": "scrubbed id",
+        "label": "Language",
+        "properties": {
+          "IetfLanguageTag": [
+            {
+              "id": "scrubbed id",
+              "value": "en"
+            }
+          ],
+          "PartitionKey": [
+            {
+              "id": "scrubbed id",
+              "value": "PartitionKey"
+            }
+          ]
+        },
+        "type": "vertex"
+      },
+      {
+        "id": "scrubbed id",
         "label": "Country",
         "properties": {
           "CountryCallingCode": [
@@ -18,25 +37,6 @@
                 "someKey": "value"
               },
               "value": ""
-            }
-          ],
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ]
-        },
-        "type": "vertex"
-      },
-      {
-        "id": "scrubbed id",
-        "label": "Language",
-        "properties": {
-          "IetfLanguageTag": [
-            {
-              "id": "scrubbed id",
-              "value": "en"
             }
           ],
           "PartitionKey": [

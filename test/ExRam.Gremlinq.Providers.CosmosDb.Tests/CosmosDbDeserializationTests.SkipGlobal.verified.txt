@@ -1,27 +1,19 @@
 [
   {
-    "IetfLanguageTag": "en",
-    "Id": "scrubbed id",
-    "Label": "Language"
-  },
-  {
-    "Age": 36,
-    "Gender": 0,
-    "Image": "",
-    "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": [],
-    "SomeObscureProperty": null,
-    "Name": {
+    "Name": null,
+    "Languages": [],
+    "CountryCallingCode": null,
+    "LocalizableDescription": {
       "Id": "scrubbed id",
       "Label": null,
       "Properties": {
-        "ValidFrom": "2020-04-07T14:43:36+00:00"
+        "someKey": "value"
       },
-      "Value": "Bob",
+      "Value": "",
       "Key": null
     },
     "Id": "scrubbed id",
-    "Label": "Person"
+    "Label": "Country"
   },
   {
     "Name": null,
@@ -51,9 +43,34 @@
     "Label": "Person"
   },
   {
-    "IetfLanguageTag": "en",
+    "Age": 36,
+    "Gender": 0,
+    "Image": "",
+    "RegistrationDate": "2020-04-07T14:43:36+00:00",
+    "PhoneNumbers": [],
+    "SomeObscureProperty": null,
+    "Name": {
+      "Id": "scrubbed id",
+      "Label": null,
+      "Properties": {
+        "ValidFrom": "2020-04-07T14:43:36+00:00"
+      },
+      "Value": "Bob",
+      "Key": null
+    },
     "Id": "scrubbed id",
-    "Label": "Language"
+    "Label": "Person"
+  },
+  {
+    "Age": 36,
+    "Gender": 0,
+    "Image": "",
+    "RegistrationDate": null,
+    "PhoneNumbers": [],
+    "SomeObscureProperty": null,
+    "Name": null,
+    "Id": "scrubbed id",
+    "Label": "Person"
   },
   {
     "Name": null,
@@ -91,6 +108,22 @@
     "Label": "Person"
   },
   {
+    "Age": 36,
+    "Gender": 0,
+    "Image": "",
+    "RegistrationDate": null,
+    "PhoneNumbers": [],
+    "SomeObscureProperty": null,
+    "Name": null,
+    "Id": "scrubbed id",
+    "Label": "Person"
+  },
+  {
+    "IetfLanguageTag": "en",
+    "Id": "scrubbed id",
+    "Label": "Language"
+  },
+  {
     "IetfLanguageTag": "en",
     "Id": "scrubbed id",
     "Label": "Language"
@@ -112,84 +145,9 @@
     "Label": "Country"
   },
   {
-    "Name": null,
-    "Languages": [],
-    "CountryCallingCode": null,
-    "LocalizableDescription": {
-      "Id": "scrubbed id",
-      "Label": null,
-      "Properties": {
-        "someKey": "value"
-      },
-      "Value": "",
-      "Key": null
-    },
-    "Id": "scrubbed id",
-    "Label": "Country"
-  },
-  {
-    "Age": 36,
-    "Gender": 0,
-    "Image": "",
-    "RegistrationDate": null,
-    "PhoneNumbers": [],
-    "SomeObscureProperty": null,
-    "Name": null,
-    "Id": "scrubbed id",
-    "Label": "Person"
-  },
-  {
-    "Age": 36,
-    "Gender": 0,
-    "Image": "",
-    "RegistrationDate": null,
-    "PhoneNumbers": [],
-    "SomeObscureProperty": null,
-    "Name": null,
-    "Id": "scrubbed id",
-    "Label": "Person"
-  },
-  {
-    "Enabled": false,
-    "StartTime": "08:00:00",
-    "Duration": "02:00:00",
-    "Id": "scrubbed id",
-    "Label": "TimeFrame"
-  },
-  {
     "IetfLanguageTag": "en",
     "Id": "scrubbed id",
     "Label": "Language"
-  },
-  {
-    "Age": 36,
-    "Gender": 0,
-    "Image": "AQIDBAUGBwg=",
-    "RegistrationDate": null,
-    "PhoneNumbers": [],
-    "SomeObscureProperty": null,
-    "Name": null,
-    "Id": "scrubbed id",
-    "Label": "Person"
-  },
-  {
-    "Age": 36,
-    "Gender": 0,
-    "Image": "",
-    "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": [],
-    "SomeObscureProperty": null,
-    "Name": {
-      "Id": "scrubbed id",
-      "Label": null,
-      "Properties": {
-        "ValidFrom": "2020-04-07T14:43:36+00:00"
-      },
-      "Value": "Marko",
-      "Key": null
-    },
-    "Id": "scrubbed id",
-    "Label": "Person"
   },
   {
     "Name": {
@@ -214,9 +172,23 @@
     "Label": "Country"
   },
   {
-    "IetfLanguageTag": "en",
+    "Age": 36,
+    "Gender": 0,
+    "Image": "",
+    "RegistrationDate": "2020-04-07T14:43:36+00:00",
+    "PhoneNumbers": [],
+    "SomeObscureProperty": null,
+    "Name": {
+      "Id": "scrubbed id",
+      "Label": null,
+      "Properties": {
+        "ValidFrom": "2020-04-07T14:43:36+00:00"
+      },
+      "Value": "Marko",
+      "Key": null
+    },
     "Id": "scrubbed id",
-    "Label": "Language"
+    "Label": "Person"
   },
   {
     "IetfLanguageTag": null,
@@ -247,11 +219,6 @@
     "Label": "Company"
   },
   {
-    "IetfLanguageTag": null,
-    "Id": "scrubbed id",
-    "Label": "Language"
-  },
-  {
     "Age": 36,
     "Gender": 1,
     "Image": "",
@@ -261,6 +228,34 @@
     "Name": null,
     "Id": "scrubbed id",
     "Label": "Person"
+  },
+  {
+    "Age": 36,
+    "Gender": 0,
+    "Image": "AQIDBAUGBwg=",
+    "RegistrationDate": null,
+    "PhoneNumbers": [],
+    "SomeObscureProperty": null,
+    "Name": null,
+    "Id": "scrubbed id",
+    "Label": "Person"
+  },
+  {
+    "IetfLanguageTag": null,
+    "Id": "scrubbed id",
+    "Label": "Language"
+  },
+  {
+    "Enabled": false,
+    "StartTime": "08:00:00",
+    "Duration": "02:00:00",
+    "Id": "scrubbed id",
+    "Label": "TimeFrame"
+  },
+  {
+    "IetfLanguageTag": "en",
+    "Id": "scrubbed id",
+    "Label": "Language"
   },
   {
     "Name": {
@@ -288,24 +283,29 @@
     "Label": "Country"
   },
   {
-    "IetfLanguageTag": null,
-    "Id": "scrubbed id",
-    "Label": "Language"
-  },
-  {
-    "IetfLanguageTag": null,
+    "IetfLanguageTag": "en",
     "Id": "scrubbed id",
     "Label": "Language"
   },
   {
     "FoundingDate": "0001-01-01T00:00:00",
     "PhoneNumbers": [
-      "+4923456",
-      "+4912345"
+      "+4912345",
+      "+4923456"
     ],
     "Locations": [],
     "Name": null,
     "Id": "scrubbed id",
     "Label": "Company"
+  },
+  {
+    "IetfLanguageTag": null,
+    "Id": "scrubbed id",
+    "Label": "Language"
+  },
+  {
+    "IetfLanguageTag": null,
+    "Id": "scrubbed id",
+    "Label": "Language"
   }
 ]
