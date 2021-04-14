@@ -3,15 +3,15 @@
     {
       "id": "scrubbed id",
       "label": "Name",
+      "properties": {
+        "de": "Deutschland",
+        "en": "Germany"
+      },
       "value": "GER"
     },
     {
       "id": "scrubbed id",
       "label": "Name",
-      "properties": {
-        "de": "Deutschland",
-        "en": "Germany"
-      },
       "value": "GER"
     }
   ]

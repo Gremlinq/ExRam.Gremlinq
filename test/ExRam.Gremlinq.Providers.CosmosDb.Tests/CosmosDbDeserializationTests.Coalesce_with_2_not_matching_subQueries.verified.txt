@@ -5,37 +5,12 @@
     "Label": "LivesIn"
   },
   {
-    "Since": null,
-    "Id": "scrubbed id",
-    "Label": "LivesIn"
-  },
-  {
     "Name": null,
     "Languages": [],
     "CountryCallingCode": "+49",
     "LocalizableDescription": null,
     "Id": "scrubbed id",
     "Label": "Country"
-  },
-  {
-    "Name": null,
-    "Languages": [],
-    "CountryCallingCode": "+49",
-    "LocalizableDescription": null,
-    "Id": "scrubbed id",
-    "Label": "Country"
-  },
-  {
-    "Name": null,
-    "Languages": [],
-    "CountryCallingCode": "+49",
-    "LocalizableDescription": null,
-    "Id": "scrubbed id",
-    "Label": "Country"
-  },
-  {
-    "Id": "scrubbed id",
-    "Label": "Speaks"
   },
   {
     "Age": 0,
@@ -47,6 +22,19 @@
     "Name": null,
     "Id": "scrubbed id",
     "Label": "Person"
+  },
+  {
+    "Id": "scrubbed id",
+    "Label": "Speaks"
+  },
+  {
+    "Id": "scrubbed id",
+    "Label": "Speaks"
+  },
+  {
+    "Since": null,
+    "Id": "scrubbed id",
+    "Label": "LivesIn"
   },
   {
     "Since": {
@@ -57,6 +45,32 @@
     "Label": "LivesIn"
   },
   {
+    "Name": null,
+    "Languages": [],
+    "CountryCallingCode": "+49",
+    "LocalizableDescription": null,
+    "Id": "scrubbed id",
+    "Label": "Country"
+  },
+  {
+    "Name": null,
+    "Languages": [],
+    "CountryCallingCode": "+49",
+    "LocalizableDescription": null,
+    "Id": "scrubbed id",
+    "Label": "Country"
+  },
+  {
+    "Since": null,
+    "Id": "scrubbed id",
+    "Label": "LivesIn"
+  },
+  {
+    "Since": null,
+    "Id": "scrubbed id",
+    "Label": "LivesIn"
+  },
+  {
     "Age": 0,
     "Gender": 0,
     "Image": "",
@@ -77,19 +91,5 @@
     "Name": null,
     "Id": "scrubbed id",
     "Label": "Person"
-  },
-  {
-    "Id": "scrubbed id",
-    "Label": "Speaks"
-  },
-  {
-    "Since": null,
-    "Id": "scrubbed id",
-    "Label": "LivesIn"
-  },
-  {
-    "Since": null,
-    "Id": "scrubbed id",
-    "Label": "LivesIn"
   }
 ]

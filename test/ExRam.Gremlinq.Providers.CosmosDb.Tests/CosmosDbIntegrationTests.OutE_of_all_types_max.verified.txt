@@ -3,24 +3,6 @@
     {
       "id": "scrubbed id",
       "inV": "scrubbed id",
-      "inVLabel": "Person",
-      "label": "LivesIn",
-      "outV": "scrubbed id",
-      "outVLabel": "Country",
-      "type": "edge"
-    },
-    {
-      "id": "scrubbed id",
-      "inV": "scrubbed id",
-      "inVLabel": "Language",
-      "label": "Speaks",
-      "outV": "scrubbed id",
-      "outVLabel": "Country",
-      "type": "edge"
-    },
-    {
-      "id": "scrubbed id",
-      "inV": "scrubbed id",
       "inVLabel": "Language",
       "label": "Speaks",
       "outV": "scrubbed id",
@@ -34,6 +16,42 @@
       "label": "LivesIn",
       "outV": "scrubbed id",
       "outVLabel": "Person",
+      "type": "edge"
+    },
+    {
+      "id": "scrubbed id",
+      "inV": "scrubbed id",
+      "inVLabel": "Person",
+      "label": "LivesIn",
+      "outV": "scrubbed id",
+      "outVLabel": "Country",
+      "type": "edge"
+    },
+    {
+      "id": "scrubbed id",
+      "inV": "scrubbed id",
+      "inVLabel": "Country",
+      "label": "LivesIn",
+      "outV": "scrubbed id",
+      "outVLabel": "Person",
+      "type": "edge"
+    },
+    {
+      "id": "scrubbed id",
+      "inV": "scrubbed id",
+      "inVLabel": "Country",
+      "label": "LivesIn",
+      "outV": "scrubbed id",
+      "outVLabel": "Person",
+      "type": "edge"
+    },
+    {
+      "id": "scrubbed id",
+      "inV": "scrubbed id",
+      "inVLabel": "Language",
+      "label": "Speaks",
+      "outV": "scrubbed id",
+      "outVLabel": "Country",
       "type": "edge"
     },
     {
@@ -46,24 +64,6 @@
       "properties": {
         "Since": 1586270616000
       },
-      "type": "edge"
-    },
-    {
-      "id": "scrubbed id",
-      "inV": "scrubbed id",
-      "inVLabel": "Country",
-      "label": "LivesIn",
-      "outV": "scrubbed id",
-      "outVLabel": "Person",
-      "type": "edge"
-    },
-    {
-      "id": "scrubbed id",
-      "inV": "scrubbed id",
-      "inVLabel": "Country",
-      "label": "LivesIn",
-      "outV": "scrubbed id",
-      "outVLabel": "Person",
       "type": "edge"
     }
   ]
