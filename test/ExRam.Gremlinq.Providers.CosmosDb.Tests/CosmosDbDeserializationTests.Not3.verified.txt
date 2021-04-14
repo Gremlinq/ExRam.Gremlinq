@@ -1,5 +1,18 @@
 [
   {
+    "IetfLanguageTag": "en",
+    "Id": "scrubbed id",
+    "Label": "Language"
+  },
+  {
+    "Name": null,
+    "Languages": [],
+    "CountryCallingCode": null,
+    "LocalizableDescription": null,
+    "Id": "scrubbed id",
+    "Label": "Country"
+  },
+  {
     "Name": {
       "Id": "scrubbed id",
       "Label": null,
@@ -17,15 +30,13 @@
     "Label": "Country"
   },
   {
-    "Name": null,
-    "Languages": [],
-    "CountryCallingCode": null,
-    "LocalizableDescription": null,
-    "Id": "scrubbed id",
-    "Label": "Country"
-  },
-  {
-    "Name": null,
+    "Name": {
+      "Id": "scrubbed id",
+      "Label": null,
+      "Properties": {},
+      "Value": "GER",
+      "Key": null
+    },
     "Languages": [],
     "CountryCallingCode": null,
     "LocalizableDescription": null,
@@ -34,6 +45,43 @@
   },
   {
     "IetfLanguageTag": null,
+    "Id": "scrubbed id",
+    "Label": "Language"
+  },
+  {
+    "Name": null,
+    "Languages": [],
+    "CountryCallingCode": "+49",
+    "LocalizableDescription": null,
+    "Id": "scrubbed id",
+    "Label": "Country"
+  },
+  {
+    "Name": null,
+    "Languages": [],
+    "CountryCallingCode": "+49",
+    "LocalizableDescription": null,
+    "Id": "scrubbed id",
+    "Label": "Country"
+  },
+  {
+    "Name": null,
+    "Languages": [],
+    "CountryCallingCode": null,
+    "LocalizableDescription": null,
+    "Id": "scrubbed id",
+    "Label": "Country"
+  },
+  {
+    "Name": null,
+    "Languages": [],
+    "CountryCallingCode": null,
+    "LocalizableDescription": null,
+    "Id": "scrubbed id",
+    "Label": "Country"
+  },
+  {
+    "IetfLanguageTag": "en",
     "Id": "scrubbed id",
     "Label": "Language"
   },
@@ -43,7 +91,7 @@
     "Label": "Language"
   },
   {
-    "IetfLanguageTag": null,
+    "IetfLanguageTag": "en",
     "Id": "scrubbed id",
     "Label": "Language"
   },
@@ -65,57 +113,9 @@
     "Label": "Language"
   },
   {
-    "Name": null,
-    "Languages": [],
-    "CountryCallingCode": null,
-    "LocalizableDescription": null,
-    "Id": "scrubbed id",
-    "Label": "Country"
-  },
-  {
-    "IetfLanguageTag": "en",
+    "IetfLanguageTag": null,
     "Id": "scrubbed id",
     "Label": "Language"
-  },
-  {
-    "Name": null,
-    "Languages": [],
-    "CountryCallingCode": "+49",
-    "LocalizableDescription": null,
-    "Id": "scrubbed id",
-    "Label": "Country"
-  },
-  {
-    "Name": null,
-    "Languages": [],
-    "CountryCallingCode": "+49",
-    "LocalizableDescription": null,
-    "Id": "scrubbed id",
-    "Label": "Country"
-  },
-  {
-    "IetfLanguageTag": "en",
-    "Id": "scrubbed id",
-    "Label": "Language"
-  },
-  {
-    "IetfLanguageTag": "en",
-    "Id": "scrubbed id",
-    "Label": "Language"
-  },
-  {
-    "Name": {
-      "Id": "scrubbed id",
-      "Label": null,
-      "Properties": {},
-      "Value": "GER",
-      "Key": null
-    },
-    "Languages": [],
-    "CountryCallingCode": null,
-    "LocalizableDescription": null,
-    "Id": "scrubbed id",
-    "Label": "Country"
   },
   {
     "IetfLanguageTag": null,

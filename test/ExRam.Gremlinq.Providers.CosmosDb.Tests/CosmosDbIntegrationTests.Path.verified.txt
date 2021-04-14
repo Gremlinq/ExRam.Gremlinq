@@ -9,6 +9,25 @@
       "objects": [
         {
           "id": "scrubbed id",
+          "label": "Language",
+          "properties": {
+            "IetfLanguageTag": [
+              {
+                "id": "scrubbed id",
+                "value": "en"
+              }
+            ],
+            "PartitionKey": [
+              {
+                "id": "scrubbed id",
+                "value": "PartitionKey"
+              }
+            ]
+          },
+          "type": "vertex"
+        },
+        {
+          "id": "scrubbed id",
           "label": "Person",
           "properties": {
             "Age": [
@@ -52,25 +71,6 @@
               {
                 "id": "scrubbed id",
                 "value": "+49"
-              }
-            ],
-            "PartitionKey": [
-              {
-                "id": "scrubbed id",
-                "value": "PartitionKey"
-              }
-            ]
-          },
-          "type": "vertex"
-        },
-        {
-          "id": "scrubbed id",
-          "label": "Language",
-          "properties": {
-            "IetfLanguageTag": [
-              {
-                "id": "scrubbed id",
-                "value": "en"
               }
             ],
             "PartitionKey": [

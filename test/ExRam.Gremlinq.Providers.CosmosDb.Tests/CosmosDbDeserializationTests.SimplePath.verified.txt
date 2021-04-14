@@ -1,5 +1,10 @@
 [
   {
+    "IetfLanguageTag": "en",
+    "Id": "scrubbed id",
+    "Label": "Language"
+  },
+  {
     "Age": 36,
     "Gender": 0,
     "Image": "",
@@ -17,10 +22,5 @@
     },
     "Id": "scrubbed id",
     "Label": "Person"
-  },
-  {
-    "IetfLanguageTag": "en",
-    "Id": "scrubbed id",
-    "Label": "Language"
   }
 ]

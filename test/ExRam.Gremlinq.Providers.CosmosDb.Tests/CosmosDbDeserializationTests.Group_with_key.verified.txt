@@ -22,8 +22,8 @@
       {
         "FoundingDate": "0001-01-01T00:00:00",
         "PhoneNumbers": [
-          "+4923456",
-          "+4912345"
+          "+4912345",
+          "+4923456"
         ],
         "Locations": [],
         "Name": null,
@@ -32,6 +32,14 @@
       }
     ],
     "Country": [
+      {
+        "Name": null,
+        "Languages": [],
+        "CountryCallingCode": null,
+        "LocalizableDescription": null,
+        "Id": "scrubbed id",
+        "Label": "Country"
+      },
       {
         "Name": {
           "Id": "scrubbed id",
@@ -50,46 +58,6 @@
         "Label": "Country"
       },
       {
-        "Name": null,
-        "Languages": [],
-        "CountryCallingCode": null,
-        "LocalizableDescription": null,
-        "Id": "scrubbed id",
-        "Label": "Country"
-      },
-      {
-        "Name": null,
-        "Languages": [],
-        "CountryCallingCode": null,
-        "LocalizableDescription": null,
-        "Id": "scrubbed id",
-        "Label": "Country"
-      },
-      {
-        "Name": null,
-        "Languages": [],
-        "CountryCallingCode": null,
-        "LocalizableDescription": null,
-        "Id": "scrubbed id",
-        "Label": "Country"
-      },
-      {
-        "Name": null,
-        "Languages": [],
-        "CountryCallingCode": "+49",
-        "LocalizableDescription": null,
-        "Id": "scrubbed id",
-        "Label": "Country"
-      },
-      {
-        "Name": null,
-        "Languages": [],
-        "CountryCallingCode": "+49",
-        "LocalizableDescription": null,
-        "Id": "scrubbed id",
-        "Label": "Country"
-      },
-      {
         "Name": {
           "Id": "scrubbed id",
           "Label": null,
@@ -102,15 +70,42 @@
         "LocalizableDescription": null,
         "Id": "scrubbed id",
         "Label": "Country"
+      },
+      {
+        "Name": null,
+        "Languages": [],
+        "CountryCallingCode": "+49",
+        "LocalizableDescription": null,
+        "Id": "scrubbed id",
+        "Label": "Country"
+      },
+      {
+        "Name": null,
+        "Languages": [],
+        "CountryCallingCode": "+49",
+        "LocalizableDescription": null,
+        "Id": "scrubbed id",
+        "Label": "Country"
+      },
+      {
+        "Name": null,
+        "Languages": [],
+        "CountryCallingCode": null,
+        "LocalizableDescription": null,
+        "Id": "scrubbed id",
+        "Label": "Country"
+      },
+      {
+        "Name": null,
+        "Languages": [],
+        "CountryCallingCode": null,
+        "LocalizableDescription": null,
+        "Id": "scrubbed id",
+        "Label": "Country"
       }
     ],
     "Language": [
       {
-        "IetfLanguageTag": null,
-        "Id": "scrubbed id",
-        "Label": "Language"
-      },
-      {
         "IetfLanguageTag": "en",
         "Id": "scrubbed id",
         "Label": "Language"
@@ -136,17 +131,22 @@
         "Label": "Language"
       },
       {
-        "IetfLanguageTag": "en",
-        "Id": "scrubbed id",
-        "Label": "Language"
-      },
-      {
-        "IetfLanguageTag": "en",
+        "IetfLanguageTag": null,
         "Id": "scrubbed id",
         "Label": "Language"
       },
       {
         "IetfLanguageTag": null,
+        "Id": "scrubbed id",
+        "Label": "Language"
+      },
+      {
+        "IetfLanguageTag": "en",
+        "Id": "scrubbed id",
+        "Label": "Language"
+      },
+      {
+        "IetfLanguageTag": "en",
         "Id": "scrubbed id",
         "Label": "Language"
       },
@@ -211,23 +211,6 @@
         "Age": 0,
         "Gender": 0,
         "Image": "",
-        "RegistrationDate": "2020-04-07T14:43:36+00:00",
-        "PhoneNumbers": [],
-        "SomeObscureProperty": null,
-        "Name": {
-          "Id": "scrubbed id",
-          "Label": null,
-          "Properties": null,
-          "Value": "Bob",
-          "Key": null
-        },
-        "Id": "scrubbed id",
-        "Label": "Person"
-      },
-      {
-        "Age": 0,
-        "Gender": 0,
-        "Image": "",
         "RegistrationDate": null,
         "PhoneNumbers": [],
         "SomeObscureProperty": null,
@@ -247,6 +230,23 @@
           "Label": null,
           "Properties": null,
           "Value": "Marko",
+          "Key": null
+        },
+        "Id": "scrubbed id",
+        "Label": "Person"
+      },
+      {
+        "Age": 0,
+        "Gender": 0,
+        "Image": "",
+        "RegistrationDate": "2020-04-07T14:43:36+00:00",
+        "PhoneNumbers": [],
+        "SomeObscureProperty": null,
+        "Name": {
+          "Id": "scrubbed id",
+          "Label": null,
+          "Properties": null,
+          "Value": "Bob",
           "Key": null
         },
         "Id": "scrubbed id",

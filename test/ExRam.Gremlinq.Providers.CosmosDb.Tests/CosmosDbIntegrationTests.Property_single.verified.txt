@@ -16,10 +16,60 @@
             "value": 0
           }
         ],
-        "Image": [
+        "PartitionKey": [
           {
             "id": "scrubbed id",
-            "value": "AQIDBAUGBwg="
+            "value": "PartitionKey"
+          }
+        ]
+      },
+      "type": "vertex"
+    },
+    {
+      "id": "scrubbed id",
+      "label": "Person",
+      "properties": {
+        "Age": [
+          {
+            "id": "scrubbed id",
+            "value": 36
+          }
+        ],
+        "Name": [
+          {
+            "id": "scrubbed id",
+            "value": "Marko"
+          }
+        ],
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
+          }
+        ],
+        "RegistrationDate": [
+          {
+            "id": "scrubbed id",
+            "value": 1586270616000
+          }
+        ]
+      },
+      "type": "vertex"
+    },
+    {
+      "id": "scrubbed id",
+      "label": "Person",
+      "properties": {
+        "Age": [
+          {
+            "id": "scrubbed id",
+            "value": 36
+          }
+        ],
+        "Gender": [
+          {
+            "id": "scrubbed id",
+            "value": 0
           }
         ],
         "PartitionKey": [
@@ -44,7 +94,7 @@
         "Gender": [
           {
             "id": "scrubbed id",
-            "value": 0
+            "value": 1
           }
         ],
         "PartitionKey": [
@@ -106,69 +156,19 @@
         "Gender": [
           {
             "id": "scrubbed id",
-            "value": 1
-          }
-        ],
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ]
-      },
-      "type": "vertex"
-    },
-    {
-      "id": "scrubbed id",
-      "label": "Person",
-      "properties": {
-        "Age": [
-          {
-            "id": "scrubbed id",
-            "value": 36
-          }
-        ],
-        "Gender": [
-          {
-            "id": "scrubbed id",
             "value": 0
           }
         ],
-        "PartitionKey": [
+        "Image": [
           {
             "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ]
-      },
-      "type": "vertex"
-    },
-    {
-      "id": "scrubbed id",
-      "label": "Person",
-      "properties": {
-        "Age": [
-          {
-            "id": "scrubbed id",
-            "value": 36
-          }
-        ],
-        "Name": [
-          {
-            "id": "scrubbed id",
-            "value": "Marko"
+            "value": "AQIDBAUGBwg="
           }
         ],
         "PartitionKey": [
           {
             "id": "scrubbed id",
             "value": "PartitionKey"
-          }
-        ],
-        "RegistrationDate": [
-          {
-            "id": "scrubbed id",
-            "value": 1586270616000
           }
         ]
       },

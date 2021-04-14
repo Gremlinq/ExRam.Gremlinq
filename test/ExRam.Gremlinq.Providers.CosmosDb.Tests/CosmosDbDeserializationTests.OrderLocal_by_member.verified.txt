@@ -27,7 +27,7 @@
       "Id": "scrubbed id",
       "Label": null,
       "Properties": null,
-      "Value": "Bob",
+      "Value": "Marko",
       "Key": null
     },
     "Id": "scrubbed id",
@@ -44,7 +44,7 @@
       "Id": "scrubbed id",
       "Label": null,
       "Properties": null,
-      "Value": "Marko",
+      "Value": "Bob",
       "Key": null
     },
     "Id": "scrubbed id",

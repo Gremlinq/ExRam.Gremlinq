@@ -360,6 +360,85 @@
           "id": "scrubbed id",
           "label": "Person",
           "properties": {
+            "Name": [
+              {
+                "id": "scrubbed id",
+                "value": "Marko"
+              }
+            ],
+            "PartitionKey": [
+              {
+                "id": "scrubbed id",
+                "value": "PartitionKey"
+              }
+            ],
+            "RegistrationDate": [
+              {
+                "id": "scrubbed id",
+                "value": 1586270616000
+              }
+            ]
+          },
+          "type": "vertex"
+        },
+        "Item2": {
+          "id": "scrubbed id",
+          "label": "Person",
+          "properties": {
+            "Name": [
+              {
+                "id": "scrubbed id",
+                "value": "Marko"
+              }
+            ],
+            "PartitionKey": [
+              {
+                "id": "scrubbed id",
+                "value": "PartitionKey"
+              }
+            ],
+            "RegistrationDate": [
+              {
+                "id": "scrubbed id",
+                "value": 1586270616000
+              }
+            ]
+          },
+          "type": "vertex"
+        }
+      },
+      "Item2": {
+        "id": "scrubbed id",
+        "label": "Person",
+        "properties": {
+          "Name": [
+            {
+              "id": "scrubbed id",
+              "value": "Marko"
+            }
+          ],
+          "PartitionKey": [
+            {
+              "id": "scrubbed id",
+              "value": "PartitionKey"
+            }
+          ],
+          "RegistrationDate": [
+            {
+              "id": "scrubbed id",
+              "value": 1586270616000
+            }
+          ]
+        },
+        "type": "vertex"
+      }
+    },
+    {
+      "Item1": {
+        "Item1": {
+          "id": "scrubbed id",
+          "label": "Person",
+          "properties": {
             "Age": [
               {
                 "id": "scrubbed id",
@@ -369,13 +448,7 @@
             "Gender": [
               {
                 "id": "scrubbed id",
-                "value": 0
-              }
-            ],
-            "Image": [
-              {
-                "id": "scrubbed id",
-                "value": "AQIDBAUGBwg="
+                "value": 1
               }
             ],
             "PartitionKey": [
@@ -400,13 +473,7 @@
             "Gender": [
               {
                 "id": "scrubbed id",
-                "value": 0
-              }
-            ],
-            "Image": [
-              {
-                "id": "scrubbed id",
-                "value": "AQIDBAUGBwg="
+                "value": 1
               }
             ],
             "PartitionKey": [
@@ -432,13 +499,7 @@
           "Gender": [
             {
               "id": "scrubbed id",
-              "value": 0
-            }
-          ],
-          "Image": [
-            {
-              "id": "scrubbed id",
-              "value": "AQIDBAUGBwg="
+              "value": 1
             }
           ],
           "PartitionKey": [
@@ -581,7 +642,13 @@
             "Gender": [
               {
                 "id": "scrubbed id",
-                "value": 1
+                "value": 0
+              }
+            ],
+            "Image": [
+              {
+                "id": "scrubbed id",
+                "value": "AQIDBAUGBwg="
               }
             ],
             "PartitionKey": [
@@ -606,7 +673,13 @@
             "Gender": [
               {
                 "id": "scrubbed id",
-                "value": 1
+                "value": 0
+              }
+            ],
+            "Image": [
+              {
+                "id": "scrubbed id",
+                "value": "AQIDBAUGBwg="
               }
             ],
             "PartitionKey": [
@@ -632,92 +705,19 @@
           "Gender": [
             {
               "id": "scrubbed id",
-              "value": 1
+              "value": 0
+            }
+          ],
+          "Image": [
+            {
+              "id": "scrubbed id",
+              "value": "AQIDBAUGBwg="
             }
           ],
           "PartitionKey": [
             {
               "id": "scrubbed id",
               "value": "PartitionKey"
-            }
-          ]
-        },
-        "type": "vertex"
-      }
-    },
-    {
-      "Item1": {
-        "Item1": {
-          "id": "scrubbed id",
-          "label": "Person",
-          "properties": {
-            "Name": [
-              {
-                "id": "scrubbed id",
-                "value": "Marko"
-              }
-            ],
-            "PartitionKey": [
-              {
-                "id": "scrubbed id",
-                "value": "PartitionKey"
-              }
-            ],
-            "RegistrationDate": [
-              {
-                "id": "scrubbed id",
-                "value": 1586270616000
-              }
-            ]
-          },
-          "type": "vertex"
-        },
-        "Item2": {
-          "id": "scrubbed id",
-          "label": "Person",
-          "properties": {
-            "Name": [
-              {
-                "id": "scrubbed id",
-                "value": "Marko"
-              }
-            ],
-            "PartitionKey": [
-              {
-                "id": "scrubbed id",
-                "value": "PartitionKey"
-              }
-            ],
-            "RegistrationDate": [
-              {
-                "id": "scrubbed id",
-                "value": 1586270616000
-              }
-            ]
-          },
-          "type": "vertex"
-        }
-      },
-      "Item2": {
-        "id": "scrubbed id",
-        "label": "Person",
-        "properties": {
-          "Name": [
-            {
-              "id": "scrubbed id",
-              "value": "Marko"
-            }
-          ],
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ],
-          "RegistrationDate": [
-            {
-              "id": "scrubbed id",
-              "value": 1586270616000
             }
           ]
         },

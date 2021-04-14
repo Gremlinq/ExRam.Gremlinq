@@ -16,10 +16,29 @@
             "value": 0
           }
         ],
-        "Image": [
+        "PartitionKey": [
           {
             "id": "scrubbed id",
-            "value": "AQIDBAUGBwg="
+            "value": "PartitionKey"
+          }
+        ]
+      },
+      "type": "vertex"
+    },
+    {
+      "id": "scrubbed id",
+      "label": "Person",
+      "properties": {
+        "Age": [
+          {
+            "id": "scrubbed id",
+            "value": 0
+          }
+        ],
+        "Gender": [
+          {
+            "id": "scrubbed id",
+            "value": 0
           }
         ],
         "PartitionKey": [
@@ -44,7 +63,7 @@
         "Gender": [
           {
             "id": "scrubbed id",
-            "value": 0
+            "value": 1
           }
         ],
         "PartitionKey": [
@@ -106,32 +125,13 @@
         "Gender": [
           {
             "id": "scrubbed id",
-            "value": 1
-          }
-        ],
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ]
-      },
-      "type": "vertex"
-    },
-    {
-      "id": "scrubbed id",
-      "label": "Person",
-      "properties": {
-        "Age": [
-          {
-            "id": "scrubbed id",
             "value": 0
           }
         ],
-        "Gender": [
+        "Image": [
           {
             "id": "scrubbed id",
-            "value": 0
+            "value": "AQIDBAUGBwg="
           }
         ],
         "PartitionKey": [
