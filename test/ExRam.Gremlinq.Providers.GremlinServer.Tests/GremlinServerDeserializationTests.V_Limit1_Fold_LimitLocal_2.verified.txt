@@ -1,12 +1,15 @@
 [
   [
     {
+      "Age": 0,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": null,
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
       "Name": null,
-      "Languages": [],
-      "CountryCallingCode": null,
-      "LocalizableDescription": null,
       "Id": "scrubbed id",
-      "Label": "Country"
+      "Label": "Person"
     }
   ]
 ]

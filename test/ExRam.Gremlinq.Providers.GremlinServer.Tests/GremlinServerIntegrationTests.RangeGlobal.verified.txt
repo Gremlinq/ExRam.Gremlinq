@@ -18,6 +18,32 @@
                 "@value": "scrubbed id"
               },
               "label",
+              "Language",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": []
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:UUID",
+                "@value": "scrubbed id"
+              },
+              "label",
               "Country",
               "properties",
               {
@@ -50,35 +76,8 @@
                         ]
                       }
                     ]
-                  }
-                ]
-              }
-            ]
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": [
-              "id",
-              {
-                "@type": "g:UUID",
-                "@value": "scrubbed id"
-              },
-              "label",
-              "Language",
-              "properties",
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "IetfLanguageTag",
+                  },
+                  "Name",
                   {
                     "@type": "g:List",
                     "@value": [
@@ -91,9 +90,9 @@
                             "@value": "scrubbed id"
                           },
                           "label",
-                          "IetfLanguageTag",
+                          "Name",
                           "value",
-                          "en",
+                          "GER",
                           "properties",
                           {
                             "@type": "g:Map",

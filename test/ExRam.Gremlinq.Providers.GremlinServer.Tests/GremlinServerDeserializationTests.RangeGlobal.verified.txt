@@ -1,8 +1,19 @@
 [
   {
-    "IetfLanguageTag": "en",
+    "Name": null,
+    "Languages": [],
+    "CountryCallingCode": null,
+    "LocalizableDescription": {
+      "Id": "scrubbed id",
+      "Label": "LocalizableDescription",
+      "Properties": {
+        "someKey": "value"
+      },
+      "Value": "",
+      "Key": null
+    },
     "Id": "scrubbed id",
-    "Label": "Language"
+    "Label": "Country"
   },
   {
     "IetfLanguageTag": "en",
