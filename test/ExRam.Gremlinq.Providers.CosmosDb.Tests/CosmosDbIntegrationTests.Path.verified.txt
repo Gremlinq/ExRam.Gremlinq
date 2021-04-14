@@ -46,24 +46,12 @@
         },
         {
           "id": "scrubbed id",
-          "label": "Person",
+          "label": "Country",
           "properties": {
-            "Age": [
+            "CountryCallingCode": [
               {
                 "id": "scrubbed id",
-                "value": 0
-              }
-            ],
-            "Gender": [
-              {
-                "id": "scrubbed id",
-                "value": 0
-              }
-            ],
-            "Name": [
-              {
-                "id": "scrubbed id",
-                "value": "Bob"
+                "value": "+49"
               }
             ],
             "PartitionKey": [
@@ -71,24 +59,18 @@
                 "id": "scrubbed id",
                 "value": "PartitionKey"
               }
-            ],
-            "RegistrationDate": [
-              {
-                "id": "scrubbed id",
-                "value": 1586270616000
-              }
             ]
           },
           "type": "vertex"
         },
         {
           "id": "scrubbed id",
-          "label": "Country",
+          "label": "Language",
           "properties": {
-            "CountryCallingCode": [
+            "IetfLanguageTag": [
               {
                 "id": "scrubbed id",
-                "value": "+49"
+                "value": "en"
               }
             ],
             "PartitionKey": [
@@ -167,18 +149,36 @@
         },
         {
           "id": "scrubbed id",
-          "label": "Language",
+          "label": "Person",
           "properties": {
-            "IetfLanguageTag": [
+            "Age": [
               {
                 "id": "scrubbed id",
-                "value": "en"
+                "value": 0
+              }
+            ],
+            "Gender": [
+              {
+                "id": "scrubbed id",
+                "value": 0
+              }
+            ],
+            "Name": [
+              {
+                "id": "scrubbed id",
+                "value": "Bob"
               }
             ],
             "PartitionKey": [
               {
                 "id": "scrubbed id",
                 "value": "PartitionKey"
+              }
+            ],
+            "RegistrationDate": [
+              {
+                "id": "scrubbed id",
+                "value": 1586270616000
               }
             ]
           },

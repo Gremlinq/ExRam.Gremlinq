@@ -1,8 +1,32 @@
 [
   {
+    "Name": null,
+    "Languages": [],
+    "CountryCallingCode": null,
+    "LocalizableDescription": null,
+    "Id": "scrubbed id",
+    "Label": "Country"
+  },
+  {
+    "Name": null,
+    "Languages": [],
+    "CountryCallingCode": null,
+    "LocalizableDescription": null,
+    "Id": "scrubbed id",
+    "Label": "Country"
+  },
+  {
     "IetfLanguageTag": "en",
     "Id": "scrubbed id",
     "Label": "Language"
+  },
+  {
+    "Name": null,
+    "Languages": [],
+    "CountryCallingCode": null,
+    "LocalizableDescription": null,
+    "Id": "scrubbed id",
+    "Label": "Country"
   },
   {
     "Age": 0,
@@ -24,23 +48,7 @@
   {
     "Name": null,
     "Languages": [],
-    "CountryCallingCode": null,
-    "LocalizableDescription": null,
-    "Id": "scrubbed id",
-    "Label": "Country"
-  },
-  {
-    "Name": null,
-    "Languages": [],
-    "CountryCallingCode": null,
-    "LocalizableDescription": null,
-    "Id": "scrubbed id",
-    "Label": "Country"
-  },
-  {
-    "Name": null,
-    "Languages": [],
-    "CountryCallingCode": null,
+    "CountryCallingCode": "+49",
     "LocalizableDescription": null,
     "Id": "scrubbed id",
     "Label": "Country"
@@ -49,13 +57,5 @@
     "IetfLanguageTag": "en",
     "Id": "scrubbed id",
     "Label": "Language"
-  },
-  {
-    "Name": null,
-    "Languages": [],
-    "CountryCallingCode": "+49",
-    "LocalizableDescription": null,
-    "Id": "scrubbed id",
-    "Label": "Country"
   }
 ]

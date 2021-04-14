@@ -41,22 +41,10 @@
       "id": "scrubbed id",
       "label": "Person",
       "properties": {
-        "Age": [
-          {
-            "id": "scrubbed id",
-            "value": 0
-          }
-        ],
-        "Gender": [
-          {
-            "id": "scrubbed id",
-            "value": 0
-          }
-        ],
         "Name": [
           {
             "id": "scrubbed id",
-            "value": "Bob"
+            "value": "Marko"
           }
         ],
         "PartitionKey": [
@@ -78,10 +66,22 @@
       "id": "scrubbed id",
       "label": "Person",
       "properties": {
+        "Age": [
+          {
+            "id": "scrubbed id",
+            "value": 0
+          }
+        ],
+        "Gender": [
+          {
+            "id": "scrubbed id",
+            "value": 0
+          }
+        ],
         "Name": [
           {
             "id": "scrubbed id",
-            "value": "Marko"
+            "value": "Bob"
           }
         ],
         "PartitionKey": [

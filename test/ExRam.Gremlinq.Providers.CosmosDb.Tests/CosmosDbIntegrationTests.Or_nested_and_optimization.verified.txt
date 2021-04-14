@@ -134,10 +134,23 @@
             "value": 0
           }
         ],
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
+          }
+        ]
+      },
+      "type": "vertex"
+    },
+    {
+      "id": "scrubbed id",
+      "label": "Person",
+      "properties": {
         "Name": [
           {
             "id": "scrubbed id",
-            "value": "Bob"
+            "value": "Marko"
           }
         ],
         "PartitionKey": [
@@ -171,23 +184,10 @@
             "value": 0
           }
         ],
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ]
-      },
-      "type": "vertex"
-    },
-    {
-      "id": "scrubbed id",
-      "label": "Person",
-      "properties": {
         "Name": [
           {
             "id": "scrubbed id",
-            "value": "Marko"
+            "value": "Bob"
           }
         ],
         "PartitionKey": [

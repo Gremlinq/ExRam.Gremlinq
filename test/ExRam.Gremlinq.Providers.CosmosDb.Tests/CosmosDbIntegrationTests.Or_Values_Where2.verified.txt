@@ -134,22 +134,10 @@
             "value": 0
           }
         ],
-        "Name": [
-          {
-            "id": "scrubbed id",
-            "value": "Bob"
-          }
-        ],
         "PartitionKey": [
           {
             "id": "scrubbed id",
             "value": "PartitionKey"
-          }
-        ],
-        "RegistrationDate": [
-          {
-            "id": "scrubbed id",
-            "value": 1586270616000
           }
         ]
       },
@@ -171,10 +159,22 @@
             "value": 0
           }
         ],
+        "Name": [
+          {
+            "id": "scrubbed id",
+            "value": "Bob"
+          }
+        ],
         "PartitionKey": [
           {
             "id": "scrubbed id",
             "value": "PartitionKey"
+          }
+        ],
+        "RegistrationDate": [
+          {
+            "id": "scrubbed id",
+            "value": 1586270616000
           }
         ]
       },

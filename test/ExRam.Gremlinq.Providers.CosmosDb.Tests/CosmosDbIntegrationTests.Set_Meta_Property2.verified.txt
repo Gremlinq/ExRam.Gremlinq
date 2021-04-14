@@ -6,23 +6,23 @@
       "properties": {
         "ValidFrom": 1586270616000
       },
+      "value": "Bob"
+    },
+    {
+      "id": "scrubbed id",
+      "label": "Name",
+      "properties": {
+        "ValidFrom": 1586270616000
+      },
+      "value": "Bob"
+    },
+    {
+      "id": "scrubbed id",
+      "label": "Name",
+      "properties": {
+        "ValidFrom": 1586270616000
+      },
       "value": "Marko"
-    },
-    {
-      "id": "scrubbed id",
-      "label": "Name",
-      "properties": {
-        "ValidFrom": 1586270616000
-      },
-      "value": "Bob"
-    },
-    {
-      "id": "scrubbed id",
-      "label": "Name",
-      "properties": {
-        "ValidFrom": 1586270616000
-      },
-      "value": "Bob"
     }
   ]
 ]

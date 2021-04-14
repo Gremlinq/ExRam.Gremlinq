@@ -25,42 +25,6 @@
           "id": "scrubbed id",
           "label": "Country",
           "properties": {
-            "PartitionKey": [
-              {
-                "id": "scrubbed id",
-                "value": "PartitionKey"
-              }
-            ]
-          },
-          "type": "vertex"
-        }
-      ]
-    },
-    {
-      "Item1": "Country",
-      "Item2": [
-        {
-          "id": "scrubbed id",
-          "label": "Country",
-          "properties": {
-            "PartitionKey": [
-              {
-                "id": "scrubbed id",
-                "value": "PartitionKey"
-              }
-            ]
-          },
-          "type": "vertex"
-        }
-      ]
-    },
-    {
-      "Item1": "Country",
-      "Item2": [
-        {
-          "id": "scrubbed id",
-          "label": "Country",
-          "properties": {
             "CountryCallingCode": [
               {
                 "id": "scrubbed id",
@@ -91,6 +55,42 @@
                 "value": "+49"
               }
             ],
+            "PartitionKey": [
+              {
+                "id": "scrubbed id",
+                "value": "PartitionKey"
+              }
+            ]
+          },
+          "type": "vertex"
+        }
+      ]
+    },
+    {
+      "Item1": "Country",
+      "Item2": [
+        {
+          "id": "scrubbed id",
+          "label": "Country",
+          "properties": {
+            "PartitionKey": [
+              {
+                "id": "scrubbed id",
+                "value": "PartitionKey"
+              }
+            ]
+          },
+          "type": "vertex"
+        }
+      ]
+    },
+    {
+      "Item1": "Country",
+      "Item2": [
+        {
+          "id": "scrubbed id",
+          "label": "Country",
+          "properties": {
             "PartitionKey": [
               {
                 "id": "scrubbed id",
@@ -265,22 +265,10 @@
                 "value": 0
               }
             ],
-            "Name": [
-              {
-                "id": "scrubbed id",
-                "value": "Bob"
-              }
-            ],
             "PartitionKey": [
               {
                 "id": "scrubbed id",
                 "value": "PartitionKey"
-              }
-            ],
-            "RegistrationDate": [
-              {
-                "id": "scrubbed id",
-                "value": 1586270616000
               }
             ]
           },
@@ -307,10 +295,22 @@
                 "value": 0
               }
             ],
+            "Name": [
+              {
+                "id": "scrubbed id",
+                "value": "Bob"
+              }
+            ],
             "PartitionKey": [
               {
                 "id": "scrubbed id",
                 "value": "PartitionKey"
+              }
+            ],
+            "RegistrationDate": [
+              {
+                "id": "scrubbed id",
+                "value": 1586270616000
               }
             ]
           },
@@ -405,11 +405,11 @@
             "PhoneNumbers": [
               {
                 "id": "scrubbed id",
-                "value": "+4923456"
+                "value": "+4912345"
               },
               {
                 "id": "scrubbed id",
-                "value": "+4912345"
+                "value": "+4923456"
               }
             ]
           },
@@ -476,24 +476,6 @@
           "id": "scrubbed id",
           "label": "Language",
           "properties": {
-            "PartitionKey": [
-              {
-                "id": "scrubbed id",
-                "value": "PartitionKey"
-              }
-            ]
-          },
-          "type": "vertex"
-        }
-      ]
-    },
-    {
-      "Item1": "Language",
-      "Item2": [
-        {
-          "id": "scrubbed id",
-          "label": "Language",
-          "properties": {
             "IetfLanguageTag": [
               {
                 "id": "scrubbed id",
@@ -566,6 +548,24 @@
                 "value": "en"
               }
             ],
+            "PartitionKey": [
+              {
+                "id": "scrubbed id",
+                "value": "PartitionKey"
+              }
+            ]
+          },
+          "type": "vertex"
+        }
+      ]
+    },
+    {
+      "Item1": "Language",
+      "Item2": [
+        {
+          "id": "scrubbed id",
+          "label": "Language",
+          "properties": {
             "PartitionKey": [
               {
                 "id": "scrubbed id",
