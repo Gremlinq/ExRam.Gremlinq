@@ -1,13 +1,21 @@
-﻿using Xunit.Abstractions;
+﻿using Xunit;
+using Xunit.Abstractions;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public sealed class BytecodeQuerySerializationTest : QuerySerializationTest
+    public sealed class BytecodeQuerySerializationTest : QuerySerializationTest, IClassFixture<BytecodeQuerySerializationTest.Fixture>
     {
-        public BytecodeQuerySerializationTest(ITestOutputHelper testOutputHelper) : base(
-            g.ConfigureEnvironment(_ => _
-                .UseSerializer(GremlinQuerySerializer.Default)),
+        public sealed class Fixture : IntegrationTestFixture
+        {
+            public Fixture() : base(g.ConfigureEnvironment(_ => _
+                .UseSerializer(GremlinQuerySerializer.Default)))
+            {
+            }
+        }
+
+        public BytecodeQuerySerializationTest(Fixture fixture, ITestOutputHelper testOutputHelper) : base(
+            fixture,
             testOutputHelper)
         {
         }

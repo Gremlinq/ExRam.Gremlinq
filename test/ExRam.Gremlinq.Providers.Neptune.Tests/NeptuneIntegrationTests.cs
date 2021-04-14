@@ -1,19 +1,33 @@
 ﻿#if RELEASE && NET5_0 && RUNNEPTUNEINTEGRATIONTESTS
 using System;
 using System.Collections.Immutable;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
 using Xunit;
 using Xunit.Abstractions;
 
 namespace ExRam.Gremlinq.Providers.Neptune.Tests
 {
-    public class NeptuneIntegrationTests : QueryIntegrationTest, IClassFixture<NeptuneFixture>
+    public class NeptuneIntegrationTests : QueryIntegrationTest, IClassFixture<NeptuneIntegrationTests.Fixture>
     {
+        public sealed class Fixture : IntegrationTestFixture
+        {
+            public Fixture() : base(Core.GremlinQuerySource.g
+                .UseNeptune(builder => builder
+                    .At(new Uri("ws://localhost:8182")))
+                .ConfigureEnvironment(environment => environment
+                    .ConfigureExecutor(_ => _
+                        .TransformResult(_ => _.Where(x => false)))))
+            {
+            }
+        }
+
         private static readonly Regex IdRegex1 = new("\"[0-9a-f]{8}[-]?([0-9a-f]{4}[-]?){3}[0-9a-f]{12}([|]PartitionKey)?\"", RegexOptions.IgnoreCase);
         
-        public NeptuneIntegrationTests(NeptuneFixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public NeptuneIntegrationTests(Fixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
             testOutputHelper)
         {
