@@ -21,11 +21,69 @@
               "outVLabel": "Person",
               "inV": {
                 "@type": "g:UUID",
-                "@value": "dccd10a6-a004-459c-97c5-962fb282719b"
+                "@value": "0a3f3a68-4434-4b25-b99d-d6f5478711ad"
               },
               "outV": {
                 "@type": "g:UUID",
-                "@value": "bdccaf65-ddbe-4907-ac23-29a6b7d2ee87"
+                "@value": "a3b49947-bf4d-49ae-980c-cc60483563c9"
+              }
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Edge",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label": "LivesIn",
+              "inVLabel": "Country",
+              "outVLabel": "Person",
+              "inV": {
+                "@type": "g:UUID",
+                "@value": "3cad59ad-6fb2-4090-81db-de89f6d8c818"
+              },
+              "outV": {
+                "@type": "g:UUID",
+                "@value": "42307bfe-0d02-40fe-9962-2b668be3c1c1"
+              }
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Edge",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label": "LivesIn",
+              "inVLabel": "Country",
+              "outVLabel": "Person",
+              "inV": {
+                "@type": "g:UUID",
+                "@value": "a6a00776-9411-454f-be95-92833e3cad2a"
+              },
+              "outV": {
+                "@type": "g:UUID",
+                "@value": "81056744-61dc-4e47-954b-c43ed8832c72"
               }
             }
           }
@@ -69,11 +127,11 @@
               "outVLabel": "Person",
               "inV": {
                 "@type": "g:UUID",
-                "@value": "66a33d7f-c226-48f7-bbc4-9720c99d52c1"
+                "@value": "a970c146-731a-4340-8e91-d08bb0afba1e"
               },
               "outV": {
                 "@type": "g:UUID",
-                "@value": "98ff44c7-05b8-4928-847d-24f369c296f1"
+                "@value": "d97569db-78aa-4a3f-be2c-50e242b38ba2"
               }
             }
           }
@@ -113,64 +171,6 @@
                 "@value": "scrubbed id"
               },
               "label": "Company"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Edge",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "label": "LivesIn",
-              "inVLabel": "Country",
-              "outVLabel": "Person",
-              "inV": {
-                "@type": "g:UUID",
-                "@value": "1fe007ad-7678-42fc-933e-0c8581eaabb7"
-              },
-              "outV": {
-                "@type": "g:UUID",
-                "@value": "deb0c7bd-9ae6-4349-abe1-3ee64f94f983"
-              }
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Edge",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "label": "LivesIn",
-              "inVLabel": "Country",
-              "outVLabel": "Person",
-              "inV": {
-                "@type": "g:UUID",
-                "@value": "953b18a0-2453-4614-87e4-872a984eab00"
-              },
-              "outV": {
-                "@type": "g:UUID",
-                "@value": "e87e7f3a-d0e0-412b-8e53-348eacc8f1ae"
-              }
             }
           }
         }

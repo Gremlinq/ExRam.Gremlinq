@@ -29,7 +29,7 @@
                     "@type": "g:UUID",
                     "@value": "scrubbed id"
                   },
-                  "label": "Country"
+                  "label": "Language"
                 }
               }
             ]

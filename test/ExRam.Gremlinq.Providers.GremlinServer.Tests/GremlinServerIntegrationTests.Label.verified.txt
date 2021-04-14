@@ -17,16 +17,6 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 7
-          },
-          "value": "Country"
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
             "@value": 10
           },
           "value": "Language"
@@ -37,9 +27,9 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 5
+            "@value": 7
           },
-          "value": "Company"
+          "value": "Country"
         }
       },
       {
@@ -50,6 +40,16 @@
             "@value": 1
           },
           "value": "TimeFrame"
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 5
+          },
+          "value": "Company"
         }
       }
     ]

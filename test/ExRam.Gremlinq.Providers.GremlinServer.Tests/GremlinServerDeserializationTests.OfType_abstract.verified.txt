@@ -2,25 +2,6 @@
   {
     "Age": 0,
     "Gender": 0,
-    "Image": "AQIDBAUGBwg=",
-    "RegistrationDate": null,
-    "PhoneNumbers": [],
-    "SomeObscureProperty": null,
-    "Name": null,
-    "Id": "scrubbed id",
-    "Label": "Person"
-  },
-  {
-    "FoundingDate": "0001-01-01T00:00:00",
-    "PhoneNumbers": [],
-    "Locations": [],
-    "Name": null,
-    "Id": "scrubbed id",
-    "Label": "Company"
-  },
-  {
-    "Age": 0,
-    "Gender": 1,
     "Image": "",
     "RegistrationDate": null,
     "PhoneNumbers": [],
@@ -32,7 +13,7 @@
   {
     "Age": 0,
     "Gender": 0,
-    "Image": "",
+    "Image": "AQIDBAUGBwg=",
     "RegistrationDate": null,
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
@@ -63,6 +44,25 @@
     "Age": 0,
     "Gender": 0,
     "Image": "",
+    "RegistrationDate": null,
+    "PhoneNumbers": [],
+    "SomeObscureProperty": null,
+    "Name": null,
+    "Id": "scrubbed id",
+    "Label": "Person"
+  },
+  {
+    "FoundingDate": "0001-01-01T00:00:00",
+    "PhoneNumbers": [],
+    "Locations": [],
+    "Name": null,
+    "Id": "scrubbed id",
+    "Label": "Company"
+  },
+  {
+    "Age": 0,
+    "Gender": 0,
+    "Image": "",
     "RegistrationDate": "2020-04-07T14:43:36+00:00",
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
@@ -77,6 +77,17 @@
     },
     "Id": "scrubbed id",
     "Label": "Person"
+  },
+  {
+    "FoundingDate": "0001-01-01T00:00:00",
+    "PhoneNumbers": [
+      "+4912345",
+      "+4923456"
+    ],
+    "Locations": [],
+    "Name": null,
+    "Id": "scrubbed id",
+    "Label": "Company"
   },
   {
     "FoundingDate": "0001-01-01T00:00:00",
@@ -119,17 +130,6 @@
     "Label": "Person"
   },
   {
-    "FoundingDate": "0001-01-01T00:00:00",
-    "PhoneNumbers": [
-      "+4912345",
-      "+4923456"
-    ],
-    "Locations": [],
-    "Name": null,
-    "Id": "scrubbed id",
-    "Label": "Company"
-  },
-  {
     "Age": 0,
     "Gender": 0,
     "Image": "",
@@ -139,14 +139,6 @@
     "Name": null,
     "Id": "scrubbed id",
     "Label": "Person"
-  },
-  {
-    "FoundingDate": "0001-01-01T00:00:00",
-    "PhoneNumbers": [],
-    "Locations": [],
-    "Name": null,
-    "Id": "scrubbed id",
-    "Label": "Company"
   },
   {
     "Age": 0,
@@ -179,6 +171,17 @@
     "Label": "Person"
   },
   {
+    "Age": 0,
+    "Gender": 1,
+    "Image": "",
+    "RegistrationDate": null,
+    "PhoneNumbers": [],
+    "SomeObscureProperty": null,
+    "Name": null,
+    "Id": "scrubbed id",
+    "Label": "Person"
+  },
+  {
     "FoundingDate": "0001-01-01T00:00:00",
     "PhoneNumbers": [],
     "Locations": [],
@@ -187,14 +190,11 @@
     "Label": "Company"
   },
   {
-    "Age": 0,
-    "Gender": 0,
-    "Image": "",
-    "RegistrationDate": null,
+    "FoundingDate": "0001-01-01T00:00:00",
     "PhoneNumbers": [],
-    "SomeObscureProperty": null,
+    "Locations": [],
     "Name": null,
     "Id": "scrubbed id",
-    "Label": "Person"
+    "Label": "Company"
   }
 ]

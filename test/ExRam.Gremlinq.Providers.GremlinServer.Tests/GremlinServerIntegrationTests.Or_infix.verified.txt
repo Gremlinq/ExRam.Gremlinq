@@ -54,6 +54,63 @@
                 "@type": "g:UUID",
                 "@value": "scrubbed id"
               },
+              "label": "Country"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Vertex",
+            "@value": {
+              "id": {
+                "@type": "g:UUID",
+                "@value": "scrubbed id"
+              },
+              "label": "Country"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Vertex",
+            "@value": {
+              "id": {
+                "@type": "g:UUID",
+                "@value": "scrubbed id"
+              },
+              "label": "Company"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Vertex",
+            "@value": {
+              "id": {
+                "@type": "g:UUID",
+                "@value": "scrubbed id"
+              },
               "label": "Language"
             }
           }
@@ -92,178 +149,7 @@
                 "@type": "g:UUID",
                 "@value": "scrubbed id"
               },
-              "label": "Company"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Vertex",
-            "@value": {
-              "id": {
-                "@type": "g:UUID",
-                "@value": "scrubbed id"
-              },
               "label": "Person"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Vertex",
-            "@value": {
-              "id": {
-                "@type": "g:UUID",
-                "@value": "scrubbed id"
-              },
-              "label": "Country"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Vertex",
-            "@value": {
-              "id": {
-                "@type": "g:UUID",
-                "@value": "scrubbed id"
-              },
-              "label": "Person"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Vertex",
-            "@value": {
-              "id": {
-                "@type": "g:UUID",
-                "@value": "scrubbed id"
-              },
-              "label": "Country"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Vertex",
-            "@value": {
-              "id": {
-                "@type": "g:UUID",
-                "@value": "scrubbed id"
-              },
-              "label": "Person"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Vertex",
-            "@value": {
-              "id": {
-                "@type": "g:UUID",
-                "@value": "scrubbed id"
-              },
-              "label": "Person"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Vertex",
-            "@value": {
-              "id": {
-                "@type": "g:UUID",
-                "@value": "scrubbed id"
-              },
-              "label": "Person"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Vertex",
-            "@value": {
-              "id": {
-                "@type": "g:UUID",
-                "@value": "scrubbed id"
-              },
-              "label": "Person"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Vertex",
-            "@value": {
-              "id": {
-                "@type": "g:UUID",
-                "@value": "scrubbed id"
-              },
-              "label": "Country"
             }
           }
         }
@@ -301,7 +187,45 @@
                 "@type": "g:UUID",
                 "@value": "scrubbed id"
               },
-              "label": "Company"
+              "label": "Person"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Vertex",
+            "@value": {
+              "id": {
+                "@type": "g:UUID",
+                "@value": "scrubbed id"
+              },
+              "label": "Person"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Vertex",
+            "@value": {
+              "id": {
+                "@type": "g:UUID",
+                "@value": "scrubbed id"
+              },
+              "label": "Person"
             }
           }
         }
@@ -321,6 +245,82 @@
                 "@value": "scrubbed id"
               },
               "label": "Company"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Vertex",
+            "@value": {
+              "id": {
+                "@type": "g:UUID",
+                "@value": "scrubbed id"
+              },
+              "label": "Country"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Vertex",
+            "@value": {
+              "id": {
+                "@type": "g:UUID",
+                "@value": "scrubbed id"
+              },
+              "label": "Company"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Vertex",
+            "@value": {
+              "id": {
+                "@type": "g:UUID",
+                "@value": "scrubbed id"
+              },
+              "label": "Person"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Vertex",
+            "@value": {
+              "id": {
+                "@type": "g:UUID",
+                "@value": "scrubbed id"
+              },
+              "label": "Person"
             }
           }
         }
