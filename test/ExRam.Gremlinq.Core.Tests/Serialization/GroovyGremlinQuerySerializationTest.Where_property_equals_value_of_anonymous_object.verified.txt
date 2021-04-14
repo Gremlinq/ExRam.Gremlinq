@@ -3,7 +3,7 @@
     "Script": "V().hasLabel(_a).has(id,_b).project(_c,_d,_e).by(id).by(label).by(__.properties().group().by(label).by(__.project(_c,_d,_f,_e).by(id).by(label).by(value).by(__.valueMap()).fold()))",
     "Bindings": {
       "_a": "Language",
-      "_b": 1,
+      "_b": "2B51B506-2D22-44F9-B28B-EB2D8C0FE97A",
       "_c": "id",
       "_d": "label",
       "_e": "properties",

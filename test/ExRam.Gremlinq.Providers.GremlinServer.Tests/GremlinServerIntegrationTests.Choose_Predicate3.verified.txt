@@ -7,19 +7,9 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 15
+            "@value": 1
           },
           "value": true
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 19
-          },
-          "value": false
         }
       }
     ]

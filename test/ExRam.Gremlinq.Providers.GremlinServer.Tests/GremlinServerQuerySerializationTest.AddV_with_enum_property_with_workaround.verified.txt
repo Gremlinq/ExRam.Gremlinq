@@ -15,7 +15,7 @@
             "EnumName": "T",
             "EnumValue": "id"
           },
-          1
+          "1"
         ]
       },
       {

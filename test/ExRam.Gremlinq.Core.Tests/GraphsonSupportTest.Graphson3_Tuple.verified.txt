@@ -14,12 +14,12 @@
         "Value": "Name of some base entity",
         "Key": null
       },
-      "Id": 4,
+      "Id": "4",
       "Label": "User"
     },
     "Item2": {
       "IetfLanguageTag": "de",
-      "Id": 5,
+      "Id": "5",
       "Label": "Language"
     }
   }

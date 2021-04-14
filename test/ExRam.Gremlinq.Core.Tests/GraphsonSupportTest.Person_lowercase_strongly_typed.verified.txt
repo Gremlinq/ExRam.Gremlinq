@@ -22,7 +22,7 @@
     ],
     "SomeObscureProperty": null,
     "Name": null,
-    "Id": 14,
+    "Id": "14",
     "Label": "Person"
   }
 ]

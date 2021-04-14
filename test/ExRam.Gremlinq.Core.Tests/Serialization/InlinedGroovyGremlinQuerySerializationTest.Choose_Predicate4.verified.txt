@@ -1,6 +1,6 @@
 [
   {
-    "Script": "V().id().choose(lt(42),__.constant(true),__.constant(false))",
+    "Script": "V().count().choose(lt(42),__.constant(true),__.constant(false))",
     "Bindings": {}
   }
 ]

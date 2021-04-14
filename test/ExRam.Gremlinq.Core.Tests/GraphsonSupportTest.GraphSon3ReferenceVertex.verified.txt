@@ -13,7 +13,7 @@
       "Value": "marko",
       "Key": null
     },
-    "Id": 1,
+    "Id": "1",
     "Label": "person"
   }
 ]

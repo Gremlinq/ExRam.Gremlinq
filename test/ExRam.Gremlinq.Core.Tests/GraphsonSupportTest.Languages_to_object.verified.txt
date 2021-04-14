@@ -2,12 +2,12 @@
   [
     {
       "IetfLanguageTag": "de",
-      "Id": 1,
+      "Id": "1",
       "Label": "Language"
     },
     {
       "IetfLanguageTag": "en",
-      "Id": 2,
+      "Id": "2",
       "Label": "Language"
     }
   ]
