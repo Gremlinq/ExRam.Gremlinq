@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
 {
     public sealed class NeptuneElasticSearchQuerySerializationTest : QuerySerializationTest, IClassFixture<NeptuneElasticSearchQuerySerializationTest.Fixture>
     {
-        public sealed class Fixture : GremlinqTestFixture
+        public new sealed class Fixture : QuerySerializationTest.Fixture
         {
             public Fixture() : base(g
                 .UseNeptune(builder => builder

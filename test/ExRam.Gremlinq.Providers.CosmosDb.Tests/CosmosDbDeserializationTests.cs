@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
     public sealed class CosmosDbDeserializationTests : QueryDeserializationTest, IClassFixture<CosmosDbDeserializationTests.Fixture>
     {
-        public sealed class Fixture : GremlinqTestFixture
+        public new sealed class Fixture : QueryDeserializationTest.Fixture
         {
             public Fixture() : base(g
                 .UseCosmosDb(_ => _.At("ws://localhost", "", "").AuthenticateBy("")))
