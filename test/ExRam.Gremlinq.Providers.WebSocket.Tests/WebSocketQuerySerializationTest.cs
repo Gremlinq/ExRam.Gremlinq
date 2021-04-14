@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
 {
     public sealed class WebSocketQuerySerializationTest : QuerySerializationTest, IClassFixture<WebSocketQuerySerializationTest.Fixture>
     {
-        public sealed class Fixture : GremlinqTestFixture
+        public new sealed class Fixture : QuerySerializationTest.Fixture
         {
             public Fixture() : base(g.UseWebSocket(builder => builder
                 .AtLocalhost()))

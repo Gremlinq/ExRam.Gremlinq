@@ -11,7 +11,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
     public sealed class CosmosDbQuerySerializationTest : QuerySerializationTest, IClassFixture<CosmosDbQuerySerializationTest.Fixture>
     {
-        public sealed class Fixture : GremlinqTestFixture
+        public new sealed class Fixture : QuerySerializationTest.Fixture
         {
             public Fixture() : base(g
                 .UseCosmosDb(builder => builder
