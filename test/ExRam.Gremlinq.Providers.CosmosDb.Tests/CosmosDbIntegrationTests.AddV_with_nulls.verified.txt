@@ -3,7 +3,6 @@
     {
       "id": "scrubbed id",
       "label": "Language",
-      "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
@@ -11,7 +10,8 @@
             "value": "PartitionKey"
           }
         ]
-      }
+      },
+      "type": "vertex"
     }
   ]
 ]

@@ -7,7 +7,7 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 1
+            "@value": "scrubbed id"
           },
           "value": {
             "@type": "g:Map",
@@ -37,8 +37,6 @@
                           },
                           "label",
                           "Name",
-                          "value",
-                          "GER",
                           "properties",
                           {
                             "@type": "g:Map",
@@ -48,7 +46,9 @@
                               "en",
                               "Germany"
                             ]
-                          }
+                          },
+                          "value",
+                          "GER"
                         ]
                       }
                     ]

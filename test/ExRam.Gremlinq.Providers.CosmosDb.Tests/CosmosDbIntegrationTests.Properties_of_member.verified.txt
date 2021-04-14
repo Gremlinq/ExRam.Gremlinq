@@ -2,17 +2,17 @@
   [
     {
       "id": "scrubbed id",
-      "value": "GER",
-      "label": "Name"
+      "label": "Name",
+      "value": "GER"
     },
     {
       "id": "scrubbed id",
-      "value": "GER",
       "label": "Name",
       "properties": {
         "de": "Deutschland",
         "en": "Germany"
-      }
+      },
+      "value": "GER"
     }
   ]
 ]

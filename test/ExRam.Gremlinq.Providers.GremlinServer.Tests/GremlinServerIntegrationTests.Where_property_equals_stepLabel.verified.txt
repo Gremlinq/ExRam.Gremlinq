@@ -7,7 +7,7 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 6
+            "@value": "scrubbed id"
           },
           "value": {
             "@type": "g:Map",
@@ -37,13 +37,13 @@
                           },
                           "label",
                           "IetfLanguageTag",
-                          "value",
-                          "en",
                           "properties",
                           {
                             "@type": "g:Map",
                             "@value": []
-                          }
+                          },
+                          "value",
+                          "en"
                         ]
                       }
                     ]
@@ -59,7 +59,7 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 6
+            "@value": "scrubbed id"
           },
           "value": {
             "@type": "g:Map",
@@ -89,13 +89,13 @@
                           },
                           "label",
                           "IetfLanguageTag",
-                          "value",
-                          "en",
                           "properties",
                           {
                             "@type": "g:Map",
                             "@value": []
-                          }
+                          },
+                          "value",
+                          "en"
                         ]
                       }
                     ]
@@ -111,7 +111,7 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 6
+            "@value": "scrubbed id"
           },
           "value": {
             "@type": "g:Map",
@@ -141,13 +141,13 @@
                           },
                           "label",
                           "IetfLanguageTag",
-                          "value",
-                          "en",
                           "properties",
                           {
                             "@type": "g:Map",
                             "@value": []
-                          }
+                          },
+                          "value",
+                          "en"
                         ]
                       }
                     ]
@@ -163,7 +163,7 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 6
+            "@value": "scrubbed id"
           },
           "value": {
             "@type": "g:Map",
@@ -193,13 +193,13 @@
                           },
                           "label",
                           "IetfLanguageTag",
-                          "value",
-                          "en",
                           "properties",
                           {
                             "@type": "g:Map",
                             "@value": []
-                          }
+                          },
+                          "value",
+                          "en"
                         ]
                       }
                     ]
@@ -215,7 +215,7 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 6
+            "@value": "scrubbed id"
           },
           "value": {
             "@type": "g:Map",
@@ -245,13 +245,13 @@
                           },
                           "label",
                           "IetfLanguageTag",
-                          "value",
-                          "en",
                           "properties",
                           {
                             "@type": "g:Map",
                             "@value": []
-                          }
+                          },
+                          "value",
+                          "en"
                         ]
                       }
                     ]
@@ -267,7 +267,7 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 6
+            "@value": "scrubbed id"
           },
           "value": {
             "@type": "g:Map",
@@ -297,13 +297,13 @@
                           },
                           "label",
                           "IetfLanguageTag",
-                          "value",
-                          "en",
                           "properties",
                           {
                             "@type": "g:Map",
                             "@value": []
-                          }
+                          },
+                          "value",
+                          "en"
                         ]
                       }
                     ]

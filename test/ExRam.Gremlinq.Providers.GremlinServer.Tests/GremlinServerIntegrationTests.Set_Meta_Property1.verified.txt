@@ -7,7 +7,7 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 1
+            "@value": "scrubbed id"
           },
           "value": {
             "@type": "g:VertexProperty",
@@ -16,8 +16,8 @@
                 "@type": "g:Int64",
                 "@value": "scrubbed id"
               },
-              "value": "GER",
-              "label": "Name"
+              "label": "Name",
+              "value": "GER"
             }
           }
         }
@@ -27,7 +27,7 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 1
+            "@value": "scrubbed id"
           },
           "value": {
             "@type": "g:VertexProperty",
@@ -36,8 +36,8 @@
                 "@type": "g:Int64",
                 "@value": "scrubbed id"
               },
-              "value": "GER",
-              "label": "Name"
+              "label": "Name",
+              "value": "GER"
             }
           }
         }

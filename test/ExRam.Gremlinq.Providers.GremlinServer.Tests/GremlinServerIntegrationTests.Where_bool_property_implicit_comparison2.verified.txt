@@ -7,7 +7,7 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 1
+            "@value": "scrubbed id"
           },
           "value": {
             "@type": "g:Map",
@@ -23,7 +23,7 @@
               {
                 "@type": "g:Map",
                 "@value": [
-                  "StartTime",
+                  "Duration",
                   {
                     "@type": "g:List",
                     "@value": [
@@ -36,16 +36,16 @@
                             "@value": "scrubbed id"
                           },
                           "label",
-                          "StartTime",
-                          "value",
-                          {
-                            "@type": "gx:Duration",
-                            "@value": "PT8H"
-                          },
+                          "Duration",
                           "properties",
                           {
                             "@type": "g:Map",
                             "@value": []
+                          },
+                          "value",
+                          {
+                            "@type": "gx:Duration",
+                            "@value": "PT2H"
                           }
                         ]
                       }
@@ -65,18 +65,18 @@
                           },
                           "label",
                           "Enabled",
-                          "value",
-                          false,
                           "properties",
                           {
                             "@type": "g:Map",
                             "@value": []
-                          }
+                          },
+                          "value",
+                          false
                         ]
                       }
                     ]
                   },
-                  "Duration",
+                  "StartTime",
                   {
                     "@type": "g:List",
                     "@value": [
@@ -89,16 +89,16 @@
                             "@value": "scrubbed id"
                           },
                           "label",
-                          "Duration",
-                          "value",
-                          {
-                            "@type": "gx:Duration",
-                            "@value": "PT2H"
-                          },
+                          "StartTime",
                           "properties",
                           {
                             "@type": "g:Map",
                             "@value": []
+                          },
+                          "value",
+                          {
+                            "@type": "gx:Duration",
+                            "@value": "PT8H"
                           }
                         ]
                       }

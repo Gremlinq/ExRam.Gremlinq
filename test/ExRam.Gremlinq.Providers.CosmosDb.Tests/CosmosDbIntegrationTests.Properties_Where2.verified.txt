@@ -2,38 +2,38 @@
   [
     {
       "id": "scrubbed id",
-      "value": 0,
-      "label": "Age"
+      "label": "Age",
+      "value": 0
     },
     {
       "id": "scrubbed id",
-      "value": 0,
-      "label": "Age"
+      "label": "Age",
+      "value": 0
     },
     {
       "id": "scrubbed id",
-      "value": 0,
-      "label": "Age"
+      "label": "Age",
+      "value": 0
     },
     {
       "id": "scrubbed id",
-      "value": 0,
-      "label": "Age"
+      "label": "Age",
+      "value": 0
     },
     {
       "id": "scrubbed id",
-      "value": 0,
-      "label": "Age"
+      "label": "Age",
+      "value": 0
     },
     {
       "id": "scrubbed id",
-      "value": 0,
-      "label": "Age"
+      "label": "Age",
+      "value": 0
     },
     {
       "id": "scrubbed id",
-      "value": 0,
-      "label": "Age"
+      "label": "Age",
+      "value": 0
     }
   ]
 ]

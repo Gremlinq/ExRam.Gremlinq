@@ -3,14 +3,7 @@
     {
       "id": "scrubbed id",
       "label": "Company",
-      "type": "vertex",
       "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ],
         "FoundingDate": [
           {
             "id": "scrubbed id",
@@ -20,42 +13,49 @@
         "Locations": [
           {
             "id": "scrubbed id",
-            "value": "Aachen",
             "properties": {
               "ValidFrom": 1546304400000
-            }
+            },
+            "value": "Aachen"
           }
-        ]
-      }
-    },
-    {
-      "id": "scrubbed id",
-      "label": "Company",
-      "type": "vertex",
-      "properties": {
+        ],
         "PartitionKey": [
           {
             "id": "scrubbed id",
             "value": "PartitionKey"
           }
-        ],
+        ]
+      },
+      "type": "vertex"
+    },
+    {
+      "id": "scrubbed id",
+      "label": "Company",
+      "properties": {
         "FoundingDate": [
           {
             "id": "scrubbed id",
             "value": -62135596800000
           }
         ],
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
+          }
+        ],
         "PhoneNumbers": [
           {
             "id": "scrubbed id",
-            "value": "+4912345"
+            "value": "+4923456"
           },
           {
             "id": "scrubbed id",
-            "value": "+4923456"
+            "value": "+4912345"
           }
         ]
-      }
+      },
+      "type": "vertex"
     }
   ]
 ]

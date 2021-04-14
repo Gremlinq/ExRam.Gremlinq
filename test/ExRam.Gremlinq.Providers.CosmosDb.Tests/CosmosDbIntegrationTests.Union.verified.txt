@@ -3,80 +3,73 @@
     {
       "id": "scrubbed id",
       "label": "Country",
-      "type": "vertex",
       "properties": {
+        "LocalizableDescription": [
+          {
+            "id": "scrubbed id",
+            "properties": {
+              "someKey": "value"
+            },
+            "value": ""
+          }
+        ],
         "PartitionKey": [
           {
             "id": "scrubbed id",
             "value": "PartitionKey"
           }
-        ],
-        "LocalizableDescription": [
-          {
-            "id": "scrubbed id",
-            "value": "",
-            "properties": {
-              "someKey": "value"
-            }
-          }
         ]
-      }
+      },
+      "type": "vertex"
     },
     {
       "id": "scrubbed id",
       "label": "Country",
-      "type": "vertex",
       "properties": {
+        "LocalizableDescription": [
+          {
+            "id": "scrubbed id",
+            "properties": {
+              "someKey": "value"
+            },
+            "value": ""
+          }
+        ],
         "PartitionKey": [
           {
             "id": "scrubbed id",
             "value": "PartitionKey"
           }
-        ],
-        "LocalizableDescription": [
-          {
-            "id": "scrubbed id",
-            "value": "",
-            "properties": {
-              "someKey": "value"
-            }
-          }
         ]
-      }
+      },
+      "type": "vertex"
     },
     {
       "id": "scrubbed id",
       "label": "Country",
-      "type": "vertex",
       "properties": {
+        "LocalizableDescription": [
+          {
+            "id": "scrubbed id",
+            "properties": {
+              "someKey": "value"
+            },
+            "value": ""
+          }
+        ],
         "PartitionKey": [
           {
             "id": "scrubbed id",
             "value": "PartitionKey"
           }
-        ],
-        "LocalizableDescription": [
-          {
-            "id": "scrubbed id",
-            "value": "",
-            "properties": {
-              "someKey": "value"
-            }
-          }
         ]
-      }
+      },
+      "type": "vertex"
     },
     {
       "id": "scrubbed id",
       "label": "Country",
-      "type": "vertex",
       "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ],
         "CountryCallingCode": [
           {
             "id": "scrubbed id",
@@ -86,13 +79,20 @@
         "LocalizableDescription": [
           {
             "id": "scrubbed id",
-            "value": "",
             "properties": {
               "someKey": "value"
-            }
+            },
+            "value": ""
+          }
+        ],
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
           }
         ]
-      }
+      },
+      "type": "vertex"
     }
   ]
 ]

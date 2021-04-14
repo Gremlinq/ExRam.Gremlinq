@@ -7,11 +7,11 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 1
+            "@value": "scrubbed id"
           },
           "value": {
             "@type": "g:Int64",
-            "@value": 66
+            "@value": "scrubbed id"
           }
         }
       },
@@ -20,11 +20,11 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 1
+            "@value": "scrubbed id"
           },
           "value": {
             "@type": "g:Int64",
-            "@value": 70
+            "@value": "scrubbed id"
           }
         }
       },
@@ -33,11 +33,11 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 1
+            "@value": "scrubbed id"
           },
           "value": {
             "@type": "g:Int64",
-            "@value": 7
+            "@value": "scrubbed id"
           }
         }
       },
@@ -46,11 +46,11 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 1
+            "@value": "scrubbed id"
           },
           "value": {
             "@type": "g:Int64",
-            "@value": 73
+            "@value": "scrubbed id"
           }
         }
       },
@@ -59,11 +59,11 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 1
+            "@value": "scrubbed id"
           },
           "value": {
             "@type": "g:Int64",
-            "@value": 11
+            "@value": "scrubbed id"
           }
         }
       },
@@ -72,11 +72,11 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 1
+            "@value": "scrubbed id"
           },
           "value": {
             "@type": "g:Int64",
-            "@value": 17
+            "@value": "scrubbed id"
           }
         }
       },
@@ -85,11 +85,11 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 1
+            "@value": "scrubbed id"
           },
           "value": {
             "@type": "g:Int64",
-            "@value": 22
+            "@value": "scrubbed id"
           }
         }
       },
@@ -98,11 +98,11 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 1
+            "@value": "scrubbed id"
           },
           "value": {
             "@type": "g:Int64",
-            "@value": 27
+            "@value": "scrubbed id"
           }
         }
       },
@@ -111,11 +111,11 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 1
+            "@value": "scrubbed id"
           },
           "value": {
             "@type": "g:Int64",
-            "@value": 34
+            "@value": "scrubbed id"
           }
         }
       },
@@ -124,11 +124,11 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 1
+            "@value": "scrubbed id"
           },
           "value": {
             "@type": "g:Int64",
-            "@value": 43
+            "@value": "scrubbed id"
           }
         }
       },
@@ -137,11 +137,11 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 1
+            "@value": "scrubbed id"
           },
           "value": {
             "@type": "g:Int64",
-            "@value": 51
+            "@value": "scrubbed id"
           }
         }
       }

@@ -7,7 +7,17 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 11
+            "@value": "scrubbed id"
+          },
+          "value": "Marko"
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": "scrubbed id"
           },
           "value": {
             "@type": "g:Date",
@@ -20,11 +30,11 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 11
+            "@value": "scrubbed id"
           },
           "value": {
             "@type": "g:Int32",
-            "@value": 0
+            "@value": "scrubbed id"
           }
         }
       },
@@ -33,35 +43,25 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 1
+            "@value": "scrubbed id"
+          },
+          "value": {
+            "@type": "g:Int32",
+            "@value": "scrubbed id"
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": "scrubbed id"
           },
           "value": {
             "@type": "gx:ByteBuffer",
             "@value": "AQIDBAUGBwg="
           }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 11
-          },
-          "value": {
-            "@type": "g:Int32",
-            "@value": 21
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 11
-          },
-          "value": "Marko"
         }
       }
     ]

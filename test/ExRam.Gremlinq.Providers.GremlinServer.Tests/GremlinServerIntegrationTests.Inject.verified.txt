@@ -7,11 +7,11 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 1
+            "@value": "scrubbed id"
           },
           "value": {
             "@type": "g:Int32",
-            "@value": 36
+            "@value": "scrubbed id"
           }
         }
       },
@@ -20,11 +20,11 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 1
+            "@value": "scrubbed id"
           },
           "value": {
             "@type": "g:Int32",
-            "@value": 37
+            "@value": "scrubbed id"
           }
         }
       },
@@ -33,11 +33,11 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 1
+            "@value": "scrubbed id"
           },
           "value": {
             "@type": "g:Int32",
-            "@value": 38
+            "@value": "scrubbed id"
           }
         }
       }

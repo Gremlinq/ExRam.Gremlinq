@@ -7,7 +7,7 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 1
+            "@value": "scrubbed id"
           },
           "value": {
             "@type": "g:Map",
@@ -37,15 +37,15 @@
                           },
                           "label",
                           "Age",
-                          "value",
-                          {
-                            "@type": "g:Int32",
-                            "@value": 0
-                          },
                           "properties",
                           {
                             "@type": "g:Map",
                             "@value": []
+                          },
+                          "value",
+                          {
+                            "@type": "g:Int32",
+                            "@value": "scrubbed id"
                           }
                         ]
                       }
@@ -65,15 +65,15 @@
                           },
                           "label",
                           "Gender",
-                          "value",
-                          {
-                            "@type": "g:Int32",
-                            "@value": 1
-                          },
                           "properties",
                           {
                             "@type": "g:Map",
                             "@value": []
+                          },
+                          "value",
+                          {
+                            "@type": "g:Int32",
+                            "@value": "scrubbed id"
                           }
                         ]
                       }
