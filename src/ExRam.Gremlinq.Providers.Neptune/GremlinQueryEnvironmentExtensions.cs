@@ -17,7 +17,7 @@ namespace ExRam.Gremlinq.Core
                 {
                     if (value is string { Length: > 0 } str && semantics is StringExpressionSemantics { Comparison: StringComparison.OrdinalIgnoreCase } stringExpressionSemantics)
                     {
-                        if (!str.Any(c => char.IsWhiteSpace(c)))    //Can't do better. Insight welome.
+                        if (!str.Any(c => char.IsWhiteSpace(c)))    //Can't do better. Insight welcome.
                         {
                             switch (stringExpressionSemantics)
                             {
