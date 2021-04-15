@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-
 using ExRam.Gremlinq.Core.ExpressionParsing;
 using ExRam.Gremlinq.Providers.Neptune;
 using ExRam.Gremlinq.Providers.WebSocket;
@@ -14,13 +13,6 @@ namespace ExRam.Gremlinq.Core
         {
             private sealed class ElasticSearchAwarePFactory : IPFactory
             {
-                private readonly IPFactory _baseFactory;
-
-                public ElasticSearchAwarePFactory(IPFactory baseFactory)
-                {
-                    _baseFactory = baseFactory;
-                }
-
                 public P? TryGetP(ExpressionSemantics semantics, object? value, IGremlinQueryEnvironment environment)
                 {
                     if (value is string { Length: > 0 } str && semantics is StringExpressionSemantics { Comparison: StringComparison.OrdinalIgnoreCase } stringExpressionSemantics)
@@ -43,8 +35,8 @@ namespace ExRam.Gremlinq.Core
                             }
                         }
                     }
-                    
-                    return _baseFactory.TryGetP(semantics, value, environment);
+
+                    return default;
                 }
             }
 
@@ -87,7 +79,8 @@ namespace ExRam.Gremlinq.Core
                             .ConfigureOptions(options => options
                                 .ConfigureValue(
                                     PFactory.PFactoryOption,
-                                    factory => new ElasticSearchAwarePFactory(factory))));
+                                    factory => factory
+                                        .Override(new ElasticSearchAwarePFactory()))));
                 }
 
                 return ret;

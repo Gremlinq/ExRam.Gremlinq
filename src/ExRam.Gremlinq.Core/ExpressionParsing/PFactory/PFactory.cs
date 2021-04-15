@@ -112,7 +112,22 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
             }
         }
 
+        private sealed class OverridePFactory : IPFactory
+        {
+            private readonly IPFactory _originalFactory;
+            private readonly IPFactory _overrideFactory;
+
+            public OverridePFactory(IPFactory originalFactory, IPFactory overrideFactory)
+            {
+                _originalFactory = originalFactory;
+                _overrideFactory = overrideFactory;
+            }
+            public P? TryGetP(ExpressionSemantics semantics, object? value, IGremlinQueryEnvironment environment) => _overrideFactory.TryGetP(semantics, value, environment) ?? _originalFactory.TryGetP(semantics, value, environment);
+        }
+
         public static readonly IPFactory Default = new DefaultPFactory();
+
+        public static IPFactory Override(this IPFactory originalFactory, IPFactory overrideFactory) => new OverridePFactory(originalFactory, overrideFactory);
 
         public static readonly GremlinqOption<IPFactory> PFactoryOption = new(Default);
     }

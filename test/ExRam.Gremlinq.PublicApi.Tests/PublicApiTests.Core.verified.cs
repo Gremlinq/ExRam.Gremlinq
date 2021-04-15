@@ -1898,6 +1898,7 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
     {
         public static readonly ExRam.Gremlinq.Core.ExpressionParsing.IPFactory Default;
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.ExpressionParsing.IPFactory> PFactoryOption;
+        public static ExRam.Gremlinq.Core.ExpressionParsing.IPFactory Override(this ExRam.Gremlinq.Core.ExpressionParsing.IPFactory originalFactory, ExRam.Gremlinq.Core.ExpressionParsing.IPFactory overrideFactory) { }
     }
     public sealed class StartsWithExpressionSemantics : ExRam.Gremlinq.Core.ExpressionParsing.StringExpressionSemantics
     {
