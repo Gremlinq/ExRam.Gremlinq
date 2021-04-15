@@ -31,7 +31,11 @@
         "OperatorName": "has",
         "Arguments": [
           "CountryCallingCode",
-          "Neptune#fts +49123*"
+          {
+            "OperatorName": "startingWith",
+            "Value": "+49123",
+            "Other": null
+          }
         ]
       },
       {
