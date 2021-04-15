@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+
 using ExRam.Gremlinq.Core.ExpressionParsing;
 using ExRam.Gremlinq.Providers.Neptune;
 using ExRam.Gremlinq.Providers.WebSocket;
@@ -21,16 +23,24 @@ namespace ExRam.Gremlinq.Core
 
                 public P? TryGetP(ExpressionSemantics semantics, object? value, IGremlinQueryEnvironment environment)
                 {
-                    if (value is string { Length: > 0 } && semantics is StringExpressionSemantics { Comparison: StringComparison.OrdinalIgnoreCase } stringExpressionSemantics)
+                    if (value is string { Length: > 0 } str && semantics is StringExpressionSemantics { Comparison: StringComparison.OrdinalIgnoreCase } stringExpressionSemantics)
                     {
-                        switch (stringExpressionSemantics)
+                        if (!str.Any(c => char.IsWhiteSpace(c)))    //Can't do better. Insight welome.
                         {
-                            case StartsWithExpressionSemantics:
-                                return new P("eq", $"Neptune#fts {value}*");
-                            case EndsWithExpressionSemantics:
-                                return new P("eq", $"Neptune#fts *{value}");
-                            case HasInfixExpressionSemantics:
-                                return new P("eq", $"Neptune#fts *{value}*");
+                            switch (stringExpressionSemantics)
+                            {
+                                // This will only work for property values that don't contain e.g. whitespace
+                                // and would be tokenized as a complete string. As it is, a vertex property
+                                // with value "John Doe" would match a query "StartsWith('Doe') which is
+                                // not really what's expected. So we can't do better than a case-insensitive
+                                // "Contains(..)"
+                                //case StartsWithExpressionSemantics:
+                                //    return new P("eq", $"Neptune#fts {value}*");
+                                //case EndsWithExpressionSemantics:
+                                //    return new P("eq", $"Neptune#fts *{value}");
+                                case HasInfixExpressionSemantics:
+                                    return new P("eq", $"Neptune#fts *{value}*");
+                            }
                         }
                     }
                     
