@@ -9,24 +9,24 @@
       "PhoneNumbers": [],
       "SomeObscureProperty": null,
       "Name": {
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
         "Label": null,
         "Properties": null,
         "Value": "Bob",
         "Key": null
       },
-      "Id": "scrubbed id",
+      "Id": "scrubbed Id",
       "Label": "Person"
     },
     "out!": {
       "IetfLanguageTag": "en",
-      "Id": "scrubbed id",
+      "Id": "scrubbed Id",
       "Label": "Language"
     },
     "properties!": {
-      "id": "scrubbed id",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+      "id": "scrubbed Id",
+      "label": "PartitionKey",
+      "value": "PartitionKey"
     }
   }
 ]

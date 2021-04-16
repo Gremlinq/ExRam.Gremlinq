@@ -40,9 +40,9 @@
       "Label": "Person"
     },
     "properties!": {
-      "id": "scrubbed id",
-      "value": "+49",
-      "label": "CountryCallingCode"
+      "id": "scrubbed Id",
+      "label": "CountryCallingCode",
+      "value": "+49"
     }
   }
 ]

@@ -1,19 +1,19 @@
 [
   {
-    "Id": "scrubbed id",
+    "Id": "scrubbed Id",
     "Label": "Name",
     "Properties": {
+      "de": "Deutschland",
+      "en": "Germany",
       "metaKey": 1
     },
     "Value": "GER",
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "scrubbed Id",
     "Label": "Name",
     "Properties": {
-      "de": "Deutschland",
-      "en": "Germany",
       "metaKey": 1
     },
     "Value": "GER",

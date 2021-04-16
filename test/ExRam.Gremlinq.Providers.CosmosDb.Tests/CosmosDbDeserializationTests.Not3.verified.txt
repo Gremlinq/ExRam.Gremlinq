@@ -4,105 +4,20 @@
     "Languages": [],
     "CountryCallingCode": "+49",
     "LocalizableDescription": null,
-    "Id": "scrubbed id",
+    "Id": "scrubbed Id",
     "Label": "Country"
-  },
-  {
-    "IetfLanguageTag": "en",
-    "Id": "scrubbed id",
-    "Label": "Language"
-  },
-  {
-    "Name": null,
-    "Languages": [],
-    "CountryCallingCode": null,
-    "LocalizableDescription": null,
-    "Id": "scrubbed id",
-    "Label": "Country"
-  },
-  {
-    "Name": null,
-    "Languages": [],
-    "CountryCallingCode": null,
-    "LocalizableDescription": null,
-    "Id": "scrubbed id",
-    "Label": "Country"
-  },
-  {
-    "Name": null,
-    "Languages": [],
-    "CountryCallingCode": null,
-    "LocalizableDescription": null,
-    "Id": "scrubbed id",
-    "Label": "Country"
-  },
-  {
-    "IetfLanguageTag": "en",
-    "Id": "scrubbed id",
-    "Label": "Language"
   },
   {
     "Name": null,
     "Languages": [],
     "CountryCallingCode": "+49",
     "LocalizableDescription": null,
-    "Id": "scrubbed id",
-    "Label": "Country"
-  },
-  {
-    "IetfLanguageTag": "en",
-    "Id": "scrubbed id",
-    "Label": "Language"
-  },
-  {
-    "IetfLanguageTag": null,
-    "Id": "scrubbed id",
-    "Label": "Language"
-  },
-  {
-    "Enabled": false,
-    "StartTime": "08:00:00",
-    "Duration": "02:00:00",
-    "Id": "scrubbed id",
-    "Label": "TimeFrame"
-  },
-  {
-    "IetfLanguageTag": "en",
-    "Id": "scrubbed id",
-    "Label": "Language"
-  },
-  {
-    "IetfLanguageTag": "en",
-    "Id": "scrubbed id",
-    "Label": "Language"
-  },
-  {
-    "IetfLanguageTag": "en",
-    "Id": "scrubbed id",
-    "Label": "Language"
-  },
-  {
-    "IetfLanguageTag": null,
-    "Id": "scrubbed id",
-    "Label": "Language"
-  },
-  {
-    "Name": {
-      "Id": "scrubbed id",
-      "Label": null,
-      "Properties": {},
-      "Value": "GER",
-      "Key": null
-    },
-    "Languages": [],
-    "CountryCallingCode": null,
-    "LocalizableDescription": null,
-    "Id": "scrubbed id",
+    "Id": "scrubbed Id",
     "Label": "Country"
   },
   {
     "Name": {
-      "Id": "scrubbed id",
+      "Id": "scrubbed Id",
       "Label": null,
       "Properties": {
         "de": "Deutschland",
@@ -114,17 +29,102 @@
     "Languages": [],
     "CountryCallingCode": null,
     "LocalizableDescription": null,
-    "Id": "scrubbed id",
+    "Id": "scrubbed Id",
     "Label": "Country"
   },
   {
-    "IetfLanguageTag": null,
-    "Id": "scrubbed id",
+    "Name": {
+      "Id": "scrubbed Id",
+      "Label": null,
+      "Properties": {},
+      "Value": "GER",
+      "Key": null
+    },
+    "Languages": [],
+    "CountryCallingCode": null,
+    "LocalizableDescription": null,
+    "Id": "scrubbed Id",
+    "Label": "Country"
+  },
+  {
+    "Name": null,
+    "Languages": [],
+    "CountryCallingCode": null,
+    "LocalizableDescription": null,
+    "Id": "scrubbed Id",
+    "Label": "Country"
+  },
+  {
+    "Name": null,
+    "Languages": [],
+    "CountryCallingCode": null,
+    "LocalizableDescription": null,
+    "Id": "scrubbed Id",
+    "Label": "Country"
+  },
+  {
+    "Name": null,
+    "Languages": [],
+    "CountryCallingCode": null,
+    "LocalizableDescription": null,
+    "Id": "scrubbed Id",
+    "Label": "Country"
+  },
+  {
+    "IetfLanguageTag": "en",
+    "Id": "scrubbed Id",
+    "Label": "Language"
+  },
+  {
+    "IetfLanguageTag": "en",
+    "Id": "scrubbed Id",
+    "Label": "Language"
+  },
+  {
+    "IetfLanguageTag": "en",
+    "Id": "scrubbed Id",
+    "Label": "Language"
+  },
+  {
+    "IetfLanguageTag": "en",
+    "Id": "scrubbed Id",
+    "Label": "Language"
+  },
+  {
+    "IetfLanguageTag": "en",
+    "Id": "scrubbed Id",
+    "Label": "Language"
+  },
+  {
+    "IetfLanguageTag": "en",
+    "Id": "scrubbed Id",
     "Label": "Language"
   },
   {
     "IetfLanguageTag": null,
-    "Id": "scrubbed id",
+    "Id": "scrubbed Id",
+    "Label": "Language"
+  },
+  {
+    "IetfLanguageTag": null,
+    "Id": "scrubbed Id",
+    "Label": "Language"
+  },
+  {
+    "Enabled": false,
+    "StartTime": "08:00:00",
+    "Duration": "02:00:00",
+    "Id": "scrubbed Id",
+    "Label": "TimeFrame"
+  },
+  {
+    "IetfLanguageTag": null,
+    "Id": "scrubbed Id",
+    "Label": "Language"
+  },
+  {
+    "IetfLanguageTag": null,
+    "Id": "scrubbed Id",
     "Label": "Language"
   }
 ]

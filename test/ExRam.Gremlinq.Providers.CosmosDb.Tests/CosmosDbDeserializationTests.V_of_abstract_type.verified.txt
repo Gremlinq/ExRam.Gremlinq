@@ -1,146 +1,10 @@
 [
   {
-    "Age": 21,
-    "Gender": 0,
-    "Image": "",
-    "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": [],
-    "SomeObscureProperty": null,
-    "Name": {
-      "Id": "scrubbed id",
-      "Label": null,
-      "Properties": null,
-      "Value": "Marko",
-      "Key": null
-    },
-    "Id": "scrubbed id",
-    "Label": "Person"
-  },
-  {
-    "Age": 21,
-    "Gender": 0,
-    "Image": "",
-    "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": [],
-    "SomeObscureProperty": null,
-    "Name": {
-      "Id": "scrubbed id",
-      "Label": null,
-      "Properties": null,
-      "Value": "Marko",
-      "Key": null
-    },
-    "Id": "scrubbed id",
-    "Label": "Person"
-  },
-  {
-    "Age": 21,
-    "Gender": 0,
-    "Image": "",
-    "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": [],
-    "SomeObscureProperty": null,
-    "Name": {
-      "Id": "scrubbed id",
-      "Label": null,
-      "Properties": null,
-      "Value": "Marko",
-      "Key": null
-    },
-    "Id": "scrubbed id",
-    "Label": "Person"
-  },
-  {
-    "Age": 21,
-    "Gender": 0,
-    "Image": "",
-    "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": [],
-    "SomeObscureProperty": null,
-    "Name": {
-      "Id": "scrubbed id",
-      "Label": null,
-      "Properties": null,
-      "Value": "Marko",
-      "Key": null
-    },
-    "Id": "scrubbed id",
-    "Label": "Person"
-  },
-  {
-    "Age": 21,
-    "Gender": 0,
-    "Image": "",
-    "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": [],
-    "SomeObscureProperty": null,
-    "Name": {
-      "Id": "scrubbed id",
-      "Label": null,
-      "Properties": null,
-      "Value": "Marko",
-      "Key": null
-    },
-    "Id": "scrubbed id",
-    "Label": "Person"
-  },
-  {
-    "Age": 21,
-    "Gender": 0,
-    "Image": "AQIDBAUGBwg=",
-    "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": [],
-    "SomeObscureProperty": null,
-    "Name": {
-      "Id": "scrubbed id",
-      "Label": null,
-      "Properties": null,
-      "Value": "Marko",
-      "Key": null
-    },
-    "Id": "scrubbed id",
-    "Label": "Person"
-  },
-  {
-    "Age": 21,
-    "Gender": 0,
-    "Image": "",
-    "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": [],
-    "SomeObscureProperty": null,
-    "Name": {
-      "Id": "scrubbed id",
-      "Label": null,
-      "Properties": null,
-      "Value": "Marko",
-      "Key": null
-    },
-    "Id": "scrubbed id",
-    "Label": "Person"
-  },
-  {
-    "Age": 21,
-    "Gender": 0,
-    "Image": "",
-    "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": [],
-    "SomeObscureProperty": null,
-    "Name": {
-      "Id": "scrubbed id",
-      "Label": null,
-      "Properties": null,
-      "Value": "Marko",
-      "Key": null
-    },
-    "Id": "scrubbed id",
-    "Label": "Person"
-  },
-  {
     "FoundingDate": "0001-01-01T00:00:00",
     "PhoneNumbers": [],
     "Locations": [
       {
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
         "Label": null,
         "Properties": {
           "ValidFrom": "2019-01-01T01:00:00+00:00"
@@ -150,8 +14,144 @@
       }
     ],
     "Name": null,
-    "Id": "scrubbed id",
+    "Id": "scrubbed Id",
     "Label": "Company"
+  },
+  {
+    "Age": 21,
+    "Gender": 0,
+    "Image": "AQIDBAUGBwg=",
+    "RegistrationDate": "2020-04-07T14:43:36+00:00",
+    "PhoneNumbers": [],
+    "SomeObscureProperty": null,
+    "Name": {
+      "Id": "scrubbed Id",
+      "Label": null,
+      "Properties": null,
+      "Value": "Marko",
+      "Key": null
+    },
+    "Id": "scrubbed Id",
+    "Label": "Person"
+  },
+  {
+    "Age": 21,
+    "Gender": 0,
+    "Image": "",
+    "RegistrationDate": "2020-04-07T14:43:36+00:00",
+    "PhoneNumbers": [],
+    "SomeObscureProperty": null,
+    "Name": {
+      "Id": "scrubbed Id",
+      "Label": null,
+      "Properties": null,
+      "Value": "Marko",
+      "Key": null
+    },
+    "Id": "scrubbed Id",
+    "Label": "Person"
+  },
+  {
+    "Age": 21,
+    "Gender": 0,
+    "Image": "",
+    "RegistrationDate": "2020-04-07T14:43:36+00:00",
+    "PhoneNumbers": [],
+    "SomeObscureProperty": null,
+    "Name": {
+      "Id": "scrubbed Id",
+      "Label": null,
+      "Properties": null,
+      "Value": "Marko",
+      "Key": null
+    },
+    "Id": "scrubbed Id",
+    "Label": "Person"
+  },
+  {
+    "Age": 21,
+    "Gender": 0,
+    "Image": "",
+    "RegistrationDate": "2020-04-07T14:43:36+00:00",
+    "PhoneNumbers": [],
+    "SomeObscureProperty": null,
+    "Name": {
+      "Id": "scrubbed Id",
+      "Label": null,
+      "Properties": null,
+      "Value": "Marko",
+      "Key": null
+    },
+    "Id": "scrubbed Id",
+    "Label": "Person"
+  },
+  {
+    "Age": 21,
+    "Gender": 0,
+    "Image": "",
+    "RegistrationDate": "2020-04-07T14:43:36+00:00",
+    "PhoneNumbers": [],
+    "SomeObscureProperty": null,
+    "Name": {
+      "Id": "scrubbed Id",
+      "Label": null,
+      "Properties": null,
+      "Value": "Marko",
+      "Key": null
+    },
+    "Id": "scrubbed Id",
+    "Label": "Person"
+  },
+  {
+    "Age": 21,
+    "Gender": 0,
+    "Image": "",
+    "RegistrationDate": "2020-04-07T14:43:36+00:00",
+    "PhoneNumbers": [],
+    "SomeObscureProperty": null,
+    "Name": {
+      "Id": "scrubbed Id",
+      "Label": null,
+      "Properties": null,
+      "Value": "Marko",
+      "Key": null
+    },
+    "Id": "scrubbed Id",
+    "Label": "Person"
+  },
+  {
+    "Age": 21,
+    "Gender": 0,
+    "Image": "",
+    "RegistrationDate": "2020-04-07T14:43:36+00:00",
+    "PhoneNumbers": [],
+    "SomeObscureProperty": null,
+    "Name": {
+      "Id": "scrubbed Id",
+      "Label": null,
+      "Properties": null,
+      "Value": "Marko",
+      "Key": null
+    },
+    "Id": "scrubbed Id",
+    "Label": "Person"
+  },
+  {
+    "Age": 21,
+    "Gender": 0,
+    "Image": "",
+    "RegistrationDate": "2020-04-07T14:43:36+00:00",
+    "PhoneNumbers": [],
+    "SomeObscureProperty": null,
+    "Name": {
+      "Id": "scrubbed Id",
+      "Label": null,
+      "Properties": null,
+      "Value": "Marko",
+      "Key": null
+    },
+    "Id": "scrubbed Id",
+    "Label": "Person"
   },
   {
     "FoundingDate": "0001-01-01T00:00:00",
@@ -161,7 +161,7 @@
     ],
     "Locations": [],
     "Name": null,
-    "Id": "scrubbed id",
+    "Id": "scrubbed Id",
     "Label": "Company"
   }
 ]

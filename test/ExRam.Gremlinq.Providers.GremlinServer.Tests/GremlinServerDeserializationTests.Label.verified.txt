@@ -1,11 +1,5 @@
 [
-  "Country",
-  "Country",
-  "Country",
-  "Country",
-  "Country",
-  "Country",
-  "Country",
+  "TimeFrame",
   "Language",
   "Language",
   "Language",
@@ -32,5 +26,11 @@
   "Company",
   "Company",
   "Company",
-  "TimeFrame"
+  "Country",
+  "Country",
+  "Country",
+  "Country",
+  "Country",
+  "Country",
+  "Country"
 ]

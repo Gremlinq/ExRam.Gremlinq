@@ -4,7 +4,7 @@
     "Languages": [],
     "CountryCallingCode": "+49",
     "LocalizableDescription": {
-      "Id": "scrubbed id",
+      "Id": "scrubbed Id",
       "Label": null,
       "Properties": {
         "someKey": "value"
@@ -12,55 +12,7 @@
       "Value": "",
       "Key": null
     },
-    "Id": "scrubbed id",
-    "Label": "Country"
-  },
-  {
-    "Name": null,
-    "Languages": [],
-    "CountryCallingCode": null,
-    "LocalizableDescription": {
-      "Id": "scrubbed id",
-      "Label": null,
-      "Properties": {
-        "someKey": "value"
-      },
-      "Value": "",
-      "Key": null
-    },
-    "Id": "scrubbed id",
-    "Label": "Country"
-  },
-  {
-    "Name": null,
-    "Languages": [],
-    "CountryCallingCode": null,
-    "LocalizableDescription": {
-      "Id": "scrubbed id",
-      "Label": null,
-      "Properties": {
-        "someKey": "value"
-      },
-      "Value": "",
-      "Key": null
-    },
-    "Id": "scrubbed id",
-    "Label": "Country"
-  },
-  {
-    "Name": null,
-    "Languages": [],
-    "CountryCallingCode": null,
-    "LocalizableDescription": {
-      "Id": "scrubbed id",
-      "Label": null,
-      "Properties": {
-        "someKey": "value"
-      },
-      "Value": "",
-      "Key": null
-    },
-    "Id": "scrubbed id",
+    "Id": "scrubbed Id",
     "Label": "Country"
   },
   {
@@ -68,7 +20,7 @@
     "Languages": [],
     "CountryCallingCode": "+49",
     "LocalizableDescription": {
-      "Id": "scrubbed id",
+      "Id": "scrubbed Id",
       "Label": null,
       "Properties": {
         "someKey": "value"
@@ -76,34 +28,12 @@
       "Value": "",
       "Key": null
     },
-    "Id": "scrubbed id",
+    "Id": "scrubbed Id",
     "Label": "Country"
   },
   {
     "Name": {
-      "Id": "scrubbed id",
-      "Label": null,
-      "Properties": {},
-      "Value": "GER",
-      "Key": null
-    },
-    "Languages": [],
-    "CountryCallingCode": null,
-    "LocalizableDescription": {
-      "Id": "scrubbed id",
-      "Label": null,
-      "Properties": {
-        "someKey": "value"
-      },
-      "Value": "",
-      "Key": null
-    },
-    "Id": "scrubbed id",
-    "Label": "Country"
-  },
-  {
-    "Name": {
-      "Id": "scrubbed id",
+      "Id": "scrubbed Id",
       "Label": null,
       "Properties": {
         "de": "Deutschland",
@@ -115,7 +45,7 @@
     "Languages": [],
     "CountryCallingCode": null,
     "LocalizableDescription": {
-      "Id": "scrubbed id",
+      "Id": "scrubbed Id",
       "Label": null,
       "Properties": {
         "someKey": "value"
@@ -123,7 +53,77 @@
       "Value": "",
       "Key": null
     },
-    "Id": "scrubbed id",
+    "Id": "scrubbed Id",
+    "Label": "Country"
+  },
+  {
+    "Name": {
+      "Id": "scrubbed Id",
+      "Label": null,
+      "Properties": {},
+      "Value": "GER",
+      "Key": null
+    },
+    "Languages": [],
+    "CountryCallingCode": null,
+    "LocalizableDescription": {
+      "Id": "scrubbed Id",
+      "Label": null,
+      "Properties": {
+        "someKey": "value"
+      },
+      "Value": "",
+      "Key": null
+    },
+    "Id": "scrubbed Id",
+    "Label": "Country"
+  },
+  {
+    "Name": null,
+    "Languages": [],
+    "CountryCallingCode": null,
+    "LocalizableDescription": {
+      "Id": "scrubbed Id",
+      "Label": null,
+      "Properties": {
+        "someKey": "value"
+      },
+      "Value": "",
+      "Key": null
+    },
+    "Id": "scrubbed Id",
+    "Label": "Country"
+  },
+  {
+    "Name": null,
+    "Languages": [],
+    "CountryCallingCode": null,
+    "LocalizableDescription": {
+      "Id": "scrubbed Id",
+      "Label": null,
+      "Properties": {
+        "someKey": "value"
+      },
+      "Value": "",
+      "Key": null
+    },
+    "Id": "scrubbed Id",
+    "Label": "Country"
+  },
+  {
+    "Name": null,
+    "Languages": [],
+    "CountryCallingCode": null,
+    "LocalizableDescription": {
+      "Id": "scrubbed Id",
+      "Label": null,
+      "Properties": {
+        "someKey": "value"
+      },
+      "Value": "",
+      "Key": null
+    },
+    "Id": "scrubbed Id",
     "Label": "Country"
   }
 ]
