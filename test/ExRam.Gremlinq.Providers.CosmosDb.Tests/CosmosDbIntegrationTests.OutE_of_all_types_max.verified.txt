@@ -3,15 +3,6 @@
     {
       "id": "scrubbed Id",
       "inV": "scrubbed id",
-      "inVLabel": "Language",
-      "label": "Speaks",
-      "outV": "scrubbed id",
-      "outVLabel": "Country",
-      "type": "edge"
-    },
-    {
-      "id": "scrubbed Id",
-      "inV": "scrubbed id",
       "inVLabel": "Country",
       "label": "LivesIn",
       "outV": "scrubbed id",
@@ -55,6 +46,15 @@
       "label": "LivesIn",
       "outV": "scrubbed id",
       "outVLabel": "Person",
+      "type": "edge"
+    },
+    {
+      "id": "scrubbed Id",
+      "inV": "scrubbed id",
+      "inVLabel": "Language",
+      "label": "Speaks",
+      "outV": "scrubbed id",
+      "outVLabel": "Country",
       "type": "edge"
     },
     {
