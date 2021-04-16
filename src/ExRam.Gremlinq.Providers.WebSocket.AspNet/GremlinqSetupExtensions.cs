@@ -9,39 +9,6 @@ namespace ExRam.Gremlinq.Core.AspNet
 {
     public static class GremlinqSetupExtensions
     {
-        private sealed class ConfigureLoggingGremlinQuerySourceTransformation : IGremlinQuerySourceTransformation
-        {
-            private readonly IConfiguration _loggingSection;
-
-            public ConfigureLoggingGremlinQuerySourceTransformation(IGremlinqConfiguration configuration)
-            {
-                _loggingSection = configuration
-                    .GetSection("QueryLogging");
-            }
-
-            public IGremlinQuerySource Transform(IGremlinQuerySource source)
-            {
-                return source
-                    .ConfigureEnvironment(environment => environment
-                        .ConfigureOptions(options =>
-                        {
-                            if (Enum.TryParse<QueryLogVerbosity>(_loggingSection["Verbosity"], out var verbosity))
-                                options = options.SetValue(WebSocketGremlinqOptions.QueryLogVerbosity, verbosity);
-
-                            if (Enum.TryParse<LogLevel>(_loggingSection[$"{nameof(LogLevel)}"], out var logLevel))
-                                options = options.SetValue(WebSocketGremlinqOptions.QueryLogLogLevel, logLevel);
-
-                            if (Enum.TryParse<Formatting>(_loggingSection[$"{nameof(Formatting)}"], out var formatting))
-                                options = options.SetValue(WebSocketGremlinqOptions.QueryLogFormatting, formatting);
-                            
-                            if (Enum.TryParse<GroovyFormatting>(_loggingSection[$"{nameof(GroovyFormatting)}"], out var groovyFormatting))
-                                options = options.SetValue(WebSocketGremlinqOptions.QueryLogGroovyFormatting, groovyFormatting);
-
-                            return options;
-                        }));
-            }
-        }
-
         private sealed class UseProviderGremlinQuerySourceTransformation<TConfigurator> : IGremlinQuerySourceTransformation
             where TConfigurator : IProviderConfigurator<TConfigurator>
         {
@@ -56,19 +23,42 @@ namespace ExRam.Gremlinq.Core.AspNet
                 Func<IConfigurableGremlinQuerySource, Func<TConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource> providerChoice,
                 Func<TConfigurator, IConfiguration, TConfigurator> configuratorTransformation)
             {
-                _configuration = configuration;
                 _sectionName = sectionName;
+                _configuration = configuration;
                 _providerChoice = providerChoice;
                 _configuratorTransformation = configuratorTransformation;
             }
             
             public IGremlinQuerySource Transform(IGremlinQuerySource source)
             {
+                var providerSection = _configuration
+                    .GetSection(_sectionName);
+
+                var loggingSection = _configuration
+                    .GetSection("QueryLogging");
+
                 return _providerChoice(
-                    source,
+                    source
+                        .ConfigureEnvironment(environment => environment
+                            .ConfigureOptions(options =>
+                            {
+                                if (Enum.TryParse<QueryLogVerbosity>(loggingSection["Verbosity"], out var verbosity))
+                                    options = options.SetValue(WebSocketGremlinqOptions.QueryLogVerbosity, verbosity);
+
+                                if (Enum.TryParse<LogLevel>(loggingSection[$"{nameof(LogLevel)}"], out var logLevel))
+                                    options = options.SetValue(WebSocketGremlinqOptions.QueryLogLogLevel, logLevel);
+
+                                if (Enum.TryParse<Formatting>(loggingSection[$"{nameof(Formatting)}"], out var formatting))
+                                    options = options.SetValue(WebSocketGremlinqOptions.QueryLogFormatting, formatting);
+
+                                if (Enum.TryParse<GroovyFormatting>(loggingSection[$"{nameof(GroovyFormatting)}"], out var groovyFormatting))
+                                    options = options.SetValue(WebSocketGremlinqOptions.QueryLogGroovyFormatting, groovyFormatting);
+
+                                return options;
+                            })),
                     configurator =>
                     {
-                        return _configuratorTransformation(configurator, _configuration.GetSection(_sectionName))
+                        return _configuratorTransformation(configurator, providerSection)
                             .ConfigureWebSocket(configurator =>
                             {
                                 return configurator
@@ -85,7 +75,6 @@ namespace ExRam.Gremlinq.Core.AspNet
             Func<TConfigurator, IConfiguration, TConfigurator> configuration) where TConfigurator : IProviderConfigurator<TConfigurator>
         {
             return setup.RegisterTypes(serviceCollection => serviceCollection
-                .AddSingleton<IGremlinQuerySourceTransformation, ConfigureLoggingGremlinQuerySourceTransformation>()
                 .AddSingleton<IGremlinQuerySourceTransformation>(s => new UseProviderGremlinQuerySourceTransformation<TConfigurator>(
                     s.GetRequiredService<IGremlinqConfiguration>(),
                     sectionName,
