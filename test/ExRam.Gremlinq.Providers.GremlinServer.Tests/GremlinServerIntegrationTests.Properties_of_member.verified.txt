@@ -12,12 +12,9 @@
           "value": {
             "@type": "g:VertexProperty",
             "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "value": "GER",
-              "label": "Name"
+              "id": "scrubbed Id",
+              "label": "Name",
+              "value": "GER"
             }
           }
         }
@@ -32,12 +29,9 @@
           "value": {
             "@type": "g:VertexProperty",
             "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "value": "GER",
-              "label": "Name"
+              "id": "scrubbed Id",
+              "label": "Name",
+              "value": "GER"
             }
           }
         }

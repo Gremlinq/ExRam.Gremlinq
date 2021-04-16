@@ -12,18 +12,43 @@
           "value": {
             "@type": "g:Map",
             "@value": [
-              "TimeFrame",
+              "Company",
               {
                 "@type": "g:List",
                 "@value": [
                   {
                     "@type": "g:Vertex",
                     "@value": {
-                      "id": {
-                        "@type": "g:Int64",
-                        "@value": "scrubbed id"
-                      },
-                      "label": "TimeFrame"
+                      "id": "scrubbed Id",
+                      "label": "Company"
+                    }
+                  },
+                  {
+                    "@type": "g:Vertex",
+                    "@value": {
+                      "id": "scrubbed Id",
+                      "label": "Company"
+                    }
+                  },
+                  {
+                    "@type": "g:Vertex",
+                    "@value": {
+                      "id": "scrubbed Id",
+                      "label": "Company"
+                    }
+                  },
+                  {
+                    "@type": "g:Vertex",
+                    "@value": {
+                      "id": "scrubbed Id",
+                      "label": "Company"
+                    }
+                  },
+                  {
+                    "@type": "g:Vertex",
+                    "@value": {
+                      "id": "scrubbed Id",
+                      "label": "Company"
                     }
                   }
                 ]
@@ -35,127 +60,50 @@
                   {
                     "@type": "g:Vertex",
                     "@value": {
-                      "id": {
-                        "@type": "g:Int64",
-                        "@value": "scrubbed id"
-                      },
+                      "id": "scrubbed Id",
                       "label": "Country"
                     }
                   },
                   {
                     "@type": "g:Vertex",
                     "@value": {
-                      "id": {
-                        "@type": "g:Int64",
-                        "@value": "scrubbed id"
-                      },
+                      "id": "scrubbed Id",
                       "label": "Country"
                     }
                   },
                   {
                     "@type": "g:Vertex",
                     "@value": {
-                      "id": {
-                        "@type": "g:Int64",
-                        "@value": "scrubbed id"
-                      },
+                      "id": "scrubbed Id",
                       "label": "Country"
                     }
                   },
                   {
                     "@type": "g:Vertex",
                     "@value": {
-                      "id": {
-                        "@type": "g:Int64",
-                        "@value": "scrubbed id"
-                      },
+                      "id": "scrubbed Id",
                       "label": "Country"
                     }
                   },
                   {
                     "@type": "g:Vertex",
                     "@value": {
-                      "id": {
-                        "@type": "g:Int64",
-                        "@value": "scrubbed id"
-                      },
+                      "id": "scrubbed Id",
                       "label": "Country"
                     }
                   },
                   {
                     "@type": "g:Vertex",
                     "@value": {
-                      "id": {
-                        "@type": "g:Int64",
-                        "@value": "scrubbed id"
-                      },
+                      "id": "scrubbed Id",
                       "label": "Country"
                     }
                   },
                   {
                     "@type": "g:Vertex",
                     "@value": {
-                      "id": {
-                        "@type": "g:Int64",
-                        "@value": "scrubbed id"
-                      },
+                      "id": "scrubbed Id",
                       "label": "Country"
-                    }
-                  }
-                ]
-              },
-              "Company",
-              {
-                "@type": "g:List",
-                "@value": [
-                  {
-                    "@type": "g:Vertex",
-                    "@value": {
-                      "id": {
-                        "@type": "g:Int64",
-                        "@value": "scrubbed id"
-                      },
-                      "label": "Company"
-                    }
-                  },
-                  {
-                    "@type": "g:Vertex",
-                    "@value": {
-                      "id": {
-                        "@type": "g:Int64",
-                        "@value": "scrubbed id"
-                      },
-                      "label": "Company"
-                    }
-                  },
-                  {
-                    "@type": "g:Vertex",
-                    "@value": {
-                      "id": {
-                        "@type": "g:Int64",
-                        "@value": "scrubbed id"
-                      },
-                      "label": "Company"
-                    }
-                  },
-                  {
-                    "@type": "g:Vertex",
-                    "@value": {
-                      "id": {
-                        "@type": "g:Int64",
-                        "@value": "scrubbed id"
-                      },
-                      "label": "Company"
-                    }
-                  },
-                  {
-                    "@type": "g:Vertex",
-                    "@value": {
-                      "id": {
-                        "@type": "g:Int64",
-                        "@value": "scrubbed id"
-                      },
-                      "label": "Company"
                     }
                   }
                 ]
@@ -167,100 +115,70 @@
                   {
                     "@type": "g:Vertex",
                     "@value": {
-                      "id": {
-                        "@type": "g:Int64",
-                        "@value": "scrubbed id"
-                      },
+                      "id": "scrubbed Id",
                       "label": "Language"
                     }
                   },
                   {
                     "@type": "g:Vertex",
                     "@value": {
-                      "id": {
-                        "@type": "g:Int64",
-                        "@value": "scrubbed id"
-                      },
+                      "id": "scrubbed Id",
                       "label": "Language"
                     }
                   },
                   {
                     "@type": "g:Vertex",
                     "@value": {
-                      "id": {
-                        "@type": "g:Int64",
-                        "@value": "scrubbed id"
-                      },
+                      "id": "scrubbed Id",
                       "label": "Language"
                     }
                   },
                   {
                     "@type": "g:Vertex",
                     "@value": {
-                      "id": {
-                        "@type": "g:Int64",
-                        "@value": "scrubbed id"
-                      },
+                      "id": "scrubbed Id",
                       "label": "Language"
                     }
                   },
                   {
                     "@type": "g:Vertex",
                     "@value": {
-                      "id": {
-                        "@type": "g:Int64",
-                        "@value": "scrubbed id"
-                      },
+                      "id": "scrubbed Id",
                       "label": "Language"
                     }
                   },
                   {
                     "@type": "g:Vertex",
                     "@value": {
-                      "id": {
-                        "@type": "g:Int64",
-                        "@value": "scrubbed id"
-                      },
+                      "id": "scrubbed Id",
                       "label": "Language"
                     }
                   },
                   {
                     "@type": "g:Vertex",
                     "@value": {
-                      "id": {
-                        "@type": "g:Int64",
-                        "@value": "scrubbed id"
-                      },
+                      "id": "scrubbed Id",
                       "label": "Language"
                     }
                   },
                   {
                     "@type": "g:Vertex",
                     "@value": {
-                      "id": {
-                        "@type": "g:Int64",
-                        "@value": "scrubbed id"
-                      },
+                      "id": "scrubbed Id",
                       "label": "Language"
                     }
                   },
                   {
                     "@type": "g:Vertex",
                     "@value": {
-                      "id": {
-                        "@type": "g:Int64",
-                        "@value": "scrubbed id"
-                      },
+                      "id": "scrubbed Id",
                       "label": "Language"
                     }
                   },
                   {
                     "@type": "g:Vertex",
                     "@value": {
-                      "id": {
-                        "@type": "g:Int64",
-                        "@value": "scrubbed id"
-                      },
+                      "id": "scrubbed Id",
                       "label": "Language"
                     }
                   }
@@ -273,111 +191,91 @@
                   {
                     "@type": "g:Vertex",
                     "@value": {
-                      "id": {
-                        "@type": "g:Int64",
-                        "@value": "scrubbed id"
-                      },
+                      "id": "scrubbed Id",
                       "label": "Person"
                     }
                   },
                   {
                     "@type": "g:Vertex",
                     "@value": {
-                      "id": {
-                        "@type": "g:Int64",
-                        "@value": "scrubbed id"
-                      },
+                      "id": "scrubbed Id",
                       "label": "Person"
                     }
                   },
                   {
                     "@type": "g:Vertex",
                     "@value": {
-                      "id": {
-                        "@type": "g:Int64",
-                        "@value": "scrubbed id"
-                      },
+                      "id": "scrubbed Id",
                       "label": "Person"
                     }
                   },
                   {
                     "@type": "g:Vertex",
                     "@value": {
-                      "id": {
-                        "@type": "g:Int64",
-                        "@value": "scrubbed id"
-                      },
+                      "id": "scrubbed Id",
                       "label": "Person"
                     }
                   },
                   {
                     "@type": "g:Vertex",
                     "@value": {
-                      "id": {
-                        "@type": "g:Int64",
-                        "@value": "scrubbed id"
-                      },
+                      "id": "scrubbed Id",
                       "label": "Person"
                     }
                   },
                   {
                     "@type": "g:Vertex",
                     "@value": {
-                      "id": {
-                        "@type": "g:Int64",
-                        "@value": "scrubbed id"
-                      },
+                      "id": "scrubbed Id",
                       "label": "Person"
                     }
                   },
                   {
                     "@type": "g:Vertex",
                     "@value": {
-                      "id": {
-                        "@type": "g:Int64",
-                        "@value": "scrubbed id"
-                      },
+                      "id": "scrubbed Id",
                       "label": "Person"
                     }
                   },
                   {
                     "@type": "g:Vertex",
                     "@value": {
-                      "id": {
-                        "@type": "g:Int64",
-                        "@value": "scrubbed id"
-                      },
+                      "id": "scrubbed Id",
                       "label": "Person"
                     }
                   },
                   {
                     "@type": "g:Vertex",
                     "@value": {
-                      "id": {
-                        "@type": "g:Int64",
-                        "@value": "scrubbed id"
-                      },
+                      "id": "scrubbed Id",
                       "label": "Person"
                     }
                   },
                   {
                     "@type": "g:Vertex",
                     "@value": {
-                      "id": {
-                        "@type": "g:Int64",
-                        "@value": "scrubbed id"
-                      },
+                      "id": "scrubbed Id",
                       "label": "Person"
                     }
                   },
                   {
                     "@type": "g:Vertex",
                     "@value": {
-                      "id": {
-                        "@type": "g:Int64",
-                        "@value": "scrubbed id"
-                      },
+                      "id": "scrubbed Id",
                       "label": "Person"
+                    }
+                  }
+                ]
+              },
+              "TimeFrame",
+              {
+                "@type": "g:List",
+                "@value": [
+                  {
+                    "@type": "g:Vertex",
+                    "@value": {
+                      "id": "scrubbed Id",
+                      "label": "TimeFrame"
                     }
                   }
                 ]

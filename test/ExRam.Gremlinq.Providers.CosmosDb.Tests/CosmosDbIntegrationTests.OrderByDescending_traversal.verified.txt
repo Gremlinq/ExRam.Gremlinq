@@ -1,103 +1,103 @@
 [
   [
     {
-      "id": "scrubbed id",
+      "id": "scrubbed Id",
       "label": "Person",
-      "type": "vertex",
       "properties": {
-        "PartitionKey": [
+        "Age": [
           {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
+            "id": "scrubbed Id",
+            "value": 0
+          }
+        ],
+        "Gender": [
+          {
+            "id": "scrubbed Id",
+            "value": 0
           }
         ],
         "Name": [
           {
-            "id": "scrubbed id",
+            "id": "scrubbed Id",
+            "value": "Bob"
+          }
+        ],
+        "PartitionKey": [
+          {
+            "id": "scrubbed Id",
+            "value": "PartitionKey"
+          }
+        ],
+        "RegistrationDate": [
+          {
+            "id": "scrubbed Id",
+            "value": 1586270616000
+          }
+        ]
+      },
+      "type": "vertex"
+    },
+    {
+      "id": "scrubbed Id",
+      "label": "Person",
+      "properties": {
+        "Age": [
+          {
+            "id": "scrubbed Id",
+            "value": 0
+          }
+        ],
+        "Gender": [
+          {
+            "id": "scrubbed Id",
+            "value": 0
+          }
+        ],
+        "Name": [
+          {
+            "id": "scrubbed Id",
+            "value": "Bob"
+          }
+        ],
+        "PartitionKey": [
+          {
+            "id": "scrubbed Id",
+            "value": "PartitionKey"
+          }
+        ],
+        "RegistrationDate": [
+          {
+            "id": "scrubbed Id",
+            "value": 1586270616000
+          }
+        ]
+      },
+      "type": "vertex"
+    },
+    {
+      "id": "scrubbed Id",
+      "label": "Person",
+      "properties": {
+        "Name": [
+          {
+            "id": "scrubbed Id",
             "value": "Marko"
           }
         ],
-        "RegistrationDate": [
-          {
-            "id": "scrubbed id",
-            "value": 1586270616000
-          }
-        ]
-      }
-    },
-    {
-      "id": "scrubbed id",
-      "label": "Person",
-      "type": "vertex",
-      "properties": {
         "PartitionKey": [
           {
-            "id": "scrubbed id",
+            "id": "scrubbed Id",
             "value": "PartitionKey"
           }
         ],
-        "Age": [
-          {
-            "id": "scrubbed id",
-            "value": 0
-          }
-        ],
-        "Gender": [
-          {
-            "id": "scrubbed id",
-            "value": 0
-          }
-        ],
-        "Name": [
-          {
-            "id": "scrubbed id",
-            "value": "Bob"
-          }
-        ],
         "RegistrationDate": [
           {
-            "id": "scrubbed id",
+            "id": "scrubbed Id",
             "value": 1586270616000
           }
         ]
-      }
-    },
-    {
-      "id": "scrubbed id",
-      "label": "Person",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ],
-        "Age": [
-          {
-            "id": "scrubbed id",
-            "value": 0
-          }
-        ],
-        "Gender": [
-          {
-            "id": "scrubbed id",
-            "value": 0
-          }
-        ],
-        "Name": [
-          {
-            "id": "scrubbed id",
-            "value": "Bob"
-          }
-        ],
-        "RegistrationDate": [
-          {
-            "id": "scrubbed id",
-            "value": 1586270616000
-          }
-        ]
-      }
+      },
+      "type": "vertex"
     }
   ]
 ]

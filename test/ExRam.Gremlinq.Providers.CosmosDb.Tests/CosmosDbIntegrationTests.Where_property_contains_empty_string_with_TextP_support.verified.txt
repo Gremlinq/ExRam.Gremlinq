@@ -1,60 +1,60 @@
 [
   [
     {
-      "id": "scrubbed id",
+      "id": "scrubbed Id",
       "label": "Country",
-      "type": "vertex",
       "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ],
         "CountryCallingCode": [
           {
-            "id": "scrubbed id",
+            "id": "scrubbed Id",
             "value": "+49"
           }
         ],
         "LocalizableDescription": [
           {
-            "id": "scrubbed id",
-            "value": "",
+            "id": "scrubbed Id",
             "properties": {
               "someKey": "value"
-            }
+            },
+            "value": ""
+          }
+        ],
+        "PartitionKey": [
+          {
+            "id": "scrubbed Id",
+            "value": "PartitionKey"
           }
         ]
-      }
+      },
+      "type": "vertex"
     },
     {
-      "id": "scrubbed id",
+      "id": "scrubbed Id",
       "label": "Country",
-      "type": "vertex",
       "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ],
         "CountryCallingCode": [
           {
-            "id": "scrubbed id",
+            "id": "scrubbed Id",
             "value": "+49"
           }
         ],
         "LocalizableDescription": [
           {
-            "id": "scrubbed id",
-            "value": "",
+            "id": "scrubbed Id",
             "properties": {
               "someKey": "value"
-            }
+            },
+            "value": ""
+          }
+        ],
+        "PartitionKey": [
+          {
+            "id": "scrubbed Id",
+            "value": "PartitionKey"
           }
         ]
-      }
+      },
+      "type": "vertex"
     }
   ]
 ]

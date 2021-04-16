@@ -1,35 +1,35 @@
 [
   [
     {
-      "id": "scrubbed id",
+      "id": "scrubbed Id",
       "label": "TimeFrame",
-      "type": "vertex",
       "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ],
         "Duration": [
           {
-            "id": "scrubbed id",
+            "id": "scrubbed Id",
             "value": 7200000.0
           }
         ],
         "Enabled": [
           {
-            "id": "scrubbed id",
+            "id": "scrubbed Id",
             "value": false
+          }
+        ],
+        "PartitionKey": [
+          {
+            "id": "scrubbed Id",
+            "value": "PartitionKey"
           }
         ],
         "StartTime": [
           {
-            "id": "scrubbed id",
+            "id": "scrubbed Id",
             "value": 28800000.0
           }
         ]
-      }
+      },
+      "type": "vertex"
     }
   ]
 ]

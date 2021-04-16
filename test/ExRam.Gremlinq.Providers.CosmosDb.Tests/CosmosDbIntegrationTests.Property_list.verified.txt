@@ -1,38 +1,38 @@
 [
   [
     {
-      "id": "scrubbed id",
+      "id": "scrubbed Id",
       "label": "Company",
-      "type": "vertex",
       "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ],
         "FoundingDate": [
           {
-            "id": "scrubbed id",
+            "id": "scrubbed Id",
             "value": -62135596800000
           }
         ],
         "Locations": [
           {
-            "id": "scrubbed id",
-            "value": "Aachen",
+            "id": "scrubbed Id",
             "properties": {
               "ValidFrom": 1546304400000
-            }
+            },
+            "value": "Aachen"
+          }
+        ],
+        "PartitionKey": [
+          {
+            "id": "scrubbed Id",
+            "value": "PartitionKey"
           }
         ],
         "PhoneNumbers": [
           {
-            "id": "scrubbed id",
+            "id": "scrubbed Id",
             "value": "+4912345"
           }
         ]
-      }
+      },
+      "type": "vertex"
     }
   ]
 ]

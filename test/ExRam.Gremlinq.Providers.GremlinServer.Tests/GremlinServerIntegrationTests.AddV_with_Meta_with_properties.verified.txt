@@ -37,8 +37,6 @@
                           },
                           "label",
                           "Name",
-                          "value",
-                          "GER",
                           "properties",
                           {
                             "@type": "g:Map",
@@ -48,7 +46,9 @@
                               "en",
                               "Germany"
                             ]
-                          }
+                          },
+                          "value",
+                          "GER"
                         ]
                       }
                     ]

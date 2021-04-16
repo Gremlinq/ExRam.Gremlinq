@@ -3,65 +3,65 @@
     {
       "count!": 1,
       "in!": {
-        "id": "scrubbed id",
+        "id": "scrubbed Id",
         "label": "Person",
-        "type": "vertex",
         "properties": {
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ],
           "Age": [
             {
-              "id": "scrubbed id",
+              "id": "scrubbed Id",
               "value": 0
             }
           ],
           "Gender": [
             {
-              "id": "scrubbed id",
+              "id": "scrubbed Id",
               "value": 0
             }
           ],
           "Name": [
             {
-              "id": "scrubbed id",
+              "id": "scrubbed Id",
               "value": "Bob"
+            }
+          ],
+          "PartitionKey": [
+            {
+              "id": "scrubbed Id",
+              "value": "PartitionKey"
             }
           ],
           "RegistrationDate": [
             {
-              "id": "scrubbed id",
+              "id": "scrubbed Id",
               "value": 1586270616000
             }
           ]
-        }
+        },
+        "type": "vertex"
       },
       "out!": {
-        "id": "scrubbed id",
+        "id": "scrubbed Id",
         "label": "Language",
-        "type": "vertex",
         "properties": {
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ],
           "IetfLanguageTag": [
             {
-              "id": "scrubbed id",
+              "id": "scrubbed Id",
               "value": "en"
             }
+          ],
+          "PartitionKey": [
+            {
+              "id": "scrubbed Id",
+              "value": "PartitionKey"
+            }
           ]
-        }
+        },
+        "type": "vertex"
       },
       "properties!": {
-        "id": "scrubbed id",
-        "value": "PartitionKey",
-        "label": "PartitionKey"
+        "id": "scrubbed Id",
+        "label": "PartitionKey",
+        "value": "PartitionKey"
       }
     }
   ]

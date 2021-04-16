@@ -1,33 +1,33 @@
 [
   [
     {
-      "id": "scrubbed id",
+      "id": "scrubbed Id",
       "label": "Company",
-      "type": "vertex",
       "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ],
         "FoundingDate": [
           {
-            "id": "scrubbed id",
+            "id": "scrubbed Id",
             "value": -62135596800000
+          }
+        ],
+        "PartitionKey": [
+          {
+            "id": "scrubbed Id",
+            "value": "PartitionKey"
           }
         ],
         "PhoneNumbers": [
           {
-            "id": "scrubbed id",
+            "id": "scrubbed Id",
             "value": "+4912345"
           },
           {
-            "id": "scrubbed id",
+            "id": "scrubbed Id",
             "value": "+4923456"
           }
         ]
-      }
+      },
+      "type": "vertex"
     }
   ]
 ]
