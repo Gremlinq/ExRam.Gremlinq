@@ -7,15 +7,17 @@ namespace ExRam.Gremlinq.Core.AspNet
 {
     public static class WebSocketConfiguratorExtensions
     {
-        public static IWebSocketConfigurator Configure(
-            this IWebSocketConfigurator configurator,
+        public static IWebSocketConfigurator ConfigureFrom(
+            this IWebSocketConfigurator webSocketConfigurator,
             IConfiguration configuration)
         {
             var authenticationSection = configuration.GetSection("Authentication");
             var connectionPoolSection = configuration.GetSection("ConnectionPool");
 
-            configurator = configurator
-                .At(configuration.GetRequiredConfiguration("Uri"))
+            if (configuration["Uri"] is { } uri)
+                webSocketConfigurator = webSocketConfigurator.At(configuration.GetRequiredConfiguration(uri));
+
+            webSocketConfigurator
                 .ConfigureConnectionPool(connectionPoolSettings =>
                 {
                     if (int.TryParse(connectionPoolSection[$"{nameof(ConnectionPoolSettings.MaxInProcessPerConnection)}"], out var maxInProcessPerConnection))
@@ -26,15 +28,15 @@ namespace ExRam.Gremlinq.Core.AspNet
                 });
 
             if (configuration["Alias"] is { } alias)
-                configurator = configurator.SetAlias(alias);
+                webSocketConfigurator = webSocketConfigurator.SetAlias(alias);
 
             if (authenticationSection["Username"] is { } username && authenticationSection["Password"] is { } password)
-                configurator = configurator.AuthenticateBy(username, password);
+                webSocketConfigurator = webSocketConfigurator.AuthenticateBy(username, password);
 
             if (Enum.TryParse<SerializationFormat>(configuration[$"{nameof(SerializationFormat)}"], out var graphsonVersion))
-                configurator = configurator.SetSerializationFormat(graphsonVersion);
+                webSocketConfigurator = webSocketConfigurator.SetSerializationFormat(graphsonVersion);
 
-            return configurator;
+            return webSocketConfigurator;
         }
     }
 }
