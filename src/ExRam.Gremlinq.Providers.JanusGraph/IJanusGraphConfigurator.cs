@@ -1,9 +1,10 @@
 ﻿using System;
+using ExRam.Gremlinq.Providers.WebSocket;
 
 namespace ExRam.Gremlinq.Providers.JanusGraph
 {
-    public interface IJanusGraphConfigurator
+    public interface IJanusGraphConfigurator : IProviderConfigurator<IJanusGraphConfigurator>
     {
-        IJanusGraphConfiguratorWithUri At(Uri uri);
+        IJanusGraphConfigurator At(Uri uri);
     }
 }

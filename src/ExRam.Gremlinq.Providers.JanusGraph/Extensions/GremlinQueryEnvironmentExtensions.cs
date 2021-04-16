@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq.Core
 {
     public static class GremlinQueryEnvironmentExtensions
     {
-        private sealed class JanusGraphConfigurator : IJanusGraphConfigurator, IJanusGraphConfiguratorWithUri
+        private sealed class JanusGraphConfigurator : IJanusGraphConfigurator
         {
             private readonly IWebSocketConfigurator _webSocketBuilder;
 
@@ -15,12 +15,12 @@ namespace ExRam.Gremlinq.Core
                 _webSocketBuilder = webSocketBuilder;
             }
 
-            public IJanusGraphConfiguratorWithUri At(Uri uri)
+            public IJanusGraphConfigurator At(Uri uri)
             {
                 return new JanusGraphConfigurator(_webSocketBuilder.At(uri));
             }
 
-            public IGremlinQuerySourceTransformation ConfigureWebSocket(Func<IWebSocketConfigurator, IWebSocketConfigurator> transformation)
+            public IJanusGraphConfigurator ConfigureWebSocket(Func<IWebSocketConfigurator, IWebSocketConfigurator> transformation)
             {
                 return new JanusGraphConfigurator(
                     transformation(_webSocketBuilder));
@@ -36,7 +36,7 @@ namespace ExRam.Gremlinq.Core
         public static IGremlinQuerySource UseJanusGraph(this IConfigurableGremlinQuerySource environment, Func<IJanusGraphConfigurator, IGremlinQuerySourceTransformation> transformation)
         {
             return environment
-                .UseGremlinServer(builder => transformation(new JanusGraphConfigurator(builder)))
+                .UseWebSocket(builder => transformation(new JanusGraphConfigurator(builder)))
                 .ConfigureEnvironment(environment => environment
                     .ConfigureFeatureSet(featureSet => featureSet
                         .ConfigureGraphFeatures(_ => GraphFeatures.Computer | GraphFeatures.Transactions | GraphFeatures.ThreadedTransactions | GraphFeatures.Persistence)

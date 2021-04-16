@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
-using ExRam.Gremlinq.Providers.WebSocket;
 using ExRam.Gremlinq.Tests.Entities;
 using Xunit;
 using Xunit.Abstractions;
@@ -15,7 +15,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
         {
             public Fixture() : base(g
                 .UseGremlinServer(builder => builder
-                    .AtLocalhost()))
+                    .At(new Uri("ws://localhost:8182"))))
             {
             }
         }

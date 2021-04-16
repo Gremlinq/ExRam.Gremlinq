@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Providers.Neptune
 {
     public static class NeptuneConfiguratorWithUriExtensions
     {
-        private sealed class ElasticSearchAwareNeptuneConfigurator : INeptuneConfiguratorWithUri
+        private sealed class ElasticSearchAwareNeptuneConfigurator : INeptuneConfigurator
         {
             private sealed class ElasticSearchAwarePFactory : IPFactory
             {
@@ -41,9 +41,9 @@ namespace ExRam.Gremlinq.Providers.Neptune
             }
 
             private readonly Uri _elasticSearchEndPoint;
-            private readonly INeptuneConfiguratorWithUri _baseConfigurator;
+            private readonly INeptuneConfigurator _baseConfigurator;
 
-            public ElasticSearchAwareNeptuneConfigurator(INeptuneConfiguratorWithUri baseConfigurator, Uri elasticSearchEndPoint)
+            public ElasticSearchAwareNeptuneConfigurator(INeptuneConfigurator baseConfigurator, Uri elasticSearchEndPoint)
             {
                 _baseConfigurator = baseConfigurator;
                 _elasticSearchEndPoint = elasticSearchEndPoint;
@@ -63,15 +63,22 @@ namespace ExRam.Gremlinq.Providers.Neptune
                                     .Override(new ElasticSearchAwarePFactory()))));
             }
 
-            public INeptuneConfiguratorWithUri ConfigureWebSocket(Func<IWebSocketConfigurator, IWebSocketConfigurator> transformation)
+            public INeptuneConfigurator ConfigureWebSocket(Func<IWebSocketConfigurator, IWebSocketConfigurator> transformation)
             {
                 return new ElasticSearchAwareNeptuneConfigurator(
                     _baseConfigurator.ConfigureWebSocket(transformation),
                     _elasticSearchEndPoint);
             }
+
+            public INeptuneConfigurator At(Uri uri)
+            {
+                return new ElasticSearchAwareNeptuneConfigurator(
+                    _baseConfigurator.At(uri),
+                    _elasticSearchEndPoint);
+            }
         }
 
-        public static INeptuneConfiguratorWithUri UseElasticSearch(this INeptuneConfiguratorWithUri configurator, Uri elasticSearchEndPoint)
+        public static INeptuneConfigurator UseElasticSearch(this INeptuneConfigurator configurator, Uri elasticSearchEndPoint)
         {
             return new ElasticSearchAwareNeptuneConfigurator(
                 configurator,

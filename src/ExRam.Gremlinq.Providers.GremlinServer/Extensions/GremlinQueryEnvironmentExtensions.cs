@@ -10,10 +10,37 @@ namespace ExRam.Gremlinq.Core
 {
     public static class GremlinQueryEnvironmentExtensions
     {
-        public static IGremlinQuerySource UseGremlinServer(this IConfigurableGremlinQuerySource source, Func<IWebSocketConfigurator, IGremlinQuerySourceTransformation> builderAction)
+        private sealed class GremlinServerConfigurator : IGremlinServerConfigurator
+        {
+            private readonly IWebSocketConfigurator _baseConfigurator;
+
+            public GremlinServerConfigurator(IWebSocketConfigurator baseConfigurator)
+            {
+                _baseConfigurator = baseConfigurator;
+            }
+
+            public IGremlinServerConfigurator At(Uri uri)
+            {
+                return new GremlinServerConfigurator(_baseConfigurator.At(uri));
+            }
+
+            public IGremlinServerConfigurator ConfigureWebSocket(Func<IWebSocketConfigurator, IWebSocketConfigurator> transformation)
+            {
+                return new GremlinServerConfigurator(
+                    transformation(_baseConfigurator));
+            }
+
+            public IGremlinQuerySource Transform(IGremlinQuerySource source)
+            {
+                return _baseConfigurator
+                    .Transform(source);
+            }
+        }
+
+        public static IGremlinQuerySource UseGremlinServer(this IConfigurableGremlinQuerySource source, Func<IGremlinServerConfigurator, IGremlinQuerySourceTransformation> builderAction)
         {
             return source
-                .UseWebSocket(builderAction)
+                .UseWebSocket(configurator => builderAction(new GremlinServerConfigurator(configurator)))
                 .ConfigureEnvironment(environment => environment
                     .ConfigureFeatureSet(featureSet => featureSet
                         .ConfigureGraphFeatures(graphFeatures => graphFeatures & ~(GraphFeatures.Transactions | GraphFeatures.ThreadedTransactions | GraphFeatures.ConcurrentAccess))

@@ -20,8 +20,9 @@ namespace ExRam.Gremlinq.Core.AspNet
             public IGremlinQuerySource Transform(IGremlinQuerySource source)
             {
                 return source
-                    .UseGremlinServer(builder => builder
-                        .Configure(_configuration));
+                    .UseGremlinServer(gremlinServerConfigurator => gremlinServerConfigurator
+                        .ConfigureWebSocket(configurator => configurator
+                            .Configure(_configuration)));
             }
         }
 
