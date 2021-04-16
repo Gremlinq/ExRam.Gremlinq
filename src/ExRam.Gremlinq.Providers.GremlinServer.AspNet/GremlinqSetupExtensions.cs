@@ -1,6 +1,4 @@
-﻿using System;
-using ExRam.Gremlinq.Providers.GremlinServer;
-using Microsoft.Extensions.Configuration;
+﻿using ExRam.Gremlinq.Providers.GremlinServer;
 
 namespace ExRam.Gremlinq.Core.AspNet
 {
@@ -12,8 +10,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                 .UseProvider<IGremlinServerConfigurator>(
                     "GremlinServer",
                     (e, f) => e.UseGremlinServer(f),
-                    (configurator, configuration) => configurator
-                        .At(new Uri(configuration.GetRequiredConfiguration("Uri"))));
+                    (configurator, _) => configurator);
         }
 
         public static GremlinqSetup UseGremlinServer<TVertex, TEdge>(this GremlinqSetup setup)

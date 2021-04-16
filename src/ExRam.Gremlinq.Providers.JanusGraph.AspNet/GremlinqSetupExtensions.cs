@@ -1,6 +1,4 @@
-﻿using System;
-using ExRam.Gremlinq.Providers.JanusGraph;
-using Microsoft.Extensions.Configuration;
+﻿using ExRam.Gremlinq.Providers.JanusGraph;
 
 namespace ExRam.Gremlinq.Core.AspNet
 {
@@ -12,8 +10,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                 .UseProvider<IJanusGraphConfigurator>(
                     "JanusGraph",
                     (e, f) => e.UseJanusGraph(f),
-                    (configurator, configuration) => configurator
-                        .At(new Uri(configuration.GetRequiredConfiguration("Uri"))));
+                    (configurator, _) => configurator);
         }
 
         public static GremlinqSetup UseJanusGraph<TVertex, TEdge>(this GremlinqSetup setup)
