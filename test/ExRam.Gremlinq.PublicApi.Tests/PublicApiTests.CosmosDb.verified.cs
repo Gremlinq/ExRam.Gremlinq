@@ -1,6 +1,6 @@
 namespace ExRam.Gremlinq.Core
 {
-    public static class GremlinQueryEnvironmentExtensions
+    public static class ConfigurableGremlinQuerySourceExtensions
     {
         public static ExRam.Gremlinq.Core.IGremlinQuerySource UseCosmosDb(this ExRam.Gremlinq.Core.IConfigurableGremlinQuerySource source, System.Func<ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator, ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation> transformation) { }
     }
@@ -10,6 +10,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
     public static class CosmosDbConfiguratorExtensions
     {
         public static ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator At(this ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator configurator, string uri, string databaseName, string graphName) { }
+        public static ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator AtLocalhost(this ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator configurator, string uri, string databaseName, string graphName) { }
     }
     public readonly struct CosmosDbKey
     {
