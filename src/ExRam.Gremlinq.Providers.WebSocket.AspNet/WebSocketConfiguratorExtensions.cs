@@ -15,7 +15,7 @@ namespace ExRam.Gremlinq.Core.AspNet
             var connectionPoolSection = configuration.GetSection("ConnectionPool");
 
             if (configuration["Uri"] is { } uri)
-                webSocketConfigurator = webSocketConfigurator.At(configuration.GetRequiredConfiguration(uri));
+                webSocketConfigurator = webSocketConfigurator.At(uri);
 
             webSocketConfigurator
                 .ConfigureConnectionPool(connectionPoolSettings =>
