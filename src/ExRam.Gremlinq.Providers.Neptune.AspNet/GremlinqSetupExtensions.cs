@@ -40,7 +40,7 @@ namespace ExRam.Gremlinq.Core.AspNet
         public static GremlinqSetup UseNeptune(this GremlinqSetup setup)
         {
             return setup
-                .UseWebSocket()
+                .ConfigureWebSocketLogging()
                 .RegisterTypes(serviceCollection => serviceCollection.AddSingleton<IGremlinQuerySourceTransformation, UseNeptuneGremlinQuerySourceTransformation>());
         }
 

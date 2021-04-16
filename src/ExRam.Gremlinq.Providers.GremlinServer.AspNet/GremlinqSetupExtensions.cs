@@ -29,7 +29,7 @@ namespace ExRam.Gremlinq.Core.AspNet
         public static GremlinqSetup UseGremlinServer(this GremlinqSetup setup)
         {
             return setup
-                .UseWebSocket()
+                .ConfigureWebSocketLogging()
                 .RegisterTypes(serviceCollection => serviceCollection.AddSingleton<IGremlinQuerySourceTransformation, UseGremlinServerGremlinQuerySourceTransformation>());
         }
 

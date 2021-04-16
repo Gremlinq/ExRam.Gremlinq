@@ -42,7 +42,7 @@ namespace ExRam.Gremlinq.Core.AspNet
             }
         }
 
-        public static GremlinqSetup UseWebSocket(this GremlinqSetup setup)
+        public static GremlinqSetup ConfigureWebSocketLogging(this GremlinqSetup setup)
         {
             return setup.RegisterTypes(serviceCollection => serviceCollection
                 .AddSingleton<IGremlinQuerySourceTransformation, ConfigureLoggingGremlinQuerySourceTransformation>());

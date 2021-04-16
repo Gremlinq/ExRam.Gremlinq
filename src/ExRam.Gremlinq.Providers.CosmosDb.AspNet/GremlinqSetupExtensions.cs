@@ -39,7 +39,7 @@ namespace ExRam.Gremlinq.Core.AspNet
         public static GremlinqSetup UseCosmosDb(this GremlinqSetup setup)
         {
             return setup
-                .UseWebSocket()
+                .ConfigureWebSocketLogging()
                 .RegisterTypes(serviceCollection => serviceCollection.AddSingleton<IGremlinQuerySourceTransformation, UseCosmosDbGremlinQuerySourceTransformation>());
         }
 

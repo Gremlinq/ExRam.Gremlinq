@@ -31,7 +31,7 @@ namespace ExRam.Gremlinq.Core.AspNet
         public static GremlinqSetup UseJanusGraph(this GremlinqSetup setup)
         {
             return setup
-                .UseWebSocket()
+                .ConfigureWebSocketLogging()
                 .RegisterTypes(serviceCollection => serviceCollection.AddSingleton<IGremlinQuerySourceTransformation, UseJanusGraphGremlinQuerySourceTransformation>());
         }
 
