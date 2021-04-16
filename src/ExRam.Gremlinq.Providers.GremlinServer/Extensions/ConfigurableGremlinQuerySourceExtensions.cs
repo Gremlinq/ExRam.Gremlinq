@@ -19,22 +19,11 @@ namespace ExRam.Gremlinq.Core
                 _baseConfigurator = baseConfigurator;
             }
 
-            public IGremlinServerConfigurator At(Uri uri)
-            {
-                return new GremlinServerConfigurator(_baseConfigurator.At(uri));
-            }
+            public IGremlinServerConfigurator At(Uri uri) => new GremlinServerConfigurator(_baseConfigurator.At(uri));
 
-            public IGremlinServerConfigurator ConfigureWebSocket(Func<IWebSocketConfigurator, IWebSocketConfigurator> transformation)
-            {
-                return new GremlinServerConfigurator(
-                    transformation(_baseConfigurator));
-            }
+            public IGremlinServerConfigurator ConfigureWebSocket(Func<IWebSocketConfigurator, IWebSocketConfigurator> transformation) => new GremlinServerConfigurator(transformation(_baseConfigurator));
 
-            public IGremlinQuerySource Transform(IGremlinQuerySource source)
-            {
-                return _baseConfigurator
-                    .Transform(source);
-            }
+            public IGremlinQuerySource Transform(IGremlinQuerySource source) => _baseConfigurator.Transform(source);
         }
 
         public static IGremlinQuerySource UseGremlinServer(this IConfigurableGremlinQuerySource source, Func<IGremlinServerConfigurator, IGremlinQuerySourceTransformation> configuratorTransformation)

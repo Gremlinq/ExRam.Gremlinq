@@ -16,22 +16,11 @@ namespace ExRam.Gremlinq.Core
                 _webSocketConfigurator = webSocketConfigurator;
             }
 
-            public INeptuneConfigurator At(Uri uri)
-            {
-                return new NeptuneConfigurator(_webSocketConfigurator.At(uri));
-            }
-            
-            public INeptuneConfigurator ConfigureWebSocket(Func<IWebSocketConfigurator, IWebSocketConfigurator> transformation)
-            {
-                return new NeptuneConfigurator(
-                    transformation(_webSocketConfigurator));
-            }
+            public INeptuneConfigurator At(Uri uri) => new NeptuneConfigurator(_webSocketConfigurator.At(uri));
 
-            public IGremlinQuerySource Transform(IGremlinQuerySource source)
-            {
-                return _webSocketConfigurator
-                    .Transform(source);
-            }
+            public INeptuneConfigurator ConfigureWebSocket(Func<IWebSocketConfigurator, IWebSocketConfigurator> transformation) => new NeptuneConfigurator(transformation(_webSocketConfigurator));
+
+            public IGremlinQuerySource Transform(IGremlinQuerySource source) => _webSocketConfigurator.Transform(source);
         }
 
         public static IGremlinQuerySource UseNeptune(this IConfigurableGremlinQuerySource source, Func<INeptuneConfigurator, IGremlinQuerySourceTransformation> transformation)

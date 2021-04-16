@@ -15,22 +15,11 @@ namespace ExRam.Gremlinq.Core
                 _webSocketConfigurator = webSocketConfigurator;
             }
 
-            public IJanusGraphConfigurator At(Uri uri)
-            {
-                return new JanusGraphConfigurator(_webSocketConfigurator.At(uri));
-            }
+            public IJanusGraphConfigurator At(Uri uri) => new JanusGraphConfigurator(_webSocketConfigurator.At(uri));
 
-            public IJanusGraphConfigurator ConfigureWebSocket(Func<IWebSocketConfigurator, IWebSocketConfigurator> transformation)
-            {
-                return new JanusGraphConfigurator(
-                    transformation(_webSocketConfigurator));
-            }
+            public IJanusGraphConfigurator ConfigureWebSocket(Func<IWebSocketConfigurator, IWebSocketConfigurator> transformation) => new JanusGraphConfigurator(transformation(_webSocketConfigurator));
 
-            public IGremlinQuerySource Transform(IGremlinQuerySource source)
-            {
-                return _webSocketConfigurator
-                    .Transform(source);
-            }
+            public IGremlinQuerySource Transform(IGremlinQuerySource source) => _webSocketConfigurator.Transform(source);
         }
 
         public static IGremlinQuerySource UseJanusGraph(this IConfigurableGremlinQuerySource environment, Func<IJanusGraphConfigurator, IGremlinQuerySourceTransformation> transformation)

@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Linq;
-
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.ExpressionParsing;
 using ExRam.Gremlinq.Providers.WebSocket;
-
 using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Providers.Neptune
