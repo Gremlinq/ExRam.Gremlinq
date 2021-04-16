@@ -1,6 +1,5 @@
 ﻿using System;
 using ExRam.Gremlinq.Providers.Neptune;
-using Microsoft.Extensions.Configuration;
 
 namespace ExRam.Gremlinq.Core.AspNet
 {

@@ -1,5 +1,7 @@
 ﻿// ReSharper disable HeapView.PossibleBoxingAllocation
 using System;
+using System.Collections.Generic;
+
 using ExRam.Gremlinq.Providers.WebSocket;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,7 +29,7 @@ namespace ExRam.Gremlinq.Core.AspNet
         {
             private readonly string _sectionName;
             private readonly IGremlinqConfiguration _generalSection;
-            private readonly IWebSocketConfiguratorTransformation[] _webSocketConfiguratorTransformations;
+            private readonly IEnumerable<IWebSocketConfiguratorTransformation> _webSocketConfiguratorTransformations;
             private readonly Func<TProviderConfigurator, IConfiguration, TProviderConfigurator> _providerConfiguratorTransformation;
             private readonly Func<IConfigurableGremlinQuerySource, Func<TProviderConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource> _providerChoice;
             
@@ -36,7 +38,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                 string sectionName,
                 Func<IConfigurableGremlinQuerySource, Func<TProviderConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource> providerChoice,
                 Func<TProviderConfigurator, IConfiguration, TProviderConfigurator> providerConfiguratorTransformation,
-                IWebSocketConfiguratorTransformation[] webSocketConfiguratorTransformations)
+                IEnumerable<IWebSocketConfiguratorTransformation> webSocketConfiguratorTransformations)
             {
                 _sectionName = sectionName;
                 _generalSection = generalSection;
@@ -103,13 +105,12 @@ namespace ExRam.Gremlinq.Core.AspNet
             Func<TConfigurator, IConfiguration, TConfigurator> configuration) where TConfigurator : IProviderConfigurator<TConfigurator>
         {
             return setup.RegisterTypes(serviceCollection => serviceCollection
-                .AddSingleton<IWebSocketConfiguratorTransformation, ConfigureWebSocketConfiguratorTransformation>()
                 .AddSingleton<IGremlinQuerySourceTransformation>(s => new UseProviderGremlinQuerySourceTransformation<TConfigurator>(
                     s.GetRequiredService<IGremlinqConfiguration>(),
                     sectionName,
                     providerChoice,
                     configuration,
-                    s.GetRequiredService<IWebSocketConfiguratorTransformation[]>())));
+                    s.GetRequiredService<IEnumerable<IWebSocketConfiguratorTransformation>>())));
         }
 
         public static GremlinqSetup ConfigureWebSocket(this GremlinqSetup setup, Func<IWebSocketConfigurator, IWebSocketConfigurator> transformation)
