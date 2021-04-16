@@ -42,10 +42,55 @@ namespace ExRam.Gremlinq.Core.AspNet
             }
         }
 
-        public static GremlinqSetup ConfigureWebSocketLogging(this GremlinqSetup setup)
+        private sealed class UseProviderGremlinQuerySourceTransformation<TConfigurator> : IGremlinQuerySourceTransformation
+            where TConfigurator : IProviderConfigurator<TConfigurator>
+        {
+            private readonly string _sectionName;
+            private readonly IGremlinqConfiguration _configuration;
+            private readonly Func<TConfigurator, IConfiguration, TConfigurator> _configuratorTransformation;
+            private readonly Func<IConfigurableGremlinQuerySource, Func<TConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource> _providerChoice;
+            
+            public UseProviderGremlinQuerySourceTransformation(
+                IGremlinqConfiguration configuration,
+                string sectionName,
+                Func<IConfigurableGremlinQuerySource, Func<TConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource> providerChoice,
+                Func<TConfigurator, IConfiguration, TConfigurator> configuratorTransformation)
+            {
+                _configuration = configuration;
+                _sectionName = sectionName;
+                _providerChoice = providerChoice;
+                _configuratorTransformation = configuratorTransformation;
+            }
+            
+            public IGremlinQuerySource Transform(IGremlinQuerySource source)
+            {
+                return _providerChoice(
+                    source,
+                    configurator =>
+                    {
+                        return _configuratorTransformation(configurator, _configuration.GetSection(_sectionName))
+                            .ConfigureWebSocket(configurator =>
+                            {
+                                return configurator
+                                    .Configure(_configuration);
+                            });
+                    });
+            }
+        }
+
+        public static GremlinqSetup UseProvider<TConfigurator>(
+            this GremlinqSetup setup,
+            string sectionName,
+            Func<IConfigurableGremlinQuerySource, Func<TConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource> providerChoice,
+            Func<TConfigurator, IConfiguration, TConfigurator> configuration) where TConfigurator : IProviderConfigurator<TConfigurator>
         {
             return setup.RegisterTypes(serviceCollection => serviceCollection
-                .AddSingleton<IGremlinQuerySourceTransformation, ConfigureLoggingGremlinQuerySourceTransformation>());
+                .AddSingleton<IGremlinQuerySourceTransformation, ConfigureLoggingGremlinQuerySourceTransformation>()
+                .AddSingleton<IGremlinQuerySourceTransformation>(s => new UseProviderGremlinQuerySourceTransformation<TConfigurator>(
+                    s.GetRequiredService<IGremlinqConfiguration>(),
+                    sectionName,
+                    providerChoice,
+                    configuration)));
         }
     }
 }
