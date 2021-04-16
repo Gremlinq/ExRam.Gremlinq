@@ -1,11 +1,7 @@
 ﻿using System.Threading.Tasks;
-using ExRam.Gremlinq.Core.GraphElements;
-
 using Gremlin.Net.Structure;
-
 using Xunit;
 using Xunit.Abstractions;
-
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests

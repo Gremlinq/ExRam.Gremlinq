@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using ExRam.Gremlinq.Providers.Neptune;
-
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
