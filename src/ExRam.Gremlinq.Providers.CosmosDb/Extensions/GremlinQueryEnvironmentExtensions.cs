@@ -10,45 +10,65 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class CosmosDbConfigurator : ICosmosDbConfigurator
         {
+            private readonly Uri? _uri;
+            private readonly string? _authKey;
             private readonly string? _collectionName;
             private readonly IWebSocketConfigurator _webSocketBuilder;
 
-            public CosmosDbConfigurator(IWebSocketConfigurator webSocketBuilder, string? collectionName = default)
+            public CosmosDbConfigurator(IWebSocketConfigurator webSocketBuilder, Uri? uri, string? collectionName, string? authKey)
             {
+                _authKey = authKey;
                 _collectionName = collectionName;
                 _webSocketBuilder = webSocketBuilder;
+                _uri = uri;
             }
 
             public ICosmosDbConfigurator At(Uri uri, string databaseName, string graphName)
             {
-                return new CosmosDbConfigurator(_webSocketBuilder.At(uri), $"/dbs/{databaseName}/colls/{graphName}");
+                return new CosmosDbConfigurator(
+                    _webSocketBuilder,
+                    uri,
+                    $"/dbs/{databaseName}/colls/{graphName}",
+                    _authKey);
             }
 
             public ICosmosDbConfigurator AuthenticateBy(string authKey)
             {
                 return new CosmosDbConfigurator(
-                    _webSocketBuilder.AuthenticateBy(_collectionName!, authKey),
-                    _collectionName);
+                    _webSocketBuilder,
+                    _uri,
+                    _collectionName,
+                    authKey);
             }
 
             public ICosmosDbConfigurator ConfigureWebSocket(Func<IWebSocketConfigurator, IWebSocketConfigurator> transformation)
             {
                 return new CosmosDbConfigurator(
                     transformation(_webSocketBuilder),
-                    _collectionName);
+                    _uri,
+                    _collectionName,
+                    _authKey);
             }
 
             public IGremlinQuerySource Transform(IGremlinQuerySource source)
             {
-                return _webSocketBuilder
-                    .Transform(source);
+                if (_uri is { } uri && _authKey is { } authKey && _collectionName is { } collectionName)
+                {
+                    return _webSocketBuilder
+                        .At(uri)
+                        .AuthenticateBy(collectionName, authKey)
+                        .SetSerializationFormat(SerializationFormat.GraphSonV2)
+                        .Transform(source);
+                }
+
+                throw new InvalidOperationException($"The {nameof(ICosmosDbConfigurator)} is not properly configured.");
             }
         }
 
         public static IGremlinQuerySource UseCosmosDb(this IConfigurableGremlinQuerySource source, Func<ICosmosDbConfigurator, IGremlinQuerySourceTransformation> transformation)
         {
             return source
-                .UseWebSocket(builder => transformation(new CosmosDbConfigurator(builder.SetSerializationFormat(SerializationFormat.GraphSonV2))))
+                .UseWebSocket(builder => transformation(new CosmosDbConfigurator(builder, null, null, null)))
                 .ConfigureEnvironment(environment => environment
                     .ConfigureFeatureSet(featureSet => featureSet
                         .ConfigureGraphFeatures(_ => GraphFeatures.Transactions | GraphFeatures.Persistence | GraphFeatures.ConcurrentAccess)
