@@ -6,23 +6,6 @@ namespace ExRam.Gremlinq.Core.AspNet
 {
     public static class GremlinqSetupExtensions
     {
-        private sealed class UseModelTransformation : IGremlinQuerySourceTransformation
-        {
-            private readonly IGraphModel _model;
-
-            public UseModelTransformation(IGraphModel model)
-            {
-                _model = model;
-            }
-
-            public IGremlinQuerySource Transform(IGremlinQuerySource source)
-            {
-                return source
-                    .ConfigureEnvironment(environment => environment
-                        .UseModel(_model));
-            }
-        }
-
         private sealed class SourceTransformation : IGremlinQuerySourceTransformation
         {
             private readonly Func<IGremlinQuerySource, IGremlinQuerySource> _sourceTransformation;
@@ -60,13 +43,6 @@ namespace ExRam.Gremlinq.Core.AspNet
                     .GetRequiredService<IConfiguration>()
                     .GetSection(sectionName)
                     .GetSection("Gremlinq"))));
-        }
-
-        public static GremlinqSetup UseModel(this GremlinqSetup setup, IGraphModel model)
-        {
-            return setup.RegisterTypes(serviceCollection => serviceCollection
-                .AddSingleton(model)
-                .AddSingleton<IGremlinQuerySourceTransformation, UseModelTransformation>());
         }
 
         public static GremlinqSetup RegisterTypes(this GremlinqSetup setup, Action<IServiceCollection> registration)
