@@ -1,9 +1,10 @@
 ﻿using System;
+using ExRam.Gremlinq.Providers.WebSocket;
 
 namespace ExRam.Gremlinq.Providers.Neptune
 {
-    public interface INeptuneConfigurator
+    public interface INeptuneConfigurator : IProviderConfigurator<INeptuneConfigurator>
     {
-        INeptuneConfiguratorWithUri At(Uri uri);
+        INeptuneConfigurator At(Uri uri);
     }
 }

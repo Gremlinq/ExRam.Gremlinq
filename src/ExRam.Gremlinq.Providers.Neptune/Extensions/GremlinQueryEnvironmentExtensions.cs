@@ -7,7 +7,7 @@ namespace ExRam.Gremlinq.Core
 {
     public static class GremlinQueryEnvironmentExtensions
     {
-        private sealed class NeptuneConfigurator : INeptuneConfigurator, INeptuneConfiguratorWithUri
+        private sealed class NeptuneConfigurator : INeptuneConfigurator
         {
             private readonly IWebSocketConfigurator _webSocketBuilder;
 
@@ -16,12 +16,12 @@ namespace ExRam.Gremlinq.Core
                 _webSocketBuilder = webSocketBuilder;
             }
 
-            public INeptuneConfiguratorWithUri At(Uri uri)
+            public INeptuneConfigurator At(Uri uri)
             {
                 return new NeptuneConfigurator(_webSocketBuilder.At(uri));
             }
             
-            public INeptuneConfiguratorWithUri ConfigureWebSocket(Func<IWebSocketConfigurator, IWebSocketConfigurator> transformation)
+            public INeptuneConfigurator ConfigureWebSocket(Func<IWebSocketConfigurator, IWebSocketConfigurator> transformation)
             {
                 return new NeptuneConfigurator(
                     transformation(_webSocketBuilder));

@@ -12,6 +12,11 @@ namespace ExRam.Gremlinq.Core
 }
 namespace ExRam.Gremlinq.Providers.WebSocket
 {
+    public interface IProviderConfigurator<out TConfigurator> : ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation
+        where out TConfigurator : ExRam.Gremlinq.Providers.WebSocket.IProviderConfigurator<TConfigurator>
+    {
+        TConfigurator ConfigureWebSocket(System.Func<ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurator, ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurator> transformation);
+    }
     public interface IWebSocketConfigurator : ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation
     {
         ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurator AddGraphSONDeserializer(string typename, Gremlin.Net.Structure.IO.GraphSON.IGraphSONDeserializer serializer);

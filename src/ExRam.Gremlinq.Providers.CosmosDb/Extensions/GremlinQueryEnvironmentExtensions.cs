@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq.Core
 {
     public static class GremlinQueryEnvironmentExtensions
     {
-        private sealed class CosmosDbConfigurator : ICosmosDbConfigurator, ICosmosDbConfiguratorWithUri, ICosmosDbConfiguratorWithAuthKey
+        private sealed class CosmosDbConfigurator : ICosmosDbConfigurator
         {
             private readonly string? _collectionName;
             private readonly IWebSocketConfigurator _webSocketBuilder;
@@ -19,19 +19,19 @@ namespace ExRam.Gremlinq.Core
                 _webSocketBuilder = webSocketBuilder;
             }
 
-            public ICosmosDbConfiguratorWithUri At(Uri uri, string databaseName, string graphName)
+            public ICosmosDbConfigurator At(Uri uri, string databaseName, string graphName)
             {
                 return new CosmosDbConfigurator(_webSocketBuilder.At(uri), $"/dbs/{databaseName}/colls/{graphName}");
             }
 
-            public ICosmosDbConfiguratorWithAuthKey AuthenticateBy(string authKey)
+            public ICosmosDbConfigurator AuthenticateBy(string authKey)
             {
                 return new CosmosDbConfigurator(
                     _webSocketBuilder.AuthenticateBy(_collectionName!, authKey),
                     _collectionName);
             }
 
-            public IGremlinQuerySourceTransformation ConfigureWebSocket(Func<IWebSocketConfigurator, IWebSocketConfigurator> transformation)
+            public ICosmosDbConfigurator ConfigureWebSocket(Func<IWebSocketConfigurator, IWebSocketConfigurator> transformation)
             {
                 return new CosmosDbConfigurator(
                     transformation(_webSocketBuilder),
