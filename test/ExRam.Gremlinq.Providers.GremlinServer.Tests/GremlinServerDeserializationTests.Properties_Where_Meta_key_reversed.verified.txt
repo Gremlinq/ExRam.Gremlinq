@@ -1,6 +1,6 @@
 [
   {
-    "Id": "scrubbed id",
+    "Id": "scrubbed Id",
     "Label": "Locations",
     "Properties": null,
     "Value": "Aachen",

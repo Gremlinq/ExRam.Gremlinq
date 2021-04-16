@@ -6,7 +6,7 @@
     ],
     "Locations": [
       {
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
         "Label": null,
         "Properties": {
           "ValidFrom": "2019-01-01T01:00:00+00:00"
@@ -16,7 +16,7 @@
       }
     ],
     "Name": null,
-    "Id": "scrubbed id",
+    "Id": "scrubbed Id",
     "Label": "Company"
   }
 ]

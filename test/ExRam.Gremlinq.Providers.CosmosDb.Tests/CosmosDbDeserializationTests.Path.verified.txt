@@ -7,6 +7,19 @@
     ],
     "Objects": [
       {
+        "Name": null,
+        "Languages": [],
+        "CountryCallingCode": "+49",
+        "LocalizableDescription": null,
+        "Id": "scrubbed Id",
+        "Label": "Country"
+      },
+      {
+        "IetfLanguageTag": "en",
+        "Id": "scrubbed Id",
+        "Label": "Language"
+      },
+      {
         "Age": 0,
         "Gender": 0,
         "Image": "",
@@ -14,27 +27,14 @@
         "PhoneNumbers": [],
         "SomeObscureProperty": null,
         "Name": {
-          "Id": "scrubbed id",
+          "Id": "scrubbed Id",
           "Label": null,
           "Properties": null,
           "Value": "Bob",
           "Key": null
         },
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
         "Label": "Person"
-      },
-      {
-        "Name": null,
-        "Languages": [],
-        "CountryCallingCode": "+49",
-        "LocalizableDescription": null,
-        "Id": "scrubbed id",
-        "Label": "Country"
-      },
-      {
-        "IetfLanguageTag": "en",
-        "Id": "scrubbed id",
-        "Label": "Language"
       }
     ]
   },
@@ -46,28 +46,11 @@
     ],
     "Objects": [
       {
-        "Age": 0,
-        "Gender": 0,
-        "Image": "",
-        "RegistrationDate": "2020-04-07T14:43:36+00:00",
-        "PhoneNumbers": [],
-        "SomeObscureProperty": null,
-        "Name": {
-          "Id": "scrubbed id",
-          "Label": null,
-          "Properties": null,
-          "Value": "Bob",
-          "Key": null
-        },
-        "Id": "scrubbed id",
-        "Label": "Person"
-      },
-      {
         "Name": null,
         "Languages": [],
         "CountryCallingCode": "+49",
         "LocalizableDescription": null,
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
         "Label": "Country"
       },
       {
@@ -78,13 +61,30 @@
         "PhoneNumbers": [],
         "SomeObscureProperty": null,
         "Name": {
-          "Id": "scrubbed id",
+          "Id": "scrubbed Id",
           "Label": null,
           "Properties": null,
           "Value": "Bob",
           "Key": null
         },
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
+        "Label": "Person"
+      },
+      {
+        "Age": 0,
+        "Gender": 0,
+        "Image": "",
+        "RegistrationDate": "2020-04-07T14:43:36+00:00",
+        "PhoneNumbers": [],
+        "SomeObscureProperty": null,
+        "Name": {
+          "Id": "scrubbed Id",
+          "Label": null,
+          "Properties": null,
+          "Value": "Bob",
+          "Key": null
+        },
+        "Id": "scrubbed Id",
         "Label": "Person"
       }
     ]

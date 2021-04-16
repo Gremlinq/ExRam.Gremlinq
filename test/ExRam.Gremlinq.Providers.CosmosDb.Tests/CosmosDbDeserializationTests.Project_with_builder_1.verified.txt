@@ -1,6 +1,36 @@
 [
   {
     "in!": {
+      "Name": null,
+      "Languages": [],
+      "CountryCallingCode": "+49",
+      "LocalizableDescription": null,
+      "Id": "scrubbed Id",
+      "Label": "Country"
+    }
+  },
+  {
+    "in!": {
+      "Name": null,
+      "Languages": [],
+      "CountryCallingCode": "+49",
+      "LocalizableDescription": null,
+      "Id": "scrubbed Id",
+      "Label": "Country"
+    }
+  },
+  {
+    "in!": {
+      "Name": null,
+      "Languages": [],
+      "CountryCallingCode": "+49",
+      "LocalizableDescription": null,
+      "Id": "scrubbed Id",
+      "Label": "Country"
+    }
+  },
+  {
+    "in!": {
       "Age": 0,
       "Gender": 0,
       "Image": "",
@@ -8,46 +38,13 @@
       "PhoneNumbers": [],
       "SomeObscureProperty": null,
       "Name": {
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
         "Label": null,
         "Properties": null,
         "Value": "Bob",
         "Key": null
       },
-      "Id": "scrubbed id",
-      "Label": "Person"
-    }
-  },
-  {
-    "in!": {
-      "Name": null,
-      "Languages": [],
-      "CountryCallingCode": "+49",
-      "LocalizableDescription": null,
-      "Id": "scrubbed id",
-      "Label": "Country"
-    }
-  },
-  {
-    "in!": {
-      "Name": null,
-      "Languages": [],
-      "CountryCallingCode": "+49",
-      "LocalizableDescription": null,
-      "Id": "scrubbed id",
-      "Label": "Country"
-    }
-  },
-  {
-    "in!": {
-      "Age": 0,
-      "Gender": 0,
-      "Image": "",
-      "RegistrationDate": null,
-      "PhoneNumbers": [],
-      "SomeObscureProperty": null,
-      "Name": null,
-      "Id": "scrubbed id",
+      "Id": "scrubbed Id",
       "Label": "Person"
     }
   },
@@ -60,7 +57,7 @@
       "PhoneNumbers": [],
       "SomeObscureProperty": null,
       "Name": null,
-      "Id": "scrubbed id",
+      "Id": "scrubbed Id",
       "Label": "Person"
     }
   },
@@ -73,18 +70,21 @@
       "PhoneNumbers": [],
       "SomeObscureProperty": null,
       "Name": null,
-      "Id": "scrubbed id",
+      "Id": "scrubbed Id",
       "Label": "Person"
     }
   },
   {
     "in!": {
+      "Age": 0,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": null,
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
       "Name": null,
-      "Languages": [],
-      "CountryCallingCode": "+49",
-      "LocalizableDescription": null,
-      "Id": "scrubbed id",
-      "Label": "Country"
+      "Id": "scrubbed Id",
+      "Label": "Person"
     }
   }
 ]

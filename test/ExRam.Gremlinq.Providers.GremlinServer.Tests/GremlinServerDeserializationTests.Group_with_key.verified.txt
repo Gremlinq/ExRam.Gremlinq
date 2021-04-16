@@ -1,12 +1,45 @@
 [
   {
-    "TimeFrame": [
+    "Company": [
       {
-        "Enabled": false,
-        "StartTime": "00:00:00",
-        "Duration": "00:00:00",
-        "Id": "scrubbed id",
-        "Label": "TimeFrame"
+        "FoundingDate": "0001-01-01T00:00:00",
+        "PhoneNumbers": [],
+        "Locations": [],
+        "Name": null,
+        "Id": "scrubbed Id",
+        "Label": "Company"
+      },
+      {
+        "FoundingDate": "0001-01-01T00:00:00",
+        "PhoneNumbers": [],
+        "Locations": [],
+        "Name": null,
+        "Id": "scrubbed Id",
+        "Label": "Company"
+      },
+      {
+        "FoundingDate": "0001-01-01T00:00:00",
+        "PhoneNumbers": [],
+        "Locations": [],
+        "Name": null,
+        "Id": "scrubbed Id",
+        "Label": "Company"
+      },
+      {
+        "FoundingDate": "0001-01-01T00:00:00",
+        "PhoneNumbers": [],
+        "Locations": [],
+        "Name": null,
+        "Id": "scrubbed Id",
+        "Label": "Company"
+      },
+      {
+        "FoundingDate": "0001-01-01T00:00:00",
+        "PhoneNumbers": [],
+        "Locations": [],
+        "Name": null,
+        "Id": "scrubbed Id",
+        "Label": "Company"
       }
     ],
     "Country": [
@@ -15,7 +48,7 @@
         "Languages": [],
         "CountryCallingCode": null,
         "LocalizableDescription": null,
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
         "Label": "Country"
       },
       {
@@ -23,7 +56,7 @@
         "Languages": [],
         "CountryCallingCode": null,
         "LocalizableDescription": null,
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
         "Label": "Country"
       },
       {
@@ -31,7 +64,7 @@
         "Languages": [],
         "CountryCallingCode": null,
         "LocalizableDescription": null,
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
         "Label": "Country"
       },
       {
@@ -39,7 +72,7 @@
         "Languages": [],
         "CountryCallingCode": null,
         "LocalizableDescription": null,
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
         "Label": "Country"
       },
       {
@@ -47,7 +80,7 @@
         "Languages": [],
         "CountryCallingCode": null,
         "LocalizableDescription": null,
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
         "Label": "Country"
       },
       {
@@ -55,7 +88,7 @@
         "Languages": [],
         "CountryCallingCode": null,
         "LocalizableDescription": null,
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
         "Label": "Country"
       },
       {
@@ -63,101 +96,59 @@
         "Languages": [],
         "CountryCallingCode": null,
         "LocalizableDescription": null,
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
         "Label": "Country"
-      }
-    ],
-    "Company": [
-      {
-        "FoundingDate": "0001-01-01T00:00:00",
-        "PhoneNumbers": [],
-        "Locations": [],
-        "Name": null,
-        "Id": "scrubbed id",
-        "Label": "Company"
-      },
-      {
-        "FoundingDate": "0001-01-01T00:00:00",
-        "PhoneNumbers": [],
-        "Locations": [],
-        "Name": null,
-        "Id": "scrubbed id",
-        "Label": "Company"
-      },
-      {
-        "FoundingDate": "0001-01-01T00:00:00",
-        "PhoneNumbers": [],
-        "Locations": [],
-        "Name": null,
-        "Id": "scrubbed id",
-        "Label": "Company"
-      },
-      {
-        "FoundingDate": "0001-01-01T00:00:00",
-        "PhoneNumbers": [],
-        "Locations": [],
-        "Name": null,
-        "Id": "scrubbed id",
-        "Label": "Company"
-      },
-      {
-        "FoundingDate": "0001-01-01T00:00:00",
-        "PhoneNumbers": [],
-        "Locations": [],
-        "Name": null,
-        "Id": "scrubbed id",
-        "Label": "Company"
       }
     ],
     "Language": [
       {
         "IetfLanguageTag": null,
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
         "Label": "Language"
       },
       {
         "IetfLanguageTag": null,
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
         "Label": "Language"
       },
       {
         "IetfLanguageTag": null,
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
         "Label": "Language"
       },
       {
         "IetfLanguageTag": null,
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
         "Label": "Language"
       },
       {
         "IetfLanguageTag": null,
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
         "Label": "Language"
       },
       {
         "IetfLanguageTag": null,
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
         "Label": "Language"
       },
       {
         "IetfLanguageTag": null,
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
         "Label": "Language"
       },
       {
         "IetfLanguageTag": null,
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
         "Label": "Language"
       },
       {
         "IetfLanguageTag": null,
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
         "Label": "Language"
       },
       {
         "IetfLanguageTag": null,
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
         "Label": "Language"
       }
     ],
@@ -170,7 +161,7 @@
         "PhoneNumbers": [],
         "SomeObscureProperty": null,
         "Name": null,
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
         "Label": "Person"
       },
       {
@@ -181,7 +172,7 @@
         "PhoneNumbers": [],
         "SomeObscureProperty": null,
         "Name": null,
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
         "Label": "Person"
       },
       {
@@ -192,7 +183,7 @@
         "PhoneNumbers": [],
         "SomeObscureProperty": null,
         "Name": null,
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
         "Label": "Person"
       },
       {
@@ -203,7 +194,7 @@
         "PhoneNumbers": [],
         "SomeObscureProperty": null,
         "Name": null,
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
         "Label": "Person"
       },
       {
@@ -214,7 +205,7 @@
         "PhoneNumbers": [],
         "SomeObscureProperty": null,
         "Name": null,
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
         "Label": "Person"
       },
       {
@@ -225,7 +216,7 @@
         "PhoneNumbers": [],
         "SomeObscureProperty": null,
         "Name": null,
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
         "Label": "Person"
       },
       {
@@ -236,7 +227,7 @@
         "PhoneNumbers": [],
         "SomeObscureProperty": null,
         "Name": null,
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
         "Label": "Person"
       },
       {
@@ -247,7 +238,7 @@
         "PhoneNumbers": [],
         "SomeObscureProperty": null,
         "Name": null,
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
         "Label": "Person"
       },
       {
@@ -258,7 +249,7 @@
         "PhoneNumbers": [],
         "SomeObscureProperty": null,
         "Name": null,
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
         "Label": "Person"
       },
       {
@@ -269,7 +260,7 @@
         "PhoneNumbers": [],
         "SomeObscureProperty": null,
         "Name": null,
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
         "Label": "Person"
       },
       {
@@ -280,8 +271,17 @@
         "PhoneNumbers": [],
         "SomeObscureProperty": null,
         "Name": null,
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
         "Label": "Person"
+      }
+    ],
+    "TimeFrame": [
+      {
+        "Enabled": false,
+        "StartTime": "00:00:00",
+        "Duration": "00:00:00",
+        "Id": "scrubbed Id",
+        "Label": "TimeFrame"
       }
     ]
   }

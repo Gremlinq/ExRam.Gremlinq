@@ -9,13 +9,13 @@
         "PhoneNumbers": [],
         "SomeObscureProperty": null,
         "Name": {
-          "Id": "scrubbed id",
+          "Id": "scrubbed Id",
           "Label": null,
           "Properties": null,
           "Value": "Bob",
           "Key": null
         },
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
         "Label": "Person"
       },
       "Item2": {
@@ -26,13 +26,13 @@
         "PhoneNumbers": [],
         "SomeObscureProperty": null,
         "Name": {
-          "Id": "scrubbed id",
+          "Id": "scrubbed Id",
           "Label": null,
           "Properties": null,
           "Value": "Bob",
           "Key": null
         },
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
         "Label": "Person"
       }
     },
@@ -44,13 +44,13 @@
       "PhoneNumbers": [],
       "SomeObscureProperty": null,
       "Name": {
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
         "Label": null,
         "Properties": null,
         "Value": "Bob",
         "Key": null
       },
-      "Id": "scrubbed id",
+      "Id": "scrubbed Id",
       "Label": "Person"
     }
   },
@@ -64,7 +64,7 @@
         "PhoneNumbers": [],
         "SomeObscureProperty": null,
         "Name": null,
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
         "Label": "Person"
       },
       "Item2": {
@@ -75,7 +75,7 @@
         "PhoneNumbers": [],
         "SomeObscureProperty": null,
         "Name": null,
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
         "Label": "Person"
       }
     },
@@ -87,7 +87,7 @@
       "PhoneNumbers": [],
       "SomeObscureProperty": null,
       "Name": null,
-      "Id": "scrubbed id",
+      "Id": "scrubbed Id",
       "Label": "Person"
     }
   },
@@ -101,7 +101,7 @@
         "PhoneNumbers": [],
         "SomeObscureProperty": null,
         "Name": null,
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
         "Label": "Person"
       },
       "Item2": {
@@ -112,7 +112,7 @@
         "PhoneNumbers": [],
         "SomeObscureProperty": null,
         "Name": null,
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
         "Label": "Person"
       }
     },
@@ -124,7 +124,7 @@
       "PhoneNumbers": [],
       "SomeObscureProperty": null,
       "Name": null,
-      "Id": "scrubbed id",
+      "Id": "scrubbed Id",
       "Label": "Person"
     }
   },
@@ -138,7 +138,7 @@
         "PhoneNumbers": [],
         "SomeObscureProperty": null,
         "Name": null,
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
         "Label": "Person"
       },
       "Item2": {
@@ -149,7 +149,7 @@
         "PhoneNumbers": [],
         "SomeObscureProperty": null,
         "Name": null,
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
         "Label": "Person"
       }
     },
@@ -161,62 +161,7 @@
       "PhoneNumbers": [],
       "SomeObscureProperty": null,
       "Name": null,
-      "Id": "scrubbed id",
-      "Label": "Person"
-    }
-  },
-  {
-    "Item1": {
-      "Item1": {
-        "Age": 0,
-        "Gender": 0,
-        "Image": "",
-        "RegistrationDate": "2020-04-07T14:43:36+00:00",
-        "PhoneNumbers": [],
-        "SomeObscureProperty": null,
-        "Name": {
-          "Id": "scrubbed id",
-          "Label": null,
-          "Properties": null,
-          "Value": "Bob",
-          "Key": null
-        },
-        "Id": "scrubbed id",
-        "Label": "Person"
-      },
-      "Item2": {
-        "Age": 0,
-        "Gender": 0,
-        "Image": "",
-        "RegistrationDate": "2020-04-07T14:43:36+00:00",
-        "PhoneNumbers": [],
-        "SomeObscureProperty": null,
-        "Name": {
-          "Id": "scrubbed id",
-          "Label": null,
-          "Properties": null,
-          "Value": "Bob",
-          "Key": null
-        },
-        "Id": "scrubbed id",
-        "Label": "Person"
-      }
-    },
-    "Item2": {
-      "Age": 0,
-      "Gender": 0,
-      "Image": "",
-      "RegistrationDate": "2020-04-07T14:43:36+00:00",
-      "PhoneNumbers": [],
-      "SomeObscureProperty": null,
-      "Name": {
-        "Id": "scrubbed id",
-        "Label": null,
-        "Properties": null,
-        "Value": "Bob",
-        "Key": null
-      },
-      "Id": "scrubbed id",
+      "Id": "scrubbed Id",
       "Label": "Person"
     }
   },
@@ -230,7 +175,7 @@
         "PhoneNumbers": [],
         "SomeObscureProperty": null,
         "Name": null,
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
         "Label": "Person"
       },
       "Item2": {
@@ -241,7 +186,7 @@
         "PhoneNumbers": [],
         "SomeObscureProperty": null,
         "Name": null,
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
         "Label": "Person"
       }
     },
@@ -253,44 +198,7 @@
       "PhoneNumbers": [],
       "SomeObscureProperty": null,
       "Name": null,
-      "Id": "scrubbed id",
-      "Label": "Person"
-    }
-  },
-  {
-    "Item1": {
-      "Item1": {
-        "Age": 0,
-        "Gender": 1,
-        "Image": "",
-        "RegistrationDate": null,
-        "PhoneNumbers": [],
-        "SomeObscureProperty": null,
-        "Name": null,
-        "Id": "scrubbed id",
-        "Label": "Person"
-      },
-      "Item2": {
-        "Age": 0,
-        "Gender": 1,
-        "Image": "",
-        "RegistrationDate": null,
-        "PhoneNumbers": [],
-        "SomeObscureProperty": null,
-        "Name": null,
-        "Id": "scrubbed id",
-        "Label": "Person"
-      }
-    },
-    "Item2": {
-      "Age": 0,
-      "Gender": 1,
-      "Image": "",
-      "RegistrationDate": null,
-      "PhoneNumbers": [],
-      "SomeObscureProperty": null,
-      "Name": null,
-      "Id": "scrubbed id",
+      "Id": "scrubbed Id",
       "Label": "Person"
     }
   },
@@ -304,13 +212,13 @@
         "PhoneNumbers": [],
         "SomeObscureProperty": null,
         "Name": {
-          "Id": "scrubbed id",
+          "Id": "scrubbed Id",
           "Label": null,
           "Properties": null,
-          "Value": "Marko",
+          "Value": "Bob",
           "Key": null
         },
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
         "Label": "Person"
       },
       "Item2": {
@@ -321,13 +229,13 @@
         "PhoneNumbers": [],
         "SomeObscureProperty": null,
         "Name": {
-          "Id": "scrubbed id",
+          "Id": "scrubbed Id",
           "Label": null,
           "Properties": null,
-          "Value": "Marko",
+          "Value": "Bob",
           "Key": null
         },
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
         "Label": "Person"
       }
     },
@@ -339,13 +247,105 @@
       "PhoneNumbers": [],
       "SomeObscureProperty": null,
       "Name": {
-        "Id": "scrubbed id",
+        "Id": "scrubbed Id",
+        "Label": null,
+        "Properties": null,
+        "Value": "Bob",
+        "Key": null
+      },
+      "Id": "scrubbed Id",
+      "Label": "Person"
+    }
+  },
+  {
+    "Item1": {
+      "Item1": {
+        "Age": 0,
+        "Gender": 1,
+        "Image": "",
+        "RegistrationDate": null,
+        "PhoneNumbers": [],
+        "SomeObscureProperty": null,
+        "Name": null,
+        "Id": "scrubbed Id",
+        "Label": "Person"
+      },
+      "Item2": {
+        "Age": 0,
+        "Gender": 1,
+        "Image": "",
+        "RegistrationDate": null,
+        "PhoneNumbers": [],
+        "SomeObscureProperty": null,
+        "Name": null,
+        "Id": "scrubbed Id",
+        "Label": "Person"
+      }
+    },
+    "Item2": {
+      "Age": 0,
+      "Gender": 1,
+      "Image": "",
+      "RegistrationDate": null,
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": "scrubbed Id",
+      "Label": "Person"
+    }
+  },
+  {
+    "Item1": {
+      "Item1": {
+        "Age": 0,
+        "Gender": 0,
+        "Image": "",
+        "RegistrationDate": "2020-04-07T14:43:36+00:00",
+        "PhoneNumbers": [],
+        "SomeObscureProperty": null,
+        "Name": {
+          "Id": "scrubbed Id",
+          "Label": null,
+          "Properties": null,
+          "Value": "Marko",
+          "Key": null
+        },
+        "Id": "scrubbed Id",
+        "Label": "Person"
+      },
+      "Item2": {
+        "Age": 0,
+        "Gender": 0,
+        "Image": "",
+        "RegistrationDate": "2020-04-07T14:43:36+00:00",
+        "PhoneNumbers": [],
+        "SomeObscureProperty": null,
+        "Name": {
+          "Id": "scrubbed Id",
+          "Label": null,
+          "Properties": null,
+          "Value": "Marko",
+          "Key": null
+        },
+        "Id": "scrubbed Id",
+        "Label": "Person"
+      }
+    },
+    "Item2": {
+      "Age": 0,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": "2020-04-07T14:43:36+00:00",
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": {
+        "Id": "scrubbed Id",
         "Label": null,
         "Properties": null,
         "Value": "Marko",
         "Key": null
       },
-      "Id": "scrubbed id",
+      "Id": "scrubbed Id",
       "Label": "Person"
     }
   }
