@@ -30,7 +30,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                                 _configuration.GetRequiredConfiguration("Database"),
                                 _configuration.GetRequiredConfiguration("Graph"))
                             .AuthenticateBy(_configuration.GetRequiredConfiguration("AuthKey"))
-                            .ConfigureWebSocket(builder => builder
+                            .ConfigureWebSocket(configurator => configurator
                                 .Configure(_configuration));
                     });
             }
