@@ -25,12 +25,13 @@ namespace ExRam.Gremlinq.Core.AspNet
         {
             return setup
                 .UseCosmosDb()
-                .UseModel(GraphModel
-                    .FromBaseTypes<TVertex, TEdge>(lookup => lookup
-                        .IncludeAssembliesOfBaseTypes())
-                    .ConfigureProperties(model => model
-                        .ConfigureElement<TVertex>(conf => conf
-                            .IgnoreOnUpdate(partitionKeyExpression))));
+                .ConfigureEnvironment(env => env
+                    .UseModel(GraphModel
+                        .FromBaseTypes<TVertex, TEdge>(lookup => lookup
+                            .IncludeAssembliesOfBaseTypes())
+                        .ConfigureProperties(model => model
+                            .ConfigureElement<TVertex>(conf => conf
+                                .IgnoreOnUpdate(partitionKeyExpression)))));
         }
     }
 }
