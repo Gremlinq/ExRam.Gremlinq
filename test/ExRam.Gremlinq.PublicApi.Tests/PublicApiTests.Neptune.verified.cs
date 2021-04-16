@@ -14,6 +14,9 @@ namespace ExRam.Gremlinq.Providers.Neptune
     public interface INeptuneConfiguratorWithUri : ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation
     {
         ExRam.Gremlinq.Providers.Neptune.INeptuneConfiguratorWithUri ConfigureWebSocket(System.Func<ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurator, ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurator> transformation);
-        ExRam.Gremlinq.Providers.Neptune.INeptuneConfiguratorWithUri UseElasticSearch(System.Uri endPoint);
+    }
+    public static class NeptuneConfiguratorWithUriExtensions
+    {
+        public static ExRam.Gremlinq.Providers.Neptune.INeptuneConfiguratorWithUri UseElasticSearch(this ExRam.Gremlinq.Providers.Neptune.INeptuneConfiguratorWithUri configurator, System.Uri elasticSearchEndPoint) { }
     }
 }
