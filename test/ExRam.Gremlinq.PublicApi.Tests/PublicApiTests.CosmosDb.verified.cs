@@ -2,14 +2,14 @@ namespace ExRam.Gremlinq.Core
 {
     public static class GremlinQueryEnvironmentExtensions
     {
-        public static ExRam.Gremlinq.Core.IGremlinQuerySource UseCosmosDb(this ExRam.Gremlinq.Core.IConfigurableGremlinQuerySource source, System.Func<ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurationBuilder, ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation> transformation) { }
+        public static ExRam.Gremlinq.Core.IGremlinQuerySource UseCosmosDb(this ExRam.Gremlinq.Core.IConfigurableGremlinQuerySource source, System.Func<ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator, ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation> transformation) { }
     }
 }
 namespace ExRam.Gremlinq.Providers.CosmosDb
 {
     public static class CosmosDbConfigurationBuilderExtensions
     {
-        public static ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurationBuilderWithUri At(this ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurationBuilder builder, string uri, string databaseName, string graphName) { }
+        public static ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfiguratorWithUri At(this ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator builder, string uri, string databaseName, string graphName) { }
     }
     public readonly struct CosmosDbKey
     {
@@ -18,16 +18,16 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
         public string Id { get; }
         public string? PartitionKey { get; }
     }
-    public interface ICosmosDbConfigurationBuilder
+    public interface ICosmosDbConfigurator
     {
-        ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurationBuilderWithUri At(System.Uri uri, string databaseName, string graphName);
+        ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfiguratorWithUri At(System.Uri uri, string databaseName, string graphName);
     }
-    public interface ICosmosDbConfigurationBuilderWithAuthKey : ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation
+    public interface ICosmosDbConfiguratorWithAuthKey : ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation
     {
         ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation ConfigureWebSocket(System.Func<ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurator, ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurator> transformation);
     }
-    public interface ICosmosDbConfigurationBuilderWithUri
+    public interface ICosmosDbConfiguratorWithUri
     {
-        ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurationBuilderWithAuthKey AuthenticateBy(string authKey);
+        ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfiguratorWithAuthKey AuthenticateBy(string authKey);
     }
 }
