@@ -12,12 +12,9 @@
           "value": {
             "@type": "g:VertexProperty",
             "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "value": "+49",
-              "label": "CountryCallingCode"
+              "id": "scrubbed Id",
+              "label": "CountryCallingCode",
+              "value": "+49"
             }
           }
         }
@@ -32,12 +29,9 @@
           "value": {
             "@type": "g:VertexProperty",
             "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "value": "GER",
-              "label": "Name"
+              "id": "scrubbed Id",
+              "label": "CountryCallingCode",
+              "value": "+49"
             }
           }
         }
@@ -52,12 +46,9 @@
           "value": {
             "@type": "g:VertexProperty",
             "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "value": "GER",
-              "label": "Name"
+              "id": "scrubbed Id",
+              "label": "Name",
+              "value": "GER"
             }
           }
         }
@@ -72,12 +63,9 @@
           "value": {
             "@type": "g:VertexProperty",
             "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "value": "+49",
-              "label": "CountryCallingCode"
+              "id": "scrubbed Id",
+              "label": "Name",
+              "value": "GER"
             }
           }
         }

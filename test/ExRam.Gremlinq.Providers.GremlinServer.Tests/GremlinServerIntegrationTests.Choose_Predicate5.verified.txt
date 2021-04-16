@@ -7,9 +7,9 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 20
+            "@value": 14
           },
-          "value": false
+          "value": true
         }
       },
       {
@@ -17,9 +17,9 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 14
+            "@value": 20
           },
-          "value": true
+          "value": false
         }
       }
     ]

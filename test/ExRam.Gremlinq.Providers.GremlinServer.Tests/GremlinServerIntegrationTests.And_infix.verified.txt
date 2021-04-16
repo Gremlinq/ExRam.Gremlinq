@@ -12,10 +12,7 @@
           "value": {
             "@type": "g:Vertex",
             "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
+              "id": "scrubbed Id",
               "label": "Person"
             }
           }
@@ -31,10 +28,7 @@
           "value": {
             "@type": "g:Vertex",
             "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
+              "id": "scrubbed Id",
               "label": "Person"
             }
           }
@@ -50,10 +44,7 @@
           "value": {
             "@type": "g:Vertex",
             "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
+              "id": "scrubbed Id",
               "label": "Person"
             }
           }
@@ -69,10 +60,7 @@
           "value": {
             "@type": "g:Vertex",
             "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
+              "id": "scrubbed Id",
               "label": "Person"
             }
           }
@@ -88,10 +76,7 @@
           "value": {
             "@type": "g:Vertex",
             "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
+              "id": "scrubbed Id",
               "label": "Person"
             }
           }
@@ -107,10 +92,7 @@
           "value": {
             "@type": "g:Vertex",
             "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
+              "id": "scrubbed Id",
               "label": "Person"
             }
           }
@@ -126,10 +108,7 @@
           "value": {
             "@type": "g:Vertex",
             "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
+              "id": "scrubbed Id",
               "label": "Person"
             }
           }

@@ -1,27 +1,27 @@
 [
   [
     {
-      "id": "scrubbed id",
+      "id": "scrubbed Id",
       "label": "Country",
-      "type": "vertex",
       "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ],
         "Name": [
           {
-            "id": "scrubbed id",
-            "value": "GER",
+            "id": "scrubbed Id",
             "properties": {
               "de": "Deutschland",
               "en": "Germany"
-            }
+            },
+            "value": "GER"
+          }
+        ],
+        "PartitionKey": [
+          {
+            "id": "scrubbed Id",
+            "value": "PartitionKey"
           }
         ]
-      }
+      },
+      "type": "vertex"
     }
   ]
 ]

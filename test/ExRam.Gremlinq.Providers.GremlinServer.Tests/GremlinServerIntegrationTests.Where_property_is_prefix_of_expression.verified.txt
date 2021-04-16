@@ -37,13 +37,13 @@
                           },
                           "label",
                           "CountryCallingCode",
-                          "value",
-                          "+49",
                           "properties",
                           {
                             "@type": "g:Map",
                             "@value": []
-                          }
+                          },
+                          "value",
+                          "+49"
                         ]
                       }
                     ]
@@ -62,8 +62,6 @@
                           },
                           "label",
                           "LocalizableDescription",
-                          "value",
-                          "",
                           "properties",
                           {
                             "@type": "g:Map",
@@ -71,7 +69,9 @@
                               "someKey",
                               "value"
                             ]
-                          }
+                          },
+                          "value",
+                          ""
                         ]
                       }
                     ]
@@ -117,13 +117,13 @@
                           },
                           "label",
                           "CountryCallingCode",
-                          "value",
-                          "+49",
                           "properties",
                           {
                             "@type": "g:Map",
                             "@value": []
-                          }
+                          },
+                          "value",
+                          "+49"
                         ]
                       }
                     ]
@@ -142,8 +142,6 @@
                           },
                           "label",
                           "LocalizableDescription",
-                          "value",
-                          "",
                           "properties",
                           {
                             "@type": "g:Map",
@@ -151,7 +149,9 @@
                               "someKey",
                               "value"
                             ]
-                          }
+                          },
+                          "value",
+                          ""
                         ]
                       }
                     ]

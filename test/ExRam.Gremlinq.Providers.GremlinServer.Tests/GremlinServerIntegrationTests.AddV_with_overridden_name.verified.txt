@@ -37,13 +37,13 @@
                           },
                           "label",
                           "lang",
-                          "value",
-                          "en",
                           "properties",
                           {
                             "@type": "g:Map",
                             "@value": []
-                          }
+                          },
+                          "value",
+                          "en"
                         ]
                       }
                     ]

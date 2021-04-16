@@ -12,15 +12,12 @@
           "value": {
             "@type": "g:VertexProperty",
             "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
+              "id": "scrubbed Id",
+              "label": "Age",
               "value": {
                 "@type": "g:Int32",
                 "@value": 0
-              },
-              "label": "Age"
+              }
             }
           }
         }
@@ -35,15 +32,12 @@
           "value": {
             "@type": "g:VertexProperty",
             "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
+              "id": "scrubbed Id",
+              "label": "Age",
               "value": {
                 "@type": "g:Int32",
                 "@value": 0
-              },
-              "label": "Age"
+              }
             }
           }
         }
@@ -58,15 +52,12 @@
           "value": {
             "@type": "g:VertexProperty",
             "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
+              "id": "scrubbed Id",
+              "label": "Age",
               "value": {
                 "@type": "g:Int32",
                 "@value": 0
-              },
-              "label": "Age"
+              }
             }
           }
         }
@@ -81,15 +72,12 @@
           "value": {
             "@type": "g:VertexProperty",
             "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
+              "id": "scrubbed Id",
+              "label": "Age",
               "value": {
                 "@type": "g:Int32",
                 "@value": 0
-              },
-              "label": "Age"
+              }
             }
           }
         }
@@ -104,15 +92,12 @@
           "value": {
             "@type": "g:VertexProperty",
             "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
+              "id": "scrubbed Id",
+              "label": "Age",
               "value": {
                 "@type": "g:Int32",
                 "@value": 0
-              },
-              "label": "Age"
+              }
             }
           }
         }
@@ -127,15 +112,12 @@
           "value": {
             "@type": "g:VertexProperty",
             "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
+              "id": "scrubbed Id",
+              "label": "Age",
               "value": {
                 "@type": "g:Int32",
                 "@value": 0
-              },
-              "label": "Age"
+              }
             }
           }
         }
@@ -150,15 +132,12 @@
           "value": {
             "@type": "g:VertexProperty",
             "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
+              "id": "scrubbed Id",
+              "label": "Age",
               "value": {
                 "@type": "g:Int32",
                 "@value": 0
-              },
-              "label": "Age"
+              }
             }
           }
         }
@@ -173,15 +152,12 @@
           "value": {
             "@type": "g:VertexProperty",
             "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
+              "id": "scrubbed Id",
+              "label": "Age",
               "value": {
                 "@type": "g:Int32",
                 "@value": 0
-              },
-              "label": "Age"
+              }
             }
           }
         }
@@ -196,15 +172,12 @@
           "value": {
             "@type": "g:VertexProperty",
             "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
+              "id": "scrubbed Id",
+              "label": "Age",
               "value": {
                 "@type": "g:Int32",
                 "@value": 0
-              },
-              "label": "Age"
+              }
             }
           }
         }
@@ -219,15 +192,12 @@
           "value": {
             "@type": "g:VertexProperty",
             "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
+              "id": "scrubbed Id",
+              "label": "Age",
               "value": {
                 "@type": "g:Int32",
                 "@value": 0
-              },
-              "label": "Age"
+              }
             }
           }
         }

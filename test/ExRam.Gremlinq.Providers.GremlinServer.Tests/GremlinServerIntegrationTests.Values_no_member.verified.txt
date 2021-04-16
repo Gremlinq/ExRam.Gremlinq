@@ -7,6 +7,29 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "gx:ByteBuffer",
+            "@value": "AQIDBAUGBwg="
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 11
+          },
+          "value": "Marko"
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
             "@value": 11
           },
           "value": {
@@ -33,35 +56,12 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "gx:ByteBuffer",
-            "@value": "AQIDBAUGBwg="
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
             "@value": 11
           },
           "value": {
             "@type": "g:Int32",
             "@value": 21
           }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 11
-          },
-          "value": "Marko"
         }
       }
     ]

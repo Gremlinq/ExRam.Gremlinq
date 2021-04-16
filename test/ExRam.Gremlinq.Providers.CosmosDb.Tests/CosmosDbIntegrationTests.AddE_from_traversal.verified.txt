@@ -1,13 +1,13 @@
 [
   [
     {
-      "id": "scrubbed id",
-      "label": "LivesIn",
-      "type": "edge",
-      "inVLabel": "Person",
-      "outVLabel": "Country",
+      "id": "scrubbed Id",
       "inV": "scrubbed id",
-      "outV": "scrubbed id"
+      "inVLabel": "Person",
+      "label": "LivesIn",
+      "outV": "scrubbed id",
+      "outVLabel": "Country",
+      "type": "edge"
     }
   ]
 ]

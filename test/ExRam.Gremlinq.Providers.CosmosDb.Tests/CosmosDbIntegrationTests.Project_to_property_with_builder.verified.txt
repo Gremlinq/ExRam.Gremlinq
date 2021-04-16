@@ -3,23 +3,23 @@
     {
       "Age": 0,
       "in!": {
-        "id": "scrubbed id",
+        "id": "scrubbed Id",
         "label": "Country",
-        "type": "vertex",
         "properties": {
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ],
           "CountryCallingCode": [
             {
-              "id": "scrubbed id",
+              "id": "scrubbed Id",
               "value": "+49"
             }
+          ],
+          "PartitionKey": [
+            {
+              "id": "scrubbed Id",
+              "value": "PartitionKey"
+            }
           ]
-        }
+        },
+        "type": "vertex"
       }
     }
   ]

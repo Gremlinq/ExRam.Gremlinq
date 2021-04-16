@@ -1,12 +1,12 @@
 [
   [
     {
-      "id": "scrubbed id",
-      "value": "Aachen",
+      "id": "scrubbed Id",
       "label": "Locations",
       "properties": {
         "ValidFrom": 1546304400000
-      }
+      },
+      "value": "Aachen"
     }
   ]
 ]

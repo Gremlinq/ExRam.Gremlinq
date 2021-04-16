@@ -12,12 +12,9 @@
           "value": {
             "@type": "g:VertexProperty",
             "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "value": "Marko",
-              "label": "Name"
+              "id": "scrubbed Id",
+              "label": "Name",
+              "value": "Bob"
             }
           }
         }
@@ -32,12 +29,9 @@
           "value": {
             "@type": "g:VertexProperty",
             "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "value": "Bob",
-              "label": "Name"
+              "id": "scrubbed Id",
+              "label": "Name",
+              "value": "Bob"
             }
           }
         }
@@ -52,12 +46,9 @@
           "value": {
             "@type": "g:VertexProperty",
             "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "value": "Bob",
-              "label": "Name"
+              "id": "scrubbed Id",
+              "label": "Name",
+              "value": "Marko"
             }
           }
         }
