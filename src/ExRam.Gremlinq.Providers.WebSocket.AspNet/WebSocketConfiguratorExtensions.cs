@@ -8,13 +8,13 @@ namespace ExRam.Gremlinq.Core.AspNet
     public static class WebSocketConfiguratorExtensions
     {
         public static IWebSocketConfigurator Configure(
-            this IWebSocketConfigurator builder,
+            this IWebSocketConfigurator configurator,
             IConfiguration configuration)
         {
             var authenticationSection = configuration.GetSection("Authentication");
             var connectionPoolSection = configuration.GetSection("ConnectionPool");
 
-            builder = builder
+            configurator = configurator
                 .At(configuration.GetRequiredConfiguration("Uri"))
                 .ConfigureConnectionPool(connectionPoolSettings =>
                 {
@@ -26,15 +26,15 @@ namespace ExRam.Gremlinq.Core.AspNet
                 });
 
             if (configuration["Alias"] is { } alias)
-                builder = builder.SetAlias(alias);
+                configurator = configurator.SetAlias(alias);
 
             if (authenticationSection["Username"] is { } username && authenticationSection["Password"] is { } password)
-                builder = builder.AuthenticateBy(username, password);
+                configurator = configurator.AuthenticateBy(username, password);
 
             if (Enum.TryParse<SerializationFormat>(configuration[$"{nameof(SerializationFormat)}"], out var graphsonVersion))
-                builder = builder.SetSerializationFormat(graphsonVersion);
+                configurator = configurator.SetSerializationFormat(graphsonVersion);
 
-            return builder;
+            return configurator;
         }
     }
 }

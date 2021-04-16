@@ -23,14 +23,14 @@ namespace ExRam.Gremlinq.Core.AspNet
             public IGremlinQuerySource Transform(IGremlinQuerySource source)
             {
                 return source
-                    .UseNeptune(builder =>
+                    .UseNeptune(configurator =>
                     {
-                        var builderWithUri = builder
+                        configurator = configurator
                             .At(new Uri("ws://localhost:8182"));
 
                         var transformation = (_configuration["ElasticSearchEndPoint"] is { } endPoint)
-                            ? builderWithUri.UseElasticSearch(new Uri(endPoint))
-                            : builderWithUri;
+                            ? configurator.UseElasticSearch(new Uri(endPoint))
+                            : configurator;
 
                         return transformation
                             .ConfigureWebSocket(_ => _

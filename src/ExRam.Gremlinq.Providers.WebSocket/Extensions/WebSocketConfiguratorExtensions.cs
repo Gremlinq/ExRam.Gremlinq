@@ -2,7 +2,7 @@
 
 namespace ExRam.Gremlinq.Providers.WebSocket
 {
-    public static class WebSocketGremlinQueryEnvironmentBuilderExtensions
+    public static class WebSocketConfiguratorExtensions
     {
         public static IWebSocketConfigurator At(this IWebSocketConfigurator builder, string uri)
         {

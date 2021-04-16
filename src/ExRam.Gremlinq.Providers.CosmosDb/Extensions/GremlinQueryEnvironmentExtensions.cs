@@ -13,20 +13,20 @@ namespace ExRam.Gremlinq.Core
             private readonly Uri? _uri;
             private readonly string? _authKey;
             private readonly string? _collectionName;
-            private readonly IWebSocketConfigurator _webSocketBuilder;
+            private readonly IWebSocketConfigurator _webSocketConfigurator;
 
-            public CosmosDbConfigurator(IWebSocketConfigurator webSocketBuilder, Uri? uri, string? collectionName, string? authKey)
+            public CosmosDbConfigurator(IWebSocketConfigurator webSocketConfigurator, Uri? uri, string? collectionName, string? authKey)
             {
+                _uri = uri;
                 _authKey = authKey;
                 _collectionName = collectionName;
-                _webSocketBuilder = webSocketBuilder;
-                _uri = uri;
+                _webSocketConfigurator = webSocketConfigurator;
             }
 
             public ICosmosDbConfigurator At(Uri uri, string databaseName, string graphName)
             {
                 return new CosmosDbConfigurator(
-                    _webSocketBuilder,
+                    _webSocketConfigurator,
                     uri,
                     $"/dbs/{databaseName}/colls/{graphName}",
                     _authKey);
@@ -35,7 +35,7 @@ namespace ExRam.Gremlinq.Core
             public ICosmosDbConfigurator AuthenticateBy(string authKey)
             {
                 return new CosmosDbConfigurator(
-                    _webSocketBuilder,
+                    _webSocketConfigurator,
                     _uri,
                     _collectionName,
                     authKey);
@@ -44,7 +44,7 @@ namespace ExRam.Gremlinq.Core
             public ICosmosDbConfigurator ConfigureWebSocket(Func<IWebSocketConfigurator, IWebSocketConfigurator> transformation)
             {
                 return new CosmosDbConfigurator(
-                    transformation(_webSocketBuilder),
+                    transformation(_webSocketConfigurator),
                     _uri,
                     _collectionName,
                     _authKey);
@@ -54,7 +54,7 @@ namespace ExRam.Gremlinq.Core
             {
                 if (_uri is { } uri && _authKey is { } authKey && _collectionName is { } collectionName)
                 {
-                    return _webSocketBuilder
+                    return _webSocketConfigurator
                         .At(uri)
                         .AuthenticateBy(collectionName, authKey)
                         .SetSerializationFormat(SerializationFormat.GraphSonV2)

@@ -202,7 +202,7 @@ namespace ExRam.Gremlinq.Core
             private IGremlinQueryExecutor Build()
             {
                 if (_uri == null)
-                    throw new InvalidOperationException($"No valid Gremlin endpoint found. Configure {nameof(GremlinQuerySource.g)} with {nameof(UseWebSocket)} and use {nameof(At)} on the builder to set a valid Gremlin endpoint.");
+                    throw new InvalidOperationException($"No valid Gremlin endpoint found. Configure {nameof(GremlinQuerySource.g)} with {nameof(UseWebSocket)} and use {nameof(At)} on the configurator to set a valid Gremlin endpoint.");
 
                 if (!"ws".Equals(_uri.Scheme, StringComparison.OrdinalIgnoreCase) && !"wss".Equals(_uri.Scheme, StringComparison.OrdinalIgnoreCase))
                     throw new ArgumentException("Expected the Uri-Scheme to be either \"ws\" or \"wss\".");
@@ -233,9 +233,9 @@ namespace ExRam.Gremlinq.Core
 
         public static IGremlinQuerySource UseWebSocket(
             this IConfigurableGremlinQuerySource source,
-            Func<IWebSocketConfigurator, IGremlinQuerySourceTransformation> builderTransformation)
+            Func<IWebSocketConfigurator, IGremlinQuerySourceTransformation> configuratorTransformation)
         {
-            var builder = new WebSocketConfigurator(
+            var configurator = new WebSocketConfigurator(
                 default,
                 SerializationFormat.GraphSonV3,
                 null,
@@ -245,7 +245,7 @@ namespace ExRam.Gremlinq.Core
                 ImmutableDictionary<string, IGraphSONDeserializer>.Empty,
                 new ConnectionPoolSettings());
 
-            return builderTransformation(builder)
+            return configuratorTransformation(configurator)
                 .Transform(source.ConfigureEnvironment(_ => _))
                 .ConfigureEnvironment(environment => environment
                     .ConfigureDeserializer(d => d
