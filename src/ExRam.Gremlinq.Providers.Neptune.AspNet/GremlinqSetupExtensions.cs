@@ -12,15 +12,9 @@ namespace ExRam.Gremlinq.Core.AspNet
                 .UseProvider<INeptuneConfigurator>(
                     "JanusGraph",
                     (e, f) => e.UseNeptune(f),
-                    (configurator, configuration) =>
-                    {
-                        configurator = configurator
-                            .At(new Uri(configuration.GetRequiredConfiguration("Uri")));
-
-                        return (configuration["ElasticSearchEndPoint"] is { } endPoint)
-                            ? configurator.UseElasticSearch(new Uri(endPoint))
-                            : configurator;
-                    });
+                    (configurator, configuration) => (configuration["ElasticSearchEndPoint"] is { } endPoint)
+                        ? configurator.UseElasticSearch(new Uri(endPoint))
+                        : configurator);
         }
 
         public static GremlinqSetup UseNeptune<TVertex, TEdge>(this GremlinqSetup setup)
