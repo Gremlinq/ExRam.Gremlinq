@@ -28,7 +28,7 @@ namespace ExRam.Gremlinq.Core.AspNet
             return _baseConfiguration.GetSection(key);
         }
 
-        public string this[string key]
+        public string? this[string key]
         {
             get => _baseConfiguration[key];
             set => _baseConfiguration[key] = value;
