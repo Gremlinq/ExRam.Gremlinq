@@ -8,7 +8,7 @@ using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
 {
-    public static class GremlinQueryEnvironmentExtensions
+    public static class ConfigurableGremlinQuerySourceExtensions
     {
         private sealed class GremlinServerConfigurator : IGremlinServerConfigurator
         {

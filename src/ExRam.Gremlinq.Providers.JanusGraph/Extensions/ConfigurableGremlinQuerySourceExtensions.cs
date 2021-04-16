@@ -4,7 +4,7 @@ using ExRam.Gremlinq.Providers.WebSocket;
 
 namespace ExRam.Gremlinq.Core
 {
-    public static class GremlinQueryEnvironmentExtensions
+    public static class ConfigurableGremlinQuerySourceExtensions
     {
         private sealed class JanusGraphConfigurator : IJanusGraphConfigurator
         {
