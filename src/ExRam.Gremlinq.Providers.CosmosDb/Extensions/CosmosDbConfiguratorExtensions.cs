@@ -8,5 +8,10 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
         {
             return configurator.At(new Uri(uri), databaseName, graphName);
         }
+
+        public static ICosmosDbConfigurator AtLocalhost(this ICosmosDbConfigurator configurator, string uri, string databaseName, string graphName)
+        {
+            return configurator.At("ws://localhost:8182", databaseName, graphName);
+        }
     }
 }
