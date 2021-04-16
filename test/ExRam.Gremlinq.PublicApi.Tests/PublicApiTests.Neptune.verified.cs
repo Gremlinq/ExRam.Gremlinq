@@ -14,9 +14,6 @@ namespace ExRam.Gremlinq.Providers.Neptune
     public static class NeptuneConfiguratorExtensions
     {
         public static ExRam.Gremlinq.Providers.Neptune.INeptuneConfigurator AtLocalhost(this ExRam.Gremlinq.Providers.Neptune.INeptuneConfigurator configurator) { }
-    }
-    public static class NeptuneConfiguratorWithUriExtensions
-    {
         public static ExRam.Gremlinq.Providers.Neptune.INeptuneConfigurator UseElasticSearch(this ExRam.Gremlinq.Providers.Neptune.INeptuneConfigurator configurator, System.Uri elasticSearchEndPoint) { }
     }
 }
