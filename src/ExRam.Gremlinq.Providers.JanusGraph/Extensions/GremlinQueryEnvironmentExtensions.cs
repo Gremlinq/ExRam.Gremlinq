@@ -8,27 +8,27 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class JanusGraphConfigurator : IJanusGraphConfigurator
         {
-            private readonly IWebSocketConfigurator _webSocketBuilder;
+            private readonly IWebSocketConfigurator _webSocketConfigurator;
 
-            public JanusGraphConfigurator(IWebSocketConfigurator webSocketBuilder)
+            public JanusGraphConfigurator(IWebSocketConfigurator webSocketConfigurator)
             {
-                _webSocketBuilder = webSocketBuilder;
+                _webSocketConfigurator = webSocketConfigurator;
             }
 
             public IJanusGraphConfigurator At(Uri uri)
             {
-                return new JanusGraphConfigurator(_webSocketBuilder.At(uri));
+                return new JanusGraphConfigurator(_webSocketConfigurator.At(uri));
             }
 
             public IJanusGraphConfigurator ConfigureWebSocket(Func<IWebSocketConfigurator, IWebSocketConfigurator> transformation)
             {
                 return new JanusGraphConfigurator(
-                    transformation(_webSocketBuilder));
+                    transformation(_webSocketConfigurator));
             }
 
             public IGremlinQuerySource Transform(IGremlinQuerySource source)
             {
-                return _webSocketBuilder
+                return _webSocketConfigurator
                     .Transform(source);
             }
         }

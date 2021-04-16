@@ -9,27 +9,27 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class NeptuneConfigurator : INeptuneConfigurator
         {
-            private readonly IWebSocketConfigurator _webSocketBuilder;
+            private readonly IWebSocketConfigurator _webSocketConfigurator;
 
-            public NeptuneConfigurator(IWebSocketConfigurator webSocketBuilder)
+            public NeptuneConfigurator(IWebSocketConfigurator webSocketConfigurator)
             {
-                _webSocketBuilder = webSocketBuilder;
+                _webSocketConfigurator = webSocketConfigurator;
             }
 
             public INeptuneConfigurator At(Uri uri)
             {
-                return new NeptuneConfigurator(_webSocketBuilder.At(uri));
+                return new NeptuneConfigurator(_webSocketConfigurator.At(uri));
             }
             
             public INeptuneConfigurator ConfigureWebSocket(Func<IWebSocketConfigurator, IWebSocketConfigurator> transformation)
             {
                 return new NeptuneConfigurator(
-                    transformation(_webSocketBuilder));
+                    transformation(_webSocketConfigurator));
             }
 
             public IGremlinQuerySource Transform(IGremlinQuerySource source)
             {
-                return _webSocketBuilder
+                return _webSocketConfigurator
                     .Transform(source);
             }
         }
@@ -37,7 +37,7 @@ namespace ExRam.Gremlinq.Core
         public static IGremlinQuerySource UseNeptune(this IConfigurableGremlinQuerySource source, Func<INeptuneConfigurator, IGremlinQuerySourceTransformation> transformation)
         {
             return source
-                .UseWebSocket(builder => transformation(new NeptuneConfigurator(builder)))
+                .UseWebSocket(configurator => transformation(new NeptuneConfigurator(configurator)))
                 .ConfigureEnvironment(environment => environment
                     .ConfigureSerializer(serializer => serializer
                         .ConfigureFragmentSerializer(fragmentSerializer => fragmentSerializer

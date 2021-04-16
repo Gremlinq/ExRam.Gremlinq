@@ -22,7 +22,7 @@ namespace ExRam.Gremlinq.Core.AspNet
             public IGremlinQuerySource Transform(IGremlinQuerySource source)
             {
                 return source
-                   .UseJanusGraph(builder => builder
+                   .UseJanusGraph(configurator => configurator
                         .At(new Uri("ws://localhost:8182"))
                         .ConfigureWebSocket(_ => _
                             .Configure(_configuration)));

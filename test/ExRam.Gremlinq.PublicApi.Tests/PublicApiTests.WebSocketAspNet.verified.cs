@@ -6,6 +6,6 @@ namespace ExRam.Gremlinq.Core.AspNet
     }
     public static class WebSocketConfiguratorExtensions
     {
-        public static ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurator Configure(this ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurator builder, Microsoft.Extensions.Configuration.IConfiguration configuration) { }
+        public static ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurator Configure(this ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurator configurator, Microsoft.Extensions.Configuration.IConfiguration configuration) { }
     }
 }

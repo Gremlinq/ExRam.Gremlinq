@@ -22,9 +22,9 @@ namespace ExRam.Gremlinq.Core.AspNet
             public IGremlinQuerySource Transform(IGremlinQuerySource source)
             {
                 return source
-                    .UseCosmosDb(builder =>
+                    .UseCosmosDb(configurator =>
                     {
-                        return builder
+                        return configurator
                             .At(
                                 _configuration.GetRequiredConfiguration("Uri"),
                                 _configuration.GetRequiredConfiguration("Database"),

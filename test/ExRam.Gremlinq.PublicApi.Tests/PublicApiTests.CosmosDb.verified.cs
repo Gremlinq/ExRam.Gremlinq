@@ -7,9 +7,9 @@ namespace ExRam.Gremlinq.Core
 }
 namespace ExRam.Gremlinq.Providers.CosmosDb
 {
-    public static class CosmosDbConfigurationBuilderExtensions
+    public static class CosmosDbConfiguratorExtensions
     {
-        public static ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator At(this ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator builder, string uri, string databaseName, string graphName) { }
+        public static ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator At(this ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator configurator, string uri, string databaseName, string graphName) { }
     }
     public readonly struct CosmosDbKey
     {
