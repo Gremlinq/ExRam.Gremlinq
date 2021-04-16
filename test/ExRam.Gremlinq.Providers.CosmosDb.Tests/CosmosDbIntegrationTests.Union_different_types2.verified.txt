@@ -7,27 +7,27 @@
       "label": "LivesIn",
       "outV": "scrubbed id",
       "outVLabel": "Person",
+      "type": "edge"
+    },
+    {
+      "id": "scrubbed Id",
+      "inV": "scrubbed id",
+      "inVLabel": "Country",
+      "label": "LivesIn",
+      "outV": "scrubbed id",
+      "outVLabel": "Person",
+      "type": "edge"
+    },
+    {
+      "id": "scrubbed Id",
+      "inV": "scrubbed id",
+      "inVLabel": "Country",
+      "label": "LivesIn",
+      "outV": "scrubbed id",
+      "outVLabel": "Person",
       "properties": {
         "Since": 1586270616000
       },
-      "type": "edge"
-    },
-    {
-      "id": "scrubbed Id",
-      "inV": "scrubbed id",
-      "inVLabel": "Country",
-      "label": "LivesIn",
-      "outV": "scrubbed id",
-      "outVLabel": "Person",
-      "type": "edge"
-    },
-    {
-      "id": "scrubbed Id",
-      "inV": "scrubbed id",
-      "inVLabel": "Country",
-      "label": "LivesIn",
-      "outV": "scrubbed id",
-      "outVLabel": "Person",
       "type": "edge"
     },
     {
