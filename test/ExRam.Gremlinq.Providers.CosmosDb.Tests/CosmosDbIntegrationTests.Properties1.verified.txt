@@ -2,352 +2,352 @@
   [
     {
       "id": "scrubbed id",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+      "label": "IetfLanguageTag",
+      "value": "en"
     },
     {
       "id": "scrubbed id",
-      "value": "+49",
-      "label": "CountryCallingCode"
+      "label": "Gender",
+      "value": 0
     },
     {
       "id": "scrubbed id",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+      "label": "PartitionKey",
+      "value": "PartitionKey"
     },
     {
       "id": "scrubbed id",
-      "value": "en",
-      "label": "IetfLanguageTag"
+      "label": "PartitionKey",
+      "value": "PartitionKey"
     },
     {
       "id": "scrubbed id",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+      "label": "IetfLanguageTag",
+      "value": "en"
     },
     {
       "id": "scrubbed id",
-      "value": 0,
-      "label": "Age"
+      "label": "PartitionKey",
+      "value": "PartitionKey"
     },
     {
       "id": "scrubbed id",
-      "value": 0,
-      "label": "Gender"
+      "label": "Age",
+      "value": 0
     },
     {
       "id": "scrubbed id",
-      "value": "Bob",
-      "label": "Name"
+      "label": "Age",
+      "value": 0
     },
     {
       "id": "scrubbed id",
-      "value": 1586270616000,
-      "label": "RegistrationDate"
+      "label": "PartitionKey",
+      "value": "PartitionKey"
     },
     {
       "id": "scrubbed id",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+      "label": "CountryCallingCode",
+      "value": "+49"
     },
     {
       "id": "scrubbed id",
-      "value": 0,
-      "label": "Age"
+      "label": "IetfLanguageTag",
+      "value": "en"
     },
     {
       "id": "scrubbed id",
-      "value": 0,
-      "label": "Gender"
+      "label": "Age",
+      "value": 0
     },
     {
       "id": "scrubbed id",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+      "label": "PartitionKey",
+      "value": "PartitionKey"
     },
     {
       "id": "scrubbed id",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+      "label": "PartitionKey",
+      "value": "PartitionKey"
     },
     {
       "id": "scrubbed id",
-      "value": 0,
-      "label": "Age"
+      "label": "PartitionKey",
+      "value": "PartitionKey"
     },
     {
       "id": "scrubbed id",
-      "value": 0,
-      "label": "Gender"
+      "label": "Age",
+      "value": 0
     },
     {
       "id": "scrubbed id",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+      "label": "Gender",
+      "value": 0
     },
     {
       "id": "scrubbed id",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+      "label": "PartitionKey",
+      "value": "PartitionKey"
     },
     {
       "id": "scrubbed id",
-      "value": 0,
-      "label": "Age"
+      "label": "RegistrationDate",
+      "value": 1586270616000
     },
     {
       "id": "scrubbed id",
-      "value": 0,
-      "label": "Gender"
+      "label": "PartitionKey",
+      "value": "PartitionKey"
     },
     {
       "id": "scrubbed id",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+      "label": "Image",
+      "value": "AQIDBAUGBwg="
     },
     {
       "id": "scrubbed id",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+      "label": "StartTime",
+      "value": 28800000.0
     },
     {
       "id": "scrubbed id",
-      "value": "en",
-      "label": "IetfLanguageTag"
+      "label": "IetfLanguageTag",
+      "value": "en"
     },
     {
       "id": "scrubbed id",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+      "label": "Gender",
+      "value": 0
     },
     {
       "id": "scrubbed id",
-      "value": "+49",
-      "label": "CountryCallingCode"
+      "label": "PartitionKey",
+      "value": "PartitionKey"
     },
     {
       "id": "scrubbed id",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+      "label": "PartitionKey",
+      "value": "PartitionKey"
     },
     {
       "id": "scrubbed id",
-      "value": 0,
-      "label": "Age"
+      "label": "Age",
+      "value": 0
     },
     {
       "id": "scrubbed id",
-      "value": 0,
-      "label": "Gender"
+      "label": "Age",
+      "value": 0
     },
     {
       "id": "scrubbed id",
-      "value": "Bob",
-      "label": "Name"
+      "label": "PartitionKey",
+      "value": "PartitionKey"
     },
     {
       "id": "scrubbed id",
-      "value": 1586270616000,
-      "label": "RegistrationDate"
+      "label": "Gender",
+      "value": 0
     },
     {
       "id": "scrubbed id",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+      "label": "Duration",
+      "value": 7200000.0
     },
     {
       "id": "scrubbed id",
-      "value": "en",
-      "label": "IetfLanguageTag"
+      "label": "PartitionKey",
+      "value": "PartitionKey"
     },
     {
       "id": "scrubbed id",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+      "label": "Gender",
+      "value": 0
     },
     {
       "id": "scrubbed id",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+      "label": "Gender",
+      "value": 0
     },
     {
       "id": "scrubbed id",
-      "value": 7200000.0,
-      "label": "Duration"
+      "label": "PartitionKey",
+      "value": "PartitionKey"
     },
     {
       "id": "scrubbed id",
-      "value": false,
-      "label": "Enabled"
+      "label": "Name",
+      "value": "Bob"
     },
     {
       "id": "scrubbed id",
-      "value": 28800000.0,
-      "label": "StartTime"
+      "label": "PartitionKey",
+      "value": "PartitionKey"
     },
     {
       "id": "scrubbed id",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+      "label": "PartitionKey",
+      "value": "PartitionKey"
     },
     {
       "id": "scrubbed id",
-      "value": "en",
-      "label": "IetfLanguageTag"
+      "label": "PartitionKey",
+      "value": "PartitionKey"
     },
     {
       "id": "scrubbed id",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+      "label": "IetfLanguageTag",
+      "value": "en"
     },
     {
       "id": "scrubbed id",
-      "value": "en",
-      "label": "IetfLanguageTag"
+      "label": "PartitionKey",
+      "value": "PartitionKey"
     },
     {
       "id": "scrubbed id",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+      "label": "PartitionKey",
+      "value": "PartitionKey"
     },
     {
       "id": "scrubbed id",
-      "value": 0,
-      "label": "Age"
+      "label": "RegistrationDate",
+      "value": 1586270616000
     },
     {
       "id": "scrubbed id",
-      "value": 0,
-      "label": "Gender"
+      "label": "Name",
+      "value": "Bob"
     },
     {
       "id": "scrubbed id",
-      "value": "AQIDBAUGBwg=",
-      "label": "Image"
+      "label": "CountryCallingCode",
+      "value": "+49"
     },
     {
       "id": "scrubbed id",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+      "label": "Enabled",
+      "value": false
     }
   ],
   [
     {
       "id": "scrubbed id",
-      "value": 0,
-      "label": "Age"
+      "label": "Gender",
+      "value": 1
     },
     {
       "id": "scrubbed id",
-      "value": 1,
-      "label": "Gender"
+      "label": "PartitionKey",
+      "value": "PartitionKey"
     },
     {
       "id": "scrubbed id",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+      "label": "PartitionKey",
+      "value": "PartitionKey"
     },
     {
       "id": "scrubbed id",
-      "value": "Marko",
-      "label": "Name"
+      "label": "Name",
+      "value": "GER"
     },
     {
       "id": "scrubbed id",
-      "value": 1586270616000,
-      "label": "RegistrationDate"
+      "label": "Age",
+      "value": 0
     },
     {
       "id": "scrubbed id",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+      "label": "PartitionKey",
+      "value": "PartitionKey"
     },
     {
       "id": "scrubbed id",
-      "value": "en",
-      "label": "IetfLanguageTag"
+      "label": "PhoneNumbers",
+      "value": "+4923456"
     },
     {
       "id": "scrubbed id",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+      "label": "Name",
+      "value": "Marko"
     },
     {
       "id": "scrubbed id",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+      "label": "PartitionKey",
+      "value": "PartitionKey"
     },
     {
       "id": "scrubbed id",
-      "value": -62135596800000,
-      "label": "FoundingDate"
+      "label": "RegistrationDate",
+      "value": 1586270616000
     },
     {
       "id": "scrubbed id",
-      "value": "Aachen",
-      "label": "Locations",
-      "properties": {
-        "ValidFrom": 1546304400000
-      }
+      "label": "FoundingDate",
+      "value": -62135596800000
     },
     {
       "id": "scrubbed id",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+      "label": "lang",
+      "value": "en"
     },
     {
       "id": "scrubbed id",
-      "value": "GER",
-      "label": "Name"
+      "label": "PartitionKey",
+      "value": "PartitionKey"
     },
     {
       "id": "scrubbed id",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+      "label": "FoundingDate",
+      "value": -62135596800000
     },
     {
       "id": "scrubbed id",
-      "value": "GER",
+      "label": "PartitionKey",
+      "value": "PartitionKey"
+    },
+    {
+      "id": "scrubbed id",
       "label": "Name",
       "properties": {
         "de": "Deutschland",
         "en": "Germany"
-      }
+      },
+      "value": "GER"
     },
     {
       "id": "scrubbed id",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+      "label": "PartitionKey",
+      "value": "PartitionKey"
     },
     {
       "id": "scrubbed id",
-      "value": -62135596800000,
-      "label": "FoundingDate"
+      "label": "PartitionKey",
+      "value": "PartitionKey"
     },
     {
       "id": "scrubbed id",
-      "value": "+4912345",
-      "label": "PhoneNumbers"
+      "label": "IetfLanguageTag",
+      "value": "en"
     },
     {
       "id": "scrubbed id",
-      "value": "+4923456",
-      "label": "PhoneNumbers"
+      "label": "PartitionKey",
+      "value": "PartitionKey"
     },
     {
       "id": "scrubbed id",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+      "label": "Locations",
+      "properties": {
+        "ValidFrom": 1546304400000
+      },
+      "value": "Aachen"
     },
     {
       "id": "scrubbed id",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
-    },
-    {
-      "id": "scrubbed id",
-      "value": "en",
-      "label": "lang"
+      "label": "PhoneNumbers",
+      "value": "+4912345"
     }
   ]
 ]

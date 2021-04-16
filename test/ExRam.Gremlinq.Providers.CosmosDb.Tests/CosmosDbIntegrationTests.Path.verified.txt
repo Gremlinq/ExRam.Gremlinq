@@ -9,15 +9,27 @@
       "objects": [
         {
           "id": "scrubbed id",
-          "label": "Person",
-          "type": "vertex",
+          "label": "Country",
           "properties": {
+            "CountryCallingCode": [
+              {
+                "id": "scrubbed id",
+                "value": "+49"
+              }
+            ],
             "PartitionKey": [
               {
                 "id": "scrubbed id",
                 "value": "PartitionKey"
               }
-            ],
+            ]
+          },
+          "type": "vertex"
+        },
+        {
+          "id": "scrubbed id",
+          "label": "Person",
+          "properties": {
             "Age": [
               {
                 "id": "scrubbed id",
@@ -36,51 +48,57 @@
                 "value": "Bob"
               }
             ],
+            "PartitionKey": [
+              {
+                "id": "scrubbed id",
+                "value": "PartitionKey"
+              }
+            ],
             "RegistrationDate": [
               {
                 "id": "scrubbed id",
                 "value": 1586270616000
               }
             ]
-          }
+          },
+          "type": "vertex"
         },
         {
           "id": "scrubbed id",
-          "label": "Country",
-          "type": "vertex",
+          "label": "Person",
           "properties": {
+            "Age": [
+              {
+                "id": "scrubbed id",
+                "value": 0
+              }
+            ],
+            "Gender": [
+              {
+                "id": "scrubbed id",
+                "value": 0
+              }
+            ],
+            "Name": [
+              {
+                "id": "scrubbed id",
+                "value": "Bob"
+              }
+            ],
             "PartitionKey": [
               {
                 "id": "scrubbed id",
                 "value": "PartitionKey"
               }
             ],
-            "CountryCallingCode": [
+            "RegistrationDate": [
               {
                 "id": "scrubbed id",
-                "value": "+49"
+                "value": 1586270616000
               }
             ]
-          }
-        },
-        {
-          "id": "scrubbed id",
-          "label": "Language",
-          "type": "vertex",
-          "properties": {
-            "PartitionKey": [
-              {
-                "id": "scrubbed id",
-                "value": "PartitionKey"
-              }
-            ],
-            "IetfLanguageTag": [
-              {
-                "id": "scrubbed id",
-                "value": "en"
-              }
-            ]
-          }
+          },
+          "type": "vertex"
         }
       ]
     },
@@ -93,71 +111,46 @@
       "objects": [
         {
           "id": "scrubbed id",
-          "label": "Person",
-          "type": "vertex",
-          "properties": {
-            "PartitionKey": [
-              {
-                "id": "scrubbed id",
-                "value": "PartitionKey"
-              }
-            ],
-            "Age": [
-              {
-                "id": "scrubbed id",
-                "value": 0
-              }
-            ],
-            "Gender": [
-              {
-                "id": "scrubbed id",
-                "value": 0
-              }
-            ],
-            "Name": [
-              {
-                "id": "scrubbed id",
-                "value": "Bob"
-              }
-            ],
-            "RegistrationDate": [
-              {
-                "id": "scrubbed id",
-                "value": 1586270616000
-              }
-            ]
-          }
-        },
-        {
-          "id": "scrubbed id",
           "label": "Country",
-          "type": "vertex",
           "properties": {
-            "PartitionKey": [
-              {
-                "id": "scrubbed id",
-                "value": "PartitionKey"
-              }
-            ],
             "CountryCallingCode": [
               {
                 "id": "scrubbed id",
                 "value": "+49"
               }
-            ]
-          }
-        },
-        {
-          "id": "scrubbed id",
-          "label": "Person",
-          "type": "vertex",
-          "properties": {
+            ],
             "PartitionKey": [
               {
                 "id": "scrubbed id",
                 "value": "PartitionKey"
               }
+            ]
+          },
+          "type": "vertex"
+        },
+        {
+          "id": "scrubbed id",
+          "label": "Language",
+          "properties": {
+            "IetfLanguageTag": [
+              {
+                "id": "scrubbed id",
+                "value": "en"
+              }
             ],
+            "PartitionKey": [
+              {
+                "id": "scrubbed id",
+                "value": "PartitionKey"
+              }
+            ]
+          },
+          "type": "vertex"
+        },
+        {
+          "id": "scrubbed id",
+          "label": "Person",
+          "properties": {
             "Age": [
               {
                 "id": "scrubbed id",
@@ -176,13 +169,20 @@
                 "value": "Bob"
               }
             ],
+            "PartitionKey": [
+              {
+                "id": "scrubbed id",
+                "value": "PartitionKey"
+              }
+            ],
             "RegistrationDate": [
               {
                 "id": "scrubbed id",
                 "value": 1586270616000
               }
             ]
-          }
+          },
+          "type": "vertex"
         }
       ]
     }

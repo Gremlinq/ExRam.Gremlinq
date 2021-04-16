@@ -2,69 +2,69 @@
   [
     {
       "id": "scrubbed id",
-      "label": "LivesIn",
-      "type": "edge",
-      "inVLabel": "Country",
-      "outVLabel": "Person",
       "inV": "scrubbed id",
-      "outV": "scrubbed id"
-    },
-    {
-      "id": "scrubbed id",
-      "label": "Speaks",
-      "type": "edge",
       "inVLabel": "Language",
-      "outVLabel": "Country",
-      "inV": "scrubbed id",
-      "outV": "scrubbed id"
-    },
-    {
-      "id": "scrubbed id",
-      "label": "LivesIn",
-      "type": "edge",
-      "inVLabel": "Person",
-      "outVLabel": "Country",
-      "inV": "scrubbed id",
-      "outV": "scrubbed id"
-    },
-    {
-      "id": "scrubbed id",
-      "label": "LivesIn",
-      "type": "edge",
-      "inVLabel": "Country",
-      "outVLabel": "Person",
-      "inV": "scrubbed id",
-      "outV": "scrubbed id"
-    },
-    {
-      "id": "scrubbed id",
-      "label": "LivesIn",
-      "type": "edge",
-      "inVLabel": "Country",
-      "outVLabel": "Person",
-      "inV": "scrubbed id",
-      "outV": "scrubbed id"
-    },
-    {
-      "id": "scrubbed id",
-      "label": "LivesIn",
-      "type": "edge",
-      "inVLabel": "Country",
-      "outVLabel": "Person",
-      "inV": "scrubbed id",
+      "label": "Speaks",
       "outV": "scrubbed id",
+      "outVLabel": "Country",
+      "type": "edge"
+    },
+    {
+      "id": "scrubbed id",
+      "inV": "scrubbed id",
+      "inVLabel": "Language",
+      "label": "Speaks",
+      "outV": "scrubbed id",
+      "outVLabel": "Country",
+      "type": "edge"
+    },
+    {
+      "id": "scrubbed id",
+      "inV": "scrubbed id",
+      "inVLabel": "Country",
+      "label": "LivesIn",
+      "outV": "scrubbed id",
+      "outVLabel": "Person",
       "properties": {
         "Since": 1586270616000
-      }
+      },
+      "type": "edge"
     },
     {
       "id": "scrubbed id",
-      "label": "Speaks",
-      "type": "edge",
-      "inVLabel": "Language",
-      "outVLabel": "Country",
       "inV": "scrubbed id",
-      "outV": "scrubbed id"
+      "inVLabel": "Country",
+      "label": "LivesIn",
+      "outV": "scrubbed id",
+      "outVLabel": "Person",
+      "type": "edge"
+    },
+    {
+      "id": "scrubbed id",
+      "inV": "scrubbed id",
+      "inVLabel": "Country",
+      "label": "LivesIn",
+      "outV": "scrubbed id",
+      "outVLabel": "Person",
+      "type": "edge"
+    },
+    {
+      "id": "scrubbed id",
+      "inV": "scrubbed id",
+      "inVLabel": "Country",
+      "label": "LivesIn",
+      "outV": "scrubbed id",
+      "outVLabel": "Person",
+      "type": "edge"
+    },
+    {
+      "id": "scrubbed id",
+      "inV": "scrubbed id",
+      "inVLabel": "Person",
+      "label": "LivesIn",
+      "outV": "scrubbed id",
+      "outVLabel": "Country",
+      "type": "edge"
     }
   ]
 ]

@@ -7,11 +7,16 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 47
+            "@value": 1
           },
           "value": {
             "@type": "g:Map",
-            "@value": []
+            "@value": [
+              "de",
+              "Deutschland",
+              "en",
+              "Germany"
+            ]
           }
         }
       },
@@ -39,16 +44,11 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 1
+            "@value": 47
           },
           "value": {
             "@type": "g:Map",
-            "@value": [
-              "de",
-              "Deutschland",
-              "en",
-              "Germany"
-            ]
+            "@value": []
           }
         }
       }

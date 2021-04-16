@@ -3,15 +3,50 @@
     {
       "in!": {
         "id": "scrubbed id",
-        "label": "Person",
-        "type": "vertex",
+        "label": "Country",
         "properties": {
+          "CountryCallingCode": [
+            {
+              "id": "scrubbed id",
+              "value": "+49"
+            }
+          ],
           "PartitionKey": [
             {
               "id": "scrubbed id",
               "value": "PartitionKey"
             }
+          ]
+        },
+        "type": "vertex"
+      }
+    },
+    {
+      "in!": {
+        "id": "scrubbed id",
+        "label": "Country",
+        "properties": {
+          "CountryCallingCode": [
+            {
+              "id": "scrubbed id",
+              "value": "+49"
+            }
           ],
+          "PartitionKey": [
+            {
+              "id": "scrubbed id",
+              "value": "PartitionKey"
+            }
+          ]
+        },
+        "type": "vertex"
+      }
+    },
+    {
+      "in!": {
+        "id": "scrubbed id",
+        "label": "Person",
+        "properties": {
           "Age": [
             {
               "id": "scrubbed id",
@@ -30,69 +65,27 @@
               "value": "Bob"
             }
           ],
+          "PartitionKey": [
+            {
+              "id": "scrubbed id",
+              "value": "PartitionKey"
+            }
+          ],
           "RegistrationDate": [
             {
               "id": "scrubbed id",
               "value": 1586270616000
             }
           ]
-        }
-      }
-    },
-    {
-      "in!": {
-        "id": "scrubbed id",
-        "label": "Country",
-        "type": "vertex",
-        "properties": {
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ],
-          "CountryCallingCode": [
-            {
-              "id": "scrubbed id",
-              "value": "+49"
-            }
-          ]
-        }
-      }
-    },
-    {
-      "in!": {
-        "id": "scrubbed id",
-        "label": "Country",
-        "type": "vertex",
-        "properties": {
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ],
-          "CountryCallingCode": [
-            {
-              "id": "scrubbed id",
-              "value": "+49"
-            }
-          ]
-        }
+        },
+        "type": "vertex"
       }
     },
     {
       "in!": {
         "id": "scrubbed id",
         "label": "Person",
-        "type": "vertex",
         "properties": {
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ],
           "Age": [
             {
               "id": "scrubbed id",
@@ -104,22 +97,22 @@
               "id": "scrubbed id",
               "value": 0
             }
+          ],
+          "PartitionKey": [
+            {
+              "id": "scrubbed id",
+              "value": "PartitionKey"
+            }
           ]
-        }
+        },
+        "type": "vertex"
       }
     },
     {
       "in!": {
         "id": "scrubbed id",
         "label": "Person",
-        "type": "vertex",
         "properties": {
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ],
           "Age": [
             {
               "id": "scrubbed id",
@@ -131,22 +124,22 @@
               "id": "scrubbed id",
               "value": 0
             }
+          ],
+          "PartitionKey": [
+            {
+              "id": "scrubbed id",
+              "value": "PartitionKey"
+            }
           ]
-        }
+        },
+        "type": "vertex"
       }
     },
     {
       "in!": {
         "id": "scrubbed id",
         "label": "Person",
-        "type": "vertex",
         "properties": {
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ],
           "Age": [
             {
               "id": "scrubbed id",
@@ -158,29 +151,36 @@
               "id": "scrubbed id",
               "value": 0
             }
+          ],
+          "PartitionKey": [
+            {
+              "id": "scrubbed id",
+              "value": "PartitionKey"
+            }
           ]
-        }
+        },
+        "type": "vertex"
       }
     },
     {
       "in!": {
         "id": "scrubbed id",
         "label": "Country",
-        "type": "vertex",
         "properties": {
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ],
           "CountryCallingCode": [
             {
               "id": "scrubbed id",
               "value": "+49"
             }
+          ],
+          "PartitionKey": [
+            {
+              "id": "scrubbed id",
+              "value": "PartitionKey"
+            }
           ]
-        }
+        },
+        "type": "vertex"
       }
     }
   ]
