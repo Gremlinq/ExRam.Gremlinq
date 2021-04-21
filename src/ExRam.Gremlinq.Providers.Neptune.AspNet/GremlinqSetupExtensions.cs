@@ -16,9 +16,9 @@ namespace ExRam.Gremlinq.Core.AspNet
                     {
                         if (configuration.GetSection("ElasticSearch") is { } elasticSearchSection)
                         {
-                            if (bool.TryParse(elasticSearchSection["Enabled"], out var isEnabled) && isEnabled && configuration["EndPoint"] is { } endPoint)
+                            if (bool.TryParse(elasticSearchSection["Enabled"], out var isEnabled) && isEnabled && elasticSearchSection["EndPoint"] is { } endPoint)
                             {
-                                var indexConfiguration = Enum.TryParse<NeptuneElasticSearchIndexConfiguration>(configuration["IndexConfiguration"], true, out var outVar)
+                                var indexConfiguration = Enum.TryParse<NeptuneElasticSearchIndexConfiguration>(elasticSearchSection["IndexConfiguration"], true, out var outVar)
                                     ? outVar
                                     : NeptuneElasticSearchIndexConfiguration.Standard;
 
