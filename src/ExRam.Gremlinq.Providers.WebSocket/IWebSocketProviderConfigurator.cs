@@ -1,13 +1,11 @@
 ﻿using System;
-using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Providers.Core;
 
 namespace ExRam.Gremlinq.Providers.WebSocket
 {
-    public interface IProviderConfigurator<out TConfigurator> : IGremlinQuerySourceTransformation
+    public interface IWebSocketProviderConfigurator<out TConfigurator> : IProviderConfigurator<TConfigurator>
         where TConfigurator : IProviderConfigurator<TConfigurator>
     {
-        TConfigurator At(Uri uri);
-
         TConfigurator ConfigureWebSocket(Func<IWebSocketConfigurator, IWebSocketConfigurator> transformation);
     }
 }

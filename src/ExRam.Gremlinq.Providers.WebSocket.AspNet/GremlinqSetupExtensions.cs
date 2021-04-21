@@ -1,7 +1,7 @@
 ﻿// ReSharper disable HeapView.PossibleBoxingAllocation
 using System;
 using System.Collections.Generic;
-
+using ExRam.Gremlinq.Providers.Core;
 using ExRam.Gremlinq.Providers.WebSocket;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -76,24 +76,34 @@ namespace ExRam.Gremlinq.Core.AspNet
                             })),
                     configurator =>
                     {
-                        configurator = _providerConfiguratorTransformation(
-                            configurator
+                        if (configurator is IWebSocketProviderConfigurator<TProviderConfigurator> webSocketProviderConfigurator1)
+                        {
+                            configurator = webSocketProviderConfigurator1
                                 .ConfigureWebSocket(webSocketConfigurator => webSocketConfigurator
                                     .ConfigureFrom(_generalSection)
-                                    .ConfigureFrom(providerSection)),
+                                    .ConfigureFrom(providerSection));
+                        }
+
+                        configurator = _providerConfiguratorTransformation(
+                            configurator,
                             providerSection);
 
-                        return configurator
-                            .ConfigureWebSocket(webSocketConfigurator =>
-                            {
-                                foreach (var webSocketConfiguratorTransformation in _webSocketConfiguratorTransformations)
+                        if (configurator is IWebSocketProviderConfigurator<TProviderConfigurator> webSocketProviderConfigurator2)
+                        {
+                            configurator = webSocketProviderConfigurator2
+                                .ConfigureWebSocket(webSocketConfigurator =>
                                 {
-                                    webSocketConfigurator = webSocketConfiguratorTransformation
-                                        .Transform(webSocketConfigurator);
-                                }
+                                    foreach (var webSocketConfiguratorTransformation in _webSocketConfiguratorTransformations)
+                                    {
+                                        webSocketConfigurator = webSocketConfiguratorTransformation
+                                            .Transform(webSocketConfigurator);
+                                    }
 
-                                return webSocketConfigurator;
-                            });
+                                    return webSocketConfigurator;
+                                });
+                        }
+
+                        return configurator;
                     });
             }
         }

@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ExRam.Gremlinq.Core\ExRam.Gremlinq.Core.csproj" />
+    <ProjectReference Include="..\ExRam.Gremlinq.Providers.Core\ExRam.Gremlinq.Providers.Core.csproj" />
   </ItemGroup>
 
 </Project>
