@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Linq.Expressions;
 using ExRam.Gremlinq.Providers.CosmosDb;
+using Microsoft.Extensions.Configuration;
 
 namespace ExRam.Gremlinq.Core.AspNet
 {
     public static class GremlinqSetupExtensions
     {
-        public static GremlinqSetup UseCosmosDb(this GremlinqSetup setup)
+        public static GremlinqSetup UseCosmosDb(this GremlinqSetup setup, Func<ICosmosDbConfigurator, IConfiguration, ICosmosDbConfigurator>? extraConfiguration = null)
         {
             return setup 
-                .UseProvider<ICosmosDbConfigurator>(
+                .UseProvider(
                     "CosmosDb",
                     (e, f) => e.UseCosmosDb(f),
                     (configurator, configuration) =>
@@ -24,13 +25,14 @@ namespace ExRam.Gremlinq.Core.AspNet
                             configurator = configurator.AuthenticateBy(authKey);
 
                         return configurator;
-                    });
+                    },
+                    extraConfiguration);
         }
 
-        public static GremlinqSetup UseCosmosDb<TVertex, TEdge>(this GremlinqSetup setup, Expression<Func<TVertex, object>> partitionKeyExpression)
+        public static GremlinqSetup UseCosmosDb<TVertex, TEdge>(this GremlinqSetup setup, Expression<Func<TVertex, object>> partitionKeyExpression, Func<ICosmosDbConfigurator, IConfiguration, ICosmosDbConfigurator>? extraConfiguration = null)
         {
             return setup
-                .UseCosmosDb()
+                .UseCosmosDb(extraConfiguration)
                 .ConfigureEnvironment(env => env
                     .UseModel(GraphModel
                         .FromBaseTypes<TVertex, TEdge>(lookup => lookup

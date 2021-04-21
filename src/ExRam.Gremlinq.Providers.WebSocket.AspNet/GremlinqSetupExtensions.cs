@@ -30,6 +30,7 @@ namespace ExRam.Gremlinq.Core.AspNet
             private readonly string _sectionName;
             private readonly IGremlinqConfiguration _generalSection;
             private readonly IEnumerable<IWebSocketConfiguratorTransformation> _webSocketConfiguratorTransformations;
+            private readonly Func<TProviderConfigurator, IConfiguration, TProviderConfigurator>? _extraConfiguratorTransformation;
             private readonly Func<TProviderConfigurator, IConfiguration, TProviderConfigurator> _providerConfiguratorTransformation;
             private readonly Func<IConfigurableGremlinQuerySource, Func<TProviderConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource> _providerChoice;
             
@@ -38,11 +39,13 @@ namespace ExRam.Gremlinq.Core.AspNet
                 string sectionName,
                 Func<IConfigurableGremlinQuerySource, Func<TProviderConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource> providerChoice,
                 Func<TProviderConfigurator, IConfiguration, TProviderConfigurator> providerConfiguratorTransformation,
+                Func<TProviderConfigurator, IConfiguration, TProviderConfigurator>? extraConfiguratorTransformation,
                 IEnumerable<IWebSocketConfiguratorTransformation> webSocketConfiguratorTransformations)
             {
                 _sectionName = sectionName;
                 _generalSection = generalSection;
                 _providerChoice = providerChoice;
+                _extraConfiguratorTransformation = extraConfiguratorTransformation;
                 _providerConfiguratorTransformation = providerConfiguratorTransformation;
                 _webSocketConfiguratorTransformations = webSocketConfiguratorTransformations;
             }
@@ -88,6 +91,13 @@ namespace ExRam.Gremlinq.Core.AspNet
                             configurator,
                             providerSection);
 
+                        if (_extraConfiguratorTransformation is { } extraConfiguratorTransformation)
+                        {
+                            configurator = extraConfiguratorTransformation(
+                                configurator,
+                                providerSection);
+                        }
+
                         if (configurator is IWebSocketProviderConfigurator<TProviderConfigurator> webSocketProviderConfigurator2)
                         {
                             configurator = webSocketProviderConfigurator2
@@ -112,7 +122,8 @@ namespace ExRam.Gremlinq.Core.AspNet
             this GremlinqSetup setup,
             string sectionName,
             Func<IConfigurableGremlinQuerySource, Func<TConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource> providerChoice,
-            Func<TConfigurator, IConfiguration, TConfigurator> configuration) where TConfigurator : IProviderConfigurator<TConfigurator>
+            Func<TConfigurator, IConfiguration, TConfigurator> configuration,
+            Func<TConfigurator, IConfiguration, TConfigurator>? extraConfiguration = null) where TConfigurator : IProviderConfigurator<TConfigurator>
         {
             return setup.RegisterTypes(serviceCollection => serviceCollection
                 .AddSingleton<IGremlinQuerySourceTransformation>(s => new UseProviderGremlinQuerySourceTransformation<TConfigurator>(
@@ -120,6 +131,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                     sectionName,
                     providerChoice,
                     configuration,
+                    extraConfiguration,
                     s.GetRequiredService<IEnumerable<IWebSocketConfiguratorTransformation>>())));
         }
 
