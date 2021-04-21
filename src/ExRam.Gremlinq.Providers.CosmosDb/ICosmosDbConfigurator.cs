@@ -2,7 +2,7 @@
 
 namespace ExRam.Gremlinq.Providers.CosmosDb
 {
-    public interface ICosmosDbConfigurator : IProviderConfigurator<ICosmosDbConfigurator>
+    public interface ICosmosDbConfigurator : IWebSocketProviderConfigurator<ICosmosDbConfigurator>
     {
         ICosmosDbConfigurator OnDatabase(string databaseName);
 

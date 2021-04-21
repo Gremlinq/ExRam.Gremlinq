@@ -2,7 +2,7 @@
 
 namespace ExRam.Gremlinq.Providers.GremlinServer
 {
-    public interface IGremlinServerConfigurator : IProviderConfigurator<IGremlinServerConfigurator>
+    public interface IGremlinServerConfigurator : IWebSocketProviderConfigurator<IGremlinServerConfigurator>
     {
     }
 }

@@ -2,7 +2,7 @@
 
 namespace ExRam.Gremlinq.Providers.JanusGraph
 {
-    public interface IJanusGraphConfigurator : IProviderConfigurator<IJanusGraphConfigurator>
+    public interface IJanusGraphConfigurator : IWebSocketProviderConfigurator<IJanusGraphConfigurator>
     {
     }
 }
