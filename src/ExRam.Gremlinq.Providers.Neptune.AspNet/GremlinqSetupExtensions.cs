@@ -12,9 +12,16 @@ namespace ExRam.Gremlinq.Core.AspNet
                 .UseProvider(
                     "Neptune",
                     (e, f) => e.UseNeptune(f),
-                    (configurator, configuration) => (configuration["ElasticSearchEndPoint"] is { } endPoint)
-                        ? configurator.UseElasticSearch(new Uri(endPoint))
-                        : configurator,
+                    (configurator, configuration) =>
+                    {
+                        var indexConfiguration = Enum.TryParse<NeptuneElasticSearchIndexConfiguration>(configuration["IndexConfiguration"], true, out var outVar)
+                            ? outVar
+                            : NeptuneElasticSearchIndexConfiguration.Standard;
+
+                        return (configuration["ElasticSearchEndPoint"] is { } endPoint)
+                            ? configurator.UseElasticSearch(new Uri(endPoint), indexConfiguration)
+                            : configurator;
+                    },
                     extraConfiguration);
         }
 
