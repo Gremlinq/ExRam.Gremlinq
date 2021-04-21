@@ -14,14 +14,17 @@ namespace ExRam.Gremlinq.Core.AspNet
                     (e, f) => e.UseNeptune(f),
                     (configurator, configuration) =>
                     {
-                        if (configuration["ElasticSearchEndPoint"] is { } endPoint)
+                        if (configuration.GetSection("ElasticSearch") is { } elasticSearchSection)
                         {
-                            var indexConfiguration = Enum.TryParse<NeptuneElasticSearchIndexConfiguration>(configuration["IndexConfiguration"], true, out var outVar)
-                                ? outVar
-                                : NeptuneElasticSearchIndexConfiguration.Standard;
+                            if (bool.TryParse(elasticSearchSection["Enabled"], out var isEnabled) && isEnabled && configuration["EndPoint"] is { } endPoint)
+                            {
+                                var indexConfiguration = Enum.TryParse<NeptuneElasticSearchIndexConfiguration>(configuration["IndexConfiguration"], true, out var outVar)
+                                    ? outVar
+                                    : NeptuneElasticSearchIndexConfiguration.Standard;
 
-                            configurator = configurator
-                                .UseElasticSearch(new Uri(endPoint), indexConfiguration);
+                                configurator = configurator
+                                    .UseElasticSearch(new Uri(endPoint), indexConfiguration);
+                            }
                         }
 
                         return configurator;
