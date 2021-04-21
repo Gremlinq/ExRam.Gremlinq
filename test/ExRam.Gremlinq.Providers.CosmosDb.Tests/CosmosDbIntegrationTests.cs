@@ -17,7 +17,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         {
             private readonly Task _task;
 
-            public Fixture() : base(Core.GremlinQuerySource.g
+            public Fixture() : base(Gremlinq.Core.GremlinQuerySource.g
                 .UseCosmosDb(builder => builder
                     .At(new Uri("ws://localhost:8901"), "db", "graph")
                     .AuthenticateBy(

@@ -84,10 +84,5 @@ namespace ExRam.Gremlinq.Providers.Neptune
                 configurator,
                 elasticSearchEndPoint);
         }
-
-        public static INeptuneConfigurator AtLocalhost(this INeptuneConfigurator configurator)
-        {
-            return configurator.At(new Uri("ws://localhost:8182"));
-        }
     }
 }

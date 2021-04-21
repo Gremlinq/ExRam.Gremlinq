@@ -1,7 +1,6 @@
 ﻿#if RELEASE && NET5_0 && RUNGREMLINSERVERINTEGRATIONTESTS
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
-using ExRam.Gremlinq.Providers.WebSocket;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -11,7 +10,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
     {
         public new sealed class Fixture : QueryIntegrationTest.Fixture
         {
-            public Fixture() : base(Core.GremlinQuerySource.g
+            public Fixture() : base(Gremlinq.Core.GremlinQuerySource.g
                 .UseGremlinServer(builder => builder
                     .AtLocalhost()))
             {

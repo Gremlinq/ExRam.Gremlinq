@@ -15,7 +15,7 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
     {
         public new sealed class Fixture : QueryIntegrationTest.Fixture
         {
-            public Fixture() : base(Core.GremlinQuerySource.g
+            public Fixture() : base(Gremlinq.Core.GremlinQuerySource.g
                 .UseNeptune(builder => builder
                     .At(new Uri("ws://localhost:8182")))
                 .ConfigureEnvironment(environment => environment
