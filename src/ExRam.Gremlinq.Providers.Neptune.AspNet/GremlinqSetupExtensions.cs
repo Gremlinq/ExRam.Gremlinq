@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Core.AspNet
         {
             return setup
                 .UseProvider<INeptuneConfigurator>(
-                    "JanusGraph",
+                    "Neptune",
                     (e, f) => e.UseNeptune(f),
                     (configurator, configuration) => (configuration["ElasticSearchEndPoint"] is { } endPoint)
                         ? configurator.UseElasticSearch(new Uri(endPoint))
