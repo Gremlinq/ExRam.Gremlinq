@@ -15,7 +15,7 @@ namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
     {
         public new sealed class Fixture : QueryIntegrationTest.Fixture
         {
-            public Fixture() : base(Core.GremlinQuerySource.g
+            public Fixture() : base(Gremlinq.Core.GremlinQuerySource.g
                 .UseJanusGraph(builder => builder
                     .At(new Uri("ws://localhost:8183")))
                 .ConfigureEnvironment(environment => environment
