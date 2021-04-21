@@ -20,7 +20,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
         public string Id { get; }
         public string? PartitionKey { get; }
     }
-    public interface ICosmosDbConfigurator : ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation, ExRam.Gremlinq.Providers.WebSocket.IProviderConfigurator<ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator>
+    public interface ICosmosDbConfigurator : ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation, ExRam.Gremlinq.Providers.Core.IProviderConfigurator<ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator>, ExRam.Gremlinq.Providers.WebSocket.IWebSocketProviderConfigurator<ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator>
     {
         ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator AuthenticateBy(string authKey);
         ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator OnDatabase(string databaseName);
