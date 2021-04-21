@@ -7,10 +7,7 @@ namespace ExRam.Gremlinq.Core
 }
 namespace ExRam.Gremlinq.Providers.Neptune
 {
-    public interface INeptuneConfigurator : ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation, ExRam.Gremlinq.Providers.WebSocket.IProviderConfigurator<ExRam.Gremlinq.Providers.Neptune.INeptuneConfigurator>
-    {
-        ExRam.Gremlinq.Providers.Neptune.INeptuneConfigurator At(System.Uri uri);
-    }
+    public interface INeptuneConfigurator : ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation, ExRam.Gremlinq.Providers.WebSocket.IProviderConfigurator<ExRam.Gremlinq.Providers.Neptune.INeptuneConfigurator> { }
     public static class NeptuneConfiguratorExtensions
     {
         public static ExRam.Gremlinq.Providers.Neptune.INeptuneConfigurator AtLocalhost(this ExRam.Gremlinq.Providers.Neptune.INeptuneConfigurator configurator) { }

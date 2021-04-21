@@ -10,7 +10,8 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
     public static class CosmosDbConfiguratorExtensions
     {
         public static ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator At(this ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator configurator, string uri, string databaseName, string graphName) { }
-        public static ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator AtLocalhost(this ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator configurator, string uri, string databaseName, string graphName) { }
+        public static ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator At(this ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator configurator, System.Uri uri, string databaseName, string graphName) { }
+        public static ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator AtLocalhost(this ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator configurator, string databaseName, string graphName) { }
     }
     public readonly struct CosmosDbKey
     {
@@ -21,7 +22,8 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
     }
     public interface ICosmosDbConfigurator : ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation, ExRam.Gremlinq.Providers.WebSocket.IProviderConfigurator<ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator>
     {
-        ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator At(System.Uri uri, string databaseName, string graphName);
         ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator AuthenticateBy(string authKey);
+        ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator OnDatabase(string databaseName);
+        ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator OnGraph(string graphName);
     }
 }

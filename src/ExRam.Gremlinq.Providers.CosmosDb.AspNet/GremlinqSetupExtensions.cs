@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
 using ExRam.Gremlinq.Providers.CosmosDb;
-using Microsoft.Extensions.Configuration;
 
 namespace ExRam.Gremlinq.Core.AspNet
 {
@@ -13,12 +12,19 @@ namespace ExRam.Gremlinq.Core.AspNet
                 .UseProvider<ICosmosDbConfigurator>(
                     "CosmosDb",
                     (e, f) => e.UseCosmosDb(f),
-                    (configurator, configuration) => configurator
-                        .At(
-                            configuration.GetRequiredConfiguration("Uri"),
-                            configuration.GetRequiredConfiguration("Database"),
-                            configuration.GetRequiredConfiguration("Graph"))
-                        .AuthenticateBy(configuration.GetRequiredConfiguration("AuthKey")));
+                    (configurator, configuration) =>
+                    {
+                        if (configuration["Database"] is { } databaseName)
+                            configurator = configurator.OnDatabase(databaseName);
+
+                        if (configuration["Graph"] is { } graphName)
+                            configurator = configurator.OnGraph(graphName);
+
+                        if (configuration["AuthKey"] is { } authKey)
+                            configurator = configurator.AuthenticateBy(authKey);
+
+                        return configurator;
+                    });
         }
 
         public static GremlinqSetup UseCosmosDb<TVertex, TEdge>(this GremlinqSetup setup, Expression<Func<TVertex, object>> partitionKeyExpression)

@@ -7,10 +7,7 @@ namespace ExRam.Gremlinq.Core
 }
 namespace ExRam.Gremlinq.Providers.JanusGraph
 {
-    public interface IJanusGraphConfigurator : ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation, ExRam.Gremlinq.Providers.WebSocket.IProviderConfigurator<ExRam.Gremlinq.Providers.JanusGraph.IJanusGraphConfigurator>
-    {
-        ExRam.Gremlinq.Providers.JanusGraph.IJanusGraphConfigurator At(System.Uri uri);
-    }
+    public interface IJanusGraphConfigurator : ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation, ExRam.Gremlinq.Providers.WebSocket.IProviderConfigurator<ExRam.Gremlinq.Providers.JanusGraph.IJanusGraphConfigurator> { }
     public static class JanusGraphConfiguratorExtensions
     {
         public static ExRam.Gremlinq.Providers.JanusGraph.IJanusGraphConfigurator AtLocalhost(this ExRam.Gremlinq.Providers.JanusGraph.IJanusGraphConfigurator configurator) { }
