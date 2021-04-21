@@ -23,10 +23,6 @@ namespace ExRam.Gremlinq.Providers.WebSocket
         ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurator SetAlias(string alias);
         ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurator SetSerializationFormat(ExRam.Gremlinq.Core.SerializationFormat version);
     }
-    public interface IWebSocketConfiguratorTransformation
-    {
-        ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurator Transform(ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurator configurator);
-    }
     public interface IWebSocketProviderConfigurator<out TConfigurator> : ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation, ExRam.Gremlinq.Providers.Core.IProviderConfigurator<TConfigurator>
         where out TConfigurator : ExRam.Gremlinq.Providers.Core.IProviderConfigurator<TConfigurator>
     {

@@ -1,6 +1,5 @@
 ﻿// ReSharper disable HeapView.PossibleBoxingAllocation
 using System;
-using System.Collections.Generic;
 using ExRam.Gremlinq.Providers.Core;
 using ExRam.Gremlinq.Providers.WebSocket;
 using Microsoft.Extensions.Configuration;
@@ -12,24 +11,11 @@ namespace ExRam.Gremlinq.Core.AspNet
 {
     public static class GremlinqSetupExtensions
     {
-        private sealed class ConfigureWebSocketConfiguratorTransformation : IWebSocketConfiguratorTransformation
-        {
-            private readonly Func<IWebSocketConfigurator, IWebSocketConfigurator> _transformation;
-
-            public ConfigureWebSocketConfiguratorTransformation(Func<IWebSocketConfigurator, IWebSocketConfigurator> transformation)
-            {
-                _transformation = transformation;
-            }
-
-            public IWebSocketConfigurator Transform(IWebSocketConfigurator configurator) => _transformation(configurator);
-        }
-
         private sealed class UseProviderGremlinQuerySourceTransformation<TProviderConfigurator> : IGremlinQuerySourceTransformation
             where TProviderConfigurator : IProviderConfigurator<TProviderConfigurator>
         {
             private readonly string _sectionName;
             private readonly IGremlinqConfiguration _generalSection;
-            private readonly IEnumerable<IWebSocketConfiguratorTransformation> _webSocketConfiguratorTransformations;
             private readonly Func<TProviderConfigurator, IConfiguration, TProviderConfigurator>? _extraConfiguratorTransformation;
             private readonly Func<TProviderConfigurator, IConfiguration, TProviderConfigurator> _providerConfiguratorTransformation;
             private readonly Func<IConfigurableGremlinQuerySource, Func<TProviderConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource> _providerChoice;
@@ -39,15 +25,13 @@ namespace ExRam.Gremlinq.Core.AspNet
                 string sectionName,
                 Func<IConfigurableGremlinQuerySource, Func<TProviderConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource> providerChoice,
                 Func<TProviderConfigurator, IConfiguration, TProviderConfigurator> providerConfiguratorTransformation,
-                Func<TProviderConfigurator, IConfiguration, TProviderConfigurator>? extraConfiguratorTransformation,
-                IEnumerable<IWebSocketConfiguratorTransformation> webSocketConfiguratorTransformations)
+                Func<TProviderConfigurator, IConfiguration, TProviderConfigurator>? extraConfiguratorTransformation)
             {
                 _sectionName = sectionName;
                 _generalSection = generalSection;
                 _providerChoice = providerChoice;
                 _extraConfiguratorTransformation = extraConfiguratorTransformation;
                 _providerConfiguratorTransformation = providerConfiguratorTransformation;
-                _webSocketConfiguratorTransformations = webSocketConfiguratorTransformations;
             }
             
             public IGremlinQuerySource Transform(IGremlinQuerySource source)
@@ -98,21 +82,6 @@ namespace ExRam.Gremlinq.Core.AspNet
                                 providerSection);
                         }
 
-                        if (configurator is IWebSocketProviderConfigurator<TProviderConfigurator> webSocketProviderConfigurator2)
-                        {
-                            configurator = webSocketProviderConfigurator2
-                                .ConfigureWebSocket(webSocketConfigurator =>
-                                {
-                                    foreach (var webSocketConfiguratorTransformation in _webSocketConfiguratorTransformations)
-                                    {
-                                        webSocketConfigurator = webSocketConfiguratorTransformation
-                                            .Transform(webSocketConfigurator);
-                                    }
-
-                                    return webSocketConfigurator;
-                                });
-                        }
-
                         return configurator;
                     });
             }
@@ -131,14 +100,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                     sectionName,
                     providerChoice,
                     configuration,
-                    extraConfiguration,
-                    s.GetRequiredService<IEnumerable<IWebSocketConfiguratorTransformation>>())));
-        }
-
-        public static GremlinqSetup ConfigureWebSocket(this GremlinqSetup setup, Func<IWebSocketConfigurator, IWebSocketConfigurator> transformation)
-        {
-            return setup.RegisterTypes(serviceCollection => serviceCollection
-                .AddSingleton<IWebSocketConfiguratorTransformation>(new ConfigureWebSocketConfiguratorTransformation(transformation)));
+                    extraConfiguration)));
         }
     }
 }
