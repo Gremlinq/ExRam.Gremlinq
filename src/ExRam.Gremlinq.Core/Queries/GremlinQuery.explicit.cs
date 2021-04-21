@@ -185,8 +185,6 @@ namespace ExRam.Gremlinq.Core
         
         string IGremlinQueryBase.Debug(GroovyFormatting groovyFormatting, bool indented) => Debug(groovyFormatting, indented);
 
-        string IGremlinQueryBase.Debug(GroovyFormatting groovyFormatting, Formatting jsonFormatting) => Debug(groovyFormatting, jsonFormatting == Formatting.Indented);
-
         IValueGremlinQuery<long> IGremlinQueryBase.Count() => AddStepWithObjectTypes<long>(CountStep.Global, QuerySemantics.Value);
 
         IValueGremlinQuery<long> IGremlinQueryBase.CountLocal() => AddStepWithObjectTypes<long>(CountStep.Local, QuerySemantics.Value);
