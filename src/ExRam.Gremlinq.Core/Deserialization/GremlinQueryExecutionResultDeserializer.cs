@@ -80,18 +80,5 @@ namespace ExRam.Gremlinq.Core
                     return overridden(data, type, env, recurse);
                 })
                 .AddToStringFallback());
-
-        [Obsolete("To be removed in an upcoming major release. To still get this functionality, refer to https://github.com/ExRam/ExRam.Gremlinq/blob/92f546ff65cf3306be51566641b8512c71d1eac0/src/ExRam.Gremlinq.Core/Deserialization/GremlinQueryExecutionResultDeserializer.cs#L85.")]
-        public static readonly IGremlinQueryExecutionResultDeserializer ToGraphsonString = Default
-            .ConfigureFragmentDeserializer(_ => _
-                .ToGraphsonString());
-
-        [Obsolete("Use GremlinQueryExecutionResultDeserializer.Identity.ConfigureFragmentDeserializer(_ => _.AddToStringFallback()) instead.")]
-        public static new readonly IGremlinQueryExecutionResultDeserializer ToString = Default;
-
-        [Obsolete("Use GremlinQueryExecutionResultDeserializer.Identity.ConfigureFragmentDeserializer(_ => _.AddNewtonsoftJson()) instead.")]
-        public static readonly IGremlinQueryExecutionResultDeserializer FromJToken = Default
-            .ConfigureFragmentDeserializer(_ => _
-                .AddNewtonsoftJson());
     }
 }

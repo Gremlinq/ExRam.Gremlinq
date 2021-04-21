@@ -329,16 +329,8 @@ namespace ExRam.Gremlinq.Core
     public static class GremlinQueryExecutionResultDeserializer
     {
         public static readonly ExRam.Gremlinq.Core.IGremlinQueryExecutionResultDeserializer Default;
-        [System.Obsolete("Use GremlinQueryExecutionResultDeserializer.Identity.ConfigureFragmentDeserialize" +
-            "r(_ => _.AddNewtonsoftJson()) instead.")]
-        public static readonly ExRam.Gremlinq.Core.IGremlinQueryExecutionResultDeserializer FromJToken;
         public static readonly ExRam.Gremlinq.Core.IGremlinQueryExecutionResultDeserializer Identity;
         public static readonly ExRam.Gremlinq.Core.IGremlinQueryExecutionResultDeserializer Invalid;
-        [System.Obsolete(@"To be removed in an upcoming major release. To still get this functionality, refer to https://github.com/ExRam/ExRam.Gremlinq/blob/92f546ff65cf3306be51566641b8512c71d1eac0/src/ExRam.Gremlinq.Core/Deserialization/GremlinQueryExecutionResultDeserializer.cs#L85.")]
-        public static readonly ExRam.Gremlinq.Core.IGremlinQueryExecutionResultDeserializer ToGraphsonString;
-        [System.Obsolete("Use GremlinQueryExecutionResultDeserializer.Identity.ConfigureFragmentDeserialize" +
-            "r(_ => _.AddToStringFallback()) instead.")]
-        public static readonly ExRam.Gremlinq.Core.IGremlinQueryExecutionResultDeserializer ToString;
     }
     public static class GremlinQueryExecutor
     {
@@ -683,9 +675,7 @@ namespace ExRam.Gremlinq.Core
         ExRam.Gremlinq.Core.IValueGremlinQuery<TValue> Constant<TValue>(TValue constant);
         ExRam.Gremlinq.Core.IValueGremlinQuery<long> Count();
         ExRam.Gremlinq.Core.IValueGremlinQuery<long> CountLocal();
-        string Debug(ExRam.Gremlinq.Core.GroovyFormatting groovyFormatting, bool indented);
-        [System.Obsolete("Use Debug(GroovyFormatting, bool) instead.")]
-        string Debug(ExRam.Gremlinq.Core.GroovyFormatting groovyFormatting = 1, Newtonsoft.Json.Formatting jsonFormatting = 0);
+        string Debug(ExRam.Gremlinq.Core.GroovyFormatting groovyFormatting = 1, bool indented = false);
         ExRam.Gremlinq.Core.IValueGremlinQuery<object> Drop();
         ExRam.Gremlinq.Core.IValueGremlinQuery<string> Explain();
         System.Runtime.CompilerServices.TaskAwaiter GetAwaiter();

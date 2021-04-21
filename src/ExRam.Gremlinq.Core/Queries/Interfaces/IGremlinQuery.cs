@@ -18,10 +18,7 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<long> CountLocal();
         IValueGremlinQuery<TValue> Constant<TValue>(TValue constant);
 
-        [Obsolete("Use Debug(GroovyFormatting, bool) instead.")]
-        string Debug(GroovyFormatting groovyFormatting = GroovyFormatting.Inline, Formatting jsonFormatting = Formatting.None);
-
-        string Debug(GroovyFormatting groovyFormatting, bool indented);
+        string Debug(GroovyFormatting groovyFormatting = GroovyFormatting.Inline, bool indented = false);
 
         IValueGremlinQuery<object> Drop();
 
