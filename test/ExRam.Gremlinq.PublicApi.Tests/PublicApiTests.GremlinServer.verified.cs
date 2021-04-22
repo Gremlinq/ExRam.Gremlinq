@@ -7,9 +7,5 @@ namespace ExRam.Gremlinq.Core
 }
 namespace ExRam.Gremlinq.Providers.GremlinServer
 {
-    public static class GremlinServerGremlinqOptions
-    {
-        public static readonly ExRam.Gremlinq.Core.GremlinqOption<bool> WorkaroundTinkerpop2112;
-    }
     public interface IGremlinServerConfigurator : ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation, ExRam.Gremlinq.Providers.Core.IProviderConfigurator<ExRam.Gremlinq.Providers.GremlinServer.IGremlinServerConfigurator>, ExRam.Gremlinq.Providers.WebSocket.IWebSocketProviderConfigurator<ExRam.Gremlinq.Providers.GremlinServer.IGremlinServerConfigurator> { }
 }
