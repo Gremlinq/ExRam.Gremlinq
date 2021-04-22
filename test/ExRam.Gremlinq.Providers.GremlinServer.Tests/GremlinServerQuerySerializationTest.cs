@@ -1,5 +1,4 @@
-﻿using System;
-using ExRam.Gremlinq.Core;
+﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
 using Xunit;
 using Xunit.Abstractions;
@@ -13,7 +12,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
         {
             public Fixture() : base(g
                 .UseGremlinServer(builder => builder
-                    .At(new Uri("ws://localhost:8182"))))
+                    .AtLocalhost()))
             {
             }
         }

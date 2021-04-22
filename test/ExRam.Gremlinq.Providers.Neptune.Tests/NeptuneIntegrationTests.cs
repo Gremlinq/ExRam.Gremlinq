@@ -17,7 +17,7 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
         {
             public Fixture() : base(Gremlinq.Core.GremlinQuerySource.g
                 .UseNeptune(builder => builder
-                    .At(new Uri("ws://localhost:8182")))
+                    .AtLocalhost())
                 .ConfigureEnvironment(environment => environment
                     .ConfigureExecutor(_ => _
                         .TransformResult(_ => _.Where(x => false)))))

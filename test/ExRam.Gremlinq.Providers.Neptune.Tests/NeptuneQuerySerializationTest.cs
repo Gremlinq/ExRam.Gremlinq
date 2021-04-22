@@ -1,6 +1,6 @@
-﻿using System;
-using ExRam.Gremlinq.Core;
+﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
+using ExRam.Gremlinq.Providers.GremlinServer;
 using Xunit;
 using Xunit.Abstractions;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
@@ -13,7 +13,7 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
         {
             public Fixture() : base(g
                 .UseNeptune(builder => builder
-                    .At(new Uri("ws://localhost:8182"))))
+                    .AtLocalhost()))
             {
             }
         }
