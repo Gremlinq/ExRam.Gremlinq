@@ -3,7 +3,7 @@ using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
 {
-    public readonly struct Key
+    public readonly struct Key : IComparable<Key>
     {
         private readonly object? _key;
 
@@ -20,6 +20,19 @@ namespace ExRam.Gremlinq.Core
         public bool Equals(Key other)
         {
             return Equals(_key, other._key);
+        }
+
+        public int CompareTo(Key other)
+        {
+            return _key switch
+            {
+                T t1 when other._key is T t2 => StringComparer.OrdinalIgnoreCase.Compare(t1.EnumValue, t2.EnumValue),
+                T => -1,
+                string str1 when other._key is string str2 => StringComparer.OrdinalIgnoreCase.Compare(str1, str2),
+                string => 1,
+                null => other._key is null ? 0 : -1,
+                _ => throw new InvalidOperationException()
+            };
         }
 
         public override bool Equals(object? obj)

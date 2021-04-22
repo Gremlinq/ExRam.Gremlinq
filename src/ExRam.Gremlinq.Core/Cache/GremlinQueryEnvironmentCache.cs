@@ -301,7 +301,7 @@ namespace ExRam.Gremlinq.Core
                                 key: closureEnvironment.GetCache().GetKey(p),
                                 serializationBehaviour: closureEnvironment.Model.PropertiesModel.MemberMetadata
                                     .GetValueOrDefault(p, new MemberMetadata(p.Name)).SerializationBehaviour))
-                            .OrderBy(x => x.property.Name)
+                            .OrderBy(x => x.key)
                             .ToArray(),
                         _environment);
             }
