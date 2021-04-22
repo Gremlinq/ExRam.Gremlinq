@@ -1287,11 +1287,12 @@ namespace ExRam.Gremlinq.Core
         public IsStep(Gremlin.Net.Process.Traversal.P predicate) { }
         public Gremlin.Net.Process.Traversal.P Predicate { get; }
     }
-    public readonly struct Key
+    public readonly struct Key : System.IComparable<ExRam.Gremlinq.Core.Key>
     {
         public Key(Gremlin.Net.Process.Traversal.T t) { }
         public Key(string name) { }
         public object RawKey { get; }
+        public int CompareTo(ExRam.Gremlinq.Core.Key other) { }
         public bool Equals(ExRam.Gremlinq.Core.Key other) { }
         public override bool Equals(object? obj) { }
         public override int GetHashCode() { }
