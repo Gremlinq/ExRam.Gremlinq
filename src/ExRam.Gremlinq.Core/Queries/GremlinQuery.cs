@@ -1007,7 +1007,7 @@ namespace ExRam.Gremlinq.Core
         {
             traversal = traversal.RewriteForWhereContext();
 
-            return traversal.Steps.Length > 0 && traversal.Steps.All(x => x is IIsOptimizableInWhere)
+            return traversal.Steps.Count > 0 && traversal.Steps.All(x => x is IIsOptimizableInWhere)
                 ? AddSteps(traversal.Steps)
                 : AddStep(new WhereTraversalStep(traversal));
         }
