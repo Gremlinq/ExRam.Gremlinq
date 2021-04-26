@@ -437,19 +437,7 @@ namespace ExRam.Gremlinq.Core
         private Traversal ToTraversalImpl()
         {
             var steps = Steps;
-            var ret = new List<Step>();
-
-            if (steps.IsEmpty)
-            {
-                ret.Add(IdentityStep.Instance);
-            }
-            else
-            {
-                for (var i = 0; i < steps.Count; i++)    //TODO: Optimize when steps size is known
-                {
-                    ret.Add(steps[i]);
-                }
-            }
+            IImmutableList<Step> projection = ImmutableList<Step>.Empty;
 
             if ((Flags & QueryFlags.SurfaceVisible) == QueryFlags.SurfaceVisible)
             {
@@ -457,29 +445,41 @@ namespace ExRam.Gremlinq.Core
                 {
                     case QuerySemantics.Vertex:
                     {
-                        var option = Environment.FeatureSet.Supports(VertexFeatures.MetaProperties)
+                        projection = Environment.Options.GetValue(Environment.FeatureSet.Supports(VertexFeatures.MetaProperties)
                             ? GremlinqOption.VertexProjectionSteps
-                            : GremlinqOption.VertexProjectionWithoutMetaPropertiesSteps;
-
-                        foreach (var step in Environment.Options.GetValue(option))
-                        {
-                            ret.Add(step);
-                        }
+                            : GremlinqOption.VertexProjectionWithoutMetaPropertiesSteps);
 
                         break;
                     }
                     case QuerySemantics.Edge:
                     {
-                        foreach (var step in Environment.Options.GetValue(GremlinqOption.EdgeProjectionSteps))
-                        {
-                            ret.Add(step);
-                        }
+                        projection = Environment.Options.GetValue(GremlinqOption.EdgeProjectionSteps);
 
                         break;
                     }
                 }
             }
 
+            var querySize = Math.Max(1, steps.Count);
+            var ret = new Step[querySize + projection.Count];
+
+            if (steps.IsEmpty)
+                ret[0] = IdentityStep.Instance;
+            else
+            {
+                for (var i = 0; i < steps.Count; i++)    //TODO: Optimize when steps size is known
+                {
+                    ret[i] = steps[i];
+                }
+            }
+
+            var j = 0;
+
+            foreach (var projectionStep in projection)
+            {
+                ret[querySize + j++] = projectionStep;
+            }
+            
             return new Traversal(ret, true);
         }
 
