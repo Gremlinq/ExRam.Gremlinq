@@ -249,10 +249,10 @@ namespace ExRam.Gremlinq.Core
         {
             return this
                 .AddStep<TEdge, TElement, object, object, object, object>(new AddEStep(Environment.Model.EdgesModel.GetCache().GetLabel(newEdge!.GetType())), QuerySemantics.Edge)
-                .AddOrUpdate(newEdge, true, Environment.FeatureSet.Supports(EdgeFeatures.UserSuppliedIds));
+                .AddOrUpdate(newEdge, true);
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> AddOrUpdate(TElement element, bool add, bool allowUserSuppliedId)
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> AddOrUpdate(TElement element, bool add)
         {
             var ret = this;
             var props = element.Serialize(
@@ -274,7 +274,7 @@ namespace ExRam.Gremlinq.Core
 
             foreach (var (key, value) in props)
             {
-                if (!allowUserSuppliedId && T.Id.Equals(key.RawKey))
+                if (!Environment.FeatureSet.Supports(VertexFeatures.UserSuppliedIds) && T.Id.Equals(key.RawKey))
                     Environment.Logger.LogWarning("User supplied ids are not supported according to the envrionment's FeatureSet.");
                 else
                 {
@@ -368,7 +368,7 @@ namespace ExRam.Gremlinq.Core
         {
             return this
                 .AddStepWithObjectTypes<TVertex>(new AddVStep(Environment.Model.VerticesModel.GetCache().GetLabel(vertex!.GetType())), QuerySemantics.Vertex)
-                .AddOrUpdate(vertex, true, Environment.FeatureSet.Supports(VertexFeatures.UserSuppliedIds));
+                .AddOrUpdate(vertex, true);
         }
 
         private TTargetQuery Aggregate<TStepLabel, TTargetQuery>(Scope scope, TStepLabel stepLabel, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TStepLabel, TTargetQuery> continuation)
