@@ -258,7 +258,7 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQueryEnvironment IGremlinQueryAdmin.Environment => Environment;
 
-        Traversal IGremlinQueryAdmin.ToTraversal() => ToTraversalImpl().ToImmutableArray();
+        Traversal IGremlinQueryAdmin.ToTraversal() => ToTraversalImpl();
 
         Type IGremlinQueryAdmin.ElementType { get => typeof(TElement); }
 
@@ -434,21 +434,22 @@ namespace ExRam.Gremlinq.Core
 
         IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Mute() => Mute();
 
-        private IEnumerable<Step> ToTraversalImpl()
+        private Traversal ToTraversalImpl()
         {
             var steps = Steps;
+            var ret = new List<Step>();
 
             if (steps.IsEmpty)
             {
-                yield return IdentityStep.Instance;
+                ret.Add(IdentityStep.Instance);
             }
             else
             {
                 var stepsArray = steps.ToArray();
 
-                for (var i = stepsArray.Length - 1; i >= 0; i--)
+                for (var i = stepsArray.Length - 1; i >= 0; i--)    //TODO: Optimize when steps size is known
                 {
-                    yield return stepsArray[i];
+                    ret.Add(stepsArray[i]);
                 }
             }
 
@@ -464,7 +465,7 @@ namespace ExRam.Gremlinq.Core
 
                         foreach (var step in Environment.Options.GetValue(option))
                         {
-                            yield return step;
+                            ret.Add(step);
                         }
 
                         break;
@@ -473,13 +474,15 @@ namespace ExRam.Gremlinq.Core
                     {
                         foreach (var step in Environment.Options.GetValue(GremlinqOption.EdgeProjectionSteps))
                         {
-                            yield return step;
+                            ret.Add(step);
                         }
 
                         break;
                     }
                 }
             }
+
+            return new Traversal(ret, true);
         }
 
         IValueTupleGremlinQuery<TElement> IGremlinQueryBaseRec<IValueTupleGremlinQuery<TElement>>.Mute() => Mute();

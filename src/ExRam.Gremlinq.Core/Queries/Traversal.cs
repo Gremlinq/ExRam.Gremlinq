@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Linq;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -14,11 +15,18 @@ namespace ExRam.Gremlinq.Core
             Steps = steps;
         }
 
+        internal Traversal(IReadOnlyList<Step> steps, bool owned)
+        {
+            Steps = owned
+                ? steps
+                : steps.ToArray();
+        }
+
         public IReadOnlyList<Step> Steps { get; }
 
         public static implicit operator Traversal(Step[] steps)
         {
-            return new(steps);
+            return new(steps, false);
         }
 
         public static implicit operator Traversal(ImmutableArray<Step> steps)
