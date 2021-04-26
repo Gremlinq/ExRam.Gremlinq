@@ -249,10 +249,10 @@ namespace ExRam.Gremlinq.Core
         {
             return this
                 .AddStep<TEdge, TElement, object, object, object, object>(new AddEStep(Environment.Model.EdgesModel.GetCache().GetLabel(newEdge!.GetType())), QuerySemantics.Edge)
-                .AddOrUpdate(newEdge, true, false, Environment.FeatureSet.Supports(EdgeFeatures.UserSuppliedIds));
+                .AddOrUpdate(newEdge, true, Environment.FeatureSet.Supports(EdgeFeatures.UserSuppliedIds));
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> AddOrUpdate(TElement element, bool add, bool allowExplicitCardinality, bool allowUserSuppliedId)
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> AddOrUpdate(TElement element, bool add, bool allowUserSuppliedId)
         {
             var ret = this;
             var props = element.Serialize(
@@ -278,7 +278,7 @@ namespace ExRam.Gremlinq.Core
                     Environment.Logger.LogWarning("User supplied ids are not supported according to the envrionment's FeatureSet.");
                 else
                 {
-                    foreach (var propertyStep in GetPropertySteps(key, value, allowExplicitCardinality))
+                    foreach (var propertyStep in GetPropertySteps(key, value, Semantics == QuerySemantics.Vertex))
                     {
                         ret = ret.AddStep(propertyStep);
                     }
@@ -368,7 +368,7 @@ namespace ExRam.Gremlinq.Core
         {
             return this
                 .AddStepWithObjectTypes<TVertex>(new AddVStep(Environment.Model.VerticesModel.GetCache().GetLabel(vertex!.GetType())), QuerySemantics.Vertex)
-                .AddOrUpdate(vertex, true, true, Environment.FeatureSet.Supports(VertexFeatures.UserSuppliedIds));
+                .AddOrUpdate(vertex, true, Environment.FeatureSet.Supports(VertexFeatures.UserSuppliedIds));
         }
 
         private TTargetQuery Aggregate<TStepLabel, TTargetQuery>(Scope scope, TStepLabel stepLabel, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TStepLabel, TTargetQuery> continuation)
