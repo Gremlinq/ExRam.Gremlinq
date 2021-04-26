@@ -340,7 +340,7 @@ namespace ExRam.Gremlinq.Core
                 {
                     var traversal = step.Traversal;
 
-                    if (traversal.Steps.Count == 1 && traversal.Steps[0] is LocalStep localStep)
+                    if (traversal.Count == 1 && traversal[0] is LocalStep localStep)
                         traversal = localStep.Traversal;
 
                     return CreateInstruction("by", recurse, env, traversal);
@@ -361,7 +361,7 @@ namespace ExRam.Gremlinq.Core
                 .Override<Traversal>((traversal, env, overridden, recurse) =>
                 {
                     var byteCode = new Bytecode();
-                    var steps = traversal.Steps;
+                    IReadOnlyList<Step> steps = traversal;
 
                     void Add(object obj)
                     {

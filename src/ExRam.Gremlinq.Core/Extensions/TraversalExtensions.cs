@@ -10,13 +10,11 @@ namespace ExRam.Gremlinq.Core
     {
         public static Traversal RewriteForWhereContext(this Traversal traversal)
         {
-            var traversalSteps = traversal.Steps;
-
-            if (traversalSteps.Count >= 2)
+            if (traversal.Count >= 2)
             {
-                if (traversalSteps[traversalSteps.Count - 1] is IsStep isStep)
+                if (traversal[traversal.Count - 1] is IsStep isStep)
                 {
-                    var newStep = traversalSteps[traversalSteps.Count - 2] switch
+                    var newStep = traversal[traversal.Count - 2] switch
                     {
                         ValuesStep valuesStep when valuesStep.Keys.Length == 1 => new HasPredicateStep(valuesStep.Keys[0], isStep.Predicate),
                         IdStep => new HasPredicateStep(T.Id, isStep.Predicate),
@@ -26,20 +24,20 @@ namespace ExRam.Gremlinq.Core
 
                     if (newStep != null)
                     {
-                        if (traversalSteps.Count == 2)
+                        if (traversal.Count == 2)
                             return newStep;
 
-                        var list = traversalSteps.ToList();
-                        list[traversalSteps.Count - 2] = newStep;
-                        list.RemoveAt(traversalSteps.Count - 1);
+                        var list = traversal.ToList();
+                        list[traversal.Count - 2] = newStep;
+                        list.RemoveAt(traversal.Count - 1);
 
                         return new Traversal(list, true);
                     }
                 }
             }
-            else if (traversalSteps.Count == 1)
+            else if (traversal.Count == 1)
             {
-                if (traversalSteps[0] is WhereTraversalStep whereTraversalStep)
+                if (traversal[0] is WhereTraversalStep whereTraversalStep)
                     return whereTraversalStep.Traversal.RewriteForWhereContext();
             }
 
@@ -54,12 +52,12 @@ namespace ExRam.Gremlinq.Core
 
             if (traversalsArray.Any())
             {
-                if (traversalsArray.All(x => x.Steps.Count == 1))
+                if (traversalsArray.All(x => x.Count == 1))
                 {
-                    if (traversalsArray.All(x => x.Steps[0] is HasPredicateStep))
+                    if (traversalsArray.All(x => x[0] is HasPredicateStep))
                     {
                         var groups = traversalsArray
-                            .Select(x => x.Steps[0])
+                            .Select(x => x[0])
                             .OfType<HasPredicateStep>()
                             .GroupBy(x => x.Key);
 
@@ -75,10 +73,10 @@ namespace ExRam.Gremlinq.Core
                         yield break;
                     }
 
-                    if (traversalsArray.All(x => x.Steps[0] is IsStep))
+                    if (traversalsArray.All(x => x[0] is IsStep))
                     {
                         var effective = traversalsArray
-                            .Select(x => x.Steps[0])
+                            .Select(x => x[0])
                             .OfType<IsStep>()
                             .Select(x => x.Predicate)
                             .Aggregate(fuse);

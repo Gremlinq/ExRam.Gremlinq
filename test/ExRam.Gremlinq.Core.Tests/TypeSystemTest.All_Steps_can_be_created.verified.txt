@@ -1,4 +1,4 @@
-[
+﻿[
   {
     Item1: AddEStep,
     Item2: {
@@ -14,11 +14,9 @@
   {
     Item1: AddEStep.FromTraversalStep,
     Item2: {
-      Traversal: {
-        Steps: [
-          {}
-        ]
-      }
+      Traversal: [
+        {}
+      ]
     }
   },
   {
@@ -30,11 +28,9 @@
   {
     Item1: AddEStep.ToTraversalStep,
     Item2: {
-      Traversal: {
-        Steps: [
-          {}
-        ]
-      }
+      Traversal: [
+        {}
+      ]
     }
   },
   {
@@ -58,21 +54,15 @@
     Item2: {
       Name: and,
       Traversals: [
-        {
-          Steps: [
-            {}
-          ]
-        },
-        {
-          Steps: [
-            {}
-          ]
-        },
-        {
-          Steps: [
-            {}
-          ]
-        }
+        [
+          {}
+        ],
+        [
+          {}
+        ],
+        [
+          {}
+        ]
       ]
     }
   },
@@ -119,11 +109,9 @@
   {
     Item1: ChooseOptionTraversalStep,
     Item2: {
-      Traversal: {
-        Steps: [
-          {}
-        ]
-      }
+      Traversal: [
+        {}
+      ]
     }
   },
   {
@@ -137,57 +125,41 @@
           string
         ]
       },
-      ThenTraversal: {
-        Steps: [
-          {}
-        ]
-      },
-      ElseTraversal: {
-        Steps: [
-          {}
-        ]
-      }
+      ThenTraversal: [
+        {}
+      ],
+      ElseTraversal: [
+        {}
+      ]
     }
   },
   {
     Item1: ChooseTraversalStep,
     Item2: {
-      IfTraversal: {
-        Steps: [
-          {}
-        ]
-      },
-      ThenTraversal: {
-        Steps: [
-          {}
-        ]
-      },
-      ElseTraversal: {
-        Steps: [
-          {}
-        ]
-      }
+      IfTraversal: [
+        {}
+      ],
+      ThenTraversal: [
+        {}
+      ],
+      ElseTraversal: [
+        {}
+      ]
     }
   },
   {
     Item1: CoalesceStep,
     Item2: {
       Traversals: [
-        {
-          Steps: [
-            {}
-          ]
-        },
-        {
-          Steps: [
-            {}
-          ]
-        },
-        {
-          Steps: [
-            {}
-          ]
-        }
+        [
+          {}
+        ],
+        [
+          {}
+        ],
+        [
+          {}
+        ]
       ]
     }
   },
@@ -264,11 +236,9 @@
   {
     Item1: FlatMapStep,
     Item2: {
-      Traversal: {
-        Steps: [
-          {}
-        ]
-      }
+      Traversal: [
+        {}
+      ]
     }
   },
   {
@@ -282,11 +252,9 @@
   {
     Item1: GroupStep.ByTraversalStep,
     Item2: {
-      Traversal: {
-        Steps: [
-          {}
-        ]
-      }
+      Traversal: [
+        {}
+      ]
     }
   },
   {
@@ -355,11 +323,9 @@
           EnumValue: id
         }
       },
-      Traversal: {
-        Steps: [
-          {}
-        ]
-      }
+      Traversal: [
+        {}
+      ]
     }
   },
   {
@@ -444,42 +410,32 @@
   {
     Item1: LocalStep,
     Item2: {
-      Traversal: {
-        Steps: [
-          {}
-        ]
-      }
+      Traversal: [
+        {}
+      ]
     }
   },
   {
     Item1: MapStep,
     Item2: {
-      Traversal: {
-        Steps: [
-          {}
-        ]
-      }
+      Traversal: [
+        {}
+      ]
     }
   },
   {
     Item1: MatchStep,
     Item2: {
       Traversals: [
-        {
-          Steps: [
-            {}
-          ]
-        },
-        {
-          Steps: [
-            {}
-          ]
-        },
-        {
-          Steps: [
-            {}
-          ]
-        }
+        [
+          {}
+        ],
+        [
+          {}
+        ],
+        [
+          {}
+        ]
       ]
     }
   },
@@ -517,32 +473,26 @@
   {
     Item1: NotStep,
     Item2: {
-      Traversal: {
-        Steps: [
-          {}
-        ]
-      }
+      Traversal: [
+        {}
+      ]
     }
   },
   {
     Item1: OptionalStep,
     Item2: {
-      Traversal: {
-        Steps: [
-          {}
-        ]
-      }
+      Traversal: [
+        {}
+      ]
     }
   },
   {
     Item1: OptionTraversalStep,
     Item2: {
       Guard: string,
-      OptionTraversal: {
-        Steps: [
-          {}
-        ]
-      }
+      OptionTraversal: [
+        {}
+      ]
     }
   },
   {
@@ -586,11 +536,9 @@
         EnumName: Order,
         EnumValue: asc
       },
-      Traversal: {
-        Steps: [
-          {}
-        ]
-      }
+      Traversal: [
+        {}
+      ]
     }
   },
   {
@@ -598,21 +546,15 @@
     Item2: {
       Name: or,
       Traversals: [
-        {
-          Steps: [
-            {}
-          ]
-        },
-        {
-          Steps: [
-            {}
-          ]
-        },
-        {
-          Steps: [
-            {}
-          ]
-        }
+        [
+          {}
+        ],
+        [
+          {}
+        ],
+        [
+          {}
+        ]
       ]
     }
   },
@@ -665,11 +607,9 @@
   {
     Item1: ProjectStep.ByTraversalStep,
     Item2: {
-      Traversal: {
-        Steps: [
-          {}
-        ]
-      }
+      Traversal: [
+        {}
+      ]
     }
   },
   {
@@ -723,11 +663,9 @@
   {
     Item1: RepeatStep,
     Item2: {
-      Traversal: {
-        Steps: [
-          {}
-        ]
-      }
+      Traversal: [
+        {}
+      ]
     }
   },
   {
@@ -768,11 +706,9 @@
   {
     Item1: SideEffectStep,
     Item2: {
-      Traversal: {
-        Steps: [
-          {}
-        ]
-      }
+      Traversal: [
+        {}
+      ]
     }
   },
   {
@@ -818,32 +754,24 @@
     Item1: UnionStep,
     Item2: {
       Traversals: [
-        {
-          Steps: [
-            {}
-          ]
-        },
-        {
-          Steps: [
-            {}
-          ]
-        },
-        {
-          Steps: [
-            {}
-          ]
-        }
+        [
+          {}
+        ],
+        [
+          {}
+        ],
+        [
+          {}
+        ]
       ]
     }
   },
   {
     Item1: UntilStep,
     Item2: {
-      Traversal: {
-        Steps: [
-          {}
-        ]
-      }
+      Traversal: [
+        {}
+      ]
     }
   },
   {
@@ -921,11 +849,9 @@
   {
     Item1: WhereTraversalStep,
     Item2: {
-      Traversal: {
-        Steps: [
-          {}
-        ]
-      }
+      Traversal: [
+        {}
+      ]
     }
   },
   {
@@ -948,11 +874,9 @@
   {
     Item1: WithStrategiesStep,
     Item2: {
-      Traversal: {
-        Steps: [
-          {}
-        ]
-      }
+      Traversal: [
+        {}
+      ]
     }
   }
 ]

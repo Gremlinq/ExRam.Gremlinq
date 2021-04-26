@@ -1625,11 +1625,13 @@ namespace ExRam.Gremlinq.Core
         public TimesStep(int count) { }
         public int Count { get; }
     }
-    public readonly struct Traversal
+    public readonly struct Traversal : System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Step>, System.Collections.Generic.IReadOnlyCollection<ExRam.Gremlinq.Core.Step>, System.Collections.Generic.IReadOnlyList<ExRam.Gremlinq.Core.Step>, System.Collections.IEnumerable
     {
         public Traversal(System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Step> steps) { }
         public Traversal(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Step> steps) { }
-        public System.Collections.Generic.IReadOnlyList<ExRam.Gremlinq.Core.Step> Steps { get; }
+        public int Count { get; }
+        public ExRam.Gremlinq.Core.Step this[int index] { get; }
+        public System.Collections.Generic.IEnumerator<ExRam.Gremlinq.Core.Step> GetEnumerator() { }
         public static ExRam.Gremlinq.Core.Traversal op_Implicit(ExRam.Gremlinq.Core.Step step) { }
         public static ExRam.Gremlinq.Core.Traversal op_Implicit(ExRam.Gremlinq.Core.Step[] steps) { }
         public static ExRam.Gremlinq.Core.Traversal op_Implicit(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Step> steps) { }
