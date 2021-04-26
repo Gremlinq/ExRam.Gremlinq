@@ -822,12 +822,9 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TNewElement, object, object, TNewPropertyValue, TNewMeta, object> Properties<TNewElement, TNewPropertyValue, TNewMeta>(IEnumerable<string> keys, QuerySemantics querySemantics) => AddStep<TNewElement, object, object, TNewPropertyValue, TNewMeta, object>(new PropertiesStep(keys.ToImmutableArray()), querySemantics);
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Property(LambdaExpression projection, object? value, bool allowExplicitCardinality)
-        {
-            return Property(GetKey(projection), value, allowExplicitCardinality);
-        }
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Property(LambdaExpression projection, object? value) => Property(GetKey(projection), value);
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Property(Key key, object? value, bool allowExplicitCardinality)
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Property(Key key, object? value)
         {
             if (value == null)
             {
@@ -839,7 +836,7 @@ namespace ExRam.Gremlinq.Core
 
             var ret = this;
 
-            foreach (var propertyStep in GetPropertySteps(key, value, allowExplicitCardinality))
+            foreach (var propertyStep in GetPropertySteps(key, value, Semantics == QuerySemantics.Vertex))
             {
                 ret = ret.AddStep(propertyStep);
             }
