@@ -340,7 +340,7 @@ namespace ExRam.Gremlinq.Core
                 {
                     var traversal = step.Traversal;
 
-                    if (traversal.Steps.Length == 1 && traversal.Steps[0] is LocalStep localStep)
+                    if (traversal.Steps.Count == 1 && traversal.Steps[0] is LocalStep localStep)
                         traversal = localStep.Traversal;
 
                     return CreateInstruction("by", recurse, env, traversal);
@@ -394,7 +394,7 @@ namespace ExRam.Gremlinq.Core
                         }
                     }
 
-                    if (steps.Length == 0)
+                    if (steps.Count == 0)
                         steps = IdentitySteps;
 
                     Add(steps);

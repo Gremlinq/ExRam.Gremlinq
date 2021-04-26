@@ -14,7 +14,7 @@ namespace ExRam.Gremlinq.Core
             Steps = steps;
         }
 
-        public ImmutableArray<Step> Steps { get; }
+        public IReadOnlyList<Step> Steps { get; }
 
         public static implicit operator Traversal(Step[] steps)
         {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using Gremlin.Net.Process.Traversal;
 
@@ -11,11 +12,11 @@ namespace ExRam.Gremlinq.Core
         {
             var traversalSteps = traversal.Steps;
 
-            if (traversalSteps.Length >= 2)
+            if (traversalSteps.Count >= 2)
             {
-                if (traversalSteps[traversalSteps.Length - 1] is IsStep isStep)
+                if (traversalSteps[traversalSteps.Count - 1] is IsStep isStep)
                 {
-                    var newStep = traversalSteps[traversalSteps.Length - 2] switch
+                    var newStep = traversalSteps[traversalSteps.Count - 2] switch
                     {
                         ValuesStep valuesStep when valuesStep.Keys.Length == 1 => new HasPredicateStep(valuesStep.Keys[0], isStep.Predicate),
                         IdStep => new HasPredicateStep(T.Id, isStep.Predicate),
@@ -25,13 +26,18 @@ namespace ExRam.Gremlinq.Core
 
                     if (newStep != null)
                     {
-                        return traversalSteps.Length == 2
-                            ? (Traversal)newStep
-                            : traversalSteps.SetItem(traversalSteps.Length - 2, newStep).RemoveAt(traversalSteps.Length - 1);
+                        if (traversalSteps.Count == 2)
+                            return (Traversal)newStep;
+
+                        var list = traversalSteps.ToList();
+                        list[traversalSteps.Count - 2] = newStep;
+                        list.RemoveAt(traversalSteps.Count - 1);
+
+                        return new Traversal(list); //TODO: Own list!
                     }
                 }
             }
-            else if (traversalSteps.Length == 1)
+            else if (traversalSteps.Count == 1)
             {
                 if (traversalSteps[0] is WhereTraversalStep whereTraversalStep)
                     return whereTraversalStep.Traversal.RewriteForWhereContext();
@@ -48,7 +54,7 @@ namespace ExRam.Gremlinq.Core
 
             if (traversalsArray.Any())
             {
-                if (traversalsArray.All(x => x.Steps.Length == 1))
+                if (traversalsArray.All(x => x.Steps.Count == 1))
                 {
                     if (traversalsArray.All(x => x.Steps[0] is HasPredicateStep))
                     {

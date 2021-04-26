@@ -1619,7 +1619,7 @@ namespace ExRam.Gremlinq.Core
     {
         public Traversal(System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Step> steps) { }
         public Traversal(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Step> steps) { }
-        public System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Step> Steps { get; }
+        public System.Collections.Generic.IReadOnlyList<ExRam.Gremlinq.Core.Step> Steps { get; }
         public static ExRam.Gremlinq.Core.Traversal op_Implicit(ExRam.Gremlinq.Core.Step step) { }
         public static ExRam.Gremlinq.Core.Traversal op_Implicit(ExRam.Gremlinq.Core.Step[] steps) { }
         public static ExRam.Gremlinq.Core.Traversal op_Implicit(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Step> steps) { }

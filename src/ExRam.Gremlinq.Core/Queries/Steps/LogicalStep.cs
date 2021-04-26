@@ -17,7 +17,7 @@ namespace ExRam.Gremlinq.Core
 
         private static IEnumerable<Traversal> FlattenLogicalTraversals(Traversal traversal)
         {
-            if (traversal.Steps.Length == 1 && traversal.Steps[0] is TStep otherStep)
+            if (traversal.Steps.Count == 1 && traversal.Steps[0] is TStep otherStep)
             {
                 foreach (var subTraversal in otherStep.Traversals)
                 {
