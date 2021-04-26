@@ -9,13 +9,12 @@ namespace ExRam.Gremlinq.Core
     {
         public static readonly StepStack Empty = new(Array.Empty<Step>(), 0);
 
-        private readonly int _count;
         private readonly Step?[] _steps;
 
         internal StepStack(Step?[] steps, int count)
         {
             _steps = steps;
-            _count = count;
+            Count = count;
         }
 
         public StepStack Push(Step step)
@@ -24,23 +23,23 @@ namespace ExRam.Gremlinq.Core
             {
                 var newSteps = _steps;
 
-                if (_count < steps.Length)
+                if (Count < steps.Length)
                 {
-                    if (Interlocked.CompareExchange(ref _steps[_count], step, default) != null)
+                    if (Interlocked.CompareExchange(ref _steps[Count], step, default) != null)
                     {
                         newSteps = new Step[_steps.Length];
-                        Array.Copy(_steps, newSteps, _count);
-                        newSteps[_count] = step;
+                        Array.Copy(_steps, newSteps, Count);
+                        newSteps[Count] = step;
                     }
                 }
                 else
                 {
                     newSteps = new Step[Math.Max(_steps.Length * 2, 16)];
-                    Array.Copy(_steps, newSteps, _count);
-                    newSteps[_count] = step;
+                    Array.Copy(_steps, newSteps, Count);
+                    newSteps[Count] = step;
                 }
 
-                return new StepStack(newSteps, _count + 1);
+                return new StepStack(newSteps, Count + 1);
             }
 
             return Empty.Push(step);
@@ -53,13 +52,13 @@ namespace ExRam.Gremlinq.Core
             if (IsEmpty)
                 throw new InvalidOperationException();
 
-            poppedStep = _steps[_count - 1]!;
-            return new StepStack(_steps, _count - 1);
+            poppedStep = _steps[Count - 1]!;
+            return new StepStack(_steps, Count - 1);
         }
 
         public IEnumerator<Step> GetEnumerator()
         {
-            for (var i = 0; i < _count; i++)
+            for (var i = 0; i < Count; i++)
             {
                 yield return _steps[i]!;
             }
@@ -70,7 +69,7 @@ namespace ExRam.Gremlinq.Core
             get => Count == 0;
         }
 
-        internal Step? Peek() => _count > 0 ? _steps[_count - 1] : null;
+        internal Step? Peek() => Count > 0 ? _steps[Count - 1] : null;
 
         internal Step? TryGetSingleStep() => !IsEmpty && Pop(out var step).IsEmpty
             ? step
@@ -82,11 +81,11 @@ namespace ExRam.Gremlinq.Core
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-        public int Count { get => _count; }
+        public int Count { get; }
 
         public Step this[int index]
         {
-            get => index < 0 || index >= _count ? throw new ArgumentOutOfRangeException() : _steps[index]!;
+            get => index < 0 || index >= Count ? throw new ArgumentOutOfRangeException() : _steps[index]!;
         }
     }
 }
