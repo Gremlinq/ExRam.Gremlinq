@@ -1196,14 +1196,13 @@ namespace ExRam.Gremlinq.Core
                                     }
                                     case WellKnownMember.VertexPropertyLabel when right.GetValue() is StepLabel:
                                     {
-                                        yield return new WhereTraversalStep(
-                                            new Traversal(this
-                                                .Where(
-                                                    ExpressionFragment.Create(parameterExpression, Environment.Model),
-                                                    default,
-                                                    semantics,
-                                                    right)
-                                                .Prepend(LabelStep.Instance)));
+                                        yield return new WhereTraversalStep(new Traversal(this
+                                            .Where(
+                                                ExpressionFragment.Create(parameterExpression, Environment.Model),
+                                                default,
+                                                semantics,
+                                                right)
+                                            .Prepend(LabelStep.Instance)));
 
                                         yield break;
                                     }

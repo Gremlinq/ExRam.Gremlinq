@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq.Core
 {
     public readonly struct Traversal
     {
-        public Traversal(IEnumerable<Step> steps) : this(steps.ToImmutableArray())
+        public Traversal(IEnumerable<Step> steps) : this(steps.ToArray(), true)
         {
         }
 
@@ -24,19 +24,10 @@ namespace ExRam.Gremlinq.Core
 
         public IReadOnlyList<Step> Steps { get; }
 
-        public static implicit operator Traversal(Step[] steps)
-        {
-            return new(steps, false);
-        }
+        public static implicit operator Traversal(Step[] steps) => new(steps, false);
 
-        public static implicit operator Traversal(ImmutableArray<Step> steps)
-        {
-            return new(steps);
-        }
+        public static implicit operator Traversal(ImmutableArray<Step> steps) => new(steps);
 
-        public static implicit operator Traversal(Step step)
-        {
-            return new(ImmutableArray.Create(step));
-        }
+        public static implicit operator Traversal(Step step) => new(new [] { step });
     }
 }

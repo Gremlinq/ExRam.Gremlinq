@@ -27,13 +27,13 @@ namespace ExRam.Gremlinq.Core
                     if (newStep != null)
                     {
                         if (traversalSteps.Count == 2)
-                            return (Traversal)newStep;
+                            return newStep;
 
                         var list = traversalSteps.ToList();
                         list[traversalSteps.Count - 2] = newStep;
                         list.RemoveAt(traversalSteps.Count - 1);
 
-                        return new Traversal(list); //TODO: Own list!
+                        return new Traversal(list, true);
                     }
                 }
             }
