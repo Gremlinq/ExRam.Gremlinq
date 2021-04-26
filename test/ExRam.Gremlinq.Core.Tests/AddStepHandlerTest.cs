@@ -16,7 +16,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Empty()
         {
             await Verify(AddStepHandler.Empty
-                .AddStep(ImmutableStack<Step>.Empty, new HasLabelStep(ImmutableArray.Create("label")), GremlinQueryEnvironment.Empty));
+                .AddStep(StepStack.Empty, new HasLabelStep(ImmutableArray.Create("label")), GremlinQueryEnvironment.Empty));
         }
 
         [Fact]
@@ -24,7 +24,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await Verify(AddStepHandler.Empty
                 .Override<Step>((steps, step, env, overridden, recurse) => steps.Push(new VStep(ImmutableArray.Create<object>("id"))))
-                .AddStep(ImmutableStack<Step>.Empty, new HasLabelStep(ImmutableArray.Create("label")), GremlinQueryEnvironment.Empty));
+                .AddStep(StepStack.Empty, new HasLabelStep(ImmutableArray.Create("label")), GremlinQueryEnvironment.Empty));
         }
 
         [Fact]
@@ -32,7 +32,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await Verify(AddStepHandler.Empty
                 .Override<HasKeyStep>((steps, step, env, overridden, recurse) => steps.Push(new HasLabelStep(ImmutableArray.Create("should not be here"))))
-                .AddStep(ImmutableStack<Step>.Empty, new HasLabelStep(ImmutableArray.Create("label")), GremlinQueryEnvironment.Empty));
+                .AddStep(StepStack.Empty, new HasLabelStep(ImmutableArray.Create("label")), GremlinQueryEnvironment.Empty));
         }
 
         [Fact]
@@ -40,7 +40,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await Verify(AddStepHandler.Empty
                 .Override<HasLabelStep>((steps, step, env, overridden, recurse) => overridden(steps, new HasLabelStep(step.Labels.Add("added label")), env, recurse))
-                .AddStep(ImmutableStack<Step>.Empty, new HasLabelStep(ImmutableArray.Create("label")), GremlinQueryEnvironment.Empty));
+                .AddStep(StepStack.Empty, new HasLabelStep(ImmutableArray.Create("label")), GremlinQueryEnvironment.Empty));
         }
 
         [Fact]
@@ -49,7 +49,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await Verify(AddStepHandler.Empty
                 .Override<HasLabelStep>((steps, step, env, overridden, recurse) => overridden(steps, new HasLabelStep(step.Labels.Add("added label override 1")), env, recurse))
                 .Override<HasLabelStep>((steps, step, env, overridden, recurse) => overridden(steps, new HasLabelStep(step.Labels.Add("added label override 2")), env, recurse))
-                .AddStep(ImmutableStack<Step>.Empty, new HasLabelStep(ImmutableArray.Create("label")), GremlinQueryEnvironment.Empty));
+                .AddStep(StepStack.Empty, new HasLabelStep(ImmutableArray.Create("label")), GremlinQueryEnvironment.Empty));
         }
 
         [Fact]
@@ -57,7 +57,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await Verify(AddStepHandler.Empty
                 .Override<HasLabelStep>((steps, step, env, overridden, recurse) => recurse.AddStep(steps, new VStep(ImmutableArray.Create<object>("id")), env))
-                .AddStep(ImmutableStack<Step>.Empty, new HasLabelStep(ImmutableArray.Create("label")), GremlinQueryEnvironment.Empty));
+                .AddStep(StepStack.Empty, new HasLabelStep(ImmutableArray.Create("label")), GremlinQueryEnvironment.Empty));
         }
 
 
@@ -67,7 +67,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await Verify(AddStepHandler.Empty
                 .Override<VStep>((steps, step, env, overridden, recurse) => overridden(steps, new VStep(step.Ids.Add("another id")), env, recurse))
                 .Override<HasLabelStep>((steps, step, env, overridden, recurse) => recurse.AddStep(steps, new VStep(ImmutableArray.Create<object>("id")), env))
-                .AddStep(ImmutableStack<Step>.Empty, new HasLabelStep(ImmutableArray.Create("label")), GremlinQueryEnvironment.Empty));
+                .AddStep(StepStack.Empty, new HasLabelStep(ImmutableArray.Create("label")), GremlinQueryEnvironment.Empty));
         }
 
         [Fact]
@@ -76,7 +76,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await Verify(AddStepHandler.Empty
                 .Override<HasLabelStep>((steps, step, env, overridden, recurse) => recurse.AddStep(steps, new VStep(ImmutableArray.Create<object>("id")), env))
                 .Override<VStep>((steps, step, env, overridden, recurse) => overridden(steps, new VStep(step.Ids.Add("another id")), env, recurse))
-                .AddStep(ImmutableStack<Step>.Empty, new HasLabelStep(ImmutableArray.Create("label")), GremlinQueryEnvironment.Empty));
+                .AddStep(StepStack.Empty, new HasLabelStep(ImmutableArray.Create("label")), GremlinQueryEnvironment.Empty));
         }
     }
 }

@@ -4,14 +4,14 @@ namespace ExRam.Gremlinq.Core
 {
     internal static class ImmutableStackExtensions
     {
-        public static Step? TryGetSingleStep(this IImmutableStack<Step> steps)
+        public static Step? TryGetSingleStep(this StepStack steps)
         {
             return !steps.IsEmpty && steps.Pop(out var step).IsEmpty
                 ? step
                 : default;
         }
 
-        public static Step? PeekOrDefault(this IImmutableStack<Step> steps)
+        public static Step? PeekOrDefault(this StepStack steps)
         {
             return !steps.IsEmpty
                 ? steps.Peek()
