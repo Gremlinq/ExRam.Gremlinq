@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace ExRam.Gremlinq.Core
 {
-    public struct StepStack : IReadOnlyList<Step>
+    public readonly struct StepStack : IReadOnlyList<Step>
     {
         public static readonly StepStack Empty = new(Array.Empty<Step>(), 0);
 
