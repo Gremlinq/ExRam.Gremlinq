@@ -822,18 +822,29 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TNewElement, object, object, TNewPropertyValue, TNewMeta, object> Properties<TNewElement, TNewPropertyValue, TNewMeta>(IEnumerable<string> keys, QuerySemantics querySemantics) => AddStep<TNewElement, object, object, TNewPropertyValue, TNewMeta, object>(new PropertiesStep(keys.ToImmutableArray()), querySemantics);
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Property<TSource, TValue>(Expression<Func<TSource, TValue>> projection, object? value)
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Property(LambdaExpression projection, object? value, bool allowExplicitCardinality)
         {
-            return Property(GetKey(projection), value);
+            return Property(GetKey(projection), value, allowExplicitCardinality);
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Property(Key key, object? value)
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Property(Key key, object? value, bool allowExplicitCardinality)
         {
-            return value == null
-                ? key.RawKey is string name
-                    ? DropProperties(name)
-                    : throw new InvalidOperationException("Can't set a special property to null.")
-                : AddStep(new PropertyStep(key, value));
+            if (value == null)
+            {
+                if (key.RawKey is string stringKey)
+                    return DropProperties(stringKey);
+
+                throw new InvalidOperationException("Can't set a special property to null.");
+            }
+
+            var ret = this;
+
+            foreach (var propertyStep in GetPropertySteps(key, value, allowExplicitCardinality))
+            {
+                ret = ret.AddStep(propertyStep);
+            }
+
+            return ret;
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> RangeGlobal(long low, long high) => AddStep(new RangeStep(low, high, Scope.Global));
@@ -979,31 +990,7 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TValue, object, object, object, object, object> ValuesForProjections<TValue>(IEnumerable<LambdaExpression> projections) => ValuesForKeys<TValue>(projections.Select(projection => GetKey(projection)));
 
         private GremlinQuery<VertexProperty<TNewPropertyValue>, object, object, TNewPropertyValue, object, object> VertexProperties<TNewPropertyValue>(Expression[] projections) => Properties<VertexProperty<TNewPropertyValue>, TNewPropertyValue, object>(QuerySemantics.VertexProperty, projections);
-
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> VertexProperty(LambdaExpression projection, object? value)
-        {
-            var key = GetKey(projection);
-
-            if (value == null)
-            {
-                if (key.RawKey is string stringKey)
-                    return DropProperties(stringKey);
-            }
-            else
-            {
-                var ret = this;
-
-                foreach (var propertyStep in GetPropertySteps(key, value, true))
-                {
-                    ret = ret.AddStep(propertyStep);
-                }
-
-                return ret;
-            }
-
-            throw new ExpressionNotSupportedException(projection);
-        }
-
+        
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Where(ILambda lambda) => AddStep(new FilterStep(lambda));
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Where(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> filterTraversal)
