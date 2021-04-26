@@ -3105,6 +3105,18 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task Property_single_traversal()
+        {
+            await _g
+                .V<Person>()
+                .Property(
+                    x => x.Age,
+                    __ => __
+                        .Values(x => x.Age))
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task Property_single_with_meta()
         {
             await _g
