@@ -46,10 +46,7 @@ namespace ExRam.Gremlinq.Core
             return Empty.Push(step);
         }
 
-        public StepStack Pop()
-        {
-            return Pop(out _);
-        }
+        public StepStack Pop() => Pop(out _);
 
         public StepStack Pop(out Step poppedStep)
         {
@@ -75,36 +72,21 @@ namespace ExRam.Gremlinq.Core
 
         internal Step? Peek() => _count > 0 ? _steps[_count - 1] : null;
 
-        internal Step? TryGetSingleStep()
-        {
-            return !IsEmpty && Pop(out var step).IsEmpty
-                ? step
-                : default;
-        }
+        internal Step? TryGetSingleStep() => !IsEmpty && Pop(out var step).IsEmpty
+            ? step
+            : default;
 
-        internal Step? PeekOrDefault()
-        {
-            return !IsEmpty
-                ? Peek()
-                : default;
-        }
+        internal Step? PeekOrDefault() => !IsEmpty
+            ? Peek()
+            : default;
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public int Count { get => _count; }
 
         public Step this[int index]
         {
-            get
-            {
-                if (index < 0 || index >= _count)
-                    throw new ArgumentOutOfRangeException();
-
-                return _steps[index]!;
-            }
+            get => index < 0 || index >= _count ? throw new ArgumentOutOfRangeException() : _steps[index]!;
         }
     }
 }
