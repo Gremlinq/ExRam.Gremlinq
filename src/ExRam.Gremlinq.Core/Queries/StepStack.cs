@@ -18,36 +18,29 @@ namespace ExRam.Gremlinq.Core
             _count = count;
         }
 
-        internal bool IsEmpty
-        {
-            get => Count == 0;
-        }
-
-        internal Step? Peek() => _count > 0 ? _steps[_count - 1] : null;
-
         public StepStack Push(Step step)
         {
             if (_steps is { } steps)
             {
+                var newSteps = _steps;
+
                 if (_count < steps.Length)
                 {
-                    if (Interlocked.CompareExchange(ref _steps[_count], step, default) == null)
-                        return new StepStack(_steps, _count + 1);
-
-                    var newSteps = new Step[_steps.Length];
-                    Array.Copy(_steps, newSteps, _count);
-                    newSteps[_count] = step;
-
-                    return new StepStack(newSteps, _count + 1);
+                    if (Interlocked.CompareExchange(ref _steps[_count], step, default) != null)
+                    {
+                        newSteps = new Step[_steps.Length];
+                        Array.Copy(_steps, newSteps, _count);
+                        newSteps[_count] = step;
+                    }
                 }
                 else
                 {
-                    var newSteps = new Step[Math.Max(_steps.Length * 2, 16)];
+                    newSteps = new Step[Math.Max(_steps.Length * 2, 16)];
                     Array.Copy(_steps, newSteps, _count);
                     newSteps[_count] = step;
-
-                    return new StepStack(newSteps, _count + 1);
                 }
+
+                return new StepStack(newSteps, _count + 1);
             }
 
             return Empty.Push(step);
@@ -73,6 +66,27 @@ namespace ExRam.Gremlinq.Core
             {
                 yield return _steps[i]!;
             }
+        }
+
+        internal bool IsEmpty
+        {
+            get => Count == 0;
+        }
+
+        internal Step? Peek() => _count > 0 ? _steps[_count - 1] : null;
+
+        internal Step? TryGetSingleStep()
+        {
+            return !IsEmpty && Pop(out var step).IsEmpty
+                ? step
+                : default;
+        }
+
+        internal Step? PeekOrDefault()
+        {
+            return !IsEmpty
+                ? Peek()
+                : default;
         }
 
         IEnumerator IEnumerable.GetEnumerator()
