@@ -459,9 +459,9 @@ namespace ExRam.Gremlinq.Core
     }
     public interface IAddStepHandler
     {
-        System.Collections.Immutable.IImmutableStack<ExRam.Gremlinq.Core.Step> AddStep<TStep>(System.Collections.Immutable.IImmutableStack<ExRam.Gremlinq.Core.Step> steps, TStep step, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment)
+        ExRam.Gremlinq.Core.StepStack AddStep<TStep>(ExRam.Gremlinq.Core.StepStack steps, TStep step, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment)
             where TStep : ExRam.Gremlinq.Core.Step;
-        ExRam.Gremlinq.Core.IAddStepHandler Override<TStep>(System.Func<System.Collections.Immutable.IImmutableStack<ExRam.Gremlinq.Core.Step>, TStep, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, System.Func<System.Collections.Immutable.IImmutableStack<ExRam.Gremlinq.Core.Step>, TStep, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.IAddStepHandler, System.Collections.Immutable.IImmutableStack<ExRam.Gremlinq.Core.Step>>, ExRam.Gremlinq.Core.IAddStepHandler, System.Collections.Immutable.IImmutableStack<ExRam.Gremlinq.Core.Step>> addStepHandler)
+        ExRam.Gremlinq.Core.IAddStepHandler Override<TStep>(System.Func<ExRam.Gremlinq.Core.StepStack, TStep, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, System.Func<ExRam.Gremlinq.Core.StepStack, TStep, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.IAddStepHandler, ExRam.Gremlinq.Core.StepStack>, ExRam.Gremlinq.Core.IAddStepHandler, ExRam.Gremlinq.Core.StepStack> addStepHandler)
             where TStep : ExRam.Gremlinq.Core.Step;
     }
     public interface IArrayGremlinQueryBase : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IStartGremlinQuery
@@ -657,12 +657,12 @@ namespace ExRam.Gremlinq.Core
         System.Type ElementType { get; }
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment Environment { get; }
         ExRam.Gremlinq.Core.QuerySemantics Semantics { get; }
-        System.Collections.Immutable.IImmutableStack<ExRam.Gremlinq.Core.Step> Steps { get; }
+        ExRam.Gremlinq.Core.StepStack Steps { get; }
         TTargetQuery AddStep<TTargetQuery>(ExRam.Gremlinq.Core.Step step)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
         TTargetQuery ChangeQueryType<TTargetQuery>()
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
-        TTargetQuery ConfigureSteps<TTargetQuery>(System.Func<System.Collections.Immutable.IImmutableStack<ExRam.Gremlinq.Core.Step>, System.Collections.Immutable.IImmutableStack<ExRam.Gremlinq.Core.Step>> configurator)
+        TTargetQuery ConfigureSteps<TTargetQuery>(System.Func<ExRam.Gremlinq.Core.StepStack, ExRam.Gremlinq.Core.StepStack> configurator)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
         ExRam.Gremlinq.Core.IGremlinQuerySource GetSource();
         ExRam.Gremlinq.Core.Traversal ToTraversal();
@@ -1589,6 +1589,16 @@ namespace ExRam.Gremlinq.Core
         public StepLabel() { }
         [System.Runtime.CompilerServices.PreserveBaseOverrides]
         public virtual ExRam.Gremlinq.Core.StepLabel<ExRam.Gremlinq.Core.IValueGremlinQuery<TNewValue>, TNewValue> Cast<TNewValue>() { }
+    }
+    public struct StepStack : System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Step>, System.Collections.Generic.IReadOnlyCollection<ExRam.Gremlinq.Core.Step>, System.Collections.Generic.IReadOnlyList<ExRam.Gremlinq.Core.Step>, System.Collections.IEnumerable
+    {
+        public static readonly ExRam.Gremlinq.Core.StepStack Empty;
+        public int Count { get; }
+        public ExRam.Gremlinq.Core.Step this[int index] { get; }
+        public System.Collections.Generic.IEnumerator<ExRam.Gremlinq.Core.Step> GetEnumerator() { }
+        public ExRam.Gremlinq.Core.StepStack Pop() { }
+        public ExRam.Gremlinq.Core.StepStack Pop(out ExRam.Gremlinq.Core.Step poppedStep) { }
+        public ExRam.Gremlinq.Core.StepStack Push(ExRam.Gremlinq.Core.Step step) { }
     }
     public enum StringComparisonTranslationStrictness
     {

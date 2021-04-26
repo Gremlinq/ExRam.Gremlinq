@@ -246,7 +246,7 @@ namespace ExRam.Gremlinq.Core
 
         QuerySemantics IGremlinQueryAdmin.Semantics => Semantics;
 
-        TTargetQuery IGremlinQueryAdmin.ConfigureSteps<TTargetQuery>(Func<IImmutableStack<Step>, IImmutableStack<Step>> transformation) => ConfigureSteps<TElement>(transformation).ChangeQueryType<TTargetQuery>(Semantics);
+        TTargetQuery IGremlinQueryAdmin.ConfigureSteps<TTargetQuery>(Func<StepStack, StepStack> transformation) => ConfigureSteps<TElement>(transformation).ChangeQueryType<TTargetQuery>(Semantics);
 
         TTargetQuery IGremlinQueryAdmin.AddStep<TTargetQuery>(Step step) => AddStep(step).ChangeQueryType<TTargetQuery>();
 
@@ -254,7 +254,7 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuerySource IGremlinQueryAdmin.GetSource() => GremlinQuery.Create<object>(Environment);
 
-        IImmutableStack<Step> IGremlinQueryAdmin.Steps => Steps;
+        StepStack IGremlinQueryAdmin.Steps => Steps;
 
         IGremlinQueryEnvironment IGremlinQueryAdmin.Environment => Environment;
 
@@ -445,11 +445,9 @@ namespace ExRam.Gremlinq.Core
             }
             else
             {
-                var stepsArray = steps.ToArray();
-
-                for (var i = stepsArray.Length - 1; i >= 0; i--)    //TODO: Optimize when steps size is known
+                for (var i = 0; i < steps.Count; i++)    //TODO: Optimize when steps size is known
                 {
-                    ret.Add(stepsArray[i]);
+                    ret.Add(steps[i]);
                 }
             }
 

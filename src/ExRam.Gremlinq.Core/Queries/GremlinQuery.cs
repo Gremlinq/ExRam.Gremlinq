@@ -16,17 +16,17 @@ namespace ExRam.Gremlinq.Core
 {
     internal static class GremlinQuery
     {
-        internal static readonly IImmutableStack<Step> AnonymousNoneSteps = ImmutableStack<Step>.Empty.Push(NoneStep.Instance);
+        internal static readonly StepStack AnonymousNoneSteps = new StepStack(new Step[] { NoneStep.Instance }, 1);
 
         public static GremlinQuery<TElement, object, object, object, object, object> Create<TElement>(IGremlinQueryEnvironment environment)
         {
             return Create<TElement>(
-                ImmutableStack<Step>.Empty,
+                StepStack.Empty,
                 environment,
                 QueryFlags.SurfaceVisible);
         }
 
-        public static GremlinQuery<TElement, object, object, object, object, object> Create<TElement>(IImmutableStack<Step> steps, IGremlinQueryEnvironment environment, QueryFlags flags)
+        public static GremlinQuery<TElement, object, object, object, object, object> Create<TElement>(StepStack steps, IGremlinQueryEnvironment environment, QueryFlags flags)
         {
             return new(
                 steps,
@@ -236,7 +236,7 @@ namespace ExRam.Gremlinq.Core
         }
 
         public GremlinQuery(
-            IImmutableStack<Step> steps,
+            StepStack steps,
             IGremlinQueryEnvironment environment,
             QuerySemantics semantics,
             IImmutableDictionary<StepLabel, QuerySemantics> stepLabelSemantics,
@@ -414,7 +414,7 @@ namespace ExRam.Gremlinq.Core
 
         private TTargetQuery Continue<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> transformation, bool surfaceVisible = false)
         {
-            var targetQuery = transformation(new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(ImmutableStack<Step>.Empty, Environment, Semantics, StepLabelSemantics, (surfaceVisible ? Flags | QueryFlags.SurfaceVisible : Flags & ~QueryFlags.SurfaceVisible) | QueryFlags.IsAnonymous));
+            var targetQuery = transformation(new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(StepStack.Empty, Environment, Semantics, StepLabelSemantics, (surfaceVisible ? Flags | QueryFlags.SurfaceVisible : Flags & ~QueryFlags.SurfaceVisible) | QueryFlags.IsAnonymous));
 
             if (targetQuery is GremlinQueryBase queryBase && (queryBase.Flags & QueryFlags.IsAnonymous) == QueryFlags.None)
                 throw new InvalidOperationException("A query continuation must originate from the query that was passed to the continuation function. Did you accidentally use 'g' in the continuation?");
@@ -550,10 +550,10 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> ConfigureEnvironment(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> transformation) => Configure<TElement>(_ => _, transformation);
 
-        private GremlinQuery<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> ConfigureSteps<TNewElement>(Func<IImmutableStack<Step>, IImmutableStack<Step>> transformation) => Configure<TNewElement>(transformation, _ => _);
+        private GremlinQuery<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> ConfigureSteps<TNewElement>(Func<StepStack, StepStack> transformation) => Configure<TNewElement>(transformation, _ => _);
 
         private GremlinQuery<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Configure<TNewElement>(
-            Func<IImmutableStack<Step>, IImmutableStack<Step>> stepsTransformation,
+            Func<StepStack, StepStack> stepsTransformation,
             Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> environmentTransformation) => new(stepsTransformation(Steps), environmentTransformation(Environment), Semantics, StepLabelSemantics, Flags);
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> CyclicPath() => AddStep(new CyclicPathStep());
