@@ -137,8 +137,8 @@ namespace ExRam.Gremlinq.Core
 
 
 <# foreach(var iface in Typed(Element(substitutedBaseInterfaces))){ #>
-        <#= iface #> IElementGremlinQueryBaseRec<<#= iface #>>.Property(string key, object? value) => Property(key, value);
-        <#= iface #> IElementGremlinQueryBaseRec<TElement, <#= iface #>>.Property<TProjectedValue>(Expression<Func<TElement, TProjectedValue>> projection, TProjectedValue value) => <#= iface.StartsWith("IVertexGremlinQuery") ? "VertexProperty(projection, value);" : "Property(projection, value);" #>
+        <#= iface #> IElementGremlinQueryBaseRec<<#= iface #>>.Property(string key, object? value) => Property(key, value, false);
+        <#= iface #> IElementGremlinQueryBaseRec<TElement, <#= iface #>>.Property<TProjectedValue>(Expression<Func<TElement, TProjectedValue>> projection, TProjectedValue value) => <#= iface.StartsWith("IVertexGremlinQuery") ? "Property(projection, value, true);" : "Property(projection, value, false);" #>
 
         <#= iface #> IElementGremlinQueryBaseRec<TElement, <#= iface #>>.Where<TProjection>(Expression<Func<TElement, TProjection>> projection, Func<IGremlinQueryBase<TProjection>, IGremlinQueryBase> propertyTraversal) => Where(projection, propertyTraversal);
 <# } #>
