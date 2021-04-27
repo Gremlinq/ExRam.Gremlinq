@@ -37,6 +37,6 @@ namespace ExRam.Gremlinq.Core
 
         public static implicit operator Traversal(ImmutableArray<Step> steps) => new(steps);
 
-        public static implicit operator Traversal(Step step) => new(new[] { step });
+        public static implicit operator Traversal(Step step) => new(new[] { step }, true);
     }
 }
