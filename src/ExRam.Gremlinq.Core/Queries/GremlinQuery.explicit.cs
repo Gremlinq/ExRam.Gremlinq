@@ -258,7 +258,54 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQueryEnvironment IGremlinQueryAdmin.Environment => Environment;
 
-        Traversal IGremlinQueryAdmin.ToTraversal() => ToTraversalImpl();
+        Traversal IGremlinQueryAdmin.ToTraversal()
+        {
+            var steps = Steps;
+            IImmutableList<Step> projection = ImmutableList<Step>.Empty;
+
+            if ((Flags & QueryFlags.SurfaceVisible) == QueryFlags.SurfaceVisible)
+            {
+                switch (Semantics)
+                {
+                    case QuerySemantics.Vertex:
+                    {
+                        projection = Environment.Options.GetValue(Environment.FeatureSet.Supports(VertexFeatures.MetaProperties)
+                            ? GremlinqOption.VertexProjectionSteps
+                            : GremlinqOption.VertexProjectionWithoutMetaPropertiesSteps);
+
+                        break;
+                    }
+                    case QuerySemantics.Edge:
+                    {
+                        projection = Environment.Options.GetValue(GremlinqOption.EdgeProjectionSteps);
+
+                        break;
+                    }
+                }
+            }
+
+            var querySize = Math.Max(1, steps.Count);
+            var ret = new Step[querySize + projection.Count];
+
+            if (steps.IsEmpty)
+                ret[0] = IdentityStep.Instance;
+            else
+            {
+                for (var i = 0; i < steps.Count; i++)    //TODO: Optimize when steps size is known
+                {
+                    ret[i] = steps[i];
+                }
+            }
+
+            var j = 0;
+
+            foreach (var projectionStep in projection)
+            {
+                ret[querySize + j++] = projectionStep;
+            }
+
+            return new Traversal(ret, true);
+        }
 
         Type IGremlinQueryAdmin.ElementType { get => typeof(TElement); }
 
@@ -433,56 +480,7 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<TScalar> IVertexPropertyGremlinQueryBase<TElement, TScalar>.Value() => Value<TScalar>();
 
         IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Mute() => Mute();
-
-        private Traversal ToTraversalImpl()
-        {
-            var steps = Steps;
-            IImmutableList<Step> projection = ImmutableList<Step>.Empty;
-
-            if ((Flags & QueryFlags.SurfaceVisible) == QueryFlags.SurfaceVisible)
-            {
-                switch (Semantics)
-                {
-                    case QuerySemantics.Vertex:
-                    {
-                        projection = Environment.Options.GetValue(Environment.FeatureSet.Supports(VertexFeatures.MetaProperties)
-                            ? GremlinqOption.VertexProjectionSteps
-                            : GremlinqOption.VertexProjectionWithoutMetaPropertiesSteps);
-
-                        break;
-                    }
-                    case QuerySemantics.Edge:
-                    {
-                        projection = Environment.Options.GetValue(GremlinqOption.EdgeProjectionSteps);
-
-                        break;
-                    }
-                }
-            }
-
-            var querySize = Math.Max(1, steps.Count);
-            var ret = new Step[querySize + projection.Count];
-
-            if (steps.IsEmpty)
-                ret[0] = IdentityStep.Instance;
-            else
-            {
-                for (var i = 0; i < steps.Count; i++)    //TODO: Optimize when steps size is known
-                {
-                    ret[i] = steps[i];
-                }
-            }
-
-            var j = 0;
-
-            foreach (var projectionStep in projection)
-            {
-                ret[querySize + j++] = projectionStep;
-            }
-            
-            return new Traversal(ret, true);
-        }
-
+              
         IValueTupleGremlinQuery<TElement> IGremlinQueryBaseRec<IValueTupleGremlinQuery<TElement>>.Mute() => Mute();
 
         IValueGremlinQuery<TTargetValue> IValueTupleGremlinQueryBase<TElement>.Select<TTargetValue>(Expression<Func<TElement, TTargetValue>> projection) => Select<IValueGremlinQuery<TTargetValue>>(projection);
