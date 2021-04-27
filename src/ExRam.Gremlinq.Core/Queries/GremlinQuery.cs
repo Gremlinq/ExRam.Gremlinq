@@ -481,7 +481,7 @@ namespace ExRam.Gremlinq.Core
 
             var query = Continue(__ => __.Where(predicate));
 
-            if (query.Steps.TryGetSingleStep() is IsStep isStep)
+            if (query.Steps.Count == 1 && query.Steps[0] is IsStep isStep)
             {
                 return this
                     .AddStep(

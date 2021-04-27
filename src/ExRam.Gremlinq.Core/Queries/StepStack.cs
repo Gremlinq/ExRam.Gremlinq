@@ -69,10 +69,6 @@ namespace ExRam.Gremlinq.Core
 
         internal Step? Peek() => Count > 0 ? _steps[Count - 1] : null;
 
-        internal Step? TryGetSingleStep() => !IsEmpty && Pop(out var step).IsEmpty
-            ? step
-            : default;
-
         internal Step? PeekOrDefault() => !IsEmpty
             ? Peek()
             : default;
