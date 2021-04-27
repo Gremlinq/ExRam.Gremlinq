@@ -26,15 +26,13 @@ namespace ExRam.Gremlinq.Core
                 if (Count < steps.Length)
                 {
                     if (Interlocked.CompareExchange(ref _steps[Count], step, default) != null)
-                    {
                         newSteps = new Step[_steps.Length];
-                        Array.Copy(_steps, newSteps, Count);
-                        newSteps[Count] = step;
-                    }
                 }
                 else
-                {
                     newSteps = new Step[Math.Max(_steps.Length * 2, 16)];
+
+                if (newSteps != _steps)
+                {
                     Array.Copy(_steps, newSteps, Count);
                     newSteps[Count] = step;
                 }
