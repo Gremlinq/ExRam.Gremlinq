@@ -1,0 +1,8 @@
+﻿[
+  {
+    "Script": "V().hasLabel(_a).repeat(__.inE().outV()).until(__.identity())",
+    "Bindings": {
+      "_a": "Person"
+    }
+  }
+]

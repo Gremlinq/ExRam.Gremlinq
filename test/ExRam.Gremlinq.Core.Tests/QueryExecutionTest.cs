@@ -3215,6 +3215,18 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task RepeatUntil_true()
+        {
+            await _g
+                .V<Person>()
+                .Cast<object>()
+                .RepeatUntil(
+                    __ => __.InE().OutV().Cast<object>(),
+                    __ => __)
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task ReplaceE()
         {
             var now = new DateTime(2020, 4, 7, 14, 43, 36, DateTimeKind.Utc);
