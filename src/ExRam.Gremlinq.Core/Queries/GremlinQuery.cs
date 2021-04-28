@@ -873,7 +873,7 @@ namespace ExRam.Gremlinq.Core
                 .AddStep(new RepeatStep(repeatQuery.ToTraversal()), QuerySemantics.Value);
 
             if (!untilQuery.IsNone())
-                ret = ret.AddStep(new UntilStep(Continue(untilTraversal).ToTraversal()), QuerySemantics.Value);
+                ret = ret.AddStep(new UntilStep(untilQuery.ToTraversal()), QuerySemantics.Value);
 
             return ret
                 .ChangeQueryType<TTargetQuery>();
