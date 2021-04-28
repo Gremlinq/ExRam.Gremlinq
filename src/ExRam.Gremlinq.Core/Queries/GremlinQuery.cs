@@ -873,10 +873,15 @@ namespace ExRam.Gremlinq.Core
             where TTargetQuery : IGremlinQueryBase
         {
             var repeatQuery = Continue(repeatTraversal);
+            var untilQuery = Continue(untilTraversal);
 
-            return this
-                .AddStep(new RepeatStep(repeatQuery.ToTraversal()), QuerySemantics.Value)
-                .AddStep(new UntilStep(Continue(untilTraversal).ToTraversal()), QuerySemantics.Value)
+            var ret = this
+                .AddStep(new RepeatStep(repeatQuery.ToTraversal()), QuerySemantics.Value);
+
+            if (!untilQuery.IsNone())
+                ret = ret.AddStep(new UntilStep(untilQuery.ToTraversal()), QuerySemantics.Value);
+
+            return ret
                 .ChangeQueryType<TTargetQuery>();
         }
 
