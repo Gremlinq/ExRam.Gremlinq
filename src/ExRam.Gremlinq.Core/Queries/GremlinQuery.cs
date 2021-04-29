@@ -1234,7 +1234,11 @@ namespace ExRam.Gremlinq.Core
                                     yield break;
                                 }
 
-                                yield return new IsStep(effectivePredicate);
+                                if (effectivePredicate.EqualsConstant(false))
+                                    yield return NoneStep.Instance;
+                                else if (!effectivePredicate.EqualsConstant(true))
+                                    yield return new IsStep(effectivePredicate);
+
                                 yield break;
                             }
                             case MethodCallExpression methodCallExpression:
