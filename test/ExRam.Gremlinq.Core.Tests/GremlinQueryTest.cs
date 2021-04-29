@@ -3,6 +3,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Tests.Entities;
 using FluentAssertions;
+using FluentAssertions.Common;
+
 using Xunit;
 using Xunit.Abstractions;
 
@@ -81,6 +83,17 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Out<LivesIn>()
                 .OfType<Country>()
                 .Debug(GroovyFormatting.AllowInlining, false));
+        }
+
+        [Fact]
+        public async Task ForceVertex_has_correct_semantics()
+        {
+            await Verify(g
+                .ConfigureEnvironment(_ => _)
+                .V<Person>()
+                .Count()
+                .ForceVertex()
+                .AsAdmin().Semantics);
         }
     }
 }
