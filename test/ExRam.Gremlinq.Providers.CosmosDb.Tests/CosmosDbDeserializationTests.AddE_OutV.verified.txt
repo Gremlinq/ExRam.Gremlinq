@@ -1,7 +1,7 @@
-[
+﻿[
   {
     "Age": 0,
-    "Gender": 0,
+    "Gender": null,
     "Image": "",
     "RegistrationDate": null,
     "PhoneNumbers": [],

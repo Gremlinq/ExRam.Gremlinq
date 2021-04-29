@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "Name": null,
     "Languages": [],
@@ -16,19 +16,9 @@
     "Label": "Country"
   },
   {
-    "IetfLanguageTag": "en",
-    "Id": "scrubbed id",
-    "Label": "Language"
-  },
-  {
-    "IetfLanguageTag": "en",
-    "Id": "scrubbed id",
-    "Label": "Language"
-  },
-  {
     "Age": 21,
     "Gender": 0,
-    "Image": "AQIDBAUGBwg=",
+    "Image": "",
     "RegistrationDate": "2020-04-07T14:43:36+00:00",
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
@@ -43,6 +33,16 @@
     },
     "Id": "scrubbed id",
     "Label": "Person"
+  },
+  {
+    "IetfLanguageTag": "en",
+    "Id": "scrubbed id",
+    "Label": "Language"
+  },
+  {
+    "IetfLanguageTag": "en",
+    "Id": "scrubbed id",
+    "Label": "Language"
   },
   {
     "FoundingDate": "0001-01-01T00:00:00",
@@ -51,87 +51,6 @@
     "Name": null,
     "Id": "scrubbed id",
     "Label": "Company"
-  },
-  {
-    "Age": 21,
-    "Gender": 0,
-    "Image": "",
-    "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": [],
-    "SomeObscureProperty": null,
-    "Name": {
-      "Id": "scrubbed id",
-      "Label": "Name",
-      "Properties": {
-        "ValidFrom": "0001-01-01T00:00:00+00:00"
-      },
-      "Value": "Marko",
-      "Key": null
-    },
-    "Id": "scrubbed id",
-    "Label": "Person"
-  },
-  {
-    "Age": 21,
-    "Gender": 0,
-    "Image": "",
-    "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": [],
-    "SomeObscureProperty": null,
-    "Name": {
-      "Id": "scrubbed id",
-      "Label": "Name",
-      "Properties": {
-        "ValidFrom": "0001-01-01T00:00:00+00:00"
-      },
-      "Value": "Marko",
-      "Key": null
-    },
-    "Id": "scrubbed id",
-    "Label": "Person"
-  },
-  {
-    "Age": 21,
-    "Gender": 0,
-    "Image": "",
-    "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": [],
-    "SomeObscureProperty": null,
-    "Name": {
-      "Id": "scrubbed id",
-      "Label": "Name",
-      "Properties": {
-        "ValidFrom": "0001-01-01T00:00:00+00:00"
-      },
-      "Value": "Marko",
-      "Key": null
-    },
-    "Id": "scrubbed id",
-    "Label": "Person"
-  },
-  {
-    "Age": 21,
-    "Gender": 0,
-    "Image": "",
-    "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": [],
-    "SomeObscureProperty": null,
-    "Name": {
-      "Id": "scrubbed id",
-      "Label": "Name",
-      "Properties": {
-        "ValidFrom": "0001-01-01T00:00:00+00:00"
-      },
-      "Value": "Marko",
-      "Key": null
-    },
-    "Id": "scrubbed id",
-    "Label": "Person"
-  },
-  {
-    "IetfLanguageTag": "en",
-    "Id": "scrubbed id",
-    "Label": "Language"
   },
   {
     "IetfLanguageTag": null,
@@ -198,20 +117,23 @@
     "Label": "Country"
   },
   {
-    "Name": null,
-    "Languages": [],
-    "CountryCallingCode": null,
-    "LocalizableDescription": {
+    "Age": 21,
+    "Gender": 0,
+    "Image": "",
+    "RegistrationDate": "2020-04-07T14:43:36+00:00",
+    "PhoneNumbers": [],
+    "SomeObscureProperty": null,
+    "Name": {
       "Id": "scrubbed id",
-      "Label": "LocalizableDescription",
+      "Label": "Name",
       "Properties": {
-        "someKey": "value"
+        "ValidFrom": "0001-01-01T00:00:00+00:00"
       },
-      "Value": "",
+      "Value": "Marko",
       "Key": null
     },
     "Id": "scrubbed id",
-    "Label": "Country"
+    "Label": "Person"
   },
   {
     "Name": {
@@ -239,6 +161,17 @@
     "Label": "Country"
   },
   {
+    "FoundingDate": "0001-01-01T00:00:00",
+    "PhoneNumbers": [
+      "+4912345",
+      "+4923456"
+    ],
+    "Locations": [],
+    "Name": null,
+    "Id": "scrubbed id",
+    "Label": "Company"
+  },
+  {
     "Age": 21,
     "Gender": 0,
     "Image": "",
@@ -256,17 +189,6 @@
     },
     "Id": "scrubbed id",
     "Label": "Person"
-  },
-  {
-    "FoundingDate": "0001-01-01T00:00:00",
-    "PhoneNumbers": [
-      "+4912345",
-      "+4923456"
-    ],
-    "Locations": [],
-    "Name": null,
-    "Id": "scrubbed id",
-    "Label": "Company"
   },
   {
     "Name": null,
@@ -290,6 +212,11 @@
     "Label": "Language"
   },
   {
+    "IetfLanguageTag": null,
+    "Id": "scrubbed id",
+    "Label": "Language"
+  },
+  {
     "Age": 21,
     "Gender": 0,
     "Image": "",
@@ -309,9 +236,39 @@
     "Label": "Person"
   },
   {
-    "IetfLanguageTag": null,
+    "Name": null,
+    "Languages": [],
+    "CountryCallingCode": null,
+    "LocalizableDescription": {
+      "Id": "scrubbed id",
+      "Label": "LocalizableDescription",
+      "Properties": {
+        "someKey": "value"
+      },
+      "Value": "",
+      "Key": null
+    },
     "Id": "scrubbed id",
-    "Label": "Language"
+    "Label": "Country"
+  },
+  {
+    "Age": 21,
+    "Gender": 0,
+    "Image": "",
+    "RegistrationDate": "2020-04-07T14:43:36+00:00",
+    "PhoneNumbers": [],
+    "SomeObscureProperty": null,
+    "Name": {
+      "Id": "scrubbed id",
+      "Label": "Name",
+      "Properties": {
+        "ValidFrom": "0001-01-01T00:00:00+00:00"
+      },
+      "Value": "Marko",
+      "Key": null
+    },
+    "Id": "scrubbed id",
+    "Label": "Person"
   },
   {
     "Name": null,
@@ -444,5 +401,48 @@
     "IetfLanguageTag": "en",
     "Id": "scrubbed id",
     "Label": "Language"
+  },
+  {
+    "IetfLanguageTag": "en",
+    "Id": "scrubbed id",
+    "Label": "Language"
+  },
+  {
+    "Age": 21,
+    "Gender": 0,
+    "Image": "AQIDBAUGBwg=",
+    "RegistrationDate": "2020-04-07T14:43:36+00:00",
+    "PhoneNumbers": [],
+    "SomeObscureProperty": null,
+    "Name": {
+      "Id": "scrubbed id",
+      "Label": "Name",
+      "Properties": {
+        "ValidFrom": "0001-01-01T00:00:00+00:00"
+      },
+      "Value": "Marko",
+      "Key": null
+    },
+    "Id": "scrubbed id",
+    "Label": "Person"
+  },
+  {
+    "Age": 21,
+    "Gender": 0,
+    "Image": "",
+    "RegistrationDate": "2020-04-07T14:43:36+00:00",
+    "PhoneNumbers": [],
+    "SomeObscureProperty": null,
+    "Name": {
+      "Id": "scrubbed id",
+      "Label": "Name",
+      "Properties": {
+        "ValidFrom": "0001-01-01T00:00:00+00:00"
+      },
+      "Value": "Marko",
+      "Key": null
+    },
+    "Id": "scrubbed id",
+    "Label": "Person"
   }
 ]
