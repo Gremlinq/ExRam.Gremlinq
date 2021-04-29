@@ -3567,6 +3567,19 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task UntilRepeat_false_on_element()
+        {
+            var empty = Array.Empty<object>();
+
+            await _g
+                .V<Person>()
+                .UntilRepeat(
+                    __ => __.InE().OutV<Person>(),
+                    __ => __.Where(x => empty.Contains(x)))
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task Update_Vertex_And_Edge_No_Config()
         {
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
