@@ -1,4 +1,4 @@
-[
+﻿[
   [
     {
       "Name": null,
@@ -9,9 +9,15 @@
       "Label": "Country"
     },
     {
-      "IetfLanguageTag": null,
+      "Age": 0,
+      "Gender": null,
+      "Image": "",
+      "RegistrationDate": null,
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": null,
       "Id": "scrubbed id",
-      "Label": "Language"
+      "Label": "Person"
     }
   ]
 ]

@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "Id": "scrubbed id",
     "Label": "PartitionKey",
@@ -37,13 +37,6 @@
   {
     "Id": "scrubbed id",
     "Label": "Age",
-    "Properties": {},
-    "Value": "0",
-    "Key": null
-  },
-  {
-    "Id": "scrubbed id",
-    "Label": "Gender",
     "Properties": {},
     "Value": "0",
     "Key": null
@@ -78,13 +71,6 @@
   },
   {
     "Id": "scrubbed id",
-    "Label": "Gender",
-    "Properties": {},
-    "Value": "0",
-    "Key": null
-  },
-  {
-    "Id": "scrubbed id",
     "Label": "PartitionKey",
     "Properties": {},
     "Value": "PartitionKey",
@@ -106,13 +92,6 @@
   },
   {
     "Id": "scrubbed id",
-    "Label": "Gender",
-    "Properties": {},
-    "Value": "0",
-    "Key": null
-  },
-  {
-    "Id": "scrubbed id",
     "Label": "PartitionKey",
     "Properties": {},
     "Value": "PartitionKey",
@@ -128,13 +107,6 @@
   {
     "Id": "scrubbed id",
     "Label": "Age",
-    "Properties": {},
-    "Value": "0",
-    "Key": null
-  },
-  {
-    "Id": "scrubbed id",
-    "Label": "Gender",
     "Properties": {},
     "Value": "0",
     "Key": null
@@ -184,13 +156,6 @@
   {
     "Id": "scrubbed id",
     "Label": "Age",
-    "Properties": {},
-    "Value": "0",
-    "Key": null
-  },
-  {
-    "Id": "scrubbed id",
-    "Label": "Gender",
     "Properties": {},
     "Value": "0",
     "Key": null
@@ -296,13 +261,6 @@
   {
     "Id": "scrubbed id",
     "Label": "Age",
-    "Properties": {},
-    "Value": "0",
-    "Key": null
-  },
-  {
-    "Id": "scrubbed id",
-    "Label": "Gender",
     "Properties": {},
     "Value": "0",
     "Key": null
