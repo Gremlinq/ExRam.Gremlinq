@@ -1,6 +1,6 @@
-[
+﻿[
   {
-    "Script": "addE(_a).property(_b,_c).property(_d,_e).property(_f,_c).to(__.addV(_g).property(single,_h,_i)).from(__.addV(_j).property(single,_k,_l).property(single,_m,_n)).project(_o,_p,_q).by(id).by(label).by(__.valueMap())",
+    "Script": "addE(_a).property(_b,_c).property(_d,_e).property(_f,_c).to(__.addV(_g).property(single,_h,_i)).from(__.addV(_j).property(single,_k,_l)).project(_m,_n,_o).by(id).by(label).by(__.valueMap())",
     "Bindings": {
       "_a": "WorksFor",
       "_b": "From",
@@ -14,11 +14,9 @@
       "_j": "Person",
       "_k": "Age",
       "_l": 0,
-      "_m": "Gender",
-      "_n": 0,
-      "_o": "id",
-      "_p": "label",
-      "_q": "properties"
+      "_m": "id",
+      "_n": "label",
+      "_o": "properties"
     }
   }
 ]

@@ -1,19 +1,17 @@
-[
+﻿[
   {
-    "Script": "addV(_a).property(single,_b,_c).property(single,_d,_e).addE(_f).property(_g,_h).to(__.addV(_i)).project(_j,_k,_l).by(id).by(label).by(__.valueMap())",
+    "Script": "addV(_a).property(single,_b,_c).addE(_d).property(_e,_f).to(__.addV(_g)).project(_h,_i,_j).by(id).by(label).by(__.valueMap())",
     "Bindings": {
       "_a": "Person",
       "_b": "Age",
       "_c": 0,
-      "_d": "Gender",
-      "_e": 0,
-      "_f": "LivesIn",
-      "_g": "Since",
-      "_h": "2020-04-07T14:43:36+00:00",
-      "_i": "Country",
-      "_j": "id",
-      "_k": "label",
-      "_l": "properties"
+      "_d": "LivesIn",
+      "_e": "Since",
+      "_f": "2020-04-07T14:43:36+00:00",
+      "_g": "Country",
+      "_h": "id",
+      "_i": "label",
+      "_j": "properties"
     }
   }
 ]
