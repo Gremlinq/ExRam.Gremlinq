@@ -3999,6 +3999,24 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task Where_nullable_enum_property_equals_null()
+        {
+            await _g
+                .V<Person>()
+                .Where(t => t.Gender == null)
+                .Verify();
+        }
+
+        [Fact]
+        public virtual async Task Where_nullable_enum_property_not_equals_null()
+        {
+            await _g
+                .V<Person>()
+                .Where(t => t.Gender != null)
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task Where_property_lower_than_or_equal_string()
         {
             await _g
