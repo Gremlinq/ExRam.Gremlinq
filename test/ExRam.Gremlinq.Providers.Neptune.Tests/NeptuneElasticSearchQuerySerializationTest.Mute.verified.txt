@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "SourceInstructions": [
       {
@@ -22,18 +22,8 @@
         "Arguments": []
       },
       {
-        "OperatorName": "not",
-        "Arguments": [
-          {
-            "SourceInstructions": [],
-            "StepInstructions": [
-              {
-                "OperatorName": "identity",
-                "Arguments": []
-              }
-            ]
-          }
-        ]
+        "OperatorName": "none",
+        "Arguments": []
       },
       {
         "OperatorName": "project",

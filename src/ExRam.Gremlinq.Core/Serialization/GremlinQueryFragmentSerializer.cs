@@ -279,7 +279,7 @@ namespace ExRam.Gremlinq.Core
                 .Override<MinStep>((step, env, overridden, recurse) => step.Scope.Equals(Scope.Local)
                     ? CreateInstruction("min", recurse, env, step.Scope)
                     : CreateInstruction("min"))
-                .Override<NoneStep>((step, env, overridden, recurse) => recurse.Serialize(GremlinQueryEnvironment.NoneWorkaround, env))
+                .Override<NoneStep>((step, env, overridden, recurse) => CreateInstruction("none"))
                 .Override<NotStep>((step, env, overridden, recurse) => CreateInstruction("not", recurse, env, step.Traversal))
                 .Override<OptionalStep>((step, env, overridden, recurse) => CreateInstruction("optional", recurse, env, step.Traversal))
                 .Override<OptionTraversalStep>((step, env, overridden, recurse) => CreateInstruction("option", recurse, env, step.Guard ?? Pick.None, step.OptionTraversal))
