@@ -1,23 +1,21 @@
-[
+﻿[
   {
-    "Script": "addV(_a).property(single,_b,_c).property(single,_d,_e).property(single,_f,_g).property(single,_h,_i).addE(_j).from(__.V().hasLabel(_k).has(_l,_m)).project(_n,_o,_p).by(id).by(label).by(__.valueMap())",
+    "Script": "addV(_a).property(single,_b,_c).property(single,_d,_e).property(single,_f,_g).addE(_h).from(__.V().hasLabel(_i).has(_j,_k)).project(_l,_m,_n).by(id).by(label).by(__.valueMap())",
     "Bindings": {
       "_a": "Person",
       "_b": "Age",
       "_c": 0,
-      "_d": "Gender",
-      "_e": 0,
-      "_f": "Name",
-      "_g": "Bob",
-      "_h": "RegistrationDate",
-      "_i": "2020-04-07T14:43:36+00:00",
-      "_j": "LivesIn",
-      "_k": "Country",
-      "_l": "CountryCallingCode",
-      "_m": "+49",
-      "_n": "id",
-      "_o": "label",
-      "_p": "properties"
+      "_d": "Name",
+      "_e": "Bob",
+      "_f": "RegistrationDate",
+      "_g": "2020-04-07T14:43:36+00:00",
+      "_h": "LivesIn",
+      "_i": "Country",
+      "_j": "CountryCallingCode",
+      "_k": "+49",
+      "_l": "id",
+      "_m": "label",
+      "_n": "properties"
     }
   }
 ]

@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "SourceInstructions": [
       {
@@ -31,17 +31,6 @@
             "EnumValue": "single"
           },
           "Age",
-          0
-        ]
-      },
-      {
-        "OperatorName": "property",
-        "Arguments": [
-          {
-            "EnumName": "Cardinality",
-            "EnumValue": "single"
-          },
-          "Gender",
           0
         ]
       },

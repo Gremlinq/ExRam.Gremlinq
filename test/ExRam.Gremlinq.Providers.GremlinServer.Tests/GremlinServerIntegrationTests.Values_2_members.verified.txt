@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "@type": "g:List",
     "@value": [
@@ -11,7 +11,7 @@
           },
           "value": {
             "@type": "g:Int64",
-            "@value": 66
+            "@value": 64
           }
         }
       },
@@ -23,19 +23,6 @@
             "@value": 11
           },
           "value": "Marko"
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Int64",
-            "@value": 70
-          }
         }
       },
       {
@@ -60,7 +47,7 @@
           },
           "value": {
             "@type": "g:Int64",
-            "@value": 73
+            "@value": 10
           }
         }
       },
@@ -73,7 +60,7 @@
           },
           "value": {
             "@type": "g:Int64",
-            "@value": 11
+            "@value": 15
           }
         }
       },
@@ -86,7 +73,7 @@
           },
           "value": {
             "@type": "g:Int64",
-            "@value": 17
+            "@value": 19
           }
         }
       },
@@ -99,7 +86,7 @@
           },
           "value": {
             "@type": "g:Int64",
-            "@value": 22
+            "@value": 23
           }
         }
       },
@@ -112,7 +99,7 @@
           },
           "value": {
             "@type": "g:Int64",
-            "@value": 27
+            "@value": 29
           }
         }
       },
@@ -125,7 +112,7 @@
           },
           "value": {
             "@type": "g:Int64",
-            "@value": 34
+            "@value": 37
           }
         }
       },
@@ -138,7 +125,7 @@
           },
           "value": {
             "@type": "g:Int64",
-            "@value": 43
+            "@value": 44
           }
         }
       },
@@ -151,7 +138,20 @@
           },
           "value": {
             "@type": "g:Int64",
-            "@value": 51
+            "@value": 58
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Int64",
+            "@value": 61
           }
         }
       }

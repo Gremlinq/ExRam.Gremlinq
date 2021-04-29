@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "Name": null,
     "Languages": [],
@@ -22,7 +22,7 @@
   },
   {
     "Age": 36,
-    "Gender": 0,
+    "Gender": null,
     "Image": "",
     "RegistrationDate": "2020-04-07T14:43:36+00:00",
     "PhoneNumbers": [],
@@ -39,7 +39,7 @@
   },
   {
     "Age": 36,
-    "Gender": 0,
+    "Gender": null,
     "Image": "",
     "RegistrationDate": null,
     "PhoneNumbers": [],
@@ -66,7 +66,7 @@
   },
   {
     "Age": 36,
-    "Gender": 0,
+    "Gender": null,
     "Image": "",
     "RegistrationDate": null,
     "PhoneNumbers": [],
@@ -93,7 +93,7 @@
   },
   {
     "Age": 36,
-    "Gender": 0,
+    "Gender": null,
     "Image": "",
     "RegistrationDate": null,
     "PhoneNumbers": [],
@@ -141,7 +141,7 @@
   },
   {
     "Age": 36,
-    "Gender": 0,
+    "Gender": null,
     "Image": "",
     "RegistrationDate": "2020-04-07T14:43:36+00:00",
     "PhoneNumbers": [],
@@ -185,7 +185,7 @@
   },
   {
     "Age": 36,
-    "Gender": 0,
+    "Gender": null,
     "Image": "AQIDBAUGBwg=",
     "RegistrationDate": null,
     "PhoneNumbers": [],
@@ -207,7 +207,7 @@
   },
   {
     "Age": 36,
-    "Gender": 0,
+    "Gender": null,
     "Image": "",
     "RegistrationDate": "2020-04-07T14:43:36+00:00",
     "PhoneNumbers": [],

@@ -1,21 +1,19 @@
-[
+﻿[
   {
-    "Script": "addV(_a).property(_b,_b).property(single,_c,_d).property(single,_e,_f).property(single,_g,_h).property(single,_i,_j).addE(_k).to(__.V().hasLabel(_l).has(_m,_n))",
+    "Script": "addV(_a).property(_b,_b).property(single,_c,_d).property(single,_e,_f).property(single,_g,_h).addE(_i).to(__.V().hasLabel(_j).has(_k,_l))",
     "Bindings": {
       "_a": "Person",
       "_b": "PartitionKey",
       "_c": "Age",
       "_d": 0,
-      "_e": "Gender",
-      "_f": 0,
-      "_g": "Name",
-      "_h": "Bob",
-      "_i": "RegistrationDate",
-      "_j": "2020-04-07T14:43:36+00:00",
-      "_k": "LivesIn",
-      "_l": "Country",
-      "_m": "CountryCallingCode",
-      "_n": "+49"
+      "_e": "Name",
+      "_f": "Bob",
+      "_g": "RegistrationDate",
+      "_h": "2020-04-07T14:43:36+00:00",
+      "_i": "LivesIn",
+      "_j": "Country",
+      "_k": "CountryCallingCode",
+      "_l": "+49"
     }
   }
 ]

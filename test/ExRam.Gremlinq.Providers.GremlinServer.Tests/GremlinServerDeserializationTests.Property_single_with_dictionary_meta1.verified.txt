@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "Name": null,
     "Languages": [],
@@ -38,7 +38,16 @@
     "Label": "Country"
   },
   {
-    "Name": null,
+    "Name": {
+      "Id": "scrubbed id",
+      "Label": "Name",
+      "Properties": {
+        "de": "Deutschland",
+        "en": "Germany"
+      },
+      "Value": "GER",
+      "Key": null
+    },
     "Languages": [],
     "CountryCallingCode": null,
     "LocalizableDescription": {
@@ -54,16 +63,7 @@
     "Label": "Country"
   },
   {
-    "Name": {
-      "Id": "scrubbed id",
-      "Label": "Name",
-      "Properties": {
-        "de": "Deutschland",
-        "en": "Germany"
-      },
-      "Value": "GER",
-      "Key": null
-    },
+    "Name": null,
     "Languages": [],
     "CountryCallingCode": null,
     "LocalizableDescription": {

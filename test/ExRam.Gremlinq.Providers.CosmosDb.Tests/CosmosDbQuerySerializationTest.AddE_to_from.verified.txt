@@ -1,6 +1,6 @@
-[
+﻿[
   {
-    "Script": "addE(_a).property(_b,_c).property(_d,_e).property(_f,_c).to(__.addV(_g).property(_h,_h).property(single,_i,_j)).from(__.addV(_k).property(_h,_h).property(single,_l,_m).property(single,_n,_o))",
+    "Script": "addE(_a).property(_b,_c).property(_d,_e).property(_f,_c).to(__.addV(_g).property(_h,_h).property(single,_i,_j)).from(__.addV(_k).property(_h,_h).property(single,_l,_m))",
     "Bindings": {
       "_a": "WorksFor",
       "_b": "From",
@@ -14,9 +14,7 @@
       "_j": "0001-01-01T00:00:00+00:00",
       "_k": "Person",
       "_l": "Age",
-      "_m": 0,
-      "_n": "Gender",
-      "_o": 0
+      "_m": 0
     }
   }
 ]

@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "@type": "g:List",
     "@value": [
@@ -7,7 +7,7 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 15
+            "@value": 16
           },
           "value": true
         }
@@ -17,7 +17,7 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 19
+            "@value": 18
           },
           "value": false
         }

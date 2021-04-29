@@ -1,79 +1,9 @@
-[
+﻿[
   {
     "Id": "scrubbed id",
     "Label": "CountryCallingCode",
     "Properties": {},
     "Value": "+49",
-    "Key": null
-  },
-  {
-    "Id": "scrubbed id",
-    "Label": "IetfLanguageTag",
-    "Properties": {},
-    "Value": "en",
-    "Key": null
-  },
-  {
-    "Id": "scrubbed id",
-    "Label": "IetfLanguageTag",
-    "Properties": {},
-    "Value": "en",
-    "Key": null
-  },
-  {
-    "Id": "scrubbed id",
-    "Label": "Gender",
-    "Properties": {},
-    "Value": "0",
-    "Key": null
-  },
-  {
-    "Id": "scrubbed id",
-    "Label": "Image",
-    "Properties": {},
-    "Value": "AQIDBAUGBwg=",
-    "Key": null
-  },
-  {
-    "Id": "scrubbed id",
-    "Label": "Age",
-    "Properties": {},
-    "Value": "0",
-    "Key": null
-  },
-  {
-    "Id": "scrubbed id",
-    "Label": "FoundingDate",
-    "Properties": {},
-    "Value": "-62135596800000",
-    "Key": null
-  },
-  {
-    "Id": "scrubbed id",
-    "Label": "Gender",
-    "Properties": {},
-    "Value": "1",
-    "Key": null
-  },
-  {
-    "Id": "scrubbed id",
-    "Label": "Age",
-    "Properties": {},
-    "Value": "0",
-    "Key": null
-  },
-  {
-    "Id": "scrubbed id",
-    "Label": "Gender",
-    "Properties": {},
-    "Value": "0",
-    "Key": null
-  },
-  {
-    "Id": "scrubbed id",
-    "Label": "Age",
-    "Properties": {},
-    "Value": "0",
     "Key": null
   },
   {
@@ -92,30 +22,9 @@
   },
   {
     "Id": "scrubbed id",
-    "Label": "RegistrationDate",
+    "Label": "IetfLanguageTag",
     "Properties": {},
-    "Value": "1586270616000",
-    "Key": null
-  },
-  {
-    "Id": "scrubbed id",
-    "Label": "Gender",
-    "Properties": {},
-    "Value": "0",
-    "Key": null
-  },
-  {
-    "Id": "scrubbed id",
-    "Label": "Age",
-    "Properties": {},
-    "Value": "0",
-    "Key": null
-  },
-  {
-    "Id": "scrubbed id",
-    "Label": "Name",
-    "Properties": {},
-    "Value": "Bob",
+    "Value": "en",
     "Key": null
   },
   {
@@ -134,6 +43,13 @@
   },
   {
     "Id": "scrubbed id",
+    "Label": "FoundingDate",
+    "Properties": {},
+    "Value": "-62135596800000",
+    "Key": null
+  },
+  {
+    "Id": "scrubbed id",
     "Label": "Locations",
     "Properties": {},
     "Value": "Aachen",
@@ -141,13 +57,6 @@
   },
   {
     "Id": "scrubbed id",
-    "Label": "Gender",
-    "Properties": {},
-    "Value": "0",
-    "Key": null
-  },
-  {
-    "Id": "scrubbed id",
     "Label": "Age",
     "Properties": {},
     "Value": "0",
@@ -162,16 +71,9 @@
   },
   {
     "Id": "scrubbed id",
-    "Label": "Name",
+    "Label": "RegistrationDate",
     "Properties": {},
-    "Value": "GER",
-    "Key": null
-  },
-  {
-    "Id": "scrubbed id",
-    "Label": "Gender",
-    "Properties": {},
-    "Value": "0",
+    "Value": "1586270616000",
     "Key": null
   },
   {
@@ -179,6 +81,20 @@
     "Label": "Age",
     "Properties": {},
     "Value": "0",
+    "Key": null
+  },
+  {
+    "Id": "scrubbed id",
+    "Label": "Name",
+    "Properties": {},
+    "Value": "Bob",
+    "Key": null
+  },
+  {
+    "Id": "scrubbed id",
+    "Label": "Name",
+    "Properties": {},
+    "Value": "GER",
     "Key": null
   },
   {
@@ -204,13 +120,6 @@
   },
   {
     "Id": "scrubbed id",
-    "Label": "Gender",
-    "Properties": {},
-    "Value": "0",
-    "Key": null
-  },
-  {
-    "Id": "scrubbed id",
     "Label": "Age",
     "Properties": {},
     "Value": "0",
@@ -225,16 +134,23 @@
   },
   {
     "Id": "scrubbed id",
-    "Label": "FoundingDate",
+    "Label": "Age",
     "Properties": {},
-    "Value": "-62135596800000",
+    "Value": "0",
     "Key": null
   },
   {
     "Id": "scrubbed id",
-    "Label": "Gender",
+    "Label": "Age",
     "Properties": {},
     "Value": "0",
+    "Key": null
+  },
+  {
+    "Id": "scrubbed id",
+    "Label": "FoundingDate",
+    "Properties": {},
+    "Value": "-62135596800000",
     "Key": null
   },
   {
@@ -267,13 +183,6 @@
   },
   {
     "Id": "scrubbed id",
-    "Label": "Gender",
-    "Properties": {},
-    "Value": "0",
-    "Key": null
-  },
-  {
-    "Id": "scrubbed id",
     "Label": "Age",
     "Properties": {},
     "Value": "0",
@@ -291,13 +200,6 @@
     "Label": "FoundingDate",
     "Properties": {},
     "Value": "-62135596800000",
-    "Key": null
-  },
-  {
-    "Id": "scrubbed id",
-    "Label": "Gender",
-    "Properties": {},
-    "Value": "0",
     "Key": null
   },
   {
@@ -340,6 +242,41 @@
     "Label": "IetfLanguageTag",
     "Properties": {},
     "Value": "en",
+    "Key": null
+  },
+  {
+    "Id": "scrubbed id",
+    "Label": "IetfLanguageTag",
+    "Properties": {},
+    "Value": "en",
+    "Key": null
+  },
+  {
+    "Id": "scrubbed id",
+    "Label": "Image",
+    "Properties": {},
+    "Value": "AQIDBAUGBwg=",
+    "Key": null
+  },
+  {
+    "Id": "scrubbed id",
+    "Label": "Age",
+    "Properties": {},
+    "Value": "0",
+    "Key": null
+  },
+  {
+    "Id": "scrubbed id",
+    "Label": "Gender",
+    "Properties": {},
+    "Value": "1",
+    "Key": null
+  },
+  {
+    "Id": "scrubbed id",
+    "Label": "Age",
+    "Properties": {},
+    "Value": "0",
     "Key": null
   }
 ]

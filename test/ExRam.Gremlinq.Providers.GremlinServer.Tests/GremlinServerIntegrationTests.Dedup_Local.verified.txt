@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "@type": "g:List",
     "@value": [
@@ -29,27 +29,27 @@
                     "@type": "g:Int64",
                     "@value": "scrubbed id"
                   },
-                  "label": "Language"
-                }
-              },
-              {
-                "@type": "g:Vertex",
-                "@value": {
-                  "id": {
-                    "@type": "g:Int64",
-                    "@value": "scrubbed id"
-                  },
-                  "label": "Language"
-                }
-              },
-              {
-                "@type": "g:Vertex",
-                "@value": {
-                  "id": {
-                    "@type": "g:Int64",
-                    "@value": "scrubbed id"
-                  },
                   "label": "Person"
+                }
+              },
+              {
+                "@type": "g:Vertex",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": "scrubbed id"
+                  },
+                  "label": "Language"
+                }
+              },
+              {
+                "@type": "g:Vertex",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": "scrubbed id"
+                  },
+                  "label": "Language"
                 }
               },
               {
@@ -60,56 +60,6 @@
                     "@value": "scrubbed id"
                   },
                   "label": "Company"
-                }
-              },
-              {
-                "@type": "g:Vertex",
-                "@value": {
-                  "id": {
-                    "@type": "g:Int64",
-                    "@value": "scrubbed id"
-                  },
-                  "label": "Person"
-                }
-              },
-              {
-                "@type": "g:Vertex",
-                "@value": {
-                  "id": {
-                    "@type": "g:Int64",
-                    "@value": "scrubbed id"
-                  },
-                  "label": "Person"
-                }
-              },
-              {
-                "@type": "g:Vertex",
-                "@value": {
-                  "id": {
-                    "@type": "g:Int64",
-                    "@value": "scrubbed id"
-                  },
-                  "label": "Person"
-                }
-              },
-              {
-                "@type": "g:Vertex",
-                "@value": {
-                  "id": {
-                    "@type": "g:Int64",
-                    "@value": "scrubbed id"
-                  },
-                  "label": "Person"
-                }
-              },
-              {
-                "@type": "g:Vertex",
-                "@value": {
-                  "id": {
-                    "@type": "g:Int64",
-                    "@value": "scrubbed id"
-                  },
-                  "label": "Language"
                 }
               },
               {
@@ -159,27 +109,17 @@
                     "@type": "g:Int64",
                     "@value": "scrubbed id"
                   },
-                  "label": "Country"
-                }
-              },
-              {
-                "@type": "g:Vertex",
-                "@value": {
-                  "id": {
-                    "@type": "g:Int64",
-                    "@value": "scrubbed id"
-                  },
-                  "label": "Country"
-                }
-              },
-              {
-                "@type": "g:Vertex",
-                "@value": {
-                  "id": {
-                    "@type": "g:Int64",
-                    "@value": "scrubbed id"
-                  },
                   "label": "Person"
+                }
+              },
+              {
+                "@type": "g:Vertex",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": "scrubbed id"
+                  },
+                  "label": "Country"
                 }
               },
               {
@@ -199,7 +139,27 @@
                     "@type": "g:Int64",
                     "@value": "scrubbed id"
                   },
+                  "label": "Person"
+                }
+              },
+              {
+                "@type": "g:Vertex",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": "scrubbed id"
+                  },
                   "label": "Country"
+                }
+              },
+              {
+                "@type": "g:Vertex",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": "scrubbed id"
+                  },
+                  "label": "Language"
                 }
               },
               {
@@ -229,7 +189,17 @@
                     "@type": "g:Int64",
                     "@value": "scrubbed id"
                   },
-                  "label": "Language"
+                  "label": "Country"
+                }
+              },
+              {
+                "@type": "g:Vertex",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": "scrubbed id"
+                  },
+                  "label": "Person"
                 }
               },
               {
@@ -350,6 +320,36 @@
                     "@value": "scrubbed id"
                   },
                   "label": "Language"
+                }
+              },
+              {
+                "@type": "g:Vertex",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": "scrubbed id"
+                  },
+                  "label": "Language"
+                }
+              },
+              {
+                "@type": "g:Vertex",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": "scrubbed id"
+                  },
+                  "label": "Person"
+                }
+              },
+              {
+                "@type": "g:Vertex",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": "scrubbed id"
+                  },
+                  "label": "Person"
                 }
               }
             ]

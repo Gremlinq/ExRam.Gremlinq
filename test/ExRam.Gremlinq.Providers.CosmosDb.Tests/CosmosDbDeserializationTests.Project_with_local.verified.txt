@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "Item2": {
       "id": "scrubbed id",
@@ -34,7 +34,7 @@
     },
     "name": {
       "Age": 0,
-      "Gender": 0,
+      "Gender": null,
       "Image": "",
       "RegistrationDate": "2020-04-07T14:43:36+00:00",
       "PhoneNumbers": [],
@@ -58,7 +58,7 @@
     },
     "name": {
       "Age": 0,
-      "Gender": 0,
+      "Gender": null,
       "Image": "",
       "RegistrationDate": null,
       "PhoneNumbers": [],
@@ -91,7 +91,7 @@
     },
     "name": {
       "Age": 0,
-      "Gender": 0,
+      "Gender": null,
       "Image": "",
       "RegistrationDate": null,
       "PhoneNumbers": [],
@@ -124,7 +124,7 @@
     },
     "name": {
       "Age": 0,
-      "Gender": 0,
+      "Gender": null,
       "Image": "",
       "RegistrationDate": null,
       "PhoneNumbers": [],
@@ -184,7 +184,7 @@
     },
     "name": {
       "Age": 0,
-      "Gender": 0,
+      "Gender": null,
       "Image": "",
       "RegistrationDate": "2020-04-07T14:43:36+00:00",
       "PhoneNumbers": [],
@@ -270,7 +270,7 @@
     },
     "name": {
       "Age": 0,
-      "Gender": 0,
+      "Gender": null,
       "Image": "AQIDBAUGBwg=",
       "RegistrationDate": null,
       "PhoneNumbers": [],
@@ -306,7 +306,7 @@
     },
     "name": {
       "Age": 0,
-      "Gender": 0,
+      "Gender": null,
       "Image": "",
       "RegistrationDate": "2020-04-07T14:43:36+00:00",
       "PhoneNumbers": [],

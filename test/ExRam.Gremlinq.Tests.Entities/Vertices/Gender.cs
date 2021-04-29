@@ -3,6 +3,7 @@
     public enum Gender
     {
         Male,
-        Female
+        Female,
+        NonBinary
     }
 }

@@ -1,8 +1,8 @@
-[
+﻿[
   {
     "Item1": {
       "Age": 36,
-      "Gender": 0,
+      "Gender": null,
       "Image": "",
       "RegistrationDate": null,
       "PhoneNumbers": [],

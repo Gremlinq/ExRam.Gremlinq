@@ -1,8 +1,8 @@
-[
+﻿[
   {
     "Item1": {
       "Age": 0,
-      "Gender": 0,
+      "Gender": null,
       "Image": "",
       "RegistrationDate": "2020-04-07T14:43:36+00:00",
       "PhoneNumbers": [],
@@ -20,7 +20,7 @@
     "Item2": {
       "Item1": {
         "Age": 0,
-        "Gender": 0,
+        "Gender": null,
         "Image": "",
         "RegistrationDate": "2020-04-07T14:43:36+00:00",
         "PhoneNumbers": [],
@@ -37,7 +37,7 @@
       },
       "Item2": {
         "Age": 0,
-        "Gender": 0,
+        "Gender": null,
         "Image": "",
         "RegistrationDate": "2020-04-07T14:43:36+00:00",
         "PhoneNumbers": [],
@@ -57,7 +57,7 @@
   {
     "Item1": {
       "Age": 0,
-      "Gender": 0,
+      "Gender": null,
       "Image": "",
       "RegistrationDate": null,
       "PhoneNumbers": [],
@@ -69,7 +69,7 @@
     "Item2": {
       "Item1": {
         "Age": 0,
-        "Gender": 0,
+        "Gender": null,
         "Image": "",
         "RegistrationDate": null,
         "PhoneNumbers": [],
@@ -80,7 +80,7 @@
       },
       "Item2": {
         "Age": 0,
-        "Gender": 0,
+        "Gender": null,
         "Image": "",
         "RegistrationDate": null,
         "PhoneNumbers": [],
@@ -94,7 +94,7 @@
   {
     "Item1": {
       "Age": 0,
-      "Gender": 0,
+      "Gender": null,
       "Image": "",
       "RegistrationDate": null,
       "PhoneNumbers": [],
@@ -106,7 +106,7 @@
     "Item2": {
       "Item1": {
         "Age": 0,
-        "Gender": 0,
+        "Gender": null,
         "Image": "",
         "RegistrationDate": null,
         "PhoneNumbers": [],
@@ -117,7 +117,7 @@
       },
       "Item2": {
         "Age": 0,
-        "Gender": 0,
+        "Gender": null,
         "Image": "",
         "RegistrationDate": null,
         "PhoneNumbers": [],
@@ -131,7 +131,7 @@
   {
     "Item1": {
       "Age": 0,
-      "Gender": 0,
+      "Gender": null,
       "Image": "",
       "RegistrationDate": null,
       "PhoneNumbers": [],
@@ -143,7 +143,7 @@
     "Item2": {
       "Item1": {
         "Age": 0,
-        "Gender": 0,
+        "Gender": null,
         "Image": "",
         "RegistrationDate": null,
         "PhoneNumbers": [],
@@ -154,7 +154,7 @@
       },
       "Item2": {
         "Age": 0,
-        "Gender": 0,
+        "Gender": null,
         "Image": "",
         "RegistrationDate": null,
         "PhoneNumbers": [],
@@ -168,7 +168,7 @@
   {
     "Item1": {
       "Age": 0,
-      "Gender": 0,
+      "Gender": null,
       "Image": "",
       "RegistrationDate": "2020-04-07T14:43:36+00:00",
       "PhoneNumbers": [],
@@ -186,7 +186,7 @@
     "Item2": {
       "Item1": {
         "Age": 0,
-        "Gender": 0,
+        "Gender": null,
         "Image": "",
         "RegistrationDate": "2020-04-07T14:43:36+00:00",
         "PhoneNumbers": [],
@@ -203,7 +203,7 @@
       },
       "Item2": {
         "Age": 0,
-        "Gender": 0,
+        "Gender": null,
         "Image": "",
         "RegistrationDate": "2020-04-07T14:43:36+00:00",
         "PhoneNumbers": [],
@@ -223,7 +223,7 @@
   {
     "Item1": {
       "Age": 0,
-      "Gender": 0,
+      "Gender": null,
       "Image": "AQIDBAUGBwg=",
       "RegistrationDate": null,
       "PhoneNumbers": [],
@@ -235,7 +235,7 @@
     "Item2": {
       "Item1": {
         "Age": 0,
-        "Gender": 0,
+        "Gender": null,
         "Image": "AQIDBAUGBwg=",
         "RegistrationDate": null,
         "PhoneNumbers": [],
@@ -246,7 +246,7 @@
       },
       "Item2": {
         "Age": 0,
-        "Gender": 0,
+        "Gender": null,
         "Image": "AQIDBAUGBwg=",
         "RegistrationDate": null,
         "PhoneNumbers": [],
@@ -297,7 +297,7 @@
   {
     "Item1": {
       "Age": 0,
-      "Gender": 0,
+      "Gender": null,
       "Image": "",
       "RegistrationDate": "2020-04-07T14:43:36+00:00",
       "PhoneNumbers": [],
@@ -315,7 +315,7 @@
     "Item2": {
       "Item1": {
         "Age": 0,
-        "Gender": 0,
+        "Gender": null,
         "Image": "",
         "RegistrationDate": "2020-04-07T14:43:36+00:00",
         "PhoneNumbers": [],
@@ -332,7 +332,7 @@
       },
       "Item2": {
         "Age": 0,
-        "Gender": 0,
+        "Gender": null,
         "Image": "",
         "RegistrationDate": "2020-04-07T14:43:36+00:00",
         "PhoneNumbers": [],

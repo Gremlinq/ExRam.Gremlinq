@@ -1,15 +1,13 @@
-[
+﻿[
   {
-    "Script": "addV(_a).property(_b,_b).property(single,_c,_d).property(single,_e,_f).property(single,_g,_h)",
+    "Script": "addV(_a).property(_b,_b).property(single,_c,_d).property(single,_e,_f)",
     "Bindings": {
       "_a": "Person",
       "_b": "PartitionKey",
       "_c": "Age",
       "_d": 0,
-      "_e": "Gender",
-      "_f": 0,
-      "_g": "Image",
-      "_h": "AQIDBAUGBwg="
+      "_e": "Image",
+      "_f": "AQIDBAUGBwg="
     }
   }
 ]

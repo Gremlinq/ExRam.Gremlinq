@@ -1,40 +1,7 @@
-[
+﻿[
   {
     "Age": 36,
-    "Gender": 0,
-    "Image": "AQIDBAUGBwg=",
-    "RegistrationDate": null,
-    "PhoneNumbers": [],
-    "SomeObscureProperty": null,
-    "Name": null,
-    "Id": "scrubbed id",
-    "Label": "Person"
-  },
-  {
-    "Age": 36,
-    "Gender": 1,
-    "Image": "",
-    "RegistrationDate": null,
-    "PhoneNumbers": [],
-    "SomeObscureProperty": null,
-    "Name": null,
-    "Id": "scrubbed id",
-    "Label": "Person"
-  },
-  {
-    "Age": 36,
-    "Gender": 0,
-    "Image": "",
-    "RegistrationDate": null,
-    "PhoneNumbers": [],
-    "SomeObscureProperty": null,
-    "Name": null,
-    "Id": "scrubbed id",
-    "Label": "Person"
-  },
-  {
-    "Age": 36,
-    "Gender": 0,
+    "Gender": null,
     "Image": "",
     "RegistrationDate": "2020-04-07T14:43:36+00:00",
     "PhoneNumbers": [],
@@ -53,7 +20,18 @@
   },
   {
     "Age": 36,
-    "Gender": 0,
+    "Gender": null,
+    "Image": "",
+    "RegistrationDate": null,
+    "PhoneNumbers": [],
+    "SomeObscureProperty": null,
+    "Name": null,
+    "Id": "scrubbed id",
+    "Label": "Person"
+  },
+  {
+    "Age": 36,
+    "Gender": null,
     "Image": "",
     "RegistrationDate": "2020-04-07T14:43:36+00:00",
     "PhoneNumbers": [],
@@ -72,7 +50,7 @@
   },
   {
     "Age": 36,
-    "Gender": 0,
+    "Gender": null,
     "Image": "",
     "RegistrationDate": null,
     "PhoneNumbers": [],
@@ -83,7 +61,7 @@
   },
   {
     "Age": 36,
-    "Gender": 0,
+    "Gender": null,
     "Image": "",
     "RegistrationDate": null,
     "PhoneNumbers": [],
@@ -94,7 +72,7 @@
   },
   {
     "Age": 36,
-    "Gender": 0,
+    "Gender": null,
     "Image": "",
     "RegistrationDate": null,
     "PhoneNumbers": [],
@@ -105,7 +83,7 @@
   },
   {
     "Age": 36,
-    "Gender": 0,
+    "Gender": null,
     "Image": "",
     "RegistrationDate": null,
     "PhoneNumbers": [],
@@ -116,7 +94,7 @@
   },
   {
     "Age": 36,
-    "Gender": 0,
+    "Gender": null,
     "Image": "",
     "RegistrationDate": "2020-04-07T14:43:36+00:00",
     "PhoneNumbers": [],
@@ -135,7 +113,29 @@
   },
   {
     "Age": 36,
-    "Gender": 0,
+    "Gender": null,
+    "Image": "",
+    "RegistrationDate": null,
+    "PhoneNumbers": [],
+    "SomeObscureProperty": null,
+    "Name": null,
+    "Id": "scrubbed id",
+    "Label": "Person"
+  },
+  {
+    "Age": 36,
+    "Gender": null,
+    "Image": "AQIDBAUGBwg=",
+    "RegistrationDate": null,
+    "PhoneNumbers": [],
+    "SomeObscureProperty": null,
+    "Name": null,
+    "Id": "scrubbed id",
+    "Label": "Person"
+  },
+  {
+    "Age": 36,
+    "Gender": 1,
     "Image": "",
     "RegistrationDate": null,
     "PhoneNumbers": [],
