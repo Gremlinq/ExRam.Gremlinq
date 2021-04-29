@@ -71,9 +71,7 @@ namespace ExRam.Gremlinq.Core
             .UseExecutor(GremlinQueryExecutor.Invalid)
             .UseDeserializer(GremlinQueryExecutionResultDeserializer.Default);
 
-        internal static readonly Step NoneWorkaround = new NotStep(IdentityStep.Instance);
-
-        public static IGremlinQueryEnvironment UseAddStepHandler(this IGremlinQueryEnvironment source, IAddStepHandler addStepHandler) => source.ConfigureAddStepHandler(_ => addStepHandler);
+                public static IGremlinQueryEnvironment UseAddStepHandler(this IGremlinQueryEnvironment source, IAddStepHandler addStepHandler) => source.ConfigureAddStepHandler(_ => addStepHandler);
 
         public static IGremlinQueryEnvironment UseModel(this IGremlinQueryEnvironment source, IGraphModel model) => source.ConfigureModel(_ => model);
 

@@ -91,6 +91,8 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
+        private static readonly Step NoneWorkaround = new NotStep(IdentityStep.Instance);
+
         public static IGremlinQuerySource UseCosmosDb(this IConfigurableGremlinQuerySource source, Func<ICosmosDbConfigurator, IGremlinQuerySourceTransformation> transformation)
         {
             return source
@@ -120,6 +122,7 @@ namespace ExRam.Gremlinq.Core
                                     ? recurse.Serialize(new WhereTraversalStep(new Step[] {KeyStep.Instance, new IsStep(p)}), env)
                                     : overridden(step, env, recurse);
                             })
+                            .Override<NoneStep>((step, env, overridden, recurse) => recurse.Serialize(NoneWorkaround, env))
                             .Override<SkipStep>((step, env, overridden, recurse) => recurse.Serialize(new RangeStep(step.Count, -1, step.Scope), env))
                             .Override<LimitStep>((step, env, overridden, recurse) =>
                             {
