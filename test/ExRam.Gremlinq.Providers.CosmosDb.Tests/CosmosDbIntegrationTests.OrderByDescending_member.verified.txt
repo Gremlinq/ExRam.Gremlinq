@@ -1,4 +1,4 @@
-[
+﻿[
   [
     {
       "id": "scrubbed id",
@@ -42,12 +42,6 @@
             "value": 0
           }
         ],
-        "Gender": [
-          {
-            "id": "scrubbed id",
-            "value": 0
-          }
-        ],
         "Name": [
           {
             "id": "scrubbed id",
@@ -74,12 +68,6 @@
           }
         ],
         "Age": [
-          {
-            "id": "scrubbed id",
-            "value": 0
-          }
-        ],
-        "Gender": [
           {
             "id": "scrubbed id",
             "value": 0

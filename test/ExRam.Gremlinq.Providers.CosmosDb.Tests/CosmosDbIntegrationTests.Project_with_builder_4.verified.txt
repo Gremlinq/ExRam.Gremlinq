@@ -1,4 +1,4 @@
-[
+﻿[
   [
     {
       "count!": 1,
@@ -14,12 +14,6 @@
             }
           ],
           "Age": [
-            {
-              "id": "scrubbed id",
-              "value": 0
-            }
-          ],
-          "Gender": [
             {
               "id": "scrubbed id",
               "value": 0

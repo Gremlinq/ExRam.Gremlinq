@@ -1,4 +1,4 @@
-[
+﻿[
   [
     {
       "id": "scrubbed id",
@@ -67,12 +67,6 @@
             }
           }
         ],
-        "Gender": [
-          {
-            "id": "scrubbed id",
-            "value": 0
-          }
-        ],
         "Name": [
           {
             "id": "scrubbed id",
@@ -106,12 +100,6 @@
               "Meta": "value"
             }
           }
-        ],
-        "Gender": [
-          {
-            "id": "scrubbed id",
-            "value": 0
-          }
         ]
       }
     },
@@ -156,12 +144,6 @@
               "Meta": "value"
             }
           }
-        ],
-        "Gender": [
-          {
-            "id": "scrubbed id",
-            "value": 0
-          }
         ]
       }
     },
@@ -205,12 +187,6 @@
             "properties": {
               "Meta": "value"
             }
-          }
-        ],
-        "Gender": [
-          {
-            "id": "scrubbed id",
-            "value": 0
           }
         ]
       }
@@ -304,12 +280,6 @@
             }
           }
         ],
-        "Gender": [
-          {
-            "id": "scrubbed id",
-            "value": 0
-          }
-        ],
         "Name": [
           {
             "id": "scrubbed id",
@@ -320,31 +290,31 @@
           {
             "id": "scrubbed id",
             "value": 1586270616000
+          }
+        ]
+      }
+    },
+    {
+      "id": "scrubbed id",
+      "label": "Language",
+      "type": "vertex",
+      "properties": {
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
+          }
+        ],
+        "IetfLanguageTag": [
+          {
+            "id": "scrubbed id",
+            "value": "en"
           }
         ]
       }
     }
   ],
   [
-    {
-      "id": "scrubbed id",
-      "label": "Language",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ],
-        "IetfLanguageTag": [
-          {
-            "id": "scrubbed id",
-            "value": "en"
-          }
-        ]
-      }
-    },
     {
       "id": "scrubbed id",
       "label": "Language",
@@ -445,12 +415,6 @@
             "properties": {
               "Meta": "value"
             }
-          }
-        ],
-        "Gender": [
-          {
-            "id": "scrubbed id",
-            "value": 0
           }
         ],
         "Image": [
@@ -642,9 +606,7 @@
           }
         ]
       }
-    }
-  ],
-  [
+    },
     {
       "id": "scrubbed id",
       "label": "Company",
@@ -673,7 +635,9 @@
           }
         ]
       }
-    },
+    }
+  ],
+  [
     {
       "id": "scrubbed id",
       "label": "Language",
