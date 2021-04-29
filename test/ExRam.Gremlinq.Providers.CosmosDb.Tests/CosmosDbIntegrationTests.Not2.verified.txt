@@ -1,4 +1,4 @@
-[
+﻿[
   [
     {
       "id": "scrubbed id",
@@ -36,12 +36,6 @@
             "value": 0
           }
         ],
-        "Gender": [
-          {
-            "id": "scrubbed id",
-            "value": 0
-          }
-        ],
         "Name": [
           {
             "id": "scrubbed id",
@@ -72,12 +66,6 @@
             "id": "scrubbed id",
             "value": 0
           }
-        ],
-        "Gender": [
-          {
-            "id": "scrubbed id",
-            "value": 0
-          }
         ]
       }
     },
@@ -110,12 +98,6 @@
             "id": "scrubbed id",
             "value": 0
           }
-        ],
-        "Gender": [
-          {
-            "id": "scrubbed id",
-            "value": 0
-          }
         ]
       }
     },
@@ -144,12 +126,6 @@
           }
         ],
         "Age": [
-          {
-            "id": "scrubbed id",
-            "value": 0
-          }
-        ],
-        "Gender": [
           {
             "id": "scrubbed id",
             "value": 0
@@ -201,12 +177,6 @@
           }
         ],
         "Age": [
-          {
-            "id": "scrubbed id",
-            "value": 0
-          }
-        ],
-        "Gender": [
           {
             "id": "scrubbed id",
             "value": 0
@@ -274,12 +244,6 @@
             "value": 0
           }
         ],
-        "Gender": [
-          {
-            "id": "scrubbed id",
-            "value": 0
-          }
-        ],
         "Image": [
           {
             "id": "scrubbed id",
@@ -312,9 +276,7 @@
           }
         ]
       }
-    }
-  ],
-  [
+    },
     {
       "id": "scrubbed id",
       "label": "Person",
@@ -339,7 +301,9 @@
           }
         ]
       }
-    },
+    }
+  ],
+  [
     {
       "id": "scrubbed id",
       "label": "Company",

@@ -1,4 +1,4 @@
-[
+﻿[
   [
     {
       "id": "scrubbed id",
@@ -67,12 +67,6 @@
             }
           }
         ],
-        "Gender": [
-          {
-            "id": "scrubbed id",
-            "value": 0
-          }
-        ],
         "Name": [
           {
             "id": "scrubbed id",
@@ -109,12 +103,6 @@
               "Meta": "value"
             }
           }
-        ],
-        "Gender": [
-          {
-            "id": "scrubbed id",
-            "value": 0
-          }
         ]
       }
     },
@@ -159,12 +147,6 @@
               "Meta": "value"
             }
           }
-        ],
-        "Gender": [
-          {
-            "id": "scrubbed id",
-            "value": 0
-          }
         ]
       }
     },
@@ -208,12 +190,6 @@
             "properties": {
               "Meta": "value"
             }
-          }
-        ],
-        "Gender": [
-          {
-            "id": "scrubbed id",
-            "value": 0
           }
         ]
       }
@@ -305,12 +281,6 @@
             "properties": {
               "Meta": "value"
             }
-          }
-        ],
-        "Gender": [
-          {
-            "id": "scrubbed id",
-            "value": 0
           }
         ],
         "Name": [
@@ -451,12 +421,6 @@
             "properties": {
               "Meta": "value"
             }
-          }
-        ],
-        "Gender": [
-          {
-            "id": "scrubbed id",
-            "value": 0
           }
         ],
         "Image": [

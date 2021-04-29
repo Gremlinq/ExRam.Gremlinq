@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "@type": "g:List",
     "@value": [
@@ -40,11 +40,40 @@
               "outVLabel": "Person",
               "inV": {
                 "@type": "g:Int64",
-                "@value": 20
+                "@value": 17
               },
               "outV": {
                 "@type": "g:Int64",
-                "@value": 17
+                "@value": 15
+              }
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Edge",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label": "LivesIn",
+              "inVLabel": "Country",
+              "outVLabel": "Person",
+              "inV": {
+                "@type": "g:Int64",
+                "@value": 21
+              },
+              "outV": {
+                "@type": "g:Int64",
+                "@value": 19
               }
             }
           }
@@ -73,36 +102,7 @@
               },
               "outV": {
                 "@type": "g:Int64",
-                "@value": 22
-              }
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Edge",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "label": "LivesIn",
-              "inVLabel": "Country",
-              "outVLabel": "Person",
-              "inV": {
-                "@type": "g:Int64",
-                "@value": 30
-              },
-              "outV": {
-                "@type": "g:Int64",
-                "@value": 27
+                "@value": 23
               }
             }
           }
@@ -150,7 +150,7 @@
               },
               "outV": {
                 "@type": "g:Int64",
-                "@value": 43
+                "@value": 37
               }
             }
           }

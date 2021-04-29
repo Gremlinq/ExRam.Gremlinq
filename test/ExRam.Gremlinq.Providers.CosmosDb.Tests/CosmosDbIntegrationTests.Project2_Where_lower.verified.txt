@@ -1,4 +1,4 @@
-[
+﻿[
   [
     {
       "Item1": "Country",
@@ -68,12 +68,6 @@
                 "value": 0
               }
             ],
-            "Gender": [
-              {
-                "id": "scrubbed id",
-                "value": 0
-              }
-            ],
             "Name": [
               {
                 "id": "scrubbed id",
@@ -109,12 +103,6 @@
                 "id": "scrubbed id",
                 "value": 0
               }
-            ],
-            "Gender": [
-              {
-                "id": "scrubbed id",
-                "value": 0
-              }
             ]
           }
         }
@@ -157,12 +145,6 @@
                 "id": "scrubbed id",
                 "value": 0
               }
-            ],
-            "Gender": [
-              {
-                "id": "scrubbed id",
-                "value": 0
-              }
             ]
           }
         }
@@ -201,12 +183,6 @@
               }
             ],
             "Age": [
-              {
-                "id": "scrubbed id",
-                "value": 0
-              }
-            ],
-            "Gender": [
               {
                 "id": "scrubbed id",
                 "value": 0
@@ -302,12 +278,6 @@
                 "value": 0
               }
             ],
-            "Gender": [
-              {
-                "id": "scrubbed id",
-                "value": 0
-              }
-            ],
             "Name": [
               {
                 "id": "scrubbed id",
@@ -342,6 +312,24 @@
               {
                 "id": "scrubbed id",
                 "value": "en"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "Item1": "Language",
+      "Item2": [
+        {
+          "id": "scrubbed id",
+          "label": "Language",
+          "type": "vertex",
+          "properties": {
+            "PartitionKey": [
+              {
+                "id": "scrubbed id",
+                "value": "PartitionKey"
               }
             ]
           }
@@ -350,24 +338,6 @@
     }
   ],
   [
-    {
-      "Item1": "Language",
-      "Item2": [
-        {
-          "id": "scrubbed id",
-          "label": "Language",
-          "type": "vertex",
-          "properties": {
-            "PartitionKey": [
-              {
-                "id": "scrubbed id",
-                "value": "PartitionKey"
-              }
-            ]
-          }
-        }
-      ]
-    },
     {
       "Item1": "TimeFrame",
       "Item2": [
@@ -467,12 +437,6 @@
               }
             ],
             "Age": [
-              {
-                "id": "scrubbed id",
-                "value": 0
-              }
-            ],
-            "Gender": [
               {
                 "id": "scrubbed id",
                 "value": 0

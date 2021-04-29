@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "@type": "g:List",
     "@value": [
@@ -17,9 +17,9 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 10
+            "@value": 11
           },
-          "value": "Language"
+          "value": "Person"
         }
       },
       {
@@ -27,9 +27,9 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 11
+            "@value": 10
           },
-          "value": "Person"
+          "value": "Language"
         }
       },
       {
