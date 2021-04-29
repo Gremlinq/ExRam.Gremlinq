@@ -47,7 +47,7 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<object> IArrayGremlinQueryBase.Unfold() => Unfold<IValueGremlinQuery<object>>();
 
-        IValueTupleGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceValueTuple() => this;
+        IValueTupleGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceValueTuple() => ChangeQueryType<IValueTupleGremlinQuery<TElement>>();
 
         IArrayGremlinQuery<TElement[], TElement, IGremlinQueryBase<TElement>> IGremlinQueryBase<TElement>.ForceArray() => ChangeQueryType<IArrayGremlinQuery<TElement[], TElement, IGremlinQueryBase<TElement>>>();
 
@@ -195,17 +195,17 @@ namespace ExRam.Gremlinq.Core
 
         TaskAwaiter IGremlinQueryBase.GetAwaiter() => ((Task)((IGremlinQuery<TElement>)this).ToAsyncEnumerable().LastOrDefaultAsync().AsTask()).GetAwaiter();
 
-        IElementGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceElement() => this;
+        IElementGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceElement() => ChangeQueryType<IElementGremlinQuery<TElement>>();
 
-        IVertexGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceVertex() => this;
+        IVertexGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceVertex() => ChangeQueryType<IVertexGremlinQuery<TElement>>();
 
         IVertexPropertyGremlinQuery<TElement, TNewValue> IGremlinQueryBase<TElement>.ForceVertexProperty<TNewValue>() => ChangeQueryType<IVertexPropertyGremlinQuery<TElement, TNewValue>>();
 
         IVertexPropertyGremlinQuery<TElement, TNewValue, TNewMeta> IGremlinQueryBase<TElement>.ForceVertexProperty<TNewValue, TNewMeta>() => ChangeQueryType<IVertexPropertyGremlinQuery<TElement, TNewValue, TNewMeta>>();
 
-        IPropertyGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceProperty() => this;
+        IPropertyGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceProperty() => ChangeQueryType<IPropertyGremlinQuery<TElement>>();
 
-        IEdgeGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceEdge() => this;
+        IEdgeGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceEdge() => ChangeQueryType<IEdgeGremlinQuery<TElement>>();
 
         IInEdgeGremlinQuery<TElement, TNewInVertex> IGremlinQueryBase<TElement>.ForceInEdge<TNewInVertex>() => ChangeQueryType<IInEdgeGremlinQuery<TElement, TNewInVertex>>();
 
@@ -213,7 +213,7 @@ namespace ExRam.Gremlinq.Core
 
         IBothEdgeGremlinQuery<TElement, TNewOutVertex, TNewInVertex> IGremlinQueryBase<TElement>.ForceBothEdge<TNewOutVertex, TNewInVertex>() => ChangeQueryType<IBothEdgeGremlinQuery<TElement, TNewOutVertex, TNewInVertex>>();
 
-        IValueGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceValue() => this;
+        IValueGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceValue() => ChangeQueryType<IValueGremlinQuery<TElement>>();
 
         GremlinQueryAwaiter<TElement> IGremlinQueryBase<TElement>.GetAwaiter() => new((this).ToArrayAsync().AsTask().GetAwaiter());
 
