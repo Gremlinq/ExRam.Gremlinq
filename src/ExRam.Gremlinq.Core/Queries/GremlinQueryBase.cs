@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Core
     internal abstract class GremlinQueryBase
     {
         private static readonly MethodInfo CreateFuncMethod = typeof(GremlinQueryBase).GetMethod(nameof(CreateFunc), BindingFlags.NonPublic | BindingFlags.Static)!;
-        private static readonly ConcurrentDictionary<Type, Func<StepStack, IGremlinQueryEnvironment, QuerySemantics, IImmutableDictionary<StepLabel, QuerySemantics>, QueryFlags, IGremlinQueryBase>> QueryTypes = new();
+        private static readonly ConcurrentDictionary<Type, Func<StepStack, IGremlinQueryEnvironment, IImmutableDictionary<StepLabel, QuerySemantics>, QueryFlags, QuerySemantics, IGremlinQueryBase>> QueryTypes = new();
 
         private static readonly Type[] SupportedInterfaceDefinitions = typeof(GremlinQuery<,,,,,>)
             .GetInterfaces()
@@ -60,7 +60,7 @@ namespace ExRam.Gremlinq.Core
                     var metaType = GetMatchingType(closureType, "TMeta") ?? typeof(object);
                     var queryType = GetMatchingType(closureType, "TOriginalQuery") ?? typeof(object);
 
-                    return (Func<StepStack, IGremlinQueryEnvironment, QuerySemantics, IImmutableDictionary<StepLabel, QuerySemantics>, QueryFlags, IGremlinQueryBase>)CreateFuncMethod
+                    return (Func<StepStack, IGremlinQueryEnvironment, IImmutableDictionary<StepLabel, QuerySemantics>, QueryFlags, QuerySemantics, IGremlinQueryBase>)CreateFuncMethod
                         .MakeGenericMethod(
                             elementType,
                             outVertexType,
@@ -73,12 +73,12 @@ namespace ExRam.Gremlinq.Core
                         .Invoke(null, new object?[] { semantics })!;
                 });
 
-            return (TTargetQuery)constructor(Steps, Environment, forcedSemantics ?? QuerySemantics.Value, StepLabelSemantics, Flags);
+            return (TTargetQuery)constructor(Steps, Environment, StepLabelSemantics, Flags, forcedSemantics ?? QuerySemantics.Value);
         }
 
-        private static Func<StepStack, IGremlinQueryEnvironment, QuerySemantics, IImmutableDictionary<StepLabel, QuerySemantics>, QueryFlags, IGremlinQueryBase> CreateFunc<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(QuerySemantics? determinedSemantics)
+        private static Func<StepStack, IGremlinQueryEnvironment, IImmutableDictionary<StepLabel, QuerySemantics>, QueryFlags, QuerySemantics, IGremlinQueryBase> CreateFunc<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(QuerySemantics? determinedSemantics)
         {
-            return (steps, environment, existingSemantics, stepLabelSemantics, flags) => new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(
+            return (steps, environment, stepLabelSemantics, flags, existingSemantics) => new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(
                 steps,
                 environment,
                 determinedSemantics ?? existingSemantics,
