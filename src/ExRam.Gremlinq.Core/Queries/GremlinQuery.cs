@@ -958,12 +958,17 @@ namespace ExRam.Gremlinq.Core
         private TTargetQuery Union<TTargetQuery>(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery>[] unionTraversals) where TTargetQuery : IGremlinQueryBase
         {
             var unionQueries = unionTraversals
-                .Select(unionTraversal => ((IGremlinQueryBase)Continue(unionTraversal)).ToTraversal())
-                .ToImmutableArray();
+                .Select(unionTraversal => Continue(unionTraversal))
+                .ToArray();
+
+            var aggregatedSemantics = unionQueries
+                .Select(x => x.AsAdmin().Semantics)
+                // ReSharper disable once BitwiseOperatorOnEnumWithoutFlags
+                .Aggregate((x, y) => x & y);
 
             return this
-                .AddStep(new UnionStep(unionQueries))
-                .ChangeQueryType<TTargetQuery>();
+                .AddStep(new UnionStep(unionQueries.Select(x => x.ToTraversal()).ToImmutableArray()))
+                .ChangeQueryType<TTargetQuery>(aggregatedSemantics);
         }
 
         private IValueGremlinQuery<TNewPropertyValue> Value<TNewPropertyValue>() => AddStepWithObjectTypes<TNewPropertyValue>(ValueStep.Instance, QuerySemantics.Value);

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Immutable;
-using System.Linq;
 using System.Reflection;
 
 namespace ExRam.Gremlinq.Core
@@ -33,7 +32,7 @@ namespace ExRam.Gremlinq.Core
                 targetQueryType,
                 closureType =>
                 {
-                    var semantics = closureType.TryGetQuerySemantics() ?? QuerySemantics.Value;
+                    var semantics = closureType.TryGetQuerySemantics();
 
                     var elementType = GetMatchingType(closureType, "TElement", "TVertex", "TEdge", "TProperty", "TArray") ?? typeof(object);
                     var outVertexType = GetMatchingType(closureType, "TOutVertex", "TAdjacentVertex") ?? typeof(object);
@@ -58,7 +57,7 @@ namespace ExRam.Gremlinq.Core
             return (TTargetQuery)constructor(this, forcedSemantics);
         }
 
-        private static Func<GremlinQueryBase, QuerySemantics?, IGremlinQueryBase> CreateFunc<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(Type targetQueryType, QuerySemantics determinedSemantics)
+        private static Func<GremlinQueryBase, QuerySemantics?, IGremlinQueryBase> CreateFunc<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(Type targetQueryType, QuerySemantics? determinedSemantics)
         {
             var genericTypeDef = targetQueryType.IsGenericType
                 ? targetQueryType.GetGenericTypeDefinition()
@@ -68,7 +67,7 @@ namespace ExRam.Gremlinq.Core
             {
                 var actualSemantics = forcedSemantics ?? determinedSemantics;
 
-                if (targetQueryType.IsAssignableFrom(existingQuery.GetType()) && actualSemantics == existingQuery.Semantics)
+                if (targetQueryType.IsAssignableFrom(existingQuery.GetType()) && (actualSemantics == null || actualSemantics == existingQuery.Semantics))
                     return (IGremlinQueryBase)existingQuery;
 
                 if (!targetQueryType.IsAssignableFrom(typeof(GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>)))
@@ -77,7 +76,7 @@ namespace ExRam.Gremlinq.Core
                 return new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(
                     existingQuery.Steps,
                     existingQuery.Environment,
-                    actualSemantics,
+                    actualSemantics ?? QuerySemantics.Value,
                     existingQuery.StepLabelSemantics,
                     existingQuery.Flags);
             };
