@@ -32,7 +32,7 @@ namespace ExRam.Gremlinq.Core
                 targetQueryType,
                 closureType =>
                 {
-                    var semantics = closureType.TryGetQuerySemantics();
+                    var semantics = closureType.TryGetQuerySemanticsFromQueryType();
 
                     var elementType = GetMatchingType(closureType, "TElement", "TVertex", "TEdge", "TProperty", "TArray") ?? typeof(object);
                     var outVertexType = GetMatchingType(closureType, "TOutVertex", "TAdjacentVertex") ?? typeof(object);

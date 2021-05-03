@@ -22,7 +22,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Assembly
                 .GetTypes()
                 .Where(x => x.IsInterface)
-                .ToDictionary(x => x, x => x.TryGetQuerySemantics()));
+                .ToDictionary(x => x, x => x.TryGetQuerySemanticsFromQueryType()));
         }
 
         [Fact]

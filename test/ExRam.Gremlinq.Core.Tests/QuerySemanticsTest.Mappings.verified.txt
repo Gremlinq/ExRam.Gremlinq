@@ -1,4 +1,4 @@
-{
+﻿{
   IAddStepHandler: null,
   IGraphElementModelCache: null,
   IGremlinQueryEnvironmentCache: null,
@@ -25,9 +25,9 @@
   IGroupBuilderWithKeyAndValue<, , >: null,
   IArrayGremlinQueryBase: null,
   IArrayGremlinQueryBase<>: null,
-  IArrayGremlinQueryBase<, >: null,
-  IArrayGremlinQueryBase<, , >: null,
-  IArrayGremlinQuery<, , >: null,
+  IArrayGremlinQueryBase<, >: Value,
+  IArrayGremlinQueryBase<, , >: Value,
+  IArrayGremlinQuery<, , >: Value,
   IBothEdgeGremlinQueryBase: Edge,
   IBothEdgeGremlinQueryBase<, , >: Edge,
   IBothEdgeGremlinQuery<, , >: Edge,
