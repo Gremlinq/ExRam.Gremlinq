@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+
+using ExRam.Gremlinq.Tests.Entities;
+
 using FluentAssertions;
 using Xunit;
 using Xunit.Abstractions;
@@ -10,9 +13,13 @@ namespace ExRam.Gremlinq.Core.Tests
 {
     public class QuerySemanticsTest : GremlinqTestBase
     {
+        private readonly IGremlinQuerySource _g;
+
         public QuerySemanticsTest(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
-
+            _g = g
+                .ConfigureEnvironment(x => x.UseModel(GraphModel
+                    .FromBaseTypes<Vertex, Edge>()));
         }
 
         [Fact]
@@ -28,8 +35,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public virtual Task Coalesce_with_2_subQueries_has_right_semantics()
         {
-            return Verify(g
-                .ConfigureEnvironment(_ => _)
+            return Verify(_g
                 .V()
                 .Coalesce(
                     _ => _.Out(),
@@ -41,8 +47,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public virtual Task Coalesce_with_2_not_matching_subQueries_has_right_semantics()
         {
-            return Verify(g
-                .ConfigureEnvironment(_ => _)
+            return Verify(_g
                 .V()
                 .Coalesce(
                     _ => _.OutE(),
@@ -76,6 +81,26 @@ namespace ExRam.Gremlinq.Core.Tests
                 .GetCustomAttributes(typeof(FlagsAttribute), true)
                 .Should()
                 .BeEmpty();
+        }
+
+        [Fact]
+        public virtual Task ForceValue_preserves_Vertex_when_determined_from_element_type()
+        {
+            return Verify(_g
+                .V<Person>()
+                .ForceValue()
+                .AsAdmin()
+                .Semantics);
+        }
+
+        [Fact]
+        public virtual Task ForceValue_cannot_preserve_Vertex_when_just_object()
+        {
+            return Verify(_g
+                .V()
+                .ForceValue()
+                .AsAdmin()
+                .Semantics);
         }
     }
 }
