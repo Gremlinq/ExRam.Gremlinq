@@ -3517,10 +3517,9 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .V<Person>()
-                .Union<IGremlinQueryBase>(
+                .Union(
                     __ => __.Out<WorksFor>(),
                     __ => __.OutE<LivesIn>())
-                .Cast<object>()
                 .Verify();
         }
 

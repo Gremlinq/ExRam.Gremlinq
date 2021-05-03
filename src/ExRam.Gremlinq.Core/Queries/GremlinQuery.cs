@@ -955,7 +955,9 @@ namespace ExRam.Gremlinq.Core
 
         private TTargetQuery Unfold<TTargetQuery>() => Unfold().ChangeQueryType<TTargetQuery>();
 
-        private TTargetQuery Union<TTargetQuery>(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery>[] unionTraversals) where TTargetQuery : IGremlinQueryBase
+        private TReturnQuery Union<TTargetQuery, TReturnQuery>(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery>[] unionTraversals)
+            where TTargetQuery : IGremlinQueryBase
+            where TReturnQuery : IGremlinQueryBase
         {
             var unionQueries = unionTraversals
                 .Select(unionTraversal => Continue(unionTraversal))
@@ -968,7 +970,7 @@ namespace ExRam.Gremlinq.Core
 
             return this
                 .AddStep(new UnionStep(unionQueries.Select(x => x.ToTraversal()).ToImmutableArray()))
-                .ChangeQueryType<TTargetQuery>(aggregatedSemantics);
+                .ChangeQueryType<TReturnQuery>(aggregatedSemantics);
         }
 
         private IValueGremlinQuery<TNewPropertyValue> Value<TNewPropertyValue>() => AddStepWithObjectTypes<TNewPropertyValue>(ValueStep.Instance, QuerySemantics.Value);
