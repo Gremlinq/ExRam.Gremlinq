@@ -32,8 +32,6 @@ namespace ExRam.Gremlinq.Core
                 targetQueryType,
                 closureType =>
                 {
-                    var semantics = closureType.TryGetQuerySemanticsFromQueryType();
-
                     var elementType = GetMatchingType(closureType, "TElement", "TVertex", "TEdge", "TProperty", "TArray") ?? typeof(object);
                     var outVertexType = GetMatchingType(closureType, "TOutVertex", "TAdjacentVertex") ?? typeof(object);
                     var inVertexType = GetMatchingType(closureType, "TInVertex") ?? typeof(object);
@@ -51,17 +49,20 @@ namespace ExRam.Gremlinq.Core
                                 : typeof(object)),
                             metaType,
                             queryType)
-                        .Invoke(null, new object?[] { closureType, semantics })!;
+                        .Invoke(null, new object?[] { closureType })!;
                 });
 
             return (TTargetQuery)constructor(this, forcedSemantics);
         }
 
-        private static Func<GremlinQueryBase, QuerySemantics?, IGremlinQueryBase> CreateFunc<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(Type targetQueryType, QuerySemantics? determinedSemantics)
+        private static Func<GremlinQueryBase, QuerySemantics?, IGremlinQueryBase> CreateFunc<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(Type targetQueryType)
         {
             var genericTypeDef = targetQueryType.IsGenericType
                 ? targetQueryType.GetGenericTypeDefinition()
                 : targetQueryType;
+
+            var determinedSemantics = targetQueryType
+                .TryGetQuerySemanticsFromQueryType();
 
             return (existingQuery, forcedSemantics) =>
             {
