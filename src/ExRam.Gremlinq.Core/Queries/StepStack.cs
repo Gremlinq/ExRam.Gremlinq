@@ -73,6 +73,8 @@ namespace ExRam.Gremlinq.Core
             ? Peek()
             : default;
 
+        internal void CopyTo(Step[] destination) => Array.Copy(_steps, destination, Count);
+
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public int Count { get; }

@@ -290,12 +290,7 @@ namespace ExRam.Gremlinq.Core
             if (steps.IsEmpty)
                 ret[0] = IdentityStep.Instance;
             else
-            {
-                for (var i = 0; i < steps.Count; i++)
-                {
-                    ret[i] = steps[i];
-                }
-            }
+                steps.CopyTo(ret);
 
             projection.CopyTo(ret, querySize);
 
