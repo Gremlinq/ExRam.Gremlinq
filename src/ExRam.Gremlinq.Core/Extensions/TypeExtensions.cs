@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace ExRam.Gremlinq.Core
@@ -14,6 +15,17 @@ namespace ExRam.Gremlinq.Core
                 yield return currentType;
                 currentType = currentType.BaseType;
             }
+        }
+
+        public static QuerySemantics? TryGetQuerySemanticsFromElementType(this Type type, IGraphModel model)
+        {
+            if (model.VerticesModel.Metadata.Keys.Any(x => x.IsAssignableFrom(type)))
+                return QuerySemantics.Vertex;
+
+            if (model.EdgesModel.Metadata.Keys.Any(x => x.IsAssignableFrom(type)))
+                return QuerySemantics.Edge;
+
+            return null;
         }
 
         public static QuerySemantics? TryGetQuerySemanticsFromQueryType(this Type type)
