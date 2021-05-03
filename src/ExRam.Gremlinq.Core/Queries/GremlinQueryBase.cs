@@ -71,19 +71,18 @@ namespace ExRam.Gremlinq.Core
 
             return (existingQuery, forcedSemantics) =>
             {
-                if (targetQueryType.IsAssignableFrom(existingQuery.GetType()))
-                {
-                    if (targetQueryType == existingQuery.GetType() || targetQueryType.IsGenericType && existingQuery.Semantics != QuerySemantics.Value)
-                        return (IGremlinQueryBase)existingQuery;
-                }
+                var actualSemantics = forcedSemantics ?? determinedSemantics;
 
-                if (!SupportedInterfaceDefinitions.Contains(genericTypeDef))
-                    throw new NotSupportedException($"Cannot change the query type to {targetQueryType}.");
+                if (targetQueryType.IsAssignableFrom(existingQuery.GetType()) && actualSemantics == existingQuery.Semantics)
+                    return (IGremlinQueryBase)existingQuery;
+
+                //if (!SupportedInterfaceDefinitions.Contains(genericTypeDef))
+                //    throw new NotSupportedException($"Cannot change the query type to {targetQueryType}.");
 
                 return new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(
                     existingQuery.Steps,
                     existingQuery.Environment,
-                    forcedSemantics ?? determinedSemantics,
+                    actualSemantics,
                     existingQuery.StepLabelSemantics,
                     existingQuery.Flags);
             };

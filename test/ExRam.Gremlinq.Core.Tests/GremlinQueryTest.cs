@@ -63,9 +63,13 @@ namespace ExRam.Gremlinq.Core.Tests
 
             query.AsAdmin().ChangeQueryType<IGremlinQueryBase>()
                 .Should()
-                .NotBeSameAs(query);
+                .BeSameAs(query);
 
             query.AsAdmin().ChangeQueryType<IVertexGremlinQuery<object>>()
+                .Should()
+                .NotBeSameAs(query);
+
+            query.AsAdmin().ChangeQueryType<IEdgeGremlinQuery<object>>()
                 .Should()
                 .NotBeSameAs(query);
         }

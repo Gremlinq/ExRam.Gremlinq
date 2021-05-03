@@ -523,8 +523,9 @@ namespace ExRam.Gremlinq.Core
             return continuation(new ChooseBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, object>(this, this)).TargetQuery;
         }
 
-        private TTargetQuery Coalesce<TTargetQuery>(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery>[] traversals)
+        private TReturnQuery Coalesce<TTargetQuery, TReturnQuery>(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery>[] traversals)
             where TTargetQuery : IGremlinQueryBase
+            where TReturnQuery : IGremlinQueryBase
         {
             if (traversals.Length == 0)
                 throw new ArgumentException("Coalesce must have at least one subquery.");
@@ -534,7 +535,7 @@ namespace ExRam.Gremlinq.Core
                 .ToArray();
 
             if (coalesceQueries.All(x => x.IsIdentity()))
-                return this.ChangeQueryType<TTargetQuery>();
+                return this.ChangeQueryType<TReturnQuery>();
 
             var aggregatedSemantics = coalesceQueries
                 .Select(x => x.AsAdmin().Semantics)
@@ -543,7 +544,7 @@ namespace ExRam.Gremlinq.Core
 
             return this
                 .AddStep(new CoalesceStep(coalesceQueries.Select(x => x.ToTraversal()).ToImmutableArray()))
-                .ChangeQueryType<TTargetQuery>(aggregatedSemantics);
+                .ChangeQueryType<TReturnQuery>(aggregatedSemantics);
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Coin(double probability) => AddStep(new CoinStep(probability));
