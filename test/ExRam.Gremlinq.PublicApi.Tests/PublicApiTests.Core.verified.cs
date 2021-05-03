@@ -1636,10 +1636,6 @@ namespace ExRam.Gremlinq.Core
         public static ExRam.Gremlinq.Core.Traversal op_Implicit(ExRam.Gremlinq.Core.Step[] steps) { }
         public static ExRam.Gremlinq.Core.Traversal op_Implicit(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Step> steps) { }
     }
-    public static class TypeExtensions
-    {
-        public static ExRam.Gremlinq.Core.QuerySemantics? TryGetQuerySemantics(this System.Type type) { }
-    }
     public sealed class UnfoldStep : ExRam.Gremlinq.Core.Step
     {
         public static readonly ExRam.Gremlinq.Core.UnfoldStep Instance;

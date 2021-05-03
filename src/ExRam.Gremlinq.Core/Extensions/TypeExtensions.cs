@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace ExRam.Gremlinq.Core
 {
-    public static class TypeExtensions
+    internal static class TypeExtensions
     {
-        internal static IEnumerable<Type> GetTypeHierarchy(this Type type)
+        public static IEnumerable<Type> GetTypeHierarchy(this Type type)
         {
             var currentType = (Type?)type;
 
