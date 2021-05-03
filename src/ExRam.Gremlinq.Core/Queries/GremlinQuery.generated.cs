@@ -157,7 +157,8 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<TElement> IGremlinQueryBaseRec<IGremlinQuery<TElement>>.Times(int count) => Times(count);
 
-        TTargetQuery IGremlinQueryBaseRec<IGremlinQuery<TElement>>.Union<TTargetQuery>(params Func<IGremlinQuery<TElement>, TTargetQuery>[] unionTraversals) => Union(unionTraversals);
+        TTargetQuery IGremlinQueryBaseRec<IGremlinQuery<TElement>>.Union<TTargetQuery>(params Func<IGremlinQuery<TElement>, TTargetQuery>[] unionTraversals) => Union<TTargetQuery, TTargetQuery>(unionTraversals);
+        IValueGremlinQuery<object> IGremlinQueryBaseRec<IGremlinQuery<TElement>>.Union(params Func<IGremlinQuery<TElement>, IGremlinQueryBase>[] unionTraversals) => Union<IGremlinQueryBase, IValueGremlinQuery<object>>(unionTraversals);
 
         IGremlinQuery<TElement> IGremlinQueryBaseRec<TElement, IGremlinQuery<TElement>>.Where(Expression<Func<TElement, bool>> predicate) => Where(predicate);
         IGremlinQuery<TElement> IGremlinQueryBaseRec<IGremlinQuery<TElement>>.Where(ILambda lambda) => Where(lambda);
@@ -258,7 +259,8 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<TElement> IGremlinQueryBaseRec<IValueGremlinQuery<TElement>>.Times(int count) => Times(count);
 
-        TTargetQuery IGremlinQueryBaseRec<IValueGremlinQuery<TElement>>.Union<TTargetQuery>(params Func<IValueGremlinQuery<TElement>, TTargetQuery>[] unionTraversals) => Union(unionTraversals);
+        TTargetQuery IGremlinQueryBaseRec<IValueGremlinQuery<TElement>>.Union<TTargetQuery>(params Func<IValueGremlinQuery<TElement>, TTargetQuery>[] unionTraversals) => Union<TTargetQuery, TTargetQuery>(unionTraversals);
+        IValueGremlinQuery<object> IGremlinQueryBaseRec<IValueGremlinQuery<TElement>>.Union(params Func<IValueGremlinQuery<TElement>, IGremlinQueryBase>[] unionTraversals) => Union<IGremlinQueryBase, IValueGremlinQuery<object>>(unionTraversals);
 
         IValueGremlinQuery<TElement> IGremlinQueryBaseRec<TElement, IValueGremlinQuery<TElement>>.Where(Expression<Func<TElement, bool>> predicate) => Where(predicate);
         IValueGremlinQuery<TElement> IGremlinQueryBaseRec<IValueGremlinQuery<TElement>>.Where(ILambda lambda) => Where(lambda);
@@ -359,7 +361,8 @@ namespace ExRam.Gremlinq.Core
 
         IValueTupleGremlinQuery<TElement> IGremlinQueryBaseRec<IValueTupleGremlinQuery<TElement>>.Times(int count) => Times(count);
 
-        TTargetQuery IGremlinQueryBaseRec<IValueTupleGremlinQuery<TElement>>.Union<TTargetQuery>(params Func<IValueTupleGremlinQuery<TElement>, TTargetQuery>[] unionTraversals) => Union(unionTraversals);
+        TTargetQuery IGremlinQueryBaseRec<IValueTupleGremlinQuery<TElement>>.Union<TTargetQuery>(params Func<IValueTupleGremlinQuery<TElement>, TTargetQuery>[] unionTraversals) => Union<TTargetQuery, TTargetQuery>(unionTraversals);
+        IValueGremlinQuery<object> IGremlinQueryBaseRec<IValueTupleGremlinQuery<TElement>>.Union(params Func<IValueTupleGremlinQuery<TElement>, IGremlinQueryBase>[] unionTraversals) => Union<IGremlinQueryBase, IValueGremlinQuery<object>>(unionTraversals);
 
         IValueTupleGremlinQuery<TElement> IGremlinQueryBaseRec<TElement, IValueTupleGremlinQuery<TElement>>.Where(Expression<Func<TElement, bool>> predicate) => Where(predicate);
         IValueTupleGremlinQuery<TElement> IGremlinQueryBaseRec<IValueTupleGremlinQuery<TElement>>.Where(ILambda lambda) => Where(lambda);
@@ -460,7 +463,8 @@ namespace ExRam.Gremlinq.Core
 
         IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.Times(int count) => Times(count);
 
-        TTargetQuery IGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.Union<TTargetQuery>(params Func<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>, TTargetQuery>[] unionTraversals) => Union(unionTraversals);
+        TTargetQuery IGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.Union<TTargetQuery>(params Func<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>, TTargetQuery>[] unionTraversals) => Union<TTargetQuery, TTargetQuery>(unionTraversals);
+        IValueGremlinQuery<object> IGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.Union(params Func<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>, IGremlinQueryBase>[] unionTraversals) => Union<IGremlinQueryBase, IValueGremlinQuery<object>>(unionTraversals);
 
         IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IGremlinQueryBaseRec<TElement, IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.Where(Expression<Func<TElement, bool>> predicate) => Where(predicate);
         IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.Where(ILambda lambda) => Where(lambda);
@@ -561,7 +565,8 @@ namespace ExRam.Gremlinq.Core
 
         IElementGremlinQuery<TElement> IGremlinQueryBaseRec<IElementGremlinQuery<TElement>>.Times(int count) => Times(count);
 
-        TTargetQuery IGremlinQueryBaseRec<IElementGremlinQuery<TElement>>.Union<TTargetQuery>(params Func<IElementGremlinQuery<TElement>, TTargetQuery>[] unionTraversals) => Union(unionTraversals);
+        TTargetQuery IGremlinQueryBaseRec<IElementGremlinQuery<TElement>>.Union<TTargetQuery>(params Func<IElementGremlinQuery<TElement>, TTargetQuery>[] unionTraversals) => Union<TTargetQuery, TTargetQuery>(unionTraversals);
+        IValueGremlinQuery<object> IGremlinQueryBaseRec<IElementGremlinQuery<TElement>>.Union(params Func<IElementGremlinQuery<TElement>, IGremlinQueryBase>[] unionTraversals) => Union<IGremlinQueryBase, IValueGremlinQuery<object>>(unionTraversals);
 
         IElementGremlinQuery<TElement> IGremlinQueryBaseRec<TElement, IElementGremlinQuery<TElement>>.Where(Expression<Func<TElement, bool>> predicate) => Where(predicate);
         IElementGremlinQuery<TElement> IGremlinQueryBaseRec<IElementGremlinQuery<TElement>>.Where(ILambda lambda) => Where(lambda);
@@ -662,7 +667,8 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeOrVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<TElement>>.Times(int count) => Times(count);
 
-        TTargetQuery IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<TElement>>.Union<TTargetQuery>(params Func<IEdgeOrVertexGremlinQuery<TElement>, TTargetQuery>[] unionTraversals) => Union(unionTraversals);
+        TTargetQuery IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<TElement>>.Union<TTargetQuery>(params Func<IEdgeOrVertexGremlinQuery<TElement>, TTargetQuery>[] unionTraversals) => Union<TTargetQuery, TTargetQuery>(unionTraversals);
+        IValueGremlinQuery<object> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<TElement>>.Union(params Func<IEdgeOrVertexGremlinQuery<TElement>, IGremlinQueryBase>[] unionTraversals) => Union<IGremlinQueryBase, IValueGremlinQuery<object>>(unionTraversals);
 
         IEdgeOrVertexGremlinQuery<TElement> IGremlinQueryBaseRec<TElement, IEdgeOrVertexGremlinQuery<TElement>>.Where(Expression<Func<TElement, bool>> predicate) => Where(predicate);
         IEdgeOrVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<TElement>>.Where(ILambda lambda) => Where(lambda);
@@ -763,7 +769,8 @@ namespace ExRam.Gremlinq.Core
 
         IVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IVertexGremlinQuery<TElement>>.Times(int count) => Times(count);
 
-        TTargetQuery IGremlinQueryBaseRec<IVertexGremlinQuery<TElement>>.Union<TTargetQuery>(params Func<IVertexGremlinQuery<TElement>, TTargetQuery>[] unionTraversals) => Union(unionTraversals);
+        TTargetQuery IGremlinQueryBaseRec<IVertexGremlinQuery<TElement>>.Union<TTargetQuery>(params Func<IVertexGremlinQuery<TElement>, TTargetQuery>[] unionTraversals) => Union<TTargetQuery, TTargetQuery>(unionTraversals);
+        IValueGremlinQuery<object> IGremlinQueryBaseRec<IVertexGremlinQuery<TElement>>.Union(params Func<IVertexGremlinQuery<TElement>, IGremlinQueryBase>[] unionTraversals) => Union<IGremlinQueryBase, IValueGremlinQuery<object>>(unionTraversals);
 
         IVertexGremlinQuery<TElement> IGremlinQueryBaseRec<TElement, IVertexGremlinQuery<TElement>>.Where(Expression<Func<TElement, bool>> predicate) => Where(predicate);
         IVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IVertexGremlinQuery<TElement>>.Where(ILambda lambda) => Where(lambda);
@@ -864,7 +871,8 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeGremlinQuery<TElement>>.Times(int count) => Times(count);
 
-        TTargetQuery IGremlinQueryBaseRec<IEdgeGremlinQuery<TElement>>.Union<TTargetQuery>(params Func<IEdgeGremlinQuery<TElement>, TTargetQuery>[] unionTraversals) => Union(unionTraversals);
+        TTargetQuery IGremlinQueryBaseRec<IEdgeGremlinQuery<TElement>>.Union<TTargetQuery>(params Func<IEdgeGremlinQuery<TElement>, TTargetQuery>[] unionTraversals) => Union<TTargetQuery, TTargetQuery>(unionTraversals);
+        IValueGremlinQuery<object> IGremlinQueryBaseRec<IEdgeGremlinQuery<TElement>>.Union(params Func<IEdgeGremlinQuery<TElement>, IGremlinQueryBase>[] unionTraversals) => Union<IGremlinQueryBase, IValueGremlinQuery<object>>(unionTraversals);
 
         IEdgeGremlinQuery<TElement> IGremlinQueryBaseRec<TElement, IEdgeGremlinQuery<TElement>>.Where(Expression<Func<TElement, bool>> predicate) => Where(predicate);
         IEdgeGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeGremlinQuery<TElement>>.Where(ILambda lambda) => Where(lambda);
@@ -965,7 +973,8 @@ namespace ExRam.Gremlinq.Core
 
         IInOrOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.Times(int count) => Times(count);
 
-        TTargetQuery IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.Union<TTargetQuery>(params Func<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>, TTargetQuery>[] unionTraversals) => Union(unionTraversals);
+        TTargetQuery IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.Union<TTargetQuery>(params Func<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>, TTargetQuery>[] unionTraversals) => Union<TTargetQuery, TTargetQuery>(unionTraversals);
+        IValueGremlinQuery<object> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.Union(params Func<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>, IGremlinQueryBase>[] unionTraversals) => Union<IGremlinQueryBase, IValueGremlinQuery<object>>(unionTraversals);
 
         IInOrOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<TElement, IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.Where(Expression<Func<TElement, bool>> predicate) => Where(predicate);
         IInOrOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.Where(ILambda lambda) => Where(lambda);
@@ -1066,7 +1075,8 @@ namespace ExRam.Gremlinq.Core
 
         IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IGremlinQueryBaseRec<IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.Times(int count) => Times(count);
 
-        TTargetQuery IGremlinQueryBaseRec<IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.Union<TTargetQuery>(params Func<IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, TTargetQuery>[] unionTraversals) => Union(unionTraversals);
+        TTargetQuery IGremlinQueryBaseRec<IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.Union<TTargetQuery>(params Func<IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, TTargetQuery>[] unionTraversals) => Union<TTargetQuery, TTargetQuery>(unionTraversals);
+        IValueGremlinQuery<object> IGremlinQueryBaseRec<IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.Union(params Func<IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, IGremlinQueryBase>[] unionTraversals) => Union<IGremlinQueryBase, IValueGremlinQuery<object>>(unionTraversals);
 
         IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IGremlinQueryBaseRec<TElement, IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.Where(Expression<Func<TElement, bool>> predicate) => Where(predicate);
         IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IGremlinQueryBaseRec<IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.Where(ILambda lambda) => Where(lambda);
@@ -1167,7 +1177,8 @@ namespace ExRam.Gremlinq.Core
 
         IInEdgeGremlinQuery<TElement, TInVertex> IGremlinQueryBaseRec<IInEdgeGremlinQuery<TElement, TInVertex>>.Times(int count) => Times(count);
 
-        TTargetQuery IGremlinQueryBaseRec<IInEdgeGremlinQuery<TElement, TInVertex>>.Union<TTargetQuery>(params Func<IInEdgeGremlinQuery<TElement, TInVertex>, TTargetQuery>[] unionTraversals) => Union(unionTraversals);
+        TTargetQuery IGremlinQueryBaseRec<IInEdgeGremlinQuery<TElement, TInVertex>>.Union<TTargetQuery>(params Func<IInEdgeGremlinQuery<TElement, TInVertex>, TTargetQuery>[] unionTraversals) => Union<TTargetQuery, TTargetQuery>(unionTraversals);
+        IValueGremlinQuery<object> IGremlinQueryBaseRec<IInEdgeGremlinQuery<TElement, TInVertex>>.Union(params Func<IInEdgeGremlinQuery<TElement, TInVertex>, IGremlinQueryBase>[] unionTraversals) => Union<IGremlinQueryBase, IValueGremlinQuery<object>>(unionTraversals);
 
         IInEdgeGremlinQuery<TElement, TInVertex> IGremlinQueryBaseRec<TElement, IInEdgeGremlinQuery<TElement, TInVertex>>.Where(Expression<Func<TElement, bool>> predicate) => Where(predicate);
         IInEdgeGremlinQuery<TElement, TInVertex> IGremlinQueryBaseRec<IInEdgeGremlinQuery<TElement, TInVertex>>.Where(ILambda lambda) => Where(lambda);
@@ -1268,7 +1279,8 @@ namespace ExRam.Gremlinq.Core
 
         IOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<TElement, TOutVertex>>.Times(int count) => Times(count);
 
-        TTargetQuery IGremlinQueryBaseRec<IOutEdgeGremlinQuery<TElement, TOutVertex>>.Union<TTargetQuery>(params Func<IOutEdgeGremlinQuery<TElement, TOutVertex>, TTargetQuery>[] unionTraversals) => Union(unionTraversals);
+        TTargetQuery IGremlinQueryBaseRec<IOutEdgeGremlinQuery<TElement, TOutVertex>>.Union<TTargetQuery>(params Func<IOutEdgeGremlinQuery<TElement, TOutVertex>, TTargetQuery>[] unionTraversals) => Union<TTargetQuery, TTargetQuery>(unionTraversals);
+        IValueGremlinQuery<object> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<TElement, TOutVertex>>.Union(params Func<IOutEdgeGremlinQuery<TElement, TOutVertex>, IGremlinQueryBase>[] unionTraversals) => Union<IGremlinQueryBase, IValueGremlinQuery<object>>(unionTraversals);
 
         IOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<TElement, IOutEdgeGremlinQuery<TElement, TOutVertex>>.Where(Expression<Func<TElement, bool>> predicate) => Where(predicate);
         IOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<TElement, TOutVertex>>.Where(ILambda lambda) => Where(lambda);
@@ -1369,7 +1381,8 @@ namespace ExRam.Gremlinq.Core
 
         IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Times(int count) => Times(count);
 
-        TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Union<TTargetQuery>(params Func<IVertexPropertyGremlinQuery<TElement, TScalar>, TTargetQuery>[] unionTraversals) => Union(unionTraversals);
+        TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Union<TTargetQuery>(params Func<IVertexPropertyGremlinQuery<TElement, TScalar>, TTargetQuery>[] unionTraversals) => Union<TTargetQuery, TTargetQuery>(unionTraversals);
+        IValueGremlinQuery<object> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Union(params Func<IVertexPropertyGremlinQuery<TElement, TScalar>, IGremlinQueryBase>[] unionTraversals) => Union<IGremlinQueryBase, IValueGremlinQuery<object>>(unionTraversals);
 
         IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar>>.Where(Expression<Func<TElement, bool>> predicate) => Where(predicate);
         IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Where(ILambda lambda) => Where(lambda);
@@ -1470,7 +1483,8 @@ namespace ExRam.Gremlinq.Core
 
         IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Times(int count) => Times(count);
 
-        TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Union<TTargetQuery>(params Func<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, TTargetQuery>[] unionTraversals) => Union(unionTraversals);
+        TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Union<TTargetQuery>(params Func<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, TTargetQuery>[] unionTraversals) => Union<TTargetQuery, TTargetQuery>(unionTraversals);
+        IValueGremlinQuery<object> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Union(params Func<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, IGremlinQueryBase>[] unionTraversals) => Union<IGremlinQueryBase, IValueGremlinQuery<object>>(unionTraversals);
 
         IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Where(Expression<Func<TElement, bool>> predicate) => Where(predicate);
         IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Where(ILambda lambda) => Where(lambda);
@@ -1571,7 +1585,8 @@ namespace ExRam.Gremlinq.Core
 
         IPropertyGremlinQuery<TElement> IGremlinQueryBaseRec<IPropertyGremlinQuery<TElement>>.Times(int count) => Times(count);
 
-        TTargetQuery IGremlinQueryBaseRec<IPropertyGremlinQuery<TElement>>.Union<TTargetQuery>(params Func<IPropertyGremlinQuery<TElement>, TTargetQuery>[] unionTraversals) => Union(unionTraversals);
+        TTargetQuery IGremlinQueryBaseRec<IPropertyGremlinQuery<TElement>>.Union<TTargetQuery>(params Func<IPropertyGremlinQuery<TElement>, TTargetQuery>[] unionTraversals) => Union<TTargetQuery, TTargetQuery>(unionTraversals);
+        IValueGremlinQuery<object> IGremlinQueryBaseRec<IPropertyGremlinQuery<TElement>>.Union(params Func<IPropertyGremlinQuery<TElement>, IGremlinQueryBase>[] unionTraversals) => Union<IGremlinQueryBase, IValueGremlinQuery<object>>(unionTraversals);
 
         IPropertyGremlinQuery<TElement> IGremlinQueryBaseRec<TElement, IPropertyGremlinQuery<TElement>>.Where(Expression<Func<TElement, bool>> predicate) => Where(predicate);
         IPropertyGremlinQuery<TElement> IGremlinQueryBaseRec<IPropertyGremlinQuery<TElement>>.Where(ILambda lambda) => Where(lambda);

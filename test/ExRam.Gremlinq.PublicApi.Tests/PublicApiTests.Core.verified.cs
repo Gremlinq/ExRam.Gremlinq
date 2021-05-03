@@ -766,6 +766,7 @@ namespace ExRam.Gremlinq.Core
         TSelf Tail(long count);
         TSelf TailLocal(long count);
         TSelf Times(int count);
+        ExRam.Gremlinq.Core.IValueGremlinQuery<object> Union(params System.Func<, >[] traversals);
         TTargetQuery Union<TTargetQuery>(params System.Func<, >[] unionTraversals)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
         TSelf UntilRepeat(System.Func<TSelf, TSelf> repeatTraversal, System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase> untilTraversal);
