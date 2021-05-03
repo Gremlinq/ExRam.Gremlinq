@@ -11,11 +11,6 @@ namespace ExRam.Gremlinq.Core
         private static readonly MethodInfo CreateFuncMethod = typeof(GremlinQueryBase).GetMethod(nameof(CreateFunc), BindingFlags.NonPublic | BindingFlags.Static)!;
         private static readonly ConcurrentDictionary<Type, Func<GremlinQueryBase, QuerySemantics?, IGremlinQueryBase>> QueryTypes = new();
 
-        private static readonly Type[] SupportedInterfaceDefinitions = typeof(GremlinQuery<,,,,,>)
-            .GetInterfaces()
-            .Select(iface => iface.IsGenericType ? iface.GetGenericTypeDefinition() : iface)
-            .ToArray();
-
         protected GremlinQueryBase(
             StepStack steps,
             IGremlinQueryEnvironment environment,
@@ -76,8 +71,8 @@ namespace ExRam.Gremlinq.Core
                 if (targetQueryType.IsAssignableFrom(existingQuery.GetType()) && actualSemantics == existingQuery.Semantics)
                     return (IGremlinQueryBase)existingQuery;
 
-                //if (!SupportedInterfaceDefinitions.Contains(genericTypeDef))
-                //    throw new NotSupportedException($"Cannot change the query type to {targetQueryType}.");
+                if (!targetQueryType.IsAssignableFrom(typeof(GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>)))
+                    throw new NotSupportedException($"Cannot change the query type to {targetQueryType}.");
 
                 return new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(
                     existingQuery.Steps,
