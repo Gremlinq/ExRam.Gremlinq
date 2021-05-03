@@ -100,5 +100,15 @@ namespace ExRam.Gremlinq.Core.Tests
                 .AsAdmin()
                 .Semantics);
         }
+
+        [Fact]
+        public virtual Task ForceEdge_will_not_preserve_Vertex()
+        {
+            return Verify(_g
+                .V()
+                .ForceEdge()
+                .AsAdmin()
+                .Semantics);
+        }
     }
 }
