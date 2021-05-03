@@ -231,6 +231,7 @@ namespace ExRam.Gremlinq.Core
             private readonly ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer>.CreateValueCallback _ignoringSerializerFactory;
             private readonly ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer>.CreateValueCallback _populatingSerializerFactory;
             private readonly ConcurrentDictionary<Type, (PropertyInfo propertyInfo, Key key, SerializationBehaviour serializationBehaviour)[]> _typeProperties = new();
+            private readonly ConcurrentDictionary<Type, QuerySemantics?> _elementTypeSemantics = new();
 
             public GremlinQueryEnvironmentCacheImpl(IGremlinQueryEnvironment environment)
             {
@@ -303,6 +304,24 @@ namespace ExRam.Gremlinq.Core
                                     .GetValueOrDefault(p, new MemberMetadata(p.Name)).SerializationBehaviour))
                             .OrderBy(x => x.key)
                             .ToArray(),
+                        _environment);
+            }
+
+            public QuerySemantics? TryGetQuerySemanticsFromElementType(Type type)
+            {
+                return _elementTypeSemantics
+                    .GetOrAdd(
+                        type,
+                        (type, environment) =>
+                        {
+                            if (environment.Model.VerticesModel.Metadata.Keys.Any(x => x.IsAssignableFrom(type)))
+                                return QuerySemantics.Vertex;
+
+                            if (environment.Model.EdgesModel.Metadata.Keys.Any(x => x.IsAssignableFrom(type)))
+                                return QuerySemantics.Edge;
+
+                            return null;
+                        },
                         _environment);
             }
 

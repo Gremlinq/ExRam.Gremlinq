@@ -65,8 +65,9 @@ namespace ExRam.Gremlinq.Core
 
             return (existingQuery, forcedSemantics) =>
             {
-                var elementSemantics = typeof(TElement)
-                    .TryGetQuerySemanticsFromElementType(existingQuery.Environment.Model);
+                var elementSemantics = existingQuery.Environment
+                    .GetCache()
+                    .TryGetQuerySemanticsFromElementType(typeof(TElement));
 
                 if (determinedSemantics == null || (determinedSemantics & elementSemantics) == determinedSemantics)
                     determinedSemantics = elementSemantics;
