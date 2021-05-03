@@ -1,0 +1,9 @@
+﻿[
+  {
+    "Script": "V().hasLabel(_a).hasNot(_b)",
+    "Bindings": {
+      "_a": "Person",
+      "_b": "Gender"
+    }
+  }
+]
