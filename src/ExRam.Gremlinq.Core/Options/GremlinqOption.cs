@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq.Core
 {
     public static class GremlinqOption
     {
-        public static readonly GremlinqOption<IImmutableList<Step>> VertexProjectionSteps = new(
+        public static readonly GremlinqOption<ImmutableArray<Step>> VertexProjectionSteps = new(
             new Step[]
             {
                 new ProjectStep(ImmutableArray.Create("id", "label", "properties")),
@@ -28,9 +28,9 @@ namespace ExRam.Gremlinq.Core
                     })
                 })
             }
-            .ToImmutableList());
+            .ToImmutableArray());
 
-        public static readonly GremlinqOption<IImmutableList<Step>> VertexProjectionWithoutMetaPropertiesSteps = new(
+        public static readonly GremlinqOption<ImmutableArray<Step>> VertexProjectionWithoutMetaPropertiesSteps = new(
             new Step[]
             {
                 new ProjectStep(ImmutableArray.Create("id", "label", "properties")),
@@ -51,9 +51,9 @@ namespace ExRam.Gremlinq.Core
                     })
                 })
             }
-            .ToImmutableList());
+            .ToImmutableArray());
 
-        public static readonly GremlinqOption<IImmutableList<Step>> EdgeProjectionSteps = new(
+        public static readonly GremlinqOption<ImmutableArray<Step>> EdgeProjectionSteps = new(
             new Step[]
             {
                 new ProjectStep(ImmutableArray.Create("id", "label", "properties")),
@@ -61,7 +61,7 @@ namespace ExRam.Gremlinq.Core
                 new ProjectStep.ByKeyStep(T.Label),
                 new ProjectStep.ByTraversalStep(new ValueMapStep(ImmutableArray<string>.Empty))
             }
-            .ToImmutableList());
+            .ToImmutableArray());
 
         public static readonly GremlinqOption<IImmutableDictionary<T, SerializationBehaviour>> TSerializationBehaviourOverrides = new(
             new Dictionary<T, SerializationBehaviour>

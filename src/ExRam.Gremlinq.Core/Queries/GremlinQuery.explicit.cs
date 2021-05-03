@@ -261,7 +261,7 @@ namespace ExRam.Gremlinq.Core
         Traversal IGremlinQueryAdmin.ToTraversal()
         {
             var steps = Steps;
-            IImmutableList<Step> projection = ImmutableList<Step>.Empty;
+            var projection = ImmutableArray<Step>.Empty;
 
             if ((Flags & QueryFlags.SurfaceVisible) == QueryFlags.SurfaceVisible)
             {
@@ -285,24 +285,19 @@ namespace ExRam.Gremlinq.Core
             }
 
             var querySize = Math.Max(1, steps.Count);
-            var ret = new Step[querySize + projection.Count];
+            var ret = new Step[querySize + projection.Length];
 
             if (steps.IsEmpty)
                 ret[0] = IdentityStep.Instance;
             else
             {
-                for (var i = 0; i < steps.Count; i++)    //TODO: Optimize when steps size is known
+                for (var i = 0; i < steps.Count; i++)
                 {
                     ret[i] = steps[i];
                 }
             }
 
-            var j = 0;
-
-            foreach (var projectionStep in projection)
-            {
-                ret[querySize + j++] = projectionStep;
-            }
+            projection.CopyTo(ret, querySize);
 
             return new Traversal(ret, true);
         }
