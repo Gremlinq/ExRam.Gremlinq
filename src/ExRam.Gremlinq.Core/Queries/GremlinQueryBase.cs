@@ -75,7 +75,7 @@ namespace ExRam.Gremlinq.Core
 
                 var actualSemantics = forcedSemantics ?? determinedSemantics;
 
-                if (targetQueryType.IsAssignableFrom(existingQuery.GetType()) && (actualSemantics == null || actualSemantics == existingQuery.Semantics))
+                if (targetQueryType.IsAssignableFrom(existingQuery.GetType()) && (forcedSemantics == null || forcedSemantics == existingQuery.Semantics) && (actualSemantics == null || (actualSemantics & existingQuery.Semantics) == actualSemantics))
                     return (IGremlinQueryBase)existingQuery;
 
                 if (!targetQueryType.IsAssignableFrom(typeof(GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>)))

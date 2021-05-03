@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-
 using ExRam.Gremlinq.Tests.Entities;
-
 using FluentAssertions;
 using Xunit;
 using Xunit.Abstractions;
@@ -94,7 +92,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public virtual Task ForceValue_cannot_preserve_Vertex_when_just_object()
+        public virtual Task ForceValue_preserves_Vertex()
         {
             return Verify(_g
                 .V()
