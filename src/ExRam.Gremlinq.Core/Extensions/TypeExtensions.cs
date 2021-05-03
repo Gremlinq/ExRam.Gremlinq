@@ -16,45 +16,33 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        public static QuerySemantics? TryGetQuerySemantics(this Type type)
+        public static QuerySemantics? TryGetQuerySemanticsFromQueryType(this Type type)
         {
-            var typeName = type.Name;
-            var semantics = default(QuerySemantics?);
-
-            if (typeName.Contains("Query"))
+            if (typeof(IGremlinQueryBase).IsAssignableFrom(type))
             {
-                if (typeName.Contains("Value"))
-                    semantics = QuerySemantics.Value;
-                else if (typeName.Contains("Element"))
-                    semantics = QuerySemantics.Element;
-                else
-                {
-                    var containsVertex = typeName.Contains("Vertex");
-                    var containsProperty = typeName.Contains("Property");
+                if (typeof(IVertexPropertyGremlinQueryBase).IsAssignableFrom(type))
+                    return QuerySemantics.VertexProperty;
 
-                    if (containsProperty)
-                    {
-                        semantics = containsVertex
-                            ? QuerySemantics.VertexProperty
-                            : QuerySemantics.Property;
-                    }
-                    else
-                    {
-                        var containsEdge = typeName.Contains("Edge");
+                if (typeof(IPropertyGremlinQueryBase).IsAssignableFrom(type))
+                    return QuerySemantics.Property;
 
-                        if (containsVertex)
-                        {
-                            semantics = containsEdge
-                                ? QuerySemantics.EdgeOrVertex
-                                : QuerySemantics.Vertex;
-                        }
-                        else if (containsEdge)
-                            semantics = QuerySemantics.Edge;
-                    }
-                }
+                if (typeof(IEdgeGremlinQueryBase).IsAssignableFrom(type))
+                    return QuerySemantics.Edge;
+
+                if (typeof(IVertexGremlinQueryBase).IsAssignableFrom(type))
+                    return QuerySemantics.Vertex;
+
+                if (typeof(IEdgeOrVertexGremlinQueryBase).IsAssignableFrom(type))
+                    return QuerySemantics.EdgeOrVertex;
+
+                if (typeof(IElementGremlinQueryBase).IsAssignableFrom(type))
+                    return QuerySemantics.Element;
+
+                if (typeof(IValueTupleGremlinQueryBase).IsAssignableFrom(type) || typeof(IValueGremlinQueryBase).IsAssignableFrom(type))
+                    return QuerySemantics.Value;
             }
 
-            return semantics;
+            return null;
         }
     }
 }
