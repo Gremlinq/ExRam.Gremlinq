@@ -34,19 +34,6 @@ namespace ExRam.Gremlinq.Core
         {
             var targetQueryType = typeof(TTargetQuery);
 
-            if (targetQueryType.IsAssignableFrom(GetType()))
-            {
-                if (targetQueryType == GetType() || targetQueryType.IsGenericType && Semantics != QuerySemantics.Value)
-                    return (TTargetQuery)(object)this;
-            }
-
-            var genericTypeDef = targetQueryType.IsGenericType
-                ? targetQueryType.GetGenericTypeDefinition()
-                : targetQueryType;
-
-            if (!SupportedInterfaceDefinitions.Contains(genericTypeDef))
-                throw new NotSupportedException($"Cannot change the query type to {targetQueryType}.");
-
             var constructor = QueryTypes.GetOrAdd(
                 targetQueryType,
                 closureType =>
@@ -70,20 +57,36 @@ namespace ExRam.Gremlinq.Core
                                 : typeof(object)),
                             metaType,
                             queryType)
-                        .Invoke(null, new object?[] { semantics })!;
+                        .Invoke(null, new object?[] { closureType, semantics })!;
                 });
 
             return (TTargetQuery)constructor(this, forcedSemantics);
         }
 
-        private static Func<GremlinQueryBase, QuerySemantics?, IGremlinQueryBase> CreateFunc<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(QuerySemantics determinedSemantics)
+        private static Func<GremlinQueryBase, QuerySemantics?, IGremlinQueryBase> CreateFunc<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(Type targetQueryType, QuerySemantics determinedSemantics)
         {
-            return (existingQuery, forcedSemantics) => new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(
-                existingQuery.Steps,
-                existingQuery.Environment,
-                forcedSemantics ?? determinedSemantics,
-                existingQuery.StepLabelSemantics,
-                existingQuery.Flags);
+            var genericTypeDef = targetQueryType.IsGenericType
+                ? targetQueryType.GetGenericTypeDefinition()
+                : targetQueryType;
+
+            return (existingQuery, forcedSemantics) =>
+            {
+                if (targetQueryType.IsAssignableFrom(existingQuery.GetType()))
+                {
+                    if (targetQueryType == existingQuery.GetType() || targetQueryType.IsGenericType && existingQuery.Semantics != QuerySemantics.Value)
+                        return (IGremlinQueryBase)existingQuery;
+                }
+
+                if (!SupportedInterfaceDefinitions.Contains(genericTypeDef))
+                    throw new NotSupportedException($"Cannot change the query type to {targetQueryType}.");
+
+                return new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(
+                    existingQuery.Steps,
+                    existingQuery.Environment,
+                    forcedSemantics ?? determinedSemantics,
+                    existingQuery.StepLabelSemantics,
+                    existingQuery.Flags);
+            };
         }
 
         private static Type? GetMatchingType(Type interfaceType, params string[] argumentNames)
