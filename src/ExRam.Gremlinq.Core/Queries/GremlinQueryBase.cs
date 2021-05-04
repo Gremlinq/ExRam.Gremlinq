@@ -61,19 +61,24 @@ namespace ExRam.Gremlinq.Core
                 ? targetQueryType.GetGenericTypeDefinition()
                 : targetQueryType;
 
-            var determinedSemantics = targetQueryType
+            var interfaceSemantics = targetQueryType
                 .TryGetQuerySemanticsFromQueryType();
 
             return (existingQuery, forcedSemantics) =>
             {
-                var elementSemantics = existingQuery.Environment
-                    .GetCache()
-                    .TryGetQuerySemanticsFromElementType(typeof(TElement));
+                var actualSemantics = forcedSemantics;
 
-                if (determinedSemantics == null || (determinedSemantics & elementSemantics) == determinedSemantics)
-                    determinedSemantics = elementSemantics;
+                if (actualSemantics == null)
+                {
+                    actualSemantics = interfaceSemantics;
 
-                var actualSemantics = forcedSemantics ?? determinedSemantics;
+                    var elementSemantics = existingQuery.Environment
+                        .GetCache()
+                        .TryGetQuerySemanticsFromElementType(typeof(TElement));
+
+                    if (interfaceSemantics == null || (interfaceSemantics & elementSemantics) == interfaceSemantics)
+                        actualSemantics = elementSemantics;
+                }
 
                 if (targetQueryType.IsAssignableFrom(existingQuery.GetType()) && (forcedSemantics == null || forcedSemantics == existingQuery.Semantics) && (actualSemantics == null || (actualSemantics & existingQuery.Semantics) == actualSemantics))
                     return (IGremlinQueryBase)existingQuery;
