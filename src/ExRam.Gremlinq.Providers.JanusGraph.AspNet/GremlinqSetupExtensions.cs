@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Core.AspNet
         public static GremlinqSetup UseJanusGraph(this GremlinqSetup setup, Func<IJanusGraphConfigurator, IConfiguration, IJanusGraphConfigurator>? extraConfiguration = null)
         {
             return setup
-                .UseProvider<IJanusGraphConfigurator>(
+                .UseProvider(
                     "JanusGraph",
                     (e, f) => e.UseJanusGraph(f),
                     (configurator, _) => configurator,

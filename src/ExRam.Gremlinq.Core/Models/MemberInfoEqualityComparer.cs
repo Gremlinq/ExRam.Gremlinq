@@ -35,27 +35,24 @@ namespace ExRam.Gremlinq.Core
 
         private static MemberInfo GetBaseMemberInfo(MemberInfo member)
         {
-            if (member is PropertyInfo propertyInfo)
+            if (member is PropertyInfo {GetMethod: { } interfaceGetter})
             {
-                if (propertyInfo.GetMethod is { } interfaceGetter)
+                if (member.DeclaringType is { IsInterface: false })
                 {
-                    if (member.DeclaringType != null && !member.DeclaringType.IsInterface)
+                    foreach (var iface in member.DeclaringType.GetInterfaces())
                     {
-                        foreach (var iface in member.DeclaringType.GetInterfaces())
-                        {
-                            var interfaceMap = member.DeclaringType
-                                .GetInterfaceMap(iface);
+                        var interfaceMap = member.DeclaringType
+                            .GetInterfaceMap(iface);
 
-                            for (var i = 0; i < interfaceMap.TargetMethods.Length; i++)
-                            {
-                                if (InnerMemberInfoEqualityComparer.Instance.Equals(interfaceMap.TargetMethods[i], interfaceGetter))
-                                    return interfaceMap.InterfaceMethods[i];
-                            }
+                        for (var i = 0; i < interfaceMap.TargetMethods.Length; i++)
+                        {
+                            if (InnerMemberInfoEqualityComparer.Instance.Equals(interfaceMap.TargetMethods[i], interfaceGetter))
+                                return interfaceMap.InterfaceMethods[i];
                         }
                     }
-
-                    return interfaceGetter;
                 }
+
+                return interfaceGetter;
             }
 
             return member;

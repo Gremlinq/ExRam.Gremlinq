@@ -3,11 +3,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Tests.Entities;
 using FluentAssertions;
-using FluentAssertions.Common;
-
 using Xunit;
 using Xunit.Abstractions;
-
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
@@ -93,7 +90,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Where(x => x.Age > 36)
                 .Out<LivesIn>()
                 .OfType<Country>()
-                .Debug(GroovyFormatting.Inline, false));
+                .Debug());
         }
 
         [Fact]

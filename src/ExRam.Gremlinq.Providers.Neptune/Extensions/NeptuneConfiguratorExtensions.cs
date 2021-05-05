@@ -37,10 +37,6 @@ namespace ExRam.Gremlinq.Providers.Neptune
                                         // with value "John Doe" would match a query "StartsWith('Doe') which is
                                         // not really what's expected. So we can't do better than a case-insensitive
                                         // "Contains(..)"
-                                        //case StartsWithExpressionSemantics:
-                                        //    return new P("eq", $"Neptune#fts {value}*");
-                                        //case EndsWithExpressionSemantics:
-                                        //    return new P("eq", $"Neptune#fts *{value}");
                                         case HasInfixExpressionSemantics:
                                             return new P("eq", $"Neptune#fts *{value}*");
                                     }

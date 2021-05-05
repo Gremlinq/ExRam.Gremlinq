@@ -256,6 +256,7 @@ namespace ExRam.Gremlinq.Core
         Traversal IGremlinQueryAdmin.ToTraversal()
         {
             var steps = Steps;
+            var querySize = Math.Max(1, steps.Count);
             var projection = ImmutableArray<Step>.Empty;
 
             if ((Flags & QueryFlags.SurfaceVisible) == QueryFlags.SurfaceVisible)
@@ -279,7 +280,6 @@ namespace ExRam.Gremlinq.Core
                 }
             }
 
-            var querySize = Math.Max(1, steps.Count);
             var ret = new Step[querySize + projection.Length];
 
             if (steps.IsEmpty)

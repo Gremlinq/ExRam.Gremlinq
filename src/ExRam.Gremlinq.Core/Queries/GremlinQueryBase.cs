@@ -57,11 +57,7 @@ namespace ExRam.Gremlinq.Core
 
         private static Func<GremlinQueryBase, QuerySemantics?, IGremlinQueryBase> CreateFunc<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(Type targetQueryType)
         {
-            var genericTypeDef = targetQueryType.IsGenericType
-                ? targetQueryType.GetGenericTypeDefinition()
-                : targetQueryType;
-
-            var interfaceSemantics = targetQueryType
+           var interfaceSemantics = targetQueryType
                 .TryGetQuerySemanticsFromQueryType();
 
             return (existingQuery, forcedSemantics) =>
@@ -80,7 +76,7 @@ namespace ExRam.Gremlinq.Core
                         actualSemantics = elementSemantics;
                 }
 
-                if (targetQueryType.IsAssignableFrom(existingQuery.GetType()) && (forcedSemantics == null || forcedSemantics == existingQuery.Semantics) && (actualSemantics == null || (actualSemantics & existingQuery.Semantics) == actualSemantics))
+                if (targetQueryType.IsInstanceOfType(existingQuery) && (forcedSemantics == null || forcedSemantics == existingQuery.Semantics) && (actualSemantics == null || (actualSemantics & existingQuery.Semantics) == actualSemantics))
                     return (IGremlinQueryBase)existingQuery;
 
                 if (!targetQueryType.IsAssignableFrom(typeof(GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>)))
