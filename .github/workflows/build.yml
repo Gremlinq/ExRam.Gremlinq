@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - rel
   pull_request:
 
 env:
@@ -17,7 +16,9 @@ jobs:
 
     outputs:
       semVer2: ${{ steps.nbgv.outputs.SemVer2 }}
-      isPrerelease: ${{ steps.nbgv.outputs.PrereleaseVersionNoLeadingHyphen != '' }}
+      isAlphaRelease: ${{ startsWith(steps.nbgv.outputs.PrereleaseVersionNoLeadingHyphen, 'alpha') }}
+      isPreviewRelease: ${{ startsWith(steps.nbgv.outputs.PrereleaseVersionNoLeadingHyphen, 'preview') }}
+      isStableRelease: ${{ steps.nbgv.outputs.PrereleaseVersionNoLeadingHyphen == '' }}
 
     steps:
     - name: Checkout
@@ -165,7 +166,7 @@ jobs:
         name: NuGetPackages
 
     - name: Push NuGet packages to GitHub packages
-      if: ${{ github.ref == 'refs/heads/main' }}
+      if: ${{ needs.build.outputs.isAlphaRelease == 'true' }}
       run: dotnet nuget push **/ExRam.*.nupkg
         --source https://nuget.pkg.github.com/exram/index.json
         --api-key ${{ secrets.GITHUB_TOKEN }}
@@ -173,7 +174,7 @@ jobs:
         --skip-duplicate
 
     - name: Push NuGet packages to NuGet.org
-      if: ${{ github.ref == 'refs/heads/rel' }}
+      if: ${{ needs.build.outputs.isAlphaRelease == 'false' }}
       run: dotnet nuget push **/ExRam.*.nupkg
         --source https://api.nuget.org/v3/index.json
         --api-key ${{ secrets.NUGET_DEPLOY_KEY }}
@@ -183,14 +184,14 @@ jobs:
   announce:
     needs: [ build, publish ]
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/rel' }}
+    if: ${{ github.event_name == 'push' && needs.build.outputs.isAlphaRelease == 'false' }}
 
     steps:
     - name: Draft release
       uses: release-drafter/release-drafter@v5.15.0
       with:
         name: ExRam.Gremlinq ${{ needs.build.outputs.semVer2 }}
-        prerelease: ${{ needs.build.outputs.isPrerelease }}
+        prerelease: ${{ needs.build.outputs.isPreviewRelease }}
         tag: ${{ needs.build.outputs.semVer2 }}
         commitish: ${{ github.ref }}
         publish: true
@@ -198,7 +199,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Send announcement tweet!
-      if: ${{ needs.build.outputs.isPrerelease == 'false' }}
+      if: ${{ needs.build.outputs.isStableRelease == 'true' }}
       uses: ethomson/send-tweet-action@v1
       with:
         status: |
