@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - develop
   pull_request:
 
 env:
@@ -166,7 +167,7 @@ jobs:
         name: NuGetPackages
 
     - name: Push NuGet packages to GitHub packages
-      if: ${{ needs.build.outputs.isAlphaRelease == 'true' }}
+      if: ${{ github.ref == 'refs/heads/develop' }}
       run: dotnet nuget push **/ExRam.*.nupkg
         --source https://nuget.pkg.github.com/exram/index.json
         --api-key ${{ secrets.GITHUB_TOKEN }}
@@ -174,7 +175,7 @@ jobs:
         --skip-duplicate
 
     - name: Push NuGet packages to NuGet.org
-      if: ${{ needs.build.outputs.isAlphaRelease == 'false' }}
+      if: ${{ github.ref == 'refs/heads/main' && needs.build.outputs.isAlphaRelease == 'false' }}
       run: dotnet nuget push **/ExRam.*.nupkg
         --source https://api.nuget.org/v3/index.json
         --api-key ${{ secrets.NUGET_DEPLOY_KEY }}
@@ -184,7 +185,7 @@ jobs:
   announce:
     needs: [ build, publish ]
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' && needs.build.outputs.isAlphaRelease == 'false' }}
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.build.outputs.isAlphaRelease == 'false' }}
 
     steps:
     - name: Draft release
