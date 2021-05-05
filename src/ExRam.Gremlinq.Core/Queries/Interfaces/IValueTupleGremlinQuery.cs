@@ -4,13 +4,13 @@ using System.Linq.Expressions;
 namespace ExRam.Gremlinq.Core
 {
     public interface IValueTupleGremlinQueryBase :
-        IValueGremlinQueryBase
+        IGremlinQueryBase
     {
     }
 
     public interface IValueTupleGremlinQueryBase<TElement> :
         IValueTupleGremlinQueryBase,
-        IValueGremlinQueryBase<TElement>
+        IGremlinQueryBase<TElement>
     {
         IValueGremlinQuery<TTargetValue> Select<TTargetValue>(Expression<Func<TElement, TTargetValue>> projection);
 
@@ -33,7 +33,7 @@ namespace ExRam.Gremlinq.Core
 
     public interface IValueTupleGremlinQuery<TElement> :
         IValueTupleGremlinQueryBase<TElement>,
-        IValueGremlinQueryBaseRec<TElement, IValueTupleGremlinQuery<TElement>>
+        IGremlinQueryBaseRec<TElement, IValueTupleGremlinQuery<TElement>>
     {
 
     }
