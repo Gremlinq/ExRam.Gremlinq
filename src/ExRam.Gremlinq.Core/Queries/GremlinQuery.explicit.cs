@@ -213,16 +213,13 @@ namespace ExRam.Gremlinq.Core
 
         GremlinQueryAwaiter<TElement> IGremlinQueryBase<TElement>.GetAwaiter() => new((this).ToArrayAsync().AsTask().GetAwaiter());
 
-        IAsyncEnumerable<TElement> IGremlinQueryBase<TElement>.ToAsyncEnumerable()
-        {
-            var serialized = Environment.Serializer
-                .Serialize(this);
-
-            return Environment.Executor
-                .Execute(serialized, Environment)
-                .SelectMany(executionResult => Environment.Deserializer
-                    .Deserialize<TElement>(executionResult, Environment));
-        }
+        IAsyncEnumerable<TElement> IGremlinQueryBase<TElement>.ToAsyncEnumerable() => Environment.Executor
+            .Execute(
+                Environment.Serializer
+                    .Serialize(this),
+                Environment)
+            .SelectMany(executionResult => Environment.Deserializer
+                .Deserialize<TElement>(executionResult, Environment));
 
         IValueGremlinQuery<Path> IGremlinQueryBase.Path() => AddStepWithObjectTypes<Path>(PathStep.Instance, QuerySemantics.Value);
 
