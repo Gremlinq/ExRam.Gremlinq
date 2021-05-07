@@ -1,0 +1,11 @@
+﻿[
+  {
+    "Script": "inject(_a).as(_b).V().hasLabel(_c).property(single,_d,__.select(_b))",
+    "Bindings": {
+      "_a": 36,
+      "_b": "l1",
+      "_c": "Person",
+      "_d": "Age"
+    }
+  }
+]
