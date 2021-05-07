@@ -3105,6 +3105,17 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task Property_single_from_stepLabel()
+        {
+            await _g
+                .Inject(36)
+                .As((__, age) => __
+                    .V<Person>()
+                    .Property(x => x.Age, age))
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task Property_single_traversal()
         {
             await _g
