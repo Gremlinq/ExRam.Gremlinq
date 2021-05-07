@@ -341,6 +341,10 @@
         public static ExRam.Gremlinq.Core.IGremlinQueryExecutor TransformQuery(this ExRam.Gremlinq.Core.IGremlinQueryExecutor baseExecutor, System.Func<object, object> transformation) { }
         public static ExRam.Gremlinq.Core.IGremlinQueryExecutor TransformResult(this ExRam.Gremlinq.Core.IGremlinQueryExecutor baseExecutor, System.Func<System.Collections.Generic.IAsyncEnumerable<object>, System.Collections.Generic.IAsyncEnumerable<object>> transformation) { }
     }
+    public static class GremlinQueryExecutorExtensions
+    {
+        public static ExRam.Gremlinq.Core.IGremlinQueryExecutor RetryWithExponentialBackoff(this ExRam.Gremlinq.Core.IGremlinQueryExecutor executor, System.Func<int, Gremlin.Net.Driver.Exceptions.ResponseException, bool> shouldRetry) { }
+    }
     public static class GremlinQueryExtensions
     {
         public static System.Threading.Tasks.ValueTask<TElement> FirstAsync<TElement>(this ExRam.Gremlinq.Core.IGremlinQueryBase<TElement> query, System.Threading.CancellationToken ct = default) { }
