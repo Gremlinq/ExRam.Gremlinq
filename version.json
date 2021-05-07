@@ -5,7 +5,8 @@
     "semVer": 2.0
   },
   "publicReleaseRefSpec": [
-    "^refs/heads/main$"
+    "^refs/heads/main$",
+    "^refs/heads/develop$"
   ],
   "cloudBuild": {
     "buildNumber": {
