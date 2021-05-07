@@ -326,6 +326,15 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuerySource IGremlinQuerySource.WithSideEffect<TSideEffect>(StepLabel<TSideEffect> label, TSideEffect value) => AddStep(new WithSideEffectStep(label, value!));
 
+        TQuery IGremlinQuerySource.WithSideEffect<TSideEffect, TQuery>(TSideEffect value, Func<IGremlinQuerySource, StepLabel<TSideEffect>, TQuery> continuation)
+        {
+            var stepLabel = new StepLabel<TSideEffect>();
+
+            return continuation(
+                ((IGremlinQuerySource)this).WithSideEffect(stepLabel, value),
+                stepLabel);
+        }
+
         IInEdgeGremlinQuery<TElement, TInVertex> IGremlinQueryBaseRec<IInEdgeGremlinQuery<TElement, TInVertex>>.Mute() => Mute();
 
         IBothEdgeGremlinQuery<TElement, TTargetVertex, TOutVertex> IInOrOutEdgeGremlinQueryBase<TElement, TOutVertex>.From<TTargetVertex>(StepLabel<TTargetVertex> stepLabel) => AddStep<TElement, TTargetVertex, TOutVertex, object, object, object>(new AddEStep.FromLabelStep(stepLabel), QuerySemantics.Edge);

@@ -1,0 +1,9 @@
+﻿[
+  {
+    "Script": "withSideEffect(_a,_b).V()",
+    "Bindings": {
+      "_a": "l1",
+      "_b": 36
+    }
+  }
+]

@@ -5627,5 +5627,15 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Verify();
         }
+
+        [Fact]
+        public virtual async Task WithSideEffect_continuation()
+        {
+            await _g
+                .WithSideEffect(
+                    36,
+                    (__, label) => __.V())
+                .Verify();
+        }
     }
 }
