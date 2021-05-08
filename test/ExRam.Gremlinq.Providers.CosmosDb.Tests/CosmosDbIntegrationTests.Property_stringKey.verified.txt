@@ -11,34 +11,31 @@
             "value": "PartitionKey"
           }
         ],
-        "StringKey1": [
-          {
-            "id": "scrubbed id",
-            "value": 36
-          }
-        ],
         "Age": [
           {
             "id": "scrubbed id",
-            "value": 21
+            "value": 36,
+            "properties": {
+              "Meta": "value"
+            }
           }
         ],
         "Name": [
           {
             "id": "scrubbed id",
-            "value": "Marko"
-          }
-        ],
-        "Gender": [
-          {
-            "id": "scrubbed id",
-            "value": 0
+            "value": "Bob"
           }
         ],
         "RegistrationDate": [
           {
             "id": "scrubbed id",
             "value": 1586270616000
+          }
+        ],
+        "StringKey1": [
+          {
+            "id": "scrubbed id",
+            "value": 36
           }
         ]
       }
@@ -54,34 +51,19 @@
             "value": "PartitionKey"
           }
         ],
+        "Age": [
+          {
+            "id": "scrubbed id",
+            "value": 36,
+            "properties": {
+              "Meta": "value"
+            }
+          }
+        ],
         "StringKey1": [
           {
             "id": "scrubbed id",
             "value": 36
-          }
-        ],
-        "Age": [
-          {
-            "id": "scrubbed id",
-            "value": 21
-          }
-        ],
-        "Name": [
-          {
-            "id": "scrubbed id",
-            "value": "Marko"
-          }
-        ],
-        "Gender": [
-          {
-            "id": "scrubbed id",
-            "value": 0
-          }
-        ],
-        "RegistrationDate": [
-          {
-            "id": "scrubbed id",
-            "value": 1586270616000
           }
         ]
       }
@@ -97,34 +79,19 @@
             "value": "PartitionKey"
           }
         ],
+        "Age": [
+          {
+            "id": "scrubbed id",
+            "value": 36,
+            "properties": {
+              "Meta": "value"
+            }
+          }
+        ],
         "StringKey1": [
           {
             "id": "scrubbed id",
             "value": 36
-          }
-        ],
-        "Age": [
-          {
-            "id": "scrubbed id",
-            "value": 21
-          }
-        ],
-        "Name": [
-          {
-            "id": "scrubbed id",
-            "value": "Marko"
-          }
-        ],
-        "Gender": [
-          {
-            "id": "scrubbed id",
-            "value": 0
-          }
-        ],
-        "RegistrationDate": [
-          {
-            "id": "scrubbed id",
-            "value": 1586270616000
           }
         ]
       }
@@ -140,34 +107,19 @@
             "value": "PartitionKey"
           }
         ],
+        "Age": [
+          {
+            "id": "scrubbed id",
+            "value": 36,
+            "properties": {
+              "Meta": "value"
+            }
+          }
+        ],
         "StringKey1": [
           {
             "id": "scrubbed id",
             "value": 36
-          }
-        ],
-        "Age": [
-          {
-            "id": "scrubbed id",
-            "value": 21
-          }
-        ],
-        "Name": [
-          {
-            "id": "scrubbed id",
-            "value": "Marko"
-          }
-        ],
-        "Gender": [
-          {
-            "id": "scrubbed id",
-            "value": 0
-          }
-        ],
-        "RegistrationDate": [
-          {
-            "id": "scrubbed id",
-            "value": 1586270616000
           }
         ]
       }
@@ -183,34 +135,31 @@
             "value": "PartitionKey"
           }
         ],
-        "StringKey1": [
-          {
-            "id": "scrubbed id",
-            "value": 36
-          }
-        ],
         "Age": [
           {
             "id": "scrubbed id",
-            "value": 21
+            "value": 36,
+            "properties": {
+              "Meta": "value"
+            }
           }
         ],
         "Name": [
           {
             "id": "scrubbed id",
-            "value": "Marko"
-          }
-        ],
-        "Gender": [
-          {
-            "id": "scrubbed id",
-            "value": 0
+            "value": "Bob"
           }
         ],
         "RegistrationDate": [
           {
             "id": "scrubbed id",
             "value": 1586270616000
+          }
+        ],
+        "StringKey1": [
+          {
+            "id": "scrubbed id",
+            "value": 36
           }
         ]
       }
@@ -224,6 +173,15 @@
           {
             "id": "scrubbed id",
             "value": "PartitionKey"
+          }
+        ],
+        "Age": [
+          {
+            "id": "scrubbed id",
+            "value": 36,
+            "properties": {
+              "Meta": "value"
+            }
           }
         ],
         "Image": [
@@ -237,29 +195,39 @@
             "id": "scrubbed id",
             "value": 36
           }
+        ]
+      }
+    },
+    {
+      "id": "scrubbed id",
+      "label": "Person",
+      "type": "vertex",
+      "properties": {
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
+          }
         ],
         "Age": [
           {
             "id": "scrubbed id",
-            "value": 21
-          }
-        ],
-        "Name": [
-          {
-            "id": "scrubbed id",
-            "value": "Marko"
+            "value": 36,
+            "properties": {
+              "Meta": "value"
+            }
           }
         ],
         "Gender": [
           {
             "id": "scrubbed id",
-            "value": 0
+            "value": 1
           }
         ],
-        "RegistrationDate": [
+        "StringKey1": [
           {
             "id": "scrubbed id",
-            "value": 1586270616000
+            "value": 36
           }
         ]
       }
@@ -275,28 +243,10 @@
             "value": "PartitionKey"
           }
         ],
-        "StringKey1": [
-          {
-            "id": "scrubbed id",
-            "value": 36
-          }
-        ],
-        "Age": [
-          {
-            "id": "scrubbed id",
-            "value": 21
-          }
-        ],
         "Name": [
           {
             "id": "scrubbed id",
             "value": "Marko"
-          }
-        ],
-        "Gender": [
-          {
-            "id": "scrubbed id",
-            "value": 0
           }
         ],
         "RegistrationDate": [
@@ -304,52 +254,23 @@
             "id": "scrubbed id",
             "value": 1586270616000
           }
-        ]
-      }
-    },
-    {
-      "id": "scrubbed id",
-      "label": "Person",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
+        ],
+        "Age": [
           {
             "id": "scrubbed id",
-            "value": "PartitionKey"
+            "value": 36,
+            "properties": {
+              "Meta": "value"
+            }
           }
         ],
         "StringKey1": [
           {
             "id": "scrubbed id",
             "value": 36
-          }
-        ],
-        "Age": [
-          {
-            "id": "scrubbed id",
-            "value": 21
-          }
-        ],
-        "Name": [
-          {
-            "id": "scrubbed id",
-            "value": "Marko"
-          }
-        ],
-        "Gender": [
-          {
-            "id": "scrubbed id",
-            "value": 0
-          }
-        ],
-        "RegistrationDate": [
-          {
-            "id": "scrubbed id",
-            "value": 1586270616000
           }
         ]
       }
     }
-  ],
-  []
+  ]
 ]

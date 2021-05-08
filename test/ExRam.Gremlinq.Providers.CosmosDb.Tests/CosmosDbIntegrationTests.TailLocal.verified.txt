@@ -81,6 +81,12 @@
             "id": "scrubbed id",
             "value": 1586270616000
           }
+        ],
+        "StringKey1": [
+          {
+            "id": "scrubbed id",
+            "value": 36
+          }
         ]
       }
     },
@@ -102,6 +108,12 @@
             "properties": {
               "Meta": "value"
             }
+          }
+        ],
+        "StringKey1": [
+          {
+            "id": "scrubbed id",
+            "value": 36
           }
         ]
       }
@@ -147,6 +159,12 @@
               "Meta": "value"
             }
           }
+        ],
+        "StringKey1": [
+          {
+            "id": "scrubbed id",
+            "value": 36
+          }
         ]
       }
     },
@@ -190,6 +208,12 @@
             "properties": {
               "Meta": "value"
             }
+          }
+        ],
+        "StringKey1": [
+          {
+            "id": "scrubbed id",
+            "value": 36
           }
         ]
       }
@@ -296,6 +320,12 @@
           {
             "id": "scrubbed id",
             "value": 1586270616000
+          }
+        ],
+        "StringKey1": [
+          {
+            "id": "scrubbed id",
+            "value": 36
           }
         ]
       }
@@ -428,6 +458,12 @@
             "id": "scrubbed id",
             "value": "AQIDBAUGBwg="
           }
+        ],
+        "StringKey1": [
+          {
+            "id": "scrubbed id",
+            "value": 36
+          }
         ]
       }
     },
@@ -455,6 +491,12 @@
           {
             "id": "scrubbed id",
             "value": 1
+          }
+        ],
+        "StringKey1": [
+          {
+            "id": "scrubbed id",
+            "value": 36
           }
         ]
       }
@@ -492,6 +534,12 @@
             "properties": {
               "Meta": "value"
             }
+          }
+        ],
+        "StringKey1": [
+          {
+            "id": "scrubbed id",
+            "value": 36
           }
         ]
       }
@@ -583,7 +631,9 @@
           }
         ]
       }
-    },
+    }
+  ],
+  [
     {
       "id": "scrubbed id",
       "label": "Country",
@@ -615,9 +665,7 @@
           }
         ]
       }
-    }
-  ],
-  [
+    },
     {
       "id": "scrubbed id",
       "label": "Company",
