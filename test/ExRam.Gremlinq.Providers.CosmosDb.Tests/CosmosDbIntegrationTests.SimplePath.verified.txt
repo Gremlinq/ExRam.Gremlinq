@@ -53,6 +53,12 @@
             "id": "scrubbed id",
             "value": 1586270616000
           }
+        ],
+        "StringKey1": [
+          {
+            "id": "scrubbed id",
+            "value": 36
+          }
         ]
       }
     }
