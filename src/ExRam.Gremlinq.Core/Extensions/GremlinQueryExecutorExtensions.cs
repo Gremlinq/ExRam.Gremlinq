@@ -53,8 +53,11 @@ namespace ExRam.Gremlinq.Core
 
                                     if (!_shouldRetry(i, ex))
                                         throw;
-                                    
-                                    await Task.Delay((_rnd ??= new Random()).Next(i + 2) * 16, ct);
+
+                                    //This is done not to end up with the same seeds if many of these
+                                    //requests fail roughly at the same time
+                                    await Task.Delay((_rnd ??= new Random((int)(DateTime.Now.Ticks & int.MaxValue) ^ Thread.CurrentThread.ManagedThreadId)).Next(i + 2) * 16, ct);
+
                                     break;
                                 }
 
