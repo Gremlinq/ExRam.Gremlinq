@@ -20,6 +20,19 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
+            "@value": 22
+          },
+          "value": {
+            "@type": "g:Int32",
+            "@value": 36
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
             "@value": 11
           },
           "value": {
