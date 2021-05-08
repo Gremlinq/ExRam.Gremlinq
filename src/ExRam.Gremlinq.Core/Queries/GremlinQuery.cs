@@ -277,12 +277,7 @@ namespace ExRam.Gremlinq.Core
                 if (!Environment.FeatureSet.Supports(VertexFeatures.UserSuppliedIds) && T.Id.Equals(key.RawKey))
                     Environment.Logger.LogWarning($"User supplied ids are not supported according to the environment's {nameof(Environment.FeatureSet)}.");
                 else
-                {
-                    foreach (var propertyStep in GetPropertySteps(key, value, Semantics == QuerySemantics.Vertex))
-                    {
-                        ret = ret.AddStep(propertyStep);
-                    }
-                }
+                    ret = ret.AddSteps(GetPropertySteps(key, value, Semantics == QuerySemantics.Vertex));
             }
 
             return ret;
