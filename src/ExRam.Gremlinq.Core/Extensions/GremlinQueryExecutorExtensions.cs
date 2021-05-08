@@ -14,8 +14,6 @@ namespace ExRam.Gremlinq.Core
             [ThreadStatic]
             private static Random? _rnd;
 
-            private const int MaxTries = 32;
-
             private readonly IGremlinQueryExecutor _baseExecutor;
             private readonly Func<int, ResponseException, bool> _shouldRetry;
 
@@ -33,7 +31,7 @@ namespace ExRam.Gremlinq.Core
                 {
                     var hasSeenFirst = false;
 
-                    for (var i = 0; i < MaxTries; i++)
+                    for (var i = 0; i < int.MaxValue; i++)
                     {
                         await using (var enumerator = _baseExecutor.Execute(serializedQuery, environment).GetAsyncEnumerator(ct))
                         {
