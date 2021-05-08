@@ -61,10 +61,7 @@
         "Age": [
           {
             "id": "scrubbed id",
-            "value": 36,
-            "properties": {
-              "Meta": "value"
-            }
+            "value": 36
           }
         ],
         "Name": [
@@ -95,10 +92,7 @@
         "Age": [
           {
             "id": "scrubbed id",
-            "value": 36,
-            "properties": {
-              "Meta": "value"
-            }
+            "value": 36
           }
         ]
       }
@@ -139,10 +133,7 @@
         "Age": [
           {
             "id": "scrubbed id",
-            "value": 36,
-            "properties": {
-              "Meta": "value"
-            }
+            "value": 36
           }
         ]
       }
@@ -183,10 +174,7 @@
         "Age": [
           {
             "id": "scrubbed id",
-            "value": 36,
-            "properties": {
-              "Meta": "value"
-            }
+            "value": 36
           }
         ]
       }
@@ -274,10 +262,7 @@
         "Age": [
           {
             "id": "scrubbed id",
-            "value": 36,
-            "properties": {
-              "Meta": "value"
-            }
+            "value": 36
           }
         ],
         "Name": [
@@ -411,10 +396,7 @@
         "Age": [
           {
             "id": "scrubbed id",
-            "value": 36,
-            "properties": {
-              "Meta": "value"
-            }
+            "value": 36
           }
         ],
         "Image": [
@@ -439,10 +421,7 @@
         "Age": [
           {
             "id": "scrubbed id",
-            "value": 36,
-            "properties": {
-              "Meta": "value"
-            }
+            "value": 36
           }
         ],
         "Gender": [
@@ -479,10 +458,7 @@
         "Age": [
           {
             "id": "scrubbed id",
-            "value": 36,
-            "properties": {
-              "Meta": "value"
-            }
+            "value": 36
           }
         ]
       }

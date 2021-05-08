@@ -45,10 +45,7 @@
                           "properties",
                           {
                             "@type": "g:Map",
-                            "@value": [
-                              "Meta",
-                              "value"
-                            ]
+                            "@value": []
                           }
                         ]
                       }

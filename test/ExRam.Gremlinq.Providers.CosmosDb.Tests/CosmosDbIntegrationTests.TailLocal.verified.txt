@@ -61,10 +61,7 @@
         "Age": [
           {
             "id": "scrubbed id",
-            "value": 36,
-            "properties": {
-              "Meta": "value"
-            }
+            "value": 36
           }
         ],
         "Name": [
@@ -98,10 +95,7 @@
         "Age": [
           {
             "id": "scrubbed id",
-            "value": 36,
-            "properties": {
-              "Meta": "value"
-            }
+            "value": 36
           }
         ]
       }
@@ -142,10 +136,7 @@
         "Age": [
           {
             "id": "scrubbed id",
-            "value": 36,
-            "properties": {
-              "Meta": "value"
-            }
+            "value": 36
           }
         ]
       }
@@ -186,10 +177,7 @@
         "Age": [
           {
             "id": "scrubbed id",
-            "value": 36,
-            "properties": {
-              "Meta": "value"
-            }
+            "value": 36
           }
         ]
       }
@@ -277,10 +265,7 @@
         "Age": [
           {
             "id": "scrubbed id",
-            "value": 36,
-            "properties": {
-              "Meta": "value"
-            }
+            "value": 36
           }
         ],
         "Name": [
@@ -299,9 +284,7 @@
           }
         ]
       }
-    }
-  ],
-  [
+    },
     {
       "id": "scrubbed id",
       "label": "Language",
@@ -320,7 +303,9 @@
           }
         ]
       }
-    },
+    }
+  ],
+  [
     {
       "id": "scrubbed id",
       "label": "Language",
@@ -417,10 +402,7 @@
         "Age": [
           {
             "id": "scrubbed id",
-            "value": 36,
-            "properties": {
-              "Meta": "value"
-            }
+            "value": 36
           }
         ],
         "Image": [
@@ -445,10 +427,7 @@
         "Age": [
           {
             "id": "scrubbed id",
-            "value": 36,
-            "properties": {
-              "Meta": "value"
-            }
+            "value": 36
           }
         ],
         "Gender": [
@@ -488,10 +467,7 @@
         "Age": [
           {
             "id": "scrubbed id",
-            "value": 36,
-            "properties": {
-              "Meta": "value"
-            }
+            "value": 36
           }
         ]
       }
@@ -615,9 +591,7 @@
           }
         ]
       }
-    }
-  ],
-  [
+    },
     {
       "id": "scrubbed id",
       "label": "Company",
@@ -646,7 +620,9 @@
           }
         ]
       }
-    },
+    }
+  ],
+  [
     {
       "id": "scrubbed id",
       "label": "Language",

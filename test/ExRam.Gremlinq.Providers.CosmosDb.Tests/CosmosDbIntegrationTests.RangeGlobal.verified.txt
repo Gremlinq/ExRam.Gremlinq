@@ -33,10 +33,7 @@
         "Age": [
           {
             "id": "scrubbed id",
-            "value": 36,
-            "properties": {
-              "Meta": "value"
-            }
+            "value": 36
           }
         ],
         "Name": [
