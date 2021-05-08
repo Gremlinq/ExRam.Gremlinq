@@ -16,7 +16,7 @@ namespace ExRam.Gremlinq.Core
 {
     internal static class GremlinQuery
     {
-        internal static readonly StepStack AnonymousNoneSteps = new StepStack(new Step[] { NoneStep.Instance }, 1);
+        internal static readonly StepStack AnonymousNoneSteps = new(new Step[] { NoneStep.Instance }, 1);
 
         public static GremlinQuery<TElement, object, object, object, object, object> Create<TElement>(IGremlinQueryEnvironment environment)
         {

@@ -4,7 +4,6 @@ using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using ExRam.Gremlinq.Core.GraphElements;
 using Gremlin.Net.Process.Traversal;
-using Newtonsoft.Json;
 
 namespace ExRam.Gremlinq.Core
 {

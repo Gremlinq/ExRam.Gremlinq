@@ -127,40 +127,34 @@ namespace ExRam.Gremlinq.Core
                 .Override<BothVStep>((step, env, overridden, recurse) => CreateInstruction("bothV"))
                 .Override<CapStep>((step, env, overridden, recurse) => CreateInstruction("cap", recurse, env, step.StepLabel))
                 .Override<ChooseOptionTraversalStep>((step, env, overridden, recurse) => CreateInstruction("choose", recurse, env, step.Traversal))
-                .Override<ChoosePredicateStep>((step, env, overridden, recurse) =>
-                {
-                    return step.ElseTraversal is { } elseTraversal
-                        ? CreateInstruction(
-                            "choose",
-                            recurse,
-                            env,
-                            step.Predicate,
-                            step.ThenTraversal,
-                            elseTraversal)
-                        : CreateInstruction(
-                            "choose",
-                            recurse,
-                            env,
-                            step.Predicate,
-                            step.ThenTraversal);
-                })
-                .Override<ChooseTraversalStep>((step, env, overridden, recurse) =>
-                {
-                    return step.ElseTraversal is { } elseTraversal
-                        ? CreateInstruction(
-                            "choose",
-                            recurse,
-                            env,
-                            step.IfTraversal,
-                            step.ThenTraversal,
-                            elseTraversal)
-                        : CreateInstruction(
-                            "choose",
-                            recurse,
-                            env,
-                            step.IfTraversal,
-                            step.ThenTraversal);
-                })
+                .Override<ChoosePredicateStep>((step, env, overridden, recurse) => step.ElseTraversal is { } elseTraversal
+                    ? CreateInstruction(
+                        "choose",
+                        recurse,
+                        env,
+                        step.Predicate,
+                        step.ThenTraversal,
+                        elseTraversal)
+                    : CreateInstruction(
+                        "choose",
+                        recurse,
+                        env,
+                        step.Predicate,
+                        step.ThenTraversal))
+                .Override<ChooseTraversalStep>((step, env, overridden, recurse) => step.ElseTraversal is { } elseTraversal
+                    ? CreateInstruction(
+                        "choose",
+                        recurse,
+                        env,
+                        step.IfTraversal,
+                        step.ThenTraversal,
+                        elseTraversal)
+                    : CreateInstruction(
+                        "choose",
+                        recurse,
+                        env,
+                        step.IfTraversal,
+                        step.ThenTraversal))
                 .Override<CoalesceStep>((step, env, overridden, recurse) => CreateInstruction("coalesce", recurse, env, step.Traversals))
                 .Override<CoinStep>((step, env, overridden, recurse) => CreateInstruction("coin", recurse, env, step.Probability))
                 .Override<ConstantStep>((step, env, overridden, recurse) => CreateInstruction("constant", recurse, env, step.Value))
