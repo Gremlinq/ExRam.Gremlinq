@@ -901,7 +901,7 @@ namespace ExRam.Gremlinq.Core
             if (StepLabelSemantics.TryGetValue(stepLabel, out var stepLabelSemantics))
                 return AddStepWithObjectTypes<TSelectedElement>(new SelectStep(ImmutableArray.Create<StepLabel>(stepLabel)), stepLabelSemantics);
 
-            throw new InvalidOperationException($"Invalid use of unknown {nameof(StepLabel)} in {nameof(Select)}. Make sure you only pass in a {nameof(StepLabel)} that comes from a previous {nameof(As)}-continuation or has previously been passed to an appropriate overload of {nameof(As)}.");
+            throw new InvalidOperationException($"Invalid use of unknown {nameof(StepLabel)} in {nameof(Select)}. Make sure you only pass in a {nameof(StepLabel)} that comes from a previous {nameof(As)}- or {nameof(IGremlinQuerySource.WithSideEffect)}-continuation or has previously been passed to an appropriate overload of {nameof(As)} or {nameof(IGremlinQuerySource.WithSideEffect)}.");
         }
 
         private TTargetQuery Select<TTargetQuery>(params Expression[] projections)
