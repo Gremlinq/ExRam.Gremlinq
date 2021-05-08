@@ -1491,14 +1491,25 @@
         public PropertiesStep(System.Collections.Immutable.ImmutableArray<string> keys) { }
         public System.Collections.Immutable.ImmutableArray<string> Keys { get; }
     }
-    public sealed class PropertyStep : ExRam.Gremlinq.Core.Step
+    public abstract class PropertyStep : ExRam.Gremlinq.Core.Step
     {
-        public PropertyStep(ExRam.Gremlinq.Core.Key key, object value, Gremlin.Net.Process.Traversal.Cardinality? cardinality = null) { }
-        public PropertyStep(ExRam.Gremlinq.Core.Key key, object value, System.Collections.Immutable.ImmutableArray<System.Collections.Generic.KeyValuePair<string, object>> metaProperties, Gremlin.Net.Process.Traversal.Cardinality? cardinality = null) { }
+        protected PropertyStep(object value, Gremlin.Net.Process.Traversal.Cardinality? cardinality = null) { }
+        protected PropertyStep(object value, System.Collections.Immutable.ImmutableArray<System.Collections.Generic.KeyValuePair<string, object>> metaProperties, Gremlin.Net.Process.Traversal.Cardinality? cardinality = null) { }
         public Gremlin.Net.Process.Traversal.Cardinality? Cardinality { get; }
-        public ExRam.Gremlinq.Core.Key Key { get; }
         public System.Collections.Immutable.ImmutableArray<System.Collections.Generic.KeyValuePair<string, object>> MetaProperties { get; }
         public object Value { get; }
+        public sealed class ByKeyStep : ExRam.Gremlinq.Core.PropertyStep
+        {
+            public ByKeyStep(ExRam.Gremlinq.Core.Key key, object value, Gremlin.Net.Process.Traversal.Cardinality? cardinality = null) { }
+            public ByKeyStep(ExRam.Gremlinq.Core.Key key, object value, System.Collections.Immutable.ImmutableArray<System.Collections.Generic.KeyValuePair<string, object>> metaProperties, Gremlin.Net.Process.Traversal.Cardinality? cardinality = null) { }
+            public ExRam.Gremlinq.Core.Key Key { get; }
+        }
+        public sealed class ByTraversalStep : ExRam.Gremlinq.Core.PropertyStep
+        {
+            public ByTraversalStep(ExRam.Gremlinq.Core.Traversal traversal, object value, Gremlin.Net.Process.Traversal.Cardinality? cardinality = null) { }
+            public ByTraversalStep(ExRam.Gremlinq.Core.Traversal traversal, object value, System.Collections.Immutable.ImmutableArray<System.Collections.Generic.KeyValuePair<string, object>> metaProperties, Gremlin.Net.Process.Traversal.Cardinality? cardinality = null) { }
+            public ExRam.Gremlinq.Core.Traversal Traversal { get; }
+        }
     }
     [System.Flags]
     public enum QueryLogVerbosity

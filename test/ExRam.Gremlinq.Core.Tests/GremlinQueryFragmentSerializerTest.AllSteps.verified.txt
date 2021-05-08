@@ -876,7 +876,7 @@
     }
   },
   {
-    Item1: PropertyStep,
+    Item1: PropertyStep.ByKeyStep,
     Item2: {
       OperatorName: property,
       Arguments: [
@@ -887,6 +887,10 @@
         string
       ]
     }
+  },
+  {
+    Item1: PropertyStep.ByTraversalStep,
+    Item2: []
   },
   {
     Item1: RangeStep,
