@@ -124,6 +124,9 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         public override async Task Property_single_traversal() { }
 
         [Fact(Skip = "Cannot create ValueField on non-primitive type GraphTraversal.")]
+        public override async Task Property_stringKey_traversal() { }
+
+        [Fact(Skip = "Cannot create ValueField on non-primitive type GraphTraversal.")]
         public override async Task Property_single_from_stepLabel() { }
     }
 }

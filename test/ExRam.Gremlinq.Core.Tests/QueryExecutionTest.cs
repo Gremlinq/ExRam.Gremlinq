@@ -3105,6 +3105,26 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task Property_stringKey()
+        {
+            await _g
+                .V<Person>()
+                .Property("StringKey1", 36)
+                .Verify();
+        }
+
+        [Fact]
+        public virtual async Task Property_stringKey_traversal()
+        {
+            await _g
+                .V<Person>()
+                .Property(
+                    "StringKey2",
+                    __ => __.Constant(36))
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task Property_single_from_stepLabel()
         {
             await _g
@@ -3311,7 +3331,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Country>()
                 .Properties(x => x.Name!)
-                .Property("metaKey", null)
+                .Property("metaKey", default(object))
                 .Verify();
         }
 
