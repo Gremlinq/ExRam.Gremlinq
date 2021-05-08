@@ -634,7 +634,7 @@
     }
   },
   {
-    Item1: PropertyStep,
+    Item1: PropertyStep.ByKeyStep,
     Item2: {
       Key: {
         RawKey: {
@@ -642,6 +642,19 @@
           EnumValue: id
         }
       },
+      Value: string,
+      Cardinality: {
+        EnumName: Cardinality,
+        EnumValue: single
+      }
+    }
+  },
+  {
+    Item1: PropertyStep.ByTraversalStep,
+    Item2: {
+      Traversal: [
+        {}
+      ],
       Value: string,
       Cardinality: {
         EnumName: Cardinality,

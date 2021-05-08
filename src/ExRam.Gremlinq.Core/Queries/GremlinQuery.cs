@@ -325,7 +325,7 @@ namespace ExRam.Gremlinq.Core
             }
 
             return actualValue != null
-                ? new PropertyStep(key, actualValue, metaProperties, cardinality)
+                ? new PropertyStep.ByKeyStep(key, actualValue, metaProperties, cardinality)
                 : null;
         }
 

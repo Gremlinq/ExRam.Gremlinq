@@ -314,9 +314,9 @@ namespace ExRam.Gremlinq.Core
                 .Override<PathStep>((step, env, overridden, recurse) => CreateInstruction("path"))
                 .Override<ProfileStep>((step, env, overridden, recurse) => CreateInstruction("profile"))
                 .Override<PropertiesStep>((step, env, overridden, recurse) => CreateInstruction("properties", recurse, env, step.Keys))
-                .Override<PropertyStep>((step, env, overridden, recurse) =>
+                .Override<PropertyStep.ByKeyStep>((step, env, overridden, recurse) =>
                 {
-                    static IEnumerable<object> GetPropertyStepArguments(PropertyStep propertyStep, IGremlinQueryFragmentSerializer recurse, IGremlinQueryEnvironment env)
+                    static IEnumerable<object> GetPropertyStepArguments(PropertyStep.ByKeyStep propertyStep, IGremlinQueryFragmentSerializer recurse, IGremlinQueryEnvironment env)
                     {
                         if (propertyStep.Cardinality != null && !T.Id.Equals(propertyStep.Key.RawKey))
                             yield return propertyStep.Cardinality;
