@@ -22,7 +22,7 @@ namespace ExRam.Gremlinq.Core
 <# } #>
 
 <# foreach(var iface in Untyped(substitutedBaseInterfaces)){ #>
-        <#= ChangeType(iface, "TResult").Replace("Base", "") #> <#= iface #>.Cast<TResult>() => Cast<TResult>(Semantics.Cast<TResult>(typeof(<#= ChangeType(iface, "TResult").Replace("Base", "") #>)));
+        <#= ChangeType(iface, "TResult").Replace("Base", "") #> <#= iface #>.Cast<TResult>() => Cast<TResult>();
 <# } #>
 
 <# foreach(var iface in Typed(substitutedBaseInterfaces))
