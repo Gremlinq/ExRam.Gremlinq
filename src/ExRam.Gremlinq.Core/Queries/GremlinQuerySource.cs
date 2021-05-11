@@ -3,6 +3,6 @@
     public static class GremlinQuerySource
     {
         // ReSharper disable once InconsistentNaming
-        public static readonly IConfigurableGremlinQuerySource g = GremlinQuery.Create<object>(GremlinQueryEnvironment.Default);
+        public static readonly IConfigurableGremlinQuerySource g = GremlinQuery.Create(GremlinQueryEnvironment.Default);
     }
 }
