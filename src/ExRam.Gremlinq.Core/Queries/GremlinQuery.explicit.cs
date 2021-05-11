@@ -250,9 +250,7 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<TElement> IGremlinQueryBaseRec<IGremlinQuery<TElement>>.Mute() => Mute();
 
-        QuerySemantics IGremlinQueryAdmin.Semantics => Semantics;
-
-        TTargetQuery IGremlinQueryAdmin.ConfigureSteps<TTargetQuery>(Func<StepStack, StepStack> transformation) => ConfigureSteps<TElement>(transformation).ChangeQueryType<TTargetQuery>(Semantics);
+        TTargetQuery IGremlinQueryAdmin.ConfigureSteps<TTargetQuery>(Func<StepStack, StepStack> transformation) => ConfigureSteps<TElement>(transformation).ChangeQueryType<TTargetQuery>(Steps.Semantics);
 
         TTargetQuery IGremlinQueryAdmin.AddStep<TTargetQuery>(Step step) => AddStep(step).ChangeQueryType<TTargetQuery>();
 
@@ -280,13 +278,13 @@ namespace ExRam.Gremlinq.Core
 
             if ((Flags & QueryFlags.SurfaceVisible) == QueryFlags.SurfaceVisible)
             {
-                if (Semantics.IsVertex)
+                if (Steps.Semantics.IsVertex)
                 {
                     projection = Environment.Options.GetValue(Environment.FeatureSet.Supports(VertexFeatures.MetaProperties)
                         ? GremlinqOption.VertexProjectionSteps
                         : GremlinqOption.VertexProjectionWithoutMetaPropertiesSteps);
                 }
-                else if (Semantics.IsEdge)
+                else if (Steps.Semantics.IsEdge)
                 {
                     projection = Environment.Options.GetValue(GremlinqOption.EdgeProjectionSteps);
                 }

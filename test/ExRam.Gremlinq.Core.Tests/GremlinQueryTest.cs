@@ -100,7 +100,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Count()
                 .ForceVertex()
-                .AsAdmin().Semantics;
+                .AsAdmin().Steps.Semantics;
 
             await Verify(s);
         }

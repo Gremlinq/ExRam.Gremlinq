@@ -59,9 +59,9 @@ namespace ExRam.Gremlinq.Core
 
             return (existingQuery, forcedSemantics) =>
             {
-                var actualSemantics = forcedSemantics ?? targetSemantics.MostSpecific(existingQuery.Semantics);
+                var actualSemantics = forcedSemantics ?? targetSemantics.MostSpecific(existingQuery.Steps.Semantics);
 
-                if (targetQueryType.IsInstanceOfType(existingQuery) && (actualSemantics == existingQuery.Semantics))
+                if (targetQueryType.IsInstanceOfType(existingQuery) && (actualSemantics == existingQuery.Steps.Semantics))
                     return (IGremlinQueryBase)existingQuery;
 
                 if (!targetQueryType.IsAssignableFrom(typeof(GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>)))
@@ -97,14 +97,6 @@ namespace ExRam.Gremlinq.Core
 
         protected internal StepStack Steps { get; }
         protected internal QueryFlags Flags { get; }
-        protected internal QuerySemantics Semantics
-        {
-            get
-            {
-                return Steps.Semantics;
-            }
-        }
-
         protected internal IGremlinQueryEnvironment Environment { get; }
         protected internal IImmutableDictionary<StepLabel, QuerySemantics> StepLabelSemantics { get; }
     }
