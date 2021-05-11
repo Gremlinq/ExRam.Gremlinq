@@ -57,26 +57,13 @@ namespace ExRam.Gremlinq.Core
 
         private static Func<GremlinQueryBase, QuerySemantics?, IGremlinQueryBase> CreateFunc<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(Type targetQueryType)
         {
-           var interfaceSemantics = targetQueryType
-                .TryGetQuerySemanticsFromQueryType();
+            var targetSemantics = (QuerySemantics)targetQueryType;
 
             return (existingQuery, forcedSemantics) =>
             {
-                var actualSemantics = forcedSemantics;
+                var actualSemantics = forcedSemantics ?? targetSemantics.MostSpecific(existingQuery.Semantics);
 
-                if (actualSemantics == null)
-                {
-                    actualSemantics = interfaceSemantics;
-
-                    var elementSemantics = existingQuery.Environment
-                        .GetCache()
-                        .TryGetQuerySemanticsFromElementType(typeof(TElement));
-
-                    if (interfaceSemantics == null || (interfaceSemantics & elementSemantics) == interfaceSemantics)
-                        actualSemantics = elementSemantics;
-                }
-
-                if (targetQueryType.IsInstanceOfType(existingQuery) && (forcedSemantics == null || forcedSemantics == existingQuery.Semantics) && (actualSemantics == null || (actualSemantics & existingQuery.Semantics) == actualSemantics))
+                if (targetQueryType.IsInstanceOfType(existingQuery) && (actualSemantics == existingQuery.Semantics))
                     return (IGremlinQueryBase)existingQuery;
 
                 if (!targetQueryType.IsAssignableFrom(typeof(GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>)))
@@ -85,7 +72,7 @@ namespace ExRam.Gremlinq.Core
                 return new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(
                     existingQuery.Steps,
                     existingQuery.Environment,
-                    actualSemantics ?? QuerySemantics.Value,
+                    actualSemantics,
                     existingQuery.StepLabelSemantics,
                     existingQuery.Flags);
             };

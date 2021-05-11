@@ -26,7 +26,7 @@ namespace ExRam.Gremlinq.Core.Tests
             settings.DisableDiff();
 
 #if (DEBUG)
-            settings.AutoVerify();
+            //settings.AutoVerify();
 #endif
 
             return settings;

@@ -96,11 +96,13 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public async Task ForceVertex_has_correct_semantics()
         {
-            await Verify(_g
+            var s = _g
                 .V<Person>()
                 .Count()
                 .ForceVertex()
-                .AsAdmin().Semantics);
+                .AsAdmin().Semantics;
+
+            await Verify(s);
         }
     }
 }

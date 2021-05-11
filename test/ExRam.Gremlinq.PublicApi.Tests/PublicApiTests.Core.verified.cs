@@ -1517,15 +1517,17 @@
         QueryOnly = 0,
         IncludeBindings = 1,
     }
-    public enum QuerySemantics
+    public readonly struct QuerySemantics : System.IEquatable<ExRam.Gremlinq.Core.QuerySemantics>
     {
-        Value = 1,
-        Element = 3,
-        EdgeOrVertex = 7,
-        Vertex = 15,
-        Edge = 23,
-        Property = 33,
-        VertexProperty = 99,
+        public QuerySemantics(System.Type semantics) { }
+        public System.Type QueryType { get; }
+        public bool Equals(ExRam.Gremlinq.Core.QuerySemantics other) { }
+        public override bool Equals(object? obj) { }
+        public override int GetHashCode() { }
+        public override string ToString() { }
+        public static ExRam.Gremlinq.Core.QuerySemantics op_Implicit(System.Type type) { }
+        public static bool operator !=(ExRam.Gremlinq.Core.QuerySemantics left, ExRam.Gremlinq.Core.QuerySemantics right) { }
+        public static bool operator ==(ExRam.Gremlinq.Core.QuerySemantics left, ExRam.Gremlinq.Core.QuerySemantics right) { }
     }
     public sealed class RangeStep : ExRam.Gremlinq.Core.Step
     {
