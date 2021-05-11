@@ -18,17 +18,17 @@ namespace ExRam.Gremlinq.Core
     {
         internal static readonly StepStack AnonymousNoneSteps = new(new Step[] { NoneStep.Instance }, 1);
 
-        public static GremlinQuery<TElement, object, object, object, object, object> Create<TElement>(IGremlinQueryEnvironment environment)
+        public static IGremlinQuerySource Create(IGremlinQueryEnvironment environment)
         {
-            return Create<TElement>(
+            return Create(
                 StepStack.Empty,
                 environment,
                 QueryFlags.SurfaceVisible);
         }
 
-        public static GremlinQuery<TElement, object, object, object, object, object> Create<TElement>(StepStack steps, IGremlinQueryEnvironment environment, QueryFlags flags)
+        public static IGremlinQuerySource Create(StepStack steps, IGremlinQueryEnvironment environment, QueryFlags flags)
         {
-            return new(
+            return new GremlinQuery<object, object, object, object, object, object>(
                 steps,
                 environment,
                 QuerySemantics.Value,
