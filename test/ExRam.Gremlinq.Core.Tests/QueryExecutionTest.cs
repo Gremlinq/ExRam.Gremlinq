@@ -441,11 +441,13 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public virtual async Task Aggregate_Cap_unfold()
         {
-            await _g
+            var a = _g
                 .V<Person>()
                 .Aggregate((__, aggregated) => __
                     .Cap(aggregated)
-                    .Unfold())
+                    .Unfold());
+
+            await a
                 .Verify();
         }
 
