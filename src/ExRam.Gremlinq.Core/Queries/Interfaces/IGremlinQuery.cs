@@ -55,23 +55,19 @@ namespace ExRam.Gremlinq.Core
     {
         new GremlinQueryAwaiter<TElement> GetAwaiter();
 
-        IElementGremlinQuery<TElement> ForceElement();
-
-        IVertexGremlinQuery<TElement> ForceVertex();
-        IVertexPropertyGremlinQuery<TElement, TValue> ForceVertexProperty<TValue>();
-        IVertexPropertyGremlinQuery<TElement, TValue, TMeta> ForceVertexProperty<TValue, TMeta>();
-
-        IPropertyGremlinQuery<TElement> ForceProperty();
-
+        IGremlinQuery<TElement> ForceBase();
         IEdgeGremlinQuery<TElement> ForceEdge();
+        IValueGremlinQuery<TElement> ForceValue();
+        IVertexGremlinQuery<TElement> ForceVertex();
+        IElementGremlinQuery<TElement> ForceElement();
+        IPropertyGremlinQuery<TElement> ForceProperty();
+        IValueTupleGremlinQuery<TElement> ForceValueTuple();
         IInEdgeGremlinQuery<TElement, TInVertex> ForceInEdge<TInVertex>();
         IOutEdgeGremlinQuery<TElement, TOutVertex> ForceOutEdge<TOutVertex>();
-        IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex> ForceBothEdge<TOutVertex, TInVertex>();
-
-        IValueGremlinQuery<TElement> ForceValue();
-        IValueTupleGremlinQuery<TElement> ForceValueTuple();
-
+        IVertexPropertyGremlinQuery<TElement, TValue> ForceVertexProperty<TValue>();
         IArrayGremlinQuery<TElement[], TElement, IGremlinQueryBase<TElement>> ForceArray();
+        IVertexPropertyGremlinQuery<TElement, TValue, TMeta> ForceVertexProperty<TValue, TMeta>();
+        IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex> ForceBothEdge<TOutVertex, TInVertex>();
 
         new IGremlinQuery<TElement> Lower();
 
