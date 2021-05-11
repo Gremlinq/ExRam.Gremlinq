@@ -150,10 +150,6 @@
     }
   },
   {
-    Item1: ChangeQuerySemanticsStep,
-    Item2: []
-  },
-  {
     Item1: ChooseOptionTraversalStep,
     Item2: {
       OperatorName: choose,

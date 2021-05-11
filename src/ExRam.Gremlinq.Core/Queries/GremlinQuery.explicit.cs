@@ -265,15 +265,7 @@ namespace ExRam.Gremlinq.Core
         Traversal IGremlinQueryAdmin.ToTraversal()
         {
             var steps = Steps;
-            var stepsCount = 0;
-
-            for (var i = 0; i < steps.Count; i++)
-            {
-                if (steps[i] is not ChangeQuerySemanticsStep)
-                    stepsCount++;
-            }
-
-            var querySize = Math.Max(1, stepsCount);
+            var querySize = Math.Max(1, steps.Count);
             var projection = ImmutableArray<Step>.Empty;
 
             if ((Flags & QueryFlags.SurfaceVisible) == QueryFlags.SurfaceVisible)
@@ -295,15 +287,7 @@ namespace ExRam.Gremlinq.Core
             if (steps.IsEmpty)
                 ret[0] = IdentityStep.Instance;
             else
-            {
-                var targetIndex = 0;
-
-                for (var i = 0; i < steps.Count; i++)
-                {
-                    if (steps[i] is not ChangeQuerySemanticsStep)
-                        ret[targetIndex++] = steps[i];
-                }
-            }
+                steps.CopyTo(ret);
 
             projection.CopyTo(ret, querySize);
 
@@ -485,7 +469,7 @@ namespace ExRam.Gremlinq.Core
 
         IPropertyGremlinQuery<Property<object>> IVertexPropertyGremlinQueryBase.Properties(params string[] keys) => Properties<Property<object>, object, object>(keys, typeof(IPropertyGremlinQuery<Property<object>>));
 
-        IVertexPropertyGremlinQuery<VertexProperty<TScalar, TNewMeta>, TScalar, TNewMeta> IVertexPropertyGremlinQueryBase<TElement, TScalar>.Meta<TNewMeta>() => new GremlinQuery<VertexProperty<TScalar, TNewMeta>, object, object, TScalar, TNewMeta, object>(Steps.Push(new ChangeQuerySemanticsStep(typeof(IVertexPropertyGremlinQuery<VertexProperty<TScalar, TNewMeta>, TScalar, TNewMeta>))), Environment, StepLabelSemantics, Flags);
+        IVertexPropertyGremlinQuery<VertexProperty<TScalar, TNewMeta>, TScalar, TNewMeta> IVertexPropertyGremlinQueryBase<TElement, TScalar>.Meta<TNewMeta>() => new GremlinQuery<VertexProperty<TScalar, TNewMeta>, object, object, TScalar, TNewMeta, object>(Steps.OverrideSemantics(typeof(IVertexPropertyGremlinQuery<VertexProperty<TScalar, TNewMeta>, TScalar, TNewMeta>)), Environment, StepLabelSemantics, Flags);
 
         IPropertyGremlinQuery<Property<TValue>> IVertexPropertyGremlinQueryBase<TElement, TScalar>.Properties<TValue>(params string[] keys) => Properties<Property<TValue>, object, object>(keys, typeof(IPropertyGremlinQuery<Property<TValue>>));
 

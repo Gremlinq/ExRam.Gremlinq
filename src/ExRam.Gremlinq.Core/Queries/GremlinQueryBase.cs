@@ -68,7 +68,7 @@ namespace ExRam.Gremlinq.Core
                     throw new NotSupportedException($"Cannot change the query type to {targetQueryType}.");
 
                 return new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(
-                    existingQuery.Steps.Push(new ChangeQuerySemanticsStep(actualSemantics)),
+                    existingQuery.Steps.OverrideSemantics(actualSemantics),
                     existingQuery.Environment,
                     existingQuery.StepLabelSemantics,
                     existingQuery.Flags);

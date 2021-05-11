@@ -82,10 +82,6 @@
         public CapStep(ExRam.Gremlinq.Core.StepLabel stepLabel, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public ExRam.Gremlinq.Core.StepLabel StepLabel { get; }
     }
-    public sealed class ChangeQuerySemanticsStep : ExRam.Gremlinq.Core.Step
-    {
-        public ChangeQuerySemanticsStep(ExRam.Gremlinq.Core.QuerySemantics semantics) { }
-    }
     public sealed class ChooseOptionTraversalStep : ExRam.Gremlinq.Core.Step
     {
         public ChooseOptionTraversalStep(ExRam.Gremlinq.Core.Traversal traversal, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
