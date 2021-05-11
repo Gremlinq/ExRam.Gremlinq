@@ -458,7 +458,7 @@ namespace ExRam.Gremlinq.Core
             var newSemantics = Steps.Semantics.Cast<TNewElement>();
 
             var newSteps = newSemantics != Steps.Semantics
-                ? Steps.Push(new ChangeQuerySemanticsStep(newSemantics))
+                ? Steps.OverrideSemantics(newSemantics)
                 : Steps;
 
              return new(newSteps, Environment, StepLabelSemantics, Flags);
