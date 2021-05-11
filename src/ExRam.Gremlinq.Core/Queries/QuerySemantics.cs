@@ -102,12 +102,9 @@ namespace ExRam.Gremlinq.Core
                         .GetGenericTypeDefinition()
                         .MakeGenericType(arguments);
                 }
-
-                if (typeof(TResult).IsAssignableFrom(arguments[0]))
-                    return this;
             }
 
-            return fallback;
+            return this;
         }
 
         internal bool IsVertex
