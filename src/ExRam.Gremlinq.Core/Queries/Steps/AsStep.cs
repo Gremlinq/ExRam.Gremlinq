@@ -2,7 +2,7 @@
 {
     public sealed class AsStep : Step
     {
-        public AsStep(StepLabel stepLabel)
+        public AsStep(StepLabel stepLabel, QuerySemantics? semantics = default) : base(semantics)
         {
             StepLabel = stepLabel;
         }

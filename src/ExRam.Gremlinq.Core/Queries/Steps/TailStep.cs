@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq.Core
         public static readonly TailStep TailLocal1 = new(1, Scope.Local);
         public static readonly TailStep TailGlobal1 = new(1, Scope.Global);
 
-        public TailStep(long count, Scope scope)
+        public TailStep(long count, Scope scope, QuerySemantics? semantics = default) : base(semantics)
         {
             if (count < 0)
                 throw new ArgumentOutOfRangeException(nameof(count));

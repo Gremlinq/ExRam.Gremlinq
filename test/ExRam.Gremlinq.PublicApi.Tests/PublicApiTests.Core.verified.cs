@@ -2,26 +2,26 @@
 {
     public sealed class AddEStep : ExRam.Gremlinq.Core.Step
     {
-        public AddEStep(string label) { }
+        public AddEStep(string label, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public string Label { get; }
         public sealed class FromLabelStep : ExRam.Gremlinq.Core.Step
         {
-            public FromLabelStep(ExRam.Gremlinq.Core.StepLabel stepLabel) { }
+            public FromLabelStep(ExRam.Gremlinq.Core.StepLabel stepLabel, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
             public ExRam.Gremlinq.Core.StepLabel StepLabel { get; }
         }
         public sealed class FromTraversalStep : ExRam.Gremlinq.Core.Step
         {
-            public FromTraversalStep(ExRam.Gremlinq.Core.Traversal traversal) { }
+            public FromTraversalStep(ExRam.Gremlinq.Core.Traversal traversal, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
             public ExRam.Gremlinq.Core.Traversal Traversal { get; }
         }
         public sealed class ToLabelStep : ExRam.Gremlinq.Core.Step
         {
-            public ToLabelStep(ExRam.Gremlinq.Core.StepLabel stepLabel) { }
+            public ToLabelStep(ExRam.Gremlinq.Core.StepLabel stepLabel, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
             public ExRam.Gremlinq.Core.StepLabel StepLabel { get; }
         }
         public sealed class ToTraversalStep : ExRam.Gremlinq.Core.Step
         {
-            public ToTraversalStep(ExRam.Gremlinq.Core.Traversal traversal) { }
+            public ToTraversalStep(ExRam.Gremlinq.Core.Traversal traversal, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
             public ExRam.Gremlinq.Core.Traversal Traversal { get; }
         }
     }
@@ -32,44 +32,46 @@
     }
     public sealed class AddVStep : ExRam.Gremlinq.Core.Step
     {
-        public AddVStep(string label) { }
+        public AddVStep(string label, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public string Label { get; }
     }
     public sealed class AggregateStep : ExRam.Gremlinq.Core.Step
     {
-        public AggregateStep(Gremlin.Net.Process.Traversal.Scope scope, ExRam.Gremlinq.Core.StepLabel stepLabel) { }
+        public AggregateStep(Gremlin.Net.Process.Traversal.Scope scope, ExRam.Gremlinq.Core.StepLabel stepLabel, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public Gremlin.Net.Process.Traversal.Scope Scope { get; }
         public ExRam.Gremlinq.Core.StepLabel StepLabel { get; }
     }
     public sealed class AndStep : ExRam.Gremlinq.Core.LogicalStep<ExRam.Gremlinq.Core.AndStep>
     {
         public static readonly ExRam.Gremlinq.Core.AndStep Infix;
-        public AndStep(System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Traversal> traversals) { }
+        public AndStep(System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Traversal> traversals, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
     }
     public sealed class AsStep : ExRam.Gremlinq.Core.Step
     {
-        public AsStep(ExRam.Gremlinq.Core.StepLabel stepLabel) { }
+        public AsStep(ExRam.Gremlinq.Core.StepLabel stepLabel, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public ExRam.Gremlinq.Core.StepLabel StepLabel { get; }
     }
     public sealed class BarrierStep : ExRam.Gremlinq.Core.Step
     {
         public static readonly ExRam.Gremlinq.Core.BarrierStep Instance;
-        public BarrierStep() { }
+        public BarrierStep(ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
     }
     public sealed class BothEStep : ExRam.Gremlinq.Core.DerivedLabelNamesStep
     {
         public static readonly ExRam.Gremlinq.Core.BothEStep NoLabels;
-        public BothEStep(System.Collections.Immutable.ImmutableArray<string> labels) { }
+        public BothEStep(ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
+        public BothEStep(System.Collections.Immutable.ImmutableArray<string> labels, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
     }
     public sealed class BothStep : ExRam.Gremlinq.Core.DerivedLabelNamesStep
     {
         public static readonly ExRam.Gremlinq.Core.BothStep NoLabels;
-        public BothStep(System.Collections.Immutable.ImmutableArray<string> labels) { }
+        public BothStep(ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
+        public BothStep(System.Collections.Immutable.ImmutableArray<string> labels, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
     }
     public sealed class BothVStep : ExRam.Gremlinq.Core.Step
     {
         public static readonly ExRam.Gremlinq.Core.BothVStep Instance;
-        public BothVStep() { }
+        public BothVStep(ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
     }
     public static class BytecodeExtensions
     {
@@ -77,65 +79,65 @@
     }
     public sealed class CapStep : ExRam.Gremlinq.Core.Step
     {
-        public CapStep(ExRam.Gremlinq.Core.StepLabel stepLabel) { }
+        public CapStep(ExRam.Gremlinq.Core.StepLabel stepLabel, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public ExRam.Gremlinq.Core.StepLabel StepLabel { get; }
     }
     public sealed class ChooseOptionTraversalStep : ExRam.Gremlinq.Core.Step
     {
-        public ChooseOptionTraversalStep(ExRam.Gremlinq.Core.Traversal traversal) { }
+        public ChooseOptionTraversalStep(ExRam.Gremlinq.Core.Traversal traversal, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public ExRam.Gremlinq.Core.Traversal Traversal { get; }
     }
     public sealed class ChoosePredicateStep : ExRam.Gremlinq.Core.ChooseStep
     {
-        public ChoosePredicateStep(Gremlin.Net.Process.Traversal.P predicate, ExRam.Gremlinq.Core.Traversal thenTraversal, ExRam.Gremlinq.Core.Traversal? elseTraversal = default) { }
+        public ChoosePredicateStep(Gremlin.Net.Process.Traversal.P predicate, ExRam.Gremlinq.Core.Traversal thenTraversal, ExRam.Gremlinq.Core.Traversal? elseTraversal = default, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public Gremlin.Net.Process.Traversal.P Predicate { get; }
     }
     public abstract class ChooseStep : ExRam.Gremlinq.Core.Step
     {
-        protected ChooseStep(ExRam.Gremlinq.Core.Traversal thenTraversal, ExRam.Gremlinq.Core.Traversal? elseTraversal = default) { }
+        protected ChooseStep(ExRam.Gremlinq.Core.Traversal thenTraversal, ExRam.Gremlinq.Core.Traversal? elseTraversal = default, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public ExRam.Gremlinq.Core.Traversal? ElseTraversal { get; }
         public ExRam.Gremlinq.Core.Traversal ThenTraversal { get; }
     }
     public sealed class ChooseTraversalStep : ExRam.Gremlinq.Core.ChooseStep
     {
-        public ChooseTraversalStep(ExRam.Gremlinq.Core.Traversal ifTraversal, ExRam.Gremlinq.Core.Traversal thenTraversal, ExRam.Gremlinq.Core.Traversal? elseTraversal = default) { }
+        public ChooseTraversalStep(ExRam.Gremlinq.Core.Traversal ifTraversal, ExRam.Gremlinq.Core.Traversal thenTraversal, ExRam.Gremlinq.Core.Traversal? elseTraversal = default, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public ExRam.Gremlinq.Core.Traversal IfTraversal { get; }
     }
     public sealed class CoalesceStep : ExRam.Gremlinq.Core.MultiTraversalArgumentStep
     {
-        public CoalesceStep(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Traversal> traversals) { }
+        public CoalesceStep(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Traversal> traversals, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
     }
     public sealed class CoinStep : ExRam.Gremlinq.Core.Step
     {
-        public CoinStep(double probability) { }
+        public CoinStep(double probability, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public double Probability { get; }
     }
     public sealed class ConstantStep : ExRam.Gremlinq.Core.Step
     {
-        public ConstantStep(object value) { }
+        public ConstantStep(object value, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public object Value { get; }
     }
     public sealed class CountStep : ExRam.Gremlinq.Core.Step
     {
         public static readonly ExRam.Gremlinq.Core.CountStep Global;
         public static readonly ExRam.Gremlinq.Core.CountStep Local;
-        public CountStep(Gremlin.Net.Process.Traversal.Scope scope) { }
+        public CountStep(Gremlin.Net.Process.Traversal.Scope scope, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public Gremlin.Net.Process.Traversal.Scope Scope { get; }
     }
     public sealed class CyclicPathStep : ExRam.Gremlinq.Core.Step
     {
-        public CyclicPathStep() { }
+        public CyclicPathStep(ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
     }
     public sealed class DedupStep : ExRam.Gremlinq.Core.Step
     {
         public static readonly ExRam.Gremlinq.Core.DedupStep Global;
         public static readonly ExRam.Gremlinq.Core.DedupStep Local;
-        public DedupStep(Gremlin.Net.Process.Traversal.Scope scope) { }
+        public DedupStep(Gremlin.Net.Process.Traversal.Scope scope, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public Gremlin.Net.Process.Traversal.Scope Scope { get; }
     }
     public abstract class DerivedLabelNamesStep : ExRam.Gremlinq.Core.Step
     {
-        protected DerivedLabelNamesStep(System.Collections.Immutable.ImmutableArray<string> labels) { }
+        protected DerivedLabelNamesStep(System.Collections.Immutable.ImmutableArray<string> labels, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public System.Collections.Immutable.ImmutableArray<string> Labels { get; }
     }
     [System.Flags]
@@ -152,12 +154,11 @@
     public sealed class DropStep : ExRam.Gremlinq.Core.Step
     {
         public static readonly ExRam.Gremlinq.Core.DropStep Instance;
-        public DropStep() { }
+        public DropStep(ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
     }
     public sealed class EStep : ExRam.Gremlinq.Core.Step
     {
-        public static readonly ExRam.Gremlinq.Core.EStep Empty;
-        public EStep(System.Collections.Immutable.ImmutableArray<object> ids) { }
+        public EStep(System.Collections.Immutable.ImmutableArray<object> ids, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public System.Collections.Immutable.ImmutableArray<object> Ids { get; }
     }
     [System.Flags]
@@ -210,12 +211,12 @@
     public sealed class EmitStep : ExRam.Gremlinq.Core.Step
     {
         public static readonly ExRam.Gremlinq.Core.EmitStep Instance;
-        public EmitStep() { }
+        public EmitStep(ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
     }
     public sealed class ExplainStep : ExRam.Gremlinq.Core.Step
     {
         public static readonly ExRam.Gremlinq.Core.ExplainStep Instance;
-        public ExplainStep() { }
+        public ExplainStep(ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
     }
     public sealed class ExpressionNotSupportedException : System.NotSupportedException
     {
@@ -246,18 +247,18 @@
     }
     public sealed class FilterStep : ExRam.Gremlinq.Core.Step
     {
-        public FilterStep(Gremlin.Net.Process.Traversal.ILambda lambda) { }
+        public FilterStep(Gremlin.Net.Process.Traversal.ILambda lambda, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public Gremlin.Net.Process.Traversal.ILambda Lambda { get; }
     }
     public sealed class FlatMapStep : ExRam.Gremlinq.Core.Step
     {
-        public FlatMapStep(ExRam.Gremlinq.Core.Traversal traversal) { }
+        public FlatMapStep(ExRam.Gremlinq.Core.Traversal traversal, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public ExRam.Gremlinq.Core.Traversal Traversal { get; }
     }
     public sealed class FoldStep : ExRam.Gremlinq.Core.Step
     {
         public static readonly ExRam.Gremlinq.Core.FoldStep Instance;
-        public FoldStep() { }
+        public FoldStep(ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
     }
     public static class GraphElementModel
     {
@@ -414,51 +415,51 @@
     public sealed class GroupStep : ExRam.Gremlinq.Core.Step
     {
         public static readonly ExRam.Gremlinq.Core.GroupStep Instance;
-        public GroupStep() { }
+        public GroupStep(ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public sealed class ByKeyStep : ExRam.Gremlinq.Core.GroupStep.ByStep
         {
-            public ByKeyStep(ExRam.Gremlinq.Core.Key key) { }
+            public ByKeyStep(ExRam.Gremlinq.Core.Key key, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
             public ExRam.Gremlinq.Core.Key Key { get; }
         }
         public abstract class ByStep : ExRam.Gremlinq.Core.Step
         {
-            protected ByStep() { }
+            protected ByStep(ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         }
         public sealed class ByTraversalStep : ExRam.Gremlinq.Core.GroupStep.ByStep
         {
-            public ByTraversalStep(ExRam.Gremlinq.Core.Traversal traversal) { }
+            public ByTraversalStep(ExRam.Gremlinq.Core.Traversal traversal, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
             public ExRam.Gremlinq.Core.Traversal Traversal { get; }
         }
     }
     public sealed class HasKeyStep : ExRam.Gremlinq.Core.Step
     {
-        public HasKeyStep(object argument) { }
+        public HasKeyStep(object argument, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public object Argument { get; }
     }
     public sealed class HasLabelStep : ExRam.Gremlinq.Core.DerivedLabelNamesStep
     {
-        public HasLabelStep(System.Collections.Immutable.ImmutableArray<string> labels) { }
+        public HasLabelStep(System.Collections.Immutable.ImmutableArray<string> labels, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
     }
     public sealed class HasNotStep : ExRam.Gremlinq.Core.Step
     {
-        public HasNotStep(ExRam.Gremlinq.Core.Key key) { }
+        public HasNotStep(ExRam.Gremlinq.Core.Key key, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public ExRam.Gremlinq.Core.Key Key { get; }
     }
     public sealed class HasPredicateStep : ExRam.Gremlinq.Core.Step
     {
-        public HasPredicateStep(ExRam.Gremlinq.Core.Key key, Gremlin.Net.Process.Traversal.P predicate) { }
+        public HasPredicateStep(ExRam.Gremlinq.Core.Key key, Gremlin.Net.Process.Traversal.P predicate, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public ExRam.Gremlinq.Core.Key Key { get; }
         public Gremlin.Net.Process.Traversal.P Predicate { get; }
     }
     public sealed class HasTraversalStep : ExRam.Gremlinq.Core.Step
     {
-        public HasTraversalStep(ExRam.Gremlinq.Core.Key key, ExRam.Gremlinq.Core.Traversal traversal) { }
+        public HasTraversalStep(ExRam.Gremlinq.Core.Key key, ExRam.Gremlinq.Core.Traversal traversal, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public ExRam.Gremlinq.Core.Key Key { get; }
         public ExRam.Gremlinq.Core.Traversal Traversal { get; }
     }
     public sealed class HasValueStep : ExRam.Gremlinq.Core.Step
     {
-        public HasValueStep(object argument) { }
+        public HasValueStep(object argument, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public object Argument { get; }
     }
     public interface IAddStepHandler
@@ -1261,12 +1262,12 @@
     public sealed class IdStep : ExRam.Gremlinq.Core.Step
     {
         public static readonly ExRam.Gremlinq.Core.IdStep Instance;
-        public IdStep() { }
+        public IdStep(ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
     }
     public sealed class IdentityStep : ExRam.Gremlinq.Core.Step
     {
         public static readonly ExRam.Gremlinq.Core.IdentityStep Instance;
-        public IdentityStep() { }
+        public IdentityStep(ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
     }
     public static class ImmutableDictionaryExtensions
     {
@@ -1276,26 +1277,28 @@
     public sealed class InEStep : ExRam.Gremlinq.Core.DerivedLabelNamesStep
     {
         public static readonly ExRam.Gremlinq.Core.InEStep Empty;
-        public InEStep(System.Collections.Immutable.ImmutableArray<string> labels) { }
+        public InEStep(ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
+        public InEStep(System.Collections.Immutable.ImmutableArray<string> labels, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
     }
     public sealed class InStep : ExRam.Gremlinq.Core.DerivedLabelNamesStep
     {
         public static readonly ExRam.Gremlinq.Core.InStep Empty;
-        public InStep(System.Collections.Immutable.ImmutableArray<string> labels) { }
+        public InStep(ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
+        public InStep(System.Collections.Immutable.ImmutableArray<string> labels, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
     }
     public sealed class InVStep : ExRam.Gremlinq.Core.Step
     {
         public static readonly ExRam.Gremlinq.Core.InVStep Instance;
-        public InVStep() { }
+        public InVStep(ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
     }
     public sealed class InjectStep : ExRam.Gremlinq.Core.Step
     {
-        public InjectStep(System.Collections.Immutable.ImmutableArray<object> elements) { }
+        public InjectStep(System.Collections.Immutable.ImmutableArray<object> elements, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public System.Collections.Immutable.ImmutableArray<object> Elements { get; }
     }
     public sealed class IsStep : ExRam.Gremlinq.Core.Step
     {
-        public IsStep(Gremlin.Net.Process.Traversal.P predicate) { }
+        public IsStep(Gremlin.Net.Process.Traversal.P predicate, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public Gremlin.Net.Process.Traversal.P Predicate { get; }
     }
     public readonly struct Key : System.IComparable<ExRam.Gremlinq.Core.Key>
@@ -1315,54 +1318,54 @@
     public sealed class KeyStep : ExRam.Gremlinq.Core.Step
     {
         public static readonly ExRam.Gremlinq.Core.KeyStep Instance;
-        public KeyStep() { }
+        public KeyStep(ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
     }
     public sealed class LabelStep : ExRam.Gremlinq.Core.Step
     {
         public static readonly ExRam.Gremlinq.Core.LabelStep Instance;
-        public LabelStep() { }
+        public LabelStep(ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
     }
     public sealed class LimitStep : ExRam.Gremlinq.Core.Step
     {
         public static readonly ExRam.Gremlinq.Core.LimitStep LimitGlobal1;
         public static readonly ExRam.Gremlinq.Core.LimitStep LimitLocal1;
-        public LimitStep(long count, Gremlin.Net.Process.Traversal.Scope scope) { }
+        public LimitStep(long count, Gremlin.Net.Process.Traversal.Scope scope, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public long Count { get; }
         public Gremlin.Net.Process.Traversal.Scope Scope { get; }
     }
     public sealed class LocalStep : ExRam.Gremlinq.Core.Step
     {
-        public LocalStep(ExRam.Gremlinq.Core.Traversal traversal) { }
+        public LocalStep(ExRam.Gremlinq.Core.Traversal traversal, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public ExRam.Gremlinq.Core.Traversal Traversal { get; }
     }
     public abstract class LogicalStep<TStep> : ExRam.Gremlinq.Core.Step
         where TStep : ExRam.Gremlinq.Core.LogicalStep<TStep>
     {
-        protected LogicalStep(string name, System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Traversal> traversals) { }
+        protected LogicalStep(string name, System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Traversal> traversals, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public string Name { get; }
         public System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Traversal> Traversals { get; }
     }
     public sealed class MapStep : ExRam.Gremlinq.Core.Step
     {
-        public MapStep(ExRam.Gremlinq.Core.Traversal traversal) { }
+        public MapStep(ExRam.Gremlinq.Core.Traversal traversal, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public ExRam.Gremlinq.Core.Traversal Traversal { get; }
     }
     public sealed class MatchStep : ExRam.Gremlinq.Core.MultiTraversalArgumentStep
     {
-        public MatchStep(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Traversal> traversals) { }
+        public MatchStep(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Traversal> traversals, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
     }
     public sealed class MaxStep : ExRam.Gremlinq.Core.Step
     {
         public static readonly ExRam.Gremlinq.Core.MaxStep Global;
         public static readonly ExRam.Gremlinq.Core.MaxStep Local;
-        public MaxStep(Gremlin.Net.Process.Traversal.Scope scope) { }
+        public MaxStep(Gremlin.Net.Process.Traversal.Scope scope, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public Gremlin.Net.Process.Traversal.Scope Scope { get; }
     }
     public sealed class MeanStep : ExRam.Gremlinq.Core.Step
     {
         public static readonly ExRam.Gremlinq.Core.MeanStep Global;
         public static readonly ExRam.Gremlinq.Core.MeanStep Local;
-        public MeanStep(Gremlin.Net.Process.Traversal.Scope scope) { }
+        public MeanStep(Gremlin.Net.Process.Traversal.Scope scope, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public Gremlin.Net.Process.Traversal.Scope Scope { get; }
     }
     public readonly struct MemberMetadata
@@ -1375,64 +1378,64 @@
     {
         public static readonly ExRam.Gremlinq.Core.MinStep Global;
         public static readonly ExRam.Gremlinq.Core.MinStep Local;
-        public MinStep(Gremlin.Net.Process.Traversal.Scope scope) { }
+        public MinStep(Gremlin.Net.Process.Traversal.Scope scope, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public Gremlin.Net.Process.Traversal.Scope Scope { get; }
     }
     public abstract class MultiTraversalArgumentStep : ExRam.Gremlinq.Core.Step
     {
-        protected MultiTraversalArgumentStep(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Traversal> traversals) { }
+        protected MultiTraversalArgumentStep(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Traversal> traversals, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Traversal> Traversals { get; }
     }
     public sealed class NoneStep : ExRam.Gremlinq.Core.Step
     {
         public static readonly ExRam.Gremlinq.Core.NoneStep Instance;
-        public NoneStep() { }
+        public NoneStep(ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
     }
     public sealed class NotStep : ExRam.Gremlinq.Core.Step
     {
-        public NotStep(ExRam.Gremlinq.Core.Traversal traversal) { }
+        public NotStep(ExRam.Gremlinq.Core.Traversal traversal, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public ExRam.Gremlinq.Core.Traversal Traversal { get; }
     }
     public sealed class OptionTraversalStep : ExRam.Gremlinq.Core.Step
     {
-        public OptionTraversalStep(object? guard, ExRam.Gremlinq.Core.Traversal optionTraversal) { }
+        public OptionTraversalStep(object? guard, ExRam.Gremlinq.Core.Traversal optionTraversal, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public object? Guard { get; }
         public ExRam.Gremlinq.Core.Traversal OptionTraversal { get; }
     }
     public sealed class OptionalStep : ExRam.Gremlinq.Core.Step
     {
-        public OptionalStep(ExRam.Gremlinq.Core.Traversal traversal) { }
+        public OptionalStep(ExRam.Gremlinq.Core.Traversal traversal, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public ExRam.Gremlinq.Core.Traversal Traversal { get; }
     }
     public sealed class OrStep : ExRam.Gremlinq.Core.LogicalStep<ExRam.Gremlinq.Core.OrStep>
     {
         public static readonly ExRam.Gremlinq.Core.OrStep Infix;
-        public OrStep(System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Traversal> traversals) { }
+        public OrStep(System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Traversal> traversals, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
     }
     public sealed class OrderStep : ExRam.Gremlinq.Core.Step
     {
         public static readonly ExRam.Gremlinq.Core.OrderStep Global;
         public static readonly ExRam.Gremlinq.Core.OrderStep Local;
-        public OrderStep(Gremlin.Net.Process.Traversal.Scope scope) { }
+        public OrderStep(Gremlin.Net.Process.Traversal.Scope scope, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public Gremlin.Net.Process.Traversal.Scope Scope { get; }
         public sealed class ByLambdaStep : ExRam.Gremlinq.Core.OrderStep.ByStep
         {
-            public ByLambdaStep(Gremlin.Net.Process.Traversal.ILambda lambda) { }
+            public ByLambdaStep(Gremlin.Net.Process.Traversal.ILambda lambda, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
             public Gremlin.Net.Process.Traversal.ILambda Lambda { get; }
         }
         public sealed class ByMemberStep : ExRam.Gremlinq.Core.OrderStep.ByStep
         {
-            public ByMemberStep(ExRam.Gremlinq.Core.Key key, Gremlin.Net.Process.Traversal.Order order) { }
+            public ByMemberStep(ExRam.Gremlinq.Core.Key key, Gremlin.Net.Process.Traversal.Order order, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
             public ExRam.Gremlinq.Core.Key Key { get; }
             public Gremlin.Net.Process.Traversal.Order Order { get; }
         }
         public abstract class ByStep : ExRam.Gremlinq.Core.Step
         {
-            protected ByStep() { }
+            protected ByStep(ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         }
         public sealed class ByTraversalStep : ExRam.Gremlinq.Core.OrderStep.ByStep
         {
-            public ByTraversalStep(ExRam.Gremlinq.Core.Traversal traversal, Gremlin.Net.Process.Traversal.Order order) { }
+            public ByTraversalStep(ExRam.Gremlinq.Core.Traversal traversal, Gremlin.Net.Process.Traversal.Order order, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
             public Gremlin.Net.Process.Traversal.Order Order { get; }
             public ExRam.Gremlinq.Core.Traversal Traversal { get; }
         }
@@ -1440,75 +1443,76 @@
     public sealed class OtherVStep : ExRam.Gremlinq.Core.Step
     {
         public static readonly ExRam.Gremlinq.Core.OtherVStep Instance;
-        public OtherVStep() { }
+        public OtherVStep(ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
     }
     public sealed class OutEStep : ExRam.Gremlinq.Core.DerivedLabelNamesStep
     {
         public static readonly ExRam.Gremlinq.Core.OutEStep Empty;
-        public OutEStep(System.Collections.Immutable.ImmutableArray<string> labels) { }
+        public OutEStep(ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
+        public OutEStep(System.Collections.Immutable.ImmutableArray<string> labels, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
     }
     public sealed class OutStep : ExRam.Gremlinq.Core.DerivedLabelNamesStep
     {
         public static readonly ExRam.Gremlinq.Core.OutStep Empty;
-        public OutStep(System.Collections.Immutable.ImmutableArray<string> labels) { }
+        public OutStep(ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
+        public OutStep(System.Collections.Immutable.ImmutableArray<string> labels, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
     }
     public sealed class OutVStep : ExRam.Gremlinq.Core.Step
     {
         public static readonly ExRam.Gremlinq.Core.OutVStep Instance;
-        public OutVStep() { }
+        public OutVStep(ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
     }
     public sealed class PathStep : ExRam.Gremlinq.Core.Step
     {
         public static readonly ExRam.Gremlinq.Core.PathStep Instance;
-        public PathStep() { }
+        public PathStep(ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
     }
     public sealed class ProfileStep : ExRam.Gremlinq.Core.Step
     {
         public static readonly ExRam.Gremlinq.Core.ProfileStep Instance;
-        public ProfileStep() { }
+        public ProfileStep(ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
     }
     public sealed class ProjectStep : ExRam.Gremlinq.Core.Step
     {
-        public static readonly ExRam.Gremlinq.Core.ProjectStep Empty;
-        public ProjectStep(System.Collections.Immutable.ImmutableArray<string> projections) { }
+        public ProjectStep(System.Collections.Immutable.ImmutableArray<string> projections, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public System.Collections.Immutable.ImmutableArray<string> Projections { get; }
         public sealed class ByKeyStep : ExRam.Gremlinq.Core.ProjectStep.ByStep
         {
-            public ByKeyStep(ExRam.Gremlinq.Core.Key key) { }
+            public ByKeyStep(ExRam.Gremlinq.Core.Key key, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
             public ExRam.Gremlinq.Core.Key Key { get; }
         }
         public abstract class ByStep : ExRam.Gremlinq.Core.Step
         {
-            protected ByStep() { }
+            protected ByStep(ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         }
         public sealed class ByTraversalStep : ExRam.Gremlinq.Core.ProjectStep.ByStep
         {
-            public ByTraversalStep(ExRam.Gremlinq.Core.Traversal traversal) { }
+            public ByTraversalStep(ExRam.Gremlinq.Core.Traversal traversal, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
             public ExRam.Gremlinq.Core.Traversal Traversal { get; }
         }
     }
     public sealed class PropertiesStep : ExRam.Gremlinq.Core.Step
     {
-        public PropertiesStep(System.Collections.Immutable.ImmutableArray<string> keys) { }
+        public PropertiesStep(System.Collections.Immutable.ImmutableArray<string> keys, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public System.Collections.Immutable.ImmutableArray<string> Keys { get; }
     }
     public abstract class PropertyStep : ExRam.Gremlinq.Core.Step
     {
-        protected PropertyStep(object value, Gremlin.Net.Process.Traversal.Cardinality? cardinality = null) { }
-        protected PropertyStep(object value, System.Collections.Immutable.ImmutableArray<System.Collections.Generic.KeyValuePair<string, object>> metaProperties, Gremlin.Net.Process.Traversal.Cardinality? cardinality = null) { }
+        protected PropertyStep(object value, Gremlin.Net.Process.Traversal.Cardinality? cardinality = null, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
+        protected PropertyStep(object value, System.Collections.Immutable.ImmutableArray<System.Collections.Generic.KeyValuePair<string, object>> metaProperties, Gremlin.Net.Process.Traversal.Cardinality? cardinality = null, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public Gremlin.Net.Process.Traversal.Cardinality? Cardinality { get; }
         public System.Collections.Immutable.ImmutableArray<System.Collections.Generic.KeyValuePair<string, object>> MetaProperties { get; }
         public object Value { get; }
         public sealed class ByKeyStep : ExRam.Gremlinq.Core.PropertyStep
         {
-            public ByKeyStep(ExRam.Gremlinq.Core.Key key, object value, Gremlin.Net.Process.Traversal.Cardinality? cardinality = null) { }
-            public ByKeyStep(ExRam.Gremlinq.Core.Key key, object value, System.Collections.Immutable.ImmutableArray<System.Collections.Generic.KeyValuePair<string, object>> metaProperties, Gremlin.Net.Process.Traversal.Cardinality? cardinality = null) { }
+            public ByKeyStep(ExRam.Gremlinq.Core.Key key, object value, Gremlin.Net.Process.Traversal.Cardinality? cardinality = null, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
+            public ByKeyStep(ExRam.Gremlinq.Core.Key key, object value, System.Collections.Immutable.ImmutableArray<System.Collections.Generic.KeyValuePair<string, object>> metaProperties, Gremlin.Net.Process.Traversal.Cardinality? cardinality = null, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
             public ExRam.Gremlinq.Core.Key Key { get; }
         }
         public sealed class ByTraversalStep : ExRam.Gremlinq.Core.PropertyStep
         {
-            public ByTraversalStep(ExRam.Gremlinq.Core.Traversal traversal, object value, Gremlin.Net.Process.Traversal.Cardinality? cardinality = null) { }
-            public ByTraversalStep(ExRam.Gremlinq.Core.Traversal traversal, object value, System.Collections.Immutable.ImmutableArray<System.Collections.Generic.KeyValuePair<string, object>> metaProperties, Gremlin.Net.Process.Traversal.Cardinality? cardinality = null) { }
+            public ByTraversalStep(ExRam.Gremlinq.Core.Traversal traversal, object value, Gremlin.Net.Process.Traversal.Cardinality? cardinality = null, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
+            public ByTraversalStep(ExRam.Gremlinq.Core.Traversal traversal, object value, System.Collections.Immutable.ImmutableArray<System.Collections.Generic.KeyValuePair<string, object>> metaProperties, Gremlin.Net.Process.Traversal.Cardinality? cardinality = null, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
             public ExRam.Gremlinq.Core.Traversal Traversal { get; }
         }
     }
@@ -1532,24 +1536,24 @@
     }
     public sealed class RangeStep : ExRam.Gremlinq.Core.Step
     {
-        public RangeStep(long lower, long upper, Gremlin.Net.Process.Traversal.Scope scope) { }
+        public RangeStep(long lower, long upper, Gremlin.Net.Process.Traversal.Scope scope, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public long Lower { get; }
         public Gremlin.Net.Process.Traversal.Scope Scope { get; }
         public long Upper { get; }
     }
     public sealed class RepeatStep : ExRam.Gremlinq.Core.Step
     {
-        public RepeatStep(ExRam.Gremlinq.Core.Traversal traversal) { }
+        public RepeatStep(ExRam.Gremlinq.Core.Traversal traversal, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public ExRam.Gremlinq.Core.Traversal Traversal { get; }
     }
     public sealed class SelectKeysStep : ExRam.Gremlinq.Core.Step
     {
-        public SelectKeysStep(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Key> keys) { }
+        public SelectKeysStep(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Key> keys, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Key> Keys { get; }
     }
     public sealed class SelectStep : ExRam.Gremlinq.Core.Step
     {
-        public SelectStep(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.StepLabel> stepLabels) { }
+        public SelectStep(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.StepLabel> stepLabels, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.StepLabel> StepLabels { get; }
     }
     [System.Flags]
@@ -1567,22 +1571,23 @@
     }
     public sealed class SideEffectStep : ExRam.Gremlinq.Core.Step
     {
-        public SideEffectStep(ExRam.Gremlinq.Core.Traversal traversal) { }
+        public SideEffectStep(ExRam.Gremlinq.Core.Traversal traversal, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public ExRam.Gremlinq.Core.Traversal Traversal { get; }
     }
     public sealed class SimplePathStep : ExRam.Gremlinq.Core.Step
     {
-        public SimplePathStep() { }
+        public SimplePathStep(ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
     }
     public sealed class SkipStep : ExRam.Gremlinq.Core.Step
     {
-        public SkipStep(long count, Gremlin.Net.Process.Traversal.Scope scope) { }
+        public SkipStep(long count, Gremlin.Net.Process.Traversal.Scope scope, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public long Count { get; }
         public Gremlin.Net.Process.Traversal.Scope Scope { get; }
     }
     public abstract class Step
     {
-        protected Step() { }
+        protected Step(ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
+        public ExRam.Gremlinq.Core.QuerySemantics? Semantics { get; }
     }
     public abstract class StepLabel : System.IEquatable<ExRam.Gremlinq.Core.StepLabel>
     {
@@ -1632,20 +1637,20 @@
     {
         public static readonly ExRam.Gremlinq.Core.SumStep Global;
         public static readonly ExRam.Gremlinq.Core.SumStep Local;
-        public SumStep(Gremlin.Net.Process.Traversal.Scope scope) { }
+        public SumStep(Gremlin.Net.Process.Traversal.Scope scope, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public Gremlin.Net.Process.Traversal.Scope Scope { get; }
     }
     public sealed class TailStep : ExRam.Gremlinq.Core.Step
     {
         public static readonly ExRam.Gremlinq.Core.TailStep TailGlobal1;
         public static readonly ExRam.Gremlinq.Core.TailStep TailLocal1;
-        public TailStep(long count, Gremlin.Net.Process.Traversal.Scope scope) { }
+        public TailStep(long count, Gremlin.Net.Process.Traversal.Scope scope, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public long Count { get; }
         public Gremlin.Net.Process.Traversal.Scope Scope { get; }
     }
     public sealed class TimesStep : ExRam.Gremlinq.Core.Step
     {
-        public TimesStep(int count) { }
+        public TimesStep(int count, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public int Count { get; }
     }
     public readonly struct Traversal : System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Step>, System.Collections.Generic.IReadOnlyCollection<ExRam.Gremlinq.Core.Step>, System.Collections.Generic.IReadOnlyList<ExRam.Gremlinq.Core.Step>, System.Collections.IEnumerable
@@ -1662,35 +1667,35 @@
     public sealed class UnfoldStep : ExRam.Gremlinq.Core.Step
     {
         public static readonly ExRam.Gremlinq.Core.UnfoldStep Instance;
-        public UnfoldStep() { }
+        public UnfoldStep(ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
     }
     public sealed class UnionStep : ExRam.Gremlinq.Core.MultiTraversalArgumentStep
     {
-        public UnionStep(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Traversal> traversals) { }
+        public UnionStep(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Traversal> traversals, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
     }
     public sealed class UntilStep : ExRam.Gremlinq.Core.Step
     {
-        public UntilStep(ExRam.Gremlinq.Core.Traversal traversal) { }
+        public UntilStep(ExRam.Gremlinq.Core.Traversal traversal, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public ExRam.Gremlinq.Core.Traversal Traversal { get; }
     }
     public sealed class VStep : ExRam.Gremlinq.Core.Step
     {
-        public VStep(System.Collections.Immutable.ImmutableArray<object> ids) { }
+        public VStep(System.Collections.Immutable.ImmutableArray<object> ids, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public System.Collections.Immutable.ImmutableArray<object> Ids { get; }
     }
     public sealed class ValueMapStep : ExRam.Gremlinq.Core.Step
     {
-        public ValueMapStep(System.Collections.Immutable.ImmutableArray<string> keys) { }
+        public ValueMapStep(System.Collections.Immutable.ImmutableArray<string> keys, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public System.Collections.Immutable.ImmutableArray<string> Keys { get; }
     }
     public sealed class ValueStep : ExRam.Gremlinq.Core.Step
     {
         public static readonly ExRam.Gremlinq.Core.ValueStep Instance;
-        public ValueStep() { }
+        public ValueStep(ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
     }
     public sealed class ValuesStep : ExRam.Gremlinq.Core.Step
     {
-        public ValuesStep(System.Collections.Immutable.ImmutableArray<string> keys) { }
+        public ValuesStep(System.Collections.Immutable.ImmutableArray<string> keys, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public System.Collections.Immutable.ImmutableArray<string> Keys { get; }
     }
     [System.Flags]
@@ -1772,39 +1777,39 @@
     }
     public sealed class WherePredicateStep : ExRam.Gremlinq.Core.Step
     {
-        public WherePredicateStep(Gremlin.Net.Process.Traversal.P predicate) { }
+        public WherePredicateStep(Gremlin.Net.Process.Traversal.P predicate, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public Gremlin.Net.Process.Traversal.P Predicate { get; }
         public sealed class ByMemberStep : ExRam.Gremlinq.Core.Step
         {
-            public ByMemberStep(ExRam.Gremlinq.Core.Key? key = default) { }
+            public ByMemberStep(ExRam.Gremlinq.Core.Key? key = default, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
             public ExRam.Gremlinq.Core.Key? Key { get; }
         }
     }
     public sealed class WhereStepLabelAndPredicateStep : ExRam.Gremlinq.Core.Step
     {
-        public WhereStepLabelAndPredicateStep(ExRam.Gremlinq.Core.StepLabel stepLabel, Gremlin.Net.Process.Traversal.P predicate) { }
+        public WhereStepLabelAndPredicateStep(ExRam.Gremlinq.Core.StepLabel stepLabel, Gremlin.Net.Process.Traversal.P predicate, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public Gremlin.Net.Process.Traversal.P Predicate { get; }
         public ExRam.Gremlinq.Core.StepLabel StepLabel { get; }
     }
     public sealed class WhereTraversalStep : ExRam.Gremlinq.Core.Step
     {
-        public WhereTraversalStep(ExRam.Gremlinq.Core.Traversal traversal) { }
+        public WhereTraversalStep(ExRam.Gremlinq.Core.Traversal traversal, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public ExRam.Gremlinq.Core.Traversal Traversal { get; }
     }
     public sealed class WithSideEffectStep : ExRam.Gremlinq.Core.Step
     {
-        public WithSideEffectStep(ExRam.Gremlinq.Core.StepLabel label, object value) { }
+        public WithSideEffectStep(ExRam.Gremlinq.Core.StepLabel label, object value, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public ExRam.Gremlinq.Core.StepLabel Label { get; }
         public object Value { get; }
     }
     public sealed class WithStrategiesStep : ExRam.Gremlinq.Core.Step
     {
-        public WithStrategiesStep(ExRam.Gremlinq.Core.Traversal traversal) { }
+        public WithStrategiesStep(ExRam.Gremlinq.Core.Traversal traversal, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public ExRam.Gremlinq.Core.Traversal Traversal { get; }
     }
     public sealed class WithoutStrategiesStep : ExRam.Gremlinq.Core.Step
     {
-        public WithoutStrategiesStep(System.Collections.Immutable.ImmutableArray<System.Type> strategyTypes) { }
+        public WithoutStrategiesStep(System.Collections.Immutable.ImmutableArray<System.Type> strategyTypes, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public System.Collections.Immutable.ImmutableArray<System.Type> StrategyTypes { get; }
     }
 }

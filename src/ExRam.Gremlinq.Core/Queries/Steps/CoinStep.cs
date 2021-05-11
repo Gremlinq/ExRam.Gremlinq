@@ -2,7 +2,7 @@
 {
     public sealed class CoinStep : Step, IIsOptimizableInWhere
     {
-        public CoinStep(double probability)
+        public CoinStep(double probability, QuerySemantics? semantics = default) : base(semantics)
         {
             Probability = probability;
         }

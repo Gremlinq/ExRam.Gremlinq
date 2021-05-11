@@ -2,7 +2,7 @@
 {
     public sealed class FlatMapStep : Step
     {
-        public FlatMapStep(Traversal traversal)
+        public FlatMapStep(Traversal traversal, QuerySemantics? semantics = default) : base(semantics)
         {
             Traversal = traversal;
         }

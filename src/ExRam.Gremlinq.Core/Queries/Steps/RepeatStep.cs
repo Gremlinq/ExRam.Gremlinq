@@ -2,7 +2,7 @@
 {
     public sealed class RepeatStep : Step
     {
-        public RepeatStep(Traversal traversal)
+        public RepeatStep(Traversal traversal, QuerySemantics? semantics = default) : base(semantics)
         {
             Traversal = traversal;
         }

@@ -2,7 +2,7 @@
 {
     public sealed class WithSideEffectStep : Step
     {
-        public WithSideEffectStep(StepLabel label, object value)
+        public WithSideEffectStep(StepLabel label, object value, QuerySemantics? semantics = default) : base(semantics)
         {
             Label = label;
             Value = value;

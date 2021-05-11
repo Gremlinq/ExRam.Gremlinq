@@ -2,7 +2,7 @@
 {
     public sealed class OptionTraversalStep : Step
     {
-        public OptionTraversalStep(object? guard, Traversal optionTraversal)
+        public OptionTraversalStep(object? guard, Traversal optionTraversal, QuerySemantics? semantics = default) : base(semantics)
         {
             Guard = guard;
             OptionTraversal = optionTraversal;

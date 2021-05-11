@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq.Core
     {
         public sealed class ByMemberStep : Step
         {
-            public ByMemberStep(Key? key = default)
+            public ByMemberStep(Key? key = default, QuerySemantics? semantics = default) : base(semantics)
             {
                 Key = key;
             }
@@ -14,7 +14,7 @@ namespace ExRam.Gremlinq.Core
             public Key? Key { get; }
         }
 
-        public WherePredicateStep(P predicate)
+        public WherePredicateStep(P predicate, QuerySemantics? semantics = default) : base(semantics)
         {
             Predicate = predicate;
         }

@@ -4,7 +4,7 @@ namespace ExRam.Gremlinq.Core
 {
     public sealed class ValueMapStep : Step
     {
-        public ValueMapStep(ImmutableArray<string> keys)
+        public ValueMapStep(ImmutableArray<string> keys, QuerySemantics? semantics = default) : base(semantics)
         {
             Keys = keys;
         }

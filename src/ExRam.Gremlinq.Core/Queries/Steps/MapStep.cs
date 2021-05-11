@@ -2,7 +2,7 @@
 {
     public sealed class MapStep : Step
     {
-        public MapStep(Traversal traversal)
+        public MapStep(Traversal traversal, QuerySemantics? semantics = default) : base(semantics)
         {
             Traversal = traversal;
         }

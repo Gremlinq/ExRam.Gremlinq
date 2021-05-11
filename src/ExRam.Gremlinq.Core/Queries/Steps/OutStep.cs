@@ -6,7 +6,11 @@ namespace ExRam.Gremlinq.Core
     {
         public static readonly OutStep Empty = new(ImmutableArray<string>.Empty);
 
-        public OutStep(ImmutableArray<string> labels) : base(labels)
+        public OutStep(QuerySemantics? semantics = default) : base(ImmutableArray<string>.Empty, semantics)
+        {
+        }
+
+        public OutStep(ImmutableArray<string> labels, QuerySemantics? semantics = default) : base(labels, semantics)
         {
         }
     }

@@ -4,7 +4,7 @@ namespace ExRam.Gremlinq.Core
 {
     public sealed class VStep : Step
     {
-        public VStep(ImmutableArray<object> ids)
+        public VStep(ImmutableArray<object> ids, QuerySemantics? semantics = default) : base(semantics)
         {
             Ids = ids;
         }

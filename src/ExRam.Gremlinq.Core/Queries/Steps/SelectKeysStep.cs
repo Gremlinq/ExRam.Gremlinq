@@ -4,7 +4,7 @@ namespace ExRam.Gremlinq.Core
 {
     public sealed class SelectKeysStep : Step
     {
-        public SelectKeysStep(ImmutableArray<Key> keys)
+        public SelectKeysStep(ImmutableArray<Key> keys, QuerySemantics? semantics = default) : base(semantics)
         {
             Keys = keys;
         }

@@ -6,12 +6,14 @@ namespace ExRam.Gremlinq.Core
     {
         public abstract class ByStep : Step
         {
-
+            protected ByStep(QuerySemantics? semantics = default) : base(semantics)
+            {
+            }
         }
 
         public sealed class ByTraversalStep : ByStep
         {
-            public ByTraversalStep(Traversal traversal)
+            public ByTraversalStep(Traversal traversal, QuerySemantics? semantics = default) : base(semantics)
             {
                 Traversal = traversal;
             }
@@ -21,7 +23,7 @@ namespace ExRam.Gremlinq.Core
 
         public sealed class ByKeyStep : ByStep
         {
-            public ByKeyStep(Key key)
+            public ByKeyStep(Key key, QuerySemantics? semantics = default) : base(semantics)
             {
                 Key = key;
             }
@@ -29,9 +31,7 @@ namespace ExRam.Gremlinq.Core
             public Key Key { get; }
         }
 
-        public static readonly ProjectStep Empty = new(ImmutableArray<string>.Empty);
-
-        public ProjectStep(ImmutableArray<string> projections)
+        public ProjectStep(ImmutableArray<string> projections, QuerySemantics? semantics = default) : base(semantics)
         {
             Projections = projections;
         }
