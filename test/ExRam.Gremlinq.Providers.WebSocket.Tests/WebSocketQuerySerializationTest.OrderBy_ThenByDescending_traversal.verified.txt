@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "SourceInstructions": [],
     "StepInstructions": [
@@ -54,7 +54,7 @@
           },
           {
             "EnumName": "Order",
-            "EnumValue": "incr"
+            "EnumValue": "asc"
           }
         ]
       },
@@ -64,7 +64,7 @@
           "Gender",
           {
             "EnumName": "Order",
-            "EnumValue": "decr"
+            "EnumValue": "desc"
           }
         ]
       },
