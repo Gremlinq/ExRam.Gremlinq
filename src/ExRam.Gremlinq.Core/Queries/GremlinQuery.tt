@@ -16,7 +16,7 @@ namespace ExRam.Gremlinq.Core
     partial class GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>
     {
 <# for(var i = 2; i <= 16; i++) { #>
-        IValueGremlinQuery<(<#= GetArgumentList("T{0}", i) #>)> IGremlinQueryBase.Select<<#= GetArgumentList("T{0}", i) #>>(<#= GetArgumentList("StepLabel<T{0}> label{0}", i) #>) => Project<(<#= GetArgumentList("T{0}", i) #>)>(p => p.ToTuple()<#= GetArgumentList(".By(_ => _.Select(label{0}))", "", i) #>, typeof(IValueGremlinQuery<(<#= GetArgumentList("T{0}", i) #>)>));
+        IValueTupleGremlinQuery<(<#= GetArgumentList("T{0}", i) #>)> IGremlinQueryBase.Select<<#= GetArgumentList("T{0}", i) #>>(<#= GetArgumentList("StepLabel<T{0}> label{0}", i) #>) => Project<(<#= GetArgumentList("T{0}", i) #>)>(p => p.ToTuple()<#= GetArgumentList(".By(_ => _.Select(label{0}))", "", i) #>, typeof(IValueGremlinQuery<(<#= GetArgumentList("T{0}", i) #>)>));
 
         IValueTupleGremlinQuery<(<#= GetArgumentList("T{0}", i) #>)> IValueTupleGremlinQueryBase<TElement>.Select<<#= GetArgumentList("T{0}", i) #>>(<#= GetArgumentList("Expression<Func<TElement, T{0}>> projection{0}", i) #>) => Select<IValueTupleGremlinQuery<(<#= GetArgumentList("T{0}", i) #>)>>(<#= GetArgumentList("projection{0}", i) #>);
 <# } #>
