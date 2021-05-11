@@ -315,10 +315,10 @@ namespace ExRam.Gremlinq.Core
                         (type, environment) =>
                         {
                             if (environment.Model.VerticesModel.Metadata.Keys.Any(x => x.IsAssignableFrom(type)))
-                                return QuerySemantics.Vertex;
+                                return typeof(IVertexGremlinQuery<>).MakeGenericType(type);
 
                             if (environment.Model.EdgesModel.Metadata.Keys.Any(x => x.IsAssignableFrom(type)))
-                                return QuerySemantics.Edge;
+                                return typeof(IEdgeGremlinQuery<>).MakeGenericType(type);
 
                             return null;
                         },
