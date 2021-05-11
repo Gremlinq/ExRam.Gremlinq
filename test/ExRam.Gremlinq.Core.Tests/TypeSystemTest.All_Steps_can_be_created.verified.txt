@@ -141,6 +141,14 @@
     }
   },
   {
+    Item1: ChangeQuerySemanticsStep,
+    Item2: {
+      Semantics: {
+        QueryType: Object
+      }
+    }
+  },
+  {
     Item1: ChooseOptionTraversalStep,
     Item2: {
       Traversal: [
