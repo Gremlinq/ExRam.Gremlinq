@@ -455,11 +455,11 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TTarget, object, object, object, object, object> BothV<TTarget>(QuerySemantics semantics) => AddStepWithObjectTypes<TTarget>(BothVStep.Instance, semantics);
 
-        private GremlinQuery<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Cast<TNewElement>(QuerySemantics fallback)
+        private GremlinQuery<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Cast<TNewElement>()
         {
-            return typeof(TNewElement) == typeof(TElement) && Semantics == fallback
+            return typeof(TNewElement) == typeof(TElement)
                 ? (GremlinQuery<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>)(object)this
-                : new(Steps, Environment, Semantics.Cast<TNewElement>(fallback), StepLabelSemantics, Flags);
+                : new(Steps, Environment, Semantics.Cast<TNewElement>(), StepLabelSemantics, Flags);
         }
 
         private TTargetQuery Choose<TTrueQuery, TFalseQuery, TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTrueQuery> trueChoice, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TFalseQuery>? maybeFalseChoice = default)
@@ -720,14 +720,14 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TTarget, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> OfType<TTarget>(IGraphElementModel model, QuerySemantics semantics)
         {
             if (typeof(TTarget).IsAssignableFrom(typeof(TElement)))
-                return Cast<TTarget>(semantics);
+                return Cast<TTarget>();
 
             var labels = model
                 .TryGetFilterLabels(typeof(TTarget), Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity)) ?? ImmutableArray.Create(typeof(TTarget).Name);
 
             return labels.Length > 0
                 ? AddStep<TTarget>(new HasLabelStep(labels), semantics)
-                : Cast<TTarget>(semantics);
+                : Cast<TTarget>();
         }
 
         private TTargetQuery Optional<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQueryBase
@@ -1077,7 +1077,7 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Where<TProjection>(Expression<Func<TElement, TProjection>> predicate, Func<IGremlinQueryBase<TProjection>, IGremlinQueryBase> propertyTraversal)
         {
             return predicate.TryGetReferredParameter() is not null && predicate.Body is MemberExpression memberExpression
-                ? AddStep(new HasTraversalStep(GetKey(memberExpression), Cast<TProjection>(Semantics).Continue(propertyTraversal).ToTraversal()))
+                ? AddStep(new HasTraversalStep(GetKey(memberExpression), Cast<TProjection>().Continue(propertyTraversal).ToTraversal()))
                 : throw new ExpressionNotSupportedException(predicate);
         }
 

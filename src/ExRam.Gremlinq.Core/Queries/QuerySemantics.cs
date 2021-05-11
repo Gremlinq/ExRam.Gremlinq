@@ -90,7 +90,7 @@ namespace ExRam.Gremlinq.Core
                     });
         }
 
-        internal QuerySemantics Cast<TResult>(QuerySemantics fallback)
+        internal QuerySemantics Cast<TResult>()
         {
             if (QueryType.IsGenericType && QueryType.GetGenericArguments() is { } arguments)
             {

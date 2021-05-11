@@ -49,9 +49,9 @@ namespace ExRam.Gremlinq.Core
 
         IArrayGremlinQuery<TElement[], TElement, IGremlinQueryBase<TElement>> IGremlinQueryBase<TElement>.ForceArray() => ChangeQueryType<IArrayGremlinQuery<TElement[], TElement, IGremlinQueryBase<TElement>>>();
 
-        IGremlinQuery<TScalar[]> IArrayGremlinQueryBase<TScalar>.Lower() => Cast<TScalar[]>(typeof(IGremlinQuery<TScalar[]>));
+        IGremlinQuery<TScalar[]> IArrayGremlinQueryBase<TScalar>.Lower() => Cast<TScalar[]>();
 
-        IValueGremlinQuery<object[]> IArrayGremlinQueryBase.Lower() => Cast<object[]>(typeof(IValueGremlinQuery<object[]>));
+        IValueGremlinQuery<object[]> IArrayGremlinQueryBase.Lower() => Cast<object[]>();
 
         IGremlinQuery<TElement> IArrayGremlinQueryBase<TElement, TScalar, TFoldedQuery>.Lower() => this;
 
@@ -79,7 +79,7 @@ namespace ExRam.Gremlinq.Core
 
         IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.Mute() => Mute();
 
-        IBothEdgeGremlinQuery<TElement, TNewOutVertex, TInVertex> IInEdgeGremlinQueryBase<TElement, TInVertex>.From<TNewOutVertex>(Func<IVertexGremlinQuery<TInVertex>, IVertexGremlinQueryBase<TNewOutVertex>> fromVertexTraversal) => AddStep<TElement, TNewOutVertex, TInVertex, object, object, object>(new AddEStep.FromTraversalStep(Cast<TInVertex>(Semantics).Continue(fromVertexTraversal).ToTraversal()), typeof(IBothEdgeGremlinQuery<TElement, TNewOutVertex, TInVertex>));
+        IBothEdgeGremlinQuery<TElement, TNewOutVertex, TInVertex> IInEdgeGremlinQueryBase<TElement, TInVertex>.From<TNewOutVertex>(Func<IVertexGremlinQuery<TInVertex>, IVertexGremlinQueryBase<TNewOutVertex>> fromVertexTraversal) => AddStep<TElement, TNewOutVertex, TInVertex, object, object, object>(new AddEStep.FromTraversalStep(Cast<TInVertex>().Continue(fromVertexTraversal).ToTraversal()), typeof(IBothEdgeGremlinQuery<TElement, TNewOutVertex, TInVertex>));
 
         IVertexGremlinQuery<TInVertex> IInEdgeGremlinQueryBase<TElement, TInVertex>.InV() => InV<TInVertex>(typeof(IVertexGremlinQuery<TInVertex>));
 
@@ -91,13 +91,13 @@ namespace ExRam.Gremlinq.Core
 
         IVertexGremlinQuery<TOutVertex> IOutEdgeGremlinQueryBase<TElement, TOutVertex>.OutV() => AddStepWithObjectTypes<TOutVertex>(OutVStep.Instance, typeof(IVertexGremlinQuery<TOutVertex>));
 
-        IBothEdgeGremlinQuery<TElement, TOutVertex, TNewInVertex> IOutEdgeGremlinQueryBase<TElement, TOutVertex>.To<TNewInVertex>(Func<IVertexGremlinQuery<TOutVertex>, IVertexGremlinQueryBase<TNewInVertex>> toVertexTraversal) => AddStep<TElement, TOutVertex, TNewInVertex, object, object, object>(new AddEStep.ToTraversalStep(Cast<TOutVertex>(Semantics).Continue(toVertexTraversal).ToTraversal()), typeof(IBothEdgeGremlinQuery<TElement, TOutVertex, TNewInVertex>));
+        IBothEdgeGremlinQuery<TElement, TOutVertex, TNewInVertex> IOutEdgeGremlinQueryBase<TElement, TOutVertex>.To<TNewInVertex>(Func<IVertexGremlinQuery<TOutVertex>, IVertexGremlinQueryBase<TNewInVertex>> toVertexTraversal) => AddStep<TElement, TOutVertex, TNewInVertex, object, object, object>(new AddEStep.ToTraversalStep(Cast<TOutVertex>().Continue(toVertexTraversal).ToTraversal()), typeof(IBothEdgeGremlinQuery<TElement, TOutVertex, TNewInVertex>));
 
-        IEdgeOrVertexGremlinQuery<object> IBothEdgeGremlinQueryBase.Lower() => Cast<object>(typeof(IEdgeOrVertexGremlinQuery<object>));
+        IEdgeOrVertexGremlinQuery<object> IBothEdgeGremlinQueryBase.Lower() => Cast<object>();
 
-        IEdgeGremlinQuery<object> IInEdgeGremlinQueryBase.Lower() => Cast<object>(typeof(IEdgeGremlinQuery<object>));
+        IEdgeGremlinQuery<object> IInEdgeGremlinQueryBase.Lower() => Cast<object>();
 
-        IEdgeGremlinQuery<object> IOutEdgeGremlinQueryBase.Lower() => Cast<object>(typeof(IEdgeGremlinQuery<object>));
+        IEdgeGremlinQuery<object> IOutEdgeGremlinQueryBase.Lower() => Cast<object>();
 
         IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IGremlinQueryBaseRec<IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.Mute() => Mute();
 
@@ -119,7 +119,7 @@ namespace ExRam.Gremlinq.Core
             .InV()
             .OfType<TVertex>();
 
-        IEdgeOrVertexGremlinQuery<object> IEdgeGremlinQueryBase.Lower() => Cast<object>(typeof(IEdgeOrVertexGremlinQuery<object>));
+        IEdgeOrVertexGremlinQuery<object> IEdgeGremlinQueryBase.Lower() => Cast<object>();
 
         IVertexGremlinQuery<object> IEdgeGremlinQueryBase.OtherV() => OtherV<object>(typeof(IVertexGremlinQuery<object>));
 
@@ -159,7 +159,7 @@ namespace ExRam.Gremlinq.Core
 
         IElementGremlinQuery<TElement> IEdgeOrVertexGremlinQueryBase<TElement>.Lower() => this;
 
-        IElementGremlinQuery<object> IEdgeOrVertexGremlinQueryBase.Lower() => Cast<object>(typeof(IElementGremlinQuery<object>));
+        IElementGremlinQuery<object> IEdgeOrVertexGremlinQueryBase.Lower() => Cast<object>();
 
         IEdgeOrVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<TElement>>.Mute() => Mute();
 
@@ -243,7 +243,7 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<TElement> IGremlinQueryBase<TElement>.Lower() => this;
 
-        IGremlinQuery<object> IGremlinQueryBase.Lower() => Cast<object>(typeof(IGremlinQuery<object>));
+        IGremlinQuery<object> IGremlinQueryBase.Lower() => Cast<object>();
 
         IValueGremlinQuery<object> IGremlinQueryBase.Drop() => Drop();
 
@@ -342,11 +342,11 @@ namespace ExRam.Gremlinq.Core
 
         IBothEdgeGremlinQuery<TElement, TTargetVertex, TOutVertex> IInOrOutEdgeGremlinQueryBase<TElement, TOutVertex>.From<TTargetVertex>(StepLabel<TTargetVertex> stepLabel) => AddStep<TElement, TTargetVertex, TOutVertex, object, object, object>(new AddEStep.FromLabelStep(stepLabel), typeof(IBothEdgeGremlinQuery<TElement, TTargetVertex, TOutVertex>));
 
-        IBothEdgeGremlinQuery<TElement, TTargetVertex, TOutVertex> IInOrOutEdgeGremlinQueryBase<TElement, TOutVertex>.From<TTargetVertex>(Func<IVertexGremlinQuery<TOutVertex>, IVertexGremlinQueryBase<TTargetVertex>> fromVertexTraversal) => AddStep<TElement, TTargetVertex, TOutVertex, object, object, object>(new AddEStep.FromTraversalStep(Cast<TOutVertex>(typeof(IVertexGremlinQuery<TOutVertex>)).Continue(fromVertexTraversal).ToTraversal()), typeof(IBothEdgeGremlinQuery<TElement, TTargetVertex, TOutVertex>));
+        IBothEdgeGremlinQuery<TElement, TTargetVertex, TOutVertex> IInOrOutEdgeGremlinQueryBase<TElement, TOutVertex>.From<TTargetVertex>(Func<IVertexGremlinQuery<TOutVertex>, IVertexGremlinQueryBase<TTargetVertex>> fromVertexTraversal) => AddStep<TElement, TTargetVertex, TOutVertex, object, object, object>(new AddEStep.FromTraversalStep(Cast<TOutVertex>().Continue(fromVertexTraversal).ToTraversal()), typeof(IBothEdgeGremlinQuery<TElement, TTargetVertex, TOutVertex>));
 
         IBothEdgeGremlinQuery<TElement, TOutVertex, TTargetVertex> IInOrOutEdgeGremlinQueryBase<TElement, TOutVertex>.To<TTargetVertex>(StepLabel<TTargetVertex> stepLabel) => To<TElement, TOutVertex, TTargetVertex>(stepLabel);
 
-        IBothEdgeGremlinQuery<TElement, TOutVertex, TTargetVertex> IInOrOutEdgeGremlinQueryBase<TElement, TOutVertex>.To<TTargetVertex>(Func<IVertexGremlinQuery<TOutVertex>, IVertexGremlinQueryBase<TTargetVertex>> toVertexTraversal) => AddStep<TElement, TOutVertex, TTargetVertex, object, object, object>(new AddEStep.ToTraversalStep(Cast<TOutVertex>(typeof(IVertexGremlinQuery<TOutVertex>)).Continue(toVertexTraversal).ToTraversal()), typeof(IBothEdgeGremlinQuery<TElement, TOutVertex, TTargetVertex>));
+        IBothEdgeGremlinQuery<TElement, TOutVertex, TTargetVertex> IInOrOutEdgeGremlinQueryBase<TElement, TOutVertex>.To<TTargetVertex>(Func<IVertexGremlinQuery<TOutVertex>, IVertexGremlinQueryBase<TTargetVertex>> toVertexTraversal) => AddStep<TElement, TOutVertex, TTargetVertex, object, object, object>(new AddEStep.ToTraversalStep(Cast<TOutVertex>().Continue(toVertexTraversal).ToTraversal()), typeof(IBothEdgeGremlinQuery<TElement, TOutVertex, TTargetVertex>));
 
         IInOrOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.Mute() => Mute();
 
@@ -364,7 +364,7 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeOrVertexGremlinQuery<TElement> IVertexGremlinQueryBase<TElement>.Lower() => this;
 
-        IEdgeOrVertexGremlinQuery<object> IVertexGremlinQueryBase.Lower() => Cast<object>(typeof(IEdgeOrVertexGremlinQuery<object>));
+        IEdgeOrVertexGremlinQuery<object> IVertexGremlinQueryBase.Lower() => Cast<object>();
 
         IInOrOutEdgeGremlinQuery<TEdge, TElement> IVertexGremlinQueryBase<TElement>.AddE<TEdge>(TEdge edge) => AddE(edge, typeof(IInOrOutEdgeGremlinQuery<TEdge, TElement>));
 
@@ -454,7 +454,7 @@ namespace ExRam.Gremlinq.Core
 
         IElementGremlinQuery<TElement> IVertexPropertyGremlinQueryBase<TElement, TScalar>.Lower() => this;
 
-        IElementGremlinQuery<object> IVertexPropertyGremlinQueryBase.Lower() => Cast<object>(typeof(IElementGremlinQuery<object>));
+        IElementGremlinQuery<object> IVertexPropertyGremlinQueryBase.Lower() => Cast<object>();
 
         IValueGremlinQuery<IDictionary<string, TTarget>> IVertexPropertyGremlinQueryBase.ValueMap<TTarget>() => ValueMap<IDictionary<string, TTarget>>(ImmutableArray<string>.Empty, typeof(IValueGremlinQuery<IDictionary<string, TTarget>>));
 

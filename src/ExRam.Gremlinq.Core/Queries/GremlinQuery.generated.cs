@@ -54,13 +54,13 @@ namespace ExRam.Gremlinq.Core
 
         IValueTupleGremlinQuery<(T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16)> IValueTupleGremlinQueryBase<TElement>.Select<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(Expression<Func<TElement, T1>> projection1, Expression<Func<TElement, T2>> projection2, Expression<Func<TElement, T3>> projection3, Expression<Func<TElement, T4>> projection4, Expression<Func<TElement, T5>> projection5, Expression<Func<TElement, T6>> projection6, Expression<Func<TElement, T7>> projection7, Expression<Func<TElement, T8>> projection8, Expression<Func<TElement, T9>> projection9, Expression<Func<TElement, T10>> projection10, Expression<Func<TElement, T11>> projection11, Expression<Func<TElement, T12>> projection12, Expression<Func<TElement, T13>> projection13, Expression<Func<TElement, T14>> projection14, Expression<Func<TElement, T15>> projection15, Expression<Func<TElement, T16>> projection16) => Select<IValueTupleGremlinQuery<(T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16)>>(projection1, projection2, projection3, projection4, projection5, projection6, projection7, projection8, projection9, projection10, projection11, projection12, projection13, projection14, projection15, projection16);
 
-        IGremlinQuery<TResult> IGremlinQueryBase.Cast<TResult>() => Cast<TResult>(Semantics.Cast<TResult>(typeof(IGremlinQuery<TResult>)));
-        IValueGremlinQuery<TResult> IValueGremlinQueryBase.Cast<TResult>() => Cast<TResult>(Semantics.Cast<TResult>(typeof(IValueGremlinQuery<TResult>)));
-        IElementGremlinQuery<TResult> IElementGremlinQueryBase.Cast<TResult>() => Cast<TResult>(Semantics.Cast<TResult>(typeof(IElementGremlinQuery<TResult>)));
-        IEdgeOrVertexGremlinQuery<TResult> IEdgeOrVertexGremlinQueryBase.Cast<TResult>() => Cast<TResult>(Semantics.Cast<TResult>(typeof(IEdgeOrVertexGremlinQuery<TResult>)));
-        IVertexGremlinQuery<TResult> IVertexGremlinQueryBase.Cast<TResult>() => Cast<TResult>(Semantics.Cast<TResult>(typeof(IVertexGremlinQuery<TResult>)));
-        IEdgeGremlinQuery<TResult> IEdgeGremlinQueryBase.Cast<TResult>() => Cast<TResult>(Semantics.Cast<TResult>(typeof(IEdgeGremlinQuery<TResult>)));
-        IPropertyGremlinQuery<TResult> IPropertyGremlinQueryBase.Cast<TResult>() => Cast<TResult>(Semantics.Cast<TResult>(typeof(IPropertyGremlinQuery<TResult>)));
+        IGremlinQuery<TResult> IGremlinQueryBase.Cast<TResult>() => Cast<TResult>();
+        IValueGremlinQuery<TResult> IValueGremlinQueryBase.Cast<TResult>() => Cast<TResult>();
+        IElementGremlinQuery<TResult> IElementGremlinQueryBase.Cast<TResult>() => Cast<TResult>();
+        IEdgeOrVertexGremlinQuery<TResult> IEdgeOrVertexGremlinQueryBase.Cast<TResult>() => Cast<TResult>();
+        IVertexGremlinQuery<TResult> IVertexGremlinQueryBase.Cast<TResult>() => Cast<TResult>();
+        IEdgeGremlinQuery<TResult> IEdgeGremlinQueryBase.Cast<TResult>() => Cast<TResult>();
+        IPropertyGremlinQuery<TResult> IPropertyGremlinQueryBase.Cast<TResult>() => Cast<TResult>();
 
         TTargetQuery IGremlinQueryBaseRec<TElement, IGremlinQuery<TElement>>.Aggregate<TTargetQuery>(Func<IGremlinQuery<TElement>, StepLabel<IArrayGremlinQuery<TElement[], TElement, IGremlinQuery<TElement>>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Local, new StepLabel<IArrayGremlinQuery<TElement[], TElement, IGremlinQuery<TElement>>, TElement[]>(), continuation);
         TTargetQuery IGremlinQueryBaseRec<TElement, IGremlinQuery<TElement>>.AggregateGlobal<TTargetQuery>(Func<IGremlinQuery<TElement>, StepLabel<IArrayGremlinQuery<TElement[], TElement, IGremlinQuery<TElement>>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Global, new StepLabel<IArrayGremlinQuery<TElement[], TElement, IGremlinQuery<TElement>>, TElement[]>(), continuation);
