@@ -1623,13 +1623,14 @@
     }
     public readonly struct StepStack : System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Step>, System.Collections.Generic.IReadOnlyCollection<ExRam.Gremlinq.Core.Step>, System.Collections.Generic.IReadOnlyList<ExRam.Gremlinq.Core.Step>, System.Collections.IEnumerable
     {
+        public static readonly ExRam.Gremlinq.Core.StepStack Empty;
         public int Count { get; }
         public ExRam.Gremlinq.Core.Step this[int index] { get; }
         public System.Collections.Generic.IEnumerator<ExRam.Gremlinq.Core.Step> GetEnumerator() { }
+        public ExRam.Gremlinq.Core.StepStack OverrideSemantics(ExRam.Gremlinq.Core.QuerySemantics semantics) { }
         public ExRam.Gremlinq.Core.StepStack Pop() { }
         public ExRam.Gremlinq.Core.StepStack Pop(out ExRam.Gremlinq.Core.Step poppedStep) { }
         public ExRam.Gremlinq.Core.StepStack Push(ExRam.Gremlinq.Core.Step step) { }
-        public static ExRam.Gremlinq.Core.StepStack Empty(ExRam.Gremlinq.Core.QuerySemantics semantics) { }
     }
     public enum StringComparisonTranslationStrictness
     {
