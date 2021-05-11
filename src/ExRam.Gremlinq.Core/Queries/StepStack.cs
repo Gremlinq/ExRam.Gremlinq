@@ -7,14 +7,16 @@ namespace ExRam.Gremlinq.Core
 {
     public readonly struct StepStack : IReadOnlyList<Step>
     {
-        private readonly Step?[] _steps;
-        private readonly QuerySemantics _emptySemantics;
+        public static readonly StepStack Empty = new(Array.Empty<Step>(), 0, null);
 
-        internal StepStack(Step?[] steps, int count, QuerySemantics emptySemantics)
+        private readonly Step?[] _steps;
+        private readonly QuerySemantics? _overriddenSemantics;
+
+        internal StepStack(Step?[] steps, int count, QuerySemantics? overriddenSemantics)
         {
             Count = count;
             _steps = steps;
-            _emptySemantics = emptySemantics;
+            _overriddenSemantics = overriddenSemantics;
         }
 
         public StepStack Push(Step step)
@@ -37,13 +39,16 @@ namespace ExRam.Gremlinq.Core
                     newSteps[Count] = step;
                 }
 
-                return new StepStack(newSteps, Count + 1, _emptySemantics);
+                return new StepStack(
+                    newSteps,
+                    Count + 1,
+                    step.Semantics != null
+                        ? null
+                        : _overriddenSemantics);
             }
 
             throw new InvalidOperationException();
         }
-
-        public static StepStack Empty(QuerySemantics semantics) => new(Array.Empty<Step>(), 0, semantics);
 
         public StepStack Pop() => Pop(out _);
 
@@ -53,7 +58,12 @@ namespace ExRam.Gremlinq.Core
                 throw new InvalidOperationException();
 
             poppedStep = _steps[Count - 1]!;
-            return new StepStack(_steps, Count - 1, _emptySemantics);
+            return new StepStack(_steps, Count - 1, null);
+        }
+
+        public StepStack OverrideSemantics(QuerySemantics semantics)
+        {
+            return new StepStack(_steps, Count, semantics);
         }
 
         public IEnumerator<Step> GetEnumerator()
@@ -73,13 +83,16 @@ namespace ExRam.Gremlinq.Core
         {
             get
             {
+                if (_overriddenSemantics is { } overriddenSemantics)
+                    return overriddenSemantics;
+
                 for (var i = Count - 1; i >= 0; i--)
                 {
                     if (this[i].Semantics is { } semantics)
                         return semantics;
                 }
 
-                return _emptySemantics;
+                return typeof(IGremlinQuery<object>);
             }
         }
 

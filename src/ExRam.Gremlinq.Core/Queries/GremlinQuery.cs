@@ -19,7 +19,7 @@ namespace ExRam.Gremlinq.Core
         public static IGremlinQuerySource Create(IGremlinQueryEnvironment environment)
         {
             return Create(
-                StepStack.Empty(typeof(IGremlinQuerySource)),
+                StepStack.Empty.OverrideSemantics(typeof(IGremlinQuerySource)),
                 environment,
                 QueryFlags.SurfaceVisible);
         }
@@ -405,7 +405,7 @@ namespace ExRam.Gremlinq.Core
 
         private TTargetQuery Continue<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> transformation, bool surfaceVisible = false)
         {
-            var targetQuery = transformation(new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(StepStack.Empty(Steps.Semantics), Environment, StepLabelSemantics, (surfaceVisible ? Flags | QueryFlags.SurfaceVisible : Flags & ~QueryFlags.SurfaceVisible) | QueryFlags.IsAnonymous));
+            var targetQuery = transformation(new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(StepStack.Empty.OverrideSemantics(Steps.Semantics), Environment, StepLabelSemantics, (surfaceVisible ? Flags | QueryFlags.SurfaceVisible : Flags & ~QueryFlags.SurfaceVisible) | QueryFlags.IsAnonymous));
 
             if (targetQuery is GremlinQueryBase queryBase && (queryBase.Flags & QueryFlags.IsAnonymous) == QueryFlags.None)
                 throw new InvalidOperationException("A query continuation must originate from the query that was passed to the continuation function. Did you accidentally use 'g' in the continuation?");
@@ -704,7 +704,7 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> None()
         {
             return this.IsIdentity()
-                ? ConfigureSteps<TElement>(_ => StepStack.Empty(_.Semantics).Push(NoneStep.Instance))
+                ? ConfigureSteps<TElement>(_ => StepStack.Empty.OverrideSemantics(_.Semantics).Push(NoneStep.Instance))
                 : AddStep(NoneStep.Instance);
         }
 
