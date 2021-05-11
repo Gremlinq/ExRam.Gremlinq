@@ -13,14 +13,12 @@ namespace ExRam.Gremlinq.Core
         protected GremlinQueryBase(
             StepStack steps,
             IGremlinQueryEnvironment environment,
-            QuerySemantics semantics,
             IImmutableDictionary<StepLabel, QuerySemantics> stepLabelSemantics,
             QueryFlags flags)
         {
             Steps = steps;
-            Semantics = semantics;
-            Environment = environment;
             Flags = flags;
+            Environment = environment;
             StepLabelSemantics = stepLabelSemantics;
         }
 
@@ -70,9 +68,8 @@ namespace ExRam.Gremlinq.Core
                     throw new NotSupportedException($"Cannot change the query type to {targetQueryType}.");
 
                 return new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(
-                    existingQuery.Steps,
+                    existingQuery.Steps.Push(new ChangeQuerySemanticsStep(actualSemantics)),
                     existingQuery.Environment,
-                    actualSemantics,
                     existingQuery.StepLabelSemantics,
                     existingQuery.Flags);
             };
@@ -100,7 +97,14 @@ namespace ExRam.Gremlinq.Core
 
         protected internal StepStack Steps { get; }
         protected internal QueryFlags Flags { get; }
-        protected internal QuerySemantics Semantics { get; }
+        protected internal QuerySemantics Semantics
+        {
+            get
+            {
+                return Steps.Semantics;
+            }
+        }
+
         protected internal IGremlinQueryEnvironment Environment { get; }
         protected internal IImmutableDictionary<StepLabel, QuerySemantics> StepLabelSemantics { get; }
     }
