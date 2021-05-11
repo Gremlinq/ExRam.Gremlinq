@@ -199,6 +199,8 @@ namespace ExRam.Gremlinq.Core
 
         TaskAwaiter IGremlinQueryBase.GetAwaiter() => ((Task)((IGremlinQuery<TElement>)this).ToAsyncEnumerable().LastOrDefaultAsync().AsTask()).GetAwaiter();
 
+        IGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceBase() => ChangeQueryType<IGremlinQuery<TElement>>();
+
         IElementGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceElement() => ChangeQueryType<IElementGremlinQuery<TElement>>();
 
         IVertexGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceVertex() => ChangeQueryType<IVertexGremlinQuery<TElement>>();
