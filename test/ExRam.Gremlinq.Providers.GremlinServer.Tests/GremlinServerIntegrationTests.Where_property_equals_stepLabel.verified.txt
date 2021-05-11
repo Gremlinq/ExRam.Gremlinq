@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "@type": "g:List",
     "@value": [
@@ -10,47 +10,14 @@
             "@value": 6
           },
           "value": {
-            "@type": "g:Map",
-            "@value": [
-              "id",
-              {
+            "@type": "g:Vertex",
+            "@value": {
+              "id": {
                 "@type": "g:Int64",
                 "@value": "scrubbed id"
               },
-              "label",
-              "Language",
-              "properties",
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "IetfLanguageTag",
-                  {
-                    "@type": "g:List",
-                    "@value": [
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "id",
-                          {
-                            "@type": "g:Int64",
-                            "@value": "scrubbed id"
-                          },
-                          "label",
-                          "IetfLanguageTag",
-                          "value",
-                          "en",
-                          "properties",
-                          {
-                            "@type": "g:Map",
-                            "@value": []
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
+              "label": "Language"
+            }
           }
         }
       },
@@ -62,47 +29,14 @@
             "@value": 6
           },
           "value": {
-            "@type": "g:Map",
-            "@value": [
-              "id",
-              {
+            "@type": "g:Vertex",
+            "@value": {
+              "id": {
                 "@type": "g:Int64",
                 "@value": "scrubbed id"
               },
-              "label",
-              "Language",
-              "properties",
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "IetfLanguageTag",
-                  {
-                    "@type": "g:List",
-                    "@value": [
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "id",
-                          {
-                            "@type": "g:Int64",
-                            "@value": "scrubbed id"
-                          },
-                          "label",
-                          "IetfLanguageTag",
-                          "value",
-                          "en",
-                          "properties",
-                          {
-                            "@type": "g:Map",
-                            "@value": []
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
+              "label": "Language"
+            }
           }
         }
       },
@@ -114,47 +48,14 @@
             "@value": 6
           },
           "value": {
-            "@type": "g:Map",
-            "@value": [
-              "id",
-              {
+            "@type": "g:Vertex",
+            "@value": {
+              "id": {
                 "@type": "g:Int64",
                 "@value": "scrubbed id"
               },
-              "label",
-              "Language",
-              "properties",
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "IetfLanguageTag",
-                  {
-                    "@type": "g:List",
-                    "@value": [
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "id",
-                          {
-                            "@type": "g:Int64",
-                            "@value": "scrubbed id"
-                          },
-                          "label",
-                          "IetfLanguageTag",
-                          "value",
-                          "en",
-                          "properties",
-                          {
-                            "@type": "g:Map",
-                            "@value": []
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
+              "label": "Language"
+            }
           }
         }
       },
@@ -166,47 +67,14 @@
             "@value": 6
           },
           "value": {
-            "@type": "g:Map",
-            "@value": [
-              "id",
-              {
+            "@type": "g:Vertex",
+            "@value": {
+              "id": {
                 "@type": "g:Int64",
                 "@value": "scrubbed id"
               },
-              "label",
-              "Language",
-              "properties",
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "IetfLanguageTag",
-                  {
-                    "@type": "g:List",
-                    "@value": [
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "id",
-                          {
-                            "@type": "g:Int64",
-                            "@value": "scrubbed id"
-                          },
-                          "label",
-                          "IetfLanguageTag",
-                          "value",
-                          "en",
-                          "properties",
-                          {
-                            "@type": "g:Map",
-                            "@value": []
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
+              "label": "Language"
+            }
           }
         }
       },
@@ -218,47 +86,14 @@
             "@value": 6
           },
           "value": {
-            "@type": "g:Map",
-            "@value": [
-              "id",
-              {
+            "@type": "g:Vertex",
+            "@value": {
+              "id": {
                 "@type": "g:Int64",
                 "@value": "scrubbed id"
               },
-              "label",
-              "Language",
-              "properties",
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "IetfLanguageTag",
-                  {
-                    "@type": "g:List",
-                    "@value": [
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "id",
-                          {
-                            "@type": "g:Int64",
-                            "@value": "scrubbed id"
-                          },
-                          "label",
-                          "IetfLanguageTag",
-                          "value",
-                          "en",
-                          "properties",
-                          {
-                            "@type": "g:Map",
-                            "@value": []
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
+              "label": "Language"
+            }
           }
         }
       },
@@ -270,47 +105,14 @@
             "@value": 6
           },
           "value": {
-            "@type": "g:Map",
-            "@value": [
-              "id",
-              {
+            "@type": "g:Vertex",
+            "@value": {
+              "id": {
                 "@type": "g:Int64",
                 "@value": "scrubbed id"
               },
-              "label",
-              "Language",
-              "properties",
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "IetfLanguageTag",
-                  {
-                    "@type": "g:List",
-                    "@value": [
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "id",
-                          {
-                            "@type": "g:Int64",
-                            "@value": "scrubbed id"
-                          },
-                          "label",
-                          "IetfLanguageTag",
-                          "value",
-                          "en",
-                          "properties",
-                          {
-                            "@type": "g:Map",
-                            "@value": []
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
+              "label": "Language"
+            }
           }
         }
       }
