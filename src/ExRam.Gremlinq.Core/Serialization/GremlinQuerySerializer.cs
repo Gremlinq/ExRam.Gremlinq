@@ -52,7 +52,7 @@ namespace ExRam.Gremlinq.Core
                 (_stepLabelNames ??= new Dictionary<StepLabel, string>()).Clear();
 
                 return _fragmentSerializer
-                    .Serialize(query, query.AsAdmin().Environment);
+                    .Serialize(query, query.AsAdmin().Environment) ?? throw new ArgumentException() /*TODO*/;
             }
 
             public IGremlinQuerySerializer ConfigureFragmentSerializer(Func<IGremlinQueryFragmentSerializer, IGremlinQueryFragmentSerializer> transformation)
