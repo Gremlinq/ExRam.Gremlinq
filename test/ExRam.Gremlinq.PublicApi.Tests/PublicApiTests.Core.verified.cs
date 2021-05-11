@@ -667,7 +667,6 @@
     {
         System.Type ElementType { get; }
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment Environment { get; }
-        ExRam.Gremlinq.Core.QuerySemantics Semantics { get; }
         ExRam.Gremlinq.Core.StepStack Steps { get; }
         TTargetQuery AddStep<TTargetQuery>(ExRam.Gremlinq.Core.Step step)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;

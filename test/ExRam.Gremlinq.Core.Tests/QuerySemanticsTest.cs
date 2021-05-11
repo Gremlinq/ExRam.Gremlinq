@@ -28,7 +28,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     _ => _.Out(),
                     _ => _.In())
                 .AsAdmin()
-                .Semantics);
+                .Steps.Semantics);
         }
 
         [Fact]
@@ -40,6 +40,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     _ => _.OutE(),
                     _ => _.In())
                 .AsAdmin()
+                .Steps
                 .Semantics);
         }
 
@@ -59,7 +60,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .ForceEdge()
                 .AsAdmin()
-                .Semantics);
+                .Steps.Semantics);
         }
 
         [Fact]
@@ -69,7 +70,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .ForceElement()
                 .AsAdmin()
-                .Semantics);
+                .Steps.Semantics);
         }
 
         [Fact]
@@ -79,7 +80,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .ForceValue()
                 .AsAdmin()
-                .Semantics);
+                .Steps.Semantics);
         }
 
         [Fact]
@@ -90,7 +91,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Fold()
                 .Unfold()
                 .AsAdmin()
-                .Semantics);
+                .Steps.Semantics);
         }
     }
 }

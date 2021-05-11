@@ -15,7 +15,6 @@ namespace ExRam.Gremlinq.Core
 
         StepStack Steps { get; }
         Type ElementType { get; }
-        QuerySemantics Semantics { get; }
         IGremlinQueryEnvironment Environment { get; }
     }
 }

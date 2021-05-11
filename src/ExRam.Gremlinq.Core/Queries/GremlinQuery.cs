@@ -264,7 +264,7 @@ namespace ExRam.Gremlinq.Core
                         props
                             .Select(p => p.key.RawKey)
                             .OfType<string>(),
-                        Semantics)
+                        Steps.Semantics)
                     .Drop());
             }
 
@@ -273,7 +273,7 @@ namespace ExRam.Gremlinq.Core
                 if (!Environment.FeatureSet.Supports(VertexFeatures.UserSuppliedIds) && T.Id.Equals(key.RawKey))
                     Environment.Logger.LogWarning($"User supplied ids are not supported according to the environment's {nameof(Environment.FeatureSet)}.");
                 else
-                    ret = ret.AddSteps(GetPropertySteps(key, value, Semantics.IsVertex));
+                    ret = ret.AddSteps(GetPropertySteps(key, value, Steps.Semantics.IsVertex));
             }
 
             return ret;
@@ -405,7 +405,7 @@ namespace ExRam.Gremlinq.Core
 
         private TTargetQuery Continue<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> transformation, bool surfaceVisible = false)
         {
-            var targetQuery = transformation(new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(StepStack.Empty(Semantics), Environment, StepLabelSemantics, (surfaceVisible ? Flags | QueryFlags.SurfaceVisible : Flags & ~QueryFlags.SurfaceVisible) | QueryFlags.IsAnonymous));
+            var targetQuery = transformation(new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(StepStack.Empty(Steps.Semantics), Environment, StepLabelSemantics, (surfaceVisible ? Flags | QueryFlags.SurfaceVisible : Flags & ~QueryFlags.SurfaceVisible) | QueryFlags.IsAnonymous));
 
             if (targetQuery is GremlinQueryBase queryBase && (queryBase.Flags & QueryFlags.IsAnonymous) == QueryFlags.None)
                 throw new InvalidOperationException("A query continuation must originate from the query that was passed to the continuation function. Did you accidentally use 'g' in the continuation?");
@@ -443,7 +443,7 @@ namespace ExRam.Gremlinq.Core
         {
             return AddStep(
                 new AsStep(stepLabel),
-                StepLabelSemantics.SetItem(stepLabel, Semantics));
+                StepLabelSemantics.SetItem(stepLabel, Steps.Semantics));
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Barrier() => AddStep(BarrierStep.Instance);
@@ -455,9 +455,9 @@ namespace ExRam.Gremlinq.Core
             if (typeof(TNewElement) == typeof(TElement))
                 return (GremlinQuery<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>)(object)this;
 
-            var newSemantics = Semantics.Cast<TNewElement>();
+            var newSemantics = Steps.Semantics.Cast<TNewElement>();
 
-            var newSteps = newSemantics != Semantics
+            var newSteps = newSemantics != Steps.Semantics
                 ? Steps.Push(new ChangeQuerySemanticsStep(newSemantics))
                 : Steps;
 
@@ -531,7 +531,7 @@ namespace ExRam.Gremlinq.Core
                 return this.ChangeQueryType<TReturnQuery>();
 
             var aggregatedSemantics = coalesceQueries
-                .Select(x => x.AsAdmin().Semantics)
+                .Select(x => x.AsAdmin().Steps.Semantics)
                 .Aggregate((x, y) => x.HighestCommon(y));
 
             return this
@@ -829,7 +829,7 @@ namespace ExRam.Gremlinq.Core
 
             var ret = this;
 
-            foreach (var propertyStep in GetPropertySteps(key, value, Semantics.IsVertex))
+            foreach (var propertyStep in GetPropertySteps(key, value, Steps.Semantics.IsVertex))
             {
                 ret = ret.AddStep(propertyStep);
             }
@@ -958,7 +958,7 @@ namespace ExRam.Gremlinq.Core
                 .ToArray();
 
             var aggregatedSemantics = unionQueries
-                .Select(x => x.AsAdmin().Semantics)
+                .Select(x => x.AsAdmin().Steps.Semantics)
                 .Aggregate((x, y) => x.HighestCommon(y));
 
             return this
