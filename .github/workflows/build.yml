@@ -58,7 +58,7 @@ jobs:
 
     services:
       gremlinServer:
-        image: tinkerpop/gremlin-server:3.4.11
+        image: tinkerpop/gremlin-server
         ports:
           - 8182:8182
       janusgraph:
