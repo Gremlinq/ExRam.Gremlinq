@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace ExRam.Gremlinq.Core
 {
-    internal readonly struct QuerySemantics : IEquatable<QuerySemantics>
+    public readonly struct QuerySemantics : IEquatable<QuerySemantics>
     {
         private sealed class TypeComparer : IComparer<Type>
         {
