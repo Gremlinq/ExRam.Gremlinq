@@ -2,7 +2,7 @@
 {
     public sealed class LocalStep : Step
     {
-        public LocalStep(Traversal traversal)
+        public LocalStep(Traversal traversal, QuerySemantics? semantics = default) : base(semantics)
         {
             Traversal = traversal;
         }

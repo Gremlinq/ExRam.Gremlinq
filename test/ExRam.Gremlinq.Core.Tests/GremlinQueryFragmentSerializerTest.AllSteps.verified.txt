@@ -125,23 +125,13 @@
   {
     Item1: BothEStep,
     Item2: {
-      OperatorName: bothE,
-      Arguments: [
-        string,
-        string,
-        string
-      ]
+      OperatorName: bothE
     }
   },
   {
     Item1: BothStep,
     Item2: {
-      OperatorName: both,
-      Arguments: [
-        string,
-        string,
-        string
-      ]
+      OperatorName: both
     }
   },
   {
@@ -495,12 +485,7 @@
   {
     Item1: InEStep,
     Item2: {
-      OperatorName: inE,
-      Arguments: [
-        string,
-        string,
-        string
-      ]
+      OperatorName: inE
     }
   },
   {
@@ -517,12 +502,7 @@
   {
     Item1: InStep,
     Item2: {
-      OperatorName: in,
-      Arguments: [
-        string,
-        string,
-        string
-      ]
+      OperatorName: in
     }
   },
   {
@@ -789,23 +769,13 @@
   {
     Item1: OutEStep,
     Item2: {
-      OperatorName: outE,
-      Arguments: [
-        string,
-        string,
-        string
-      ]
+      OperatorName: outE
     }
   },
   {
     Item1: OutStep,
     Item2: {
-      OperatorName: out,
-      Arguments: [
-        string,
-        string,
-        string
-      ]
+      OperatorName: out
     }
   },
   {

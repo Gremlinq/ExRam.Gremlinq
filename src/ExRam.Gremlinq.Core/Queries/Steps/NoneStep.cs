@@ -3,5 +3,9 @@
     public sealed class NoneStep : Step, IIsOptimizableInWhere
     {
         public static readonly NoneStep Instance = new();
+
+        public NoneStep(QuerySemantics? semantics = default) : base(semantics)
+        {
+        }
     }
 }

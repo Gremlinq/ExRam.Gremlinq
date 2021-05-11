@@ -4,9 +4,7 @@ namespace ExRam.Gremlinq.Core
 {
     public sealed class EStep : Step
     {
-        public static readonly EStep Empty = new(ImmutableArray<object>.Empty);
-
-        public EStep(ImmutableArray<object> ids)
+        public EStep(ImmutableArray<object> ids, QuerySemantics? semantics = default) : base(semantics)
         {
             Ids = ids;
         }

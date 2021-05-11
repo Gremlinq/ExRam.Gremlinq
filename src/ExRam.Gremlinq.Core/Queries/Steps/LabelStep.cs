@@ -3,5 +3,9 @@
     public sealed class LabelStep : Step
     {
         public static readonly LabelStep Instance = new();
+
+        public LabelStep(QuerySemantics? semantics = default) : base(semantics)
+        {
+        }
     }
 }

@@ -2,7 +2,7 @@
 {
     public sealed class HasValueStep : Step, IIsOptimizableInWhere
     {
-        public HasValueStep(object argument)
+        public HasValueStep(object argument, QuerySemantics? semantics = default) : base(semantics)
         {
             Argument = argument;
         }

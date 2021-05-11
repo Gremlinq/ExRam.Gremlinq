@@ -2,7 +2,7 @@
 {
     public sealed class AddVStep : Step
     {
-        public AddVStep(string label)
+        public AddVStep(string label, QuerySemantics? semantics = default) : base(semantics)
         {
             Label = label;
         }

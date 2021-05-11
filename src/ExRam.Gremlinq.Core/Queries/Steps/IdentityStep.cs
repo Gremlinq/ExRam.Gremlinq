@@ -3,5 +3,9 @@
     public sealed class IdentityStep : Step
     {
         public static readonly IdentityStep Instance = new();
+
+        public IdentityStep(QuerySemantics? semantics = default) : base(semantics)
+        {
+        }
     }
 }

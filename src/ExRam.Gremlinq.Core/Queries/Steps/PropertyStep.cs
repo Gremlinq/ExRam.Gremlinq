@@ -8,12 +8,12 @@ namespace ExRam.Gremlinq.Core
     {
         public sealed class ByKeyStep : PropertyStep
         {
-            public ByKeyStep(Key key, object value, Cardinality? cardinality = default) : base(value, cardinality)
+            public ByKeyStep(Key key, object value, Cardinality? cardinality = default, QuerySemantics? semantics = default) : base(value, cardinality, semantics)
             {
                 Key = key;
             }
 
-            public ByKeyStep(Key key, object value, ImmutableArray<KeyValuePair<string, object>> metaProperties, Cardinality? cardinality = default) : base(value, metaProperties, cardinality)
+            public ByKeyStep(Key key, object value, ImmutableArray<KeyValuePair<string, object>> metaProperties, Cardinality? cardinality = default, QuerySemantics? semantics = default) : base(value, metaProperties, cardinality, semantics)
             {
                 Key = key;
             }
@@ -23,12 +23,12 @@ namespace ExRam.Gremlinq.Core
 
         public sealed class ByTraversalStep : PropertyStep
         {
-            public ByTraversalStep(Traversal traversal, object value, Cardinality? cardinality = default) : base(value, cardinality)
+            public ByTraversalStep(Traversal traversal, object value, Cardinality? cardinality = default, QuerySemantics? semantics = default) : base(value, cardinality, semantics)
             {
                 Traversal = traversal;
             }
 
-            public ByTraversalStep(Traversal traversal, object value, ImmutableArray<KeyValuePair<string, object>> metaProperties, Cardinality? cardinality = default) : base(value, metaProperties, cardinality)
+            public ByTraversalStep(Traversal traversal, object value, ImmutableArray<KeyValuePair<string, object>> metaProperties, Cardinality? cardinality = default, QuerySemantics? semantics = default) : base(value, metaProperties, cardinality, semantics)
             {
                 Traversal = traversal;
             }
@@ -36,12 +36,12 @@ namespace ExRam.Gremlinq.Core
             public Traversal Traversal { get; }
         }
 
-        protected PropertyStep(object value, Cardinality? cardinality = default) : this(value, ImmutableArray<KeyValuePair<string, object>>.Empty, cardinality)
+        protected PropertyStep(object value, Cardinality? cardinality = default, QuerySemantics? semantics = default) : this(value, ImmutableArray<KeyValuePair<string, object>>.Empty, cardinality, semantics)
         {
 
         }
 
-        protected PropertyStep(object value, ImmutableArray<KeyValuePair<string, object>> metaProperties, Cardinality? cardinality = default)
+        protected PropertyStep(object value, ImmutableArray<KeyValuePair<string, object>> metaProperties, Cardinality? cardinality = default, QuerySemantics? semantics = default) : base(semantics)
         {
             Value = value;
             Cardinality = cardinality;

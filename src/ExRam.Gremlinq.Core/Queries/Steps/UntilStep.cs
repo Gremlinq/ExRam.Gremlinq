@@ -2,7 +2,7 @@
 {
     public sealed class UntilStep : Step
     {
-        public UntilStep(Traversal traversal)
+        public UntilStep(Traversal traversal, QuerySemantics? semantics = default) : base(semantics)
         {
             Traversal = traversal;
         }

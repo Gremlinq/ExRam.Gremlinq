@@ -2,7 +2,7 @@
 {
     public sealed class ChooseTraversalStep : ChooseStep
     {
-        public ChooseTraversalStep(Traversal ifTraversal, Traversal thenTraversal, Traversal? elseTraversal = default) : base(thenTraversal, elseTraversal)
+        public ChooseTraversalStep(Traversal ifTraversal, Traversal thenTraversal, Traversal? elseTraversal = default, QuerySemantics? semantics = default) : base(thenTraversal, elseTraversal, semantics)
         {
             IfTraversal = ifTraversal;
         }

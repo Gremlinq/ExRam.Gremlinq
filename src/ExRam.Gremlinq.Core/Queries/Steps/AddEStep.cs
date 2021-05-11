@@ -4,7 +4,7 @@
     {
         public sealed class FromLabelStep : Step
         {
-            public FromLabelStep(StepLabel stepLabel)
+            public FromLabelStep(StepLabel stepLabel, QuerySemantics? semantics = default) : base(semantics)
             {
                 StepLabel = stepLabel;
             }
@@ -14,7 +14,7 @@
 
         public sealed class FromTraversalStep : Step
         {
-            public FromTraversalStep(Traversal traversal)
+            public FromTraversalStep(Traversal traversal, QuerySemantics? semantics = default) : base(semantics)
             {
                 Traversal = traversal;
             }
@@ -24,7 +24,7 @@
 
         public sealed class ToLabelStep : Step
         {
-            public ToLabelStep(StepLabel stepLabel)
+            public ToLabelStep(StepLabel stepLabel, QuerySemantics? semantics = default) : base(semantics)
             {
                 StepLabel = stepLabel;
             }
@@ -34,7 +34,7 @@
 
         public sealed class ToTraversalStep : Step
         {
-            public ToTraversalStep(Traversal traversal)
+            public ToTraversalStep(Traversal traversal, QuerySemantics? semantics = default) : base(semantics)
             {
                 Traversal = traversal;
             }
@@ -42,7 +42,7 @@
             public Traversal Traversal { get; }
         }
 
-        public AddEStep(string label)
+        public AddEStep(string label, QuerySemantics? semantics = default) : base(semantics)
         {
             Label = label;
         }

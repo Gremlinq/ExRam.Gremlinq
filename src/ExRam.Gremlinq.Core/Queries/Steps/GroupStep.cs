@@ -4,12 +4,14 @@
     {
         public abstract class ByStep : Step
         {
-
+            protected ByStep(QuerySemantics? semantics = default) : base(semantics)
+            {
+            }
         }
 
         public sealed class ByTraversalStep : ByStep
         {
-            public ByTraversalStep(Traversal traversal)
+            public ByTraversalStep(Traversal traversal, QuerySemantics? semantics = default) : base(semantics)
             {
                 Traversal = traversal;
             }
@@ -19,7 +21,7 @@
 
         public sealed class ByKeyStep : ByStep
         {
-            public ByKeyStep(Key key)
+            public ByKeyStep(Key key, QuerySemantics? semantics = default) : base(semantics)
             {
                 Key = key;
             }
@@ -28,5 +30,9 @@
         }
 
         public static readonly GroupStep Instance = new();
+
+        public GroupStep(QuerySemantics? semantics = default) : base(semantics)
+        {
+        }
     }
 }

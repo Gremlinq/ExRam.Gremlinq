@@ -2,7 +2,7 @@
 {
     public sealed class WithStrategiesStep : Step
     {
-        public WithStrategiesStep(Traversal traversal)
+        public WithStrategiesStep(Traversal traversal, QuerySemantics? semantics = default) : base(semantics)
         {
             Traversal = traversal;
         }

@@ -7,7 +7,7 @@ namespace ExRam.Gremlinq.Core
     {
         public static readonly OrStep Infix = new(Array.Empty<Traversal>());
 
-        public OrStep(IEnumerable<Traversal> traversals) : base("or", traversals)
+        public OrStep(IEnumerable<Traversal> traversals, QuerySemantics? semantics = default) : base("or", traversals, semantics)
         {
         }
     }
