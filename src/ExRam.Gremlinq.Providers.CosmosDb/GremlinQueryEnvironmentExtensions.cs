@@ -95,6 +95,14 @@ namespace ExRam.Gremlinq.Core
                             return step.Lower <= int.MaxValue && step.Upper <= int.MaxValue
                                 ? overridden(step, env, recurse)
                                 : throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Range' outside the range of a 32-bit-integer.");
+                        })
+                        .Override<Order>((order, env, overridden, recurse) =>
+                        {
+                            return order.Equals(Order.Asc)
+                                ? recurse.Serialize(Order.Incr, env)
+                                : order.Equals(Order.Desc)
+                                    ? recurse.Serialize(Order.Decr, env)
+                                    : overridden(order, env, recurse);
                         }))
                     .ToGroovy())
                 .StoreTimeSpansAsNumbers();

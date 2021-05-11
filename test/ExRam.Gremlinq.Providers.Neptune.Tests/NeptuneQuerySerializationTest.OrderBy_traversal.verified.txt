@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "SourceInstructions": [],
     "StepInstructions": [
@@ -38,7 +38,7 @@
           },
           {
             "EnumName": "Order",
-            "EnumValue": "incr"
+            "EnumValue": "asc"
           }
         ]
       },
