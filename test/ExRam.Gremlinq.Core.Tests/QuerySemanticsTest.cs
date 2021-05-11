@@ -63,6 +63,26 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual Task ForceElement_will_preserve_Vertex()
+        {
+            return Verify(_g
+                .V()
+                .ForceElement()
+                .AsAdmin()
+                .Semantics);
+        }
+
+        [Fact]
+        public virtual Task ForceValue_will_not_preserve_Vertex()
+        {
+            return Verify(_g
+                .V()
+                .ForceValue()
+                .AsAdmin()
+                .Semantics);
+        }
+
+        [Fact]
         public virtual Task Unfold_will_get_Vertex_back()
         {
             return Verify(_g
