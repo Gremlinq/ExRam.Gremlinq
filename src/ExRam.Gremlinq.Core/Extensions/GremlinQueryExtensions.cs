@@ -47,7 +47,7 @@ namespace ExRam.Gremlinq.Core
 
             return admin.Environment.TraversalTranslator.Translate(
                 admin.Steps,
-                (admin.Flags & QueryFlags.SurfaceVisible) == QueryFlags.SurfaceVisible,
+                admin.Flags,
                 admin.Environment);
         }        
      }

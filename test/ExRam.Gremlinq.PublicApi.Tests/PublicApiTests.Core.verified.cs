@@ -703,6 +703,7 @@
     {
         System.Type ElementType { get; }
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment Environment { get; }
+        ExRam.Gremlinq.Core.QueryFlags Flags { get; }
         ExRam.Gremlinq.Core.StepStack Steps { get; }
         TTargetQuery AddStep<TTargetQuery>(ExRam.Gremlinq.Core.Step step)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
@@ -711,7 +712,6 @@
         TTargetQuery ConfigureSteps<TTargetQuery>(System.Func<ExRam.Gremlinq.Core.StepStack, ExRam.Gremlinq.Core.StepStack> configurator)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
         ExRam.Gremlinq.Core.IGremlinQuerySource GetSource();
-        ExRam.Gremlinq.Core.Traversal ToTraversal();
     }
     public interface IGremlinQueryBase : ExRam.Gremlinq.Core.IStartGremlinQuery
     {
@@ -1167,7 +1167,7 @@
     }
     public interface ITraversalTranslator
     {
-        ExRam.Gremlinq.Core.Traversal Translate(ExRam.Gremlinq.Core.StepStack steps, bool allowElementProjection, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment);
+        ExRam.Gremlinq.Core.Traversal Translate(ExRam.Gremlinq.Core.StepStack steps, ExRam.Gremlinq.Core.QueryFlags queryFlags, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment);
     }
     public interface IValueGremlinQueryBase : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IStartGremlinQuery
     {
@@ -1609,6 +1609,14 @@
             public ExRam.Gremlinq.Core.Traversal Traversal { get; }
             public override ExRam.Gremlinq.Core.Step OverrideQuerySemantics(ExRam.Gremlinq.Core.QuerySemantics semantics) { }
         }
+    }
+    [System.Flags]
+    public enum QueryFlags
+    {
+        None = 0,
+        SurfaceVisible = 1,
+        IsAnonymous = 2,
+        IsMuted = 4,
     }
     [System.Flags]
     public enum QueryLogVerbosity
