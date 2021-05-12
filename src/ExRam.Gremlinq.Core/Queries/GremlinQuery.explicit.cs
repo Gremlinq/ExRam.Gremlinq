@@ -267,16 +267,17 @@ namespace ExRam.Gremlinq.Core
             var steps = Steps;
             var querySize = Math.Max(1, steps.Count);
             var projection = ImmutableArray<Step>.Empty;
+            var projectionIndex = steps.GetProjectionIndex();
 
             if ((Flags & QueryFlags.SurfaceVisible) == QueryFlags.SurfaceVisible)
             {
-                if (Steps.Semantics.IsVertex)
+                if (projectionIndex.semantics.IsVertex)
                 {
                     projection = Environment.Options.GetValue(Environment.FeatureSet.Supports(VertexFeatures.MetaProperties)
                         ? GremlinqOption.VertexProjectionSteps
                         : GremlinqOption.VertexProjectionWithoutMetaPropertiesSteps);
                 }
-                else if (Steps.Semantics.IsEdge)
+                else if (projectionIndex.semantics.IsEdge)
                 {
                     projection = Environment.Options.GetValue(GremlinqOption.EdgeProjectionSteps);
                 }
@@ -287,9 +288,10 @@ namespace ExRam.Gremlinq.Core
             if (steps.IsEmpty)
                 ret[0] = IdentityStep.Instance;
             else
-                steps.CopyTo(ret);
+                steps.CopyTo(ret, 0, 0, projectionIndex.index);
 
-            projection.CopyTo(ret, querySize);
+            projection.CopyTo(ret, projectionIndex.index);
+            steps.CopyTo(ret, projectionIndex.index, projection.Length + projectionIndex.index, steps.Count - projectionIndex.index);
 
             return new Traversal(ret, true);
         }

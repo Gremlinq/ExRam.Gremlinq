@@ -1707,6 +1707,10 @@
         public int Count { get; }
         public ExRam.Gremlinq.Core.Step this[int index] { get; }
         public System.Collections.Generic.IEnumerator<ExRam.Gremlinq.Core.Step> GetEnumerator() { }
+        [return: System.Runtime.CompilerServices.TupleElementNames(new string[] {
+                "semantics",
+                "index"})]
+        public System.ValueTuple<ExRam.Gremlinq.Core.QuerySemantics, int> GetProjectionIndex() { }
         public ExRam.Gremlinq.Core.StepStack OverrideSemantics(ExRam.Gremlinq.Core.QuerySemantics semantics) { }
         public ExRam.Gremlinq.Core.StepStack Pop() { }
         public ExRam.Gremlinq.Core.StepStack Pop(out ExRam.Gremlinq.Core.Step poppedStep) { }

@@ -62,7 +62,25 @@ namespace ExRam.Gremlinq.Core
         public StepStack OverrideSemantics(QuerySemantics semantics) => IsEmpty
             ? new StepStack(_steps, Count, semantics)
             : Pop().Push(Peek().OverrideQuerySemantics(semantics));
-        
+
+        public (QuerySemantics semantics, int index) GetProjectionIndex()
+        {
+            var index = Count;
+
+            for (var i = Count - 1; i >= 0; i--)
+            {
+                if (this[i].Semantics is { } semantics)
+                {
+                    if (!typeof(IArrayGremlinQueryBase).IsAssignableFrom(semantics.QueryType))
+                        return (semantics, index);
+
+                    index = i;
+                }
+            }
+
+            return (_initialSemantics, 0);
+        }
+
         public IEnumerator<Step> GetEnumerator()
         {
             for (var i = 0; i < Count; i++)
@@ -94,7 +112,7 @@ namespace ExRam.Gremlinq.Core
 
         internal Step? PeekOrDefault() => Count > 0 ? _steps[Count - 1] : null;
 
-        internal void CopyTo(Step[] destination) => Array.Copy(_steps, destination, Count);
+        internal void CopyTo(Step[] destination, int sourceIndex, int destinationIndex, int count) => Array.Copy(_steps, sourceIndex, destination, destinationIndex, count);
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
