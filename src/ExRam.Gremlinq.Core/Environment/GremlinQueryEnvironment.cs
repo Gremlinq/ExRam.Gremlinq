@@ -12,6 +12,7 @@ namespace ExRam.Gremlinq.Core
             public GremlinQueryEnvironmentImpl(
                 IGraphModel model,
                 IAddStepHandler addStepHandler,
+                ITraversalTranslator traversalTranslator,
                 IGremlinQuerySerializer serializer,
                 IGremlinQueryExecutor executor,
                 IGremlinQueryExecutionResultDeserializer deserializer,
@@ -27,37 +28,43 @@ namespace ExRam.Gremlinq.Core
                 Serializer = serializer;
                 Deserializer = deserializer;
                 AddStepHandler = addStepHandler;
+                TraversalTranslator = traversalTranslator;
             }
 
-            public IGremlinQueryEnvironment ConfigureModel(Func<IGraphModel, IGraphModel> modelTransformation) => new GremlinQueryEnvironmentImpl(modelTransformation(Model), AddStepHandler, Serializer, Executor, Deserializer, FeatureSet, Options, Logger);
+            public IGremlinQueryEnvironment ConfigureModel(Func<IGraphModel, IGraphModel> modelTransformation) => new GremlinQueryEnvironmentImpl(modelTransformation(Model), AddStepHandler, TraversalTranslator, Serializer, Executor, Deserializer, FeatureSet, Options, Logger);
 
-            public IGremlinQueryEnvironment ConfigureOptions(Func<IGremlinqOptions, IGremlinqOptions> optionsTransformation) => new GremlinQueryEnvironmentImpl(Model, AddStepHandler, Serializer, Executor, Deserializer, FeatureSet, optionsTransformation(Options), Logger);
+            public IGremlinQueryEnvironment ConfigureOptions(Func<IGremlinqOptions, IGremlinqOptions> optionsTransformation) => new GremlinQueryEnvironmentImpl(Model, AddStepHandler, TraversalTranslator, Serializer, Executor, Deserializer, FeatureSet, optionsTransformation(Options), Logger);
 
-            public IGremlinQueryEnvironment ConfigureFeatureSet(Func<IFeatureSet, IFeatureSet> featureSetTransformation) => new GremlinQueryEnvironmentImpl(Model, AddStepHandler, Serializer, Executor, Deserializer, featureSetTransformation(FeatureSet), Options, Logger);
+            public IGremlinQueryEnvironment ConfigureFeatureSet(Func<IFeatureSet, IFeatureSet> featureSetTransformation) => new GremlinQueryEnvironmentImpl(Model, AddStepHandler, TraversalTranslator, Serializer, Executor, Deserializer, featureSetTransformation(FeatureSet), Options, Logger);
 
-            public IGremlinQueryEnvironment ConfigureAddStepHandler(Func<IAddStepHandler, IAddStepHandler> handlerTransformation) => new GremlinQueryEnvironmentImpl(Model, handlerTransformation(AddStepHandler), Serializer, Executor, Deserializer, FeatureSet, Options, Logger);
+            public IGremlinQueryEnvironment ConfigureAddStepHandler(Func<IAddStepHandler, IAddStepHandler> handlerTransformation) => new GremlinQueryEnvironmentImpl(Model, handlerTransformation(AddStepHandler), TraversalTranslator, Serializer, Executor, Deserializer, FeatureSet, Options, Logger);
 
-            public IGremlinQueryEnvironment ConfigureLogger(Func<ILogger, ILogger> loggerTransformation) => new GremlinQueryEnvironmentImpl(Model, AddStepHandler, Serializer, Executor, Deserializer, FeatureSet, Options, loggerTransformation(Logger));
+            public IGremlinQueryEnvironment ConfigureLogger(Func<ILogger, ILogger> loggerTransformation) => new GremlinQueryEnvironmentImpl(Model, AddStepHandler, TraversalTranslator, Serializer, Executor, Deserializer, FeatureSet, Options, loggerTransformation(Logger));
 
-            public IGremlinQueryEnvironment ConfigureDeserializer(Func<IGremlinQueryExecutionResultDeserializer, IGremlinQueryExecutionResultDeserializer> configurator) => new GremlinQueryEnvironmentImpl(Model, AddStepHandler, Serializer, Executor, configurator(Deserializer), FeatureSet, Options, Logger);
+            public IGremlinQueryEnvironment ConfigureDeserializer(Func<IGremlinQueryExecutionResultDeserializer, IGremlinQueryExecutionResultDeserializer> configurator) => new GremlinQueryEnvironmentImpl(Model, AddStepHandler, TraversalTranslator, Serializer, Executor, configurator(Deserializer), FeatureSet, Options, Logger);
 
-            public IGremlinQueryEnvironment ConfigureSerializer(Func<IGremlinQuerySerializer, IGremlinQuerySerializer> configurator) => new GremlinQueryEnvironmentImpl(Model, AddStepHandler, configurator(Serializer), Executor, Deserializer, FeatureSet, Options, Logger);
+            public IGremlinQueryEnvironment ConfigureSerializer(Func<IGremlinQuerySerializer, IGremlinQuerySerializer> configurator) => new GremlinQueryEnvironmentImpl(Model, AddStepHandler, TraversalTranslator, configurator(Serializer), Executor, Deserializer, FeatureSet, Options, Logger);
 
-            public IGremlinQueryEnvironment ConfigureExecutor(Func<IGremlinQueryExecutor, IGremlinQueryExecutor> configurator) => new GremlinQueryEnvironmentImpl(Model, AddStepHandler, Serializer, configurator(Executor), Deserializer, FeatureSet, Options, Logger);
+            public IGremlinQueryEnvironment ConfigureExecutor(Func<IGremlinQueryExecutor, IGremlinQueryExecutor> configurator) => new GremlinQueryEnvironmentImpl(Model, AddStepHandler, TraversalTranslator, Serializer, configurator(Executor), Deserializer, FeatureSet, Options, Logger);
+
+            public IGremlinQueryEnvironment ConfigureTraversalTranslator(Func<ITraversalTranslator, ITraversalTranslator> translatorTransformation) => new GremlinQueryEnvironmentImpl(Model, AddStepHandler, translatorTransformation(TraversalTranslator), Serializer, Executor, Deserializer, FeatureSet, Options, Logger);
 
             public ILogger Logger { get; }
             public IGraphModel Model { get; }
             public IFeatureSet FeatureSet { get; }
+            public IGremlinqOptions Options { get; }
             public IAddStepHandler AddStepHandler { get; }
             public IGremlinQueryExecutor Executor { get; }
             public IGremlinQuerySerializer Serializer { get; }
+            public ITraversalTranslator TraversalTranslator { get; }
             public IGremlinQueryExecutionResultDeserializer Deserializer { get; }
-            public IGremlinqOptions Options { get; }
+
         }
 
         public static readonly IGremlinQueryEnvironment Empty = new GremlinQueryEnvironmentImpl(
             GraphModel.Invalid,
             AddStepHandler.Empty,
+            TraversalTranslator.Default,
             GremlinQuerySerializer.Identity,
             GremlinQueryExecutor.Empty,
             GremlinQueryExecutionResultDeserializer.Identity,
@@ -76,6 +83,8 @@ namespace ExRam.Gremlinq.Core
         public static IGremlinQueryEnvironment UseModel(this IGremlinQueryEnvironment source, IGraphModel model) => source.ConfigureModel(_ => model);
 
         public static IGremlinQueryEnvironment UseLogger(this IGremlinQueryEnvironment source, ILogger logger) => source.ConfigureLogger(_ => logger);
+
+        public static IGremlinQueryEnvironment UseTraversalTranslator(this IGremlinQueryEnvironment environment, ITraversalTranslator traversalTranslator) => environment.ConfigureTraversalTranslator(_ => traversalTranslator);
 
         public static IGremlinQueryEnvironment UseSerializer(this IGremlinQueryEnvironment environment, IGremlinQuerySerializer serializer) => environment.ConfigureSerializer(_ => serializer);
 

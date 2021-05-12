@@ -262,52 +262,7 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQueryEnvironment IGremlinQueryAdmin.Environment => Environment;
 
-        Traversal IGremlinQueryAdmin.ToTraversal()
-        {
-            var steps = Steps;
-            var projectionIndex = 0;
-            var maybeProjectionStep = default(Step?);
-            var projectionSemantics = steps.InitialSemantics;
-
-            if ((Flags & QueryFlags.SurfaceVisible) == QueryFlags.SurfaceVisible)
-            {
-                var index = steps.Count;
-
-                for (var i = steps.Count - 1; i >= 0; i--)
-                {
-                    if (steps[i].Semantics is { } semantics)
-                    {
-                        if (!typeof(IArrayGremlinQueryBase).IsAssignableFrom(semantics.QueryType))
-                        {
-                            projectionSemantics = semantics;
-                            projectionIndex = index;
-
-                            break;
-                        }
-
-                        index = i;
-                    }
-                }
-
-                if (projectionSemantics.IsVertex)
-                    maybeProjectionStep = ProjectVertexStep.Instance;
-                else if (projectionSemantics.IsEdge)
-                    maybeProjectionStep = ProjectEdgeStep.Instance;
-            }
-
-            var ret = new Step[steps.Count + ((maybeProjectionStep is not null) ? 1 : 0)];
-
-            if (maybeProjectionStep is { } projectionStep)
-            {
-                steps.CopyTo(ret, 0, 0, projectionIndex);
-                ret[projectionIndex] = projectionStep;
-                steps.CopyTo(ret, projectionIndex, projectionIndex + 1, steps.Count - projectionIndex);
-            }
-            else
-                steps.CopyTo(ret, 0, 0, steps.Count);
-
-            return new Traversal(ret, true);
-        }
+        Traversal IGremlinQueryAdmin.ToTraversal() => Environment.TraversalTranslator.Translate(Steps, (Flags & QueryFlags.SurfaceVisible) == QueryFlags.SurfaceVisible, Environment);
 
         Type IGremlinQueryAdmin.ElementType { get => typeof(TElement); }
 
