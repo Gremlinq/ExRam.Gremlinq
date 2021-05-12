@@ -96,11 +96,9 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        internal Step? Peek() => Count > 0 ? _steps[Count - 1] : null;
+        internal Step Peek() => PeekOrDefault() ?? throw new InvalidOperationException();
 
-        internal Step? PeekOrDefault() => !IsEmpty
-            ? Peek()
-            : default;
+        internal Step? PeekOrDefault() => Count > 0 ? _steps[Count - 1] : null;
 
         internal void CopyTo(Step[] destination) => Array.Copy(_steps, destination, Count);
 
