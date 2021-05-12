@@ -1,20 +1,10 @@
-[
+﻿[
   {
     "SourceInstructions": [],
     "StepInstructions": [
       {
         "OperatorName": "V",
         "Arguments": []
-      },
-      {
-        "OperatorName": "aggregate",
-        "Arguments": [
-          {
-            "EnumName": "Scope",
-            "EnumValue": "global"
-          },
-          "l1"
-        ]
       },
       {
         "OperatorName": "project",
@@ -131,6 +121,16 @@
               }
             ]
           }
+        ]
+      },
+      {
+        "OperatorName": "aggregate",
+        "Arguments": [
+          {
+            "EnumName": "Scope",
+            "EnumValue": "global"
+          },
+          "l1"
         ]
       }
     ]

@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "SourceInstructions": [
       {
@@ -62,10 +62,6 @@
           {
             "SourceInstructions": [],
             "StepInstructions": [
-              {
-                "OperatorName": "identity",
-                "Arguments": []
-              },
               {
                 "OperatorName": "project",
                 "Arguments": [

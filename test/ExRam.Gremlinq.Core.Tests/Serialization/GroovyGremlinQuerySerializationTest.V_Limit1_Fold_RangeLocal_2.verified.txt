@@ -1,10 +1,14 @@
-[
+﻿[
   {
-    "Script": "V().limit(_a).fold().range(local,_b,_c)",
+    "Script": "V().limit(_a).project(_b,_c,_d).by(id).by(label).by(__.properties().group().by(label).by(__.project(_b,_c,_e,_d).by(id).by(label).by(value).by(__.valueMap()).fold())).fold().range(local,_f,_g)",
     "Bindings": {
       "_a": 1,
-      "_b": 0,
-      "_c": 2
+      "_b": "id",
+      "_c": "label",
+      "_d": "properties",
+      "_e": "value",
+      "_f": 0,
+      "_g": 2
     }
   }
 ]
