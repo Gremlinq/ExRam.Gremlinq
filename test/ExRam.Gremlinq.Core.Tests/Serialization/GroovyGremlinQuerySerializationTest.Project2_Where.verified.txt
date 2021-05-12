@@ -1,10 +1,14 @@
-[
+﻿[
   {
-    "Script": "V().project(_a,_b).by(__.label()).by(__.fold()).where(__.select(_b).count(local).is(_c))",
+    "Script": "V().project(_a,_b).by(__.label()).by(__.project(_c,_d,_e).by(id).by(label).by(__.properties().group().by(label).by(__.project(_c,_d,_f,_e).by(id).by(label).by(value).by(__.valueMap()).fold())).fold()).where(__.select(_b).count(local).is(_g))",
     "Bindings": {
       "_a": "Item1",
       "_b": "Item2",
-      "_c": 3
+      "_c": "id",
+      "_d": "label",
+      "_e": "properties",
+      "_f": "value",
+      "_g": 3
     }
   }
 ]

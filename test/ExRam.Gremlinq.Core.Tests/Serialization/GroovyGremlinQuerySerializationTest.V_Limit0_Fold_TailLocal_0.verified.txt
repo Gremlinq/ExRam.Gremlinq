@@ -1,8 +1,12 @@
-[
+﻿[
   {
-    "Script": "V().limit(_a).fold().tail(local,_a)",
+    "Script": "V().limit(_a).project(_b,_c,_d).by(id).by(label).by(__.properties().group().by(label).by(__.project(_b,_c,_e,_d).by(id).by(label).by(value).by(__.valueMap()).fold())).fold().tail(local,_a)",
     "Bindings": {
-      "_a": 0
+      "_a": 0,
+      "_b": "id",
+      "_c": "label",
+      "_d": "properties",
+      "_e": "value"
     }
   }
 ]
