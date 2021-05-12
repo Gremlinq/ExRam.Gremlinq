@@ -56,11 +56,11 @@ namespace ExRam.Gremlinq.Core
 
         public override bool Equals(object? obj) => obj is QuerySemantics semantics && Equals(semantics);
 
-        public bool Equals(QuerySemantics other) => _queryType == other._queryType;
+        public bool Equals(QuerySemantics other) => QueryType == other.QueryType;
 
         public override int GetHashCode() => -1567131905 + EqualityComparer<Type?>.Default.GetHashCode(QueryType);
 
-        public override string ToString() => _queryType?.ToString() ?? "(invalid)";
+        public override string ToString() => QueryType.ToString();
 
         internal QuerySemantics MostSpecific(QuerySemantics maybeHigher) => QueryType.IsAssignableFrom(maybeHigher.QueryType) ? maybeHigher : this;
 
@@ -109,17 +109,17 @@ namespace ExRam.Gremlinq.Core
 
         internal bool IsVertex
         {
-            get => typeof(IVertexGremlinQueryBase).IsAssignableFrom(_queryType);
+            get => typeof(IVertexGremlinQueryBase).IsAssignableFrom(QueryType);
         }
 
         internal bool IsEdge
         {
-            get => typeof(IEdgeGremlinQueryBase).IsAssignableFrom(_queryType);
+            get => typeof(IEdgeGremlinQueryBase).IsAssignableFrom(QueryType);
         }
 
         public Type QueryType
         {
-            get => _queryType is { } semantics ? semantics : throw new InvalidOperationException();
+            get => _queryType is { } semantics ? semantics : typeof(IGremlinQuery<object>);
         }
     }
 }
