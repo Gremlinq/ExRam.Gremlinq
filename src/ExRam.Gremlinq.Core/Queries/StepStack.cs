@@ -10,13 +10,12 @@ namespace ExRam.Gremlinq.Core
         public static readonly StepStack Empty = new(Array.Empty<Step>(), 0, default);
 
         private readonly Step?[] _steps;
-        private readonly QuerySemantics _initialSemantics;
 
         internal StepStack(Step?[] steps, int count, QuerySemantics initialSemantics)
         {
             Count = count;
-            _initialSemantics = initialSemantics;
             _steps = steps;
+            InitialSemantics = initialSemantics;
         }
 
         public StepStack Push(Step step)
@@ -42,7 +41,7 @@ namespace ExRam.Gremlinq.Core
                 return new StepStack(
                     newSteps,
                     Count + 1,
-                    _initialSemantics);
+                    InitialSemantics);
             }
 
             throw new InvalidOperationException();
@@ -56,30 +55,12 @@ namespace ExRam.Gremlinq.Core
                 throw new InvalidOperationException();
 
             poppedStep = _steps[Count - 1]!;
-            return new StepStack(_steps, Count - 1, _initialSemantics);
+            return new StepStack(_steps, Count - 1, InitialSemantics);
         }
 
         public StepStack OverrideSemantics(QuerySemantics semantics) => IsEmpty
             ? new StepStack(_steps, Count, semantics)
             : Pop().Push(Peek().OverrideQuerySemantics(semantics));
-
-        public (QuerySemantics semantics, int index) GetProjectionIndex()
-        {
-            var index = Count;
-
-            for (var i = Count - 1; i >= 0; i--)
-            {
-                if (this[i].Semantics is { } semantics)
-                {
-                    if (!typeof(IArrayGremlinQueryBase).IsAssignableFrom(semantics.QueryType))
-                        return (semantics, index);
-
-                    index = i;
-                }
-            }
-
-            return (_initialSemantics, 0);
-        }
 
         public IEnumerator<Step> GetEnumerator()
         {
@@ -104,7 +85,7 @@ namespace ExRam.Gremlinq.Core
                         return semantics;
                 }
 
-                return _initialSemantics;
+                return InitialSemantics;
             }
         }
 
@@ -117,6 +98,8 @@ namespace ExRam.Gremlinq.Core
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public int Count { get; }
+
+        public QuerySemantics InitialSemantics { get; }
 
         public Step this[int index]
         {

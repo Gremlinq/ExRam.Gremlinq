@@ -265,14 +265,33 @@ namespace ExRam.Gremlinq.Core
         Traversal IGremlinQueryAdmin.ToTraversal()
         {
             var steps = Steps;
+            var projectionIndex = 0;
             var maybeProjectionStep = default(Step?);
-            var projectionIndex = steps.GetProjectionIndex();
+            var projectionSemantics = steps.InitialSemantics;
 
             if ((Flags & QueryFlags.SurfaceVisible) == QueryFlags.SurfaceVisible)
             {
-                if (projectionIndex.semantics.IsVertex)
+                var index = steps.Count;
+
+                for (var i = steps.Count - 1; i >= 0; i--)
+                {
+                    if (steps[i].Semantics is { } semantics)
+                    {
+                        if (!typeof(IArrayGremlinQueryBase).IsAssignableFrom(semantics.QueryType))
+                        {
+                            projectionSemantics = semantics;
+                            projectionIndex = index;
+
+                            break;
+                        }
+
+                        index = i;
+                    }
+                }
+
+                if (projectionSemantics.IsVertex)
                     maybeProjectionStep = new ProjectVertexStep();
-                else if (projectionIndex.semantics.IsEdge)
+                else if (projectionSemantics.IsEdge)
                     maybeProjectionStep = new ProjectEdgeStep();
             }
 
@@ -280,9 +299,9 @@ namespace ExRam.Gremlinq.Core
 
             if (maybeProjectionStep is { } projectionStep)
             {
-                steps.CopyTo(ret, 0, 0, projectionIndex.index);
-                ret[projectionIndex.index] = projectionStep;
-                steps.CopyTo(ret, projectionIndex.index, projectionIndex.index + 1, steps.Count - projectionIndex.index);
+                steps.CopyTo(ret, 0, 0, projectionIndex);
+                ret[projectionIndex] = projectionStep;
+                steps.CopyTo(ret, projectionIndex, projectionIndex + 1, steps.Count - projectionIndex);
             }
             else
                 steps.CopyTo(ret, 0, 0, steps.Count);
