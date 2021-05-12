@@ -1,6 +1,6 @@
-[
+﻿[
   {
-    "Script": "V().project('Item1','Item2').by(__.label()).by(__.fold()).where(__.select('Item2').count(local).is(3))",
+    "Script": "V().project('Item1','Item2').by(__.label()).by(__.project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold())).fold()).where(__.select('Item2').count(local).is(3))",
     "Bindings": {}
   }
 ]

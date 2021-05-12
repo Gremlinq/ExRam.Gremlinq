@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "SourceInstructions": [
       {
@@ -20,12 +20,6 @@
       {
         "OperatorName": "V",
         "Arguments": []
-      },
-      {
-        "OperatorName": "aggregate",
-        "Arguments": [
-          "l3"
-        ]
       },
       {
         "OperatorName": "project",
@@ -127,6 +121,12 @@
               }
             ]
           }
+        ]
+      },
+      {
+        "OperatorName": "aggregate",
+        "Arguments": [
+          "l3"
         ]
       }
     ]
