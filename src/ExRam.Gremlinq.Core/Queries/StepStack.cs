@@ -120,7 +120,7 @@ namespace ExRam.Gremlinq.Core
 
         public Step this[int index]
         {
-            get => index < 0 || index >= Count ? throw new ArgumentOutOfRangeException() : _steps[index]!;
+            get => index < 0 || index >= Count ? throw new ArgumentOutOfRangeException(nameof(index)) : _steps[index]!;
         }
     }
 }
