@@ -356,6 +356,7 @@
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseLogger(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment source, Microsoft.Extensions.Logging.ILogger logger) { }
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseModel(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment source, ExRam.Gremlinq.Core.IGraphModel model) { }
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseSerializer(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.IGremlinQuerySerializer serializer) { }
+        public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseTraversalTranslator(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.ITraversalTranslator traversalTranslator) { }
     }
     public static class GremlinQueryExecutionResultDeserializer
     {
@@ -873,6 +874,7 @@
         ExRam.Gremlinq.Core.IGraphModel Model { get; }
         ExRam.Gremlinq.Core.IGremlinqOptions Options { get; }
         ExRam.Gremlinq.Core.IGremlinQuerySerializer Serializer { get; }
+        ExRam.Gremlinq.Core.ITraversalTranslator TraversalTranslator { get; }
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureAddStepHandler(System.Func<ExRam.Gremlinq.Core.IAddStepHandler, ExRam.Gremlinq.Core.IAddStepHandler> handlerTransformation);
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureDeserializer(System.Func<ExRam.Gremlinq.Core.IGremlinQueryExecutionResultDeserializer, ExRam.Gremlinq.Core.IGremlinQueryExecutionResultDeserializer> deserializerTransformation);
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureExecutor(System.Func<ExRam.Gremlinq.Core.IGremlinQueryExecutor, ExRam.Gremlinq.Core.IGremlinQueryExecutor> executorTransformation);
@@ -881,6 +883,7 @@
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureModel(System.Func<ExRam.Gremlinq.Core.IGraphModel, ExRam.Gremlinq.Core.IGraphModel> modelTransformation);
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureOptions(System.Func<ExRam.Gremlinq.Core.IGremlinqOptions, ExRam.Gremlinq.Core.IGremlinqOptions> optionsTransformation);
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureSerializer(System.Func<ExRam.Gremlinq.Core.IGremlinQuerySerializer, ExRam.Gremlinq.Core.IGremlinQuerySerializer> serializerTransformation);
+        ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureTraversalTranslator(System.Func<ExRam.Gremlinq.Core.ITraversalTranslator, ExRam.Gremlinq.Core.ITraversalTranslator> translatorTransformation);
     }
     public interface IGremlinQueryExecutionResultDeserializer
     {
@@ -1161,6 +1164,10 @@
         ExRam.Gremlinq.Core.IVertexGremlinQuery<TNewVertex> ReplaceV<TNewVertex>(TNewVertex vertex);
         ExRam.Gremlinq.Core.IVertexGremlinQuery<object> V(params object[] ids);
         ExRam.Gremlinq.Core.IVertexGremlinQuery<TVertex> V<TVertex>(params object[] ids);
+    }
+    public interface ITraversalTranslator
+    {
+        ExRam.Gremlinq.Core.Traversal Translate(ExRam.Gremlinq.Core.StepStack steps, bool allowElementProjection, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment);
     }
     public interface IValueGremlinQueryBase : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IStartGremlinQuery
     {
@@ -1763,6 +1770,10 @@
         public static ExRam.Gremlinq.Core.Traversal op_Implicit(ExRam.Gremlinq.Core.Step step) { }
         public static ExRam.Gremlinq.Core.Traversal op_Implicit(ExRam.Gremlinq.Core.Step[] steps) { }
         public static ExRam.Gremlinq.Core.Traversal op_Implicit(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Step> steps) { }
+    }
+    public static class TraversalTranslator
+    {
+        public static readonly ExRam.Gremlinq.Core.ITraversalTranslator Default;
     }
     public sealed class UnfoldStep : ExRam.Gremlinq.Core.Step
     {
