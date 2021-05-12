@@ -11,9 +11,8 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuerySource GetSource();
 
-        Traversal ToTraversal();
-
         StepStack Steps { get; }
+        QueryFlags Flags { get; }
         Type ElementType { get; }
         IGremlinQueryEnvironment Environment { get; }
     }

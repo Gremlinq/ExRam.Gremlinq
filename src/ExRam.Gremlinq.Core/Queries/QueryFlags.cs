@@ -3,7 +3,7 @@
 namespace ExRam.Gremlinq.Core
 {
     [Flags]
-    internal enum QueryFlags
+    public enum QueryFlags
     {
         None = 0,
         SurfaceVisible = 1,

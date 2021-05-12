@@ -261,10 +261,10 @@ namespace ExRam.Gremlinq.Core
         StepStack IGremlinQueryAdmin.Steps => Steps;
 
         IGremlinQueryEnvironment IGremlinQueryAdmin.Environment => Environment;
-
-        Traversal IGremlinQueryAdmin.ToTraversal() => Environment.TraversalTranslator.Translate(Steps, (Flags & QueryFlags.SurfaceVisible) == QueryFlags.SurfaceVisible, Environment);
-
+                
         Type IGremlinQueryAdmin.ElementType { get => typeof(TElement); }
+
+        QueryFlags IGremlinQueryAdmin.Flags => Flags;
 
         IEdgeGremlinQuery<TEdge> IStartGremlinQuery.AddE<TEdge>(TEdge edge) => AddE(edge, typeof(IEdgeGremlinQuery<TEdge>));
 

@@ -43,7 +43,12 @@ namespace ExRam.Gremlinq.Core
 
         internal static Traversal ToTraversal(this IGremlinQueryBase query)
         {
-            return query.AsAdmin().ToTraversal();
+            var admin = query.AsAdmin();
+
+            return admin.Environment.TraversalTranslator.Translate(
+                admin.Steps,
+                (admin.Flags & QueryFlags.SurfaceVisible) == QueryFlags.SurfaceVisible,
+                admin.Environment);
         }        
      }
 }
