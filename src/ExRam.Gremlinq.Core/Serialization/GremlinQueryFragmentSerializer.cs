@@ -340,6 +340,10 @@ namespace ExRam.Gremlinq.Core
                     return CreateInstruction("by", recurse, env, traversal);
                 })
                 .Override<ProjectStep.ByKeyStep>((step, env, overridden, recurse) => CreateInstruction("by", recurse, env, step.Key))
+                .Override<ProjectVertexStep>((step, env, overridden, recurse) => env.Options.GetValue(env.FeatureSet.Supports(VertexFeatures.MetaProperties)
+                    ? GremlinqOption.VertexProjectionSteps
+                    : GremlinqOption.VertexProjectionWithoutMetaPropertiesSteps))
+                .Override<ProjectEdgeStep>((step, env, overridden, recurse) => env.Options.GetValue(GremlinqOption.EdgeProjectionSteps))
                 .Override<RangeStep>((step, env, overridden, recurse) => step.Scope.Equals(Scope.Local)
                     ? CreateInstruction("range", recurse, env, step.Scope, step.Lower, step.Upper)
                     : CreateInstruction("range", recurse, env, step.Lower, step.Upper))
@@ -388,10 +392,10 @@ namespace ExRam.Gremlinq.Core
                         }
                     }
 
-                    if (steps.Count == 0)
-                        steps = IdentitySteps;
-
                     Add(steps);
+
+                    if (byteCode.StepInstructions.Count == 0)
+                        Add(IdentityStep.Instance);
 
                     return byteCode;
                 })

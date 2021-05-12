@@ -1541,6 +1541,11 @@
         public ProfileStep(ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public override ExRam.Gremlinq.Core.Step OverrideQuerySemantics(ExRam.Gremlinq.Core.QuerySemantics semantics) { }
     }
+    public sealed class ProjectEdgeStep : ExRam.Gremlinq.Core.Step
+    {
+        public ProjectEdgeStep(ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
+        public override ExRam.Gremlinq.Core.Step OverrideQuerySemantics(ExRam.Gremlinq.Core.QuerySemantics semantics) { }
+    }
     public sealed class ProjectStep : ExRam.Gremlinq.Core.Step
     {
         public ProjectStep(System.Collections.Immutable.ImmutableArray<string> projections, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
@@ -1562,6 +1567,11 @@
             public ExRam.Gremlinq.Core.Traversal Traversal { get; }
             public override ExRam.Gremlinq.Core.Step OverrideQuerySemantics(ExRam.Gremlinq.Core.QuerySemantics semantics) { }
         }
+    }
+    public sealed class ProjectVertexStep : ExRam.Gremlinq.Core.Step
+    {
+        public ProjectVertexStep(ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
+        public override ExRam.Gremlinq.Core.Step OverrideQuerySemantics(ExRam.Gremlinq.Core.QuerySemantics semantics) { }
     }
     public sealed class PropertiesStep : ExRam.Gremlinq.Core.Step
     {

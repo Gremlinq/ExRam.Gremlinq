@@ -266,32 +266,27 @@ namespace ExRam.Gremlinq.Core
         {
             var steps = Steps;
             var querySize = Math.Max(1, steps.Count);
-            var projection = ImmutableArray<Step>.Empty;
+            var maybeProjectionStep = default(Step?);
             var projectionIndex = steps.GetProjectionIndex();
 
             if ((Flags & QueryFlags.SurfaceVisible) == QueryFlags.SurfaceVisible)
             {
                 if (projectionIndex.semantics.IsVertex)
-                {
-                    projection = Environment.Options.GetValue(Environment.FeatureSet.Supports(VertexFeatures.MetaProperties)
-                        ? GremlinqOption.VertexProjectionSteps
-                        : GremlinqOption.VertexProjectionWithoutMetaPropertiesSteps);
-                }
+                    maybeProjectionStep = new ProjectVertexStep();
                 else if (projectionIndex.semantics.IsEdge)
-                {
-                    projection = Environment.Options.GetValue(GremlinqOption.EdgeProjectionSteps);
-                }
+                    maybeProjectionStep = new ProjectEdgeStep();
             }
 
-            var ret = new Step[querySize + projection.Length];
+            var ret = new Step[querySize + ((maybeProjectionStep is not null) ? 1 : 0)];
 
-            if (steps.IsEmpty)
-                ret[0] = IdentityStep.Instance;
-            else
+            if (maybeProjectionStep is { } projectionStep)
+            {
                 steps.CopyTo(ret, 0, 0, projectionIndex.index);
-
-            projection.CopyTo(ret, projectionIndex.index);
-            steps.CopyTo(ret, projectionIndex.index, projection.Length + projectionIndex.index, steps.Count - projectionIndex.index);
+                ret[projectionIndex.index] = projectionStep;
+                steps.CopyTo(ret, projectionIndex.index, projectionIndex.index + 1, steps.Count - projectionIndex.index);
+            }
+            else
+                steps.CopyTo(ret, 0, 0, steps.Count);
 
             return new Traversal(ret, true);
         }

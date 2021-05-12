@@ -283,12 +283,6 @@
     }
   },
   {
-    Item1: SimplePathStep,
-    Item2: {
-      OperatorName: simplePath
-    }
-  },
-  {
     Item1: DedupStep,
     Item2: {
       OperatorName: dedup
@@ -797,6 +791,39 @@
     }
   },
   {
+    Item1: ProjectEdgeStep,
+    Item2: [
+      {
+        Projections: [
+          id,
+          label,
+          properties
+        ]
+      },
+      {
+        Key: {
+          RawKey: {
+            EnumName: T,
+            EnumValue: id
+          }
+        }
+      },
+      {
+        Key: {
+          RawKey: {
+            EnumName: T,
+            EnumValue: label
+          }
+        }
+      },
+      {
+        Traversal: [
+          {}
+        ]
+      }
+    ]
+  },
+  {
     Item1: ProjectStep,
     Item2: {
       OperatorName: project,
@@ -833,6 +860,90 @@
         }
       ]
     }
+  },
+  {
+    Item1: ProjectVertexStep,
+    Item2: [
+      {
+        Projections: [
+          id,
+          label,
+          properties
+        ]
+      },
+      {
+        Key: {
+          RawKey: {
+            EnumName: T,
+            EnumValue: id
+          }
+        }
+      },
+      {
+        Key: {
+          RawKey: {
+            EnumName: T,
+            EnumValue: label
+          }
+        }
+      },
+      {
+        Traversal: [
+          {},
+          {},
+          {
+            Key: {
+              RawKey: {
+                EnumName: T,
+                EnumValue: label
+              }
+            }
+          },
+          {
+            Traversal: [
+              {
+                Projections: [
+                  id,
+                  label,
+                  value,
+                  properties
+                ]
+              },
+              {
+                Key: {
+                  RawKey: {
+                    EnumName: T,
+                    EnumValue: id
+                  }
+                }
+              },
+              {
+                Key: {
+                  RawKey: {
+                    EnumName: T,
+                    EnumValue: label
+                  }
+                }
+              },
+              {
+                Key: {
+                  RawKey: {
+                    EnumName: T,
+                    EnumValue: value
+                  }
+                }
+              },
+              {
+                Traversal: [
+                  {}
+                ]
+              },
+              {}
+            ]
+          }
+        ]
+      }
+    ]
   },
   {
     Item1: PropertiesStep,
@@ -931,6 +1042,12 @@
           ]
         }
       ]
+    }
+  },
+  {
+    Item1: SimplePathStep,
+    Item2: {
+      OperatorName: simplePath
     }
   },
   {

@@ -248,14 +248,6 @@
     }
   },
   {
-    Item1: SimplePathStep,
-    Item2: {
-      Semantics: {
-        QueryType: Object
-      }
-    }
-  },
-  {
     Item1: DedupStep,
     Item2: {
       Scope: {
@@ -797,6 +789,14 @@
     }
   },
   {
+    Item1: ProjectEdgeStep,
+    Item2: {
+      Semantics: {
+        QueryType: Object
+      }
+    }
+  },
+  {
     Item1: ProjectStep,
     Item2: {
       Projections: [
@@ -829,6 +829,14 @@
           EnumValue: id
         }
       },
+      Semantics: {
+        QueryType: Object
+      }
+    }
+  },
+  {
+    Item1: ProjectVertexStep,
+    Item2: {
       Semantics: {
         QueryType: Object
       }
@@ -954,6 +962,14 @@
       Traversal: [
         {}
       ],
+      Semantics: {
+        QueryType: Object
+      }
+    }
+  },
+  {
+    Item1: SimplePathStep,
+    Item2: {
       Semantics: {
         QueryType: Object
       }
