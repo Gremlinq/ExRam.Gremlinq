@@ -81,12 +81,12 @@ namespace ExRam.Gremlinq.Core
                             .GetTypeInfo().ImplementedInterfaces
                             .Prepend(other.QueryType);
 
-                        var hightest = impl1
+                        var highest = impl1
                             .Intersect(impl2)
                             .OrderByDescending(x => x, TypeComparer.Instance)
                             .FirstOrDefault();
 
-                        return hightest ?? typeof(IGremlinQueryBase);
+                        return highest ?? typeof(IGremlinQueryBase);
                     });
         }
 
