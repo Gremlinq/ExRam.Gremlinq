@@ -58,7 +58,7 @@ namespace ExRam.Gremlinq.Core
 
         public bool Equals(QuerySemantics other) => QueryType == other.QueryType;
 
-        public override int GetHashCode() => -1567131905 + EqualityComparer<Type?>.Default.GetHashCode(QueryType);
+        public override int GetHashCode() => QueryType.GetHashCode();
 
         public override string ToString() => QueryType.ToString();
 
@@ -134,7 +134,7 @@ namespace ExRam.Gremlinq.Core
 
         public Type QueryType
         {
-            get => _queryType is { } semantics ? semantics : typeof(IGremlinQuery<object>);
+            get => _queryType ?? typeof(IGremlinQueryBase<object>);
         }
     }
 }
