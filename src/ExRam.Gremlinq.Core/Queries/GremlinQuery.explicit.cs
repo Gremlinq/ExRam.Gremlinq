@@ -265,7 +265,6 @@ namespace ExRam.Gremlinq.Core
         Traversal IGremlinQueryAdmin.ToTraversal()
         {
             var steps = Steps;
-            var querySize = Math.Max(1, steps.Count);
             var maybeProjectionStep = default(Step?);
             var projectionIndex = steps.GetProjectionIndex();
 
@@ -277,7 +276,7 @@ namespace ExRam.Gremlinq.Core
                     maybeProjectionStep = new ProjectEdgeStep();
             }
 
-            var ret = new Step[querySize + ((maybeProjectionStep is not null) ? 1 : 0)];
+            var ret = new Step[steps.Count + ((maybeProjectionStep is not null) ? 1 : 0)];
 
             if (maybeProjectionStep is { } projectionStep)
             {
