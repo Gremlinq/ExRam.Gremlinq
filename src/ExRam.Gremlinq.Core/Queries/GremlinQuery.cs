@@ -367,7 +367,7 @@ namespace ExRam.Gremlinq.Core
             where TTargetQuery : IGremlinQueryBase
         {
             return continuation(
-                AddStep(new AggregateStep(scope, stepLabel)),
+                AddStep(new AggregateStep(scope, stepLabel, typeof(IArrayGremlinQueryBase))),
                 stepLabel);
         }
 

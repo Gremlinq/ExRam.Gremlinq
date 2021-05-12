@@ -117,6 +117,21 @@ namespace ExRam.Gremlinq.Core
             get => typeof(IEdgeGremlinQueryBase).IsAssignableFrom(QueryType);
         }
 
+        internal bool IsElement
+        {
+            get => typeof(IElementGremlinQueryBase).IsAssignableFrom(QueryType);
+        }
+
+        internal bool IsProperty
+        {
+            get => typeof(IPropertyGremlinQueryBase).IsAssignableFrom(QueryType);
+        }
+
+        internal bool IsValue
+        {
+            get => typeof(IValueGremlinQueryBase).IsAssignableFrom(QueryType);
+        }
+
         public Type QueryType
         {
             get => _queryType is { } semantics ? semantics : typeof(IGremlinQuery<object>);
