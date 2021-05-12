@@ -4,13 +4,13 @@
     {
         private sealed class DefaultTraversalTranslator : ITraversalTranslator
         {
-            public Traversal Translate(StepStack steps, bool allowElementProjection, IGremlinQueryEnvironment environment)
+            public Traversal Translate(StepStack steps, QueryFlags queryFlags, IGremlinQueryEnvironment environment)
             {
                 var projectionIndex = 0;
                 var maybeProjectionStep = default(Step?);
                 var projectionSemantics = steps.InitialSemantics;
 
-                if (allowElementProjection)
+                if ((queryFlags & QueryFlags.SurfaceVisible) == QueryFlags.SurfaceVisible)
                 {
                     var index = steps.Count;
 
