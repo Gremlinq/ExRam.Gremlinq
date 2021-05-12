@@ -2,6 +2,8 @@
 {
     public sealed class ProjectEdgeStep : Step
     {
+        public static readonly ProjectEdgeStep Instance = new();
+
         public ProjectEdgeStep(QuerySemantics? semantics = null) : base(semantics)
         {
 

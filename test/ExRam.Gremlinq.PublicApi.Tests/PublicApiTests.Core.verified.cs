@@ -1543,6 +1543,7 @@
     }
     public sealed class ProjectEdgeStep : ExRam.Gremlinq.Core.Step
     {
+        public static readonly ExRam.Gremlinq.Core.ProjectEdgeStep Instance;
         public ProjectEdgeStep(ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public override ExRam.Gremlinq.Core.Step OverrideQuerySemantics(ExRam.Gremlinq.Core.QuerySemantics semantics) { }
     }
@@ -1570,6 +1571,7 @@
     }
     public sealed class ProjectVertexStep : ExRam.Gremlinq.Core.Step
     {
+        public static readonly ExRam.Gremlinq.Core.ProjectVertexStep Instance;
         public ProjectVertexStep(ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
         public override ExRam.Gremlinq.Core.Step OverrideQuerySemantics(ExRam.Gremlinq.Core.QuerySemantics semantics) { }
     }

@@ -290,9 +290,9 @@ namespace ExRam.Gremlinq.Core
                 }
 
                 if (projectionSemantics.IsVertex)
-                    maybeProjectionStep = new ProjectVertexStep();
+                    maybeProjectionStep = ProjectVertexStep.Instance;
                 else if (projectionSemantics.IsEdge)
-                    maybeProjectionStep = new ProjectEdgeStep();
+                    maybeProjectionStep = ProjectEdgeStep.Instance;
             }
 
             var ret = new Step[steps.Count + ((maybeProjectionStep is not null) ? 1 : 0)];
