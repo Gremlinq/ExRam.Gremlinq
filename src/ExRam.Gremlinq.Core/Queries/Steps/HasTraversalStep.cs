@@ -8,6 +8,8 @@
             Traversal = traversal;
         }
 
+        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new HasTraversalStep(Key, Traversal, semantics);
+
         public Key Key { get; }
         public Traversal Traversal { get; }
     }

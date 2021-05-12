@@ -7,6 +7,8 @@
             Semantics = semantics;
         }
 
+        public abstract Step OverrideQuerySemantics(QuerySemantics semantics);
+
         public QuerySemantics? Semantics { get; }
     }
 }

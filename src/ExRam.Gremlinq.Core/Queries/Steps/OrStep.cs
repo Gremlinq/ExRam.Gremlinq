@@ -10,5 +10,7 @@ namespace ExRam.Gremlinq.Core
         public OrStep(IEnumerable<Traversal> traversals, QuerySemantics? semantics = default) : base("or", traversals, semantics)
         {
         }
+
+        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new OrStep(Traversals, semantics);
     }
 }

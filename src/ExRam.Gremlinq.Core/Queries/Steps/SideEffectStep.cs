@@ -7,6 +7,8 @@
             Traversal = traversal;
         }
 
+        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new SideEffectStep(Traversal, semantics);
+
         public Traversal Traversal { get; }
     }
 }

@@ -10,6 +10,8 @@ namespace ExRam.Gremlinq.Core
             StepLabel = stepLabel;
         }
 
+        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new AggregateStep(Scope, StepLabel, semantics);
+
         public Scope Scope { get; }
         public StepLabel StepLabel { get; }
     }

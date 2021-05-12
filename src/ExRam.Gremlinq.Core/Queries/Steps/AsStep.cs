@@ -7,6 +7,8 @@
             StepLabel = stepLabel;
         }
 
+        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new AsStep(StepLabel, semantics);
+
         public StepLabel StepLabel { get; }
     }
 }

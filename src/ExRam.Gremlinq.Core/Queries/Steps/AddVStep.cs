@@ -7,6 +7,8 @@
             Label = label;
         }
 
+        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new AddVStep(Label, semantics);
+
         public string Label { get; }
     }
 }

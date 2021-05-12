@@ -7,6 +7,8 @@
             Key = key;
         }
 
+        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new HasNotStep(Key, semantics);
+
         public Key Key { get; }
     }
 }

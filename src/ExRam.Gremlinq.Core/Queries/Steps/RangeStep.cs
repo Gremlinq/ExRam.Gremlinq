@@ -18,6 +18,8 @@ namespace ExRam.Gremlinq.Core
             Scope = scope;
         }
 
+        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new RangeStep(Lower, Upper, Scope, semantics);
+
         public long Lower { get; }
         public long Upper { get; }
         public Scope Scope { get; }

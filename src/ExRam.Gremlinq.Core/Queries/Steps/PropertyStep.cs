@@ -18,6 +18,8 @@ namespace ExRam.Gremlinq.Core
                 Key = key;
             }
 
+            public override Step OverrideQuerySemantics(QuerySemantics semantics) => new ByKeyStep(Key, Value, Cardinality, semantics);
+
             public Key Key { get; }
         }
 
@@ -32,6 +34,8 @@ namespace ExRam.Gremlinq.Core
             {
                 Traversal = traversal;
             }
+
+            public override Step OverrideQuerySemantics(QuerySemantics semantics) => new ByTraversalStep(Traversal, Value, MetaProperties, Cardinality, semantics);
 
             public Traversal Traversal { get; }
         }

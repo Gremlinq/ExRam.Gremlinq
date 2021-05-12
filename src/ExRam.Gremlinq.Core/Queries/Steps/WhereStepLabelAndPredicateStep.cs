@@ -10,6 +10,8 @@ namespace ExRam.Gremlinq.Core
             Predicate = predicate;
         }
 
+        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new WhereStepLabelAndPredicateStep(StepLabel, Predicate, semantics);
+
         public P Predicate { get; }
         public StepLabel StepLabel { get; }
     }
