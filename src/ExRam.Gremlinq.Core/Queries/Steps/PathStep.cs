@@ -7,5 +7,7 @@
         public PathStep(QuerySemantics? semantics = default) : base(semantics)
         {
         }
+
+        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new PathStep(semantics);
     }
 }

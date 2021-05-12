@@ -7,5 +7,7 @@
         public NoneStep(QuerySemantics? semantics = default) : base(semantics)
         {
         }
+
+        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new NoneStep(semantics);
     }
 }

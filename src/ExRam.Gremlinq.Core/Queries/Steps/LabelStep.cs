@@ -7,5 +7,7 @@
         public LabelStep(QuerySemantics? semantics = default) : base(semantics)
         {
         }
+
+        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new LabelStep(semantics);
     }
 }

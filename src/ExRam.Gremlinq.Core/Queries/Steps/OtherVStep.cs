@@ -7,5 +7,7 @@
         public OtherVStep(QuerySemantics? semantics = default) : base(semantics)
         {
         }
+
+        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new OtherVStep(semantics);
     }
 }

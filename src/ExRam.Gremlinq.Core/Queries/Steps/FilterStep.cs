@@ -9,6 +9,8 @@ namespace ExRam.Gremlinq.Core
             Lambda = lambda;
         }
 
+        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new FilterStep(Lambda, semantics);
+
         public ILambda Lambda { get; }
     }
 }

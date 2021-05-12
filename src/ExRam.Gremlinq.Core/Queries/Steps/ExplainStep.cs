@@ -7,5 +7,7 @@
         public ExplainStep(QuerySemantics? semantics = default) : base(semantics)
         {
         }
+
+        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new ExplainStep(semantics);
     }
 }

@@ -13,5 +13,7 @@ namespace ExRam.Gremlinq.Core
         public OutStep(ImmutableArray<string> labels, QuerySemantics? semantics = default) : base(labels, semantics)
         {
         }
+
+        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new OutStep(Labels, semantics);
     }
 }

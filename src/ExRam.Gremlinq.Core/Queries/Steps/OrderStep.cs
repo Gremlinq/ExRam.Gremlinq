@@ -13,12 +13,14 @@ namespace ExRam.Gremlinq.Core
 
         public sealed class ByLambdaStep : ByStep
         {
-            public ILambda Lambda { get; }
-
             public ByLambdaStep(ILambda lambda, QuerySemantics? semantics = default) : base(semantics)
             {
                 Lambda = lambda;
             }
+
+            public override Step OverrideQuerySemantics(QuerySemantics semantics) => new ByLambdaStep(Lambda, semantics);
+
+            public ILambda Lambda { get; }
         }
 
         public sealed class ByMemberStep : ByStep
@@ -28,6 +30,8 @@ namespace ExRam.Gremlinq.Core
                 Order = order;
                 Key = key;
             }
+
+            public override Step OverrideQuerySemantics(QuerySemantics semantics) => new ByMemberStep(Key, Order, semantics);
 
             public Order Order { get; }
             public Key Key { get; }
@@ -41,6 +45,8 @@ namespace ExRam.Gremlinq.Core
                 Order = order;
             }
 
+            public override Step OverrideQuerySemantics(QuerySemantics semantics) => new ByTraversalStep(Traversal, Order, semantics);
+
             public Order Order { get; }
             public Traversal Traversal { get; }
         }
@@ -52,6 +58,8 @@ namespace ExRam.Gremlinq.Core
         {
             Scope = scope;
         }
+
+        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new OrderStep(Scope, semantics);
 
         public Scope Scope { get; }
     }

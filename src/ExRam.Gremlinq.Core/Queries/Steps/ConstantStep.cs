@@ -7,6 +7,8 @@
             Value = value;
         }
 
+        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new ConstantStep(semantics);
+
         public object Value { get; }
     }
 }

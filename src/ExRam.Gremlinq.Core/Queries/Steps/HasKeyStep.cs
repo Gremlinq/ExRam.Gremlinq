@@ -7,6 +7,8 @@
             Argument = argument;
         }
 
+        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new HasKeyStep(semantics);
+
         public object Argument { get; }
     }
 }

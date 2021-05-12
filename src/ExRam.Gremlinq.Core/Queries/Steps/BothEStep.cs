@@ -13,5 +13,7 @@ namespace ExRam.Gremlinq.Core
         public BothEStep(ImmutableArray<string> labels, QuerySemantics? semantics = default) : base(labels, semantics)
         {
         }
+
+        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new BothEStep(semantics);
     }
 }

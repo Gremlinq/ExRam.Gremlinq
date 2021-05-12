@@ -7,5 +7,7 @@
         public IdentityStep(QuerySemantics? semantics = default) : base(semantics)
         {
         }
+
+        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new IdentityStep(semantics);
     }
 }

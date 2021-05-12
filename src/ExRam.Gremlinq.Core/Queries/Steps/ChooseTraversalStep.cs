@@ -7,6 +7,8 @@
             IfTraversal = ifTraversal;
         }
 
+        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new ChooseTraversalStep(IfTraversal, ThenTraversal, ElseTraversal, semantics);
+
         public Traversal IfTraversal { get; }
     }
 }

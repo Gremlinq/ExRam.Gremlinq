@@ -18,6 +18,8 @@ namespace ExRam.Gremlinq.Core
                 Traversal = traversal;
             }
 
+            public override Step OverrideQuerySemantics(QuerySemantics semantics) => new ByTraversalStep(Traversal, semantics);
+
             public Traversal Traversal { get; }
         }
 
@@ -28,6 +30,8 @@ namespace ExRam.Gremlinq.Core
                 Key = key;
             }
 
+            public override Step OverrideQuerySemantics(QuerySemantics semantics) => new ByKeyStep(Key, semantics);
+
             public Key Key { get; }
         }
 
@@ -35,6 +39,8 @@ namespace ExRam.Gremlinq.Core
         {
             Projections = projections;
         }
+
+        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new ProjectStep(Projections, semantics);
 
         public ImmutableArray<string> Projections { get; }
     }

@@ -10,6 +10,8 @@ namespace ExRam.Gremlinq.Core
             StrategyTypes = strategyTypes;
         }
 
+        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new WithoutStrategiesStep(StrategyTypes, semantics);
+
         public ImmutableArray<Type> StrategyTypes { get; }
     }
 }

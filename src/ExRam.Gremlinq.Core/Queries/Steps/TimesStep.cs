@@ -7,6 +7,8 @@
             Count = count;
         }
 
+        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new TimesStep(Count, semantics);
+
         public int Count { get; }
     }
 }
