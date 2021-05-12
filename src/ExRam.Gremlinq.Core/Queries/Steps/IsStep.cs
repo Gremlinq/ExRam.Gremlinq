@@ -9,6 +9,8 @@ namespace ExRam.Gremlinq.Core
             Predicate = predicate;
         }
 
+        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new IsStep(Predicate, semantics);
+
         public P Predicate { get; }
     }
 }

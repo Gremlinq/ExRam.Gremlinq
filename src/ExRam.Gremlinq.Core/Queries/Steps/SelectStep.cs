@@ -9,6 +9,8 @@ namespace ExRam.Gremlinq.Core
             StepLabels = stepLabels;
         }
 
+        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new SelectStep(StepLabels, semantics);
+
         public ImmutableArray<StepLabel> StepLabels { get; }
     }
 }

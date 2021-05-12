@@ -9,6 +9,8 @@ namespace ExRam.Gremlinq.Core
             Ids = ids;
         }
 
+        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new VStep(Ids, semantics);
+
         public ImmutableArray<object> Ids { get; }
     }
 }

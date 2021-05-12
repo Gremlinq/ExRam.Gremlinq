@@ -12,6 +12,8 @@ namespace ExRam.Gremlinq.Core
             Scope = scope;
         }
 
+        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new CountStep(Scope, semantics);
+
         public Scope Scope { get; }
     }
 }

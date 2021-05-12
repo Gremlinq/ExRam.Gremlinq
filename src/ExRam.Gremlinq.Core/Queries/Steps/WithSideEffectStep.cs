@@ -8,6 +8,8 @@
             Value = value;
         }
 
+        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new WithSideEffectStep(Label, Value, semantics);
+
         public object Value { get; }
         public StepLabel Label { get; }
     }

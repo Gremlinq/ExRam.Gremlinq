@@ -7,5 +7,7 @@
         public KeyStep(QuerySemantics? semantics = default) : base(semantics)
         {
         }
+
+        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new KeyStep(semantics);
     }
 }

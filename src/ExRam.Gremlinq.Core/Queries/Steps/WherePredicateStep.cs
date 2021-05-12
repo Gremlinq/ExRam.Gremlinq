@@ -11,6 +11,8 @@ namespace ExRam.Gremlinq.Core
                 Key = key;
             }
 
+            public override Step OverrideQuerySemantics(QuerySemantics semantics) => new ByMemberStep(Key, semantics);
+
             public Key? Key { get; }
         }
 
@@ -18,6 +20,8 @@ namespace ExRam.Gremlinq.Core
         {
             Predicate = predicate;
         }
+
+        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new WherePredicateStep(Predicate, semantics);
 
         public P Predicate { get; }
     }

@@ -7,5 +7,7 @@
         public UnfoldStep(QuerySemantics? semantics = default) : base(semantics)
         {
         }
+
+        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new UnfoldStep(semantics);
     }
 }

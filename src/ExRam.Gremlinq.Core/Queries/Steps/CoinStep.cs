@@ -7,6 +7,8 @@
             Probability = probability;
         }
 
+        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new CoinStep(Probability, semantics);
+
         public double Probability { get; }
     }
 }

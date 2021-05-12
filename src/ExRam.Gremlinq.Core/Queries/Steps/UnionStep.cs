@@ -7,5 +7,7 @@ namespace ExRam.Gremlinq.Core
         public UnionStep(ImmutableArray<Traversal> traversals, QuerySemantics? semantics = default) : base(traversals, semantics)
         {
         }
+
+        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new UnionStep(Traversals, semantics);
     }
 }

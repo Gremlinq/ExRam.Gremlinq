@@ -9,6 +9,8 @@
                 StepLabel = stepLabel;
             }
 
+            public override Step OverrideQuerySemantics(QuerySemantics semantics) => new FromLabelStep(StepLabel, semantics);
+
             public StepLabel StepLabel { get; }
         }
 
@@ -18,6 +20,8 @@
             {
                 Traversal = traversal;
             }
+
+            public override Step OverrideQuerySemantics(QuerySemantics semantics) => new FromTraversalStep(Traversal, semantics);
 
             public Traversal Traversal { get; }
         }
@@ -29,6 +33,8 @@
                 StepLabel = stepLabel;
             }
 
+            public override Step OverrideQuerySemantics(QuerySemantics semantics) => new ToLabelStep(StepLabel, semantics);
+
             public StepLabel StepLabel { get; }
         }
 
@@ -39,6 +45,8 @@
                 Traversal = traversal;
             }
 
+            public override Step OverrideQuerySemantics(QuerySemantics semantics) => new ToTraversalStep(Traversal, semantics);
+
             public Traversal Traversal { get; }
         }
 
@@ -46,6 +54,8 @@
         {
             Label = label;
         }
+
+        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new AddEStep(Label, semantics);
 
         public string Label { get; }
     }

@@ -7,5 +7,7 @@
         public DropStep(QuerySemantics? semantics = default) : base(semantics)
         {
         }
+
+        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new DropStep(semantics);
     }
 }

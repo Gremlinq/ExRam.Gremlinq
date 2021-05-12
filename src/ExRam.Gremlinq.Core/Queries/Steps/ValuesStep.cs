@@ -9,6 +9,8 @@ namespace ExRam.Gremlinq.Core
             Keys = keys;
         }
 
+        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new ValuesStep(Keys, semantics);
+
         public ImmutableArray<string> Keys { get; }
     }
 }

@@ -10,5 +10,7 @@ namespace ExRam.Gremlinq.Core
             if (labels.Length == 0)
                 throw new ArgumentException($"{nameof(labels)} may not be empty.");
         }
+
+        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new HasLabelStep(Labels, semantics);
     }
 }

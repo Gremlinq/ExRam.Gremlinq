@@ -7,5 +7,7 @@
         public InVStep(QuerySemantics? semantics = default) : base(semantics)
         {
         }
+
+        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new InVStep(semantics);
     }
 }

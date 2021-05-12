@@ -16,6 +16,8 @@
                 Traversal = traversal;
             }
 
+            public override Step OverrideQuerySemantics(QuerySemantics semantics) => new ByTraversalStep(Traversal, semantics);
+
             public Traversal Traversal { get; }
         }
 
@@ -26,6 +28,8 @@
                 Key = key;
             }
 
+            public override Step OverrideQuerySemantics(QuerySemantics semantics) => new ByKeyStep(Key, semantics);
+
             public Key Key { get; }
         }
 
@@ -34,5 +38,7 @@
         public GroupStep(QuerySemantics? semantics = default) : base(semantics)
         {
         }
+
+        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new GroupStep(semantics);
     }
 }

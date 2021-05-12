@@ -8,6 +8,8 @@
             OptionTraversal = optionTraversal;
         }
 
+        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new OptionTraversalStep(Guard, OptionTraversal, semantics);
+
         public object? Guard { get; }
 
         public Traversal OptionTraversal { get; }

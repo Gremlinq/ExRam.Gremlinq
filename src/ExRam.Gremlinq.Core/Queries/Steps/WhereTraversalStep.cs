@@ -7,6 +7,8 @@
             Traversal = traversal;
         }
 
+        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new WhereTraversalStep(Traversal, semantics);
+
         public Traversal Traversal { get; }
     }
 }
