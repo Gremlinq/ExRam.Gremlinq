@@ -130,7 +130,7 @@ namespace ExRam.Gremlinq.Core
         IGremlinQuery<TElement> IGremlinQueryBaseRec<IGremlinQuery<TElement>>.Order(Func<IOrderBuilder<IGremlinQuery<TElement>>, IOrderBuilderWithBy<IGremlinQuery<TElement>>> projection) => OrderGlobal(projection);
         IGremlinQuery<TElement> IGremlinQueryBaseRec<IGremlinQuery<TElement>>.OrderLocal(Func<IOrderBuilder<IGremlinQuery<TElement>>, IOrderBuilderWithBy<IGremlinQuery<TElement>>> projection) => OrderLocal(projection);
 
-        IValueGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IGremlinQuery<TElement>>.Project(Func<IProjectBuilder<IGremlinQuery<TElement>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation, typeof(IValueGremlinQuery<dynamic>));
+        IValueTupleGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IGremlinQuery<TElement>>.Project(Func<IProjectBuilder<IGremlinQuery<TElement>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation, typeof(IValueTupleGremlinQuery<dynamic>));
         IValueTupleGremlinQuery<TResult> IGremlinQueryBaseRec<TElement, IGremlinQuery<TElement>>.Project<TResult>(Func<IProjectBuilder<IGremlinQuery<TElement>, TElement>, IProjectResult<TResult>> continuation) => Project<TResult>(continuation, typeof(IValueTupleGremlinQuery<TResult>));
 
         IGremlinQuery<TElement> IGremlinQueryBaseRec<IGremlinQuery<TElement>>.Range(long low, long high) => RangeGlobal(low, high);
@@ -232,7 +232,7 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<TElement> IGremlinQueryBaseRec<IValueGremlinQuery<TElement>>.Order(Func<IOrderBuilder<IValueGremlinQuery<TElement>>, IOrderBuilderWithBy<IValueGremlinQuery<TElement>>> projection) => OrderGlobal(projection);
         IValueGremlinQuery<TElement> IGremlinQueryBaseRec<IValueGremlinQuery<TElement>>.OrderLocal(Func<IOrderBuilder<IValueGremlinQuery<TElement>>, IOrderBuilderWithBy<IValueGremlinQuery<TElement>>> projection) => OrderLocal(projection);
 
-        IValueGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IValueGremlinQuery<TElement>>.Project(Func<IProjectBuilder<IValueGremlinQuery<TElement>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation, typeof(IValueGremlinQuery<dynamic>));
+        IValueTupleGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IValueGremlinQuery<TElement>>.Project(Func<IProjectBuilder<IValueGremlinQuery<TElement>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation, typeof(IValueTupleGremlinQuery<dynamic>));
         IValueTupleGremlinQuery<TResult> IGremlinQueryBaseRec<TElement, IValueGremlinQuery<TElement>>.Project<TResult>(Func<IProjectBuilder<IValueGremlinQuery<TElement>, TElement>, IProjectResult<TResult>> continuation) => Project<TResult>(continuation, typeof(IValueTupleGremlinQuery<TResult>));
 
         IValueGremlinQuery<TElement> IGremlinQueryBaseRec<IValueGremlinQuery<TElement>>.Range(long low, long high) => RangeGlobal(low, high);
@@ -334,7 +334,7 @@ namespace ExRam.Gremlinq.Core
         IValueTupleGremlinQuery<TElement> IGremlinQueryBaseRec<IValueTupleGremlinQuery<TElement>>.Order(Func<IOrderBuilder<IValueTupleGremlinQuery<TElement>>, IOrderBuilderWithBy<IValueTupleGremlinQuery<TElement>>> projection) => OrderGlobal(projection);
         IValueTupleGremlinQuery<TElement> IGremlinQueryBaseRec<IValueTupleGremlinQuery<TElement>>.OrderLocal(Func<IOrderBuilder<IValueTupleGremlinQuery<TElement>>, IOrderBuilderWithBy<IValueTupleGremlinQuery<TElement>>> projection) => OrderLocal(projection);
 
-        IValueGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IValueTupleGremlinQuery<TElement>>.Project(Func<IProjectBuilder<IValueTupleGremlinQuery<TElement>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation, typeof(IValueGremlinQuery<dynamic>));
+        IValueTupleGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IValueTupleGremlinQuery<TElement>>.Project(Func<IProjectBuilder<IValueTupleGremlinQuery<TElement>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation, typeof(IValueTupleGremlinQuery<dynamic>));
         IValueTupleGremlinQuery<TResult> IGremlinQueryBaseRec<TElement, IValueTupleGremlinQuery<TElement>>.Project<TResult>(Func<IProjectBuilder<IValueTupleGremlinQuery<TElement>, TElement>, IProjectResult<TResult>> continuation) => Project<TResult>(continuation, typeof(IValueTupleGremlinQuery<TResult>));
 
         IValueTupleGremlinQuery<TElement> IGremlinQueryBaseRec<IValueTupleGremlinQuery<TElement>>.Range(long low, long high) => RangeGlobal(low, high);
@@ -436,7 +436,7 @@ namespace ExRam.Gremlinq.Core
         IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.Order(Func<IOrderBuilder<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>, IOrderBuilderWithBy<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>> projection) => OrderGlobal(projection);
         IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.OrderLocal(Func<IOrderBuilder<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>, IOrderBuilderWithBy<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>> projection) => OrderLocal(projection);
 
-        IValueGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.Project(Func<IProjectBuilder<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation, typeof(IValueGremlinQuery<dynamic>));
+        IValueTupleGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.Project(Func<IProjectBuilder<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation, typeof(IValueTupleGremlinQuery<dynamic>));
         IValueTupleGremlinQuery<TResult> IGremlinQueryBaseRec<TElement, IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.Project<TResult>(Func<IProjectBuilder<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>, TElement>, IProjectResult<TResult>> continuation) => Project<TResult>(continuation, typeof(IValueTupleGremlinQuery<TResult>));
 
         IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.Range(long low, long high) => RangeGlobal(low, high);
@@ -538,7 +538,7 @@ namespace ExRam.Gremlinq.Core
         IElementGremlinQuery<TElement> IGremlinQueryBaseRec<IElementGremlinQuery<TElement>>.Order(Func<IOrderBuilder<IElementGremlinQuery<TElement>>, IOrderBuilderWithBy<IElementGremlinQuery<TElement>>> projection) => OrderGlobal(projection);
         IElementGremlinQuery<TElement> IGremlinQueryBaseRec<IElementGremlinQuery<TElement>>.OrderLocal(Func<IOrderBuilder<IElementGremlinQuery<TElement>>, IOrderBuilderWithBy<IElementGremlinQuery<TElement>>> projection) => OrderLocal(projection);
 
-        IValueGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IElementGremlinQuery<TElement>>.Project(Func<IProjectBuilder<IElementGremlinQuery<TElement>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation, typeof(IValueGremlinQuery<dynamic>));
+        IValueTupleGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IElementGremlinQuery<TElement>>.Project(Func<IProjectBuilder<IElementGremlinQuery<TElement>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation, typeof(IValueTupleGremlinQuery<dynamic>));
         IValueTupleGremlinQuery<TResult> IGremlinQueryBaseRec<TElement, IElementGremlinQuery<TElement>>.Project<TResult>(Func<IProjectBuilder<IElementGremlinQuery<TElement>, TElement>, IProjectResult<TResult>> continuation) => Project<TResult>(continuation, typeof(IValueTupleGremlinQuery<TResult>));
 
         IElementGremlinQuery<TElement> IGremlinQueryBaseRec<IElementGremlinQuery<TElement>>.Range(long low, long high) => RangeGlobal(low, high);
@@ -640,7 +640,7 @@ namespace ExRam.Gremlinq.Core
         IEdgeOrVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<TElement>>.Order(Func<IOrderBuilder<IEdgeOrVertexGremlinQuery<TElement>>, IOrderBuilderWithBy<IEdgeOrVertexGremlinQuery<TElement>>> projection) => OrderGlobal(projection);
         IEdgeOrVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<TElement>>.OrderLocal(Func<IOrderBuilder<IEdgeOrVertexGremlinQuery<TElement>>, IOrderBuilderWithBy<IEdgeOrVertexGremlinQuery<TElement>>> projection) => OrderLocal(projection);
 
-        IValueGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IEdgeOrVertexGremlinQuery<TElement>>.Project(Func<IProjectBuilder<IEdgeOrVertexGremlinQuery<TElement>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation, typeof(IValueGremlinQuery<dynamic>));
+        IValueTupleGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IEdgeOrVertexGremlinQuery<TElement>>.Project(Func<IProjectBuilder<IEdgeOrVertexGremlinQuery<TElement>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation, typeof(IValueTupleGremlinQuery<dynamic>));
         IValueTupleGremlinQuery<TResult> IGremlinQueryBaseRec<TElement, IEdgeOrVertexGremlinQuery<TElement>>.Project<TResult>(Func<IProjectBuilder<IEdgeOrVertexGremlinQuery<TElement>, TElement>, IProjectResult<TResult>> continuation) => Project<TResult>(continuation, typeof(IValueTupleGremlinQuery<TResult>));
 
         IEdgeOrVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<TElement>>.Range(long low, long high) => RangeGlobal(low, high);
@@ -742,7 +742,7 @@ namespace ExRam.Gremlinq.Core
         IVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IVertexGremlinQuery<TElement>>.Order(Func<IOrderBuilder<IVertexGremlinQuery<TElement>>, IOrderBuilderWithBy<IVertexGremlinQuery<TElement>>> projection) => OrderGlobal(projection);
         IVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IVertexGremlinQuery<TElement>>.OrderLocal(Func<IOrderBuilder<IVertexGremlinQuery<TElement>>, IOrderBuilderWithBy<IVertexGremlinQuery<TElement>>> projection) => OrderLocal(projection);
 
-        IValueGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IVertexGremlinQuery<TElement>>.Project(Func<IProjectBuilder<IVertexGremlinQuery<TElement>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation, typeof(IValueGremlinQuery<dynamic>));
+        IValueTupleGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IVertexGremlinQuery<TElement>>.Project(Func<IProjectBuilder<IVertexGremlinQuery<TElement>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation, typeof(IValueTupleGremlinQuery<dynamic>));
         IValueTupleGremlinQuery<TResult> IGremlinQueryBaseRec<TElement, IVertexGremlinQuery<TElement>>.Project<TResult>(Func<IProjectBuilder<IVertexGremlinQuery<TElement>, TElement>, IProjectResult<TResult>> continuation) => Project<TResult>(continuation, typeof(IValueTupleGremlinQuery<TResult>));
 
         IVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IVertexGremlinQuery<TElement>>.Range(long low, long high) => RangeGlobal(low, high);
@@ -844,7 +844,7 @@ namespace ExRam.Gremlinq.Core
         IEdgeGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeGremlinQuery<TElement>>.Order(Func<IOrderBuilder<IEdgeGremlinQuery<TElement>>, IOrderBuilderWithBy<IEdgeGremlinQuery<TElement>>> projection) => OrderGlobal(projection);
         IEdgeGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeGremlinQuery<TElement>>.OrderLocal(Func<IOrderBuilder<IEdgeGremlinQuery<TElement>>, IOrderBuilderWithBy<IEdgeGremlinQuery<TElement>>> projection) => OrderLocal(projection);
 
-        IValueGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IEdgeGremlinQuery<TElement>>.Project(Func<IProjectBuilder<IEdgeGremlinQuery<TElement>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation, typeof(IValueGremlinQuery<dynamic>));
+        IValueTupleGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IEdgeGremlinQuery<TElement>>.Project(Func<IProjectBuilder<IEdgeGremlinQuery<TElement>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation, typeof(IValueTupleGremlinQuery<dynamic>));
         IValueTupleGremlinQuery<TResult> IGremlinQueryBaseRec<TElement, IEdgeGremlinQuery<TElement>>.Project<TResult>(Func<IProjectBuilder<IEdgeGremlinQuery<TElement>, TElement>, IProjectResult<TResult>> continuation) => Project<TResult>(continuation, typeof(IValueTupleGremlinQuery<TResult>));
 
         IEdgeGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeGremlinQuery<TElement>>.Range(long low, long high) => RangeGlobal(low, high);
@@ -946,7 +946,7 @@ namespace ExRam.Gremlinq.Core
         IInOrOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.Order(Func<IOrderBuilder<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>, IOrderBuilderWithBy<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>> projection) => OrderGlobal(projection);
         IInOrOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.OrderLocal(Func<IOrderBuilder<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>, IOrderBuilderWithBy<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>> projection) => OrderLocal(projection);
 
-        IValueGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.Project(Func<IProjectBuilder<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation, typeof(IValueGremlinQuery<dynamic>));
+        IValueTupleGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.Project(Func<IProjectBuilder<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation, typeof(IValueTupleGremlinQuery<dynamic>));
         IValueTupleGremlinQuery<TResult> IGremlinQueryBaseRec<TElement, IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.Project<TResult>(Func<IProjectBuilder<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>, TElement>, IProjectResult<TResult>> continuation) => Project<TResult>(continuation, typeof(IValueTupleGremlinQuery<TResult>));
 
         IInOrOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.Range(long low, long high) => RangeGlobal(low, high);
@@ -1048,7 +1048,7 @@ namespace ExRam.Gremlinq.Core
         IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IGremlinQueryBaseRec<IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.Order(Func<IOrderBuilder<IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>, IOrderBuilderWithBy<IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>> projection) => OrderGlobal(projection);
         IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IGremlinQueryBaseRec<IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.OrderLocal(Func<IOrderBuilder<IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>, IOrderBuilderWithBy<IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>> projection) => OrderLocal(projection);
 
-        IValueGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.Project(Func<IProjectBuilder<IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation, typeof(IValueGremlinQuery<dynamic>));
+        IValueTupleGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.Project(Func<IProjectBuilder<IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation, typeof(IValueTupleGremlinQuery<dynamic>));
         IValueTupleGremlinQuery<TResult> IGremlinQueryBaseRec<TElement, IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.Project<TResult>(Func<IProjectBuilder<IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, TElement>, IProjectResult<TResult>> continuation) => Project<TResult>(continuation, typeof(IValueTupleGremlinQuery<TResult>));
 
         IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IGremlinQueryBaseRec<IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.Range(long low, long high) => RangeGlobal(low, high);
@@ -1150,7 +1150,7 @@ namespace ExRam.Gremlinq.Core
         IInEdgeGremlinQuery<TElement, TInVertex> IGremlinQueryBaseRec<IInEdgeGremlinQuery<TElement, TInVertex>>.Order(Func<IOrderBuilder<IInEdgeGremlinQuery<TElement, TInVertex>>, IOrderBuilderWithBy<IInEdgeGremlinQuery<TElement, TInVertex>>> projection) => OrderGlobal(projection);
         IInEdgeGremlinQuery<TElement, TInVertex> IGremlinQueryBaseRec<IInEdgeGremlinQuery<TElement, TInVertex>>.OrderLocal(Func<IOrderBuilder<IInEdgeGremlinQuery<TElement, TInVertex>>, IOrderBuilderWithBy<IInEdgeGremlinQuery<TElement, TInVertex>>> projection) => OrderLocal(projection);
 
-        IValueGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IInEdgeGremlinQuery<TElement, TInVertex>>.Project(Func<IProjectBuilder<IInEdgeGremlinQuery<TElement, TInVertex>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation, typeof(IValueGremlinQuery<dynamic>));
+        IValueTupleGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IInEdgeGremlinQuery<TElement, TInVertex>>.Project(Func<IProjectBuilder<IInEdgeGremlinQuery<TElement, TInVertex>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation, typeof(IValueTupleGremlinQuery<dynamic>));
         IValueTupleGremlinQuery<TResult> IGremlinQueryBaseRec<TElement, IInEdgeGremlinQuery<TElement, TInVertex>>.Project<TResult>(Func<IProjectBuilder<IInEdgeGremlinQuery<TElement, TInVertex>, TElement>, IProjectResult<TResult>> continuation) => Project<TResult>(continuation, typeof(IValueTupleGremlinQuery<TResult>));
 
         IInEdgeGremlinQuery<TElement, TInVertex> IGremlinQueryBaseRec<IInEdgeGremlinQuery<TElement, TInVertex>>.Range(long low, long high) => RangeGlobal(low, high);
@@ -1252,7 +1252,7 @@ namespace ExRam.Gremlinq.Core
         IOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<TElement, TOutVertex>>.Order(Func<IOrderBuilder<IOutEdgeGremlinQuery<TElement, TOutVertex>>, IOrderBuilderWithBy<IOutEdgeGremlinQuery<TElement, TOutVertex>>> projection) => OrderGlobal(projection);
         IOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<TElement, TOutVertex>>.OrderLocal(Func<IOrderBuilder<IOutEdgeGremlinQuery<TElement, TOutVertex>>, IOrderBuilderWithBy<IOutEdgeGremlinQuery<TElement, TOutVertex>>> projection) => OrderLocal(projection);
 
-        IValueGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IOutEdgeGremlinQuery<TElement, TOutVertex>>.Project(Func<IProjectBuilder<IOutEdgeGremlinQuery<TElement, TOutVertex>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation, typeof(IValueGremlinQuery<dynamic>));
+        IValueTupleGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IOutEdgeGremlinQuery<TElement, TOutVertex>>.Project(Func<IProjectBuilder<IOutEdgeGremlinQuery<TElement, TOutVertex>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation, typeof(IValueTupleGremlinQuery<dynamic>));
         IValueTupleGremlinQuery<TResult> IGremlinQueryBaseRec<TElement, IOutEdgeGremlinQuery<TElement, TOutVertex>>.Project<TResult>(Func<IProjectBuilder<IOutEdgeGremlinQuery<TElement, TOutVertex>, TElement>, IProjectResult<TResult>> continuation) => Project<TResult>(continuation, typeof(IValueTupleGremlinQuery<TResult>));
 
         IOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<TElement, TOutVertex>>.Range(long low, long high) => RangeGlobal(low, high);
@@ -1354,7 +1354,7 @@ namespace ExRam.Gremlinq.Core
         IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Order(Func<IOrderBuilder<IVertexPropertyGremlinQuery<TElement, TScalar>>, IOrderBuilderWithBy<IVertexPropertyGremlinQuery<TElement, TScalar>>> projection) => OrderGlobal(projection);
         IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.OrderLocal(Func<IOrderBuilder<IVertexPropertyGremlinQuery<TElement, TScalar>>, IOrderBuilderWithBy<IVertexPropertyGremlinQuery<TElement, TScalar>>> projection) => OrderLocal(projection);
 
-        IValueGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar>>.Project(Func<IProjectBuilder<IVertexPropertyGremlinQuery<TElement, TScalar>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation, typeof(IValueGremlinQuery<dynamic>));
+        IValueTupleGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar>>.Project(Func<IProjectBuilder<IVertexPropertyGremlinQuery<TElement, TScalar>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation, typeof(IValueTupleGremlinQuery<dynamic>));
         IValueTupleGremlinQuery<TResult> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar>>.Project<TResult>(Func<IProjectBuilder<IVertexPropertyGremlinQuery<TElement, TScalar>, TElement>, IProjectResult<TResult>> continuation) => Project<TResult>(continuation, typeof(IValueTupleGremlinQuery<TResult>));
 
         IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Range(long low, long high) => RangeGlobal(low, high);
@@ -1456,7 +1456,7 @@ namespace ExRam.Gremlinq.Core
         IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Order(Func<IOrderBuilder<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>, IOrderBuilderWithBy<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>> projection) => OrderGlobal(projection);
         IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.OrderLocal(Func<IOrderBuilder<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>, IOrderBuilderWithBy<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>> projection) => OrderLocal(projection);
 
-        IValueGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Project(Func<IProjectBuilder<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation, typeof(IValueGremlinQuery<dynamic>));
+        IValueTupleGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Project(Func<IProjectBuilder<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation, typeof(IValueTupleGremlinQuery<dynamic>));
         IValueTupleGremlinQuery<TResult> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Project<TResult>(Func<IProjectBuilder<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, TElement>, IProjectResult<TResult>> continuation) => Project<TResult>(continuation, typeof(IValueTupleGremlinQuery<TResult>));
 
         IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Range(long low, long high) => RangeGlobal(low, high);
@@ -1558,7 +1558,7 @@ namespace ExRam.Gremlinq.Core
         IPropertyGremlinQuery<TElement> IGremlinQueryBaseRec<IPropertyGremlinQuery<TElement>>.Order(Func<IOrderBuilder<IPropertyGremlinQuery<TElement>>, IOrderBuilderWithBy<IPropertyGremlinQuery<TElement>>> projection) => OrderGlobal(projection);
         IPropertyGremlinQuery<TElement> IGremlinQueryBaseRec<IPropertyGremlinQuery<TElement>>.OrderLocal(Func<IOrderBuilder<IPropertyGremlinQuery<TElement>>, IOrderBuilderWithBy<IPropertyGremlinQuery<TElement>>> projection) => OrderLocal(projection);
 
-        IValueGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IPropertyGremlinQuery<TElement>>.Project(Func<IProjectBuilder<IPropertyGremlinQuery<TElement>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation, typeof(IValueGremlinQuery<dynamic>));
+        IValueTupleGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IPropertyGremlinQuery<TElement>>.Project(Func<IProjectBuilder<IPropertyGremlinQuery<TElement>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation, typeof(IValueTupleGremlinQuery<dynamic>));
         IValueTupleGremlinQuery<TResult> IGremlinQueryBaseRec<TElement, IPropertyGremlinQuery<TElement>>.Project<TResult>(Func<IProjectBuilder<IPropertyGremlinQuery<TElement>, TElement>, IProjectResult<TResult>> continuation) => Project<TResult>(continuation, typeof(IValueTupleGremlinQuery<TResult>));
 
         IPropertyGremlinQuery<TElement> IGremlinQueryBaseRec<IPropertyGremlinQuery<TElement>>.Range(long low, long high) => RangeGlobal(low, high);
