@@ -47,7 +47,7 @@
                 else
                     steps.CopyTo(ret, 0, 0, steps.Count);
 
-                return new Traversal(ret, true);
+                return new Traversal(ret, true, Projection.Empty);
             }
         }
 
