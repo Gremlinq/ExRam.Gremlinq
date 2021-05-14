@@ -385,12 +385,12 @@
     public static class GremlinqOption
     {
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.DisabledTextPredicates> DisabledTextPredicates;
-        public static readonly ExRam.Gremlinq.Core.GremlinqOption<System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Step>> EdgeProjectionSteps;
+        public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.Projection> EdgeProjectionSteps;
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.FilterLabelsVerbosity> FilterLabelsVerbosity;
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.StringComparisonTranslationStrictness> StringComparisonTranslationStrictness;
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<System.Collections.Immutable.IImmutableDictionary<Gremlin.Net.Process.Traversal.T, ExRam.Gremlinq.Core.SerializationBehaviour>> TSerializationBehaviourOverrides;
-        public static readonly ExRam.Gremlinq.Core.GremlinqOption<System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Step>> VertexProjectionSteps;
-        public static readonly ExRam.Gremlinq.Core.GremlinqOption<System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Step>> VertexProjectionWithoutMetaPropertiesSteps;
+        public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.Projection> VertexProjectionSteps;
+        public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.Projection> VertexProjectionWithoutMetaPropertiesSteps;
     }
     public class GremlinqOption<TValue> : ExRam.Gremlinq.Core.IGremlinqOption
     {
@@ -1709,6 +1709,7 @@
         public ExRam.Gremlinq.Core.Step this[int index] { get; }
         public ExRam.Gremlinq.Core.Projection Projection { get; }
         public System.Collections.Generic.IEnumerator<ExRam.Gremlinq.Core.Step> GetEnumerator() { }
+        public ExRam.Gremlinq.Core.Traversal IncludeProjection() { }
         public static ExRam.Gremlinq.Core.Traversal op_Implicit(ExRam.Gremlinq.Core.Step step) { }
         public static ExRam.Gremlinq.Core.Traversal op_Implicit(ExRam.Gremlinq.Core.Step[] steps) { }
         public static ExRam.Gremlinq.Core.Traversal op_Implicit(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Step> steps) { }
