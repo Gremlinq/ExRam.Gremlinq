@@ -28,6 +28,14 @@ namespace ExRam.Gremlinq.Core
 
         public IEnumerator<Step> GetEnumerator() => _steps.GetEnumerator();
 
+        public Traversal IncludeProjection()
+        {
+            if (Projection.Count == 0)
+                return this;
+
+            return new Traversal(this.Concat(Projection), Projection.Empty);
+        }
+
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public int Count { get => _steps.Count; }
