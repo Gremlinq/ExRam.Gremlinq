@@ -1517,6 +1517,7 @@
         public ExRam.Gremlinq.Core.Step this[int index] { get; }
         public ExRam.Gremlinq.Core.Projection Decorate(ExRam.Gremlinq.Core.Projection? before, ExRam.Gremlinq.Core.Projection? after) { }
         public System.Collections.Generic.IEnumerator<ExRam.Gremlinq.Core.Step> GetEnumerator() { }
+        public static ExRam.Gremlinq.Core.Traversal op_Implicit(ExRam.Gremlinq.Core.Projection projection) { }
         public static ExRam.Gremlinq.Core.Projection op_Implicit(ExRam.Gremlinq.Core.Step step) { }
         public static ExRam.Gremlinq.Core.Projection op_Implicit(ExRam.Gremlinq.Core.Step[] steps) { }
         public static ExRam.Gremlinq.Core.Projection op_Implicit(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Step> steps) { }

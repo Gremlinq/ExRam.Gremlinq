@@ -53,6 +53,8 @@ namespace ExRam.Gremlinq.Core
 
         public Step this[int index] => _steps[index];
 
+        public static implicit operator Traversal(Projection projection) => new Traversal(projection._steps, true, Empty);
+
         public static implicit operator Projection(Step[] steps) => new(steps, false);
 
         public static implicit operator Projection(ImmutableArray<Step> steps) => new(steps);
