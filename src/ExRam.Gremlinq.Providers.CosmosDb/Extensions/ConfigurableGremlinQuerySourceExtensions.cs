@@ -106,8 +106,8 @@ namespace ExRam.Gremlinq.Core
                         .ConfigureEdgeFeatures(_ => EdgeFeatures.AddEdges | EdgeFeatures.RemoveEdges | EdgeFeatures.StringIds | EdgeFeatures.UserSuppliedIds | EdgeFeatures.AddProperty | EdgeFeatures.RemoveProperty)
                         .ConfigureEdgePropertyFeatures(_ => EdgePropertyFeatures.Properties | EdgePropertyFeatures.BooleanValues | EdgePropertyFeatures.ByteValues | EdgePropertyFeatures.DoubleValues | EdgePropertyFeatures.FloatValues | EdgePropertyFeatures.IntegerValues | EdgePropertyFeatures.LongValues | EdgePropertyFeatures.StringValues))
                     .ConfigureOptions(options => options
-                        .SetValue(GremlinqOption.VertexProjectionSteps, ImmutableArray<Step>.Empty)
-                        .SetValue(GremlinqOption.EdgeProjectionSteps, ImmutableArray<Step>.Empty))
+                        .SetValue(GremlinqOption.VertexProjectionSteps, Projection.Empty)
+                        .SetValue(GremlinqOption.EdgeProjectionSteps, Projection.Empty))
                     .ConfigureSerializer(serializer => serializer
                         .ConfigureFragmentSerializer(fragmentSerializer => fragmentSerializer
                             .Override<byte[]>((bytes, env, overridden, recurse) => recurse.Serialize(Convert.ToBase64String(bytes), env))
