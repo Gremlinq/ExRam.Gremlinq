@@ -15,7 +15,17 @@ namespace ExRam.Gremlinq.Core
         {
             Count = count;
             _steps = steps;
+            Semantics = initialSemantics;
             InitialSemantics = initialSemantics;
+
+            for (var i = Count - 1; i >= 0; i--)
+            {
+                if (steps[i]?.Semantics is { } semantics)
+                {
+                    Semantics = semantics;
+                    break;
+                }
+            }
         }
 
         public StepStack Push(Step step)
@@ -75,20 +85,6 @@ namespace ExRam.Gremlinq.Core
             get => Count == 0;
         }
 
-        internal QuerySemantics Semantics
-        {
-            get
-            {
-                for (var i = Count - 1; i >= 0; i--)
-                {
-                    if (this[i].Semantics is { } semantics)
-                        return semantics;
-                }
-
-                return InitialSemantics;
-            }
-        }
-
         internal Step Peek() => PeekOrDefault() ?? throw new InvalidOperationException();
 
         internal Step? PeekOrDefault() => Count > 0 ? _steps[Count - 1] : null;
@@ -99,7 +95,9 @@ namespace ExRam.Gremlinq.Core
 
         public int Count { get; }
 
-        public QuerySemantics InitialSemantics { get; }
+        internal QuerySemantics InitialSemantics { get; }
+
+        public QuerySemantics Semantics { get; }
 
         public Step this[int index]
         {

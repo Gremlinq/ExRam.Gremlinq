@@ -1732,8 +1732,8 @@
     {
         public static readonly ExRam.Gremlinq.Core.StepStack Empty;
         public int Count { get; }
-        public ExRam.Gremlinq.Core.QuerySemantics InitialSemantics { get; }
         public ExRam.Gremlinq.Core.Step this[int index] { get; }
+        public ExRam.Gremlinq.Core.QuerySemantics Semantics { get; }
         public System.Collections.Generic.IEnumerator<ExRam.Gremlinq.Core.Step> GetEnumerator() { }
         public ExRam.Gremlinq.Core.StepStack OverrideSemantics(ExRam.Gremlinq.Core.QuerySemantics semantics) { }
         public ExRam.Gremlinq.Core.StepStack Pop() { }
