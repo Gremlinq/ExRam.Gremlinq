@@ -5,7 +5,7 @@ namespace ExRam.Gremlinq.Core
 {
     public sealed class RangeStep : Step
     {
-        public RangeStep(long lower, long upper, Scope scope, QuerySemantics? semantics = default) : base(semantics)
+        public RangeStep(long lower, long upper, Scope scope) : base()
         {
             if (lower < 0)
                 throw new ArgumentOutOfRangeException(nameof(lower));
@@ -17,8 +17,6 @@ namespace ExRam.Gremlinq.Core
             Upper = upper;
             Scope = scope;
         }
-
-        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new RangeStep(Lower, Upper, Scope, semantics);
 
         public long Lower { get; }
         public long Upper { get; }

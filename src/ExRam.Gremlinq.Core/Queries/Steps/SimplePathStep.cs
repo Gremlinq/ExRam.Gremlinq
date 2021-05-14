@@ -2,10 +2,10 @@
 {
     public sealed class SimplePathStep : Step
     {
-        public SimplePathStep(QuerySemantics? semantics = default) : base(semantics)
+        public static readonly SimplePathStep Instance = new ();
+
+        public SimplePathStep() : base()
         {
         }
-
-        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new SimplePathStep(semantics);
     }
 }

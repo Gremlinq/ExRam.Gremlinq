@@ -4,13 +4,11 @@ namespace ExRam.Gremlinq.Core
 {
     public sealed class WhereStepLabelAndPredicateStep : Step, IIsOptimizableInWhere
     {
-        public WhereStepLabelAndPredicateStep(StepLabel stepLabel, P predicate, QuerySemantics? semantics = default) : base(semantics)
+        public WhereStepLabelAndPredicateStep(StepLabel stepLabel, P predicate) : base()
         {
             StepLabel = stepLabel;
             Predicate = predicate;
         }
-
-        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new WhereStepLabelAndPredicateStep(StepLabel, Predicate, semantics);
 
         public P Predicate { get; }
         public StepLabel StepLabel { get; }

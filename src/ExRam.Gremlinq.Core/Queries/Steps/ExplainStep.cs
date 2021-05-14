@@ -4,10 +4,8 @@
     {
         public static readonly ExplainStep Instance = new();
 
-        public ExplainStep(QuerySemantics? semantics = default) : base(semantics)
+        public ExplainStep() : base()
         {
         }
-
-        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new ExplainStep(semantics);
     }
 }

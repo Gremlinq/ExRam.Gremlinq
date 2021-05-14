@@ -4,10 +4,8 @@
     {
         public static readonly UnfoldStep Instance = new();
 
-        public UnfoldStep(QuerySemantics? semantics = default) : base(semantics)
+        public UnfoldStep() : base()
         {
         }
-
-        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new UnfoldStep(semantics);
     }
 }

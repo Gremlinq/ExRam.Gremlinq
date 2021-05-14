@@ -4,10 +4,8 @@
     {
         public static readonly PathStep Instance = new();
 
-        public PathStep(QuerySemantics? semantics = default) : base(semantics)
+        public PathStep() : base()
         {
         }
-
-        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new PathStep(semantics);
     }
 }

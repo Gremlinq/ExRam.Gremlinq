@@ -2,19 +2,13 @@
   {
     Item1: AddEStep,
     Item2: {
-      Label: string,
-      Semantics: {
-        QueryType: Object
-      }
+      Label: string
     }
   },
   {
     Item1: AddEStep.FromLabelStep,
     Item2: {
-      StepLabel: {},
-      Semantics: {
-        QueryType: Object
-      }
+      StepLabel: {}
     }
   },
   {
@@ -22,19 +16,13 @@
     Item2: {
       Traversal: [
         {}
-      ],
-      Semantics: {
-        QueryType: Object
-      }
+      ]
     }
   },
   {
     Item1: AddEStep.ToLabelStep,
     Item2: {
-      StepLabel: {},
-      Semantics: {
-        QueryType: Object
-      }
+      StepLabel: {}
     }
   },
   {
@@ -42,19 +30,13 @@
     Item2: {
       Traversal: [
         {}
-      ],
-      Semantics: {
-        QueryType: Object
-      }
+      ]
     }
   },
   {
     Item1: AddVStep,
     Item2: {
-      Label: string,
-      Semantics: {
-        QueryType: Object
-      }
+      Label: string
     }
   },
   {
@@ -64,10 +46,7 @@
         EnumName: Scope,
         EnumValue: global
       },
-      StepLabel: {},
-      Semantics: {
-        QueryType: Object
-      }
+      StepLabel: {}
     }
   },
   {
@@ -84,60 +63,35 @@
         [
           {}
         ]
-      ],
-      Semantics: {
-        QueryType: Object
-      }
+      ]
     }
   },
   {
     Item1: AsStep,
     Item2: {
-      StepLabel: {},
-      Semantics: {
-        QueryType: Object
-      }
+      StepLabel: {}
     }
   },
   {
     Item1: BarrierStep,
-    Item2: {
-      Semantics: {
-        QueryType: Object
-      }
-    }
+    Item2: {}
   },
   {
     Item1: BothEStep,
-    Item2: {
-      Semantics: {
-        QueryType: Object
-      }
-    }
+    Item2: {}
   },
   {
     Item1: BothStep,
-    Item2: {
-      Semantics: {
-        QueryType: Object
-      }
-    }
+    Item2: {}
   },
   {
     Item1: BothVStep,
-    Item2: {
-      Semantics: {
-        QueryType: Object
-      }
-    }
+    Item2: {}
   },
   {
     Item1: CapStep,
     Item2: {
-      StepLabel: {},
-      Semantics: {
-        QueryType: Object
-      }
+      StepLabel: {}
     }
   },
   {
@@ -145,10 +99,7 @@
     Item2: {
       Traversal: [
         {}
-      ],
-      Semantics: {
-        QueryType: Object
-      }
+      ]
     }
   },
   {
@@ -167,10 +118,7 @@
       ],
       ElseTraversal: [
         {}
-      ],
-      Semantics: {
-        QueryType: Object
-      }
+      ]
     }
   },
   {
@@ -184,10 +132,7 @@
       ],
       ElseTraversal: [
         {}
-      ],
-      Semantics: {
-        QueryType: Object
-      }
+      ]
     }
   },
   {
@@ -203,28 +148,19 @@
         [
           {}
         ]
-      ],
-      Semantics: {
-        QueryType: Object
-      }
+      ]
     }
   },
   {
     Item1: CoinStep,
     Item2: {
-      Probability: 47.11,
-      Semantics: {
-        QueryType: Object
-      }
+      Probability: 47.11
     }
   },
   {
     Item1: ConstantStep,
     Item2: {
-      Value: string,
-      Semantics: {
-        QueryType: Object
-      }
+      Value: string
     }
   },
   {
@@ -233,19 +169,12 @@
       Scope: {
         EnumName: Scope,
         EnumValue: global
-      },
-      Semantics: {
-        QueryType: Object
       }
     }
   },
   {
     Item1: CyclicPathStep,
-    Item2: {
-      Semantics: {
-        QueryType: Object
-      }
-    }
+    Item2: {}
   },
   {
     Item1: DedupStep,
@@ -253,27 +182,16 @@
       Scope: {
         EnumName: Scope,
         EnumValue: global
-      },
-      Semantics: {
-        QueryType: Object
       }
     }
   },
   {
     Item1: DropStep,
-    Item2: {
-      Semantics: {
-        QueryType: Object
-      }
-    }
+    Item2: {}
   },
   {
     Item1: EmitStep,
-    Item2: {
-      Semantics: {
-        QueryType: Object
-      }
-    }
+    Item2: {}
   },
   {
     Item1: EStep,
@@ -282,19 +200,12 @@
         string,
         string,
         string
-      ],
-      Semantics: {
-        QueryType: Object
-      }
+      ]
     }
   },
   {
     Item1: ExplainStep,
-    Item2: {
-      Semantics: {
-        QueryType: Object
-      }
-    }
+    Item2: {}
   },
   {
     Item1: FilterStep,
@@ -303,9 +214,6 @@
         LambdaExpression: lambda,
         Language: gremlin-groovy,
         Arguments: -1
-      },
-      Semantics: {
-        QueryType: Object
       }
     }
   },
@@ -314,37 +222,23 @@
     Item2: {
       Traversal: [
         {}
-      ],
-      Semantics: {
-        QueryType: Object
-      }
+      ]
     }
   },
   {
     Item1: FoldStep,
-    Item2: {
-      Semantics: {
-        QueryType: Object
-      }
-    }
+    Item2: {}
   },
   {
     Item1: GroupStep,
-    Item2: {
-      Semantics: {
-        QueryType: Object
-      }
-    }
+    Item2: {}
   },
   {
     Item1: GroupStep.ByTraversalStep,
     Item2: {
       Traversal: [
         {}
-      ],
-      Semantics: {
-        QueryType: Object
-      }
+      ]
     }
   },
   {
@@ -355,19 +249,13 @@
           EnumName: T,
           EnumValue: id
         }
-      },
-      Semantics: {
-        QueryType: Object
       }
     }
   },
   {
     Item1: HasKeyStep,
     Item2: {
-      Argument: string,
-      Semantics: {
-        QueryType: Object
-      }
+      Argument: string
     }
   },
   {
@@ -377,10 +265,7 @@
         string,
         string,
         string
-      ],
-      Semantics: {
-        QueryType: Object
-      }
+      ]
     }
   },
   {
@@ -391,9 +276,6 @@
           EnumName: T,
           EnumValue: id
         }
-      },
-      Semantics: {
-        QueryType: Object
       }
     }
   },
@@ -413,9 +295,6 @@
           string,
           string
         ]
-      },
-      Semantics: {
-        QueryType: Object
       }
     }
   },
@@ -430,44 +309,26 @@
       },
       Traversal: [
         {}
-      ],
-      Semantics: {
-        QueryType: Object
-      }
+      ]
     }
   },
   {
     Item1: HasValueStep,
     Item2: {
-      Argument: string,
-      Semantics: {
-        QueryType: Object
-      }
+      Argument: string
     }
   },
   {
     Item1: IdentityStep,
-    Item2: {
-      Semantics: {
-        QueryType: Object
-      }
-    }
+    Item2: {}
   },
   {
     Item1: IdStep,
-    Item2: {
-      Semantics: {
-        QueryType: Object
-      }
-    }
+    Item2: {}
   },
   {
     Item1: InEStep,
-    Item2: {
-      Semantics: {
-        QueryType: Object
-      }
-    }
+    Item2: {}
   },
   {
     Item1: InjectStep,
@@ -476,27 +337,16 @@
         string,
         string,
         string
-      ],
-      Semantics: {
-        QueryType: Object
-      }
+      ]
     }
   },
   {
     Item1: InStep,
-    Item2: {
-      Semantics: {
-        QueryType: Object
-      }
-    }
+    Item2: {}
   },
   {
     Item1: InVStep,
-    Item2: {
-      Semantics: {
-        QueryType: Object
-      }
-    }
+    Item2: {}
   },
   {
     Item1: IsStep,
@@ -508,27 +358,16 @@
           string,
           string
         ]
-      },
-      Semantics: {
-        QueryType: Object
       }
     }
   },
   {
     Item1: KeyStep,
-    Item2: {
-      Semantics: {
-        QueryType: Object
-      }
-    }
+    Item2: {}
   },
   {
     Item1: LabelStep,
-    Item2: {
-      Semantics: {
-        QueryType: Object
-      }
-    }
+    Item2: {}
   },
   {
     Item1: LimitStep,
@@ -537,9 +376,6 @@
       Scope: {
         EnumName: Scope,
         EnumValue: global
-      },
-      Semantics: {
-        QueryType: Object
       }
     }
   },
@@ -548,10 +384,7 @@
     Item2: {
       Traversal: [
         {}
-      ],
-      Semantics: {
-        QueryType: Object
-      }
+      ]
     }
   },
   {
@@ -559,10 +392,7 @@
     Item2: {
       Traversal: [
         {}
-      ],
-      Semantics: {
-        QueryType: Object
-      }
+      ]
     }
   },
   {
@@ -578,10 +408,7 @@
         [
           {}
         ]
-      ],
-      Semantics: {
-        QueryType: Object
-      }
+      ]
     }
   },
   {
@@ -590,9 +417,6 @@
       Scope: {
         EnumName: Scope,
         EnumValue: global
-      },
-      Semantics: {
-        QueryType: Object
       }
     }
   },
@@ -602,9 +426,6 @@
       Scope: {
         EnumName: Scope,
         EnumValue: global
-      },
-      Semantics: {
-        QueryType: Object
       }
     }
   },
@@ -614,29 +435,19 @@
       Scope: {
         EnumName: Scope,
         EnumValue: global
-      },
-      Semantics: {
-        QueryType: Object
       }
     }
   },
   {
     Item1: NoneStep,
-    Item2: {
-      Semantics: {
-        QueryType: Object
-      }
-    }
+    Item2: {}
   },
   {
     Item1: NotStep,
     Item2: {
       Traversal: [
         {}
-      ],
-      Semantics: {
-        QueryType: Object
-      }
+      ]
     }
   },
   {
@@ -644,10 +455,7 @@
     Item2: {
       Traversal: [
         {}
-      ],
-      Semantics: {
-        QueryType: Object
-      }
+      ]
     }
   },
   {
@@ -656,10 +464,7 @@
       Guard: string,
       OptionTraversal: [
         {}
-      ],
-      Semantics: {
-        QueryType: Object
-      }
+      ]
     }
   },
   {
@@ -668,9 +473,6 @@
       Scope: {
         EnumName: Scope,
         EnumValue: global
-      },
-      Semantics: {
-        QueryType: Object
       }
     }
   },
@@ -681,9 +483,6 @@
         LambdaExpression: lambda,
         Language: gremlin-groovy,
         Arguments: -1
-      },
-      Semantics: {
-        QueryType: Object
       }
     }
   },
@@ -699,9 +498,6 @@
           EnumName: T,
           EnumValue: id
         }
-      },
-      Semantics: {
-        QueryType: Object
       }
     }
   },
@@ -714,10 +510,7 @@
       },
       Traversal: [
         {}
-      ],
-      Semantics: {
-        QueryType: Object
-      }
+      ]
     }
   },
   {
@@ -734,67 +527,36 @@
         [
           {}
         ]
-      ],
-      Semantics: {
-        QueryType: Object
-      }
+      ]
     }
   },
   {
     Item1: OtherVStep,
-    Item2: {
-      Semantics: {
-        QueryType: Object
-      }
-    }
+    Item2: {}
   },
   {
     Item1: OutEStep,
-    Item2: {
-      Semantics: {
-        QueryType: Object
-      }
-    }
+    Item2: {}
   },
   {
     Item1: OutStep,
-    Item2: {
-      Semantics: {
-        QueryType: Object
-      }
-    }
+    Item2: {}
   },
   {
     Item1: OutVStep,
-    Item2: {
-      Semantics: {
-        QueryType: Object
-      }
-    }
+    Item2: {}
   },
   {
     Item1: PathStep,
-    Item2: {
-      Semantics: {
-        QueryType: Object
-      }
-    }
+    Item2: {}
   },
   {
     Item1: ProfileStep,
-    Item2: {
-      Semantics: {
-        QueryType: Object
-      }
-    }
+    Item2: {}
   },
   {
     Item1: ProjectEdgeStep,
-    Item2: {
-      Semantics: {
-        QueryType: Object
-      }
-    }
+    Item2: {}
   },
   {
     Item1: ProjectStep,
@@ -803,10 +565,7 @@
         string,
         string,
         string
-      ],
-      Semantics: {
-        QueryType: Object
-      }
+      ]
     }
   },
   {
@@ -814,10 +573,7 @@
     Item2: {
       Traversal: [
         {}
-      ],
-      Semantics: {
-        QueryType: Object
-      }
+      ]
     }
   },
   {
@@ -828,19 +584,12 @@
           EnumName: T,
           EnumValue: id
         }
-      },
-      Semantics: {
-        QueryType: Object
       }
     }
   },
   {
     Item1: ProjectVertexStep,
-    Item2: {
-      Semantics: {
-        QueryType: Object
-      }
-    }
+    Item2: {}
   },
   {
     Item1: PropertiesStep,
@@ -849,10 +598,7 @@
         string,
         string,
         string
-      ],
-      Semantics: {
-        QueryType: Object
-      }
+      ]
     }
   },
   {
@@ -868,9 +614,6 @@
       Cardinality: {
         EnumName: Cardinality,
         EnumValue: single
-      },
-      Semantics: {
-        QueryType: Object
       }
     }
   },
@@ -884,9 +627,6 @@
       Cardinality: {
         EnumName: Cardinality,
         EnumValue: single
-      },
-      Semantics: {
-        QueryType: Object
       }
     }
   },
@@ -898,9 +638,6 @@
       Scope: {
         EnumName: Scope,
         EnumValue: global
-      },
-      Semantics: {
-        QueryType: Object
       }
     }
   },
@@ -909,10 +646,7 @@
     Item2: {
       Traversal: [
         {}
-      ],
-      Semantics: {
-        QueryType: Object
-      }
+      ]
     }
   },
   {
@@ -937,10 +671,7 @@
             EnumValue: id
           }
         }
-      ],
-      Semantics: {
-        QueryType: Object
-      }
+      ]
     }
   },
   {
@@ -950,10 +681,7 @@
         {},
         {},
         {}
-      ],
-      Semantics: {
-        QueryType: Object
-      }
+      ]
     }
   },
   {
@@ -961,19 +689,12 @@
     Item2: {
       Traversal: [
         {}
-      ],
-      Semantics: {
-        QueryType: Object
-      }
+      ]
     }
   },
   {
     Item1: SimplePathStep,
-    Item2: {
-      Semantics: {
-        QueryType: Object
-      }
-    }
+    Item2: {}
   },
   {
     Item1: SkipStep,
@@ -982,9 +703,6 @@
       Scope: {
         EnumName: Scope,
         EnumValue: global
-      },
-      Semantics: {
-        QueryType: Object
       }
     }
   },
@@ -994,9 +712,6 @@
       Scope: {
         EnumName: Scope,
         EnumValue: global
-      },
-      Semantics: {
-        QueryType: Object
       }
     }
   },
@@ -1007,28 +722,18 @@
       Scope: {
         EnumName: Scope,
         EnumValue: global
-      },
-      Semantics: {
-        QueryType: Object
       }
     }
   },
   {
     Item1: TimesStep,
     Item2: {
-      Count: 4711,
-      Semantics: {
-        QueryType: Object
-      }
+      Count: 4711
     }
   },
   {
     Item1: UnfoldStep,
-    Item2: {
-      Semantics: {
-        QueryType: Object
-      }
-    }
+    Item2: {}
   },
   {
     Item1: UnionStep,
@@ -1043,10 +748,7 @@
         [
           {}
         ]
-      ],
-      Semantics: {
-        QueryType: Object
-      }
+      ]
     }
   },
   {
@@ -1054,10 +756,7 @@
     Item2: {
       Traversal: [
         {}
-      ],
-      Semantics: {
-        QueryType: Object
-      }
+      ]
     }
   },
   {
@@ -1067,10 +766,7 @@
         string,
         string,
         string
-      ],
-      Semantics: {
-        QueryType: Object
-      }
+      ]
     }
   },
   {
@@ -1080,19 +776,12 @@
         string,
         string,
         string
-      ],
-      Semantics: {
-        QueryType: Object
-      }
+      ]
     }
   },
   {
     Item1: ValueStep,
-    Item2: {
-      Semantics: {
-        QueryType: Object
-      }
-    }
+    Item2: {}
   },
   {
     Item1: VStep,
@@ -1101,10 +790,7 @@
         string,
         string,
         string
-      ],
-      Semantics: {
-        QueryType: Object
-      }
+      ]
     }
   },
   {
@@ -1117,9 +803,6 @@
           string,
           string
         ]
-      },
-      Semantics: {
-        QueryType: Object
       }
     }
   },
@@ -1131,9 +814,6 @@
           EnumName: T,
           EnumValue: id
         }
-      },
-      Semantics: {
-        QueryType: Object
       }
     }
   },
@@ -1148,10 +828,7 @@
           string
         ]
       },
-      StepLabel: {},
-      Semantics: {
-        QueryType: Object
-      }
+      StepLabel: {}
     }
   },
   {
@@ -1159,10 +836,7 @@
     Item2: {
       Traversal: [
         {}
-      ],
-      Semantics: {
-        QueryType: Object
-      }
+      ]
     }
   },
   {
@@ -1172,20 +846,14 @@
         Object,
         Object,
         Object
-      ],
-      Semantics: {
-        QueryType: Object
-      }
+      ]
     }
   },
   {
     Item1: WithSideEffectStep,
     Item2: {
       Value: string,
-      Label: {},
-      Semantics: {
-        QueryType: Object
-      }
+      Label: {}
     }
   },
   {
@@ -1193,10 +861,7 @@
     Item2: {
       Traversal: [
         {}
-      ],
-      Semantics: {
-        QueryType: Object
-      }
+      ]
     }
   }
 ]

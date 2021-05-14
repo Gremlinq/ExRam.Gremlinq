@@ -4,10 +4,8 @@
     {
         public static readonly BarrierStep Instance = new();
 
-        public BarrierStep(QuerySemantics? semantics = default) : base(semantics)
+        public BarrierStep() : base()
         {
         }
-
-        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new BarrierStep(semantics);
     }
 }

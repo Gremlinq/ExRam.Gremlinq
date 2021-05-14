@@ -4,10 +4,8 @@ namespace ExRam.Gremlinq.Core
 {
     public sealed class MatchStep : MultiTraversalArgumentStep
     {
-        public MatchStep(ImmutableArray<Traversal> traversals, QuerySemantics? semantics = default) : base(traversals, semantics)
+        public MatchStep(ImmutableArray<Traversal> traversals) : base(traversals)
         {
         }
-
-        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new MatchStep(Traversals, semantics);
     }
 }

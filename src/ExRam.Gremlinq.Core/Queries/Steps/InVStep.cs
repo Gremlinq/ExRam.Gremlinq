@@ -4,10 +4,8 @@
     {
         public static readonly InVStep Instance = new();
 
-        public InVStep(QuerySemantics? semantics = default) : base(semantics)
+        public InVStep() : base()
         {
         }
-
-        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new InVStep(semantics);
     }
 }

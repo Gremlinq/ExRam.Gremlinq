@@ -4,10 +4,8 @@
     {
         public static readonly OtherVStep Instance = new();
 
-        public OtherVStep(QuerySemantics? semantics = default) : base(semantics)
+        public OtherVStep() : base()
         {
         }
-
-        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new OtherVStep(semantics);
     }
 }

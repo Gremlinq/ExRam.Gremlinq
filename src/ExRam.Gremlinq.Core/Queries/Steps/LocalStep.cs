@@ -2,12 +2,10 @@
 {
     public sealed class LocalStep : Step
     {
-        public LocalStep(Traversal traversal, QuerySemantics? semantics = default) : base(semantics)
+        public LocalStep(Traversal traversal) : base()
         {
             Traversal = traversal;
         }
-
-        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new LocalStep(Traversal, semantics);
 
         public Traversal Traversal { get; }
     }

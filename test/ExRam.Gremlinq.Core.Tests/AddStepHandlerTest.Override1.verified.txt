@@ -1,8 +1,10 @@
-[
+﻿[
   {
-    Labels: [
-      label,
-      added label
-    ]
+    Item1: {
+      Labels: [
+        label,
+        added label
+      ]
+    }
   }
 ]

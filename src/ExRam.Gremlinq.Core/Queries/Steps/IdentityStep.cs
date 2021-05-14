@@ -4,10 +4,8 @@
     {
         public static readonly IdentityStep Instance = new();
 
-        public IdentityStep(QuerySemantics? semantics = default) : base(semantics)
+        public IdentityStep() : base()
         {
         }
-
-        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new IdentityStep(semantics);
     }
 }

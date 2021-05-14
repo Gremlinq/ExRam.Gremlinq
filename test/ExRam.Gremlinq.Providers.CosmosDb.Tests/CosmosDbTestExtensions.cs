@@ -8,8 +8,8 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         {
             return env
                 .ConfigureAddStepHandler(stepHandler => stepHandler
-                    .Override<AddVStep>((steps, step, env, overridden, recurse) => overridden(steps, step, env, recurse)
-                        .Push(new PropertyStep.ByKeyStep("PartitionKey", "PartitionKey"))));
+                    .Override<AddVStep>((steps, step, semantics, env, overridden, recurse) => overridden(steps, step, semantics, env, recurse)
+                        .Push(new PropertyStep.ByKeyStep("PartitionKey", "PartitionKey"), semantics)));
         }
     }
 }

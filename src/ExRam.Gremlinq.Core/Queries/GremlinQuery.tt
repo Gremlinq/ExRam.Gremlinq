@@ -60,7 +60,7 @@ namespace ExRam.Gremlinq.Core
 
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Emit() => Emit();
 
-        TTargetQuery IGremlinQueryBaseRec<<#= iface #>>.FlatMap<TTargetQuery>(Func<<#= iface #>, TTargetQuery> mapping) => FlatMap(mapping);
+        TTargetQuery IGremlinQueryBaseRec<<#= iface #>>.FlatMap<TTargetQuery>(Func<<#= iface #>, TTargetQuery> mapping) => FlatMap(mapping, typeof(TTargetQuery));
 
         IArrayGremlinQuery<TElement[], TElement, <#= iface #>> IGremlinQueryBaseRec<TElement, <#= iface #>>.ForceArray() => ChangeQueryType<IArrayGremlinQuery<TElement[], TElement, <#= iface #>>>();
 
@@ -116,9 +116,9 @@ namespace ExRam.Gremlinq.Core
 
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.SkipLocal(long count) => Skip(count, Scope.Local);
 
-        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Tail(long count) => TailGlobal(count);
+        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Tail(long count) => TailGlobal(count, typeof(<#= iface #>));
 
-        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.TailLocal(long count) => TailLocal(count);
+        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.TailLocal(long count) => TailLocal(count, typeof(<#= iface #>));
 
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Times(int count) => Times(count);
 

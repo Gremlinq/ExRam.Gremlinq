@@ -4,11 +4,9 @@
     {
         public static readonly ValueStep Instance = new();
 
-        public ValueStep(QuerySemantics? semantics = default) : base(semantics)
+        public ValueStep() : base()
         {
 
         }
-
-        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new ValueStep(semantics);
     }
 }

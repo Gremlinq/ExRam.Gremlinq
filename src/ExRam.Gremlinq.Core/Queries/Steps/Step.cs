@@ -2,13 +2,8 @@
 {
     public abstract class Step
     {
-        protected Step(QuerySemantics? semantics = default)
+        protected Step()
         {
-            Semantics = semantics;
         }
-
-        public abstract Step OverrideQuerySemantics(QuerySemantics semantics);
-
-        public QuerySemantics? Semantics { get; }
     }
 }

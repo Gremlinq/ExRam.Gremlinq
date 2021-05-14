@@ -2,12 +2,10 @@
 {
     public sealed class MapStep : Step
     {
-        public MapStep(Traversal traversal, QuerySemantics? semantics = default) : base(semantics)
+        public MapStep(Traversal traversal) : base()
         {
             Traversal = traversal;
         }
-
-        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new MapStep(Traversal, semantics);
 
         public Traversal Traversal { get; }
     }

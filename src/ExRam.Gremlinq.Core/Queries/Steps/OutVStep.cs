@@ -4,10 +4,8 @@
     {
         public static readonly OutVStep Instance = new();
 
-        public OutVStep(QuerySemantics? semantics = default) : base(semantics)
+        public OutVStep() : base()
         {
         }
-
-        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new OutVStep(semantics);
     }
 }

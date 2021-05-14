@@ -2,7 +2,7 @@
 {
     public abstract class ChooseStep : Step
     {
-        protected ChooseStep(Traversal thenTraversal, Traversal? elseTraversal = default, QuerySemantics? semantics = default) : base(semantics)
+        protected ChooseStep(Traversal thenTraversal, Traversal? elseTraversal = default) : base()
         {
             ThenTraversal = thenTraversal;
             ElseTraversal = elseTraversal;

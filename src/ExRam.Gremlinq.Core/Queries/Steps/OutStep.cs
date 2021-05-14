@@ -4,16 +4,14 @@ namespace ExRam.Gremlinq.Core
 {
     public sealed class OutStep : DerivedLabelNamesStep
     {
-        public static readonly OutStep Empty = new(ImmutableArray<string>.Empty);
+        public static readonly OutStep NoLabels = new(ImmutableArray<string>.Empty);
 
-        public OutStep(QuerySemantics? semantics = default) : base(ImmutableArray<string>.Empty, semantics)
+        public OutStep() : base(ImmutableArray<string>.Empty)
         {
         }
 
-        public OutStep(ImmutableArray<string> labels, QuerySemantics? semantics = default) : base(labels, semantics)
+        public OutStep(ImmutableArray<string> labels) : base(labels)
         {
         }
-
-        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new OutStep(Labels, semantics);
     }
 }

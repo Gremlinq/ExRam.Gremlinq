@@ -5,12 +5,10 @@ namespace ExRam.Gremlinq.Core
 {
     public sealed class HasLabelStep : DerivedLabelNamesStep, IIsOptimizableInWhere
     {
-        public HasLabelStep(ImmutableArray<string> labels, QuerySemantics? semantics = default) : base(labels, semantics)
+        public HasLabelStep(ImmutableArray<string> labels) : base(labels)
         {
             if (labels.Length == 0)
                 throw new ArgumentException($"{nameof(labels)} may not be empty.");
         }
-
-        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new HasLabelStep(Labels, semantics);
     }
 }

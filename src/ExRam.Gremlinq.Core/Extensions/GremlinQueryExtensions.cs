@@ -33,7 +33,7 @@ namespace ExRam.Gremlinq.Core
 
         internal static bool IsNone(this IGremlinQueryBase query)
         {
-            return query.AsAdmin().Steps.PeekOrDefault() is NoneStep;
+            return query.AsAdmin().Steps.PeekOrDefault()?.Step is NoneStep;
         }
 
         internal static bool IsIdentity(this IGremlinQueryBase query)

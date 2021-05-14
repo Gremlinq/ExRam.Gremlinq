@@ -7,12 +7,10 @@ namespace ExRam.Gremlinq.Core
         public static readonly SumStep Local = new(Scope.Local);
         public static readonly SumStep Global = new(Scope.Global);
 
-        public SumStep(Scope scope, QuerySemantics? semantics = default) : base(semantics)
+        public SumStep(Scope scope) : base()
         {
             Scope = scope;
         }
-
-        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new SumStep(Scope, semantics);
 
         public Scope Scope { get; }
     }

@@ -4,14 +4,9 @@
     {
         public static readonly ProjectEdgeStep Instance = new();
 
-        public ProjectEdgeStep(QuerySemantics? semantics = null) : base(semantics)
+        public ProjectEdgeStep(QuerySemantics? semantics = null) : base()
         {
 
-        }
-
-        public override Step OverrideQuerySemantics(QuerySemantics semantics)
-        {
-            return new ProjectEdgeStep(semantics);
         }
     }
 }

@@ -5,7 +5,7 @@ namespace ExRam.Gremlinq.Core
 {
     public sealed class SkipStep : Step
     {
-        public SkipStep(long count, Scope scope, QuerySemantics? semantics = default) : base(semantics)
+        public SkipStep(long count, Scope scope) : base()
         {
             if (count < 0)
                 throw new ArgumentOutOfRangeException(nameof(count));
@@ -13,8 +13,6 @@ namespace ExRam.Gremlinq.Core
             Count = count;
             Scope = scope;
         }
-
-        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new SkipStep(Count, Scope, semantics);
 
         public long Count { get; }
         public Scope Scope { get; }

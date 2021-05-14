@@ -4,10 +4,8 @@
     {
         public static readonly EmitStep Instance = new();
 
-        public EmitStep(QuerySemantics? semantics = default) : base(semantics)
+        public EmitStep() : base()
         {
         }
-
-        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new EmitStep(semantics);
     }
 }

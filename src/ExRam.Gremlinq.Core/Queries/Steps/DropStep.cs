@@ -4,10 +4,8 @@
     {
         public static readonly DropStep Instance = new();
 
-        public DropStep(QuerySemantics? semantics = default) : base(semantics)
+        public DropStep() : base()
         {
         }
-
-        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new DropStep(semantics);
     }
 }
