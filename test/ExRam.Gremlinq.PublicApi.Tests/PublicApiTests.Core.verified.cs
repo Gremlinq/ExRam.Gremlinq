@@ -1508,6 +1508,19 @@
         public static readonly ExRam.Gremlinq.Core.ProjectVertexStep Instance;
         public ProjectVertexStep() { }
     }
+    public readonly struct Projection : System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Step>, System.Collections.Generic.IReadOnlyCollection<ExRam.Gremlinq.Core.Step>, System.Collections.Generic.IReadOnlyList<ExRam.Gremlinq.Core.Step>, System.Collections.IEnumerable
+    {
+        public static readonly ExRam.Gremlinq.Core.Projection Empty;
+        public Projection(System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Step> steps) { }
+        public Projection(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Step> steps) { }
+        public int Count { get; }
+        public ExRam.Gremlinq.Core.Step this[int index] { get; }
+        public ExRam.Gremlinq.Core.Projection Decorate(ExRam.Gremlinq.Core.Projection? before, ExRam.Gremlinq.Core.Projection? after) { }
+        public System.Collections.Generic.IEnumerator<ExRam.Gremlinq.Core.Step> GetEnumerator() { }
+        public static ExRam.Gremlinq.Core.Projection op_Implicit(ExRam.Gremlinq.Core.Step step) { }
+        public static ExRam.Gremlinq.Core.Projection op_Implicit(ExRam.Gremlinq.Core.Step[] steps) { }
+        public static ExRam.Gremlinq.Core.Projection op_Implicit(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Step> steps) { }
+    }
     public sealed class PropertiesStep : ExRam.Gremlinq.Core.Step
     {
         public PropertiesStep(System.Collections.Immutable.ImmutableArray<string> keys) { }
@@ -1690,10 +1703,11 @@
     }
     public readonly struct Traversal : System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Step>, System.Collections.Generic.IReadOnlyCollection<ExRam.Gremlinq.Core.Step>, System.Collections.Generic.IReadOnlyList<ExRam.Gremlinq.Core.Step>, System.Collections.IEnumerable
     {
-        public Traversal(System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Step> steps) { }
-        public Traversal(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Step> steps) { }
+        public Traversal(System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Step> steps, ExRam.Gremlinq.Core.Projection projection) { }
+        public Traversal(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Step> steps, ExRam.Gremlinq.Core.Projection projection) { }
         public int Count { get; }
         public ExRam.Gremlinq.Core.Step this[int index] { get; }
+        public ExRam.Gremlinq.Core.Projection Projection { get; }
         public System.Collections.Generic.IEnumerator<ExRam.Gremlinq.Core.Step> GetEnumerator() { }
         public static ExRam.Gremlinq.Core.Traversal op_Implicit(ExRam.Gremlinq.Core.Step step) { }
         public static ExRam.Gremlinq.Core.Traversal op_Implicit(ExRam.Gremlinq.Core.Step[] steps) { }

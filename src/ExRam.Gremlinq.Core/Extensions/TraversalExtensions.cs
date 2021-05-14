@@ -30,7 +30,7 @@ namespace ExRam.Gremlinq.Core
                         list[traversal.Count - 2] = newStep;
                         list.RemoveAt(traversal.Count - 1);
 
-                        return new Traversal(list, true);
+                        return new Traversal(list, true, traversal.Projection);
                     }
                 }
             }

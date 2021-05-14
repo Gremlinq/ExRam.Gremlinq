@@ -1199,25 +1199,29 @@ namespace ExRam.Gremlinq.Core
                                     }
                                     case WellKnownMember.PropertyKey:
                                     {
-                                        yield return new WhereTraversalStep(new Traversal(this
-                                            .Where(
-                                                ExpressionFragment.Create(parameterExpression, Environment.Model),
-                                                default,
-                                                semantics,
-                                                right)
-                                            .Prepend(KeyStep.Instance)));
+                                        yield return new WhereTraversalStep(new Traversal(
+                                            this
+                                                .Where(
+                                                    ExpressionFragment.Create(parameterExpression, Environment.Model),
+                                                    default,
+                                                    semantics,
+                                                    right)
+                                                .Prepend(KeyStep.Instance),
+                                            Projection.Empty));
 
                                         yield break;
                                     }
                                     case WellKnownMember.VertexPropertyLabel when right.GetValue() is StepLabel:
                                     {
-                                        yield return new WhereTraversalStep(new Traversal(this
-                                            .Where(
-                                                ExpressionFragment.Create(parameterExpression, Environment.Model),
-                                                default,
-                                                semantics,
-                                                right)
-                                            .Prepend(LabelStep.Instance)));
+                                        yield return new WhereTraversalStep(new Traversal(
+                                            this
+                                                .Where(
+                                                    ExpressionFragment.Create(parameterExpression, Environment.Model),
+                                                    default,
+                                                    semantics,
+                                                    right)
+                                                .Prepend(LabelStep.Instance),
+                                            Projection.Empty));
 
                                         yield break;
                                     }
