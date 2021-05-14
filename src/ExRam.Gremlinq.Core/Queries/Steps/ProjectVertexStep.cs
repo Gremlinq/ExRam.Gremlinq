@@ -4,14 +4,9 @@
     {
         public static readonly ProjectVertexStep Instance = new();
 
-        public ProjectVertexStep(QuerySemantics? semantics = null) : base(semantics)
+        public ProjectVertexStep() : base()
         {
 
-        }
-
-        public override Step OverrideQuerySemantics(QuerySemantics semantics)
-        {
-            return new ProjectVertexStep(semantics);
         }
     }
 }

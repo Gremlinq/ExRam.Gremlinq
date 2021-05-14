@@ -4,10 +4,8 @@
     {
         public static readonly KeyStep Instance = new();
 
-        public KeyStep(QuerySemantics? semantics = default) : base(semantics)
+        public KeyStep() : base()
         {
         }
-
-        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new KeyStep(semantics);
     }
 }

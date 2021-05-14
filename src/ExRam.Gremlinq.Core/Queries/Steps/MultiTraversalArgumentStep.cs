@@ -4,7 +4,7 @@ namespace ExRam.Gremlinq.Core
 {
     public abstract class MultiTraversalArgumentStep : Step
     {
-        protected MultiTraversalArgumentStep(ImmutableArray<Traversal> traversals, QuerySemantics? semantics = default) : base(semantics)
+        protected MultiTraversalArgumentStep(ImmutableArray<Traversal> traversals) : base()
         {
             Traversals = traversals;
         }

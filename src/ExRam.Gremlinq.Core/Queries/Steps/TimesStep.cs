@@ -2,12 +2,10 @@
 {
     public sealed class TimesStep : Step
     {
-        public TimesStep(int count, QuerySemantics? semantics = default) : base(semantics)
+        public TimesStep(int count) : base()
         {
             Count = count;
         }
-
-        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new TimesStep(Count, semantics);
 
         public int Count { get; }
     }

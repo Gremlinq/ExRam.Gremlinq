@@ -2,10 +2,10 @@
 {
     public sealed class CyclicPathStep : Step
     {
-        public CyclicPathStep(QuerySemantics? semantics = default) : base(semantics)
+        public static readonly CyclicPathStep Instance = new ();
+
+        public CyclicPathStep() : base()
         {
         }
-
-        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new CyclicPathStep(semantics);
     }
 }

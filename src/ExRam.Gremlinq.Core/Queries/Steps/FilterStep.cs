@@ -4,12 +4,10 @@ namespace ExRam.Gremlinq.Core
 {
     public sealed class FilterStep : Step
     {
-        public FilterStep(ILambda lambda, QuerySemantics? semantics = default) : base(semantics)
+        public FilterStep(ILambda lambda) : base()
         {
             Lambda = lambda;
         }
-
-        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new FilterStep(Lambda, semantics);
 
         public ILambda Lambda { get; }
     }

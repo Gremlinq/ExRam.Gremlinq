@@ -2,12 +2,10 @@
 {
     public sealed class HasNotStep : Step, IIsOptimizableInWhere
     {
-        public HasNotStep(Key key, QuerySemantics? semantics = default) : base(semantics)
+        public HasNotStep(Key key) : base()
         {
             Key = key;
         }
-
-        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new HasNotStep(Key, semantics);
 
         public Key Key { get; }
     }

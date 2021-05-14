@@ -4,10 +4,8 @@
     {
         public static readonly NoneStep Instance = new();
 
-        public NoneStep(QuerySemantics? semantics = default) : base(semantics)
+        public NoneStep() : base()
         {
         }
-
-        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new NoneStep(semantics);
     }
 }

@@ -1,8 +1,10 @@
-[
+﻿[
   {
-    Ids: [
-      id,
-      another id
-    ]
+    Item1: {
+      Ids: [
+        id,
+        another id
+      ]
+    }
   }
 ]

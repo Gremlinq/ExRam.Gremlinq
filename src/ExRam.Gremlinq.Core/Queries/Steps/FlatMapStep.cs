@@ -2,12 +2,10 @@
 {
     public sealed class FlatMapStep : Step
     {
-        public FlatMapStep(Traversal traversal, QuerySemantics? semantics = default) : base(semantics)
+        public FlatMapStep(Traversal traversal) : base()
         {
             Traversal = traversal;
         }
-
-        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new FlatMapStep(Traversal, semantics);
 
         public Traversal Traversal { get; }
     }

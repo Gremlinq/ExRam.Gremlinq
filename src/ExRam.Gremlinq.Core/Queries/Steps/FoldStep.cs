@@ -4,10 +4,8 @@
     {
         public static readonly FoldStep Instance = new();
 
-        public FoldStep(QuerySemantics? semantics = default) : base(semantics)
+        public FoldStep() : base()
         {
         }
-
-        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new FoldStep(semantics);
     }
 }

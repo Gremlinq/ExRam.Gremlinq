@@ -5,12 +5,10 @@ namespace ExRam.Gremlinq.Core
 {
     public sealed class WithoutStrategiesStep : Step
     {
-        public WithoutStrategiesStep(ImmutableArray<Type> strategyTypes, QuerySemantics? semantics = default) : base(semantics)
+        public WithoutStrategiesStep(ImmutableArray<Type> strategyTypes) : base()
         {
             StrategyTypes = strategyTypes;
         }
-
-        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new WithoutStrategiesStep(StrategyTypes, semantics);
 
         public ImmutableArray<Type> StrategyTypes { get; }
     }

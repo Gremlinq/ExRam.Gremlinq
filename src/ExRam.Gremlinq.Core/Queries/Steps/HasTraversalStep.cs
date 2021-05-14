@@ -2,13 +2,11 @@
 {
     public sealed class HasTraversalStep : Step, IIsOptimizableInWhere
     { 
-        public HasTraversalStep(Key key, Traversal traversal, QuerySemantics? semantics = default) : base(semantics)
+        public HasTraversalStep(Key key, Traversal traversal) : base()
         {
             Key = key;
             Traversal = traversal;
         }
-
-        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new HasTraversalStep(Key, Traversal, semantics);
 
         public Key Key { get; }
         public Traversal Traversal { get; }

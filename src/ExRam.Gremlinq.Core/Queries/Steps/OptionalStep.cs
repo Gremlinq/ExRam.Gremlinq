@@ -2,12 +2,10 @@
 {
     public sealed class OptionalStep : Step
     {
-        public OptionalStep(Traversal traversal, QuerySemantics? semantics = default) : base(semantics)
+        public OptionalStep(Traversal traversal) : base()
         {
             Traversal = traversal;
         }
-
-        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new OptionalStep(Traversal, semantics);
 
         public Traversal Traversal { get; }
     }

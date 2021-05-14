@@ -4,58 +4,48 @@
     {
         public sealed class FromLabelStep : Step
         {
-            public FromLabelStep(StepLabel stepLabel, QuerySemantics? semantics = default) : base(semantics)
+            public FromLabelStep(StepLabel stepLabel) : base()
             {
                 StepLabel = stepLabel;
             }
-
-            public override Step OverrideQuerySemantics(QuerySemantics semantics) => new FromLabelStep(StepLabel, semantics);
 
             public StepLabel StepLabel { get; }
         }
 
         public sealed class FromTraversalStep : Step
         {
-            public FromTraversalStep(Traversal traversal, QuerySemantics? semantics = default) : base(semantics)
+            public FromTraversalStep(Traversal traversal) : base()
             {
                 Traversal = traversal;
             }
-
-            public override Step OverrideQuerySemantics(QuerySemantics semantics) => new FromTraversalStep(Traversal, semantics);
 
             public Traversal Traversal { get; }
         }
 
         public sealed class ToLabelStep : Step
         {
-            public ToLabelStep(StepLabel stepLabel, QuerySemantics? semantics = default) : base(semantics)
+            public ToLabelStep(StepLabel stepLabel) : base()
             {
                 StepLabel = stepLabel;
             }
-
-            public override Step OverrideQuerySemantics(QuerySemantics semantics) => new ToLabelStep(StepLabel, semantics);
 
             public StepLabel StepLabel { get; }
         }
 
         public sealed class ToTraversalStep : Step
         {
-            public ToTraversalStep(Traversal traversal, QuerySemantics? semantics = default) : base(semantics)
+            public ToTraversalStep(Traversal traversal) : base()
             {
                 Traversal = traversal;
             }
 
-            public override Step OverrideQuerySemantics(QuerySemantics semantics) => new ToTraversalStep(Traversal, semantics);
-
             public Traversal Traversal { get; }
         }
 
-        public AddEStep(string label, QuerySemantics? semantics = default) : base(semantics)
+        public AddEStep(string label) : base()
         {
             Label = label;
         }
-
-        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new AddEStep(Label, semantics);
 
         public string Label { get; }
     }

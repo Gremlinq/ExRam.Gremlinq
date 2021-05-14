@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq.Core
         public static readonly LimitStep LimitLocal1 = new(1, Scope.Local);
         public static readonly LimitStep LimitGlobal1 = new(1, Scope.Global);
 
-        public LimitStep(long count, Scope scope, QuerySemantics? semantics = default) : base(semantics)
+        public LimitStep(long count, Scope scope) : base()
         {
             if (count < 0)
                 throw new ArgumentOutOfRangeException(nameof(count));
@@ -16,8 +16,6 @@ namespace ExRam.Gremlinq.Core
             Count = count;
             Scope = scope;
         }
-
-        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new LimitStep(Count, Scope, semantics);
 
         public long Count { get; }
         public Scope Scope { get; }

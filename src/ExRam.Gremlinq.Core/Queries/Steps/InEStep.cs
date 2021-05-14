@@ -4,16 +4,14 @@ namespace ExRam.Gremlinq.Core
 {
     public sealed class InEStep : DerivedLabelNamesStep
     {
-        public static readonly InEStep Empty = new(ImmutableArray<string>.Empty);
+        public static readonly InEStep NoLabels = new(ImmutableArray<string>.Empty);
 
-        public InEStep(QuerySemantics? semantics = default) : this(ImmutableArray<string>.Empty, semantics)
+        public InEStep() : this(ImmutableArray<string>.Empty)
         {
         }
 
-        public InEStep(ImmutableArray<string> labels, QuerySemantics? semantics = default) : base(labels, semantics)
+        public InEStep(ImmutableArray<string> labels) : base(labels)
         {
         }
-
-        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new InEStep(semantics);
     }
 }

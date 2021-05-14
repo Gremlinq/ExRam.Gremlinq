@@ -7,12 +7,10 @@ namespace ExRam.Gremlinq.Core
         public static readonly MeanStep Local = new(Scope.Local);
         public static readonly MeanStep Global = new(Scope.Global);
 
-        public MeanStep(Scope scope, QuerySemantics? semantics = default) : base(semantics)
+        public MeanStep(Scope scope) : base()
         {
             Scope = scope;
         }
-
-        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new MeanStep(Scope, semantics);
 
         public Scope Scope { get; }
     }

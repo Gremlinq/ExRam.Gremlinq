@@ -2,12 +2,10 @@
 {
     public sealed class UntilStep : Step
     {
-        public UntilStep(Traversal traversal, QuerySemantics? semantics = default) : base(semantics)
+        public UntilStep(Traversal traversal) : base()
         {
             Traversal = traversal;
         }
-
-        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new UntilStep(Traversal, semantics);
 
         public Traversal Traversal { get; }
     }

@@ -4,12 +4,10 @@ namespace ExRam.Gremlinq.Core
 {
     public sealed class SelectStep : Step
     {
-        public SelectStep(ImmutableArray<StepLabel> stepLabels, QuerySemantics? semantics = default) : base(semantics)
+        public SelectStep(ImmutableArray<StepLabel> stepLabels) : base()
         {
             StepLabels = stepLabels;
         }
-
-        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new SelectStep(StepLabels, semantics);
 
         public ImmutableArray<StepLabel> StepLabels { get; }
     }

@@ -6,14 +6,12 @@ namespace ExRam.Gremlinq.Core
     {
         public static readonly BothStep NoLabels = new(ImmutableArray<string>.Empty);
 
-        public BothStep(QuerySemantics? semantics = default) : this(ImmutableArray<string>.Empty, semantics)
+        public BothStep() : this(ImmutableArray<string>.Empty)
         {
         }
 
-        public BothStep(ImmutableArray<string> labels, QuerySemantics? semantics = default) : base(labels, semantics)
+        public BothStep(ImmutableArray<string> labels) : base(labels)
         {
         }
-
-        public override Step OverrideQuerySemantics(QuerySemantics semantics) => new BothStep(Labels, semantics);
     }
 }
