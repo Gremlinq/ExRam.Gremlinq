@@ -803,7 +803,7 @@
         [return: System.Runtime.CompilerServices.Dynamic(new bool[] {
                 false,
                 true})]
-        ExRam.Gremlinq.Core.IValueGremlinQuery<object> Project(System.Func<ExRam.Gremlinq.Core.IProjectBuilder<TSelf, TElement>, ExRam.Gremlinq.Core.IProjectResult> continuation);
+        ExRam.Gremlinq.Core.IValueTupleGremlinQuery<object> Project(System.Func<ExRam.Gremlinq.Core.IProjectBuilder<TSelf, TElement>, ExRam.Gremlinq.Core.IProjectResult> continuation);
         ExRam.Gremlinq.Core.IValueTupleGremlinQuery<TResult> Project<TResult>(System.Func<ExRam.Gremlinq.Core.IProjectBuilder<TSelf, TElement>, ExRam.Gremlinq.Core.IProjectResult<TResult>> continuation);
         TSelf Where(System.Linq.Expressions.Expression<System.Func<TElement, bool>> predicate);
     }

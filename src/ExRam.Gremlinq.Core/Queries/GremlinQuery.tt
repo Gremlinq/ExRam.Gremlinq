@@ -95,7 +95,7 @@ namespace ExRam.Gremlinq.Core
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Order(Func<IOrderBuilder<<#= iface #>>, IOrderBuilderWithBy<<#= iface #>>> projection) => OrderGlobal(projection);
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.OrderLocal(Func<IOrderBuilder<<#= iface #>>, IOrderBuilderWithBy<<#= iface #>>> projection) => OrderLocal(projection);
 
-        IValueGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, <#= iface #>>.Project(Func<IProjectBuilder<<#= iface #>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation, typeof(IValueGremlinQuery<dynamic>));
+        IValueTupleGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, <#= iface #>>.Project(Func<IProjectBuilder<<#= iface #>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation, typeof(IValueTupleGremlinQuery<dynamic>));
         IValueTupleGremlinQuery<TResult> IGremlinQueryBaseRec<TElement, <#= iface #>>.Project<TResult>(Func<IProjectBuilder<<#= iface #>, TElement>, IProjectResult<TResult>> continuation) => Project<TResult>(continuation, typeof(IValueTupleGremlinQuery<TResult>));
 
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Range(long low, long high) => RangeGlobal(low, high);
