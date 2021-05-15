@@ -66,11 +66,11 @@ namespace ExRam.Gremlinq.Core
 
             IOrderBuilderWithBy<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>> IOrderBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>.ByDescending(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> traversal) => By(traversal, Gremlin.Net.Process.Traversal.Order.Desc);
 
-            private OrderBuilder By(Expression<Func<TElement, object?>> projection, Order order) => new(_query.AddStep(new OrderStep.ByMemberStep(_query.GetKey(projection), order), _ => _));
+            private OrderBuilder By(Expression<Func<TElement, object?>> projection, Order order) => new(_query.AddStep(new OrderStep.ByMemberStep(_query.GetKey(projection), order)));
 
-            private OrderBuilder By(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> traversal, Order order) => new(_query.AddStep(new OrderStep.ByTraversalStep(_query.Continue(traversal).ToTraversal(), order), _ => _));
+            private OrderBuilder By(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> traversal, Order order) => new(_query.AddStep(new OrderStep.ByTraversalStep(_query.Continue(traversal).ToTraversal(), order)));
 
-            private OrderBuilder By(ILambda lambda) => new(_query.AddStep(new OrderStep.ByLambdaStep(lambda), _ => _));
+            private OrderBuilder By(ILambda lambda) => new(_query.AddStep(new OrderStep.ByLambdaStep(lambda)));
         }
 
         private sealed class ChooseBuilder<TTargetQuery, TPickElement> :
@@ -92,7 +92,7 @@ namespace ExRam.Gremlinq.Core
             {
                 return new ChooseBuilder<TTargetQuery, TNewPickElement>(
                     _sourceQuery,
-                    _targetQuery.AddStep(new ChooseOptionTraversalStep(_sourceQuery.Continue(chooseTraversal).ToTraversal()), _ => _));
+                    _targetQuery.AddStep(new ChooseOptionTraversalStep(_sourceQuery.Continue(chooseTraversal).ToTraversal())));
             }
 
             public IChooseBuilderWithCase<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TPickElement, TNewTargetQuery> Case<TNewTargetQuery>(TPickElement element, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TNewTargetQuery> continuation) where TNewTargetQuery : IGremlinQueryBase
@@ -335,17 +335,17 @@ namespace ExRam.Gremlinq.Core
                 : null;
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> AddSteps(IEnumerable<Step> steps, Func<Projection, Projection> projectionTransformation, IImmutableDictionary<StepLabel, Projection>? stepLabelSemantics = null, QueryFlags additionalFlags = QueryFlags.None) => AddSteps<TElement>(steps, projectionTransformation, stepLabelSemantics, additionalFlags);
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> AddSteps(IEnumerable<Step> steps, Func<Projection, Projection>? projectionTransformation = null, IImmutableDictionary<StepLabel, Projection>? stepLabelSemantics = null, QueryFlags additionalFlags = QueryFlags.None) => AddSteps<TElement>(steps, projectionTransformation, stepLabelSemantics, additionalFlags);
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> AddStep(Step step, Func<Projection, Projection> projectionTransformation, IImmutableDictionary<StepLabel, Projection>? stepLabelSemantics = null, QueryFlags additionalFlags = QueryFlags.None) => AddStep<TElement>(step, projectionTransformation, stepLabelSemantics, additionalFlags);
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> AddStep(Step step, Func<Projection, Projection>? projectionTransformation = null, IImmutableDictionary<StepLabel, Projection>? stepLabelSemantics = null, QueryFlags additionalFlags = QueryFlags.None) => AddStep<TElement>(step, projectionTransformation, stepLabelSemantics, additionalFlags);
 
-        private GremlinQuery<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> AddSteps<TNewElement>(IEnumerable<Step> steps, Func<Projection, Projection> projectionTransformation, IImmutableDictionary<StepLabel, Projection>? stepLabelSemantics = null, QueryFlags additionalFlags = QueryFlags.None) => AddSteps<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(steps, projectionTransformation, stepLabelSemantics, additionalFlags);
+        private GremlinQuery<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> AddSteps<TNewElement>(IEnumerable<Step> steps, Func<Projection, Projection>? projectionTransformation = null, IImmutableDictionary<StepLabel, Projection>? stepLabelSemantics = null, QueryFlags additionalFlags = QueryFlags.None) => AddSteps<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(steps, projectionTransformation, stepLabelSemantics, additionalFlags);
 
-        private GremlinQuery<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> AddStep<TNewElement>(Step step, Func<Projection, Projection> projectionTransformation, IImmutableDictionary<StepLabel, Projection>? stepLabelSemantics = null, QueryFlags additionalFlags = QueryFlags.None) => AddStep<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(step, projectionTransformation, stepLabelSemantics, additionalFlags);
+        private GremlinQuery<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> AddStep<TNewElement>(Step step, Func<Projection, Projection>? projectionTransformation = null, IImmutableDictionary<StepLabel, Projection>? stepLabelSemantics = null, QueryFlags additionalFlags = QueryFlags.None) => AddStep<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(step, projectionTransformation, stepLabelSemantics, additionalFlags);
 
-        private GremlinQuery<TNewElement, object, object, object, object, object> AddStepWithObjectTypes<TNewElement>(Step step, Func<Projection, Projection> projectionTransformation) => AddStep<TNewElement, object, object, object, object, object>(step, projectionTransformation);
+        private GremlinQuery<TNewElement, object, object, object, object, object> AddStepWithObjectTypes<TNewElement>(Step step, Func<Projection, Projection>? projectionTransformation = null) => AddStep<TNewElement, object, object, object, object, object>(step, projectionTransformation);
 
-        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery> AddStep<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(Step step, Func<Projection, Projection> projectionTransformation, IImmutableDictionary<StepLabel, Projection>? stepLabelProjections = null, QueryFlags additionalFlags = QueryFlags.None)
+        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery> AddStep<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(Step step, Func<Projection, Projection>? projectionTransformation = null, IImmutableDictionary<StepLabel, Projection>? stepLabelProjections = null, QueryFlags additionalFlags = QueryFlags.None)
         {
             var newSteps = Steps;
 
@@ -354,13 +354,15 @@ namespace ExRam.Gremlinq.Core
 
             return new GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(
                 newSteps,
-                projectionTransformation(Projection),
+                projectionTransformation is { } transformation
+                    ? transformation(Projection)
+                    : Projection,
                 Environment,
                 stepLabelProjections ?? StepLabelProjections,
                 Flags | additionalFlags);
         }
 
-        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery> AddSteps<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(IEnumerable<Step> steps, Func<Projection, Projection> projectionTransformation, IImmutableDictionary<StepLabel, Projection>? stepLabelProjections = null, QueryFlags additionalFlags = QueryFlags.None)
+        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery> AddSteps<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(IEnumerable<Step> steps, Func<Projection, Projection>? projectionTransformation = null, IImmutableDictionary<StepLabel, Projection>? stepLabelProjections = null, QueryFlags additionalFlags = QueryFlags.None)
         {
             var newSteps = Steps;
 
@@ -374,7 +376,9 @@ namespace ExRam.Gremlinq.Core
 
             return new GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(
                 newSteps,
-                projectionTransformation(Projection),
+                projectionTransformation is { } transformation
+                    ? transformation(Projection)
+                    : Projection,
                 Environment,
                 stepLabelProjections ?? StepLabelProjections,
                 Flags | additionalFlags);
@@ -394,14 +398,14 @@ namespace ExRam.Gremlinq.Core
             where TTargetQuery : IGremlinQueryBase
         {
             return continuation(
-                AddStep(new AggregateStep(scope, stepLabel), _ => _),
+                AddStep(new AggregateStep(scope, stepLabel)),
                 stepLabel);
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> And(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase>[] andTraversalTransformations)
         {
             if (andTraversalTransformations.Length == 0)
-                return AddStep(AndStep.Infix, _ => _);
+                return AddStep(AndStep.Infix);
 
             List<IGremlinQueryBase>? subQueries = default;
 
@@ -426,7 +430,7 @@ namespace ExRam.Gremlinq.Core
             {
                 null or 0 => this,
                 1 => Where(fusedTraversals[0]),
-                _ => AddStep(new AndStep(fusedTraversals!), _ => _)
+                _ => AddStep(new AndStep(fusedTraversals!))
             };
         }
 
@@ -474,7 +478,7 @@ namespace ExRam.Gremlinq.Core
                 StepLabelProjections.SetItem(stepLabel, Projection));
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Barrier() => AddStep(BarrierStep.Instance, _ => _);
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Barrier() => AddStep(BarrierStep.Instance);
 
         private GremlinQuery<TTarget, object, object, object, object, object> BothV<TTarget>() => AddStepWithObjectTypes<TTarget>(BothVStep.Instance, _ => Projection.Vertex);
 
@@ -531,7 +535,7 @@ namespace ExRam.Gremlinq.Core
                 ? Continue(falseChoice)
                 : default;
 
-            return AddStep(new ChooseTraversalStep(Continue(traversalPredicate).ToTraversal(), trueQuery.ToTraversal(), maybeFalseQuery?.ToTraversal()), _ => _) //TODO: Common!
+            return AddStep(new ChooseTraversalStep(Continue(traversalPredicate).ToTraversal(), trueQuery.ToTraversal(), maybeFalseQuery?.ToTraversal())) //TODO: Common!
                 .ChangeQueryType<TTargetQuery>();
         }
 
@@ -564,7 +568,7 @@ namespace ExRam.Gremlinq.Core
                 .ChangeQueryType<TReturnQuery>();
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Coin(double probability) => AddStep(new CoinStep(probability), _ => _);
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Coin(double probability) => AddStep(new CoinStep(probability));
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> ConfigureEnvironment(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> transformation) => Configure<TElement>(_ => _, transformation);
 
@@ -574,7 +578,7 @@ namespace ExRam.Gremlinq.Core
             Func<StepStack, StepStack> stepsTransformation,
             Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> environmentTransformation) => new(stepsTransformation(Steps), Projection, environmentTransformation(Environment), StepLabelProjections, Flags);
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> CyclicPath() => AddStep(CyclicPathStep.Instance, _ => _);
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> CyclicPath() => AddStep(CyclicPathStep.Instance);
 
         private string Debug(GroovyFormatting groovyFormatting, bool indented)
         {
@@ -587,9 +591,9 @@ namespace ExRam.Gremlinq.Core
                     : Formatting.None);
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> DedupGlobal() => AddStep(DedupStep.Global, _ => _);
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> DedupGlobal() => AddStep(DedupStep.Global);
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> DedupLocal() => AddStep(DedupStep.Local, _ => _);
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> DedupLocal() => AddStep(DedupStep.Local);
 
         private GremlinQuery<object, object, object, object, object, object> Drop() => AddStepWithObjectTypes<object>(DropStep.Instance, _ => Projection.None);
 
@@ -600,7 +604,7 @@ namespace ExRam.Gremlinq.Core
                 .Drop());
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Emit() => AddStep(EmitStep.Instance, _ => _);
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Emit() => AddStep(EmitStep.Instance);
 
         private TTargetQuery FlatMap<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> mapping) where TTargetQuery : IGremlinQueryBase
         {
@@ -621,8 +625,8 @@ namespace ExRam.Gremlinq.Core
 
             return this
                 .AddStep<IDictionary<TKey, TValue>, object, object, object, object, object>(GroupStep.Instance, _ => Projection.Value)
-                .AddStep(new GroupStep.ByTraversalStep(group.KeyQuery.ToTraversal()), _ => _)
-                .AddStep(new GroupStep.ByTraversalStep(group.ValueQuery.ToTraversal()), _ => _);
+                .AddStep(new GroupStep.ByTraversalStep(group.KeyQuery.ToTraversal()))
+                .AddStep(new GroupStep.ByTraversalStep(group.ValueQuery.ToTraversal()));
         }
 
         private GremlinQuery<IDictionary<TKey, object>, object, object, object, object, object> Group<TKey>(Func<IGroupBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>, IGroupBuilderWithKey<IGremlinQueryBase, TKey>> projection)
@@ -632,7 +636,7 @@ namespace ExRam.Gremlinq.Core
 
             return this
                 .AddStep<IDictionary<TKey, object>, object, object, object, object, object>(GroupStep.Instance, _ => Projection.Value)
-                .AddStep(new GroupStep.ByTraversalStep(group.KeyQuery.ToTraversal()), _ => _);
+                .AddStep(new GroupStep.ByTraversalStep(group.KeyQuery.ToTraversal()));
         }
 
         private IEnumerable<string> GetStringKeys(Expression[] projections)
@@ -707,8 +711,8 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> LimitLocal(long count)
         {
             return count == 1
-                ? AddStep(LimitStep.LimitLocal1, _ => _)
-                : AddStep(new LimitStep(count, Scope.Local), _ => _);
+                ? AddStep(LimitStep.LimitLocal1)
+                : AddStep(new LimitStep(count, Scope.Local));
         }
 
         private TTargetQuery Local<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> localTraversal)
@@ -736,7 +740,7 @@ namespace ExRam.Gremlinq.Core
         {
             return this.IsIdentity()
                 ? ConfigureSteps<TElement>(_ => StepStack.Empty.Push(NoneStep.Instance))
-                : AddStep(NoneStep.Instance, _ => _);
+                : AddStep(NoneStep.Instance);
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Not(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> notTraversal)
@@ -747,7 +751,7 @@ namespace ExRam.Gremlinq.Core
                 ? None()
                 : transformed.IsNone()
                     ? this
-                    : AddStep(new NotStep(transformed.ToTraversal()), _ => _);
+                    : AddStep(new NotStep(transformed.ToTraversal()));
         }
 
         private GremlinQuery<TTarget, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> OfType<TTarget>(IGraphElementModel model)
@@ -759,7 +763,7 @@ namespace ExRam.Gremlinq.Core
                 .TryGetFilterLabels(typeof(TTarget), Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity)) ?? ImmutableArray.Create(typeof(TTarget).Name);
 
             return labels.Length > 0
-                ? AddStep<TTarget>(new HasLabelStep(labels), _ => _)
+                ? AddStep<TTarget>(new HasLabelStep(labels))
                 : Cast<TTarget>();
         }
 
@@ -781,7 +785,7 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Or(params IGremlinQueryBase[] orTraversals)
         {
             if (orTraversals.Length == 0)
-                return AddStep(OrStep.Infix, _ => _);
+                return AddStep(OrStep.Infix);
 
             List<IGremlinQueryBase>? subQueries = default;
 
@@ -804,7 +808,7 @@ namespace ExRam.Gremlinq.Core
             {
                 null or 0 => None(),
                 1 => Where(fusedTraversals[0]),
-                _ => AddStep(new OrStep(fusedTraversals), _ => _)
+                _ => AddStep(new OrStep(fusedTraversals))
             };
         }
 
@@ -812,7 +816,7 @@ namespace ExRam.Gremlinq.Core
 
         private TTargetQuery OrderLocal<TTargetQuery>(Func<OrderBuilder, IOrderBuilderWithBy<TTargetQuery>> projection) where TTargetQuery : IGremlinQueryBase<TElement> => Order(projection, OrderStep.Local);
 
-        private TTargetQuery Order<TTargetQuery>(Func<OrderBuilder, IOrderBuilderWithBy<TTargetQuery>> projection, OrderStep orderStep) where TTargetQuery : IGremlinQueryBase<TElement> => projection(new OrderBuilder(AddStep(orderStep, _ => _))).Build();
+        private TTargetQuery Order<TTargetQuery>(Func<OrderBuilder, IOrderBuilderWithBy<TTargetQuery>> projection, OrderStep orderStep) where TTargetQuery : IGremlinQueryBase<TElement> => projection(new OrderBuilder(AddStep(orderStep))).Build();
 
         private GremlinQuery<TTarget, object, object, object, object, object> OtherV<TTarget>() => AddStepWithObjectTypes<TTarget>(OtherVStep.Instance, _ => Projection.Vertex);
 
@@ -866,7 +870,7 @@ namespace ExRam.Gremlinq.Core
 
             foreach (var propertyStep in GetPropertySteps(key, value, Projection == Projection.Vertex))
             {
-                ret = ret.AddStep(propertyStep, _ => _);
+                ret = ret.AddStep(propertyStep);
             }
 
             return ret;
@@ -876,11 +880,11 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Property(LambdaExpression projection, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> valueTraversal) => Property(projection, Continue(valueTraversal));
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> RangeGlobal(long low, long high) => AddStep(new RangeStep(low, high, Scope.Global), _ => _);
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> RangeGlobal(long low, long high) => AddStep(new RangeStep(low, high, Scope.Global));
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> RangeLocal(long low, long high)
         {
-            return AddStep(new RangeStep(low, high, Scope.Local), _ => _);
+            return AddStep(new RangeStep(low, high, Scope.Local));
         }
 
         private TTargetQuery Repeat<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> repeatContinuation)
@@ -906,7 +910,7 @@ namespace ExRam.Gremlinq.Core
                 .AddStep(new RepeatStep(repeatTraversal), _ => _.Lowest(repeatTraversal.Projection));
 
             if (!untilQuery.IsNone())
-                ret = ret.AddStep(new UntilStep(untilQuery.ToTraversal()), _ => _);
+                ret = ret.AddStep(new UntilStep(untilQuery.ToTraversal()));
 
             return ret
                 .ChangeQueryType<TTargetQuery>();
@@ -923,7 +927,7 @@ namespace ExRam.Gremlinq.Core
             var ret = this;
 
             if (!untilQuery.IsNone())
-                ret = ret.AddStep(new UntilStep(Continue(untilTraversal).ToTraversal()), _ => _);
+                ret = ret.AddStep(new UntilStep(Continue(untilTraversal).ToTraversal()));
 
             return ret
                 .AddStep(new RepeatStep(repeatTraversal), _ => _.Lowest(repeatTraversal.Projection))
@@ -953,42 +957,42 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TSelectedElement, object, object, TArrayItem, object, TQuery> Cap<TSelectedElement, TArrayItem, TQuery>(StepLabel<IArrayGremlinQuery<TSelectedElement, TArrayItem, TQuery>, TSelectedElement> stepLabel) where TQuery : IGremlinQueryBase => AddStep<TSelectedElement, object, object, TArrayItem, object, TQuery>(new CapStep(stepLabel), _ => _.ToArray());
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> SideEffect(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> sideEffectTraversal) => AddStep(new SideEffectStep(Continue(sideEffectTraversal).ToTraversal()), _ => _);
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> SideEffect(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> sideEffectTraversal) => AddStep(new SideEffectStep(Continue(sideEffectTraversal).ToTraversal()));
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> SimplePath() => AddStep(SimplePathStep.Instance, _ => _);
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> SimplePath() => AddStep(SimplePathStep.Instance);
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Skip(long count, Scope scope) => AddStep(new SkipStep(count, scope), _ => _);
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Skip(long count, Scope scope) => AddStep(new SkipStep(count, scope));
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> SumGlobal() => AddStep(new SumStep(Scope.Global), _ => Projection.Value);
 
-        private GremlinQuery<object, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> SumLocal() => AddStep<object>(new SumStep(Scope.Local), _ => _);
+        private GremlinQuery<object, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> SumLocal() => AddStep<object>(new SumStep(Scope.Local));
 
-        private GremlinQuery<object, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> MinLocal() => AddStep<object>(new MinStep(Scope.Local), _ => _);
+        private GremlinQuery<object, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> MinLocal() => AddStep<object>(new MinStep(Scope.Local));
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Mute() => AddStep(NoneStep.Instance, _ => _, additionalFlags: QueryFlags.IsMuted);
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Mute() => AddStep(NoneStep.Instance, additionalFlags: QueryFlags.IsMuted);
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> MinGlobal() => AddStep(new MinStep(Scope.Global), _ => Projection.Value);
 
-        private GremlinQuery<object, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> MaxLocal() => AddStep<object>(new MaxStep(Scope.Local), _ => _);
+        private GremlinQuery<object, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> MaxLocal() => AddStep<object>(new MaxStep(Scope.Local));
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> MaxGlobal() => AddStep(new MaxStep(Scope.Global), _ => Projection.Value);
 
-        private GremlinQuery<object, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> MeanLocal() => AddStep<object>(new MeanStep(Scope.Local), _ => _);
+        private GremlinQuery<object, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> MeanLocal() => AddStep<object>(new MeanStep(Scope.Local));
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> MeanGlobal() => AddStep(new MeanStep(Scope.Global), _ => Projection.Value);
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> TailGlobal(long count) => AddStep(new TailStep(count, Scope.Global), _ => _);
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> TailGlobal(long count) => AddStep(new TailStep(count, Scope.Global));
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> TailLocal(long count)
         {
             return count == 1
-                ? AddStep(TailStep.TailLocal1, _ => _)
-                : AddStep(new TailStep(count, Scope.Local), _ => _);
+                ? AddStep(TailStep.TailLocal1)
+                : AddStep(new TailStep(count, Scope.Local));
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Times(int count) => AddStep(new TimesStep(count), _ => _);
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Times(int count) => AddStep(new TimesStep(count));
 
-        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, object, object, object> To<TNewElement, TNewOutVertex, TNewInVertex>(StepLabel stepLabel) => AddStep<TNewElement, TNewOutVertex, TNewInVertex, object, object, object>(new AddEStep.ToLabelStep(stepLabel), _ => _);
+        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, object, object, object> To<TNewElement, TNewOutVertex, TNewInVertex>(StepLabel stepLabel) => AddStep<TNewElement, TNewOutVertex, TNewInVertex, object, object, object>(new AddEStep.ToLabelStep(stepLabel));
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Unfold() => AddStep(
             UnfoldStep.Instance,
@@ -1048,7 +1052,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<VertexProperty<TNewPropertyValue>, object, object, TNewPropertyValue, object, object> VertexProperties<TNewPropertyValue>(Expression[] projections) => Properties<VertexProperty<TNewPropertyValue>, TNewPropertyValue, object>(projections);
         
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Where(ILambda lambda) => AddStep(new FilterStep(lambda), _ => _);
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Where(ILambda lambda) => AddStep(new FilterStep(lambda));
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Where(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> filterTraversal)
         {
@@ -1066,8 +1070,8 @@ namespace ExRam.Gremlinq.Core
             traversal = traversal.RewriteForWhereContext();
 
             return traversal.Count > 0 && traversal.All(x => x is IIsOptimizableInWhere)
-                ? AddSteps(traversal, _ => _)
-                : AddStep(new WhereTraversalStep(traversal), _ => _);
+                ? AddSteps(traversal)
+                : AddStep(new WhereTraversalStep(traversal));
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Where(Expression<Func<TElement, bool>> expression) => Where((Expression)expression);
@@ -1112,7 +1116,7 @@ namespace ExRam.Gremlinq.Core
                         ? this
                         : gremlinExpression.Equals(GremlinExpression.False)
                             ? None()
-                            : AddSteps(Where(gremlinExpression), _ => _);
+                            : AddSteps(Where(gremlinExpression));
                 }
             }
             catch (ExpressionNotSupportedException ex)
@@ -1220,7 +1224,7 @@ namespace ExRam.Gremlinq.Core
                                         GetKey(leftMemberExpression),
                                         this
                                             .Continue(__ => __
-                                                .AddStep(new WherePredicateStep(effectivePredicate), _ => _))
+                                                .AddStep(new WherePredicateStep(effectivePredicate)))
                                             .ToTraversal());
 
                                     yield break;
