@@ -3,6 +3,7 @@ using System.IO;
 using System.Threading.Tasks;
 using BenchmarkDotNet.Attributes;
 using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Tests.Entities;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
