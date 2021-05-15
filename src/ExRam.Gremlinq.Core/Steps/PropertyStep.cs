@@ -2,7 +2,7 @@
 using System.Collections.Immutable;
 using Gremlin.Net.Process.Traversal;
 
-namespace ExRam.Gremlinq.Core
+namespace ExRam.Gremlinq.Core.Steps
 {
     public abstract class PropertyStep : Step
     {

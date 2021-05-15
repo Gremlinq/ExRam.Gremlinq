@@ -2,7 +2,7 @@
 using System.Collections.Immutable;
 using System.Linq;
 
-namespace ExRam.Gremlinq.Core
+namespace ExRam.Gremlinq.Core.Steps
 {
     public abstract class LogicalStep<TStep> : Step
         where TStep : LogicalStep<TStep>

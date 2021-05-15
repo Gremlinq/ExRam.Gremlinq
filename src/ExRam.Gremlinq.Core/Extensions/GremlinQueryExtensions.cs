@@ -2,6 +2,8 @@
 using System.Threading;
 using System.Threading.Tasks;
 
+using ExRam.Gremlinq.Core.Steps;
+
 namespace ExRam.Gremlinq.Core
 {
     public static class GremlinQueryExtensions

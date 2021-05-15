@@ -1,6 +1,8 @@
 ﻿using System.Collections.Immutable;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+
+using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Tests.Entities;
 using Xunit;
 using Xunit.Abstractions;

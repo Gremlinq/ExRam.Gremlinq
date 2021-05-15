@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using Xunit;
 using Xunit.Abstractions;
+using ExRam.Gremlinq.Core.Steps;
 
 namespace ExRam.Gremlinq.Core.Tests
 {

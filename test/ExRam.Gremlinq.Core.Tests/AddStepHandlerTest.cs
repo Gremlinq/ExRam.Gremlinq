@@ -1,5 +1,8 @@
 ﻿using System.Collections.Immutable;
 using System.Threading.Tasks;
+
+using ExRam.Gremlinq.Core.Steps;
+
 using Xunit;
 using Xunit.Abstractions;
 

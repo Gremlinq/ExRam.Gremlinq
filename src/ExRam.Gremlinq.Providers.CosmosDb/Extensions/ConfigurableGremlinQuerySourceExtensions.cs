@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Immutable;
+
+using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Providers.CosmosDb;
 using ExRam.Gremlinq.Providers.WebSocket;
 using Gremlin.Net.Process.Traversal;

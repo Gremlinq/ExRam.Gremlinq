@@ -1,7 +1,7 @@
 ﻿using System;
 using Gremlin.Net.Process.Traversal;
 
-namespace ExRam.Gremlinq.Core
+namespace ExRam.Gremlinq.Core.Steps
 {
     public sealed class TailStep : Step
     {

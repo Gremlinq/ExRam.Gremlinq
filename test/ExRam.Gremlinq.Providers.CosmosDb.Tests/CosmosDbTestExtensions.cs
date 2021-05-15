@@ -1,4 +1,5 @@
 ﻿using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Core.Steps;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {

@@ -1,145 +1,13 @@
 ﻿namespace ExRam.Gremlinq.Core
 {
-    public sealed class AddEStep : ExRam.Gremlinq.Core.Step
-    {
-        public AddEStep(string label) { }
-        public string Label { get; }
-        public sealed class FromLabelStep : ExRam.Gremlinq.Core.Step
-        {
-            public FromLabelStep(ExRam.Gremlinq.Core.StepLabel stepLabel) { }
-            public ExRam.Gremlinq.Core.StepLabel StepLabel { get; }
-        }
-        public sealed class FromTraversalStep : ExRam.Gremlinq.Core.Step
-        {
-            public FromTraversalStep(ExRam.Gremlinq.Core.Traversal traversal) { }
-            public ExRam.Gremlinq.Core.Traversal Traversal { get; }
-        }
-        public sealed class ToLabelStep : ExRam.Gremlinq.Core.Step
-        {
-            public ToLabelStep(ExRam.Gremlinq.Core.StepLabel stepLabel) { }
-            public ExRam.Gremlinq.Core.StepLabel StepLabel { get; }
-        }
-        public sealed class ToTraversalStep : ExRam.Gremlinq.Core.Step
-        {
-            public ToTraversalStep(ExRam.Gremlinq.Core.Traversal traversal) { }
-            public ExRam.Gremlinq.Core.Traversal Traversal { get; }
-        }
-    }
     public static class AddStepHandler
     {
         public static readonly ExRam.Gremlinq.Core.IAddStepHandler Default;
         public static readonly ExRam.Gremlinq.Core.IAddStepHandler Empty;
     }
-    public sealed class AddVStep : ExRam.Gremlinq.Core.Step
-    {
-        public AddVStep(string label) { }
-        public string Label { get; }
-    }
-    public sealed class AggregateStep : ExRam.Gremlinq.Core.Step
-    {
-        public AggregateStep(Gremlin.Net.Process.Traversal.Scope scope, ExRam.Gremlinq.Core.StepLabel stepLabel) { }
-        public Gremlin.Net.Process.Traversal.Scope Scope { get; }
-        public ExRam.Gremlinq.Core.StepLabel StepLabel { get; }
-    }
-    public sealed class AndStep : ExRam.Gremlinq.Core.LogicalStep<ExRam.Gremlinq.Core.AndStep>
-    {
-        public static readonly ExRam.Gremlinq.Core.AndStep Infix;
-        public AndStep(System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Traversal> traversals) { }
-    }
-    public sealed class AsStep : ExRam.Gremlinq.Core.Step
-    {
-        public AsStep(ExRam.Gremlinq.Core.StepLabel stepLabel) { }
-        public ExRam.Gremlinq.Core.StepLabel StepLabel { get; }
-    }
-    public sealed class BarrierStep : ExRam.Gremlinq.Core.Step
-    {
-        public static readonly ExRam.Gremlinq.Core.BarrierStep Instance;
-        public BarrierStep() { }
-    }
-    public sealed class BothEStep : ExRam.Gremlinq.Core.DerivedLabelNamesStep
-    {
-        public static readonly ExRam.Gremlinq.Core.BothEStep NoLabels;
-        public BothEStep() { }
-        public BothEStep(System.Collections.Immutable.ImmutableArray<string> labels) { }
-    }
-    public sealed class BothStep : ExRam.Gremlinq.Core.DerivedLabelNamesStep
-    {
-        public static readonly ExRam.Gremlinq.Core.BothStep NoLabels;
-        public BothStep() { }
-        public BothStep(System.Collections.Immutable.ImmutableArray<string> labels) { }
-    }
-    public sealed class BothVStep : ExRam.Gremlinq.Core.Step
-    {
-        public static readonly ExRam.Gremlinq.Core.BothVStep Instance;
-        public BothVStep() { }
-    }
     public static class BytecodeExtensions
     {
         public static ExRam.Gremlinq.Core.GroovyGremlinQuery ToGroovy(this Gremlin.Net.Process.Traversal.Bytecode bytecode, ExRam.Gremlinq.Core.GroovyFormatting formatting = 0) { }
-    }
-    public sealed class CapStep : ExRam.Gremlinq.Core.Step
-    {
-        public CapStep(ExRam.Gremlinq.Core.StepLabel stepLabel) { }
-        public ExRam.Gremlinq.Core.StepLabel StepLabel { get; }
-    }
-    public sealed class ChooseOptionTraversalStep : ExRam.Gremlinq.Core.Step
-    {
-        public ChooseOptionTraversalStep(ExRam.Gremlinq.Core.Traversal traversal) { }
-        public ExRam.Gremlinq.Core.Traversal Traversal { get; }
-    }
-    public sealed class ChoosePredicateStep : ExRam.Gremlinq.Core.ChooseStep
-    {
-        public ChoosePredicateStep(Gremlin.Net.Process.Traversal.P predicate, ExRam.Gremlinq.Core.Traversal thenTraversal, ExRam.Gremlinq.Core.Traversal? elseTraversal = default) { }
-        public Gremlin.Net.Process.Traversal.P Predicate { get; }
-    }
-    public abstract class ChooseStep : ExRam.Gremlinq.Core.Step
-    {
-        protected ChooseStep(ExRam.Gremlinq.Core.Traversal thenTraversal, ExRam.Gremlinq.Core.Traversal? elseTraversal = default) { }
-        public ExRam.Gremlinq.Core.Traversal? ElseTraversal { get; }
-        public ExRam.Gremlinq.Core.Traversal ThenTraversal { get; }
-    }
-    public sealed class ChooseTraversalStep : ExRam.Gremlinq.Core.ChooseStep
-    {
-        public ChooseTraversalStep(ExRam.Gremlinq.Core.Traversal ifTraversal, ExRam.Gremlinq.Core.Traversal thenTraversal, ExRam.Gremlinq.Core.Traversal? elseTraversal = default) { }
-        public ExRam.Gremlinq.Core.Traversal IfTraversal { get; }
-    }
-    public sealed class CoalesceStep : ExRam.Gremlinq.Core.MultiTraversalArgumentStep
-    {
-        public CoalesceStep(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Traversal> traversals) { }
-    }
-    public sealed class CoinStep : ExRam.Gremlinq.Core.Step
-    {
-        public CoinStep(double probability) { }
-        public double Probability { get; }
-    }
-    public sealed class ConstantStep : ExRam.Gremlinq.Core.Step
-    {
-        public ConstantStep(object value) { }
-        public object Value { get; }
-    }
-    public sealed class CountStep : ExRam.Gremlinq.Core.Step
-    {
-        public static readonly ExRam.Gremlinq.Core.CountStep Global;
-        public static readonly ExRam.Gremlinq.Core.CountStep Local;
-        public CountStep(Gremlin.Net.Process.Traversal.Scope scope) { }
-        public Gremlin.Net.Process.Traversal.Scope Scope { get; }
-    }
-    public sealed class CyclicPathStep : ExRam.Gremlinq.Core.Step
-    {
-        public static readonly ExRam.Gremlinq.Core.CyclicPathStep Instance;
-        public CyclicPathStep() { }
-    }
-    public sealed class DedupStep : ExRam.Gremlinq.Core.Step
-    {
-        public static readonly ExRam.Gremlinq.Core.DedupStep Global;
-        public static readonly ExRam.Gremlinq.Core.DedupStep Local;
-        public DedupStep(Gremlin.Net.Process.Traversal.Scope scope) { }
-        public Gremlin.Net.Process.Traversal.Scope Scope { get; }
-    }
-    public abstract class DerivedLabelNamesStep : ExRam.Gremlinq.Core.Step
-    {
-        protected DerivedLabelNamesStep(System.Collections.Immutable.ImmutableArray<string> labels) { }
-        public System.Collections.Immutable.ImmutableArray<string> Labels { get; }
     }
     [System.Flags]
     public enum DisabledTextPredicates
@@ -151,16 +19,6 @@
         NotEndingWith = 8,
         NotStartingWith = 16,
         StartingWith = 32,
-    }
-    public sealed class DropStep : ExRam.Gremlinq.Core.Step
-    {
-        public static readonly ExRam.Gremlinq.Core.DropStep Instance;
-        public DropStep() { }
-    }
-    public sealed class EStep : ExRam.Gremlinq.Core.Step
-    {
-        public EStep(System.Collections.Immutable.ImmutableArray<object> ids) { }
-        public System.Collections.Immutable.ImmutableArray<object> Ids { get; }
     }
     [System.Flags]
     public enum EdgeFeatures
@@ -209,16 +67,6 @@
         public ElementMetadata(string label) { }
         public string Label { get; }
     }
-    public sealed class EmitStep : ExRam.Gremlinq.Core.Step
-    {
-        public static readonly ExRam.Gremlinq.Core.EmitStep Instance;
-        public EmitStep() { }
-    }
-    public sealed class ExplainStep : ExRam.Gremlinq.Core.Step
-    {
-        public static readonly ExRam.Gremlinq.Core.ExplainStep Instance;
-        public ExplainStep() { }
-    }
     public sealed class ExpressionNotSupportedException : System.NotSupportedException
     {
         public ExpressionNotSupportedException() { }
@@ -245,21 +93,6 @@
     {
         Maximum = 0,
         Minimum = 1,
-    }
-    public sealed class FilterStep : ExRam.Gremlinq.Core.Step
-    {
-        public FilterStep(Gremlin.Net.Process.Traversal.ILambda lambda) { }
-        public Gremlin.Net.Process.Traversal.ILambda Lambda { get; }
-    }
-    public sealed class FlatMapStep : ExRam.Gremlinq.Core.Step
-    {
-        public FlatMapStep(ExRam.Gremlinq.Core.Traversal traversal) { }
-        public ExRam.Gremlinq.Core.Traversal Traversal { get; }
-    }
-    public sealed class FoldStep : ExRam.Gremlinq.Core.Step
-    {
-        public static readonly ExRam.Gremlinq.Core.FoldStep Instance;
-        public FoldStep() { }
     }
     public static class GraphElementModel
     {
@@ -303,7 +136,7 @@
     }
     public static class GremlinQueryAdmin
     {
-        public static TTargetQuery AddSteps<TTargetQuery>(this ExRam.Gremlinq.Core.IGremlinQueryAdmin admin, System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Step> steps)
+        public static TTargetQuery AddSteps<TTargetQuery>(this ExRam.Gremlinq.Core.IGremlinQueryAdmin admin, System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Steps.Step> steps)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase { }
     }
     public struct GremlinQueryAwaiter<TElement> : System.Runtime.CompilerServices.ICriticalNotifyCompletion, System.Runtime.CompilerServices.INotifyCompletion
@@ -414,62 +247,12 @@
         public ExRam.Gremlinq.Core.GroovyGremlinQuery Inline() { }
         public override string ToString() { }
     }
-    public sealed class GroupStep : ExRam.Gremlinq.Core.Step
-    {
-        public static readonly ExRam.Gremlinq.Core.GroupStep Instance;
-        public GroupStep() { }
-        public sealed class ByKeyStep : ExRam.Gremlinq.Core.GroupStep.ByStep
-        {
-            public ByKeyStep(ExRam.Gremlinq.Core.Key key) { }
-            public ExRam.Gremlinq.Core.Key Key { get; }
-        }
-        public abstract class ByStep : ExRam.Gremlinq.Core.Step
-        {
-            protected ByStep() { }
-        }
-        public sealed class ByTraversalStep : ExRam.Gremlinq.Core.GroupStep.ByStep
-        {
-            public ByTraversalStep(ExRam.Gremlinq.Core.Traversal traversal) { }
-            public ExRam.Gremlinq.Core.Traversal Traversal { get; }
-        }
-    }
-    public sealed class HasKeyStep : ExRam.Gremlinq.Core.Step
-    {
-        public HasKeyStep(object argument) { }
-        public object Argument { get; }
-    }
-    public sealed class HasLabelStep : ExRam.Gremlinq.Core.DerivedLabelNamesStep
-    {
-        public HasLabelStep(System.Collections.Immutable.ImmutableArray<string> labels) { }
-    }
-    public sealed class HasNotStep : ExRam.Gremlinq.Core.Step
-    {
-        public HasNotStep(ExRam.Gremlinq.Core.Key key) { }
-        public ExRam.Gremlinq.Core.Key Key { get; }
-    }
-    public sealed class HasPredicateStep : ExRam.Gremlinq.Core.Step
-    {
-        public HasPredicateStep(ExRam.Gremlinq.Core.Key key, Gremlin.Net.Process.Traversal.P predicate) { }
-        public ExRam.Gremlinq.Core.Key Key { get; }
-        public Gremlin.Net.Process.Traversal.P Predicate { get; }
-    }
-    public sealed class HasTraversalStep : ExRam.Gremlinq.Core.Step
-    {
-        public HasTraversalStep(ExRam.Gremlinq.Core.Key key, ExRam.Gremlinq.Core.Traversal traversal) { }
-        public ExRam.Gremlinq.Core.Key Key { get; }
-        public ExRam.Gremlinq.Core.Traversal Traversal { get; }
-    }
-    public sealed class HasValueStep : ExRam.Gremlinq.Core.Step
-    {
-        public HasValueStep(object argument) { }
-        public object Argument { get; }
-    }
     public interface IAddStepHandler
     {
         ExRam.Gremlinq.Core.StepStack AddStep<TStep>(ExRam.Gremlinq.Core.StepStack steps, TStep step, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment)
-            where TStep : ExRam.Gremlinq.Core.Step;
+            where TStep : ExRam.Gremlinq.Core.Steps.Step;
         ExRam.Gremlinq.Core.IAddStepHandler Override<TStep>(System.Func<ExRam.Gremlinq.Core.StepStack, TStep, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, System.Func<ExRam.Gremlinq.Core.StepStack, TStep, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.IAddStepHandler, ExRam.Gremlinq.Core.StepStack>, ExRam.Gremlinq.Core.IAddStepHandler, ExRam.Gremlinq.Core.StepStack> addStepHandler)
-            where TStep : ExRam.Gremlinq.Core.Step;
+            where TStep : ExRam.Gremlinq.Core.Steps.Step;
     }
     public interface IArrayGremlinQueryBase : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IStartGremlinQuery
     {
@@ -668,7 +451,7 @@
         ExRam.Gremlinq.Core.QueryFlags Flags { get; }
         ExRam.Gremlinq.Core.Projections.Projection Projection { get; }
         ExRam.Gremlinq.Core.StepStack Steps { get; }
-        TTargetQuery AddStep<TTargetQuery>(ExRam.Gremlinq.Core.Step step)
+        TTargetQuery AddStep<TTargetQuery>(ExRam.Gremlinq.Core.Steps.Step step)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
         TTargetQuery ChangeQueryType<TTargetQuery>()
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
@@ -1001,7 +784,7 @@
     }
     public interface IProjectResult
     {
-        System.Collections.Immutable.IImmutableDictionary<string, ExRam.Gremlinq.Core.ProjectStep.ByStep> Projections { get; }
+        System.Collections.Immutable.IImmutableDictionary<string, ExRam.Gremlinq.Core.Steps.ProjectStep.ByStep> Projections { get; }
     }
     public interface IProjectResult<TResult> : ExRam.Gremlinq.Core.IProjectResult { }
     public interface IProjectTupleBuilder<out TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8> : ExRam.Gremlinq.Core.IProjectResult, ExRam.Gremlinq.Core.IProjectResult<System.ValueTuple<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, System.ValueTuple<TItem8>>>
@@ -1261,47 +1044,10 @@
     }
     public interface IVertexPropertyGremlinQuery<TProperty, TValue> : ExRam.Gremlinq.Core.IElementGremlinQueryBase, ExRam.Gremlinq.Core.IElementGremlinQueryBaseRec<ExRam.Gremlinq.Core.IVertexPropertyGremlinQuery<TProperty, TValue>>, ExRam.Gremlinq.Core.IElementGremlinQueryBaseRec<TProperty, ExRam.Gremlinq.Core.IVertexPropertyGremlinQuery<TProperty, TValue>>, ExRam.Gremlinq.Core.IElementGremlinQueryBase<TProperty>, ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<ExRam.Gremlinq.Core.IVertexPropertyGremlinQuery<TProperty, TValue>>, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TProperty, ExRam.Gremlinq.Core.IVertexPropertyGremlinQuery<TProperty, TValue>>, ExRam.Gremlinq.Core.IGremlinQueryBase<TProperty>, ExRam.Gremlinq.Core.IStartGremlinQuery, ExRam.Gremlinq.Core.IVertexPropertyGremlinQueryBase, ExRam.Gremlinq.Core.IVertexPropertyGremlinQueryBase<TProperty, TValue> { }
     public interface IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> : ExRam.Gremlinq.Core.IElementGremlinQueryBase, ExRam.Gremlinq.Core.IElementGremlinQueryBaseRec<ExRam.Gremlinq.Core.IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>>, ExRam.Gremlinq.Core.IElementGremlinQueryBaseRec<TProperty, ExRam.Gremlinq.Core.IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>>, ExRam.Gremlinq.Core.IElementGremlinQueryBase<TProperty>, ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<ExRam.Gremlinq.Core.IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>>, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TProperty, ExRam.Gremlinq.Core.IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>>, ExRam.Gremlinq.Core.IGremlinQueryBase<TProperty>, ExRam.Gremlinq.Core.IStartGremlinQuery, ExRam.Gremlinq.Core.IVertexPropertyGremlinQueryBase, ExRam.Gremlinq.Core.IVertexPropertyGremlinQueryBase<TProperty, TValue, TMeta> { }
-    public sealed class IdStep : ExRam.Gremlinq.Core.Step
-    {
-        public static readonly ExRam.Gremlinq.Core.IdStep Instance;
-        public IdStep() { }
-    }
-    public sealed class IdentityStep : ExRam.Gremlinq.Core.Step
-    {
-        public static readonly ExRam.Gremlinq.Core.IdentityStep Instance;
-        public IdentityStep() { }
-    }
     public static class ImmutableDictionaryExtensions
     {
         public static System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.MemberMetadata> UseCamelCaseNames(this System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.MemberMetadata> names) { }
         public static System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.MemberMetadata> UseLowerCaseNames(this System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.MemberMetadata> names) { }
-    }
-    public sealed class InEStep : ExRam.Gremlinq.Core.DerivedLabelNamesStep
-    {
-        public static readonly ExRam.Gremlinq.Core.InEStep NoLabels;
-        public InEStep() { }
-        public InEStep(System.Collections.Immutable.ImmutableArray<string> labels) { }
-    }
-    public sealed class InStep : ExRam.Gremlinq.Core.DerivedLabelNamesStep
-    {
-        public static readonly ExRam.Gremlinq.Core.InStep NoLabels;
-        public InStep() { }
-        public InStep(System.Collections.Immutable.ImmutableArray<string> labels) { }
-    }
-    public sealed class InVStep : ExRam.Gremlinq.Core.Step
-    {
-        public static readonly ExRam.Gremlinq.Core.InVStep Instance;
-        public InVStep() { }
-    }
-    public sealed class InjectStep : ExRam.Gremlinq.Core.Step
-    {
-        public InjectStep(System.Collections.Immutable.ImmutableArray<object> elements) { }
-        public System.Collections.Immutable.ImmutableArray<object> Elements { get; }
-    }
-    public sealed class IsStep : ExRam.Gremlinq.Core.Step
-    {
-        public IsStep(Gremlin.Net.Process.Traversal.P predicate) { }
-        public Gremlin.Net.Process.Traversal.P Predicate { get; }
     }
     public readonly struct Key : System.IComparable<ExRam.Gremlinq.Core.Key>
     {
@@ -1317,216 +1063,11 @@
         public static bool operator !=(ExRam.Gremlinq.Core.Key key1, ExRam.Gremlinq.Core.Key key2) { }
         public static bool operator ==(ExRam.Gremlinq.Core.Key key1, ExRam.Gremlinq.Core.Key key2) { }
     }
-    public sealed class KeyStep : ExRam.Gremlinq.Core.Step
-    {
-        public static readonly ExRam.Gremlinq.Core.KeyStep Instance;
-        public KeyStep() { }
-    }
-    public sealed class LabelStep : ExRam.Gremlinq.Core.Step
-    {
-        public static readonly ExRam.Gremlinq.Core.LabelStep Instance;
-        public LabelStep() { }
-    }
-    public sealed class LimitStep : ExRam.Gremlinq.Core.Step
-    {
-        public static readonly ExRam.Gremlinq.Core.LimitStep LimitGlobal1;
-        public static readonly ExRam.Gremlinq.Core.LimitStep LimitLocal1;
-        public LimitStep(long count, Gremlin.Net.Process.Traversal.Scope scope) { }
-        public long Count { get; }
-        public Gremlin.Net.Process.Traversal.Scope Scope { get; }
-    }
-    public sealed class LocalStep : ExRam.Gremlinq.Core.Step
-    {
-        public LocalStep(ExRam.Gremlinq.Core.Traversal traversal) { }
-        public ExRam.Gremlinq.Core.Traversal Traversal { get; }
-    }
-    public abstract class LogicalStep<TStep> : ExRam.Gremlinq.Core.Step
-        where TStep : ExRam.Gremlinq.Core.LogicalStep<TStep>
-    {
-        protected LogicalStep(string name, System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Traversal> traversals) { }
-        public string Name { get; }
-        public System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Traversal> Traversals { get; }
-    }
-    public sealed class MapStep : ExRam.Gremlinq.Core.Step
-    {
-        public MapStep(ExRam.Gremlinq.Core.Traversal traversal) { }
-        public ExRam.Gremlinq.Core.Traversal Traversal { get; }
-    }
-    public sealed class MatchStep : ExRam.Gremlinq.Core.MultiTraversalArgumentStep
-    {
-        public MatchStep(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Traversal> traversals) { }
-    }
-    public sealed class MaxStep : ExRam.Gremlinq.Core.Step
-    {
-        public static readonly ExRam.Gremlinq.Core.MaxStep Global;
-        public static readonly ExRam.Gremlinq.Core.MaxStep Local;
-        public MaxStep(Gremlin.Net.Process.Traversal.Scope scope) { }
-        public Gremlin.Net.Process.Traversal.Scope Scope { get; }
-    }
-    public sealed class MeanStep : ExRam.Gremlinq.Core.Step
-    {
-        public static readonly ExRam.Gremlinq.Core.MeanStep Global;
-        public static readonly ExRam.Gremlinq.Core.MeanStep Local;
-        public MeanStep(Gremlin.Net.Process.Traversal.Scope scope) { }
-        public Gremlin.Net.Process.Traversal.Scope Scope { get; }
-    }
     public readonly struct MemberMetadata
     {
         public MemberMetadata(ExRam.Gremlinq.Core.Key key, ExRam.Gremlinq.Core.SerializationBehaviour serializationBehaviour = 0) { }
         public ExRam.Gremlinq.Core.Key Key { get; }
         public ExRam.Gremlinq.Core.SerializationBehaviour SerializationBehaviour { get; }
-    }
-    public sealed class MinStep : ExRam.Gremlinq.Core.Step
-    {
-        public static readonly ExRam.Gremlinq.Core.MinStep Global;
-        public static readonly ExRam.Gremlinq.Core.MinStep Local;
-        public MinStep(Gremlin.Net.Process.Traversal.Scope scope) { }
-        public Gremlin.Net.Process.Traversal.Scope Scope { get; }
-    }
-    public abstract class MultiTraversalArgumentStep : ExRam.Gremlinq.Core.Step
-    {
-        protected MultiTraversalArgumentStep(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Traversal> traversals) { }
-        public System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Traversal> Traversals { get; }
-    }
-    public sealed class NoneStep : ExRam.Gremlinq.Core.Step
-    {
-        public static readonly ExRam.Gremlinq.Core.NoneStep Instance;
-        public NoneStep() { }
-    }
-    public sealed class NotStep : ExRam.Gremlinq.Core.Step
-    {
-        public NotStep(ExRam.Gremlinq.Core.Traversal traversal) { }
-        public ExRam.Gremlinq.Core.Traversal Traversal { get; }
-    }
-    public sealed class OptionTraversalStep : ExRam.Gremlinq.Core.Step
-    {
-        public OptionTraversalStep(object? guard, ExRam.Gremlinq.Core.Traversal optionTraversal) { }
-        public object? Guard { get; }
-        public ExRam.Gremlinq.Core.Traversal OptionTraversal { get; }
-    }
-    public sealed class OptionalStep : ExRam.Gremlinq.Core.Step
-    {
-        public OptionalStep(ExRam.Gremlinq.Core.Traversal traversal) { }
-        public ExRam.Gremlinq.Core.Traversal Traversal { get; }
-    }
-    public sealed class OrStep : ExRam.Gremlinq.Core.LogicalStep<ExRam.Gremlinq.Core.OrStep>
-    {
-        public static readonly ExRam.Gremlinq.Core.OrStep Infix;
-        public OrStep(System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Traversal> traversals) { }
-    }
-    public sealed class OrderStep : ExRam.Gremlinq.Core.Step
-    {
-        public static readonly ExRam.Gremlinq.Core.OrderStep Global;
-        public static readonly ExRam.Gremlinq.Core.OrderStep Local;
-        public OrderStep(Gremlin.Net.Process.Traversal.Scope scope) { }
-        public Gremlin.Net.Process.Traversal.Scope Scope { get; }
-        public sealed class ByLambdaStep : ExRam.Gremlinq.Core.OrderStep.ByStep
-        {
-            public ByLambdaStep(Gremlin.Net.Process.Traversal.ILambda lambda) { }
-            public Gremlin.Net.Process.Traversal.ILambda Lambda { get; }
-        }
-        public sealed class ByMemberStep : ExRam.Gremlinq.Core.OrderStep.ByStep
-        {
-            public ByMemberStep(ExRam.Gremlinq.Core.Key key, Gremlin.Net.Process.Traversal.Order order) { }
-            public ExRam.Gremlinq.Core.Key Key { get; }
-            public Gremlin.Net.Process.Traversal.Order Order { get; }
-        }
-        public abstract class ByStep : ExRam.Gremlinq.Core.Step
-        {
-            protected ByStep() { }
-        }
-        public sealed class ByTraversalStep : ExRam.Gremlinq.Core.OrderStep.ByStep
-        {
-            public ByTraversalStep(ExRam.Gremlinq.Core.Traversal traversal, Gremlin.Net.Process.Traversal.Order order) { }
-            public Gremlin.Net.Process.Traversal.Order Order { get; }
-            public ExRam.Gremlinq.Core.Traversal Traversal { get; }
-        }
-    }
-    public sealed class OtherVStep : ExRam.Gremlinq.Core.Step
-    {
-        public static readonly ExRam.Gremlinq.Core.OtherVStep Instance;
-        public OtherVStep() { }
-    }
-    public sealed class OutEStep : ExRam.Gremlinq.Core.DerivedLabelNamesStep
-    {
-        public static readonly ExRam.Gremlinq.Core.OutEStep NoLabels;
-        public OutEStep() { }
-        public OutEStep(System.Collections.Immutable.ImmutableArray<string> labels) { }
-    }
-    public sealed class OutStep : ExRam.Gremlinq.Core.DerivedLabelNamesStep
-    {
-        public static readonly ExRam.Gremlinq.Core.OutStep NoLabels;
-        public OutStep() { }
-        public OutStep(System.Collections.Immutable.ImmutableArray<string> labels) { }
-    }
-    public sealed class OutVStep : ExRam.Gremlinq.Core.Step
-    {
-        public static readonly ExRam.Gremlinq.Core.OutVStep Instance;
-        public OutVStep() { }
-    }
-    public sealed class PathStep : ExRam.Gremlinq.Core.Step
-    {
-        public static readonly ExRam.Gremlinq.Core.PathStep Instance;
-        public PathStep() { }
-    }
-    public sealed class ProfileStep : ExRam.Gremlinq.Core.Step
-    {
-        public static readonly ExRam.Gremlinq.Core.ProfileStep Instance;
-        public ProfileStep() { }
-    }
-    public sealed class ProjectEdgeStep : ExRam.Gremlinq.Core.Step
-    {
-        public static readonly ExRam.Gremlinq.Core.ProjectEdgeStep Instance;
-        public ProjectEdgeStep() { }
-    }
-    public sealed class ProjectStep : ExRam.Gremlinq.Core.Step
-    {
-        public ProjectStep(System.Collections.Immutable.ImmutableArray<string> projections) { }
-        public System.Collections.Immutable.ImmutableArray<string> Projections { get; }
-        public sealed class ByKeyStep : ExRam.Gremlinq.Core.ProjectStep.ByStep
-        {
-            public ByKeyStep(ExRam.Gremlinq.Core.Key key) { }
-            public ExRam.Gremlinq.Core.Key Key { get; }
-        }
-        public abstract class ByStep : ExRam.Gremlinq.Core.Step
-        {
-            protected ByStep() { }
-        }
-        public sealed class ByTraversalStep : ExRam.Gremlinq.Core.ProjectStep.ByStep
-        {
-            public ByTraversalStep(ExRam.Gremlinq.Core.Traversal traversal) { }
-            public ExRam.Gremlinq.Core.Traversal Traversal { get; }
-        }
-    }
-    public sealed class ProjectVertexStep : ExRam.Gremlinq.Core.Step
-    {
-        public static readonly ExRam.Gremlinq.Core.ProjectVertexStep Instance;
-        public ProjectVertexStep() { }
-    }
-    public sealed class PropertiesStep : ExRam.Gremlinq.Core.Step
-    {
-        public PropertiesStep(System.Collections.Immutable.ImmutableArray<string> keys) { }
-        public System.Collections.Immutable.ImmutableArray<string> Keys { get; }
-    }
-    public abstract class PropertyStep : ExRam.Gremlinq.Core.Step
-    {
-        protected PropertyStep(object value, Gremlin.Net.Process.Traversal.Cardinality? cardinality = null) { }
-        protected PropertyStep(object value, System.Collections.Immutable.ImmutableArray<System.Collections.Generic.KeyValuePair<string, object>> metaProperties, Gremlin.Net.Process.Traversal.Cardinality? cardinality = null) { }
-        public Gremlin.Net.Process.Traversal.Cardinality? Cardinality { get; }
-        public System.Collections.Immutable.ImmutableArray<System.Collections.Generic.KeyValuePair<string, object>> MetaProperties { get; }
-        public object Value { get; }
-        public sealed class ByKeyStep : ExRam.Gremlinq.Core.PropertyStep
-        {
-            public ByKeyStep(ExRam.Gremlinq.Core.Key key, object value, Gremlin.Net.Process.Traversal.Cardinality? cardinality = null) { }
-            public ByKeyStep(ExRam.Gremlinq.Core.Key key, object value, System.Collections.Immutable.ImmutableArray<System.Collections.Generic.KeyValuePair<string, object>> metaProperties, Gremlin.Net.Process.Traversal.Cardinality? cardinality = null) { }
-            public ExRam.Gremlinq.Core.Key Key { get; }
-        }
-        public sealed class ByTraversalStep : ExRam.Gremlinq.Core.PropertyStep
-        {
-            public ByTraversalStep(ExRam.Gremlinq.Core.Traversal traversal, object value, Gremlin.Net.Process.Traversal.Cardinality? cardinality = null) { }
-            public ByTraversalStep(ExRam.Gremlinq.Core.Traversal traversal, object value, System.Collections.Immutable.ImmutableArray<System.Collections.Generic.KeyValuePair<string, object>> metaProperties, Gremlin.Net.Process.Traversal.Cardinality? cardinality = null) { }
-            public ExRam.Gremlinq.Core.Traversal Traversal { get; }
-        }
     }
     [System.Flags]
     public enum QueryFlags
@@ -1542,29 +1083,6 @@
         QueryOnly = 0,
         IncludeBindings = 1,
     }
-    public sealed class RangeStep : ExRam.Gremlinq.Core.Step
-    {
-        public RangeStep(long lower, long upper, Gremlin.Net.Process.Traversal.Scope scope) { }
-        public long Lower { get; }
-        public Gremlin.Net.Process.Traversal.Scope Scope { get; }
-        public long Upper { get; }
-    }
-    public sealed class RepeatStep : ExRam.Gremlinq.Core.Step
-    {
-        public RepeatStep(ExRam.Gremlinq.Core.Traversal traversal) { }
-        public ExRam.Gremlinq.Core.Traversal Traversal { get; }
-    }
-    public sealed class SelectKeysStep : ExRam.Gremlinq.Core.Step
-    {
-        public SelectKeysStep(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Key> keys) { }
-        public System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Key> Keys { get; }
-    }
-    public sealed class SelectStep : ExRam.Gremlinq.Core.Step
-    {
-        public SelectStep(ExRam.Gremlinq.Core.StepLabel stepLabel) { }
-        public SelectStep(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.StepLabel> stepLabels) { }
-        public System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.StepLabel> StepLabels { get; }
-    }
     [System.Flags]
     public enum SerializationBehaviour
     {
@@ -1577,26 +1095,6 @@
     {
         GraphSonV2 = 0,
         GraphSonV3 = 1,
-    }
-    public sealed class SideEffectStep : ExRam.Gremlinq.Core.Step
-    {
-        public SideEffectStep(ExRam.Gremlinq.Core.Traversal traversal) { }
-        public ExRam.Gremlinq.Core.Traversal Traversal { get; }
-    }
-    public sealed class SimplePathStep : ExRam.Gremlinq.Core.Step
-    {
-        public static readonly ExRam.Gremlinq.Core.SimplePathStep Instance;
-        public SimplePathStep() { }
-    }
-    public sealed class SkipStep : ExRam.Gremlinq.Core.Step
-    {
-        public SkipStep(long count, Gremlin.Net.Process.Traversal.Scope scope) { }
-        public long Count { get; }
-        public Gremlin.Net.Process.Traversal.Scope Scope { get; }
-    }
-    public abstract class Step
-    {
-        protected Step() { }
     }
     public abstract class StepLabel : System.IEquatable<ExRam.Gremlinq.Core.StepLabel>
     {
@@ -1627,15 +1125,15 @@
         [System.Runtime.CompilerServices.PreserveBaseOverrides]
         public virtual ExRam.Gremlinq.Core.StepLabel<ExRam.Gremlinq.Core.IValueGremlinQuery<TNewValue>, TNewValue> Cast<TNewValue>() { }
     }
-    public readonly struct StepStack : System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Step>, System.Collections.Generic.IReadOnlyCollection<ExRam.Gremlinq.Core.Step>, System.Collections.Generic.IReadOnlyList<ExRam.Gremlinq.Core.Step>, System.Collections.IEnumerable
+    public readonly struct StepStack : System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Steps.Step>, System.Collections.Generic.IReadOnlyCollection<ExRam.Gremlinq.Core.Steps.Step>, System.Collections.Generic.IReadOnlyList<ExRam.Gremlinq.Core.Steps.Step>, System.Collections.IEnumerable
     {
         public static readonly ExRam.Gremlinq.Core.StepStack Empty;
         public int Count { get; }
-        public ExRam.Gremlinq.Core.Step this[int index] { get; }
-        public System.Collections.Generic.IEnumerator<ExRam.Gremlinq.Core.Step> GetEnumerator() { }
+        public ExRam.Gremlinq.Core.Steps.Step this[int index] { get; }
+        public System.Collections.Generic.IEnumerator<ExRam.Gremlinq.Core.Steps.Step> GetEnumerator() { }
         public ExRam.Gremlinq.Core.StepStack Pop() { }
-        public ExRam.Gremlinq.Core.StepStack Pop(out ExRam.Gremlinq.Core.Step poppedStep) { }
-        public ExRam.Gremlinq.Core.StepStack Push(ExRam.Gremlinq.Core.Step step) { }
+        public ExRam.Gremlinq.Core.StepStack Pop(out ExRam.Gremlinq.Core.Steps.Step poppedStep) { }
+        public ExRam.Gremlinq.Core.StepStack Push(ExRam.Gremlinq.Core.Steps.Step step) { }
         public ExRam.Gremlinq.Core.Traversal ToTraversal(ExRam.Gremlinq.Core.Projections.Projection projection) { }
     }
     public enum StringComparisonTranslationStrictness
@@ -1643,73 +1141,19 @@
         Strict = 0,
         Lenient = 1,
     }
-    public sealed class SumStep : ExRam.Gremlinq.Core.Step
-    {
-        public static readonly ExRam.Gremlinq.Core.SumStep Global;
-        public static readonly ExRam.Gremlinq.Core.SumStep Local;
-        public SumStep(Gremlin.Net.Process.Traversal.Scope scope) { }
-        public Gremlin.Net.Process.Traversal.Scope Scope { get; }
-    }
-    public sealed class TailStep : ExRam.Gremlinq.Core.Step
-    {
-        public static readonly ExRam.Gremlinq.Core.TailStep TailGlobal1;
-        public static readonly ExRam.Gremlinq.Core.TailStep TailLocal1;
-        public TailStep(long count, Gremlin.Net.Process.Traversal.Scope scope) { }
-        public long Count { get; }
-        public Gremlin.Net.Process.Traversal.Scope Scope { get; }
-    }
-    public sealed class TimesStep : ExRam.Gremlinq.Core.Step
-    {
-        public TimesStep(int count) { }
-        public int Count { get; }
-    }
-    public readonly struct Traversal : System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Step>, System.Collections.Generic.IReadOnlyCollection<ExRam.Gremlinq.Core.Step>, System.Collections.Generic.IReadOnlyList<ExRam.Gremlinq.Core.Step>, System.Collections.IEnumerable
+    public readonly struct Traversal : System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Steps.Step>, System.Collections.Generic.IReadOnlyCollection<ExRam.Gremlinq.Core.Steps.Step>, System.Collections.Generic.IReadOnlyList<ExRam.Gremlinq.Core.Steps.Step>, System.Collections.IEnumerable
     {
         public static readonly ExRam.Gremlinq.Core.Traversal Empty;
-        public Traversal(System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Step> steps, ExRam.Gremlinq.Core.Projections.Projection projection) { }
-        public Traversal(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Step> steps, ExRam.Gremlinq.Core.Projections.Projection projection) { }
+        public Traversal(System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Steps.Step> steps, ExRam.Gremlinq.Core.Projections.Projection projection) { }
+        public Traversal(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Steps.Step> steps, ExRam.Gremlinq.Core.Projections.Projection projection) { }
         public int Count { get; }
-        public ExRam.Gremlinq.Core.Step this[int index] { get; }
+        public ExRam.Gremlinq.Core.Steps.Step this[int index] { get; }
         public ExRam.Gremlinq.Core.Projections.Projection Projection { get; }
-        public System.Collections.Generic.IEnumerator<ExRam.Gremlinq.Core.Step> GetEnumerator() { }
+        public System.Collections.Generic.IEnumerator<ExRam.Gremlinq.Core.Steps.Step> GetEnumerator() { }
         public ExRam.Gremlinq.Core.Traversal IncludeProjection(ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
-        public static ExRam.Gremlinq.Core.Traversal op_Implicit(ExRam.Gremlinq.Core.Step step) { }
-        public static ExRam.Gremlinq.Core.Traversal op_Implicit(ExRam.Gremlinq.Core.Step[] steps) { }
-        public static ExRam.Gremlinq.Core.Traversal op_Implicit(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Step> steps) { }
-    }
-    public sealed class UnfoldStep : ExRam.Gremlinq.Core.Step
-    {
-        public static readonly ExRam.Gremlinq.Core.UnfoldStep Instance;
-        public UnfoldStep() { }
-    }
-    public sealed class UnionStep : ExRam.Gremlinq.Core.MultiTraversalArgumentStep
-    {
-        public UnionStep(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Traversal> traversals) { }
-    }
-    public sealed class UntilStep : ExRam.Gremlinq.Core.Step
-    {
-        public UntilStep(ExRam.Gremlinq.Core.Traversal traversal) { }
-        public ExRam.Gremlinq.Core.Traversal Traversal { get; }
-    }
-    public sealed class VStep : ExRam.Gremlinq.Core.Step
-    {
-        public VStep(System.Collections.Immutable.ImmutableArray<object> ids) { }
-        public System.Collections.Immutable.ImmutableArray<object> Ids { get; }
-    }
-    public sealed class ValueMapStep : ExRam.Gremlinq.Core.Step
-    {
-        public ValueMapStep(System.Collections.Immutable.ImmutableArray<string> keys) { }
-        public System.Collections.Immutable.ImmutableArray<string> Keys { get; }
-    }
-    public sealed class ValueStep : ExRam.Gremlinq.Core.Step
-    {
-        public static readonly ExRam.Gremlinq.Core.ValueStep Instance;
-        public ValueStep() { }
-    }
-    public sealed class ValuesStep : ExRam.Gremlinq.Core.Step
-    {
-        public ValuesStep(System.Collections.Immutable.ImmutableArray<string> keys) { }
-        public System.Collections.Immutable.ImmutableArray<string> Keys { get; }
+        public static ExRam.Gremlinq.Core.Traversal op_Implicit(ExRam.Gremlinq.Core.Steps.Step step) { }
+        public static ExRam.Gremlinq.Core.Traversal op_Implicit(ExRam.Gremlinq.Core.Steps.Step[] steps) { }
+        public static ExRam.Gremlinq.Core.Traversal op_Implicit(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Steps.Step> steps) { }
     }
     [System.Flags]
     public enum VariableFeatures
@@ -1787,43 +1231,6 @@
         DoubleValues = 16777216,
         IntegerValues = 33554432,
         All = 67108863,
-    }
-    public sealed class WherePredicateStep : ExRam.Gremlinq.Core.Step
-    {
-        public WherePredicateStep(Gremlin.Net.Process.Traversal.P predicate) { }
-        public Gremlin.Net.Process.Traversal.P Predicate { get; }
-        public sealed class ByMemberStep : ExRam.Gremlinq.Core.Step
-        {
-            public ByMemberStep(ExRam.Gremlinq.Core.Key? key = default) { }
-            public ExRam.Gremlinq.Core.Key? Key { get; }
-        }
-    }
-    public sealed class WhereStepLabelAndPredicateStep : ExRam.Gremlinq.Core.Step
-    {
-        public WhereStepLabelAndPredicateStep(ExRam.Gremlinq.Core.StepLabel stepLabel, Gremlin.Net.Process.Traversal.P predicate) { }
-        public Gremlin.Net.Process.Traversal.P Predicate { get; }
-        public ExRam.Gremlinq.Core.StepLabel StepLabel { get; }
-    }
-    public sealed class WhereTraversalStep : ExRam.Gremlinq.Core.Step
-    {
-        public WhereTraversalStep(ExRam.Gremlinq.Core.Traversal traversal) { }
-        public ExRam.Gremlinq.Core.Traversal Traversal { get; }
-    }
-    public sealed class WithSideEffectStep : ExRam.Gremlinq.Core.Step
-    {
-        public WithSideEffectStep(ExRam.Gremlinq.Core.StepLabel label, object value) { }
-        public ExRam.Gremlinq.Core.StepLabel Label { get; }
-        public object Value { get; }
-    }
-    public sealed class WithStrategiesStep : ExRam.Gremlinq.Core.Step
-    {
-        public WithStrategiesStep(ExRam.Gremlinq.Core.Traversal traversal) { }
-        public ExRam.Gremlinq.Core.Traversal Traversal { get; }
-    }
-    public sealed class WithoutStrategiesStep : ExRam.Gremlinq.Core.Step
-    {
-        public WithoutStrategiesStep(System.Collections.Immutable.ImmutableArray<System.Type> strategyTypes) { }
-        public System.Collections.Immutable.ImmutableArray<System.Type> StrategyTypes { get; }
     }
 }
 namespace ExRam.Gremlinq.Core.ExpressionParsing
@@ -2064,10 +1471,10 @@ namespace ExRam.Gremlinq.Core.Projections
     public sealed class TupleProjection : ExRam.Gremlinq.Core.Projections.Projection
     {
         public override ExRam.Gremlinq.Core.Projections.Projection BaseProjection { get; }
-        public ExRam.Gremlinq.Core.Projections.TupleProjection Add(ExRam.Gremlinq.Core.ProjectStep.ByStep step) { }
+        public ExRam.Gremlinq.Core.Projections.TupleProjection Add(ExRam.Gremlinq.Core.Steps.ProjectStep.ByStep step) { }
         public override ExRam.Gremlinq.Core.Traversal Expand(ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
         public ExRam.Gremlinq.Core.Projections.Projection Select(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Key> keys) { }
-        public static ExRam.Gremlinq.Core.Projections.TupleProjection Create(ExRam.Gremlinq.Core.ProjectStep step) { }
+        public static ExRam.Gremlinq.Core.Projections.TupleProjection Create(ExRam.Gremlinq.Core.Steps.ProjectStep step) { }
     }
     public sealed class ValueProjection : ExRam.Gremlinq.Core.Projections.Projection
     {
@@ -2085,5 +1492,601 @@ namespace ExRam.Gremlinq.Core.Projections
     {
         public VertexPropertyProjection() { }
         public override ExRam.Gremlinq.Core.Projections.Projection BaseProjection { get; }
+    }
+}
+namespace ExRam.Gremlinq.Core.Steps
+{
+    public sealed class AddEStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public AddEStep(string label) { }
+        public string Label { get; }
+        public sealed class FromLabelStep : ExRam.Gremlinq.Core.Steps.Step
+        {
+            public FromLabelStep(ExRam.Gremlinq.Core.StepLabel stepLabel) { }
+            public ExRam.Gremlinq.Core.StepLabel StepLabel { get; }
+        }
+        public sealed class FromTraversalStep : ExRam.Gremlinq.Core.Steps.Step
+        {
+            public FromTraversalStep(ExRam.Gremlinq.Core.Traversal traversal) { }
+            public ExRam.Gremlinq.Core.Traversal Traversal { get; }
+        }
+        public sealed class ToLabelStep : ExRam.Gremlinq.Core.Steps.Step
+        {
+            public ToLabelStep(ExRam.Gremlinq.Core.StepLabel stepLabel) { }
+            public ExRam.Gremlinq.Core.StepLabel StepLabel { get; }
+        }
+        public sealed class ToTraversalStep : ExRam.Gremlinq.Core.Steps.Step
+        {
+            public ToTraversalStep(ExRam.Gremlinq.Core.Traversal traversal) { }
+            public ExRam.Gremlinq.Core.Traversal Traversal { get; }
+        }
+    }
+    public sealed class AddVStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public AddVStep(string label) { }
+        public string Label { get; }
+    }
+    public sealed class AggregateStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public AggregateStep(Gremlin.Net.Process.Traversal.Scope scope, ExRam.Gremlinq.Core.StepLabel stepLabel) { }
+        public Gremlin.Net.Process.Traversal.Scope Scope { get; }
+        public ExRam.Gremlinq.Core.StepLabel StepLabel { get; }
+    }
+    public sealed class AndStep : ExRam.Gremlinq.Core.Steps.LogicalStep<ExRam.Gremlinq.Core.Steps.AndStep>
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.AndStep Infix;
+        public AndStep(System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Traversal> traversals) { }
+    }
+    public sealed class AsStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public AsStep(ExRam.Gremlinq.Core.StepLabel stepLabel) { }
+        public ExRam.Gremlinq.Core.StepLabel StepLabel { get; }
+    }
+    public sealed class BarrierStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.BarrierStep Instance;
+        public BarrierStep() { }
+    }
+    public sealed class BothEStep : ExRam.Gremlinq.Core.Steps.DerivedLabelNamesStep
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.BothEStep NoLabels;
+        public BothEStep() { }
+        public BothEStep(System.Collections.Immutable.ImmutableArray<string> labels) { }
+    }
+    public sealed class BothStep : ExRam.Gremlinq.Core.Steps.DerivedLabelNamesStep
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.BothStep NoLabels;
+        public BothStep() { }
+        public BothStep(System.Collections.Immutable.ImmutableArray<string> labels) { }
+    }
+    public sealed class BothVStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.BothVStep Instance;
+        public BothVStep() { }
+    }
+    public sealed class CapStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public CapStep(ExRam.Gremlinq.Core.StepLabel stepLabel) { }
+        public ExRam.Gremlinq.Core.StepLabel StepLabel { get; }
+    }
+    public sealed class ChooseOptionTraversalStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public ChooseOptionTraversalStep(ExRam.Gremlinq.Core.Traversal traversal) { }
+        public ExRam.Gremlinq.Core.Traversal Traversal { get; }
+    }
+    public sealed class ChoosePredicateStep : ExRam.Gremlinq.Core.Steps.ChooseStep
+    {
+        public ChoosePredicateStep(Gremlin.Net.Process.Traversal.P predicate, ExRam.Gremlinq.Core.Traversal thenTraversal, ExRam.Gremlinq.Core.Traversal? elseTraversal = default) { }
+        public Gremlin.Net.Process.Traversal.P Predicate { get; }
+    }
+    public abstract class ChooseStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        protected ChooseStep(ExRam.Gremlinq.Core.Traversal thenTraversal, ExRam.Gremlinq.Core.Traversal? elseTraversal = default) { }
+        public ExRam.Gremlinq.Core.Traversal? ElseTraversal { get; }
+        public ExRam.Gremlinq.Core.Traversal ThenTraversal { get; }
+    }
+    public sealed class ChooseTraversalStep : ExRam.Gremlinq.Core.Steps.ChooseStep
+    {
+        public ChooseTraversalStep(ExRam.Gremlinq.Core.Traversal ifTraversal, ExRam.Gremlinq.Core.Traversal thenTraversal, ExRam.Gremlinq.Core.Traversal? elseTraversal = default) { }
+        public ExRam.Gremlinq.Core.Traversal IfTraversal { get; }
+    }
+    public sealed class CoalesceStep : ExRam.Gremlinq.Core.Steps.MultiTraversalArgumentStep
+    {
+        public CoalesceStep(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Traversal> traversals) { }
+    }
+    public sealed class CoinStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public CoinStep(double probability) { }
+        public double Probability { get; }
+    }
+    public sealed class ConstantStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public ConstantStep(object value) { }
+        public object Value { get; }
+    }
+    public sealed class CountStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.CountStep Global;
+        public static readonly ExRam.Gremlinq.Core.Steps.CountStep Local;
+        public CountStep(Gremlin.Net.Process.Traversal.Scope scope) { }
+        public Gremlin.Net.Process.Traversal.Scope Scope { get; }
+    }
+    public sealed class CyclicPathStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.CyclicPathStep Instance;
+        public CyclicPathStep() { }
+    }
+    public sealed class DedupStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.DedupStep Global;
+        public static readonly ExRam.Gremlinq.Core.Steps.DedupStep Local;
+        public DedupStep(Gremlin.Net.Process.Traversal.Scope scope) { }
+        public Gremlin.Net.Process.Traversal.Scope Scope { get; }
+    }
+    public abstract class DerivedLabelNamesStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        protected DerivedLabelNamesStep(System.Collections.Immutable.ImmutableArray<string> labels) { }
+        public System.Collections.Immutable.ImmutableArray<string> Labels { get; }
+    }
+    public sealed class DropStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.DropStep Instance;
+        public DropStep() { }
+    }
+    public sealed class EStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public EStep(System.Collections.Immutable.ImmutableArray<object> ids) { }
+        public System.Collections.Immutable.ImmutableArray<object> Ids { get; }
+    }
+    public sealed class EmitStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.EmitStep Instance;
+        public EmitStep() { }
+    }
+    public sealed class ExplainStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.ExplainStep Instance;
+        public ExplainStep() { }
+    }
+    public sealed class FilterStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public FilterStep(Gremlin.Net.Process.Traversal.ILambda lambda) { }
+        public Gremlin.Net.Process.Traversal.ILambda Lambda { get; }
+    }
+    public sealed class FlatMapStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public FlatMapStep(ExRam.Gremlinq.Core.Traversal traversal) { }
+        public ExRam.Gremlinq.Core.Traversal Traversal { get; }
+    }
+    public sealed class FoldStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.FoldStep Instance;
+        public FoldStep() { }
+    }
+    public sealed class GroupStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.GroupStep Instance;
+        public GroupStep() { }
+        public sealed class ByKeyStep : ExRam.Gremlinq.Core.Steps.GroupStep.ByStep
+        {
+            public ByKeyStep(ExRam.Gremlinq.Core.Key key) { }
+            public ExRam.Gremlinq.Core.Key Key { get; }
+        }
+        public abstract class ByStep : ExRam.Gremlinq.Core.Steps.Step
+        {
+            protected ByStep() { }
+        }
+        public sealed class ByTraversalStep : ExRam.Gremlinq.Core.Steps.GroupStep.ByStep
+        {
+            public ByTraversalStep(ExRam.Gremlinq.Core.Traversal traversal) { }
+            public ExRam.Gremlinq.Core.Traversal Traversal { get; }
+        }
+    }
+    public sealed class HasKeyStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public HasKeyStep(object argument) { }
+        public object Argument { get; }
+    }
+    public sealed class HasLabelStep : ExRam.Gremlinq.Core.Steps.DerivedLabelNamesStep
+    {
+        public HasLabelStep(System.Collections.Immutable.ImmutableArray<string> labels) { }
+    }
+    public sealed class HasNotStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public HasNotStep(ExRam.Gremlinq.Core.Key key) { }
+        public ExRam.Gremlinq.Core.Key Key { get; }
+    }
+    public sealed class HasPredicateStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public HasPredicateStep(ExRam.Gremlinq.Core.Key key, Gremlin.Net.Process.Traversal.P predicate) { }
+        public ExRam.Gremlinq.Core.Key Key { get; }
+        public Gremlin.Net.Process.Traversal.P Predicate { get; }
+    }
+    public sealed class HasTraversalStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public HasTraversalStep(ExRam.Gremlinq.Core.Key key, ExRam.Gremlinq.Core.Traversal traversal) { }
+        public ExRam.Gremlinq.Core.Key Key { get; }
+        public ExRam.Gremlinq.Core.Traversal Traversal { get; }
+    }
+    public sealed class HasValueStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public HasValueStep(object argument) { }
+        public object Argument { get; }
+    }
+    public sealed class IdStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.IdStep Instance;
+        public IdStep() { }
+    }
+    public sealed class IdentityStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.IdentityStep Instance;
+        public IdentityStep() { }
+    }
+    public sealed class InEStep : ExRam.Gremlinq.Core.Steps.DerivedLabelNamesStep
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.InEStep NoLabels;
+        public InEStep() { }
+        public InEStep(System.Collections.Immutable.ImmutableArray<string> labels) { }
+    }
+    public sealed class InStep : ExRam.Gremlinq.Core.Steps.DerivedLabelNamesStep
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.InStep NoLabels;
+        public InStep() { }
+        public InStep(System.Collections.Immutable.ImmutableArray<string> labels) { }
+    }
+    public sealed class InVStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.InVStep Instance;
+        public InVStep() { }
+    }
+    public sealed class InjectStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public InjectStep(System.Collections.Immutable.ImmutableArray<object> elements) { }
+        public System.Collections.Immutable.ImmutableArray<object> Elements { get; }
+    }
+    public sealed class IsStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public IsStep(Gremlin.Net.Process.Traversal.P predicate) { }
+        public Gremlin.Net.Process.Traversal.P Predicate { get; }
+    }
+    public sealed class KeyStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.KeyStep Instance;
+        public KeyStep() { }
+    }
+    public sealed class LabelStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.LabelStep Instance;
+        public LabelStep() { }
+    }
+    public sealed class LimitStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.LimitStep LimitGlobal1;
+        public static readonly ExRam.Gremlinq.Core.Steps.LimitStep LimitLocal1;
+        public LimitStep(long count, Gremlin.Net.Process.Traversal.Scope scope) { }
+        public long Count { get; }
+        public Gremlin.Net.Process.Traversal.Scope Scope { get; }
+    }
+    public sealed class LocalStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public LocalStep(ExRam.Gremlinq.Core.Traversal traversal) { }
+        public ExRam.Gremlinq.Core.Traversal Traversal { get; }
+    }
+    public abstract class LogicalStep<TStep> : ExRam.Gremlinq.Core.Steps.Step
+        where TStep : ExRam.Gremlinq.Core.Steps.LogicalStep<TStep>
+    {
+        protected LogicalStep(string name, System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Traversal> traversals) { }
+        public string Name { get; }
+        public System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Traversal> Traversals { get; }
+    }
+    public sealed class MapStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public MapStep(ExRam.Gremlinq.Core.Traversal traversal) { }
+        public ExRam.Gremlinq.Core.Traversal Traversal { get; }
+    }
+    public sealed class MatchStep : ExRam.Gremlinq.Core.Steps.MultiTraversalArgumentStep
+    {
+        public MatchStep(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Traversal> traversals) { }
+    }
+    public sealed class MaxStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.MaxStep Global;
+        public static readonly ExRam.Gremlinq.Core.Steps.MaxStep Local;
+        public MaxStep(Gremlin.Net.Process.Traversal.Scope scope) { }
+        public Gremlin.Net.Process.Traversal.Scope Scope { get; }
+    }
+    public sealed class MeanStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.MeanStep Global;
+        public static readonly ExRam.Gremlinq.Core.Steps.MeanStep Local;
+        public MeanStep(Gremlin.Net.Process.Traversal.Scope scope) { }
+        public Gremlin.Net.Process.Traversal.Scope Scope { get; }
+    }
+    public sealed class MinStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.MinStep Global;
+        public static readonly ExRam.Gremlinq.Core.Steps.MinStep Local;
+        public MinStep(Gremlin.Net.Process.Traversal.Scope scope) { }
+        public Gremlin.Net.Process.Traversal.Scope Scope { get; }
+    }
+    public abstract class MultiTraversalArgumentStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        protected MultiTraversalArgumentStep(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Traversal> traversals) { }
+        public System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Traversal> Traversals { get; }
+    }
+    public sealed class NoneStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.NoneStep Instance;
+        public NoneStep() { }
+    }
+    public sealed class NotStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public NotStep(ExRam.Gremlinq.Core.Traversal traversal) { }
+        public ExRam.Gremlinq.Core.Traversal Traversal { get; }
+    }
+    public sealed class OptionTraversalStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public OptionTraversalStep(object? guard, ExRam.Gremlinq.Core.Traversal optionTraversal) { }
+        public object? Guard { get; }
+        public ExRam.Gremlinq.Core.Traversal OptionTraversal { get; }
+    }
+    public sealed class OptionalStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public OptionalStep(ExRam.Gremlinq.Core.Traversal traversal) { }
+        public ExRam.Gremlinq.Core.Traversal Traversal { get; }
+    }
+    public sealed class OrStep : ExRam.Gremlinq.Core.Steps.LogicalStep<ExRam.Gremlinq.Core.Steps.OrStep>
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.OrStep Infix;
+        public OrStep(System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Traversal> traversals) { }
+    }
+    public sealed class OrderStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.OrderStep Global;
+        public static readonly ExRam.Gremlinq.Core.Steps.OrderStep Local;
+        public OrderStep(Gremlin.Net.Process.Traversal.Scope scope) { }
+        public Gremlin.Net.Process.Traversal.Scope Scope { get; }
+        public sealed class ByLambdaStep : ExRam.Gremlinq.Core.Steps.OrderStep.ByStep
+        {
+            public ByLambdaStep(Gremlin.Net.Process.Traversal.ILambda lambda) { }
+            public Gremlin.Net.Process.Traversal.ILambda Lambda { get; }
+        }
+        public sealed class ByMemberStep : ExRam.Gremlinq.Core.Steps.OrderStep.ByStep
+        {
+            public ByMemberStep(ExRam.Gremlinq.Core.Key key, Gremlin.Net.Process.Traversal.Order order) { }
+            public ExRam.Gremlinq.Core.Key Key { get; }
+            public Gremlin.Net.Process.Traversal.Order Order { get; }
+        }
+        public abstract class ByStep : ExRam.Gremlinq.Core.Steps.Step
+        {
+            protected ByStep() { }
+        }
+        public sealed class ByTraversalStep : ExRam.Gremlinq.Core.Steps.OrderStep.ByStep
+        {
+            public ByTraversalStep(ExRam.Gremlinq.Core.Traversal traversal, Gremlin.Net.Process.Traversal.Order order) { }
+            public Gremlin.Net.Process.Traversal.Order Order { get; }
+            public ExRam.Gremlinq.Core.Traversal Traversal { get; }
+        }
+    }
+    public sealed class OtherVStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.OtherVStep Instance;
+        public OtherVStep() { }
+    }
+    public sealed class OutEStep : ExRam.Gremlinq.Core.Steps.DerivedLabelNamesStep
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.OutEStep NoLabels;
+        public OutEStep() { }
+        public OutEStep(System.Collections.Immutable.ImmutableArray<string> labels) { }
+    }
+    public sealed class OutStep : ExRam.Gremlinq.Core.Steps.DerivedLabelNamesStep
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.OutStep NoLabels;
+        public OutStep() { }
+        public OutStep(System.Collections.Immutable.ImmutableArray<string> labels) { }
+    }
+    public sealed class OutVStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.OutVStep Instance;
+        public OutVStep() { }
+    }
+    public sealed class PathStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.PathStep Instance;
+        public PathStep() { }
+    }
+    public sealed class ProfileStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.ProfileStep Instance;
+        public ProfileStep() { }
+    }
+    public sealed class ProjectEdgeStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.ProjectEdgeStep Instance;
+        public ProjectEdgeStep() { }
+    }
+    public sealed class ProjectStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public ProjectStep(System.Collections.Immutable.ImmutableArray<string> projections) { }
+        public System.Collections.Immutable.ImmutableArray<string> Projections { get; }
+        public sealed class ByKeyStep : ExRam.Gremlinq.Core.Steps.ProjectStep.ByStep
+        {
+            public ByKeyStep(ExRam.Gremlinq.Core.Key key) { }
+            public ExRam.Gremlinq.Core.Key Key { get; }
+        }
+        public abstract class ByStep : ExRam.Gremlinq.Core.Steps.Step
+        {
+            protected ByStep() { }
+        }
+        public sealed class ByTraversalStep : ExRam.Gremlinq.Core.Steps.ProjectStep.ByStep
+        {
+            public ByTraversalStep(ExRam.Gremlinq.Core.Traversal traversal) { }
+            public ExRam.Gremlinq.Core.Traversal Traversal { get; }
+        }
+    }
+    public sealed class ProjectVertexStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.ProjectVertexStep Instance;
+        public ProjectVertexStep() { }
+    }
+    public sealed class PropertiesStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public PropertiesStep(System.Collections.Immutable.ImmutableArray<string> keys) { }
+        public System.Collections.Immutable.ImmutableArray<string> Keys { get; }
+    }
+    public abstract class PropertyStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        protected PropertyStep(object value, Gremlin.Net.Process.Traversal.Cardinality? cardinality = null) { }
+        protected PropertyStep(object value, System.Collections.Immutable.ImmutableArray<System.Collections.Generic.KeyValuePair<string, object>> metaProperties, Gremlin.Net.Process.Traversal.Cardinality? cardinality = null) { }
+        public Gremlin.Net.Process.Traversal.Cardinality? Cardinality { get; }
+        public System.Collections.Immutable.ImmutableArray<System.Collections.Generic.KeyValuePair<string, object>> MetaProperties { get; }
+        public object Value { get; }
+        public sealed class ByKeyStep : ExRam.Gremlinq.Core.Steps.PropertyStep
+        {
+            public ByKeyStep(ExRam.Gremlinq.Core.Key key, object value, Gremlin.Net.Process.Traversal.Cardinality? cardinality = null) { }
+            public ByKeyStep(ExRam.Gremlinq.Core.Key key, object value, System.Collections.Immutable.ImmutableArray<System.Collections.Generic.KeyValuePair<string, object>> metaProperties, Gremlin.Net.Process.Traversal.Cardinality? cardinality = null) { }
+            public ExRam.Gremlinq.Core.Key Key { get; }
+        }
+        public sealed class ByTraversalStep : ExRam.Gremlinq.Core.Steps.PropertyStep
+        {
+            public ByTraversalStep(ExRam.Gremlinq.Core.Traversal traversal, object value, Gremlin.Net.Process.Traversal.Cardinality? cardinality = null) { }
+            public ByTraversalStep(ExRam.Gremlinq.Core.Traversal traversal, object value, System.Collections.Immutable.ImmutableArray<System.Collections.Generic.KeyValuePair<string, object>> metaProperties, Gremlin.Net.Process.Traversal.Cardinality? cardinality = null) { }
+            public ExRam.Gremlinq.Core.Traversal Traversal { get; }
+        }
+    }
+    public sealed class RangeStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public RangeStep(long lower, long upper, Gremlin.Net.Process.Traversal.Scope scope) { }
+        public long Lower { get; }
+        public Gremlin.Net.Process.Traversal.Scope Scope { get; }
+        public long Upper { get; }
+    }
+    public sealed class RepeatStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public RepeatStep(ExRam.Gremlinq.Core.Traversal traversal) { }
+        public ExRam.Gremlinq.Core.Traversal Traversal { get; }
+    }
+    public sealed class SelectKeysStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public SelectKeysStep(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Key> keys) { }
+        public System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Key> Keys { get; }
+    }
+    public sealed class SelectStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public SelectStep(ExRam.Gremlinq.Core.StepLabel stepLabel) { }
+        public SelectStep(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.StepLabel> stepLabels) { }
+        public System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.StepLabel> StepLabels { get; }
+    }
+    public sealed class SideEffectStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public SideEffectStep(ExRam.Gremlinq.Core.Traversal traversal) { }
+        public ExRam.Gremlinq.Core.Traversal Traversal { get; }
+    }
+    public sealed class SimplePathStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.SimplePathStep Instance;
+        public SimplePathStep() { }
+    }
+    public sealed class SkipStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public SkipStep(long count, Gremlin.Net.Process.Traversal.Scope scope) { }
+        public long Count { get; }
+        public Gremlin.Net.Process.Traversal.Scope Scope { get; }
+    }
+    public abstract class Step
+    {
+        protected Step() { }
+    }
+    public sealed class SumStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.SumStep Global;
+        public static readonly ExRam.Gremlinq.Core.Steps.SumStep Local;
+        public SumStep(Gremlin.Net.Process.Traversal.Scope scope) { }
+        public Gremlin.Net.Process.Traversal.Scope Scope { get; }
+    }
+    public sealed class TailStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.TailStep TailGlobal1;
+        public static readonly ExRam.Gremlinq.Core.Steps.TailStep TailLocal1;
+        public TailStep(long count, Gremlin.Net.Process.Traversal.Scope scope) { }
+        public long Count { get; }
+        public Gremlin.Net.Process.Traversal.Scope Scope { get; }
+    }
+    public sealed class TimesStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public TimesStep(int count) { }
+        public int Count { get; }
+    }
+    public sealed class UnfoldStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.UnfoldStep Instance;
+        public UnfoldStep() { }
+    }
+    public sealed class UnionStep : ExRam.Gremlinq.Core.Steps.MultiTraversalArgumentStep
+    {
+        public UnionStep(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Traversal> traversals) { }
+    }
+    public sealed class UntilStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public UntilStep(ExRam.Gremlinq.Core.Traversal traversal) { }
+        public ExRam.Gremlinq.Core.Traversal Traversal { get; }
+    }
+    public sealed class VStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public VStep(System.Collections.Immutable.ImmutableArray<object> ids) { }
+        public System.Collections.Immutable.ImmutableArray<object> Ids { get; }
+    }
+    public sealed class ValueMapStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public ValueMapStep(System.Collections.Immutable.ImmutableArray<string> keys) { }
+        public System.Collections.Immutable.ImmutableArray<string> Keys { get; }
+    }
+    public sealed class ValueStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.Steps.ValueStep Instance;
+        public ValueStep() { }
+    }
+    public sealed class ValuesStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public ValuesStep(System.Collections.Immutable.ImmutableArray<string> keys) { }
+        public System.Collections.Immutable.ImmutableArray<string> Keys { get; }
+    }
+    public sealed class WherePredicateStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public WherePredicateStep(Gremlin.Net.Process.Traversal.P predicate) { }
+        public Gremlin.Net.Process.Traversal.P Predicate { get; }
+        public sealed class ByMemberStep : ExRam.Gremlinq.Core.Steps.Step
+        {
+            public ByMemberStep(ExRam.Gremlinq.Core.Key? key = default) { }
+            public ExRam.Gremlinq.Core.Key? Key { get; }
+        }
+    }
+    public sealed class WhereStepLabelAndPredicateStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public WhereStepLabelAndPredicateStep(ExRam.Gremlinq.Core.StepLabel stepLabel, Gremlin.Net.Process.Traversal.P predicate) { }
+        public Gremlin.Net.Process.Traversal.P Predicate { get; }
+        public ExRam.Gremlinq.Core.StepLabel StepLabel { get; }
+    }
+    public sealed class WhereTraversalStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public WhereTraversalStep(ExRam.Gremlinq.Core.Traversal traversal) { }
+        public ExRam.Gremlinq.Core.Traversal Traversal { get; }
+    }
+    public sealed class WithSideEffectStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public WithSideEffectStep(ExRam.Gremlinq.Core.StepLabel label, object value) { }
+        public ExRam.Gremlinq.Core.StepLabel Label { get; }
+        public object Value { get; }
+    }
+    public sealed class WithStrategiesStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public WithStrategiesStep(ExRam.Gremlinq.Core.Traversal traversal) { }
+        public ExRam.Gremlinq.Core.Traversal Traversal { get; }
+    }
+    public sealed class WithoutStrategiesStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public WithoutStrategiesStep(System.Collections.Immutable.ImmutableArray<System.Type> strategyTypes) { }
+        public System.Collections.Immutable.ImmutableArray<System.Type> StrategyTypes { get; }
     }
 }

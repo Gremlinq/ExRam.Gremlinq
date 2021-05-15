@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ExRam.Gremlinq.Core
+namespace ExRam.Gremlinq.Core.Steps
 {
     public sealed class OrStep : LogicalStep<OrStep>, IIsOptimizableInWhere
     {

@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using AutoFixture;
 using AutoFixture.Kernel;
 using ExRam.Gremlinq.Core.GraphElements;
+using ExRam.Gremlinq.Core.Steps;
+
 using FluentAssertions;
 using Gremlin.Net.Process.Traversal;
 using Xunit;
