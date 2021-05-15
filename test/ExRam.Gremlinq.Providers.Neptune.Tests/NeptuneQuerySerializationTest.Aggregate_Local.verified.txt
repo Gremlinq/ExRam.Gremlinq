@@ -7,6 +7,12 @@
         "Arguments": []
       },
       {
+        "OperatorName": "aggregate",
+        "Arguments": [
+          "l1"
+        ]
+      },
+      {
         "OperatorName": "project",
         "Arguments": [
           "id",
@@ -106,12 +112,6 @@
               }
             ]
           }
-        ]
-      },
-      {
-        "OperatorName": "aggregate",
-        "Arguments": [
-          "l1"
         ]
       }
     ]

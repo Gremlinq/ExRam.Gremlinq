@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "SourceInstructions": [],
     "StepInstructions": [
@@ -51,6 +51,45 @@
                 "OperatorName": "select",
                 "Arguments": [
                   "l1"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "OperatorName": "by",
+        "Arguments": [
+          {
+            "SourceInstructions": [],
+            "StepInstructions": [
+              {
+                "OperatorName": "select",
+                "Arguments": [
+                  "l2"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "OperatorName": "project",
+        "Arguments": [
+          "Item1",
+          "Item2"
+        ]
+      },
+      {
+        "OperatorName": "by",
+        "Arguments": [
+          {
+            "SourceInstructions": [],
+            "StepInstructions": [
+              {
+                "OperatorName": "select",
+                "Arguments": [
+                  "Item1"
                 ]
               },
               {
@@ -168,7 +207,7 @@
               {
                 "OperatorName": "select",
                 "Arguments": [
-                  "l2"
+                  "Item2"
                 ]
               },
               {

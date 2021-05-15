@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "V().where(__.properties()).project(_a,_b).by(__.project(_c,_d,_e).by(id).by(label).by(__.properties().group().by(label).by(__.project(_c,_d,_f,_e).by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.properties())",
+    "Script": "V().where(__.properties()).project(_a,_b).by(__.identity()).by(__.properties()).project(_a,_b).by(__.select(_a).project(_c,_d,_e).by(id).by(label).by(__.properties().group().by(label).by(__.project(_c,_d,_f,_e).by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.select(_b))",
     "Bindings": {
       "_a": "Item1",
       "_b": "Item2",

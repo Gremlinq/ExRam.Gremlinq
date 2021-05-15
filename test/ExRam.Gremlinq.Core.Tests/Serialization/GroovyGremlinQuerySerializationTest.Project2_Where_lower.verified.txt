@@ -1,14 +1,14 @@
 ﻿[
   {
-    "Script": "V().project(_a,_b).by(__.label()).by(__.project(_c,_d,_e).by(id).by(label).by(__.properties().group().by(label).by(__.project(_c,_d,_f,_e).by(id).by(label).by(value).by(__.valueMap()).fold())).fold()).where(__.select(_b).count(local).is(lt(_g)))",
+    "Script": "V().project(_a,_b).by(__.label()).by(__.fold()).where(__.select(_b).count(local).is(lt(_c))).project(_a,_b).by(__.select(_a)).by(__.select(_b).local(__.unfold().project(_d,_e,_f).by(id).by(label).by(__.properties().group().by(label).by(__.project(_d,_e,_g,_f).by(id).by(label).by(value).by(__.valueMap()).fold())).fold()))",
     "Bindings": {
       "_a": "Item1",
       "_b": "Item2",
-      "_c": "id",
-      "_d": "label",
-      "_e": "properties",
-      "_f": "value",
-      "_g": 3
+      "_c": 3,
+      "_d": "id",
+      "_e": "label",
+      "_f": "properties",
+      "_g": "value"
     }
   }
 ]

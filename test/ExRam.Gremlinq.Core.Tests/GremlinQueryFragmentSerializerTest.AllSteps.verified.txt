@@ -1023,8 +1023,6 @@
     Item2: {
       OperatorName: select,
       Arguments: [
-        {},
-        {},
         {}
       ]
     }

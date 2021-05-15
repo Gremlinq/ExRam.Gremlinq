@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "V().limit(0).project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold())).fold().range(local,0,2)",
+    "Script": "V().limit(0).fold().range(local,0,2).local(__.unfold().project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold())).fold())",
     "Bindings": {}
   }
 ]

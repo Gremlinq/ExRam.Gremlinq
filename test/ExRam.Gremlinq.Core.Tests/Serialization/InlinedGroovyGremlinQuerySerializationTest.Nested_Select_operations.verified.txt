@@ -1,6 +1,6 @@
-[
+﻿[
   {
-    "Script": "V().hasLabel('Person').as('l1').project('Item1','Item2').by(__.select('l1').project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.select('l1').project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold()))).as('l2').project('Item1','Item2').by(__.select('l1').project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.select('l2'))",
+    "Script": "V().hasLabel('Person').as('l1').project('Item1','Item2').by(__.select('l1')).by(__.select('l1')).as('l2').project('Item1','Item2').by(__.select('l1')).by(__.select('l2')).project('Item1','Item2').by(__.select('Item1').project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.select('Item2').project('Item1','Item2').by(__.select('Item1').project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.select('Item2').project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold()))))",
     "Bindings": {}
   }
 ]

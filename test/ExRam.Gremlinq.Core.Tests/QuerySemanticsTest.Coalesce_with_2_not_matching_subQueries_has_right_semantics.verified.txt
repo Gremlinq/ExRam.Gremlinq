@@ -1,3 +1,9 @@
 ﻿{
-  QueryType: IEdgeOrVertexGremlinQueryBase<object>
+  BaseProjection: {
+    BaseProjection: {
+      Name: ExRam.Gremlinq.Core.Projection+_None
+    },
+    Name: ExRam.Gremlinq.Core.Projection+_Element
+  },
+  Name: ExRam.Gremlinq.Core.Projection+_EdgeOrVertex
 }

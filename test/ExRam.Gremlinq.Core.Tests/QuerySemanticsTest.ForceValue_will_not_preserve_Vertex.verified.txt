@@ -1,3 +1,6 @@
 ﻿{
-  QueryType: IValueGremlinQueryBase<object>
+  BaseProjection: {
+    Name: ExRam.Gremlinq.Core.Projection+_None
+  },
+  Name: ExRam.Gremlinq.Core.Projection+_Value
 }
