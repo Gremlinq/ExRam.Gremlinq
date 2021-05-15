@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Linq.Expressions;
 
+using ExRam.Gremlinq.Core.Models;
+
 namespace ExRam.Gremlinq.Core.ExpressionParsing
 {
     internal readonly struct ExpressionFragment

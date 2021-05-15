@@ -1,4 +1,6 @@
 ﻿using System;
+
+using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Providers.Neptune;
 using Microsoft.Extensions.Configuration;
 

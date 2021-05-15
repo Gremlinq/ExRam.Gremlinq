@@ -5,9 +5,9 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-
 using ExRam.Gremlinq.Core.Deserialization;
 using ExRam.Gremlinq.Core.GraphElements;
+using ExRam.Gremlinq.Core.Models;
 using Gremlin.Net.Process.Traversal;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;

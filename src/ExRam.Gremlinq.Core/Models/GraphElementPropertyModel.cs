@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using ExRam.Gremlinq.Core.ExpressionParsing;
 
-namespace ExRam.Gremlinq.Core
+namespace ExRam.Gremlinq.Core.Models
 {
     public static class GraphElementPropertyModel
     {

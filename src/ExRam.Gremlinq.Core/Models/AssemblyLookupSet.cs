@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 
-namespace ExRam.Gremlinq.Core
+namespace ExRam.Gremlinq.Core.Models
 {
     internal sealed class AssemblyLookupSet : IAssemblyLookupSet
     {

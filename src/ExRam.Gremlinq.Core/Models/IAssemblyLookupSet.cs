@@ -1,7 +1,7 @@
 ﻿using System.Collections.Immutable;
 using System.Reflection;
 
-namespace ExRam.Gremlinq.Core
+namespace ExRam.Gremlinq.Core.Models
 {
     public interface IAssemblyLookupSet : IAssemblyLookupBuilder
     {

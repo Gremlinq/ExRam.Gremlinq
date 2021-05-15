@@ -5,7 +5,7 @@ using System.Collections.Immutable;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace ExRam.Gremlinq.Core
+namespace ExRam.Gremlinq.Core.Models
 {
     internal sealed class MemberMetadataConfigurator<TElement> : IMemberMetadataConfigurator<TElement>
     {

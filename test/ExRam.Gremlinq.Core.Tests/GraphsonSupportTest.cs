@@ -7,6 +7,7 @@ using Newtonsoft.Json.Linq;
 using Xunit;
 using Xunit.Abstractions;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
+using ExRam.Gremlinq.Core.Models;
 
 namespace ExRam.Gremlinq.Core.Tests
 {

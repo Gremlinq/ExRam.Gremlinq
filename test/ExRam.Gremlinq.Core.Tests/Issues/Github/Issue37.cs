@@ -1,4 +1,7 @@
 ﻿using System.Threading.Tasks;
+
+using ExRam.Gremlinq.Core.Models;
+
 using Gremlin.Net.Structure;
 using Xunit;
 using Xunit.Abstractions;

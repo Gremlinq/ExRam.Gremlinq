@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoFixture;
 using AutoFixture.Kernel;
 using ExRam.Gremlinq.Core.GraphElements;
+using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Core.Steps;
 
 using FluentAssertions;

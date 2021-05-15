@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
+
+using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Providers.CosmosDb;
 using Microsoft.Extensions.Configuration;
 

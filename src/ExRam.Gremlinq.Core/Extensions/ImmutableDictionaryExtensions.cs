@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Reflection;
 using System.Linq;
+using ExRam.Gremlinq.Core.Models;
 
 namespace ExRam.Gremlinq.Core
 {

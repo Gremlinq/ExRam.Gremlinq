@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Reflection;
+using ExRam.Gremlinq.Core.Models;
 using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core

@@ -1,6 +1,7 @@
 ﻿using System;
 using ExRam.Gremlinq.Core.Deserialization;
 using ExRam.Gremlinq.Core.Execution;
+using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Core.Serialization;
 using Microsoft.Extensions.Logging;
 

@@ -1,4 +1,6 @@
 ﻿using System;
+
+using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Providers.JanusGraph;
 using Microsoft.Extensions.Configuration;
 

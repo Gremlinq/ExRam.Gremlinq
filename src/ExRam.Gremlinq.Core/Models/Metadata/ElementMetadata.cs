@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Core
+﻿namespace ExRam.Gremlinq.Core.Models
 {
     public readonly struct ElementMetadata
     {
