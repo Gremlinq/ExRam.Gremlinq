@@ -23,7 +23,7 @@ namespace ExRam.Gremlinq.Core
             Flags = flags;
             Projection = projection;
             Environment = environment;
-            StepLabelSemantics = stepLabelSemantics;
+            StepLabelProjections = stepLabelSemantics;
         }
 
         protected TTargetQuery ChangeQueryType<TTargetQuery>(Projection? forcedSemantics = null)
@@ -73,7 +73,7 @@ namespace ExRam.Gremlinq.Core
                     existingQuery.Steps,
                     actualSemantics,
                     existingQuery.Environment,
-                    existingQuery.StepLabelSemantics,
+                    existingQuery.StepLabelProjections,
                     existingQuery.Flags);
             };
         }
@@ -102,6 +102,6 @@ namespace ExRam.Gremlinq.Core
         protected internal QueryFlags Flags { get; }
         protected internal Projection Projection { get; }
         protected internal IGremlinQueryEnvironment Environment { get; }
-        protected internal IImmutableDictionary<StepLabel, Projection> StepLabelSemantics { get; }
+        protected internal IImmutableDictionary<StepLabel, Projection> StepLabelProjections { get; }
     }
 }

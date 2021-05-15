@@ -238,7 +238,7 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<string> IGremlinQueryBase.Profile() => AddStepWithObjectTypes<string>(ProfileStep.Instance, _ => Projection.Value);
 
-        TQuery IGremlinQueryBase.Select<TQuery, TStepElement>(StepLabel<TQuery, TStepElement> label) => Select(label).ChangeQueryType<TQuery>(StepLabelSemantics[label]);
+        TQuery IGremlinQueryBase.Select<TQuery, TStepElement>(StepLabel<TQuery, TStepElement> label) => Select(label).ChangeQueryType<TQuery>(StepLabelProjections[label]);
 
         IArrayGremlinQuery<TNewElement, TNewScalar, TQuery> IGremlinQueryBase.Cap<TNewElement, TNewScalar, TQuery>(StepLabel<IArrayGremlinQuery<TNewElement, TNewScalar, TQuery>, TNewElement> label) => Cap(label);
 
@@ -443,7 +443,7 @@ namespace ExRam.Gremlinq.Core
 
         IPropertyGremlinQuery<Property<object>> IVertexPropertyGremlinQueryBase.Properties(params string[] keys) => Properties<Property<object>, object, object>(keys);
 
-        IVertexPropertyGremlinQuery<VertexProperty<TScalar, TNewMeta>, TScalar, TNewMeta> IVertexPropertyGremlinQueryBase<TElement, TScalar>.Meta<TNewMeta>() => new GremlinQuery<VertexProperty<TScalar, TNewMeta>, object, object, TScalar, TNewMeta, object>(Steps, Projection, Environment, StepLabelSemantics, Flags);
+        IVertexPropertyGremlinQuery<VertexProperty<TScalar, TNewMeta>, TScalar, TNewMeta> IVertexPropertyGremlinQueryBase<TElement, TScalar>.Meta<TNewMeta>() => new GremlinQuery<VertexProperty<TScalar, TNewMeta>, object, object, TScalar, TNewMeta, object>(Steps, Projection, Environment, StepLabelProjections, Flags);
 
         IPropertyGremlinQuery<Property<TValue>> IVertexPropertyGremlinQueryBase<TElement, TScalar>.Properties<TValue>(params string[] keys) => Properties<Property<TValue>, object, object>(keys);
 

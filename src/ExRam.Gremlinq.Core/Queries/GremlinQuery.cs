@@ -249,8 +249,8 @@ namespace ExRam.Gremlinq.Core
             StepStack steps,
             Projection projection,
             IGremlinQueryEnvironment environment,
-            IImmutableDictionary<StepLabel, Projection> stepLabelSemantics,
-            QueryFlags flags) : base(steps, projection, environment, stepLabelSemantics, flags)
+            IImmutableDictionary<StepLabel, Projection> stepLabelProjections,
+            QueryFlags flags) : base(steps, projection, environment, stepLabelProjections, flags)
         {
 
         }
@@ -345,7 +345,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TNewElement, object, object, object, object, object> AddStepWithObjectTypes<TNewElement>(Step step, Func<Projection, Projection> projectionTransformation) => AddStep<TNewElement, object, object, object, object, object>(step, projectionTransformation);
 
-        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery> AddStep<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(Step step, Func<Projection, Projection> projectionTransformation, IImmutableDictionary<StepLabel, Projection>? stepLabelSemantics = null, QueryFlags additionalFlags = QueryFlags.None)
+        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery> AddStep<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(Step step, Func<Projection, Projection> projectionTransformation, IImmutableDictionary<StepLabel, Projection>? stepLabelProjections = null, QueryFlags additionalFlags = QueryFlags.None)
         {
             var newSteps = Steps;
 
@@ -356,11 +356,11 @@ namespace ExRam.Gremlinq.Core
                 newSteps,
                 projectionTransformation(Projection),
                 Environment,
-                stepLabelSemantics ?? StepLabelSemantics,
+                stepLabelProjections ?? StepLabelProjections,
                 Flags | additionalFlags);
         }
 
-        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery> AddSteps<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(IEnumerable<Step> steps, Func<Projection, Projection> projectionTransformation, IImmutableDictionary<StepLabel, Projection>? stepLabelSemantics = null, QueryFlags additionalFlags = QueryFlags.None)
+        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery> AddSteps<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(IEnumerable<Step> steps, Func<Projection, Projection> projectionTransformation, IImmutableDictionary<StepLabel, Projection>? stepLabelProjections = null, QueryFlags additionalFlags = QueryFlags.None)
         {
             var newSteps = Steps;
 
@@ -376,7 +376,7 @@ namespace ExRam.Gremlinq.Core
                 newSteps,
                 projectionTransformation(Projection),
                 Environment,
-                stepLabelSemantics ?? StepLabelSemantics,
+                stepLabelProjections ?? StepLabelProjections,
                 Flags | additionalFlags);
         }
 
@@ -432,7 +432,7 @@ namespace ExRam.Gremlinq.Core
 
         private TTargetQuery Continue<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> transformation, bool surfaceVisible = false)
         {
-            var targetQuery = transformation(new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(StepStack.Empty, Projection, Environment, StepLabelSemantics, (surfaceVisible ? Flags | QueryFlags.SurfaceVisible : Flags & ~QueryFlags.SurfaceVisible) | QueryFlags.IsAnonymous));
+            var targetQuery = transformation(new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(StepStack.Empty, Projection, Environment, StepLabelProjections, (surfaceVisible ? Flags | QueryFlags.SurfaceVisible : Flags & ~QueryFlags.SurfaceVisible) | QueryFlags.IsAnonymous));
 
             if (targetQuery is GremlinQueryBase queryBase && (queryBase.Flags & QueryFlags.IsAnonymous) == QueryFlags.None)
                 throw new InvalidOperationException("A query continuation must originate from the query that was passed to the continuation function. Did you accidentally use 'g' in the continuation?");
@@ -471,7 +471,7 @@ namespace ExRam.Gremlinq.Core
             return AddStep(
                 new AsStep(stepLabel),
                 _ => _,
-                StepLabelSemantics.SetItem(stepLabel, Projection));
+                StepLabelProjections.SetItem(stepLabel, Projection));
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Barrier() => AddStep(BarrierStep.Instance, _ => _);
@@ -483,7 +483,7 @@ namespace ExRam.Gremlinq.Core
             if (typeof(TNewElement) == typeof(TElement))
                 return (GremlinQuery<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>)(object)this;
 
-             return new(Steps, Projection, Environment, StepLabelSemantics, Flags);
+             return new(Steps, Projection, Environment, StepLabelProjections, Flags);
         }
 
         private TTargetQuery Choose<TTrueQuery, TFalseQuery, TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTrueQuery> trueChoice, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TFalseQuery>? maybeFalseChoice = default)
@@ -572,7 +572,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Configure<TNewElement>(
             Func<StepStack, StepStack> stepsTransformation,
-            Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> environmentTransformation) => new(stepsTransformation(Steps), Projection, environmentTransformation(Environment), StepLabelSemantics, Flags);
+            Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> environmentTransformation) => new(stepsTransformation(Steps), Projection, environmentTransformation(Environment), StepLabelProjections, Flags);
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> CyclicPath() => AddStep(CyclicPathStep.Instance, _ => _);
 
@@ -932,7 +932,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TSelectedElement, object, object, object, object, object> Select<TSelectedElement>(StepLabel<TSelectedElement> stepLabel)
         {
-            if (StepLabelSemantics.TryGetValue(stepLabel, out var stepLabelSemantics))
+            if (StepLabelProjections.TryGetValue(stepLabel, out var stepLabelSemantics))
                 return AddStepWithObjectTypes<TSelectedElement>(new SelectStep(ImmutableArray.Create<StepLabel>(stepLabel)), _ => stepLabelSemantics);
 
             throw new InvalidOperationException($"Invalid use of unknown {nameof(StepLabel)} in {nameof(Select)}. Make sure you only pass in a {nameof(StepLabel)} that comes from a previous {nameof(As)}- or {nameof(IGremlinQuerySource.WithSideEffect)}-continuation or has previously been passed to an appropriate overload of {nameof(As)} or {nameof(IGremlinQuerySource.WithSideEffect)}.");
