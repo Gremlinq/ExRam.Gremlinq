@@ -1,4 +1,5 @@
 ﻿using System;
+using ExRam.Gremlinq.Core.Projections;
 
 namespace ExRam.Gremlinq.Core
 {

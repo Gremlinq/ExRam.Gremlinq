@@ -8,6 +8,8 @@ using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Core.GraphElements;
+using ExRam.Gremlinq.Core.Projections;
+
 using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core

@@ -8,6 +8,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using ExRam.Gremlinq.Core.ExpressionParsing;
 using ExRam.Gremlinq.Core.GraphElements;
+using ExRam.Gremlinq.Core.Projections;
+
 using Gremlin.Net.Process.Traversal;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -824,7 +826,7 @@ namespace ExRam.Gremlinq.Core
                 .ToArray();
 
             var projectStep = new ProjectStep(projectionsPairs.Select(x => x.Key).ToImmutableArray());
-            var projection = Projection.Tuple.Create(projectStep);
+            var projection = TupleProjection.Create(projectStep);
 
             var ret = this
                 .AddStepWithObjectTypes<TResult>(projectStep, _ => projection);
@@ -945,7 +947,7 @@ namespace ExRam.Gremlinq.Core
             return this
                 .AddStep(
                     new SelectKeysStep(keys),
-                    _ => _.If<Projection.Tuple>(tuple => tuple.Select(keys)))
+                    _ => _.If<TupleProjection>(tuple => tuple.Select(keys)))
                 .ChangeQueryType<TTargetQuery>();
         }
 
@@ -990,7 +992,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Unfold() => AddStep(
             UnfoldStep.Instance,
-            _ => _.If<Projection.Array>(array => array.Inner));
+            _ => _.If<ArrayProjection>(array => array.Inner));
 
         private TTargetQuery Unfold<TTargetQuery>() => Unfold().ChangeQueryType<TTargetQuery>();
 

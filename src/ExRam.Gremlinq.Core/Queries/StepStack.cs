@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 
+using ExRam.Gremlinq.Core.Projections;
+
 namespace ExRam.Gremlinq.Core
 {
     public readonly struct StepStack : IReadOnlyList<Step>

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 
+using ExRam.Gremlinq.Core.Projections;
+
 namespace ExRam.Gremlinq.Core
 {
     public readonly struct Traversal : IReadOnlyList<Step>

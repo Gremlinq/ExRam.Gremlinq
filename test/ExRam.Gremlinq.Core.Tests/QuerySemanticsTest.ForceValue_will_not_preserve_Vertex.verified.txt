@@ -1,6 +1,6 @@
 ﻿{
   BaseProjection: {
-    Name: ExRam.Gremlinq.Core.Projection+_None
+    Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
   },
-  Name: ExRam.Gremlinq.Core.Projection+_Value
+  Name: ExRam.Gremlinq.Core.Projections.ValueProjection
 }
