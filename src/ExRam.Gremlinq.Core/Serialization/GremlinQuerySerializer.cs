@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Gremlin.Net.Process.Traversal;
 
-namespace ExRam.Gremlinq.Core
+namespace ExRam.Gremlinq.Core.Serialization
 {
     public static class GremlinQuerySerializer
     {

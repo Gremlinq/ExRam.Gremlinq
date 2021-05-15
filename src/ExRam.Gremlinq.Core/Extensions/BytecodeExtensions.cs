@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using Gremlin.Net.Process.Traversal;
 
-namespace ExRam.Gremlinq.Core
+namespace ExRam.Gremlinq.Core.Serialization
 {
     public static class BytecodeExtensions
     {

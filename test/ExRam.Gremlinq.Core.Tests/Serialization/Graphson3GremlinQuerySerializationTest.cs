@@ -1,6 +1,6 @@
-﻿using Gremlin.Net.Process.Traversal;
+﻿using ExRam.Gremlinq.Core.Serialization;
+using Gremlin.Net.Process.Traversal;
 using Gremlin.Net.Structure.IO.GraphSON;
-
 using Xunit;
 using Xunit.Abstractions;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;

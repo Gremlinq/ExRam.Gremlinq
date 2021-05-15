@@ -4,7 +4,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace ExRam.Gremlinq.Core
+namespace ExRam.Gremlinq.Core.Serialization
 {
     public sealed class GroovyGremlinQuery
     {

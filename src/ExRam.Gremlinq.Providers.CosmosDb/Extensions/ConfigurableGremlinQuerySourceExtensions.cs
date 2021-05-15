@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Immutable;
 
+using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Providers.CosmosDb;
 using ExRam.Gremlinq.Providers.WebSocket;

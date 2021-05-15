@@ -1,5 +1,6 @@
 ﻿using System;
 using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Core.Serialization;
 using Gremlin.Net.Driver;
 using Gremlin.Net.Structure.IO.GraphSON;
 

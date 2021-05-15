@@ -1,5 +1,7 @@
 ﻿// ReSharper disable HeapView.PossibleBoxingAllocation
 using System;
+
+using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Providers.Core;
 using ExRam.Gremlinq.Providers.WebSocket;
 using Microsoft.Extensions.Configuration;

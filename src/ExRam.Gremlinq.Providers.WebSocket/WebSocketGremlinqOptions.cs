@@ -1,4 +1,5 @@
 ﻿using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Core.Serialization;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 

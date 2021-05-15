@@ -1,4 +1,6 @@
 ﻿using System;
+
+using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Providers.WebSocket;
 using Gremlin.Net.Driver;
 using Microsoft.Extensions.Configuration;

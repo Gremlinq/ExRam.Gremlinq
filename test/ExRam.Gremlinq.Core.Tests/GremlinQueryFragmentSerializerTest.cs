@@ -4,6 +4,7 @@ using System.Linq;
 using Xunit;
 using Xunit.Abstractions;
 using ExRam.Gremlinq.Core.Steps;
+using ExRam.Gremlinq.Core.Serialization;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
