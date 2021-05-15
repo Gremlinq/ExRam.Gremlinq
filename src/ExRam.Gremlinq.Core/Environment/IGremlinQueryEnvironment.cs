@@ -12,7 +12,6 @@ namespace ExRam.Gremlinq.Core
         IGremlinQueryEnvironment ConfigureAddStepHandler(Func<IAddStepHandler, IAddStepHandler> handlerTransformation);
         IGremlinQueryEnvironment ConfigureExecutor(Func<IGremlinQueryExecutor, IGremlinQueryExecutor> executorTransformation);
         IGremlinQueryEnvironment ConfigureSerializer(Func<IGremlinQuerySerializer, IGremlinQuerySerializer> serializerTransformation);
-        IGremlinQueryEnvironment ConfigureTraversalTranslator(Func<ITraversalTranslator, ITraversalTranslator> translatorTransformation);
         IGremlinQueryEnvironment ConfigureDeserializer(Func<IGremlinQueryExecutionResultDeserializer, IGremlinQueryExecutionResultDeserializer> deserializerTransformation);
 
         ILogger Logger { get; }
@@ -22,7 +21,6 @@ namespace ExRam.Gremlinq.Core
         IAddStepHandler AddStepHandler { get; }
         IGremlinQueryExecutor Executor { get; }
         IGremlinQuerySerializer Serializer { get; }
-        ITraversalTranslator TraversalTranslator { get; }
         IGremlinQueryExecutionResultDeserializer Deserializer { get; }
     }
 }

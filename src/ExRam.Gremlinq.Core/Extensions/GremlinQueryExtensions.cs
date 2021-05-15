@@ -31,6 +31,13 @@ namespace ExRam.Gremlinq.Core
             return await query.Cast<TElement>().Limit(1).ToAsyncEnumerable().SingleOrDefaultAsync(ct);
         }
 
+        public static Traversal ToTraversal(this IGremlinQueryBase query)
+        {
+            return query.AsAdmin()
+                .Steps
+                .ToTraversal(query.AsAdmin().Projection);
+        }
+
         internal static bool IsNone(this IGremlinQueryBase query)
         {
             return query.AsAdmin().Steps.PeekOrDefault() is NoneStep;
@@ -40,13 +47,5 @@ namespace ExRam.Gremlinq.Core
         {
             return query.AsAdmin().Steps.IsEmpty;
         }
-
-        internal static Traversal ToTraversal(this IGremlinQueryBase query)
-        {
-            return query.AsAdmin()
-                .Environment
-                .TraversalTranslator
-                .Translate(query);
-        }        
      }
 }
