@@ -4,7 +4,7 @@
     {
         public static readonly ProjectEdgeStep Instance = new();
 
-        public ProjectEdgeStep(QuerySemantics? semantics = null) : base()
+        public ProjectEdgeStep() : base()
         {
 
         }

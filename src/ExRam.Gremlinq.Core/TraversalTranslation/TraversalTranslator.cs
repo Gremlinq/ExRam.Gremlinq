@@ -4,50 +4,57 @@
     {
         private sealed class DefaultTraversalTranslator : ITraversalTranslator
         {
-            public Traversal Translate(StepStack steps, QueryFlags queryFlags, IGremlinQueryEnvironment environment)
+            public Traversal Translate(IGremlinQueryBase query)
             {
-                var projectionIndex = 0;
-                var maybeProjectionStep = default(Step?);
-                var projectionSemantics = steps.InitialSemantics;
+                return query.AsAdmin()
+                    .Steps
+                    .ToTraversal(query.AsAdmin().Projection);
 
-                if ((queryFlags & QueryFlags.SurfaceVisible) == QueryFlags.SurfaceVisible)
-                {
-                    var index = steps.Count;
+                //return traversal.IncludeProjection();
 
-                    for (var i = steps.Count - 1; i >= 0; i--)
-                    {
-                        if (steps[i].Semantics is { } semantics)
-                        {
-                            if (!typeof(IArrayGremlinQueryBase).IsAssignableFrom(semantics.QueryType))
-                            {
-                                projectionSemantics = semantics;
-                                projectionIndex = index;
+                throw new System.NotImplementedException();
+                //var projectionIndex = 0;
+                //var maybeProjectionStep = default(Step?);
+                //var projectionSemantics = steps.InitialSemantics;
 
-                                break;
-                            }
+                //if ((queryFlags & QueryFlags.SurfaceVisible) == QueryFlags.SurfaceVisible)
+                //{
+                //    var index = steps.Count;
 
-                            index = i;
-                        }
-                    }
+                //    for (var i = steps.Count - 1; i >= 0; i--)
+                //    {
+                //        if (steps[i].Semantics is { } semantics)
+                //        {
+                //            if (!typeof(IArrayGremlinQueryBase).IsAssignableFrom(semantics.QueryType))
+                //            {
+                //                projectionSemantics = semantics;
+                //                projectionIndex = index;
 
-                    if (projectionSemantics.IsVertex)
-                        maybeProjectionStep = ProjectVertexStep.Instance;
-                    else if (projectionSemantics.IsEdge)
-                        maybeProjectionStep = ProjectEdgeStep.Instance;
-                }
+                //                break;
+                //            }
 
-                var ret = new Step[steps.Count + ((maybeProjectionStep is not null) ? 1 : 0)];
+                //            index = i;
+                //        }
+                //    }
 
-                if (maybeProjectionStep is { } projectionStep)
-                {
-                    steps.CopyTo(ret, 0, 0, projectionIndex);
-                    ret[projectionIndex] = projectionStep;
-                    steps.CopyTo(ret, projectionIndex, projectionIndex + 1, steps.Count - projectionIndex);
-                }
-                else
-                    steps.CopyTo(ret, 0, 0, steps.Count);
+                //    if (projectionSemantics.IsVertex)
+                //        maybeProjectionStep = ProjectVertexStep.Instance;
+                //    else if (projectionSemantics.IsEdge)
+                //        maybeProjectionStep = ProjectEdgeStep.Instance;
+                //}
 
-                return new Traversal(ret, true, Projection.Empty);
+                //var ret = new Step[steps.Count + ((maybeProjectionStep is not null) ? 1 : 0)];
+
+                //if (maybeProjectionStep is { } projectionStep)
+                //{
+                //    steps.CopyTo(ret, 0, 0, projectionIndex);
+                //    ret[projectionIndex] = projectionStep;
+                //    steps.CopyTo(ret, projectionIndex, projectionIndex + 1, steps.Count - projectionIndex);
+                //}
+                //else
+                //    steps.CopyTo(ret, 0, 0, steps.Count);
+
+                //return new Traversal(ret, true, Projection.None);
             }
         }
 

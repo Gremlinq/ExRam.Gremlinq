@@ -24,20 +24,20 @@ namespace ExRam.Gremlinq.Core
                 _dict = dict;
             }
 
-            public virtual StepStack AddStep<TStep>(StepStack steps, TStep step, QuerySemantics? semantics, IGremlinQueryEnvironment environment) where TStep : Step
+            public virtual StepStack AddStep<TStep>(StepStack steps, TStep step, IGremlinQueryEnvironment environment) where TStep : Step
             {
-                return TryGetAddHandler(typeof(TStep), step.GetType()) is Func<StepStack, TStep, QuerySemantics? , IGremlinQueryEnvironment, IAddStepHandler, StepStack> del
-                    ? del(steps, step, semantics, environment, this)
-                    : steps.Push(step, semantics);
+                return TryGetAddHandler(typeof(TStep), step.GetType()) is Func<StepStack, TStep, IGremlinQueryEnvironment, IAddStepHandler, StepStack> del
+                    ? del(steps, step, environment, this)
+                    : steps.Push(step);
             }
 
-            public virtual IAddStepHandler Override<TStep>(Func<StepStack, TStep, QuerySemantics?, IGremlinQueryEnvironment, Func<StepStack, TStep, QuerySemantics?, IGremlinQueryEnvironment, IAddStepHandler, StepStack>, IAddStepHandler, StepStack> addStepHandler) where TStep : Step
+            public virtual IAddStepHandler Override<TStep>(Func<StepStack, TStep, IGremlinQueryEnvironment, Func<StepStack, TStep, IGremlinQueryEnvironment, IAddStepHandler, StepStack>, IAddStepHandler, StepStack> addStepHandler) where TStep : Step
             {
                 return new AddStepHandlerImpl(
                     _dict.SetItem(
                         typeof(TStep),
-                        TryGetAddHandler(typeof(TStep), typeof(TStep)) is Func<StepStack, TStep, QuerySemantics?, IGremlinQueryEnvironment, IAddStepHandler, StepStack> existingAddHandler
-                            ? (steps, step, semantics, env, _, recurse) => addStepHandler(steps, step, semantics, env, existingAddHandler, recurse)
+                        TryGetAddHandler(typeof(TStep), typeof(TStep)) is Func<StepStack, TStep, IGremlinQueryEnvironment, IAddStepHandler, StepStack> existingAddHandler
+                            ? (steps, step, env, _, recurse) => addStepHandler(steps, step, env, existingAddHandler, recurse)
                             : addStepHandler));
             }
 
@@ -77,11 +77,11 @@ namespace ExRam.Gremlinq.Core
                         : null;
             }
 
-            private static Func<StepStack, TStatic, QuerySemantics?, IGremlinQueryEnvironment, IAddStepHandler, StepStack> CreateFunc<TStatic, TEffective>(Func<StepStack, TEffective, QuerySemantics?, IGremlinQueryEnvironment, Func<StepStack, TEffective, QuerySemantics?, IGremlinQueryEnvironment, IAddStepHandler, StepStack>, IAddStepHandler, StepStack> del)
+            private static Func<StepStack, TStatic, IGremlinQueryEnvironment, IAddStepHandler, StepStack> CreateFunc<TStatic, TEffective>(Func<StepStack, TEffective, IGremlinQueryEnvironment, Func<StepStack, TEffective, IGremlinQueryEnvironment, IAddStepHandler, StepStack>, IAddStepHandler, StepStack> del)
                 where TEffective : Step
                 where TStatic : Step
             {
-                return (steps, step, semantics, environment, recurse) => del(steps, (TEffective)(Step)step!, semantics, environment, (steps, step, semantics, _, _) => semantics is { } s ? steps.Push(step, s) : steps.Push(step), recurse);
+                return (steps, step, environment, recurse) => del(steps, (TEffective)(Step)step!, environment, (steps, step, _, _) => steps.Push(step), recurse);
             }
         }
 
@@ -94,23 +94,23 @@ namespace ExRam.Gremlinq.Core
 
         private sealed class EmptyAddStepHandler : AddStepHandlerBase
         {
-            public override StepStack AddStep<TStep>(StepStack steps, TStep step, QuerySemantics? semantics, IGremlinQueryEnvironment environment) => steps.Push(step, semantics);
+            public override StepStack AddStep<TStep>(StepStack steps, TStep step, IGremlinQueryEnvironment environment) => steps.Push(step);
         }
 
         public static readonly IAddStepHandler Empty = new EmptyAddStepHandler();
 
         public static readonly IAddStepHandler Default = Empty
-            .Override<AsStep>((steps, step, semantics, env, overridden, recurse) => steps.PeekOrDefault()?.Step is AsStep asStep && ReferenceEquals(asStep.StepLabel, step.StepLabel)
+            .Override<AsStep>((steps, step, env, overridden, recurse) => steps.PeekOrDefault() is AsStep asStep && ReferenceEquals(asStep.StepLabel, step.StepLabel)
                 ? steps
-                : overridden(steps, step, semantics, env, recurse))
-            .Override<HasLabelStep>((steps, step, semantics, env, overridden, recurse) => steps.PeekOrDefault()?.Step  is HasLabelStep hasLabelStep
+                : overridden(steps, step, env, recurse))
+            .Override<HasLabelStep>((steps, step, env, overridden, recurse) => steps.PeekOrDefault()  is HasLabelStep hasLabelStep
                 ? steps
                     .Pop()
-                    .Push(new HasLabelStep(step.Labels.Intersect(hasLabelStep.Labels).ToImmutableArray()), semantics)
-                : overridden(steps, step, semantics,env, recurse))
-            .Override<HasPredicateStep>((steps, step, semantics, env, overridden, recurse) =>
+                    .Push(new HasLabelStep(step.Labels.Intersect(hasLabelStep.Labels).ToImmutableArray()))
+                : overridden(steps, step, env, recurse))
+            .Override<HasPredicateStep>((steps, step, env, overridden, recurse) =>
             {
-                if (steps.PeekOrDefault()?.Step is HasPredicateStep hasStep && hasStep.Key == step.Key)
+                if (steps.PeekOrDefault() is HasPredicateStep hasStep && hasStep.Key == step.Key)
                 {
                     var newPredicate = step.Predicate;
 
@@ -120,25 +120,25 @@ namespace ExRam.Gremlinq.Core
 
                     return steps
                         .Pop()
-                        .Push(new HasPredicateStep(hasStep.Key, newPredicate), semantics);
+                        .Push(new HasPredicateStep(hasStep.Key, newPredicate));
                 }
 
-                return overridden(steps, step, semantics, env, recurse);
+                return overridden(steps, step, env, recurse);
             })
-            .Override<WithoutStrategiesStep>((steps, step, semantics, env, overridden, recurse) => (steps.PeekOrDefault()?.Step is WithoutStrategiesStep withoutStrategies)
+            .Override<WithoutStrategiesStep>((steps, step, env, overridden, recurse) => (steps.PeekOrDefault() is WithoutStrategiesStep withoutStrategies)
                 ? steps
                     .Pop()
-                    .Push(new WithoutStrategiesStep(withoutStrategies.StrategyTypes.Concat(step.StrategyTypes).Distinct().ToImmutableArray()), semantics)
-                : overridden(steps, step, semantics, env, recurse))
-            .Override<SelectStep>((steps, step, semantics, env, overridden, recurse) => steps.PeekOrDefault()?.Step is AsStep asStep && step.StepLabels.Length == 1 && ReferenceEquals(asStep.StepLabel, step.StepLabels[0])
+                    .Push(new WithoutStrategiesStep(withoutStrategies.StrategyTypes.Concat(step.StrategyTypes).Distinct().ToImmutableArray()))
+                : overridden(steps, step, env, recurse))
+            .Override<SelectStep>((steps, step, env, overridden, recurse) => steps.PeekOrDefault() is AsStep asStep && step.StepLabels.Length == 1 && ReferenceEquals(asStep.StepLabel, step.StepLabels[0])
                 ? steps
-                : overridden(steps, step, semantics, env, recurse))
-            .Override<IsStep>((steps, step, semantics, env, overridden, recurse) => steps.PeekOrDefault()?.Step is IsStep isStep
+                : overridden(steps, step, env, recurse))
+            .Override<IsStep>((steps, step, env, overridden, recurse) => steps.PeekOrDefault() is IsStep isStep
                 ? steps
                     .Pop()
-                    .Push(new IsStep(isStep.Predicate.And(step.Predicate)), semantics)
-                : overridden(steps, step, semantics, env, recurse))
-            .Override<NoneStep>((steps, step, semantics, env, overridden, recurse) => steps.PeekOrDefault()?.Step is NoneStep ? steps : overridden(steps, step, semantics, env, recurse));
+                    .Push(new IsStep(isStep.Predicate.And(step.Predicate)))
+                : overridden(steps, step, env, recurse))
+            .Override<NoneStep>((steps, step, env, overridden, recurse) => steps.PeekOrDefault() is NoneStep ? steps : overridden(steps, step, env, recurse));
     }
 }
 

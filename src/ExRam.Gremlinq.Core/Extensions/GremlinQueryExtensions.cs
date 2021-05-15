@@ -33,7 +33,7 @@ namespace ExRam.Gremlinq.Core
 
         internal static bool IsNone(this IGremlinQueryBase query)
         {
-            return query.AsAdmin().Steps.PeekOrDefault()?.Step is NoneStep;
+            return query.AsAdmin().Steps.PeekOrDefault() is NoneStep;
         }
 
         internal static bool IsIdentity(this IGremlinQueryBase query)
@@ -43,12 +43,10 @@ namespace ExRam.Gremlinq.Core
 
         internal static Traversal ToTraversal(this IGremlinQueryBase query)
         {
-            var admin = query.AsAdmin();
-
-            return admin.Environment.TraversalTranslator.Translate(
-                admin.Steps,
-                admin.Flags,
-                admin.Environment);
+            return query.AsAdmin()
+                .Environment
+                .TraversalTranslator
+                .Translate(query);
         }        
      }
 }

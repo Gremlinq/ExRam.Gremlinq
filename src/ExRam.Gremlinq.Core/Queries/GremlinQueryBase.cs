@@ -8,21 +8,23 @@ namespace ExRam.Gremlinq.Core
     internal abstract class GremlinQueryBase
     {
         private static readonly MethodInfo CreateFuncMethod = typeof(GremlinQueryBase).GetMethod(nameof(CreateFunc), BindingFlags.NonPublic | BindingFlags.Static)!;
-        private static readonly ConcurrentDictionary<Type, Func<GremlinQueryBase, QuerySemantics?, IGremlinQueryBase>> QueryTypes = new();
+        private static readonly ConcurrentDictionary<Type, Func<GremlinQueryBase, Projection?, IGremlinQueryBase>> QueryTypes = new();
 
         protected GremlinQueryBase(
             StepStack steps,
+            Projection projection,
             IGremlinQueryEnvironment environment,
-            IImmutableDictionary<StepLabel, QuerySemantics> stepLabelSemantics,
+            IImmutableDictionary<StepLabel, Projection> stepLabelSemantics,
             QueryFlags flags)
         {
             Steps = steps;
             Flags = flags;
+            Projection = projection;
             Environment = environment;
             StepLabelSemantics = stepLabelSemantics;
         }
 
-        protected TTargetQuery ChangeQueryType<TTargetQuery>(QuerySemantics? forcedSemantics = null)
+        protected TTargetQuery ChangeQueryType<TTargetQuery>(Projection? forcedSemantics = null)
         {
             var targetQueryType = typeof(TTargetQuery);
 
@@ -37,7 +39,7 @@ namespace ExRam.Gremlinq.Core
                     var metaType = GetMatchingType(closureType, "TMeta") ?? typeof(object);
                     var queryType = GetMatchingType(closureType, "TOriginalQuery") ?? typeof(object);
 
-                    return (Func<GremlinQueryBase, QuerySemantics?, IGremlinQueryBase>)CreateFuncMethod
+                    return (Func<GremlinQueryBase, Projection?, IGremlinQueryBase>)CreateFuncMethod
                         .MakeGenericMethod(
                             elementType,
                             outVertexType,
@@ -53,22 +55,21 @@ namespace ExRam.Gremlinq.Core
             return (TTargetQuery)constructor(this, forcedSemantics);
         }
 
-        private static Func<GremlinQueryBase, QuerySemantics?, IGremlinQueryBase> CreateFunc<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(Type targetQueryType)
+        private static Func<GremlinQueryBase, Projection?, IGremlinQueryBase> CreateFunc<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(Type targetQueryType)
         {
-            var targetSemantics = (QuerySemantics)targetQueryType;
-
             return (existingQuery, forcedSemantics) =>
             {
-                var actualSemantics = forcedSemantics ?? targetSemantics.MostSpecific(existingQuery.Steps.Semantics);
+                var actualSemantics = forcedSemantics ?? existingQuery.Projection;
 
-                if (targetQueryType.IsInstanceOfType(existingQuery) && (actualSemantics == existingQuery.Steps.Semantics))
+                if (targetQueryType.IsInstanceOfType(existingQuery) && (actualSemantics == existingQuery.Projection))
                     return (IGremlinQueryBase)existingQuery;
 
                 if (!targetQueryType.IsAssignableFrom(typeof(GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>)))
                     throw new NotSupportedException($"Cannot change the query type to {targetQueryType}.");
 
                 return new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(
-                    existingQuery.Steps.OverrideSemantics(actualSemantics),
+                    existingQuery.Steps,
+                    actualSemantics,
                     existingQuery.Environment,
                     existingQuery.StepLabelSemantics,
                     existingQuery.Flags);
@@ -97,7 +98,8 @@ namespace ExRam.Gremlinq.Core
 
         protected internal StepStack Steps { get; }
         protected internal QueryFlags Flags { get; }
+        protected internal Projection Projection { get; }
         protected internal IGremlinQueryEnvironment Environment { get; }
-        protected internal IImmutableDictionary<StepLabel, QuerySemantics> StepLabelSemantics { get; }
+        protected internal IImmutableDictionary<StepLabel, Projection> StepLabelSemantics { get; }
     }
 }

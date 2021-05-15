@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq.Core
 {
     public static class GremlinqOption
     {
-        public static readonly GremlinqOption<Projection> VertexProjectionSteps = new(
+        public static readonly GremlinqOption<Traversal> VertexProjectionSteps = new(
             new Step[]
             {
                 new ProjectStep(ImmutableArray.Create("id", "label", "properties")),
@@ -29,7 +29,7 @@ namespace ExRam.Gremlinq.Core
                 })
             });
 
-        public static readonly GremlinqOption<Projection> VertexProjectionWithoutMetaPropertiesSteps = new(
+        public static readonly GremlinqOption<Traversal> VertexProjectionWithoutMetaPropertiesSteps = new(
             new Step[]
             {
                 new ProjectStep(ImmutableArray.Create("id", "label", "properties")),
@@ -51,7 +51,7 @@ namespace ExRam.Gremlinq.Core
                 })
             });
 
-        public static readonly GremlinqOption<Projection> EdgeProjectionSteps = new(
+        public static readonly GremlinqOption<Traversal> EdgeProjectionSteps = new(
             new Step[]
             {
                 new ProjectStep(ImmutableArray.Create("id", "label", "properties")),
