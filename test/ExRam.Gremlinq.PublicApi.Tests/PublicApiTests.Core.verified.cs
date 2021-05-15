@@ -385,12 +385,12 @@
     public static class GremlinqOption
     {
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.DisabledTextPredicates> DisabledTextPredicates;
-        public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.Projection> EdgeProjectionSteps;
+        public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.Traversal> EdgeProjectionSteps;
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.FilterLabelsVerbosity> FilterLabelsVerbosity;
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.StringComparisonTranslationStrictness> StringComparisonTranslationStrictness;
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<System.Collections.Immutable.IImmutableDictionary<Gremlin.Net.Process.Traversal.T, ExRam.Gremlinq.Core.SerializationBehaviour>> TSerializationBehaviourOverrides;
-        public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.Projection> VertexProjectionSteps;
-        public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.Projection> VertexProjectionWithoutMetaPropertiesSteps;
+        public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.Traversal> VertexProjectionSteps;
+        public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.Traversal> VertexProjectionWithoutMetaPropertiesSteps;
     }
     public class GremlinqOption<TValue> : ExRam.Gremlinq.Core.IGremlinqOption
     {
@@ -466,9 +466,9 @@
     }
     public interface IAddStepHandler
     {
-        ExRam.Gremlinq.Core.StepStack AddStep<TStep>(ExRam.Gremlinq.Core.StepStack steps, TStep step, ExRam.Gremlinq.Core.QuerySemantics? semantics, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment)
+        ExRam.Gremlinq.Core.StepStack AddStep<TStep>(ExRam.Gremlinq.Core.StepStack steps, TStep step, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment)
             where TStep : ExRam.Gremlinq.Core.Step;
-        ExRam.Gremlinq.Core.IAddStepHandler Override<TStep>(System.Func<ExRam.Gremlinq.Core.StepStack, TStep, ExRam.Gremlinq.Core.QuerySemantics?, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, System.Func<ExRam.Gremlinq.Core.StepStack, TStep, ExRam.Gremlinq.Core.QuerySemantics?, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.IAddStepHandler, ExRam.Gremlinq.Core.StepStack>, ExRam.Gremlinq.Core.IAddStepHandler, ExRam.Gremlinq.Core.StepStack> addStepHandler)
+        ExRam.Gremlinq.Core.IAddStepHandler Override<TStep>(System.Func<ExRam.Gremlinq.Core.StepStack, TStep, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, System.Func<ExRam.Gremlinq.Core.StepStack, TStep, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.IAddStepHandler, ExRam.Gremlinq.Core.StepStack>, ExRam.Gremlinq.Core.IAddStepHandler, ExRam.Gremlinq.Core.StepStack> addStepHandler)
             where TStep : ExRam.Gremlinq.Core.Step;
     }
     public interface IArrayGremlinQueryBase : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IStartGremlinQuery
@@ -666,6 +666,7 @@
         System.Type ElementType { get; }
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment Environment { get; }
         ExRam.Gremlinq.Core.QueryFlags Flags { get; }
+        ExRam.Gremlinq.Core.Projection Projection { get; }
         ExRam.Gremlinq.Core.StepStack Steps { get; }
         TTargetQuery AddStep<TTargetQuery>(ExRam.Gremlinq.Core.Step step)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
@@ -1129,7 +1130,7 @@
     }
     public interface ITraversalTranslator
     {
-        ExRam.Gremlinq.Core.Traversal Translate(ExRam.Gremlinq.Core.StepStack steps, ExRam.Gremlinq.Core.QueryFlags queryFlags, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment);
+        ExRam.Gremlinq.Core.Traversal Translate(ExRam.Gremlinq.Core.IGremlinQueryBase query);
     }
     public interface IValueGremlinQueryBase : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IStartGremlinQuery
     {
@@ -1482,7 +1483,7 @@
     public sealed class ProjectEdgeStep : ExRam.Gremlinq.Core.Step
     {
         public static readonly ExRam.Gremlinq.Core.ProjectEdgeStep Instance;
-        public ProjectEdgeStep(ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
+        public ProjectEdgeStep() { }
     }
     public sealed class ProjectStep : ExRam.Gremlinq.Core.Step
     {
@@ -1508,19 +1509,32 @@
         public static readonly ExRam.Gremlinq.Core.ProjectVertexStep Instance;
         public ProjectVertexStep() { }
     }
-    public readonly struct Projection : System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Step>, System.Collections.Generic.IReadOnlyCollection<ExRam.Gremlinq.Core.Step>, System.Collections.Generic.IReadOnlyList<ExRam.Gremlinq.Core.Step>, System.Collections.IEnumerable
+    public abstract class Projection
     {
-        public static readonly ExRam.Gremlinq.Core.Projection Empty;
-        public Projection(System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Step> steps) { }
-        public Projection(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Step> steps) { }
-        public int Count { get; }
-        public ExRam.Gremlinq.Core.Step this[int index] { get; }
-        public ExRam.Gremlinq.Core.Projection Decorate(ExRam.Gremlinq.Core.Projection? before, ExRam.Gremlinq.Core.Projection? after) { }
-        public System.Collections.Generic.IEnumerator<ExRam.Gremlinq.Core.Step> GetEnumerator() { }
-        public static ExRam.Gremlinq.Core.Traversal op_Implicit(ExRam.Gremlinq.Core.Projection projection) { }
-        public static ExRam.Gremlinq.Core.Projection op_Implicit(ExRam.Gremlinq.Core.Step step) { }
-        public static ExRam.Gremlinq.Core.Projection op_Implicit(ExRam.Gremlinq.Core.Step[] steps) { }
-        public static ExRam.Gremlinq.Core.Projection op_Implicit(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Step> steps) { }
+        public static readonly ExRam.Gremlinq.Core.Projection Edge;
+        public static readonly ExRam.Gremlinq.Core.Projection Element;
+        public static readonly ExRam.Gremlinq.Core.Projection None;
+        public static readonly ExRam.Gremlinq.Core.Projection Value;
+        public static readonly ExRam.Gremlinq.Core.Projection Vertex;
+        protected Projection() { }
+        public abstract ExRam.Gremlinq.Core.Traversal Expand(ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment);
+        public ExRam.Gremlinq.Core.Projection Highest(ExRam.Gremlinq.Core.Projection other) { }
+        public ExRam.Gremlinq.Core.Projection If<TProjection>(System.Func<TProjection, ExRam.Gremlinq.Core.Projection> transformation)
+            where TProjection : ExRam.Gremlinq.Core.Projection { }
+        public ExRam.Gremlinq.Core.Projection Lowest(ExRam.Gremlinq.Core.Projection other) { }
+        public ExRam.Gremlinq.Core.Projection.Array ToArray() { }
+        public sealed class Array : ExRam.Gremlinq.Core.Projection
+        {
+            public ExRam.Gremlinq.Core.Projection Inner { get; }
+            public override ExRam.Gremlinq.Core.Traversal Expand(ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
+        }
+        public sealed class Tuple : ExRam.Gremlinq.Core.Projection
+        {
+            public ExRam.Gremlinq.Core.Projection.Tuple Add(ExRam.Gremlinq.Core.ProjectStep.ByStep step) { }
+            public override ExRam.Gremlinq.Core.Traversal Expand(ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
+            public ExRam.Gremlinq.Core.Projection.Tuple Select(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Key> keys) { }
+            public static ExRam.Gremlinq.Core.Projection.Tuple Create(ExRam.Gremlinq.Core.ProjectStep step) { }
+        }
     }
     public sealed class PropertiesStep : ExRam.Gremlinq.Core.Step
     {
@@ -1561,18 +1575,6 @@
         QueryOnly = 0,
         IncludeBindings = 1,
     }
-    public readonly struct QuerySemantics : System.IEquatable<ExRam.Gremlinq.Core.QuerySemantics>
-    {
-        public QuerySemantics(System.Type semantics) { }
-        public System.Type QueryType { get; }
-        public bool Equals(ExRam.Gremlinq.Core.QuerySemantics other) { }
-        public override bool Equals(object? obj) { }
-        public override int GetHashCode() { }
-        public override string ToString() { }
-        public static ExRam.Gremlinq.Core.QuerySemantics op_Implicit(System.Type type) { }
-        public static bool operator !=(ExRam.Gremlinq.Core.QuerySemantics left, ExRam.Gremlinq.Core.QuerySemantics right) { }
-        public static bool operator ==(ExRam.Gremlinq.Core.QuerySemantics left, ExRam.Gremlinq.Core.QuerySemantics right) { }
-    }
     public sealed class RangeStep : ExRam.Gremlinq.Core.Step
     {
         public RangeStep(long lower, long upper, Gremlin.Net.Process.Traversal.Scope scope) { }
@@ -1592,6 +1594,7 @@
     }
     public sealed class SelectStep : ExRam.Gremlinq.Core.Step
     {
+        public SelectStep(ExRam.Gremlinq.Core.StepLabel stepLabel) { }
         public SelectStep(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.StepLabel> stepLabels) { }
         public System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.StepLabel> StepLabels { get; }
     }
@@ -1657,25 +1660,16 @@
         [System.Runtime.CompilerServices.PreserveBaseOverrides]
         public virtual ExRam.Gremlinq.Core.StepLabel<ExRam.Gremlinq.Core.IValueGremlinQuery<TNewValue>, TNewValue> Cast<TNewValue>() { }
     }
-    public readonly struct StepStack : System.Collections.Generic.IEnumerable<System.ValueTuple<ExRam.Gremlinq.Core.Step, ExRam.Gremlinq.Core.QuerySemantics>>, System.Collections.Generic.IReadOnlyCollection<System.ValueTuple<ExRam.Gremlinq.Core.Step, ExRam.Gremlinq.Core.QuerySemantics>>, System.Collections.Generic.IReadOnlyList<System.ValueTuple<ExRam.Gremlinq.Core.Step, ExRam.Gremlinq.Core.QuerySemantics>>, System.Collections.IEnumerable
+    public readonly struct StepStack : System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Step>, System.Collections.Generic.IReadOnlyCollection<ExRam.Gremlinq.Core.Step>, System.Collections.Generic.IReadOnlyList<ExRam.Gremlinq.Core.Step>, System.Collections.IEnumerable
     {
         public static readonly ExRam.Gremlinq.Core.StepStack Empty;
         public int Count { get; }
-        [System.Runtime.CompilerServices.TupleElementNames(new string[] {
-                "Step",
-                "Semantics"})]
-        public System.ValueTuple<ExRam.Gremlinq.Core.Step, ExRam.Gremlinq.Core.QuerySemantics> this[int index] { get; }
-        public ExRam.Gremlinq.Core.QuerySemantics Semantics { get; }
-        [return: System.Runtime.CompilerServices.TupleElementNames(new string[] {
-                "Step",
-                "Semantics"})]
-        public System.Collections.Generic.IEnumerator<System.ValueTuple<ExRam.Gremlinq.Core.Step, ExRam.Gremlinq.Core.QuerySemantics>> GetEnumerator() { }
-        public ExRam.Gremlinq.Core.StepStack OverrideSemantics(ExRam.Gremlinq.Core.QuerySemantics semantics) { }
+        public ExRam.Gremlinq.Core.Step this[int index] { get; }
+        public System.Collections.Generic.IEnumerator<ExRam.Gremlinq.Core.Step> GetEnumerator() { }
         public ExRam.Gremlinq.Core.StepStack Pop() { }
-        public ExRam.Gremlinq.Core.StepStack Pop([System.Runtime.CompilerServices.TupleElementNames(new string[] {
-                "poppedStep",
-                "poppedSemantics"})] out System.ValueTuple<ExRam.Gremlinq.Core.Step, ExRam.Gremlinq.Core.QuerySemantics> tuple) { }
-        public ExRam.Gremlinq.Core.StepStack Push(ExRam.Gremlinq.Core.Step step, ExRam.Gremlinq.Core.QuerySemantics? semantics = default) { }
+        public ExRam.Gremlinq.Core.StepStack Pop(out ExRam.Gremlinq.Core.Step poppedStep) { }
+        public ExRam.Gremlinq.Core.StepStack Push(ExRam.Gremlinq.Core.Step step) { }
+        public ExRam.Gremlinq.Core.Traversal ToTraversal(ExRam.Gremlinq.Core.Projection projection) { }
     }
     public enum StringComparisonTranslationStrictness
     {
@@ -1704,13 +1698,14 @@
     }
     public readonly struct Traversal : System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Step>, System.Collections.Generic.IReadOnlyCollection<ExRam.Gremlinq.Core.Step>, System.Collections.Generic.IReadOnlyList<ExRam.Gremlinq.Core.Step>, System.Collections.IEnumerable
     {
+        public static readonly ExRam.Gremlinq.Core.Traversal Empty;
         public Traversal(System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Step> steps, ExRam.Gremlinq.Core.Projection projection) { }
         public Traversal(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Step> steps, ExRam.Gremlinq.Core.Projection projection) { }
         public int Count { get; }
         public ExRam.Gremlinq.Core.Step this[int index] { get; }
         public ExRam.Gremlinq.Core.Projection Projection { get; }
         public System.Collections.Generic.IEnumerator<ExRam.Gremlinq.Core.Step> GetEnumerator() { }
-        public ExRam.Gremlinq.Core.Traversal IncludeProjection() { }
+        public ExRam.Gremlinq.Core.Traversal IncludeProjection(ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
         public static ExRam.Gremlinq.Core.Traversal op_Implicit(ExRam.Gremlinq.Core.Step step) { }
         public static ExRam.Gremlinq.Core.Traversal op_Implicit(ExRam.Gremlinq.Core.Step[] steps) { }
         public static ExRam.Gremlinq.Core.Traversal op_Implicit(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Step> steps) { }

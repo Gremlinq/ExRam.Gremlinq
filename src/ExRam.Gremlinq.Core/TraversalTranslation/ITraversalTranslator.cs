@@ -2,6 +2,6 @@
 {
     public interface ITraversalTranslator
     {
-        Traversal Translate(StepStack steps, QueryFlags queryFlags, IGremlinQueryEnvironment environment);
+        Traversal Translate(IGremlinQueryBase query);
     }
 }

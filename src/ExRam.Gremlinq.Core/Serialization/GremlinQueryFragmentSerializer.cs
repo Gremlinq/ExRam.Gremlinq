@@ -243,7 +243,11 @@ namespace ExRam.Gremlinq.Core
                         : step.Argument))
                 .Override<IdentityStep>((step, env, overridden, recurse) => CreateInstruction("identity"))
                 .Override<IdStep>((step, env, overridden, recurse) => CreateInstruction("id"))
-                .Override<IGremlinQueryBase>((query, env, overridden, recurse) => recurse.Serialize(query.ToTraversal().IncludeProjection(), env))
+                .Override<IGremlinQueryBase>((query, env, overridden, recurse) => recurse.Serialize(
+                    query
+                        .ToTraversal()
+                        .IncludeProjection(env),
+                    env))
                 .Override<InjectStep>((step, env, overridden, recurse) => CreateInstruction("inject", recurse, env, step.Elements))
                 .Override<InEStep>((step, env, overridden, recurse) => CreateInstruction("inE", recurse, env, step.Labels))
                 .Override<InStep>((step, env, overridden, recurse) => CreateInstruction("in", recurse, env, step.Labels))

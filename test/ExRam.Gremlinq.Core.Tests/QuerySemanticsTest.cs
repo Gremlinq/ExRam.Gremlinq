@@ -28,7 +28,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     _ => _.Out(),
                     _ => _.In())
                 .AsAdmin()
-                .Steps.Semantics);
+                .Projection);
         }
 
         [Fact]
@@ -40,17 +40,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     _ => _.OutE(),
                     _ => _.In())
                 .AsAdmin()
-                .Steps
-                .Semantics);
-        }
-
-        [Fact]
-        public void QuerySemantics_should_not_be_marked_Flags_by_any_review()
-        {
-            typeof(QuerySemantics)
-                .GetCustomAttributes(typeof(FlagsAttribute), true)
-                .Should()
-                .BeEmpty();
+                .Projection);
         }
 
         [Fact]
@@ -60,7 +50,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .ForceEdge()
                 .AsAdmin()
-                .Steps.Semantics);
+                .Projection);
         }
 
         [Fact]
@@ -70,7 +60,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .ForceElement()
                 .AsAdmin()
-                .Steps.Semantics);
+                .Projection);
         }
 
         [Fact]
@@ -80,7 +70,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .ForceValue()
                 .AsAdmin()
-                .Steps.Semantics);
+                .Projection);
         }
 
         [Fact]
@@ -91,7 +81,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Fold()
                 .Unfold()
                 .AsAdmin()
-                .Steps.Semantics);
+                .Projection);
         }
     }
 }

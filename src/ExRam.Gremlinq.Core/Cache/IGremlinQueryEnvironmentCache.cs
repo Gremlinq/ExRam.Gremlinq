@@ -11,7 +11,6 @@ namespace ExRam.Gremlinq.Core
         JsonSerializer GetIgnoringJsonSerializer(IGremlinQueryFragmentDeserializer fragmentDeserializer);
         Key GetKey(MemberInfo member);
         (PropertyInfo propertyInfo, Key key, SerializationBehaviour serializationBehaviour)[] GetSerializationData(Type type);
-        QuerySemantics? TryGetQuerySemanticsFromElementType(Type type);  
 
         HashSet<Type> ModelTypes { get; }
         IReadOnlyDictionary<Type, object?> FastNativeTypes { get;  }
