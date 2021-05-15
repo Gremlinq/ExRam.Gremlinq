@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ExRam.Gremlinq.Core
+namespace ExRam.Gremlinq.Core.Execution
 {
     public static class GremlinQueryExecutor
     {

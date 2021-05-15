@@ -152,23 +152,10 @@
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment StoreTimeSpansAsNumbers(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseAddStepHandler(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment source, ExRam.Gremlinq.Core.IAddStepHandler addStepHandler) { }
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseDeserializer(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Deserialization.IGremlinQueryExecutionResultDeserializer deserializer) { }
-        public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseExecutor(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.IGremlinQueryExecutor executor) { }
+        public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseExecutor(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor executor) { }
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseLogger(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment source, Microsoft.Extensions.Logging.ILogger logger) { }
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseModel(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment source, ExRam.Gremlinq.Core.IGraphModel model) { }
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseSerializer(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Serialization.IGremlinQuerySerializer serializer) { }
-    }
-    public static class GremlinQueryExecutor
-    {
-        public static readonly ExRam.Gremlinq.Core.IGremlinQueryExecutor Empty;
-        public static readonly ExRam.Gremlinq.Core.IGremlinQueryExecutor Identity;
-        public static readonly ExRam.Gremlinq.Core.IGremlinQueryExecutor Invalid;
-        public static ExRam.Gremlinq.Core.IGremlinQueryExecutor Create(System.Func<object, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, System.Collections.Generic.IAsyncEnumerable<object>> executor) { }
-        public static ExRam.Gremlinq.Core.IGremlinQueryExecutor TransformQuery(this ExRam.Gremlinq.Core.IGremlinQueryExecutor baseExecutor, System.Func<object, object> transformation) { }
-        public static ExRam.Gremlinq.Core.IGremlinQueryExecutor TransformResult(this ExRam.Gremlinq.Core.IGremlinQueryExecutor baseExecutor, System.Func<System.Collections.Generic.IAsyncEnumerable<object>, System.Collections.Generic.IAsyncEnumerable<object>> transformation) { }
-    }
-    public static class GremlinQueryExecutorExtensions
-    {
-        public static ExRam.Gremlinq.Core.IGremlinQueryExecutor RetryWithExponentialBackoff(this ExRam.Gremlinq.Core.IGremlinQueryExecutor executor, System.Func<int, Gremlin.Net.Driver.Exceptions.ResponseException, bool> shouldRetry) { }
     }
     public static class GremlinQueryExtensions
     {
@@ -569,7 +556,7 @@
     {
         ExRam.Gremlinq.Core.IAddStepHandler AddStepHandler { get; }
         ExRam.Gremlinq.Core.Deserialization.IGremlinQueryExecutionResultDeserializer Deserializer { get; }
-        ExRam.Gremlinq.Core.IGremlinQueryExecutor Executor { get; }
+        ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor Executor { get; }
         ExRam.Gremlinq.Core.IFeatureSet FeatureSet { get; }
         Microsoft.Extensions.Logging.ILogger Logger { get; }
         ExRam.Gremlinq.Core.IGraphModel Model { get; }
@@ -577,16 +564,12 @@
         ExRam.Gremlinq.Core.Serialization.IGremlinQuerySerializer Serializer { get; }
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureAddStepHandler(System.Func<ExRam.Gremlinq.Core.IAddStepHandler, ExRam.Gremlinq.Core.IAddStepHandler> handlerTransformation);
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureDeserializer(System.Func<ExRam.Gremlinq.Core.Deserialization.IGremlinQueryExecutionResultDeserializer, ExRam.Gremlinq.Core.Deserialization.IGremlinQueryExecutionResultDeserializer> deserializerTransformation);
-        ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureExecutor(System.Func<ExRam.Gremlinq.Core.IGremlinQueryExecutor, ExRam.Gremlinq.Core.IGremlinQueryExecutor> executorTransformation);
+        ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureExecutor(System.Func<ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor, ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor> executorTransformation);
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureFeatureSet(System.Func<ExRam.Gremlinq.Core.IFeatureSet, ExRam.Gremlinq.Core.IFeatureSet> featureSetTransformation);
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureLogger(System.Func<Microsoft.Extensions.Logging.ILogger, Microsoft.Extensions.Logging.ILogger> loggerTransformation);
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureModel(System.Func<ExRam.Gremlinq.Core.IGraphModel, ExRam.Gremlinq.Core.IGraphModel> modelTransformation);
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureOptions(System.Func<ExRam.Gremlinq.Core.IGremlinqOptions, ExRam.Gremlinq.Core.IGremlinqOptions> optionsTransformation);
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureSerializer(System.Func<ExRam.Gremlinq.Core.Serialization.IGremlinQuerySerializer, ExRam.Gremlinq.Core.Serialization.IGremlinQuerySerializer> serializerTransformation);
-    }
-    public interface IGremlinQueryExecutor
-    {
-        System.Collections.Generic.IAsyncEnumerable<object> Execute(object serializedQuery, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment);
     }
     public interface IGremlinQuerySource : ExRam.Gremlinq.Core.IConfigurableGremlinQuerySource, ExRam.Gremlinq.Core.IStartGremlinQuery
     {
@@ -1187,6 +1170,26 @@ namespace ExRam.Gremlinq.Core.Deserialization
     {
         ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer Override<TSerialized>(ExRam.Gremlinq.Core.Deserialization.GremlinQueryFragmentDeserializerDelegate<TSerialized> deserializer);
         object? TryDeserialize<TSerializedData>(TSerializedData serializedData, System.Type fragmentType, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment);
+    }
+}
+namespace ExRam.Gremlinq.Core.Execution
+{
+    public static class GremlinQueryExecutor
+    {
+        public static readonly ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor Empty;
+        public static readonly ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor Identity;
+        public static readonly ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor Invalid;
+        public static ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor Create(System.Func<object, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, System.Collections.Generic.IAsyncEnumerable<object>> executor) { }
+        public static ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor TransformQuery(this ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor baseExecutor, System.Func<object, object> transformation) { }
+        public static ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor TransformResult(this ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor baseExecutor, System.Func<System.Collections.Generic.IAsyncEnumerable<object>, System.Collections.Generic.IAsyncEnumerable<object>> transformation) { }
+    }
+    public static class GremlinQueryExecutorExtensions
+    {
+        public static ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor RetryWithExponentialBackoff(this ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor executor, System.Func<int, Gremlin.Net.Driver.Exceptions.ResponseException, bool> shouldRetry) { }
+    }
+    public interface IGremlinQueryExecutor
+    {
+        System.Collections.Generic.IAsyncEnumerable<object> Execute(object serializedQuery, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment);
     }
 }
 namespace ExRam.Gremlinq.Core.ExpressionParsing

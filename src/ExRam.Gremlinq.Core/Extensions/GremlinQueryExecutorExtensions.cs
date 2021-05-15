@@ -5,7 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Gremlin.Net.Driver.Exceptions;
 
-namespace ExRam.Gremlinq.Core
+namespace ExRam.Gremlinq.Core.Execution
 {
     public static class GremlinQueryExecutorExtensions
     {
