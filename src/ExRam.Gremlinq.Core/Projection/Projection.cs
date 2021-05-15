@@ -105,7 +105,7 @@ namespace ExRam.Gremlinq.Core
                 return new Tuple(step);
             }
 
-            public Tuple Select(ImmutableArray<Key> keys)
+            public Projection Select(ImmutableArray<Key> keys)
             {
                 var projectionKeys = new List<string>();
                 var projections = ImmutableList<Projection>.Empty;
@@ -119,9 +119,14 @@ namespace ExRam.Gremlinq.Core
                     }
                 }
 
-                return new Tuple(
-                    new ProjectStep(projectionKeys.ToImmutableArray()),
-                    projections);
+                return projectionKeys.Count switch
+                {
+                    0 => None,
+                    1 => projections[0],
+                    _ => new Tuple(
+                            new ProjectStep(projectionKeys.ToImmutableArray()),
+                            projections)
+                };
             }
 
             public Tuple Add(ProjectStep.ByStep step)
