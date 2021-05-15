@@ -28,44 +28,43 @@
         ]
       },
       {
-        "OperatorName": "project",
+        "OperatorName": "aggregate",
         "Arguments": [
-          "id",
-          "label",
-          "properties"
+          "l3"
         ]
       },
       {
-        "OperatorName": "by",
+        "OperatorName": "cap",
         "Arguments": [
-          {
-            "EnumName": "T",
-            "EnumValue": "id"
-          }
+          "l3"
         ]
       },
       {
-        "OperatorName": "by",
-        "Arguments": [
-          {
-            "EnumName": "T",
-            "EnumValue": "label"
-          }
-        ]
-      },
-      {
-        "OperatorName": "by",
+        "OperatorName": "local",
         "Arguments": [
           {
             "SourceInstructions": [],
             "StepInstructions": [
               {
-                "OperatorName": "properties",
+                "OperatorName": "unfold",
                 "Arguments": []
               },
               {
-                "OperatorName": "group",
-                "Arguments": []
+                "OperatorName": "project",
+                "Arguments": [
+                  "id",
+                  "label",
+                  "properties"
+                ]
+              },
+              {
+                "OperatorName": "by",
+                "Arguments": [
+                  {
+                    "EnumName": "T",
+                    "EnumValue": "id"
+                  }
+                ]
               },
               {
                 "OperatorName": "by",
@@ -83,21 +82,12 @@
                     "SourceInstructions": [],
                     "StepInstructions": [
                       {
-                        "OperatorName": "project",
-                        "Arguments": [
-                          "id",
-                          "label",
-                          "value"
-                        ]
+                        "OperatorName": "properties",
+                        "Arguments": []
                       },
                       {
-                        "OperatorName": "by",
-                        "Arguments": [
-                          {
-                            "EnumName": "T",
-                            "EnumValue": "id"
-                          }
-                        ]
+                        "OperatorName": "group",
+                        "Arguments": []
                       },
                       {
                         "OperatorName": "by",
@@ -112,33 +102,61 @@
                         "OperatorName": "by",
                         "Arguments": [
                           {
-                            "EnumName": "T",
-                            "EnumValue": "value"
+                            "SourceInstructions": [],
+                            "StepInstructions": [
+                              {
+                                "OperatorName": "project",
+                                "Arguments": [
+                                  "id",
+                                  "label",
+                                  "value"
+                                ]
+                              },
+                              {
+                                "OperatorName": "by",
+                                "Arguments": [
+                                  {
+                                    "EnumName": "T",
+                                    "EnumValue": "id"
+                                  }
+                                ]
+                              },
+                              {
+                                "OperatorName": "by",
+                                "Arguments": [
+                                  {
+                                    "EnumName": "T",
+                                    "EnumValue": "label"
+                                  }
+                                ]
+                              },
+                              {
+                                "OperatorName": "by",
+                                "Arguments": [
+                                  {
+                                    "EnumName": "T",
+                                    "EnumValue": "value"
+                                  }
+                                ]
+                              },
+                              {
+                                "OperatorName": "fold",
+                                "Arguments": []
+                              }
+                            ]
                           }
                         ]
-                      },
-                      {
-                        "OperatorName": "fold",
-                        "Arguments": []
                       }
                     ]
                   }
                 ]
+              },
+              {
+                "OperatorName": "fold",
+                "Arguments": []
               }
             ]
           }
-        ]
-      },
-      {
-        "OperatorName": "aggregate",
-        "Arguments": [
-          "l3"
-        ]
-      },
-      {
-        "OperatorName": "cap",
-        "Arguments": [
-          "l3"
         ]
       }
     ]

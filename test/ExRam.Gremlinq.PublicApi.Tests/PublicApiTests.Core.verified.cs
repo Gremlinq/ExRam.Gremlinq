@@ -1512,11 +1512,14 @@
     public abstract class Projection
     {
         public static readonly ExRam.Gremlinq.Core.Projection Edge;
+        public static readonly ExRam.Gremlinq.Core.Projection EdgeOrVertex;
         public static readonly ExRam.Gremlinq.Core.Projection Element;
         public static readonly ExRam.Gremlinq.Core.Projection None;
         public static readonly ExRam.Gremlinq.Core.Projection Value;
         public static readonly ExRam.Gremlinq.Core.Projection Vertex;
         protected Projection() { }
+        public abstract ExRam.Gremlinq.Core.Projection BaseProjection { get; }
+        public string Name { get; }
         public abstract ExRam.Gremlinq.Core.Traversal Expand(ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment);
         public ExRam.Gremlinq.Core.Projection Highest(ExRam.Gremlinq.Core.Projection other) { }
         public ExRam.Gremlinq.Core.Projection If<TProjection>(System.Func<TProjection, ExRam.Gremlinq.Core.Projection> transformation)
@@ -1525,11 +1528,13 @@
         public ExRam.Gremlinq.Core.Projection.Array ToArray() { }
         public sealed class Array : ExRam.Gremlinq.Core.Projection
         {
+            public override ExRam.Gremlinq.Core.Projection BaseProjection { get; }
             public ExRam.Gremlinq.Core.Projection Inner { get; }
             public override ExRam.Gremlinq.Core.Traversal Expand(ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
         }
         public sealed class Tuple : ExRam.Gremlinq.Core.Projection
         {
+            public override ExRam.Gremlinq.Core.Projection BaseProjection { get; }
             public ExRam.Gremlinq.Core.Projection.Tuple Add(ExRam.Gremlinq.Core.ProjectStep.ByStep step) { }
             public override ExRam.Gremlinq.Core.Traversal Expand(ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
             public ExRam.Gremlinq.Core.Projection.Tuple Select(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Key> keys) { }

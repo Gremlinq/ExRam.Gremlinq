@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "SourceInstructions": [],
     "StepInstructions": [
@@ -80,123 +80,6 @@
               {
                 "OperatorName": "in",
                 "Arguments": []
-              },
-              {
-                "OperatorName": "project",
-                "Arguments": [
-                  "id",
-                  "label",
-                  "properties"
-                ]
-              },
-              {
-                "OperatorName": "by",
-                "Arguments": [
-                  {
-                    "EnumName": "T",
-                    "EnumValue": "id"
-                  }
-                ]
-              },
-              {
-                "OperatorName": "by",
-                "Arguments": [
-                  {
-                    "EnumName": "T",
-                    "EnumValue": "label"
-                  }
-                ]
-              },
-              {
-                "OperatorName": "by",
-                "Arguments": [
-                  {
-                    "SourceInstructions": [],
-                    "StepInstructions": [
-                      {
-                        "OperatorName": "properties",
-                        "Arguments": []
-                      },
-                      {
-                        "OperatorName": "group",
-                        "Arguments": []
-                      },
-                      {
-                        "OperatorName": "by",
-                        "Arguments": [
-                          {
-                            "EnumName": "T",
-                            "EnumValue": "label"
-                          }
-                        ]
-                      },
-                      {
-                        "OperatorName": "by",
-                        "Arguments": [
-                          {
-                            "SourceInstructions": [],
-                            "StepInstructions": [
-                              {
-                                "OperatorName": "project",
-                                "Arguments": [
-                                  "id",
-                                  "label",
-                                  "value",
-                                  "properties"
-                                ]
-                              },
-                              {
-                                "OperatorName": "by",
-                                "Arguments": [
-                                  {
-                                    "EnumName": "T",
-                                    "EnumValue": "id"
-                                  }
-                                ]
-                              },
-                              {
-                                "OperatorName": "by",
-                                "Arguments": [
-                                  {
-                                    "EnumName": "T",
-                                    "EnumValue": "label"
-                                  }
-                                ]
-                              },
-                              {
-                                "OperatorName": "by",
-                                "Arguments": [
-                                  {
-                                    "EnumName": "T",
-                                    "EnumValue": "value"
-                                  }
-                                ]
-                              },
-                              {
-                                "OperatorName": "by",
-                                "Arguments": [
-                                  {
-                                    "SourceInstructions": [],
-                                    "StepInstructions": [
-                                      {
-                                        "OperatorName": "valueMap",
-                                        "Arguments": []
-                                      }
-                                    ]
-                                  }
-                                ]
-                              },
-                              {
-                                "OperatorName": "fold",
-                                "Arguments": []
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
               }
             ]
           }
@@ -211,6 +94,61 @@
               {
                 "OperatorName": "out",
                 "Arguments": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "OperatorName": "by",
+        "Arguments": [
+          {
+            "SourceInstructions": [],
+            "StepInstructions": [
+              {
+                "OperatorName": "properties",
+                "Arguments": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "OperatorName": "project",
+        "Arguments": [
+          "count!",
+          "in!",
+          "out!",
+          "properties!"
+        ]
+      },
+      {
+        "OperatorName": "by",
+        "Arguments": [
+          {
+            "SourceInstructions": [],
+            "StepInstructions": [
+              {
+                "OperatorName": "select",
+                "Arguments": [
+                  "count!"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "OperatorName": "by",
+        "Arguments": [
+          {
+            "SourceInstructions": [],
+            "StepInstructions": [
+              {
+                "OperatorName": "select",
+                "Arguments": [
+                  "in!"
+                ]
               },
               {
                 "OperatorName": "project",
@@ -340,8 +278,143 @@
             "SourceInstructions": [],
             "StepInstructions": [
               {
-                "OperatorName": "properties",
-                "Arguments": []
+                "OperatorName": "select",
+                "Arguments": [
+                  "out!"
+                ]
+              },
+              {
+                "OperatorName": "project",
+                "Arguments": [
+                  "id",
+                  "label",
+                  "properties"
+                ]
+              },
+              {
+                "OperatorName": "by",
+                "Arguments": [
+                  {
+                    "EnumName": "T",
+                    "EnumValue": "id"
+                  }
+                ]
+              },
+              {
+                "OperatorName": "by",
+                "Arguments": [
+                  {
+                    "EnumName": "T",
+                    "EnumValue": "label"
+                  }
+                ]
+              },
+              {
+                "OperatorName": "by",
+                "Arguments": [
+                  {
+                    "SourceInstructions": [],
+                    "StepInstructions": [
+                      {
+                        "OperatorName": "properties",
+                        "Arguments": []
+                      },
+                      {
+                        "OperatorName": "group",
+                        "Arguments": []
+                      },
+                      {
+                        "OperatorName": "by",
+                        "Arguments": [
+                          {
+                            "EnumName": "T",
+                            "EnumValue": "label"
+                          }
+                        ]
+                      },
+                      {
+                        "OperatorName": "by",
+                        "Arguments": [
+                          {
+                            "SourceInstructions": [],
+                            "StepInstructions": [
+                              {
+                                "OperatorName": "project",
+                                "Arguments": [
+                                  "id",
+                                  "label",
+                                  "value",
+                                  "properties"
+                                ]
+                              },
+                              {
+                                "OperatorName": "by",
+                                "Arguments": [
+                                  {
+                                    "EnumName": "T",
+                                    "EnumValue": "id"
+                                  }
+                                ]
+                              },
+                              {
+                                "OperatorName": "by",
+                                "Arguments": [
+                                  {
+                                    "EnumName": "T",
+                                    "EnumValue": "label"
+                                  }
+                                ]
+                              },
+                              {
+                                "OperatorName": "by",
+                                "Arguments": [
+                                  {
+                                    "EnumName": "T",
+                                    "EnumValue": "value"
+                                  }
+                                ]
+                              },
+                              {
+                                "OperatorName": "by",
+                                "Arguments": [
+                                  {
+                                    "SourceInstructions": [],
+                                    "StepInstructions": [
+                                      {
+                                        "OperatorName": "valueMap",
+                                        "Arguments": []
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "OperatorName": "fold",
+                                "Arguments": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "OperatorName": "by",
+        "Arguments": [
+          {
+            "SourceInstructions": [],
+            "StepInstructions": [
+              {
+                "OperatorName": "select",
+                "Arguments": [
+                  "properties!"
+                ]
               }
             ]
           }

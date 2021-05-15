@@ -1,9 +1,7 @@
 ﻿[
   {
-    Item1: {
-      Labels: [
-        label
-      ]
-    }
+    Labels: [
+      label
+    ]
   }
 ]

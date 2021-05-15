@@ -1,12 +1,12 @@
 ﻿[
   {
-    "Script": "V().project(_a,_b,_c).by(id).by(label).by(__.properties().group().by(label).by(__.project(_a,_b,_d,_c).by(id).by(label).by(value).by(__.valueMap()).fold())).aggregate(_e)",
+    "Script": "V().aggregate(_a).project(_b,_c,_d).by(id).by(label).by(__.properties().group().by(label).by(__.project(_b,_c,_e,_d).by(id).by(label).by(value).by(__.valueMap()).fold()))",
     "Bindings": {
-      "_a": "id",
-      "_b": "label",
-      "_c": "properties",
-      "_d": "value",
-      "_e": "l1"
+      "_a": "l1",
+      "_b": "id",
+      "_c": "label",
+      "_d": "properties",
+      "_e": "value"
     }
   }
 ]

@@ -678,8 +678,6 @@
     Item1: SelectStep,
     Item2: {
       StepLabels: [
-        {},
-        {},
         {}
       ]
     }

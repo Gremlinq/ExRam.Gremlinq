@@ -7,6 +7,16 @@
         "Arguments": []
       },
       {
+        "OperatorName": "aggregate",
+        "Arguments": [
+          {
+            "EnumName": "Scope",
+            "EnumValue": "global"
+          },
+          "l1"
+        ]
+      },
+      {
         "OperatorName": "project",
         "Arguments": [
           "id",
@@ -121,16 +131,6 @@
               }
             ]
           }
-        ]
-      },
-      {
-        "OperatorName": "aggregate",
-        "Arguments": [
-          {
-            "EnumName": "Scope",
-            "EnumValue": "global"
-          },
-          "l1"
         ]
       }
     ]

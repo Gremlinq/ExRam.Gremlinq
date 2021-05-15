@@ -1,13 +1,13 @@
 ﻿[
   {
-    "Script": "V().limit(_a).project(_b,_c,_d).by(id).by(label).by(__.properties().group().by(label).by(__.project(_b,_c,_e,_d).by(id).by(label).by(value).by(__.valueMap()).fold())).fold().range(local,_a,_f)",
+    "Script": "V().limit(_a).fold().range(local,_a,_b).local(__.unfold().project(_c,_d,_e).by(id).by(label).by(__.properties().group().by(label).by(__.project(_c,_d,_f,_e).by(id).by(label).by(value).by(__.valueMap()).fold())).fold())",
     "Bindings": {
       "_a": 0,
-      "_b": "id",
-      "_c": "label",
-      "_d": "properties",
-      "_e": "value",
-      "_f": 2
+      "_b": 2,
+      "_c": "id",
+      "_d": "label",
+      "_e": "properties",
+      "_f": "value"
     }
   }
 ]

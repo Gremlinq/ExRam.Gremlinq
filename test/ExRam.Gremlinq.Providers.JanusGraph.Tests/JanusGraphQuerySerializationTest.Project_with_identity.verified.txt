@@ -34,6 +34,47 @@
             "SourceInstructions": [],
             "StepInstructions": [
               {
+                "OperatorName": "identity",
+                "Arguments": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "OperatorName": "by",
+        "Arguments": [
+          {
+            "SourceInstructions": [],
+            "StepInstructions": [
+              {
+                "OperatorName": "properties",
+                "Arguments": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "OperatorName": "project",
+        "Arguments": [
+          "Item1",
+          "Item2"
+        ]
+      },
+      {
+        "OperatorName": "by",
+        "Arguments": [
+          {
+            "SourceInstructions": [],
+            "StepInstructions": [
+              {
+                "OperatorName": "select",
+                "Arguments": [
+                  "Item1"
+                ]
+              },
+              {
                 "OperatorName": "project",
                 "Arguments": [
                   "id",
@@ -146,8 +187,10 @@
             "SourceInstructions": [],
             "StepInstructions": [
               {
-                "OperatorName": "properties",
-                "Arguments": []
+                "OperatorName": "select",
+                "Arguments": [
+                  "Item2"
+                ]
               }
             ]
           }
