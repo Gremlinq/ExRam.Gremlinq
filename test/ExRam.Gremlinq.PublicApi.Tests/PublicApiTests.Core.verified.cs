@@ -1537,7 +1537,7 @@
             public override ExRam.Gremlinq.Core.Projection BaseProjection { get; }
             public ExRam.Gremlinq.Core.Projection.Tuple Add(ExRam.Gremlinq.Core.ProjectStep.ByStep step) { }
             public override ExRam.Gremlinq.Core.Traversal Expand(ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
-            public ExRam.Gremlinq.Core.Projection.Tuple Select(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Key> keys) { }
+            public ExRam.Gremlinq.Core.Projection Select(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Key> keys) { }
             public static ExRam.Gremlinq.Core.Projection.Tuple Create(ExRam.Gremlinq.Core.ProjectStep step) { }
         }
     }
