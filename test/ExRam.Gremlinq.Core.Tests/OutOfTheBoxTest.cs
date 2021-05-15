@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
+using ExRam.Gremlinq.Core.Deserialization;
 using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Tests.Entities;
 using FluentAssertions;

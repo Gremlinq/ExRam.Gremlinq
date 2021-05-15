@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ExRam.Gremlinq.Core
+namespace ExRam.Gremlinq.Core.Deserialization
 {
     public static class GremlinQueryExecutionResultDeserializer
     {

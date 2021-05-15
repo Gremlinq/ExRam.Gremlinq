@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using ExRam.Gremlinq.Core.Deserialization;
 using ExRam.Gremlinq.Core.Serialization;
 
 using Newtonsoft.Json.Linq;

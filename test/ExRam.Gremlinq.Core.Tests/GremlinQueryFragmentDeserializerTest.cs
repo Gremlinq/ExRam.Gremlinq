@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using ExRam.Gremlinq.Core.Deserialization;
 using FluentAssertions;
 using Newtonsoft.Json.Linq;
 using Xunit;

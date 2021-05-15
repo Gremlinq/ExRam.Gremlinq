@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+
+using ExRam.Gremlinq.Core.Deserialization;
+
 using Newtonsoft.Json;
 
 namespace ExRam.Gremlinq.Core

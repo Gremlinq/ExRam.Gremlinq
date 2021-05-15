@@ -12,7 +12,7 @@ using Gremlin.Net.Structure.IO.GraphSON;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace ExRam.Gremlinq.Core
+namespace ExRam.Gremlinq.Core.Deserialization
 {
     public static class GremlinQueryFragmentDeserializer
     {
