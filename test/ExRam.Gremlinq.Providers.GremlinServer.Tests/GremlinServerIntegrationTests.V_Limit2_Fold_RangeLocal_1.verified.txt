@@ -10,66 +10,71 @@
             "@value": 1
           },
           "value": {
-            "@type": "g:Map",
+            "@type": "g:List",
             "@value": [
-              "id",
-              {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "label",
-              "Country",
-              "properties",
               {
                 "@type": "g:Map",
                 "@value": [
-                  "CountryCallingCode",
+                  "id",
                   {
-                    "@type": "g:List",
-                    "@value": [
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "id",
-                          {
-                            "@type": "g:Int64",
-                            "@value": "scrubbed id"
-                          },
-                          "label",
-                          "CountryCallingCode",
-                          "value",
-                          "+49",
-                          "properties",
-                          {
-                            "@type": "g:Map",
-                            "@value": []
-                          }
-                        ]
-                      }
-                    ]
+                    "@type": "g:Int64",
+                    "@value": "scrubbed id"
                   },
-                  "LocalizableDescription",
+                  "label",
+                  "Country",
+                  "properties",
                   {
-                    "@type": "g:List",
+                    "@type": "g:Map",
                     "@value": [
+                      "CountryCallingCode",
                       {
-                        "@type": "g:Map",
+                        "@type": "g:List",
                         "@value": [
-                          "id",
-                          {
-                            "@type": "g:Int64",
-                            "@value": "scrubbed id"
-                          },
-                          "label",
-                          "LocalizableDescription",
-                          "value",
-                          "",
-                          "properties",
                           {
                             "@type": "g:Map",
                             "@value": [
-                              "someKey",
-                              "value"
+                              "id",
+                              {
+                                "@type": "g:Int64",
+                                "@value": "scrubbed id"
+                              },
+                              "label",
+                              "CountryCallingCode",
+                              "value",
+                              "+49",
+                              "properties",
+                              {
+                                "@type": "g:Map",
+                                "@value": []
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "LocalizableDescription",
+                      {
+                        "@type": "g:List",
+                        "@value": [
+                          {
+                            "@type": "g:Map",
+                            "@value": [
+                              "id",
+                              {
+                                "@type": "g:Int64",
+                                "@value": "scrubbed id"
+                              },
+                              "label",
+                              "LocalizableDescription",
+                              "value",
+                              "",
+                              "properties",
+                              {
+                                "@type": "g:Map",
+                                "@value": [
+                                  "someKey",
+                                  "value"
+                                ]
+                              }
                             ]
                           }
                         ]
