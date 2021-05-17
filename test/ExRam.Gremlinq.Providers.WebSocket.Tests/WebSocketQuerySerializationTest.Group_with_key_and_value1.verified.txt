@@ -1,21 +1,6 @@
 ﻿[
   {
-    "SourceInstructions": [
-      {
-        "OperatorName": "withSideEffect",
-        "Arguments": [
-          "Neptune#fts.endpoint",
-          "http://elastic.search.server/"
-        ]
-      },
-      {
-        "OperatorName": "withSideEffect",
-        "Arguments": [
-          "Neptune#fts.queryType",
-          "query_string"
-        ]
-      }
-    ],
+    "SourceInstructions": [],
     "StepInstructions": [
       {
         "OperatorName": "V",
@@ -33,6 +18,20 @@
             "StepInstructions": [
               {
                 "OperatorName": "label",
+                "Arguments": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "OperatorName": "by",
+        "Arguments": [
+          {
+            "SourceInstructions": [],
+            "StepInstructions": [
+              {
+                "OperatorName": "out",
                 "Arguments": []
               }
             ]
@@ -151,7 +150,8 @@
                                         "Arguments": [
                                           "id",
                                           "label",
-                                          "value"
+                                          "value",
+                                          "properties"
                                         ]
                                       },
                                       {
@@ -178,6 +178,20 @@
                                           {
                                             "EnumName": "T",
                                             "EnumValue": "value"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "OperatorName": "by",
+                                        "Arguments": [
+                                          {
+                                            "SourceInstructions": [],
+                                            "StepInstructions": [
+                                              {
+                                                "OperatorName": "valueMap",
+                                                "Arguments": []
+                                              }
+                                            ]
                                           }
                                         ]
                                       },

@@ -1,21 +1,6 @@
 ﻿[
   {
-    "SourceInstructions": [
-      {
-        "OperatorName": "withSideEffect",
-        "Arguments": [
-          "Neptune#fts.endpoint",
-          "http://elastic.search.server/"
-        ]
-      },
-      {
-        "OperatorName": "withSideEffect",
-        "Arguments": [
-          "Neptune#fts.queryType",
-          "query_string"
-        ]
-      }
-    ],
+    "SourceInstructions": [],
     "StepInstructions": [
       {
         "OperatorName": "V",
@@ -32,7 +17,7 @@
             "SourceInstructions": [],
             "StepInstructions": [
               {
-                "OperatorName": "label",
+                "OperatorName": "identity",
                 "Arguments": []
               }
             ]
@@ -65,6 +50,123 @@
                           {
                             "EnumName": "Column",
                             "EnumValue": "keys"
+                          }
+                        ]
+                      },
+                      {
+                        "OperatorName": "project",
+                        "Arguments": [
+                          "id",
+                          "label",
+                          "properties"
+                        ]
+                      },
+                      {
+                        "OperatorName": "by",
+                        "Arguments": [
+                          {
+                            "EnumName": "T",
+                            "EnumValue": "id"
+                          }
+                        ]
+                      },
+                      {
+                        "OperatorName": "by",
+                        "Arguments": [
+                          {
+                            "EnumName": "T",
+                            "EnumValue": "label"
+                          }
+                        ]
+                      },
+                      {
+                        "OperatorName": "by",
+                        "Arguments": [
+                          {
+                            "SourceInstructions": [],
+                            "StepInstructions": [
+                              {
+                                "OperatorName": "properties",
+                                "Arguments": []
+                              },
+                              {
+                                "OperatorName": "group",
+                                "Arguments": []
+                              },
+                              {
+                                "OperatorName": "by",
+                                "Arguments": [
+                                  {
+                                    "EnumName": "T",
+                                    "EnumValue": "label"
+                                  }
+                                ]
+                              },
+                              {
+                                "OperatorName": "by",
+                                "Arguments": [
+                                  {
+                                    "SourceInstructions": [],
+                                    "StepInstructions": [
+                                      {
+                                        "OperatorName": "project",
+                                        "Arguments": [
+                                          "id",
+                                          "label",
+                                          "value",
+                                          "properties"
+                                        ]
+                                      },
+                                      {
+                                        "OperatorName": "by",
+                                        "Arguments": [
+                                          {
+                                            "EnumName": "T",
+                                            "EnumValue": "id"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "OperatorName": "by",
+                                        "Arguments": [
+                                          {
+                                            "EnumName": "T",
+                                            "EnumValue": "label"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "OperatorName": "by",
+                                        "Arguments": [
+                                          {
+                                            "EnumName": "T",
+                                            "EnumValue": "value"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "OperatorName": "by",
+                                        "Arguments": [
+                                          {
+                                            "SourceInstructions": [],
+                                            "StepInstructions": [
+                                              {
+                                                "OperatorName": "valueMap",
+                                                "Arguments": []
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "OperatorName": "fold",
+                                        "Arguments": []
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
                           }
                         ]
                       }
@@ -151,7 +253,8 @@
                                         "Arguments": [
                                           "id",
                                           "label",
-                                          "value"
+                                          "value",
+                                          "properties"
                                         ]
                                       },
                                       {
@@ -178,6 +281,20 @@
                                           {
                                             "EnumName": "T",
                                             "EnumValue": "value"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "OperatorName": "by",
+                                        "Arguments": [
+                                          {
+                                            "SourceInstructions": [],
+                                            "StepInstructions": [
+                                              {
+                                                "OperatorName": "valueMap",
+                                                "Arguments": []
+                                              }
+                                            ]
                                           }
                                         ]
                                       },

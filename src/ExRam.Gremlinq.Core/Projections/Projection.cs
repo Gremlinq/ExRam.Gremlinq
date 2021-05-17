@@ -37,6 +37,8 @@ namespace ExRam.Gremlinq.Core.Projections
                 .ToArray());
         }
 
+        public GroupProjection Group(Projection keyProjection, Projection valueProjection) => new GroupProjection(keyProjection, valueProjection);
+
         internal Projection If<TProjection>(Func<TProjection, Projection> transformation)
             where TProjection : Projection
         {

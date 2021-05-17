@@ -1,0 +1,6 @@
+﻿[
+  {
+    "Script": "V().group().by(__.identity())",
+    "Bindings": {}
+  }
+]
