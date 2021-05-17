@@ -1122,7 +1122,7 @@ namespace ExRam.Gremlinq.Core
             {
                 switch (expression)
                 {
-                    case ConstantExpression constantExpression when constantExpression.GetValue() is bool value:
+                    case ConstantExpression constantExpression when constantExpression.Value is bool value:
                     {
                         return value
                             ? this
