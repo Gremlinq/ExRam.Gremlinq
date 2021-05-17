@@ -1,1 +1,9 @@
-﻿[]
+﻿[
+  {
+    "TimeFrame": "PT8H",
+    "Country": "+49",
+    "Company": -62135596800000,
+    "Language": "en",
+    "Person": 1
+  }
+]
