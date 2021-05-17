@@ -1,0 +1,78 @@
+﻿[
+  {
+    "SourceInstructions": [
+      {
+        "OperatorName": "withSideEffect",
+        "Arguments": [
+          "Neptune#fts.endpoint",
+          "http://elastic.search.server/"
+        ]
+      },
+      {
+        "OperatorName": "withSideEffect",
+        "Arguments": [
+          "Neptune#fts.queryType",
+          "query_string"
+        ]
+      }
+    ],
+    "StepInstructions": [
+      {
+        "OperatorName": "V",
+        "Arguments": []
+      },
+      {
+        "OperatorName": "hasLabel",
+        "Arguments": [
+          "Company",
+          "Country",
+          "Language",
+          "Person",
+          "TimeFrame"
+        ]
+      },
+      {
+        "OperatorName": "choose",
+        "Arguments": [
+          {
+            "SourceInstructions": [],
+            "StepInstructions": [
+              {
+                "OperatorName": "has",
+                "Arguments": [
+                  {
+                    "EnumName": "T",
+                    "EnumValue": "id"
+                  },
+                  42
+                ]
+              }
+            ]
+          },
+          {
+            "SourceInstructions": [],
+            "StepInstructions": [
+              {
+                "OperatorName": "constant",
+                "Arguments": [
+                  true
+                ]
+              }
+            ]
+          },
+          {
+            "SourceInstructions": [],
+            "StepInstructions": [
+              {
+                "OperatorName": "constant",
+                "Arguments": [
+                  false
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

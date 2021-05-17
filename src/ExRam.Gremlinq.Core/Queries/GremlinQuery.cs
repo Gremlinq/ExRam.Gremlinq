@@ -499,6 +499,33 @@ namespace ExRam.Gremlinq.Core
             where TFalseQuery : IGremlinQueryBase
             where TTargetQuery : IGremlinQueryBase
         {
+            return Choose<TTrueQuery, TFalseQuery, TTargetQuery>(
+                this
+                    .Continue(__ => __
+                        .Where(predicate))
+                    .ToTraversal(),
+                trueChoice,
+                maybeFalseChoice);
+        }
+
+        private TTargetQuery Choose<TTrueQuery, TFalseQuery, TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> traversalPredicate, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTrueQuery> trueChoice, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TFalseQuery>? maybeFalseChoice = default)
+           where TTrueQuery : IGremlinQueryBase
+           where TFalseQuery : IGremlinQueryBase
+           where TTargetQuery : IGremlinQueryBase
+        {
+            return Choose<TTrueQuery, TFalseQuery, TTargetQuery>(
+                this
+                    .Continue(traversalPredicate)
+                    .ToTraversal(),
+                trueChoice,
+                maybeFalseChoice);
+        }
+
+        private TTargetQuery Choose<TTrueQuery, TFalseQuery, TTargetQuery>(Traversal chooseTraversal, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTrueQuery> trueChoice, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TFalseQuery>? maybeFalseChoice = default)
+           where TTrueQuery : IGremlinQueryBase
+           where TFalseQuery : IGremlinQueryBase
+           where TTargetQuery : IGremlinQueryBase
+        {
             var trueTraversal = this
                 .Continue(trueChoice)
                 .ToTraversal();
@@ -507,42 +534,23 @@ namespace ExRam.Gremlinq.Core
                 ? Continue(falseChoice).ToTraversal()
                 : default(Traversal?);
 
-            var queryTraversal = this
-                .Continue(__ => __
-                    .Where(predicate))
-                .ToTraversal();
+            Step chooseStep = (chooseTraversal.Count == 1 && chooseTraversal[0] is IsStep isStep)
+               ? new ChoosePredicateStep(
+                   isStep.Predicate,
+                   trueTraversal,
+                   maybeFalseTraversal)
+               : new ChooseTraversalStep(
+                   chooseTraversal,
+                   trueTraversal,
+                   maybeFalseTraversal);
 
             var projection = (maybeFalseTraversal?.Projection ?? Projection)
                 .Lowest(trueTraversal.Projection);
 
-            Step chooseStep = (queryTraversal.Count == 1 && queryTraversal[0] is IsStep isStep)
-                ? new ChoosePredicateStep(
-                    isStep.Predicate,
-                    trueTraversal,
-                    maybeFalseTraversal)
-                : new ChooseTraversalStep(
-                    queryTraversal,
-                    trueTraversal,
-                    maybeFalseTraversal);
-
             return this
                 .AddStep(
-                    chooseStep,
-                    _ => projection)
-                .ChangeQueryType<TTargetQuery>();
-        }
-
-        private TTargetQuery Choose<TTrueQuery, TFalseQuery, TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> traversalPredicate, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTrueQuery> trueChoice, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TFalseQuery>? maybeFalseChoice = default)
-            where TTrueQuery : IGremlinQueryBase
-            where TFalseQuery : IGremlinQueryBase
-            where TTargetQuery : IGremlinQueryBase
-        {
-            var trueQuery = Continue(trueChoice);
-            var maybeFalseQuery = maybeFalseChoice is { } falseChoice
-                ? Continue(falseChoice)
-                : default;
-
-            return AddStep(new ChooseTraversalStep(Continue(traversalPredicate).ToTraversal(), trueQuery.ToTraversal(), maybeFalseQuery?.ToTraversal())) //TODO: Common!
+                   chooseStep,
+                   _ => projection)
                 .ChangeQueryType<TTargetQuery>();
         }
 
