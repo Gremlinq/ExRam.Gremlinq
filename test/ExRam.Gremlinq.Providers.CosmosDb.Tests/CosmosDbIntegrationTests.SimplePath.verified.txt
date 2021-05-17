@@ -42,10 +42,7 @@
         "Name": [
           {
             "id": "scrubbed id",
-            "value": "Bob",
-            "properties": {
-              "ValidFrom": 1586270616000
-            }
+            "value": "Bob"
           }
         ],
         "RegistrationDate": [

@@ -70,10 +70,7 @@
         "Name": [
           {
             "id": "scrubbed id",
-            "value": "Bob",
-            "properties": {
-              "ValidFrom": 1586270616000
-            }
+            "value": "Bob"
           }
         ],
         "RegistrationDate": [
@@ -310,10 +307,7 @@
         "Name": [
           {
             "id": "scrubbed id",
-            "value": "Bob",
-            "properties": {
-              "ValidFrom": 1586270616000
-            }
+            "value": "Bob"
           }
         ],
         "RegistrationDate": [
@@ -515,10 +509,7 @@
         "Name": [
           {
             "id": "scrubbed id",
-            "value": "Marko",
-            "properties": {
-              "ValidFrom": 1586270616000
-            }
+            "value": "Marko"
           }
         ],
         "RegistrationDate": [
@@ -631,9 +622,7 @@
           }
         ]
       }
-    }
-  ],
-  [
+    },
     {
       "id": "scrubbed id",
       "label": "Country",
@@ -665,7 +654,9 @@
           }
         ]
       }
-    },
+    }
+  ],
+  [
     {
       "id": "scrubbed id",
       "label": "Company",
