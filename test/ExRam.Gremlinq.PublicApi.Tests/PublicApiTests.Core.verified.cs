@@ -147,6 +147,8 @@
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<System.Collections.Immutable.IImmutableDictionary<Gremlin.Net.Process.Traversal.T, ExRam.Gremlinq.Core.Models.SerializationBehaviour>> TSerializationBehaviourOverrides;
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.Traversal> VertexProjectionSteps;
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.Traversal> VertexProjectionWithoutMetaPropertiesSteps;
+        public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.Traversal> VertexPropertyProjectionSteps;
+        public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.Traversal> VertexPropertyProjectionWithoutMetaPropertiesSteps;
     }
     public class GremlinqOption<TValue> : ExRam.Gremlinq.Core.IGremlinqOption
     {
@@ -1420,6 +1422,7 @@ namespace ExRam.Gremlinq.Core.Projections
         public static readonly ExRam.Gremlinq.Core.Projections.EmptyProjection Empty;
         public static readonly ExRam.Gremlinq.Core.Projections.ValueProjection Value;
         public static readonly ExRam.Gremlinq.Core.Projections.VertexProjection Vertex;
+        public static readonly ExRam.Gremlinq.Core.Projections.VertexPropertyProjection VertexProperty;
         protected Projection() { }
         public string Name { get; }
         public ExRam.Gremlinq.Core.Projections.ArrayProjection Fold() { }
@@ -1449,6 +1452,7 @@ namespace ExRam.Gremlinq.Core.Projections
     {
         public VertexPropertyProjection() { }
         public override ExRam.Gremlinq.Core.Projections.Projection Lower() { }
+        public override ExRam.Gremlinq.Core.Traversal ToTraversal(ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
     }
 }
 namespace ExRam.Gremlinq.Core.Serialization
