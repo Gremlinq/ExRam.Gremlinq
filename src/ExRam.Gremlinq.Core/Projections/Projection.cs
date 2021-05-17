@@ -7,12 +7,12 @@ namespace ExRam.Gremlinq.Core.Projections
 {
     public abstract class Projection
     {
-        public static readonly EdgeProjection Edge = new EdgeProjection();
-        public static readonly EmptyProjection Empty = new EmptyProjection();
-        public static readonly ValueProjection Value = new ValueProjection();
-        public static readonly VertexProjection Vertex = new VertexProjection();
-        public static readonly ElementProjection Element = new ElementProjection();
-        public static readonly EdgeOrVertexProjection EdgeOrVertex = new EdgeOrVertexProjection();
+        public static readonly EdgeProjection Edge = new ();
+        public static readonly EmptyProjection Empty = new ();
+        public static readonly ValueProjection Value = new ();
+        public static readonly VertexProjection Vertex = new ();
+        public static readonly ElementProjection Element = new ();
+        public static readonly EdgeOrVertexProjection EdgeOrVertex = new ();
 
         public abstract Traversal ToTraversal(IGremlinQueryEnvironment environment);
 
