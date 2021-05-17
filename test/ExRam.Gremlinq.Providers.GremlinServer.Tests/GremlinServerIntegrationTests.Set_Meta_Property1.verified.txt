@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "@type": "g:List",
     "@value": [
@@ -10,15 +10,29 @@
             "@value": 1
           },
           "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
                 "@type": "g:Int64",
                 "@value": "scrubbed id"
               },
-              "value": "GER",
-              "label": "Name"
-            }
+              "label",
+              "Name",
+              "value",
+              "GER",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "metaKey",
+                  {
+                    "@type": "g:Int32",
+                    "@value": 1
+                  }
+                ]
+              }
+            ]
           }
         }
       },
@@ -30,15 +44,33 @@
             "@value": 1
           },
           "value": {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
                 "@type": "g:Int64",
                 "@value": "scrubbed id"
               },
-              "value": "GER",
-              "label": "Name"
-            }
+              "label",
+              "Name",
+              "value",
+              "GER",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "de",
+                  "Deutschland",
+                  "en",
+                  "Germany",
+                  "metaKey",
+                  {
+                    "@type": "g:Int32",
+                    "@value": 1
+                  }
+                ]
+              }
+            ]
           }
         }
       }

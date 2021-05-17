@@ -14,15 +14,23 @@
             "@value": [
               "Item2",
               {
-                "@type": "g:VertexProperty",
-                "@value": {
-                  "id": {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
                     "@type": "g:Int64",
                     "@value": "scrubbed id"
                   },
-                  "value": "+49",
-                  "label": "CountryCallingCode"
-                }
+                  "label",
+                  "CountryCallingCode",
+                  "value",
+                  "+49",
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": []
+                  }
+                ]
               },
               "name",
               {
@@ -84,18 +92,26 @@
             "@value": [
               "Item2",
               {
-                "@type": "g:VertexProperty",
-                "@value": {
-                  "id": {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
                     "@type": "g:Int64",
                     "@value": "scrubbed id"
                   },
-                  "value": {
+                  "label",
+                  "RegistrationDate",
+                  "value",
+                  {
                     "@type": "g:Date",
                     "@value": 1586270616000
                   },
-                  "label": "RegistrationDate"
-                }
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": []
+                  }
+                ]
               },
               "name",
               {
@@ -185,15 +201,23 @@
             "@value": [
               "Item2",
               {
-                "@type": "g:VertexProperty",
-                "@value": {
-                  "id": {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
                     "@type": "g:Int64",
                     "@value": "scrubbed id"
                   },
-                  "value": "en",
-                  "label": "IetfLanguageTag"
-                }
+                  "label",
+                  "IetfLanguageTag",
+                  "value",
+                  "en",
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": []
+                  }
+                ]
               },
               "name",
               {
@@ -255,15 +279,23 @@
             "@value": [
               "Item2",
               {
-                "@type": "g:VertexProperty",
-                "@value": {
-                  "id": {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
                     "@type": "g:Int64",
                     "@value": "scrubbed id"
                   },
-                  "value": "en",
-                  "label": "IetfLanguageTag"
-                }
+                  "label",
+                  "IetfLanguageTag",
+                  "value",
+                  "en",
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": []
+                  }
+                ]
               },
               "name",
               {
@@ -325,18 +357,26 @@
             "@value": [
               "Item2",
               {
-                "@type": "g:VertexProperty",
-                "@value": {
-                  "id": {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
                     "@type": "g:Int64",
                     "@value": "scrubbed id"
                   },
-                  "value": {
+                  "label",
+                  "FoundingDate",
+                  "value",
+                  {
                     "@type": "g:Date",
                     "@value": -62135596800000
                   },
-                  "label": "FoundingDate"
-                }
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": []
+                  }
+                ]
               },
               "name",
               {
@@ -401,18 +441,26 @@
             "@value": [
               "Item2",
               {
-                "@type": "g:VertexProperty",
-                "@value": {
-                  "id": {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
                     "@type": "g:Int64",
                     "@value": "scrubbed id"
                   },
-                  "value": {
+                  "label",
+                  "FoundingDate",
+                  "value",
+                  {
                     "@type": "g:Date",
                     "@value": -62135596800000
                   },
-                  "label": "FoundingDate"
-                }
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": []
+                  }
+                ]
               },
               "name",
               {
@@ -508,18 +556,26 @@
             "@value": [
               "Item2",
               {
-                "@type": "g:VertexProperty",
-                "@value": {
-                  "id": {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
                     "@type": "g:Int64",
                     "@value": "scrubbed id"
                   },
-                  "value": {
+                  "label",
+                  "Age",
+                  "value",
+                  {
                     "@type": "g:Int32",
                     "@value": 0
                   },
-                  "label": "Age"
-                }
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": []
+                  }
+                ]
               },
               "name",
               {
@@ -584,15 +640,23 @@
             "@value": [
               "Item2",
               {
-                "@type": "g:VertexProperty",
-                "@value": {
-                  "id": {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
                     "@type": "g:Int64",
                     "@value": "scrubbed id"
                   },
-                  "value": "GER",
-                  "label": "Name"
-                }
+                  "label",
+                  "Name",
+                  "value",
+                  "GER",
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": []
+                  }
+                ]
               },
               "name",
               {
@@ -654,18 +718,26 @@
             "@value": [
               "Item2",
               {
-                "@type": "g:VertexProperty",
-                "@value": {
-                  "id": {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
                     "@type": "g:Int64",
                     "@value": "scrubbed id"
                   },
-                  "value": {
+                  "label",
+                  "RegistrationDate",
+                  "value",
+                  {
                     "@type": "g:Date",
                     "@value": 1586270616000
                   },
-                  "label": "RegistrationDate"
-                }
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": []
+                  }
+                ]
               },
               "name",
               {
@@ -783,15 +855,28 @@
             "@value": [
               "Item2",
               {
-                "@type": "g:VertexProperty",
-                "@value": {
-                  "id": {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
                     "@type": "g:Int64",
                     "@value": "scrubbed id"
                   },
-                  "value": "GER",
-                  "label": "Name"
-                }
+                  "label",
+                  "Name",
+                  "value",
+                  "GER",
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": [
+                      "de",
+                      "Deutschland",
+                      "en",
+                      "Germany"
+                    ]
+                  }
+                ]
               },
               "name",
               {
@@ -858,15 +943,23 @@
             "@value": [
               "Item2",
               {
-                "@type": "g:VertexProperty",
-                "@value": {
-                  "id": {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
                     "@type": "g:Int64",
                     "@value": "scrubbed id"
                   },
-                  "value": "+4912345",
-                  "label": "PhoneNumbers"
-                }
+                  "label",
+                  "PhoneNumbers",
+                  "value",
+                  "+4912345",
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": []
+                  }
+                ]
               },
               "name",
               {
@@ -975,18 +1068,26 @@
             "@value": [
               "Item2",
               {
-                "@type": "g:VertexProperty",
-                "@value": {
-                  "id": {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
                     "@type": "g:Int64",
                     "@value": "scrubbed id"
                   },
-                  "value": {
+                  "label",
+                  "Age",
+                  "value",
+                  {
                     "@type": "g:Int32",
                     "@value": 0
                   },
-                  "label": "Age"
-                }
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": []
+                  }
+                ]
               },
               "name",
               {
@@ -1051,15 +1152,23 @@
             "@value": [
               "Item2",
               {
-                "@type": "g:VertexProperty",
-                "@value": {
-                  "id": {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
                     "@type": "g:Int64",
                     "@value": "scrubbed id"
                   },
-                  "value": "en",
-                  "label": "lang"
-                }
+                  "label",
+                  "lang",
+                  "value",
+                  "en",
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": []
+                  }
+                ]
               },
               "name",
               {
@@ -1121,18 +1230,26 @@
             "@value": [
               "Item2",
               {
-                "@type": "g:VertexProperty",
-                "@value": {
-                  "id": {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
                     "@type": "g:Int64",
                     "@value": "scrubbed id"
                   },
-                  "value": {
+                  "label",
+                  "Age",
+                  "value",
+                  {
                     "@type": "g:Int32",
                     "@value": 0
                   },
-                  "label": "Age"
-                }
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": []
+                  }
+                ]
               },
               "name",
               {
@@ -1197,18 +1314,26 @@
             "@value": [
               "Item2",
               {
-                "@type": "g:VertexProperty",
-                "@value": {
-                  "id": {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
                     "@type": "g:Int64",
                     "@value": "scrubbed id"
                   },
-                  "value": {
+                  "label",
+                  "Age",
+                  "value",
+                  {
                     "@type": "g:Int32",
                     "@value": 0
                   },
-                  "label": "Age"
-                }
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": []
+                  }
+                ]
               },
               "name",
               {
@@ -1273,18 +1398,26 @@
             "@value": [
               "Item2",
               {
-                "@type": "g:VertexProperty",
-                "@value": {
-                  "id": {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
                     "@type": "g:Int64",
                     "@value": "scrubbed id"
                   },
-                  "value": {
+                  "label",
+                  "FoundingDate",
+                  "value",
+                  {
                     "@type": "g:Date",
                     "@value": -62135596800000
                   },
-                  "label": "FoundingDate"
-                }
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": []
+                  }
+                ]
               },
               "name",
               {
@@ -1349,18 +1482,26 @@
             "@value": [
               "Item2",
               {
-                "@type": "g:VertexProperty",
-                "@value": {
-                  "id": {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
                     "@type": "g:Int64",
                     "@value": "scrubbed id"
                   },
-                  "value": {
+                  "label",
+                  "Age",
+                  "value",
+                  {
                     "@type": "g:Int32",
                     "@value": 0
                   },
-                  "label": "Age"
-                }
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": []
+                  }
+                ]
               },
               "name",
               {
@@ -1425,15 +1566,23 @@
             "@value": [
               "Item2",
               {
-                "@type": "g:VertexProperty",
-                "@value": {
-                  "id": {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
                     "@type": "g:Int64",
                     "@value": "scrubbed id"
                   },
-                  "value": "en",
-                  "label": "IetfLanguageTag"
-                }
+                  "label",
+                  "IetfLanguageTag",
+                  "value",
+                  "en",
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": []
+                  }
+                ]
               },
               "name",
               {
@@ -1495,15 +1644,23 @@
             "@value": [
               "Item2",
               {
-                "@type": "g:VertexProperty",
-                "@value": {
-                  "id": {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
                     "@type": "g:Int64",
                     "@value": "scrubbed id"
                   },
-                  "value": "+49",
-                  "label": "CountryCallingCode"
-                }
+                  "label",
+                  "CountryCallingCode",
+                  "value",
+                  "+49",
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": []
+                  }
+                ]
               },
               "name",
               {
@@ -1565,18 +1722,26 @@
             "@value": [
               "Item2",
               {
-                "@type": "g:VertexProperty",
-                "@value": {
-                  "id": {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
                     "@type": "g:Int64",
                     "@value": "scrubbed id"
                   },
-                  "value": {
+                  "label",
+                  "RegistrationDate",
+                  "value",
+                  {
                     "@type": "g:Date",
                     "@value": 1586270616000
                   },
-                  "label": "RegistrationDate"
-                }
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": []
+                  }
+                ]
               },
               "name",
               {
@@ -1694,18 +1859,26 @@
             "@value": [
               "Item2",
               {
-                "@type": "g:VertexProperty",
-                "@value": {
-                  "id": {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
                     "@type": "g:Int64",
                     "@value": "scrubbed id"
                   },
-                  "value": {
+                  "label",
+                  "FoundingDate",
+                  "value",
+                  {
                     "@type": "g:Date",
                     "@value": -62135596800000
                   },
-                  "label": "FoundingDate"
-                }
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": []
+                  }
+                ]
               },
               "name",
               {
@@ -1770,18 +1943,26 @@
             "@value": [
               "Item2",
               {
-                "@type": "g:VertexProperty",
-                "@value": {
-                  "id": {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
                     "@type": "g:Int64",
                     "@value": "scrubbed id"
                   },
-                  "value": {
+                  "label",
+                  "Age",
+                  "value",
+                  {
                     "@type": "g:Int32",
                     "@value": 0
                   },
-                  "label": "Age"
-                }
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": []
+                  }
+                ]
               },
               "name",
               {
@@ -1846,15 +2027,23 @@
             "@value": [
               "Item2",
               {
-                "@type": "g:VertexProperty",
-                "@value": {
-                  "id": {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
                     "@type": "g:Int64",
                     "@value": "scrubbed id"
                   },
-                  "value": "en",
-                  "label": "IetfLanguageTag"
-                }
+                  "label",
+                  "IetfLanguageTag",
+                  "value",
+                  "en",
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": []
+                  }
+                ]
               },
               "name",
               {
@@ -1916,18 +2105,26 @@
             "@value": [
               "Item2",
               {
-                "@type": "g:VertexProperty",
-                "@value": {
-                  "id": {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
                     "@type": "g:Int64",
                     "@value": "scrubbed id"
                   },
-                  "value": {
+                  "label",
+                  "StartTime",
+                  "value",
+                  {
                     "@type": "gx:Duration",
                     "@value": "PT8H"
                   },
-                  "label": "StartTime"
-                }
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": []
+                  }
+                ]
               },
               "name",
               {
@@ -2045,15 +2242,23 @@
             "@value": [
               "Item2",
               {
-                "@type": "g:VertexProperty",
-                "@value": {
-                  "id": {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
                     "@type": "g:Int64",
                     "@value": "scrubbed id"
                   },
-                  "value": "en",
-                  "label": "IetfLanguageTag"
-                }
+                  "label",
+                  "IetfLanguageTag",
+                  "value",
+                  "en",
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": []
+                  }
+                ]
               },
               "name",
               {
@@ -2115,15 +2320,23 @@
             "@value": [
               "Item2",
               {
-                "@type": "g:VertexProperty",
-                "@value": {
-                  "id": {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
                     "@type": "g:Int64",
                     "@value": "scrubbed id"
                   },
-                  "value": "en",
-                  "label": "IetfLanguageTag"
-                }
+                  "label",
+                  "IetfLanguageTag",
+                  "value",
+                  "en",
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": []
+                  }
+                ]
               },
               "name",
               {
@@ -2185,18 +2398,26 @@
             "@value": [
               "Item2",
               {
-                "@type": "g:VertexProperty",
-                "@value": {
-                  "id": {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
                     "@type": "g:Int64",
                     "@value": "scrubbed id"
                   },
-                  "value": {
+                  "label",
+                  "Image",
+                  "value",
+                  {
                     "@type": "gx:ByteBuffer",
                     "@value": "AQIDBAUGBwg="
                   },
-                  "label": "Image"
-                }
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": []
+                  }
+                ]
               },
               "name",
               {
@@ -2289,18 +2510,26 @@
             "@value": [
               "Item2",
               {
-                "@type": "g:VertexProperty",
-                "@value": {
-                  "id": {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
                     "@type": "g:Int64",
                     "@value": "scrubbed id"
                   },
-                  "value": {
+                  "label",
+                  "Gender",
+                  "value",
+                  {
                     "@type": "g:Int32",
                     "@value": 1
                   },
-                  "label": "Gender"
-                }
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": []
+                  }
+                ]
               },
               "name",
               {
