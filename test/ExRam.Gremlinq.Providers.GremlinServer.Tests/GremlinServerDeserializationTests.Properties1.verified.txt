@@ -51,7 +51,9 @@
   {
     "Id": "scrubbed id",
     "Label": "Locations",
-    "Properties": {},
+    "Properties": {
+      "ValidFrom": 1546304400000
+    },
     "Value": "Aachen",
     "Key": null
   },
@@ -93,7 +95,10 @@
   {
     "Id": "scrubbed id",
     "Label": "Name",
-    "Properties": {},
+    "Properties": {
+      "de": "Deutschland",
+      "en": "Germany"
+    },
     "Value": "GER",
     "Key": null
   },
