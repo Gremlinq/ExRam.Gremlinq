@@ -12,7 +12,6 @@ using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Core.Projections;
 using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Core.Steps;
-
 using Gremlin.Net.Process.Traversal;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -638,31 +637,34 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<IDictionary<TKey, TValue>, object, object, object, object, object> Group<TKey, TValue>(Func<IGroupBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>, IGroupBuilderWithKeyAndValue<IGremlinQueryBase, TKey, TValue>> projection)
         {
             var group = projection(new GroupBuilder<object, object>(this));
-            var keyTraversal = group.KeyQuery.ToTraversal();
-            var valueTraversal = group.ValueQuery.ToTraversal();
 
-            return this
-                .AddStep<IDictionary<TKey, TValue>, object, object, object, object, object>(
-                    GroupStep.Instance,
-                    _ => _.Group(
-                        keyTraversal.Projection,
-                        valueTraversal.Projection))
-                .AddStep(new GroupStep.ByTraversalStep(keyTraversal))
-                .AddStep(new GroupStep.ByTraversalStep(valueTraversal));
+            return Group<TKey, TValue>(
+                group.KeyQuery.ToTraversal(),
+                group.ValueQuery.ToTraversal());
         }
 
         private GremlinQuery<IDictionary<TKey, object>, object, object, object, object, object> Group<TKey>(Func<IGroupBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>, IGroupBuilderWithKey<IGremlinQueryBase, TKey>> projection)
         {
             var group = projection(new GroupBuilder<object, object>(this));
-            var keyTraversal = group.KeyQuery.ToTraversal();
 
-            return this
-                .AddStep<IDictionary<TKey, object>, object, object, object, object, object>(
+            return Group<TKey, object>(
+               group.KeyQuery.ToTraversal(),
+               null);
+        }
+
+        private GremlinQuery<IDictionary<TKey, TValue>, object, object, object, object, object> Group<TKey, TValue>(Traversal keyTraversal, Traversal? maybeValueTraversal)
+        {
+            var ret = this
+                .AddStep<IDictionary<TKey, TValue>, object, object, object, object, object>(
                     GroupStep.Instance,
                     _ => _.Group(
                         keyTraversal.Projection,
-                        Projection))
+                        maybeValueTraversal?.Projection ?? Projection))
                 .AddStep(new GroupStep.ByTraversalStep(keyTraversal));
+
+            return (maybeValueTraversal is { } valueTraversal)
+                ? ret.AddStep(new GroupStep.ByTraversalStep(valueTraversal))
+                : ret;
         }
 
         private IEnumerable<string> GetStringKeys(Expression[] projections)
