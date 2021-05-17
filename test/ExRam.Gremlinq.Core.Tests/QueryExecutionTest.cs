@@ -698,6 +698,18 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Verify();
         }
 
+        //[Fact]
+        //public virtual async Task Choose_Predicate_not_matching()
+        //{
+        //    await _g
+        //        .V<Vertex>()
+        //        .Choose(
+        //            x => x.Id == (object)42,
+        //            _ => _.Out().Lower().Lower().Lower(),
+        //            _ => _.Constant(false).Lower().Cast<object>())
+        //        .Verify();
+        //}
+
         [Fact]
         public virtual async Task Choose_Predicate3()
         {
@@ -763,6 +775,18 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Cast<int>()
                 .Choose(
                     x => 0 < x || x < 42 && x != 37,
+                    _ => _.Constant(true),
+                    _ => _.Constant(false))
+                .Verify();
+        }
+
+        [Fact]
+        public virtual async Task Choose_Predicate8()
+        {
+            await _g
+                .V<Vertex>()
+                .Choose(
+                    x => x.Id == (object)42,
                     _ => _.Constant(true),
                     _ => _.Constant(false))
                 .Verify();
