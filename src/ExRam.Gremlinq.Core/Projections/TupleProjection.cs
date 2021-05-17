@@ -1,80 +1,58 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-
 using ExRam.Gremlinq.Core.Steps;
 
 namespace ExRam.Gremlinq.Core.Projections
 {
     public sealed class TupleProjection : Projection
     {
-        private readonly ProjectStep _projectStep;
-        private readonly ImmutableList<Projection> _projections;
+        private readonly (string Key, Projection Projection)[] _projections;
 
-        private TupleProjection(ProjectStep projectStep) : this(projectStep, ImmutableList<Projection>.Empty)
-        {
-
-        }
-
-        private TupleProjection(ProjectStep projectStep, ImmutableList<Projection> projections)
+        private TupleProjection((string Key, Projection Projection)[] projections)
         {
             _projections = projections;
-            _projectStep = projectStep;
         }
 
-        public static TupleProjection Create(ProjectStep step)
+        public static Projection Create(ProjectStep projectStep, ProjectStep.ByStep[] bySteps)
         {
-            return new TupleProjection(step);
+            if (projectStep.Projections.Length != bySteps.Length)
+                throw new ArgumentException();
+
+            return Create(projectStep.Projections
+                .Select((key, i) =>
+                {
+                    var projection = bySteps[i] is ProjectStep.ByTraversalStep byTraversal
+                        ? byTraversal.Traversal.Projection
+                        : None;
+
+                    return (key, projection);
+                })
+                .ToArray());
         }
+
+        public static Projection Create((string Key, Projection Projection)[] projections) => new TupleProjection(projections);
 
         public Projection Select(ImmutableArray<Key> keys)
         {
-            var projectionKeys = new List<string>();
-            var projections = ImmutableList<Projection>.Empty;
+            var projections = _projections
+                .Where(x => keys.Contains(x.Key))
+                .ToArray();
 
-            for (var i = 0; i < _projectStep.Projections.Length; i++)
-            {
-                if (keys.Contains(_projectStep.Projections[i]))
-                {
-                    projectionKeys.Add(_projectStep.Projections[i]);
-                    projections = projections.Add(_projections[i]);
-                }
-            }
-
-            return projectionKeys.Count switch
+            return projections.Length switch
             {
                 0 => None,
-                1 => projections[0],
-                _ => new TupleProjection(
-                        new ProjectStep(projectionKeys.ToImmutableArray()),
-                        projections)
+                1 => projections[0].Projection,
+                _ => new TupleProjection(projections)
             };
-        }
-
-        public TupleProjection Add(ProjectStep.ByStep step)
-        {
-            if (_projections.Count >= _projectStep.Projections.Length)
-                throw new InvalidOperationException();
-
-            var newProjection = step is ProjectStep.ByTraversalStep byTraversal
-                ? byTraversal.Traversal.Projection
-                : None;
-
-            return new TupleProjection(
-                _projectStep,
-                _projections.Add(newProjection));
         }
 
         public override Traversal Expand(IGremlinQueryEnvironment environment)
         {
-            if (_projections.Count != _projectStep.Projections.Length)
-                throw new InvalidOperationException();
-
             var projectionTraversals = _projections
-                .Select((projection, i) => projection
+                .Select((projection, i) => projection.Projection
                     .Expand(environment)
-                    .Prepend(new SelectStep(_projectStep.Projections[i]))
+                    .Prepend(new SelectStep(projection.Key))
                     .ToImmutableArray())
                 .ToArray();
 
@@ -83,7 +61,9 @@ namespace ExRam.Gremlinq.Core.Projections
 
             return projectionTraversals
                 .Select(traversal => (Step)new ProjectStep.ByTraversalStep(traversal))
-                .Prepend(_projectStep)
+                .Prepend(new ProjectStep(_projections
+                    .Select(x => x.Key)
+                    .ToImmutableArray()))
                 .ToImmutableArray();
         }
 

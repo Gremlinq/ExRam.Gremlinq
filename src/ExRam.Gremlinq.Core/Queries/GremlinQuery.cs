@@ -832,16 +832,22 @@ namespace ExRam.Gremlinq.Core
                 .OrderBy(x => x.Key)
                 .ToArray();
 
-            var projectStep = new ProjectStep(projectionsPairs.Select(x => x.Key).ToImmutableArray());
-            var projection = TupleProjection.Create(projectStep);
+            var projectStep = new ProjectStep(projectionsPairs
+                .Select(x => x.Key)
+                .ToImmutableArray());
+
+            var projection = TupleProjection.Create(
+                projectStep,
+                projectionsPairs
+                    .Select(x => x.Value)
+                    .ToArray());
 
             var ret = this
                 .AddStepWithObjectTypes<TResult>(projectStep, _ => projection);
 
             foreach (var projectionsPair in projectionsPairs)
             {
-                projection = projection.Add(projectionsPair.Value);
-                ret = ret.AddStep(projectionsPair.Value, _ => projection);
+                ret = ret.AddStep(projectionsPair.Value);
             }
 
             return ret;
