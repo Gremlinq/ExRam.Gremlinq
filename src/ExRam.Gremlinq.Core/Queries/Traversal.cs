@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
@@ -34,10 +35,22 @@ namespace ExRam.Gremlinq.Core
 
         public Traversal IncludeProjection(IGremlinQueryEnvironment environment)
         {
-            if (Projection == Projection.Empty)
-                return this;
+            if (Projection != Projection.Empty)
+            {
+                var projectionTraversal = Projection.ToTraversal(environment);
 
-            return new Traversal(this.Concat(Projection.ToTraversal(environment)), Projection.Empty);
+                if (projectionTraversal.Count > 0)
+                {
+                    var ret = new Step[Count + projectionTraversal.Count];
+
+                    CopyTo(ret, 0);
+                    projectionTraversal.CopyTo(ret, Count);
+
+                    return new Traversal(ret, true, Projection.Empty);
+                }
+            }
+
+            return this;
         }
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
@@ -47,6 +60,16 @@ namespace ExRam.Gremlinq.Core
         public Projection Projection { get; }
 
         public Step this[int index] => _steps[index];
+
+        private void CopyTo(Step[] steps, int destinationIndex)
+        {
+            if (_steps is ImmutableArray<Step> immutableArray)
+                immutableArray.CopyTo(steps, destinationIndex);
+            else if (_steps is Step[] array)
+                array.CopyTo(steps, destinationIndex);
+            else
+                throw new InvalidOperationException();
+        }
 
         public static implicit operator Traversal(Step[] steps) => new(steps, false, Projection.Empty);
 
