@@ -41,8 +41,9 @@
     },
     "properties!": {
       "id": "scrubbed id",
+      "label": "CountryCallingCode",
       "value": "+49",
-      "label": "CountryCallingCode"
+      "properties": {}
     }
   }
 ]

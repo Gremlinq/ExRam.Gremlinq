@@ -1,15 +1,21 @@
-[
+﻿[
   {
     "Id": "scrubbed id",
     "Label": "Name",
-    "Properties": {},
+    "Properties": {
+      "metaKey": 1
+    },
     "Value": "GER",
     "Key": null
   },
   {
     "Id": "scrubbed id",
     "Label": "Name",
-    "Properties": {},
+    "Properties": {
+      "de": "Deutschland",
+      "en": "Germany",
+      "metaKey": 1
+    },
     "Value": "GER",
     "Key": null
   }
