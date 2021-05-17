@@ -2,7 +2,7 @@
 {
     public class EdgeOrVertexProjection : ElementProjection
     {
-        public override Traversal Expand(IGremlinQueryEnvironment environment) => Traversal.Empty;
+        public override Traversal ToTraversal(IGremlinQueryEnvironment environment) => Traversal.Empty;
 
         public override Projection BaseProjection => Element;
     }

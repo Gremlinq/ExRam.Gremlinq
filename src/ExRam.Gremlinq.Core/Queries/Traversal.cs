@@ -37,7 +37,7 @@ namespace ExRam.Gremlinq.Core
             if (Projection == Projection.None)
                 return this;
 
-            return new Traversal(this.Concat(Projection.Expand(environment)), Projection.None);
+            return new Traversal(this.Concat(Projection.ToTraversal(environment)), Projection.None);
         }
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();

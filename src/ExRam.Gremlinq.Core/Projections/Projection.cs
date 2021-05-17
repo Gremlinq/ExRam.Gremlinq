@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Linq;
+
+using ExRam.Gremlinq.Core.Steps;
 
 namespace ExRam.Gremlinq.Core.Projections
 {
@@ -11,11 +14,28 @@ namespace ExRam.Gremlinq.Core.Projections
         public static readonly Projection Element = new ElementProjection();
         public static readonly Projection EdgeOrVertex = new EdgeOrVertexProjection();
 
-        public abstract Traversal Expand(IGremlinQueryEnvironment environment);
+        public abstract Traversal ToTraversal(IGremlinQueryEnvironment environment);
 
-        public ArrayProjection ToArray() => new(this);
+        public ArrayProjection Fold() => new(this);
 
-        public Projection If<TProjection>(Func<TProjection, Projection> transformation)
+        public TupleProjection Project(ProjectStep projectStep, ProjectStep.ByStep[] bySteps)
+        {
+            if (projectStep.Projections.Length != bySteps.Length)
+                throw new ArgumentException();
+
+            return new TupleProjection(projectStep.Projections
+                .Select((key, i) =>
+                {
+                    var projection = bySteps[i] is ProjectStep.ByTraversalStep byTraversal
+                        ? byTraversal.Traversal.Projection
+                        : None;
+
+                    return (key, projection);
+                })
+                .ToArray());
+        }
+
+        internal Projection If<TProjection>(Func<TProjection, Projection> transformation)
             where TProjection : Projection
         {
             if (this is TProjection projection)
@@ -24,7 +44,7 @@ namespace ExRam.Gremlinq.Core.Projections
             return this;
         }
 
-        public Projection Lowest(Projection other)
+        internal Projection Lowest(Projection other)
         {
             var @this = this;
 
@@ -42,7 +62,7 @@ namespace ExRam.Gremlinq.Core.Projections
             return None;
         }
 
-        public Projection Highest(Projection other)
+        internal Projection Highest(Projection other)
         {
             if (GetType().IsAssignableFrom(other.GetType()))
                 return other;

@@ -6,14 +6,16 @@ namespace ExRam.Gremlinq.Core.Projections
 {
     public sealed class ArrayProjection : Projection
     {
+        private readonly Projection _inner;
+
         internal ArrayProjection(Projection inner)
         {
-            Inner = inner;
+            _inner = inner;
         }
 
-        public override Traversal Expand(IGremlinQueryEnvironment environment)
+        public override Traversal ToTraversal(IGremlinQueryEnvironment environment)
         {
-            var inner = Inner.Expand(environment);
+            var inner = _inner.ToTraversal(environment);
 
             if (inner.Count > 0)
             {
@@ -26,7 +28,7 @@ namespace ExRam.Gremlinq.Core.Projections
             return Traversal.Empty;
         }
 
-        public Projection Inner { get; }
+        public Projection Unfold() => _inner;
 
         public override Projection BaseProjection => None;
     }

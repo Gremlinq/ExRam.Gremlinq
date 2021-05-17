@@ -2,7 +2,7 @@
 {
     public sealed class VertexProjection : EdgeOrVertexProjection
     {
-        public override Traversal Expand(IGremlinQueryEnvironment environment) => environment.Options.GetValue(environment.FeatureSet.Supports(VertexFeatures.MetaProperties)
+        public override Traversal ToTraversal(IGremlinQueryEnvironment environment) => environment.Options.GetValue(environment.FeatureSet.Supports(VertexFeatures.MetaProperties)
             ? GremlinqOption.VertexProjectionSteps
             : GremlinqOption.VertexProjectionWithoutMetaPropertiesSteps);
 
