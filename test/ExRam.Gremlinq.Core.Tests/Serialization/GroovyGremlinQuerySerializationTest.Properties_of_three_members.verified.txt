@@ -1,11 +1,15 @@
-[
+﻿[
   {
-    "Script": "V().hasLabel(_a).properties(_b,_c,_d)",
+    "Script": "V().hasLabel(_a).properties(_b,_c,_d).project(_e,_f,_g,_h).by(id).by(label).by(value).by(__.valueMap())",
     "Bindings": {
       "_a": "Country",
       "_b": "Name",
       "_c": "CountryCallingCode",
-      "_d": "Languages"
+      "_d": "Languages",
+      "_e": "id",
+      "_f": "label",
+      "_g": "value",
+      "_h": "properties"
     }
   }
 ]

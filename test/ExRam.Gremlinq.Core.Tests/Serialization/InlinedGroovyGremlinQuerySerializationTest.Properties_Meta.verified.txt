@@ -1,6 +1,6 @@
-[
+﻿[
   {
-    "Script": "V().hasLabel('Country').properties('Name')",
+    "Script": "V().hasLabel('Country').properties('Name').project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap())",
     "Bindings": {}
   }
 ]

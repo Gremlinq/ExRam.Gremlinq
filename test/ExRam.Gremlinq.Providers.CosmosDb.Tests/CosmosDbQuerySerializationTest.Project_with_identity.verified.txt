@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "Script": "V().where(__.properties()).project(_a,_b).by(__.identity()).by(__.properties())",
     "Bindings": {
