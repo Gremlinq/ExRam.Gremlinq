@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-
 using ExRam.Gremlinq.Core.Steps;
 
 namespace ExRam.Gremlinq.Core.Projections
@@ -56,7 +55,7 @@ namespace ExRam.Gremlinq.Core.Projections
                 if (@this.GetType().IsInstanceOfType(other))
                     return @this;
 
-                @this = @this.BaseProjection;
+                @this = @this.Lower();
             }
 
             return Empty;
@@ -70,7 +69,7 @@ namespace ExRam.Gremlinq.Core.Projections
             return this;
         }
 
-        public abstract Projection BaseProjection { get; }
+        public abstract Projection Lower();
 
         public string Name { get => ToString()!; }
     }

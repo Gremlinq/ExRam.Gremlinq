@@ -4,6 +4,6 @@
     {
         public override Traversal ToTraversal(IGremlinQueryEnvironment environment) => Traversal.Empty;
 
-        public override Projection BaseProjection => Empty;
+        public override Projection Lower() => Empty;
     }
 }

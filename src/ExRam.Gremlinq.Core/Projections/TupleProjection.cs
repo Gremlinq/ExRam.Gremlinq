@@ -47,6 +47,6 @@ namespace ExRam.Gremlinq.Core.Projections
                 .ToImmutableArray();
         }
 
-        public override Projection BaseProjection => Empty;
+        public override Projection Lower() => Empty;
     }
 }

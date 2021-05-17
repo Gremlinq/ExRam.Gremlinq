@@ -2,6 +2,6 @@
 {
     public sealed class VertexPropertyProjection : ElementProjection
     {
-        public override Projection BaseProjection => Element;
+        public override Projection Lower() => Element;
     }
 }

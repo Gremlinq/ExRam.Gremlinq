@@ -6,6 +6,6 @@
             ? GremlinqOption.VertexProjectionSteps
             : GremlinqOption.VertexProjectionWithoutMetaPropertiesSteps);
 
-        public override Projection BaseProjection => EdgeOrVertex;
+        public override Projection Lower() => EdgeOrVertex;
     }
 }
