@@ -33,7 +33,7 @@ namespace ExRam.Gremlinq.Core
         {
             return new GremlinQuery<object, object, object, object, object, object>(
                 steps,
-                Projection.None,
+                Projection.Empty,
                 environment,
                 ImmutableDictionary<StepLabel, Projection>.Empty,
                 flags);
@@ -598,7 +598,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> DedupLocal() => AddStep(DedupStep.Local);
 
-        private GremlinQuery<object, object, object, object, object, object> Drop() => AddStepWithObjectTypes<object>(DropStep.Instance, _ => Projection.None);
+        private GremlinQuery<object, object, object, object, object, object> Drop() => AddStepWithObjectTypes<object>(DropStep.Instance, _ => Projection.Empty);
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> DropProperties(string key)
         {
@@ -861,7 +861,7 @@ namespace ExRam.Gremlinq.Core
                     .OfType<string>());
         }
 
-        private GremlinQuery<TNewElement, object, object, TNewPropertyValue, TNewMeta, object> Properties<TNewElement, TNewPropertyValue, TNewMeta>(IEnumerable<string> keys) => AddStep<TNewElement, object, object, TNewPropertyValue, TNewMeta, object>(new PropertiesStep(keys.ToImmutableArray()), _ => Projection.None /* TODO: Stimmt nicht ?*/);
+        private GremlinQuery<TNewElement, object, object, TNewPropertyValue, TNewMeta, object> Properties<TNewElement, TNewPropertyValue, TNewMeta>(IEnumerable<string> keys) => AddStep<TNewElement, object, object, TNewPropertyValue, TNewMeta, object>(new PropertiesStep(keys.ToImmutableArray()), _ => Projection.Empty /* TODO: Stimmt nicht ?*/);
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Property(LambdaExpression projection, object? value) => Property(GetKey(projection), value);
 
@@ -1265,7 +1265,7 @@ namespace ExRam.Gremlinq.Core
                                                     semantics,
                                                     right)
                                                 .Prepend(KeyStep.Instance),
-                                            Projection.None));
+                                            Projection.Empty));
 
                                         yield break;
                                     }
@@ -1279,7 +1279,7 @@ namespace ExRam.Gremlinq.Core
                                                     semantics,
                                                     right)
                                                 .Prepend(LabelStep.Instance),
-                                            Projection.None));
+                                            Projection.Empty));
 
                                         yield break;
                                     }

@@ -21,7 +21,7 @@ namespace ExRam.Gremlinq.Core.Projections
 
             return projections.Length switch
             {
-                0 => None,
+                0 => Empty,
                 1 => projections[0].Projection,
                 _ => new TupleProjection(projections)
             };
@@ -47,6 +47,6 @@ namespace ExRam.Gremlinq.Core.Projections
                 .ToImmutableArray();
         }
 
-        public override Projection BaseProjection => None;
+        public override Projection BaseProjection => Empty;
     }
 }

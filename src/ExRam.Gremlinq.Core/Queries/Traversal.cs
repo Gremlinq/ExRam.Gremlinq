@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Core
 {
     public readonly struct Traversal : IReadOnlyList<Step>
     {
-        public static readonly Traversal Empty = new(ImmutableArray<Step>.Empty, true, Projection.None);
+        public static readonly Traversal Empty = new(ImmutableArray<Step>.Empty, true, Projection.Empty);
 
         private readonly IReadOnlyList<Step> _steps;
 
@@ -34,10 +34,10 @@ namespace ExRam.Gremlinq.Core
 
         public Traversal IncludeProjection(IGremlinQueryEnvironment environment)
         {
-            if (Projection == Projection.None)
+            if (Projection == Projection.Empty)
                 return this;
 
-            return new Traversal(this.Concat(Projection.ToTraversal(environment)), Projection.None);
+            return new Traversal(this.Concat(Projection.ToTraversal(environment)), Projection.Empty);
         }
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
@@ -48,10 +48,10 @@ namespace ExRam.Gremlinq.Core
 
         public Step this[int index] => _steps[index];
 
-        public static implicit operator Traversal(Step[] steps) => new(steps, false, Projection.None);
+        public static implicit operator Traversal(Step[] steps) => new(steps, false, Projection.Empty);
 
-        public static implicit operator Traversal(ImmutableArray<Step> steps) => new(steps, Projection.None);
+        public static implicit operator Traversal(ImmutableArray<Step> steps) => new(steps, Projection.Empty);
 
-        public static implicit operator Traversal(Step step) => new(new[] { step }, true, Projection.None);
+        public static implicit operator Traversal(Step step) => new(new[] { step }, true, Projection.Empty);
     }
 }

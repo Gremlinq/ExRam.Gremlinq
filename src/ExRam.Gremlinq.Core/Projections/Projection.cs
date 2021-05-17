@@ -7,12 +7,12 @@ namespace ExRam.Gremlinq.Core.Projections
 {
     public abstract class Projection
     {
-        public static readonly Projection Edge = new EdgeProjection();
-        public static readonly Projection None = new EmptyProjection();
-        public static readonly Projection Value = new ValueProjection();
-        public static readonly Projection Vertex = new VertexProjection();
-        public static readonly Projection Element = new ElementProjection();
-        public static readonly Projection EdgeOrVertex = new EdgeOrVertexProjection();
+        public static readonly EdgeProjection Edge = new EdgeProjection();
+        public static readonly EmptyProjection Empty = new EmptyProjection();
+        public static readonly ValueProjection Value = new ValueProjection();
+        public static readonly VertexProjection Vertex = new VertexProjection();
+        public static readonly ElementProjection Element = new ElementProjection();
+        public static readonly EdgeOrVertexProjection EdgeOrVertex = new EdgeOrVertexProjection();
 
         public abstract Traversal ToTraversal(IGremlinQueryEnvironment environment);
 
@@ -28,7 +28,7 @@ namespace ExRam.Gremlinq.Core.Projections
                 {
                     var projection = bySteps[i] is ProjectStep.ByTraversalStep byTraversal
                         ? byTraversal.Traversal.Projection
-                        : None;
+                        : Empty;
 
                     return (key, projection);
                 })
@@ -48,7 +48,7 @@ namespace ExRam.Gremlinq.Core.Projections
         {
             var @this = this;
 
-            while (@this != None)
+            while (@this != Empty)
             {
                 if (other.GetType().IsInstanceOfType(@this))
                     return other;
@@ -59,7 +59,7 @@ namespace ExRam.Gremlinq.Core.Projections
                 @this = @this.BaseProjection;
             }
 
-            return None;
+            return Empty;
         }
 
         internal Projection Highest(Projection other)

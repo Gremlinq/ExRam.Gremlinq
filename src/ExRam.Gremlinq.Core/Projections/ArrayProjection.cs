@@ -30,6 +30,6 @@ namespace ExRam.Gremlinq.Core.Projections
 
         public Projection Unfold() => _inner;
 
-        public override Projection BaseProjection => None;
+        public override Projection BaseProjection => Empty;
     }
 }
