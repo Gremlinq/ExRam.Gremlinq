@@ -1,1 +1,17 @@
-﻿[]
+﻿[
+  {
+    "Country": {
+      "IetfLanguageTag": "en",
+      "Id": "scrubbed id",
+      "Label": "Language"
+    },
+    "Person": {
+      "Name": null,
+      "Languages": [],
+      "CountryCallingCode": "+49",
+      "LocalizableDescription": null,
+      "Id": "scrubbed id",
+      "Label": "Country"
+    }
+  }
+]
