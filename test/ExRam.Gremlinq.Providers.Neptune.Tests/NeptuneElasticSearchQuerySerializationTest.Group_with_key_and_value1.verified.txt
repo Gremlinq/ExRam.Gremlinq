@@ -40,6 +40,20 @@
         ]
       },
       {
+        "OperatorName": "by",
+        "Arguments": [
+          {
+            "SourceInstructions": [],
+            "StepInstructions": [
+              {
+                "OperatorName": "out",
+                "Arguments": []
+              }
+            ]
+          }
+        ]
+      },
+      {
         "OperatorName": "local",
         "Arguments": [
           {

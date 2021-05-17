@@ -1687,6 +1687,38 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task Group_with_key_identity()
+        {
+            await _g
+                .V()
+                .Group(_ => _
+                    .ByKey(_ => _))
+                .Verify();
+        }
+
+        [Fact]
+        public virtual async Task Group_with_key_and_value1()
+        {
+            await _g
+                .V()
+                .Group(_ => _
+                    .ByKey(_ => _.Label())
+                    .ByValue(_ => _.Out()))
+                .Verify();
+        }
+
+        [Fact]
+        public virtual async Task Group_with_key_and_value2()
+        {
+            await _g
+                .V()
+                .Group(_ => _
+                    .ByKey(_ => _.Label())
+                    .ByValue(_ => _.Values()))
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task Identity()
         {
             await _g
