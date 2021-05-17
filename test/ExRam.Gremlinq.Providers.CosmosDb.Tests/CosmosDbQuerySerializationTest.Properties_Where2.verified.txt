@@ -1,14 +1,10 @@
 ﻿[
   {
-    "Script": "V().hasLabel(_a).properties().hasKey(_b).hasValue(lt(_c)).project(_d,_e,_f,_g).by(id).by(label).by(value).by(__.valueMap())",
+    "Script": "V().hasLabel(_a).properties().hasKey(_b).hasValue(lt(_c))",
     "Bindings": {
       "_a": "Person",
       "_b": "Age",
-      "_c": 10,
-      "_d": "id",
-      "_e": "label",
-      "_f": "value",
-      "_g": "properties"
+      "_c": 10
     }
   }
 ]

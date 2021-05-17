@@ -1,15 +1,11 @@
 ﻿[
   {
-    "Script": "V().hasLabel(_a).properties(_b).property(_c,_d).project(_e,_f,_g,_h).by(id).by(label).by(value).by(__.valueMap())",
+    "Script": "V().hasLabel(_a).properties(_b).property(_c,_d)",
     "Bindings": {
       "_a": "Person",
       "_b": "Name",
       "_c": "ValidFrom",
-      "_d": "2020-04-07T14:43:36+00:00",
-      "_e": "id",
-      "_f": "label",
-      "_g": "value",
-      "_h": "properties"
+      "_d": "2020-04-07T14:43:36+00:00"
     }
   }
 ]

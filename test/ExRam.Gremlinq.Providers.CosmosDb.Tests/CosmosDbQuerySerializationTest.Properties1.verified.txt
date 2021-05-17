@@ -1,11 +1,6 @@
 ﻿[
   {
-    "Script": "V().properties().project(_a,_b,_c,_d).by(id).by(label).by(value).by(__.valueMap())",
-    "Bindings": {
-      "_a": "id",
-      "_b": "label",
-      "_c": "value",
-      "_d": "properties"
-    }
+    "Script": "V().properties()",
+    "Bindings": {}
   }
 ]
