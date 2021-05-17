@@ -37,7 +37,7 @@ namespace ExRam.Gremlinq.Core.Projections
                 .ToArray());
         }
 
-        public GroupProjection Group(Projection keyProjection, Projection valueProjection) => new GroupProjection(keyProjection, valueProjection);
+        public GroupProjection Group(Projection keyProjection, Projection valueProjection) => new(keyProjection, valueProjection);
 
         internal Projection If<TProjection>(Func<TProjection, Projection> transformation)
             where TProjection : Projection
@@ -52,12 +52,12 @@ namespace ExRam.Gremlinq.Core.Projections
         {
             var @this = this;
 
+            if (@this.IsHigherOrEqualThan(other))
+                return other;
+
             while (@this != Empty)
             {
-                if (other.GetType().IsInstanceOfType(@this))
-                    return other;
-
-                if (@this.GetType().IsInstanceOfType(other))
+                if (other.IsHigherOrEqualThan(@this))
                     return @this;
 
                 @this = @this.Lower();
@@ -68,10 +68,26 @@ namespace ExRam.Gremlinq.Core.Projections
 
         internal Projection Highest(Projection other)
         {
-            if (GetType().IsAssignableFrom(other.GetType()))
-                return other;
+            return IsHigherOrEqualThan(other)
+                ? this
+                : other;
+        }
 
-            return this;
+        private bool IsHigherOrEqualThan(Projection other)
+        {
+            var @this = this;
+            var otherType = other.GetType();
+
+            do
+            {
+                if (@this.GetType() == otherType)
+                    return true;
+
+                @this = @this.Lower();
+            }
+            while (@this != Empty);
+
+            return false;
         }
 
         public abstract Projection Lower();
