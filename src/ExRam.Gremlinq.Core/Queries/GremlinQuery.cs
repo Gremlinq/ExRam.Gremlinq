@@ -264,10 +264,10 @@ namespace ExRam.Gremlinq.Core
                 .AddStep<TEdge, TElement, object, object, object, object>(
                     new AddEStep(Environment.Model.EdgesModel.GetCache().GetLabel(newEdge!.GetType())),
                     _ => Projection.Edge)
-                .AddOrUpdate(newEdge, true, Projection.Edge);
+                .AddOrUpdate(newEdge, true);
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> AddOrUpdate(TElement element, bool add, Projection projection)
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> AddOrUpdate(TElement element, bool add)
         {
             var ret = this;
             var props = element.Serialize(
@@ -291,7 +291,7 @@ namespace ExRam.Gremlinq.Core
                 if (!Environment.FeatureSet.Supports(VertexFeatures.UserSuppliedIds) && T.Id.Equals(key.RawKey))
                     Environment.Logger.LogWarning($"User supplied ids are not supported according to the environment's {nameof(Environment.FeatureSet)}.");
                 else
-                    ret = ret.AddSteps(GetPropertySteps(key, value, projection == Projection.Vertex), _ => projection);
+                    ret = ret.AddSteps(GetPropertySteps(key, value, Projection == Projection.Vertex));
             }
 
             return ret;
@@ -393,7 +393,7 @@ namespace ExRam.Gremlinq.Core
                 .AddStepWithObjectTypes<TVertex>(
                     new AddVStep(Environment.Model.VerticesModel.GetCache().GetLabel(vertex!.GetType())),
                     _ => Projection.Vertex)
-                .AddOrUpdate(vertex, true, Projection.Vertex);
+                .AddOrUpdate(vertex, true);
         }
 
         private TTargetQuery Aggregate<TStepLabel, TTargetQuery>(Scope scope, TStepLabel stepLabel, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TStepLabel, TTargetQuery> continuation)
