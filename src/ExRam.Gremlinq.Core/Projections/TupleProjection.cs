@@ -32,7 +32,7 @@ namespace ExRam.Gremlinq.Core.Projections
             var projectionTraversals = _projections
                 .Select((projection, i) => projection.Projection
                     .ToTraversal(environment)
-                    .Prepend(new SelectStep(projection.Key))
+                    .Prepend(new SelectKeysStep(projection.Key))
                     .ToImmutableArray())
                 .ToArray();
 

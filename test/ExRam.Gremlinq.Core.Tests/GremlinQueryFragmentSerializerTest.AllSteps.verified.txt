@@ -1006,20 +1006,12 @@
         {
           EnumName: T,
           EnumValue: id
-        },
-        {
-          EnumName: T,
-          EnumValue: id
-        },
-        {
-          EnumName: T,
-          EnumValue: id
         }
       ]
     }
   },
   {
-    Item1: SelectStep,
+    Item1: SelectStepLabelStep,
     Item2: {
       OperatorName: select,
       Arguments: [

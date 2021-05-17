@@ -2,13 +2,13 @@
 
 namespace ExRam.Gremlinq.Core.Steps
 {
-    public sealed class SelectStep : Step
+    public sealed class SelectStepLabelStep : Step
     {
-        public SelectStep(StepLabel stepLabel) : this(ImmutableArray.Create(stepLabel))
+        public SelectStepLabelStep(StepLabel stepLabel) : this(ImmutableArray.Create(stepLabel))
         {
         }
 
-        public SelectStep(ImmutableArray<StepLabel> stepLabels) : base()
+        public SelectStepLabelStep(ImmutableArray<StepLabel> stepLabels) : base()
         {
             StepLabels = stepLabels;
         }

@@ -658,24 +658,12 @@
             EnumName: T,
             EnumValue: id
           }
-        },
-        {
-          RawKey: {
-            EnumName: T,
-            EnumValue: id
-          }
-        },
-        {
-          RawKey: {
-            EnumName: T,
-            EnumValue: id
-          }
         }
       ]
     }
   },
   {
-    Item1: SelectStep,
+    Item1: SelectStepLabelStep,
     Item2: {
       StepLabels: [
         {}
