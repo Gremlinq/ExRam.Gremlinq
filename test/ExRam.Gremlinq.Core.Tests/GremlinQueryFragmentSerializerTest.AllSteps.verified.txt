@@ -999,6 +999,18 @@
     }
   },
   {
+    Item1: SelectColumnStep,
+    Item2: {
+      OperatorName: select,
+      Arguments: [
+        {
+          EnumName: Column,
+          EnumValue: keys
+        }
+      ]
+    }
+  },
+  {
     Item1: SelectKeysStep,
     Item2: {
       OperatorName: select,

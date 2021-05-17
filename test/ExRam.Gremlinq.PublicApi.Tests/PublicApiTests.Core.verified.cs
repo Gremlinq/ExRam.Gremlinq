@@ -1978,6 +1978,11 @@ namespace ExRam.Gremlinq.Core.Steps
         public RepeatStep(ExRam.Gremlinq.Core.Traversal traversal) { }
         public ExRam.Gremlinq.Core.Traversal Traversal { get; }
     }
+    public sealed class SelectColumnStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public SelectColumnStep(Gremlin.Net.Process.Traversal.Column column) { }
+        public Gremlin.Net.Process.Traversal.Column Column { get; }
+    }
     public sealed class SelectKeysStep : ExRam.Gremlinq.Core.Steps.Step
     {
         public SelectKeysStep(ExRam.Gremlinq.Core.Key key) { }

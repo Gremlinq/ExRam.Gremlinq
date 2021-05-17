@@ -2,6 +2,7 @@
 
 namespace ExRam.Gremlinq.Core.Steps
 {
+
     public sealed class SelectStepLabelStep : Step
     {
         public SelectStepLabelStep(StepLabel stepLabel) : this(ImmutableArray.Create(stepLabel))
