@@ -1391,19 +1391,19 @@ namespace ExRam.Gremlinq.Core.Projections
         public override ExRam.Gremlinq.Core.Traversal ToTraversal(ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
         public ExRam.Gremlinq.Core.Projections.Projection Unfold() { }
     }
-    public class EdgeOrVertexProjection : ExRam.Gremlinq.Core.Projections.ElementProjection
+    public sealed class EdgeOrVertexProjection : ExRam.Gremlinq.Core.Projections.Projection
     {
         public EdgeOrVertexProjection() { }
         public override ExRam.Gremlinq.Core.Projections.Projection Lower() { }
         public override ExRam.Gremlinq.Core.Traversal ToTraversal(ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
     }
-    public sealed class EdgeProjection : ExRam.Gremlinq.Core.Projections.EdgeOrVertexProjection
+    public sealed class EdgeProjection : ExRam.Gremlinq.Core.Projections.Projection
     {
         public EdgeProjection() { }
         public override ExRam.Gremlinq.Core.Projections.Projection Lower() { }
         public override ExRam.Gremlinq.Core.Traversal ToTraversal(ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
     }
-    public class ElementProjection : ExRam.Gremlinq.Core.Projections.Projection
+    public sealed class ElementProjection : ExRam.Gremlinq.Core.Projections.Projection
     {
         public ElementProjection() { }
         public override ExRam.Gremlinq.Core.Projections.Projection Lower() { }
@@ -1449,13 +1449,13 @@ namespace ExRam.Gremlinq.Core.Projections
         public override ExRam.Gremlinq.Core.Projections.Projection Lower() { }
         public override ExRam.Gremlinq.Core.Traversal ToTraversal(ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
     }
-    public sealed class VertexProjection : ExRam.Gremlinq.Core.Projections.EdgeOrVertexProjection
+    public sealed class VertexProjection : ExRam.Gremlinq.Core.Projections.Projection
     {
         public VertexProjection() { }
         public override ExRam.Gremlinq.Core.Projections.Projection Lower() { }
         public override ExRam.Gremlinq.Core.Traversal ToTraversal(ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
     }
-    public sealed class VertexPropertyProjection : ExRam.Gremlinq.Core.Projections.ElementProjection
+    public sealed class VertexPropertyProjection : ExRam.Gremlinq.Core.Projections.Projection
     {
         public VertexPropertyProjection() { }
         public override ExRam.Gremlinq.Core.Projections.Projection Lower() { }

@@ -1,6 +1,6 @@
 ﻿namespace ExRam.Gremlinq.Core.Projections
 {
-    public sealed class EdgeProjection : EdgeOrVertexProjection
+    public sealed class EdgeProjection : Projection
     {
         public override Traversal ToTraversal(IGremlinQueryEnvironment environment) => environment.Options.GetValue(GremlinqOption.EdgeProjectionSteps);
 
