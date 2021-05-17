@@ -499,33 +499,36 @@ namespace ExRam.Gremlinq.Core
             where TFalseQuery : IGremlinQueryBase
             where TTargetQuery : IGremlinQueryBase
         {
-            var trueQuery = Continue(trueChoice);
-            var maybeFalseQuery = maybeFalseChoice is { } falseChoice
-                ? Continue(falseChoice)
-                : default;
+            var trueTraversal = this
+                .Continue(trueChoice)
+                .ToTraversal();
 
-            var query = Continue(__ => __.Where(predicate));
+            var maybeFalseTraversal = maybeFalseChoice is { } falseChoice
+                ? Continue(falseChoice).ToTraversal()
+                : default(Traversal?);
 
-            if (query.Steps.Count == 1 && query.Steps[0] is IsStep isStep)
-            {
-                //TODO: Common Projection
-                return this
-                    .AddStep(
-                        new ChoosePredicateStep(
-                            isStep.Predicate,
-                            trueQuery.ToTraversal(),
-                            maybeFalseQuery?.ToTraversal()),
-                        _ => _)
-                    .ChangeQueryType<TTargetQuery>();
-            }
+            var queryTraversal = this
+                .Continue(__ => __
+                    .Where(predicate))
+                .ToTraversal();
+
+            var projection = (maybeFalseTraversal?.Projection ?? Projection)
+                .Lowest(trueTraversal.Projection);
+
+            Step chooseStep = (queryTraversal.Count == 1 && queryTraversal[0] is IsStep isStep)
+                ? new ChoosePredicateStep(
+                    isStep.Predicate,
+                    trueTraversal,
+                    maybeFalseTraversal)
+                : new ChooseTraversalStep(
+                    queryTraversal,
+                    trueTraversal,
+                    maybeFalseTraversal);
 
             return this
                 .AddStep(
-                    new ChooseTraversalStep(
-                        query.ToTraversal(),
-                        trueQuery.ToTraversal(),
-                        maybeFalseQuery?.ToTraversal()),
-                    _ => _)
+                    chooseStep,
+                    _ => projection)
                 .ChangeQueryType<TTargetQuery>();
         }
 
