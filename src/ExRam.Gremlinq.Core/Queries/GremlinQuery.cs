@@ -964,7 +964,7 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TSelectedElement, object, object, object, object, object> Select<TSelectedElement>(StepLabel<TSelectedElement> stepLabel)
         {
             if (StepLabelProjections.TryGetValue(stepLabel, out var stepLabelSemantics))
-                return AddStepWithObjectTypes<TSelectedElement>(new SelectStep(ImmutableArray.Create<StepLabel>(stepLabel)), _ => stepLabelSemantics);
+                return AddStepWithObjectTypes<TSelectedElement>(new SelectStepLabelStep(ImmutableArray.Create<StepLabel>(stepLabel)), _ => stepLabelSemantics);
 
             throw new InvalidOperationException($"Invalid use of unknown {nameof(StepLabel)} in {nameof(Select)}. Make sure you only pass in a {nameof(StepLabel)} that comes from a previous {nameof(As)}- or {nameof(IGremlinQuerySource.WithSideEffect)}-continuation or has previously been passed to an appropriate overload of {nameof(As)} or {nameof(IGremlinQuerySource.WithSideEffect)}.");
         }

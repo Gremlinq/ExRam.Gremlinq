@@ -353,7 +353,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                     ? CreateInstruction("range", recurse, env, step.Scope, step.Lower, step.Upper)
                     : CreateInstruction("range", recurse, env, step.Lower, step.Upper))
                 .Override<RepeatStep>((step, env, overridden, recurse) => CreateInstruction("repeat", recurse, env, step.Traversal))
-                .Override<SelectStep>((step, env, overridden, recurse) => CreateInstruction("select", recurse, env, step.StepLabels))
+                .Override<SelectStepLabelStep>((step, env, overridden, recurse) => CreateInstruction("select", recurse, env, step.StepLabels))
                 .Override<SelectKeysStep>((step, env, overridden, recurse) => CreateInstruction("select", recurse, env, step.Keys))
                 .Override<SideEffectStep>((step, env, overridden, recurse) => CreateInstruction("sideEffect", recurse, env, step.Traversal))
                 .Override<SimplePathStep>((step, env, overridden, recurse) => CreateInstruction("simplePath"))

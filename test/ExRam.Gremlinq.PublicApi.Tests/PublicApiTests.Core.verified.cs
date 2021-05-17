@@ -1980,13 +1980,14 @@ namespace ExRam.Gremlinq.Core.Steps
     }
     public sealed class SelectKeysStep : ExRam.Gremlinq.Core.Steps.Step
     {
+        public SelectKeysStep(ExRam.Gremlinq.Core.Key key) { }
         public SelectKeysStep(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Key> keys) { }
         public System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Key> Keys { get; }
     }
-    public sealed class SelectStep : ExRam.Gremlinq.Core.Steps.Step
+    public sealed class SelectStepLabelStep : ExRam.Gremlinq.Core.Steps.Step
     {
-        public SelectStep(ExRam.Gremlinq.Core.StepLabel stepLabel) { }
-        public SelectStep(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.StepLabel> stepLabels) { }
+        public SelectStepLabelStep(ExRam.Gremlinq.Core.StepLabel stepLabel) { }
+        public SelectStepLabelStep(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.StepLabel> stepLabels) { }
         public System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.StepLabel> StepLabels { get; }
     }
     public sealed class SideEffectStep : ExRam.Gremlinq.Core.Steps.Step
