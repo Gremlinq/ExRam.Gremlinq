@@ -1134,7 +1134,7 @@ namespace ExRam.Gremlinq.Core
                     }
                     case UnaryExpression { NodeType: ExpressionType.Not } unaryExpression:
                     {
-                        return Not(_ => _.Where(unaryExpression.Operand));
+                        return Not(__ => __.Where(unaryExpression.Operand));
                     }
                     case BinaryExpression { NodeType: ExpressionType.OrElse } binary:
                     {
