@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "SourceInstructions": [],
     "StepInstructions": [
@@ -17,6 +17,41 @@
         "Arguments": [
           "Name",
           "CountryCallingCode"
+        ]
+      },
+      {
+        "OperatorName": "project",
+        "Arguments": [
+          "id",
+          "label",
+          "value"
+        ]
+      },
+      {
+        "OperatorName": "by",
+        "Arguments": [
+          {
+            "EnumName": "T",
+            "EnumValue": "id"
+          }
+        ]
+      },
+      {
+        "OperatorName": "by",
+        "Arguments": [
+          {
+            "EnumName": "T",
+            "EnumValue": "label"
+          }
+        ]
+      },
+      {
+        "OperatorName": "by",
+        "Arguments": [
+          {
+            "EnumName": "T",
+            "EnumValue": "value"
+          }
         ]
       }
     ]

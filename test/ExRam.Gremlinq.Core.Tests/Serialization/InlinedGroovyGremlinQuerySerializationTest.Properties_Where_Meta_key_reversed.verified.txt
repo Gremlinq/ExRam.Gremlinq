@@ -1,6 +1,6 @@
-[
+﻿[
   {
-    "Script": "V().hasLabel('Company').properties('Locations').has('ValidFrom',_d)",
+    "Script": "V().hasLabel('Company').properties('Locations').has('ValidFrom',_d).project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap())",
     "Bindings": {
       "_d": "2019-01-01T01:00:00+00:00"
     }

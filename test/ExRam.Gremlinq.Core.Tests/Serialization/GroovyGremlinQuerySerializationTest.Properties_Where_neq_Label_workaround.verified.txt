@@ -1,10 +1,13 @@
-[
+﻿[
   {
-    "Script": "V().hasLabel(_a).properties(_b).has(label,neq(_c))",
+    "Script": "V().hasLabel(_a).properties(_b).has(label,neq(_c)).project(_d,_c,_e,_f).by(id).by(label).by(value).by(__.valueMap())",
     "Bindings": {
       "_a": "Country",
       "_b": "Languages",
-      "_c": "label"
+      "_c": "label",
+      "_d": "id",
+      "_e": "value",
+      "_f": "properties"
     }
   }
 ]

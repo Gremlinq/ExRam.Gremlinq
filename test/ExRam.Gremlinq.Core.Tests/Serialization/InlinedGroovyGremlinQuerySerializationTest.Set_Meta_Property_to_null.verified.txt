@@ -1,6 +1,6 @@
-[
+﻿[
   {
-    "Script": "V().hasLabel('Country').properties('Name').sideEffect(__.properties('metaKey').drop())",
+    "Script": "V().hasLabel('Country').properties('Name').sideEffect(__.properties('metaKey').drop()).project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap())",
     "Bindings": {}
   }
 ]

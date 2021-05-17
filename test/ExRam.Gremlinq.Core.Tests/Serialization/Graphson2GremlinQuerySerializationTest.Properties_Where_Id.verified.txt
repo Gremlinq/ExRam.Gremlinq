@@ -1,3 +1,3 @@
-[
-  "{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"V\"],[\"hasLabel\",\"Country\"],[\"properties\",\"Languages\"],[\"has\",{\"@type\":\"g:T\",\"@value\":\"id\"},\"id\"]]}}"
+﻿[
+  "{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"V\"],[\"hasLabel\",\"Country\"],[\"properties\",\"Languages\"],[\"has\",{\"@type\":\"g:T\",\"@value\":\"id\"},\"id\"],[\"project\",\"id\",\"label\",\"value\",\"properties\"],[\"by\",{\"@type\":\"g:T\",\"@value\":\"id\"}],[\"by\",{\"@type\":\"g:T\",\"@value\":\"label\"}],[\"by\",{\"@type\":\"g:T\",\"@value\":\"value\"}],[\"by\",{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"valueMap\"]]}}]]}}"
 ]

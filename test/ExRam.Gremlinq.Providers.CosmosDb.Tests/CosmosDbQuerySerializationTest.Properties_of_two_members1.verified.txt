@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "Script": "V().hasLabel(_a).properties(_b,_c)",
     "Bindings": {

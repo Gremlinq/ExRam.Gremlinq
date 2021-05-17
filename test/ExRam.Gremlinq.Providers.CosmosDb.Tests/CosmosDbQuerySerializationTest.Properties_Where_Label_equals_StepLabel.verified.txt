@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "Script": "inject(_a).as(_b).V().hasLabel(_c).properties(_d).where(__.label().where(eq(_b)))",
     "Bindings": {
