@@ -54,6 +54,25 @@ namespace ExRam.Gremlinq.Core
                 })
             });
 
+        public static readonly GremlinqOption<Traversal> VertexPropertyProjectionSteps = new(
+            new Step[]
+            {
+                new ProjectStep(ImmutableArray.Create("id", "label", "value", "properties")),
+                new ProjectStep.ByKeyStep(T.Id),
+                new ProjectStep.ByKeyStep(T.Label),
+                new ProjectStep.ByKeyStep(T.Value),
+                new ProjectStep.ByTraversalStep(new ValueMapStep(ImmutableArray<string>.Empty)),
+            });
+
+        public static readonly GremlinqOption<Traversal> VertexPropertyProjectionWithoutMetaPropertiesSteps = new(
+            new Step[]
+            {
+                new ProjectStep(ImmutableArray.Create("id", "label", "value")),
+                new ProjectStep.ByKeyStep(T.Id),
+                new ProjectStep.ByKeyStep(T.Label),
+                new ProjectStep.ByKeyStep(T.Value),
+            });
+
         public static readonly GremlinqOption<Traversal> EdgeProjectionSteps = new(
             new Step[]
             {
