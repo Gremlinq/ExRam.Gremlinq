@@ -1,9 +1,13 @@
-[
+﻿[
   {
-    "Script": "V().where(__.properties()).project(_a,_b).by(__.identity()).by(__.properties())",
+    "Script": "V().where(__.properties()).project(_a,_b).by(__.identity()).by(__.properties()).project(_a,_b).by(__.select(_a)).by(__.select(_b).project(_c,_d,_e,_f).by(id).by(label).by(value).by(__.valueMap()))",
     "Bindings": {
       "_a": "Item1",
-      "_b": "Item2"
+      "_b": "Item2",
+      "_c": "id",
+      "_d": "label",
+      "_e": "value",
+      "_f": "properties"
     }
   }
 ]

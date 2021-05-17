@@ -1,6 +1,6 @@
-[
+﻿[
   {
-    "Script": "V().hasLabel('Person').properties().has('MetaKey',lt(100))",
+    "Script": "V().hasLabel('Person').properties().has('MetaKey',lt(100)).project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap())",
     "Bindings": {}
   }
 ]
