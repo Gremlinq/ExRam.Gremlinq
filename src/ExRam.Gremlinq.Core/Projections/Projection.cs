@@ -12,6 +12,7 @@ namespace ExRam.Gremlinq.Core.Projections
         public static readonly VertexProjection Vertex = new ();
         public static readonly ElementProjection Element = new ();
         public static readonly EdgeOrVertexProjection EdgeOrVertex = new ();
+        public static readonly VertexPropertyProjection VertexProperty = new();
 
         public abstract Traversal ToTraversal(IGremlinQueryEnvironment environment);
 
