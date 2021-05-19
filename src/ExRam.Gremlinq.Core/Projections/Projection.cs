@@ -16,7 +16,7 @@ namespace ExRam.Gremlinq.Core.Projections
 
         internal static readonly EmptyProjection Property = Empty;
 
-        public abstract Traversal ToTraversal(IGremlinQueryEnvironment environment);
+        public virtual Traversal ToTraversal(IGremlinQueryEnvironment environment) => Traversal.Empty;
 
         public ArrayProjection Fold() => new(this);
 
