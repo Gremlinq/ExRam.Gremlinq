@@ -332,11 +332,11 @@
         ExRam.Gremlinq.Core.QueryFlags Flags { get; }
         ExRam.Gremlinq.Core.Projections.Projection Projection { get; }
         ExRam.Gremlinq.Core.StepStack Steps { get; }
-        TTargetQuery AddStep<TTargetQuery>(ExRam.Gremlinq.Core.Steps.Step step)
+        TTargetQuery AddStep<TTargetQuery>(ExRam.Gremlinq.Core.Steps.Step step, System.Func<ExRam.Gremlinq.Core.Projections.Projection, ExRam.Gremlinq.Core.Projections.Projection>? projectionTransformation = null)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
-        TTargetQuery ChangeQueryType<TTargetQuery>()
+        TTargetQuery ChangeQueryType<TTargetQuery>(ExRam.Gremlinq.Core.Projections.Projection? forceProjection = null)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
-        TTargetQuery ConfigureSteps<TTargetQuery>(System.Func<ExRam.Gremlinq.Core.StepStack, ExRam.Gremlinq.Core.StepStack> configurator)
+        TTargetQuery ConfigureSteps<TTargetQuery>(System.Func<ExRam.Gremlinq.Core.StepStack, ExRam.Gremlinq.Core.StepStack> configurator, System.Func<ExRam.Gremlinq.Core.Projections.Projection, ExRam.Gremlinq.Core.Projections.Projection>? projectionTransformation = null)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
         ExRam.Gremlinq.Core.IGremlinQuerySource GetSource();
     }

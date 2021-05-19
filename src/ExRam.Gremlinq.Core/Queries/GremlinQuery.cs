@@ -586,11 +586,12 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> ConfigureEnvironment(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> transformation) => Configure<TElement>(_ => _, transformation);
 
-        private GremlinQuery<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> ConfigureSteps<TNewElement>(Func<StepStack, StepStack> transformation) => Configure<TNewElement>(transformation, _ => _);
+        private GremlinQuery<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> ConfigureSteps<TNewElement>(Func<StepStack, StepStack> transformation, Func<Projection, Projection>? projectionTransformation = null) => Configure<TNewElement>(transformation, _ => _, projectionTransformation);
 
         private GremlinQuery<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Configure<TNewElement>(
             Func<StepStack, StepStack> stepsTransformation,
-            Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> environmentTransformation) => new(stepsTransformation(Steps), Projection, environmentTransformation(Environment), StepLabelProjections, Flags);
+            Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> environmentTransformation,
+            Func<Projection, Projection>? projectionTransformation = null) => new(stepsTransformation(Steps), projectionTransformation?.Invoke(Projection) ?? Projection, environmentTransformation(Environment), StepLabelProjections, Flags);
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> CyclicPath() => AddStep(CyclicPathStep.Instance);
 

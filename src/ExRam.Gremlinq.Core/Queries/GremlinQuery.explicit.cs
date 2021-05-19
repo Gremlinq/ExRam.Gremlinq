@@ -253,11 +253,11 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<TElement> IGremlinQueryBaseRec<IGremlinQuery<TElement>>.Mute() => Mute();
 
-        TTargetQuery IGremlinQueryAdmin.ConfigureSteps<TTargetQuery>(Func<StepStack, StepStack> transformation) => ConfigureSteps<TElement>(transformation).ChangeQueryType<TTargetQuery>();
+        TTargetQuery IGremlinQueryAdmin.ConfigureSteps<TTargetQuery>(Func<StepStack, StepStack> transformation, Func<Projection, Projection>? projectionTransformation) => ConfigureSteps<TElement>(transformation, projectionTransformation).ChangeQueryType<TTargetQuery>();
 
-        TTargetQuery IGremlinQueryAdmin.AddStep<TTargetQuery>(Step step) => AddStep(step, _=> _).ChangeQueryType<TTargetQuery>();
+        TTargetQuery IGremlinQueryAdmin.AddStep<TTargetQuery>(Step step, Func<Projection, Projection>? projectionTransformation) => AddStep(step, projectionTransformation).ChangeQueryType<TTargetQuery>();
 
-        TTargetQuery IGremlinQueryAdmin.ChangeQueryType<TTargetQuery>() => ChangeQueryType<TTargetQuery>();
+        TTargetQuery IGremlinQueryAdmin.ChangeQueryType<TTargetQuery>(Projection? forceProjection) => ChangeQueryType<TTargetQuery>(forceProjection);
 
         IGremlinQuerySource IGremlinQueryAdmin.GetSource() => GremlinQuery.Create(Environment);
 

@@ -41,7 +41,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             foreach (var iface in interfaces)
             {
-                typeof(IGremlinQueryAdmin).GetMethod(nameof(IGremlinQueryAdmin.ChangeQueryType))!.MakeGenericMethod(iface).Invoke(anon, Array.Empty<object>());
+                typeof(IGremlinQueryAdmin).GetMethod(nameof(IGremlinQueryAdmin.ChangeQueryType))!.MakeGenericMethod(iface).Invoke(anon, new object?[] { null });
             }
         }
 
