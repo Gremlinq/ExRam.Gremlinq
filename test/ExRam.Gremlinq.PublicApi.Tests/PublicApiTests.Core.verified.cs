@@ -965,6 +965,7 @@
         public ExRam.Gremlinq.Core.StepStack Pop(out ExRam.Gremlinq.Core.Steps.Step poppedStep) { }
         public ExRam.Gremlinq.Core.StepStack Push(ExRam.Gremlinq.Core.Steps.Step step) { }
         public ExRam.Gremlinq.Core.Traversal ToTraversal(ExRam.Gremlinq.Core.Projections.Projection projection) { }
+        public static ExRam.Gremlinq.Core.StepStack FromArray(ExRam.Gremlinq.Core.Steps.Step[] steps) { }
     }
     public enum StringComparisonTranslationStrictness
     {

@@ -80,13 +80,15 @@ namespace ExRam.Gremlinq.Core
 
         internal void CopyTo(Step[] destination, int sourceIndex, int destinationIndex, int count)
         {
-            for(var i = sourceIndex; i < count + sourceIndex; i++)
+            for (var i = sourceIndex; i < count + sourceIndex; i++)
             {
                 destination[destinationIndex++] = _steps[i]!;
             }
         }
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+        public static StepStack FromArray(Step[] steps) => new((Step[])steps.Clone(), steps.Length);
 
         public int Count { get; }
 
