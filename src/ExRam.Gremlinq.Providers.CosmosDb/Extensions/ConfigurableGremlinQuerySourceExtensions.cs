@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Immutable;
-
 using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Providers.CosmosDb;
@@ -94,6 +92,16 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
+        private class WorkaroundOrder : EnumWrapper, IComparator
+        {
+            public static readonly WorkaroundOrder Incr = new("incr");
+            public static readonly WorkaroundOrder Decr = new("decr");
+
+            private WorkaroundOrder(string enumValue)  : base("Order", enumValue)
+            {
+            }
+        }
+
         private static readonly Step NoneWorkaround = new NotStep(IdentityStep.Instance);
 
         public static IGremlinQuerySource UseCosmosDb(this IConfigurableGremlinQuerySource source, Func<ICosmosDbConfigurator, IGremlinQuerySourceTransformation> transformation)
@@ -149,9 +157,9 @@ namespace ExRam.Gremlinq.Core
                             .Override<Order>((order, env, overridden, recurse) =>
                             {
                                 return order.Equals(Order.Asc)
-                                    ? recurse.Serialize(Order.Incr, env)
+                                    ? recurse.Serialize(WorkaroundOrder.Incr, env)
                                     : order.Equals(Order.Desc)
-                                        ? recurse.Serialize(Order.Decr, env)
+                                        ? recurse.Serialize(WorkaroundOrder.Decr, env)
                                         : overridden(order, env, recurse);
                             }))
                         .ToGroovy())

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Core.Deserialization;
@@ -139,6 +141,54 @@ namespace ExRam.Gremlinq.Core
 
         private sealed class WebSocketConfigurator : IWebSocketConfigurator
         {
+            private sealed class JsonNetMessageSerializer : IMessageSerializer
+            {
+                private static readonly JsonSerializer Serializer = JsonSerializer.CreateDefault();
+
+                private readonly string _mimeType;
+                private readonly GraphSONWriter _graphSONWriter;
+
+                public JsonNetMessageSerializer(string mimeType, GraphSONWriter graphSonWriter)
+                {
+                    _mimeType = mimeType;
+                    _graphSONWriter = graphSonWriter;
+                }
+
+                public async Task<byte[]> SerializeMessageAsync(RequestMessage requestMessage)
+                {
+                    var graphSONMessage = _graphSONWriter.WriteObject(requestMessage);
+                    return Encoding.UTF8.GetBytes(MessageWithHeader(graphSONMessage));
+                }
+
+                private string MessageWithHeader(string messageContent)
+                {
+                    return $"{(char)_mimeType.Length}{_mimeType}{messageContent}";
+                }
+
+                public async Task<ResponseMessage<List<object>>> DeserializeMessageAsync(byte[] message)
+                {
+                    if (message.Length == 0)
+                        return null!;
+
+                    var responseMessage = Serializer
+                        .Deserialize<ResponseMessage<JToken>>(new JsonTextReader(new StreamReader(new MemoryStream(message))));
+
+                    return new ResponseMessage<List<object>>
+                    {
+                        RequestId = responseMessage.RequestId,
+                        Status = responseMessage.Status,
+                        Result = new ResponseResult<List<object>>
+                        {
+                            Data = new List<object>
+                            {
+                                responseMessage.Result.Data
+                            },
+                            Meta = responseMessage.Result.Meta
+                        }
+                    };
+                }
+            }
+
             private readonly Uri? _uri;
             private readonly string _alias;
             private readonly SerializationFormat _format;
@@ -219,15 +269,13 @@ namespace ExRam.Gremlinq.Core
                                 "wss".Equals(_uri.Scheme, StringComparison.OrdinalIgnoreCase),
                                 _auth?.username,
                                 _auth?.password),
-                            _format == SerializationFormat.GraphSonV2
-                                ? new GraphSON2Reader(_additionalDeserializers)
-                                : (GraphSONReader)new GraphSON3Reader(_additionalDeserializers),
-                            _format == SerializationFormat.GraphSonV2
-                                ? new GraphSON2Writer(_additionalSerializers)
-                                : (GraphSONWriter)new GraphSON3Writer(_additionalSerializers),
-                            _format == SerializationFormat.GraphSonV2
-                                ? GremlinClient.GraphSON2MimeType
-                                : GremlinClient.DefaultMimeType,
+                            new JsonNetMessageSerializer(
+                                 _format == SerializationFormat.GraphSonV2
+                                    ? "application/vnd.gremlin-v2.0+json"
+                                    : "application/vnd.gremlin-v3.0+json",
+                                _format == SerializationFormat.GraphSonV2
+                                    ? new GraphSON2Writer(_additionalSerializers)
+                                    : (GraphSONWriter)new GraphSON3Writer(_additionalSerializers)),
                             _connectionPoolSettings),
                         ct)),
                     _alias);
