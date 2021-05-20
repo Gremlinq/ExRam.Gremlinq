@@ -1,4 +1,4 @@
-﻿#if RELEASE && NET5_0 && RUNGREMLINSERVERINTEGRATIONTESTS
+﻿//#if RELEASE && NET5_0 && RUNGREMLINSERVERINTEGRATIONTESTS
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
 using Xunit;
@@ -24,4 +24,4 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
         }
     }
 }
-#endif
+//#endif
