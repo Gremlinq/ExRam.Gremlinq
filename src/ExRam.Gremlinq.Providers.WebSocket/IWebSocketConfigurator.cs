@@ -21,7 +21,5 @@ namespace ExRam.Gremlinq.Providers.WebSocket
         IWebSocketConfigurator SetSerializationFormat(SerializationFormat version);
 
         IWebSocketConfigurator AddGraphSONSerializer(Type type, IGraphSONSerializer serializer);
-
-        IWebSocketConfigurator AddGraphSONDeserializer(string typename, IGraphSONDeserializer serializer);
     }
 }

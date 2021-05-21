@@ -14,7 +14,6 @@ namespace ExRam.Gremlinq.Providers.WebSocket
 {
     public interface IWebSocketConfigurator : ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation
     {
-        ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurator AddGraphSONDeserializer(string typename, Gremlin.Net.Structure.IO.GraphSON.IGraphSONDeserializer serializer);
         ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurator AddGraphSONSerializer(System.Type type, Gremlin.Net.Structure.IO.GraphSON.IGraphSONSerializer serializer);
         ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurator At(System.Uri uri);
         ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurator AuthenticateBy(string username, string password);

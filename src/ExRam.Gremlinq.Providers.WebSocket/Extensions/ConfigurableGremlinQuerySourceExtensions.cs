@@ -196,7 +196,6 @@ namespace ExRam.Gremlinq.Core
             private readonly (string username, string password)? _auth;
             private readonly Func<IGremlinClient, IGremlinClient> _clientTransformation;
             private readonly ImmutableDictionary<Type, IGraphSONSerializer> _additionalSerializers;
-            private readonly ImmutableDictionary<string, IGraphSONDeserializer> _additionalDeserializers;
 
             public WebSocketConfigurator(
                 Uri? uri,
@@ -205,7 +204,6 @@ namespace ExRam.Gremlinq.Core
                 string alias,
                 Func<IGremlinClient, IGremlinClient> clientTransformation,
                 ImmutableDictionary<Type, IGraphSONSerializer> additionalSerializers,
-                ImmutableDictionary<string, IGraphSONDeserializer> additionalDeserializers,
                 ConnectionPoolSettings connectionPoolSettings)
             {
                 _uri = uri;
@@ -213,20 +211,19 @@ namespace ExRam.Gremlinq.Core
                 _alias = alias;
                 _format = format;
                 _additionalSerializers = additionalSerializers;
-                _additionalDeserializers = additionalDeserializers;
                 _connectionPoolSettings = connectionPoolSettings;
                 _clientTransformation = clientTransformation;
             }
 
-            public IWebSocketConfigurator At(Uri uri) => new WebSocketConfigurator(uri, _format, _auth, _alias, _clientTransformation, _additionalSerializers, _additionalDeserializers, _connectionPoolSettings);
+            public IWebSocketConfigurator At(Uri uri) => new WebSocketConfigurator(uri, _format, _auth, _alias, _clientTransformation, _additionalSerializers, _connectionPoolSettings);
 
-            public IWebSocketConfigurator ConfigureGremlinClient(Func<IGremlinClient, IGremlinClient> transformation) => new WebSocketConfigurator(_uri, _format, _auth, _alias, _ => transformation(_clientTransformation(_)), _additionalSerializers, _additionalDeserializers, _connectionPoolSettings);
+            public IWebSocketConfigurator ConfigureGremlinClient(Func<IGremlinClient, IGremlinClient> transformation) => new WebSocketConfigurator(_uri, _format, _auth, _alias, _ => transformation(_clientTransformation(_)), _additionalSerializers, _connectionPoolSettings);
 
-            public IWebSocketConfigurator SetSerializationFormat(SerializationFormat version) => new WebSocketConfigurator(_uri, version, _auth, _alias, _clientTransformation, _additionalSerializers, _additionalDeserializers, _connectionPoolSettings);
+            public IWebSocketConfigurator SetSerializationFormat(SerializationFormat version) => new WebSocketConfigurator(_uri, version, _auth, _alias, _clientTransformation, _additionalSerializers, _connectionPoolSettings);
 
-            public IWebSocketConfigurator AuthenticateBy(string username, string password) => new WebSocketConfigurator(_uri, _format, (username, password), _alias, _clientTransformation, _additionalSerializers, _additionalDeserializers, _connectionPoolSettings);
+            public IWebSocketConfigurator AuthenticateBy(string username, string password) => new WebSocketConfigurator(_uri, _format, (username, password), _alias, _clientTransformation, _additionalSerializers, _connectionPoolSettings);
 
-            public IWebSocketConfigurator SetAlias(string alias) => new WebSocketConfigurator(_uri, _format, _auth, alias, _clientTransformation, _additionalSerializers, _additionalDeserializers, _connectionPoolSettings);
+            public IWebSocketConfigurator SetAlias(string alias) => new WebSocketConfigurator(_uri, _format, _auth, alias, _clientTransformation, _additionalSerializers, _connectionPoolSettings);
 
             public IWebSocketConfigurator ConfigureConnectionPool(Action<ConnectionPoolSettings> transformation)
             {
@@ -238,12 +235,10 @@ namespace ExRam.Gremlinq.Core
 
                 transformation(newConnectionPoolSettings);
 
-                return new WebSocketConfigurator(_uri, _format, _auth, _alias, _clientTransformation, _additionalSerializers, _additionalDeserializers, newConnectionPoolSettings);
+                return new WebSocketConfigurator(_uri, _format, _auth, _alias, _clientTransformation, _additionalSerializers, newConnectionPoolSettings);
             }
 
-            public IWebSocketConfigurator AddGraphSONSerializer(Type type, IGraphSONSerializer serializer) => new WebSocketConfigurator(_uri, _format, _auth, _alias, _clientTransformation, _additionalSerializers.SetItem(type, serializer), _additionalDeserializers, _connectionPoolSettings);
-
-            public IWebSocketConfigurator AddGraphSONDeserializer(string typename, IGraphSONDeserializer deserializer) => new WebSocketConfigurator(_uri, _format, _auth, _alias, _clientTransformation, _additionalSerializers, _additionalDeserializers.SetItem(typename, deserializer), _connectionPoolSettings);
+            public IWebSocketConfigurator AddGraphSONSerializer(Type type, IGraphSONSerializer serializer) => new WebSocketConfigurator(_uri, _format, _auth, _alias, _clientTransformation, _additionalSerializers.SetItem(type, serializer), _connectionPoolSettings);
 
             public IGremlinQuerySource Transform(IGremlinQuerySource source)
             {
@@ -293,7 +288,6 @@ namespace ExRam.Gremlinq.Core
                 "g",
                 _ => _,
                 ImmutableDictionary<Type, IGraphSONSerializer>.Empty,
-                ImmutableDictionary<string, IGraphSONDeserializer>.Empty,
                 new ConnectionPoolSettings());
 
             return configuratorTransformation(configurator)
