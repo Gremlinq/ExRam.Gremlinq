@@ -3,6 +3,7 @@ using System.Linq;
 using ExRam.Gremlinq.Core.Deserialization;
 using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Core.Serialization;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Core.Tests
@@ -20,7 +21,15 @@ namespace ExRam.Gremlinq.Core.Tests
 
             public IAsyncEnumerable<object> Execute(object groovySerializedQuery, IGremlinQueryEnvironment environment)
             {
-                return new [] { JToken.Parse(_json) }.ToAsyncEnumerable();
+                return new object[]
+                {
+                    JsonConvert.DeserializeObject<JToken>(
+                        _json,
+                        new JsonSerializerSettings()
+                        {
+                            DateParseHandling = DateParseHandling.None
+                        })!
+                }.ToAsyncEnumerable();
             }
         }
 

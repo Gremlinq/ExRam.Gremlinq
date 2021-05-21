@@ -31,7 +31,11 @@ namespace ExRam.Gremlinq.Core
         public static readonly IMessageSerializer GraphSON2 = new GraphSON2JsonNetMessageSerializer();
         public static readonly IMessageSerializer GraphSON3 = new GraphSON3JsonNetMessageSerializer();
 
-        private static readonly JsonSerializer Serializer = JsonSerializer.CreateDefault();
+        private static readonly JsonSerializer Serializer = JsonSerializer.Create(
+            new JsonSerializerSettings
+            {
+                DateParseHandling = DateParseHandling.None
+            });
 
         private readonly byte[] _mimeTypeBytes;
         private readonly GraphSONWriter _graphSONWriter;
