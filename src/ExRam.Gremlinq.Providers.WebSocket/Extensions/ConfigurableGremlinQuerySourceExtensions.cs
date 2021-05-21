@@ -141,14 +141,30 @@ namespace ExRam.Gremlinq.Core
 
         private sealed class WebSocketConfigurator : IWebSocketConfigurator
         {
-            private sealed class JsonNetMessageSerializer : IMessageSerializer
+            private abstract class JsonNetMessageSerializer : IMessageSerializer
             {
+                public sealed class GraphSON2 : JsonNetMessageSerializer
+                {
+                    public GraphSON2() : base("application/vnd.gremlin-v2.0+json", new GraphSON2Writer())
+                    {
+
+                    }
+                }
+
+                public sealed class GraphSON3 : JsonNetMessageSerializer
+                {
+                    public GraphSON3() : base("application/vnd.gremlin-v3.0+json", new GraphSON3Writer())
+                    {
+
+                    }
+                }
+
                 private static readonly JsonSerializer Serializer = JsonSerializer.CreateDefault();
 
                 private readonly string _mimeType;
                 private readonly GraphSONWriter _graphSONWriter;
 
-                public JsonNetMessageSerializer(string mimeType, GraphSONWriter graphSonWriter)
+                protected JsonNetMessageSerializer(string mimeType, GraphSONWriter graphSonWriter)
                 {
                     _mimeType = mimeType;
                     _graphSONWriter = graphSonWriter;
@@ -259,13 +275,9 @@ namespace ExRam.Gremlinq.Core
                                 "wss".Equals(_uri.Scheme, StringComparison.OrdinalIgnoreCase),
                                 _auth?.username,
                                 _auth?.password),
-                            new JsonNetMessageSerializer(
-                                 _format == SerializationFormat.GraphSonV2
-                                    ? "application/vnd.gremlin-v2.0+json"
-                                    : "application/vnd.gremlin-v3.0+json",
-                                _format == SerializationFormat.GraphSonV2
-                                    ? new GraphSON2Writer()
-                                    : (GraphSONWriter)new GraphSON3Writer()),
+                            _format == SerializationFormat.GraphSonV2
+                                ? new JsonNetMessageSerializer.GraphSON2()
+                                : new JsonNetMessageSerializer.GraphSON3(),
                             _connectionPoolSettings),
                         ct)),
                     _alias);
