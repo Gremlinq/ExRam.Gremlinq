@@ -2,7 +2,6 @@
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Serialization;
 using Gremlin.Net.Driver;
-using Gremlin.Net.Structure.IO.GraphSON;
 
 namespace ExRam.Gremlinq.Providers.WebSocket
 {
@@ -19,7 +18,5 @@ namespace ExRam.Gremlinq.Providers.WebSocket
         IWebSocketConfigurator ConfigureGremlinClient(Func<IGremlinClient, IGremlinClient> transformation);
 
         IWebSocketConfigurator SetSerializationFormat(SerializationFormat version);
-
-        IWebSocketConfigurator AddGraphSONSerializer(Type type, IGraphSONSerializer serializer);
     }
 }
