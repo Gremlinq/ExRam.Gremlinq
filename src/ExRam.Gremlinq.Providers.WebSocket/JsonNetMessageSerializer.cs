@@ -33,24 +33,24 @@ namespace ExRam.Gremlinq.Core
 
         private static readonly JsonSerializer Serializer = JsonSerializer.CreateDefault();
 
-        private readonly string _mimeType;
+        private readonly byte[] _mimeTypeBytes;
         private readonly GraphSONWriter _graphSONWriter;
 
         protected JsonNetMessageSerializer(string mimeType, GraphSONWriter graphSonWriter)
         {
-            _mimeType = mimeType;
             _graphSONWriter = graphSonWriter;
+            _mimeTypeBytes = Encoding.UTF8.GetBytes($"{(char)mimeType.Length}{mimeType}");
         }
 
         public async Task<byte[]> SerializeMessageAsync(RequestMessage requestMessage)
         {
             var graphSONMessage = _graphSONWriter.WriteObject(requestMessage);
-            return Encoding.UTF8.GetBytes(MessageWithHeader(graphSONMessage));
-        }
+            var ret = new byte[Encoding.UTF8.GetByteCount(graphSONMessage) + _mimeTypeBytes.Length];
 
-        private string MessageWithHeader(string messageContent)
-        {
-            return $"{(char)_mimeType.Length}{_mimeType}{messageContent}";
+            _mimeTypeBytes.CopyTo(ret, 0);
+            Encoding.UTF8.GetBytes(graphSONMessage, 0, graphSONMessage.Length, ret, _mimeTypeBytes.Length);
+
+            return ret;
         }
 
         public async Task<ResponseMessage<List<object>>> DeserializeMessageAsync(byte[] message)
