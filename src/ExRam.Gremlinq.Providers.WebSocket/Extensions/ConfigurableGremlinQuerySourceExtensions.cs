@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Core.Deserialization;
@@ -14,7 +11,6 @@ using ExRam.Gremlinq.Providers.WebSocket;
 using Gremlin.Net.Driver;
 using Gremlin.Net.Driver.Messages;
 using Gremlin.Net.Process.Traversal;
-using Gremlin.Net.Structure.IO.GraphSON;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -141,70 +137,6 @@ namespace ExRam.Gremlinq.Core
 
         private sealed class WebSocketConfigurator : IWebSocketConfigurator
         {
-            private abstract class JsonNetMessageSerializer : IMessageSerializer
-            {
-                public sealed class GraphSON2 : JsonNetMessageSerializer
-                {
-                    public GraphSON2() : base("application/vnd.gremlin-v2.0+json", new GraphSON2Writer())
-                    {
-
-                    }
-                }
-
-                public sealed class GraphSON3 : JsonNetMessageSerializer
-                {
-                    public GraphSON3() : base("application/vnd.gremlin-v3.0+json", new GraphSON3Writer())
-                    {
-
-                    }
-                }
-
-                private static readonly JsonSerializer Serializer = JsonSerializer.CreateDefault();
-
-                private readonly string _mimeType;
-                private readonly GraphSONWriter _graphSONWriter;
-
-                protected JsonNetMessageSerializer(string mimeType, GraphSONWriter graphSonWriter)
-                {
-                    _mimeType = mimeType;
-                    _graphSONWriter = graphSonWriter;
-                }
-
-                public async Task<byte[]> SerializeMessageAsync(RequestMessage requestMessage)
-                {
-                    var graphSONMessage = _graphSONWriter.WriteObject(requestMessage);
-                    return Encoding.UTF8.GetBytes(MessageWithHeader(graphSONMessage));
-                }
-
-                private string MessageWithHeader(string messageContent)
-                {
-                    return $"{(char)_mimeType.Length}{_mimeType}{messageContent}";
-                }
-
-                public async Task<ResponseMessage<List<object>>> DeserializeMessageAsync(byte[] message)
-                {
-                    if (message.Length == 0)
-                        return null!;
-
-                    var responseMessage = Serializer
-                        .Deserialize<ResponseMessage<JToken>>(new JsonTextReader(new StreamReader(new MemoryStream(message))));
-
-                    return new ResponseMessage<List<object>>
-                    {
-                        RequestId = responseMessage.RequestId,
-                        Status = responseMessage.Status,
-                        Result = new ResponseResult<List<object>>
-                        {
-                            Data = new List<object>
-                            {
-                                responseMessage.Result.Data
-                            },
-                            Meta = responseMessage.Result.Meta
-                        }
-                    };
-                }
-            }
-
             private readonly Uri? _uri;
             private readonly string _alias;
             private readonly SerializationFormat _format;
