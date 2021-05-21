@@ -79,7 +79,7 @@ namespace ExRam.Gremlinq.Core
             public IGremlinQuerySource Transform(IGremlinQuerySource source)
             {
                 var webSocketConfigurator = _webSocketConfigurator
-                    .SetSerializationFormat(SerializationFormat.GraphSonV2);
+                    .ConfigureMessageSerializer(_ => JsonNetMessageSerializer.GraphSON2);
 
                 if (_uri is { } uri)
                     webSocketConfigurator = webSocketConfigurator.At(uri);

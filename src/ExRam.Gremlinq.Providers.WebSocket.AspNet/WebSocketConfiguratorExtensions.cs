@@ -35,8 +35,9 @@ namespace ExRam.Gremlinq.Core.AspNet
             if (authenticationSection["Username"] is { } username && authenticationSection["Password"] is { } password)
                 webSocketConfigurator = webSocketConfigurator.AuthenticateBy(username, password);
 
-            if (Enum.TryParse<SerializationFormat>(configuration[$"{nameof(SerializationFormat)}"], out var graphsonVersion))
-                webSocketConfigurator = webSocketConfigurator.SetSerializationFormat(graphsonVersion);
+            //If needed: Configure by type name.
+            //if (Enum.TryParse<SerializationFormat>(configuration[$"{nameof(SerializationFormat)}"], out var graphsonVersion))
+            //    webSocketConfigurator = webSocketConfigurator.SetSerializationFormat(graphsonVersion);
 
             return webSocketConfigurator;
         }

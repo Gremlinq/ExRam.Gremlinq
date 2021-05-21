@@ -1,6 +1,5 @@
 ﻿using System;
 using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Core.Serialization;
 using Gremlin.Net.Driver;
 
 namespace ExRam.Gremlinq.Providers.WebSocket
@@ -17,6 +16,6 @@ namespace ExRam.Gremlinq.Providers.WebSocket
 
         IWebSocketConfigurator ConfigureGremlinClient(Func<IGremlinClient, IGremlinClient> transformation);
 
-        IWebSocketConfigurator SetSerializationFormat(SerializationFormat version);
+        IWebSocketConfigurator ConfigureMessageSerializer(Func<IMessageSerializer, IMessageSerializer> transformation);
     }
 }

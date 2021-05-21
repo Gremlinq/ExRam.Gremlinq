@@ -1502,11 +1502,6 @@ namespace ExRam.Gremlinq.Core.Serialization
         ExRam.Gremlinq.Core.Serialization.IGremlinQuerySerializer ConfigureFragmentSerializer(System.Func<ExRam.Gremlinq.Core.Serialization.IGremlinQueryFragmentSerializer, ExRam.Gremlinq.Core.Serialization.IGremlinQueryFragmentSerializer> transformation);
         object Serialize(ExRam.Gremlinq.Core.IGremlinQueryBase query);
     }
-    public enum SerializationFormat
-    {
-        GraphSonV2 = 0,
-        GraphSonV3 = 1,
-    }
 }
 namespace ExRam.Gremlinq.Core.Steps
 {
