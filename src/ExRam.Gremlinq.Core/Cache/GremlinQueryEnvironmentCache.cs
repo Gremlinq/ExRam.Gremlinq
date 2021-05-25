@@ -229,19 +229,12 @@ namespace ExRam.Gremlinq.Core
             private readonly KeyLookup _keyLookup;
             private readonly IGremlinQueryEnvironment _environment;
             private readonly ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer> _ignoringSerializers = new();
-            private readonly ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer> _populatingSerializers = new();
             private readonly ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer>.CreateValueCallback _ignoringSerializerFactory;
-            private readonly ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer>.CreateValueCallback _populatingSerializerFactory;
             private readonly ConcurrentDictionary<Type, (PropertyInfo propertyInfo, Key key, SerializationBehaviour serializationBehaviour)[]> _typeProperties = new();
 
             public GremlinQueryEnvironmentCacheImpl(IGremlinQueryEnvironment environment)
             {
                 _environment = environment;
-
-                _populatingSerializerFactory = closure => new GraphsonJsonSerializer(
-                    DefaultValueHandling.Populate,
-                    _environment,
-                    closure);
 
                 _ignoringSerializerFactory = closure => new GraphsonJsonSerializer(
                     DefaultValueHandling.Ignore,
@@ -274,9 +267,9 @@ namespace ExRam.Gremlinq.Core
             {
                 GraphsonJsonSerializer.JTokenConverterConverter._canConvert = false;
 
-                return _populatingSerializers.GetValue(
+                return _ignoringSerializers.GetValue(
                     fragmentDeserializer,
-                    _populatingSerializerFactory);
+                    _ignoringSerializerFactory);
             }
 
             public JsonSerializer GetIgnoringJsonSerializer(IGremlinQueryFragmentDeserializer fragmentDeserializer)
