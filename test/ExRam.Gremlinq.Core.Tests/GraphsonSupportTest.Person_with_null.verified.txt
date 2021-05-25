@@ -1,8 +1,8 @@
-[
+﻿[
   {
     "Age": 36,
     "Gender": 1,
-    "Image": "",
+    "Image": null,
     "RegistrationDate": null,
     "PhoneNumbers": [
       {

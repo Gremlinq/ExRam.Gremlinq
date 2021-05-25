@@ -2,9 +2,9 @@
   {
     "Age": 21,
     "Gender": 0,
-    "Image": "",
+    "Image": null,
     "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": [],
+    "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": {
       "Id": "scrubbed id",
@@ -20,15 +20,15 @@
   },
   {
     "FoundingDate": "0001-01-01T00:00:00",
-    "PhoneNumbers": [],
-    "Locations": [],
+    "PhoneNumbers": null,
+    "Locations": null,
     "Name": null,
     "Id": "scrubbed id",
     "Label": "Company"
   },
   {
     "FoundingDate": "0001-01-01T00:00:00",
-    "PhoneNumbers": [],
+    "PhoneNumbers": null,
     "Locations": [
       {
         "Id": "scrubbed id",
@@ -47,9 +47,9 @@
   {
     "Age": 21,
     "Gender": 0,
-    "Image": "",
+    "Image": null,
     "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": [],
+    "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": {
       "Id": "scrubbed id",
@@ -66,9 +66,9 @@
   {
     "Age": 21,
     "Gender": 0,
-    "Image": "",
+    "Image": null,
     "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": [],
+    "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": {
       "Id": "scrubbed id",
@@ -88,7 +88,7 @@
       "+4912345",
       "+4923456"
     ],
-    "Locations": [],
+    "Locations": null,
     "Name": null,
     "Id": "scrubbed id",
     "Label": "Company"
@@ -96,9 +96,9 @@
   {
     "Age": 21,
     "Gender": 0,
-    "Image": "",
+    "Image": null,
     "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": [],
+    "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": {
       "Id": "scrubbed id",
@@ -115,9 +115,9 @@
   {
     "Age": 21,
     "Gender": 0,
-    "Image": "",
+    "Image": null,
     "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": [],
+    "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": {
       "Id": "scrubbed id",
@@ -134,9 +134,9 @@
   {
     "Age": 21,
     "Gender": 0,
-    "Image": "",
+    "Image": null,
     "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": [],
+    "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": {
       "Id": "scrubbed id",
@@ -152,8 +152,8 @@
   },
   {
     "FoundingDate": "0001-01-01T00:00:00",
-    "PhoneNumbers": [],
-    "Locations": [],
+    "PhoneNumbers": null,
+    "Locations": null,
     "Name": null,
     "Id": "scrubbed id",
     "Label": "Company"
@@ -161,9 +161,9 @@
   {
     "Age": 21,
     "Gender": 0,
-    "Image": "",
+    "Image": null,
     "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": [],
+    "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": {
       "Id": "scrubbed id",
@@ -180,9 +180,9 @@
   {
     "Age": 21,
     "Gender": 0,
-    "Image": "",
+    "Image": null,
     "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": [],
+    "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": {
       "Id": "scrubbed id",
@@ -198,8 +198,8 @@
   },
   {
     "FoundingDate": "0001-01-01T00:00:00",
-    "PhoneNumbers": [],
-    "Locations": [],
+    "PhoneNumbers": null,
+    "Locations": null,
     "Name": null,
     "Id": "scrubbed id",
     "Label": "Company"
@@ -207,9 +207,9 @@
   {
     "Age": 21,
     "Gender": 0,
-    "Image": "",
+    "Image": null,
     "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": [],
+    "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": {
       "Id": "scrubbed id",
@@ -228,7 +228,7 @@
     "Gender": 0,
     "Image": "AQIDBAUGBwg=",
     "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": [],
+    "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": {
       "Id": "scrubbed id",
@@ -245,9 +245,9 @@
   {
     "Age": 21,
     "Gender": 0,
-    "Image": "",
+    "Image": null,
     "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": [],
+    "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": {
       "Id": "scrubbed id",

@@ -2,7 +2,7 @@
   [
     {
       "Name": null,
-      "Languages": [],
+      "Languages": null,
       "CountryCallingCode": "+49",
       "LocalizableDescription": {
         "Id": "scrubbed id",
