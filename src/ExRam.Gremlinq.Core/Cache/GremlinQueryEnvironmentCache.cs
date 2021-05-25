@@ -24,50 +24,6 @@ namespace ExRam.Gremlinq.Core
                 #region Nested
                 private sealed class GremlinContractResolver : DefaultContractResolver
                 {
-                    private sealed class EmptyListValueProvider : IValueProvider
-                    {
-                        private readonly object _defaultValue;
-                        private readonly IValueProvider _innerProvider;
-
-                        public EmptyListValueProvider(IValueProvider innerProvider, Type elementType)
-                        {
-                            _innerProvider = innerProvider;
-                            _defaultValue = Array.CreateInstance(elementType, 0);
-                        }
-
-                        public void SetValue(object target, object? value)
-                        {
-                            _innerProvider.SetValue(target, value ?? _defaultValue);
-                        }
-
-                        public object GetValue(object target)
-                        {
-                            return _innerProvider.GetValue(target) ?? _defaultValue;
-                        }
-                    }
-
-                    private sealed class EmptyDictionaryValueProvider : IValueProvider
-                    {
-                        private readonly object _defaultValue;
-                        private readonly IValueProvider _innerProvider;
-
-                        public EmptyDictionaryValueProvider(IValueProvider innerProvider)
-                        {
-                            _innerProvider = innerProvider;
-                            _defaultValue = new Dictionary<string, object>();
-                        }
-
-                        public void SetValue(object target, object? value)
-                        {
-                            _innerProvider.SetValue(target, value ?? _defaultValue);
-                        }
-
-                        public object GetValue(object target)
-                        {
-                            return _innerProvider.GetValue(target) ?? _defaultValue;
-                        }
-                    }
-
                     private readonly IGraphElementPropertyModel _model;
 
                     public GremlinContractResolver(IGraphElementPropertyModel model)
@@ -97,24 +53,6 @@ namespace ExRam.Gremlinq.Core
                         }
 
                         return property;
-                    }
-
-                    protected override IValueProvider CreateMemberValueProvider(MemberInfo member)
-                    {
-                        var provider = base.CreateMemberValueProvider(member);
-
-                        if (member is PropertyInfo propertyMember)
-                        {
-                            var propertyType = propertyMember.PropertyType;
-
-                            if (propertyType == typeof(IDictionary<string, object>) && propertyMember.Name == nameof(VertexProperty<object>.Properties) && typeof(IVertexProperty).IsAssignableFrom(propertyMember.DeclaringType))
-                                return new EmptyDictionaryValueProvider(provider);
-
-                            if (propertyType.IsArray)
-                                return new EmptyListValueProvider(provider, propertyType.GetElementType()!);
-                        }
-
-                        return provider;
                     }
                 }
 
