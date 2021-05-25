@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "Name": {
       "Id": 1,
@@ -10,7 +10,7 @@
       "Value": "GER",
       "Key": null
     },
-    "Languages": [],
+    "Languages": null,
     "CountryCallingCode": null,
     "LocalizableDescription": null,
     "Id": 3,

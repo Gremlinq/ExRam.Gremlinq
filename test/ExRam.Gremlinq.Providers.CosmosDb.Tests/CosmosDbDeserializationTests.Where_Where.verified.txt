@@ -1,10 +1,10 @@
-[
+﻿[
   {
     "Age": 21,
     "Gender": 0,
-    "Image": "",
+    "Image": null,
     "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": [],
+    "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": {
       "Id": "scrubbed id",
@@ -19,9 +19,9 @@
   {
     "Age": 21,
     "Gender": 0,
-    "Image": "",
+    "Image": null,
     "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": [],
+    "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": {
       "Id": "scrubbed id",
@@ -36,9 +36,9 @@
   {
     "Age": 21,
     "Gender": 0,
-    "Image": "",
+    "Image": null,
     "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": [],
+    "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": {
       "Id": "scrubbed id",
@@ -53,9 +53,9 @@
   {
     "Age": 21,
     "Gender": 0,
-    "Image": "",
+    "Image": null,
     "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": [],
+    "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": {
       "Id": "scrubbed id",

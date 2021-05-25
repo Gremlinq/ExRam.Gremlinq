@@ -2,7 +2,7 @@
   {
     "Age": 36,
     "Gender": null,
-    "Image": "",
+    "Image": null,
     "RegistrationDate": "2016-12-14T21:14:36.295+00:00",
     "PhoneNumbers": [
       {
