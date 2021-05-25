@@ -157,7 +157,7 @@ namespace ExRam.Gremlinq.Core
                             }
 
                             return DefaultTs.TryGetValue(name, out var defaultT) && !@this._configuredTs.Contains(defaultT)
-                                ? (Key)defaultT
+                                ? defaultT
                                 : name;
                         },
                         this);
