@@ -3,9 +3,9 @@
     "Key": {
       "Age": 36,
       "Gender": null,
-      "Image": "",
+      "Image": null,
       "RegistrationDate": null,
-      "PhoneNumbers": [],
+      "PhoneNumbers": null,
       "SomeObscureProperty": null,
       "Name": {
         "Id": 1,

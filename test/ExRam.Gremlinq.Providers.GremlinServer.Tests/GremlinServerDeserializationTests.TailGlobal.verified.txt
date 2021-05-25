@@ -2,9 +2,9 @@
   {
     "Age": 36,
     "Gender": 1,
-    "Image": "",
+    "Image": null,
     "RegistrationDate": null,
-    "PhoneNumbers": [],
+    "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": null,
     "Id": "scrubbed id",

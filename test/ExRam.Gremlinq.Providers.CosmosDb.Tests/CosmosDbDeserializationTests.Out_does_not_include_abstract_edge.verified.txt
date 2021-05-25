@@ -1,7 +1,7 @@
-[
+﻿[
   {
     "Name": null,
-    "Languages": [],
+    "Languages": null,
     "CountryCallingCode": null,
     "LocalizableDescription": null,
     "Id": "scrubbed id",
@@ -9,7 +9,7 @@
   },
   {
     "Name": null,
-    "Languages": [],
+    "Languages": null,
     "CountryCallingCode": null,
     "LocalizableDescription": null,
     "Id": "scrubbed id",
@@ -17,7 +17,7 @@
   },
   {
     "Name": null,
-    "Languages": [],
+    "Languages": null,
     "CountryCallingCode": null,
     "LocalizableDescription": null,
     "Id": "scrubbed id",
@@ -25,7 +25,7 @@
   },
   {
     "Name": null,
-    "Languages": [],
+    "Languages": null,
     "CountryCallingCode": "+49",
     "LocalizableDescription": null,
     "Id": "scrubbed id",

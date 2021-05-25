@@ -1,7 +1,7 @@
-[
+﻿[
   {
     "FoundingDate": "0001-01-01T00:00:00",
-    "PhoneNumbers": [],
+    "PhoneNumbers": null,
     "Locations": [
       {
         "Id": "scrubbed id",
@@ -23,7 +23,7 @@
       "+4912345",
       "+4923456"
     ],
-    "Locations": [],
+    "Locations": null,
     "Name": null,
     "Id": "scrubbed id",
     "Label": "Company"

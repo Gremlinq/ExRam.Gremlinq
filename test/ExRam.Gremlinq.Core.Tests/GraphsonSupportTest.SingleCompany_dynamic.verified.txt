@@ -1,8 +1,8 @@
-[
+﻿[
   {
     "FoundingDate": "2018-12-17T08:00:00Z",
-    "PhoneNumbers": [],
-    "Locations": [],
+    "PhoneNumbers": null,
+    "Locations": null,
     "Name": {
       "Id": "af8d9d94-3814-400a-91b8-1a6bef584a9a",
       "Label": null,
