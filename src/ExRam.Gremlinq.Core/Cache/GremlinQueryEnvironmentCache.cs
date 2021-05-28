@@ -52,6 +52,8 @@ namespace ExRam.Gremlinq.Core
                             }
                         }
 
+                        property.Readable = false;
+
                         return property;
                     }
                 }
