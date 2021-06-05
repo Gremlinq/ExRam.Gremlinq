@@ -1,0 +1,6 @@
+﻿[
+  {
+    "Script": "withSideEffect('l1',36).V().select('l1')",
+    "Bindings": {}
+  }
+]
