@@ -13,7 +13,7 @@
         IOutEdgeGremlinQueryBase<TEdge, TOutVertex>,
         IInEdgeGremlinQueryBase<TEdge, TInVertex>
     {
-        new IEdgeOrVertexGremlinQuery<TEdge> Lower();
+        new IEdgeGremlinQuery<TEdge> Lower();
     }
     
     public interface IBothEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> :
