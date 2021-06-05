@@ -1,0 +1,25 @@
+﻿[
+  {
+    "SourceInstructions": [
+      {
+        "OperatorName": "withSideEffect",
+        "Arguments": [
+          "l1",
+          36
+        ]
+      }
+    ],
+    "StepInstructions": [
+      {
+        "OperatorName": "V",
+        "Arguments": []
+      },
+      {
+        "OperatorName": "select",
+        "Arguments": [
+          "l1"
+        ]
+      }
+    ]
+  }
+]

@@ -5716,5 +5716,17 @@ namespace ExRam.Gremlinq.Core.Tests
                     (__, label) => __.V())
                 .Verify();
         }
+
+        [Fact]
+        public virtual async Task WithSideEffect_label_can_be_selected()
+        {
+            await _g
+                .WithSideEffect(
+                    36,
+                    (__, label) => __
+                        .V()
+                        .Select(label))
+                .Verify();
+        }
     }
 }
