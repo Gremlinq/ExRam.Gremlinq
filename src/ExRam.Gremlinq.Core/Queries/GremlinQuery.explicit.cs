@@ -267,8 +267,6 @@ namespace ExRam.Gremlinq.Core
                 
         Type IGremlinQueryAdmin.ElementType { get => typeof(TElement); }
 
-        QueryFlags IGremlinQueryAdmin.Flags => Flags;
-
         IEdgeGremlinQuery<TEdge> IStartGremlinQuery.AddE<TEdge>(TEdge edge) => AddE(edge);
 
         IValueGremlinQuery<TScalar> IArrayGremlinQueryBase<TScalar>.Unfold() => Unfold<IValueGremlinQuery<TScalar>>();

@@ -329,7 +329,6 @@
     {
         System.Type ElementType { get; }
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment Environment { get; }
-        ExRam.Gremlinq.Core.QueryFlags Flags { get; }
         ExRam.Gremlinq.Core.Projections.Projection Projection { get; }
         ExRam.Gremlinq.Core.StepStack Steps { get; }
         TTargetQuery AddStep<TTargetQuery>(ExRam.Gremlinq.Core.Steps.Step step, System.Func<ExRam.Gremlinq.Core.Projections.Projection, ExRam.Gremlinq.Core.Projections.Projection>? projectionTransformation = null)
@@ -914,14 +913,6 @@
         public static ExRam.Gremlinq.Core.Key op_Implicit(string name) { }
         public static bool operator !=(ExRam.Gremlinq.Core.Key key1, ExRam.Gremlinq.Core.Key key2) { }
         public static bool operator ==(ExRam.Gremlinq.Core.Key key1, ExRam.Gremlinq.Core.Key key2) { }
-    }
-    [System.Flags]
-    public enum QueryFlags
-    {
-        None = 0,
-        SurfaceVisible = 1,
-        IsAnonymous = 2,
-        IsMuted = 4,
     }
     [System.Flags]
     public enum QueryLogVerbosity

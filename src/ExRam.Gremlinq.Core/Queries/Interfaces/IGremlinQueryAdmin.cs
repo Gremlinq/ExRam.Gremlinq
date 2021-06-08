@@ -14,7 +14,6 @@ namespace ExRam.Gremlinq.Core
         IGremlinQuerySource GetSource();
 
         StepStack Steps { get; }
-        QueryFlags Flags { get; }
         Type ElementType { get; }
         Projection Projection { get; }
         IGremlinQueryEnvironment Environment { get; }
