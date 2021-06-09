@@ -23,6 +23,7 @@ namespace ExRam.Gremlinq.Core.Models
                 typeof(float),
                 typeof(double),
                 typeof(string),
+                typeof(Guid),
                 typeof(TimeSpan),
                 typeof(DateTime),
                 typeof(DateTimeOffset)
