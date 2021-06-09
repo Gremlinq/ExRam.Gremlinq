@@ -103,6 +103,34 @@
               {
                 "@type": "g:Map",
                 "@value": [
+                  "GuidKey",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": "scrubbed id"
+                          },
+                          "label",
+                          "GuidKey",
+                          "value",
+                          {
+                            "@type": "g:UUID",
+                            "@value": "aebacdfb-2c00-4808-a8b6-8d62217a8059"
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
                   "StringKey1",
                   {
                     "@type": "g:List",
@@ -547,6 +575,34 @@
               {
                 "@type": "g:Map",
                 "@value": [
+                  "GuidKey",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": "scrubbed id"
+                          },
+                          "label",
+                          "GuidKey",
+                          "value",
+                          {
+                            "@type": "g:UUID",
+                            "@value": "aebacdfb-2c00-4808-a8b6-8d62217a8059"
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
                   "StringKey1",
                   {
                     "@type": "g:List",
@@ -741,6 +797,34 @@
               {
                 "@type": "g:Map",
                 "@value": [
+                  "GuidKey",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": "scrubbed id"
+                          },
+                          "label",
+                          "GuidKey",
+                          "value",
+                          {
+                            "@type": "g:UUID",
+                            "@value": "aebacdfb-2c00-4808-a8b6-8d62217a8059"
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
                   "StringKey1",
                   {
                     "@type": "g:List",
@@ -1098,6 +1182,34 @@
               {
                 "@type": "g:Map",
                 "@value": [
+                  "GuidKey",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": "scrubbed id"
+                          },
+                          "label",
+                          "GuidKey",
+                          "value",
+                          {
+                            "@type": "g:UUID",
+                            "@value": "aebacdfb-2c00-4808-a8b6-8d62217a8059"
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
                   "StringKey1",
                   {
                     "@type": "g:List",
@@ -1345,6 +1457,34 @@
               {
                 "@type": "g:Map",
                 "@value": [
+                  "GuidKey",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": "scrubbed id"
+                          },
+                          "label",
+                          "GuidKey",
+                          "value",
+                          {
+                            "@type": "g:UUID",
+                            "@value": "aebacdfb-2c00-4808-a8b6-8d62217a8059"
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
                   "StringKey1",
                   {
                     "@type": "g:List",
@@ -1514,6 +1654,34 @@
               {
                 "@type": "g:Map",
                 "@value": [
+                  "GuidKey",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": "scrubbed id"
+                          },
+                          "label",
+                          "GuidKey",
+                          "value",
+                          {
+                            "@type": "g:UUID",
+                            "@value": "aebacdfb-2c00-4808-a8b6-8d62217a8059"
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
                   "StringKey1",
                   {
                     "@type": "g:List",
@@ -1738,6 +1906,34 @@
               {
                 "@type": "g:Map",
                 "@value": [
+                  "GuidKey",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": "scrubbed id"
+                          },
+                          "label",
+                          "GuidKey",
+                          "value",
+                          {
+                            "@type": "g:UUID",
+                            "@value": "aebacdfb-2c00-4808-a8b6-8d62217a8059"
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
                   "StringKey1",
                   {
                     "@type": "g:List",
@@ -1984,6 +2180,34 @@
               {
                 "@type": "g:Map",
                 "@value": [
+                  "GuidKey",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": "scrubbed id"
+                          },
+                          "label",
+                          "GuidKey",
+                          "value",
+                          {
+                            "@type": "g:UUID",
+                            "@value": "aebacdfb-2c00-4808-a8b6-8d62217a8059"
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
                   "StringKey1",
                   {
                     "@type": "g:List",
@@ -2212,6 +2436,34 @@
               {
                 "@type": "g:Map",
                 "@value": [
+                  "GuidKey",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": "scrubbed id"
+                          },
+                          "label",
+                          "GuidKey",
+                          "value",
+                          {
+                            "@type": "g:UUID",
+                            "@value": "aebacdfb-2c00-4808-a8b6-8d62217a8059"
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
                   "StringKey1",
                   {
                     "@type": "g:List",
@@ -2616,6 +2868,34 @@
               {
                 "@type": "g:Map",
                 "@value": [
+                  "GuidKey",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": "scrubbed id"
+                          },
+                          "label",
+                          "GuidKey",
+                          "value",
+                          {
+                            "@type": "g:UUID",
+                            "@value": "aebacdfb-2c00-4808-a8b6-8d62217a8059"
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
                   "StringKey1",
                   {
                     "@type": "g:List",
@@ -2758,6 +3038,34 @@
               {
                 "@type": "g:Map",
                 "@value": [
+                  "GuidKey",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": "scrubbed id"
+                          },
+                          "label",
+                          "GuidKey",
+                          "value",
+                          {
+                            "@type": "g:UUID",
+                            "@value": "aebacdfb-2c00-4808-a8b6-8d62217a8059"
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
                   "StringKey1",
                   {
                     "@type": "g:List",

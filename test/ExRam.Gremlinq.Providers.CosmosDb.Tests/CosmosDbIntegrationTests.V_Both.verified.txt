@@ -30,6 +30,12 @@
             "value": "PartitionKey"
           }
         ],
+        "GuidKey": [
+          {
+            "id": "scrubbed id",
+            "value": "scrubbed id"
+          }
+        ],
         "StringKey1": [
           {
             "id": "scrubbed id",
@@ -71,6 +77,12 @@
           {
             "id": "scrubbed id",
             "value": "PartitionKey"
+          }
+        ],
+        "GuidKey": [
+          {
+            "id": "scrubbed id",
+            "value": "scrubbed id"
           }
         ],
         "StringKey1": [
@@ -194,6 +206,12 @@
             "value": "PartitionKey"
           }
         ],
+        "GuidKey": [
+          {
+            "id": "scrubbed id",
+            "value": "scrubbed id"
+          }
+        ],
         "StringKey1": [
           {
             "id": "scrubbed id",
@@ -259,6 +277,12 @@
             "value": "PartitionKey"
           }
         ],
+        "GuidKey": [
+          {
+            "id": "scrubbed id",
+            "value": "scrubbed id"
+          }
+        ],
         "StringKey1": [
           {
             "id": "scrubbed id",
@@ -287,28 +311,6 @@
           {
             "id": "scrubbed id",
             "value": 1586270616000
-          }
-        ]
-      }
-    },
-    {
-      "id": "scrubbed id",
-      "label": "Country",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ],
-        "LocalizableDescription": [
-          {
-            "id": "scrubbed id",
-            "value": "",
-            "properties": {
-              "someKey": "value"
-            }
           }
         ]
       }
@@ -317,6 +319,28 @@
   [
     {
       "id": "scrubbed id",
+      "label": "Country",
+      "type": "vertex",
+      "properties": {
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
+          }
+        ],
+        "LocalizableDescription": [
+          {
+            "id": "scrubbed id",
+            "value": "",
+            "properties": {
+              "someKey": "value"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "scrubbed id",
       "label": "Person",
       "type": "vertex",
       "properties": {
@@ -324,6 +348,12 @@
           {
             "id": "scrubbed id",
             "value": "PartitionKey"
+          }
+        ],
+        "GuidKey": [
+          {
+            "id": "scrubbed id",
+            "value": "scrubbed id"
           }
         ],
         "StringKey1": [
