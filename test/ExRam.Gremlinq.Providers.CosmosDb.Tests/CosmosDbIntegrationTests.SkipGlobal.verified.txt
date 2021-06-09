@@ -54,6 +54,12 @@
             "value": 1586270616000
           }
         ],
+        "GuidKey": [
+          {
+            "id": "scrubbed id",
+            "value": "scrubbed id"
+          }
+        ],
         "StringKey1": [
           {
             "id": "scrubbed id",
@@ -80,6 +86,68 @@
             "properties": {
               "Meta": "value"
             }
+          }
+        ],
+        "GuidKey": [
+          {
+            "id": "scrubbed id",
+            "value": "scrubbed id"
+          }
+        ],
+        "StringKey1": [
+          {
+            "id": "scrubbed id",
+            "value": 36
+          }
+        ]
+      }
+    },
+    {
+      "id": "scrubbed id",
+      "label": "Country",
+      "type": "vertex",
+      "properties": {
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
+          }
+        ],
+        "LocalizableDescription": [
+          {
+            "id": "scrubbed id",
+            "value": "",
+            "properties": {
+              "someKey": "value"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "scrubbed id",
+      "label": "Person",
+      "type": "vertex",
+      "properties": {
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
+          }
+        ],
+        "Age": [
+          {
+            "id": "scrubbed id",
+            "value": 36,
+            "properties": {
+              "Meta": "value"
+            }
+          }
+        ],
+        "GuidKey": [
+          {
+            "id": "scrubbed id",
+            "value": "scrubbed id"
           }
         ],
         "StringKey1": [
@@ -132,54 +200,10 @@
             }
           }
         ],
-        "StringKey1": [
+        "GuidKey": [
           {
             "id": "scrubbed id",
-            "value": 36
-          }
-        ]
-      }
-    },
-    {
-      "id": "scrubbed id",
-      "label": "Country",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ],
-        "LocalizableDescription": [
-          {
-            "id": "scrubbed id",
-            "value": "",
-            "properties": {
-              "someKey": "value"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "id": "scrubbed id",
-      "label": "Person",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ],
-        "Age": [
-          {
-            "id": "scrubbed id",
-            "value": 36,
-            "properties": {
-              "Meta": "value"
-            }
+            "value": "scrubbed id"
           }
         ],
         "StringKey1": [
@@ -294,6 +318,12 @@
             "value": 1586270616000
           }
         ],
+        "GuidKey": [
+          {
+            "id": "scrubbed id",
+            "value": "scrubbed id"
+          }
+        ],
         "StringKey1": [
           {
             "id": "scrubbed id",
@@ -301,7 +331,9 @@
           }
         ]
       }
-    },
+    }
+  ],
+  [
     {
       "id": "scrubbed id",
       "label": "Language",
@@ -320,9 +352,7 @@
           }
         ]
       }
-    }
-  ],
-  [
+    },
     {
       "id": "scrubbed id",
       "label": "Language",
@@ -431,6 +461,12 @@
             "value": "AQIDBAUGBwg="
           }
         ],
+        "GuidKey": [
+          {
+            "id": "scrubbed id",
+            "value": "scrubbed id"
+          }
+        ],
         "StringKey1": [
           {
             "id": "scrubbed id",
@@ -465,6 +501,12 @@
             "value": 1
           }
         ],
+        "GuidKey": [
+          {
+            "id": "scrubbed id",
+            "value": "scrubbed id"
+          }
+        ],
         "StringKey1": [
           {
             "id": "scrubbed id",
@@ -497,6 +539,12 @@
           {
             "id": "scrubbed id",
             "value": 1586270616000
+          }
+        ],
+        "GuidKey": [
+          {
+            "id": "scrubbed id",
+            "value": "scrubbed id"
           }
         ],
         "Age": [
@@ -603,7 +651,9 @@
           }
         ]
       }
-    },
+    }
+  ],
+  [
     {
       "id": "scrubbed id",
       "label": "Country",
@@ -635,9 +685,7 @@
           }
         ]
       }
-    }
-  ],
-  [
+    },
     {
       "id": "scrubbed id",
       "label": "Company",

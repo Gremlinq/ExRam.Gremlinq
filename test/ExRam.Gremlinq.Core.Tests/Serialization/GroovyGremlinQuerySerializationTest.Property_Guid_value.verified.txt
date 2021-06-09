@@ -1,0 +1,14 @@
+﻿[
+  {
+    "Script": "V().hasLabel(_a).property(single,_b,_c).project(_d,_e,_f).by(id).by(label).by(__.properties().group().by(label).by(__.project(_d,_e,_g,_f).by(id).by(label).by(value).by(__.valueMap()).fold()))",
+    "Bindings": {
+      "_a": "Person",
+      "_b": "GuidKey",
+      "_c": "aebacdfb-2c00-4808-a8b6-8d62217a8059",
+      "_d": "id",
+      "_e": "label",
+      "_f": "properties",
+      "_g": "value"
+    }
+  }
+]

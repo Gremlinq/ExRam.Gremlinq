@@ -51,6 +51,12 @@
             "value": 1586270616000
           }
         ],
+        "GuidKey": [
+          {
+            "id": "scrubbed id",
+            "value": "scrubbed id"
+          }
+        ],
         "StringKey1": [
           {
             "id": "scrubbed id",
