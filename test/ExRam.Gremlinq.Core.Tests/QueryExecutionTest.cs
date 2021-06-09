@@ -3173,6 +3173,15 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task Property_Guid_value()
+        {
+            await _g
+                .V<Person>()
+                .Property("StringKey1", Guid.Parse("{AEBACDFB-2C00-4808-A8B6-8D62217A8059}"))
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task Property_stringKey_traversal()
         {
             await _g

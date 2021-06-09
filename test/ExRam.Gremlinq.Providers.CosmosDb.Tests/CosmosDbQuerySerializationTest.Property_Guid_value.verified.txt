@@ -1,0 +1,10 @@
+﻿[
+  {
+    "Script": "V().hasLabel(_a).property(single,_b,_c)",
+    "Bindings": {
+      "_a": "Person",
+      "_b": "StringKey1",
+      "_c": "aebacdfb-2c00-4808-a8b6-8d62217a8059"
+    }
+  }
+]
