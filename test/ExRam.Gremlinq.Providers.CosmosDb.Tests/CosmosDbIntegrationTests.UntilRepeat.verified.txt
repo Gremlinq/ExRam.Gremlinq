@@ -264,6 +264,12 @@
             "value": 1586270616000
           }
         ],
+        "StringKey1": [
+          {
+            "id": "scrubbed id",
+            "value": 36
+          }
+        ],
         "Age": [
           {
             "id": "scrubbed id",
@@ -271,12 +277,6 @@
             "properties": {
               "Meta": "value"
             }
-          }
-        ],
-        "StringKey1": [
-          {
-            "id": "scrubbed id",
-            "value": 36
           }
         ]
       }

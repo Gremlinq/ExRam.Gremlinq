@@ -14,7 +14,7 @@
         "Age": [
           {
             "id": "scrubbed id",
-            "value": 36
+            "value": 0
           }
         ],
         "Name": [
@@ -51,7 +51,7 @@
         "Age": [
           {
             "id": "scrubbed id",
-            "value": 36
+            "value": 0
           }
         ],
         "StringKey1": [
@@ -76,7 +76,7 @@
         "Age": [
           {
             "id": "scrubbed id",
-            "value": 36
+            "value": 0
           }
         ],
         "StringKey1": [
@@ -101,7 +101,7 @@
         "Age": [
           {
             "id": "scrubbed id",
-            "value": 36
+            "value": 0
           }
         ],
         "StringKey1": [
@@ -126,7 +126,7 @@
         "Age": [
           {
             "id": "scrubbed id",
-            "value": 36
+            "value": 0
           }
         ],
         "Name": [
@@ -163,7 +163,7 @@
         "Age": [
           {
             "id": "scrubbed id",
-            "value": 36
+            "value": 0
           }
         ],
         "Image": [
@@ -194,7 +194,7 @@
         "Age": [
           {
             "id": "scrubbed id",
-            "value": 36
+            "value": 0
           }
         ],
         "Gender": [
@@ -238,12 +238,6 @@
           {
             "id": "scrubbed id",
             "value": "scrubbed id"
-          }
-        ],
-        "Age": [
-          {
-            "id": "scrubbed id",
-            "value": 36
           }
         ]
       }
