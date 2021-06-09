@@ -10,6 +10,19 @@
             "@value": 11
           },
           "value": {
+            "@type": "g:UUID",
+            "@value": "aebacdfb-2c00-4808-a8b6-8d62217a8059"
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 11
+          },
+          "value": {
             "@type": "g:Date",
             "@value": 1586270616000
           }
