@@ -15,17 +15,17 @@ namespace ExRam.Gremlinq.Core
             StepStack steps,
             Projection projection,
             IGremlinQueryEnvironment environment,
-            IImmutableDictionary<StepLabel, Projection> stepLabelSemantics,
+            IImmutableDictionary<StepLabel, Projection> stepLabelProjections,
             QueryFlags flags)
         {
             Steps = steps;
             Flags = flags;
             Projection = projection;
             Environment = environment;
-            StepLabelProjections = stepLabelSemantics;
+            StepLabelProjections = stepLabelProjections;
         }
 
-        protected TTargetQuery ChangeQueryType<TTargetQuery>(Projection? forcedSemantics = null)
+        protected TTargetQuery ChangeQueryType<TTargetQuery>(Projection? forcedProjection = null)
         {
             var targetQueryType = typeof(TTargetQuery);
 
@@ -53,16 +53,16 @@ namespace ExRam.Gremlinq.Core
                         .Invoke(null, new object?[] { closureType })!;
                 });
 
-            return (TTargetQuery)constructor(this, forcedSemantics);
+            return (TTargetQuery)constructor(this, forcedProjection);
         }
 
         private static Func<GremlinQueryBase, Projection?, IGremlinQueryBase> CreateFunc<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(Type targetQueryType)
         {
-            return (existingQuery, forcedSemantics) =>
+            return (existingQuery, forcedProjection) =>
             {
-                var actualSemantics = forcedSemantics ?? existingQuery.Projection;
+                var actualProjection = forcedProjection ?? existingQuery.Projection;
 
-                if (targetQueryType.IsInstanceOfType(existingQuery) && (actualSemantics == existingQuery.Projection))
+                if (targetQueryType.IsInstanceOfType(existingQuery) && (actualProjection == existingQuery.Projection))
                     return (IGremlinQueryBase)existingQuery;
 
                 if (!targetQueryType.IsAssignableFrom(typeof(GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>)))
@@ -70,7 +70,7 @@ namespace ExRam.Gremlinq.Core
 
                 return new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(
                     existingQuery.Steps,
-                    actualSemantics,
+                    actualProjection,
                     existingQuery.Environment,
                     existingQuery.StepLabelProjections,
                     existingQuery.Flags);
