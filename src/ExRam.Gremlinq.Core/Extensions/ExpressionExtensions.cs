@@ -15,6 +15,7 @@ namespace ExRam.Gremlinq.Core
     internal static class ExpressionExtensions
     {
         // ReSharper disable ReturnValueOfPureMethodIsNotUsed
+        private static readonly MethodInfo ObjectToString = Get<object>(_ => _.ToString());
         private static readonly MethodInfo EnumerableAny = Get(() => Enumerable.Any<object>(default!)).GetGenericMethodDefinition()!;
         private static readonly MethodInfo EnumerableIntersect = Get(() => Enumerable.Intersect<object>(default!, default!)).GetGenericMethodDefinition()!;
 #pragma warning disable 8625
@@ -30,6 +31,25 @@ namespace ExRam.Gremlinq.Core
                     case UnaryExpression unaryExpression when expression.NodeType == ExpressionType.Convert:
                     {
                         expression = unaryExpression.Operand;
+                        break;
+                    }
+                    default:
+                    {
+                        return expression;
+                    }
+                }
+            }
+        }
+
+        public static Expression StripToString(this Expression expression)
+        {
+            while (true)
+            {
+                switch (expression)
+                {
+                    case MethodCallExpression methodCallExpression when methodCallExpression.Object is { } objectExpression && methodCallExpression.Method == ObjectToString:
+                    {
+                        expression = objectExpression;
                         break;
                     }
                     default:
@@ -438,6 +458,11 @@ namespace ExRam.Gremlinq.Core
         }
 
         private static MethodInfo Get(Expression<Action> expression)
+        {
+            return ((MethodCallExpression)expression.Body).Method;
+        }
+
+        private static MethodInfo Get<TSource>(Expression<Action<TSource>> expression)
         {
             return ((MethodCallExpression)expression.Body).Method;
         }
