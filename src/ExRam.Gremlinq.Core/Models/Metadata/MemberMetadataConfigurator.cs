@@ -60,7 +60,7 @@ namespace ExRam.Gremlinq.Core.Models
 
         private IMemberMetadataConfigurator<TElement> Configure<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression, Func<MemberMetadata, MemberMetadata> transformation)
         {
-            var memberInfo = propertyExpression.Body.Strip() is MemberExpression memberExpression
+            var memberInfo = propertyExpression.Body.StripConvert() is MemberExpression memberExpression
                 ? memberExpression.Member
                 : throw new ExpressionNotSupportedException(propertyExpression);
 

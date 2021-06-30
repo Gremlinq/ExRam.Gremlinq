@@ -21,7 +21,7 @@ namespace ExRam.Gremlinq.Core
         private static readonly MethodInfo EnumerableContainsElement = Get(() => Enumerable.Contains<object>(default!, default)).GetGenericMethodDefinition()!;
 #pragma warning restore 8625
 
-        public static Expression Strip(this Expression expression)
+        public static Expression StripConvert(this Expression expression)
         {
             while (true)
             {
@@ -131,7 +131,7 @@ namespace ExRam.Gremlinq.Core
                 if (actualExpression is null)
                     break;
 
-                actualExpression = actualExpression.Strip();
+                actualExpression = actualExpression.StripConvert();
 
                 switch (actualExpression)
                 {
@@ -172,7 +172,7 @@ namespace ExRam.Gremlinq.Core
 
         public static bool IsIdentityExpression(this LambdaExpression expression)
         {
-            return expression.Parameters.Count == 1 && expression.Body.Strip() == expression.Parameters[0];
+            return expression.Parameters.Count == 1 && expression.Body.StripConvert() == expression.Parameters[0];
         }
 
         public static GremlinExpression? TryToGremlinExpression(this Expression body, IGraphModel model)
@@ -275,7 +275,7 @@ namespace ExRam.Gremlinq.Core
                         }
                         case WellKnownMember.EnumerableIntersectAny:
                         {
-                            var arguments = ((MethodCallExpression)methodCallExpression.Arguments[0].Strip()).Arguments;
+                            var arguments = ((MethodCallExpression)methodCallExpression.Arguments[0].StripConvert()).Arguments;
 
                             return new GremlinExpression(
                                 ExpressionFragment.Create(arguments[0], model),
@@ -312,8 +312,8 @@ namespace ExRam.Gremlinq.Core
                         case WellKnownMember.StringEndsWith:
                         case WellKnownMember.StringContains:
                         {
-                            var instanceExpression = methodCallExpression.Object!.Strip();
-                            var argumentExpression = methodCallExpression.Arguments[0].Strip();
+                            var instanceExpression = methodCallExpression.Object!.StripConvert();
+                            var argumentExpression = methodCallExpression.Arguments[0].StripConvert();
 
                             var stringComparison = methodCallExpression.Arguments.Count >= 2 && methodCallExpression.Arguments[1] is { } secondArgument && secondArgument.Type == typeof(StringComparison)
                                 ? (StringComparison)secondArgument.GetValue()!
@@ -388,7 +388,7 @@ namespace ExRam.Gremlinq.Core
 
                     if (methodInfo.IsStatic)
                     {
-                        var thisExpression = methodCallExpression.Arguments[0].Strip();
+                        var thisExpression = methodCallExpression.Arguments[0].StripConvert();
 
                         if (methodInfo.IsGenericMethod && methodInfo.GetGenericMethodDefinition() == EnumerableAny)
                         {

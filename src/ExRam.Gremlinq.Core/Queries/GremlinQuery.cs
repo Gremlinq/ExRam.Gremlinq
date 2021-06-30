@@ -239,7 +239,7 @@ namespace ExRam.Gremlinq.Core
             {
                 return projection.IsIdentityExpression()
                     ? By<object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(__ => __.Identity())
-                    : projection.Body.Strip() is MemberExpression memberExpression
+                    : projection.Body.StripConvert() is MemberExpression memberExpression
                         ? By<object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(memberExpression, memberExpression.Member.Name)
                         : throw new ExpressionNotSupportedException(projection);
             }
@@ -1203,7 +1203,7 @@ namespace ExRam.Gremlinq.Core
                         {
                             case MemberExpression leftMemberExpression:
                             {
-                                var leftMemberExpressionExpression = leftMemberExpression.Expression?.Strip();
+                                var leftMemberExpressionExpression = leftMemberExpression.Expression?.StripConvert();
 
                                 if (leftMemberExpressionExpression is ParameterExpression parameterExpression)
                                 {
@@ -1342,11 +1342,11 @@ namespace ExRam.Gremlinq.Core
                             }
                             case MethodCallExpression methodCallExpression:
                             {
-                                var targetExpression = methodCallExpression.Object?.Strip();
+                                var targetExpression = methodCallExpression.Object?.StripConvert();
 
                                 if (targetExpression != null && typeof(IDictionary<string, object>).IsAssignableFrom(targetExpression.Type) && methodCallExpression.Method.Name == "get_Item")
                                 {
-                                    if (methodCallExpression.Arguments[0].Strip()!.GetValue() is string key)
+                                    if (methodCallExpression.Arguments[0].StripConvert()!.GetValue() is string key)
                                     {
                                         yield return new HasPredicateStep(key, effectivePredicate);
                                         yield break;

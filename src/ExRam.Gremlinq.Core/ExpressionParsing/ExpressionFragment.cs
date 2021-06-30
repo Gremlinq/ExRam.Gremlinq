@@ -44,7 +44,7 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
 
         public static ExpressionFragment Create(Expression expression, IGraphModel model)
         {
-            expression = expression.Strip();
+            expression = expression.StripConvert();
 
             return expression.TryGetReferredParameter() is not null
                 ? Parameter(expression)
