@@ -5449,6 +5449,24 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task Where_property_ToString()
+        {
+            await _g
+                .V<Country>()
+                .Where(x => x.CountryCallingCode!.ToString() == "some_string")
+                .Verify();
+        }
+
+        [Fact]
+        public virtual async Task Where_cast_property_ToString()
+        {
+            await _g
+                .V<Country>()
+                .Where(x => ((Exception)(object)x.CountryCallingCode!).ToString() == "some_string")
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task Where_property_traversal()
         {
             await _g

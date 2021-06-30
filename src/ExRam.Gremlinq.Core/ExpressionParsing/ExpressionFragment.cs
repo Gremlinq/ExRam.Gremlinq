@@ -62,6 +62,6 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
 
         public static ExpressionFragment StepLabel(StepLabel value, MemberExpression? expression) => new(ExpressionFragmentType.Constant, value, expression);
 
-        public static ExpressionFragment Parameter(Expression expression) => new(ExpressionFragmentType.Parameter, default, expression);
+        public static ExpressionFragment Parameter(Expression expression) => new(ExpressionFragmentType.Parameter, default, expression.StripToString().StripConvert());
     }
 }
