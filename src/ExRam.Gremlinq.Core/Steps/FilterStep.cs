@@ -4,7 +4,7 @@ namespace ExRam.Gremlinq.Core.Steps
 {
     public sealed class FilterStep : Step
     {
-        public FilterStep(ILambda lambda) : base()
+        public FilterStep(ILambda lambda) : base(TraversalSemanticsChange.Write)
         {
             Lambda = lambda;
         }

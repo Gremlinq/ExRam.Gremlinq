@@ -7,7 +7,7 @@ namespace ExRam.Gremlinq.Core.Steps
     public abstract class LogicalStep<TStep> : Step
         where TStep : LogicalStep<TStep>
     {
-        protected LogicalStep(string name, IEnumerable<Traversal> traversals) : base()
+        protected LogicalStep(string name, IEnumerable<Traversal> traversals) : base(traversals.GetTraversalSemanticsChange())
         {
             Name = name;
             Traversals = traversals

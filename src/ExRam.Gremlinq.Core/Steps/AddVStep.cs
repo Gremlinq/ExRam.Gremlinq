@@ -2,7 +2,7 @@
 {
     public sealed class AddVStep : Step
     {
-        public AddVStep(string label) : base()
+        public AddVStep(string label) : base(TraversalSemanticsChange.Write)
         {
             Label = label;
         }

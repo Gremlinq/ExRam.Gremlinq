@@ -41,7 +41,7 @@ namespace ExRam.Gremlinq.Core.Steps
 
         }
 
-        protected PropertyStep(object value, ImmutableArray<KeyValuePair<string, object>> metaProperties, Cardinality? cardinality = default) : base()
+        protected PropertyStep(object value, ImmutableArray<KeyValuePair<string, object>> metaProperties, Cardinality? cardinality = default) : base(TraversalSemanticsChange.Write)
         {
             Value = value;
             Cardinality = cardinality;

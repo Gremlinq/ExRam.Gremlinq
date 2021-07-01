@@ -2,7 +2,7 @@
 {
     public sealed class HasTraversalStep : Step, IIsOptimizableInWhere
     { 
-        public HasTraversalStep(Key key, Traversal traversal) : base()
+        public HasTraversalStep(Key key, Traversal traversal) : base(traversal.GetTraversalSemanticsChange())
         {
             Key = key;
             Traversal = traversal;

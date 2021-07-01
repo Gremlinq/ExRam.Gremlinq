@@ -42,7 +42,7 @@
             public Traversal Traversal { get; }
         }
 
-        public AddEStep(string label) : base()
+        public AddEStep(string label) : base(TraversalSemanticsChange.Write)
         {
             Label = label;
         }

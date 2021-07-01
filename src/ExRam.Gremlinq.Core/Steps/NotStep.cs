@@ -2,7 +2,7 @@
 {
     public sealed class NotStep : Step, IIsOptimizableInWhere
     {
-        public NotStep(Traversal traversal) : base()
+        public NotStep(Traversal traversal) : base(traversal.GetTraversalSemanticsChange())
         {
             Traversal = traversal;
         }
