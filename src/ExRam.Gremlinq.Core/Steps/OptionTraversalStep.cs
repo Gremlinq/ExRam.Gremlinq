@@ -2,7 +2,7 @@
 {
     public sealed class OptionTraversalStep : Step
     {
-        public OptionTraversalStep(object? guard, Traversal optionTraversal) : base(optionTraversal.GetTraversalSemanticsChange())
+        public OptionTraversalStep(object? guard, Traversal optionTraversal) : base(optionTraversal.GetSideEffectSemanticsChange())
         {
             Guard = guard;
             OptionTraversal = optionTraversal;

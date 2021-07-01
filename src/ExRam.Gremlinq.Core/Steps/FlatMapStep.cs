@@ -2,7 +2,7 @@
 {
     public sealed class FlatMapStep : Step
     {
-        public FlatMapStep(Traversal traversal) : base(traversal.GetTraversalSemanticsChange())
+        public FlatMapStep(Traversal traversal) : base(traversal.GetSideEffectSemanticsChange())
         {
             Traversal = traversal;
         }

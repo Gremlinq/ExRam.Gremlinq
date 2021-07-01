@@ -2,11 +2,11 @@
 {
     public abstract class Step
     {
-        protected Step(TraversalSemanticsChange traversalSemanticsChange = TraversalSemanticsChange.None)
+        protected Step(SideEffectSemanticsChange sideEffectSemanticsChange = SideEffectSemanticsChange.None)
         {
-            TraversalSemanticsChange = traversalSemanticsChange;
+            SideEffectSemanticsChange = sideEffectSemanticsChange;
         }
 
-        public TraversalSemanticsChange TraversalSemanticsChange { get; }
+        public SideEffectSemanticsChange SideEffectSemanticsChange { get; }
     }
 }

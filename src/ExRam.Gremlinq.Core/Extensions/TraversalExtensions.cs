@@ -9,38 +9,38 @@ namespace ExRam.Gremlinq.Core
 {
     internal static class TraversalExtensions
     {
-        public static TraversalSemanticsChange GetTraversalSemanticsChange(this IEnumerable<Traversal> traversals)
+        public static SideEffectSemanticsChange GetSideEffectSemanticsChange(this IEnumerable<Traversal> traversals)
         {
             foreach (var traversal in traversals)
             {
-                if (traversal.TraversalSemantics == TraversalSemantics.Write)
-                    return TraversalSemanticsChange.Write;
+                if (traversal.SideEffectSemantics == SideEffectSemantics.Write)
+                    return SideEffectSemanticsChange.Write;
             }
 
-            return TraversalSemanticsChange.None;
+            return SideEffectSemanticsChange.None;
         }
 
-        public static TraversalSemanticsChange GetTraversalSemanticsChange(this ImmutableArray<Traversal> traversals)
+        public static SideEffectSemanticsChange GetSideEffectSemanticsChange(this ImmutableArray<Traversal> traversals)
         {
             for (var i = 0;  i < traversals.Length; i++)
             {
-                if (traversals[i].TraversalSemantics == TraversalSemantics.Write)
-                    return TraversalSemanticsChange.Write;
+                if (traversals[i].SideEffectSemantics == SideEffectSemantics.Write)
+                    return SideEffectSemanticsChange.Write;
             }
 
-            return TraversalSemanticsChange.None;
+            return SideEffectSemanticsChange.None;
         }
 
-        public static TraversalSemanticsChange GetTraversalSemanticsChange(this Traversal traversal)
+        public static SideEffectSemanticsChange GetSideEffectSemanticsChange(this Traversal traversal)
         {
-            return (TraversalSemanticsChange)traversal.TraversalSemantics;
+            return (SideEffectSemanticsChange)traversal.SideEffectSemantics;
         }
 
-        public static TraversalSemanticsChange GetTraversalSemanticsChange(this Traversal? maybeTraversal)
+        public static SideEffectSemanticsChange GetSideEffectSemanticsChange(this Traversal? maybeTraversal)
         {
             return maybeTraversal is { } traversal
-                ? traversal.GetTraversalSemanticsChange()
-                : TraversalSemanticsChange.None;
+                ? traversal.GetSideEffectSemanticsChange()
+                : SideEffectSemanticsChange.None;
         }
 
         public static Traversal RewriteForWhereContext(this Traversal traversal)

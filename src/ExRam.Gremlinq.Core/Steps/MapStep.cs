@@ -2,7 +2,7 @@
 {
     public sealed class MapStep : Step
     {
-        public MapStep(Traversal traversal) : base(traversal.GetTraversalSemanticsChange())
+        public MapStep(Traversal traversal) : base(traversal.GetSideEffectSemanticsChange())
         {
             Traversal = traversal;
         }

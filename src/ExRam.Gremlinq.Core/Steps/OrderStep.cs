@@ -6,14 +6,14 @@ namespace ExRam.Gremlinq.Core.Steps
     {
         public abstract class ByStep : Step
         {
-            protected ByStep(TraversalSemanticsChange traversalSemanticsChange = TraversalSemanticsChange.None) : base(traversalSemanticsChange)
+            protected ByStep(SideEffectSemanticsChange sideEffectSemanticsChange = SideEffectSemanticsChange.None) : base(sideEffectSemanticsChange)
             {
             }
         }
 
         public sealed class ByLambdaStep : ByStep
         {
-            public ByLambdaStep(ILambda lambda) : base(TraversalSemanticsChange.Write)
+            public ByLambdaStep(ILambda lambda) : base(SideEffectSemanticsChange.Write)
             {
                 Lambda = lambda;
             }
@@ -35,7 +35,7 @@ namespace ExRam.Gremlinq.Core.Steps
 
         public sealed class ByTraversalStep : ByStep
         {
-            public ByTraversalStep(Traversal traversal, Order order) : base(traversal.GetTraversalSemanticsChange())
+            public ByTraversalStep(Traversal traversal, Order order) : base(traversal.GetSideEffectSemanticsChange())
             {
                 Traversal = traversal;
                 Order = order;

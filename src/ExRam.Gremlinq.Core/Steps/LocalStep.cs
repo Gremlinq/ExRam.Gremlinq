@@ -2,7 +2,7 @@
 {
     public sealed class LocalStep : Step
     {
-        public LocalStep(Traversal traversal) : base(traversal.GetTraversalSemanticsChange())
+        public LocalStep(Traversal traversal) : base(traversal.GetSideEffectSemanticsChange())
         {
             Traversal = traversal;
         }

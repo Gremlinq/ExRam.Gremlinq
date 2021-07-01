@@ -2,7 +2,7 @@
 {
     public sealed class RepeatStep : Step
     {
-        public RepeatStep(Traversal traversal) : base(traversal.GetTraversalSemanticsChange())
+        public RepeatStep(Traversal traversal) : base(traversal.GetSideEffectSemanticsChange())
         {
             Traversal = traversal;
         }
