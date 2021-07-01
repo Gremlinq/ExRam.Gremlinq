@@ -13,7 +13,7 @@ namespace ExRam.Gremlinq.Core
         {
             foreach (var traversal in traversals)
             {
-                if (traversal.GetTraversalSemanticsChange() == TraversalSemanticsChange.Write)
+                if (traversal.TraversalSemantics == TraversalSemantics.Write)
                     return TraversalSemanticsChange.Write;
             }
 
@@ -24,7 +24,7 @@ namespace ExRam.Gremlinq.Core
         {
             for (var i = 0;  i < traversals.Length; i++)
             {
-                if (traversals[i].GetTraversalSemanticsChange() == TraversalSemanticsChange.Write)
+                if (traversals[i].TraversalSemantics == TraversalSemantics.Write)
                     return TraversalSemanticsChange.Write;
             }
 
@@ -33,13 +33,7 @@ namespace ExRam.Gremlinq.Core
 
         public static TraversalSemanticsChange GetTraversalSemanticsChange(this Traversal traversal)
         {
-            for (var i = 0; i < traversal.Count; i++)
-            {
-                if (traversal[i].TraversalSemanticsChange == TraversalSemanticsChange.Write)
-                    return TraversalSemanticsChange.Write;
-            }
-
-            return TraversalSemanticsChange.None;
+            return (TraversalSemanticsChange)traversal.TraversalSemantics;
         }
 
         public static TraversalSemanticsChange GetTraversalSemanticsChange(this Traversal? maybeTraversal)
@@ -47,20 +41,6 @@ namespace ExRam.Gremlinq.Core
             return maybeTraversal is { } traversal
                 ? traversal.GetTraversalSemanticsChange()
                 : TraversalSemanticsChange.None;
-        }
-
-        public static TraversalSemantics GetTraversalSemantics(this Traversal? maybeTraversal)
-        {
-            if (maybeTraversal is { } traversal)
-            {
-                for (var i = 0; i < traversal.Count; i++)
-                {
-                    if (traversal[i].TraversalSemanticsChange == TraversalSemanticsChange.Write)
-                        return TraversalSemantics.Write;
-                }
-            }
-
-            return TraversalSemantics.Read;
         }
 
         public static Traversal RewriteForWhereContext(this Traversal traversal)

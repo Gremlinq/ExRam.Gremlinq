@@ -29,6 +29,17 @@ namespace ExRam.Gremlinq.Core
                 : steps.ToArray();
 
             Projection = projection;
+            TraversalSemantics = TraversalSemantics.Read;
+
+            for (var i = 0; i < _steps.Count; i++)
+            {
+                if (_steps[i].TraversalSemanticsChange == TraversalSemanticsChange.Write)
+                {
+                    TraversalSemantics = TraversalSemantics.Write;
+
+                    break;
+                }
+            }
         }
 
         public IEnumerator<Step> GetEnumerator() => _steps.GetEnumerator();
@@ -60,6 +71,8 @@ namespace ExRam.Gremlinq.Core
         public Projection Projection { get; }
 
         public Step this[int index] => _steps[index];
+
+        public TraversalSemantics TraversalSemantics { get; }
 
         private void CopyTo(Step[] steps, int destinationIndex)
         {
