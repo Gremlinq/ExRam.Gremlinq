@@ -1,15 +1,68 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
-
 using ExRam.Gremlinq.Core.Steps;
-
 using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
 {
     internal static class TraversalExtensions
     {
+        public static TraversalSemanticsChange GetTraversalSemanticsChange(this IEnumerable<Traversal> traversals)
+        {
+            foreach (var traversal in traversals)
+            {
+                if (traversal.GetTraversalSemanticsChange() == TraversalSemanticsChange.Write)
+                    return TraversalSemanticsChange.Write;
+            }
+
+            return TraversalSemanticsChange.None;
+        }
+
+        public static TraversalSemanticsChange GetTraversalSemanticsChange(this ImmutableArray<Traversal> traversals)
+        {
+            for (var i = 0;  i < traversals.Length; i++)
+            {
+                if (traversals[i].GetTraversalSemanticsChange() == TraversalSemanticsChange.Write)
+                    return TraversalSemanticsChange.Write;
+            }
+
+            return TraversalSemanticsChange.None;
+        }
+
+        public static TraversalSemanticsChange GetTraversalSemanticsChange(this Traversal traversal)
+        {
+            for (var i = 0; i < traversal.Count; i++)
+            {
+                if (traversal[i].TraversalSemanticsChange == TraversalSemanticsChange.Write)
+                    return TraversalSemanticsChange.Write;
+            }
+
+            return TraversalSemanticsChange.None;
+        }
+
+        public static TraversalSemanticsChange GetTraversalSemanticsChange(this Traversal? maybeTraversal)
+        {
+            return maybeTraversal is { } traversal
+                ? traversal.GetTraversalSemanticsChange()
+                : TraversalSemanticsChange.None;
+        }
+
+        public static TraversalSemantics GetTraversalSemantics(this Traversal? maybeTraversal)
+        {
+            if (maybeTraversal is { } traversal)
+            {
+                for (var i = 0; i < traversal.Count; i++)
+                {
+                    if (traversal[i].TraversalSemanticsChange == TraversalSemanticsChange.Write)
+                        return TraversalSemantics.Write;
+                }
+            }
+
+            return TraversalSemantics.Read;
+        }
+
         public static Traversal RewriteForWhereContext(this Traversal traversal)
         {
             if (traversal.Count >= 2)

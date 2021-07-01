@@ -1584,7 +1584,7 @@ namespace ExRam.Gremlinq.Core.Steps
     }
     public abstract class ChooseStep : ExRam.Gremlinq.Core.Steps.Step
     {
-        protected ChooseStep(ExRam.Gremlinq.Core.Traversal thenTraversal, ExRam.Gremlinq.Core.Traversal? elseTraversal = default) { }
+        protected ChooseStep(ExRam.Gremlinq.Core.Traversal thenTraversal, ExRam.Gremlinq.Core.Traversal? elseTraversal = default, ExRam.Gremlinq.Core.Steps.TraversalSemanticsChange traversalSemanticsChange = 1) { }
         public ExRam.Gremlinq.Core.Traversal? ElseTraversal { get; }
         public ExRam.Gremlinq.Core.Traversal ThenTraversal { get; }
     }
@@ -1677,7 +1677,7 @@ namespace ExRam.Gremlinq.Core.Steps
         }
         public abstract class ByStep : ExRam.Gremlinq.Core.Steps.Step
         {
-            protected ByStep() { }
+            protected ByStep(ExRam.Gremlinq.Core.Steps.TraversalSemanticsChange traversalSemanticsChange = 0) { }
         }
         public sealed class ByTraversalStep : ExRam.Gremlinq.Core.Steps.GroupStep.ByStep
         {
@@ -1863,7 +1863,7 @@ namespace ExRam.Gremlinq.Core.Steps
         }
         public abstract class ByStep : ExRam.Gremlinq.Core.Steps.Step
         {
-            protected ByStep() { }
+            protected ByStep(ExRam.Gremlinq.Core.Steps.TraversalSemanticsChange traversalSemanticsChange = 0) { }
         }
         public sealed class ByTraversalStep : ExRam.Gremlinq.Core.Steps.OrderStep.ByStep
         {
@@ -1920,7 +1920,7 @@ namespace ExRam.Gremlinq.Core.Steps
         }
         public abstract class ByStep : ExRam.Gremlinq.Core.Steps.Step
         {
-            protected ByStep() { }
+            protected ByStep(ExRam.Gremlinq.Core.Steps.TraversalSemanticsChange traversalSemanticsChange = 0) { }
         }
         public sealed class ByTraversalStep : ExRam.Gremlinq.Core.Steps.ProjectStep.ByStep
         {
@@ -2005,7 +2005,8 @@ namespace ExRam.Gremlinq.Core.Steps
     }
     public abstract class Step
     {
-        protected Step() { }
+        protected Step(ExRam.Gremlinq.Core.Steps.TraversalSemanticsChange traversalSemanticsChange = 0) { }
+        public ExRam.Gremlinq.Core.Steps.TraversalSemanticsChange TraversalSemanticsChange { get; }
     }
     public sealed class SumStep : ExRam.Gremlinq.Core.Steps.Step
     {
@@ -2026,6 +2027,16 @@ namespace ExRam.Gremlinq.Core.Steps
     {
         public TimesStep(int count) { }
         public int Count { get; }
+    }
+    public enum TraversalSemantics
+    {
+        Read = 0,
+        Write = 1,
+    }
+    public enum TraversalSemanticsChange
+    {
+        None = 0,
+        Write = 1,
     }
     public sealed class UnfoldStep : ExRam.Gremlinq.Core.Steps.Step
     {

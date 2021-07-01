@@ -2,7 +2,7 @@
 {
     public sealed class UntilStep : Step
     {
-        public UntilStep(Traversal traversal) : base()
+        public UntilStep(Traversal traversal) : base(traversal.GetTraversalSemanticsChange())
         {
             Traversal = traversal;
         }

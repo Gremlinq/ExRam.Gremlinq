@@ -4,7 +4,7 @@
     {
         public static readonly DropStep Instance = new();
 
-        public DropStep() : base()
+        public DropStep() : base(TraversalSemanticsChange.Write)
         {
         }
     }

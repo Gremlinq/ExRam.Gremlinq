@@ -2,8 +2,11 @@
 {
     public abstract class Step
     {
-        protected Step()
+        protected Step(TraversalSemanticsChange traversalSemanticsChange = TraversalSemanticsChange.None)
         {
+            TraversalSemanticsChange = traversalSemanticsChange;
         }
+
+        public TraversalSemanticsChange TraversalSemanticsChange { get; }
     }
 }

@@ -2,7 +2,7 @@
 {
     public sealed class WithStrategiesStep : Step
     {
-        public WithStrategiesStep(Traversal traversal) : base()
+        public WithStrategiesStep(Traversal traversal) : base(traversal.GetTraversalSemanticsChange())
         {
             Traversal = traversal;
         }

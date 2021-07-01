@@ -2,7 +2,8 @@
   {
     Item1: AddEStep,
     Item2: {
-      Label: string
+      Label: string,
+      TraversalSemanticsChange: Write
     }
   },
   {
@@ -36,7 +37,8 @@
   {
     Item1: AddVStep,
     Item2: {
-      Label: string
+      Label: string,
+      TraversalSemanticsChange: Write
     }
   },
   {
@@ -187,7 +189,9 @@
   },
   {
     Item1: DropStep,
-    Item2: {}
+    Item2: {
+      TraversalSemanticsChange: Write
+    }
   },
   {
     Item1: EmitStep,
@@ -214,7 +218,8 @@
         LambdaExpression: lambda,
         Language: gremlin-groovy,
         Arguments: -1
-      }
+      },
+      TraversalSemanticsChange: Write
     }
   },
   {
@@ -483,7 +488,8 @@
         LambdaExpression: lambda,
         Language: gremlin-groovy,
         Arguments: -1
-      }
+      },
+      TraversalSemanticsChange: Write
     }
   },
   {
@@ -614,7 +620,8 @@
       Cardinality: {
         EnumName: Cardinality,
         EnumValue: single
-      }
+      },
+      TraversalSemanticsChange: Write
     }
   },
   {
@@ -627,7 +634,8 @@
       Cardinality: {
         EnumName: Cardinality,
         EnumValue: single
-      }
+      },
+      TraversalSemanticsChange: Write
     }
   },
   {

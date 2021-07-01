@@ -2,7 +2,7 @@
 {
     public sealed class WhereTraversalStep : Step, IIsOptimizableInWhere
     {
-        public WhereTraversalStep(Traversal traversal) : base()
+        public WhereTraversalStep(Traversal traversal) : base(traversal.GetTraversalSemanticsChange())
         {
             Traversal = traversal;
         }

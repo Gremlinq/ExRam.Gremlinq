@@ -6,14 +6,14 @@ namespace ExRam.Gremlinq.Core.Steps
     {
         public abstract class ByStep : Step
         {
-            protected ByStep() : base()
+            protected ByStep(TraversalSemanticsChange traversalSemanticsChange = TraversalSemanticsChange.None) : base(traversalSemanticsChange)
             {
             }
         }
 
         public sealed class ByTraversalStep : ByStep
         {
-            public ByTraversalStep(Traversal traversal)
+            public ByTraversalStep(Traversal traversal) : base(traversal.GetTraversalSemanticsChange())
             {
                 Traversal = traversal;
             }
