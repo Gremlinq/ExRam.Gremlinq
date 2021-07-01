@@ -1,8 +1,8 @@
 ﻿namespace ExRam.Gremlinq.Core.Steps
 {
-    public enum TraversalSemanticsChange
+    public enum SideEffectSemantics
     {
-        None = 0,
+        Read = 0,
         Write = 1
     }
 }

@@ -2,7 +2,7 @@
 {
     public sealed class ChooseOptionTraversalStep : Step
     {
-        public ChooseOptionTraversalStep(Traversal traversal) : base(traversal.GetTraversalSemanticsChange())
+        public ChooseOptionTraversalStep(Traversal traversal) : base(traversal.GetSideEffectSemanticsChange())
         {
             Traversal = traversal;
         }

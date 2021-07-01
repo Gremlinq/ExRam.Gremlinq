@@ -4,14 +4,14 @@
     {
         public abstract class ByStep : Step
         {
-            protected ByStep(TraversalSemanticsChange traversalSemanticsChange = TraversalSemanticsChange.None) : base(traversalSemanticsChange)
+            protected ByStep(SideEffectSemanticsChange sideEffectSemanticsChange = SideEffectSemanticsChange.None) : base(sideEffectSemanticsChange)
             {
             }
         }
 
         public sealed class ByTraversalStep : ByStep
         {
-            public ByTraversalStep(Traversal traversal) : base(traversal.GetTraversalSemanticsChange())
+            public ByTraversalStep(Traversal traversal) : base(traversal.GetSideEffectSemanticsChange())
             {
                 Traversal = traversal;
             }

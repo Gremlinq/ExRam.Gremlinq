@@ -29,13 +29,13 @@ namespace ExRam.Gremlinq.Core
                 : steps.ToArray();
 
             Projection = projection;
-            TraversalSemantics = TraversalSemantics.Read;
+            SideEffectSemantics = SideEffectSemantics.Read;
 
             for (var i = 0; i < _steps.Count; i++)
             {
-                if (_steps[i].TraversalSemanticsChange == TraversalSemanticsChange.Write)
+                if (_steps[i].SideEffectSemanticsChange == SideEffectSemanticsChange.Write)
                 {
-                    TraversalSemantics = TraversalSemantics.Write;
+                    SideEffectSemantics = SideEffectSemantics.Write;
 
                     break;
                 }
@@ -72,7 +72,7 @@ namespace ExRam.Gremlinq.Core
 
         public Step this[int index] => _steps[index];
 
-        public TraversalSemantics TraversalSemantics { get; }
+        public SideEffectSemantics SideEffectSemantics { get; }
 
         private void CopyTo(Step[] steps, int destinationIndex)
         {

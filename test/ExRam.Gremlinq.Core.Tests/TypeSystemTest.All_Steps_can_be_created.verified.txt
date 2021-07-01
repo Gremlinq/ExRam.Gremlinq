@@ -3,7 +3,7 @@
     Item1: AddEStep,
     Item2: {
       Label: string,
-      TraversalSemanticsChange: Write
+      SideEffectSemanticsChange: Write
     }
   },
   {
@@ -38,7 +38,7 @@
     Item1: AddVStep,
     Item2: {
       Label: string,
-      TraversalSemanticsChange: Write
+      SideEffectSemanticsChange: Write
     }
   },
   {
@@ -190,7 +190,7 @@
   {
     Item1: DropStep,
     Item2: {
-      TraversalSemanticsChange: Write
+      SideEffectSemanticsChange: Write
     }
   },
   {
@@ -219,7 +219,7 @@
         Language: gremlin-groovy,
         Arguments: -1
       },
-      TraversalSemanticsChange: Write
+      SideEffectSemanticsChange: Write
     }
   },
   {
@@ -489,7 +489,7 @@
         Language: gremlin-groovy,
         Arguments: -1
       },
-      TraversalSemanticsChange: Write
+      SideEffectSemanticsChange: Write
     }
   },
   {
@@ -621,7 +621,7 @@
         EnumName: Cardinality,
         EnumValue: single
       },
-      TraversalSemanticsChange: Write
+      SideEffectSemanticsChange: Write
     }
   },
   {
@@ -635,7 +635,7 @@
         EnumName: Cardinality,
         EnumValue: single
       },
-      TraversalSemanticsChange: Write
+      SideEffectSemanticsChange: Write
     }
   },
   {

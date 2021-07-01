@@ -2,7 +2,7 @@
 {
     public sealed class SideEffectStep : Step
     {
-        public SideEffectStep(Traversal traversal) : base(traversal.GetTraversalSemanticsChange())
+        public SideEffectStep(Traversal traversal) : base(traversal.GetSideEffectSemanticsChange())
         {
             Traversal = traversal;
         }
