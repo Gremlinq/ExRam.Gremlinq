@@ -1,6 +1,8 @@
 <Project>
   <Import Project="..\Directory.Build.props" />
   
+  <Sdk Name="Microsoft.DotNet.PackageValidation" Version="1.0.0-preview.5.21302.8" />
+
   <PropertyGroup>
     <Deterministic>true</Deterministic>
     <WeaverConfiguration>
