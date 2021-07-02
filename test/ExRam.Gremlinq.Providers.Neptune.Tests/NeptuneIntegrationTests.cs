@@ -1,4 +1,4 @@
-﻿#if RELEASE && NET5_0 && RUNNEPTUNEINTEGRATIONTESTS
+﻿#if RELEASE && RUNNEPTUNEINTEGRATIONTESTS
 using System;
 using System.Collections.Immutable;
 using System.Linq;

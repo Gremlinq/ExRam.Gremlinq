@@ -1,4 +1,4 @@
-﻿#if RELEASE && NET5_0 && RUNGREMLINSERVERINTEGRATIONTESTS
+﻿#if RELEASE && RUNGREMLINSERVERINTEGRATIONTESTS
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
 using Xunit;
