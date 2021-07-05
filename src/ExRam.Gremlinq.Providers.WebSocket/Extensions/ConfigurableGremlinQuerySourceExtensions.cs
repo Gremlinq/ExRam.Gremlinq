@@ -64,6 +64,8 @@ namespace ExRam.Gremlinq.Core
                             {
                                 localTcs.TrySetException(ex);
 
+                                Interlocked.CompareExchange(ref _tcs, null!, localTcs);
+
                                 throw;
                             }
                         }
@@ -103,20 +105,15 @@ namespace ExRam.Gremlinq.Core
                 _lazyGremlinClient = new SmarterLazy<IGremlinClient>(
                     async logger =>
                     {
-                        var backoff = TimeSpan.FromSeconds(3);
-
-                        while (true)
+                        try
                         {
-                            try
-                            {
-                                return await clientFactory(default);
-                            }
-                            catch (Exception ex)
-                            {
-                                logger.LogError(ex, $"Failure creating a {nameof(GremlinClient)} instance. Backing off {backoff.TotalSeconds} seconds...");
+                            return await clientFactory(default);
+                        }
+                        catch (Exception ex)
+                        {
+                            logger.LogError(ex, $"Failure creating a {nameof(GremlinClient)} instance.");
 
-                                await Task.Delay(backoff);
-                            }
+                            throw;
                         }
                     });
             }
