@@ -33,7 +33,22 @@ namespace ExRam.Gremlinq.Core
             {
                 _alias = alias;
                 _aliasArgs = new Dictionary<string, string> { {"g", _alias} };
-                _lazyGremlinClient = new Lazy<Task<IGremlinClient>>(() => clientFactory(default), LazyThreadSafetyMode.ExecutionAndPublication);
+                _lazyGremlinClient = new Lazy<Task<IGremlinClient>>(
+                    async () =>
+                    {
+                        while (true)
+                        {
+                            try
+                            {
+                                return await clientFactory(default);
+                            }
+                            catch
+                            {
+                                await Task.Delay(TimeSpan.FromSeconds(3));
+                            }
+                        }
+                    },
+                    LazyThreadSafetyMode.ExecutionAndPublication);
             }
 
             public void Dispose()
