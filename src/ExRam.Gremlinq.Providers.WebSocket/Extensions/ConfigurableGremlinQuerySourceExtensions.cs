@@ -21,11 +21,78 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class WebSocketGremlinQueryExecutor : IGremlinQueryExecutor, IDisposable
         {
+            private sealed class SmarterLazy<T> : IDisposable
+            {
+                private static readonly TaskCompletionSource<T> DisposedTcs = new ();
+
+                private TaskCompletionSource<T>? _tcs;
+                private readonly Func<ILogger, Task<T>> _factory;
+
+                static SmarterLazy()
+                {
+                    DisposedTcs.TrySetException(new ObjectDisposedException(nameof(WebSocketGremlinQueryExecutor)));
+                }
+
+                public SmarterLazy(Func<ILogger, Task<T>> factory)
+                {
+                    _factory = factory;
+                }
+
+                public async Task<T> GetValue(ILogger logger)
+                {
+                    TaskCompletionSource<T>? localTcs = null;
+
+                    while (true)
+                    {
+                        if (Volatile.Read(ref _tcs) is { } tcs)
+                            return await tcs.Task;
+
+                        if (localTcs == null)
+                            localTcs = new TaskCompletionSource<T>();
+
+                        if (Interlocked.CompareExchange(ref _tcs, localTcs, null) == null)
+                        {
+                            try
+                            {
+                                var ret = await _factory(logger);
+
+                                localTcs.TrySetResult(ret);
+
+                                return ret;
+                            }
+                            catch (Exception ex)
+                            {
+                                localTcs.TrySetException(ex);
+
+                                throw;
+                            }
+                        }
+                    }
+                }
+
+                public void Dispose()
+                {
+                    var maybePrevious = Interlocked.Exchange(ref _tcs, DisposedTcs);
+
+                    if (maybePrevious is { } previous && previous != DisposedTcs)
+                    {
+                        previous.Task
+                            .ContinueWith(async t =>
+                            {
+                                if (t.Result is IDisposable disposable)
+                                    disposable.Dispose();
+                                else if (t.Result is IAsyncDisposable asyncDisposable)
+                                    await asyncDisposable.DisposeAsync();
+                            });
+                    }
+                }
+            }
+
             private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, Action<object, Guid>> Loggers = new();
 
             private readonly string _alias;
             private readonly Dictionary<string, string> _aliasArgs;
-            private readonly Lazy<Task<IGremlinClient>> _lazyGremlinClient;
+            private readonly SmarterLazy<IGremlinClient> _lazyGremlinClient;
 
             public WebSocketGremlinQueryExecutor(
                 Func<CancellationToken, Task<IGremlinClient>> clientFactory,
@@ -33,27 +100,30 @@ namespace ExRam.Gremlinq.Core
             {
                 _alias = alias;
                 _aliasArgs = new Dictionary<string, string> { {"g", _alias} };
-                _lazyGremlinClient = new Lazy<Task<IGremlinClient>>(
-                    async () =>
+                _lazyGremlinClient = new SmarterLazy<IGremlinClient>(
+                    async logger =>
                     {
+                        var backoff = TimeSpan.FromSeconds(3);
+
                         while (true)
                         {
                             try
                             {
                                 return await clientFactory(default);
                             }
-                            catch
+                            catch (Exception ex)
                             {
-                                await Task.Delay(TimeSpan.FromSeconds(3));
+                                logger.LogError(ex, $"Failure creating a {nameof(GremlinClient)} instance. Backing off {backoff.TotalSeconds} seconds...");
+
+                                await Task.Delay(backoff);
                             }
                         }
-                    },
-                    LazyThreadSafetyMode.ExecutionAndPublication);
+                    });
             }
 
             public void Dispose()
             {
-                _lazyGremlinClient.Value.Dispose();
+                _lazyGremlinClient.Dispose();
             }
 
             public IAsyncEnumerable<object> Execute(object serializedQuery, IGremlinQueryEnvironment environment)
@@ -63,7 +133,7 @@ namespace ExRam.Gremlinq.Core
                 async IAsyncEnumerator<object> Core(CancellationToken ct)
                 {
                     var results = default(ResultSet<JToken>);
-                    var client = await _lazyGremlinClient.Value;
+                    var client = await _lazyGremlinClient.GetValue(environment.Logger);
 
                     var requestMessage = serializedQuery switch
                     {
