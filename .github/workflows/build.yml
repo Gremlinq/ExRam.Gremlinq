@@ -188,7 +188,7 @@ jobs:
 
     steps:
     - name: Draft release
-      uses: MariuszKogut/release-drafter@Fix824
+      uses: ExRam/release-drafter@Fix824
       with:
         name: ExRam.Gremlinq ${{ needs.build.outputs.semVer2 }}
         prerelease: ${{ needs.build.outputs.isPreviewRelease }}
