@@ -47,9 +47,9 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Echo_wrong_type()
+        public async Task Echo_wrong_type()
         {
-            g
+            await g
                 .ConfigureEnvironment(env => env
                     .UseModel(GraphModel
                         .FromBaseTypes<Vertex, Edge>(lookup => lookup
@@ -59,7 +59,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Awaiting(_ => _
                     .ToArrayAsync())
                 .Should()
-                .Throw<InvalidCastException>();
+                .ThrowAsync<InvalidCastException>();
         }
 
         [Fact]

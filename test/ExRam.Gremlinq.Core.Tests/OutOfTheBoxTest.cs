@@ -27,13 +27,13 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public async Task Execution()
         {
-            g
+            await g
                 .Awaiting(_ => _
                     .ConfigureEnvironment(_ => _)
                     .V()
                     .ToArrayAsync())
                 .Should()
-                .Throw<InvalidOperationException>()
+                .ThrowAsync<InvalidOperationException>()
                 .Where(x => x.Message.StartsWith("'Execute' must not be called on GremlinQueryExecutor.Invalid"));
         }
 

@@ -225,7 +225,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             if (_g.Environment.FeatureSet.Supports(VertexFeatures.UserSuppliedIds))
             {
-                _g
+                await _g
                     .ConfigureEnvironment(env => env
                         .UseModel(GraphModel
                             .FromBaseTypes<VertexWithListId, Edge>(lookup => lookup
@@ -233,7 +233,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .AddV(new VertexWithListId { Id = new[] { "123", "456" } })
                     .Awaiting(x => x.FirstAsync())
                     .Should()
-                    .Throw<NotSupportedException>();
+                    .ThrowAsync<NotSupportedException>();
             }
         }
 
