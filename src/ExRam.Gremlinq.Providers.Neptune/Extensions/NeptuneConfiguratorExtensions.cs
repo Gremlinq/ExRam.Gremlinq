@@ -83,7 +83,7 @@ namespace ExRam.Gremlinq.Providers.Neptune
             {
                 return _baseConfigurator
                     .Transform(source)
-                    .WithSideEffect("Neptune#fts.endpoint", _elasticSearchEndPoint.ToString())
+                    .WithSideEffect("Neptune#fts.endpoint", _elasticSearchEndPoint.OriginalString)
                     .WithSideEffect("Neptune#fts.queryType", "query_string")
                     .ConfigureEnvironment(env => env
                         .ConfigureOptions(options => options
