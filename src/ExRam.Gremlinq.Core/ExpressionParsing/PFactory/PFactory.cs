@@ -27,13 +27,13 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
                     }
                     case StringExpressionSemantics stringExpressionSemantics when value is string stringValue:
                     {
-                        if (stringExpressionSemantics.Comparison == StringComparison.Ordinal || environment.Options.GetValue(GremlinqOption.StringComparisonTranslationStrictness) == StringComparisonTranslationStrictness.Lenient)
+                        if (stringValue.Length == 0 || stringExpressionSemantics.Comparison == StringComparison.Ordinal || environment.Options.GetValue(GremlinqOption.StringComparisonTranslationStrictness) == StringComparisonTranslationStrictness.Lenient)
                         {
                             switch (stringExpressionSemantics)
                             {
                                 case StringEqualsExpressionSemantics:
                                 {
-                                    return new P("eq", value);
+                                    return new P("eq", stringValue);
                                 }
                                 case IsPrefixOfExpressionSemantics:
                                 {
