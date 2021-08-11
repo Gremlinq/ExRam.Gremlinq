@@ -9,7 +9,7 @@ on:
 
 env:
   IsForkedRepository: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository }}
-  DotNetVersion: '6.0.100-preview.5.21302.13'
+  DotNetVersion: '6.0.100-preview.7.21379.14'
 
 jobs:
   build:
