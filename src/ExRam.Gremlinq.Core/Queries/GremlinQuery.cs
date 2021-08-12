@@ -1068,10 +1068,9 @@ namespace ExRam.Gremlinq.Core
             var stringKeys = GetStringKeys(projectionsArray)
                 .ToImmutableArray();
 
-            if (stringKeys.Length != projectionsArray.Length)
-                throw new ExpressionNotSupportedException($"One of the expressions in {nameof(ValueMap)} maps to a {nameof(T)}-token. Can't have special tokens in {nameof(ValueMap)}.");
-
-            return AddStepWithObjectTypes<TNewElement>(new ValueMapStep(stringKeys), _ => Projection.Value);
+            return stringKeys.Length != projectionsArray.Length
+                ? throw new ExpressionNotSupportedException($"One of the expressions in {nameof(ValueMap)} maps to a {nameof(T)}-token. Can't have special tokens in {nameof(ValueMap)}.")
+                : AddStepWithObjectTypes<TNewElement>(new ValueMapStep(stringKeys), _ => Projection.Value);
         }
 
         private GremlinQuery<TValue, object, object, object, object, object> ValuesForKeys<TValue>(IEnumerable<Key> keys)
