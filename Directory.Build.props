@@ -2,6 +2,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1;net5.0;net6.0</TargetFrameworks>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
     <LangVersion>10.0</LangVersion>
     <NoWarn>$(NoWarn);IDE1006;CS1998</NoWarn>
     <Nullable>enable</Nullable>
