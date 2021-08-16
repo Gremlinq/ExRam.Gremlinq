@@ -31,8 +31,7 @@ namespace ExRam.Gremlinq.Core
                 if (Volatile.Read(ref _tcs) is { } tcs)
                     return await tcs.Task;
 
-                if (localTcs == null)
-                    localTcs = new TaskCompletionSource<T>();
+                localTcs ??= new TaskCompletionSource<T>();
 
                 if (Interlocked.CompareExchange(ref _tcs, localTcs, null) == null)
                 {
