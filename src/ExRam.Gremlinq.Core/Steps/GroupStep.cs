@@ -30,9 +30,5 @@
         }
 
         public static readonly GroupStep Instance = new();
-
-        public GroupStep() : base()
-        {
-        }
     }
 }

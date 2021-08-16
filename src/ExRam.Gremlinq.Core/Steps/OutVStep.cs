@@ -3,9 +3,5 @@
     public sealed class OutVStep : Step
     {
         public static readonly OutVStep Instance = new();
-
-        public OutVStep() : base()
-        {
-        }
     }
 }

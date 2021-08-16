@@ -3,9 +3,5 @@
     public sealed class ExplainStep : Step
     {
         public static readonly ExplainStep Instance = new();
-
-        public ExplainStep() : base()
-        {
-        }
     }
 }

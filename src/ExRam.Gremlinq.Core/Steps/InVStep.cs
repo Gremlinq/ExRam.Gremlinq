@@ -3,9 +3,5 @@
     public sealed class InVStep : Step
     {
         public static readonly InVStep Instance = new();
-
-        public InVStep() : base()
-        {
-        }
     }
 }

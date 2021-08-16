@@ -3,9 +3,5 @@
     public sealed class BarrierStep : Step
     {
         public static readonly BarrierStep Instance = new();
-
-        public BarrierStep() : base()
-        {
-        }
     }
 }

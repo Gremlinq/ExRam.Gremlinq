@@ -3,9 +3,5 @@
     public sealed class FoldStep : Step
     {
         public static readonly FoldStep Instance = new();
-
-        public FoldStep() : base()
-        {
-        }
     }
 }
