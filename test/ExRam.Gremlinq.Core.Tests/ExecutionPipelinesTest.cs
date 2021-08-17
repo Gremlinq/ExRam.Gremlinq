@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Tests.Entities;
 using FluentAssertions;
