@@ -129,5 +129,27 @@ namespace ExRam.Gremlinq.Core
                     .ConfigureFragmentSerializer(_ => _
                         .Override<byte[]>((bytes, env, overridden, recurse) => recurse.Serialize(Convert.ToBase64String(bytes), env))));
         }
+
+        public static IGremlinQueryEnvironment RegisterNativeType<TNative>(this IGremlinQueryEnvironment environment, GremlinQueryFragmentSerializerDelegate<TNative> serializerDelegate, GremlinQueryFragmentDeserializerDelegate<JValue> deserializer)
+        {
+            return environment
+                .RegisterNativeType(
+                    serializerDelegate,
+                    _ => _
+                        .Override<JValue, TNative>((token, type, env, overridden, recurse) => deserializer(token, type, env, overridden, recurse)));
+        }
+
+        public static IGremlinQueryEnvironment RegisterNativeType<TNative>(this IGremlinQueryEnvironment environment, GremlinQueryFragmentSerializerDelegate<TNative> serializerDelegate, Func<IGremlinQueryFragmentDeserializer, IGremlinQueryFragmentDeserializer> fragmentDeserializerTransformation)
+        {
+            return environment
+                .ConfigureModel(_ => _
+                    .ConfigureNativeTypes(_ => _
+                        .Add(typeof(TNative))))
+                .ConfigureSerializer(_ => _
+                    .ConfigureFragmentSerializer(_ => _
+                        .Override(serializerDelegate)))
+                .ConfigureDeserializer(_ => _
+                    .ConfigureFragmentDeserializer(_ => fragmentDeserializerTransformation(_)));
+        }
     }
 }
