@@ -1313,7 +1313,6 @@ namespace ExRam.Gremlinq.Core.Models
     {
         public static readonly ExRam.Gremlinq.Core.Models.IGraphElementPropertyModel Empty;
         public static readonly ExRam.Gremlinq.Core.Models.IGraphElementPropertyModel Invalid;
-        public static ExRam.Gremlinq.Core.Models.IGraphElementPropertyModel ConfigureElement<TElement>(this ExRam.Gremlinq.Core.Models.IGraphElementPropertyModel model, System.Func<ExRam.Gremlinq.Core.Models.IMemberMetadataConfigurator<TElement>, System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.Models.MemberMetadata>> transformation) { }
     }
     public static class GraphModel
     {
@@ -1342,6 +1341,7 @@ namespace ExRam.Gremlinq.Core.Models
     public interface IGraphElementPropertyModel
     {
         System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.Models.MemberMetadata> MemberMetadata { get; }
+        ExRam.Gremlinq.Core.Models.IGraphElementPropertyModel ConfigureElement<TElement>(System.Func<ExRam.Gremlinq.Core.Models.IMemberMetadataConfigurator<TElement>, System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.Models.MemberMetadata>> transformation);
         ExRam.Gremlinq.Core.Models.IGraphElementPropertyModel ConfigureMemberMetadata(System.Func<System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.Models.MemberMetadata>, System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.Models.MemberMetadata>> transformation);
     }
     public interface IGraphModel

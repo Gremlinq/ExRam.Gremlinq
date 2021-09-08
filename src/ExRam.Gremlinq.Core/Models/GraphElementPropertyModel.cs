@@ -22,6 +22,12 @@ namespace ExRam.Gremlinq.Core.Models
                 return new GraphElementPropertyModelImpl(transformation(MemberMetadata));
             }
 
+            public IGraphElementPropertyModel ConfigureElement<TElement>(Func<IMemberMetadataConfigurator<TElement>, IImmutableDictionary<MemberInfo, MemberMetadata>> transformation)
+            {
+                return ConfigureMemberMetadata(
+                    metadata => transformation(new MemberMetadataConfigurator<TElement>(metadata)));
+            }
+
             public IImmutableDictionary<MemberInfo, MemberMetadata> MemberMetadata { get; }
         }
 
@@ -30,6 +36,11 @@ namespace ExRam.Gremlinq.Core.Models
             public IGraphElementPropertyModel ConfigureMemberMetadata(Func<IImmutableDictionary<MemberInfo, MemberMetadata>, IImmutableDictionary<MemberInfo, MemberMetadata>> transformation)
             {
                 throw new InvalidOperationException($"{nameof(ConfigureMemberMetadata)} must not be called on {nameof(GraphElementPropertyModel)}.{Invalid}. Configure a valid model for the environment first.");
+            }
+
+            public IGraphElementPropertyModel ConfigureElement<TElement>(Func<IMemberMetadataConfigurator<TElement>, IImmutableDictionary<MemberInfo, MemberMetadata>> transformation)
+            {
+                throw new InvalidOperationException($"{nameof(ConfigureElement)} must not be called on {nameof(GraphElementPropertyModel)}.{Invalid}. Configure a valid model for the environment first.");
             }
 
             public IImmutableDictionary<MemberInfo, MemberMetadata> MemberMetadata
@@ -47,12 +58,6 @@ namespace ExRam.Gremlinq.Core.Models
                 .WithComparers(MemberInfoEqualityComparer.Instance));
 
         public static readonly IGraphElementPropertyModel Invalid = new InvalidGraphElementPropertyModel();
-
-        public static IGraphElementPropertyModel ConfigureElement<TElement>(this IGraphElementPropertyModel model, Func<IMemberMetadataConfigurator<TElement>, IImmutableDictionary<MemberInfo, MemberMetadata>> transformation)
-        {
-            return model.ConfigureMemberMetadata(
-                metadata => transformation(new MemberMetadataConfigurator<TElement>(metadata)));
-        }
 
         internal static Key GetKey(this IGremlinQueryEnvironment environment, Expression expression)
         {
