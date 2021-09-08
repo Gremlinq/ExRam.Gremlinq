@@ -35,19 +35,19 @@ namespace ExRam.Gremlinq.Core.Models
         {
             public IGraphElementPropertyModel ConfigureMemberMetadata(Func<IImmutableDictionary<MemberInfo, MemberMetadata>, IImmutableDictionary<MemberInfo, MemberMetadata>> transformation)
             {
-                throw new InvalidOperationException($"{nameof(ConfigureMemberMetadata)} must not be called on {nameof(GraphElementPropertyModel)}.{Invalid}. Configure a valid model for the environment first.");
+                throw new InvalidOperationException($"{nameof(ConfigureMemberMetadata)} must not be called on {nameof(GraphElementPropertyModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
             }
 
             public IGraphElementPropertyModel ConfigureElement<TElement>(Func<IMemberMetadataConfigurator<TElement>, IImmutableDictionary<MemberInfo, MemberMetadata>> transformation)
             {
-                throw new InvalidOperationException($"{nameof(ConfigureElement)} must not be called on {nameof(GraphElementPropertyModel)}.{Invalid}. Configure a valid model for the environment first.");
+                throw new InvalidOperationException($"{nameof(ConfigureElement)} must not be called on {nameof(GraphElementPropertyModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
             }
 
             public IImmutableDictionary<MemberInfo, MemberMetadata> MemberMetadata
             {
                 get
                 {
-                    throw new InvalidOperationException($"{nameof(MemberMetadata)} must not be called on {nameof(GraphElementPropertyModel)}.{Invalid}. Configure a valid model for the environment first.");
+                    throw new InvalidOperationException($"{nameof(MemberMetadata)} must not be called on {nameof(GraphElementPropertyModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
                 }
             }
         }
