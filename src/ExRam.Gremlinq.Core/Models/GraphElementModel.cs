@@ -15,29 +15,22 @@ namespace ExRam.Gremlinq.Core.Models
                 Metadata = metaData;
             }
 
-            public IGraphElementModel ConfigureMetadata(Func<IImmutableDictionary<Type, ElementMetadata>, IImmutableDictionary<Type, ElementMetadata>> transformation)
-            {
-                return new GraphElementModelImpl(
-                    transformation(Metadata));
-            }
+            public IGraphElementModel ConfigureMetadata(Func<IImmutableDictionary<Type, ElementMetadata>, IImmutableDictionary<Type, ElementMetadata>> transformation) => new GraphElementModelImpl(transformation(Metadata));
+
+            public IGraphElementModel ConfigureLabels(Func<Type, string, string> overrideTransformation) => ConfigureMetadata(_ => _.ToImmutableDictionary(
+                kvp => kvp.Key,
+                kvp => new ElementMetadata(overrideTransformation(kvp.Key, kvp.Value.Label))));
 
             public IImmutableDictionary<Type, ElementMetadata> Metadata { get; }
         }
 
         private sealed class InvalidGraphElementModel : IGraphElementModel
         {
-            public IImmutableDictionary<Type, ElementMetadata> Metadata
-            {
-                get
-                {
-                    throw new InvalidOperationException($"{nameof(Metadata)} must not be called on {nameof(GraphElementModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
-                }
-            }
+            public IImmutableDictionary<Type, ElementMetadata> Metadata => throw new InvalidOperationException($"{nameof(Metadata)} must not be called on {nameof(GraphElementModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
 
-            public IGraphElementModel ConfigureMetadata(Func<IImmutableDictionary<Type, ElementMetadata>, IImmutableDictionary<Type, ElementMetadata>> transformation)
-            {
-                throw new InvalidOperationException($"{nameof(ConfigureMetadata)} must not be called on {nameof(GraphElementModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
-            }
+            public IGraphElementModel ConfigureLabels(Func<Type, string, string> overrideTransformation) => throw new InvalidOperationException($"{nameof(ConfigureLabels)} must not be called on {nameof(GraphElementModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
+
+            public IGraphElementModel ConfigureMetadata(Func<IImmutableDictionary<Type, ElementMetadata>, IImmutableDictionary<Type, ElementMetadata>> transformation) => throw new InvalidOperationException($"{nameof(ConfigureMetadata)} must not be called on {nameof(GraphElementModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
         }
 
         public static readonly IGraphElementModel Empty = new GraphElementModelImpl(ImmutableDictionary<Type, ElementMetadata>.Empty);
@@ -80,22 +73,9 @@ namespace ExRam.Gremlinq.Core.Models
                 .Prepend(baseType));
         }
 
-        public static IGraphElementModel ConfigureLabels(this IGraphElementModel model, Func<Type, string, string> overrideTransformation)
-        {
-            return model.ConfigureMetadata(_ => _.ToImmutableDictionary(
-                kvp => kvp.Key,
-                kvp => new ElementMetadata(overrideTransformation(kvp.Key, kvp.Value.Label))));
-        }
+        public static IGraphElementModel UseCamelCaseLabels(this IGraphElementModel model) => model.ConfigureLabels((_, proposedLabel) => proposedLabel.ToCamelCase());
 
-        public static IGraphElementModel UseCamelCaseLabels(this IGraphElementModel model)
-        {
-            return model.ConfigureLabels((_, proposedLabel) => proposedLabel.ToCamelCase());
-        }
-
-        public static IGraphElementModel UseLowerCaseLabels(this IGraphElementModel model)
-        {
-            return model.ConfigureLabels((_, proposedLabel) => proposedLabel.ToLower());
-        }
+        public static IGraphElementModel UseLowerCaseLabels(this IGraphElementModel model) => model.ConfigureLabels((_, proposedLabel) => proposedLabel.ToLower());
 
         public static ImmutableArray<string>? TryGetFilterLabels(this IGraphElementModel model, Type type, FilterLabelsVerbosity verbosity)
         {
@@ -108,10 +88,6 @@ namespace ExRam.Gremlinq.Core.Models
                     : labels;
         }
 
-        internal static ImmutableArray<string> GetFilterLabelsOrDefault(this IGraphElementModel model, Type type, FilterLabelsVerbosity verbosity)
-        {
-            return model
-                .TryGetFilterLabels(type, verbosity) ?? ImmutableArray.Create(type.Name);
-        }
+        internal static ImmutableArray<string> GetFilterLabelsOrDefault(this IGraphElementModel model, Type type, FilterLabelsVerbosity verbosity) => model.TryGetFilterLabels(type, verbosity) ?? ImmutableArray.Create(type.Name);
     }
 }

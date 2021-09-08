@@ -1301,7 +1301,6 @@ namespace ExRam.Gremlinq.Core.Models
     {
         public static readonly ExRam.Gremlinq.Core.Models.IGraphElementModel Empty;
         public static readonly ExRam.Gremlinq.Core.Models.IGraphElementModel Invalid;
-        public static ExRam.Gremlinq.Core.Models.IGraphElementModel ConfigureLabels(this ExRam.Gremlinq.Core.Models.IGraphElementModel model, System.Func<System.Type, string, string> overrideTransformation) { }
         public static ExRam.Gremlinq.Core.Models.IGraphElementModel FromBaseType(System.Type baseType, System.Collections.Generic.IEnumerable<System.Reflection.Assembly>? assemblies) { }
         public static ExRam.Gremlinq.Core.Models.IGraphElementModel FromBaseType<TType>(System.Collections.Generic.IEnumerable<System.Reflection.Assembly>? assemblies) { }
         public static ExRam.Gremlinq.Core.Models.IGraphElementModel FromTypes(System.Collections.Generic.IEnumerable<System.Type> types) { }
@@ -1337,6 +1336,7 @@ namespace ExRam.Gremlinq.Core.Models
     public interface IGraphElementModel
     {
         System.Collections.Immutable.IImmutableDictionary<System.Type, ExRam.Gremlinq.Core.Models.ElementMetadata> Metadata { get; }
+        ExRam.Gremlinq.Core.Models.IGraphElementModel ConfigureLabels(System.Func<System.Type, string, string> overrideTransformation);
         ExRam.Gremlinq.Core.Models.IGraphElementModel ConfigureMetadata(System.Func<System.Collections.Immutable.IImmutableDictionary<System.Type, ExRam.Gremlinq.Core.Models.ElementMetadata>, System.Collections.Immutable.IImmutableDictionary<System.Type, ExRam.Gremlinq.Core.Models.ElementMetadata>> transformation);
     }
     public interface IGraphElementPropertyModel
