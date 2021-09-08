@@ -1337,6 +1337,7 @@ namespace ExRam.Gremlinq.Core.Models
     public interface IGraphElementModel
     {
         System.Collections.Immutable.IImmutableDictionary<System.Type, ExRam.Gremlinq.Core.Models.ElementMetadata> Metadata { get; }
+        ExRam.Gremlinq.Core.Models.IGraphElementModel ConfigureMetadata(System.Func<System.Collections.Immutable.IImmutableDictionary<System.Type, ExRam.Gremlinq.Core.Models.ElementMetadata>, System.Collections.Immutable.IImmutableDictionary<System.Type, ExRam.Gremlinq.Core.Models.ElementMetadata>> transformation);
     }
     public interface IGraphElementPropertyModel
     {
