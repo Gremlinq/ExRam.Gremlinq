@@ -414,6 +414,14 @@ namespace ExRam.Gremlinq.Core.Deserialization
             });
         // ReSharper restore ConvertToLambdaExpression
 
+        public static IGremlinQueryFragmentDeserializer Override<TSerialized, TNative>(this IGremlinQueryFragmentDeserializer deserialier, GremlinQueryFragmentDeserializerDelegate<TSerialized> deserializer)
+        {
+            return deserialier
+                .Override<TSerialized>((token, type, env, overridden, recurse) => type == typeof(TNative)
+                    ? deserializer(token, type, env, overridden, recurse)
+                    : overridden(token, type, env, recurse));
+        }
+
         internal static IGremlinQueryFragmentDeserializer ToGraphsonString(this IGremlinQueryFragmentDeserializer deserializer)
         {
             return deserializer
