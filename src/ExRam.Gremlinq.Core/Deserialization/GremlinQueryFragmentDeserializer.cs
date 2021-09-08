@@ -183,55 +183,44 @@ namespace ExRam.Gremlinq.Core.Deserialization
                     ? Activator.CreateInstance(type, recurse.TryDeserialize(jToken, type.GetGenericArguments()[0], env))
                     : overridden(jToken, type, env, recurse);
             })
-            .Override<JValue>((jValue, type, env, overridden, recurse) =>
+            .Override<JValue, TimeSpan>((jValue, type, env, overridden, recurse) => XmlConvert.ToTimeSpan(jValue.Value<string>()))
+            .Override<JValue, DateTimeOffset>((jValue, type, env, overridden, recurse) =>
             {
-                return type == typeof(TimeSpan)
-                    ? XmlConvert.ToTimeSpan(jValue.Value<string>())
-                    : overridden(jValue, type, env, recurse);
-            })
-            .Override<JValue>((jValue, type, env, overridden, recurse) =>
-            {
-                if (type == typeof(DateTimeOffset))
+                switch (jValue.Value)
                 {
-                    switch (jValue.Value)
+                    case DateTime dateTime:
+                        return new DateTimeOffset(dateTime);
+                    case DateTimeOffset dateTimeOffset:
+                        return dateTimeOffset;
+                    default:
                     {
-                        case DateTime dateTime:
-                            return new DateTimeOffset(dateTime);
-                        case DateTimeOffset dateTimeOffset:
-                            return dateTimeOffset;
-                        default:
-                        {
-                            if (jValue.Type == JTokenType.Integer)
-                                return DateTimeOffset.FromUnixTimeMilliseconds(jValue.Value<long>());
+                        if (jValue.Type == JTokenType.Integer)
+                            return DateTimeOffset.FromUnixTimeMilliseconds(jValue.Value<long>());
 
-                            break;
-                        }
+                        break;
                     }
                 }
 
                 return overridden(jValue, type, env, recurse);
             })
-            .Override<JValue>((jValue, type, env, overridden, recurse) =>
+            .Override<JValue, DateTime>((jValue, type, env, overridden, recurse) =>
             {
-                if (type == typeof(DateTime))
+                switch (jValue.Value)
                 {
-                    switch (jValue.Value)
-                    {
-                        case DateTime dateTime:
-                            return dateTime;
-                        case DateTimeOffset dateTimeOffset:
-                            return dateTimeOffset.UtcDateTime;
-                    }
-
-                    if (jValue.Type == JTokenType.Integer)
-                        return new DateTime(DateTimeOffset.FromUnixTimeMilliseconds(jValue.Value<long>()).Ticks, DateTimeKind.Utc);
+                    case DateTime dateTime:
+                        return dateTime;
+                    case DateTimeOffset dateTimeOffset:
+                        return dateTimeOffset.UtcDateTime;
                 }
+
+                if (jValue.Type == JTokenType.Integer)
+                    return new DateTime(DateTimeOffset.FromUnixTimeMilliseconds(jValue.Value<long>()).Ticks, DateTimeKind.Utc);
 
                 return overridden(jValue, type, env, recurse);
             })
-            .Override<JValue>((jValue, type, env, overridden, recurse) =>
+            .Override<JValue, byte[]>((jValue, type, env, overridden, recurse) =>
             {
-                return type == typeof(byte[]) && jValue.Type == JTokenType.String
+                return jValue.Type == JTokenType.String
                     ? Convert.FromBase64String(jValue.Value<string>())
                     : overridden(jValue, type, env, recurse);
             })
@@ -258,21 +247,16 @@ namespace ExRam.Gremlinq.Core.Deserialization
 
                 return null;
             })
-            .Override<JObject>((jObject, type, env, overridden, recurse) =>
+            .Override<JObject, object>((jObject, type, env, overridden, recurse) =>
             {
-                if (type == typeof(object))
+                var expando = (IDictionary<string, object?>)new ExpandoObject();
+
+                foreach (var property in jObject)
                 {
-                    var expando = (IDictionary<string, object?>)new ExpandoObject();
-
-                    foreach (var property in jObject)
-                    {
-                        expando.Add(property.Key, recurse.TryDeserialize(property.Value, typeof(object), env));
-                    }
-
-                    return expando;
+                    expando.Add(property.Key, recurse.TryDeserialize(property.Value, typeof(object), env));
                 }
 
-                return overridden(jObject, type, env, recurse);
+                return expando;
             })
             .Override<JObject>((jObject, type, env, overridden, recurse) =>
             {
@@ -307,10 +291,9 @@ namespace ExRam.Gremlinq.Core.Deserialization
             })
             .Override<JObject>((jObject, type, env, overridden, recurse) =>
             {
-                if (jObject.ContainsKey("@type") && jObject.TryGetValue("@value", out var valueToken))
-                    return recurse.TryDeserialize(valueToken, type, env);
-
-                return overridden(jObject, type, env, recurse);
+                return (jObject.ContainsKey("@type") && jObject.TryGetValue("@value", out var valueToken))
+                    ? recurse.TryDeserialize(valueToken, type, env)
+                    : overridden(jObject, type, env, recurse);
             })
             .Override<JObject>((jObject, type, env, overridden, recurse) =>
             {
