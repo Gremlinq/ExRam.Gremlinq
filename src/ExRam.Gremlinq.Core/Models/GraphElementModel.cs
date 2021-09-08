@@ -15,6 +15,12 @@ namespace ExRam.Gremlinq.Core.Models
                 Metadata = metaData;
             }
 
+            public IGraphElementModel ConfigureMetadata(Func<IImmutableDictionary<Type, ElementMetadata>, IImmutableDictionary<Type, ElementMetadata>> transformation)
+            {
+                return new GraphElementModelImpl(
+                    transformation(Metadata));
+            }
+
             public IImmutableDictionary<Type, ElementMetadata> Metadata { get; }
         }
 
@@ -24,8 +30,13 @@ namespace ExRam.Gremlinq.Core.Models
             {
                 get
                 {
-                    throw new InvalidOperationException($"{nameof(Metadata)} must not be called on {nameof(GraphElementModel)}.{Invalid}. Configure a valid model for the environment first.");
+                    throw new InvalidOperationException($"{nameof(Metadata)} must not be called on {nameof(GraphElementModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
                 }
+            }
+
+            public IGraphElementModel ConfigureMetadata(Func<IImmutableDictionary<Type, ElementMetadata>, IImmutableDictionary<Type, ElementMetadata>> transformation)
+            {
+                throw new InvalidOperationException($"{nameof(ConfigureMetadata)} must not be called on {nameof(GraphElementModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
             }
         }
 
@@ -101,12 +112,6 @@ namespace ExRam.Gremlinq.Core.Models
         {
             return model
                 .TryGetFilterLabels(type, verbosity) ?? ImmutableArray.Create(type.Name);
-        }
-
-        private static IGraphElementModel ConfigureMetadata(this IGraphElementModel model, Func<IImmutableDictionary<Type, ElementMetadata>, IImmutableDictionary<Type, ElementMetadata>> transformation)
-        {
-            return new GraphElementModelImpl(
-                transformation(model.Metadata));
         }
     }
 }
