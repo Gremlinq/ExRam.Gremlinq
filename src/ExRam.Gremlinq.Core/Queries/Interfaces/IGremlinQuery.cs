@@ -81,6 +81,8 @@ namespace ExRam.Gremlinq.Core
     {
         TSelf And(params Func<TSelf, IGremlinQueryBase>[] andTraversals);
 
+        TTargetQuery As<TTargetQuery>(Func<TSelf, StepLabel<TSelf, object>, TTargetQuery> continuation) where TTargetQuery : IGremlinQueryBase;
+
         TSelf Coin(double probability);
 
         TSelf Barrier();
