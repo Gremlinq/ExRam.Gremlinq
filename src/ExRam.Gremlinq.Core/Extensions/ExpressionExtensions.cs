@@ -33,20 +33,6 @@ namespace ExRam.Gremlinq.Core
                         expression = unaryExpression.Operand;
                         break;
                     }
-                    default:
-                    {
-                        return expression;
-                    }
-                }
-            }
-        }
-
-        public static Expression StripToString(this Expression expression)
-        {
-            while (true)
-            {
-                switch (expression)
-                {
                     case MethodCallExpression methodCallExpression when methodCallExpression.Object is { } objectExpression && methodCallExpression.Method == ObjectToString:
                     {
                         expression = objectExpression;
