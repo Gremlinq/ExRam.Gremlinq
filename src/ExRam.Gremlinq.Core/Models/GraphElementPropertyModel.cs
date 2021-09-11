@@ -64,7 +64,7 @@ namespace ExRam.Gremlinq.Core.Models
             if (expression is LambdaExpression lambdaExpression)
                 return environment.GetKey(lambdaExpression.Body);
 
-            if (expression.StripConvert() is MemberExpression memberExpression)
+            if (expression.StripToString().StripConvert() is MemberExpression memberExpression)
             {
                 return memberExpression.TryGetWellKnownMember() == WellKnownMember.PropertyValue && memberExpression.Expression is MemberExpression sourceMemberExpression
                     ? environment.GetCache().GetKey(sourceMemberExpression.Member)
