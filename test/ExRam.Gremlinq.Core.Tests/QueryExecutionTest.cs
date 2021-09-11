@@ -3926,6 +3926,15 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task Values_ToString()
+        {
+            await _g
+                .V<Person>()
+                .Values(x => x.Name!.ToString())
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task Values_2_members()
         {
             await _g
