@@ -2860,7 +2860,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .V<Company>()
                     .Properties(x => x.Locations!)
                     .Properties()
-                    .Where(x => x.Key == stepLabel))
+                    .Where(x => x.Key == stepLabel.Value))
                 .Verify();
         }
 
@@ -3039,7 +3039,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .As((__, l) => __
                     .V<Country>()
                     .Properties(x => x.Languages!)
-                    .Where(x => x.Label == l))
+                    .Where(x => x.Label == l.Value))
                 .Verify();
         }
 
@@ -4576,7 +4576,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Language>()
                 .As((__, l) => __
                     .V<Language>()
-                    .Where(l2 => l2 == l))
+                    .Where(l2 => l2 == l.Value))
                 .Verify();
         }
 
@@ -4587,7 +4587,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Language>()
                 .As((__, l) => __
                     .V<Language>()
-                    .Where(l2 => l == l2))
+                    .Where(l2 => l.Value == l2))
                 .Verify();
         }
 
@@ -4598,7 +4598,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Language>()
                 .As((__, l) => __
                     .V<Language>()
-                    .Where(l2 => l2 != l))
+                    .Where(l2 => l2 != l.Value))
                 .Verify();
         }
 
@@ -4609,7 +4609,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Language>()
                 .As((__, l) => __
                     .V<Language>()
-                    .Where(l2 => l != l2))
+                    .Where(l2 => l.Value != l2))
                 .Verify();
         }
 
@@ -5096,7 +5096,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Values(x => x.IetfLanguageTag)
                 .As((__, l) => __
                     .V<Language>()
-                    .Where(l2 => l2.IetfLanguageTag == l))
+                    .Where(l2 => l2.IetfLanguageTag == l.Value))
                 .Verify();
         }
 
