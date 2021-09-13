@@ -33,7 +33,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
 
             public object? TryDeserialize<TSerialized>(TSerialized serializedData, Type fragmentType, IGremlinQueryEnvironment environment)
             {
-                if (GetConvertedDeserializer(typeof(TSerialized), serializedData!.GetType(), fragmentType) is Func<TSerialized, Type, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, object?> del)
+                if (GetConvertedDeserializer(typeof(TSerialized), serializedData!.GetType(), fragmentType) is BaseGremlinQueryFragmentDeserializerDelegate<TSerialized> del)
                     return del(serializedData, fragmentType, environment, this);
 
                 throw new ArgumentException($"Could not find a deserializer for {fragmentType.FullName}.");
@@ -44,7 +44,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 return new GremlinQueryFragmentDeserializerImpl(
                     _dict.SetItem(
                         typeof(TSerialized),
-                        GetUnconvertedDeserializer(typeof(TSerialized), typeof(TSerialized)) is Func<TSerialized, Type, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, object?> existingFragmentDeserializer
+                        GetUnconvertedDeserializer(typeof(TSerialized), typeof(TSerialized)) is BaseGremlinQueryFragmentDeserializerDelegate<TSerialized> existingFragmentDeserializer
                             ? (fragment, type, env, _, recurse) => deserializer(fragment, type, env, existingFragmentDeserializer, recurse)
                             : deserializer));
             }
@@ -91,17 +91,17 @@ namespace ExRam.Gremlinq.Core.Deserialization
                         this);
             }
 
-            private static Func<TStatic, Type, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, object?> CreateFunc1<TStatic, TEffective>(GremlinQueryFragmentDeserializerDelegate<TEffective> del)
+            private static BaseGremlinQueryFragmentDeserializerDelegate<TStatic> CreateFunc1<TStatic, TEffective>(GremlinQueryFragmentDeserializerDelegate<TEffective> del)
             {
                 return (serialized, fragmentType, environment, recurse) => del((TEffective)(object)serialized!, fragmentType, environment, (serialized, _, _, _) => serialized, recurse);
             }
 
-            private static Func<TStatic, Type, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, object?> CreateFunc2<TStatic>()
+            private static BaseGremlinQueryFragmentDeserializerDelegate<TStatic> CreateFunc2<TStatic>()
             {
                 return (serialized, fragmentType, environment, recurse) => serialized;
             }
 
-            private static Func<TSerialized, Type, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, object?> CreateFunc3<TSerialized, TFragment>(Func<TSerialized, Type, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, object?> del)
+            private static BaseGremlinQueryFragmentDeserializerDelegate<TSerialized> CreateFunc3<TSerialized, TFragment>(BaseGremlinQueryFragmentDeserializerDelegate<TSerialized> del)
             {
                 return (serialized, fragmentType, environment, recurse) => (TFragment)del(serialized!, fragmentType, environment, recurse)!;
             }
