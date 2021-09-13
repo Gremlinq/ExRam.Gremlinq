@@ -941,10 +941,6 @@
         public TElement Value { get; }
         public static TElement op_Implicit(ExRam.Gremlinq.Core.StepLabel<TElement>? stepLabel) { }
         public new static ExRam.Gremlinq.Core.StepLabel<TElement> op_Implicit(string str) { }
-        public static bool operator !=(ExRam.Gremlinq.Core.StepLabel<TElement>? b, TElement? a) { }
-        public static bool operator !=(TElement? a, ExRam.Gremlinq.Core.StepLabel<TElement>? b) { }
-        public static bool operator ==(ExRam.Gremlinq.Core.StepLabel<TElement>? b, TElement? a) { }
-        public static bool operator ==(TElement? a, ExRam.Gremlinq.Core.StepLabel<TElement>? b) { }
     }
     public class StepLabel<TQuery, TElement> : ExRam.Gremlinq.Core.StepLabel<TElement>
         where TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
