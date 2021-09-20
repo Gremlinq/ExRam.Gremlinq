@@ -69,7 +69,7 @@ namespace ExRam.Gremlinq.Core
         IVertexPropertyGremlinQuery<TElement, TValue> ForceVertexProperty<TValue>();
         IArrayGremlinQuery<TElement[], TElement, IGremlinQueryBase<TElement>> ForceArray();
         IVertexPropertyGremlinQuery<TElement, TValue, TMeta> ForceVertexProperty<TValue, TMeta>();
-        IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex> ForceBothEdge<TOutVertex, TInVertex>();
+        IEdgeGremlinQuery<TElement, TOutVertex, TInVertex> ForceBothEdge<TOutVertex, TInVertex>();
 
         new IGremlinQuery<TElement> Lower();
 
