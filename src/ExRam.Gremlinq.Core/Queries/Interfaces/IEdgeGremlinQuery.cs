@@ -74,4 +74,22 @@ namespace ExRam.Gremlinq.Core
     {
        
     }
+
+    public interface IEdgeGremlinQueryBase<TEdge, TOutVertex, TInVertex> :
+        IEdgeGremlinQueryBase,
+        IOutEdgeGremlinQueryBase<TEdge, TOutVertex>,
+        IInEdgeGremlinQueryBase<TEdge, TInVertex>
+    {
+        new IEdgeGremlinQuery<TEdge> Lower();
+    }
+
+    public interface IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> :
+        IInOrOutEdgeGremlinQueryBaseRec<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>>,
+        IOutEdgeGremlinQueryBaseRec<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>>,
+        IInEdgeGremlinQueryBaseRec<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>>,
+        IEdgeGremlinQueryBase<TEdge, TOutVertex, TInVertex>,
+        IEdgeGremlinQueryBaseRec<TEdge, IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>>
+    {
+
+    }
 }
