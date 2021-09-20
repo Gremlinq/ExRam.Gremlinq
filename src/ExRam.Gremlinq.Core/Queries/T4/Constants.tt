@@ -19,7 +19,7 @@
         "IVertexGremlinQuery<TVertex>",
         "IEdgeGremlinQuery<TEdge>",
         "IInOrOutEdgeGremlinQuery<TEdge, TAdjacentVertex>",
-        "IBothEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>",
+        "IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>",
         "IInEdgeGremlinQuery<TEdge, TInVertex>",
         "IOutEdgeGremlinQuery<TEdge, TOutVertex>",
         "IVertexPropertyGremlinQuery<TProperty, TValue>",
