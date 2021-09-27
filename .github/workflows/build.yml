@@ -33,7 +33,7 @@ jobs:
         dotnet-version: ${{ env.DotNetVersion }}
 
     - name: Install dotnet-validate
-      run: dotnet tool install -g dotnet-validate --version 0.0.1-preview.130
+      run: dotnet tool install -g dotnet-validate --version 0.0.1-preview.169
 
     - name: Determine semantic version
       uses: dotnet/nbgv@master
