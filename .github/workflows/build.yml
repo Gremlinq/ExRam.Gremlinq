@@ -205,7 +205,7 @@ jobs:
         status: |
           Announcing the release of ExRam.Gremlinq ${{ needs.build.outputs.semVer2 }}!
           
-          ExRam.Gremlinq is the first #dotnet object-graph-mapper for @apachetinkerpop #gremlin enabled #graphdb‎s like @AzureCosmosDB, #AWS #Neptune or @JanusGraph.
+          ExRam.Gremlinq is the first #dotnet object-graph-mapper for @apachetinkerpop #gremlin enabled #graphdb‎s like @AzureCosmosDB, @awscloud Neptune or @JanusGraph.
           
           https://github.com/ExRam/ExRam.Gremlinq/releases/tag/${{ needs.build.outputs.semVer2 }}
         consumer-key: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
