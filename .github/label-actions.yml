@@ -6,12 +6,11 @@ issues:
     "Repro repository missing":
       # Post a comment
       comment: >
-        "Hello @{issue-author},"
+        Hello @{issue-author},
 
-
-        "thanks for your interest in ExRam.Gremlinq. The issue was labelled "Repro repository missing" because although the issue template asks for either "a link to GitHub repository containing a minimal executable project structure that exposes the unexpected behaviour" or "a pull request to ExRam.Gremlinq that adds a failing unit test to the ExRam.Gremlinq tests asserting the expected behaviour", it seems you provided neither. Most problems already solve themselves when isolated and if they don't, you will have made it easier for the maintainer of this project to investigate a possible bug.
+        thanks for your interest in ExRam.Gremlinq. The issue was labelled "Repro repository missing" because although the issue template asks for either "a link to GitHub repository containing a minimal executable project structure that exposes the unexpected behaviour" or "a pull request to ExRam.Gremlinq that adds a failing unit test to the ExRam.Gremlinq tests asserting the expected behaviour", it seems you provided neither. Most problems already solve themselves when isolated and if they don't, you will have made it easier for the maintainer of this project to investigate a possible bug.
     "How would this look in raw Gremlin?":
       comment: >
-        "Hello @{issue-author},"
+        Hello @{issue-author},
 
-        "thanks for your interest in ExRam.Gremlinq. The issue was labelled "How would this look like in raw Gremlin?" because it seems you tried to formulate a query with ExRam.Gremlinq that fails either when constructing or executing the query. This might be a shortcoming or missing feature of ExRam.Gremlinq, however, in this case, it seems that there is not much that ExRam.Gremlinq could do since there is no valid Gremlin that it could construct that would achieve what you intended. In general, or when you feel that it should be possible, the question is: How would this look like in raw Gremlin? If you're new to Gremlin, check out the [Tinkerpop reference.](https://tinkerpop.apache.org/docs/current/reference/)"
+        thanks for your interest in ExRam.Gremlinq. The issue was labelled "How would this look like in raw Gremlin?" because it seems you tried to formulate a query with ExRam.Gremlinq that fails either when constructing or executing the query. This might be a shortcoming or missing feature of ExRam.Gremlinq, however, in this case, it seems that there is not much that ExRam.Gremlinq could do since there is no valid Gremlin that it could construct that would achieve what you intended. In general, or when you feel that it should be possible, the question is: How would this look like in raw Gremlin? If you're new to Gremlin, check out the [Tinkerpop reference.](https://tinkerpop.apache.org/docs/current/reference/)
