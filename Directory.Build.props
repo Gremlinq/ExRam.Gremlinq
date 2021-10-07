@@ -12,7 +12,7 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Condition="!$(MSBuildProjectName.StartsWith('ExRam.Gremlinq.Samples')) AND !$(MSBuildProjectName.EndsWith('Tests'))" Include="Nerdbank.GitVersioning" Version="3.4.231" PrivateAssets="All" />
+    <PackageReference Condition="!$(MSBuildProjectName.StartsWith('ExRam.Gremlinq.Samples')) AND !$(MSBuildProjectName.EndsWith('Tests'))" Include="Nerdbank.GitVersioning" Version="3.4.240" PrivateAssets="All" />
   </ItemGroup>
   
   <!-- Workaround for this bug (replace the analyzer name with the one you need to exclude (filename only, no extension) -->
