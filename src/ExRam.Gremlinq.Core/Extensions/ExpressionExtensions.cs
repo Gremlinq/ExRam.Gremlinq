@@ -327,7 +327,7 @@ namespace ExRam.Gremlinq.Core
 
                             if (wellKnownMember == WellKnownMember.StringStartsWith && argumentExpression.TryGetReferredParameter() is not null)
                             {
-                                if (instanceExpression.GetValue() is string stringValue)
+                                if (instanceExpression.GetValue()?.ToString() is string stringValue)
                                 {
                                     return new GremlinExpression(
                                         ExpressionFragment.Constant(stringValue),
