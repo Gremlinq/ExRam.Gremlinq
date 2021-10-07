@@ -5327,7 +5327,18 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Where(c => str.StartsWith(c.CountryCallingCode!))
                 .Verify();
         }
-        
+
+        [Fact]
+        public virtual async Task Where_property_is_prefix_of_UriToString()
+        {
+            var uri = new Uri("tel:+49123");
+
+            await _g
+                .V<Country>()
+                .Where(c => uri.ToString().StartsWith(c.CountryCallingCode!))
+                .Verify();
+        }
+
         [Fact]
         public virtual async Task Where_property_is_prefix_of_constant_case_insensitive()
         {
