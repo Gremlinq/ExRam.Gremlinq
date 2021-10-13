@@ -116,15 +116,12 @@ namespace ExRam.Gremlinq.Core.Serialization
                         }
                         case object[] objectArray when allowEnumerableExpansion:
                         {
-                            var comma = false;
-                            foreach (var argument in objectArray)
+                            for (var i = 0; i< objectArray.Length; i++)
                             {
-                                if (comma)
+                                if (i != 0)
                                     builder.Append(',');
-                                else
-                                    comma = true;
 
-                                Append(argument);
+                                Append(objectArray[i]);
                             }
 
                             break;
