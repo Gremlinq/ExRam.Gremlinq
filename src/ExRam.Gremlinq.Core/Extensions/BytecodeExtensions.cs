@@ -116,7 +116,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                         }
                         case object[] objectArray when allowEnumerableExpansion:
                         {
-                            for (var i = 0; i< objectArray.Length; i++)
+                            for (var i = 0; i < objectArray.Length; i++)
                             {
                                 if (i != 0)
                                     builder.Append(',');
