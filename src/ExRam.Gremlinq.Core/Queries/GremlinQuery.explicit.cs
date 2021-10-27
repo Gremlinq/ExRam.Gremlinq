@@ -255,7 +255,12 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IGremlinQueryAdmin.ChangeQueryType<TTargetQuery>(Projection? forceProjection) => ChangeQueryType<TTargetQuery>(forceProjection);
 
-        IGremlinQuerySource IGremlinQueryAdmin.GetSource() => GremlinQuery.Create(Environment);
+        IGremlinQuerySource IGremlinQueryAdmin.GetSource() => new GremlinQuery<object, object, object, object, object, object>(
+            StepStack.Empty,
+            Projection.Empty,
+            Environment,
+            StepLabelProjections,
+            Flags & QueryFlags.IsMuted);
 
         StepStack IGremlinQueryAdmin.Steps => Steps;
 
