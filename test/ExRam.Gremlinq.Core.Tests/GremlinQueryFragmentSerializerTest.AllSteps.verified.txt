@@ -1239,9 +1239,9 @@
     Item2: {
       OperatorName: withoutStrategies,
       Arguments: [
-        Object,
-        Object,
-        Object
+        object,
+        object,
+        object
       ]
     }
   },

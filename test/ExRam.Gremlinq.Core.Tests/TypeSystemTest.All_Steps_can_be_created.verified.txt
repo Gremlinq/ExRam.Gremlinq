@@ -846,9 +846,9 @@
     Item1: WithoutStrategiesStep,
     Item2: {
       StrategyTypes: [
-        Object,
-        Object,
-        Object
+        object,
+        object,
+        object
       ]
     }
   },
