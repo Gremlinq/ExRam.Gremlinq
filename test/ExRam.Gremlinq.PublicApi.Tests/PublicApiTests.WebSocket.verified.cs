@@ -20,12 +20,20 @@ namespace ExRam.Gremlinq.Core
 }
 namespace ExRam.Gremlinq.Providers.WebSocket
 {
+    public static class GremlinClientFactory
+    {
+        public static readonly ExRam.Gremlinq.Providers.WebSocket.IGremlinClientFactory Default;
+    }
+    public interface IGremlinClientFactory
+    {
+        Gremlin.Net.Driver.GremlinClient Create(Gremlin.Net.Driver.GremlinServer gremlinServer, Gremlin.Net.Driver.IMessageSerializer? messageSerializer = null, Gremlin.Net.Driver.ConnectionPoolSettings? connectionPoolSettings = null, System.Action<System.Net.WebSockets.ClientWebSocketOptions>? webSocketConfiguration = null, string? sessionId = null);
+    }
     public interface IWebSocketConfigurator : ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation
     {
         ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurator At(System.Uri uri);
         ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurator AuthenticateBy(string username, string password);
-        ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurator ConfigureConnectionPool(System.Action<Gremlin.Net.Driver.ConnectionPoolSettings> transformation);
         ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurator ConfigureGremlinClient(System.Func<Gremlin.Net.Driver.IGremlinClient, Gremlin.Net.Driver.IGremlinClient> transformation);
+        ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurator ConfigureGremlinClientFactory(System.Func<ExRam.Gremlinq.Providers.WebSocket.IGremlinClientFactory, ExRam.Gremlinq.Providers.WebSocket.IGremlinClientFactory> transformation);
         ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurator ConfigureMessageSerializer(System.Func<Gremlin.Net.Driver.IMessageSerializer, Gremlin.Net.Driver.IMessageSerializer> transformation);
         ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurator SetAlias(string alias);
     }
