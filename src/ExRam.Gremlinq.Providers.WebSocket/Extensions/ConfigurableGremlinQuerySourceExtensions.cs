@@ -240,7 +240,7 @@ namespace ExRam.Gremlinq.Core
         {
             var configurator = new WebSocketConfigurator(
                 default,
-                new DefaultGremlinClientFactory(),
+                GremlinClientFactory.Default,
                 JsonNetMessageSerializer.GraphSON3,
                 null,
                 "g",
