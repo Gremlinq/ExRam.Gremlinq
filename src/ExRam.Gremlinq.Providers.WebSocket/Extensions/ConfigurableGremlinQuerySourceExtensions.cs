@@ -178,9 +178,9 @@ namespace ExRam.Gremlinq.Core
 
             public IWebSocketConfigurator At(Uri uri) => new WebSocketConfigurator(uri, _clientFactory, _serializer, _auth, _alias, _clientTransformation, _connectionPoolSettings);
 
-            public IWebSocketConfigurator SetGremlinClientFactory(IGremlinClientFactory clientFactory) => new WebSocketConfigurator(_uri, clientFactory, _serializer, _auth, _alias, _clientTransformation, _connectionPoolSettings);
-
             public IWebSocketConfigurator ConfigureGremlinClient(Func<IGremlinClient, IGremlinClient> transformation) => new WebSocketConfigurator(_uri, _clientFactory, _serializer, _auth, _alias, _ => transformation(_clientTransformation(_)), _connectionPoolSettings);
+
+            public IWebSocketConfigurator ConfigureGremlinClientFactory(Func<IGremlinClientFactory, IGremlinClientFactory> transformation) => new WebSocketConfigurator(_uri, transformation(_clientFactory), _serializer, _auth, _alias, _clientTransformation, _connectionPoolSettings);
 
             public IWebSocketConfigurator ConfigureMessageSerializer(Func<IMessageSerializer, IMessageSerializer> transformation) => new WebSocketConfigurator(_uri, _clientFactory, transformation(_serializer), _auth, _alias, _clientTransformation, _connectionPoolSettings);
 
@@ -231,7 +231,7 @@ namespace ExRam.Gremlinq.Core
                             null),
                         ct)),
                     _alias);
-            }           
+            }
         }
 
         public static IGremlinQuerySource UseWebSocket(
