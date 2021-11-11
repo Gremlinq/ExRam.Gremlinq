@@ -155,7 +155,6 @@ namespace ExRam.Gremlinq.Core
             private readonly IMessageSerializer _serializer;
             private readonly IGremlinClientFactory _clientFactory;
             private readonly (string username, string password)? _auth;
-            private readonly ConnectionPoolSettings _connectionPoolSettings;
             private readonly Func<IGremlinClient, IGremlinClient> _clientTransformation;
 
             public WebSocketConfigurator(
@@ -164,8 +163,7 @@ namespace ExRam.Gremlinq.Core
                 IMessageSerializer serializer,
                 (string username, string password)? auth,
                 string alias,
-                Func<IGremlinClient, IGremlinClient> clientTransformation,
-                ConnectionPoolSettings connectionPoolSettings)
+                Func<IGremlinClient, IGremlinClient> clientTransformation)
             {
                 _uri = uri;
                 _auth = auth;
@@ -173,33 +171,19 @@ namespace ExRam.Gremlinq.Core
                 _serializer = serializer;
                 _clientFactory = clientFactory;
                 _clientTransformation = clientTransformation;
-                _connectionPoolSettings = connectionPoolSettings;
             }
 
-            public IWebSocketConfigurator At(Uri uri) => new WebSocketConfigurator(uri, _clientFactory, _serializer, _auth, _alias, _clientTransformation, _connectionPoolSettings);
+            public IWebSocketConfigurator At(Uri uri) => new WebSocketConfigurator(uri, _clientFactory, _serializer, _auth, _alias, _clientTransformation);
 
-            public IWebSocketConfigurator ConfigureGremlinClient(Func<IGremlinClient, IGremlinClient> transformation) => new WebSocketConfigurator(_uri, _clientFactory, _serializer, _auth, _alias, _ => transformation(_clientTransformation(_)), _connectionPoolSettings);
+            public IWebSocketConfigurator ConfigureGremlinClient(Func<IGremlinClient, IGremlinClient> transformation) => new WebSocketConfigurator(_uri, _clientFactory, _serializer, _auth, _alias, _ => transformation(_clientTransformation(_)));
 
-            public IWebSocketConfigurator ConfigureGremlinClientFactory(Func<IGremlinClientFactory, IGremlinClientFactory> transformation) => new WebSocketConfigurator(_uri, transformation(_clientFactory), _serializer, _auth, _alias, _clientTransformation, _connectionPoolSettings);
+            public IWebSocketConfigurator ConfigureGremlinClientFactory(Func<IGremlinClientFactory, IGremlinClientFactory> transformation) => new WebSocketConfigurator(_uri, transformation(_clientFactory), _serializer, _auth, _alias, _clientTransformation);
 
-            public IWebSocketConfigurator ConfigureMessageSerializer(Func<IMessageSerializer, IMessageSerializer> transformation) => new WebSocketConfigurator(_uri, _clientFactory, transformation(_serializer), _auth, _alias, _clientTransformation, _connectionPoolSettings);
+            public IWebSocketConfigurator ConfigureMessageSerializer(Func<IMessageSerializer, IMessageSerializer> transformation) => new WebSocketConfigurator(_uri, _clientFactory, transformation(_serializer), _auth, _alias, _clientTransformation);
 
-            public IWebSocketConfigurator AuthenticateBy(string username, string password) => new WebSocketConfigurator(_uri, _clientFactory, _serializer, (username, password), _alias, _clientTransformation, _connectionPoolSettings);
+            public IWebSocketConfigurator AuthenticateBy(string username, string password) => new WebSocketConfigurator(_uri, _clientFactory, _serializer, (username, password), _alias, _clientTransformation);
 
-            public IWebSocketConfigurator SetAlias(string alias) => new WebSocketConfigurator(_uri, _clientFactory, _serializer, _auth, alias, _clientTransformation, _connectionPoolSettings);
-
-            public IWebSocketConfigurator ConfigureConnectionPool(Action<ConnectionPoolSettings> transformation)
-            {
-                var newConnectionPoolSettings = new ConnectionPoolSettings
-                {
-                    MaxInProcessPerConnection = _connectionPoolSettings.MaxInProcessPerConnection,
-                    PoolSize = _connectionPoolSettings.PoolSize
-                };
-
-                transformation(newConnectionPoolSettings);
-
-                return new WebSocketConfigurator(_uri, _clientFactory, _serializer, _auth, _alias, _clientTransformation, newConnectionPoolSettings);
-            }
+            public IWebSocketConfigurator SetAlias(string alias) => new WebSocketConfigurator(_uri, _clientFactory, _serializer, _auth, alias, _clientTransformation);
 
             public IGremlinQuerySource Transform(IGremlinQuerySource source)
             {
@@ -226,7 +210,6 @@ namespace ExRam.Gremlinq.Core
                                 _auth?.username,
                                 _auth?.password),
                             _serializer,
-                            _connectionPoolSettings,
                             null,
                             null),
                         ct)),
@@ -244,8 +227,7 @@ namespace ExRam.Gremlinq.Core
                 JsonNetMessageSerializer.GraphSON3,
                 null,
                 "g",
-                _ => _,
-                new ConnectionPoolSettings());
+                _ => _);
 
             return configuratorTransformation(configurator)
                 .Transform(source.ConfigureEnvironment(_ => _))

@@ -14,8 +14,6 @@ namespace ExRam.Gremlinq.Providers.WebSocket
 
         IWebSocketConfigurator ConfigureGremlinClientFactory(Func<IGremlinClientFactory, IGremlinClientFactory> transformation);
 
-        IWebSocketConfigurator ConfigureConnectionPool(Action<ConnectionPoolSettings> transformation);
-
         IWebSocketConfigurator ConfigureGremlinClient(Func<IGremlinClient, IGremlinClient> transformation);
 
         IWebSocketConfigurator ConfigureMessageSerializer(Func<IMessageSerializer, IMessageSerializer> transformation);
