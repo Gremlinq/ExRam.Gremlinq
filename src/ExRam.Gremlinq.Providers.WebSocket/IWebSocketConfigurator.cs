@@ -12,7 +12,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
 
         IWebSocketConfigurator SetAlias(string alias);
 
-        IWebSocketConfigurator SetGremlinClientFactory(IGremlinClientFactory clientFactory);
+        IWebSocketConfigurator ConfigureGremlinClientFactory(Func<IGremlinClientFactory, IGremlinClientFactory> transformation);
 
         IWebSocketConfigurator ConfigureConnectionPool(Action<ConnectionPoolSettings> transformation);
 
