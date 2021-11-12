@@ -20,6 +20,9 @@ namespace ExRam.Gremlinq.PublicApi.Tests
         public Task Core() => Verify("ExRam.Gremlinq.Core");
 
         [Fact]
+        public Task ProvidersCore() => Verify("ExRam.Gremlinq.Providers.Core");
+
+        [Fact]
         public Task CosmosDb() => Verify("ExRam.Gremlinq.Providers.CosmosDb");
 
         [Fact]
