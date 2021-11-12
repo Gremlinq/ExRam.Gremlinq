@@ -19,7 +19,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                 _section = section;
             }
 
-            public GremlinClient Create(GremlinServer gremlinServer, IMessageSerializer? messageSerializer = null, ConnectionPoolSettings? connectionPoolSettings = null, Action<ClientWebSocketOptions>? webSocketConfiguration = null, string? sessionId = null)
+            public IGremlinClient Create(GremlinServer gremlinServer, IMessageSerializer? messageSerializer = null, ConnectionPoolSettings? connectionPoolSettings = null, Action<ClientWebSocketOptions>? webSocketConfiguration = null, string? sessionId = null)
             {
                 if (int.TryParse(_section[$"{nameof(ConnectionPoolSettings.MaxInProcessPerConnection)}"], out var maxInProcessPerConnection))
                     (connectionPoolSettings ??= new ConnectionPoolSettings()).MaxInProcessPerConnection = maxInProcessPerConnection;
