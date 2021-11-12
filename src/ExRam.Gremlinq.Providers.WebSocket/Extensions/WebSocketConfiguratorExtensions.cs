@@ -1,6 +1,6 @@
 ﻿using System;
-
 using Gremlin.Net.Driver;
+using _GremlinServer = Gremlin.Net.Driver.GremlinServer;
 
 namespace ExRam.Gremlinq.Providers.WebSocket
 {
@@ -36,5 +36,18 @@ namespace ExRam.Gremlinq.Providers.WebSocket
                     }));
         }
 
+        public static IWebSocketConfigurator At(this IWebSocketConfigurator configurator, Uri uri) => configurator.ConfigureGremlinServer(server => CreateGremlinServer(uri, server.Username, server.Password));
+
+        public static IWebSocketConfigurator AuthenticateBy(this IWebSocketConfigurator configurator, string username, string password) => configurator.ConfigureGremlinServer(server => CreateGremlinServer(server.Uri, username, password));
+
+        private static _GremlinServer CreateGremlinServer(Uri uri, string username, string password)
+        {
+            return new _GremlinServer(
+                (uri.Host + uri.AbsolutePath).TrimEnd('/'),
+                uri.Port,
+                "wss".Equals(uri.Scheme, StringComparison.OrdinalIgnoreCase),
+                username,
+                password);
+        }
     }
 }
