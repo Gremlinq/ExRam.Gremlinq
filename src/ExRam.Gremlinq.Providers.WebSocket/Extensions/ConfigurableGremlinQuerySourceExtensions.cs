@@ -168,7 +168,7 @@ namespace ExRam.Gremlinq.Core
 
             public IWebSocketConfigurator ConfigureGremlinClientFactory(Func<IGremlinClientFactory, IGremlinClientFactory> transformation) => new WebSocketConfigurator(_gremlinServer, transformation(_clientFactory), _alias);
 
-            public IWebSocketConfigurator SetAlias(string alias) => new WebSocketConfigurator(_gremlinServer, _clientFactory, alias);
+            public IWebSocketConfigurator ConfigureAlias(Func<string, string> transformation) => new WebSocketConfigurator(_gremlinServer, _clientFactory, transformation(_alias));
 
             public IGremlinQuerySource Transform(IGremlinQuerySource source)
             {
