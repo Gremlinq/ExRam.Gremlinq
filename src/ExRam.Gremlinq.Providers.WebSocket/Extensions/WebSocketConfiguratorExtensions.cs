@@ -25,5 +25,16 @@ namespace ExRam.Gremlinq.Providers.WebSocket
                         return transformation(factory.Create(server, serializer, poolSettings, optionsTransformation, sessionId));
                     }));
         }
+
+        public static IWebSocketConfigurator ConfigureMessageSerializer(this IWebSocketConfigurator configurator, Func<IMessageSerializer, IMessageSerializer> transformation)
+        {
+            return configurator
+                .ConfigureGremlinClientFactory(factory => GremlinClientFactory
+                    .Create((server, maybeSerializer, poolSettings, optionsTransformation, sessionId) =>
+                    {
+                        return factory.Create(server, maybeSerializer is { } serializer ? transformation(serializer) : maybeSerializer, poolSettings, optionsTransformation, sessionId);
+                    }));
+        }
+
     }
 }
