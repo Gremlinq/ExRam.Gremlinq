@@ -40,6 +40,13 @@ namespace ExRam.Gremlinq.Providers.WebSocket
     {
         TConfigurator ConfigureWebSocket(System.Func<ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurator, ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurator> transformation);
     }
+    public static class ProviderConfiguratorExtensions
+    {
+        public static TProviderConfigurator At<TProviderConfigurator>(this TProviderConfigurator configurator, System.Uri uri)
+            where TProviderConfigurator : ExRam.Gremlinq.Providers.WebSocket.IWebSocketProviderConfigurator<TProviderConfigurator> { }
+        public static TProviderConfigurator AtLocalhost<TProviderConfigurator>(this TProviderConfigurator configurator)
+            where TProviderConfigurator : ExRam.Gremlinq.Providers.WebSocket.IWebSocketProviderConfigurator<TProviderConfigurator> { }
+    }
     public static class WebSocketConfiguratorExtensions
     {
         public static ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurator At(this ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurator builder, string uri) { }

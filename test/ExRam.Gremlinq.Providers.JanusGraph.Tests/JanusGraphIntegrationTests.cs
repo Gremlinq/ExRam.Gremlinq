@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Core.Tests;
+using ExRam.Gremlinq.Providers.WebSocket;
 using Xunit;
 using Xunit.Abstractions;
 
