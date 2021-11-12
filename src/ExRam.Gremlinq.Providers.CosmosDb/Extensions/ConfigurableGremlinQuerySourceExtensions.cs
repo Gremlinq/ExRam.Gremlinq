@@ -26,55 +26,40 @@ namespace ExRam.Gremlinq.Core
                 _webSocketConfigurator = webSocketConfigurator;
             }
 
-            public ICosmosDbConfigurator At(Uri uri)
-            {
-                return new CosmosDbConfigurator(
-                    _webSocketConfigurator,
-                    uri,
-                    _databaseName,
-                    _graphName,
-                    _authKey);
-            }
+            public ICosmosDbConfigurator At(Uri uri) => new CosmosDbConfigurator(
+                _webSocketConfigurator,
+                uri,
+                _databaseName,
+                _graphName,
+                _authKey);
 
-            public ICosmosDbConfigurator OnDatabase(string databaseName)
-            {
-                return new CosmosDbConfigurator(
-                    _webSocketConfigurator,
-                    _uri,
-                    databaseName,
-                    _graphName,
-                    _authKey);
-            }
+            public ICosmosDbConfigurator OnDatabase(string databaseName) => new CosmosDbConfigurator(
+                _webSocketConfigurator,
+                _uri,
+                databaseName,
+                _graphName,
+                _authKey);
 
-            public ICosmosDbConfigurator OnGraph(string graphName)
-            {
-                return new CosmosDbConfigurator(
-                    _webSocketConfigurator,
-                    _uri,
-                    _databaseName,
-                    graphName,
-                    _authKey);
-            }
+            public ICosmosDbConfigurator OnGraph(string graphName) => new CosmosDbConfigurator(
+                _webSocketConfigurator,
+                _uri,
+                _databaseName,
+                graphName,
+                _authKey);
 
-            public ICosmosDbConfigurator AuthenticateBy(string authKey)
-            {
-                return new CosmosDbConfigurator(
-                    _webSocketConfigurator,
-                    _uri,
-                    _databaseName,
-                    _graphName,
-                    authKey);
-            }
-            
-            public ICosmosDbConfigurator ConfigureWebSocket(Func<IWebSocketConfigurator, IWebSocketConfigurator> transformation)
-            {
-                return new CosmosDbConfigurator(
-                    transformation(_webSocketConfigurator),
-                    _uri,
-                    _databaseName,
-                    _graphName,
-                    _authKey);
-            }
+            public ICosmosDbConfigurator AuthenticateBy(string authKey) => new CosmosDbConfigurator(
+                _webSocketConfigurator,
+                _uri,
+                _databaseName,
+                _graphName,
+                authKey);
+
+            public ICosmosDbConfigurator ConfigureWebSocket(Func<IWebSocketConfigurator, IWebSocketConfigurator> transformation) => new CosmosDbConfigurator(
+                transformation(_webSocketConfigurator),
+                _uri,
+                _databaseName,
+                _graphName,
+                _authKey);
 
             public IGremlinQuerySource Transform(IGremlinQuerySource source)
             {
