@@ -23,6 +23,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
     public static class GremlinClientFactory
     {
         public static readonly ExRam.Gremlinq.Providers.WebSocket.IGremlinClientFactory Default;
+        public static ExRam.Gremlinq.Providers.WebSocket.IGremlinClientFactory Create(System.Func<Gremlin.Net.Driver.GremlinServer, Gremlin.Net.Driver.IMessageSerializer?, Gremlin.Net.Driver.ConnectionPoolSettings?, System.Action<System.Net.WebSockets.ClientWebSocketOptions>?, string?, Gremlin.Net.Driver.GremlinClient> factory) { }
     }
     public interface IGremlinClientFactory
     {
