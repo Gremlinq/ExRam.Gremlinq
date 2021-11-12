@@ -155,35 +155,30 @@ namespace ExRam.Gremlinq.Core
             private readonly IMessageSerializer _serializer;
             private readonly IGremlinClientFactory _clientFactory;
             private readonly (string username, string password)? _auth;
-            private readonly Func<IGremlinClient, IGremlinClient> _clientTransformation;
 
             public WebSocketConfigurator(
                 Uri? uri,
                 IGremlinClientFactory clientFactory,
                 IMessageSerializer serializer,
                 (string username, string password)? auth,
-                string alias,
-                Func<IGremlinClient, IGremlinClient> clientTransformation)
+                string alias)
             {
                 _uri = uri;
                 _auth = auth;
                 _alias = alias;
                 _serializer = serializer;
                 _clientFactory = clientFactory;
-                _clientTransformation = clientTransformation;
             }
 
-            public IWebSocketConfigurator At(Uri uri) => new WebSocketConfigurator(uri, _clientFactory, _serializer, _auth, _alias, _clientTransformation);
+            public IWebSocketConfigurator At(Uri uri) => new WebSocketConfigurator(uri, _clientFactory, _serializer, _auth, _alias);
 
-            public IWebSocketConfigurator ConfigureGremlinClient(Func<IGremlinClient, IGremlinClient> transformation) => new WebSocketConfigurator(_uri, _clientFactory, _serializer, _auth, _alias, _ => transformation(_clientTransformation(_)));
+            public IWebSocketConfigurator ConfigureGremlinClientFactory(Func<IGremlinClientFactory, IGremlinClientFactory> transformation) => new WebSocketConfigurator(_uri, transformation(_clientFactory), _serializer, _auth, _alias);
 
-            public IWebSocketConfigurator ConfigureGremlinClientFactory(Func<IGremlinClientFactory, IGremlinClientFactory> transformation) => new WebSocketConfigurator(_uri, transformation(_clientFactory), _serializer, _auth, _alias, _clientTransformation);
+            public IWebSocketConfigurator ConfigureMessageSerializer(Func<IMessageSerializer, IMessageSerializer> transformation) => new WebSocketConfigurator(_uri, _clientFactory, transformation(_serializer), _auth, _alias);
 
-            public IWebSocketConfigurator ConfigureMessageSerializer(Func<IMessageSerializer, IMessageSerializer> transformation) => new WebSocketConfigurator(_uri, _clientFactory, transformation(_serializer), _auth, _alias, _clientTransformation);
+            public IWebSocketConfigurator AuthenticateBy(string username, string password) => new WebSocketConfigurator(_uri, _clientFactory, _serializer, (username, password), _alias);
 
-            public IWebSocketConfigurator AuthenticateBy(string username, string password) => new WebSocketConfigurator(_uri, _clientFactory, _serializer, (username, password), _alias, _clientTransformation);
-
-            public IWebSocketConfigurator SetAlias(string alias) => new WebSocketConfigurator(_uri, _clientFactory, _serializer, _auth, alias, _clientTransformation);
+            public IWebSocketConfigurator SetAlias(string alias) => new WebSocketConfigurator(_uri, _clientFactory, _serializer, _auth, alias);
 
             public IGremlinQuerySource Transform(IGremlinQuerySource source)
             {
@@ -201,7 +196,7 @@ namespace ExRam.Gremlinq.Core
                     throw new ArgumentException("Expected the Uri-Scheme to be either \"ws\" or \"wss\".");
 
                 return new WebSocketGremlinQueryExecutor(
-                    async ct => _clientTransformation(await Task.Run(
+                    async ct => await Task.Run(
                         () => _clientFactory.Create(
                             new GremlinServer(
                                 (_uri.Host + _uri.AbsolutePath).TrimEnd('/'),
@@ -212,7 +207,7 @@ namespace ExRam.Gremlinq.Core
                             _serializer,
                             null,
                             null),
-                        ct)),
+                        ct),
                     _alias);
             }
         }
@@ -226,8 +221,7 @@ namespace ExRam.Gremlinq.Core
                 GremlinClientFactory.Default,
                 JsonNetMessageSerializer.GraphSON3,
                 null,
-                "g",
-                _ => _);
+                "g");
 
             return configuratorTransformation(configurator)
                 .Transform(source.ConfigureEnvironment(_ => _))
