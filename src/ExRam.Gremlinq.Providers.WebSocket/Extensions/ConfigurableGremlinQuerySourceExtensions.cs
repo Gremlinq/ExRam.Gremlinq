@@ -152,33 +152,28 @@ namespace ExRam.Gremlinq.Core
         {
             private readonly Uri? _uri;
             private readonly string _alias;
-            private readonly IMessageSerializer _serializer;
             private readonly IGremlinClientFactory _clientFactory;
             private readonly (string username, string password)? _auth;
 
             public WebSocketConfigurator(
                 Uri? uri,
                 IGremlinClientFactory clientFactory,
-                IMessageSerializer serializer,
                 (string username, string password)? auth,
                 string alias)
             {
                 _uri = uri;
                 _auth = auth;
                 _alias = alias;
-                _serializer = serializer;
                 _clientFactory = clientFactory;
             }
 
-            public IWebSocketConfigurator At(Uri uri) => new WebSocketConfigurator(uri, _clientFactory, _serializer, _auth, _alias);
+            public IWebSocketConfigurator At(Uri uri) => new WebSocketConfigurator(uri, _clientFactory, _auth, _alias);
 
-            public IWebSocketConfigurator ConfigureGremlinClientFactory(Func<IGremlinClientFactory, IGremlinClientFactory> transformation) => new WebSocketConfigurator(_uri, transformation(_clientFactory), _serializer, _auth, _alias);
+            public IWebSocketConfigurator ConfigureGremlinClientFactory(Func<IGremlinClientFactory, IGremlinClientFactory> transformation) => new WebSocketConfigurator(_uri, transformation(_clientFactory), _auth, _alias);
 
-            public IWebSocketConfigurator ConfigureMessageSerializer(Func<IMessageSerializer, IMessageSerializer> transformation) => new WebSocketConfigurator(_uri, _clientFactory, transformation(_serializer), _auth, _alias);
+            public IWebSocketConfigurator AuthenticateBy(string username, string password) => new WebSocketConfigurator(_uri, _clientFactory, (username, password), _alias);
 
-            public IWebSocketConfigurator AuthenticateBy(string username, string password) => new WebSocketConfigurator(_uri, _clientFactory, _serializer, (username, password), _alias);
-
-            public IWebSocketConfigurator SetAlias(string alias) => new WebSocketConfigurator(_uri, _clientFactory, _serializer, _auth, alias);
+            public IWebSocketConfigurator SetAlias(string alias) => new WebSocketConfigurator(_uri, _clientFactory, _auth, alias);
 
             public IGremlinQuerySource Transform(IGremlinQuerySource source)
             {
@@ -204,7 +199,8 @@ namespace ExRam.Gremlinq.Core
                                 "wss".Equals(_uri.Scheme, StringComparison.OrdinalIgnoreCase),
                                 _auth?.username,
                                 _auth?.password),
-                            _serializer,
+                            JsonNetMessageSerializer.GraphSON3,
+                            null,
                             null,
                             null),
                         ct),
@@ -219,7 +215,6 @@ namespace ExRam.Gremlinq.Core
             var configurator = new WebSocketConfigurator(
                 default,
                 GremlinClientFactory.Default,
-                JsonNetMessageSerializer.GraphSON3,
                 null,
                 "g");
 
