@@ -36,6 +36,8 @@ namespace ExRam.Gremlinq.Providers.WebSocket
                     }));
         }
 
+        public static IWebSocketConfigurator SetAlias(this IWebSocketConfigurator configurator, string alias) => configurator.ConfigureAlias(_ => alias);
+
         public static IWebSocketConfigurator At(this IWebSocketConfigurator configurator, Uri uri)
         {
             if (!string.IsNullOrEmpty(uri.AbsolutePath) && uri.AbsolutePath != "/")
