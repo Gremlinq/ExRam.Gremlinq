@@ -150,30 +150,25 @@ namespace ExRam.Gremlinq.Core
 
         private sealed class WebSocketConfigurator : IWebSocketConfigurator
         {
-            private readonly Uri? _uri;
             private readonly string _alias;
+            private readonly GremlinServer _gremlinServer;
             private readonly IGremlinClientFactory _clientFactory;
-            private readonly (string username, string password)? _auth;
 
             public WebSocketConfigurator(
-                Uri? uri,
+                GremlinServer gremlinServer,
                 IGremlinClientFactory clientFactory,
-                (string username, string password)? auth,
                 string alias)
             {
-                _uri = uri;
-                _auth = auth;
                 _alias = alias;
+                _gremlinServer = gremlinServer;
                 _clientFactory = clientFactory;
             }
 
-            public IWebSocketConfigurator At(Uri uri) => new WebSocketConfigurator(uri, _clientFactory, _auth, _alias);
+            public IWebSocketConfigurator ConfigureGremlinServer(Func<GremlinServer, GremlinServer> transformation) => new WebSocketConfigurator(transformation(_gremlinServer), _clientFactory, _alias);
 
-            public IWebSocketConfigurator ConfigureGremlinClientFactory(Func<IGremlinClientFactory, IGremlinClientFactory> transformation) => new WebSocketConfigurator(_uri, transformation(_clientFactory), _auth, _alias);
+            public IWebSocketConfigurator ConfigureGremlinClientFactory(Func<IGremlinClientFactory, IGremlinClientFactory> transformation) => new WebSocketConfigurator(_gremlinServer, transformation(_clientFactory), _alias);
 
-            public IWebSocketConfigurator AuthenticateBy(string username, string password) => new WebSocketConfigurator(_uri, _clientFactory, (username, password), _alias);
-
-            public IWebSocketConfigurator SetAlias(string alias) => new WebSocketConfigurator(_uri, _clientFactory, _auth, alias);
+            public IWebSocketConfigurator SetAlias(string alias) => new WebSocketConfigurator(_gremlinServer, _clientFactory, alias);
 
             public IGremlinQuerySource Transform(IGremlinQuerySource source)
             {
@@ -184,21 +179,13 @@ namespace ExRam.Gremlinq.Core
 
             private IGremlinQueryExecutor Build()
             {
-                if (_uri == null)
-                    throw new InvalidOperationException($"No valid Gremlin endpoint found. Configure {nameof(GremlinQuerySource.g)} with {nameof(UseWebSocket)} and use {nameof(At)} on the configurator to set a valid Gremlin endpoint.");
-
-                if (!"ws".Equals(_uri.Scheme, StringComparison.OrdinalIgnoreCase) && !"wss".Equals(_uri.Scheme, StringComparison.OrdinalIgnoreCase))
+                if (!"ws".Equals(_gremlinServer.Uri.Scheme, StringComparison.OrdinalIgnoreCase) && !"wss".Equals(_gremlinServer.Uri.Scheme, StringComparison.OrdinalIgnoreCase))
                     throw new ArgumentException("Expected the Uri-Scheme to be either \"ws\" or \"wss\".");
 
                 return new WebSocketGremlinQueryExecutor(
                     async ct => await Task.Run(
                         () => _clientFactory.Create(
-                            new GremlinServer(
-                                (_uri.Host + _uri.AbsolutePath).TrimEnd('/'),
-                                _uri.Port,
-                                "wss".Equals(_uri.Scheme, StringComparison.OrdinalIgnoreCase),
-                                _auth?.username,
-                                _auth?.password),
+                            _gremlinServer,
                             JsonNetMessageSerializer.GraphSON3,
                             null,
                             null,
@@ -213,9 +200,8 @@ namespace ExRam.Gremlinq.Core
             Func<IWebSocketConfigurator, IGremlinQuerySourceTransformation> configuratorTransformation)
         {
             var configurator = new WebSocketConfigurator(
-                default,
+                new GremlinServer(),
                 GremlinClientFactory.Default,
-                null,
                 "g");
 
             return configuratorTransformation(configurator)
