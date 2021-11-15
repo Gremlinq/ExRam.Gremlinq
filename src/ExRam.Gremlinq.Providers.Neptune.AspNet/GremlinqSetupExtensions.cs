@@ -14,9 +14,9 @@ namespace ExRam.Gremlinq.Core.AspNet
                     (source, configuratorTransformation) => source
                         .UseNeptune(configuratorTransformation),
                     setup => setup
-                        .Configure((configurator, providerConfiguration) =>
+                        .Configure((configurator, providerSection) =>
                         {
-                            if (providerConfiguration.GetSection("ElasticSearch") is { } elasticSearchSection)
+                            if (providerSection.GetSection("ElasticSearch") is { } elasticSearchSection)
                             {
                                 if (bool.TryParse(elasticSearchSection["Enabled"], out var isEnabled) && isEnabled && elasticSearchSection["EndPoint"] is { } endPoint)
                                 {

@@ -82,33 +82,33 @@ namespace ExRam.Gremlinq.Core.AspNet
         private sealed class ProviderConfigurationSection<TConfigurator> : IProviderConfigurationSection
             where TConfigurator : IProviderConfigurator<TConfigurator>
         {
-            private readonly IConfigurationSection _configuration;
+            private readonly IConfigurationSection _providerSection;
 
             public ProviderConfigurationSection(IGremlinqConfigurationSection configuration, ProviderSetupInfo<TConfigurator> setupInfo)
             {
-                _configuration = configuration.GetSection(setupInfo.SectionName);
+                _providerSection = configuration.GetSection(setupInfo.SectionName);
             }
 
-            public IEnumerable<IConfigurationSection> GetChildren() => _configuration.GetChildren();
+            public IEnumerable<IConfigurationSection> GetChildren() => _providerSection.GetChildren();
 
-            public IChangeToken GetReloadToken() => _configuration.GetReloadToken();
+            public IChangeToken GetReloadToken() => _providerSection.GetReloadToken();
 
-            public IConfigurationSection GetSection(string key) => _configuration.GetSection(key);
+            public IConfigurationSection GetSection(string key) => _providerSection.GetSection(key);
 
-            public string Key => _configuration.Key;
+            public string Key => _providerSection.Key;
 
-            public string Path => _configuration.Path;
+            public string Path => _providerSection.Path;
 
             public string this[string key]
             {
-                get => _configuration[key];
-                set => _configuration[key] = value;
+                get => _providerSection[key];
+                set => _providerSection[key] = value;
             }
 
             public string Value
             {
-                get => _configuration.Value;
-                set => _configuration.Value = value;
+                get => _providerSection.Value;
+                set => _providerSection.Value = value;
             }
         }
 

@@ -9,16 +9,16 @@ namespace ExRam.Gremlinq.Core.AspNet
         private sealed class ExtraConfigurationProviderConfiguratorTransformation<TConfigurator> : IProviderConfiguratorTransformation<TConfigurator>
            where TConfigurator : IProviderConfigurator<TConfigurator>
         {
-            private readonly IProviderConfigurationSection _configuration;
+            private readonly IProviderConfigurationSection _providerSection;
             private readonly Func<TConfigurator, IProviderConfigurationSection, TConfigurator> _extraConfiguration;
 
-            public ExtraConfigurationProviderConfiguratorTransformation(IProviderConfigurationSection configuration, Func<TConfigurator, IProviderConfigurationSection, TConfigurator> extraConfiguration)
+            public ExtraConfigurationProviderConfiguratorTransformation(IProviderConfigurationSection providerSection, Func<TConfigurator, IProviderConfigurationSection, TConfigurator> extraConfiguration)
             {
-                _configuration = configuration;
+                _providerSection = providerSection;
                 _extraConfiguration = extraConfiguration;
             }
 
-            public TConfigurator Transform(TConfigurator configurator) => _extraConfiguration(configurator, _configuration);
+            public TConfigurator Transform(TConfigurator configurator) => _extraConfiguration(configurator, _providerSection);
         }
 
         public static ProviderSetup<TConfigurator> Configure<TConfigurator>(this ProviderSetup<TConfigurator> setup, Func<TConfigurator, IProviderConfigurationSection, TConfigurator> extraConfiguration)
