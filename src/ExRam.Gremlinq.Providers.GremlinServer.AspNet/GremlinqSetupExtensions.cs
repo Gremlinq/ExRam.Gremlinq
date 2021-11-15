@@ -7,7 +7,7 @@ namespace ExRam.Gremlinq.Core.AspNet
 {
     public static class GremlinqSetupExtensions
     {
-        public static GremlinqSetup UseGremlinServer(this GremlinqSetup setup, Func<IGremlinServerConfigurator, IConfiguration, IGremlinServerConfigurator>? extraConfiguration = null)
+        public static GremlinqSetup UseGremlinServer(this GremlinqSetup setup, Func<IGremlinServerConfigurator, IProviderConfiguration, IGremlinServerConfigurator>? extraConfiguration = null)
         {
             return setup
                 .UseProvider<IGremlinServerConfigurator>(

@@ -40,7 +40,7 @@ namespace ExRam.Gremlinq.Core.AspNet
             }
         }
 
-        public static GremlinqSetup UseNeptune(this GremlinqSetup setup, Func<INeptuneConfigurator, IConfiguration, INeptuneConfigurator>? extraConfiguration = null)
+        public static GremlinqSetup UseNeptune(this GremlinqSetup setup, Func<INeptuneConfigurator, IProviderConfiguration, INeptuneConfigurator>? extraConfiguration = null)
         {
             return setup
                 .UseProvider<INeptuneConfigurator>(
