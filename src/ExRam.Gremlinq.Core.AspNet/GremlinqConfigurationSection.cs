@@ -13,20 +13,11 @@ namespace ExRam.Gremlinq.Core.AspNet
             _baseConfiguration = baseConfiguration;
         }
 
-        public IEnumerable<IConfigurationSection> GetChildren()
-        {
-            return _baseConfiguration.GetChildren();
-        }
+        public IEnumerable<IConfigurationSection> GetChildren() => _baseConfiguration.GetChildren();
 
-        public IChangeToken GetReloadToken()
-        {
-            return _baseConfiguration.GetReloadToken();
-        }
+        public IChangeToken GetReloadToken() => _baseConfiguration.GetReloadToken();
 
-        public IConfigurationSection GetSection(string key)
-        {
-            return _baseConfiguration.GetSection(key);
-        }
+        public IConfigurationSection GetSection(string key) => _baseConfiguration.GetSection(key);
 
         public string? this[string key]
         {
