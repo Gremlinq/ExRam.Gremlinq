@@ -11,7 +11,9 @@ namespace ExRam.Gremlinq.Core.AspNet
             return setup
                 .UseProvider(
                     "JanusGraph",
-                    (source, configuratorTransformation) => source.UseJanusGraph(configuratorTransformation),
+                    (source, configuratorTransformation) => source
+                        .UseJanusGraph(configuratorTransformation),
+                    setup => { },
                     extraSetupAction);
         }
 

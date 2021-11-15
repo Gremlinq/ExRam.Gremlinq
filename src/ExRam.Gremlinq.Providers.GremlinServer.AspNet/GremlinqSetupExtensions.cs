@@ -11,7 +11,9 @@ namespace ExRam.Gremlinq.Core.AspNet
             return setup
                 .UseProvider(
                     "GremlinServer",
-                    (source, configuratorTransformation) => source.UseGremlinServer(configuratorTransformation),
+                    (source, configuratorTransformation) => source
+                        .UseGremlinServer(configuratorTransformation),
+                    setup => { },
                     extraSetupAction);
         }
 
