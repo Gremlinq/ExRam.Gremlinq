@@ -36,21 +36,21 @@ namespace ExRam.Gremlinq.Core.AspNet
             }
         }
 
-        public static GremlinqSetup UseNeptune(this GremlinqSetup setup, Action<ProviderSetup<INeptuneConfigurator>>? configuration = null)
+        public static GremlinqSetup UseNeptune(this GremlinqSetup setup, Action<ProviderSetup<INeptuneConfigurator>>? extraSetupAction = null)
         {
             return setup
                 .UseProvider(
                     "Neptune",
                     (source, configuratorTransformation) => source.UseNeptune(configuratorTransformation),
-                    configuration)
+                    extraSetupAction)
                 .RegisterTypes(serviceCollection => serviceCollection
                     .TryAddSingleton<IProviderConfiguratorTransformation<INeptuneConfigurator>, NeptuneConfiguratorTransformation>());
         }
 
-        public static GremlinqSetup UseNeptune<TVertex, TEdge>(this GremlinqSetup setup, Action<ProviderSetup<INeptuneConfigurator>>? configuration = null)
+        public static GremlinqSetup UseNeptune<TVertex, TEdge>(this GremlinqSetup setup, Action<ProviderSetup<INeptuneConfigurator>>? extraSetupAction = null)
         {
             return setup
-                .UseNeptune(configuration)
+                .UseNeptune(extraSetupAction)
                 .ConfigureEnvironment(env => env
                     .UseModel(GraphModel
                         .FromBaseTypes<TVertex, TEdge>(lookup => lookup
