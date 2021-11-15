@@ -7,21 +7,19 @@ namespace ExRam.Gremlinq.Core.AspNet
 {
     public static class GremlinqSetupExtensions
     {
-        public static GremlinqSetup UseGremlinServer(this GremlinqSetup setup, Func<IGremlinServerConfigurator, IProviderConfiguration, IGremlinServerConfigurator>? extraConfiguration = null)
+        public static GremlinqSetup UseGremlinServer(this GremlinqSetup setup, Action<ProviderSetup<IGremlinServerConfigurator>>? configuration = null)
         {
             return setup
-                .UseProvider<IGremlinServerConfigurator>(
+                .UseProvider(
                     "GremlinServer",
-                    (source, configuratorTransformation) => source.UseGremlinServer(configuratorTransformation));
-
-                    //TODO
-                    //(configurator, _) => extraConfiguration?.Invoke(configurator, _) ?? configurator);
+                    (source, configuratorTransformation) => source.UseGremlinServer(configuratorTransformation),
+                    configuration);
         }
 
-        public static GremlinqSetup UseGremlinServer<TVertex, TEdge>(this GremlinqSetup setup, Func<IGremlinServerConfigurator, IConfiguration, IGremlinServerConfigurator>? extraConfiguration = null)
+        public static GremlinqSetup UseGremlinServer<TVertex, TEdge>(this GremlinqSetup setup, Action<ProviderSetup<IGremlinServerConfigurator>>? configuration = null)
         {
             return setup
-                .UseGremlinServer(extraConfiguration)
+                .UseGremlinServer(configuration)
                 .ConfigureEnvironment(env => env
                     .UseModel(GraphModel
                         .FromBaseTypes<TVertex, TEdge>(lookup => lookup

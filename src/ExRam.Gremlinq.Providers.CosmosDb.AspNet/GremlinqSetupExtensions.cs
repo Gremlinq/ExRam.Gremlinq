@@ -3,7 +3,6 @@ using System.Linq.Expressions;
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Providers.Core;
 using ExRam.Gremlinq.Providers.CosmosDb;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ExRam.Gremlinq.Core.AspNet
@@ -37,20 +36,21 @@ namespace ExRam.Gremlinq.Core.AspNet
             }
         }
 
-        public static GremlinqSetup UseCosmosDb(this GremlinqSetup setup, Func<ICosmosDbConfigurator, IProviderConfiguration, ICosmosDbConfigurator>? extraConfiguration = null /* TODO */)
+        public static GremlinqSetup UseCosmosDb(this GremlinqSetup setup, Action<ProviderSetup<ICosmosDbConfigurator>>? configuration = null)
         {
             return setup
-                .UseProvider<ICosmosDbConfigurator>(
+                .UseProvider(
                     "CosmosDb",
-                    (source, configuratorTransformation) => source.UseCosmosDb(configuratorTransformation))
+                    (source, configuratorTransformation) => source.UseCosmosDb(configuratorTransformation),
+                    configuration)
                 .RegisterTypes(serviceCollection => serviceCollection
                     .AddSingleton<IProviderConfiguratorTransformation<ICosmosDbConfigurator>, CosmosDbConfiguratorTransformation>());
         }
 
-        public static GremlinqSetup UseCosmosDb<TVertex, TEdge>(this GremlinqSetup setup, Expression<Func<TVertex, object>> partitionKeyExpression, Func<ICosmosDbConfigurator, IConfiguration, ICosmosDbConfigurator>? extraConfiguration = null)
+        public static GremlinqSetup UseCosmosDb<TVertex, TEdge>(this GremlinqSetup setup, Expression<Func<TVertex, object>> partitionKeyExpression, Action<ProviderSetup<ICosmosDbConfigurator>>? configuration = null)
         {
             return setup
-                .UseCosmosDb(extraConfiguration)
+                .UseCosmosDb(configuration)
                 .ConfigureEnvironment(env => env
                     .UseModel(GraphModel
                         .FromBaseTypes<TVertex, TEdge>(lookup => lookup

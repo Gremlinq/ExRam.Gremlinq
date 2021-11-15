@@ -100,9 +100,10 @@ namespace ExRam.Gremlinq.Core.AspNet
         public static GremlinqSetup UseProvider<TConfigurator>(
             this GremlinqSetup setup,
             string sectionName,
-            Func<IConfigurableGremlinQuerySource, Func<TConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource> providerChoice) where TConfigurator : IProviderConfigurator<TConfigurator>
+            Func<IConfigurableGremlinQuerySource, Func<TConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource> providerChoice,
+            Action<ProviderSetup<TConfigurator>>? maybeExtraConfiguration) where TConfigurator : IProviderConfigurator<TConfigurator>
         {
-            return setup.RegisterTypes(serviceCollection => serviceCollection
+            var ret = setup.RegisterTypes(serviceCollection => serviceCollection
                 .AddSingleton<IGremlinQuerySourceTransformation>(s => new UseProviderGremlinQuerySourceTransformation<TConfigurator>(
                     s.GetRequiredService<IGremlinqConfiguration>(),
                     s.GetRequiredService<IProviderConfiguration>(),
@@ -111,6 +112,11 @@ namespace ExRam.Gremlinq.Core.AspNet
                 .AddSingleton<IProviderConfiguration>(s => new ProviderConfiguration(
                     s.GetRequiredService<IGremlinqConfiguration>(),
                     sectionName)));
+
+            if (maybeExtraConfiguration is { } extraConfiguration)
+                extraConfiguration(new ProviderSetup<TConfigurator>(setup.ServiceCollection));
+
+            return ret;
         }
     }
 }
