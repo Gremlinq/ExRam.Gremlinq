@@ -1,5 +1,4 @@
 ﻿using System;
-
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Providers.JanusGraph;
 using Microsoft.Extensions.Configuration;
@@ -13,7 +12,7 @@ namespace ExRam.Gremlinq.Core.AspNet
             return setup
                 .UseProvider<IJanusGraphConfigurator>(
                     "JanusGraph",
-                    (e, f) => e.UseJanusGraph(f),
+                    (source, configuratorTransformation) => source.UseJanusGraph(configuratorTransformation),
                     (configurator, _) => extraConfiguration?.Invoke(configurator, _) ?? configurator);
         }
 
