@@ -13,6 +13,7 @@ namespace ExRam.Gremlinq.Core.AspNet
         public static ExRam.Gremlinq.Core.AspNet.GremlinqSetup UseConfigurationSection(this ExRam.Gremlinq.Core.AspNet.GremlinqSetup setup, string sectionName) { }
     }
     public interface IGremlinqConfiguration : Microsoft.Extensions.Configuration.IConfiguration { }
+    public interface IProviderConfiguration : Microsoft.Extensions.Configuration.IConfiguration { }
 }
 namespace Microsoft.Extensions.Configuration
 {

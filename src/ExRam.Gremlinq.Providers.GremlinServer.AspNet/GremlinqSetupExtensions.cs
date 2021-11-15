@@ -1,5 +1,4 @@
 ﻿using System;
-
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Providers.GremlinServer;
 using Microsoft.Extensions.Configuration;
@@ -13,8 +12,10 @@ namespace ExRam.Gremlinq.Core.AspNet
             return setup
                 .UseProvider<IGremlinServerConfigurator>(
                     "GremlinServer",
-                    (source, configuratorTransformation) => source.UseGremlinServer(configuratorTransformation),
-                    (configurator, _) => extraConfiguration?.Invoke(configurator, _) ?? configurator);
+                    (source, configuratorTransformation) => source.UseGremlinServer(configuratorTransformation));
+
+                    //TODO
+                    //(configurator, _) => extraConfiguration?.Invoke(configurator, _) ?? configurator);
         }
 
         public static GremlinqSetup UseGremlinServer<TVertex, TEdge>(this GremlinqSetup setup, Func<IGremlinServerConfigurator, IConfiguration, IGremlinServerConfigurator>? extraConfiguration = null)

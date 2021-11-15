@@ -8,6 +8,7 @@ using ExRam.Gremlinq.Providers.WebSocket;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Primitives;
 using Newtonsoft.Json;
 
 namespace ExRam.Gremlinq.Core.AspNet
@@ -17,31 +18,25 @@ namespace ExRam.Gremlinq.Core.AspNet
         private sealed class UseProviderGremlinQuerySourceTransformation<TProviderConfigurator> : IGremlinQuerySourceTransformation
             where TProviderConfigurator : IProviderConfigurator<TProviderConfigurator>
         {
-            private readonly string _sectionName;
             private readonly IGremlinqConfiguration _generalSection;
+            private readonly IProviderConfiguration _providerSection;
             private readonly IProviderConfiguratorTransformation<TProviderConfigurator>[] _transformations;
-            private readonly Func<TProviderConfigurator, IConfiguration, IGremlinQuerySourceTransformation> _providerConfiguratorTransformation;
             private readonly Func<IConfigurableGremlinQuerySource, Func<TProviderConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource> _providerChoice;
             
             public UseProviderGremlinQuerySourceTransformation(
                 IGremlinqConfiguration generalSection,
-                string sectionName,
+                IProviderConfiguration providerSection,
                 IEnumerable<IProviderConfiguratorTransformation<TProviderConfigurator>> transformations,
-                Func<IConfigurableGremlinQuerySource, Func<TProviderConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource> providerChoice,
-                Func<TProviderConfigurator, IConfiguration, IGremlinQuerySourceTransformation> providerConfiguratorTransformation)
+                Func<IConfigurableGremlinQuerySource, Func<TProviderConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource> providerChoice)
             {
-                _sectionName = sectionName;
                 _generalSection = generalSection;
+                _providerSection = providerSection;
                 _providerChoice = providerChoice;
                 _transformations = transformations.ToArray();
-                _providerConfiguratorTransformation = providerConfiguratorTransformation;
             }
             
             public IGremlinQuerySource Transform(IGremlinQuerySource source)
             {
-                var providerSection = _generalSection
-                    .GetSection(_sectionName);
-
                 var loggingSection = _generalSection
                     .GetSection("QueryLogging");
 
@@ -71,7 +66,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                             configurator = webSocketProviderConfigurator
                                 .ConfigureWebSocket(webSocketConfigurator => webSocketConfigurator
                                     .ConfigureFrom(_generalSection)
-                                    .ConfigureFrom(providerSection));
+                                    .ConfigureFrom(_providerSection));
                         }
 
                         foreach (var transformation in _transformations)
@@ -79,26 +74,43 @@ namespace ExRam.Gremlinq.Core.AspNet
                             configurator = transformation.Transform(configurator);
                         }
 
-                        return _providerConfiguratorTransformation(
-                            configurator,
-                            providerSection);
+                        return configurator;
                     });
             }
+        }
+
+        private sealed class ProviderConfiguration : IProviderConfiguration
+        {
+            private readonly IConfiguration _configuration;
+
+            public ProviderConfiguration(IGremlinqConfiguration configuration, string sectionName)
+            {
+                _configuration = configuration.GetSection(sectionName);
+            }
+
+            public string this[string key] { get => _configuration[key]; set => _configuration[key] = value; }
+
+            public IEnumerable<IConfigurationSection> GetChildren() => _configuration.GetChildren();
+
+            public IChangeToken GetReloadToken() => _configuration.GetReloadToken();
+
+            public IConfigurationSection GetSection(string key) => _configuration.GetSection(key);
         }
 
         public static GremlinqSetup UseProvider<TConfigurator>(
             this GremlinqSetup setup,
             string sectionName,
-            Func<IConfigurableGremlinQuerySource, Func<TConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource> providerChoice,
-            Func<TConfigurator, IConfiguration, IGremlinQuerySourceTransformation> configuration) where TConfigurator : IProviderConfigurator<TConfigurator>
+            Func<IConfigurableGremlinQuerySource, Func<TConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource> providerChoice) where TConfigurator : IProviderConfigurator<TConfigurator>
         {
             return setup.RegisterTypes(serviceCollection => serviceCollection
                 .AddSingleton<IGremlinQuerySourceTransformation>(s => new UseProviderGremlinQuerySourceTransformation<TConfigurator>(
                     s.GetRequiredService<IGremlinqConfiguration>(),
-                    sectionName,
+                    s.GetRequiredService<IProviderConfiguration>(),
                     s.GetRequiredService<IEnumerable<IProviderConfiguratorTransformation<TConfigurator>>>(),
-                    providerChoice,
-                    configuration)));
+                    providerChoice))
+                .AddSingleton<IProviderConfiguration>(s => new ProviderConfiguration(
+                    s.GetRequiredService<IGremlinqConfiguration>(),
+                    sectionName)));
         }
     }
 }

@@ -2,7 +2,8 @@
 
 namespace ExRam.Gremlinq.Core.AspNet
 {
-    public interface IGremlinqConfiguration : IConfiguration
+    public interface IProviderConfiguration : IConfiguration
     {
+
     }
 }
