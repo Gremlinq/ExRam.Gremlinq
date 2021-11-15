@@ -14,7 +14,7 @@ namespace ExRam.Gremlinq.Core.AspNet
             return setup 
                 .UseProvider<ICosmosDbConfigurator>(
                     "CosmosDb",
-                    (e, f) => e.UseCosmosDb(f),
+                    (source, configuratorTransformation) => source.UseCosmosDb(configuratorTransformation),
                     (configurator, configuration) =>
                     {
                         if (configuration["Database"] is { } databaseName)

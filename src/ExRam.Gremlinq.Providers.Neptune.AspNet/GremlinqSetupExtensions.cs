@@ -1,5 +1,4 @@
 ﻿using System;
-
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Providers.Neptune;
 using Microsoft.Extensions.Configuration;
@@ -13,7 +12,7 @@ namespace ExRam.Gremlinq.Core.AspNet
             return setup
                 .UseProvider<INeptuneConfigurator>(
                     "Neptune",
-                    (e, f) => e.UseNeptune(f),
+                    (source, configuratorTransformation) => source.UseNeptune(configuratorTransformation),
                     (configurator, configuration) =>
                     {
                         if (configuration.GetSection("ElasticSearch") is { } elasticSearchSection)
