@@ -12,8 +12,10 @@ namespace ExRam.Gremlinq.Core.AspNet
             return setup
                 .UseProvider<IJanusGraphConfigurator>(
                     "JanusGraph",
-                    (source, configuratorTransformation) => source.UseJanusGraph(configuratorTransformation),
-                    (configurator, _) => extraConfiguration?.Invoke(configurator, _) ?? configurator);
+                    (source, configuratorTransformation) => source.UseJanusGraph(configuratorTransformation));
+
+                    //TODO
+                    //(configurator, _) => extraConfiguration?.Invoke(configurator, _) ?? configurator);
         }
 
         public static GremlinqSetup UseJanusGraph<TVertex, TEdge>(this GremlinqSetup setup, Func<IJanusGraphConfigurator, IConfiguration, IJanusGraphConfigurator>? extraConfiguration = null)
