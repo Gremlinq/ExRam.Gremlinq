@@ -39,7 +39,7 @@ namespace ExRam.Gremlinq.Core.AspNet
         public static GremlinqSetup UseConfigurationSection(this GremlinqSetup setup, string sectionName)
         {
             return setup.RegisterTypes(serviceCollection => serviceCollection
-                .AddSingleton<IGremlinqConfiguration>(serviceProvider => new GremlinqConfiguration(serviceProvider
+                .AddSingleton<IGremlinqConfigurationSection>(serviceProvider => new GremlinqConfigurationSection(serviceProvider
                     .GetRequiredService<IConfiguration>()
                     .GetSection(sectionName)
                     .GetSection("Gremlinq"))));

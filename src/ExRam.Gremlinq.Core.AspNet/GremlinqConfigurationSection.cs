@@ -4,11 +4,11 @@ using Microsoft.Extensions.Primitives;
 
 namespace ExRam.Gremlinq.Core.AspNet
 {
-    internal sealed class GremlinqConfiguration : IGremlinqConfiguration
+    internal sealed class GremlinqConfigurationSection : IGremlinqConfigurationSection
     {
         private readonly IConfigurationSection _baseConfiguration;
 
-        public GremlinqConfiguration(IConfigurationSection baseConfiguration)
+        public GremlinqConfigurationSection(IConfigurationSection baseConfiguration)
         {
             _baseConfiguration = baseConfiguration;
         }
