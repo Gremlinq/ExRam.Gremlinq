@@ -37,7 +37,7 @@ namespace ExRam.Gremlinq.Core.AspNet
             }
         }
 
-        public static GremlinqSetup UseCosmosDb(this GremlinqSetup setup, Func<ICosmosDbConfigurator, IConfiguration, ICosmosDbConfigurator>? extraConfiguration = null /* TODO */)
+        public static GremlinqSetup UseCosmosDb(this GremlinqSetup setup, Func<ICosmosDbConfigurator, IProviderConfiguration, ICosmosDbConfigurator>? extraConfiguration = null /* TODO */)
         {
             return setup
                 .UseProvider<ICosmosDbConfigurator>(
