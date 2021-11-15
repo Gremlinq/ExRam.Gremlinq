@@ -115,8 +115,11 @@ namespace ExRam.Gremlinq.Core.AspNet
             this GremlinqSetup setup,
             string sectionName,
             Func<IConfigurableGremlinQuerySource, Func<TConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource> providerChoice,
+            Action<ProviderSetup<TConfigurator>> setupAction,
             Action<ProviderSetup<TConfigurator>>? extraSetupAction) where TConfigurator : IProviderConfigurator<TConfigurator>
         {
+            setupAction(new ProviderSetup<TConfigurator>(setup.ServiceCollection));
+
             if (extraSetupAction is { } extraConfiguration)
                 extraConfiguration(new ProviderSetup<TConfigurator>(setup.ServiceCollection));
 
