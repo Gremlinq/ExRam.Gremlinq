@@ -11,7 +11,7 @@ namespace ExRam.Gremlinq.Core.AspNet
         public static GremlinqSetup UseNeptune(this GremlinqSetup setup, Func<INeptuneConfigurator, IConfiguration, INeptuneConfigurator>? extraConfiguration = null)
         {
             return setup
-                .UseProvider(
+                .UseProvider<INeptuneConfigurator>(
                     "Neptune",
                     (e, f) => e.UseNeptune(f),
                     (configurator, configuration) =>
@@ -29,9 +29,8 @@ namespace ExRam.Gremlinq.Core.AspNet
                             }
                         }
 
-                        return configurator;
-                    },
-                    extraConfiguration);
+                        return extraConfiguration?.Invoke(configurator, configuration) ?? configurator;
+                    });
         }
 
         public static GremlinqSetup UseNeptune<TVertex, TEdge>(this GremlinqSetup setup, Func<INeptuneConfigurator, IConfiguration, INeptuneConfigurator>? extraConfiguration = null)

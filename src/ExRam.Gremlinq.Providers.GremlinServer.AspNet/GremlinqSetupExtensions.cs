@@ -11,11 +11,10 @@ namespace ExRam.Gremlinq.Core.AspNet
         public static GremlinqSetup UseGremlinServer(this GremlinqSetup setup, Func<IGremlinServerConfigurator, IConfiguration, IGremlinServerConfigurator>? extraConfiguration = null)
         {
             return setup
-                .UseProvider(
+                .UseProvider<IGremlinServerConfigurator>(
                     "GremlinServer",
                     (e, f) => e.UseGremlinServer(f),
-                    (configurator, _) => configurator,
-                    extraConfiguration);
+                    (configurator, _) => extraConfiguration?.Invoke(configurator, _) ?? configurator);
         }
 
         public static GremlinqSetup UseGremlinServer<TVertex, TEdge>(this GremlinqSetup setup, Func<IGremlinServerConfigurator, IConfiguration, IGremlinServerConfigurator>? extraConfiguration = null)
