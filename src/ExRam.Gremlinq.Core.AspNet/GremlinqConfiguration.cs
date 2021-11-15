@@ -6,9 +6,9 @@ namespace ExRam.Gremlinq.Core.AspNet
 {
     internal sealed class GremlinqConfiguration : IGremlinqConfiguration
     {
-        private readonly IConfiguration _baseConfiguration;
+        private readonly IConfigurationSection _baseConfiguration;
 
-        public GremlinqConfiguration(IConfiguration baseConfiguration)
+        public GremlinqConfiguration(IConfigurationSection baseConfiguration)
         {
             _baseConfiguration = baseConfiguration;
         }
@@ -33,5 +33,11 @@ namespace ExRam.Gremlinq.Core.AspNet
             get => _baseConfiguration[key];
             set => _baseConfiguration[key] = value;
         }
+
+        public string Key => _baseConfiguration.Key;
+
+        public string Path => _baseConfiguration.Path;
+
+        public string Value { get => _baseConfiguration.Value; set => _baseConfiguration.Value = value; }
     }
 }

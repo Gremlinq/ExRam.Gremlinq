@@ -82,20 +82,34 @@ namespace ExRam.Gremlinq.Core.AspNet
         private sealed class ProviderConfiguration<TConfigurator> : IProviderConfiguration
             where TConfigurator : IProviderConfigurator<TConfigurator>
         {
-            private readonly IConfiguration _configuration;
+            private readonly IConfigurationSection _configuration;
 
             public ProviderConfiguration(IGremlinqConfiguration configuration, ProviderSetupInfo<TConfigurator> setupInfo)
             {
                 _configuration = configuration.GetSection(setupInfo.SectionName);
             }
 
-            public string this[string key] { get => _configuration[key]; set => _configuration[key] = value; }
-
             public IEnumerable<IConfigurationSection> GetChildren() => _configuration.GetChildren();
 
             public IChangeToken GetReloadToken() => _configuration.GetReloadToken();
 
             public IConfigurationSection GetSection(string key) => _configuration.GetSection(key);
+
+            public string Key => _configuration.Key;
+
+            public string Path => _configuration.Path;
+
+            public string this[string key]
+            {
+                get => _configuration[key];
+                set => _configuration[key] = value;
+            }
+
+            public string Value
+            {
+                get => _configuration.Value;
+                set => _configuration.Value = value;
+            }
         }
 
         private sealed class ProviderSetupInfo<TConfigurator>
