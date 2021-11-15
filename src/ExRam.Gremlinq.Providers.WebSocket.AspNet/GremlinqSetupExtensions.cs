@@ -18,13 +18,13 @@ namespace ExRam.Gremlinq.Core.AspNet
         private sealed class UseProviderGremlinQuerySourceTransformation<TProviderConfigurator> : IGremlinQuerySourceTransformation
             where TProviderConfigurator : IProviderConfigurator<TProviderConfigurator>
         {
-            private readonly IGremlinqConfiguration _generalSection;
+            private readonly IGremlinqConfigurationSection _generalSection;
             private readonly IProviderConfiguration _providerSection;
             private readonly ProviderSetupInfo<TProviderConfigurator> _providerSetupInfo;
             private readonly IProviderConfiguratorTransformation<TProviderConfigurator>[] _transformations;
 
             public UseProviderGremlinQuerySourceTransformation(
-                IGremlinqConfiguration generalSection,
+                IGremlinqConfigurationSection generalSection,
                 IProviderConfiguration providerSection,
                 IEnumerable<IProviderConfiguratorTransformation<TProviderConfigurator>> transformations,
                 ProviderSetupInfo<TProviderConfigurator> providerSetupInfo)
@@ -84,7 +84,7 @@ namespace ExRam.Gremlinq.Core.AspNet
         {
             private readonly IConfigurationSection _configuration;
 
-            public ProviderConfiguration(IGremlinqConfiguration configuration, ProviderSetupInfo<TConfigurator> setupInfo)
+            public ProviderConfiguration(IGremlinqConfigurationSection configuration, ProviderSetupInfo<TConfigurator> setupInfo)
             {
                 _configuration = configuration.GetSection(setupInfo.SectionName);
             }

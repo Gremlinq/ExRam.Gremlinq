@@ -12,8 +12,8 @@ namespace ExRam.Gremlinq.Core.AspNet
         public static ExRam.Gremlinq.Core.AspNet.GremlinqSetup RegisterTypes(this ExRam.Gremlinq.Core.AspNet.GremlinqSetup setup, System.Action<Microsoft.Extensions.DependencyInjection.IServiceCollection> registration) { }
         public static ExRam.Gremlinq.Core.AspNet.GremlinqSetup UseConfigurationSection(this ExRam.Gremlinq.Core.AspNet.GremlinqSetup setup, string sectionName) { }
     }
-    public interface IGremlinqConfiguration : Microsoft.Extensions.Configuration.IConfiguration { }
-    public interface IProviderConfiguration : Microsoft.Extensions.Configuration.IConfiguration { }
+    public interface IGremlinqConfigurationSection : Microsoft.Extensions.Configuration.IConfiguration, Microsoft.Extensions.Configuration.IConfigurationSection { }
+    public interface IProviderConfiguration : Microsoft.Extensions.Configuration.IConfiguration, Microsoft.Extensions.Configuration.IConfigurationSection { }
     public static class ProviderSetupExtensions
     {
         public static ExRam.Gremlinq.Core.AspNet.ProviderSetup<TConfigurator> Configure<TConfigurator>(this ExRam.Gremlinq.Core.AspNet.ProviderSetup<TConfigurator> setup, System.Func<TConfigurator, ExRam.Gremlinq.Core.AspNet.IProviderConfiguration, TConfigurator> extraConfiguration)
