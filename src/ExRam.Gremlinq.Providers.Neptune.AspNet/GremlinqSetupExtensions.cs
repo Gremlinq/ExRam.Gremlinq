@@ -2,7 +2,6 @@
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Providers.Core;
 using ExRam.Gremlinq.Providers.Neptune;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace ExRam.Gremlinq.Core.AspNet
@@ -34,26 +33,24 @@ namespace ExRam.Gremlinq.Core.AspNet
                 }
 
                 return configurator;
-
-                //TODO
-                //return extraConfiguration?.Invoke(configurator, configuration) ?? configurator;
             }
         }
 
-        public static GremlinqSetup UseNeptune(this GremlinqSetup setup, Func<INeptuneConfigurator, IProviderConfiguration, INeptuneConfigurator>? extraConfiguration = null)
+        public static GremlinqSetup UseNeptune(this GremlinqSetup setup, Action<ProviderSetup<INeptuneConfigurator>>? configuration = null)
         {
             return setup
-                .UseProvider<INeptuneConfigurator>(
+                .UseProvider(
                     "Neptune",
-                    (source, configuratorTransformation) => source.UseNeptune(configuratorTransformation))
+                    (source, configuratorTransformation) => source.UseNeptune(configuratorTransformation),
+                    configuration)
                 .RegisterTypes(serviceCollection => serviceCollection
                     .TryAddSingleton<IProviderConfiguratorTransformation<INeptuneConfigurator>, NeptuneConfiguratorTransformation>());
         }
 
-        public static GremlinqSetup UseNeptune<TVertex, TEdge>(this GremlinqSetup setup, Func<INeptuneConfigurator, IConfiguration, INeptuneConfigurator>? extraConfiguration = null)
+        public static GremlinqSetup UseNeptune<TVertex, TEdge>(this GremlinqSetup setup, Action<ProviderSetup<INeptuneConfigurator>>? configuration = null)
         {
             return setup
-                .UseNeptune(extraConfiguration)
+                .UseNeptune(configuration)
                 .ConfigureEnvironment(env => env
                     .UseModel(GraphModel
                         .FromBaseTypes<TVertex, TEdge>(lookup => lookup

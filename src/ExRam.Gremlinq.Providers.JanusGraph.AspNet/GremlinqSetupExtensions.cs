@@ -1,27 +1,24 @@
 ﻿using System;
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Providers.JanusGraph;
-using Microsoft.Extensions.Configuration;
 
 namespace ExRam.Gremlinq.Core.AspNet
 {
     public static class GremlinqSetupExtensions
     {
-        public static GremlinqSetup UseJanusGraph(this GremlinqSetup setup, Func<IJanusGraphConfigurator, IProviderConfiguration, IJanusGraphConfigurator>? extraConfiguration = null)
+        public static GremlinqSetup UseJanusGraph(this GremlinqSetup setup, Action<ProviderSetup<IJanusGraphConfigurator>>? configuration = null)
         {
             return setup
-                .UseProvider<IJanusGraphConfigurator>(
+                .UseProvider(
                     "JanusGraph",
-                    (source, configuratorTransformation) => source.UseJanusGraph(configuratorTransformation));
-
-                    //TODO
-                    //(configurator, _) => extraConfiguration?.Invoke(configurator, _) ?? configurator);
+                    (source, configuratorTransformation) => source.UseJanusGraph(configuratorTransformation),
+                    configuration);
         }
 
-        public static GremlinqSetup UseJanusGraph<TVertex, TEdge>(this GremlinqSetup setup, Func<IJanusGraphConfigurator, IConfiguration, IJanusGraphConfigurator>? extraConfiguration = null)
+        public static GremlinqSetup UseJanusGraph<TVertex, TEdge>(this GremlinqSetup setup, Action<ProviderSetup<IJanusGraphConfigurator>>? configuration = null)
         {
             return setup
-                .UseJanusGraph(extraConfiguration)
+                .UseJanusGraph(configuration)
                 .ConfigureEnvironment(env => env
                     .UseModel(GraphModel
                         .FromBaseTypes<TVertex, TEdge>(lookup => lookup
