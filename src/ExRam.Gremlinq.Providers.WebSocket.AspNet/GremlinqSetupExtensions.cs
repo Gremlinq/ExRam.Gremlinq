@@ -17,14 +17,14 @@ namespace ExRam.Gremlinq.Core.AspNet
         {
             private readonly string _sectionName;
             private readonly IGremlinqConfiguration _generalSection;
-            private readonly Func<TProviderConfigurator, IConfiguration, TProviderConfigurator> _providerConfiguratorTransformation;
+            private readonly Func<TProviderConfigurator, IConfiguration, IGremlinQuerySourceTransformation> _providerConfiguratorTransformation;
             private readonly Func<IConfigurableGremlinQuerySource, Func<TProviderConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource> _providerChoice;
             
             public UseProviderGremlinQuerySourceTransformation(
                 IGremlinqConfiguration generalSection,
                 string sectionName,
                 Func<IConfigurableGremlinQuerySource, Func<TProviderConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource> providerChoice,
-                Func<TProviderConfigurator, IConfiguration, TProviderConfigurator> providerConfiguratorTransformation)
+                Func<TProviderConfigurator, IConfiguration, IGremlinQuerySourceTransformation> providerConfiguratorTransformation)
             {
                 _sectionName = sectionName;
                 _generalSection = generalSection;
@@ -80,7 +80,7 @@ namespace ExRam.Gremlinq.Core.AspNet
             this GremlinqSetup setup,
             string sectionName,
             Func<IConfigurableGremlinQuerySource, Func<TConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource> providerChoice,
-            Func<TConfigurator, IConfiguration, TConfigurator> configuration) where TConfigurator : IProviderConfigurator<TConfigurator>
+            Func<TConfigurator, IConfiguration, IGremlinQuerySourceTransformation> configuration) where TConfigurator : IProviderConfigurator<TConfigurator>
         {
             return setup.RegisterTypes(serviceCollection => serviceCollection
                 .AddSingleton<IGremlinQuerySourceTransformation>(s => new UseProviderGremlinQuerySourceTransformation<TConfigurator>(
