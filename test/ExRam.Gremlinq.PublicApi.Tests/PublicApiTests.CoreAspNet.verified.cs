@@ -14,6 +14,12 @@ namespace ExRam.Gremlinq.Core.AspNet
     }
     public interface IGremlinqConfiguration : Microsoft.Extensions.Configuration.IConfiguration { }
     public interface IProviderConfiguration : Microsoft.Extensions.Configuration.IConfiguration { }
+    public readonly struct ProviderSetup<TConfigurator>
+        where TConfigurator : ExRam.Gremlinq.Providers.Core.IProviderConfigurator<TConfigurator>
+    {
+        public ProviderSetup(Microsoft.Extensions.DependencyInjection.IServiceCollection serviceCollection) { }
+        public Microsoft.Extensions.DependencyInjection.IServiceCollection ServiceCollection { get; }
+    }
 }
 namespace Microsoft.Extensions.Configuration
 {
