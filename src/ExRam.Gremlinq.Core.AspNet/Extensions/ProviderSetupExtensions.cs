@@ -9,10 +9,10 @@ namespace ExRam.Gremlinq.Core.AspNet
         private sealed class ExtraConfigurationProviderConfiguratorTransformation<TConfigurator> : IProviderConfiguratorTransformation<TConfigurator>
            where TConfigurator : IProviderConfigurator<TConfigurator>
         {
-            private readonly IProviderConfiguration _configuration;
-            private readonly Func<TConfigurator, IProviderConfiguration, TConfigurator> _extraConfiguration;
+            private readonly IProviderConfigurationSection _configuration;
+            private readonly Func<TConfigurator, IProviderConfigurationSection, TConfigurator> _extraConfiguration;
 
-            public ExtraConfigurationProviderConfiguratorTransformation(IProviderConfiguration configuration, Func<TConfigurator, IProviderConfiguration, TConfigurator> extraConfiguration)
+            public ExtraConfigurationProviderConfiguratorTransformation(IProviderConfigurationSection configuration, Func<TConfigurator, IProviderConfigurationSection, TConfigurator> extraConfiguration)
             {
                 _configuration = configuration;
                 _extraConfiguration = extraConfiguration;
@@ -21,13 +21,13 @@ namespace ExRam.Gremlinq.Core.AspNet
             public TConfigurator Transform(TConfigurator configurator) => _extraConfiguration(configurator, _configuration);
         }
 
-        public static ProviderSetup<TConfigurator> Configure<TConfigurator>(this ProviderSetup<TConfigurator> setup, Func<TConfigurator, IProviderConfiguration, TConfigurator> extraConfiguration)
+        public static ProviderSetup<TConfigurator> Configure<TConfigurator>(this ProviderSetup<TConfigurator> setup, Func<TConfigurator, IProviderConfigurationSection, TConfigurator> extraConfiguration)
            where TConfigurator : IProviderConfigurator<TConfigurator>
         {
             return new ProviderSetup<TConfigurator>(setup
                 .ServiceCollection
                 .AddSingleton<IProviderConfiguratorTransformation<TConfigurator>>(s => new ExtraConfigurationProviderConfiguratorTransformation<TConfigurator>(
-                    s.GetRequiredService<IProviderConfiguration>(),
+                    s.GetRequiredService<IProviderConfigurationSection>(),
                     extraConfiguration)));
         }
     }

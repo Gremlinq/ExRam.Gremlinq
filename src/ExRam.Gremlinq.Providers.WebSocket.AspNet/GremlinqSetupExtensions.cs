@@ -19,13 +19,13 @@ namespace ExRam.Gremlinq.Core.AspNet
             where TProviderConfigurator : IProviderConfigurator<TProviderConfigurator>
         {
             private readonly IGremlinqConfigurationSection _generalSection;
-            private readonly IProviderConfiguration _providerSection;
+            private readonly IProviderConfigurationSection _providerSection;
             private readonly ProviderSetupInfo<TProviderConfigurator> _providerSetupInfo;
             private readonly IProviderConfiguratorTransformation<TProviderConfigurator>[] _transformations;
 
             public UseProviderGremlinQuerySourceTransformation(
                 IGremlinqConfigurationSection generalSection,
-                IProviderConfiguration providerSection,
+                IProviderConfigurationSection providerSection,
                 IEnumerable<IProviderConfiguratorTransformation<TProviderConfigurator>> transformations,
                 ProviderSetupInfo<TProviderConfigurator> providerSetupInfo)
             {
@@ -79,12 +79,12 @@ namespace ExRam.Gremlinq.Core.AspNet
             }
         }
 
-        private sealed class ProviderConfiguration<TConfigurator> : IProviderConfiguration
+        private sealed class ProviderConfigurationSection<TConfigurator> : IProviderConfigurationSection
             where TConfigurator : IProviderConfigurator<TConfigurator>
         {
             private readonly IConfigurationSection _configuration;
 
-            public ProviderConfiguration(IGremlinqConfigurationSection configuration, ProviderSetupInfo<TConfigurator> setupInfo)
+            public ProviderConfigurationSection(IGremlinqConfigurationSection configuration, ProviderSetupInfo<TConfigurator> setupInfo)
             {
                 _configuration = configuration.GetSection(setupInfo.SectionName);
             }
@@ -140,7 +140,7 @@ namespace ExRam.Gremlinq.Core.AspNet
             return setup.RegisterTypes(serviceCollection => serviceCollection
                 .AddSingleton(new ProviderSetupInfo<TConfigurator>(sectionName, providerChoice))
                 .AddSingleton<IGremlinQuerySourceTransformation, UseProviderGremlinQuerySourceTransformation<TConfigurator>>()
-                .AddSingleton<IProviderConfiguration, ProviderConfiguration<TConfigurator>>());
+                .AddSingleton<IProviderConfigurationSection, ProviderConfigurationSection<TConfigurator>>());
         }
     }
 }
