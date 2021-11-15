@@ -1,25 +1,24 @@
 ﻿using System;
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Providers.GremlinServer;
-using Microsoft.Extensions.Configuration;
 
 namespace ExRam.Gremlinq.Core.AspNet
 {
     public static class GremlinqSetupExtensions
     {
-        public static GremlinqSetup UseGremlinServer(this GremlinqSetup setup, Action<ProviderSetup<IGremlinServerConfigurator>>? configuration = null)
+        public static GremlinqSetup UseGremlinServer(this GremlinqSetup setup, Action<ProviderSetup<IGremlinServerConfigurator>>? extraSetupAction = null)
         {
             return setup
                 .UseProvider(
                     "GremlinServer",
                     (source, configuratorTransformation) => source.UseGremlinServer(configuratorTransformation),
-                    configuration);
+                    extraSetupAction);
         }
 
-        public static GremlinqSetup UseGremlinServer<TVertex, TEdge>(this GremlinqSetup setup, Action<ProviderSetup<IGremlinServerConfigurator>>? configuration = null)
+        public static GremlinqSetup UseGremlinServer<TVertex, TEdge>(this GremlinqSetup setup, Action<ProviderSetup<IGremlinServerConfigurator>>? extraSetupAction = null)
         {
             return setup
-                .UseGremlinServer(configuration)
+                .UseGremlinServer(extraSetupAction)
                 .ConfigureEnvironment(env => env
                     .UseModel(GraphModel
                         .FromBaseTypes<TVertex, TEdge>(lookup => lookup

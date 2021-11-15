@@ -6,19 +6,19 @@ namespace ExRam.Gremlinq.Core.AspNet
 {
     public static class GremlinqSetupExtensions
     {
-        public static GremlinqSetup UseJanusGraph(this GremlinqSetup setup, Action<ProviderSetup<IJanusGraphConfigurator>>? configuration = null)
+        public static GremlinqSetup UseJanusGraph(this GremlinqSetup setup, Action<ProviderSetup<IJanusGraphConfigurator>>? extraSetupAction = null)
         {
             return setup
                 .UseProvider(
                     "JanusGraph",
                     (source, configuratorTransformation) => source.UseJanusGraph(configuratorTransformation),
-                    configuration);
+                    extraSetupAction);
         }
 
-        public static GremlinqSetup UseJanusGraph<TVertex, TEdge>(this GremlinqSetup setup, Action<ProviderSetup<IJanusGraphConfigurator>>? configuration = null)
+        public static GremlinqSetup UseJanusGraph<TVertex, TEdge>(this GremlinqSetup setup, Action<ProviderSetup<IJanusGraphConfigurator>>? extraSetupAction = null)
         {
             return setup
-                .UseJanusGraph(configuration)
+                .UseJanusGraph(extraSetupAction)
                 .ConfigureEnvironment(env => env
                     .UseModel(GraphModel
                         .FromBaseTypes<TVertex, TEdge>(lookup => lookup

@@ -30,27 +30,24 @@ namespace ExRam.Gremlinq.Core.AspNet
                     configurator = configurator.AuthenticateBy(authKey);
 
                 return configurator;
-
-                //TODO
-                //return extraConfiguration?.Invoke(configurator, configuration) ?? configurator;
             }
         }
 
-        public static GremlinqSetup UseCosmosDb(this GremlinqSetup setup, Action<ProviderSetup<ICosmosDbConfigurator>>? configuration = null)
+        public static GremlinqSetup UseCosmosDb(this GremlinqSetup setup, Action<ProviderSetup<ICosmosDbConfigurator>>? extraSetupAction = null)
         {
             return setup
                 .UseProvider(
                     "CosmosDb",
                     (source, configuratorTransformation) => source.UseCosmosDb(configuratorTransformation),
-                    configuration)
+                    extraSetupAction)
                 .RegisterTypes(serviceCollection => serviceCollection
                     .AddSingleton<IProviderConfiguratorTransformation<ICosmosDbConfigurator>, CosmosDbConfiguratorTransformation>());
         }
 
-        public static GremlinqSetup UseCosmosDb<TVertex, TEdge>(this GremlinqSetup setup, Expression<Func<TVertex, object>> partitionKeyExpression, Action<ProviderSetup<ICosmosDbConfigurator>>? configuration = null)
+        public static GremlinqSetup UseCosmosDb<TVertex, TEdge>(this GremlinqSetup setup, Expression<Func<TVertex, object>> partitionKeyExpression, Action<ProviderSetup<ICosmosDbConfigurator>>? extraSetupAction = null)
         {
             return setup
-                .UseCosmosDb(configuration)
+                .UseCosmosDb(extraSetupAction)
                 .ConfigureEnvironment(env => env
                     .UseModel(GraphModel
                         .FromBaseTypes<TVertex, TEdge>(lookup => lookup
