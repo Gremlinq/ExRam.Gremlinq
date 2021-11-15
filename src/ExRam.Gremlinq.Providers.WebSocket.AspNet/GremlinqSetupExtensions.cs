@@ -1,5 +1,7 @@
 ﻿// ReSharper disable HeapView.PossibleBoxingAllocation
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Providers.Core;
 using ExRam.Gremlinq.Providers.WebSocket;
@@ -17,18 +19,21 @@ namespace ExRam.Gremlinq.Core.AspNet
         {
             private readonly string _sectionName;
             private readonly IGremlinqConfiguration _generalSection;
+            private readonly IProviderConfiguratorTransformation<TProviderConfigurator>[] _transformations;
             private readonly Func<TProviderConfigurator, IConfiguration, IGremlinQuerySourceTransformation> _providerConfiguratorTransformation;
             private readonly Func<IConfigurableGremlinQuerySource, Func<TProviderConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource> _providerChoice;
             
             public UseProviderGremlinQuerySourceTransformation(
                 IGremlinqConfiguration generalSection,
                 string sectionName,
+                IEnumerable<IProviderConfiguratorTransformation<TProviderConfigurator>> transformations,
                 Func<IConfigurableGremlinQuerySource, Func<TProviderConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource> providerChoice,
                 Func<TProviderConfigurator, IConfiguration, IGremlinQuerySourceTransformation> providerConfiguratorTransformation)
             {
                 _sectionName = sectionName;
                 _generalSection = generalSection;
                 _providerChoice = providerChoice;
+                _transformations = transformations.ToArray();
                 _providerConfiguratorTransformation = providerConfiguratorTransformation;
             }
             
@@ -69,6 +74,11 @@ namespace ExRam.Gremlinq.Core.AspNet
                                     .ConfigureFrom(providerSection));
                         }
 
+                        foreach (var transformation in _transformations)
+                        {
+                            configurator = transformation.Transform(configurator);
+                        }
+
                         return _providerConfiguratorTransformation(
                             configurator,
                             providerSection);
@@ -86,6 +96,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                 .AddSingleton<IGremlinQuerySourceTransformation>(s => new UseProviderGremlinQuerySourceTransformation<TConfigurator>(
                     s.GetRequiredService<IGremlinqConfiguration>(),
                     sectionName,
+                    s.GetRequiredService<IEnumerable<IProviderConfiguratorTransformation<TConfigurator>>>(),
                     providerChoice,
                     configuration)));
         }
