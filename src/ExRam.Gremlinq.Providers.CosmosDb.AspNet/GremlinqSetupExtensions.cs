@@ -12,7 +12,7 @@ namespace ExRam.Gremlinq.Core.AspNet
         public static GremlinqSetup UseCosmosDb(this GremlinqSetup setup, Func<ICosmosDbConfigurator, IConfiguration, ICosmosDbConfigurator>? extraConfiguration = null)
         {
             return setup 
-                .UseProvider(
+                .UseProvider<ICosmosDbConfigurator>(
                     "CosmosDb",
                     (e, f) => e.UseCosmosDb(f),
                     (configurator, configuration) =>
@@ -26,9 +26,8 @@ namespace ExRam.Gremlinq.Core.AspNet
                         if (configuration["AuthKey"] is { } authKey)
                             configurator = configurator.AuthenticateBy(authKey);
 
-                        return configurator;
-                    },
-                    extraConfiguration);
+                        return extraConfiguration?.Invoke(configurator, configuration) ?? configurator;
+                    });
         }
 
         public static GremlinqSetup UseCosmosDb<TVertex, TEdge>(this GremlinqSetup setup, Expression<Func<TVertex, object>> partitionKeyExpression, Func<ICosmosDbConfigurator, IConfiguration, ICosmosDbConfigurator>? extraConfiguration = null)
