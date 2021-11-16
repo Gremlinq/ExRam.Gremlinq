@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ExRam.Gremlinq.Core.AspNet\ExRam.Gremlinq.Core.AspNet.csproj" />
+    <ProjectReference Include="..\ExRam.Gremlinq.Providers.Core.AspNet\ExRam.Gremlinq.Providers.Core.AspNet.csproj" />
     <ProjectReference Include="..\ExRam.Gremlinq.Providers.WebSocket\ExRam.Gremlinq.Providers.WebSocket.csproj" />
   </ItemGroup>
 
