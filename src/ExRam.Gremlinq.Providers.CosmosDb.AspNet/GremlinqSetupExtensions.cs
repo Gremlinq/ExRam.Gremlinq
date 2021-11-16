@@ -15,15 +15,15 @@ namespace ExRam.Gremlinq.Core.AspNet
                     (source, configuratorTransformation) => source
                         .UseCosmosDb(configuratorTransformation),
                     setup => setup
-                        .Configure((configurator, configuration) =>
+                        .Configure((configurator, gremlinqSection, providerSection) =>
                         {
-                            if (configuration["Database"] is { } databaseName)
+                            if (providerSection["Database"] is { } databaseName)
                                 configurator = configurator.OnDatabase(databaseName);
 
-                            if (configuration["Graph"] is { } graphName)
+                            if (providerSection["Graph"] is { } graphName)
                                 configurator = configurator.OnGraph(graphName);
 
-                            if (configuration["AuthKey"] is { } authKey)
+                            if (providerSection["AuthKey"] is { } authKey)
                                 configurator = configurator.AuthenticateBy(authKey);
 
                             return configurator;
