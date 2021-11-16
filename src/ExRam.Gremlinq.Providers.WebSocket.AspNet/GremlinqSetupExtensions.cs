@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Primitives;
 using Newtonsoft.Json;
+using NullGuard;
 
 namespace ExRam.Gremlinq.Core.AspNet
 {
@@ -89,23 +90,25 @@ namespace ExRam.Gremlinq.Core.AspNet
                 _providerSection = configuration.GetSection(setupInfo.SectionName);
             }
 
-            public IEnumerable<IConfigurationSection> GetChildren() => _providerSection.GetChildren();
+            IEnumerable<IConfigurationSection> IConfiguration.GetChildren() => _providerSection.GetChildren();
 
-            public IChangeToken GetReloadToken() => _providerSection.GetReloadToken();
+            IChangeToken IConfiguration.GetReloadToken() => _providerSection.GetReloadToken();
 
-            public IConfigurationSection GetSection(string key) => _providerSection.GetSection(key);
+            IConfigurationSection IConfiguration.GetSection(string key) => _providerSection.GetSection(key);
 
-            public string Key => _providerSection.Key;
+            string IConfigurationSection.Key => _providerSection.Key;
 
-            public string Path => _providerSection.Path;
+            string IConfigurationSection.Path => _providerSection.Path;
 
-            public string this[string key]
+            [AllowNull]
+            string IConfiguration.this[string key]
             {
                 get => _providerSection[key];
                 set => _providerSection[key] = value;
             }
 
-            public string Value
+            [AllowNull]
+            string IConfigurationSection.Value
             {
                 get => _providerSection.Value;
                 set => _providerSection.Value = value;
