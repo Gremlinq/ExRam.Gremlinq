@@ -1,4 +1,6 @@
-﻿using FluentAssertions;
+﻿using ExRam.Gremlinq.Providers.Core;
+
+using FluentAssertions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
@@ -7,6 +9,11 @@ namespace ExRam.Gremlinq.Core.AspNet.Tests
 {
     public class ProviderConfigurationSectionTests
     {
+        private interface IMyProviderConfigurator : IProviderConfigurator<IMyProviderConfigurator>
+        {
+
+        }
+
         public ProviderConfigurationSectionTests() : base()
         {
 
@@ -20,7 +27,12 @@ namespace ExRam.Gremlinq.Core.AspNet.Tests
                     .AddInMemoryCollection()
                     .Build())
                 .AddGremlinq(s => s
-                    .UseGremlinServer())
+                    .UseProvider<IMyProviderConfigurator>(
+                        "Provider",
+                        (source, _) => source
+                            .ConfigureEnvironment(_ => _),
+                        setup => { },
+                        default!))
                 .BuildServiceProvider();
 
             var section = serviceCollection

@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\ExRam.Gremlinq.Core.AspNet\ExRam.Gremlinq.Core.AspNet.csproj" />
-    <ProjectReference Include="..\..\src\ExRam.Gremlinq.Providers.GremlinServer.AspNet\ExRam.Gremlinq.Providers.GremlinServer.AspNet.csproj" />
+    <ProjectReference Include="..\..\src\ExRam.Gremlinq.Providers.Core.AspNet\ExRam.Gremlinq.Providers.Core.AspNet.csproj" />
   </ItemGroup>
 
   </Project>
