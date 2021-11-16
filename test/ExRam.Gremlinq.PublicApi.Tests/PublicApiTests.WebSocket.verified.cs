@@ -9,10 +9,6 @@ namespace ExRam.Gremlinq.Core
         public static Gremlin.Net.Driver.IGremlinClient ObserveResultStatusAttributes(this Gremlin.Net.Driver.IGremlinClient client, System.Action<Gremlin.Net.Driver.Messages.RequestMessage, System.Collections.Generic.IReadOnlyDictionary<string, object>> observer) { }
         public static Gremlin.Net.Driver.IGremlinClient TransformRequest(this Gremlin.Net.Driver.IGremlinClient client, System.Func<Gremlin.Net.Driver.Messages.RequestMessage, System.Threading.Tasks.Task<Gremlin.Net.Driver.Messages.RequestMessage>> transformation) { }
     }
-    public static class GremlinQueryExecutorExtensions
-    {
-        public static ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor Log(this ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor executor) { }
-    }
     public abstract class JsonNetMessageSerializer : Gremlin.Net.Driver.IMessageSerializer
     {
         public static readonly Gremlin.Net.Driver.IMessageSerializer GraphSON2;
