@@ -20,19 +20,15 @@ namespace ExRam.Gremlinq.Core.AspNet
 
         IConfigurationSection IConfiguration.GetSection(string key) => _baseConfiguration.GetSection(key);
 
-        string IConfiguration.this[string key]
+        string? IConfiguration.this[string key]
         {
-            [return: AllowNull]
             get => _baseConfiguration[key];
-
             set => _baseConfiguration[key] = value;
         }
 
         string IConfigurationSection.Value
         {
-            [return: AllowNull]
             get => _baseConfiguration.Value;
-
             set => _baseConfiguration.Value = value;
         }
 
