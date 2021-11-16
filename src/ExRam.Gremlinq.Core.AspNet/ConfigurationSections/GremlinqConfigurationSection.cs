@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Primitives;
-using NullGuard;
 
 namespace ExRam.Gremlinq.Core.AspNet
 {
