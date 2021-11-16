@@ -159,10 +159,7 @@ namespace ExRam.Gremlinq.Core.Execution
             }
         }
 
-        public static IGremlinQueryExecutor RetryWithExponentialBackoff(this IGremlinQueryExecutor executor, Func<int, ResponseException, bool> shouldRetry)
-        {
-            return new ExponentialBackoffExecutor(executor, shouldRetry);
-        }
+        public static IGremlinQueryExecutor RetryWithExponentialBackoff(this IGremlinQueryExecutor executor, Func<int, ResponseException, bool> shouldRetry) => new ExponentialBackoffExecutor(executor, shouldRetry);
 
         public static IGremlinQueryExecutor Log(this IGremlinQueryExecutor executor) => new LoggingGremlinQueryExecutor(executor);
     }
