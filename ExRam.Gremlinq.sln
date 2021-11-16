@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29519.87
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.31903.286
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Core", "src\ExRam.Gremlinq.Core\ExRam.Gremlinq.Core.csproj", "{8E7F39D7-8E11-4E11-97AF-8669A97B498C}"
 EndProject
@@ -85,6 +85,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.Core", "src\ExRam.Gremlinq.Providers.Core\ExRam.Gremlinq.Providers.Core.csproj", "{358A8F94-4AEC-4A56-8568-96814BB019A0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gremlinq.Providers.Core", "meta\Gremlinq.Providers.Core\Gremlinq.Providers.Core.csproj", "{0426F77B-0949-438C-864C-312DDA530CBC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Core.AspNet.Tests", "test\ExRam.Gremlinq.Core.AspNet.Tests\ExRam.Gremlinq.Core.AspNet.Tests.csproj", "{4B7289D1-5E6D-45BA-B811-8CA87E2DACE2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -236,6 +238,10 @@ Global
 		{0426F77B-0949-438C-864C-312DDA530CBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0426F77B-0949-438C-864C-312DDA530CBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0426F77B-0949-438C-864C-312DDA530CBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B7289D1-5E6D-45BA-B811-8CA87E2DACE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B7289D1-5E6D-45BA-B811-8CA87E2DACE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B7289D1-5E6D-45BA-B811-8CA87E2DACE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B7289D1-5E6D-45BA-B811-8CA87E2DACE2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -270,6 +276,7 @@ Global
 		{2DEAF295-8965-4660-93FE-8AD3ED985CB3} = {E944FDE9-B35D-4B16-B7A1-BF3644F5B7FA}
 		{08B239B3-1A9A-4D29-AF18-50B8EEAFF97A} = {2CD9652B-1596-4A02-AF9B-6CE149AB3F65}
 		{0426F77B-0949-438C-864C-312DDA530CBC} = {E944FDE9-B35D-4B16-B7A1-BF3644F5B7FA}
+		{4B7289D1-5E6D-45BA-B811-8CA87E2DACE2} = {4E6D1C9D-C1F7-43CF-99F7-9D610B3D1989}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7A76E21B-5855-4DA7-AAAE-4EBEE631CB3A}
