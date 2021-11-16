@@ -13,7 +13,8 @@ namespace ExRam.Gremlinq.Core.AspNet
                     "JanusGraph",
                     (source, configuratorTransformation) => source
                         .UseJanusGraph(configuratorTransformation),
-                    setup => { },
+                    setup => setup
+                        .ConfigureWebSocket(),
                     extraSetupAction);
         }
 

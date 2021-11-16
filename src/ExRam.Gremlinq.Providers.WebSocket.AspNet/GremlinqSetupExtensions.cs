@@ -34,7 +34,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                 _providerSetupInfo = providerSetupInfo;
                 _transformations = transformations.ToArray();
             }
-            
+
             public IGremlinQuerySource Transform(IGremlinQuerySource source)
             {
                 var loggingSection = _generalSection
@@ -61,14 +61,6 @@ namespace ExRam.Gremlinq.Core.AspNet
                             })),
                     configurator =>
                     {
-                        if (configurator is IWebSocketProviderConfigurator<TProviderConfigurator> webSocketProviderConfigurator)
-                        {
-                            configurator = webSocketProviderConfigurator
-                                .ConfigureWebSocket(webSocketConfigurator => webSocketConfigurator
-                                    .ConfigureFrom(_generalSection)
-                                    .ConfigureFrom(_providerSection));
-                        }
-
                         foreach (var transformation in _transformations)
                         {
                             configurator = transformation.Transform(configurator);
@@ -141,6 +133,16 @@ namespace ExRam.Gremlinq.Core.AspNet
                 .AddSingleton(new ProviderSetupInfo<TConfigurator>(sectionName, providerChoice))
                 .AddSingleton<IGremlinQuerySourceTransformation, UseProviderGremlinQuerySourceTransformation<TConfigurator>>()
                 .AddSingleton<IProviderConfigurationSection, ProviderConfigurationSection<TConfigurator>>());
+        }
+
+        public static ProviderSetup<TConfigurator> ConfigureWebSocket<TConfigurator>(this ProviderSetup<TConfigurator> setup)
+           where TConfigurator : IWebSocketProviderConfigurator<TConfigurator>
+        {
+            return setup
+                .Configure((configurator, gremlinqSection, providerSection) => configurator
+                    .ConfigureWebSocket(webSocketConfigurator => webSocketConfigurator
+                        .ConfigureFrom(gremlinqSection)
+                        .ConfigureFrom(providerSection)));
         }
     }
 }

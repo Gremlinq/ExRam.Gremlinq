@@ -14,6 +14,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                     (source, configuratorTransformation) => source
                         .UseNeptune(configuratorTransformation),
                     setup => setup
+                        .ConfigureWebSocket()
                         .Configure((configurator, gremlinqSection, providerSection) =>
                         {
                             if (providerSection.GetSection("ElasticSearch") is { } elasticSearchSection)
