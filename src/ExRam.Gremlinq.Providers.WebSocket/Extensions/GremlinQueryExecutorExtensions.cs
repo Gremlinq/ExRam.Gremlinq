@@ -3,15 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
-
 using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Providers.WebSocket;
-
 using Gremlin.Net.Process.Traversal;
-
 using Microsoft.Extensions.Logging;
-
 using Newtonsoft.Json;
 
 namespace ExRam.Gremlinq.Core
@@ -69,10 +65,10 @@ namespace ExRam.Gremlinq.Core
 
             private static Action<object, Guid> GetLoggingFunction(IGremlinQueryEnvironment environment)
             {
-                var logLevel = environment.Options.GetValue(WebSocketGremlinqOptions.QueryLogLogLevel);
-                var verbosity = environment.Options.GetValue(WebSocketGremlinqOptions.QueryLogVerbosity);
-                var formatting = environment.Options.GetValue(WebSocketGremlinqOptions.QueryLogFormatting);
-                var groovyFormatting = environment.Options.GetValue(WebSocketGremlinqOptions.QueryLogGroovyFormatting);
+                var logLevel = environment.Options.GetValue(GremlinqOption.QueryLogLogLevel);
+                var verbosity = environment.Options.GetValue(GremlinqOption.QueryLogVerbosity);
+                var formatting = environment.Options.GetValue(GremlinqOption.QueryLogFormatting);
+                var groovyFormatting = environment.Options.GetValue(GremlinqOption.QueryLogGroovyFormatting);
 
                 return (serializedQuery, requestId) =>
                 {
