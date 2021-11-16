@@ -19,39 +19,15 @@ namespace ExRam.Gremlinq.Core
 {
     public static class ConfigurableGremlinQuerySourceExtensions
     {
-        private sealed class WebSocketGremlinQueryExecutor : IGremlinQueryExecutor, IDisposable
+        private sealed class LoggingGremlinQueryExecutor : IGremlinQueryExecutor
         {
             private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, Action<object, Guid>> Loggers = new();
 
-            private readonly string _alias;
-            private readonly Dictionary<string, string> _aliasArgs;
-            private readonly SmarterLazy<IGremlinClient> _lazyGremlinClient;
+            private readonly IGremlinQueryExecutor _executor;
 
-            public WebSocketGremlinQueryExecutor(
-                Func<CancellationToken, Task<IGremlinClient>> clientFactory,
-                string alias = "g")
+            public LoggingGremlinQueryExecutor(IGremlinQueryExecutor executor)
             {
-                _alias = alias;
-                _aliasArgs = new Dictionary<string, string> { {"g", _alias} };
-                _lazyGremlinClient = new SmarterLazy<IGremlinClient>(
-                    async logger =>
-                    {
-                        try
-                        {
-                            return await clientFactory(default);
-                        }
-                        catch (Exception ex)
-                        {
-                            logger.LogError(ex, $"Failure creating a {nameof(GremlinClient)} instance.");
-
-                            throw;
-                        }
-                    });
-            }
-
-            public void Dispose()
-            {
-                _lazyGremlinClient.Dispose();
+                _executor = executor;
             }
 
             public IAsyncEnumerable<object> Execute(object serializedQuery, IGremlinQueryEnvironment environment)
@@ -60,52 +36,34 @@ namespace ExRam.Gremlinq.Core
 
                 async IAsyncEnumerator<object> Core(CancellationToken ct)
                 {
-                    var results = default(ResultSet<JToken>);
-                    var client = await _lazyGremlinClient.GetValue(environment.Logger);
+                    var requestId = Guid.NewGuid();
 
-                    var requestMessage = serializedQuery switch
+                    await using (var enumerator = _executor.Execute(serializedQuery, environment).GetAsyncEnumerator(ct))
                     {
-                        GroovyGremlinQuery groovyScript => RequestMessage
-                            .Build(Tokens.OpsEval)
-                            .AddArgument(Tokens.ArgsGremlin, $"{_alias}.{groovyScript.Script}")
-                            .AddArgument(Tokens.ArgsBindings, groovyScript.Bindings)
-                            .Create(),
-                        Bytecode bytecode => RequestMessage
-                            .Build(Tokens.OpsBytecode)
-                            .Processor(Tokens.ProcessorTraversal)
-                            .AddArgument(Tokens.ArgsGremlin, bytecode)
-                            .AddArgument(Tokens.ArgsAliases, _aliasArgs)
-                            .Create(),
-                        _ => throw new ArgumentException($"Cannot handle serialized query of type {serializedQuery.GetType()}.")
-                    };
-
-                    try
-                    {
-                        var task = client
-                            .SubmitAsync<JToken>(requestMessage);
-
-                        var logger = Loggers.GetValue(
-                            environment,
-                            environment => GetLoggingFunction(environment));
-
-                        logger(serializedQuery, requestMessage.RequestId);
-
-                        results = await task
-                            .ConfigureAwait(false);
-                    }
-                    catch (Exception ex)
-                    {
-                        environment.Logger.LogError($"Error executing Gremlin query with {nameof(RequestMessage.RequestId)} {requestMessage.RequestId}: {ex}");
-
-                        throw;
-                    }
-
-                    if (results != null)
-                    {
-                        foreach (var obj in results)
+                        try
                         {
-                            yield return obj;
+                            var moveNext = enumerator.MoveNextAsync();
+
+                            var logger = Loggers.GetValue(
+                                environment,
+                                environment => GetLoggingFunction(environment));
+
+                            logger(serializedQuery, requestId);
+
+                            if (!await moveNext)
+                                yield break;
                         }
+                        catch (Exception ex)
+                        {
+                            environment.Logger.LogError($"Error executing Gremlin query with id { requestId }: {ex}");
+
+                            throw;
+                        }
+
+                        do
+                        {
+                            yield return enumerator.Current;
+                        } while (await enumerator.MoveNextAsync());
                     }
                 }
             }
@@ -148,6 +106,79 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
+        private sealed class WebSocketGremlinQueryExecutor : IGremlinQueryExecutor, IDisposable
+        {
+            private readonly string _alias;
+            private readonly Dictionary<string, string> _aliasArgs;
+            private readonly SmarterLazy<IGremlinClient> _lazyGremlinClient;
+
+            public WebSocketGremlinQueryExecutor(
+                Func<CancellationToken, Task<IGremlinClient>> clientFactory,
+                string alias = "g")
+            {
+                _alias = alias;
+                _aliasArgs = new Dictionary<string, string> { {"g", _alias} };
+                _lazyGremlinClient = new SmarterLazy<IGremlinClient>(
+                    async logger =>
+                    {
+                        try
+                        {
+                            return await clientFactory(default);
+                        }
+                        catch (Exception ex)
+                        {
+                            logger.LogError(ex, $"Failure creating a {nameof(GremlinClient)} instance.");
+
+                            throw;
+                        }
+                    });
+            }
+
+            public void Dispose()
+            {
+                _lazyGremlinClient.Dispose();
+            }
+
+            public IAsyncEnumerable<object> Execute(object serializedQuery, IGremlinQueryEnvironment environment)
+            {
+                return AsyncEnumerable.Create(Core);
+
+                async IAsyncEnumerator<object> Core(CancellationToken ct)
+                {
+                    var maybeResults = default(ResultSet<JToken>?);
+                    var client = await _lazyGremlinClient.GetValue(environment.Logger);
+
+                    var requestMessage = serializedQuery switch
+                    {
+                        GroovyGremlinQuery groovyScript => RequestMessage
+                            .Build(Tokens.OpsEval)
+                            .AddArgument(Tokens.ArgsGremlin, $"{_alias}.{groovyScript.Script}")
+                            .AddArgument(Tokens.ArgsBindings, groovyScript.Bindings)
+                            .Create(),
+                        Bytecode bytecode => RequestMessage
+                            .Build(Tokens.OpsBytecode)
+                            .Processor(Tokens.ProcessorTraversal)
+                            .AddArgument(Tokens.ArgsGremlin, bytecode)
+                            .AddArgument(Tokens.ArgsAliases, _aliasArgs)
+                            .Create(),
+                        _ => throw new ArgumentException($"Cannot handle serialized query of type {serializedQuery.GetType()}.")
+                    };
+
+                    maybeResults = await client
+                        .SubmitAsync<JToken>(requestMessage)
+                        .ConfigureAwait(false);
+
+                    if (maybeResults is { } results)
+                    {
+                        foreach (var obj in results)
+                        {
+                            yield return obj;
+                        }
+                    }
+                }
+            }
+        }
+
         private sealed class WebSocketConfigurator : IWebSocketConfigurator
         {
             private readonly string _alias;
@@ -182,16 +213,17 @@ namespace ExRam.Gremlinq.Core
                 if (!"ws".Equals(_gremlinServer.Uri.Scheme, StringComparison.OrdinalIgnoreCase) && !"wss".Equals(_gremlinServer.Uri.Scheme, StringComparison.OrdinalIgnoreCase))
                     throw new ArgumentException("Expected the Uri-Scheme to be either \"ws\" or \"wss\".");
 
-                return new WebSocketGremlinQueryExecutor(
-                    async ct => await Task.Run(
-                        () => _clientFactory.Create(
-                            _gremlinServer,
-                            JsonNetMessageSerializer.GraphSON3,
-                            null,
-                            null,
-                            null),
-                        ct),
-                    _alias);
+                return new LoggingGremlinQueryExecutor(
+                    new WebSocketGremlinQueryExecutor(
+                        async ct => await Task.Run(
+                            () => _clientFactory.Create(
+                                _gremlinServer,
+                                JsonNetMessageSerializer.GraphSON3,
+                                null,
+                                null,
+                                null),
+                            ct),
+                        _alias));
             }
         }
 
