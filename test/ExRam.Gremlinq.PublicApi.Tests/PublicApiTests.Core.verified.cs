@@ -1104,6 +1104,7 @@ namespace ExRam.Gremlinq.Core.Execution
     }
     public static class GremlinQueryExecutorExtensions
     {
+        public static ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor Log(this ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor executor) { }
         public static ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor RetryWithExponentialBackoff(this ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor executor, System.Func<int, Gremlin.Net.Driver.Exceptions.ResponseException, bool> shouldRetry) { }
     }
     public interface IGremlinQueryExecutor
