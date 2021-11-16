@@ -100,20 +100,15 @@ namespace ExRam.Gremlinq.Core.AspNet
 
             string IConfigurationSection.Path => _providerSection.Path;
 
-            string IConfiguration.this[string key]
+            string? IConfiguration.this[string key]
             {
-                [return: AllowNull]
                 get => _providerSection[key];
-
                 set => _providerSection[key] = value;
             }
 
-            [AllowNull]
             string IConfigurationSection.Value
             {
-                [return: AllowNull]
                 get => _providerSection.Value;
-
                 set => _providerSection.Value = value;
             }
         }
