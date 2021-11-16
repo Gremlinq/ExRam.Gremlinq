@@ -61,18 +61,4 @@ namespace ExRam.Gremlinq.Providers.WebSocket
         public static ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurator ConfigureMessageSerializer(this ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurator configurator, System.Func<Gremlin.Net.Driver.IMessageSerializer, Gremlin.Net.Driver.IMessageSerializer> transformation) { }
         public static ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurator SetAlias(this ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurator configurator, string alias) { }
     }
-    public static class WebSocketGremlinqOptions
-    {
-        public static ExRam.Gremlinq.Core.GremlinqOption<Newtonsoft.Json.Formatting> QueryLogFormatting;
-        public static ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.Serialization.GroovyFormatting> QueryLogGroovyFormatting;
-        public static ExRam.Gremlinq.Core.GremlinqOption<Microsoft.Extensions.Logging.LogLevel> QueryLogLogLevel;
-        public static ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.QueryLogVerbosity> QueryLogVerbosity;
-    }
-    public static class WebSocketProviderConfiguratorExtensions
-    {
-        public static TConfigurator At<TConfigurator>(this TConfigurator configurator, System.Uri uri)
-            where TConfigurator : ExRam.Gremlinq.Providers.WebSocket.IWebSocketProviderConfigurator<TConfigurator> { }
-        public static TConfigurator AtLocalhost<TConfigurator>(this TConfigurator configurator)
-            where TConfigurator : ExRam.Gremlinq.Providers.WebSocket.IWebSocketProviderConfigurator<TConfigurator> { }
-    }
 }

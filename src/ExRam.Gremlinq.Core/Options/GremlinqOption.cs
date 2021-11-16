@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Immutable;
-
 using ExRam.Gremlinq.Core.Models;
+using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Core.Steps;
 using Gremlin.Net.Process.Traversal;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -95,6 +97,11 @@ namespace ExRam.Gremlinq.Core
         public static readonly GremlinqOption<FilterLabelsVerbosity> FilterLabelsVerbosity = new(Core.FilterLabelsVerbosity.Maximum);
         public static readonly GremlinqOption<DisabledTextPredicates> DisabledTextPredicates = new(Core.DisabledTextPredicates.None);
         public static readonly GremlinqOption<StringComparisonTranslationStrictness> StringComparisonTranslationStrictness = new(Core.StringComparisonTranslationStrictness.Strict);
+
+        public static GremlinqOption<LogLevel> QueryLogLogLevel = new(LogLevel.Debug);
+        public static GremlinqOption<Formatting> QueryLogFormatting = new(Formatting.None);
+        public static GremlinqOption<QueryLogVerbosity> QueryLogVerbosity = new(Core.QueryLogVerbosity.QueryOnly);
+        public static GremlinqOption<GroovyFormatting> QueryLogGroovyFormatting = new(GroovyFormatting.WithBindings);
     }
 
     public class GremlinqOption<TValue> : IGremlinqOption
