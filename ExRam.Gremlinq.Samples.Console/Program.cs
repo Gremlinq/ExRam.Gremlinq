@@ -6,6 +6,7 @@
 using System;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Providers.WebSocket;
 using ExRam.Gremlinq.Samples.Shared;
 using Microsoft.Extensions.Logging;
@@ -37,29 +38,31 @@ namespace ExRam.Gremlinq.Samples
                     //Disable query logging for a noise free console output.
                     //Enable logging by setting the verbosity to anything but None.
                     .ConfigureOptions(options => options
-                        .SetValue(WebSocketGremlinqOptions.QueryLogLogLevel, LogLevel.None))
+                        .SetValue(WebSocketGremlinqOptions.QueryLogLogLevel, LogLevel.None)))
 
 #if GremlinServer
-                    .UseGremlinServer(builder => builder
-                        .AtLocalhost()));
+                .UseGremlinServer(configurator => configurator
+                    .AtLocalhost());
 #elif AWSNeptune
-                    .UseNeptune(builder => builder
-                        .AtLocalhost()));
+                .UseNeptune(configurator => configurator
+                    .AtLocalhost());
 #elif CosmosDB
-                    .UseCosmosDb(builder => builder
-                        .At(new Uri("wss://your_gremlin_endpoint.gremlin.cosmos.azure.com:443/"), "your database name", "your graph name")
-                        .AuthenticateBy("your auth key")
-                        .ConfigureWebSocket(_ => _
-                            .ConfigureGremlinClient(client => client
-                                .ObserveResultStatusAttributes((requestMessage, statusAttributes) =>
-                                {
-                                    //Uncomment to log request charges for CosmosDB.
-                                    //if (statusAttributes.TryGetValue("x-ms-total-request-charge", out var requestCharge))
-                                    //    env.Logger.LogInformation($"Query {requestMessage.RequestId} had a RU charge of {requestCharge}.");
-                                })))));
+                .UseCosmosDb(configurator => configurator
+                    .At(new Uri("wss://your_gremlin_endpoint.gremlin.cosmos.azure.com:443/"))
+                    .OnDatabase("your database name")
+                    .OnGraph("your graph name")
+                    .AuthenticateBy("your auth key")
+                    .ConfigureWebSocket(_ => _
+                        .ConfigureGremlinClient(client => client
+                            .ObserveResultStatusAttributes((requestMessage, statusAttributes) =>
+                            {
+                                //Uncomment to log request charges for CosmosDB.
+                                //if (statusAttributes.TryGetValue("x-ms-total-request-charge", out var requestCharge))
+                                //    env.Logger.LogInformation($"Query {requestMessage.RequestId} had a RU charge of {requestCharge}.");
+                            }))));
 #elif JanusGraph
-                    .UseJanusGraph(builder => builder
-                        .AtLocalhost()));
+                .UseJanusGraph(configurator => configurator
+                    .AtLocalhost());
 #endif
 
             await new Logic(gremlinQuerySource, Console.Out)

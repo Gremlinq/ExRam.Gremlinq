@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ExRam.Gremlinq.Core" Version="8.6.0" />
+    <PackageReference Include="ExRam.Gremlinq.Core" Version="9.1.0" />
   </ItemGroup>
 
 </Project>
