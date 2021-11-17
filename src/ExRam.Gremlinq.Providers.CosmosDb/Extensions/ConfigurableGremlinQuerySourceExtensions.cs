@@ -105,12 +105,6 @@ namespace ExRam.Gremlinq.Core
                             })
                             .Override<NoneStep>((step, env, overridden, recurse) => recurse.Serialize(NoneWorkaround, env))
                             .Override<SkipStep>((step, env, overridden, recurse) => recurse.Serialize(new RangeStep(step.Count, -1, step.Scope), env))
-                            .Override<LimitStep>((step, env, overridden, recurse) =>
-                            {
-                                return step.Count <= int.MaxValue
-                                    ? overridden(step, env, recurse)
-                                    : throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Limit' outside the range of a 32-bit-integer.");
-                            })
                             .Override<TailStep>((step, env, overridden, recurse) =>
                             {
                                 return step.Count <= int.MaxValue

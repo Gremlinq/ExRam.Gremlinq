@@ -57,6 +57,15 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .Add(x => IdRegex2.Replace(x, "\"scrubbed id\""));
         }
 
+        [Fact]
+        public async Task Limit_argument_exceeding_int()
+        {
+            await _g
+               .V()
+               .Limit(2 * (long)int.MaxValue)
+               .Verify();
+        }
+
         [Fact(Skip = "Gremlin Query Compilation Error: AddE should follow by a Vertex")]
         public override async Task AddE_With_Ignored() { }
 
