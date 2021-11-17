@@ -46,4 +46,11 @@ namespace ExRam.Gremlinq.Providers.WebSocket
         public static ExRam.Gremlinq.Core.GremlinqOption<Microsoft.Extensions.Logging.LogLevel> QueryLogLogLevel;
         public static ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.QueryLogVerbosity> QueryLogVerbosity;
     }
+    public static class WebSocketProviderConfiguratorExtensions
+    {
+        public static TConfigurator At<TConfigurator>(this TConfigurator configurator, System.Uri uri)
+            where TConfigurator : ExRam.Gremlinq.Providers.WebSocket.IWebSocketProviderConfigurator<TConfigurator> { }
+        public static TConfigurator AtLocalhost<TConfigurator>(this TConfigurator configurator)
+            where TConfigurator : ExRam.Gremlinq.Providers.WebSocket.IWebSocketProviderConfigurator<TConfigurator> { }
+    }
 }
