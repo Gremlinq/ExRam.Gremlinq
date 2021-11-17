@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System.Collections.Generic;
+using FluentAssertions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
@@ -13,7 +14,11 @@ namespace ExRam.Gremlinq.Core.AspNet.Tests
         {
             var serviceCollection = new ServiceCollection()
                 .AddSingleton<IConfiguration>(new ConfigurationBuilder()
-                    .AddInMemoryCollection()
+                    .AddInMemoryCollection(new Dictionary<string, string>
+                    {
+                        { "Gremlinq:Gremlinq_key_1", "value1" },
+                        { "Gremlinq:Gremlinq_key_2", "value2" }
+                    })
                     .Build())
                 .AddGremlinq(s => { })
                 .BuildServiceProvider();
@@ -28,6 +33,18 @@ namespace ExRam.Gremlinq.Core.AspNet.Tests
             _section["Key"]
                 .Should()
                 .BeNull();
+        }
+
+        [Fact]
+        public void General_config()
+        {
+            _section["Gremlinq_key_1"]
+                .Should()
+                .Be("value1");
+
+            _section["Gremlinq_key_2"]
+                .Should()
+                .Be("value2");
         }
     }
 }
