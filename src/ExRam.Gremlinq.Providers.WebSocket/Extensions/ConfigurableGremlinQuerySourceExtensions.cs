@@ -24,17 +24,24 @@ namespace ExRam.Gremlinq.Core
             private readonly SmarterLazy<IGremlinClient> _lazyGremlinClient;
 
             public WebSocketGremlinQueryExecutor(
-                Func<CancellationToken, Task<IGremlinClient>> clientFactory,
+                GremlinServer gremlinServer,
+                IGremlinClientFactory clientFactory,
                 string alias = "g")
             {
                 _alias = alias;
                 _aliasArgs = new Dictionary<string, string> { {"g", _alias} };
+
                 _lazyGremlinClient = new SmarterLazy<IGremlinClient>(
                     async logger =>
                     {
                         try
                         {
-                            return await clientFactory(default);
+                            return await Task.Run(() => clientFactory.Create(
+                                gremlinServer,
+                                JsonNetMessageSerializer.GraphSON3,
+                                null,
+                                null,
+                                null));
                         }
                         catch (Exception ex)
                         {
@@ -125,14 +132,8 @@ namespace ExRam.Gremlinq.Core
                     throw new ArgumentException("Expected the Uri-Scheme to be either \"ws\" or \"wss\".");
 
                 return new WebSocketGremlinQueryExecutor(
-                    async ct => await Task.Run(
-                        () => _clientFactory.Create(
-                            _gremlinServer,
-                            JsonNetMessageSerializer.GraphSON3,
-                            null,
-                            null,
-                            null),
-                        ct),
+                    _gremlinServer,
+                    _clientFactory,
                     _alias);
             }
         }
