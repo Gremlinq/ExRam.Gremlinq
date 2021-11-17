@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
-using FluentAssertions;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using VerifyXunit;
 using Xunit;
 
 namespace ExRam.Gremlinq.Core.AspNet.Tests
 {
-    public class GremlinqConfigurationSectionTests
+    public class GremlinqConfigurationSectionTests : VerifyBase
     {
         private readonly IGremlinqConfigurationSection _section;
 
@@ -28,32 +29,14 @@ namespace ExRam.Gremlinq.Core.AspNet.Tests
         }
 
         [Fact]
-        public void Indexer_can_be_null()
-        {
-            _section["Key"]
-                .Should()
-                .BeNull();
-        }
+        public Task Indexer_can_be_null() => Verify(_section["Key"]);
 
         [Fact]
-        public void Value_can_be_null()
-        {
-            _section
-                .Value
-                .Should()
-                .BeNull();
-        }
+        public Task Value_can_be_null() => Verify(_section.Value);
 
         [Fact]
-        public void General_config()
-        {
-            _section["Gremlinq_key_1"]
-                .Should()
-                .Be("value1");
-
-            _section["Gremlinq_key_2"]
-                .Should()
-                .Be("value2");
-        }
+        public Task General_config() => Verify((
+            _section["Gremlinq_key_1"],
+            _section["Gremlinq_key_2"]));
     }
 }
