@@ -96,7 +96,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                 set => _providerSection[key] = value;
             }
 
-            string IConfigurationSection.Value
+            string? IConfigurationSection.Value
             {
                 get => _providerSection.Value;
                 set => _providerSection.Value = value;

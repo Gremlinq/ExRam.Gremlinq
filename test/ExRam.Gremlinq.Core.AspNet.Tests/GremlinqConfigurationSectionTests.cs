@@ -36,6 +36,15 @@ namespace ExRam.Gremlinq.Core.AspNet.Tests
         }
 
         [Fact]
+        public void Value_can_be_null()
+        {
+            _section
+                .Value
+                .Should()
+                .BeNull();
+        }
+
+        [Fact]
         public void General_config()
         {
             _section["Gremlinq_key_1"]

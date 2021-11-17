@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-
 using ExRam.Gremlinq.Providers.Core;
 using FluentAssertions;
 using Microsoft.Extensions.Configuration;
@@ -50,6 +49,15 @@ namespace ExRam.Gremlinq.Core.AspNet.Tests
         public void Indexer_can_be_null()
         {
             _section["Key"]
+                .Should()
+                .BeNull();
+        }
+
+        [Fact]
+        public void Value_can_be_null()
+        {
+            _section
+                .Value
                 .Should()
                 .BeNull();
         }
