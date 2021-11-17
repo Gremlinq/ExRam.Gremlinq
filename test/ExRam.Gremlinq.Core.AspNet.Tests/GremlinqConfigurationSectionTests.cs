@@ -7,13 +7,9 @@ namespace ExRam.Gremlinq.Core.AspNet.Tests
 {
     public class GremlinqConfigurationSectionTests
     {
+        private readonly IGremlinqConfigurationSection _section;
+
         public GremlinqConfigurationSectionTests() : base()
-        {
-
-        }
-
-        [Fact]
-        public void Indexer_can_be_null()
         {
             var serviceCollection = new ServiceCollection()
                 .AddSingleton<IConfiguration>(new ConfigurationBuilder()
@@ -22,10 +18,14 @@ namespace ExRam.Gremlinq.Core.AspNet.Tests
                 .AddGremlinq(s => { })
                 .BuildServiceProvider();
 
-            var section = serviceCollection
+            _section = serviceCollection
                 .GetRequiredService<IGremlinqConfigurationSection>();
+        }
 
-            section["Key"]
+        [Fact]
+        public void Indexer_can_be_null()
+        {
+            _section["Key"]
                 .Should()
                 .BeNull();
         }
