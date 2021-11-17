@@ -25,7 +25,7 @@ namespace ExRam.Gremlinq.Core.AspNet
             set => _baseConfiguration[key] = value;
         }
 
-        string IConfigurationSection.Value
+        string? IConfigurationSection.Value
         {
             get => _baseConfiguration.Value;
             set => _baseConfiguration.Value = value;
