@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using ExRam.Gremlinq.Providers.Core;
-using FluentAssertions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using VerifyXunit;
 using Xunit;
 
 namespace ExRam.Gremlinq.Core.AspNet.Tests
 {
-    public class ProviderConfigurationSectionTests
+    public class ProviderConfigurationSectionTests : VerifyBase
     {
         private interface IMyProviderConfigurator : IProviderConfigurator<IMyProviderConfigurator>
         {
@@ -46,40 +47,16 @@ namespace ExRam.Gremlinq.Core.AspNet.Tests
         }
 
         [Fact]
-        public void Indexer_can_be_null()
-        {
-            _section["Key"]
-                .Should()
-                .BeNull();
-        }
+        public Task Indexer_can_be_null() => Verify(_section["Key"]);
 
         [Fact]
-        public void Value_can_be_null()
-        {
-            _section
-                .Value
-                .Should()
-                .BeNull();
-        }
+        public Task Value_can_be_null() => Verify(_section.Value);
 
         [Fact]
-        public void Provider_config()
-        {
-            _section["Provider1_key_1"]
-                .Should()
-                .Be("provider1_value1");
-
-            _section["Provider1_key_2"]
-                .Should()
-                .Be("provider1_value2");
-
-            _section["Provider2_key_1"]
-              .Should()
-              .BeNull();
-
-            _section["Provider2_key_2"]
-                .Should()
-                .BeNull();
-        }
+        public Task Provider_config() => Verify((
+            _section["Provider1_key_1"],
+            _section["Provider1_key_2"],
+            _section["Provider2_key_1"],
+            _section["Provider2_key_2"]));
     }
 }
