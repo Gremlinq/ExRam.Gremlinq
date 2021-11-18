@@ -6,67 +6,12 @@ using ExRam.Gremlinq.Core.Serialization;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtensions
     {
-        private sealed class UseLoggerGremlinQuerySourceTransformation : IGremlinQuerySourceTransformation
-        {
-            private readonly ILogger<GremlinqQueries>? _logger;
-
-            public UseLoggerGremlinQuerySourceTransformation(ILogger<GremlinqQueries>? logger = default)
-            {
-                _logger = logger;
-            }
-
-            public IGremlinQuerySource Transform(IGremlinQuerySource source)
-            {
-                return _logger != null
-                    ? source
-                        .ConfigureEnvironment(environment => environment
-                            .UseLogger(_logger))
-                    : source;
-            }
-        }
-
-        private sealed class ConfigureOptionsGremlinQuerySourceTransformation : IGremlinQuerySourceTransformation
-        {
-            private readonly IGremlinqConfigurationSection _gremlinqConfigurationSection;
-
-            public ConfigureOptionsGremlinQuerySourceTransformation(IGremlinqConfigurationSection gremlinqConfigurationSection)
-            {
-                _gremlinqConfigurationSection = gremlinqConfigurationSection;
-            }
-
-            public IGremlinQuerySource Transform(IGremlinQuerySource source)
-            {
-                return source
-                    .ConfigureEnvironment(environment => environment
-                        .ConfigureOptions(options =>
-                        {
-                            var loggingSection = _gremlinqConfigurationSection
-                                .GetSection("QueryLogging");
-
-                            if (Enum.TryParse<QueryLogVerbosity>(loggingSection["Verbosity"], out var verbosity))
-                                options = options.SetValue(GremlinqOption.QueryLogVerbosity, verbosity);
-
-                            if (Enum.TryParse<LogLevel>(loggingSection[$"{nameof(LogLevel)}"], out var logLevel))
-                                options = options.SetValue(GremlinqOption.QueryLogLogLevel, logLevel);
-
-                            if (Enum.TryParse<Formatting>(loggingSection[$"{nameof(Formatting)}"], out var formatting))
-                                options = options.SetValue(GremlinqOption.QueryLogFormatting, formatting);
-
-                            if (Enum.TryParse<GroovyFormatting>(loggingSection[$"{nameof(GroovyFormatting)}"], out var groovyFormatting))
-                                options = options.SetValue(GremlinqOption.QueryLogGroovyFormatting, groovyFormatting);
-
-                            return options;
-                        }));
-            }
-        }
-
         public static IServiceCollection AddGremlinq(this IServiceCollection serviceCollection, Action<GremlinqSetup> configuration)
         {
             serviceCollection
@@ -76,23 +21,53 @@ namespace Microsoft.Extensions.DependencyInjection
                 .TryAddSingleton<IGremlinqConfigurationSection, GremlinqConfigurationSection>();
 
             serviceCollection
-                .AddSingleton<IGremlinQuerySourceTransformation, UseLoggerGremlinQuerySourceTransformation>()
-                .AddSingleton<IGremlinQuerySourceTransformation, ConfigureOptionsGremlinQuerySourceTransformation>();
-
-            serviceCollection
                 .TryAddSingleton(c =>
                 {
-                    var ret = g
-                        .ConfigureEnvironment(_ => _);
+                    var querySource = g
+                        .ConfigureEnvironment(environment =>
+                        {
+                            if (c.GetService<ILogger<GremlinqQueries>>() is { } logger)
+                            {
+                                environment = environment
+                                    .UseLogger(logger);
+                            }
 
-                    var transformations = c.GetRequiredService<IEnumerable<IGremlinQuerySourceTransformation>>();
+                            if (c.GetService<IGremlinqConfigurationSection>() is { } gremlinConfigSection)
+                            {
+                                environment = environment
+                                    .ConfigureOptions(options =>
+                                    {
+                                        var loggingSection = gremlinConfigSection
+                                            .GetSection("QueryLogging");
 
-                    foreach (var transformation in transformations)
+                                        if (Enum.TryParse<QueryLogVerbosity>(loggingSection["Verbosity"], out var verbosity))
+                                            options = options.SetValue(GremlinqOption.QueryLogVerbosity, verbosity);
+
+                                        if (Enum.TryParse<LogLevel>(loggingSection[$"{nameof(LogLevel)}"], out var logLevel))
+                                            options = options.SetValue(GremlinqOption.QueryLogLogLevel, logLevel);
+
+                                        if (Enum.TryParse<Formatting>(loggingSection[$"{nameof(Formatting)}"], out var formatting))
+                                            options = options.SetValue(GremlinqOption.QueryLogFormatting, formatting);
+
+                                        if (Enum.TryParse<GroovyFormatting>(loggingSection[$"{nameof(GroovyFormatting)}"], out var groovyFormatting))
+                                            options = options.SetValue(GremlinqOption.QueryLogGroovyFormatting, groovyFormatting);
+
+                                        return options;
+                                    });
+                            }
+
+                            return environment;
+                        });
+
+                    if (c.GetService<IEnumerable<IGremlinQuerySourceTransformation>>() is { } transformations)
                     {
-                        ret = transformation.Transform(ret);
+                        foreach (var transformation in transformations)
+                        {
+                            querySource = transformation.Transform(querySource);
+                        }
                     }
 
-                    return ret;
+                    return querySource;
                 });
 
             configuration(new GremlinqSetup(serviceCollection));
