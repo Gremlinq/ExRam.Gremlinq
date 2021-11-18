@@ -1,9 +1,7 @@
 ﻿// ReSharper disable HeapView.PossibleBoxingAllocation
 using System.Collections.Generic;
-
 using ExRam.Gremlinq.Providers.Core;
 using ExRam.Gremlinq.Providers.Core.AspNet;
-
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Primitives;
 

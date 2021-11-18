@@ -1,5 +1,4 @@
-﻿using ExRam.Gremlinq.Providers.Core;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace ExRam.Gremlinq.Providers.Core.AspNet
 {
