@@ -16,7 +16,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
             return builder.At(new Uri("ws://localhost:8182"));
         }
 
-        public static IWebSocketConfigurator ConfigureGremlinClient(this IWebSocketConfigurator configurator, Func<IGremlinClient, IGremlinClient> transformation)
+        public static IWebSocketConfigurator ConfigureClient(this IWebSocketConfigurator configurator, Func<IGremlinClient, IGremlinClient> transformation)
         {
             return configurator
                 .ConfigureClientFactory(factory => GremlinClientFactory
