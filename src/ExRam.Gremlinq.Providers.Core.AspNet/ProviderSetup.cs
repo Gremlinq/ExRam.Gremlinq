@@ -1,7 +1,7 @@
 ﻿using ExRam.Gremlinq.Providers.Core;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ExRam.Gremlinq.Core.AspNet
+namespace ExRam.Gremlinq.Providers.Core.AspNet
 {
     public readonly struct ProviderSetup<TConfigurator>
          where TConfigurator : IProviderConfigurator<TConfigurator>

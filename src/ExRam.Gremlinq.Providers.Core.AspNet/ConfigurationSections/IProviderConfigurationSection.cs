@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace ExRam.Gremlinq.Core.AspNet
+namespace ExRam.Gremlinq.Providers.Core.AspNet
 {
     public interface IProviderConfigurationSection : IConfigurationSection
     {

@@ -1,8 +1,8 @@
 ﻿using System;
-using ExRam.Gremlinq.Providers.Core;
+using ExRam.Gremlinq.Core.AspNet;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ExRam.Gremlinq.Core.AspNet
+namespace ExRam.Gremlinq.Providers.Core.AspNet
 {
     public static class ProviderSetupExtensions
     {
