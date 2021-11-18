@@ -39,7 +39,7 @@ namespace ExRam.Gremlinq.Core
                             return await Task.Run(() => clientFactory.Create(
                                 gremlinServer,
                                 JsonNetMessageSerializer.GraphSON3,
-                                new ConnectionPoolSettings { PoolSize = 1 },
+                                new ConnectionPoolSettings(),
                                 _ => { },
                                 null));
                         }
