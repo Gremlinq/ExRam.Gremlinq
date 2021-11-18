@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.AspNet;
 using ExRam.Gremlinq.Core.Serialization;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
@@ -69,11 +70,17 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddGremlinq(this IServiceCollection serviceCollection, Action<GremlinqSetup> configuration)
         {
             serviceCollection
-                .AddSingleton(new GremlinqSetupInfo())
-                .AddSingleton<IGremlinqConfigurationSection, GremlinqConfigurationSection>()
+                .TryAddSingleton(new GremlinqSetupInfo());
+
+            serviceCollection
+                .TryAddSingleton<IGremlinqConfigurationSection, GremlinqConfigurationSection>();
+
+            serviceCollection
                 .AddSingleton<IGremlinQuerySourceTransformation, UseLoggerGremlinQuerySourceTransformation>()
-                .AddSingleton<IGremlinQuerySourceTransformation, ConfigureOptionsGremlinQuerySourceTransformation>()
-                .AddSingleton(c =>
+                .AddSingleton<IGremlinQuerySourceTransformation, ConfigureOptionsGremlinQuerySourceTransformation>();
+
+            serviceCollection
+                .TryAddSingleton(c =>
                 {
                     var ret = g
                         .ConfigureEnvironment(_ => _);
