@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
     {
         private sealed class DefaultGremlinClientFactory : IGremlinClientFactory
         {
-            public IGremlinClient Create(Gremlin.Net.Driver.GremlinServer gremlinServer, IMessageSerializer? messageSerializer = null, ConnectionPoolSettings? connectionPoolSettings = null, Action<ClientWebSocketOptions>? webSocketConfiguration = null, string? sessionId = null)
+            public IGremlinClient Create(GremlinServer gremlinServer, IMessageSerializer? messageSerializer = null, ConnectionPoolSettings? connectionPoolSettings = null, Action<ClientWebSocketOptions>? webSocketConfiguration = null, string? sessionId = null)
             {
                 return new GremlinClient(
                     gremlinServer,
@@ -21,18 +21,18 @@ namespace ExRam.Gremlinq.Providers.WebSocket
 
         private sealed class FuncGremlinClientFactory : IGremlinClientFactory
         {
-            private readonly Func<Gremlin.Net.Driver.GremlinServer, IMessageSerializer?, ConnectionPoolSettings?, Action<ClientWebSocketOptions>?, string?, IGremlinClient> _factory;
+            private readonly Func<GremlinServer, IMessageSerializer, ConnectionPoolSettings, Action<ClientWebSocketOptions>, string?, IGremlinClient> _factory;
 
-            public FuncGremlinClientFactory(Func<Gremlin.Net.Driver.GremlinServer, IMessageSerializer?, ConnectionPoolSettings?, Action<ClientWebSocketOptions>?, string?, IGremlinClient> factory)
+            public FuncGremlinClientFactory(Func<GremlinServer, IMessageSerializer, ConnectionPoolSettings, Action<ClientWebSocketOptions>, string?, IGremlinClient> factory)
             {
                 _factory = factory;
             }
 
-            public IGremlinClient Create(Gremlin.Net.Driver.GremlinServer gremlinServer, IMessageSerializer? messageSerializer = null, ConnectionPoolSettings? connectionPoolSettings = null, Action<ClientWebSocketOptions>? webSocketConfiguration = null, string? sessionId = null) => _factory(gremlinServer, messageSerializer, connectionPoolSettings, webSocketConfiguration, sessionId);
+            public IGremlinClient Create(GremlinServer gremlinServer, IMessageSerializer messageSerializer, ConnectionPoolSettings connectionPoolSettings, Action<ClientWebSocketOptions> webSocketConfiguration, string? sessionId = null) => _factory(gremlinServer, messageSerializer, connectionPoolSettings, webSocketConfiguration, sessionId);
         }
 
         public static readonly IGremlinClientFactory Default = new DefaultGremlinClientFactory();
 
-        public static IGremlinClientFactory Create(Func<Gremlin.Net.Driver.GremlinServer, IMessageSerializer?, ConnectionPoolSettings?, Action<ClientWebSocketOptions>?, string?, IGremlinClient> factory) => new FuncGremlinClientFactory(factory);
+        public static IGremlinClientFactory Create(Func<GremlinServer, IMessageSerializer, ConnectionPoolSettings, Action<ClientWebSocketOptions>, string?, IGremlinClient> factory) => new FuncGremlinClientFactory(factory);
     }
 }

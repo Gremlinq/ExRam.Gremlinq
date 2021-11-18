@@ -23,11 +23,11 @@ namespace ExRam.Gremlinq.Providers.WebSocket
     public static class GremlinClientFactory
     {
         public static readonly ExRam.Gremlinq.Providers.WebSocket.IGremlinClientFactory Default;
-        public static ExRam.Gremlinq.Providers.WebSocket.IGremlinClientFactory Create(System.Func<Gremlin.Net.Driver.GremlinServer, Gremlin.Net.Driver.IMessageSerializer?, Gremlin.Net.Driver.ConnectionPoolSettings?, System.Action<System.Net.WebSockets.ClientWebSocketOptions>?, string?, Gremlin.Net.Driver.IGremlinClient> factory) { }
+        public static ExRam.Gremlinq.Providers.WebSocket.IGremlinClientFactory Create(System.Func<Gremlin.Net.Driver.GremlinServer, Gremlin.Net.Driver.IMessageSerializer, Gremlin.Net.Driver.ConnectionPoolSettings, System.Action<System.Net.WebSockets.ClientWebSocketOptions>, string?, Gremlin.Net.Driver.IGremlinClient> factory) { }
     }
     public interface IGremlinClientFactory
     {
-        Gremlin.Net.Driver.IGremlinClient Create(Gremlin.Net.Driver.GremlinServer gremlinServer, Gremlin.Net.Driver.IMessageSerializer? messageSerializer = null, Gremlin.Net.Driver.ConnectionPoolSettings? connectionPoolSettings = null, System.Action<System.Net.WebSockets.ClientWebSocketOptions>? webSocketConfiguration = null, string? sessionId = null);
+        Gremlin.Net.Driver.IGremlinClient Create(Gremlin.Net.Driver.GremlinServer gremlinServer, Gremlin.Net.Driver.IMessageSerializer messageSerializer, Gremlin.Net.Driver.ConnectionPoolSettings connectionPoolSettings, System.Action<System.Net.WebSockets.ClientWebSocketOptions> webSocketConfiguration, string? sessionId = null);
     }
     public interface IWebSocketConfigurator : ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation
     {

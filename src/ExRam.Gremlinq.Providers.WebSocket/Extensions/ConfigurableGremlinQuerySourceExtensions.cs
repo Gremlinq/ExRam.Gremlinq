@@ -39,8 +39,8 @@ namespace ExRam.Gremlinq.Core
                             return await Task.Run(() => clientFactory.Create(
                                 gremlinServer,
                                 JsonNetMessageSerializer.GraphSON3,
-                                null,
-                                null,
+                                new ConnectionPoolSettings { PoolSize = 1 },
+                                _ => { },
                                 null));
                         }
                         catch (Exception ex)
