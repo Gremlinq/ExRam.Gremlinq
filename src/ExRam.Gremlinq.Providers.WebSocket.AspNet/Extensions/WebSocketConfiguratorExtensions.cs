@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Net.WebSockets;
-using ExRam.Gremlinq.Providers.WebSocket;
 using Gremlin.Net.Driver;
 using Microsoft.Extensions.Configuration;
 
-namespace ExRam.Gremlinq.Core.AspNet
+namespace ExRam.Gremlinq.Providers.WebSocket
 {
     public static class WebSocketConfiguratorExtensions
     {
