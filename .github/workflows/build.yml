@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      - develop
+      - \d+\.x
   pull_request:
 
 env:
@@ -12,6 +12,21 @@ env:
   DotNetVersion: '6.0.100'
 
 jobs:
+  determinePublicationType:
+    runs-on: ubuntu-latest
+    
+    outputs:
+      publishToNuget: $ {{ github.event_name == 'push' && steps.version-regex.outputs.match != '' }}
+      publishToGithubPackages: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+      
+    steps:
+      - name: Determine type of publication
+        uses: actions-ecosystem/action-regex-match@v2
+        id: version-regex
+        with:
+          text: ${{ github.ref }}
+          regex: '^refs/heads/\d+\.\*$'
+
   build:
     runs-on: ubuntu-latest
 
@@ -151,9 +166,9 @@ jobs:
         branch-suffix: short-commit-hash
 
   publish:
-    needs: [ build, test-linux, test-windows ]
+    needs: [ determinePublicationType, build, test-linux, test-windows ]
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' }}
+    if: ${{ needs.determinePublicationType.outputs.publishToNuget == 'true' || needs.determinePublicationType.outputs.publishToGithubPackages == 'true' }}
 
     steps:
     - name: Setup .NET Core ${{ env.DotNetVersion }}
@@ -166,7 +181,7 @@ jobs:
         name: NuGetPackages
 
     - name: Push NuGet packages to GitHub packages
-      if: ${{ github.ref == 'refs/heads/develop' }}
+      if: ${{ needs.determinePublicationType.outputs.publishToGithubPackages == 'true' }}
       run: dotnet nuget push **/ExRam.*.nupkg
         --source https://nuget.pkg.github.com/exram/index.json
         --api-key ${{ secrets.GITHUB_TOKEN }}
@@ -174,7 +189,7 @@ jobs:
         --skip-duplicate
 
     - name: Push NuGet packages to NuGet.org
-      if: ${{ github.ref == 'refs/heads/main' }}
+      if: ${{ needs.determinePublicationType.outputs.publishToNuget == 'true' }}
       run: dotnet nuget push **/ExRam.*.nupkg
         --source https://api.nuget.org/v3/index.json
         --api-key ${{ secrets.NUGET_DEPLOY_KEY }}
@@ -182,9 +197,9 @@ jobs:
         --skip-duplicate
 
   announce:
-    needs: [ build, publish ]
+    needs: [ determinePublicationType, build, publish ]
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    if: ${{ needs.determinePublicationType.outputs.publishToNuget == 'true' }}
 
     steps:
     - name: Draft release
