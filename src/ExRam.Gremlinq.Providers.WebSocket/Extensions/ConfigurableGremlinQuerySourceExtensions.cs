@@ -40,8 +40,7 @@ namespace ExRam.Gremlinq.Core
                                 gremlinServer,
                                 JsonNetMessageSerializer.GraphSON3,
                                 new ConnectionPoolSettings(),
-                                _ => { },
-                                null));
+                                _ => { }));
                         }
                         catch (Exception ex)
                         {
