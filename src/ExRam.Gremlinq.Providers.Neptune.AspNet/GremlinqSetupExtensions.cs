@@ -20,14 +20,14 @@ namespace ExRam.Gremlinq.Core.AspNet
                         {
                             if (providerSection.GetSection("ElasticSearch") is { } elasticSearchSection)
                             {
-                                if (bool.TryParse(elasticSearchSection["Enabled"], out var isEnabled) && isEnabled && elasticSearchSection["EndPoint"] is { } endPoint)
+                                if (bool.TryParse(elasticSearchSection["Enabled"], out var isEnabled) && isEnabled)
                                 {
-                                    var indexConfiguration = Enum.TryParse<NeptuneElasticSearchIndexConfiguration>(elasticSearchSection["IndexConfiguration"], true, out var outVar)
-                                        ? outVar
-                                        : NeptuneElasticSearchIndexConfiguration.Standard;
-
-                                    if (Uri.TryCreate(endPoint, UriKind.Absolute, out var uri))
+                                    if (elasticSearchSection["EndPoint"] is { } endPoint && Uri.TryCreate(endPoint, UriKind.Absolute, out var uri))
                                     {
+                                        var indexConfiguration = Enum.TryParse<NeptuneElasticSearchIndexConfiguration>(elasticSearchSection["IndexConfiguration"], true, out var outVar)
+                                            ? outVar
+                                            : NeptuneElasticSearchIndexConfiguration.Standard;
+
                                         configurator = configurator
                                             .UseElasticSearch(uri, indexConfiguration);
                                     }
