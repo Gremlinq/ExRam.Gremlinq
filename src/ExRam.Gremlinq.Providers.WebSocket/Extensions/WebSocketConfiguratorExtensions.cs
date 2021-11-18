@@ -19,7 +19,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
         public static IWebSocketConfigurator ConfigureGremlinClient(this IWebSocketConfigurator configurator, Func<IGremlinClient, IGremlinClient> transformation)
         {
             return configurator
-                .ConfigureGremlinClientFactory(factory => GremlinClientFactory
+                .ConfigureClientFactory(factory => GremlinClientFactory
                     .Create((server, serializer, poolSettings, optionsTransformation, sessionId) =>
                     {
                         return transformation(factory.Create(server, serializer, poolSettings, optionsTransformation, sessionId));
@@ -29,7 +29,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
         public static IWebSocketConfigurator ConfigureMessageSerializer(this IWebSocketConfigurator configurator, Func<IMessageSerializer, IMessageSerializer> transformation)
         {
             return configurator
-                .ConfigureGremlinClientFactory(factory => GremlinClientFactory
+                .ConfigureClientFactory(factory => GremlinClientFactory
                     .Create((server, maybeSerializer, poolSettings, optionsTransformation, sessionId) =>
                     {
                         return factory.Create(server, maybeSerializer is { } serializer ? transformation(serializer) : maybeSerializer, poolSettings, optionsTransformation, sessionId);
@@ -43,10 +43,10 @@ namespace ExRam.Gremlinq.Providers.WebSocket
             if (!string.IsNullOrEmpty(uri.AbsolutePath) && uri.AbsolutePath != "/")
                 throw new ArgumentException($"The {nameof(Uri)} may not contain an {nameof(Uri.AbsolutePath)}.", nameof(uri));
 
-            return configurator.ConfigureGremlinServer(server => CreateGremlinServer(uri, server.Username, server.Password));
+            return configurator.ConfigureServer(server => CreateGremlinServer(uri, server.Username, server.Password));
         }
 
-        public static IWebSocketConfigurator AuthenticateBy(this IWebSocketConfigurator configurator, string username, string password) => configurator.ConfigureGremlinServer(server => CreateGremlinServer(server.Uri, username, password));
+        public static IWebSocketConfigurator AuthenticateBy(this IWebSocketConfigurator configurator, string username, string password) => configurator.ConfigureServer(server => CreateGremlinServer(server.Uri, username, password));
 
         private static _GremlinServer CreateGremlinServer(Uri uri, string username, string password)
         {

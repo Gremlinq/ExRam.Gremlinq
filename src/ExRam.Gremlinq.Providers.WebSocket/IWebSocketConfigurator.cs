@@ -8,8 +8,8 @@ namespace ExRam.Gremlinq.Providers.WebSocket
     {
         IWebSocketConfigurator ConfigureAlias(Func<string, string> transformation);
 
-        IWebSocketConfigurator ConfigureGremlinServer(Func<_GremlinServer, _GremlinServer> transformation);
+        IWebSocketConfigurator ConfigureServer(Func<_GremlinServer, _GremlinServer> transformation);
 
-        IWebSocketConfigurator ConfigureGremlinClientFactory(Func<IGremlinClientFactory, IGremlinClientFactory> transformation);
+        IWebSocketConfigurator ConfigureClientFactory(Func<IGremlinClientFactory, IGremlinClientFactory> transformation);
     }
 }

@@ -42,7 +42,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                 webSocketConfigurator = webSocketConfigurator.At(uri);
 
             webSocketConfigurator
-                .ConfigureGremlinClientFactory(factory => new ConnectionPoolSettingsGremlinClientFactory(factory, connectionPoolSection));
+                .ConfigureClientFactory(factory => new ConnectionPoolSettingsGremlinClientFactory(factory, connectionPoolSection));
 
             if (configuration["Alias"] is { } alias)
                 webSocketConfigurator = webSocketConfigurator.SetAlias(alias);
