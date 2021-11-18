@@ -8,15 +8,12 @@ namespace ExRam.Gremlinq.Providers.WebSocket
     {
         private sealed class DefaultGremlinClientFactory : IGremlinClientFactory
         {
-            public IGremlinClient Create(GremlinServer gremlinServer, IMessageSerializer messageSerializer, ConnectionPoolSettings connectionPoolSettings, Action<ClientWebSocketOptions> webSocketConfiguration, string? sessionId = null)
-            {
-                return new GremlinClient(
-                    gremlinServer,
-                    messageSerializer,
-                    connectionPoolSettings,
-                    webSocketConfiguration,
-                    sessionId);
-            }
+            public IGremlinClient Create(GremlinServer gremlinServer, IMessageSerializer messageSerializer, ConnectionPoolSettings connectionPoolSettings, Action<ClientWebSocketOptions> webSocketConfiguration, string? sessionId = null) => new GremlinClient(
+                gremlinServer,
+                messageSerializer,
+                connectionPoolSettings,
+                webSocketConfiguration,
+                sessionId);
         }
 
         private sealed class FuncGremlinClientFactory : IGremlinClientFactory

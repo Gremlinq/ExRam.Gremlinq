@@ -118,23 +118,16 @@ namespace ExRam.Gremlinq.Core
 
             public IWebSocketConfigurator ConfigureAlias(Func<string, string> transformation) => new WebSocketConfigurator(_gremlinServer, _clientFactory, transformation(_alias));
 
-            public IGremlinQuerySource Transform(IGremlinQuerySource source)
-            {
-                return source
-                    .ConfigureEnvironment(environment => environment
-                        .UseExecutor(Build()));
-            }
+            public IGremlinQuerySource Transform(IGremlinQuerySource source) => source
+                .ConfigureEnvironment(environment => environment
+                    .UseExecutor(Build()));
 
-            private IGremlinQueryExecutor Build()
-            {
-                if (!"ws".Equals(_gremlinServer.Uri.Scheme, StringComparison.OrdinalIgnoreCase) && !"wss".Equals(_gremlinServer.Uri.Scheme, StringComparison.OrdinalIgnoreCase))
-                    throw new ArgumentException("Expected the Uri-Scheme to be either \"ws\" or \"wss\".");
-
-                return new WebSocketGremlinQueryExecutor(
+            private IGremlinQueryExecutor Build() => (!"ws".Equals(_gremlinServer.Uri.Scheme, StringComparison.OrdinalIgnoreCase) && !"wss".Equals(_gremlinServer.Uri.Scheme, StringComparison.OrdinalIgnoreCase))
+                ? throw new ArgumentException("Expected the Uri-Scheme to be either \"ws\" or \"wss\".")
+                : new WebSocketGremlinQueryExecutor(
                     _gremlinServer,
                     _clientFactory,
                     _alias);
-            }
         }
 
         public static IGremlinQuerySource UseWebSocket(
