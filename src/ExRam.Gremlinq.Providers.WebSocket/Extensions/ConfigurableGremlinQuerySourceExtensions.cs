@@ -45,7 +45,7 @@ namespace ExRam.Gremlinq.Core
                         }
                         catch (Exception ex)
                         {
-                            logger.LogError(ex, $"Failure creating a {nameof(GremlinClient)} instance.");
+                            logger.LogError(ex, $"Failure creating an instance of {nameof(IGremlinClient)}.");
 
                             throw;
                         }
