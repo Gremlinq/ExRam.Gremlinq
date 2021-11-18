@@ -24,7 +24,7 @@ namespace ExRam.Gremlinq.Providers.Core.AspNet
         }
 
         public static ProviderSetup<TConfigurator> Configure<TConfigurator>(this ProviderSetup<TConfigurator> setup, Func<TConfigurator, IGremlinqConfigurationSection, IProviderConfigurationSection, TConfigurator> extraConfiguration)
-           where TConfigurator : IProviderConfigurator<TConfigurator>
+            where TConfigurator : IProviderConfigurator<TConfigurator>
         {
             return new ProviderSetup<TConfigurator>(setup
                 .ServiceCollection

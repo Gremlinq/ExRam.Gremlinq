@@ -26,8 +26,11 @@ namespace ExRam.Gremlinq.Core.AspNet
                                         ? outVar
                                         : NeptuneElasticSearchIndexConfiguration.Standard;
 
-                                    configurator = configurator
-                                        .UseElasticSearch(new Uri(endPoint), indexConfiguration);
+                                    if (Uri.TryCreate(endPoint, UriKind.Absolute, out var uri))
+                                    {
+                                        configurator = configurator
+                                            .UseElasticSearch(uri, indexConfiguration);
+                                    }
                                 }
                             }
 
