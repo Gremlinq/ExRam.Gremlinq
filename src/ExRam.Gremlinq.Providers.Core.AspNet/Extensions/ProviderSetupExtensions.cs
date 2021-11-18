@@ -23,6 +23,13 @@ namespace ExRam.Gremlinq.Providers.Core.AspNet
             public TConfigurator Transform(TConfigurator configurator) => _extraConfiguration(configurator, _gremlinqSection, _providerSection);
         }
 
+        public static ProviderSetup<TConfigurator> Configure<TConfigurator>(this ProviderSetup<TConfigurator> setup, Func<TConfigurator, IProviderConfigurationSection, TConfigurator> extraConfiguration)
+           where TConfigurator : IProviderConfigurator<TConfigurator>
+        {
+            return setup
+                .Configure((configurator, _, providerSection) => extraConfiguration(configurator, providerSection));
+        }
+
         public static ProviderSetup<TConfigurator> Configure<TConfigurator>(this ProviderSetup<TConfigurator> setup, Func<TConfigurator, IGremlinqConfigurationSection, IProviderConfigurationSection, TConfigurator> extraConfiguration)
             where TConfigurator : IProviderConfigurator<TConfigurator>
         {
