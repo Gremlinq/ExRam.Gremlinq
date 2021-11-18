@@ -5,11 +5,8 @@ using System.Linq;
 using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Providers.Core;
 using ExRam.Gremlinq.Providers.Core.AspNet;
-
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Primitives;
 using Newtonsoft.Json;
 
 namespace ExRam.Gremlinq.Core.AspNet
@@ -70,52 +67,6 @@ namespace ExRam.Gremlinq.Core.AspNet
                         return configurator;
                     });
             }
-        }
-
-        private sealed class ProviderConfigurationSection<TConfigurator> : IProviderConfigurationSection
-            where TConfigurator : IProviderConfigurator<TConfigurator>
-        {
-            private readonly IConfigurationSection _providerSection;
-
-            public ProviderConfigurationSection(IGremlinqConfigurationSection configuration, ProviderSetupInfo<TConfigurator> setupInfo)
-            {
-                _providerSection = configuration.GetSection(setupInfo.SectionName);
-            }
-
-            IEnumerable<IConfigurationSection> IConfiguration.GetChildren() => _providerSection.GetChildren();
-
-            IChangeToken IConfiguration.GetReloadToken() => _providerSection.GetReloadToken();
-
-            IConfigurationSection IConfiguration.GetSection(string key) => _providerSection.GetSection(key);
-
-            string IConfigurationSection.Key => _providerSection.Key;
-
-            string IConfigurationSection.Path => _providerSection.Path;
-
-            string? IConfiguration.this[string key]
-            {
-                get => _providerSection[key];
-                set => _providerSection[key] = value;
-            }
-
-            string? IConfigurationSection.Value
-            {
-                get => _providerSection.Value;
-                set => _providerSection.Value = value;
-            }
-        }
-
-        private sealed class ProviderSetupInfo<TConfigurator>
-            where TConfigurator : IProviderConfigurator<TConfigurator>
-        {
-            public ProviderSetupInfo(string sectionName, Func<IConfigurableGremlinQuerySource, Func<TConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource> providerChoice)
-            {
-                SectionName = sectionName;
-                ProviderChoice = providerChoice;
-            }
-
-            public string SectionName { get; }
-            public Func<IConfigurableGremlinQuerySource, Func<TConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource> ProviderChoice { get; }
         }
 
         public static GremlinqSetup UseProvider<TConfigurator>(
