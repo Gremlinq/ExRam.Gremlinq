@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ExRam.Gremlinq.Core.AspNet
@@ -39,10 +38,7 @@ namespace ExRam.Gremlinq.Core.AspNet
         public static GremlinqSetup UseConfigurationSection(this GremlinqSetup setup, string sectionName)
         {
             return setup.RegisterTypes(serviceCollection => serviceCollection
-                .AddSingleton<IGremlinqConfigurationSection>(serviceProvider => new GremlinqConfigurationSection(serviceProvider
-                    .GetRequiredService<IConfiguration>()
-                    .GetSection(sectionName)
-                    .GetSection("Gremlinq"))));
+                .AddSingleton(new GremlinqSetupInfo(sectionName)));
         }
 
         public static GremlinqSetup RegisterTypes(this GremlinqSetup setup, Action<IServiceCollection> registration)

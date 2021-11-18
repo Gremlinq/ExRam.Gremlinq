@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.AspNet;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
@@ -32,9 +31,8 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddGremlinq(this IServiceCollection serviceCollection, Action<GremlinqSetup> configuration)
         {
             serviceCollection
-                .AddSingleton<IGremlinqConfigurationSection>(serviceProvider => new GremlinqConfigurationSection(serviceProvider
-                    .GetRequiredService<IConfiguration>()
-                    .GetSection("Gremlinq")))
+                .AddSingleton(new GremlinqSetupInfo())
+                .AddSingleton<IGremlinqConfigurationSection, GremlinqConfigurationSection>()
                 .AddSingleton<IGremlinQuerySourceTransformation, UseLoggerGremlinQuerySourceTransformation>()
                 .AddSingleton(c =>
                 {

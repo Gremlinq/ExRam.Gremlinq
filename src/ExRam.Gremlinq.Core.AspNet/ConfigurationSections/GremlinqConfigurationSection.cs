@@ -6,33 +6,38 @@ namespace ExRam.Gremlinq.Core.AspNet
 {
     internal sealed class GremlinqConfigurationSection : IGremlinqConfigurationSection
     {
-        private readonly IConfigurationSection _baseConfiguration;
+        private readonly IConfigurationSection _baseSection;
 
-        public GremlinqConfigurationSection(IConfigurationSection baseConfiguration)
+        public GremlinqConfigurationSection(GremlinqSetupInfo setupInfo, IConfiguration configuration)
         {
-            _baseConfiguration = baseConfiguration;
+            configuration = setupInfo.SectionName is { } sectionName
+                ? configuration.GetSection(sectionName)
+                : configuration;
+
+            _baseSection = configuration
+                .GetSection("Gremlinq");
         }
 
-        IEnumerable<IConfigurationSection> IConfiguration.GetChildren() => _baseConfiguration.GetChildren();
+        IEnumerable<IConfigurationSection> IConfiguration.GetChildren() => _baseSection.GetChildren();
 
-        IChangeToken IConfiguration.GetReloadToken() => _baseConfiguration.GetReloadToken();
+        IChangeToken IConfiguration.GetReloadToken() => _baseSection.GetReloadToken();
 
-        IConfigurationSection IConfiguration.GetSection(string key) => _baseConfiguration.GetSection(key);
+        IConfigurationSection IConfiguration.GetSection(string key) => _baseSection.GetSection(key);
 
         string? IConfiguration.this[string key]
         {
-            get => _baseConfiguration[key];
-            set => _baseConfiguration[key] = value;
+            get => _baseSection[key];
+            set => _baseSection[key] = value;
         }
 
         string? IConfigurationSection.Value
         {
-            get => _baseConfiguration.Value;
-            set => _baseConfiguration.Value = value;
+            get => _baseSection.Value;
+            set => _baseSection.Value = value;
         }
 
-        string IConfigurationSection.Key => _baseConfiguration.Key;
+        string IConfigurationSection.Key => _baseSection.Key;
 
-        string IConfigurationSection.Path => _baseConfiguration.Path;
+        string IConfigurationSection.Path => _baseSection.Path;
     }
 }
