@@ -21,18 +21,18 @@ namespace Microsoft.Extensions.DependencyInjection
                 .TryAddSingleton<IGremlinqConfigurationSection, GremlinqConfigurationSection>();
 
             serviceCollection
-                .TryAddSingleton(c =>
+                .TryAddSingleton(serviceProvider =>
                 {
                     var querySource = g
                         .ConfigureEnvironment(environment =>
                         {
-                            if (c.GetService<ILogger<GremlinqQueries>>() is { } logger)
+                            if (serviceProvider.GetService<ILogger<GremlinqQueries>>() is { } logger)
                             {
                                 environment = environment
                                     .UseLogger(logger);
                             }
 
-                            if (c.GetService<IGremlinqConfigurationSection>() is { } gremlinConfigSection)
+                            if (serviceProvider.GetService<IGremlinqConfigurationSection>() is { } gremlinConfigSection)
                             {
                                 environment = environment
                                     .ConfigureOptions(options =>
@@ -59,7 +59,7 @@ namespace Microsoft.Extensions.DependencyInjection
                             return environment;
                         });
 
-                    if (c.GetService<IEnumerable<IGremlinQuerySourceTransformation>>() is { } transformations)
+                    if (serviceProvider.GetService<IEnumerable<IGremlinQuerySourceTransformation>>() is { } transformations)
                     {
                         foreach (var transformation in transformations)
                         {
