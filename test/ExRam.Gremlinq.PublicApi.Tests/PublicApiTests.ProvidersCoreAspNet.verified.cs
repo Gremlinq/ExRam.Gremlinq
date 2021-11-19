@@ -8,7 +8,10 @@
 }
 namespace ExRam.Gremlinq.Providers.Core.AspNet
 {
-    public interface IProviderConfigurationSection : Microsoft.Extensions.Configuration.IConfiguration, Microsoft.Extensions.Configuration.IConfigurationSection { }
+    public interface IProviderConfigurationSection : Microsoft.Extensions.Configuration.IConfiguration, Microsoft.Extensions.Configuration.IConfigurationSection
+    {
+        ExRam.Gremlinq.Providers.Core.AspNet.IProviderConfigurationSection MergeWithGremlinqSection();
+    }
     public static class ProviderSetupExtensions
     {
         public static ExRam.Gremlinq.Providers.Core.AspNet.ProviderSetup<TConfigurator> Configure<TConfigurator>(this ExRam.Gremlinq.Providers.Core.AspNet.ProviderSetup<TConfigurator> setup, System.Func<TConfigurator, ExRam.Gremlinq.Providers.Core.AspNet.IProviderConfigurationSection, TConfigurator> extraConfiguration)
