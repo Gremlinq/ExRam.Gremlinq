@@ -9,10 +9,10 @@ namespace ExRam.Gremlinq.Providers.Core.AspNet
            where TConfigurator : IWebSocketProviderConfigurator<TConfigurator>
         {
             return setup
-                .Configure((configurator, gremlinqSection, providerSection) => configurator
+                .Configure((configurator, providerSection) => configurator
                     .ConfigureWebSocket(webSocketConfigurator => webSocketConfigurator
-                        .ConfigureFrom(gremlinqSection)
-                        .ConfigureFrom(providerSection)));
+                        .ConfigureFrom(providerSection
+                            .MergeWithGremlinqSection())));
         }
     }
 }
