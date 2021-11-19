@@ -4,6 +4,6 @@ namespace ExRam.Gremlinq.Providers.Core.AspNet
 {
     public interface IProviderConfigurationSection : IConfigurationSection
     {
-
+        IProviderConfigurationSection MergeWithGremlinqSection();
     }
 }
