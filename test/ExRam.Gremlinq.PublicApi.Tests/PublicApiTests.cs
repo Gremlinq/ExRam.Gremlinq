@@ -41,6 +41,9 @@ namespace ExRam.Gremlinq.PublicApi.Tests
         public Task CoreAspNet() => Verify("ExRam.Gremlinq.Core.AspNet");
 
         [Fact]
+        public Task ProvidersCoreAspNet() => Verify("ExRam.Gremlinq.Providers.Core.AspNet");
+
+        [Fact]
         public Task CosmosDbAspNet() => Verify("ExRam.Gremlinq.Providers.CosmosDb.AspNet");
 
         [Fact]
