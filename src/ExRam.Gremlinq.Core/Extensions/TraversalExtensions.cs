@@ -51,7 +51,7 @@ namespace ExRam.Gremlinq.Core
                 {
                     var newStep = traversal[traversal.Count - 2] switch
                     {
-                        ValuesStep {Keys: { Length: 1} } valuesStep => new HasPredicateStep(valuesStep.Keys[0], isStep.Predicate),
+                        ValuesStep { Keys.Length: 1 } valuesStep => new HasPredicateStep(valuesStep.Keys[0], isStep.Predicate),
                         IdStep => new HasPredicateStep(T.Id, isStep.Predicate),
                         LabelStep => new HasPredicateStep(T.Label, isStep.Predicate),
                         _ => default

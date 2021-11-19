@@ -33,7 +33,7 @@ namespace ExRam.Gremlinq.Core
                         expression = unaryExpression.Operand;
                         break;
                     }
-                    case MethodCallExpression methodCallExpression when methodCallExpression.Object is { } objectExpression && methodCallExpression.Method == ObjectToString:
+                    case MethodCallExpression { Object: { } objectExpression } methodCallExpression when methodCallExpression.Method == ObjectToString:
                     {
                         expression = objectExpression;
                         break;

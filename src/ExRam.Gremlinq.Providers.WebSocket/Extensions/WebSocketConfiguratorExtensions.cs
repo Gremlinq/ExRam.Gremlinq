@@ -20,20 +20,14 @@ namespace ExRam.Gremlinq.Providers.WebSocket
         {
             return configurator
                 .ConfigureClientFactory(factory => GremlinClientFactory
-                    .Create((server, serializer, poolSettings, optionsTransformation, sessionId) =>
-                    {
-                        return transformation(factory.Create(server, serializer, poolSettings, optionsTransformation, sessionId));
-                    }));
+                    .Create((server, serializer, poolSettings, optionsTransformation, sessionId) => transformation(factory.Create(server, serializer, poolSettings, optionsTransformation, sessionId))));
         }
 
         public static IWebSocketConfigurator ConfigureMessageSerializer(this IWebSocketConfigurator configurator, Func<IMessageSerializer, IMessageSerializer> transformation)
         {
             return configurator
                 .ConfigureClientFactory(factory => GremlinClientFactory
-                    .Create((server, maybeSerializer, poolSettings, optionsTransformation, sessionId) =>
-                    {
-                        return factory.Create(server, maybeSerializer is { } serializer ? transformation(serializer) : maybeSerializer, poolSettings, optionsTransformation, sessionId);
-                    }));
+                    .Create((server, maybeSerializer, poolSettings, optionsTransformation, sessionId) => factory.Create(server, maybeSerializer is { } serializer ? transformation(serializer) : maybeSerializer, poolSettings, optionsTransformation, sessionId)));
         }
 
         public static IWebSocketConfigurator SetAlias(this IWebSocketConfigurator configurator, string alias) => configurator.ConfigureAlias(_ => alias);

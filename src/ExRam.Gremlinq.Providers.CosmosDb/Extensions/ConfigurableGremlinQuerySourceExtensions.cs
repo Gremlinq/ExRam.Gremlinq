@@ -97,40 +97,25 @@ namespace ExRam.Gremlinq.Core
                                     ? new[] { key.PartitionKey, key.Id }
                                     : (object)key.Id,
                                 env))
-                            .Override<HasKeyStep>((step, env, overridden, recurse) =>
-                            {
-                                return step.Argument is P p && (!p.OperatorName.Equals("eq", StringComparison.OrdinalIgnoreCase))
-                                    ? recurse.Serialize(new WhereTraversalStep(new Step[] {KeyStep.Instance, new IsStep(p)}), env)
-                                    : overridden(step, env, recurse);
-                            })
+                            .Override<HasKeyStep>((step, env, overridden, recurse) => step.Argument is P p && (!p.OperatorName.Equals("eq", StringComparison.OrdinalIgnoreCase))
+                                ? recurse.Serialize(new WhereTraversalStep(new Step[] {KeyStep.Instance, new IsStep(p)}), env)
+                                : overridden(step, env, recurse))
                             .Override<NoneStep>((step, env, overridden, recurse) => recurse.Serialize(NoneWorkaround, env))
                             .Override<SkipStep>((step, env, overridden, recurse) => recurse.Serialize(new RangeStep(step.Count, -1, step.Scope), env))
-                            .Override<LimitStep>((step, env, overridden, recurse) =>
-                            {
-                                return step.Count <= int.MaxValue
-                                    ? overridden(step, env, recurse)
-                                    : throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Limit' outside the range of a 32-bit-integer.");
-                            })
-                            .Override<TailStep>((step, env, overridden, recurse) =>
-                            {
-                                return step.Count <= int.MaxValue
-                                    ? overridden(step, env, recurse)
-                                    : throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Tail' outside the range of a 32-bit-integer.");
-                            })
-                            .Override<RangeStep>((step, env, overridden, recurse) =>
-                            {
-                                return step.Lower <= int.MaxValue && step.Upper <= int.MaxValue
-                                    ? overridden(step, env, recurse)
-                                    : throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Range' outside the range of a 32-bit-integer.");
-                            })
-                            .Override<Order>((order, env, overridden, recurse) =>
-                            {
-                                return order.Equals(Order.Asc)
-                                    ? recurse.Serialize(WorkaroundOrder.Incr, env)
-                                    : order.Equals(Order.Desc)
-                                        ? recurse.Serialize(WorkaroundOrder.Decr, env)
-                                        : overridden(order, env, recurse);
-                            }))
+                            .Override<LimitStep>((step, env, overridden, recurse) => step.Count <= int.MaxValue
+                                ? overridden(step, env, recurse)
+                                : throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Limit' outside the range of a 32-bit-integer."))
+                            .Override<TailStep>((step, env, overridden, recurse) => step.Count <= int.MaxValue
+                                ? overridden(step, env, recurse)
+                                : throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Tail' outside the range of a 32-bit-integer."))
+                            .Override<RangeStep>((step, env, overridden, recurse) => step.Lower <= int.MaxValue && step.Upper <= int.MaxValue
+                                ? overridden(step, env, recurse)
+                                : throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Range' outside the range of a 32-bit-integer."))
+                            .Override<Order>((order, env, overridden, recurse) => order.Equals(Order.Asc)
+                                ? recurse.Serialize(WorkaroundOrder.Incr, env)
+                                : order.Equals(Order.Desc)
+                                    ? recurse.Serialize(WorkaroundOrder.Decr, env)
+                                    : overridden(order, env, recurse)))
                         .ToGroovy())
                     .StoreTimeSpansAsNumbers());
         }
