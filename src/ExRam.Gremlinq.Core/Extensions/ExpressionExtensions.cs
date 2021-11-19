@@ -16,10 +16,10 @@ namespace ExRam.Gremlinq.Core
     {
         // ReSharper disable ReturnValueOfPureMethodIsNotUsed
         private static readonly MethodInfo ObjectToString = Get<object>(_ => _.ToString());
-        private static readonly MethodInfo EnumerableAny = Get(() => Enumerable.Any<object>(default!)).GetGenericMethodDefinition()!;
-        private static readonly MethodInfo EnumerableIntersect = Get(() => Enumerable.Intersect<object>(default!, default!)).GetGenericMethodDefinition()!;
+        private static readonly MethodInfo EnumerableAny = Get(() => Enumerable.Any<object>(default!)).GetGenericMethodDefinition();
+        private static readonly MethodInfo EnumerableIntersect = Get(() => Enumerable.Intersect<object>(default!, default!)).GetGenericMethodDefinition();
 #pragma warning disable 8625
-        private static readonly MethodInfo EnumerableContainsElement = Get(() => Enumerable.Contains<object>(default!, default)).GetGenericMethodDefinition()!;
+        private static readonly MethodInfo EnumerableContainsElement = Get(() => Enumerable.Contains<object>(default!, default)).GetGenericMethodDefinition();
 #pragma warning restore 8625
 
         public static Expression StripConvert(this Expression expression)
@@ -327,7 +327,7 @@ namespace ExRam.Gremlinq.Core
 
                             if (wellKnownMember == WellKnownMember.StringStartsWith && argumentExpression.TryGetReferredParameter() is not null)
                             {
-                                if (instanceExpression.GetValue()?.ToString() is string stringValue)
+                                if (instanceExpression.GetValue()?.ToString() is { } stringValue)
                                 {
                                     return new GremlinExpression(
                                         ExpressionFragment.Constant(stringValue),
