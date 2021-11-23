@@ -41,12 +41,18 @@ namespace ExRam.Gremlinq.Providers.WebSocket
             server.Username,
             server.Password);
 
-        internal static _GremlinServer WithUri(this _GremlinServer server, Uri uri) => new _GremlinServer(
-            uri.Host,
-            uri.Port,
-            uri.IsSslEnabled(),
-            server.Username,
-            server.Password);
+        internal static _GremlinServer WithUri(this _GremlinServer server, Uri uri)
+        {
+            if (!string.IsNullOrEmpty(uri.AbsolutePath) && uri.AbsolutePath != "/")
+                throw new ArgumentException($"The {nameof(Uri)} may not contain an {nameof(Uri.AbsolutePath)}.", nameof(uri));
+
+            return new _GremlinServer(
+                uri.Host,
+                uri.Port,
+                uri.IsSslEnabled(),
+                server.Username,
+                server.Password);
+        }
 
         private static bool IsSslEnabled(this Uri uri) => uri.Scheme is "wss" or "https";
 

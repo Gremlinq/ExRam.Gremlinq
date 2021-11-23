@@ -32,24 +32,13 @@ namespace ExRam.Gremlinq.Providers.WebSocket
 
         public static IWebSocketConfigurator SetAlias(this IWebSocketConfigurator configurator, string alias) => configurator.ConfigureAlias(_ => alias);
 
-        public static IWebSocketConfigurator At(this IWebSocketConfigurator configurator, Uri uri)
-        {
-            if (!string.IsNullOrEmpty(uri.AbsolutePath) && uri.AbsolutePath != "/")
-                throw new ArgumentException($"The {nameof(Uri)} may not contain an {nameof(Uri.AbsolutePath)}.", nameof(uri));
+        public static IWebSocketConfigurator At(this IWebSocketConfigurator configurator, Uri uri) => configurator
+            .ConfigureServer(server => server
+                .WithUri(uri));
 
-            return configurator.ConfigureServer(server => CreateGremlinServer(uri, server.Username, server.Password));
-        }
-
-        public static IWebSocketConfigurator AuthenticateBy(this IWebSocketConfigurator configurator, string username, string password) => configurator.ConfigureServer(server => CreateGremlinServer(server.Uri, username, password));
-
-        private static _GremlinServer CreateGremlinServer(Uri uri, string username, string password)
-        {
-            return new _GremlinServer(
-                uri.Host,
-                uri.Port,
-                uri.Scheme == "wss",
-                username,
-                password);
-        }
+        public static IWebSocketConfigurator AuthenticateBy(this IWebSocketConfigurator configurator, string username, string password) => configurator
+            .ConfigureServer(server => server
+                .WithUsername(username)
+                .WithPassword(password));
     }
 }
