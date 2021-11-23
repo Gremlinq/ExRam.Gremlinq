@@ -1,4 +1,6 @@
-﻿using _GremlinServer = Gremlin.Net.Driver.GremlinServer;
+﻿using System;
+
+using _GremlinServer = Gremlin.Net.Driver.GremlinServer;
 
 namespace ExRam.Gremlinq.Providers.WebSocket
 {
@@ -39,6 +41,15 @@ namespace ExRam.Gremlinq.Providers.WebSocket
             server.Username,
             server.Password);
 
-        private static bool IsSslEnabled(this _GremlinServer server) => server.Uri.Scheme is "wss" or "https";
+        internal static _GremlinServer WithUri(this _GremlinServer server, Uri uri) => new _GremlinServer(
+            uri.Host,
+            uri.Port,
+            uri.IsSslEnabled(),
+            server.Username,
+            server.Password);
+
+        private static bool IsSslEnabled(this Uri uri) => uri.Scheme is "wss" or "https";
+
+        private static bool IsSslEnabled(this _GremlinServer server) => server.Uri.IsSslEnabled();
     }
 }
