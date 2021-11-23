@@ -29,12 +29,12 @@ namespace ExRam.Gremlinq.Core.AspNet
                                                 .WithUsername(accessKeyId)));
                                 }
 
-                                if (iamSection["AccessKey"] is { } accessKey)
+                                if (iamSection["SecretAccessKey"] is { } secretAccessKey)
                                 {
                                     configurator
                                         .ConfigureWebSocket(configurator => configurator
                                             .ConfigureServer(server => server
-                                                .WithPassword(accessKey)));
+                                                .WithPassword(secretAccessKey)));
                                 }
                             }
 
