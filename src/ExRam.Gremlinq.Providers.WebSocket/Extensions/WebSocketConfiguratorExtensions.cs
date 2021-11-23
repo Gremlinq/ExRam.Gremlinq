@@ -47,7 +47,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
             return new _GremlinServer(
                 uri.Host,
                 uri.Port,
-                "wss".Equals(uri.Scheme, StringComparison.OrdinalIgnoreCase),
+                uri.Scheme == "wss",
                 username,
                 password);
         }
