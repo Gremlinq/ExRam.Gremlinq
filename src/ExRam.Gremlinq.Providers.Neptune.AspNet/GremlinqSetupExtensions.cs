@@ -23,7 +23,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                             {
                                 if (iamSection["AccessKeyId"] is { } accessKeyId)
                                 {
-                                    configurator
+                                    configurator = configurator
                                         .ConfigureWebSocket(configurator => configurator
                                             .ConfigureServer(server => server
                                                 .WithUsername(accessKeyId)));
@@ -31,7 +31,7 @@ namespace ExRam.Gremlinq.Core.AspNet
 
                                 if (iamSection["SecretAccessKey"] is { } secretAccessKey)
                                 {
-                                    configurator
+                                    configurator = configurator
                                         .ConfigureWebSocket(configurator => configurator
                                             .ConfigureServer(server => server
                                                 .WithPassword(secretAccessKey)));
