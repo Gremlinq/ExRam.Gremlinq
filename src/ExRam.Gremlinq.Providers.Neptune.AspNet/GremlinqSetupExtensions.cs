@@ -25,14 +25,16 @@ namespace ExRam.Gremlinq.Core.AspNet
                                 {
                                     configurator
                                         .ConfigureWebSocket(configurator => configurator
-                                            .ConfigureServer(server => server.WithUsername(accessKeyId)));
+                                            .ConfigureServer(server => server
+                                                .WithUsername(accessKeyId)));
                                 }
 
                                 if (iamSection["AccessKey"] is { } accessKey)
                                 {
                                     configurator
                                         .ConfigureWebSocket(configurator => configurator
-                                            .ConfigureServer(server => server.WithPassword(accessKey)));
+                                            .ConfigureServer(server => server
+                                                .WithPassword(accessKey)));
                                 }
                             }
 
