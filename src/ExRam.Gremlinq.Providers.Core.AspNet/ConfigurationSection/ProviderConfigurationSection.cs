@@ -23,7 +23,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                 _gremlinqSection = gremlinqSection;
             }
 
-            string IConfiguration.this[string key]
+            string? IConfiguration.this[string key]
             {
                 get => _providerSection[key] ?? _gremlinqSection[key];
                 set => _providerSection[key] = value;
@@ -33,7 +33,7 @@ namespace ExRam.Gremlinq.Core.AspNet
 
             string IConfigurationSection.Path => _providerSection.Path ?? _gremlinqSection.Path;
 
-            string IConfigurationSection.Value
+            string? IConfigurationSection.Value
             {
                 get => _providerSection.Value ?? _gremlinqSection.Value;
                 set => _providerSection.Value = value;
