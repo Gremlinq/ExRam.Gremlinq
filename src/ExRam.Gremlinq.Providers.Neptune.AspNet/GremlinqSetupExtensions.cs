@@ -2,6 +2,7 @@
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Providers.Core.AspNet;
 using ExRam.Gremlinq.Providers.Neptune;
+using ExRam.Gremlinq.Providers.WebSocket;
 
 namespace ExRam.Gremlinq.Core.AspNet
 {
@@ -18,6 +19,23 @@ namespace ExRam.Gremlinq.Core.AspNet
                         .ConfigureWebSocket()
                         .Configure((configurator, providerSection) =>
                         {
+                            if (providerSection.GetSection("IAM") is { } iamSection)
+                            {
+                                if (iamSection["AccessKeyId"] is { } accessKeyId)
+                                {
+                                    configurator
+                                        .ConfigureWebSocket(configurator => configurator
+                                            .ConfigureServer(server => server.WithUsername(accessKeyId)));
+                                }
+
+                                if (iamSection["AccessKey"] is { } accessKey)
+                                {
+                                    configurator
+                                        .ConfigureWebSocket(configurator => configurator
+                                            .ConfigureServer(server => server.WithPassword(accessKey)));
+                                }
+                            }
+
                             if (providerSection.GetSection("ElasticSearch") is { } elasticSearchSection)
                             {
                                 if (bool.TryParse(elasticSearchSection["Enabled"], out var isEnabled) && isEnabled)
