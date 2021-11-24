@@ -19,28 +19,6 @@ namespace ExRam.Gremlinq.Core.AspNet
                         .ConfigureWebSocket()
                         .Configure((configurator, providerSection) =>
                         {
-                            if (providerSection.GetSection("IAM") is { } iamSection)
-                            {
-                                configurator = configurator
-                                    .ConfigureWebSocket(configurator => configurator
-                                        .ConfigureServer(server =>
-                                        {
-                                            if (iamSection["AccessKeyId"] is { } accessKeyId)
-                                            {
-                                                server = server
-                                                    .WithUsername(accessKeyId);
-                                            }
-
-                                            if (iamSection["SecretAccessKey"] is { } secretAccessKey)
-                                            {
-                                                server = server
-                                                    .WithPassword(secretAccessKey);
-                                            }
-
-                                            return server;
-                                        }));
-                            }
-
                             if (providerSection.GetSection("ElasticSearch") is { } elasticSearchSection)
                             {
                                 if (bool.TryParse(elasticSearchSection["Enabled"], out var isEnabled) && isEnabled)
