@@ -2,7 +2,6 @@
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Providers.Core.AspNet;
 using ExRam.Gremlinq.Providers.Neptune;
-using ExRam.Gremlinq.Providers.WebSocket;
 
 namespace ExRam.Gremlinq.Core.AspNet
 {
