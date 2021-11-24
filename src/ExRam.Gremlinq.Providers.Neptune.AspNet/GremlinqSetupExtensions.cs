@@ -21,21 +21,24 @@ namespace ExRam.Gremlinq.Core.AspNet
                         {
                             if (providerSection.GetSection("IAM") is { } iamSection)
                             {
-                                if (iamSection["AccessKeyId"] is { } accessKeyId)
-                                {
-                                    configurator = configurator
-                                        .ConfigureWebSocket(configurator => configurator
-                                            .ConfigureServer(server => server
-                                                .WithUsername(accessKeyId)));
-                                }
+                                configurator = configurator
+                                    .ConfigureWebSocket(configurator => configurator
+                                        .ConfigureServer(server =>
+                                        {
+                                            if (iamSection["AccessKeyId"] is { } accessKeyId)
+                                            {
+                                                server = server
+                                                    .WithUsername(accessKeyId);
+                                            }
 
-                                if (iamSection["SecretAccessKey"] is { } secretAccessKey)
-                                {
-                                    configurator = configurator
-                                        .ConfigureWebSocket(configurator => configurator
-                                            .ConfigureServer(server => server
-                                                .WithPassword(secretAccessKey)));
-                                }
+                                            if (iamSection["SecretAccessKey"] is { } secretAccessKey)
+                                            {
+                                                server = server
+                                                    .WithPassword(secretAccessKey);
+                                            }
+
+                                            return server;
+                                        }));
                             }
 
                             if (providerSection.GetSection("ElasticSearch") is { } elasticSearchSection)
