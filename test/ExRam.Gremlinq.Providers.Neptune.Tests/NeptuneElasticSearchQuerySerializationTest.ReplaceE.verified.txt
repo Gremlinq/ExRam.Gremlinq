@@ -1,117 +1,119 @@
 ﻿[
   {
-    "SourceInstructions": [
-      {
-        "OperatorName": "withSideEffect",
-        "Arguments": [
-          "Neptune#fts.endpoint",
-          "http://elastic.search.server"
-        ]
-      },
-      {
-        "OperatorName": "withSideEffect",
-        "Arguments": [
-          "Neptune#fts.queryType",
-          "query_string"
-        ]
-      }
-    ],
-    "StepInstructions": [
-      {
-        "OperatorName": "E",
-        "Arguments": [
-          0
-        ]
-      },
-      {
-        "OperatorName": "hasLabel",
-        "Arguments": [
-          "WorksFor"
-        ]
-      },
-      {
-        "OperatorName": "sideEffect",
-        "Arguments": [
-          {
-            "SourceInstructions": [],
-            "StepInstructions": [
-              {
-                "OperatorName": "properties",
-                "Arguments": [
-                  "From",
-                  "Role",
-                  "To"
-                ]
-              },
-              {
-                "OperatorName": "drop",
-                "Arguments": []
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "OperatorName": "property",
-        "Arguments": [
-          "From",
-          "2020-04-07T14:43:36+00:00"
-        ]
-      },
-      {
-        "OperatorName": "property",
-        "Arguments": [
-          "Role",
-          "Admin"
-        ]
-      },
-      {
-        "OperatorName": "property",
-        "Arguments": [
-          "To",
-          "2020-04-07T14:43:36+00:00"
-        ]
-      },
-      {
-        "OperatorName": "project",
-        "Arguments": [
-          "id",
-          "label",
-          "properties"
-        ]
-      },
-      {
-        "OperatorName": "by",
-        "Arguments": [
-          {
-            "EnumName": "T",
-            "EnumValue": "id"
-          }
-        ]
-      },
-      {
-        "OperatorName": "by",
-        "Arguments": [
-          {
-            "EnumName": "T",
-            "EnumValue": "label"
-          }
-        ]
-      },
-      {
-        "OperatorName": "by",
-        "Arguments": [
-          {
-            "SourceInstructions": [],
-            "StepInstructions": [
-              {
-                "OperatorName": "valueMap",
-                "Arguments": []
-              }
-            ]
-          }
-        ]
-      }
-    ]
+    "Bytecode": {
+      "SourceInstructions": [
+        {
+          "OperatorName": "withSideEffect",
+          "Arguments": [
+            "Neptune#fts.endpoint",
+            "http://elastic.search.server"
+          ]
+        },
+        {
+          "OperatorName": "withSideEffect",
+          "Arguments": [
+            "Neptune#fts.queryType",
+            "query_string"
+          ]
+        }
+      ],
+      "StepInstructions": [
+        {
+          "OperatorName": "E",
+          "Arguments": [
+            0
+          ]
+        },
+        {
+          "OperatorName": "hasLabel",
+          "Arguments": [
+            "WorksFor"
+          ]
+        },
+        {
+          "OperatorName": "sideEffect",
+          "Arguments": [
+            {
+              "SourceInstructions": [],
+              "StepInstructions": [
+                {
+                  "OperatorName": "properties",
+                  "Arguments": [
+                    "From",
+                    "Role",
+                    "To"
+                  ]
+                },
+                {
+                  "OperatorName": "drop",
+                  "Arguments": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "OperatorName": "property",
+          "Arguments": [
+            "From",
+            "2020-04-07T14:43:36+00:00"
+          ]
+        },
+        {
+          "OperatorName": "property",
+          "Arguments": [
+            "Role",
+            "Admin"
+          ]
+        },
+        {
+          "OperatorName": "property",
+          "Arguments": [
+            "To",
+            "2020-04-07T14:43:36+00:00"
+          ]
+        },
+        {
+          "OperatorName": "project",
+          "Arguments": [
+            "id",
+            "label",
+            "properties"
+          ]
+        },
+        {
+          "OperatorName": "by",
+          "Arguments": [
+            {
+              "EnumName": "T",
+              "EnumValue": "id"
+            }
+          ]
+        },
+        {
+          "OperatorName": "by",
+          "Arguments": [
+            {
+              "EnumName": "T",
+              "EnumValue": "label"
+            }
+          ]
+        },
+        {
+          "OperatorName": "by",
+          "Arguments": [
+            {
+              "SourceInstructions": [],
+              "StepInstructions": [
+                {
+                  "OperatorName": "valueMap",
+                  "Arguments": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
   }
 ]

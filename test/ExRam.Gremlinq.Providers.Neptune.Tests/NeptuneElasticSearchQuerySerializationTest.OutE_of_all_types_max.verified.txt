@@ -1,74 +1,76 @@
 ﻿[
   {
-    "SourceInstructions": [
-      {
-        "OperatorName": "withSideEffect",
-        "Arguments": [
-          "Neptune#fts.endpoint",
-          "http://elastic.search.server"
-        ]
-      },
-      {
-        "OperatorName": "withSideEffect",
-        "Arguments": [
-          "Neptune#fts.queryType",
-          "query_string"
-        ]
-      }
-    ],
-    "StepInstructions": [
-      {
-        "OperatorName": "V",
-        "Arguments": []
-      },
-      {
-        "OperatorName": "outE",
-        "Arguments": [
-          "LivesIn",
-          "Speaks",
-          "WorksFor"
-        ]
-      },
-      {
-        "OperatorName": "project",
-        "Arguments": [
-          "id",
-          "label",
-          "properties"
-        ]
-      },
-      {
-        "OperatorName": "by",
-        "Arguments": [
-          {
-            "EnumName": "T",
-            "EnumValue": "id"
-          }
-        ]
-      },
-      {
-        "OperatorName": "by",
-        "Arguments": [
-          {
-            "EnumName": "T",
-            "EnumValue": "label"
-          }
-        ]
-      },
-      {
-        "OperatorName": "by",
-        "Arguments": [
-          {
-            "SourceInstructions": [],
-            "StepInstructions": [
-              {
-                "OperatorName": "valueMap",
-                "Arguments": []
-              }
-            ]
-          }
-        ]
-      }
-    ]
+    "Bytecode": {
+      "SourceInstructions": [
+        {
+          "OperatorName": "withSideEffect",
+          "Arguments": [
+            "Neptune#fts.endpoint",
+            "http://elastic.search.server"
+          ]
+        },
+        {
+          "OperatorName": "withSideEffect",
+          "Arguments": [
+            "Neptune#fts.queryType",
+            "query_string"
+          ]
+        }
+      ],
+      "StepInstructions": [
+        {
+          "OperatorName": "V",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "outE",
+          "Arguments": [
+            "LivesIn",
+            "Speaks",
+            "WorksFor"
+          ]
+        },
+        {
+          "OperatorName": "project",
+          "Arguments": [
+            "id",
+            "label",
+            "properties"
+          ]
+        },
+        {
+          "OperatorName": "by",
+          "Arguments": [
+            {
+              "EnumName": "T",
+              "EnumValue": "id"
+            }
+          ]
+        },
+        {
+          "OperatorName": "by",
+          "Arguments": [
+            {
+              "EnumName": "T",
+              "EnumValue": "label"
+            }
+          ]
+        },
+        {
+          "OperatorName": "by",
+          "Arguments": [
+            {
+              "SourceInstructions": [],
+              "StepInstructions": [
+                {
+                  "OperatorName": "valueMap",
+                  "Arguments": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
   }
 ]

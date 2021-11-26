@@ -1,21 +1,23 @@
-[
+﻿[
   {
-    "SourceInstructions": [],
-    "StepInstructions": [
-      {
-        "OperatorName": "V",
-        "Arguments": []
-      },
-      {
-        "OperatorName": "hasLabel",
-        "Arguments": [
-          "Person"
-        ]
-      },
-      {
-        "OperatorName": "drop",
-        "Arguments": []
-      }
-    ]
+    "Bytecode": {
+      "SourceInstructions": [],
+      "StepInstructions": [
+        {
+          "OperatorName": "V",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "hasLabel",
+          "Arguments": [
+            "Person"
+          ]
+        },
+        {
+          "OperatorName": "drop",
+          "Arguments": []
+        }
+      ]
+    }
   }
 ]

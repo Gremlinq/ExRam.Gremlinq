@@ -1,61 +1,63 @@
 ﻿[
   {
-    "SourceInstructions": [
-      {
-        "OperatorName": "withSideEffect",
-        "Arguments": [
-          "Neptune#fts.endpoint",
-          "http://elastic.search.server"
-        ]
-      },
-      {
-        "OperatorName": "withSideEffect",
-        "Arguments": [
-          "Neptune#fts.queryType",
-          "query_string"
-        ]
-      }
-    ],
-    "StepInstructions": [
-      {
-        "OperatorName": "V",
-        "Arguments": []
-      },
-      {
-        "OperatorName": "hasLabel",
-        "Arguments": [
-          "Person"
-        ]
-      },
-      {
-        "OperatorName": "values",
-        "Arguments": [
-          "Age"
-        ]
-      },
-      {
-        "OperatorName": "fold",
-        "Arguments": []
-      },
-      {
-        "OperatorName": "sum",
-        "Arguments": [
-          {
-            "EnumName": "Scope",
-            "EnumValue": "local"
-          }
-        ]
-      },
-      {
-        "OperatorName": "is",
-        "Arguments": [
-          {
-            "OperatorName": "lt",
-            "Value": 100,
-            "Other": null
-          }
-        ]
-      }
-    ]
+    "Bytecode": {
+      "SourceInstructions": [
+        {
+          "OperatorName": "withSideEffect",
+          "Arguments": [
+            "Neptune#fts.endpoint",
+            "http://elastic.search.server"
+          ]
+        },
+        {
+          "OperatorName": "withSideEffect",
+          "Arguments": [
+            "Neptune#fts.queryType",
+            "query_string"
+          ]
+        }
+      ],
+      "StepInstructions": [
+        {
+          "OperatorName": "V",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "hasLabel",
+          "Arguments": [
+            "Person"
+          ]
+        },
+        {
+          "OperatorName": "values",
+          "Arguments": [
+            "Age"
+          ]
+        },
+        {
+          "OperatorName": "fold",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "sum",
+          "Arguments": [
+            {
+              "EnumName": "Scope",
+              "EnumValue": "local"
+            }
+          ]
+        },
+        {
+          "OperatorName": "is",
+          "Arguments": [
+            {
+              "OperatorName": "lt",
+              "Value": 100,
+              "Other": null
+            }
+          ]
+        }
+      ]
+    }
   }
 ]

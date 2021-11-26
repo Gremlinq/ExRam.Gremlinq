@@ -1,38 +1,40 @@
-[
+﻿[
   {
-    "SourceInstructions": [],
-    "StepInstructions": [
-      {
-        "OperatorName": "V",
-        "Arguments": []
-      },
-      {
-        "OperatorName": "properties",
-        "Arguments": []
-      },
-      {
-        "OperatorName": "union",
-        "Arguments": [
-          {
-            "SourceInstructions": [],
-            "StepInstructions": [
-              {
-                "OperatorName": "label",
-                "Arguments": []
-              }
-            ]
-          },
-          {
-            "SourceInstructions": [],
-            "StepInstructions": [
-              {
-                "OperatorName": "id",
-                "Arguments": []
-              }
-            ]
-          }
-        ]
-      }
-    ]
+    "Bytecode": {
+      "SourceInstructions": [],
+      "StepInstructions": [
+        {
+          "OperatorName": "V",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "properties",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "union",
+          "Arguments": [
+            {
+              "SourceInstructions": [],
+              "StepInstructions": [
+                {
+                  "OperatorName": "label",
+                  "Arguments": []
+                }
+              ]
+            },
+            {
+              "SourceInstructions": [],
+              "StepInstructions": [
+                {
+                  "OperatorName": "id",
+                  "Arguments": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
   }
 ]

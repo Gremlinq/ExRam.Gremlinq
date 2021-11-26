@@ -1,15 +1,17 @@
-[
+﻿[
   {
-    "SourceInstructions": [],
-    "StepInstructions": [
-      {
-        "OperatorName": "E",
-        "Arguments": []
-      },
-      {
-        "OperatorName": "properties",
-        "Arguments": []
-      }
-    ]
+    "Bytecode": {
+      "SourceInstructions": [],
+      "StepInstructions": [
+        {
+          "OperatorName": "E",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "properties",
+          "Arguments": []
+        }
+      ]
+    }
   }
 ]

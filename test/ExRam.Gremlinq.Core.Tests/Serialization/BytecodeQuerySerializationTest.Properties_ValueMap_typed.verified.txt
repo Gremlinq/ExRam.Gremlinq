@@ -1,19 +1,21 @@
-[
+﻿[
   {
-    "SourceInstructions": [],
-    "StepInstructions": [
-      {
-        "OperatorName": "V",
-        "Arguments": []
-      },
-      {
-        "OperatorName": "properties",
-        "Arguments": []
-      },
-      {
-        "OperatorName": "valueMap",
-        "Arguments": []
-      }
-    ]
+    "Bytecode": {
+      "SourceInstructions": [],
+      "StepInstructions": [
+        {
+          "OperatorName": "V",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "properties",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "valueMap",
+          "Arguments": []
+        }
+      ]
+    }
   }
 ]

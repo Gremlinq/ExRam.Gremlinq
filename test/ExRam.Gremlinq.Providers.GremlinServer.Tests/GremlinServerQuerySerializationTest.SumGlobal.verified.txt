@@ -1,27 +1,29 @@
-[
+﻿[
   {
-    "SourceInstructions": [],
-    "StepInstructions": [
-      {
-        "OperatorName": "V",
-        "Arguments": []
-      },
-      {
-        "OperatorName": "hasLabel",
-        "Arguments": [
-          "Person"
-        ]
-      },
-      {
-        "OperatorName": "values",
-        "Arguments": [
-          "Age"
-        ]
-      },
-      {
-        "OperatorName": "sum",
-        "Arguments": []
-      }
-    ]
+    "Bytecode": {
+      "SourceInstructions": [],
+      "StepInstructions": [
+        {
+          "OperatorName": "V",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "hasLabel",
+          "Arguments": [
+            "Person"
+          ]
+        },
+        {
+          "OperatorName": "values",
+          "Arguments": [
+            "Age"
+          ]
+        },
+        {
+          "OperatorName": "sum",
+          "Arguments": []
+        }
+      ]
+    }
   }
 ]
