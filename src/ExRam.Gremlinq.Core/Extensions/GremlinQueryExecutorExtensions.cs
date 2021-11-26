@@ -27,7 +27,7 @@ namespace ExRam.Gremlinq.Core.Execution
                 _shouldRetry = shouldRetry;
             }
 
-            public IAsyncEnumerable<object> Execute(ISerializedQuery serializedQuery, IGremlinQueryEnvironment environment)
+            public IAsyncEnumerable<object> Execute(ISerializedGremlinQuery serializedQuery, IGremlinQueryEnvironment environment)
             {
                 return AsyncEnumerable.Create(Core);
 
@@ -82,7 +82,7 @@ namespace ExRam.Gremlinq.Core.Execution
                 _executor = executor;
             }
 
-            public IAsyncEnumerable<object> Execute(ISerializedQuery serializedQuery, IGremlinQueryEnvironment environment)
+            public IAsyncEnumerable<object> Execute(ISerializedGremlinQuery serializedQuery, IGremlinQueryEnvironment environment)
             {
                 return AsyncEnumerable.Create(Core);
 

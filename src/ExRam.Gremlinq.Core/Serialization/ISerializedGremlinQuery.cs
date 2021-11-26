@@ -1,6 +1,6 @@
 ﻿namespace ExRam.Gremlinq.Core.Serialization
 {
-    public interface ISerializedQuery
+    public interface ISerializedGremlinQuery
     {
         string Id { get; }
     }

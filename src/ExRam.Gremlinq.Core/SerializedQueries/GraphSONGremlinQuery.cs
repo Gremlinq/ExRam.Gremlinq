@@ -1,6 +1,6 @@
 ﻿namespace ExRam.Gremlinq.Core.Serialization
 {
-    public sealed class GraphSONGremlinQuery : ISerializedQuery
+    public sealed class GraphSONGremlinQuery : ISerializedGremlinQuery
     {
         public GraphSONGremlinQuery(string queryId, string graphSON)
         {

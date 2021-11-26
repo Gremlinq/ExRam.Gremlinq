@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace ExRam.Gremlinq.Core.Serialization
 {
-    public sealed class GroovyGremlinQuery : ISerializedQuery
+    public sealed class GroovyGremlinQuery : ISerializedGremlinQuery
     {
         private static readonly Regex BindingRegex = new("_[a-z]+", RegexOptions.Compiled);
 

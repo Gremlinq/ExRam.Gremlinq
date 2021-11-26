@@ -2,7 +2,7 @@
 
 namespace ExRam.Gremlinq.Core.Serialization
 {
-    public sealed class BytecodeGremlinQuery : ISerializedQuery
+    public sealed class BytecodeGremlinQuery : ISerializedGremlinQuery
     {
         public BytecodeGremlinQuery(string queryId, Bytecode bytecode)
         {
