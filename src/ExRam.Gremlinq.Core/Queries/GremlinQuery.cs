@@ -601,15 +601,17 @@ namespace ExRam.Gremlinq.Core
                 .Serialize(this)
                 .ToGroovy(groovyFormatting);
 
-            return JsonConvert.SerializeObject(
-                new
-                {
-                    groovy.Script,
-                    groovy.Bindings
-                },
-                indented
-                    ? Formatting.Indented
-                    : Formatting.None);
+            return groovy.Bindings.Count > 0
+                ? JsonConvert.SerializeObject(
+                    new
+                    {
+                        groovy.Script,
+                        groovy.Bindings
+                    },
+                    indented
+                        ? Formatting.Indented
+                        : Formatting.None)
+                : groovy.Script;
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> DedupGlobal() => AddStep(DedupStep.Global);
