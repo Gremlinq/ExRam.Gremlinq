@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core.Serialization
 {
@@ -47,12 +46,17 @@ namespace ExRam.Gremlinq.Core.Serialization
                     });
             }
 
-            public object Serialize(IGremlinQueryBase query)
+            public ISerializedQuery Serialize(IGremlinQueryBase query)
             {
                 (_stepLabelNames ??= new Dictionary<StepLabel, string>()).Clear();
 
-                return _fragmentSerializer
+                var serialized = _fragmentSerializer
                     .Serialize(query, query.AsAdmin().Environment) ?? throw new ArgumentException($"{nameof(query)} did not serialize to a non-null value.");
+
+                if (serialized is ISerializedQuery serializedQuery)
+                    return serializedQuery;
+
+                throw new InvalidOperationException();//TODO: Message
             }
 
             public IGremlinQuerySerializer ConfigureFragmentSerializer(Func<IGremlinQueryFragmentSerializer, IGremlinQueryFragmentSerializer> transformation)
@@ -63,7 +67,7 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         private sealed class InvalidGremlinQuerySerializer : IGremlinQuerySerializer
         {
-            public object Serialize(IGremlinQueryBase query) => throw new InvalidOperationException($"{nameof(Serialize)} must not be called on {nameof(GremlinQuerySerializer)}.{nameof(Invalid)}. If you are getting this exception while executing a query, configure a proper {nameof(IGremlinQuerySerializer)} on your {nameof(GremlinQuerySource)}.");
+            public ISerializedQuery Serialize(IGremlinQueryBase query) => throw new InvalidOperationException($"{nameof(Serialize)} must not be called on {nameof(GremlinQuerySerializer)}.{nameof(Invalid)}. If you are getting this exception while executing a query, configure a proper {nameof(IGremlinQuerySerializer)} on your {nameof(GremlinQuerySource)}.");
 
             public IGremlinQuerySerializer ConfigureFragmentSerializer(Func<IGremlinQueryFragmentSerializer, IGremlinQueryFragmentSerializer> transformation)
             {
@@ -73,16 +77,16 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         private sealed class SelectGremlinQuerySerializer : IGremlinQuerySerializer
         {
-            private readonly Func<object, object> _projection;
+            private readonly Func<ISerializedQuery, ISerializedQuery> _projection;
             private readonly IGremlinQuerySerializer _baseSerializer;
 
-            public SelectGremlinQuerySerializer(IGremlinQuerySerializer baseSerializer, Func<object, object> projection)
+            public SelectGremlinQuerySerializer(IGremlinQuerySerializer baseSerializer, Func<ISerializedQuery, ISerializedQuery> projection)
             {
                 _baseSerializer = baseSerializer;
                 _projection = projection;
             }
 
-            public object Serialize(IGremlinQueryBase query) => _projection(_baseSerializer.Serialize(query));
+            public ISerializedQuery Serialize(IGremlinQueryBase query) => _projection(_baseSerializer.Serialize(query));
 
             public IGremlinQuerySerializer ConfigureFragmentSerializer(Func<IGremlinQueryFragmentSerializer, IGremlinQueryFragmentSerializer> transformation) => new SelectGremlinQuerySerializer(_baseSerializer.ConfigureFragmentSerializer(transformation), _projection);
         }
@@ -97,7 +101,7 @@ namespace ExRam.Gremlinq.Core.Serialization
         {
         }
 
-        public static IGremlinQuerySerializer Select(this IGremlinQuerySerializer serializer, Func<object, object> projection)
+        public static IGremlinQuerySerializer Select(this IGremlinQuerySerializer serializer, Func<ISerializedQuery, ISerializedQuery> projection)
         {
             return new SelectGremlinQuerySerializer(serializer, projection);
         }

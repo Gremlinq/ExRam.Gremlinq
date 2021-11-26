@@ -56,7 +56,7 @@ namespace ExRam.Gremlinq.Core
                 _lazyGremlinClient.Dispose();
             }
 
-            public IAsyncEnumerable<object> Execute(object serializedQuery, IGremlinQueryEnvironment environment)
+            public IAsyncEnumerable<object> Execute(ISerializedQuery serializedQuery, IGremlinQueryEnvironment environment)
             {
                 return AsyncEnumerable.Create(Core);
 
