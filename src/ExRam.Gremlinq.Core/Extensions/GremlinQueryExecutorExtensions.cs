@@ -6,7 +6,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Core.Serialization;
 using Gremlin.Net.Driver.Exceptions;
-using Gremlin.Net.Process.Traversal;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
@@ -28,7 +27,7 @@ namespace ExRam.Gremlinq.Core.Execution
                 _shouldRetry = shouldRetry;
             }
 
-            public IAsyncEnumerable<object> Execute(object serializedQuery, IGremlinQueryEnvironment environment)
+            public IAsyncEnumerable<object> Execute(ISerializedQuery serializedQuery, IGremlinQueryEnvironment environment)
             {
                 return AsyncEnumerable.Create(Core);
 
@@ -83,7 +82,7 @@ namespace ExRam.Gremlinq.Core.Execution
                 _executor = executor;
             }
 
-            public IAsyncEnumerable<object> Execute(object serializedQuery, IGremlinQueryEnvironment environment)
+            public IAsyncEnumerable<object> Execute(ISerializedQuery serializedQuery, IGremlinQueryEnvironment environment)
             {
                 return AsyncEnumerable.Create(Core);
 
