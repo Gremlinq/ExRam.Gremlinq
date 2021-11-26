@@ -1,167 +1,169 @@
 ﻿[
   {
-    "SourceInstructions": [
-      {
-        "OperatorName": "withSideEffect",
-        "Arguments": [
-          "Neptune#fts.endpoint",
-          "http://elastic.search.server"
-        ]
-      },
-      {
-        "OperatorName": "withSideEffect",
-        "Arguments": [
-          "Neptune#fts.queryType",
-          "query_string"
-        ]
-      }
-    ],
-    "StepInstructions": [
-      {
-        "OperatorName": "addV",
-        "Arguments": [
-          "Person"
-        ]
-      },
-      {
-        "OperatorName": "property",
-        "Arguments": [
-          {
-            "EnumName": "Cardinality",
-            "EnumValue": "single"
-          },
-          "Age",
-          0
-        ]
-      },
-      {
-        "OperatorName": "addE",
-        "Arguments": [
-          "LivesIn"
-        ]
-      },
-      {
-        "OperatorName": "to",
-        "Arguments": [
-          {
-            "SourceInstructions": [],
-            "StepInstructions": [
-              {
-                "OperatorName": "addV",
-                "Arguments": [
-                  "Country"
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "OperatorName": "inV",
-        "Arguments": []
-      },
-      {
-        "OperatorName": "project",
-        "Arguments": [
-          "id",
-          "label",
-          "properties"
-        ]
-      },
-      {
-        "OperatorName": "by",
-        "Arguments": [
-          {
-            "EnumName": "T",
-            "EnumValue": "id"
-          }
-        ]
-      },
-      {
-        "OperatorName": "by",
-        "Arguments": [
-          {
-            "EnumName": "T",
-            "EnumValue": "label"
-          }
-        ]
-      },
-      {
-        "OperatorName": "by",
-        "Arguments": [
-          {
-            "SourceInstructions": [],
-            "StepInstructions": [
-              {
-                "OperatorName": "properties",
-                "Arguments": []
-              },
-              {
-                "OperatorName": "group",
-                "Arguments": []
-              },
-              {
-                "OperatorName": "by",
-                "Arguments": [
-                  {
-                    "EnumName": "T",
-                    "EnumValue": "label"
-                  }
-                ]
-              },
-              {
-                "OperatorName": "by",
-                "Arguments": [
-                  {
-                    "SourceInstructions": [],
-                    "StepInstructions": [
-                      {
-                        "OperatorName": "project",
-                        "Arguments": [
-                          "id",
-                          "label",
-                          "value"
-                        ]
-                      },
-                      {
-                        "OperatorName": "by",
-                        "Arguments": [
-                          {
-                            "EnumName": "T",
-                            "EnumValue": "id"
-                          }
-                        ]
-                      },
-                      {
-                        "OperatorName": "by",
-                        "Arguments": [
-                          {
-                            "EnumName": "T",
-                            "EnumValue": "label"
-                          }
-                        ]
-                      },
-                      {
-                        "OperatorName": "by",
-                        "Arguments": [
-                          {
-                            "EnumName": "T",
-                            "EnumValue": "value"
-                          }
-                        ]
-                      },
-                      {
-                        "OperatorName": "fold",
-                        "Arguments": []
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
+    "Bytecode": {
+      "SourceInstructions": [
+        {
+          "OperatorName": "withSideEffect",
+          "Arguments": [
+            "Neptune#fts.endpoint",
+            "http://elastic.search.server"
+          ]
+        },
+        {
+          "OperatorName": "withSideEffect",
+          "Arguments": [
+            "Neptune#fts.queryType",
+            "query_string"
+          ]
+        }
+      ],
+      "StepInstructions": [
+        {
+          "OperatorName": "addV",
+          "Arguments": [
+            "Person"
+          ]
+        },
+        {
+          "OperatorName": "property",
+          "Arguments": [
+            {
+              "EnumName": "Cardinality",
+              "EnumValue": "single"
+            },
+            "Age",
+            0
+          ]
+        },
+        {
+          "OperatorName": "addE",
+          "Arguments": [
+            "LivesIn"
+          ]
+        },
+        {
+          "OperatorName": "to",
+          "Arguments": [
+            {
+              "SourceInstructions": [],
+              "StepInstructions": [
+                {
+                  "OperatorName": "addV",
+                  "Arguments": [
+                    "Country"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "OperatorName": "inV",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "project",
+          "Arguments": [
+            "id",
+            "label",
+            "properties"
+          ]
+        },
+        {
+          "OperatorName": "by",
+          "Arguments": [
+            {
+              "EnumName": "T",
+              "EnumValue": "id"
+            }
+          ]
+        },
+        {
+          "OperatorName": "by",
+          "Arguments": [
+            {
+              "EnumName": "T",
+              "EnumValue": "label"
+            }
+          ]
+        },
+        {
+          "OperatorName": "by",
+          "Arguments": [
+            {
+              "SourceInstructions": [],
+              "StepInstructions": [
+                {
+                  "OperatorName": "properties",
+                  "Arguments": []
+                },
+                {
+                  "OperatorName": "group",
+                  "Arguments": []
+                },
+                {
+                  "OperatorName": "by",
+                  "Arguments": [
+                    {
+                      "EnumName": "T",
+                      "EnumValue": "label"
+                    }
+                  ]
+                },
+                {
+                  "OperatorName": "by",
+                  "Arguments": [
+                    {
+                      "SourceInstructions": [],
+                      "StepInstructions": [
+                        {
+                          "OperatorName": "project",
+                          "Arguments": [
+                            "id",
+                            "label",
+                            "value"
+                          ]
+                        },
+                        {
+                          "OperatorName": "by",
+                          "Arguments": [
+                            {
+                              "EnumName": "T",
+                              "EnumValue": "id"
+                            }
+                          ]
+                        },
+                        {
+                          "OperatorName": "by",
+                          "Arguments": [
+                            {
+                              "EnumName": "T",
+                              "EnumValue": "label"
+                            }
+                          ]
+                        },
+                        {
+                          "OperatorName": "by",
+                          "Arguments": [
+                            {
+                              "EnumName": "T",
+                              "EnumValue": "value"
+                            }
+                          ]
+                        },
+                        {
+                          "OperatorName": "fold",
+                          "Arguments": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
   }
 ]

@@ -1,42 +1,44 @@
-[
+﻿[
   {
-    "SourceInstructions": [],
-    "StepInstructions": [
-      {
-        "OperatorName": "V",
-        "Arguments": []
-      },
-      {
-        "OperatorName": "hasLabel",
-        "Arguments": [
-          "Person"
-        ]
-      },
-      {
-        "OperatorName": "values",
-        "Arguments": [
-          "Age"
-        ]
-      },
-      {
-        "OperatorName": "fold",
-        "Arguments": []
-      },
-      {
-        "OperatorName": "sum",
-        "Arguments": [
-          {
-            "EnumName": "Scope",
-            "EnumValue": "local"
-          }
-        ]
-      },
-      {
-        "OperatorName": "is",
-        "Arguments": [
-          100
-        ]
-      }
-    ]
+    "Bytecode": {
+      "SourceInstructions": [],
+      "StepInstructions": [
+        {
+          "OperatorName": "V",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "hasLabel",
+          "Arguments": [
+            "Person"
+          ]
+        },
+        {
+          "OperatorName": "values",
+          "Arguments": [
+            "Age"
+          ]
+        },
+        {
+          "OperatorName": "fold",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "sum",
+          "Arguments": [
+            {
+              "EnumName": "Scope",
+              "EnumValue": "local"
+            }
+          ]
+        },
+        {
+          "OperatorName": "is",
+          "Arguments": [
+            100
+          ]
+        }
+      ]
+    }
   }
 ]

@@ -1,21 +1,23 @@
-[
+﻿[
   {
-    "SourceInstructions": [],
-    "StepInstructions": [
-      {
-        "OperatorName": "V",
-        "Arguments": []
-      },
-      {
-        "OperatorName": "properties",
-        "Arguments": []
-      },
-      {
-        "OperatorName": "values",
-        "Arguments": [
-          "MetaProperty"
-        ]
-      }
-    ]
+    "Bytecode": {
+      "SourceInstructions": [],
+      "StepInstructions": [
+        {
+          "OperatorName": "V",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "properties",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "values",
+          "Arguments": [
+            "MetaProperty"
+          ]
+        }
+      ]
+    }
   }
 ]

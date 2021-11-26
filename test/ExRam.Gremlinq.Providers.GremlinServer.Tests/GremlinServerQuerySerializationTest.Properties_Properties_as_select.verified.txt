@@ -1,33 +1,35 @@
-[
+﻿[
   {
-    "SourceInstructions": [],
-    "StepInstructions": [
-      {
-        "OperatorName": "V",
-        "Arguments": []
-      },
-      {
-        "OperatorName": "hasLabel",
-        "Arguments": [
-          "Country"
-        ]
-      },
-      {
-        "OperatorName": "properties",
-        "Arguments": [
-          "Name"
-        ]
-      },
-      {
-        "OperatorName": "properties",
-        "Arguments": []
-      },
-      {
-        "OperatorName": "as",
-        "Arguments": [
-          "l1"
-        ]
-      }
-    ]
+    "Bytecode": {
+      "SourceInstructions": [],
+      "StepInstructions": [
+        {
+          "OperatorName": "V",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "hasLabel",
+          "Arguments": [
+            "Country"
+          ]
+        },
+        {
+          "OperatorName": "properties",
+          "Arguments": [
+            "Name"
+          ]
+        },
+        {
+          "OperatorName": "properties",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "as",
+          "Arguments": [
+            "l1"
+          ]
+        }
+      ]
+    }
   }
 ]
