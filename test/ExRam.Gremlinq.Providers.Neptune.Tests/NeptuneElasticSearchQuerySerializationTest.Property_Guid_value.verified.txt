@@ -36,7 +36,7 @@
               "EnumValue": "single"
             },
             "GuidKey",
-            "aebacdfb-2c00-4808-a8b6-8d62217a8059"
+            "Scrubbed GUID"
           ]
         },
         {
