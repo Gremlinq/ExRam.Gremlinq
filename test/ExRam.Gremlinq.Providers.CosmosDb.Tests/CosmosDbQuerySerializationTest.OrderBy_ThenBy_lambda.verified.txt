@@ -1,6 +1,7 @@
-[
+﻿[
   {
     "Script": "V().hasLabel(_a).has(_b).where(__.values(_c)).order().by({it.property('Name').value().length()}).by({it.property('Age').value()})",
+    "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Person",
       "_b": "Name",

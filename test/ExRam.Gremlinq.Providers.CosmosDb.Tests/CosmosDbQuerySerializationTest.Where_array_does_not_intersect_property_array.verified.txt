@@ -1,6 +1,7 @@
-[
+﻿[
   {
     "Script": "V().hasLabel(_a).not(__.has(_b,within(_c,_d)))",
+    "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Company",
       "_b": "PhoneNumbers",

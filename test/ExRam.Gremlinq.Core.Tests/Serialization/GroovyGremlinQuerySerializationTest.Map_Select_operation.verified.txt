@@ -1,6 +1,7 @@
 ﻿[
   {
     "Script": "V().hasLabel(_a).as(_b).map(__.project(_c,_d).by(__.select(_b)).by(__.select(_b))).project(_c,_d).by(__.select(_c).project(_e,_f,_g).by(id).by(label).by(__.properties().group().by(label).by(__.project(_e,_f,_h,_g).by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.select(_d).project(_e,_f,_g).by(id).by(label).by(__.properties().group().by(label).by(__.project(_e,_f,_h,_g).by(id).by(label).by(value).by(__.valueMap()).fold())))",
+    "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Person",
       "_b": "l1",

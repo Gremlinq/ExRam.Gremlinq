@@ -1,6 +1,7 @@
-[
+﻿[
   {
     "Script": "V().hasLabel('Country').properties('Name').properties()",
+    "Id": "Scrubbed GUID",
     "Bindings": {}
   }
 ]

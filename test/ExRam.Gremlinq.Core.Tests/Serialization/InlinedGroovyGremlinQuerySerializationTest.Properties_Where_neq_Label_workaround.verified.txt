@@ -1,6 +1,7 @@
 ﻿[
   {
     "Script": "V().hasLabel('Country').properties('Languages').has(label,neq('label')).project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap())",
+    "Id": "Scrubbed GUID",
     "Bindings": {}
   }
 ]

@@ -1,6 +1,7 @@
-[
+﻿[
   {
     "Script": "V().hasLabel('Person').property(single,'Age',36,'Meta','value').project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold()))",
+    "Id": "Scrubbed GUID",
     "Bindings": {}
   }
 ]

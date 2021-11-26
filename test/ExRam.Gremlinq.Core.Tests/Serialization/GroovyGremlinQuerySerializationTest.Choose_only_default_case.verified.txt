@@ -1,6 +1,7 @@
-[
+﻿[
   {
     "Script": "V().where(__.properties()).choose(__.values()).option(none,__.constant(_a))",
+    "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": 1
     }

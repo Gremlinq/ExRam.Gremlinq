@@ -1,6 +1,7 @@
-[
+﻿[
   {
     "Script": "V().in(_a,_b,_c)",
+    "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "LivesIn",
       "_b": "Speaks",

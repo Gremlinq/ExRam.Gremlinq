@@ -1,6 +1,7 @@
-[
+﻿[
   {
     "Script": "V().dedup()",
+    "Id": "Scrubbed GUID",
     "Bindings": {}
   }
 ]

@@ -253,7 +253,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                         env);
 
                     return (serialized is Bytecode bytecode)
-                        ? new BytecodeGremlinQuery(bytecode)
+                        ? new BytecodeGremlinQuery(Guid.NewGuid().ToString(), bytecode)
                         : serialized;
                 })
                 .Override<InjectStep>((step, env, overridden, recurse) => CreateInstruction("inject", recurse, env, step.Elements))

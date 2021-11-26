@@ -1,6 +1,7 @@
-[
+﻿[
   {
     "Script": "V().hasLabel('Person').values('Age').fold().sum(local).is(lt(100))",
+    "Id": "Scrubbed GUID",
     "Bindings": {}
   }
 ]

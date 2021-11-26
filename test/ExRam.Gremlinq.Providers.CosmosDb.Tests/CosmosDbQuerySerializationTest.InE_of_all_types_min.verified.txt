@@ -1,6 +1,7 @@
-[
+﻿[
   {
     "Script": "V().inE()",
+    "Id": "Scrubbed GUID",
     "Bindings": {}
   }
 ]

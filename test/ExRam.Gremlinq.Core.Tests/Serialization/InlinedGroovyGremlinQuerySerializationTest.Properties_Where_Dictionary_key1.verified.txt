@@ -1,6 +1,7 @@
 ﻿[
   {
     "Script": "V().hasLabel('Person').properties().has('MetaKey','MetaValue').project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap())",
+    "Id": "Scrubbed GUID",
     "Bindings": {}
   }
 ]

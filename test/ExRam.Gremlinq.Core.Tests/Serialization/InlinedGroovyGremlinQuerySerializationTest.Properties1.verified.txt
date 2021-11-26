@@ -1,6 +1,7 @@
 ﻿[
   {
     "Script": "V().properties().project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap())",
+    "Id": "Scrubbed GUID",
     "Bindings": {}
   }
 ]

@@ -1,6 +1,7 @@
 ﻿[
   {
     "Script": "V().hasLabel(_a).local(__.count()).order(local).by(__.identity(),asc)",
+    "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Person"
     }

@@ -1470,13 +1470,15 @@ namespace ExRam.Gremlinq.Core.Serialization
     }
     public sealed class BytecodeGremlinQuery : ExRam.Gremlinq.Core.Serialization.ISerializedQuery
     {
-        public BytecodeGremlinQuery(Gremlin.Net.Process.Traversal.Bytecode bytecode) { }
+        public BytecodeGremlinQuery(string queryId, Gremlin.Net.Process.Traversal.Bytecode bytecode) { }
         public Gremlin.Net.Process.Traversal.Bytecode Bytecode { get; }
+        public string Id { get; }
     }
     public sealed class GraphSONGremlinQuery : ExRam.Gremlinq.Core.Serialization.ISerializedQuery
     {
-        public GraphSONGremlinQuery(string graphSON) { }
+        public GraphSONGremlinQuery(string queryId, string graphSON) { }
         public string GraphSON { get; }
+        public string Id { get; }
     }
     public static class GremlinQueryFragmentSerializer
     {
@@ -1500,8 +1502,9 @@ namespace ExRam.Gremlinq.Core.Serialization
     }
     public sealed class GroovyGremlinQuery : ExRam.Gremlinq.Core.Serialization.ISerializedQuery
     {
-        public GroovyGremlinQuery(string script, System.Collections.Generic.IReadOnlyDictionary<string, object> bindings) { }
+        public GroovyGremlinQuery(string queryId, string script, System.Collections.Generic.IReadOnlyDictionary<string, object> bindings) { }
         public System.Collections.Generic.IReadOnlyDictionary<string, object> Bindings { get; }
+        public string Id { get; }
         public string Script { get; }
         public ExRam.Gremlinq.Core.Serialization.GroovyGremlinQuery Inline() { }
         public override string ToString() { }
@@ -1516,7 +1519,10 @@ namespace ExRam.Gremlinq.Core.Serialization
         ExRam.Gremlinq.Core.Serialization.IGremlinQuerySerializer ConfigureFragmentSerializer(System.Func<ExRam.Gremlinq.Core.Serialization.IGremlinQueryFragmentSerializer, ExRam.Gremlinq.Core.Serialization.IGremlinQueryFragmentSerializer> transformation);
         ExRam.Gremlinq.Core.Serialization.ISerializedQuery Serialize(ExRam.Gremlinq.Core.IGremlinQueryBase query);
     }
-    public interface ISerializedQuery { }
+    public interface ISerializedQuery
+    {
+        string Id { get; }
+    }
 }
 namespace ExRam.Gremlinq.Core.Steps
 {

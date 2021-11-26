@@ -1,6 +1,7 @@
-[
+﻿[
   {
     "Script": "V().hasLabel(_a).as(_b).out().select(_b)",
+    "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Person",
       "_b": "l1"

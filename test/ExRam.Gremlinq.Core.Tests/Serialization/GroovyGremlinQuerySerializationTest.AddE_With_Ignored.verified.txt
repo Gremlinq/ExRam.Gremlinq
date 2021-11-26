@@ -1,6 +1,7 @@
 ﻿[
   {
     "Script": "addE(_a).property(_b,_c).from(__.addV(_d).property(single,_e,_f)).to(__.addV(_g).property(single,_h,_i)).project(_j,_k,_l).by(id).by(label).by(__.valueMap())",
+    "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "WorksFor",
       "_b": "To",

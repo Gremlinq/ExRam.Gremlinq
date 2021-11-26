@@ -161,6 +161,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                 Append(bytecode);
 
                 var ret = new GroovyGremlinQuery(
+                    Guid.NewGuid().ToString(), //TODO: Take over bytecode query id ?
                     builder.ToString(),
                     variables,
                     true,

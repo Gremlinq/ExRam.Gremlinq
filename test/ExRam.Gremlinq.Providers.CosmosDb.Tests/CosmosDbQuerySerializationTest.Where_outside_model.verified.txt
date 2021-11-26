@@ -1,6 +1,7 @@
-[
+﻿[
   {
     "Script": "V().hasLabel(_a).has(id,_b)",
+    "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "VertexWithStringId",
       "_b": 0

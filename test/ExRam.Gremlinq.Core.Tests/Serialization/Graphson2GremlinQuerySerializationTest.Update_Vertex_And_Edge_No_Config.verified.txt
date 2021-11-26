@@ -1,5 +1,6 @@
 ﻿[
   {
+    "Id": "Scrubbed GUID",
     "GraphSON": "{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"V\"],[\"hasLabel\",\"Person\"],[\"sideEffect\",{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"properties\",\"Age\",\"Gender\",\"Name\",\"RegistrationDate\"],[\"drop\"]]}}],[\"property\",{\"@type\":\"g:Cardinality\",\"@value\":\"single\"},\"Age\",{\"@type\":\"g:Int32\",\"@value\":21}],[\"property\",{\"@type\":\"g:Cardinality\",\"@value\":\"single\"},\"Gender\",0],[\"property\",{\"@type\":\"g:Cardinality\",\"@value\":\"single\"},\"Name\",\"Marko\"],[\"property\",{\"@type\":\"g:Cardinality\",\"@value\":\"single\"},\"RegistrationDate\",{\"@type\":\"g:Date\",\"@value\":1586270616000}],[\"outE\",\"WorksFor\"],[\"sideEffect\",{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"properties\",\"From\",\"Role\",\"To\"],[\"drop\"]]}}],[\"property\",\"From\",{\"@type\":\"g:Date\",\"@value\":1586270616000}],[\"property\",\"Role\",\"Admin\"],[\"property\",\"To\",{\"@type\":\"g:Date\",\"@value\":1586270616000}],[\"project\",\"id\",\"label\",\"properties\"],[\"by\",{\"@type\":\"g:T\",\"@value\":\"id\"}],[\"by\",{\"@type\":\"g:T\",\"@value\":\"label\"}],[\"by\",{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"valueMap\"]]}}]]}}"
   }
 ]

@@ -1,6 +1,7 @@
-[
+﻿[
   {
     "Script": "withSideEffect(_a,_b).V()",
+    "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "l1",
       "_b": 36

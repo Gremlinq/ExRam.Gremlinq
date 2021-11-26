@@ -1,6 +1,7 @@
-[
+﻿[
   {
     "Script": "V().outE()",
+    "Id": "Scrubbed GUID",
     "Bindings": {}
   }
 ]

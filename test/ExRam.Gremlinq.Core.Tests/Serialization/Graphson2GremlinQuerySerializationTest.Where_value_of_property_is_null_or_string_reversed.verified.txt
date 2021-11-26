@@ -1,5 +1,6 @@
 ﻿[
   {
+    "Id": "Scrubbed GUID",
     "GraphSON": "{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"V\"],[\"hasLabel\",\"Person\"],[\"or\",{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"has\",\"Name\",\"hello\"]]}},{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"hasNot\",\"Name\"]]}}],[\"project\",\"id\",\"label\",\"properties\"],[\"by\",{\"@type\":\"g:T\",\"@value\":\"id\"}],[\"by\",{\"@type\":\"g:T\",\"@value\":\"label\"}],[\"by\",{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"properties\"],[\"group\"],[\"by\",{\"@type\":\"g:T\",\"@value\":\"label\"}],[\"by\",{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"project\",\"id\",\"label\",\"value\",\"properties\"],[\"by\",{\"@type\":\"g:T\",\"@value\":\"id\"}],[\"by\",{\"@type\":\"g:T\",\"@value\":\"label\"}],[\"by\",{\"@type\":\"g:T\",\"@value\":\"value\"}],[\"by\",{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"valueMap\"]]}}],[\"fold\"]]}}]]}}]]}}"
   }
 ]

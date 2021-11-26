@@ -1,6 +1,7 @@
-[
+﻿[
   {
     "Script": "addV(_a).property(single,_b,_c).property(list,_d,_e).property(list,_d,_f).project(_g,_h,_i).by(id).by(label).by(__.properties().group().by(label).by(__.project(_g,_h,_j,_i).by(id).by(label).by(value).by(__.valueMap()).fold()))",
+    "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Company",
       "_b": "FoundingDate",

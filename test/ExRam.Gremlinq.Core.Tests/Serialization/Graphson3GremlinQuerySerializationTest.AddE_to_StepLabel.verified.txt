@@ -1,5 +1,6 @@
 ﻿[
   {
+    "Id": "Scrubbed GUID",
     "GraphSON": "{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"addV\",\"Language\"],[\"property\",{\"@type\":\"g:Cardinality\",\"@value\":\"single\"},\"IetfLanguageTag\",\"en\"],[\"as\",\"l1\"],[\"addV\",\"Country\"],[\"property\",{\"@type\":\"g:Cardinality\",\"@value\":\"single\"},\"CountryCallingCode\",\"+49\"],[\"addE\",\"Speaks\"],[\"to\",\"l1\"],[\"project\",\"id\",\"label\",\"properties\"],[\"by\",{\"@type\":\"g:T\",\"@value\":\"id\"}],[\"by\",{\"@type\":\"g:T\",\"@value\":\"label\"}],[\"by\",{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"valueMap\"]]}}]]}}"
   }
 ]

@@ -1,6 +1,7 @@
-[
+﻿[
   {
     "Script": "V().properties().label()",
+    "Id": "Scrubbed GUID",
     "Bindings": {}
   }
 ]

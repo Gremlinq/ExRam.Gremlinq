@@ -1,6 +1,7 @@
-[
+﻿[
   {
     "Script": "E().properties()",
+    "Id": "Scrubbed GUID",
     "Bindings": {}
   }
 ]

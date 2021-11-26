@@ -1,6 +1,7 @@
-[
+﻿[
   {
     "Script": "V().aggregate(_a)",
+    "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "l1"
     }

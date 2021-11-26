@@ -1,6 +1,7 @@
-[
+﻿[
   {
     "Script": "V().hasLabel('Person').values()",
+    "Id": "Scrubbed GUID",
     "Bindings": {}
   }
 ]
