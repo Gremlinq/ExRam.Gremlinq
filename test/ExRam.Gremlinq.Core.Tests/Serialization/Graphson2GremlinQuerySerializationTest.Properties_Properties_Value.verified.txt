@@ -1,3 +1,5 @@
-[
-  "{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"V\"],[\"hasLabel\",\"Company\"],[\"properties\",\"Locations\"],[\"properties\"],[\"value\"]]}}"
+﻿[
+  {
+    "GraphSON": "{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"V\"],[\"hasLabel\",\"Company\"],[\"properties\",\"Locations\"],[\"properties\"],[\"value\"]]}}"
+  }
 ]
