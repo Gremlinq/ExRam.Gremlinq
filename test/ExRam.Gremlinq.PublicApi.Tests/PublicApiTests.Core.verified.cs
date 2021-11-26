@@ -1468,6 +1468,11 @@ namespace ExRam.Gremlinq.Core.Serialization
     {
         public static ExRam.Gremlinq.Core.Serialization.GroovyGremlinQuery ToGroovy(this Gremlin.Net.Process.Traversal.Bytecode bytecode, ExRam.Gremlinq.Core.Serialization.GroovyFormatting formatting = 0) { }
     }
+    public sealed class BytecodeGremlinQuery
+    {
+        public BytecodeGremlinQuery(Gremlin.Net.Process.Traversal.Bytecode bytecode) { }
+        public Gremlin.Net.Process.Traversal.Bytecode Bytecode { get; }
+    }
     public static class GremlinQueryFragmentSerializer
     {
         public static readonly ExRam.Gremlinq.Core.Serialization.IGremlinQueryFragmentSerializer Default;

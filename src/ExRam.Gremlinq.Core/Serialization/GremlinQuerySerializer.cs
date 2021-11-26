@@ -110,7 +110,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                     GroovyGremlinQuery serializedQuery => formatting == GroovyFormatting.Inline
                         ? serializedQuery.Inline()
                         : serializedQuery,
-                    Bytecode byteCode => byteCode.ToGroovy(formatting),
+                    BytecodeGremlinQuery byteCodeQuery => byteCodeQuery.Bytecode.ToGroovy(formatting),
                     _ => throw new NotSupportedException($"Can't convert serialized query of type {serialized.GetType()} to {nameof(GroovyGremlinQuery)}.")
                 });
         }
