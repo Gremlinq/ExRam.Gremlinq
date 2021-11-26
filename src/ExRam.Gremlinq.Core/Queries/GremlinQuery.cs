@@ -597,10 +597,16 @@ namespace ExRam.Gremlinq.Core
 
         private string Debug(GroovyFormatting groovyFormatting, bool indented)
         {
+            var groovy = Environment.Serializer
+                .Serialize(this)
+                .ToGroovy(groovyFormatting);
+
             return JsonConvert.SerializeObject(
-                Environment.Serializer
-                    .ToGroovy(groovyFormatting)
-                    .Serialize(this),
+                new
+                {
+                    groovy.Script,
+                    groovy.Bindings
+                },
                 indented
                     ? Formatting.Indented
                     : Formatting.None);
