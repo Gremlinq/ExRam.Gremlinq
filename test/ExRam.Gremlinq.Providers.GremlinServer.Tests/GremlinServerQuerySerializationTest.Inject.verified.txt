@@ -1,15 +1,17 @@
-[
+﻿[
   {
-    "SourceInstructions": [],
-    "StepInstructions": [
-      {
-        "OperatorName": "inject",
-        "Arguments": [
-          36,
-          37,
-          38
-        ]
-      }
-    ]
+    "Bytecode": {
+      "SourceInstructions": [],
+      "StepInstructions": [
+        {
+          "OperatorName": "inject",
+          "Arguments": [
+            36,
+            37,
+            38
+          ]
+        }
+      ]
+    }
   }
 ]

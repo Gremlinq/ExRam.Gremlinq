@@ -1,62 +1,64 @@
 ﻿[
   {
-    "SourceInstructions": [
-      {
-        "OperatorName": "withSideEffect",
-        "Arguments": [
-          "Neptune#fts.endpoint",
-          "http://elastic.search.server"
-        ]
-      },
-      {
-        "OperatorName": "withSideEffect",
-        "Arguments": [
-          "Neptune#fts.queryType",
-          "query_string"
-        ]
-      }
-    ],
-    "StepInstructions": [
-      {
-        "OperatorName": "V",
-        "Arguments": []
-      },
-      {
-        "OperatorName": "fold",
-        "Arguments": []
-      },
-      {
-        "OperatorName": "as",
-        "Arguments": [
-          "l3"
-        ]
-      },
-      {
-        "OperatorName": "V",
-        "Arguments": []
-      },
-      {
-        "OperatorName": "hasLabel",
-        "Arguments": [
-          "Person"
-        ]
-      },
-      {
-        "OperatorName": "where",
-        "Arguments": [
-          {
-            "OperatorName": "within",
-            "Value": [
-              "l3"
-            ],
-            "Other": null
-          }
-        ]
-      },
-      {
-        "OperatorName": "count",
-        "Arguments": []
-      }
-    ]
+    "Bytecode": {
+      "SourceInstructions": [
+        {
+          "OperatorName": "withSideEffect",
+          "Arguments": [
+            "Neptune#fts.endpoint",
+            "http://elastic.search.server"
+          ]
+        },
+        {
+          "OperatorName": "withSideEffect",
+          "Arguments": [
+            "Neptune#fts.queryType",
+            "query_string"
+          ]
+        }
+      ],
+      "StepInstructions": [
+        {
+          "OperatorName": "V",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "fold",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "as",
+          "Arguments": [
+            "l3"
+          ]
+        },
+        {
+          "OperatorName": "V",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "hasLabel",
+          "Arguments": [
+            "Person"
+          ]
+        },
+        {
+          "OperatorName": "where",
+          "Arguments": [
+            {
+              "OperatorName": "within",
+              "Value": [
+                "l3"
+              ],
+              "Other": null
+            }
+          ]
+        },
+        {
+          "OperatorName": "count",
+          "Arguments": []
+        }
+      ]
+    }
   }
 ]

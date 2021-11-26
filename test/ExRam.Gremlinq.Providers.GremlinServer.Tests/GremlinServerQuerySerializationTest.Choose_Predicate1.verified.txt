@@ -1,47 +1,49 @@
-[
+﻿[
   {
-    "SourceInstructions": [],
-    "StepInstructions": [
-      {
-        "OperatorName": "V",
-        "Arguments": []
-      },
-      {
-        "OperatorName": "id",
-        "Arguments": []
-      },
-      {
-        "OperatorName": "choose",
-        "Arguments": [
-          {
-            "OperatorName": "eq",
-            "Value": 42,
-            "Other": null
-          },
-          {
-            "SourceInstructions": [],
-            "StepInstructions": [
-              {
-                "OperatorName": "constant",
-                "Arguments": [
-                  true
-                ]
-              }
-            ]
-          },
-          {
-            "SourceInstructions": [],
-            "StepInstructions": [
-              {
-                "OperatorName": "constant",
-                "Arguments": [
-                  false
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
+    "Bytecode": {
+      "SourceInstructions": [],
+      "StepInstructions": [
+        {
+          "OperatorName": "V",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "id",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "choose",
+          "Arguments": [
+            {
+              "OperatorName": "eq",
+              "Value": 42,
+              "Other": null
+            },
+            {
+              "SourceInstructions": [],
+              "StepInstructions": [
+                {
+                  "OperatorName": "constant",
+                  "Arguments": [
+                    true
+                  ]
+                }
+              ]
+            },
+            {
+              "SourceInstructions": [],
+              "StepInstructions": [
+                {
+                  "OperatorName": "constant",
+                  "Arguments": [
+                    false
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
   }
 ]
