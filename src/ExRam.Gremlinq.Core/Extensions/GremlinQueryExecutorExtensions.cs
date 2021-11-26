@@ -73,7 +73,7 @@ namespace ExRam.Gremlinq.Core.Execution
 
         private sealed class LoggingGremlinQueryExecutor : IGremlinQueryExecutor
         {
-            private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, Action<object, Guid>> Loggers = new();
+            private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, Action<object, string>> Loggers = new();
 
             private readonly IGremlinQueryExecutor _executor;
 
@@ -88,8 +88,6 @@ namespace ExRam.Gremlinq.Core.Execution
 
                 async IAsyncEnumerator<object> Core(CancellationToken ct)
                 {
-                    var requestId = Guid.NewGuid();
-
                     await using (var enumerator = _executor.Execute(serializedQuery, environment).GetAsyncEnumerator(ct))
                     {
                         try
@@ -100,14 +98,14 @@ namespace ExRam.Gremlinq.Core.Execution
                                 environment,
                                 environment => GetLoggingFunction(environment));
 
-                            logger(serializedQuery, requestId);
+                            logger(serializedQuery, serializedQuery.Id);
 
                             if (!await moveNext)
                                 yield break;
                         }
                         catch (Exception ex)
                         {
-                            environment.Logger.LogError($"Error executing Gremlin query with id { requestId }: {ex}");
+                            environment.Logger.LogError($"Error executing Gremlin query with id {serializedQuery.Id}: {ex}");
 
                             throw;
                         }
@@ -120,7 +118,7 @@ namespace ExRam.Gremlinq.Core.Execution
                 }
             }
 
-            private static Action<object, Guid> GetLoggingFunction(IGremlinQueryEnvironment environment)
+            private static Action<object, string> GetLoggingFunction(IGremlinQueryEnvironment environment)
             {
                 var logLevel = environment.Options.GetValue(GremlinqOption.QueryLogLogLevel);
                 var verbosity = environment.Options.GetValue(GremlinqOption.QueryLogVerbosity);
