@@ -1,6 +1,7 @@
-[
+﻿[
   {
     "Script": "V().hasLabel(_a).repeat(__.inE().outV()).until(__.V().hasLabel(_b))",
+    "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Person",
       "_b": "Company"

@@ -1,6 +1,7 @@
-[
+﻿[
   {
     "Script": "V().hasLabel(_a).where(__.out())",
+    "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Person"
     }

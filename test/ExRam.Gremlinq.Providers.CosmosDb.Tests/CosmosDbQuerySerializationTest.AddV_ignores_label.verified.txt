@@ -1,6 +1,7 @@
-[
+﻿[
   {
     "Script": "addV(_a).property(_b,_b)",
+    "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Language",
       "_b": "PartitionKey"

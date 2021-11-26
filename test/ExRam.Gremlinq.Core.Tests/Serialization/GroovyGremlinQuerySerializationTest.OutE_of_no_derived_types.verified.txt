@@ -1,6 +1,7 @@
-[
+﻿[
   {
     "Script": "V().outE(_a).project(_b,_c,_d).by(id).by(label).by(__.valueMap())",
+    "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "String",
       "_b": "id",

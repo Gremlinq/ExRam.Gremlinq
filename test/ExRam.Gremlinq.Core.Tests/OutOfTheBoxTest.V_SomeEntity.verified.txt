@@ -1,6 +1,7 @@
-[
+﻿[
   {
     "Script": "V().hasLabel(_a).project(_b,_c,_d).by(id).by(label).by(__.properties().group().by(label).by(__.project(_b,_c,_e,_d).by(id).by(label).by(value).by(__.valueMap()).fold()))",
+    "Id": "827bd664-58e4-4bdd-9a24-45b094108d8c",
     "Bindings": {
       "_a": "SomeEntity",
       "_b": "id",

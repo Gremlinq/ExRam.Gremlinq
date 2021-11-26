@@ -1,6 +1,7 @@
-[
+﻿[
   {
     "Script": "V().hasLabel(_a).union(__.out(_b),__.outE(_c))",
+    "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Person",
       "_b": "WorksFor",

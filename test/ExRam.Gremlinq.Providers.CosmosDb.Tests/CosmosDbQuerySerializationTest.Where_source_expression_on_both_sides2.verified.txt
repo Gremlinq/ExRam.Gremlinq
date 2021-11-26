@@ -1,6 +1,7 @@
-[
+﻿[
   {
     "Script": "V().hasLabel(_a).as(_b).where(gt(_b)).by(_c).by(_d)",
+    "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "EntityWithTwoIntProperties",
       "_b": "l1",

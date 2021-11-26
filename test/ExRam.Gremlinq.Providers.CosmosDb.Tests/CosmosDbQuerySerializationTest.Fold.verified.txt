@@ -1,6 +1,7 @@
-[
+﻿[
   {
     "Script": "V().fold()",
+    "Id": "Scrubbed GUID",
     "Bindings": {}
   }
 ]

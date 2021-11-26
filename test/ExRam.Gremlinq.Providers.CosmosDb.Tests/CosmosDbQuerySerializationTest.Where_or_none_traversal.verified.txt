@@ -1,6 +1,7 @@
-[
+﻿[
   {
     "Script": "V().hasLabel(_a).not(__.identity())",
+    "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Person"
     }

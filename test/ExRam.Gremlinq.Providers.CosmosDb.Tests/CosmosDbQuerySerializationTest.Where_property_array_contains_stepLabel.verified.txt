@@ -1,6 +1,7 @@
-[
+﻿[
   {
     "Script": "inject(_a).as(_b).V().hasLabel(_c).has(_d,__.where(eq(_b)))",
+    "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "+4912345",
       "_b": "l1",

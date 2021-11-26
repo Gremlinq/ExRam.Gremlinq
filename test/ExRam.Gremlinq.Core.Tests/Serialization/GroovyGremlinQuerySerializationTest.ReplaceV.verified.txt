@@ -1,6 +1,7 @@
-[
+﻿[
   {
     "Script": "V(_a).hasLabel(_b).sideEffect(__.properties(_c,_d,_e,_f).drop()).property(single,_c,_g).property(single,_d,_h).property(single,_e,_i).property(single,_f,_j).project(_k,_l,_m).by(id).by(label).by(__.properties().group().by(label).by(__.project(_k,_l,_n,_m).by(id).by(label).by(value).by(__.valueMap()).fold()))",
+    "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": 0,
       "_b": "Person",

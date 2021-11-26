@@ -1,6 +1,7 @@
-[
+﻿[
   {
     "Script": "inject(_a).as(_b).V().hasLabel(_c).has(_d,__.where(eq(_b))).project(_e,_f,_g).by(id).by(label).by(__.properties().group().by(label).by(__.project(_e,_f,_h,_g).by(id).by(label).by(value).by(__.valueMap()).fold()))",
+    "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "+4912345",
       "_b": "l1",

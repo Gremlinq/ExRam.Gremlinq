@@ -1,6 +1,7 @@
 ﻿[
   {
     "Script": "V().where(__.in()).project('in!').by(__.in()).project('in!').by(__.select('in!').project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold())))",
+    "Id": "Scrubbed GUID",
     "Bindings": {}
   }
 ]

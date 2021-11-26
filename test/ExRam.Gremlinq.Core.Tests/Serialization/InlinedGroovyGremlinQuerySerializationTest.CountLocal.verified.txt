@@ -1,6 +1,7 @@
-[
+﻿[
   {
     "Script": "V().count(local)",
+    "Id": "Scrubbed GUID",
     "Bindings": {}
   }
 ]

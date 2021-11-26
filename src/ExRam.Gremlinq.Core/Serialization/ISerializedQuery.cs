@@ -2,6 +2,6 @@
 {
     public interface ISerializedQuery
     {
-
+        string Id { get; }
     }
 }

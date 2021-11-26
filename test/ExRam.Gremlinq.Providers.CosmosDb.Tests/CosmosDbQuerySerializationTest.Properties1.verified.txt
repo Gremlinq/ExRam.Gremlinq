@@ -1,6 +1,7 @@
 ﻿[
   {
     "Script": "V().properties()",
+    "Id": "Scrubbed GUID",
     "Bindings": {}
   }
 ]

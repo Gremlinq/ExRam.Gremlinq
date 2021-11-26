@@ -1,6 +1,7 @@
-[
+﻿[
   {
     "Script": "V().choose(__.values(),__.out(),__.in())",
+    "Id": "Scrubbed GUID",
     "Bindings": {}
   }
 ]

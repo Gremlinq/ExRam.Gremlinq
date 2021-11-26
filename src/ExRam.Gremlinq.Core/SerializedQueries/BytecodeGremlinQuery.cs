@@ -4,10 +4,13 @@ namespace ExRam.Gremlinq.Core.Serialization
 {
     public sealed class BytecodeGremlinQuery : ISerializedQuery
     {
-        public BytecodeGremlinQuery(Bytecode bytecode)
+        public BytecodeGremlinQuery(string queryId, Bytecode bytecode)
         {
+            Id = queryId;
             Bytecode = bytecode;
         }
+
+        public string Id { get; }
 
         public Bytecode Bytecode { get; }
     }

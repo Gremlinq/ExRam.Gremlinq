@@ -1,6 +1,7 @@
-[
+﻿[
   {
     "Script": "V().hasLabel(_a).has(_b).has(_c).as(_d).where(eq(_d)).by(_b).by(_c)",
+    "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Country",
       "_b": "Name",

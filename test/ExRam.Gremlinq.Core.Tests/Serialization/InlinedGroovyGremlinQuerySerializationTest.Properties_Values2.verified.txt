@@ -1,6 +1,7 @@
-[
+﻿[
   {
     "Script": "V().properties().values('MetaProperty')",
+    "Id": "Scrubbed GUID",
     "Bindings": {}
   }
 ]

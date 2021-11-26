@@ -1,6 +1,7 @@
-[
+﻿[
   {
     "Script": "V().hasLabel(_a).as(_b).out().hasLabel(_a).as(_c).project(_d,_e).by(__.select(_b)).by(__.select(_c))",
+    "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Person",
       "_b": "l1",

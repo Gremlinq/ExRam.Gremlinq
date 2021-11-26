@@ -1,6 +1,7 @@
-[
+﻿[
   {
     "Script": "V().hasLabel('Person').values('Age').fold().max(local)",
+    "Id": "Scrubbed GUID",
     "Bindings": {}
   }
 ]

@@ -1,6 +1,7 @@
-[
+﻿[
   {
     "Script": "E().hasLabel(_a).values(_b)",
+    "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "LivesIn",
       "_b": "Since"

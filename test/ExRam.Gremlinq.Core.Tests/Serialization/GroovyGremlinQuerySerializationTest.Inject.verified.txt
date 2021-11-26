@@ -1,6 +1,7 @@
-[
+﻿[
   {
     "Script": "inject(_a,_b,_c)",
+    "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": 36,
       "_b": 37,

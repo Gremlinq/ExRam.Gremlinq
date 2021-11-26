@@ -1,6 +1,7 @@
-[
+﻿[
   {
     "Script": "V().not(__.identity())",
+    "Id": "Scrubbed GUID",
     "Bindings": {}
   }
 ]

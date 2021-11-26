@@ -1,6 +1,7 @@
-[
+﻿[
   {
     "Script": "V().hasLabel('Company').properties('Locations').properties().where(__.key().is('someKey'))",
+    "Id": "Scrubbed GUID",
     "Bindings": {}
   }
 ]

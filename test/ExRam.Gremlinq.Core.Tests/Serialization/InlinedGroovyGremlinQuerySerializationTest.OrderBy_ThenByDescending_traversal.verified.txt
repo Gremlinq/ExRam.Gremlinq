@@ -1,6 +1,7 @@
 ﻿[
   {
     "Script": "V().hasLabel('Person').has('Name').where(__.values('Gender')).order().by(__.values('Name'),asc).by('Gender',desc).project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold()))",
+    "Id": "Scrubbed GUID",
     "Bindings": {}
   }
 ]

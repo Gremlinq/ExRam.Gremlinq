@@ -1,6 +1,7 @@
-[
+﻿[
   {
     "Script": "addV(_a).property(_b,_b).property(single,_c,_d).as(_e).addV(_f).property(_b,_b).property(single,_g,_h).addE(_i).to(_e)",
+    "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Language",
       "_b": "PartitionKey",

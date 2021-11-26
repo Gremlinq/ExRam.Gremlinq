@@ -1,5 +1,6 @@
 ﻿[
   {
+    "Id": "Scrubbed GUID",
     "GraphSON": "{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"V\"],[\"hasLabel\",\"Person\"],[\"values\",\"Age\"],[\"fold\"],[\"sum\",{\"@type\":\"g:Scope\",\"@value\":\"local\"}],[\"is\",{\"@type\":\"g:Int32\",\"@value\":100}]]}}"
   }
 ]
