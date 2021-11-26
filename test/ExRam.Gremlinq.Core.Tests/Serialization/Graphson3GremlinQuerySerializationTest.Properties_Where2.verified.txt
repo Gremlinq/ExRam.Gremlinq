@@ -1,3 +1,5 @@
 ﻿[
-  "{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"V\"],[\"hasLabel\",\"Person\"],[\"properties\"],[\"hasKey\",\"Age\"],[\"hasValue\",{\"@type\":\"g:P\",\"@value\":{\"predicate\":\"lt\",\"value\":{\"@type\":\"g:Int32\",\"@value\":10}}}],[\"project\",\"id\",\"label\",\"value\",\"properties\"],[\"by\",{\"@type\":\"g:T\",\"@value\":\"id\"}],[\"by\",{\"@type\":\"g:T\",\"@value\":\"label\"}],[\"by\",{\"@type\":\"g:T\",\"@value\":\"value\"}],[\"by\",{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"valueMap\"]]}}]]}}"
+  {
+    "GraphSON": "{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"V\"],[\"hasLabel\",\"Person\"],[\"properties\"],[\"hasKey\",\"Age\"],[\"hasValue\",{\"@type\":\"g:P\",\"@value\":{\"predicate\":\"lt\",\"value\":{\"@type\":\"g:Int32\",\"@value\":10}}}],[\"project\",\"id\",\"label\",\"value\",\"properties\"],[\"by\",{\"@type\":\"g:T\",\"@value\":\"id\"}],[\"by\",{\"@type\":\"g:T\",\"@value\":\"label\"}],[\"by\",{\"@type\":\"g:T\",\"@value\":\"value\"}],[\"by\",{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"valueMap\"]]}}]]}}"
+  }
 ]

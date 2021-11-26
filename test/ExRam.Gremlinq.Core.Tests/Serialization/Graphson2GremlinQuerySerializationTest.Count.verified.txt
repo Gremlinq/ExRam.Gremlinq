@@ -1,3 +1,5 @@
-[
-  "{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"V\"],[\"count\"]]}}"
+﻿[
+  {
+    "GraphSON": "{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"V\"],[\"count\"]]}}"
+  }
 ]

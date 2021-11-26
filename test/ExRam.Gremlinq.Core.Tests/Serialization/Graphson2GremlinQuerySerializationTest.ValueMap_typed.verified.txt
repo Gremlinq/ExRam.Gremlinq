@@ -1,3 +1,5 @@
-[
-  "{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"V\"],[\"hasLabel\",\"Person\"],[\"valueMap\",\"Age\"]]}}"
+﻿[
+  {
+    "GraphSON": "{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"V\"],[\"hasLabel\",\"Person\"],[\"valueMap\",\"Age\"]]}}"
+  }
 ]

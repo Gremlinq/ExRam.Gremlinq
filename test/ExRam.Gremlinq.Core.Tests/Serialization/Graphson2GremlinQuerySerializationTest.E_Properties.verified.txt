@@ -1,3 +1,5 @@
-[
-  "{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"E\"],[\"properties\"]]}}"
+﻿[
+  {
+    "GraphSON": "{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"E\"],[\"properties\"]]}}"
+  }
 ]

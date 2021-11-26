@@ -1,3 +1,5 @@
-[
-  "{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"V\"],[\"properties\"],[\"values\",\"ValidFrom\"]]}}"
+﻿[
+  {
+    "GraphSON": "{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"V\"],[\"properties\"],[\"values\",\"ValidFrom\"]]}}"
+  }
 ]
