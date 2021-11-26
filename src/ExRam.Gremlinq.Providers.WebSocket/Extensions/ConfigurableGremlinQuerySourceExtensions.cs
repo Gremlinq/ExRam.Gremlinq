@@ -65,18 +65,24 @@ namespace ExRam.Gremlinq.Core
                     var maybeResults = default(ResultSet<JToken>?);
                     var clientTask = _lazyGremlinClient.GetValue(environment.Logger);
 
+                    var requestId = Guid.TryParse(serializedQuery.Id, out var guid)
+                        ? guid
+                        : Guid.NewGuid();
+
                     var requestMessage = serializedQuery switch
                     {
                         GroovyGremlinQuery groovyScript => RequestMessage
                             .Build(Tokens.OpsEval)
                             .AddArgument(Tokens.ArgsGremlin, $"{_alias}.{groovyScript.Script}")
                             .AddArgument(Tokens.ArgsBindings, groovyScript.Bindings)
+                            .OverrideRequestId(requestId)
                             .Create(),
                         BytecodeGremlinQuery bytecodeQuery => RequestMessage
                             .Build(Tokens.OpsBytecode)
                             .Processor(Tokens.ProcessorTraversal)
                             .AddArgument(Tokens.ArgsGremlin, bytecodeQuery.Bytecode)
                             .AddArgument(Tokens.ArgsAliases, _aliasArgs)
+                            .OverrideRequestId(requestId)
                             .Create(),
                         _ => throw new ArgumentException($"Cannot handle serialized query of type {serializedQuery.GetType()}.")
                     };
