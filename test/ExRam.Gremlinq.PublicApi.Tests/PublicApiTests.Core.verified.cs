@@ -1466,7 +1466,7 @@ namespace ExRam.Gremlinq.Core.Serialization
     public delegate object? BaseGremlinQueryFragmentSerializerDelegate<TFragment>(TFragment fragment, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Serialization.IGremlinQueryFragmentSerializer recurse);
     public static class BytecodeExtensions
     {
-        public static ExRam.Gremlinq.Core.Serialization.GroovyGremlinQuery ToGroovy(this Gremlin.Net.Process.Traversal.Bytecode bytecode, ExRam.Gremlinq.Core.Serialization.GroovyFormatting formatting = 0) { }
+        public static ExRam.Gremlinq.Core.Serialization.GroovyGremlinQuery ToGroovy(this ExRam.Gremlinq.Core.Serialization.BytecodeGremlinQuery bytecodeQuery, ExRam.Gremlinq.Core.Serialization.GroovyFormatting formatting = 0) { }
     }
     public sealed class BytecodeGremlinQuery : ExRam.Gremlinq.Core.Serialization.ISerializedQuery
     {

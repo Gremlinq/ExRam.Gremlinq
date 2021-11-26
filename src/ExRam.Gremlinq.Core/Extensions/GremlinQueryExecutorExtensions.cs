@@ -133,7 +133,7 @@ namespace ExRam.Gremlinq.Core.Execution
                     {
                         var gremlinQuery = serializedQuery switch
                         {
-                            BytecodeGremlinQuery bytecodeGremlinQuery => bytecodeGremlinQuery.Bytecode.ToGroovy(groovyFormatting),
+                            BytecodeGremlinQuery bytecodeGremlinQuery => bytecodeGremlinQuery.ToGroovy(groovyFormatting),
                             GroovyGremlinQuery groovyGremlinQuery => groovyFormatting == GroovyFormatting.Inline
                                 ? groovyGremlinQuery.Inline()
                                 : groovyGremlinQuery,
