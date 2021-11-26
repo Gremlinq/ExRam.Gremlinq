@@ -72,10 +72,10 @@ namespace ExRam.Gremlinq.Core
                             .AddArgument(Tokens.ArgsGremlin, $"{_alias}.{groovyScript.Script}")
                             .AddArgument(Tokens.ArgsBindings, groovyScript.Bindings)
                             .Create(),
-                        Bytecode bytecode => RequestMessage
+                        BytecodeGremlinQuery bytecodeQuery => RequestMessage
                             .Build(Tokens.OpsBytecode)
                             .Processor(Tokens.ProcessorTraversal)
-                            .AddArgument(Tokens.ArgsGremlin, bytecode)
+                            .AddArgument(Tokens.ArgsGremlin, bytecodeQuery.Bytecode)
                             .AddArgument(Tokens.ArgsAliases, _aliasArgs)
                             .Create(),
                         _ => throw new ArgumentException($"Cannot handle serialized query of type {serializedQuery.GetType()}.")

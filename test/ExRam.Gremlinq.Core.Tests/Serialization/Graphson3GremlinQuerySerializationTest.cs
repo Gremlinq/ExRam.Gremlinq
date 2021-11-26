@@ -13,7 +13,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             public Fixture() : base(g.ConfigureEnvironment(_ => _
                 .UseSerializer(GremlinQuerySerializer.Default
-                    .Select(obj => Writer.WriteObject((Bytecode)obj)))))
+                    .Select(obj => Writer.WriteObject(((BytecodeGremlinQuery)obj).Bytecode)))))
             {
             }
         }

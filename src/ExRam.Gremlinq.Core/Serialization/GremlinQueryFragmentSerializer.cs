@@ -244,11 +244,18 @@ namespace ExRam.Gremlinq.Core.Serialization
                         : step.Argument))
                 .Override<IdentityStep>((step, env, overridden, recurse) => CreateInstruction("identity"))
                 .Override<IdStep>((step, env, overridden, recurse) => CreateInstruction("id"))
-                .Override<IGremlinQueryBase>((query, env, overridden, recurse) => recurse.Serialize(
-                    query
-                        .ToTraversal()
-                        .IncludeProjection(env),
-                    env))
+                .Override<IGremlinQueryBase>((query, env, overridden, recurse) =>
+                {
+                    var serialized = recurse.Serialize(
+                        query
+                            .ToTraversal()
+                            .IncludeProjection(env),
+                        env);
+
+                    return (serialized is Bytecode bytecode)
+                        ? new BytecodeGremlinQuery(bytecode)
+                        : serialized;
+                })
                 .Override<InjectStep>((step, env, overridden, recurse) => CreateInstruction("inject", recurse, env, step.Elements))
                 .Override<InEStep>((step, env, overridden, recurse) => CreateInstruction("inE", recurse, env, step.Labels))
                 .Override<InStep>((step, env, overridden, recurse) => CreateInstruction("in", recurse, env, step.Labels))
