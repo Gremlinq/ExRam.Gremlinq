@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Immutable;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Core.Deserialization;
 using ExRam.Gremlinq.Core.Execution;
@@ -52,5 +53,9 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Cast<GroovyGremlinQuery>()
                 .Verify();
         }
+
+        public override IImmutableList<Func<string, string>> Scrubbers() => base
+            .Scrubbers()
+            .ScrubGuids();
     }
 }

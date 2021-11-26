@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Immutable;
 using System.Runtime.CompilerServices;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Core.Steps;
@@ -22,7 +21,6 @@ namespace ExRam.Gremlinq.Core.Tests
             }
         }
 
-        private static readonly Regex GuidRegex = new("[0-9a-f]{8}[-]?([0-9a-f]{4}[-]?){3}[0-9a-f]{12}", RegexOptions.IgnoreCase);
 
         protected QuerySerializationTest(Fixture fixture, ITestOutputHelper testOutputHelper, [CallerFilePath] string callerFilePath = "") : base(
             fixture,
@@ -31,11 +29,9 @@ namespace ExRam.Gremlinq.Core.Tests
         {
         }
 
-        public override IImmutableList<Func<string, string>> Scrubbers()
-        {
-            return base.Scrubbers()
-                .Add(x => GuidRegex.Replace(x, "Scrubbed GUID"));
-        }
+        public override IImmutableList<Func<string, string>> Scrubbers() => base
+            .Scrubbers()
+            .ScrubGuids();
 
         [Fact]
         public async Task StringKey()
