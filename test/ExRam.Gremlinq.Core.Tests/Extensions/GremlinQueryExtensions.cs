@@ -1,8 +1,5 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-
-using ExRam.Gremlinq.Core.Serialization;
-
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -26,10 +23,6 @@ namespace ExRam.Gremlinq.Core.Tests
             {
                 var serialized = JsonConvert.SerializeObject(
                     await query
-                        .ToAsyncEnumerable()
-                        .Select(x => x is BytecodeGremlinQuery query
-                            ? query.Bytecode
-                            : (object)x!)
                         .ToArrayAsync(),
                     Formatting.Indented);
 
