@@ -1,3 +1,5 @@
-[
-  "{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"V\"],[\"properties\"],[\"union\",{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"label\"]]}},{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"id\"]]}}]]}}"
+﻿[
+  {
+    "GraphSON": "{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"V\"],[\"properties\"],[\"union\",{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"label\"]]}},{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"id\"]]}}]]}}"
+  }
 ]

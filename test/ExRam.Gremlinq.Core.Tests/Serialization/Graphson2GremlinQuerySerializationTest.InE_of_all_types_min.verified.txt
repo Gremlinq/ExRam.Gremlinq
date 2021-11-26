@@ -1,3 +1,5 @@
-[
-  "{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"V\"],[\"inE\"],[\"project\",\"id\",\"label\",\"properties\"],[\"by\",{\"@type\":\"g:T\",\"@value\":\"id\"}],[\"by\",{\"@type\":\"g:T\",\"@value\":\"label\"}],[\"by\",{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"valueMap\"]]}}]]}}"
+﻿[
+  {
+    "GraphSON": "{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"V\"],[\"inE\"],[\"project\",\"id\",\"label\",\"properties\"],[\"by\",{\"@type\":\"g:T\",\"@value\":\"id\"}],[\"by\",{\"@type\":\"g:T\",\"@value\":\"label\"}],[\"by\",{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"valueMap\"]]}}]]}}"
+  }
 ]

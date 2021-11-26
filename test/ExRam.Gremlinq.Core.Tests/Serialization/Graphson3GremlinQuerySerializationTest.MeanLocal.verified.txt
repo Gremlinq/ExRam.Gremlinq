@@ -1,3 +1,5 @@
-[
-  "{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"V\"],[\"hasLabel\",\"Person\"],[\"values\",\"Age\"],[\"fold\"],[\"mean\",{\"@type\":\"g:Scope\",\"@value\":\"local\"}]]}}"
+﻿[
+  {
+    "GraphSON": "{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"V\"],[\"hasLabel\",\"Person\"],[\"values\",\"Age\"],[\"fold\"],[\"mean\",{\"@type\":\"g:Scope\",\"@value\":\"local\"}]]}}"
+  }
 ]

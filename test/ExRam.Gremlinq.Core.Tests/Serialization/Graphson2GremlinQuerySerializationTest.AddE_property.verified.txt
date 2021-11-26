@@ -1,3 +1,5 @@
 ﻿[
-  "{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"addV\",\"Person\"],[\"property\",{\"@type\":\"g:Cardinality\",\"@value\":\"single\"},\"Age\",{\"@type\":\"g:Int32\",\"@value\":0}],[\"addE\",\"LivesIn\"],[\"property\",\"Since\",{\"@type\":\"g:Date\",\"@value\":1586270616000}],[\"to\",{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"addV\",\"Country\"]]}}],[\"project\",\"id\",\"label\",\"properties\"],[\"by\",{\"@type\":\"g:T\",\"@value\":\"id\"}],[\"by\",{\"@type\":\"g:T\",\"@value\":\"label\"}],[\"by\",{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"valueMap\"]]}}]]}}"
+  {
+    "GraphSON": "{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"addV\",\"Person\"],[\"property\",{\"@type\":\"g:Cardinality\",\"@value\":\"single\"},\"Age\",{\"@type\":\"g:Int32\",\"@value\":0}],[\"addE\",\"LivesIn\"],[\"property\",\"Since\",{\"@type\":\"g:Date\",\"@value\":1586270616000}],[\"to\",{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"addV\",\"Country\"]]}}],[\"project\",\"id\",\"label\",\"properties\"],[\"by\",{\"@type\":\"g:T\",\"@value\":\"id\"}],[\"by\",{\"@type\":\"g:T\",\"@value\":\"label\"}],[\"by\",{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"valueMap\"]]}}]]}}"
+  }
 ]

@@ -1,3 +1,5 @@
-[
-  "{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"V\"],[\"hasLabel\",\"Person\"],[\"union\",{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"out\",\"WorksFor\"]]}},{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"outE\",\"LivesIn\"]]}}]]}}"
+﻿[
+  {
+    "GraphSON": "{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"V\"],[\"hasLabel\",\"Person\"],[\"union\",{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"out\",\"WorksFor\"]]}},{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"outE\",\"LivesIn\"]]}}]]}}"
+  }
 ]
