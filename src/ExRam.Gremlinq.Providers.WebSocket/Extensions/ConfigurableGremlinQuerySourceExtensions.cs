@@ -9,7 +9,6 @@ using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Providers.WebSocket;
 using Gremlin.Net.Driver;
 using Gremlin.Net.Driver.Messages;
-using Gremlin.Net.Process.Traversal;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 
