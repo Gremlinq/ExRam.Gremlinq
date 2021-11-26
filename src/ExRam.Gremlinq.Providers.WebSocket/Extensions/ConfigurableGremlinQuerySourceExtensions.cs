@@ -65,9 +65,11 @@ namespace ExRam.Gremlinq.Core
                     var maybeResults = default(ResultSet<JToken>?);
                     var clientTask = _lazyGremlinClient.GetValue(environment.Logger);
 
-                    var requestId = Guid.TryParse(serializedQuery.Id, out var guid)
-                        ? guid
-                        : Guid.NewGuid();
+                    if (!Guid.TryParse(serializedQuery.Id, out var requestId))
+                    {
+                        requestId = Guid.NewGuid();
+                        environment.Logger.LogInformation($"Mapping query id {serializedQuery.Id} to request id {requestId}.");
+                    }
 
                     var requestMessage = serializedQuery switch
                     {
