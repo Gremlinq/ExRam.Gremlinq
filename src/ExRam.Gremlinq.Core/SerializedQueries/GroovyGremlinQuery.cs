@@ -13,14 +13,14 @@ namespace ExRam.Gremlinq.Core.Serialization
         private readonly bool _isInlined;
         private readonly bool _createdInternally;
 
-        public GroovyGremlinQuery(string queryId, string script, IReadOnlyDictionary<string, object> bindings) : this(queryId, script, bindings, false, false)
+        public GroovyGremlinQuery(string id, string script, IReadOnlyDictionary<string, object> bindings) : this(id, script, bindings, false, false)
         {
         }
 
-        internal GroovyGremlinQuery(string queryId, string script, IReadOnlyDictionary<string, object> bindings, bool createdInternally, bool isInlined)
+        internal GroovyGremlinQuery(string id, string script, IReadOnlyDictionary<string, object> bindings, bool createdInternally, bool isInlined)
         {
+            Id = id;
             Script = script;
-            Id = queryId;
             Bindings = bindings;
             _isInlined = isInlined;
             _createdInternally = createdInternally;

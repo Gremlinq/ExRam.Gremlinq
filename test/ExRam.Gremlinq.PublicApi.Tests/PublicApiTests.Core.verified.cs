@@ -1502,7 +1502,7 @@ namespace ExRam.Gremlinq.Core.Serialization
     }
     public sealed class GroovyGremlinQuery : ExRam.Gremlinq.Core.Serialization.ISerializedGremlinQuery
     {
-        public GroovyGremlinQuery(string queryId, string script, System.Collections.Generic.IReadOnlyDictionary<string, object> bindings) { }
+        public GroovyGremlinQuery(string id, string script, System.Collections.Generic.IReadOnlyDictionary<string, object> bindings) { }
         public System.Collections.Generic.IReadOnlyDictionary<string, object> Bindings { get; }
         public string Id { get; }
         public string Script { get; }
