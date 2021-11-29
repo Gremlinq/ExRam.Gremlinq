@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "V().fold().as('l1').V().hasLabel('Person').not(__.where(within('l1'))).count()",
+    "Script": "g.V().fold().as('l1').V().hasLabel('Person').not(__.where(within('l1'))).count()",
     "Id": "Scrubbed GUID",
     "Bindings": {}
   }

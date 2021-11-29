@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "V().hasLabel(_a).and().out()",
+    "Script": "g.V().hasLabel(_a).and().out()",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Person"

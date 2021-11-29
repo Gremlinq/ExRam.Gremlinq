@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "V().hasLabel('Person').values('Age').min()",
+    "Script": "g.V().hasLabel('Person').values('Age').min()",
     "Id": "Scrubbed GUID",
     "Bindings": {}
   }

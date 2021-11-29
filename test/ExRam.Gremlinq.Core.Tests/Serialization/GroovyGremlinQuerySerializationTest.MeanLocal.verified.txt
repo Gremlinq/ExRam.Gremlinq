@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "V().hasLabel(_a).values(_b).fold().mean(local)",
+    "Script": "g.V().hasLabel(_a).values(_b).fold().mean(local)",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Person",

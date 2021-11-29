@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "V().hasLabel('Company').properties('Locations').properties()",
+    "Script": "g.V().hasLabel('Company').properties('Locations').properties()",
     "Id": "Scrubbed GUID",
     "Bindings": {}
   }

@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "V().fold().fold().unfold().unfold()",
+    "Script": "g.V().fold().fold().unfold().unfold()",
     "Id": "Scrubbed GUID",
     "Bindings": {}
   }

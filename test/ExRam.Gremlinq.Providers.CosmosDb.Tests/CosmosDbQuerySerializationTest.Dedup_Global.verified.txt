@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "V().dedup()",
+    "Script": "g.V().dedup()",
     "Id": "Scrubbed GUID",
     "Bindings": {}
   }

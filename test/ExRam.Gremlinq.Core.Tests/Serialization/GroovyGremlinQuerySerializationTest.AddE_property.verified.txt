@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "addV(_a).property(single,_b,_c).addE(_d).property(_e,_f).to(__.addV(_g)).project(_h,_i,_j).by(id).by(label).by(__.valueMap())",
+    "Script": "g.addV(_a).property(single,_b,_c).addE(_d).property(_e,_f).to(__.addV(_g)).project(_h,_i,_j).by(id).by(label).by(__.valueMap())",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Person",

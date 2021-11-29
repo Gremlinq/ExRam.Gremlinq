@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "V().hasLabel(_a).aggregate(_b).cap(_b).unfold()",
+    "Script": "g.V().hasLabel(_a).aggregate(_b).cap(_b).unfold()",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Person",

@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "inject('hello').as('l1').V().hasLabel('Company').properties('Locations').properties().where(__.key().where(eq('l1')))",
+    "Script": "g.inject('hello').as('l1').V().hasLabel('Company').properties('Locations').properties().where(__.key().where(eq('l1')))",
     "Id": "Scrubbed GUID",
     "Bindings": {}
   }

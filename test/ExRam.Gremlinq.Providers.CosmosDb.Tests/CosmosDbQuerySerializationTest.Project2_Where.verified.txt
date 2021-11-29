@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "V().project(_a,_b).by(__.label()).by(__.fold()).where(__.select(_b).count(local).is(_c))",
+    "Script": "g.V().project(_a,_b).by(__.label()).by(__.fold()).where(__.select(_b).count(local).is(_c))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Item1",

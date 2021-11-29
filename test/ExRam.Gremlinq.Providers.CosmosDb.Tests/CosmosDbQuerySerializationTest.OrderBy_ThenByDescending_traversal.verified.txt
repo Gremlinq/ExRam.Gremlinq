@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "V().hasLabel(_a).has(_b).where(__.values(_c)).order().by(__.values(_b),incr).by(_c,decr)",
+    "Script": "g.V().hasLabel(_a).has(_b).where(__.values(_c)).order().by(__.values(_b),incr).by(_c,decr)",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Person",

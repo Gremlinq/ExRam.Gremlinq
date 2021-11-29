@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "V().limit(_a).range(local,_a,_b)",
+    "Script": "g.V().limit(_a).range(local,_a,_b)",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": 0,

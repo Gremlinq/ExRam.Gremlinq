@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "V().where(__.in()).where(__.out()).project('Item1','Item2','Item3').by(__.in()).by(__.out()).by(__.count()).project('Item1','Item2','Item3').by(__.select('Item1').project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.select('Item2').project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.select('Item3'))",
+    "Script": "g.V().where(__.in()).where(__.out()).project('Item1','Item2','Item3').by(__.in()).by(__.out()).by(__.count()).project('Item1','Item2','Item3').by(__.select('Item1').project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.select('Item2').project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.select('Item3'))",
     "Id": "Scrubbed GUID",
     "Bindings": {}
   }

@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "inject(_a).local(__.V().drop())",
+    "Script": "g.inject(_a).local(__.V().drop())",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": 1

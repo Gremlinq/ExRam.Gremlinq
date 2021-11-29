@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "V().id().choose(lt(_a),__.constant(_b),__.constant(_c))",
+    "Script": "g.V().id().choose(lt(_a),__.constant(_b),__.constant(_c))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": 42,

@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "addV(_a).property(_b,_b).property(single,_c,_d)",
+    "Script": "g.addV(_a).property(_b,_b).property(single,_c,_d)",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Language",

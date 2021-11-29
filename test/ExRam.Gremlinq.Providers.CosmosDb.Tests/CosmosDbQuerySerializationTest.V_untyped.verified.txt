@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "V()",
+    "Script": "g.V()",
     "Id": "Scrubbed GUID",
     "Bindings": {}
   }

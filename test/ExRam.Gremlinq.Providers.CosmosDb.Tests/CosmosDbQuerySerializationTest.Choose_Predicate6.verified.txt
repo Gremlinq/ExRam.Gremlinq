@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "V().id().choose(gt(_a).and(lt(_b)).or(neq(_c)),__.constant(_d),__.constant(_e))",
+    "Script": "g.V().id().choose(gt(_a).and(lt(_b)).or(neq(_c)),__.constant(_d),__.constant(_e))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": 0,

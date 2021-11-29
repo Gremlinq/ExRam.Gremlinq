@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "addV('Person').property(single,'Age',0).addE('LivesIn').property('Since',_f).to(__.addV('Country')).project('id','label','properties').by(id).by(label).by(__.valueMap())",
+    "Script": "g.addV('Person').property(single,'Age',0).addE('LivesIn').property('Since',_f).to(__.addV('Country')).project('id','label','properties').by(id).by(label).by(__.valueMap())",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_f": "2020-04-07T14:43:36+00:00"

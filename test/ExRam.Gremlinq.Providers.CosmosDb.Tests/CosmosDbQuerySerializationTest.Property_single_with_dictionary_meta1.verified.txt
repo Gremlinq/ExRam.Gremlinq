@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "V().hasLabel(_a).property(single,_b,_c,_d,_e)",
+    "Script": "g.V().hasLabel(_a).property(single,_b,_c,_d,_e)",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Country",

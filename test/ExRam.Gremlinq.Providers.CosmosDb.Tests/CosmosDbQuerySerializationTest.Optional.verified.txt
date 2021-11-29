@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "V().optional(__.out(_a))",
+    "Script": "g.V().optional(__.out(_a))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "WorksFor"

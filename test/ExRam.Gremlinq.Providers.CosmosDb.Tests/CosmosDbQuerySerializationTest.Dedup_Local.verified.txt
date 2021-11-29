@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "V().fold().dedup(local)",
+    "Script": "g.V().fold().dedup(local)",
     "Id": "Scrubbed GUID",
     "Bindings": {}
   }

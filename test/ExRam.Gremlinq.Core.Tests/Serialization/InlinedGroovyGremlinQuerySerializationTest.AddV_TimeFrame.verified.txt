@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "addV('TimeFrame').property(single,'Duration',_c).property(single,'Enabled',false).property(single,'StartTime',_g).project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold()))",
+    "Script": "g.addV('TimeFrame').property(single,'Duration',_c).property(single,'Enabled',false).property(single,'StartTime',_g).project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold()))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_c": "02:00:00",

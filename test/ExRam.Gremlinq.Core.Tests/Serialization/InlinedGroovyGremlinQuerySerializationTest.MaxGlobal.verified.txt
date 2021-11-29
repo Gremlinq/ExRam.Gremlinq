@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "V().hasLabel('Person').values('Age').max()",
+    "Script": "g.V().hasLabel('Person').values('Age').max()",
     "Id": "Scrubbed GUID",
     "Bindings": {}
   }

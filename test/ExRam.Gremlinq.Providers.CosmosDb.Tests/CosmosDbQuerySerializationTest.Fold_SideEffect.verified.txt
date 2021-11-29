@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "V().fold().sideEffect(__.identity()).unfold()",
+    "Script": "g.V().fold().sideEffect(__.identity()).unfold()",
     "Id": "Scrubbed GUID",
     "Bindings": {}
   }

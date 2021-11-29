@@ -15,6 +15,8 @@ namespace ExRam.Gremlinq.Core.Serialization
         {
             var builder = Builder.Value!;
 
+            builder.Append("g");
+
             try
             {
                 var bindings = new Dictionary<object, BindingKey>();
@@ -26,7 +28,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                     {
                         case Bytecode byteCode:
                         {
-                            if (builder.Length > 0)
+                            if (builder.Length > 1)
                                 builder.Append("__");
 
                             foreach (var instruction in byteCode.SourceInstructions)

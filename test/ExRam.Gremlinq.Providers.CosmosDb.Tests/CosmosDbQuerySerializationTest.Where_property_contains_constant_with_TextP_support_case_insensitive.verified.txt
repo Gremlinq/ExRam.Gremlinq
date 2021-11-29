@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "V().hasLabel(_a).has(_b,containing(_c))",
+    "Script": "g.V().hasLabel(_a).has(_b,containing(_c))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Country",

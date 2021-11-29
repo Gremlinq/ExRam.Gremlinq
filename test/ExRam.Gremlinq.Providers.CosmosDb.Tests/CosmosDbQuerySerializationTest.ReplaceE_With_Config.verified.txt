@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "E(_a).hasLabel(_b).sideEffect(__.properties(_c,_d,_e).drop()).property(_c,_f).property(_d,_g).property(_e,_f)",
+    "Script": "g.E(_a).hasLabel(_b).sideEffect(__.properties(_c,_d,_e).drop()).property(_c,_f).property(_d,_g).property(_e,_f)",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": 0,
