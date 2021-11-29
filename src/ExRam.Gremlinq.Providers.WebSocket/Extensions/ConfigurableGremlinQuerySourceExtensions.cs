@@ -82,7 +82,7 @@ namespace ExRam.Gremlinq.Core
                             .Build(Tokens.OpsBytecode)
                             .Processor(Tokens.ProcessorTraversal)
                             .AddArgument(Tokens.ArgsGremlin, bytecodeQuery.Bytecode)
-                            .AddArgument(Tokens.ArgsAliases, _aliasArgs)
+                            //.AddArgument(Tokens.ArgsAliases, _aliasArgs)
                             .OverrideRequestId(requestId)
                             .Create(),
                         _ => throw new ArgumentException($"Cannot handle serialized query of type {serializedQuery.GetType()}.")
