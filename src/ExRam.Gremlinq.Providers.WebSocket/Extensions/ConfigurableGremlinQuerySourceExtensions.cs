@@ -67,7 +67,8 @@ namespace ExRam.Gremlinq.Core
                     {
                         GroovyGremlinQuery groovyScript => RequestMessage
                             .Build(Tokens.OpsEval)
-                            .AddArgument(Tokens.ArgsGremlin, $"{_alias}.{groovyScript.Script}")
+                            .AddArgument(Tokens.ArgsGremlin, $"g.{groovyScript.Script}")
+                            .AddArgument(Tokens.ArgsAliases, _aliasArgs)
                             .AddArgument(Tokens.ArgsBindings, groovyScript.Bindings)
                             .Create(),
                         Bytecode bytecode => RequestMessage
