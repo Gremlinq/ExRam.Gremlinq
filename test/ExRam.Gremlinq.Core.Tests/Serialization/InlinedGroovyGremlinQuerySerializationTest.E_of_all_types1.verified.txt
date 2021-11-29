@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "E().project('id','label','properties').by(id).by(label).by(__.valueMap())",
+    "Script": "g.E().project('id','label','properties').by(id).by(label).by(__.valueMap())",
     "Id": "Scrubbed GUID",
     "Bindings": {}
   }

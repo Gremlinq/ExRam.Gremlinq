@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "V().properties().label()",
+    "Script": "g.V().properties().label()",
     "Id": "Scrubbed GUID",
     "Bindings": {}
   }

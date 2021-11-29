@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "V(0).hasLabel('Person').sideEffect(__.properties('Age','Gender','Name').drop()).property(single,'Age',21).property(single,'Gender',0).property(single,'Name','Marko').project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold()))",
+    "Script": "g.V(0).hasLabel('Person').sideEffect(__.properties('Age','Gender','Name').drop()).property(single,'Age',21).property(single,'Gender',0).property(single,'Name','Marko').project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold()))",
     "Id": "Scrubbed GUID",
     "Bindings": {}
   }

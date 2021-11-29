@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "V().out().out().cyclicPath()",
+    "Script": "g.V().out().out().cyclicPath()",
     "Id": "Scrubbed GUID",
     "Bindings": {}
   }

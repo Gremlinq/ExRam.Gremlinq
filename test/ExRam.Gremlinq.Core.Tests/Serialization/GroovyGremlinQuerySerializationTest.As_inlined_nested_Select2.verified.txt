@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "V().hasLabel(_a).as(_b).out().hasLabel(_a).as(_c).out().project(_d,_e).by(__.select(_b)).by(__.select(_c)).project(_d,_e).by(__.select(_d).project(_f,_g,_h).by(id).by(label).by(__.properties().group().by(label).by(__.project(_f,_g,_i,_h).by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.select(_e).project(_f,_g,_h).by(id).by(label).by(__.properties().group().by(label).by(__.project(_f,_g,_i,_h).by(id).by(label).by(value).by(__.valueMap()).fold())))",
+    "Script": "g.V().hasLabel(_a).as(_b).out().hasLabel(_a).as(_c).out().project(_d,_e).by(__.select(_b)).by(__.select(_c)).project(_d,_e).by(__.select(_d).project(_f,_g,_h).by(id).by(label).by(__.properties().group().by(label).by(__.project(_f,_g,_i,_h).by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.select(_e).project(_f,_g,_h).by(id).by(label).by(__.properties().group().by(label).by(__.project(_f,_g,_i,_h).by(id).by(label).by(value).by(__.valueMap()).fold())))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Person",

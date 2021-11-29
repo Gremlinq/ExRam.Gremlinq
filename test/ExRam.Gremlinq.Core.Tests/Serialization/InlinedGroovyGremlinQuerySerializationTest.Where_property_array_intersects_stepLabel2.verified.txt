@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "inject('+4912345').fold().as('l1').V().hasLabel('Company').has('PhoneNumbers',__.where(within('l1'))).project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold()))",
+    "Script": "g.inject('+4912345').fold().as('l1').V().hasLabel('Company').has('PhoneNumbers',__.where(within('l1'))).project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold()))",
     "Id": "Scrubbed GUID",
     "Bindings": {}
   }

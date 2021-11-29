@@ -74,7 +74,7 @@ namespace ExRam.Gremlinq.Core
                     {
                         GroovyGremlinQuery groovyScript => RequestMessage
                             .Build(Tokens.OpsEval)
-                            .AddArgument(Tokens.ArgsGremlin, $"g.{groovyScript.Script}")
+                            .AddArgument(Tokens.ArgsGremlin, groovyScript.Script)
                             .AddArgument(Tokens.ArgsAliases, _aliasArgs)
                             .AddArgument(Tokens.ArgsBindings, groovyScript.Bindings)
                             .OverrideRequestId(requestId)

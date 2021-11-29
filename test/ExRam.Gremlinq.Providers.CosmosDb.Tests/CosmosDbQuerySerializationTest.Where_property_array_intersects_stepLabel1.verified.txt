@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "inject(_a).fold().as(_b).V().hasLabel(_c).has(_d,__.where(within(_b)))",
+    "Script": "g.inject(_a).fold().as(_b).V().hasLabel(_c).has(_d,__.where(within(_b)))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "+4912345",

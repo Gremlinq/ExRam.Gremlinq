@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "V().not(__.hasLabel(_a))",
+    "Script": "g.V().not(__.hasLabel(_a))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Language"

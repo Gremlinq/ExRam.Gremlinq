@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "V().group().by(__.identity())",
+    "Script": "g.V().group().by(__.identity())",
     "Id": "Scrubbed GUID",
     "Bindings": {}
   }

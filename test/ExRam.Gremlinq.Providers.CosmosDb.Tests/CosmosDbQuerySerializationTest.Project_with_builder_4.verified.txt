@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "V().where(__.in()).where(__.out()).where(__.properties()).project(_a,_b,_c,_d).by(__.count()).by(__.in()).by(__.out()).by(__.properties())",
+    "Script": "g.V().where(__.in()).where(__.out()).where(__.properties()).project(_a,_b,_c,_d).by(__.count()).by(__.in()).by(__.out()).by(__.properties())",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "count!",

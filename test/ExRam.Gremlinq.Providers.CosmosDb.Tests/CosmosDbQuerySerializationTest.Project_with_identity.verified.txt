@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "V().where(__.properties()).project(_a,_b).by(__.identity()).by(__.properties())",
+    "Script": "g.V().where(__.properties()).project(_a,_b).by(__.identity()).by(__.properties())",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Item1",

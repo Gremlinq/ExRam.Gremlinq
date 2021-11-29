@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "E().hasLabel(_a)",
+    "Script": "g.E().hasLabel(_a)",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "WorksFor"

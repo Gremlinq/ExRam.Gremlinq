@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "V().hasLabel(_a).where(__.in()).where(__.out()).project(_b,_c,_d).by(__.in()).by(__.out()).by(_e).select(_b,_d).project(_b,_d).by(__.select(_b).project(_f,_g,_h).by(id).by(label).by(__.properties().group().by(label).by(__.project(_f,_g,_i,_h).by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.select(_d))",
+    "Script": "g.V().hasLabel(_a).where(__.in()).where(__.out()).project(_b,_c,_d).by(__.in()).by(__.out()).by(_e).select(_b,_d).project(_b,_d).by(__.select(_b).project(_f,_g,_h).by(id).by(label).by(__.properties().group().by(label).by(__.project(_f,_g,_i,_h).by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.select(_d))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Person",

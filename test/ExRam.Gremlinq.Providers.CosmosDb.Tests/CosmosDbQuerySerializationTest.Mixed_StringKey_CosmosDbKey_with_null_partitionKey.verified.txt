@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "V(_a,_b).hasLabel(_c)",
+    "Script": "g.V(_a,_b).hasLabel(_c)",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "id",

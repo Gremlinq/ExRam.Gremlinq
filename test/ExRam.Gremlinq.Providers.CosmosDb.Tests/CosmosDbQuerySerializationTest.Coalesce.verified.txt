@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "V().coalesce(__.out())",
+    "Script": "g.V().coalesce(__.out())",
     "Id": "Scrubbed GUID",
     "Bindings": {}
   }

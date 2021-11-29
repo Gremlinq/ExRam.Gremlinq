@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "addV(_a).property(_b,_b).property(single,_c,_d).addE(_e).to(__.addV(_f).property(_b,_b)).outV()",
+    "Script": "g.addV(_a).property(_b,_b).property(single,_c,_d).addE(_e).to(__.addV(_f).property(_b,_b)).outV()",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Person",

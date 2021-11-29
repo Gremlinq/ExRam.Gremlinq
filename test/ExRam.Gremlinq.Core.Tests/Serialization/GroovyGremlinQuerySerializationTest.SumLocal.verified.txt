@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "V().hasLabel(_a).values(_b).fold().sum(local)",
+    "Script": "g.V().hasLabel(_a).values(_b).fold().sum(local)",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Person",

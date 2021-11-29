@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "V().hasLabel('Person').values('Age').fold().min(local)",
+    "Script": "g.V().hasLabel('Person').values('Age').fold().min(local)",
     "Id": "Scrubbed GUID",
     "Bindings": {}
   }

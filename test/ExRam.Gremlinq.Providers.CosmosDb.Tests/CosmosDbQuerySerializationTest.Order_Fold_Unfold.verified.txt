@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "V().hasLabel(_a,_b,_c,_d,_e).order().by(id,incr).fold().unfold()",
+    "Script": "g.V().hasLabel(_a,_b,_c,_d,_e).order().by(id,incr).fold().unfold()",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Company",

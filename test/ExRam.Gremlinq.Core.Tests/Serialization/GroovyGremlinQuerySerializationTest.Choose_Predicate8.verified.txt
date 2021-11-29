@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "V().hasLabel(_a,_b,_c,_d,_e).choose(__.has(id,_f),__.constant(_g),__.constant(_h))",
+    "Script": "g.V().hasLabel(_a,_b,_c,_d,_e).choose(__.has(id,_f),__.constant(_g),__.constant(_h))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Company",

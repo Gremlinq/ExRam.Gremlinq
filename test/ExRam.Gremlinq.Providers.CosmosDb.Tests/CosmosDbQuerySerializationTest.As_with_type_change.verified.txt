@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "V().hasLabel(_a).as(_b).count().select(_b)",
+    "Script": "g.V().hasLabel(_a).as(_b).count().select(_b)",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Person",

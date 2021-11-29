@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "V().count()",
+    "Script": "g.V().count()",
     "Id": "Scrubbed GUID",
     "Bindings": {}
   }

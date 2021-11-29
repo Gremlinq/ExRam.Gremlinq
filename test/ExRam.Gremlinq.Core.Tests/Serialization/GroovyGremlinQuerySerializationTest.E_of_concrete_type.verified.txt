@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "E().hasLabel(_a).project(_b,_c,_d).by(id).by(label).by(__.valueMap())",
+    "Script": "g.E().hasLabel(_a).project(_b,_c,_d).by(id).by(label).by(__.valueMap())",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "WorksFor",

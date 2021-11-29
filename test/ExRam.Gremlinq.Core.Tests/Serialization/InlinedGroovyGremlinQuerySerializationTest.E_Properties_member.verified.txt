@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "E().hasLabel('LivesIn').properties('Since')",
+    "Script": "g.E().hasLabel('LivesIn').properties('Since')",
     "Id": "Scrubbed GUID",
     "Bindings": {}
   }

@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "V().hasLabel(_a).where(__.in()).where(__.out()).project(_b,_c,_d).by(__.in()).by(__.out()).by(_e).select(_b,_d)",
+    "Script": "g.V().hasLabel(_a).where(__.in()).where(__.out()).project(_b,_c,_d).by(__.in()).by(__.out()).by(_e).select(_b,_d)",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Person",

@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "withoutStrategies(SubgraphStrategy,ElementIdStrategy).V()",
+    "Script": "g.withoutStrategies(SubgraphStrategy,ElementIdStrategy).V()",
     "Id": "Scrubbed GUID",
     "Bindings": {}
   }

@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "V().hasLabel(_a).sideEffect(__.properties(_b,_c).drop()).property(single,_b,_d).property(single,_c,_e).outE(_f).sideEffect(__.properties(_g).drop()).property(_g,_e).project(_h,_i,_j).by(id).by(label).by(__.valueMap())",
+    "Script": "g.V().hasLabel(_a).sideEffect(__.properties(_b,_c).drop()).property(single,_b,_d).property(single,_c,_e).outE(_f).sideEffect(__.properties(_g).drop()).property(_g,_e).project(_h,_i,_j).by(id).by(label).by(__.valueMap())",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Person",

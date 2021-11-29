@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "addV(_a).property(_b,_b).property(single,_c,_d,_e,_f,_g,_h)",
+    "Script": "g.addV(_a).property(_b,_b).property(single,_c,_d,_e,_f,_g,_h)",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Country",

@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "V().hasLabel(_a).where(__.properties(_b).count().is(_c))",
+    "Script": "g.V().hasLabel(_a).where(__.properties(_b).count().is(_c))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Person",

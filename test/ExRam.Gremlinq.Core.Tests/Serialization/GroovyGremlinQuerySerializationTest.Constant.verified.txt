@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "V().constant(_a)",
+    "Script": "g.V().constant(_a)",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": 42

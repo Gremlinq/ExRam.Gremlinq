@@ -1,1 +1,1 @@
-﻿V().hasLabel('Person').has('Age',gt(36)).out('LivesIn').hasLabel('Country').project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold()))
+﻿g.V().hasLabel('Person').has('Age',gt(36)).out('LivesIn').hasLabel('Country').project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold()))
