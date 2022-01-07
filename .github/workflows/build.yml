@@ -196,6 +196,11 @@ jobs:
         --no-symbols true
         --skip-duplicate
 
+    - uses: actions/delete-package-versions@v2
+      with:
+        package-name: 'ExRam.Gremlinq.Core, ExRam.Gremlinq.Core.AspNet, ExRam.Gremlinq.Providers.WebSocket, ExRam.Gremlinq.Providers.WebSocket.AspNet, ExRam.Gremlinq.Providers.Core, ExRam.Gremlinq.Providers.Neptune.AspNet, ExRam.Gremlinq.Providers.Neptune, ExRam.Gremlinq.Providers.Core.AspNet, ExRam.Gremlinq.Providers.CosmosDb, ExRam.Gremlinq.Providers.CosmosDb.AspNet, ExRam.Gremlinq.Providers.GremlinServer.AspNet, ExRam.Gremlinq.Providers.GremlinServer, ExRam.Gremlinq.Providers.JanusGraph.AspNet, ExRam.Gremlinq.Providers.JanusGraph'
+        min-versions-to-keep: 10
+
   announce:
     needs: [ determinePublicationType, build, publish ]
     runs-on: ubuntu-latest
