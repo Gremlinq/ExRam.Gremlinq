@@ -73,7 +73,7 @@ namespace ExRam.Gremlinq.Core.Execution
 
         private sealed class LoggingGremlinQueryExecutor : IGremlinQueryExecutor
         {
-            private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, Action<object, string>> Loggers = new();
+            private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, Action<ISerializedGremlinQuery, string>> Loggers = new();
 
             private readonly IGremlinQueryExecutor _executor;
 
@@ -118,7 +118,7 @@ namespace ExRam.Gremlinq.Core.Execution
                 }
             }
 
-            private static Action<object, string> GetLoggingFunction(IGremlinQueryEnvironment environment)
+            private static Action<ISerializedGremlinQuery, string> GetLoggingFunction(IGremlinQueryEnvironment environment)
             {
                 var logLevel = environment.Options.GetValue(GremlinqOption.QueryLogLogLevel);
                 var verbosity = environment.Options.GetValue(GremlinqOption.QueryLogVerbosity);
@@ -129,14 +129,7 @@ namespace ExRam.Gremlinq.Core.Execution
                 {
                     if (environment.Logger.IsEnabled(logLevel))
                     {
-                        var gremlinQuery = serializedQuery switch
-                        {
-                            BytecodeGremlinQuery bytecodeGremlinQuery => bytecodeGremlinQuery.ToGroovy(groovyFormatting),
-                            GroovyGremlinQuery groovyGremlinQuery => groovyFormatting == GroovyFormatting.Inline
-                                ? groovyGremlinQuery.Inline()
-                                : groovyGremlinQuery,
-                            _ => throw new ArgumentException($"Cannot handle serialized query of type {serializedQuery.GetType()}.")
-                        };
+                        var groovyQuery = serializedQuery.ToGroovy();
 
                         environment.Logger.Log(
                             logLevel,
@@ -145,9 +138,9 @@ namespace ExRam.Gremlinq.Core.Execution
                                 new
                                 {
                                     RequestId = requestId,
-                                    gremlinQuery.Script,
+                                    groovyQuery.Script,
                                     Bindings = (verbosity & QueryLogVerbosity.IncludeBindings) > QueryLogVerbosity.QueryOnly
-                                        ? gremlinQuery.Bindings
+                                        ? groovyQuery.Bindings
                                         : null
                                 },
                                 formatting));
