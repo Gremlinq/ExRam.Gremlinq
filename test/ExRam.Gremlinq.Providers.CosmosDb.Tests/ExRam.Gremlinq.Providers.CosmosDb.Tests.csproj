@@ -3,7 +3,7 @@
   <ItemGroup>
     <None Remove="*.verified.json" />
     <None Remove="*.received.json" />
-    <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.21.0" />
+    <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.23.0" />
     <ProjectReference Include="..\..\src\ExRam.Gremlinq.Providers.CosmosDb.AspNet\ExRam.Gremlinq.Providers.CosmosDb.AspNet.csproj" />
     <ProjectReference Include="..\ExRam.Gremlinq.Providers.Tests\ExRam.Gremlinq.Providers.Tests.csproj" />
   </ItemGroup>
