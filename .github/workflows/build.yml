@@ -205,6 +205,7 @@ jobs:
     
     steps:
     - uses: actions/delete-package-versions@v2
+      continue-on-error: true
       with:
         package-name: ${{ matrix.name }}
         min-versions-to-keep: 10
