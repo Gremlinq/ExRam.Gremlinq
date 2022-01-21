@@ -1,0 +1,18 @@
+﻿[
+  {
+    "Id": "Scrubbed GUID",
+    "Bytecode": {
+      "SourceInstructions": [],
+      "StepInstructions": [
+        {
+          "OperatorName": "V",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "fail",
+          "Arguments": []
+        }
+      ]
+    }
+  }
+]

@@ -353,6 +353,7 @@
         string Debug(ExRam.Gremlinq.Core.Serialization.GroovyFormatting groovyFormatting = 1, bool indented = false);
         ExRam.Gremlinq.Core.IValueGremlinQuery<object> Drop();
         ExRam.Gremlinq.Core.IValueGremlinQuery<string> Explain();
+        ExRam.Gremlinq.Core.IValueGremlinQuery<object> Fail(string? message = null);
         System.Runtime.CompilerServices.TaskAwaiter GetAwaiter();
         ExRam.Gremlinq.Core.IGremlinQuery<object> Lower();
         ExRam.Gremlinq.Core.IValueGremlinQuery<ExRam.Gremlinq.Core.GraphElements.Path> Path();
@@ -1681,6 +1682,11 @@ namespace ExRam.Gremlinq.Core.Steps
     {
         public static readonly ExRam.Gremlinq.Core.Steps.ExplainStep Instance;
         public ExplainStep() { }
+    }
+    public sealed class FailStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public FailStep(string? message = null) { }
+        public string? Message { get; }
     }
     public sealed class FilterStep : ExRam.Gremlinq.Core.Steps.Step
     {
