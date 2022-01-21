@@ -616,7 +616,11 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<object, object, object, object, object, object> Drop() => AddStepWithObjectTypes<object>(DropStep.Instance, _ => Projection.Empty);
 
-        private GremlinQuery<object, object, object, object, object, object> Fail(string? message = null) => AddStepWithObjectTypes<object>(new FailStep(message), _ => Projection.Empty);
+        private GremlinQuery<object, object, object, object, object, object> Fail(string? message = null) => AddStepWithObjectTypes<object>(
+            message is { } actualMessage
+                ? new FailStep(message)
+                : FailStep.NoMessage,
+            _ => Projection.Empty);
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> DropProperties(string key)
         {

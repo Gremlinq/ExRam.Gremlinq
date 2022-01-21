@@ -2,6 +2,8 @@
 {
     public sealed class FailStep : Step
     {
+        public static readonly FailStep NoMessage = new ();
+
         public FailStep(string? message = null)
         {
             Message = message;

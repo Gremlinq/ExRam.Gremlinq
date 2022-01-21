@@ -1685,6 +1685,7 @@ namespace ExRam.Gremlinq.Core.Steps
     }
     public sealed class FailStep : ExRam.Gremlinq.Core.Steps.Step
     {
+        public static readonly ExRam.Gremlinq.Core.Steps.FailStep NoMessage;
         public FailStep(string? message = null) { }
         public string? Message { get; }
     }
