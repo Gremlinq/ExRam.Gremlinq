@@ -25,6 +25,8 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<string> Explain();
 
+        IValueGremlinQuery<object> Fail(string? message = null);
+
         IGremlinQuery<object> Lower();
 
         IValueGremlinQuery<Path> Path();

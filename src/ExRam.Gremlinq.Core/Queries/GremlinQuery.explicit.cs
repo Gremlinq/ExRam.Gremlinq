@@ -247,6 +247,8 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<object> IGremlinQueryBase.Drop() => Drop();
 
+        IValueGremlinQuery<object> IGremlinQueryBase.Fail(string? message) => Fail(message);
+
         IGremlinQuery<TElement> IGremlinQueryBaseRec<IGremlinQuery<TElement>>.Mute() => Mute();
 
         TTargetQuery IGremlinQueryAdmin.ConfigureSteps<TTargetQuery>(Func<StepStack, StepStack> transformation, Func<Projection, Projection>? projectionTransformation) => ConfigureSteps<TElement>(transformation, projectionTransformation).ChangeQueryType<TTargetQuery>();
@@ -460,6 +462,5 @@ namespace ExRam.Gremlinq.Core
         IValueTupleGremlinQuery<TElement> IGremlinQueryBaseRec<IValueTupleGremlinQuery<TElement>>.Mute() => Mute();
 
         IValueGremlinQuery<TTargetValue> IValueTupleGremlinQueryBase<TElement>.Select<TTargetValue>(Expression<Func<TElement, TTargetValue>> projection) => Select<IValueGremlinQuery<TTargetValue>>(projection);
-
     }
 }
