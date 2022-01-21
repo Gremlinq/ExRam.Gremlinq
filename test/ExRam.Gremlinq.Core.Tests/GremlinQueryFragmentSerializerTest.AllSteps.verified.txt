@@ -318,6 +318,15 @@
     }
   },
   {
+    Item1: FailStep,
+    Item2: {
+      OperatorName: fail,
+      Arguments: [
+        string
+      ]
+    }
+  },
+  {
     Item1: FilterStep,
     Item2: {
       OperatorName: filter,

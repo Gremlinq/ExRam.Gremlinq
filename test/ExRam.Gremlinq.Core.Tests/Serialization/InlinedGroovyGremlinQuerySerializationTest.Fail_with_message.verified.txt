@@ -1,0 +1,7 @@
+﻿[
+  {
+    "Script": "g.V().fail('There's been an error.')",
+    "Id": "Scrubbed GUID",
+    "Bindings": {}
+  }
+]
