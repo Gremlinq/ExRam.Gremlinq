@@ -21,7 +21,6 @@ namespace ExRam.Gremlinq.Core.Tests
             }
         }
 
-
         protected QuerySerializationTest(Fixture fixture, ITestOutputHelper testOutputHelper, [CallerFilePath] string callerFilePath = "") : base(
             fixture,
             testOutputHelper,
@@ -84,7 +83,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Fail()
                 .Verify();
         }
-
 
         [Fact]  //TODO: As soon as this is supported by an actual db-system, make this an execution test.
         public async Task Fail_with_message()
