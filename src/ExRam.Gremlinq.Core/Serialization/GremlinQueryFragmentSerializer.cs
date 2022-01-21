@@ -171,6 +171,9 @@ namespace ExRam.Gremlinq.Core.Serialization
                 .Override<EmitStep>((step, env, overridden, recurse) => CreateInstruction("emit"))
                 .Override<EStep>((step, env, overridden, recurse) => CreateInstruction("E", recurse, env, step.Ids))
                 .Override<ExplainStep>((step, env, overridden, recurse) => CreateInstruction("explain"))
+                .Override<FailStep>((step, env, overridden, recurse) => step.Message is { } message
+                    ? CreateInstruction("fail", recurse, env, message)
+                    : CreateInstruction("fail"))
                 .Override<FoldStep>((step, env, overridden, recurse) => CreateInstruction("fold"))
                 .Override<FilterStep>((step, env, overridden, recurse) => CreateInstruction("filter", recurse, env, step.Lambda))
                 .Override<FlatMapStep>((step, env, overridden, recurse) => CreateInstruction("flatMap", recurse, env, step.Traversal))
