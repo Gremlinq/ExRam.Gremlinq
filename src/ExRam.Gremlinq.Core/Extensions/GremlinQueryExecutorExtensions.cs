@@ -149,6 +149,59 @@ namespace ExRam.Gremlinq.Core.Execution
             }
         }
 
+        private sealed class TransformExecutionExceptionGremlinQueryExecutor : IGremlinQueryExecutor
+        {
+            private readonly IGremlinQueryExecutor _baseExecutor;
+            private readonly Func<Exception, Exception> _exceptionTransformation;
+
+            public TransformExecutionExceptionGremlinQueryExecutor(IGremlinQueryExecutor baseExecutor, Func<Exception, Exception> exceptionTransformation)
+            {
+                _baseExecutor = baseExecutor;
+                _exceptionTransformation = exceptionTransformation;
+            }
+
+            public IAsyncEnumerable<object> Execute(ISerializedGremlinQuery serializedQuery, IGremlinQueryEnvironment environment)
+            {
+                return AsyncEnumerable.Create(Core);
+
+                async IAsyncEnumerator<object> Core(CancellationToken ct)
+                {
+                    IAsyncEnumerator<object> enumerator;
+
+                    try
+                    {
+                        enumerator = _baseExecutor
+                            .Execute(serializedQuery, environment)
+                            .GetAsyncEnumerator(ct);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw _exceptionTransformation(ex);
+                    }
+
+                    await using (enumerator)
+                    {
+                        while (true)
+                        {
+                            try
+                            {
+                                if (!await enumerator.MoveNextAsync())
+                                    yield break;
+                            }
+                            catch (Exception ex)
+                            {
+                                throw _exceptionTransformation(ex);
+                            }
+
+                            yield return enumerator.Current;
+                        }
+                    }
+                }
+            }
+        }
+
+        public static IGremlinQueryExecutor TransformExecutionException(this IGremlinQueryExecutor executor, Func<Exception, Exception> exceptionTransformation) => new TransformExecutionExceptionGremlinQueryExecutor(executor, exceptionTransformation);
+
         public static IGremlinQueryExecutor RetryWithExponentialBackoff(this IGremlinQueryExecutor executor, Func<int, ResponseException, bool> shouldRetry) => new ExponentialBackoffExecutor(executor, shouldRetry);
 
         public static IGremlinQueryExecutor Log(this IGremlinQueryExecutor executor) => new LoggingGremlinQueryExecutor(executor);
