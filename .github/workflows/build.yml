@@ -16,16 +16,16 @@ jobs:
     runs-on: ubuntu-latest
     
     outputs:
-      publishToNuget: $ {{ github.event_name == 'push' && steps.version-regex.outputs.match != '' }}
+      publishToNuget: ${{ github.event_name == 'push' && steps.version-regex.outputs.match != '' }}
       publishToGithubPackages: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
       
     steps:
       - name: Determine type of publication
-        uses: actions-ecosystem/action-regex-match@v2
+        uses: actions-ecosystem/action-regex-match@v2.0.2
         id: version-regex
         with:
           text: ${{ github.ref }}
-          regex: '^refs/heads/\d+\.\*$'
+          regex: '^refs/heads/\d+\.x$'
 
   build:
     runs-on: ubuntu-latest
