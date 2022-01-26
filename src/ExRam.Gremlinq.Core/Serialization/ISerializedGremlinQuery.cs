@@ -3,5 +3,7 @@
     public interface ISerializedGremlinQuery
     {
         string Id { get; }
+
+        ISerializedGremlinQuery WithNewId();
     }
 }

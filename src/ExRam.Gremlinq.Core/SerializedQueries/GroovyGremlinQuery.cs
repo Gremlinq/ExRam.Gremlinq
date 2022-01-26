@@ -13,8 +13,17 @@ namespace ExRam.Gremlinq.Core.Serialization
         private readonly bool _isInlined;
         private readonly bool _createdInternally;
 
+        public GroovyGremlinQuery(string script, IReadOnlyDictionary<string, object> bindings) : this(script, bindings, false, false)
+        {
+        }
+
         public GroovyGremlinQuery(string id, string script, IReadOnlyDictionary<string, object> bindings) : this(id, script, bindings, false, false)
         {
+        }
+
+        internal GroovyGremlinQuery(string script, IReadOnlyDictionary<string, object> bindings, bool createdInternally, bool isInlined) : this(Guid.NewGuid().ToString(), script, bindings, createdInternally, isInlined)
+        {
+
         }
 
         internal GroovyGremlinQuery(string id, string script, IReadOnlyDictionary<string, object> bindings, bool createdInternally, bool isInlined)
@@ -27,6 +36,8 @@ namespace ExRam.Gremlinq.Core.Serialization
         }
 
         public override string ToString() => Script;
+
+        public ISerializedGremlinQuery WithNewId() => new GroovyGremlinQuery(Script, Bindings, _createdInternally, _isInlined);
 
         public GroovyGremlinQuery Inline()
         {
