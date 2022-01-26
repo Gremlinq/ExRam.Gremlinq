@@ -60,6 +60,10 @@ namespace ExRam.Gremlinq.Core.Execution
                                     //requests fail roughly at the same time
                                     await Task.Delay((_rnd ??= new Random((int)(DateTime.Now.Ticks & int.MaxValue) ^ Thread.CurrentThread.ManagedThreadId)).Next(i + 2) * 16, ct);
 
+                                    var newSerializedQuery = serializedQuery.WithNewId();
+                                    environment.Logger.LogInformation($"Retrying serialized query {serializedQuery.Id} with new {nameof(ISerializedGremlinQuery.Id)} {newSerializedQuery.Id}.");
+                                    serializedQuery = newSerializedQuery;
+
                                     break;
                                 }
 
