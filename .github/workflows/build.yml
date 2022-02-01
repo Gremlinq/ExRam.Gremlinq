@@ -217,7 +217,7 @@ jobs:
 
     steps:
     - name: Draft release
-      uses: release-drafter/release-drafter@8c2bf2805c06897c03e7f5034b424598defb09fb
+      uses: release-drafter/release-drafter@v5.17.6
       with:
         name: ExRam.Gremlinq ${{ needs.build.outputs.semVer2 }}
         prerelease: ${{ needs.build.outputs.isPreviewRelease }}
