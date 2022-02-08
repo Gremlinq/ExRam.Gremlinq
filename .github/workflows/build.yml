@@ -42,11 +42,6 @@ jobs:
         fetch-depth: 0
         submodules: 'true'
 
-    - name: Setup .NET Core ${{ env.DotNetVersion }}
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: ${{ env.DotNetVersion }}
-
     - name: Install dotnet-validate
       run: dotnet tool install -g dotnet-validate --version 0.0.1-preview.280
 
@@ -87,11 +82,6 @@ jobs:
         fetch-depth: 0
         submodules: 'true'
 
-    - name: Setup .NET Core ${{ env.DotNetVersion }}
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: ${{ env.DotNetVersion }}
-
     - name: Test
       run: dotnet test  --configuration Release --verbosity normal -p:RunGremlinServerIntegrationTests=${{ env.IsForkedRepository == 'false' }} -p:RunJanusGraphIntegrationTests=${{ env.IsForkedRepository == 'false' }}
 
@@ -116,11 +106,6 @@ jobs:
       uses: southpolesteve/cosmos-emulator-github-action@v1
       env:
         AZURE_COSMOS_EMULATOR_GREMLIN_ENDPOINT: true
-
-    - name: Setup .NET Core ${{ env.DotNetVersion }}
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: ${{ env.DotNetVersion }}
 
     - name: Test
       if: ${{ false }}
@@ -172,10 +157,6 @@ jobs:
     if: ${{ needs.determinePublicationType.outputs.publishToNuget == 'true' || needs.determinePublicationType.outputs.publishToGithubPackages == 'true' }}
 
     steps:
-    - name: Setup .NET Core ${{ env.DotNetVersion }}
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: ${{ env.DotNetVersion }}
 
     - uses: actions/download-artifact@v2
       with:
