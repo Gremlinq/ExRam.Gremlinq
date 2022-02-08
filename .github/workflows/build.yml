@@ -104,7 +104,6 @@ jobs:
 
   test-windows:
     runs-on: windows-2022
-    if: ${{ false }}
 
     steps:
     - name: Checkout
@@ -124,6 +123,7 @@ jobs:
         dotnet-version: ${{ env.DotNetVersion }}
 
     - name: Test
+      if: ${{ false }}
       run: dotnet test  --configuration Release --verbosity normal -p:RunCosmosDbEmulatorIntegrationTests=${{ env.IsForkedRepository == 'false' }}
 
     - name: Copy *.received-files to artifacts
