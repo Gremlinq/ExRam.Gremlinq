@@ -104,6 +104,7 @@ jobs:
 
   test-windows:
     runs-on: windows-2022
+    if: ${{ false }}
 
     steps:
     - name: Checkout
