@@ -13,7 +13,6 @@ namespace ExRam.Gremlinq.Core
     {
         TaskAwaiter GetAwaiter();
 
-        IGremlinQueryAdmin AsAdmin();
         IGremlinQuery<TResult> Cast<TResult>();
         IValueGremlinQuery<long> Count();
         IValueGremlinQuery<long> CountLocal();

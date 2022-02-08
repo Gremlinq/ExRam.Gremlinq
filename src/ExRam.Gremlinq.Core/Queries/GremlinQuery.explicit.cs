@@ -185,7 +185,7 @@ namespace ExRam.Gremlinq.Core
 
         IElementGremlinQuery<TElement> IGremlinQueryBaseRec<IElementGremlinQuery<TElement>>.Mute() => Mute();
 
-        IGremlinQueryAdmin IGremlinQueryBase.AsAdmin() => this;
+        IGremlinQueryAdmin IStartGremlinQuery.AsAdmin() => this;
 
         IValueGremlinQuery<TValue> IGremlinQueryBase.Constant<TValue>(TValue constant) => AddStepWithObjectTypes<TValue>(new ConstantStep(constant!), _ => Projection.Value);
         
