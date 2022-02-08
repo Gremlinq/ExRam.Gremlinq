@@ -413,7 +413,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                     if (byteCode.StepInstructions.Count == 0)
                         Add(IdentityStep.Instance);
 
-                    return byteCode;
+                    return recurse.Serialize(byteCode, env);
                 })
                 .Override<SumStep>((step, env, overridden, recurse) => step.Scope.Equals(Scope.Local)
                     ? CreateInstruction("sum", recurse, env, step.Scope)
