@@ -1,3 +1,3 @@
 ﻿[
-  "g.addV(_a).property(single,_b,_c).property(single,_d,_e).project(_f,_g,_h).by(id).by(label).by(__.properties().group().by(label).by(__.project(_f,_g,_i,_h).by(id).by(label).by(value).by(__.valueMap()).fold()))"
+  "g.addV('Item').property(single,'PartitionKey','MyKey').property(single,'Value','MyValue').project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold()))"
 ]
