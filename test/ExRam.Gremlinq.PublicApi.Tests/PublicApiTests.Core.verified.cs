@@ -759,12 +759,14 @@
         ExRam.Gremlinq.Core.IGremlinQueryAdmin AsAdmin();
         ExRam.Gremlinq.Core.IEdgeGremlinQuery<object> E(object id);
         ExRam.Gremlinq.Core.IEdgeGremlinQuery<object> E(params object[] ids);
+        ExRam.Gremlinq.Core.IEdgeGremlinQuery<TEdge> E<TEdge>(object id);
         ExRam.Gremlinq.Core.IEdgeGremlinQuery<TEdge> E<TEdge>(params object[] ids);
         ExRam.Gremlinq.Core.IValueGremlinQuery<TElement> Inject<TElement>(params TElement[] elements);
         ExRam.Gremlinq.Core.IEdgeGremlinQuery<TNewEdge> ReplaceE<TNewEdge>(TNewEdge edge);
         ExRam.Gremlinq.Core.IVertexGremlinQuery<TNewVertex> ReplaceV<TNewVertex>(TNewVertex vertex);
         ExRam.Gremlinq.Core.IVertexGremlinQuery<object> V(object id);
         ExRam.Gremlinq.Core.IVertexGremlinQuery<object> V(params object[] ids);
+        ExRam.Gremlinq.Core.IVertexGremlinQuery<TVertex> V<TVertex>(object id);
         ExRam.Gremlinq.Core.IVertexGremlinQuery<TVertex> V<TVertex>(params object[] ids);
     }
     public interface IValueGremlinQueryBase : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IStartGremlinQuery
