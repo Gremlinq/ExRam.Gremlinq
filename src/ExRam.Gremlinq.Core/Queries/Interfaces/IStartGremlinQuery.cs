@@ -10,6 +10,7 @@
 
         IGremlinQueryAdmin AsAdmin();
 
+        IVertexGremlinQuery<object> V(object id);
         IVertexGremlinQuery<object> V(params object[] ids);
         IVertexGremlinQuery<TVertex> V<TVertex>(params object[] ids);
 

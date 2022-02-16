@@ -280,6 +280,8 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<TNewElement> IStartGremlinQuery.Inject<TNewElement>(params TNewElement[] elements) => Inject(elements);
 
+        IVertexGremlinQuery<object> IStartGremlinQuery.V(object id) => AddStepWithObjectTypes<object>(new VStep(ImmutableArray.Create(id)), _ => Projection.Vertex);
+
         IVertexGremlinQuery<object> IStartGremlinQuery.V(params object[] ids) => AddStepWithObjectTypes<object>(new VStep(ids.ToImmutableArray()), _ => Projection.Vertex);
 
         IVertexGremlinQuery<TNewVertex> IStartGremlinQuery.ReplaceV<TNewVertex>(TNewVertex vertex) => ((IStartGremlinQuery)this).V<TNewVertex>(vertex!.GetId(Environment)).Update(vertex);
