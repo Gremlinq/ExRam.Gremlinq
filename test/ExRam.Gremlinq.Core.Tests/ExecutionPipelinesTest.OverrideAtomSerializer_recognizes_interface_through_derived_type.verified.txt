@@ -1,7 +1,7 @@
 ﻿[
   {
     "Script": "g.V(_a).hasLabel(_b).project(_c,_d,_e).by(id).by(label).by(__.properties().group().by(label).by(__.project(_c,_d,_f,_e).by(id).by(label).by(value).by(__.valueMap()).fold()))",
-    "Id": "8eebd3a3-c06a-4178-821a-3d2ea36bb7c4",
+    "Id": "e805e608-55f5-492c-8300-070dfa346bc3",
     "Bindings": {
       "_a": "someId",
       "_b": "Person",

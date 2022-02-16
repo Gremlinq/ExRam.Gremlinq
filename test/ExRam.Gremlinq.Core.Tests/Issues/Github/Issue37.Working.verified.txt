@@ -1,7 +1,7 @@
 ﻿[
   {
     "Script": "g.addV(_a).property(single,_b,_c).property(single,_d,_e).project(_f,_g,_h).by(id).by(label).by(__.properties().group().by(label).by(__.project(_f,_g,_i,_h).by(id).by(label).by(value).by(__.valueMap()).fold()))",
-    "Id": "074ce0a2-c7e1-464a-9c39-42ec9a7ce24f",
+    "Id": "50dd434b-3de0-4d8f-82cd-b55d6e373a5d",
     "Bindings": {
       "_a": "Item",
       "_b": "PartitionKey",
