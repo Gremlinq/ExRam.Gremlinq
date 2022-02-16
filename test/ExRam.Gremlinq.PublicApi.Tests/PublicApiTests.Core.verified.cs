@@ -762,6 +762,7 @@
         ExRam.Gremlinq.Core.IGremlinQueryAdmin AsAdmin();
         ExRam.Gremlinq.Core.IValueGremlinQuery<TElement> Inject<TElement>(params TElement[] elements);
         ExRam.Gremlinq.Core.IVertexGremlinQuery<TNewVertex> ReplaceV<TNewVertex>(TNewVertex vertex);
+        ExRam.Gremlinq.Core.IVertexGremlinQuery<object> V(object id);
         ExRam.Gremlinq.Core.IVertexGremlinQuery<object> V(params object[] ids);
         ExRam.Gremlinq.Core.IVertexGremlinQuery<TVertex> V<TVertex>(params object[] ids);
     }
