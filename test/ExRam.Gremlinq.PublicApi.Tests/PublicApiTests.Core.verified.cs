@@ -757,6 +757,7 @@
             where TVertex : new();
         ExRam.Gremlinq.Core.IVertexGremlinQuery<TVertex> AddV<TVertex>(TVertex vertex);
         ExRam.Gremlinq.Core.IGremlinQueryAdmin AsAdmin();
+        ExRam.Gremlinq.Core.IEdgeGremlinQuery<object> E(object id);
         ExRam.Gremlinq.Core.IEdgeGremlinQuery<object> E(params object[] ids);
         ExRam.Gremlinq.Core.IEdgeGremlinQuery<TEdge> E<TEdge>(params object[] ids);
         ExRam.Gremlinq.Core.IValueGremlinQuery<TElement> Inject<TElement>(params TElement[] elements);

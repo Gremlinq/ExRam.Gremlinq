@@ -10,6 +10,7 @@
 
         IGremlinQueryAdmin AsAdmin();
 
+        IEdgeGremlinQuery<object> E(object id);
         IEdgeGremlinQuery<object> E(params object[] ids);
         IEdgeGremlinQuery<TEdge> E<TEdge>(params object[] ids);
 

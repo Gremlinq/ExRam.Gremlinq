@@ -294,6 +294,8 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQueryEnvironment IGremlinQuerySource.Environment => Environment;
 
+        IEdgeGremlinQuery<object> IStartGremlinQuery.E(object id) => AddStepWithObjectTypes<object>(new EStep(ImmutableArray.Create(id)), _ => Projection.Edge);
+
         IEdgeGremlinQuery<object> IStartGremlinQuery.E(params object[] ids) => AddStepWithObjectTypes<object>(new EStep(ids.ToImmutableArray()), _ => Projection.Edge);
 
         IEdgeGremlinQuery<TEdge> IStartGremlinQuery.E<TEdge>(params object[] ids) => ((IGremlinQuerySource)this).E(ids).OfType<TEdge>();
