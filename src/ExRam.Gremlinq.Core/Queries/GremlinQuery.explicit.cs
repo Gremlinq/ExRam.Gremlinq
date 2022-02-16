@@ -290,6 +290,8 @@ namespace ExRam.Gremlinq.Core
 
         IVertexGremlinQuery<TVertex> IStartGremlinQuery.AddV<TVertex>() => AddV(new TVertex());
 
+        IVertexGremlinQuery<TVertex> IStartGremlinQuery.V<TVertex>(object id) => ((IStartGremlinQuery)this).V(id).OfType<TVertex>();
+
         IVertexGremlinQuery<TVertex> IStartGremlinQuery.V<TVertex>(params object[] ids) => ((IStartGremlinQuery)this).V(ids).OfType<TVertex>();
 
         IGremlinQueryEnvironment IGremlinQuerySource.Environment => Environment;
@@ -297,6 +299,8 @@ namespace ExRam.Gremlinq.Core
         IEdgeGremlinQuery<object> IStartGremlinQuery.E(object id) => AddStepWithObjectTypes<object>(new EStep(ImmutableArray.Create(id)), _ => Projection.Edge);
 
         IEdgeGremlinQuery<object> IStartGremlinQuery.E(params object[] ids) => AddStepWithObjectTypes<object>(new EStep(ids.ToImmutableArray()), _ => Projection.Edge);
+
+        IEdgeGremlinQuery<TEdge> IStartGremlinQuery.E<TEdge>(object id) => ((IGremlinQuerySource)this).E(id).OfType<TEdge>();
 
         IEdgeGremlinQuery<TEdge> IStartGremlinQuery.E<TEdge>(params object[] ids) => ((IGremlinQuerySource)this).E(ids).OfType<TEdge>();
 
