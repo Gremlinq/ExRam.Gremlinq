@@ -46,7 +46,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .UseModel(GraphModel.FromBaseTypes<VertexBase, Edge>())
                     .EchoGroovyGremlinQuery())
                 .AddV(new Item { Value = "MyValue" })
-                .Cast<string>()
+                .Cast<object>()
                 .Verify();
         }
 
@@ -58,7 +58,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .UseModel(GraphModel.FromBaseTypes<VertexBase, Edge>())
                     .EchoGroovyGremlinQuery())
                 .AddV(new ItemOverride { Value = "MyValue" })
-                .Cast<string>()
+                .Cast<object>()
                 .Verify();
         }
     }

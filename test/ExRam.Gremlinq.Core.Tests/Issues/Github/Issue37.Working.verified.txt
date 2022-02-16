@@ -1,3 +1,17 @@
 ﻿[
-  "g.addV(_a).property(single,_b,_c).property(single,_d,_e).project(_f,_g,_h).by(id).by(label).by(__.properties().group().by(label).by(__.project(_f,_g,_i,_h).by(id).by(label).by(value).by(__.valueMap()).fold()))"
+  {
+    "Script": "g.addV(_a).property(single,_b,_c).property(single,_d,_e).project(_f,_g,_h).by(id).by(label).by(__.properties().group().by(label).by(__.project(_f,_g,_i,_h).by(id).by(label).by(value).by(__.valueMap()).fold()))",
+    "Id": "074ce0a2-c7e1-464a-9c39-42ec9a7ce24f",
+    "Bindings": {
+      "_a": "Item",
+      "_b": "PartitionKey",
+      "_c": "MyKey",
+      "_d": "Value",
+      "_e": "MyValue",
+      "_f": "id",
+      "_g": "label",
+      "_h": "properties",
+      "_i": "value"
+    }
+  }
 ]

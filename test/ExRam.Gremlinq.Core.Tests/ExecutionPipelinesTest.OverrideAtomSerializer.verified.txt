@@ -1,3 +1,14 @@
 ﻿[
-  "g.V(_a).hasLabel(_b).project(_c,_d,_e).by(id).by(label).by(__.properties().group().by(label).by(__.project(_c,_d,_f,_e).by(id).by(label).by(value).by(__.valueMap()).fold()))"
+  {
+    "Script": "g.V(_a).hasLabel(_b).project(_c,_d,_e).by(id).by(label).by(__.properties().group().by(label).by(__.project(_c,_d,_f,_e).by(id).by(label).by(value).by(__.valueMap()).fold()))",
+    "Id": "bb1f016c-bf44-42c5-85e1-fc791f89cbbd",
+    "Bindings": {
+      "_a": "someId",
+      "_b": "Person",
+      "_c": "id",
+      "_d": "label",
+      "_e": "properties",
+      "_f": "value"
+    }
+  }
 ]

@@ -42,7 +42,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .EchoGroovyGremlinQuery())
                 .V<Person>()
                 .Where(x => x.Age == 36)
-                .Cast<string>()
+                .Cast<object>()
                 .Verify();
         }
 
@@ -75,7 +75,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .ConfigureFragmentSerializer(fragmentSerializer => fragmentSerializer
                             .Override<FancyId>((key, env, overridden, recurse) => recurse.Serialize(key.Id, env)))))
                 .V<Person>(new FancyId { Id = "someId" })
-                .Cast<string>()
+                .Cast<object>()
                 .Verify();
         }
 
@@ -92,7 +92,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .ConfigureFragmentSerializer(fragmentSerializer => fragmentSerializer
                             .Override<FancyId>((key, env, overridden, recurse) => recurse.Serialize(key.Id, env)))))
                 .V<Person>(new EvenMoreFancyId { Id = "someId" })
-                .Cast<string>()
+                .Cast<object>()
                 .Verify();
         }
 
@@ -109,7 +109,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .ConfigureFragmentSerializer(fragmentSerializer => fragmentSerializer
                             .Override<IFancyId>((key, env, overridden, recurse) => recurse.Serialize(key.Id, env)))))
                 .V<Person>(new FancyId { Id = "someId" })
-                .Cast<string>()
+                .Cast<object>()
                 .Verify();
         }
 
@@ -126,7 +126,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .ConfigureFragmentSerializer(fragmentSerializer => fragmentSerializer
                             .Override<IFancyId>((key, env, overridden, recurse) => recurse.Serialize(key.Id, env)))))
                 .V<Person>(new FancyId { Id = "someId" })
-                .Cast<string>()
+                .Cast<object>()
                 .Verify();
         }
     }

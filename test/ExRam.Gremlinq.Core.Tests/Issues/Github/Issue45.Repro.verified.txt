@@ -1,3 +1,7 @@
 ﻿[
-  "g.V().drop()"
+  {
+    "Script": "g.V().drop()",
+    "Id": "c57d3dd4-d80b-4368-86bd-22c2c7086dc0",
+    "Bindings": {}
+  }
 ]

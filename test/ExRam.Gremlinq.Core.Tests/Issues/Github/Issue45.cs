@@ -20,7 +20,6 @@ namespace ExRam.Gremlinq.Core.Tests
                     .EchoGroovyGremlinQuery())
                 .V()
                 .Drop()
-                .Cast<string>()
                 .Verify();
         }
     }
