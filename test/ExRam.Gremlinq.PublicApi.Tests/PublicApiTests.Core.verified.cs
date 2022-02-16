@@ -516,9 +516,6 @@
     public interface IGremlinQuerySource : ExRam.Gremlinq.Core.IConfigurableGremlinQuerySource, ExRam.Gremlinq.Core.IStartGremlinQuery
     {
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment Environment { get; }
-        ExRam.Gremlinq.Core.IEdgeGremlinQuery<object> E(params object[] ids);
-        ExRam.Gremlinq.Core.IEdgeGremlinQuery<TEdge> E<TEdge>(params object[] ids);
-        ExRam.Gremlinq.Core.IEdgeGremlinQuery<TNewEdge> ReplaceE<TNewEdge>(TNewEdge edge);
         ExRam.Gremlinq.Core.IGremlinQuerySource WithSideEffect<TSideEffect>(ExRam.Gremlinq.Core.StepLabel<TSideEffect> label, TSideEffect value);
         TQuery WithSideEffect<TSideEffect, TQuery>(TSideEffect value, System.Func<ExRam.Gremlinq.Core.IGremlinQuerySource, ExRam.Gremlinq.Core.StepLabel<TSideEffect>, TQuery> continuation)
             where TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
@@ -760,7 +757,10 @@
             where TVertex : new();
         ExRam.Gremlinq.Core.IVertexGremlinQuery<TVertex> AddV<TVertex>(TVertex vertex);
         ExRam.Gremlinq.Core.IGremlinQueryAdmin AsAdmin();
+        ExRam.Gremlinq.Core.IEdgeGremlinQuery<object> E(params object[] ids);
+        ExRam.Gremlinq.Core.IEdgeGremlinQuery<TEdge> E<TEdge>(params object[] ids);
         ExRam.Gremlinq.Core.IValueGremlinQuery<TElement> Inject<TElement>(params TElement[] elements);
+        ExRam.Gremlinq.Core.IEdgeGremlinQuery<TNewEdge> ReplaceE<TNewEdge>(TNewEdge edge);
         ExRam.Gremlinq.Core.IVertexGremlinQuery<TNewVertex> ReplaceV<TNewVertex>(TNewVertex vertex);
         ExRam.Gremlinq.Core.IVertexGremlinQuery<object> V(object id);
         ExRam.Gremlinq.Core.IVertexGremlinQuery<object> V(params object[] ids);
