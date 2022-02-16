@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using ExRam.Gremlinq.Core.Serialization;
 using Xunit;
 using Xunit.Abstractions;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
@@ -17,7 +18,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await g
                 .ConfigureEnvironment(env => env
-                    .EchoGroovyGremlinQuery())
+                    .EchoGroovyGremlinQuery(GroovyFormatting.Inline))
                 .V()
                 .Drop()
                 .Cast<string>()
