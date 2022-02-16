@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Core.Models;
+using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Tests.Entities;
 using FluentAssertions;
 using Xunit;
@@ -38,7 +39,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .UseModel(GraphModel
                         .FromBaseTypes<Vertex, Edge>(lookup => lookup
                             .IncludeAssembliesOfBaseTypes()))
-                    .EchoGroovyString())
+                    .EchoGroovyGremlinQuery())
                 .V<Person>()
                 .Where(x => x.Age == 36)
                 .Cast<string>()
@@ -53,7 +54,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .UseModel(GraphModel
                         .FromBaseTypes<Vertex, Edge>(lookup => lookup
                             .IncludeAssembliesOfBaseTypes()))
-                    .EchoGroovyString())
+                    .EchoGroovyGremlinQuery())
                 .V<Person>()
                 .Awaiting(_ => _
                     .ToArrayAsync())
@@ -69,7 +70,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .UseModel(GraphModel
                         .FromBaseTypes<Vertex, Edge>(lookup => lookup
                             .IncludeAssembliesOfBaseTypes()))
-                    .EchoGroovyString()
+                    .EchoGroovyGremlinQuery()
                     .ConfigureSerializer(_ => _
                         .ConfigureFragmentSerializer(fragmentSerializer => fragmentSerializer
                             .Override<FancyId>((key, env, overridden, recurse) => recurse.Serialize(key.Id, env)))))
@@ -86,7 +87,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .UseModel(GraphModel
                         .FromBaseTypes<Vertex, Edge>(lookup => lookup
                             .IncludeAssembliesOfBaseTypes()))
-                    .EchoGroovyString()
+                    .EchoGroovyGremlinQuery()
                     .ConfigureSerializer(_ => _
                         .ConfigureFragmentSerializer(fragmentSerializer => fragmentSerializer
                             .Override<FancyId>((key, env, overridden, recurse) => recurse.Serialize(key.Id, env)))))
@@ -103,7 +104,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .UseModel(GraphModel
                         .FromBaseTypes<Vertex, Edge>(lookup => lookup
                             .IncludeAssembliesOfBaseTypes()))
-                    .EchoGroovyString()
+                    .EchoGroovyGremlinQuery()
                     .ConfigureSerializer(_ => _
                         .ConfigureFragmentSerializer(fragmentSerializer => fragmentSerializer
                             .Override<IFancyId>((key, env, overridden, recurse) => recurse.Serialize(key.Id, env)))))
@@ -120,7 +121,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .UseModel(GraphModel
                         .FromBaseTypes<Vertex, Edge>(lookup => lookup
                             .IncludeAssembliesOfBaseTypes()))
-                    .EchoGroovyString()
+                    .EchoGroovyGremlinQuery()
                     .ConfigureSerializer(_ => _
                         .ConfigureFragmentSerializer(fragmentSerializer => fragmentSerializer
                             .Override<IFancyId>((key, env, overridden, recurse) => recurse.Serialize(key.Id, env)))))

@@ -44,7 +44,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await g
                 .ConfigureEnvironment(env => env
                     .UseModel(GraphModel.FromBaseTypes<VertexBase, Edge>())
-                    .EchoGroovyString())
+                    .EchoGroovyGremlinQuery())
                 .AddV(new Item { Value = "MyValue" })
                 .Cast<string>()
                 .Verify();
@@ -56,7 +56,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await g
                 .ConfigureEnvironment(env => env
                     .UseModel(GraphModel.FromBaseTypes<VertexBase, Edge>())
-                    .EchoGroovyString())
+                    .EchoGroovyGremlinQuery())
                 .AddV(new ItemOverride { Value = "MyValue" })
                 .Cast<string>()
                 .Verify();
