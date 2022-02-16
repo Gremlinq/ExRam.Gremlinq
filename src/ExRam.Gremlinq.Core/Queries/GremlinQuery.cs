@@ -1066,6 +1066,10 @@ namespace ExRam.Gremlinq.Core
                 .ChangeQueryType<TReturnQuery>();
         }
 
+        private GremlinQuery<object, object, object, object, object, object> V(ImmutableArray<object> ids) => AddStepWithObjectTypes<object>(new VStep(ids), _ => Projection.Vertex);
+
+        private GremlinQuery<object, object, object, object, object, object> E(ImmutableArray<object> ids) => AddStepWithObjectTypes<object>(new EStep(ids), _ => Projection.Edge);
+
         private IValueGremlinQuery<TNewPropertyValue> Value<TNewPropertyValue>() => AddStepWithObjectTypes<TNewPropertyValue>(ValueStep.Instance, _ => Projection.Value);
 
         private GremlinQuery<TNewElement, object, object, object, object, object> ValueMap<TNewElement>(ImmutableArray<string> keys) => AddStepWithObjectTypes<TNewElement>(new ValueMapStep(keys), _ => Projection.Value);

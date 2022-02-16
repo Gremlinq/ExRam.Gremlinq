@@ -280,15 +280,15 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<TNewElement> IStartGremlinQuery.Inject<TNewElement>(params TNewElement[] elements) => Inject(elements);
 
-        IVertexGremlinQuery<object> IStartGremlinQuery.V(object id) => AddStepWithObjectTypes<object>(new VStep(ImmutableArray.Create(id)), _ => Projection.Vertex);
-
-        IVertexGremlinQuery<object> IStartGremlinQuery.V(params object[] ids) => AddStepWithObjectTypes<object>(new VStep(ids.ToImmutableArray()), _ => Projection.Vertex);
-
         IVertexGremlinQuery<TNewVertex> IStartGremlinQuery.ReplaceV<TNewVertex>(TNewVertex vertex) => ((IStartGremlinQuery)this).V<TNewVertex>(vertex!.GetId(Environment)).Update(vertex);
 
         IEdgeGremlinQuery<TEdge> IStartGremlinQuery.AddE<TEdge>() => AddE(new TEdge());
 
         IVertexGremlinQuery<TVertex> IStartGremlinQuery.AddV<TVertex>() => AddV(new TVertex());
+
+        IVertexGremlinQuery<object> IStartGremlinQuery.V(object id) => V(ImmutableArray.Create(id));
+
+        IVertexGremlinQuery<object> IStartGremlinQuery.V(params object[] ids) => V(ids.ToImmutableArray());
 
         IVertexGremlinQuery<TVertex> IStartGremlinQuery.V<TVertex>(object id) => ((IStartGremlinQuery)this).V(id).OfType<TVertex>();
 
@@ -296,9 +296,9 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQueryEnvironment IGremlinQuerySource.Environment => Environment;
 
-        IEdgeGremlinQuery<object> IStartGremlinQuery.E(object id) => AddStepWithObjectTypes<object>(new EStep(ImmutableArray.Create(id)), _ => Projection.Edge);
+        IEdgeGremlinQuery<object> IStartGremlinQuery.E(object id) => E(ImmutableArray.Create(id));
 
-        IEdgeGremlinQuery<object> IStartGremlinQuery.E(params object[] ids) => AddStepWithObjectTypes<object>(new EStep(ids.ToImmutableArray()), _ => Projection.Edge);
+        IEdgeGremlinQuery<object> IStartGremlinQuery.E(params object[] ids) => E(ids.ToImmutableArray());
 
         IEdgeGremlinQuery<TEdge> IStartGremlinQuery.E<TEdge>(object id) => ((IGremlinQuerySource)this).E(id).OfType<TEdge>();
 
