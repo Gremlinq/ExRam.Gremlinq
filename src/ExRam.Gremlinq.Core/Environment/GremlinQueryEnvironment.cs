@@ -98,7 +98,7 @@ namespace ExRam.Gremlinq.Core
                         .ToGraphsonString()));
         }
 
-        public static IGremlinQueryEnvironment EchoGroovyString(this IGremlinQueryEnvironment environment)
+        public static IGremlinQueryEnvironment EchoGroovyGremlinQuery(this IGremlinQueryEnvironment environment)
         {
             return environment
                 .ConfigureSerializer(serializer => serializer.ToGroovy())

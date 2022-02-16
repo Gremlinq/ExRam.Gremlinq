@@ -17,7 +17,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await g
                 .ConfigureEnvironment(env => env
-                    .EchoGroovyString())
+                    .EchoGroovyGremlinQuery())
                 .V()
                 .Drop()
                 .Cast<string>()
