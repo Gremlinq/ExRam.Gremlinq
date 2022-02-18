@@ -54,20 +54,9 @@ namespace ExRam.Gremlinq.Core
         {
         }
 
+        public TElement Value => ThrowConversion();
+
         public static implicit operator StepLabel<TElement>(string str) => new(str);
-
-        public static bool operator ==(TElement? a, StepLabel<TElement>? b) => ThrowEquality();
-
-        public static bool operator !=(TElement? a, StepLabel<TElement>? b) => ThrowEquality();
-
-        public static bool operator ==(StepLabel<TElement>? b, TElement? a) => ThrowEquality();
-
-        public static bool operator !=(StepLabel<TElement>? b, TElement? a) => ThrowEquality();
-
-        public TElement Value
-        {
-            get => ThrowConversion();
-        }
 
         private static bool ThrowEquality() => throw new NotImplementedException($"The equality/inequality operators on {nameof(StepLabel)} are not intended to be called. Their use is to appear in expressions only.");
 
