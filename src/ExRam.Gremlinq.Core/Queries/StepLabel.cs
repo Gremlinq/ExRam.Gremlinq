@@ -99,7 +99,7 @@ namespace ExRam.Gremlinq.Core
         }
 #endif
 
-       public static implicit operator StepLabel<TQuery, TElement>(string str) => new(str);
+        public static implicit operator StepLabel<TQuery, TElement>(string str) => new(str);
     }
 }
 #pragma warning restore 660, 661
