@@ -98,6 +98,8 @@ namespace ExRam.Gremlinq.Core
             return new(Identity);
         }
 #endif
+
+       public static implicit operator StepLabel<TQuery, TElement>(string str) => new(str);
     }
 }
 #pragma warning restore 660, 661

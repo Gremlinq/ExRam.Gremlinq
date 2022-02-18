@@ -4815,7 +4815,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Inject("+4912345")
                 .As((__, t) => __
                     .V<Company>()
-                    .Where(c => c.PhoneNumbers!.Contains(t)))
+                    .Where(c => c.PhoneNumbers!.Contains(t.Value)))
                 .Verify();
         }
 
