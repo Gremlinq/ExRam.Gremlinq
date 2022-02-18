@@ -957,6 +957,7 @@
         public StepLabel() { }
         [System.Runtime.CompilerServices.PreserveBaseOverrides]
         public virtual ExRam.Gremlinq.Core.StepLabel<ExRam.Gremlinq.Core.IValueGremlinQuery<TNewValue>, TNewValue> Cast<TNewValue>() { }
+        public static ExRam.Gremlinq.Core.StepLabel<TQuery, TElement> op_Implicit(string str) { }
     }
     public readonly struct StepStack : System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Steps.Step>, System.Collections.Generic.IReadOnlyCollection<ExRam.Gremlinq.Core.Steps.Step>, System.Collections.Generic.IReadOnlyList<ExRam.Gremlinq.Core.Steps.Step>, System.Collections.IEnumerable
     {
