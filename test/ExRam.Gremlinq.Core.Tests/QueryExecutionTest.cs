@@ -5178,7 +5178,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Values(x => x.Age)
                 .As((__, a) => __
                     .V<Person>()
-                    .Where(l2 => l2.Age >= a))
+                    .Where(l2 => l2.Age >= a.Value))
                 .Verify();
         }
 
@@ -5231,7 +5231,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Values(x => x.Age)
                 .As((__, a) => __
                     .V<Person>()
-                    .Where(l2 => l2.Age <= a))
+                    .Where(l2 => l2.Age <= a.Value))
                 .Verify();
         }
 
@@ -5243,7 +5243,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Values(x => x.Age)
                 .As((__, a) => __
                     .V<Person>()
-                    .Where(l2 => l2.Age < a))
+                    .Where(l2 => l2.Age < a.Value))
                 .Verify();
         }
 
