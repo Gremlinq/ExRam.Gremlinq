@@ -20,7 +20,7 @@ namespace ExRam.Gremlinq.Core.Tests
             var stepLabel = new StepLabel<object>();
             var castStepLabel = stepLabel.Cast<string>();
 
-            ((StepLabel)stepLabel == castStepLabel).Should().BeTrue();
+            (stepLabel == castStepLabel).Should().BeTrue();
         }
 
         [Fact]
