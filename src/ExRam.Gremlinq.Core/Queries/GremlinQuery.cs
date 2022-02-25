@@ -894,7 +894,7 @@ namespace ExRam.Gremlinq.Core
                         byStep = byKeyStep.ToByTraversalStep();
 
                     if (byStep is ProjectStep.ByTraversalStep byTraversalStep)
-                        byStep = new ProjectStep.ByTraversalStep(new Traversal(byTraversalStep.Traversal.Append(IdentityStep.Instance).Append(FoldStep.Instance), byTraversalStep.Traversal.Projection));
+                        byStep = new ProjectStep.ByTraversalStep(new Traversal(byTraversalStep.Traversal.Append(FoldStep.Instance), byTraversalStep.Traversal.Projection));
                 }
 
                 ret = ret.AddStep(byStep);
