@@ -905,13 +905,16 @@ namespace ExRam.Gremlinq.Core
                 ret = ret
                     .AddSteps(new Step[]
                     {
-                        UnfoldStep.Instance,
-                        GroupStep.Instance,
-                        new GroupStep.ByTraversalStep(new SelectColumnStep(Column.Keys)),
-                        new GroupStep.ByTraversalStep(new Step[]
+                        new MapStep(new Step[]
                         {
-                            new SelectColumnStep(Column.Values),
-                            UnfoldStep.Instance
+                            UnfoldStep.Instance,
+                            GroupStep.Instance,
+                            new GroupStep.ByTraversalStep(new SelectColumnStep(Column.Keys)),
+                            new GroupStep.ByTraversalStep(new Step[]
+                            {
+                                new SelectColumnStep(Column.Values),
+                                UnfoldStep.Instance
+                            })
                         })
                     },
                     _ => _);
