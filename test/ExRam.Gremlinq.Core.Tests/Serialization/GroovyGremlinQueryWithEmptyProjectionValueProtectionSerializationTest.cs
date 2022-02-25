@@ -12,7 +12,7 @@ namespace ExRam.Gremlinq.Core.Tests
             public Fixture() : base(g
                 .ConfigureEnvironment(_ => _
                     .UseSerializer(GremlinQuerySerializer.Default.ToGroovy())
-                    .ConfigureOptions(o => o/*.SetValue(GremlinqOption.EnableEmptyProjectionValueProtection, true)*/)))
+                    .ConfigureOptions(o => o.SetValue(GremlinqOption.EnableEmptyProjectionValueProtection, true))))
             {
             }
         }
