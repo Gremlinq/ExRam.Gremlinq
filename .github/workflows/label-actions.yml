@@ -3,12 +3,14 @@ name: 'Label Actions'
 on:
   issues:
     types: [labeled]
+  discussions:
+    types: [labeled]
 
 permissions:
   contents: read
   issues: write
   pull-requests: read
-  discussions: read
+  discussions: write
 
 jobs:
   action:
