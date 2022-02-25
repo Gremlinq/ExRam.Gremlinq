@@ -1,0 +1,15 @@
+﻿[
+  {
+    "Script": "g.inject(_a).as(_b).V().hasLabel(_c).properties(_d).where(__.label().where(eq(_b))).project(_e,_a,_f,_g).by(id).by(label).by(value).by(__.valueMap())",
+    "Id": "Scrubbed GUID",
+    "Bindings": {
+      "_a": "label",
+      "_b": "l1",
+      "_c": "Country",
+      "_d": "Languages",
+      "_e": "id",
+      "_f": "value",
+      "_g": "properties"
+    }
+  }
+]

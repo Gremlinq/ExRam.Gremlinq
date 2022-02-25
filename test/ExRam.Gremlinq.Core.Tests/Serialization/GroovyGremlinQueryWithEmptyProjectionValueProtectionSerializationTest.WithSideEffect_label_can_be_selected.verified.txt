@@ -1,0 +1,10 @@
+﻿[
+  {
+    "Script": "g.withSideEffect(_a,_b).V().select(_a)",
+    "Id": "Scrubbed GUID",
+    "Bindings": {
+      "_a": "l1",
+      "_b": 36
+    }
+  }
+]

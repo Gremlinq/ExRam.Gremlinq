@@ -1,0 +1,14 @@
+﻿[
+  {
+    "Script": "g.V().limit(_a).tail(local,_b).project(_c,_d,_e).by(id).by(label).by(__.properties().group().by(label).by(__.project(_c,_d,_f,_e).by(id).by(label).by(value).by(__.valueMap()).fold()))",
+    "Id": "Scrubbed GUID",
+    "Bindings": {
+      "_a": 2,
+      "_b": 0,
+      "_c": "id",
+      "_d": "label",
+      "_e": "properties",
+      "_f": "value"
+    }
+  }
+]

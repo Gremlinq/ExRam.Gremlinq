@@ -1,0 +1,16 @@
+﻿[
+  {
+    "Script": "g.inject(_a).as(_b).V().hasLabel(_c).property(single,_d,__.select(_b)).project(_e,_f,_g).by(id).by(label).by(__.properties().group().by(label).by(__.project(_e,_f,_h,_g).by(id).by(label).by(value).by(__.valueMap()).fold()))",
+    "Id": "Scrubbed GUID",
+    "Bindings": {
+      "_a": 36,
+      "_b": "l1",
+      "_c": "Person",
+      "_d": "Age",
+      "_e": "id",
+      "_f": "label",
+      "_g": "properties",
+      "_h": "value"
+    }
+  }
+]
