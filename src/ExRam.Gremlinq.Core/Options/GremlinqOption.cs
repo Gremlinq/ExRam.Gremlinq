@@ -94,6 +94,8 @@ namespace ExRam.Gremlinq.Core
             }
             .ToImmutableDictionary());
 
+        public static readonly GremlinqOption<bool> EnableEmptyProjectionValueProtection = new (false);
+
         public static readonly GremlinqOption<FilterLabelsVerbosity> FilterLabelsVerbosity = new(Core.FilterLabelsVerbosity.Maximum);
         public static readonly GremlinqOption<DisabledTextPredicates> DisabledTextPredicates = new(Core.DisabledTextPredicates.None);
         public static readonly GremlinqOption<StringComparisonTranslationStrictness> StringComparisonTranslationStrictness = new(Core.StringComparisonTranslationStrictness.Strict);

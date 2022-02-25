@@ -1,4 +1,6 @@
-﻿using System.Collections.Immutable;
+﻿using System;
+using System.Collections.Immutable;
+using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core.Steps
 {
@@ -27,6 +29,20 @@ namespace ExRam.Gremlinq.Core.Steps
             {
                 Key = key;
             }
+
+            public ByTraversalStep ToByTraversalStep() => new ByTraversalStep(Key.RawKey switch
+            {
+                T t => t.EnumValue switch
+                {
+                    "id" => (Step)IdStep.Instance,
+                    "label" => LabelStep.Instance,
+                    "key" => KeyStep.Instance,
+                    "value" => ValueStep.Instance,
+                    _ => throw new NotImplementedException(),
+                },
+                string key => new ValuesStep(ImmutableArray.Create(key)),
+                _ => throw new NotImplementedException(),
+            });
 
             public Key Key { get; }
         }

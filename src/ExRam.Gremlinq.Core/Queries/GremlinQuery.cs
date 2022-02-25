@@ -863,6 +863,9 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TResult, object, object, object, object, object> Project<TResult>(Func<IProjectBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement>, IProjectResult> continuation)
         {
+            var enableEmptyProjectionValueProtection = Environment.Options
+                .GetValue(GremlinqOption.EnableEmptyProjectionValueProtection);
+
             var projectionsPairs = continuation(new ProjectBuilder<TElement, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(this))
                 .Projections
                 .OrderBy(x => x.Key)
@@ -883,7 +886,35 @@ namespace ExRam.Gremlinq.Core
 
             foreach (var projectionsPair in projectionsPairs)
             {
-                ret = ret.AddStep(projectionsPair.Value);
+                var byStep = projectionsPair.Value;
+
+                if (enableEmptyProjectionValueProtection)
+                {
+                    if (byStep is ProjectStep.ByKeyStep byKeyStep)
+                        byStep = byKeyStep.ToByTraversalStep();
+
+                    if (byStep is ProjectStep.ByTraversalStep byTraversalStep)
+                        byStep = new ProjectStep.ByTraversalStep(new Traversal(byTraversalStep.Traversal.Append(FoldStep.Instance), byTraversalStep.Traversal.Projection));
+                }
+
+                ret = ret.AddStep(byStep);
+            }
+
+            if (enableEmptyProjectionValueProtection)
+            {
+                ret = ret
+                    .AddSteps(new Step[]
+                    {
+                        UnfoldStep.Instance,
+                        GroupStep.Instance,
+                        new GroupStep.ByTraversalStep(new SelectColumnStep(Column.Keys)),
+                        new GroupStep.ByTraversalStep(new Step[]
+                        {
+                            new SelectColumnStep(Column.Values),
+                            UnfoldStep.Instance
+                        })
+                    },
+                    _ => _);
             }
 
             return ret;

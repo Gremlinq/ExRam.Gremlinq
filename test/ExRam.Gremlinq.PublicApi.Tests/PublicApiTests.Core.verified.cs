@@ -144,6 +144,7 @@
     {
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.DisabledTextPredicates> DisabledTextPredicates;
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.Traversal> EdgeProjectionSteps;
+        public static readonly ExRam.Gremlinq.Core.GremlinqOption<bool> EnableEmptyProjectionValueProtection;
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.FilterLabelsVerbosity> FilterLabelsVerbosity;
         public static ExRam.Gremlinq.Core.GremlinqOption<Newtonsoft.Json.Formatting> QueryLogFormatting;
         public static ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.Serialization.GroovyFormatting> QueryLogGroovyFormatting;
@@ -1963,6 +1964,7 @@ namespace ExRam.Gremlinq.Core.Steps
         {
             public ByKeyStep(ExRam.Gremlinq.Core.Key key) { }
             public ExRam.Gremlinq.Core.Key Key { get; }
+            public ExRam.Gremlinq.Core.Steps.ProjectStep.ByTraversalStep ToByTraversalStep() { }
         }
         public abstract class ByStep : ExRam.Gremlinq.Core.Steps.Step
         {
