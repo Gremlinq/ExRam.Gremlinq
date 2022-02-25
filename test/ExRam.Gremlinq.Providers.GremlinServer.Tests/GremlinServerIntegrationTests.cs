@@ -1,4 +1,4 @@
-﻿#if RELEASE && RUNGREMLINSERVERINTEGRATIONTESTS
+﻿#if RUNGREMLINSERVERINTEGRATIONTESTS
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Providers.WebSocket;

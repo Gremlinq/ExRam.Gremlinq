@@ -1,4 +1,4 @@
-﻿#if RELEASE && RUNJANUSGRAPHINTEGRATIONTESTS
+﻿#if RUNJANUSGRAPHINTEGRATIONTESTS
 using System;
 using System.Collections.Immutable;
 using System.Linq;

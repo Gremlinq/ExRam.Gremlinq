@@ -1,4 +1,4 @@
-﻿#if RELEASE && RUNCOSMOSDBEMULATORINTEGRATIONTESTS
+﻿#if RUNCOSMOSDBEMULATORINTEGRATIONTESTS
 using System;
 using System.Collections.Immutable;
 using System.Text.RegularExpressions;
