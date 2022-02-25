@@ -1,0 +1,21 @@
+﻿[
+  {
+    "Script": "g.V().hasLabel(_a).has(_b,within(_c,_d,_e,_f,_g,_h,_i)).project(_j,_k,_l).by(id).by(label).by(__.properties().group().by(label).by(__.project(_j,_k,_m,_l).by(id).by(label).by(value).by(__.valueMap()).fold()))",
+    "Id": "Scrubbed GUID",
+    "Bindings": {
+      "_a": "Country",
+      "_b": "CountryCallingCode",
+      "_c": "",
+      "_d": "+",
+      "_e": "+4",
+      "_f": "+49",
+      "_g": "+491",
+      "_h": "+4912",
+      "_i": "+49123",
+      "_j": "id",
+      "_k": "label",
+      "_l": "properties",
+      "_m": "value"
+    }
+  }
+]

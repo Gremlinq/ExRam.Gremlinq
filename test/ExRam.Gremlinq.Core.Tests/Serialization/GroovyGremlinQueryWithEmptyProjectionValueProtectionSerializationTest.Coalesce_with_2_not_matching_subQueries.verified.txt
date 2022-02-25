@@ -1,0 +1,7 @@
+﻿[
+  {
+    "Script": "g.V().coalesce(__.outE(),__.in())",
+    "Id": "Scrubbed GUID",
+    "Bindings": {}
+  }
+]

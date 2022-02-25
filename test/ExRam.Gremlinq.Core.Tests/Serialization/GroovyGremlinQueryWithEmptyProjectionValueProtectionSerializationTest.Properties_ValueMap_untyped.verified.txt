@@ -1,0 +1,7 @@
+﻿[
+  {
+    "Script": "g.V().properties().valueMap()",
+    "Id": "Scrubbed GUID",
+    "Bindings": {}
+  }
+]

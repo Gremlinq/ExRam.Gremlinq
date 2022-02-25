@@ -1,0 +1,12 @@
+﻿[
+  {
+    "Script": "g.V().fold().sideEffect(__.identity()).unfold().project(_a,_b,_c).by(id).by(label).by(__.properties().group().by(label).by(__.project(_a,_b,_d,_c).by(id).by(label).by(value).by(__.valueMap()).fold()))",
+    "Id": "Scrubbed GUID",
+    "Bindings": {
+      "_a": "id",
+      "_b": "label",
+      "_c": "properties",
+      "_d": "value"
+    }
+  }
+]
