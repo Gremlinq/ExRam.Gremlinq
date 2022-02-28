@@ -5,7 +5,7 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public sealed class GroovyGremlinQueryWithEmptyProjectionValueProtectionSerializationTest : QuerySerializationTest, IClassFixture<GroovyGremlinQueryWithEmptyProjectionValueProtectionSerializationTest.Fixture>
+    public sealed class GremlinQueryWithEmptyProjectionValueProtectionSerializationTest : QuerySerializationTest, IClassFixture<GremlinQueryWithEmptyProjectionValueProtectionSerializationTest.Fixture>
     {
         public new sealed class Fixture : QuerySerializationTest.Fixture
         {
@@ -17,7 +17,7 @@ namespace ExRam.Gremlinq.Core.Tests
             }
         }
 
-        public GroovyGremlinQueryWithEmptyProjectionValueProtectionSerializationTest(Fixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public GremlinQueryWithEmptyProjectionValueProtectionSerializationTest(Fixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
             testOutputHelper)
         {
