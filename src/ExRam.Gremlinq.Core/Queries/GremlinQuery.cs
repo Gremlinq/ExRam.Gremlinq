@@ -247,6 +247,21 @@ namespace ExRam.Gremlinq.Core
             public IImmutableDictionary<string, ProjectStep.ByStep> Projections { get; }
         }
 
+        private static readonly Step[] EmptyProjectionProtectionDecoratorSteps = new []
+        {
+            new MapStep(new Step[]
+            {
+                UnfoldStep.Instance,
+                GroupStep.Instance,
+                new GroupStep.ByTraversalStep(new SelectColumnStep(Column.Keys)),
+                new GroupStep.ByTraversalStep(new Step[]
+                {
+                    new SelectColumnStep(Column.Values),
+                    UnfoldStep.Instance
+                })
+            })
+        };
+
         public GremlinQuery(
             StepStack steps,
             Projection projection,
@@ -902,21 +917,7 @@ namespace ExRam.Gremlinq.Core
             if (enableEmptyProjectionValueProtection)
             {
                 ret = ret
-                    .AddSteps(new Step[]
-                    {
-                        new MapStep(new Step[]
-                        {
-                            UnfoldStep.Instance,
-                            GroupStep.Instance,
-                            new GroupStep.ByTraversalStep(new SelectColumnStep(Column.Keys)),
-                            new GroupStep.ByTraversalStep(new Step[]
-                            {
-                                new SelectColumnStep(Column.Values),
-                                UnfoldStep.Instance
-                            })
-                        })
-                    },
-                    _ => _);
+                    .AddSteps(EmptyProjectionProtectionDecoratorSteps, _ => _);
             }
 
             return ret;
