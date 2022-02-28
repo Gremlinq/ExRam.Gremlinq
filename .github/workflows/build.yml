@@ -167,7 +167,7 @@ jobs:
       run: dotnet nuget push **/ExRam.*.nupkg
         --source https://nuget.pkg.github.com/exram/index.json
         --api-key ${{ secrets.GITHUB_TOKEN }}
-        --no-symbols true
+        --no-symbols
         --skip-duplicate
 
     - name: Push NuGet packages to NuGet.org
@@ -175,7 +175,7 @@ jobs:
       run: dotnet nuget push **/ExRam.*.nupkg
         --source https://api.nuget.org/v3/index.json
         --api-key ${{ secrets.NUGET_DEPLOY_KEY }}
-        --no-symbols true
+        --no-symbols
         --skip-duplicate
 
   cleanup:
