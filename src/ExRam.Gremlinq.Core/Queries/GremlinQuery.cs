@@ -725,13 +725,17 @@ namespace ExRam.Gremlinq.Core
                             throw new ExpressionNotSupportedException($"Can't find an appropriate Gremlin step for {t}.");
 
                         hasYielded = true;
+
                         break;
                     }
                     case string str:
                     {
                         (stringKeys ??= new List<string>()).Add(str);
+
                         break;
                     }
+                    default:
+                        throw new ExpressionNotSupportedException($"Can't find an appropriate Gremlin step for {key.RawKey}.");
                 }
             }
 
