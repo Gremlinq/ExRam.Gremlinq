@@ -910,7 +910,7 @@ namespace ExRam.Gremlinq.Core
                     var byTraversalStep = byStep
                         .ToByTraversalStep();
 
-                    byStep = new ProjectStep.ByTraversalStep(new Traversal(byTraversalStep.Traversal.Append(FoldStep.Instance), byTraversalStep.Traversal.Projection));
+                    byStep = new ProjectStep.ByTraversalStep(new Traversal(byTraversalStep.Traversal.Append(LimitStep.LimitGlobal1).Append(FoldStep.Instance), byTraversalStep.Traversal.Projection));
                 }
 
                 ret = ret.AddStep(byStep);

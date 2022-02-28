@@ -1,17 +1,18 @@
 ﻿[
   {
-    "Script": "g.V().hasLabel(_a).where(__.in()).where(__.out()).project(_b,_c,_d).by(__.in().fold()).by(__.out().fold()).by(__.values(_e).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold())).project(_b,_c,_d).by(__.select(_b).project(_f,_g,_h).by(id).by(label).by(__.properties().group().by(label).by(__.project(_f,_g,_i,_h).by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.select(_c).project(_f,_g,_h).by(id).by(label).by(__.properties().group().by(label).by(__.project(_f,_g,_i,_h).by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.select(_d))",
+    "Script": "g.V().hasLabel(_a).where(__.in()).where(__.out()).project(_b,_c,_d).by(__.in().limit(_e).fold()).by(__.out().limit(_e).fold()).by(__.values(_f).limit(_e).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold())).project(_b,_c,_d).by(__.select(_b).project(_g,_h,_i).by(id).by(label).by(__.properties().group().by(label).by(__.project(_g,_h,_j,_i).by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.select(_c).project(_g,_h,_i).by(id).by(label).by(__.properties().group().by(label).by(__.project(_g,_h,_j,_i).by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.select(_d))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Person",
       "_b": "Item1",
       "_c": "Item2",
       "_d": "Item3",
-      "_e": "Age",
-      "_f": "id",
-      "_g": "label",
-      "_h": "properties",
-      "_i": "value"
+      "_e": 1,
+      "_f": "Age",
+      "_g": "id",
+      "_h": "label",
+      "_i": "properties",
+      "_j": "value"
     }
   }
 ]

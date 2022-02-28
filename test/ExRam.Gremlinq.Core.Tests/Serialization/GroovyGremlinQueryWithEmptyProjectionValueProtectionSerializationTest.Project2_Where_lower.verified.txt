@@ -1,15 +1,16 @@
 ﻿[
   {
-    "Script": "g.V().project(_a,_b).by(__.label().fold()).by(__.fold().fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold())).where(__.select(_b).count(local).is(lt(_c))).project(_a,_b).by(__.select(_a)).by(__.select(_b).local(__.unfold().project(_d,_e,_f).by(id).by(label).by(__.properties().group().by(label).by(__.project(_d,_e,_g,_f).by(id).by(label).by(value).by(__.valueMap()).fold())).fold()))",
+    "Script": "g.V().project(_a,_b).by(__.label().limit(_c).fold()).by(__.fold().limit(_c).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold())).where(__.select(_b).count(local).is(lt(_d))).project(_a,_b).by(__.select(_a)).by(__.select(_b).local(__.unfold().project(_e,_f,_g).by(id).by(label).by(__.properties().group().by(label).by(__.project(_e,_f,_h,_g).by(id).by(label).by(value).by(__.valueMap()).fold())).fold()))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Item1",
       "_b": "Item2",
-      "_c": 3,
-      "_d": "id",
-      "_e": "label",
-      "_f": "properties",
-      "_g": "value"
+      "_c": 1,
+      "_d": 3,
+      "_e": "id",
+      "_f": "label",
+      "_g": "properties",
+      "_h": "value"
     }
   }
 ]

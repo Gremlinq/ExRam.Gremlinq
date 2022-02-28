@@ -1,17 +1,18 @@
 ﻿[
   {
-    "Script": "g.V().hasLabel(_a).as(_b).project(_c,_d).by(__.select(_b).fold()).by(__.select(_b).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold())).as(_e).project(_c,_d).by(__.select(_b).fold()).by(__.select(_e).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold())).project(_c,_d).by(__.select(_c).project(_f,_g,_h).by(id).by(label).by(__.properties().group().by(label).by(__.project(_f,_g,_i,_h).by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.select(_d).project(_c,_d).by(__.select(_c).project(_f,_g,_h).by(id).by(label).by(__.properties().group().by(label).by(__.project(_f,_g,_i,_h).by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.select(_d).project(_f,_g,_h).by(id).by(label).by(__.properties().group().by(label).by(__.project(_f,_g,_i,_h).by(id).by(label).by(value).by(__.valueMap()).fold()))))",
+    "Script": "g.V().hasLabel(_a).as(_b).project(_c,_d).by(__.select(_b).limit(_e).fold()).by(__.select(_b).limit(_e).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold())).as(_f).project(_c,_d).by(__.select(_b).limit(_e).fold()).by(__.select(_f).limit(_e).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold())).project(_c,_d).by(__.select(_c).project(_g,_h,_i).by(id).by(label).by(__.properties().group().by(label).by(__.project(_g,_h,_j,_i).by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.select(_d).project(_c,_d).by(__.select(_c).project(_g,_h,_i).by(id).by(label).by(__.properties().group().by(label).by(__.project(_g,_h,_j,_i).by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.select(_d).project(_g,_h,_i).by(id).by(label).by(__.properties().group().by(label).by(__.project(_g,_h,_j,_i).by(id).by(label).by(value).by(__.valueMap()).fold()))))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Person",
       "_b": "l1",
       "_c": "Item1",
       "_d": "Item2",
-      "_e": "l2",
-      "_f": "id",
-      "_g": "label",
-      "_h": "properties",
-      "_i": "value"
+      "_e": 1,
+      "_f": "l2",
+      "_g": "id",
+      "_h": "label",
+      "_i": "properties",
+      "_j": "value"
     }
   }
 ]

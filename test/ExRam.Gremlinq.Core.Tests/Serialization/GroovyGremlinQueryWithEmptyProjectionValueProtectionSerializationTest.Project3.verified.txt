@@ -1,15 +1,16 @@
 ﻿[
   {
-    "Script": "g.V().where(__.in()).where(__.out()).project(_a,_b,_c).by(__.in().fold()).by(__.out().fold()).by(__.count().fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold())).project(_a,_b,_c).by(__.select(_a).project(_d,_e,_f).by(id).by(label).by(__.properties().group().by(label).by(__.project(_d,_e,_g,_f).by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.select(_b).project(_d,_e,_f).by(id).by(label).by(__.properties().group().by(label).by(__.project(_d,_e,_g,_f).by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.select(_c))",
+    "Script": "g.V().where(__.in()).where(__.out()).project(_a,_b,_c).by(__.in().limit(_d).fold()).by(__.out().limit(_d).fold()).by(__.count().limit(_d).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold())).project(_a,_b,_c).by(__.select(_a).project(_e,_f,_g).by(id).by(label).by(__.properties().group().by(label).by(__.project(_e,_f,_h,_g).by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.select(_b).project(_e,_f,_g).by(id).by(label).by(__.properties().group().by(label).by(__.project(_e,_f,_h,_g).by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.select(_c))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Item1",
       "_b": "Item2",
       "_c": "Item3",
-      "_d": "id",
-      "_e": "label",
-      "_f": "properties",
-      "_g": "value"
+      "_d": 1,
+      "_e": "id",
+      "_f": "label",
+      "_g": "properties",
+      "_h": "value"
     }
   }
 ]

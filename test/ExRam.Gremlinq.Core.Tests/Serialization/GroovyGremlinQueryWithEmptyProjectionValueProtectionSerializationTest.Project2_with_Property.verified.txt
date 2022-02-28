@@ -1,16 +1,17 @@
 ﻿[
   {
-    "Script": "g.V().hasLabel(_a).where(__.in()).project(_b,_c).by(__.in().fold()).by(__.values(_d).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold())).project(_b,_c).by(__.select(_b).project(_e,_f,_g).by(id).by(label).by(__.properties().group().by(label).by(__.project(_e,_f,_h,_g).by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.select(_c))",
+    "Script": "g.V().hasLabel(_a).where(__.in()).project(_b,_c).by(__.in().limit(_d).fold()).by(__.values(_e).limit(_d).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold())).project(_b,_c).by(__.select(_b).project(_f,_g,_h).by(id).by(label).by(__.properties().group().by(label).by(__.project(_f,_g,_i,_h).by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.select(_c))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Person",
       "_b": "Item1",
       "_c": "Item2",
-      "_d": "Age",
-      "_e": "id",
-      "_f": "label",
-      "_g": "properties",
-      "_h": "value"
+      "_d": 1,
+      "_e": "Age",
+      "_f": "id",
+      "_g": "label",
+      "_h": "properties",
+      "_i": "value"
     }
   }
 ]
