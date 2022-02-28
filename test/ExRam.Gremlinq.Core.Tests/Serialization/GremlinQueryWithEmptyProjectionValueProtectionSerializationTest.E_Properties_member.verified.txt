@@ -1,10 +1,26 @@
 ﻿[
   {
-    "Script": "g.E().hasLabel(_a).properties(_b)",
     "Id": "Scrubbed GUID",
-    "Bindings": {
-      "_a": "LivesIn",
-      "_b": "Since"
+    "Bytecode": {
+      "SourceInstructions": [],
+      "StepInstructions": [
+        {
+          "OperatorName": "E",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "hasLabel",
+          "Arguments": [
+            "LivesIn"
+          ]
+        },
+        {
+          "OperatorName": "properties",
+          "Arguments": [
+            "Since"
+          ]
+        }
+      ]
     }
   }
 ]

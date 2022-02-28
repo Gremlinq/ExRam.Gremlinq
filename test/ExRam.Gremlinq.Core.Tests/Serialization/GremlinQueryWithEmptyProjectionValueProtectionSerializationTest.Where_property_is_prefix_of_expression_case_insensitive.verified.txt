@@ -1,21 +1,156 @@
 ﻿[
   {
-    "Script": "g.V().hasLabel(_a).has(_b,within(_c,_d,_e,_f,_g,_h,_i)).project(_j,_k,_l).by(id).by(label).by(__.properties().group().by(label).by(__.project(_j,_k,_m,_l).by(id).by(label).by(value).by(__.valueMap()).fold()))",
     "Id": "Scrubbed GUID",
-    "Bindings": {
-      "_a": "Country",
-      "_b": "CountryCallingCode",
-      "_c": "",
-      "_d": "+",
-      "_e": "+4",
-      "_f": "+49",
-      "_g": "+491",
-      "_h": "+4912",
-      "_i": "+49123",
-      "_j": "id",
-      "_k": "label",
-      "_l": "properties",
-      "_m": "value"
+    "Bytecode": {
+      "SourceInstructions": [],
+      "StepInstructions": [
+        {
+          "OperatorName": "V",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "hasLabel",
+          "Arguments": [
+            "Country"
+          ]
+        },
+        {
+          "OperatorName": "has",
+          "Arguments": [
+            "CountryCallingCode",
+            {
+              "OperatorName": "within",
+              "Value": [
+                "",
+                "+",
+                "+4",
+                "+49",
+                "+491",
+                "+4912",
+                "+49123"
+              ],
+              "Other": null
+            }
+          ]
+        },
+        {
+          "OperatorName": "project",
+          "Arguments": [
+            "id",
+            "label",
+            "properties"
+          ]
+        },
+        {
+          "OperatorName": "by",
+          "Arguments": [
+            {
+              "EnumName": "T",
+              "EnumValue": "id"
+            }
+          ]
+        },
+        {
+          "OperatorName": "by",
+          "Arguments": [
+            {
+              "EnumName": "T",
+              "EnumValue": "label"
+            }
+          ]
+        },
+        {
+          "OperatorName": "by",
+          "Arguments": [
+            {
+              "SourceInstructions": [],
+              "StepInstructions": [
+                {
+                  "OperatorName": "properties",
+                  "Arguments": []
+                },
+                {
+                  "OperatorName": "group",
+                  "Arguments": []
+                },
+                {
+                  "OperatorName": "by",
+                  "Arguments": [
+                    {
+                      "EnumName": "T",
+                      "EnumValue": "label"
+                    }
+                  ]
+                },
+                {
+                  "OperatorName": "by",
+                  "Arguments": [
+                    {
+                      "SourceInstructions": [],
+                      "StepInstructions": [
+                        {
+                          "OperatorName": "project",
+                          "Arguments": [
+                            "id",
+                            "label",
+                            "value",
+                            "properties"
+                          ]
+                        },
+                        {
+                          "OperatorName": "by",
+                          "Arguments": [
+                            {
+                              "EnumName": "T",
+                              "EnumValue": "id"
+                            }
+                          ]
+                        },
+                        {
+                          "OperatorName": "by",
+                          "Arguments": [
+                            {
+                              "EnumName": "T",
+                              "EnumValue": "label"
+                            }
+                          ]
+                        },
+                        {
+                          "OperatorName": "by",
+                          "Arguments": [
+                            {
+                              "EnumName": "T",
+                              "EnumValue": "value"
+                            }
+                          ]
+                        },
+                        {
+                          "OperatorName": "by",
+                          "Arguments": [
+                            {
+                              "SourceInstructions": [],
+                              "StepInstructions": [
+                                {
+                                  "OperatorName": "valueMap",
+                                  "Arguments": []
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "OperatorName": "fold",
+                          "Arguments": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   }
 ]

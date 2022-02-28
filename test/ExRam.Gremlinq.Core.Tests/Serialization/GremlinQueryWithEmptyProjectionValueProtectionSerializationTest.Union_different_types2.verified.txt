@@ -1,11 +1,47 @@
 ﻿[
   {
-    "Script": "g.V().hasLabel(_a).union(__.out(_b),__.outE(_c))",
     "Id": "Scrubbed GUID",
-    "Bindings": {
-      "_a": "Person",
-      "_b": "WorksFor",
-      "_c": "LivesIn"
+    "Bytecode": {
+      "SourceInstructions": [],
+      "StepInstructions": [
+        {
+          "OperatorName": "V",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "hasLabel",
+          "Arguments": [
+            "Person"
+          ]
+        },
+        {
+          "OperatorName": "union",
+          "Arguments": [
+            {
+              "SourceInstructions": [],
+              "StepInstructions": [
+                {
+                  "OperatorName": "out",
+                  "Arguments": [
+                    "WorksFor"
+                  ]
+                }
+              ]
+            },
+            {
+              "SourceInstructions": [],
+              "StepInstructions": [
+                {
+                  "OperatorName": "outE",
+                  "Arguments": [
+                    "LivesIn"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   }
 ]

@@ -1,7 +1,18 @@
 ﻿[
   {
-    "Script": "g.E().properties()",
     "Id": "Scrubbed GUID",
-    "Bindings": {}
+    "Bytecode": {
+      "SourceInstructions": [],
+      "StepInstructions": [
+        {
+          "OperatorName": "E",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "properties",
+          "Arguments": []
+        }
+      ]
+    }
   }
 ]

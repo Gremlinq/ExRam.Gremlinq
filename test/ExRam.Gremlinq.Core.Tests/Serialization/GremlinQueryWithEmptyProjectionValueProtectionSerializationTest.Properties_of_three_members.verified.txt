@@ -1,16 +1,78 @@
 ﻿[
   {
-    "Script": "g.V().hasLabel(_a).properties(_b,_c,_d).project(_e,_f,_g,_h).by(id).by(label).by(value).by(__.valueMap())",
     "Id": "Scrubbed GUID",
-    "Bindings": {
-      "_a": "Country",
-      "_b": "Name",
-      "_c": "CountryCallingCode",
-      "_d": "Languages",
-      "_e": "id",
-      "_f": "label",
-      "_g": "value",
-      "_h": "properties"
+    "Bytecode": {
+      "SourceInstructions": [],
+      "StepInstructions": [
+        {
+          "OperatorName": "V",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "hasLabel",
+          "Arguments": [
+            "Country"
+          ]
+        },
+        {
+          "OperatorName": "properties",
+          "Arguments": [
+            "Name",
+            "CountryCallingCode",
+            "Languages"
+          ]
+        },
+        {
+          "OperatorName": "project",
+          "Arguments": [
+            "id",
+            "label",
+            "value",
+            "properties"
+          ]
+        },
+        {
+          "OperatorName": "by",
+          "Arguments": [
+            {
+              "EnumName": "T",
+              "EnumValue": "id"
+            }
+          ]
+        },
+        {
+          "OperatorName": "by",
+          "Arguments": [
+            {
+              "EnumName": "T",
+              "EnumValue": "label"
+            }
+          ]
+        },
+        {
+          "OperatorName": "by",
+          "Arguments": [
+            {
+              "EnumName": "T",
+              "EnumValue": "value"
+            }
+          ]
+        },
+        {
+          "OperatorName": "by",
+          "Arguments": [
+            {
+              "SourceInstructions": [],
+              "StepInstructions": [
+                {
+                  "OperatorName": "valueMap",
+                  "Arguments": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   }
 ]

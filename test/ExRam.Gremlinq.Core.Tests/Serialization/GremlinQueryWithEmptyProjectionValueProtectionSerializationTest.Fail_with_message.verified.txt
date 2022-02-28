@@ -1,9 +1,20 @@
 ﻿[
   {
-    "Script": "g.V().fail(_a)",
     "Id": "Scrubbed GUID",
-    "Bindings": {
-      "_a": "There's been an error."
+    "Bytecode": {
+      "SourceInstructions": [],
+      "StepInstructions": [
+        {
+          "OperatorName": "V",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "fail",
+          "Arguments": [
+            "There's been an error."
+          ]
+        }
+      ]
     }
   }
 ]

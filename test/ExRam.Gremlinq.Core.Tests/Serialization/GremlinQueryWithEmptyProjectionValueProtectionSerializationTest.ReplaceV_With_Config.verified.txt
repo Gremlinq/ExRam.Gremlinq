@@ -1,20 +1,194 @@
 ﻿[
   {
-    "Script": "g.V(_a).hasLabel(_b).sideEffect(__.properties(_c,_d,_e).drop()).property(single,_c,_f).property(single,_d,_g).property(single,_e,_h).project(_i,_j,_k).by(id).by(label).by(__.properties().group().by(label).by(__.project(_i,_j,_l,_k).by(id).by(label).by(value).by(__.valueMap()).fold()))",
     "Id": "Scrubbed GUID",
-    "Bindings": {
-      "_a": 0,
-      "_b": "Person",
-      "_c": "Age",
-      "_d": "Gender",
-      "_e": "Name",
-      "_f": 21,
-      "_g": 0,
-      "_h": "Marko",
-      "_i": "id",
-      "_j": "label",
-      "_k": "properties",
-      "_l": "value"
+    "Bytecode": {
+      "SourceInstructions": [],
+      "StepInstructions": [
+        {
+          "OperatorName": "V",
+          "Arguments": [
+            0
+          ]
+        },
+        {
+          "OperatorName": "hasLabel",
+          "Arguments": [
+            "Person"
+          ]
+        },
+        {
+          "OperatorName": "sideEffect",
+          "Arguments": [
+            {
+              "SourceInstructions": [],
+              "StepInstructions": [
+                {
+                  "OperatorName": "properties",
+                  "Arguments": [
+                    "Age",
+                    "Gender",
+                    "Name"
+                  ]
+                },
+                {
+                  "OperatorName": "drop",
+                  "Arguments": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "OperatorName": "property",
+          "Arguments": [
+            {
+              "EnumName": "Cardinality",
+              "EnumValue": "single"
+            },
+            "Age",
+            21
+          ]
+        },
+        {
+          "OperatorName": "property",
+          "Arguments": [
+            {
+              "EnumName": "Cardinality",
+              "EnumValue": "single"
+            },
+            "Gender",
+            0
+          ]
+        },
+        {
+          "OperatorName": "property",
+          "Arguments": [
+            {
+              "EnumName": "Cardinality",
+              "EnumValue": "single"
+            },
+            "Name",
+            "Marko"
+          ]
+        },
+        {
+          "OperatorName": "project",
+          "Arguments": [
+            "id",
+            "label",
+            "properties"
+          ]
+        },
+        {
+          "OperatorName": "by",
+          "Arguments": [
+            {
+              "EnumName": "T",
+              "EnumValue": "id"
+            }
+          ]
+        },
+        {
+          "OperatorName": "by",
+          "Arguments": [
+            {
+              "EnumName": "T",
+              "EnumValue": "label"
+            }
+          ]
+        },
+        {
+          "OperatorName": "by",
+          "Arguments": [
+            {
+              "SourceInstructions": [],
+              "StepInstructions": [
+                {
+                  "OperatorName": "properties",
+                  "Arguments": []
+                },
+                {
+                  "OperatorName": "group",
+                  "Arguments": []
+                },
+                {
+                  "OperatorName": "by",
+                  "Arguments": [
+                    {
+                      "EnumName": "T",
+                      "EnumValue": "label"
+                    }
+                  ]
+                },
+                {
+                  "OperatorName": "by",
+                  "Arguments": [
+                    {
+                      "SourceInstructions": [],
+                      "StepInstructions": [
+                        {
+                          "OperatorName": "project",
+                          "Arguments": [
+                            "id",
+                            "label",
+                            "value",
+                            "properties"
+                          ]
+                        },
+                        {
+                          "OperatorName": "by",
+                          "Arguments": [
+                            {
+                              "EnumName": "T",
+                              "EnumValue": "id"
+                            }
+                          ]
+                        },
+                        {
+                          "OperatorName": "by",
+                          "Arguments": [
+                            {
+                              "EnumName": "T",
+                              "EnumValue": "label"
+                            }
+                          ]
+                        },
+                        {
+                          "OperatorName": "by",
+                          "Arguments": [
+                            {
+                              "EnumName": "T",
+                              "EnumValue": "value"
+                            }
+                          ]
+                        },
+                        {
+                          "OperatorName": "by",
+                          "Arguments": [
+                            {
+                              "SourceInstructions": [],
+                              "StepInstructions": [
+                                {
+                                  "OperatorName": "valueMap",
+                                  "Arguments": []
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "OperatorName": "fold",
+                          "Arguments": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   }
 ]

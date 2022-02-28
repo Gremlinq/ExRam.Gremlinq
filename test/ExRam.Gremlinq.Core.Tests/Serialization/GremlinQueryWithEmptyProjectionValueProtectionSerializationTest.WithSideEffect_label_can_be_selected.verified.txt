@@ -1,10 +1,28 @@
 ﻿[
   {
-    "Script": "g.withSideEffect(_a,_b).V().select(_a)",
     "Id": "Scrubbed GUID",
-    "Bindings": {
-      "_a": "l1",
-      "_b": 36
+    "Bytecode": {
+      "SourceInstructions": [
+        {
+          "OperatorName": "withSideEffect",
+          "Arguments": [
+            "l1",
+            36
+          ]
+        }
+      ],
+      "StepInstructions": [
+        {
+          "OperatorName": "V",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "select",
+          "Arguments": [
+            "l1"
+          ]
+        }
+      ]
     }
   }
 ]

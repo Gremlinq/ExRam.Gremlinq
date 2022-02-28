@@ -1,9 +1,34 @@
 ﻿[
   {
-    "Script": "g.inject(_a).local(__.V().drop())",
     "Id": "Scrubbed GUID",
-    "Bindings": {
-      "_a": 1
+    "Bytecode": {
+      "SourceInstructions": [],
+      "StepInstructions": [
+        {
+          "OperatorName": "inject",
+          "Arguments": [
+            1
+          ]
+        },
+        {
+          "OperatorName": "local",
+          "Arguments": [
+            {
+              "SourceInstructions": [],
+              "StepInstructions": [
+                {
+                  "OperatorName": "V",
+                  "Arguments": []
+                },
+                {
+                  "OperatorName": "drop",
+                  "Arguments": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   }
 ]

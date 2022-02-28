@@ -1,7 +1,18 @@
 ﻿[
   {
-    "Script": "g.V().fail()",
     "Id": "Scrubbed GUID",
-    "Bindings": {}
+    "Bytecode": {
+      "SourceInstructions": [],
+      "StepInstructions": [
+        {
+          "OperatorName": "V",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "fail",
+          "Arguments": []
+        }
+      ]
+    }
   }
 ]

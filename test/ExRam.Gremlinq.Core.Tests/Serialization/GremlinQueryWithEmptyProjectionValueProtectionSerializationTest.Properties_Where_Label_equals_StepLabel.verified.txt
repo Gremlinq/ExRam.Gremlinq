@@ -1,15 +1,112 @@
 ﻿[
   {
-    "Script": "g.inject(_a).as(_b).V().hasLabel(_c).properties(_d).where(__.label().where(eq(_b))).project(_e,_a,_f,_g).by(id).by(label).by(value).by(__.valueMap())",
     "Id": "Scrubbed GUID",
-    "Bindings": {
-      "_a": "label",
-      "_b": "l1",
-      "_c": "Country",
-      "_d": "Languages",
-      "_e": "id",
-      "_f": "value",
-      "_g": "properties"
+    "Bytecode": {
+      "SourceInstructions": [],
+      "StepInstructions": [
+        {
+          "OperatorName": "inject",
+          "Arguments": [
+            "label"
+          ]
+        },
+        {
+          "OperatorName": "as",
+          "Arguments": [
+            "l1"
+          ]
+        },
+        {
+          "OperatorName": "V",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "hasLabel",
+          "Arguments": [
+            "Country"
+          ]
+        },
+        {
+          "OperatorName": "properties",
+          "Arguments": [
+            "Languages"
+          ]
+        },
+        {
+          "OperatorName": "where",
+          "Arguments": [
+            {
+              "SourceInstructions": [],
+              "StepInstructions": [
+                {
+                  "OperatorName": "label",
+                  "Arguments": []
+                },
+                {
+                  "OperatorName": "where",
+                  "Arguments": [
+                    {
+                      "OperatorName": "eq",
+                      "Value": "l1",
+                      "Other": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "OperatorName": "project",
+          "Arguments": [
+            "id",
+            "label",
+            "value",
+            "properties"
+          ]
+        },
+        {
+          "OperatorName": "by",
+          "Arguments": [
+            {
+              "EnumName": "T",
+              "EnumValue": "id"
+            }
+          ]
+        },
+        {
+          "OperatorName": "by",
+          "Arguments": [
+            {
+              "EnumName": "T",
+              "EnumValue": "label"
+            }
+          ]
+        },
+        {
+          "OperatorName": "by",
+          "Arguments": [
+            {
+              "EnumName": "T",
+              "EnumValue": "value"
+            }
+          ]
+        },
+        {
+          "OperatorName": "by",
+          "Arguments": [
+            {
+              "SourceInstructions": [],
+              "StepInstructions": [
+                {
+                  "OperatorName": "valueMap",
+                  "Arguments": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   }
 ]

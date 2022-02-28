@@ -1,12 +1,76 @@
 ﻿[
   {
-    "Script": "g.V().where(__.properties()).choose(__.values()).option(_a,__.constant(_b)).option(_c,__.constant(_d))",
     "Id": "Scrubbed GUID",
-    "Bindings": {
-      "_a": 3,
-      "_b": 1,
-      "_c": 4,
-      "_d": 2
+    "Bytecode": {
+      "SourceInstructions": [],
+      "StepInstructions": [
+        {
+          "OperatorName": "V",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "where",
+          "Arguments": [
+            {
+              "SourceInstructions": [],
+              "StepInstructions": [
+                {
+                  "OperatorName": "properties",
+                  "Arguments": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "OperatorName": "choose",
+          "Arguments": [
+            {
+              "SourceInstructions": [],
+              "StepInstructions": [
+                {
+                  "OperatorName": "values",
+                  "Arguments": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "OperatorName": "option",
+          "Arguments": [
+            3,
+            {
+              "SourceInstructions": [],
+              "StepInstructions": [
+                {
+                  "OperatorName": "constant",
+                  "Arguments": [
+                    1
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "OperatorName": "option",
+          "Arguments": [
+            4,
+            {
+              "SourceInstructions": [],
+              "StepInstructions": [
+                {
+                  "OperatorName": "constant",
+                  "Arguments": [
+                    2
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   }
 ]

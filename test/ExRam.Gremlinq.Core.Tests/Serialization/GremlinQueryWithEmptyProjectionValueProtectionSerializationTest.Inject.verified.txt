@@ -1,11 +1,18 @@
 ﻿[
   {
-    "Script": "g.inject(_a,_b,_c)",
     "Id": "Scrubbed GUID",
-    "Bindings": {
-      "_a": 36,
-      "_b": 37,
-      "_c": 38
+    "Bytecode": {
+      "SourceInstructions": [],
+      "StepInstructions": [
+        {
+          "OperatorName": "inject",
+          "Arguments": [
+            36,
+            37,
+            38
+          ]
+        }
+      ]
     }
   }
 ]

@@ -1,12 +1,139 @@
 ﻿[
   {
-    "Script": "g.withoutStrategies(SubgraphStrategy,ElementIdStrategy).V().project(_a,_b,_c).by(id).by(label).by(__.properties().group().by(label).by(__.project(_a,_b,_d,_c).by(id).by(label).by(value).by(__.valueMap()).fold()))",
     "Id": "Scrubbed GUID",
-    "Bindings": {
-      "_a": "id",
-      "_b": "label",
-      "_c": "properties",
-      "_d": "value"
+    "Bytecode": {
+      "SourceInstructions": [
+        {
+          "OperatorName": "withoutStrategies",
+          "Arguments": [
+            "Gremlin.Net.Process.Traversal.Strategy.Decoration.SubgraphStrategy, Gremlin.Net, Version=3.5.1.0, Culture=neutral, PublicKeyToken=d2035e9aa387a711",
+            "Gremlin.Net.Process.Traversal.Strategy.Decoration.ElementIdStrategy, Gremlin.Net, Version=3.5.1.0, Culture=neutral, PublicKeyToken=d2035e9aa387a711"
+          ]
+        }
+      ],
+      "StepInstructions": [
+        {
+          "OperatorName": "V",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "project",
+          "Arguments": [
+            "id",
+            "label",
+            "properties"
+          ]
+        },
+        {
+          "OperatorName": "by",
+          "Arguments": [
+            {
+              "EnumName": "T",
+              "EnumValue": "id"
+            }
+          ]
+        },
+        {
+          "OperatorName": "by",
+          "Arguments": [
+            {
+              "EnumName": "T",
+              "EnumValue": "label"
+            }
+          ]
+        },
+        {
+          "OperatorName": "by",
+          "Arguments": [
+            {
+              "SourceInstructions": [],
+              "StepInstructions": [
+                {
+                  "OperatorName": "properties",
+                  "Arguments": []
+                },
+                {
+                  "OperatorName": "group",
+                  "Arguments": []
+                },
+                {
+                  "OperatorName": "by",
+                  "Arguments": [
+                    {
+                      "EnumName": "T",
+                      "EnumValue": "label"
+                    }
+                  ]
+                },
+                {
+                  "OperatorName": "by",
+                  "Arguments": [
+                    {
+                      "SourceInstructions": [],
+                      "StepInstructions": [
+                        {
+                          "OperatorName": "project",
+                          "Arguments": [
+                            "id",
+                            "label",
+                            "value",
+                            "properties"
+                          ]
+                        },
+                        {
+                          "OperatorName": "by",
+                          "Arguments": [
+                            {
+                              "EnumName": "T",
+                              "EnumValue": "id"
+                            }
+                          ]
+                        },
+                        {
+                          "OperatorName": "by",
+                          "Arguments": [
+                            {
+                              "EnumName": "T",
+                              "EnumValue": "label"
+                            }
+                          ]
+                        },
+                        {
+                          "OperatorName": "by",
+                          "Arguments": [
+                            {
+                              "EnumName": "T",
+                              "EnumValue": "value"
+                            }
+                          ]
+                        },
+                        {
+                          "OperatorName": "by",
+                          "Arguments": [
+                            {
+                              "SourceInstructions": [],
+                              "StepInstructions": [
+                                {
+                                  "OperatorName": "valueMap",
+                                  "Arguments": []
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "OperatorName": "fold",
+                          "Arguments": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   }
 ]

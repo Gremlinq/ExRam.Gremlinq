@@ -1,11 +1,36 @@
 ﻿[
   {
-    "Script": "g.V().hasLabel(_a).properties(_b).properties().as(_c)",
     "Id": "Scrubbed GUID",
-    "Bindings": {
-      "_a": "Country",
-      "_b": "Name",
-      "_c": "l1"
+    "Bytecode": {
+      "SourceInstructions": [],
+      "StepInstructions": [
+        {
+          "OperatorName": "V",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "hasLabel",
+          "Arguments": [
+            "Country"
+          ]
+        },
+        {
+          "OperatorName": "properties",
+          "Arguments": [
+            "Name"
+          ]
+        },
+        {
+          "OperatorName": "properties",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "as",
+          "Arguments": [
+            "l1"
+          ]
+        }
+      ]
     }
   }
 ]

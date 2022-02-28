@@ -1,7 +1,41 @@
 ﻿[
   {
-    "Script": "g.V().properties().union(__.label(),__.id())",
     "Id": "Scrubbed GUID",
-    "Bindings": {}
+    "Bytecode": {
+      "SourceInstructions": [],
+      "StepInstructions": [
+        {
+          "OperatorName": "V",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "properties",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "union",
+          "Arguments": [
+            {
+              "SourceInstructions": [],
+              "StepInstructions": [
+                {
+                  "OperatorName": "label",
+                  "Arguments": []
+                }
+              ]
+            },
+            {
+              "SourceInstructions": [],
+              "StepInstructions": [
+                {
+                  "OperatorName": "id",
+                  "Arguments": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
   }
 ]

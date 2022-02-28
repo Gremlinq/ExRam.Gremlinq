@@ -1,10 +1,39 @@
 ﻿[
   {
-    "Script": "g.V().hasLabel(_a).values(_b).fold().min(local)",
     "Id": "Scrubbed GUID",
-    "Bindings": {
-      "_a": "Person",
-      "_b": "Age"
+    "Bytecode": {
+      "SourceInstructions": [],
+      "StepInstructions": [
+        {
+          "OperatorName": "V",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "hasLabel",
+          "Arguments": [
+            "Person"
+          ]
+        },
+        {
+          "OperatorName": "values",
+          "Arguments": [
+            "Age"
+          ]
+        },
+        {
+          "OperatorName": "fold",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "min",
+          "Arguments": [
+            {
+              "EnumName": "Scope",
+              "EnumValue": "local"
+            }
+          ]
+        }
+      ]
     }
   }
 ]

@@ -1,18 +1,105 @@
 ﻿[
   {
-    "Script": "g.E(_a).hasLabel(_b).sideEffect(__.properties(_c,_d,_e).drop()).property(_c,_f).property(_d,_g).property(_e,_f).project(_h,_i,_j).by(id).by(label).by(__.valueMap())",
     "Id": "Scrubbed GUID",
-    "Bindings": {
-      "_a": 0,
-      "_b": "WorksFor",
-      "_c": "From",
-      "_d": "Role",
-      "_e": "To",
-      "_f": "2020-04-07T14:43:36+00:00",
-      "_g": "Admin",
-      "_h": "id",
-      "_i": "label",
-      "_j": "properties"
+    "Bytecode": {
+      "SourceInstructions": [],
+      "StepInstructions": [
+        {
+          "OperatorName": "E",
+          "Arguments": [
+            0
+          ]
+        },
+        {
+          "OperatorName": "hasLabel",
+          "Arguments": [
+            "WorksFor"
+          ]
+        },
+        {
+          "OperatorName": "sideEffect",
+          "Arguments": [
+            {
+              "SourceInstructions": [],
+              "StepInstructions": [
+                {
+                  "OperatorName": "properties",
+                  "Arguments": [
+                    "From",
+                    "Role",
+                    "To"
+                  ]
+                },
+                {
+                  "OperatorName": "drop",
+                  "Arguments": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "OperatorName": "property",
+          "Arguments": [
+            "From",
+            "2020-04-07T14:43:36+00:00"
+          ]
+        },
+        {
+          "OperatorName": "property",
+          "Arguments": [
+            "Role",
+            "Admin"
+          ]
+        },
+        {
+          "OperatorName": "property",
+          "Arguments": [
+            "To",
+            "2020-04-07T14:43:36+00:00"
+          ]
+        },
+        {
+          "OperatorName": "project",
+          "Arguments": [
+            "id",
+            "label",
+            "properties"
+          ]
+        },
+        {
+          "OperatorName": "by",
+          "Arguments": [
+            {
+              "EnumName": "T",
+              "EnumValue": "id"
+            }
+          ]
+        },
+        {
+          "OperatorName": "by",
+          "Arguments": [
+            {
+              "EnumName": "T",
+              "EnumValue": "label"
+            }
+          ]
+        },
+        {
+          "OperatorName": "by",
+          "Arguments": [
+            {
+              "SourceInstructions": [],
+              "StepInstructions": [
+                {
+                  "OperatorName": "valueMap",
+                  "Arguments": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   }
 ]

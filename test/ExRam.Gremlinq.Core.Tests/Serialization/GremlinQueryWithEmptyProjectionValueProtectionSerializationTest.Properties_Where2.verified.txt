@@ -1,15 +1,90 @@
 ﻿[
   {
-    "Script": "g.V().hasLabel(_a).properties().hasKey(_b).hasValue(lt(_c)).project(_d,_e,_f,_g).by(id).by(label).by(value).by(__.valueMap())",
     "Id": "Scrubbed GUID",
-    "Bindings": {
-      "_a": "Person",
-      "_b": "Age",
-      "_c": 10,
-      "_d": "id",
-      "_e": "label",
-      "_f": "value",
-      "_g": "properties"
+    "Bytecode": {
+      "SourceInstructions": [],
+      "StepInstructions": [
+        {
+          "OperatorName": "V",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "hasLabel",
+          "Arguments": [
+            "Person"
+          ]
+        },
+        {
+          "OperatorName": "properties",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "hasKey",
+          "Arguments": [
+            "Age"
+          ]
+        },
+        {
+          "OperatorName": "hasValue",
+          "Arguments": [
+            {
+              "OperatorName": "lt",
+              "Value": 10,
+              "Other": null
+            }
+          ]
+        },
+        {
+          "OperatorName": "project",
+          "Arguments": [
+            "id",
+            "label",
+            "value",
+            "properties"
+          ]
+        },
+        {
+          "OperatorName": "by",
+          "Arguments": [
+            {
+              "EnumName": "T",
+              "EnumValue": "id"
+            }
+          ]
+        },
+        {
+          "OperatorName": "by",
+          "Arguments": [
+            {
+              "EnumName": "T",
+              "EnumValue": "label"
+            }
+          ]
+        },
+        {
+          "OperatorName": "by",
+          "Arguments": [
+            {
+              "EnumName": "T",
+              "EnumValue": "value"
+            }
+          ]
+        },
+        {
+          "OperatorName": "by",
+          "Arguments": [
+            {
+              "SourceInstructions": [],
+              "StepInstructions": [
+                {
+                  "OperatorName": "valueMap",
+                  "Arguments": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   }
 ]

@@ -1,12 +1,58 @@
 ﻿[
   {
-    "Script": "g.V().id().choose(gt(_a).and(lt(_b)),__.constant(_c),__.constant(_d))",
     "Id": "Scrubbed GUID",
-    "Bindings": {
-      "_a": 0,
-      "_b": 42,
-      "_c": true,
-      "_d": false
+    "Bytecode": {
+      "SourceInstructions": [],
+      "StepInstructions": [
+        {
+          "OperatorName": "V",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "id",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "choose",
+          "Arguments": [
+            {
+              "OperatorName": "and",
+              "Value": {
+                "OperatorName": "gt",
+                "Value": 0,
+                "Other": null
+              },
+              "Other": {
+                "OperatorName": "lt",
+                "Value": 42,
+                "Other": null
+              }
+            },
+            {
+              "SourceInstructions": [],
+              "StepInstructions": [
+                {
+                  "OperatorName": "constant",
+                  "Arguments": [
+                    true
+                  ]
+                }
+              ]
+            },
+            {
+              "SourceInstructions": [],
+              "StepInstructions": [
+                {
+                  "OperatorName": "constant",
+                  "Arguments": [
+                    false
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   }
 ]

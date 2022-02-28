@@ -1,9 +1,24 @@
 ﻿[
   {
-    "Script": "g.V().hasLabel(_a).values()",
     "Id": "Scrubbed GUID",
-    "Bindings": {
-      "_a": "Person"
+    "Bytecode": {
+      "SourceInstructions": [],
+      "StepInstructions": [
+        {
+          "OperatorName": "V",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "hasLabel",
+          "Arguments": [
+            "Person"
+          ]
+        },
+        {
+          "OperatorName": "values",
+          "Arguments": []
+        }
+      ]
     }
   }
 ]

@@ -1,9 +1,20 @@
 ﻿[
   {
-    "Script": "g.V().constant(_a)",
     "Id": "Scrubbed GUID",
-    "Bindings": {
-      "_a": 42
+    "Bytecode": {
+      "SourceInstructions": [],
+      "StepInstructions": [
+        {
+          "OperatorName": "V",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "constant",
+          "Arguments": [
+            42
+          ]
+        }
+      ]
     }
   }
 ]

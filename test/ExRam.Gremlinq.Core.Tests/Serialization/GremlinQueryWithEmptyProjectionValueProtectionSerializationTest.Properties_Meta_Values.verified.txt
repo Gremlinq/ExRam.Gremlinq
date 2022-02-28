@@ -1,7 +1,22 @@
 ﻿[
   {
-    "Script": "g.V().properties().values()",
     "Id": "Scrubbed GUID",
-    "Bindings": {}
+    "Bytecode": {
+      "SourceInstructions": [],
+      "StepInstructions": [
+        {
+          "OperatorName": "V",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "properties",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "values",
+          "Arguments": []
+        }
+      ]
+    }
   }
 ]

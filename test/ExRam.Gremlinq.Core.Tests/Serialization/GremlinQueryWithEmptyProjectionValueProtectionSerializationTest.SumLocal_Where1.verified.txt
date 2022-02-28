@@ -1,11 +1,45 @@
 ﻿[
   {
-    "Script": "g.V().hasLabel(_a).values(_b).fold().sum(local).is(_c)",
     "Id": "Scrubbed GUID",
-    "Bindings": {
-      "_a": "Person",
-      "_b": "Age",
-      "_c": 100
+    "Bytecode": {
+      "SourceInstructions": [],
+      "StepInstructions": [
+        {
+          "OperatorName": "V",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "hasLabel",
+          "Arguments": [
+            "Person"
+          ]
+        },
+        {
+          "OperatorName": "values",
+          "Arguments": [
+            "Age"
+          ]
+        },
+        {
+          "OperatorName": "fold",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "sum",
+          "Arguments": [
+            {
+              "EnumName": "Scope",
+              "EnumValue": "local"
+            }
+          ]
+        },
+        {
+          "OperatorName": "is",
+          "Arguments": [
+            100
+          ]
+        }
+      ]
     }
   }
 ]

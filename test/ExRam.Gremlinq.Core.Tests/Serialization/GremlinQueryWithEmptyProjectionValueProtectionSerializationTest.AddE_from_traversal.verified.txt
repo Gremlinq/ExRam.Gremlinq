@@ -1,22 +1,122 @@
 ﻿[
   {
-    "Script": "g.addV(_a).property(single,_b,_c).property(single,_d,_e).property(single,_f,_g).addE(_h).from(__.V().hasLabel(_i).has(_j,_k)).project(_l,_m,_n).by(id).by(label).by(__.valueMap())",
     "Id": "Scrubbed GUID",
-    "Bindings": {
-      "_a": "Person",
-      "_b": "Age",
-      "_c": 0,
-      "_d": "Name",
-      "_e": "Bob",
-      "_f": "RegistrationDate",
-      "_g": "2020-04-07T14:43:36+00:00",
-      "_h": "LivesIn",
-      "_i": "Country",
-      "_j": "CountryCallingCode",
-      "_k": "+49",
-      "_l": "id",
-      "_m": "label",
-      "_n": "properties"
+    "Bytecode": {
+      "SourceInstructions": [],
+      "StepInstructions": [
+        {
+          "OperatorName": "addV",
+          "Arguments": [
+            "Person"
+          ]
+        },
+        {
+          "OperatorName": "property",
+          "Arguments": [
+            {
+              "EnumName": "Cardinality",
+              "EnumValue": "single"
+            },
+            "Age",
+            0
+          ]
+        },
+        {
+          "OperatorName": "property",
+          "Arguments": [
+            {
+              "EnumName": "Cardinality",
+              "EnumValue": "single"
+            },
+            "Name",
+            "Bob"
+          ]
+        },
+        {
+          "OperatorName": "property",
+          "Arguments": [
+            {
+              "EnumName": "Cardinality",
+              "EnumValue": "single"
+            },
+            "RegistrationDate",
+            "2020-04-07T14:43:36+00:00"
+          ]
+        },
+        {
+          "OperatorName": "addE",
+          "Arguments": [
+            "LivesIn"
+          ]
+        },
+        {
+          "OperatorName": "from",
+          "Arguments": [
+            {
+              "SourceInstructions": [],
+              "StepInstructions": [
+                {
+                  "OperatorName": "V",
+                  "Arguments": []
+                },
+                {
+                  "OperatorName": "hasLabel",
+                  "Arguments": [
+                    "Country"
+                  ]
+                },
+                {
+                  "OperatorName": "has",
+                  "Arguments": [
+                    "CountryCallingCode",
+                    "+49"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "OperatorName": "project",
+          "Arguments": [
+            "id",
+            "label",
+            "properties"
+          ]
+        },
+        {
+          "OperatorName": "by",
+          "Arguments": [
+            {
+              "EnumName": "T",
+              "EnumValue": "id"
+            }
+          ]
+        },
+        {
+          "OperatorName": "by",
+          "Arguments": [
+            {
+              "EnumName": "T",
+              "EnumValue": "label"
+            }
+          ]
+        },
+        {
+          "OperatorName": "by",
+          "Arguments": [
+            {
+              "SourceInstructions": [],
+              "StepInstructions": [
+                {
+                  "OperatorName": "valueMap",
+                  "Arguments": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   }
 ]
