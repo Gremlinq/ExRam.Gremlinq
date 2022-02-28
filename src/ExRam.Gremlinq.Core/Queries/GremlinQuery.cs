@@ -719,10 +719,8 @@ namespace ExRam.Gremlinq.Core
                 {
                     case T t:
                     {
-                        if (T.Id.Equals(t))
-                            yield return IdStep.Instance;
-                        else if (T.Label.Equals(t))
-                            yield return LabelStep.Instance;
+                        if (t.TryToStep() is { } step)
+                            yield return step;
                         else
                             throw new ExpressionNotSupportedException($"Can't find an appropriate Gremlin step for {t}.");
 
@@ -740,7 +738,7 @@ namespace ExRam.Gremlinq.Core
             if (stringKeys?.Count > 0 || !hasYielded)
                 yield return new ValuesStep(stringKeys?.ToImmutableArray() ?? ImmutableArray<string>.Empty);
         }
-        
+
         private GremlinQuery<object, object, object, object, object, object> Id() => AddStepWithObjectTypes<object>(IdStep.Instance, _ => Projection.Value);
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Identity() => this;

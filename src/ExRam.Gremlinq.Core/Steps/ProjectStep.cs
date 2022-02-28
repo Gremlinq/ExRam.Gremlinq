@@ -36,16 +36,9 @@ namespace ExRam.Gremlinq.Core.Steps
 
             public override ByTraversalStep ToByTraversalStep() => new (Key.RawKey switch
             {
-                T t => t.EnumValue switch
-                {
-                    "id" => (Step)IdStep.Instance,
-                    "label" => LabelStep.Instance,
-                    "key" => KeyStep.Instance,
-                    "value" => ValueStep.Instance,
-                    _ => throw new NotImplementedException(),
-                },
+                T t => t.TryToStep() ?? throw new NotSupportedException(),
                 string key => new ValuesStep(ImmutableArray.Create(key)),
-                _ => throw new NotImplementedException(),
+                _ => throw new NotSupportedException(),
             });
 
             public Key Key { get; }
