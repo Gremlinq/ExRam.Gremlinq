@@ -1964,16 +1964,18 @@ namespace ExRam.Gremlinq.Core.Steps
         {
             public ByKeyStep(ExRam.Gremlinq.Core.Key key) { }
             public ExRam.Gremlinq.Core.Key Key { get; }
-            public ExRam.Gremlinq.Core.Steps.ProjectStep.ByTraversalStep ToByTraversalStep() { }
+            public override ExRam.Gremlinq.Core.Steps.ProjectStep.ByTraversalStep ToByTraversalStep() { }
         }
         public abstract class ByStep : ExRam.Gremlinq.Core.Steps.Step
         {
             protected ByStep(ExRam.Gremlinq.Core.Steps.SideEffectSemanticsChange sideEffectSemanticsChange = 0) { }
+            public abstract ExRam.Gremlinq.Core.Steps.ProjectStep.ByTraversalStep ToByTraversalStep();
         }
         public sealed class ByTraversalStep : ExRam.Gremlinq.Core.Steps.ProjectStep.ByStep
         {
             public ByTraversalStep(ExRam.Gremlinq.Core.Traversal traversal) { }
             public ExRam.Gremlinq.Core.Traversal Traversal { get; }
+            public override ExRam.Gremlinq.Core.Steps.ProjectStep.ByTraversalStep ToByTraversalStep() { }
         }
     }
     public sealed class ProjectVertexStep : ExRam.Gremlinq.Core.Steps.Step

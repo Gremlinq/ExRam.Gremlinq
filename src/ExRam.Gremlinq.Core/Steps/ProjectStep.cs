@@ -11,6 +11,8 @@ namespace ExRam.Gremlinq.Core.Steps
             protected ByStep(SideEffectSemanticsChange sideEffectSemanticsChange = SideEffectSemanticsChange.None) : base(sideEffectSemanticsChange)
             {
             }
+
+            public abstract ByTraversalStep ToByTraversalStep();
         }
 
         public sealed class ByTraversalStep : ByStep
@@ -19,6 +21,8 @@ namespace ExRam.Gremlinq.Core.Steps
             {
                 Traversal = traversal;
             }
+
+            public override ByTraversalStep ToByTraversalStep() => this;
 
             public Traversal Traversal { get; }
         }
@@ -30,7 +34,7 @@ namespace ExRam.Gremlinq.Core.Steps
                 Key = key;
             }
 
-            public ByTraversalStep ToByTraversalStep() => new ByTraversalStep(Key.RawKey switch
+            public override ByTraversalStep ToByTraversalStep() => new (Key.RawKey switch
             {
                 T t => t.EnumValue switch
                 {

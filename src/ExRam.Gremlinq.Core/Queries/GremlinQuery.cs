@@ -890,11 +890,10 @@ namespace ExRam.Gremlinq.Core
 
                 if (enableEmptyProjectionValueProtection)
                 {
-                    if (byStep is ProjectStep.ByKeyStep byKeyStep)
-                        byStep = byKeyStep.ToByTraversalStep();
+                    var byTraversalStep = byStep
+                        .ToByTraversalStep();
 
-                    if (byStep is ProjectStep.ByTraversalStep byTraversalStep)
-                        byStep = new ProjectStep.ByTraversalStep(new Traversal(byTraversalStep.Traversal.Append(FoldStep.Instance), byTraversalStep.Traversal.Projection));
+                    byStep = new ProjectStep.ByTraversalStep(new Traversal(byTraversalStep.Traversal.Append(FoldStep.Instance), byTraversalStep.Traversal.Projection));
                 }
 
                 ret = ret.AddStep(byStep);
