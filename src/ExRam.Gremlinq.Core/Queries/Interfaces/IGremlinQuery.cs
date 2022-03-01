@@ -162,6 +162,9 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery Aggregate<TTargetQuery>(Func<TSelf, StepLabel<IArrayGremlinQuery<TElement[], TElement, TSelf>, TElement[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQueryBase;
         TTargetQuery AggregateLocal<TTargetQuery>(Func<TSelf, StepLabel<IArrayGremlinQuery<TElement[], TElement, TSelf>, TElement[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQueryBase;
 
+        TSelf Aggregate(StepLabel<IArrayGremlinQuery<TElement[], TElement, TSelf>, TElement[]> stepLabel);
+        TSelf AggregateLocal(StepLabel<IArrayGremlinQuery<TElement[], TElement, TSelf>, TElement[]> stepLabel);
+
         TSelf As(StepLabel<TElement> stepLabel);
         TTargetQuery As<TTargetQuery>(Func<TSelf, StepLabel<TSelf, TElement>, TTargetQuery> continuation) where TTargetQuery : IGremlinQueryBase;
 
