@@ -1,0 +1,6 @@
+﻿[
+  {
+    "Id": "Scrubbed GUID",
+    "GraphSON": "{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"V\"],[\"hasLabel\",\"Person\"],[\"count\",{\"@type\":\"g:Scope\",\"@value\":\"local\"}],[\"aggregate\",\"l1\"],[\"cap\",\"l1\"],[\"select\",\"l1\"]]}}"
+  }
+]

@@ -1,0 +1,47 @@
+﻿[
+  {
+    "Id": "Scrubbed GUID",
+    "Bytecode": {
+      "SourceInstructions": [],
+      "StepInstructions": [
+        {
+          "OperatorName": "V",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "hasLabel",
+          "Arguments": [
+            "Person"
+          ]
+        },
+        {
+          "OperatorName": "count",
+          "Arguments": [
+            {
+              "EnumName": "Scope",
+              "EnumValue": "local"
+            }
+          ]
+        },
+        {
+          "OperatorName": "aggregate",
+          "Arguments": [
+            "l1"
+          ]
+        },
+        {
+          "OperatorName": "cap",
+          "Arguments": [
+            "l1"
+          ]
+        },
+        {
+          "OperatorName": "select",
+          "Arguments": [
+            "l1"
+          ]
+        }
+      ]
+    }
+  }
+]
