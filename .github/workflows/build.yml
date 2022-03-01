@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      - develop
+      - \d+\.x
   pull_request:
 
 env:
@@ -12,6 +12,21 @@ env:
   DotNetVersion: '6.0.100'
 
 jobs:
+  determinePublicationType:
+    runs-on: ubuntu-latest
+    
+    outputs:
+      publishToNuget: ${{ github.event_name == 'push' && steps.version-regex.outputs.match != '' }}
+      publishToGithubPackages: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+      
+    steps:
+      - name: Determine type of publication
+        uses: actions-ecosystem/action-regex-match@v2.0.2
+        id: version-regex
+        with:
+          text: ${{ github.ref }}
+          regex: '^refs/heads/\d+\.x$'
+
   build:
     runs-on: ubuntu-latest
 
@@ -27,13 +42,8 @@ jobs:
         fetch-depth: 0
         submodules: 'true'
 
-    - name: Setup .NET Core ${{ env.DotNetVersion }}
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: ${{ env.DotNetVersion }}
-
     - name: Install dotnet-validate
-      run: dotnet tool install -g dotnet-validate --version 0.0.1-preview.169
+      run: dotnet tool install -g dotnet-validate --version 0.0.1-preview.280
 
     - name: Determine semantic version
       uses: dotnet/nbgv@master
@@ -72,11 +82,6 @@ jobs:
         fetch-depth: 0
         submodules: 'true'
 
-    - name: Setup .NET Core ${{ env.DotNetVersion }}
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: ${{ env.DotNetVersion }}
-
     - name: Test
       run: dotnet test  --configuration Release --verbosity normal -p:RunGremlinServerIntegrationTests=${{ env.IsForkedRepository == 'false' }} -p:RunJanusGraphIntegrationTests=${{ env.IsForkedRepository == 'false' }}
 
@@ -88,7 +93,7 @@ jobs:
         path: ./**/*.received.*
 
   test-windows:
-    runs-on: windows-latest
+    runs-on: windows-2022
 
     steps:
     - name: Checkout
@@ -102,12 +107,8 @@ jobs:
       env:
         AZURE_COSMOS_EMULATOR_GREMLIN_ENDPOINT: true
 
-    - name: Setup .NET Core ${{ env.DotNetVersion }}
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: ${{ env.DotNetVersion }}
-
     - name: Test
+      if: ${{ false }}
       run: dotnet test  --configuration Release --verbosity normal -p:RunCosmosDbEmulatorIntegrationTests=${{ env.IsForkedRepository == 'false' }}
 
     - name: Copy *.received-files to artifacts
@@ -151,44 +152,54 @@ jobs:
         branch-suffix: short-commit-hash
 
   publish:
-    needs: [ build, test-linux, test-windows ]
+    needs: [ determinePublicationType, build, test-linux, test-windows ]
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' }}
+    if: ${{ needs.determinePublicationType.outputs.publishToNuget == 'true' || needs.determinePublicationType.outputs.publishToGithubPackages == 'true' }}
 
     steps:
-    - name: Setup .NET Core ${{ env.DotNetVersion }}
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: ${{ env.DotNetVersion }}
 
     - uses: actions/download-artifact@v2
       with:
         name: NuGetPackages
 
     - name: Push NuGet packages to GitHub packages
-      if: ${{ github.ref == 'refs/heads/develop' }}
+      if: ${{ needs.determinePublicationType.outputs.publishToGithubPackages == 'true' }}
       run: dotnet nuget push **/ExRam.*.nupkg
         --source https://nuget.pkg.github.com/exram/index.json
         --api-key ${{ secrets.GITHUB_TOKEN }}
-        --no-symbols true
+        --no-symbols
         --skip-duplicate
 
     - name: Push NuGet packages to NuGet.org
-      if: ${{ github.ref == 'refs/heads/main' }}
+      if: ${{ needs.determinePublicationType.outputs.publishToNuget == 'true' }}
       run: dotnet nuget push **/ExRam.*.nupkg
         --source https://api.nuget.org/v3/index.json
         --api-key ${{ secrets.NUGET_DEPLOY_KEY }}
-        --no-symbols true
+        --no-symbols
         --skip-duplicate
 
-  announce:
-    needs: [ build, publish ]
+  cleanup:
+    needs: [ publish ]
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    strategy:
+      matrix:
+        name: [ExRam.Gremlinq.Core, ExRam.Gremlinq.Core.AspNet, ExRam.Gremlinq.Providers.WebSocket, ExRam.Gremlinq.Providers.WebSocket.AspNet, ExRam.Gremlinq.Providers.Core, ExRam.Gremlinq.Providers.Neptune.AspNet, ExRam.Gremlinq.Providers.Neptune, ExRam.Gremlinq.Providers.Core.AspNet, ExRam.Gremlinq.Providers.CosmosDb, ExRam.Gremlinq.Providers.CosmosDb.AspNet, ExRam.Gremlinq.Providers.GremlinServer.AspNet, ExRam.Gremlinq.Providers.GremlinServer, ExRam.Gremlinq.Providers.JanusGraph.AspNet, ExRam.Gremlinq.Providers.JanusGraph]
+    
+    steps:
+    - uses: actions/delete-package-versions@v2
+      continue-on-error: true
+      with:
+        package-name: ${{ matrix.name }}
+        min-versions-to-keep: 10
+
+  announce:
+    needs: [ determinePublicationType, build, publish ]
+    runs-on: ubuntu-latest
+    if: ${{ needs.determinePublicationType.outputs.publishToNuget == 'true' }}
 
     steps:
     - name: Draft release
-      uses: release-drafter/release-drafter@8c2bf2805c06897c03e7f5034b424598defb09fb
+      uses: release-drafter/release-drafter@v5.17.6
       with:
         name: ExRam.Gremlinq ${{ needs.build.outputs.semVer2 }}
         prerelease: ${{ needs.build.outputs.isPreviewRelease }}
