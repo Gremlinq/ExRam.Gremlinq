@@ -425,7 +425,10 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Aggregate<TStepLabel>(Scope scope, TStepLabel stepLabel)
             where TStepLabel : StepLabel
         {
-            return AddStep(new AggregateStep(scope, stepLabel));
+            return AddStep(
+                new AggregateStep(scope, stepLabel),
+                _ => _,
+                StepLabelProjections.SetItem(stepLabel, Projection.Fold()));
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> And(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase>[] andTraversalTransformations)

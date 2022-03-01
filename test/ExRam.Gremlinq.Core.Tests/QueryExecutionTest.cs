@@ -419,6 +419,17 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task Aggregate_Cap_Select()
+        {
+            await _g
+                .V<Person>()
+                .Aggregate((__, aggregated) => __
+                    .Cap(aggregated)
+                    .Select(aggregated))
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task Aggregate_Cap()
         {
             await _g
