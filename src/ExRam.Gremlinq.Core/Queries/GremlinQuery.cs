@@ -401,7 +401,10 @@ namespace ExRam.Gremlinq.Core
             where TTargetQuery : IGremlinQueryBase
         {
             return continuation(
-                AddStep(new AggregateStep(scope, stepLabel)),
+                AddStep(
+                    new AggregateStep(scope, stepLabel),
+                    _ => _,
+                    StepLabelProjections.SetItem(stepLabel, Projection.Fold())),
                 stepLabel);
         }
 
