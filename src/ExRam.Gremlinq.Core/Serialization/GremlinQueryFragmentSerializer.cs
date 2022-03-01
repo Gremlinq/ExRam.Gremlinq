@@ -118,7 +118,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                 .Override<AddEStep.FromTraversalStep>((step, env, overridden, recurse) => CreateInstruction("from", recurse, env, step.Traversal))
                 .Override<AddVStep>((step, env, overridden, recurse) => CreateInstruction("addV", recurse, env, step.Label))
                 .Override<AndStep>((step, env, overridden, recurse) => CreateInstruction("and", recurse, env, step.Traversals))
-                .Override<AggregateStep>((step, env, overridden, recurse) => step.Scope.Equals(Scope.Local)
+                .Override<AggregateStep>((step, env, overridden, recurse) => step.Scope.Equals(Scope.Global)
                     ? CreateInstruction("aggregate", recurse, env, step.StepLabel)
                     : CreateInstruction("aggregate", recurse, env, step.Scope, step.StepLabel))
                 .Override<AsStep>((step, env, overridden, recurse) => CreateInstruction("as", recurse, env, step.StepLabel))

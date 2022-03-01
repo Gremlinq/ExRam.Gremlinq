@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "Script": "V().hasLabel(_a).aggregate(_b).cap(_b)",
     "Bindings": {
