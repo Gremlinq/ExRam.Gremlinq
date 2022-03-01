@@ -411,10 +411,12 @@ namespace ExRam.Gremlinq.Core
                 .AddOrUpdate(vertex, true);
         }
 
-        private TTargetQuery Aggregate<TStepLabel, TTargetQuery>(Scope scope, TStepLabel stepLabel, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TStepLabel, TTargetQuery> continuation)
-            where TStepLabel : StepLabel
+        private TTargetQuery Aggregate<TStepLabel, TTargetQuery>(Scope scope, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TStepLabel, TTargetQuery> continuation)
+            where TStepLabel : StepLabel, new()
             where TTargetQuery : IGremlinQueryBase
         {
+            var stepLabel = new TStepLabel();
+
             return continuation(
                 Aggregate(scope, stepLabel),
                 stepLabel);
