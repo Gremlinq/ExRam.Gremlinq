@@ -30,6 +30,9 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IGremlinQueryBaseRec<TElement, <#= iface #>>.Aggregate<TTargetQuery>(Func<<#= iface #>, StepLabel<IArrayGremlinQuery<TElement[], TElement, <#= iface #>>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Global, continuation);
         TTargetQuery IGremlinQueryBaseRec<TElement, <#= iface #>>.AggregateLocal<TTargetQuery>(Func<<#= iface #>, StepLabel<IArrayGremlinQuery<TElement[], TElement, <#= iface #>>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Local, continuation);
 
+        <#= iface #> IGremlinQueryBaseRec<TElement, <#= iface #>>.Aggregate(StepLabel<IArrayGremlinQuery<TElement[], TElement, <#= iface #>>, TElement[]> stepLabel) => Aggregate(Scope.Global, stepLabel);
+        <#= iface #> IGremlinQueryBaseRec<TElement, <#= iface #>>.AggregateLocal(StepLabel<IArrayGremlinQuery<TElement[], TElement, <#= iface #>>, TElement[]> stepLabel) => Aggregate(Scope.Local, stepLabel);
+
         TTargetQuery IGremlinQueryBaseRec<TElement, <#= iface #>>.As<TTargetQuery>(Func<<#= iface #>, StepLabel<<#= iface #>, TElement>, TTargetQuery> continuation) => As<StepLabel<<#= iface #>, TElement>, TTargetQuery>(continuation);
         <#= iface #> IGremlinQueryBaseRec<TElement, <#= iface #>>.As(StepLabel<TElement> stepLabel) => As(stepLabel);
 

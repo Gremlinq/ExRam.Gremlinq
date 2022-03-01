@@ -65,6 +65,9 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IGremlinQueryBaseRec<TElement, IGremlinQuery<TElement>>.Aggregate<TTargetQuery>(Func<IGremlinQuery<TElement>, StepLabel<IArrayGremlinQuery<TElement[], TElement, IGremlinQuery<TElement>>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Global, continuation);
         TTargetQuery IGremlinQueryBaseRec<TElement, IGremlinQuery<TElement>>.AggregateLocal<TTargetQuery>(Func<IGremlinQuery<TElement>, StepLabel<IArrayGremlinQuery<TElement[], TElement, IGremlinQuery<TElement>>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Local, continuation);
 
+        IGremlinQuery<TElement> IGremlinQueryBaseRec<TElement, IGremlinQuery<TElement>>.Aggregate(StepLabel<IArrayGremlinQuery<TElement[], TElement, IGremlinQuery<TElement>>, TElement[]> stepLabel) => Aggregate(Scope.Global, stepLabel);
+        IGremlinQuery<TElement> IGremlinQueryBaseRec<TElement, IGremlinQuery<TElement>>.AggregateLocal(StepLabel<IArrayGremlinQuery<TElement[], TElement, IGremlinQuery<TElement>>, TElement[]> stepLabel) => Aggregate(Scope.Local, stepLabel);
+
         TTargetQuery IGremlinQueryBaseRec<TElement, IGremlinQuery<TElement>>.As<TTargetQuery>(Func<IGremlinQuery<TElement>, StepLabel<IGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) => As<StepLabel<IGremlinQuery<TElement>, TElement>, TTargetQuery>(continuation);
         IGremlinQuery<TElement> IGremlinQueryBaseRec<TElement, IGremlinQuery<TElement>>.As(StepLabel<TElement> stepLabel) => As(stepLabel);
 
@@ -168,6 +171,9 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IGremlinQueryBaseRec<TElement, IValueGremlinQuery<TElement>>.Aggregate<TTargetQuery>(Func<IValueGremlinQuery<TElement>, StepLabel<IArrayGremlinQuery<TElement[], TElement, IValueGremlinQuery<TElement>>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Global, continuation);
         TTargetQuery IGremlinQueryBaseRec<TElement, IValueGremlinQuery<TElement>>.AggregateLocal<TTargetQuery>(Func<IValueGremlinQuery<TElement>, StepLabel<IArrayGremlinQuery<TElement[], TElement, IValueGremlinQuery<TElement>>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Local, continuation);
+
+        IValueGremlinQuery<TElement> IGremlinQueryBaseRec<TElement, IValueGremlinQuery<TElement>>.Aggregate(StepLabel<IArrayGremlinQuery<TElement[], TElement, IValueGremlinQuery<TElement>>, TElement[]> stepLabel) => Aggregate(Scope.Global, stepLabel);
+        IValueGremlinQuery<TElement> IGremlinQueryBaseRec<TElement, IValueGremlinQuery<TElement>>.AggregateLocal(StepLabel<IArrayGremlinQuery<TElement[], TElement, IValueGremlinQuery<TElement>>, TElement[]> stepLabel) => Aggregate(Scope.Local, stepLabel);
 
         TTargetQuery IGremlinQueryBaseRec<TElement, IValueGremlinQuery<TElement>>.As<TTargetQuery>(Func<IValueGremlinQuery<TElement>, StepLabel<IValueGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) => As<StepLabel<IValueGremlinQuery<TElement>, TElement>, TTargetQuery>(continuation);
         IValueGremlinQuery<TElement> IGremlinQueryBaseRec<TElement, IValueGremlinQuery<TElement>>.As(StepLabel<TElement> stepLabel) => As(stepLabel);
@@ -273,6 +279,9 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IGremlinQueryBaseRec<TElement, IValueTupleGremlinQuery<TElement>>.Aggregate<TTargetQuery>(Func<IValueTupleGremlinQuery<TElement>, StepLabel<IArrayGremlinQuery<TElement[], TElement, IValueTupleGremlinQuery<TElement>>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Global, continuation);
         TTargetQuery IGremlinQueryBaseRec<TElement, IValueTupleGremlinQuery<TElement>>.AggregateLocal<TTargetQuery>(Func<IValueTupleGremlinQuery<TElement>, StepLabel<IArrayGremlinQuery<TElement[], TElement, IValueTupleGremlinQuery<TElement>>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Local, continuation);
 
+        IValueTupleGremlinQuery<TElement> IGremlinQueryBaseRec<TElement, IValueTupleGremlinQuery<TElement>>.Aggregate(StepLabel<IArrayGremlinQuery<TElement[], TElement, IValueTupleGremlinQuery<TElement>>, TElement[]> stepLabel) => Aggregate(Scope.Global, stepLabel);
+        IValueTupleGremlinQuery<TElement> IGremlinQueryBaseRec<TElement, IValueTupleGremlinQuery<TElement>>.AggregateLocal(StepLabel<IArrayGremlinQuery<TElement[], TElement, IValueTupleGremlinQuery<TElement>>, TElement[]> stepLabel) => Aggregate(Scope.Local, stepLabel);
+
         TTargetQuery IGremlinQueryBaseRec<TElement, IValueTupleGremlinQuery<TElement>>.As<TTargetQuery>(Func<IValueTupleGremlinQuery<TElement>, StepLabel<IValueTupleGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) => As<StepLabel<IValueTupleGremlinQuery<TElement>, TElement>, TTargetQuery>(continuation);
         IValueTupleGremlinQuery<TElement> IGremlinQueryBaseRec<TElement, IValueTupleGremlinQuery<TElement>>.As(StepLabel<TElement> stepLabel) => As(stepLabel);
 
@@ -376,6 +385,9 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IGremlinQueryBaseRec<TElement, IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.Aggregate<TTargetQuery>(Func<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>, StepLabel<IArrayGremlinQuery<TElement[], TElement, IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Global, continuation);
         TTargetQuery IGremlinQueryBaseRec<TElement, IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.AggregateLocal<TTargetQuery>(Func<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>, StepLabel<IArrayGremlinQuery<TElement[], TElement, IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Local, continuation);
+
+        IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IGremlinQueryBaseRec<TElement, IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.Aggregate(StepLabel<IArrayGremlinQuery<TElement[], TElement, IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>, TElement[]> stepLabel) => Aggregate(Scope.Global, stepLabel);
+        IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IGremlinQueryBaseRec<TElement, IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.AggregateLocal(StepLabel<IArrayGremlinQuery<TElement[], TElement, IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>, TElement[]> stepLabel) => Aggregate(Scope.Local, stepLabel);
 
         TTargetQuery IGremlinQueryBaseRec<TElement, IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.As<TTargetQuery>(Func<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>, StepLabel<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>, TElement>, TTargetQuery> continuation) => As<StepLabel<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>, TElement>, TTargetQuery>(continuation);
         IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IGremlinQueryBaseRec<TElement, IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.As(StepLabel<TElement> stepLabel) => As(stepLabel);
@@ -481,6 +493,9 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IGremlinQueryBaseRec<TElement, IElementGremlinQuery<TElement>>.Aggregate<TTargetQuery>(Func<IElementGremlinQuery<TElement>, StepLabel<IArrayGremlinQuery<TElement[], TElement, IElementGremlinQuery<TElement>>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Global, continuation);
         TTargetQuery IGremlinQueryBaseRec<TElement, IElementGremlinQuery<TElement>>.AggregateLocal<TTargetQuery>(Func<IElementGremlinQuery<TElement>, StepLabel<IArrayGremlinQuery<TElement[], TElement, IElementGremlinQuery<TElement>>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Local, continuation);
 
+        IElementGremlinQuery<TElement> IGremlinQueryBaseRec<TElement, IElementGremlinQuery<TElement>>.Aggregate(StepLabel<IArrayGremlinQuery<TElement[], TElement, IElementGremlinQuery<TElement>>, TElement[]> stepLabel) => Aggregate(Scope.Global, stepLabel);
+        IElementGremlinQuery<TElement> IGremlinQueryBaseRec<TElement, IElementGremlinQuery<TElement>>.AggregateLocal(StepLabel<IArrayGremlinQuery<TElement[], TElement, IElementGremlinQuery<TElement>>, TElement[]> stepLabel) => Aggregate(Scope.Local, stepLabel);
+
         TTargetQuery IGremlinQueryBaseRec<TElement, IElementGremlinQuery<TElement>>.As<TTargetQuery>(Func<IElementGremlinQuery<TElement>, StepLabel<IElementGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) => As<StepLabel<IElementGremlinQuery<TElement>, TElement>, TTargetQuery>(continuation);
         IElementGremlinQuery<TElement> IGremlinQueryBaseRec<TElement, IElementGremlinQuery<TElement>>.As(StepLabel<TElement> stepLabel) => As(stepLabel);
 
@@ -584,6 +599,9 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IGremlinQueryBaseRec<TElement, IEdgeOrVertexGremlinQuery<TElement>>.Aggregate<TTargetQuery>(Func<IEdgeOrVertexGremlinQuery<TElement>, StepLabel<IArrayGremlinQuery<TElement[], TElement, IEdgeOrVertexGremlinQuery<TElement>>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Global, continuation);
         TTargetQuery IGremlinQueryBaseRec<TElement, IEdgeOrVertexGremlinQuery<TElement>>.AggregateLocal<TTargetQuery>(Func<IEdgeOrVertexGremlinQuery<TElement>, StepLabel<IArrayGremlinQuery<TElement[], TElement, IEdgeOrVertexGremlinQuery<TElement>>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Local, continuation);
+
+        IEdgeOrVertexGremlinQuery<TElement> IGremlinQueryBaseRec<TElement, IEdgeOrVertexGremlinQuery<TElement>>.Aggregate(StepLabel<IArrayGremlinQuery<TElement[], TElement, IEdgeOrVertexGremlinQuery<TElement>>, TElement[]> stepLabel) => Aggregate(Scope.Global, stepLabel);
+        IEdgeOrVertexGremlinQuery<TElement> IGremlinQueryBaseRec<TElement, IEdgeOrVertexGremlinQuery<TElement>>.AggregateLocal(StepLabel<IArrayGremlinQuery<TElement[], TElement, IEdgeOrVertexGremlinQuery<TElement>>, TElement[]> stepLabel) => Aggregate(Scope.Local, stepLabel);
 
         TTargetQuery IGremlinQueryBaseRec<TElement, IEdgeOrVertexGremlinQuery<TElement>>.As<TTargetQuery>(Func<IEdgeOrVertexGremlinQuery<TElement>, StepLabel<IEdgeOrVertexGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) => As<StepLabel<IEdgeOrVertexGremlinQuery<TElement>, TElement>, TTargetQuery>(continuation);
         IEdgeOrVertexGremlinQuery<TElement> IGremlinQueryBaseRec<TElement, IEdgeOrVertexGremlinQuery<TElement>>.As(StepLabel<TElement> stepLabel) => As(stepLabel);
@@ -689,6 +707,9 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IGremlinQueryBaseRec<TElement, IVertexGremlinQuery<TElement>>.Aggregate<TTargetQuery>(Func<IVertexGremlinQuery<TElement>, StepLabel<IArrayGremlinQuery<TElement[], TElement, IVertexGremlinQuery<TElement>>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Global, continuation);
         TTargetQuery IGremlinQueryBaseRec<TElement, IVertexGremlinQuery<TElement>>.AggregateLocal<TTargetQuery>(Func<IVertexGremlinQuery<TElement>, StepLabel<IArrayGremlinQuery<TElement[], TElement, IVertexGremlinQuery<TElement>>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Local, continuation);
 
+        IVertexGremlinQuery<TElement> IGremlinQueryBaseRec<TElement, IVertexGremlinQuery<TElement>>.Aggregate(StepLabel<IArrayGremlinQuery<TElement[], TElement, IVertexGremlinQuery<TElement>>, TElement[]> stepLabel) => Aggregate(Scope.Global, stepLabel);
+        IVertexGremlinQuery<TElement> IGremlinQueryBaseRec<TElement, IVertexGremlinQuery<TElement>>.AggregateLocal(StepLabel<IArrayGremlinQuery<TElement[], TElement, IVertexGremlinQuery<TElement>>, TElement[]> stepLabel) => Aggregate(Scope.Local, stepLabel);
+
         TTargetQuery IGremlinQueryBaseRec<TElement, IVertexGremlinQuery<TElement>>.As<TTargetQuery>(Func<IVertexGremlinQuery<TElement>, StepLabel<IVertexGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) => As<StepLabel<IVertexGremlinQuery<TElement>, TElement>, TTargetQuery>(continuation);
         IVertexGremlinQuery<TElement> IGremlinQueryBaseRec<TElement, IVertexGremlinQuery<TElement>>.As(StepLabel<TElement> stepLabel) => As(stepLabel);
 
@@ -792,6 +813,9 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IGremlinQueryBaseRec<TElement, IEdgeGremlinQuery<TElement>>.Aggregate<TTargetQuery>(Func<IEdgeGremlinQuery<TElement>, StepLabel<IArrayGremlinQuery<TElement[], TElement, IEdgeGremlinQuery<TElement>>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Global, continuation);
         TTargetQuery IGremlinQueryBaseRec<TElement, IEdgeGremlinQuery<TElement>>.AggregateLocal<TTargetQuery>(Func<IEdgeGremlinQuery<TElement>, StepLabel<IArrayGremlinQuery<TElement[], TElement, IEdgeGremlinQuery<TElement>>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Local, continuation);
+
+        IEdgeGremlinQuery<TElement> IGremlinQueryBaseRec<TElement, IEdgeGremlinQuery<TElement>>.Aggregate(StepLabel<IArrayGremlinQuery<TElement[], TElement, IEdgeGremlinQuery<TElement>>, TElement[]> stepLabel) => Aggregate(Scope.Global, stepLabel);
+        IEdgeGremlinQuery<TElement> IGremlinQueryBaseRec<TElement, IEdgeGremlinQuery<TElement>>.AggregateLocal(StepLabel<IArrayGremlinQuery<TElement[], TElement, IEdgeGremlinQuery<TElement>>, TElement[]> stepLabel) => Aggregate(Scope.Local, stepLabel);
 
         TTargetQuery IGremlinQueryBaseRec<TElement, IEdgeGremlinQuery<TElement>>.As<TTargetQuery>(Func<IEdgeGremlinQuery<TElement>, StepLabel<IEdgeGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) => As<StepLabel<IEdgeGremlinQuery<TElement>, TElement>, TTargetQuery>(continuation);
         IEdgeGremlinQuery<TElement> IGremlinQueryBaseRec<TElement, IEdgeGremlinQuery<TElement>>.As(StepLabel<TElement> stepLabel) => As(stepLabel);
@@ -897,6 +921,9 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IGremlinQueryBaseRec<TElement, IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.Aggregate<TTargetQuery>(Func<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>, StepLabel<IArrayGremlinQuery<TElement[], TElement, IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Global, continuation);
         TTargetQuery IGremlinQueryBaseRec<TElement, IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.AggregateLocal<TTargetQuery>(Func<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>, StepLabel<IArrayGremlinQuery<TElement[], TElement, IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Local, continuation);
 
+        IInOrOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<TElement, IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.Aggregate(StepLabel<IArrayGremlinQuery<TElement[], TElement, IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>, TElement[]> stepLabel) => Aggregate(Scope.Global, stepLabel);
+        IInOrOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<TElement, IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.AggregateLocal(StepLabel<IArrayGremlinQuery<TElement[], TElement, IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>, TElement[]> stepLabel) => Aggregate(Scope.Local, stepLabel);
+
         TTargetQuery IGremlinQueryBaseRec<TElement, IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.As<TTargetQuery>(Func<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>, StepLabel<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>, TElement>, TTargetQuery> continuation) => As<StepLabel<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>, TElement>, TTargetQuery>(continuation);
         IInOrOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<TElement, IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.As(StepLabel<TElement> stepLabel) => As(stepLabel);
 
@@ -1000,6 +1027,9 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IGremlinQueryBaseRec<TElement, IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.Aggregate<TTargetQuery>(Func<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, StepLabel<IArrayGremlinQuery<TElement[], TElement, IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Global, continuation);
         TTargetQuery IGremlinQueryBaseRec<TElement, IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.AggregateLocal<TTargetQuery>(Func<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, StepLabel<IArrayGremlinQuery<TElement[], TElement, IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Local, continuation);
+
+        IEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IGremlinQueryBaseRec<TElement, IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.Aggregate(StepLabel<IArrayGremlinQuery<TElement[], TElement, IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>, TElement[]> stepLabel) => Aggregate(Scope.Global, stepLabel);
+        IEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IGremlinQueryBaseRec<TElement, IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.AggregateLocal(StepLabel<IArrayGremlinQuery<TElement[], TElement, IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>, TElement[]> stepLabel) => Aggregate(Scope.Local, stepLabel);
 
         TTargetQuery IGremlinQueryBaseRec<TElement, IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.As<TTargetQuery>(Func<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, StepLabel<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, TElement>, TTargetQuery> continuation) => As<StepLabel<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, TElement>, TTargetQuery>(continuation);
         IEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IGremlinQueryBaseRec<TElement, IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.As(StepLabel<TElement> stepLabel) => As(stepLabel);
@@ -1105,6 +1135,9 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IGremlinQueryBaseRec<TElement, IInEdgeGremlinQuery<TElement, TInVertex>>.Aggregate<TTargetQuery>(Func<IInEdgeGremlinQuery<TElement, TInVertex>, StepLabel<IArrayGremlinQuery<TElement[], TElement, IInEdgeGremlinQuery<TElement, TInVertex>>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Global, continuation);
         TTargetQuery IGremlinQueryBaseRec<TElement, IInEdgeGremlinQuery<TElement, TInVertex>>.AggregateLocal<TTargetQuery>(Func<IInEdgeGremlinQuery<TElement, TInVertex>, StepLabel<IArrayGremlinQuery<TElement[], TElement, IInEdgeGremlinQuery<TElement, TInVertex>>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Local, continuation);
 
+        IInEdgeGremlinQuery<TElement, TInVertex> IGremlinQueryBaseRec<TElement, IInEdgeGremlinQuery<TElement, TInVertex>>.Aggregate(StepLabel<IArrayGremlinQuery<TElement[], TElement, IInEdgeGremlinQuery<TElement, TInVertex>>, TElement[]> stepLabel) => Aggregate(Scope.Global, stepLabel);
+        IInEdgeGremlinQuery<TElement, TInVertex> IGremlinQueryBaseRec<TElement, IInEdgeGremlinQuery<TElement, TInVertex>>.AggregateLocal(StepLabel<IArrayGremlinQuery<TElement[], TElement, IInEdgeGremlinQuery<TElement, TInVertex>>, TElement[]> stepLabel) => Aggregate(Scope.Local, stepLabel);
+
         TTargetQuery IGremlinQueryBaseRec<TElement, IInEdgeGremlinQuery<TElement, TInVertex>>.As<TTargetQuery>(Func<IInEdgeGremlinQuery<TElement, TInVertex>, StepLabel<IInEdgeGremlinQuery<TElement, TInVertex>, TElement>, TTargetQuery> continuation) => As<StepLabel<IInEdgeGremlinQuery<TElement, TInVertex>, TElement>, TTargetQuery>(continuation);
         IInEdgeGremlinQuery<TElement, TInVertex> IGremlinQueryBaseRec<TElement, IInEdgeGremlinQuery<TElement, TInVertex>>.As(StepLabel<TElement> stepLabel) => As(stepLabel);
 
@@ -1208,6 +1241,9 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IGremlinQueryBaseRec<TElement, IOutEdgeGremlinQuery<TElement, TOutVertex>>.Aggregate<TTargetQuery>(Func<IOutEdgeGremlinQuery<TElement, TOutVertex>, StepLabel<IArrayGremlinQuery<TElement[], TElement, IOutEdgeGremlinQuery<TElement, TOutVertex>>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Global, continuation);
         TTargetQuery IGremlinQueryBaseRec<TElement, IOutEdgeGremlinQuery<TElement, TOutVertex>>.AggregateLocal<TTargetQuery>(Func<IOutEdgeGremlinQuery<TElement, TOutVertex>, StepLabel<IArrayGremlinQuery<TElement[], TElement, IOutEdgeGremlinQuery<TElement, TOutVertex>>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Local, continuation);
+
+        IOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<TElement, IOutEdgeGremlinQuery<TElement, TOutVertex>>.Aggregate(StepLabel<IArrayGremlinQuery<TElement[], TElement, IOutEdgeGremlinQuery<TElement, TOutVertex>>, TElement[]> stepLabel) => Aggregate(Scope.Global, stepLabel);
+        IOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<TElement, IOutEdgeGremlinQuery<TElement, TOutVertex>>.AggregateLocal(StepLabel<IArrayGremlinQuery<TElement[], TElement, IOutEdgeGremlinQuery<TElement, TOutVertex>>, TElement[]> stepLabel) => Aggregate(Scope.Local, stepLabel);
 
         TTargetQuery IGremlinQueryBaseRec<TElement, IOutEdgeGremlinQuery<TElement, TOutVertex>>.As<TTargetQuery>(Func<IOutEdgeGremlinQuery<TElement, TOutVertex>, StepLabel<IOutEdgeGremlinQuery<TElement, TOutVertex>, TElement>, TTargetQuery> continuation) => As<StepLabel<IOutEdgeGremlinQuery<TElement, TOutVertex>, TElement>, TTargetQuery>(continuation);
         IOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<TElement, IOutEdgeGremlinQuery<TElement, TOutVertex>>.As(StepLabel<TElement> stepLabel) => As(stepLabel);
@@ -1313,6 +1349,9 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar>>.Aggregate<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TScalar>, StepLabel<IArrayGremlinQuery<TElement[], TElement, IVertexPropertyGremlinQuery<TElement, TScalar>>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Global, continuation);
         TTargetQuery IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar>>.AggregateLocal<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TScalar>, StepLabel<IArrayGremlinQuery<TElement[], TElement, IVertexPropertyGremlinQuery<TElement, TScalar>>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Local, continuation);
 
+        IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar>>.Aggregate(StepLabel<IArrayGremlinQuery<TElement[], TElement, IVertexPropertyGremlinQuery<TElement, TScalar>>, TElement[]> stepLabel) => Aggregate(Scope.Global, stepLabel);
+        IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar>>.AggregateLocal(StepLabel<IArrayGremlinQuery<TElement[], TElement, IVertexPropertyGremlinQuery<TElement, TScalar>>, TElement[]> stepLabel) => Aggregate(Scope.Local, stepLabel);
+
         TTargetQuery IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar>>.As<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TScalar>, StepLabel<IVertexPropertyGremlinQuery<TElement, TScalar>, TElement>, TTargetQuery> continuation) => As<StepLabel<IVertexPropertyGremlinQuery<TElement, TScalar>, TElement>, TTargetQuery>(continuation);
         IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar>>.As(StepLabel<TElement> stepLabel) => As(stepLabel);
 
@@ -1417,6 +1456,9 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Aggregate<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, StepLabel<IArrayGremlinQuery<TElement[], TElement, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Global, continuation);
         TTargetQuery IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.AggregateLocal<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, StepLabel<IArrayGremlinQuery<TElement[], TElement, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Local, continuation);
 
+        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Aggregate(StepLabel<IArrayGremlinQuery<TElement[], TElement, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>, TElement[]> stepLabel) => Aggregate(Scope.Global, stepLabel);
+        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.AggregateLocal(StepLabel<IArrayGremlinQuery<TElement[], TElement, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>, TElement[]> stepLabel) => Aggregate(Scope.Local, stepLabel);
+
         TTargetQuery IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.As<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, StepLabel<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, TElement>, TTargetQuery> continuation) => As<StepLabel<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, TElement>, TTargetQuery>(continuation);
         IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.As(StepLabel<TElement> stepLabel) => As(stepLabel);
 
@@ -1520,6 +1562,9 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IGremlinQueryBaseRec<TElement, IPropertyGremlinQuery<TElement>>.Aggregate<TTargetQuery>(Func<IPropertyGremlinQuery<TElement>, StepLabel<IArrayGremlinQuery<TElement[], TElement, IPropertyGremlinQuery<TElement>>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Global, continuation);
         TTargetQuery IGremlinQueryBaseRec<TElement, IPropertyGremlinQuery<TElement>>.AggregateLocal<TTargetQuery>(Func<IPropertyGremlinQuery<TElement>, StepLabel<IArrayGremlinQuery<TElement[], TElement, IPropertyGremlinQuery<TElement>>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Local, continuation);
+
+        IPropertyGremlinQuery<TElement> IGremlinQueryBaseRec<TElement, IPropertyGremlinQuery<TElement>>.Aggregate(StepLabel<IArrayGremlinQuery<TElement[], TElement, IPropertyGremlinQuery<TElement>>, TElement[]> stepLabel) => Aggregate(Scope.Global, stepLabel);
+        IPropertyGremlinQuery<TElement> IGremlinQueryBaseRec<TElement, IPropertyGremlinQuery<TElement>>.AggregateLocal(StepLabel<IArrayGremlinQuery<TElement[], TElement, IPropertyGremlinQuery<TElement>>, TElement[]> stepLabel) => Aggregate(Scope.Local, stepLabel);
 
         TTargetQuery IGremlinQueryBaseRec<TElement, IPropertyGremlinQuery<TElement>>.As<TTargetQuery>(Func<IPropertyGremlinQuery<TElement>, StepLabel<IPropertyGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) => As<StepLabel<IPropertyGremlinQuery<TElement>, TElement>, TTargetQuery>(continuation);
         IPropertyGremlinQuery<TElement> IGremlinQueryBaseRec<TElement, IPropertyGremlinQuery<TElement>>.As(StepLabel<TElement> stepLabel) => As(stepLabel);
