@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "g.V().aggregate(global,_a)",
+    "Script": "g.V().aggregate(_a)",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "l1"

@@ -457,6 +457,8 @@
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
         TTargetQuery AggregateGlobal<TTargetQuery>(System.Func<TSelf, ExRam.Gremlinq.Core.StepLabel<ExRam.Gremlinq.Core.IArrayGremlinQuery<TElement[], TElement, TSelf>, TElement[]>, TTargetQuery> continuation)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
+        TTargetQuery AggregateLocal<TTargetQuery>(System.Func<TSelf, ExRam.Gremlinq.Core.StepLabel<ExRam.Gremlinq.Core.IArrayGremlinQuery<TElement[], TElement, TSelf>, TElement[]>, TTargetQuery> continuation)
+            where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
         TSelf As(ExRam.Gremlinq.Core.StepLabel<TElement> stepLabel);
         TTargetQuery As<TTargetQuery>(System.Func<TSelf, ExRam.Gremlinq.Core.StepLabel<TSelf, TElement>, TTargetQuery> continuation)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;

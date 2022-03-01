@@ -26,10 +26,6 @@
         {
           "OperatorName": "aggregate",
           "Arguments": [
-            {
-              "EnumName": "Scope",
-              "EnumValue": "global"
-            },
             "l3"
           ]
         },
