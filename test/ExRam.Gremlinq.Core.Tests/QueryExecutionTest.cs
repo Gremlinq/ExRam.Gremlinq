@@ -457,7 +457,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .V()
-                .AggregateGlobal((__, aggregated) => __)
+                .Aggregate((__, aggregated) => __)
                 .Verify();
         }
 
@@ -466,7 +466,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .V()
-                .Aggregate((__, aggregated) => __)
+                .AggregateLocal((__, aggregated) => __)
                 .Verify();
         }
 

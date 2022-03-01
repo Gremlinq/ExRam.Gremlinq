@@ -11,6 +11,10 @@
         {
           "OperatorName": "aggregate",
           "Arguments": [
+            {
+              "EnumName": "Scope",
+              "EnumValue": "local"
+            },
             "l1"
           ]
         },
