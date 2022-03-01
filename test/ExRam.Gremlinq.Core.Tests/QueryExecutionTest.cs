@@ -471,6 +471,24 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task Aggregate_Global_with_existing_step()
+        {
+            await _g
+                .V()
+                .Aggregate(new())
+                .Verify();
+        }
+
+        [Fact]
+        public virtual async Task Aggregate_Local_with_existing_step()
+        {
+            await _g
+                .V()
+                .AggregateLocal(new())
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task And()
         {
             await _g
