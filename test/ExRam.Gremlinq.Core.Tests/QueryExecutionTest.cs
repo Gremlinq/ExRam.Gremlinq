@@ -430,6 +430,18 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task Aggregate_Cap_Select_with_ints()
+        {
+            await _g
+                .V<Person>()
+                .CountLocal()
+                .Aggregate((__, aggregated) => __
+                    .Cap(aggregated)
+                    .Select(aggregated))
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task Aggregate_Cap()
         {
             await _g

@@ -1,0 +1,62 @@
+﻿[
+  {
+    "Id": "Scrubbed GUID",
+    "Bytecode": {
+      "SourceInstructions": [
+        {
+          "OperatorName": "withSideEffect",
+          "Arguments": [
+            "Neptune#fts.endpoint",
+            "http://elastic.search.server"
+          ]
+        },
+        {
+          "OperatorName": "withSideEffect",
+          "Arguments": [
+            "Neptune#fts.queryType",
+            "query_string"
+          ]
+        }
+      ],
+      "StepInstructions": [
+        {
+          "OperatorName": "V",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "hasLabel",
+          "Arguments": [
+            "Person"
+          ]
+        },
+        {
+          "OperatorName": "count",
+          "Arguments": [
+            {
+              "EnumName": "Scope",
+              "EnumValue": "local"
+            }
+          ]
+        },
+        {
+          "OperatorName": "aggregate",
+          "Arguments": [
+            "l3"
+          ]
+        },
+        {
+          "OperatorName": "cap",
+          "Arguments": [
+            "l3"
+          ]
+        },
+        {
+          "OperatorName": "select",
+          "Arguments": [
+            "l3"
+          ]
+        }
+      ]
+    }
+  }
+]

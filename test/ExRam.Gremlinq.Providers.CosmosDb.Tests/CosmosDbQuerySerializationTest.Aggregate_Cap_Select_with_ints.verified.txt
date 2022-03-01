@@ -1,0 +1,10 @@
+﻿[
+  {
+    "Script": "g.V().hasLabel(_a).count(local).aggregate(_b).cap(_b).select(_b)",
+    "Id": "Scrubbed GUID",
+    "Bindings": {
+      "_a": "Person",
+      "_b": "l1"
+    }
+  }
+]
