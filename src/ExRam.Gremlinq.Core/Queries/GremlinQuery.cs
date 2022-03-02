@@ -18,27 +18,6 @@ using Newtonsoft.Json;
 
 namespace ExRam.Gremlinq.Core
 {
-    internal static class GremlinQuery
-    {
-        public static IGremlinQuerySource Create(IGremlinQueryEnvironment environment)
-        {
-            return Create(
-                StepStack.Empty,
-                environment,
-                QueryFlags.SurfaceVisible);
-        }
-
-        public static IGremlinQuerySource Create(StepStack steps, IGremlinQueryEnvironment environment, QueryFlags flags)
-        {
-            return new GremlinQuery<object, object, object, object, object, object>(
-                steps,
-                Projection.Empty,
-                environment,
-                ImmutableDictionary<StepLabel, Projection>.Empty,
-                flags);
-        }
-    }
-
     internal sealed partial class GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> : GremlinQueryBase
     {
         private sealed class OrderBuilder : IOrderBuilderWithBy<TElement, GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>
