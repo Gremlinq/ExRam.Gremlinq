@@ -370,14 +370,7 @@ namespace ExRam.Gremlinq.Core
             if ((Flags & QueryFlags.IsMuted) == 0)
                 newSteps = Environment.AddStepHandler.AddStep(newSteps, step, Environment);
 
-            return new GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(
-                newSteps,
-                projectionTransformation is { } transformation
-                    ? transformation(Projection)
-                    : Projection,
-                Environment,
-                stepLabelProjections ?? StepLabelProjections,
-                Flags | additionalFlags);
+            return Continue<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(newSteps, projectionTransformation, stepLabelProjections, additionalFlags);
         }
 
         private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery> AddSteps<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(IEnumerable<Step> steps, Func<Projection, Projection>? projectionTransformation = null, IImmutableDictionary<StepLabel, Projection>? stepLabelProjections = null, QueryFlags additionalFlags = QueryFlags.None)
@@ -392,6 +385,11 @@ namespace ExRam.Gremlinq.Core
                 }
             }
 
+            return Continue<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(newSteps, projectionTransformation, stepLabelProjections, additionalFlags);
+        }
+
+        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery> Continue<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(StepStack newSteps, Func<Projection, Projection>? projectionTransformation = null, IImmutableDictionary<StepLabel, Projection>? stepLabelProjections = null, QueryFlags additionalFlags = QueryFlags.None)
+        {
             return new GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(
                 newSteps,
                 projectionTransformation is { } transformation
