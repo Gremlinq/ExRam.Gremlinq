@@ -507,8 +507,7 @@ namespace ExRam.Gremlinq.Core
         {
             return AddStep(
                 new AsStep(stepLabel),
-                _ => _,
-                StepLabelProjections.SetItem(stepLabel, Projection));
+                stepLabelSemantics: StepLabelProjections.SetItem(stepLabel, Projection));
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Barrier() => AddStep(BarrierStep.Instance);
