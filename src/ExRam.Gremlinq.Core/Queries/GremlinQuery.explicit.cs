@@ -312,7 +312,7 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuerySource IGremlinQuerySource.WithSideEffect<TSideEffect>(StepLabel<TSideEffect> label, TSideEffect value) => AddStep(
             new WithSideEffectStep(label, value!),
-            stepLabelSemantics: StepLabelProjections.SetItem(label, Projection));
+            stepLabelProjections: StepLabelProjections.SetItem(label, Projection));
 
         TQuery IGremlinQuerySource.WithSideEffect<TSideEffect, TQuery>(TSideEffect value, Func<IGremlinQuerySource, StepLabel<TSideEffect>, TQuery> continuation)
         {

@@ -353,13 +353,13 @@ namespace ExRam.Gremlinq.Core
                 : null;
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> AddSteps(IEnumerable<Step> steps, Func<Projection, Projection>? projectionTransformation = null, IImmutableDictionary<StepLabel, Projection>? stepLabelSemantics = null, QueryFlags additionalFlags = QueryFlags.None) => AddSteps<TElement>(steps, projectionTransformation, stepLabelSemantics, additionalFlags);
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> AddSteps(IEnumerable<Step> steps, Func<Projection, Projection>? projectionTransformation = null, IImmutableDictionary<StepLabel, Projection>? stepLabelProjections = null, QueryFlags additionalFlags = QueryFlags.None) => AddSteps<TElement>(steps, projectionTransformation, stepLabelProjections, additionalFlags);
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> AddStep(Step step, Func<Projection, Projection>? projectionTransformation = null, IImmutableDictionary<StepLabel, Projection>? stepLabelSemantics = null, QueryFlags additionalFlags = QueryFlags.None) => AddStep<TElement>(step, projectionTransformation, stepLabelSemantics, additionalFlags);
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> AddStep(Step step, Func<Projection, Projection>? projectionTransformation = null, IImmutableDictionary<StepLabel, Projection>? stepLabelProjections = null, QueryFlags additionalFlags = QueryFlags.None) => AddStep<TElement>(step, projectionTransformation, stepLabelProjections, additionalFlags);
 
-        private GremlinQuery<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> AddSteps<TNewElement>(IEnumerable<Step> steps, Func<Projection, Projection>? projectionTransformation = null, IImmutableDictionary<StepLabel, Projection>? stepLabelSemantics = null, QueryFlags additionalFlags = QueryFlags.None) => AddSteps<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(steps, projectionTransformation, stepLabelSemantics, additionalFlags);
+        private GremlinQuery<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> AddSteps<TNewElement>(IEnumerable<Step> steps, Func<Projection, Projection>? projectionTransformation = null, IImmutableDictionary<StepLabel, Projection>? stepLabelProjections = null, QueryFlags additionalFlags = QueryFlags.None) => AddSteps<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(steps, projectionTransformation, stepLabelProjections, additionalFlags);
 
-        private GremlinQuery<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> AddStep<TNewElement>(Step step, Func<Projection, Projection>? projectionTransformation = null, IImmutableDictionary<StepLabel, Projection>? stepLabelSemantics = null, QueryFlags additionalFlags = QueryFlags.None) => AddStep<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(step, projectionTransformation, stepLabelSemantics, additionalFlags);
+        private GremlinQuery<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> AddStep<TNewElement>(Step step, Func<Projection, Projection>? projectionTransformation = null, IImmutableDictionary<StepLabel, Projection>? stepLabelProjections = null, QueryFlags additionalFlags = QueryFlags.None) => AddStep<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(step, projectionTransformation, stepLabelProjections, additionalFlags);
 
         private GremlinQuery<TNewElement, object, object, object, object, object> AddStepWithObjectTypes<TNewElement>(Step step, Func<Projection, Projection>? projectionTransformation = null) => AddStep<TNewElement, object, object, object, object, object>(step, projectionTransformation);
 
@@ -507,7 +507,7 @@ namespace ExRam.Gremlinq.Core
         {
             return AddStep(
                 new AsStep(stepLabel),
-                stepLabelSemantics: StepLabelProjections.SetItem(stepLabel, Projection));
+                stepLabelProjections: StepLabelProjections.SetItem(stepLabel, Projection));
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Barrier() => AddStep(BarrierStep.Instance);
