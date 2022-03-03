@@ -4,7 +4,7 @@ using System.Collections.Immutable;
 using ExRam.Gremlinq.Core.Projections;
 using ExRam.Gremlinq.Core.Steps;
 
-namespace ExRam.Gremlinq.Core.Queries
+namespace ExRam.Gremlinq.Core
 {
     internal readonly struct ContinuationBuilder<TSourceQuery, TTargetQuery>
         where TSourceQuery : GremlinQueryBase
