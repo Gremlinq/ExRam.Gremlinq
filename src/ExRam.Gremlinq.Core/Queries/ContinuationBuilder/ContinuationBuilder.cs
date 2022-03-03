@@ -63,19 +63,10 @@ namespace ExRam.Gremlinq.Core
                 : throw new InvalidOperationException();
         }
 
-        public FinalContinuationBuilder AddStep<TStep>(Func<IGremlinQueryBase, TStep> stepFactory)
-             where TStep : Step
+        public TNewQuery Build<TNewQuery>(Func<FinalContinuationBuilder, IGremlinQueryBase, TNewQuery> builderTransformation)
         {
             return _target is { } target && _continuation is { } continuation
-                ? new(target, target.Environment.AddStepHandler.AddStep(_target.Steps, stepFactory(continuation), target.Environment))
-                : throw new InvalidOperationException();
-        }
-
-        public FinalContinuationBuilder AddSteps<TStep>(Func<IGremlinQueryBase, IEnumerable<TStep>> stepsFactory)
-            where TStep : Step
-        {
-            return _target is { } target && _continuation is { } continuation
-                ? new(target, target.Environment.AddStepHandler.AddSteps(_target.Steps, stepsFactory(continuation), target.Environment))
+                ? builderTransformation(new FinalContinuationBuilder(target), continuation)
                 : throw new InvalidOperationException();
         }
     }
@@ -102,19 +93,10 @@ namespace ExRam.Gremlinq.Core
                 : throw new InvalidOperationException();
         }
 
-        public FinalContinuationBuilder AddStep<TStep>(Func<IImmutableList<IGremlinQueryBase>, TStep> stepFactory)
-            where TStep : Step
+        public TNewQuery Build<TNewQuery>(Func<FinalContinuationBuilder, IImmutableList<IGremlinQueryBase>, TNewQuery> builderTransformation)
         {
             return _target is { } target && _continuations is { } continuations
-                ? new(target, target.Environment.AddStepHandler.AddStep(_target.Steps, stepFactory(continuations), target.Environment))
-                : throw new InvalidOperationException();
-        }
-
-        public FinalContinuationBuilder AddSteps<TStep>(Func<IImmutableList<IGremlinQueryBase>, IEnumerable<TStep>> stepsFactory)
-            where TStep : Step
-        {
-            return _target is { } target && _continuations is { } continuations
-                ? new(target, target.Environment.AddStepHandler.AddSteps(_target.Steps, stepsFactory(continuations), target.Environment))
+                ? builderTransformation(new FinalContinuationBuilder(target), continuations)
                 : throw new InvalidOperationException();
         }
     }
@@ -127,6 +109,11 @@ namespace ExRam.Gremlinq.Core
         private readonly QueryFlags _additionalFlags = QueryFlags.None;
         private readonly IImmutableDictionary<StepLabel, Projection>? _stepLabelProjections;
 
+        public FinalContinuationBuilder(GremlinQueryBase targetQuery) : this(targetQuery, targetQuery.Steps, targetQuery.Projection, targetQuery.StepLabelProjections, targetQuery.Flags)
+        {
+
+        }
+
         public FinalContinuationBuilder(GremlinQueryBase targetQuery, StepStack? steps = null, Projection? projection = null, IImmutableDictionary<StepLabel, Projection>? stepLabelProjections = null, QueryFlags additionalFlags = QueryFlags.None)
         {
             _steps = steps;
@@ -134,6 +121,14 @@ namespace ExRam.Gremlinq.Core
             _projection = projection;
             _additionalFlags = additionalFlags;
             _stepLabelProjections = stepLabelProjections;
+        }
+
+        public FinalContinuationBuilder AddStep<TStep>(TStep step)
+             where TStep : Step
+        {
+            return _target is { } target
+                ? new(target, target.Environment.AddStepHandler.AddStep(_target.Steps, step, target.Environment))
+                : throw new InvalidOperationException();
         }
 
         public FinalContinuationBuilder WithNewProjection(Projection newProjection)
