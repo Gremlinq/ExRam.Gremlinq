@@ -85,7 +85,9 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IGremlinQueryBaseRec<<#= iface #>>.Local<TTargetQuery>(Func<<#= iface #> , TTargetQuery> localTraversal) => Local(localTraversal);
 
         TTargetQuery IGremlinQueryBaseRec<<#= iface #>>.Map<TTargetQuery>(Func<<#= iface #>, TTargetQuery> mapping) => Map(mapping);
-        
+
+        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Mute() => Mute();
+
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Not(Func<<#= iface #>, IGremlinQueryBase> notTraversal) => Not(notTraversal);
 
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.None() => None();
