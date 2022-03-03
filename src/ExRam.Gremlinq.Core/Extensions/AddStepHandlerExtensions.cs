@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-
 using ExRam.Gremlinq.Core.Steps;
 
-namespace ExRam.Gremlinq.Core.Queries
+namespace ExRam.Gremlinq.Core
 {
     //targetQuery
     //    .Continue()                     //ContinuationBuilder
