@@ -25,7 +25,7 @@ namespace ExRam.Gremlinq.Core
             StepLabelProjections = stepLabelProjections;
         }
 
-        protected TTargetQuery ChangeQueryType<TTargetQuery>(Projection? forcedProjection = null)
+        protected internal TTargetQuery ChangeQueryType<TTargetQuery>(Projection? forcedProjection = null)
         {
             var targetQueryType = typeof(TTargetQuery);
 
@@ -95,6 +95,16 @@ namespace ExRam.Gremlinq.Core
             }
 
             return default;
+        }
+
+        public GremlinQuery<object, object, object, object, object, object> Continue(StepStack? newSteps = null, Projection? newProjection = null, IImmutableDictionary<StepLabel, Projection>? newStepLabelProjections = null, QueryFlags additionalFlags = QueryFlags.None)
+        {
+            return new GremlinQuery<object, object, object, object, object, object>(
+                newSteps ?? Steps,
+                newProjection ?? Projection,
+                Environment,
+                newStepLabelProjections ?? StepLabelProjections,
+                Flags | additionalFlags);
         }
 
         protected internal StepStack Steps { get; }
