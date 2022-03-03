@@ -173,6 +173,11 @@ namespace ExRam.Gremlinq.Core
                 Flags | additionalFlags);
         }
 
+        private ContinuationBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>> Continue()
+        {
+            return new(this, this);
+        }
+
         private GremlinQuery<TVertex, object, object, object, object, object> AddV<TVertex>(TVertex vertex)
         {
             return this
