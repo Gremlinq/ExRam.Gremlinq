@@ -564,7 +564,7 @@ namespace ExRam.Gremlinq.Core
 
             return (localTraversalQuery.Count == 0
                 ? this
-                : AddStep(new LocalStep(localTraversalQuery), _ => localTraversalQuery.Projection)).ChangeQueryType<TTargetQuery>();
+                : this.AddStep(new LocalStep(localTraversalQuery), _ => localTraversalQuery.Projection)).ChangeQueryType<TTargetQuery>();
         }
 
         private TTargetQuery Map<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> mapping) where TTargetQuery : IGremlinQueryBase
