@@ -63,7 +63,7 @@ namespace ExRam.Gremlinq.Core
                 : throw new InvalidOperationException();
         }
 
-        public FinalContinuationBuilder<TTargetQuery> AddStep<TStep>(Func<IGremlinQueryBase, TStep> stepFactory)
+        public FinalContinuationBuilder AddStep<TStep>(Func<IGremlinQueryBase, TStep> stepFactory)
              where TStep : Step
         {
             return _target is { } target && _continuation is { } continuation
@@ -71,7 +71,7 @@ namespace ExRam.Gremlinq.Core
                 : throw new InvalidOperationException();
         }
 
-        public FinalContinuationBuilder<TTargetQuery> AddSteps<TStep>(Func<IGremlinQueryBase, IEnumerable<TStep>> stepsFactory)
+        public FinalContinuationBuilder AddSteps<TStep>(Func<IGremlinQueryBase, IEnumerable<TStep>> stepsFactory)
             where TStep : Step
         {
             return _target is { } target && _continuation is { } continuation
@@ -102,7 +102,7 @@ namespace ExRam.Gremlinq.Core
                 : throw new InvalidOperationException();
         }
 
-        public FinalContinuationBuilder<TTargetQuery> AddStep<TStep>(Func<IImmutableList<IGremlinQueryBase>, TStep> stepFactory)
+        public FinalContinuationBuilder AddStep<TStep>(Func<IImmutableList<IGremlinQueryBase>, TStep> stepFactory)
             where TStep : Step
         {
             return _target is { } target && _continuations is { } continuations
@@ -110,7 +110,7 @@ namespace ExRam.Gremlinq.Core
                 : throw new InvalidOperationException();
         }
 
-        public FinalContinuationBuilder<TTargetQuery> AddSteps<TStep>(Func<IImmutableList<IGremlinQueryBase>, IEnumerable<TStep>> stepsFactory)
+        public FinalContinuationBuilder AddSteps<TStep>(Func<IImmutableList<IGremlinQueryBase>, IEnumerable<TStep>> stepsFactory)
             where TStep : Step
         {
             return _target is { } target && _continuations is { } continuations
@@ -119,39 +119,38 @@ namespace ExRam.Gremlinq.Core
         }
     }
    
-    internal readonly struct FinalContinuationBuilder<TTargetQuery>
-        where TTargetQuery : GremlinQueryBase
+    internal readonly struct FinalContinuationBuilder
     {
         private readonly StepStack? _steps;
-        private readonly TTargetQuery? _target;
         private readonly Projection? _projection;
+        private readonly GremlinQueryBase? _target;
         private readonly QueryFlags _additionalFlags = QueryFlags.None;
         private readonly IImmutableDictionary<StepLabel, Projection>? _stepLabelProjections;
 
-        public FinalContinuationBuilder(TTargetQuery targetQuery, StepStack? steps = null, Projection? projection = null, IImmutableDictionary<StepLabel, Projection>? stepLabelProjections = null, QueryFlags additionalFlags = QueryFlags.None)
+        public FinalContinuationBuilder(GremlinQueryBase targetQuery, StepStack? steps = null, Projection? projection = null, IImmutableDictionary<StepLabel, Projection>? stepLabelProjections = null, QueryFlags additionalFlags = QueryFlags.None)
         {
             _steps = steps;
-            _projection = projection;
             _target = targetQuery;
+            _projection = projection;
             _additionalFlags = additionalFlags;
             _stepLabelProjections = stepLabelProjections;
         }
 
-        public FinalContinuationBuilder<TTargetQuery> WithNewProjection(Projection newProjection)
+        public FinalContinuationBuilder WithNewProjection(Projection newProjection)
         {
             return (_target is { } target)
                 ? new(_target, _steps, newProjection, _stepLabelProjections, _additionalFlags)
                 : throw new InvalidOperationException();
         }
 
-        public FinalContinuationBuilder<TTargetQuery> WithNewStepLabelProjection(IImmutableDictionary<StepLabel, Projection> newStepLabelProjections)
+        public FinalContinuationBuilder WithNewStepLabelProjection(IImmutableDictionary<StepLabel, Projection> newStepLabelProjections)
         {
             return (_target is { } target)
                 ? new(_target, _steps, _projection, newStepLabelProjections, _additionalFlags)
                 : throw new InvalidOperationException();
         }
 
-        public FinalContinuationBuilder<TTargetQuery> WithAdditionalFlags(QueryFlags additionalFlags)
+        public FinalContinuationBuilder WithAdditionalFlags(QueryFlags additionalFlags)
         {
             return (_target is { } target)
                 ? new(_target, _steps, _projection, _stepLabelProjections, _additionalFlags | additionalFlags)
