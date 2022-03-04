@@ -1,102 +1,96 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.Immutable;
 using ExRam.Gremlinq.Core.Projections;
 using ExRam.Gremlinq.Core.Steps;
 
 namespace ExRam.Gremlinq.Core
 {
-    internal readonly struct ContinuationBuilder<TSourceQuery, TTargetQuery>
-        where TSourceQuery : GremlinQueryBase
-        where TTargetQuery : GremlinQueryBase
+    internal readonly struct ContinuationBuilder<TOuterQuery, TInnerQuery>
+        where TOuterQuery : GremlinQueryBase
+        where TInnerQuery : GremlinQueryBase
     {
-        private readonly TSourceQuery? _source;
-        private readonly TTargetQuery? _target;
+        private readonly TOuterQuery? _outer;
+        private readonly TInnerQuery? _inner;
 
-        public ContinuationBuilder(TSourceQuery source, TTargetQuery target)
+        public ContinuationBuilder(TOuterQuery outer, TInnerQuery inner)
         {
-            _source = source;
-            _target = target;
+            _outer = outer;
+            _inner = inner;
         }
 
-        public static ContinuationBuilder<TNewSourceQuery, TNewSourceQuery> Create<TNewSourceQuery>(TNewSourceQuery query)
+        public ContinuationBuilder<TNewSourceQuery, TInnerQuery> FromSource<TNewSourceQuery>(TNewSourceQuery query)
             where TNewSourceQuery : GremlinQueryBase
         {
-            return new(query, query);
-        }
-
-        public ContinuationBuilder<TNewSourceQuery, TTargetQuery> FromSource<TNewSourceQuery>(TNewSourceQuery query)
-            where TNewSourceQuery : GremlinQueryBase
-        {
-            return _target is { } target
-                ? new(query, _target)
+            return _inner is { } inner
+                ? new(query, _inner)
                 : throw new InvalidOperationException();
         }
 
-        public SingleContinuationBuilder<TSourceQuery, TTargetQuery> With(Func<TSourceQuery, IGremlinQueryBase> continuation)
+        public SingleContinuationBuilder<TOuterQuery, TInnerQuery> With<TProjectedQuery>(Func<TInnerQuery, TProjectedQuery> continuation)
+            where TProjectedQuery : IGremlinQueryBase
         {
-            return _source is { } source && _target is { } target
-                ? new(source, target, continuation(source))
+            return _outer is { } outer && _inner is { } inner
+                ? new(outer, inner, continuation(inner))
                 : throw new InvalidOperationException();
         }
     }
 
-    internal readonly struct SingleContinuationBuilder<TSourceQuery, TTargetQuery>
-        where TSourceQuery : GremlinQueryBase
-        where TTargetQuery : GremlinQueryBase
+    internal readonly struct SingleContinuationBuilder<TOuterQuery, TInnerQuery>
+        where TOuterQuery : GremlinQueryBase
+        where TInnerQuery : GremlinQueryBase
     {
-        private readonly TSourceQuery? _source;
-        private readonly TTargetQuery? _target;
+        private readonly TOuterQuery? _outer;
+        private readonly TInnerQuery? _inner;
         private readonly IGremlinQueryBase? _continuation;
 
-        public SingleContinuationBuilder(TSourceQuery source, TTargetQuery target, IGremlinQueryBase continuation)
+        public SingleContinuationBuilder(TOuterQuery outer, TInnerQuery inner, IGremlinQueryBase continuation)
         {
-            _source = source;
-            _target = target;
+            _outer = outer;
+            _inner = inner;
             _continuation = continuation;
         }
 
-        public MultiContinuationBuilder<TSourceQuery, TTargetQuery> With(Func<TSourceQuery, IGremlinQueryBase> continuation)
+        public MultiContinuationBuilder<TOuterQuery, TInnerQuery> With(Func<TInnerQuery, IGremlinQueryBase> continuation)
         {
-            return _source is { } source && _target is { } target && _continuation is { } existingContinuation
-                ? new (source, target, ImmutableList.Create(existingContinuation,  continuation(source)))
+            return _outer is { } outer && _inner is { } inner && _continuation is { } existingContinuation
+                ? new (outer, inner, ImmutableList.Create(existingContinuation, continuation(inner)))
                 : throw new InvalidOperationException();
         }
 
         public TNewQuery Build<TNewQuery>(Func<FinalContinuationBuilder, IGremlinQueryBase, TNewQuery> builderTransformation)
         {
-            return _target is { } target && _continuation is { } continuation
-                ? builderTransformation(new FinalContinuationBuilder(target), continuation)
+            return _outer is { } outer && _continuation is { } continuation
+                ? builderTransformation(new FinalContinuationBuilder(outer), continuation)
                 : throw new InvalidOperationException();
         }
     }
 
-    internal readonly struct MultiContinuationBuilder<TSourceQuery, TTargetQuery>
-        where TSourceQuery : GremlinQueryBase
-        where TTargetQuery : GremlinQueryBase
+    internal readonly struct MultiContinuationBuilder<TOuterQuery, TInnerQuery>
+        where TOuterQuery : GremlinQueryBase
+        where TInnerQuery : GremlinQueryBase
     {
-        private readonly TSourceQuery? _source;
-        private readonly TTargetQuery? _target;
+        private readonly TOuterQuery? _outer;
+        private readonly TInnerQuery? _inner;
         private readonly IImmutableList<IGremlinQueryBase>? _continuations;
 
-        public MultiContinuationBuilder(TSourceQuery source, TTargetQuery target, IImmutableList<IGremlinQueryBase> continuations)
+        public MultiContinuationBuilder(TOuterQuery outer, TInnerQuery inner, IImmutableList<IGremlinQueryBase> continuations)
         {
-            _source = source;
-            _target = target;
+            _outer = outer;
+            _inner = inner;
             _continuations = continuations;
         }
 
-        public MultiContinuationBuilder<TSourceQuery, TTargetQuery> With(Func<TSourceQuery, IGremlinQueryBase> continuation)
+        public MultiContinuationBuilder<TOuterQuery, TInnerQuery> With(Func<TInnerQuery, IGremlinQueryBase> continuation)
         {
-            return _source is { } source && _target is { } target && _continuations is { } continuations
-                ? new(source, target, continuations.Add(continuation(source)))
+            return _outer is { } outer && _inner is { } inner && _continuations is { } continuations
+                ? new(outer, inner, continuations.Add(continuation(inner)))
                 : throw new InvalidOperationException();
         }
 
         public TNewQuery Build<TNewQuery>(Func<FinalContinuationBuilder, IImmutableList<IGremlinQueryBase>, TNewQuery> builderTransformation)
         {
-            return _target is { } target && _continuations is { } continuations
-                ? builderTransformation(new FinalContinuationBuilder(target), continuations)
+            return _outer is { } outer && _continuations is { } continuations
+                ? builderTransformation(new FinalContinuationBuilder(outer), continuations)
                 : throw new InvalidOperationException();
         }
     }
@@ -105,19 +99,19 @@ namespace ExRam.Gremlinq.Core
     {
         private readonly StepStack? _steps;
         private readonly Projection? _projection;
-        private readonly GremlinQueryBase? _target;
+        private readonly GremlinQueryBase? _outer;
         private readonly QueryFlags _additionalFlags = QueryFlags.None;
         private readonly IImmutableDictionary<StepLabel, Projection>? _stepLabelProjections;
 
-        public FinalContinuationBuilder(GremlinQueryBase targetQuery) : this(targetQuery, targetQuery.Steps, targetQuery.Projection, targetQuery.StepLabelProjections, targetQuery.Flags)
+        public FinalContinuationBuilder(GremlinQueryBase outerQuery) : this(outerQuery, outerQuery.Steps, outerQuery.Projection, outerQuery.StepLabelProjections, outerQuery.Flags)
         {
 
         }
 
-        public FinalContinuationBuilder(GremlinQueryBase targetQuery, StepStack? steps = null, Projection? projection = null, IImmutableDictionary<StepLabel, Projection>? stepLabelProjections = null, QueryFlags additionalFlags = QueryFlags.None)
+        public FinalContinuationBuilder(GremlinQueryBase outerQuery, StepStack? steps = null, Projection? projection = null, IImmutableDictionary<StepLabel, Projection>? stepLabelProjections = null, QueryFlags additionalFlags = QueryFlags.None)
         {
             _steps = steps;
-            _target = targetQuery;
+            _outer = outerQuery;
             _projection = projection;
             _additionalFlags = additionalFlags;
             _stepLabelProjections = stepLabelProjections;
@@ -126,36 +120,43 @@ namespace ExRam.Gremlinq.Core
         public FinalContinuationBuilder AddStep<TStep>(TStep step)
              where TStep : Step
         {
-            return _target is { } target
-                ? new(target, target.Environment.AddStepHandler.AddStep(_target.Steps, step, target.Environment))
+            return _outer is { } inner
+                ? new(inner, inner.Environment.AddStepHandler.AddStep(_outer.Steps, step, inner.Environment))
+                : throw new InvalidOperationException();
+        }
+
+        public FinalContinuationBuilder WithNewProjection(Func<Projection, Projection> projectionTransformation)
+        {
+            return (_outer is { } inner)
+                ? new(_outer, _steps, projectionTransformation(_projection ?? Projection.Empty), _stepLabelProjections, _additionalFlags)
                 : throw new InvalidOperationException();
         }
 
         public FinalContinuationBuilder WithNewProjection(Projection newProjection)
         {
-            return (_target is { } target)
-                ? new(_target, _steps, newProjection, _stepLabelProjections, _additionalFlags)
+            return (_outer is { } inner)
+                ? new(_outer, _steps, newProjection, _stepLabelProjections, _additionalFlags)
                 : throw new InvalidOperationException();
         }
 
         public FinalContinuationBuilder WithNewStepLabelProjection(IImmutableDictionary<StepLabel, Projection> newStepLabelProjections)
         {
-            return (_target is { } target)
-                ? new(_target, _steps, _projection, newStepLabelProjections, _additionalFlags)
+            return (_outer is { } inner)
+                ? new(_outer, _steps, _projection, newStepLabelProjections, _additionalFlags)
                 : throw new InvalidOperationException();
         }
 
         public FinalContinuationBuilder WithAdditionalFlags(QueryFlags additionalFlags)
         {
-            return (_target is { } target)
-                ? new(_target, _steps, _projection, _stepLabelProjections, _additionalFlags | additionalFlags)
+            return (_outer is { } inner)
+                ? new(_outer, _steps, _projection, _stepLabelProjections, _additionalFlags | additionalFlags)
                 : throw new InvalidOperationException();
         }
 
-        public TNewTargetQuery As<TNewTargetQuery>() where TNewTargetQuery : IGremlinQueryBase
+        public TNewTargetQuery Build<TNewTargetQuery>() where TNewTargetQuery : IGremlinQueryBase
         {
-            return _target is { } target
-                ? target
+            return _outer is { } inner
+                ? inner
                     .Continue(_steps, _projection, _stepLabelProjections, _additionalFlags)
                     .ChangeQueryType<TNewTargetQuery>()
                 : throw new InvalidOperationException();
