@@ -5,55 +5,55 @@ using ExRam.Gremlinq.Core.Steps;
 
 namespace ExRam.Gremlinq.Core
 {
-    internal readonly struct ContinuationBuilder<TOuterQuery, TInnerQuery>
+    internal readonly struct ContinuationBuilder<TOuterQuery, TAnonymousQuery>
         where TOuterQuery : GremlinQueryBase
-        where TInnerQuery : GremlinQueryBase
+        where TAnonymousQuery : GremlinQueryBase
     {
         private readonly TOuterQuery? _outer;
-        private readonly TInnerQuery? _inner;
+        private readonly TAnonymousQuery? _anonymous;
 
-        public ContinuationBuilder(TOuterQuery outer, TInnerQuery inner)
+        public ContinuationBuilder(TOuterQuery outer, TAnonymousQuery anonymous)
         {
             _outer = outer;
-            _inner = inner;
+            _anonymous = anonymous;
         }
 
-        public ContinuationBuilder<TNewSourceQuery, TInnerQuery> FromSource<TNewSourceQuery>(TNewSourceQuery query)
+        public ContinuationBuilder<TNewSourceQuery, TAnonymousQuery> FromSource<TNewSourceQuery>(TNewSourceQuery query)
             where TNewSourceQuery : GremlinQueryBase
         {
-            return _inner is { } inner
-                ? new(query, _inner)
+            return _anonymous is { } anonymous
+                ? new(query, _anonymous)
                 : throw new InvalidOperationException();
         }
 
-        public SingleContinuationBuilder<TOuterQuery, TInnerQuery> With<TProjectedQuery>(Func<TInnerQuery, TProjectedQuery> continuation)
+        public SingleContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TProjectedQuery>(Func<TAnonymousQuery, TProjectedQuery> continuation)
             where TProjectedQuery : IGremlinQueryBase
         {
-            return _outer is { } outer && _inner is { } inner
-                ? new(outer, inner, continuation(inner))
+            return _outer is { } outer && _anonymous is { } anonymous
+                ? new(outer, anonymous, continuation(anonymous))
                 : throw new InvalidOperationException();
         }
     }
 
-    internal readonly struct SingleContinuationBuilder<TOuterQuery, TInnerQuery>
+    internal readonly struct SingleContinuationBuilder<TOuterQuery, TAnonymousQuery>
         where TOuterQuery : GremlinQueryBase
-        where TInnerQuery : GremlinQueryBase
+        where TAnonymousQuery : GremlinQueryBase
     {
         private readonly TOuterQuery? _outer;
-        private readonly TInnerQuery? _inner;
+        private readonly TAnonymousQuery? _anonymous;
         private readonly IGremlinQueryBase? _continuation;
 
-        public SingleContinuationBuilder(TOuterQuery outer, TInnerQuery inner, IGremlinQueryBase continuation)
+        public SingleContinuationBuilder(TOuterQuery outer, TAnonymousQuery anonymous, IGremlinQueryBase continuation)
         {
             _outer = outer;
-            _inner = inner;
+            _anonymous = anonymous;
             _continuation = continuation;
         }
 
-        public MultiContinuationBuilder<TOuterQuery, TInnerQuery> With(Func<TInnerQuery, IGremlinQueryBase> continuation)
+        public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> With(Func<TAnonymousQuery, IGremlinQueryBase> continuation)
         {
-            return _outer is { } outer && _inner is { } inner && _continuation is { } existingContinuation
-                ? new (outer, inner, ImmutableList.Create(existingContinuation, continuation(inner)))
+            return _outer is { } outer && _anonymous is { } anonymous && _continuation is { } existingContinuation
+                ? new (outer, anonymous, ImmutableList.Create(existingContinuation, continuation(anonymous)))
                 : throw new InvalidOperationException();
         }
 
@@ -65,25 +65,25 @@ namespace ExRam.Gremlinq.Core
         }
     }
 
-    internal readonly struct MultiContinuationBuilder<TOuterQuery, TInnerQuery>
+    internal readonly struct MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>
         where TOuterQuery : GremlinQueryBase
-        where TInnerQuery : GremlinQueryBase
+        where TAnonymousQuery : GremlinQueryBase
     {
         private readonly TOuterQuery? _outer;
-        private readonly TInnerQuery? _inner;
+        private readonly TAnonymousQuery? _anonymous;
         private readonly IImmutableList<IGremlinQueryBase>? _continuations;
 
-        public MultiContinuationBuilder(TOuterQuery outer, TInnerQuery inner, IImmutableList<IGremlinQueryBase> continuations)
+        public MultiContinuationBuilder(TOuterQuery outer, TAnonymousQuery anonymous, IImmutableList<IGremlinQueryBase> continuations)
         {
             _outer = outer;
-            _inner = inner;
+            _anonymous = anonymous;
             _continuations = continuations;
         }
 
-        public MultiContinuationBuilder<TOuterQuery, TInnerQuery> With(Func<TInnerQuery, IGremlinQueryBase> continuation)
+        public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> With(Func<TAnonymousQuery, IGremlinQueryBase> continuation)
         {
-            return _outer is { } outer && _inner is { } inner && _continuations is { } continuations
-                ? new(outer, inner, continuations.Add(continuation(inner)))
+            return _outer is { } outer && _anonymous is { } anonymous && _continuations is { } continuations
+                ? new(outer, anonymous, continuations.Add(continuation(anonymous)))
                 : throw new InvalidOperationException();
         }
 
