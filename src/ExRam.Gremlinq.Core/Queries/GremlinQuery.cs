@@ -175,7 +175,9 @@ namespace ExRam.Gremlinq.Core
 
         private ContinuationBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>> Continue()
         {
-            return new(this, this);
+            return new(
+                this,
+                new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(StepStack.Empty, Projection, Environment, StepLabelProjections, (Flags & ~QueryFlags.SurfaceVisible) | QueryFlags.IsAnonymous));
         }
 
         private GremlinQuery<TVertex, object, object, object, object, object> AddV<TVertex>(TVertex vertex)
@@ -564,12 +566,24 @@ namespace ExRam.Gremlinq.Core
         private TTargetQuery Local<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> localTraversal)
             where TTargetQuery : IGremlinQueryBase
         {
-            var localTraversalQuery = ContinueInner(localTraversal)
-                .ToTraversal();
+            return this
+                .Continue()
+                .With(localTraversal)
+                .Build((builder, continuation) =>
+                {
+                    var traversal = continuation
+                        .ToTraversal();
 
-            return (localTraversalQuery.Count == 0
-                ? this
-                : this.AddStep(new LocalStep(localTraversalQuery), _ => localTraversalQuery.Projection)).ChangeQueryType<TTargetQuery>();
+                    if (traversal.Count > 0)
+                    {
+                        builder = builder
+                            .AddStep(new LocalStep(traversal))
+                            .WithNewProjection(traversal.Projection);
+                    }
+
+                    return builder
+                        .Build<TTargetQuery>();
+                });
         }
 
         private TTargetQuery Map<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> mapping) where TTargetQuery : IGremlinQueryBase
