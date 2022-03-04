@@ -569,16 +569,13 @@ namespace ExRam.Gremlinq.Core
             return this
                 .Continue()
                 .With(localTraversal)
-                .Build((builder, continuation) =>
+                .Build((builder, continuationTraversal) =>
                 {
-                    var traversal = continuation
-                        .ToTraversal();
-
-                    if (traversal.Count > 0)
+                    if (continuationTraversal.Count > 0)
                     {
                         builder = builder
-                            .AddStep(new LocalStep(traversal))
-                            .WithNewProjection(traversal.Projection);
+                            .AddStep(new LocalStep(continuationTraversal))
+                            .WithNewProjection(continuationTraversal.Projection);
                     }
 
                     return builder

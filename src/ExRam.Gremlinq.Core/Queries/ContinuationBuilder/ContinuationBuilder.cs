@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Immutable;
+using System.Linq;
+
 using ExRam.Gremlinq.Core.Projections;
 using ExRam.Gremlinq.Core.Steps;
 
@@ -63,6 +65,13 @@ namespace ExRam.Gremlinq.Core
                 ? builderTransformation(new FinalContinuationBuilder<TOuterQuery>(outer), continuation)
                 : throw new InvalidOperationException();
         }
+
+        public TNewQuery Build<TNewQuery>(Func<FinalContinuationBuilder<TOuterQuery>, Traversal, TNewQuery> builderTransformation)
+        {
+            return _outer is { } outer && _continuation is { } continuation
+                ? builderTransformation(new FinalContinuationBuilder<TOuterQuery>(outer), continuation.ToTraversal())
+                : throw new InvalidOperationException();
+        }
     }
 
     internal readonly struct MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>
@@ -91,6 +100,13 @@ namespace ExRam.Gremlinq.Core
         {
             return _outer is { } outer && _continuations is { } continuations
                 ? builderTransformation(new FinalContinuationBuilder<TOuterQuery>(outer), continuations)
+                : throw new InvalidOperationException();
+        }
+
+        public TNewQuery Build<TNewQuery>(Func<FinalContinuationBuilder<TOuterQuery>, IImmutableList<Traversal>, TNewQuery> builderTransformation)
+        {
+            return _outer is { } outer && _continuations is { } continuations
+                ? builderTransformation(new FinalContinuationBuilder<TOuterQuery>(outer), ImmutableList.CreateRange(continuations.Select(x => x.ToTraversal())))
                 : throw new InvalidOperationException();
         }
     }
