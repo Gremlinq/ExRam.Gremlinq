@@ -130,5 +130,7 @@ namespace ExRam.Gremlinq.Core
                 }
             }
         }
+
+        public static bool IsNone(this Traversal traversal) => traversal.Count > 0 && traversal[traversal.Count - 1] is NoneStep;
     }
 }
