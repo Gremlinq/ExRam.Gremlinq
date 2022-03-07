@@ -175,8 +175,8 @@ namespace ExRam.Gremlinq.Core
         public FinalContinuationBuilder<TOuterQuery> AddStep<TStep>(TStep step)
              where TStep : Step
         {
-            return _query is { } query && _projection is { } projection && _stepLabelProjections is { } stepLabelProjections
-                ? new(query, query.Environment.AddStepHandler.AddStep(_query.Steps, step, query.Environment), projection, stepLabelProjections, _additionalFlags)
+            return _query is { } query && _steps is { } steps && _projection is { } projection && _stepLabelProjections is { } stepLabelProjections
+                ? new(query, query.Environment.AddStepHandler.AddStep(steps, step, query.Environment), projection, stepLabelProjections, _additionalFlags)
                 : throw new InvalidOperationException();
         }
 
