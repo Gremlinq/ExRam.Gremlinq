@@ -443,14 +443,15 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Emit() => AddStep(EmitStep.Instance);
 
-        private TTargetQuery FlatMap<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> mapping) where TTargetQuery : IGremlinQueryBase
+        private TTargetQuery FlatMap<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> continuation) where TTargetQuery : IGremlinQueryBase
         {
-            var mappedTraversal = ContinueInner(mapping)
-                .ToTraversal();
-
             return this
-                .AddStep(new FlatMapStep(mappedTraversal), _ => mappedTraversal.Projection)
-                .ChangeQueryType<TTargetQuery>();
+                .Continue()
+                .With(continuation)
+                .Build((builder, innerTraversal) => builder
+                    .AddStep(new FlatMapStep(innerTraversal))
+                    .WithNewProjection(innerTraversal.Projection)
+                    .Build<TTargetQuery>());
         }
 
         private GremlinQuery<TElement[], object, object, TElement, object, TNewFoldedQuery> Fold<TNewFoldedQuery>() => AddStep<TElement[], object, object, TElement, object, TNewFoldedQuery>(FoldStep.Instance, _ => _.Fold());
