@@ -366,27 +366,30 @@ namespace ExRam.Gremlinq.Core
             return continuation(new ChooseBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, object>(this, this)).TargetQuery;
         }
 
-        private TReturnQuery Coalesce<TTargetQuery, TReturnQuery>(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery>[] traversals)
+        private TReturnQuery Coalesce<TTargetQuery, TReturnQuery>(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery>[] continuations)
             where TTargetQuery : IGremlinQueryBase
             where TReturnQuery : IGremlinQueryBase
         {
-            if (traversals.Length == 0)
+            if (continuations.Length == 0)
                 throw new ArgumentException("Coalesce must have at least one subquery.");
 
-            var coalesceQueries = traversals
-                .Select(traversal => ContinueInner(traversal))
-                .ToArray();
-
-            if (coalesceQueries.All(x => x.IsIdentity()))
-                return this.ChangeQueryType<TReturnQuery>();
-
-            var aggregatedSemantics = coalesceQueries
-                .Select(x => x.AsAdmin().Projection)
-                .Aggregate((x, y) => x.Lowest(y));
-
             return this
-                .AddStep(new CoalesceStep(coalesceQueries.Select(x => x.ToTraversal()).ToImmutableArray()), _ => aggregatedSemantics)
-                .ChangeQueryType<TReturnQuery>();
+                .Continue()
+                .With(continuations)
+                .Build((builder, innerQueries) =>
+                {
+                    if (innerQueries.All(innerQuery => innerQuery.IsIdentity()))
+                        return builder.Build<TReturnQuery>();
+
+                    var aggregatedProjection = innerQueries
+                        .Select(x => x.AsAdmin().Projection)
+                        .Aggregate((x, y) => x.Lowest(y));
+
+                    return builder
+                        .AddStep(new CoalesceStep(innerQueries.Select(x => x.ToTraversal()).ToImmutableArray()))
+                        .WithNewProjection(aggregatedProjection)
+                        .Build<TReturnQuery>();
+                });
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Coin(double probability) => AddStep(new CoinStep(probability));
