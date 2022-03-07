@@ -538,9 +538,10 @@
         ExRam.Gremlinq.Core.IGremlinqOptions Remove(ExRam.Gremlinq.Core.IGremlinqOption option);
         ExRam.Gremlinq.Core.IGremlinqOptions SetValue<TValue>(ExRam.Gremlinq.Core.GremlinqOption<TValue> option, TValue value);
     }
-    public interface IGroupBuilderWithKeyAndValue<out TSourceQuery, TKey, TValue> : ExRam.Gremlinq.Core.IGroupBuilderWithKey<TSourceQuery, TKey>
+    public interface IGroupBuilderWithKeyAndValue<out TSourceQuery, TKey, TValue>
         where out TSourceQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
     {
+        ExRam.Gremlinq.Core.IGremlinQueryBase<TKey> KeyQuery { get; }
         ExRam.Gremlinq.Core.IGremlinQueryBase<TValue> ValueQuery { get; }
     }
     public interface IGroupBuilderWithKey<out TSourceQuery, TKey>

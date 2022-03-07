@@ -16,9 +16,11 @@ namespace ExRam.Gremlinq.Core
         IGremlinQueryBase<TKey> KeyQuery { get; }
     }
 
-    public interface IGroupBuilderWithKeyAndValue<out TSourceQuery, TKey, TValue> : IGroupBuilderWithKey<TSourceQuery, TKey>
+    public interface IGroupBuilderWithKeyAndValue<out TSourceQuery, TKey, TValue>
         where TSourceQuery : IGremlinQueryBase
     {
+        IGremlinQueryBase<TKey> KeyQuery { get; }
+
         IGremlinQueryBase<TValue> ValueQuery { get; }
     }
 }
