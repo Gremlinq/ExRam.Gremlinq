@@ -795,12 +795,13 @@ namespace ExRam.Gremlinq.Core
         private TTargetQuery Repeat<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> repeatContinuation)
             where TTargetQuery : IGremlinQueryBase
         {
-            var repeatTraversal = ContinueInner(repeatContinuation)
-                .ToTraversal();
-
             return this
-                .AddStep(new RepeatStep(repeatTraversal), _ => _.Lowest(repeatTraversal.Projection))
-                .ChangeQueryType<TTargetQuery>();
+                .Continue()
+                .With(repeatContinuation)
+                .Build((builder, innerTraversal) => builder
+                    .AddStep(new RepeatStep(innerTraversal))
+                    .WithNewProjection(_ => _.Lowest(innerTraversal.Projection))
+                    .Build<TTargetQuery>());
         }
 
         private TTargetQuery RepeatUntil<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> repeatContinuation, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> untilTraversal)
