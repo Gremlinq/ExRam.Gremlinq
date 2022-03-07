@@ -7,6 +7,7 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class GroupBuilder<TKey, TValue> :
             IGroupBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>,
+            IGroupBuilderWithKey<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TKey>,
             IGroupBuilderWithKeyAndValue<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TKey, TValue>
         {
             private readonly IGremlinQueryBase<TKey>? _keyQuery;
