@@ -7,9 +7,24 @@ using ExRam.Gremlinq.Core.Steps;
 
 namespace ExRam.Gremlinq.Core
 {
+    internal static class ContinuationExtensions
+    {
+        public static IGremlinQueryBase Apply<TAnonymousQuery, TProjectedQuery>(this Func<TAnonymousQuery, TProjectedQuery> continuation, TAnonymousQuery anonymous)
+            where TAnonymousQuery : IGremlinQueryBase
+            where TProjectedQuery : IGremlinQueryBase
+        {
+            var continuatedQuery = continuation(anonymous);
+
+            if (continuatedQuery is GremlinQueryBase queryBase && (queryBase.Flags & QueryFlags.IsAnonymous) == QueryFlags.None)
+                throw new InvalidOperationException("A query continuation must originate from the query that was passed to the continuation function. Did you accidentally use 'g' in the continuation?");
+
+            return continuatedQuery;
+        }
+    }
+
     internal readonly struct ContinuationBuilder<TOuterQuery, TAnonymousQuery>
         where TOuterQuery : GremlinQueryBase
-        where TAnonymousQuery : GremlinQueryBase
+        where TAnonymousQuery : GremlinQueryBase, IGremlinQueryBase
     {
         private readonly TOuterQuery? _outer;
         private readonly TAnonymousQuery? _anonymous;
@@ -32,14 +47,37 @@ namespace ExRam.Gremlinq.Core
             where TProjectedQuery : IGremlinQueryBase
         {
             return _outer is { } outer && _anonymous is { } anonymous
-                ? new(outer, anonymous, continuation(anonymous))
+                ? new(outer, anonymous, continuation.Apply(anonymous))
+                : throw new InvalidOperationException();
+        }
+
+        public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TProjectedQuery>(Func<TAnonymousQuery, TProjectedQuery>[] continuations)
+            where TProjectedQuery : IGremlinQueryBase
+        {
+            return _outer is { } outer && _anonymous is { } anonymous
+                ? new(
+                    outer,
+                    anonymous,
+                    continuations
+                        .Select(contintuation => contintuation.Apply(anonymous))
+                        .ToImmutableList())
+                : throw new InvalidOperationException();
+        }
+
+        public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> ToMulti()
+        {
+            return _outer is { } outer && _anonymous is { } anonymous
+                ? new(
+                    outer,
+                    anonymous,
+                    ImmutableList<IGremlinQueryBase>.Empty)
                 : throw new InvalidOperationException();
         }
     }
 
     internal readonly struct SingleContinuationBuilder<TOuterQuery, TAnonymousQuery>
         where TOuterQuery : GremlinQueryBase
-        where TAnonymousQuery : GremlinQueryBase
+        where TAnonymousQuery : GremlinQueryBase, IGremlinQueryBase
     {
         private readonly TOuterQuery? _outer;
         private readonly TAnonymousQuery? _anonymous;
@@ -55,7 +93,7 @@ namespace ExRam.Gremlinq.Core
         public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> With(Func<TAnonymousQuery, IGremlinQueryBase> continuation)
         {
             return _outer is { } outer && _anonymous is { } anonymous && _continuation is { } existingContinuation
-                ? new (outer, anonymous, ImmutableList.Create(existingContinuation, continuation(anonymous)))
+                ? new (outer, anonymous, ImmutableList.Create(existingContinuation, continuation.Apply(anonymous)))
                 : throw new InvalidOperationException();
         }
 
@@ -76,7 +114,7 @@ namespace ExRam.Gremlinq.Core
 
     internal readonly struct MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>
         where TOuterQuery : GremlinQueryBase
-        where TAnonymousQuery : GremlinQueryBase
+        where TAnonymousQuery : GremlinQueryBase, IGremlinQueryBase
     {
         private readonly TOuterQuery? _outer;
         private readonly TAnonymousQuery? _anonymous;
@@ -92,7 +130,7 @@ namespace ExRam.Gremlinq.Core
         public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> With(Func<TAnonymousQuery, IGremlinQueryBase> continuation)
         {
             return _outer is { } outer && _anonymous is { } anonymous && _continuations is { } continuations
-                ? new(outer, anonymous, continuations.Add(continuation(anonymous)))
+                ? new(outer, anonymous, continuations.Add(continuation.Apply(anonymous)))
                 : throw new InvalidOperationException();
         }
 
