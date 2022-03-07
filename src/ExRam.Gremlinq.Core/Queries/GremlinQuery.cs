@@ -1121,12 +1121,16 @@ namespace ExRam.Gremlinq.Core
             throw new ExpressionNotSupportedException(expression);
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Where<TProjection>(Expression<Func<TElement, TProjection>> predicate, Func<IGremlinQueryBase<TProjection>, IGremlinQueryBase> propertyTraversal)
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Where<TProjection>(Expression<Func<TElement, TProjection>> predicate, Func<IGremlinQueryBase<TProjection>, IGremlinQueryBase> propertyContinuation)
         {
             return predicate.TryGetReferredParameter() is not null && predicate.Body is MemberExpression memberExpression
-                ? AddStep(
-                    new HasTraversalStep(GetKey(memberExpression), Cast<TProjection>().ContinueInner(propertyTraversal).ToTraversal()),
-                    _ => _)
+                ? this
+                    .Continue()
+                    .With(__ => propertyContinuation(__
+                        .Cast<TProjection>()))
+                    .Build((builder, propertyTraversal) => builder
+                        .AddStep(new HasTraversalStep(GetKey(memberExpression), propertyTraversal))
+                        .Build())
                 : throw new ExpressionNotSupportedException(predicate);
         }
 
