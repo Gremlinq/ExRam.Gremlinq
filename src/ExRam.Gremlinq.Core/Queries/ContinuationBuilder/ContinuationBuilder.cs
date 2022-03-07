@@ -80,6 +80,8 @@ namespace ExRam.Gremlinq.Core
                 ? builderTransformation(new FinalContinuationBuilder<TOuterQuery>(outer))
                 : throw new InvalidOperationException();
         }
+
+        public TOuterQuery OuterQuery => _outer ?? throw new InvalidOperationException();
     }
 
     internal readonly struct SingleContinuationBuilder<TOuterQuery, TAnonymousQuery>
@@ -117,6 +119,8 @@ namespace ExRam.Gremlinq.Core
                 ? builderTransformation(new FinalContinuationBuilder<TOuterQuery>(outer), continuation.ToTraversal())
                 : throw new InvalidOperationException();
         }
+
+        public TOuterQuery OuterQuery => _outer ?? throw new InvalidOperationException();
     }
 
     internal readonly struct MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>
@@ -154,13 +158,15 @@ namespace ExRam.Gremlinq.Core
                 ? builderTransformation(new FinalContinuationBuilder<TOuterQuery>(outer), ImmutableList.CreateRange(continuations.Select(x => x.ToTraversal())))
                 : throw new InvalidOperationException();
         }
+
+        public TOuterQuery OuterQuery => _outer ?? throw new InvalidOperationException();
     }
-   
+
     internal readonly struct FinalContinuationBuilder<TOuterQuery>
         where TOuterQuery : GremlinQueryBase
     {
         private readonly StepStack? _steps;
-        private readonly TOuterQuery? _query;
+        private readonly TOuterQuery? _outer;
         private readonly Projection? _projection;
         private readonly QueryFlags _additionalFlags = QueryFlags.None;
         private readonly IImmutableDictionary<StepLabel, Projection>? _stepLabelProjections;
@@ -173,7 +179,7 @@ namespace ExRam.Gremlinq.Core
         public FinalContinuationBuilder(TOuterQuery outerQuery, StepStack steps, Projection projection, IImmutableDictionary<StepLabel, Projection> stepLabelProjections, QueryFlags additionalFlags)
         {
             _steps = steps;
-            _query = outerQuery;
+            _outer = outerQuery;
             _projection = projection;
             _additionalFlags = additionalFlags;
             _stepLabelProjections = stepLabelProjections;
@@ -182,36 +188,36 @@ namespace ExRam.Gremlinq.Core
         public FinalContinuationBuilder<TOuterQuery> AddStep<TStep>(TStep step)
              where TStep : Step
         {
-            return _query is { } query && _steps is { } steps && _projection is { } projection && _stepLabelProjections is { } stepLabelProjections
+            return _outer is { } query && _steps is { } steps && _projection is { } projection && _stepLabelProjections is { } stepLabelProjections
                 ? new(query, query.Environment.AddStepHandler.AddStep(steps, step, query.Environment), projection, stepLabelProjections, _additionalFlags)
                 : throw new InvalidOperationException();
         }
 
         public FinalContinuationBuilder<TOuterQuery> WithNewProjection(Func<Projection, Projection> projectionTransformation)
         {
-            return _query is { } query && _steps is { } steps && _stepLabelProjections is { } stepLabelProjections
-                ? new(_query, steps, projectionTransformation(_projection ?? Projection.Empty), _stepLabelProjections, _additionalFlags)
+            return _outer is { } query && _steps is { } steps && _stepLabelProjections is { } stepLabelProjections
+                ? new(_outer, steps, projectionTransformation(_projection ?? Projection.Empty), _stepLabelProjections, _additionalFlags)
                 : throw new InvalidOperationException();
         }
 
         public FinalContinuationBuilder<TOuterQuery> WithNewProjection(Projection newProjection)
         {
-            return _query is { } query && _steps is { } steps && _stepLabelProjections is { } stepLabelProjections
-                ? new(_query, steps, newProjection, _stepLabelProjections, _additionalFlags)
+            return _outer is { } query && _steps is { } steps && _stepLabelProjections is { } stepLabelProjections
+                ? new(_outer, steps, newProjection, _stepLabelProjections, _additionalFlags)
                 : throw new InvalidOperationException();
         }
 
         public FinalContinuationBuilder<TOuterQuery> WithNewStepLabelProjection(IImmutableDictionary<StepLabel, Projection> newStepLabelProjections)
         {
-            return _query is { } query && _steps is { } steps && _projection is { } projection
-                ? new(_query, steps, projection, newStepLabelProjections, _additionalFlags)
+            return _outer is { } query && _steps is { } steps && _projection is { } projection
+                ? new(_outer, steps, projection, newStepLabelProjections, _additionalFlags)
                 : throw new InvalidOperationException();
         }
 
         public FinalContinuationBuilder<TOuterQuery> WithAdditionalFlags(QueryFlags additionalFlags)
         {
-            return _query is { } query && _steps is { } steps && _projection is { } projection && _stepLabelProjections is { } stepLabelProjections
-                ? new(_query, steps, projection, stepLabelProjections, _additionalFlags | additionalFlags)
+            return _outer is { } query && _steps is { } steps && _projection is { } projection && _stepLabelProjections is { } stepLabelProjections
+                ? new(_outer, steps, projection, stepLabelProjections, _additionalFlags | additionalFlags)
                 : throw new InvalidOperationException();
         }
 
@@ -222,11 +228,13 @@ namespace ExRam.Gremlinq.Core
 
         public TNewTargetQuery Build<TNewTargetQuery>()
         {
-            return _query is { } query
+            return _outer is { } query
                 ? query
                     .Continue(_steps, _projection, _stepLabelProjections, _additionalFlags)
                     .ChangeQueryType<TNewTargetQuery>()
                 : throw new InvalidOperationException();
         }
+
+        public TOuterQuery OuterQuery => _outer ?? throw new InvalidOperationException();
     }
 }
