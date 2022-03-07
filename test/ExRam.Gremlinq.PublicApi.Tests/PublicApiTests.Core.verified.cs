@@ -541,13 +541,13 @@
     public interface IGroupBuilderWithKeyAndValue<out TSourceQuery, TKey, TValue>
         where out TSourceQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
     {
-        ExRam.Gremlinq.Core.IGremlinQueryBase<TKey> KeyQuery { get; }
-        ExRam.Gremlinq.Core.IGremlinQueryBase<TValue> ValueQuery { get; }
+        ExRam.Gremlinq.Core.IValueGremlinQueryBase<TKey> KeyQuery { get; }
+        ExRam.Gremlinq.Core.IValueGremlinQueryBase<TValue> ValueQuery { get; }
     }
     public interface IGroupBuilderWithKey<out TSourceQuery, TKey>
         where out TSourceQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
     {
-        ExRam.Gremlinq.Core.IGremlinQueryBase<TKey> KeyQuery { get; }
+        ExRam.Gremlinq.Core.IValueGremlinQueryBase<TKey> KeyQuery { get; }
         ExRam.Gremlinq.Core.IGroupBuilderWithKeyAndValue<TSourceQuery, TKey, TValue> ByValue<TValue>(System.Func<TSourceQuery, ExRam.Gremlinq.Core.IGremlinQueryBase<TValue>> valueSelector);
     }
     public interface IGroupBuilder<out TSourceQuery>
