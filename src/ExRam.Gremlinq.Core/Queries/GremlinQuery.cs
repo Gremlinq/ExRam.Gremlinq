@@ -209,36 +209,46 @@ namespace ExRam.Gremlinq.Core
                 StepLabelProjections.SetItem(stepLabel, Projection.Fold()));
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> And(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase>[] andTraversalTransformations)
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> And(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase>[] andContinuations)
         {
-            if (andTraversalTransformations.Length == 0)
-                return AddStep(AndStep.Infix);
+            return this
+                .Continue()
+                .With(andContinuations)
+                .Build((builder, traversals) =>
+                {
+                    List<Traversal>? continuedTraversals = default;
 
-            List<IGremlinQueryBase>? subQueries = default;
+                    if (andContinuations.Length == 0)
+                    {
+                        return builder
+                            .AddStep(AndStep.Infix)
+                            .Build();
+                    }
 
-            foreach (var transformation in andTraversalTransformations)
-            {
-                var transformed = ContinueInner(transformation);
+                    foreach (var traversal in traversals)
+                    {
+                        if (traversal.IsNone())
+                            return None();
 
-                if (transformed.IsNone())
-                    return None();
+                        if (!traversal.IsIdentity())
+                            (continuedTraversals ??= new List<Traversal>()).Add(traversal);
+                    }
 
-                if (!transformed.IsIdentity())
-                    (subQueries ??= new List<IGremlinQueryBase>()).Add(transformed);
-            }
+                    var fusedTraversals = continuedTraversals?
+                        .Select(traversal => traversal.RewriteForWhereContext())
+                        .Fuse(
+                            (p1, p2) => p1.And(p2))
+                        .ToArray();
 
-            var fusedTraversals = subQueries?
-                .Select(x => x.ToTraversal().RewriteForWhereContext())
-                .Fuse(
-                    (p1, p2) => p1.And(p2))
-                .ToArray();
-
-            return fusedTraversals?.Length switch
-            {
-                null or 0 => this,
-                1 => Where(fusedTraversals[0]),
-                _ => AddStep(new AndStep(fusedTraversals!))
-            };
+                    return fusedTraversals?.Length switch
+                    {
+                        null or 0 => this,
+                        1 => Where(fusedTraversals[0]),
+                        _ => builder
+                            .AddStep(new AndStep(fusedTraversals))
+                            .Build()
+                    };
+                });
         }
 
         private TTargetQuery ContinueInner<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> transformation, bool surfaceVisible = false)
