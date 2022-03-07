@@ -804,22 +804,30 @@ namespace ExRam.Gremlinq.Core
                     .Build<TTargetQuery>());
         }
 
-        private TTargetQuery RepeatUntil<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> repeatContinuation, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> untilTraversal)
+        private TTargetQuery RepeatUntil<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> repeatContinuation, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> untilContinuation)
             where TTargetQuery : IGremlinQueryBase
         {
-            var repeatTraversal = ContinueInner(repeatContinuation)
-                .ToTraversal();
+            return this
+                .Continue()
+                .With(repeatContinuation)
+                .Build((builder, repeatTraversal) => this
+                    .Continue()
+                    .With(untilContinuation)
+                    .Build((builder, untilTraversal) =>
+                    {
+                        builder = builder
+                            .AddStep(new RepeatStep(repeatTraversal))
+                            .WithNewProjection(_ => _.Lowest(repeatTraversal.Projection));
 
-            var untilQuery = ContinueInner(untilTraversal);
+                        if (!untilTraversal.IsNone())
+                        {
+                            builder = builder
+                                .AddStep(new UntilStep(untilTraversal));
+                        }
 
-            var ret = this
-                .AddStep(new RepeatStep(repeatTraversal), _ => _.Lowest(repeatTraversal.Projection));
-
-            if (!untilQuery.IsNone())
-                ret = ret.AddStep(new UntilStep(untilQuery.ToTraversal()));
-
-            return ret
-                .ChangeQueryType<TTargetQuery>();
+                        return builder
+                            .Build<TTargetQuery>();
+                    }));
         }
 
         private TTargetQuery UntilRepeat<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> repeatContinuation, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> untilTraversal)
