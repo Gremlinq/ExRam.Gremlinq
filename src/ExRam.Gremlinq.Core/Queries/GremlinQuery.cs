@@ -944,6 +944,17 @@ namespace ExRam.Gremlinq.Core
 
         private TTargetQuery Unfold<TTargetQuery>() => Unfold().ChangeQueryType<TTargetQuery>();
 
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Union(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>[] unionTraversals)
+        {
+            return Union<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>(unionTraversals);
+        }
+
+        private TTargetQuery Union<TTargetQuery>(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery>[] unionTraversals)
+            where TTargetQuery : IGremlinQueryBase
+        {
+            return Union<TTargetQuery, TTargetQuery>(unionTraversals);
+        }
+
         private TReturnQuery Union<TTargetQuery, TReturnQuery>(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery>[] unionTraversals)
             where TTargetQuery : IGremlinQueryBase
             where TReturnQuery : IGremlinQueryBase
@@ -991,7 +1002,11 @@ namespace ExRam.Gremlinq.Core
             {
                 0 => throw new ExpressionNotSupportedException(),
                 1 => AddStepWithObjectTypes<TValue>(stepsArray[0], _ => Projection.Value),
-                _ => AddStepWithObjectTypes<TValue>(new UnionStep(stepsArray.Select(step => ContinueInner(__ => __.AddStep(step, _ => Projection.Value).ToTraversal())).ToImmutableArray()), _ => Projection.Value)
+                _ => this
+                    .Union(stepsArray
+                        .Select(step => new Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>(__ => __.AddStep(step, _ => Projection.Value)))
+                        .ToArray())
+                    .ChangeQueryType<GremlinQuery<TValue, object, object, object, object, object>>(Projection.Value)
             };
         }
 
