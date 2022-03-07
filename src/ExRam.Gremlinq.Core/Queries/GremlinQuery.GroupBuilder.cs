@@ -24,7 +24,12 @@ namespace ExRam.Gremlinq.Core
             {
                 return new GroupBuilder<TNewKey, object>(
                     _sourceQuery,
-                    _sourceQuery.ContinueInner(keySelector));
+                    _sourceQuery
+                        .Continue()
+                        .With(keySelector)
+                        .Build((_, keyQuery) => keyQuery
+                            .AsAdmin()
+                            .ChangeQueryType<IGremlinQueryBase<TNewKey>>()));
             }
 
             IGroupBuilderWithKeyAndValue<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TKey, TNewValue> IGroupBuilderWithKey<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TKey>.ByValue<TNewValue>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase<TNewValue>> valueSelector)
@@ -32,7 +37,12 @@ namespace ExRam.Gremlinq.Core
                 return new GroupBuilder<TKey, TNewValue>(
                     _sourceQuery,
                     KeyQuery,
-                    _sourceQuery.ContinueInner(valueSelector));
+                    _sourceQuery
+                        .Continue()
+                        .With(valueSelector)
+                        .Build((_, valueQuery) => valueQuery
+                            .AsAdmin()
+                            .ChangeQueryType<IGremlinQueryBase<TNewValue>>()));
             }
 
             public IGremlinQueryBase<TKey> KeyQuery
