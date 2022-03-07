@@ -608,15 +608,18 @@ namespace ExRam.Gremlinq.Core
                 : AddStep(NoneStep.Instance);
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Not(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> notTraversal)
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Not(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> continuation)
         {
-            var transformed = ContinueInner(notTraversal);
-            
-            return transformed.IsIdentity()
-                ? None()
-                : transformed.IsNone()
-                    ? this
-                    : AddStep(new NotStep(transformed.ToTraversal()));
+            return this
+                .Continue()
+                .With(continuation)
+                .Build((builder, innerTraversal) => innerTraversal.Count == 0
+                    ? None()
+                    : innerTraversal.IsNone()
+                        ? this
+                        : builder
+                            .AddStep(new NotStep(innerTraversal))
+                            .Build());
         }
 
         private GremlinQuery<TTarget, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> OfType<TTarget>(IGraphElementModel model)
