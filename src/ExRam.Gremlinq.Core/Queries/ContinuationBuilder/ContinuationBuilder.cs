@@ -163,7 +163,7 @@ namespace ExRam.Gremlinq.Core
 
         }
 
-        public FinalContinuationBuilder(TOuterQuery outerQuery, StepStack? steps = null, Projection? projection = null, IImmutableDictionary<StepLabel, Projection>? stepLabelProjections = null, QueryFlags additionalFlags = QueryFlags.None)
+        public FinalContinuationBuilder(TOuterQuery outerQuery, StepStack steps, Projection projection, IImmutableDictionary<StepLabel, Projection> stepLabelProjections, QueryFlags additionalFlags)
         {
             _steps = steps;
             _query = outerQuery;
@@ -175,36 +175,36 @@ namespace ExRam.Gremlinq.Core
         public FinalContinuationBuilder<TOuterQuery> AddStep<TStep>(TStep step)
              where TStep : Step
         {
-            return _query is { } query
-                ? new(query, query.Environment.AddStepHandler.AddStep(_query.Steps, step, query.Environment))
+            return _query is { } query && _projection is { } projection && _stepLabelProjections is { } stepLabelProjections
+                ? new(query, query.Environment.AddStepHandler.AddStep(_query.Steps, step, query.Environment), projection, stepLabelProjections, _additionalFlags)
                 : throw new InvalidOperationException();
         }
 
         public FinalContinuationBuilder<TOuterQuery> WithNewProjection(Func<Projection, Projection> projectionTransformation)
         {
-            return (_query is { } query)
-                ? new(_query, _steps, projectionTransformation(_projection ?? Projection.Empty), _stepLabelProjections, _additionalFlags)
+            return _query is { } query && _steps is { } steps && _stepLabelProjections is { } stepLabelProjections
+                ? new(_query, steps, projectionTransformation(_projection ?? Projection.Empty), _stepLabelProjections, _additionalFlags)
                 : throw new InvalidOperationException();
         }
 
         public FinalContinuationBuilder<TOuterQuery> WithNewProjection(Projection newProjection)
         {
-            return (_query is { } query)
-                ? new(_query, _steps, newProjection, _stepLabelProjections, _additionalFlags)
+            return _query is { } query && _steps is { } steps && _stepLabelProjections is { } stepLabelProjections
+                ? new(_query, steps, newProjection, _stepLabelProjections, _additionalFlags)
                 : throw new InvalidOperationException();
         }
 
         public FinalContinuationBuilder<TOuterQuery> WithNewStepLabelProjection(IImmutableDictionary<StepLabel, Projection> newStepLabelProjections)
         {
-            return (_query is { } query)
-                ? new(_query, _steps, _projection, newStepLabelProjections, _additionalFlags)
+            return _query is { } query && _steps is { } steps && _projection is { } projection
+                ? new(_query, steps, projection, newStepLabelProjections, _additionalFlags)
                 : throw new InvalidOperationException();
         }
 
         public FinalContinuationBuilder<TOuterQuery> WithAdditionalFlags(QueryFlags additionalFlags)
         {
-            return (_query is { } query)
-                ? new(_query, _steps, _projection, _stepLabelProjections, _additionalFlags | additionalFlags)
+            return _query is { } query && _steps is { } steps && _projection is { } projection && _stepLabelProjections is { } stepLabelProjections
+                ? new(_query, steps, projection, stepLabelProjections, _additionalFlags | additionalFlags)
                 : throw new InvalidOperationException();
         }
 
