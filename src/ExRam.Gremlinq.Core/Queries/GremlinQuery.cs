@@ -342,32 +342,44 @@ namespace ExRam.Gremlinq.Core
            where TFalseQuery : IGremlinQueryBase
            where TTargetQuery : IGremlinQueryBase
         {
-            var trueTraversal = this
-                .ContinueInner(trueChoice)
-                .ToTraversal();
-
-            var maybeFalseTraversal = maybeFalseChoice is { } falseChoice
-                ? ContinueInner(falseChoice).ToTraversal()
-                : default(Traversal?);
-
-            Step chooseStep = (chooseTraversal.Count == 1 && chooseTraversal[0] is IsStep isStep)
-               ? new ChoosePredicateStep(
-                   isStep.Predicate,
-                   trueTraversal,
-                   maybeFalseTraversal)
-               : new ChooseTraversalStep(
-                   chooseTraversal,
-                   trueTraversal,
-                   maybeFalseTraversal);
-
-            var projection = (maybeFalseTraversal?.Projection ?? Projection)
-                .Lowest(trueTraversal.Projection);
-
             return this
-                .AddStep(
-                   chooseStep,
-                   _ => projection)
-                .ChangeQueryType<TTargetQuery>();
+                .Continue()
+                .With(trueChoice)
+                .Build((builder, trueTraversal) =>
+                {
+                    if (maybeFalseChoice is { } falseChoice)
+                    {
+                        return this
+                            .Continue()
+                            .With(falseChoice)
+                            .Build((builder, falseTraversal) =>
+                            {
+                                return builder
+                                    .AddStep<Step>((chooseTraversal.Count == 1 && chooseTraversal[0] is IsStep isStep)
+                                        ? new ChoosePredicateStep(
+                                            isStep.Predicate,
+                                            trueTraversal,
+                                            falseTraversal)
+                                        : new ChooseTraversalStep(
+                                            chooseTraversal,
+                                            trueTraversal,
+                                            falseTraversal))
+                                    .WithNewProjection(_ => falseTraversal.Projection.Lowest(trueTraversal.Projection))
+                                    .Build<TTargetQuery>();
+                            });
+                    }
+
+                    return builder
+                        .AddStep<Step>((chooseTraversal.Count == 1 && chooseTraversal[0] is IsStep isStep)
+                            ? new ChoosePredicateStep(
+                                isStep.Predicate,
+                                trueTraversal)
+                            : new ChooseTraversalStep(
+                                chooseTraversal,
+                                trueTraversal))
+                        .WithNewProjection(_ => Projection.Lowest(trueTraversal.Projection))
+                        .Build<TTargetQuery>();
+                });
         }
 
         private TTargetQuery Choose<TTargetQuery>(Func<IChooseBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>, IChooseBuilderWithCaseOrDefault<TTargetQuery>> continuation)
