@@ -33,6 +33,14 @@ namespace ExRam.Gremlinq.Core
                 targetQueryType,
                 closureType =>
                 {
+                    if (closureType.IsGenericType && closureType.GetGenericTypeDefinition() == typeof(GremlinQuery<,,,,,>))
+                    {
+                        return (Func<GremlinQueryBase, Projection?, IGremlinQueryBase>?)CreateFuncMethod
+                            .MakeGenericMethod(
+                                closureType.GetGenericArguments())
+                            .Invoke(null, new object?[] { closureType })!;
+                    }
+
                     var elementType = GetMatchingType(closureType, "TElement", "TVertex", "TEdge", "TProperty", "TArray") ?? typeof(object);
                     var outVertexType = GetMatchingType(closureType, "TOutVertex", "TAdjacentVertex") ?? typeof(object);
                     var inVertexType = GetMatchingType(closureType, "TInVertex") ?? typeof(object);
