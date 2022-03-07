@@ -491,35 +491,14 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<IDictionary<TKey, TValue>, object, object, object, object, object> Group<TKey, TValue>(Func<IGroupBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>, IGroupBuilderWithKeyAndValue<IGremlinQueryBase, TKey, TValue>> projection)
         {
-            var group = projection(new GroupBuilder<object, object>(this));
-
-            return Group<TKey, TValue>(
-                group.KeyQuery.ToTraversal(),
-                group.ValueQuery.ToTraversal());
+            return projection(new GroupBuilder<object, object>(Continue()))
+                .Build<GremlinQuery<IDictionary<TKey, TValue>, object, object, object, object, object>>();
         }
 
         private GremlinQuery<IDictionary<TKey, object>, object, object, object, object, object> Group<TKey>(Func<IGroupBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>, IGroupBuilderWithKey<IGremlinQueryBase, TKey>> projection)
         {
-            var group = projection(new GroupBuilder<object, object>(this));
-
-            return Group<TKey, object>(
-               group.KeyQuery.ToTraversal(),
-               null);
-        }
-
-        private GremlinQuery<IDictionary<TKey, TValue>, object, object, object, object, object> Group<TKey, TValue>(Traversal keyTraversal, Traversal? maybeValueTraversal)
-        {
-            var ret = this
-                .AddStep<IDictionary<TKey, TValue>, object, object, object, object, object>(
-                    GroupStep.Instance,
-                    _ => _.Group(
-                        keyTraversal.Projection,
-                        maybeValueTraversal?.Projection ?? Projection))
-                .AddStep(new GroupStep.ByTraversalStep(keyTraversal));
-
-            return (maybeValueTraversal is { } valueTraversal)
-                ? ret.AddStep(new GroupStep.ByTraversalStep(valueTraversal))
-                : ret;
+            return projection(new GroupBuilder<object, object>(Continue()))
+                .Build<GremlinQuery<IDictionary<TKey, object>, object, object, object, object, object>>();
         }
 
         private IEnumerable<string> GetStringKeys(Expression[] projections)
