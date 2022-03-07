@@ -35,8 +35,8 @@ namespace ExRam.Gremlinq.Core
             _anonymous = anonymous;
         }
 
-        public ContinuationBuilder<TNewSourceQuery, TAnonymousQuery> FromSource<TNewSourceQuery>(TNewSourceQuery query)
-            where TNewSourceQuery : GremlinQueryBase
+        public ContinuationBuilder<TNewOuterQuery, TAnonymousQuery> WithOuter<TNewOuterQuery>(TNewOuterQuery query)
+            where TNewOuterQuery : GremlinQueryBase
         {
             return _anonymous is { } anonymous
                 ? new(query, _anonymous)
@@ -71,6 +71,13 @@ namespace ExRam.Gremlinq.Core
                     outer,
                     anonymous,
                     ImmutableList<IGremlinQueryBase>.Empty)
+                : throw new InvalidOperationException();
+        }
+
+        public TNewQuery Build<TNewQuery>(Func<FinalContinuationBuilder<TOuterQuery>, TNewQuery> builderTransformation)
+        {
+            return _outer is { } outer
+                ? builderTransformation(new FinalContinuationBuilder<TOuterQuery>(outer))
                 : throw new InvalidOperationException();
         }
     }
