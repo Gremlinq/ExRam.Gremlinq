@@ -587,14 +587,18 @@ namespace ExRam.Gremlinq.Core
                 });
         }
 
-        private TTargetQuery Map<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> mapping) where TTargetQuery : IGremlinQueryBase
+        private TTargetQuery Map<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> continuation) where TTargetQuery : IGremlinQueryBase
         {
-            var mappedTraversal = ContinueInner(mapping)
-                .ToTraversal();
-
-            return (mappedTraversal.Count == 0
-                ? this
-                : AddStep(new MapStep(mappedTraversal), _ => mappedTraversal.Projection)).ChangeQueryType<TTargetQuery>();
+            return this
+                .Continue()
+                .With(continuation)
+                .Build((builder, innerTraversal) => innerTraversal.Count == 0
+                    ? this
+                        .ChangeQueryType<TTargetQuery>()
+                    : builder
+                        .AddStep(new MapStep(innerTraversal))
+                        .WithNewProjection(innerTraversal.Projection)
+                        .Build<TTargetQuery>());
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> None()
