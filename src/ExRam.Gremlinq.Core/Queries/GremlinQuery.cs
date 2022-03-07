@@ -475,9 +475,19 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement[], object, object, TElement, object, TNewFoldedQuery> Fold<TNewFoldedQuery>() => AddStep<TElement[], object, object, TElement, object, TNewFoldedQuery>(FoldStep.Instance, _ => _.Fold());
 
-        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, object, object, object> From<TNewElement, TNewOutVertex, TNewInVertex>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IVertexGremlinQueryBase<TNewOutVertex>> fromVertexTraversal) => AddStep<TNewElement, TNewOutVertex, TNewInVertex, object, object, object>(new AddEStep.FromTraversalStep(ContinueInner(fromVertexTraversal).ToTraversal()));
+        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, object, object, object> From<TNewElement, TNewOutVertex, TNewInVertex>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IVertexGremlinQueryBase<TNewOutVertex>> fromVertexContinuation) => this
+            .Continue()
+            .With(fromVertexContinuation)
+            .Build((builder, fromVertexTraversal) => builder
+                .AddStep(new AddEStep.FromTraversalStep(fromVertexTraversal))
+                .Build<GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, object, object, object>>());
 
-        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, object, object, object> To<TNewElement, TNewOutVertex, TNewInVertex>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IVertexGremlinQueryBase<TNewInVertex>> toVertexTraversal) => AddStep<TNewElement, TNewOutVertex, TNewInVertex, object, object, object>(new AddEStep.ToTraversalStep(ContinueInner(toVertexTraversal).ToTraversal()));
+        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, object, object, object> To<TNewElement, TNewOutVertex, TNewInVertex>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IVertexGremlinQueryBase<TNewInVertex>> toVertexContinuation) => this
+            .Continue()
+            .With(toVertexContinuation)
+            .Build((builder, toVertexTraversal) => builder
+                .AddStep(new AddEStep.ToTraversalStep(toVertexTraversal))
+                .Build<GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, object, object, object>>());
 
         private GremlinQuery<IDictionary<TKey, TValue>, object, object, object, object, object> Group<TKey, TValue>(Func<IGroupBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>, IGroupBuilderWithKeyAndValue<IGremlinQueryBase, TKey, TValue>> projection)
         {
