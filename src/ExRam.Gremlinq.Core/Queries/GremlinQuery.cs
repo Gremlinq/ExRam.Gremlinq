@@ -830,22 +830,30 @@ namespace ExRam.Gremlinq.Core
                     }));
         }
 
-        private TTargetQuery UntilRepeat<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> repeatContinuation, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> untilTraversal)
+        private TTargetQuery UntilRepeat<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> repeatContinuation, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> untilContinuation)
             where TTargetQuery : IGremlinQueryBase
         {
-            var repeatTraversal = ContinueInner(repeatContinuation)
-                .ToTraversal();
+            return this
+               .Continue()
+               .With(repeatContinuation)
+               .Build((builder, repeatTraversal) => this
+                   .Continue()
+                   .With(untilContinuation)
+                   .Build((builder, untilTraversal) =>
+                   {
+                       if (!untilTraversal.IsNone())
+                       {
+                           builder = builder
+                               .AddStep(new UntilStep(untilTraversal));
+                       }
 
-            var untilQuery = ContinueInner(untilTraversal);
+                       builder = builder
+                           .AddStep(new RepeatStep(repeatTraversal))
+                           .WithNewProjection(_ => _.Lowest(repeatTraversal.Projection));
 
-            var ret = this;
-
-            if (!untilQuery.IsNone())
-                ret = ret.AddStep(new UntilStep(ContinueInner(untilTraversal).ToTraversal()));
-
-            return ret
-                .AddStep(new RepeatStep(repeatTraversal), _ => _.Lowest(repeatTraversal.Projection))
-                .ChangeQueryType<TTargetQuery>();
+                       return builder
+                           .Build<TTargetQuery>();
+                   }));
         }
 
         private GremlinQuery<TSelectedElement, object, object, object, object, object> Select<TSelectedElement>(StepLabel<TSelectedElement> stepLabel)
