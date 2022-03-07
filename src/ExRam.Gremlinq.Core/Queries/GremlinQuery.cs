@@ -1002,8 +1002,8 @@ namespace ExRam.Gremlinq.Core
                     case BinaryExpression { NodeType: ExpressionType.OrElse } binary:
                     {
                         return Or(
-                            ContinueInner(__ => __.Where(binary.Left)),
-                            ContinueInner(__ => __.Where(binary.Right)));
+                            __ => __.Where(binary.Left),
+                            __ => __.Where(binary.Right));
                     }
                     case BinaryExpression { NodeType: ExpressionType.AndAlso } binary:
                     {
