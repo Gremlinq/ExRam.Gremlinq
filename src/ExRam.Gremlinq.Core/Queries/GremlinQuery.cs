@@ -648,37 +648,44 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Or(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase>[] orTraversalTransformations)
         {
-            return Or(orTraversalTransformations.Select(transformation => ContinueInner(transformation)).ToArray());
-        }
+            return this
+                .Continue()
+                .With(orTraversalTransformations)
+                .Build((builder, traversals) =>
+                {
+                    List<Traversal>? continuedTraversals = default;
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Or(params IGremlinQueryBase[] orTraversals)
-        {
-            if (orTraversals.Length == 0)
-                return AddStep(OrStep.Infix);
+                    if (traversals.Count == 0)
+                    {
+                        return builder
+                            .AddStep(OrStep.Infix)
+                            .Build();
+                    }
 
-            List<IGremlinQueryBase>? subQueries = default;
+                    foreach (var traversal in traversals)
+                    {
+                        if (traversal.IsIdentity())
+                            return this;
 
-            foreach (var transformed in orTraversals)
-            {
-                if (transformed.IsIdentity())
-                    return this;
+                        if (!traversal.IsNone())
+                            (continuedTraversals ??= new List<Traversal>()).Add(traversal);
+                    }
 
-                if (!transformed.IsNone())
-                    (subQueries ??= new List<IGremlinQueryBase>()).Add(transformed);
-            }
+                    var fusedTraversals = continuedTraversals?
+                        .Select(traversal => traversal.RewriteForWhereContext())
+                        .Fuse(
+                            (p1, p2) => p1.Or(p2))
+                        .ToArray();
 
-            var fusedTraversals = subQueries?
-                .Select(x => x.ToTraversal().RewriteForWhereContext())
-                .Fuse(
-                    (p1, p2) => p1.Or(p2))
-                .ToArray();
-
-            return fusedTraversals?.Length switch
-            {
-                null or 0 => None(),
-                1 => Where(fusedTraversals[0]),
-                _ => AddStep(new OrStep(fusedTraversals))
-            };
+                    return fusedTraversals?.Length switch
+                    {
+                        null or 0 => None(),
+                        1 => Where(fusedTraversals[0]),
+                        _ => builder
+                            .AddStep(new OrStep(fusedTraversals))
+                            .Build()
+                    };
+                });
         }
 
         private TTargetQuery OrderGlobal<TTargetQuery>(Func<OrderBuilder, IOrderBuilderWithBy<TTargetQuery>> projection) where TTargetQuery : IGremlinQueryBase<TElement> => Order(projection, OrderStep.Global);
