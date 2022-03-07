@@ -1046,20 +1046,22 @@ namespace ExRam.Gremlinq.Core
         
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Where(ILambda lambda) => AddStep(new FilterStep(lambda));
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Where(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> filterTraversal)
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Where(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> filterContinuation)
         {
-            var filtered = ContinueInner(filterTraversal);
-
-            return filtered.IsIdentity()
-                ? this
-                : filtered.IsNone()
-                    ? None()
-                    : Where(filtered.ToTraversal());
+            return this
+                .Continue()
+                .With(filterContinuation)
+                .Build((builder, filterTraversal) => filterTraversal.IsIdentity()
+                    ? this
+                    : filterTraversal.IsNone()
+                        ? None()
+                        : Where(filterTraversal));
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Where(Traversal traversal)
         {
-            traversal = traversal.RewriteForWhereContext();
+            traversal = traversal
+                .RewriteForWhereContext();
 
             return traversal.Count > 0 && traversal.All(x => x is IIsOptimizableInWhere)
                 ? AddSteps(traversal)
