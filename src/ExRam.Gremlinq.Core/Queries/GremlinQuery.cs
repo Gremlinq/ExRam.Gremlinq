@@ -376,17 +376,17 @@ namespace ExRam.Gremlinq.Core
             return this
                 .Continue()
                 .With(continuations)
-                .Build((builder, innerQueries) =>
+                .Build((builder, innerTraversals) =>
                 {
-                    if (innerQueries.All(innerQuery => innerQuery.IsIdentity()))
+                    if (innerTraversals.All(innerTraversal => innerTraversal.Count == 0))
                         return builder.Build<TReturnQuery>();
 
-                    var aggregatedProjection = innerQueries
-                        .Select(x => x.AsAdmin().Projection)
+                    var aggregatedProjection = innerTraversals
+                        .Select(x => x.Projection)
                         .Aggregate((x, y) => x.Lowest(y));
 
                     return builder
-                        .AddStep(new CoalesceStep(innerQueries.Select(x => x.ToTraversal()).ToImmutableArray()))
+                        .AddStep(new CoalesceStep(innerTraversals.ToImmutableArray()))
                         .WithNewProjection(aggregatedProjection)
                         .Build<TReturnQuery>();
                 });
