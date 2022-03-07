@@ -43,6 +43,7 @@ namespace ExRam.Gremlinq.Core
                 : SideEffectSemanticsChange.None;
         }
 
+        //TODO: Use in ContinuationBuilder
         public static Traversal RewriteForWhereContext(this Traversal traversal)
         {
             if (traversal.Count >= 2)
