@@ -13,14 +13,14 @@ namespace ExRam.Gremlinq.Core
     {
         IGroupBuilderWithKeyAndValue<TSourceQuery, TKey, TValue> ByValue<TValue>(Func<TSourceQuery, IGremlinQueryBase<TValue>> valueSelector);
 
-        IGremlinQueryBase<TKey> KeyQuery { get; }
+        IValueGremlinQueryBase<TKey> KeyQuery { get; }
     }
 
     public interface IGroupBuilderWithKeyAndValue<out TSourceQuery, TKey, TValue>
         where TSourceQuery : IGremlinQueryBase
     {
-        IGremlinQueryBase<TKey> KeyQuery { get; }
+        IValueGremlinQueryBase<TKey> KeyQuery { get; }
 
-        IGremlinQueryBase<TValue> ValueQuery { get; }
+        IValueGremlinQueryBase<TValue> ValueQuery { get; }
     }
 }

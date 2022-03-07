@@ -10,11 +10,11 @@ namespace ExRam.Gremlinq.Core
             IGroupBuilderWithKey<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TKey>,
             IGroupBuilderWithKeyAndValue<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TKey, TValue>
         {
-            private readonly IGremlinQueryBase<TKey>? _keyQuery;
-            private readonly IGremlinQueryBase<TValue>? _valueQuery;
+            private readonly IValueGremlinQueryBase<TKey>? _keyQuery;
+            private readonly IValueGremlinQueryBase<TValue>? _valueQuery;
             private readonly GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> _sourceQuery;
 
-            public GroupBuilder(GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> sourceQuery, IGremlinQueryBase<TKey>? keyQuery = default, IGremlinQueryBase<TValue>? valueQuery = default)
+            public GroupBuilder(GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> sourceQuery, IValueGremlinQueryBase<TKey>? keyQuery = default, IValueGremlinQueryBase<TValue>? valueQuery = default)
             {
                 _keyQuery = keyQuery;
                 _valueQuery = valueQuery;
@@ -30,7 +30,7 @@ namespace ExRam.Gremlinq.Core
                         .With(keySelector)
                         .Build((_, keyQuery) => keyQuery
                             .AsAdmin()
-                            .ChangeQueryType<IGremlinQueryBase<TNewKey>>()));
+                            .ChangeQueryType<IValueGremlinQueryBase<TNewKey>>()));
             }
 
             IGroupBuilderWithKeyAndValue<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TKey, TNewValue> IGroupBuilderWithKey<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TKey>.ByValue<TNewValue>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase<TNewValue>> valueSelector)
@@ -43,17 +43,17 @@ namespace ExRam.Gremlinq.Core
                         .With(valueSelector)
                         .Build((_, valueQuery) => valueQuery
                             .AsAdmin()
-                            .ChangeQueryType<IGremlinQueryBase<TNewValue>>()));
+                            .ChangeQueryType<IValueGremlinQueryBase<TNewValue>>()));
             }
 
-            public IGremlinQueryBase<TKey> KeyQuery
+            public IValueGremlinQueryBase<TKey> KeyQuery
             {
                 get => _keyQuery is { } keyQuery
                     ? keyQuery
                     : throw new InvalidOperationException();
             }
 
-            public IGremlinQueryBase<TValue> ValueQuery
+            public IValueGremlinQueryBase<TValue> ValueQuery
             {
                 get => _valueQuery is { } valueQuery
                     ? valueQuery
