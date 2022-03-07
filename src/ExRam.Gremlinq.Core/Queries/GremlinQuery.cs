@@ -637,12 +637,13 @@ namespace ExRam.Gremlinq.Core
 
         private TTargetQuery Optional<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQueryBase
         {
-            var optionalQuery = ContinueInner(optionalTraversal)
-                .ToTraversal();
-
             return this
-                .AddStep(new OptionalStep(optionalQuery), _ => _.Lowest(optionalQuery.Projection))
-                .ChangeQueryType<TTargetQuery>();
+                .Continue()
+                .With(optionalTraversal)
+                .Build((builder, continuedTraversal) => builder
+                    .AddStep(new OptionalStep(continuedTraversal))
+                    .WithNewProjection(_ => _.Lowest(continuedTraversal.Projection))
+                    .Build<TTargetQuery>());
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Or(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase>[] orTraversalTransformations)
