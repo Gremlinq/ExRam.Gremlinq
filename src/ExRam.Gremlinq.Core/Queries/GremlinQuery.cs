@@ -315,13 +315,12 @@ namespace ExRam.Gremlinq.Core
             where TFalseQuery : IGremlinQueryBase
             where TTargetQuery : IGremlinQueryBase
         {
-            return Choose<TTrueQuery, TFalseQuery, TTargetQuery>(
-                this
-                    .ContinueInner(__ => __
-                        .Where(predicate))
-                    .ToTraversal(),
-                trueChoice,
-                maybeFalseChoice);
+            return this
+                .Choose<TTrueQuery, TFalseQuery, TTargetQuery>(
+                    __ => __
+                        .Where(predicate),
+                    trueChoice,
+                    maybeFalseChoice);
         }
 
         private TTargetQuery Choose<TTrueQuery, TFalseQuery, TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> traversalPredicate, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTrueQuery> trueChoice, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TFalseQuery>? maybeFalseChoice = default)
@@ -329,12 +328,10 @@ namespace ExRam.Gremlinq.Core
            where TFalseQuery : IGremlinQueryBase
            where TTargetQuery : IGremlinQueryBase
         {
-            return Choose<TTrueQuery, TFalseQuery, TTargetQuery>(
-                this
-                    .ContinueInner(traversalPredicate)
-                    .ToTraversal(),
-                trueChoice,
-                maybeFalseChoice);
+            return this
+                .Continue()
+                .With(traversalPredicate)
+                .Build((builder, traversal) => Choose<TTrueQuery, TFalseQuery, TTargetQuery>(traversal, trueChoice, maybeFalseChoice));
         }
 
         private TTargetQuery Choose<TTrueQuery, TFalseQuery, TTargetQuery>(Traversal chooseTraversal, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTrueQuery> trueChoice, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TFalseQuery>? maybeFalseChoice = default)
