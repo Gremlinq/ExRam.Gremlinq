@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Core
     internal abstract class GremlinQueryBase
     {
         private static readonly MethodInfo CreateFuncMethod = typeof(GremlinQueryBase).GetMethod(nameof(CreateFunc), BindingFlags.NonPublic | BindingFlags.Static)!;
-        private static readonly ConcurrentDictionary<Type, Func<GremlinQueryBase, Projection?, IGremlinQueryBase>> QueryTypes = new();
+        private static readonly ConcurrentDictionary<Type, Func<GremlinQueryBase, Projection?, IGremlinQueryBase>?> QueryTypes = new();
 
         protected GremlinQueryBase(
             StepStack steps,
@@ -29,7 +29,7 @@ namespace ExRam.Gremlinq.Core
         {
             var targetQueryType = typeof(TTargetQuery);
 
-            var constructor = QueryTypes.GetOrAdd(
+            var maybeConstructor = QueryTypes.GetOrAdd(
                 targetQueryType,
                 closureType =>
                 {
@@ -40,7 +40,7 @@ namespace ExRam.Gremlinq.Core
                     var metaType = GetMatchingType(closureType, "TMeta") ?? typeof(object);
                     var queryType = GetMatchingType(closureType, "TOriginalQuery") ?? typeof(object);
 
-                    return (Func<GremlinQueryBase, Projection?, IGremlinQueryBase>)CreateFuncMethod
+                    return (Func<GremlinQueryBase, Projection?, IGremlinQueryBase>?)CreateFuncMethod
                         .MakeGenericMethod(
                             elementType,
                             outVertexType,
@@ -53,20 +53,22 @@ namespace ExRam.Gremlinq.Core
                         .Invoke(null, new object?[] { closureType })!;
                 });
 
-            return (TTargetQuery)constructor(this, forcedProjection);
+            return (maybeConstructor is { } constructor)
+                ? (TTargetQuery)constructor(this, forcedProjection)
+                : throw new NotSupportedException($"Cannot change the query type to {targetQueryType}.");
         }
 
-        private static Func<GremlinQueryBase, Projection?, IGremlinQueryBase> CreateFunc<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(Type targetQueryType)
+        private static Func<GremlinQueryBase, Projection?, IGremlinQueryBase>? CreateFunc<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(Type targetQueryType)
         {
+            if (!targetQueryType.IsAssignableFrom(typeof(GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>)))
+                return null;
+
             return (existingQuery, forcedProjection) =>
             {
                 var actualProjection = forcedProjection ?? existingQuery.Projection;
 
                 if (targetQueryType.IsInstanceOfType(existingQuery) && (actualProjection == existingQuery.Projection))
                     return (IGremlinQueryBase)existingQuery;
-
-                if (!targetQueryType.IsAssignableFrom(typeof(GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>)))
-                    throw new NotSupportedException($"Cannot change the query type to {targetQueryType}.");
 
                 return new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(
                     existingQuery.Steps,
