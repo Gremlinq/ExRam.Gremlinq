@@ -980,21 +980,24 @@ namespace ExRam.Gremlinq.Core
             return Union<TTargetQuery, TTargetQuery>(unionTraversals);
         }
 
-        private TReturnQuery Union<TTargetQuery, TReturnQuery>(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery>[] unionTraversals)
+        private TReturnQuery Union<TTargetQuery, TReturnQuery>(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery>[] unionContinuations)
             where TTargetQuery : IGremlinQueryBase
             where TReturnQuery : IGremlinQueryBase
         {
-            var unionQueries = unionTraversals
-                .Select(unionTraversal => ContinueInner(unionTraversal))
-                .ToArray();
-
-            var aggregatedSemantics = unionQueries
-                .Select(x => x.AsAdmin().Projection)
-                .Aggregate((x, y) => x.Lowest(y));
-
             return this
-                .AddStep(new UnionStep(unionQueries.Select(x => x.ToTraversal()).ToImmutableArray()), _ => aggregatedSemantics)
-                .ChangeQueryType<TReturnQuery>();
+                .Continue()
+                .With(unionContinuations)
+                .Build((builder, unionTraversals) =>
+                {
+                    var aggregatedProjection = unionTraversals
+                        .Select(traversal => traversal.Projection)
+                        .Aggregate((x, y) => x.Lowest(y));
+
+                    return builder
+                        .AddStep(new UnionStep(unionTraversals.ToImmutableArray()))
+                        .WithNewProjection(aggregatedProjection)
+                        .Build<TReturnQuery>();
+                });
         }
 
         private GremlinQuery<object, object, object, object, object, object> V(ImmutableArray<object> ids) => AddStepWithObjectTypes<object>(new VStep(ids), _ => Projection.Vertex);
