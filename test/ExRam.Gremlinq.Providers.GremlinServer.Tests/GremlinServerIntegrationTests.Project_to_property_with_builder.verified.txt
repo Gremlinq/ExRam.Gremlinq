@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "@type": "g:List",
     "@value": [
@@ -12,11 +12,6 @@
           "value": {
             "@type": "g:Map",
             "@value": [
-              "Age",
-              {
-                "@type": "g:Int32",
-                "@value": 0
-              },
               "in!",
               {
                 "@type": "g:Map",
@@ -60,6 +55,11 @@
                     ]
                   }
                 ]
+              },
+              "Age",
+              {
+                "@type": "g:Int32",
+                "@value": 0
               }
             ]
           }
