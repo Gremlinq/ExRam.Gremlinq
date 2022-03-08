@@ -53,7 +53,10 @@ namespace ExRam.Gremlinq.Core
                     : new(
                         _continuationBuilder
                             .With(__ => __
-                                .AddStep(new ProjectStep.ByKeyStep(__.GetKey(projection)))),
+                                .Continue()
+                                .Build(builder => builder
+                                    .AddStep(new ProjectStep.ByKeyStep(__.GetKey(projection)))
+                                    .Build())),
                         _names.Add(name ?? $"Item{_names.Count + 1}"),
                         _enableEmptyProjectionValueProtection);
             }

@@ -89,7 +89,7 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery<TElement> IOutEdgeGremlinQueryBase<TElement, TOutVertex>.Lower() => this;
 
-        IVertexGremlinQuery<TOutVertex> IOutEdgeGremlinQueryBase<TElement, TOutVertex>.OutV() => AddStepWithObjectTypes<TOutVertex>(OutVStep.Instance, _ => Projection.Vertex);
+        IVertexGremlinQuery<TOutVertex> IOutEdgeGremlinQueryBase<TElement, TOutVertex>.OutV() => OutV<TOutVertex>();
 
         IEdgeGremlinQuery<TElement, TOutVertex, TNewInVertex> IOutEdgeGremlinQueryBase<TElement, TOutVertex>.To<TNewInVertex>(Func<IVertexGremlinQuery<TOutVertex>, IVertexGremlinQueryBase<TNewInVertex>> toVertexTraversal) => Cast<TOutVertex>().To<TElement, TOutVertex, TNewInVertex>(toVertexTraversal);
 
@@ -105,7 +105,7 @@ namespace ExRam.Gremlinq.Core
             .BothV()
             .OfType<TVertex>();
 
-        IOutEdgeGremlinQuery<TElement, TNewOutVertex> IEdgeGremlinQueryBase<TElement>.From<TNewOutVertex>(StepLabel<TNewOutVertex> stepLabel) => AddStep<TElement, TNewOutVertex, object, object, object, object>(new AddEStep.FromLabelStep(stepLabel));
+        IOutEdgeGremlinQuery<TElement, TNewOutVertex> IEdgeGremlinQueryBase<TElement>.From<TNewOutVertex>(StepLabel<TNewOutVertex> stepLabel) => From<TElement, TNewOutVertex, TInVertex>(stepLabel);
 
         IEdgeOrVertexGremlinQuery<TElement> IEdgeGremlinQueryBase<TElement>.Lower() => this;
 
@@ -177,15 +177,15 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQueryAdmin IStartGremlinQuery.AsAdmin() => this;
 
-        IValueGremlinQuery<TValue> IGremlinQueryBase.Constant<TValue>(TValue constant) => AddStepWithObjectTypes<TValue>(new ConstantStep(constant!), _ => Projection.Value);
+        IValueGremlinQuery<TValue> IGremlinQueryBase.Constant<TValue>(TValue constant) => Constant(constant);
         
         string IGremlinQueryBase.Debug(GroovyFormatting groovyFormatting, bool indented) => Debug(groovyFormatting, indented);
 
-        IValueGremlinQuery<long> IGremlinQueryBase.Count() => AddStepWithObjectTypes<long>(CountStep.Global, _ => Projection.Value);
+        IValueGremlinQuery<long> IGremlinQueryBase.Count() => CountGlobal();
 
-        IValueGremlinQuery<long> IGremlinQueryBase.CountLocal() => AddStepWithObjectTypes<long>(CountStep.Local, _ => Projection.Value);
+        IValueGremlinQuery<long> IGremlinQueryBase.CountLocal() => CountLocal();
 
-        IValueGremlinQuery<string> IGremlinQueryBase.Explain() => AddStepWithObjectTypes<string>(ExplainStep.Instance, _ => Projection.Value);
+        IValueGremlinQuery<string> IGremlinQueryBase.Explain() => Explain();
 
         TaskAwaiter IGremlinQueryBase.GetAwaiter() => ((Task)((IGremlinQuery<TElement>)this).ToAsyncEnumerable().LastOrDefaultAsync().AsTask()).GetAwaiter();
 
@@ -221,9 +221,14 @@ namespace ExRam.Gremlinq.Core
             .SelectMany(executionResult => Environment.Deserializer
                 .Deserialize<TElement>(executionResult, Environment));
 
-        IValueGremlinQuery<Path> IGremlinQueryBase.Path() => AddStepWithObjectTypes<Path>(PathStep.Instance, _ => Projection.Value);
+        IValueGremlinQuery<Path> IGremlinQueryBase.Path() => Path();
 
-        IValueGremlinQuery<string> IGremlinQueryBase.Profile() => AddStepWithObjectTypes<string>(ProfileStep.Instance, _ => Projection.Value);
+        IValueGremlinQuery<string> IGremlinQueryBase.Profile() => this
+            .Continue()
+            .Build(builder => builder
+                .AddStep(ProfileStep.Instance)
+                .WithNewProjection(Projection.Value)
+                .Build<GremlinQuery<string, object, object, object, object, object>>());
 
         TQuery IGremlinQueryBase.Select<TQuery, TStepElement>(StepLabel<TQuery, TStepElement> label) => Select(label).ContinueAs<TQuery>(projectionTransformation: _ => StepLabelProjections[label]);
 
@@ -241,7 +246,19 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IGremlinQueryAdmin.ConfigureSteps<TTargetQuery>(Func<StepStack, StepStack> transformation, Func<Projection, Projection>? projectionTransformation) => ConfigureSteps<TElement>(transformation, projectionTransformation).ContinueAs<TTargetQuery>();
 
-        TTargetQuery IGremlinQueryAdmin.AddStep<TTargetQuery>(Step step, Func<Projection, Projection>? projectionTransformation) => AddStep(step, projectionTransformation).ContinueAs<TTargetQuery>();
+        TTargetQuery IGremlinQueryAdmin.AddStep<TTargetQuery>(Step step, Func<Projection, Projection>? maybeProjectionTransformation) => this
+            .Continue()
+            .Build(builder =>
+            {
+                builder = builder
+                    .AddStep(step);
+
+                if (maybeProjectionTransformation is { } projectionTransformation)
+                    builder = builder.WithNewProjection(projectionTransformation);
+
+                return builder
+                    .Build<TTargetQuery>();
+            });
 
         TTargetQuery IGremlinQueryAdmin.ChangeQueryType<TTargetQuery>(Projection? maybeForcedProjection) => ContinueAs<TTargetQuery>(
             projectionTransformation: maybeForcedProjection is { } forcedProjection
@@ -299,11 +316,18 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuerySource IConfigurableGremlinQuerySource.ConfigureEnvironment(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> transformation) => ConfigureEnvironment(transformation);
 
-        IGremlinQuerySource IGremlinQuerySource.WithoutStrategies(params Type[] strategyTypes) => AddStep(new WithoutStrategiesStep(strategyTypes.ToImmutableArray()));
+        IGremlinQuerySource IGremlinQuerySource.WithoutStrategies(params Type[] strategyTypes) => this
+            .Continue()
+            .Build(builder => builder
+                .AddStep(new WithoutStrategiesStep(strategyTypes.ToImmutableArray()))
+                .Build());
 
-        IGremlinQuerySource IGremlinQuerySource.WithSideEffect<TSideEffect>(StepLabel<TSideEffect> label, TSideEffect value) => AddStep(
-            new WithSideEffectStep(label, value!),
-            stepLabelProjections: StepLabelProjections.SetItem(label, Projection));
+        IGremlinQuerySource IGremlinQuerySource.WithSideEffect<TSideEffect>(StepLabel<TSideEffect> label, TSideEffect value) => this
+            .Continue()
+            .Build(builder => builder
+                .AddStep(new WithSideEffectStep(label, value!))
+                .WithNewStepLabelProjection(_ => _.SetItem(label, Projection))
+                .Build());
 
         TQuery IGremlinQuerySource.WithSideEffect<TSideEffect, TQuery>(TSideEffect value, Func<IGremlinQuerySource, StepLabel<TSideEffect>, TQuery> continuation)
         {
@@ -314,7 +338,7 @@ namespace ExRam.Gremlinq.Core
                 stepLabel);
         }
 
-        IEdgeGremlinQuery<TElement, TTargetVertex, TOutVertex> IInOrOutEdgeGremlinQueryBase<TElement, TOutVertex>.From<TTargetVertex>(StepLabel<TTargetVertex> stepLabel) => AddStep<TElement, TTargetVertex, TOutVertex, object, object, object>(new AddEStep.FromLabelStep(stepLabel));
+        IEdgeGremlinQuery<TElement, TTargetVertex, TOutVertex> IInOrOutEdgeGremlinQueryBase<TElement, TOutVertex>.From<TTargetVertex>(StepLabel<TTargetVertex> stepLabel) => From<TElement, TTargetVertex, TOutVertex>(stepLabel);
 
         IEdgeGremlinQuery<TElement, TTargetVertex, TOutVertex> IInOrOutEdgeGremlinQueryBase<TElement, TOutVertex>.From<TTargetVertex>(Func<IVertexGremlinQuery<TOutVertex>, IVertexGremlinQueryBase<TTargetVertex>> fromVertexTraversal) => Cast<TOutVertex>().From<TElement, TTargetVertex, TOutVertex>(fromVertexTraversal);
 
@@ -336,33 +360,89 @@ namespace ExRam.Gremlinq.Core
 
         IInOrOutEdgeGremlinQuery<TEdge, TElement> IVertexGremlinQueryBase<TElement>.AddE<TEdge>() => AddE(new TEdge());
 
-        IVertexGremlinQuery<object> IVertexGremlinQueryBase.Both() => AddStepWithObjectTypes<object>(BothStep.NoLabels);
+        IVertexGremlinQuery<object> IVertexGremlinQueryBase.Both() => Both();
 
-        IVertexGremlinQuery<object> IVertexGremlinQueryBase.Both<TEdge>() => AddStepWithObjectTypes<object>(new BothStep(Environment.Model.EdgesModel.GetFilterLabelsOrDefault(typeof(TEdge), Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))));
+        IVertexGremlinQuery<object> IVertexGremlinQueryBase.Both<TEdge>() => Both<TEdge>();
 
-        IEdgeGremlinQuery<object> IVertexGremlinQueryBase.BothE() => AddStepWithObjectTypes<object>(BothEStep.NoLabels, _ => Projection.Edge);
+        IEdgeGremlinQuery<object> IVertexGremlinQueryBase.BothE() => this
+            .Continue()
+            .Build(builder => builder
+                .AddStep(BothEStep.NoLabels)
+                .WithNewProjection(Projection.Edge)
+                .Build<GremlinQuery<object, object, object, object, object, object>>());
 
-        IEdgeGremlinQuery<TEdge> IVertexGremlinQueryBase.BothE<TEdge>() => AddStepWithObjectTypes<TEdge>(new BothEStep(Environment.Model.EdgesModel.GetFilterLabelsOrDefault(typeof(TEdge), Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))), _ => Projection.Edge);
+        IEdgeGremlinQuery<TEdge> IVertexGremlinQueryBase.BothE<TEdge>() => this
+            .Continue()
+            .Build(builder => builder
+                .AddStep(new BothEStep(Environment.Model.EdgesModel.GetFilterLabelsOrDefault(typeof(TEdge), Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))))
+                .WithNewProjection(Projection.Edge)
+                .Build<GremlinQuery<TEdge, object, object, object, object, object>>());
 
-        IVertexGremlinQuery<object> IVertexGremlinQueryBase.In() => AddStepWithObjectTypes<object>(InStep.NoLabels);
+        IVertexGremlinQuery<object> IVertexGremlinQueryBase.In() => this
+            .Continue()
+            .Build(builder => builder
+                .AddStep(InStep.NoLabels)
+                .Build<GremlinQuery<object, object, object, object, object, object>>());
 
-        IVertexGremlinQuery<object> IVertexGremlinQueryBase.In<TEdge>() => AddStepWithObjectTypes<object>(new InStep(Environment.Model.EdgesModel.GetFilterLabelsOrDefault(typeof(TEdge), Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))));
+        IVertexGremlinQuery<object> IVertexGremlinQueryBase.In<TEdge>() => this
+            .Continue()
+            .Build(builder => builder
+                .AddStep(new InStep(Environment.Model.EdgesModel.GetFilterLabelsOrDefault(typeof(TEdge), Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))))
+                .Build<GremlinQuery<object, object, object, object, object, object>>());
 
-        IEdgeGremlinQuery<object> IVertexGremlinQueryBase.InE() => AddStepWithObjectTypes<object>(InEStep.NoLabels, _ => Projection.Edge);
+        IEdgeGremlinQuery<object> IVertexGremlinQueryBase.InE() => this
+            .Continue()
+            .Build(builder => builder
+                .AddStep(InEStep.NoLabels)
+                .WithNewProjection(Projection.Edge)
+                .Build<GremlinQuery<object, object, object, object, object, object>>());
 
-        IEdgeGremlinQuery<TEdge> IVertexGremlinQueryBase.InE<TEdge>() => AddStepWithObjectTypes<TEdge>(new InEStep(Environment.Model.EdgesModel.GetFilterLabelsOrDefault(typeof(TEdge), Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))), _ => Projection.Edge);
+        IEdgeGremlinQuery<TEdge> IVertexGremlinQueryBase.InE<TEdge>() => this
+            .Continue()
+            .Build(builder => builder
+                .AddStep(new InEStep(Environment.Model.EdgesModel.GetFilterLabelsOrDefault(typeof(TEdge), Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))))
+                .WithNewProjection(Projection.Edge)
+                .Build<GremlinQuery<TEdge, object, object, object, object, object>>());
 
-        IInEdgeGremlinQuery<TEdge, TElement> IVertexGremlinQueryBase<TElement>.InE<TEdge>() => AddStep<TEdge, object, TElement, object, object, object>(new InEStep(Environment.Model.EdgesModel.GetFilterLabelsOrDefault(typeof(TEdge), Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))), _ => Projection.Edge);
+        IInEdgeGremlinQuery<TEdge, TElement> IVertexGremlinQueryBase<TElement>.InE<TEdge>() => this
+            .Continue()
+            .Build(builder => builder
+                .AddStep(new InEStep(Environment.Model.EdgesModel.GetFilterLabelsOrDefault(typeof(TEdge), Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))))
+                .WithNewProjection(Projection.Edge)
+                .Build<GremlinQuery<TEdge, object, TElement, object, object, object>>());
 
-        IVertexGremlinQuery<object> IVertexGremlinQueryBase.Out() => AddStepWithObjectTypes<object>(OutStep.NoLabels);
+        IVertexGremlinQuery<object> IVertexGremlinQueryBase.Out() => this
+            .Continue()
+            .Build(builder => builder
+                .AddStep(OutStep.NoLabels)
+                .Build<GremlinQuery<object, object, object, object, object, object>>());
 
-        IVertexGremlinQuery<object> IVertexGremlinQueryBase.Out<TEdge>() => AddStepWithObjectTypes<object>(new OutStep(Environment.Model.EdgesModel.GetFilterLabelsOrDefault(typeof(TEdge), Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))));
+        IVertexGremlinQuery<object> IVertexGremlinQueryBase.Out<TEdge>() => this
+            .Continue()
+            .Build(builder => builder
+                .AddStep(new OutStep(Environment.Model.EdgesModel.GetFilterLabelsOrDefault(typeof(TEdge), Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))))
+                .Build<GremlinQuery<object, object, object, object, object, object>>());
 
-        IEdgeGremlinQuery<TEdge> IVertexGremlinQueryBase.OutE<TEdge>() => AddStepWithObjectTypes<TEdge>(new OutEStep(Environment.Model.EdgesModel.GetFilterLabelsOrDefault(typeof(TEdge), Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))), _ => Projection.Edge);
+        IEdgeGremlinQuery<TEdge> IVertexGremlinQueryBase.OutE<TEdge>() => this
+            .Continue()
+            .Build(builder => builder
+                .AddStep(new OutEStep(Environment.Model.EdgesModel.GetFilterLabelsOrDefault(typeof(TEdge), Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))))
+                .WithNewProjection(Projection.Edge)
+                .Build<GremlinQuery<TEdge, object, object, object, object, object>>());
 
-        IEdgeGremlinQuery<object> IVertexGremlinQueryBase.OutE() => AddStepWithObjectTypes<object>(OutEStep.NoLabels, _ => Projection.Edge);
+        IEdgeGremlinQuery<object> IVertexGremlinQueryBase.OutE() => this
+            .Continue()
+            .Build(builder => builder
+                .AddStep(OutEStep.NoLabels)
+                .WithNewProjection(Projection.Edge)
+                .Build<GremlinQuery<object, object, object, object, object, object>>());
 
-        IOutEdgeGremlinQuery<TEdge, TElement> IVertexGremlinQueryBase<TElement>.OutE<TEdge>() => AddStep<TEdge, TElement, object, object, object, object>(new OutEStep(Environment.Model.EdgesModel.GetFilterLabelsOrDefault(typeof(TEdge), Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))), _ => Projection.Edge);
+        IOutEdgeGremlinQuery<TEdge, TElement> IVertexGremlinQueryBase<TElement>.OutE<TEdge>() => this
+            .Continue()
+            .Build(builder => builder
+                .AddStep(new OutEStep(Environment.Model.EdgesModel.GetFilterLabelsOrDefault(typeof(TEdge), Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))))
+                .WithNewProjection(Projection.Edge)
+                .Build<GremlinQuery<TEdge, TElement, object, object, object, object>>());
 
         IVertexPropertyGremlinQuery<VertexProperty<object>, object> IVertexGremlinQueryBase<TElement>.Properties() => VertexProperties<object>(Array.Empty<Expression>());
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Immutable;
-
 using ExRam.Gremlinq.Core.Projections;
 using ExRam.Gremlinq.Core.Steps;
 
@@ -32,8 +31,10 @@ namespace ExRam.Gremlinq.Core
         public FinalContinuationBuilder<TOuterQuery> AddStep<TStep>(TStep step)
              where TStep : Step
         {
-            return _outer is { } query && _steps is { } steps && _projection is { } projection && _stepLabelProjections is { } stepLabelProjections
-                ? new(query, query.Environment.AddStepHandler.AddStep(steps, step, query.Environment), projection, stepLabelProjections, _additionalFlags)
+            return _outer is { } outer && _steps is { } steps && _projection is { } projection && _stepLabelProjections is { } stepLabelProjections
+                ? outer.Flags.HasFlag(QueryFlags.IsMuted)
+                    ? this
+                    : new(outer, outer.Environment.AddStepHandler.AddStep(steps, step, outer.Environment), projection, stepLabelProjections, _additionalFlags)
                 : throw new InvalidOperationException();
         }
 

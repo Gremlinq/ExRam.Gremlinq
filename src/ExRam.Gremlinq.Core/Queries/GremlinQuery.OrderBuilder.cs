@@ -35,7 +35,11 @@ namespace ExRam.Gremlinq.Core
 
             IOrderBuilderWithBy<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>> IOrderBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>.ByDescending(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> traversal) => By(traversal, Gremlin.Net.Process.Traversal.Order.Desc);
 
-            private OrderBuilder By(Expression<Func<TElement, object?>> projection, Order order) => new(_query.AddStep(new OrderStep.ByMemberStep(_query.GetKey(projection), order)));
+            private OrderBuilder By(Expression<Func<TElement, object?>> projection, Order order) => new(_query
+                .Continue()
+                .Build(builder => builder
+                    .AddStep(new OrderStep.ByMemberStep(_query.GetKey(projection), order))
+                    .Build()));
 
             private OrderBuilder By(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> continuation, Order order) => new(_query
                 .Continue()
@@ -45,7 +49,11 @@ namespace ExRam.Gremlinq.Core
                     order)
                 .Build());
 
-            private OrderBuilder By(ILambda lambda) => new(_query.AddStep(new OrderStep.ByLambdaStep(lambda)));
+            private OrderBuilder By(ILambda lambda) => new(_query
+                .Continue()
+                .Build(builder => builder
+                    .AddStep(new OrderStep.ByLambdaStep(lambda))
+                    .Build()));
         }
     }
 }
