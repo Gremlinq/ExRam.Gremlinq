@@ -49,9 +49,9 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<object> IArrayGremlinQueryBase.Unfold() => Unfold<IValueGremlinQuery<object>>();
 
-        IValueTupleGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceValueTuple() => ChangeQueryType<IValueTupleGremlinQuery<TElement>>(Projection.Value);
+        IValueTupleGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceValueTuple() => ChangeQueryType<IValueTupleGremlinQuery<TElement>>(projectionTransformation: _ => Projection.Value);
 
-        IArrayGremlinQuery<TElement[], TElement, IGremlinQueryBase<TElement>> IGremlinQueryBase<TElement>.ForceArray() => ChangeQueryType<IArrayGremlinQuery<TElement[], TElement, IGremlinQueryBase<TElement>>>(Projection.Value.Fold());
+        IArrayGremlinQuery<TElement[], TElement, IGremlinQueryBase<TElement>> IGremlinQueryBase<TElement>.ForceArray() => ChangeQueryType<IArrayGremlinQuery<TElement[], TElement, IGremlinQueryBase<TElement>>>(projectionTransformation: _ => Projection.Value.Fold());
 
         IGremlinQuery<TScalar[]> IArrayGremlinQueryBase<TScalar>.Lower() => Cast<TScalar[]>();
 
@@ -191,25 +191,25 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceBase() => ChangeQueryType<IGremlinQuery<TElement>>();
 
-        IElementGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceElement() => ChangeQueryType<IElementGremlinQuery<TElement>>(Projection.Highest(Projection.Element));
+        IElementGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceElement() => ChangeQueryType<IElementGremlinQuery<TElement>>(projectionTransformation: _ => _.Highest(Projection.Element));
 
-        IVertexGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceVertex() => ChangeQueryType<IVertexGremlinQuery<TElement>>(Projection.Vertex);
+        IVertexGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceVertex() => ChangeQueryType<IVertexGremlinQuery<TElement>>(projectionTransformation: _ => Projection.Vertex);
 
-        IVertexPropertyGremlinQuery<TElement, TNewValue> IGremlinQueryBase<TElement>.ForceVertexProperty<TNewValue>() => ChangeQueryType<IVertexPropertyGremlinQuery<TElement, TNewValue>>(Projection.Element);
+        IVertexPropertyGremlinQuery<TElement, TNewValue> IGremlinQueryBase<TElement>.ForceVertexProperty<TNewValue>() => ChangeQueryType<IVertexPropertyGremlinQuery<TElement, TNewValue>>(projectionTransformation: _ => Projection.Element);
 
-        IVertexPropertyGremlinQuery<TElement, TNewValue, TNewMeta> IGremlinQueryBase<TElement>.ForceVertexProperty<TNewValue, TNewMeta>() => ChangeQueryType<IVertexPropertyGremlinQuery<TElement, TNewValue, TNewMeta>>(Projection.Element);
+        IVertexPropertyGremlinQuery<TElement, TNewValue, TNewMeta> IGremlinQueryBase<TElement>.ForceVertexProperty<TNewValue, TNewMeta>() => ChangeQueryType<IVertexPropertyGremlinQuery<TElement, TNewValue, TNewMeta>>(projectionTransformation: _ => Projection.Element);
 
-        IPropertyGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceProperty() => ChangeQueryType<IPropertyGremlinQuery<TElement>>(Projection.Value);
+        IPropertyGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceProperty() => ChangeQueryType<IPropertyGremlinQuery<TElement>>(projectionTransformation: _ => Projection.Value);
 
-        IEdgeGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceEdge() => ChangeQueryType<IEdgeGremlinQuery<TElement>>(Projection.Edge);
+        IEdgeGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceEdge() => ChangeQueryType<IEdgeGremlinQuery<TElement>>(projectionTransformation: _ => Projection.Edge);
 
-        IInEdgeGremlinQuery<TElement, TNewInVertex> IGremlinQueryBase<TElement>.ForceInEdge<TNewInVertex>() => ChangeQueryType<IInEdgeGremlinQuery<TElement, TNewInVertex>>(Projection.Edge);
+        IInEdgeGremlinQuery<TElement, TNewInVertex> IGremlinQueryBase<TElement>.ForceInEdge<TNewInVertex>() => ChangeQueryType<IInEdgeGremlinQuery<TElement, TNewInVertex>>(projectionTransformation: _ => Projection.Edge);
 
-        IOutEdgeGremlinQuery<TElement, TNewOutVertex> IGremlinQueryBase<TElement>.ForceOutEdge<TNewOutVertex>() => ChangeQueryType<IOutEdgeGremlinQuery<TElement, TNewOutVertex>>(Projection.Edge);
+        IOutEdgeGremlinQuery<TElement, TNewOutVertex> IGremlinQueryBase<TElement>.ForceOutEdge<TNewOutVertex>() => ChangeQueryType<IOutEdgeGremlinQuery<TElement, TNewOutVertex>>(projectionTransformation: _ => Projection.Edge);
 
-        IEdgeGremlinQuery<TElement, TNewOutVertex, TNewInVertex> IGremlinQueryBase<TElement>.ForceBothEdge<TNewOutVertex, TNewInVertex>() => ChangeQueryType<IEdgeGremlinQuery<TElement, TNewOutVertex, TNewInVertex>>(Projection.Edge);
+        IEdgeGremlinQuery<TElement, TNewOutVertex, TNewInVertex> IGremlinQueryBase<TElement>.ForceBothEdge<TNewOutVertex, TNewInVertex>() => ChangeQueryType<IEdgeGremlinQuery<TElement, TNewOutVertex, TNewInVertex>>(projectionTransformation: _ => Projection.Edge);
 
-        IValueGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceValue() => ChangeQueryType<IValueGremlinQuery<TElement>>(Projection.Value);
+        IValueGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceValue() => ChangeQueryType<IValueGremlinQuery<TElement>>(projectionTransformation: _ => Projection.Value);
 
         GremlinQueryAwaiter<TElement> IGremlinQueryBase<TElement>.GetAwaiter() => new((this).ToArrayAsync().AsTask().GetAwaiter());
 
@@ -225,7 +225,7 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<string> IGremlinQueryBase.Profile() => AddStepWithObjectTypes<string>(ProfileStep.Instance, _ => Projection.Value);
 
-        TQuery IGremlinQueryBase.Select<TQuery, TStepElement>(StepLabel<TQuery, TStepElement> label) => Select(label).ChangeQueryType<TQuery>(StepLabelProjections[label]);
+        TQuery IGremlinQueryBase.Select<TQuery, TStepElement>(StepLabel<TQuery, TStepElement> label) => Select(label).ChangeQueryType<TQuery>(projectionTransformation: _ => StepLabelProjections[label]);
 
         IArrayGremlinQuery<TNewElement, TNewScalar, TQuery> IGremlinQueryBase.Cap<TNewElement, TNewScalar, TQuery>(StepLabel<IArrayGremlinQuery<TNewElement, TNewScalar, TQuery>, TNewElement> label) => Cap(label);
 
@@ -243,7 +243,10 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IGremlinQueryAdmin.AddStep<TTargetQuery>(Step step, Func<Projection, Projection>? projectionTransformation) => AddStep(step, projectionTransformation).ChangeQueryType<TTargetQuery>();
 
-        TTargetQuery IGremlinQueryAdmin.ChangeQueryType<TTargetQuery>(Projection? forceProjection) => ChangeQueryType<TTargetQuery>(forceProjection);
+        TTargetQuery IGremlinQueryAdmin.ChangeQueryType<TTargetQuery>(Projection? maybeForcedProjection) => ChangeQueryType<TTargetQuery>(
+            projectionTransformation: maybeForcedProjection is { } forcedProjection
+                ? _ => forcedProjection
+                : null);
 
         IGremlinQuerySource IGremlinQueryAdmin.GetSource() => new GremlinQuery<object, object, object, object, object, object>(
             StepStack.Empty,

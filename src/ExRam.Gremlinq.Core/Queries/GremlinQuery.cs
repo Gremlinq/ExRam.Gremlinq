@@ -984,7 +984,7 @@ namespace ExRam.Gremlinq.Core
                     .Union(stepsArray
                         .Select(step => new Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>(__ => __.AddStep(step, _ => Projection.Value)))
                         .ToArray())
-                    .ChangeQueryType<GremlinQuery<TValue, object, object, object, object, object>>(Projection.Value)
+                    .ChangeQueryType<GremlinQuery<TValue, object, object, object, object, object>>(projectionTransformation: _ => Projection.Value)
             };
         }
 
