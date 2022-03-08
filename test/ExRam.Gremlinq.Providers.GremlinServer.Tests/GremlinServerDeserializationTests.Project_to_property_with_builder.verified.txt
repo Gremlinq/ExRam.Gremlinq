@@ -1,6 +1,5 @@
 ﻿[
   {
-    "Age": 0,
     "in!": {
       "Name": null,
       "Languages": null,
@@ -8,6 +7,7 @@
       "LocalizableDescription": null,
       "Id": "scrubbed id",
       "Label": "Country"
-    }
+    },
+    "Age": 0
   }
 ]
