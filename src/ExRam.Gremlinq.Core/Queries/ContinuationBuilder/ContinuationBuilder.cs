@@ -105,13 +105,6 @@ namespace ExRam.Gremlinq.Core
                 : throw new InvalidOperationException();
         }
 
-        //public TNewQuery Build<TNewQuery>(Func<FinalContinuationBuilder<TOuterQuery>, IGremlinQueryBase, TNewQuery> builderTransformation)
-        //{
-        //    return _outer is { } outer && _continuation is { } continuation
-        //        ? builderTransformation(new FinalContinuationBuilder<TOuterQuery>(outer), continuation)
-        //        : throw new InvalidOperationException();
-        //}
-
         public TNewQuery Build<TNewQuery>(Func<FinalContinuationBuilder<TOuterQuery>, Traversal, TNewQuery> builderTransformation)
         {
             return _outer is { } outer && _continuation is { } continuation
