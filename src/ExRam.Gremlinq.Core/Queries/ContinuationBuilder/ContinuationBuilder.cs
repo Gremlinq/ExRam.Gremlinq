@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Immutable;
 using System.Linq;
-
 using ExRam.Gremlinq.Core.Projections;
 using ExRam.Gremlinq.Core.Steps;
 
@@ -47,7 +46,7 @@ namespace ExRam.Gremlinq.Core
             where TProjectedQuery : IGremlinQueryBase
         {
             return _outer is { } outer && _anonymous is { } anonymous
-                ? new(outer, anonymous, continuation.Apply(anonymous))
+                ? new(outer, anonymous, continuation.Apply(anonymous).ToTraversal())
                 : throw new InvalidOperationException();
         }
 
@@ -59,7 +58,7 @@ namespace ExRam.Gremlinq.Core
                     outer,
                     anonymous,
                     continuations
-                        .Select(contintuation => contintuation.Apply(anonymous))
+                        .Select(contintuation => contintuation.Apply(anonymous).ToTraversal())
                         .ToImmutableList())
                 : throw new InvalidOperationException();
         }
@@ -70,7 +69,7 @@ namespace ExRam.Gremlinq.Core
                 ? new(
                     outer,
                     anonymous,
-                    ImmutableList<IGremlinQueryBase>.Empty)
+                    ImmutableList<Traversal>.Empty)
                 : throw new InvalidOperationException();
         }
 
@@ -89,10 +88,10 @@ namespace ExRam.Gremlinq.Core
         where TAnonymousQuery : GremlinQueryBase, IGremlinQueryBase
     {
         private readonly TOuterQuery? _outer;
+        private readonly Traversal? _continuation;
         private readonly TAnonymousQuery? _anonymous;
-        private readonly IGremlinQueryBase? _continuation;
 
-        public SingleContinuationBuilder(TOuterQuery outer, TAnonymousQuery anonymous, IGremlinQueryBase continuation)
+        public SingleContinuationBuilder(TOuterQuery outer, TAnonymousQuery anonymous, Traversal continuation)
         {
             _outer = outer;
             _anonymous = anonymous;
@@ -102,21 +101,21 @@ namespace ExRam.Gremlinq.Core
         public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> With(Func<TAnonymousQuery, IGremlinQueryBase> continuation)
         {
             return _outer is { } outer && _anonymous is { } anonymous && _continuation is { } existingContinuation
-                ? new (outer, anonymous, ImmutableList.Create(existingContinuation, continuation.Apply(anonymous)))
+                ? new (outer, anonymous, ImmutableList.Create(existingContinuation, continuation.Apply(anonymous).ToTraversal()))
                 : throw new InvalidOperationException();
         }
 
-        public TNewQuery Build<TNewQuery>(Func<FinalContinuationBuilder<TOuterQuery>, IGremlinQueryBase, TNewQuery> builderTransformation)
-        {
-            return _outer is { } outer && _continuation is { } continuation
-                ? builderTransformation(new FinalContinuationBuilder<TOuterQuery>(outer), continuation)
-                : throw new InvalidOperationException();
-        }
+        //public TNewQuery Build<TNewQuery>(Func<FinalContinuationBuilder<TOuterQuery>, IGremlinQueryBase, TNewQuery> builderTransformation)
+        //{
+        //    return _outer is { } outer && _continuation is { } continuation
+        //        ? builderTransformation(new FinalContinuationBuilder<TOuterQuery>(outer), continuation)
+        //        : throw new InvalidOperationException();
+        //}
 
         public TNewQuery Build<TNewQuery>(Func<FinalContinuationBuilder<TOuterQuery>, Traversal, TNewQuery> builderTransformation)
         {
             return _outer is { } outer && _continuation is { } continuation
-                ? builderTransformation(new FinalContinuationBuilder<TOuterQuery>(outer), continuation.ToTraversal())
+                ? builderTransformation(new FinalContinuationBuilder<TOuterQuery>(outer), continuation)
                 : throw new InvalidOperationException();
         }
 
@@ -129,9 +128,9 @@ namespace ExRam.Gremlinq.Core
     {
         private readonly TOuterQuery? _outer;
         private readonly TAnonymousQuery? _anonymous;
-        private readonly IImmutableList<IGremlinQueryBase>? _continuations;
+        private readonly IImmutableList<Traversal>? _continuations;
 
-        public MultiContinuationBuilder(TOuterQuery outer, TAnonymousQuery anonymous, IImmutableList<IGremlinQueryBase> continuations)
+        public MultiContinuationBuilder(TOuterQuery outer, TAnonymousQuery anonymous, IImmutableList<Traversal> continuations)
         {
             _outer = outer;
             _anonymous = anonymous;
@@ -141,21 +140,14 @@ namespace ExRam.Gremlinq.Core
         public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> With(Func<TAnonymousQuery, IGremlinQueryBase> continuation)
         {
             return _outer is { } outer && _anonymous is { } anonymous && _continuations is { } continuations
-                ? new(outer, anonymous, continuations.Add(continuation.Apply(anonymous)))
-                : throw new InvalidOperationException();
-        }
-
-        public TNewQuery Build<TNewQuery>(Func<FinalContinuationBuilder<TOuterQuery>, IImmutableList<IGremlinQueryBase>, TNewQuery> builderTransformation)
-        {
-            return _outer is { } outer && _continuations is { } continuations
-                ? builderTransformation(new FinalContinuationBuilder<TOuterQuery>(outer), continuations)
+                ? new(outer, anonymous, continuations.Add(continuation.Apply(anonymous).ToTraversal()))
                 : throw new InvalidOperationException();
         }
 
         public TNewQuery Build<TNewQuery>(Func<FinalContinuationBuilder<TOuterQuery>, IImmutableList<Traversal>, TNewQuery> builderTransformation)
         {
             return _outer is { } outer && _continuations is { } continuations
-                ? builderTransformation(new FinalContinuationBuilder<TOuterQuery>(outer), ImmutableList.CreateRange(continuations.Select(x => x.ToTraversal())))
+                ? builderTransformation(new FinalContinuationBuilder<TOuterQuery>(outer), continuations)
                 : throw new InvalidOperationException();
         }
 
