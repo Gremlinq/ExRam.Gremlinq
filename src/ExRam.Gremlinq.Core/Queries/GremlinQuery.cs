@@ -197,7 +197,7 @@ namespace ExRam.Gremlinq.Core
 
             return this
                 .Aggregate(scope, stepLabel)
-                .ContinueOuter(__ => continuation(__, stepLabel));
+                .Apply(__ => continuation(__, stepLabel));
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Aggregate<TStepLabel>(Scope scope, TStepLabel stepLabel)
@@ -251,11 +251,6 @@ namespace ExRam.Gremlinq.Core
                 });
         }
 
-        private TTargetQuery ContinueOuter<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> transformation)
-        {
-            return transformation(this);
-        }
-
         private TTargetQuery As<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, StepLabel<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement>, TTargetQuery> continuation)
             where TTargetQuery : IGremlinQueryBase
         {
@@ -278,7 +273,7 @@ namespace ExRam.Gremlinq.Core
             }
 
             return toContinue
-                .ContinueOuter(__ => continuation(__, stepLabel));
+                .Apply(__ => continuation(__, stepLabel));
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> As(StepLabel stepLabel)
