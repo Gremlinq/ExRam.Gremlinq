@@ -31,8 +31,8 @@
         {
           "OperatorName": "project",
           "Arguments": [
-            "Age",
-            "in!"
+            "in!",
+            "Age"
           ]
         },
         {
@@ -42,10 +42,8 @@
               "SourceInstructions": [],
               "StepInstructions": [
                 {
-                  "OperatorName": "values",
-                  "Arguments": [
-                    "Age"
-                  ]
+                  "OperatorName": "in",
+                  "Arguments": []
                 },
                 {
                   "OperatorName": "limit",
@@ -68,8 +66,10 @@
               "SourceInstructions": [],
               "StepInstructions": [
                 {
-                  "OperatorName": "in",
-                  "Arguments": []
+                  "OperatorName": "values",
+                  "Arguments": [
+                    "Age"
+                  ]
                 },
                 {
                   "OperatorName": "limit",
@@ -148,24 +148,8 @@
         {
           "OperatorName": "project",
           "Arguments": [
-            "Age",
-            "in!"
-          ]
-        },
-        {
-          "OperatorName": "by",
-          "Arguments": [
-            {
-              "SourceInstructions": [],
-              "StepInstructions": [
-                {
-                  "OperatorName": "select",
-                  "Arguments": [
-                    "Age"
-                  ]
-                }
-              ]
-            }
+            "in!",
+            "Age"
           ]
         },
         {
@@ -295,6 +279,22 @@
                         }
                       ]
                     }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "OperatorName": "by",
+          "Arguments": [
+            {
+              "SourceInstructions": [],
+              "StepInstructions": [
+                {
+                  "OperatorName": "select",
+                  "Arguments": [
+                    "Age"
                   ]
                 }
               ]

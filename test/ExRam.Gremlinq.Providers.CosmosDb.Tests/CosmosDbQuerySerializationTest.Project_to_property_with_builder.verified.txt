@@ -1,11 +1,11 @@
 ﻿[
   {
-    "Script": "g.V().hasLabel(_a).where(__.in()).project(_b,_c).by(_b).by(__.in())",
+    "Script": "g.V().hasLabel(_a).where(__.in()).project(_b,_c).by(__.in()).by(_c)",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Person",
-      "_b": "Age",
-      "_c": "in!"
+      "_b": "in!",
+      "_c": "Age"
     }
   }
 ]
