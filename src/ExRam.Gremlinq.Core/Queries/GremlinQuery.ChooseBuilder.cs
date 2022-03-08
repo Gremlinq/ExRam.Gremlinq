@@ -31,7 +31,7 @@ namespace ExRam.Gremlinq.Core
                     _continuation,
                     _continuation
                         .With(chooseContinuation)
-                        .Build((builder, traversal) => builder
+                        .Build(static (builder, traversal) => builder
                             .AddStep(new ChooseOptionTraversalStep(traversal))
                             .Build()));
             }
@@ -42,10 +42,12 @@ namespace ExRam.Gremlinq.Core
                     _continuation,
                     _continuation
                         .With(continuation)
-                        .Build((builder, traversal) => builder
-                            .AddStep(new OptionTraversalStep(element, traversal))
-                            .WithNewProjection(_ => _.Lowest(traversal.Projection))
-                            .Build()));
+                        .Build(
+                            static (builder, traversal, element) => builder
+                                .AddStep(new OptionTraversalStep(element, traversal))
+                                .WithNewProjection(_ => _.Lowest(traversal.Projection))
+                                .Build(),
+                            element));
             }
 
             public IChooseBuilderWithCaseOrDefault<TNewTargetQuery> Default<TNewTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TNewTargetQuery> continuation) where TNewTargetQuery : IGremlinQueryBase
@@ -54,7 +56,7 @@ namespace ExRam.Gremlinq.Core
                     _continuation,
                     _continuation
                         .With(continuation)
-                        .Build((builder, traversal) => builder
+                        .Build(static (builder, traversal) => builder
                             .AddStep(new OptionTraversalStep(default, traversal))
                             .WithNewProjection(_ => _.Lowest(traversal.Projection))
                             .Build()));
@@ -64,7 +66,7 @@ namespace ExRam.Gremlinq.Core
 
             public IChooseBuilderWithCaseOrDefault<TTargetQuery> Default(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> continuation) => Default<TTargetQuery>(continuation);
 
-            public TTargetQuery TargetQuery => _continuation.Build(builder => builder.Build<TTargetQuery>());
+            public TTargetQuery TargetQuery => _continuation.Build(static builder => builder.Build<TTargetQuery>());
         }
     }
 }

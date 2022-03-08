@@ -6,7 +6,7 @@ using ExRam.Gremlinq.Core.Steps;
 
 namespace ExRam.Gremlinq.Core
 {
-    internal static class ContinuationExtensions
+    internal static class ContinuationBuilderExtensions
     {
         public static IGremlinQueryBase Apply<TAnonymousQuery, TProjectedQuery>(this Func<TAnonymousQuery, TProjectedQuery> continuation, TAnonymousQuery anonymous)
             where TAnonymousQuery : IGremlinQueryBase
@@ -18,6 +18,28 @@ namespace ExRam.Gremlinq.Core
                 throw new InvalidOperationException("A query continuation must originate from the query that was passed to the continuation function. Did you accidentally use 'g' in the continuation?");
 
             return continuatedQuery;
+        }
+
+        public static TNewQuery Build<TOuterQuery, TAnonymousQuery, TNewQuery>(this ContinuationBuilder<TOuterQuery, TAnonymousQuery> continuationBuilder, Func<FinalContinuationBuilder<TOuterQuery>, TNewQuery> builderTransformation)
+            where TOuterQuery : GremlinQueryBase
+            where TAnonymousQuery : GremlinQueryBase, IGremlinQueryBase
+        {
+            return continuationBuilder.Build(static (builder, state) => state(builder), builderTransformation);
+        }
+
+
+        public static TNewQuery Build<TOuterQuery, TAnonymousQuery, TNewQuery>(this SingleContinuationBuilder<TOuterQuery, TAnonymousQuery> continuationBuilder, Func<FinalContinuationBuilder<TOuterQuery>, Traversal, TNewQuery> builderTransformation)
+            where TOuterQuery : GremlinQueryBase
+            where TAnonymousQuery : GremlinQueryBase, IGremlinQueryBase
+        {
+            return continuationBuilder.Build(static (builder, continuation, state) => state(builder, continuation), builderTransformation);
+        }
+
+        public static TNewQuery Build<TOuterQuery, TAnonymousQuery, TNewQuery>(this MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> continuationBuilder, Func<FinalContinuationBuilder<TOuterQuery>, IImmutableList<Traversal>, TNewQuery> builderTransformation)
+            where TOuterQuery : GremlinQueryBase
+            where TAnonymousQuery : GremlinQueryBase, IGremlinQueryBase
+        {
+            return continuationBuilder.Build(static (builder, continuation, state) => state(builder, continuation), builderTransformation);
         }
     }
 
@@ -73,10 +95,10 @@ namespace ExRam.Gremlinq.Core
                 : throw new InvalidOperationException();
         }
 
-        public TNewQuery Build<TNewQuery>(Func<FinalContinuationBuilder<TOuterQuery>, TNewQuery> builderTransformation)
+        public TNewQuery Build<TNewQuery, TState>(Func<FinalContinuationBuilder<TOuterQuery>, TState, TNewQuery> builderTransformation, TState state)
         {
             return _outer is { } outer
-                ? builderTransformation(new FinalContinuationBuilder<TOuterQuery>(outer))
+                ? builderTransformation(new FinalContinuationBuilder<TOuterQuery>(outer), state)
                 : throw new InvalidOperationException();
         }
 
@@ -105,10 +127,10 @@ namespace ExRam.Gremlinq.Core
                 : throw new InvalidOperationException();
         }
 
-        public TNewQuery Build<TNewQuery>(Func<FinalContinuationBuilder<TOuterQuery>, Traversal, TNewQuery> builderTransformation)
+        public TNewQuery Build<TNewQuery, TState>(Func<FinalContinuationBuilder<TOuterQuery>, Traversal, TState, TNewQuery> builderTransformation, TState state)
         {
             return _outer is { } outer && _continuation is { } continuation
-                ? builderTransformation(new FinalContinuationBuilder<TOuterQuery>(outer), continuation)
+                ? builderTransformation(new FinalContinuationBuilder<TOuterQuery>(outer), continuation, state)
                 : throw new InvalidOperationException();
         }
 
@@ -137,10 +159,10 @@ namespace ExRam.Gremlinq.Core
                 : throw new InvalidOperationException();
         }
 
-        public TNewQuery Build<TNewQuery>(Func<FinalContinuationBuilder<TOuterQuery>, IImmutableList<Traversal>, TNewQuery> builderTransformation)
+        public TNewQuery Build<TNewQuery, TState>(Func<FinalContinuationBuilder<TOuterQuery>, IImmutableList<Traversal>, TState, TNewQuery> builderTransformation, TState state)
         {
             return _outer is { } outer && _continuations is { } continuations
-                ? builderTransformation(new FinalContinuationBuilder<TOuterQuery>(outer), continuations)
+                ? builderTransformation(new FinalContinuationBuilder<TOuterQuery>(outer), continuations, state)
                 : throw new InvalidOperationException();
         }
 

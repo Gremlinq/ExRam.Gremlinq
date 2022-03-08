@@ -40,9 +40,10 @@ namespace ExRam.Gremlinq.Core
             private OrderBuilder By(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> continuation, Order order) => new(_query
                 .Continue()
                 .With(continuation)
-                .Build((builder, traversal) => builder
-                    .AddStep(new OrderStep.ByTraversalStep(traversal, order))
-                .Build()));
+                .Build(
+                    static (builder, traversal, order) => builder.AddStep(new OrderStep.ByTraversalStep(traversal, order)),
+                    order)
+                .Build());
 
             private OrderBuilder By(ILambda lambda) => new(_query.AddStep(new OrderStep.ByLambdaStep(lambda)));
         }
