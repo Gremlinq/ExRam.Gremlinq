@@ -12,11 +12,6 @@
           "value": {
             "@type": "g:Map",
             "@value": [
-              "count!",
-              {
-                "@type": "g:Int64",
-                "@value": 1
-              },
               "in!",
               {
                 "@type": "g:Map",
@@ -216,6 +211,11 @@
                     ]
                   }
                 ]
+              },
+              "count!",
+              {
+                "@type": "g:Int64",
+                "@value": 1
               },
               "properties!",
               {
