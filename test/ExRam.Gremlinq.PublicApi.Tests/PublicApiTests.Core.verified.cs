@@ -641,7 +641,8 @@
     }
     public interface IProjectResult
     {
-        System.Collections.Immutable.IImmutableDictionary<string, ExRam.Gremlinq.Core.Steps.ProjectStep.ByStep> Projections { get; }
+        TTargetQuery Build<TTargetQuery>()
+            where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
     }
     public interface IProjectResult<TResult> : ExRam.Gremlinq.Core.IProjectResult { }
     public interface IProjectTupleBuilder<out TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8> : ExRam.Gremlinq.Core.IProjectResult, ExRam.Gremlinq.Core.IProjectResult<System.ValueTuple<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, System.ValueTuple<TItem8>>>

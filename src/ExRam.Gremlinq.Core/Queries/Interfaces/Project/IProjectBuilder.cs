@@ -7,13 +7,12 @@ namespace ExRam.Gremlinq.Core
 {
     public interface IProjectResult
     {
-        IImmutableDictionary<string, ProjectStep.ByStep> Projections { get; }
+        TTargetQuery Build<TTargetQuery>() where TTargetQuery : IGremlinQueryBase;
     }
 
     // ReSharper disable once UnusedTypeParameter
     public interface IProjectResult<TResult> : IProjectResult
     {
-        
     }
 
     public interface IProjectBuilder<out TSourceQuery, TElement>
