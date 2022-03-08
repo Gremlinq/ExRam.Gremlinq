@@ -40,7 +40,7 @@ namespace ExRam.Gremlinq.Core
             public TTargetQuery Build<TTargetQuery>() where TTargetQuery : IGremlinQueryBase
             {
                 return _continuationBuilder
-                    .Build((builder, traversals) =>
+                    .Build(static (builder, traversals) =>
                     {
                         var keyTraversal = traversals[0];
                         var maybeValueTraversal = traversals.Count > 1

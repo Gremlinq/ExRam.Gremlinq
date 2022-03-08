@@ -39,7 +39,7 @@ namespace ExRam.Gremlinq.Core
                         .With(__ => __
                             .Continue()
                             .With(projection)
-                            .Build((builder, traversal) => builder
+                            .Build(static (builder, traversal) => builder
                                 .AddStep(new ProjectStep.ByTraversalStep(traversal))
                                 .Build())),
                     _names.Add(name ?? $"Item{_names.Count + 1}"),
@@ -94,64 +94,67 @@ namespace ExRam.Gremlinq.Core
 
             public TTargetQuery Build<TTargetQuery>() where TTargetQuery : IGremlinQueryBase
             {
-                return _continuationBuilder!
-                    .Build((builder, traversals) =>
-                    {
-                        var bySteps = traversals.Select(x => x.FirstOrDefault()).OfType<ProjectStep.ByStep>().ToArray();
-
-                        ///// TODO: Remove this!!!!!
-                        var zipped = _names
-                            .Zip(bySteps, (name, step) => (name, step))
-                            .OrderBy(t => t.name)
-                            .ToArray();
-
-                        var sortedNames = zipped
-                            .Select(x => x.name)
-                            .ToArray();
-
-                        var sortedBySteps = zipped
-                            .Select(x => x.step)
-                            .ToArray();
-                        /////////////
-
-                        var projectStep = new ProjectStep(sortedNames.ToImmutableArray());
-
-
-                        builder = builder
-                            .AddStep(projectStep)
-                            .WithNewProjection(_ => _.Project(
-                                projectStep,
-                                sortedBySteps));
-
-                        foreach (var byStep in sortedBySteps)
+                return _continuationBuilder
+                    .Build(
+                        static (builder, traversals, state) =>
                         {
-                            var closureByStep = byStep;
+                            var (names, enableEmptyProjectionValueProtection) = state;
+                            var bySteps = traversals.Select(x => x.FirstOrDefault()).OfType<ProjectStep.ByStep>().ToArray();
 
-                            if (_enableEmptyProjectionValueProtection)
-                            {
-                                var byTraversalStep = closureByStep
-                                    .ToByTraversalStep();
+                            ///// TODO: Remove this!!!!!
+                            var zipped = names
+                                .Zip(bySteps, (name, step) => (name, step))
+                                .OrderBy(t => t.name)
+                                .ToArray();
 
-                                closureByStep = new ProjectStep.ByTraversalStep(new Traversal(byTraversalStep.Traversal.Append(LimitStep.LimitGlobal1).Append(FoldStep.Instance), byTraversalStep.Traversal.Projection));
-                            }
+                            var sortedNames = zipped
+                                .Select(x => x.name)
+                                .ToArray();
+
+                            var sortedBySteps = zipped
+                                .Select(x => x.step)
+                                .ToArray();
+                            /////////////
+
+                            var projectStep = new ProjectStep(sortedNames.ToImmutableArray());
+
 
                             builder = builder
-                                .AddStep(closureByStep);
-                        }
+                                .AddStep(projectStep)
+                                .WithNewProjection(_ => _.Project(
+                                    projectStep,
+                                    sortedBySteps));
 
-                        if (_enableEmptyProjectionValueProtection)
-                        {
-                            foreach (var step in EmptyProjectionProtectionDecoratorSteps)
+                            foreach (var byStep in sortedBySteps)
                             {
-                                //TODO: Extension!
-                                builder = builder
-                                    .AddStep(step);
-                            }
-                        }
+                                var closureByStep = byStep;
 
-                        return builder
-                            .Build<TTargetQuery>();
-                    });
+                                if (enableEmptyProjectionValueProtection)
+                                {
+                                    var byTraversalStep = closureByStep
+                                        .ToByTraversalStep();
+
+                                    closureByStep = new ProjectStep.ByTraversalStep(new Traversal(byTraversalStep.Traversal.Append(LimitStep.LimitGlobal1).Append(FoldStep.Instance), byTraversalStep.Traversal.Projection));
+                                }
+
+                                builder = builder
+                                    .AddStep(closureByStep);
+                            }
+
+                            if (enableEmptyProjectionValueProtection)
+                            {
+                                foreach (var step in EmptyProjectionProtectionDecoratorSteps)
+                                {
+                                    //TODO: Extension!
+                                    builder = builder
+                                        .AddStep(step);
+                                }
+                            }
+
+                            return builder
+                                .Build<TTargetQuery>();
+                        },
+                        (_names, _enableEmptyProjectionValueProtection));
             }
         }
 

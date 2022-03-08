@@ -214,41 +214,43 @@ namespace ExRam.Gremlinq.Core
             return this
                 .Continue()
                 .With(andContinuations)
-                .Build((builder, traversals) =>
-                {
-                    List<Traversal>? continuedTraversals = default;
-
-                    if (andContinuations.Length == 0)
+                .Build(
+                    static (builder, traversals, andContinuations) =>
                     {
-                        return builder
-                            .AddStep(AndStep.Infix)
-                            .Build();
-                    }
+                        List<Traversal>? continuedTraversals = default;
 
-                    foreach (var traversal in traversals)
-                    {
-                        if (traversal.IsNone())
-                            return None();
+                        if (andContinuations.Length == 0)
+                        {
+                            return builder
+                                .AddStep(AndStep.Infix)
+                                .Build();
+                        }
 
-                        if (!traversal.IsIdentity())
-                            (continuedTraversals ??= new List<Traversal>()).Add(traversal);
-                    }
+                        foreach (var traversal in traversals)
+                        {
+                            if (traversal.IsNone())
+                                return builder.OuterQuery.None();
 
-                    var fusedTraversals = continuedTraversals?
-                        .Select(traversal => traversal.RewriteForWhereContext())
-                        .Fuse(
-                            (p1, p2) => p1.And(p2))
-                        .ToArray();
+                            if (!traversal.IsIdentity())
+                                (continuedTraversals ??= new List<Traversal>()).Add(traversal);
+                        }
 
-                    return fusedTraversals?.Length switch
-                    {
-                        null or 0 => this,
-                        1 => Where(fusedTraversals[0]),
-                        _ => builder
-                            .AddStep(new AndStep(fusedTraversals))
-                            .Build()
-                    };
-                });
+                        var fusedTraversals = continuedTraversals?
+                            .Select(traversal => traversal.RewriteForWhereContext())
+                            .Fuse(
+                                (p1, p2) => p1.And(p2))
+                            .ToArray();
+
+                        return fusedTraversals?.Length switch
+                        {
+                            null or 0 => builder.OuterQuery,
+                            1 => builder.OuterQuery.Where(fusedTraversals[0]),
+                            _ => builder
+                                .AddStep(new AndStep(fusedTraversals))
+                                .Build()
+                        };
+                    },
+                    andContinuations);
         }
 
         private TTargetQuery As<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, StepLabel<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement>, TTargetQuery> continuation)
@@ -316,7 +318,9 @@ namespace ExRam.Gremlinq.Core
             return this
                 .Continue()
                 .With(traversalPredicate)
-                .Build((builder, traversal) => Choose<TTrueQuery, TFalseQuery, TTargetQuery>(traversal, trueChoice, maybeFalseChoice));
+                .Build(
+                    static (builder, traversal, choiceTuple) => builder.OuterQuery.Choose<TTrueQuery, TFalseQuery, TTargetQuery>(traversal, choiceTuple.trueChoice, choiceTuple.maybeFalseChoice),
+                    (trueChoice, maybeFalseChoice));
         }
 
         private TTargetQuery Choose<TTrueQuery, TFalseQuery, TTargetQuery>(Traversal chooseTraversal, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTrueQuery> trueChoice, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TFalseQuery>? maybeFalseChoice = default)
@@ -327,41 +331,49 @@ namespace ExRam.Gremlinq.Core
             return this
                 .Continue()
                 .With(trueChoice)
-                .Build((builder, trueTraversal) =>
-                {
-                    if (maybeFalseChoice is { } falseChoice)
+                .Build(
+                    static (builder, trueTraversal, state) =>
                     {
-                        return this
-                            .Continue()
-                            .With(falseChoice)
-                            .Build((builder, falseTraversal) =>
-                            {
-                                return builder
-                                    .AddStep<Step>((chooseTraversal.Count == 1 && chooseTraversal[0] is IsStep isStep)
-                                        ? new ChoosePredicateStep(
-                                            isStep.Predicate,
-                                            trueTraversal,
-                                            falseTraversal)
-                                        : new ChooseTraversalStep(
-                                            chooseTraversal,
-                                            trueTraversal,
-                                            falseTraversal))
-                                    .WithNewProjection(_ => falseTraversal.Projection.Lowest(trueTraversal.Projection))
-                                    .Build<TTargetQuery>();
-                            });
-                    }
+                        var (chooseTraversal, trueChoice, maybeFalseChoice) = state;
 
-                    return builder
-                        .AddStep<Step>((chooseTraversal.Count == 1 && chooseTraversal[0] is IsStep isStep)
-                            ? new ChoosePredicateStep(
-                                isStep.Predicate,
-                                trueTraversal)
-                            : new ChooseTraversalStep(
-                                chooseTraversal,
-                                trueTraversal))
-                        .WithNewProjection(_ => Projection.Lowest(trueTraversal.Projection))
-                        .Build<TTargetQuery>();
-                });
+                        if (maybeFalseChoice is { } falseChoice)
+                        {
+                            return builder.OuterQuery
+                                .Continue()
+                                .With(falseChoice)
+                                .Build(
+                                    static (builder, falseTraversal, state) =>
+                                    {
+                                        var (chooseTraversal, trueTraversal) = state;
+
+                                        return builder
+                                            .AddStep<Step>((chooseTraversal.Count == 1 && chooseTraversal[0] is IsStep isStep)
+                                                ? new ChoosePredicateStep(
+                                                    isStep.Predicate,
+                                                    trueTraversal,
+                                                    falseTraversal)
+                                                : new ChooseTraversalStep(
+                                                    chooseTraversal,
+                                                    trueTraversal,
+                                                    falseTraversal))
+                                            .WithNewProjection(_ => falseTraversal.Projection.Lowest(trueTraversal.Projection))
+                                            .Build<TTargetQuery>();
+                                    },
+                                    (chooseTraversal, trueTraversal));
+                        }
+
+                        return builder
+                            .AddStep<Step>((chooseTraversal.Count == 1 && chooseTraversal[0] is IsStep isStep)
+                                ? new ChoosePredicateStep(
+                                    isStep.Predicate,
+                                    trueTraversal)
+                                : new ChooseTraversalStep(
+                                    state.chooseTraversal,
+                                    trueTraversal))
+                            .WithNewProjection(_ => _.Lowest(trueTraversal.Projection))
+                            .Build<TTargetQuery>();
+                    },
+                    (chooseTraversal, trueChoice, maybeFalseChoice));
         }
 
         private TTargetQuery Choose<TTargetQuery>(Func<IChooseBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>, IChooseBuilderWithCaseOrDefault<TTargetQuery>> continuation)
@@ -380,7 +392,7 @@ namespace ExRam.Gremlinq.Core
             return this
                 .Continue()
                 .With(continuations)
-                .Build((builder, innerTraversals) =>
+                .Build(static (builder, innerTraversals) =>
                 {
                     if (innerTraversals.All(innerTraversal => innerTraversal.Count == 0))
                         return builder.Build<TReturnQuery>();
@@ -452,7 +464,7 @@ namespace ExRam.Gremlinq.Core
             return this
                 .Continue()
                 .With(continuation)
-                .Build((builder, innerTraversal) => builder
+                .Build(static (builder, innerTraversal) => builder
                     .AddStep(new FlatMapStep(innerTraversal))
                     .WithNewProjection(innerTraversal.Projection)
                     .Build<TTargetQuery>());
@@ -463,14 +475,14 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, object, object, object> From<TNewElement, TNewOutVertex, TNewInVertex>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IVertexGremlinQueryBase<TNewOutVertex>> fromVertexContinuation) => this
             .Continue()
             .With(fromVertexContinuation)
-            .Build((builder, fromVertexTraversal) => builder
+            .Build(static (builder, fromVertexTraversal) => builder
                 .AddStep(new AddEStep.FromTraversalStep(fromVertexTraversal))
                 .Build<GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, object, object, object>>());
 
         private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, object, object, object> To<TNewElement, TNewOutVertex, TNewInVertex>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IVertexGremlinQueryBase<TNewInVertex>> toVertexContinuation) => this
             .Continue()
             .With(toVertexContinuation)
-            .Build((builder, toVertexTraversal) => builder
+            .Build(static (builder, toVertexTraversal) => builder
                 .AddStep(new AddEStep.ToTraversalStep(toVertexTraversal))
                 .Build<GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, object, object, object>>());
 
@@ -570,7 +582,7 @@ namespace ExRam.Gremlinq.Core
             return this
                 .Continue()
                 .With(localTraversal)
-                .Build((builder, continuationTraversal) =>
+                .Build(static (builder, continuationTraversal) =>
                 {
                     if (continuationTraversal.Count > 0)
                     {
@@ -589,8 +601,8 @@ namespace ExRam.Gremlinq.Core
             return this
                 .Continue()
                 .With(continuation)
-                .Build((builder, innerTraversal) => innerTraversal.Count == 0
-                    ? this
+                .Build(static (builder, innerTraversal) => innerTraversal.Count == 0
+                    ? builder.OuterQuery
                         .ChangeQueryType<TTargetQuery>()
                     : builder
                         .AddStep(new MapStep(innerTraversal))
@@ -610,10 +622,11 @@ namespace ExRam.Gremlinq.Core
             return this
                 .Continue()
                 .With(continuation)
-                .Build((builder, innerTraversal) => innerTraversal.Count == 0
-                    ? None()
+                .Build(static (builder, innerTraversal) => innerTraversal.Count == 0
+                    ? builder.OuterQuery
+                        .None()
                     : innerTraversal.IsNone()
-                        ? this
+                        ? builder.OuterQuery
                         : builder
                             .AddStep(new NotStep(innerTraversal))
                             .Build());
@@ -637,7 +650,7 @@ namespace ExRam.Gremlinq.Core
             return this
                 .Continue()
                 .With(optionalTraversal)
-                .Build((builder, continuedTraversal) => builder
+                .Build(static (builder, continuedTraversal) => builder
                     .AddStep(new OptionalStep(continuedTraversal))
                     .WithNewProjection(_ => _.Lowest(continuedTraversal.Projection))
                     .Build<TTargetQuery>());
@@ -648,7 +661,7 @@ namespace ExRam.Gremlinq.Core
             return this
                 .Continue()
                 .With(orTraversalTransformations)
-                .Build((builder, traversals) =>
+                .Build(static (builder, traversals) =>
                 {
                     List<Traversal>? continuedTraversals = default;
 
@@ -662,7 +675,7 @@ namespace ExRam.Gremlinq.Core
                     foreach (var traversal in traversals)
                     {
                         if (traversal.IsIdentity())
-                            return this;
+                            return builder.OuterQuery;
 
                         if (!traversal.IsNone())
                             (continuedTraversals ??= new List<Traversal>()).Add(traversal);
@@ -676,8 +689,10 @@ namespace ExRam.Gremlinq.Core
 
                     return fusedTraversals?.Length switch
                     {
-                        null or 0 => None(),
-                        1 => Where(fusedTraversals[0]),
+                        null or 0 => builder.OuterQuery
+                            .None(),
+                        1 => builder.OuterQuery
+                            .Where(fusedTraversals[0]),
                         _ => builder
                             .AddStep(new OrStep(fusedTraversals))
                             .Build()
@@ -740,12 +755,16 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Property(Key key, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> valueContinuation) => this
             .Continue()
             .With(valueContinuation)
-            .Build((builder, valueTraversal) => Property(key, (Traversal)valueTraversal));
+            .Build(
+                static (builder, valueTraversal, key) => builder.OuterQuery.Property(key, valueTraversal),
+                key);
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Property(LambdaExpression projection, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> valueContinuation) => this
             .Continue()
             .With(valueContinuation)
-            .Build((builder, valueTraversal) => Property(projection, (Traversal)valueTraversal));
+            .Build(
+                static (builder, valueTraversal, projection) => builder.OuterQuery.Property(projection, valueTraversal),
+                projection);
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> RangeGlobal(long low, long high) => AddStep(new RangeStep(low, high, Scope.Global));
 
@@ -760,7 +779,7 @@ namespace ExRam.Gremlinq.Core
             return this
                 .Continue()
                 .With(repeatContinuation)
-                .Build((builder, innerTraversal) => builder
+                .Build(static (builder, innerTraversal) => builder
                     .AddStep(new RepeatStep(innerTraversal))
                     .WithNewProjection(_ => _.Lowest(innerTraversal.Projection))
                     .Build<TTargetQuery>());
@@ -772,24 +791,28 @@ namespace ExRam.Gremlinq.Core
             return this
                 .Continue()
                 .With(repeatContinuation)
-                .Build((builder, repeatTraversal) => this
-                    .Continue()
-                    .With(untilContinuation)
-                    .Build((builder, untilTraversal) =>
-                    {
-                        builder = builder
-                            .AddStep(new RepeatStep(repeatTraversal))
-                            .WithNewProjection(_ => _.Lowest(repeatTraversal.Projection));
+                .Build(
+                    static (builder, repeatTraversal, untilContinuation) => builder.OuterQuery
+                        .Continue()
+                        .With(untilContinuation)
+                        .Build(
+                            static (builder, untilTraversal, repeatTraversal) =>
+                            {
+                                builder = builder
+                                    .AddStep(new RepeatStep(repeatTraversal))
+                                    .WithNewProjection(_ => _.Lowest(repeatTraversal.Projection));
 
-                        if (!untilTraversal.IsNone())
-                        {
-                            builder = builder
-                                .AddStep(new UntilStep(untilTraversal));
-                        }
+                                if (!untilTraversal.IsNone())
+                                {
+                                    builder = builder
+                                        .AddStep(new UntilStep(untilTraversal));
+                                }
 
-                        return builder
-                            .Build<TTargetQuery>();
-                    }));
+                                return builder
+                                    .Build<TTargetQuery>();
+                            },
+                            repeatTraversal),
+                    untilContinuation);
         }
 
         private TTargetQuery UntilRepeat<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> repeatContinuation, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> untilContinuation)
@@ -798,24 +821,28 @@ namespace ExRam.Gremlinq.Core
             return this
                .Continue()
                .With(repeatContinuation)
-               .Build((builder, repeatTraversal) => this
-                   .Continue()
-                   .With(untilContinuation)
-                   .Build((builder, untilTraversal) =>
-                   {
-                       if (!untilTraversal.IsNone())
-                       {
-                           builder = builder
-                               .AddStep(new UntilStep(untilTraversal));
-                       }
+               .Build(
+                    static (builder, repeatTraversal, untilContinuation) => builder.OuterQuery
+                       .Continue()
+                       .With(untilContinuation)
+                       .Build(
+                           static (builder, untilTraversal, repeatTraversal) =>
+                           {
+                               if (!untilTraversal.IsNone())
+                               {
+                                   builder = builder
+                                       .AddStep(new UntilStep(untilTraversal));
+                               }
 
-                       builder = builder
-                           .AddStep(new RepeatStep(repeatTraversal))
-                           .WithNewProjection(_ => _.Lowest(repeatTraversal.Projection));
+                               builder = builder
+                                   .AddStep(new RepeatStep(repeatTraversal))
+                                   .WithNewProjection(_ => _.Lowest(repeatTraversal.Projection));
 
-                       return builder
-                           .Build<TTargetQuery>();
-                   }));
+                               return builder
+                                   .Build<TTargetQuery>();
+                           },
+                           repeatTraversal),
+                    untilContinuation);
         }
 
         private GremlinQuery<TSelectedElement, object, object, object, object, object> Select<TSelectedElement>(StepLabel<TSelectedElement> stepLabel)
@@ -846,7 +873,7 @@ namespace ExRam.Gremlinq.Core
             return this
                 .Continue()
                 .With(sideEffectContinuation)
-                .Build((builder, traversal) => builder
+                .Build(static (builder, traversal) => builder
                     .AddStep(new SideEffectStep(traversal))
                     .Build());
         }
@@ -910,7 +937,7 @@ namespace ExRam.Gremlinq.Core
             return this
                 .Continue()
                 .With(unionContinuations)
-                .Build((builder, unionTraversals) =>
+                .Build(static (builder, unionTraversals) =>
                 {
                     var aggregatedProjection = unionTraversals
                         .Select(traversal => traversal.Projection)
@@ -974,11 +1001,11 @@ namespace ExRam.Gremlinq.Core
             return this
                 .Continue()
                 .With(filterContinuation)
-                .Build((builder, filterTraversal) => filterTraversal.IsIdentity()
-                    ? this
+                .Build(static (builder, filterTraversal) => filterTraversal.IsIdentity()
+                    ? builder.OuterQuery
                     : filterTraversal.IsNone()
-                        ? None()
-                        : Where(filterTraversal));
+                        ? builder.OuterQuery.None()
+                        : builder.OuterQuery.Where(filterTraversal));
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Where(Traversal traversal)
@@ -1051,9 +1078,11 @@ namespace ExRam.Gremlinq.Core
                     .Continue()
                     .With(__ => propertyContinuation(__
                         .Cast<TProjection>()))
-                    .Build((builder, propertyTraversal) => builder
-                        .AddStep(new HasTraversalStep(GetKey(memberExpression), propertyTraversal))
-                        .Build())
+                    .Build(
+                        static (builder, propertyTraversal, key) => builder
+                            .AddStep(new HasTraversalStep(key, propertyTraversal))
+                            .Build(),
+                        GetKey(memberExpression))
                 : throw new ExpressionNotSupportedException(predicate);
         }
 
