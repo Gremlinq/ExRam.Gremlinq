@@ -603,7 +603,7 @@ namespace ExRam.Gremlinq.Core
                 .With(continuation)
                 .Build(static (builder, innerTraversal) => innerTraversal.Count == 0
                     ? builder.OuterQuery
-                        .ChangeQueryType<TTargetQuery>()
+                        .ContinueAs<TTargetQuery>()
                     : builder
                         .AddStep(new MapStep(innerTraversal))
                         .WithNewProjection(innerTraversal.Projection)
@@ -863,7 +863,7 @@ namespace ExRam.Gremlinq.Core
                 .AddStep(
                     new SelectKeysStep(keys),
                     _ => _.If<TupleProjection>(tuple => tuple.Select(keys)))
-                .ChangeQueryType<TTargetQuery>();
+                .ContinueAs<TTargetQuery>();
         }
 
         private GremlinQuery<TSelectedElement, object, object, TArrayItem, object, TQuery> Cap<TSelectedElement, TArrayItem, TQuery>(StepLabel<IArrayGremlinQuery<TSelectedElement, TArrayItem, TQuery>, TSelectedElement> stepLabel) where TQuery : IGremlinQueryBase => AddStep<TSelectedElement, object, object, TArrayItem, object, TQuery>(new CapStep(stepLabel), _ => _.Fold());
@@ -917,7 +917,7 @@ namespace ExRam.Gremlinq.Core
             UnfoldStep.Instance,
             _ => _.If<ArrayProjection>(array => array.Unfold()));
 
-        private TTargetQuery Unfold<TTargetQuery>() => Unfold().ChangeQueryType<TTargetQuery>();
+        private TTargetQuery Unfold<TTargetQuery>() => Unfold().ContinueAs<TTargetQuery>();
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Union(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>[] unionTraversals)
         {
@@ -984,7 +984,7 @@ namespace ExRam.Gremlinq.Core
                     .Union(stepsArray
                         .Select(step => new Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>(__ => __.AddStep(step, _ => Projection.Value)))
                         .ToArray())
-                    .ChangeQueryType<GremlinQuery<TValue, object, object, object, object, object>>(projectionTransformation: _ => Projection.Value)
+                    .ContinueAs<GremlinQuery<TValue, object, object, object, object, object>>(projectionTransformation: _ => Projection.Value)
             };
         }
 
