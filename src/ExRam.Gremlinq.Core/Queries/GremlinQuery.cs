@@ -251,16 +251,6 @@ namespace ExRam.Gremlinq.Core
                 });
         }
 
-        private TTargetQuery ContinueInner<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> transformation, bool surfaceVisible = false)
-        {
-            var targetQuery = transformation(new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(StepStack.Empty, Projection, Environment, StepLabelProjections, (surfaceVisible ? Flags | QueryFlags.SurfaceVisible : Flags & ~QueryFlags.SurfaceVisible) | QueryFlags.IsAnonymous));
-
-            if (targetQuery is GremlinQueryBase queryBase && (queryBase.Flags & QueryFlags.IsAnonymous) == QueryFlags.None)
-                throw new InvalidOperationException("A query continuation must originate from the query that was passed to the continuation function. Did you accidentally use 'g' in the continuation?");
-
-            return targetQuery;
-        }
-
         private TTargetQuery ContinueOuter<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> transformation)
         {
             return transformation(this);
@@ -1158,10 +1148,7 @@ namespace ExRam.Gremlinq.Core
 
                                     yield return new HasTraversalStep(
                                         GetKey(leftMemberExpression),
-                                        this
-                                            .ContinueInner(__ => __
-                                                .AddStep(new WherePredicateStep(effectivePredicate)))
-                                            .ToTraversal());
+                                        new WherePredicateStep(effectivePredicate));
 
                                     yield break;
                                 }
