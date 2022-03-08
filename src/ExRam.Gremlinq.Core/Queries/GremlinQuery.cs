@@ -712,49 +712,8 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TResult, object, object, object, object, object> Project<TResult>(Func<IProjectBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement>, IProjectResult> continuation)
         {
-            var enableEmptyProjectionValueProtection = Environment.Options
-                .GetValue(GremlinqOption.EnableEmptyProjectionValueProtection);
-
-            var projectionsPairs = continuation(new ProjectBuilder<TElement, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(this))
-                .Projections
-                .OrderBy(x => x.Key)
-                .ToArray();
-
-            var projectStep = new ProjectStep(projectionsPairs
-                .Select(x => x.Key)
-                .ToImmutableArray());
-
-            var ret = this
-                .AddStepWithObjectTypes<TResult>(
-                    projectStep,
-                    _ => _.Project(
-                            projectStep,
-                            projectionsPairs
-                                .Select(x => x.Value)
-                                .ToArray()));
-
-            foreach (var projectionsPair in projectionsPairs)
-            {
-                var byStep = projectionsPair.Value;
-
-                if (enableEmptyProjectionValueProtection)
-                {
-                    var byTraversalStep = byStep
-                        .ToByTraversalStep();
-
-                    byStep = new ProjectStep.ByTraversalStep(new Traversal(byTraversalStep.Traversal.Append(LimitStep.LimitGlobal1).Append(FoldStep.Instance), byTraversalStep.Traversal.Projection));
-                }
-
-                ret = ret.AddStep(byStep);
-            }
-
-            if (enableEmptyProjectionValueProtection)
-            {
-                ret = ret
-                    .AddSteps(EmptyProjectionProtectionDecoratorSteps, _ => _);
-            }
-
-            return ret;
+            return continuation(new ProjectBuilder<TElement, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(this))
+                .Build<GremlinQuery<TResult, object, object, object, object, object>>();
         }
 
         private GremlinQuery<TNewElement, object, object, TNewPropertyValue, TNewMeta, object> Properties<TNewElement, TNewPropertyValue, TNewMeta>(Projection projection, params Expression[] projections)
