@@ -99,33 +99,17 @@ namespace ExRam.Gremlinq.Core
                         static (builder, traversals, state) =>
                         {
                             var (names, enableEmptyProjectionValueProtection) = state;
+
+                            var projectStep = new ProjectStep(names.ToImmutableArray());
                             var bySteps = traversals.Select(x => x.FirstOrDefault()).OfType<ProjectStep.ByStep>().ToArray();
-
-                            ///// TODO: Remove this!!!!!
-                            var zipped = names
-                                .Zip(bySteps, (name, step) => (name, step))
-                                .OrderBy(t => t.name)
-                                .ToArray();
-
-                            var sortedNames = zipped
-                                .Select(x => x.name)
-                                .ToArray();
-
-                            var sortedBySteps = zipped
-                                .Select(x => x.step)
-                                .ToArray();
-                            /////////////
-
-                            var projectStep = new ProjectStep(sortedNames.ToImmutableArray());
-
 
                             builder = builder
                                 .AddStep(projectStep)
                                 .WithNewProjection(_ => _.Project(
                                     projectStep,
-                                    sortedBySteps));
+                                    bySteps));
 
-                            foreach (var byStep in sortedBySteps)
+                            foreach (var byStep in bySteps)
                             {
                                 var closureByStep = byStep;
 

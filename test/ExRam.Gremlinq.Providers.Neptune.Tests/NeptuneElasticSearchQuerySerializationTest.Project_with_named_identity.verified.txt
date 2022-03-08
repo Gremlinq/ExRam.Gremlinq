@@ -40,22 +40,8 @@
         {
           "OperatorName": "project",
           "Arguments": [
-            "Item2",
-            "name"
-          ]
-        },
-        {
-          "OperatorName": "by",
-          "Arguments": [
-            {
-              "SourceInstructions": [],
-              "StepInstructions": [
-                {
-                  "OperatorName": "properties",
-                  "Arguments": []
-                }
-              ]
-            }
+            "name",
+            "Item2"
           ]
         },
         {
@@ -73,61 +59,24 @@
           ]
         },
         {
-          "OperatorName": "project",
-          "Arguments": [
-            "Item2",
-            "name"
-          ]
-        },
-        {
           "OperatorName": "by",
           "Arguments": [
             {
               "SourceInstructions": [],
               "StepInstructions": [
                 {
-                  "OperatorName": "select",
-                  "Arguments": [
-                    "Item2"
-                  ]
-                },
-                {
-                  "OperatorName": "project",
-                  "Arguments": [
-                    "id",
-                    "label",
-                    "value"
-                  ]
-                },
-                {
-                  "OperatorName": "by",
-                  "Arguments": [
-                    {
-                      "EnumName": "T",
-                      "EnumValue": "id"
-                    }
-                  ]
-                },
-                {
-                  "OperatorName": "by",
-                  "Arguments": [
-                    {
-                      "EnumName": "T",
-                      "EnumValue": "label"
-                    }
-                  ]
-                },
-                {
-                  "OperatorName": "by",
-                  "Arguments": [
-                    {
-                      "EnumName": "T",
-                      "EnumValue": "value"
-                    }
-                  ]
+                  "OperatorName": "properties",
+                  "Arguments": []
                 }
               ]
             }
+          ]
+        },
+        {
+          "OperatorName": "project",
+          "Arguments": [
+            "name",
+            "Item2"
           ]
         },
         {
@@ -241,6 +190,57 @@
                           ]
                         }
                       ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "OperatorName": "by",
+          "Arguments": [
+            {
+              "SourceInstructions": [],
+              "StepInstructions": [
+                {
+                  "OperatorName": "select",
+                  "Arguments": [
+                    "Item2"
+                  ]
+                },
+                {
+                  "OperatorName": "project",
+                  "Arguments": [
+                    "id",
+                    "label",
+                    "value"
+                  ]
+                },
+                {
+                  "OperatorName": "by",
+                  "Arguments": [
+                    {
+                      "EnumName": "T",
+                      "EnumValue": "id"
+                    }
+                  ]
+                },
+                {
+                  "OperatorName": "by",
+                  "Arguments": [
+                    {
+                      "EnumName": "T",
+                      "EnumValue": "label"
+                    }
+                  ]
+                },
+                {
+                  "OperatorName": "by",
+                  "Arguments": [
+                    {
+                      "EnumName": "T",
+                      "EnumValue": "value"
                     }
                   ]
                 }

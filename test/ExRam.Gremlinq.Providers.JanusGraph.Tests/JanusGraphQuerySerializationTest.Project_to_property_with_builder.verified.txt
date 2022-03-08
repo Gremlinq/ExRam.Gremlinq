@@ -31,13 +31,7 @@
         {
           "OperatorName": "project",
           "Arguments": [
-            "Age",
-            "in!"
-          ]
-        },
-        {
-          "OperatorName": "by",
-          "Arguments": [
+            "in!",
             "Age"
           ]
         },
@@ -56,26 +50,16 @@
           ]
         },
         {
-          "OperatorName": "project",
+          "OperatorName": "by",
           "Arguments": [
-            "Age",
-            "in!"
+            "Age"
           ]
         },
         {
-          "OperatorName": "by",
+          "OperatorName": "project",
           "Arguments": [
-            {
-              "SourceInstructions": [],
-              "StepInstructions": [
-                {
-                  "OperatorName": "select",
-                  "Arguments": [
-                    "Age"
-                  ]
-                }
-              ]
-            }
+            "in!",
+            "Age"
           ]
         },
         {
@@ -190,6 +174,22 @@
                         }
                       ]
                     }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "OperatorName": "by",
+          "Arguments": [
+            {
+              "SourceInstructions": [],
+              "StepInstructions": [
+                {
+                  "OperatorName": "select",
+                  "Arguments": [
+                    "Age"
                   ]
                 }
               ]
