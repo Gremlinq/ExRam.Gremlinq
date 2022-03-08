@@ -235,10 +235,20 @@ namespace ExRam.Gremlinq.Core
 
         public TNewTargetQuery Build<TNewTargetQuery>()
         {
+            return this
+                .Continue(_steps, _projection, _stepLabelProjections, _additionalFlags)
+                .ChangeQueryType<TNewTargetQuery>();
+        }
+
+        private GremlinQuery<object, object, object, object, object, object> Continue(StepStack? newSteps = null, Projection? newProjection = null, IImmutableDictionary<StepLabel, Projection>? newStepLabelProjections = null, QueryFlags additionalFlags = QueryFlags.None)
+        {
             return _outer is { } query
-                ? query
-                    .Continue(_steps, _projection, _stepLabelProjections, _additionalFlags)
-                    .ChangeQueryType<TNewTargetQuery>()
+                ? new GremlinQuery<object, object, object, object, object, object>(
+                    newSteps ?? query.Steps,
+                    newProjection ?? query.Projection,
+                    query.Environment,
+                    newStepLabelProjections ?? query.StepLabelProjections,
+                    query.Flags | additionalFlags)
                 : throw new InvalidOperationException();
         }
 
