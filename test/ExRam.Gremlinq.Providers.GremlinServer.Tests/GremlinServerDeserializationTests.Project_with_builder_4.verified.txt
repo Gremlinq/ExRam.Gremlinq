@@ -1,6 +1,5 @@
 ﻿[
   {
-    "count!": 1,
     "in!": {
       "Age": 0,
       "Gender": null,
@@ -39,6 +38,7 @@
       "Id": "scrubbed id",
       "Label": "Person"
     },
+    "count!": 1,
     "properties!": {
       "id": "scrubbed id",
       "label": "CountryCallingCode",
