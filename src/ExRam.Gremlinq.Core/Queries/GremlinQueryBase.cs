@@ -14,9 +14,9 @@ namespace ExRam.Gremlinq.Core
         private static readonly MethodInfo CreateFuncMethod = typeof(GremlinQueryBase).GetMethod(nameof(CreateFunc), BindingFlags.NonPublic | BindingFlags.Static)!;
 
         protected GremlinQueryBase(
+            IGremlinQueryEnvironment environment,
             StepStack steps,
             Projection projection,
-            IGremlinQueryEnvironment environment,
             IImmutableDictionary<StepLabel, Projection> stepLabelProjections,
             QueryFlags flags)
         {
