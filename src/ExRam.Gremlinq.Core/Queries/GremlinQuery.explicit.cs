@@ -259,11 +259,10 @@ namespace ExRam.Gremlinq.Core
                 ? _ => forcedProjection
                 : null);
 
-        IGremlinQuerySource IGremlinQueryAdmin.GetSource() => this
-            .CloneAs<GremlinQuery<object, object, object, object, object, object>>(
-                maybeStepStackTransformation: _ => StepStack.Empty,
-                maybeProjectionTransformation: _ => Projection.Empty,
-                maybeQueryFlagsTransformation: flags => Flags & QueryFlags.IsMuted);
+        IGremlinQuerySource IGremlinQueryAdmin.GetSource() => CloneAs<GremlinQuery<object, object, object, object, object, object>>(
+            maybeStepStackTransformation: _ => StepStack.Empty,
+            maybeProjectionTransformation: _ => Projection.Empty,
+            maybeQueryFlagsTransformation: flags => Flags & QueryFlags.IsMuted);
 
         StepStack IGremlinQueryAdmin.Steps => Steps;
 
