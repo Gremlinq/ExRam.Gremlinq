@@ -146,12 +146,8 @@ namespace ExRam.Gremlinq.Core
 
                             if (enableEmptyProjectionValueProtection)
                             {
-                                foreach (var step in EmptyProjectionProtectionDecoratorSteps)
-                                {
-                                    //TODO: Extension!
-                                    builder = builder
-                                        .AddStep(step);
-                                }
+                                builder = builder
+                                    .AddSteps(EmptyProjectionProtectionDecoratorSteps);
                             }
 
                             return builder
