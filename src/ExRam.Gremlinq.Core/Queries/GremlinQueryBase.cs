@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq.Core
 {
     internal abstract class GremlinQueryBase
     {
-        private delegate IGremlinQueryBase QueryContinuation(GremlinQueryBase existingQuery, Func<StepStack, StepStack>? maybeStepStackTransformation, Func<Projection, Projection>? maybeProjectionTransformation, Func<IImmutableDictionary<StepLabel, Projection>, IImmutableDictionary<StepLabel, Projection>>? maybeStepLabelProjectionsTransformation, Func<QueryFlags, QueryFlags>? maybeQueryFlagsTransformation);
+        private delegate IGremlinQueryBase QueryContinuation(GremlinQueryBase existingQuery, Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment>? maybeEnvironmentTransformation, Func<StepStack, StepStack>? maybeStepStackTransformation, Func<Projection, Projection>? maybeProjectionTransformation, Func<IImmutableDictionary<StepLabel, Projection>, IImmutableDictionary<StepLabel, Projection>>? maybeStepLabelProjectionsTransformation, Func<QueryFlags, QueryFlags>? maybeQueryFlagsTransformation);
 
         private static readonly ConcurrentDictionary<Type, QueryContinuation?> QueryTypes = new();
         private static readonly MethodInfo CreateFuncMethod = typeof(GremlinQueryBase).GetMethod(nameof(CreateFunc), BindingFlags.NonPublic | BindingFlags.Static)!;
@@ -27,7 +27,7 @@ namespace ExRam.Gremlinq.Core
             StepLabelProjections = stepLabelProjections;
         }
 
-        protected internal TTargetQuery ContinueAs<TTargetQuery>(Func<StepStack, StepStack>? maybeStepStackTransformation = null, Func<Projection, Projection>? maybeProjectionTransformation = null, Func<IImmutableDictionary<StepLabel, Projection>, IImmutableDictionary<StepLabel, Projection>>? maybeStepLabelProjectionsTransformation = null, Func<QueryFlags, QueryFlags>? maybeQueryFlagsTransformation = null)
+        protected internal TTargetQuery ContinueAs<TTargetQuery>(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment>? maybeEnvironmentTransformation = null, Func<StepStack, StepStack>? maybeStepStackTransformation = null, Func<Projection, Projection>? maybeProjectionTransformation = null, Func<IImmutableDictionary<StepLabel, Projection>, IImmutableDictionary<StepLabel, Projection>>? maybeStepLabelProjectionsTransformation = null, Func<QueryFlags, QueryFlags>? maybeQueryFlagsTransformation = null)
         {
             var targetQueryType = typeof(TTargetQuery);
 
@@ -64,7 +64,7 @@ namespace ExRam.Gremlinq.Core
                 });
 
             return (maybeConstructor is { } constructor)
-                ? (TTargetQuery)constructor(this, maybeStepStackTransformation, maybeProjectionTransformation, maybeStepLabelProjectionsTransformation, maybeQueryFlagsTransformation)
+                ? (TTargetQuery)constructor(this, maybeEnvironmentTransformation, maybeStepStackTransformation, maybeProjectionTransformation, maybeStepLabelProjectionsTransformation, maybeQueryFlagsTransformation)
                 : throw new NotSupportedException($"Cannot change the query type to {targetQueryType}.");
         }
 
@@ -73,18 +73,19 @@ namespace ExRam.Gremlinq.Core
             if (!targetQueryType.IsAssignableFrom(typeof(GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>)))
                 return null;
 
-            return (existingQuery, maybeStepStackTransformation, maybeProjectionTransformation, maybeStepLabelProjectionsTransformation, maybeQueryFlagsTransformation) =>
+            return (existingQuery, maybeEnvironmentTransformation, maybeStepStackTransformation, maybeProjectionTransformation, maybeStepLabelProjectionsTransformation, maybeQueryFlagsTransformation) =>
             {
+                var newEnvironment = maybeEnvironmentTransformation?.Invoke(existingQuery.Environment) ?? existingQuery.Environment;
                 var newSteps = maybeStepStackTransformation?.Invoke(existingQuery.Steps) ?? existingQuery.Steps;
                 var newQueryFlags = maybeQueryFlagsTransformation?.Invoke(existingQuery.Flags) ?? existingQuery.Flags;
                 var newProjection = maybeProjectionTransformation?.Invoke(existingQuery.Projection) ?? existingQuery.Projection;
                 var newStepLabelProjections = maybeStepLabelProjectionsTransformation?.Invoke(existingQuery.StepLabelProjections) ?? existingQuery.StepLabelProjections;
 
-                if (targetQueryType.IsInstanceOfType(existingQuery) && newQueryFlags == existingQuery.Flags && maybeStepStackTransformation == null && newProjection == existingQuery.Projection && newStepLabelProjections == existingQuery.StepLabelProjections)
+                if (targetQueryType.IsInstanceOfType(existingQuery) && newQueryFlags == existingQuery.Flags && newEnvironment == existingQuery.Environment && maybeStepStackTransformation == null && newProjection == existingQuery.Projection && newStepLabelProjections == existingQuery.StepLabelProjections)
                     return (IGremlinQueryBase)existingQuery;
 
                 return new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(
-                    existingQuery.Environment,
+                    newEnvironment,
                     newSteps,
                     newProjection,
                     newStepLabelProjections,

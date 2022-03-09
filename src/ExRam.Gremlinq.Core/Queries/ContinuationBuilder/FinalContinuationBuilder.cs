@@ -82,10 +82,10 @@ namespace ExRam.Gremlinq.Core
         {
             return _outer is { } query
                 ? query.ContinueAs<TNewTargetQuery>(
-                    _steps is { } newSteps ? _ => newSteps : null,
-                    _projection is { } newProjection ? _ => newProjection : null,
-                    _stepLabelProjections is { } newStepLabelProjections ? _ => newStepLabelProjections : null,
-                    _additionalFlags is { } additionalFlags ? flags => flags | additionalFlags : null)
+                    maybeStepStackTransformation: _steps is { } newSteps ? _ => newSteps : null,
+                    maybeProjectionTransformation: _projection is { } newProjection ? _ => newProjection : null,
+                    maybeStepLabelProjectionsTransformation: _stepLabelProjections is { } newStepLabelProjections ? _ => newStepLabelProjections : null,
+                    maybeQueryFlagsTransformation: _additionalFlags is { } additionalFlags ? flags => flags | additionalFlags : null)
                 : throw new InvalidOperationException();
         }
 
