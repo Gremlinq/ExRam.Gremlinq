@@ -30,6 +30,11 @@ namespace ExRam.Gremlinq.Core
 
         }
 
+        internal GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Clone(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment>? maybeEnvironmentTransformation = null, Func<StepStack, StepStack>? maybeStepStackTransformation = null, Func<Projection, Projection>? maybeProjectionTransformation = null, Func<IImmutableDictionary<StepLabel, Projection>, IImmutableDictionary<StepLabel, Projection>>? maybeStepLabelProjectionsTransformation = null, Func<QueryFlags, QueryFlags>? maybeQueryFlagsTransformation = null)
+        {
+            return CloneAs<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>(maybeEnvironmentTransformation, maybeStepStackTransformation, maybeProjectionTransformation, maybeStepLabelProjectionsTransformation, maybeQueryFlagsTransformation);
+        }
+
         private GremlinQuery<TEdge, TElement, object, object, object, object> AddE<TEdge>(TEdge newEdge) => this
             .Continue()
             .Build(
@@ -122,7 +127,9 @@ namespace ExRam.Gremlinq.Core
 
         private ContinuationBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>> Continue() => new(
             this,
-            new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(Environment, StepStack.Empty, Projection, StepLabelProjections, (Flags & ~QueryFlags.SurfaceVisible) | QueryFlags.IsAnonymous));
+            Clone(
+                maybeStepStackTransformation: _ => StepStack.Empty,
+                maybeQueryFlagsTransformation: flags => (flags & ~QueryFlags.SurfaceVisible) | QueryFlags.IsAnonymous));
 
         private GremlinQuery<TVertex, object, object, object, object, object> AddV<TVertex>(TVertex vertex) => this
             .Continue()
@@ -273,7 +280,7 @@ namespace ExRam.Gremlinq.Core
         {
             return typeof(TNewElement) == typeof(TElement)
                 ? (GremlinQuery<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>)(object)this
-                : new(Environment, Steps, Projection, StepLabelProjections, Flags);
+                : CloneAs<GremlinQuery<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>();
         }
 
         private TTargetQuery Choose<TTrueQuery, TFalseQuery, TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTrueQuery> trueChoice, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TFalseQuery>? maybeFalseChoice = default)
@@ -385,15 +392,6 @@ namespace ExRam.Gremlinq.Core
                     .AddStep(new CoinStep(probability))
                     .Build(),
                 probability);
-
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> ConfigureEnvironment(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> transformation) => Configure<TElement>(_ => _, transformation);
-
-        private GremlinQuery<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> ConfigureSteps<TNewElement>(Func<StepStack, StepStack> transformation, Func<Projection, Projection>? projectionTransformation = null) => Configure<TNewElement>(transformation, _ => _, projectionTransformation);
-
-        private GremlinQuery<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Configure<TNewElement>(
-            Func<StepStack, StepStack> stepsTransformation,
-            Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> environmentTransformation,
-            Func<Projection, Projection>? projectionTransformation = null) => new(environmentTransformation(Environment), stepsTransformation(Steps), projectionTransformation?.Invoke(Projection) ?? Projection, StepLabelProjections, Flags);
 
         private GremlinQuery<TValue, object, object, object, object, object> Constant<TValue>(TValue constant) => this
             .Continue()
@@ -702,7 +700,7 @@ namespace ExRam.Gremlinq.Core
             .Continue()
             .Build(static builder => builder.OuterQuery.IsIdentity()
                 ? builder.OuterQuery
-                    .ConfigureSteps<TElement>(_ => StepStack.Empty.Push(NoneStep.Instance))
+                    .Clone(maybeStepStackTransformation: _ => StepStack.Empty.Push(NoneStep.Instance))
                 : builder
                     .AddStep(NoneStep.Instance)
                     .Build());

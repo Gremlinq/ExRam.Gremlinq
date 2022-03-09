@@ -238,7 +238,7 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<object> IGremlinQueryBase.Fail(string? message) => Fail(message);
 
-        TTargetQuery IGremlinQueryAdmin.ConfigureSteps<TTargetQuery>(Func<StepStack, StepStack> transformation, Func<Projection, Projection>? projectionTransformation) => ConfigureSteps<TElement>(transformation, projectionTransformation).CloneAs<TTargetQuery>();
+        TTargetQuery IGremlinQueryAdmin.ConfigureSteps<TTargetQuery>(Func<StepStack, StepStack> transformation, Func<Projection, Projection>? projectionTransformation) => CloneAs<TTargetQuery>(maybeStepStackTransformation: transformation, maybeProjectionTransformation: projectionTransformation);
 
         TTargetQuery IGremlinQueryAdmin.AddStep<TTargetQuery>(Step step, Func<Projection, Projection>? maybeProjectionTransformation) => this
             .Continue()
@@ -307,7 +307,7 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery<TNewEdge> IStartGremlinQuery.ReplaceE<TNewEdge>(TNewEdge edge) => ((IGremlinQuerySource)this).E<TNewEdge>(edge!.GetId(Environment)).Update(edge);
 
-        IGremlinQuerySource IConfigurableGremlinQuerySource.ConfigureEnvironment(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> transformation) => ConfigureEnvironment(transformation);
+        IGremlinQuerySource IConfigurableGremlinQuerySource.ConfigureEnvironment(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> transformation) => Clone(transformation);
 
         IGremlinQuerySource IGremlinQuerySource.WithoutStrategies(params Type[] strategyTypes) => WithoutStrategies(strategyTypes);
 
