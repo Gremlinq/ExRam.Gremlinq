@@ -20,21 +20,6 @@ namespace ExRam.Gremlinq.Core
 {
     internal sealed partial class GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> : GremlinQueryBase
     {
-        private static readonly Step[] EmptyProjectionProtectionDecoratorSteps = new[]
-        {
-            new MapStep(new Step[]
-            {
-                UnfoldStep.Instance,
-                GroupStep.Instance,
-                new GroupStep.ByTraversalStep(new SelectColumnStep(Column.Keys)),
-                new GroupStep.ByTraversalStep(new Step[]
-                {
-                    new SelectColumnStep(Column.Values),
-                    UnfoldStep.Instance
-                })
-            })
-        };
-
         public GremlinQuery(
             StepStack steps,
             Projection projection,
@@ -262,7 +247,6 @@ namespace ExRam.Gremlinq.Core
             .Build(static builder => builder
                 .AddStep(new BothStep(builder.OuterQuery.Environment.Model.EdgesModel.GetFilterLabelsOrDefault(typeof(TEdge), builder.OuterQuery.Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))))
                 .Build<GremlinQuery<object, object, object, object, object, object>>());
-
 
         private GremlinQuery<object, object, object, object, object, object> BothE() => this
             .Continue()

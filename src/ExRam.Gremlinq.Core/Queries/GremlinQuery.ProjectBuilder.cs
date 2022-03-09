@@ -4,6 +4,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Linq.Expressions;
 using ExRam.Gremlinq.Core.Steps;
+using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -13,6 +14,21 @@ namespace ExRam.Gremlinq.Core
             IProjectBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement>,
             IProjectDynamicBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement>
         {
+            private static readonly Step[] EmptyProjectionProtectionDecoratorSteps = new[]
+            {
+                new MapStep(new Step[]
+                {
+                    UnfoldStep.Instance,
+                    GroupStep.Instance,
+                    new GroupStep.ByTraversalStep(new SelectColumnStep(Column.Keys)),
+                    new GroupStep.ByTraversalStep(new Step[]
+                    {
+                        new SelectColumnStep(Column.Values),
+                        UnfoldStep.Instance
+                    })
+                })
+            };
+
             private readonly ImmutableList<string> _names;
             private readonly bool _enableEmptyProjectionValueProtection;
             private readonly MultiContinuationBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>> _continuationBuilder;
