@@ -92,8 +92,7 @@ namespace ExRam.Gremlinq.Core
                     if (traversalsArray.All(x => x[0] is HasPredicateStep))
                     {
                         var groups = traversalsArray
-                            .Select(x => x[0])
-                            .OfType<HasPredicateStep>()
+                            .Select(x => (HasPredicateStep)x[0])
                             .GroupBy(x => x.Key);
 
                         foreach (var group in groups)
@@ -111,9 +110,7 @@ namespace ExRam.Gremlinq.Core
                     if (traversalsArray.All(x => x[0] is IsStep))
                     {
                         var effective = traversalsArray
-                            .Select(x => x[0])
-                            .OfType<IsStep>()
-                            .Select(x => x.Predicate)
+                            .Select(x => ((IsStep)x[0]).Predicate)
                             .Aggregate(fuse);
 
                         if (effective != null)
