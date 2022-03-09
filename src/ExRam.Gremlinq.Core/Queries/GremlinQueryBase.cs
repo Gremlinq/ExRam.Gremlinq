@@ -97,7 +97,7 @@ namespace ExRam.Gremlinq.Core
                 var newStepLabelProjections = maybeStepLabelProjectionsTransformation?.Invoke(existingQuery.StepLabelProjections) ?? existingQuery.StepLabelProjections;
                 var newSideEffectLabelProjections = maybeSideEffectLabelProjectionsTransformation?.Invoke(existingQuery.SideEffectLabelProjections) ?? existingQuery.SideEffectLabelProjections;
 
-                if (targetQueryType.IsInstanceOfType(existingQuery) && newQueryFlags == existingQuery.Flags && newEnvironment == existingQuery.Environment && maybeStepStackTransformation == null && newProjection == existingQuery.Projection && newStepLabelProjections == existingQuery.StepLabelProjections)
+                if (targetQueryType.IsInstanceOfType(existingQuery) && newQueryFlags == existingQuery.Flags && newEnvironment == existingQuery.Environment && maybeStepStackTransformation == null && newProjection == existingQuery.Projection && newStepLabelProjections == existingQuery.StepLabelProjections && newSideEffectLabelProjections == existingQuery.SideEffectLabelProjections)
                     return (IGremlinQueryBase)existingQuery;
 
                 return new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(
