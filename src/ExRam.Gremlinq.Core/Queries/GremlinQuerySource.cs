@@ -1,5 +1,4 @@
 ﻿using System.Collections.Immutable;
-
 using ExRam.Gremlinq.Core.Projections;
 
 namespace ExRam.Gremlinq.Core
@@ -8,9 +7,9 @@ namespace ExRam.Gremlinq.Core
     {
         // ReSharper disable once InconsistentNaming
         public static readonly IConfigurableGremlinQuerySource g = new GremlinQuery<object, object, object, object, object, object>(
+            GremlinQueryEnvironment.Default,
             StepStack.Empty,
             Projection.Empty,
-            GremlinQueryEnvironment.Default,
             ImmutableDictionary<StepLabel, Projection>.Empty,
             QueryFlags.SurfaceVisible);
     }

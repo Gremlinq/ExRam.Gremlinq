@@ -84,9 +84,9 @@ namespace ExRam.Gremlinq.Core
                     return (IGremlinQueryBase)existingQuery;
 
                 return new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(
+                    existingQuery.Environment,
                     newSteps,
                     newProjection,
-                    existingQuery.Environment,
                     newStepLabelProjections,
                     newQueryFlags);
             };

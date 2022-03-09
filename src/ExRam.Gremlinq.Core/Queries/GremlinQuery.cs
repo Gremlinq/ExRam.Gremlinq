@@ -21,9 +21,9 @@ namespace ExRam.Gremlinq.Core
     internal sealed partial class GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> : GremlinQueryBase
     {
         public GremlinQuery(
+            IGremlinQueryEnvironment environment,
             StepStack steps,
             Projection projection,
-            IGremlinQueryEnvironment environment,
             IImmutableDictionary<StepLabel, Projection> stepLabelProjections,
             QueryFlags flags) : base(steps, projection, environment, stepLabelProjections, flags)
         {
@@ -122,7 +122,7 @@ namespace ExRam.Gremlinq.Core
 
         private ContinuationBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>> Continue() => new(
             this,
-            new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(StepStack.Empty, Projection, Environment, StepLabelProjections, (Flags & ~QueryFlags.SurfaceVisible) | QueryFlags.IsAnonymous));
+            new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(Environment, StepStack.Empty, Projection, StepLabelProjections, (Flags & ~QueryFlags.SurfaceVisible) | QueryFlags.IsAnonymous));
 
         private GremlinQuery<TVertex, object, object, object, object, object> AddV<TVertex>(TVertex vertex) => this
             .Continue()
@@ -273,7 +273,7 @@ namespace ExRam.Gremlinq.Core
         {
             return typeof(TNewElement) == typeof(TElement)
                 ? (GremlinQuery<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>)(object)this
-                : new(Steps, Projection, Environment, StepLabelProjections, Flags);
+                : new(Environment, Steps, Projection, StepLabelProjections, Flags);
         }
 
         private TTargetQuery Choose<TTrueQuery, TFalseQuery, TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTrueQuery> trueChoice, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TFalseQuery>? maybeFalseChoice = default)
@@ -393,7 +393,7 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Configure<TNewElement>(
             Func<StepStack, StepStack> stepsTransformation,
             Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> environmentTransformation,
-            Func<Projection, Projection>? projectionTransformation = null) => new(stepsTransformation(Steps), projectionTransformation?.Invoke(Projection) ?? Projection, environmentTransformation(Environment), StepLabelProjections, Flags);
+            Func<Projection, Projection>? projectionTransformation = null) => new(environmentTransformation(Environment), stepsTransformation(Steps), projectionTransformation?.Invoke(Projection) ?? Projection, StepLabelProjections, Flags);
 
         private GremlinQuery<TValue, object, object, object, object, object> Constant<TValue>(TValue constant) => this
             .Continue()
