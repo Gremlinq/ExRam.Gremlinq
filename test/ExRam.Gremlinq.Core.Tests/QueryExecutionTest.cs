@@ -524,6 +524,19 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task Aggregate_in_subQuery_Select()
+        {
+            var stepLabel = new StepLabel<IArrayGremlinQuery<object[], object, IVertexGremlinQuery<object>>, object[]>();
+
+            await _g
+                .V()
+                .Map(__ => __
+                    .Aggregate(stepLabel))
+                .Select(stepLabel)
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task And()
         {
             await _g

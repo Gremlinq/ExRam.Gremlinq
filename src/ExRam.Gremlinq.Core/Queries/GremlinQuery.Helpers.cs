@@ -15,9 +15,21 @@ namespace ExRam.Gremlinq.Core
 {
     partial class GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>
     {
-        internal GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Clone(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment>? maybeEnvironmentTransformation = null, Func<StepStack, StepStack>? maybeStepStackTransformation = null, Func<Projection, Projection>? maybeProjectionTransformation = null, Func<IImmutableDictionary<StepLabel, Projection>, IImmutableDictionary<StepLabel, Projection>>? maybeStepLabelProjectionsTransformation = null, Func<QueryFlags, QueryFlags>? maybeQueryFlagsTransformation = null)
+        internal GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Clone(
+            Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment>? maybeEnvironmentTransformation = null,
+            Func<StepStack, StepStack>? maybeStepStackTransformation = null,
+            Func<Projection, Projection>? maybeProjectionTransformation = null,
+            Func<IImmutableDictionary<StepLabel, Projection>, IImmutableDictionary<StepLabel, Projection>>? maybeStepLabelProjectionsTransformation = null,
+            Func<IImmutableDictionary<StepLabel, Projection>, IImmutableDictionary<StepLabel, Projection>>? maybeSideEffectLabelProjectionsTransformation = null,
+            Func<QueryFlags, QueryFlags>? maybeQueryFlagsTransformation = null)
         {
-            return CloneAs<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>(maybeEnvironmentTransformation, maybeStepStackTransformation, maybeProjectionTransformation, maybeStepLabelProjectionsTransformation, maybeQueryFlagsTransformation);
+            return CloneAs<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>(
+                maybeEnvironmentTransformation,
+                maybeStepStackTransformation,
+                maybeProjectionTransformation,
+                maybeStepLabelProjectionsTransformation,
+                maybeSideEffectLabelProjectionsTransformation,
+                maybeQueryFlagsTransformation);
         }
 
         private IEnumerable<PropertyStep> GetPropertySteps(Key key, object value, bool allowExplicitCardinality)
