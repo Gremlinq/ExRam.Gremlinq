@@ -33,7 +33,7 @@ namespace ExRam.Gremlinq.Core
             Projection = projection;
             Environment = environment;
             StepLabelProjections = stepLabelProjections;
-            SideEffectProjections = sideEffectProjections;
+            SideEffectLabelProjections = sideEffectProjections;
         }
 
         protected internal TTargetQuery CloneAs<TTargetQuery>(
@@ -95,7 +95,7 @@ namespace ExRam.Gremlinq.Core
                 var newQueryFlags = maybeQueryFlagsTransformation?.Invoke(existingQuery.Flags) ?? existingQuery.Flags;
                 var newProjection = maybeProjectionTransformation?.Invoke(existingQuery.Projection) ?? existingQuery.Projection;
                 var newStepLabelProjections = maybeStepLabelProjectionsTransformation?.Invoke(existingQuery.StepLabelProjections) ?? existingQuery.StepLabelProjections;
-                var newSideEffectLabelProjections = maybeSideEffectLabelProjectionsTransformation?.Invoke(existingQuery.SideEffectProjections) ?? existingQuery.SideEffectProjections;
+                var newSideEffectLabelProjections = maybeSideEffectLabelProjectionsTransformation?.Invoke(existingQuery.SideEffectLabelProjections) ?? existingQuery.SideEffectLabelProjections;
 
                 if (targetQueryType.IsInstanceOfType(existingQuery) && newQueryFlags == existingQuery.Flags && newEnvironment == existingQuery.Environment && maybeStepStackTransformation == null && newProjection == existingQuery.Projection && newStepLabelProjections == existingQuery.StepLabelProjections)
                     return (IGremlinQueryBase)existingQuery;
@@ -135,6 +135,6 @@ namespace ExRam.Gremlinq.Core
         protected internal Projection Projection { get; }
         protected internal IGremlinQueryEnvironment Environment { get; }
         protected internal IImmutableDictionary<StepLabel, Projection> StepLabelProjections { get; }
-        protected internal IImmutableDictionary<StepLabel, Projection> SideEffectProjections { get; }
+        protected internal IImmutableDictionary<StepLabel, Projection> SideEffectLabelProjections { get; }
     }
 }
