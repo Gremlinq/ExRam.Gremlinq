@@ -25,7 +25,8 @@ namespace ExRam.Gremlinq.Core
             StepStack steps,
             Projection projection,
             IImmutableDictionary<StepLabel, Projection> stepLabelProjections,
-            QueryFlags flags) : base(environment, steps, projection, stepLabelProjections, flags)
+            IImmutableDictionary<StepLabel, Projection> sideEffectProjections,
+            QueryFlags flags) : base(environment, steps, projection, stepLabelProjections, sideEffectProjections, flags)
         {
 
         }

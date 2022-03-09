@@ -11,6 +11,7 @@ namespace ExRam.Gremlinq.Core
             StepStack.Empty,
             Projection.Empty,
             ImmutableDictionary<StepLabel, Projection>.Empty,
+            ImmutableDictionary<StepLabel, Projection>.Empty,
             QueryFlags.SurfaceVisible);
     }
 }

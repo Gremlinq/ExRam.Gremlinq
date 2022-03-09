@@ -18,6 +18,7 @@ namespace ExRam.Gremlinq.Core
             StepStack steps,
             Projection projection,
             IImmutableDictionary<StepLabel, Projection> stepLabelProjections,
+            IImmutableDictionary<StepLabel, Projection> sideEffectProjections,
             QueryFlags flags)
         {
             Steps = steps;
@@ -25,6 +26,7 @@ namespace ExRam.Gremlinq.Core
             Projection = projection;
             Environment = environment;
             StepLabelProjections = stepLabelProjections;
+            SideEffectProjections = sideEffectProjections;
         }
 
         protected internal TTargetQuery CloneAs<TTargetQuery>(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment>? maybeEnvironmentTransformation = null, Func<StepStack, StepStack>? maybeStepStackTransformation = null, Func<Projection, Projection>? maybeProjectionTransformation = null, Func<IImmutableDictionary<StepLabel, Projection>, IImmutableDictionary<StepLabel, Projection>>? maybeStepLabelProjectionsTransformation = null, Func<QueryFlags, QueryFlags>? maybeQueryFlagsTransformation = null)
@@ -89,6 +91,7 @@ namespace ExRam.Gremlinq.Core
                     newSteps,
                     newProjection,
                     newStepLabelProjections,
+                    existingQuery.SideEffectProjections,
                     newQueryFlags);
             };
         }
@@ -118,5 +121,6 @@ namespace ExRam.Gremlinq.Core
         protected internal Projection Projection { get; }
         protected internal IGremlinQueryEnvironment Environment { get; }
         protected internal IImmutableDictionary<StepLabel, Projection> StepLabelProjections { get; }
+        protected internal IImmutableDictionary<StepLabel, Projection> SideEffectProjections { get; }
     }
 }
