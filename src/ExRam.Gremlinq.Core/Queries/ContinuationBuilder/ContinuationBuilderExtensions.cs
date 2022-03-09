@@ -5,7 +5,7 @@ namespace ExRam.Gremlinq.Core
 {
     internal static class ContinuationBuilderExtensions
     {
-        public static IGremlinQueryBase Apply<TAnonymousQuery, TProjectedQuery>(this Func<TAnonymousQuery, TProjectedQuery> continuation, TAnonymousQuery anonymous)
+        public static TProjectedQuery Apply<TAnonymousQuery, TProjectedQuery>(this Func<TAnonymousQuery, TProjectedQuery> continuation, TAnonymousQuery anonymous)
             where TAnonymousQuery : IGremlinQueryBase
             where TProjectedQuery : IGremlinQueryBase
         {
