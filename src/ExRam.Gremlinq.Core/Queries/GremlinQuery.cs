@@ -107,7 +107,7 @@ namespace ExRam.Gremlinq.Core
                 .Build(
                     static (builder, tuple) => builder
                         .AddStep(new AggregateStep(tuple.scope, tuple.stepLabel))
-                        .WithNewStepLabelProjection(_ => _.SetItem(tuple.stepLabel, builder.OuterQuery.Projection.Fold()))
+                        .WithNewSideEffectLabelProjection(_ => _.SetItem(tuple.stepLabel, builder.OuterQuery.Projection.Fold()))
                         .Build(),
                     (scope, stepLabel));
 
@@ -897,7 +897,7 @@ namespace ExRam.Gremlinq.Core
                     untilContinuation);
 
         private GremlinQuery<TSelectedElement, object, object, object, object, object> Select<TSelectedElement>(StepLabel<TSelectedElement> stepLabel) =>
-            StepLabelProjections.TryGetValue(stepLabel, out var stepLabelProjection)
+            TryGetLabelProjection(stepLabel) is { } stepLabelProjection
                 ? this
                     .Continue()
                     .Build(

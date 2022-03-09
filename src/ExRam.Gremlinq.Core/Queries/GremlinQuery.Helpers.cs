@@ -125,5 +125,11 @@ namespace ExRam.Gremlinq.Core
                     yield return str;
             }
         }
+
+        private Projection? TryGetLabelProjection(StepLabel stepLabel) => StepLabelProjections.TryGetValue(stepLabel, out var ret1)
+            ? ret1
+            : SideEffectLabelProjections.TryGetValue(stepLabel, out var ret2)
+                ? ret2
+                : default;
     }
 }
