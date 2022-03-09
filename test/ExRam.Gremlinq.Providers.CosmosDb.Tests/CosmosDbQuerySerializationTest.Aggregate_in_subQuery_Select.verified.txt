@@ -1,0 +1,9 @@
+﻿[
+  {
+    "Script": "g.V().map(__.aggregate(_a)).select(_a)",
+    "Id": "Scrubbed GUID",
+    "Bindings": {
+      "_a": "l1"
+    }
+  }
+]
