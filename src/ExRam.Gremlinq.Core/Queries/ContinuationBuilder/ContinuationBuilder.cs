@@ -29,7 +29,7 @@ namespace ExRam.Gremlinq.Core
             where TProjectedQuery : IGremlinQueryBase
         {
             return _outer is { } outer && _anonymous is { } anonymous
-                ? new(outer, anonymous, continuation.Apply(anonymous).ToTraversal())
+                ? new(outer, anonymous, continuation.Apply(anonymous))
                 : throw new InvalidOperationException();
         }
 
@@ -41,7 +41,7 @@ namespace ExRam.Gremlinq.Core
                     outer,
                     anonymous,
                     continuations
-                        .Select(contintuation => contintuation.Apply(anonymous).ToTraversal())
+                        .Select(contintuation => (IGremlinQueryBase)contintuation.Apply(anonymous))
                         .ToImmutableList())
                 : throw new InvalidOperationException();
         }
@@ -52,7 +52,7 @@ namespace ExRam.Gremlinq.Core
                 ? new(
                     outer,
                     anonymous,
-                    ImmutableList<Traversal>.Empty)
+                    ImmutableList<IGremlinQueryBase>.Empty)
                 : throw new InvalidOperationException();
         }
 

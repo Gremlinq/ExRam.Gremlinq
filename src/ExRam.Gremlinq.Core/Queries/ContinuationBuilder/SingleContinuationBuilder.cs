@@ -8,10 +8,10 @@ namespace ExRam.Gremlinq.Core
         where TAnonymousQuery : GremlinQueryBase, IGremlinQueryBase
     {
         private readonly TOuterQuery? _outer;
-        private readonly Traversal? _continuation;
         private readonly TAnonymousQuery? _anonymous;
+        private readonly IGremlinQueryBase? _continuation;
 
-        public SingleContinuationBuilder(TOuterQuery outer, TAnonymousQuery anonymous, Traversal continuation)
+        public SingleContinuationBuilder(TOuterQuery outer, TAnonymousQuery anonymous, IGremlinQueryBase continuation)
         {
             _outer = outer;
             _anonymous = anonymous;
@@ -21,15 +21,24 @@ namespace ExRam.Gremlinq.Core
         public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> With(Func<TAnonymousQuery, IGremlinQueryBase> continuation)
         {
             return _outer is { } outer && _anonymous is { } anonymous && _continuation is { } existingContinuation
-                ? new (outer, anonymous, ImmutableList.Create(existingContinuation, continuation.Apply(anonymous).ToTraversal()))
+                ? new (outer, anonymous, ImmutableList.Create(existingContinuation, continuation.Apply(anonymous)))
                 : throw new InvalidOperationException();
         }
 
         public TNewQuery Build<TNewQuery, TState>(Func<FinalContinuationBuilder<TOuterQuery>, Traversal, TState, TNewQuery> builderTransformation, TState state)
         {
-            return _outer is { } outer && _continuation is { } continuation
-                ? builderTransformation(new FinalContinuationBuilder<TOuterQuery>(outer), continuation, state)
-                : throw new InvalidOperationException();
+            if (_outer is { } outer && _continuation is { } continuation)
+            {
+                if (continuation is GremlinQueryBase queryBase)
+                    outer = outer.CloneAs<TOuterQuery>(maybeSideEffectLabelProjectionsTransformation: _ => _.SetItems(queryBase.SideEffectLabelProjections));
+
+                return builderTransformation(
+                    new FinalContinuationBuilder<TOuterQuery>(outer),
+                    continuation.ToTraversal(),
+                    state);
+            }
+
+            throw new InvalidOperationException();
         }
 
         public TOuterQuery OuterQuery => _outer ?? throw new InvalidOperationException();
