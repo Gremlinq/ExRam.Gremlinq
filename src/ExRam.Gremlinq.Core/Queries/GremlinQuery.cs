@@ -44,21 +44,30 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> AddOrUpdate(TElement element, bool add)
         {
             var ret = this;
-            var props = element.Serialize(
-                Environment,
-                add
-                    ? SerializationBehaviour.IgnoreOnAdd
-                    : SerializationBehaviour.IgnoreOnUpdate);
+            var props = element
+                .Serialize(
+                    Environment,
+                    add
+                        ? SerializationBehaviour.IgnoreOnAdd
+                        : SerializationBehaviour.IgnoreOnUpdate)
+                .ToArray();
 
             if (!add)
             {
-                ret = ret.SideEffect(_ => _
-                    .Properties<object, object, object>(
-                        Projection.Empty,
-                        props
-                            .Select(p => p.key.RawKey)
-                            .OfType<string>())
-                    .Drop());
+                var droppableKeys = props
+                    .Select(p => p.key.RawKey)
+                    .OfType<string>()
+                    .ToArray();
+
+                if (droppableKeys.Length > 0)
+                {
+                    ret = ret
+                        .SideEffect(__ => __
+                            .Properties<object, object, object>(
+                                Projection.Empty,
+                                droppableKeys)
+                            .Drop());
+                }
             }
 
             foreach (var (key, value) in props)
