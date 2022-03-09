@@ -692,7 +692,7 @@ namespace ExRam.Gremlinq.Core
             .With(continuation)
             .Build(static (builder, innerTraversal) => innerTraversal.Count == 0
                 ? builder.OuterQuery
-                    .ContinueAs<TTargetQuery>()
+                    .CloneAs<TTargetQuery>()
                 : builder
                     .AddStep(new MapStep(innerTraversal))
                     .WithNewProjection(innerTraversal.Projection)
@@ -1155,7 +1155,7 @@ namespace ExRam.Gremlinq.Core
                 .WithNewProjection(_ => _.If<ArrayProjection>(array => array.Unfold()))
                 .Build());
 
-        private TTargetQuery Unfold<TTargetQuery>() => Unfold().ContinueAs<TTargetQuery>();
+        private TTargetQuery Unfold<TTargetQuery>() => Unfold().CloneAs<TTargetQuery>();
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Union(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>[] unionTraversals)
         {

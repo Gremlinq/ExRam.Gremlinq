@@ -27,7 +27,7 @@ namespace ExRam.Gremlinq.Core
             StepLabelProjections = stepLabelProjections;
         }
 
-        protected internal TTargetQuery ContinueAs<TTargetQuery>(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment>? maybeEnvironmentTransformation = null, Func<StepStack, StepStack>? maybeStepStackTransformation = null, Func<Projection, Projection>? maybeProjectionTransformation = null, Func<IImmutableDictionary<StepLabel, Projection>, IImmutableDictionary<StepLabel, Projection>>? maybeStepLabelProjectionsTransformation = null, Func<QueryFlags, QueryFlags>? maybeQueryFlagsTransformation = null)
+        protected internal TTargetQuery CloneAs<TTargetQuery>(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment>? maybeEnvironmentTransformation = null, Func<StepStack, StepStack>? maybeStepStackTransformation = null, Func<Projection, Projection>? maybeProjectionTransformation = null, Func<IImmutableDictionary<StepLabel, Projection>, IImmutableDictionary<StepLabel, Projection>>? maybeStepLabelProjectionsTransformation = null, Func<QueryFlags, QueryFlags>? maybeQueryFlagsTransformation = null)
         {
             var targetQueryType = typeof(TTargetQuery);
 

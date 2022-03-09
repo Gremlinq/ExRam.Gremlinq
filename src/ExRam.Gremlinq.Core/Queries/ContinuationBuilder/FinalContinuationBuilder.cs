@@ -81,7 +81,7 @@ namespace ExRam.Gremlinq.Core
         public TNewTargetQuery Build<TNewTargetQuery>()
         {
             return _outer is { } query
-                ? query.ContinueAs<TNewTargetQuery>(
+                ? query.CloneAs<TNewTargetQuery>(
                     maybeStepStackTransformation: _steps is { } newSteps ? _ => newSteps : null,
                     maybeProjectionTransformation: _projection is { } newProjection ? _ => newProjection : null,
                     maybeStepLabelProjectionsTransformation: _stepLabelProjections is { } newStepLabelProjections ? _ => newStepLabelProjections : null,
