@@ -479,7 +479,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public virtual async Task Aggregate_Global()
         {
             await _g
-                .V()
+                .V<Person>()
                 .Aggregate((__, aggregated) => __)
                 .Verify();
         }
@@ -488,7 +488,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public virtual async Task Aggregate_Local()
         {
             await _g
-                .V()
+                .V<Person>()
                 .AggregateLocal((__, aggregated) => __)
                 .Verify();
         }
@@ -497,7 +497,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public virtual async Task Aggregate_Global_with_existing_step()
         {
             await _g
-                .V()
+                .V<Person>()
                 .Aggregate(new())
                 .Verify();
         }
@@ -506,7 +506,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public virtual async Task Aggregate_Local_with_existing_step()
         {
             await _g
-                .V()
+                .V<Person>()
                 .AggregateLocal(new())
                 .Verify();
         }
@@ -514,10 +514,10 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public virtual async Task Aggregate_Select()
         {
-            var stepLabel = new StepLabel<IArrayGremlinQuery<object[], object, IVertexGremlinQuery<object>>, object[]>();
+            var stepLabel = new StepLabel<IArrayGremlinQuery<Person[], Person, IVertexGremlinQuery<Person>>, Person[]>();
 
             await _g
-                .V()
+                .V<Person>()
                 .Aggregate(stepLabel)
                 .Select(stepLabel)
                 .Verify();
@@ -526,10 +526,10 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public virtual async Task Aggregate_in_subQuery_Select()
         {
-            var stepLabel = new StepLabel<IArrayGremlinQuery<object[], object, IVertexGremlinQuery<object>>, object[]>();
+            var stepLabel = new StepLabel<IArrayGremlinQuery<Person[], Person, IVertexGremlinQuery<Person>>, Person[]>();
 
             await _g
-                .V()
+                .V<Person>()
                 .Map(__ => __
                     .Aggregate(stepLabel))
                 .Select(stepLabel)
