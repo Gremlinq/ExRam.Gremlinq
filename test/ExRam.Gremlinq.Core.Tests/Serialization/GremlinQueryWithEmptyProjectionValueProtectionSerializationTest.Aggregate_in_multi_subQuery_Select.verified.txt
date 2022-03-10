@@ -6,8 +6,12 @@
       "StepInstructions": [
         {
           "OperatorName": "V",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "hasLabel",
           "Arguments": [
-            "id"
+            "Person"
           ]
         },
         {
