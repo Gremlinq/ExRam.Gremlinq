@@ -31,21 +31,26 @@ namespace ExRam.Gremlinq.Core
             if (_outer is { } outer && _continuations is { } continuations)
             {
                 var builder = new FinalContinuationBuilder<TOuterQuery>(outer);
+                var traversalArray = continuations.Count > 0
+                    ? new Traversal[continuations.Count]
+                    : Array.Empty<Traversal>();
 
                 if (continuations.Count > 0)
                 {
+                    var targetIndex = 0;
+
                     foreach (var continuation in continuations)
                     {
                         if (continuation is GremlinQueryBase queryBase)
                             builder = builder.WithNewSideEffectLabelProjection(_ => _.SetItems(queryBase.SideEffectLabelProjections));
+
+                        traversalArray[targetIndex++] = continuation.ToTraversal();
                     }
                 }
 
                 return builderTransformation(
                     builder,
-                    continuations
-                        .Select(x => x.ToTraversal())
-                        .ToArray(),
+                    traversalArray,
                     state);
             }
 
