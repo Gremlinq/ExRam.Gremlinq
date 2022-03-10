@@ -9,6 +9,12 @@
           "Arguments": []
         },
         {
+          "OperatorName": "hasLabel",
+          "Arguments": [
+            "Person"
+          ]
+        },
+        {
           "OperatorName": "aggregate",
           "Arguments": [
             {
