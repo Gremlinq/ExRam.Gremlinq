@@ -1,3 +1,3 @@
 ﻿[
-  "g.V('id').hasLabel('Thing').project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold()))"
+  "V(_a).hasLabel(_b).project(_a,_c,_d).by(id).by(label).by(__.properties().group().by(label).by(__.project(_a,_c,_e,_d).by(id).by(label).by(value).by(__.valueMap()).fold()))"
 ]
