@@ -3,17 +3,6 @@
     "Age": 0,
     "Gender": null,
     "Image": null,
-    "RegistrationDate": null,
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": null,
-    "Id": "scrubbed id",
-    "Label": "Country"
-  },
-  {
-    "Age": 0,
-    "Gender": null,
-    "Image": null,
     "RegistrationDate": "2020-04-07T14:43:36+00:00",
     "PhoneNumbers": null,
     "SomeObscureProperty": null,
@@ -38,277 +27,7 @@
     "SomeObscureProperty": null,
     "Name": null,
     "Id": "scrubbed id",
-    "Label": "Language"
-  },
-  {
-    "Age": 0,
-    "Gender": null,
-    "Image": null,
-    "RegistrationDate": null,
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": null,
-    "Id": "scrubbed id",
-    "Label": "Language"
-  },
-  {
-    "Age": 0,
-    "Gender": null,
-    "Image": null,
-    "RegistrationDate": null,
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": null,
-    "Id": "scrubbed id",
-    "Label": "Company"
-  },
-  {
-    "Age": 0,
-    "Gender": null,
-    "Image": null,
-    "RegistrationDate": null,
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": null,
-    "Id": "scrubbed id",
-    "Label": "Language"
-  },
-  {
-    "Age": 0,
-    "Gender": null,
-    "Image": null,
-    "RegistrationDate": null,
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": null,
-    "Id": "scrubbed id",
-    "Label": "Company"
-  },
-  {
-    "Age": 0,
-    "Gender": null,
-    "Image": null,
-    "RegistrationDate": null,
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": null,
-    "Id": "scrubbed id",
     "Label": "Person"
-  },
-  {
-    "Age": 0,
-    "Gender": null,
-    "Image": null,
-    "RegistrationDate": null,
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": {
-      "Id": "scrubbed id",
-      "Label": "Name",
-      "Properties": {
-        "ValidFrom": "0001-01-01T00:00:00+00:00"
-      },
-      "Value": "GER",
-      "Key": null
-    },
-    "Id": "scrubbed id",
-    "Label": "Country"
-  },
-  {
-    "Age": 0,
-    "Gender": null,
-    "Image": null,
-    "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": {
-      "Id": "scrubbed id",
-      "Label": "Name",
-      "Properties": {
-        "ValidFrom": "0001-01-01T00:00:00+00:00"
-      },
-      "Value": "Bob",
-      "Key": null
-    },
-    "Id": "scrubbed id",
-    "Label": "Person"
-  },
-  {
-    "Age": 0,
-    "Gender": null,
-    "Image": null,
-    "RegistrationDate": null,
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": {
-      "Id": "scrubbed id",
-      "Label": "Name",
-      "Properties": {
-        "ValidFrom": "0001-01-01T00:00:00+00:00"
-      },
-      "Value": "GER",
-      "Key": null
-    },
-    "Id": "scrubbed id",
-    "Label": "Country"
-  },
-  {
-    "Age": 0,
-    "Gender": null,
-    "Image": null,
-    "RegistrationDate": null,
-    "PhoneNumbers": [
-      {
-        "Id": "scrubbed id",
-        "Label": "PhoneNumbers",
-        "Properties": {},
-        "Value": "+4912345",
-        "Key": null
-      },
-      {
-        "Id": "scrubbed id",
-        "Label": "PhoneNumbers",
-        "Properties": {},
-        "Value": "+4923456",
-        "Key": null
-      }
-    ],
-    "SomeObscureProperty": null,
-    "Name": null,
-    "Id": "scrubbed id",
-    "Label": "Company"
-  },
-  {
-    "Age": 0,
-    "Gender": null,
-    "Image": null,
-    "RegistrationDate": null,
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": null,
-    "Id": "scrubbed id",
-    "Label": "Person"
-  },
-  {
-    "Age": 0,
-    "Gender": null,
-    "Image": null,
-    "RegistrationDate": null,
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": null,
-    "Id": "scrubbed id",
-    "Label": "Country"
-  },
-  {
-    "Age": 0,
-    "Gender": null,
-    "Image": null,
-    "RegistrationDate": null,
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": null,
-    "Id": "scrubbed id",
-    "Label": "Language"
-  },
-  {
-    "Age": 0,
-    "Gender": null,
-    "Image": null,
-    "RegistrationDate": null,
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": null,
-    "Id": "scrubbed id",
-    "Label": "Language"
-  },
-  {
-    "Age": 0,
-    "Gender": null,
-    "Image": null,
-    "RegistrationDate": null,
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": null,
-    "Id": "scrubbed id",
-    "Label": "Person"
-  },
-  {
-    "Age": 0,
-    "Gender": null,
-    "Image": null,
-    "RegistrationDate": null,
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": null,
-    "Id": "scrubbed id",
-    "Label": "Country"
-  },
-  {
-    "Age": 0,
-    "Gender": null,
-    "Image": null,
-    "RegistrationDate": null,
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": null,
-    "Id": "scrubbed id",
-    "Label": "Person"
-  },
-  {
-    "Age": 0,
-    "Gender": null,
-    "Image": null,
-    "RegistrationDate": null,
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": null,
-    "Id": "scrubbed id",
-    "Label": "Country"
-  },
-  {
-    "Age": 0,
-    "Gender": null,
-    "Image": null,
-    "RegistrationDate": null,
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": null,
-    "Id": "scrubbed id",
-    "Label": "Company"
-  },
-  {
-    "Age": 0,
-    "Gender": null,
-    "Image": null,
-    "RegistrationDate": null,
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": null,
-    "Id": "scrubbed id",
-    "Label": "Person"
-  },
-  {
-    "Age": 0,
-    "Gender": null,
-    "Image": null,
-    "RegistrationDate": null,
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": null,
-    "Id": "scrubbed id",
-    "Label": "Language"
-  },
-  {
-    "Age": 0,
-    "Gender": null,
-    "Image": null,
-    "RegistrationDate": null,
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": null,
-    "Id": "scrubbed id",
-    "Label": "Country"
   },
   {
     "Age": 0,
@@ -338,7 +57,7 @@
     "SomeObscureProperty": null,
     "Name": null,
     "Id": "scrubbed id",
-    "Label": "Company"
+    "Label": "Person"
   },
   {
     "Age": 0,
@@ -360,7 +79,7 @@
     "SomeObscureProperty": null,
     "Name": null,
     "Id": "scrubbed id",
-    "Label": "Language"
+    "Label": "Person"
   },
   {
     "Age": 0,
@@ -371,7 +90,26 @@
     "SomeObscureProperty": null,
     "Name": null,
     "Id": "scrubbed id",
-    "Label": "Language"
+    "Label": "Person"
+  },
+  {
+    "Age": 0,
+    "Gender": null,
+    "Image": null,
+    "RegistrationDate": "2020-04-07T14:43:36+00:00",
+    "PhoneNumbers": null,
+    "SomeObscureProperty": null,
+    "Name": {
+      "Id": "scrubbed id",
+      "Label": "Name",
+      "Properties": {
+        "ValidFrom": "0001-01-01T00:00:00+00:00"
+      },
+      "Value": "Bob",
+      "Key": null
+    },
+    "Id": "scrubbed id",
+    "Label": "Person"
   },
   {
     "Age": 0,
@@ -382,29 +120,7 @@
     "SomeObscureProperty": null,
     "Name": null,
     "Id": "scrubbed id",
-    "Label": "TimeFrame"
-  },
-  {
-    "Age": 0,
-    "Gender": null,
-    "Image": null,
-    "RegistrationDate": null,
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": null,
-    "Id": "scrubbed id",
-    "Label": "Language"
-  },
-  {
-    "Age": 0,
-    "Gender": null,
-    "Image": null,
-    "RegistrationDate": null,
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": null,
-    "Id": "scrubbed id",
-    "Label": "Language"
+    "Label": "Person"
   },
   {
     "Age": 0,
