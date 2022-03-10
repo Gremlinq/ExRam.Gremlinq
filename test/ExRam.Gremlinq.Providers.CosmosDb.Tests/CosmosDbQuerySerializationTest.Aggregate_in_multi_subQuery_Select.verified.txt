@@ -1,9 +1,9 @@
 ﻿[
   {
-    "Script": "g.V(_a).coalesce(__.aggregate(_b),__.aggregate(_c)).project(_d,_e).by(__.select(_b)).by(__.select(_c))",
+    "Script": "g.V().hasLabel(_a).coalesce(__.aggregate(_b),__.aggregate(_c)).project(_d,_e).by(__.select(_b)).by(__.select(_c))",
     "Id": "Scrubbed GUID",
     "Bindings": {
-      "_a": "id",
+      "_a": "Person",
       "_b": "l1",
       "_c": "l2",
       "_d": "Item1",
