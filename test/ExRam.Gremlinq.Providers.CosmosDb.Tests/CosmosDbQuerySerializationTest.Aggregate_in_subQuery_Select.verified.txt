@@ -1,9 +1,10 @@
 ﻿[
   {
-    "Script": "g.V().map(__.aggregate(_a)).select(_a)",
+    "Script": "g.V().hasLabel(_a).map(__.aggregate(_b)).select(_b)",
     "Id": "Scrubbed GUID",
     "Bindings": {
-      "_a": "l1"
+      "_a": "Person",
+      "_b": "l1"
     }
   }
 ]
