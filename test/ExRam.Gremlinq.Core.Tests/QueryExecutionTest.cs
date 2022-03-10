@@ -537,6 +537,23 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task Aggregate_in_multi_subQuery_Select()
+        {
+            var stepLabel1 = new StepLabel<IArrayGremlinQuery<Person[], Person, IVertexGremlinQuery<Person>>, Person[]>();
+            var stepLabel2 = new StepLabel<IArrayGremlinQuery<Person[], Person, IVertexGremlinQuery<Person>>, Person[]>();
+
+            await _g
+                .V<Person>()
+                .Coalesce(
+                    __ => __
+                        .Aggregate(stepLabel1),
+                    __ => __
+                        .Aggregate(stepLabel2))
+                .Select(stepLabel1, stepLabel2)
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task And()
         {
             await _g

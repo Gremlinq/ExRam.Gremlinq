@@ -1,0 +1,13 @@
+﻿[
+  {
+    "Script": "g.V(_a).coalesce(__.aggregate(_b),__.aggregate(_c)).project(_d,_e).by(__.select(_b)).by(__.select(_c))",
+    "Id": "Scrubbed GUID",
+    "Bindings": {
+      "_a": "id",
+      "_b": "l1",
+      "_c": "l2",
+      "_d": "Item1",
+      "_e": "Item2"
+    }
+  }
+]
