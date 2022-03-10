@@ -2793,6 +2793,20 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task Project_on_muted()
+        {
+            await _g
+                .V()
+                .Mute()
+                .Project(__ => __
+                    .ToTuple()
+                    .By(__ => __.In())
+                    .By(__ => __.Out())
+                    .By(__ => __.Count()))
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task Properties_Meta()
         {
             await _g
