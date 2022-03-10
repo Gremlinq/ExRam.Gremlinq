@@ -26,7 +26,7 @@ namespace ExRam.Gremlinq.Core
                 : throw new InvalidOperationException();
         }
 
-        public TNewQuery Build<TNewQuery, TState>(Func<FinalContinuationBuilder<TOuterQuery>, IImmutableList<Traversal>, TState, TNewQuery> builderTransformation, TState state)
+        public TNewQuery Build<TNewQuery, TState>(Func<FinalContinuationBuilder<TOuterQuery>, Traversal[], TState, TNewQuery> builderTransformation, TState state)
         {
             if (_outer is { } outer && _continuations is { } continuations)
             {
@@ -45,7 +45,7 @@ namespace ExRam.Gremlinq.Core
                     builder,
                     continuations
                         .Select(x => x.ToTraversal())
-                        .ToImmutableList(),
+                        .ToArray(),
                     state);
             }
 

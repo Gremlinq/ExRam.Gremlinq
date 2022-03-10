@@ -43,7 +43,7 @@ namespace ExRam.Gremlinq.Core
                     .Build(static (builder, traversals) =>
                     {
                         var keyTraversal = traversals[0];
-                        var maybeValueTraversal = traversals.Count > 1
+                        var maybeValueTraversal = traversals.Length > 1
                             ? traversals[1]
                             : default(Traversal?);
 

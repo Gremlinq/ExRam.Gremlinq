@@ -653,7 +653,7 @@ namespace ExRam.Gremlinq.Core
             {
                 List<Traversal>? continuedTraversals = default;
 
-                if (traversals.Count == 0)
+                if (traversals.Length == 0)
                 {
                     return builder
                         .AddStep(OrStep.Infix)
