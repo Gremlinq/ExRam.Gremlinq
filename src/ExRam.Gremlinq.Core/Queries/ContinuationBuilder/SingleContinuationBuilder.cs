@@ -29,11 +29,13 @@ namespace ExRam.Gremlinq.Core
         {
             if (_outer is { } outer && _continuation is { } continuation)
             {
+                var builder = new FinalContinuationBuilder<TOuterQuery>(outer);
+
                 if (continuation is GremlinQueryBase queryBase)
-                    outer = outer.CloneAs<TOuterQuery>(maybeSideEffectLabelProjectionsTransformation: _ => _.SetItems(queryBase.SideEffectLabelProjections));
+                    builder = builder.WithNewSideEffectLabelProjection(_ => _.SetItems(queryBase.SideEffectLabelProjections));
 
                 return builderTransformation(
-                    new FinalContinuationBuilder<TOuterQuery>(outer),
+                    builder,
                     continuation.ToTraversal(),
                     state);
             }

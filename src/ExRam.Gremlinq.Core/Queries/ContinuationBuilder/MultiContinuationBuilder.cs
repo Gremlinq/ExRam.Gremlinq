@@ -30,23 +30,19 @@ namespace ExRam.Gremlinq.Core
         {
             if (_outer is { } outer && _continuations is { } continuations)
             {
+                var builder = new FinalContinuationBuilder<TOuterQuery>(outer);
+
                 if (continuations.Count > 0)
                 {
-                    outer = outer.CloneAs<TOuterQuery>(
-                        maybeSideEffectLabelProjectionsTransformation: projections =>
-                        {
-                            foreach (var continuation in continuations)
-                            {
-                                if (continuation is GremlinQueryBase queryBase)
-                                    projections = projections.SetItems(queryBase.SideEffectLabelProjections);
-                            }
-
-                            return projections;
-                        });
+                    foreach (var continuation in continuations)
+                    {
+                        if (continuation is GremlinQueryBase queryBase)
+                            builder = builder.WithNewSideEffectLabelProjection(_ => _.SetItems(queryBase.SideEffectLabelProjections));
+                    }
                 }
 
                 return builderTransformation(
-                    new FinalContinuationBuilder<TOuterQuery>(outer),
+                    builder,
                     continuations
                         .Select(x => x.ToTraversal())
                         .ToImmutableList(),
