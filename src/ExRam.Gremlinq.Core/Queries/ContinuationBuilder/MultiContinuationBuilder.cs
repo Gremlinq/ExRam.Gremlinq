@@ -29,6 +29,9 @@ namespace ExRam.Gremlinq.Core
         {
             if (_outer is { } outer && _continuations is { } continuations)
             {
+                if (outer.Flags.HasFlag(QueryFlags.IsMuted))
+                    return outer.CloneAs<TNewQuery>();
+
                 var builder = new FinalContinuationBuilder<TOuterQuery>(outer);
                 var traversalArray = continuations.Count > 0
                     ? new Traversal[continuations.Count]
