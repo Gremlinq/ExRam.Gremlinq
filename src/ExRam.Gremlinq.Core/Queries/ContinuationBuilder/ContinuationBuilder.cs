@@ -59,7 +59,9 @@ namespace ExRam.Gremlinq.Core
         public TNewQuery Build<TNewQuery, TState>(Func<FinalContinuationBuilder<TOuterQuery>, TState, TNewQuery> builderTransformation, TState state)
         {
             return _outer is { } outer
-                ? builderTransformation(new FinalContinuationBuilder<TOuterQuery>(outer), state)
+                ? outer.Flags.HasFlag(QueryFlags.IsMuted)
+                    ? outer.CloneAs<TNewQuery>()
+                    : builderTransformation(new FinalContinuationBuilder<TOuterQuery>(outer), state)
                 : throw new InvalidOperationException();
         }
 
