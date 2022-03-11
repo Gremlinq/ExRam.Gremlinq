@@ -74,12 +74,16 @@ namespace ExRam.Gremlinq.Core
 
         public SideEffectSemantics SideEffectSemantics { get; }
 
-        private void CopyTo(Step[] steps, int destinationIndex)
+        public void CopyTo(Step[] destination) => CopyTo(destination, 0);
+
+        public void CopyTo(Step[] destination, int destinationIndex) => CopyTo(0, destination, destinationIndex, Count);
+
+        public void CopyTo(int sourceIndex, Step[] destination, int destinationIndex, int length)
         {
             if (_steps is ImmutableArray<Step> immutableArray)
-                immutableArray.CopyTo(steps, destinationIndex);
-            else if (_steps is Step[] array)
-                array.CopyTo(steps, destinationIndex);
+                immutableArray.CopyTo(sourceIndex, destination, destinationIndex, length);
+            else if (_steps is Step[] source)
+                Array.Copy(source, sourceIndex, destination, destinationIndex, length);
             else
                 throw new InvalidOperationException();
         }
