@@ -4,7 +4,7 @@ using ExRam.Gremlinq.Core.Steps;
 
 namespace ExRam.Gremlinq.Core
 {
-    public static class GremlinQueryAdmin
+    public static class GremlinQueryAdminExtensions
     {
         public static TTargetQuery AddSteps<TTargetQuery>(this IGremlinQueryAdmin admin, IEnumerable<Step> steps)
             where TTargetQuery : IGremlinQueryBase

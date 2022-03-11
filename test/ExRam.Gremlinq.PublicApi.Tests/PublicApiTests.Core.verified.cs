@@ -98,7 +98,7 @@
         ConcurrentAccess = 64,
         All = 127,
     }
-    public static class GremlinQueryAdmin
+    public static class GremlinQueryAdminExtensions
     {
         public static TTargetQuery AddSteps<TTargetQuery>(this ExRam.Gremlinq.Core.IGremlinQueryAdmin admin, System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Steps.Step> steps)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase { }
