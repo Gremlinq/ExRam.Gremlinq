@@ -141,8 +141,6 @@ namespace ExRam.Gremlinq.Core
         TSelf Tail(long count);
         TSelf TailLocal(long count);
 
-        TSelf Times(int count);
-
         TTargetQuery Union<TTargetQuery>(params Func<TSelf, TTargetQuery>[] unionTraversals) where TTargetQuery : IGremlinQueryBase;
         IValueGremlinQuery<object> Union(params Func<TSelf, IGremlinQueryBase>[] traversals);
 

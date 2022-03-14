@@ -8,5 +8,6 @@ namespace ExRam.Gremlinq.Core
         where TQuery : IGremlinQueryBase
     {
         IRepeatEmitUntil<TQuery> Until(Func<TQuery, IGremlinQueryBase> condition);
+        IRepeatEmitUntil<TQuery> Times(int loopCount);
     }
 }
