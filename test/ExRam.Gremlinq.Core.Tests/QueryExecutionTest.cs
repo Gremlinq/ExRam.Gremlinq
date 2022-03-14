@@ -3437,6 +3437,21 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task Emit_Repeat()
+        {
+            await _g
+                .V<Person>()
+                .Cast<object>()
+                .Emit(_ => _
+                    .Repeat(
+                        __ => __
+                            .InE()
+                            .OutV()
+                            .Cast<object>()))
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task Repeat_Emit_Until()
         {
             await _g
@@ -3453,6 +3468,22 @@ namespace ExRam.Gremlinq.Core.Tests
                             __ => __
                                 .V<Company>()
                                 .Cast<object>()))
+                .Verify();
+        }
+
+        [Fact]
+        public virtual async Task Repeat_Emit()
+        {
+            await _g
+                .V<Person>()
+                .Cast<object>()
+                .Repeat(
+                    __ => __
+                        .InE()
+                        .OutV()
+                        .Cast<object>(),
+                    _ => _
+                        .Emit())
                 .Verify();
         }
 
