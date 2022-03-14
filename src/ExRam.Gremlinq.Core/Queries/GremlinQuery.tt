@@ -109,8 +109,7 @@ namespace ExRam.Gremlinq.Core
 
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.RangeLocal(long low, long high) => RangeLocal(low, high);
 
-        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Repeat(Func<<#= iface #>, <#= iface #>> loop) => Repeat(loop);
-        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Repeat(Func<<#= iface #>, <#= iface #>> loop, Func<IRepeat<<#= iface #>>, IFinalLoopBuilder<<#= iface #>>> loopBuilderTransformation) => Repeat(loop, loopBuilderTransformation);
+        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Repeat(Func<<#= iface #>, <#= iface #>> loop, Func<IRepeat<<#= iface #>>, IFinalLoopBuilder<<#= iface #>>>? loopBuilderTransformation) => Repeat(loop, loopBuilderTransformation);
 
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Until(Func<<#= iface #>, IGremlinQueryBase> condition, Func<IUntil<<#= iface #>>, IFinalLoopBuilder<<#= iface #>>> loopBuilderTransformation) => Until(condition, loopBuilderTransformation);
 

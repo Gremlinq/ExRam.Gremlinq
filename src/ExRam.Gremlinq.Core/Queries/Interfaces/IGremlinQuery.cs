@@ -131,8 +131,7 @@ namespace ExRam.Gremlinq.Core
         TSelf Range(long low, long high);
         TSelf RangeLocal(long low, long high);
 
-        TSelf Repeat(Func<TSelf, TSelf> loop);
-        TSelf Repeat(Func<TSelf, TSelf> loop, Func<IRepeat<TSelf>, IFinalLoopBuilder<TSelf>> loopBuilderTransformation);
+        TSelf Repeat(Func<TSelf, TSelf> loop, Func<IRepeat<TSelf>, IFinalLoopBuilder<TSelf>>? loopBuilderTransformation = null);
 
         TSelf Until(Func<TSelf, IGremlinQueryBase> condition, Func<IUntil<TSelf>, IFinalLoopBuilder<TSelf>> loopBuilderTransformation);
 
