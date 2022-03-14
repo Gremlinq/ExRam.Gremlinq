@@ -102,8 +102,6 @@ namespace ExRam.Gremlinq.Core
         TSelf Dedup();
         TSelf DedupLocal();
 
-        TSelf Emit(Func<IEmit<TSelf>, IFinalLoopBuilder<TSelf>> loopBuilderTransformation);
-
         TTargetQuery FlatMap<TTargetQuery>(Func<TSelf, TTargetQuery> mapping) where TTargetQuery : IGremlinQueryBase;
 
         IValueGremlinQuery<IDictionary<TNewKey, TNewValue>> Group<TNewKey, TNewValue>(Func<IGroupBuilder<TSelf>, IGroupBuilderWithKeyAndValue<TSelf, TNewKey, TNewValue>> groupBuilder);
@@ -131,9 +129,7 @@ namespace ExRam.Gremlinq.Core
         TSelf Range(long low, long high);
         TSelf RangeLocal(long low, long high);
 
-        TSelf Repeat(Func<TSelf, TSelf> loop, Func<IRepeat<TSelf>, IFinalLoopBuilder<TSelf>>? loopBuilderTransformation = null);
-
-        TSelf Until(Func<TSelf, IGremlinQueryBase> condition, Func<IUntil<TSelf>, IFinalLoopBuilder<TSelf>> loopBuilderTransformation);
+        TSelf Loop(Func<IStartLoopBuilder<TSelf>, IFinalLoopBuilder<TSelf>> loopBuilderTransformation);
 
         TSelf SideEffect(Func<TSelf, IGremlinQueryBase> sideEffectTraversal);
 

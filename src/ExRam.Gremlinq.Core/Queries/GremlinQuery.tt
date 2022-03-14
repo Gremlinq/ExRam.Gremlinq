@@ -63,8 +63,6 @@ namespace ExRam.Gremlinq.Core
 
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.DedupLocal() => DedupLocal();
 
-        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Emit(Func<IEmit<<#= iface #>>, IFinalLoopBuilder<<#= iface #>>> loopBuilderTransformation)=> Emit(loopBuilderTransformation);
-
         TTargetQuery IGremlinQueryBaseRec<<#= iface #>>.FlatMap<TTargetQuery>(Func<<#= iface #>, TTargetQuery> mapping) => FlatMap(mapping);
 
         IArrayGremlinQuery<TElement[], TElement, <#= iface #>> IGremlinQueryBaseRec<TElement, <#= iface #>>.ForceArray() => CloneAs<IArrayGremlinQuery<TElement[], TElement, <#= iface #>>>();
@@ -83,6 +81,8 @@ namespace ExRam.Gremlinq.Core
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.LimitLocal(long count) => LimitLocal(count);
 
         TTargetQuery IGremlinQueryBaseRec<<#= iface #>>.Local<TTargetQuery>(Func<<#= iface #> , TTargetQuery> localTraversal) => Local(localTraversal);
+
+        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Loop(Func<IStartLoopBuilder<<#= iface #>>, IFinalLoopBuilder<<#= iface #>>> loopBuilderTransformation) => Loop(loopBuilderTransformation);
 
         TTargetQuery IGremlinQueryBaseRec<<#= iface #>>.Map<TTargetQuery>(Func<<#= iface #>, TTargetQuery> mapping) => Map(mapping);
 
@@ -108,10 +108,6 @@ namespace ExRam.Gremlinq.Core
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Range(long low, long high) => RangeGlobal(low, high);
 
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.RangeLocal(long low, long high) => RangeLocal(low, high);
-
-        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Repeat(Func<<#= iface #>, <#= iface #>> loop, Func<IRepeat<<#= iface #>>, IFinalLoopBuilder<<#= iface #>>>? loopBuilderTransformation) => Repeat(loop, loopBuilderTransformation);
-
-        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Until(Func<<#= iface #>, IGremlinQueryBase> condition, Func<IUntil<<#= iface #>>, IFinalLoopBuilder<<#= iface #>>> loopBuilderTransformation) => Until(condition, loopBuilderTransformation);
 
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.SideEffect(Func<<#= iface #>, IGremlinQueryBase> sideEffectTraversal) => SideEffect(sideEffectTraversal);
 
