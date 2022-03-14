@@ -14,7 +14,7 @@ namespace ExRam.Gremlinq.Core
 
         private readonly IReadOnlyList<Step> _steps;
 
-        public Traversal(IEnumerable<Step> steps, Projection projection) : this(steps.ToArray(), true, projection)
+        public Traversal(IEnumerable<Step> steps, Projection projection) : this(ToArrayHelper(steps), true, projection)
         {
         }
 
@@ -26,7 +26,7 @@ namespace ExRam.Gremlinq.Core
         {
             _steps = owned
                 ? steps
-                : steps.ToArray();
+                : ToArrayHelper(steps);
 
             Projection = projection;
             SideEffectSemantics = SideEffectSemantics.Read;
@@ -93,5 +93,9 @@ namespace ExRam.Gremlinq.Core
         public static implicit operator Traversal(ImmutableArray<Step> steps) => new(steps, Projection.Empty);
 
         public static implicit operator Traversal(Step step) => new(new[] { step }, true, Projection.Empty);
+
+        private static Step[] ToArrayHelper(IEnumerable<Step> steps) => steps is Step[] array
+            ? (Step[])array.Clone()
+            : steps.ToArray();
     }
 }
