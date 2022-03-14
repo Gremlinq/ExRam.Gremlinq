@@ -451,8 +451,7 @@
         TSelf OrderLocal(System.Func<ExRam.Gremlinq.Core.IOrderBuilder<TSelf>, ExRam.Gremlinq.Core.IOrderBuilderWithBy<TSelf>> projection);
         TSelf Range(long low, long high);
         TSelf RangeLocal(long low, long high);
-        TSelf Repeat(System.Func<TSelf, TSelf> loop);
-        TSelf Repeat(System.Func<TSelf, TSelf> loop, System.Func<ExRam.Gremlinq.Core.IRepeat<TSelf>, ExRam.Gremlinq.Core.IFinalLoopBuilder<TSelf>> loopBuilderTransformation);
+        TSelf Repeat(System.Func<TSelf, TSelf> loop, System.Func<ExRam.Gremlinq.Core.IRepeat<TSelf>, ExRam.Gremlinq.Core.IFinalLoopBuilder<TSelf>>? loopBuilderTransformation = null);
         TSelf SideEffect(System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase> sideEffectTraversal);
         TSelf SimplePath();
         TSelf Skip(long count);
