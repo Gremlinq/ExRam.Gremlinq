@@ -144,8 +144,7 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<TElement> IGremlinQueryBaseRec<IGremlinQuery<TElement>>.RangeLocal(long low, long high) => RangeLocal(low, high);
 
-        IGremlinQuery<TElement> IGremlinQueryBaseRec<IGremlinQuery<TElement>>.Repeat(Func<IGremlinQuery<TElement>, IGremlinQuery<TElement>> loop) => Repeat(loop);
-        IGremlinQuery<TElement> IGremlinQueryBaseRec<IGremlinQuery<TElement>>.Repeat(Func<IGremlinQuery<TElement>, IGremlinQuery<TElement>> loop, Func<IRepeat<IGremlinQuery<TElement>>, IFinalLoopBuilder<IGremlinQuery<TElement>>> loopBuilderTransformation) => Repeat(loop, loopBuilderTransformation);
+        IGremlinQuery<TElement> IGremlinQueryBaseRec<IGremlinQuery<TElement>>.Repeat(Func<IGremlinQuery<TElement>, IGremlinQuery<TElement>> loop, Func<IRepeat<IGremlinQuery<TElement>>, IFinalLoopBuilder<IGremlinQuery<TElement>>>? loopBuilderTransformation) => Repeat(loop, loopBuilderTransformation);
 
         IGremlinQuery<TElement> IGremlinQueryBaseRec<IGremlinQuery<TElement>>.Until(Func<IGremlinQuery<TElement>, IGremlinQueryBase> condition, Func<IUntil<IGremlinQuery<TElement>>, IFinalLoopBuilder<IGremlinQuery<TElement>>> loopBuilderTransformation) => Until(condition, loopBuilderTransformation);
 
@@ -252,8 +251,7 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<TElement> IGremlinQueryBaseRec<IValueGremlinQuery<TElement>>.RangeLocal(long low, long high) => RangeLocal(low, high);
 
-        IValueGremlinQuery<TElement> IGremlinQueryBaseRec<IValueGremlinQuery<TElement>>.Repeat(Func<IValueGremlinQuery<TElement>, IValueGremlinQuery<TElement>> loop) => Repeat(loop);
-        IValueGremlinQuery<TElement> IGremlinQueryBaseRec<IValueGremlinQuery<TElement>>.Repeat(Func<IValueGremlinQuery<TElement>, IValueGremlinQuery<TElement>> loop, Func<IRepeat<IValueGremlinQuery<TElement>>, IFinalLoopBuilder<IValueGremlinQuery<TElement>>> loopBuilderTransformation) => Repeat(loop, loopBuilderTransformation);
+        IValueGremlinQuery<TElement> IGremlinQueryBaseRec<IValueGremlinQuery<TElement>>.Repeat(Func<IValueGremlinQuery<TElement>, IValueGremlinQuery<TElement>> loop, Func<IRepeat<IValueGremlinQuery<TElement>>, IFinalLoopBuilder<IValueGremlinQuery<TElement>>>? loopBuilderTransformation) => Repeat(loop, loopBuilderTransformation);
 
         IValueGremlinQuery<TElement> IGremlinQueryBaseRec<IValueGremlinQuery<TElement>>.Until(Func<IValueGremlinQuery<TElement>, IGremlinQueryBase> condition, Func<IUntil<IValueGremlinQuery<TElement>>, IFinalLoopBuilder<IValueGremlinQuery<TElement>>> loopBuilderTransformation) => Until(condition, loopBuilderTransformation);
 
@@ -360,8 +358,7 @@ namespace ExRam.Gremlinq.Core
 
         IValueTupleGremlinQuery<TElement> IGremlinQueryBaseRec<IValueTupleGremlinQuery<TElement>>.RangeLocal(long low, long high) => RangeLocal(low, high);
 
-        IValueTupleGremlinQuery<TElement> IGremlinQueryBaseRec<IValueTupleGremlinQuery<TElement>>.Repeat(Func<IValueTupleGremlinQuery<TElement>, IValueTupleGremlinQuery<TElement>> loop) => Repeat(loop);
-        IValueTupleGremlinQuery<TElement> IGremlinQueryBaseRec<IValueTupleGremlinQuery<TElement>>.Repeat(Func<IValueTupleGremlinQuery<TElement>, IValueTupleGremlinQuery<TElement>> loop, Func<IRepeat<IValueTupleGremlinQuery<TElement>>, IFinalLoopBuilder<IValueTupleGremlinQuery<TElement>>> loopBuilderTransformation) => Repeat(loop, loopBuilderTransformation);
+        IValueTupleGremlinQuery<TElement> IGremlinQueryBaseRec<IValueTupleGremlinQuery<TElement>>.Repeat(Func<IValueTupleGremlinQuery<TElement>, IValueTupleGremlinQuery<TElement>> loop, Func<IRepeat<IValueTupleGremlinQuery<TElement>>, IFinalLoopBuilder<IValueTupleGremlinQuery<TElement>>>? loopBuilderTransformation) => Repeat(loop, loopBuilderTransformation);
 
         IValueTupleGremlinQuery<TElement> IGremlinQueryBaseRec<IValueTupleGremlinQuery<TElement>>.Until(Func<IValueTupleGremlinQuery<TElement>, IGremlinQueryBase> condition, Func<IUntil<IValueTupleGremlinQuery<TElement>>, IFinalLoopBuilder<IValueTupleGremlinQuery<TElement>>> loopBuilderTransformation) => Until(condition, loopBuilderTransformation);
 
@@ -468,8 +465,7 @@ namespace ExRam.Gremlinq.Core
 
         IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.RangeLocal(long low, long high) => RangeLocal(low, high);
 
-        IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.Repeat(Func<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>, IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>> loop) => Repeat(loop);
-        IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.Repeat(Func<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>, IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>> loop, Func<IRepeat<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>, IFinalLoopBuilder<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>> loopBuilderTransformation) => Repeat(loop, loopBuilderTransformation);
+        IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.Repeat(Func<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>, IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>> loop, Func<IRepeat<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>, IFinalLoopBuilder<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>>? loopBuilderTransformation) => Repeat(loop, loopBuilderTransformation);
 
         IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.Until(Func<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>, IGremlinQueryBase> condition, Func<IUntil<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>, IFinalLoopBuilder<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>> loopBuilderTransformation) => Until(condition, loopBuilderTransformation);
 
@@ -576,8 +572,7 @@ namespace ExRam.Gremlinq.Core
 
         IElementGremlinQuery<TElement> IGremlinQueryBaseRec<IElementGremlinQuery<TElement>>.RangeLocal(long low, long high) => RangeLocal(low, high);
 
-        IElementGremlinQuery<TElement> IGremlinQueryBaseRec<IElementGremlinQuery<TElement>>.Repeat(Func<IElementGremlinQuery<TElement>, IElementGremlinQuery<TElement>> loop) => Repeat(loop);
-        IElementGremlinQuery<TElement> IGremlinQueryBaseRec<IElementGremlinQuery<TElement>>.Repeat(Func<IElementGremlinQuery<TElement>, IElementGremlinQuery<TElement>> loop, Func<IRepeat<IElementGremlinQuery<TElement>>, IFinalLoopBuilder<IElementGremlinQuery<TElement>>> loopBuilderTransformation) => Repeat(loop, loopBuilderTransformation);
+        IElementGremlinQuery<TElement> IGremlinQueryBaseRec<IElementGremlinQuery<TElement>>.Repeat(Func<IElementGremlinQuery<TElement>, IElementGremlinQuery<TElement>> loop, Func<IRepeat<IElementGremlinQuery<TElement>>, IFinalLoopBuilder<IElementGremlinQuery<TElement>>>? loopBuilderTransformation) => Repeat(loop, loopBuilderTransformation);
 
         IElementGremlinQuery<TElement> IGremlinQueryBaseRec<IElementGremlinQuery<TElement>>.Until(Func<IElementGremlinQuery<TElement>, IGremlinQueryBase> condition, Func<IUntil<IElementGremlinQuery<TElement>>, IFinalLoopBuilder<IElementGremlinQuery<TElement>>> loopBuilderTransformation) => Until(condition, loopBuilderTransformation);
 
@@ -684,8 +679,7 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeOrVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<TElement>>.RangeLocal(long low, long high) => RangeLocal(low, high);
 
-        IEdgeOrVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<TElement>>.Repeat(Func<IEdgeOrVertexGremlinQuery<TElement>, IEdgeOrVertexGremlinQuery<TElement>> loop) => Repeat(loop);
-        IEdgeOrVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<TElement>>.Repeat(Func<IEdgeOrVertexGremlinQuery<TElement>, IEdgeOrVertexGremlinQuery<TElement>> loop, Func<IRepeat<IEdgeOrVertexGremlinQuery<TElement>>, IFinalLoopBuilder<IEdgeOrVertexGremlinQuery<TElement>>> loopBuilderTransformation) => Repeat(loop, loopBuilderTransformation);
+        IEdgeOrVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<TElement>>.Repeat(Func<IEdgeOrVertexGremlinQuery<TElement>, IEdgeOrVertexGremlinQuery<TElement>> loop, Func<IRepeat<IEdgeOrVertexGremlinQuery<TElement>>, IFinalLoopBuilder<IEdgeOrVertexGremlinQuery<TElement>>>? loopBuilderTransformation) => Repeat(loop, loopBuilderTransformation);
 
         IEdgeOrVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<TElement>>.Until(Func<IEdgeOrVertexGremlinQuery<TElement>, IGremlinQueryBase> condition, Func<IUntil<IEdgeOrVertexGremlinQuery<TElement>>, IFinalLoopBuilder<IEdgeOrVertexGremlinQuery<TElement>>> loopBuilderTransformation) => Until(condition, loopBuilderTransformation);
 
@@ -792,8 +786,7 @@ namespace ExRam.Gremlinq.Core
 
         IVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IVertexGremlinQuery<TElement>>.RangeLocal(long low, long high) => RangeLocal(low, high);
 
-        IVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IVertexGremlinQuery<TElement>>.Repeat(Func<IVertexGremlinQuery<TElement>, IVertexGremlinQuery<TElement>> loop) => Repeat(loop);
-        IVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IVertexGremlinQuery<TElement>>.Repeat(Func<IVertexGremlinQuery<TElement>, IVertexGremlinQuery<TElement>> loop, Func<IRepeat<IVertexGremlinQuery<TElement>>, IFinalLoopBuilder<IVertexGremlinQuery<TElement>>> loopBuilderTransformation) => Repeat(loop, loopBuilderTransformation);
+        IVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IVertexGremlinQuery<TElement>>.Repeat(Func<IVertexGremlinQuery<TElement>, IVertexGremlinQuery<TElement>> loop, Func<IRepeat<IVertexGremlinQuery<TElement>>, IFinalLoopBuilder<IVertexGremlinQuery<TElement>>>? loopBuilderTransformation) => Repeat(loop, loopBuilderTransformation);
 
         IVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IVertexGremlinQuery<TElement>>.Until(Func<IVertexGremlinQuery<TElement>, IGremlinQueryBase> condition, Func<IUntil<IVertexGremlinQuery<TElement>>, IFinalLoopBuilder<IVertexGremlinQuery<TElement>>> loopBuilderTransformation) => Until(condition, loopBuilderTransformation);
 
@@ -900,8 +893,7 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeGremlinQuery<TElement>>.RangeLocal(long low, long high) => RangeLocal(low, high);
 
-        IEdgeGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeGremlinQuery<TElement>>.Repeat(Func<IEdgeGremlinQuery<TElement>, IEdgeGremlinQuery<TElement>> loop) => Repeat(loop);
-        IEdgeGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeGremlinQuery<TElement>>.Repeat(Func<IEdgeGremlinQuery<TElement>, IEdgeGremlinQuery<TElement>> loop, Func<IRepeat<IEdgeGremlinQuery<TElement>>, IFinalLoopBuilder<IEdgeGremlinQuery<TElement>>> loopBuilderTransformation) => Repeat(loop, loopBuilderTransformation);
+        IEdgeGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeGremlinQuery<TElement>>.Repeat(Func<IEdgeGremlinQuery<TElement>, IEdgeGremlinQuery<TElement>> loop, Func<IRepeat<IEdgeGremlinQuery<TElement>>, IFinalLoopBuilder<IEdgeGremlinQuery<TElement>>>? loopBuilderTransformation) => Repeat(loop, loopBuilderTransformation);
 
         IEdgeGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeGremlinQuery<TElement>>.Until(Func<IEdgeGremlinQuery<TElement>, IGremlinQueryBase> condition, Func<IUntil<IEdgeGremlinQuery<TElement>>, IFinalLoopBuilder<IEdgeGremlinQuery<TElement>>> loopBuilderTransformation) => Until(condition, loopBuilderTransformation);
 
@@ -1008,8 +1000,7 @@ namespace ExRam.Gremlinq.Core
 
         IInOrOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.RangeLocal(long low, long high) => RangeLocal(low, high);
 
-        IInOrOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.Repeat(Func<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>, IInOrOutEdgeGremlinQuery<TElement, TOutVertex>> loop) => Repeat(loop);
-        IInOrOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.Repeat(Func<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>, IInOrOutEdgeGremlinQuery<TElement, TOutVertex>> loop, Func<IRepeat<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>, IFinalLoopBuilder<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>> loopBuilderTransformation) => Repeat(loop, loopBuilderTransformation);
+        IInOrOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.Repeat(Func<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>, IInOrOutEdgeGremlinQuery<TElement, TOutVertex>> loop, Func<IRepeat<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>, IFinalLoopBuilder<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>>? loopBuilderTransformation) => Repeat(loop, loopBuilderTransformation);
 
         IInOrOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.Until(Func<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>, IGremlinQueryBase> condition, Func<IUntil<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>, IFinalLoopBuilder<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>> loopBuilderTransformation) => Until(condition, loopBuilderTransformation);
 
@@ -1116,8 +1107,7 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IGremlinQueryBaseRec<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.RangeLocal(long low, long high) => RangeLocal(low, high);
 
-        IEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IGremlinQueryBaseRec<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.Repeat(Func<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>> loop) => Repeat(loop);
-        IEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IGremlinQueryBaseRec<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.Repeat(Func<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>> loop, Func<IRepeat<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>, IFinalLoopBuilder<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>> loopBuilderTransformation) => Repeat(loop, loopBuilderTransformation);
+        IEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IGremlinQueryBaseRec<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.Repeat(Func<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>> loop, Func<IRepeat<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>, IFinalLoopBuilder<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>>? loopBuilderTransformation) => Repeat(loop, loopBuilderTransformation);
 
         IEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IGremlinQueryBaseRec<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.Until(Func<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, IGremlinQueryBase> condition, Func<IUntil<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>, IFinalLoopBuilder<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>> loopBuilderTransformation) => Until(condition, loopBuilderTransformation);
 
@@ -1224,8 +1214,7 @@ namespace ExRam.Gremlinq.Core
 
         IInEdgeGremlinQuery<TElement, TInVertex> IGremlinQueryBaseRec<IInEdgeGremlinQuery<TElement, TInVertex>>.RangeLocal(long low, long high) => RangeLocal(low, high);
 
-        IInEdgeGremlinQuery<TElement, TInVertex> IGremlinQueryBaseRec<IInEdgeGremlinQuery<TElement, TInVertex>>.Repeat(Func<IInEdgeGremlinQuery<TElement, TInVertex>, IInEdgeGremlinQuery<TElement, TInVertex>> loop) => Repeat(loop);
-        IInEdgeGremlinQuery<TElement, TInVertex> IGremlinQueryBaseRec<IInEdgeGremlinQuery<TElement, TInVertex>>.Repeat(Func<IInEdgeGremlinQuery<TElement, TInVertex>, IInEdgeGremlinQuery<TElement, TInVertex>> loop, Func<IRepeat<IInEdgeGremlinQuery<TElement, TInVertex>>, IFinalLoopBuilder<IInEdgeGremlinQuery<TElement, TInVertex>>> loopBuilderTransformation) => Repeat(loop, loopBuilderTransformation);
+        IInEdgeGremlinQuery<TElement, TInVertex> IGremlinQueryBaseRec<IInEdgeGremlinQuery<TElement, TInVertex>>.Repeat(Func<IInEdgeGremlinQuery<TElement, TInVertex>, IInEdgeGremlinQuery<TElement, TInVertex>> loop, Func<IRepeat<IInEdgeGremlinQuery<TElement, TInVertex>>, IFinalLoopBuilder<IInEdgeGremlinQuery<TElement, TInVertex>>>? loopBuilderTransformation) => Repeat(loop, loopBuilderTransformation);
 
         IInEdgeGremlinQuery<TElement, TInVertex> IGremlinQueryBaseRec<IInEdgeGremlinQuery<TElement, TInVertex>>.Until(Func<IInEdgeGremlinQuery<TElement, TInVertex>, IGremlinQueryBase> condition, Func<IUntil<IInEdgeGremlinQuery<TElement, TInVertex>>, IFinalLoopBuilder<IInEdgeGremlinQuery<TElement, TInVertex>>> loopBuilderTransformation) => Until(condition, loopBuilderTransformation);
 
@@ -1332,8 +1321,7 @@ namespace ExRam.Gremlinq.Core
 
         IOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<TElement, TOutVertex>>.RangeLocal(long low, long high) => RangeLocal(low, high);
 
-        IOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<TElement, TOutVertex>>.Repeat(Func<IOutEdgeGremlinQuery<TElement, TOutVertex>, IOutEdgeGremlinQuery<TElement, TOutVertex>> loop) => Repeat(loop);
-        IOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<TElement, TOutVertex>>.Repeat(Func<IOutEdgeGremlinQuery<TElement, TOutVertex>, IOutEdgeGremlinQuery<TElement, TOutVertex>> loop, Func<IRepeat<IOutEdgeGremlinQuery<TElement, TOutVertex>>, IFinalLoopBuilder<IOutEdgeGremlinQuery<TElement, TOutVertex>>> loopBuilderTransformation) => Repeat(loop, loopBuilderTransformation);
+        IOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<TElement, TOutVertex>>.Repeat(Func<IOutEdgeGremlinQuery<TElement, TOutVertex>, IOutEdgeGremlinQuery<TElement, TOutVertex>> loop, Func<IRepeat<IOutEdgeGremlinQuery<TElement, TOutVertex>>, IFinalLoopBuilder<IOutEdgeGremlinQuery<TElement, TOutVertex>>>? loopBuilderTransformation) => Repeat(loop, loopBuilderTransformation);
 
         IOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<TElement, TOutVertex>>.Until(Func<IOutEdgeGremlinQuery<TElement, TOutVertex>, IGremlinQueryBase> condition, Func<IUntil<IOutEdgeGremlinQuery<TElement, TOutVertex>>, IFinalLoopBuilder<IOutEdgeGremlinQuery<TElement, TOutVertex>>> loopBuilderTransformation) => Until(condition, loopBuilderTransformation);
 
@@ -1440,8 +1428,7 @@ namespace ExRam.Gremlinq.Core
 
         IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.RangeLocal(long low, long high) => RangeLocal(low, high);
 
-        IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Repeat(Func<IVertexPropertyGremlinQuery<TElement, TScalar>, IVertexPropertyGremlinQuery<TElement, TScalar>> loop) => Repeat(loop);
-        IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Repeat(Func<IVertexPropertyGremlinQuery<TElement, TScalar>, IVertexPropertyGremlinQuery<TElement, TScalar>> loop, Func<IRepeat<IVertexPropertyGremlinQuery<TElement, TScalar>>, IFinalLoopBuilder<IVertexPropertyGremlinQuery<TElement, TScalar>>> loopBuilderTransformation) => Repeat(loop, loopBuilderTransformation);
+        IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Repeat(Func<IVertexPropertyGremlinQuery<TElement, TScalar>, IVertexPropertyGremlinQuery<TElement, TScalar>> loop, Func<IRepeat<IVertexPropertyGremlinQuery<TElement, TScalar>>, IFinalLoopBuilder<IVertexPropertyGremlinQuery<TElement, TScalar>>>? loopBuilderTransformation) => Repeat(loop, loopBuilderTransformation);
 
         IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Until(Func<IVertexPropertyGremlinQuery<TElement, TScalar>, IGremlinQueryBase> condition, Func<IUntil<IVertexPropertyGremlinQuery<TElement, TScalar>>, IFinalLoopBuilder<IVertexPropertyGremlinQuery<TElement, TScalar>>> loopBuilderTransformation) => Until(condition, loopBuilderTransformation);
 
@@ -1548,8 +1535,7 @@ namespace ExRam.Gremlinq.Core
 
         IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.RangeLocal(long low, long high) => RangeLocal(low, high);
 
-        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Repeat(Func<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>> loop) => Repeat(loop);
-        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Repeat(Func<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>> loop, Func<IRepeat<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>, IFinalLoopBuilder<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>> loopBuilderTransformation) => Repeat(loop, loopBuilderTransformation);
+        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Repeat(Func<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>> loop, Func<IRepeat<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>, IFinalLoopBuilder<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>>? loopBuilderTransformation) => Repeat(loop, loopBuilderTransformation);
 
         IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Until(Func<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, IGremlinQueryBase> condition, Func<IUntil<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>, IFinalLoopBuilder<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>> loopBuilderTransformation) => Until(condition, loopBuilderTransformation);
 
@@ -1656,8 +1642,7 @@ namespace ExRam.Gremlinq.Core
 
         IPropertyGremlinQuery<TElement> IGremlinQueryBaseRec<IPropertyGremlinQuery<TElement>>.RangeLocal(long low, long high) => RangeLocal(low, high);
 
-        IPropertyGremlinQuery<TElement> IGremlinQueryBaseRec<IPropertyGremlinQuery<TElement>>.Repeat(Func<IPropertyGremlinQuery<TElement>, IPropertyGremlinQuery<TElement>> loop) => Repeat(loop);
-        IPropertyGremlinQuery<TElement> IGremlinQueryBaseRec<IPropertyGremlinQuery<TElement>>.Repeat(Func<IPropertyGremlinQuery<TElement>, IPropertyGremlinQuery<TElement>> loop, Func<IRepeat<IPropertyGremlinQuery<TElement>>, IFinalLoopBuilder<IPropertyGremlinQuery<TElement>>> loopBuilderTransformation) => Repeat(loop, loopBuilderTransformation);
+        IPropertyGremlinQuery<TElement> IGremlinQueryBaseRec<IPropertyGremlinQuery<TElement>>.Repeat(Func<IPropertyGremlinQuery<TElement>, IPropertyGremlinQuery<TElement>> loop, Func<IRepeat<IPropertyGremlinQuery<TElement>>, IFinalLoopBuilder<IPropertyGremlinQuery<TElement>>>? loopBuilderTransformation) => Repeat(loop, loopBuilderTransformation);
 
         IPropertyGremlinQuery<TElement> IGremlinQueryBaseRec<IPropertyGremlinQuery<TElement>>.Until(Func<IPropertyGremlinQuery<TElement>, IGremlinQueryBase> condition, Func<IUntil<IPropertyGremlinQuery<TElement>>, IFinalLoopBuilder<IPropertyGremlinQuery<TElement>>> loopBuilderTransformation) => Until(condition, loopBuilderTransformation);
 
