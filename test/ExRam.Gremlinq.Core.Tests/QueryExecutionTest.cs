@@ -3417,6 +3417,21 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task Repeat_Times()
+        {
+            await _g
+                .V<Person>()
+                .Cast<object>()
+                .Loop(_ => _
+                    .Repeat(__ => __
+                        .InE()
+                        .OutV()
+                        .Cast<object>())
+                    .Times(10))
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task Emit_Repeat_Until()
         {
             await _g
@@ -3431,6 +3446,22 @@ namespace ExRam.Gremlinq.Core.Tests
                     .Until(__ => __
                         .V<Company>()
                         .Cast<object>()))
+                .Verify();
+        }
+
+        [Fact]
+        public virtual async Task Emit_Repeat_Times()
+        {
+            await _g
+                .V<Person>()
+                .Cast<object>()
+                .Loop(_ => _
+                    .Emit()
+                    .Repeat(__ => __
+                        .InE()
+                        .OutV()
+                        .Cast<object>())
+                    .Times(10))
                 .Verify();
         }
 
@@ -3464,6 +3495,22 @@ namespace ExRam.Gremlinq.Core.Tests
                     .Until(__ => __
                         .V<Company>()
                         .Cast<object>()))
+                .Verify();
+        }
+
+        [Fact]
+        public virtual async Task Repeat_Emit_Times()
+        {
+            await _g
+                .V<Person>()
+                .Cast<object>()
+                .Loop(_ => _
+                    .Repeat(__ => __
+                        .InE()
+                        .OutV()
+                        .Cast<object>())
+                    .Emit()
+                    .Times(10))
                 .Verify();
         }
 
@@ -3512,7 +3559,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .Where(x => empty.Contains(x.Age))))
                 .Verify();
         }
-        
+
         [Fact]
         public virtual async Task ReplaceE()
         {

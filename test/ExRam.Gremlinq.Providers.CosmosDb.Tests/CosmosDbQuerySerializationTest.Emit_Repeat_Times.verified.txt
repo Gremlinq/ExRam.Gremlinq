@@ -1,0 +1,10 @@
+﻿[
+  {
+    "Script": "g.V().hasLabel(_a).emit().repeat(__.inE().outV()).times(_b)",
+    "Id": "Scrubbed GUID",
+    "Bindings": {
+      "_a": "Person",
+      "_b": 10
+    }
+  }
+]
