@@ -430,7 +430,6 @@
         TSelf CyclicPath();
         TSelf Dedup();
         TSelf DedupLocal();
-        TSelf Emit(System.Func<ExRam.Gremlinq.Core.IEmit<TSelf>, ExRam.Gremlinq.Core.IFinalLoopBuilder<TSelf>> loopBuilderTransformation);
         TTargetQuery FlatMap<TTargetQuery>(System.Func<TSelf, TTargetQuery> mapping)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
         ExRam.Gremlinq.Core.IValueGremlinQuery<System.Collections.Generic.IDictionary<TNewKey, object>> Group<TNewKey>(System.Func<ExRam.Gremlinq.Core.IGroupBuilder<TSelf>, ExRam.Gremlinq.Core.IGroupBuilderWithKey<TSelf, TNewKey>> groupBuilder);
@@ -440,6 +439,7 @@
         TSelf LimitLocal(long count);
         TTargetQuery Local<TTargetQuery>(System.Func<TSelf, TTargetQuery> localTraversal)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
+        TSelf Loop(System.Func<ExRam.Gremlinq.Core.IStartLoopBuilder<TSelf>, ExRam.Gremlinq.Core.IFinalLoopBuilder<TSelf>> loopBuilderTransformation);
         TTargetQuery Map<TTargetQuery>(System.Func<TSelf, TTargetQuery> mapping)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
         TSelf Mute();
@@ -451,7 +451,6 @@
         TSelf OrderLocal(System.Func<ExRam.Gremlinq.Core.IOrderBuilder<TSelf>, ExRam.Gremlinq.Core.IOrderBuilderWithBy<TSelf>> projection);
         TSelf Range(long low, long high);
         TSelf RangeLocal(long low, long high);
-        TSelf Repeat(System.Func<TSelf, TSelf> loop, System.Func<ExRam.Gremlinq.Core.IRepeat<TSelf>, ExRam.Gremlinq.Core.IFinalLoopBuilder<TSelf>>? loopBuilderTransformation = null);
         TSelf SideEffect(System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase> sideEffectTraversal);
         TSelf SimplePath();
         TSelf Skip(long count);
@@ -462,7 +461,6 @@
         ExRam.Gremlinq.Core.IValueGremlinQuery<object> Union(params System.Func<, >[] traversals);
         TTargetQuery Union<TTargetQuery>(params System.Func<, >[] unionTraversals)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
-        TSelf Until(System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase> condition, System.Func<ExRam.Gremlinq.Core.IUntil<TSelf>, ExRam.Gremlinq.Core.IFinalLoopBuilder<TSelf>> loopBuilderTransformation);
         TSelf Where(Gremlin.Net.Process.Traversal.ILambda lambda);
         TSelf Where(System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase> filterTraversal);
     }

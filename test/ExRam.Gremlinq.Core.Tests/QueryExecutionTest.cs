@@ -3392,9 +3392,10 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .V<Person>()
-                .Repeat(__ => __
-                    .Out<WorksFor>()
-                    .OfType<Person>())
+                .Loop(_ => _
+                    .Repeat(__ => __
+                        .Out<WorksFor>()
+                        .OfType<Person>()))
                 .Verify();
         }
 
@@ -3404,16 +3405,14 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Cast<object>()
-                .Repeat(
-                    __ => __
+                .Loop(_ => _
+                    .Repeat(__ => __
                         .InE()
                         .OutV()
-                        .Cast<object>(),
-                    _ => _
-                        .Until(
-                            __ => __
-                                .V<Company>()
-                                .Cast<object>()))
+                        .Cast<object>())
+                    .Until(__ => __
+                        .V<Company>()
+                        .Cast<object>()))
                 .Verify();
         }
 
@@ -3423,16 +3422,15 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Cast<object>()
-                .Emit(_ => _
-                    .Repeat(
-                        __ => __
-                            .InE()
-                            .OutV()
-                            .Cast<object>())
-                    .Until(
-                        __ => __
-                            .V<Company>()
-                            .Cast<object>()))
+                .Loop(_ => _
+                    .Emit()
+                    .Repeat(__ => __
+                        .InE()
+                        .OutV()
+                        .Cast<object>())
+                    .Until(__ => __
+                        .V<Company>()
+                        .Cast<object>()))
                 .Verify();
         }
 
@@ -3442,12 +3440,12 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Cast<object>()
-                .Emit(_ => _
-                    .Repeat(
-                        __ => __
-                            .InE()
-                            .OutV()
-                            .Cast<object>()))
+                .Loop(_ => _
+                    .Emit()
+                    .Repeat(__ => __
+                        .InE()
+                        .OutV()
+                        .Cast<object>()))
                 .Verify();
         }
 
@@ -3457,17 +3455,15 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Cast<object>()
-                .Repeat(
-                    __ => __
+                .Loop(_ => _
+                    .Repeat(__ => __
                         .InE()
                         .OutV()
-                        .Cast<object>(),
-                    _ => _
-                        .Emit()
-                        .Until(
-                            __ => __
-                                .V<Company>()
-                                .Cast<object>()))
+                        .Cast<object>())
+                    .Emit()
+                    .Until(__ => __
+                        .V<Company>()
+                        .Cast<object>()))
                 .Verify();
         }
 
@@ -3477,13 +3473,12 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Cast<object>()
-                .Repeat(
-                    __ => __
+                .Loop(_ => _
+                    .Repeat(__ => __
                         .InE()
                         .OutV()
-                        .Cast<object>(),
-                    _ => _
-                        .Emit())
+                        .Cast<object>())
+                    .Emit())
                 .Verify();
         }
 
@@ -3493,14 +3488,12 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Cast<object>()
-                .Repeat(
-                    __ => __
+                .Loop(_ => _
+                    .Repeat(__ => __
                         .InE()
                         .OutV()
-                        .Cast<object>(),
-                    _ => _
-                        .Until(
-                            __ => __))
+                        .Cast<object>())
+                    .Until(__ => __))
                 .Verify();
         }
 
@@ -3511,13 +3504,12 @@ namespace ExRam.Gremlinq.Core.Tests
 
             await _g
                 .V<Person>()
-                .Repeat(
-                    __ => __
+                .Loop(_ => _
+                    .Repeat(__ => __
                         .InE()
-                        .OutV<Person>(),
-                    _ => _
-                        .Until(
-                            __ => __.Where(x => empty.Contains(x.Age))))
+                        .OutV<Person>())
+                    .Until(__ => __
+                        .Where(x => empty.Contains(x.Age))))
                 .Verify();
         }
         
@@ -3828,13 +3820,14 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Cast<object>()
-                .Until(
-                    __ => __
+                .Loop(_ => _
+                    .Until(__ => __
                         .V<Company>()
-                        .Cast<object>(),
-                    _ => _
-                        .Repeat(
-                            __ => __.InE().OutV().Cast<object>()))
+                        .Cast<object>())
+                    .Repeat(__ => __
+                        .InE()
+                        .OutV()
+                        .Cast<object>()))
                 .Verify();
         }
 
@@ -3844,14 +3837,13 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Cast<object>()
-                .Until(
-                    __ => __
+                .Loop(_ => _
+                    .Until(__ => __
                         .V<Company>()
-                        .Cast<object>(),
-                    _ => _
-                        .Emit()
-                        .Repeat(
-                            __ => __.InE().OutV().Cast<object>()))
+                        .Cast<object>())
+                    .Emit()
+                    .Repeat(__ => __
+                        .InE().OutV().Cast<object>()))
                 .Verify();
         }
 
@@ -3861,14 +3853,15 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Cast<object>()
-                .Until(
-                    __ => __
+                .Loop(_ => _
+                    .Until(__ => __
                         .V<Company>()
-                        .Cast<object>(),
-                    _ => _
-                        .Repeat(
-                            __ => __.InE().OutV().Cast<object>())
-                        .Emit())
+                        .Cast<object>())
+                    .Repeat(__ => __
+                        .InE()
+                        .OutV()
+                        .Cast<object>())
+                    .Emit())
                 .Verify();
         }
 
@@ -3879,13 +3872,12 @@ namespace ExRam.Gremlinq.Core.Tests
 
             await _g
                 .V<Person>()
-                .Until(
-                    __ => __
-                        .Where(x => empty.Contains(x.Age)),
-                    _ => _
-                        .Repeat(__ => __
-                            .InE()
-                            .OutV<Person>()))
+                .Loop(_ => _
+                    .Until(__ => __
+                        .Where(x => empty.Contains(x.Age)))
+                    .Repeat(__ => __
+                        .InE()
+                        .OutV<Person>()))
                 .Verify();
         }
 
@@ -3896,13 +3888,12 @@ namespace ExRam.Gremlinq.Core.Tests
 
             await _g
                 .V<Person>()
-                .Until(
-                    __ => __
-                        .Where(x => empty.Contains(x)),
-                    _ => _
-                        .Repeat(__ => __
-                            .InE()
-                            .OutV<Person>()))
+                .Loop(_ => _
+                    .Until(__ => __
+                        .Where(x => empty.Contains(x)))
+                    .Repeat(__ => __
+                        .InE()
+                        .OutV<Person>()))
                 .Verify();
         }
 
