@@ -3,9 +3,9 @@
 
 namespace ExRam.Gremlinq.Core
 {
-    public interface IFinalLoopBuilder<TQuery>
+    public interface IFinalLoopBuilder<out TQuery>
         where TQuery : IGremlinQueryBase
     {
-
+        TQuery Build();
     }
 }

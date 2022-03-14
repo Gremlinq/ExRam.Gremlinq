@@ -1,13 +1,15 @@
 ﻿#pragma warning disable IDE0003
 // ReSharper disable ArrangeThisQualifier
-
 using System;
+
+using ExRam.Gremlinq.Core.Steps;
 
 namespace ExRam.Gremlinq.Core
 {
     partial class GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>
     {
         private sealed class LoopBuilder<TQuery> :
+            IStartLoopBuilder<TQuery>,
             IEmit<TQuery>,
             IEmitRepeat<TQuery>,
             IEmitRepeatUntil<TQuery>,
@@ -47,9 +49,43 @@ namespace ExRam.Gremlinq.Core
 
             IRepeatEmitUntil<TQuery> IRepeatEmit<TQuery>.Until(Func<TQuery, IGremlinQueryBase> condition) => Until(condition);
 
-            private LoopBuilder<TQuery> Emit() => new(_outerQuery.Emit());
-            private LoopBuilder<TQuery> Until(Func<TQuery, IGremlinQueryBase> condition) => new(_outerQuery.Until(_ => condition((TQuery)(object)_)));
-            private LoopBuilder<TQuery> Repeat(Func<TQuery, TQuery> loop) => new ((GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>)(object)_outerQuery.Repeat(_ => loop((TQuery)(object)_)));
+            IRepeat<TQuery> IStartLoopBuilder<TQuery>.Repeat(Func<TQuery, TQuery> loop) => Repeat(loop);
+
+            IEmit<TQuery> IStartLoopBuilder<TQuery>.Emit() => Emit();
+
+            IUntil<TQuery> IStartLoopBuilder<TQuery>.Until(Func<TQuery, IGremlinQueryBase> condition) => Until(condition);
+
+            private LoopBuilder<TQuery> Emit() => new(_outerQuery
+                .Continue()
+                .Build(static builder => builder
+                    .AddStep(EmitStep.Instance)
+                    .Build()));
+
+            private LoopBuilder<TQuery> Until(Func<TQuery, IGremlinQueryBase> untilCondition) => new(_outerQuery
+                .Continue()
+                .With(_ => untilCondition((TQuery)(object)_))
+                .Build(static (builder, innerTraversal) =>
+                {
+                    if (!innerTraversal.IsNone())
+                    {
+                        builder = builder
+                            .AddStep(new UntilStep(innerTraversal));
+                    }
+
+                    return builder
+                        .Build();
+                }));
+
+            private LoopBuilder<TQuery> Repeat(Func<TQuery, TQuery> loop) => new(_outerQuery
+                .Continue()
+                .With(_ => loop((TQuery)(object)_))
+                .Build(
+                    static (builder, innerTraversal) => builder
+                        .AddStep(new RepeatStep(innerTraversal))
+                        .WithNewProjection(_ => _.Lowest(innerTraversal.Projection))
+                        .Build()));
+
+            public TQuery Build() => (TQuery)(object)_outerQuery;
         }
     }
 }

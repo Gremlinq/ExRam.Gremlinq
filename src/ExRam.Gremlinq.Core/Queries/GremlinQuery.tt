@@ -63,7 +63,7 @@ namespace ExRam.Gremlinq.Core
 
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.DedupLocal() => DedupLocal();
 
-        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Emit() => Emit();
+        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Emit(Func<IEmit<<#= iface #>>, IFinalLoopBuilder<<#= iface #>>> loopBuilderTransformation)=> Emit(loopBuilderTransformation);
 
         TTargetQuery IGremlinQueryBaseRec<<#= iface #>>.FlatMap<TTargetQuery>(Func<<#= iface #>, TTargetQuery> mapping) => FlatMap(mapping);
 
@@ -109,11 +109,10 @@ namespace ExRam.Gremlinq.Core
 
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.RangeLocal(long low, long high) => RangeLocal(low, high);
 
-        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Repeat(Func<<#= iface #>, <#= iface #>> repeatTraversal) => Repeat(repeatTraversal);
+        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Repeat(Func<<#= iface #>, <#= iface #>> loop) => Repeat(loop);
+        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Repeat(Func<<#= iface #>, <#= iface #>> loop, Func<IRepeat<<#= iface #>>, IFinalLoopBuilder<<#= iface #>>> loopBuilderTransformation) => Repeat(loop, loopBuilderTransformation);
 
-        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.RepeatUntil(Func<<#= iface #>, <#= iface #>> repeatTraversal, Func<<#= iface #>, IGremlinQueryBase> untilTraversal) => RepeatUntil(repeatTraversal, untilTraversal);
-
-        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.UntilRepeat(Func<<#= iface #>, <#= iface #>> repeatTraversal, Func<<#= iface #>, IGremlinQueryBase> untilTraversal) => UntilRepeat(repeatTraversal, untilTraversal);
+        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Until(Func<<#= iface #>, IGremlinQueryBase> condition, Func<IUntil<<#= iface #>>, IFinalLoopBuilder<<#= iface #>>> loopBuilderTransformation) => Until(condition, loopBuilderTransformation);
 
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.SideEffect(Func<<#= iface #>, IGremlinQueryBase> sideEffectTraversal) => SideEffect(sideEffectTraversal);
 
