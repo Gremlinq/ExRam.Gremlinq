@@ -1,7 +1,6 @@
 ﻿#pragma warning disable IDE0003
 // ReSharper disable ArrangeThisQualifier
 using System;
-
 using ExRam.Gremlinq.Core.Steps;
 
 namespace ExRam.Gremlinq.Core
@@ -55,11 +54,25 @@ namespace ExRam.Gremlinq.Core
 
             IUntil<TQuery> IStartLoopBuilder<TQuery>.Until(Func<TQuery, IGremlinQueryBase> condition) => Until(condition);
 
+            IEmitRepeatUntil<TQuery> IEmitRepeat<TQuery>.Times(int loopCount) => Times(loopCount);
+
+            IRepeatUntil<TQuery> IRepeat<TQuery>.Times(int loopCount) => Times(loopCount);
+
+            IRepeatEmitUntil<TQuery> IRepeatEmit<TQuery>.Times(int loopCount) => Times(loopCount);
+
             private LoopBuilder<TQuery> Emit() => new(_outerQuery
                 .Continue()
                 .Build(static builder => builder
                     .AddStep(EmitStep.Instance)
                     .Build()));
+
+            private LoopBuilder<TQuery> Times(int loopCount) => new(_outerQuery
+                .Continue()
+                .Build(
+                    static (builder, loopCount) => builder
+                        .AddStep(new TimesStep(loopCount))
+                        .Build(),
+                    loopCount));
 
             private LoopBuilder<TQuery> Until(Func<TQuery, IGremlinQueryBase> untilCondition) => new(_outerQuery
                 .Continue()

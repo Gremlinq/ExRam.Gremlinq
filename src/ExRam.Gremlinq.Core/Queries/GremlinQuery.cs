@@ -975,14 +975,6 @@ namespace ExRam.Gremlinq.Core
                     .Build(),
                 count);
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Times(int count) => this
-            .Continue()
-            .Build(
-                static (builder, count) => builder
-                    .AddStep(new TimesStep(count))
-                    .Build(),
-                count);
-
         private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, object, object, object> To<TNewElement, TNewOutVertex, TNewInVertex>(StepLabel stepLabel) => this
             .Continue()
             .Build(

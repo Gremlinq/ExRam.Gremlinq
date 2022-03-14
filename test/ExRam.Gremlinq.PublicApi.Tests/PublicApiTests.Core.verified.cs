@@ -318,6 +318,7 @@
     public interface IEmitRepeat<TQuery> : ExRam.Gremlinq.Core.IFinalLoopBuilder<TQuery>
         where TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
     {
+        ExRam.Gremlinq.Core.IEmitRepeatUntil<TQuery> Times(int loopCount);
         ExRam.Gremlinq.Core.IEmitRepeatUntil<TQuery> Until(System.Func<TQuery, ExRam.Gremlinq.Core.IGremlinQueryBase> condition);
     }
     public interface IEmit<TQuery>
@@ -457,7 +458,6 @@
         TSelf SkipLocal(long count);
         TSelf Tail(long count);
         TSelf TailLocal(long count);
-        TSelf Times(int count);
         ExRam.Gremlinq.Core.IValueGremlinQuery<object> Union(params System.Func<, >[] traversals);
         TTargetQuery Union<TTargetQuery>(params System.Func<, >[] unionTraversals)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
@@ -773,6 +773,7 @@
     public interface IRepeatEmit<TQuery> : ExRam.Gremlinq.Core.IFinalLoopBuilder<TQuery>
         where TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
     {
+        ExRam.Gremlinq.Core.IRepeatEmitUntil<TQuery> Times(int loopCount);
         ExRam.Gremlinq.Core.IRepeatEmitUntil<TQuery> Until(System.Func<TQuery, ExRam.Gremlinq.Core.IGremlinQueryBase> condition);
     }
     public interface IRepeatUntil<TQuery> : ExRam.Gremlinq.Core.IFinalLoopBuilder<TQuery>
@@ -781,6 +782,7 @@
         where TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
     {
         ExRam.Gremlinq.Core.IRepeatEmit<TQuery> Emit();
+        ExRam.Gremlinq.Core.IRepeatUntil<TQuery> Times(int loopCount);
         ExRam.Gremlinq.Core.IRepeatUntil<TQuery> Until(System.Func<TQuery, ExRam.Gremlinq.Core.IGremlinQueryBase> condition);
     }
     public interface IStartGremlinQuery
