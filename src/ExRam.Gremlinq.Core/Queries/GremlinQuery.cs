@@ -851,6 +851,13 @@ namespace ExRam.Gremlinq.Core
                     .WithNewProjection(_ => _.Lowest(innerTraversal.Projection))
                     .Build<TTargetQuery>());
 
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Until(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> untilCondition) => this
+            .Continue()
+            .With(untilCondition)
+            .Build(static (builder, innerTraversal) => builder
+                .AddStep(new UntilStep(innerTraversal))
+                .Build());
+
         private TTargetQuery RepeatUntil<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> repeatContinuation, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> untilContinuation)
             where TTargetQuery : IGremlinQueryBase => this
                 .Continue()
