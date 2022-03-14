@@ -3418,6 +3418,45 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task Emit_Repeat_Until()
+        {
+            await _g
+                .V<Person>()
+                .Cast<object>()
+                .Emit(_ => _
+                    .Repeat(
+                        __ => __
+                            .InE()
+                            .OutV()
+                            .Cast<object>())
+                    .Until(
+                        __ => __
+                            .V<Company>()
+                            .Cast<object>()))
+                .Verify();
+        }
+
+        [Fact]
+        public virtual async Task Repeat_Emit_Until()
+        {
+            await _g
+                .V<Person>()
+                .Cast<object>()
+                .Repeat(
+                    __ => __
+                        .InE()
+                        .OutV()
+                        .Cast<object>(),
+                    _ => _
+                        .Emit()
+                        .Until(
+                            __ => __
+                                .V<Company>()
+                                .Cast<object>()))
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task RepeatUntil_true()
         {
             await _g
@@ -3765,6 +3804,40 @@ namespace ExRam.Gremlinq.Core.Tests
                     _ => _
                         .Repeat(
                             __ => __.InE().OutV().Cast<object>()))
+                .Verify();
+        }
+
+        [Fact]
+        public virtual async Task Until_Emit_Repeat()
+        {
+            await _g
+                .V<Person>()
+                .Cast<object>()
+                .Until(
+                    __ => __
+                        .V<Company>()
+                        .Cast<object>(),
+                    _ => _
+                        .Emit()
+                        .Repeat(
+                            __ => __.InE().OutV().Cast<object>()))
+                .Verify();
+        }
+
+        [Fact]
+        public virtual async Task Until_Repeat_Emit()
+        {
+            await _g
+                .V<Person>()
+                .Cast<object>()
+                .Until(
+                    __ => __
+                        .V<Company>()
+                        .Cast<object>(),
+                    _ => _
+                        .Repeat(
+                            __ => __.InE().OutV().Cast<object>())
+                        .Emit())
                 .Verify();
         }
 
