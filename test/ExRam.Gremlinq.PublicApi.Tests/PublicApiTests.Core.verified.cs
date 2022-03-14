@@ -313,6 +313,18 @@
         ExRam.Gremlinq.Core.IValueGremlinQuery<TTarget> Values<TTarget>(params System.Linq.Expressions.Expression<>[] projections);
     }
     public interface IElementGremlinQuery<TElement> : ExRam.Gremlinq.Core.IElementGremlinQueryBase, ExRam.Gremlinq.Core.IElementGremlinQueryBaseRec<ExRam.Gremlinq.Core.IElementGremlinQuery<TElement>>, ExRam.Gremlinq.Core.IElementGremlinQueryBaseRec<TElement, ExRam.Gremlinq.Core.IElementGremlinQuery<TElement>>, ExRam.Gremlinq.Core.IElementGremlinQueryBase<TElement>, ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<ExRam.Gremlinq.Core.IElementGremlinQuery<TElement>>, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TElement, ExRam.Gremlinq.Core.IElementGremlinQuery<TElement>>, ExRam.Gremlinq.Core.IGremlinQueryBase<TElement>, ExRam.Gremlinq.Core.IStartGremlinQuery { }
+    public interface IEmitRepeatUntil<TQuery> : ExRam.Gremlinq.Core.IFinalLoopBuilder<TQuery>
+        where TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase { }
+    public interface IEmitRepeat<TQuery> : ExRam.Gremlinq.Core.IFinalLoopBuilder<TQuery>
+        where TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
+    {
+        ExRam.Gremlinq.Core.IEmitRepeatUntil<TQuery> Until(System.Func<TQuery, ExRam.Gremlinq.Core.IGremlinQueryBase> condition);
+    }
+    public interface IEmit<TQuery>
+        where TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
+    {
+        ExRam.Gremlinq.Core.IEmitRepeat<TQuery> Repeat(System.Func<TQuery, TQuery> loop);
+    }
     public interface IFeatureSet
     {
         ExRam.Gremlinq.Core.EdgeFeatures EdgeFeatures { get; }
@@ -327,6 +339,11 @@
         ExRam.Gremlinq.Core.IFeatureSet ConfigureVariableFeatures(System.Func<ExRam.Gremlinq.Core.VariableFeatures, ExRam.Gremlinq.Core.VariableFeatures> config);
         ExRam.Gremlinq.Core.IFeatureSet ConfigureVertexFeatures(System.Func<ExRam.Gremlinq.Core.VertexFeatures, ExRam.Gremlinq.Core.VertexFeatures> config);
         ExRam.Gremlinq.Core.IFeatureSet ConfigureVertexPropertyFeatures(System.Func<ExRam.Gremlinq.Core.VertexPropertyFeatures, ExRam.Gremlinq.Core.VertexPropertyFeatures> config);
+    }
+    public interface IFinalLoopBuilder<out TQuery>
+        where out TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
+    {
+        TQuery Build();
     }
     public interface IGremlinQueryAdmin
     {
@@ -413,7 +430,7 @@
         TSelf CyclicPath();
         TSelf Dedup();
         TSelf DedupLocal();
-        TSelf Emit();
+        TSelf Emit(System.Func<ExRam.Gremlinq.Core.IEmit<TSelf>, ExRam.Gremlinq.Core.IFinalLoopBuilder<TSelf>> loopBuilderTransformation);
         TTargetQuery FlatMap<TTargetQuery>(System.Func<TSelf, TTargetQuery> mapping)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
         ExRam.Gremlinq.Core.IValueGremlinQuery<System.Collections.Generic.IDictionary<TNewKey, object>> Group<TNewKey>(System.Func<ExRam.Gremlinq.Core.IGroupBuilder<TSelf>, ExRam.Gremlinq.Core.IGroupBuilderWithKey<TSelf, TNewKey>> groupBuilder);
@@ -434,8 +451,8 @@
         TSelf OrderLocal(System.Func<ExRam.Gremlinq.Core.IOrderBuilder<TSelf>, ExRam.Gremlinq.Core.IOrderBuilderWithBy<TSelf>> projection);
         TSelf Range(long low, long high);
         TSelf RangeLocal(long low, long high);
-        TSelf Repeat(System.Func<TSelf, TSelf> repeatTraversal);
-        TSelf RepeatUntil(System.Func<TSelf, TSelf> repeatTraversal, System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase> untilTraversal);
+        TSelf Repeat(System.Func<TSelf, TSelf> loop);
+        TSelf Repeat(System.Func<TSelf, TSelf> loop, System.Func<ExRam.Gremlinq.Core.IRepeat<TSelf>, ExRam.Gremlinq.Core.IFinalLoopBuilder<TSelf>> loopBuilderTransformation);
         TSelf SideEffect(System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase> sideEffectTraversal);
         TSelf SimplePath();
         TSelf Skip(long count);
@@ -446,7 +463,7 @@
         ExRam.Gremlinq.Core.IValueGremlinQuery<object> Union(params System.Func<, >[] traversals);
         TTargetQuery Union<TTargetQuery>(params System.Func<, >[] unionTraversals)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
-        TSelf UntilRepeat(System.Func<TSelf, TSelf> repeatTraversal, System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase> untilTraversal);
+        TSelf Until(System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase> condition, System.Func<ExRam.Gremlinq.Core.IUntil<TSelf>, ExRam.Gremlinq.Core.IFinalLoopBuilder<TSelf>> loopBuilderTransformation);
         TSelf Where(Gremlin.Net.Process.Traversal.ILambda lambda);
         TSelf Where(System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase> filterTraversal);
     }
@@ -754,6 +771,21 @@
         ExRam.Gremlinq.Core.IValueGremlinQuery<TValue> Value<TValue>();
     }
     public interface IPropertyGremlinQuery<TElement> : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<ExRam.Gremlinq.Core.IPropertyGremlinQuery<TElement>>, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TElement, ExRam.Gremlinq.Core.IPropertyGremlinQuery<TElement>>, ExRam.Gremlinq.Core.IGremlinQueryBase<TElement>, ExRam.Gremlinq.Core.IPropertyGremlinQueryBase, ExRam.Gremlinq.Core.IPropertyGremlinQueryBase<TElement>, ExRam.Gremlinq.Core.IStartGremlinQuery { }
+    public interface IRepeatEmitUntil<TQuery> : ExRam.Gremlinq.Core.IFinalLoopBuilder<TQuery>
+        where TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase { }
+    public interface IRepeatEmit<TQuery> : ExRam.Gremlinq.Core.IFinalLoopBuilder<TQuery>
+        where TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
+    {
+        ExRam.Gremlinq.Core.IRepeatEmitUntil<TQuery> Until(System.Func<TQuery, ExRam.Gremlinq.Core.IGremlinQueryBase> condition);
+    }
+    public interface IRepeatUntil<TQuery> : ExRam.Gremlinq.Core.IFinalLoopBuilder<TQuery>
+        where TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase { }
+    public interface IRepeat<TQuery> : ExRam.Gremlinq.Core.IFinalLoopBuilder<TQuery>
+        where TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
+    {
+        ExRam.Gremlinq.Core.IRepeatEmit<TQuery> Emit();
+        ExRam.Gremlinq.Core.IRepeatUntil<TQuery> Until(System.Func<TQuery, ExRam.Gremlinq.Core.IGremlinQueryBase> condition);
+    }
     public interface IStartGremlinQuery
     {
         ExRam.Gremlinq.Core.IEdgeGremlinQuery<TEdge> AddE<TEdge>()
@@ -774,6 +806,33 @@
         ExRam.Gremlinq.Core.IVertexGremlinQuery<object> V(params object[] ids);
         ExRam.Gremlinq.Core.IVertexGremlinQuery<TVertex> V<TVertex>(object id);
         ExRam.Gremlinq.Core.IVertexGremlinQuery<TVertex> V<TVertex>(params object[] ids);
+    }
+    public interface IStartLoopBuilder<TQuery>
+        where TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
+    {
+        ExRam.Gremlinq.Core.IEmit<TQuery> Emit();
+        ExRam.Gremlinq.Core.IRepeat<TQuery> Repeat(System.Func<TQuery, TQuery> loop);
+        ExRam.Gremlinq.Core.IUntil<TQuery> Until(System.Func<TQuery, ExRam.Gremlinq.Core.IGremlinQueryBase> condition);
+    }
+    public interface IUntilEmitRepeat<TQuery> : ExRam.Gremlinq.Core.IFinalLoopBuilder<TQuery>
+        where TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase { }
+    public interface IUntilEmit<TQuery>
+        where TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
+    {
+        ExRam.Gremlinq.Core.IUntilEmitRepeat<TQuery> Repeat(System.Func<TQuery, TQuery> loop);
+    }
+    public interface IUntilRepeatEmit<TQuery> : ExRam.Gremlinq.Core.IFinalLoopBuilder<TQuery>
+        where TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase { }
+    public interface IUntilRepeat<TQuery> : ExRam.Gremlinq.Core.IFinalLoopBuilder<TQuery>
+        where TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
+    {
+        ExRam.Gremlinq.Core.IUntilRepeatEmit<TQuery> Emit();
+    }
+    public interface IUntil<TQuery>
+        where TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
+    {
+        ExRam.Gremlinq.Core.IUntilEmit<TQuery> Emit();
+        ExRam.Gremlinq.Core.IUntilRepeat<TQuery> Repeat(System.Func<TQuery, TQuery> loop);
     }
     public interface IValueGremlinQueryBase : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IStartGremlinQuery
     {
