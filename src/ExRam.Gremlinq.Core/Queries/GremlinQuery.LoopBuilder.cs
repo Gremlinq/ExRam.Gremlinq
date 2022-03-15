@@ -9,19 +9,19 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class LoopBuilder<TQuery> :
             IStartLoopBuilder<TQuery>,
-            IEmit<TQuery>,
-            IEmitRepeat<TQuery>,
-            IEmitRepeatUntil<TQuery>,
+            IEmitLoopBuilder<TQuery>,
+            IEmitRepeatLoopBuilder<TQuery>,
+            IEmitRepeatUntilLoopBuilder<TQuery>,
             IFinalLoopBuilder<TQuery>,
-            IRepeat<TQuery>,
-            IRepeatEmit<TQuery>,
-            IRepeatEmitUntil<TQuery>,
-            IRepeatUntil<TQuery>,
-            IUntil<TQuery>,
-            IUntilEmit<TQuery>,
-            IUntilEmitRepeat<TQuery>,
-            IUntilRepeat<TQuery>,
-            IUntilRepeatEmit<TQuery> where TQuery : IGremlinQueryBase
+            IRepeatLoopBuilder<TQuery>,
+            IRepeatEmitLoopBuilder<TQuery>,
+            IRepeatEmitUntilLoopBuilder<TQuery>,
+            IRepeatUntilLoopBuilder<TQuery>,
+            IUntilLoopBuilder<TQuery>,
+            IUntilEmitLoopBuilder<TQuery>,
+            IUntilEmitRepeatLoopBuilder<TQuery>,
+            IUntilRepeatLoopBuilder<TQuery>,
+            IUntilRepeatEmitLoopBuilder<TQuery> where TQuery : IGremlinQueryBase
         {
             private readonly GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> _outerQuery;
 
@@ -30,35 +30,35 @@ namespace ExRam.Gremlinq.Core
                 _outerQuery = outerQuery;
             }
 
-            IRepeatEmit<TQuery> IRepeat<TQuery>.Emit() => Emit();
+            IRepeatEmitLoopBuilder<TQuery> IRepeatLoopBuilder<TQuery>.Emit() => Emit();
 
-            IUntilEmit<TQuery> IUntil<TQuery>.Emit() => Emit();
+            IUntilEmitLoopBuilder<TQuery> IUntilLoopBuilder<TQuery>.Emit() => Emit();
 
-            IUntilRepeatEmit<TQuery> IUntilRepeat<TQuery>.Emit() => Emit();
+            IUntilRepeatEmitLoopBuilder<TQuery> IUntilRepeatLoopBuilder<TQuery>.Emit() => Emit();
 
-            IEmitRepeat<TQuery> IEmit<TQuery>.Repeat(Func<TQuery, TQuery> loop) => Repeat(loop);
+            IEmitRepeatLoopBuilder<TQuery> IEmitLoopBuilder<TQuery>.Repeat(Func<TQuery, TQuery> loop) => Repeat(loop);
 
-            IUntilRepeat<TQuery> IUntil<TQuery>.Repeat(Func<TQuery, TQuery> loop) => Repeat(loop);
+            IUntilRepeatLoopBuilder<TQuery> IUntilLoopBuilder<TQuery>.Repeat(Func<TQuery, TQuery> loop) => Repeat(loop);
 
-            IUntilEmitRepeat<TQuery> IUntilEmit<TQuery>.Repeat(Func<TQuery, TQuery> loop) => Repeat(loop);
+            IUntilEmitRepeatLoopBuilder<TQuery> IUntilEmitLoopBuilder<TQuery>.Repeat(Func<TQuery, TQuery> loop) => Repeat(loop);
 
-            IEmitRepeatUntil<TQuery> IEmitRepeat<TQuery>.Until(Func<TQuery, IGremlinQueryBase> condition) => Until(condition);
+            IEmitRepeatUntilLoopBuilder<TQuery> IEmitRepeatLoopBuilder<TQuery>.Until(Func<TQuery, IGremlinQueryBase> condition) => Until(condition);
 
-            IRepeatUntil<TQuery> IRepeat<TQuery>.Until(Func<TQuery, IGremlinQueryBase> condition) => Until(condition);
+            IRepeatUntilLoopBuilder<TQuery> IRepeatLoopBuilder<TQuery>.Until(Func<TQuery, IGremlinQueryBase> condition) => Until(condition);
 
-            IRepeatEmitUntil<TQuery> IRepeatEmit<TQuery>.Until(Func<TQuery, IGremlinQueryBase> condition) => Until(condition);
+            IRepeatEmitUntilLoopBuilder<TQuery> IRepeatEmitLoopBuilder<TQuery>.Until(Func<TQuery, IGremlinQueryBase> condition) => Until(condition);
 
-            IRepeat<TQuery> IStartLoopBuilder<TQuery>.Repeat(Func<TQuery, TQuery> loop) => Repeat(loop);
+            IRepeatLoopBuilder<TQuery> IStartLoopBuilder<TQuery>.Repeat(Func<TQuery, TQuery> loop) => Repeat(loop);
 
-            IEmit<TQuery> IStartLoopBuilder<TQuery>.Emit() => Emit();
+            IEmitLoopBuilder<TQuery> IStartLoopBuilder<TQuery>.Emit() => Emit();
 
-            IUntil<TQuery> IStartLoopBuilder<TQuery>.Until(Func<TQuery, IGremlinQueryBase> condition) => Until(condition);
+            IUntilLoopBuilder<TQuery> IStartLoopBuilder<TQuery>.Until(Func<TQuery, IGremlinQueryBase> condition) => Until(condition);
 
-            IEmitRepeatUntil<TQuery> IEmitRepeat<TQuery>.Times(int loopCount) => Times(loopCount);
+            IEmitRepeatUntilLoopBuilder<TQuery> IEmitRepeatLoopBuilder<TQuery>.Times(int loopCount) => Times(loopCount);
 
-            IRepeatUntil<TQuery> IRepeat<TQuery>.Times(int loopCount) => Times(loopCount);
+            IRepeatUntilLoopBuilder<TQuery> IRepeatLoopBuilder<TQuery>.Times(int loopCount) => Times(loopCount);
 
-            IRepeatEmitUntil<TQuery> IRepeatEmit<TQuery>.Times(int loopCount) => Times(loopCount);
+            IRepeatEmitUntilLoopBuilder<TQuery> IRepeatEmitLoopBuilder<TQuery>.Times(int loopCount) => Times(loopCount);
 
             private LoopBuilder<TQuery> Emit() => new(_outerQuery
                 .Continue()

@@ -4,9 +4,10 @@ using System;
 
 namespace ExRam.Gremlinq.Core
 {
-    public interface IUntilEmit<TQuery>
+    public interface IUntilLoopBuilder<TQuery>
         where TQuery : IGremlinQueryBase
     {
-        IUntilEmitRepeat<TQuery> Repeat(Func<TQuery, TQuery> loop);
+        IUntilRepeatLoopBuilder<TQuery> Repeat(Func<TQuery, TQuery> loop);
+        IUntilEmitLoopBuilder<TQuery> Emit();
     }
 }

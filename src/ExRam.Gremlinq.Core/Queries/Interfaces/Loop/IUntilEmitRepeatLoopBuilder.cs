@@ -1,13 +1,11 @@
 ﻿#pragma warning disable IDE0003
 // ReSharper disable ArrangeThisQualifier
-using System;
 
 namespace ExRam.Gremlinq.Core
 {
-    public interface IUntil<TQuery>
+    public interface IUntilEmitRepeatLoopBuilder<TQuery> : IFinalLoopBuilder<TQuery>
         where TQuery : IGremlinQueryBase
     {
-        IUntilRepeat<TQuery> Repeat(Func<TQuery, TQuery> loop);
-        IUntilEmit<TQuery> Emit();
+
     }
 }

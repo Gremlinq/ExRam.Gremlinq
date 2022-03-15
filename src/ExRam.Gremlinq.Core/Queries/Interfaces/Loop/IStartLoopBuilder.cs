@@ -6,8 +6,8 @@ namespace ExRam.Gremlinq.Core
 {
     public interface IStartLoopBuilder<TQuery> where TQuery : IGremlinQueryBase
     {
-        IRepeat<TQuery> Repeat(Func<TQuery, TQuery> loop);
-        IEmit<TQuery> Emit();
-        IUntil<TQuery> Until(Func<TQuery, IGremlinQueryBase> condition);
+        IRepeatLoopBuilder<TQuery> Repeat(Func<TQuery, TQuery> loop);
+        IEmitLoopBuilder<TQuery> Emit();
+        IUntilLoopBuilder<TQuery> Until(Func<TQuery, IGremlinQueryBase> condition);
     }
 }
