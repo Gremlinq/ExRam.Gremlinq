@@ -4,7 +4,7 @@ using System;
 
 namespace ExRam.Gremlinq.Core
 {
-    public interface IEmitRepeatLoopBuilder<TQuery> : IFinalLoopBuilder<TQuery>
+    public interface IEmitRepeatLoopBuilder<out TQuery> : IFinalLoopBuilder<TQuery>
         where TQuery : IGremlinQueryBase
     {
         IEmitRepeatUntilLoopBuilder<TQuery> Until(Func<TQuery, IGremlinQueryBase> condition);

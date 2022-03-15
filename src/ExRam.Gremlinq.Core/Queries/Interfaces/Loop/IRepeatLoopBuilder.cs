@@ -5,7 +5,7 @@ using System;
 
 namespace ExRam.Gremlinq.Core
 {
-    public interface IRepeatLoopBuilder<TQuery> : IFinalLoopBuilder<TQuery>
+    public interface IRepeatLoopBuilder<out TQuery> : IFinalLoopBuilder<TQuery>
         where TQuery : IGremlinQueryBase
     {
         IRepeatEmitLoopBuilder<TQuery> Emit();

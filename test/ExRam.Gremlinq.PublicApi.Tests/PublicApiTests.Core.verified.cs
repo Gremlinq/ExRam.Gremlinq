@@ -318,14 +318,14 @@
     {
         ExRam.Gremlinq.Core.IEmitRepeatLoopBuilder<TQuery> Repeat(System.Func<TQuery, TQuery> loop);
     }
-    public interface IEmitRepeatLoopBuilder<TQuery> : ExRam.Gremlinq.Core.IFinalLoopBuilder<TQuery>
-        where TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
+    public interface IEmitRepeatLoopBuilder<out TQuery> : ExRam.Gremlinq.Core.IFinalLoopBuilder<TQuery>
+        where out TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
     {
         ExRam.Gremlinq.Core.IEmitRepeatUntilLoopBuilder<TQuery> Times(int loopCount);
         ExRam.Gremlinq.Core.IEmitRepeatUntilLoopBuilder<TQuery> Until(System.Func<TQuery, ExRam.Gremlinq.Core.IGremlinQueryBase> condition);
     }
-    public interface IEmitRepeatUntilLoopBuilder<TQuery> : ExRam.Gremlinq.Core.IFinalLoopBuilder<TQuery>
-        where TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase { }
+    public interface IEmitRepeatUntilLoopBuilder<out TQuery> : ExRam.Gremlinq.Core.IFinalLoopBuilder<TQuery>
+        where out TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase { }
     public interface IFeatureSet
     {
         ExRam.Gremlinq.Core.EdgeFeatures EdgeFeatures { get; }
@@ -768,23 +768,23 @@
         ExRam.Gremlinq.Core.IValueGremlinQuery<TValue> Value<TValue>();
     }
     public interface IPropertyGremlinQuery<TElement> : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<ExRam.Gremlinq.Core.IPropertyGremlinQuery<TElement>>, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TElement, ExRam.Gremlinq.Core.IPropertyGremlinQuery<TElement>>, ExRam.Gremlinq.Core.IGremlinQueryBase<TElement>, ExRam.Gremlinq.Core.IPropertyGremlinQueryBase, ExRam.Gremlinq.Core.IPropertyGremlinQueryBase<TElement>, ExRam.Gremlinq.Core.IStartGremlinQuery { }
-    public interface IRepeatEmitLoopBuilder<TQuery> : ExRam.Gremlinq.Core.IFinalLoopBuilder<TQuery>
-        where TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
+    public interface IRepeatEmitLoopBuilder<out TQuery> : ExRam.Gremlinq.Core.IFinalLoopBuilder<TQuery>
+        where out TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
     {
         ExRam.Gremlinq.Core.IRepeatEmitUntilLoopBuilder<TQuery> Times(int loopCount);
         ExRam.Gremlinq.Core.IRepeatEmitUntilLoopBuilder<TQuery> Until(System.Func<TQuery, ExRam.Gremlinq.Core.IGremlinQueryBase> condition);
     }
-    public interface IRepeatEmitUntilLoopBuilder<TQuery> : ExRam.Gremlinq.Core.IFinalLoopBuilder<TQuery>
-        where TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase { }
-    public interface IRepeatLoopBuilder<TQuery> : ExRam.Gremlinq.Core.IFinalLoopBuilder<TQuery>
-        where TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
+    public interface IRepeatEmitUntilLoopBuilder<out TQuery> : ExRam.Gremlinq.Core.IFinalLoopBuilder<TQuery>
+        where out TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase { }
+    public interface IRepeatLoopBuilder<out TQuery> : ExRam.Gremlinq.Core.IFinalLoopBuilder<TQuery>
+        where out TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
     {
         ExRam.Gremlinq.Core.IRepeatEmitLoopBuilder<TQuery> Emit();
         ExRam.Gremlinq.Core.IRepeatUntilLoopBuilder<TQuery> Times(int loopCount);
         ExRam.Gremlinq.Core.IRepeatUntilLoopBuilder<TQuery> Until(System.Func<TQuery, ExRam.Gremlinq.Core.IGremlinQueryBase> condition);
     }
-    public interface IRepeatUntilLoopBuilder<TQuery> : ExRam.Gremlinq.Core.IFinalLoopBuilder<TQuery>
-        where TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase { }
+    public interface IRepeatUntilLoopBuilder<out TQuery> : ExRam.Gremlinq.Core.IFinalLoopBuilder<TQuery>
+        where out TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase { }
     public interface IStartGremlinQuery
     {
         ExRam.Gremlinq.Core.IEdgeGremlinQuery<TEdge> AddE<TEdge>()
@@ -818,18 +818,18 @@
     {
         ExRam.Gremlinq.Core.IUntilEmitRepeatLoopBuilder<TQuery> Repeat(System.Func<TQuery, TQuery> loop);
     }
-    public interface IUntilEmitRepeatLoopBuilder<TQuery> : ExRam.Gremlinq.Core.IFinalLoopBuilder<TQuery>
-        where TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase { }
+    public interface IUntilEmitRepeatLoopBuilder<out TQuery> : ExRam.Gremlinq.Core.IFinalLoopBuilder<TQuery>
+        where out TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase { }
     public interface IUntilLoopBuilder<TQuery>
         where TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
     {
         ExRam.Gremlinq.Core.IUntilEmitLoopBuilder<TQuery> Emit();
         ExRam.Gremlinq.Core.IUntilRepeatLoopBuilder<TQuery> Repeat(System.Func<TQuery, TQuery> loop);
     }
-    public interface IUntilRepeatEmitLoopBuilder<TQuery> : ExRam.Gremlinq.Core.IFinalLoopBuilder<TQuery>
-        where TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase { }
-    public interface IUntilRepeatLoopBuilder<TQuery> : ExRam.Gremlinq.Core.IFinalLoopBuilder<TQuery>
-        where TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
+    public interface IUntilRepeatEmitLoopBuilder<out TQuery> : ExRam.Gremlinq.Core.IFinalLoopBuilder<TQuery>
+        where out TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase { }
+    public interface IUntilRepeatLoopBuilder<out TQuery> : ExRam.Gremlinq.Core.IFinalLoopBuilder<TQuery>
+        where out TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
     {
         ExRam.Gremlinq.Core.IUntilRepeatEmitLoopBuilder<TQuery> Emit();
     }

@@ -3,7 +3,7 @@
 
 namespace ExRam.Gremlinq.Core
 {
-    public interface IRepeatUntilLoopBuilder<TQuery> : IFinalLoopBuilder<TQuery>
+    public interface IRepeatUntilLoopBuilder<out TQuery> : IFinalLoopBuilder<TQuery>
         where TQuery : IGremlinQueryBase
     {
 
