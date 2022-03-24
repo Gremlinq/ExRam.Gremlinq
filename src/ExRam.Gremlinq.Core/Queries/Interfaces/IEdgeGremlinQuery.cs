@@ -76,7 +76,6 @@ namespace ExRam.Gremlinq.Core
     }
 
     public interface IEdgeGremlinQueryBase<TEdge, TOutVertex, TInVertex> :
-        IEdgeGremlinQueryBase,
         IOutEdgeGremlinQueryBase<TEdge, TOutVertex>,
         IInEdgeGremlinQueryBase<TEdge, TInVertex>
     {
