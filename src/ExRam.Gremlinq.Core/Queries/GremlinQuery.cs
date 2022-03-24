@@ -476,7 +476,7 @@ namespace ExRam.Gremlinq.Core
                 .AddStep(new AddEStep.ToTraversalStep(toVertexTraversal))
                 .AutoBuild<TNewElement, TNewOutVertex, TNewInVertex>());
 
-        private GremlinQuery<IDictionary<TKey, TValue>, object, object, object, object, object> Group<TKey, TValue>(Func<IGroupBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>, IGroupBuilderWithKeyAndValue<IGremlinQueryBase, TKey, TValue>> projection)
+        private GremlinQuery<IDictionary<TKey, TValue>, object, object, object, object, object> Group<TKey, TValue>(Func<IGroupBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>, IGroupBuilderWithKeyAndValue<TKey, TValue>> projection)
         {
             return projection(new GroupBuilder<object, object>(Continue()))
                 .Build<GremlinQuery<IDictionary<TKey, TValue>, object, object, object, object, object>>();

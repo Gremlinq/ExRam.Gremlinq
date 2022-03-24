@@ -434,7 +434,7 @@
         TTargetQuery FlatMap<TTargetQuery>(System.Func<TSelf, TTargetQuery> mapping)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
         ExRam.Gremlinq.Core.IValueGremlinQuery<System.Collections.Generic.IDictionary<TNewKey, object>> Group<TNewKey>(System.Func<ExRam.Gremlinq.Core.IGroupBuilder<TSelf>, ExRam.Gremlinq.Core.IGroupBuilderWithKey<TSelf, TNewKey>> groupBuilder);
-        ExRam.Gremlinq.Core.IValueGremlinQuery<System.Collections.Generic.IDictionary<TNewKey, TNewValue>> Group<TNewKey, TNewValue>(System.Func<ExRam.Gremlinq.Core.IGroupBuilder<TSelf>, ExRam.Gremlinq.Core.IGroupBuilderWithKeyAndValue<TSelf, TNewKey, TNewValue>> groupBuilder);
+        ExRam.Gremlinq.Core.IValueGremlinQuery<System.Collections.Generic.IDictionary<TNewKey, TNewValue>> Group<TNewKey, TNewValue>(System.Func<ExRam.Gremlinq.Core.IGroupBuilder<TSelf>, ExRam.Gremlinq.Core.IGroupBuilderWithKeyAndValue<TNewKey, TNewValue>> groupBuilder);
         TSelf Identity();
         TSelf Limit(long count);
         TSelf LimitLocal(long count);
@@ -552,8 +552,7 @@
         ExRam.Gremlinq.Core.IGremlinqOptions Remove(ExRam.Gremlinq.Core.IGremlinqOption option);
         ExRam.Gremlinq.Core.IGremlinqOptions SetValue<TValue>(ExRam.Gremlinq.Core.GremlinqOption<TValue> option, TValue value);
     }
-    public interface IGroupBuilderWithKeyAndValue<out TSourceQuery, TKey, TValue>
-        where out TSourceQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
+    public interface IGroupBuilderWithKeyAndValue<TKey, TValue>
     {
         TTargetQuery Build<TTargetQuery>()
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
@@ -563,7 +562,7 @@
     {
         TTargetQuery Build<TTargetQuery>()
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
-        ExRam.Gremlinq.Core.IGroupBuilderWithKeyAndValue<TSourceQuery, TKey, TValue> ByValue<TValue>(System.Func<TSourceQuery, ExRam.Gremlinq.Core.IGremlinQueryBase<TValue>> valueSelector);
+        ExRam.Gremlinq.Core.IGroupBuilderWithKeyAndValue<TKey, TValue> ByValue<TValue>(System.Func<TSourceQuery, ExRam.Gremlinq.Core.IGremlinQueryBase<TValue>> valueSelector);
     }
     public interface IGroupBuilder<out TSourceQuery>
         where out TSourceQuery : ExRam.Gremlinq.Core.IGremlinQueryBase

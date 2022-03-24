@@ -11,13 +11,12 @@ namespace ExRam.Gremlinq.Core
     public interface IGroupBuilderWithKey<out TSourceQuery, TKey>
         where TSourceQuery : IGremlinQueryBase
     {
-        IGroupBuilderWithKeyAndValue<TSourceQuery, TKey, TValue> ByValue<TValue>(Func<TSourceQuery, IGremlinQueryBase<TValue>> valueSelector);
+        IGroupBuilderWithKeyAndValue<TKey, TValue> ByValue<TValue>(Func<TSourceQuery, IGremlinQueryBase<TValue>> valueSelector);
 
         TTargetQuery Build<TTargetQuery>() where TTargetQuery : IGremlinQueryBase;
     }
 
-    public interface IGroupBuilderWithKeyAndValue<out TSourceQuery, TKey, TValue>
-        where TSourceQuery : IGremlinQueryBase
+    public interface IGroupBuilderWithKeyAndValue<TKey, TValue>
     {
         TTargetQuery Build<TTargetQuery>() where TTargetQuery : IGremlinQueryBase;
     }
