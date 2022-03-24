@@ -42,50 +42,50 @@ namespace ExRam.Gremlinq.Core
 
         public FinalContinuationBuilder<TOuterQuery> WithNewProjection(Func<Projection, Projection> projectionTransformation)
         {
-            return _outer is { } query && _steps is { } steps && _stepLabelProjections is { } stepLabelProjections && _sideEffectLabelProjections is { } sideEffectLabelProjections
-                ? new(_outer, steps, projectionTransformation(_projection ?? Projection.Empty), _stepLabelProjections, sideEffectLabelProjections, _additionalFlags)
+            return _outer is { } outer && _steps is { } steps && _stepLabelProjections is { } stepLabelProjections && _sideEffectLabelProjections is { } sideEffectLabelProjections
+                ? new(outer, steps, projectionTransformation(_projection ?? Projection.Empty), stepLabelProjections, sideEffectLabelProjections, _additionalFlags)
                 : throw new InvalidOperationException();
         }
 
         public FinalContinuationBuilder<TOuterQuery> WithNewProjection(Projection newProjection)
         {
-            return _outer is { } query && _steps is { } steps && _stepLabelProjections is { } stepLabelProjections && _sideEffectLabelProjections is { } sideEffectLabelProjections
-                ? new(_outer, steps, newProjection, _stepLabelProjections, sideEffectLabelProjections, _additionalFlags)
+            return _outer is { } outer && _steps is { } steps && _stepLabelProjections is { } stepLabelProjections && _sideEffectLabelProjections is { } sideEffectLabelProjections
+                ? new(outer, steps, newProjection, stepLabelProjections, sideEffectLabelProjections, _additionalFlags)
                 : throw new InvalidOperationException();
         }
 
         public FinalContinuationBuilder<TOuterQuery> WithNewStepLabelProjection(Func<IImmutableDictionary<StepLabel, Projection>, IImmutableDictionary<StepLabel, Projection>> stepLabelProjectionsTransformation)
         {
-            return _outer is { } query && _steps is { } steps && _projection is { } projection && _stepLabelProjections is { } stepLabelProjections && _sideEffectLabelProjections is { } sideEffectLabelProjections
-                ? new(_outer, steps, projection, stepLabelProjectionsTransformation(stepLabelProjections), sideEffectLabelProjections, _additionalFlags)
+            return _outer is { } outer && _steps is { } steps && _projection is { } projection && _stepLabelProjections is { } stepLabelProjections && _sideEffectLabelProjections is { } sideEffectLabelProjections
+                ? new(outer, steps, projection, stepLabelProjectionsTransformation(stepLabelProjections), sideEffectLabelProjections, _additionalFlags)
                 : throw new InvalidOperationException();
         }
 
         public FinalContinuationBuilder<TOuterQuery> WithNewStepLabelProjection(IImmutableDictionary<StepLabel, Projection> newStepLabelProjections)
         {
-            return _outer is { } query && _steps is { } steps && _projection is { } projection && _sideEffectLabelProjections is { } sideEffectLabelProjections
-                ? new(_outer, steps, projection, newStepLabelProjections, sideEffectLabelProjections, _additionalFlags)
+            return _outer is { } outer && _steps is { } steps && _projection is { } projection && _sideEffectLabelProjections is { } sideEffectLabelProjections
+                ? new(outer, steps, projection, newStepLabelProjections, sideEffectLabelProjections, _additionalFlags)
                 : throw new InvalidOperationException();
         }
 
         public FinalContinuationBuilder<TOuterQuery> WithNewSideEffectLabelProjection(Func<IImmutableDictionary<StepLabel, Projection>, IImmutableDictionary<StepLabel, Projection>> sideEffectLabelProjectionsTransformation)
         {
-            return _outer is { } query && _steps is { } steps && _projection is { } projection && _stepLabelProjections is { } stepLabelProjections && _sideEffectLabelProjections is { } sideEffectLabelProjections
-                ? new(_outer, steps, projection, stepLabelProjections, sideEffectLabelProjectionsTransformation(sideEffectLabelProjections), _additionalFlags)
+            return _outer is { } outer && _steps is { } steps && _projection is { } projection && _stepLabelProjections is { } stepLabelProjections && _sideEffectLabelProjections is { } sideEffectLabelProjections
+                ? new(outer, steps, projection, stepLabelProjections, sideEffectLabelProjectionsTransformation(sideEffectLabelProjections), _additionalFlags)
                 : throw new InvalidOperationException();
         }
 
         public FinalContinuationBuilder<TOuterQuery> WithNewSideEffectLabelProjection(IImmutableDictionary<StepLabel, Projection> newSideEffectLabelProjections)
         {
-            return _outer is { } query && _steps is { } steps && _projection is { } projection && _stepLabelProjections is { } stepLabelProjections
-                ? new(_outer, steps, projection, stepLabelProjections, newSideEffectLabelProjections, _additionalFlags)
+            return _outer is { } outer && _steps is { } steps && _projection is { } projection && _stepLabelProjections is { } stepLabelProjections
+                ? new(outer, steps, projection, stepLabelProjections, newSideEffectLabelProjections, _additionalFlags)
                 : throw new InvalidOperationException();
         }
 
         public FinalContinuationBuilder<TOuterQuery> WithAdditionalFlags(QueryFlags additionalFlags)
         {
-            return _outer is { } query && _steps is { } steps && _projection is { } projection && _stepLabelProjections is { } stepLabelProjections && _sideEffectLabelProjections is { } sideEffectLabelProjections
-                ? new(_outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, _additionalFlags | additionalFlags)
+            return _outer is { } outer && _steps is { } steps && _projection is { } projection && _stepLabelProjections is { } stepLabelProjections && _sideEffectLabelProjections is { } sideEffectLabelProjections
+                ? new(outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, _additionalFlags | additionalFlags)
                 : throw new InvalidOperationException();
         }
 

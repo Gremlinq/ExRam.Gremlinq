@@ -21,7 +21,7 @@ namespace ExRam.Gremlinq.Core
             where TNewOuterQuery : GremlinQueryBase
         {
             return _anonymous is { } anonymous
-                ? new(query, _anonymous)
+                ? new(query, anonymous)
                 : throw new InvalidOperationException();
         }
 
