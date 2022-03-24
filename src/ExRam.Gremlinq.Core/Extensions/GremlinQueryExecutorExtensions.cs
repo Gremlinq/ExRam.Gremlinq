@@ -133,7 +133,7 @@ namespace ExRam.Gremlinq.Core.Execution
                 {
                     if (environment.Logger.IsEnabled(logLevel))
                     {
-                        var groovyQuery = serializedQuery.ToGroovy();
+                        var groovyQuery = serializedQuery.ToGroovy(groovyFormatting);
 
                         environment.Logger.Log(
                             logLevel,
