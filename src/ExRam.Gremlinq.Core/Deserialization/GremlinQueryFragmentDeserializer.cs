@@ -338,7 +338,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 {
                     return jArray.Count != 1
                         ? jArray.Count == 0 && type.IsClass
-                            ? (object?)default
+                            ? default
                             : throw new JsonReaderException($"Cannot convert array\r\n\r\n{jArray}\r\n\r\nto scalar value of type {type}.")
                         : recurse.TryDeserialize(jArray[0], type, env);
                 }
