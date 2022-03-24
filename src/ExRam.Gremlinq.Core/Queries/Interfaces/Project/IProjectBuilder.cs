@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Immutable;
 using System.Linq.Expressions;
-using ExRam.Gremlinq.Core.Steps;
 
 namespace ExRam.Gremlinq.Core
 {
