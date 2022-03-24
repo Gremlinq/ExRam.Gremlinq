@@ -3,15 +3,6 @@ using ExRam.Gremlinq.Core.Steps;
 
 namespace ExRam.Gremlinq.Core
 {
-    //targetQuery
-    //    .Continue()                     //ContinuationBuilder
-    //    .FromSource(sourceQuery)        //ContinuationBuilder mit anderer Source
-    //    .With(continuation1)            //SingleConrinuationBuilder
-    //    .With(continuation2)            //MultiContinuationBuilder
-    //    .WithSteps(targetQuery / targetQueries => Step / Step[]) // 2 Overloads für Single, 2 für Multi
-    //    .As<TTargetQuery>()             //-> TargetQuery
-    //    .AsSourceQuery
-
     internal static class AddStepHandlerExtensions
     {
         public static StepStack AddSteps<TStep>(this IAddStepHandler addStepHandler, StepStack stepStack, IEnumerable<TStep> steps, IGremlinQueryEnvironment env)
