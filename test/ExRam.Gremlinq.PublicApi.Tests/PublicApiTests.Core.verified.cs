@@ -1532,7 +1532,7 @@ namespace ExRam.Gremlinq.Core.Projections
 }
 namespace ExRam.Gremlinq.Core.Serialization
 {
-    public delegate object? BaseGremlinQueryFragmentSerializerDelegate<TFragment>(TFragment fragment, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Serialization.IGremlinQueryFragmentSerializer recurse);
+    public delegate object? BaseGremlinQueryFragmentSerializerDelegate<in TFragment>(TFragment fragment, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Serialization.IGremlinQueryFragmentSerializer recurse);
     public static class BytecodeExtensions
     {
         public static ExRam.Gremlinq.Core.Serialization.GroovyGremlinQuery ToGroovy(this ExRam.Gremlinq.Core.Serialization.BytecodeGremlinQuery bytecodeQuery, ExRam.Gremlinq.Core.Serialization.GroovyFormatting formatting = 0) { }
