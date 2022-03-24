@@ -98,7 +98,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
 
             private static BaseGremlinQueryFragmentDeserializerDelegate<TStatic> CreateFunc2<TStatic>()
             {
-                return (serialized, fragmentType, environment, recurse) => serialized;
+                return (serialized, _, _, _) => serialized;
             }
 
             private static BaseGremlinQueryFragmentDeserializerDelegate<TSerialized> CreateFunc3<TSerialized, TFragment>(BaseGremlinQueryFragmentDeserializerDelegate<TSerialized> del)

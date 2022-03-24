@@ -30,7 +30,7 @@ namespace ExRam.Gremlinq.Core.Projections
         public override Traversal ToTraversal(IGremlinQueryEnvironment environment)
         {
             var projectionTraversals = _projections
-                .Select((projection, i) => projection.Projection
+                .Select((projection, _) => projection.Projection
                     .ToTraversal(environment)
                     .Prepend(new SelectKeysStep(projection.Key))
                     .ToImmutableArray())
