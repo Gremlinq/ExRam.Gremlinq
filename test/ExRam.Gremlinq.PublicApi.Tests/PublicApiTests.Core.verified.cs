@@ -1133,7 +1133,7 @@
 }
 namespace ExRam.Gremlinq.Core.Deserialization
 {
-    public delegate object? BaseGremlinQueryFragmentDeserializerDelegate<TSerialized>(TSerialized serializedData, System.Type requestedType, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer recurse);
+    public delegate object? BaseGremlinQueryFragmentDeserializerDelegate<in TSerialized>(TSerialized serializedData, System.Type requestedType, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer recurse);
     public static class GremlinQueryExecutionResultDeserializer
     {
         public static readonly ExRam.Gremlinq.Core.Deserialization.IGremlinQueryExecutionResultDeserializer Default;
