@@ -12,7 +12,6 @@ namespace ExRam.Gremlinq.Core
             IEmitLoopBuilder<TQuery>,
             IEmitRepeatLoopBuilder<TQuery>,
             IEmitRepeatUntilLoopBuilder<TQuery>,
-            IFinalLoopBuilder<TQuery>,
             IRepeatLoopBuilder<TQuery>,
             IRepeatEmitLoopBuilder<TQuery>,
             IRepeatEmitUntilLoopBuilder<TQuery>,
