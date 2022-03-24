@@ -113,7 +113,7 @@ namespace ExRam.Gremlinq.Core
                     maybeProjectionTransformation: _projection is { } newProjection ? _ => newProjection : null,
                     maybeStepLabelProjectionsTransformation: _stepLabelProjections is { } newStepLabelProjections ? _ => newStepLabelProjections : null,
                     maybeSideEffectLabelProjectionsTransformation: _sideEffectLabelProjections  is { } sideEffectLabelProjections ? _ => sideEffectLabelProjections : null,
-                    maybeQueryFlagsTransformation: _additionalFlags is { } additionalFlags ? flags => flags | additionalFlags : null)
+                    maybeQueryFlagsTransformation: (_additionalFlags is var additionalFlags && additionalFlags != QueryFlags.None) ? flags => flags | additionalFlags : null)
                 : throw new InvalidOperationException();
         }
 
