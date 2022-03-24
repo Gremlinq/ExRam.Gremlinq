@@ -2,7 +2,7 @@
 {
     public sealed class HasNotStep : Step, IIsOptimizableInWhere
     {
-        public HasNotStep(Key key) : base()
+        public HasNotStep(Key key)
         {
             Key = key;
         }

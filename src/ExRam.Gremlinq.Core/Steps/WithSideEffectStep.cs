@@ -2,7 +2,7 @@
 {
     public sealed class WithSideEffectStep : Step
     {
-        public WithSideEffectStep(StepLabel label, object value) : base()
+        public WithSideEffectStep(StepLabel label, object value)
         {
             Label = label;
             Value = value;

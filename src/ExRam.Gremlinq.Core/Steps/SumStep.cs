@@ -7,7 +7,7 @@ namespace ExRam.Gremlinq.Core.Steps
         public static readonly SumStep Local = new(Scope.Local);
         public static readonly SumStep Global = new(Scope.Global);
 
-        public SumStep(Scope scope) : base()
+        public SumStep(Scope scope)
         {
             Scope = scope;
         }

@@ -48,7 +48,7 @@ namespace ExRam.Gremlinq.Core.Steps
         public static readonly OrderStep Global = new(Scope.Global);
         public static readonly OrderStep Local = new(Scope.Local);
 
-        public OrderStep(Scope scope) : base()
+        public OrderStep(Scope scope)
         {
             Scope = scope;
         }

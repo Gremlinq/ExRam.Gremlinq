@@ -21,7 +21,7 @@
 
         public sealed class ByKeyStep : ByStep
         {
-            public ByKeyStep(Key key) : base()
+            public ByKeyStep(Key key)
             {
                 Key = key;
             }

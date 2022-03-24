@@ -4,7 +4,7 @@ namespace ExRam.Gremlinq.Core.Steps
 {
     public abstract class DerivedLabelNamesStep : Step
     {
-        protected DerivedLabelNamesStep(ImmutableArray<string> labels) : base()
+        protected DerivedLabelNamesStep(ImmutableArray<string> labels)
         {
             Labels = labels;
         }

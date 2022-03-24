@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq.Core.Steps
         {
         }
 
-        public SelectStepLabelStep(ImmutableArray<StepLabel> stepLabels) : base()
+        public SelectStepLabelStep(ImmutableArray<StepLabel> stepLabels)
         {
             StepLabels = stepLabels;
         }

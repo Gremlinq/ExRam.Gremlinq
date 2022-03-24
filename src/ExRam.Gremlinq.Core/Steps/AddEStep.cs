@@ -4,7 +4,7 @@
     {
         public sealed class FromLabelStep : Step
         {
-            public FromLabelStep(StepLabel stepLabel) : base()
+            public FromLabelStep(StepLabel stepLabel)
             {
                 StepLabel = stepLabel;
             }
@@ -14,7 +14,7 @@
 
         public sealed class FromTraversalStep : Step
         {
-            public FromTraversalStep(Traversal traversal) : base()
+            public FromTraversalStep(Traversal traversal)
             {
                 Traversal = traversal;
             }
@@ -24,7 +24,7 @@
 
         public sealed class ToLabelStep : Step
         {
-            public ToLabelStep(StepLabel stepLabel) : base()
+            public ToLabelStep(StepLabel stepLabel)
             {
                 StepLabel = stepLabel;
             }
@@ -34,7 +34,7 @@
 
         public sealed class ToTraversalStep : Step
         {
-            public ToTraversalStep(Traversal traversal) : base()
+            public ToTraversalStep(Traversal traversal)
             {
                 Traversal = traversal;
             }

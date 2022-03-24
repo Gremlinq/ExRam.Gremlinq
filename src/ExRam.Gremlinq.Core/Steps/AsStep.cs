@@ -2,7 +2,7 @@
 {
     public sealed class AsStep : Step
     {
-        public AsStep(StepLabel stepLabel) : base()
+        public AsStep(StepLabel stepLabel)
         {
             StepLabel = stepLabel;
         }

@@ -5,7 +5,7 @@ namespace ExRam.Gremlinq.Core.Steps
 {
     public sealed class WithoutStrategiesStep : Step
     {
-        public WithoutStrategiesStep(ImmutableArray<Type> strategyTypes) : base()
+        public WithoutStrategiesStep(ImmutableArray<Type> strategyTypes)
         {
             StrategyTypes = strategyTypes;
         }

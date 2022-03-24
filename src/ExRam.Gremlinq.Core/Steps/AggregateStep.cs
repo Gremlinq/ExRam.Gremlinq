@@ -4,7 +4,7 @@ namespace ExRam.Gremlinq.Core.Steps
 {
     public sealed class AggregateStep : Step
     {
-        public AggregateStep(Scope scope, StepLabel stepLabel) : base()
+        public AggregateStep(Scope scope, StepLabel stepLabel)
         {
             Scope = scope;
             StepLabel = stepLabel;

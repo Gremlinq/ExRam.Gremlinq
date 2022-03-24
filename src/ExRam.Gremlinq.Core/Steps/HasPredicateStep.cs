@@ -4,7 +4,7 @@ namespace ExRam.Gremlinq.Core.Steps
 {
     public sealed class HasPredicateStep : Step, IIsOptimizableInWhere
     {
-        public HasPredicateStep(Key key, P predicate) : base()
+        public HasPredicateStep(Key key, P predicate)
         {
             Key = key;
             Predicate = predicate;

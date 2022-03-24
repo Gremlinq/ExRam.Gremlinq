@@ -44,7 +44,7 @@ namespace ExRam.Gremlinq.Core.Steps
             public Key Key { get; }
         }
 
-        public ProjectStep(ImmutableArray<string> projections) : base()
+        public ProjectStep(ImmutableArray<string> projections)
         {
             Projections = projections;
         }

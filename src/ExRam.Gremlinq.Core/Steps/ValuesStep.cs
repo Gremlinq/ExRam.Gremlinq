@@ -4,7 +4,7 @@ namespace ExRam.Gremlinq.Core.Steps
 {
     public sealed class ValuesStep : Step
     {
-        public ValuesStep(ImmutableArray<string> keys) : base()
+        public ValuesStep(ImmutableArray<string> keys)
         {
             Keys = keys;
         }

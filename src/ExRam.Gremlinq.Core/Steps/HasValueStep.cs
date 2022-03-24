@@ -2,7 +2,7 @@
 {
     public sealed class HasValueStep : Step, IIsOptimizableInWhere
     {
-        public HasValueStep(object argument) : base()
+        public HasValueStep(object argument)
         {
             Argument = argument;
         }

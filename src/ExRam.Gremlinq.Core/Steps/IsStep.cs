@@ -4,7 +4,7 @@ namespace ExRam.Gremlinq.Core.Steps
 {
     public sealed class IsStep : Step, IIsOptimizableInWhere
     {
-        public IsStep(P predicate) : base()
+        public IsStep(P predicate)
         {
             Predicate = predicate;
         }

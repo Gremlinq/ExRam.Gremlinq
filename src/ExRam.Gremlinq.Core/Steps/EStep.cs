@@ -4,7 +4,7 @@ namespace ExRam.Gremlinq.Core.Steps
 {
     public sealed class EStep : Step
     {
-        public EStep(ImmutableArray<object> ids) : base()
+        public EStep(ImmutableArray<object> ids)
         {
             Ids = ids;
         }

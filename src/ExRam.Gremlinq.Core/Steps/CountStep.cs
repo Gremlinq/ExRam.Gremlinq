@@ -7,7 +7,7 @@ namespace ExRam.Gremlinq.Core.Steps
         public static readonly CountStep Global = new(Scope.Global);
         public static readonly CountStep Local = new(Scope.Local);
 
-        public CountStep(Scope scope) : base()
+        public CountStep(Scope scope)
         {
             Scope = scope;
         }

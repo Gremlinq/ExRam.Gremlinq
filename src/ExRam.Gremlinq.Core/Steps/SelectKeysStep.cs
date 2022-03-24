@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq.Core.Steps
         {
         }
 
-        public SelectKeysStep(ImmutableArray<Key> keys) : base()
+        public SelectKeysStep(ImmutableArray<Key> keys)
         {
             Keys = keys;
         }

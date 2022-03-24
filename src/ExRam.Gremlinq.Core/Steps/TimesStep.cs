@@ -2,7 +2,7 @@
 {
     public sealed class TimesStep : Step
     {
-        public TimesStep(int count) : base()
+        public TimesStep(int count)
         {
             Count = count;
         }

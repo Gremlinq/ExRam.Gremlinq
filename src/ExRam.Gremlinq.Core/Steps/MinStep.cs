@@ -7,7 +7,7 @@ namespace ExRam.Gremlinq.Core.Steps
         public static readonly MinStep Local = new(Scope.Local);
         public static readonly MinStep Global = new(Scope.Global);
 
-        public MinStep(Scope scope) : base()
+        public MinStep(Scope scope)
         {
             Scope = scope;
         }

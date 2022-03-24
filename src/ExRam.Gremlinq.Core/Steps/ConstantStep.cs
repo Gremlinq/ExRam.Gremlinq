@@ -2,7 +2,7 @@
 {
     public sealed class ConstantStep : Step
     {
-        public ConstantStep(object value) : base()
+        public ConstantStep(object value)
         {
             Value = value;
         }

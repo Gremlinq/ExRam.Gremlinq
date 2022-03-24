@@ -5,7 +5,7 @@ namespace ExRam.Gremlinq.Core.Steps
 {
     public sealed class RangeStep : Step
     {
-        public RangeStep(long lower, long upper, Scope scope) : base()
+        public RangeStep(long lower, long upper, Scope scope)
         {
             if (lower < 0)
                 throw new ArgumentOutOfRangeException(nameof(lower));

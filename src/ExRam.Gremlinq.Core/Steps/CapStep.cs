@@ -2,7 +2,7 @@
 {
     public sealed class CapStep : Step
     {
-        public CapStep(StepLabel stepLabel) : base()
+        public CapStep(StepLabel stepLabel)
         {
             StepLabel = stepLabel;
         }

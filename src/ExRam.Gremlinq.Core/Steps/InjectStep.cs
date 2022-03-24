@@ -4,7 +4,7 @@ namespace ExRam.Gremlinq.Core.Steps
 {
     public sealed class InjectStep : Step
     {
-        public InjectStep(ImmutableArray<object> elements) : base()
+        public InjectStep(ImmutableArray<object> elements)
         {
             Elements = elements;
         }
