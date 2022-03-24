@@ -3,7 +3,6 @@ using System.Collections.Concurrent;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Reflection;
-
 using ExRam.Gremlinq.Core.Steps;
 
 namespace ExRam.Gremlinq.Core

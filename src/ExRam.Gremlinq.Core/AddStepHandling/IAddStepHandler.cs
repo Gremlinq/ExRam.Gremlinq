@@ -1,5 +1,4 @@
 ﻿using System;
-
 using ExRam.Gremlinq.Core.Steps;
 
 namespace ExRam.Gremlinq.Core
