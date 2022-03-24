@@ -554,14 +554,12 @@
     }
     public interface IGroupBuilderWithKeyAndValue<TKey, TValue>
     {
-        TTargetQuery Build<TTargetQuery>()
-            where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
+        ExRam.Gremlinq.Core.IValueGremlinQuery<System.Collections.Generic.IDictionary<TKey, TValue>> Build();
     }
     public interface IGroupBuilderWithKey<out TSourceQuery, TKey>
         where out TSourceQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
     {
-        TTargetQuery Build<TTargetQuery>()
-            where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
+        ExRam.Gremlinq.Core.IValueGremlinQuery<System.Collections.Generic.IDictionary<TKey, object>> Build();
         ExRam.Gremlinq.Core.IGroupBuilderWithKeyAndValue<TKey, TValue> ByValue<TValue>(System.Func<TSourceQuery, ExRam.Gremlinq.Core.IGremlinQueryBase<TValue>> valueSelector);
     }
     public interface IGroupBuilder<out TSourceQuery>

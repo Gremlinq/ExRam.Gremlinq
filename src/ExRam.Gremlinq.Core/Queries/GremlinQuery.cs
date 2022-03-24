@@ -476,16 +476,16 @@ namespace ExRam.Gremlinq.Core
                 .AddStep(new AddEStep.ToTraversalStep(toVertexTraversal))
                 .AutoBuild<TNewElement, TNewOutVertex, TNewInVertex>());
 
-        private GremlinQuery<IDictionary<TKey, TValue>, object, object, object, object, object> Group<TKey, TValue>(Func<IGroupBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>, IGroupBuilderWithKeyAndValue<TKey, TValue>> projection)
+        private IValueGremlinQuery<IDictionary<TKey, TValue>> Group<TKey, TValue>(Func<IGroupBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>, IGroupBuilderWithKeyAndValue<TKey, TValue>> projection)
         {
             return projection(new GroupBuilder<object, object>(Continue()))
-                .Build<GremlinQuery<IDictionary<TKey, TValue>, object, object, object, object, object>>();
+                .Build();
         }
 
-        private GremlinQuery<IDictionary<TKey, object>, object, object, object, object, object> Group<TKey>(Func<IGroupBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>, IGroupBuilderWithKey<IGremlinQueryBase, TKey>> projection)
+        private IValueGremlinQuery<IDictionary<TKey, object>> Group<TKey>(Func<IGroupBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>, IGroupBuilderWithKey<IGremlinQueryBase, TKey>> projection)
         {
             return projection(new GroupBuilder<object, object>(Continue()))
-                .Build<GremlinQuery<IDictionary<TKey, object>, object, object, object, object, object>>();
+                .Build();
         }
 
         private GremlinQuery<object, object, object, object, object, object> Id() => this

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -13,11 +14,11 @@ namespace ExRam.Gremlinq.Core
     {
         IGroupBuilderWithKeyAndValue<TKey, TValue> ByValue<TValue>(Func<TSourceQuery, IGremlinQueryBase<TValue>> valueSelector);
 
-        TTargetQuery Build<TTargetQuery>() where TTargetQuery : IGremlinQueryBase;
+        IValueGremlinQuery<IDictionary<TKey, object>> Build();
     }
 
     public interface IGroupBuilderWithKeyAndValue<TKey, TValue>
     {
-        TTargetQuery Build<TTargetQuery>() where TTargetQuery : IGremlinQueryBase;
+        IValueGremlinQuery<IDictionary<TKey, TValue>> Build();
     }
 }

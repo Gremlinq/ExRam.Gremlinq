@@ -1,5 +1,7 @@
 ﻿// ReSharper disable ArrangeThisQualifier
 using System;
+using System.Collections.Generic;
+
 using ExRam.Gremlinq.Core.Steps;
 
 namespace ExRam.Gremlinq.Core
@@ -37,7 +39,11 @@ namespace ExRam.Gremlinq.Core
                         .With(valueSelector));
             }
 
-            public TTargetQuery Build<TTargetQuery>() where TTargetQuery : IGremlinQueryBase
+            IValueGremlinQuery<IDictionary<TKey, object>> IGroupBuilderWithKey<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TKey>.Build() => Build<TKey, object>();
+
+            IValueGremlinQuery<IDictionary<TKey, TValue>> IGroupBuilderWithKeyAndValue<TKey, TValue>.Build() => Build<TKey, TValue>();
+
+            private IValueGremlinQuery<IDictionary<TNewKey, TNewValue>> Build<TNewKey, TNewValue>()
             {
                 return _continuationBuilder
                     .Build(static (builder, traversals) =>
@@ -62,7 +68,7 @@ namespace ExRam.Gremlinq.Core
                                 .Group(
                                     keyTraversal.Projection,
                                     maybeValueTraversal?.Projection ?? _))
-                            .Build<TTargetQuery>();
+                            .Build<IValueGremlinQuery<IDictionary<TNewKey, TNewValue>>>();
                     });
             }
         }
