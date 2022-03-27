@@ -84,6 +84,19 @@ namespace ExRam.Gremlinq.Core
                 new ProjectStep.ByTraversalStep(new ValueMapStep(ImmutableArray<string>.Empty))
             });
 
+        public static readonly GremlinqOption<Traversal> EmptyProjectionProtectionDecoratorSteps = new(
+            new MapStep(new Step[]
+            {
+                UnfoldStep.Instance,
+                GroupStep.Instance,
+                new GroupStep.ByTraversalStep(new SelectColumnStep(Column.Keys)),
+                new GroupStep.ByTraversalStep(new Step[]
+                {
+                    new SelectColumnStep(Column.Values),
+                    UnfoldStep.Instance
+                })
+            }));
+
         public static readonly GremlinqOption<IImmutableDictionary<T, SerializationBehaviour>> TSerializationBehaviourOverrides = new(
             new Dictionary<T, SerializationBehaviour>
             {

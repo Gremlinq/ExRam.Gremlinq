@@ -4,7 +4,6 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Linq.Expressions;
 using ExRam.Gremlinq.Core.Steps;
-using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -14,38 +13,27 @@ namespace ExRam.Gremlinq.Core
             IProjectBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement>,
             IProjectDynamicBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement>
         {
-            private static readonly Step[] EmptyProjectionProtectionDecoratorSteps = new[]
-            {
-                new MapStep(new Step[]
-                {
-                    UnfoldStep.Instance,
-                    GroupStep.Instance,
-                    new GroupStep.ByTraversalStep(new SelectColumnStep(Column.Keys)),
-                    new GroupStep.ByTraversalStep(new Step[]
-                    {
-                        new SelectColumnStep(Column.Values),
-                        UnfoldStep.Instance
-                    })
-                })
-            };
-
             private readonly ImmutableList<string> _names;
-            private readonly bool _enableEmptyProjectionValueProtection;
+            private readonly Traversal? _emptyProjectionProtectionDecoratorSteps;
             private readonly MultiContinuationBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>> _continuationBuilder;
 
             public ProjectBuilder(GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> sourceQuery) : this(
-                  sourceQuery.Continue().ToMulti(),
-                  ImmutableList<string>.Empty,
-                  sourceQuery.Environment.Options
-                    .GetValue(GremlinqOption.EnableEmptyProjectionValueProtection))
+                sourceQuery.Continue().ToMulti(),
+                ImmutableList<string>.Empty,
+                sourceQuery.Environment.Options.GetValue(GremlinqOption.EnableEmptyProjectionValueProtection)
+                    ? sourceQuery.Environment.Options.GetValue(GremlinqOption.EmptyProjectionProtectionDecoratorSteps)
+                    : default(Traversal?))
             {
             }
 
-            private ProjectBuilder(MultiContinuationBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>> continuationBuilder, ImmutableList<string> names, bool enableEmptyProjectionValueProtection)
+            private ProjectBuilder(
+                MultiContinuationBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>> continuationBuilder,
+                ImmutableList<string> names,
+                Traversal? emptyProjectionProtectionDecoratorSteps)
             {
                 _names = names;
                 _continuationBuilder = continuationBuilder;
-                _enableEmptyProjectionValueProtection = enableEmptyProjectionValueProtection;
+                _emptyProjectionProtectionDecoratorSteps = emptyProjectionProtectionDecoratorSteps;
             }
 
             private ProjectBuilder<TProjectElement, TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16> ByLambda<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16>(Func<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> projection, string? name = default)
@@ -59,7 +47,7 @@ namespace ExRam.Gremlinq.Core
                                 .AddStep(new ProjectStep.ByTraversalStep(traversal))
                                 .Build())),
                     _names.Add(name ?? $"Item{_names.Count + 1}"),
-                    _enableEmptyProjectionValueProtection);
+                    _emptyProjectionProtectionDecoratorSteps);
             }
 
             private ProjectBuilder<TProjectElement, TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16> ByExpression<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16>(Expression projection, string? name = default)
@@ -74,7 +62,7 @@ namespace ExRam.Gremlinq.Core
                                     .AddStep(new ProjectStep.ByKeyStep(__.GetKey(projection)))
                                     .Build())),
                         _names.Add(name ?? $"Item{_names.Count + 1}"),
-                        _enableEmptyProjectionValueProtection);
+                        _emptyProjectionProtectionDecoratorSteps);
             }
 
             IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement> IProjectBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement>.ToTuple()
@@ -117,7 +105,7 @@ namespace ExRam.Gremlinq.Core
                     .Build(
                         static (builder, traversals, state) =>
                         {
-                            var (names, enableEmptyProjectionValueProtection) = state;
+                            var (names, emptyProjectionProtectionDecoratorSteps) = state;
 
                             var projectStep = new ProjectStep(names.ToImmutableArray());
                             var bySteps = traversals.Select(x => x.FirstOrDefault()).OfType<ProjectStep.ByStep>().ToArray();
@@ -132,7 +120,7 @@ namespace ExRam.Gremlinq.Core
                             {
                                 var closureByStep = byStep;
 
-                                if (enableEmptyProjectionValueProtection)
+                                if (emptyProjectionProtectionDecoratorSteps is not null)
                                 {
                                     var byTraversalStep = closureByStep
                                         .ToByTraversalStep();
@@ -144,18 +132,17 @@ namespace ExRam.Gremlinq.Core
                                     .AddStep(closureByStep);
                             }
 
-                            if (enableEmptyProjectionValueProtection)
+                            if (emptyProjectionProtectionDecoratorSteps is not null)
                             {
                                 builder = builder
-                                    .AddSteps(EmptyProjectionProtectionDecoratorSteps);
+                                    .AddSteps(emptyProjectionProtectionDecoratorSteps);
                             }
 
                             return builder
                                 .Build<TTargetQuery>();
                         },
-                        (_names, _enableEmptyProjectionValueProtection));
+                        (_names, _emptyProjectionProtectionDecoratorSteps));
             }
         }
-
     }
 }
