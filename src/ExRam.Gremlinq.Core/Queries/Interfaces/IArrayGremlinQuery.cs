@@ -11,14 +11,14 @@
     {
         new IValueGremlinQuery<TArrayItem> Unfold();
 
-        new IGremlinQuery<TArrayItem[]> Lower();
+        new IValueGremlinQuery<TArrayItem[]> Lower();
     }
 
     public interface IArrayGremlinQueryBase<TArray, TArrayItem> :
         IArrayGremlinQueryBase<TArrayItem>,
         IGremlinQueryBase<TArray>
     {
-        new IGremlinQuery<TArray> Lower();
+        new IValueGremlinQuery<TArray> Lower();
     }
 
     public interface IArrayGremlinQueryBase<TArray, TArrayItem, out TOriginalQuery> :
@@ -34,7 +34,7 @@
 
         new TOriginalQuery Unfold();
 
-        new IGremlinQuery<TArray> Lower();
+        new IValueGremlinQuery<TArray> Lower();
     }
 
     public interface IArrayGremlinQuery<TArray, TArrayItem, TOriginalQuery> :
