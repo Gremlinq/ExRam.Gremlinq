@@ -4,7 +4,7 @@ namespace ExRam.Gremlinq.Core
 {
     public interface IInOrOutEdgeGremlinQueryBase : IEdgeGremlinQueryBase
     {
-        new IEdgeOrVertexGremlinQuery<object> Lower();
+        new IEdgeGremlinQuery<object> Lower();
     }
 
     public interface IInOrOutEdgeGremlinQueryBase<TEdge, TAdjacentVertex> :

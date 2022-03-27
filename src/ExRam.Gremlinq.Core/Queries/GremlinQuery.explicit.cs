@@ -418,7 +418,7 @@ namespace ExRam.Gremlinq.Core
 
         IElementGremlinQuery<object> IVertexPropertyGremlinQueryBase.Lower() => Cast<object>();
 
-        IEdgeOrVertexGremlinQuery<object> IInOrOutEdgeGremlinQueryBase.Lower() => Cast<object>();
+        IEdgeGremlinQuery<object> IInOrOutEdgeGremlinQueryBase.Lower() => Cast<object>();
 
         IEdgeGremlinQuery<TElement> IEdgeGremlinQueryBase<TElement, TOutVertex, TInVertex>.Lower() => this;
 
