@@ -98,6 +98,8 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery<object> IOutEdgeGremlinQueryBase.Lower() => Cast<object>();
 
+        IEdgeGremlinQuery<TElement> IInOrOutEdgeGremlinQueryBase<TElement, TOutVertex>.Lower() => this;
+        
         IVertexGremlinQuery<object> IEdgeGremlinQueryBase.BothV() => BothV<object>();
 
         IVertexGremlinQuery<TVertex> IEdgeGremlinQueryBase.BothV<TVertex>() => ((IEdgeGremlinQueryBase)this)

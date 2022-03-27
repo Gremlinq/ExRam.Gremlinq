@@ -595,6 +595,7 @@
     {
         ExRam.Gremlinq.Core.IEdgeGremlinQuery<TEdge, TTargetVertex, TAdjacentVertex> From<TTargetVertex>(ExRam.Gremlinq.Core.StepLabel<TTargetVertex> stepLabel);
         ExRam.Gremlinq.Core.IEdgeGremlinQuery<TEdge, TTargetVertex, TAdjacentVertex> From<TTargetVertex>(System.Func<ExRam.Gremlinq.Core.IVertexGremlinQuery<TAdjacentVertex>, ExRam.Gremlinq.Core.IVertexGremlinQueryBase<TTargetVertex>> fromVertexTraversal);
+        ExRam.Gremlinq.Core.IEdgeGremlinQuery<TEdge> Lower();
         ExRam.Gremlinq.Core.IEdgeGremlinQuery<TEdge, TAdjacentVertex, TTargetVertex> To<TTargetVertex>(ExRam.Gremlinq.Core.StepLabel<TTargetVertex> stepLabel);
         ExRam.Gremlinq.Core.IEdgeGremlinQuery<TEdge, TAdjacentVertex, TTargetVertex> To<TTargetVertex>(System.Func<ExRam.Gremlinq.Core.IVertexGremlinQuery<TAdjacentVertex>, ExRam.Gremlinq.Core.IVertexGremlinQueryBase<TTargetVertex>> toVertexTraversal);
     }

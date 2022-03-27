@@ -11,6 +11,8 @@ namespace ExRam.Gremlinq.Core
         IInOrOutEdgeGremlinQueryBase,
         IEdgeGremlinQueryBase<TEdge>
     {
+        new IEdgeGremlinQuery<TEdge> Lower();
+
         IEdgeGremlinQuery<TEdge, TTargetVertex, TAdjacentVertex> From<TTargetVertex>(Func<IVertexGremlinQuery<TAdjacentVertex>, IVertexGremlinQueryBase<TTargetVertex>> fromVertexTraversal);
         new IEdgeGremlinQuery<TEdge, TTargetVertex, TAdjacentVertex> From<TTargetVertex>(StepLabel<TTargetVertex> stepLabel);
 
