@@ -6,7 +6,7 @@ using ExRam.Gremlinq.Core.Steps;
 namespace ExRam.Gremlinq.Core
 {
     internal readonly struct FinalContinuationBuilder<TOuterQuery>
-        where TOuterQuery : GremlinQueryBase
+        where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
     {
         private readonly StepStack? _steps;
         private readonly TOuterQuery? _outer;
@@ -105,7 +105,7 @@ namespace ExRam.Gremlinq.Core
 
         public GremlinQuery<object, object, object, object, object, object> AutoBuild() => Build<GremlinQuery<object, object, object, object, object, object>>();
 
-        public TNewTargetQuery Build<TNewTargetQuery>()
+        public TNewTargetQuery Build<TNewTargetQuery>() where TNewTargetQuery : IGremlinQueryBase
         {
             return _outer is { } query
                 ? query.CloneAs<TNewTargetQuery>(

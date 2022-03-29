@@ -4,7 +4,7 @@ using System.Collections.Immutable;
 namespace ExRam.Gremlinq.Core
 {
     internal readonly struct SingleContinuationBuilder<TOuterQuery, TAnonymousQuery>
-        where TOuterQuery : GremlinQueryBase
+        where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
         where TAnonymousQuery : GremlinQueryBase, IGremlinQueryBase
     {
         private readonly TOuterQuery? _outer;

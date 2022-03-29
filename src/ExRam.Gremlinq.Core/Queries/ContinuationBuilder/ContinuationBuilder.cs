@@ -5,7 +5,7 @@ using System.Linq;
 namespace ExRam.Gremlinq.Core
 {
     internal readonly struct ContinuationBuilder<TOuterQuery, TAnonymousQuery>
-        where TOuterQuery : GremlinQueryBase
+        where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
         where TAnonymousQuery : GremlinQueryBase, IGremlinQueryBase
     {
         private readonly TOuterQuery? _outer;
@@ -18,7 +18,7 @@ namespace ExRam.Gremlinq.Core
         }
 
         public ContinuationBuilder<TNewOuterQuery, TAnonymousQuery> WithOuter<TNewOuterQuery>(TNewOuterQuery query)
-            where TNewOuterQuery : GremlinQueryBase =>
+            where TNewOuterQuery : GremlinQueryBase, IGremlinQueryBase =>
                 _anonymous is { } anonymous
                     ? new(query, anonymous)
                     : throw new InvalidOperationException();
