@@ -4,21 +4,21 @@ using System.Linq.Expressions;
 
 namespace ExRam.Gremlinq.Core
 {
-    public interface IProjectTupleBuilder<out TSourceQuery, TElement >
+    public interface IProjectTupleBuilder<out TSourceQuery, TElement>
         where TSourceQuery : IGremlinQueryBase
     {
         IProjectTupleBuilder<TSourceQuery, TElement, TItem1> By<TItem1>(Func<TSourceQuery, IGremlinQueryBase<TItem1>> projection);
         IProjectTupleBuilder<TSourceQuery, TElement, TItem1> By<TItem1>(Expression<Func<TElement, TItem1>> projection);
     }
 
-    public interface IProjectTupleBuilder<out TSourceQuery, TElement , TItem1>
+    public interface IProjectTupleBuilder<out TSourceQuery, TElement, TItem1>
         where TSourceQuery : IGremlinQueryBase
     {
         IProjectTupleBuilder<TSourceQuery, TElement, TItem1, TItem2> By<TItem2>(Func<TSourceQuery, IGremlinQueryBase<TItem2>> projection);
         IProjectTupleBuilder<TSourceQuery, TElement, TItem1, TItem2> By<TItem2>(Expression<Func<TElement, TItem2>> projection);
     }
 
-    public interface IProjectTupleBuilder<out TSourceQuery, TElement , TItem1, TItem2>
+    public interface IProjectTupleBuilder<out TSourceQuery, TElement, TItem1, TItem2>
         : IProjectResult<(TItem1, TItem2)>
         where TSourceQuery : IGremlinQueryBase
     {
@@ -26,7 +26,7 @@ namespace ExRam.Gremlinq.Core
         IProjectTupleBuilder<TSourceQuery, TElement, TItem1, TItem2, TItem3> By<TItem3>(Expression<Func<TElement, TItem3>> projection);
     }
 
-    public interface IProjectTupleBuilder<out TSourceQuery, TElement , TItem1, TItem2, TItem3>
+    public interface IProjectTupleBuilder<out TSourceQuery, TElement, TItem1, TItem2, TItem3>
         : IProjectResult<(TItem1, TItem2, TItem3)>
         where TSourceQuery : IGremlinQueryBase
     {
@@ -34,7 +34,7 @@ namespace ExRam.Gremlinq.Core
         IProjectTupleBuilder<TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4> By<TItem4>(Expression<Func<TElement, TItem4>> projection);
     }
 
-    public interface IProjectTupleBuilder<out TSourceQuery, TElement , TItem1, TItem2, TItem3, TItem4>
+    public interface IProjectTupleBuilder<out TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4>
         : IProjectResult<(TItem1, TItem2, TItem3, TItem4)>
         where TSourceQuery : IGremlinQueryBase
     {
@@ -42,7 +42,7 @@ namespace ExRam.Gremlinq.Core
         IProjectTupleBuilder<TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5> By<TItem5>(Expression<Func<TElement, TItem5>> projection);
     }
 
-    public interface IProjectTupleBuilder<out TSourceQuery, TElement , TItem1, TItem2, TItem3, TItem4, TItem5>
+    public interface IProjectTupleBuilder<out TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5>
         : IProjectResult<(TItem1, TItem2, TItem3, TItem4, TItem5)>
         where TSourceQuery : IGremlinQueryBase
     {
@@ -50,7 +50,7 @@ namespace ExRam.Gremlinq.Core
         IProjectTupleBuilder<TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6> By<TItem6>(Expression<Func<TElement, TItem6>> projection);
     }
 
-    public interface IProjectTupleBuilder<out TSourceQuery, TElement , TItem1, TItem2, TItem3, TItem4, TItem5, TItem6>
+    public interface IProjectTupleBuilder<out TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6>
         : IProjectResult<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6)>
         where TSourceQuery : IGremlinQueryBase
     {
@@ -58,7 +58,7 @@ namespace ExRam.Gremlinq.Core
         IProjectTupleBuilder<TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7> By<TItem7>(Expression<Func<TElement, TItem7>> projection);
     }
 
-    public interface IProjectTupleBuilder<out TSourceQuery, TElement , TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7>
+    public interface IProjectTupleBuilder<out TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7>
         : IProjectResult<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7)>
         where TSourceQuery : IGremlinQueryBase
     {
@@ -66,7 +66,7 @@ namespace ExRam.Gremlinq.Core
         IProjectTupleBuilder<TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8> By<TItem8>(Expression<Func<TElement, TItem8>> projection);
     }
 
-    public interface IProjectTupleBuilder<out TSourceQuery, TElement , TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8>
+    public interface IProjectTupleBuilder<out TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8>
         : IProjectResult<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8)>
         where TSourceQuery : IGremlinQueryBase
     {
@@ -74,7 +74,7 @@ namespace ExRam.Gremlinq.Core
         IProjectTupleBuilder<TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9> By<TItem9>(Expression<Func<TElement, TItem9>> projection);
     }
 
-    public interface IProjectTupleBuilder<out TSourceQuery, TElement , TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9>
+    public interface IProjectTupleBuilder<out TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9>
         : IProjectResult<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9)>
         where TSourceQuery : IGremlinQueryBase
     {
@@ -82,7 +82,7 @@ namespace ExRam.Gremlinq.Core
         IProjectTupleBuilder<TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10> By<TItem10>(Expression<Func<TElement, TItem10>> projection);
     }
 
-    public interface IProjectTupleBuilder<out TSourceQuery, TElement , TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10>
+    public interface IProjectTupleBuilder<out TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10>
         : IProjectResult<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10)>
         where TSourceQuery : IGremlinQueryBase
     {
@@ -90,7 +90,7 @@ namespace ExRam.Gremlinq.Core
         IProjectTupleBuilder<TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11> By<TItem11>(Expression<Func<TElement, TItem11>> projection);
     }
 
-    public interface IProjectTupleBuilder<out TSourceQuery, TElement , TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11>
+    public interface IProjectTupleBuilder<out TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11>
         : IProjectResult<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11)>
         where TSourceQuery : IGremlinQueryBase
     {
@@ -98,7 +98,7 @@ namespace ExRam.Gremlinq.Core
         IProjectTupleBuilder<TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12> By<TItem12>(Expression<Func<TElement, TItem12>> projection);
     }
 
-    public interface IProjectTupleBuilder<out TSourceQuery, TElement , TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12>
+    public interface IProjectTupleBuilder<out TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12>
         : IProjectResult<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12)>
         where TSourceQuery : IGremlinQueryBase
     {
@@ -106,7 +106,7 @@ namespace ExRam.Gremlinq.Core
         IProjectTupleBuilder<TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13> By<TItem13>(Expression<Func<TElement, TItem13>> projection);
     }
 
-    public interface IProjectTupleBuilder<out TSourceQuery, TElement , TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13>
+    public interface IProjectTupleBuilder<out TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13>
         : IProjectResult<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13)>
         where TSourceQuery : IGremlinQueryBase
     {
@@ -114,7 +114,7 @@ namespace ExRam.Gremlinq.Core
         IProjectTupleBuilder<TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14> By<TItem14>(Expression<Func<TElement, TItem14>> projection);
     }
 
-    public interface IProjectTupleBuilder<out TSourceQuery, TElement , TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14>
+    public interface IProjectTupleBuilder<out TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14>
         : IProjectResult<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14)>
         where TSourceQuery : IGremlinQueryBase
     {
@@ -122,7 +122,7 @@ namespace ExRam.Gremlinq.Core
         IProjectTupleBuilder<TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15> By<TItem15>(Expression<Func<TElement, TItem15>> projection);
     }
 
-    public interface IProjectTupleBuilder<out TSourceQuery, TElement , TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15>
+    public interface IProjectTupleBuilder<out TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15>
         : IProjectResult<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15)>
         where TSourceQuery : IGremlinQueryBase
     {
@@ -130,7 +130,7 @@ namespace ExRam.Gremlinq.Core
         IProjectTupleBuilder<TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16> By<TItem16>(Expression<Func<TElement, TItem16>> projection);
     }
 
-    public interface IProjectTupleBuilder<out TSourceQuery, TElement , TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16>
+    public interface IProjectTupleBuilder<out TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16>
         : IProjectResult<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16)>
         where TSourceQuery : IGremlinQueryBase
     {

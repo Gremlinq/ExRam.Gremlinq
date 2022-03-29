@@ -12,7 +12,7 @@ using System.Linq.Expressions;
 namespace ExRam.Gremlinq.Core
 {
 <# for(var i = 0; i <= 16; i++) { #>
-    public interface IProjectTupleBuilder<out TSourceQuery, TElement <#= GetArgumentList("TItem{0}", i, true) #>>
+    public interface IProjectTupleBuilder<out TSourceQuery, TElement<#= GetArgumentList("TItem{0}", i, true) #>>
     <# if (i >= 2) { #>
     : IProjectResult<(<#= GetArgumentList("TItem{0}", i) #>)>
     <# } #>
