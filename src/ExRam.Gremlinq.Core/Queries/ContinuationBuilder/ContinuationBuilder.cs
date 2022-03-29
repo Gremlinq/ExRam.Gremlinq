@@ -18,52 +18,42 @@ namespace ExRam.Gremlinq.Core
         }
 
         public ContinuationBuilder<TNewOuterQuery, TAnonymousQuery> WithOuter<TNewOuterQuery>(TNewOuterQuery query)
-            where TNewOuterQuery : GremlinQueryBase
-        {
-            return _anonymous is { } anonymous
-                ? new(query, anonymous)
-                : throw new InvalidOperationException();
-        }
+            where TNewOuterQuery : GremlinQueryBase =>
+                _anonymous is { } anonymous
+                    ? new(query, anonymous)
+                    : throw new InvalidOperationException();
 
         public SingleContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TProjectedQuery>(Func<TAnonymousQuery, TProjectedQuery> continuation)
-            where TProjectedQuery : IGremlinQueryBase
-        {
-            return _outer is { } outer && _anonymous is { } anonymous
-                ? new(outer, anonymous, continuation.Apply(anonymous))
-                : throw new InvalidOperationException();
-        }
+            where TProjectedQuery : IGremlinQueryBase =>
+                _outer is { } outer && _anonymous is { } anonymous
+                    ? new(outer, anonymous, continuation.Apply(anonymous))
+                    : throw new InvalidOperationException();
 
         public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TProjectedQuery>(Func<TAnonymousQuery, TProjectedQuery>[] continuations)
-            where TProjectedQuery : IGremlinQueryBase
-        {
-            return _outer is { } outer && _anonymous is { } anonymous
-                ? new(
-                    outer,
-                    anonymous,
-                    continuations
-                        .Select(contintuation => (IGremlinQueryBase)contintuation.Apply(anonymous))
-                        .ToImmutableList())
-                : throw new InvalidOperationException();
-        }
+            where TProjectedQuery : IGremlinQueryBase =>
+                _outer is { } outer && _anonymous is { } anonymous
+                    ? new(
+                        outer,
+                        anonymous,
+                        continuations
+                            .Select(contintuation => (IGremlinQueryBase)contintuation.Apply(anonymous))
+                            .ToImmutableList())
+                    : throw new InvalidOperationException();
 
-        public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> ToMulti()
-        {
-            return _outer is { } outer && _anonymous is { } anonymous
+        public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> ToMulti() =>
+            _outer is { } outer && _anonymous is { } anonymous
                 ? new(
                     outer,
                     anonymous,
                     ImmutableList<IGremlinQueryBase>.Empty)
                 : throw new InvalidOperationException();
-        }
 
-        public TNewQuery Build<TNewQuery, TState>(Func<FinalContinuationBuilder<TOuterQuery>, TState, TNewQuery> builderTransformation, TState state)
-        {
-            return _outer is { } outer
+        public TNewQuery Build<TNewQuery, TState>(Func<FinalContinuationBuilder<TOuterQuery>, TState, TNewQuery> builderTransformation, TState state) =>
+            _outer is { } outer
                 ? outer.Flags.HasFlag(QueryFlags.IsMuted)
                     ? outer.CloneAs<TNewQuery>()
                     : builderTransformation(new FinalContinuationBuilder<TOuterQuery>(outer), state)
                 : throw new InvalidOperationException();
-        }
 
         public TOuterQuery OuterQuery => _outer ?? throw new InvalidOperationException();
     }
