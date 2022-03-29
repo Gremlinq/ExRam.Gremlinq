@@ -451,7 +451,7 @@ namespace ExRam.Gremlinq.Core
             .Build(
                 static (builder, message) => builder
                     .AddStep(message is { } actualMessage
-                        ? new FailStep(message)
+                        ? new FailStep(actualMessage)
                         : FailStep.NoMessage)
                     .WithNewProjection(Projection.Empty)
                     .AutoBuild(),
