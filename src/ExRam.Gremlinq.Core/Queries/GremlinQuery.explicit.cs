@@ -230,17 +230,21 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IGremlinQueryAdmin.AddStep<TTargetQuery>(Step step, Func<Projection, Projection>? maybeProjectionTransformation) => this
             .Continue()
-            .Build(builder =>
-            {
-                builder = builder
-                    .AddStep(step);
+            .Build(
+                static (builder, tuple) =>
+                {
+                    var (step, maybeProjectionTransformation) = tuple;
 
-                if (maybeProjectionTransformation is { } projectionTransformation)
-                    builder = builder.WithNewProjection(projectionTransformation);
+                    builder = builder
+                        .AddStep(step);
 
-                return builder
-                    .Build<TTargetQuery>();
-            });
+                    if (maybeProjectionTransformation is { } projectionTransformation)
+                        builder = builder.WithNewProjection(projectionTransformation);
+
+                    return builder
+                        .Build<TTargetQuery>();
+                },
+                (step, maybeProjectionTransformation));
 
         TTargetQuery IGremlinQueryAdmin.ChangeQueryType<TTargetQuery>(Projection? maybeForcedProjection) => CloneAs<TTargetQuery>(
             maybeProjectionTransformation: maybeForcedProjection is { } forcedProjection

@@ -58,9 +58,11 @@ namespace ExRam.Gremlinq.Core
                         _continuationBuilder
                             .With(__ => __
                                 .Continue()
-                                .Build(builder => builder
-                                    .AddStep(new ProjectStep.ByKeyStep(__.GetKey(projection)))
-                                    .Build())),
+                                .Build(
+                                    static (builder, key) => builder
+                                        .AddStep(new ProjectStep.ByKeyStep(key))
+                                        .Build(),
+                                    __.GetKey(projection))),
                         _names.Add(name ?? $"Item{_names.Count + 1}"),
                         _emptyProjectionProtectionDecoratorSteps);
             }

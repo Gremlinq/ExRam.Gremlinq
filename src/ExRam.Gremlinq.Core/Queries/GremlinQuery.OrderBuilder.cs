@@ -37,23 +37,33 @@ namespace ExRam.Gremlinq.Core
 
             private OrderBuilder By(Expression<Func<TElement, object?>> projection, Order order) => new(_query
                 .Continue()
-                .Build(builder => builder
-                    .AddStep(new OrderStep.ByMemberStep(_query.GetKey(projection), order))
-                    .Build()));
+                .Build(
+                    static (builder, tuple) =>
+                    {
+                        var (key, order) = tuple;
+
+                        return builder
+                            .AddStep(new OrderStep.ByMemberStep(key, order))
+                            .Build();
+                    },
+                    (_query.GetKey(projection), order)));
 
             private OrderBuilder By(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> continuation, Order order) => new(_query
                 .Continue()
                 .With(continuation)
                 .Build(
-                    static (builder, traversal, order) => builder.AddStep(new OrderStep.ByTraversalStep(traversal, order)),
-                    order)
-                .Build());
+                    static (builder, traversal, order) => builder
+                        .AddStep(new OrderStep.ByTraversalStep(traversal, order))
+                        .Build(),
+                    order));
 
             private OrderBuilder By(ILambda lambda) => new(_query
                 .Continue()
-                .Build(builder => builder
-                    .AddStep(new OrderStep.ByLambdaStep(lambda))
-                    .Build()));
+                .Build(
+                    static (builder, lambda) => builder
+                        .AddStep(new OrderStep.ByLambdaStep(lambda))
+                        .Build(),
+                    lambda));
         }
     }
 }
