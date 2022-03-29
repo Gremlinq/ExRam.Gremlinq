@@ -330,7 +330,7 @@ namespace ExRam.Gremlinq.Core
             where TReturnQuery : IGremlinQueryBase
         {
             if (continuations.Length == 0)
-                throw new ArgumentException("Coalesce must have at least one subquery.");
+                throw new ArgumentException("Coalesce must have at least one sub-query.");
 
             return this
                 .Continue()
