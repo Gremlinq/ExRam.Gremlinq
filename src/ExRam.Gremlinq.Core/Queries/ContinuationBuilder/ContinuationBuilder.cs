@@ -50,7 +50,7 @@ namespace ExRam.Gremlinq.Core
 
         public TNewQuery Build<TNewQuery, TState>(Func<FinalContinuationBuilder<TOuterQuery>, TState, TNewQuery> builderTransformation, TState state) =>
             _outer is { } outer
-                ? outer.Flags.HasFlag(QueryFlags.IsMuted)
+                ? (outer.Flags & QueryFlags.IsMuted) == QueryFlags.IsMuted
                     ? outer.CloneAs<TNewQuery>()
                     : builderTransformation(new FinalContinuationBuilder<TOuterQuery>(outer), state)
                 : throw new InvalidOperationException();
