@@ -250,7 +250,7 @@ namespace ExRam.Gremlinq.Core
         IGremlinQuerySource IGremlinQueryAdmin.GetSource() => CloneAs<GremlinQuery<object, object, object, object, object, object>>(
             maybeStepStackTransformation: _ => StepStack.Empty,
             maybeProjectionTransformation: _ => Projection.Empty,
-            maybeQueryFlagsTransformation: flags => Flags & QueryFlags.IsMuted);
+            maybeQueryFlagsTransformation: flags => flags & QueryFlags.IsMuted);
 
         StepStack IGremlinQueryAdmin.Steps => Steps;
 
