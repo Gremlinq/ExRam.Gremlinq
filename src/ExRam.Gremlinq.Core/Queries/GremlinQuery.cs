@@ -278,7 +278,7 @@ namespace ExRam.Gremlinq.Core
                 .Build(
                     static (builder, trueTraversal, state) =>
                     {
-                        var (chooseTraversal, trueChoice, maybeFalseChoice) = state;
+                        var (chooseTraversal, maybeFalseChoice) = state;
 
                         if (maybeFalseChoice is { } falseChoice)
                         {
@@ -317,7 +317,7 @@ namespace ExRam.Gremlinq.Core
                             .WithNewProjection(_ => _.Lowest(trueTraversal.Projection))
                             .Build<TTargetQuery>();
                     },
-                    (chooseTraversal, trueChoice, maybeFalseChoice));
+                    (chooseTraversal, maybeFalseChoice));
 
         private TTargetQuery Choose<TTargetQuery>(Func<IChooseBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>, IChooseBuilderWithCaseOrDefault<TTargetQuery>> continuation)
             where TTargetQuery : IGremlinQueryBase
