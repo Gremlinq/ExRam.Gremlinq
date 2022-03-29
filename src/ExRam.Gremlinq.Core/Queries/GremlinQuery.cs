@@ -1374,7 +1374,7 @@ namespace ExRam.Gremlinq.Core
 
                                 if (targetExpression != null && typeof(IDictionary<string, object>).IsAssignableFrom(targetExpression.Type) && methodCallExpression.Method.Name == "get_Item")
                                 {
-                                    if (methodCallExpression.Arguments[0].StripConvert()!.GetValue() is string key)
+                                    if (methodCallExpression.Arguments[0].StripConvert().GetValue() is string key)
                                     {
                                         yield return new HasPredicateStep(key, effectivePredicate);
                                         yield break;
