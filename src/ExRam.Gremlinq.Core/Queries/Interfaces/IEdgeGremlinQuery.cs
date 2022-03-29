@@ -89,6 +89,6 @@ namespace ExRam.Gremlinq.Core
         IEdgeGremlinQueryBase<TEdge, TOutVertex, TInVertex>,
         IEdgeGremlinQueryBaseRec<TEdge, IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>>
     {
-
+        new IEdgeGremlinQuery<TEdge> Lower();
     }
 }

@@ -46,6 +46,8 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<TElement> IArrayGremlinQueryBase<TElement, TScalar>.Lower() => this;
 
+        IEdgeGremlinQuery<TElement> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Lower() => this;
+
         IValueGremlinQuery<object> IArrayGremlinQueryBase.Unfold() => Unfold<IValueGremlinQuery<object>>();
 
         IValueTupleGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceValueTuple() => CloneAs<IValueTupleGremlinQuery<TElement>>(maybeProjectionTransformation: _ => Projection.Value);
