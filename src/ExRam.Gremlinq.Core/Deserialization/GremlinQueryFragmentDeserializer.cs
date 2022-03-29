@@ -134,7 +134,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
 
         // ReSharper disable ConvertToLambdaExpression
         public static IGremlinQueryFragmentDeserializer AddNewtonsoftJson(this IGremlinQueryFragmentDeserializer deserializer) => deserializer
-            .Override<JToken>((jToken, type, env, overridden, recurse) =>
+            .Override<JToken>((jToken, type, env, _, recurse) =>
             {
                 var populatingSerializer = env
                     .GetCache()
@@ -183,7 +183,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                     ? Activator.CreateInstance(type, recurse.TryDeserialize(jToken, type.GetGenericArguments()[0], env))
                     : overridden(jToken, type, env, recurse);
             })
-            .Override<JValue, TimeSpan>((jValue, type, env, overridden, recurse) => XmlConvert.ToTimeSpan(jValue.Value<string>()))
+            .Override<JValue, TimeSpan>((jValue, _, _, _, _) => XmlConvert.ToTimeSpan(jValue.Value<string>()))
             .Override<JValue, DateTimeOffset>((jValue, type, env, overridden, recurse) =>
             {
                 switch (jValue.Value)
@@ -247,7 +247,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
 
                 return null;
             })
-            .Override<JObject, object>((jObject, type, env, overridden, recurse) =>
+            .Override<JObject, object>((jObject, _, env, _, recurse) =>
             {
                 var expando = (IDictionary<string, object?>)new ExpandoObject();
 
