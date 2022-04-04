@@ -1,5 +1,11 @@
 # Configuration for Label Actions - https://github.com/dessant/label-actions
 
+"Issue template ignored":
+  comment: >
+    Hello @{issue-author},
+    
+    it seems that you ignored significant parts of the issue template. Please reconsider.
+
 "Repro repository missing":
   comment: >
     Hello @{issue-author},
