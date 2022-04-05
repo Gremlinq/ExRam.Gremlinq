@@ -726,11 +726,10 @@ namespace ExRam.Gremlinq.Core
                         return builder.OuterQuery;
 
                     if (!traversal.IsNone())
-                        (continuedTraversals ??= new List<Traversal>()).Add(traversal);
+                        (continuedTraversals ??= new List<Traversal>()).Add(traversal.RewriteForWhereContext());
                 }
 
                 var fusedTraversals = continuedTraversals?
-                    .Select(traversal => traversal.RewriteForWhereContext())
                     .Fuse(
                         (p1, p2) => p1.Or(p2))
                     .ToArray();
