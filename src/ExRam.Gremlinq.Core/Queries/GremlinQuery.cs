@@ -140,11 +140,10 @@ namespace ExRam.Gremlinq.Core
                             return builder.OuterQuery.None();
 
                         if (!traversal.IsIdentity())
-                            (continuedTraversals ??= new List<Traversal>()).Add(traversal);
+                            (continuedTraversals ??= new List<Traversal>()).Add(traversal.RewriteForWhereContext());
                     }
 
                     var fusedTraversals = continuedTraversals?
-                        .Select(traversal => traversal.RewriteForWhereContext())
                         .Fuse(
                             (p1, p2) => p1.And(p2))
                         .ToArray();
