@@ -600,7 +600,7 @@ namespace ExRam.Gremlinq.Core
         private TTargetQuery Map<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> continuation) where TTargetQuery : IGremlinQueryBase => this
             .Continue()
             .With(continuation)
-            .Build(static (builder, innerTraversal) => innerTraversal.Count == 0
+            .Build(static (builder, innerTraversal) => innerTraversal.IsIdentity()
                 ? builder.OuterQuery
                     .CloneAs<TTargetQuery>()
                 : builder
@@ -666,7 +666,7 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Not(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> continuation) => this
             .Continue()
             .With(continuation)
-            .Build(static (builder, innerTraversal) => innerTraversal.Count == 0
+            .Build(static (builder, innerTraversal) => innerTraversal.IsIdentity()
                 ? builder.OuterQuery
                     .None()
                 : innerTraversal.IsNone()
