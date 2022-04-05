@@ -36,6 +36,10 @@
               "SourceInstructions": [],
               "StepInstructions": [
                 {
+                  "OperatorName": "identity",
+                  "Arguments": []
+                },
+                {
                   "OperatorName": "limit",
                   "Arguments": [
                     1
