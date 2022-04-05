@@ -144,8 +144,7 @@ namespace ExRam.Gremlinq.Core
                     }
 
                     var fusedTraversals = continuedTraversals?
-                        .Fuse(
-                            (p1, p2) => p1.And(p2))
+                        .Fuse((p1, p2) => p1.And(p2))
                         .ToArray();
 
                     return fusedTraversals?.Length switch
@@ -729,8 +728,7 @@ namespace ExRam.Gremlinq.Core
                 }
 
                 var fusedTraversals = continuedTraversals?
-                    .Fuse(
-                        (p1, p2) => p1.Or(p2))
+                    .Fuse((p1, p2) => p1.Or(p2))
                     .ToArray();
 
                 return fusedTraversals?.Length switch
