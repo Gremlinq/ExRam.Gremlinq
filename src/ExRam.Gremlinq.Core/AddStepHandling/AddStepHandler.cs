@@ -104,7 +104,7 @@ namespace ExRam.Gremlinq.Core
             .Override<AsStep>((steps, step, env, overridden, recurse) => steps.PeekOrDefault() is AsStep asStep && ReferenceEquals(asStep.StepLabel, step.StepLabel)
                 ? steps
                 : overridden(steps, step, env, recurse))
-            .Override<HasLabelStep>((steps, step, env, overridden, recurse) => steps.PeekOrDefault()  is HasLabelStep hasLabelStep
+            .Override<HasLabelStep>((steps, step, env, overridden, recurse) => steps.PeekOrDefault() is HasLabelStep hasLabelStep
                 ? steps
                     .Pop()
                     .Push(new HasLabelStep(step.Labels.Intersect(hasLabelStep.Labels).ToImmutableArray()))
@@ -126,7 +126,7 @@ namespace ExRam.Gremlinq.Core
 
                 return overridden(steps, step, env, recurse);
             })
-            .Override<IdentityStep>((steps, step, env, overridden, recurse) => steps.PeekOrDefault() is IdentityStep identityStep
+            .Override<IdentityStep>((steps, step, env, overridden, recurse) => steps.PeekOrDefault() is IdentityStep
                 ? steps
                 : overridden(steps, step, env, recurse))
             .Override<WithoutStrategiesStep>((steps, step, env, overridden, recurse) => (steps.PeekOrDefault() is WithoutStrategiesStep withoutStrategies)
@@ -142,7 +142,9 @@ namespace ExRam.Gremlinq.Core
                     .Pop()
                     .Push(new IsStep(isStep.Predicate.And(step.Predicate)))
                 : overridden(steps, step, env, recurse))
-            .Override<NoneStep>((steps, step, env, overridden, recurse) => steps.PeekOrDefault() is NoneStep ? steps : overridden(steps, step, env, recurse));
+            .Override<NoneStep>((steps, step, env, overridden, recurse) => steps.PeekOrDefault() is NoneStep
+                ? steps
+                : overridden(steps, step, env, recurse));
     }
 }
 
