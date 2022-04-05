@@ -30,6 +30,10 @@
           ]
         },
         {
+          "OperatorName": "identity",
+          "Arguments": []
+        },
+        {
           "OperatorName": "project",
           "Arguments": [
             "id",

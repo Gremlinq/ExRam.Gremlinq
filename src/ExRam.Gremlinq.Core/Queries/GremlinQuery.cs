@@ -500,7 +500,11 @@ namespace ExRam.Gremlinq.Core
                 .WithNewProjection(Projection.Value)
                 .AutoBuild());
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Identity() => this;
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Identity() => this
+            .Continue()
+            .Build(static builder => builder
+                .AddStep(IdentityStep.Instance)
+                .Build());
 
         private GremlinQuery<object, object, object, object, object, object> In() => this
             .Continue()

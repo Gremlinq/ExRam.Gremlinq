@@ -126,6 +126,9 @@ namespace ExRam.Gremlinq.Core
 
                 return overridden(steps, step, env, recurse);
             })
+            .Override<IdentityStep>((steps, step, env, overridden, recurse) => steps.PeekOrDefault() is IdentityStep identityStep
+                ? steps
+                : overridden(steps, step, env, recurse))
             .Override<WithoutStrategiesStep>((steps, step, env, overridden, recurse) => (steps.PeekOrDefault() is WithoutStrategiesStep withoutStrategies)
                 ? steps
                     .Pop()
