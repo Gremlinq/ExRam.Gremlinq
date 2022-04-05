@@ -337,7 +337,7 @@ namespace ExRam.Gremlinq.Core
                 .With(continuations)
                 .Build(static (builder, innerTraversals) =>
                 {
-                    if (innerTraversals.All(innerTraversal => innerTraversal.Count == 0))
+                    if (innerTraversals.All(innerTraversal => innerTraversal.IsIdentity()))
                         return builder.Build<TReturnQuery>();
 
                     var aggregatedProjection = innerTraversals
