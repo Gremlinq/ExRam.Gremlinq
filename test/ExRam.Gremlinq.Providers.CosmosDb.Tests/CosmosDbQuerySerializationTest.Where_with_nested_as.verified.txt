@@ -1,0 +1,10 @@
+﻿[
+  {
+    "Script": "g.V().hasLabel(_a).where(__.map(__.as(_b)))",
+    "Id": "Scrubbed GUID",
+    "Bindings": {
+      "_a": "Company",
+      "_b": "l1"
+    }
+  }
+]
