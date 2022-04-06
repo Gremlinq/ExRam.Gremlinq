@@ -4327,6 +4327,16 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task Where_with_nested_as()
+        {
+            await _g
+                .V<Company>()
+                .Where(__ => __
+                    .As((__, a) => __))
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task Where_bool_property_explicit_comparison1()
         {
             await _g
