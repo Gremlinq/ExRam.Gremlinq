@@ -229,6 +229,14 @@
     }
   },
   {
+    Item1: FilterStep.ByTraversalStep,
+    Item2: {
+      Traversal: [
+        {}
+      ]
+    }
+  },
+  {
     Item1: FlatMapStep,
     Item2: {
       Traversal: [

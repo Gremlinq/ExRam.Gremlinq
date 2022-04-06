@@ -176,6 +176,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                     : CreateInstruction("fail"))
                 .Override<FoldStep>(static (_, _, _, _) => CreateInstruction("fold"))
                 .Override<FilterStep.ByLambdaStep>(static (step, env, _, recurse) => CreateInstruction("filter", recurse, env, step.Lambda))
+                .Override<FilterStep.ByTraversalStep>(static (step, env, _, recurse) => CreateInstruction("filter", recurse, env, step.Traversal))
                 .Override<FlatMapStep>(static (step, env, _, recurse) => CreateInstruction("flatMap", recurse, env, step.Traversal))
                 .Override<GroupStep>(static (_, _, _, _) => CreateInstruction("group"))
                 .Override<GroupStep.ByTraversalStep>(static (step, env, _, recurse) => CreateInstruction("by", recurse, env, step.Traversal))

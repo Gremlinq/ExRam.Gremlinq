@@ -336,6 +336,21 @@
     }
   },
   {
+    Item1: FilterStep.ByTraversalStep,
+    Item2: {
+      OperatorName: filter,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: identity
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
     Item1: FlatMapStep,
     Item2: {
       OperatorName: flatMap,
