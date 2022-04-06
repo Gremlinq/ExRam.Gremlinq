@@ -67,7 +67,10 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         public override async Task AddE_to_from() { }
 
         [Fact(Skip = "Gremlin Query Compilation Error: Unable to bind to method 'aggregate', with arguments of type: (Scope, String) @ line 1, column 16.")]
-        public override async Task Aggregate_Global() { }
+        public override async Task Aggregate_Local() { }
+
+        [Fact(Skip = "Gremlin Query Compilation Error: Unable to bind to method 'aggregate', with arguments of type: (Scope, String) @ line 1, column 16.")]
+        public override async Task Aggregate_Local_with_existing_step() { }
 
         [Fact(Skip = "Gremlin Query Compilation Error: Unable to resolve symbol 'none' in the current context. @ line 1, column 57.")]
         public override async Task Choose_only_default_case() { }
