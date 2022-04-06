@@ -140,7 +140,7 @@ namespace ExRam.Gremlinq.Core
                             return builder.OuterQuery.None();
 
                         if (!traversal.IsIdentity())
-                            (continuedTraversals ??= new List<Traversal>()).Add(traversal.RewriteForWhereContext());
+                            (continuedTraversals ??= new List<Traversal>(traversals.Length)).Add(traversal.RewriteForWhereContext());
                     }
 
                     var fusedTraversals = continuedTraversals?
@@ -724,7 +724,7 @@ namespace ExRam.Gremlinq.Core
                         return builder.OuterQuery;
 
                     if (!traversal.IsNone())
-                        (continuedTraversals ??= new List<Traversal>()).Add(traversal.RewriteForWhereContext());
+                        (continuedTraversals ??= new List<Traversal>(traversals.Length)).Add(traversal.RewriteForWhereContext());
                 }
 
                 var fusedTraversals = continuedTraversals?
