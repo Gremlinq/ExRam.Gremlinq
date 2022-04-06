@@ -323,7 +323,7 @@
     }
   },
   {
-    Item1: FilterStep,
+    Item1: FilterStep.ByLambdaStep,
     Item2: {
       OperatorName: filter,
       Arguments: [

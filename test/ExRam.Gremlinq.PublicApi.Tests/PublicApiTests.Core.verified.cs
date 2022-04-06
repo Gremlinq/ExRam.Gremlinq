@@ -1766,10 +1766,14 @@ namespace ExRam.Gremlinq.Core.Steps
         public FailStep(string? message = null) { }
         public string? Message { get; }
     }
-    public sealed class FilterStep : ExRam.Gremlinq.Core.Steps.Step
+    public abstract class FilterStep : ExRam.Gremlinq.Core.Steps.Step
     {
-        public FilterStep(Gremlin.Net.Process.Traversal.ILambda lambda) { }
-        public Gremlin.Net.Process.Traversal.ILambda Lambda { get; }
+        protected FilterStep(ExRam.Gremlinq.Core.Steps.SideEffectSemanticsChange sideEffectSemanticsChange) { }
+        public sealed class ByLambdaStep : ExRam.Gremlinq.Core.Steps.FilterStep
+        {
+            public ByLambdaStep(Gremlin.Net.Process.Traversal.ILambda lambda) { }
+            public Gremlin.Net.Process.Traversal.ILambda Lambda { get; }
+        }
     }
     public sealed class FlatMapStep : ExRam.Gremlinq.Core.Steps.Step
     {

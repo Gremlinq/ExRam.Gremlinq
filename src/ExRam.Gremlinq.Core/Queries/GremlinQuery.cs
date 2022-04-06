@@ -1111,7 +1111,7 @@ namespace ExRam.Gremlinq.Core
             .Continue()
             .Build(
                 static (builder, lambda) => builder
-                    .AddStep(new FilterStep(lambda))
+                    .AddStep(new FilterStep.ByLambdaStep(lambda))
                     .Build(),
                 lambda);
 
