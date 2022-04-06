@@ -97,6 +97,7 @@ namespace ExRam.Gremlinq.Core
                                     ? new[] { key.PartitionKey, key.Id }
                                     : (object)key.Id,
                                 env))
+                            .Override<FilterStep.ByTraversalStep>(static (step, env, _, recurse) => recurse.Serialize(new WhereTraversalStep(step.Traversal), env))
                             .Override<HasKeyStep>((step, env, overridden, recurse) => step.Argument is P p && (!p.OperatorName.Equals("eq", StringComparison.OrdinalIgnoreCase))
                                 ? recurse.Serialize(new WhereTraversalStep(new Step[] {KeyStep.Instance, new IsStep(p)}), env)
                                 : overridden(step, env, recurse))
