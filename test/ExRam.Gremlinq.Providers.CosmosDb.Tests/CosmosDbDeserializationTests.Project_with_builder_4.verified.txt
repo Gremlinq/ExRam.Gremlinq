@@ -1,6 +1,5 @@
 ﻿[
   {
-    "count!": 1,
     "in!": {
       "Age": 0,
       "Gender": null,
@@ -23,6 +22,7 @@
       "Id": "scrubbed id",
       "Label": "Language"
     },
+    "count!": 1,
     "properties!": {
       "id": "scrubbed id",
       "value": "PartitionKey",
