@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "g.inject('label').as('l1').V().hasLabel('Country').properties('Languages').where(__.label().where(eq('l1'))).project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap())",
+    "Script": "g.inject('label').as('l1').V().hasLabel('Country').properties('Languages').filter(__.label().where(eq('l1'))).project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap())",
     "Id": "Scrubbed GUID",
     "Bindings": {}
   }

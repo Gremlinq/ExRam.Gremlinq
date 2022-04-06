@@ -72,8 +72,8 @@ namespace ExRam.Gremlinq.Core
             }
             else if (traversal.Count == 1)
             {
-                if (traversal[0] is WhereTraversalStep whereTraversalStep)
-                    return whereTraversalStep.Traversal.RewriteForWhereContext();
+                if (traversal[0] is FilterStep.ByTraversalStep filterStep)
+                    return filterStep.Traversal.RewriteForWhereContext();
             }
 
             return traversal;

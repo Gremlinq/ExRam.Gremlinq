@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "g.V().where(__.properties()).project(_a,_b).by(__.identity()).by(__.properties()).project(_a,_b).by(__.select(_a).project(_c,_d,_e).by(id).by(label).by(__.properties().group().by(label).by(__.project(_c,_d,_f,_e).by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.select(_b).project(_c,_d,_f,_e).by(id).by(label).by(value).by(__.valueMap()))",
+    "Script": "g.V().filter(__.properties()).project(_a,_b).by(__.identity()).by(__.properties()).project(_a,_b).by(__.select(_a).project(_c,_d,_e).by(id).by(label).by(__.properties().group().by(label).by(__.project(_c,_d,_f,_e).by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.select(_b).project(_c,_d,_f,_e).by(id).by(label).by(value).by(__.valueMap()))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Item1",
