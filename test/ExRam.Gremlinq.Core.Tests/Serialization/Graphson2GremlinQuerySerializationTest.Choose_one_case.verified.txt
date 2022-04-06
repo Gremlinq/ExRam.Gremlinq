@@ -1,6 +1,6 @@
 ﻿[
   {
     "Id": "Scrubbed GUID",
-    "GraphSON": "{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"V\"],[\"where\",{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"properties\"]]}}],[\"choose\",{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"values\"]]}}],[\"option\",{\"@type\":\"g:Int32\",\"@value\":3},{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"constant\",{\"@type\":\"g:Int32\",\"@value\":1}]]}}]]}}"
+    "GraphSON": "{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"V\"],[\"filter\",{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"properties\"]]}}],[\"choose\",{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"values\"]]}}],[\"option\",{\"@type\":\"g:Int32\",\"@value\":3},{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"constant\",{\"@type\":\"g:Int32\",\"@value\":1}]]}}]]}}"
   }
 ]

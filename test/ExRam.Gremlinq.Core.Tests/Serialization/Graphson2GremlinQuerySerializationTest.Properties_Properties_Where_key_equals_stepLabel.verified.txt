@@ -1,6 +1,6 @@
 ﻿[
   {
     "Id": "Scrubbed GUID",
-    "GraphSON": "{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"inject\",\"hello\"],[\"as\",\"l1\"],[\"V\"],[\"hasLabel\",\"Company\"],[\"properties\",\"Locations\"],[\"properties\"],[\"where\",{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"key\"],[\"where\",{\"@type\":\"g:P\",\"@value\":{\"predicate\":\"eq\",\"value\":\"l1\"}}]]}}]]}}"
+    "GraphSON": "{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"inject\",\"hello\"],[\"as\",\"l1\"],[\"V\"],[\"hasLabel\",\"Company\"],[\"properties\",\"Locations\"],[\"properties\"],[\"filter\",{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"key\"],[\"where\",{\"@type\":\"g:P\",\"@value\":{\"predicate\":\"eq\",\"value\":\"l1\"}}]]}}]]}}"
   }
 ]

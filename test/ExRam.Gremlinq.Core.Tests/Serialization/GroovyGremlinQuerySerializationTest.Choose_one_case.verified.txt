@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "g.V().where(__.properties()).choose(__.values()).option(_a,__.constant(_b))",
+    "Script": "g.V().filter(__.properties()).choose(__.values()).option(_a,__.constant(_b))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": 3,

@@ -15,7 +15,7 @@
           ]
         },
         {
-          "OperatorName": "where",
+          "OperatorName": "filter",
           "Arguments": [
             {
               "SourceInstructions": [],
@@ -29,7 +29,7 @@
           ]
         },
         {
-          "OperatorName": "where",
+          "OperatorName": "filter",
           "Arguments": [
             {
               "SourceInstructions": [],

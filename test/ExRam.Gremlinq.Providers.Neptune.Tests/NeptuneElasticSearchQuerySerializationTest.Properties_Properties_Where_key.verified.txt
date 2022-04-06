@@ -40,7 +40,7 @@
           "Arguments": []
         },
         {
-          "OperatorName": "where",
+          "OperatorName": "filter",
           "Arguments": [
             {
               "SourceInstructions": [],

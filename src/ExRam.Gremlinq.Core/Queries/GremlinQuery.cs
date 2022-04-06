@@ -1134,7 +1134,7 @@ namespace ExRam.Gremlinq.Core
                 {
                     builder = traversal.Count > 0 && traversal.All(x => x is IIsOptimizableInWhere)
                         ? builder.AddSteps(traversal)
-                        : builder.AddStep(new WhereTraversalStep(traversal));
+                        : builder.AddStep(new FilterStep.ByTraversalStep(traversal));
 
                     return builder.Build();
                 },
@@ -1246,7 +1246,7 @@ namespace ExRam.Gremlinq.Core
                                             {
                                                 if (!Environment.GetCache().FastNativeTypes.ContainsKey(leftMemberExpression.Type))
                                                 {
-                                                    yield return new WhereTraversalStep(ImmutableArray.Create<Step>(
+                                                    yield return new FilterStep.ByTraversalStep(ImmutableArray.Create<Step>(
                                                         new PropertiesStep(ImmutableArray.Create(stringKey)),
                                                         CountStep.Global,
                                                         new IsStep(effectivePredicate)));
@@ -1257,7 +1257,7 @@ namespace ExRam.Gremlinq.Core
                                         }
                                         else
                                         {
-                                            yield return new WhereTraversalStep(ImmutableArray.Create<Step>(
+                                            yield return new FilterStep.ByTraversalStep(ImmutableArray.Create<Step>(
                                                 new SelectKeysStep(
                                                     ImmutableArray.Create(GetKey(leftMemberExpression))),
                                                 CountStep.Local,
@@ -1317,7 +1317,7 @@ namespace ExRam.Gremlinq.Core
                                     }
                                     case WellKnownMember.PropertyKey:
                                     {
-                                        yield return new WhereTraversalStep(new Traversal(
+                                        yield return new FilterStep.ByTraversalStep(new Traversal(
                                             this
                                                 .Where(
                                                     ExpressionFragment.Create(parameterExpression, Environment.Model),
@@ -1331,7 +1331,7 @@ namespace ExRam.Gremlinq.Core
                                     }
                                     case WellKnownMember.VertexPropertyLabel when right.GetValue() is StepLabel:
                                     {
-                                        yield return new WhereTraversalStep(new Traversal(
+                                        yield return new FilterStep.ByTraversalStep(new Traversal(
                                             this
                                                 .Where(
                                                     ExpressionFragment.Create(parameterExpression, Environment.Model),
