@@ -1774,6 +1774,11 @@ namespace ExRam.Gremlinq.Core.Steps
             public ByLambdaStep(Gremlin.Net.Process.Traversal.ILambda lambda) { }
             public Gremlin.Net.Process.Traversal.ILambda Lambda { get; }
         }
+        public sealed class ByTraversalStep : ExRam.Gremlinq.Core.Steps.Step
+        {
+            public ByTraversalStep(ExRam.Gremlinq.Core.Traversal traversal) { }
+            public ExRam.Gremlinq.Core.Traversal Traversal { get; }
+        }
     }
     public sealed class FlatMapStep : ExRam.Gremlinq.Core.Steps.Step
     {
