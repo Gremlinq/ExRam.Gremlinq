@@ -2,13 +2,21 @@
 
 namespace ExRam.Gremlinq.Core.Steps
 {
-    public sealed class FilterStep : Step
+    public abstract class FilterStep : Step
     {
-        public FilterStep(ILambda lambda) : base(SideEffectSemanticsChange.Write)
+        public sealed class ByLambdaStep : FilterStep
         {
-            Lambda = lambda;
+            public ByLambdaStep(ILambda lambda) : base(SideEffectSemanticsChange.Write)
+            {
+                Lambda = lambda;
+            }
+
+            public ILambda Lambda { get; }
         }
 
-        public ILambda Lambda { get; }
+        protected FilterStep(SideEffectSemanticsChange sideEffectSemanticsChange) : base(sideEffectSemanticsChange)
+        {
+
+        }
     }
 }
