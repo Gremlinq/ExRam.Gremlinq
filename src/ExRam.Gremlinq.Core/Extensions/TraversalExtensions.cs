@@ -80,25 +80,23 @@ namespace ExRam.Gremlinq.Core
         }
 
         public static IEnumerable<Traversal> Fuse(
-            this IEnumerable<Traversal> traversals,
+            this List<Traversal> traversals,
             Func<P, P, P> fuse)
         {
-            var traversalsArray = traversals.ToArray();
-
-            if (traversalsArray.Any())
+            if (traversals.Count > 0)
             {
-                if (traversalsArray.All(x => x.Count == 1))
+                if (traversals.All(x => x.Count == 1))
                 {
-                    if (traversalsArray.All(x => x[0] is HasPredicateStep))
+                    if (traversals.All(x => x[0] is HasPredicateStep))
                     {
-                        var groups = traversalsArray
-                            .Select(x => (HasPredicateStep)x[0])
-                            .GroupBy(x => x.Key);
+                        var groups = traversals
+                            .GroupBy(
+                                x => ((HasPredicateStep)x[0]).Key,
+                                x => ((HasPredicateStep)x[0]).Predicate);
 
                         foreach (var group in groups)
                         {
                             var effective = group
-                                .Select(x => x.Predicate)
                                 .Aggregate(fuse);
 
                             yield return new HasPredicateStep(group.Key, effective);
@@ -107,9 +105,9 @@ namespace ExRam.Gremlinq.Core
                         yield break;
                     }
 
-                    if (traversalsArray.All(x => x[0] is IsStep))
+                    if (traversals.All(x => x[0] is IsStep))
                     {
-                        var effective = traversalsArray
+                        var effective = traversals
                             .Select(x => ((IsStep)x[0]).Predicate)
                             .Aggregate(fuse);
 
@@ -121,7 +119,7 @@ namespace ExRam.Gremlinq.Core
                     }
                 }
 
-                foreach (var traversal in traversalsArray)
+                foreach (var traversal in traversals)
                 {
                     yield return traversal;
                 }
