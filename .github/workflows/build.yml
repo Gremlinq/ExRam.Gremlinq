@@ -103,12 +103,9 @@ jobs:
         submodules: 'true'
         
     - name: Start CosmosDb Emulator
-      uses: southpolesteve/cosmos-emulator-github-action@v1
-      env:
-        AZURE_COSMOS_EMULATOR_GREMLIN_ENDPOINT: true
+      uses: Gremlinq/cosmos-emulator-github-action@EnableGremlin
 
     - name: Test
-      if: ${{ false }}
       run: dotnet test  --configuration Release --verbosity normal -p:RunCosmosDbEmulatorIntegrationTests=${{ env.IsForkedRepository == 'false' }}
 
     - name: Copy *.received-files to artifacts
