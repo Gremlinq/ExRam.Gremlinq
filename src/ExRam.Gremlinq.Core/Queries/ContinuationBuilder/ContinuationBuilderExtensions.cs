@@ -8,12 +8,12 @@ namespace ExRam.Gremlinq.Core
             where TAnonymousQuery : IGremlinQueryBase
             where TProjectedQuery : IGremlinQueryBase
         {
-            var continuatedQuery = continuation(anonymous);
+            var continuedQuery = continuation(anonymous);
 
-            if (continuatedQuery is GremlinQueryBase queryBase && (queryBase.Flags & QueryFlags.IsAnonymous) == QueryFlags.None)
+            if (continuedQuery is GremlinQueryBase queryBase && (queryBase.Flags & QueryFlags.IsAnonymous) == QueryFlags.None)
                 throw new InvalidOperationException("A query continuation must originate from the query that was passed to the continuation function. Did you accidentally use 'g' in the continuation?");
 
-            return continuatedQuery;
+            return continuedQuery;
         }
 
         public static TNewQuery Build<TOuterQuery, TAnonymousQuery, TNewQuery>(this ContinuationBuilder<TOuterQuery, TAnonymousQuery> continuationBuilder, Func<FinalContinuationBuilder<TOuterQuery>, TNewQuery> builderTransformation)
