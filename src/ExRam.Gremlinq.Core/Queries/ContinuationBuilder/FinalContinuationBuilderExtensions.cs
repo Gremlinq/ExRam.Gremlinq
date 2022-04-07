@@ -15,5 +15,16 @@ namespace ExRam.Gremlinq.Core
 
             return builder;
         }
+
+        public static FinalContinuationBuilder<TOuterQuery> AddSteps<TOuterQuery>(this FinalContinuationBuilder<TOuterQuery> builder, Traversal traversal)
+            where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
+        {
+            for (var i = 0; i < traversal.Count; i++)
+            {
+                builder = builder.AddStep(traversal[i]);
+            }
+
+            return builder;
+        }
     }
 }
