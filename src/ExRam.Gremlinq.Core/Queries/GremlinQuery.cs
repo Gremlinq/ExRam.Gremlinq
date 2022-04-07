@@ -613,40 +613,40 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> MaxGlobal() => this
             .Continue()
             .Build(static builder => builder
-                .AddStep(new MaxStep(Scope.Global))
+                .AddStep(MaxStep.Global)
                 .WithNewProjection(Projection.Value)
                 .Build());
 
         private GremlinQuery<object, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> MaxLocal() => this
             .Continue()
             .Build(static builder => builder
-                .AddStep(new MaxStep(Scope.Local))
+                .AddStep(MaxStep.Local)
                 .AutoBuild<object, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>());
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> MeanGlobal() => this
             .Continue()
             .Build(static builder => builder
-                .AddStep(new MeanStep(Scope.Global))
+                .AddStep(MeanStep.Global)
                 .WithNewProjection(Projection.Value)
                 .Build());
 
         private GremlinQuery<object, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> MeanLocal() => this
             .Continue()
             .Build(static builder => builder
-                .AddStep(new MeanStep(Scope.Local))
+                .AddStep(MeanStep.Local)
                 .AutoBuild<object, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>());
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> MinGlobal() => this
             .Continue()
             .Build(static builder => builder
-                .AddStep(new MinStep(Scope.Global))
+                .AddStep(MinStep.Global)
                 .WithNewProjection(Projection.Value)
                 .Build());
 
         private GremlinQuery<object, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> MinLocal() => this
             .Continue()
             .Build(static builder => builder
-                .AddStep(new MinStep(Scope.Local))
+                .AddStep(MinStep.Local)
                 .AutoBuild<object, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>());
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Mute() => this
