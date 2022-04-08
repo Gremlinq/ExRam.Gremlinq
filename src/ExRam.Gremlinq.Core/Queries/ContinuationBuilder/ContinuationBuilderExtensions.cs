@@ -54,15 +54,17 @@ namespace ExRam.Gremlinq.Core
                     .ToArray(),
                 0);
 
-        public static MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TOuterQuery, TAnonymousQuery>(this MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> continuationBuilder, Func<TAnonymousQuery, IGremlinQueryBase> continuation)
+        public static MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TOuterQuery, TAnonymousQuery, TProjectedQuery>(this MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> continuationBuilder, Func<TAnonymousQuery, TProjectedQuery> continuation)
             where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
-            where TAnonymousQuery : GremlinQueryBase, IGremlinQueryBase => continuationBuilder.With(
+            where TAnonymousQuery : GremlinQueryBase, IGremlinQueryBase
+            where TProjectedQuery : IGremlinQueryBase => continuationBuilder.With(
                 static (anonymous, continuation) => continuation(anonymous),
                 continuation);
 
-        public static MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TOuterQuery, TAnonymousQuery>(this SingleContinuationBuilder<TOuterQuery, TAnonymousQuery> continuationBuilder, Func<TAnonymousQuery, IGremlinQueryBase> continuation)
+        public static MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TOuterQuery, TAnonymousQuery, TProjectedQuery>(this SingleContinuationBuilder<TOuterQuery, TAnonymousQuery> continuationBuilder, Func<TAnonymousQuery, TProjectedQuery> continuation)
             where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
-            where TAnonymousQuery : GremlinQueryBase, IGremlinQueryBase => continuationBuilder.With(
+            where TAnonymousQuery : GremlinQueryBase, IGremlinQueryBase
+            where TProjectedQuery : IGremlinQueryBase => continuationBuilder.With(
                 static (anonymous, continuation) => continuation(anonymous),
                 continuation);
     }
