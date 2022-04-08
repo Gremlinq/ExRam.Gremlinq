@@ -40,12 +40,14 @@ namespace ExRam.Gremlinq.Core
             {
                 return new(
                     _continuationBuilder
-                        .With(__ => __
-                            .Continue()
-                            .With(projection)
-                            .Build(static (builder, traversal) => builder
-                                .AddStep(new ProjectStep.ByTraversalStep(traversal))
-                                .Build())),
+                        .With(
+                            static (__, projection) => __
+                                .Continue()
+                                .With(projection)
+                                .Build(static (builder, traversal) => builder
+                                    .AddStep(new ProjectStep.ByTraversalStep(traversal))
+                                    .Build()),
+                            projection),
                     _names.Add(name ?? $"Item{_names.Count + 1}"),
                     _emptyProjectionProtectionDecoratorSteps);
             }
@@ -56,13 +58,15 @@ namespace ExRam.Gremlinq.Core
                     ? ByLambda<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16>(__ => __.Identity(), name)
                     : new(
                         _continuationBuilder
-                            .With(__ => __
-                                .Continue()
-                                .Build(
-                                    static (builder, key) => builder
-                                        .AddStep(new ProjectStep.ByKeyStep(key))
-                                        .Build(),
-                                    __.GetKey(projection))),
+                            .With(
+                                static (__, projection) => __
+                                    .Continue()
+                                    .Build(
+                                        static (builder, key) => builder
+                                            .AddStep(new ProjectStep.ByKeyStep(key))
+                                            .Build(),
+                                        __.GetKey(projection)),
+                                projection),
                         _names.Add(name ?? $"Item{_names.Count + 1}"),
                         _emptyProjectionProtectionDecoratorSteps);
             }
