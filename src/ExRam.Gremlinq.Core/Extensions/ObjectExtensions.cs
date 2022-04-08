@@ -13,7 +13,7 @@ namespace ExRam.Gremlinq.Core
     {
         private static readonly ConcurrentDictionary<Type, Func<object, IGremlinQueryEnvironment, SerializationBehaviour, IEnumerable<(Key key, object value)>>> SerializerDict = new();
 
-        public static TResult Apply<TSource, TResult>(this TSource source, Func<TSource, TResult> transformation) => transformation(source);
+        public static TResult Apply<TSource, TResult, TState>(this TSource source, Func<TSource, TState, TResult> transformation, TState state) => transformation(source, state);
 
         public static IEnumerable<(Key key, object value)> Serialize(
             this object? obj,

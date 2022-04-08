@@ -106,7 +106,7 @@ namespace ExRam.Gremlinq.Core
 
             return this
                 .Aggregate(scope, stepLabel)
-                .Apply(__ => continuation(__, stepLabel));
+                .Apply(continuation, stepLabel);
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Aggregate<TStepLabel>(Scope scope, TStepLabel stepLabel)
@@ -180,7 +180,7 @@ namespace ExRam.Gremlinq.Core
             }
 
             return toContinue
-                .Apply(__ => continuation(__, stepLabel));
+                .Apply(continuation, stepLabel);
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> As(StepLabel stepLabel) => this
