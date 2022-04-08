@@ -75,7 +75,9 @@ namespace ExRam.Gremlinq.Core
 
             private LoopBuilder<TQuery> Until(Func<TQuery, IGremlinQueryBase> untilCondition) => new(_outerQuery
                 .Continue()
-                .With(_ => untilCondition((TQuery)(object)_))
+                .With(
+                    static (_, untilCondition) => untilCondition((TQuery)(object)_),
+                    untilCondition)
                 .Build(static (builder, innerTraversal) =>
                 {
                     if (!innerTraversal.IsNone())
@@ -90,7 +92,9 @@ namespace ExRam.Gremlinq.Core
 
             private LoopBuilder<TQuery> Repeat(Func<TQuery, TQuery> loop) => new(_outerQuery
                 .Continue()
-                .With(_ => loop((TQuery)(object)_))
+                .With(
+                    static (__, loop) => loop((TQuery)(object)__),
+                    loop)
                 .Build(
                     static (builder, innerTraversal) => builder
                         .AddStep(new RepeatStep(innerTraversal))

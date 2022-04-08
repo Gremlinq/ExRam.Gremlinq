@@ -1206,8 +1206,9 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Where<TProjection>(Expression<Func<TElement, TProjection>> predicate, Func<IGremlinQueryBase<TProjection>, IGremlinQueryBase> propertyContinuation) => predicate.TryGetReferredParameter() is not null && predicate.Body is MemberExpression memberExpression
              ? this
                  .Continue()
-                 .With(__ => propertyContinuation(__
-                     .Cast<TProjection>()))
+                 .With(
+                     static (__, propertyContinuation) => propertyContinuation(__.Cast<TProjection>()),
+                     propertyContinuation)
                  .Build(
                      static (builder, propertyTraversal, key) => builder
                          .AddStep(new HasTraversalStep(key, propertyTraversal))
