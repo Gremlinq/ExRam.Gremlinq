@@ -24,7 +24,6 @@ namespace ExRam.Gremlinq.Core
             return continuationBuilder.Build(static (builder, state) => state(builder), builderTransformation);
         }
 
-
         public static TNewQuery Build<TOuterQuery, TAnonymousQuery, TNewQuery>(this SingleContinuationBuilder<TOuterQuery, TAnonymousQuery> continuationBuilder, Func<FinalContinuationBuilder<TOuterQuery>, Traversal, TNewQuery> builderTransformation)
             where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
             where TAnonymousQuery : GremlinQueryBase, IGremlinQueryBase

@@ -123,7 +123,7 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<TElement> IGremlinQueryBaseRec<IGremlinQuery<TElement>>.Mute() => Mute();
 
-        IGremlinQuery<TElement> IGremlinQueryBaseRec<IGremlinQuery<TElement>>.Not(Func<IGremlinQuery<TElement>, IGremlinQueryBase> notTraversal) => Not(notTraversal);
+        IGremlinQuery<TElement> IGremlinQueryBaseRec<IGremlinQuery<TElement>>.Not(Func<IGremlinQuery<TElement>, IGremlinQueryBase> notTraversal) => Not(static (__, notTraversal) => notTraversal(__), notTraversal);
 
         IGremlinQuery<TElement> IGremlinQueryBaseRec<IGremlinQuery<TElement>>.None() => None();
 
@@ -224,7 +224,7 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<TElement> IGremlinQueryBaseRec<IValueGremlinQuery<TElement>>.Mute() => Mute();
 
-        IValueGremlinQuery<TElement> IGremlinQueryBaseRec<IValueGremlinQuery<TElement>>.Not(Func<IValueGremlinQuery<TElement>, IGremlinQueryBase> notTraversal) => Not(notTraversal);
+        IValueGremlinQuery<TElement> IGremlinQueryBaseRec<IValueGremlinQuery<TElement>>.Not(Func<IValueGremlinQuery<TElement>, IGremlinQueryBase> notTraversal) => Not(static (__, notTraversal) => notTraversal(__), notTraversal);
 
         IValueGremlinQuery<TElement> IGremlinQueryBaseRec<IValueGremlinQuery<TElement>>.None() => None();
 
@@ -325,7 +325,7 @@ namespace ExRam.Gremlinq.Core
 
         IValueTupleGremlinQuery<TElement> IGremlinQueryBaseRec<IValueTupleGremlinQuery<TElement>>.Mute() => Mute();
 
-        IValueTupleGremlinQuery<TElement> IGremlinQueryBaseRec<IValueTupleGremlinQuery<TElement>>.Not(Func<IValueTupleGremlinQuery<TElement>, IGremlinQueryBase> notTraversal) => Not(notTraversal);
+        IValueTupleGremlinQuery<TElement> IGremlinQueryBaseRec<IValueTupleGremlinQuery<TElement>>.Not(Func<IValueTupleGremlinQuery<TElement>, IGremlinQueryBase> notTraversal) => Not(static (__, notTraversal) => notTraversal(__), notTraversal);
 
         IValueTupleGremlinQuery<TElement> IGremlinQueryBaseRec<IValueTupleGremlinQuery<TElement>>.None() => None();
 
@@ -426,7 +426,7 @@ namespace ExRam.Gremlinq.Core
 
         IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.Mute() => Mute();
 
-        IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.Not(Func<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>, IGremlinQueryBase> notTraversal) => Not(notTraversal);
+        IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.Not(Func<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>, IGremlinQueryBase> notTraversal) => Not(static (__, notTraversal) => notTraversal(__), notTraversal);
 
         IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.None() => None();
 
@@ -527,7 +527,7 @@ namespace ExRam.Gremlinq.Core
 
         IElementGremlinQuery<TElement> IGremlinQueryBaseRec<IElementGremlinQuery<TElement>>.Mute() => Mute();
 
-        IElementGremlinQuery<TElement> IGremlinQueryBaseRec<IElementGremlinQuery<TElement>>.Not(Func<IElementGremlinQuery<TElement>, IGremlinQueryBase> notTraversal) => Not(notTraversal);
+        IElementGremlinQuery<TElement> IGremlinQueryBaseRec<IElementGremlinQuery<TElement>>.Not(Func<IElementGremlinQuery<TElement>, IGremlinQueryBase> notTraversal) => Not(static (__, notTraversal) => notTraversal(__), notTraversal);
 
         IElementGremlinQuery<TElement> IGremlinQueryBaseRec<IElementGremlinQuery<TElement>>.None() => None();
 
@@ -628,7 +628,7 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeOrVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<TElement>>.Mute() => Mute();
 
-        IEdgeOrVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<TElement>>.Not(Func<IEdgeOrVertexGremlinQuery<TElement>, IGremlinQueryBase> notTraversal) => Not(notTraversal);
+        IEdgeOrVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<TElement>>.Not(Func<IEdgeOrVertexGremlinQuery<TElement>, IGremlinQueryBase> notTraversal) => Not(static (__, notTraversal) => notTraversal(__), notTraversal);
 
         IEdgeOrVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<TElement>>.None() => None();
 
@@ -729,7 +729,7 @@ namespace ExRam.Gremlinq.Core
 
         IVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IVertexGremlinQuery<TElement>>.Mute() => Mute();
 
-        IVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IVertexGremlinQuery<TElement>>.Not(Func<IVertexGremlinQuery<TElement>, IGremlinQueryBase> notTraversal) => Not(notTraversal);
+        IVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IVertexGremlinQuery<TElement>>.Not(Func<IVertexGremlinQuery<TElement>, IGremlinQueryBase> notTraversal) => Not(static (__, notTraversal) => notTraversal(__), notTraversal);
 
         IVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IVertexGremlinQuery<TElement>>.None() => None();
 
@@ -830,7 +830,7 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeGremlinQuery<TElement>>.Mute() => Mute();
 
-        IEdgeGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeGremlinQuery<TElement>>.Not(Func<IEdgeGremlinQuery<TElement>, IGremlinQueryBase> notTraversal) => Not(notTraversal);
+        IEdgeGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeGremlinQuery<TElement>>.Not(Func<IEdgeGremlinQuery<TElement>, IGremlinQueryBase> notTraversal) => Not(static (__, notTraversal) => notTraversal(__), notTraversal);
 
         IEdgeGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeGremlinQuery<TElement>>.None() => None();
 
@@ -931,7 +931,7 @@ namespace ExRam.Gremlinq.Core
 
         IInOrOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.Mute() => Mute();
 
-        IInOrOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.Not(Func<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>, IGremlinQueryBase> notTraversal) => Not(notTraversal);
+        IInOrOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.Not(Func<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>, IGremlinQueryBase> notTraversal) => Not(static (__, notTraversal) => notTraversal(__), notTraversal);
 
         IInOrOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.None() => None();
 
@@ -1032,7 +1032,7 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IGremlinQueryBaseRec<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.Mute() => Mute();
 
-        IEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IGremlinQueryBaseRec<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.Not(Func<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, IGremlinQueryBase> notTraversal) => Not(notTraversal);
+        IEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IGremlinQueryBaseRec<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.Not(Func<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, IGremlinQueryBase> notTraversal) => Not(static (__, notTraversal) => notTraversal(__), notTraversal);
 
         IEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IGremlinQueryBaseRec<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.None() => None();
 
@@ -1133,7 +1133,7 @@ namespace ExRam.Gremlinq.Core
 
         IInEdgeGremlinQuery<TElement, TInVertex> IGremlinQueryBaseRec<IInEdgeGremlinQuery<TElement, TInVertex>>.Mute() => Mute();
 
-        IInEdgeGremlinQuery<TElement, TInVertex> IGremlinQueryBaseRec<IInEdgeGremlinQuery<TElement, TInVertex>>.Not(Func<IInEdgeGremlinQuery<TElement, TInVertex>, IGremlinQueryBase> notTraversal) => Not(notTraversal);
+        IInEdgeGremlinQuery<TElement, TInVertex> IGremlinQueryBaseRec<IInEdgeGremlinQuery<TElement, TInVertex>>.Not(Func<IInEdgeGremlinQuery<TElement, TInVertex>, IGremlinQueryBase> notTraversal) => Not(static (__, notTraversal) => notTraversal(__), notTraversal);
 
         IInEdgeGremlinQuery<TElement, TInVertex> IGremlinQueryBaseRec<IInEdgeGremlinQuery<TElement, TInVertex>>.None() => None();
 
@@ -1234,7 +1234,7 @@ namespace ExRam.Gremlinq.Core
 
         IOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<TElement, TOutVertex>>.Mute() => Mute();
 
-        IOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<TElement, TOutVertex>>.Not(Func<IOutEdgeGremlinQuery<TElement, TOutVertex>, IGremlinQueryBase> notTraversal) => Not(notTraversal);
+        IOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<TElement, TOutVertex>>.Not(Func<IOutEdgeGremlinQuery<TElement, TOutVertex>, IGremlinQueryBase> notTraversal) => Not(static (__, notTraversal) => notTraversal(__), notTraversal);
 
         IOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<TElement, TOutVertex>>.None() => None();
 
@@ -1335,7 +1335,7 @@ namespace ExRam.Gremlinq.Core
 
         IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Mute() => Mute();
 
-        IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Not(Func<IVertexPropertyGremlinQuery<TElement, TScalar>, IGremlinQueryBase> notTraversal) => Not(notTraversal);
+        IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Not(Func<IVertexPropertyGremlinQuery<TElement, TScalar>, IGremlinQueryBase> notTraversal) => Not(static (__, notTraversal) => notTraversal(__), notTraversal);
 
         IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.None() => None();
 
@@ -1436,7 +1436,7 @@ namespace ExRam.Gremlinq.Core
 
         IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Mute() => Mute();
 
-        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Not(Func<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, IGremlinQueryBase> notTraversal) => Not(notTraversal);
+        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Not(Func<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, IGremlinQueryBase> notTraversal) => Not(static (__, notTraversal) => notTraversal(__), notTraversal);
 
         IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.None() => None();
 
@@ -1537,7 +1537,7 @@ namespace ExRam.Gremlinq.Core
 
         IPropertyGremlinQuery<TElement> IGremlinQueryBaseRec<IPropertyGremlinQuery<TElement>>.Mute() => Mute();
 
-        IPropertyGremlinQuery<TElement> IGremlinQueryBaseRec<IPropertyGremlinQuery<TElement>>.Not(Func<IPropertyGremlinQuery<TElement>, IGremlinQueryBase> notTraversal) => Not(notTraversal);
+        IPropertyGremlinQuery<TElement> IGremlinQueryBaseRec<IPropertyGremlinQuery<TElement>>.Not(Func<IPropertyGremlinQuery<TElement>, IGremlinQueryBase> notTraversal) => Not(static (__, notTraversal) => notTraversal(__), notTraversal);
 
         IPropertyGremlinQuery<TElement> IGremlinQueryBaseRec<IPropertyGremlinQuery<TElement>>.None() => None();
 

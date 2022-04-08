@@ -669,9 +669,9 @@ namespace ExRam.Gremlinq.Core
                     .AddStep(NoneStep.Instance)
                     .Build());
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Not(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> continuation) => this
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Not<TState>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TState, IGremlinQueryBase> continuation, TState state) => this
             .Continue()
-            .With(continuation)
+            .With(continuation, state)
             .Build(static (builder, innerTraversal) => innerTraversal.IsIdentity()
                 ? builder.OuterQuery
                     .None()
@@ -1164,7 +1164,9 @@ namespace ExRam.Gremlinq.Core
                     }
                     case UnaryExpression { NodeType: ExpressionType.Not } unaryExpression:
                     {
-                        return Not(__ => __.Where(unaryExpression.Operand));
+                        return Not(
+                            static (__, unaryExpression) => __.Where(unaryExpression.Operand),
+                            unaryExpression);
                     }
                     case BinaryExpression { NodeType: ExpressionType.OrElse } binary:
                     {

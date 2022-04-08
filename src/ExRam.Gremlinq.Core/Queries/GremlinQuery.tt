@@ -88,7 +88,7 @@ namespace ExRam.Gremlinq.Core
 
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Mute() => Mute();
 
-        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Not(Func<<#= iface #>, IGremlinQueryBase> notTraversal) => Not(notTraversal);
+        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Not(Func<<#= iface #>, IGremlinQueryBase> notTraversal) => Not(static (__, notTraversal) => notTraversal(__), notTraversal);
 
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.None() => None();
 
