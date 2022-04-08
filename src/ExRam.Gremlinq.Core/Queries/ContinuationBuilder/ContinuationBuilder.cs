@@ -23,20 +23,20 @@ namespace ExRam.Gremlinq.Core
                     ? new(query, anonymous)
                     : throw new InvalidOperationException();
 
-        public SingleContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TProjectedQuery>(Func<TAnonymousQuery, TProjectedQuery> continuation)
+        public SingleContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TProjectedQuery, TState>(Func<TAnonymousQuery, TState, TProjectedQuery> continuation, TState state)
             where TProjectedQuery : IGremlinQueryBase =>
                 _outer is { } outer && _anonymous is { } anonymous
-                    ? new(outer, anonymous, continuation.Apply(anonymous))
+                    ? new(outer, anonymous, continuation.Apply(anonymous, state))
                     : throw new InvalidOperationException();
 
-        public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TProjectedQuery>(Func<TAnonymousQuery, TProjectedQuery>[] continuations)
+        public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TProjectedQuery, TState>(Func<TAnonymousQuery, TState, TProjectedQuery>[] continuations, TState state)
             where TProjectedQuery : IGremlinQueryBase =>
                 _outer is { } outer && _anonymous is { } anonymous
                     ? new(
                         outer,
                         anonymous,
                         continuations
-                            .Select(contintuation => (IGremlinQueryBase)contintuation.Apply(anonymous))
+                            .Select(contintuation => (IGremlinQueryBase)contintuation.Apply(anonymous, state))
                             .ToImmutableList())
                     : throw new InvalidOperationException();
 

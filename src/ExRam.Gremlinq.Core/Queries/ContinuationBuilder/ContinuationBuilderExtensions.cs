@@ -1,14 +1,15 @@
 ﻿using System;
+using System.Linq;
 
 namespace ExRam.Gremlinq.Core
 {
     internal static class ContinuationBuilderExtensions
     {
-        public static TProjectedQuery Apply<TAnonymousQuery, TProjectedQuery>(this Func<TAnonymousQuery, TProjectedQuery> continuation, TAnonymousQuery anonymous)
+        public static TProjectedQuery Apply<TAnonymousQuery, TProjectedQuery, TState>(this Func<TAnonymousQuery, TState, TProjectedQuery> continuation, TAnonymousQuery anonymous, TState state)
             where TAnonymousQuery : IGremlinQueryBase
             where TProjectedQuery : IGremlinQueryBase
         {
-            var continuedQuery = continuation(anonymous);
+            var continuedQuery = continuation(anonymous, state);
 
             if (continuedQuery is GremlinQueryBase queryBase && (queryBase.Flags & QueryFlags.IsAnonymous) == QueryFlags.None)
                 throw new InvalidOperationException("A query continuation must originate from the query that was passed to the continuation function. Did you accidentally use 'g' in the continuation?");
@@ -37,5 +38,33 @@ namespace ExRam.Gremlinq.Core
         {
             return continuationBuilder.Build(static (builder, continuations, state) => state(builder, continuations), builderTransformation);
         }
+
+        public static SingleContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TOuterQuery, TAnonymousQuery, TProjectedQuery>(this ContinuationBuilder<TOuterQuery, TAnonymousQuery> continuationBuilder, Func<TAnonymousQuery, TProjectedQuery> continuation)
+            where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
+            where TAnonymousQuery : GremlinQueryBase, IGremlinQueryBase
+            where TProjectedQuery : IGremlinQueryBase => continuationBuilder.With(
+                (anonymous, continuation) => continuation(anonymous),
+                continuation);
+
+        public static MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TOuterQuery, TAnonymousQuery, TProjectedQuery>(this ContinuationBuilder<TOuterQuery, TAnonymousQuery> continuationBuilder, Func<TAnonymousQuery, TProjectedQuery>[] continuations)
+            where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
+            where TAnonymousQuery : GremlinQueryBase, IGremlinQueryBase
+            where TProjectedQuery : IGremlinQueryBase => continuationBuilder.With(
+                continuations
+                    .Select(continuation => new Func<TAnonymousQuery, int, TProjectedQuery>((anonymous, _) => continuation(anonymous)))
+                    .ToArray(),
+                0);
+
+        public static MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TOuterQuery, TAnonymousQuery>(this MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> continuationBuilder, Func<TAnonymousQuery, IGremlinQueryBase> continuation)
+            where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
+            where TAnonymousQuery : GremlinQueryBase, IGremlinQueryBase => continuationBuilder.With(
+                (anonymous, continuation) => continuation(anonymous),
+                continuation);
+
+        public static MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TOuterQuery, TAnonymousQuery>(this SingleContinuationBuilder<TOuterQuery, TAnonymousQuery> continuationBuilder, Func<TAnonymousQuery, IGremlinQueryBase> continuation)
+            where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
+            where TAnonymousQuery : GremlinQueryBase, IGremlinQueryBase => continuationBuilder.With(
+                (anonymous, continuation) => continuation(anonymous),
+                continuation);
     }
 }

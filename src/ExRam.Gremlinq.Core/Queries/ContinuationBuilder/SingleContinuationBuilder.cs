@@ -18,10 +18,10 @@ namespace ExRam.Gremlinq.Core
             _continuation = continuation;
         }
 
-        public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> With(Func<TAnonymousQuery, IGremlinQueryBase> continuation)
+        public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TState>(Func<TAnonymousQuery, TState, IGremlinQueryBase> continuation, TState state)
         {
             return _outer is { } outer && _anonymous is { } anonymous && _continuation is { } existingContinuation
-                ? new (outer, anonymous, ImmutableList.Create(existingContinuation, continuation.Apply(anonymous)))
+                ? new (outer, anonymous, ImmutableList.Create(existingContinuation, continuation.Apply(anonymous, state)))
                 : throw new InvalidOperationException();
         }
 
