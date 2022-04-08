@@ -534,7 +534,11 @@ namespace ExRam.Gremlinq.Core
             .Continue()
             .Build(
                 static (builder, elements) => builder
-                    .AddStep(new InjectStep(elements.Cast<object>().Where(x => x is not null).Select(x => x!).ToImmutableArray()))
+                    .AddStep(new InjectStep(
+                        elements
+                            .Where(x => x is not null)
+                            .Select(x => (object)x!)
+                            .ToImmutableArray()))
                     .WithNewProjection(Projection.Value)
                     .AutoBuild<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(),
                 elements);
