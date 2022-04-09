@@ -80,12 +80,12 @@ namespace ExRam.Gremlinq.Core
         }
 
         public static IEnumerable<Traversal> Fuse(
-            this List<Traversal> traversals,
+            this ArraySegment<Traversal> traversals,
             Func<P, P, P> fuse)
         {
             if (traversals.Count > 0)
             {
-                if (traversals.All(x => x.Count == 1))
+                if (traversals.All(x => x.Count == 1))  //TODO: Is All allocation free in this case?
                 {
                     if (traversals.All(x => x[0] is HasPredicateStep))
                     {

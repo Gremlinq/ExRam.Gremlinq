@@ -125,8 +125,6 @@ namespace ExRam.Gremlinq.Core
             .Build(
                 static (builder, traversals, andContinuations) =>
                 {
-                    List<Traversal>? continuedTraversals = default;
-
                     if (andContinuations.Length == 0)
                     {
                         return builder
@@ -134,16 +132,18 @@ namespace ExRam.Gremlinq.Core
                             .Build();
                     }
 
-                    foreach (var traversal in traversals)
+                    var count = 0;
+
+                    for (var i = 0; i < traversals.Length; i++)
                     {
-                        if (traversal.IsNone())
+                        if (traversals[i].IsNone())
                             return builder.OuterQuery.None();
 
-                        if (!traversal.IsIdentity())
-                            (continuedTraversals ??= new List<Traversal>(traversals.Length)).Add(traversal.RewriteForWhereContext());
+                        if (!traversals[i].IsIdentity())
+                            traversals[count++] = traversals[i].RewriteForWhereContext();
                     }
 
-                    var fusedTraversals = continuedTraversals?
+                    var fusedTraversals = new ArraySegment<Traversal>(traversals, 0, count)
                         .Fuse((p1, p2) => p1.And(p2))
                         .ToArray();
 
@@ -713,8 +713,6 @@ namespace ExRam.Gremlinq.Core
             .With(orTraversalTransformations)
             .Build(static (builder, traversals) =>
             {
-                List<Traversal>? continuedTraversals = default;
-
                 if (traversals.Length == 0)
                 {
                     return builder
@@ -722,16 +720,18 @@ namespace ExRam.Gremlinq.Core
                         .Build();
                 }
 
-                foreach (var traversal in traversals)
+                var count = 0;
+
+                for (var i = 0; i < traversals.Length; i++)
                 {
-                    if (traversal.IsIdentity())
+                    if (traversals[i].IsIdentity())
                         return builder.OuterQuery;
 
-                    if (!traversal.IsNone())
-                        (continuedTraversals ??= new List<Traversal>(traversals.Length)).Add(traversal.RewriteForWhereContext());
+                    if (!traversals[i].IsNone())
+                        traversals[count++] = traversals[i].RewriteForWhereContext();
                 }
 
-                var fusedTraversals = continuedTraversals?
+                var fusedTraversals = new ArraySegment<Traversal>(traversals, 0, count)
                     .Fuse((p1, p2) => p1.Or(p2))
                     .ToArray();
 
