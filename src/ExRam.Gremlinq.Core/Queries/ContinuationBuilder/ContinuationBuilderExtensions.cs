@@ -48,11 +48,18 @@ namespace ExRam.Gremlinq.Core
         public static MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TOuterQuery, TAnonymousQuery, TProjectedQuery>(this ContinuationBuilder<TOuterQuery, TAnonymousQuery> continuationBuilder, Func<TAnonymousQuery, TProjectedQuery>[] continuations)
             where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
             where TAnonymousQuery : GremlinQueryBase, IGremlinQueryBase
-            where TProjectedQuery : IGremlinQueryBase => continuationBuilder.With(
-                continuations
-                    .Select(continuation => new Func<TAnonymousQuery, int, TProjectedQuery>((anonymous, _) => continuation(anonymous)))
-                    .ToArray(),
-                0);
+            where TProjectedQuery : IGremlinQueryBase
+        {
+            var multi = continuationBuilder.ToMulti();
+
+            for (var i = 0; i < continuations.Length; i++)
+            {
+                multi = multi
+                    .With(continuations[i]);
+            }
+
+            return multi;
+        }
 
         public static MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TOuterQuery, TAnonymousQuery, TProjectedQuery>(this MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> continuationBuilder, Func<TAnonymousQuery, TProjectedQuery> continuation)
             where TOuterQuery : GremlinQueryBase, IGremlinQueryBase

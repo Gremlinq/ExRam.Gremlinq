@@ -30,15 +30,18 @@ namespace ExRam.Gremlinq.Core
                     : throw new InvalidOperationException();
 
         public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TProjectedQuery, TState>(Func<TAnonymousQuery, TState, TProjectedQuery>[] continuations, TState state)
-            where TProjectedQuery : IGremlinQueryBase =>
-                _outer is { } outer && _anonymous is { } anonymous
-                    ? new(
-                        outer,
-                        anonymous,
-                        continuations
-                            .Select(contintuation => (IGremlinQueryBase)contintuation.Apply(anonymous, state))
-                            .ToImmutableList())
-                    : throw new InvalidOperationException();
+            where TProjectedQuery : IGremlinQueryBase
+        {
+            var multi = ToMulti();
+
+            for (var i = 0; i < continuations.Length; i++)
+            {
+                multi = multi
+                    .With(continuations[i], state);
+            }
+
+            return multi;
+        }
 
         public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> ToMulti() =>
             _outer is { } outer && _anonymous is { } anonymous
