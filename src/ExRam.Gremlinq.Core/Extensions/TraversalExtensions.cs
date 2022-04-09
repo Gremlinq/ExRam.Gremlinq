@@ -85,9 +85,27 @@ namespace ExRam.Gremlinq.Core
         {
             if (traversals.Count > 0)
             {
-                if (traversals.All(x => x.Count == 1))  //TODO: Is All allocation free in this case?
+                var isCount1 = true;
+                var isFirstHasPredicateStep = true;
+                var isFirstIsStep = true;
+
+                for (var i = 0; i < traversals.Count; i++)
                 {
-                    if (traversals.All(x => x[0] is HasPredicateStep))
+                    if (traversals.Array![i].Count == 1)
+                    {
+                        if (traversals.Array[i][0] is not HasPredicateStep)
+                            isFirstHasPredicateStep = false;
+
+                        if (traversals.Array[i][0] is not IsStep)
+                            isFirstIsStep = false;
+                    }
+                    else
+                        isCount1 = false;
+                }
+
+                if (isCount1)
+                {
+                    if (isFirstHasPredicateStep)
                     {
                         var groups = traversals
                             .GroupBy(
@@ -105,7 +123,7 @@ namespace ExRam.Gremlinq.Core
                         yield break;
                     }
 
-                    if (traversals.All(x => x[0] is IsStep))
+                    if (isFirstIsStep)
                     {
                         var effective = traversals
                             .Select(x => ((IsStep)x[0]).Predicate)
@@ -119,9 +137,9 @@ namespace ExRam.Gremlinq.Core
                     }
                 }
 
-                foreach (var traversal in traversals)
+                for (var i = 0; i < traversals.Count; i++)
                 {
-                    yield return traversal;
+                    yield return traversals.Array![i];
                 }
             }
         }
