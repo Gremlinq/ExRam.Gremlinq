@@ -691,24 +691,25 @@ namespace ExRam.Gremlinq.Core
                         .AddStep(new NotStep(innerTraversal))
                         .Build());
 
-        private GremlinQuery<TTarget, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> OfType<TTarget>(IGraphElementModel model)
-        {
-            if (typeof(TTarget).IsAssignableFrom(typeof(TElement)))
-                return Cast<TTarget>();
+        private GremlinQuery<TTarget, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> OfType<TTarget>(IGraphElementModel model) => this
+            .Continue()
+            .Build(
+                static (builder, tuple) =>
+                {
+                    var (@this, model) = tuple;
 
-            return this
-                .Continue()
-                .Build(
-                    static (builder, labels) =>
-                    {
-                        if (labels.Length > 0)
-                            builder = builder.AddStep(new HasLabelStep(labels));
+                    if (typeof(TTarget).IsAssignableFrom(typeof(TElement)))
+                        return @this.Cast<TTarget>();
 
-                        return builder
-                            .AutoBuild<TTarget, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>();
-                    },
-                    model.TryGetFilterLabels(typeof(TTarget), Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity)) ?? ImmutableArray.Create(typeof(TTarget).Name);
-        }
+                    var labels = model.TryGetFilterLabels(typeof(TTarget), @this.Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity)) ?? ImmutableArray.Create(typeof(TTarget).Name);
+
+                    if (labels.Length > 0)
+                        builder = builder.AddStep(new HasLabelStep(labels));
+
+                    return builder
+                        .AutoBuild<TTarget, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>();
+                },
+                (@this: this, model));
 
         private TTargetQuery Optional<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQueryBase => this
             .Continue()
