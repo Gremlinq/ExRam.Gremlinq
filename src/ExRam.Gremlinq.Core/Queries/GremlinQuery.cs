@@ -1137,17 +1137,14 @@ namespace ExRam.Gremlinq.Core
                     .Build(),
                 lambda);
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Where(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> filterContinuation)
-        {
-            return this
-                .Continue()
-                .With(filterContinuation)
-                .Build(static (builder, filterTraversal) => filterTraversal.IsIdentity()
-                    ? builder.OuterQuery
-                    : filterTraversal.IsNone()
-                        ? builder.OuterQuery.None()
-                        : builder.OuterQuery.Where(filterTraversal));
-        }
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Where(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> filterContinuation) => this
+            .Continue()
+            .With(filterContinuation)
+            .Build(static (builder, filterTraversal) => filterTraversal.IsIdentity()
+                ? builder.OuterQuery
+                : filterTraversal.IsNone()
+                    ? builder.OuterQuery.None()
+                    : builder.OuterQuery.Where(filterTraversal));
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Where(Traversal traversal) => this
             .Continue()
