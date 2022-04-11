@@ -335,29 +335,26 @@ namespace ExRam.Gremlinq.Core
 
         private TReturnQuery Coalesce<TTargetQuery, TReturnQuery>(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery>[] continuations)
             where TTargetQuery : IGremlinQueryBase
-            where TReturnQuery : IGremlinQueryBase
-        {
-            if (continuations.Length == 0)
-                throw new ArgumentException("Coalesce must have at least one sub-query.");
-
-            return this
+            where TReturnQuery : IGremlinQueryBase => this
                 .Continue()
                 .With(continuations)
-                .Build(static (builder, innerTraversals) =>
+                .Build(static (builder, traversals) =>
                 {
-                    if (innerTraversals.All(innerTraversal => innerTraversal.IsIdentity()))
+                    if (traversals.Length == 0)
+                        throw new ArgumentException("Coalesce must have at least one sub-query.");
+
+                    if (traversals.All(traversal => traversal.IsIdentity()))
                         return builder.Build<TReturnQuery>();
 
-                    var aggregatedProjection = innerTraversals
+                    var aggregatedProjection = traversals
                         .Select(x => x.Projection)
                         .Aggregate((x, y) => x.Lowest(y));
 
                     return builder
-                        .AddStep(new CoalesceStep(innerTraversals.ToImmutableArray()))
+                        .AddStep(new CoalesceStep(traversals.ToImmutableArray()))
                         .WithNewProjection(aggregatedProjection)
                         .Build<TReturnQuery>();
                 });
-        }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Coin(double probability) => this
             .Continue()
