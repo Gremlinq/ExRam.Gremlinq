@@ -48,7 +48,8 @@
         EnumName: Scope,
         EnumValue: global
       },
-      StepLabel: {}
+      StepLabel: {},
+      SideEffectSemanticsChange: Write
     }
   },
   {
