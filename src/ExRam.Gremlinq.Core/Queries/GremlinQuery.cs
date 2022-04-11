@@ -133,15 +133,26 @@ namespace ExRam.Gremlinq.Core
                     }
 
                     var count = 0;
+                    var containsNoneStep = false;
+                    var containsWriteStep = false;
 
                     for (var i = 0; i < traversals.Length; i++)
                     {
-                        if (traversals[i].IsNone())
-                            return builder.OuterQuery.None();
+                        var traversal = traversals[i];
 
-                        if (!traversals[i].IsIdentity())
-                            traversals[count++] = traversals[i].RewriteForWhereContext();
+                        if (traversal.IsNone())
+                            containsNoneStep = true;
+
+                        if (traversal.SideEffectSemantics == SideEffectSemantics.Write)
+                            containsWriteStep = true;
+                        else if (traversal.IsIdentity())
+                            continue;
+
+                        traversals[count++] = traversal.RewriteForWhereContext();
                     }
+
+                    if (containsNoneStep && !containsWriteStep)
+                        return builder.OuterQuery.None();
 
                     var fusedTraversals = new ArraySegment<Traversal>(traversals, 0, count)
                         .Fuse((p1, p2) => p1.And(p2))
@@ -721,15 +732,25 @@ namespace ExRam.Gremlinq.Core
                 }
 
                 var count = 0;
+                var containsWriteStep = false;
+                var containsIdentityStep = false;
 
                 for (var i = 0; i < traversals.Length; i++)
                 {
-                    if (traversals[i].IsIdentity())
-                        return builder.OuterQuery;
+                    var traversal = traversals[i];
 
-                    if (!traversals[i].IsNone())
-                        traversals[count++] = traversals[i].RewriteForWhereContext();
+                    if (traversal.IsIdentity())
+                        containsIdentityStep = true;
+                    else if (traversal.SideEffectSemantics == SideEffectSemantics.Write)
+                        containsWriteStep = true;
+                    else if (traversal.IsNone())
+                        continue;
+
+                    traversals[count++] = traversal.RewriteForWhereContext();
                 }
+
+                if (containsIdentityStep && !containsWriteStep)
+                    return builder.OuterQuery;
 
                 var fusedTraversals = new ArraySegment<Traversal>(traversals, 0, count)
                     .Fuse((p1, p2) => p1.Or(p2))
