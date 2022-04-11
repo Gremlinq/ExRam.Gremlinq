@@ -696,18 +696,18 @@ namespace ExRam.Gremlinq.Core
             if (typeof(TTarget).IsAssignableFrom(typeof(TElement)))
                 return Cast<TTarget>();
 
-            var labels = model
-                .TryGetFilterLabels(typeof(TTarget), Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity)) ?? ImmutableArray.Create(typeof(TTarget).Name);
+            return this
+                .Continue()
+                .Build(
+                    static (builder, labels) =>
+                    {
+                        if (labels.Length > 0)
+                            builder = builder.AddStep(new HasLabelStep(labels));
 
-            return labels.Length > 0
-                ? this
-                    .Continue()
-                    .Build(
-                        static (builder, labels) => builder
-                            .AddStep(new HasLabelStep(labels))
-                            .AutoBuild<TTarget, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(),
-                        labels)
-                : Cast<TTarget>();
+                        return builder
+                            .AutoBuild<TTarget, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>();
+                    },
+                    model.TryGetFilterLabels(typeof(TTarget), Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity)) ?? ImmutableArray.Create(typeof(TTarget).Name);
         }
 
         private TTargetQuery Optional<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQueryBase => this
