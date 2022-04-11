@@ -626,6 +626,20 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task And_none_with_sideEffect()
+        {
+            await _g
+                .V<Person>()
+                .And(
+                    __ => __
+                        .Aggregate((__, l) => __
+                            .None()),
+                    __ => __
+                        .OutE())
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task And_optimization()
         {
             await _g
@@ -2261,6 +2275,20 @@ namespace ExRam.Gremlinq.Core.Tests
                     __ => __
                         .OutE()
                         .None(),
+                    __ => __
+                        .OutE())
+                .Verify();
+        }
+
+        [Fact]
+        public virtual async Task Or_none_with_sideEffect()
+        {
+            await _g
+                .V<Person>()
+                .Or(
+                    __ => __
+                        .Aggregate((__, l) => __
+                            .None()),
                     __ => __
                         .OutE())
                 .Verify();

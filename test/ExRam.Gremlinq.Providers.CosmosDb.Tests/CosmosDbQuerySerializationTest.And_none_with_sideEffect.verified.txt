@@ -1,0 +1,10 @@
+﻿[
+  {
+    "Script": "g.V().hasLabel(_a).and(__.aggregate(_b).not(__.identity()),__.outE())",
+    "Id": "Scrubbed GUID",
+    "Bindings": {
+      "_a": "Person",
+      "_b": "l1"
+    }
+  }
+]
