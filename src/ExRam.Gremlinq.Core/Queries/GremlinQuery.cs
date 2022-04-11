@@ -123,9 +123,9 @@ namespace ExRam.Gremlinq.Core
             .Continue()
             .With(andContinuations)
             .Build(
-                static (builder, traversals, andContinuations) =>
+                static (builder, traversals) =>
                 {
-                    if (andContinuations.Length == 0)
+                    if (traversals.Length == 0)
                     {
                         return builder
                             .AddStep(AndStep.Infix)
@@ -166,8 +166,7 @@ namespace ExRam.Gremlinq.Core
                             .AddStep(new AndStep(fusedTraversals))
                             .Build()
                     };
-                },
-                andContinuations);
+                });
 
         private TTargetQuery As<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, StepLabel<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement>, TTargetQuery> continuation)
             where TTargetQuery : IGremlinQueryBase
