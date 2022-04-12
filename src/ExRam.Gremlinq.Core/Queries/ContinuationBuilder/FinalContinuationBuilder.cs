@@ -54,10 +54,10 @@ namespace ExRam.Gremlinq.Core
                 : throw new InvalidOperationException();
         }
 
-        public FinalContinuationBuilder<TOuterQuery> WithNewStepLabelProjection(Func<IImmutableDictionary<StepLabel, Projection>, IImmutableDictionary<StepLabel, Projection>> stepLabelProjectionsTransformation)
+        public FinalContinuationBuilder<TOuterQuery> WithNewStepLabelProjection<TState>(Func<IImmutableDictionary<StepLabel, Projection>, TState, IImmutableDictionary<StepLabel, Projection>> stepLabelProjectionsTransformation, TState state)
         {
             return _outer is { } outer && _steps is { } steps && _projection is { } projection && _stepLabelProjections is { } stepLabelProjections && _sideEffectLabelProjections is { } sideEffectLabelProjections
-                ? new(outer, steps, projection, stepLabelProjectionsTransformation(stepLabelProjections), sideEffectLabelProjections, _additionalFlags)
+                ? new(outer, steps, projection, stepLabelProjectionsTransformation(stepLabelProjections, state), sideEffectLabelProjections, _additionalFlags)
                 : throw new InvalidOperationException();
         }
 
