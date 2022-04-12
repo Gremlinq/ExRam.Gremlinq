@@ -58,8 +58,6 @@ namespace ExRam.Gremlinq.Core
 
         public static implicit operator StepLabel<TElement>(string str) => new(str);
 
-        private static bool ThrowEquality() => throw new NotImplementedException($"The equality/inequality operators on {nameof(StepLabel)} are not intended to be called. Their use is to appear in expressions only.");
-
         private static TElement ThrowConversion() => throw new NotImplementedException($"The conversion operator on {nameof(StepLabel)} is not intended to be called. It's use is to appear in expressions only.");
     }
 
