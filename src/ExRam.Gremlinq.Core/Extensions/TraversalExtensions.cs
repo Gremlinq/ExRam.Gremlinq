@@ -9,17 +9,6 @@ namespace ExRam.Gremlinq.Core
 {
     internal static class TraversalExtensions
     {
-        public static SideEffectSemanticsChange GetSideEffectSemanticsChange(this IEnumerable<Traversal> traversals)
-        {
-            foreach (var traversal in traversals)
-            {
-                if (traversal.SideEffectSemantics == SideEffectSemantics.Write)
-                    return SideEffectSemanticsChange.Write;
-            }
-
-            return SideEffectSemanticsChange.None;
-        }
-
         public static SideEffectSemanticsChange GetSideEffectSemanticsChange(this ImmutableArray<Traversal> traversals)
         {
             for (var i = 0;  i < traversals.Length; i++)
