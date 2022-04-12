@@ -26,11 +26,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                     TElement[] elements => elements.ToAsyncEnumerable(),
                     IAsyncEnumerable<TElement> enumerable => enumerable,
                     TElement element => new[] { element }.ToAsyncEnumerable(),
-                    IEnumerable enumerable => enumerable
-                        .Cast<TElement>()
-                        .Where(x => x is not null)
-                        .Select(x => x!)
-                        .ToAsyncEnumerable(),
+                    IEnumerable enumerable => enumerable.ToNonNullAsyncEnumerable<TElement>(),
                     { } obj => throw new InvalidCastException($"A result of type {obj.GetType()} can't be interpreted as {nameof(IAsyncEnumerable<TElement>)}."),
                     _ => AsyncEnumerable.Empty<TElement>()
                 };
