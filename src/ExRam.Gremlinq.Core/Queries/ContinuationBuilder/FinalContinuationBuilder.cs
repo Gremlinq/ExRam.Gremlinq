@@ -40,10 +40,10 @@ namespace ExRam.Gremlinq.Core
                 : throw new InvalidOperationException();
         }
 
-        public FinalContinuationBuilder<TOuterQuery> WithNewProjection(Func<Projection, Projection> projectionTransformation)
+        public FinalContinuationBuilder<TOuterQuery> WithNewProjection<TState>(Func<Projection, TState, Projection> projectionTransformation, TState state)
         {
             return _outer is { } outer && _steps is { } steps && _stepLabelProjections is { } stepLabelProjections && _sideEffectLabelProjections is { } sideEffectLabelProjections
-                ? new(outer, steps, projectionTransformation(_projection ?? Projection.Empty), stepLabelProjections, sideEffectLabelProjections, _additionalFlags)
+                ? new(outer, steps, projectionTransformation(_projection ?? Projection.Empty, state), stepLabelProjections, sideEffectLabelProjections, _additionalFlags)
                 : throw new InvalidOperationException();
         }
 

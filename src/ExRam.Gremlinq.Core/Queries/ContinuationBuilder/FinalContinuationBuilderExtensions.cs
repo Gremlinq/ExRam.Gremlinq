@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+
+using ExRam.Gremlinq.Core.Projections;
 using ExRam.Gremlinq.Core.Steps;
 
 namespace ExRam.Gremlinq.Core
@@ -26,5 +29,11 @@ namespace ExRam.Gremlinq.Core
 
             return builder;
         }
+
+        public static FinalContinuationBuilder<TOuterQuery> WithNewProjection<TOuterQuery>(this FinalContinuationBuilder<TOuterQuery> builder, Func<Projection, Projection> projectionTransformation)
+            where TOuterQuery : GremlinQueryBase, IGremlinQueryBase =>
+            builder.WithNewProjection(
+                static (projection, projectionTransformation) => projectionTransformation(projection),
+                projectionTransformation);
     }
 }
