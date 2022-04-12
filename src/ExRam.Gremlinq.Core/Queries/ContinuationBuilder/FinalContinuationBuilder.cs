@@ -61,27 +61,13 @@ namespace ExRam.Gremlinq.Core
                 : throw new InvalidOperationException();
         }
 
-        public FinalContinuationBuilder<TOuterQuery> WithNewStepLabelProjection(IImmutableDictionary<StepLabel, Projection> newStepLabelProjections)
-        {
-            return _outer is { } outer && _steps is { } steps && _projection is { } projection && _sideEffectLabelProjections is { } sideEffectLabelProjections
-                ? new(outer, steps, projection, newStepLabelProjections, sideEffectLabelProjections, _additionalFlags)
-                : throw new InvalidOperationException();
-        }
-
         public FinalContinuationBuilder<TOuterQuery> WithNewSideEffectLabelProjection(Func<IImmutableDictionary<StepLabel, Projection>, IImmutableDictionary<StepLabel, Projection>> sideEffectLabelProjectionsTransformation)
         {
             return _outer is { } outer && _steps is { } steps && _projection is { } projection && _stepLabelProjections is { } stepLabelProjections && _sideEffectLabelProjections is { } sideEffectLabelProjections
                 ? new(outer, steps, projection, stepLabelProjections, sideEffectLabelProjectionsTransformation(sideEffectLabelProjections), _additionalFlags)
                 : throw new InvalidOperationException();
         }
-
-        public FinalContinuationBuilder<TOuterQuery> WithNewSideEffectLabelProjection(IImmutableDictionary<StepLabel, Projection> newSideEffectLabelProjections)
-        {
-            return _outer is { } outer && _steps is { } steps && _projection is { } projection && _stepLabelProjections is { } stepLabelProjections
-                ? new(outer, steps, projection, stepLabelProjections, newSideEffectLabelProjections, _additionalFlags)
-                : throw new InvalidOperationException();
-        }
-
+        
         public FinalContinuationBuilder<TOuterQuery> WithAdditionalFlags(QueryFlags additionalFlags)
         {
             return _outer is { } outer && _steps is { } steps && _projection is { } projection && _stepLabelProjections is { } stepLabelProjections && _sideEffectLabelProjections is { } sideEffectLabelProjections
