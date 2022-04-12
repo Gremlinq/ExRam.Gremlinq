@@ -98,7 +98,9 @@ namespace ExRam.Gremlinq.Core
                 .Build(
                     static (builder, innerTraversal) => builder
                         .AddStep(new RepeatStep(innerTraversal))
-                        .WithNewProjection(_ => _.Lowest(innerTraversal.Projection))
+                        .WithNewProjection(
+                            static (projection, otherProjection) => projection.Lowest(otherProjection),
+                            innerTraversal.Projection)
                         .Build()));
 
             public TQuery Build() => (TQuery)(object)_outerQuery;

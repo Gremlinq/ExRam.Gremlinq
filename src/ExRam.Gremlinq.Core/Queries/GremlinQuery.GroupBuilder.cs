@@ -64,10 +64,12 @@ namespace ExRam.Gremlinq.Core
                         }
 
                         return builder
-                            .WithNewProjection(_ => _
-                                .Group(
-                                    keyTraversal.Projection,
-                                    maybeValueTraversal?.Projection ?? _))
+                            .WithNewProjection(
+                                static (projection, state) => projection
+                                    .Group(
+                                        state.keyTraversal.Projection,
+                                        state.maybeValueTraversal?.Projection ?? projection),
+                                (keyTraversal, maybeValueTraversal))
                             .Build<IValueGremlinQuery<IDictionary<TNewKey, TNewValue>>>();
                     });
             }

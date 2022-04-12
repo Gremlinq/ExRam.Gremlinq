@@ -45,7 +45,9 @@ namespace ExRam.Gremlinq.Core
                         .Build(
                             static (builder, traversal, element) => builder
                                 .AddStep(new OptionTraversalStep(element, traversal))
-                                .WithNewProjection(_ => _.Lowest(traversal.Projection))
+                                .WithNewProjection(
+                                    static (projection, otherProjection) => projection.Lowest(otherProjection),
+                                    traversal.Projection)
                                 .Build(),
                             element));
             }
@@ -58,7 +60,9 @@ namespace ExRam.Gremlinq.Core
                         .With(continuation)
                         .Build(static (builder, traversal) => builder
                             .AddStep(new OptionTraversalStep(default, traversal))
-                            .WithNewProjection(_ => _.Lowest(traversal.Projection))
+                            .WithNewProjection(
+                                static (projection, otherProjection) => projection.Lowest(otherProjection),
+                                traversal.Projection)
                             .Build()));
             }
 

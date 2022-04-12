@@ -246,7 +246,7 @@ namespace ExRam.Gremlinq.Core
             .Build(
                 static (builder, stepLabel) => builder
                     .AddStep(new CapStep(stepLabel))
-                    .WithNewProjection(_ => _.Fold())
+                    .WithNewProjection(static projection => projection.Fold())
                     .AutoBuild<TSelectedElement, object, object, TArrayItem, object, TQuery>(),
                 stepLabel);
 
@@ -308,7 +308,9 @@ namespace ExRam.Gremlinq.Core
                                                     chooseTraversal,
                                                     trueTraversal,
                                                     falseTraversal))
-                                            .WithNewProjection(_ => falseTraversal.Projection.Lowest(trueTraversal.Projection))
+                                            .WithNewProjection(
+                                                static (_, state) => state.falseTraversal.Projection.Lowest(state.trueTraversal.Projection),
+                                                (falseTraversal, trueTraversal))
                                             .Build<TTargetQuery>();
                                     },
                                     (chooseTraversal, trueTraversal));
@@ -322,7 +324,9 @@ namespace ExRam.Gremlinq.Core
                                 : new ChooseTraversalStep(
                                     state.chooseTraversal,
                                     trueTraversal))
-                            .WithNewProjection(_ => _.Lowest(trueTraversal.Projection))
+                            .WithNewProjection(
+                                static (projection, otherProjection) => projection.Lowest(otherProjection),
+                                trueTraversal.Projection)
                             .Build<TTargetQuery>();
                     },
                     (chooseTraversal, maybeFalseChoice));
@@ -474,7 +478,7 @@ namespace ExRam.Gremlinq.Core
             .Continue()
             .Build(static builder => builder
                 .AddStep(FoldStep.Instance)
-                .WithNewProjection(_ => _.Fold())
+                .WithNewProjection(static projection => projection.Fold())
                 .AutoBuild<TElement[], object, object, TElement, object, TNewFoldedQuery>());
 
         private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, object, object, object> From<TNewElement, TNewOutVertex, TNewInVertex>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IVertexGremlinQueryBase<TNewOutVertex>> fromVertexContinuation) => this
@@ -713,7 +717,9 @@ namespace ExRam.Gremlinq.Core
             .With(optionalTraversal)
             .Build(static (builder, continuedTraversal) => builder
                 .AddStep(new OptionalStep(continuedTraversal))
-                .WithNewProjection(_ => _.Lowest(continuedTraversal.Projection))
+                .WithNewProjection(
+                    static (projection, otherProjection) => projection.Lowest(otherProjection),
+                    continuedTraversal.Projection)
                 .Build<TTargetQuery>());
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Or(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase>[] orTraversalTransformations) => this
@@ -934,7 +940,9 @@ namespace ExRam.Gremlinq.Core
 
                     return builder
                         .AddStep(new SelectKeysStep(keys))
-                        .WithNewProjection(_ => _.If<TupleProjection>(tuple => tuple.Select(keys)))
+                        .WithNewProjection(
+                            static (projection, keys) => projection.If<TupleProjection>(tuple => tuple.Select(keys)),
+                            keys)
                         .Build<TTargetQuery>();
                 },
                 projections);
@@ -1011,7 +1019,7 @@ namespace ExRam.Gremlinq.Core
             .Continue()
             .Build(static builder => builder
                 .AddStep(UnfoldStep.Instance)
-                .WithNewProjection(_ => _.If<ArrayProjection>(array => array.Unfold()))
+                .WithNewProjection(static projection => projection.If<ArrayProjection>(array => array.Unfold()))
                 .Build());
 
         private TTargetQuery Unfold<TTargetQuery>() => Unfold().CloneAs<TTargetQuery>();

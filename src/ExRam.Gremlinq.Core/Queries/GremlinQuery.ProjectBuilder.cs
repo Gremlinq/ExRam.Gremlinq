@@ -118,9 +118,9 @@ namespace ExRam.Gremlinq.Core
 
                             builder = builder
                                 .AddStep(projectStep)
-                                .WithNewProjection(_ => _.Project(
-                                    projectStep,
-                                    bySteps));
+                                .WithNewProjection(
+                                    static (projection, tuple) => projection.Project(tuple.projectStep, tuple.bySteps),
+                                    (projectStep, bySteps));
 
                             foreach (var byStep in bySteps)
                             {
