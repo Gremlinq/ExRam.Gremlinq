@@ -46,14 +46,7 @@ namespace ExRam.Gremlinq.Core
                 ? new(outer, steps, projectionTransformation(_projection ?? Projection.Empty, state), stepLabelProjections, sideEffectLabelProjections, _additionalFlags)
                 : throw new InvalidOperationException();
         }
-
-        public FinalContinuationBuilder<TOuterQuery> WithNewProjection(Projection newProjection)
-        {
-            return _outer is { } outer && _steps is { } steps && _stepLabelProjections is { } stepLabelProjections && _sideEffectLabelProjections is { } sideEffectLabelProjections
-                ? new(outer, steps, newProjection, stepLabelProjections, sideEffectLabelProjections, _additionalFlags)
-                : throw new InvalidOperationException();
-        }
-
+        
         public FinalContinuationBuilder<TOuterQuery> WithNewStepLabelProjection<TState>(Func<IImmutableDictionary<StepLabel, Projection>, TState, IImmutableDictionary<StepLabel, Projection>> stepLabelProjectionsTransformation, TState state)
         {
             return _outer is { } outer && _steps is { } steps && _projection is { } projection && _stepLabelProjections is { } stepLabelProjections && _sideEffectLabelProjections is { } sideEffectLabelProjections

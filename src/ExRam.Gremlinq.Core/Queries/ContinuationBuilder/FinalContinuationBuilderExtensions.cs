@@ -30,6 +30,9 @@ namespace ExRam.Gremlinq.Core
             return builder;
         }
 
+        public static FinalContinuationBuilder<TOuterQuery> WithNewProjection<TOuterQuery>(this FinalContinuationBuilder<TOuterQuery> builder, Projection newProjection)
+            where TOuterQuery : GremlinQueryBase, IGremlinQueryBase => builder.WithNewProjection((_, newProjection) => newProjection, newProjection);
+
         public static FinalContinuationBuilder<TOuterQuery> WithNewProjection<TOuterQuery>(this FinalContinuationBuilder<TOuterQuery> builder, Func<Projection, Projection> projectionTransformation)
             where TOuterQuery : GremlinQueryBase, IGremlinQueryBase =>
             builder.WithNewProjection(
