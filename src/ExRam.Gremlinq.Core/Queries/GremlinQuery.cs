@@ -115,7 +115,9 @@ namespace ExRam.Gremlinq.Core
                 .Build(
                     static (builder, tuple) => builder
                         .AddStep(new AggregateStep(tuple.scope, tuple.stepLabel))
-                        .WithNewSideEffectLabelProjection(_ => _.SetItem(tuple.stepLabel, builder.OuterQuery.Projection.Fold()))
+                        .WithNewSideEffectLabelProjection(
+                            static (existingProjections, tuple) => existingProjections.SetItem(tuple.stepLabel, tuple.projection),
+                            (tuple.stepLabel, projection: builder.OuterQuery.Projection.Fold()))
                         .Build(),
                     (scope, stepLabel));
 

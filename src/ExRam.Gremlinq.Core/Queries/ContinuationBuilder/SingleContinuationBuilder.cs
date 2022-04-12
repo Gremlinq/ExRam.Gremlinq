@@ -35,7 +35,11 @@ namespace ExRam.Gremlinq.Core
                 var builder = new FinalContinuationBuilder<TOuterQuery>(outer);
 
                 if (continuation is GremlinQueryBase queryBase)
-                    builder = builder.WithNewSideEffectLabelProjection(_ => _.SetItems(queryBase.SideEffectLabelProjections));
+                {
+                    builder = builder.WithNewSideEffectLabelProjection(
+                        static (existingProjections, additionalProjections) => existingProjections.SetItems(additionalProjections),
+                        queryBase.SideEffectLabelProjections);
+                }
 
                 return builderTransformation(
                     builder,

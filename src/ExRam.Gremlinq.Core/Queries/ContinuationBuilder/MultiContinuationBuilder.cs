@@ -45,7 +45,11 @@ namespace ExRam.Gremlinq.Core
                     foreach (var continuation in continuations)
                     {
                         if (continuation is GremlinQueryBase queryBase)
-                            builder = builder.WithNewSideEffectLabelProjection(_ => _.SetItems(queryBase.SideEffectLabelProjections));
+                        {
+                            builder = builder.WithNewSideEffectLabelProjection(
+                                static (existingProjections, additionalProjections) => existingProjections.SetItems(additionalProjections),
+                                queryBase.SideEffectLabelProjections);
+                        }
 
                         traversalArray[targetIndex++] = continuation.ToTraversal();
                     }
