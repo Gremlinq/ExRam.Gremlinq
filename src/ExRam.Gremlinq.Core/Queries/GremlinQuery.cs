@@ -1142,7 +1142,7 @@ namespace ExRam.Gremlinq.Core
             .With(filterContinuation)
             .Build(static (builder, filterTraversal) => filterTraversal.IsIdentity()
                 ? builder.OuterQuery
-                : filterTraversal.IsNone()
+                : filterTraversal.IsNone() && filterTraversal.SideEffectSemantics == SideEffectSemantics.Read
                     ? builder.OuterQuery.None()
                     : builder.OuterQuery.Where(filterTraversal));
 
