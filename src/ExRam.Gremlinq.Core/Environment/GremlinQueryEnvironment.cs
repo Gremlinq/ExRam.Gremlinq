@@ -136,7 +136,7 @@ namespace ExRam.Gremlinq.Core
                 .RegisterNativeType(
                     serializerDelegate,
                     _ => _
-                        .Override<JValue, TNative>((token, type, env, overridden, recurse) => deserializer(token, type, env, overridden, recurse)));
+                        .Override<JValue, TNative>(deserializer));
         }
 
         public static IGremlinQueryEnvironment RegisterNativeType<TNative>(this IGremlinQueryEnvironment environment, GremlinQueryFragmentSerializerDelegate<TNative> serializerDelegate, Func<IGremlinQueryFragmentDeserializer, IGremlinQueryFragmentDeserializer> fragmentDeserializerTransformation)
