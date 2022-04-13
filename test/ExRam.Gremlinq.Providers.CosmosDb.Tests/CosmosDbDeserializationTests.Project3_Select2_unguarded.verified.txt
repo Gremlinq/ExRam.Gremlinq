@@ -1,1 +1,26 @@
-﻿[]
+﻿[
+  {
+    "Item1": {
+      "Age": 0,
+      "Gender": null,
+      "Image": null,
+      "RegistrationDate": "2020-04-07T14:43:36+00:00",
+      "PhoneNumbers": null,
+      "SomeObscureProperty": null,
+      "Name": {
+        "Id": "scrubbed id",
+        "Label": null,
+        "Properties": null,
+        "Value": "Bob",
+        "Key": null
+      },
+      "Id": "scrubbed id",
+      "Label": "Person"
+    },
+    "Item2": {
+      "IetfLanguageTag": "en",
+      "Id": "scrubbed id",
+      "Label": "Language"
+    }
+  }
+]

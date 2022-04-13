@@ -1,1 +1,190 @@
-﻿[]
+﻿[
+  {
+    "Item1": null,
+    "Item2": null,
+    "Item3": 0,
+    "Item4": {
+      "Id": "scrubbed id",
+      "Label": "RegistrationDate",
+      "Properties": {},
+      "Value": 1586270616000,
+      "Key": null
+    }
+  },
+  {
+    "Item1": null,
+    "Item2": {
+      "FoundingDate": "0001-01-01T00:00:00",
+      "PhoneNumbers": null,
+      "Locations": null,
+      "Name": null,
+      "Id": "scrubbed id",
+      "Label": "Company"
+    },
+    "Item3": 0,
+    "Item4": {
+      "Id": "scrubbed id",
+      "Label": "Age",
+      "Properties": {},
+      "Value": 0,
+      "Key": null
+    }
+  },
+  {
+    "Item1": {
+      "Name": null,
+      "Languages": null,
+      "CountryCallingCode": "+49",
+      "LocalizableDescription": null,
+      "Id": "scrubbed id",
+      "Label": "Country"
+    },
+    "Item2": null,
+    "Item3": 0,
+    "Item4": {
+      "Id": "scrubbed id",
+      "Label": "RegistrationDate",
+      "Properties": {},
+      "Value": 1586270616000,
+      "Key": null
+    }
+  },
+  {
+    "Item1": null,
+    "Item2": {
+      "Name": null,
+      "Languages": null,
+      "CountryCallingCode": null,
+      "LocalizableDescription": null,
+      "Id": "scrubbed id",
+      "Label": "Country"
+    },
+    "Item3": 0,
+    "Item4": {
+      "Id": "scrubbed id",
+      "Label": "Age",
+      "Properties": {},
+      "Value": 0,
+      "Key": null
+    }
+  },
+  {
+    "Item1": null,
+    "Item2": {
+      "Name": null,
+      "Languages": null,
+      "CountryCallingCode": null,
+      "LocalizableDescription": null,
+      "Id": "scrubbed id",
+      "Label": "Country"
+    },
+    "Item3": 0,
+    "Item4": {
+      "Id": "scrubbed id",
+      "Label": "Age",
+      "Properties": {},
+      "Value": 0,
+      "Key": null
+    }
+  },
+  {
+    "Item1": null,
+    "Item2": {
+      "Name": null,
+      "Languages": null,
+      "CountryCallingCode": null,
+      "LocalizableDescription": null,
+      "Id": "scrubbed id",
+      "Label": "Country"
+    },
+    "Item3": 0,
+    "Item4": {
+      "Id": "scrubbed id",
+      "Label": "Age",
+      "Properties": {},
+      "Value": 0,
+      "Key": null
+    }
+  },
+  {
+    "Item1": null,
+    "Item2": {
+      "FoundingDate": "0001-01-01T00:00:00",
+      "PhoneNumbers": null,
+      "Locations": null,
+      "Name": null,
+      "Id": "scrubbed id",
+      "Label": "Company"
+    },
+    "Item3": 0,
+    "Item4": {
+      "Id": "scrubbed id",
+      "Label": "Age",
+      "Properties": {},
+      "Value": 0,
+      "Key": null
+    }
+  },
+  {
+    "Item1": null,
+    "Item2": {
+      "Name": null,
+      "Languages": null,
+      "CountryCallingCode": "+49",
+      "LocalizableDescription": null,
+      "Id": "scrubbed id",
+      "Label": "Country"
+    },
+    "Item3": 0,
+    "Item4": {
+      "Id": "scrubbed id",
+      "Label": "RegistrationDate",
+      "Properties": {},
+      "Value": 1586270616000,
+      "Key": null
+    }
+  },
+  {
+    "Item1": null,
+    "Item2": {
+      "FoundingDate": "0001-01-01T00:00:00",
+      "PhoneNumbers": null,
+      "Locations": null,
+      "Name": null,
+      "Id": "scrubbed id",
+      "Label": "Company"
+    },
+    "Item3": 0,
+    "Item4": {
+      "Id": "scrubbed id",
+      "Label": "Age",
+      "Properties": {},
+      "Value": 0,
+      "Key": null
+    }
+  },
+  {
+    "Item1": null,
+    "Item2": null,
+    "Item3": 0,
+    "Item4": {
+      "Id": "scrubbed id",
+      "Label": "Image",
+      "Properties": {},
+      "Value": "AQIDBAUGBwg=",
+      "Key": null
+    }
+  },
+  {
+    "Item1": null,
+    "Item2": null,
+    "Item3": 0,
+    "Item4": {
+      "Id": "scrubbed id",
+      "Label": "Gender",
+      "Properties": {},
+      "Value": 1,
+      "Key": null
+    }
+  }
+]
