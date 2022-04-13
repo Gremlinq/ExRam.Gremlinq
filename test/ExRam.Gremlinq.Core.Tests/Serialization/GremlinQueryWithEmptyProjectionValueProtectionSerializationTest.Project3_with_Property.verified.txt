@@ -320,6 +320,10 @@
                       ]
                     }
                   ]
+                },
+                {
+                  "OperatorName": "fold",
+                  "Arguments": []
                 }
               ]
             }
@@ -453,6 +457,10 @@
                       ]
                     }
                   ]
+                },
+                {
+                  "OperatorName": "fold",
+                  "Arguments": []
                 }
               ]
             }
@@ -468,6 +476,70 @@
                   "OperatorName": "select",
                   "Arguments": [
                     "Item3"
+                  ]
+                },
+                {
+                  "OperatorName": "fold",
+                  "Arguments": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "OperatorName": "map",
+          "Arguments": [
+            {
+              "SourceInstructions": [],
+              "StepInstructions": [
+                {
+                  "OperatorName": "unfold",
+                  "Arguments": []
+                },
+                {
+                  "OperatorName": "group",
+                  "Arguments": []
+                },
+                {
+                  "OperatorName": "by",
+                  "Arguments": [
+                    {
+                      "SourceInstructions": [],
+                      "StepInstructions": [
+                        {
+                          "OperatorName": "select",
+                          "Arguments": [
+                            {
+                              "EnumName": "Column",
+                              "EnumValue": "keys"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "OperatorName": "by",
+                  "Arguments": [
+                    {
+                      "SourceInstructions": [],
+                      "StepInstructions": [
+                        {
+                          "OperatorName": "select",
+                          "Arguments": [
+                            {
+                              "EnumName": "Column",
+                              "EnumValue": "values"
+                            }
+                          ]
+                        },
+                        {
+                          "OperatorName": "unfold",
+                          "Arguments": []
+                        }
+                      ]
+                    }
                   ]
                 }
               ]
