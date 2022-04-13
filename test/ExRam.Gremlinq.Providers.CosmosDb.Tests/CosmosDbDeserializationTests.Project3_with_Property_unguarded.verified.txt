@@ -1,1 +1,77 @@
-﻿[]
+﻿[
+  {
+    "Item1": {
+      "Name": null,
+      "Languages": null,
+      "CountryCallingCode": "+49",
+      "LocalizableDescription": null,
+      "Id": "scrubbed id",
+      "Label": "Country"
+    },
+    "Item2": null,
+    "Item3": 0
+  },
+  {
+    "Item1": null,
+    "Item2": {
+      "Name": null,
+      "Languages": null,
+      "CountryCallingCode": null,
+      "LocalizableDescription": null,
+      "Id": "scrubbed id",
+      "Label": "Country"
+    },
+    "Item3": 0
+  },
+  {
+    "Item1": null,
+    "Item2": {
+      "Name": null,
+      "Languages": null,
+      "CountryCallingCode": null,
+      "LocalizableDescription": null,
+      "Id": "scrubbed id",
+      "Label": "Country"
+    },
+    "Item3": 0
+  },
+  {
+    "Item1": null,
+    "Item2": {
+      "Name": null,
+      "Languages": null,
+      "CountryCallingCode": null,
+      "LocalizableDescription": null,
+      "Id": "scrubbed id",
+      "Label": "Country"
+    },
+    "Item3": 0
+  },
+  {
+    "Item1": null,
+    "Item2": {
+      "Name": null,
+      "Languages": null,
+      "CountryCallingCode": "+49",
+      "LocalizableDescription": null,
+      "Id": "scrubbed id",
+      "Label": "Country"
+    },
+    "Item3": 0
+  },
+  {
+    "Item1": null,
+    "Item2": null,
+    "Item3": 0
+  },
+  {
+    "Item1": null,
+    "Item2": null,
+    "Item3": 0
+  },
+  {
+    "Item1": null,
+    "Item2": null,
+    "Item3": 0
+  }
+]
