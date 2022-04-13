@@ -1,12 +1,11 @@
 ﻿[
   {
     "Item1": null,
-    "Item3": 0,
-    "Item2": null
+    "Item2": null,
+    "Item3": 0
   },
   {
     "Item1": null,
-    "Item3": 0,
     "Item2": {
       "FoundingDate": "0001-01-01T00:00:00",
       "PhoneNumbers": null,
@@ -14,7 +13,8 @@
       "Name": null,
       "Id": "scrubbed id",
       "Label": "Company"
-    }
+    },
+    "Item3": 0
   },
   {
     "Item1": {
@@ -25,12 +25,11 @@
       "Id": "scrubbed id",
       "Label": "Country"
     },
-    "Item3": 0,
-    "Item2": null
+    "Item2": null,
+    "Item3": 0
   },
   {
     "Item1": null,
-    "Item3": 0,
     "Item2": {
       "Name": null,
       "Languages": null,
@@ -38,11 +37,11 @@
       "LocalizableDescription": null,
       "Id": "scrubbed id",
       "Label": "Country"
-    }
+    },
+    "Item3": 0
   },
   {
     "Item1": null,
-    "Item3": 0,
     "Item2": {
       "Name": null,
       "Languages": null,
@@ -50,11 +49,11 @@
       "LocalizableDescription": null,
       "Id": "scrubbed id",
       "Label": "Country"
-    }
+    },
+    "Item3": 0
   },
   {
     "Item1": null,
-    "Item3": 0,
     "Item2": {
       "Name": null,
       "Languages": null,
@@ -62,11 +61,11 @@
       "LocalizableDescription": null,
       "Id": "scrubbed id",
       "Label": "Country"
-    }
+    },
+    "Item3": 0
   },
   {
     "Item1": null,
-    "Item3": 0,
     "Item2": {
       "FoundingDate": "0001-01-01T00:00:00",
       "PhoneNumbers": null,
@@ -74,11 +73,11 @@
       "Name": null,
       "Id": "scrubbed id",
       "Label": "Company"
-    }
+    },
+    "Item3": 0
   },
   {
     "Item1": null,
-    "Item3": 0,
     "Item2": {
       "Name": null,
       "Languages": null,
@@ -86,11 +85,11 @@
       "LocalizableDescription": null,
       "Id": "scrubbed id",
       "Label": "Country"
-    }
+    },
+    "Item3": 0
   },
   {
     "Item1": null,
-    "Item3": 0,
     "Item2": {
       "FoundingDate": "0001-01-01T00:00:00",
       "PhoneNumbers": null,
@@ -98,16 +97,17 @@
       "Name": null,
       "Id": "scrubbed id",
       "Label": "Company"
-    }
+    },
+    "Item3": 0
   },
   {
     "Item1": null,
-    "Item3": 0,
-    "Item2": null
+    "Item2": null,
+    "Item3": 0
   },
   {
     "Item1": null,
-    "Item3": 0,
-    "Item2": null
+    "Item2": null,
+    "Item3": 0
   }
 ]
