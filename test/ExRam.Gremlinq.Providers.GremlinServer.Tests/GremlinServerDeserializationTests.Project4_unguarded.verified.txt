@@ -1,0 +1,547 @@
+﻿[
+  {
+    "Item1": {
+      "Age": 0,
+      "Gender": null,
+      "Image": null,
+      "RegistrationDate": "2020-04-07T14:43:36+00:00",
+      "PhoneNumbers": null,
+      "SomeObscureProperty": null,
+      "Name": {
+        "Id": "scrubbed id",
+        "Label": "Name",
+        "Properties": {
+          "ValidFrom": "0001-01-01T00:00:00+00:00"
+        },
+        "Value": "Bob",
+        "Key": null
+      },
+      "Id": "scrubbed id",
+      "Label": "Person"
+    },
+    "Item2": {
+      "Age": 0,
+      "Gender": null,
+      "Image": null,
+      "RegistrationDate": "2020-04-07T14:43:36+00:00",
+      "PhoneNumbers": null,
+      "SomeObscureProperty": null,
+      "Name": {
+        "Id": "scrubbed id",
+        "Label": "Name",
+        "Properties": {
+          "ValidFrom": "0001-01-01T00:00:00+00:00"
+        },
+        "Value": "Bob",
+        "Key": null
+      },
+      "Id": "scrubbed id",
+      "Label": "Person"
+    },
+    "Item3": 1,
+    "Item4": {
+      "Id": "scrubbed id",
+      "Label": "CountryCallingCode",
+      "Properties": {},
+      "Value": "+49",
+      "Key": null
+    }
+  },
+  {
+    "Item1": null,
+    "Item2": null,
+    "Item3": 1,
+    "Item4": {
+      "Id": "scrubbed id",
+      "Label": "RegistrationDate",
+      "Properties": {},
+      "Value": 1586270616000,
+      "Key": null
+    }
+  },
+  {
+    "Item1": {
+      "Name": null,
+      "Languages": null,
+      "CountryCallingCode": "+49",
+      "LocalizableDescription": null,
+      "Id": "scrubbed id",
+      "Label": "Country"
+    },
+    "Item2": null,
+    "Item3": 1,
+    "Item4": {
+      "Id": "scrubbed id",
+      "Label": "IetfLanguageTag",
+      "Properties": {},
+      "Value": "en",
+      "Key": null
+    }
+  },
+  {
+    "Item1": null,
+    "Item2": null,
+    "Item3": 1,
+    "Item4": {
+      "Id": "scrubbed id",
+      "Label": "IetfLanguageTag",
+      "Properties": {},
+      "Value": "en",
+      "Key": null
+    }
+  },
+  {
+    "Item1": {
+      "Age": 0,
+      "Gender": null,
+      "Image": null,
+      "RegistrationDate": null,
+      "PhoneNumbers": null,
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": "scrubbed id",
+      "Label": "Person"
+    },
+    "Item2": null,
+    "Item3": 1,
+    "Item4": {
+      "Id": "scrubbed id",
+      "Label": "FoundingDate",
+      "Properties": {},
+      "Value": -62135596800000,
+      "Key": null
+    }
+  },
+  {
+    "Item1": null,
+    "Item2": null,
+    "Item3": 1,
+    "Item4": null
+  },
+  {
+    "Item1": null,
+    "Item2": null,
+    "Item3": 1,
+    "Item4": null
+  },
+  {
+    "Item1": null,
+    "Item2": null,
+    "Item3": 1,
+    "Item4": null
+  },
+  {
+    "Item1": null,
+    "Item2": null,
+    "Item3": 1,
+    "Item4": {
+      "Id": "scrubbed id",
+      "Label": "FoundingDate",
+      "Properties": {},
+      "Value": -62135596800000,
+      "Key": null
+    }
+  },
+  {
+    "Item1": null,
+    "Item2": {
+      "FoundingDate": "0001-01-01T00:00:00",
+      "PhoneNumbers": null,
+      "Locations": null,
+      "Name": null,
+      "Id": "scrubbed id",
+      "Label": "Company"
+    },
+    "Item3": 1,
+    "Item4": {
+      "Id": "scrubbed id",
+      "Label": "Age",
+      "Properties": {},
+      "Value": 0,
+      "Key": null
+    }
+  },
+  {
+    "Item1": null,
+    "Item2": null,
+    "Item3": 1,
+    "Item4": {
+      "Id": "scrubbed id",
+      "Label": "Name",
+      "Properties": {},
+      "Value": "GER",
+      "Key": null
+    }
+  },
+  {
+    "Item1": {
+      "Name": null,
+      "Languages": null,
+      "CountryCallingCode": "+49",
+      "LocalizableDescription": null,
+      "Id": "scrubbed id",
+      "Label": "Country"
+    },
+    "Item2": null,
+    "Item3": 1,
+    "Item4": {
+      "Id": "scrubbed id",
+      "Label": "RegistrationDate",
+      "Properties": {},
+      "Value": 1586270616000,
+      "Key": null
+    }
+  },
+  {
+    "Item1": null,
+    "Item2": null,
+    "Item3": 1,
+    "Item4": {
+      "Id": "scrubbed id",
+      "Label": "Name",
+      "Properties": {
+        "de": "Deutschland",
+        "en": "Germany"
+      },
+      "Value": "GER",
+      "Key": null
+    }
+  },
+  {
+    "Item1": null,
+    "Item2": null,
+    "Item3": 1,
+    "Item4": {
+      "Id": "scrubbed id",
+      "Label": "PhoneNumbers",
+      "Properties": {},
+      "Value": "+4912345",
+      "Key": null
+    }
+  },
+  {
+    "Item1": null,
+    "Item2": {
+      "Name": null,
+      "Languages": null,
+      "CountryCallingCode": null,
+      "LocalizableDescription": null,
+      "Id": "scrubbed id",
+      "Label": "Country"
+    },
+    "Item3": 1,
+    "Item4": {
+      "Id": "scrubbed id",
+      "Label": "Age",
+      "Properties": {},
+      "Value": 0,
+      "Key": null
+    }
+  },
+  {
+    "Item1": {
+      "Age": 0,
+      "Gender": null,
+      "Image": null,
+      "RegistrationDate": null,
+      "PhoneNumbers": null,
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": "scrubbed id",
+      "Label": "Person"
+    },
+    "Item2": null,
+    "Item3": 1,
+    "Item4": null
+  },
+  {
+    "Item1": null,
+    "Item2": null,
+    "Item3": 1,
+    "Item4": {
+      "Id": "scrubbed id",
+      "Label": "lang",
+      "Properties": {},
+      "Value": "en",
+      "Key": null
+    }
+  },
+  {
+    "Item1": null,
+    "Item2": {
+      "Name": null,
+      "Languages": null,
+      "CountryCallingCode": null,
+      "LocalizableDescription": null,
+      "Id": "scrubbed id",
+      "Label": "Country"
+    },
+    "Item3": 1,
+    "Item4": {
+      "Id": "scrubbed id",
+      "Label": "Age",
+      "Properties": {},
+      "Value": 0,
+      "Key": null
+    }
+  },
+  {
+    "Item1": {
+      "Age": 0,
+      "Gender": null,
+      "Image": null,
+      "RegistrationDate": null,
+      "PhoneNumbers": null,
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": "scrubbed id",
+      "Label": "Person"
+    },
+    "Item2": null,
+    "Item3": 1,
+    "Item4": null
+  },
+  {
+    "Item1": null,
+    "Item2": {
+      "Name": null,
+      "Languages": null,
+      "CountryCallingCode": null,
+      "LocalizableDescription": null,
+      "Id": "scrubbed id",
+      "Label": "Country"
+    },
+    "Item3": 1,
+    "Item4": {
+      "Id": "scrubbed id",
+      "Label": "Age",
+      "Properties": {},
+      "Value": 0,
+      "Key": null
+    }
+  },
+  {
+    "Item1": {
+      "Age": 0,
+      "Gender": null,
+      "Image": null,
+      "RegistrationDate": null,
+      "PhoneNumbers": null,
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": "scrubbed id",
+      "Label": "Person"
+    },
+    "Item2": null,
+    "Item3": 1,
+    "Item4": null
+  },
+  {
+    "Item1": {
+      "Age": 0,
+      "Gender": null,
+      "Image": null,
+      "RegistrationDate": null,
+      "PhoneNumbers": null,
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": "scrubbed id",
+      "Label": "Person"
+    },
+    "Item2": null,
+    "Item3": 1,
+    "Item4": {
+      "Id": "scrubbed id",
+      "Label": "FoundingDate",
+      "Properties": {},
+      "Value": -62135596800000,
+      "Key": null
+    }
+  },
+  {
+    "Item1": null,
+    "Item2": {
+      "FoundingDate": "0001-01-01T00:00:00",
+      "PhoneNumbers": null,
+      "Locations": null,
+      "Name": null,
+      "Id": "scrubbed id",
+      "Label": "Company"
+    },
+    "Item3": 1,
+    "Item4": {
+      "Id": "scrubbed id",
+      "Label": "Age",
+      "Properties": {},
+      "Value": 0,
+      "Key": null
+    }
+  },
+  {
+    "Item1": {
+      "Name": null,
+      "Languages": null,
+      "CountryCallingCode": "+49",
+      "LocalizableDescription": null,
+      "Id": "scrubbed id",
+      "Label": "Country"
+    },
+    "Item2": null,
+    "Item3": 1,
+    "Item4": {
+      "Id": "scrubbed id",
+      "Label": "IetfLanguageTag",
+      "Properties": {},
+      "Value": "en",
+      "Key": null
+    }
+  },
+  {
+    "Item1": null,
+    "Item2": {
+      "IetfLanguageTag": "en",
+      "Id": "scrubbed id",
+      "Label": "Language"
+    },
+    "Item3": 1,
+    "Item4": {
+      "Id": "scrubbed id",
+      "Label": "CountryCallingCode",
+      "Properties": {},
+      "Value": "+49",
+      "Key": null
+    }
+  },
+  {
+    "Item1": null,
+    "Item2": {
+      "Name": null,
+      "Languages": null,
+      "CountryCallingCode": "+49",
+      "LocalizableDescription": null,
+      "Id": "scrubbed id",
+      "Label": "Country"
+    },
+    "Item3": 1,
+    "Item4": {
+      "Id": "scrubbed id",
+      "Label": "RegistrationDate",
+      "Properties": {},
+      "Value": 1586270616000,
+      "Key": null
+    }
+  },
+  {
+    "Item1": {
+      "Age": 0,
+      "Gender": null,
+      "Image": null,
+      "RegistrationDate": null,
+      "PhoneNumbers": null,
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": "scrubbed id",
+      "Label": "Person"
+    },
+    "Item2": null,
+    "Item3": 1,
+    "Item4": {
+      "Id": "scrubbed id",
+      "Label": "FoundingDate",
+      "Properties": {},
+      "Value": -62135596800000,
+      "Key": null
+    }
+  },
+  {
+    "Item1": null,
+    "Item2": {
+      "FoundingDate": "0001-01-01T00:00:00",
+      "PhoneNumbers": null,
+      "Locations": null,
+      "Name": null,
+      "Id": "scrubbed id",
+      "Label": "Company"
+    },
+    "Item3": 1,
+    "Item4": {
+      "Id": "scrubbed id",
+      "Label": "Age",
+      "Properties": {},
+      "Value": 0,
+      "Key": null
+    }
+  },
+  {
+    "Item1": null,
+    "Item2": null,
+    "Item3": 1,
+    "Item4": {
+      "Id": "scrubbed id",
+      "Label": "IetfLanguageTag",
+      "Properties": {},
+      "Value": "en",
+      "Key": null
+    }
+  },
+  {
+    "Item1": null,
+    "Item2": null,
+    "Item3": 1,
+    "Item4": {
+      "Id": "scrubbed id",
+      "Label": "StartTime",
+      "Properties": {},
+      "Value": "PT8H",
+      "Key": null
+    }
+  },
+  {
+    "Item1": null,
+    "Item2": null,
+    "Item3": 1,
+    "Item4": {
+      "Id": "scrubbed id",
+      "Label": "IetfLanguageTag",
+      "Properties": {},
+      "Value": "en",
+      "Key": null
+    }
+  },
+  {
+    "Item1": null,
+    "Item2": null,
+    "Item3": 1,
+    "Item4": {
+      "Id": "scrubbed id",
+      "Label": "IetfLanguageTag",
+      "Properties": {},
+      "Value": "en",
+      "Key": null
+    }
+  },
+  {
+    "Item1": null,
+    "Item2": null,
+    "Item3": 1,
+    "Item4": {
+      "Id": "scrubbed id",
+      "Label": "Image",
+      "Properties": {},
+      "Value": "AQIDBAUGBwg=",
+      "Key": null
+    }
+  },
+  {
+    "Item1": null,
+    "Item2": null,
+    "Item3": 1,
+    "Item4": {
+      "Id": "scrubbed id",
+      "Label": "Gender",
+      "Properties": {},
+      "Value": 1,
+      "Key": null
+    }
+  }
+]
