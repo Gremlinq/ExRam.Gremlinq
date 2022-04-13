@@ -1,0 +1,103 @@
+﻿[
+  [
+    {
+      "Item1": {
+        "id": "scrubbed id",
+        "label": "Country",
+        "type": "vertex",
+        "properties": {
+          "PartitionKey": [
+            {
+              "id": "scrubbed id",
+              "value": "PartitionKey"
+            }
+          ],
+          "CountryCallingCode": [
+            {
+              "id": "scrubbed id",
+              "value": "+49"
+            }
+          ]
+        }
+      },
+      "Item3": 0
+    },
+    {
+      "Item2": {
+        "id": "scrubbed id",
+        "label": "Country",
+        "type": "vertex",
+        "properties": {
+          "PartitionKey": [
+            {
+              "id": "scrubbed id",
+              "value": "PartitionKey"
+            }
+          ]
+        }
+      },
+      "Item3": 0
+    },
+    {
+      "Item2": {
+        "id": "scrubbed id",
+        "label": "Country",
+        "type": "vertex",
+        "properties": {
+          "PartitionKey": [
+            {
+              "id": "scrubbed id",
+              "value": "PartitionKey"
+            }
+          ]
+        }
+      },
+      "Item3": 0
+    },
+    {
+      "Item2": {
+        "id": "scrubbed id",
+        "label": "Country",
+        "type": "vertex",
+        "properties": {
+          "PartitionKey": [
+            {
+              "id": "scrubbed id",
+              "value": "PartitionKey"
+            }
+          ]
+        }
+      },
+      "Item3": 0
+    },
+    {
+      "Item2": {
+        "id": "scrubbed id",
+        "label": "Country",
+        "type": "vertex",
+        "properties": {
+          "PartitionKey": [
+            {
+              "id": "scrubbed id",
+              "value": "PartitionKey"
+            }
+          ],
+          "CountryCallingCode": [
+            {
+              "id": "scrubbed id",
+              "value": "+49"
+            }
+          ]
+        }
+      },
+      "Item3": 0
+    },
+    {
+      "Item3": 0
+    },
+    {
+      "Item3": 0
+    },
+    {}
+  ]
+]
