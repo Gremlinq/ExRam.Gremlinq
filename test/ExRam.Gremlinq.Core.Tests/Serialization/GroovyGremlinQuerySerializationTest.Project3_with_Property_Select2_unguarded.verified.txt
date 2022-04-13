@@ -1,0 +1,18 @@
+﻿[
+  {
+    "Script": "g.V().hasLabel(_a).project(_b,_c,_d).by(__.in().limit(_e).fold()).by(__.out().limit(_e).fold()).by(__.values(_f).limit(_e).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold())).select(_b,_d).project(_b,_d).by(__.select(_b).project(_g,_h,_i).by(id).by(label).by(__.properties().group().by(label).by(__.project(_g,_h,_j,_i).by(id).by(label).by(value).by(__.valueMap()).fold())).fold()).by(__.select(_d).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold()))",
+    "Id": "Scrubbed GUID",
+    "Bindings": {
+      "_a": "Person",
+      "_b": "Item1",
+      "_c": "Item2",
+      "_d": "Item3",
+      "_e": 1,
+      "_f": "Age",
+      "_g": "id",
+      "_h": "label",
+      "_i": "properties",
+      "_j": "value"
+    }
+  }
+]

@@ -2835,6 +2835,148 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public async Task Project2_unguarded()
+        {
+            await _g
+                .ConfigureEnvironment(_ => _
+                    .ConfigureOptions(o => o.SetValue(GremlinqOption.EnableEmptyProjectionValueProtection, true)))
+                .V()
+                .Project(__ => __
+                    .ToTuple()
+                    .By(__ => __.In())
+                    .By(__ => __.Out()))
+                .Verify();
+        }
+
+        [Fact]
+        public async Task Project2_with_Property_unguarded()
+        {
+            await _g
+                .ConfigureEnvironment(_ => _
+                    .ConfigureOptions(o => o.SetValue(GremlinqOption.EnableEmptyProjectionValueProtection, true)))
+                .V<Person>()
+                .Project(__ => __
+                    .ToTuple()
+                    .By(__ => __.In())
+                    .By(__ => __.Age))
+                .Verify();
+        }
+
+        [Fact]
+        public async Task Project3_unguarded()
+        {
+            await _g
+                .ConfigureEnvironment(_ => _
+                    .ConfigureOptions(o => o.SetValue(GremlinqOption.EnableEmptyProjectionValueProtection, true)))
+                .V()
+                .Project(__ => __
+                    .ToTuple()
+                    .By(__ => __.In())
+                    .By(__ => __.Out())
+                    .By(__ => __.Count()))
+                .Verify();
+        }
+
+        [Fact]
+        public async Task Project3_Select1_unguarded()
+        {
+            await _g
+                .ConfigureEnvironment(_ => _
+                    .ConfigureOptions(o => o.SetValue(GremlinqOption.EnableEmptyProjectionValueProtection, true)))
+                .V()
+                .Project(__ => __
+                    .ToTuple()
+                    .By(__ => __.In())
+                    .By(__ => __.Out())
+                    .By(__ => __.Count()))
+                .Select(x => x.Item1)
+                .Verify();
+        }
+
+        [Fact]
+        public async Task Project3_Select2_unguarded()
+        {
+            await _g
+                .ConfigureEnvironment(_ => _
+                    .ConfigureOptions(o => o.SetValue(GremlinqOption.EnableEmptyProjectionValueProtection, true)))
+                .V()
+                .Project(__ => __
+                    .ToTuple()
+                    .By(__ => __.In())
+                    .By(__ => __.Out())
+                    .By(__ => __.Count()))
+                .Select(
+                    x => x.Item1,
+                    x => x.Item2)
+                .Verify();
+        }
+
+        [Fact]
+        public async Task Project3_with_Property_unguarded()
+        {
+            await _g
+                .ConfigureEnvironment(_ => _
+                    .ConfigureOptions(o => o.SetValue(GremlinqOption.EnableEmptyProjectionValueProtection, true)))
+                .V<Person>()
+                .Project(__ => __
+                    .ToTuple()
+                    .By(__ => __.In())
+                    .By(__ => __.Out())
+                    .By(x => x.Age))
+                .Verify();
+        }
+
+        [Fact]
+        public async Task Project3_with_Property_Select2_unguarded()
+        {
+            await _g
+                .ConfigureEnvironment(_ => _
+                    .ConfigureOptions(o => o.SetValue(GremlinqOption.EnableEmptyProjectionValueProtection, true)))
+                .V<Person>()
+                .Project(__ => __
+                    .ToTuple()
+                    .By(__ => __.In())
+                    .By(__ => __.Out())
+                    .By(__ => __.Age))
+                .Select(
+                    x => x.Item1,
+                    x => x.Item3)
+                .Verify();
+        }
+
+        [Fact]
+        public async Task Project4_unguarded()
+        {
+            await _g
+                .ConfigureEnvironment(_ => _
+                    .ConfigureOptions(o => o.SetValue(GremlinqOption.EnableEmptyProjectionValueProtection, true)))
+                .V()
+                .Project(__ => __
+                    .ToTuple()
+                    .By(__ => __.In())
+                    .By(__ => __.Out())
+                    .By(__ => __.Count())
+                    .By(__ => __.Properties()))
+                .Verify();
+        }
+
+        [Fact]
+        public async Task Project4_with_Property_unguarded()
+        {
+            await _g
+                .ConfigureEnvironment(_ => _
+                    .ConfigureOptions(o => o.SetValue(GremlinqOption.EnableEmptyProjectionValueProtection, true)))
+                .V<Person>()
+                .Project(__ => __
+                    .ToTuple()
+                    .By(__ => __.In())
+                    .By(__ => __.Out())
+                    .By(__ => __.Age)
+                    .By(__ => __.Properties()))
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task Properties_Meta()
         {
             await _g

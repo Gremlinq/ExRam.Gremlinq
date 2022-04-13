@@ -1,0 +1,11 @@
+﻿[
+  {
+    "Script": "g.V().project(_a,_b).by(__.in().limit(_c).fold()).by(__.out().limit(_c).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold())).project(_a,_b).by(__.select(_a).fold()).by(__.select(_b).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold()))",
+    "Id": "Scrubbed GUID",
+    "Bindings": {
+      "_a": "Item1",
+      "_b": "Item2",
+      "_c": 1
+    }
+  }
+]
