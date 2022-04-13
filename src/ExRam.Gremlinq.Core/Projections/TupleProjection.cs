@@ -29,10 +29,19 @@ namespace ExRam.Gremlinq.Core.Projections
 
         public override Traversal ToTraversal(IGremlinQueryEnvironment environment)
         {
+            var emptyProjectionProtection = environment.Options.GetValue(GremlinqOption.EnableEmptyProjectionValueProtection)
+                ? environment.Options.GetValue(GremlinqOption.EmptyProjectionProtectionDecoratorSteps)
+                : default(Traversal?);
+
             var projectionTraversals = _projections
-                .Select((projection, _) => projection.Projection
+                .Select(projection => projection.Projection
                     .ToTraversal(environment)
                     .Prepend(new SelectKeysStep(projection.Key))
+                    .Apply(
+                        static (traversal, emptyProjectionProtection) => emptyProjectionProtection is { } protection
+                            ? traversal.Append(FoldStep.Instance)
+                            : traversal,
+                        emptyProjectionProtection)
                     .ToImmutableArray())
                 .ToArray();
 
@@ -44,6 +53,11 @@ namespace ExRam.Gremlinq.Core.Projections
                 .Prepend(new ProjectStep(_projections
                     .Select(x => x.Key)
                     .ToImmutableArray()))
+                .Apply(
+                    static (traversal, emptyProjectionProtection) => emptyProjectionProtection is { } protection
+                        ? traversal.Concat(emptyProjectionProtection)
+                        : traversal,
+                    emptyProjectionProtection)
                 .ToImmutableArray();
         }
 
