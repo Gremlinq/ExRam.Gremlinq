@@ -122,12 +122,12 @@ namespace ExRam.Gremlinq.Core
         public static IGremlinQueryEnvironment StoreByteArraysAsBase64String(this IGremlinQueryEnvironment environment)
         {
             return environment
-                .ConfigureModel(model => model
-                    .ConfigureNativeTypes(types => types
+                .ConfigureModel(static model => model
+                    .ConfigureNativeTypes(static types => types
                         .Remove(typeof(byte[]))))
-                .ConfigureSerializer(_ => _
-                    .ConfigureFragmentSerializer(_ => _
-                        .Override<byte[]>((bytes, env, overridden, recurse) => recurse.Serialize(Convert.ToBase64String(bytes), env))));
+                .ConfigureSerializer(static _ => _
+                    .ConfigureFragmentSerializer(static _ => _
+                        .Override<byte[]>(static (bytes, env, overridden, recurse) => recurse.Serialize(Convert.ToBase64String(bytes), env))));
         }
 
         public static IGremlinQueryEnvironment RegisterNativeType<TNative>(this IGremlinQueryEnvironment environment, GremlinQueryFragmentSerializerDelegate<TNative> serializerDelegate, GremlinQueryFragmentDeserializerDelegate<JValue> deserializer)
@@ -142,14 +142,14 @@ namespace ExRam.Gremlinq.Core
         public static IGremlinQueryEnvironment RegisterNativeType<TNative>(this IGremlinQueryEnvironment environment, GremlinQueryFragmentSerializerDelegate<TNative> serializerDelegate, Func<IGremlinQueryFragmentDeserializer, IGremlinQueryFragmentDeserializer> fragmentDeserializerTransformation)
         {
             return environment
-                .ConfigureModel(_ => _
-                    .ConfigureNativeTypes(_ => _
+                .ConfigureModel(static _ => _
+                    .ConfigureNativeTypes(static _ => _
                         .Add(typeof(TNative))))
                 .ConfigureSerializer(_ => _
                     .ConfigureFragmentSerializer(_ => _
                         .Override(serializerDelegate)))
                 .ConfigureDeserializer(_ => _
-                    .ConfigureFragmentDeserializer(_ => fragmentDeserializerTransformation(_)));
+                    .ConfigureFragmentDeserializer(fragmentDeserializerTransformation));
         }
     }
 }

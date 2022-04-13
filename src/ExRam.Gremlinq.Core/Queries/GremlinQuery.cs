@@ -351,12 +351,12 @@ namespace ExRam.Gremlinq.Core
                     if (traversals.Length == 0)
                         throw new ArgumentException("Coalesce must have at least one sub-query.");
 
-                    if (traversals.All(traversal => traversal.IsIdentity()))
+                    if (traversals.All(static traversal => traversal.IsIdentity()))
                         return builder.Build<TReturnQuery>();
 
                     var aggregatedProjection = traversals
-                        .Select(x => x.Projection)
-                        .Aggregate((x, y) => x.Lowest(y));
+                        .Select(static x => x.Projection)
+                        .Aggregate(static (x, y) => x.Lowest(y));
 
                     return builder
                         .AddStep(new CoalesceStep(traversals.ToImmutableArray()))
@@ -551,8 +551,8 @@ namespace ExRam.Gremlinq.Core
                 static (builder, elements) => builder
                     .AddStep(new InjectStep(
                         elements
-                            .Where(x => x is not null)
-                            .Select(x => (object)x!)
+                            .Where(static x => x is not null)
+                            .Select(static x => (object)x!)
                             .ToImmutableArray()))
                     .WithNewProjection(Projection.Value)
                     .AutoBuild<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(),
@@ -679,7 +679,7 @@ namespace ExRam.Gremlinq.Core
             .Continue()
             .Build(static builder => builder.OuterQuery.IsIdentity()
                 ? builder.OuterQuery
-                    .Clone(maybeStepStackTransformation: _ => StepStack.Empty.Push(NoneStep.Instance))
+                    .Clone(maybeStepStackTransformation: static _ => StepStack.Empty.Push(NoneStep.Instance))
                 : builder
                     .AddStep(NoneStep.Instance)
                     .Build());
@@ -760,7 +760,7 @@ namespace ExRam.Gremlinq.Core
                     return builder.OuterQuery;
 
                 var fusedTraversals = new ArraySegment<Traversal>(traversals, 0, count)
-                    .Fuse((p1, p2) => p1.Or(p2))
+                    .Fuse(static (p1, p2) => p1.Or(p2))
                     .ToArray();
 
                 return fusedTraversals?.Length switch
@@ -1023,7 +1023,7 @@ namespace ExRam.Gremlinq.Core
             .Continue()
             .Build(static builder => builder
                 .AddStep(UnfoldStep.Instance)
-                .WithNewProjection(static projection => projection.If<ArrayProjection>(array => array.Unfold()))
+                .WithNewProjection(static projection => projection.If<ArrayProjection>(static array => array.Unfold()))
                 .Build());
 
         private TTargetQuery Unfold<TTargetQuery>() => Unfold().CloneAs<TTargetQuery>();
@@ -1047,8 +1047,8 @@ namespace ExRam.Gremlinq.Core
                 .Build(static (builder, unionTraversals) =>
                 {
                     var aggregatedProjection = unionTraversals
-                        .Select(traversal => traversal.Projection)
-                        .Aggregate((x, y) => x.Lowest(y));
+                        .Select(static traversal => traversal.Projection)
+                        .Aggregate(static (x, y) => x.Lowest(y));
 
                     return builder
                         .AddStep(new UnionStep(unionTraversals.ToImmutableArray()))
@@ -1119,7 +1119,7 @@ namespace ExRam.Gremlinq.Core
                         stepsArray[0]),
                 _ => this
                     .Union(stepsArray
-                        .Select(step => new Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, GremlinQuery<TValue, object, object, object, object, object>>(__ => __
+                        .Select(static step => new Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, GremlinQuery<TValue, object, object, object, object, object>>(__ => __
                             .Continue()
                             .Build(
                                 static (builder, step) => builder
@@ -1163,7 +1163,7 @@ namespace ExRam.Gremlinq.Core
             .Build(
                 static (builder, traversal) =>
                 {
-                    builder = traversal.Count > 0 && traversal.All(x => x is IIsOptimizableInWhere)
+                    builder = traversal.Count > 0 && traversal.All(static x => x is IIsOptimizableInWhere)
                         ? builder.AddSteps(traversal)
                         : builder.AddStep(new FilterStep.ByTraversalStep(traversal));
 

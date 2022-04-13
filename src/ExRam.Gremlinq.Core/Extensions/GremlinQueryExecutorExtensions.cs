@@ -100,7 +100,7 @@ namespace ExRam.Gremlinq.Core.Execution
 
                             var logger = Loggers.GetValue(
                                 environment,
-                                environment => GetLoggingFunction(environment));
+                                static environment => GetLoggingFunction(environment));
 
                             logger(serializedQuery, serializedQuery.Id);
 
