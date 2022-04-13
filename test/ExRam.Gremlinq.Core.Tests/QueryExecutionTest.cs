@@ -2281,6 +2281,19 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task Or_none_with_predicate()
+        {
+            await _g
+                .V<Person>()
+                .Or(
+                    __ => __
+                        .None(),
+                    __ => __
+                        .Where(x => x.Age > 36))
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task Or_none_with_sideEffect()
         {
             await _g

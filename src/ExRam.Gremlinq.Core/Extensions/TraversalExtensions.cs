@@ -96,7 +96,7 @@ namespace ExRam.Gremlinq.Core
                 {
                     if (isFirstHasPredicateStep)
                     {
-                        var groups = traversals.Array!
+                        var groups = traversals
                             .GroupBy(
                                 static x => ((HasPredicateStep)x[0]).Key,
                                 static x => ((HasPredicateStep)x[0]).Predicate);
@@ -114,7 +114,7 @@ namespace ExRam.Gremlinq.Core
 
                     if (isFirstIsStep)
                     {
-                        var effective = traversals.Array!
+                        var effective = traversals
                             .Select(static x => ((IsStep)x[0]).Predicate)
                             .Aggregate(fuse);
 
