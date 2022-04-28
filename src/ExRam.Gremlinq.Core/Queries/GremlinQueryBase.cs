@@ -36,6 +36,8 @@ namespace ExRam.Gremlinq.Core
             SideEffectLabelProjections = sideEffectProjections;
         }
 
+        public override string ToString() => $"GremlinQuery(Steps.Count: {Steps.Count})";
+
         protected internal TTargetQuery CloneAs<TTargetQuery>(
             Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment>? maybeEnvironmentTransformation = null,
             Func<StepStack, StepStack>? maybeStepStackTransformation = null,
