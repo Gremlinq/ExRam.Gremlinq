@@ -45,10 +45,8 @@ namespace ExRam.Gremlinq.Core.Serialization
                         }
                         case Instruction instruction:
                         {
-                            if (builder.Length != 0)
-                                builder.Append('.');
-
                             builder
+                                .Append('.')
                                 .Append(instruction.OperatorName)
                                 .Append('(');
 
