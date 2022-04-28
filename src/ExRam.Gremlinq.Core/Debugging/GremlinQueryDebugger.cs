@@ -55,8 +55,6 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        public static readonly IGremlinQueryDebugger Default = Groovy(GroovyFormatting.Inline, false);
-
         public static IGremlinQueryDebugger Groovy(GroovyFormatting formatting, bool indented) => new GroovyGremlinQueryDebugger(formatting, indented);
 
         public static IGremlinQueryDebugger Override(this IGremlinQueryDebugger debugger, IGremlinQueryDebugger overridingDebugger) => new OverrideGremlinQueryDebugger(debugger, overridingDebugger);

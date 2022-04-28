@@ -112,7 +112,6 @@
     }
     public static class GremlinQueryDebugger
     {
-        public static readonly ExRam.Gremlinq.Core.IGremlinQueryDebugger Default;
         public static ExRam.Gremlinq.Core.IGremlinQueryDebugger Groovy(ExRam.Gremlinq.Core.Serialization.GroovyFormatting formatting, bool indented) { }
         public static ExRam.Gremlinq.Core.IGremlinQueryDebugger Override(this ExRam.Gremlinq.Core.IGremlinQueryDebugger debugger, ExRam.Gremlinq.Core.IGremlinQueryDebugger overridingDebugger) { }
     }
@@ -528,6 +527,7 @@
     public interface IGremlinQueryEnvironment
     {
         ExRam.Gremlinq.Core.IAddStepHandler AddStepHandler { get; }
+        ExRam.Gremlinq.Core.IGremlinQueryDebugger Debugger { get; }
         ExRam.Gremlinq.Core.Deserialization.IGremlinQueryExecutionResultDeserializer Deserializer { get; }
         ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor Executor { get; }
         ExRam.Gremlinq.Core.IFeatureSet FeatureSet { get; }
@@ -539,6 +539,7 @@
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureDeserializer(System.Func<ExRam.Gremlinq.Core.Deserialization.IGremlinQueryExecutionResultDeserializer, ExRam.Gremlinq.Core.Deserialization.IGremlinQueryExecutionResultDeserializer> deserializerTransformation);
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureExecutor(System.Func<ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor, ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor> executorTransformation);
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureFeatureSet(System.Func<ExRam.Gremlinq.Core.IFeatureSet, ExRam.Gremlinq.Core.IFeatureSet> featureSetTransformation);
+        ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureLogger(System.Func<ExRam.Gremlinq.Core.IGremlinQueryDebugger, ExRam.Gremlinq.Core.IGremlinQueryDebugger> debuggerTransformation);
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureLogger(System.Func<Microsoft.Extensions.Logging.ILogger, Microsoft.Extensions.Logging.ILogger> loggerTransformation);
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureModel(System.Func<ExRam.Gremlinq.Core.Models.IGraphModel, ExRam.Gremlinq.Core.Models.IGraphModel> modelTransformation);
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureOptions(System.Func<ExRam.Gremlinq.Core.IGremlinqOptions, ExRam.Gremlinq.Core.IGremlinqOptions> optionsTransformation);
