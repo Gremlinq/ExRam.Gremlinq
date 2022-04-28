@@ -1,5 +1,4 @@
-﻿using ExRam.Gremlinq.Core.Serialization;
-using Xunit.Abstractions;
+﻿using Xunit.Abstractions;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
@@ -8,8 +7,7 @@ namespace ExRam.Gremlinq.Core.Tests
     {
         public new sealed class Fixture : QuerySerializationTest.Fixture
         {
-            public Fixture() : base(g.ConfigureEnvironment(_ => _
-                .UseSerializer(GremlinQuerySerializer.Default)))
+            public Fixture() : base(g.ConfigureEnvironment(_ => _))
             {
             }
         }

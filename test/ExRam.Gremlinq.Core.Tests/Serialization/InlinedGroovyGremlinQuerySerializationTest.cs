@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public new sealed class Fixture : QuerySerializationTest.Fixture
         {
             public Fixture() : base(g.ConfigureEnvironment(_ => _
-                .UseSerializer(GremlinQuerySerializer.Default.ToGroovy(GroovyFormatting.Inline))))
+                .ConfigureSerializer(_ => _.ToGroovy(GroovyFormatting.Inline))))
             {
             }
         }

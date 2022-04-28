@@ -11,7 +11,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public new sealed class Fixture : QuerySerializationTest.Fixture
         {
             public Fixture() : base(g.ConfigureEnvironment(_ => _
-                .UseSerializer(GremlinQuerySerializer.Default
+                .ConfigureSerializer(_ => _
                     .Select(obj => new GraphSONGremlinQuery(obj.Id, Writer.WriteObject(((BytecodeGremlinQuery)obj).Bytecode))))))
             {
             }
