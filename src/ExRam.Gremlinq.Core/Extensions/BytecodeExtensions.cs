@@ -128,21 +128,6 @@ namespace ExRam.Gremlinq.Core.Serialization
 
                             break;
                         }
-                        case IEnumerable enumerable when allowEnumerableExpansion:
-                        {
-                            var comma = false;
-                            foreach (var argument in enumerable)
-                            {
-                                if (comma)
-                                    builder.Append(',');
-                                else
-                                    comma = true;
-
-                                Append(argument);
-                            }
-
-                            break;
-                        }
                         default:
                         {
                             if (!bindings.TryGetValue(obj, out var bindingKey))
