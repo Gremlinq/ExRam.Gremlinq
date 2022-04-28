@@ -166,7 +166,7 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<TValue> IGremlinQueryBase.Constant<TValue>(TValue constant) => Constant(constant);
 
-        string IGremlinQueryBase.Debug(GroovyFormatting groovyFormatting, bool indented) => Debug(groovyFormatting, indented);
+        string IGremlinQueryBase.Debug() => Debug();
 
         IValueGremlinQuery<long> IGremlinQueryBase.Count() => CountGlobal();
 

@@ -17,7 +17,7 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<long> CountLocal();
         IValueGremlinQuery<TValue> Constant<TValue>(TValue constant);
 
-        string Debug(GroovyFormatting groovyFormatting = GroovyFormatting.Inline, bool indented = false);
+        string Debug();
 
         IValueGremlinQuery<object> Drop();
 
