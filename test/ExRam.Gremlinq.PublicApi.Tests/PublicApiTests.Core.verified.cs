@@ -377,7 +377,7 @@
         ExRam.Gremlinq.Core.IValueGremlinQuery<TValue> Constant<TValue>(TValue constant);
         ExRam.Gremlinq.Core.IValueGremlinQuery<long> Count();
         ExRam.Gremlinq.Core.IValueGremlinQuery<long> CountLocal();
-        string Debug(ExRam.Gremlinq.Core.Serialization.GroovyFormatting groovyFormatting = 1, bool indented = false);
+        string Debug();
         ExRam.Gremlinq.Core.IValueGremlinQuery<object> Drop();
         ExRam.Gremlinq.Core.IValueGremlinQuery<string> Explain();
         ExRam.Gremlinq.Core.IValueGremlinQuery<object> Fail(string? message = null);

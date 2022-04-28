@@ -402,19 +402,12 @@ namespace ExRam.Gremlinq.Core
                 .AddStep(CyclicPathStep.Instance)
                 .Build());
 
-        private string Debug(GroovyFormatting groovyFormatting, bool indented)
+        private string Debug()
         {
-            var groovy = Environment.Serializer
-                .Serialize(this)
-                .ToGroovy(groovyFormatting);
+            var serialized = Environment.Serializer
+                .Serialize(this);
 
-            return JsonConvert.SerializeObject(
-                groovy.Bindings.Count > 0
-                    ? new { groovy.Script, groovy.Bindings }
-                    : new { groovy.Script },
-                indented
-                    ? Formatting.Indented
-                    : Formatting.None);
+            return Environment.Debugger.TryToString(serialized) ?? serialized.ToString() ?? ToString()!;
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> DedupGlobal() => this
