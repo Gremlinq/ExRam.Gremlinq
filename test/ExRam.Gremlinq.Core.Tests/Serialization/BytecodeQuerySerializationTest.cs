@@ -1,5 +1,4 @@
-﻿using ExRam.Gremlinq.Core.Serialization;
-using Xunit;
+﻿using Xunit;
 using Xunit.Abstractions;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 

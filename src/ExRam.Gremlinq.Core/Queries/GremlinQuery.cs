@@ -13,7 +13,6 @@ using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Core.Steps;
 using Gremlin.Net.Process.Traversal;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 
 namespace ExRam.Gremlinq.Core
 {
