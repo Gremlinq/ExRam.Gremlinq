@@ -113,6 +113,7 @@
     public static class GremlinQueryDebugger
     {
         public static readonly ExRam.Gremlinq.Core.IGremlinQueryDebugger Default;
+        public static ExRam.Gremlinq.Core.IGremlinQueryDebugger Groovy(ExRam.Gremlinq.Core.Serialization.GroovyFormatting formatting, bool indented) { }
         public static ExRam.Gremlinq.Core.IGremlinQueryDebugger Override(this ExRam.Gremlinq.Core.IGremlinQueryDebugger debugger, ExRam.Gremlinq.Core.IGremlinQueryDebugger overridingDebugger) { }
     }
     public static class GremlinQueryEnvironment
