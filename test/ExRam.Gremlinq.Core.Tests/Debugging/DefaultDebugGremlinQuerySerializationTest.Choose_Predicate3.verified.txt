@@ -1,1 +1,1 @@
-﻿"{\"Script\":\"g.V().id().choose(lt(42),__.constant(true),__.constant(false))\"}"
+﻿"g.V().id().choose(lt(42),__.constant(true),__.constant(false))"

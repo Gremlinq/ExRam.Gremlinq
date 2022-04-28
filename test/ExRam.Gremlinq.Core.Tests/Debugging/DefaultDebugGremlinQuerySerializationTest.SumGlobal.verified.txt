@@ -1,1 +1,1 @@
-﻿"{\"Script\":\"g.V().hasLabel('Person').values('Age').sum()\"}"
+﻿"g.V().hasLabel('Person').values('Age').sum()"

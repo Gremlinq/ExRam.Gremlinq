@@ -1,1 +1,1 @@
-﻿"{\"Script\":\"g.V().hasLabel('Company').not(__.has('PhoneNumbers')).project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold()))\"}"
+﻿"g.V().hasLabel('Company').not(__.has('PhoneNumbers')).project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold()))"

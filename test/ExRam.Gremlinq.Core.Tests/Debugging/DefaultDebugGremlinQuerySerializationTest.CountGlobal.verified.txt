@@ -1,1 +1,1 @@
-﻿"{\"Script\":\"g.V().count()\"}"
+﻿"g.V().count()"

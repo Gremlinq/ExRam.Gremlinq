@@ -1,9 +1,7 @@
 ﻿[
   {
-    "Script": "g.V().hasLabel('Person').sideEffect(__.properties('Gender','RegistrationDate').drop()).property(single,'Gender',0).property(single,'RegistrationDate',_e).outE('WorksFor').sideEffect(__.properties('To').drop()).property('To',_e).project('id','label','properties').by(id).by(label).by(__.valueMap())",
+    "Script": "g.V().hasLabel('Person').sideEffect(__.properties('Gender','RegistrationDate').drop()).property(single,'Gender',0).property(single,'RegistrationDate',\"2020-04-07T14:43:36+00:00\").outE('WorksFor').sideEffect(__.properties('To').drop()).property('To',\"2020-04-07T14:43:36+00:00\").project('id','label','properties').by(id).by(label).by(__.valueMap())",
     "Id": "Scrubbed GUID",
-    "Bindings": {
-      "_e": "2020-04-07T14:43:36+00:00"
-    }
+    "Bindings": {}
   }
 ]

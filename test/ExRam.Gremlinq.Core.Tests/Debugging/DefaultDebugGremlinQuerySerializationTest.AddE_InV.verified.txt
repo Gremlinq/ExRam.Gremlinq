@@ -1,1 +1,1 @@
-﻿"{\"Script\":\"g.addV('Person').property(single,'Age',0).addE('LivesIn').to(__.addV('Country')).inV().project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold()))\"}"
+﻿"g.addV('Person').property(single,'Age',0).addE('LivesIn').to(__.addV('Country')).inV().project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold()))"

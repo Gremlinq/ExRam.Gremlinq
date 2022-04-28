@@ -1,1 +1,1 @@
-﻿"{\"Script\":\"g.V().label()\"}"
+﻿"g.V().label()"

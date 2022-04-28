@@ -1,1 +1,1 @@
-﻿"{\"Script\":\"g.V().limit(2).fold().range(local,0,1).local(__.unfold().project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold())).fold())\"}"
+﻿"g.V().limit(2).fold().range(local,0,1).local(__.unfold().project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold())).fold())"

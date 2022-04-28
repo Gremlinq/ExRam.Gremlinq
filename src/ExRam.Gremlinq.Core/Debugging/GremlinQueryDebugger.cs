@@ -18,24 +18,9 @@ namespace ExRam.Gremlinq.Core
                 _formatting = formatting;
             }
 
-            public string? TryToString(ISerializedGremlinQuery serializedQuery)
-            {
-                var maybeGroovy = serializedQuery
-                    .TryToGroovy(_formatting);
-
-                if (maybeGroovy is { } groovy)
-                {
-                    return JsonConvert.SerializeObject(
-                        groovy.Bindings.Count > 0
-                            ? new { groovy.Script, groovy.Bindings }
-                            : new { groovy.Script },
-                        _indented
-                            ? Formatting.Indented
-                            : Formatting.None);
-                }
-
-                return default;
-            }
+            public string? TryToString(ISerializedGremlinQuery serializedQuery) => serializedQuery.TryToGroovy(_formatting) is { } groovy
+                ? groovy.Script
+                : default;
         }
 
         private sealed class OverrideGremlinQueryDebugger : IGremlinQueryDebugger

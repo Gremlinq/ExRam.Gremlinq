@@ -1,10 +1,7 @@
 ﻿[
   {
-    "Script": "g.addE('WorksFor').property('From',_c).property('Role','Admin').property('To',_c).to(__.addV('Company').property(single,'FoundingDate',_i)).from(__.addV('Person').property(single,'Age',0)).project('id','label','properties').by(id).by(label).by(__.valueMap())",
+    "Script": "g.addE('WorksFor').property('From',\"2020-04-07T14:43:36+00:00\").property('Role','Admin').property('To',\"2020-04-07T14:43:36+00:00\").to(__.addV('Company').property(single,'FoundingDate',\"0001-01-01T00:00:00+00:00\")).from(__.addV('Person').property(single,'Age',0)).project('id','label','properties').by(id).by(label).by(__.valueMap())",
     "Id": "Scrubbed GUID",
-    "Bindings": {
-      "_c": "2020-04-07T14:43:36+00:00",
-      "_i": "0001-01-01T00:00:00+00:00"
-    }
+    "Bindings": {}
   }
 ]

@@ -1,1 +1,1 @@
-﻿"{\"Script\":\"g.E().properties()\"}"
+﻿"g.E().properties()"
