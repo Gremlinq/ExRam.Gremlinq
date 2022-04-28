@@ -1,1 +1,1 @@
-﻿"{\"Script\":\"g.V().constant(42)\"}"
+﻿"g.V().constant(42)"

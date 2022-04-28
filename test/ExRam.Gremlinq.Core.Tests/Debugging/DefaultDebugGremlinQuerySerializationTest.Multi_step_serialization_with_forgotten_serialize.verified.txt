@@ -1,1 +1,1 @@
-﻿"{\"Script\":\"g.V().outE().project('id','label','properties').by(id).by(label).by(__.valueMap())\"}"
+﻿"g.V().outE().project('id','label','properties').by(id).by(label).by(__.valueMap())"

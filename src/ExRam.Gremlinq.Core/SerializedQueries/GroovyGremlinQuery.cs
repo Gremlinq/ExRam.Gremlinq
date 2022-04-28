@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 
 namespace ExRam.Gremlinq.Core.Serialization
@@ -47,8 +48,6 @@ namespace ExRam.Gremlinq.Core.Serialization
             if (!_createdInternally)
                 throw new InvalidOperationException($"Can't inline this {nameof(GroovyGremlinQuery)} since it was created by user code.");
 
-            var newBindings = default(Dictionary<string, object>);
-
             var newScript = BindingRegex.Replace(
                 Script,
                 match =>
@@ -78,15 +77,13 @@ namespace ExRam.Gremlinq.Core.Serialization
                         {
                             return ((int)obj).ToString();
                         }
-                        case string[] { Length: <= 8 } strs:
+                        case string[] { Length: <= 8 } strings:
                         {
-                            return $"[{string.Join(",", strs.Select(x => $"'{x}'") )}]";
+                            return $"[{string.Join(",", strings.Select(static x => $"'{x}'") )}]";
                         }
                         default:
                         {
-                            (newBindings ??= new Dictionary<string, object>())[key] = value;
-
-                            return key;
+                            return JsonSerializer.Serialize(value);
                         }
                     }
                 });
@@ -94,7 +91,7 @@ namespace ExRam.Gremlinq.Core.Serialization
             return new GroovyGremlinQuery(
                 Id,
                 newScript,
-                ((IReadOnlyDictionary<string, object>?)newBindings) ?? ImmutableDictionary<string, object>.Empty,
+                ImmutableDictionary<string, object>.Empty,
                 true,
                 true);
         }

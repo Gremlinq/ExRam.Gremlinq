@@ -1,1 +1,1 @@
-﻿"{\"Script\":\"g.V().hasLabel('Country').properties('Name','CountryCallingCode').project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap())\"}"
+﻿"g.V().hasLabel('Country').properties('Name','CountryCallingCode').project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap())"

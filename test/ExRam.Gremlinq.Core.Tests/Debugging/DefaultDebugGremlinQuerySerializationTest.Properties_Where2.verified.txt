@@ -1,1 +1,1 @@
-﻿"{\"Script\":\"g.V().hasLabel('Person').properties().hasKey('Age').hasValue(lt(10)).project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap())\"}"
+﻿"g.V().hasLabel('Person').properties().hasKey('Age').hasValue(lt(10)).project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap())"

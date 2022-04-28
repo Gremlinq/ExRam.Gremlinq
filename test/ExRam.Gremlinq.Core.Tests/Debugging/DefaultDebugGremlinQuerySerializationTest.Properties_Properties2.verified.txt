@@ -1,1 +1,1 @@
-﻿"{\"Script\":\"g.V().hasLabel('Company').properties('Locations').properties()\"}"
+﻿"g.V().hasLabel('Company').properties('Locations').properties()"
