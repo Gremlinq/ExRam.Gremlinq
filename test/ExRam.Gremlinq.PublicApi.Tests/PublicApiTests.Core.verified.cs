@@ -110,6 +110,11 @@
         public void OnCompleted(System.Action continuation) { }
         public void UnsafeOnCompleted(System.Action continuation) { }
     }
+    public static class GremlinQueryDebugger
+    {
+        public static readonly ExRam.Gremlinq.Core.IGremlinQueryDebugger Default;
+        public static ExRam.Gremlinq.Core.IGremlinQueryDebugger Override(this ExRam.Gremlinq.Core.IGremlinQueryDebugger debugger, ExRam.Gremlinq.Core.IGremlinQueryDebugger overridingDebugger) { }
+    }
     public static class GremlinQueryEnvironment
     {
         public static readonly ExRam.Gremlinq.Core.IGremlinQueryEnvironment Default;
@@ -514,6 +519,10 @@
         ExRam.Gremlinq.Core.GremlinQueryAwaiter<TElement> GetAwaiter();
         ExRam.Gremlinq.Core.IGremlinQuery<TElement> Lower();
         System.Collections.Generic.IAsyncEnumerable<TElement> ToAsyncEnumerable();
+    }
+    public interface IGremlinQueryDebugger
+    {
+        string? TryToString(ExRam.Gremlinq.Core.Serialization.ISerializedGremlinQuery serializedQuery);
     }
     public interface IGremlinQueryEnvironment
     {
