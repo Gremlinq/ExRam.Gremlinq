@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Core.Serialization
 {
     public static class BytecodeExtensions
     {
-        private static readonly ThreadLocal<StringBuilder> Builder = new(() => new StringBuilder());
+        private static readonly ThreadLocal<StringBuilder> Builder = new(static () => new StringBuilder());
 
         public static GroovyGremlinQuery ToGroovy(this BytecodeGremlinQuery bytecodeQuery, GroovyFormatting formatting = GroovyFormatting.WithBindings)
         {
