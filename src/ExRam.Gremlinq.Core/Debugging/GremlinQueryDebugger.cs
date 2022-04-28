@@ -7,15 +7,21 @@ namespace ExRam.Gremlinq.Core
 {
     public static class GremlinQueryDebugger
     {
-        private sealed class DefaultGremlinQueryDebugger : IGremlinQueryDebugger
+        private sealed class GroovyGremlinQueryDebugger : IGremlinQueryDebugger
         {
+            private readonly bool _indented;
+            private readonly GroovyFormatting _formatting;
+
+            public GroovyGremlinQueryDebugger(GroovyFormatting formatting, bool indented)
+            {
+                _indented = indented;
+                _formatting = formatting;
+            }
+
             public string? TryToString(ISerializedGremlinQuery serializedQuery)
             {
-                var indented = true;
-                var groovyFormatting = GroovyFormatting.WithBindings;
-
                 var maybeGroovy = serializedQuery
-                    .TryToGroovy(groovyFormatting);
+                    .TryToGroovy(_formatting);
 
                 if (maybeGroovy is { } groovy)
                 {
@@ -23,7 +29,7 @@ namespace ExRam.Gremlinq.Core
                         groovy.Bindings.Count > 0
                             ? new { groovy.Script, groovy.Bindings }
                             : new { groovy.Script },
-                        indented
+                        _indented
                             ? Formatting.Indented
                             : Formatting.None);
                 }
@@ -45,11 +51,13 @@ namespace ExRam.Gremlinq.Core
 
             public string? TryToString(ISerializedGremlinQuery serializedQuery)
             {
-                return _baseDebugger.TryToString(serializedQuery) ?? _overridingDebugger.TryToString(serializedQuery);
+                return _overridingDebugger.TryToString(serializedQuery) ?? _baseDebugger.TryToString(serializedQuery);
             }
         }
 
-        public static readonly IGremlinQueryDebugger Default = new DefaultGremlinQueryDebugger();
+        public static readonly IGremlinQueryDebugger Default = Groovy(GroovyFormatting.Inline, false);
+
+        public static IGremlinQueryDebugger Groovy(GroovyFormatting formatting, bool indented) => new GroovyGremlinQueryDebugger(formatting, indented);
 
         public static IGremlinQueryDebugger Override(this IGremlinQueryDebugger debugger, IGremlinQueryDebugger overridingDebugger) => new OverrideGremlinQueryDebugger(debugger, overridingDebugger);
     }
