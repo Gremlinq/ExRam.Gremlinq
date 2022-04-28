@@ -22,8 +22,11 @@ namespace ExRam.Gremlinq.Core.Tests
             else
             {
                 var serialized = JsonConvert.SerializeObject(
-                    await query
-                        .ToArrayAsync(),
+                    testBase is DebugGremlinQuerySerializationTest
+                        ? query
+                            .Debug()
+                        : await query
+                            .ToArrayAsync(),
                     Formatting.Indented);
 
                 var scrubbed = testBase

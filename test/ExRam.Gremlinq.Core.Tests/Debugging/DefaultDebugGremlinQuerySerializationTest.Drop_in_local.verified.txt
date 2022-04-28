@@ -1,0 +1,1 @@
+﻿"{\"Script\":\"g.inject(1).local(__.V().drop())\"}"

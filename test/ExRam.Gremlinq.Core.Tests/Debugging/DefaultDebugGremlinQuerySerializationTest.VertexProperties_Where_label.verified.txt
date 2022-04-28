@@ -1,0 +1,1 @@
+﻿"{\"Script\":\"g.V().hasLabel('Company').properties('Locations').hasKey('someKey').project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap())\"}"

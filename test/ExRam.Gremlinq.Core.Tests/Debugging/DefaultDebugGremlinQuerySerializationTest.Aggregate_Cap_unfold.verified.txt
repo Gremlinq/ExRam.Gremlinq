@@ -1,0 +1,1 @@
+﻿"{\"Script\":\"g.V().hasLabel('Person').aggregate('l1').cap('l1').unfold().project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold()))\"}"

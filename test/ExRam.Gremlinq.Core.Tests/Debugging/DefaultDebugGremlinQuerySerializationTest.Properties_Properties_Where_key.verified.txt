@@ -1,0 +1,1 @@
+﻿"{\"Script\":\"g.V().hasLabel('Company').properties('Locations').properties().filter(__.key().is('someKey'))\"}"

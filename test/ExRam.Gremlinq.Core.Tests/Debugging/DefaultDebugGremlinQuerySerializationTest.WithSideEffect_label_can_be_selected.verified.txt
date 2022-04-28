@@ -1,0 +1,1 @@
+﻿"{\"Script\":\"g.withSideEffect('l1',36).V().select('l1')\"}"

@@ -1,0 +1,1 @@
+﻿"{\"Script\":\"g.V().id().choose(eq(42),__.constant(true),__.constant(false))\"}"

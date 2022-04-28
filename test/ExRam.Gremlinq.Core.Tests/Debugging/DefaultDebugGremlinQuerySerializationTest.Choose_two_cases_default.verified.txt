@@ -1,0 +1,1 @@
+﻿"{\"Script\":\"g.V().filter(__.properties()).choose(__.values()).option(3,__.constant(1)).option(4,__.constant(2)).option(none,__.constant(3))\"}"
