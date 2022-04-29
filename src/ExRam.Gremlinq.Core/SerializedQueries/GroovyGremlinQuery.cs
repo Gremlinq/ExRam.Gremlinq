@@ -40,6 +40,12 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         public ISerializedGremlinQuery WithNewId() => new GroovyGremlinQuery(Script, Bindings, _createdInternally, _isInlined);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="InvalidOperationException"></exception>
+        /// <remarks>Do not send inlined queries to a database server.</remarks>
         public GroovyGremlinQuery Inline()
         {
             if (_isInlined || Bindings.Count == 0)
