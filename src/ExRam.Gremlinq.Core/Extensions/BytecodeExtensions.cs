@@ -101,13 +101,6 @@ namespace ExRam.Gremlinq.Core.Serialization
 
                             break;
                         }
-                        case string str when allowEnumerableExpansion:
-                        {
-                            // ReSharper disable once TailRecursiveCall
-                            Append(str);
-
-                            break;
-                        }
                         case Type type:
                         {
                             builder.Append(type.Name);
