@@ -9,12 +9,10 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class GroovyGremlinQueryDebugger : IGremlinQueryDebugger
         {
-            private readonly bool _indented;
             private readonly GroovyFormatting _formatting;
 
-            public GroovyGremlinQueryDebugger(GroovyFormatting formatting, bool indented)
+            public GroovyGremlinQueryDebugger(GroovyFormatting formatting)
             {
-                _indented = indented;
                 _formatting = formatting;
             }
 
@@ -40,7 +38,7 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        public static IGremlinQueryDebugger Groovy(GroovyFormatting formatting, bool indented) => new GroovyGremlinQueryDebugger(formatting, indented);
+        public static IGremlinQueryDebugger Groovy(GroovyFormatting formatting) => new GroovyGremlinQueryDebugger(formatting);
 
         public static IGremlinQueryDebugger Override(this IGremlinQueryDebugger debugger, IGremlinQueryDebugger overridingDebugger) => new OverrideGremlinQueryDebugger(debugger, overridingDebugger);
     }

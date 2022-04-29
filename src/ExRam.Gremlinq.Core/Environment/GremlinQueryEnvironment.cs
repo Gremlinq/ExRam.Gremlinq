@@ -70,7 +70,7 @@ namespace ExRam.Gremlinq.Core
             GremlinQuerySerializer.Identity,
             GremlinQueryExecutor.Empty,
             GremlinQueryExecutionResultDeserializer.Identity,
-            GremlinQueryDebugger.Groovy(GroovyFormatting.Inline, false),
+            GremlinQueryDebugger.Groovy(GroovyFormatting.Inline),
             FeatureSet.Full,
             GremlinqOptions.Empty,
             NullLogger.Instance);
