@@ -1581,11 +1581,6 @@ namespace ExRam.Gremlinq.Core.Serialization
         public static ExRam.Gremlinq.Core.Serialization.IGremlinQuerySerializer Select(this ExRam.Gremlinq.Core.Serialization.IGremlinQuerySerializer serializer, System.Func<ExRam.Gremlinq.Core.Serialization.ISerializedGremlinQuery, ExRam.Gremlinq.Core.Serialization.ISerializedGremlinQuery> projection) { }
         public static ExRam.Gremlinq.Core.Serialization.IGremlinQuerySerializer ToGroovy(this ExRam.Gremlinq.Core.Serialization.IGremlinQuerySerializer serializer) { }
     }
-    public enum GroovyFormatting
-    {
-        WithBindings = 0,
-        Inline = 1,
-    }
     public sealed class GroovyGremlinQuery : ExRam.Gremlinq.Core.Serialization.ISerializedGremlinQuery
     {
         public GroovyGremlinQuery(string script, System.Collections.Generic.IReadOnlyDictionary<string, object> bindings) { }
