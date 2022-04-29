@@ -522,7 +522,7 @@
     }
     public interface IGremlinQueryDebugger
     {
-        string? TryToString(ExRam.Gremlinq.Core.Serialization.ISerializedGremlinQuery serializedQuery);
+        string? TryToString(ExRam.Gremlinq.Core.Serialization.ISerializedGremlinQuery serializedQuery, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment);
     }
     public interface IGremlinQueryEnvironment
     {

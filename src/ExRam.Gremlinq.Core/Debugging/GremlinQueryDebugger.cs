@@ -18,7 +18,7 @@ namespace ExRam.Gremlinq.Core
                 _formatting = formatting;
             }
 
-            public string? TryToString(ISerializedGremlinQuery serializedQuery) => serializedQuery.TryToGroovy(_formatting) is { } groovy
+            public string? TryToString(ISerializedGremlinQuery serializedQuery, IGremlinQueryEnvironment environment) => serializedQuery.TryToGroovy(_formatting) is { } groovy
                 ? groovy.Script
                 : default;
         }
@@ -34,9 +34,9 @@ namespace ExRam.Gremlinq.Core
                 _overridingDebugger = overridingDebugger;
             }
 
-            public string? TryToString(ISerializedGremlinQuery serializedQuery)
+            public string? TryToString(ISerializedGremlinQuery serializedQuery, IGremlinQueryEnvironment environment)
             {
-                return _overridingDebugger.TryToString(serializedQuery) ?? _baseDebugger.TryToString(serializedQuery);
+                return _overridingDebugger.TryToString(serializedQuery, environment) ?? _baseDebugger.TryToString(serializedQuery, environment);
             }
         }
 

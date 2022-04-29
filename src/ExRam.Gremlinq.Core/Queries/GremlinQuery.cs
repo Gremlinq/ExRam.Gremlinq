@@ -406,7 +406,7 @@ namespace ExRam.Gremlinq.Core
             var serialized = Environment.Serializer
                 .Serialize(this);
 
-            return Environment.Debugger.TryToString(serialized) ?? serialized.ToString() ?? ToString()!;
+            return Environment.Debugger.TryToString(serialized, Environment) ?? serialized.ToString() ?? ToString()!;
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> DedupGlobal() => this

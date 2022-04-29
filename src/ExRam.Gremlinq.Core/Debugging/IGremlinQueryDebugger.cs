@@ -7,6 +7,6 @@ namespace ExRam.Gremlinq.Core
 {
     public interface IGremlinQueryDebugger
     {
-        string? TryToString(ISerializedGremlinQuery serializedQuery);
+        string? TryToString(ISerializedGremlinQuery serializedQuery, IGremlinQueryEnvironment environment);
     }
 }
