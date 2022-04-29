@@ -51,7 +51,7 @@ namespace ExRam.Gremlinq.Core
 
             public IGremlinQueryEnvironment ConfigureExecutor(Func<IGremlinQueryExecutor, IGremlinQueryExecutor> configurator) => new GremlinQueryEnvironmentImpl(Model, AddStepHandler, Serializer, configurator(Executor), Deserializer, Debugger, FeatureSet, Options, Logger);
 
-            public IGremlinQueryEnvironment ConfigureLogger(Func<IGremlinQueryDebugger, IGremlinQueryDebugger> debuggerTransformation) => new GremlinQueryEnvironmentImpl(Model, AddStepHandler, Serializer, Executor, Deserializer, debuggerTransformation(Debugger), FeatureSet, Options, Logger);
+            public IGremlinQueryEnvironment ConfigureDebugger(Func<IGremlinQueryDebugger, IGremlinQueryDebugger> debuggerTransformation) => new GremlinQueryEnvironmentImpl(Model, AddStepHandler, Serializer, Executor, Deserializer, debuggerTransformation(Debugger), FeatureSet, Options, Logger);
 
             public ILogger Logger { get; }
             public IGraphModel Model { get; }
@@ -92,6 +92,8 @@ namespace ExRam.Gremlinq.Core
         public static IGremlinQueryEnvironment UseDeserializer(this IGremlinQueryEnvironment environment, IGremlinQueryExecutionResultDeserializer deserializer) => environment.ConfigureDeserializer(_ => deserializer);
 
         public static IGremlinQueryEnvironment UseExecutor(this IGremlinQueryEnvironment environment, IGremlinQueryExecutor executor) => environment.ConfigureExecutor(_ => executor);
+
+        public static IGremlinQueryEnvironment UseDebugger(this IGremlinQueryEnvironment environment, IGremlinQueryDebugger debugger) => environment.ConfigureDebugger(_ => debugger);
 
         public static IGremlinQueryEnvironment EchoGraphsonString(this IGremlinQueryEnvironment environment)
         {
