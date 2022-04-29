@@ -1,7 +1,13 @@
 ﻿[
   {
-    "Script": "g.V(['pk','id']).hasLabel('Person')",
+    "Script": "g.V(_a).hasLabel(_b)",
     "Id": "Scrubbed GUID",
-    "Bindings": {}
+    "Bindings": {
+      "_a": [
+        "pk",
+        "id"
+      ],
+      "_b": "Person"
+    }
   }
 ]

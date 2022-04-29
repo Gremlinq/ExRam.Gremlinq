@@ -127,13 +127,12 @@ namespace ExRam.Gremlinq.Core.Execution
                 var logLevel = environment.Options.GetValue(GremlinqOption.QueryLogLogLevel);
                 var verbosity = environment.Options.GetValue(GremlinqOption.QueryLogVerbosity);
                 var formatting = environment.Options.GetValue(GremlinqOption.QueryLogFormatting);
-                var groovyFormatting = environment.Options.GetValue(GremlinqOption.QueryLogGroovyFormatting);
 
                 return (serializedQuery, requestId) =>
                 {
                     if (environment.Logger.IsEnabled(logLevel))
                     {
-                        var groovyQuery = serializedQuery.ToGroovy(groovyFormatting);
+                        var groovyQuery = serializedQuery.ToGroovy();
 
                         environment.Logger.Log(
                             logLevel,

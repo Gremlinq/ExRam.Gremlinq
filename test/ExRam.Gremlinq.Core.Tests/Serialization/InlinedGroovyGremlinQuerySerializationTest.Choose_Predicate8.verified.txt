@@ -1,7 +1,0 @@
-﻿[
-  {
-    "Script": "g.V().hasLabel('Company','Country','Language','Person','TimeFrame').choose(__.has(id,42),__.constant(true),__.constant(false))",
-    "Id": "Scrubbed GUID",
-    "Bindings": {}
-  }
-]

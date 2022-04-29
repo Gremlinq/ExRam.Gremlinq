@@ -1,7 +1,0 @@
-﻿[
-  {
-    "Script": "g.V().hasLabel('Company').properties('Locations').properties().filter(__.key().is('someKey'))",
-    "Id": "Scrubbed GUID",
-    "Bindings": {}
-  }
-]

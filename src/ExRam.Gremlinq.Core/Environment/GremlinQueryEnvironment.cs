@@ -70,7 +70,7 @@ namespace ExRam.Gremlinq.Core
             GremlinQuerySerializer.Identity,
             GremlinQueryExecutor.Empty,
             GremlinQueryExecutionResultDeserializer.Identity,
-            GremlinQueryDebugger.Groovy(GroovyFormatting.Inline),
+            GremlinQueryDebugger.Groovy,
             FeatureSet.Full,
             GremlinqOptions.Empty,
             NullLogger.Instance);
@@ -105,10 +105,10 @@ namespace ExRam.Gremlinq.Core
                         .ToGraphsonString()));
         }
 
-        public static IGremlinQueryEnvironment EchoGroovyGremlinQuery(this IGremlinQueryEnvironment environment, GroovyFormatting formatting = GroovyFormatting.WithBindings)
+        public static IGremlinQueryEnvironment EchoGroovyGremlinQuery(this IGremlinQueryEnvironment environment)
         {
             return environment
-                .ConfigureSerializer(serializer => serializer.ToGroovy(formatting))
+                .ConfigureSerializer(serializer => serializer.ToGroovy())
                 .UseExecutor(GremlinQueryExecutor.Identity)
                 .UseDeserializer(GremlinQueryExecutionResultDeserializer.Default);
         }

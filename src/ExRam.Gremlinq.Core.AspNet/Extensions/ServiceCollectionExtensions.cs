@@ -49,9 +49,6 @@ namespace Microsoft.Extensions.DependencyInjection
                                         if (Enum.TryParse<Formatting>(loggingSection[$"{nameof(Formatting)}"], out var formatting))
                                             options = options.SetValue(GremlinqOption.QueryLogFormatting, formatting);
 
-                                        if (Enum.TryParse<GroovyFormatting>(loggingSection[$"{nameof(GroovyFormatting)}"], out var groovyFormatting))
-                                            options = options.SetValue(GremlinqOption.QueryLogGroovyFormatting, groovyFormatting);
-
                                         return options;
                                     });
                             }

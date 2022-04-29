@@ -1,7 +1,0 @@
-﻿[
-  {
-    "Script": "g.V().id().choose(lt(42),__.constant(true),__.constant(false))",
-    "Id": "Scrubbed GUID",
-    "Bindings": {}
-  }
-]

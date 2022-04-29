@@ -1,7 +1,0 @@
-﻿[
-  {
-    "Script": "g.V().hasLabel('Person').values('Name')",
-    "Id": "Scrubbed GUID",
-    "Bindings": {}
-  }
-]

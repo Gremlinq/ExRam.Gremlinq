@@ -120,7 +120,7 @@
         public static readonly ExRam.Gremlinq.Core.IGremlinQueryEnvironment Default;
         public static readonly ExRam.Gremlinq.Core.IGremlinQueryEnvironment Empty;
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment EchoGraphsonString(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
-        public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment EchoGroovyGremlinQuery(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Serialization.GroovyFormatting formatting = 0) { }
+        public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment EchoGroovyGremlinQuery(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment RegisterNativeType<TNative>(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Serialization.GremlinQueryFragmentSerializerDelegate<TNative> serializerDelegate, ExRam.Gremlinq.Core.Deserialization.GremlinQueryFragmentDeserializerDelegate<Newtonsoft.Json.Linq.JValue> deserializer) { }
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment RegisterNativeType<TNative>(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Serialization.GremlinQueryFragmentSerializerDelegate<TNative> serializerDelegate, System.Func<ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer, ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer> fragmentDeserializerTransformation) { }
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment StoreByteArraysAsBase64String(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
@@ -154,7 +154,6 @@
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<bool> EnableEmptyProjectionValueProtection;
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.FilterLabelsVerbosity> FilterLabelsVerbosity;
         public static ExRam.Gremlinq.Core.GremlinqOption<Newtonsoft.Json.Formatting> QueryLogFormatting;
-        public static ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.Serialization.GroovyFormatting> QueryLogGroovyFormatting;
         public static ExRam.Gremlinq.Core.GremlinqOption<Microsoft.Extensions.Logging.LogLevel> QueryLogLogLevel;
         public static ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.QueryLogVerbosity> QueryLogVerbosity;
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.StringComparisonTranslationStrictness> StringComparisonTranslationStrictness;
@@ -1549,7 +1548,7 @@ namespace ExRam.Gremlinq.Core.Serialization
     public delegate object? BaseGremlinQueryFragmentSerializerDelegate<in TFragment>(TFragment fragment, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Serialization.IGremlinQueryFragmentSerializer recurse);
     public static class BytecodeExtensions
     {
-        public static ExRam.Gremlinq.Core.Serialization.GroovyGremlinQuery ToGroovy(this ExRam.Gremlinq.Core.Serialization.BytecodeGremlinQuery bytecodeQuery, ExRam.Gremlinq.Core.Serialization.GroovyFormatting formatting = 0) { }
+        public static ExRam.Gremlinq.Core.Serialization.GroovyGremlinQuery ToGroovy(this ExRam.Gremlinq.Core.Serialization.BytecodeGremlinQuery bytecodeQuery) { }
     }
     public sealed class BytecodeGremlinQuery : ExRam.Gremlinq.Core.Serialization.ISerializedGremlinQuery
     {
@@ -1580,7 +1579,7 @@ namespace ExRam.Gremlinq.Core.Serialization
         public static readonly ExRam.Gremlinq.Core.Serialization.IGremlinQuerySerializer Identity;
         public static readonly ExRam.Gremlinq.Core.Serialization.IGremlinQuerySerializer Invalid;
         public static ExRam.Gremlinq.Core.Serialization.IGremlinQuerySerializer Select(this ExRam.Gremlinq.Core.Serialization.IGremlinQuerySerializer serializer, System.Func<ExRam.Gremlinq.Core.Serialization.ISerializedGremlinQuery, ExRam.Gremlinq.Core.Serialization.ISerializedGremlinQuery> projection) { }
-        public static ExRam.Gremlinq.Core.Serialization.IGremlinQuerySerializer ToGroovy(this ExRam.Gremlinq.Core.Serialization.IGremlinQuerySerializer serializer, ExRam.Gremlinq.Core.Serialization.GroovyFormatting formatting = 0) { }
+        public static ExRam.Gremlinq.Core.Serialization.IGremlinQuerySerializer ToGroovy(this ExRam.Gremlinq.Core.Serialization.IGremlinQuerySerializer serializer) { }
     }
     public enum GroovyFormatting
     {
@@ -1594,7 +1593,6 @@ namespace ExRam.Gremlinq.Core.Serialization
         public System.Collections.Generic.IReadOnlyDictionary<string, object> Bindings { get; }
         public string Id { get; }
         public string Script { get; }
-        public ExRam.Gremlinq.Core.Serialization.GroovyGremlinQuery Inline() { }
         public override string ToString() { }
         public ExRam.Gremlinq.Core.Serialization.ISerializedGremlinQuery WithNewId() { }
     }
@@ -1615,7 +1613,7 @@ namespace ExRam.Gremlinq.Core.Serialization
     }
     public static class SerializedGremlinQueryExtensions
     {
-        public static ExRam.Gremlinq.Core.Serialization.GroovyGremlinQuery ToGroovy(this ExRam.Gremlinq.Core.Serialization.ISerializedGremlinQuery serializedGremlinQuery, ExRam.Gremlinq.Core.Serialization.GroovyFormatting formatting = 0) { }
+        public static ExRam.Gremlinq.Core.Serialization.GroovyGremlinQuery ToGroovy(this ExRam.Gremlinq.Core.Serialization.ISerializedGremlinQuery serializedGremlinQuery) { }
     }
 }
 namespace ExRam.Gremlinq.Core.Steps

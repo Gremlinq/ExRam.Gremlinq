@@ -1,7 +1,0 @@
-﻿[
-  {
-    "Script": "g.inject(36,37,38)",
-    "Id": "Scrubbed GUID",
-    "Bindings": {}
-  }
-]

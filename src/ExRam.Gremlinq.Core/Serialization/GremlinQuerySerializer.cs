@@ -106,10 +106,10 @@ namespace ExRam.Gremlinq.Core.Serialization
             return new SelectGremlinQuerySerializer(serializer, projection);
         }
 
-        public static IGremlinQuerySerializer ToGroovy(this IGremlinQuerySerializer serializer, GroovyFormatting formatting = GroovyFormatting.WithBindings)
+        public static IGremlinQuerySerializer ToGroovy(this IGremlinQuerySerializer serializer)
         {
             return serializer
-                .Select(serialized => serialized.ToGroovy(formatting));
+                .Select(serialized => serialized.ToGroovy());
         }
     }
 }

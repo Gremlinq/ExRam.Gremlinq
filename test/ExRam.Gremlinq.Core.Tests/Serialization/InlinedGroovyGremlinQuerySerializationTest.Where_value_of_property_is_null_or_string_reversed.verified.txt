@@ -1,7 +1,0 @@
-﻿[
-  {
-    "Script": "g.V().hasLabel('Person').or(__.has('Name','hello'),__.hasNot('Name')).project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold()))",
-    "Id": "Scrubbed GUID",
-    "Bindings": {}
-  }
-]

@@ -1,7 +1,0 @@
-﻿[
-  {
-    "Script": "g.V().count(local)",
-    "Id": "Scrubbed GUID",
-    "Bindings": {}
-  }
-]

@@ -1,7 +1,0 @@
-﻿[
-  {
-    "Script": "g.V().filter(__.properties()).choose(__.values()).option(3,__.constant(1))",
-    "Id": "Scrubbed GUID",
-    "Bindings": {}
-  }
-]

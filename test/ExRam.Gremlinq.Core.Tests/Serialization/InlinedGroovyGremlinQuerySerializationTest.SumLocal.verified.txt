@@ -1,7 +1,0 @@
-﻿[
-  {
-    "Script": "g.V().hasLabel('Person').values('Age').fold().sum(local)",
-    "Id": "Scrubbed GUID",
-    "Bindings": {}
-  }
-]

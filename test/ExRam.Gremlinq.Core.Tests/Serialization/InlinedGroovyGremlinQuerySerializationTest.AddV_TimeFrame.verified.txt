@@ -1,7 +1,0 @@
-﻿[
-  {
-    "Script": "g.addV('TimeFrame').property(single,'Duration',\"02:00:00\").property(single,'Enabled',false).property(single,'StartTime',\"08:00:00\").project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold()))",
-    "Id": "Scrubbed GUID",
-    "Bindings": {}
-  }
-]

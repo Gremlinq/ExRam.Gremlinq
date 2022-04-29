@@ -1,9 +1,12 @@
 ﻿using System.Threading.Tasks;
+
 using ExRam.Gremlinq.Core.Models;
-using ExRam.Gremlinq.Core.Serialization;
+
 using Gremlin.Net.Structure;
+
 using Xunit;
 using Xunit.Abstractions;
+
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
@@ -45,7 +48,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await g
                 .ConfigureEnvironment(env => env
                     .UseModel(GraphModel.FromBaseTypes<VertexBase, Edge>())
-                    .EchoGroovyGremlinQuery(GroovyFormatting.Inline))
+                    .EchoGroovyGremlinQuery())
                 .AddV(new Item { Value = "MyValue" })
                 .Cast<string>()
                 .Verify();
@@ -57,7 +60,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await g
                 .ConfigureEnvironment(env => env
                     .UseModel(GraphModel.FromBaseTypes<VertexBase, Edge>())
-                    .EchoGroovyGremlinQuery(GroovyFormatting.Inline))
+                    .EchoGroovyGremlinQuery())
                 .AddV(new ItemOverride { Value = "MyValue" })
                 .Cast<string>()
                 .Verify();

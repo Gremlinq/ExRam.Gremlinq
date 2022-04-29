@@ -116,7 +116,6 @@ namespace ExRam.Gremlinq.Core
         public static GremlinqOption<LogLevel> QueryLogLogLevel = new(LogLevel.Debug);
         public static GremlinqOption<Formatting> QueryLogFormatting = new(Formatting.None);
         public static GremlinqOption<QueryLogVerbosity> QueryLogVerbosity = new(Core.QueryLogVerbosity.QueryOnly);
-        public static GremlinqOption<GroovyFormatting> QueryLogGroovyFormatting = new(GroovyFormatting.WithBindings);
     }
 
     public class GremlinqOption<TValue> : IGremlinqOption

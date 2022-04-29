@@ -1,7 +1,0 @@
-﻿[
-  {
-    "Script": "g.V().hasLabel('Person').values('Age').is(36)",
-    "Id": "Scrubbed GUID",
-    "Bindings": {}
-  }
-]

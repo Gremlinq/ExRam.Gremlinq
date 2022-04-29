@@ -1,7 +1,0 @@
-﻿[
-  {
-    "Script": "g.inject(1).local(__.V().drop())",
-    "Id": "Scrubbed GUID",
-    "Bindings": {}
-  }
-]

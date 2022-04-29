@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
@@ -11,7 +10,7 @@ namespace ExRam.Gremlinq.Core.Serialization
     {
         private static readonly ThreadLocal<StringBuilder> Builder = new(static () => new StringBuilder());
 
-        public static GroovyGremlinQuery ToGroovy(this BytecodeGremlinQuery bytecodeQuery, GroovyFormatting formatting = GroovyFormatting.WithBindings)
+        public static GroovyGremlinQuery ToGroovy(this BytecodeGremlinQuery bytecodeQuery)
         {
             var builder = Builder.Value!;
 
@@ -138,16 +137,10 @@ namespace ExRam.Gremlinq.Core.Serialization
 
                 Append(bytecodeQuery.Bytecode);
 
-                var ret = new GroovyGremlinQuery(
+                return new GroovyGremlinQuery(
                     bytecodeQuery.Id,
                     builder.ToString(),
-                    variables,
-                    true,
-                    false);
-
-                return formatting == GroovyFormatting.Inline
-                    ? ret.Inline()
-                    : ret;
+                    variables);
             }
             finally
             {

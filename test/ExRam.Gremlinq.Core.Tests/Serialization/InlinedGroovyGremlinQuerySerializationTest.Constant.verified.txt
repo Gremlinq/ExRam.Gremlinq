@@ -1,7 +1,0 @@
-﻿[
-  {
-    "Script": "g.V().constant(42)",
-    "Id": "Scrubbed GUID",
-    "Bindings": {}
-  }
-]

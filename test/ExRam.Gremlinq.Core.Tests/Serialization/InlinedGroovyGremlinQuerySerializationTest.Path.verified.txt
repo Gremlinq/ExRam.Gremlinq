@@ -1,7 +1,0 @@
-﻿[
-  {
-    "Script": "g.V().out().out().path()",
-    "Id": "Scrubbed GUID",
-    "Bindings": {}
-  }
-]

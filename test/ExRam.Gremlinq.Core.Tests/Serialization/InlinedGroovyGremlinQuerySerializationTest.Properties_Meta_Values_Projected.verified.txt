@@ -1,7 +1,0 @@
-﻿[
-  {
-    "Script": "g.V().properties().values('ValidFrom')",
-    "Id": "Scrubbed GUID",
-    "Bindings": {}
-  }
-]

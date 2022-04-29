@@ -1,9 +1,12 @@
 ﻿using System.Threading.Tasks;
+
 using ExRam.Gremlinq.Core.Models;
-using ExRam.Gremlinq.Core.Serialization;
+
 using Gremlin.Net.Structure;
+
 using Xunit;
 using Xunit.Abstractions;
+
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
@@ -31,7 +34,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await g
                 .ConfigureEnvironment(env => env
                     .UseModel(GraphModel.FromBaseTypes<VertexBaseAbstract, Edge>())
-                    .EchoGroovyGremlinQuery(GroovyFormatting.Inline))
+                    .EchoGroovyGremlinQuery())
                 .V<Thing>("id")
                 .Update(new Thing())
                 .Cast<string>()
