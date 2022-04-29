@@ -1,1 +1,1 @@
-﻿"g.V().hasLabel('Company').properties('Locations').has('ValidFrom',\"2019-01-01T01:00:00+00:00\").project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap())"
+﻿"g.V().hasLabel('Company').properties('Locations').has('ValidFrom','2019-01-01T01:00:00.0000000+00:00').project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap())"

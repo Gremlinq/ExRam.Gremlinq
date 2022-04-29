@@ -1,1 +1,1 @@
-﻿"g.addV('Person').property(single,'Age',0).property(single,'Gender',1).project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold()))"
+﻿"g.addV('Person').property(single,'Age',0).property(single,'Gender',Female).project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold()))"
