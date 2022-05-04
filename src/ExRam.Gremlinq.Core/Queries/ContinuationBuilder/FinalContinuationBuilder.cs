@@ -31,47 +31,36 @@ namespace ExRam.Gremlinq.Core
         }
 
         public FinalContinuationBuilder<TOuterQuery> AddStep<TStep>(TStep step)
-             where TStep : Step
-        {
-            return _outer is { } outer && _steps is { } steps && _projection is { } projection && _stepLabelProjections is { } stepLabelProjections && _sideEffectLabelProjections is { } sideEffectLabelProjections && _flags is { } flags
-                ? outer.Flags.HasFlag(QueryFlags.IsMuted)
-                    ? this
-                    : new(outer, outer.Environment.AddStepHandler.AddStep(steps, step, outer.Environment), projection, stepLabelProjections, sideEffectLabelProjections, flags)
-                : throw new InvalidOperationException();
-        }
+             where TStep : Step => With(
+                static (outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, flags, tuple) => outer.Flags.HasFlag(QueryFlags.IsMuted)
+                    ? tuple.@this
+                    : new(outer, outer.Environment.AddStepHandler.AddStep(steps, tuple.step, outer.Environment), projection, stepLabelProjections, sideEffectLabelProjections, flags),
+                (@this: this, step));
 
-        public FinalContinuationBuilder<TOuterQuery> WithNewProjection<TState>(Func<Projection, TState, Projection> projectionTransformation, TState state)
-        {
-            return _outer is { } outer && _steps is { } steps && _stepLabelProjections is { } stepLabelProjections && _sideEffectLabelProjections is { } sideEffectLabelProjections && _flags is { } flags
-                ? new(outer, steps, projectionTransformation(_projection ?? Projection.Empty, state), stepLabelProjections, sideEffectLabelProjections, flags)
-                : throw new InvalidOperationException();
-        }
-        
-        public FinalContinuationBuilder<TOuterQuery> WithNewStepLabelProjection<TState>(Func<IImmutableDictionary<StepLabel, Projection>, TState, IImmutableDictionary<StepLabel, Projection>> stepLabelProjectionsTransformation, TState state)
-        {
-            return _outer is { } outer && _steps is { } steps && _projection is { } projection && _stepLabelProjections is { } stepLabelProjections && _sideEffectLabelProjections is { } sideEffectLabelProjections && _flags is { } flags
-                ? new(outer, steps, projection, stepLabelProjectionsTransformation(stepLabelProjections, state), sideEffectLabelProjections, flags)
-                : throw new InvalidOperationException();
-        }
+        public FinalContinuationBuilder<TOuterQuery> WithNewProjection<TState>(Func<Projection, TState, Projection> projectionTransformation, TState state) => With(
+            static (outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, flags, tuple) => new(outer, steps, tuple.projectionTransformation(projection ?? Projection.Empty, tuple.state), stepLabelProjections, sideEffectLabelProjections, flags),
+            (projectionTransformation, state));
 
-        public FinalContinuationBuilder<TOuterQuery> WithNewSideEffectLabelProjection<TState>(Func<IImmutableDictionary<StepLabel, Projection>, TState, IImmutableDictionary<StepLabel, Projection>> sideEffectLabelProjectionsTransformation, TState state)
-        {
-            return _outer is { } outer && _steps is { } steps && _projection is { } projection && _stepLabelProjections is { } stepLabelProjections && _sideEffectLabelProjections is { } sideEffectLabelProjections && _flags is { } flags
-                ? new(outer, steps, projection, stepLabelProjections, sideEffectLabelProjectionsTransformation(sideEffectLabelProjections, state), flags)
-                : throw new InvalidOperationException();
-        }
-        
-        public FinalContinuationBuilder<TOuterQuery> WithFlags(Func<QueryFlags, QueryFlags> flagsProjection)
-        {
-            return _outer is { } outer && _steps is { } steps && _projection is { } projection && _stepLabelProjections is { } stepLabelProjections && _sideEffectLabelProjections is { } sideEffectLabelProjections && _flags is { } flags
-                ? new(outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, flagsProjection(flags))
-                : throw new InvalidOperationException();
-        }
+        public FinalContinuationBuilder<TOuterQuery> WithNewStepLabelProjection<TState>(Func<IImmutableDictionary<StepLabel, Projection>, TState, IImmutableDictionary<StepLabel, Projection>> stepLabelProjectionsTransformation, TState state) => With(
+            static (outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, flags, tuple) => new(outer, steps, projection, tuple.stepLabelProjectionsTransformation(stepLabelProjections, tuple.state), sideEffectLabelProjections, flags),
+            (stepLabelProjectionsTransformation, state));
 
-        public FinalContinuationBuilder<TOuterQuery> WithFlags(QueryFlags newFlags)
+        public FinalContinuationBuilder<TOuterQuery> WithNewSideEffectLabelProjection<TState>(Func<IImmutableDictionary<StepLabel, Projection>, TState, IImmutableDictionary<StepLabel, Projection>> sideEffectLabelProjectionsTransformation, TState state) => With(
+            static (outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, flags, tuple) => new(outer, steps, projection, stepLabelProjections, tuple.sideEffectLabelProjectionsTransformation(sideEffectLabelProjections, tuple.state), flags),
+            (sideEffectLabelProjectionsTransformation, state));
+
+        public FinalContinuationBuilder<TOuterQuery> WithFlags(Func<QueryFlags, QueryFlags> flagsProjection) => With(
+            static (outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, flags, flagsProjection) => new(outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, flagsProjection(flags)),
+            flagsProjection);
+
+        public FinalContinuationBuilder<TOuterQuery> WithFlags(QueryFlags newFlags) => With(
+            static (outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, flags, newFlags) => new(outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, newFlags),
+            newFlags);
+
+        public FinalContinuationBuilder<TOuterQuery> With<TState>(Func<TOuterQuery, StepStack, Projection, IImmutableDictionary<StepLabel, Projection>, IImmutableDictionary<StepLabel, Projection>, QueryFlags, TState, FinalContinuationBuilder<TOuterQuery>> continuation, TState state)
         {
-            return _outer is { } outer && _steps is { } steps && _projection is { } projection && _stepLabelProjections is { } stepLabelProjections && _sideEffectLabelProjections is { } sideEffectLabelProjections
-                ? new(outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, newFlags)
+            return (_outer is { } outer && _steps is { } steps && _projection is { } projection && _stepLabelProjections is { } stepLabelProjections && _sideEffectLabelProjections is { } sideEffectLabelProjections && _flags is { } flags)
+                ? continuation(outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, flags, state)
                 : throw new InvalidOperationException();
         }
 
