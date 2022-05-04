@@ -194,7 +194,7 @@ namespace ExRam.Gremlinq.Core
 
         IOutEdgeGremlinQuery<TElement, TNewOutVertex> IGremlinQueryBase<TElement>.ForceOutEdge<TNewOutVertex>() => CloneAs<IOutEdgeGremlinQuery<TElement, TNewOutVertex>>(maybeProjectionTransformation: _ => Projection.Edge);
 
-        IEdgeGremlinQuery<TElement, TNewOutVertex, TNewInVertex> IGremlinQueryBase<TElement>.ForceBothEdge<TNewOutVertex, TNewInVertex>() => CloneAs<IEdgeGremlinQuery<TElement, TNewOutVertex, TNewInVertex>>(maybeProjectionTransformation: _ => Projection.Edge);
+        IEdgeGremlinQuery<TElement, TNewOutVertex, TNewInVertex> IGremlinQueryBase<TElement>.ForceEdge<TNewOutVertex, TNewInVertex>() => CloneAs<IEdgeGremlinQuery<TElement, TNewOutVertex, TNewInVertex>>(maybeProjectionTransformation: _ => Projection.Edge);
 
         IValueGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceValue() => CloneAs<IValueGremlinQuery<TElement>>(maybeProjectionTransformation: _ => Projection.Value);
 

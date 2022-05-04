@@ -505,8 +505,8 @@
     {
         ExRam.Gremlinq.Core.IArrayGremlinQuery<TElement[], TElement, ExRam.Gremlinq.Core.IGremlinQueryBase<TElement>> ForceArray();
         ExRam.Gremlinq.Core.IGremlinQuery<TElement> ForceBase();
-        ExRam.Gremlinq.Core.IEdgeGremlinQuery<TElement, TOutVertex, TInVertex> ForceBothEdge<TOutVertex, TInVertex>();
         ExRam.Gremlinq.Core.IEdgeGremlinQuery<TElement> ForceEdge();
+        ExRam.Gremlinq.Core.IEdgeGremlinQuery<TElement, TOutVertex, TInVertex> ForceEdge<TOutVertex, TInVertex>();
         ExRam.Gremlinq.Core.IElementGremlinQuery<TElement> ForceElement();
         ExRam.Gremlinq.Core.IInEdgeGremlinQuery<TElement, TInVertex> ForceInEdge<TInVertex>();
         ExRam.Gremlinq.Core.IOutEdgeGremlinQuery<TElement, TOutVertex> ForceOutEdge<TOutVertex>();
