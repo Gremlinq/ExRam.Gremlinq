@@ -50,7 +50,7 @@ namespace ExRam.Gremlinq.Core
 
             var maybeConstructor = QueryTypes.GetOrAdd(
                 targetQueryType,
-                closureType =>
+                static closureType =>
                 {
                     if (closureType.IsGenericType && closureType.GetGenericTypeDefinition() == typeof(GremlinQuery<,,,,,>))
                     {
