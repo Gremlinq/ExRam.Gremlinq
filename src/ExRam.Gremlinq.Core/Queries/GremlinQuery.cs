@@ -664,7 +664,7 @@ namespace ExRam.Gremlinq.Core
             .Continue()
             .Build(static builder => builder
                 .AddStep(NoneStep.Instance)
-                .WithAdditionalFlags(QueryFlags.IsMuted)
+                .WithFlags(flags => flags | QueryFlags.IsMuted)
                 .Build());
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> None() => this

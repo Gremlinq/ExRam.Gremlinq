@@ -9,9 +9,9 @@ namespace ExRam.Gremlinq.Core
         where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
     {
         private readonly StepStack? _steps;
+        private readonly QueryFlags? _flags;
         private readonly TOuterQuery? _outer;
         private readonly Projection? _projection;
-        private readonly QueryFlags _additionalFlags = QueryFlags.None;
         private readonly IImmutableDictionary<StepLabel, Projection>? _stepLabelProjections;
         private readonly IImmutableDictionary<StepLabel, Projection>? _sideEffectLabelProjections;
 
@@ -20,12 +20,12 @@ namespace ExRam.Gremlinq.Core
 
         }
 
-        public FinalContinuationBuilder(TOuterQuery outerQuery, StepStack steps, Projection projection, IImmutableDictionary<StepLabel, Projection> stepLabelProjections, IImmutableDictionary<StepLabel, Projection> sideEffectLabelProjections, QueryFlags additionalFlags)
+        public FinalContinuationBuilder(TOuterQuery outerQuery, StepStack steps, Projection projection, IImmutableDictionary<StepLabel, Projection> stepLabelProjections, IImmutableDictionary<StepLabel, Projection> sideEffectLabelProjections, QueryFlags flags)
         {
             _steps = steps;
+            _flags = flags;
             _outer = outerQuery;
             _projection = projection;
-            _additionalFlags = additionalFlags;
             _stepLabelProjections = stepLabelProjections;
             _sideEffectLabelProjections = sideEffectLabelProjections;
         }
@@ -33,38 +33,45 @@ namespace ExRam.Gremlinq.Core
         public FinalContinuationBuilder<TOuterQuery> AddStep<TStep>(TStep step)
              where TStep : Step
         {
-            return _outer is { } outer && _steps is { } steps && _projection is { } projection && _stepLabelProjections is { } stepLabelProjections && _sideEffectLabelProjections is { } sideEffectLabelProjections
+            return _outer is { } outer && _steps is { } steps && _projection is { } projection && _stepLabelProjections is { } stepLabelProjections && _sideEffectLabelProjections is { } sideEffectLabelProjections && _flags is { } flags
                 ? outer.Flags.HasFlag(QueryFlags.IsMuted)
                     ? this
-                    : new(outer, outer.Environment.AddStepHandler.AddStep(steps, step, outer.Environment), projection, stepLabelProjections, sideEffectLabelProjections, _additionalFlags)
+                    : new(outer, outer.Environment.AddStepHandler.AddStep(steps, step, outer.Environment), projection, stepLabelProjections, sideEffectLabelProjections, flags)
                 : throw new InvalidOperationException();
         }
 
         public FinalContinuationBuilder<TOuterQuery> WithNewProjection<TState>(Func<Projection, TState, Projection> projectionTransformation, TState state)
         {
-            return _outer is { } outer && _steps is { } steps && _stepLabelProjections is { } stepLabelProjections && _sideEffectLabelProjections is { } sideEffectLabelProjections
-                ? new(outer, steps, projectionTransformation(_projection ?? Projection.Empty, state), stepLabelProjections, sideEffectLabelProjections, _additionalFlags)
+            return _outer is { } outer && _steps is { } steps && _stepLabelProjections is { } stepLabelProjections && _sideEffectLabelProjections is { } sideEffectLabelProjections && _flags is { } flags
+                ? new(outer, steps, projectionTransformation(_projection ?? Projection.Empty, state), stepLabelProjections, sideEffectLabelProjections, flags)
                 : throw new InvalidOperationException();
         }
         
         public FinalContinuationBuilder<TOuterQuery> WithNewStepLabelProjection<TState>(Func<IImmutableDictionary<StepLabel, Projection>, TState, IImmutableDictionary<StepLabel, Projection>> stepLabelProjectionsTransformation, TState state)
         {
-            return _outer is { } outer && _steps is { } steps && _projection is { } projection && _stepLabelProjections is { } stepLabelProjections && _sideEffectLabelProjections is { } sideEffectLabelProjections
-                ? new(outer, steps, projection, stepLabelProjectionsTransformation(stepLabelProjections, state), sideEffectLabelProjections, _additionalFlags)
+            return _outer is { } outer && _steps is { } steps && _projection is { } projection && _stepLabelProjections is { } stepLabelProjections && _sideEffectLabelProjections is { } sideEffectLabelProjections && _flags is { } flags
+                ? new(outer, steps, projection, stepLabelProjectionsTransformation(stepLabelProjections, state), sideEffectLabelProjections, flags)
                 : throw new InvalidOperationException();
         }
 
         public FinalContinuationBuilder<TOuterQuery> WithNewSideEffectLabelProjection<TState>(Func<IImmutableDictionary<StepLabel, Projection>, TState, IImmutableDictionary<StepLabel, Projection>> sideEffectLabelProjectionsTransformation, TState state)
         {
-            return _outer is { } outer && _steps is { } steps && _projection is { } projection && _stepLabelProjections is { } stepLabelProjections && _sideEffectLabelProjections is { } sideEffectLabelProjections
-                ? new(outer, steps, projection, stepLabelProjections, sideEffectLabelProjectionsTransformation(sideEffectLabelProjections, state), _additionalFlags)
+            return _outer is { } outer && _steps is { } steps && _projection is { } projection && _stepLabelProjections is { } stepLabelProjections && _sideEffectLabelProjections is { } sideEffectLabelProjections && _flags is { } flags
+                ? new(outer, steps, projection, stepLabelProjections, sideEffectLabelProjectionsTransformation(sideEffectLabelProjections, state), flags)
                 : throw new InvalidOperationException();
         }
         
-        public FinalContinuationBuilder<TOuterQuery> WithAdditionalFlags(QueryFlags additionalFlags)
+        public FinalContinuationBuilder<TOuterQuery> WithFlags(Func<QueryFlags, QueryFlags> flagsProjection)
+        {
+            return _outer is { } outer && _steps is { } steps && _projection is { } projection && _stepLabelProjections is { } stepLabelProjections && _sideEffectLabelProjections is { } sideEffectLabelProjections && _flags is { } flags
+                ? new(outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, flagsProjection(flags))
+                : throw new InvalidOperationException();
+        }
+
+        public FinalContinuationBuilder<TOuterQuery> WithFlags(QueryFlags newFlags)
         {
             return _outer is { } outer && _steps is { } steps && _projection is { } projection && _stepLabelProjections is { } stepLabelProjections && _sideEffectLabelProjections is { } sideEffectLabelProjections
-                ? new(outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, _additionalFlags | additionalFlags)
+                ? new(outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, newFlags)
                 : throw new InvalidOperationException();
         }
 
@@ -92,7 +99,7 @@ namespace ExRam.Gremlinq.Core
                     maybeProjectionTransformation: _projection is { } newProjection ? _ => newProjection : null,
                     maybeStepLabelProjectionsTransformation: _stepLabelProjections is { } newStepLabelProjections ? _ => newStepLabelProjections : null,
                     maybeSideEffectLabelProjectionsTransformation: _sideEffectLabelProjections  is { } sideEffectLabelProjections ? _ => sideEffectLabelProjections : null,
-                    maybeQueryFlagsTransformation: (_additionalFlags is var additionalFlags && additionalFlags != QueryFlags.None) ? flags => flags | additionalFlags : null)
+                    maybeQueryFlagsTransformation: _flags is { } newFlags ? flags => newFlags : null)
                 : throw new InvalidOperationException();
         }
 
