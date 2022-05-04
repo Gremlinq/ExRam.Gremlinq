@@ -37,6 +37,14 @@ namespace ExRam.Gremlinq.Core
                     : new(outer, outer.Environment.AddStepHandler.AddStep(steps, tuple.step, outer.Environment), projection, stepLabelProjections, sideEffectLabelProjections, flags),
                 (@this: this, step));
 
+        public FinalContinuationBuilder<TOuterQuery> WithSteps(StepStack newSteps) => With(
+            static (outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, flags, newSteps) => new FinalContinuationBuilder<TOuterQuery>(outer, newSteps, projection, stepLabelProjections, sideEffectLabelProjections, flags),
+            newSteps);
+
+        public FinalContinuationBuilder<TOuterQuery> WithSteps<TState>(Func<StepStack, TState, StepStack> stepStackTransformation, TState state) => With(
+            static (outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, flags, tuple) => new FinalContinuationBuilder<TOuterQuery>(outer, tuple.stepStackTransformation(steps, tuple.state), projection, stepLabelProjections, sideEffectLabelProjections, flags),
+            (stepStackTransformation, state));
+
         public FinalContinuationBuilder<TOuterQuery> WithNewProjection<TState>(Func<Projection, TState, Projection> projectionTransformation, TState state) => With(
             static (outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, flags, tuple) => new FinalContinuationBuilder<TOuterQuery>(outer, steps, tuple.projectionTransformation(projection ?? Projection.Empty, tuple.state), stepLabelProjections, sideEffectLabelProjections, flags),
             (projectionTransformation, state));
@@ -83,11 +91,11 @@ namespace ExRam.Gremlinq.Core
         public TNewTargetQuery Build<TNewTargetQuery>() where TNewTargetQuery : IGremlinQueryBase => With(
             static (outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, flags, newFlags) => outer.CloneAs<TNewTargetQuery>(
                 null,
-                _ => steps,
-                _ => projection,
-                _ => stepLabelProjections,
-                _ => sideEffectLabelProjections,
-                _ => flags),
+                steps,
+                projection,
+                stepLabelProjections,
+                sideEffectLabelProjections,
+                flags),
             0);
 
         public TOuterQuery OuterQuery => With(

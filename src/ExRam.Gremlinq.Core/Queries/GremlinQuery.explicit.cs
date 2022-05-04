@@ -160,9 +160,9 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<IDictionary<string, TTarget>> IElementGremlinQueryBase<TElement>.ValueMap<TTarget>(params Expression<Func<TElement, TTarget>>[] keys) => ValueMap<IDictionary<string, TTarget>>(keys);
 
-        IValueTupleGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceValueTuple() => CloneAs<IValueTupleGremlinQuery<TElement>>(maybeProjectionTransformation: _ => Projection.Value);
+        IValueTupleGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceValueTuple() => CloneAs<IValueTupleGremlinQuery<TElement>>(maybeNewProjection: Projection.Value);
 
-        IArrayGremlinQuery<TElement[], TElement, IGremlinQueryBase<TElement>> IGremlinQueryBase<TElement>.ForceArray() => CloneAs<IArrayGremlinQuery<TElement[], TElement, IGremlinQueryBase<TElement>>>(maybeProjectionTransformation: _ => Projection.Value.Fold());
+        IArrayGremlinQuery<TElement[], TElement, IGremlinQueryBase<TElement>> IGremlinQueryBase<TElement>.ForceArray() => CloneAs<IArrayGremlinQuery<TElement[], TElement, IGremlinQueryBase<TElement>>>(maybeNewProjection: Projection.Value.Fold());
 
         IValueGremlinQuery<TValue> IGremlinQueryBase.Constant<TValue>(TValue constant) => Constant(constant);
 
@@ -178,25 +178,34 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceBase() => CloneAs<IGremlinQuery<TElement>>();
 
-        IElementGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceElement() => CloneAs<IElementGremlinQuery<TElement>>(maybeProjectionTransformation: _ => _.Highest(Projection.Element));
+        IElementGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceElement() => this
+            .Continue()
+            .Build(builder => builder
+                .WithNewProjection(static _ => _.Highest(Projection.Element))
+                .Build<IElementGremlinQuery<TElement>>());
 
-        IVertexGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceVertex() => CloneAs<IVertexGremlinQuery<TElement>>(maybeProjectionTransformation: _ => Projection.Vertex);
+        IVertexGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceVertex() => CloneAs<IVertexGremlinQuery<TElement>>(maybeNewProjection: Projection.Vertex);
 
-        IVertexPropertyGremlinQuery<TElement, TNewValue> IGremlinQueryBase<TElement>.ForceVertexProperty<TNewValue>() => CloneAs<IVertexPropertyGremlinQuery<TElement, TNewValue>>(maybeProjectionTransformation: _ => Projection.Element);
+        IVertexPropertyGremlinQuery<TElement, TNewValue> IGremlinQueryBase<TElement>.ForceVertexProperty<TNewValue>() => CloneAs<IVertexPropertyGremlinQuery<TElement, TNewValue>>(maybeNewProjection: Projection.Element);
 
-        IVertexPropertyGremlinQuery<TElement, TNewValue, TNewMeta> IGremlinQueryBase<TElement>.ForceVertexProperty<TNewValue, TNewMeta>() => CloneAs<IVertexPropertyGremlinQuery<TElement, TNewValue, TNewMeta>>(maybeProjectionTransformation: _ => Projection.Element);
+        IVertexPropertyGremlinQuery<TElement, TNewValue, TNewMeta> IGremlinQueryBase<TElement>.ForceVertexProperty<TNewValue, TNewMeta>() => CloneAs<IVertexPropertyGremlinQuery<TElement, TNewValue, TNewMeta>>(maybeNewProjection: Projection.Element);
 
-        IPropertyGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceProperty() => CloneAs<IPropertyGremlinQuery<TElement>>(maybeProjectionTransformation: _ => Projection.Value);
+        IPropertyGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceProperty() => CloneAs<IPropertyGremlinQuery<TElement>>(maybeNewProjection: Projection.Value);
 
-        IEdgeGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceEdge() => CloneAs<IEdgeGremlinQuery<TElement>>(maybeProjectionTransformation: _ => Projection.Edge);
+        IEdgeGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceEdge() => CloneAs<IEdgeGremlinQuery<TElement>>(maybeNewProjection: Projection.Edge);
 
-        IInEdgeGremlinQuery<TElement, TNewInVertex> IGremlinQueryBase<TElement>.ForceInEdge<TNewInVertex>() => CloneAs<IInEdgeGremlinQuery<TElement, TNewInVertex>>(maybeProjectionTransformation: _ => Projection.Edge);
+        IInEdgeGremlinQuery<TElement, TNewInVertex> IGremlinQueryBase<TElement>.ForceInEdge<TNewInVertex>() => CloneAs<IInEdgeGremlinQuery<TElement, TNewInVertex>>(maybeNewProjection: Projection.Edge);
 
-        IOutEdgeGremlinQuery<TElement, TNewOutVertex> IGremlinQueryBase<TElement>.ForceOutEdge<TNewOutVertex>() => CloneAs<IOutEdgeGremlinQuery<TElement, TNewOutVertex>>(maybeProjectionTransformation: _ => Projection.Edge);
+        IOutEdgeGremlinQuery<TElement, TNewOutVertex> IGremlinQueryBase<TElement>.ForceOutEdge<TNewOutVertex>() => CloneAs<IOutEdgeGremlinQuery<TElement, TNewOutVertex>>(maybeNewProjection: Projection.Edge);
 
-        IEdgeGremlinQuery<TElement, TNewOutVertex, TNewInVertex> IGremlinQueryBase<TElement>.ForceEdge<TNewOutVertex, TNewInVertex>() => CloneAs<IEdgeGremlinQuery<TElement, TNewOutVertex, TNewInVertex>>(maybeProjectionTransformation: _ => Projection.Edge, maybeQueryFlagsTransformation: flags => flags | QueryFlags.InAndOutVMustBeTypeFiltered);
+        IEdgeGremlinQuery<TElement, TNewOutVertex, TNewInVertex> IGremlinQueryBase<TElement>.ForceEdge<TNewOutVertex, TNewInVertex>() => this
+            .Continue()
+            .Build(builder => builder
+                .WithNewProjection(Projection.Edge)
+                .WithFlags(flags => flags | QueryFlags.InAndOutVMustBeTypeFiltered)
+                .Build<IEdgeGremlinQuery<TElement, TNewOutVertex, TNewInVertex>>());
 
-        IValueGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceValue() => CloneAs<IValueGremlinQuery<TElement>>(maybeProjectionTransformation: _ => Projection.Value);
+        IValueGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceValue() => CloneAs<IValueGremlinQuery<TElement>>(maybeNewProjection: Projection.Value);
 
         GremlinQueryAwaiter<TElement> IGremlinQueryBase<TElement>.GetAwaiter() => new((this).ToArrayAsync().AsTask().GetAwaiter());
 
@@ -226,7 +235,20 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<object> IGremlinQueryBase.Fail(string? message) => Fail(message);
 
-        TTargetQuery IGremlinQueryAdmin.ConfigureSteps<TTargetQuery>(Func<StepStack, StepStack> transformation, Func<Projection, Projection>? projectionTransformation) => CloneAs<TTargetQuery>(maybeStepStackTransformation: transformation, maybeProjectionTransformation: projectionTransformation);
+        TTargetQuery IGremlinQueryAdmin.ConfigureSteps<TTargetQuery>(Func<StepStack, StepStack> transformation, Func<Projection, Projection>? maybeProjectionTransformation) => this
+            .Continue()
+            .Build(
+                static (builder, tuple) => builder
+                    .WithSteps(
+                        static (steps, transformation) => transformation(steps),
+                        tuple.transformation)
+                    .WithNewProjection(
+                        static (projection, maybeProjectionTransformation) => maybeProjectionTransformation is { } projectionTransformation
+                            ? projectionTransformation(projection)
+                            : projection,
+                        tuple.maybeProjectionTransformation)
+                    .Build<TTargetQuery>(),
+                (transformation, maybeProjectionTransformation));
 
         TTargetQuery IGremlinQueryAdmin.AddStep<TTargetQuery>(Step step, Func<Projection, Projection>? maybeProjectionTransformation) => this
             .Continue()
@@ -247,14 +269,12 @@ namespace ExRam.Gremlinq.Core
                 (step, maybeProjectionTransformation));
 
         TTargetQuery IGremlinQueryAdmin.ChangeQueryType<TTargetQuery>(Projection? maybeForcedProjection) => CloneAs<TTargetQuery>(
-            maybeProjectionTransformation: maybeForcedProjection is { } forcedProjection
-                ? _ => forcedProjection
-                : null);
+            maybeNewProjection: maybeForcedProjection);
 
         IGremlinQuerySource IGremlinQueryAdmin.GetSource() => CloneAs<GremlinQuery<object, object, object, object, object, object>>(
-            maybeStepStackTransformation: _ => StepStack.Empty,
-            maybeProjectionTransformation: _ => Projection.Empty,
-            maybeQueryFlagsTransformation: flags => flags & QueryFlags.IsMuted);
+            maybeNewStepStack: StepStack.Empty,
+            maybeNewProjection: Projection.Empty,
+            maybeNewQueryFlags: Flags & QueryFlags.IsMuted);
 
         StepStack IGremlinQueryAdmin.Steps => Steps;
 
@@ -298,7 +318,7 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery<TNewEdge> IStartGremlinQuery.ReplaceE<TNewEdge>(TNewEdge edge) => ((IGremlinQuerySource)this).E<TNewEdge>(edge!.GetId(Environment)).Update(edge);
 
-        IGremlinQuerySource IConfigurableGremlinQuerySource.ConfigureEnvironment(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> transformation) => Clone(transformation);
+        IGremlinQuerySource IConfigurableGremlinQuerySource.ConfigureEnvironment(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> transformation) => new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(transformation(Environment), Steps, Projection, StepLabelProjections, SideEffectLabelProjections, Flags);
 
         IGremlinQuerySource IGremlinQuerySource.WithoutStrategies(params Type[] strategyTypes) => WithoutStrategies(strategyTypes);
 
