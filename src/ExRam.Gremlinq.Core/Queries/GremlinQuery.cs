@@ -563,7 +563,7 @@ namespace ExRam.Gremlinq.Core
                     .AutoBuild<TNewElement>());
 
             return mustBeFiltered
-                ? ret.OfType<TNewElement>(Environment.Model.VerticesModel, true)
+                ? ret.OfVertexType<TNewElement>(true)
                 : ret;
         }
 
@@ -697,6 +697,10 @@ namespace ExRam.Gremlinq.Core
                     : builder
                         .AddStep(new NotStep(innerTraversal))
                         .Build());
+
+        private GremlinQuery<TTarget, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> OfEdgeType<TTarget>(bool force = false) => OfType<TTarget>(Environment.Model.EdgesModel, force);
+
+        private GremlinQuery<TTarget, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> OfVertexType<TTarget>(bool force = false) => OfType<TTarget>(Environment.Model.VerticesModel, force);
 
         private GremlinQuery<TTarget, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> OfType<TTarget>(IGraphElementModel model, bool force = false) => this
             .Continue()
@@ -843,7 +847,7 @@ namespace ExRam.Gremlinq.Core
                     .AutoBuild<TNewElement>());
 
             return mustBeFiltered
-                ? ret.OfType<TNewElement>(Environment.Model.VerticesModel, true)
+                ? ret.OfVertexType<TNewElement>(true)
                 : ret;
         }
 
