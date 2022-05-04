@@ -550,22 +550,26 @@ namespace ExRam.Gremlinq.Core
                     .AutoBuild<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(),
                 elements);
 
-        private GremlinQuery<TNewElement, object, object, object, object, object> InV<TNewElement>()
+        private GremlinQuery<TNewElement, object, object, object, object, object> InOutV<TNewElement>(Step step)
         {
             var mustBeFiltered = Flags.HasFlag(QueryFlags.InAndOutVMustBeTypeFiltered);
 
             var ret = this
                 .Continue()
-                .Build(static builder => builder
-                    .AddStep(InVStep.Instance)
-                    .WithNewProjection(Projection.Vertex)
-                    .WithFlags(flags => flags & ~QueryFlags.InAndOutVMustBeTypeFiltered)
-                    .AutoBuild<TNewElement>());
+                .Build(
+                    static (builder, step) => builder
+                        .AddStep(step)
+                        .WithNewProjection(Projection.Vertex)
+                        .WithFlags(flags => flags & ~QueryFlags.InAndOutVMustBeTypeFiltered)
+                        .AutoBuild<TNewElement>(),
+                    step);
 
             return mustBeFiltered
                 ? ret.OfVertexType<TNewElement>(true)
                 : ret;
         }
+
+        private GremlinQuery<TNewElement, object, object, object, object, object> InV<TNewElement>() => InOutV<TNewElement>(InVStep.Instance);
 
         private GremlinQuery<string, object, object, object, object, object> Key() => this
             .Continue()
@@ -834,22 +838,7 @@ namespace ExRam.Gremlinq.Core
                 .WithNewProjection(Projection.Edge)
                 .AutoBuild<TEdge, TElement>());
 
-        private GremlinQuery<TNewElement, object, object, object, object, object> OutV<TNewElement>()
-        {
-            var mustBeFiltered = Flags.HasFlag(QueryFlags.InAndOutVMustBeTypeFiltered);
-
-            var ret = this
-                .Continue()
-                .Build(static builder => builder
-                    .AddStep(OutVStep.Instance)
-                    .WithNewProjection(Projection.Vertex)
-                    .WithFlags(flags => flags & ~QueryFlags.InAndOutVMustBeTypeFiltered)
-                    .AutoBuild<TNewElement>());
-
-            return mustBeFiltered
-                ? ret.OfVertexType<TNewElement>(true)
-                : ret;
-        }
+        private GremlinQuery<TNewElement, object, object, object, object, object> OutV<TNewElement>() => InOutV<TNewElement>(OutVStep.Instance);
 
         private GremlinQuery<Path, object, object, object, object, object> Path() => this
             .Continue()
