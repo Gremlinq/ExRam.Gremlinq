@@ -38,26 +38,26 @@ namespace ExRam.Gremlinq.Core
                 (@this: this, step));
 
         public FinalContinuationBuilder<TOuterQuery> WithNewProjection<TState>(Func<Projection, TState, Projection> projectionTransformation, TState state) => With(
-            static (outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, flags, tuple) => new(outer, steps, tuple.projectionTransformation(projection ?? Projection.Empty, tuple.state), stepLabelProjections, sideEffectLabelProjections, flags),
+            static (outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, flags, tuple) => new FinalContinuationBuilder<TOuterQuery>(outer, steps, tuple.projectionTransformation(projection ?? Projection.Empty, tuple.state), stepLabelProjections, sideEffectLabelProjections, flags),
             (projectionTransformation, state));
 
         public FinalContinuationBuilder<TOuterQuery> WithNewStepLabelProjection<TState>(Func<IImmutableDictionary<StepLabel, Projection>, TState, IImmutableDictionary<StepLabel, Projection>> stepLabelProjectionsTransformation, TState state) => With(
-            static (outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, flags, tuple) => new(outer, steps, projection, tuple.stepLabelProjectionsTransformation(stepLabelProjections, tuple.state), sideEffectLabelProjections, flags),
+            static (outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, flags, tuple) => new FinalContinuationBuilder<TOuterQuery>(outer, steps, projection, tuple.stepLabelProjectionsTransformation(stepLabelProjections, tuple.state), sideEffectLabelProjections, flags),
             (stepLabelProjectionsTransformation, state));
 
         public FinalContinuationBuilder<TOuterQuery> WithNewSideEffectLabelProjection<TState>(Func<IImmutableDictionary<StepLabel, Projection>, TState, IImmutableDictionary<StepLabel, Projection>> sideEffectLabelProjectionsTransformation, TState state) => With(
-            static (outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, flags, tuple) => new(outer, steps, projection, stepLabelProjections, tuple.sideEffectLabelProjectionsTransformation(sideEffectLabelProjections, tuple.state), flags),
+            static (outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, flags, tuple) => new FinalContinuationBuilder<TOuterQuery>(outer, steps, projection, stepLabelProjections, tuple.sideEffectLabelProjectionsTransformation(sideEffectLabelProjections, tuple.state), flags),
             (sideEffectLabelProjectionsTransformation, state));
 
         public FinalContinuationBuilder<TOuterQuery> WithFlags(Func<QueryFlags, QueryFlags> flagsProjection) => With(
-            static (outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, flags, flagsProjection) => new(outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, flagsProjection(flags)),
+            static (outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, flags, flagsProjection) => new FinalContinuationBuilder<TOuterQuery>(outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, flagsProjection(flags)),
             flagsProjection);
 
         public FinalContinuationBuilder<TOuterQuery> WithFlags(QueryFlags newFlags) => With(
-            static (outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, flags, newFlags) => new(outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, newFlags),
+            static (outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, flags, newFlags) => new FinalContinuationBuilder<TOuterQuery>(outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, newFlags),
             newFlags);
 
-        public FinalContinuationBuilder<TOuterQuery> With<TState>(Func<TOuterQuery, StepStack, Projection, IImmutableDictionary<StepLabel, Projection>, IImmutableDictionary<StepLabel, Projection>, QueryFlags, TState, FinalContinuationBuilder<TOuterQuery>> continuation, TState state)
+        public TResult With<TState, TResult>(Func<TOuterQuery, StepStack, Projection, IImmutableDictionary<StepLabel, Projection>, IImmutableDictionary<StepLabel, Projection>, QueryFlags, TState, TResult> continuation, TState state)
         {
             return (_outer is { } outer && _steps is { } steps && _projection is { } projection && _stepLabelProjections is { } stepLabelProjections && _sideEffectLabelProjections is { } sideEffectLabelProjections && _flags is { } flags)
                 ? continuation(outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, flags, state)
@@ -80,18 +80,18 @@ namespace ExRam.Gremlinq.Core
 
         public GremlinQuery<object, object, object, object, object, object> AutoBuild() => Build<GremlinQuery<object, object, object, object, object, object>>();
 
-        public TNewTargetQuery Build<TNewTargetQuery>() where TNewTargetQuery : IGremlinQueryBase
-        {
-            return _outer is { } query
-                ? query.CloneAs<TNewTargetQuery>(
-                    maybeStepStackTransformation: _steps is { } newSteps ? _ => newSteps : null,
-                    maybeProjectionTransformation: _projection is { } newProjection ? _ => newProjection : null,
-                    maybeStepLabelProjectionsTransformation: _stepLabelProjections is { } newStepLabelProjections ? _ => newStepLabelProjections : null,
-                    maybeSideEffectLabelProjectionsTransformation: _sideEffectLabelProjections  is { } sideEffectLabelProjections ? _ => sideEffectLabelProjections : null,
-                    maybeQueryFlagsTransformation: _flags is { } newFlags ? flags => newFlags : null)
-                : throw new InvalidOperationException();
-        }
+        public TNewTargetQuery Build<TNewTargetQuery>() where TNewTargetQuery : IGremlinQueryBase => With(
+            static (outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, flags, newFlags) => outer.CloneAs<TNewTargetQuery>(
+                null,
+                _ => steps,
+                _ => projection,
+                _ => stepLabelProjections,
+                _ => sideEffectLabelProjections,
+                _ => flags),
+            0);
 
-        public TOuterQuery OuterQuery => _outer ?? throw new InvalidOperationException();
+        public TOuterQuery OuterQuery => With(
+            static (outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, flags, newFlags) => outer,
+            0);
     }
 }
