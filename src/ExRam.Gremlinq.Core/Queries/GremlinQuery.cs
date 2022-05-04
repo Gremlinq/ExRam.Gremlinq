@@ -550,12 +550,22 @@ namespace ExRam.Gremlinq.Core
                     .AutoBuild<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(),
                 elements);
 
-        private GremlinQuery<TNewElement, object, object, object, object, object> InV<TNewElement>() => this
-            .Continue()
-            .Build(static builder => builder
-                .AddStep(InVStep.Instance)
-                .WithNewProjection(Projection.Vertex)
-                .AutoBuild<TNewElement>());
+        private GremlinQuery<TNewElement, object, object, object, object, object> InV<TNewElement>()
+        {
+            var mustBeFiltered = Flags.HasFlag(QueryFlags.InAndOutVMustBeTypeFiltered);
+
+            var ret = this
+                .Continue()
+                .Build(static builder => builder
+                    .AddStep(InVStep.Instance)
+                    .WithNewProjection(Projection.Vertex)
+                    .WithFlags(flags => flags & ~QueryFlags.InAndOutVMustBeTypeFiltered)
+                    .AutoBuild<TNewElement>());
+
+            return mustBeFiltered
+                ? ret.OfType<TNewElement>(Environment.Model.VerticesModel, true)
+                : ret;
+        }
 
         private GremlinQuery<string, object, object, object, object, object> Key() => this
             .Continue()
@@ -688,14 +698,14 @@ namespace ExRam.Gremlinq.Core
                         .AddStep(new NotStep(innerTraversal))
                         .Build());
 
-        private GremlinQuery<TTarget, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> OfType<TTarget>(IGraphElementModel model) => this
+        private GremlinQuery<TTarget, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> OfType<TTarget>(IGraphElementModel model, bool force = false) => this
             .Continue()
             .Build(
                 static (builder, tuple) =>
                 {
-                    var (@this, model) = tuple;
+                    var (@this, model, force) = tuple;
 
-                    if (typeof(TTarget).IsAssignableFrom(typeof(TElement)))
+                    if (!force && typeof(TTarget).IsAssignableFrom(typeof(TElement)))
                         return @this.Cast<TTarget>();
 
                     var labels = model.TryGetFilterLabels(typeof(TTarget), @this.Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity)) ?? ImmutableArray.Create(typeof(TTarget).Name);
@@ -706,7 +716,7 @@ namespace ExRam.Gremlinq.Core
                     return builder
                         .AutoBuild<TTarget, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>();
                 },
-                (@this: this, model));
+                (@this: this, model, force));
 
         private TTargetQuery Optional<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQueryBase => this
             .Continue()
@@ -820,12 +830,22 @@ namespace ExRam.Gremlinq.Core
                 .WithNewProjection(Projection.Edge)
                 .AutoBuild<TEdge, TElement>());
 
-        private GremlinQuery<TTarget, object, object, object, object, object> OutV<TTarget>() => this
-            .Continue()
-            .Build(static builder => builder
-                .AddStep(OutVStep.Instance)
-                .WithNewProjection(Projection.Vertex)
-                .AutoBuild<TTarget>());
+        private GremlinQuery<TNewElement, object, object, object, object, object> OutV<TNewElement>()
+        {
+            var mustBeFiltered = Flags.HasFlag(QueryFlags.InAndOutVMustBeTypeFiltered);
+
+            var ret = this
+                .Continue()
+                .Build(static builder => builder
+                    .AddStep(OutVStep.Instance)
+                    .WithNewProjection(Projection.Vertex)
+                    .WithFlags(flags => flags & ~QueryFlags.InAndOutVMustBeTypeFiltered)
+                    .AutoBuild<TNewElement>());
+
+            return mustBeFiltered
+                ? ret.OfType<TNewElement>(Environment.Model.VerticesModel, true)
+                : ret;
+        }
 
         private GremlinQuery<Path, object, object, object, object, object> Path() => this
             .Continue()

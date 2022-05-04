@@ -8,6 +8,7 @@ namespace ExRam.Gremlinq.Core
         None = 0,
         SurfaceVisible = 1,
         IsAnonymous = 2,
-        IsMuted = 4
+        IsMuted = 4,
+        InAndOutVMustBeTypeFiltered = 8
     }
 }

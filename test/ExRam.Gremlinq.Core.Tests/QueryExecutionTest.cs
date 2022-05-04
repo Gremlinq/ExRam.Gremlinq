@@ -1174,6 +1174,26 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task ForceEdge_with_2_type_parameters_will_filter_labels_1()
+        {
+            await _g
+                .E<LivesIn>()
+                .ForceEdge<Person, Country>()
+                .InV()
+                .Verify();
+        }
+
+        [Fact]
+        public virtual async Task ForceEdge_with_2_type_parameters_will_filter_labels_2()
+        {
+            await _g
+                .E<LivesIn>()
+                .ForceEdge<Person, Country>()
+                .OutV()
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task V_Limit0_Fold_LimitLocal_0()
         {
             await _g
