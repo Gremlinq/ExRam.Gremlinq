@@ -33,10 +33,9 @@ namespace ExRam.Gremlinq.Core.Deserialization
 
             public object? TryDeserialize<TSerialized>(TSerialized serializedData, Type fragmentType, IGremlinQueryEnvironment environment)
             {
-                if (GetConvertedDeserializer(typeof(TSerialized), serializedData!.GetType(), fragmentType) is BaseGremlinQueryFragmentDeserializerDelegate<TSerialized> del)
-                    return del(serializedData, fragmentType, environment, this);
-
-                throw new ArgumentException($"Could not find a deserializer for {fragmentType.FullName}.");
+                return GetConvertedDeserializer(typeof(TSerialized), serializedData!.GetType(), fragmentType) is BaseGremlinQueryFragmentDeserializerDelegate<TSerialized> del
+                    ? del(serializedData, fragmentType, environment, this)
+                    : throw new ArgumentException($"Could not find a deserializer for {fragmentType.FullName}.");
             }
 
             public IGremlinQueryFragmentDeserializer Override<TSerialized>(GremlinQueryFragmentDeserializerDelegate<TSerialized> deserializer)
