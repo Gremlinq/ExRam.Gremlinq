@@ -1545,7 +1545,7 @@ namespace ExRam.Gremlinq.Core.Projections
 }
 namespace ExRam.Gremlinq.Core.Serialization
 {
-    public delegate object? BaseGremlinQueryFragmentSerializerDelegate<in TFragment>(TFragment fragment, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Serialization.IGremlinQueryFragmentSerializer recurse);
+    public delegate object BaseGremlinQueryFragmentSerializerDelegate<in TFragment>(TFragment fragment, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Serialization.IGremlinQueryFragmentSerializer recurse);
     public static class BytecodeExtensions
     {
         public static ExRam.Gremlinq.Core.Serialization.GroovyGremlinQuery ToGroovy(this ExRam.Gremlinq.Core.Serialization.BytecodeGremlinQuery bytecodeQuery) { }
@@ -1572,7 +1572,7 @@ namespace ExRam.Gremlinq.Core.Serialization
         public static readonly ExRam.Gremlinq.Core.Serialization.IGremlinQueryFragmentSerializer Identity;
         public static ExRam.Gremlinq.Core.Serialization.IGremlinQueryFragmentSerializer UseDefaultGremlinStepSerializationHandlers(this ExRam.Gremlinq.Core.Serialization.IGremlinQueryFragmentSerializer fragmentSerializer) { }
     }
-    public delegate object? GremlinQueryFragmentSerializerDelegate<TFragment>(TFragment fragment, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Serialization.BaseGremlinQueryFragmentSerializerDelegate<TFragment> overridden, ExRam.Gremlinq.Core.Serialization.IGremlinQueryFragmentSerializer recurse);
+    public delegate object GremlinQueryFragmentSerializerDelegate<TFragment>(TFragment fragment, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Serialization.BaseGremlinQueryFragmentSerializerDelegate<TFragment> overridden, ExRam.Gremlinq.Core.Serialization.IGremlinQueryFragmentSerializer recurse);
     public static class GremlinQuerySerializer
     {
         public static readonly ExRam.Gremlinq.Core.Serialization.IGremlinQuerySerializer Default;
@@ -1594,7 +1594,7 @@ namespace ExRam.Gremlinq.Core.Serialization
     public interface IGremlinQueryFragmentSerializer
     {
         ExRam.Gremlinq.Core.Serialization.IGremlinQueryFragmentSerializer Override<TFragment>(ExRam.Gremlinq.Core.Serialization.GremlinQueryFragmentSerializerDelegate<TFragment> serializer);
-        object? Serialize<TFragment>(TFragment fragment, ExRam.Gremlinq.Core.IGremlinQueryEnvironment gremlinQueryEnvironment);
+        object Serialize<TFragment>(TFragment fragment, ExRam.Gremlinq.Core.IGremlinQueryEnvironment gremlinQueryEnvironment);
     }
     public interface IGremlinQuerySerializer
     {

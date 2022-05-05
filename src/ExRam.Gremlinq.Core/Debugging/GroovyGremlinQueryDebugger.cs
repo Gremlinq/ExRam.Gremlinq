@@ -136,8 +136,7 @@ namespace ExRam.Gremlinq.Core
                 return new(
                     builder
                         .Append(operatorName)
-                        .Append('('),
-                    false);
+                        .Append('('));
             }
 
             private GroovyWriter StartParameter(int parameterIndex)
