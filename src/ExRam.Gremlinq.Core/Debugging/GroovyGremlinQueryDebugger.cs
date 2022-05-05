@@ -118,15 +118,15 @@ namespace ExRam.Gremlinq.Core
                 }
             }
 
-            public GroovyWriter StartTraversal() => Identifier(_builder.Length == 0
+            private GroovyWriter StartTraversal() => Identifier(_builder.Length == 0
                 ? "g"
                 : "__");
 
-            public GroovyWriter Identifier(string identifier) => new(
+            private GroovyWriter Identifier(string identifier) => new(
                  _builder.Append(identifier),
                 true);
 
-            public GroovyWriter StartOperator(string operatorName)
+            private GroovyWriter StartOperator(string operatorName)
             {
                 var builder = _builder;
 
@@ -140,7 +140,7 @@ namespace ExRam.Gremlinq.Core
                     false);
             }
 
-            public GroovyWriter StartParameter(int parameterIndex)
+            private GroovyWriter StartParameter(int parameterIndex)
             {
                 var builder = _builder;
 
@@ -152,19 +152,19 @@ namespace ExRam.Gremlinq.Core
                     _hasIdentifier);
             }
 
-            public GroovyWriter WriteLambda(string lambda) => new(
+            private GroovyWriter WriteLambda(string lambda) => new(
                 _builder
                     .Append('{')
                     .Append(lambda)
                     .Append('}'),
                 _hasIdentifier);
 
-            public GroovyWriter EndOperator() => new(
+            private GroovyWriter EndOperator() => new(
                 _builder
                     .Append(')'),
                 true);
 
-            public GroovyWriter WriteQuoted(object value)
+            private GroovyWriter WriteQuoted(object value)
             {
 #if NET6_0_OR_GREATER
                 var handler = new StringBuilder.AppendInterpolatedStringHandler(2, 1, _builder);
@@ -185,7 +185,7 @@ namespace ExRam.Gremlinq.Core
 #endif
             }
 
-            public GroovyWriter Write(object value)
+            private GroovyWriter Write(object value)
             {
 #if NET6_0_OR_GREATER
                 var handler = new StringBuilder.AppendInterpolatedStringHandler(0, 1, _builder);
