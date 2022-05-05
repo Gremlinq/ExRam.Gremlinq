@@ -473,32 +473,19 @@ namespace ExRam.Gremlinq.Core.Serialization
                 recurse.Serialize(parameter3, env));
         }
 
-        private static Instruction CreateInstruction<TParam>(string name, IGremlinQueryFragmentSerializer recurse, IGremlinQueryEnvironment env, TParam[] parameters)
-        {
-            if (parameters.Length == 0)
-                return CreateInstruction(name);
-
-            var data = parameters
-                .Select(x => recurse.Serialize(x, env))
-                .Where(static x => x != null)
-                .Select(static x => x!)
-                .ToArray();
-
-            return new Instruction(name, data);
-        }
-
         private static Instruction CreateInstruction<TParam>(string name, IGremlinQueryFragmentSerializer recurse, IGremlinQueryEnvironment env, ImmutableArray<TParam> parameters)
         {
             if (parameters.Length == 0)
                 return CreateInstruction(name);
 
-            var data = parameters
-                .Select(x => recurse.Serialize(x, env))
-                .Where(static x => x != null)
-                .Select(static x => x!)
-                .ToArray();
+            var arguments = new object[parameters.Length];
 
-            return new Instruction(name, data);
+            for (var i = 0; i < parameters.Length; i++)
+            {
+                arguments[i] = recurse.Serialize(parameters[i], env);
+            }
+
+            return new Instruction(name, arguments);
         }
 
         private static Instruction CreateInstruction<TParam>(string name, IGremlinQueryFragmentSerializer recurse, IGremlinQueryEnvironment env, IEnumerable<TParam> parameters)
