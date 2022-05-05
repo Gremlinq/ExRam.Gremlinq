@@ -325,24 +325,34 @@ namespace ExRam.Gremlinq.Core.Serialization
                 .Override<PropertiesStep>(static (step, env, _, recurse) => CreateInstruction("properties", recurse, env, step.Keys))
                 .Override<PropertyStep.ByKeyStep>(static (step, env, _, recurse) =>
                 {
-                    static IEnumerable<object?> GetPropertyStepArguments(PropertyStep.ByKeyStep propertyStep, IGremlinQueryFragmentSerializer recurse, IGremlinQueryEnvironment env)
+                    static object[] GetPropertyStepArguments(PropertyStep.ByKeyStep propertyStep, IGremlinQueryFragmentSerializer recurse, IGremlinQueryEnvironment env)
                     {
+                        var i = 0;
+                        object[] ret;
+
                         if (propertyStep.Cardinality != null && !T.Id.Equals(propertyStep.Key.RawKey))
-                            yield return propertyStep.Cardinality;
-
-                        yield return propertyStep.Key;
-                        yield return recurse.Serialize(propertyStep.Value, env);
-
-                        foreach (var metaProperty in propertyStep.MetaProperties)
                         {
-                            yield return metaProperty.Key;
-                            yield return recurse.Serialize(metaProperty.Value, env);
+                            ret = new object[propertyStep.MetaProperties.Length * 2 + 3];
+                            ret[i++] = recurse.Serialize(propertyStep.Cardinality, env);
                         }
+                        else
+                            ret = new object[propertyStep.MetaProperties.Length * 2 + 2];
+
+                        ret[i++] = recurse.Serialize(propertyStep.Key, env);
+                        ret[i++] = recurse.Serialize(propertyStep.Value, env);
+
+                        for (var j = 0; j < propertyStep.MetaProperties.Length; j++)
+                        {
+                            ret[i++] = recurse.Serialize(propertyStep.MetaProperties[j].Key, env);
+                            ret[i++] = recurse.Serialize(propertyStep.MetaProperties[j].Value, env);
+                        }
+
+                        return ret;
                     }
 
                     return (T.Id.Equals(step.Key.RawKey) && !Cardinality.Single.Equals(step.Cardinality ?? Cardinality.Single))
                         ? throw new NotSupportedException("Cannot have an id property on non-single cardinality.")
-                        : CreateInstruction("property", recurse, env, GetPropertyStepArguments(step, recurse, env));
+                        : new Instruction("property", GetPropertyStepArguments(step, recurse, env));
                 })
                 .Override<ProjectStep>(static (step, env, _, recurse) => CreateInstruction("project", recurse, env, step.Projections))
                 .Override<ProjectStep.ByTraversalStep>(static (step, env, _, recurse) =>
@@ -488,13 +498,19 @@ namespace ExRam.Gremlinq.Core.Serialization
             return new Instruction(name, arguments);
         }
 
-        private static Instruction CreateInstruction<TParam>(string name, IGremlinQueryFragmentSerializer recurse, IGremlinQueryEnvironment env, IEnumerable<TParam> parameters)
+        private static Instruction CreateInstruction<TParam>(string name, IGremlinQueryFragmentSerializer recurse, IGremlinQueryEnvironment env, TParam[] parameters)
         {
-            return new(
-                name,
-                parameters
-                    .Select(x => recurse.Serialize(x, env))
-                    .ToArray());
+            if (parameters.Length == 0)
+                return CreateInstruction(name);
+
+            var arguments = new object[parameters.Length];
+
+            for (var i = 0; i < parameters.Length; i++)
+            {
+                arguments[i] = recurse.Serialize(parameters[i], env);
+            }
+
+            return new Instruction(name, arguments);
         }
     }
 }
