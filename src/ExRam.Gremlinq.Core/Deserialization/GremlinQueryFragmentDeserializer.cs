@@ -54,7 +54,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 return _convertedDelegates
                     .GetOrAdd(
                         (GetUnconvertedDeserializer(staticType, actualType), staticType, fragmentType),
-                        typeTuple =>
+                        static typeTuple =>
                         {
                             var (del, staticType, fragmentType) = typeTuple;
 
@@ -69,7 +69,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 return _unconvertedDelegates
                     .GetOrAdd(
                         (staticType, actualType),
-                        (typeTuple, @this) =>
+                        static (typeTuple, @this) =>
                         {
                             var (staticType, actualType) = typeTuple;
                         
@@ -93,12 +93,12 @@ namespace ExRam.Gremlinq.Core.Deserialization
 
             private static BaseGremlinQueryFragmentDeserializerDelegate<TStatic> CreateFunc1<TStatic, TEffective>(GremlinQueryFragmentDeserializerDelegate<TEffective> del)
             {
-                return (serialized, fragmentType, environment, recurse) => del((TEffective)(object)serialized!, fragmentType, environment, (serialized, _, _, _) => serialized, recurse);
+                return (serialized, fragmentType, environment, recurse) => del((TEffective)(object)serialized!, fragmentType, environment, static (serialized, _, _, _) => serialized, recurse);
             }
 
             private static BaseGremlinQueryFragmentDeserializerDelegate<TStatic> CreateFunc2<TStatic>()
             {
-                return (serialized, _, _, _) => serialized;
+                return static (serialized, _, _, _) => serialized;
             }
 
             private static BaseGremlinQueryFragmentDeserializerDelegate<TSerialized> CreateFunc3<TSerialized, TFragment>(BaseGremlinQueryFragmentDeserializerDelegate<TSerialized> del)

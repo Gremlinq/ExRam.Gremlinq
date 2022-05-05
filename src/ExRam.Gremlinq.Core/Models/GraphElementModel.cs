@@ -18,7 +18,7 @@ namespace ExRam.Gremlinq.Core.Models
             public IGraphElementModel ConfigureMetadata(Func<IImmutableDictionary<Type, ElementMetadata>, IImmutableDictionary<Type, ElementMetadata>> transformation) => new GraphElementModelImpl(transformation(Metadata));
 
             public IGraphElementModel ConfigureLabels(Func<Type, string, string> overrideTransformation) => ConfigureMetadata(_ => _.ToImmutableDictionary(
-                kvp => kvp.Key,
+                static kvp => kvp.Key,
                 kvp => new ElementMetadata(overrideTransformation(kvp.Key, kvp.Value.Label))));
 
             public IImmutableDictionary<Type, ElementMetadata> Metadata { get; }
@@ -39,10 +39,10 @@ namespace ExRam.Gremlinq.Core.Models
         public static IGraphElementModel FromTypes(IEnumerable<Type> types)
         {
             return new GraphElementModelImpl(types
-                .Where(type => type.IsClass && !type.IsAbstract)
+                .Where(static type => type.IsClass && !type.IsAbstract)
                 .ToImmutableDictionary(
-                    type => type,
-                    type => new ElementMetadata(type.Name)));
+                    static type => type,
+                    static type => new ElementMetadata(type.Name)));
         }
 
         public static IGraphElementModel FromBaseType<TType>(IEnumerable<Assembly>? assemblies)
@@ -54,28 +54,28 @@ namespace ExRam.Gremlinq.Core.Models
         {
             return FromTypes((assemblies ?? Enumerable.Empty<Assembly>())
                 .Distinct()
-                .SelectMany(assembly =>
+                .SelectMany(static assembly =>
                 {
                     try
                     {
                         return assembly
                             .DefinedTypes
-                            .Select(x => x.AsType());
+                            .Select(static x => x.AsType());
                     }
                     catch (ReflectionTypeLoadException ex)
                     {
                         return ex.Types
-                            .Where(x => x is not null)
-                            .Select(x => x!);
+                            .Where(static x => x is not null)
+                            .Select(static x => x!);
                     }
                 })
                 .Where(type => type != baseType && !type.IsNestedPrivate && baseType.IsAssignableFrom(type))
                 .Prepend(baseType));
         }
 
-        public static IGraphElementModel UseCamelCaseLabels(this IGraphElementModel model) => model.ConfigureLabels((_, proposedLabel) => proposedLabel.ToCamelCase());
+        public static IGraphElementModel UseCamelCaseLabels(this IGraphElementModel model) => model.ConfigureLabels(static (_, proposedLabel) => proposedLabel.ToCamelCase());
 
-        public static IGraphElementModel UseLowerCaseLabels(this IGraphElementModel model) => model.ConfigureLabels((_, proposedLabel) => proposedLabel.ToLower());
+        public static IGraphElementModel UseLowerCaseLabels(this IGraphElementModel model) => model.ConfigureLabels(static (_, proposedLabel) => proposedLabel.ToLower());
 
         public static ImmutableArray<string>? TryGetFilterLabels(this IGraphElementModel model, Type type, FilterLabelsVerbosity verbosity)
         {

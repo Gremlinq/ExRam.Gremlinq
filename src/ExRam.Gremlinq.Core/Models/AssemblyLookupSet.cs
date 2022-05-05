@@ -21,15 +21,15 @@ namespace ExRam.Gremlinq.Core.Models
 
         public IAssemblyLookupSet IncludeAssembliesOfBaseTypes()
         {
-            return IncludeAssemblies(_baseTypes.Select(x => x.Assembly));
+            return IncludeAssemblies(_baseTypes.Select(static x => x.Assembly));
         }
 
         public IAssemblyLookupSet IncludeAssembliesFromStackTrace()
         {
             return IncludeAssemblies(new StackTrace().GetFrames()
-                .Select(frame => frame.GetMethod()?.DeclaringType?.Assembly)
-                .Where(assembly => assembly != null)
-                .Select(assembly => assembly!));
+                .Select(static frame => frame.GetMethod()?.DeclaringType?.Assembly)
+                .Where(static assembly => assembly != null)
+                .Select(static assembly => assembly!));
         }
 
         public IAssemblyLookupSet IncludeAssembliesFromAppDomain()

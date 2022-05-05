@@ -38,7 +38,7 @@ namespace ExRam.Gremlinq.Core
                 (@this: this, step));
 
         public FinalContinuationBuilder<TOuterQuery> WithSteps(StepStack newSteps) => With(
-            static (outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, flags, newSteps) => new FinalContinuationBuilder<TOuterQuery>(outer, newSteps, projection, stepLabelProjections, sideEffectLabelProjections, flags),
+            static (outer, _, projection, stepLabelProjections, sideEffectLabelProjections, flags, newSteps) => new FinalContinuationBuilder<TOuterQuery>(outer, newSteps, projection, stepLabelProjections, sideEffectLabelProjections, flags),
             newSteps);
 
         public FinalContinuationBuilder<TOuterQuery> WithSteps<TState>(Func<StepStack, TState, StepStack> stepStackTransformation, TState state) => With(
@@ -62,7 +62,7 @@ namespace ExRam.Gremlinq.Core
             flagsProjection);
 
         public FinalContinuationBuilder<TOuterQuery> WithFlags(QueryFlags newFlags) => With(
-            static (outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, flags, newFlags) => new FinalContinuationBuilder<TOuterQuery>(outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, newFlags),
+            static (outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, _, newFlags) => new FinalContinuationBuilder<TOuterQuery>(outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, newFlags),
             newFlags);
 
         public TResult With<TState, TResult>(Func<TOuterQuery, StepStack, Projection, IImmutableDictionary<StepLabel, Projection>, IImmutableDictionary<StepLabel, Projection>, QueryFlags, TState, TResult> continuation, TState state)
@@ -89,7 +89,7 @@ namespace ExRam.Gremlinq.Core
         public GremlinQuery<object, object, object, object, object, object> AutoBuild() => Build<GremlinQuery<object, object, object, object, object, object>>();
 
         public TNewTargetQuery Build<TNewTargetQuery>() where TNewTargetQuery : IGremlinQueryBase => With(
-            static (outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, flags, newFlags) => outer.CloneAs<TNewTargetQuery>(
+            static (outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, flags, _) => outer.CloneAs<TNewTargetQuery>(
                 steps,
                 projection,
                 stepLabelProjections,
@@ -98,7 +98,7 @@ namespace ExRam.Gremlinq.Core
             0);
 
         public TOuterQuery OuterQuery => With(
-            static (outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, flags, newFlags) => outer,
+            static (outer, _, _, _, _, _, _) => outer,
             0);
     }
 }

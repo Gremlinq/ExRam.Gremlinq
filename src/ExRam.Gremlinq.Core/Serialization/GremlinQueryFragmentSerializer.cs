@@ -47,7 +47,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                 return _fastDict
                     .GetOrAdd(
                         (staticType, actualType),
-                        (typeTuple, @this) =>
+                        static (typeTuple, @this) =>
                         {
                             var (staticType, actualType) = typeTuple;
 
@@ -90,16 +90,15 @@ namespace ExRam.Gremlinq.Core.Serialization
                     : null;
             }
 
-            private static BaseGremlinQueryFragmentSerializerDelegate<TStatic> CreateFunc1<TStatic>(GremlinQueryFragmentSerializerDelegate<TStatic> del) => (fragment, environment, recurse) => del(fragment!, environment, (_, e, s) => _, recurse);
+            private static BaseGremlinQueryFragmentSerializerDelegate<TStatic> CreateFunc1<TStatic>(GremlinQueryFragmentSerializerDelegate<TStatic> del) => (fragment, environment, recurse) => del(fragment!, environment, static (_, e, s) => _, recurse);
 
-            private static BaseGremlinQueryFragmentSerializerDelegate<TStatic> CreateFunc2<TStatic, TEffective>(GremlinQueryFragmentSerializerDelegate<TEffective> del) => (fragment, environment, recurse) => del((TEffective)(object)fragment!, environment, (_, e, s) => _, recurse);
+            private static BaseGremlinQueryFragmentSerializerDelegate<TStatic> CreateFunc2<TStatic, TEffective>(GremlinQueryFragmentSerializerDelegate<TEffective> del) => (fragment, environment, recurse) => del((TEffective)(object)fragment!, environment, static (_, e, s) => _, recurse);
         }
 
         public static readonly IGremlinQueryFragmentSerializer Identity = new GremlinQueryFragmentSerializerImpl(ImmutableDictionary<Type, Delegate>.Empty);
         public static readonly IGremlinQueryFragmentSerializer Default = Identity.UseDefaultGremlinStepSerializationHandlers();
 
         private static readonly ConcurrentDictionary<string, Instruction> SimpleInstructions = new();
-        private static readonly ImmutableArray<Step> IdentitySteps = ImmutableArray.Create((Step)IdentityStep.Instance);
 
         private static readonly HashSet<string> SourceStepNames = new()
         {
@@ -447,7 +446,7 @@ namespace ExRam.Gremlinq.Core.Serialization
         {
             return SimpleInstructions.GetOrAdd(
                 name,
-                closure => new Instruction(closure));
+                static closure => new Instruction(closure));
         }
 
         private static Instruction CreateInstruction<TParam>(string name, IGremlinQueryFragmentSerializer recurse, IGremlinQueryEnvironment env, TParam parameter)
@@ -481,8 +480,8 @@ namespace ExRam.Gremlinq.Core.Serialization
 
             var data = parameters
                 .Select(x => recurse.Serialize(x, env))
-                .Where(x => x != null)
-                .Select(x => x!)
+                .Where(static x => x != null)
+                .Select(static x => x!)
                 .ToArray();
 
             return new Instruction(name, data);
@@ -495,8 +494,8 @@ namespace ExRam.Gremlinq.Core.Serialization
 
             var data = parameters
                 .Select(x => recurse.Serialize(x, env))
-                .Where(x => x != null)
-                .Select(x => x!)
+                .Where(static x => x != null)
+                .Select(static x => x!)
                 .ToArray();
 
             return new Instruction(name, data);

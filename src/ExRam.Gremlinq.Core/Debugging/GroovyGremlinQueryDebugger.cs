@@ -13,11 +13,7 @@ namespace ExRam.Gremlinq.Core
             private readonly bool _hasIdentifier;
             private readonly StringBuilder _builder;
 
-            public GroovyWriter(StringBuilder builder) : this(builder, false)
-            {
-            }
-
-            public GroovyWriter(StringBuilder builder, bool hasIdentifier)
+            public GroovyWriter(StringBuilder builder, bool hasIdentifier = false)
             {
                 _builder = builder;
                 _hasIdentifier = hasIdentifier;
@@ -183,7 +179,7 @@ namespace ExRam.Gremlinq.Core
                 return new(
                     _builder
                         .Append('\'')
-                        .Append(value.ToString())
+                        .Append(value)
                         .Append('\''),
                     _hasIdentifier);
 #endif
@@ -200,7 +196,7 @@ namespace ExRam.Gremlinq.Core
                     _hasIdentifier);
 #else
                 return new(
-                    _builder.Append(value.ToString()),
+                    _builder.Append(value),
                     _hasIdentifier);
 #endif
             }

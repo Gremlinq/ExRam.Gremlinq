@@ -55,7 +55,7 @@ namespace ExRam.Gremlinq.Core
             private ProjectBuilder<TProjectElement, TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16> ByExpression<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16>(Expression projection, string? name = default)
             {
                 return projection is LambdaExpression lambdaExpression && lambdaExpression.IsIdentityExpression()
-                    ? ByLambda<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16>(__ => __.Identity(), name)
+                    ? ByLambda<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16>(static __ => __.Identity(), name)
                     : new(
                         _continuationBuilder
                             .With(
@@ -99,7 +99,7 @@ namespace ExRam.Gremlinq.Core
             IProjectDynamicBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement> IProjectDynamicBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement>.By(Expression<Func<TProjectElement, object>> projection)
             {
                 return projection.IsIdentityExpression()
-                    ? ByLambda<object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(__ => __.Identity())
+                    ? ByLambda<object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(static __ => __.Identity())
                     : projection.Body.StripConvert() is MemberExpression memberExpression
                         ? ByExpression<object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(memberExpression, memberExpression.Member.Name)
                         : throw new ExpressionNotSupportedException(projection);
@@ -114,7 +114,7 @@ namespace ExRam.Gremlinq.Core
                             var (names, emptyProjectionProtectionDecoratorSteps) = state;
 
                             var projectStep = new ProjectStep(names.ToImmutableArray());
-                            var bySteps = traversals.Select(x => x.FirstOrDefault()).OfType<ProjectStep.ByStep>().ToArray();
+                            var bySteps = traversals.Select(static x => x.FirstOrDefault()).OfType<ProjectStep.ByStep>().ToArray();
 
                             builder = builder
                                 .AddStep(projectStep)

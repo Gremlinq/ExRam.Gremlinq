@@ -19,7 +19,7 @@ namespace ExRam.Gremlinq.Core.Serialization
             static GremlinQuerySerializerImpl()
             {
                 StepLabelNames = Enumerable.Range(1, 100)
-                    .Select(x => "l" + x)
+                    .Select(static x => "l" + x)
                     .ToArray();
             }
 
@@ -28,7 +28,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                 _originalFragmentSerializer = fragmentSerializer;
 
                 _fragmentSerializer = fragmentSerializer
-                    .Override<StepLabel>((stepLabel, env, _, recurse) =>
+                    .Override<StepLabel>(static (stepLabel, env, _, recurse) =>
                     {
                         if (!_stepLabelNames!.TryGetValue(stepLabel, out var stepLabelMapping))
                         {
@@ -95,7 +95,7 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         public static readonly IGremlinQuerySerializer Identity = new GremlinQuerySerializerImpl(GremlinQueryFragmentSerializer.Identity);
 
-        public static readonly IGremlinQuerySerializer Default = Identity.ConfigureFragmentSerializer(fragmentSerializer => fragmentSerializer.UseDefaultGremlinStepSerializationHandlers());
+        public static readonly IGremlinQuerySerializer Default = Identity.ConfigureFragmentSerializer(static fragmentSerializer => fragmentSerializer.UseDefaultGremlinStepSerializationHandlers());
 
         static GremlinQuerySerializer()
         {
@@ -109,7 +109,7 @@ namespace ExRam.Gremlinq.Core.Serialization
         public static IGremlinQuerySerializer ToGroovy(this IGremlinQuerySerializer serializer)
         {
             return serializer
-                .Select(serialized => serialized.ToGroovy());
+                .Select(static serialized => serialized.ToGroovy());
         }
     }
 }

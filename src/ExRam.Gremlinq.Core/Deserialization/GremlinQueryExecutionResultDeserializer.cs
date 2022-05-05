@@ -56,8 +56,8 @@ namespace ExRam.Gremlinq.Core.Deserialization
         public static readonly IGremlinQueryExecutionResultDeserializer Invalid = new InvalidQueryExecutionResultDeserializer();
 
         public static readonly IGremlinQueryExecutionResultDeserializer Default = Identity
-            .ConfigureFragmentDeserializer(_ => _
-                .Override<object>((data, type, env, overridden, recurse) =>
+            .ConfigureFragmentDeserializer(static _ => _
+                .Override<object>(static (data, type, env, overridden, recurse) =>
                 {
                     if (type.IsInstanceOfType(data))
                         return data;

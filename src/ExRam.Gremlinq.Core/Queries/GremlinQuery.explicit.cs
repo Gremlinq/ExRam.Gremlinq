@@ -180,7 +180,7 @@ namespace ExRam.Gremlinq.Core
 
         IElementGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceElement() => this
             .Continue()
-            .Build(builder => builder
+            .Build(static builder => builder
                 .WithNewProjection(static _ => _.Highest(Projection.Element))
                 .Build<IElementGremlinQuery<TElement>>());
 
@@ -200,9 +200,9 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery<TElement, TNewOutVertex, TNewInVertex> IGremlinQueryBase<TElement>.ForceEdge<TNewOutVertex, TNewInVertex>() => this
             .Continue()
-            .Build(builder => builder
+            .Build(static builder => builder
                 .WithNewProjection(Projection.Edge)
-                .WithFlags(flags => flags | QueryFlags.InAndOutVMustBeTypeFiltered)
+                .WithFlags(static flags => flags | QueryFlags.InAndOutVMustBeTypeFiltered)
                 .Build<IEdgeGremlinQuery<TElement, TNewOutVertex, TNewInVertex>>());
 
         IValueGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceValue() => CloneAs<IValueGremlinQuery<TElement>>(maybeNewProjection: Projection.Value);
@@ -460,9 +460,9 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<TValue> IVertexPropertyGremlinQueryBase.Values<TValue>() => ValuesForKeys<TValue>(Array.Empty<Key>());
 
-        IValueGremlinQuery<TValue> IVertexPropertyGremlinQueryBase.Values<TValue>(params string[] keys) => ValuesForKeys<TValue>(keys.Select(x => (Key)x));
+        IValueGremlinQuery<TValue> IVertexPropertyGremlinQueryBase.Values<TValue>(params string[] keys) => ValuesForKeys<TValue>(keys.Select(static x => (Key)x));
 
-        IValueGremlinQuery<object> IVertexPropertyGremlinQueryBase.Values(params string[] keys) => ValuesForKeys<object>(keys.Select(x => (Key)x));
+        IValueGremlinQuery<object> IVertexPropertyGremlinQueryBase.Values(params string[] keys) => ValuesForKeys<object>(keys.Select(static x => (Key)x));
 
         IPropertyGremlinQuery<Property<object>> IVertexPropertyGremlinQueryBase.Properties(params string[] keys) => Properties<Property<object>, object, object>(Projection.Property, keys);
 

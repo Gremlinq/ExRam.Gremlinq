@@ -26,7 +26,7 @@ namespace ExRam.Gremlinq.Core
             var func = SerializerDict
                 .GetOrAdd(
                     obj.GetType(),
-                    closureType =>
+                    static closureType =>
                     {
                         var interfaces = closureType.GetInterfaces();
 
@@ -50,7 +50,7 @@ namespace ExRam.Gremlinq.Core
         public static object GetId(this object element, IGremlinQueryEnvironment environment)
         {
             var (propertyInfo, _, _) = environment.GetCache().GetSerializationData(element.GetType())
-                .FirstOrDefault(info => info.key.RawKey is T t && T.Id.Equals(t));
+                .FirstOrDefault(static info => info.key.RawKey is T t && T.Id.Equals(t));
 
             // ReSharper disable once ConstantConditionalAccessQualifier
             return propertyInfo?.GetValue(element) is { } value
@@ -60,7 +60,7 @@ namespace ExRam.Gremlinq.Core
 
         private static Func<object, IGremlinQueryEnvironment, SerializationBehaviour, IEnumerable<(Key key, object value)>> CreateSerializeDictionaryFunc<TKey, TValue>()
         {
-            return (dict, _, _) => SerializeDictionary((IDictionary<TKey, TValue>)dict);
+            return static (dict, _, _) => SerializeDictionary((IDictionary<TKey, TValue>)dict);
         }
 
         private static IEnumerable<(Key key, object value)> SerializeDictionary<TKey, TValue>(IDictionary<TKey, TValue> dict)

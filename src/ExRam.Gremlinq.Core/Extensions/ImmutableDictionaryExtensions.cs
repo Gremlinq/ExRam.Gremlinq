@@ -29,19 +29,19 @@ namespace ExRam.Gremlinq.Core
             return (IReadOnlyDictionary<TKey, TValue>)FastDictionaries
                 .GetOrAdd(
                     dict,
-                    closureDict => ((IImmutableDictionary<TKey, TValue>)closureDict).ToDictionary(x => x.Key, x => x.Value));
+                    static closureDict => ((IImmutableDictionary<TKey, TValue>)closureDict).ToDictionary(static x => x.Key, static x => x.Value));
         }
         
         public static IImmutableDictionary<MemberInfo, MemberMetadata> UseCamelCaseNames(this IImmutableDictionary<MemberInfo, MemberMetadata> names)
         {
-            return names.ConfigureNames((_, key) => key.RawKey is string name
+            return names.ConfigureNames(static (_, key) => key.RawKey is string name
                 ? name.ToCamelCase()
                 : key);
         }
 
         public static IImmutableDictionary<MemberInfo, MemberMetadata> UseLowerCaseNames(this IImmutableDictionary<MemberInfo, MemberMetadata> names)
         {
-            return names.ConfigureNames((_, key) => key.RawKey is string name
+            return names.ConfigureNames(static (_, key) => key.RawKey is string name
                 ? name.ToLower()
                 : key);
         }

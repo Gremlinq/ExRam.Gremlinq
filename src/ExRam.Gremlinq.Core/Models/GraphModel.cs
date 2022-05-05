@@ -98,7 +98,7 @@ namespace ExRam.Gremlinq.Core.Models
 
         public static IGraphModel FromBaseTypes<TVertex, TEdge>(Func<IAssemblyLookupBuilder, IAssemblyLookupSet>? assemblyLookupTransformation = null)
         {
-            return FromBaseTypes(typeof(TVertex), typeof(TEdge), assemblyLookupTransformation ?? (_ => _.IncludeAssembliesFromAppDomain()));
+            return FromBaseTypes(typeof(TVertex), typeof(TEdge), assemblyLookupTransformation ?? (static _ => _.IncludeAssembliesFromAppDomain()));
         }
 
         public static IGraphModel FromBaseTypes(Type vertexBaseType, Type edgeBaseType, Func<IAssemblyLookupBuilder, IAssemblyLookupSet> assemblyLookupTransformation)

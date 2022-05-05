@@ -79,11 +79,11 @@ namespace ExRam.Gremlinq.Core.Models
             return Empty
                 .ConfigureMemberMetadata(_ => _
                     .AddRange(models
-                        .SelectMany(model => model.Metadata.Keys)
-                        .SelectMany(x => x.GetTypeHierarchy())
+                        .SelectMany(static model => model.Metadata.Keys)
+                        .SelectMany(static x => x.GetTypeHierarchy())
                         .Distinct()
-                        .SelectMany(type => type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly))
-                        .Select(property => new KeyValuePair<MemberInfo, MemberMetadata>(property, new MemberMetadata(property.Name)))));
+                        .SelectMany(static type => type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly))
+                        .Select(static property => new KeyValuePair<MemberInfo, MemberMetadata>(property, new MemberMetadata(property.Name)))));
         }
     }
 }

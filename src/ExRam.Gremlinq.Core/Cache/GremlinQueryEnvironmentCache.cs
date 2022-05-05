@@ -137,8 +137,8 @@ namespace ExRam.Gremlinq.Core
                 {
                     _model = model;
                     _configuredTs = new HashSet<T>(model.MemberMetadata
-                        .Where(kvp => kvp.Value.Key.RawKey is T)
-                        .ToDictionary(kvp => (T)kvp.Value.Key.RawKey, kvp => kvp.Key)
+                        .Where(static kvp => kvp.Value.Key.RawKey is T)
+                        .ToDictionary(static kvp => (T)kvp.Value.Key.RawKey, static kvp => kvp.Key)
                         .Keys);
                 }
 
@@ -146,7 +146,7 @@ namespace ExRam.Gremlinq.Core
                 {
                     return _members.GetOrAdd(
                         member,
-                        (closureMember, @this) =>
+                        static (closureMember, @this) =>
                         {
                             var name = closureMember.Name;
 
@@ -189,16 +189,16 @@ namespace ExRam.Gremlinq.Core
                     .VerticesModel
                     .Metadata
                     .Concat(environment.Model.EdgesModel.Metadata)
-                    .GroupBy(x => x.Value.Label)
+                    .GroupBy(static x => x.Value.Label)
                     .ToDictionary(
-                        group => group.Key,
-                        group => group
-                            .Select(x => x.Key)
+                        static group => group.Key,
+                        static group => group
+                            .Select(static x => x.Key)
                             .ToArray(),
                         StringComparer.OrdinalIgnoreCase);
 
                 FastNativeTypes = environment.Model.NativeTypes
-                    .ToDictionary(x => x, _ => default(object?));
+                    .ToDictionary(static x => x, static _ => default(object?));
 
                 _keyLookup = new KeyLookup(_environment.Model.PropertiesModel);
             }
@@ -226,17 +226,17 @@ namespace ExRam.Gremlinq.Core
                 return _typeProperties
                     .GetOrAdd(
                         type,
-                        (closureType, closureEnvironment) => closureType
+                        static (closureType, closureEnvironment) => closureType
                             .GetTypeHierarchy()
-                            .SelectMany(typeInHierarchy => typeInHierarchy
+                            .SelectMany(static typeInHierarchy => typeInHierarchy
                                 .GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly))
-                            .Where(p => p.GetMethod?.GetBaseDefinition() == p.GetMethod)
+                            .Where(static p => p.GetMethod?.GetBaseDefinition() == p.GetMethod)
                             .Select(p => (
                                 property: p,
                                 key: closureEnvironment.GetCache().GetKey(p),
                                 serializationBehaviour: closureEnvironment.Model.PropertiesModel.MemberMetadata
                                     .GetValueOrDefault(p, new MemberMetadata(p.Name)).SerializationBehaviour))
-                            .OrderBy(x => x.key)
+                            .OrderBy(static x => x.key)
                             .ToArray(),
                         _environment);
             }
@@ -256,7 +256,7 @@ namespace ExRam.Gremlinq.Core
         {
             return Caches.GetValue(
                 environment,
-                closure => new GremlinQueryEnvironmentCacheImpl(closure));
+                static closure => new GremlinQueryEnvironmentCacheImpl(closure));
         }
     }
 }

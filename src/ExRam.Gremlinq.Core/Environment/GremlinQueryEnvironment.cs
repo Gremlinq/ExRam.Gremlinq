@@ -100,15 +100,15 @@ namespace ExRam.Gremlinq.Core
             return environment
                 .UseSerializer(GremlinQuerySerializer.Default)
                 .UseExecutor(GremlinQueryExecutor.Identity)
-                .ConfigureDeserializer(_ => _
-                    .ConfigureFragmentDeserializer(_ => _
+                .ConfigureDeserializer(static _ => _
+                    .ConfigureFragmentDeserializer(static _ => _
                         .ToGraphsonString()));
         }
 
         public static IGremlinQueryEnvironment EchoGroovyGremlinQuery(this IGremlinQueryEnvironment environment)
         {
             return environment
-                .ConfigureSerializer(serializer => serializer.ToGroovy())
+                .ConfigureSerializer(static serializer => serializer.ToGroovy())
                 .UseExecutor(GremlinQueryExecutor.Identity)
                 .UseDeserializer(GremlinQueryExecutionResultDeserializer.Default);
         }
@@ -116,12 +116,12 @@ namespace ExRam.Gremlinq.Core
         public static IGremlinQueryEnvironment StoreTimeSpansAsNumbers(this IGremlinQueryEnvironment environment)
         {
             return environment
-                .ConfigureSerializer(serializer => serializer
-                    .ConfigureFragmentSerializer(fragmentSerializer =>  fragmentSerializer
-                        .Override<TimeSpan>((t, env, _, recurse) => recurse.Serialize(t.TotalMilliseconds, env))))
-                .ConfigureDeserializer(deserializer => deserializer
-                    .ConfigureFragmentDeserializer(fragmentDeserializer => fragmentDeserializer
-                        .Override<JValue>((jValue, type, env, overridden, recurse) => type == typeof(TimeSpan)
+                .ConfigureSerializer(static serializer => serializer
+                    .ConfigureFragmentSerializer(static fragmentSerializer =>  fragmentSerializer
+                        .Override<TimeSpan>(static (t, env, _, recurse) => recurse.Serialize(t.TotalMilliseconds, env))))
+                .ConfigureDeserializer(static deserializer => deserializer
+                    .ConfigureFragmentDeserializer(static fragmentDeserializer => fragmentDeserializer
+                        .Override<JValue>(static (jValue, type, env, overridden, recurse) => type == typeof(TimeSpan)
                             ? TimeSpan.FromMilliseconds(jValue.Value<double>())
                             : overridden(jValue, type, env, recurse))));
         }
@@ -134,7 +134,7 @@ namespace ExRam.Gremlinq.Core
                         .Remove(typeof(byte[]))))
                 .ConfigureSerializer(static _ => _
                     .ConfigureFragmentSerializer(static _ => _
-                        .Override<byte[]>(static (bytes, env, overridden, recurse) => recurse.Serialize(Convert.ToBase64String(bytes), env))));
+                        .Override<byte[]>(static (bytes, env, _, recurse) => recurse.Serialize(Convert.ToBase64String(bytes), env))));
         }
 
         public static IGremlinQueryEnvironment RegisterNativeType<TNative>(this IGremlinQueryEnvironment environment, GremlinQueryFragmentSerializerDelegate<TNative> serializerDelegate, GremlinQueryFragmentDeserializerDelegate<JValue> deserializer)

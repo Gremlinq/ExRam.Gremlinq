@@ -53,7 +53,7 @@ namespace ExRam.Gremlinq.Core
             if (!add)
             {
                 var droppableKeys = props
-                    .Select(p => p.key.RawKey)
+                    .Select(static p => p.key.RawKey)
                     .OfType<string>()
                     .ToArray();
 
@@ -156,7 +156,7 @@ namespace ExRam.Gremlinq.Core
                         return builder.OuterQuery.None();
 
                     var fusedTraversals = new ArraySegment<Traversal>(traversals, 0, count)
-                        .Fuse((p1, p2) => p1.And(p2))
+                        .Fuse(static (p1, p2) => p1.And(p2))
                         .ToArray();
 
                     return fusedTraversals?.Length switch
@@ -560,7 +560,7 @@ namespace ExRam.Gremlinq.Core
                     static (builder, step) => builder
                         .AddStep(step)
                         .WithNewProjection(Projection.Vertex)
-                        .WithFlags(flags => flags & ~QueryFlags.InAndOutVMustBeTypeFiltered)
+                        .WithFlags(static flags => flags & ~QueryFlags.InAndOutVMustBeTypeFiltered)
                         .AutoBuild<TNewElement>(),
                     step);
 
@@ -678,7 +678,7 @@ namespace ExRam.Gremlinq.Core
             .Continue()
             .Build(static builder => builder
                 .AddStep(NoneStep.Instance)
-                .WithFlags(flags => flags | QueryFlags.IsMuted)
+                .WithFlags(static flags => flags | QueryFlags.IsMuted)
                 .Build());
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> None() => this

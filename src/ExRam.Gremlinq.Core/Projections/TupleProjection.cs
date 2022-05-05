@@ -45,17 +45,17 @@ namespace ExRam.Gremlinq.Core.Projections
                     .ToImmutableArray())
                 .ToArray();
 
-            if (projectionTraversals.All(x => x.Length == 1))
+            if (projectionTraversals.All(static x => x.Length == 1))
                 return Traversal.Empty;
 
             return projectionTraversals
-                .Select(traversal => (Step)new ProjectStep.ByTraversalStep(traversal))
+                .Select(static traversal => (Step)new ProjectStep.ByTraversalStep(traversal))
                 .Prepend(new ProjectStep(_projections
-                    .Select(x => x.Key)
+                    .Select(static x => x.Key)
                     .ToImmutableArray()))
                 .Apply(
                     static (traversal, emptyProjectionProtection) => emptyProjectionProtection is { } protection
-                        ? traversal.Concat(emptyProjectionProtection)
+                        ? traversal.Concat(protection)
                         : traversal,
                     emptyProjectionProtection)
                 .ToImmutableArray();

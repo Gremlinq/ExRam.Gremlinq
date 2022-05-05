@@ -56,7 +56,7 @@ namespace ExRam.Gremlinq.Core
         {
             return Caches.GetValue(
                 model,
-                closure => new GraphElementModelCacheImpl(closure));
+                static closure => new GraphElementModelCacheImpl(closure));
         }
     }
 }

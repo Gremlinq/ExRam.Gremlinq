@@ -20,28 +20,28 @@ namespace ExRam.Gremlinq.Core.Models
         {
             return SetSerializationBehaviour(
                 propertyExpression,
-                behaviour => behaviour | SerializationBehaviour.IgnoreOnAdd);
+                static behaviour => behaviour | SerializationBehaviour.IgnoreOnAdd);
         }
 
         public IMemberMetadataConfigurator<TElement> IgnoreOnUpdate<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression)
         {
             return SetSerializationBehaviour(
                 propertyExpression,
-                behaviour => behaviour | SerializationBehaviour.IgnoreOnUpdate);
+                static behaviour => behaviour | SerializationBehaviour.IgnoreOnUpdate);
         }
 
         public IMemberMetadataConfigurator<TElement> IgnoreAlways<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression)
         {
             return SetSerializationBehaviour(
                 propertyExpression,
-                behaviour => behaviour | SerializationBehaviour.IgnoreAlways);
+                static behaviour => behaviour | SerializationBehaviour.IgnoreAlways);
         }
 
         public IMemberMetadataConfigurator<TElement> ResetSerializationBehaviour<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression)
         {
             return SetSerializationBehaviour(
                 propertyExpression,
-                _ => SerializationBehaviour.Default);
+                static _ => SerializationBehaviour.Default);
         }
 
         public IMemberMetadataConfigurator<TElement> ConfigureName<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression, string name)

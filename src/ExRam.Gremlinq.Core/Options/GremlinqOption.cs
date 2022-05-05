@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Immutable;
 using ExRam.Gremlinq.Core.Models;
-using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Core.Steps;
 using Gremlin.Net.Process.Traversal;
 using Microsoft.Extensions.Logging;

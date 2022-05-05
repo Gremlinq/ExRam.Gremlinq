@@ -7,7 +7,7 @@ namespace ExRam.Gremlinq.Core.Serialization
     {
         private readonly string? _stringKey;
         private static readonly BindingKey[]? Keys = Enumerable.Range(0, 100)
-            .Select(x => (BindingKey)x)
+            .Select(static x => (BindingKey)x)
             .ToArray();
 
         public BindingKey(int key)

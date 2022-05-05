@@ -47,7 +47,7 @@ namespace ExRam.Gremlinq.Core
                 return _fastDict
                     .GetOrAdd(
                         (staticType, actualType),
-                        (typeTuple, @this) =>
+                        static (typeTuple, @this) =>
                         {
                             var (staticType, actualType) = typeTuple;
 
@@ -82,7 +82,7 @@ namespace ExRam.Gremlinq.Core
                 where TEffective : Step
                 where TStatic : Step
             {
-                return (steps, step, environment, recurse) => del(steps, (TEffective)(Step)step!, environment, (steps, step, _, _) => steps.Push(step), recurse);
+                return (steps, step, environment, recurse) => del(steps, (TEffective)(Step)step!, environment, static (steps, step, _, _) => steps.Push(step), recurse);
             }
         }
 
@@ -101,15 +101,15 @@ namespace ExRam.Gremlinq.Core
         public static readonly IAddStepHandler Empty = new EmptyAddStepHandler();
 
         public static readonly IAddStepHandler Default = Empty
-            .Override<AsStep>((steps, step, env, overridden, recurse) => steps.PeekOrDefault() is AsStep asStep && ReferenceEquals(asStep.StepLabel, step.StepLabel)
+            .Override<AsStep>(static (steps, step, env, overridden, recurse) => steps.PeekOrDefault() is AsStep asStep && ReferenceEquals(asStep.StepLabel, step.StepLabel)
                 ? steps
                 : overridden(steps, step, env, recurse))
-            .Override<HasLabelStep>((steps, step, env, overridden, recurse) => steps.PeekOrDefault() is HasLabelStep hasLabelStep
+            .Override<HasLabelStep>(static (steps, step, env, overridden, recurse) => steps.PeekOrDefault() is HasLabelStep hasLabelStep
                 ? steps
                     .Pop()
                     .Push(new HasLabelStep(step.Labels.Intersect(hasLabelStep.Labels).ToImmutableArray()))
                 : overridden(steps, step, env, recurse))
-            .Override<HasPredicateStep>((steps, step, env, overridden, recurse) =>
+            .Override<HasPredicateStep>(static (steps, step, env, overridden, recurse) =>
             {
                 if (steps.PeekOrDefault() is HasPredicateStep hasStep && hasStep.Key == step.Key)
                 {
@@ -126,23 +126,23 @@ namespace ExRam.Gremlinq.Core
 
                 return overridden(steps, step, env, recurse);
             })
-            .Override<IdentityStep>((steps, step, env, overridden, recurse) => steps.PeekOrDefault() is IdentityStep
+            .Override<IdentityStep>(static (steps, step, env, overridden, recurse) => steps.PeekOrDefault() is IdentityStep
                 ? steps
                 : overridden(steps, step, env, recurse))
-            .Override<WithoutStrategiesStep>((steps, step, env, overridden, recurse) => (steps.PeekOrDefault() is WithoutStrategiesStep withoutStrategies)
+            .Override<WithoutStrategiesStep>(static (steps, step, env, overridden, recurse) => (steps.PeekOrDefault() is WithoutStrategiesStep withoutStrategies)
                 ? steps
                     .Pop()
                     .Push(new WithoutStrategiesStep(withoutStrategies.StrategyTypes.Concat(step.StrategyTypes).Distinct().ToImmutableArray()))
                 : overridden(steps, step, env, recurse))
-            .Override<SelectStepLabelStep>((steps, step, env, overridden, recurse) => steps.PeekOrDefault() is AsStep asStep && step.StepLabels.Length == 1 && ReferenceEquals(asStep.StepLabel, step.StepLabels[0])
+            .Override<SelectStepLabelStep>(static (steps, step, env, overridden, recurse) => steps.PeekOrDefault() is AsStep asStep && step.StepLabels.Length == 1 && ReferenceEquals(asStep.StepLabel, step.StepLabels[0])
                 ? steps
                 : overridden(steps, step, env, recurse))
-            .Override<IsStep>((steps, step, env, overridden, recurse) => steps.PeekOrDefault() is IsStep isStep
+            .Override<IsStep>(static (steps, step, env, overridden, recurse) => steps.PeekOrDefault() is IsStep isStep
                 ? steps
                     .Pop()
                     .Push(new IsStep(isStep.Predicate.And(step.Predicate)))
                 : overridden(steps, step, env, recurse))
-            .Override<NoneStep>((steps, step, env, overridden, recurse) => steps.PeekOrDefault() is NoneStep
+            .Override<NoneStep>(static (steps, step, env, overridden, recurse) => steps.PeekOrDefault() is NoneStep
                 ? steps
                 : overridden(steps, step, env, recurse));
     }
