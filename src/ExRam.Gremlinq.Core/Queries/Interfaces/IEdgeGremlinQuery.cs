@@ -90,5 +90,8 @@ namespace ExRam.Gremlinq.Core
         IEdgeGremlinQueryBaseRec<TEdge, IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>>
     {
         new IEdgeGremlinQuery<TEdge> Lower();
+
+        IInEdgeGremlinQuery<TEdge, TInVertex> AsInEdge();
+        IOutEdgeGremlinQuery<TEdge, TOutVertex> AsOutEdge();
     }
 }
