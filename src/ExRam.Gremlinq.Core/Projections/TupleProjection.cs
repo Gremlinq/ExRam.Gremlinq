@@ -38,7 +38,7 @@ namespace ExRam.Gremlinq.Core.Projections
                     .ToTraversal(environment)
                     .Prepend(new SelectKeysStep(projection.Key))
                     .Apply(
-                        static (traversal, emptyProjectionProtection) => emptyProjectionProtection is { } protection
+                        static (traversal, emptyProjectionProtection) => emptyProjectionProtection is not null
                             ? traversal.Append(FoldStep.Instance)
                             : traversal,
                         emptyProjectionProtection)
