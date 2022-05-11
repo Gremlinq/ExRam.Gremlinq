@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ExRam.Gremlinq.Providers.CosmosDb.AspNet" Version="9.2.0" />
+    <PackageReference Include="ExRam.Gremlinq.Providers.CosmosDb.AspNet" Version="10.0.0-preview.463" />
   </ItemGroup>
 
   <ItemGroup>

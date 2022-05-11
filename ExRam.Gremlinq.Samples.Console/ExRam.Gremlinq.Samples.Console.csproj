@@ -6,10 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ExRam.Gremlinq.Providers.CosmosDb" Version="9.2.0" />
-    <PackageReference Include="ExRam.Gremlinq.Providers.Neptune" Version="9.2.0" />
-    <PackageReference Include="ExRam.Gremlinq.Providers.GremlinServer" Version="9.2.0" />
-    <PackageReference Include="ExRam.Gremlinq.Providers.JanusGraph" Version="9.2.0" />
+    <PackageReference Include="ExRam.Gremlinq.Providers.CosmosDb" Version="10.0.0-preview.463" />
+    <PackageReference Include="ExRam.Gremlinq.Providers.Neptune" Version="10.0.0-preview.463" />
+    <PackageReference Include="ExRam.Gremlinq.Providers.GremlinServer" Version="10.0.0-preview.463" />
+    <PackageReference Include="ExRam.Gremlinq.Providers.JanusGraph" Version="10.0.0-preview.463" />
   </ItemGroup>
 
   <ItemGroup>
