@@ -6220,6 +6220,15 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task WithSideEffect_empty_array()
+        {
+            await _g
+                .WithSideEffect("sideEffectLabel", Array.Empty<Vertex>())
+                .V()
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task WithSideEffect_continuation()
         {
             await _g
