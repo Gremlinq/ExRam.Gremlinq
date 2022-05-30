@@ -1491,8 +1491,8 @@ namespace ExRam.Gremlinq.Core
                 static (builder, tuple) => builder
                     .AddStep(new WithSideEffectStep(tuple.label, tuple.value!))
                     .WithNewStepLabelProjection(
-                        static (projection, tuple) => projection.SetItem(tuple.label, tuple.otherProjection),
-                        (tuple.label, otherProjection: builder.OuterQuery.Projection))
+                        static (projections, tuple) => projections.SetItem(tuple.label, tuple.projection),
+                        (tuple.label, projection: builder.OuterQuery.Projection))
                     .AutoBuild(),
                 (label, value));
     }
