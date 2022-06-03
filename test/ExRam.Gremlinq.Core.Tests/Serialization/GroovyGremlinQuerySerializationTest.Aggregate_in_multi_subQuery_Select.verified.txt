@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "g.V().hasLabel(_a).coalesce(__.aggregate(_b),__.aggregate(_c)).project(_d,_e).by(__.select(_b)).by(__.select(_c)).project(_d,_e).by(__.select(_d).local(__.unfold().project(_f,_g,_h).by(id).by(label).by(__.properties().group().by(label).by(__.project(_f,_g,_i,_h).by(id).by(label).by(value).by(__.valueMap()).fold())).fold())).by(__.select(_e).local(__.unfold().project(_f,_g,_h).by(id).by(label).by(__.properties().group().by(label).by(__.project(_f,_g,_i,_h).by(id).by(label).by(value).by(__.valueMap()).fold())).fold()))",
+    "Script": "g.V().hasLabel(_a).coalesce(__.aggregate(_b),__.aggregate(_c)).project(_d,_e).by(__.select(_b)).by(__.select(_c)).project(_d,_e).by(__.select(_d).local(__.unfold().map(__.union(__.project(_f,_g).by(id).by(label).unfold(),__.properties().has(key,neq(_f).and(neq(_g))).group().by(label).by(__.project(_f,_g,_h,_i).by(id).by(label).by(value).by(__.valueMap()).fold()).unfold()).group().by(__.select(keys)).by(__.select(values))).fold())).by(__.select(_e).local(__.unfold().map(__.union(__.project(_f,_g).by(id).by(label).unfold(),__.properties().has(key,neq(_f).and(neq(_g))).group().by(label).by(__.project(_f,_g,_h,_i).by(id).by(label).by(value).by(__.valueMap()).fold()).unfold()).group().by(__.select(keys)).by(__.select(values))).fold()))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Person",
@@ -10,8 +10,8 @@
       "_e": "Item2",
       "_f": "id",
       "_g": "label",
-      "_h": "properties",
-      "_i": "value"
+      "_h": "value",
+      "_i": "properties"
     }
   }
 ]

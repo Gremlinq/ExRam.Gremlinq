@@ -1,1 +1,1 @@
-﻿"g.V().outE('String').project('id','label','properties').by(id).by(label).by(__.valueMap())"
+﻿"g.V().outE('String').map(__.union(__.project('id','label').by(id).by(label).unfold(),__.properties().has(key,neq('id').and(neq('label'))).group().by(key).by(__.value()).unfold()).group().by(__.select(keys)).by(__.select(values)))"

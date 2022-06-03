@@ -1,11 +1,10 @@
 ﻿[
   {
-    "Script": "g.V().inE().project(_a,_b,_c).by(id).by(label).by(__.valueMap())",
+    "Script": "g.V().inE().map(__.union(__.project(_a,_b).by(id).by(label).unfold(),__.properties().has(key,neq(_a).and(neq(_b))).group().by(key).by(__.value()).unfold()).group().by(__.select(keys)).by(__.select(values)))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "id",
-      "_b": "label",
-      "_c": "properties"
+      "_b": "label"
     }
   }
 ]

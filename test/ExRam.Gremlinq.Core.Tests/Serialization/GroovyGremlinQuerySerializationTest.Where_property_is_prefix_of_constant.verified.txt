@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "g.V().hasLabel(_a).has(_b,within(_c,_d,_e,_f,_g,_h,_i)).project(_j,_k,_l).by(id).by(label).by(__.properties().group().by(label).by(__.project(_j,_k,_m,_l).by(id).by(label).by(value).by(__.valueMap()).fold()))",
+    "Script": "g.V().hasLabel(_a).has(_b,within(_c,_d,_e,_f,_g,_h,_i)).map(__.union(__.project(_j,_k).by(id).by(label).unfold(),__.properties().has(key,neq(_j).and(neq(_k))).group().by(label).by(__.project(_j,_k,_l,_m).by(id).by(label).by(value).by(__.valueMap()).fold()).unfold()).group().by(__.select(keys)).by(__.select(values)))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Country",
@@ -14,8 +14,8 @@
       "_i": "+49123",
       "_j": "id",
       "_k": "label",
-      "_l": "properties",
-      "_m": "value"
+      "_l": "value",
+      "_m": "properties"
     }
   }
 ]
