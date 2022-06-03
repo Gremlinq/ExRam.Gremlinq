@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "g.V().project(_a,_b,_c,_d).by(__.in().limit(_e).fold()).by(__.out().limit(_e).fold()).by(__.count().limit(_e).fold()).by(__.properties().limit(_e).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold())).project(_a,_b,_c,_d).by(__.select(_a).map(__.union(__.project(_f,_g).by(id).by(label).unfold(),__.properties().has(key,neq(_f).and(neq(_g))).group().by(label).by(__.project(_f,_g,_h,_i).by(id).by(label).by(value).by(__.valueMap()).fold()).unfold()).group().by(__.select(keys)).by(__.select(values))).fold()).by(__.select(_b).map(__.union(__.project(_f,_g).by(id).by(label).unfold(),__.properties().has(key,neq(_f).and(neq(_g))).group().by(label).by(__.project(_f,_g,_h,_i).by(id).by(label).by(value).by(__.valueMap()).fold()).unfold()).group().by(__.select(keys)).by(__.select(values))).fold()).by(__.select(_c).fold()).by(__.select(_d).project(_f,_g,_h,_i).by(id).by(label).by(value).by(__.valueMap()).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold()))",
+    "Script": "g.V().project(_a,_b,_c,_d).by(__.in().limit(_e).fold()).by(__.out().limit(_e).fold()).by(__.count().limit(_e).fold()).by(__.properties().limit(_e).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold())).project(_a,_b,_c,_d).by(__.select(_a).project(_f,_g,_h).by(id).by(label).by(__.properties().group().by(label).by(__.project(_f,_g,_i,_h).by(id).by(label).by(value).by(__.valueMap()).fold())).fold()).by(__.select(_b).project(_f,_g,_h).by(id).by(label).by(__.properties().group().by(label).by(__.project(_f,_g,_i,_h).by(id).by(label).by(value).by(__.valueMap()).fold())).fold()).by(__.select(_c).fold()).by(__.select(_d).project(_f,_g,_i,_h).by(id).by(label).by(value).by(__.valueMap()).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold()))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Item1",
@@ -10,8 +10,8 @@
       "_e": 1,
       "_f": "id",
       "_g": "label",
-      "_h": "value",
-      "_i": "properties"
+      "_h": "properties",
+      "_i": "value"
     }
   }
 ]

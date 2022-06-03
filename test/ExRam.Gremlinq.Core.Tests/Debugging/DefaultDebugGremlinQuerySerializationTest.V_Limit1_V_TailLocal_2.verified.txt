@@ -1,1 +1,1 @@
-﻿"g.V().limit(1).tail(local,2).map(__.union(__.project('id','label').by(id).by(label).unfold(),__.properties().has(key,neq('id').and(neq('label'))).group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold()).unfold()).group().by(__.select(keys)).by(__.select(values)))"
+﻿"g.V().limit(1).tail(local,2).project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold()))"

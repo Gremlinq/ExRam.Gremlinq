@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "g.addV(_a).property(single,_b,_c).as(_d).addV(_e).property(single,_f,_g).addE(_h).to(_d).map(__.union(__.project(_i,_j).by(id).by(label).unfold(),__.properties().has(key,neq(_i).and(neq(_j))).group().by(key).by(__.value()).unfold()).group().by(__.select(keys)).by(__.select(values)))",
+    "Script": "g.addV(_a).property(single,_b,_c).as(_d).addV(_e).property(single,_f,_g).addE(_h).to(_d).project(_i,_j,_k).by(id).by(label).by(__.valueMap())",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Language",
@@ -12,7 +12,8 @@
       "_g": "+49",
       "_h": "Speaks",
       "_i": "id",
-      "_j": "label"
+      "_j": "label",
+      "_k": "properties"
     }
   }
 ]

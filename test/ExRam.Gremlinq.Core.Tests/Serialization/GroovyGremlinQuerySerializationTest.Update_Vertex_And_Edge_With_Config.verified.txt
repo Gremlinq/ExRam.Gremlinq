@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "g.V().hasLabel(_a).sideEffect(__.properties(_b,_c).drop()).property(single,_b,_d).property(single,_c,_e).outE(_f).sideEffect(__.properties(_g).drop()).property(_g,_e).map(__.union(__.project(_h,_i).by(id).by(label).unfold(),__.properties().has(key,neq(_h).and(neq(_i))).group().by(key).by(__.value()).unfold()).group().by(__.select(keys)).by(__.select(values)))",
+    "Script": "g.V().hasLabel(_a).sideEffect(__.properties(_b,_c).drop()).property(single,_b,_d).property(single,_c,_e).outE(_f).sideEffect(__.properties(_g).drop()).property(_g,_e).project(_h,_i,_j).by(id).by(label).by(__.valueMap())",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Person",
@@ -11,7 +11,8 @@
       "_f": "WorksFor",
       "_g": "To",
       "_h": "id",
-      "_i": "label"
+      "_i": "label",
+      "_j": "properties"
     }
   }
 ]

@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "g.V().hasLabel(_a).filter(__.in()).filter(__.out()).filter(__.properties()).project(_b,_c,_d,_e).by(__.in()).by(__.out()).by(_f).by(__.properties()).project(_b,_c,_d,_e).by(__.select(_b).map(__.union(__.project(_g,_h).by(id).by(label).unfold(),__.properties().has(key,neq(_g).and(neq(_h))).group().by(label).by(__.project(_g,_h,_i,_j).by(id).by(label).by(value).by(__.valueMap()).fold()).unfold()).group().by(__.select(keys)).by(__.select(values)))).by(__.select(_c).map(__.union(__.project(_g,_h).by(id).by(label).unfold(),__.properties().has(key,neq(_g).and(neq(_h))).group().by(label).by(__.project(_g,_h,_i,_j).by(id).by(label).by(value).by(__.valueMap()).fold()).unfold()).group().by(__.select(keys)).by(__.select(values)))).by(__.select(_d)).by(__.select(_e).project(_g,_h,_i,_j).by(id).by(label).by(value).by(__.valueMap()))",
+    "Script": "g.V().hasLabel(_a).filter(__.in()).filter(__.out()).filter(__.properties()).project(_b,_c,_d,_e).by(__.in()).by(__.out()).by(_f).by(__.properties()).project(_b,_c,_d,_e).by(__.select(_b).project(_g,_h,_i).by(id).by(label).by(__.properties().group().by(label).by(__.project(_g,_h,_j,_i).by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.select(_c).project(_g,_h,_i).by(id).by(label).by(__.properties().group().by(label).by(__.project(_g,_h,_j,_i).by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.select(_d)).by(__.select(_e).project(_g,_h,_j,_i).by(id).by(label).by(value).by(__.valueMap()))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Person",
@@ -11,8 +11,8 @@
       "_f": "Age",
       "_g": "id",
       "_h": "label",
-      "_i": "value",
-      "_j": "properties"
+      "_i": "properties",
+      "_j": "value"
     }
   }
 ]

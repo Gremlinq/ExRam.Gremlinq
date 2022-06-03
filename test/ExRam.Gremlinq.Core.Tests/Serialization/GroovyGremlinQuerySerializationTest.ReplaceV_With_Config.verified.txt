@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "g.V(_a).hasLabel(_b).sideEffect(__.properties(_c,_d,_e).drop()).property(single,_c,_f).property(single,_d,_g).property(single,_e,_h).map(__.union(__.project(_i,_j).by(id).by(label).unfold(),__.properties().has(key,neq(_i).and(neq(_j))).group().by(label).by(__.project(_i,_j,_k,_l).by(id).by(label).by(value).by(__.valueMap()).fold()).unfold()).group().by(__.select(keys)).by(__.select(values)))",
+    "Script": "g.V(_a).hasLabel(_b).sideEffect(__.properties(_c,_d,_e).drop()).property(single,_c,_f).property(single,_d,_g).property(single,_e,_h).project(_i,_j,_k).by(id).by(label).by(__.properties().group().by(label).by(__.project(_i,_j,_l,_k).by(id).by(label).by(value).by(__.valueMap()).fold()))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": 0,
@@ -13,8 +13,8 @@
       "_h": "Marko",
       "_i": "id",
       "_j": "label",
-      "_k": "value",
-      "_l": "properties"
+      "_k": "properties",
+      "_l": "value"
     }
   }
 ]

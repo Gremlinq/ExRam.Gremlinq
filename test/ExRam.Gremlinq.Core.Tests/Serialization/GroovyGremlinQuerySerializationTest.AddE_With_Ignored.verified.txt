@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "g.addE(_a).property(_b,_c).from(__.addV(_d).property(single,_e,_f)).to(__.addV(_g).property(single,_h,_i)).map(__.union(__.project(_j,_k).by(id).by(label).unfold(),__.properties().has(key,neq(_j).and(neq(_k))).group().by(key).by(__.value()).unfold()).group().by(__.select(keys)).by(__.select(values)))",
+    "Script": "g.addE(_a).property(_b,_c).from(__.addV(_d).property(single,_e,_f)).to(__.addV(_g).property(single,_h,_i)).project(_j,_k,_l).by(id).by(label).by(__.valueMap())",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "WorksFor",
@@ -13,7 +13,8 @@
       "_h": "FoundingDate",
       "_i": "0001-01-01T00:00:00+00:00",
       "_j": "id",
-      "_k": "label"
+      "_k": "label",
+      "_l": "properties"
     }
   }
 ]

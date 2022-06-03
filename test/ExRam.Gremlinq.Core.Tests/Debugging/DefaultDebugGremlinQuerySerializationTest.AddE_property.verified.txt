@@ -1,1 +1,1 @@
-﻿"g.addV('Person').property(single,'Age',0).addE('LivesIn').property('Since','2020-04-07T14:43:36.0000000+00:00').to(__.addV('Country')).map(__.union(__.project('id','label').by(id).by(label).unfold(),__.properties().has(key,neq('id').and(neq('label'))).group().by(key).by(__.value()).unfold()).group().by(__.select(keys)).by(__.select(values)))"
+﻿"g.addV('Person').property(single,'Age',0).addE('LivesIn').property('Since','2020-04-07T14:43:36.0000000+00:00').to(__.addV('Country')).project('id','label','properties').by(id).by(label).by(__.valueMap())"
