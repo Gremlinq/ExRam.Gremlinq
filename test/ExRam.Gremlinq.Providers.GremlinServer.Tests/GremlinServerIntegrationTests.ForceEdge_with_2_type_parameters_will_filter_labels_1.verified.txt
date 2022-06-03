@@ -18,12 +18,7 @@
                 "@value": "scrubbed id"
               },
               "label",
-              "Country",
-              "properties",
-              {
-                "@type": "g:Map",
-                "@value": []
-              }
+              "Country"
             ]
           }
         }
@@ -44,12 +39,7 @@
                 "@value": "scrubbed id"
               },
               "label",
-              "Country",
-              "properties",
-              {
-                "@type": "g:Map",
-                "@value": []
-              }
+              "Country"
             ]
           }
         }
@@ -64,44 +54,38 @@
           "value": {
             "@type": "g:Map",
             "@value": [
-              "id",
+              "CountryCallingCode",
               {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "label",
-              "Country",
-              "properties",
-              {
-                "@type": "g:Map",
+                "@type": "g:List",
                 "@value": [
-                  "CountryCallingCode",
                   {
-                    "@type": "g:List",
+                    "@type": "g:Map",
                     "@value": [
+                      "id",
+                      {
+                        "@type": "g:Int64",
+                        "@value": "scrubbed id"
+                      },
+                      "label",
+                      "CountryCallingCode",
+                      "value",
+                      "+49",
+                      "properties",
                       {
                         "@type": "g:Map",
-                        "@value": [
-                          "id",
-                          {
-                            "@type": "g:Int64",
-                            "@value": "scrubbed id"
-                          },
-                          "label",
-                          "CountryCallingCode",
-                          "value",
-                          "+49",
-                          "properties",
-                          {
-                            "@type": "g:Map",
-                            "@value": []
-                          }
-                        ]
+                        "@value": []
                       }
                     ]
                   }
                 ]
-              }
+              },
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
+              "Country"
             ]
           }
         }
@@ -122,12 +106,7 @@
                 "@value": "scrubbed id"
               },
               "label",
-              "Country",
-              "properties",
-              {
-                "@type": "g:Map",
-                "@value": []
-              }
+              "Country"
             ]
           }
         }
