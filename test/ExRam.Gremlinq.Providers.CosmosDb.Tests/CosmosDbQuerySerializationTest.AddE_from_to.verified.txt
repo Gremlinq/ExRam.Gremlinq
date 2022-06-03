@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "g.addE(_a).property(_b,_c).property(_d,_e).property(_f,_c).from(__.addV(_g).property(_h,_h).property(single,_i,_j)).to(__.addV(_k).property(_h,_h).property(single,_l,_m))",
+    "Script": "g.addE(_a).property(_b,_c).property(_d,_e).property(_f,_c).from(__.addV(_g).property(_h,_h).property(single,_i,_j)).to(__.addV(_k).property(_h,_h).property(single,_l,_m)).map(__.union(__.project(_n,_o).by(id).by(label).unfold(),__.properties().has(key,neq(_n).and(neq(_o))).group().by(key).by(__.value()).unfold()).group().by(__.select(keys)).by(__.select(values)))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "WorksFor",
@@ -15,7 +15,9 @@
       "_j": 0,
       "_k": "Company",
       "_l": "FoundingDate",
-      "_m": "0001-01-01T00:00:00+00:00"
+      "_m": "0001-01-01T00:00:00+00:00",
+      "_n": "id",
+      "_o": "label"
     }
   }
 ]

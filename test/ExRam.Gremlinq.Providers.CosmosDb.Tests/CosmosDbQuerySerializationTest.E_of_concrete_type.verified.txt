@@ -1,9 +1,11 @@
 ﻿[
   {
-    "Script": "g.E().hasLabel(_a)",
+    "Script": "g.E().hasLabel(_a).map(__.union(__.project(_b,_c).by(id).by(label).unfold(),__.properties().has(key,neq(_b).and(neq(_c))).group().by(key).by(__.value()).unfold()).group().by(__.select(keys)).by(__.select(values)))",
     "Id": "Scrubbed GUID",
     "Bindings": {
-      "_a": "WorksFor"
+      "_a": "WorksFor",
+      "_b": "id",
+      "_c": "label"
     }
   }
 ]

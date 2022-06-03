@@ -1,12 +1,16 @@
 ﻿[
   {
-    "Script": "g.addV(_a).property(_b,_b).property(single,_c,_d)",
+    "Script": "g.addV(_a).property(_b,_b).property(single,_c,_d).map(__.union(__.project(_e,_f).by(id).by(label).unfold(),__.properties().has(key,neq(_e).and(neq(_f))).group().by(label).by(__.project(_e,_f,_g,_h).by(id).by(label).by(__.value()).by(__.valueMap()).fold()).unfold()).group().by(__.select(keys)).by(__.select(values)))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Language",
       "_b": "PartitionKey",
       "_c": "IetfLanguageTag",
-      "_d": "en"
+      "_d": "en",
+      "_e": "id",
+      "_f": "label",
+      "_g": "value",
+      "_h": "properties"
     }
   }
 ]

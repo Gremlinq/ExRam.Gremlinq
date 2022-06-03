@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Immutable;
 using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Providers.CosmosDb;
@@ -71,6 +72,87 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
+        private static readonly Traversal VertexProjectionSteps = new Step[]
+        {
+            new MapStep(
+                new Step[]
+                {
+                    new UnionStep(
+                        new Traversal[]
+                        {
+                            new Step[]
+                            {
+                                new ProjectStep(ImmutableArray.Create("id", "label")),
+                                new ProjectStep.ByKeyStep(T.Id),
+                                new ProjectStep.ByKeyStep(T.Label),
+                                UnfoldStep.Instance
+                            },
+                            new Step[]
+                            {
+                                new PropertiesStep(ImmutableArray<string>.Empty),
+                                new HasPredicateStep(T.Key, P.Neq("id").And(P.Neq("label"))),
+                                GroupStep.Instance,
+                                new GroupStep.ByKeyStep(T.Label),
+                                new GroupStep.ByTraversalStep(new Step[]
+                                {
+                                    new ProjectStep(ImmutableArray.Create("id", "label", "value", "properties")),
+                                    new ProjectStep.ByKeyStep(T.Id),
+                                    new ProjectStep.ByKeyStep(T.Label),
+                                    new ProjectStep.ByTraversalStep(ValueStep.Instance),
+                                    new ProjectStep.ByTraversalStep(new ValueMapStep(ImmutableArray<string>.Empty)),
+                                    FoldStep.Instance
+                                }),
+                                UnfoldStep.Instance
+                            }
+                        }
+                        .ToImmutableArray()),
+                    GroupStep.Instance,
+                    new GroupStep.ByTraversalStep(new SelectColumnStep(Column.Keys)),
+                    new GroupStep.ByTraversalStep(new SelectColumnStep(Column.Values))
+                })
+        };
+
+        private static readonly Traversal VertexPropertyProjectionSteps = new Step[]
+        {
+            new ProjectStep(ImmutableArray.Create("id", "label", "value", "properties")),
+            new ProjectStep.ByKeyStep(T.Id),
+            new ProjectStep.ByKeyStep(T.Label),
+            new ProjectStep.ByTraversalStep(ValueStep.Instance),
+            new ProjectStep.ByTraversalStep(new ValueMapStep(ImmutableArray<string>.Empty)),
+        };
+
+        private static readonly Traversal EdgeProjectionSteps = new Step[]
+        {
+            new MapStep(
+                new Step[]
+                {
+                    new UnionStep(
+                        new Traversal[]
+                        {
+                            new Step[]
+                            {
+                                new ProjectStep(ImmutableArray.Create("id", "label")),
+                                new ProjectStep.ByKeyStep(T.Id),
+                                new ProjectStep.ByKeyStep(T.Label),
+                                UnfoldStep.Instance
+                            },
+                            new Step[]
+                            {
+                                new PropertiesStep(ImmutableArray<string>.Empty),
+                                new HasPredicateStep(T.Key, P.Neq("id").And(P.Neq("label"))),
+                                GroupStep.Instance,
+                                new GroupStep.ByKeyStep(T.Key),
+                                new GroupStep.ByTraversalStep(new ValueStep()),
+                                UnfoldStep.Instance
+                            }
+                        }
+                        .ToImmutableArray()),
+                    GroupStep.Instance,
+                    new GroupStep.ByTraversalStep(new SelectColumnStep(Column.Keys)),
+                    new GroupStep.ByTraversalStep(new SelectColumnStep(Column.Values))
+                })
+        };
+
         private static readonly Step NoneWorkaround = new NotStep(IdentityStep.Instance);
 
         public static IGremlinQuerySource UseCosmosDb(this IConfigurableGremlinQuerySource source, Func<ICosmosDbConfigurator, IGremlinQuerySourceTransformation> transformation)
@@ -86,9 +168,9 @@ namespace ExRam.Gremlinq.Core
                         .ConfigureEdgeFeatures(_ => EdgeFeatures.AddEdges | EdgeFeatures.RemoveEdges | EdgeFeatures.StringIds | EdgeFeatures.UserSuppliedIds | EdgeFeatures.AddProperty | EdgeFeatures.RemoveProperty)
                         .ConfigureEdgePropertyFeatures(_ => EdgePropertyFeatures.Properties | EdgePropertyFeatures.BooleanValues | EdgePropertyFeatures.ByteValues | EdgePropertyFeatures.DoubleValues | EdgePropertyFeatures.FloatValues | EdgePropertyFeatures.IntegerValues | EdgePropertyFeatures.LongValues | EdgePropertyFeatures.StringValues))
                     .ConfigureOptions(options => options
-                        .SetValue(GremlinqOption.VertexProjectionSteps, Traversal.Empty)
-                        .SetValue(GremlinqOption.EdgeProjectionSteps, Traversal.Empty)
-                        .SetValue(GremlinqOption.VertexPropertyProjectionSteps, Traversal.Empty))
+                        .SetValue(GremlinqOption.VertexProjectionSteps, VertexProjectionSteps)
+                        .SetValue(GremlinqOption.EdgeProjectionSteps, EdgeProjectionSteps)
+                        .SetValue(GremlinqOption.VertexPropertyProjectionSteps, VertexPropertyProjectionSteps))
                     .ConfigureSerializer(serializer => serializer
                         .ConfigureFragmentSerializer(fragmentSerializer => fragmentSerializer
                             .Override<byte[]>((bytes, env, overridden, recurse) => recurse.Serialize(Convert.ToBase64String(bytes), env))

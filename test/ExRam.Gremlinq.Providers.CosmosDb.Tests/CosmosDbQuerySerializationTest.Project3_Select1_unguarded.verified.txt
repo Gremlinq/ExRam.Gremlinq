@@ -1,12 +1,16 @@
 ﻿[
   {
-    "Script": "g.V().project(_a,_b,_c).by(__.in().limit(_d).fold()).by(__.out().limit(_d).fold()).by(__.count().limit(_d).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold())).select(_a)",
+    "Script": "g.V().project(_a,_b,_c).by(__.in().limit(_d).fold()).by(__.out().limit(_d).fold()).by(__.count().limit(_d).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold())).select(_a).map(__.union(__.project(_e,_f).by(id).by(label).unfold(),__.properties().has(key,neq(_e).and(neq(_f))).group().by(label).by(__.project(_e,_f,_g,_h).by(id).by(label).by(__.value()).by(__.valueMap()).fold()).unfold()).group().by(__.select(keys)).by(__.select(values)))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Item1",
       "_b": "Item2",
       "_c": "Item3",
-      "_d": 1
+      "_d": 1,
+      "_e": "id",
+      "_f": "label",
+      "_g": "value",
+      "_h": "properties"
     }
   }
 ]

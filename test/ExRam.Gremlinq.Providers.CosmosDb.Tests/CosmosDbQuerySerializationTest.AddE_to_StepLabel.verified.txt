@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "g.addV(_a).property(_b,_b).property(single,_c,_d).as(_e).addV(_f).property(_b,_b).property(single,_g,_h).addE(_i).to(_e)",
+    "Script": "g.addV(_a).property(_b,_b).property(single,_c,_d).as(_e).addV(_f).property(_b,_b).property(single,_g,_h).addE(_i).to(_e).map(__.union(__.project(_j,_k).by(id).by(label).unfold(),__.properties().has(key,neq(_j).and(neq(_k))).group().by(key).by(__.value()).unfold()).group().by(__.select(keys)).by(__.select(values)))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Language",
@@ -11,7 +11,9 @@
       "_f": "Country",
       "_g": "CountryCallingCode",
       "_h": "+49",
-      "_i": "Speaks"
+      "_i": "Speaks",
+      "_j": "id",
+      "_k": "label"
     }
   }
 ]
