@@ -168,15 +168,15 @@ namespace ExRam.Gremlinq.Core
 
             private readonly KeyLookup _keyLookup;
             private readonly IGremlinQueryEnvironment _environment;
-            private readonly ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer> _ignoringSerializers = new();
-            private readonly ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer>.CreateValueCallback _ignoringSerializerFactory;
+            private readonly ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer> _serializers = new();
+            private readonly ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer>.CreateValueCallback _serializerFactory;
             private readonly ConcurrentDictionary<Type, (PropertyInfo propertyInfo, Key key, SerializationBehaviour serializationBehaviour)[]> _typeProperties = new();
 
             public GremlinQueryEnvironmentCacheImpl(IGremlinQueryEnvironment environment)
             {
                 _environment = environment;
 
-                _ignoringSerializerFactory = closure => new GraphsonJsonSerializer(
+                _serializerFactory = closure => new GraphsonJsonSerializer(
                     DefaultValueHandling.Ignore,
                     _environment,
                     closure);
@@ -203,24 +203,10 @@ namespace ExRam.Gremlinq.Core
                 _keyLookup = new KeyLookup(_environment.Model.PropertiesModel);
             }
 
-            public JsonSerializer GetPopulatingJsonSerializer(IGremlinQueryFragmentDeserializer fragmentDeserializer)
-            {
-                GraphsonJsonSerializer.JTokenConverterConverter._canConvert = false;
+            public JsonSerializer GetPopulatingJsonSerializer(IGremlinQueryFragmentDeserializer fragmentDeserializer) => GetJsonSerializer(fragmentDeserializer, false);
 
-                return _ignoringSerializers.GetValue(
-                    fragmentDeserializer,
-                    _ignoringSerializerFactory);
-            }
-
-            public JsonSerializer GetIgnoringJsonSerializer(IGremlinQueryFragmentDeserializer fragmentDeserializer)
-            {
-                GraphsonJsonSerializer.JTokenConverterConverter._canConvert = true;
-
-                return _ignoringSerializers.GetValue(
-                    fragmentDeserializer,
-                    _ignoringSerializerFactory);
-            }
-
+            public JsonSerializer GetIgnoringJsonSerializer(IGremlinQueryFragmentDeserializer fragmentDeserializer) => GetJsonSerializer(fragmentDeserializer, true);
+            
             public (PropertyInfo propertyInfo, Key key, SerializationBehaviour serializationBehaviour)[] GetSerializationData(Type type)
             {
                 return _typeProperties
@@ -239,6 +225,15 @@ namespace ExRam.Gremlinq.Core
                             .OrderBy(static x => x.key)
                             .ToArray(),
                         _environment);
+            }
+
+            private JsonSerializer GetJsonSerializer(IGremlinQueryFragmentDeserializer fragmentDeserializer, bool canConvert)
+            {
+                GraphsonJsonSerializer.JTokenConverterConverter._canConvert = canConvert;
+
+                return _serializers.GetValue(
+                    fragmentDeserializer,
+                    _serializerFactory);
             }
 
             public HashSet<Type> ModelTypes { get; }
