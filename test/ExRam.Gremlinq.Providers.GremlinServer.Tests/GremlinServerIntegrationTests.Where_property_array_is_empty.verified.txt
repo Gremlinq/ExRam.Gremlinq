@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "@type": "g:List",
     "@value": [
@@ -12,61 +12,37 @@
           "value": {
             "@type": "g:Map",
             "@value": [
-              "id",
+              "Locations",
               {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "label",
-              "Company",
-              "properties",
-              {
-                "@type": "g:Map",
+                "@type": "g:List",
                 "@value": [
-                  "FoundingDate",
                   {
-                    "@type": "g:List",
+                    "@type": "g:Map",
                     "@value": [
+                      "id",
+                      {
+                        "@type": "g:Int64",
+                        "@value": "scrubbed id"
+                      },
+                      "label",
+                      "Locations",
+                      "value",
+                      "Aachen",
+                      "properties",
                       {
                         "@type": "g:Map",
                         "@value": [
-                          "id",
-                          {
-                            "@type": "g:Int64",
-                            "@value": "scrubbed id"
-                          },
-                          "label",
-                          "FoundingDate",
-                          "value",
+                          "ValidFrom",
                           {
                             "@type": "g:Date",
-                            "@value": -62135596800000
-                          },
-                          "properties",
-                          {
-                            "@type": "g:Map",
-                            "@value": []
+                            "@value": 1546304400000
                           }
                         ]
                       }
                     ]
                   }
                 ]
-              }
-            ]
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": [
+              },
               "id",
               {
                 "@type": "g:Int64",
@@ -74,176 +50,95 @@
               },
               "label",
               "Company",
-              "properties",
+              "FoundingDate",
               {
-                "@type": "g:Map",
+                "@type": "g:List",
                 "@value": [
-                  "Locations",
                   {
-                    "@type": "g:List",
+                    "@type": "g:Map",
                     "@value": [
+                      "id",
+                      {
+                        "@type": "g:Int64",
+                        "@value": "scrubbed id"
+                      },
+                      "label",
+                      "FoundingDate",
+                      "value",
+                      {
+                        "@type": "g:Date",
+                        "@value": -62135596800000
+                      },
+                      "properties",
                       {
                         "@type": "g:Map",
-                        "@value": [
-                          "id",
-                          {
-                            "@type": "g:Int64",
-                            "@value": "scrubbed id"
-                          },
-                          "label",
-                          "Locations",
-                          "value",
-                          "Aachen",
-                          "properties",
-                          {
-                            "@type": "g:Map",
-                            "@value": [
-                              "ValidFrom",
-                              {
-                                "@type": "g:Date",
-                                "@value": 1546304400000
-                              }
-                            ]
-                          }
-                        ]
+                        "@value": []
                       }
                     ]
                   },
-                  "FoundingDate",
                   {
-                    "@type": "g:List",
+                    "@type": "g:Map",
                     "@value": [
+                      "id",
+                      {
+                        "@type": "g:Int64",
+                        "@value": "scrubbed id"
+                      },
+                      "label",
+                      "FoundingDate",
+                      "value",
+                      {
+                        "@type": "g:Date",
+                        "@value": -62135596800000
+                      },
+                      "properties",
                       {
                         "@type": "g:Map",
-                        "@value": [
-                          "id",
-                          {
-                            "@type": "g:Int64",
-                            "@value": "scrubbed id"
-                          },
-                          "label",
-                          "FoundingDate",
-                          "value",
-                          {
-                            "@type": "g:Date",
-                            "@value": -62135596800000
-                          },
-                          "properties",
-                          {
-                            "@type": "g:Map",
-                            "@value": []
-                          }
-                        ]
+                        "@value": []
                       }
                     ]
-                  }
-                ]
-              }
-            ]
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": [
-              "id",
-              {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "label",
-              "Company",
-              "properties",
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "FoundingDate",
+                  },
                   {
-                    "@type": "g:List",
+                    "@type": "g:Map",
                     "@value": [
+                      "id",
+                      {
+                        "@type": "g:Int64",
+                        "@value": "scrubbed id"
+                      },
+                      "label",
+                      "FoundingDate",
+                      "value",
+                      {
+                        "@type": "g:Date",
+                        "@value": -62135596800000
+                      },
+                      "properties",
                       {
                         "@type": "g:Map",
-                        "@value": [
-                          "id",
-                          {
-                            "@type": "g:Int64",
-                            "@value": "scrubbed id"
-                          },
-                          "label",
-                          "FoundingDate",
-                          "value",
-                          {
-                            "@type": "g:Date",
-                            "@value": -62135596800000
-                          },
-                          "properties",
-                          {
-                            "@type": "g:Map",
-                            "@value": []
-                          }
-                        ]
+                        "@value": []
                       }
                     ]
-                  }
-                ]
-              }
-            ]
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": [
-              "id",
-              {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "label",
-              "Company",
-              "properties",
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "FoundingDate",
+                  },
                   {
-                    "@type": "g:List",
+                    "@type": "g:Map",
                     "@value": [
+                      "id",
+                      {
+                        "@type": "g:Int64",
+                        "@value": "scrubbed id"
+                      },
+                      "label",
+                      "FoundingDate",
+                      "value",
+                      {
+                        "@type": "g:Date",
+                        "@value": -62135596800000
+                      },
+                      "properties",
                       {
                         "@type": "g:Map",
-                        "@value": [
-                          "id",
-                          {
-                            "@type": "g:Int64",
-                            "@value": "scrubbed id"
-                          },
-                          "label",
-                          "FoundingDate",
-                          "value",
-                          {
-                            "@type": "g:Date",
-                            "@value": -62135596800000
-                          },
-                          "properties",
-                          {
-                            "@type": "g:Map",
-                            "@value": []
-                          }
-                        ]
+                        "@value": []
                       }
                     ]
                   }
