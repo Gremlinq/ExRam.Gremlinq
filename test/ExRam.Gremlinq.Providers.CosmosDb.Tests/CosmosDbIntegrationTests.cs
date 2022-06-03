@@ -126,6 +126,9 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         [Fact(Skip = "Unable to find any method 'withSideEffect'")]
         public override async Task WithSideEffect_label_can_be_selected() { }
 
+        [Fact(Skip = "Unable to find any method 'withSideEffect'")]
+        public override async Task WithSideEffect_empty_array() { }
+
         [Fact(Skip = "Cannot create ValueField on non-primitive type GraphTraversal.")]
         public override async Task Property_single_traversal() { }
 
