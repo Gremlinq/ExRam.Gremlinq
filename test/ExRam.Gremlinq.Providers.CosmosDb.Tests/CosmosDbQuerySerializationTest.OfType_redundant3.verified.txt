@@ -1,9 +1,13 @@
 ﻿[
   {
-    "Script": "g.V().hasLabel(_a)",
+    "Script": "g.V().hasLabel(_a).map(__.union(__.project(_b,_c).by(id).by(label).unfold(),__.properties().has(key,neq(_b).and(neq(_c))).group().by(label).by(__.project(_b,_c,_d,_e).by(id).by(label).by(value).by(__.valueMap()).fold()).unfold()).group().by(__.select(keys)).by(__.select(values)))",
     "Id": "Scrubbed GUID",
     "Bindings": {
-      "_a": "Company"
+      "_a": "Company",
+      "_b": "id",
+      "_c": "label",
+      "_d": "value",
+      "_e": "properties"
     }
   }
 ]

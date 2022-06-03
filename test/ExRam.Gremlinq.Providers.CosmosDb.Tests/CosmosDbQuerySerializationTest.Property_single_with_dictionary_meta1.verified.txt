@@ -1,13 +1,16 @@
 ﻿[
   {
-    "Script": "g.V().hasLabel(_a).property(single,_b,_c,_d,_e)",
+    "Script": "g.V().hasLabel(_a).property(single,_b,_c,_d,_e).map(__.union(__.project(_f,_g).by(id).by(label).unfold(),__.properties().has(key,neq(_f).and(neq(_g))).group().by(label).by(__.project(_f,_g,_e,_h).by(id).by(label).by(value).by(__.valueMap()).fold()).unfold()).group().by(__.select(keys)).by(__.select(values)))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Country",
       "_b": "LocalizableDescription",
       "_c": "",
       "_d": "someKey",
-      "_e": "value"
+      "_e": "value",
+      "_f": "id",
+      "_g": "label",
+      "_h": "properties"
     }
   }
 ]

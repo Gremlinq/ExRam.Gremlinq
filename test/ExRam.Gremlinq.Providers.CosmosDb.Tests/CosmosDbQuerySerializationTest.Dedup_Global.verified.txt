@@ -1,7 +1,12 @@
 ﻿[
   {
-    "Script": "g.V().dedup()",
+    "Script": "g.V().dedup().map(__.union(__.project(_a,_b).by(id).by(label).unfold(),__.properties().has(key,neq(_a).and(neq(_b))).group().by(label).by(__.project(_a,_b,_c,_d).by(id).by(label).by(value).by(__.valueMap()).fold()).unfold()).group().by(__.select(keys)).by(__.select(values)))",
     "Id": "Scrubbed GUID",
-    "Bindings": {}
+    "Bindings": {
+      "_a": "id",
+      "_b": "label",
+      "_c": "value",
+      "_d": "properties"
+    }
   }
 ]

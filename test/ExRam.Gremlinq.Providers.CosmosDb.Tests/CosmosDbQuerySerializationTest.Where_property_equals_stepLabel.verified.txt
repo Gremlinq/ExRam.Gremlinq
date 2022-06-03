@@ -1,11 +1,15 @@
 ﻿[
   {
-    "Script": "g.V().hasLabel(_a).values(_b).as(_c).V().hasLabel(_a).has(_b,__.where(eq(_c)))",
+    "Script": "g.V().hasLabel(_a).values(_b).as(_c).V().hasLabel(_a).has(_b,__.where(eq(_c))).map(__.union(__.project(_d,_e).by(id).by(label).unfold(),__.properties().has(key,neq(_d).and(neq(_e))).group().by(label).by(__.project(_d,_e,_f,_g).by(id).by(label).by(value).by(__.valueMap()).fold()).unfold()).group().by(__.select(keys)).by(__.select(values)))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Language",
       "_b": "IetfLanguageTag",
-      "_c": "l1"
+      "_c": "l1",
+      "_d": "id",
+      "_e": "label",
+      "_f": "value",
+      "_g": "properties"
     }
   }
 ]

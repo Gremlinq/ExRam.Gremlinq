@@ -1,9 +1,13 @@
 ﻿[
   {
-    "Script": "g.V().limit(_a).fold().limit(local,_a)",
+    "Script": "g.V().limit(_a).fold().limit(local,_a).local(__.unfold().map(__.union(__.project(_b,_c).by(id).by(label).unfold(),__.properties().has(key,neq(_b).and(neq(_c))).group().by(label).by(__.project(_b,_c,_d,_e).by(id).by(label).by(value).by(__.valueMap()).fold()).unfold()).group().by(__.select(keys)).by(__.select(values))).fold())",
     "Id": "Scrubbed GUID",
     "Bindings": {
-      "_a": 1
+      "_a": 1,
+      "_b": "id",
+      "_c": "label",
+      "_d": "value",
+      "_e": "properties"
     }
   }
 ]

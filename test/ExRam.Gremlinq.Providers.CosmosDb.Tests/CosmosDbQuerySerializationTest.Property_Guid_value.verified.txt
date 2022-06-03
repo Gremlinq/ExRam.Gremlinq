@@ -1,11 +1,15 @@
 ﻿[
   {
-    "Script": "g.V().hasLabel(_a).property(single,_b,_c)",
+    "Script": "g.V().hasLabel(_a).property(single,_b,_c).map(__.union(__.project(_d,_e).by(id).by(label).unfold(),__.properties().has(key,neq(_d).and(neq(_e))).group().by(label).by(__.project(_d,_e,_f,_g).by(id).by(label).by(value).by(__.valueMap()).fold()).unfold()).group().by(__.select(keys)).by(__.select(values)))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Person",
       "_b": "GuidKey",
-      "_c": "Scrubbed GUID"
+      "_c": "Scrubbed GUID",
+      "_d": "id",
+      "_e": "label",
+      "_f": "value",
+      "_g": "properties"
     }
   }
 ]

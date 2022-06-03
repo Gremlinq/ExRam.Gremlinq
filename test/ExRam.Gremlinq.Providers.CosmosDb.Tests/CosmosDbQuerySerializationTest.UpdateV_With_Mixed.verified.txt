@@ -1,13 +1,17 @@
 ﻿[
   {
-    "Script": "g.V().hasLabel(_a).sideEffect(__.properties(_b,_c).drop()).property(single,_b,_d).property(single,_c,_e)",
+    "Script": "g.V().hasLabel(_a).sideEffect(__.properties(_b,_c).drop()).property(single,_b,_d).property(single,_c,_e).map(__.union(__.project(_f,_g).by(id).by(label).unfold(),__.properties().has(key,neq(_f).and(neq(_g))).group().by(label).by(__.project(_f,_g,_h,_i).by(id).by(label).by(value).by(__.valueMap()).fold()).unfold()).group().by(__.select(keys)).by(__.select(values)))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Person",
       "_b": "Name",
       "_c": "RegistrationDate",
       "_d": "Marko",
-      "_e": "2020-04-07T14:43:36+00:00"
+      "_e": "2020-04-07T14:43:36+00:00",
+      "_f": "id",
+      "_g": "label",
+      "_h": "value",
+      "_i": "properties"
     }
   }
 ]

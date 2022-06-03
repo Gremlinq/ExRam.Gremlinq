@@ -1,7 +1,12 @@
 ﻿[
   {
-    "Script": "g.V().properties()",
+    "Script": "g.V().properties().project(_a,_b,_c,_d).by(id).by(label).by(value).by(__.valueMap())",
     "Id": "Scrubbed GUID",
-    "Bindings": {}
+    "Bindings": {
+      "_a": "id",
+      "_b": "label",
+      "_c": "value",
+      "_d": "properties"
+    }
   }
 ]
