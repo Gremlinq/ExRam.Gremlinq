@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "@type": "g:List",
     "@value": [
@@ -18,18 +18,7 @@
                 "@value": "scrubbed id"
               },
               "label",
-              "LivesIn",
-              "properties",
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "Since",
-                  {
-                    "@type": "g:Date",
-                    "@value": 1586270616000
-                  }
-                ]
-              }
+              "LivesIn"
             ]
           }
         }
