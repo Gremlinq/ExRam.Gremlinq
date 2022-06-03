@@ -1,9 +1,13 @@
 ﻿[
   {
-    "Script": "g.V().where(__.in()).project(_a).by(__.in())",
+    "Script": "g.V().where(__.in()).project(_a).by(__.in()).project(_a).by(__.select(_a).map(__.union(__.project(_b,_c).by(id).by(label).unfold(),__.properties().has(key,neq(_b).and(neq(_c))).group().by(__.label()).by(__.project(_b,_c,_d,_e).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()).unfold()).group().by(__.select(keys)).by(__.select(values))))",
     "Id": "Scrubbed GUID",
     "Bindings": {
-      "_a": "in!"
+      "_a": "in!",
+      "_b": "id",
+      "_c": "label",
+      "_d": "value",
+      "_e": "properties"
     }
   }
 ]

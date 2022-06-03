@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "g.addV(_a).property(_b,_b).property(single,_c,_d).property(single,_e,_f)",
+    "Script": "g.addV(_a).property(_b,_b).property(single,_c,_d).property(single,_e,_f).map(__.union(__.project(_g,_h).by(id).by(label).unfold(),__.properties().has(key,neq(_g).and(neq(_h))).group().by(__.label()).by(__.project(_g,_h,_i,_j).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()).unfold()).group().by(__.select(keys)).by(__.select(values)))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Person",
@@ -8,7 +8,11 @@
       "_c": "Age",
       "_d": 0,
       "_e": "Image",
-      "_f": "AQIDBAUGBwg="
+      "_f": "AQIDBAUGBwg=",
+      "_g": "id",
+      "_h": "label",
+      "_i": "value",
+      "_j": "properties"
     }
   }
 ]

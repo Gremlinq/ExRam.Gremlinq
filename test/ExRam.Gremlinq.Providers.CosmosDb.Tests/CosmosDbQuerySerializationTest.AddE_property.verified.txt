@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "g.addV(_a).property(_b,_b).property(single,_c,_d).addE(_e).property(_f,_g).to(__.addV(_h).property(_b,_b))",
+    "Script": "g.addV(_a).property(_b,_b).property(single,_c,_d).addE(_e).property(_f,_g).to(__.addV(_h).property(_b,_b)).map(__.union(__.project(_i,_j).by(id).by(label).unfold(),__.properties().has(key,neq(_i).and(neq(_j))).group().by(key).by(__.value()).unfold()).group().by(__.select(keys)).by(__.select(values)))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Person",
@@ -10,7 +10,9 @@
       "_e": "LivesIn",
       "_f": "Since",
       "_g": "2020-04-07T14:43:36+00:00",
-      "_h": "Country"
+      "_h": "Country",
+      "_i": "id",
+      "_j": "label"
     }
   }
 ]

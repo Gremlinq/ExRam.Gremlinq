@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "g.V().hasLabel(_a).has(_b,within(_c,_d,_e,_f,_g,_h,_i,_j,_k,_l,_m))",
+    "Script": "g.V().hasLabel(_a).has(_b,within(_c,_d,_e,_f,_g,_h,_i,_j,_k,_l,_m)).map(__.union(__.project(_n,_o).by(id).by(label).unfold(),__.properties().has(key,neq(_n).and(neq(_o))).group().by(__.label()).by(__.project(_n,_o,_p,_q).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()).unfold()).group().by(__.select(keys)).by(__.select(values)))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Country",
@@ -15,7 +15,11 @@
       "_j": "tel:+49",
       "_k": "tel:+491",
       "_l": "tel:+4912",
-      "_m": "tel:+49123"
+      "_m": "tel:+49123",
+      "_n": "id",
+      "_o": "label",
+      "_p": "value",
+      "_q": "properties"
     }
   }
 ]

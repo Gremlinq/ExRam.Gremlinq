@@ -1,13 +1,17 @@
 ﻿[
   {
-    "Script": "g.V().hasLabel(_a).has(_b,eq(_c).or(eq(_d)).or(eq(_e)))",
+    "Script": "g.V().hasLabel(_a).has(_b,eq(_c).or(eq(_d)).or(eq(_e))).map(__.union(__.project(_f,_g).by(id).by(label).unfold(),__.properties().has(key,neq(_f).and(neq(_g))).group().by(__.label()).by(__.project(_f,_g,_h,_i).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()).unfold()).group().by(__.select(keys)).by(__.select(values)))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Person",
       "_b": "Age",
       "_c": 36,
       "_d": 42,
-      "_e": 99
+      "_e": 99,
+      "_f": "id",
+      "_g": "label",
+      "_h": "value",
+      "_i": "properties"
     }
   }
 ]

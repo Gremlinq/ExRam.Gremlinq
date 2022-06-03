@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "g.V().hasLabel(_a).where(__.in()).where(__.out()).where(__.properties()).project(_b,_c,_d,_e).by(__.in()).by(__.out()).by(_f).by(__.properties())",
+    "Script": "g.V().hasLabel(_a).where(__.in()).where(__.out()).where(__.properties()).project(_b,_c,_d,_e).by(__.in()).by(__.out()).by(_f).by(__.properties()).project(_b,_c,_d,_e).by(__.select(_b).map(__.union(__.project(_g,_h).by(id).by(label).unfold(),__.properties().has(key,neq(_g).and(neq(_h))).group().by(__.label()).by(__.project(_g,_h,_i,_j).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()).unfold()).group().by(__.select(keys)).by(__.select(values)))).by(__.select(_c).map(__.union(__.project(_g,_h).by(id).by(label).unfold(),__.properties().has(key,neq(_g).and(neq(_h))).group().by(__.label()).by(__.project(_g,_h,_i,_j).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()).unfold()).group().by(__.select(keys)).by(__.select(values)))).by(__.select(_d)).by(__.select(_e).project(_g,_h,_i,_j).by(id).by(__.label()).by(__.value()).by(__.valueMap()))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Person",
@@ -8,7 +8,11 @@
       "_c": "Item2",
       "_d": "Item3",
       "_e": "Item4",
-      "_f": "Age"
+      "_f": "Age",
+      "_g": "id",
+      "_h": "label",
+      "_i": "value",
+      "_j": "properties"
     }
   }
 ]

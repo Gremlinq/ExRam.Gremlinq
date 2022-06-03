@@ -1,11 +1,13 @@
 ﻿[
   {
-    "Script": "g.V().inE(_a,_b,_c)",
+    "Script": "g.V().inE(_a,_b,_c).map(__.union(__.project(_d,_e).by(id).by(label).unfold(),__.properties().has(key,neq(_d).and(neq(_e))).group().by(key).by(__.value()).unfold()).group().by(__.select(keys)).by(__.select(values)))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "LivesIn",
       "_b": "Speaks",
-      "_c": "WorksFor"
+      "_c": "WorksFor",
+      "_d": "id",
+      "_e": "label"
     }
   }
 ]

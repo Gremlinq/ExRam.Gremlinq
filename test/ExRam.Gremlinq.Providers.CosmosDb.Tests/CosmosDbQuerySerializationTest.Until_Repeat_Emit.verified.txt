@@ -1,10 +1,14 @@
 ﻿[
   {
-    "Script": "g.V().hasLabel(_a).until(__.V().hasLabel(_b)).repeat(__.inE().outV()).emit()",
+    "Script": "g.V().hasLabel(_a).until(__.V().hasLabel(_b)).repeat(__.inE().outV()).emit().map(__.union(__.project(_c,_d).by(id).by(label).unfold(),__.properties().has(key,neq(_c).and(neq(_d))).group().by(__.label()).by(__.project(_c,_d,_e,_f).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()).unfold()).group().by(__.select(keys)).by(__.select(values)))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Person",
-      "_b": "Company"
+      "_b": "Company",
+      "_c": "id",
+      "_d": "label",
+      "_e": "value",
+      "_f": "properties"
     }
   }
 ]

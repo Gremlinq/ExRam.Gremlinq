@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "g.E(_a).hasLabel(_b).sideEffect(__.properties(_c,_d,_e).drop()).property(_c,_f).property(_d,_g).property(_e,_f)",
+    "Script": "g.E(_a).hasLabel(_b).sideEffect(__.properties(_c,_d,_e).drop()).property(_c,_f).property(_d,_g).property(_e,_f).map(__.union(__.project(_h,_i).by(id).by(label).unfold(),__.properties().has(key,neq(_h).and(neq(_i))).group().by(key).by(__.value()).unfold()).group().by(__.select(keys)).by(__.select(values)))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": 0,
@@ -9,7 +9,9 @@
       "_d": "Role",
       "_e": "To",
       "_f": "2020-04-07T14:43:36+00:00",
-      "_g": "Admin"
+      "_g": "Admin",
+      "_h": "id",
+      "_i": "label"
     }
   }
 ]

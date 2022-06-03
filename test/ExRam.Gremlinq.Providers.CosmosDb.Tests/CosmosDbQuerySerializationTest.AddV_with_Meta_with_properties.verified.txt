@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "g.addV(_a).property(_b,_b).property(single,_c,_d,_e,_f,_g,_h)",
+    "Script": "g.addV(_a).property(_b,_b).property(single,_c,_d,_e,_f,_g,_h).map(__.union(__.project(_i,_j).by(id).by(label).unfold(),__.properties().has(key,neq(_i).and(neq(_j))).group().by(__.label()).by(__.project(_i,_j,_k,_l).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()).unfold()).group().by(__.select(keys)).by(__.select(values)))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Country",
@@ -10,7 +10,11 @@
       "_e": "de",
       "_f": "Deutschland",
       "_g": "en",
-      "_h": "Germany"
+      "_h": "Germany",
+      "_i": "id",
+      "_j": "label",
+      "_k": "value",
+      "_l": "properties"
     }
   }
 ]
