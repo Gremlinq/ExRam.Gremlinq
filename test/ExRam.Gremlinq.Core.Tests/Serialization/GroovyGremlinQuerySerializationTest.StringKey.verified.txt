@@ -1,13 +1,13 @@
 ﻿[
   {
-    "Script": "g.V(_a).hasLabel(_b).project(_a,_c,_d).by(id).by(label).by(__.properties().group().by(label).by(__.project(_a,_c,_e,_d).by(id).by(label).by(value).by(__.valueMap()).fold()))",
+    "Script": "g.V(_a).hasLabel(_b).map(__.union(__.project(_a,_c).by(id).by(label).unfold(),__.properties().has(key,neq(_a).and(neq(_c))).group().by(label).by(__.project(_a,_c,_d,_e).by(id).by(label).by(value).by(__.valueMap()).fold()).unfold()).group().by(__.select(keys)).by(__.select(values)))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "id",
       "_b": "Person",
       "_c": "label",
-      "_d": "properties",
-      "_e": "value"
+      "_d": "value",
+      "_e": "properties"
     }
   }
 ]

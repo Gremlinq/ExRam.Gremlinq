@@ -139,56 +139,13 @@
                   ]
                 },
                 {
-                  "OperatorName": "project",
-                  "Arguments": [
-                    "id",
-                    "label",
-                    "properties"
-                  ]
-                },
-                {
-                  "OperatorName": "by",
-                  "Arguments": [
-                    {
-                      "EnumName": "T",
-                      "EnumValue": "id"
-                    }
-                  ]
-                },
-                {
-                  "OperatorName": "by",
-                  "Arguments": [
-                    {
-                      "EnumName": "T",
-                      "EnumValue": "label"
-                    }
-                  ]
-                },
-                {
-                  "OperatorName": "by",
+                  "OperatorName": "map",
                   "Arguments": [
                     {
                       "SourceInstructions": [],
                       "StepInstructions": [
                         {
-                          "OperatorName": "properties",
-                          "Arguments": []
-                        },
-                        {
-                          "OperatorName": "group",
-                          "Arguments": []
-                        },
-                        {
-                          "OperatorName": "by",
-                          "Arguments": [
-                            {
-                              "EnumName": "T",
-                              "EnumValue": "label"
-                            }
-                          ]
-                        },
-                        {
-                          "OperatorName": "by",
+                          "OperatorName": "union",
                           "Arguments": [
                             {
                               "SourceInstructions": [],
@@ -197,8 +154,7 @@
                                   "OperatorName": "project",
                                   "Arguments": [
                                     "id",
-                                    "label",
-                                    "value"
+                                    "label"
                                   ]
                                 },
                                 {
@@ -220,96 +176,39 @@
                                   ]
                                 },
                                 {
-                                  "OperatorName": "by",
-                                  "Arguments": [
-                                    {
-                                      "EnumName": "T",
-                                      "EnumValue": "value"
-                                    }
-                                  ]
-                                },
-                                {
-                                  "OperatorName": "fold",
+                                  "OperatorName": "unfold",
                                   "Arguments": []
                                 }
                               ]
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "OperatorName": "by",
-          "Arguments": [
-            {
-              "SourceInstructions": [],
-              "StepInstructions": [
-                {
-                  "OperatorName": "select",
-                  "Arguments": [
-                    "Item2"
-                  ]
-                },
-                {
-                  "OperatorName": "project",
-                  "Arguments": [
-                    "Item1",
-                    "Item2"
-                  ]
-                },
-                {
-                  "OperatorName": "by",
-                  "Arguments": [
-                    {
-                      "SourceInstructions": [],
-                      "StepInstructions": [
-                        {
-                          "OperatorName": "select",
-                          "Arguments": [
-                            "Item1"
-                          ]
-                        },
-                        {
-                          "OperatorName": "project",
-                          "Arguments": [
-                            "id",
-                            "label",
-                            "properties"
-                          ]
-                        },
-                        {
-                          "OperatorName": "by",
-                          "Arguments": [
-                            {
-                              "EnumName": "T",
-                              "EnumValue": "id"
-                            }
-                          ]
-                        },
-                        {
-                          "OperatorName": "by",
-                          "Arguments": [
-                            {
-                              "EnumName": "T",
-                              "EnumValue": "label"
-                            }
-                          ]
-                        },
-                        {
-                          "OperatorName": "by",
-                          "Arguments": [
+                            },
                             {
                               "SourceInstructions": [],
                               "StepInstructions": [
                                 {
                                   "OperatorName": "properties",
                                   "Arguments": []
+                                },
+                                {
+                                  "OperatorName": "has",
+                                  "Arguments": [
+                                    {
+                                      "EnumName": "T",
+                                      "EnumValue": "key"
+                                    },
+                                    {
+                                      "OperatorName": "and",
+                                      "Value": {
+                                        "OperatorName": "neq",
+                                        "Value": "id",
+                                        "Other": null
+                                      },
+                                      "Other": {
+                                        "OperatorName": "neq",
+                                        "Value": "label",
+                                        "Other": null
+                                      }
+                                    }
+                                  ]
                                 },
                                 {
                                   "OperatorName": "group",
@@ -372,6 +271,279 @@
                                       ]
                                     }
                                   ]
+                                },
+                                {
+                                  "OperatorName": "unfold",
+                                  "Arguments": []
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "OperatorName": "group",
+                          "Arguments": []
+                        },
+                        {
+                          "OperatorName": "by",
+                          "Arguments": [
+                            {
+                              "SourceInstructions": [],
+                              "StepInstructions": [
+                                {
+                                  "OperatorName": "select",
+                                  "Arguments": [
+                                    {
+                                      "EnumName": "Column",
+                                      "EnumValue": "keys"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "OperatorName": "by",
+                          "Arguments": [
+                            {
+                              "SourceInstructions": [],
+                              "StepInstructions": [
+                                {
+                                  "OperatorName": "select",
+                                  "Arguments": [
+                                    {
+                                      "EnumName": "Column",
+                                      "EnumValue": "values"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "OperatorName": "by",
+          "Arguments": [
+            {
+              "SourceInstructions": [],
+              "StepInstructions": [
+                {
+                  "OperatorName": "select",
+                  "Arguments": [
+                    "Item2"
+                  ]
+                },
+                {
+                  "OperatorName": "project",
+                  "Arguments": [
+                    "Item1",
+                    "Item2"
+                  ]
+                },
+                {
+                  "OperatorName": "by",
+                  "Arguments": [
+                    {
+                      "SourceInstructions": [],
+                      "StepInstructions": [
+                        {
+                          "OperatorName": "select",
+                          "Arguments": [
+                            "Item1"
+                          ]
+                        },
+                        {
+                          "OperatorName": "map",
+                          "Arguments": [
+                            {
+                              "SourceInstructions": [],
+                              "StepInstructions": [
+                                {
+                                  "OperatorName": "union",
+                                  "Arguments": [
+                                    {
+                                      "SourceInstructions": [],
+                                      "StepInstructions": [
+                                        {
+                                          "OperatorName": "project",
+                                          "Arguments": [
+                                            "id",
+                                            "label"
+                                          ]
+                                        },
+                                        {
+                                          "OperatorName": "by",
+                                          "Arguments": [
+                                            {
+                                              "EnumName": "T",
+                                              "EnumValue": "id"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "OperatorName": "by",
+                                          "Arguments": [
+                                            {
+                                              "EnumName": "T",
+                                              "EnumValue": "label"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "OperatorName": "unfold",
+                                          "Arguments": []
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "SourceInstructions": [],
+                                      "StepInstructions": [
+                                        {
+                                          "OperatorName": "properties",
+                                          "Arguments": []
+                                        },
+                                        {
+                                          "OperatorName": "has",
+                                          "Arguments": [
+                                            {
+                                              "EnumName": "T",
+                                              "EnumValue": "key"
+                                            },
+                                            {
+                                              "OperatorName": "and",
+                                              "Value": {
+                                                "OperatorName": "neq",
+                                                "Value": "id",
+                                                "Other": null
+                                              },
+                                              "Other": {
+                                                "OperatorName": "neq",
+                                                "Value": "label",
+                                                "Other": null
+                                              }
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "OperatorName": "group",
+                                          "Arguments": []
+                                        },
+                                        {
+                                          "OperatorName": "by",
+                                          "Arguments": [
+                                            {
+                                              "EnumName": "T",
+                                              "EnumValue": "label"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "OperatorName": "by",
+                                          "Arguments": [
+                                            {
+                                              "SourceInstructions": [],
+                                              "StepInstructions": [
+                                                {
+                                                  "OperatorName": "project",
+                                                  "Arguments": [
+                                                    "id",
+                                                    "label",
+                                                    "value"
+                                                  ]
+                                                },
+                                                {
+                                                  "OperatorName": "by",
+                                                  "Arguments": [
+                                                    {
+                                                      "EnumName": "T",
+                                                      "EnumValue": "id"
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "OperatorName": "by",
+                                                  "Arguments": [
+                                                    {
+                                                      "EnumName": "T",
+                                                      "EnumValue": "label"
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "OperatorName": "by",
+                                                  "Arguments": [
+                                                    {
+                                                      "EnumName": "T",
+                                                      "EnumValue": "value"
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "OperatorName": "fold",
+                                                  "Arguments": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "OperatorName": "unfold",
+                                          "Arguments": []
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "OperatorName": "group",
+                                  "Arguments": []
+                                },
+                                {
+                                  "OperatorName": "by",
+                                  "Arguments": [
+                                    {
+                                      "SourceInstructions": [],
+                                      "StepInstructions": [
+                                        {
+                                          "OperatorName": "select",
+                                          "Arguments": [
+                                            {
+                                              "EnumName": "Column",
+                                              "EnumValue": "keys"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "OperatorName": "by",
+                                  "Arguments": [
+                                    {
+                                      "SourceInstructions": [],
+                                      "StepInstructions": [
+                                        {
+                                          "OperatorName": "select",
+                                          "Arguments": [
+                                            {
+                                              "EnumName": "Column",
+                                              "EnumValue": "values"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
                                 }
                               ]
                             }
@@ -394,56 +566,13 @@
                           ]
                         },
                         {
-                          "OperatorName": "project",
-                          "Arguments": [
-                            "id",
-                            "label",
-                            "properties"
-                          ]
-                        },
-                        {
-                          "OperatorName": "by",
-                          "Arguments": [
-                            {
-                              "EnumName": "T",
-                              "EnumValue": "id"
-                            }
-                          ]
-                        },
-                        {
-                          "OperatorName": "by",
-                          "Arguments": [
-                            {
-                              "EnumName": "T",
-                              "EnumValue": "label"
-                            }
-                          ]
-                        },
-                        {
-                          "OperatorName": "by",
+                          "OperatorName": "map",
                           "Arguments": [
                             {
                               "SourceInstructions": [],
                               "StepInstructions": [
                                 {
-                                  "OperatorName": "properties",
-                                  "Arguments": []
-                                },
-                                {
-                                  "OperatorName": "group",
-                                  "Arguments": []
-                                },
-                                {
-                                  "OperatorName": "by",
-                                  "Arguments": [
-                                    {
-                                      "EnumName": "T",
-                                      "EnumValue": "label"
-                                    }
-                                  ]
-                                },
-                                {
-                                  "OperatorName": "by",
+                                  "OperatorName": "union",
                                   "Arguments": [
                                     {
                                       "SourceInstructions": [],
@@ -452,8 +581,7 @@
                                           "OperatorName": "project",
                                           "Arguments": [
                                             "id",
-                                            "label",
-                                            "value"
+                                            "label"
                                           ]
                                         },
                                         {
@@ -475,17 +603,147 @@
                                           ]
                                         },
                                         {
-                                          "OperatorName": "by",
+                                          "OperatorName": "unfold",
+                                          "Arguments": []
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "SourceInstructions": [],
+                                      "StepInstructions": [
+                                        {
+                                          "OperatorName": "properties",
+                                          "Arguments": []
+                                        },
+                                        {
+                                          "OperatorName": "has",
                                           "Arguments": [
                                             {
                                               "EnumName": "T",
-                                              "EnumValue": "value"
+                                              "EnumValue": "key"
+                                            },
+                                            {
+                                              "OperatorName": "and",
+                                              "Value": {
+                                                "OperatorName": "neq",
+                                                "Value": "id",
+                                                "Other": null
+                                              },
+                                              "Other": {
+                                                "OperatorName": "neq",
+                                                "Value": "label",
+                                                "Other": null
+                                              }
                                             }
                                           ]
                                         },
                                         {
-                                          "OperatorName": "fold",
+                                          "OperatorName": "group",
                                           "Arguments": []
+                                        },
+                                        {
+                                          "OperatorName": "by",
+                                          "Arguments": [
+                                            {
+                                              "EnumName": "T",
+                                              "EnumValue": "label"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "OperatorName": "by",
+                                          "Arguments": [
+                                            {
+                                              "SourceInstructions": [],
+                                              "StepInstructions": [
+                                                {
+                                                  "OperatorName": "project",
+                                                  "Arguments": [
+                                                    "id",
+                                                    "label",
+                                                    "value"
+                                                  ]
+                                                },
+                                                {
+                                                  "OperatorName": "by",
+                                                  "Arguments": [
+                                                    {
+                                                      "EnumName": "T",
+                                                      "EnumValue": "id"
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "OperatorName": "by",
+                                                  "Arguments": [
+                                                    {
+                                                      "EnumName": "T",
+                                                      "EnumValue": "label"
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "OperatorName": "by",
+                                                  "Arguments": [
+                                                    {
+                                                      "EnumName": "T",
+                                                      "EnumValue": "value"
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "OperatorName": "fold",
+                                                  "Arguments": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "OperatorName": "unfold",
+                                          "Arguments": []
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "OperatorName": "group",
+                                  "Arguments": []
+                                },
+                                {
+                                  "OperatorName": "by",
+                                  "Arguments": [
+                                    {
+                                      "SourceInstructions": [],
+                                      "StepInstructions": [
+                                        {
+                                          "OperatorName": "select",
+                                          "Arguments": [
+                                            {
+                                              "EnumName": "Column",
+                                              "EnumValue": "keys"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "OperatorName": "by",
+                                  "Arguments": [
+                                    {
+                                      "SourceInstructions": [],
+                                      "StepInstructions": [
+                                        {
+                                          "OperatorName": "select",
+                                          "Arguments": [
+                                            {
+                                              "EnumName": "Column",
+                                              "EnumValue": "values"
+                                            }
+                                          ]
                                         }
                                       ]
                                     }
