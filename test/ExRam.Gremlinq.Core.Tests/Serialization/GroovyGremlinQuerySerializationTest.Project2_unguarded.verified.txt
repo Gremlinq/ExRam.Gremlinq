@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "g.V().project(_a,_b).by(__.in().limit(_c).fold()).by(__.out().limit(_c).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold())).project(_a,_b).by(__.select(_a).project(_d,_e,_f).by(id).by(label).by(__.properties().group().by(label).by(__.project(_d,_e,_g,_f).by(id).by(label).by(value).by(__.valueMap()).fold())).fold()).by(__.select(_b).project(_d,_e,_f).by(id).by(label).by(__.properties().group().by(label).by(__.project(_d,_e,_g,_f).by(id).by(label).by(value).by(__.valueMap()).fold())).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold()))",
+    "Script": "g.V().project(_a,_b).by(__.in().limit(_c).fold()).by(__.out().limit(_c).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold())).project(_a,_b).by(__.select(_a).union(__.project(_d,_e).by(id).by(label).unfold(),__.properties().has(label,neq(_d).and(neq(_e))).group().by(label).by(__.project(_d,_e,_f,_g).by(id).by(label).by(value).by(__.valueMap()).fold()).unfold()).group().by(__.select(keys)).by(__.select(values)).fold()).by(__.select(_b).union(__.project(_d,_e).by(id).by(label).unfold(),__.properties().has(label,neq(_d).and(neq(_e))).group().by(label).by(__.project(_d,_e,_f,_g).by(id).by(label).by(value).by(__.valueMap()).fold()).unfold()).group().by(__.select(keys)).by(__.select(values)).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold()))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Item1",
@@ -8,8 +8,8 @@
       "_c": 1,
       "_d": "id",
       "_e": "label",
-      "_f": "properties",
-      "_g": "value"
+      "_f": "value",
+      "_g": "properties"
     }
   }
 ]

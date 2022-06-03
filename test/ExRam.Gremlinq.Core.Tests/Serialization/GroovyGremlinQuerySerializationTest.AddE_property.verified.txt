@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "g.addV(_a).property(single,_b,_c).addE(_d).property(_e,_f).to(__.addV(_g)).project(_h,_i,_j).by(id).by(label).by(__.valueMap())",
+    "Script": "g.addV(_a).property(single,_b,_c).addE(_d).property(_e,_f).to(__.addV(_g)).union(__.project(_h,_i).by(id).by(label).unfold(),__.properties().has(label,neq(_h).and(neq(_i))).group().by(key).by(__.values()).unfold()).group().by(__.select(keys)).by(__.select(values))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Person",
@@ -11,8 +11,7 @@
       "_f": "2020-04-07T14:43:36+00:00",
       "_g": "Country",
       "_h": "id",
-      "_i": "label",
-      "_j": "properties"
+      "_i": "label"
     }
   }
 ]

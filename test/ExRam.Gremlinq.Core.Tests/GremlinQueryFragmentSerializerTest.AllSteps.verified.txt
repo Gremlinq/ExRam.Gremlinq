@@ -814,31 +814,90 @@
     Item1: ProjectEdgeStep,
     Item2: [
       {
-        Projections: [
-          id,
-          label,
-          properties
+        Traversals: [
+          [
+            {
+              Projections: [
+                id,
+                label
+              ]
+            },
+            {
+              Key: {
+                RawKey: {
+                  EnumName: T,
+                  EnumValue: id
+                }
+              }
+            },
+            {
+              Key: {
+                RawKey: {
+                  EnumName: T,
+                  EnumValue: label
+                }
+              }
+            },
+            {}
+          ],
+          [
+            {},
+            {
+              Key: {
+                RawKey: {
+                  EnumName: T,
+                  EnumValue: label
+                }
+              },
+              Predicate: {
+                OperatorName: and,
+                Value: {
+                  OperatorName: neq,
+                  Value: id
+                },
+                Other: {
+                  OperatorName: neq,
+                  Value: label
+                }
+              }
+            },
+            {},
+            {
+              Key: {
+                RawKey: {
+                  EnumName: T,
+                  EnumValue: key
+                }
+              }
+            },
+            {
+              Traversal: [
+                {}
+              ]
+            },
+            {}
+          ]
+        ]
+      },
+      {},
+      {
+        Traversal: [
+          {
+            Column: {
+              EnumName: Column,
+              EnumValue: keys
+            }
+          }
         ]
       },
       {
-        Key: {
-          RawKey: {
-            EnumName: T,
-            EnumValue: id
-          }
-        }
-      },
-      {
-        Key: {
-          RawKey: {
-            EnumName: T,
-            EnumValue: label
-          }
-        }
-      },
-      {
         Traversal: [
-          {}
+          {
+            Column: {
+              EnumName: Column,
+              EnumValue: values
+            }
+          }
         ]
       }
     ]
@@ -885,81 +944,126 @@
     Item1: ProjectVertexStep,
     Item2: [
       {
-        Projections: [
-          id,
-          label,
-          properties
+        Traversals: [
+          [
+            {
+              Projections: [
+                id,
+                label
+              ]
+            },
+            {
+              Key: {
+                RawKey: {
+                  EnumName: T,
+                  EnumValue: id
+                }
+              }
+            },
+            {
+              Key: {
+                RawKey: {
+                  EnumName: T,
+                  EnumValue: label
+                }
+              }
+            },
+            {}
+          ],
+          [
+            {},
+            {
+              Key: {
+                RawKey: {
+                  EnumName: T,
+                  EnumValue: label
+                }
+              },
+              Predicate: {
+                OperatorName: and,
+                Value: {
+                  OperatorName: neq,
+                  Value: id
+                },
+                Other: {
+                  OperatorName: neq,
+                  Value: label
+                }
+              }
+            },
+            {},
+            {
+              Key: {
+                RawKey: {
+                  EnumName: T,
+                  EnumValue: label
+                }
+              }
+            },
+            {
+              Traversal: [
+                {
+                  Projections: [
+                    id,
+                    label,
+                    value,
+                    properties
+                  ]
+                },
+                {
+                  Key: {
+                    RawKey: {
+                      EnumName: T,
+                      EnumValue: id
+                    }
+                  }
+                },
+                {
+                  Key: {
+                    RawKey: {
+                      EnumName: T,
+                      EnumValue: label
+                    }
+                  }
+                },
+                {
+                  Key: {
+                    RawKey: {
+                      EnumName: T,
+                      EnumValue: value
+                    }
+                  }
+                },
+                {
+                  Traversal: [
+                    {}
+                  ]
+                },
+                {}
+              ]
+            },
+            {}
+          ]
+        ]
+      },
+      {},
+      {
+        Traversal: [
+          {
+            Column: {
+              EnumName: Column,
+              EnumValue: keys
+            }
+          }
         ]
       },
       {
-        Key: {
-          RawKey: {
-            EnumName: T,
-            EnumValue: id
-          }
-        }
-      },
-      {
-        Key: {
-          RawKey: {
-            EnumName: T,
-            EnumValue: label
-          }
-        }
-      },
-      {
         Traversal: [
-          {},
-          {},
           {
-            Key: {
-              RawKey: {
-                EnumName: T,
-                EnumValue: label
-              }
+            Column: {
+              EnumName: Column,
+              EnumValue: values
             }
-          },
-          {
-            Traversal: [
-              {
-                Projections: [
-                  id,
-                  label,
-                  value,
-                  properties
-                ]
-              },
-              {
-                Key: {
-                  RawKey: {
-                    EnumName: T,
-                    EnumValue: id
-                  }
-                }
-              },
-              {
-                Key: {
-                  RawKey: {
-                    EnumName: T,
-                    EnumValue: label
-                  }
-                }
-              },
-              {
-                Key: {
-                  RawKey: {
-                    EnumName: T,
-                    EnumValue: value
-                  }
-                }
-              },
-              {
-                Traversal: [
-                  {}
-                ]
-              },
-              {}
-            ]
           }
         ]
       }

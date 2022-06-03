@@ -190,40 +190,70 @@
                   ]
                 },
                 {
-                  "OperatorName": "project",
-                  "Arguments": [
-                    "id",
-                    "label",
-                    "properties"
-                  ]
-                },
-                {
-                  "OperatorName": "by",
+                  "OperatorName": "union",
                   "Arguments": [
                     {
-                      "EnumName": "T",
-                      "EnumValue": "id"
-                    }
-                  ]
-                },
-                {
-                  "OperatorName": "by",
-                  "Arguments": [
-                    {
-                      "EnumName": "T",
-                      "EnumValue": "label"
-                    }
-                  ]
-                },
-                {
-                  "OperatorName": "by",
-                  "Arguments": [
+                      "SourceInstructions": [],
+                      "StepInstructions": [
+                        {
+                          "OperatorName": "project",
+                          "Arguments": [
+                            "id",
+                            "label"
+                          ]
+                        },
+                        {
+                          "OperatorName": "by",
+                          "Arguments": [
+                            {
+                              "EnumName": "T",
+                              "EnumValue": "id"
+                            }
+                          ]
+                        },
+                        {
+                          "OperatorName": "by",
+                          "Arguments": [
+                            {
+                              "EnumName": "T",
+                              "EnumValue": "label"
+                            }
+                          ]
+                        },
+                        {
+                          "OperatorName": "unfold",
+                          "Arguments": []
+                        }
+                      ]
+                    },
                     {
                       "SourceInstructions": [],
                       "StepInstructions": [
                         {
                           "OperatorName": "properties",
                           "Arguments": []
+                        },
+                        {
+                          "OperatorName": "has",
+                          "Arguments": [
+                            {
+                              "EnumName": "T",
+                              "EnumValue": "label"
+                            },
+                            {
+                              "OperatorName": "and",
+                              "Value": {
+                                "OperatorName": "neq",
+                                "Value": "id",
+                                "Other": null
+                              },
+                              "Other": {
+                                "OperatorName": "neq",
+                                "Value": "label",
+                                "Other": null
+                              }
+                            }
+                          ]
                         },
                         {
                           "OperatorName": "group",
@@ -284,6 +314,52 @@
                                   "Arguments": []
                                 }
                               ]
+                            }
+                          ]
+                        },
+                        {
+                          "OperatorName": "unfold",
+                          "Arguments": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "OperatorName": "group",
+                  "Arguments": []
+                },
+                {
+                  "OperatorName": "by",
+                  "Arguments": [
+                    {
+                      "SourceInstructions": [],
+                      "StepInstructions": [
+                        {
+                          "OperatorName": "select",
+                          "Arguments": [
+                            {
+                              "EnumName": "Column",
+                              "EnumValue": "keys"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "OperatorName": "by",
+                  "Arguments": [
+                    {
+                      "SourceInstructions": [],
+                      "StepInstructions": [
+                        {
+                          "OperatorName": "select",
+                          "Arguments": [
+                            {
+                              "EnumName": "Column",
+                              "EnumValue": "values"
                             }
                           ]
                         }
@@ -312,40 +388,70 @@
                   ]
                 },
                 {
-                  "OperatorName": "project",
-                  "Arguments": [
-                    "id",
-                    "label",
-                    "properties"
-                  ]
-                },
-                {
-                  "OperatorName": "by",
+                  "OperatorName": "union",
                   "Arguments": [
                     {
-                      "EnumName": "T",
-                      "EnumValue": "id"
-                    }
-                  ]
-                },
-                {
-                  "OperatorName": "by",
-                  "Arguments": [
-                    {
-                      "EnumName": "T",
-                      "EnumValue": "label"
-                    }
-                  ]
-                },
-                {
-                  "OperatorName": "by",
-                  "Arguments": [
+                      "SourceInstructions": [],
+                      "StepInstructions": [
+                        {
+                          "OperatorName": "project",
+                          "Arguments": [
+                            "id",
+                            "label"
+                          ]
+                        },
+                        {
+                          "OperatorName": "by",
+                          "Arguments": [
+                            {
+                              "EnumName": "T",
+                              "EnumValue": "id"
+                            }
+                          ]
+                        },
+                        {
+                          "OperatorName": "by",
+                          "Arguments": [
+                            {
+                              "EnumName": "T",
+                              "EnumValue": "label"
+                            }
+                          ]
+                        },
+                        {
+                          "OperatorName": "unfold",
+                          "Arguments": []
+                        }
+                      ]
+                    },
                     {
                       "SourceInstructions": [],
                       "StepInstructions": [
                         {
                           "OperatorName": "properties",
                           "Arguments": []
+                        },
+                        {
+                          "OperatorName": "has",
+                          "Arguments": [
+                            {
+                              "EnumName": "T",
+                              "EnumValue": "label"
+                            },
+                            {
+                              "OperatorName": "and",
+                              "Value": {
+                                "OperatorName": "neq",
+                                "Value": "id",
+                                "Other": null
+                              },
+                              "Other": {
+                                "OperatorName": "neq",
+                                "Value": "label",
+                                "Other": null
+                              }
+                            }
+                          ]
                         },
                         {
                           "OperatorName": "group",
@@ -406,6 +512,52 @@
                                   "Arguments": []
                                 }
                               ]
+                            }
+                          ]
+                        },
+                        {
+                          "OperatorName": "unfold",
+                          "Arguments": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "OperatorName": "group",
+                  "Arguments": []
+                },
+                {
+                  "OperatorName": "by",
+                  "Arguments": [
+                    {
+                      "SourceInstructions": [],
+                      "StepInstructions": [
+                        {
+                          "OperatorName": "select",
+                          "Arguments": [
+                            {
+                              "EnumName": "Column",
+                              "EnumValue": "keys"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "OperatorName": "by",
+                  "Arguments": [
+                    {
+                      "SourceInstructions": [],
+                      "StepInstructions": [
+                        {
+                          "OperatorName": "select",
+                          "Arguments": [
+                            {
+                              "EnumName": "Column",
+                              "EnumValue": "values"
                             }
                           ]
                         }

@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d,_e).drop()).property(single,_b,_f).property(single,_c,_g).property(single,_d,_h).property(single,_e,_i).outE(_j).sideEffect(__.properties(_k,_l,_m).drop()).property(_k,_i).property(_l,_n).property(_m,_i).project(_o,_p,_q).by(id).by(label).by(__.valueMap())",
+    "Script": "g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d,_e).drop()).property(single,_b,_f).property(single,_c,_g).property(single,_d,_h).property(single,_e,_i).outE(_j).sideEffect(__.properties(_k,_l,_m).drop()).property(_k,_i).property(_l,_n).property(_m,_i).union(__.project(_o,_p).by(id).by(label).unfold(),__.properties().has(label,neq(_o).and(neq(_p))).group().by(key).by(__.values()).unfold()).group().by(__.select(keys)).by(__.select(values))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Person",
@@ -18,8 +18,7 @@
       "_m": "To",
       "_n": "Admin",
       "_o": "id",
-      "_p": "label",
-      "_q": "properties"
+      "_p": "label"
     }
   }
 ]
