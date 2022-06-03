@@ -1,4 +1,4 @@
-﻿[
+[
   {
     "@type": "g:List",
     "@value": [
@@ -19,54 +19,60 @@
               },
               "label",
               "Person",
-              "RegistrationDate",
+              "properties",
               {
-                "@type": "g:List",
+                "@type": "g:Map",
                 "@value": [
+                  "RegistrationDate",
                   {
-                    "@type": "g:Map",
+                    "@type": "g:List",
                     "@value": [
-                      "id",
-                      {
-                        "@type": "g:Int64",
-                        "@value": "scrubbed id"
-                      },
-                      "label",
-                      "RegistrationDate",
-                      "value",
-                      {
-                        "@type": "g:Date",
-                        "@value": 1586270616000
-                      },
-                      "properties",
                       {
                         "@type": "g:Map",
-                        "@value": []
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": "scrubbed id"
+                          },
+                          "label",
+                          "RegistrationDate",
+                          "value",
+                          {
+                            "@type": "g:Date",
+                            "@value": 1586270616000
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
                       }
                     ]
-                  }
-                ]
-              },
-              "Name",
-              {
-                "@type": "g:List",
-                "@value": [
+                  },
+                  "Name",
                   {
-                    "@type": "g:Map",
+                    "@type": "g:List",
                     "@value": [
-                      "id",
-                      {
-                        "@type": "g:Int64",
-                        "@value": "scrubbed id"
-                      },
-                      "label",
-                      "Name",
-                      "value",
-                      "Marko",
-                      "properties",
                       {
                         "@type": "g:Map",
-                        "@value": []
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": "scrubbed id"
+                          },
+                          "label",
+                          "Name",
+                          "value",
+                          "Marko",
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
                       }
                     ]
                   }

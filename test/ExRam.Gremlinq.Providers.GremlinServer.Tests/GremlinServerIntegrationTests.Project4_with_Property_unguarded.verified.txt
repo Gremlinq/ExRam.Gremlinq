@@ -53,41 +53,47 @@
               {
                 "@type": "g:Map",
                 "@value": [
-                  "FoundingDate",
-                  {
-                    "@type": "g:List",
-                    "@value": [
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "id",
-                          {
-                            "@type": "g:Int64",
-                            "@value": "scrubbed id"
-                          },
-                          "label",
-                          "FoundingDate",
-                          "value",
-                          {
-                            "@type": "g:Date",
-                            "@value": -62135596800000
-                          },
-                          "properties",
-                          {
-                            "@type": "g:Map",
-                            "@value": []
-                          }
-                        ]
-                      }
-                    ]
-                  },
                   "id",
                   {
                     "@type": "g:Int64",
                     "@value": "scrubbed id"
                   },
                   "label",
-                  "Company"
+                  "Company",
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": [
+                      "FoundingDate",
+                      {
+                        "@type": "g:List",
+                        "@value": [
+                          {
+                            "@type": "g:Map",
+                            "@value": [
+                              "id",
+                              {
+                                "@type": "g:Int64",
+                                "@value": "scrubbed id"
+                              },
+                              "label",
+                              "FoundingDate",
+                              "value",
+                              {
+                                "@type": "g:Date",
+                                "@value": -62135596800000
+                              },
+                              "properties",
+                              {
+                                "@type": "g:Map",
+                                "@value": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
                 ]
               },
               "Item3",
@@ -136,38 +142,44 @@
               {
                 "@type": "g:Map",
                 "@value": [
-                  "CountryCallingCode",
-                  {
-                    "@type": "g:List",
-                    "@value": [
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "id",
-                          {
-                            "@type": "g:Int64",
-                            "@value": "scrubbed id"
-                          },
-                          "label",
-                          "CountryCallingCode",
-                          "value",
-                          "+49",
-                          "properties",
-                          {
-                            "@type": "g:Map",
-                            "@value": []
-                          }
-                        ]
-                      }
-                    ]
-                  },
                   "id",
                   {
                     "@type": "g:Int64",
                     "@value": "scrubbed id"
                   },
                   "label",
-                  "Country"
+                  "Country",
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": [
+                      "CountryCallingCode",
+                      {
+                        "@type": "g:List",
+                        "@value": [
+                          {
+                            "@type": "g:Map",
+                            "@value": [
+                              "id",
+                              {
+                                "@type": "g:Int64",
+                                "@value": "scrubbed id"
+                              },
+                              "label",
+                              "CountryCallingCode",
+                              "value",
+                              "+49",
+                              "properties",
+                              {
+                                "@type": "g:Map",
+                                "@value": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
                 ]
               },
               "Item3",
@@ -222,7 +234,12 @@
                     "@value": "scrubbed id"
                   },
                   "label",
-                  "Country"
+                  "Country",
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": []
+                  }
                 ]
               },
               "Item3",
@@ -277,7 +294,12 @@
                     "@value": "scrubbed id"
                   },
                   "label",
-                  "Country"
+                  "Country",
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": []
+                  }
                 ]
               },
               "Item3",
@@ -332,7 +354,12 @@
                     "@value": "scrubbed id"
                   },
                   "label",
-                  "Country"
+                  "Country",
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": []
+                  }
                 ]
               },
               "Item3",
@@ -381,41 +408,47 @@
               {
                 "@type": "g:Map",
                 "@value": [
-                  "FoundingDate",
+                  "id",
                   {
-                    "@type": "g:List",
+                    "@type": "g:Int64",
+                    "@value": "scrubbed id"
+                  },
+                  "label",
+                  "Company",
+                  "properties",
+                  {
+                    "@type": "g:Map",
                     "@value": [
+                      "FoundingDate",
                       {
-                        "@type": "g:Map",
+                        "@type": "g:List",
                         "@value": [
-                          "id",
-                          {
-                            "@type": "g:Int64",
-                            "@value": "scrubbed id"
-                          },
-                          "label",
-                          "FoundingDate",
-                          "value",
-                          {
-                            "@type": "g:Date",
-                            "@value": -62135596800000
-                          },
-                          "properties",
                           {
                             "@type": "g:Map",
-                            "@value": []
+                            "@value": [
+                              "id",
+                              {
+                                "@type": "g:Int64",
+                                "@value": "scrubbed id"
+                              },
+                              "label",
+                              "FoundingDate",
+                              "value",
+                              {
+                                "@type": "g:Date",
+                                "@value": -62135596800000
+                              },
+                              "properties",
+                              {
+                                "@type": "g:Map",
+                                "@value": []
+                              }
+                            ]
                           }
                         ]
                       }
                     ]
-                  },
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": "scrubbed id"
-                  },
-                  "label",
-                  "Company"
+                  }
                 ]
               },
               "Item3",
@@ -464,38 +497,44 @@
               {
                 "@type": "g:Map",
                 "@value": [
-                  "CountryCallingCode",
-                  {
-                    "@type": "g:List",
-                    "@value": [
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "id",
-                          {
-                            "@type": "g:Int64",
-                            "@value": "scrubbed id"
-                          },
-                          "label",
-                          "CountryCallingCode",
-                          "value",
-                          "+49",
-                          "properties",
-                          {
-                            "@type": "g:Map",
-                            "@value": []
-                          }
-                        ]
-                      }
-                    ]
-                  },
                   "id",
                   {
                     "@type": "g:Int64",
                     "@value": "scrubbed id"
                   },
                   "label",
-                  "Country"
+                  "Country",
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": [
+                      "CountryCallingCode",
+                      {
+                        "@type": "g:List",
+                        "@value": [
+                          {
+                            "@type": "g:Map",
+                            "@value": [
+                              "id",
+                              {
+                                "@type": "g:Int64",
+                                "@value": "scrubbed id"
+                              },
+                              "label",
+                              "CountryCallingCode",
+                              "value",
+                              "+49",
+                              "properties",
+                              {
+                                "@type": "g:Map",
+                                "@value": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
                 ]
               },
               "Item3",
@@ -544,41 +583,47 @@
               {
                 "@type": "g:Map",
                 "@value": [
-                  "FoundingDate",
-                  {
-                    "@type": "g:List",
-                    "@value": [
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "id",
-                          {
-                            "@type": "g:Int64",
-                            "@value": "scrubbed id"
-                          },
-                          "label",
-                          "FoundingDate",
-                          "value",
-                          {
-                            "@type": "g:Date",
-                            "@value": -62135596800000
-                          },
-                          "properties",
-                          {
-                            "@type": "g:Map",
-                            "@value": []
-                          }
-                        ]
-                      }
-                    ]
-                  },
                   "id",
                   {
                     "@type": "g:Int64",
                     "@value": "scrubbed id"
                   },
                   "label",
-                  "Company"
+                  "Company",
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": [
+                      "FoundingDate",
+                      {
+                        "@type": "g:List",
+                        "@value": [
+                          {
+                            "@type": "g:Map",
+                            "@value": [
+                              "id",
+                              {
+                                "@type": "g:Int64",
+                                "@value": "scrubbed id"
+                              },
+                              "label",
+                              "FoundingDate",
+                              "value",
+                              {
+                                "@type": "g:Date",
+                                "@value": -62135596800000
+                              },
+                              "properties",
+                              {
+                                "@type": "g:Map",
+                                "@value": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
                 ]
               },
               "Item3",

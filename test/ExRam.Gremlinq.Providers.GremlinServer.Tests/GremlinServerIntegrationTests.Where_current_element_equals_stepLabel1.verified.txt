@@ -12,38 +12,44 @@
           "value": {
             "@type": "g:Map",
             "@value": [
-              "IetfLanguageTag",
+              "id",
               {
-                "@type": "g:List",
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
+              "Language",
+              "properties",
+              {
+                "@type": "g:Map",
                 "@value": [
+                  "IetfLanguageTag",
                   {
-                    "@type": "g:Map",
+                    "@type": "g:List",
                     "@value": [
-                      "id",
-                      {
-                        "@type": "g:Int64",
-                        "@value": "scrubbed id"
-                      },
-                      "label",
-                      "IetfLanguageTag",
-                      "value",
-                      "en",
-                      "properties",
                       {
                         "@type": "g:Map",
-                        "@value": []
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": "scrubbed id"
+                          },
+                          "label",
+                          "IetfLanguageTag",
+                          "value",
+                          "en",
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
                       }
                     ]
                   }
                 ]
-              },
-              "id",
-              {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "label",
-              "Language"
+              }
             ]
           }
         }
@@ -58,38 +64,44 @@
           "value": {
             "@type": "g:Map",
             "@value": [
-              "IetfLanguageTag",
+              "id",
               {
-                "@type": "g:List",
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
+              "Language",
+              "properties",
+              {
+                "@type": "g:Map",
                 "@value": [
+                  "IetfLanguageTag",
                   {
-                    "@type": "g:Map",
+                    "@type": "g:List",
                     "@value": [
-                      "id",
-                      {
-                        "@type": "g:Int64",
-                        "@value": "scrubbed id"
-                      },
-                      "label",
-                      "IetfLanguageTag",
-                      "value",
-                      "en",
-                      "properties",
                       {
                         "@type": "g:Map",
-                        "@value": []
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": "scrubbed id"
+                          },
+                          "label",
+                          "IetfLanguageTag",
+                          "value",
+                          "en",
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
                       }
                     ]
                   }
                 ]
-              },
-              "id",
-              {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "label",
-              "Language"
+              }
             ]
           }
         }
@@ -110,7 +122,12 @@
                 "@value": "scrubbed id"
               },
               "label",
-              "Language"
+              "Language",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": []
+              }
             ]
           }
         }
@@ -131,7 +148,12 @@
                 "@value": "scrubbed id"
               },
               "label",
-              "Language"
+              "Language",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": []
+              }
             ]
           }
         }
@@ -146,38 +168,44 @@
           "value": {
             "@type": "g:Map",
             "@value": [
-              "lang",
+              "id",
               {
-                "@type": "g:List",
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
+              "Language",
+              "properties",
+              {
+                "@type": "g:Map",
                 "@value": [
+                  "lang",
                   {
-                    "@type": "g:Map",
+                    "@type": "g:List",
                     "@value": [
-                      "id",
-                      {
-                        "@type": "g:Int64",
-                        "@value": "scrubbed id"
-                      },
-                      "label",
-                      "lang",
-                      "value",
-                      "en",
-                      "properties",
                       {
                         "@type": "g:Map",
-                        "@value": []
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": "scrubbed id"
+                          },
+                          "label",
+                          "lang",
+                          "value",
+                          "en",
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
                       }
                     ]
                   }
                 ]
-              },
-              "id",
-              {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "label",
-              "Language"
+              }
             ]
           }
         }
@@ -192,38 +220,44 @@
           "value": {
             "@type": "g:Map",
             "@value": [
-              "IetfLanguageTag",
+              "id",
               {
-                "@type": "g:List",
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
+              "Language",
+              "properties",
+              {
+                "@type": "g:Map",
                 "@value": [
+                  "IetfLanguageTag",
                   {
-                    "@type": "g:Map",
+                    "@type": "g:List",
                     "@value": [
-                      "id",
-                      {
-                        "@type": "g:Int64",
-                        "@value": "scrubbed id"
-                      },
-                      "label",
-                      "IetfLanguageTag",
-                      "value",
-                      "en",
-                      "properties",
                       {
                         "@type": "g:Map",
-                        "@value": []
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": "scrubbed id"
+                          },
+                          "label",
+                          "IetfLanguageTag",
+                          "value",
+                          "en",
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
                       }
                     ]
                   }
                 ]
-              },
-              "id",
-              {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "label",
-              "Language"
+              }
             ]
           }
         }
@@ -238,38 +272,44 @@
           "value": {
             "@type": "g:Map",
             "@value": [
-              "IetfLanguageTag",
+              "id",
               {
-                "@type": "g:List",
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
+              "Language",
+              "properties",
+              {
+                "@type": "g:Map",
                 "@value": [
+                  "IetfLanguageTag",
                   {
-                    "@type": "g:Map",
+                    "@type": "g:List",
                     "@value": [
-                      "id",
-                      {
-                        "@type": "g:Int64",
-                        "@value": "scrubbed id"
-                      },
-                      "label",
-                      "IetfLanguageTag",
-                      "value",
-                      "en",
-                      "properties",
                       {
                         "@type": "g:Map",
-                        "@value": []
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": "scrubbed id"
+                          },
+                          "label",
+                          "IetfLanguageTag",
+                          "value",
+                          "en",
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
                       }
                     ]
                   }
                 ]
-              },
-              "id",
-              {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "label",
-              "Language"
+              }
             ]
           }
         }
@@ -290,7 +330,12 @@
                 "@value": "scrubbed id"
               },
               "label",
-              "Language"
+              "Language",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": []
+              }
             ]
           }
         }
@@ -305,38 +350,44 @@
           "value": {
             "@type": "g:Map",
             "@value": [
-              "IetfLanguageTag",
+              "id",
               {
-                "@type": "g:List",
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
+              "Language",
+              "properties",
+              {
+                "@type": "g:Map",
                 "@value": [
+                  "IetfLanguageTag",
                   {
-                    "@type": "g:Map",
+                    "@type": "g:List",
                     "@value": [
-                      "id",
-                      {
-                        "@type": "g:Int64",
-                        "@value": "scrubbed id"
-                      },
-                      "label",
-                      "IetfLanguageTag",
-                      "value",
-                      "en",
-                      "properties",
                       {
                         "@type": "g:Map",
-                        "@value": []
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": "scrubbed id"
+                          },
+                          "label",
+                          "IetfLanguageTag",
+                          "value",
+                          "en",
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
                       }
                     ]
                   }
                 ]
-              },
-              "id",
-              {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "label",
-              "Language"
+              }
             ]
           }
         }
@@ -351,38 +402,44 @@
           "value": {
             "@type": "g:Map",
             "@value": [
-              "IetfLanguageTag",
-              {
-                "@type": "g:List",
-                "@value": [
-                  {
-                    "@type": "g:Map",
-                    "@value": [
-                      "id",
-                      {
-                        "@type": "g:Int64",
-                        "@value": "scrubbed id"
-                      },
-                      "label",
-                      "IetfLanguageTag",
-                      "value",
-                      "en",
-                      "properties",
-                      {
-                        "@type": "g:Map",
-                        "@value": []
-                      }
-                    ]
-                  }
-                ]
-              },
               "id",
               {
                 "@type": "g:Int64",
                 "@value": "scrubbed id"
               },
               "label",
-              "Language"
+              "Language",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "IetfLanguageTag",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": "scrubbed id"
+                          },
+                          "label",
+                          "IetfLanguageTag",
+                          "value",
+                          "en",
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
             ]
           }
         }

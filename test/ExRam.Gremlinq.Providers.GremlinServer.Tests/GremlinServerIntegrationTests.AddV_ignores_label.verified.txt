@@ -1,4 +1,4 @@
-﻿[
+[
   {
     "@type": "g:List",
     "@value": [
@@ -18,7 +18,12 @@
                 "@value": "scrubbed id"
               },
               "label",
-              "Language"
+              "Language",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": []
+              }
             ]
           }
         }

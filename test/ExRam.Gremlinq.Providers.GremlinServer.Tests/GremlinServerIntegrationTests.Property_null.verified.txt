@@ -1,4 +1,4 @@
-﻿[
+[
   {
     "@type": "g:List",
     "@value": [
@@ -12,41 +12,47 @@
           "value": {
             "@type": "g:Map",
             "@value": [
-              "FoundingDate",
-              {
-                "@type": "g:List",
-                "@value": [
-                  {
-                    "@type": "g:Map",
-                    "@value": [
-                      "id",
-                      {
-                        "@type": "g:Int64",
-                        "@value": "scrubbed id"
-                      },
-                      "label",
-                      "FoundingDate",
-                      "value",
-                      {
-                        "@type": "g:Date",
-                        "@value": -62135596800000
-                      },
-                      "properties",
-                      {
-                        "@type": "g:Map",
-                        "@value": []
-                      }
-                    ]
-                  }
-                ]
-              },
               "id",
               {
                 "@type": "g:Int64",
                 "@value": "scrubbed id"
               },
               "label",
-              "Company"
+              "Company",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "FoundingDate",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": "scrubbed id"
+                          },
+                          "label",
+                          "FoundingDate",
+                          "value",
+                          {
+                            "@type": "g:Date",
+                            "@value": -62135596800000
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
             ]
           }
         }

@@ -1,4 +1,4 @@
-﻿[
+[
   {
     "@type": "g:List",
     "@value": [
@@ -12,8 +12,6 @@
           "value": {
             "@type": "g:Map",
             "@value": [
-              "Role",
-              "Admin",
               "id",
               {
                 "@type": "g:Int64",
@@ -21,15 +19,23 @@
               },
               "label",
               "WorksFor",
-              "From",
+              "properties",
               {
-                "@type": "g:Date",
-                "@value": 1586270616000
-              },
-              "To",
-              {
-                "@type": "g:Date",
-                "@value": 1586270616000
+                "@type": "g:Map",
+                "@value": [
+                  "Role",
+                  "Admin",
+                  "From",
+                  {
+                    "@type": "g:Date",
+                    "@value": 1586270616000
+                  },
+                  "To",
+                  {
+                    "@type": "g:Date",
+                    "@value": 1586270616000
+                  }
+                ]
               }
             ]
           }
@@ -45,8 +51,6 @@
           "value": {
             "@type": "g:Map",
             "@value": [
-              "Role",
-              "Admin",
               "id",
               {
                 "@type": "g:Int64",
@@ -54,15 +58,23 @@
               },
               "label",
               "WorksFor",
-              "From",
+              "properties",
               {
-                "@type": "g:Date",
-                "@value": 1586270616000
-              },
-              "To",
-              {
-                "@type": "g:Date",
-                "@value": 1586270616000
+                "@type": "g:Map",
+                "@value": [
+                  "Role",
+                  "Admin",
+                  "From",
+                  {
+                    "@type": "g:Date",
+                    "@value": 1586270616000
+                  },
+                  "To",
+                  {
+                    "@type": "g:Date",
+                    "@value": 1586270616000
+                  }
+                ]
               }
             ]
           }
@@ -78,8 +90,6 @@
           "value": {
             "@type": "g:Map",
             "@value": [
-              "Role",
-              "Admin",
               "id",
               {
                 "@type": "g:Int64",
@@ -87,15 +97,23 @@
               },
               "label",
               "WorksFor",
-              "From",
+              "properties",
               {
-                "@type": "g:Date",
-                "@value": 1586270616000
-              },
-              "To",
-              {
-                "@type": "g:Date",
-                "@value": 1586270616000
+                "@type": "g:Map",
+                "@value": [
+                  "Role",
+                  "Admin",
+                  "From",
+                  {
+                    "@type": "g:Date",
+                    "@value": 1586270616000
+                  },
+                  "To",
+                  {
+                    "@type": "g:Date",
+                    "@value": 1586270616000
+                  }
+                ]
               }
             ]
           }
