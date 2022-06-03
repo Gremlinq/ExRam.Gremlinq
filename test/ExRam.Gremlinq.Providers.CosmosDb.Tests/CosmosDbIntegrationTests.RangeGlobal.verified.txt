@@ -2,68 +2,11 @@
   [
     {
       "id": "scrubbed id",
-      "label": "Language",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ],
-        "IetfLanguageTag": [
-          {
-            "id": "scrubbed id",
-            "value": "en"
-          }
-        ]
-      }
+      "label": "Language"
     },
     {
       "id": "scrubbed id",
-      "label": "Person",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ],
-        "Age": [
-          {
-            "id": "scrubbed id",
-            "value": 36,
-            "properties": {
-              "Meta": "value"
-            }
-          }
-        ],
-        "Name": [
-          {
-            "id": "scrubbed id",
-            "value": "Bob"
-          }
-        ],
-        "RegistrationDate": [
-          {
-            "id": "scrubbed id",
-            "value": 1586270616000
-          }
-        ],
-        "GuidKey": [
-          {
-            "id": "scrubbed id",
-            "value": "scrubbed id"
-          }
-        ],
-        "StringKey1": [
-          {
-            "id": "scrubbed id",
-            "value": 36
-          }
-        ]
-      }
+      "label": "Person"
     }
   ]
 ]

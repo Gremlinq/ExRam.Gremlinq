@@ -3,281 +3,253 @@
     {
       "name": {
         "id": "scrubbed id",
-        "label": "Country",
-        "type": "vertex",
-        "properties": {
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ],
-          "CountryCallingCode": [
-            {
-              "id": "scrubbed id",
-              "value": "+49"
-            }
-          ]
-        }
+        "label": "Country"
       },
       "Item2": {
         "id": "scrubbed id",
+        "label": "PartitionKey",
         "value": "PartitionKey",
-        "label": "PartitionKey"
+        "properties": {}
       }
     },
     {
       "name": {
         "id": "scrubbed id",
-        "label": "Language",
-        "type": "vertex",
-        "properties": {
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ],
-          "IetfLanguageTag": [
-            {
-              "id": "scrubbed id",
-              "value": "en"
-            }
-          ]
-        }
+        "label": "Language"
       },
       "Item2": {
         "id": "scrubbed id",
+        "label": "PartitionKey",
         "value": "PartitionKey",
-        "label": "PartitionKey"
+        "properties": {}
       }
     },
     {
       "name": {
         "id": "scrubbed id",
-        "label": "Person",
-        "type": "vertex",
-        "properties": {
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ],
-          "Age": [
-            {
-              "id": "scrubbed id",
-              "value": 0
-            }
-          ],
-          "Name": [
-            {
-              "id": "scrubbed id",
-              "value": "Bob"
-            }
-          ],
-          "RegistrationDate": [
-            {
-              "id": "scrubbed id",
-              "value": 1586270616000
-            }
-          ]
-        }
+        "label": "Person"
       },
       "Item2": {
         "id": "scrubbed id",
+        "label": "PartitionKey",
         "value": "PartitionKey",
-        "label": "PartitionKey"
+        "properties": {}
       }
     },
     {
       "name": {
         "id": "scrubbed id",
-        "label": "Person",
-        "type": "vertex",
-        "properties": {
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ],
-          "Age": [
-            {
-              "id": "scrubbed id",
-              "value": 0
-            }
-          ]
-        }
+        "label": "Person"
       },
       "Item2": {
         "id": "scrubbed id",
+        "label": "PartitionKey",
         "value": "PartitionKey",
-        "label": "PartitionKey"
+        "properties": {}
       }
     },
     {
       "name": {
         "id": "scrubbed id",
-        "label": "Country",
-        "type": "vertex",
-        "properties": {
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ]
-        }
+        "label": "Country"
       },
       "Item2": {
         "id": "scrubbed id",
+        "label": "PartitionKey",
         "value": "PartitionKey",
-        "label": "PartitionKey"
+        "properties": {}
       }
     },
     {
       "name": {
         "id": "scrubbed id",
-        "label": "Person",
-        "type": "vertex",
-        "properties": {
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ],
-          "Age": [
-            {
-              "id": "scrubbed id",
-              "value": 0
-            }
-          ]
-        }
+        "label": "Person"
       },
       "Item2": {
         "id": "scrubbed id",
+        "label": "PartitionKey",
         "value": "PartitionKey",
-        "label": "PartitionKey"
+        "properties": {}
       }
     },
     {
       "name": {
         "id": "scrubbed id",
-        "label": "Country",
-        "type": "vertex",
-        "properties": {
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ]
-        }
+        "label": "Country"
       },
       "Item2": {
         "id": "scrubbed id",
+        "label": "PartitionKey",
         "value": "PartitionKey",
-        "label": "PartitionKey"
+        "properties": {}
       }
     },
     {
       "name": {
         "id": "scrubbed id",
-        "label": "Person",
-        "type": "vertex",
-        "properties": {
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ],
-          "Age": [
-            {
-              "id": "scrubbed id",
-              "value": 0
-            }
-          ]
-        }
+        "label": "Person"
       },
       "Item2": {
         "id": "scrubbed id",
+        "label": "PartitionKey",
         "value": "PartitionKey",
-        "label": "PartitionKey"
+        "properties": {}
       }
     },
     {
       "name": {
         "id": "scrubbed id",
-        "label": "Country",
-        "type": "vertex",
-        "properties": {
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ]
-        }
+        "label": "Country"
       },
       "Item2": {
         "id": "scrubbed id",
+        "label": "PartitionKey",
         "value": "PartitionKey",
-        "label": "PartitionKey"
+        "properties": {}
       }
     },
     {
       "name": {
         "id": "scrubbed id",
-        "label": "Language",
-        "type": "vertex",
-        "properties": {
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ],
-          "IetfLanguageTag": [
-            {
-              "id": "scrubbed id",
-              "value": "en"
-            }
-          ]
-        }
+        "label": "Language"
       },
       "Item2": {
         "id": "scrubbed id",
+        "label": "PartitionKey",
         "value": "PartitionKey",
-        "label": "PartitionKey"
+        "properties": {}
       }
     },
     {
       "name": {
         "id": "scrubbed id",
-        "label": "Country",
-        "type": "vertex",
-        "properties": {
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ],
-          "CountryCallingCode": [
-            {
-              "id": "scrubbed id",
-              "value": "+49"
-            }
-          ]
-        }
+        "label": "Country"
       },
       "Item2": {
         "id": "scrubbed id",
+        "label": "PartitionKey",
         "value": "PartitionKey",
-        "label": "PartitionKey"
+        "properties": {}
+      }
+    },
+    {
+      "name": {
+        "id": "scrubbed id",
+        "label": "Person"
+      },
+      "Item2": {
+        "id": "scrubbed id",
+        "label": "PartitionKey",
+        "value": "PartitionKey",
+        "properties": {}
+      }
+    },
+    {
+      "name": {
+        "id": "scrubbed id",
+        "label": "Language"
+      },
+      "Item2": {
+        "id": "scrubbed id",
+        "label": "PartitionKey",
+        "value": "PartitionKey",
+        "properties": {}
+      }
+    },
+    {
+      "name": {
+        "id": "scrubbed id",
+        "label": "Language"
+      },
+      "Item2": {
+        "id": "scrubbed id",
+        "label": "PartitionKey",
+        "value": "PartitionKey",
+        "properties": {}
+      }
+    },
+    {
+      "name": {
+        "id": "scrubbed id",
+        "label": "TimeFrame"
+      },
+      "Item2": {
+        "id": "scrubbed id",
+        "label": "PartitionKey",
+        "value": "PartitionKey",
+        "properties": {}
+      }
+    },
+    {
+      "name": {
+        "id": "scrubbed id",
+        "label": "Language"
+      },
+      "Item2": {
+        "id": "scrubbed id",
+        "label": "PartitionKey",
+        "value": "PartitionKey",
+        "properties": {}
+      }
+    },
+    {
+      "name": {
+        "id": "scrubbed id",
+        "label": "Language"
+      },
+      "Item2": {
+        "id": "scrubbed id",
+        "label": "PartitionKey",
+        "value": "PartitionKey",
+        "properties": {}
+      }
+    },
+    {
+      "name": {
+        "id": "scrubbed id",
+        "label": "Person"
+      },
+      "Item2": {
+        "id": "scrubbed id",
+        "label": "PartitionKey",
+        "value": "PartitionKey",
+        "properties": {}
+      }
+    },
+    {
+      "name": {
+        "id": "scrubbed id",
+        "label": "Person"
+      },
+      "Item2": {
+        "id": "scrubbed id",
+        "label": "PartitionKey",
+        "value": "PartitionKey",
+        "properties": {}
+      }
+    },
+    {
+      "name": {
+        "id": "scrubbed id",
+        "label": "Person"
+      },
+      "Item2": {
+        "id": "scrubbed id",
+        "label": "PartitionKey",
+        "value": "PartitionKey",
+        "properties": {}
+      }
+    },
+    {
+      "name": {
+        "id": "scrubbed id",
+        "label": "Language"
+      },
+      "Item2": {
+        "id": "scrubbed id",
+        "label": "PartitionKey",
+        "value": "PartitionKey",
+        "properties": {}
       }
     }
   ],
@@ -285,492 +257,85 @@
     {
       "name": {
         "id": "scrubbed id",
-        "label": "Person",
-        "type": "vertex",
-        "properties": {
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ],
-          "Age": [
-            {
-              "id": "scrubbed id",
-              "value": 0
-            }
-          ],
-          "Name": [
-            {
-              "id": "scrubbed id",
-              "value": "Bob"
-            }
-          ],
-          "RegistrationDate": [
-            {
-              "id": "scrubbed id",
-              "value": 1586270616000
-            }
-          ]
-        }
+        "label": "Language"
       },
       "Item2": {
         "id": "scrubbed id",
+        "label": "PartitionKey",
         "value": "PartitionKey",
-        "label": "PartitionKey"
+        "properties": {}
       }
     },
     {
       "name": {
         "id": "scrubbed id",
-        "label": "Language",
-        "type": "vertex",
-        "properties": {
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ],
-          "IetfLanguageTag": [
-            {
-              "id": "scrubbed id",
-              "value": "en"
-            }
-          ]
-        }
+        "label": "Company"
       },
       "Item2": {
         "id": "scrubbed id",
+        "label": "PartitionKey",
         "value": "PartitionKey",
-        "label": "PartitionKey"
+        "properties": {}
       }
     },
     {
       "name": {
         "id": "scrubbed id",
-        "label": "Language",
-        "type": "vertex",
-        "properties": {
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ]
-        }
+        "label": "Country"
       },
       "Item2": {
         "id": "scrubbed id",
+        "label": "PartitionKey",
         "value": "PartitionKey",
-        "label": "PartitionKey"
+        "properties": {}
       }
     },
     {
       "name": {
         "id": "scrubbed id",
-        "label": "TimeFrame",
-        "type": "vertex",
-        "properties": {
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ],
-          "Duration": [
-            {
-              "id": "scrubbed id",
-              "value": 7200000.0
-            }
-          ],
-          "Enabled": [
-            {
-              "id": "scrubbed id",
-              "value": false
-            }
-          ],
-          "StartTime": [
-            {
-              "id": "scrubbed id",
-              "value": 28800000.0
-            }
-          ]
-        }
+        "label": "Country"
       },
       "Item2": {
         "id": "scrubbed id",
+        "label": "PartitionKey",
         "value": "PartitionKey",
-        "label": "PartitionKey"
+        "properties": {}
       }
     },
     {
       "name": {
         "id": "scrubbed id",
-        "label": "Language",
-        "type": "vertex",
-        "properties": {
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ],
-          "IetfLanguageTag": [
-            {
-              "id": "scrubbed id",
-              "value": "en"
-            }
-          ]
-        }
+        "label": "Company"
       },
       "Item2": {
         "id": "scrubbed id",
+        "label": "PartitionKey",
         "value": "PartitionKey",
-        "label": "PartitionKey"
+        "properties": {}
       }
     },
     {
       "name": {
         "id": "scrubbed id",
-        "label": "Language",
-        "type": "vertex",
-        "properties": {
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ],
-          "IetfLanguageTag": [
-            {
-              "id": "scrubbed id",
-              "value": "en"
-            }
-          ]
-        }
+        "label": "Language"
       },
       "Item2": {
         "id": "scrubbed id",
+        "label": "PartitionKey",
         "value": "PartitionKey",
-        "label": "PartitionKey"
+        "properties": {}
       }
     },
     {
       "name": {
         "id": "scrubbed id",
-        "label": "Person",
-        "type": "vertex",
-        "properties": {
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ],
-          "Age": [
-            {
-              "id": "scrubbed id",
-              "value": 0
-            }
-          ],
-          "Image": [
-            {
-              "id": "scrubbed id",
-              "value": "AQIDBAUGBwg="
-            }
-          ]
-        }
+        "label": "Language"
       },
       "Item2": {
         "id": "scrubbed id",
+        "label": "PartitionKey",
         "value": "PartitionKey",
-        "label": "PartitionKey"
-      }
-    },
-    {
-      "name": {
-        "id": "scrubbed id",
-        "label": "Person",
-        "type": "vertex",
-        "properties": {
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ],
-          "Age": [
-            {
-              "id": "scrubbed id",
-              "value": 0
-            }
-          ],
-          "Gender": [
-            {
-              "id": "scrubbed id",
-              "value": 1
-            }
-          ]
-        }
-      },
-      "Item2": {
-        "id": "scrubbed id",
-        "value": "PartitionKey",
-        "label": "PartitionKey"
-      }
-    },
-    {
-      "name": {
-        "id": "scrubbed id",
-        "label": "Person",
-        "type": "vertex",
-        "properties": {
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ],
-          "Name": [
-            {
-              "id": "scrubbed id",
-              "value": "Marko"
-            }
-          ],
-          "RegistrationDate": [
-            {
-              "id": "scrubbed id",
-              "value": 1586270616000
-            }
-          ]
-        }
-      },
-      "Item2": {
-        "id": "scrubbed id",
-        "value": "PartitionKey",
-        "label": "PartitionKey"
-      }
-    },
-    {
-      "name": {
-        "id": "scrubbed id",
-        "label": "Language",
-        "type": "vertex",
-        "properties": {
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ],
-          "IetfLanguageTag": [
-            {
-              "id": "scrubbed id",
-              "value": "en"
-            }
-          ]
-        }
-      },
-      "Item2": {
-        "id": "scrubbed id",
-        "value": "PartitionKey",
-        "label": "PartitionKey"
-      }
-    }
-  ],
-  [
-    {
-      "name": {
-        "id": "scrubbed id",
-        "label": "Language",
-        "type": "vertex",
-        "properties": {
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ]
-        }
-      },
-      "Item2": {
-        "id": "scrubbed id",
-        "value": "PartitionKey",
-        "label": "PartitionKey"
-      }
-    },
-    {
-      "name": {
-        "id": "scrubbed id",
-        "label": "Company",
-        "type": "vertex",
-        "properties": {
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ],
-          "FoundingDate": [
-            {
-              "id": "scrubbed id",
-              "value": -62135596800000
-            }
-          ],
-          "Locations": [
-            {
-              "id": "scrubbed id",
-              "value": "Aachen",
-              "properties": {
-                "ValidFrom": 1546304400000
-              }
-            }
-          ]
-        }
-      },
-      "Item2": {
-        "id": "scrubbed id",
-        "value": "PartitionKey",
-        "label": "PartitionKey"
-      }
-    },
-    {
-      "name": {
-        "id": "scrubbed id",
-        "label": "Country",
-        "type": "vertex",
-        "properties": {
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ],
-          "Name": [
-            {
-              "id": "scrubbed id",
-              "value": "GER"
-            }
-          ]
-        }
-      },
-      "Item2": {
-        "id": "scrubbed id",
-        "value": "PartitionKey",
-        "label": "PartitionKey"
-      }
-    },
-    {
-      "name": {
-        "id": "scrubbed id",
-        "label": "Country",
-        "type": "vertex",
-        "properties": {
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ],
-          "Name": [
-            {
-              "id": "scrubbed id",
-              "value": "GER",
-              "properties": {
-                "de": "Deutschland",
-                "en": "Germany"
-              }
-            }
-          ]
-        }
-      },
-      "Item2": {
-        "id": "scrubbed id",
-        "value": "PartitionKey",
-        "label": "PartitionKey"
-      }
-    },
-    {
-      "name": {
-        "id": "scrubbed id",
-        "label": "Company",
-        "type": "vertex",
-        "properties": {
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ],
-          "FoundingDate": [
-            {
-              "id": "scrubbed id",
-              "value": -62135596800000
-            }
-          ],
-          "PhoneNumbers": [
-            {
-              "id": "scrubbed id",
-              "value": "+4912345"
-            },
-            {
-              "id": "scrubbed id",
-              "value": "+4923456"
-            }
-          ]
-        }
-      },
-      "Item2": {
-        "id": "scrubbed id",
-        "value": "PartitionKey",
-        "label": "PartitionKey"
-      }
-    },
-    {
-      "name": {
-        "id": "scrubbed id",
-        "label": "Language",
-        "type": "vertex",
-        "properties": {
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ]
-        }
-      },
-      "Item2": {
-        "id": "scrubbed id",
-        "value": "PartitionKey",
-        "label": "PartitionKey"
-      }
-    },
-    {
-      "name": {
-        "id": "scrubbed id",
-        "label": "Language",
-        "type": "vertex",
-        "properties": {
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ],
-          "lang": [
-            {
-              "id": "scrubbed id",
-              "value": "en"
-            }
-          ]
-        }
-      },
-      "Item2": {
-        "id": "scrubbed id",
-        "value": "PartitionKey",
-        "label": "PartitionKey"
+        "properties": {}
       }
     }
   ]

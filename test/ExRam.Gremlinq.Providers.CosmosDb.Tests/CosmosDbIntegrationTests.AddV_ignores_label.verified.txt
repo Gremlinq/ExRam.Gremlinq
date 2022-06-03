@@ -1,17 +1,8 @@
-[
+﻿[
   [
     {
       "id": "scrubbed id",
-      "label": "Language",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ]
-      }
+      "label": "Language"
     }
   ]
 ]

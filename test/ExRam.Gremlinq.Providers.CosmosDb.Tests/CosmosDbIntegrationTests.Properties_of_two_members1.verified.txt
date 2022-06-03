@@ -1,24 +1,27 @@
-[
+﻿[
   [
     {
       "id": "scrubbed id",
+      "label": "CountryCallingCode",
       "value": "+49",
-      "label": "CountryCallingCode"
+      "properties": {}
     },
     {
       "id": "scrubbed id",
+      "label": "CountryCallingCode",
       "value": "+49",
-      "label": "CountryCallingCode"
+      "properties": {}
     },
     {
       "id": "scrubbed id",
-      "value": "GER",
-      "label": "Name"
-    },
-    {
-      "id": "scrubbed id",
-      "value": "GER",
       "label": "Name",
+      "value": "GER",
+      "properties": {}
+    },
+    {
+      "id": "scrubbed id",
+      "label": "Name",
+      "value": "GER",
       "properties": {
         "de": "Deutschland",
         "en": "Germany"

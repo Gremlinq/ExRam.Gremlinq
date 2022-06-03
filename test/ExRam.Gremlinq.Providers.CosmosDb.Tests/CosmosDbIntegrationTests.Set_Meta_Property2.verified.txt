@@ -1,25 +1,25 @@
-[
+﻿[
   [
     {
       "id": "scrubbed id",
-      "value": "Bob",
       "label": "Name",
+      "value": "Bob",
       "properties": {
         "ValidFrom": 1586270616000
       }
     },
     {
       "id": "scrubbed id",
-      "value": "Bob",
       "label": "Name",
+      "value": "Bob",
       "properties": {
         "ValidFrom": 1586270616000
       }
     },
     {
       "id": "scrubbed id",
+      "label": "Name",
       "value": "Marko",
-      "label": "Name",
       "properties": {
         "ValidFrom": 1586270616000
       }
