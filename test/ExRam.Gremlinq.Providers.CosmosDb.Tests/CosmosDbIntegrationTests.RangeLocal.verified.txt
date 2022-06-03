@@ -2,769 +2,115 @@
   [
     {
       "id": "scrubbed id",
-      "label": "Country",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ],
-        "CountryCallingCode": [
-          {
-            "id": "scrubbed id",
-            "value": "+49"
-          }
-        ],
-        "LocalizableDescription": [
-          {
-            "id": "scrubbed id",
-            "value": "",
-            "properties": {
-              "someKey": "value"
-            }
-          }
-        ]
-      }
+      "label": "Country"
     },
     {
       "id": "scrubbed id",
-      "label": "Language",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ],
-        "IetfLanguageTag": [
-          {
-            "id": "scrubbed id",
-            "value": "en"
-          }
-        ]
-      }
+      "label": "Language"
     },
     {
       "id": "scrubbed id",
-      "label": "Person",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ],
-        "Age": [
-          {
-            "id": "scrubbed id",
-            "value": 36,
-            "properties": {
-              "Meta": "value"
-            }
-          }
-        ],
-        "Name": [
-          {
-            "id": "scrubbed id",
-            "value": "Bob"
-          }
-        ],
-        "RegistrationDate": [
-          {
-            "id": "scrubbed id",
-            "value": 1586270616000
-          }
-        ],
-        "GuidKey": [
-          {
-            "id": "scrubbed id",
-            "value": "scrubbed id"
-          }
-        ],
-        "StringKey1": [
-          {
-            "id": "scrubbed id",
-            "value": 36
-          }
-        ]
-      }
+      "label": "Person"
     },
     {
       "id": "scrubbed id",
-      "label": "Person",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ],
-        "Age": [
-          {
-            "id": "scrubbed id",
-            "value": 36,
-            "properties": {
-              "Meta": "value"
-            }
-          }
-        ],
-        "GuidKey": [
-          {
-            "id": "scrubbed id",
-            "value": "scrubbed id"
-          }
-        ],
-        "StringKey1": [
-          {
-            "id": "scrubbed id",
-            "value": 36
-          }
-        ]
-      }
+      "label": "Person"
     },
     {
       "id": "scrubbed id",
-      "label": "Country",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ],
-        "LocalizableDescription": [
-          {
-            "id": "scrubbed id",
-            "value": "",
-            "properties": {
-              "someKey": "value"
-            }
-          }
-        ]
-      }
+      "label": "Country"
     },
     {
       "id": "scrubbed id",
-      "label": "Person",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ],
-        "Age": [
-          {
-            "id": "scrubbed id",
-            "value": 36,
-            "properties": {
-              "Meta": "value"
-            }
-          }
-        ],
-        "GuidKey": [
-          {
-            "id": "scrubbed id",
-            "value": "scrubbed id"
-          }
-        ],
-        "StringKey1": [
-          {
-            "id": "scrubbed id",
-            "value": 36
-          }
-        ]
-      }
+      "label": "Person"
     },
     {
       "id": "scrubbed id",
-      "label": "Country",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ],
-        "LocalizableDescription": [
-          {
-            "id": "scrubbed id",
-            "value": "",
-            "properties": {
-              "someKey": "value"
-            }
-          }
-        ]
-      }
+      "label": "Country"
     },
     {
       "id": "scrubbed id",
-      "label": "Person",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ],
-        "Age": [
-          {
-            "id": "scrubbed id",
-            "value": 36,
-            "properties": {
-              "Meta": "value"
-            }
-          }
-        ],
-        "GuidKey": [
-          {
-            "id": "scrubbed id",
-            "value": "scrubbed id"
-          }
-        ],
-        "StringKey1": [
-          {
-            "id": "scrubbed id",
-            "value": 36
-          }
-        ]
-      }
+      "label": "Person"
     },
     {
       "id": "scrubbed id",
-      "label": "Country",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ],
-        "LocalizableDescription": [
-          {
-            "id": "scrubbed id",
-            "value": "",
-            "properties": {
-              "someKey": "value"
-            }
-          }
-        ]
-      }
+      "label": "Country"
     },
     {
       "id": "scrubbed id",
-      "label": "Language",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ],
-        "IetfLanguageTag": [
-          {
-            "id": "scrubbed id",
-            "value": "en"
-          }
-        ]
-      }
+      "label": "Language"
     },
     {
       "id": "scrubbed id",
-      "label": "Country",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ],
-        "CountryCallingCode": [
-          {
-            "id": "scrubbed id",
-            "value": "+49"
-          }
-        ],
-        "LocalizableDescription": [
-          {
-            "id": "scrubbed id",
-            "value": "",
-            "properties": {
-              "someKey": "value"
-            }
-          }
-        ]
-      }
-    }
-  ],
-  [
-    {
-      "id": "scrubbed id",
-      "label": "Person",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ],
-        "Age": [
-          {
-            "id": "scrubbed id",
-            "value": 36,
-            "properties": {
-              "Meta": "value"
-            }
-          }
-        ],
-        "Name": [
-          {
-            "id": "scrubbed id",
-            "value": "Bob"
-          }
-        ],
-        "RegistrationDate": [
-          {
-            "id": "scrubbed id",
-            "value": 1586270616000
-          }
-        ],
-        "GuidKey": [
-          {
-            "id": "scrubbed id",
-            "value": "scrubbed id"
-          }
-        ],
-        "StringKey1": [
-          {
-            "id": "scrubbed id",
-            "value": 36
-          }
-        ]
-      }
+      "label": "Country"
     },
     {
       "id": "scrubbed id",
-      "label": "Language",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ],
-        "IetfLanguageTag": [
-          {
-            "id": "scrubbed id",
-            "value": "en"
-          }
-        ]
-      }
+      "label": "Person"
     },
     {
       "id": "scrubbed id",
-      "label": "Language",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ]
-      }
+      "label": "Language"
     },
     {
       "id": "scrubbed id",
-      "label": "TimeFrame",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ],
-        "Duration": [
-          {
-            "id": "scrubbed id",
-            "value": 7200000.0
-          }
-        ],
-        "Enabled": [
-          {
-            "id": "scrubbed id",
-            "value": false
-          }
-        ],
-        "StartTime": [
-          {
-            "id": "scrubbed id",
-            "value": 28800000.0
-          }
-        ]
-      }
+      "label": "Language"
     },
     {
       "id": "scrubbed id",
-      "label": "Language",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ],
-        "IetfLanguageTag": [
-          {
-            "id": "scrubbed id",
-            "value": "en"
-          }
-        ]
-      }
+      "label": "TimeFrame"
     },
     {
       "id": "scrubbed id",
-      "label": "Language",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ],
-        "IetfLanguageTag": [
-          {
-            "id": "scrubbed id",
-            "value": "en"
-          }
-        ]
-      }
+      "label": "Language"
     },
     {
       "id": "scrubbed id",
-      "label": "Person",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ],
-        "Age": [
-          {
-            "id": "scrubbed id",
-            "value": 36,
-            "properties": {
-              "Meta": "value"
-            }
-          }
-        ],
-        "Image": [
-          {
-            "id": "scrubbed id",
-            "value": "AQIDBAUGBwg="
-          }
-        ],
-        "GuidKey": [
-          {
-            "id": "scrubbed id",
-            "value": "scrubbed id"
-          }
-        ],
-        "StringKey1": [
-          {
-            "id": "scrubbed id",
-            "value": 36
-          }
-        ]
-      }
+      "label": "Language"
     },
     {
       "id": "scrubbed id",
-      "label": "Person",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ],
-        "Age": [
-          {
-            "id": "scrubbed id",
-            "value": 36,
-            "properties": {
-              "Meta": "value"
-            }
-          }
-        ],
-        "Gender": [
-          {
-            "id": "scrubbed id",
-            "value": 1
-          }
-        ],
-        "GuidKey": [
-          {
-            "id": "scrubbed id",
-            "value": "scrubbed id"
-          }
-        ],
-        "StringKey1": [
-          {
-            "id": "scrubbed id",
-            "value": 36
-          }
-        ]
-      }
+      "label": "Person"
     },
     {
       "id": "scrubbed id",
-      "label": "Person",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ],
-        "Name": [
-          {
-            "id": "scrubbed id",
-            "value": "Marko"
-          }
-        ],
-        "RegistrationDate": [
-          {
-            "id": "scrubbed id",
-            "value": 1586270616000
-          }
-        ],
-        "GuidKey": [
-          {
-            "id": "scrubbed id",
-            "value": "scrubbed id"
-          }
-        ],
-        "Age": [
-          {
-            "id": "scrubbed id",
-            "value": 36,
-            "properties": {
-              "Meta": "value"
-            }
-          }
-        ],
-        "StringKey1": [
-          {
-            "id": "scrubbed id",
-            "value": 36
-          }
-        ]
-      }
+      "label": "Person"
     },
     {
       "id": "scrubbed id",
-      "label": "Language",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ],
-        "IetfLanguageTag": [
-          {
-            "id": "scrubbed id",
-            "value": "en"
-          }
-        ]
-      }
+      "label": "Person"
     },
     {
       "id": "scrubbed id",
-      "label": "Language",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ]
-      }
-    }
-  ],
-  [
-    {
-      "id": "scrubbed id",
-      "label": "Company",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ],
-        "FoundingDate": [
-          {
-            "id": "scrubbed id",
-            "value": -62135596800000
-          }
-        ],
-        "Locations": [
-          {
-            "id": "scrubbed id",
-            "value": "Aachen",
-            "properties": {
-              "ValidFrom": 1546304400000
-            }
-          }
-        ]
-      }
+      "label": "Language"
     },
     {
       "id": "scrubbed id",
-      "label": "Country",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ],
-        "Name": [
-          {
-            "id": "scrubbed id",
-            "value": "GER"
-          }
-        ],
-        "LocalizableDescription": [
-          {
-            "id": "scrubbed id",
-            "value": "",
-            "properties": {
-              "someKey": "value"
-            }
-          }
-        ]
-      }
+      "label": "Language"
     },
     {
       "id": "scrubbed id",
-      "label": "Country",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ],
-        "Name": [
-          {
-            "id": "scrubbed id",
-            "value": "GER",
-            "properties": {
-              "de": "Deutschland",
-              "en": "Germany"
-            }
-          }
-        ],
-        "LocalizableDescription": [
-          {
-            "id": "scrubbed id",
-            "value": "",
-            "properties": {
-              "someKey": "value"
-            }
-          }
-        ]
-      }
+      "label": "Company"
     },
     {
       "id": "scrubbed id",
-      "label": "Company",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ],
-        "FoundingDate": [
-          {
-            "id": "scrubbed id",
-            "value": -62135596800000
-          }
-        ],
-        "PhoneNumbers": [
-          {
-            "id": "scrubbed id",
-            "value": "+4912345"
-          },
-          {
-            "id": "scrubbed id",
-            "value": "+4923456"
-          }
-        ]
-      }
+      "label": "Country"
     },
     {
       "id": "scrubbed id",
-      "label": "Language",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ]
-      }
+      "label": "Country"
     },
     {
       "id": "scrubbed id",
-      "label": "Language",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ],
-        "lang": [
-          {
-            "id": "scrubbed id",
-            "value": "en"
-          }
-        ]
-      }
+      "label": "Company"
+    },
+    {
+      "id": "scrubbed id",
+      "label": "Language"
+    },
+    {
+      "id": "scrubbed id",
+      "label": "Language"
     }
   ]
 ]

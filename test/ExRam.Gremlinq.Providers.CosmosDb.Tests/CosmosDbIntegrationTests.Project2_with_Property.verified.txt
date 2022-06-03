@@ -1,24 +1,9 @@
-[
+﻿[
   [
     {
       "Item1": {
         "id": "scrubbed id",
-        "label": "Country",
-        "type": "vertex",
-        "properties": {
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ],
-          "CountryCallingCode": [
-            {
-              "id": "scrubbed id",
-              "value": "+49"
-            }
-          ]
-        }
+        "label": "Country"
       },
       "Item2": 0
     }
