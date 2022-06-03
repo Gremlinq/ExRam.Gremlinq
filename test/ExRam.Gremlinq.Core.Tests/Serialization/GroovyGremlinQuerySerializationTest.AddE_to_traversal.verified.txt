@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "g.addV(_a).property(single,_b,_c).property(single,_d,_e).property(single,_f,_g).addE(_h).to(__.V().hasLabel(_i).has(_j,_k)).project(_l,_m,_n).by(id).by(label).by(__.valueMap())",
+    "Script": "g.addV(_a).property(single,_b,_c).property(single,_d,_e).property(single,_f,_g).addE(_h).to(__.V().hasLabel(_i).has(_j,_k)).map(__.union(__.project(_l,_m).by(id).by(label).unfold(),__.properties().has(key,neq(_l).and(neq(_m))).group().by(key).by(__.value()).unfold()).group().by(__.select(keys)).by(__.select(values)))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": "Person",
@@ -15,8 +15,7 @@
       "_j": "CountryCallingCode",
       "_k": "+49",
       "_l": "id",
-      "_m": "label",
-      "_n": "properties"
+      "_m": "label"
     }
   }
 ]

@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Script": "g.inject(_a,_b,_c).fold().as(_d).V().hasLabel(_e).has(_f,__.where(within(_d))).project(_g,_h,_i).by(id).by(label).by(__.properties().group().by(label).by(__.project(_g,_h,_j,_i).by(id).by(label).by(value).by(__.valueMap()).fold()))",
+    "Script": "g.inject(_a,_b,_c).fold().as(_d).V().hasLabel(_e).has(_f,__.where(within(_d))).map(__.union(__.project(_g,_h).by(id).by(label).unfold(),__.properties().has(key,neq(_g).and(neq(_h))).group().by(label).by(__.project(_g,_h,_i,_j).by(id).by(label).by(value).by(__.valueMap()).fold()).unfold()).group().by(__.select(keys)).by(__.select(values)))",
     "Id": "Scrubbed GUID",
     "Bindings": {
       "_a": 1,
@@ -11,8 +11,8 @@
       "_f": "Age",
       "_g": "id",
       "_h": "label",
-      "_i": "properties",
-      "_j": "value"
+      "_i": "value",
+      "_j": "properties"
     }
   }
 ]
