@@ -1,1 +1,10 @@
-[]
+﻿[
+  {
+    "Name": null,
+    "Languages": null,
+    "CountryCallingCode": null,
+    "LocalizableDescription": null,
+    "Id": null,
+    "Label": null
+  }
+]

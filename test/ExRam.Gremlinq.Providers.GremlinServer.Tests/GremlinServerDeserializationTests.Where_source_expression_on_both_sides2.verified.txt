@@ -1,1 +1,6 @@
-[]
+﻿[
+  {
+    "IntProperty1": 0,
+    "IntProperty2": 0
+  }
+]

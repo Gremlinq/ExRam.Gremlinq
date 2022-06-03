@@ -75,5 +75,49 @@
     "Name": null,
     "Id": "scrubbed id",
     "Label": "Person"
+  },
+  {
+    "Age": 0,
+    "Gender": null,
+    "Image": null,
+    "RegistrationDate": null,
+    "PhoneNumbers": null,
+    "SomeObscureProperty": null,
+    "Name": null,
+    "Id": "scrubbed id",
+    "Label": "Person"
+  },
+  {
+    "Age": 0,
+    "Gender": null,
+    "Image": null,
+    "RegistrationDate": null,
+    "PhoneNumbers": null,
+    "SomeObscureProperty": null,
+    "Name": null,
+    "Id": "scrubbed id",
+    "Label": "Person"
+  },
+  {
+    "Age": 0,
+    "Gender": null,
+    "Image": null,
+    "RegistrationDate": null,
+    "PhoneNumbers": null,
+    "SomeObscureProperty": null,
+    "Name": null,
+    "Id": "scrubbed id",
+    "Label": "Person"
+  },
+  {
+    "Age": 0,
+    "Gender": null,
+    "Image": null,
+    "RegistrationDate": null,
+    "PhoneNumbers": null,
+    "SomeObscureProperty": null,
+    "Name": null,
+    "Id": "scrubbed id",
+    "Label": "Person"
   }
 ]

@@ -1,21 +1,5 @@
 ﻿[
   {
-    "Name": null,
-    "Languages": null,
-    "CountryCallingCode": "+49",
-    "LocalizableDescription": {
-      "Id": "scrubbed id",
-      "Label": "LocalizableDescription",
-      "Properties": {
-        "someKey": "value"
-      },
-      "Value": "",
-      "Key": null
-    },
-    "Id": "scrubbed id",
-    "Label": "Country"
-  },
-  {
     "Age": 21,
     "Gender": 0,
     "Image": null,

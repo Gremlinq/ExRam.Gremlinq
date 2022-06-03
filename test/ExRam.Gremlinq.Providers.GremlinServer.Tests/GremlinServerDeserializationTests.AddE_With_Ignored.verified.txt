@@ -1,8 +1,8 @@
-[
+﻿[
   {
     "Role": null,
     "From": "0001-01-01T00:00:00",
-    "To": "2020-04-07T14:43:36Z",
+    "To": null,
     "Id": "scrubbed id",
     "Label": "WorksFor"
   }

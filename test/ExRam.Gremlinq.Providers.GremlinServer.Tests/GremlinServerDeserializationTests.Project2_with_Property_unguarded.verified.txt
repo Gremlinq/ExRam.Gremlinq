@@ -1,42 +1,42 @@
 ﻿[
   {
-    "Item1": null,
+    "Item1": {},
     "Item2": 0
   },
   {
-    "Item1": null,
+    "Item1": {},
     "Item2": 0
   },
   {
-    "Item1": null,
+    "Item1": {},
     "Item2": 0
   },
   {
-    "Item1": null,
+    "Item1": {},
     "Item2": 0
   },
   {
-    "Item1": null,
+    "Item1": {},
     "Item2": 0
   },
   {
-    "Item1": null,
+    "Item1": {},
     "Item2": 0
   },
   {
-    "Item1": null,
+    "Item1": {},
     "Item2": 0
   },
   {
-    "Item1": null,
+    "Item1": {},
     "Item2": 0
   },
   {
-    "Item1": null,
+    "Item1": {},
     "Item2": 0
   },
   {
-    "Item1": null,
+    "Item1": {},
     "Item2": 0
   },
   {
