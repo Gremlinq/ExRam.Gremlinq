@@ -6249,5 +6249,23 @@ namespace ExRam.Gremlinq.Core.Tests
                         .Select(label))
                 .Verify();
         }
+
+        [Fact]
+        public virtual async Task Fail_without_message()
+        {
+            await _g
+                .V<object>()
+                .Fail()
+                .Verify();
+        }
+
+        [Fact]
+        public virtual async Task Fail_with_message()
+        {
+            await _g
+                .V<object>()
+                .Fail("There's been an error.")
+                .Verify();
+        }
     }
 }
