@@ -76,9 +76,7 @@ namespace ExRam.Gremlinq.Core
                             .Build(Tokens.OpsEval)
                             .AddArgument(Tokens.ArgsGremlin, groovyScript.Script)
                             .AddArgument(Tokens.ArgsAliases, _aliasArgs)
-                            .AddArgument(Tokens.ArgsBindings, groovyScript.Bindings is Dictionary<string, object> bindings
-                                ? bindings  //TODO: Revert when fixed in Gremlin.NET, performance gain in >= .NET 5 ?
-                                : groovyScript.Bindings.ToDictionary(kvp => kvp.Key, kvp => kvp.Value))
+                            .AddArgument(Tokens.ArgsBindings, groovyScript.Bindings)
                             .OverrideRequestId(requestId)
                             .Create(),
                         BytecodeGremlinQuery bytecodeQuery => RequestMessage
