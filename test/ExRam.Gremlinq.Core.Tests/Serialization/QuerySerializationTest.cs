@@ -59,24 +59,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Verify();
         }
 
-        [Fact]  //TODO: As soon as this is supported by an actual db-system, make this an execution test.
-        public async Task Fail_without_message()
-        {
-            await _g
-                .V<object>()
-                .Fail()
-                .Verify();
-        }
-
-        [Fact]  //TODO: As soon as this is supported by an actual db-system, make this an execution test.
-        public async Task Fail_with_message()
-        {
-            await _g
-                .V<object>()
-                .Fail("There's been an error.")
-                .Verify();
-        }
-
         protected override IImmutableList<Func<string, string>> Scrubbers() => base
             .Scrubbers()
             .ScrubGuids();
