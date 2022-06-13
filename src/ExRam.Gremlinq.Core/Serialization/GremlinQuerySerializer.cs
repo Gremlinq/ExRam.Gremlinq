@@ -56,7 +56,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                 if (serialized is ISerializedGremlinQuery serializedQuery)
                     return serializedQuery;
 
-                throw new InvalidOperationException();//TODO: Message
+                throw new InvalidOperationException($"Unable to serialize a query of type {query.GetType().FullName}.");
             }
 
             public IGremlinQuerySerializer ConfigureFragmentSerializer(Func<IGremlinQueryFragmentSerializer, IGremlinQueryFragmentSerializer> transformation)
