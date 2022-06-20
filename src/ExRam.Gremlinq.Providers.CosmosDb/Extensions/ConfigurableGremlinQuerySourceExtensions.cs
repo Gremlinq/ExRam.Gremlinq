@@ -104,7 +104,11 @@ namespace ExRam.Gremlinq.Core
                                         : step.Traversal),
                                 env))
                             .Override<HasKeyStep>((step, env, overridden, recurse) => step.Argument is P p && (!p.OperatorName.Equals("eq", StringComparison.OrdinalIgnoreCase))
-                                ? recurse.Serialize(new WhereTraversalStep(new Step[] {KeyStep.Instance, new IsStep(p)}), env)
+                                ? recurse.Serialize(
+                                    new WhereTraversalStep(Traversal.Empty.Push(
+                                        KeyStep.Instance,
+                                        new IsStep(p))),
+                                    env)
                                 : overridden(step, env, recurse))
                             .Override<NoneStep>((step, env, overridden, recurse) => recurse.Serialize(NoneWorkaround, env))
                             .Override<SkipStep>((step, env, overridden, recurse) => recurse.Serialize(new RangeStep(step.Count, -1, step.Scope), env))
