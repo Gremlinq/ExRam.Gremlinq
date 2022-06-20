@@ -14,7 +14,7 @@ namespace ExRam.Gremlinq.Core
 
         private readonly Step[]? _steps;
 
-        public Traversal(IEnumerable<Step> steps, Projection projection) : this(ToArrayHelper(steps), projection)
+        internal Traversal(IEnumerable<Step> steps, Projection projection) : this(ToArrayHelper(steps), projection)
         {
         }
 
@@ -25,8 +25,8 @@ namespace ExRam.Gremlinq.Core
 
         internal Traversal(Step[] steps, int count, Projection projection)
         {
-            _steps = steps;
             Count = count;
+            _steps = steps;
 
             Projection = projection;
             SideEffectSemantics = SideEffectSemantics.Read;
