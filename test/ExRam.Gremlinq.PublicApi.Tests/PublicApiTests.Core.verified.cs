@@ -1058,7 +1058,6 @@
     {
         public static readonly ExRam.Gremlinq.Core.Traversal Empty;
         public Traversal(System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Steps.Step> steps, ExRam.Gremlinq.Core.Projections.Projection projection) { }
-        public Traversal(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Steps.Step> steps, ExRam.Gremlinq.Core.Projections.Projection projection) { }
         public int Count { get; }
         public ExRam.Gremlinq.Core.Steps.Step this[int index] { get; }
         public ExRam.Gremlinq.Core.Projections.Projection Projection { get; }

@@ -18,10 +18,6 @@ namespace ExRam.Gremlinq.Core
         {
         }
 
-        public Traversal(ImmutableArray<Step> steps, Projection projection) : this(steps, true, projection)
-        {
-        }
-
         internal Traversal(IReadOnlyList<Step> steps, bool owned, Projection projection)
         {
             _steps = owned
@@ -89,7 +85,6 @@ namespace ExRam.Gremlinq.Core
         }
 
         public static implicit operator Traversal(Step[] steps) => new(steps, false, Projection.Empty);
-
 
         public static implicit operator Traversal(Step step) => new(new[] { step }, true, Projection.Empty);
 
