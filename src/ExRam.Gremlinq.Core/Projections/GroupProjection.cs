@@ -30,13 +30,13 @@ namespace ExRam.Gremlinq.Core.Projections
                         GroupStep.Instance,
                         new GroupStep.ByTraversalStep(keyProjectionTraversal
                             .Prepend(new SelectColumnStep(Column.Keys))
-                            .ToImmutableArray()),
+                            .ToTraversal()),
                         maybeValueProjectionTraversal is { } valueProjectionTraversal
                             ? new GroupStep.ByTraversalStep(valueProjectionTraversal
                                 .Prepend(UnfoldStep.Instance)
                                 .Prepend(new SelectColumnStep(Column.Values))
                                 .Append(FoldStep.Instance)
-                                .ToImmutableArray())
+                                .ToTraversal())
                             : new GroupStep.ByTraversalStep(new SelectColumnStep(Column.Values))
                     });
         }

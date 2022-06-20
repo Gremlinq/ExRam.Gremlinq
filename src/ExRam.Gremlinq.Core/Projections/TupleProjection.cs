@@ -42,10 +42,10 @@ namespace ExRam.Gremlinq.Core.Projections
                             ? traversal.Append(FoldStep.Instance)
                             : traversal,
                         emptyProjectionProtection)
-                    .ToImmutableArray())
+                    .ToTraversal())
                 .ToArray();
 
-            if (projectionTraversals.All(static x => x.Length == 1))
+            if (projectionTraversals.All(static x => x.Count == 1))
                 return Traversal.Empty;
 
             return projectionTraversals
@@ -58,7 +58,7 @@ namespace ExRam.Gremlinq.Core.Projections
                         ? traversal.Concat(protection)
                         : traversal,
                     emptyProjectionProtection)
-                .ToImmutableArray();
+                .ToTraversal();
         }
 
         public override Projection Lower() => Empty;
