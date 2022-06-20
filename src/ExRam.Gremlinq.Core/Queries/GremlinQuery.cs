@@ -1286,10 +1286,10 @@ namespace ExRam.Gremlinq.Core
                                             {
                                                 if (!Environment.GetCache().FastNativeTypes.ContainsKey(leftMemberExpression.Type))
                                                 {
-                                                    yield return new FilterStep.ByTraversalStep(ImmutableArray.Create<Step>(
+                                                    yield return new FilterStep.ByTraversalStep(Traversal.Empty.Push(
                                                         new PropertiesStep(ImmutableArray.Create(stringKey)),
                                                         CountStep.Global,
-                                                        new IsStep(effectivePredicate)).ToTraversal() /* TODO: Temporary hack */);
+                                                        new IsStep(effectivePredicate)));
 
                                                     yield break;
                                                 }
@@ -1297,11 +1297,11 @@ namespace ExRam.Gremlinq.Core
                                         }
                                         else
                                         {
-                                            yield return new FilterStep.ByTraversalStep(ImmutableArray.Create<Step>(
+                                            yield return new FilterStep.ByTraversalStep(Traversal.Empty.Push(
                                                 new SelectKeysStep(
                                                     ImmutableArray.Create(GetKey(leftMemberExpression))),
                                                 CountStep.Local,
-                                                new IsStep(effectivePredicate)).ToTraversal() /* TODO: Temporary hack */);
+                                                new IsStep(effectivePredicate)));
 
                                             yield break;
                                         }
