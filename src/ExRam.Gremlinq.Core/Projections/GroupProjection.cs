@@ -23,22 +23,19 @@ namespace ExRam.Gremlinq.Core.Projections
 
             return (keyProjectionTraversal.Count == 0 && (maybeValueProjectionTraversal?.Count).GetValueOrDefault() == 0)
                 ? Traversal.Empty
-                : new LocalStep(
-                    new Step[]
-                    {
-                        UnfoldStep.Instance,
-                        GroupStep.Instance,
-                        new GroupStep.ByTraversalStep(keyProjectionTraversal
-                            .Prepend(new SelectColumnStep(Column.Keys))
-                            .ToTraversal()),
-                        maybeValueProjectionTraversal is { } valueProjectionTraversal
-                            ? new GroupStep.ByTraversalStep(valueProjectionTraversal
-                                .Prepend(UnfoldStep.Instance)
-                                .Prepend(new SelectColumnStep(Column.Values))
-                                .Append(FoldStep.Instance)
-                                .ToTraversal())
-                            : new GroupStep.ByTraversalStep(new SelectColumnStep(Column.Values))
-                    });
+                : new LocalStep(Traversal.Empty.Push(
+                    UnfoldStep.Instance,
+                    GroupStep.Instance,
+                    new GroupStep.ByTraversalStep(keyProjectionTraversal
+                        .Prepend(new SelectColumnStep(Column.Keys))
+                        .ToTraversal()),
+                    maybeValueProjectionTraversal is { } valueProjectionTraversal
+                        ? new GroupStep.ByTraversalStep(valueProjectionTraversal
+                            .Prepend(UnfoldStep.Instance)
+                            .Prepend(new SelectColumnStep(Column.Values))
+                            .Append(FoldStep.Instance)
+                            .ToTraversal())
+                        : new GroupStep.ByTraversalStep(new SelectColumnStep(Column.Values))));
         }
 
         public override Projection Lower() => Empty;

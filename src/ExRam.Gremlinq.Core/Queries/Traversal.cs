@@ -42,6 +42,19 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
+        public Traversal Push(params Step[] steps)
+        {
+            //TODO: optimize!
+            var ret = this;
+
+            for(var i = 0; i < steps.Length; i++)
+            {
+                ret = ret.Push(steps[i]);
+            }
+
+            return ret;
+        }
+
         public Traversal Push(Step step)
         {
             if (_steps is { } steps)
@@ -156,8 +169,6 @@ namespace ExRam.Gremlinq.Core
                 destination[destinationIndex++] = _steps![i]!;
             }
         }
-
-        public static implicit operator Traversal(Step[] steps) => new(ToArrayHelper(steps), Projection.Empty);
 
         public static implicit operator Traversal(Step step) => new(new[] { step }, Projection.Empty);
 
