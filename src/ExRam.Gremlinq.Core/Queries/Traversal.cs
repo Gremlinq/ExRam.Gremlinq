@@ -23,23 +23,17 @@ namespace ExRam.Gremlinq.Core
 
         }
 
-        internal Traversal(Step?[] steps, int count, Projection projection)
+        internal Traversal(Step?[] steps, int count, Projection projection) : this(steps, count, SideEffectSemanticsHelper(steps, count), projection)
+        {
+            
+        }
+
+        internal Traversal(Step?[] steps, int count, SideEffectSemantics semantics, Projection projection)
         {
             Count = count;
             _steps = steps;
-
             Projection = projection;
-            SideEffectSemantics = SideEffectSemantics.Read;
-
-            for (var i = 0; i < Count; i++)
-            {
-                if (_steps![i]!.SideEffectSemanticsChange == SideEffectSemanticsChange.Write)
-                {
-                    SideEffectSemantics = SideEffectSemantics.Write;
-
-                    break;
-                }
-            }
+            SideEffectSemantics = semantics;
         }
 
         public Traversal Push(params Step[] steps)
@@ -78,6 +72,9 @@ namespace ExRam.Gremlinq.Core
                 return new Traversal(
                     newSteps,
                     Count + 1,
+                    step.SideEffectSemanticsChange == SideEffectSemanticsChange.Write
+                        ? SideEffectSemantics.Write
+                        : SideEffectSemantics,
                     Projection);
             }
 
@@ -175,6 +172,19 @@ namespace ExRam.Gremlinq.Core
         private static Step[] ToArrayHelper(IEnumerable<Step> steps) => steps is Step[] array
             ? (Step[])array.Clone()
             : steps.ToArray();
+
+        private static SideEffectSemantics SideEffectSemanticsHelper(Step?[] steps, int count)
+        {
+            for (var i = 0; i < count; i++)
+            {
+                if (steps[i]!.SideEffectSemanticsChange == SideEffectSemanticsChange.Write)
+                {
+                    return SideEffectSemantics.Write;
+                }
+            }
+
+            return SideEffectSemantics.Read;
+        }
 
         internal bool IsEmpty { get => Count == 0; }
     }
