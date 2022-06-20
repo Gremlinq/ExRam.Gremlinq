@@ -2,19 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using ExRam.Gremlinq.Core.Projections;
+using ExRam.Gremlinq.Core.Steps;
 
 namespace ExRam.Gremlinq.Core
 {
-    internal static class EnumerableExtensions
+    public static class EnumerableExtensions
     {
-        public static bool InternalAny(this IEnumerable enumerable)
+        public static Traversal ToTraversal(this IEnumerable<Step> steps) => new (steps, Projection.Empty);
+
+        internal static bool InternalAny(this IEnumerable enumerable)
         {
             var enumerator = enumerable.GetEnumerator();
 
             return enumerator.MoveNext();
         }
 
-        public static IAsyncEnumerable<TElement> ToNonNullAsyncEnumerable<TElement>(this IEnumerable enumerable)
+        internal static IAsyncEnumerable<TElement> ToNonNullAsyncEnumerable<TElement>(this IEnumerable enumerable)
         {
             return AsyncEnumerable.Create(Core);
 

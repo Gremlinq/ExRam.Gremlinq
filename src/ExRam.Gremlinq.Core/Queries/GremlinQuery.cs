@@ -1289,7 +1289,7 @@ namespace ExRam.Gremlinq.Core
                                                     yield return new FilterStep.ByTraversalStep(ImmutableArray.Create<Step>(
                                                         new PropertiesStep(ImmutableArray.Create(stringKey)),
                                                         CountStep.Global,
-                                                        new IsStep(effectivePredicate)));
+                                                        new IsStep(effectivePredicate)).ToTraversal() /* TODO: Temporary hack */);
 
                                                     yield break;
                                                 }
@@ -1301,7 +1301,7 @@ namespace ExRam.Gremlinq.Core
                                                 new SelectKeysStep(
                                                     ImmutableArray.Create(GetKey(leftMemberExpression))),
                                                 CountStep.Local,
-                                                new IsStep(effectivePredicate)));
+                                                new IsStep(effectivePredicate)).ToTraversal() /* TODO: Temporary hack */);
 
                                             yield break;
                                         }

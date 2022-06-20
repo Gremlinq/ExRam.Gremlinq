@@ -58,6 +58,10 @@
         IntegerValues = 262144,
         All = 524287,
     }
+    public static class EnumerableExtensions
+    {
+        public static ExRam.Gremlinq.Core.Traversal ToTraversal(this System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Steps.Step> steps) { }
+    }
     public sealed class ExpressionNotSupportedException : System.NotSupportedException
     {
         public ExpressionNotSupportedException() { }
@@ -1066,7 +1070,6 @@
         public ExRam.Gremlinq.Core.Traversal IncludeProjection(ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
         public static ExRam.Gremlinq.Core.Traversal op_Implicit(ExRam.Gremlinq.Core.Steps.Step step) { }
         public static ExRam.Gremlinq.Core.Traversal op_Implicit(ExRam.Gremlinq.Core.Steps.Step[] steps) { }
-        public static ExRam.Gremlinq.Core.Traversal op_Implicit(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Steps.Step> steps) { }
     }
     [System.Flags]
     public enum VariableFeatures

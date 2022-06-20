@@ -22,7 +22,7 @@ namespace ExRam.Gremlinq.Core.Projections
                 return new LocalStep(inner
                     .Prepend(UnfoldStep.Instance)
                     .Append(FoldStep.Instance)
-                    .ToImmutableArray());
+                    .ToTraversal());
             }
 
             return Traversal.Empty;
