@@ -1057,9 +1057,9 @@
         public ExRam.Gremlinq.Core.Traversal Pop() { }
         public ExRam.Gremlinq.Core.Traversal Pop(out ExRam.Gremlinq.Core.Steps.Step poppedStep) { }
         public ExRam.Gremlinq.Core.Traversal Push(ExRam.Gremlinq.Core.Steps.Step step) { }
+        public ExRam.Gremlinq.Core.Traversal Push(params ExRam.Gremlinq.Core.Steps.Step[] steps) { }
         public ExRam.Gremlinq.Core.Traversal WithProjection(ExRam.Gremlinq.Core.Projections.Projection projection) { }
         public static ExRam.Gremlinq.Core.Traversal op_Implicit(ExRam.Gremlinq.Core.Steps.Step step) { }
-        public static ExRam.Gremlinq.Core.Traversal op_Implicit(ExRam.Gremlinq.Core.Steps.Step[] steps) { }
     }
     [System.Flags]
     public enum VariableFeatures
