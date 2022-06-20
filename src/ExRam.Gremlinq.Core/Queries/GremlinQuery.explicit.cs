@@ -235,7 +235,7 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<object> IGremlinQueryBase.Fail(string? message) => Fail(message);
 
-        TTargetQuery IGremlinQueryAdmin.ConfigureSteps<TTargetQuery>(Func<StepStack, StepStack> transformation, Func<Projection, Projection>? maybeProjectionTransformation) => this
+        TTargetQuery IGremlinQueryAdmin.ConfigureSteps<TTargetQuery>(Func<Traversal, Traversal> transformation, Func<Projection, Projection>? maybeProjectionTransformation) => this
             .Continue()
             .Build(
                 static (builder, tuple) => builder
@@ -272,11 +272,11 @@ namespace ExRam.Gremlinq.Core
             maybeNewProjection: maybeForcedProjection);
 
         IGremlinQuerySource IGremlinQueryAdmin.GetSource() => CloneAs<GremlinQuery<object, object, object, object, object, object>>(
-            maybeNewStepStack: StepStack.Empty,
+            maybeNewStepStack: Traversal.Empty,
             maybeNewProjection: Projection.Empty,
             maybeNewQueryFlags: Flags & QueryFlags.IsMuted);
 
-        StepStack IGremlinQueryAdmin.Steps => Steps;
+        Traversal IGremlinQueryAdmin.Steps => Steps;
 
         Projection IGremlinQueryAdmin.Projection => Projection;
 

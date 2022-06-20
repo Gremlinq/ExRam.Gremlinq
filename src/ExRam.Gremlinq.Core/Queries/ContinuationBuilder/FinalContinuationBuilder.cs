@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq.Core
     internal readonly struct FinalContinuationBuilder<TOuterQuery>
         where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
     {
-        private readonly StepStack? _steps;
+        private readonly Traversal? _steps;
         private readonly QueryFlags? _flags;
         private readonly TOuterQuery? _outer;
         private readonly Projection? _projection;
@@ -20,7 +20,7 @@ namespace ExRam.Gremlinq.Core
 
         }
 
-        public FinalContinuationBuilder(TOuterQuery outerQuery, StepStack steps, Projection projection, IImmutableDictionary<StepLabel, Projection> stepLabelProjections, IImmutableDictionary<StepLabel, Projection> sideEffectLabelProjections, QueryFlags flags)
+        public FinalContinuationBuilder(TOuterQuery outerQuery, Traversal steps, Projection projection, IImmutableDictionary<StepLabel, Projection> stepLabelProjections, IImmutableDictionary<StepLabel, Projection> sideEffectLabelProjections, QueryFlags flags)
         {
             _steps = steps;
             _flags = flags;
@@ -37,11 +37,11 @@ namespace ExRam.Gremlinq.Core
                     : new(outer, outer.Environment.AddStepHandler.AddStep(steps, tuple.step, outer.Environment), projection, stepLabelProjections, sideEffectLabelProjections, flags),
                 (@this: this, step));
 
-        public FinalContinuationBuilder<TOuterQuery> WithSteps(StepStack newSteps) => With(
+        public FinalContinuationBuilder<TOuterQuery> WithSteps(Traversal newSteps) => With(
             static (outer, _, projection, stepLabelProjections, sideEffectLabelProjections, flags, newSteps) => new FinalContinuationBuilder<TOuterQuery>(outer, newSteps, projection, stepLabelProjections, sideEffectLabelProjections, flags),
             newSteps);
 
-        public FinalContinuationBuilder<TOuterQuery> WithSteps<TState>(Func<StepStack, TState, StepStack> stepStackTransformation, TState state) => With(
+        public FinalContinuationBuilder<TOuterQuery> WithSteps<TState>(Func<Traversal, TState, Traversal> stepStackTransformation, TState state) => With(
             static (outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, flags, tuple) => new FinalContinuationBuilder<TOuterQuery>(outer, tuple.stepStackTransformation(steps, tuple.state), projection, stepLabelProjections, sideEffectLabelProjections, flags),
             (stepStackTransformation, state));
 
@@ -65,7 +65,7 @@ namespace ExRam.Gremlinq.Core
             static (outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, _, newFlags) => new FinalContinuationBuilder<TOuterQuery>(outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, newFlags),
             newFlags);
 
-        public TResult With<TState, TResult>(Func<TOuterQuery, StepStack, Projection, IImmutableDictionary<StepLabel, Projection>, IImmutableDictionary<StepLabel, Projection>, QueryFlags, TState, TResult> continuation, TState state)
+        public TResult With<TState, TResult>(Func<TOuterQuery, Traversal, Projection, IImmutableDictionary<StepLabel, Projection>, IImmutableDictionary<StepLabel, Projection>, QueryFlags, TState, TResult> continuation, TState state)
         {
             return (_outer is { } outer && _steps is { } steps && _projection is { } projection && _stepLabelProjections is { } stepLabelProjections && _sideEffectLabelProjections is { } sideEffectLabelProjections && _flags is { } flags)
                 ? continuation(outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, flags, state)

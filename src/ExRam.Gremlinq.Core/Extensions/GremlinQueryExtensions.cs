@@ -36,7 +36,7 @@ namespace ExRam.Gremlinq.Core
         {
             return query.AsAdmin()
                 .Steps
-                .ToTraversal(query.AsAdmin().Projection);
+                .WithProjection(query.AsAdmin().Projection);
         }
 
         internal static bool IsNone(this IGremlinQueryBase query)

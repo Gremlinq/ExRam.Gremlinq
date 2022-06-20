@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
+using System.Threading;
 using ExRam.Gremlinq.Core.Projections;
 using ExRam.Gremlinq.Core.Steps;
 
@@ -10,24 +10,28 @@ namespace ExRam.Gremlinq.Core
 {
     public readonly struct Traversal : IReadOnlyList<Step>
     {
-        public static readonly Traversal Empty = new(ImmutableArray<Step>.Empty, true, Projection.Empty);
+        public static readonly Traversal Empty = new(Array.Empty<Step>(), Projection.Empty);
 
-        private readonly IReadOnlyList<Step> _steps;
+        private readonly Step[]? _steps;
 
-        public Traversal(IEnumerable<Step> steps, Projection projection) : this(ToArrayHelper(steps), true, projection)
+        public Traversal(IEnumerable<Step> steps, Projection projection) : this(ToArrayHelper(steps), projection)
         {
         }
 
-        internal Traversal(IReadOnlyList<Step> steps, bool owned, Projection projection)
+        internal Traversal(Step[] steps, Projection projection) : this(steps, steps.Length, projection)
         {
-            _steps = owned
-                ? steps
-                : ToArrayHelper(steps);
+
+        }
+
+        internal Traversal(Step[] steps, int count, Projection projection)
+        {
+            _steps = steps;
+            Count = count;
 
             Projection = projection;
             SideEffectSemantics = SideEffectSemantics.Read;
 
-            for (var i = 0; i < _steps.Count; i++)
+            for (var i = 0; i < Count; i++)
             {
                 if (_steps[i].SideEffectSemanticsChange == SideEffectSemanticsChange.Write)
                 {
@@ -38,7 +42,60 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        public IEnumerator<Step> GetEnumerator() => _steps.GetEnumerator();
+        public Traversal Push(Step step)
+        {
+            if (_steps is { } steps)
+            {
+                var newSteps = _steps;
+
+                if (Count < steps.Length)
+                {
+                    if (Interlocked.CompareExchange(ref _steps[Count], step, default) != null)
+                        newSteps = new Step[_steps.Length];
+                }
+                else
+                    newSteps = new Step[Math.Max(_steps.Length * 2, 16)];
+
+                if (newSteps != _steps)
+                {
+                    Array.Copy(_steps, newSteps, Count);
+                    newSteps[Count] = step;
+                }
+
+                return new Traversal(
+                    newSteps,
+                    Count + 1,
+                    Projection);
+            }
+
+            throw new InvalidOperationException();
+        }
+
+        public Traversal Pop() => Pop(out _);
+
+        public Traversal Pop(out Step poppedStep)
+        {
+            if (IsEmpty)
+                throw new InvalidOperationException();
+
+            poppedStep = this[Count - 1];
+            return new Traversal(_steps!, Count - 1, Projection);
+        }
+
+        public Traversal WithProjection(Projection projection)
+        {
+            return (_steps is { } steps)
+                ? new (steps, Count, projection)
+                : throw new InvalidOperationException();
+        }
+
+        public IEnumerator<Step> GetEnumerator()
+        {
+            for (var i = 0; i < Count; i++)
+            {
+                yield return _steps![i]!;
+            }
+        }
 
         public Traversal IncludeProjection(IGremlinQueryEnvironment environment)
         {
@@ -53,7 +110,7 @@ namespace ExRam.Gremlinq.Core
                     CopyTo(ret, 0);
                     projectionTraversal.CopyTo(ret, Count);
 
-                    return new Traversal(ret, true, Projection.Empty);
+                    return new Traversal(ret, Projection.Empty);
                 }
             }
 
@@ -62,11 +119,16 @@ namespace ExRam.Gremlinq.Core
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-        public int Count { get => _steps.Count; }
+        public int Count { get; }
 
         public Projection Projection { get; }
 
-        public Step this[int index] => _steps[index];
+        public Step this[int index]
+        {
+            get => index < 0 || index >= Count
+                ? throw new ArgumentOutOfRangeException(nameof(index))
+                : _steps![index]!;
+        }
 
         public SideEffectSemantics SideEffectSemantics { get; }
 
@@ -76,20 +138,33 @@ namespace ExRam.Gremlinq.Core
 
         public void CopyTo(int sourceIndex, Step[] destination, int destinationIndex, int length)
         {
-            if (_steps is ImmutableArray<Step> immutableArray)
-                immutableArray.CopyTo(sourceIndex, destination, destinationIndex, length);
-            else if (_steps is Step[] source)
+            if (_steps is Step[] source)
                 Array.Copy(source, sourceIndex, destination, destinationIndex, length);
             else
                 throw new InvalidOperationException();
         }
 
-        public static implicit operator Traversal(Step[] steps) => new(steps, false, Projection.Empty);
+        internal Step Peek() => PeekOrDefault() ?? throw new InvalidOperationException();
 
-        public static implicit operator Traversal(Step step) => new(new[] { step }, true, Projection.Empty);
+        internal Step? PeekOrDefault() => Count > 0 ? this[Count - 1] : null;
+
+        internal void CopyTo(Step[] destination, int sourceIndex, int destinationIndex, int count)
+        {
+            //TODO: Optimize
+            for (var i = sourceIndex; i < count + sourceIndex; i++)
+            {
+                destination[destinationIndex++] = _steps![i]!;
+            }
+        }
+
+        public static implicit operator Traversal(Step[] steps) => new(ToArrayHelper(steps), Projection.Empty);
+
+        public static implicit operator Traversal(Step step) => new(new[] { step }, Projection.Empty);
 
         private static Step[] ToArrayHelper(IEnumerable<Step> steps) => steps is Step[] array
             ? (Step[])array.Clone()
             : steps.ToArray();
+
+        internal bool IsEmpty { get => Count == 0; }
     }
 }
