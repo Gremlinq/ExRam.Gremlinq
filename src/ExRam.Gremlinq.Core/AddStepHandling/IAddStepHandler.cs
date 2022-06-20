@@ -5,8 +5,8 @@ namespace ExRam.Gremlinq.Core
 {
     public interface IAddStepHandler
     {
-        StepStack AddStep<TStep>(StepStack steps, TStep step, IGremlinQueryEnvironment environment) where TStep : Step;
+        Traversal AddStep<TStep>(Traversal steps, TStep step, IGremlinQueryEnvironment environment) where TStep : Step;
 
-        IAddStepHandler Override<TStep>(Func<StepStack, TStep, IGremlinQueryEnvironment, Func<StepStack, TStep, IGremlinQueryEnvironment, IAddStepHandler, StepStack>, IAddStepHandler, StepStack> addStepHandler) where TStep : Step;
+        IAddStepHandler Override<TStep>(Func<Traversal, TStep, IGremlinQueryEnvironment, Func<Traversal, TStep, IGremlinQueryEnvironment, IAddStepHandler, Traversal>, IAddStepHandler, Traversal> addStepHandler) where TStep : Step;
     }
 }

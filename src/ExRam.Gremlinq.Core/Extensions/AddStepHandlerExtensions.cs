@@ -5,7 +5,7 @@ namespace ExRam.Gremlinq.Core
 {
     internal static class AddStepHandlerExtensions
     {
-        public static StepStack AddSteps<TStep>(this IAddStepHandler addStepHandler, StepStack stepStack, IEnumerable<TStep> steps, IGremlinQueryEnvironment env)
+        public static Traversal AddSteps<TStep>(this IAddStepHandler addStepHandler, Traversal stepStack, IEnumerable<TStep> steps, IGremlinQueryEnvironment env)
             where TStep : Step
         {
             foreach (var step in steps)

@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq.Core
     {
         private delegate IGremlinQueryBase QueryContinuation(
             GremlinQueryBase existingQuery,
-            StepStack? maybeNewStepStack,
+            Traversal? maybeNewStepStack,
             Projection? maybeNewProjection,
             IImmutableDictionary<StepLabel, Projection>? maybeNewStepLabelProjections,
             IImmutableDictionary<StepLabel, Projection>? maybeNewSideEffectLabelProjections,
@@ -21,7 +21,7 @@ namespace ExRam.Gremlinq.Core
 
         protected GremlinQueryBase(
             IGremlinQueryEnvironment environment,
-            StepStack steps,
+            Traversal steps,
             Projection projection,
             IImmutableDictionary<StepLabel, Projection> stepLabelProjections,
             IImmutableDictionary<StepLabel, Projection> sideEffectProjections,
@@ -38,7 +38,7 @@ namespace ExRam.Gremlinq.Core
         public override string ToString() => $"GremlinQuery(Steps.Count: {Steps.Count})";
 
         protected internal TTargetQuery CloneAs<TTargetQuery>(
-            StepStack? maybeNewStepStack = null,
+            Traversal? maybeNewStepStack = null,
             Projection? maybeNewProjection = null,
             IImmutableDictionary<StepLabel, Projection>? maybeNewStepLabelProjections = null,
             IImmutableDictionary<StepLabel, Projection>? maybeNewSideEffectLabelProjections = null,
@@ -129,7 +129,7 @@ namespace ExRam.Gremlinq.Core
             return default;
         }
 
-        protected internal StepStack Steps { get; }
+        protected internal Traversal Steps { get; }
         protected internal QueryFlags Flags { get; }
         protected internal Projection Projection { get; }
         protected internal IGremlinQueryEnvironment Environment { get; }

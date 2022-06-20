@@ -25,19 +25,19 @@ namespace ExRam.Gremlinq.Core
                 _dict = dict;
             }
 
-            public virtual StepStack AddStep<TStep>(StepStack steps, TStep step, IGremlinQueryEnvironment environment) where TStep : Step
+            public virtual Traversal AddStep<TStep>(Traversal traversal, TStep step, IGremlinQueryEnvironment environment) where TStep : Step
             {
-                return TryGetAddHandler(typeof(TStep), step.GetType()) is Func<StepStack, TStep, IGremlinQueryEnvironment, IAddStepHandler, StepStack> del
-                    ? del(steps, step, environment, this)
-                    : steps.Push(step);
+                return TryGetAddHandler(typeof(TStep), step.GetType()) is Func<Traversal, TStep, IGremlinQueryEnvironment, IAddStepHandler, Traversal> del
+                    ? del(traversal, step, environment, this)
+                    : traversal.Push(step);
             }
 
-            public virtual IAddStepHandler Override<TStep>(Func<StepStack, TStep, IGremlinQueryEnvironment, Func<StepStack, TStep, IGremlinQueryEnvironment, IAddStepHandler, StepStack>, IAddStepHandler, StepStack> addStepHandler) where TStep : Step
+            public virtual IAddStepHandler Override<TStep>(Func<Traversal, TStep, IGremlinQueryEnvironment, Func<Traversal, TStep, IGremlinQueryEnvironment, IAddStepHandler, Traversal>, IAddStepHandler, Traversal> addStepHandler) where TStep : Step
             {
                 return new AddStepHandlerImpl(
                     _dict.SetItem(
                         typeof(TStep),
-                        TryGetAddHandler(typeof(TStep), typeof(TStep)) is Func<StepStack, TStep, IGremlinQueryEnvironment, IAddStepHandler, StepStack> existingAddHandler
+                        TryGetAddHandler(typeof(TStep), typeof(TStep)) is Func<Traversal, TStep, IGremlinQueryEnvironment, IAddStepHandler, Traversal> existingAddHandler
                             ? (steps, step, env, _, recurse) => addStepHandler(steps, step, env, existingAddHandler, recurse)
                             : addStepHandler));
             }
@@ -78,7 +78,7 @@ namespace ExRam.Gremlinq.Core
                         : null;
             }
 
-            private static Func<StepStack, TStatic, IGremlinQueryEnvironment, IAddStepHandler, StepStack> CreateFunc<TStatic, TEffective>(Func<StepStack, TEffective, IGremlinQueryEnvironment, Func<StepStack, TEffective, IGremlinQueryEnvironment, IAddStepHandler, StepStack>, IAddStepHandler, StepStack> del)
+            private static Func<Traversal, TStatic, IGremlinQueryEnvironment, IAddStepHandler, Traversal> CreateFunc<TStatic, TEffective>(Func<Traversal, TEffective, IGremlinQueryEnvironment, Func<Traversal, TEffective, IGremlinQueryEnvironment, IAddStepHandler, Traversal>, IAddStepHandler, Traversal> del)
                 where TEffective : Step
                 where TStatic : Step
             {
@@ -95,7 +95,7 @@ namespace ExRam.Gremlinq.Core
 
         private sealed class EmptyAddStepHandler : AddStepHandlerBase
         {
-            public override StepStack AddStep<TStep>(StepStack steps, TStep step, IGremlinQueryEnvironment environment) => steps.Push(step);
+            public override Traversal AddStep<TStep>(Traversal traversal, TStep step, IGremlinQueryEnvironment environment) => traversal.Push(step);
         }
 
         public static readonly IAddStepHandler Empty = new EmptyAddStepHandler();

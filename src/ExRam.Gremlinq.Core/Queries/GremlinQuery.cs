@@ -20,7 +20,7 @@ namespace ExRam.Gremlinq.Core
     {
         public GremlinQuery(
             IGremlinQueryEnvironment environment,
-            StepStack steps,
+            Traversal steps,
             Projection projection,
             IImmutableDictionary<StepLabel, Projection> stepLabelProjections,
             IImmutableDictionary<StepLabel, Projection> sideEffectProjections,
@@ -685,7 +685,7 @@ namespace ExRam.Gremlinq.Core
             .Continue()
             .Build(static builder => builder.OuterQuery.IsIdentity()
                 ? builder
-                    .WithSteps(StepStack.Empty.Push(NoneStep.Instance))
+                    .WithSteps(Traversal.Empty.Push(NoneStep.Instance))
                     .Build()
                 : builder
                     .AddStep(NoneStep.Instance)
