@@ -12,18 +12,18 @@ namespace ExRam.Gremlinq.Core
     {
         public static readonly Traversal Empty = new(Array.Empty<Step>(), Projection.Empty);
 
-        private readonly Step[]? _steps;
+        private readonly Step?[]? _steps;
 
         internal Traversal(IEnumerable<Step> steps, Projection projection) : this(ToArrayHelper(steps), projection)
         {
         }
 
-        internal Traversal(Step[] steps, Projection projection) : this(steps, steps.Length, projection)
+        internal Traversal(Step?[] steps, Projection projection) : this(steps, steps.Length, projection)
         {
 
         }
 
-        internal Traversal(Step[] steps, int count, Projection projection)
+        internal Traversal(Step?[] steps, int count, Projection projection)
         {
             Count = count;
             _steps = steps;
@@ -33,7 +33,7 @@ namespace ExRam.Gremlinq.Core
 
             for (var i = 0; i < Count; i++)
             {
-                if (_steps[i].SideEffectSemanticsChange == SideEffectSemanticsChange.Write)
+                if (_steps![i]!.SideEffectSemanticsChange == SideEffectSemanticsChange.Write)
                 {
                     SideEffectSemantics = SideEffectSemantics.Write;
 
@@ -59,19 +59,19 @@ namespace ExRam.Gremlinq.Core
         {
             if (_steps is { } steps)
             {
-                var newSteps = _steps;
+                var newSteps = steps;
 
                 if (Count < steps.Length)
                 {
-                    if (Interlocked.CompareExchange(ref _steps[Count], step, default) != null)
-                        newSteps = new Step[_steps.Length];
+                    if (Interlocked.CompareExchange(ref steps[Count], step, default) != null)
+                        newSteps = new Step[steps.Length];
                 }
                 else
-                    newSteps = new Step[Math.Max(_steps.Length * 2, 16)];
+                    newSteps = new Step[Math.Max(steps.Length * 2, 16)];
 
-                if (newSteps != _steps)
+                if (newSteps != steps)
                 {
-                    Array.Copy(_steps, newSteps, Count);
+                    Array.Copy(steps, newSteps, Count);
                     newSteps[Count] = step;
                 }
 
