@@ -92,11 +92,11 @@ namespace ExRam.Gremlinq.Core
             {
                 var newTraversal = maybeNewTraversal ?? existingQuery.Steps;
                 var newQueryFlags = maybeNewQueryFlags ?? existingQuery.Flags;
-                var newProjection = maybeNewProjection ?? existingQuery.Projection;
+                var newProjection = maybeNewProjection ?? existingQuery.Steps.Projection;
                 var newStepLabelProjections = maybeNewStepLabelProjections ?? existingQuery.StepLabelProjections;
                 var newSideEffectLabelProjections = maybeNewSideEffectLabelProjections ?? existingQuery.SideEffectLabelProjections;
 
-                if (targetQueryType.IsInstanceOfType(existingQuery) && newQueryFlags == existingQuery.Flags && maybeNewTraversal == null && newProjection == existingQuery.Projection && newStepLabelProjections == existingQuery.StepLabelProjections && newSideEffectLabelProjections == existingQuery.SideEffectLabelProjections)
+                if (targetQueryType.IsInstanceOfType(existingQuery) && newQueryFlags == existingQuery.Flags && maybeNewTraversal == null && newProjection == existingQuery.Steps.Projection && newStepLabelProjections == existingQuery.StepLabelProjections && newSideEffectLabelProjections == existingQuery.SideEffectLabelProjections)
                     return (IGremlinQueryBase)existingQuery;
 
                 return new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(

@@ -78,7 +78,7 @@ namespace ExRam.Gremlinq.Core
                         .Continue()
                         .Build(
                             static (builder, tuple) => builder
-                                .AddSteps(builder.OuterQuery.GetPropertySteps(tuple.key, tuple.value, builder.OuterQuery.Projection == Projection.Vertex))
+                                .AddSteps(builder.OuterQuery.GetPropertySteps(tuple.key, tuple.value, builder.OuterQuery.Steps.Projection == Projection.Vertex))
                                 .Build(),
                             (key, value));
                 }
@@ -116,7 +116,7 @@ namespace ExRam.Gremlinq.Core
                         .AddStep(new AggregateStep(tuple.scope, tuple.stepLabel))
                         .WithNewSideEffectLabelProjection(
                             static (existingProjections, tuple) => existingProjections.SetItem(tuple.stepLabel, tuple.projection),
-                            (tuple.stepLabel, projection: builder.OuterQuery.Projection.Fold()))
+                            (tuple.stepLabel, projection: builder.OuterQuery.Steps.Projection.Fold()))
                         .Build(),
                     (scope, stepLabel));
 
@@ -201,7 +201,7 @@ namespace ExRam.Gremlinq.Core
                     .AddStep(new AsStep(stepLabel))
                     .WithNewStepLabelProjection(
                         static (projection, tuple) => projection.SetItem(tuple.stepLabel, tuple.otherProjection),
-                        (stepLabel, otherProjection: builder.OuterQuery.Projection))
+                        (stepLabel, otherProjection: builder.OuterQuery.Steps.Projection))
                     .Build(),
                 stepLabel);
 
@@ -891,7 +891,7 @@ namespace ExRam.Gremlinq.Core
                         throw new InvalidOperationException("Can't set a special property to null.");
                     }
 
-                    foreach (var propertyStep in builder.OuterQuery.GetPropertySteps(tuple.key, tuple.value, builder.OuterQuery.Projection == Projection.Vertex))
+                    foreach (var propertyStep in builder.OuterQuery.GetPropertySteps(tuple.key, tuple.value, builder.OuterQuery.Steps.Projection == Projection.Vertex))
                     {
                         builder = builder.AddStep(propertyStep);
                     }
@@ -1490,7 +1490,7 @@ namespace ExRam.Gremlinq.Core
                     .AddStep(new WithSideEffectStep(tuple.label, tuple.value!))
                     .WithNewStepLabelProjection(
                         static (projections, tuple) => projections.SetItem(tuple.label, tuple.projection),
-                        (tuple.label, projection: builder.OuterQuery.Projection))
+                        (tuple.label, projection: builder.OuterQuery.Steps.Projection))
                     .AutoBuild(),
                 (label, value));
     }
