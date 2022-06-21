@@ -26,7 +26,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Coalesce(
                     _ => _.Out(),
                     _ => _.In())
-                .AsAdmin()
+                .ToTraversal()
                 .Projection);
         }
 
@@ -38,7 +38,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Coalesce(
                     _ => _.OutE(),
                     _ => _.In())
-                .AsAdmin()
+                .ToTraversal()
                 .Projection);
         }
 
@@ -48,7 +48,7 @@ namespace ExRam.Gremlinq.Core.Tests
             return Verify(_g
                 .V()
                 .ForceEdge()
-                .AsAdmin()
+                .ToTraversal()
                 .Projection);
         }
 
@@ -58,7 +58,7 @@ namespace ExRam.Gremlinq.Core.Tests
             return Verify(_g
                 .V()
                 .ForceElement()
-                .AsAdmin()
+                .ToTraversal()
                 .Projection);
         }
 
@@ -68,7 +68,7 @@ namespace ExRam.Gremlinq.Core.Tests
             return Verify(_g
                 .V()
                 .ForceValue()
-                .AsAdmin()
+                .ToTraversal()
                 .Projection);
         }
 
@@ -79,7 +79,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Fold()
                 .Unfold()
-                .AsAdmin()
+                .ToTraversal()
                 .Projection);
         }
     }

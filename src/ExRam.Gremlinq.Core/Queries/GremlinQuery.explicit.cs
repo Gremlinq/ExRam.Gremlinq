@@ -278,8 +278,6 @@ namespace ExRam.Gremlinq.Core
 
         Traversal IGremlinQueryAdmin.Steps => Steps;
 
-        Projection IGremlinQueryAdmin.Projection => Steps.Projection;
-
         IGremlinQueryEnvironment IGremlinQueryAdmin.Environment => Environment;
 
         Type IGremlinQueryAdmin.ElementType { get => typeof(TElement); }
