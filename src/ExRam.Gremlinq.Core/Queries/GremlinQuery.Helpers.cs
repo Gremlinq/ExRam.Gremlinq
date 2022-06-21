@@ -58,7 +58,7 @@ namespace ExRam.Gremlinq.Core
 
         private ContinuationBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>> Continue() => new(
             this,
-            new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(Environment, Traversal.Empty, Steps.Projection, StepLabelProjections, SideEffectLabelProjections, (Flags & ~QueryFlags.SurfaceVisible) | QueryFlags.IsAnonymous));
+            new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(Environment, Traversal.Empty.WithProjection(Steps.Projection), StepLabelProjections, SideEffectLabelProjections, (Flags & ~QueryFlags.SurfaceVisible) | QueryFlags.IsAnonymous));
 
         private Key GetKey(Expression projection) => Environment.GetKey(projection);
 
