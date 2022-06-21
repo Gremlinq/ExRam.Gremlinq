@@ -365,7 +365,6 @@
     {
         System.Type ElementType { get; }
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment Environment { get; }
-        ExRam.Gremlinq.Core.Projections.Projection Projection { get; }
         ExRam.Gremlinq.Core.Traversal Steps { get; }
         TTargetQuery AddStep<TTargetQuery>(ExRam.Gremlinq.Core.Steps.Step step, System.Func<ExRam.Gremlinq.Core.Projections.Projection, ExRam.Gremlinq.Core.Projections.Projection>? projectionTransformation = null)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;

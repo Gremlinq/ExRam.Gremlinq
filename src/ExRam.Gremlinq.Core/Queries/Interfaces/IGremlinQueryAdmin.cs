@@ -15,7 +15,6 @@ namespace ExRam.Gremlinq.Core
 
         Traversal Steps { get; }
         Type ElementType { get; }
-        Projection Projection { get; }
         IGremlinQueryEnvironment Environment { get; }
     }
 }
