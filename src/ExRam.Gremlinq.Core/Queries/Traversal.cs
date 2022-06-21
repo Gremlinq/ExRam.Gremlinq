@@ -133,22 +133,17 @@ namespace ExRam.Gremlinq.Core
 
         public void CopyTo(Step[] destination, int destinationIndex) => CopyTo(0, destination, destinationIndex, Count);
 
-        public void CopyTo(int sourceIndex, Step[] destination, int destinationIndex, int length) => Array.Copy(Steps, sourceIndex, destination, destinationIndex, length);
+        public void CopyTo(int sourceIndex, Step[] destination, int destinationIndex, int length)
+        {
+            if (length + sourceIndex > _count)
+                throw new ArgumentException();
+
+            Array.Copy(Steps, sourceIndex, destination, destinationIndex, length);
+        }
 
         internal Step Peek() => PeekOrDefault() ?? throw new InvalidOperationException($"{nameof(Traversal)} is Empty.");
 
         internal Step? PeekOrDefault() => Count > 0 ? this[Count - 1] : null;
-
-        internal void CopyTo(Step[] destination, int sourceIndex, int destinationIndex, int count)
-        {
-            var steps = Steps;
-
-            //TODO: Optimize
-            for (var i = sourceIndex; i < count + sourceIndex; i++)
-            {
-                destination[destinationIndex++] = steps[i]!;
-            }
-        }
 
         public static implicit operator Traversal(Step step) => new(new[] { step }, Projection.Empty);
 
