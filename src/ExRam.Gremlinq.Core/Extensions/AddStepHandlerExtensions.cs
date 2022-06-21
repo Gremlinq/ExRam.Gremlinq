@@ -5,15 +5,15 @@ namespace ExRam.Gremlinq.Core
 {
     internal static class AddStepHandlerExtensions
     {
-        public static Traversal AddSteps<TStep>(this IAddStepHandler addStepHandler, Traversal stepStack, IEnumerable<TStep> steps, IGremlinQueryEnvironment env)
+        public static Traversal AddSteps<TStep>(this IAddStepHandler addStepHandler, Traversal traversal, IEnumerable<TStep> steps, IGremlinQueryEnvironment env)
             where TStep : Step
         {
             foreach (var step in steps)
             {
-                stepStack = addStepHandler.AddStep(stepStack, step, env);
+                traversal = addStepHandler.AddStep(traversal, step, env);
             }
 
-            return stepStack;
+            return traversal;
         }
     }
 }

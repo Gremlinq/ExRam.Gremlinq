@@ -272,7 +272,7 @@ namespace ExRam.Gremlinq.Core
             maybeNewProjection: maybeForcedProjection);
 
         IGremlinQuerySource IGremlinQueryAdmin.GetSource() => CloneAs<GremlinQuery<object, object, object, object, object, object>>(
-            maybeNewStepStack: Traversal.Empty,
+            maybeNewTraversal: Traversal.Empty,
             maybeNewProjection: Projection.Empty,
             maybeNewQueryFlags: Flags & QueryFlags.IsMuted);
 

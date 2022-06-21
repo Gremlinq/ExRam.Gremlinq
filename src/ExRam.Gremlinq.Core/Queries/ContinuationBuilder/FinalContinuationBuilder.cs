@@ -41,9 +41,9 @@ namespace ExRam.Gremlinq.Core
             static (outer, _, projection, stepLabelProjections, sideEffectLabelProjections, flags, newSteps) => new FinalContinuationBuilder<TOuterQuery>(outer, newSteps, projection, stepLabelProjections, sideEffectLabelProjections, flags),
             newSteps);
 
-        public FinalContinuationBuilder<TOuterQuery> WithSteps<TState>(Func<Traversal, TState, Traversal> stepStackTransformation, TState state) => With(
-            static (outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, flags, tuple) => new FinalContinuationBuilder<TOuterQuery>(outer, tuple.stepStackTransformation(steps, tuple.state), projection, stepLabelProjections, sideEffectLabelProjections, flags),
-            (stepStackTransformation, state));
+        public FinalContinuationBuilder<TOuterQuery> WithSteps<TState>(Func<Traversal, TState, Traversal> traversalTransformation, TState state) => With(
+            static (outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, flags, tuple) => new FinalContinuationBuilder<TOuterQuery>(outer, tuple.traversalTransformation(steps, tuple.state), projection, stepLabelProjections, sideEffectLabelProjections, flags),
+            (traversalTransformation, state));
 
         public FinalContinuationBuilder<TOuterQuery> WithNewProjection<TState>(Func<Projection, TState, Projection> projectionTransformation, TState state) => With(
             static (outer, steps, projection, stepLabelProjections, sideEffectLabelProjections, flags, tuple) => new FinalContinuationBuilder<TOuterQuery>(outer, steps, tuple.projectionTransformation(projection ?? Projection.Empty, tuple.state), stepLabelProjections, sideEffectLabelProjections, flags),
