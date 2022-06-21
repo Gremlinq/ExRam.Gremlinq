@@ -12,6 +12,7 @@ namespace ExRam.Gremlinq.Core
     {
         public static readonly Traversal Empty = new(Array.Empty<Step>(), Projection.Empty);
 
+        private readonly int _count;
         private readonly Step?[]? _steps;
 
         internal Traversal(IEnumerable<Step> steps, Projection projection) : this(ToArrayHelper(steps), projection)
@@ -30,7 +31,7 @@ namespace ExRam.Gremlinq.Core
 
         internal Traversal(Step?[] steps, int count, SideEffectSemantics semantics, Projection projection)
         {
-            Count = count;
+            _count = count;
             _steps = steps;
             Projection = projection;
             SideEffectSemantics = semantics;
@@ -38,8 +39,8 @@ namespace ExRam.Gremlinq.Core
 
         public Traversal Push(params Step[] steps)
         {
-            //TODO: optimize!
-            var ret = this;
+            var ret = this
+                .EnsureCapacity(Count + steps.Length);
 
             for(var i = 0; i < steps.Length; i++)
             {
@@ -54,9 +55,9 @@ namespace ExRam.Gremlinq.Core
             var steps = Steps;
             var newSteps = steps;
 
-            if (Count < steps.Length)
+            if (_count < steps.Length)
             {
-                if (Interlocked.CompareExchange(ref steps[Count], step, default) != null)
+                if (Interlocked.CompareExchange(ref steps[_count], step, default) != null)
                     newSteps = new Step[steps.Length];
             }
             else
@@ -64,25 +65,40 @@ namespace ExRam.Gremlinq.Core
 
             if (newSteps != steps)
             {
-                Array.Copy(steps, newSteps, Count);
-                newSteps[Count] = step;
+                Array.Copy(steps, newSteps, _count);
+                newSteps[_count] = step;
             }
 
             return new Traversal(
                 newSteps,
-                Count + 1,
+                _count + 1,
                 step.SideEffectSemanticsChange == SideEffectSemanticsChange.Write
                     ? SideEffectSemantics.Write
                     : SideEffectSemantics,
                 Projection);
         }
 
+        private Traversal EnsureCapacity(int count)
+        {
+            var steps = Steps;
+
+            if (steps.Length < count)
+            {
+                var newSteps = new Step[count];
+                Array.Copy(steps, newSteps, Count);
+
+                return new(steps, Count, SideEffectSemantics, Projection);
+            }
+
+            return this;
+        }
+
         public Traversal Pop() => Pop(out _);
 
         public Traversal Pop(out Step poppedStep)
         {
-            if (IsEmpty)
-                throw new InvalidOperationException();
+            if (Count == 0)
+                throw new InvalidOperationException($"{nameof(Traversal)} is Empty.");
 
             poppedStep = this[Count - 1];
             return new Traversal(_steps!, Count - 1, Projection);
@@ -122,7 +138,7 @@ namespace ExRam.Gremlinq.Core
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-        public int Count { get; }
+        public int Count { get => Steps is not null ? _count : 0; }
 
         public Projection Projection { get; }
 
@@ -141,7 +157,7 @@ namespace ExRam.Gremlinq.Core
 
         public void CopyTo(int sourceIndex, Step[] destination, int destinationIndex, int length) => Array.Copy(Steps, sourceIndex, destination, destinationIndex, length);
 
-        internal Step Peek() => PeekOrDefault() ?? throw new InvalidOperationException();
+        internal Step Peek() => PeekOrDefault() ?? throw new InvalidOperationException($"{nameof(Traversal)} is Empty.");
 
         internal Step? PeekOrDefault() => Count > 0 ? this[Count - 1] : null;
 
@@ -177,7 +193,9 @@ namespace ExRam.Gremlinq.Core
 
         private Step?[] Steps
         {
-            get => _steps is { } steps ? steps : throw new InvalidOperationException();
+            get => _steps is { } steps
+                ? steps
+                : throw new InvalidOperationException($"{nameof(Traversal)} has not been initialized.");
         }
 
         internal bool IsEmpty { get => Count == 0; }
