@@ -11,7 +11,6 @@ namespace ExRam.Gremlinq.Core
         private delegate IGremlinQueryBase QueryContinuation(
             GremlinQueryBase existingQuery,
             Traversal? maybeNewTraversal,
-            Projection? maybeNewProjection,
             IImmutableDictionary<StepLabel, Projection>? maybeNewStepLabelProjections,
             IImmutableDictionary<StepLabel, Projection>? maybeNewSideEffectLabelProjections,
             QueryFlags? maybeNewQueryFlags);
@@ -43,6 +42,13 @@ namespace ExRam.Gremlinq.Core
             QueryFlags? maybeNewQueryFlags = null)
         {
             var targetQueryType = typeof(TTargetQuery);
+
+            if (maybeNewProjection is { } newProjection)
+            {
+                maybeNewTraversal = maybeNewTraversal is { } newTraversal
+                    ? newTraversal.WithProjection(newProjection)
+                    : Steps.WithProjection(newProjection);
+            }
 
             var maybeConstructor = QueryTypes.GetOrAdd(
                 targetQueryType,
@@ -77,7 +83,7 @@ namespace ExRam.Gremlinq.Core
                 });
 
             return (maybeConstructor is { } constructor)
-                ? (TTargetQuery)constructor(this, maybeNewTraversal, maybeNewProjection, maybeNewStepLabelProjections, maybeNewSideEffectLabelProjections, maybeNewQueryFlags)
+                ? (TTargetQuery)constructor(this, maybeNewTraversal, maybeNewStepLabelProjections, maybeNewSideEffectLabelProjections, maybeNewQueryFlags)
                 : throw new NotSupportedException($"Cannot change the query type to {targetQueryType}.");
         }
 
@@ -86,20 +92,19 @@ namespace ExRam.Gremlinq.Core
             if (!targetQueryType.IsAssignableFrom(typeof(GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>)))
                 return null;
 
-            return (existingQuery, maybeNewTraversal, maybeNewProjection, maybeNewStepLabelProjections, maybeNewSideEffectLabelProjections, maybeNewQueryFlags) =>
+            return (existingQuery, maybeNewTraversal, maybeNewStepLabelProjections, maybeNewSideEffectLabelProjections, maybeNewQueryFlags) =>
             {
                 var newTraversal = maybeNewTraversal ?? existingQuery.Steps;
                 var newQueryFlags = maybeNewQueryFlags ?? existingQuery.Flags;
-                var newProjection = maybeNewProjection ?? existingQuery.Steps.Projection;
                 var newStepLabelProjections = maybeNewStepLabelProjections ?? existingQuery.StepLabelProjections;
                 var newSideEffectLabelProjections = maybeNewSideEffectLabelProjections ?? existingQuery.SideEffectLabelProjections;
 
-                if (targetQueryType.IsInstanceOfType(existingQuery) && newQueryFlags == existingQuery.Flags && maybeNewTraversal == null && newProjection == existingQuery.Steps.Projection && newStepLabelProjections == existingQuery.StepLabelProjections && newSideEffectLabelProjections == existingQuery.SideEffectLabelProjections)
+                if (targetQueryType.IsInstanceOfType(existingQuery) && newQueryFlags == existingQuery.Flags && maybeNewTraversal == null && newStepLabelProjections == existingQuery.StepLabelProjections && newSideEffectLabelProjections == existingQuery.SideEffectLabelProjections)
                     return (IGremlinQueryBase)existingQuery;
 
                 return new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(
                     existingQuery.Environment,
-                    newTraversal.WithProjection(newProjection),
+                    newTraversal,
                     newStepLabelProjections,
                     newSideEffectLabelProjections,
                     newQueryFlags);
