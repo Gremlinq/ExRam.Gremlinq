@@ -82,7 +82,7 @@ namespace ExRam.Gremlinq.Core
             return new Traversal(_steps!, Count - 1, Projection);
         }
 
-        public Traversal WithProjection(Projection projection) => new(Steps, Count, projection);
+        public Traversal WithProjection(Projection projection) => new(Steps, _count, projection);
 
         public IEnumerator<Step> GetEnumerator()
         {
