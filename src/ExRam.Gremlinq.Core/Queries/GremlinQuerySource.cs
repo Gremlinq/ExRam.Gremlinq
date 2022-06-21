@@ -9,7 +9,6 @@ namespace ExRam.Gremlinq.Core
         public static readonly IConfigurableGremlinQuerySource g = new GremlinQuery<object, object, object, object, object, object>(
             GremlinQueryEnvironment.Default,
             Traversal.Empty,
-            Projection.Empty,
             ImmutableDictionary<StepLabel, Projection>.Empty,
             ImmutableDictionary<StepLabel, Projection>.Empty,
             QueryFlags.SurfaceVisible);
