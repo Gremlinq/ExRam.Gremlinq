@@ -36,19 +36,11 @@ namespace ExRam.Gremlinq.Core
 
         protected internal TTargetQuery CloneAs<TTargetQuery>(
             Traversal? maybeNewTraversal = null,
-            Projection? maybeNewProjection = null,
             IImmutableDictionary<StepLabel, Projection>? maybeNewStepLabelProjections = null,
             IImmutableDictionary<StepLabel, Projection>? maybeNewSideEffectLabelProjections = null,
             QueryFlags? maybeNewQueryFlags = null)
         {
             var targetQueryType = typeof(TTargetQuery);
-
-            if (maybeNewProjection is { } newProjection)
-            {
-                maybeNewTraversal = maybeNewTraversal is { } newTraversal
-                    ? newTraversal.WithProjection(newProjection)
-                    : Steps.WithProjection(newProjection);
-            }
 
             var maybeConstructor = QueryTypes.GetOrAdd(
                 targetQueryType,

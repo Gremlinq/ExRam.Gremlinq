@@ -89,7 +89,6 @@ namespace ExRam.Gremlinq.Core
         public TNewTargetQuery Build<TNewTargetQuery>() where TNewTargetQuery : IGremlinQueryBase => With(
             static (outer, steps, stepLabelProjections, sideEffectLabelProjections, flags, _) => outer.CloneAs<TNewTargetQuery>(
                 steps,
-                null,
                 stepLabelProjections,
                 sideEffectLabelProjections,
                 flags),
