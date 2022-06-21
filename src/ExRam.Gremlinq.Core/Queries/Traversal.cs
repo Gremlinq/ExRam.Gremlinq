@@ -51,34 +51,30 @@ namespace ExRam.Gremlinq.Core
 
         public Traversal Push(Step step)
         {
-            if (_steps is { } steps)
+            var steps = Steps;
+            var newSteps = steps;
+
+            if (Count < steps.Length)
             {
-                var newSteps = steps;
+                if (Interlocked.CompareExchange(ref steps[Count], step, default) != null)
+                    newSteps = new Step[steps.Length];
+            }
+            else
+                newSteps = new Step[Math.Max(steps.Length * 2, 16)];
 
-                if (Count < steps.Length)
-                {
-                    if (Interlocked.CompareExchange(ref steps[Count], step, default) != null)
-                        newSteps = new Step[steps.Length];
-                }
-                else
-                    newSteps = new Step[Math.Max(steps.Length * 2, 16)];
-
-                if (newSteps != steps)
-                {
-                    Array.Copy(steps, newSteps, Count);
-                    newSteps[Count] = step;
-                }
-
-                return new Traversal(
-                    newSteps,
-                    Count + 1,
-                    step.SideEffectSemanticsChange == SideEffectSemanticsChange.Write
-                        ? SideEffectSemantics.Write
-                        : SideEffectSemantics,
-                    Projection);
+            if (newSteps != steps)
+            {
+                Array.Copy(steps, newSteps, Count);
+                newSteps[Count] = step;
             }
 
-            throw new InvalidOperationException();
+            return new Traversal(
+                newSteps,
+                Count + 1,
+                step.SideEffectSemanticsChange == SideEffectSemanticsChange.Write
+                    ? SideEffectSemantics.Write
+                    : SideEffectSemantics,
+                Projection);
         }
 
         public Traversal Pop() => Pop(out _);
@@ -92,18 +88,15 @@ namespace ExRam.Gremlinq.Core
             return new Traversal(_steps!, Count - 1, Projection);
         }
 
-        public Traversal WithProjection(Projection projection)
-        {
-            return (_steps is { } steps)
-                ? new (steps, Count, projection)
-                : throw new InvalidOperationException();
-        }
+        public Traversal WithProjection(Projection projection) => new(Steps, Count, projection);
 
         public IEnumerator<Step> GetEnumerator()
         {
+            var steps = Steps;
+
             for (var i = 0; i < Count; i++)
             {
-                yield return _steps![i]!;
+                yield return steps[i]!;
             }
         }
 
@@ -146,13 +139,7 @@ namespace ExRam.Gremlinq.Core
 
         public void CopyTo(Step[] destination, int destinationIndex) => CopyTo(0, destination, destinationIndex, Count);
 
-        public void CopyTo(int sourceIndex, Step[] destination, int destinationIndex, int length)
-        {
-            if (_steps is Step[] source)
-                Array.Copy(source, sourceIndex, destination, destinationIndex, length);
-            else
-                throw new InvalidOperationException();
-        }
+        public void CopyTo(int sourceIndex, Step[] destination, int destinationIndex, int length) => Array.Copy(Steps, sourceIndex, destination, destinationIndex, length);
 
         internal Step Peek() => PeekOrDefault() ?? throw new InvalidOperationException();
 
@@ -160,10 +147,12 @@ namespace ExRam.Gremlinq.Core
 
         internal void CopyTo(Step[] destination, int sourceIndex, int destinationIndex, int count)
         {
+            var steps = Steps;
+
             //TODO: Optimize
             for (var i = sourceIndex; i < count + sourceIndex; i++)
             {
-                destination[destinationIndex++] = _steps![i]!;
+                destination[destinationIndex++] = steps[i]!;
             }
         }
 
@@ -184,6 +173,11 @@ namespace ExRam.Gremlinq.Core
             }
 
             return SideEffectSemantics.Read;
+        }
+
+        private Step?[] Steps
+        {
+            get => _steps is { } steps ? steps : throw new InvalidOperationException();
         }
 
         internal bool IsEmpty { get => Count == 0; }
