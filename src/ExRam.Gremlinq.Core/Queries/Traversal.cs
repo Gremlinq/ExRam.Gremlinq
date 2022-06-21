@@ -53,44 +53,22 @@ namespace ExRam.Gremlinq.Core
         public Traversal Push(Step step)
         {
             var steps = Steps;
-            var newSteps = steps;
 
             if (_count < steps.Length)
             {
                 if (Interlocked.CompareExchange(ref steps[_count], step, default) != null)
-                    newSteps = new Step[steps.Length];
+                    return Clone().Push(step);
+
+                return new Traversal(
+                    steps,
+                    _count + 1,
+                    step.SideEffectSemanticsChange == SideEffectSemanticsChange.Write
+                        ? SideEffectSemantics.Write
+                        : SideEffectSemantics,
+                    Projection);
             }
             else
-                newSteps = new Step[Math.Max(steps.Length * 2, 16)];
-
-            if (newSteps != steps)
-            {
-                Array.Copy(steps, newSteps, _count);
-                newSteps[_count] = step;
-            }
-
-            return new Traversal(
-                newSteps,
-                _count + 1,
-                step.SideEffectSemanticsChange == SideEffectSemanticsChange.Write
-                    ? SideEffectSemantics.Write
-                    : SideEffectSemantics,
-                Projection);
-        }
-
-        private Traversal EnsureCapacity(int count)
-        {
-            var steps = Steps;
-
-            if (steps.Length < count)
-            {
-                var newSteps = new Step[count];
-                Array.Copy(steps, newSteps, Count);
-
-                return new(steps, Count, SideEffectSemantics, Projection);
-            }
-
-            return this;
+                return EnsureCapacity(Math.Max(steps.Length * 2, 16)).Push(step);
         }
 
         public Traversal Pop() => Pop(out _);
@@ -189,6 +167,27 @@ namespace ExRam.Gremlinq.Core
             }
 
             return SideEffectSemantics.Read;
+        }
+
+        private Traversal EnsureCapacity(int count)
+        {
+            if (_steps!.Length < count)
+            {
+                var newSteps = new Step[count];
+                Array.Copy(_steps!, newSteps, _count);
+
+                return new(newSteps, _count, SideEffectSemantics, Projection);
+            }
+
+            return this;
+        }
+
+        private Traversal Clone()
+        {
+            var newSteps = new Step[_steps!.Length];
+            Array.Copy(_steps!, newSteps, _count);
+
+            return new(newSteps, _count, SideEffectSemantics, Projection);
         }
 
         private Step?[] Steps
