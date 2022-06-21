@@ -15,7 +15,7 @@ namespace ExRam.Gremlinq.Core
         private readonly IImmutableDictionary<StepLabel, Projection>? _stepLabelProjections;
         private readonly IImmutableDictionary<StepLabel, Projection>? _sideEffectLabelProjections;
 
-        public FinalContinuationBuilder(TOuterQuery outerQuery) : this(outerQuery, outerQuery.Steps, outerQuery.Projection, outerQuery.StepLabelProjections, outerQuery.SideEffectLabelProjections, outerQuery.Flags)
+        public FinalContinuationBuilder(TOuterQuery outerQuery) : this(outerQuery, outerQuery.Steps, outerQuery.Steps.Projection, outerQuery.StepLabelProjections, outerQuery.SideEffectLabelProjections, outerQuery.Flags)
         {
 
         }
