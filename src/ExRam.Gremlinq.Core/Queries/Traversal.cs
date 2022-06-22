@@ -12,7 +12,6 @@ namespace ExRam.Gremlinq.Core
     {
         public static readonly Traversal Empty = new(Array.Empty<Step>(), Projection.Empty);
 
-        private readonly int _count;
         private readonly Step?[]? _steps;
 
         internal Traversal(IEnumerable<Step> steps, Projection projection) : this(ToArrayHelper(steps), projection)
@@ -31,7 +30,7 @@ namespace ExRam.Gremlinq.Core
 
         internal Traversal(Step?[] steps, int count, SideEffectSemantics semantics, Projection projection)
         {
-            _count = count;
+            Count = count;
             _steps = steps;
             Projection = projection;
             SideEffectSemantics = semantics;
@@ -54,14 +53,14 @@ namespace ExRam.Gremlinq.Core
         {
             var steps = Steps;
 
-            if (_count < steps.Length)
+            if (Count < steps.Length)
             {
-                if (Interlocked.CompareExchange(ref steps[_count], step, default) != null)
+                if (Interlocked.CompareExchange(ref steps[Count], step, default) != null)
                     return Clone().Push(step);
 
                 return new Traversal(
                     steps,
-                    _count + 1,
+                    Count + 1,
                     step.SideEffectSemanticsChange == SideEffectSemanticsChange.Write
                         ? SideEffectSemantics.Write
                         : SideEffectSemantics,
@@ -78,17 +77,17 @@ namespace ExRam.Gremlinq.Core
             if (Count == 0)
                 throw new InvalidOperationException($"{nameof(Traversal)} is Empty.");
 
-            poppedStep = this[_count - 1];
-            return new Traversal(_steps!, _count - 1, Projection);
+            poppedStep = this[Count - 1];
+            return new Traversal(Steps, Count - 1, Projection);
         }
 
-        public Traversal WithProjection(Projection projection) => new(Steps, _count, projection);
+        public Traversal WithProjection(Projection projection) => new(Steps, Count, projection);
 
         public IEnumerator<Step> GetEnumerator()
         {
             var steps = Steps;
 
-            for (var i = 0; i < _count; i++)
+            for (var i = 0; i < Count; i++)
             {
                 yield return steps[i]!;
             }
@@ -102,10 +101,10 @@ namespace ExRam.Gremlinq.Core
 
                 if (projectionTraversal.Count > 0)
                 {
-                    var ret = new Step[_count + projectionTraversal.Count];
+                    var ret = new Step[Count + projectionTraversal.Count];
 
                     CopyTo(ret, 0);
-                    projectionTraversal.CopyTo(ret, _count);
+                    projectionTraversal.CopyTo(ret, Count);
 
                     return new Traversal(ret, Projection.Empty);
                 }
@@ -116,7 +115,7 @@ namespace ExRam.Gremlinq.Core
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-        public int Count { get => Steps is not null ? _count : 0; }
+        public int Count { get; }
 
         public Projection Projection { get; }
 
@@ -124,7 +123,7 @@ namespace ExRam.Gremlinq.Core
         {
             get => index < 0 || index >= Count
                 ? throw new ArgumentOutOfRangeException(nameof(index))
-                : _steps![index]!;
+                : Steps[index]!;
         }
 
         public SideEffectSemantics SideEffectSemantics { get; }
@@ -143,7 +142,7 @@ namespace ExRam.Gremlinq.Core
 
         internal Step Peek() => PeekOrDefault() ?? throw new InvalidOperationException($"{nameof(Traversal)} is Empty.");
 
-        internal Step? PeekOrDefault() => Count > 0 ? this[_count - 1] : null;
+        internal Step? PeekOrDefault() => Count > 0 ? this[Count - 1] : null;
 
         public static implicit operator Traversal(Step step) => new(new[] { step }, Projection.Empty);
 
@@ -156,9 +155,7 @@ namespace ExRam.Gremlinq.Core
             for (var i = 0; i < count; i++)
             {
                 if (steps[i]!.SideEffectSemanticsChange == SideEffectSemanticsChange.Write)
-                {
                     return SideEffectSemantics.Write;
-                }
             }
 
             return SideEffectSemantics.Read;
@@ -166,12 +163,12 @@ namespace ExRam.Gremlinq.Core
 
         private Traversal EnsureCapacity(int count)
         {
-            if (_steps!.Length < count)
+            if (Steps.Length < count)
             {
                 var newSteps = new Step[count];
-                Array.Copy(_steps!, newSteps, _count);
+                Array.Copy(Steps, newSteps, Count);
 
-                return new(newSteps, _count, SideEffectSemantics, Projection);
+                return new(newSteps, Count, SideEffectSemantics, Projection);
             }
 
             return this;
@@ -179,18 +176,13 @@ namespace ExRam.Gremlinq.Core
 
         private Traversal Clone()
         {
-            var newSteps = new Step[_steps!.Length];
-            Array.Copy(_steps!, newSteps, _count);
+            var newSteps = new Step[Steps.Length];
+            Array.Copy(Steps, newSteps, Count);
 
-            return new(newSteps, _count, SideEffectSemantics, Projection);
+            return new(newSteps, Count, SideEffectSemantics, Projection);
         }
 
-        private Step?[] Steps
-        {
-            get => _steps is { } steps
-                ? steps
-                : throw new InvalidOperationException($"{nameof(Traversal)} has not been initialized.");
-        }
+        private Step?[] Steps => _steps ?? Array.Empty<Step>();
 
         internal bool IsEmpty { get => Count == 0; }
     }
