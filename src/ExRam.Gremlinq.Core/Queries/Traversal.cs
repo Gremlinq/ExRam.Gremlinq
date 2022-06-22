@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using ExRam.Gremlinq.Core.Projections;
 using ExRam.Gremlinq.Core.Steps;
@@ -13,10 +12,6 @@ namespace ExRam.Gremlinq.Core
         public static readonly Traversal Empty = new(Array.Empty<Step>(), Projection.Empty);
 
         private readonly Step?[]? _steps;
-
-        internal Traversal(IEnumerable<Step> steps, Projection projection) : this(ToArrayHelper(steps), projection)
-        {
-        }
 
         internal Traversal(Step?[] steps, Projection projection) : this(steps, steps.Length, projection)
         {
@@ -145,10 +140,6 @@ namespace ExRam.Gremlinq.Core
         internal Step? PeekOrDefault() => Count > 0 ? this[Count - 1] : null;
 
         public static implicit operator Traversal(Step step) => new(new[] { step }, Projection.Empty);
-
-        private static Step[] ToArrayHelper(IEnumerable<Step> steps) => steps is Step[] array
-            ? (Step[])array.Clone()
-            : steps.ToArray();
 
         private static SideEffectSemantics SideEffectSemanticsHelper(Step?[] steps, int count)
         {
