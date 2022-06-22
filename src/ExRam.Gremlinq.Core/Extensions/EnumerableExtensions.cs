@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -17,9 +18,20 @@ namespace ExRam.Gremlinq.Core
 
         internal static bool InternalAny(this IEnumerable enumerable)
         {
+            if (enumerable is ICollection collection)
+                return collection.Count > 0;
+
             var enumerator = enumerable.GetEnumerator();
 
-            return enumerator.MoveNext();
+            try
+            {
+                return enumerator.MoveNext();
+            }
+            finally
+            {
+                if (enumerator is IDisposable disposable)
+                    disposable.Dispose();
+            }
         }
 
         internal static IAsyncEnumerable<TElement> ToNonNullAsyncEnumerable<TElement>(this IEnumerable enumerable)
