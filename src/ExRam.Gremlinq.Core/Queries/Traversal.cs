@@ -78,8 +78,8 @@ namespace ExRam.Gremlinq.Core
             if (Count == 0)
                 throw new InvalidOperationException($"{nameof(Traversal)} is Empty.");
 
-            poppedStep = this[Count - 1];
-            return new Traversal(_steps!, Count - 1, Projection);
+            poppedStep = this[_count - 1];
+            return new Traversal(_steps!, _count - 1, Projection);
         }
 
         public Traversal WithProjection(Projection projection) => new(Steps, _count, projection);
@@ -88,7 +88,7 @@ namespace ExRam.Gremlinq.Core
         {
             var steps = Steps;
 
-            for (var i = 0; i < Count; i++)
+            for (var i = 0; i < _count; i++)
             {
                 yield return steps[i]!;
             }
@@ -102,10 +102,10 @@ namespace ExRam.Gremlinq.Core
 
                 if (projectionTraversal.Count > 0)
                 {
-                    var ret = new Step[Count + projectionTraversal.Count];
+                    var ret = new Step[_count + projectionTraversal.Count];
 
                     CopyTo(ret, 0);
-                    projectionTraversal.CopyTo(ret, Count);
+                    projectionTraversal.CopyTo(ret, _count);
 
                     return new Traversal(ret, Projection.Empty);
                 }
@@ -135,7 +135,7 @@ namespace ExRam.Gremlinq.Core
 
         public void CopyTo(int sourceIndex, Step[] destination, int destinationIndex, int length)
         {
-            if (length + sourceIndex > _count)
+            if (length + sourceIndex > Count)
                 throw new ArgumentException();
 
             Array.Copy(Steps, sourceIndex, destination, destinationIndex, length);
@@ -143,7 +143,7 @@ namespace ExRam.Gremlinq.Core
 
         internal Step Peek() => PeekOrDefault() ?? throw new InvalidOperationException($"{nameof(Traversal)} is Empty.");
 
-        internal Step? PeekOrDefault() => Count > 0 ? this[Count - 1] : null;
+        internal Step? PeekOrDefault() => Count > 0 ? this[_count - 1] : null;
 
         public static implicit operator Traversal(Step step) => new(new[] { step }, Projection.Empty);
 
