@@ -153,6 +153,10 @@ namespace ExRam.Gremlinq.Core
 
             return new(steps, Projection.Empty);
         }
+
+#pragma warning disable CS8619 // Nullability of reference types in value doesn't match target type.
+        public Span<Step> AsStep() => Steps.AsSpan()[..Count];
+#pragma warning restore CS8619 // Nullability of reference types in value doesn't match target type.
 #endif
 
         private static SideEffectSemantics SideEffectSemanticsHelper(Step?[] steps, int count)
