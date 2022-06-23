@@ -141,7 +141,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
 
                 var ret = jToken.ToObject(type, populatingSerializer);
 
-                if (ret is not JToken && ret is not Property && jToken is JObject element)
+                if (ret is not null && ret is not JToken && ret is not Property && jToken is JObject element)
                 {
                     if (element.TryGetElementProperties() is { } propertiesToken)
                     {
@@ -182,7 +182,9 @@ namespace ExRam.Gremlinq.Core.Deserialization
                     ? Activator.CreateInstance(type, recurse.TryDeserialize(jToken, type.GetGenericArguments()[0], env))
                     : overridden(jToken, type, env, recurse);
             })
-            .Override<JValue, TimeSpan>(static (jValue, _, _, _, _) => XmlConvert.ToTimeSpan(jValue.Value<string>()))
+            .Override<JValue, TimeSpan>(static (jValue, type, env, overridden, recurse) => jValue.Type == JTokenType.String
+                ? XmlConvert.ToTimeSpan(jValue.Value<string>()!)
+                : overridden(jValue, type, env, recurse))
             .Override<JValue, DateTimeOffset>(static (jValue, type, env, overridden, recurse) =>
             {
                 switch (jValue.Value)
@@ -220,7 +222,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
             .Override<JValue, byte[]>(static (jValue, type, env, overridden, recurse) =>
             {
                 return jValue.Type == JTokenType.String
-                    ? Convert.FromBase64String(jValue.Value<string>())
+                    ? Convert.FromBase64String(jValue.Value<string>()!)
                     : overridden(jValue, type, env, recurse);
             })
             .Override<JValue>(static (jToken, type, env, overridden, recurse) =>
