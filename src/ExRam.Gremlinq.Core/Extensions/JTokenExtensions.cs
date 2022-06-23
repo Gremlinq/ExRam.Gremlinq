@@ -16,7 +16,7 @@ namespace ExRam.Gremlinq.Core
                     for (var i = 0; i < mapArray.Count / 2; i++)
                     {
                         if (mapArray[i * 2] is JValue { Type: JTokenType.String } key)
-                            retObject.Add(key.Value<string>(), mapArray[i * 2 + 1]);
+                            retObject.Add(key.Value<string>()!, mapArray[i * 2 + 1]);
                     }
 
                     return retObject;

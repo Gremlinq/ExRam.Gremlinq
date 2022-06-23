@@ -87,7 +87,7 @@ namespace ExRam.Gremlinq.Core
                         return true;
                     }
 
-                    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+                    public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
                     {
                         throw new NotSupportedException($"Cannot write to {nameof(JTokenConverterConverter)}.");
                     }

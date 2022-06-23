@@ -62,22 +62,27 @@ namespace ExRam.Gremlinq.Core
             if (message.Length == 0)
                 return null!;
 
-            var responseMessage = Serializer
+            var maybeResponseMessage = Serializer
                 .Deserialize<ResponseMessage<JToken>>(new JsonTextReader(new StreamReader(new MemoryStream(message))));
 
-            return new ResponseMessage<List<object>>
+            if (maybeResponseMessage is { } responseMessage)
             {
-                RequestId = responseMessage.RequestId,
-                Status = responseMessage.Status,
-                Result = new ResponseResult<List<object>>
+                return new ResponseMessage<List<object>>
                 {
-                    Data = new List<object>
+                    RequestId = responseMessage.RequestId,
+                    Status = responseMessage.Status,
+                    Result = new ResponseResult<List<object>>
+                    {
+                        Data = new List<object>
                     {
                         responseMessage.Result.Data
                     },
-                    Meta = responseMessage.Result.Meta
-                }
-            };
+                        Meta = responseMessage.Result.Meta
+                    }
+                };
+            }
+
+            throw new InvalidDataException($"Unable to deserialize the data into a {nameof(ResponseMessage<JToken>)}.");
         }
     }
 }
