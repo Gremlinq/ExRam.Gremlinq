@@ -14,7 +14,7 @@ namespace ExRam.Gremlinq.Core
 
         private readonly Step?[]? _steps;
 
-        internal Traversal(Step?[] steps, Projection projection) : this(steps, steps.Length, projection)
+        internal Traversal(Step[] steps, Projection projection) : this(steps, steps.Length, projection)
         {
 
         }
