@@ -145,8 +145,13 @@ namespace ExRam.Gremlinq.Core
         {
             for (var i = 0; i < count; i++)
             {
-                if (steps[i]!.SideEffectSemanticsChange == SideEffectSemanticsChange.Write)
-                    return SideEffectSemantics.Write;
+                if (steps[i] is { } step)
+                {
+                    if (steps[i]!.SideEffectSemanticsChange == SideEffectSemanticsChange.Write)
+                        return SideEffectSemantics.Write;
+                }
+                else
+                    throw new ArgumentNullException(nameof(steps));
             }
 
             return SideEffectSemantics.Read;
