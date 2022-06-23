@@ -1058,6 +1058,7 @@
         public ExRam.Gremlinq.Core.Traversal Push(ExRam.Gremlinq.Core.Steps.Step step) { }
         public ExRam.Gremlinq.Core.Traversal Push(params ExRam.Gremlinq.Core.Steps.Step[] steps) { }
         public ExRam.Gremlinq.Core.Traversal WithProjection(ExRam.Gremlinq.Core.Projections.Projection projection) { }
+        public static ExRam.Gremlinq.Core.Traversal Create<TState>(int length, TState state, System.Buffers.SpanAction<ExRam.Gremlinq.Core.Steps.Step, TState> action) { }
         public static ExRam.Gremlinq.Core.Traversal op_Implicit(ExRam.Gremlinq.Core.Steps.Step step) { }
     }
     [System.Flags]
