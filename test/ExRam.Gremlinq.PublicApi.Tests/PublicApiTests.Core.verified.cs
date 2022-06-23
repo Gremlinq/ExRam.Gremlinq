@@ -1048,7 +1048,7 @@
         public ExRam.Gremlinq.Core.Steps.Step this[int index] { get; }
         public ExRam.Gremlinq.Core.Projections.Projection Projection { get; }
         public ExRam.Gremlinq.Core.Steps.SideEffectSemantics SideEffectSemantics { get; }
-        public System.Span<ExRam.Gremlinq.Core.Steps.Step> AsSpan() { }
+        public System.ReadOnlySpan<ExRam.Gremlinq.Core.Steps.Step> AsSpan() { }
         public System.Collections.Generic.IEnumerator<ExRam.Gremlinq.Core.Steps.Step> GetEnumerator() { }
         public ExRam.Gremlinq.Core.Traversal IncludeProjection(ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
         public ExRam.Gremlinq.Core.Traversal Pop() { }
