@@ -99,8 +99,8 @@ namespace ExRam.Gremlinq.Core
                 {
                     var ret = new Step[Count + projectionTraversal.Count];
 
-                    CopyTo(ret, 0);
-                    projectionTraversal.CopyTo(ret, Count);
+                    Array.Copy(Steps, 0, ret, 0, Count);
+                    Array.Copy(projectionTraversal.Steps, 0, ret, Count, projectionTraversal.Count);
 
                     return new Traversal(ret, Projection.Empty);
                 }
