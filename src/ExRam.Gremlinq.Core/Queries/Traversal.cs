@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Buffers;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -140,6 +141,19 @@ namespace ExRam.Gremlinq.Core
         internal Step? PeekOrDefault() => Count > 0 ? this[Count - 1] : null;
 
         public static implicit operator Traversal(Step step) => new(new[] { step }, Projection.Empty);
+
+#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
+        public static Traversal Create<TState>(int length, TState state, SpanAction<Step, TState> action)
+        {
+            if (length <= 0)
+                throw new ArgumentOutOfRangeException(nameof(length));
+
+            var steps = new Step[length];
+            action(steps.AsSpan(), state);
+
+            return new(steps, Projection.Empty);
+        }
+#endif
 
         private static SideEffectSemantics SideEffectSemanticsHelper(Step?[] steps, int count)
         {
