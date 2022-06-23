@@ -142,7 +142,7 @@ namespace ExRam.Gremlinq.Core
 
         public static implicit operator Traversal(Step step) => new(new[] { step }, Projection.Empty);
 
-#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
+#if SPAN_SUPPORT
         public static Traversal Create<TState>(int length, TState state, SpanAction<Step, TState> action)
         {
             if (length <= 0)
