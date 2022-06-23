@@ -124,18 +124,6 @@ namespace ExRam.Gremlinq.Core
 
         public SideEffectSemantics SideEffectSemantics { get; }
 
-        public void CopyTo(Step[] destination) => CopyTo(destination, 0);
-
-        public void CopyTo(Step[] destination, int destinationIndex) => CopyTo(0, destination, destinationIndex, Count);
-
-        public void CopyTo(int sourceIndex, Step[] destination, int destinationIndex, int length)
-        {
-            if (length + sourceIndex > Count)
-                throw new ArgumentException();
-
-            Array.Copy(Steps, sourceIndex, destination, destinationIndex, length);
-        }
-
         internal Step Peek() => PeekOrDefault() ?? throw new InvalidOperationException($"{nameof(Traversal)} is Empty.");
 
         internal Step? PeekOrDefault() => Count > 0 ? this[Count - 1] : null;
@@ -157,6 +145,19 @@ namespace ExRam.Gremlinq.Core
 #pragma warning disable CS8619 // Nullability of reference types in value doesn't match target type.
         public Span<Step> AsStep() => Steps.AsSpan()[..Count];
 #pragma warning restore CS8619 // Nullability of reference types in value doesn't match target type.
+
+#else
+        public void CopyTo(Step[] destination) => CopyTo(destination, 0);
+
+        public void CopyTo(Step[] destination, int destinationIndex) => CopyTo(0, destination, destinationIndex, Count);
+
+        public void CopyTo(int sourceIndex, Step[] destination, int destinationIndex, int length)
+        {
+            if (length + sourceIndex > Count)
+                throw new ArgumentException();
+
+            Array.Copy(Steps, sourceIndex, destination, destinationIndex, length);
+        }
 #endif
 
         private static SideEffectSemantics SideEffectSemanticsHelper(Step?[] steps, int count)
