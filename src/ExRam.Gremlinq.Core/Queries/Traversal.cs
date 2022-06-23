@@ -139,6 +139,21 @@ namespace ExRam.Gremlinq.Core
         }
 
         public ReadOnlySpan<Step> AsSpan() => Steps.AsSpan()[..Count];
+
+        public ReadOnlySpan<Step> AsSpan(Range range) => AsSpan()[range];
+
+        public ReadOnlySpan<Step> AsSpan(int start, int length) => AsSpan().Slice(start, length);
+
+        public ReadOnlySpan<Step> AsSpan(int start) => AsSpan()[start..];
+
+
+        public ReadOnlyMemory<Step> AsMemory() => Steps.AsMemory()[..Count];
+
+        public ReadOnlyMemory<Step> AsMemory(Range range) => AsMemory()[range];
+
+        public ReadOnlyMemory<Step> AsMemory(int start, int length) => AsMemory().Slice(start, length);
+
+        public ReadOnlyMemory<Step> AsMemory(int start) => AsMemory()[start..];
 #else
         public void CopyTo(Step[] destination) => CopyTo(destination, 0);
 
