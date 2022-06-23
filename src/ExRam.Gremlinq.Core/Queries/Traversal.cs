@@ -139,7 +139,7 @@ namespace ExRam.Gremlinq.Core
         }
 
 #pragma warning disable CS8619 // Nullability of reference types in value doesn't match target type.
-        public Span<Step> AsStep() => Steps.AsSpan()[..Count];
+        public Span<Step> AsSpan() => Steps.AsSpan()[..Count];
 #pragma warning restore CS8619 // Nullability of reference types in value doesn't match target type.
 
 #else
