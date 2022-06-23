@@ -124,10 +124,6 @@ namespace ExRam.Gremlinq.Core
 
         public SideEffectSemantics SideEffectSemantics { get; }
 
-        internal Step Peek() => PeekOrDefault() ?? throw new InvalidOperationException($"{nameof(Traversal)} is Empty.");
-
-        internal Step? PeekOrDefault() => Count > 0 ? this[Count - 1] : null;
-
         public static implicit operator Traversal(Step step) => new(new[] { step }, Projection.Empty);
 
 #if SPAN_SUPPORT
