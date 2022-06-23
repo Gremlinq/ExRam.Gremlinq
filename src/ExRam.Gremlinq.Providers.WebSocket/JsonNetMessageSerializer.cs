@@ -74,9 +74,9 @@ namespace ExRam.Gremlinq.Core
                     Result = new ResponseResult<List<object>>
                     {
                         Data = new List<object>
-                    {
-                        responseMessage.Result.Data
-                    },
+                        {
+                            responseMessage.Result.Data
+                        },
                         Meta = responseMessage.Result.Meta
                     }
                 };
