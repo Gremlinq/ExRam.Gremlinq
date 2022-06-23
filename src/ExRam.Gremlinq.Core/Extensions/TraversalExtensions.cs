@@ -132,7 +132,7 @@ namespace ExRam.Gremlinq.Core
 
         public static bool IsIdentity(this Traversal traversal) => traversal.Count == 0 || (traversal.Count == 1 && traversal[0] is IdentityStep);
 
-        public static bool IsNone(this Traversal traversal) => traversal.Count > 0 && traversal[traversal.Count - 1] is NoneStep;
+        public static bool IsNone(this Traversal traversal) => traversal.PeekOrDefault() is NoneStep;
 
         public static Step Peek(this Traversal traversal) => traversal.PeekOrDefault() ?? throw new InvalidOperationException($"{nameof(Traversal)} is Empty.");
 
