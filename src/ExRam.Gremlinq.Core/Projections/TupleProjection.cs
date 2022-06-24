@@ -34,15 +34,30 @@ namespace ExRam.Gremlinq.Core.Projections
                 : default(Traversal?);
 
             var projectionTraversals = _projections
-                .Select(projection => projection.Projection
-                    .ToTraversal(environment)
-                    .Prepend(new SelectKeysStep(projection.Key))
-                    .Apply(
-                        static (traversal, emptyProjectionProtection) => emptyProjectionProtection is not null
-                            ? traversal.Append(FoldStep.Instance)
-                            : traversal,
-                        emptyProjectionProtection)
-                    .ToTraversal())
+                .Select(projection =>
+                {
+                    var projectionTraversal = projection.Projection
+                        .ToTraversal(environment);
+
+                    return Traversal.Create(
+                        emptyProjectionProtection is not null
+                            ? projectionTraversal.Count + 2
+                            : projectionTraversal.Count + 1,
+                        (projection, projectionTraversal, emptyProjectionProtection),
+                        static (steps, state) =>
+                        {
+                            var (projection, projectionTraversal, emptyProjectionProtection) = state;
+
+                            steps[0] = new SelectKeysStep(projection.Key);
+
+                            projectionTraversal
+                                .AsSpan()
+                                .CopyTo(steps[1..]);
+
+                            if (emptyProjectionProtection is not null)
+                                steps[^1] = FoldStep.Instance;
+                        });
+                })
                 .ToArray();
 
             if (projectionTraversals.All(static x => x.Count == 1))
