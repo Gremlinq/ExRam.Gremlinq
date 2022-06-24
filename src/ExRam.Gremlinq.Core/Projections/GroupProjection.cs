@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Collections.Immutable;
 using ExRam.Gremlinq.Core.Steps;
 using Gremlin.Net.Process.Traversal;
 
@@ -23,19 +22,29 @@ namespace ExRam.Gremlinq.Core.Projections
 
             return (keyProjectionTraversal.Count == 0 && (maybeValueProjectionTraversal?.Count).GetValueOrDefault() == 0)
                 ? Traversal.Empty
-                : new LocalStep(Traversal.Empty.Push(
-                    UnfoldStep.Instance,
-                    GroupStep.Instance,
-                    new GroupStep.ByTraversalStep(keyProjectionTraversal
-                        .Prepend(new SelectColumnStep(Column.Keys))
-                        .ToTraversal()),
-                    maybeValueProjectionTraversal is { } valueProjectionTraversal
-                        ? new GroupStep.ByTraversalStep(valueProjectionTraversal
-                            .Prepend(UnfoldStep.Instance)
-                            .Prepend(new SelectColumnStep(Column.Values))
-                            .Append(FoldStep.Instance)
-                            .ToTraversal())
-                        : new GroupStep.ByTraversalStep(new SelectColumnStep(Column.Values))));
+                : new LocalStep(Traversal
+                    .Create(
+                        4,
+                        (keyProjectionTraversal, maybeValueProjectionTraversal),
+                        static (steps, state) =>
+                        {
+                            var (keyProjectionTraversal, maybeValueProjectionTraversal) = state;
+
+                            steps[0] = UnfoldStep.Instance;
+                            steps[1] = GroupStep.Instance;
+
+                            steps[2] = new GroupStep.ByTraversalStep(keyProjectionTraversal
+                                .Prepend(new SelectColumnStep(Column.Keys))
+                                .ToTraversal());
+
+                            steps[3] = maybeValueProjectionTraversal is { } valueProjectionTraversal
+                                ? new GroupStep.ByTraversalStep(valueProjectionTraversal
+                                    .Prepend(UnfoldStep.Instance)
+                                    .Prepend(new SelectColumnStep(Column.Values))
+                                    .Append(FoldStep.Instance)
+                                    .ToTraversal())
+                                : new GroupStep.ByTraversalStep(new SelectColumnStep(Column.Values));
+                        }));
         }
 
         public override Projection Lower() => Empty;
