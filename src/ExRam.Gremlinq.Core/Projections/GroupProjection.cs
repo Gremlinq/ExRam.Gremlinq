@@ -33,17 +33,36 @@ namespace ExRam.Gremlinq.Core.Projections
                             steps[0] = UnfoldStep.Instance;
                             steps[1] = GroupStep.Instance;
 
-                            steps[2] = new GroupStep.ByTraversalStep(keyProjectionTraversal
-                                .Prepend(new SelectColumnStep(Column.Keys))
-                                .ToTraversal());
+                            steps[2] = new GroupStep.ByTraversalStep(Traversal
+                                .Create(
+                                    keyProjectionTraversal.Count + 1,
+                                    keyProjectionTraversal,
+                                    static (steps, keyProjectionTraversal) =>
+                                    {
+                                        steps[0] = new SelectColumnStep(Column.Keys);
+
+                                        keyProjectionTraversal
+                                            .AsSpan()
+                                            .CopyTo(steps[1..]);
+                                    }));
 
                             steps[3] = maybeValueProjectionTraversal is { } valueProjectionTraversal
-                                ? new GroupStep.ByTraversalStep(valueProjectionTraversal
-                                    .Prepend(UnfoldStep.Instance)
-                                    .Prepend(new SelectColumnStep(Column.Values))
-                                    .Append(FoldStep.Instance)
-                                    .ToTraversal())
-                                : new GroupStep.ByTraversalStep(new SelectColumnStep(Column.Values));
+                                ? new GroupStep.ByTraversalStep(Traversal
+                                    .Create(
+                                        valueProjectionTraversal.Count + 3,
+                                        valueProjectionTraversal,
+                                        static (steps, valueProjectionTraversal) =>
+                                        {
+                                            steps[0] = new SelectColumnStep(Column.Values);
+                                            steps[1] = UnfoldStep.Instance;
+                                            
+                                            valueProjectionTraversal
+                                                .AsSpan()
+                                                .CopyTo(steps[2..]);
+
+                                            steps[^1] = FoldStep.Instance;
+                                        }))
+                                    : new GroupStep.ByTraversalStep(new SelectColumnStep(Column.Values));
                         }));
         }
 
