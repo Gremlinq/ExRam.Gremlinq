@@ -14,13 +14,5 @@
   <ItemGroup>
     <PackageReference Condition="!$(MSBuildProjectName.StartsWith('ExRam.Gremlinq.Samples')) AND !$(MSBuildProjectName.EndsWith('Tests'))" Include="Nerdbank.GitVersioning" Version="3.4.255" PrivateAssets="All" />
   </ItemGroup>
-  
-  <!-- Workaround for this bug (replace the analyzer name with the one you need to exclude (filename only, no extension) -->
-  <!-- Tracked by https://github.com/dotnet/sdk/issues/18148 -->
-  <Target Name="RemoveLoggingAnalyzer" BeforeTargets="CoreCompile">
-    <ItemGroup>
-      <Analyzer Remove="@(Analyzer)" Condition="%(FileName) == 'Microsoft.Extensions.Logging.Generators'" />
-    </ItemGroup>
-  </Target>
-  
+
 </Project>
