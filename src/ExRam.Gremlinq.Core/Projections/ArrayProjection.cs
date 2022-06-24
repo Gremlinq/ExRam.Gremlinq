@@ -1,6 +1,4 @@
-﻿using System.Collections.Immutable;
-using System.Linq;
-using ExRam.Gremlinq.Core.Steps;
+﻿using ExRam.Gremlinq.Core.Steps;
 
 namespace ExRam.Gremlinq.Core.Projections
 {
@@ -19,10 +17,18 @@ namespace ExRam.Gremlinq.Core.Projections
 
             if (inner.Count > 0)
             {
-                return new LocalStep(inner
-                    .Prepend(UnfoldStep.Instance)
-                    .Append(FoldStep.Instance)
-                    .ToTraversal());
+                return new LocalStep(Traversal.Create(
+                    inner.Count + 2,
+                    inner,
+                    static (steps, inner) =>
+                    {
+                        steps[0] = UnfoldStep.Instance;
+                        steps[^1] = FoldStep.Instance;
+
+                        inner
+                            .AsSpan()
+                            .CopyTo(steps[1..]);
+                    }));
             }
 
             return Traversal.Empty;
