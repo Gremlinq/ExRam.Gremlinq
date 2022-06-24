@@ -63,17 +63,31 @@ namespace ExRam.Gremlinq.Core.Projections
             if (projectionTraversals.All(static x => x.Count == 1))
                 return Traversal.Empty;
 
-            return projectionTraversals
-                .Select(static traversal => (Step)new ProjectStep.ByTraversalStep(traversal))
-                .Prepend(new ProjectStep(_projections
-                    .Select(static x => x.Key)
-                    .ToImmutableArray()))
-                .Apply(
-                    static (traversal, emptyProjectionProtection) => emptyProjectionProtection is { } protection
-                        ? traversal.Concat(protection)
-                        : traversal,
-                    emptyProjectionProtection)
-                .ToTraversal();
+            return Traversal.Create(
+                projectionTraversals.Length + 1 + (emptyProjectionProtection is { } protection
+                    ? protection.Count
+                    : 0),
+                (_projections, projectionTraversals, emptyProjectionProtection),
+                static (steps, state) =>
+                {
+                    var (projections, projectionTraversals, emptyProjectionProtection) = state;
+
+                    steps[0] = new ProjectStep(projections
+                        .Select(static x => x.Key)
+                        .ToImmutableArray());
+
+                    for (var i = 0; i < projectionTraversals.Length; i++)
+                    {
+                        steps[i + 1] = new ProjectStep.ByTraversalStep(projectionTraversals[i]);
+                    }
+
+                    if (emptyProjectionProtection is { } protection)
+                    {
+                        protection
+                            .AsSpan()
+                            .CopyTo(steps[(projectionTraversals.Length + 1)..]);
+                    }
+                });
         }
 
         public override Projection Lower() => Empty;
