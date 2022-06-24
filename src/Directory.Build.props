@@ -11,7 +11,6 @@
         <ConfigureAwait/>
       </Weavers>
     </WeaverConfiguration>
-    <DefineConstants Condition="'$(TargetFramework)' != 'netstandard2.0'">$(DefineConstants);SPAN_SUPPORT</DefineConstants>
   </PropertyGroup>
   
   <ItemGroup>

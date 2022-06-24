@@ -16,17 +16,6 @@ namespace ExRam.Gremlinq.Core.Serialization
                 _stringKey = Keys[key]._stringKey;
             else
             {
-                #if NETSTANDARD2_0
-                var stringKey = string.Empty;
-
-                do
-                {
-                    stringKey = (char)('a' + key % 26) + stringKey;
-                    key /= 26;
-                } while (key > 0);
-
-                _stringKey = "_" + stringKey;
-                #else
                 var digits = key > 0
                     ? (int)Math.Ceiling(Math.Log(key + 1, 26)) + 1
                     : 2;
@@ -46,7 +35,6 @@ namespace ExRam.Gremlinq.Core.Serialization
                             key /= 26;
                         }
                     });
-                #endif
             }
         }
 

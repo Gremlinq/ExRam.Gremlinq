@@ -126,7 +126,6 @@ namespace ExRam.Gremlinq.Core
 
         public static implicit operator Traversal(Step step) => new(new[] { step }, Projection.Empty);
 
-#if SPAN_SUPPORT
         public static Traversal Create<TState>(int length, TState state, SpanAction<Step, TState> action)
         {
             if (length <= 0)
@@ -154,19 +153,6 @@ namespace ExRam.Gremlinq.Core
         public ReadOnlyMemory<Step> AsMemory(int start, int length) => AsMemory().Slice(start, length);
 
         public ReadOnlyMemory<Step> AsMemory(int start) => AsMemory()[start..];
-#else
-        public void CopyTo(Step[] destination) => CopyTo(destination, 0);
-
-        public void CopyTo(Step[] destination, int destinationIndex) => CopyTo(0, destination, destinationIndex, Count);
-
-        public void CopyTo(int sourceIndex, Step[] destination, int destinationIndex, int length)
-        {
-            if (length + sourceIndex > Count)
-                throw new ArgumentException();
-
-            Array.Copy(Steps, sourceIndex, destination, destinationIndex, length);
-        }
-#endif
 
         private static SideEffectSemantics SideEffectSemanticsHelper(Step?[] steps, int count)
         {
