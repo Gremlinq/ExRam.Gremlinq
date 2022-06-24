@@ -43,7 +43,7 @@ jobs:
         submodules: 'true'
 
     - name: Install dotnet-validate
-      run: dotnet tool install -g dotnet-validate --version 0.0.1-preview.280
+      run: dotnet tool install -g dotnet-validate --version 0.0.1-preview.304
 
     - name: Determine semantic version
       uses: dotnet/nbgv@master
