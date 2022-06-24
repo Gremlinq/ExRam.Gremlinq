@@ -15,7 +15,7 @@ namespace ExRam.Gremlinq.Core.AspNet.Tests
         {
             var serviceCollection = new ServiceCollection()
                 .AddSingleton<IConfiguration>(new ConfigurationBuilder()
-                    .AddInMemoryCollection(new Dictionary<string, string>
+                    .AddInMemoryCollection(new Dictionary<string, string?>
                     {
                         { "Gremlinq:Gremlinq_key_1", "value1" },
                         { "Gremlinq:Gremlinq_key_2", "value2" }
