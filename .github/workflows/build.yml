@@ -9,7 +9,7 @@ on:
 
 env:
   IsForkedRepository: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository }}
-  DotNetVersion: '6.0.301'
+  DotNetVersion: '7.0.100-preview.5.22307.18'
 
 jobs:
   determinePublicationType:
@@ -41,6 +41,13 @@ jobs:
       with:
         fetch-depth: 0
         submodules: 'true'
+        
+    - name: Setup .NET ${{ env.DotNetVersion }}
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: |
+          ${{ env.DotNetVersion }}
+          6.0.301
 
     - name: Install dotnet-validate
       run: dotnet tool install -g dotnet-validate --version 0.0.1-preview.304
@@ -81,6 +88,13 @@ jobs:
       with:
         fetch-depth: 0
         submodules: 'true'
+        
+    - name: Setup .NET ${{ env.DotNetVersion }}
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: |
+          ${{ env.DotNetVersion }}
+          6.0.301
 
     - name: Test
       run: dotnet test  --configuration Release --verbosity normal -p:RunGremlinServerIntegrationTests=${{ env.IsForkedRepository == 'false' }} -p:RunJanusGraphIntegrationTests=${{ env.IsForkedRepository == 'false' }}
@@ -102,10 +116,12 @@ jobs:
         fetch-depth: 0
         submodules: 'true'
 
-    - name: Setup .NET Core ${{ env.DotNetVersion }}
+    - name: Setup .NET ${{ env.DotNetVersion }}
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: ${{ env.DotNetVersion }}
+        dotnet-version: |
+          ${{ env.DotNetVersion }}
+          6.0.301
 
     - name: Start CosmosDb Emulator
       uses: Gremlinq/cosmos-emulator-github-action@EnableGremlin
