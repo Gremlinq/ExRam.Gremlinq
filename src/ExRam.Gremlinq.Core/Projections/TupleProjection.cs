@@ -63,18 +63,20 @@ namespace ExRam.Gremlinq.Core.Projections
             if (projectionTraversals.All(static x => x.Count == 1))
                 return Traversal.Empty;
 
+            var projectStep = new ProjectStep(_projections
+                .Select(static x => x.Key)
+                .ToImmutableArray());
+
             return Traversal.Create(
-                projectionTraversals.Length + 1 + (emptyProjectionProtection is { } protection
-                    ? protection.Count
-                    : 0),
-                (_projections, projectionTraversals, emptyProjectionProtection),
+                emptyProjectionProtection is { } protection
+                    ? projectionTraversals.Length + protection.Count + 1
+                    : projectionTraversals.Length + 1,
+                (projectStep, projectionTraversals, emptyProjectionProtection),
                 static (steps, state) =>
                 {
-                    var (projections, projectionTraversals, emptyProjectionProtection) = state;
+                    var (projectStep, projectionTraversals, emptyProjectionProtection) = state;
 
-                    steps[0] = new ProjectStep(projections
-                        .Select(static x => x.Key)
-                        .ToImmutableArray());
+                    steps[0] = projectStep;
 
                     for (var i = 0; i < projectionTraversals.Length; i++)
                     {
@@ -85,7 +87,7 @@ namespace ExRam.Gremlinq.Core.Projections
                     {
                         protection
                             .AsSpan()
-                            .CopyTo(steps[(projectionTraversals.Length + 1)..]);
+                            .CopyTo(steps[^protection.Count..]);
                     }
                 });
         }
