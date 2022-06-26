@@ -10,11 +10,27 @@ namespace ExRam.Gremlinq.Core
 {
     public static class EnumerableExtensions
     {
-        public static Traversal ToTraversal(this IEnumerable<Step> steps) => new(
-            steps is Step[] array
-                ? (Step[])array.Clone()
-                : steps.ToArray(),
-            Projection.Empty);
+        public static Traversal ToTraversal(this IEnumerable<Step> source)
+        {
+            if (source is ICollection sourceCollection)
+            {
+                var newSteps = new Step[sourceCollection.Count];
+
+                sourceCollection.CopyTo(newSteps, 0);
+
+                return new(newSteps, Projection.Empty);
+            }
+
+            var ret = Traversal.Empty;
+
+            foreach (var step in source)
+            {
+                ret = ret
+                    .Push(step);
+            }
+
+            return ret;
+        }
 
         internal static bool InternalAny(this IEnumerable enumerable)
         {

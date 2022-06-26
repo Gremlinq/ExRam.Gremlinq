@@ -60,7 +60,7 @@
     }
     public static class EnumerableExtensions
     {
-        public static ExRam.Gremlinq.Core.Traversal ToTraversal(this System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Steps.Step> steps) { }
+        public static ExRam.Gremlinq.Core.Traversal ToTraversal(this System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Steps.Step> source) { }
     }
     public sealed class ExpressionNotSupportedException : System.NotSupportedException
     {
