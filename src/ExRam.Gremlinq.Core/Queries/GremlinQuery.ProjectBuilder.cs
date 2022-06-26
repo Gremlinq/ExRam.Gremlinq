@@ -131,10 +131,19 @@ namespace ExRam.Gremlinq.Core
                                     var byTraversalStep = closureByStep
                                         .ToByTraversalStep();
 
-                                    closureByStep = new ProjectStep.ByTraversalStep(byTraversalStep.Traversal
-                                        .Append(LimitStep.LimitGlobal1)
-                                        .Append(FoldStep.Instance)
-                                        .ToTraversal()
+                                    closureByStep = new ProjectStep.ByTraversalStep(Traversal
+                                        .Create(
+                                            byTraversalStep.Traversal.Count + 2,
+                                            byTraversalStep,
+                                            static (steps, byTraversalStep) =>
+                                            {
+                                                steps[^2] = LimitStep.LimitGlobal1;
+                                                steps[^1] = FoldStep.Instance;
+
+                                                byTraversalStep.Traversal
+                                                    .AsSpan()
+                                                    .CopyTo(steps);
+                                            })
                                         .WithProjection(byTraversalStep.Traversal.Projection));
                                 }
 
