@@ -1285,10 +1285,18 @@ namespace ExRam.Gremlinq.Core
                                             {
                                                 if (!Environment.GetCache().FastNativeTypes.ContainsKey(leftMemberExpression.Type))
                                                 {
-                                                    yield return new FilterStep.ByTraversalStep(Traversal.Empty.Push(
-                                                        new PropertiesStep(ImmutableArray.Create(stringKey)),
-                                                        CountStep.Global,
-                                                        new IsStep(effectivePredicate)));
+                                                    yield return new FilterStep.ByTraversalStep(Traversal
+                                                        .Create(
+                                                            3,
+                                                            (stringKey, effectivePredicate),
+                                                            (steps, state) =>
+                                                            {
+                                                                var (stringKey, effectivePredicate) = state;
+
+                                                                steps[0] = new PropertiesStep(ImmutableArray.Create(stringKey));
+                                                                steps[1] = CountStep.Global;
+                                                                steps[2] = new IsStep(effectivePredicate);
+                                                            }));
 
                                                     yield break;
                                                 }
@@ -1296,11 +1304,18 @@ namespace ExRam.Gremlinq.Core
                                         }
                                         else
                                         {
-                                            yield return new FilterStep.ByTraversalStep(Traversal.Empty.Push(
-                                                new SelectKeysStep(
-                                                    ImmutableArray.Create(GetKey(leftMemberExpression))),
-                                                CountStep.Local,
-                                                new IsStep(effectivePredicate)));
+                                            yield return new FilterStep.ByTraversalStep(Traversal
+                                                .Create(
+                                                    3,
+                                                    (leftMemberExpression, effectivePredicate),
+                                                    (steps, state) =>
+                                                    {
+                                                        var (leftMemberExpression, effectivePredicate) = state;
+
+                                                        steps[0] = new SelectKeysStep(ImmutableArray.Create(GetKey(leftMemberExpression)));
+                                                        steps[1] = CountStep.Local;
+                                                        steps[2] = new IsStep(effectivePredicate);
+                                                    }));
 
                                             yield break;
                                         }
