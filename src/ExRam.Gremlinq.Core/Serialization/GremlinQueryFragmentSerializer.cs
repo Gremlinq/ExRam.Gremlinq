@@ -383,7 +383,6 @@ namespace ExRam.Gremlinq.Core.Serialization
             .Override<Traversal>(static (traversal, env, _, recurse) =>
                 {
                     var byteCode = new Bytecode();
-                    IReadOnlyList<Step> steps = traversal;
 
                     void Add(object? obj)
                     {
@@ -404,6 +403,15 @@ namespace ExRam.Gremlinq.Core.Serialization
 
                                 break;
                             }
+                            case Traversal traversal:
+                            {
+                                for(var i = 0; i < traversal.Count; i++)
+                                {
+                                    Add(traversal[i]);
+                                }
+
+                                break;
+                            }
                             case IEnumerable enumerable:
                             {
                                 foreach (var item in enumerable)
@@ -416,7 +424,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                         }
                     }
 
-                    Add(steps);
+                    Add(traversal);
 
                     if (byteCode.StepInstructions.Count == 0)
                         Add(IdentityStep.Instance);
