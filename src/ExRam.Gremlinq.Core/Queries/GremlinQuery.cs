@@ -1166,14 +1166,11 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Where(Traversal traversal) => this
             .Continue()
             .Build(
-                static (builder, traversal) =>
-                {
-                    builder = traversal.Count > 0 && traversal.All(static x => x is IIsOptimizableInWhere)
-                        ? builder.AddSteps(traversal)
-                        : builder.AddStep(new FilterStep.ByTraversalStep(traversal));
-
-                    return builder.Build();
-                },
+                static (builder, traversal) => builder
+                    .AddSteps(traversal.Count > 0 && traversal.All(static x => x is IIsOptimizableInWhere)
+                        ? traversal
+                        : new FilterStep.ByTraversalStep(traversal))
+                    .Build(),
                 traversal.RewriteForWhereContext());
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Where(Expression<Func<TElement, bool>> expression) => Where((Expression)expression);
