@@ -381,56 +381,56 @@ namespace ExRam.Gremlinq.Core.Serialization
                 : CreateInstruction("skip", recurse, env, step.Count))
             .Override<Step>(static (_, _, _, _) => Array.Empty<Instruction>())
             .Override<Traversal>(static (traversal, env, _, recurse) =>
+            {
+                var byteCode = new Bytecode();
+
+                void Add(object? obj)
                 {
-                    var byteCode = new Bytecode();
-
-                    void Add(object? obj)
+                    switch (obj)
                     {
-                        switch (obj)
+                        case Instruction instruction:
                         {
-                            case Instruction instruction:
-                            {
-                                if (SourceStepNames.Contains(instruction.OperatorName))
-                                    byteCode.SourceInstructions.Add(instruction);
-                                else
-                                    byteCode.StepInstructions.Add(instruction);
+                            if (SourceStepNames.Contains(instruction.OperatorName))
+                                byteCode.SourceInstructions.Add(instruction);
+                            else
+                                byteCode.StepInstructions.Add(instruction);
 
-                                break;
-                            }
-                            case Step step:
-                            {
-                                Add(recurse.Serialize(step, env));
+                            break;
+                        }
+                        case Step step:
+                        {
+                            Add(recurse.Serialize(step, env));
 
-                                break;
-                            }
-                            case Traversal traversal:
+                            break;
+                        }
+                        case Traversal traversal:
+                        {
+                            for(var i = 0; i < traversal.Count; i++)
                             {
-                                for(var i = 0; i < traversal.Count; i++)
-                                {
-                                    Add(traversal[i]);
-                                }
-
-                                break;
+                                Add(traversal[i]);
                             }
-                            case IEnumerable enumerable:
+
+                            break;
+                        }
+                        case IEnumerable enumerable:
+                        {
+                            foreach (var item in enumerable)
                             {
-                                foreach (var item in enumerable)
-                                {
-                                    Add(item);
-                                }
-
-                                break;
+                                Add(item);
                             }
+
+                            break;
                         }
                     }
+                }
 
-                    Add(traversal);
+                Add(traversal);
 
-                    if (byteCode.StepInstructions.Count == 0)
-                        Add(IdentityStep.Instance);
+                if (byteCode.StepInstructions.Count == 0)
+                    Add(IdentityStep.Instance);
 
-                    return recurse.Serialize(byteCode, env);
-                })
+                return recurse.Serialize(byteCode, env);
+            })
             .Override<SumStep>(static (step, env, _, recurse) => step.Scope.Equals(Scope.Local)
                 ? CreateInstruction("sum", recurse, env, step.Scope)
                 : CreateInstruction("sum"))
