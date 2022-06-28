@@ -101,10 +101,10 @@ namespace ExRam.Gremlinq.Core.Serialization
             private static BaseGremlinQueryFragmentSerializerDelegate<TEffective?> CreateFunc2<TEffective>(GremlinQueryFragmentSerializerDelegate<TEffective> del)
                 where TEffective : struct => (fragment, environment, recurse) => fragment is { } value
                     ? del(value, environment, static (_, e, s) => _!, recurse)
-                    : fragment!;
+                    : throw new ArgumentNullException();
 
             private static BaseGremlinQueryFragmentSerializerDelegate<TStatic> CreateFunc3<TStatic, TEffective>(GremlinQueryFragmentSerializerDelegate<TEffective> del)
-                where TEffective : TStatic => (fragment, environment, recurse) => del((TEffective)fragment!, environment, static (_, e, s) => _!, recurse);
+                where TEffective : TStatic => (fragment, environment, recurse) => del((TEffective)(fragment ?? throw new ArgumentNullException()), environment, static (_, e, s) => _!, recurse);
 
             private static BaseGremlinQueryFragmentSerializerDelegate<TStatic> CreateFunc4<TStatic, TEffective>(GremlinQueryFragmentSerializerDelegate<TEffective> del)
                 where TStatic : TEffective => (fragment, environment, recurse) => del(fragment, environment, static (_, e, s) => _!, recurse);
@@ -467,8 +467,8 @@ namespace ExRam.Gremlinq.Core.Serialization
             .Override<WithoutStrategiesStep>(static (step, env, _, recurse) => CreateInstruction("withoutStrategies", recurse, env, step.StrategyTypes))
             .Override<WithSideEffectStep>(static (step, env, _, recurse) => CreateInstruction("withSideEffect", recurse, env, step.Label, step.Value))
             .Override<WherePredicateStep>(static (step, env, _, recurse) => CreateInstruction("where", recurse, env, step.Predicate))
-            .Override<WherePredicateStep.ByMemberStep>(static (step, env, _, recurse) => step.Key != null
-                ? CreateInstruction("by", recurse, env, step.Key)
+            .Override<WherePredicateStep.ByMemberStep>(static (step, env, _, recurse) => step.Key is { } key
+                ? CreateInstruction("by", recurse, env, key)
                 : CreateInstruction("by"))
             .Override<WhereStepLabelAndPredicateStep>(static (step, env, _, recurse) => CreateInstruction("where", recurse, env, step.StepLabel, step.Predicate));
 
