@@ -16,6 +16,8 @@ namespace ExRam.Gremlinq.Core.Serialization
         {
             private static readonly MethodInfo CreateFuncMethod1 = typeof(GremlinQueryFragmentSerializerImpl).GetMethod(nameof(CreateFunc1), BindingFlags.NonPublic | BindingFlags.Static)!;
             private static readonly MethodInfo CreateFuncMethod2 = typeof(GremlinQueryFragmentSerializerImpl).GetMethod(nameof(CreateFunc2), BindingFlags.NonPublic | BindingFlags.Static)!;
+            private static readonly MethodInfo CreateFuncMethod3 = typeof(GremlinQueryFragmentSerializerImpl).GetMethod(nameof(CreateFunc3), BindingFlags.NonPublic | BindingFlags.Static)!;
+            private static readonly MethodInfo CreateFuncMethod4 = typeof(GremlinQueryFragmentSerializerImpl).GetMethod(nameof(CreateFunc4), BindingFlags.NonPublic | BindingFlags.Static)!;
 
             private readonly IImmutableDictionary<Type, Delegate> _dict;
             private readonly ConcurrentDictionary<(Type staticType, Type actualType), Delegate?> _fastDict = new();
@@ -58,12 +60,16 @@ namespace ExRam.Gremlinq.Core.Serialization
                                     .GetGenericArguments()[0];
 
                                 var method = effectiveType == staticType
-                                    ? CreateFuncMethod1
-                                        .MakeGenericMethod(staticType)
-                                    : CreateFuncMethod2
-                                        .MakeGenericMethod(staticType, effectiveType);
+                                    ? CreateFuncMethod1.MakeGenericMethod(staticType)
+                                    : staticType.IsConstructedGenericType && staticType.GetGenericTypeDefinition() == typeof(Nullable<>) && staticType.GetGenericArguments()[0] == effectiveType
+                                        ? CreateFuncMethod2.MakeGenericMethod(effectiveType)
+                                        : staticType.IsAssignableFrom(effectiveType)
+                                            ? CreateFuncMethod3.MakeGenericMethod(staticType, effectiveType)
+                                            : effectiveType.IsAssignableFrom(staticType)
+                                                ? CreateFuncMethod4.MakeGenericMethod(staticType, effectiveType)
+                                                : null;
 
-                                return (Delegate)method
+                                return (Delegate)method?
                                     .Invoke(null, new object[] { del })!;
                             }
 
@@ -92,7 +98,16 @@ namespace ExRam.Gremlinq.Core.Serialization
 
             private static BaseGremlinQueryFragmentSerializerDelegate<TStatic> CreateFunc1<TStatic>(GremlinQueryFragmentSerializerDelegate<TStatic> del) => (fragment, environment, recurse) => del(fragment!, environment, static (_, e, s) => _!, recurse);
 
-            private static BaseGremlinQueryFragmentSerializerDelegate<TStatic> CreateFunc2<TStatic, TEffective>(GremlinQueryFragmentSerializerDelegate<TEffective> del) => (fragment, environment, recurse) => del((TEffective)(object)fragment!, environment, static (_, e, s) => _!, recurse);
+            private static BaseGremlinQueryFragmentSerializerDelegate<TEffective?> CreateFunc2<TEffective>(GremlinQueryFragmentSerializerDelegate<TEffective> del)
+                where TEffective : struct => (fragment, environment, recurse) => fragment is { } value
+                    ? del(value, environment, static (_, e, s) => _!, recurse)
+                    : fragment!;
+
+            private static BaseGremlinQueryFragmentSerializerDelegate<TStatic> CreateFunc3<TStatic, TEffective>(GremlinQueryFragmentSerializerDelegate<TEffective> del)
+                where TEffective : TStatic => (fragment, environment, recurse) => del((TEffective)fragment!, environment, static (_, e, s) => _!, recurse);
+
+            private static BaseGremlinQueryFragmentSerializerDelegate<TStatic> CreateFunc4<TStatic, TEffective>(GremlinQueryFragmentSerializerDelegate<TEffective> del)
+                where TStatic : TEffective => (fragment, environment, recurse) => del(fragment, environment, static (_, e, s) => _!, recurse);
         }
 
         public static readonly IGremlinQueryFragmentSerializer Identity = new GremlinQueryFragmentSerializerImpl(ImmutableDictionary<Type, Delegate>.Empty);
