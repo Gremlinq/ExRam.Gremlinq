@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Reflection;
@@ -114,13 +113,6 @@ namespace ExRam.Gremlinq.Core.Serialization
         public static readonly IGremlinQueryFragmentSerializer Default = Identity.UseDefaultGremlinStepSerializationHandlers();
 
         private static readonly ConcurrentDictionary<string, Instruction> SimpleInstructions = new();
-
-        private static readonly HashSet<string> SourceStepNames = new()
-        {
-            "withStrategies",
-            "withoutStrategies",
-            "withSideEffect"
-        };
 
         public static IGremlinQueryFragmentSerializer UseDefaultGremlinStepSerializationHandlers(this IGremlinQueryFragmentSerializer fragmentSerializer) => fragmentSerializer
             .Override<AddEStep>(static (step, env, _, recurse) => CreateInstruction("addE", recurse, env, step.Label))
@@ -405,7 +397,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                     {
                         case Instruction instruction:
                         {
-                            if (byteCode.StepInstructions.Count == 0 && SourceStepNames.Contains(instruction.OperatorName))
+                            if (byteCode.StepInstructions.Count == 0 && instruction.OperatorName.StartsWith("with", StringComparison.OrdinalIgnoreCase))
                                 byteCode.SourceInstructions.Add(instruction);
                             else
                                 byteCode.StepInstructions.Add(instruction);
