@@ -20,7 +20,7 @@
     </AssemblyAttribute>
   </ItemGroup>
   
-  <PropertyGroup Condition="!$(MSBuildProjectName.StartsWith('ExRam.Gremlinq.Samples')) AND '$(Configuration)' == 'Release'" >
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" >
     <PackageIcon>grey-icon.png</PackageIcon>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
@@ -38,7 +38,7 @@
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
   </PropertyGroup>
 
-  <ItemGroup Condition="!$(MSBuildProjectName.StartsWith('ExRam.Gremlinq.Samples')) AND '$(Configuration)' == 'Release'" >
+  <ItemGroup Condition="'$(Configuration)' == 'Release'" >
     <None Include="..\..\assets\$(PackageIcon)">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
@@ -50,7 +50,7 @@
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
   </ItemGroup>
 
-  <ItemGroup Condition="!$(MSBuildProjectName.StartsWith('ExRam.Gremlinq.Samples'))">
+  <ItemGroup>
     <PackageReference Include="Fody" Version="6.6.3" PrivateAssets="All" />
     <PackageReference Include="NullGuard.Fody" Version="3.1.0" PrivateAssets="All" />
     <PackageReference Include="ConfigureAwait.Fody" Version="3.3.1" PrivateAssets="All" />
