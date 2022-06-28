@@ -405,7 +405,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                     {
                         case Instruction instruction:
                         {
-                            if (SourceStepNames.Contains(instruction.OperatorName))
+                            if (byteCode.StepInstructions.Count == 0 && SourceStepNames.Contains(instruction.OperatorName))
                                 byteCode.SourceInstructions.Add(instruction);
                             else
                                 byteCode.StepInstructions.Add(instruction);
