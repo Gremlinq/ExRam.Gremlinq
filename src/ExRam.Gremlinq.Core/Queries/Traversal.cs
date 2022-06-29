@@ -34,8 +34,7 @@ namespace ExRam.Gremlinq.Core
 
         public Traversal Push(params Step[] steps)
         {
-            var ret = this
-                .EnsureCapacity(Count + steps.Length);
+            var ret = EnsureCapacity(Count + steps.Length);
 
             for(var i = 0; i < steps.Length; i++)
             {
