@@ -36,9 +36,9 @@ namespace ExRam.Gremlinq.Core
         {
             if (traversal.Count >= 2)
             {
-                if (traversal[traversal.Count - 1] is IsStep isStep)
+                if (traversal[^1] is IsStep isStep)
                 {
-                    var newStep = traversal[traversal.Count - 2] switch
+                    var newStep = traversal[^2] switch
                     {
                         ValuesStep { Keys.Length: 1 } valuesStep => new HasPredicateStep(valuesStep.Keys[0], isStep.Predicate),
                         IdStep => new HasPredicateStep(T.Id, isStep.Predicate),
@@ -51,11 +51,19 @@ namespace ExRam.Gremlinq.Core
                         if (traversal.Count == 2)
                             return newStep;
 
-                        var list = traversal.ToList();
-                        list[traversal.Count - 2] = newStep;
-                        list.RemoveAt(traversal.Count - 1);
+                        return Traversal.Create(
+                            traversal.Count - 1,
+                            (traversal, newStep),
+                            static (steps, state) =>
+                            {
+                                var (traversal, newStep) = state;
 
-                        return new Traversal(list.ToArray(), traversal.Projection);
+                                traversal
+                                    .AsSpan()[..^2]
+                                    .CopyTo(steps);
+
+                                steps[^1] = newStep;
+                            });
                     }
                 }
             }
