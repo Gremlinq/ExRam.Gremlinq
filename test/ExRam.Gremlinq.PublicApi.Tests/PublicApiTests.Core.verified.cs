@@ -1005,6 +1005,14 @@
         public static bool operator !=(ExRam.Gremlinq.Core.Key key1, ExRam.Gremlinq.Core.Key key2) { }
         public static bool operator ==(ExRam.Gremlinq.Core.Key key1, ExRam.Gremlinq.Core.Key key2) { }
     }
+    public readonly struct LabelProjections
+    {
+        public LabelProjections(ExRam.Gremlinq.Core.Projections.Projection? stepLabelProjection, ExRam.Gremlinq.Core.Projections.Projection? sideEffectLabelProjection) { }
+        public ExRam.Gremlinq.Core.Projections.Projection? SideEffectLabelProjection { get; }
+        public ExRam.Gremlinq.Core.Projections.Projection? StepLabelProjection { get; }
+        public ExRam.Gremlinq.Core.LabelProjections WithSideEffectLabelProjection(ExRam.Gremlinq.Core.Projections.Projection sideEffectLabelProjection) { }
+        public ExRam.Gremlinq.Core.LabelProjections WithStepLabelProjection(ExRam.Gremlinq.Core.Projections.Projection stepLabelProjection) { }
+    }
     [System.Flags]
     public enum QueryLogVerbosity
     {
