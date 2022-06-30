@@ -1,5 +1,4 @@
 ﻿using System.Collections.Immutable;
-using ExRam.Gremlinq.Core.Projections;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -9,8 +8,7 @@ namespace ExRam.Gremlinq.Core
         public static readonly IConfigurableGremlinQuerySource g = new GremlinQuery<object, object, object, object, object, object>(
             GremlinQueryEnvironment.Default,
             Traversal.Empty,
-            ImmutableDictionary<StepLabel, Projection>.Empty,
-            ImmutableDictionary<StepLabel, Projection>.Empty,
+            ImmutableDictionary<StepLabel, LabelProjections>.Empty,
             QueryFlags.SurfaceVisible);
     }
 }

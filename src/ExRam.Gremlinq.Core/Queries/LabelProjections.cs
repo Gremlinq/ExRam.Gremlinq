@@ -10,6 +10,9 @@ namespace ExRam.Gremlinq.Core
             SideEffectLabelProjection = sideEffectLabelProjection;
         }
 
+        public LabelProjections WithStepLabelProjection(Projection stepLabelProjection) => new(stepLabelProjection, SideEffectLabelProjection);
+        public LabelProjections WithSideEffectLabelProjection(Projection sideEffectLabelProjection) => new(StepLabelProjection, sideEffectLabelProjection);
+
         public Projection? StepLabelProjection { get; }
         public Projection? SideEffectLabelProjection { get; }
     }

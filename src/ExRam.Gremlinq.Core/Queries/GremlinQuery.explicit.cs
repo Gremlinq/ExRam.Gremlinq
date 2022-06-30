@@ -314,7 +314,7 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery<TNewEdge> IStartGremlinQuery.ReplaceE<TNewEdge>(TNewEdge edge) => ((IGremlinQuerySource)this).E<TNewEdge>(edge!.GetId(Environment)).Update(edge);
 
-        IGremlinQuerySource IConfigurableGremlinQuerySource.ConfigureEnvironment(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> transformation) => new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(transformation(Environment), Steps, StepLabelProjections, SideEffectLabelProjections, Flags);
+        IGremlinQuerySource IConfigurableGremlinQuerySource.ConfigureEnvironment(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> transformation) => new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(transformation(Environment), Steps, LabelProjections, Flags);
 
         IGremlinQuerySource IGremlinQuerySource.WithoutStrategies(params Type[] strategyTypes) => WithoutStrategies(strategyTypes);
 
