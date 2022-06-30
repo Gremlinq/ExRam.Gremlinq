@@ -32,7 +32,12 @@ namespace ExRam.Gremlinq.Core
 
             public IGremlinqOptions ConfigureValue<TValue>(GremlinqOption<TValue> option, Func<TValue, TValue> configuration)
             {
-                return new GremlinqOptionsImpl(_dictionary.SetItem(option, configuration(GetValue(option))!));
+                return new GremlinqOptionsImpl(_dictionary
+                    .SetItem(
+                        option,
+                        configuration(_dictionary.TryGetValue(option, out var value)
+                            ? (TValue)value
+                            : option.DefaultValue)!));
             }
 
             public IGremlinqOptions SetValue<TValue>(GremlinqOption<TValue> option, TValue value)
