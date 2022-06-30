@@ -1,7 +1,5 @@
 ﻿using ExRam.Gremlinq.Core.Models;
-
 using Gremlin.Net.Structure;
-
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests

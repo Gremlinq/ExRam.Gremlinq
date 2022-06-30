@@ -1,11 +1,8 @@
 ﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.AspNet;
-
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
-
 using Newtonsoft.Json;
-
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace Microsoft.Extensions.DependencyInjection

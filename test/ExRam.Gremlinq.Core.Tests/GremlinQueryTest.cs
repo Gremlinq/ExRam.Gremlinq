@@ -1,8 +1,6 @@
 ﻿using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Tests.Entities;
-
 using FluentAssertions;
-
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests

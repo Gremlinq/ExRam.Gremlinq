@@ -1,7 +1,6 @@
 ﻿using System.Collections.Immutable;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
-
 using ExRam.Gremlinq.Core.Deserialization;
 
 namespace ExRam.Gremlinq.Core.Tests

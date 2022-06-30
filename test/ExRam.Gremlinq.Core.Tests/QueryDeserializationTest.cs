@@ -1,7 +1,5 @@
 ﻿using System.Runtime.CompilerServices;
-
 using ExRam.Gremlinq.Core.Execution;
-
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 

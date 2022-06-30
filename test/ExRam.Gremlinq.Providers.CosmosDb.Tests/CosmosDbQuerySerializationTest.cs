@@ -2,7 +2,6 @@
 using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Tests.Entities;
-
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests

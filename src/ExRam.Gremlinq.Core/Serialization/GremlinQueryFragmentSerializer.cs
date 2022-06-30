@@ -2,9 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Immutable;
 using System.Reflection;
-
 using ExRam.Gremlinq.Core.Steps;
-
 using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core.Serialization

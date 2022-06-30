@@ -1,7 +1,6 @@
 ﻿using ExRam.Gremlinq.Core.Deserialization;
 using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Core.Serialization;
-
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 

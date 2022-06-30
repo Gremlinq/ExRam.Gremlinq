@@ -3,12 +3,10 @@
 using System.Collections.Immutable;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
-
 using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Core.Projections;
 using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Core.Steps;
-
 using Path = ExRam.Gremlinq.Core.GraphElements.Path;
 
 namespace ExRam.Gremlinq.Core

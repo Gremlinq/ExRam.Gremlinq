@@ -1,15 +1,11 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-
 using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Tests.Entities;
-
 using FluentAssertions;
-
 using Gremlin.Net.Process.Traversal;
 using Gremlin.Net.Process.Traversal.Strategy.Decoration;
-
 using Microsoft.Extensions.Logging;
 
 namespace ExRam.Gremlinq.Core.Tests

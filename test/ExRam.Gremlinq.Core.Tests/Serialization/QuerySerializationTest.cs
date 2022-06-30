@@ -1,6 +1,5 @@
 ﻿using System.Collections.Immutable;
 using System.Runtime.CompilerServices;
-
 using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Tests.Entities;

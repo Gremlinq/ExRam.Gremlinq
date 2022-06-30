@@ -1,7 +1,5 @@
 ﻿using ExRam.Gremlinq.Core.Deserialization;
-
 using FluentAssertions;
-
 using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Core.Tests

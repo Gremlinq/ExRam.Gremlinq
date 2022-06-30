@@ -4,11 +4,8 @@ using System.Collections.Immutable;
 using System.Dynamic;
 using System.Reflection;
 using System.Xml;
-
 using ExRam.Gremlinq.Core.GraphElements;
-
 using Gremlin.Net.Structure.IO.GraphSON;
-
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 

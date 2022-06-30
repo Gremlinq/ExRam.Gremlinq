@@ -1,9 +1,7 @@
 ﻿using System.Text;
-
 using Gremlin.Net.Driver;
 using Gremlin.Net.Driver.Messages;
 using Gremlin.Net.Structure.IO.GraphSON;
-
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 

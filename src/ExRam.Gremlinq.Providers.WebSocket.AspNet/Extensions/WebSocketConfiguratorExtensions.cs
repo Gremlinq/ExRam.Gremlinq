@@ -1,7 +1,5 @@
 ﻿using System.Net.WebSockets;
-
 using Gremlin.Net.Driver;
-
 using Microsoft.Extensions.Configuration;
 
 namespace ExRam.Gremlinq.Providers.WebSocket

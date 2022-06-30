@@ -1,5 +1,4 @@
 ﻿using System.Collections.Immutable;
-
 using ExRam.Gremlinq.Core.Steps;
 
 namespace ExRam.Gremlinq.Core.Tests

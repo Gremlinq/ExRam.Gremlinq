@@ -1,7 +1,5 @@
 ﻿using System.Text;
-
 using ExRam.Gremlinq.Core.Serialization;
-
 using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core

@@ -2,16 +2,13 @@
 // ReSharper disable ArrangeThisQualifier
 using System.Collections.Immutable;
 using System.Linq.Expressions;
-
 using ExRam.Gremlinq.Core.ExpressionParsing;
 using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Core.Projections;
 using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Core.Steps;
-
 using Gremlin.Net.Process.Traversal;
-
 using Microsoft.Extensions.Logging;
 using Path = ExRam.Gremlinq.Core.GraphElements.Path;
 

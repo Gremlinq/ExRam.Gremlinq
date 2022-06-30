@@ -1,6 +1,5 @@
 ﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
-
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
