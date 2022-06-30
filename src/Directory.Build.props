@@ -1,7 +1,5 @@
 <Project>
   <Import Project="..\Directory.Build.props" />
-  
-  <Sdk Name="Microsoft.DotNet.PackageValidation" Version="1.0.0-preview.7.21379.12" />
 
   <PropertyGroup>
     <Deterministic>true</Deterministic>
