@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Runtime.CompilerServices;
+
 using ExRam.Gremlinq.Core.Serialization;
+
 using Gremlin.Net.Driver.Exceptions;
+
 using Microsoft.Extensions.Logging;
+
 using Newtonsoft.Json;
 
 namespace ExRam.Gremlinq.Core.Execution

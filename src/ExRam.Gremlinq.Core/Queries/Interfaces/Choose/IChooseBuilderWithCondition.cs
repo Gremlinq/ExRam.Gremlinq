@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ExRam.Gremlinq.Core
+﻿namespace ExRam.Gremlinq.Core
 {
     public interface IChooseBuilderWithCondition<out TSourceQuery, in TElement>
         where TSourceQuery : IGremlinQueryBase

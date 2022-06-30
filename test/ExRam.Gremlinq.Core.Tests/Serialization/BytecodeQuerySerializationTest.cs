@@ -1,6 +1,4 @@
-﻿using Xunit;
-using Xunit.Abstractions;
-using static ExRam.Gremlinq.Core.GremlinQuerySource;
+﻿using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {

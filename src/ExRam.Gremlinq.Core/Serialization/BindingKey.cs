@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-
-namespace ExRam.Gremlinq.Core.Serialization
+﻿namespace ExRam.Gremlinq.Core.Serialization
 {
     internal readonly struct BindingKey
     {

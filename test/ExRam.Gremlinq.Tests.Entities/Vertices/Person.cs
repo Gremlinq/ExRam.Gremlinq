@@ -1,5 +1,4 @@
-﻿using System;
-using ExRam.Gremlinq.Core.GraphElements;
+﻿using ExRam.Gremlinq.Core.GraphElements;
 
 namespace ExRam.Gremlinq.Tests.Entities
 {

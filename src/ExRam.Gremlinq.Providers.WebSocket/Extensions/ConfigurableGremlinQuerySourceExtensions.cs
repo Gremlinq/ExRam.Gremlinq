@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using ExRam.Gremlinq.Core.Deserialization;
+﻿using ExRam.Gremlinq.Core.Deserialization;
 using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Providers.WebSocket;
+
 using Gremlin.Net.Driver;
 using Gremlin.Net.Driver.Messages;
+
 using Microsoft.Extensions.Logging;
+
 using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Core

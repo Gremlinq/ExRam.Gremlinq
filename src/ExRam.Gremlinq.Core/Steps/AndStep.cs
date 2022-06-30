@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace ExRam.Gremlinq.Core.Steps
+﻿namespace ExRam.Gremlinq.Core.Steps
 {
     public sealed class AndStep : LogicalStep<AndStep>, IIsOptimizableInWhere
     {

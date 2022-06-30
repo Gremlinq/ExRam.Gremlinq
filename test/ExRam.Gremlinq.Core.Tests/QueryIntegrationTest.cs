@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
+
 using ExRam.Gremlinq.Core.Deserialization;
-using Xunit.Abstractions;
 
 namespace ExRam.Gremlinq.Core.Tests
 {

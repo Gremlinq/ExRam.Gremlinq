@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ExRam.Gremlinq.Core.Models
+﻿namespace ExRam.Gremlinq.Core.Models
 {
     public readonly struct MemberMetadata
     {

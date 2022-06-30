@@ -1,11 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using ExRam.Gremlinq.Providers.Core;
+﻿using ExRam.Gremlinq.Providers.Core;
 using ExRam.Gremlinq.Providers.Core.AspNet;
+
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using VerifyXunit;
-using Xunit;
 
 namespace ExRam.Gremlinq.Core.AspNet.Tests
 {

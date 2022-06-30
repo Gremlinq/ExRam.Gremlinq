@@ -1,5 +1,5 @@
-﻿using System;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
+
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Providers.Core.AspNet;
 using ExRam.Gremlinq.Providers.CosmosDb;

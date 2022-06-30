@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace ExRam.Gremlinq.Core.Deserialization
+﻿namespace ExRam.Gremlinq.Core.Deserialization
 {
     public interface IGremlinQueryExecutionResultDeserializer
     {

@@ -1,8 +1,4 @@
 ﻿using System.Collections.Immutable;
-using System.Threading.Tasks;
-using System.Linq;
-using Xunit;
-using Xunit.Abstractions;
 using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Core.Serialization;
 

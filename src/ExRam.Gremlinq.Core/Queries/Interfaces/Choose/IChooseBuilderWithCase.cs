@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ExRam.Gremlinq.Core
+﻿namespace ExRam.Gremlinq.Core
 {
     public interface IChooseBuilderWithCase<out TSourceQuery, in TElement, TTargetQuery> : IChooseBuilderWithCaseOrDefault<TTargetQuery>
         where TSourceQuery : IGremlinQueryBase where TTargetQuery : IGremlinQueryBase

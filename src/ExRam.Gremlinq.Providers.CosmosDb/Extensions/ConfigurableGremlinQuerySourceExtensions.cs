@@ -1,8 +1,8 @@
-﻿using System;
-using ExRam.Gremlinq.Core.Serialization;
+﻿using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Providers.CosmosDb;
 using ExRam.Gremlinq.Providers.WebSocket;
+
 using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core

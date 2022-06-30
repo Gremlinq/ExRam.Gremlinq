@@ -1,10 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
-using ExRam.Gremlinq.Core.Deserialization;
+﻿using ExRam.Gremlinq.Core.Deserialization;
+
 using FluentAssertions;
+
 using Newtonsoft.Json.Linq;
-using Xunit;
-using Xunit.Abstractions;
 
 namespace ExRam.Gremlinq.Core.Tests
 {

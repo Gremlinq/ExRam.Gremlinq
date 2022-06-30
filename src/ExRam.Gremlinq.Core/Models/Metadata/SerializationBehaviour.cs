@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ExRam.Gremlinq.Core.Models
+﻿namespace ExRam.Gremlinq.Core.Models
 {
     [Flags]
     public enum SerializationBehaviour

@@ -1,5 +1,4 @@
 ﻿#pragma warning disable IDE0060
-using System;
 
 namespace ExRam.Gremlinq.Core.GraphElements
 {

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ExRam.Gremlinq.Core.GraphElements
+﻿namespace ExRam.Gremlinq.Core.GraphElements
 {
     public sealed class Path
     {

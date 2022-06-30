@@ -1,7 +1,6 @@
 ﻿using ExRam.Gremlinq.Core.Deserialization;
 using ExRam.Gremlinq.Core.Tests;
-using Xunit;
-using Xunit.Abstractions;
+
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests

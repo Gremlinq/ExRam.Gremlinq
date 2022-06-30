@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ExRam.Gremlinq.Providers.WebSocket
+﻿namespace ExRam.Gremlinq.Providers.WebSocket
 {
     public static class WebSocketProviderConfiguratorExtensions
     {

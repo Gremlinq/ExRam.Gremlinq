@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace ExRam.Gremlinq.Core.Serialization
+﻿namespace ExRam.Gremlinq.Core.Serialization
 {
     public static class GremlinQuerySerializer
     {

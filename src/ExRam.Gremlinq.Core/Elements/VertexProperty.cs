@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using ExRam.Gremlinq.Core.Models;
+﻿using ExRam.Gremlinq.Core.Models;
 
 namespace ExRam.Gremlinq.Core.GraphElements
 {

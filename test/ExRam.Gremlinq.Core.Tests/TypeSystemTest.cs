@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Immutable;
-using System.Linq;
+﻿using System.Collections.Immutable;
 using System.Reflection;
-using System.Threading.Tasks;
+
 using AutoFixture;
 using AutoFixture.Kernel;
+
 using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Core.Steps;
+
 using FluentAssertions;
+
 using Gremlin.Net.Process.Traversal;
-using Xunit;
-using Xunit.Abstractions;
+
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests

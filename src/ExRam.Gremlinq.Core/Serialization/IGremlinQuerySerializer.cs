@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ExRam.Gremlinq.Core.Serialization
+﻿namespace ExRam.Gremlinq.Core.Serialization
 {
     public interface IGremlinQuerySerializer
     {

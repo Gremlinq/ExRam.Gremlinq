@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using ExRam.Gremlinq.Core.Steps;
+﻿using ExRam.Gremlinq.Core.Steps;
 
 namespace ExRam.Gremlinq.Core
 {

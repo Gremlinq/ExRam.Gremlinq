@@ -1,5 +1,4 @@
-﻿using System;
-using ExRam.Gremlinq.Providers.GremlinServer;
+﻿using ExRam.Gremlinq.Providers.GremlinServer;
 using ExRam.Gremlinq.Providers.WebSocket;
 
 namespace ExRam.Gremlinq.Core

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ExRam.Gremlinq.Providers.CosmosDb
+﻿namespace ExRam.Gremlinq.Providers.CosmosDb
 {
     public readonly struct CosmosDbKey
     {

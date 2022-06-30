@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using ExRam.Gremlinq.Core;
+﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.AspNet;
-using ExRam.Gremlinq.Core.Serialization;
+
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
+
 using Newtonsoft.Json;
+
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace Microsoft.Extensions.DependencyInjection

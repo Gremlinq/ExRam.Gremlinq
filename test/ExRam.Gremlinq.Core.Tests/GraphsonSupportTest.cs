@@ -1,11 +1,6 @@
-﻿using System;
-using FluentAssertions;
-using System.IO;
-using System.Threading.Tasks;
+﻿using FluentAssertions;
 using ExRam.Gremlinq.Tests.Entities;
 using Newtonsoft.Json.Linq;
-using Xunit;
-using Xunit.Abstractions;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 using ExRam.Gremlinq.Core.Models;
 

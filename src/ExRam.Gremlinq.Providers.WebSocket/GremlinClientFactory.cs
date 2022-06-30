@@ -1,5 +1,5 @@
-﻿using System;
-using System.Net.WebSockets;
+﻿using System.Net.WebSockets;
+
 using Gremlin.Net.Driver;
 
 namespace ExRam.Gremlinq.Providers.WebSocket

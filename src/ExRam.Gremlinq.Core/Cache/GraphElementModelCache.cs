@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Collections.Immutable;
-using System.Linq;
 using System.Runtime.CompilerServices;
+
 using ExRam.Gremlinq.Core.Models;
 
 namespace ExRam.Gremlinq.Core

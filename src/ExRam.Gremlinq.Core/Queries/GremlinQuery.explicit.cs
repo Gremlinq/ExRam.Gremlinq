@@ -1,16 +1,15 @@
 ﻿// ReSharper disable ArrangeThisQualifier
 // ReSharper disable CoVariantArrayConversion
-using System;
-using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
+
 using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Core.Projections;
 using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Core.Steps;
+
+using Path = ExRam.Gremlinq.Core.GraphElements.Path;
 
 namespace ExRam.Gremlinq.Core
 {

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ExRam.Gremlinq.Core.ExpressionParsing
+﻿namespace ExRam.Gremlinq.Core.ExpressionParsing
 {
     public sealed class StringEqualsExpressionSemantics : StringExpressionSemantics
     {

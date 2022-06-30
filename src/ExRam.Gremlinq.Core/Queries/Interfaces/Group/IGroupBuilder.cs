@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace ExRam.Gremlinq.Core
+﻿namespace ExRam.Gremlinq.Core
 {
     public interface IGroupBuilder<out TSourceQuery>
         where TSourceQuery : IGremlinQueryBase

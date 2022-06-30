@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ExRam.Gremlinq.Core.Deserialization
+﻿namespace ExRam.Gremlinq.Core.Deserialization
 {
     public delegate object? BaseGremlinQueryFragmentDeserializerDelegate<in TSerialized>(TSerialized serializedData, Type requestedType, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse);
 

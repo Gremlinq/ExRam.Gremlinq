@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace ExRam.Gremlinq.Core.Serialization
+﻿namespace ExRam.Gremlinq.Core.Serialization
 {
     public sealed class GroovyGremlinQuery : ISerializedGremlinQuery
     {

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ExRam.Gremlinq.Core.Deserialization
+﻿namespace ExRam.Gremlinq.Core.Deserialization
 {
     public interface IGremlinQueryFragmentDeserializer
     {

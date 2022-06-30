@@ -1,6 +1,5 @@
 ﻿#pragma warning disable IDE0003
 // ReSharper disable ArrangeThisQualifier
-using System;
 using ExRam.Gremlinq.Core.Steps;
 
 namespace ExRam.Gremlinq.Core

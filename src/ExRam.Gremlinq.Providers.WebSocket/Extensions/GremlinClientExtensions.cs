@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Gremlin.Net.Driver;
+﻿using Gremlin.Net.Driver;
 using Gremlin.Net.Driver.Messages;
 
 namespace ExRam.Gremlinq.Core

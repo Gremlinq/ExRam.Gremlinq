@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using ExRam.Gremlinq.Core.Serialization;
+﻿using ExRam.Gremlinq.Core.Serialization;
 
 namespace ExRam.Gremlinq.Core.Execution
 {
