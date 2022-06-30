@@ -21,9 +21,8 @@ namespace ExRam.Gremlinq.Core
         public GremlinQuery(
             IGremlinQueryEnvironment environment,
             Traversal steps,
-            IImmutableDictionary<StepLabel, Projection> stepLabelProjections,
-            IImmutableDictionary<StepLabel, Projection> sideEffectProjections,
-            QueryFlags flags) : base(environment, steps, stepLabelProjections, sideEffectProjections, flags)
+            IImmutableDictionary<StepLabel, LabelProjections> labelProjections,
+            QueryFlags flags) : base(environment, steps, labelProjections, flags)
         {
 
         }
@@ -113,8 +112,11 @@ namespace ExRam.Gremlinq.Core
                 .Build(
                     static (builder, tuple) => builder
                         .AddStep(new AggregateStep(tuple.scope, tuple.stepLabel))
-                        .WithNewSideEffectLabelProjection(
-                            static (existingProjections, tuple) => existingProjections.SetItem(tuple.stepLabel, tuple.projection),
+                        .WithNewLabelProjections(
+                            static (existingProjections, tuple) => existingProjections.Set(
+                                tuple.stepLabel,
+                                tuple.projection,
+                                static (projections, projection) => projections.WithSideEffectLabelProjection(projection)),
                             (tuple.stepLabel, projection: builder.OuterQuery.Steps.Projection.Fold()))
                         .Build(),
                     (scope, stepLabel));
@@ -198,8 +200,11 @@ namespace ExRam.Gremlinq.Core
             .Build(
                 static (builder, stepLabel) => builder
                     .AddStep(new AsStep(stepLabel))
-                    .WithNewStepLabelProjection(
-                        static (projection, tuple) => projection.SetItem(tuple.stepLabel, tuple.otherProjection),
+                    .WithNewLabelProjections(
+                        static (projection, tuple) => projection.Set(
+                            tuple.stepLabel,
+                            tuple.otherProjection,
+                            static (existingProjections, otherProjection) => existingProjections.WithStepLabelProjection(otherProjection)),
                         (stepLabel, otherProjection: builder.OuterQuery.Steps.Projection))
                     .Build(),
                 stepLabel);
@@ -1499,8 +1504,11 @@ namespace ExRam.Gremlinq.Core
             .Build(
                 static (builder, tuple) => builder
                     .AddStep(new WithSideEffectStep(tuple.label, tuple.value!))
-                    .WithNewStepLabelProjection(
-                        static (projections, tuple) => projections.SetItem(tuple.label, tuple.projection),
+                    .WithNewLabelProjections(
+                        static (projections, tuple) => projections.Set(
+                            tuple.label,
+                            tuple.projection,
+                            static (projections, projection) => projections.WithSideEffectLabelProjection(projection)),
                         (tuple.label, projection: builder.OuterQuery.Steps.Projection))
                     .AutoBuild(),
                 (label, value));

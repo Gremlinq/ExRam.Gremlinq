@@ -5,6 +5,7 @@ using System.Collections.Immutable;
 using System.Reflection;
 using System.Linq;
 using ExRam.Gremlinq.Core.Models;
+using ExRam.Gremlinq.Core.Projections;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -44,6 +45,55 @@ namespace ExRam.Gremlinq.Core
             return names.ConfigureNames(static (_, key) => key.RawKey is string name
                 ? name.ToLower()
                 : key);
+        }
+
+        internal static IImmutableDictionary<TKey, TValue> Set<TKey, TValue, TState>(this IImmutableDictionary<TKey, TValue> dict, TKey key, TState state, Func<TValue, TState, TValue> change)
+            where TValue : new()
+        {
+            return dict.Set(
+                key,
+                (change, state),
+                static state => state.change(new TValue(), state.state),
+                static (value, state) => state.change(value, state.state));
+        }
+
+        internal static IImmutableDictionary<TKey, TValue> Set<TKey, TValue, TState>(this IImmutableDictionary<TKey, TValue> dict, TKey key, TState state, Func<TState, TValue> create, Func<TValue, TState, TValue> change)
+        {
+            return dict.TryGetValue(key, out var value)
+                ? dict.SetItem(key, change(value, state))
+                : dict.SetItem(key, create(state));
+        }
+
+        internal static IImmutableDictionary<StepLabel, LabelProjections> MergeSideEffectLabelProjections(this IImmutableDictionary<StepLabel, LabelProjections> projections, IImmutableDictionary<StepLabel, LabelProjections> newProjections)
+        {
+            foreach (var kvp in newProjections)
+            {
+                if (kvp.Value.SideEffectLabelProjection is { } newSideEffectLabelProjection)
+                {
+                    projections = projections.Set(
+                        kvp.Key,
+                        newSideEffectLabelProjection,
+                        static (projections, newSideEffectLabelProjection) => projections.WithSideEffectLabelProjection(newSideEffectLabelProjection));
+                }
+            }
+
+            return projections;
+        }
+
+        internal static IImmutableDictionary<StepLabel, LabelProjections> MergeStepLabelProjections(this IImmutableDictionary<StepLabel, LabelProjections> projections, IImmutableDictionary<StepLabel, LabelProjections> newProjections)
+        {
+            foreach (var kvp in newProjections)
+            {
+                if (kvp.Value.StepLabelProjection is { } newStepLabelProjection)
+                {
+                    projections = projections.Set(
+                        kvp.Key,
+                        newStepLabelProjection,
+                        static (projections, newStepLabelProjection) => projections.WithStepLabelProjection(newStepLabelProjection));
+                }
+            }
+
+            return projections;
         }
     }
 }

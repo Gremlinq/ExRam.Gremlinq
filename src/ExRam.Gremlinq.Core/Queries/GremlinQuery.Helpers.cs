@@ -58,7 +58,7 @@ namespace ExRam.Gremlinq.Core
 
         private ContinuationBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>> Continue() => new(
             this,
-            new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(Environment, Traversal.Empty.WithProjection(Steps.Projection), StepLabelProjections, SideEffectLabelProjections, (Flags & ~QueryFlags.SurfaceVisible) | QueryFlags.IsAnonymous));
+            new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(Environment, Traversal.Empty.WithProjection(Steps.Projection), LabelProjections, (Flags & ~QueryFlags.SurfaceVisible) | QueryFlags.IsAnonymous));
 
         private Key GetKey(Expression projection) => Environment.GetKey(projection);
 
@@ -107,10 +107,8 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        private Projection? TryGetLabelProjection(StepLabel stepLabel) => StepLabelProjections.TryGetValue(stepLabel, out var ret1)
-            ? ret1
-            : SideEffectLabelProjections.TryGetValue(stepLabel, out var ret2)
-                ? ret2
-                : default;
+        private Projection? TryGetLabelProjection(StepLabel stepLabel) => LabelProjections.TryGetValue(stepLabel, out var projections)
+            ? projections.StepLabelProjection ?? projections.SideEffectLabelProjection
+            : default;
     }
 }
