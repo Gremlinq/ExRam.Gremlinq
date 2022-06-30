@@ -1,8 +1,9 @@
-﻿using ExRam.Gremlinq.Core.Projections;
+﻿using System;
+using ExRam.Gremlinq.Core.Projections;
 
 namespace ExRam.Gremlinq.Core
 {
-    public readonly struct LabelProjections
+    public readonly struct LabelProjections : IEquatable<LabelProjections>
     {
         public LabelProjections(Projection? stepLabelProjection, Projection? sideEffectLabelProjection)
         {
@@ -12,6 +13,8 @@ namespace ExRam.Gremlinq.Core
 
         public LabelProjections WithStepLabelProjection(Projection stepLabelProjection) => new(stepLabelProjection, SideEffectLabelProjection);
         public LabelProjections WithSideEffectLabelProjection(Projection sideEffectLabelProjection) => new(StepLabelProjection, sideEffectLabelProjection);
+
+        public bool Equals(LabelProjections other) => StepLabelProjection == other.StepLabelProjection && SideEffectLabelProjection == other.SideEffectLabelProjection;
 
         public Projection? StepLabelProjection { get; }
         public Projection? SideEffectLabelProjection { get; }
