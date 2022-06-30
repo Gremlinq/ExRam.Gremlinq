@@ -1,6 +1,4 @@
-﻿using ExRam.Gremlinq.Core.ExpressionParsing;
-
-namespace ExRam.Gremlinq.Core
+﻿namespace ExRam.Gremlinq.Core.ExpressionParsing
 {
     internal readonly struct GremlinExpression : IEquatable<GremlinExpression>
     {
