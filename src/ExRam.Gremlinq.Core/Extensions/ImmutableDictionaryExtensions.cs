@@ -48,7 +48,7 @@ namespace ExRam.Gremlinq.Core
         }
 
         internal static IImmutableDictionary<TKey, TValue> Set<TKey, TValue, TState>(this IImmutableDictionary<TKey, TValue> dict, TKey key, TState state, Func<TValue, TState, TValue> change)
-            where TValue : new()
+            where TValue : IEquatable<TValue>, new()
         {
             return dict.Set(
                 key,
@@ -58,12 +58,19 @@ namespace ExRam.Gremlinq.Core
         }
 
         internal static IImmutableDictionary<TKey, TValue> Set<TKey, TValue, TState>(this IImmutableDictionary<TKey, TValue> dict, TKey key, TState state, Func<TState, TValue> create, Func<TValue, TState, TValue> change)
+            where TValue : IEquatable<TValue>
         {
-            var newValue = dict.TryGetValue(key, out var value)
-                ? change(value, state)
-                : create(state);
+            if (dict.TryGetValue(key, out var value))
+            {
+                var newValue = change(value, state);
 
-            return dict.SetItem(key, newValue);
+                if (!newValue.Equals(value))
+                    return dict.SetItem(key, newValue);
+            }
+            else
+                return dict.SetItem(key, create(state));
+
+            return dict;
         }
 
         internal static IImmutableDictionary<StepLabel, LabelProjections> MergeSideEffectLabelProjections(this IImmutableDictionary<StepLabel, LabelProjections> projections, IImmutableDictionary<StepLabel, LabelProjections> newProjections)
@@ -90,11 +97,15 @@ namespace ExRam.Gremlinq.Core
             {
                 if (projectionMap(kvp.Value) is { } newLabelProjection)
                 {
-                    var mappedProjections = projectionMapper(kvp.Value, newLabelProjection);
-
-                    projections = projections.SetItem(
+                    projections = projections.Set(
                         kvp.Key,
-                        mappedProjections);
+                        (projectionMapper, newLabelProjection),
+                        static (value, state) =>
+                        {
+                            var (projectionMapper, newLabelProjection) = state;
+
+                            return projectionMapper(value, newLabelProjection);
+                        });
                 }
             }
 
