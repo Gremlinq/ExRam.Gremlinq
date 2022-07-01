@@ -1380,7 +1380,8 @@ namespace ExRam.Gremlinq.Core
                                                 semantics,
                                                 right)
                                             .Prepend(KeyStep.Instance)
-                                            .ToTraversal());
+                                            .ToTraversal()
+                                            .RewriteForWhereContext());
 
                                         yield break;
                                     }
@@ -1393,7 +1394,8 @@ namespace ExRam.Gremlinq.Core
                                                 semantics,
                                                 right)
                                             .Prepend(LabelStep.Instance)
-                                            .ToTraversal());
+                                            .ToTraversal()
+                                            .RewriteForWhereContext());
 
                                         yield break;
                                     }
