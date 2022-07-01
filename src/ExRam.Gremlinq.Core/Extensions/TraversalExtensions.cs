@@ -29,6 +29,11 @@ namespace ExRam.Gremlinq.Core
                 : SideEffectSemanticsChange.None;
         }
 
+        public static Traversal Push(this Traversal traversal, Step step, IGremlinQueryEnvironment environment)
+        {
+            return environment.AddStepHandler.AddStep(traversal, step, environment);
+        }
+
         public static Traversal RewriteForWhereContext(this Traversal traversal)
         {
             if (traversal.Count >= 2)

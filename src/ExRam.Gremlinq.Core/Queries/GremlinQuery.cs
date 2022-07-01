@@ -1224,7 +1224,15 @@ namespace ExRam.Gremlinq.Core
                                 .Continue()
                                 .Build(
                                     static (builder, gremlinExpression) => builder
-                                        .AddSteps(builder.OuterQuery.Where(gremlinExpression))
+                                        .WithSteps(
+                                            static (steps, state) =>
+                                            {
+                                                var (outerQuery, gremlinExpression) = state;
+
+                                                return outerQuery
+                                                    .Where(steps, gremlinExpression);
+                                            },
+                                            (builder.OuterQuery, gremlinExpression))
                                         .Build(),
                                     gremlinExpression);
                 }
@@ -1250,13 +1258,14 @@ namespace ExRam.Gremlinq.Core
                      GetKey(memberExpression))
              : throw new ExpressionNotSupportedException(predicate);
 
-        private IEnumerable<Step> Where(GremlinExpression gremlinExpression) => Where(
+        private Traversal Where(Traversal traversal, GremlinExpression gremlinExpression) => Where(
+            traversal,
             gremlinExpression.Left,
             gremlinExpression.LeftWellKnownMember,
             gremlinExpression.Semantics,
             gremlinExpression.Right);
 
-        private IEnumerable<Step> Where(ExpressionFragment left, WellKnownMember? leftWellKnownMember, ExpressionSemantics semantics, ExpressionFragment right)
+        private Traversal Where(Traversal traversal, ExpressionFragment left, WellKnownMember? leftWellKnownMember, ExpressionSemantics semantics, ExpressionFragment right)
         {
             if (right.Type == ExpressionFragmentType.Constant)
             {
@@ -1287,39 +1296,41 @@ namespace ExRam.Gremlinq.Core
                                             {
                                                 if (!Environment.GetCache().FastNativeTypes.ContainsKey(leftMemberExpression.Type))
                                                 {
-                                                    yield return new FilterStep.ByTraversalStep(Traversal
-                                                        .Create(
-                                                            3,
-                                                            (stringKey, effectivePredicate),
-                                                            (steps, state) =>
-                                                            {
-                                                                var (stringKey, effectivePredicate) = state;
+                                                    return traversal
+                                                        .Push(
+                                                            new FilterStep.ByTraversalStep(Traversal
+                                                                .Create(
+                                                                    3,
+                                                                    (stringKey, effectivePredicate),
+                                                                    (steps, state) =>
+                                                                    {
+                                                                        var (stringKey, effectivePredicate) = state;
 
-                                                                steps[0] = new PropertiesStep(ImmutableArray.Create(stringKey));
-                                                                steps[1] = CountStep.Global;
-                                                                steps[2] = new IsStep(effectivePredicate);
-                                                            }));
-
-                                                    yield break;
+                                                                        steps[0] = new PropertiesStep(ImmutableArray.Create(stringKey));
+                                                                        steps[1] = CountStep.Global;
+                                                                        steps[2] = new IsStep(effectivePredicate);
+                                                                    })),
+                                                            Environment);
                                                 }
                                             }
                                         }
                                         else
                                         {
-                                            yield return new FilterStep.ByTraversalStep(Traversal
-                                                .Create(
-                                                    3,
-                                                    (leftMemberExpression, effectivePredicate),
-                                                    (steps, state) =>
-                                                    {
-                                                        var (leftMemberExpression, effectivePredicate) = state;
+                                            return traversal
+                                                .Push(
+                                                    new FilterStep.ByTraversalStep(Traversal
+                                                        .Create(
+                                                            3,
+                                                            (leftMemberExpression, effectivePredicate),
+                                                            (steps, state) =>
+                                                            {
+                                                                var (leftMemberExpression, effectivePredicate) = state;
 
-                                                        steps[0] = new SelectKeysStep(ImmutableArray.Create(GetKey(leftMemberExpression)));
-                                                        steps[1] = CountStep.Local;
-                                                        steps[2] = new IsStep(effectivePredicate);
-                                                    }));
-
-                                            yield break;
+                                                                steps[0] = new SelectKeysStep(ImmutableArray.Create(GetKey(leftMemberExpression)));
+                                                                steps[1] = CountStep.Local;
+                                                                steps[2] = new IsStep(effectivePredicate);
+                                                            })),
+                                                    Environment);
                                         }
                                         
                                         break;
@@ -1339,27 +1350,30 @@ namespace ExRam.Gremlinq.Core
                                 {
                                     if (right.Expression is MemberExpression memberExpression)
                                     {
-                                        yield return new WherePredicateStep(effectivePredicate);
-                                        yield return new WherePredicateStep.ByMemberStep(GetKey(leftMemberExpression));
+                                        traversal = traversal
+                                            .Push(new WherePredicateStep(effectivePredicate), Environment)
+                                            .Push(new WherePredicateStep.ByMemberStep(GetKey(leftMemberExpression)), Environment);
 
                                         if (memberExpression.Member != leftMemberExpression.Member)
-                                            yield return new WherePredicateStep.ByMemberStep(GetKey(memberExpression));
+                                            traversal = traversal.Push(new WherePredicateStep.ByMemberStep(GetKey(memberExpression)), Environment);
 
-                                        yield break;
+                                        return traversal;
                                     }
 
-                                    yield return new HasTraversalStep(
-                                        GetKey(leftMemberExpression),
-                                        new WherePredicateStep(effectivePredicate));
-
-                                    yield break;
+                                    return traversal
+                                        .Push(
+                                            new HasTraversalStep(
+                                                GetKey(leftMemberExpression),
+                                                new WherePredicateStep(effectivePredicate)),
+                                            Environment);
                                 }
 
-                                yield return effectivePredicate.EqualsConstant(false)
-                                    ? NoneStep.Instance
-                                    : new HasPredicateStep(GetKey(leftMemberExpression), effectivePredicate);
-
-                                yield break;
+                                return traversal
+                                    .Push(
+                                        effectivePredicate.EqualsConstant(false)
+                                            ? NoneStep.Instance
+                                            : new HasPredicateStep(GetKey(leftMemberExpression), effectivePredicate),
+                                        Environment);
                             }
                             case ParameterExpression parameterExpression:
                             {
@@ -1368,62 +1382,60 @@ namespace ExRam.Gremlinq.Core
                                     // x => x.Value == P.xy(...)
                                     case WellKnownMember.PropertyValue when rightValue is not StepLabel:
                                     {
-                                        yield return new HasValueStep(effectivePredicate);
-                                        yield break;
+                                        return traversal.Push(new HasValueStep(effectivePredicate), Environment);
                                     }
                                     case WellKnownMember.PropertyKey:
                                     {
-                                        yield return new FilterStep.ByTraversalStep(this
-                                            .Where(
-                                                ExpressionFragment.Create(parameterExpression, Environment.Model),
-                                                default,
-                                                semantics,
-                                                right)
-                                            .Prepend(KeyStep.Instance)
-                                            .ToTraversal()
-                                            .RewriteForWhereContext());
-
-                                        yield break;
+                                        return traversal
+                                            .Push(
+                                                new FilterStep.ByTraversalStep(this
+                                                    .Where(
+                                                        KeyStep.Instance,
+                                                        ExpressionFragment.Create(parameterExpression, Environment.Model),
+                                                        default,
+                                                        semantics,
+                                                        right)
+                                                    .RewriteForWhereContext()),
+                                                Environment);
                                     }
                                     case WellKnownMember.VertexPropertyLabel when rightValue is StepLabel:
                                     {
-                                        yield return new FilterStep.ByTraversalStep(this
-                                            .Where(
-                                                ExpressionFragment.Create(parameterExpression, Environment.Model),
-                                                default,
-                                                semantics,
-                                                right)
-                                            .Prepend(LabelStep.Instance)
-                                            .ToTraversal()
-                                            .RewriteForWhereContext());
-
-                                        yield break;
+                                        return traversal
+                                            .Push(
+                                                new FilterStep.ByTraversalStep(this
+                                                    .Where(
+                                                        LabelStep.Instance,
+                                                        ExpressionFragment.Create(parameterExpression, Environment.Model),
+                                                        default,
+                                                        semantics,
+                                                        right)
+                                                    .RewriteForWhereContext()),
+                                                Environment);
                                     }
                                     case WellKnownMember.VertexPropertyLabel:
                                     {
-                                        yield return new HasKeyStep(effectivePredicate);
-                                        yield break;
+                                        return traversal.Push(new HasKeyStep(effectivePredicate), Environment);
                                     }
                                 }
 
                                 // x => x == P.xy(...)
                                 if (rightValue is StepLabel)
                                 {
-                                    yield return new WherePredicateStep(effectivePredicate);
+                                    traversal = traversal.Push(new WherePredicateStep(effectivePredicate), Environment);
 
                                     if (right.Expression is MemberExpression memberExpression)
-                                        yield return new WherePredicateStep.ByMemberStep(GetKey(memberExpression));
+                                        traversal = traversal.Push(new WherePredicateStep.ByMemberStep(GetKey(memberExpression)), Environment);
 
-                                    yield break;
+                                    return traversal;
                                 }
 
                                 if (effectivePredicate.EqualsConstant(false))
-                                    yield return NoneStep.Instance;
+                                    traversal = traversal.Push(NoneStep.Instance, Environment);
                                 else if (!effectivePredicate.EqualsConstant(true))
-                                    yield return new IsStep(effectivePredicate);
+                                    traversal = traversal.Push(new IsStep(effectivePredicate), Environment);
 
-                                yield break;
-                            }
+                                    return traversal;
+                                }
                             case MethodCallExpression methodCallExpression:
                             {
                                 var targetExpression = methodCallExpression.Object?.StripConvert();
@@ -1431,10 +1443,7 @@ namespace ExRam.Gremlinq.Core
                                 if (targetExpression != null && typeof(IDictionary<string, object>).IsAssignableFrom(targetExpression.Type) && methodCallExpression.Method.Name == "get_Item")
                                 {
                                     if (methodCallExpression.Arguments[0].StripConvert().GetValue() is string key)
-                                    {
-                                        yield return new HasPredicateStep(key, effectivePredicate);
-                                        yield break;
-                                    }
+                                        return traversal.Push(new HasPredicateStep(key, effectivePredicate), Environment);
                                 }
 
                                 break;
@@ -1443,15 +1452,15 @@ namespace ExRam.Gremlinq.Core
                     }
                     else if (left.Type == ExpressionFragmentType.Constant && left.GetValue() is StepLabel leftStepLabel && rightValue is StepLabel)
                     {
-                        yield return new WhereStepLabelAndPredicateStep(leftStepLabel, effectivePredicate);
+                        traversal = traversal.Push(new WhereStepLabelAndPredicateStep(leftStepLabel, effectivePredicate), Environment);
 
                         if (left.Expression is MemberExpression leftStepValueExpression)
-                            yield return new WherePredicateStep.ByMemberStep(GetKey(leftStepValueExpression));
+                            traversal = traversal.Push(new WherePredicateStep.ByMemberStep(GetKey(leftStepValueExpression)), Environment);
 
                         if (right.Expression is MemberExpression rightStepValueExpression)
-                            yield return new WherePredicateStep.ByMemberStep(GetKey(rightStepValueExpression));
+                            traversal = traversal.Push(new WherePredicateStep.ByMemberStep(GetKey(rightStepValueExpression)), Environment);
 
-                        yield break;
+                        return traversal;
                     }
                 }
             }
@@ -1463,20 +1472,13 @@ namespace ExRam.Gremlinq.Core
                     {
                         var newStepLabel = new StepLabel<TElement>();
 
-                        yield return new AsStep(newStepLabel);
-
-                        var subSteps = Where(
+                        return Where(
+                            traversal
+                                .Push(new AsStep(newStepLabel), Environment),
                             left,
                             default,
                             semantics,
-                            ExpressionFragment.StepLabel(newStepLabel, rightMember));
-
-                        foreach (var step in subSteps)
-                        {
-                            yield return step;
-                        }
-
-                        yield break;
+                            ExpressionFragment.StepLabel(newStepLabel, rightMember)); ;
                     }
                 }
             }
