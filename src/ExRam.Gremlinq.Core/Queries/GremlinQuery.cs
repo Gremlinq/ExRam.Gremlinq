@@ -1260,9 +1260,11 @@ namespace ExRam.Gremlinq.Core
         {
             if (right.Type == ExpressionFragmentType.Constant)
             {
+                var rightValue = right.GetValue();
+
                 var maybeEffectivePredicate = Environment.Options
                     .GetValue(PFactory.PFactoryOption)
-                    .TryGetP(semantics, right.GetValue(), Environment)
+                    .TryGetP(semantics, rightValue, Environment)
                     ?.WorkaroundLimitations(Environment);
 
                 if (maybeEffectivePredicate is { } effectivePredicate)
@@ -1333,7 +1335,7 @@ namespace ExRam.Gremlinq.Core
                                     break;
 
                                 // x => x.Name == P.xy(...)
-                                if (right.GetValue() is StepLabel)
+                                if (rightValue is StepLabel)
                                 {
                                     if (right.Expression is MemberExpression memberExpression)
                                     {
@@ -1364,7 +1366,7 @@ namespace ExRam.Gremlinq.Core
                                 switch (leftWellKnownMember)
                                 {
                                     // x => x.Value == P.xy(...)
-                                    case WellKnownMember.PropertyValue when right.GetValue() is not StepLabel:
+                                    case WellKnownMember.PropertyValue when rightValue is not StepLabel:
                                     {
                                         yield return new HasValueStep(effectivePredicate);
                                         yield break;
@@ -1382,7 +1384,7 @@ namespace ExRam.Gremlinq.Core
 
                                         yield break;
                                     }
-                                    case WellKnownMember.VertexPropertyLabel when right.GetValue() is StepLabel:
+                                    case WellKnownMember.VertexPropertyLabel when rightValue is StepLabel:
                                     {
                                         yield return new FilterStep.ByTraversalStep(this
                                             .Where(
@@ -1403,7 +1405,7 @@ namespace ExRam.Gremlinq.Core
                                 }
 
                                 // x => x == P.xy(...)
-                                if (right.GetValue() is StepLabel)
+                                if (rightValue is StepLabel)
                                 {
                                     yield return new WherePredicateStep(effectivePredicate);
 
@@ -1437,7 +1439,7 @@ namespace ExRam.Gremlinq.Core
                             }
                         }
                     }
-                    else if (left.Type == ExpressionFragmentType.Constant && left.GetValue() is StepLabel leftStepLabel && right.GetValue() is StepLabel)
+                    else if (left.Type == ExpressionFragmentType.Constant && left.GetValue() is StepLabel leftStepLabel && rightValue is StepLabel)
                     {
                         yield return new WhereStepLabelAndPredicateStep(leftStepLabel, effectivePredicate);
 
