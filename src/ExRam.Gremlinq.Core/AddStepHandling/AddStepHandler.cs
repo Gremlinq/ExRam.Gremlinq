@@ -99,11 +99,6 @@ namespace ExRam.Gremlinq.Core
         public static readonly IAddStepHandler Empty = new EmptyAddStepHandler();
 
         public static readonly IAddStepHandler Default = Empty
-            .Override<HasPredicateStep>(static (steps, step, env, overridden, recurse) => (steps.PeekOrDefault() is HasPredicateStep hasStep && hasStep.Key == step.Key)
-                ? steps
-                    .Pop()
-                    .Push(new HasPredicateStep(hasStep.Key, hasStep.Predicate.And(step.Predicate)))
-                : overridden(steps, step, env, recurse))
             .Override<WithoutStrategiesStep>(static (steps, step, env, overridden, recurse) => steps.PeekOrDefault() is WithoutStrategiesStep withoutStrategies
                 ? steps
                     .Pop()

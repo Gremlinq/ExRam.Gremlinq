@@ -359,6 +359,11 @@ namespace ExRam.Gremlinq.Core.Serialization
                         span[i - j - 1] = new HasLabelStep(hasLabelStep1.Labels.Intersect(hasLabelStep2.Labels).ToImmutableArray());
                         j++;
                     }
+                    else if (sourceStep is HasPredicateStep hasPredicateStep1 && targetStep is HasPredicateStep hasPredicateStep2 && hasPredicateStep1.Key == hasPredicateStep2.Key)
+                    {
+                        span[i - j - 1] = new HasPredicateStep(hasPredicateStep1.Key, hasPredicateStep2.Predicate.And(hasPredicateStep1.Predicate));
+                        j++;
+                    }
                     else if (j != 0)
                         span[i - j] = sourceStep;
                 }
