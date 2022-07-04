@@ -343,10 +343,13 @@ namespace ExRam.Gremlinq.Core.Serialization
 
                 for (var i = 1; i < span.Length; i++)
                 {
-                    if (span[i] is SelectStepLabelStep selectStep && span[i - j - 1] is AsStep asStep && selectStep.StepLabels.Length == 1 && ReferenceEquals(asStep.StepLabel, selectStep.StepLabels[0]))
+                    var sourceStep = span[i];
+                    var targetStep = span[i - j - 1];
+
+                    if (sourceStep is SelectStepLabelStep selectStep && targetStep is AsStep asStep && selectStep.StepLabels.Length == 1 && ReferenceEquals(asStep.StepLabel, selectStep.StepLabels[0]))
                         j++;
                     else if (j != 0)
-                        span[i - j] = span[i];
+                        span[i - j] = sourceStep;
                 }
 
                 return overridden(steps[..(steps.Length - j)], env, recurse);
