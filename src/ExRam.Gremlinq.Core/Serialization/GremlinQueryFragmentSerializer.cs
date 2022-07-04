@@ -348,6 +348,8 @@ namespace ExRam.Gremlinq.Core.Serialization
 
                     if (sourceStep is SelectStepLabelStep selectStep && targetStep is AsStep asStep && selectStep.StepLabels.Length == 1 && ReferenceEquals(asStep.StepLabel, selectStep.StepLabels[0]))
                         j++;
+                    else if (sourceStep is AsStep asStep1 && targetStep is AsStep asStep2 && asStep1.StepLabel.Equals(asStep2.StepLabel))
+                        j++;
                     else if (j != 0)
                         span[i - j] = sourceStep;
                 }
