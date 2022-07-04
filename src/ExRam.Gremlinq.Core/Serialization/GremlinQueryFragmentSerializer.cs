@@ -336,6 +336,21 @@ namespace ExRam.Gremlinq.Core.Serialization
 
                 return recurse.Serialize(byteCode, env);
             })
+            .Override<Memory<Step>>(static (steps, env, overridden, recurse) =>
+            {
+                var j = 0;
+                var span = steps.Span;
+
+                for (var i = 1; i < span.Length; i++)
+                {
+                    if (span[i] is SelectStepLabelStep selectStep && span[i - j - 1] is AsStep asStep && selectStep.StepLabels.Length == 1 && ReferenceEquals(asStep.StepLabel, selectStep.StepLabels[0]))
+                        j++;
+                    else if (j != 0)
+                        span[i - j] = span[i];
+                }
+
+                return overridden(steps[..(steps.Length - j)], env, recurse);
+            })
             .Override<MinStep>(static (step, env, _, recurse) => step.Scope.Equals(Scope.Local)
                 ? CreateInstruction("min", recurse, env, step.Scope)
                 : CreateInstruction("min"))
@@ -478,7 +493,6 @@ namespace ExRam.Gremlinq.Core.Serialization
                 ? CreateInstruction("by", recurse, env, key)
                 : CreateInstruction("by"))
             .Override<WhereStepLabelAndPredicateStep>(static (step, env, _, recurse) => CreateInstruction("where", recurse, env, step.StepLabel, step.Predicate));
-
 
         private static Instruction CreateInstruction(string name)
         {
