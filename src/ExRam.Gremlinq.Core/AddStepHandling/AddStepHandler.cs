@@ -120,9 +120,6 @@ namespace ExRam.Gremlinq.Core
                     .Pop()
                     .Push(new WithoutStrategiesStep(withoutStrategies.StrategyTypes.Concat(step.StrategyTypes).Distinct().ToImmutableArray()))
                 : overridden(steps, step, env, recurse))
-            .Override<SelectStepLabelStep>(static (steps, step, env, overridden, recurse) => steps.PeekOrDefault() is AsStep asStep && step.StepLabels.Length == 1 && ReferenceEquals(asStep.StepLabel, step.StepLabels[0])
-                ? steps
-                : overridden(steps, step, env, recurse))
             .Override<IsStep>(static (steps, step, env, overridden, recurse) => steps.PeekOrDefault() is IsStep isStep
                 ? steps
                     .Pop()
