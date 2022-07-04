@@ -1277,7 +1277,10 @@ namespace ExRam.Gremlinq.Core
                     ?.WorkaroundLimitations(Environment);
 
                 if (maybeEffectivePredicate is { } effectivePredicate)
-                { 
+                {
+                    if (effectivePredicate.EqualsConstant(false))
+                        return traversal.Push(NoneStep.Instance, Environment);
+
                     if (left.Type == ExpressionFragmentType.Parameter)
                     {
                         switch (left.Expression)
@@ -1371,9 +1374,7 @@ namespace ExRam.Gremlinq.Core
 
                                 return traversal
                                     .Push(
-                                        effectivePredicate.EqualsConstant(false)
-                                            ? NoneStep.Instance
-                                            : new HasPredicateStep(leftMemberExpressionKey, effectivePredicate),
+                                        new HasPredicateStep(leftMemberExpressionKey, effectivePredicate),
                                         Environment);
                             }
                             case ParameterExpression parameterExpression:
@@ -1435,7 +1436,7 @@ namespace ExRam.Gremlinq.Core
                                 else if (!effectivePredicate.EqualsConstant(true))
                                     traversal = traversal.Push(new IsStep(effectivePredicate), Environment);
 
-                                    return traversal;
+                                return traversal;
                             }
                             case MethodCallExpression methodCallExpression:
                             {
