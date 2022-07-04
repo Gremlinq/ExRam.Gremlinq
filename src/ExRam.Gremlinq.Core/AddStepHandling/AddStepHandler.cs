@@ -118,9 +118,6 @@ namespace ExRam.Gremlinq.Core
                 ? steps
                     .Pop()
                     .Push(new IsStep(isStep.Predicate.And(step.Predicate)))
-                : overridden(steps, step, env, recurse))
-            .Override<NoneStep>(static (steps, step, env, overridden, recurse) => steps.PeekOrDefault() is NoneStep
-                ? steps
                 : overridden(steps, step, env, recurse));
     }
 }
