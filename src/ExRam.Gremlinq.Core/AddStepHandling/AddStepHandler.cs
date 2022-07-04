@@ -107,27 +107,15 @@ namespace ExRam.Gremlinq.Core
                     .Pop()
                     .Push(new HasLabelStep(step.Labels.Intersect(hasLabelStep.Labels).ToImmutableArray()))
                 : overridden(steps, step, env, recurse))
-            .Override<HasPredicateStep>(static (steps, step, env, overridden, recurse) =>
-            {
-                if (steps.PeekOrDefault() is HasPredicateStep hasStep && hasStep.Key == step.Key)
-                {
-                    var newPredicate = step.Predicate;
-
-                    newPredicate = hasStep.Predicate is { } otherPredicate
-                        ? otherPredicate.And(newPredicate)
-                        : newPredicate;
-
-                    return steps
-                        .Pop()
-                        .Push(new HasPredicateStep(hasStep.Key, newPredicate));
-                }
-
-                return overridden(steps, step, env, recurse);
-            })
+            .Override<HasPredicateStep>(static (steps, step, env, overridden, recurse) => (steps.PeekOrDefault() is HasPredicateStep hasStep && hasStep.Key == step.Key)
+                ? steps
+                    .Pop()
+                    .Push(new HasPredicateStep(hasStep.Key, hasStep.Predicate.And(step.Predicate)))
+                : overridden(steps, step, env, recurse))
             .Override<IdentityStep>(static (steps, step, env, overridden, recurse) => steps.PeekOrDefault() is IdentityStep
                 ? steps
                 : overridden(steps, step, env, recurse))
-            .Override<WithoutStrategiesStep>(static (steps, step, env, overridden, recurse) => (steps.PeekOrDefault() is WithoutStrategiesStep withoutStrategies)
+            .Override<WithoutStrategiesStep>(static (steps, step, env, overridden, recurse) => steps.PeekOrDefault() is WithoutStrategiesStep withoutStrategies
                 ? steps
                     .Pop()
                     .Push(new WithoutStrategiesStep(withoutStrategies.StrategyTypes.Concat(step.StrategyTypes).Distinct().ToImmutableArray()))
