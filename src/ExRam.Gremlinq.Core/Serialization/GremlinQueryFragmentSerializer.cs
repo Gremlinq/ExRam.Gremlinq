@@ -410,9 +410,17 @@ namespace ExRam.Gremlinq.Core.Serialization
                         }
                         case Traversal traversal:
                         {
-                            for(var i = 0; i < traversal.Count; i++)
+                            Add(recurse.Serialize(traversal.ToArray().AsMemory(), env));
+
+                            break;
+                        }
+                        case Memory<Step> steps:
+                        {
+                            var span = steps.Span;
+
+                            for (var i = 0; i < span.Length; i++)
                             {
-                                Add(traversal[i]);
+                                Add(span[i]);
                             }
 
                             break;
