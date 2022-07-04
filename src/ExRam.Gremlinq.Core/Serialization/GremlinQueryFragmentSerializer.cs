@@ -289,6 +289,53 @@ namespace ExRam.Gremlinq.Core.Serialization
             .Override<MeanStep>(static (step, env, _, recurse) => step.Scope.Equals(Scope.Local)
                 ? CreateInstruction("mean", recurse, env, step.Scope)
                 : CreateInstruction("mean"))
+            .Override<Memory<Step>>(static (steps, env, _, recurse) =>
+            {
+                var byteCode = new Bytecode();
+
+                void Add(object? obj)
+                {
+                    switch (obj)
+                    {
+                        case Instruction instruction:
+                        {
+                            if (byteCode.StepInstructions.Count == 0 && instruction.OperatorName.StartsWith("with", StringComparison.OrdinalIgnoreCase))
+                                byteCode.SourceInstructions.Add(instruction);
+                            else
+                                byteCode.StepInstructions.Add(instruction);
+
+                            break;
+                        }
+                        case Step step:
+                        {
+                            Add(recurse.Serialize(step, env));
+
+                            break;
+                        }
+                        case IEnumerable enumerable:
+                        {
+                            foreach (var item in enumerable)
+                            {
+                                Add(item);
+                            }
+
+                            break;
+                        }
+                    }
+                }
+
+                var span = steps.Span;
+
+                for (var i = 0; i < span.Length; i++)
+                {
+                    Add(span[i]);
+                }
+
+                if (byteCode.StepInstructions.Count == 0)
+                    Add(IdentityStep.Instance);
+
+                return recurse.Serialize(byteCode, env);
+            })
             .Override<MinStep>(static (step, env, _, recurse) => step.Scope.Equals(Scope.Local)
                 ? CreateInstruction("min", recurse, env, step.Scope)
                 : CreateInstruction("min"))
@@ -405,53 +452,6 @@ namespace ExRam.Gremlinq.Core.Serialization
                 {
                     ArrayPool<Step>.Shared.Return(steps);
                 }
-            })
-            .Override<Memory<Step>>(static (steps, env, _, recurse) =>
-            {
-                var byteCode = new Bytecode();
-
-                void Add(object? obj)
-                {
-                    switch (obj)
-                    {
-                        case Instruction instruction:
-                        {
-                            if (byteCode.StepInstructions.Count == 0 && instruction.OperatorName.StartsWith("with", StringComparison.OrdinalIgnoreCase))
-                                byteCode.SourceInstructions.Add(instruction);
-                            else
-                                byteCode.StepInstructions.Add(instruction);
-
-                            break;
-                        }
-                        case Step step:
-                        {
-                            Add(recurse.Serialize(step, env));
-
-                            break;
-                        }
-                        case IEnumerable enumerable:
-                        {
-                            foreach (var item in enumerable)
-                            {
-                                Add(item);
-                            }
-
-                            break;
-                        }
-                    }
-                }
-
-                var span = steps.Span;
-
-                for (var i = 0; i < span.Length; i++)
-                {
-                    Add(span[i]);
-                }
-
-                if (byteCode.StepInstructions.Count == 0)
-                    Add(IdentityStep.Instance);
-
-                return recurse.Serialize(byteCode, env);
             })
             .Override<SumStep>(static (step, env, _, recurse) => step.Scope.Equals(Scope.Local)
                 ? CreateInstruction("sum", recurse, env, step.Scope)
