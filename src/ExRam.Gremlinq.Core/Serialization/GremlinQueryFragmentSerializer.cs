@@ -354,6 +354,11 @@ namespace ExRam.Gremlinq.Core.Serialization
                         j++;
                     else if (sourceStep is NoneStep && targetStep is NoneStep)
                         j++;
+                    else if (sourceStep is HasLabelStep hasLabelStep1 && targetStep is HasLabelStep hasLabelStep2)
+                    {
+                        span[i - j - 1] = new HasLabelStep(hasLabelStep1.Labels.Intersect(hasLabelStep2.Labels).ToImmutableArray());
+                        j++;
+                    }
                     else if (j != 0)
                         span[i - j] = sourceStep;
                 }
