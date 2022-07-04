@@ -1284,6 +1284,7 @@ namespace ExRam.Gremlinq.Core
                         {
                             case MemberExpression leftMemberExpression:
                             {
+                                var leftMemberExpressionKey = GetKey(leftMemberExpression);
                                 var leftMemberExpressionExpression = leftMemberExpression.Expression?.StripConvert();
 
                                 if (leftMemberExpressionExpression is ParameterExpression parameterExpression)
@@ -1292,7 +1293,7 @@ namespace ExRam.Gremlinq.Core
                                     {
                                         if (Environment.GetCache().ModelTypes.Contains(parameterExpression.Type))
                                         {
-                                            if (GetKey(leftMemberExpression).RawKey is string stringKey)
+                                            if (leftMemberExpressionKey.RawKey is string stringKey)
                                             {
                                                 if (!Environment.GetCache().FastNativeTypes.ContainsKey(leftMemberExpression.Type))
                                                 {
@@ -1326,7 +1327,7 @@ namespace ExRam.Gremlinq.Core
                                                             {
                                                                 var (leftMemberExpression, effectivePredicate) = state;
 
-                                                                steps[0] = new SelectKeysStep(ImmutableArray.Create(GetKey(leftMemberExpression)));
+                                                                steps[0] = new SelectKeysStep(ImmutableArray.Create(leftMemberExpressionKey));
                                                                 steps[1] = CountStep.Local;
                                                                 steps[2] = new IsStep(effectivePredicate);
                                                             })),
@@ -1352,7 +1353,7 @@ namespace ExRam.Gremlinq.Core
                                     {
                                         traversal = traversal
                                             .Push(new WherePredicateStep(effectivePredicate), Environment)
-                                            .Push(new WherePredicateStep.ByMemberStep(GetKey(leftMemberExpression)), Environment);
+                                            .Push(new WherePredicateStep.ByMemberStep(leftMemberExpressionKey), Environment);
 
                                         if (memberExpression.Member != leftMemberExpression.Member)
                                             traversal = traversal.Push(new WherePredicateStep.ByMemberStep(GetKey(memberExpression)), Environment);
@@ -1363,7 +1364,7 @@ namespace ExRam.Gremlinq.Core
                                     return traversal
                                         .Push(
                                             new HasTraversalStep(
-                                                GetKey(leftMemberExpression),
+                                                leftMemberExpressionKey,
                                                 new WherePredicateStep(effectivePredicate)),
                                             Environment);
                                 }
@@ -1372,7 +1373,7 @@ namespace ExRam.Gremlinq.Core
                                     .Push(
                                         effectivePredicate.EqualsConstant(false)
                                             ? NoneStep.Instance
-                                            : new HasPredicateStep(GetKey(leftMemberExpression), effectivePredicate),
+                                            : new HasPredicateStep(leftMemberExpressionKey, effectivePredicate),
                                         Environment);
                             }
                             case ParameterExpression parameterExpression:
@@ -1435,7 +1436,7 @@ namespace ExRam.Gremlinq.Core
                                     traversal = traversal.Push(new IsStep(effectivePredicate), Environment);
 
                                     return traversal;
-                                }
+                            }
                             case MethodCallExpression methodCallExpression:
                             {
                                 var targetExpression = methodCallExpression.Object?.StripConvert();
