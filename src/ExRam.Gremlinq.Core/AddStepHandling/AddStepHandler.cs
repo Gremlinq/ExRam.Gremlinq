@@ -109,9 +109,6 @@ namespace ExRam.Gremlinq.Core
                     .Pop()
                     .Push(new HasPredicateStep(hasStep.Key, hasStep.Predicate.And(step.Predicate)))
                 : overridden(steps, step, env, recurse))
-            .Override<IdentityStep>(static (steps, step, env, overridden, recurse) => steps.PeekOrDefault() is IdentityStep
-                ? steps
-                : overridden(steps, step, env, recurse))
             .Override<WithoutStrategiesStep>(static (steps, step, env, overridden, recurse) => steps.PeekOrDefault() is WithoutStrategiesStep withoutStrategies
                 ? steps
                     .Pop()
