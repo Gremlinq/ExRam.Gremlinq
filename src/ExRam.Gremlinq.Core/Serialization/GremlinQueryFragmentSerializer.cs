@@ -388,6 +388,26 @@ namespace ExRam.Gremlinq.Core.Serialization
             .Override<Step>(static (_, _, _, _) => Array.Empty<Instruction>())
             .Override<Traversal>(static (traversal, env, _, recurse) =>
             {
+                var steps = ArrayPool<Step>.Shared.Rent(traversal.Count);
+
+                try
+                {
+                    var stepsMemory = steps
+                        .AsMemory()[..traversal.Count];
+
+                    traversal
+                        .AsSpan()
+                        .CopyTo(stepsMemory.Span);
+
+                    return recurse.Serialize(stepsMemory, env);
+                }
+                finally
+                {
+                    ArrayPool<Step>.Shared.Return(steps);
+                }
+            })
+            .Override<Memory<Step>>(static (steps, env, _, recurse) =>
+            {
                 var byteCode = new Bytecode();
 
                 void Add(object? obj)
@@ -409,39 +429,6 @@ namespace ExRam.Gremlinq.Core.Serialization
 
                             break;
                         }
-                        case Traversal traversal:
-                        {
-                            var steps = ArrayPool<Step>.Shared.Rent(traversal.Count);
-
-                            try
-                            {
-                                var stepsMemory = steps
-                                    .AsMemory()[..traversal.Count];
-
-                                traversal
-                                    .AsSpan()
-                                    .CopyTo(stepsMemory.Span);
-
-                                Add(recurse.Serialize(stepsMemory, env));
-                            }
-                            finally
-                            {
-                                ArrayPool<Step>.Shared.Return(steps);
-                            }
-
-                            break;
-                        }
-                        case Memory<Step> steps:
-                        {
-                            var span = steps.Span;
-
-                            for (var i = 0; i < span.Length; i++)
-                            {
-                                Add(span[i]);
-                            }
-
-                            break;
-                        }
                         case IEnumerable enumerable:
                         {
                             foreach (var item in enumerable)
@@ -454,7 +441,12 @@ namespace ExRam.Gremlinq.Core.Serialization
                     }
                 }
 
-                Add(traversal);
+                var span = steps.Span;
+
+                for (var i = 0; i < span.Length; i++)
+                {
+                    Add(span[i]);
+                }
 
                 if (byteCode.StepInstructions.Count == 0)
                     Add(IdentityStep.Instance);
