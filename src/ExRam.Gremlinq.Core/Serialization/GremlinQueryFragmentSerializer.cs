@@ -364,6 +364,11 @@ namespace ExRam.Gremlinq.Core.Serialization
                         span[i - j - 1] = new HasPredicateStep(hasPredicateStep1.Key, hasPredicateStep2.Predicate.And(hasPredicateStep1.Predicate));
                         j++;
                     }
+                    else if (sourceStep is WithoutStrategiesStep withoutStrategiesStep1 && targetStep is WithoutStrategiesStep withoutStrategiesStep2)
+                    {
+                        span[i - j - 1] = new WithoutStrategiesStep(withoutStrategiesStep2.StrategyTypes.Concat(withoutStrategiesStep1.StrategyTypes).Distinct().ToImmutableArray());
+                        j++;
+                    }
                     else if (j != 0)
                         span[i - j] = sourceStep;
                 }
