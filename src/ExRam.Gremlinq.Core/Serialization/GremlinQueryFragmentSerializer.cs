@@ -352,6 +352,8 @@ namespace ExRam.Gremlinq.Core.Serialization
                         j++;
                     else if (sourceStep is IdentityStep && targetStep is IdentityStep)
                         j++;
+                    else if (sourceStep is NoneStep && targetStep is NoneStep)
+                        j++;
                     else if (j != 0)
                         span[i - j] = sourceStep;
                 }
