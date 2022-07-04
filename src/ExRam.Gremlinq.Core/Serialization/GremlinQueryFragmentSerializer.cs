@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.Buffers;
+using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Immutable;
 using System.Reflection;
@@ -410,7 +411,23 @@ namespace ExRam.Gremlinq.Core.Serialization
                         }
                         case Traversal traversal:
                         {
-                            Add(recurse.Serialize(traversal.ToArray().AsMemory(), env));
+                            var steps = ArrayPool<Step>.Shared.Rent(traversal.Count);
+
+                            try
+                            {
+                                var stepsMemory = steps
+                                    .AsMemory()[..traversal.Count];
+
+                                traversal
+                                    .AsSpan()
+                                    .CopyTo(stepsMemory.Span);
+
+                                Add(recurse.Serialize(stepsMemory, env));
+                            }
+                            finally
+                            {
+                                ArrayPool<Step>.Shared.Return(steps);
+                            }
 
                             break;
                         }
