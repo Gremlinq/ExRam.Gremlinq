@@ -1382,7 +1382,7 @@ namespace ExRam.Gremlinq.Core
                                 switch (leftWellKnownMember)
                                 {
                                     // x => x.Value == P.xy(...)
-                                    case WellKnownMember.PropertyValue when rightValue is not StepLabel:
+                                    case WellKnownMember.PropertyValue when rightValue is not null and not StepLabel:
                                     {
                                         return traversal.Push(new HasValueStep(effectivePredicate), Environment);
                                     }
