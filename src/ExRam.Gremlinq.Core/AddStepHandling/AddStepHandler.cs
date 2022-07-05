@@ -98,12 +98,7 @@ namespace ExRam.Gremlinq.Core
 
         public static readonly IAddStepHandler Empty = new EmptyAddStepHandler();
 
-        public static readonly IAddStepHandler Default = Empty
-            .Override<IsStep>(static (steps, step, env, overridden, recurse) => steps.PeekOrDefault() is IsStep isStep
-                ? steps
-                    .Pop()
-                    .Push(new IsStep(isStep.Predicate.And(step.Predicate)))
-                : overridden(steps, step, env, recurse));
+        public static readonly IAddStepHandler Default = Empty;
     }
 }
 
