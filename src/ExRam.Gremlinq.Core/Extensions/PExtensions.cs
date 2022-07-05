@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using ExRam.Gremlinq.Core.Steps;
+
 using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
@@ -77,5 +79,19 @@ namespace ExRam.Gremlinq.Core
         public static bool IsAnd(this P p) => p.OperatorName.Equals("and", StringComparison.OrdinalIgnoreCase);
 
         public static bool IsOr(this P p) => p.OperatorName.Equals("or", StringComparison.OrdinalIgnoreCase);
+
+        public static Step GetHasStep(this P p, Key key)
+        {
+            if (p.Value == null)
+            {
+                if (p.OperatorName == "eq")
+                    return new HasNotStep(key);
+
+                if (p.OperatorName == "neq")
+                    return new HasStep(key);
+            }
+
+            return new HasPredicateStep(key, p);
+        }
     }
 }
