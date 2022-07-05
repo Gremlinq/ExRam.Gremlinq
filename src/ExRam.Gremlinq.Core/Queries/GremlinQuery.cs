@@ -1372,7 +1372,7 @@ namespace ExRam.Gremlinq.Core
                                 }
 
                                 return traversal
-                                    .SmartPush(
+                                    .Push(
                                         effectivePredicate
                                             .GetFilterStep(leftMemberExpressionKey));
                             }
@@ -1426,7 +1426,7 @@ namespace ExRam.Gremlinq.Core
                                         traversal = traversal.Push(new WherePredicateStep.ByMemberStep(GetKey(memberExpression)));
                                 }
                                 else if (!effectivePredicate.EqualsConstant(true))
-                                    traversal = traversal.SmartPush(new IsStep(effectivePredicate));
+                                    traversal = traversal.Push(new IsStep(effectivePredicate));
 
                                 return traversal;
                             }

@@ -29,18 +29,18 @@ namespace ExRam.Gremlinq.Core
                 : SideEffectSemanticsChange.None;
         }
 
-        public static Traversal SmartPush(this Traversal traversal, Step step) => step is IsStep newIsStep && traversal.PeekOrDefault() is IsStep existingIsStep
-            ? traversal
-                .Pop()
-                .SmartPush(new IsStep(existingIsStep.Predicate.And(newIsStep.Predicate)))
-            : traversal.Push(step);
-
-        public static Traversal RewriteForWhereContext(this Traversal traversal)
+        public static Traversal RewriteForWhereContext(this Traversal traversal, P? maybeExistingPredicate = null)
         {
             if (traversal.Count >= 2)
             {
                 if (traversal[^1] is IsStep { Predicate: { } isPredicate })
                 {
+                    if (maybeExistingPredicate is { } existingPredicate)
+                        isPredicate = isPredicate.And(existingPredicate);
+
+                    if (traversal[^2] is IsStep)
+                        return traversal.Pop().RewriteForWhereContext(isPredicate);
+
                     var newStep = traversal[^2] switch
                     {
                         IdStep => new HasPredicateStep(T.Id, isPredicate),
