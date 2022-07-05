@@ -4981,6 +4981,18 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task Where_Values_WhereWhere()
+        {
+            await _g
+                .V<Person>()
+                .Where(__ => __
+                    .Values(x => x.Name!.Value)
+                    .Where(x => x == "hallo1")
+                    .Where(x => x == "hallo2"))
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task Where_value_of_property_is_null_and_string_reversed()
         {
             await _g
