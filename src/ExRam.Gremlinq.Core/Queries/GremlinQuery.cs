@@ -1431,9 +1431,7 @@ namespace ExRam.Gremlinq.Core
                                     return traversal;
                                 }
 
-                                if (effectivePredicate.EqualsConstant(false))
-                                    traversal = traversal.Push(NoneStep.Instance, Environment);
-                                else if (!effectivePredicate.EqualsConstant(true))
+                                if (!effectivePredicate.EqualsConstant(true))
                                     traversal = traversal.Push(new IsStep(effectivePredicate), Environment);
 
                                 return traversal;
