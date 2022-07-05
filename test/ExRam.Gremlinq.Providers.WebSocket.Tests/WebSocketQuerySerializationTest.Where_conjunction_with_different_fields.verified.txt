@@ -15,17 +15,32 @@
           ]
         },
         {
-          "OperatorName": "has",
+          "OperatorName": "and",
           "Arguments": [
-            "Name",
-            "Some name"
-          ]
-        },
-        {
-          "OperatorName": "has",
-          "Arguments": [
-            "Age",
-            42
+            {
+              "SourceInstructions": [],
+              "StepInstructions": [
+                {
+                  "OperatorName": "has",
+                  "Arguments": [
+                    "Name",
+                    "Some name"
+                  ]
+                }
+              ]
+            },
+            {
+              "SourceInstructions": [],
+              "StepInstructions": [
+                {
+                  "OperatorName": "has",
+                  "Arguments": [
+                    "Age",
+                    42
+                  ]
+                }
+              ]
+            }
           ]
         },
         {

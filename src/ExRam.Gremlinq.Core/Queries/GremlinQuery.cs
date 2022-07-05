@@ -1208,9 +1208,11 @@ namespace ExRam.Gremlinq.Core
                     }
                     case BinaryExpression { NodeType: ExpressionType.AndAlso } binary:
                     {
-                        return this
-                            .Where(binary.Left)
-                            .Where(binary.Right);
+                        return And(new Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase>[]
+                        {
+                            __ => __.Where(binary.Left),
+                            __ => __.Where(binary.Right)
+                        });
                     }
                 }
 
