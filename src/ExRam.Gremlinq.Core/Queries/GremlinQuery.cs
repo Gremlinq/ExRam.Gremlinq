@@ -1372,10 +1372,16 @@ namespace ExRam.Gremlinq.Core
                                             Environment);
                                 }
 
-                                return traversal
-                                    .Push(
-                                        new HasPredicateStep(leftMemberExpressionKey, effectivePredicate),
-                                        Environment);
+                                if (effectivePredicate.Value == null)
+                                {
+                                    if (effectivePredicate.OperatorName == "eq")
+                                        return traversal.Push(new HasNotStep(leftMemberExpressionKey), Environment);
+
+                                    if (effectivePredicate.OperatorName == "neq")
+                                        return traversal.Push(new HasStep(leftMemberExpressionKey), Environment);
+                                }
+
+                                return traversal.Push(new HasPredicateStep(leftMemberExpressionKey, effectivePredicate), Environment);
                             }
                             case ParameterExpression parameterExpression:
                             {
