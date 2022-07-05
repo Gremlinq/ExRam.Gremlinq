@@ -29,7 +29,7 @@ namespace ExRam.Gremlinq.Core
              where TStep : Step => With(
                 static (outer, steps, labelProjections, flags, tuple) => outer.Flags.HasFlag(QueryFlags.IsMuted)
                     ? tuple.@this
-                    : new(outer, steps.SmartPush(tuple.step), labelProjections, flags),
+                    : new(outer, steps.Push(tuple.step), labelProjections, flags),
                 (@this: this, step));
 
         public FinalContinuationBuilder<TOuterQuery> WithSteps(Traversal newSteps) => With(
