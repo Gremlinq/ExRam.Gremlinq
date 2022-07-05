@@ -1427,11 +1427,8 @@ namespace ExRam.Gremlinq.Core
 
                                     if (right.Expression is MemberExpression memberExpression)
                                         traversal = traversal.Push(new WherePredicateStep.ByMemberStep(GetKey(memberExpression)), Environment);
-
-                                    return traversal;
                                 }
-
-                                if (!effectivePredicate.EqualsConstant(true))
+                                else if (!effectivePredicate.EqualsConstant(true))
                                     traversal = traversal.Push(new IsStep(effectivePredicate), Environment);
 
                                 return traversal;
