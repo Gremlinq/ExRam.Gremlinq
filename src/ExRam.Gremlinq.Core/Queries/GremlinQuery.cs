@@ -1279,7 +1279,7 @@ namespace ExRam.Gremlinq.Core
                 if (maybeEffectivePredicate is { } effectivePredicate)
                 {
                     if (effectivePredicate.EqualsConstant(false))
-                        return traversal.Push(NoneStep.Instance, Environment);
+                        return traversal.SmartPush(NoneStep.Instance, Environment);
 
                     if (left.Type == ExpressionFragmentType.Parameter)
                     {
@@ -1301,7 +1301,7 @@ namespace ExRam.Gremlinq.Core
                                                 if (!Environment.GetCache().FastNativeTypes.ContainsKey(leftMemberExpression.Type))
                                                 {
                                                     return traversal
-                                                        .Push(
+                                                        .SmartPush(
                                                             new FilterStep.ByTraversalStep(Traversal
                                                                 .Create(
                                                                     3,
@@ -1321,7 +1321,7 @@ namespace ExRam.Gremlinq.Core
                                         else
                                         {
                                             return traversal
-                                                .Push(
+                                                .SmartPush(
                                                     new FilterStep.ByTraversalStep(Traversal
                                                         .Create(
                                                             3,
@@ -1355,17 +1355,17 @@ namespace ExRam.Gremlinq.Core
                                     if (right.Expression is MemberExpression memberExpression)
                                     {
                                         traversal = traversal
-                                            .Push(new WherePredicateStep(effectivePredicate), Environment)
-                                            .Push(new WherePredicateStep.ByMemberStep(leftMemberExpressionKey), Environment);
+                                            .SmartPush(new WherePredicateStep(effectivePredicate), Environment)
+                                            .SmartPush(new WherePredicateStep.ByMemberStep(leftMemberExpressionKey), Environment);
 
                                         if (memberExpression.Member != leftMemberExpression.Member)
-                                            traversal = traversal.Push(new WherePredicateStep.ByMemberStep(GetKey(memberExpression)), Environment);
+                                            traversal = traversal.SmartPush(new WherePredicateStep.ByMemberStep(GetKey(memberExpression)), Environment);
 
                                         return traversal;
                                     }
 
                                     return traversal
-                                        .Push(
+                                        .SmartPush(
                                             new HasTraversalStep(
                                                 leftMemberExpressionKey,
                                                 new WherePredicateStep(effectivePredicate)),
@@ -1373,7 +1373,7 @@ namespace ExRam.Gremlinq.Core
                                 }
 
                                 return traversal
-                                    .Push(
+                                    .SmartPush(
                                         effectivePredicate
                                             .GetFilterStep(leftMemberExpressionKey),
                                         Environment);
@@ -1385,12 +1385,12 @@ namespace ExRam.Gremlinq.Core
                                     // x => x.Value == P.xy(...)
                                     case WellKnownMember.PropertyValue when rightValue is not null and not StepLabel:
                                     {
-                                        return traversal.Push(new HasValueStep(effectivePredicate), Environment);
+                                        return traversal.SmartPush(new HasValueStep(effectivePredicate), Environment);
                                     }
                                     case WellKnownMember.PropertyKey:
                                     {
                                         return traversal
-                                            .Push(
+                                            .SmartPush(
                                                 new FilterStep.ByTraversalStep(this
                                                     .Where(
                                                         KeyStep.Instance,
@@ -1404,7 +1404,7 @@ namespace ExRam.Gremlinq.Core
                                     case WellKnownMember.VertexPropertyLabel when rightValue is StepLabel:
                                     {
                                         return traversal
-                                            .Push(
+                                            .SmartPush(
                                                 new FilterStep.ByTraversalStep(this
                                                     .Where(
                                                         LabelStep.Instance,
@@ -1417,20 +1417,20 @@ namespace ExRam.Gremlinq.Core
                                     }
                                     case WellKnownMember.VertexPropertyLabel:
                                     {
-                                        return traversal.Push(new HasKeyStep(effectivePredicate), Environment);
+                                        return traversal.SmartPush(new HasKeyStep(effectivePredicate), Environment);
                                     }
                                 }
 
                                 // x => x == P.xy(...)
                                 if (rightValue is StepLabel)
                                 {
-                                    traversal = traversal.Push(new WherePredicateStep(effectivePredicate), Environment);
+                                    traversal = traversal.SmartPush(new WherePredicateStep(effectivePredicate), Environment);
 
                                     if (right.Expression is MemberExpression memberExpression)
-                                        traversal = traversal.Push(new WherePredicateStep.ByMemberStep(GetKey(memberExpression)), Environment);
+                                        traversal = traversal.SmartPush(new WherePredicateStep.ByMemberStep(GetKey(memberExpression)), Environment);
                                 }
                                 else if (!effectivePredicate.EqualsConstant(true))
-                                    traversal = traversal.Push(new IsStep(effectivePredicate), Environment);
+                                    traversal = traversal.SmartPush(new IsStep(effectivePredicate), Environment);
 
                                 return traversal;
                             }
@@ -1441,7 +1441,7 @@ namespace ExRam.Gremlinq.Core
                                 if (targetExpression != null && typeof(IDictionary<string, object>).IsAssignableFrom(targetExpression.Type) && methodCallExpression.Method.Name == "get_Item")
                                 {
                                     if (methodCallExpression.Arguments[0].StripConvert().GetValue() is string key)
-                                        return traversal.Push(new HasPredicateStep(key, effectivePredicate), Environment);
+                                        return traversal.SmartPush(new HasPredicateStep(key, effectivePredicate), Environment);
                                 }
 
                                 break;
@@ -1450,13 +1450,13 @@ namespace ExRam.Gremlinq.Core
                     }
                     else if (left.Type == ExpressionFragmentType.Constant && left.GetValue() is StepLabel leftStepLabel && rightValue is StepLabel)
                     {
-                        traversal = traversal.Push(new WhereStepLabelAndPredicateStep(leftStepLabel, effectivePredicate), Environment);
+                        traversal = traversal.SmartPush(new WhereStepLabelAndPredicateStep(leftStepLabel, effectivePredicate), Environment);
 
                         if (left.Expression is MemberExpression leftStepValueExpression)
-                            traversal = traversal.Push(new WherePredicateStep.ByMemberStep(GetKey(leftStepValueExpression)), Environment);
+                            traversal = traversal.SmartPush(new WherePredicateStep.ByMemberStep(GetKey(leftStepValueExpression)), Environment);
 
                         if (right.Expression is MemberExpression rightStepValueExpression)
-                            traversal = traversal.Push(new WherePredicateStep.ByMemberStep(GetKey(rightStepValueExpression)), Environment);
+                            traversal = traversal.SmartPush(new WherePredicateStep.ByMemberStep(GetKey(rightStepValueExpression)), Environment);
 
                         return traversal;
                     }
@@ -1472,7 +1472,7 @@ namespace ExRam.Gremlinq.Core
 
                         return Where(
                             traversal
-                                .Push(new AsStep(newStepLabel), Environment),
+                                .SmartPush(new AsStep(newStepLabel), Environment),
                             left,
                             default,
                             semantics,

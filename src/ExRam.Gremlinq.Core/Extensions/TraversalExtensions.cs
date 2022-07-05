@@ -29,8 +29,15 @@ namespace ExRam.Gremlinq.Core
                 : SideEffectSemanticsChange.None;
         }
 
-        public static Traversal Push(this Traversal traversal, Step step, IGremlinQueryEnvironment environment)
+        public static Traversal SmartPush(this Traversal traversal, Step step, IGremlinQueryEnvironment environment)
         {
+            if (step is IsStep newIsStep && traversal.PeekOrDefault() is IsStep existingIsStep)
+            {
+                return traversal
+                    .Pop()
+                    .SmartPush(new IsStep(existingIsStep.Predicate.And(newIsStep.Predicate)), environment);
+            }
+
             return environment.AddStepHandler.AddStep(traversal, step, environment);
         }
 
