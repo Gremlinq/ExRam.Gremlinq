@@ -8,9 +8,13 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         public static IGremlinQueryEnvironment AddFakePartitionKey(this IGremlinQueryEnvironment env)
         {
             return env
-                .ConfigureAddStepHandler(stepHandler => stepHandler
-                    .Override<AddVStep>((steps, step, env, overridden, recurse) => overridden(steps, step, env, recurse)
-                        .Push(new PropertyStep.ByKeyStep("PartitionKey", "PartitionKey"))));
+                .ConfigureSerializer(serializer => serializer
+                    .ConfigureFragmentSerializer(serializer => serializer
+                        .Override<AddVStep>((step, env, overridden, recurse) => new[]
+                        {
+                            overridden(step, env, recurse),
+                            recurse.Serialize(new PropertyStep.ByKeyStep("PartitionKey", "PartitionKey"), env)
+                        })));
         }
     }
 }
