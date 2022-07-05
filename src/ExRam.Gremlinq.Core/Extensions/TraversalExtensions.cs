@@ -42,9 +42,9 @@ namespace ExRam.Gremlinq.Core
                 {
                     var newStep = traversal[^2] switch
                     {
-                        ValuesStep { Keys.Length: 1 } valuesStep => isStep.Predicate.GetHasStep(valuesStep.Keys[0]),
                         IdStep => new HasPredicateStep(T.Id, isStep.Predicate),
                         LabelStep => new HasPredicateStep(T.Label, isStep.Predicate),
+                        ValuesStep { Keys.Length: 1 } valuesStep => isStep.Predicate.GetHasStep(valuesStep.Keys[0]),
                         _ => default
                     };
 
