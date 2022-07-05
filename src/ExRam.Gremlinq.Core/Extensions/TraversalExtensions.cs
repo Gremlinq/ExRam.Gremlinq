@@ -29,17 +29,11 @@ namespace ExRam.Gremlinq.Core
                 : SideEffectSemanticsChange.None;
         }
 
-        public static Traversal SmartPush(this Traversal traversal, Step step)
-        {
-            if (step is IsStep newIsStep && traversal.PeekOrDefault() is IsStep existingIsStep)
-            {
-                return traversal
-                    .Pop()
-                    .SmartPush(new IsStep(existingIsStep.Predicate.And(newIsStep.Predicate)));
-            }
-
-            return traversal.Push(step);
-        }
+        public static Traversal SmartPush(this Traversal traversal, Step step) => step is IsStep newIsStep && traversal.PeekOrDefault() is IsStep existingIsStep
+            ? traversal
+                .Pop()
+                .SmartPush(new IsStep(existingIsStep.Predicate.And(newIsStep.Predicate)))
+            : traversal.Push(step);
 
         public static Traversal RewriteForWhereContext(this Traversal traversal)
         {
