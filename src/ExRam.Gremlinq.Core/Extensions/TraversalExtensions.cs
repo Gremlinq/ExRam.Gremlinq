@@ -44,7 +44,7 @@ namespace ExRam.Gremlinq.Core
                     {
                         IdStep => new HasPredicateStep(T.Id, isStep.Predicate),
                         LabelStep => new HasPredicateStep(T.Label, isStep.Predicate),
-                        ValuesStep { Keys.Length: 1 } valuesStep => isStep.Predicate.GetHasStep(valuesStep.Keys[0]),
+                        ValuesStep { Keys.Length: 1 } valuesStep => isStep.Predicate.GetFilterStep(valuesStep.Keys[0]),
                         _ => default
                     };
 

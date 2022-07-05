@@ -1375,7 +1375,7 @@ namespace ExRam.Gremlinq.Core
                                 return traversal
                                     .Push(
                                         effectivePredicate
-                                            .GetHasStep(leftMemberExpressionKey),
+                                            .GetFilterStep(leftMemberExpressionKey),
                                         Environment);
                             }
                             case ParameterExpression parameterExpression:

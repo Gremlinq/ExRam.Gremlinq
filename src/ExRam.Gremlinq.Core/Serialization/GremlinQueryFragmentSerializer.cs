@@ -192,54 +192,14 @@ namespace ExRam.Gremlinq.Core.Serialization
                 step.Argument is P { OperatorName: "eq" } p
                     ? (object)p.Value
                     : step.Argument))
-            .Override<HasPredicateStep>(static (step, env, _, recurse) =>
-            {
-                static Step UnwindHasPredicateStep(HasPredicateStep step)
-                {
-                    if (step.Predicate is { } p && p.ContainsNullArgument())
-                    {
-                        if (p.IsAnd() || p.IsOr())
-                        {
-                            var replacement = new Traversal[]
-                            {
-                                UnwindHasPredicateStep(new HasPredicateStep(step.Key, p.Value is P innerP ? innerP : P.Eq(p.Value))),
-                                UnwindHasPredicateStep(new HasPredicateStep(step.Key, p.Other))
-                            };
-
-                            if (p.IsOr())
-                                return new OrStep(replacement);
-
-                            if (p.IsAnd())
-                                return new AndStep(replacement);
-                        }
-                    }
-
-                    return step;
-                }
-
-                if (UnwindHasPredicateStep(step) is { } unwound && unwound != step)
-                    return recurse.Serialize(unwound, env);
-
-                var stepName = "has";
-                var argument = (object?)step.Predicate;
-
-                if (argument is P p2)
-                {
-                    if (p2.Value == null)
-                    {
-                        argument = null;
-
-                        if (p2.OperatorName == "eq")
-                            stepName = "hasNot";
-                    }
-                    else if (p2.OperatorName == "eq")
-                        argument = p2.Value;
-                }
-
-                return argument != null
-                    ? CreateInstruction(stepName, recurse, env, step.Key, argument)
-                    : CreateInstruction(stepName, recurse, env, step.Key);
-            })
+            .Override<HasPredicateStep>(static (step, env, _, recurse) => CreateInstruction(
+                "has",
+                recurse,
+                env,
+                step.Key,
+                step.Predicate.OperatorName == "eq"
+                    ? (object)step.Predicate.Value
+                    : step.Predicate))
             .Override<HasTraversalStep>(static (step, env, _, recurse) => CreateInstruction("has", recurse, env, step.Key, step.Traversal))
             .Override<HasLabelStep>(static (step, env, _, recurse) => CreateInstruction("hasLabel", recurse, env, step.Labels))
             .Override<HasNotStep>(static (step, env, _, recurse) => CreateInstruction("hasNot", recurse, env, step.Key))

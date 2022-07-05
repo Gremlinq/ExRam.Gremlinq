@@ -80,14 +80,32 @@ namespace ExRam.Gremlinq.Core
 
         public static bool IsOr(this P p) => p.OperatorName.Equals("or", StringComparison.OrdinalIgnoreCase);
 
-        public static Step GetHasStep(this P p, Key key)
+        public static Step GetFilterStep(this P p, Key key)
         {
+            if (p.ContainsNullArgument())
+            {
+                if (p.IsAnd() || p.IsOr())
+                {
+                    var replacement = new Traversal[]
+                    {
+                        (p.Value is P innerP ? innerP : (P)P.Eq(p.Value)).GetFilterStep(key),
+                        p.Other.GetFilterStep(key)
+                    };
+
+                    if (p.IsOr())
+                        return new OrStep(replacement);
+
+                    if (p.IsAnd())
+                        return new AndStep(replacement);
+                }
+            }
+
             if (p.Value == null)
             {
                 if (p.OperatorName == "eq")
                     return new HasNotStep(key);
 
-                if (p.OperatorName == "neq")
+                if (p.OperatorName is "neq" or "gt")
                     return new HasStep(key);
             }
 
