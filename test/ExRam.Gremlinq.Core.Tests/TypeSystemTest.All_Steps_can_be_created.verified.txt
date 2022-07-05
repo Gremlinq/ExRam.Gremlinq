@@ -319,6 +319,17 @@
     }
   },
   {
+    Item1: HasStep,
+    Item2: {
+      Key: {
+        RawKey: {
+          EnumName: T,
+          EnumValue: id
+        }
+      }
+    }
+  },
+  {
     Item1: HasTraversalStep,
     Item2: {
       Key: {

@@ -1843,6 +1843,11 @@ namespace ExRam.Gremlinq.Core.Steps
         public ExRam.Gremlinq.Core.Key Key { get; }
         public Gremlin.Net.Process.Traversal.P Predicate { get; }
     }
+    public sealed class HasStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public HasStep(ExRam.Gremlinq.Core.Key key) { }
+        public ExRam.Gremlinq.Core.Key Key { get; }
+    }
     public sealed class HasTraversalStep : ExRam.Gremlinq.Core.Steps.Step
     {
         public HasTraversalStep(ExRam.Gremlinq.Core.Key key, ExRam.Gremlinq.Core.Traversal traversal) { }
