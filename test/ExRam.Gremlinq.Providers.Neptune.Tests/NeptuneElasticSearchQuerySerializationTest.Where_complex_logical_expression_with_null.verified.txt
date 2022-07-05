@@ -30,27 +30,42 @@
           ]
         },
         {
-          "OperatorName": "hasNot",
+          "OperatorName": "and",
           "Arguments": [
-            "Name"
-          ]
-        },
-        {
-          "OperatorName": "has",
-          "Arguments": [
-            "Age",
             {
-              "OperatorName": "or",
-              "Value": {
-                "OperatorName": "eq",
-                "Value": 42,
-                "Other": null
-              },
-              "Other": {
-                "OperatorName": "eq",
-                "Value": 99,
-                "Other": null
-              }
+              "SourceInstructions": [],
+              "StepInstructions": [
+                {
+                  "OperatorName": "hasNot",
+                  "Arguments": [
+                    "Name"
+                  ]
+                }
+              ]
+            },
+            {
+              "SourceInstructions": [],
+              "StepInstructions": [
+                {
+                  "OperatorName": "has",
+                  "Arguments": [
+                    "Age",
+                    {
+                      "OperatorName": "or",
+                      "Value": {
+                        "OperatorName": "eq",
+                        "Value": 42,
+                        "Other": null
+                      },
+                      "Other": {
+                        "OperatorName": "eq",
+                        "Value": 99,
+                        "Other": null
+                      }
+                    }
+                  ]
+                }
+              ]
             }
           ]
         },
