@@ -184,6 +184,7 @@ namespace ExRam.Gremlinq.Core.Serialization
             .Override<GroupStep>(static (_, _, _, _) => CreateInstruction("group"))
             .Override<GroupStep.ByTraversalStep>(static (step, env, _, recurse) => CreateInstruction("by", recurse, env, step.Traversal))
             .Override<GroupStep.ByKeyStep>(static (step, env, _, recurse) => CreateInstruction("by", recurse, env, step.Key))
+            .Override<HasStep>(static (step, env, _, recurse) => CreateInstruction("has", recurse, env, step.Key))
             .Override<HasKeyStep>(static (step, env, _, recurse) => CreateInstruction(
                 "hasKey",
                 recurse,

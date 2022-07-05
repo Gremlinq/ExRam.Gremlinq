@@ -458,7 +458,15 @@
   },
   {
     Item1: HasStep,
-    Item2: []
+    Item2: {
+      OperatorName: has,
+      Arguments: [
+        {
+          EnumName: T,
+          EnumValue: id
+        }
+      ]
+    }
   },
   {
     Item1: HasTraversalStep,
