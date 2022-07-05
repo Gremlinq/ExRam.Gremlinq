@@ -39,13 +39,13 @@ namespace ExRam.Gremlinq.Core
         {
             if (traversal.Count >= 2)
             {
-                if (traversal[^1] is IsStep isStep)
+                if (traversal[^1] is IsStep { Predicate: { } isPredicate })
                 {
                     var newStep = traversal[^2] switch
                     {
-                        IdStep => new HasPredicateStep(T.Id, isStep.Predicate),
-                        LabelStep => new HasPredicateStep(T.Label, isStep.Predicate),
-                        ValuesStep { Keys.Length: 1 } valuesStep => isStep.Predicate.GetFilterStep(valuesStep.Keys[0]),
+                        IdStep => new HasPredicateStep(T.Id, isPredicate),
+                        LabelStep => new HasPredicateStep(T.Label, isPredicate),
+                        ValuesStep { Keys.Length: 1 } valuesStep => isPredicate.GetFilterStep(valuesStep.Keys[0]),
                         _ => default
                     };
 
