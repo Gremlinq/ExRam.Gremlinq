@@ -56,13 +56,6 @@ namespace ExRam.Gremlinq.Core
             static (outer, steps, labelProjections, _, newFlags) => new FinalContinuationBuilder<TOuterQuery>(outer, steps, labelProjections, newFlags),
             newFlags);
 
-        public TResult With<TState, TResult>(Func<TOuterQuery, Traversal, IImmutableDictionary<StepLabel, LabelProjections>, QueryFlags, TState, TResult> continuation, TState state)
-        {
-            return (_outer is { } outer && _steps is { } steps && _labelProjections is { } labelProjections && _flags is { } flags)
-                ? continuation(outer, steps, labelProjections, flags, state)
-                : throw new InvalidOperationException();
-        }
-
         public TOuterQuery Build() => Build<TOuterQuery>();
 
         public GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> AutoBuild<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>() => Build<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>();
@@ -85,6 +78,13 @@ namespace ExRam.Gremlinq.Core
                 labelProjections,
                 flags),
             0);
+
+        private TResult With<TState, TResult>(Func<TOuterQuery, Traversal, IImmutableDictionary<StepLabel, LabelProjections>, QueryFlags, TState, TResult> continuation, TState state)
+        {
+            return (_outer is { } outer && _steps is { } steps && _labelProjections is { } labelProjections && _flags is { } flags)
+                ? continuation(outer, steps, labelProjections, flags, state)
+                : throw new InvalidOperationException();
+        }
 
         public TOuterQuery OuterQuery => With(
             static (outer, _, _, _, _) => outer,
