@@ -154,9 +154,8 @@ namespace ExRam.Gremlinq.Core
                     if (containsNoneStep && !containsWriteStep)
                         return builder.OuterQuery.None();
 
-                    var fusedTraversals = new ArraySegment<Traversal>(traversals, 0, count)
-                        .Fuse(static (p1, p2) => p1.And(p2))
-                        .ToArray();
+                    var fusedTraversals = traversals.AsSpan()[..count]
+                        .Fuse(static (p1, p2) => p1.And(p2));
 
                     return fusedTraversals.Length switch
                     {
@@ -164,7 +163,7 @@ namespace ExRam.Gremlinq.Core
                         1 => builder.OuterQuery
                             .Where(fusedTraversals[0]),
                         _ => builder
-                            .AddStep(new AndStep(fusedTraversals))
+                            .AddStep(new AndStep(fusedTraversals.ToArray()))
                             .Build()
                     };
                 });
@@ -773,9 +772,8 @@ namespace ExRam.Gremlinq.Core
                 if (containsIdentityStep && !containsWriteStep)
                     return builder.OuterQuery;
 
-                var fusedTraversals = new ArraySegment<Traversal>(traversals, 0, count)
-                    .Fuse(static (p1, p2) => p1.Or(p2))
-                    .ToArray();
+                var fusedTraversals = traversals.AsSpan()[..count]
+                    .Fuse(static (p1, p2) => p1.Or(p2));
 
                 return fusedTraversals.Length switch
                 {
@@ -784,7 +782,7 @@ namespace ExRam.Gremlinq.Core
                     1 => builder.OuterQuery
                         .Where(fusedTraversals[0]),
                     _ => builder
-                        .AddStep(new OrStep(fusedTraversals))
+                        .AddStep(new OrStep(fusedTraversals.ToArray()))
                         .Build()
                 };
             });

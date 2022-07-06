@@ -89,24 +89,26 @@ namespace ExRam.Gremlinq.Core
             return default;
         }
 
-        public static IEnumerable<Traversal> Fuse(
-            this ArraySegment<Traversal> traversals,
+        public static Span<Traversal> Fuse(
+            this Span<Traversal> traversals,
             Func<P, P, P> fuse)
         {
-            if (traversals.Count > 0)
+            if (traversals.Length > 0)
             {
                 var isCount1 = true;
-                var isFirstHasPredicateStep = true;
                 var isFirstIsStep = true;
+                var isFirstHasPredicateStep = true;
 
-                for (var i = 0; i < traversals.Count; i++)
+                for (var i = 0; i < traversals.Length; i++)
                 {
-                    if (traversals.Array![i].Count == 1)
+                    var traversal = traversals[i];
+
+                    if (traversal.Count == 1)
                     {
-                        if (traversals.Array[i][0] is not HasPredicateStep)
+                        if (traversal[0] is not HasPredicateStep)
                             isFirstHasPredicateStep = false;
 
-                        if (traversals.Array[i][0] is not IsStep)
+                        if (traversal[0] is not IsStep)
                             isFirstIsStep = false;
                     }
                     else
@@ -117,9 +119,10 @@ namespace ExRam.Gremlinq.Core
                 {
                     if (isFirstHasPredicateStep)
                     {
+                        var count = 0;
                         var dict = new Dictionary<Key, P>();
 
-                        for (var i = 0; i < traversals.Count; i++)
+                        for (var i = 0; i < traversals.Length; i++)
                         {
                             var step = (HasPredicateStep)traversals[i][0];
 
@@ -134,17 +137,17 @@ namespace ExRam.Gremlinq.Core
 
                         foreach (var kvp in dict)
                         {
-                            yield return new HasPredicateStep(kvp.Key, kvp.Value);
+                            traversals[count++] = new HasPredicateStep(kvp.Key, kvp.Value);
                         }
 
-                        yield break;
+                        return traversals[..count];
                     }
 
                     if (isFirstIsStep)
                     {
                         var maybeFusedP = default(P?);
 
-                        for (var i = 0; i < traversals.Count; i++)
+                        for (var i = 0; i < traversals.Length; i++)
                         {
                             var predicate = ((IsStep)traversals[i][0]).Predicate;
 
@@ -154,16 +157,14 @@ namespace ExRam.Gremlinq.Core
                             maybeFusedP = predicate;
                         }
 
-                        yield return new IsStep(maybeFusedP!);
-                        yield break;
+                        traversals[0] = new IsStep(maybeFusedP!);
+
+                        return traversals[..1];
                     }
                 }
-
-                for (var i = 0; i < traversals.Count; i++)
-                {
-                    yield return traversals.Array![i];
-                }
             }
+
+            return traversals;
         }
 
         public static bool IsIdentity(this Traversal traversal) => traversal.Count == 0 || (traversal.Count == 1 && traversal[0] is IdentityStep);
