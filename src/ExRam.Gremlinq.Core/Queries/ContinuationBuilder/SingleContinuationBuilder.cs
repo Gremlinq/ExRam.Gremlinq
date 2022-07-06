@@ -19,36 +19,44 @@ namespace ExRam.Gremlinq.Core
 
         public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TState>(Func<TAnonymousQuery, TState, IGremlinQueryBase> continuation, TState state)
         {
-            return _outer is { } outer && _anonymous is { } anonymous && _continuation is { } existingContinuation
-                ? new (outer, anonymous, ImmutableList.Create(existingContinuation, continuation.Apply(anonymous, state)))
-                : throw new InvalidOperationException();
+            return With(
+                static (outer, anonymous, existingContinuation, state) => new MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>(outer, anonymous, ImmutableList.Create(existingContinuation, state.continuation.Apply(anonymous, state.state))),
+                (continuation, state));
         }
 
         public TNewQuery Build<TNewQuery, TState>(Func<FinalContinuationBuilder<TOuterQuery>, Traversal, TState, TNewQuery> builderTransformation, TState state)
         {
-            if (_outer is { } outer && _continuation is { } continuation)
-            {
-                if (outer.Flags.HasFlag(QueryFlags.IsMuted))
-                    return outer.CloneAs<TNewQuery>();
-
-                var builder = new FinalContinuationBuilder<TOuterQuery>(outer);
-
-                if (continuation is GremlinQueryBase queryBase)
+            return With(
+                static (outer, anonymous, existingContinuation, state) =>
                 {
-                    builder = builder.WithNewLabelProjections(
-                        static (existingProjections, additionalProjections) => existingProjections.MergeSideEffectLabelProjections(additionalProjections),
-                        queryBase.LabelProjections);
-                }
+                    var (builderTransformation, innerState) = state;
 
-                return builderTransformation(
-                    builder,
-                    continuation.ToTraversal(),
-                    state);
-            }
+                    if (outer.Flags.HasFlag(QueryFlags.IsMuted))
+                        return outer.CloneAs<TNewQuery>();
 
-            throw new InvalidOperationException();
+                    var builder = new FinalContinuationBuilder<TOuterQuery>(outer);
+
+                    if (existingContinuation is GremlinQueryBase queryBase)
+                    {
+                        builder = builder.WithNewLabelProjections(
+                            static (existingProjections, additionalProjections) => existingProjections.MergeSideEffectLabelProjections(additionalProjections),
+                            queryBase.LabelProjections);
+                    }
+
+                    return builderTransformation(
+                        builder,
+                        existingContinuation.ToTraversal(),
+                        innerState);
+                },
+                (builderTransformation, state));
         }
 
-        public TOuterQuery OuterQuery => _outer ?? throw new InvalidOperationException();
+        private TResult With<TState, TResult>(Func<TOuterQuery, TAnonymousQuery, IGremlinQueryBase, TState, TResult> continuation, TState state) => _outer is { } outer && _anonymous is { } anonymous && _continuation is { } existingContinuation
+            ? continuation(outer, anonymous, existingContinuation, state)
+            : throw new InvalidOperationException();
+
+        public TOuterQuery OuterQuery => With(
+            static (outer, _, _, _) => outer,
+            0);
     }
 }
