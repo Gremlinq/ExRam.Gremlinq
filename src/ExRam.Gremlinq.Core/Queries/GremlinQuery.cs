@@ -158,10 +158,11 @@ namespace ExRam.Gremlinq.Core
                         .Fuse(static (p1, p2) => p1.And(p2))
                         .ToArray();
 
-                    return fusedTraversals?.Length switch
+                    return fusedTraversals.Length switch
                     {
-                        null or 0 => builder.OuterQuery,
-                        1 => builder.OuterQuery.Where(fusedTraversals[0]),
+                        0 => builder.OuterQuery,
+                        1 => builder.OuterQuery
+                            .Where(fusedTraversals[0]),
                         _ => builder
                             .AddStep(new AndStep(fusedTraversals))
                             .Build()
@@ -776,9 +777,9 @@ namespace ExRam.Gremlinq.Core
                     .Fuse(static (p1, p2) => p1.Or(p2))
                     .ToArray();
 
-                return fusedTraversals?.Length switch
+                return fusedTraversals.Length switch
                 {
-                    null or 0 => builder.OuterQuery
+                    0 => builder.OuterQuery
                         .None(),
                     1 => builder.OuterQuery
                         .Where(fusedTraversals[0]),
