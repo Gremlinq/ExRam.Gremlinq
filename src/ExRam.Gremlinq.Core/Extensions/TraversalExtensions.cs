@@ -32,45 +32,55 @@ namespace ExRam.Gremlinq.Core
         public static Traversal Rewrite(this Traversal traversal, ContinuationFlags flags)
         {
             if (flags.HasFlag(ContinuationFlags.Filter))
-                traversal = traversal.RewriteForFilterContext();
+            {
+                if (traversal.Count == 1 && traversal[0] is FilterStep.ByTraversalStep filterStep)
+                    return filterStep.Traversal.Rewrite(flags);
+
+                if (traversal.RewriteForIsContext() is { } rewrittenTraversal)
+                    return rewrittenTraversal.Rewrite(flags);
+            }
 
             return traversal;
         }
 
-        private static Traversal RewriteForFilterContext(this Traversal traversal, P? maybeExistingPredicate = null)
+        private static Traversal? RewriteForIsContext(this Traversal traversal, P? maybeExistingPredicate = null)
         {
-            if (traversal.Count >= 2)
+            if (traversal.Count >= 1)
             {
                 if (traversal[^1] is IsStep { Predicate: { } isPredicate })
                 {
-                    if (maybeExistingPredicate is { } existingPredicate)
-                        isPredicate = isPredicate.And(existingPredicate);
+                    if (maybeExistingPredicate is { } existingPredicate1)
+                        isPredicate = isPredicate.And(existingPredicate1);
 
-                    if (traversal[^2] is IsStep)
-                        return traversal.Pop().RewriteForFilterContext(isPredicate);
+                    return traversal
+                        .Pop()
+                        .RewriteForIsContext(isPredicate);
+                }
 
-                    var newStep = traversal[^2] switch
+                if (maybeExistingPredicate is { } existingPredicate2)
+                { 
+                    var newStep = traversal[^1] switch
                     {
-                        IdStep => new HasPredicateStep(T.Id, isPredicate),
-                        LabelStep => new HasPredicateStep(T.Label, isPredicate),
-                        ValuesStep { Keys.Length: 1 } valuesStep => isPredicate.GetFilterStep(valuesStep.Keys[0]),
+                        IdStep => new HasPredicateStep(T.Id, existingPredicate2),
+                        LabelStep => new HasPredicateStep(T.Label, existingPredicate2),
+                        ValuesStep { Keys.Length: 1 } valuesStep => existingPredicate2.GetFilterStep(valuesStep.Keys[0]),
                         _ => default
                     };
 
                     if (newStep != null)
                     {
-                        if (traversal.Count == 2)
+                        if (traversal.Count == 1)
                             return newStep;
 
                         return Traversal.Create(
-                            traversal.Count - 1,
+                            traversal.Count,
                             (traversal, newStep),
                             static (steps, state) =>
                             {
                                 var (traversal, newStep) = state;
 
                                 traversal
-                                    .AsSpan()[..^2]
+                                    .AsSpan()[..^1]
                                     .CopyTo(steps);
 
                                 steps[^1] = newStep;
@@ -78,13 +88,8 @@ namespace ExRam.Gremlinq.Core
                     }
                 }
             }
-            else if (traversal.Count == 1)
-            {
-                if (traversal[0] is FilterStep.ByTraversalStep filterStep)
-                    return filterStep.Traversal.RewriteForFilterContext();
-            }
-
-            return traversal;
+            
+            return default;
         }
 
         public static IEnumerable<Traversal> Fuse(
