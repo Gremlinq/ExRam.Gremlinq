@@ -22,7 +22,7 @@ namespace ExRam.Gremlinq.Core
         public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TState>(Func<TAnonymousQuery, TState, IGremlinQueryBase> continuation, TState state)
         {
             return With(
-                static (outer, anonymous, existingContinuation, _, state) => new MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>(outer, anonymous, ImmutableList.Create(existingContinuation, state.continuation.Apply(anonymous, state.state))),
+                static (outer, anonymous, existingContinuation, flags, state) => new MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>(outer, anonymous, ImmutableList.Create(existingContinuation, state.continuation.Apply(anonymous, state.state)), flags),
                 (continuation, state));
         }
 

@@ -7,12 +7,14 @@ namespace ExRam.Gremlinq.Core
         where TAnonymousQuery : GremlinQueryBase, IGremlinQueryBase
     {
         private readonly TOuterQuery? _outer;
+        private readonly ContinuationFlags _flags;
         private readonly TAnonymousQuery? _anonymous;
         private readonly IImmutableList<IGremlinQueryBase>? _continuations;
 
-        public MultiContinuationBuilder(TOuterQuery outer, TAnonymousQuery anonymous, IImmutableList<IGremlinQueryBase> continuations)
+        public MultiContinuationBuilder(TOuterQuery outer, TAnonymousQuery anonymous, IImmutableList<IGremlinQueryBase> continuations, ContinuationFlags flags)
         {
             _outer = outer;
+            _flags = flags;
             _anonymous = anonymous;
             _continuations = continuations;
         }
@@ -21,14 +23,14 @@ namespace ExRam.Gremlinq.Core
             where TProjectedQuery : IGremlinQueryBase
         {
             return With(
-                static (outer, anonymous, continuations, state) => new MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>(outer, anonymous, continuations.Add(state.continuation.Apply(anonymous, state.state))),
+                static (outer, anonymous, continuations, flags, state) => new MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>(outer, anonymous, continuations.Add(state.continuation.Apply(anonymous, state.state)), flags),
                 (continuation, state));
         }
 
         public TNewQuery Build<TNewQuery, TState>(Func<FinalContinuationBuilder<TOuterQuery>, Traversal[], TState, TNewQuery> builderTransformation, TState state)
         {
             return With(
-                static (outer, anonymous, continuations, state) =>
+                static (outer, anonymous, continuations, flags, state) =>
                 {
                     var (builderTransformation, innerState) = state;
 
@@ -65,12 +67,12 @@ namespace ExRam.Gremlinq.Core
                 (builderTransformation, state));
         }
 
-        private TResult With<TState, TResult>(Func<TOuterQuery, TAnonymousQuery, IImmutableList<IGremlinQueryBase>, TState, TResult> continuation, TState state) => _outer is { } outer && _anonymous is { } anonymous && _continuations is { } continuations
-            ? continuation(outer, anonymous, continuations, state)
+        private TResult With<TState, TResult>(Func<TOuterQuery, TAnonymousQuery, IImmutableList<IGremlinQueryBase>, ContinuationFlags, TState, TResult> continuation, TState state) => _outer is { } outer && _anonymous is { } anonymous && _continuations is { } continuations
+            ? continuation(outer, anonymous, continuations, _flags, state)
             : throw new InvalidOperationException();
 
         public TOuterQuery OuterQuery => With(
-            static (outer, _, _, _) => outer,
+            static (outer, _, _, _, _) => outer,
             0);
     }
 }
