@@ -54,9 +54,9 @@ namespace ExRam.Gremlinq.Core
                 : null;
         }
 
-        private ContinuationBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>> Continue() => new(
+        private ContinuationBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>> Continue(ContinuationFlags flags = ContinuationFlags.None) => new(
             this,
-            new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(Environment, Traversal.Empty.WithProjection(Steps.Projection), LabelProjections, QueryFlags.IsAnonymous));
+            new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(Environment, Traversal.Empty.WithProjection(Steps.Projection), LabelProjections, QueryFlags.IsAnonymous), flags);
 
         private Key GetKey(Expression projection) => Environment.GetKey(projection);
 

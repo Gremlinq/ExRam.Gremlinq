@@ -27,7 +27,7 @@ namespace ExRam.Gremlinq.Core
         public TNewQuery Build<TNewQuery, TState>(Func<FinalContinuationBuilder<TOuterQuery>, Traversal, TState, TNewQuery> builderTransformation, TState state)
         {
             return With(
-                static (outer, anonymous, existingContinuation, state) =>
+                static (outer, anonymous, continuation, state) =>
                 {
                     var (builderTransformation, innerState) = state;
 
@@ -36,7 +36,7 @@ namespace ExRam.Gremlinq.Core
 
                     var builder = new FinalContinuationBuilder<TOuterQuery>(outer);
 
-                    if (existingContinuation is GremlinQueryBase queryBase)
+                    if (continuation is GremlinQueryBase queryBase)
                     {
                         builder = builder.WithNewLabelProjections(
                             static (existingProjections, additionalProjections) => existingProjections.MergeSideEffectLabelProjections(additionalProjections),
@@ -45,7 +45,7 @@ namespace ExRam.Gremlinq.Core
 
                     return builderTransformation(
                         builder,
-                        existingContinuation.ToTraversal(),
+                        continuation.ToTraversal(),
                         innerState);
                 },
                 (builderTransformation, state));
