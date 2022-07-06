@@ -69,9 +69,6 @@ namespace ExRam.Gremlinq.Core
 
                     if (newStep != null)
                     {
-                        if (traversal.Count == 1)
-                            return newStep;
-
                         return Traversal.Create(
                             traversal.Count,
                             (traversal, newStep),
