@@ -55,7 +55,9 @@ namespace ExRam.Gremlinq.Core
                                     queryBase.LabelProjections);
                             }
 
-                            traversalArray[targetIndex++] = continuation.ToTraversal();
+                            traversalArray[targetIndex++] = continuation
+                                .ToTraversal()
+                                .Rewrite(flags);
                         }
                     }
 

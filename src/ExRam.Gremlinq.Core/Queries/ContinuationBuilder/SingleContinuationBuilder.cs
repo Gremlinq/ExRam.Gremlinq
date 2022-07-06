@@ -47,7 +47,9 @@ namespace ExRam.Gremlinq.Core
 
                     return builderTransformation(
                         builder,
-                        continuation.ToTraversal(),
+                        continuation
+                            .ToTraversal()
+                            .Rewrite(flags),
                         innerState);
                 },
                 (builderTransformation, state));

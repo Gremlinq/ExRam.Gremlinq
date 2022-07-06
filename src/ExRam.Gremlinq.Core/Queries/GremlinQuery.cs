@@ -120,7 +120,7 @@ namespace ExRam.Gremlinq.Core
                     (scope, stepLabel));
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> And(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase>[] andContinuations) => this
-            .Continue()
+            .Continue(ContinuationFlags.Filter)
             .With(andContinuations)
             .Build(
                 static (builder, traversals) =>
@@ -148,7 +148,7 @@ namespace ExRam.Gremlinq.Core
                         else if (traversal.IsIdentity())
                             continue;
 
-                        traversals[count++] = traversal.RewriteForWhereContext();
+                        traversals[count++] = traversal;
                     }
 
                     if (containsNoneStep && !containsWriteStep)
@@ -741,7 +741,7 @@ namespace ExRam.Gremlinq.Core
                 .Build<TTargetQuery>());
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Or(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase>[] orTraversalTransformations) => this
-            .Continue()
+            .Continue(ContinuationFlags.Filter)
             .With(orTraversalTransformations)
             .Build(static (builder, traversals) =>
             {
@@ -767,7 +767,7 @@ namespace ExRam.Gremlinq.Core
                     else if (traversal.IsNone())
                         continue;
 
-                    traversals[count++] = traversal.RewriteForWhereContext();
+                    traversals[count++] = traversal;
                 }
 
                 if (containsIdentityStep && !containsWriteStep)
@@ -1159,7 +1159,7 @@ namespace ExRam.Gremlinq.Core
                 lambda);
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Where(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> filterContinuation) => this
-            .Continue()
+            .Continue(ContinuationFlags.Filter)
             .With(filterContinuation)
             .Build(static (builder, filterTraversal) => filterTraversal.IsIdentity()
                 ? builder.OuterQuery
@@ -1175,7 +1175,7 @@ namespace ExRam.Gremlinq.Core
                         ? traversal
                         : new FilterStep.ByTraversalStep(traversal))
                     .Build(),
-                traversal.RewriteForWhereContext());
+                traversal);
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Where(Expression<Func<TElement, bool>> expression) => Where((Expression)expression);
 
@@ -1396,8 +1396,7 @@ namespace ExRam.Gremlinq.Core
                                                         ExpressionFragment.Create(parameterExpression, Environment.Model),
                                                         default,
                                                         semantics,
-                                                        right)
-                                                    .RewriteForWhereContext()));
+                                                        right)));
                                     }
                                     case WellKnownMember.VertexPropertyLabel when rightValue is StepLabel:
                                     {
@@ -1409,8 +1408,7 @@ namespace ExRam.Gremlinq.Core
                                                         ExpressionFragment.Create(parameterExpression, Environment.Model),
                                                         default,
                                                         semantics,
-                                                        right)
-                                                    .RewriteForWhereContext()));
+                                                        right)));
                                     }
                                     case WellKnownMember.VertexPropertyLabel:
                                     {

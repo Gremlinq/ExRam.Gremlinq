@@ -29,7 +29,15 @@ namespace ExRam.Gremlinq.Core
                 : SideEffectSemanticsChange.None;
         }
 
-        public static Traversal RewriteForWhereContext(this Traversal traversal, P? maybeExistingPredicate = null)
+        public static Traversal Rewrite(this Traversal traversal, ContinuationFlags flags)
+        {
+            if (flags.HasFlag(ContinuationFlags.Filter))
+                traversal = traversal.RewriteForWhereContext();
+
+            return traversal;
+        }
+
+        private static Traversal RewriteForWhereContext(this Traversal traversal, P? maybeExistingPredicate = null)
         {
             if (traversal.Count >= 2)
             {
