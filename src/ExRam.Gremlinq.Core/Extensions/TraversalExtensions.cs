@@ -32,12 +32,12 @@ namespace ExRam.Gremlinq.Core
         public static Traversal Rewrite(this Traversal traversal, ContinuationFlags flags)
         {
             if (flags.HasFlag(ContinuationFlags.Filter))
-                traversal = traversal.RewriteForWhereContext();
+                traversal = traversal.RewriteForFilterContext();
 
             return traversal;
         }
 
-        private static Traversal RewriteForWhereContext(this Traversal traversal, P? maybeExistingPredicate = null)
+        private static Traversal RewriteForFilterContext(this Traversal traversal, P? maybeExistingPredicate = null)
         {
             if (traversal.Count >= 2)
             {
@@ -47,7 +47,7 @@ namespace ExRam.Gremlinq.Core
                         isPredicate = isPredicate.And(existingPredicate);
 
                     if (traversal[^2] is IsStep)
-                        return traversal.Pop().RewriteForWhereContext(isPredicate);
+                        return traversal.Pop().RewriteForFilterContext(isPredicate);
 
                     var newStep = traversal[^2] switch
                     {
@@ -81,7 +81,7 @@ namespace ExRam.Gremlinq.Core
             else if (traversal.Count == 1)
             {
                 if (traversal[0] is FilterStep.ByTraversalStep filterStep)
-                    return filterStep.Traversal.RewriteForWhereContext();
+                    return filterStep.Traversal.RewriteForFilterContext();
             }
 
             return traversal;
