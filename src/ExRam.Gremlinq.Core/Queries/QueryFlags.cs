@@ -4,7 +4,7 @@
     internal enum QueryFlags
     {
         None = 0,
-        SurfaceVisible = 1,
+
         IsAnonymous = 2,
         IsMuted = 4,
         InAndOutVMustBeTypeFiltered = 8
