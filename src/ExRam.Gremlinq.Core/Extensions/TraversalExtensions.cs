@@ -117,17 +117,24 @@ namespace ExRam.Gremlinq.Core
                 {
                     if (isFirstHasPredicateStep)
                     {
-                        var groups = traversals
-                            .GroupBy(
-                                static x => ((HasPredicateStep)x[0]).Key,
-                                static x => ((HasPredicateStep)x[0]).Predicate);
+                        var dict = new Dictionary<Key, P>();
 
-                        foreach (var group in groups)
+                        for (var i = 0; i < traversals.Count; i++)
                         {
-                            var effective = group
-                                .Aggregate(fuse);
+                            var step = (HasPredicateStep)traversals[i][0];
 
-                            yield return new HasPredicateStep(group.Key, effective);
+                            var key = step.Key;
+                            var predicate = step.Predicate;
+
+                            if (dict.TryGetValue(key, out var fusedP))
+                                predicate = fuse(fusedP, predicate);
+
+                            dict[key] = predicate;
+                        }
+
+                        foreach (var kvp in dict)
+                        {
+                            yield return new HasPredicateStep(kvp.Key, kvp.Value);
                         }
 
                         yield break;
@@ -135,11 +142,19 @@ namespace ExRam.Gremlinq.Core
 
                     if (isFirstIsStep)
                     {
-                        var effective = traversals
-                            .Select(static x => ((IsStep)x[0]).Predicate)
-                            .Aggregate(fuse);
+                        var maybeFusedP = default(P?);
 
-                        yield return new IsStep(effective);
+                        for (var i = 0; i < traversals.Count; i++)
+                        {
+                            var predicate = ((IsStep)traversals[i][0]).Predicate;
+
+                            if (maybeFusedP is { } fusedP)
+                                predicate = fuse(fusedP, predicate);
+
+                            maybeFusedP = predicate;
+                        }
+
+                        yield return new IsStep(maybeFusedP!);
                         yield break;
                     }
                 }
