@@ -154,7 +154,8 @@ namespace ExRam.Gremlinq.Core
                     if (containsNoneStep && !containsWriteStep)
                         return builder.OuterQuery.None();
 
-                    var fusedTraversals = traversals.AsSpan()[..count]
+                    var fusedTraversals = traversals
+                        .AsSpan()[..count]
                         .Fuse(static (p1, p2) => p1.And(p2));
 
                     return fusedTraversals.Length switch
@@ -772,7 +773,8 @@ namespace ExRam.Gremlinq.Core
                 if (containsIdentityStep && !containsWriteStep)
                     return builder.OuterQuery;
 
-                var fusedTraversals = traversals.AsSpan()[..count]
+                var fusedTraversals = traversals
+                    .AsSpan()[..count]
                     .Fuse(static (p1, p2) => p1.Or(p2));
 
                 return fusedTraversals.Length switch
