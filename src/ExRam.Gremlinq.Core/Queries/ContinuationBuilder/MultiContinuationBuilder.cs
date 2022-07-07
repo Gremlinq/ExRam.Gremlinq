@@ -1,5 +1,4 @@
 ﻿using System.Buffers;
-using System.Collections.Immutable;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -56,8 +55,10 @@ namespace ExRam.Gremlinq.Core
                         {
                             var targetIndex = 0;
 
-                            foreach (var continuation in continuations)
+                            for (var i = 0; i < continuations.Count; i++)
                             {
+                                var continuation = continuations[i];
+
                                 if (continuation is GremlinQueryBase queryBase)
                                 {
                                     builder = builder.WithNewLabelProjections(
