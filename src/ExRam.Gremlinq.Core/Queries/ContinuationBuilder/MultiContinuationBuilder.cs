@@ -2,6 +2,12 @@
 
 namespace ExRam.Gremlinq.Core
 {
+    internal delegate TNewQuery FinalContinuationBuilderTransformation<TOuterQuery, TNewQuery, TState>(FinalContinuationBuilder<TOuterQuery> builder, Traversal[] traversals, TState state)
+         where TOuterQuery : GremlinQueryBase, IGremlinQueryBase;
+
+    internal delegate TNewQuery FinalContinuationBuilderTransformation<TOuterQuery, TNewQuery>(FinalContinuationBuilder<TOuterQuery> builder, Traversal[] traversals)
+        where TOuterQuery : GremlinQueryBase, IGremlinQueryBase;
+
     internal readonly struct MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>
         where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
         where TAnonymousQuery : GremlinQueryBase, IGremlinQueryBase
@@ -27,7 +33,7 @@ namespace ExRam.Gremlinq.Core
                 (continuation, state));
         }
 
-        public TNewQuery Build<TNewQuery, TState>(Func<FinalContinuationBuilder<TOuterQuery>, Traversal[], TState, TNewQuery> builderTransformation, TState state)
+        public TNewQuery Build<TNewQuery, TState>(FinalContinuationBuilderTransformation<TOuterQuery, TNewQuery, TState> builderTransformation, TState state)
             where TNewQuery : IGremlinQueryBase
         {
             return With(
