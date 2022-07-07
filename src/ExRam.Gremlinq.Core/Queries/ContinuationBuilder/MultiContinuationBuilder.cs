@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using System.Buffers;
+using System.Collections.Immutable;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -45,33 +46,36 @@ namespace ExRam.Gremlinq.Core
                         return outer.CloneAs<TNewQuery>();
 
                     var builder = new FinalContinuationBuilder<TOuterQuery>(outer);
-                    var traversalArray = continuations.Count > 0
-                        ? new Traversal[continuations.Count]
-                        : Array.Empty<Traversal>();
 
-                    if (continuations.Count > 0)
+                    using (var owner = MemoryPool<Traversal>.Shared.Rent(continuations.Count))
                     {
-                        var targetIndex = 0;
+                        var traversalSpan = owner
+                            .Memory.Span[..continuations.Count];
 
-                        foreach (var continuation in continuations)
+                        if (continuations.Count > 0)
                         {
-                            if (continuation is GremlinQueryBase queryBase)
+                            var targetIndex = 0;
+
+                            foreach (var continuation in continuations)
                             {
-                                builder = builder.WithNewLabelProjections(
-                                    static (existingProjections, additionalProjections) => existingProjections.MergeSideEffectLabelProjections(additionalProjections),
-                                    queryBase.LabelProjections);
+                                if (continuation is GremlinQueryBase queryBase)
+                                {
+                                    builder = builder.WithNewLabelProjections(
+                                        static (existingProjections, additionalProjections) => existingProjections.MergeSideEffectLabelProjections(additionalProjections),
+                                        queryBase.LabelProjections);
+                                }
+
+                                traversalSpan[targetIndex++] = continuation
+                                    .ToTraversal()
+                                    .Rewrite(flags);
                             }
-
-                            traversalArray[targetIndex++] = continuation
-                                .ToTraversal()
-                                .Rewrite(flags);
                         }
-                    }
 
-                    return builderTransformation(
-                        builder,
-                        traversalArray,
-                        innerState);
+                        return builderTransformation(
+                            builder,
+                            traversalSpan,
+                            innerState);
+                    }
                 },
                 (builderTransformation, state));
         }
