@@ -103,10 +103,19 @@ namespace ExRam.Gremlinq.Core
 
         public static Projection LowestProjection(this Span<Traversal> traversals)
         {
-            return traversals
-                .ToArray()  //TODO
-                .Select(static x => x.Projection)
-                .Aggregate(static (x, y) => x.Lowest(y));
+            if (traversals.Length > 0)
+            {
+                var projection = traversals[0].Projection;
+
+                for (var i = 1; i < traversals.Length; i++)
+                {
+                    projection = projection.Lowest(traversals[i].Projection);
+                }
+
+                return projection;
+            }
+
+            return Projection.Empty;
         }
 
         public static Span<Traversal> Fuse(
