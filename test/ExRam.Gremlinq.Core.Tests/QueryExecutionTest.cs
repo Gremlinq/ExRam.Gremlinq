@@ -571,13 +571,15 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public virtual async Task And_infix()
+        public virtual void And_without_parameters()
         {
-            await _g
+            _g
                 .V<Person>()
-                .And()
-                .Out()
-                .Verify();
+                .Invoking(__ => __
+                    .And()
+                    .Out())
+                .Should()
+                .Throw<ArgumentException>();
         }
 
         [Fact]
@@ -2250,14 +2252,16 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public virtual async Task Or_infix()
+        public virtual void Or_without_parameters()
         {
-            await _g
+            _g
                 .V<Person>()
                 .Out()
-                .Or()
-                .In()
-                .Verify();
+                .Invoking(__ => __
+                    .Or()
+                    .In())
+                .Should()
+                .Throw<ArgumentException>();
         }
 
         [Fact]

@@ -126,11 +126,7 @@ namespace ExRam.Gremlinq.Core
                 static (builder, traversals) =>
                 {
                     if (traversals.Length == 0)
-                    {
-                        return builder
-                            .AddStep(AndStep.Infix)
-                            .Build();
-                    }
+                        throw new ArgumentException("Expected at least 1 sub-query.");
 
                     var count = 0;
                     var containsNoneStep = false;
@@ -746,11 +742,7 @@ namespace ExRam.Gremlinq.Core
             .Build(static (builder, traversals) =>
             {
                 if (traversals.Length == 0)
-                {
-                    return builder
-                        .AddStep(OrStep.Infix)
-                        .Build();
-                }
+                    throw new ArgumentException("Expected at least 1 sub-query.");
 
                 var count = 0;
                 var containsWriteStep = false;
