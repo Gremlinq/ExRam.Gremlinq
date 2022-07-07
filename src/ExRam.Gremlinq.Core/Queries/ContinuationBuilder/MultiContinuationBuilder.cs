@@ -28,6 +28,7 @@ namespace ExRam.Gremlinq.Core
         }
 
         public TNewQuery Build<TNewQuery, TState>(Func<FinalContinuationBuilder<TOuterQuery>, Traversal[], TState, TNewQuery> builderTransformation, TState state)
+            where TNewQuery : IGremlinQueryBase
         {
             return With(
                 static (outer, anonymous, continuations, flags, state) =>

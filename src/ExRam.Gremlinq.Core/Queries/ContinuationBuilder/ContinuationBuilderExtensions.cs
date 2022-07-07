@@ -31,6 +31,7 @@
         public static TNewQuery Build<TOuterQuery, TAnonymousQuery, TNewQuery>(this MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> continuationBuilder, Func<FinalContinuationBuilder<TOuterQuery>, Traversal[], TNewQuery> builderTransformation)
             where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
             where TAnonymousQuery : GremlinQueryBase, IGremlinQueryBase
+            where TNewQuery : IGremlinQueryBase
         {
             return continuationBuilder.Build(static (builder, continuations, state) => state(builder, continuations), builderTransformation);
         }
