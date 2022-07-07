@@ -7,25 +7,19 @@ namespace ExRam.Gremlinq.Core
 {
     public readonly struct Traversal : IReadOnlyList<Step>
     {
-        public static readonly Traversal Empty = new(Array.Empty<Step>(), Projection.Empty);
+        public static readonly Traversal Empty = new(FastImmutableList<Step>.Empty, SideEffectSemantics.Read, Projection.Empty);
 
-        private readonly FastImmutableList<Step> _steps;
-
-        internal Traversal(Step[] steps, Projection projection) : this(steps, steps.Length, projection)
+        internal Traversal(Step[] steps, Projection projection) : this(new FastImmutableList<Step>(steps, steps.Length), projection)
         {
         }
 
-        internal Traversal(Step?[] steps, int count, Projection projection) : this(new FastImmutableList<Step>(steps, count), projection)
-        {
-        }
-
-        internal Traversal(FastImmutableList<Step> steps, Projection projection) : this(steps, SideEffectSemanticsHelper(steps), projection)
+        internal Traversal(FastImmutableList<Step> steps, Projection projection) : this(steps, SideEffectSemanticsHelper(steps.AsSpan()), projection)
         {
         }
 
         internal Traversal(FastImmutableList<Step> steps, SideEffectSemantics semantics, Projection projection)
         {
-            _steps = steps;
+            Steps = steps;
             Projection = projection;
             SideEffectSemantics = semantics;
         }
@@ -33,7 +27,7 @@ namespace ExRam.Gremlinq.Core
         public Traversal Push(params Step[] steps)
         {
             return new Traversal(
-                _steps.Push(steps),
+                Steps.Push(steps),
                 SideEffectSemanticsHelper(steps.AsSpan()) == SideEffectSemantics.Write
                     ? SideEffectSemantics.Write
                     : SideEffectSemantics,
@@ -43,7 +37,7 @@ namespace ExRam.Gremlinq.Core
         public Traversal Push(Step step)
         {
             return new Traversal(
-                _steps.Push(step),
+                Steps.Push(step),
                 step.SideEffectSemanticsChange == SideEffectSemanticsChange.Write
                     ? SideEffectSemantics.Write
                     : SideEffectSemantics,
@@ -54,14 +48,14 @@ namespace ExRam.Gremlinq.Core
 
         public Traversal Pop(out Step poppedStep)
         {
-            var newSteps = _steps.Pop(out poppedStep);
+            var newSteps = Steps.Pop(out poppedStep);
 
             return new Traversal(newSteps, SideEffectSemantics, Projection);    //TODO: SideEffectSemantics may change on Pop.
         }
 
-        public Traversal WithProjection(Projection projection) => new(_steps, SideEffectSemantics, projection);
+        public Traversal WithProjection(Projection projection) => new(Steps, SideEffectSemantics, projection);
 
-        public IEnumerator<Step> GetEnumerator() => _steps.GetEnumerator();
+        public IEnumerator<Step> GetEnumerator() => Steps.GetEnumerator();
 
         public Traversal IncludeProjection(IGremlinQueryEnvironment environment)
         {
@@ -74,7 +68,7 @@ namespace ExRam.Gremlinq.Core
                     var newSteps = FastImmutableList<Step>
                         .Create(
                             Count + projectionTraversal.Count,
-                            (_steps, projectionTraversal),
+                            (Steps, projectionTraversal),
                             static (newSteps, state) =>
                             {
                                 var (steps, projectionTraversal) = state;
@@ -84,6 +78,7 @@ namespace ExRam.Gremlinq.Core
                                     .CopyTo(newSteps);
 
                                 projectionTraversal
+                                    .Steps
                                     .AsSpan()
                                     .CopyTo(newSteps[steps.Count..]);
                             });
@@ -97,44 +92,21 @@ namespace ExRam.Gremlinq.Core
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-        public int Count { get => _steps.Count; }
+        public static implicit operator Traversal(Step step) => new(new[] { step }, Projection.Empty);
+
+        public static Traversal Create<TState>(int length, TState state, SpanAction<Step, TState> action) => new(
+            FastImmutableList<Step>.Create(length, state, action),
+            Projection.Empty);
+
+        public int Count => Steps.Count;
 
         public Projection Projection { get; }
 
-        public Step this[int index]
-        {
-            get => _steps[index];
-        }
+        public Step this[int index] => Steps[index];
 
         public SideEffectSemantics SideEffectSemantics { get; }
 
-        public static implicit operator Traversal(Step step) => new(new[] { step }, Projection.Empty);
-
-        public static Traversal Create<TState>(int length, TState state, SpanAction<Step, TState> action)
-        {
-            return new(
-                FastImmutableList<Step>.Create(length, state, action),
-                Projection.Empty);
-        }
-
-        public ReadOnlySpan<Step> AsSpan() => _steps.AsSpan()[..Count];
-
-        public ReadOnlySpan<Step> AsSpan(Range range) => AsSpan()[range];
-
-        public ReadOnlySpan<Step> AsSpan(int start, int length) => AsSpan().Slice(start, length);
-
-        public ReadOnlySpan<Step> AsSpan(int start) => AsSpan()[start..];
-
-
-        public ReadOnlyMemory<Step> AsMemory() => _steps.AsMemory()[..Count];
-
-        public ReadOnlyMemory<Step> AsMemory(Range range) => AsMemory()[range];
-
-        public ReadOnlyMemory<Step> AsMemory(int start, int length) => AsMemory().Slice(start, length);
-
-        public ReadOnlyMemory<Step> AsMemory(int start) => AsMemory()[start..];
-
-        private static SideEffectSemantics SideEffectSemanticsHelper(FastImmutableList<Step> steps) => SideEffectSemanticsHelper(steps.AsSpan());
+        public FastImmutableList<Step> Steps { get; }
 
         private static SideEffectSemantics SideEffectSemanticsHelper(ReadOnlySpan<Step> steps)
         {
@@ -151,7 +123,5 @@ namespace ExRam.Gremlinq.Core
 
             return SideEffectSemantics.Read;
         }
-
-        internal bool IsEmpty { get => Count == 0; }
     }
 }

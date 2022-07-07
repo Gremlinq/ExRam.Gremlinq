@@ -41,7 +41,7 @@ namespace ExRam.Gremlinq.Core
 
         internal static bool IsIdentity(this IGremlinQueryBase query)
         {
-            return query.AsAdmin().Steps.IsEmpty;
+            return query.AsAdmin().Steps.Steps.IsEmpty;
         }
      }
 }
