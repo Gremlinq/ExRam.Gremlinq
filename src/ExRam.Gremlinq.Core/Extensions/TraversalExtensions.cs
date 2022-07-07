@@ -90,17 +90,6 @@ namespace ExRam.Gremlinq.Core
             return default;
         }
 
-        public static bool All<T>(this Span<T> span, Predicate<T> predicate)
-        {
-            for (var i = 0; i < span.Length; i++)
-            {
-                if (!predicate(span[i]))
-                    return false;
-            }
-
-            return true;
-        }
-
         public static Projection LowestProjection(this Span<Traversal> traversals)
         {
             if (traversals.Length > 0)
