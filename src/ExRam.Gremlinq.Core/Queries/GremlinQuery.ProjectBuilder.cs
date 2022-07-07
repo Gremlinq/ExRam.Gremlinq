@@ -112,9 +112,12 @@ namespace ExRam.Gremlinq.Core
                             var (names, emptyProjectionProtectionDecoratorSteps) = state;
 
                             var projectStep = new ProjectStep(names.ToImmutableArray());
-                            var bySteps = traversals
-                                .Select(static x => (ProjectStep.ByStep)x[0]!)
-                                .ToArray();
+                            var bySteps = new ProjectStep.ByStep[traversals.Length];
+
+                            for (var i = 0; i < traversals.Length; i++)
+                            {
+                                bySteps[i] = (ProjectStep.ByStep)traversals[i][0]!;
+                            }
 
                             builder = builder
                                 .AddStep(projectStep)
