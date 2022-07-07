@@ -1,6 +1,4 @@
-﻿using System.Collections.Immutable;
-
-namespace ExRam.Gremlinq.Core
+﻿namespace ExRam.Gremlinq.Core
 {
     internal readonly struct ContinuationBuilder<TOuterQuery, TAnonymousQuery>
         where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
@@ -42,7 +40,7 @@ namespace ExRam.Gremlinq.Core
         }
 
         public MultiContinuationBuilder<TOuterQuery, TAnonymousQuery> ToMulti() => With(
-            static (outer, anonymous, flags, _) => new MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>(outer, anonymous, ImmutableList<IGremlinQueryBase>.Empty, flags),
+            static (outer, anonymous, flags, _) => new MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>(outer, anonymous, FastImmutableList<IGremlinQueryBase>.Empty, flags),
             0);
 
         public TNewQuery Build<TNewQuery, TState>(Func<FinalContinuationBuilder<TOuterQuery>, TState, TNewQuery> builderTransformation, TState state) => With(
