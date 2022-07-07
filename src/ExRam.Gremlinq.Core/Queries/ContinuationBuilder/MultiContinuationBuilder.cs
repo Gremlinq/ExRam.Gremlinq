@@ -16,9 +16,9 @@ namespace ExRam.Gremlinq.Core
         private readonly TOuterQuery? _outer;
         private readonly ContinuationFlags _flags;
         private readonly TAnonymousQuery? _anonymous;
-        private readonly ImmutableList<IGremlinQueryBase>? _continuations;
+        private readonly FastImmutableList<IGremlinQueryBase> _continuations;
 
-        public MultiContinuationBuilder(TOuterQuery outer, TAnonymousQuery anonymous, ImmutableList<IGremlinQueryBase> continuations, ContinuationFlags flags)
+        public MultiContinuationBuilder(TOuterQuery outer, TAnonymousQuery anonymous, FastImmutableList<IGremlinQueryBase> continuations, ContinuationFlags flags)
         {
             _outer = outer;
             _flags = flags;
@@ -30,7 +30,7 @@ namespace ExRam.Gremlinq.Core
             where TProjectedQuery : IGremlinQueryBase
         {
             return With(
-                static (outer, anonymous, continuations, flags, state) => new MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>(outer, anonymous, continuations.Add(state.continuation.Apply(anonymous, state.state)), flags),
+                static (outer, anonymous, continuations, flags, state) => new MultiContinuationBuilder<TOuterQuery, TAnonymousQuery>(outer, anonymous, continuations.Push(state.continuation.Apply(anonymous, state.state)), flags),
                 (continuation, state));
         }
 
@@ -80,7 +80,7 @@ namespace ExRam.Gremlinq.Core
                 (builderTransformation, state));
         }
 
-        private TResult With<TState, TResult>(Func<TOuterQuery, TAnonymousQuery, ImmutableList<IGremlinQueryBase>, ContinuationFlags, TState, TResult> continuation, TState state) => _outer is { } outer && _anonymous is { } anonymous && _continuations is { } continuations
+        private TResult With<TState, TResult>(Func<TOuterQuery, TAnonymousQuery, FastImmutableList<IGremlinQueryBase>, ContinuationFlags, TState, TResult> continuation, TState state) => _outer is { } outer && _anonymous is { } anonymous && _continuations is { } continuations
             ? continuation(outer, anonymous, continuations, _flags, state)
             : throw new InvalidOperationException();
 
