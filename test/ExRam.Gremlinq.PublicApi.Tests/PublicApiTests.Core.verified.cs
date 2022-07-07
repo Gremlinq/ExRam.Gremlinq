@@ -93,6 +93,28 @@ namespace ExRam.Gremlinq.Core
         public ExpressionNotSupportedException(string message) { }
         public ExpressionNotSupportedException(System.Linq.Expressions.Expression expression, System.Exception innerException) { }
     }
+    public readonly struct FastImmutableList<T> : System.Collections.Generic.IEnumerable<T>, System.Collections.Generic.IReadOnlyCollection<T>, System.Collections.Generic.IReadOnlyList<T>, System.Collections.IEnumerable
+        where T :  class
+    {
+        public static readonly ExRam.Gremlinq.Core.FastImmutableList<T> Empty;
+        public int Count { get; }
+        public T this[int index] { get; }
+        public System.ReadOnlyMemory<T> AsMemory() { }
+        public System.ReadOnlyMemory<T> AsMemory(int start) { }
+        public System.ReadOnlyMemory<T> AsMemory(System.Range range) { }
+        public System.ReadOnlyMemory<T> AsMemory(int start, int length) { }
+        public System.ReadOnlySpan<T> AsSpan() { }
+        public System.ReadOnlySpan<T> AsSpan(int start) { }
+        public System.ReadOnlySpan<T> AsSpan(System.Range range) { }
+        public System.ReadOnlySpan<T> AsSpan(int start, int length) { }
+        public System.Collections.Generic.IEnumerator<T> GetEnumerator() { }
+        public ExRam.Gremlinq.Core.FastImmutableList<T> Pop() { }
+        public ExRam.Gremlinq.Core.FastImmutableList<T> Pop(out T poppedItem) { }
+        public ExRam.Gremlinq.Core.FastImmutableList<T> Push(T item) { }
+        public ExRam.Gremlinq.Core.FastImmutableList<T> Push(params T[] items) { }
+        public static ExRam.Gremlinq.Core.FastImmutableList<T> Create<TState>(int length, TState state, System.Buffers.SpanAction<T, TState> action) { }
+        public static ExRam.Gremlinq.Core.FastImmutableList<T> op_Implicit(T item) { }
+    }
     public static class FeatureSet
     {
         public static ExRam.Gremlinq.Core.IFeatureSet Full;
