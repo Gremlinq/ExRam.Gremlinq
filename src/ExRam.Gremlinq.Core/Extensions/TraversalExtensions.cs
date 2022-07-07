@@ -1,4 +1,5 @@
 ﻿using System.Collections.Immutable;
+using ExRam.Gremlinq.Core.Projections;
 using ExRam.Gremlinq.Core.Steps;
 using Gremlin.Net.Process.Traversal;
 
@@ -98,6 +99,13 @@ namespace ExRam.Gremlinq.Core
             }
 
             return true;
+        }
+
+        public static Projection LowestProjection(this Traversal[] traversals)
+        {
+            return traversals
+                .Select(static x => x.Projection)
+                .Aggregate(static (x, y) => x.Lowest(y));
         }
 
         public static Span<Traversal> Fuse(

@@ -352,13 +352,10 @@ namespace ExRam.Gremlinq.Core
                     if (traversals.All(static traversal => traversal.IsIdentity()))
                         return builder.Build<TReturnQuery>();
 
-                    var aggregatedProjection = traversals
-                        .Select(static x => x.Projection)
-                        .Aggregate(static (x, y) => x.Lowest(y));
-
                     return builder
                         .AddStep(new CoalesceStep(traversals.ToImmutableArray()))
-                        .WithNewProjection(aggregatedProjection)
+                        .WithNewProjection(traversals
+                            .LowestProjection())
                         .Build<TReturnQuery>();
                 });
 
@@ -1045,17 +1042,11 @@ namespace ExRam.Gremlinq.Core
             where TReturnQuery : IGremlinQueryBase => this
                 .Continue()
                 .With(unionContinuations)
-                .Build(static (builder, unionTraversals) =>
-                {
-                    var aggregatedProjection = unionTraversals
-                        .Select(static traversal => traversal.Projection)
-                        .Aggregate(static (x, y) => x.Lowest(y));
-
-                    return builder
-                        .AddStep(new UnionStep(unionTraversals.ToImmutableArray()))
-                        .WithNewProjection(aggregatedProjection)
-                        .Build<TReturnQuery>();
-                });
+                .Build(static (builder, unionTraversals) => builder
+                    .AddStep(new UnionStep(unionTraversals.ToImmutableArray()))
+                    .WithNewProjection(unionTraversals
+                        .LowestProjection())
+                    .Build<TReturnQuery>());
 
         private GremlinQuery<object, object, object, object, object, object> V(ImmutableArray<object> ids) => this
             .Continue()
