@@ -50,7 +50,9 @@ namespace ExRam.Gremlinq.Core
         {
             var newSteps = Steps.Pop(out poppedStep);
 
-            return new Traversal(newSteps, SideEffectSemantics, Projection);    //TODO: SideEffectSemantics may change on Pop.
+            return poppedStep.SideEffectSemanticsChange == SideEffectSemanticsChange.Write
+                ? new Traversal(newSteps, Projection)
+                : new Traversal(newSteps, SideEffectSemantics, Projection);
         }
 
         public Traversal WithProjection(Projection projection) => new(Steps, SideEffectSemantics, projection);
