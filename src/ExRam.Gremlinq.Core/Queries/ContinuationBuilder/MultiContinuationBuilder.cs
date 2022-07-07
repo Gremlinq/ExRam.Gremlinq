@@ -48,13 +48,10 @@ namespace ExRam.Gremlinq.Core
 
                     using (var owner = MemoryPool<Traversal>.Shared.Rent(continuations.Count))
                     {
-                        var traversalSpan = owner
-                            .Memory.Span[..continuations.Count];
+                        var traversalsSpan = owner.Memory.Span;
 
                         if (continuations.Count > 0)
                         {
-                            var targetIndex = 0;
-
                             for (var i = 0; i < continuations.Count; i++)
                             {
                                 var continuation = continuations[i];
@@ -66,7 +63,7 @@ namespace ExRam.Gremlinq.Core
                                         queryBase.LabelProjections);
                                 }
 
-                                traversalSpan[targetIndex++] = continuation
+                                traversalsSpan[i] = continuation
                                     .ToTraversal()
                                     .Rewrite(flags);
                             }
@@ -74,7 +71,7 @@ namespace ExRam.Gremlinq.Core
 
                         return builderTransformation(
                             builder,
-                            traversalSpan,
+                            traversalsSpan[..continuations.Count],
                             innerState);
                     }
                 },
