@@ -143,7 +143,7 @@ namespace ExRam.Gremlinq.Core
                                                 steps[^2] = LimitStep.LimitGlobal1;
                                                 steps[^1] = FoldStep.Instance;
 
-                                                byTraversalStep.Traversal
+                                                byTraversalStep.Traversal.Steps
                                                     .AsSpan()
                                                     .CopyTo(steps);
                                             })

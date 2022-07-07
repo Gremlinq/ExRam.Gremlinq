@@ -26,6 +26,7 @@ namespace ExRam.Gremlinq.Core.Projections
                         steps[^1] = FoldStep.Instance;
 
                         inner
+                            .Steps
                             .AsSpan()
                             .CopyTo(steps[1..]);
                     }));

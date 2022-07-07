@@ -442,7 +442,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                     var stepsMemory = steps
                         .AsMemory()[..traversal.Count];
 
-                    traversal
+                    traversal.Steps
                         .AsSpan()
                         .CopyTo(stepsMemory.Span);
 

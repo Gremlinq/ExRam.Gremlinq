@@ -40,7 +40,7 @@ namespace ExRam.Gremlinq.Core.Projections
                                     {
                                         steps[0] = new SelectColumnStep(Column.Keys);
 
-                                        keyProjectionTraversal
+                                        keyProjectionTraversal.Steps
                                             .AsSpan()
                                             .CopyTo(steps[1..]);
                                     }));
@@ -55,7 +55,7 @@ namespace ExRam.Gremlinq.Core.Projections
                                             steps[0] = new SelectColumnStep(Column.Values);
                                             steps[1] = UnfoldStep.Instance;
                                             
-                                            valueProjectionTraversal
+                                            valueProjectionTraversal.Steps
                                                 .AsSpan()
                                                 .CopyTo(steps[2..]);
 
