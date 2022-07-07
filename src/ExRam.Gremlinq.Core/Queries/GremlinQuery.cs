@@ -150,8 +150,7 @@ namespace ExRam.Gremlinq.Core
                     if (containsNoneStep && !containsWriteStep)
                         return builder.OuterQuery.None();
 
-                    var fusedTraversals = traversals
-                        .AsSpan()[..count]
+                    var fusedTraversals = traversals[..count]
                         .Fuse(static (p1, p2) => p1.And(p2));
 
                     return fusedTraversals.Length switch
@@ -353,7 +352,7 @@ namespace ExRam.Gremlinq.Core
                         return builder.Build<TReturnQuery>();
 
                     return builder
-                        .AddStep(new CoalesceStep(traversals.ToImmutableArray()))
+                        .AddStep(new CoalesceStep(traversals.ToArray().ToImmutableArray())) //TODO
                         .WithNewProjection(traversals
                             .LowestProjection())
                         .Build<TReturnQuery>();
@@ -762,8 +761,7 @@ namespace ExRam.Gremlinq.Core
                 if (containsIdentityStep && !containsWriteStep)
                     return builder.OuterQuery;
 
-                var fusedTraversals = traversals
-                    .AsSpan()[..count]
+                var fusedTraversals = traversals[..count]
                     .Fuse(static (p1, p2) => p1.Or(p2));
 
                 return fusedTraversals.Length switch
@@ -1043,7 +1041,7 @@ namespace ExRam.Gremlinq.Core
                 .Continue()
                 .With(unionContinuations)
                 .Build(static (builder, unionTraversals) => builder
-                    .AddStep(new UnionStep(unionTraversals.ToImmutableArray()))
+                    .AddStep(new UnionStep(unionTraversals.ToArray().ToImmutableArray()))   //TODO
                     .WithNewProjection(unionTraversals
                         .LowestProjection())
                     .Build<TReturnQuery>());
