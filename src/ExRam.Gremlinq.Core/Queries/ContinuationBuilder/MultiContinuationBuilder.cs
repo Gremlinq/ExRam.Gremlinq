@@ -16,9 +16,9 @@ namespace ExRam.Gremlinq.Core
         private readonly TOuterQuery? _outer;
         private readonly ContinuationFlags _flags;
         private readonly TAnonymousQuery? _anonymous;
-        private readonly IImmutableList<IGremlinQueryBase>? _continuations;
+        private readonly ImmutableList<IGremlinQueryBase>? _continuations;
 
-        public MultiContinuationBuilder(TOuterQuery outer, TAnonymousQuery anonymous, IImmutableList<IGremlinQueryBase> continuations, ContinuationFlags flags)
+        public MultiContinuationBuilder(TOuterQuery outer, TAnonymousQuery anonymous, ImmutableList<IGremlinQueryBase> continuations, ContinuationFlags flags)
         {
             _outer = outer;
             _flags = flags;
@@ -80,7 +80,7 @@ namespace ExRam.Gremlinq.Core
                 (builderTransformation, state));
         }
 
-        private TResult With<TState, TResult>(Func<TOuterQuery, TAnonymousQuery, IImmutableList<IGremlinQueryBase>, ContinuationFlags, TState, TResult> continuation, TState state) => _outer is { } outer && _anonymous is { } anonymous && _continuations is { } continuations
+        private TResult With<TState, TResult>(Func<TOuterQuery, TAnonymousQuery, ImmutableList<IGremlinQueryBase>, ContinuationFlags, TState, TResult> continuation, TState state) => _outer is { } outer && _anonymous is { } anonymous && _continuations is { } continuations
             ? continuation(outer, anonymous, continuations, _flags, state)
             : throw new InvalidOperationException();
 
