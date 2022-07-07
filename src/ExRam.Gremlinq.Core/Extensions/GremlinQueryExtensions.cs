@@ -29,7 +29,7 @@ namespace ExRam.Gremlinq.Core
             return await query.Cast<TElement>().Limit(1).ToAsyncEnumerable().SingleOrDefaultAsync(ct);
         }
 
-        public static Traversal ToTraversal(this IGremlinQueryBase query)
+        internal static Traversal ToTraversal(this IGremlinQueryBase query)
         {
             return query.AsAdmin().Steps;
         }

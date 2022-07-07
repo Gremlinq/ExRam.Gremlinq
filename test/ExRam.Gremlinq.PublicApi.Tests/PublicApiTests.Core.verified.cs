@@ -188,7 +188,6 @@ namespace ExRam.Gremlinq.Core
         public static System.Threading.Tasks.ValueTask<TElement> SingleAsync<TElement>(this ExRam.Gremlinq.Core.IGremlinQueryBase<TElement> query, System.Threading.CancellationToken ct = default) { }
         public static System.Threading.Tasks.ValueTask<TElement?> SingleOrDefaultAsync<TElement>(this ExRam.Gremlinq.Core.IGremlinQueryBase<TElement> query, System.Threading.CancellationToken ct = default) { }
         public static System.Threading.Tasks.ValueTask<TElement[]> ToArrayAsync<TElement>(this ExRam.Gremlinq.Core.IGremlinQueryBase<TElement> query, System.Threading.CancellationToken ct = default) { }
-        public static ExRam.Gremlinq.Core.Traversal ToTraversal(this ExRam.Gremlinq.Core.IGremlinQueryBase query) { }
     }
     public static class GremlinQuerySource
     {
