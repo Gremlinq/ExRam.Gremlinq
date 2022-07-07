@@ -352,7 +352,8 @@ namespace ExRam.Gremlinq.Core
                         return builder.Build<TReturnQuery>();
 
                     return builder
-                        .AddStep(new CoalesceStep(traversals.ToArray().ToImmutableArray())) //TODO
+                        .AddStep(new CoalesceStep(traversals
+                            .ToImmutableArray()))
                         .WithNewProjection(traversals
                             .LowestProjection())
                         .Build<TReturnQuery>();
@@ -1041,7 +1042,8 @@ namespace ExRam.Gremlinq.Core
                 .Continue()
                 .With(unionContinuations)
                 .Build(static (builder, unionTraversals) => builder
-                    .AddStep(new UnionStep(unionTraversals.ToArray().ToImmutableArray()))   //TODO
+                    .AddStep(new UnionStep(unionTraversals
+                        .ToImmutableArray()))
                     .WithNewProjection(unionTraversals
                         .LowestProjection())
                     .Build<TReturnQuery>());
