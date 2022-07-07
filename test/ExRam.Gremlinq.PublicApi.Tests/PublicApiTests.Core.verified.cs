@@ -1645,7 +1645,6 @@ namespace ExRam.Gremlinq.Core.Steps
     }
     public sealed class AndStep : ExRam.Gremlinq.Core.Steps.LogicalStep<ExRam.Gremlinq.Core.Steps.AndStep>
     {
-        public static readonly ExRam.Gremlinq.Core.Steps.AndStep Infix;
         public AndStep(System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Traversal> traversals) { }
     }
     public sealed class AsStep : ExRam.Gremlinq.Core.Steps.Step
@@ -1969,7 +1968,6 @@ namespace ExRam.Gremlinq.Core.Steps
     }
     public sealed class OrStep : ExRam.Gremlinq.Core.Steps.LogicalStep<ExRam.Gremlinq.Core.Steps.OrStep>
     {
-        public static readonly ExRam.Gremlinq.Core.Steps.OrStep Infix;
         public OrStep(System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Traversal> traversals) { }
     }
     public sealed class OrderStep : ExRam.Gremlinq.Core.Steps.Step
