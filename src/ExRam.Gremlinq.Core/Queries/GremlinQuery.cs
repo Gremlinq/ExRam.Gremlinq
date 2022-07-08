@@ -1179,43 +1179,29 @@ namespace ExRam.Gremlinq.Core
         {
             try
             {
-                switch (expression)
+                return expression switch
                 {
-                    case ConstantExpression { Value: bool value }:
-                    {
-                        return value
-                            ? this
-                            : None();
-                    }
-                    case LambdaExpression lambdaExpression:
-                    {
-                        return Where(lambdaExpression.Body);
-                    }
-                    case UnaryExpression { NodeType: ExpressionType.Not } unaryExpression:
-                    {
-                        return Not(
-                            static (__, unaryExpression) => __.Where(unaryExpression.Operand),
-                            unaryExpression);
-                    }
-                    case BinaryExpression { NodeType: ExpressionType.OrElse } binary:
-                    {
-                        return Or(
-                            static (__, state) => __.Where(state.left),
-                            static (__, state) => __.Where(state.right),
-                            (left: binary.Left, right: binary.Right));
-                    }
-                    case BinaryExpression { NodeType: ExpressionType.AndAlso } binary:
-                    {
-                        return And(
-                            static (__, state) => __.Where(state.left),
-                            static (__, state) => __.Where(state.right),
-                            (left: binary.Left, right: binary.Right));
-                    }
-                }
+                    ConstantExpression { Value: bool value } => value
+                        ? this
+                        : None(),
 
-                if (expression.TryToGremlinExpression(Environment.Model) is { } gremlinExpression)
-                {
-                    return gremlinExpression.Equals(GremlinExpression.True)
+                    LambdaExpression lambdaExpression => Where(lambdaExpression.Body),
+
+                    UnaryExpression { NodeType: ExpressionType.Not } unaryExpression => Not(
+                        static (__, unaryExpression) => __.Where(unaryExpression.Operand),
+                        unaryExpression),
+
+                    BinaryExpression { NodeType: ExpressionType.OrElse } binary => Or(
+                        static (__, state) => __.Where(state.left),
+                        static (__, state) => __.Where(state.right),
+                        (left: binary.Left, right: binary.Right)),
+
+                    BinaryExpression { NodeType: ExpressionType.AndAlso } binary => And(
+                        static (__, state) => __.Where(state.left),
+                        static (__, state) => __.Where(state.right),
+                        (left: binary.Left, right: binary.Right)),
+
+                    _ when expression.TryToGremlinExpression(Environment.Model) is { } gremlinExpression => gremlinExpression.Equals(GremlinExpression.True)
                         ? this
                         : gremlinExpression.Equals(GremlinExpression.False)
                             ? None()
@@ -1233,15 +1219,15 @@ namespace ExRam.Gremlinq.Core
                                             },
                                             (builder.OuterQuery, gremlinExpression))
                                         .Build(),
-                                    gremlinExpression);
-                }
+                                    gremlinExpression),
+
+                    _ => throw new ExpressionNotSupportedException()
+                };
             }
             catch (ExpressionNotSupportedException ex)
             {
                 throw new ExpressionNotSupportedException(expression, ex);
             }
-
-            throw new ExpressionNotSupportedException(expression);
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Where<TProjection>(Expression<Func<TElement, TProjection>> predicate, Func<IGremlinQueryBase<TProjection>, IGremlinQueryBase> propertyContinuation) => predicate.TryGetReferredParameter() is not null && predicate.Body is MemberExpression memberExpression
