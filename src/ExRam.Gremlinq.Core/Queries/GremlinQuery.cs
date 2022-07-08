@@ -124,10 +124,6 @@ namespace ExRam.Gremlinq.Core
             .With(continuation1, state)
             .With(continuation2, state));
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> And<TState>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TState, IGremlinQueryBase>[] andContinuations, TState state) => And(this
-            .Continue(ContinuationFlags.Filter)
-            .With(andContinuations, state));
-
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> And(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase>[] andContinuations) => And(this
             .Continue(ContinuationFlags.Filter)
             .With(andContinuations));
