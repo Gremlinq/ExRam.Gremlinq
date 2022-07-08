@@ -119,6 +119,11 @@ namespace ExRam.Gremlinq.Core
                         .Build(),
                     (scope, stepLabel));
 
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> And<TState>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TState, IGremlinQueryBase> continuation1, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TState, IGremlinQueryBase> continuation2, TState state) => And(this
+            .Continue(ContinuationFlags.Filter)
+            .With(continuation1, state)
+            .With(continuation2, state));
+
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> And<TState>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TState, IGremlinQueryBase>[] andContinuations, TState state) => And(this
             .Continue(ContinuationFlags.Filter)
             .With(andContinuations, state));
@@ -1198,12 +1203,9 @@ namespace ExRam.Gremlinq.Core
                     case BinaryExpression { NodeType: ExpressionType.AndAlso } binary:
                     {
                         return And(
-                            new Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, (Expression left, Expression right), IGremlinQueryBase>[]
-                            {
-                                static (__, state) => __.Where(state.left),
-                                static (__, state) => __.Where(state.right)
-                            },
-                            (binary.Left, binary.Right));
+                            static (__, state) => __.Where(state.left),
+                            static (__, state) => __.Where(state.right),
+                            (left: binary.Left, right: binary.Right));
                     }
                 }
 
