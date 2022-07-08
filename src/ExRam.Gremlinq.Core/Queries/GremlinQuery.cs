@@ -124,9 +124,9 @@ namespace ExRam.Gremlinq.Core
             .With(continuation1, state)
             .With(continuation2, state));
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> And(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase>[] andContinuations) => And(this
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> And(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase>[] continuations) => And(this
             .Continue(ContinuationFlags.Filter)
-            .With(andContinuations));
+            .With(continuations));
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> And(MultiContinuationBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>> continuationBuilder) => continuationBuilder
             .Build(static (builder, traversals) =>
@@ -739,9 +739,16 @@ namespace ExRam.Gremlinq.Core
                     continuedTraversal.Projection)
                 .Build<TTargetQuery>());
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Or(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase>[] orTraversalTransformations) => this
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Or<TState>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TState, IGremlinQueryBase> continuation1, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TState, IGremlinQueryBase> continuation2, TState state) => Or(this
             .Continue(ContinuationFlags.Filter)
-            .With(orTraversalTransformations)
+            .With(continuation1, state)
+            .With(continuation2, state));
+
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Or(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase>[] continuations) => Or(this
+            .Continue(ContinuationFlags.Filter)
+            .With(continuations));
+
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Or(MultiContinuationBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>> continuationBuilder) => continuationBuilder
             .Build(static (builder, traversals) =>
             {
                 if (traversals.Length == 0)
@@ -1193,8 +1200,9 @@ namespace ExRam.Gremlinq.Core
                     case BinaryExpression { NodeType: ExpressionType.OrElse } binary:
                     {
                         return Or(
-                            __ => __.Where(binary.Left),
-                            __ => __.Where(binary.Right));
+                            static (__, state) => __.Where(state.left),
+                            static (__, state) => __.Where(state.right),
+                            (left: binary.Left, right: binary.Right));
                     }
                     case BinaryExpression { NodeType: ExpressionType.AndAlso } binary:
                     {
