@@ -119,50 +119,55 @@ namespace ExRam.Gremlinq.Core
                         .Build(),
                     (scope, stepLabel));
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> And(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase>[] andContinuations) => this
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> And<TState>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TState, IGremlinQueryBase>[] andContinuations, TState state) => And(this
             .Continue(ContinuationFlags.Filter)
-            .With(andContinuations)
-            .Build(
-                static (builder, traversals) =>
+            .With(andContinuations, state));
+
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> And(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase>[] andContinuations) => And(this
+            .Continue(ContinuationFlags.Filter)
+            .With(andContinuations));
+
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> And(MultiContinuationBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>> continuationBuilder) => continuationBuilder
+            .Build(static (builder, traversals) =>
+            {
+                if (traversals.Length == 0)
+                    throw new ArgumentException("Expected at least 1 sub-query.");
+
+                var count = 0;
+                var containsNoneStep = false;
+                var containsWriteStep = false;
+
+                for (var i = 0; i < traversals.Length; i++)
                 {
-                    if (traversals.Length == 0)
-                        throw new ArgumentException("Expected at least 1 sub-query.");
+                    var traversal = traversals[i];
 
-                    var count = 0;
-                    var containsNoneStep = false;
-                    var containsWriteStep = false;
+                    if (traversal.IsNone())
+                        containsNoneStep = true;
 
-                    for (var i = 0; i < traversals.Length; i++)
-                    {
-                        var traversal = traversals[i];
+                    if (traversal.SideEffectSemantics == SideEffectSemantics.Write)
+                        containsWriteStep = true;
+                    else if (traversal.IsIdentity())
+                        continue;
 
-                        if (traversal.IsNone())
-                            containsNoneStep = true;
+                    traversals[count++] = traversal;
+                }
 
-                        if (traversal.SideEffectSemantics == SideEffectSemantics.Write)
-                            containsWriteStep = true;
-                        else if (traversal.IsIdentity())
-                            continue;
+                if (containsNoneStep && !containsWriteStep)
+                    return builder.OuterQuery.None();
 
-                        traversals[count++] = traversal;
-                    }
+                var fusedTraversals = traversals[..count]
+                    .Fuse(static (p1, p2) => p1.And(p2));
 
-                    if (containsNoneStep && !containsWriteStep)
-                        return builder.OuterQuery.None();
-
-                    var fusedTraversals = traversals[..count]
-                        .Fuse(static (p1, p2) => p1.And(p2));
-
-                    return fusedTraversals.Length switch
-                    {
-                        0 => builder.OuterQuery,
-                        1 => builder.OuterQuery
-                            .Where(fusedTraversals[0]),
-                        _ => builder
-                            .AddStep(new AndStep(fusedTraversals.ToArray()))
-                            .Build()
-                    };
-                });
+                return fusedTraversals.Length switch
+                {
+                    0 => builder.OuterQuery,
+                    1 => builder.OuterQuery
+                        .Where(fusedTraversals[0]),
+                    _ => builder
+                        .AddStep(new AndStep(fusedTraversals.ToArray()))
+                        .Build()
+                };
+            });
 
         private TTargetQuery As<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, StepLabel<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement>, TTargetQuery> continuation)
             where TTargetQuery : IGremlinQueryBase
@@ -1192,11 +1197,13 @@ namespace ExRam.Gremlinq.Core
                     }
                     case BinaryExpression { NodeType: ExpressionType.AndAlso } binary:
                     {
-                        return And(new Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase>[]
-                        {
-                            __ => __.Where(binary.Left),
-                            __ => __.Where(binary.Right)
-                        });
+                        return And(
+                            new Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, (Expression left, Expression right), IGremlinQueryBase>[]
+                            {
+                                static (__, state) => __.Where(state.left),
+                                static (__, state) => __.Where(state.right)
+                            },
+                            (binary.Left, binary.Right));
                     }
                 }
 
