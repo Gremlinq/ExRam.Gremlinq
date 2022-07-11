@@ -19,7 +19,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": "scrubbed id"
+                    "@value": -1
                   },
                   "label",
                   "Country",
@@ -37,7 +37,7 @@
                               "id",
                               {
                                 "@type": "g:Int64",
-                                "@value": "scrubbed id"
+                                "@value": -1
                               },
                               "label",
                               "CountryCallingCode",
