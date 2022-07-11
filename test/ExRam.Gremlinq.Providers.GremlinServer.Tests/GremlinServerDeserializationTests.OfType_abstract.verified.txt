@@ -7,7 +7,7 @@
     "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": {
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Name",
       "Properties": {
         "ValidFrom": "0001-01-01T00:00:00+00:00"
@@ -15,7 +15,7 @@
       "Value": "Marko",
       "Key": null
     },
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Person"
   },
   {
@@ -23,7 +23,7 @@
     "PhoneNumbers": null,
     "Locations": null,
     "Name": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Company"
   },
   {
@@ -31,7 +31,7 @@
     "PhoneNumbers": null,
     "Locations": [
       {
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Locations",
         "Properties": {
           "ValidFrom": "2019-01-01T01:00:00+00:00"
@@ -41,7 +41,7 @@
       }
     ],
     "Name": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Company"
   },
   {
@@ -52,7 +52,7 @@
     "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Person"
   },
   {
@@ -63,7 +63,7 @@
     "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": {
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Name",
       "Properties": {
         "ValidFrom": "0001-01-01T00:00:00+00:00"
@@ -71,7 +71,7 @@
       "Value": "Bob",
       "Key": null
     },
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Person"
   },
   {
@@ -82,7 +82,7 @@
     ],
     "Locations": null,
     "Name": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Company"
   },
   {
@@ -93,7 +93,7 @@
     "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Person"
   },
   {
@@ -104,7 +104,7 @@
     "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Person"
   },
   {
@@ -115,7 +115,7 @@
     "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Person"
   },
   {
@@ -123,7 +123,7 @@
     "PhoneNumbers": null,
     "Locations": null,
     "Name": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Company"
   },
   {
@@ -134,7 +134,7 @@
     "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Person"
   },
   {
@@ -145,7 +145,7 @@
     "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": {
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Name",
       "Properties": {
         "ValidFrom": "0001-01-01T00:00:00+00:00"
@@ -153,7 +153,7 @@
       "Value": "Bob",
       "Key": null
     },
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Person"
   },
   {
@@ -161,7 +161,7 @@
     "PhoneNumbers": null,
     "Locations": null,
     "Name": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Company"
   },
   {
@@ -172,7 +172,7 @@
     "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Person"
   },
   {
@@ -183,7 +183,7 @@
     "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Person"
   },
   {
@@ -194,7 +194,7 @@
     "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Person"
   }
 ]

@@ -8,7 +8,7 @@
       "PhoneNumbers": null,
       "SomeObscureProperty": null,
       "Name": {
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Name",
         "Properties": {
           "ValidFrom": "0001-01-01T00:00:00+00:00"
@@ -16,7 +16,7 @@
         "Value": "Marko",
         "Key": null
       },
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Person"
     },
     {
@@ -27,7 +27,7 @@
       "PhoneNumbers": null,
       "SomeObscureProperty": null,
       "Name": null,
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Person"
     },
     {
@@ -38,7 +38,7 @@
       "PhoneNumbers": null,
       "SomeObscureProperty": null,
       "Name": {
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Name",
         "Properties": {
           "ValidFrom": "0001-01-01T00:00:00+00:00"
@@ -46,7 +46,7 @@
         "Value": "Bob",
         "Key": null
       },
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Person"
     },
     {
@@ -57,7 +57,7 @@
       "PhoneNumbers": null,
       "SomeObscureProperty": null,
       "Name": null,
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Person"
     },
     {
@@ -68,7 +68,7 @@
       "PhoneNumbers": null,
       "SomeObscureProperty": null,
       "Name": null,
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Person"
     },
     {
@@ -79,7 +79,7 @@
       "PhoneNumbers": null,
       "SomeObscureProperty": null,
       "Name": null,
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Person"
     },
     {
@@ -90,7 +90,7 @@
       "PhoneNumbers": null,
       "SomeObscureProperty": null,
       "Name": null,
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Person"
     },
     {
@@ -101,7 +101,7 @@
       "PhoneNumbers": null,
       "SomeObscureProperty": null,
       "Name": {
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Name",
         "Properties": {
           "ValidFrom": "0001-01-01T00:00:00+00:00"
@@ -109,7 +109,7 @@
         "Value": "Bob",
         "Key": null
       },
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Person"
     },
     {
@@ -120,7 +120,7 @@
       "PhoneNumbers": null,
       "SomeObscureProperty": null,
       "Name": null,
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Person"
     },
     {
@@ -131,7 +131,7 @@
       "PhoneNumbers": null,
       "SomeObscureProperty": null,
       "Name": null,
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Person"
     },
     {
@@ -142,7 +142,7 @@
       "PhoneNumbers": null,
       "SomeObscureProperty": null,
       "Name": null,
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Person"
     }
   ]

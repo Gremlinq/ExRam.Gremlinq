@@ -1,69 +1,69 @@
-[
+﻿[
   {
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Age",
     "Properties": {},
     "Value": 0,
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Age",
     "Properties": {},
     "Value": 0,
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Age",
     "Properties": {},
     "Value": 0,
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Age",
     "Properties": {},
     "Value": 0,
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Age",
     "Properties": {},
     "Value": 0,
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Age",
     "Properties": {},
     "Value": 0,
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Age",
     "Properties": {},
     "Value": 0,
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Age",
     "Properties": {},
     "Value": 0,
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Age",
     "Properties": {},
     "Value": 0,
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Age",
     "Properties": {},
     "Value": 0,
