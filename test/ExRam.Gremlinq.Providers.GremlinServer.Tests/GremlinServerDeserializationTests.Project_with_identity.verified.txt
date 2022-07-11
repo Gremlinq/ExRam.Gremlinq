@@ -5,11 +5,11 @@
       "Languages": null,
       "CountryCallingCode": "+49",
       "LocalizableDescription": null,
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Country"
     },
     "Item2": {
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "CountryCallingCode",
       "Properties": {},
       "Value": "+49",
@@ -25,7 +25,7 @@
       "PhoneNumbers": null,
       "SomeObscureProperty": null,
       "Name": {
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Name",
         "Properties": {
           "ValidFrom": "0001-01-01T00:00:00+00:00"
@@ -33,11 +33,11 @@
         "Value": "Marko",
         "Key": null
       },
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Person"
     },
     "Item2": {
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "RegistrationDate",
       "Properties": {},
       "Value": 1586270616000,
@@ -47,11 +47,11 @@
   {
     "Item1": {
       "IetfLanguageTag": "en",
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Language"
     },
     "Item2": {
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "IetfLanguageTag",
       "Properties": {},
       "Value": "en",
@@ -61,11 +61,11 @@
   {
     "Item1": {
       "IetfLanguageTag": "en",
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Language"
     },
     "Item2": {
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "IetfLanguageTag",
       "Properties": {},
       "Value": "en",
@@ -78,11 +78,11 @@
       "PhoneNumbers": null,
       "Locations": null,
       "Name": null,
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Company"
     },
     "Item2": {
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "FoundingDate",
       "Properties": {},
       "Value": -62135596800000,
@@ -95,7 +95,7 @@
       "PhoneNumbers": null,
       "Locations": [
         {
-          "Id": "scrubbed id",
+          "Id": -1,
           "Label": "Locations",
           "Properties": {
             "ValidFrom": "2019-01-01T01:00:00+00:00"
@@ -105,11 +105,11 @@
         }
       ],
       "Name": null,
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Company"
     },
     "Item2": {
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "FoundingDate",
       "Properties": {},
       "Value": -62135596800000,
@@ -125,11 +125,11 @@
       "PhoneNumbers": null,
       "SomeObscureProperty": null,
       "Name": null,
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Person"
     },
     "Item2": {
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Age",
       "Properties": {},
       "Value": 0,
@@ -139,7 +139,7 @@
   {
     "Item1": {
       "Name": {
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Name",
         "Properties": {},
         "Value": "GER",
@@ -148,11 +148,11 @@
       "Languages": null,
       "CountryCallingCode": null,
       "LocalizableDescription": null,
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Country"
     },
     "Item2": {
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Name",
       "Properties": {},
       "Value": "GER",
@@ -168,7 +168,7 @@
       "PhoneNumbers": null,
       "SomeObscureProperty": null,
       "Name": {
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Name",
         "Properties": {
           "ValidFrom": "0001-01-01T00:00:00+00:00"
@@ -176,11 +176,11 @@
         "Value": "Bob",
         "Key": null
       },
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Person"
     },
     "Item2": {
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "RegistrationDate",
       "Properties": {},
       "Value": 1586270616000,
@@ -190,7 +190,7 @@
   {
     "Item1": {
       "Name": {
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Name",
         "Properties": {
           "de": "Deutschland",
@@ -202,11 +202,11 @@
       "Languages": null,
       "CountryCallingCode": null,
       "LocalizableDescription": null,
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Country"
     },
     "Item2": {
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Name",
       "Properties": {
         "de": "Deutschland",
@@ -225,11 +225,11 @@
       ],
       "Locations": null,
       "Name": null,
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Company"
     },
     "Item2": {
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "PhoneNumbers",
       "Properties": {},
       "Value": "+4912345",
@@ -245,11 +245,11 @@
       "PhoneNumbers": null,
       "SomeObscureProperty": null,
       "Name": null,
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Person"
     },
     "Item2": {
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Age",
       "Properties": {},
       "Value": 0,
@@ -259,11 +259,11 @@
   {
     "Item1": {
       "IetfLanguageTag": null,
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Language"
     },
     "Item2": {
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "lang",
       "Properties": {},
       "Value": "en",
@@ -279,11 +279,11 @@
       "PhoneNumbers": null,
       "SomeObscureProperty": null,
       "Name": null,
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Person"
     },
     "Item2": {
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Age",
       "Properties": {},
       "Value": 0,
@@ -299,11 +299,11 @@
       "PhoneNumbers": null,
       "SomeObscureProperty": null,
       "Name": null,
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Person"
     },
     "Item2": {
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Age",
       "Properties": {},
       "Value": 0,
@@ -316,11 +316,11 @@
       "PhoneNumbers": null,
       "Locations": null,
       "Name": null,
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Company"
     },
     "Item2": {
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "FoundingDate",
       "Properties": {},
       "Value": -62135596800000,
@@ -336,11 +336,11 @@
       "PhoneNumbers": null,
       "SomeObscureProperty": null,
       "Name": null,
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Person"
     },
     "Item2": {
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Age",
       "Properties": {},
       "Value": 0,
@@ -350,11 +350,11 @@
   {
     "Item1": {
       "IetfLanguageTag": "en",
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Language"
     },
     "Item2": {
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "IetfLanguageTag",
       "Properties": {},
       "Value": "en",
@@ -367,11 +367,11 @@
       "Languages": null,
       "CountryCallingCode": "+49",
       "LocalizableDescription": null,
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Country"
     },
     "Item2": {
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "CountryCallingCode",
       "Properties": {},
       "Value": "+49",
@@ -387,7 +387,7 @@
       "PhoneNumbers": null,
       "SomeObscureProperty": null,
       "Name": {
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Name",
         "Properties": {
           "ValidFrom": "0001-01-01T00:00:00+00:00"
@@ -395,11 +395,11 @@
         "Value": "Bob",
         "Key": null
       },
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Person"
     },
     "Item2": {
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "RegistrationDate",
       "Properties": {},
       "Value": 1586270616000,
@@ -412,11 +412,11 @@
       "PhoneNumbers": null,
       "Locations": null,
       "Name": null,
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Company"
     },
     "Item2": {
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "FoundingDate",
       "Properties": {},
       "Value": -62135596800000,
@@ -432,11 +432,11 @@
       "PhoneNumbers": null,
       "SomeObscureProperty": null,
       "Name": null,
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Person"
     },
     "Item2": {
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Age",
       "Properties": {},
       "Value": 0,
@@ -446,11 +446,11 @@
   {
     "Item1": {
       "IetfLanguageTag": "en",
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Language"
     },
     "Item2": {
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "IetfLanguageTag",
       "Properties": {},
       "Value": "en",
@@ -462,11 +462,11 @@
       "Enabled": false,
       "StartTime": "08:00:00",
       "Duration": "02:00:00",
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "TimeFrame"
     },
     "Item2": {
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "StartTime",
       "Properties": {},
       "Value": "PT8H",
@@ -476,11 +476,11 @@
   {
     "Item1": {
       "IetfLanguageTag": "en",
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Language"
     },
     "Item2": {
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "IetfLanguageTag",
       "Properties": {},
       "Value": "en",
@@ -490,11 +490,11 @@
   {
     "Item1": {
       "IetfLanguageTag": "en",
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Language"
     },
     "Item2": {
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "IetfLanguageTag",
       "Properties": {},
       "Value": "en",
@@ -510,11 +510,11 @@
       "PhoneNumbers": null,
       "SomeObscureProperty": null,
       "Name": null,
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Person"
     },
     "Item2": {
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Image",
       "Properties": {},
       "Value": "AQIDBAUGBwg=",
@@ -530,11 +530,11 @@
       "PhoneNumbers": null,
       "SomeObscureProperty": null,
       "Name": null,
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Person"
     },
     "Item2": {
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Gender",
       "Properties": {},
       "Value": 1,

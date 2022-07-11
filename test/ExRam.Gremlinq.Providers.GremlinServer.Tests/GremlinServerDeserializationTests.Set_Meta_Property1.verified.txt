@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Name",
     "Properties": {
       "metaKey": 1
@@ -9,7 +9,7 @@
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Name",
     "Properties": {
       "de": "Deutschland",

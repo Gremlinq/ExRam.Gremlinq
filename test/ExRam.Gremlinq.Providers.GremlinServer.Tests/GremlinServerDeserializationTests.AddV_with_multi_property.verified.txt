@@ -7,7 +7,7 @@
     ],
     "Locations": null,
     "Name": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Company"
   }
 ]

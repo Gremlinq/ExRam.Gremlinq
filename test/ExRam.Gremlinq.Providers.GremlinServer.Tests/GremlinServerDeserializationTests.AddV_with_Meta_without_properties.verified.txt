@@ -1,7 +1,7 @@
 ﻿[
   {
     "Name": {
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Name",
       "Properties": {},
       "Value": "GER",
@@ -10,7 +10,7 @@
     "Languages": null,
     "CountryCallingCode": null,
     "LocalizableDescription": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Country"
   }
 ]

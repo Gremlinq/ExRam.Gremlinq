@@ -4,22 +4,22 @@
     "PhoneNumbers": null,
     "Locations": null,
     "Name": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Company"
   },
   {
     "Since": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "LivesIn"
   },
   {
     "Since": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "LivesIn"
   },
   {
     "Since": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "LivesIn"
   },
   {
@@ -27,12 +27,12 @@
     "PhoneNumbers": null,
     "Locations": null,
     "Name": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Company"
   },
   {
     "Since": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "LivesIn"
   },
   {
@@ -40,7 +40,7 @@
     "PhoneNumbers": null,
     "Locations": null,
     "Name": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Company"
   }
 ]

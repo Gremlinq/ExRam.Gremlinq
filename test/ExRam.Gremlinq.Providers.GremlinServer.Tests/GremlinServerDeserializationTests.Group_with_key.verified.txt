@@ -5,7 +5,7 @@
         "Enabled": false,
         "StartTime": "08:00:00",
         "Duration": "02:00:00",
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "TimeFrame"
       }
     ],
@@ -15,12 +15,12 @@
         "Languages": null,
         "CountryCallingCode": "+49",
         "LocalizableDescription": null,
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Country"
       },
       {
         "Name": {
-          "Id": "scrubbed id",
+          "Id": -1,
           "Label": "Name",
           "Properties": {},
           "Value": "GER",
@@ -29,12 +29,12 @@
         "Languages": null,
         "CountryCallingCode": null,
         "LocalizableDescription": null,
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Country"
       },
       {
         "Name": {
-          "Id": "scrubbed id",
+          "Id": -1,
           "Label": "Name",
           "Properties": {
             "de": "Deutschland",
@@ -46,7 +46,7 @@
         "Languages": null,
         "CountryCallingCode": null,
         "LocalizableDescription": null,
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Country"
       },
       {
@@ -54,7 +54,7 @@
         "Languages": null,
         "CountryCallingCode": null,
         "LocalizableDescription": null,
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Country"
       },
       {
@@ -62,7 +62,7 @@
         "Languages": null,
         "CountryCallingCode": null,
         "LocalizableDescription": null,
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Country"
       },
       {
@@ -70,7 +70,7 @@
         "Languages": null,
         "CountryCallingCode": null,
         "LocalizableDescription": null,
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Country"
       },
       {
@@ -78,7 +78,7 @@
         "Languages": null,
         "CountryCallingCode": "+49",
         "LocalizableDescription": null,
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Country"
       }
     ],
@@ -88,7 +88,7 @@
         "PhoneNumbers": null,
         "Locations": null,
         "Name": null,
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Company"
       },
       {
@@ -96,7 +96,7 @@
         "PhoneNumbers": null,
         "Locations": [
           {
-            "Id": "scrubbed id",
+            "Id": -1,
             "Label": "Locations",
             "Properties": {
               "ValidFrom": "2019-01-01T01:00:00+00:00"
@@ -106,7 +106,7 @@
           }
         ],
         "Name": null,
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Company"
       },
       {
@@ -117,7 +117,7 @@
         ],
         "Locations": null,
         "Name": null,
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Company"
       },
       {
@@ -125,7 +125,7 @@
         "PhoneNumbers": null,
         "Locations": null,
         "Name": null,
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Company"
       },
       {
@@ -133,59 +133,59 @@
         "PhoneNumbers": null,
         "Locations": null,
         "Name": null,
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Company"
       }
     ],
     "Language": [
       {
         "IetfLanguageTag": "en",
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Language"
       },
       {
         "IetfLanguageTag": "en",
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Language"
       },
       {
         "IetfLanguageTag": null,
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Language"
       },
       {
         "IetfLanguageTag": null,
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Language"
       },
       {
         "IetfLanguageTag": null,
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Language"
       },
       {
         "IetfLanguageTag": "en",
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Language"
       },
       {
         "IetfLanguageTag": "en",
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Language"
       },
       {
         "IetfLanguageTag": null,
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Language"
       },
       {
         "IetfLanguageTag": "en",
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Language"
       },
       {
         "IetfLanguageTag": "en",
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Language"
       }
     ],
@@ -198,7 +198,7 @@
         "PhoneNumbers": null,
         "SomeObscureProperty": null,
         "Name": {
-          "Id": "scrubbed id",
+          "Id": -1,
           "Label": "Name",
           "Properties": {
             "ValidFrom": "0001-01-01T00:00:00+00:00"
@@ -206,7 +206,7 @@
           "Value": "Marko",
           "Key": null
         },
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Person"
       },
       {
@@ -217,7 +217,7 @@
         "PhoneNumbers": null,
         "SomeObscureProperty": null,
         "Name": null,
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Person"
       },
       {
@@ -228,7 +228,7 @@
         "PhoneNumbers": null,
         "SomeObscureProperty": null,
         "Name": {
-          "Id": "scrubbed id",
+          "Id": -1,
           "Label": "Name",
           "Properties": {
             "ValidFrom": "0001-01-01T00:00:00+00:00"
@@ -236,7 +236,7 @@
           "Value": "Bob",
           "Key": null
         },
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Person"
       },
       {
@@ -247,7 +247,7 @@
         "PhoneNumbers": null,
         "SomeObscureProperty": null,
         "Name": null,
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Person"
       },
       {
@@ -258,7 +258,7 @@
         "PhoneNumbers": null,
         "SomeObscureProperty": null,
         "Name": null,
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Person"
       },
       {
@@ -269,7 +269,7 @@
         "PhoneNumbers": null,
         "SomeObscureProperty": null,
         "Name": null,
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Person"
       },
       {
@@ -280,7 +280,7 @@
         "PhoneNumbers": null,
         "SomeObscureProperty": null,
         "Name": null,
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Person"
       },
       {
@@ -291,7 +291,7 @@
         "PhoneNumbers": null,
         "SomeObscureProperty": null,
         "Name": {
-          "Id": "scrubbed id",
+          "Id": -1,
           "Label": "Name",
           "Properties": {
             "ValidFrom": "0001-01-01T00:00:00+00:00"
@@ -299,7 +299,7 @@
           "Value": "Bob",
           "Key": null
         },
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Person"
       },
       {
@@ -310,7 +310,7 @@
         "PhoneNumbers": null,
         "SomeObscureProperty": null,
         "Name": null,
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Person"
       },
       {
@@ -321,7 +321,7 @@
         "PhoneNumbers": null,
         "SomeObscureProperty": null,
         "Name": null,
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Person"
       },
       {
@@ -332,7 +332,7 @@
         "PhoneNumbers": null,
         "SomeObscureProperty": null,
         "Name": null,
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Person"
       }
     ]

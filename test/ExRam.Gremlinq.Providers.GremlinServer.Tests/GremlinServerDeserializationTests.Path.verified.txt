@@ -14,7 +14,7 @@
         "PhoneNumbers": null,
         "SomeObscureProperty": null,
         "Name": null,
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Person"
       },
       {
@@ -22,7 +22,7 @@
         "Languages": null,
         "CountryCallingCode": null,
         "LocalizableDescription": null,
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Country"
       },
       {
@@ -33,7 +33,7 @@
         "PhoneNumbers": null,
         "SomeObscureProperty": null,
         "Name": null,
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Person"
       }
     ]
@@ -53,7 +53,7 @@
         "PhoneNumbers": null,
         "SomeObscureProperty": null,
         "Name": null,
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Person"
       },
       {
@@ -61,12 +61,12 @@
         "Languages": null,
         "CountryCallingCode": null,
         "LocalizableDescription": null,
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Country"
       },
       {
         "IetfLanguageTag": null,
-        "Id": "scrubbed id",
+        "Id": -1,
         "Label": "Language"
       }
     ]

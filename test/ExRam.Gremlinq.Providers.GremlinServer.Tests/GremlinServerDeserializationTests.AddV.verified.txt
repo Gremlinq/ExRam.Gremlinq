@@ -1,7 +1,7 @@
-[
+﻿[
   {
     "IetfLanguageTag": "en",
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Language"
   }
 ]
