@@ -87,5 +87,13 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Override<int>((serialized, type, env, overridden, recurse) => overridden(37, type, env, recurse))
                 .TryDeserialize("serialized", typeof(int), GremlinQueryEnvironment.Empty));
         }
+
+        [Fact]
+        public async Task More_specific_type_is_deserialized()
+        {
+            await Verify(GremlinQueryFragmentDeserializer.Identity
+                .AddNewtonsoftJson()
+                .TryDeserialize(JObject.Parse("{ \"@type\": \"g:Date\", \"@value\": 1657527969000 }") , typeof(object), GremlinQueryEnvironment.Empty));
+        }
     }
 }

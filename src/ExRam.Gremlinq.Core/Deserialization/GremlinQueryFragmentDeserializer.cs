@@ -2,9 +2,11 @@
 using System.Collections.Concurrent;
 using System.Collections.Immutable;
 using System.Dynamic;
+using System.Numerics;
 using System.Reflection;
 using System.Xml;
 using ExRam.Gremlinq.Core.GraphElements;
+using Gremlin.Net.Process.Traversal;
 using Gremlin.Net.Structure.IO.GraphSON;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -120,6 +122,29 @@ namespace ExRam.Gremlinq.Core.Deserialization
                     : null;
             }
         }
+
+        private static readonly Dictionary<string, Type> GraphSONTypes = new()
+        {
+            { "g:Int32", typeof(int) },
+            { "g:Int64", typeof(long) },
+            { "g:Float", typeof(float) },
+            { "g:Double", typeof(double) },
+            { "g:Direction", typeof(Direction) },
+            { "g:Merge", typeof(Merge) },
+            { "g:UUID", typeof(Guid) },
+            { "g:Date", typeof(DateTimeOffset) },
+            { "g:Timestamp", typeof(DateTimeOffset) },
+            { "g:T", typeof(T) },
+
+            //Extended
+            { "gx:BigDecimal", typeof(decimal) },
+            { "gx:Duration", typeof(TimeSpan) },
+            { "gx:BigInteger", typeof(BigInteger) },
+            { "gx:Byte",typeof(byte) },
+            { "gx:ByteBuffer", typeof(byte[]) },
+            { "gx:Char", typeof(char) },
+            { "gx:Int16", typeof(short) }
+        };
 
         public static readonly IGremlinQueryFragmentDeserializer Identity = new GremlinQueryFragmentDeserializerImpl(ImmutableDictionary<Type, Delegate>.Empty);
 
@@ -289,9 +314,18 @@ namespace ExRam.Gremlinq.Core.Deserialization
             })
             .Override<JObject>(static (jObject, type, env, overridden, recurse) =>
             {
-                return (jObject.ContainsKey("@type") && jObject.TryGetValue("@value", out var valueToken))
-                    ? recurse.TryDeserialize(valueToken, type, env)
-                    : overridden(jObject, type, env, recurse);
+                if (jObject.TryGetValue("@type", out var typeName) && jObject.TryGetValue("@value", out var valueToken))
+                {
+                    if (typeName.Type == JTokenType.String && typeName.Value<string>() is { } typeNameString && GraphSONTypes.TryGetValue(typeNameString, out var moreSpecificType))
+                    {
+                        if (type != moreSpecificType && type.IsAssignableFrom(moreSpecificType))
+                            type = moreSpecificType;
+                    }
+
+                    return recurse.TryDeserialize(valueToken, type, env);
+                }
+
+                return overridden(jObject, type, env, recurse);
             })
             .Override<JObject>(static (jObject, type, env, overridden, recurse) =>
             {
