@@ -15,7 +15,7 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": "scrubbed id"
+                "@value": -1
               },
               "label",
               "Name",
@@ -49,7 +49,7 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": "scrubbed id"
+                "@value": -1
               },
               "label",
               "Name",

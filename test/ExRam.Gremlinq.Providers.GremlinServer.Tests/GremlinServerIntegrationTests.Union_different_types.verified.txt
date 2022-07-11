@@ -14,7 +14,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": "scrubbed id"
+                "@value": -1
               },
               "label": "Company"
             }
@@ -33,7 +33,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": "scrubbed id"
+                "@value": -1
               },
               "label": "LivesIn",
               "inVLabel": "Country",
@@ -62,7 +62,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": "scrubbed id"
+                "@value": -1
               },
               "label": "LivesIn",
               "inVLabel": "Country",
@@ -91,7 +91,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": "scrubbed id"
+                "@value": -1
               },
               "label": "LivesIn",
               "inVLabel": "Country",
@@ -120,7 +120,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": "scrubbed id"
+                "@value": -1
               },
               "label": "Company"
             }
@@ -139,7 +139,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": "scrubbed id"
+                "@value": -1
               },
               "label": "LivesIn",
               "inVLabel": "Country",
@@ -168,7 +168,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": "scrubbed id"
+                "@value": -1
               },
               "label": "Company"
             }

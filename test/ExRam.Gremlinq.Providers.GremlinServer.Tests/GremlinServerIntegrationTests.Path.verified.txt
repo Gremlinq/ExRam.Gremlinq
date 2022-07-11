@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "@type": "g:List",
     "@value": [
@@ -37,7 +37,7 @@
                     "@value": {
                       "id": {
                         "@type": "g:Int64",
-                        "@value": "scrubbed id"
+                        "@value": -1
                       },
                       "label": "Person"
                     }
@@ -47,7 +47,7 @@
                     "@value": {
                       "id": {
                         "@type": "g:Int64",
-                        "@value": "scrubbed id"
+                        "@value": -1
                       },
                       "label": "Country"
                     }
@@ -57,7 +57,7 @@
                     "@value": {
                       "id": {
                         "@type": "g:Int64",
-                        "@value": "scrubbed id"
+                        "@value": -1
                       },
                       "label": "Person"
                     }
@@ -103,7 +103,7 @@
                     "@value": {
                       "id": {
                         "@type": "g:Int64",
-                        "@value": "scrubbed id"
+                        "@value": -1
                       },
                       "label": "Person"
                     }
@@ -113,7 +113,7 @@
                     "@value": {
                       "id": {
                         "@type": "g:Int64",
-                        "@value": "scrubbed id"
+                        "@value": -1
                       },
                       "label": "Country"
                     }
@@ -123,7 +123,7 @@
                     "@value": {
                       "id": {
                         "@type": "g:Int64",
-                        "@value": "scrubbed id"
+                        "@value": -1
                       },
                       "label": "Language"
                     }

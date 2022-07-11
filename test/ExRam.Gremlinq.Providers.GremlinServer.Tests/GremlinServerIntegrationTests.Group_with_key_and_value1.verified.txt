@@ -22,7 +22,7 @@
                       "id",
                       {
                         "@type": "g:Int64",
-                        "@value": "scrubbed id"
+                        "@value": -1
                       },
                       "label",
                       "Language",
@@ -40,7 +40,7 @@
                                   "id",
                                   {
                                     "@type": "g:Int64",
-                                    "@value": "scrubbed id"
+                                    "@value": -1
                                   },
                                   "label",
                                   "IetfLanguageTag",
@@ -71,7 +71,7 @@
                       "id",
                       {
                         "@type": "g:Int64",
-                        "@value": "scrubbed id"
+                        "@value": -1
                       },
                       "label",
                       "Company",
@@ -89,7 +89,7 @@
                                   "id",
                                   {
                                     "@type": "g:Int64",
-                                    "@value": "scrubbed id"
+                                    "@value": -1
                                   },
                                   "label",
                                   "FoundingDate",
