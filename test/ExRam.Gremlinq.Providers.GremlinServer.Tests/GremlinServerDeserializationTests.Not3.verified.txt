@@ -4,27 +4,27 @@
     "Languages": null,
     "CountryCallingCode": "+49",
     "LocalizableDescription": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Country"
   },
   {
     "IetfLanguageTag": "en",
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Language"
   },
   {
     "IetfLanguageTag": "en",
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Language"
   },
   {
     "IetfLanguageTag": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Language"
   },
   {
     "Name": {
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Name",
       "Properties": {},
       "Value": "GER",
@@ -33,12 +33,12 @@
     "Languages": null,
     "CountryCallingCode": null,
     "LocalizableDescription": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Country"
   },
   {
     "Name": {
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Name",
       "Properties": {
         "de": "Deutschland",
@@ -50,7 +50,7 @@
     "Languages": null,
     "CountryCallingCode": null,
     "LocalizableDescription": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Country"
   },
   {
@@ -58,17 +58,17 @@
     "Languages": null,
     "CountryCallingCode": null,
     "LocalizableDescription": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Country"
   },
   {
     "IetfLanguageTag": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Language"
   },
   {
     "IetfLanguageTag": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Language"
   },
   {
@@ -76,7 +76,7 @@
     "Languages": null,
     "CountryCallingCode": null,
     "LocalizableDescription": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Country"
   },
   {
@@ -84,12 +84,12 @@
     "Languages": null,
     "CountryCallingCode": null,
     "LocalizableDescription": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Country"
   },
   {
     "IetfLanguageTag": "en",
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Language"
   },
   {
@@ -97,34 +97,34 @@
     "Languages": null,
     "CountryCallingCode": "+49",
     "LocalizableDescription": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Country"
   },
   {
     "IetfLanguageTag": "en",
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Language"
   },
   {
     "IetfLanguageTag": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Language"
   },
   {
     "Enabled": false,
     "StartTime": "08:00:00",
     "Duration": "02:00:00",
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "TimeFrame"
   },
   {
     "IetfLanguageTag": "en",
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Language"
   },
   {
     "IetfLanguageTag": "en",
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Language"
   }
 ]

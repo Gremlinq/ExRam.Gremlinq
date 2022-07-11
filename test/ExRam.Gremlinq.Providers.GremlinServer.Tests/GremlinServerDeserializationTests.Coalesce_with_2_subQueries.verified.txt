@@ -7,7 +7,7 @@
     "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": {
-      "Id": "scrubbed id",
+      "Id": -1,
       "Label": "Name",
       "Properties": {
         "ValidFrom": "0001-01-01T00:00:00+00:00"
@@ -15,12 +15,12 @@
       "Value": "Bob",
       "Key": null
     },
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Person"
   },
   {
     "IetfLanguageTag": "en",
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Language"
   },
   {
@@ -28,7 +28,7 @@
     "Languages": null,
     "CountryCallingCode": "+49",
     "LocalizableDescription": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Country"
   },
   {
@@ -36,7 +36,7 @@
     "Languages": null,
     "CountryCallingCode": "+49",
     "LocalizableDescription": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Country"
   },
   {
@@ -44,7 +44,7 @@
     "Languages": null,
     "CountryCallingCode": "+49",
     "LocalizableDescription": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Country"
   },
   {
@@ -55,7 +55,7 @@
     "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Person"
   },
   {
@@ -63,7 +63,7 @@
     "PhoneNumbers": null,
     "Locations": null,
     "Name": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Company"
   },
   {
@@ -71,7 +71,7 @@
     "Languages": null,
     "CountryCallingCode": null,
     "LocalizableDescription": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Country"
   },
   {
@@ -82,7 +82,7 @@
     "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Person"
   },
   {
@@ -90,7 +90,7 @@
     "Languages": null,
     "CountryCallingCode": null,
     "LocalizableDescription": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Country"
   },
   {
@@ -101,7 +101,7 @@
     "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Person"
   },
   {
@@ -109,7 +109,7 @@
     "Languages": null,
     "CountryCallingCode": null,
     "LocalizableDescription": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Country"
   },
   {
@@ -120,7 +120,7 @@
     "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Person"
   },
   {
@@ -131,7 +131,7 @@
     "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Person"
   },
   {
@@ -139,7 +139,7 @@
     "PhoneNumbers": null,
     "Locations": null,
     "Name": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Company"
   },
   {
@@ -147,12 +147,12 @@
     "Languages": null,
     "CountryCallingCode": "+49",
     "LocalizableDescription": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Country"
   },
   {
     "IetfLanguageTag": "en",
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Language"
   },
   {
@@ -163,7 +163,7 @@
     "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Person"
   },
   {
@@ -171,7 +171,7 @@
     "PhoneNumbers": null,
     "Locations": null,
     "Name": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Company"
   }
 ]

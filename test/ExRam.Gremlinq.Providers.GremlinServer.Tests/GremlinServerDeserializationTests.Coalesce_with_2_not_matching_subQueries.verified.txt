@@ -1,11 +1,11 @@
 ﻿[
   {
     "Since": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "LivesIn"
   },
   {
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Speaks"
   },
   {
@@ -13,7 +13,7 @@
     "Languages": null,
     "CountryCallingCode": null,
     "LocalizableDescription": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Country"
   },
   {
@@ -21,7 +21,7 @@
     "Languages": null,
     "CountryCallingCode": null,
     "LocalizableDescription": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Country"
   },
   {
@@ -32,19 +32,19 @@
     "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Person"
   },
   {
     "Role": null,
     "From": "0001-01-01T00:00:00",
     "To": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "WorksFor"
   },
   {
     "Since": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "LivesIn"
   },
   {
@@ -55,12 +55,12 @@
     "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Person"
   },
   {
     "Since": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "LivesIn"
   },
   {
@@ -71,12 +71,12 @@
     "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Person"
   },
   {
     "Since": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "LivesIn"
   },
   {
@@ -87,7 +87,7 @@
     "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Person"
   },
   {
@@ -98,14 +98,14 @@
     "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Person"
   },
   {
     "Role": null,
     "From": "0001-01-01T00:00:00",
     "To": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "WorksFor"
   },
   {
@@ -113,16 +113,16 @@
     "Languages": null,
     "CountryCallingCode": null,
     "LocalizableDescription": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Country"
   },
   {
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Speaks"
   },
   {
     "Since": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "LivesIn"
   },
   {
@@ -133,14 +133,14 @@
     "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "Person"
   },
   {
     "Role": null,
     "From": "0001-01-01T00:00:00",
     "To": null,
-    "Id": "scrubbed id",
+    "Id": -1,
     "Label": "WorksFor"
   }
 ]
