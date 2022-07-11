@@ -1,8 +1,8 @@
 ﻿[
   {
-    "TimeFrame": "PT8H",
+    "TimeFrame": "08:00:00",
     "Country": "+49",
-    "Company": -62135596800000,
+    "Company": "0001-01-01T00:00:00+00:00",
     "Language": "en",
     "Person": 1
   }
