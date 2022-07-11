@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "@type": "g:List",
     "@value": [
@@ -15,7 +15,7 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": "scrubbed id"
+                "@value": -1
               },
               "label",
               "Company",
@@ -33,7 +33,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": "scrubbed id"
+                            "@value": -1
                           },
                           "label",
                           "FoundingDate",
@@ -70,7 +70,7 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": "scrubbed id"
+                "@value": -1
               },
               "label",
               "Company",
@@ -88,7 +88,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": "scrubbed id"
+                            "@value": -1
                           },
                           "label",
                           "Locations",
@@ -119,7 +119,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": "scrubbed id"
+                            "@value": -1
                           },
                           "label",
                           "FoundingDate",
@@ -156,7 +156,7 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": "scrubbed id"
+                "@value": -1
               },
               "label",
               "Company",
@@ -174,7 +174,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": "scrubbed id"
+                            "@value": -1
                           },
                           "label",
                           "PhoneNumbers",
@@ -193,7 +193,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": "scrubbed id"
+                            "@value": -1
                           },
                           "label",
                           "PhoneNumbers",
@@ -218,7 +218,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": "scrubbed id"
+                            "@value": -1
                           },
                           "label",
                           "FoundingDate",
@@ -255,7 +255,7 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": "scrubbed id"
+                "@value": -1
               },
               "label",
               "Company",
@@ -273,7 +273,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": "scrubbed id"
+                            "@value": -1
                           },
                           "label",
                           "FoundingDate",
@@ -310,7 +310,7 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": "scrubbed id"
+                "@value": -1
               },
               "label",
               "Company",
@@ -328,7 +328,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": "scrubbed id"
+                            "@value": -1
                           },
                           "label",
                           "FoundingDate",
