@@ -277,17 +277,6 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 return null;
             })
             .Override<JObject, object>(static (jObject, _, env, _, recurse) => recurse.TryDeserialize(jObject, typeof(IDictionary<string, object?>), env))
-            .Override<JObject, IDictionary<string, object?>>(static (jObject, type, env, overridden, recurse) =>
-            {
-                var expando = new ExpandoObject();
-
-                foreach (var property in jObject)
-                {
-                    expando.TryAdd(property.Key, recurse.TryDeserialize(property.Value, typeof(object), env));
-                }
-
-                return expando;
-            })
             .Override<JObject>(static (jObject, type, env, overridden, recurse) =>
             {
                 if (!type.IsSealed)
@@ -367,6 +356,22 @@ namespace ExRam.Gremlinq.Core.Deserialization
                             return array.ToArray(elementType);
                         }
                     }
+                }
+
+                return overridden(jObject, type, env, recurse);
+            })
+            .Override<JObject, IDictionary<string, object?>>(static (jObject, type, env, overridden, recurse) =>
+            {
+                if (recurse.TryDeserialize(jObject, typeof(JObject), env) is JObject processedFragment)
+                {
+                    var expando = new ExpandoObject();
+
+                    foreach (var property in processedFragment)
+                    {
+                        expando.TryAdd(property.Key, recurse.TryDeserialize(property.Value, typeof(object), env));
+                    }
+
+                    return expando;
                 }
 
                 return overridden(jObject, type, env, recurse);

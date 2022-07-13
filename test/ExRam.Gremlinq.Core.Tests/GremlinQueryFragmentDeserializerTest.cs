@@ -1,4 +1,6 @@
-﻿using ExRam.Gremlinq.Core.Deserialization;
+﻿using System.Dynamic;
+
+using ExRam.Gremlinq.Core.Deserialization;
 using ExRam.Gremlinq.Core.Models;
 
 using FluentAssertions;
@@ -105,11 +107,43 @@ namespace ExRam.Gremlinq.Core.Tests
 
             var deserialized = GremlinQueryFragmentDeserializer.Identity
                 .AddNewtonsoftJson()
-                .TryDeserialize(original, typeof(JObject), GremlinQueryEnvironment.Empty.UseModel(GraphModel.Empty));
+                .TryDeserialize(original, typeof(JObject), GremlinQueryEnvironment.Empty);
 
             deserialized
                 .Should()
                 .BeSameAs(original);
+        }
+
+        [Fact]
+        public async Task Request_for_Dictionary_yields_expandoObject()
+        {
+            var original = JObject.Parse("{ \"prop1\": \"value\", \"prop2\": 1657527969000 }");
+
+            var deserialized = GremlinQueryFragmentDeserializer.Identity
+                .AddNewtonsoftJson()
+                .TryDeserialize(original, typeof(IDictionary<string, object>), GremlinQueryEnvironment.Empty);
+
+            deserialized
+                .Should()
+                .BeOfType<ExpandoObject>();
+
+            await Verify(deserialized);
+        }
+
+        [Fact]
+        public async Task Request_for_Dictionary_yields_expandoObject_from_typed_GraphSON()
+        {
+            var original = JObject.Parse("{ \"@type\": \"g:unknown\", \"@value\": { \"prop1\": \"value\", \"prop2\": 1657527969000 } }");
+
+            var deserialized = GremlinQueryFragmentDeserializer.Identity
+                .AddNewtonsoftJson()
+                .TryDeserialize(original, typeof(IDictionary<string, object>), GremlinQueryEnvironment.Empty);
+
+            deserialized
+                .Should()
+                .BeOfType<ExpandoObject>();
+
+            await Verify(deserialized);
         }
     }
 }
