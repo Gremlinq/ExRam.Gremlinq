@@ -157,14 +157,14 @@ namespace ExRam.Gremlinq.Core.Tests
                 {
                     if (recurse.TryDeserialize(jObject, typeof(JObject), env) is JObject processedFragment)
                     {
-                        var expando = new Dictionary<string, object?>();
+                        var dict = new Dictionary<string, object?>();
 
                         foreach (var property in processedFragment)
                         {
-                            expando.TryAdd(property.Key, recurse.TryDeserialize(property.Value, typeof(object), env));
+                            dict.TryAdd(property.Key, recurse.TryDeserialize(property.Value, typeof(object), env));
                         }
 
-                        return expando;
+                        return dict;
                     }
 
                     return overridden(jObject, type, env, recurse);
