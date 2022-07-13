@@ -1,6 +1,5 @@
 ﻿using System.Collections.Immutable;
 using System.Runtime.CompilerServices;
-using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Tests.Entities;
 
@@ -8,16 +7,7 @@ namespace ExRam.Gremlinq.Core.Tests
 {
     public abstract class QuerySerializationTest : QueryExecutionTest
     {
-        public abstract class Fixture : GremlinqTestFixture
-        {
-            protected Fixture(IGremlinQuerySource source) : base(source
-                .ConfigureEnvironment(env => env
-                    .UseExecutor(GremlinQueryExecutor.Identity)))
-            {
-            }
-        }
-
-        protected QuerySerializationTest(Fixture fixture, ITestOutputHelper testOutputHelper, [CallerFilePath] string callerFilePath = "") : base(
+        protected QuerySerializationTest(GremlinqTestFixture fixture, ITestOutputHelper testOutputHelper, [CallerFilePath] string callerFilePath = "") : base(
             fixture,
             testOutputHelper,
             callerFilePath)

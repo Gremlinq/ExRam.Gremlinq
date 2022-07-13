@@ -1,12 +1,15 @@
-﻿using static ExRam.Gremlinq.Core.GremlinQuerySource;
+﻿using ExRam.Gremlinq.Core.Execution;
+using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
     public abstract class DebugGremlinQuerySerializationTest : QuerySerializationTest
     {
-        public new sealed class Fixture : QuerySerializationTest.Fixture
+        public sealed class Fixture : GremlinqTestFixture
         {
-            public Fixture() : base(g.ConfigureEnvironment(_ => _))
+            public Fixture() : base(g
+                .ConfigureEnvironment(_ => _
+                    .UseExecutor(GremlinQueryExecutor.Identity)))
             {
             }
         }

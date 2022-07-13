@@ -1,4 +1,5 @@
 ﻿using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Providers.WebSocket;
 using ExRam.Gremlinq.Tests.Entities;
@@ -8,12 +9,14 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
 {
     public sealed class NeptuneElasticSearchQuerySerializationTest : QuerySerializationTest, IClassFixture<NeptuneElasticSearchQuerySerializationTest.Fixture>
     {
-        public new sealed class Fixture : QuerySerializationTest.Fixture
+        public sealed class Fixture : GremlinqTestFixture
         {
             public Fixture() : base(g
                 .UseNeptune(builder => builder
                     .AtLocalhost()
-                    .UseElasticSearch(new Uri("http://elastic.search.server"))))
+                    .UseElasticSearch(new Uri("http://elastic.search.server")))
+                .ConfigureEnvironment(_ => _
+                    .UseExecutor(GremlinQueryExecutor.Identity)))
             {
             }
         }
