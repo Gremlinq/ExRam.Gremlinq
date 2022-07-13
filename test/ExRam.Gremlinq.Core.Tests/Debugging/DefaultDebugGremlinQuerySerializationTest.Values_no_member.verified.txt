@@ -1,1 +1,3 @@
-﻿"g.V().hasLabel('Person').values()"
+﻿[
+  "g.V().hasLabel('Person').values()"
+]

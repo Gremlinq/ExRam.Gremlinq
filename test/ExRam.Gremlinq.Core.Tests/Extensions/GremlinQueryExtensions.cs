@@ -13,6 +13,10 @@ namespace ExRam.Gremlinq.Core.Tests
             {
                 await query.Cast<object>().Verify();
             }
+            else if (testBase is DebugGremlinQuerySerializationTest && typeof(TElement) != typeof(string))
+            {
+                await query.Cast<string>().Verify();
+            }
             else if (testBase is QueryIntegrationTest && typeof(TElement) != typeof(JToken))
             {
                 await query.Cast<JToken>().Verify();
@@ -20,11 +24,8 @@ namespace ExRam.Gremlinq.Core.Tests
             else
             {
                 var serialized = JsonConvert.SerializeObject(
-                    testBase is DebugGremlinQuerySerializationTest
-                        ? query
-                            .Debug()
-                        : await query
-                            .ToArrayAsync(),
+                    await query
+                        .ToArrayAsync(),
                     Formatting.Indented);
 
                 var scrubbed = testBase
