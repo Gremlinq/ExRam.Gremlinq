@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using ExRam.Gremlinq.Core.Deserialization;
+using ExRam.Gremlinq.Tests.Entities;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
@@ -31,6 +32,17 @@ namespace ExRam.Gremlinq.Core.Tests
             return base.Scrubbers()
                 .Add(x => IdRegex.Replace(x, "$1-1$4"))
                 .Add(x => GuidRegex.Replace(x, "$1\"scrubbed uuid\"$4"));
+        }
+
+        [Fact]
+        public async Task Dynamic()
+        {
+            var first = await _g
+                .V<Person>()
+                .Cast<dynamic>()
+                .FirstAsync();
+
+            await Verify(first.Name);
         }
     }
 }
