@@ -159,8 +159,10 @@ namespace ExRam.Gremlinq.Core.Deserialization
             {
                 if (!type.IsAssignableFrom(jToken.GetType()))
                 {
-                    var populatingSerializer = env
-                        .GetCache()
+                    var envCache = env
+                        .GetCache();
+
+                    var populatingSerializer = envCache
                         .GetPopulatingJsonSerializer(recurse);
 
                     var ret = jToken.ToObject(type, populatingSerializer);
@@ -169,8 +171,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                     {
                         if (element.TryGetElementProperties() is { } propertiesToken)
                         {
-                            env
-                                .GetCache()
+                            envCache
                                 .GetIgnoringJsonSerializer(recurse)
                                 .Populate(new JTokenReader(propertiesToken), ret);
                         }
