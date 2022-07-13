@@ -1,4 +1,6 @@
 ﻿using ExRam.Gremlinq.Core.Deserialization;
+using ExRam.Gremlinq.Core.Models;
+
 using FluentAssertions;
 using Newtonsoft.Json.Linq;
 
@@ -94,6 +96,20 @@ namespace ExRam.Gremlinq.Core.Tests
             await Verify(GremlinQueryFragmentDeserializer.Identity
                 .AddNewtonsoftJson()
                 .TryDeserialize(JObject.Parse("{ \"@type\": \"g:Date\", \"@value\": 1657527969000 }") , typeof(object), GremlinQueryEnvironment.Empty));
+        }
+
+        [Fact]
+        public async Task JObject_is_not_changed()
+        {
+            var original = JObject.Parse("{ \"prop1\": \"value\", \"prop2\": 1657527969000 }");
+
+            var deserialized = GremlinQueryFragmentDeserializer.Identity
+                .AddNewtonsoftJson()
+                .TryDeserialize(original, typeof(JObject), GremlinQueryEnvironment.Empty.UseModel(GraphModel.Empty));
+
+            deserialized
+                .Should()
+                .BeSameAs(original);
         }
     }
 }

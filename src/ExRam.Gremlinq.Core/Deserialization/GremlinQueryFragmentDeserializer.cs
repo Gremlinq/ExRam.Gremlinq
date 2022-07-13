@@ -155,26 +155,31 @@ namespace ExRam.Gremlinq.Core.Deserialization
 
         // ReSharper disable ConvertToLambdaExpression
         public static IGremlinQueryFragmentDeserializer AddNewtonsoftJson(this IGremlinQueryFragmentDeserializer deserializer) => deserializer
-            .Override<JToken>(static (jToken, type, env, _, recurse) =>
+            .Override<JToken>(static (jToken, type, env, overridden, recurse) =>
             {
-                var populatingSerializer = env
-                    .GetCache()
-                    .GetPopulatingJsonSerializer(recurse);
-
-                var ret = jToken.ToObject(type, populatingSerializer);
-
-                if (ret is not null && ret is not JToken && ret is not Property && jToken is JObject element)
+                if (!type.IsAssignableFrom(jToken.GetType()))
                 {
-                    if (element.TryGetElementProperties() is { } propertiesToken)
+                    var populatingSerializer = env
+                        .GetCache()
+                        .GetPopulatingJsonSerializer(recurse);
+
+                    var ret = jToken.ToObject(type, populatingSerializer);
+
+                    if (ret is not null && ret is not JToken && ret is not Property && jToken is JObject element)
                     {
-                        env
-                            .GetCache()
-                            .GetIgnoringJsonSerializer(recurse)
-                            .Populate(new JTokenReader(propertiesToken), ret);
+                        if (element.TryGetElementProperties() is { } propertiesToken)
+                        {
+                            env
+                                .GetCache()
+                                .GetIgnoringJsonSerializer(recurse)
+                                .Populate(new JTokenReader(propertiesToken), ret);
+                        }
                     }
+
+                    return ret;
                 }
 
-                return ret;
+                return overridden(jToken, type, env, recurse);
             })
             .Override<JToken>(static (jToken, type, env, overridden, recurse) =>
             {
