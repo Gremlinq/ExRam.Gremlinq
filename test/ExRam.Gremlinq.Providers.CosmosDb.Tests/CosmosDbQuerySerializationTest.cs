@@ -1,4 +1,5 @@
 ﻿using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Tests.Entities;
@@ -8,14 +9,15 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
     public sealed class CosmosDbQuerySerializationTest : QuerySerializationTest, IClassFixture<CosmosDbQuerySerializationTest.Fixture>
     {
-        public new sealed class Fixture : QuerySerializationTest.Fixture
+        public sealed class Fixture : GremlinqTestFixture
         {
             public Fixture() : base(g
                 .UseCosmosDb(builder => builder
                     .At(new Uri("wss://localhost"), "database", "graph")
                     .AuthenticateBy("authKey"))
                 .ConfigureEnvironment(env => env
-                    .AddFakePartitionKey()))
+                    .AddFakePartitionKey()
+                    .UseExecutor(GremlinQueryExecutor.Identity)))
             {
             }
         }
