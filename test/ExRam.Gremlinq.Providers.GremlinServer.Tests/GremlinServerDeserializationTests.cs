@@ -1,4 +1,4 @@
-﻿using ExRam.Gremlinq.Core.Deserialization;
+﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
@@ -9,10 +9,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
         public new sealed class Fixture : QueryDeserializationTest.Fixture
         {
             public Fixture() : base(g
-                .ConfigureEnvironment(env => env
-                    .ConfigureDeserializer(d => d
-                        .ConfigureFragmentDeserializer(f => f
-                            .AddNewtonsoftJson()))))
+                .UseGremlinServer(_ => _))
             {
             }
         }
