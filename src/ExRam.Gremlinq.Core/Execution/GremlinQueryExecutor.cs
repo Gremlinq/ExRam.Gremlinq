@@ -59,7 +59,7 @@ namespace ExRam.Gremlinq.Core.Execution
 
         public static readonly IGremlinQueryExecutor Empty = Create(static (_, _) => AsyncEnumerable.Empty<object>());
 
-        public static IGremlinQueryExecutor Create(Func<object, IGremlinQueryEnvironment, IAsyncEnumerable<object>> executor) => new GremlinQueryExecutorImpl(executor);
+        public static IGremlinQueryExecutor Create(Func<ISerializedGremlinQuery, IGremlinQueryEnvironment, IAsyncEnumerable<object>> executor) => new GremlinQueryExecutorImpl(executor);
 
         public static IGremlinQueryExecutor TransformQuery(this IGremlinQueryExecutor baseExecutor, Func<ISerializedGremlinQuery, ISerializedGremlinQuery> transformation) => new TransformQueryGremlinQueryExecutor(baseExecutor, transformation);
 
