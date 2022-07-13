@@ -145,5 +145,37 @@ namespace ExRam.Gremlinq.Core.Tests
 
             await Verify(deserialized);
         }
+
+        [Fact]
+        public async Task Overridden_request_for_Dictionary_yields_dictionary()
+        {
+            var original = JObject.Parse("{ \"prop1\": \"value\", \"prop2\": 1657527969000 }");
+
+            var deserialized = GremlinQueryFragmentDeserializer.Identity
+                .AddNewtonsoftJson()
+                .Override<JObject, IDictionary<string, object?>>(static (jObject, type, env, overridden, recurse) =>
+                {
+                    if (recurse.TryDeserialize(jObject, typeof(JObject), env) is JObject processedFragment)
+                    {
+                        var expando = new Dictionary<string, object?>();
+
+                        foreach (var property in processedFragment)
+                        {
+                            expando.TryAdd(property.Key, recurse.TryDeserialize(property.Value, typeof(object), env));
+                        }
+
+                        return expando;
+                    }
+
+                    return overridden(jObject, type, env, recurse);
+                })
+                .TryDeserialize(original, typeof(IDictionary<string, object>), GremlinQueryEnvironment.Empty);
+
+            deserialized
+                .Should()
+                .BeOfType<Dictionary<string, object?>>();
+
+            await Verify(deserialized);
+        }
     }
 }
