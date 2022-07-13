@@ -276,13 +276,14 @@ namespace ExRam.Gremlinq.Core.Deserialization
 
                 return null;
             })
-            .Override<JObject, object>(static (jObject, _, env, _, recurse) =>
+            .Override<JObject, object>(static (jObject, _, env, _, recurse) => recurse.TryDeserialize(jObject, typeof(IDictionary<string, object?>), env))
+            .Override<JObject, IDictionary<string, object?>>(static (jObject, type, env, overridden, recurse) =>
             {
-                var expando = (IDictionary<string, object?>)new ExpandoObject();
+                var expando = new ExpandoObject();
 
                 foreach (var property in jObject)
                 {
-                    expando.Add(property.Key, recurse.TryDeserialize(property.Value, typeof(object), env));
+                    expando.TryAdd(property.Key, recurse.TryDeserialize(property.Value, typeof(object), env));
                 }
 
                 return expando;
