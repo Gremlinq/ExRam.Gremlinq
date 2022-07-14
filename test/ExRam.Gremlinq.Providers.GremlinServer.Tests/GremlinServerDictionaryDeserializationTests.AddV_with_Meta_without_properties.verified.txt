@@ -1,0 +1,16 @@
+﻿[
+  {
+    "Name": {
+      "Id": -1,
+      "Label": "Name",
+      "Properties": {},
+      "Value": "GER",
+      "Key": null
+    },
+    "Languages": null,
+    "CountryCallingCode": null,
+    "LocalizableDescription": null,
+    "Id": -1,
+    "Label": "Country"
+  }
+]

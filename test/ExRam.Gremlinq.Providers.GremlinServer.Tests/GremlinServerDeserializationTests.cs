@@ -8,8 +8,9 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
     {
         public new sealed class Fixture : QueryDeserializationTest.Fixture
         {
-            public Fixture() : base(g
-                .UseGremlinServer(_ => _))
+            public Fixture() : base(
+                nameof(GremlinServerIntegrationTests),
+                g.UseGremlinServer(_ => _))
             {
             }
         }

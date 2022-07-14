@@ -1,0 +1,516 @@
+﻿[
+  {
+    "name": {
+      "Name": null,
+      "Languages": null,
+      "CountryCallingCode": "+49",
+      "LocalizableDescription": null,
+      "Id": -1,
+      "Label": "Country"
+    },
+    "Item2": {
+      "id": -1,
+      "label": "CountryCallingCode",
+      "value": "+49",
+      "properties": {}
+    }
+  },
+  {
+    "name": {
+      "Age": 0,
+      "Gender": null,
+      "Image": null,
+      "RegistrationDate": "2020-04-07T14:43:36+00:00",
+      "PhoneNumbers": null,
+      "SomeObscureProperty": null,
+      "Name": {
+        "Id": -1,
+        "Label": "Name",
+        "Properties": {
+          "ValidFrom": "0001-01-01T00:00:00+00:00"
+        },
+        "Value": "Marko",
+        "Key": null
+      },
+      "Id": -1,
+      "Label": "Person"
+    },
+    "Item2": {
+      "id": -1,
+      "label": "RegistrationDate",
+      "value": "2020-04-07T14:43:36+00:00",
+      "properties": {}
+    }
+  },
+  {
+    "name": {
+      "IetfLanguageTag": "en",
+      "Id": -1,
+      "Label": "Language"
+    },
+    "Item2": {
+      "id": -1,
+      "label": "IetfLanguageTag",
+      "value": "en",
+      "properties": {}
+    }
+  },
+  {
+    "name": {
+      "IetfLanguageTag": "en",
+      "Id": -1,
+      "Label": "Language"
+    },
+    "Item2": {
+      "id": -1,
+      "label": "IetfLanguageTag",
+      "value": "en",
+      "properties": {}
+    }
+  },
+  {
+    "name": {
+      "FoundingDate": "0001-01-01T00:00:00",
+      "PhoneNumbers": null,
+      "Locations": null,
+      "Name": null,
+      "Id": -1,
+      "Label": "Company"
+    },
+    "Item2": {
+      "id": -1,
+      "label": "FoundingDate",
+      "value": "0001-01-01T00:00:00+00:00",
+      "properties": {}
+    }
+  },
+  {
+    "name": {
+      "FoundingDate": "0001-01-01T00:00:00",
+      "PhoneNumbers": null,
+      "Locations": [
+        {
+          "Id": -1,
+          "Label": "Locations",
+          "Properties": {
+            "ValidFrom": "2019-01-01T01:00:00+00:00"
+          },
+          "Value": "Aachen",
+          "Key": null
+        }
+      ],
+      "Name": null,
+      "Id": -1,
+      "Label": "Company"
+    },
+    "Item2": {
+      "id": -1,
+      "label": "FoundingDate",
+      "value": "0001-01-01T00:00:00+00:00",
+      "properties": {}
+    }
+  },
+  {
+    "name": {
+      "Age": 0,
+      "Gender": null,
+      "Image": null,
+      "RegistrationDate": null,
+      "PhoneNumbers": null,
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": -1,
+      "Label": "Person"
+    },
+    "Item2": {
+      "id": -1,
+      "label": "Age",
+      "value": 0,
+      "properties": {}
+    }
+  },
+  {
+    "name": {
+      "Name": {
+        "Id": -1,
+        "Label": "Name",
+        "Properties": {},
+        "Value": "GER",
+        "Key": null
+      },
+      "Languages": null,
+      "CountryCallingCode": null,
+      "LocalizableDescription": null,
+      "Id": -1,
+      "Label": "Country"
+    },
+    "Item2": {
+      "id": -1,
+      "label": "Name",
+      "value": "GER",
+      "properties": {}
+    }
+  },
+  {
+    "name": {
+      "Age": 0,
+      "Gender": null,
+      "Image": null,
+      "RegistrationDate": "2020-04-07T14:43:36+00:00",
+      "PhoneNumbers": null,
+      "SomeObscureProperty": null,
+      "Name": {
+        "Id": -1,
+        "Label": "Name",
+        "Properties": {
+          "ValidFrom": "0001-01-01T00:00:00+00:00"
+        },
+        "Value": "Bob",
+        "Key": null
+      },
+      "Id": -1,
+      "Label": "Person"
+    },
+    "Item2": {
+      "id": -1,
+      "label": "RegistrationDate",
+      "value": "2020-04-07T14:43:36+00:00",
+      "properties": {}
+    }
+  },
+  {
+    "name": {
+      "Name": {
+        "Id": -1,
+        "Label": "Name",
+        "Properties": {
+          "de": "Deutschland",
+          "en": "Germany"
+        },
+        "Value": "GER",
+        "Key": null
+      },
+      "Languages": null,
+      "CountryCallingCode": null,
+      "LocalizableDescription": null,
+      "Id": -1,
+      "Label": "Country"
+    },
+    "Item2": {
+      "id": -1,
+      "label": "Name",
+      "value": "GER",
+      "properties": {
+        "de": "Deutschland",
+        "en": "Germany"
+      }
+    }
+  },
+  {
+    "name": {
+      "FoundingDate": "0001-01-01T00:00:00",
+      "PhoneNumbers": [
+        "+4912345",
+        "+4923456"
+      ],
+      "Locations": null,
+      "Name": null,
+      "Id": -1,
+      "Label": "Company"
+    },
+    "Item2": {
+      "id": -1,
+      "label": "PhoneNumbers",
+      "value": "+4912345",
+      "properties": {}
+    }
+  },
+  {
+    "name": {
+      "Age": 0,
+      "Gender": null,
+      "Image": null,
+      "RegistrationDate": null,
+      "PhoneNumbers": null,
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": -1,
+      "Label": "Person"
+    },
+    "Item2": {
+      "id": -1,
+      "label": "Age",
+      "value": 0,
+      "properties": {}
+    }
+  },
+  {
+    "name": {
+      "IetfLanguageTag": null,
+      "Id": -1,
+      "Label": "Language"
+    },
+    "Item2": {
+      "id": -1,
+      "label": "lang",
+      "value": "en",
+      "properties": {}
+    }
+  },
+  {
+    "name": {
+      "Age": 0,
+      "Gender": null,
+      "Image": null,
+      "RegistrationDate": null,
+      "PhoneNumbers": null,
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": -1,
+      "Label": "Person"
+    },
+    "Item2": {
+      "id": -1,
+      "label": "Age",
+      "value": 0,
+      "properties": {}
+    }
+  },
+  {
+    "name": {
+      "Age": 0,
+      "Gender": null,
+      "Image": null,
+      "RegistrationDate": null,
+      "PhoneNumbers": null,
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": -1,
+      "Label": "Person"
+    },
+    "Item2": {
+      "id": -1,
+      "label": "Age",
+      "value": 0,
+      "properties": {}
+    }
+  },
+  {
+    "name": {
+      "FoundingDate": "0001-01-01T00:00:00",
+      "PhoneNumbers": null,
+      "Locations": null,
+      "Name": null,
+      "Id": -1,
+      "Label": "Company"
+    },
+    "Item2": {
+      "id": -1,
+      "label": "FoundingDate",
+      "value": "0001-01-01T00:00:00+00:00",
+      "properties": {}
+    }
+  },
+  {
+    "name": {
+      "Age": 0,
+      "Gender": null,
+      "Image": null,
+      "RegistrationDate": null,
+      "PhoneNumbers": null,
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": -1,
+      "Label": "Person"
+    },
+    "Item2": {
+      "id": -1,
+      "label": "Age",
+      "value": 0,
+      "properties": {}
+    }
+  },
+  {
+    "name": {
+      "IetfLanguageTag": "en",
+      "Id": -1,
+      "Label": "Language"
+    },
+    "Item2": {
+      "id": -1,
+      "label": "IetfLanguageTag",
+      "value": "en",
+      "properties": {}
+    }
+  },
+  {
+    "name": {
+      "Name": null,
+      "Languages": null,
+      "CountryCallingCode": "+49",
+      "LocalizableDescription": null,
+      "Id": -1,
+      "Label": "Country"
+    },
+    "Item2": {
+      "id": -1,
+      "label": "CountryCallingCode",
+      "value": "+49",
+      "properties": {}
+    }
+  },
+  {
+    "name": {
+      "Age": 0,
+      "Gender": null,
+      "Image": null,
+      "RegistrationDate": "2020-04-07T14:43:36+00:00",
+      "PhoneNumbers": null,
+      "SomeObscureProperty": null,
+      "Name": {
+        "Id": -1,
+        "Label": "Name",
+        "Properties": {
+          "ValidFrom": "0001-01-01T00:00:00+00:00"
+        },
+        "Value": "Bob",
+        "Key": null
+      },
+      "Id": -1,
+      "Label": "Person"
+    },
+    "Item2": {
+      "id": -1,
+      "label": "RegistrationDate",
+      "value": "2020-04-07T14:43:36+00:00",
+      "properties": {}
+    }
+  },
+  {
+    "name": {
+      "FoundingDate": "0001-01-01T00:00:00",
+      "PhoneNumbers": null,
+      "Locations": null,
+      "Name": null,
+      "Id": -1,
+      "Label": "Company"
+    },
+    "Item2": {
+      "id": -1,
+      "label": "FoundingDate",
+      "value": "0001-01-01T00:00:00+00:00",
+      "properties": {}
+    }
+  },
+  {
+    "name": {
+      "Age": 0,
+      "Gender": null,
+      "Image": null,
+      "RegistrationDate": null,
+      "PhoneNumbers": null,
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": -1,
+      "Label": "Person"
+    },
+    "Item2": {
+      "id": -1,
+      "label": "Age",
+      "value": 0,
+      "properties": {}
+    }
+  },
+  {
+    "name": {
+      "IetfLanguageTag": "en",
+      "Id": -1,
+      "Label": "Language"
+    },
+    "Item2": {
+      "id": -1,
+      "label": "IetfLanguageTag",
+      "value": "en",
+      "properties": {}
+    }
+  },
+  {
+    "name": {
+      "Enabled": false,
+      "StartTime": "08:00:00",
+      "Duration": "02:00:00",
+      "Id": -1,
+      "Label": "TimeFrame"
+    },
+    "Item2": {
+      "id": -1,
+      "label": "StartTime",
+      "value": "08:00:00",
+      "properties": {}
+    }
+  },
+  {
+    "name": {
+      "IetfLanguageTag": "en",
+      "Id": -1,
+      "Label": "Language"
+    },
+    "Item2": {
+      "id": -1,
+      "label": "IetfLanguageTag",
+      "value": "en",
+      "properties": {}
+    }
+  },
+  {
+    "name": {
+      "IetfLanguageTag": "en",
+      "Id": -1,
+      "Label": "Language"
+    },
+    "Item2": {
+      "id": -1,
+      "label": "IetfLanguageTag",
+      "value": "en",
+      "properties": {}
+    }
+  },
+  {
+    "name": {
+      "Age": 0,
+      "Gender": null,
+      "Image": "AQIDBAUGBwg=",
+      "RegistrationDate": null,
+      "PhoneNumbers": null,
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": -1,
+      "Label": "Person"
+    },
+    "Item2": {
+      "id": -1,
+      "label": "Image",
+      "value": "AQIDBAUGBwg=",
+      "properties": {}
+    }
+  },
+  {
+    "name": {
+      "Age": 0,
+      "Gender": 1,
+      "Image": null,
+      "RegistrationDate": null,
+      "PhoneNumbers": null,
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": -1,
+      "Label": "Person"
+    },
+    "Item2": {
+      "id": -1,
+      "label": "Gender",
+      "value": 1,
+      "properties": {}
+    }
+  }
+]

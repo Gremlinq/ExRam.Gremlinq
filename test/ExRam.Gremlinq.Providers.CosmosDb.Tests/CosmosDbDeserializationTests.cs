@@ -8,8 +8,9 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
     {
         public new sealed class Fixture : QueryDeserializationTest.Fixture
         {
-            public Fixture() : base(g
-                .UseCosmosDb(_ => _.At("ws://localhost", "", "").AuthenticateBy("")))
+            public Fixture() : base(
+                nameof(CosmosDbIntegrationTests),
+                g.UseCosmosDb(_ => _.At("ws://localhost", "", "").AuthenticateBy("")))
             {
             }
         }

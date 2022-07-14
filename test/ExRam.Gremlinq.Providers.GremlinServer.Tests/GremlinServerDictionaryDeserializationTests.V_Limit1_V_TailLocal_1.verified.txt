@@ -1,0 +1,18 @@
+﻿[
+  {
+    "Name": null,
+    "Languages": null,
+    "CountryCallingCode": "+49",
+    "LocalizableDescription": {
+      "Id": -1,
+      "Label": "LocalizableDescription",
+      "Properties": {
+        "someKey": "value"
+      },
+      "Value": "",
+      "Key": null
+    },
+    "Id": -1,
+    "Label": "Country"
+  }
+]
