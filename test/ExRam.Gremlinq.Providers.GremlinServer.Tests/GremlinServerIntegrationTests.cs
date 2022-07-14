@@ -1,5 +1,4 @@
-﻿#if RUNGREMLINSERVERINTEGRATIONTESTS
-using ExRam.Gremlinq.Core;
+﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Providers.WebSocket;
 using Xunit;
@@ -25,4 +24,3 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
         }
     }
 }
-#endif

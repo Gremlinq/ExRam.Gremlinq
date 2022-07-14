@@ -1,5 +1,4 @@
-﻿#if RUNJANUSGRAPHINTEGRATIONTESTS
-using System;
+﻿using System;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -52,4 +51,3 @@ namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
             .Add(x => RelationIdRegex.Replace(x, "\"relationId\": \"scrubbed\""));
     }
 }
-#endif

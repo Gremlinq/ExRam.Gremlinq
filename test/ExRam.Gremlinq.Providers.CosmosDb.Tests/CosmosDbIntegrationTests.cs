@@ -1,5 +1,4 @@
-﻿#if RUNCOSMOSDBEMULATORINTEGRATIONTESTS
-using System;
+﻿using System;
 using System.Collections.Immutable;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -139,4 +138,3 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         public override async Task Property_single_from_stepLabel() { }
     }
 }
-#endif
