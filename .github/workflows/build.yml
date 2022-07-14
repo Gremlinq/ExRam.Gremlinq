@@ -91,7 +91,10 @@ jobs:
           6.0.301
 
     - name: Test
-      run: dotnet test  --configuration Release --verbosity normal -p:RunGremlinServerIntegrationTests=${{ env.IsForkedRepository == 'false' }} -p:RunJanusGraphIntegrationTests=${{ env.IsForkedRepository == 'false' }}
+      run: dotnet test  --configuration Release --verbosity normal
+      env:
+        RunGremlinServerIntegrationTests: ${{ env.IsForkedRepository == 'false' }}
+        RunJanusGraphIntegrationTests: ${{ env.IsForkedRepository == 'false' }}
 
     - name: Copy *.received-files to artifacts
       if: always()
@@ -121,7 +124,9 @@ jobs:
       uses: Gremlinq/cosmos-emulator-github-action@EnableGremlin
 
     - name: Test
-      run: dotnet test  --configuration Release --verbosity normal -p:RunCosmosDbEmulatorIntegrationTests=${{ env.IsForkedRepository == 'false' }}
+      run: dotnet test  --configuration Release --verbosity normal
+      env:
+        RunCosmosDbIntegrationTests: ${{ env.IsForkedRepository == 'false' }}
 
     - name: Copy *.received-files to artifacts
       if: always()
