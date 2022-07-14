@@ -4,31 +4,35 @@ namespace ExRam.Gremlinq.Core.Tests
 {
     public class SideEffectTestCaseOrderer : ITestCaseOrderer
     {
-        public IEnumerable<TTestCase> OrderTestCases<TTestCase>(IEnumerable<TTestCase> testCases) where TTestCase : ITestCase
+        private sealed class TestCaseComparer<TTestCase> : IComparer<TTestCase>
+             where TTestCase : ITestCase
         {
-            int GetIndex(string str)
+            public static readonly TestCaseComparer<TTestCase> Instance = new();
+
+            private TestCaseComparer()
             {
-                if (str.StartsWith("Drop"))
-                    return 0;
-
-                if (str.StartsWith("Add"))
-                    return 1;
-
-                return 2;
             }
 
-            var result = testCases.ToList();
+            public int Compare(TTestCase? x, TTestCase? y) => GetIndex(x!.TestMethod.Method.Name).CompareTo(GetIndex(y!.TestMethod.Method.Name));
 
-            result.Sort((x, y) =>
-            {
-                var comparison = GetIndex(x.TestMethod.Method.Name).CompareTo(GetIndex(y.TestMethod.Method.Name));
+            private static int GetIndex(string str) => str.StartsWith("Drop")
+                ? 0
+                : str.StartsWith("Add")
+                    ? 1
+                    : 2;
+        }
 
-                return comparison != 0
-                    ? comparison
-                    : StringComparer.OrdinalIgnoreCase.Compare(x.TestMethod.Method.Name, y.TestMethod.Method.Name);
-            });
-
-            return result;
+        public IEnumerable<TTestCase> OrderTestCases<TTestCase>(IEnumerable<TTestCase> testCases) where TTestCase : ITestCase
+        {
+            return testCases
+                .Where(testCase =>
+                {
+                    return (testCase.TestMethod.TestClass.Class.Name is { } className && className.EndsWith("IntegrationTests"))
+                        ? Environment.GetEnvironmentVariable($"Run{className.Split('.')[^1]}") is { } env && bool.TryParse(env, out var enabled) && enabled
+                        : true;
+                })
+                .OrderBy(x => x, TestCaseComparer<TTestCase>.Instance)
+                .ThenBy(x => x!.TestMethod.Method.Name);
         }
     }
 }
