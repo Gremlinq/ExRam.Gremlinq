@@ -9,18 +9,16 @@ namespace ExRam.Gremlinq.Core.Tests
     {
         public abstract class Fixture : GremlinqTestFixture
         {
-            protected Fixture(IGremlinQuerySource source) : base(source
+            protected Fixture(string sourcePrefix, IGremlinQuerySource source) : base(source
                 .ConfigureEnvironment(env => env
                     .UseExecutor(GremlinQueryExecutor.Create((_, _) =>
                     {
                         var context = XunitContext.Context;
 
-                        var prefix = context.ClassName.Substring(0, context.ClassName.Length - "DeserializationTests".Length);
-
                         try
                         {
                             var jArray = JsonConvert.DeserializeObject<JArray>(
-                                File.ReadAllText(System.IO.Path.Combine(context.SourceDirectory, prefix + "IntegrationTests." + XunitContext.Context.MethodName + ".verified.txt")));
+                                File.ReadAllText(System.IO.Path.Combine(context.SourceDirectory, sourcePrefix + "." + XunitContext.Context.MethodName + ".verified.txt")));
 
                             return jArray?
                                 .Select(x => (object)x)
