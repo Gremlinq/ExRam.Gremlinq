@@ -1,20 +1,7 @@
-[
+﻿[
   {
     "@type": "g:List",
     "@value": [
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Date",
-            "@value": 1546304400000
-          }
-        }
-      },
       {
         "@type": "g:Traverser",
         "@value": {
@@ -33,6 +20,19 @@
             "@value": 1
           },
           "value": "Germany"
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Date",
+            "@value": 1546304400000
+          }
         }
       }
     ]

@@ -300,44 +300,6 @@
       },
       {
         "id": "scrubbed id",
-        "label": "Language",
-        "type": "vertex",
-        "properties": {
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ],
-          "IetfLanguageTag": [
-            {
-              "id": "scrubbed id",
-              "value": "en"
-            }
-          ]
-        }
-      },
-      {
-        "id": "scrubbed id",
-        "label": "Language",
-        "type": "vertex",
-        "properties": {
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ],
-          "IetfLanguageTag": [
-            {
-              "id": "scrubbed id",
-              "value": "en"
-            }
-          ]
-        }
-      },
-      {
-        "id": "scrubbed id",
         "label": "Person",
         "type": "vertex",
         "properties": {
@@ -445,7 +407,7 @@
       },
       {
         "id": "scrubbed id",
-        "label": "Company",
+        "label": "Country",
         "type": "vertex",
         "properties": {
           "PartitionKey": [
@@ -454,18 +416,13 @@
               "value": "PartitionKey"
             }
           ],
-          "FoundingDate": [
+          "Name": [
             {
               "id": "scrubbed id",
-              "value": -62135596800000
-            }
-          ],
-          "Locations": [
-            {
-              "id": "scrubbed id",
-              "value": "Aachen",
+              "value": "GER",
               "properties": {
-                "ValidFrom": 1546304400000
+                "de": "Deutschland",
+                "en": "Germany"
               }
             }
           ]
@@ -492,7 +449,7 @@
       },
       {
         "id": "scrubbed id",
-        "label": "Country",
+        "label": "Company",
         "type": "vertex",
         "properties": {
           "PartitionKey": [
@@ -501,13 +458,18 @@
               "value": "PartitionKey"
             }
           ],
-          "Name": [
+          "FoundingDate": [
             {
               "id": "scrubbed id",
-              "value": "GER",
+              "value": -62135596800000
+            }
+          ],
+          "Locations": [
+            {
+              "id": "scrubbed id",
+              "value": "Aachen",
               "properties": {
-                "de": "Deutschland",
-                "en": "Germany"
+                "ValidFrom": 1546304400000
               }
             }
           ]
@@ -567,6 +529,44 @@
             }
           ],
           "lang": [
+            {
+              "id": "scrubbed id",
+              "value": "en"
+            }
+          ]
+        }
+      },
+      {
+        "id": "scrubbed id",
+        "label": "Language",
+        "type": "vertex",
+        "properties": {
+          "PartitionKey": [
+            {
+              "id": "scrubbed id",
+              "value": "PartitionKey"
+            }
+          ],
+          "IetfLanguageTag": [
+            {
+              "id": "scrubbed id",
+              "value": "en"
+            }
+          ]
+        }
+      },
+      {
+        "id": "scrubbed id",
+        "label": "Language",
+        "type": "vertex",
+        "properties": {
+          "PartitionKey": [
+            {
+              "id": "scrubbed id",
+              "value": "PartitionKey"
+            }
+          ],
+          "IetfLanguageTag": [
             {
               "id": "scrubbed id",
               "value": "en"

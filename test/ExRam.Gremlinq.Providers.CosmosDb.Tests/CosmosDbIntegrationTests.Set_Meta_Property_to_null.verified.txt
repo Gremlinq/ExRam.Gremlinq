@@ -1,10 +1,5 @@
-[
+﻿[
   [
-    {
-      "id": "scrubbed id",
-      "value": "GER",
-      "label": "Name"
-    },
     {
       "id": "scrubbed id",
       "value": "GER",
@@ -13,6 +8,11 @@
         "de": "Deutschland",
         "en": "Germany"
       }
+    },
+    {
+      "id": "scrubbed id",
+      "value": "GER",
+      "label": "Name"
     }
   ]
 ]

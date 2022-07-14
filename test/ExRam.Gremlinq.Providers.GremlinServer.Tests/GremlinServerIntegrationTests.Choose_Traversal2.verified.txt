@@ -248,7 +248,7 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 2
+            "@value": 1
           },
           "value": {
             "@type": "g:Map",
@@ -259,7 +259,7 @@
                 "@value": -1
               },
               "label",
-              "Country",
+              "Language",
               "properties",
               {
                 "@type": "g:Map",
@@ -274,7 +274,7 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 1
+            "@value": 2
           },
           "value": {
             "@type": "g:Map",
@@ -285,7 +285,7 @@
                 "@value": -1
               },
               "label",
-              "Language",
+              "Country",
               "properties",
               {
                 "@type": "g:Map",

@@ -224,103 +224,12 @@
                     "@value": -1
                   },
                   "label",
-                  "Country",
-                  "properties",
-                  {
-                    "@type": "g:Map",
-                    "@value": [
-                      "Name",
-                      {
-                        "@type": "g:List",
-                        "@value": [
-                          {
-                            "@type": "g:Map",
-                            "@value": [
-                              "id",
-                              {
-                                "@type": "g:Int64",
-                                "@value": -1
-                              },
-                              "label",
-                              "Name",
-                              "value",
-                              "GER",
-                              "properties",
-                              {
-                                "@type": "g:Map",
-                                "@value": []
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "@type": "g:List",
-                "@value": [
-                  {
-                    "@type": "g:Map",
-                    "@value": [
-                      "id",
-                      {
-                        "@type": "g:Int64",
-                        "@value": -1
-                      },
-                      "label",
-                      "Country",
-                      "properties",
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "Name",
-                          {
-                            "@type": "g:List",
-                            "@value": [
-                              {
-                                "@type": "g:Map",
-                                "@value": [
-                                  "id",
-                                  {
-                                    "@type": "g:Int64",
-                                    "@value": -1
-                                  },
-                                  "label",
-                                  "Name",
-                                  "value",
-                                  "GER",
-                                  "properties",
-                                  {
-                                    "@type": "g:Map",
-                                    "@value": []
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": -1
-                  },
-                  "label",
                   "Person",
                   "properties",
                   {
                     "@type": "g:Map",
                     "@value": [
-                      "RegistrationDate",
+                      "Age",
                       {
                         "@type": "g:List",
                         "@value": [
@@ -333,37 +242,12 @@
                                 "@value": -1
                               },
                               "label",
-                              "RegistrationDate",
+                              "Age",
                               "value",
                               {
-                                "@type": "g:Date",
-                                "@value": 1586270616000
+                                "@type": "g:Int32",
+                                "@value": 0
                               },
-                              "properties",
-                              {
-                                "@type": "g:Map",
-                                "@value": []
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      "Name",
-                      {
-                        "@type": "g:List",
-                        "@value": [
-                          {
-                            "@type": "g:Map",
-                            "@value": [
-                              "id",
-                              {
-                                "@type": "g:Int64",
-                                "@value": -1
-                              },
-                              "label",
-                              "Name",
-                              "value",
-                              "Marko",
                               "properties",
                               {
                                 "@type": "g:Map",
@@ -394,7 +278,7 @@
                       {
                         "@type": "g:Map",
                         "@value": [
-                          "RegistrationDate",
+                          "Age",
                           {
                             "@type": "g:List",
                             "@value": [
@@ -407,11 +291,11 @@
                                     "@value": -1
                                   },
                                   "label",
-                                  "RegistrationDate",
+                                  "Age",
                                   "value",
                                   {
-                                    "@type": "g:Date",
-                                    "@value": 1586270616000
+                                    "@type": "g:Int32",
+                                    "@value": 0
                                   },
                                   "properties",
                                   {
@@ -421,8 +305,77 @@
                                 ]
                               }
                             ]
-                          },
-                          "Name",
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": -1
+                  },
+                  "label",
+                  "Person",
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": [
+                      "Age",
+                      {
+                        "@type": "g:List",
+                        "@value": [
+                          {
+                            "@type": "g:Map",
+                            "@value": [
+                              "id",
+                              {
+                                "@type": "g:Int64",
+                                "@value": -1
+                              },
+                              "label",
+                              "Age",
+                              "value",
+                              {
+                                "@type": "g:Int32",
+                                "@value": 0
+                              },
+                              "properties",
+                              {
+                                "@type": "g:Map",
+                                "@value": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "@type": "g:List",
+                "@value": [
+                  {
+                    "@type": "g:Map",
+                    "@value": [
+                      "id",
+                      {
+                        "@type": "g:Int64",
+                        "@value": -1
+                      },
+                      "label",
+                      "Person",
+                      "properties",
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "Age",
                           {
                             "@type": "g:List",
                             "@value": [
@@ -435,9 +388,391 @@
                                     "@value": -1
                                   },
                                   "label",
-                                  "Name",
+                                  "Age",
                                   "value",
-                                  "Marko",
+                                  {
+                                    "@type": "g:Int32",
+                                    "@value": 0
+                                  },
+                                  "properties",
+                                  {
+                                    "@type": "g:Map",
+                                    "@value": []
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": -1
+                  },
+                  "label",
+                  "Company",
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": [
+                      "FoundingDate",
+                      {
+                        "@type": "g:List",
+                        "@value": [
+                          {
+                            "@type": "g:Map",
+                            "@value": [
+                              "id",
+                              {
+                                "@type": "g:Int64",
+                                "@value": -1
+                              },
+                              "label",
+                              "FoundingDate",
+                              "value",
+                              {
+                                "@type": "g:Date",
+                                "@value": -62135596800000
+                              },
+                              "properties",
+                              {
+                                "@type": "g:Map",
+                                "@value": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "@type": "g:List",
+                "@value": [
+                  {
+                    "@type": "g:Map",
+                    "@value": [
+                      "id",
+                      {
+                        "@type": "g:Int64",
+                        "@value": -1
+                      },
+                      "label",
+                      "Company",
+                      "properties",
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "FoundingDate",
+                          {
+                            "@type": "g:List",
+                            "@value": [
+                              {
+                                "@type": "g:Map",
+                                "@value": [
+                                  "id",
+                                  {
+                                    "@type": "g:Int64",
+                                    "@value": -1
+                                  },
+                                  "label",
+                                  "FoundingDate",
+                                  "value",
+                                  {
+                                    "@type": "g:Date",
+                                    "@value": -62135596800000
+                                  },
+                                  "properties",
+                                  {
+                                    "@type": "g:Map",
+                                    "@value": []
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": -1
+                  },
+                  "label",
+                  "Company",
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": [
+                      "PhoneNumbers",
+                      {
+                        "@type": "g:List",
+                        "@value": [
+                          {
+                            "@type": "g:Map",
+                            "@value": [
+                              "id",
+                              {
+                                "@type": "g:Int64",
+                                "@value": -1
+                              },
+                              "label",
+                              "PhoneNumbers",
+                              "value",
+                              "+4912345",
+                              "properties",
+                              {
+                                "@type": "g:Map",
+                                "@value": []
+                              }
+                            ]
+                          },
+                          {
+                            "@type": "g:Map",
+                            "@value": [
+                              "id",
+                              {
+                                "@type": "g:Int64",
+                                "@value": -1
+                              },
+                              "label",
+                              "PhoneNumbers",
+                              "value",
+                              "+4923456",
+                              "properties",
+                              {
+                                "@type": "g:Map",
+                                "@value": []
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "FoundingDate",
+                      {
+                        "@type": "g:List",
+                        "@value": [
+                          {
+                            "@type": "g:Map",
+                            "@value": [
+                              "id",
+                              {
+                                "@type": "g:Int64",
+                                "@value": -1
+                              },
+                              "label",
+                              "FoundingDate",
+                              "value",
+                              {
+                                "@type": "g:Date",
+                                "@value": -62135596800000
+                              },
+                              "properties",
+                              {
+                                "@type": "g:Map",
+                                "@value": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "@type": "g:List",
+                "@value": [
+                  {
+                    "@type": "g:Map",
+                    "@value": [
+                      "id",
+                      {
+                        "@type": "g:Int64",
+                        "@value": -1
+                      },
+                      "label",
+                      "Company",
+                      "properties",
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "PhoneNumbers",
+                          {
+                            "@type": "g:List",
+                            "@value": [
+                              {
+                                "@type": "g:Map",
+                                "@value": [
+                                  "id",
+                                  {
+                                    "@type": "g:Int64",
+                                    "@value": -1
+                                  },
+                                  "label",
+                                  "PhoneNumbers",
+                                  "value",
+                                  "+4912345",
+                                  "properties",
+                                  {
+                                    "@type": "g:Map",
+                                    "@value": []
+                                  }
+                                ]
+                              },
+                              {
+                                "@type": "g:Map",
+                                "@value": [
+                                  "id",
+                                  {
+                                    "@type": "g:Int64",
+                                    "@value": -1
+                                  },
+                                  "label",
+                                  "PhoneNumbers",
+                                  "value",
+                                  "+4923456",
+                                  "properties",
+                                  {
+                                    "@type": "g:Map",
+                                    "@value": []
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          "FoundingDate",
+                          {
+                            "@type": "g:List",
+                            "@value": [
+                              {
+                                "@type": "g:Map",
+                                "@value": [
+                                  "id",
+                                  {
+                                    "@type": "g:Int64",
+                                    "@value": -1
+                                  },
+                                  "label",
+                                  "FoundingDate",
+                                  "value",
+                                  {
+                                    "@type": "g:Date",
+                                    "@value": -62135596800000
+                                  },
+                                  "properties",
+                                  {
+                                    "@type": "g:Map",
+                                    "@value": []
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": -1
+                  },
+                  "label",
+                  "Person",
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": [
+                      "Age",
+                      {
+                        "@type": "g:List",
+                        "@value": [
+                          {
+                            "@type": "g:Map",
+                            "@value": [
+                              "id",
+                              {
+                                "@type": "g:Int64",
+                                "@value": -1
+                              },
+                              "label",
+                              "Age",
+                              "value",
+                              {
+                                "@type": "g:Int32",
+                                "@value": 0
+                              },
+                              "properties",
+                              {
+                                "@type": "g:Map",
+                                "@value": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "@type": "g:List",
+                "@value": [
+                  {
+                    "@type": "g:Map",
+                    "@value": [
+                      "id",
+                      {
+                        "@type": "g:Int64",
+                        "@value": -1
+                      },
+                      "label",
+                      "Person",
+                      "properties",
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "Age",
+                          {
+                            "@type": "g:List",
+                            "@value": [
+                              {
+                                "@type": "g:Map",
+                                "@value": [
+                                  "id",
+                                  {
+                                    "@type": "g:Int64",
+                                    "@value": -1
+                                  },
+                                  "label",
+                                  "Age",
+                                  "value",
+                                  {
+                                    "@type": "g:Int32",
+                                    "@value": 0
+                                  },
                                   "properties",
                                   {
                                     "@type": "g:Map",
@@ -654,12 +989,12 @@
                     "@value": -1
                   },
                   "label",
-                  "Person",
+                  "Company",
                   "properties",
                   {
                     "@type": "g:Map",
                     "@value": [
-                      "Age",
+                      "FoundingDate",
                       {
                         "@type": "g:List",
                         "@value": [
@@ -672,11 +1007,11 @@
                                 "@value": -1
                               },
                               "label",
-                              "Age",
+                              "FoundingDate",
                               "value",
                               {
-                                "@type": "g:Int32",
-                                "@value": 0
+                                "@type": "g:Date",
+                                "@value": -62135596800000
                               },
                               "properties",
                               {
@@ -703,12 +1038,12 @@
                         "@value": -1
                       },
                       "label",
-                      "Person",
+                      "Company",
                       "properties",
                       {
                         "@type": "g:Map",
                         "@value": [
-                          "Age",
+                          "FoundingDate",
                           {
                             "@type": "g:List",
                             "@value": [
@@ -721,108 +1056,11 @@
                                     "@value": -1
                                   },
                                   "label",
-                                  "Age",
+                                  "FoundingDate",
                                   "value",
                                   {
-                                    "@type": "g:Int32",
-                                    "@value": 0
-                                  },
-                                  "properties",
-                                  {
-                                    "@type": "g:Map",
-                                    "@value": []
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": -1
-                  },
-                  "label",
-                  "Person",
-                  "properties",
-                  {
-                    "@type": "g:Map",
-                    "@value": [
-                      "Age",
-                      {
-                        "@type": "g:List",
-                        "@value": [
-                          {
-                            "@type": "g:Map",
-                            "@value": [
-                              "id",
-                              {
-                                "@type": "g:Int64",
-                                "@value": -1
-                              },
-                              "label",
-                              "Age",
-                              "value",
-                              {
-                                "@type": "g:Int32",
-                                "@value": 0
-                              },
-                              "properties",
-                              {
-                                "@type": "g:Map",
-                                "@value": []
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "@type": "g:List",
-                "@value": [
-                  {
-                    "@type": "g:Map",
-                    "@value": [
-                      "id",
-                      {
-                        "@type": "g:Int64",
-                        "@value": -1
-                      },
-                      "label",
-                      "Person",
-                      "properties",
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "Age",
-                          {
-                            "@type": "g:List",
-                            "@value": [
-                              {
-                                "@type": "g:Map",
-                                "@value": [
-                                  "id",
-                                  {
-                                    "@type": "g:Int64",
-                                    "@value": -1
-                                  },
-                                  "label",
-                                  "Age",
-                                  "value",
-                                  {
-                                    "@type": "g:Int32",
-                                    "@value": 0
+                                    "@type": "g:Date",
+                                    "@value": -62135596800000
                                   },
                                   "properties",
                                   {
@@ -920,6 +1158,159 @@
                                   {
                                     "@type": "g:Date",
                                     "@value": -62135596800000
+                                  },
+                                  "properties",
+                                  {
+                                    "@type": "g:Map",
+                                    "@value": []
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": -1
+                  },
+                  "label",
+                  "Person",
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": [
+                      "Age",
+                      {
+                        "@type": "g:List",
+                        "@value": [
+                          {
+                            "@type": "g:Map",
+                            "@value": [
+                              "id",
+                              {
+                                "@type": "g:Int64",
+                                "@value": -1
+                              },
+                              "label",
+                              "Age",
+                              "value",
+                              {
+                                "@type": "g:Int32",
+                                "@value": 0
+                              },
+                              "properties",
+                              {
+                                "@type": "g:Map",
+                                "@value": []
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "Gender",
+                      {
+                        "@type": "g:List",
+                        "@value": [
+                          {
+                            "@type": "g:Map",
+                            "@value": [
+                              "id",
+                              {
+                                "@type": "g:Int64",
+                                "@value": -1
+                              },
+                              "label",
+                              "Gender",
+                              "value",
+                              {
+                                "@type": "g:Int32",
+                                "@value": 1
+                              },
+                              "properties",
+                              {
+                                "@type": "g:Map",
+                                "@value": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "@type": "g:List",
+                "@value": [
+                  {
+                    "@type": "g:Map",
+                    "@value": [
+                      "id",
+                      {
+                        "@type": "g:Int64",
+                        "@value": -1
+                      },
+                      "label",
+                      "Person",
+                      "properties",
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "Age",
+                          {
+                            "@type": "g:List",
+                            "@value": [
+                              {
+                                "@type": "g:Map",
+                                "@value": [
+                                  "id",
+                                  {
+                                    "@type": "g:Int64",
+                                    "@value": -1
+                                  },
+                                  "label",
+                                  "Age",
+                                  "value",
+                                  {
+                                    "@type": "g:Int32",
+                                    "@value": 0
+                                  },
+                                  "properties",
+                                  {
+                                    "@type": "g:Map",
+                                    "@value": []
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          "Gender",
+                          {
+                            "@type": "g:List",
+                            "@value": [
+                              {
+                                "@type": "g:Map",
+                                "@value": [
+                                  "id",
+                                  {
+                                    "@type": "g:Int64",
+                                    "@value": -1
+                                  },
+                                  "label",
+                                  "Gender",
+                                  "value",
+                                  {
+                                    "@type": "g:Int32",
+                                    "@value": 1
                                   },
                                   "properties",
                                   {
@@ -970,388 +1361,6 @@
                       {
                         "@type": "g:Map",
                         "@value": []
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": -1
-                  },
-                  "label",
-                  "Person",
-                  "properties",
-                  {
-                    "@type": "g:Map",
-                    "@value": [
-                      "Age",
-                      {
-                        "@type": "g:List",
-                        "@value": [
-                          {
-                            "@type": "g:Map",
-                            "@value": [
-                              "id",
-                              {
-                                "@type": "g:Int64",
-                                "@value": -1
-                              },
-                              "label",
-                              "Age",
-                              "value",
-                              {
-                                "@type": "g:Int32",
-                                "@value": 0
-                              },
-                              "properties",
-                              {
-                                "@type": "g:Map",
-                                "@value": []
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "@type": "g:List",
-                "@value": [
-                  {
-                    "@type": "g:Map",
-                    "@value": [
-                      "id",
-                      {
-                        "@type": "g:Int64",
-                        "@value": -1
-                      },
-                      "label",
-                      "Person",
-                      "properties",
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "Age",
-                          {
-                            "@type": "g:List",
-                            "@value": [
-                              {
-                                "@type": "g:Map",
-                                "@value": [
-                                  "id",
-                                  {
-                                    "@type": "g:Int64",
-                                    "@value": -1
-                                  },
-                                  "label",
-                                  "Age",
-                                  "value",
-                                  {
-                                    "@type": "g:Int32",
-                                    "@value": 0
-                                  },
-                                  "properties",
-                                  {
-                                    "@type": "g:Map",
-                                    "@value": []
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": -1
-                  },
-                  "label",
-                  "Language",
-                  "properties",
-                  {
-                    "@type": "g:Map",
-                    "@value": [
-                      "IetfLanguageTag",
-                      {
-                        "@type": "g:List",
-                        "@value": [
-                          {
-                            "@type": "g:Map",
-                            "@value": [
-                              "id",
-                              {
-                                "@type": "g:Int64",
-                                "@value": -1
-                              },
-                              "label",
-                              "IetfLanguageTag",
-                              "value",
-                              "en",
-                              "properties",
-                              {
-                                "@type": "g:Map",
-                                "@value": []
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "@type": "g:List",
-                "@value": [
-                  {
-                    "@type": "g:Map",
-                    "@value": [
-                      "id",
-                      {
-                        "@type": "g:Int64",
-                        "@value": -1
-                      },
-                      "label",
-                      "Language",
-                      "properties",
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "IetfLanguageTag",
-                          {
-                            "@type": "g:List",
-                            "@value": [
-                              {
-                                "@type": "g:Map",
-                                "@value": [
-                                  "id",
-                                  {
-                                    "@type": "g:Int64",
-                                    "@value": -1
-                                  },
-                                  "label",
-                                  "IetfLanguageTag",
-                                  "value",
-                                  "en",
-                                  "properties",
-                                  {
-                                    "@type": "g:Map",
-                                    "@value": []
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": -1
-                  },
-                  "label",
-                  "Company",
-                  "properties",
-                  {
-                    "@type": "g:Map",
-                    "@value": [
-                      "FoundingDate",
-                      {
-                        "@type": "g:List",
-                        "@value": [
-                          {
-                            "@type": "g:Map",
-                            "@value": [
-                              "id",
-                              {
-                                "@type": "g:Int64",
-                                "@value": -1
-                              },
-                              "label",
-                              "FoundingDate",
-                              "value",
-                              {
-                                "@type": "g:Date",
-                                "@value": -62135596800000
-                              },
-                              "properties",
-                              {
-                                "@type": "g:Map",
-                                "@value": []
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "@type": "g:List",
-                "@value": [
-                  {
-                    "@type": "g:Map",
-                    "@value": [
-                      "id",
-                      {
-                        "@type": "g:Int64",
-                        "@value": -1
-                      },
-                      "label",
-                      "Company",
-                      "properties",
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "FoundingDate",
-                          {
-                            "@type": "g:List",
-                            "@value": [
-                              {
-                                "@type": "g:Map",
-                                "@value": [
-                                  "id",
-                                  {
-                                    "@type": "g:Int64",
-                                    "@value": -1
-                                  },
-                                  "label",
-                                  "FoundingDate",
-                                  "value",
-                                  {
-                                    "@type": "g:Date",
-                                    "@value": -62135596800000
-                                  },
-                                  "properties",
-                                  {
-                                    "@type": "g:Map",
-                                    "@value": []
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": -1
-                  },
-                  "label",
-                  "Company",
-                  "properties",
-                  {
-                    "@type": "g:Map",
-                    "@value": [
-                      "FoundingDate",
-                      {
-                        "@type": "g:List",
-                        "@value": [
-                          {
-                            "@type": "g:Map",
-                            "@value": [
-                              "id",
-                              {
-                                "@type": "g:Int64",
-                                "@value": -1
-                              },
-                              "label",
-                              "FoundingDate",
-                              "value",
-                              {
-                                "@type": "g:Date",
-                                "@value": -62135596800000
-                              },
-                              "properties",
-                              {
-                                "@type": "g:Map",
-                                "@value": []
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "@type": "g:List",
-                "@value": [
-                  {
-                    "@type": "g:Map",
-                    "@value": [
-                      "id",
-                      {
-                        "@type": "g:Int64",
-                        "@value": -1
-                      },
-                      "label",
-                      "Company",
-                      "properties",
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "FoundingDate",
-                          {
-                            "@type": "g:List",
-                            "@value": [
-                              {
-                                "@type": "g:Map",
-                                "@value": [
-                                  "id",
-                                  {
-                                    "@type": "g:Int64",
-                                    "@value": -1
-                                  },
-                                  "label",
-                                  "FoundingDate",
-                                  "value",
-                                  {
-                                    "@type": "g:Date",
-                                    "@value": -62135596800000
-                                  },
-                                  "properties",
-                                  {
-                                    "@type": "g:Map",
-                                    "@value": []
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
                       }
                     ]
                   }
@@ -2113,312 +2122,6 @@
                     "@value": -1
                   },
                   "label",
-                  "Person",
-                  "properties",
-                  {
-                    "@type": "g:Map",
-                    "@value": [
-                      "Age",
-                      {
-                        "@type": "g:List",
-                        "@value": [
-                          {
-                            "@type": "g:Map",
-                            "@value": [
-                              "id",
-                              {
-                                "@type": "g:Int64",
-                                "@value": -1
-                              },
-                              "label",
-                              "Age",
-                              "value",
-                              {
-                                "@type": "g:Int32",
-                                "@value": 0
-                              },
-                              "properties",
-                              {
-                                "@type": "g:Map",
-                                "@value": []
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      "Gender",
-                      {
-                        "@type": "g:List",
-                        "@value": [
-                          {
-                            "@type": "g:Map",
-                            "@value": [
-                              "id",
-                              {
-                                "@type": "g:Int64",
-                                "@value": -1
-                              },
-                              "label",
-                              "Gender",
-                              "value",
-                              {
-                                "@type": "g:Int32",
-                                "@value": 1
-                              },
-                              "properties",
-                              {
-                                "@type": "g:Map",
-                                "@value": []
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "@type": "g:List",
-                "@value": [
-                  {
-                    "@type": "g:Map",
-                    "@value": [
-                      "id",
-                      {
-                        "@type": "g:Int64",
-                        "@value": -1
-                      },
-                      "label",
-                      "Person",
-                      "properties",
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "Age",
-                          {
-                            "@type": "g:List",
-                            "@value": [
-                              {
-                                "@type": "g:Map",
-                                "@value": [
-                                  "id",
-                                  {
-                                    "@type": "g:Int64",
-                                    "@value": -1
-                                  },
-                                  "label",
-                                  "Age",
-                                  "value",
-                                  {
-                                    "@type": "g:Int32",
-                                    "@value": 0
-                                  },
-                                  "properties",
-                                  {
-                                    "@type": "g:Map",
-                                    "@value": []
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          "Gender",
-                          {
-                            "@type": "g:List",
-                            "@value": [
-                              {
-                                "@type": "g:Map",
-                                "@value": [
-                                  "id",
-                                  {
-                                    "@type": "g:Int64",
-                                    "@value": -1
-                                  },
-                                  "label",
-                                  "Gender",
-                                  "value",
-                                  {
-                                    "@type": "g:Int32",
-                                    "@value": 1
-                                  },
-                                  "properties",
-                                  {
-                                    "@type": "g:Map",
-                                    "@value": []
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": -1
-                  },
-                  "label",
-                  "Person",
-                  "properties",
-                  {
-                    "@type": "g:Map",
-                    "@value": [
-                      "Image",
-                      {
-                        "@type": "g:List",
-                        "@value": [
-                          {
-                            "@type": "g:Map",
-                            "@value": [
-                              "id",
-                              {
-                                "@type": "g:Int64",
-                                "@value": -1
-                              },
-                              "label",
-                              "Image",
-                              "value",
-                              {
-                                "@type": "gx:ByteBuffer",
-                                "@value": "AQIDBAUGBwg="
-                              },
-                              "properties",
-                              {
-                                "@type": "g:Map",
-                                "@value": []
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      "Age",
-                      {
-                        "@type": "g:List",
-                        "@value": [
-                          {
-                            "@type": "g:Map",
-                            "@value": [
-                              "id",
-                              {
-                                "@type": "g:Int64",
-                                "@value": -1
-                              },
-                              "label",
-                              "Age",
-                              "value",
-                              {
-                                "@type": "g:Int32",
-                                "@value": 0
-                              },
-                              "properties",
-                              {
-                                "@type": "g:Map",
-                                "@value": []
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "@type": "g:List",
-                "@value": [
-                  {
-                    "@type": "g:Map",
-                    "@value": [
-                      "id",
-                      {
-                        "@type": "g:Int64",
-                        "@value": -1
-                      },
-                      "label",
-                      "Person",
-                      "properties",
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "Image",
-                          {
-                            "@type": "g:List",
-                            "@value": [
-                              {
-                                "@type": "g:Map",
-                                "@value": [
-                                  "id",
-                                  {
-                                    "@type": "g:Int64",
-                                    "@value": -1
-                                  },
-                                  "label",
-                                  "Image",
-                                  "value",
-                                  {
-                                    "@type": "gx:ByteBuffer",
-                                    "@value": "AQIDBAUGBwg="
-                                  },
-                                  "properties",
-                                  {
-                                    "@type": "g:Map",
-                                    "@value": []
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          "Age",
-                          {
-                            "@type": "g:List",
-                            "@value": [
-                              {
-                                "@type": "g:Map",
-                                "@value": [
-                                  "id",
-                                  {
-                                    "@type": "g:Int64",
-                                    "@value": -1
-                                  },
-                                  "label",
-                                  "Age",
-                                  "value",
-                                  {
-                                    "@type": "g:Int32",
-                                    "@value": 0
-                                  },
-                                  "properties",
-                                  {
-                                    "@type": "g:Map",
-                                    "@value": []
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": -1
-                  },
-                  "label",
                   "Language",
                   "properties",
                   {
@@ -2444,6 +2147,244 @@
                       {
                         "@type": "g:Map",
                         "@value": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": -1
+                  },
+                  "label",
+                  "Person",
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": [
+                      "RegistrationDate",
+                      {
+                        "@type": "g:List",
+                        "@value": [
+                          {
+                            "@type": "g:Map",
+                            "@value": [
+                              "id",
+                              {
+                                "@type": "g:Int64",
+                                "@value": -1
+                              },
+                              "label",
+                              "RegistrationDate",
+                              "value",
+                              {
+                                "@type": "g:Date",
+                                "@value": 1586270616000
+                              },
+                              "properties",
+                              {
+                                "@type": "g:Map",
+                                "@value": []
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "Name",
+                      {
+                        "@type": "g:List",
+                        "@value": [
+                          {
+                            "@type": "g:Map",
+                            "@value": [
+                              "id",
+                              {
+                                "@type": "g:Int64",
+                                "@value": -1
+                              },
+                              "label",
+                              "Name",
+                              "value",
+                              "Marko",
+                              "properties",
+                              {
+                                "@type": "g:Map",
+                                "@value": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "@type": "g:List",
+                "@value": [
+                  {
+                    "@type": "g:Map",
+                    "@value": [
+                      "id",
+                      {
+                        "@type": "g:Int64",
+                        "@value": -1
+                      },
+                      "label",
+                      "Person",
+                      "properties",
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "RegistrationDate",
+                          {
+                            "@type": "g:List",
+                            "@value": [
+                              {
+                                "@type": "g:Map",
+                                "@value": [
+                                  "id",
+                                  {
+                                    "@type": "g:Int64",
+                                    "@value": -1
+                                  },
+                                  "label",
+                                  "RegistrationDate",
+                                  "value",
+                                  {
+                                    "@type": "g:Date",
+                                    "@value": 1586270616000
+                                  },
+                                  "properties",
+                                  {
+                                    "@type": "g:Map",
+                                    "@value": []
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          "Name",
+                          {
+                            "@type": "g:List",
+                            "@value": [
+                              {
+                                "@type": "g:Map",
+                                "@value": [
+                                  "id",
+                                  {
+                                    "@type": "g:Int64",
+                                    "@value": -1
+                                  },
+                                  "label",
+                                  "Name",
+                                  "value",
+                                  "Marko",
+                                  "properties",
+                                  {
+                                    "@type": "g:Map",
+                                    "@value": []
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": -1
+                  },
+                  "label",
+                  "Country",
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": [
+                      "Name",
+                      {
+                        "@type": "g:List",
+                        "@value": [
+                          {
+                            "@type": "g:Map",
+                            "@value": [
+                              "id",
+                              {
+                                "@type": "g:Int64",
+                                "@value": -1
+                              },
+                              "label",
+                              "Name",
+                              "value",
+                              "GER",
+                              "properties",
+                              {
+                                "@type": "g:Map",
+                                "@value": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "@type": "g:List",
+                "@value": [
+                  {
+                    "@type": "g:Map",
+                    "@value": [
+                      "id",
+                      {
+                        "@type": "g:Int64",
+                        "@value": -1
+                      },
+                      "label",
+                      "Country",
+                      "properties",
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "Name",
+                          {
+                            "@type": "g:List",
+                            "@value": [
+                              {
+                                "@type": "g:Map",
+                                "@value": [
+                                  "id",
+                                  {
+                                    "@type": "g:Int64",
+                                    "@value": -1
+                                  },
+                                  "label",
+                                  "Name",
+                                  "value",
+                                  "GER",
+                                  "properties",
+                                  {
+                                    "@type": "g:Map",
+                                    "@value": []
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
                       }
                     ]
                   }
@@ -3172,6 +3113,97 @@
                     "@value": -1
                   },
                   "label",
+                  "Language",
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": [
+                      "IetfLanguageTag",
+                      {
+                        "@type": "g:List",
+                        "@value": [
+                          {
+                            "@type": "g:Map",
+                            "@value": [
+                              "id",
+                              {
+                                "@type": "g:Int64",
+                                "@value": -1
+                              },
+                              "label",
+                              "IetfLanguageTag",
+                              "value",
+                              "en",
+                              "properties",
+                              {
+                                "@type": "g:Map",
+                                "@value": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "@type": "g:List",
+                "@value": [
+                  {
+                    "@type": "g:Map",
+                    "@value": [
+                      "id",
+                      {
+                        "@type": "g:Int64",
+                        "@value": -1
+                      },
+                      "label",
+                      "Language",
+                      "properties",
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "IetfLanguageTag",
+                          {
+                            "@type": "g:List",
+                            "@value": [
+                              {
+                                "@type": "g:Map",
+                                "@value": [
+                                  "id",
+                                  {
+                                    "@type": "g:Int64",
+                                    "@value": -1
+                                  },
+                                  "label",
+                                  "IetfLanguageTag",
+                                  "value",
+                                  "en",
+                                  "properties",
+                                  {
+                                    "@type": "g:Map",
+                                    "@value": []
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": -1
+                  },
+                  "label",
                   "Person",
                   "properties",
                   {
@@ -3360,12 +3392,12 @@
                     "@value": -1
                   },
                   "label",
-                  "Company",
+                  "Person",
                   "properties",
                   {
                     "@type": "g:Map",
                     "@value": [
-                      "PhoneNumbers",
+                      "Image",
                       {
                         "@type": "g:List",
                         "@value": [
@@ -3378,28 +3410,12 @@
                                 "@value": -1
                               },
                               "label",
-                              "PhoneNumbers",
+                              "Image",
                               "value",
-                              "+4912345",
-                              "properties",
                               {
-                                "@type": "g:Map",
-                                "@value": []
-                              }
-                            ]
-                          },
-                          {
-                            "@type": "g:Map",
-                            "@value": [
-                              "id",
-                              {
-                                "@type": "g:Int64",
-                                "@value": -1
+                                "@type": "gx:ByteBuffer",
+                                "@value": "AQIDBAUGBwg="
                               },
-                              "label",
-                              "PhoneNumbers",
-                              "value",
-                              "+4923456",
                               "properties",
                               {
                                 "@type": "g:Map",
@@ -3409,7 +3425,7 @@
                           }
                         ]
                       },
-                      "FoundingDate",
+                      "Age",
                       {
                         "@type": "g:List",
                         "@value": [
@@ -3422,11 +3438,11 @@
                                 "@value": -1
                               },
                               "label",
-                              "FoundingDate",
+                              "Age",
                               "value",
                               {
-                                "@type": "g:Date",
-                                "@value": -62135596800000
+                                "@type": "g:Int32",
+                                "@value": 0
                               },
                               "properties",
                               {
@@ -3453,12 +3469,12 @@
                         "@value": -1
                       },
                       "label",
-                      "Company",
+                      "Person",
                       "properties",
                       {
                         "@type": "g:Map",
                         "@value": [
-                          "PhoneNumbers",
+                          "Image",
                           {
                             "@type": "g:List",
                             "@value": [
@@ -3471,28 +3487,12 @@
                                     "@value": -1
                                   },
                                   "label",
-                                  "PhoneNumbers",
+                                  "Image",
                                   "value",
-                                  "+4912345",
-                                  "properties",
                                   {
-                                    "@type": "g:Map",
-                                    "@value": []
-                                  }
-                                ]
-                              },
-                              {
-                                "@type": "g:Map",
-                                "@value": [
-                                  "id",
-                                  {
-                                    "@type": "g:Int64",
-                                    "@value": -1
+                                    "@type": "gx:ByteBuffer",
+                                    "@value": "AQIDBAUGBwg="
                                   },
-                                  "label",
-                                  "PhoneNumbers",
-                                  "value",
-                                  "+4923456",
                                   "properties",
                                   {
                                     "@type": "g:Map",
@@ -3502,7 +3502,7 @@
                               }
                             ]
                           },
-                          "FoundingDate",
+                          "Age",
                           {
                             "@type": "g:List",
                             "@value": [
@@ -3515,11 +3515,11 @@
                                     "@value": -1
                                   },
                                   "label",
-                                  "FoundingDate",
+                                  "Age",
                                   "value",
                                   {
-                                    "@type": "g:Date",
-                                    "@value": -62135596800000
+                                    "@type": "g:Int32",
+                                    "@value": 0
                                   },
                                   "properties",
                                   {

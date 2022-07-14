@@ -1,4 +1,4 @@
-[
+﻿[
   [
     "Country",
     "Language",
@@ -15,17 +15,17 @@
     "Language",
     "Language",
     "TimeFrame",
-    "Language",
-    "Language",
     "Person",
     "Person",
     "Person",
     "Language",
     "Language",
-    "Company",
     "Country",
     "Country",
     "Company",
+    "Company",
+    "Language",
+    "Language",
     "Language",
     "Language"
   ]

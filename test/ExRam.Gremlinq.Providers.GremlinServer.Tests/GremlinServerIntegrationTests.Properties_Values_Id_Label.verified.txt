@@ -30,52 +30,6 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 3
-          },
-          "value": "RegistrationDate"
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Int64",
-            "@value": 66
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 5
-          },
-          "value": "Name"
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Int64",
-            "@value": 65
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
             "@value": 6
           },
           "value": "IetfLanguageTag"
@@ -99,11 +53,34 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
+            "@value": 5
+          },
+          "value": "Name"
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
             "@value": 1
           },
           "value": {
             "@type": "g:Int64",
-            "@value": 68
+            "@value": 67
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Int64",
+            "@value": 69
           }
         }
       },
@@ -194,12 +171,58 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
+            "@value": 2
+          },
+          "value": "PhoneNumbers"
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Int64",
+            "@value": 75
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Int64",
+            "@value": 76
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
             "@value": 1
           },
           "value": {
             "@type": "g:Int64",
             "@value": 74
           }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 3
+          },
+          "value": "RegistrationDate"
         }
       },
       {
@@ -248,20 +271,7 @@
             "@type": "g:Int64",
             "@value": 1
           },
-          "value": {
-            "@type": "g:Int64",
-            "@value": 76
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 2
-          },
-          "value": "PhoneNumbers"
+          "value": "lang"
         }
       },
       {
@@ -286,32 +296,6 @@
           },
           "value": {
             "@type": "g:Int64",
-            "@value": 80
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Int64",
-            "@value": 78
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Int64",
             "@value": 16
           }
         }
@@ -323,7 +307,10 @@
             "@type": "g:Int64",
             "@value": 1
           },
-          "value": "lang"
+          "value": {
+            "@type": "g:Int64",
+            "@value": 81
+          }
         }
       },
       {
@@ -571,32 +558,6 @@
             "@type": "g:Int64",
             "@value": 1
           },
-          "value": {
-            "@type": "g:Int64",
-            "@value": 55
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Int64",
-            "@value": 57
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
           "value": "Image"
         }
       },
@@ -609,7 +570,7 @@
           },
           "value": {
             "@type": "g:Int64",
-            "@value": 60
+            "@value": 56
           }
         }
       },
@@ -622,7 +583,7 @@
           },
           "value": {
             "@type": "g:Int64",
-            "@value": 59
+            "@value": 55
           }
         }
       },
@@ -645,7 +606,20 @@
           },
           "value": {
             "@type": "g:Int64",
-            "@value": 63
+            "@value": 59
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Int64",
+            "@value": 58
           }
         }
       },
@@ -659,6 +633,32 @@
           "value": {
             "@type": "g:Int64",
             "@value": 62
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Int64",
+            "@value": 61
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Int64",
+            "@value": 64
           }
         }
       }

@@ -17,16 +17,6 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 11
-          },
-          "value": "Person"
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
             "@value": 10
           },
           "value": "Language"
@@ -40,6 +30,16 @@
             "@value": 5
           },
           "value": "Company"
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 11
+          },
+          "value": "Person"
         }
       },
       {
