@@ -50,7 +50,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Verify();
         }
 
-        public override IImmutableList<Func<string, string>> Scrubbers() => base
+        protected override IImmutableList<Func<string, string>> Scrubbers() => base
             .Scrubbers()
             .ScrubGuids();
     }

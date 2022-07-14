@@ -14,9 +14,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
         }
 
-        public override IImmutableList<Func<string, string>> Scrubbers() => base
-            .Scrubbers()
-            .ScrubGuids();
+        public override Task Verify<TElement>(IGremlinQueryBase<TElement> query) => base.Verify(query.Cast<object>());
 
         [Fact]
         public async Task StringKey()
@@ -78,5 +76,9 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Fail("There's been an error.")
                 .Verify();
         }
+
+        protected override IImmutableList<Func<string, string>> Scrubbers() => base
+            .Scrubbers()
+            .ScrubGuids();
     }
 }

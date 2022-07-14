@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using ExRam.Gremlinq.Core.Deserialization;
+using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
@@ -26,11 +27,10 @@ namespace ExRam.Gremlinq.Core.Tests
         {
         }
 
-        public override IImmutableList<Func<string, string>> Scrubbers()
-        {
-            return base.Scrubbers()
-                .Add(x => IdRegex.Replace(x, "$1-1$4"))
-                .Add(x => GuidRegex.Replace(x, "$1\"scrubbed uuid\"$4"));
-        }
+        public override Task Verify<TElement>(IGremlinQueryBase<TElement> query) => base.Verify(query.Cast<JToken>());
+
+        protected override IImmutableList<Func<string, string>> Scrubbers() => base.Scrubbers()
+            .Add(x => IdRegex.Replace(x, "$1-1$4"))
+            .Add(x => GuidRegex.Replace(x, "$1\"scrubbed uuid\"$4"));
     }
 }

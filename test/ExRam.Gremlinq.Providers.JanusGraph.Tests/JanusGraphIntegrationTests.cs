@@ -47,11 +47,9 @@ namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
             return base.Properties_Where_Id_equals_static_field();
         }
 
-        public override IImmutableList<Func<string, string>> Scrubbers()
-        {
-            return base.Scrubbers()
-                .Add(x => RelationIdRegex.Replace(x, "\"relationId\": \"scrubbed\""));
-        }
+        protected override IImmutableList<Func<string, string>> Scrubbers() => base
+            .Scrubbers()
+            .Add(x => RelationIdRegex.Replace(x, "\"relationId\": \"scrubbed\""));
     }
 }
 #endif

@@ -51,7 +51,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
             fixture.Create().Wait();
         }
 
-        public override IImmutableList<Func<string, string>> Scrubbers()
+        protected override IImmutableList<Func<string, string>> Scrubbers()
         {
             return base.Scrubbers()
                 .Add(x => IdRegex2.Replace(x, "\"scrubbed id\""));

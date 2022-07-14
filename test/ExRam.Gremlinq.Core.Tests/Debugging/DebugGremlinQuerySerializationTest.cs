@@ -27,5 +27,7 @@ namespace ExRam.Gremlinq.Core.Tests
             testOutputHelper)
         {
         }
+
+        public override Task Verify<TElement>(IGremlinQueryBase<TElement> query) => base.Verify(query.Cast<string>());
     }
 }
