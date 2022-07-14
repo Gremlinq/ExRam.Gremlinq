@@ -25,6 +25,10 @@
               {
                 "@type": "g:Map",
                 "@value": [
+                  "de",
+                  "Deutschland",
+                  "en",
+                  "Germany",
                   "metaKey",
                   {
                     "@type": "g:Int32",
@@ -59,10 +63,6 @@
               {
                 "@type": "g:Map",
                 "@value": [
-                  "de",
-                  "Deutschland",
-                  "en",
-                  "Germany",
                   "metaKey",
                   {
                     "@type": "g:Int32",

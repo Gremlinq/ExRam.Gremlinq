@@ -46,12 +46,9 @@
                 "@value": -1
               },
               "label",
-              "RegistrationDate",
+              "IetfLanguageTag",
               "value",
-              {
-                "@type": "g:Date",
-                "@value": 1586270616000
-              },
+              "en",
               "properties",
               {
                 "@type": "g:Map",
@@ -79,11 +76,16 @@
               "label",
               "Name",
               "value",
-              "Marko",
+              "GER",
               "properties",
               {
                 "@type": "g:Map",
-                "@value": []
+                "@value": [
+                  "de",
+                  "Deutschland",
+                  "en",
+                  "Germany"
+                ]
               }
             ]
           }
@@ -105,37 +107,9 @@
                 "@value": -1
               },
               "label",
-              "IetfLanguageTag",
+              "Name",
               "value",
-              "en",
-              "properties",
-              {
-                "@type": "g:Map",
-                "@value": []
-              }
-            ]
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": [
-              "id",
-              {
-                "@type": "g:Int64",
-                "@value": -1
-              },
-              "label",
-              "IetfLanguageTag",
-              "value",
-              "en",
+              "GER",
               "properties",
               {
                 "@type": "g:Map",
@@ -288,9 +262,68 @@
                 "@value": -1
               },
               "label",
-              "Name",
+              "PhoneNumbers",
               "value",
-              "GER",
+              "+4912345",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": []
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": -1
+              },
+              "label",
+              "PhoneNumbers",
+              "value",
+              "+4923456",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": []
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": -1
+              },
+              "label",
+              "FoundingDate",
+              "value",
+              {
+                "@type": "g:Date",
+                "@value": -62135596800000
+              },
               "properties",
               {
                 "@type": "g:Map",
@@ -406,101 +439,9 @@
                 "@value": -1
               },
               "label",
-              "Name",
+              "lang",
               "value",
-              "GER",
-              "properties",
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "de",
-                  "Deutschland",
-                  "en",
-                  "Germany"
-                ]
-              }
-            ]
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": [
-              "id",
-              {
-                "@type": "g:Int64",
-                "@value": -1
-              },
-              "label",
-              "PhoneNumbers",
-              "value",
-              "+4912345",
-              "properties",
-              {
-                "@type": "g:Map",
-                "@value": []
-              }
-            ]
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": [
-              "id",
-              {
-                "@type": "g:Int64",
-                "@value": -1
-              },
-              "label",
-              "PhoneNumbers",
-              "value",
-              "+4923456",
-              "properties",
-              {
-                "@type": "g:Map",
-                "@value": []
-              }
-            ]
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": [
-              "id",
-              {
-                "@type": "g:Int64",
-                "@value": -1
-              },
-              "label",
-              "FoundingDate",
-              "value",
-              {
-                "@type": "g:Date",
-                "@value": -62135596800000
-              },
+              "en",
               "properties",
               {
                 "@type": "g:Map",
@@ -557,7 +498,35 @@
                 "@value": -1
               },
               "label",
-              "lang",
+              "IetfLanguageTag",
+              "value",
+              "en",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": []
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": -1
+              },
+              "label",
+              "IetfLanguageTag",
               "value",
               "en",
               "properties",
@@ -1035,62 +1004,6 @@
                 "@value": -1
               },
               "label",
-              "IetfLanguageTag",
-              "value",
-              "en",
-              "properties",
-              {
-                "@type": "g:Map",
-                "@value": []
-              }
-            ]
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": [
-              "id",
-              {
-                "@type": "g:Int64",
-                "@value": -1
-              },
-              "label",
-              "IetfLanguageTag",
-              "value",
-              "en",
-              "properties",
-              {
-                "@type": "g:Map",
-                "@value": []
-              }
-            ]
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": [
-              "id",
-              {
-                "@type": "g:Int64",
-                "@value": -1
-              },
-              "label",
               "Image",
               "value",
               {
@@ -1190,6 +1103,93 @@
                 "@type": "g:Int32",
                 "@value": 0
               },
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": []
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": -1
+              },
+              "label",
+              "RegistrationDate",
+              "value",
+              {
+                "@type": "g:Date",
+                "@value": 1586270616000
+              },
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": []
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": -1
+              },
+              "label",
+              "Name",
+              "value",
+              "Marko",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": []
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": -1
+              },
+              "label",
+              "IetfLanguageTag",
+              "value",
+              "en",
               "properties",
               {
                 "@type": "g:Map",

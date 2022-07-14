@@ -24,7 +24,7 @@
           },
           "value": {
             "@type": "g:Int64",
-            "@value": 64
+            "@value": 65
           }
         }
       },
@@ -50,7 +50,20 @@
           },
           "value": {
             "@type": "g:Int64",
-            "@value": 67
+            "@value": 66
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Int64",
+            "@value": 68
           }
         }
       },
@@ -64,19 +77,6 @@
           "value": {
             "@type": "g:Int64",
             "@value": 5
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Int64",
-            "@value": 69
           }
         }
       },
@@ -141,7 +141,7 @@
           },
           "value": {
             "@type": "g:Int64",
-            "@value": 75
+            "@value": 77
           }
         }
       },
@@ -154,7 +154,7 @@
           },
           "value": {
             "@type": "g:Int64",
-            "@value": 77
+            "@value": 78
           }
         }
       },
@@ -180,7 +180,7 @@
           },
           "value": {
             "@type": "g:Int64",
-            "@value": 17
+            "@value": 80
           }
         }
       },
@@ -193,7 +193,7 @@
           },
           "value": {
             "@type": "g:Int64",
-            "@value": 81
+            "@value": 17
           }
         }
       },
@@ -411,7 +411,7 @@
           },
           "value": {
             "@type": "g:Int64",
-            "@value": 56
+            "@value": 57
           }
         }
       },
@@ -424,7 +424,7 @@
           },
           "value": {
             "@type": "g:Int64",
-            "@value": 58
+            "@value": 60
           }
         }
       },
@@ -437,7 +437,7 @@
           },
           "value": {
             "@type": "g:Int64",
-            "@value": 61
+            "@value": 63
           }
         }
       }

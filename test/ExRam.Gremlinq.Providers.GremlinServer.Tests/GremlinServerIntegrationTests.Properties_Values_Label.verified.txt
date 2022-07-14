@@ -17,9 +17,9 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 3
+            "@value": 6
           },
-          "value": "RegistrationDate"
+          "value": "IetfLanguageTag"
         }
       },
       {
@@ -30,16 +30,6 @@
             "@value": 5
           },
           "value": "Name"
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 6
-          },
-          "value": "IetfLanguageTag"
         }
       },
       {
@@ -80,6 +70,16 @@
             "@value": 2
           },
           "value": "PhoneNumbers"
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 3
+          },
+          "value": "RegistrationDate"
         }
       },
       {

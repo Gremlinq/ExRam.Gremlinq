@@ -1,4 +1,4 @@
-[
+﻿[
   [
     {
       "id": "scrubbed id",
@@ -136,7 +136,11 @@
         "Name": [
           {
             "id": "scrubbed id",
-            "value": "GER"
+            "value": "GER",
+            "properties": {
+              "de": "Deutschland",
+              "en": "Germany"
+            }
           }
         ],
         "LocalizableDescription": [
@@ -164,11 +168,7 @@
         "Name": [
           {
             "id": "scrubbed id",
-            "value": "GER",
-            "properties": {
-              "de": "Deutschland",
-              "en": "Germany"
-            }
+            "value": "GER"
           }
         ],
         "LocalizableDescription": [

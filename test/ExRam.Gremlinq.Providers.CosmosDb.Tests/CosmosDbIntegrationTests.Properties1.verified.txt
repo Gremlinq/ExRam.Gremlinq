@@ -167,26 +167,6 @@
     },
     {
       "id": "scrubbed id",
-      "value": "en",
-      "label": "IetfLanguageTag"
-    },
-    {
-      "id": "scrubbed id",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
-    },
-    {
-      "id": "scrubbed id",
-      "value": "en",
-      "label": "IetfLanguageTag"
-    },
-    {
-      "id": "scrubbed id",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
-    },
-    {
-      "id": "scrubbed id",
       "value": 0,
       "label": "Age"
     },
@@ -224,9 +204,7 @@
       "id": "scrubbed id",
       "value": 1586270616000,
       "label": "RegistrationDate"
-    }
-  ],
-  [
+    },
     {
       "id": "scrubbed id",
       "value": "PartitionKey",
@@ -246,18 +224,16 @@
       "id": "scrubbed id",
       "value": "PartitionKey",
       "label": "PartitionKey"
-    },
+    }
+  ],
+  [
     {
       "id": "scrubbed id",
-      "value": -62135596800000,
-      "label": "FoundingDate"
-    },
-    {
-      "id": "scrubbed id",
-      "value": "Aachen",
-      "label": "Locations",
+      "value": "GER",
+      "label": "Name",
       "properties": {
-        "ValidFrom": 1546304400000
+        "de": "Deutschland",
+        "en": "Germany"
       }
     },
     {
@@ -277,11 +253,15 @@
     },
     {
       "id": "scrubbed id",
-      "value": "GER",
-      "label": "Name",
+      "value": -62135596800000,
+      "label": "FoundingDate"
+    },
+    {
+      "id": "scrubbed id",
+      "value": "Aachen",
+      "label": "Locations",
       "properties": {
-        "de": "Deutschland",
-        "en": "Germany"
+        "ValidFrom": 1546304400000
       }
     },
     {
@@ -318,6 +298,26 @@
       "id": "scrubbed id",
       "value": "en",
       "label": "lang"
+    },
+    {
+      "id": "scrubbed id",
+      "value": "PartitionKey",
+      "label": "PartitionKey"
+    },
+    {
+      "id": "scrubbed id",
+      "value": "en",
+      "label": "IetfLanguageTag"
+    },
+    {
+      "id": "scrubbed id",
+      "value": "PartitionKey",
+      "label": "PartitionKey"
+    },
+    {
+      "id": "scrubbed id",
+      "value": "en",
+      "label": "IetfLanguageTag"
     }
   ]
 ]

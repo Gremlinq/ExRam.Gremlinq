@@ -150,7 +150,12 @@
                           "properties",
                           {
                             "@type": "g:Map",
-                            "@value": []
+                            "@value": [
+                              "de",
+                              "Deutschland",
+                              "en",
+                              "Germany"
+                            ]
                           }
                         ]
                       }
@@ -230,12 +235,7 @@
                           "properties",
                           {
                             "@type": "g:Map",
-                            "@value": [
-                              "de",
-                              "Deutschland",
-                              "en",
-                              "Germany"
-                            ]
+                            "@value": []
                           }
                         ]
                       }
