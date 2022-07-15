@@ -18,7 +18,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         try
                         {
                             var jArray = JsonConvert.DeserializeObject<JArray>(
-                                File.ReadAllText(System.IO.Path.Combine(context.SourceDirectory, sourcePrefix + "." + XunitContext.Context.MethodName + ".verified.txt")));
+                                File.ReadAllText(System.IO.Path.Combine(context.SourceDirectory, sourcePrefix + "." + context.MethodName + ".verified.txt")));
 
                             return jArray?
                                 .Select(x => (object)x)
