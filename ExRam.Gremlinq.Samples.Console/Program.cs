@@ -51,15 +51,7 @@ namespace ExRam.Gremlinq.Samples
                     .At(new Uri("wss://your_gremlin_endpoint.gremlin.cosmos.azure.com:443/"))
                     .OnDatabase("your database name")
                     .OnGraph("your graph name")
-                    .AuthenticateBy("your auth key")
-                    .ConfigureWebSocket(_ => _
-                        .ConfigureGremlinClient(client => client
-                            .ObserveResultStatusAttributes((requestMessage, statusAttributes) =>
-                            {
-                                //Uncomment to log request charges for CosmosDB.
-                                //if (statusAttributes.TryGetValue("x-ms-total-request-charge", out var requestCharge))
-                                //    env.Logger.LogInformation($"Query {requestMessage.RequestId} had a RU charge of {requestCharge}.");
-                            }))));
+                    .AuthenticateBy("your auth key");
 #elif JanusGraph
                 .UseJanusGraph(configurator => configurator
                     .AtLocalhost());
