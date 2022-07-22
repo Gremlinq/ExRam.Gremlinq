@@ -1,4 +1,5 @@
 ﻿#pragma warning disable CS0109 // Member does not hide an inherited member; new keyword is not required
+using System;
 using System.Linq.Expressions;
 
 namespace ExRam.Gremlinq.Core
@@ -18,7 +19,7 @@ namespace ExRam.Gremlinq.Core
     }
 
     public interface IProjectTupleBuilder<out TSourceQuery, TElement, TItem1, TItem2>
-        : IProjectResult<(TItem1, TItem2)>
+        : IProjectTupleResult<(TItem1, TItem2)>
         where TSourceQuery : IGremlinQueryBase
     {
         IProjectTupleBuilder<TSourceQuery, TElement, TItem1, TItem2, TItem3> By<TItem3>(Func<TSourceQuery, IGremlinQueryBase<TItem3>> projection);
@@ -26,7 +27,7 @@ namespace ExRam.Gremlinq.Core
     }
 
     public interface IProjectTupleBuilder<out TSourceQuery, TElement, TItem1, TItem2, TItem3>
-        : IProjectResult<(TItem1, TItem2, TItem3)>
+        : IProjectTupleResult<(TItem1, TItem2, TItem3)>
         where TSourceQuery : IGremlinQueryBase
     {
         IProjectTupleBuilder<TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4> By<TItem4>(Func<TSourceQuery, IGremlinQueryBase<TItem4>> projection);
@@ -34,7 +35,7 @@ namespace ExRam.Gremlinq.Core
     }
 
     public interface IProjectTupleBuilder<out TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4>
-        : IProjectResult<(TItem1, TItem2, TItem3, TItem4)>
+        : IProjectTupleResult<(TItem1, TItem2, TItem3, TItem4)>
         where TSourceQuery : IGremlinQueryBase
     {
         IProjectTupleBuilder<TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5> By<TItem5>(Func<TSourceQuery, IGremlinQueryBase<TItem5>> projection);
@@ -42,7 +43,7 @@ namespace ExRam.Gremlinq.Core
     }
 
     public interface IProjectTupleBuilder<out TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5>
-        : IProjectResult<(TItem1, TItem2, TItem3, TItem4, TItem5)>
+        : IProjectTupleResult<(TItem1, TItem2, TItem3, TItem4, TItem5)>
         where TSourceQuery : IGremlinQueryBase
     {
         IProjectTupleBuilder<TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6> By<TItem6>(Func<TSourceQuery, IGremlinQueryBase<TItem6>> projection);
@@ -50,7 +51,7 @@ namespace ExRam.Gremlinq.Core
     }
 
     public interface IProjectTupleBuilder<out TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6>
-        : IProjectResult<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6)>
+        : IProjectTupleResult<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6)>
         where TSourceQuery : IGremlinQueryBase
     {
         IProjectTupleBuilder<TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7> By<TItem7>(Func<TSourceQuery, IGremlinQueryBase<TItem7>> projection);
@@ -58,7 +59,7 @@ namespace ExRam.Gremlinq.Core
     }
 
     public interface IProjectTupleBuilder<out TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7>
-        : IProjectResult<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7)>
+        : IProjectTupleResult<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7)>
         where TSourceQuery : IGremlinQueryBase
     {
         IProjectTupleBuilder<TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8> By<TItem8>(Func<TSourceQuery, IGremlinQueryBase<TItem8>> projection);
@@ -66,7 +67,7 @@ namespace ExRam.Gremlinq.Core
     }
 
     public interface IProjectTupleBuilder<out TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8>
-        : IProjectResult<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8)>
+        : IProjectTupleResult<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8)>
         where TSourceQuery : IGremlinQueryBase
     {
         IProjectTupleBuilder<TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9> By<TItem9>(Func<TSourceQuery, IGremlinQueryBase<TItem9>> projection);
@@ -74,7 +75,7 @@ namespace ExRam.Gremlinq.Core
     }
 
     public interface IProjectTupleBuilder<out TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9>
-        : IProjectResult<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9)>
+        : IProjectTupleResult<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9)>
         where TSourceQuery : IGremlinQueryBase
     {
         IProjectTupleBuilder<TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10> By<TItem10>(Func<TSourceQuery, IGremlinQueryBase<TItem10>> projection);
@@ -82,7 +83,7 @@ namespace ExRam.Gremlinq.Core
     }
 
     public interface IProjectTupleBuilder<out TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10>
-        : IProjectResult<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10)>
+        : IProjectTupleResult<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10)>
         where TSourceQuery : IGremlinQueryBase
     {
         IProjectTupleBuilder<TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11> By<TItem11>(Func<TSourceQuery, IGremlinQueryBase<TItem11>> projection);
@@ -90,7 +91,7 @@ namespace ExRam.Gremlinq.Core
     }
 
     public interface IProjectTupleBuilder<out TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11>
-        : IProjectResult<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11)>
+        : IProjectTupleResult<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11)>
         where TSourceQuery : IGremlinQueryBase
     {
         IProjectTupleBuilder<TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12> By<TItem12>(Func<TSourceQuery, IGremlinQueryBase<TItem12>> projection);
@@ -98,7 +99,7 @@ namespace ExRam.Gremlinq.Core
     }
 
     public interface IProjectTupleBuilder<out TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12>
-        : IProjectResult<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12)>
+        : IProjectTupleResult<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12)>
         where TSourceQuery : IGremlinQueryBase
     {
         IProjectTupleBuilder<TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13> By<TItem13>(Func<TSourceQuery, IGremlinQueryBase<TItem13>> projection);
@@ -106,7 +107,7 @@ namespace ExRam.Gremlinq.Core
     }
 
     public interface IProjectTupleBuilder<out TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13>
-        : IProjectResult<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13)>
+        : IProjectTupleResult<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13)>
         where TSourceQuery : IGremlinQueryBase
     {
         IProjectTupleBuilder<TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14> By<TItem14>(Func<TSourceQuery, IGremlinQueryBase<TItem14>> projection);
@@ -114,7 +115,7 @@ namespace ExRam.Gremlinq.Core
     }
 
     public interface IProjectTupleBuilder<out TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14>
-        : IProjectResult<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14)>
+        : IProjectTupleResult<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14)>
         where TSourceQuery : IGremlinQueryBase
     {
         IProjectTupleBuilder<TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15> By<TItem15>(Func<TSourceQuery, IGremlinQueryBase<TItem15>> projection);
@@ -122,7 +123,7 @@ namespace ExRam.Gremlinq.Core
     }
 
     public interface IProjectTupleBuilder<out TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15>
-        : IProjectResult<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15)>
+        : IProjectTupleResult<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15)>
         where TSourceQuery : IGremlinQueryBase
     {
         IProjectTupleBuilder<TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16> By<TItem16>(Func<TSourceQuery, IGremlinQueryBase<TItem16>> projection);
@@ -130,7 +131,7 @@ namespace ExRam.Gremlinq.Core
     }
 
     public interface IProjectTupleBuilder<out TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16>
-        : IProjectResult<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16)>
+        : IProjectTupleResult<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16)>
         where TSourceQuery : IGremlinQueryBase
     {
     }
@@ -318,6 +319,22 @@ namespace ExRam.Gremlinq.Core
             {
                 return ByExpression<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TNewItem16>(projection);
             }
+
+            IValueTupleGremlinQuery<(TItem1, TItem2)> IProjectTupleResult<(TItem1, TItem2)>.Build() => Build<IValueTupleGremlinQuery<(TItem1, TItem2)>>();
+            IValueTupleGremlinQuery<(TItem1, TItem2, TItem3)> IProjectTupleResult<(TItem1, TItem2, TItem3)>.Build() => Build<IValueTupleGremlinQuery<(TItem1, TItem2, TItem3)>>();
+            IValueTupleGremlinQuery<(TItem1, TItem2, TItem3, TItem4)> IProjectTupleResult<(TItem1, TItem2, TItem3, TItem4)>.Build() => Build<IValueTupleGremlinQuery<(TItem1, TItem2, TItem3, TItem4)>>();
+            IValueTupleGremlinQuery<(TItem1, TItem2, TItem3, TItem4, TItem5)> IProjectTupleResult<(TItem1, TItem2, TItem3, TItem4, TItem5)>.Build() => Build<IValueTupleGremlinQuery<(TItem1, TItem2, TItem3, TItem4, TItem5)>>();
+            IValueTupleGremlinQuery<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6)> IProjectTupleResult<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6)>.Build() => Build<IValueTupleGremlinQuery<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6)>>();
+            IValueTupleGremlinQuery<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7)> IProjectTupleResult<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7)>.Build() => Build<IValueTupleGremlinQuery<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7)>>();
+            IValueTupleGremlinQuery<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8)> IProjectTupleResult<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8)>.Build() => Build<IValueTupleGremlinQuery<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8)>>();
+            IValueTupleGremlinQuery<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9)> IProjectTupleResult<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9)>.Build() => Build<IValueTupleGremlinQuery<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9)>>();
+            IValueTupleGremlinQuery<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10)> IProjectTupleResult<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10)>.Build() => Build<IValueTupleGremlinQuery<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10)>>();
+            IValueTupleGremlinQuery<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11)> IProjectTupleResult<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11)>.Build() => Build<IValueTupleGremlinQuery<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11)>>();
+            IValueTupleGremlinQuery<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12)> IProjectTupleResult<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12)>.Build() => Build<IValueTupleGremlinQuery<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12)>>();
+            IValueTupleGremlinQuery<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13)> IProjectTupleResult<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13)>.Build() => Build<IValueTupleGremlinQuery<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13)>>();
+            IValueTupleGremlinQuery<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14)> IProjectTupleResult<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14)>.Build() => Build<IValueTupleGremlinQuery<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14)>>();
+            IValueTupleGremlinQuery<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15)> IProjectTupleResult<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15)>.Build() => Build<IValueTupleGremlinQuery<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15)>>();
+            IValueTupleGremlinQuery<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16)> IProjectTupleResult<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16)>.Build() => Build<IValueTupleGremlinQuery<(TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16)>>();
         }
     }
 }

@@ -1,15 +1,18 @@
 ﻿using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 
 namespace ExRam.Gremlinq.Core
 {
-    public interface IProjectResult
+    public interface IProjectDynamicResult
     {
-        TTargetQuery Build<TTargetQuery>() where TTargetQuery : IGremlinQueryBase;
+        IValueGremlinQuery<dynamic> Build();
     }
 
     // ReSharper disable once UnusedTypeParameter
-    public interface IProjectResult<TResult> : IProjectResult
+    public interface IProjectTupleResult<TResult>
+        where TResult : ITuple
     {
+        IValueTupleGremlinQuery<TResult> Build();
     }
 
     public interface IProjectBuilder<out TSourceQuery, TElement>
@@ -19,7 +22,7 @@ namespace ExRam.Gremlinq.Core
         IProjectDynamicBuilder<TSourceQuery, TElement> ToDynamic();
     }
 
-    public interface IProjectDynamicBuilder<out TSourceQuery, TElement> : IProjectResult
+    public interface IProjectDynamicBuilder<out TSourceQuery, TElement> : IProjectDynamicResult
         where TSourceQuery : IGremlinQueryBase
     {
         IProjectDynamicBuilder<TSourceQuery, TElement> By(Func<TSourceQuery, IGremlinQueryBase> projection);
