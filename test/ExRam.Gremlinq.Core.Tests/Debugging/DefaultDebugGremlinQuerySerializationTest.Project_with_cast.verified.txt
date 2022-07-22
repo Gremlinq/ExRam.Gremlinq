@@ -1,0 +1,3 @@
+﻿[
+  "g.V().filter(__.in()).filter(__.out()).filter(__.properties()).project('in','out','count','properties').by(__.constant('in_value')).by(__.constant('out_value')).by(__.constant('count_value')).by(__.constant('properties_value'))"
+]
