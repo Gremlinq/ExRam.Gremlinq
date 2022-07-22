@@ -863,14 +863,14 @@ namespace ExRam.Gremlinq.Core
 
         private IValueGremlinQuery<TResult> Project<TResult>(Func<IProjectBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement>, IProjectTypeResult<TResult>> continuation)
         {
-            return new ProjectBuilder<TElement, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(this)
+            return new ProjectBuilder<object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(this)
                 .Apply(continuation)
                 .Build();
         }
 
         private IValueGremlinQuery<dynamic> Project(Func<IProjectBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement>, IProjectDynamicResult> continuation)
         {
-            return new ProjectBuilder<TElement, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(this)
+            return new ProjectBuilder< object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(this)
                 .Apply(continuation)
                 .Build();
         }
@@ -878,7 +878,7 @@ namespace ExRam.Gremlinq.Core
         private IValueTupleGremlinQuery<TResult> Project<TResult>(Func<IProjectBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement>, IProjectTupleResult<TResult>> continuation)
             where TResult : ITuple
         {
-            return new ProjectBuilder<TElement, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(this)
+            return new ProjectBuilder<object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(this)
                 .Apply(continuation)
                 .Build();
         }
