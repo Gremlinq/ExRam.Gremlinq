@@ -9,10 +9,16 @@ namespace ExRam.Gremlinq.Core
     }
 
     // ReSharper disable once UnusedTypeParameter
-    public interface IProjectTupleResult<TResult>
-        where TResult : ITuple
+    public interface IProjectTupleResult<TTuple>
+        where TTuple : ITuple
     {
-        IValueTupleGremlinQuery<TResult> Build();
+        IValueTupleGremlinQuery<TTuple> Build();
+    }
+
+    // ReSharper disable once UnusedTypeParameter
+    public interface IProjectTypeResult<TTargetType>
+    {
+        IValueGremlinQuery<TTargetType> Build();
     }
 
     public interface IProjectBuilder<out TSourceQuery, TElement>
@@ -20,6 +26,16 @@ namespace ExRam.Gremlinq.Core
     {
         IProjectTupleBuilder<TSourceQuery, TElement> ToTuple();
         IProjectDynamicBuilder<TSourceQuery, TElement> ToDynamic();
+        IProjectTypeBuilder<TSourceQuery, TElement, TTargetType> To<TTargetType>();
+    }
+
+    public interface IProjectTypeBuilder<out TSourceQuery, TElement, TTargetType> : IProjectTypeResult<TTargetType>
+       where TSourceQuery : IGremlinQueryBase
+    {
+        IProjectTypeBuilder<TSourceQuery, TElement, TTargetType> By(Expression<Func<TTargetType, object>> targetExpression, Func<TSourceQuery, IGremlinQueryBase> projection);
+
+        //TODO. No object.
+        IProjectTypeBuilder<TSourceQuery, TElement, TTargetType> By(Expression<Func<TTargetType, object>> targetExpression, Expression<Func<TElement, object>> projection);
     }
 
     public interface IProjectDynamicBuilder<out TSourceQuery, TElement> : IProjectDynamicResult

@@ -541,6 +541,7 @@ namespace ExRam.Gremlinq.Core
         ExRam.Gremlinq.Core.IValueGremlinQuery<object> Project(System.Func<ExRam.Gremlinq.Core.IProjectBuilder<TSelf, TElement>, ExRam.Gremlinq.Core.IProjectDynamicResult> continuation);
         ExRam.Gremlinq.Core.IValueTupleGremlinQuery<TResult> Project<TResult>(System.Func<ExRam.Gremlinq.Core.IProjectBuilder<TSelf, TElement>, ExRam.Gremlinq.Core.IProjectTupleResult<TResult>> continuation)
             where TResult : System.Runtime.CompilerServices.ITuple;
+        ExRam.Gremlinq.Core.IValueGremlinQuery<TResult> Project<TResult>(System.Func<ExRam.Gremlinq.Core.IProjectBuilder<TSelf, TElement>, ExRam.Gremlinq.Core.IProjectTypeResult<TResult>> continuation);
         TSelf Where(System.Linq.Expressions.Expression<System.Func<TElement, bool>> predicate);
     }
     public interface IGremlinQueryBase<TElement> : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IStartGremlinQuery
@@ -695,6 +696,7 @@ namespace ExRam.Gremlinq.Core
     public interface IProjectBuilder<out TSourceQuery, TElement>
         where out TSourceQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
     {
+        ExRam.Gremlinq.Core.IProjectTypeBuilder<TSourceQuery, TElement, TTargetType> To<TTargetType>();
         ExRam.Gremlinq.Core.IProjectDynamicBuilder<TSourceQuery, TElement> ToDynamic();
         ExRam.Gremlinq.Core.IProjectTupleBuilder<TSourceQuery, TElement> ToTuple();
     }
@@ -811,10 +813,20 @@ namespace ExRam.Gremlinq.Core
         ExRam.Gremlinq.Core.IProjectTupleBuilder<TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8> By<TItem8>(System.Func<TSourceQuery, ExRam.Gremlinq.Core.IGremlinQueryBase<TItem8>> projection);
         ExRam.Gremlinq.Core.IProjectTupleBuilder<TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8> By<TItem8>(System.Linq.Expressions.Expression<System.Func<TElement, TItem8>> projection);
     }
-    public interface IProjectTupleResult<TResult>
-        where TResult : System.Runtime.CompilerServices.ITuple
+    public interface IProjectTupleResult<TTuple>
+        where TTuple : System.Runtime.CompilerServices.ITuple
     {
-        ExRam.Gremlinq.Core.IValueTupleGremlinQuery<TResult> Build();
+        ExRam.Gremlinq.Core.IValueTupleGremlinQuery<TTuple> Build();
+    }
+    public interface IProjectTypeBuilder<out TSourceQuery, TElement, TTargetType> : ExRam.Gremlinq.Core.IProjectTypeResult<TTargetType>
+        where out TSourceQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
+    {
+        ExRam.Gremlinq.Core.IProjectTypeBuilder<TSourceQuery, TElement, TTargetType> By(System.Linq.Expressions.Expression<System.Func<TTargetType, object>> targetExpression, System.Func<TSourceQuery, ExRam.Gremlinq.Core.IGremlinQueryBase> projection);
+        ExRam.Gremlinq.Core.IProjectTypeBuilder<TSourceQuery, TElement, TTargetType> By(System.Linq.Expressions.Expression<System.Func<TTargetType, object>> targetExpression, System.Linq.Expressions.Expression<System.Func<TElement, object>> projection);
+    }
+    public interface IProjectTypeResult<TTargetType>
+    {
+        ExRam.Gremlinq.Core.IValueGremlinQuery<TTargetType> Build();
     }
     public interface IPropertyGremlinQueryBase : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IStartGremlinQuery
     {
