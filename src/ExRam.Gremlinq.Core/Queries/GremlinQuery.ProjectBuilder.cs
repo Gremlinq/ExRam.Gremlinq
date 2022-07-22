@@ -103,7 +103,9 @@ namespace ExRam.Gremlinq.Core
                         : throw new ExpressionNotSupportedException(projection);
             }
 
-            public TTargetQuery Build<TTargetQuery>() where TTargetQuery : IGremlinQueryBase
+            IValueGremlinQuery<dynamic> IProjectDynamicResult.Build() => Build<IValueGremlinQuery<dynamic>>();
+
+            private TTargetQuery Build<TTargetQuery>() where TTargetQuery : IGremlinQueryBase
             {
                 return _continuationBuilder
                     .Build(

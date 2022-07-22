@@ -2,6 +2,8 @@
 // ReSharper disable ArrangeThisQualifier
 using System.Collections.Immutable;
 using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
+
 using ExRam.Gremlinq.Core.ExpressionParsing;
 using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Core.Models;
@@ -859,11 +861,19 @@ namespace ExRam.Gremlinq.Core
                 .WithNewProjection(Projection.Value)
                 .AutoBuild<string>());
 
-        private GremlinQuery<TResult, object, object, object, object, object> Project<TResult>(Func<IProjectBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement>, IProjectResult> continuation)
+        private IValueGremlinQuery<dynamic> Project(Func<IProjectBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement>, IProjectDynamicResult> continuation)
         {
             return new ProjectBuilder<TElement, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(this)
                 .Apply(continuation)
-                .Build<GremlinQuery<TResult, object, object, object, object, object>>();
+                .Build();
+        }
+
+        private IValueTupleGremlinQuery<TResult> Project<TResult>(Func<IProjectBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement>, IProjectTupleResult<TResult>> continuation)
+            where TResult : ITuple
+        {
+            return new ProjectBuilder<TElement, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(this)
+                .Apply(continuation)
+                .Build();
         }
 
         private GremlinQuery<TNewElement, object, object, TNewPropertyValue, TNewMeta, object> Properties<TNewElement, TNewPropertyValue, TNewMeta>(Projection projection, params Expression[] projections) => Properties<TNewElement, TNewPropertyValue, TNewMeta>(
