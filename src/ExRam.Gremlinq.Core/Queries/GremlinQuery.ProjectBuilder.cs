@@ -7,11 +7,11 @@ namespace ExRam.Gremlinq.Core
 {
     partial class GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>
     {
-        private sealed class ProjectBuilder<TProjectElement, TTargetType> : IProjectTypeBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement, TTargetType>
+        private sealed class ProjectBuilder<TTargetType> : IProjectTypeBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement, TTargetType>
         {
-            private readonly IProjectDynamicBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement> _baseBuilder;
+            private readonly IProjectDynamicBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement> _baseBuilder;
 
-            public ProjectBuilder(IProjectDynamicBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement> baseBuilder)
+            public ProjectBuilder(IProjectDynamicBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement> baseBuilder)
             {
                 _baseBuilder = baseBuilder;
             }
@@ -20,14 +20,14 @@ namespace ExRam.Gremlinq.Core
                 .Build()
                 .Cast<TTargetType>();
 
-            public IProjectTypeBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement, TTargetType> By(Expression<Func<TTargetType, object>> targetExpression, Func<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> projection)
+            public IProjectTypeBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement, TTargetType> By(Expression<Func<TTargetType, object>> targetExpression, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> projection)
             {
-                return new ProjectBuilder<TProjectElement, TTargetType>(_baseBuilder.By(GetMemberName(targetExpression), projection));
+                return new ProjectBuilder<TTargetType>(_baseBuilder.By(GetMemberName(targetExpression), projection));
             }
 
-            public IProjectTypeBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement, TTargetType> By(Expression<Func<TTargetType, object>> targetExpression, Expression<Func<TProjectElement, object>> projection)
+            public IProjectTypeBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement, TTargetType> By(Expression<Func<TTargetType, object>> targetExpression, Expression<Func<TElement, object>> projection)
             {
-                return new ProjectBuilder<TProjectElement, TTargetType>(_baseBuilder.By(GetMemberName(targetExpression), projection));
+                return new ProjectBuilder<TTargetType>(_baseBuilder.By(GetMemberName(targetExpression), projection));
             }
 
             private string GetMemberName<TProperty>(Expression<Func<TTargetType, TProperty>> targetExpression) => targetExpression.Body is MemberExpression memberExpression
@@ -109,7 +109,7 @@ namespace ExRam.Gremlinq.Core
 
             IProjectTypeBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement, TTargetType> IProjectBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement>.To<TTargetType>()
             {
-                return new ProjectBuilder<TElement, TTargetType>(this);
+                return new ProjectBuilder<TTargetType>(this);
             }
 
             IProjectDynamicBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement> IProjectDynamicBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement>.By(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> projection)
