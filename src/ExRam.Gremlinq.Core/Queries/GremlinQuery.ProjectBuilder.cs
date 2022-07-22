@@ -7,6 +7,34 @@ namespace ExRam.Gremlinq.Core
 {
     partial class GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>
     {
+        private sealed class ProjectBuilder<TProjectElement, TTargetType> : IProjectTypeBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement, TTargetType>
+        {
+            private readonly IProjectDynamicBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement> _baseBuilder;
+
+            public ProjectBuilder(IProjectDynamicBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement> baseBuilder)
+            {
+                _baseBuilder = baseBuilder;
+            }
+
+            public IValueGremlinQuery<TTargetType> Build() => _baseBuilder
+                .Build()
+                .Cast<TTargetType>();
+
+            public IProjectTypeBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement, TTargetType> By(Expression<Func<TTargetType, object>> targetExpression, Func<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> projection)
+            {
+                return new ProjectBuilder<TProjectElement, TTargetType>(_baseBuilder.By(GetMemberName(targetExpression), projection));
+            }
+
+            public IProjectTypeBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement, TTargetType> By(Expression<Func<TTargetType, object>> targetExpression, Expression<Func<TProjectElement, object>> projection)
+            {
+                return new ProjectBuilder<TProjectElement, TTargetType>(_baseBuilder.By(GetMemberName(targetExpression), projection));
+            }
+
+            private string GetMemberName<TProperty>(Expression<Func<TTargetType, TProperty>> targetExpression) => targetExpression.Body is MemberExpression memberExpression
+                ? memberExpression.Member.Name
+                : throw new ExpressionNotSupportedException(targetExpression);
+        }
+
         private sealed partial class ProjectBuilder<TProjectElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16> :
             IProjectBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement>,
             IProjectDynamicBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement>
@@ -77,6 +105,11 @@ namespace ExRam.Gremlinq.Core
             IProjectDynamicBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement> IProjectBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement>.ToDynamic()
             {
                 return this;
+            }
+
+            IProjectTypeBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement, TTargetType> IProjectBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement>.To<TTargetType>()
+            {
+                return new ProjectBuilder<TProjectElement, TTargetType>(this);
             }
 
             IProjectDynamicBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement> IProjectDynamicBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement>.By(Func<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> projection)
