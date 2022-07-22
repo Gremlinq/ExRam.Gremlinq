@@ -42,6 +42,14 @@ namespace ExRam.Gremlinq.Core.Tests
             }
         }
 
+        private class ProjectRecord
+        {
+            public object? In { get; set; }
+            public object? Out { get; set; }
+            public object? Count { get; set; }
+            public object? Properties { get; set; }
+        }
+
         protected readonly IGremlinQuerySource _g;
 
         private static readonly string Id = "id";
@@ -2607,6 +2615,24 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Out()
                 .Out()
                 .Path()
+                .Verify();
+        }
+
+        [Fact]
+        public virtual async Task Project_with_cast()
+        {
+            await _g
+                .V()
+                .Where(__ => __.In())
+                .Where(__ => __.Out())
+                .Where(__ => __.Properties())
+                .Project(_ => _
+                    .ToDynamic()
+                    .By("in", __ => __.Constant("in_value"))
+                    .By("out", __ => __.Constant("out_value"))
+                    .By("count", __ => __.Constant("count_value"))
+                    .By("properties", __ => __.Constant("properties_value")))
+                .Cast<ProjectRecord>()
                 .Verify();
         }
 
