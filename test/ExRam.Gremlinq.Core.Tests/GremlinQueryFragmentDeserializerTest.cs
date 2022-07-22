@@ -1,8 +1,5 @@
 ﻿using System.Dynamic;
-
 using ExRam.Gremlinq.Core.Deserialization;
-using ExRam.Gremlinq.Core.Models;
-
 using FluentAssertions;
 using Newtonsoft.Json.Linq;
 

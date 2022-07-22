@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Immutable;
-using System.Linq;
+﻿using System.Collections.Immutable;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Providers.WebSocket;
-using Xunit;
-using Xunit.Abstractions;
 
 namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
 {

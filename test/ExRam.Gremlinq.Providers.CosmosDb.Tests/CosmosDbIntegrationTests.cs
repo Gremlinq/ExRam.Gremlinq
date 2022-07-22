@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
 using Microsoft.Azure.Cosmos;
-using Xunit;
-using Xunit.Abstractions;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {

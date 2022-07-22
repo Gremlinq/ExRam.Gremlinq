@@ -1,8 +1,6 @@
 ﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Providers.WebSocket;
-using Xunit;
-using Xunit.Abstractions;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
