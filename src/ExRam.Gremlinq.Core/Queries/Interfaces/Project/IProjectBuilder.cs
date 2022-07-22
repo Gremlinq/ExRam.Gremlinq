@@ -32,10 +32,10 @@ namespace ExRam.Gremlinq.Core
     public interface IProjectTypeBuilder<out TSourceQuery, TElement, TTargetType> : IProjectTypeResult<TTargetType>
        where TSourceQuery : IGremlinQueryBase
     {
-        IProjectTypeBuilder<TSourceQuery, TElement, TTargetType> By(Expression<Func<TTargetType, object>> targetExpression, Func<TSourceQuery, IGremlinQueryBase> projection);
+        IProjectTypeBuilder<TSourceQuery, TElement, TTargetType> By(Expression<Func<TTargetType, object?>> targetExpression, Func<TSourceQuery, IGremlinQueryBase> projection);
 
         //TODO. No object.
-        IProjectTypeBuilder<TSourceQuery, TElement, TTargetType> By(Expression<Func<TTargetType, object>> targetExpression, Expression<Func<TElement, object>> projection);
+        IProjectTypeBuilder<TSourceQuery, TElement, TTargetType> By(Expression<Func<TTargetType, object?>> targetExpression, Expression<Func<TElement, object>> projection);
     }
 
     public interface IProjectDynamicBuilder<out TSourceQuery, TElement> : IProjectDynamicResult

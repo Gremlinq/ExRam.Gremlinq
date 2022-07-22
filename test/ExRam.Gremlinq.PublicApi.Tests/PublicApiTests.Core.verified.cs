@@ -821,8 +821,8 @@ namespace ExRam.Gremlinq.Core
     public interface IProjectTypeBuilder<out TSourceQuery, TElement, TTargetType> : ExRam.Gremlinq.Core.IProjectTypeResult<TTargetType>
         where out TSourceQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
     {
-        ExRam.Gremlinq.Core.IProjectTypeBuilder<TSourceQuery, TElement, TTargetType> By(System.Linq.Expressions.Expression<System.Func<TTargetType, object>> targetExpression, System.Func<TSourceQuery, ExRam.Gremlinq.Core.IGremlinQueryBase> projection);
-        ExRam.Gremlinq.Core.IProjectTypeBuilder<TSourceQuery, TElement, TTargetType> By(System.Linq.Expressions.Expression<System.Func<TTargetType, object>> targetExpression, System.Linq.Expressions.Expression<System.Func<TElement, object>> projection);
+        ExRam.Gremlinq.Core.IProjectTypeBuilder<TSourceQuery, TElement, TTargetType> By(System.Linq.Expressions.Expression<System.Func<TTargetType, object?>> targetExpression, System.Func<TSourceQuery, ExRam.Gremlinq.Core.IGremlinQueryBase> projection);
+        ExRam.Gremlinq.Core.IProjectTypeBuilder<TSourceQuery, TElement, TTargetType> By(System.Linq.Expressions.Expression<System.Func<TTargetType, object?>> targetExpression, System.Linq.Expressions.Expression<System.Func<TElement, object>> projection);
     }
     public interface IProjectTypeResult<TTargetType>
     {
