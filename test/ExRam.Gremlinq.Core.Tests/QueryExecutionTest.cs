@@ -2646,10 +2646,10 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Where(__ => __.Properties())
                 .Project(_ => _
                     .To<ProjectRecord>()
-                    .By(x => x.In!, __ => __.Constant("in_value"))
-                    .By(x => x.Out!, __ => __.Constant("out_value"))
-                    .By(x => x.Count!, __ => __.Constant("count_value"))
-                    .By(x => x.Properties!, __ => __.Constant("properties_value")))
+                    .By(x => x.In, __ => __.Constant("in_value"))
+                    .By(x => x.Out, __ => __.Constant("out_value"))
+                    .By(x => x.Count, __ => __.Constant("count_value"))
+                    .By(x => x.Properties, __ => __.Constant("properties_value")))
                 .Verify();
         }
 

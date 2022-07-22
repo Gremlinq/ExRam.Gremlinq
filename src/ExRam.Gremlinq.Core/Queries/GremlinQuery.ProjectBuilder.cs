@@ -35,41 +35,6 @@ namespace ExRam.Gremlinq.Core
                 _emptyProjectionProtectionDecoratorSteps = emptyProjectionProtectionDecoratorSteps;
             }
 
-            private ProjectBuilder<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16> ByLambda<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> projection, string? name = default)
-            {
-                return new(
-                    _continuationBuilder
-                        .With(
-                            static (__, projection) => __
-                                .Continue()
-                                .With(projection)
-                                .Build(static (builder, traversal) => builder
-                                    .AddStep(new ProjectStep.ByTraversalStep(traversal))
-                                    .Build()),
-                            projection),
-                    _names.Push(name ?? $"Item{_names.Count + 1}"),
-                    _emptyProjectionProtectionDecoratorSteps);
-            }
-
-            private ProjectBuilder<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16> ByExpression<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16>(Expression projection, string? name = default)
-            {
-                return projection is LambdaExpression lambdaExpression && lambdaExpression.IsIdentityExpression()
-                    ? ByLambda<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16>(static __ => __.Identity(), name)
-                    : new(
-                        _continuationBuilder
-                            .With(
-                                static (__, projection) => __
-                                    .Continue()
-                                    .Build(
-                                        static (builder, key) => builder
-                                            .AddStep(new ProjectStep.ByKeyStep(key))
-                                            .Build(),
-                                        __.GetKey(projection)),
-                                projection),
-                        _names.Push(name ?? $"Item{_names.Count + 1}"),
-                        _emptyProjectionProtectionDecoratorSteps);
-            }
-
             IProjectTupleBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement> IProjectBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement>.ToTuple()
             {
                 return this;
@@ -117,7 +82,7 @@ namespace ExRam.Gremlinq.Core
             {
                 return By(
                     targetExpression,
-                    static (baseBuilder, memberName, projection) => baseBuilder.ByLambda<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16>(projection, memberName),
+                    static (@this, memberName, projection) => @this.ByLambda<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16>(projection, memberName),
                     projection);
             }
 
@@ -125,8 +90,43 @@ namespace ExRam.Gremlinq.Core
             {
                 return By(
                     targetExpression,
-                    static (baseBuilder, memberName, projection) => baseBuilder.ByExpression<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16>(projection, memberName),
+                    static (@this, memberName, projection) => @this.ByExpression<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16>(projection, memberName),
                     projection);
+            }
+
+            private ProjectBuilder<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16> ByLambda<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> projection, string? name = default)
+            {
+                return new(
+                    _continuationBuilder
+                        .With(
+                            static (__, projection) => __
+                                .Continue()
+                                .With(projection)
+                                .Build(static (builder, traversal) => builder
+                                    .AddStep(new ProjectStep.ByTraversalStep(traversal))
+                                    .Build()),
+                            projection),
+                    _names.Push(name ?? $"Item{_names.Count + 1}"),
+                    _emptyProjectionProtectionDecoratorSteps);
+            }
+
+            private ProjectBuilder<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16> ByExpression<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16>(Expression projection, string? name = default)
+            {
+                return projection is LambdaExpression lambdaExpression && lambdaExpression.IsIdentityExpression()
+                    ? ByLambda<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16>(static __ => __.Identity(), name)
+                    : new(
+                        _continuationBuilder
+                            .With(
+                                static (__, projection) => __
+                                    .Continue()
+                                    .Build(
+                                        static (builder, key) => builder
+                                            .AddStep(new ProjectStep.ByKeyStep(key))
+                                            .Build(),
+                                        __.GetKey(projection)),
+                                projection),
+                        _names.Push(name ?? $"Item{_names.Count + 1}"),
+                        _emptyProjectionProtectionDecoratorSteps);
             }
 
             private IProjectTypeBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement, TItem1> By<TState>(Expression<Func<TItem1, object>> targetExpression, Func<ProjectBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16>, string, TState, ProjectBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16>> transformation, TState state)
