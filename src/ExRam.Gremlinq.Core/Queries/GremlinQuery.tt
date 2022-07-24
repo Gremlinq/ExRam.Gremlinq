@@ -14,9 +14,9 @@ namespace ExRam.Gremlinq.Core
     partial class GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>
     {
 <# for(var i = 2; i <= 16; i++) { #>
-        IValueTupleGremlinQuery<(<#= GetArgumentList("T{0}", i) #>)> IGremlinQueryBase.Select<<#= GetArgumentList("T{0}", i) #>>(<#= GetArgumentList("StepLabel<T{0}> label{0}", i) #>) => Project<(<#= GetArgumentList("T{0}", i) #>)>(p => p.ToTuple()<#= GetArgumentList(".By(__ => __.Select(label{0}))", "", i) #>);
+        IMapGremlinQuery<(<#= GetArgumentList("T{0}", i) #>)> IGremlinQueryBase.Select<<#= GetArgumentList("T{0}", i) #>>(<#= GetArgumentList("StepLabel<T{0}> label{0}", i) #>) => Project<(<#= GetArgumentList("T{0}", i) #>)>(p => p.ToTuple()<#= GetArgumentList(".By(__ => __.Select(label{0}))", "", i) #>);
 
-        IValueTupleGremlinQuery<(<#= GetArgumentList("T{0}", i) #>)> IValueTupleGremlinQueryBase<TElement>.Select<<#= GetArgumentList("T{0}", i) #>>(<#= GetArgumentList("Expression<Func<TElement, T{0}>> projection{0}", i) #>) => Select<IValueTupleGremlinQuery<(<#= GetArgumentList("T{0}", i) #>)>>(<#= GetArgumentList("projection{0}", i) #>);
+        IMapGremlinQuery<(<#= GetArgumentList("T{0}", i) #>)> IMapGremlinQueryBase<TElement>.Select<<#= GetArgumentList("T{0}", i) #>>(<#= GetArgumentList("Expression<Func<TElement, T{0}>> projection{0}", i) #>) => Select<IMapGremlinQuery<(<#= GetArgumentList("T{0}", i) #>)>>(<#= GetArgumentList("projection{0}", i) #>);
 <# } #>
 
 <# foreach(var iface in Untyped(substitutedBaseInterfaces)){ #>
@@ -101,8 +101,8 @@ namespace ExRam.Gremlinq.Core
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.OrderLocal(Func<IOrderBuilder<<#= iface #>>, IOrderBuilderWithBy<<#= iface #>>> projection) => OrderLocal(projection);
 
         IValueGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, <#= iface #>>.Project(Func<IProjectBuilder<<#= iface #>, TElement>, IProjectDynamicResult> continuation) => Project(continuation);
-        IValueGremlinQuery<TResult> IGremlinQueryBaseRec<TElement, <#= iface #>>.Project<TResult>(Func<IProjectBuilder<<#= iface #>, TElement>, IProjectTypeResult<TResult>> continuation) => Project(continuation);
-        IValueTupleGremlinQuery<TResult> IGremlinQueryBaseRec<TElement, <#= iface #>>.Project<TResult>(Func<IProjectBuilder<<#= iface #>, TElement>, IProjectTupleResult<TResult>> continuation) => Project<TResult>(continuation);
+        IValueGremlinQuery<TResult> IGremlinQueryBaseRec<TElement, <#= iface #>>.Project<TResult>(Func<IProjectBuilder<<#= iface #>, TElement>, IProjectMapResult<TResult>> continuation) => Project(continuation);
+        IMapGremlinQuery<TResult> IGremlinQueryBaseRec<TElement, <#= iface #>>.Project<TResult>(Func<IProjectBuilder<<#= iface #>, TElement>, IProjectTupleResult<TResult>> continuation) => Project<TResult>(continuation);
 
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Range(long low, long high) => RangeGlobal(low, high);
 
