@@ -22,7 +22,7 @@ namespace ExRam.Gremlinq.Core
         IElementGremlinQuery<TElement>,
 
         IValueGremlinQuery<TElement>,
-        IValueTupleGremlinQuery<TElement>,
+        IMapGremlinQuery<TElement>,
 
         IEdgeOrVertexGremlinQuery<TElement>,
         IVertexGremlinQuery<TElement>,
@@ -157,7 +157,7 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<IDictionary<string, TTarget>> IElementGremlinQueryBase<TElement>.ValueMap<TTarget>(params Expression<Func<TElement, TTarget>>[] keys) => ValueMap<IDictionary<string, TTarget>>(keys);
 
-        IValueTupleGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceValueTuple() => CloneAs<IValueTupleGremlinQuery<TElement>>(maybeNewTraversal: Steps.WithProjection(Projection.Value));
+        IMapGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceValueTuple() => CloneAs<IMapGremlinQuery<TElement>>(maybeNewTraversal: Steps.WithProjection(Projection.Value));
 
         IArrayGremlinQuery<TElement[], TElement, IGremlinQueryBase<TElement>> IGremlinQueryBase<TElement>.ForceArray() => CloneAs<IArrayGremlinQuery<TElement[], TElement, IGremlinQueryBase<TElement>>>(maybeNewTraversal: Steps.WithProjection(Projection.Value.Fold()));
 
@@ -353,7 +353,7 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<object> IValueGremlinQueryBase<TElement>.MeanLocal() => MeanLocal();
 
-        IValueGremlinQuery<TTargetValue> IValueTupleGremlinQueryBase<TElement>.Select<TTargetValue>(Expression<Func<TElement, TTargetValue>> projection) => Select<IValueGremlinQuery<TTargetValue>>(projection);
+        IValueGremlinQuery<TTargetValue> IMapGremlinQueryBase<TElement>.Select<TTargetValue>(Expression<Func<TElement, TTargetValue>> projection) => Select<IValueGremlinQuery<TTargetValue>>(projection);
 
         IEdgeOrVertexGremlinQuery<TElement> IVertexGremlinQueryBase<TElement>.Lower() => this;
 

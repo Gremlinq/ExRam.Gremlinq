@@ -12,11 +12,11 @@ namespace ExRam.Gremlinq.Core
     public interface IProjectTupleResult<TTuple>
         where TTuple : ITuple
     {
-        IValueTupleGremlinQuery<TTuple> Build();
+        IMapGremlinQuery<TTuple> Build();
     }
 
     // ReSharper disable once UnusedTypeParameter
-    public interface IProjectTypeResult<TTargetType>
+    public interface IProjectMapResult<TTargetType>
     {
         IValueGremlinQuery<TTargetType> Build();
     }
@@ -26,18 +26,18 @@ namespace ExRam.Gremlinq.Core
     {
         IProjectTupleBuilder<TSourceQuery, TElement> ToTuple();
         IProjectDynamicBuilder<TSourceQuery, TElement> ToDynamic();
-        IProjectTypeBuilder<TSourceQuery, TElement, TTargetType> To<TTargetType>();
+        IProjectMapBuilder<TSourceQuery, TElement, TTargetType> To<TTargetType>();
 
         IProjectBuilder<TSourceQuery, TElement> WithEmptyProjectionProtection();
     }
 
-    public interface IProjectTypeBuilder<out TSourceQuery, TElement, TTargetType> : IProjectTypeResult<TTargetType>
+    public interface IProjectMapBuilder<out TSourceQuery, TElement, TTargetType> : IProjectMapResult<TTargetType>
        where TSourceQuery : IGremlinQueryBase
     {
-        IProjectTypeBuilder<TSourceQuery, TElement, TTargetType> By<TSourceProperty, TTargetProperty>(Expression<Func<TTargetType, TTargetProperty>> targetExpression, Func<TSourceQuery, IGremlinQueryBase<TSourceProperty>> projection)
+        IProjectMapBuilder<TSourceQuery, TElement, TTargetType> By<TSourceProperty, TTargetProperty>(Expression<Func<TTargetType, TTargetProperty>> targetExpression, Func<TSourceQuery, IGremlinQueryBase<TSourceProperty>> projection)
             where TSourceProperty : TTargetProperty;
 
-        IProjectTypeBuilder<TSourceQuery, TElement, TTargetType> By<TSourceProperty, TTargetProperty>(Expression<Func<TTargetType, TTargetProperty>> targetExpression, Expression<Func<TElement, TSourceProperty>> projection)
+        IProjectMapBuilder<TSourceQuery, TElement, TTargetType> By<TSourceProperty, TTargetProperty>(Expression<Func<TTargetType, TTargetProperty>> targetExpression, Expression<Func<TElement, TSourceProperty>> projection)
             where TSourceProperty : TTargetProperty;
     }
 
