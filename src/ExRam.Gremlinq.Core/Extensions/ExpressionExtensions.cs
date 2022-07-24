@@ -58,37 +58,81 @@ namespace ExRam.Gremlinq.Core
             };
         }
 
-        private static Array GetValue(this NewArrayExpression expression)
+        public static WellKnownMember? TryGetWellKnownMember(this Expression expression)
         {
-            var array = Array.CreateInstance(
-                expression.Type.GetElementType()!,
-                expression.Expressions.Count);
-
-            for (var i = 0; i < expression.Expressions.Count; i++)
+            switch (expression)
             {
-                array.SetValue(
-                    expression.Expressions[i].GetValue(),
-                    i);
-            }
-
-            return array;
-        }
-
-        private static object?[] GetArguments(this IArgumentProvider argumentProvider)
-        {
-            if (argumentProvider.ArgumentCount > 0)
-            {
-                var arguments = new object?[argumentProvider.ArgumentCount];
-
-                for (var i = 0; i < arguments.Length; i++)
+                case MemberExpression memberExpression:
                 {
-                    arguments[i] = argumentProvider.GetArgument(i).GetValue();
-                }
+                    var member = memberExpression.Member;
 
-                return arguments;
+                    if (typeof(Property).IsAssignableFrom(member.DeclaringType) && member.Name == nameof(Property<object>.Value))
+                        return WellKnownMember.PropertyValue;
+
+                    if (typeof(Property).IsAssignableFrom(member.DeclaringType) && member.Name == nameof(Property<object>.Key))
+                        return WellKnownMember.PropertyKey;
+
+                    if (typeof(StepLabel).IsAssignableFrom(member.DeclaringType) && member.Name == nameof(StepLabel<object>.Value))
+                        return WellKnownMember.StepLabelValue;
+
+                    if (typeof(IVertexProperty).IsAssignableFrom(member.DeclaringType) && member.Name == nameof(VertexProperty<object>.Label))
+                        return WellKnownMember.VertexPropertyLabel;
+
+                    break;
+                }
+                case MethodCallExpression methodCallExpression:
+                {
+                    var methodInfo = methodCallExpression.Method;
+
+                    if (methodInfo.IsStatic)
+                    {
+                        var thisExpression = methodCallExpression.Arguments[0].StripConvert();
+
+                        if (methodInfo.IsGenericMethod && methodInfo.GetGenericMethodDefinition() == EnumerableAny)
+                        {
+                            return thisExpression is MethodCallExpression previousMethodCallExpression && previousMethodCallExpression.Method.IsGenericMethod && previousMethodCallExpression.Method.GetGenericMethodDefinition() == EnumerableIntersect
+                                ? WellKnownMember.EnumerableIntersectAny
+                                : WellKnownMember.EnumerableAny;
+                        }
+
+                        if (methodInfo.IsGenericMethod && methodInfo.GetGenericMethodDefinition() == EnumerableContainsElement)
+                            return WellKnownMember.EnumerableContains;
+                    }
+                    else
+                    {
+                        if (typeof(IList).IsAssignableFrom(methodInfo.DeclaringType) && methodInfo.Name == nameof(List<object>.Contains))
+                            return WellKnownMember.ListContains;
+
+                        if (methodInfo.DeclaringType == typeof(string) && methodInfo.GetParameters() is { Length: 1 or 2 } parameters)
+                        {
+                            if (parameters[0].ParameterType == typeof(string) && (parameters.Length == 1 || parameters[1].ParameterType == typeof(StringComparison)))
+                            {
+                                switch (methodInfo.Name)
+                                {
+                                    case nameof(object.Equals):
+                                        return WellKnownMember.StringEquals;
+                                    case nameof(string.StartsWith):
+                                        return WellKnownMember.StringStartsWith;
+                                    case nameof(string.EndsWith):
+                                        return WellKnownMember.StringEndsWith;
+                                    case nameof(string.Contains):
+                                        return WellKnownMember.StringContains;
+                                }
+                            }
+                        }
+
+                        if (methodInfo.Name == nameof(object.Equals) && methodInfo.GetParameters().Length == 1 && methodInfo.ReturnType == typeof(bool))
+                            return WellKnownMember.Equals;
+
+                        if (methodInfo.Name == nameof(IComparable.CompareTo) && methodInfo.GetParameters().Length == 1 && methodInfo.ReturnType == typeof(int))
+                            return WellKnownMember.ComparableCompareTo;
+                    }
+
+                    break;
+                }
             }
 
-            return Array.Empty<object>();
+            return null;
         }
 
         public static bool TryParseStepLabelExpression(this Expression expression, out StepLabel? stepLabel, out MemberExpression? stepLabelValueMemberExpression)
@@ -362,81 +406,37 @@ namespace ExRam.Gremlinq.Core
             return default;
         }
 
-        public static WellKnownMember? TryGetWellKnownMember(this Expression expression)
+        private static Array GetValue(this NewArrayExpression expression)
         {
-            switch (expression)
+            var array = Array.CreateInstance(
+                expression.Type.GetElementType()!,
+                expression.Expressions.Count);
+
+            for (var i = 0; i < expression.Expressions.Count; i++)
             {
-                case MemberExpression memberExpression:
-                {
-                    var member = memberExpression.Member;
-
-                    if (typeof(Property).IsAssignableFrom(member.DeclaringType) && member.Name == nameof(Property<object>.Value))
-                        return WellKnownMember.PropertyValue;
-
-                    if (typeof(Property).IsAssignableFrom(member.DeclaringType) && member.Name == nameof(Property<object>.Key))
-                        return WellKnownMember.PropertyKey;
-
-                    if (typeof(StepLabel).IsAssignableFrom(member.DeclaringType) && member.Name == nameof(StepLabel<object>.Value))
-                        return WellKnownMember.StepLabelValue;
-
-                    if (typeof(IVertexProperty).IsAssignableFrom(member.DeclaringType) && member.Name == nameof(VertexProperty<object>.Label))
-                        return WellKnownMember.VertexPropertyLabel;
-
-                    break;
-                }
-                case MethodCallExpression methodCallExpression:
-                {
-                    var methodInfo = methodCallExpression.Method;
-
-                    if (methodInfo.IsStatic)
-                    {
-                        var thisExpression = methodCallExpression.Arguments[0].StripConvert();
-
-                        if (methodInfo.IsGenericMethod && methodInfo.GetGenericMethodDefinition() == EnumerableAny)
-                        {
-                            return thisExpression is MethodCallExpression previousMethodCallExpression && previousMethodCallExpression.Method.IsGenericMethod && previousMethodCallExpression.Method.GetGenericMethodDefinition() == EnumerableIntersect
-                                ? WellKnownMember.EnumerableIntersectAny
-                                : WellKnownMember.EnumerableAny;
-                        }
-
-                        if (methodInfo.IsGenericMethod && methodInfo.GetGenericMethodDefinition() == EnumerableContainsElement)
-                            return WellKnownMember.EnumerableContains;
-                    }
-                    else
-                    {
-                        if (typeof(IList).IsAssignableFrom(methodInfo.DeclaringType) && methodInfo.Name == nameof(List<object>.Contains))
-                            return WellKnownMember.ListContains;
-
-                        if (methodInfo.DeclaringType == typeof(string) && methodInfo.GetParameters() is { Length: 1 or 2} parameters)
-                        {
-                            if (parameters[0].ParameterType == typeof(string) && (parameters.Length == 1 || parameters[1].ParameterType == typeof(StringComparison)))
-                            {
-                                switch (methodInfo.Name)
-                                {
-                                    case nameof(object.Equals):
-                                        return WellKnownMember.StringEquals;
-                                    case nameof(string.StartsWith):
-                                        return WellKnownMember.StringStartsWith;
-                                    case nameof(string.EndsWith):
-                                        return WellKnownMember.StringEndsWith;
-                                    case nameof(string.Contains):
-                                        return WellKnownMember.StringContains;
-                                }
-                            }
-                        }
-
-                        if (methodInfo.Name == nameof(object.Equals) && methodInfo.GetParameters().Length == 1 && methodInfo.ReturnType == typeof(bool))
-                            return WellKnownMember.Equals;
-
-                        if (methodInfo.Name == nameof(IComparable.CompareTo) && methodInfo.GetParameters().Length == 1 && methodInfo.ReturnType == typeof(int))
-                            return WellKnownMember.ComparableCompareTo;
-                    }
-
-                    break;
-                }
+                array.SetValue(
+                    expression.Expressions[i].GetValue(),
+                    i);
             }
 
-            return null;
+            return array;
+        }
+
+        private static object?[] GetArguments(this IArgumentProvider argumentProvider)
+        {
+            if (argumentProvider.ArgumentCount > 0)
+            {
+                var arguments = new object?[argumentProvider.ArgumentCount];
+
+                for (var i = 0; i < arguments.Length; i++)
+                {
+                    arguments[i] = argumentProvider.GetArgument(i).GetValue();
+                }
+
+                return arguments;
+            }
+
+            return Array.Empty<object>();
         }
 
         private static MethodInfo Get(Expression<Action> expression)
