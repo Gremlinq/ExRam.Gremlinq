@@ -27,6 +27,8 @@ namespace ExRam.Gremlinq.Core
         IProjectTupleBuilder<TSourceQuery, TElement> ToTuple();
         IProjectDynamicBuilder<TSourceQuery, TElement> ToDynamic();
         IProjectTypeBuilder<TSourceQuery, TElement, TTargetType> To<TTargetType>();
+
+        IProjectBuilder<TSourceQuery, TElement> WithEmptyProjectionProtection();
     }
 
     public interface IProjectTypeBuilder<out TSourceQuery, TElement, TTargetType> : IProjectTypeResult<TTargetType>

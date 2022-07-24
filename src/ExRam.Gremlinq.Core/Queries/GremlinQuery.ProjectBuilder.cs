@@ -9,11 +9,24 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class ProjectBuilder : IProjectBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement>
         {
+            private readonly bool _emptyProjectionProtection;
             private readonly GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> _sourceQuery;
 
-            public ProjectBuilder(GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> sourceQuery)
+            public ProjectBuilder(GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> sourceQuery) : this(
+                sourceQuery,
+                sourceQuery.Environment.Options.GetValue(GremlinqOption.EnableEmptyProjectionValueProtection))
+            {
+            }
+
+            public ProjectBuilder(GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> sourceQuery, bool emptyProjectionProtection)
             {
                 _sourceQuery = sourceQuery;
+                _emptyProjectionProtection = emptyProjectionProtection;
+            }
+
+            IProjectBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement> IProjectBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement>.WithEmptyProjectionProtection()
+            {
+                return new ProjectBuilder(_sourceQuery, true);
             }
 
             IProjectTupleBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement> IProjectBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement>.ToTuple()
@@ -36,9 +49,9 @@ namespace ExRam.Gremlinq.Core
                 return new ProjectBuilder<TItem1, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(
                     _sourceQuery.Continue().ToMulti(),
                         FastImmutableList<string>.Empty,
-                        _sourceQuery.Environment.Options.GetValue(GremlinqOption.EnableEmptyProjectionValueProtection)
+                        _emptyProjectionProtection
                             ? _sourceQuery.Environment.Options.GetValue(GremlinqOption.EmptyProjectionProtectionDecoratorSteps)
-                            : default(Traversal?));
+                            : Traversal.Empty);
             }
         }
 
@@ -47,13 +60,13 @@ namespace ExRam.Gremlinq.Core
             IProjectTypeBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement, TItem1>
         {
             private readonly FastImmutableList<string> _names;
-            private readonly Traversal? _emptyProjectionProtectionDecoratorSteps;
+            private readonly Traversal _emptyProjectionProtectionDecoratorSteps;
             private readonly MultiContinuationBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>> _continuationBuilder;
 
             public ProjectBuilder(
                 MultiContinuationBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>> continuationBuilder,
                 FastImmutableList<string> names,
-                Traversal? emptyProjectionProtectionDecoratorSteps)
+                Traversal emptyProjectionProtectionDecoratorSteps)
             {
                 _names = names;
                 _continuationBuilder = continuationBuilder;
@@ -172,7 +185,7 @@ namespace ExRam.Gremlinq.Core
                             {
                                 var closureByStep = bySteps[i];
 
-                                if (emptyProjectionProtectionDecoratorSteps is not null)
+                                if (emptyProjectionProtectionDecoratorSteps.Count > 0)
                                 {
                                     var byTraversalStep = closureByStep
                                         .ToByTraversalStep();
@@ -197,7 +210,7 @@ namespace ExRam.Gremlinq.Core
                                     .AddStep(closureByStep);
                             }
 
-                            if (emptyProjectionProtectionDecoratorSteps is not null)
+                            if (emptyProjectionProtectionDecoratorSteps.Count > 0)
                             {
                                 builder = builder
                                     .AddSteps(emptyProjectionProtectionDecoratorSteps);

@@ -699,6 +699,7 @@ namespace ExRam.Gremlinq.Core
         ExRam.Gremlinq.Core.IProjectTypeBuilder<TSourceQuery, TElement, TTargetType> To<TTargetType>();
         ExRam.Gremlinq.Core.IProjectDynamicBuilder<TSourceQuery, TElement> ToDynamic();
         ExRam.Gremlinq.Core.IProjectTupleBuilder<TSourceQuery, TElement> ToTuple();
+        ExRam.Gremlinq.Core.IProjectBuilder<TSourceQuery, TElement> WithEmptyProjectionProtection();
     }
     public interface IProjectDynamicBuilder<out TSourceQuery, TElement> : ExRam.Gremlinq.Core.IProjectDynamicResult
         where out TSourceQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
