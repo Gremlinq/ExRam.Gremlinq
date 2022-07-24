@@ -7,8 +7,42 @@ namespace ExRam.Gremlinq.Core
 {
     partial class GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>
     {
+        private sealed class ProjectBuilder : IProjectBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement>
+        {
+            private readonly GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> _sourceQuery;
+
+            public ProjectBuilder(GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> sourceQuery)
+            {
+                _sourceQuery = sourceQuery;
+            }
+
+            IProjectTupleBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement> IProjectBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement>.ToTuple()
+            {
+                return Continue<object>();
+            }
+
+            IProjectDynamicBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement> IProjectBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement>.ToDynamic()
+            {
+                return Continue<object>();
+            }
+
+            IProjectTypeBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement, TTargetType> IProjectBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement>.To<TTargetType>()
+            {
+                return Continue<TTargetType>();
+            }
+
+            ProjectBuilder<TItem1, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object> Continue<TItem1>()
+            {
+                return new ProjectBuilder<TItem1, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(
+                    _sourceQuery.Continue().ToMulti(),
+                        FastImmutableList<string>.Empty,
+                        _sourceQuery.Environment.Options.GetValue(GremlinqOption.EnableEmptyProjectionValueProtection)
+                            ? _sourceQuery.Environment.Options.GetValue(GremlinqOption.EmptyProjectionProtectionDecoratorSteps)
+                            : default(Traversal?));
+            }
+        }
+
         private sealed partial class ProjectBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16> :
-            IProjectBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement>,
             IProjectDynamicBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement>,
             IProjectTypeBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement, TItem1>
         {
@@ -16,16 +50,7 @@ namespace ExRam.Gremlinq.Core
             private readonly Traversal? _emptyProjectionProtectionDecoratorSteps;
             private readonly MultiContinuationBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>> _continuationBuilder;
 
-            public ProjectBuilder(GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> sourceQuery) : this(
-                sourceQuery.Continue().ToMulti(),
-                FastImmutableList<string>.Empty,
-                sourceQuery.Environment.Options.GetValue(GremlinqOption.EnableEmptyProjectionValueProtection)
-                    ? sourceQuery.Environment.Options.GetValue(GremlinqOption.EmptyProjectionProtectionDecoratorSteps)
-                    : default(Traversal?))
-            {
-            }
-
-            private ProjectBuilder(
+            public ProjectBuilder(
                 MultiContinuationBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>> continuationBuilder,
                 FastImmutableList<string> names,
                 Traversal? emptyProjectionProtectionDecoratorSteps)
@@ -33,21 +58,6 @@ namespace ExRam.Gremlinq.Core
                 _names = names;
                 _continuationBuilder = continuationBuilder;
                 _emptyProjectionProtectionDecoratorSteps = emptyProjectionProtectionDecoratorSteps;
-            }
-
-            IProjectTupleBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement> IProjectBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement>.ToTuple()
-            {
-                return this;
-            }
-
-            IProjectDynamicBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement> IProjectBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement>.ToDynamic()
-            {
-                return this;
-            }
-
-            IProjectTypeBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement, TTargetType> IProjectBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement>.To<TTargetType>()
-            {
-                return new ProjectBuilder<TTargetType, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(_continuationBuilder, _names, _emptyProjectionProtectionDecoratorSteps);
             }
 
             IProjectDynamicBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement> IProjectDynamicBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement>.By(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> projection)
