@@ -47,7 +47,7 @@ namespace ExRam.Gremlinq.Core
 
             IProjectTypeBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement, TTargetType> IProjectBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement>.To<TTargetType>()
             {
-                return new ProjectBuilder<TTargetType, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16>(_continuationBuilder, _names, _emptyProjectionProtectionDecoratorSteps);
+                return new ProjectBuilder<TTargetType, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(_continuationBuilder, _names, _emptyProjectionProtectionDecoratorSteps);
             }
 
             IProjectDynamicBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement> IProjectDynamicBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement>.By(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> projection)
