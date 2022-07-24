@@ -61,14 +61,11 @@ namespace ExRam.Gremlinq.Core.Models
             if (expression is LambdaExpression lambdaExpression)
                 return environment.GetKey(lambdaExpression.Body);
 
-            if (expression.StripConvert() is MemberExpression memberExpression)
-            {
-                return memberExpression.TryGetWellKnownMember() == WellKnownMember.PropertyValue && memberExpression.Expression is MemberExpression sourceMemberExpression
-                    ? environment.GetCache().GetKey(sourceMemberExpression.Member)
-                    : environment.GetCache().GetKey(memberExpression.Member);
-            }
+            var memberExpression = expression.AssumeMemberExpression();
 
-            throw new ExpressionNotSupportedException(expression);
+            return memberExpression.TryGetWellKnownMember() == WellKnownMember.PropertyValue && memberExpression.Expression is MemberExpression sourceMemberExpression
+                ? environment.GetCache().GetKey(sourceMemberExpression.Member)
+                : environment.GetCache().GetKey(memberExpression.Member);
         }
 
         internal static IGraphElementPropertyModel FromGraphElementModels(params IGraphElementModel[] models)

@@ -42,6 +42,13 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
+        public static MemberExpression AssumeMemberExpression(this Expression expression)
+        {
+            return expression.StripConvert() is MemberExpression memberExpression
+                ? memberExpression
+                : throw new ExpressionNotSupportedException(expression);
+        }
+
         public static object? GetValue(this Expression expression)
         {
             return expression switch
