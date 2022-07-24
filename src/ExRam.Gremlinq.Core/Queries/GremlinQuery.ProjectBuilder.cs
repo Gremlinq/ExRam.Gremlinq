@@ -97,7 +97,7 @@ namespace ExRam.Gremlinq.Core
                         : throw new ExpressionNotSupportedException(projection);
             }
 
-            IValueGremlinQuery<TItem1> IProjectMapResult<TItem1>.Build() => Build<IValueGremlinQuery<TItem1>>();
+            IMapGremlinQuery<TItem1> IProjectMapResult<TItem1>.Build() => Build<IMapGremlinQuery<TItem1>>();
 
             IValueGremlinQuery<dynamic> IProjectDynamicResult.Build() => Build<IValueGremlinQuery<dynamic>>();
 
