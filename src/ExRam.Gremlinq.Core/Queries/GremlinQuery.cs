@@ -861,7 +861,7 @@ namespace ExRam.Gremlinq.Core
                 .WithNewProjection(Projection.Value)
                 .AutoBuild<string>());
 
-        private IValueGremlinQuery<TResult> Project<TResult>(Func<IProjectBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement>, IProjectMapResult<TResult>> continuation)
+        private IMapGremlinQuery<TResult> Project<TResult>(Func<IProjectBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement>, IProjectMapResult<TResult>> continuation)
         {
             return new ProjectBuilder(this)
                 .Apply(continuation)

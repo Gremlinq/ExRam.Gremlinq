@@ -18,7 +18,7 @@ namespace ExRam.Gremlinq.Core
     // ReSharper disable once UnusedTypeParameter
     public interface IProjectMapResult<TTargetType>
     {
-        IValueGremlinQuery<TTargetType> Build();
+        IMapGremlinQuery<TTargetType> Build();
     }
 
     public interface IProjectBuilder<out TSourceQuery, TElement>
