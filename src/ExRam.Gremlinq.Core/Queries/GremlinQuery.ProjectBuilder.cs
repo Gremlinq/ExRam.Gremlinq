@@ -78,7 +78,7 @@ namespace ExRam.Gremlinq.Core
 
             IValueGremlinQuery<dynamic> IProjectDynamicResult.Build() => Build<IValueGremlinQuery<dynamic>>();
 
-            IProjectTypeBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement, TItem1> IProjectTypeBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement, TItem1>.By(Expression<Func<TItem1, object?>> targetExpression, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> projection)
+            IProjectTypeBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement, TItem1> IProjectTypeBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement, TItem1>.By<TSourceProperty, TTargetProperty>(Expression<Func<TItem1, TTargetProperty>> targetExpression, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase<TSourceProperty>> projection)
             {
                 return By(
                     targetExpression,
@@ -86,7 +86,7 @@ namespace ExRam.Gremlinq.Core
                     projection);
             }
 
-            IProjectTypeBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement, TItem1> IProjectTypeBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement, TItem1>.By(Expression<Func<TItem1, object?>> targetExpression, Expression<Func<TElement, object>> projection)
+            IProjectTypeBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement, TItem1> IProjectTypeBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement, TItem1>.By<TSourceProperty, TTargetProperty>(Expression<Func<TItem1, TTargetProperty>> targetExpression, Expression<Func<TElement, TSourceProperty>> projection)
             {
                 return By(
                     targetExpression,
@@ -129,7 +129,7 @@ namespace ExRam.Gremlinq.Core
                         _emptyProjectionProtectionDecoratorSteps);
             }
 
-            private IProjectTypeBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement, TItem1> By<TState>(Expression<Func<TItem1, object?>> targetExpression, Func<ProjectBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16>, string, TState, ProjectBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16>> transformation, TState state)
+            private IProjectTypeBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement, TItem1> By<TTargetProperty, TState>(Expression<Func<TItem1, TTargetProperty>> targetExpression, Func<ProjectBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16>, string, TState, ProjectBuilder<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16>> transformation, TState state)
             {
                 return targetExpression.Body is MemberExpression memberExpression
                     ? transformation(this, memberExpression.Member.Name, state)
