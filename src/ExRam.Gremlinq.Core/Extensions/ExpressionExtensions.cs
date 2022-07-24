@@ -44,7 +44,17 @@ namespace ExRam.Gremlinq.Core
 
         public static MemberExpression AssumeMemberExpression(this Expression expression)
         {
-            return expression.StripConvert() is MemberExpression memberExpression
+            return expression.StripConvert() switch
+            {
+                LambdaExpression lambdaExpression => lambdaExpression.Body.AssumeMemberExpression(),
+                MemberExpression memberExpression => memberExpression,
+                _ => throw new ExpressionNotSupportedException(expression)
+            };
+        }
+
+        public static MemberExpression AssumePropertyOrFieldMemberExpression(this Expression expression)
+        {
+            return expression.AssumeMemberExpression() is { Member: { } member } memberExpression && (member is FieldInfo || member is PropertyInfo)
                 ? memberExpression
                 : throw new ExpressionNotSupportedException(expression);
         }

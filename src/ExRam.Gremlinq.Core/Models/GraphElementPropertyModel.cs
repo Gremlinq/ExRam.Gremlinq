@@ -58,9 +58,6 @@ namespace ExRam.Gremlinq.Core.Models
 
         internal static Key GetKey(this IGremlinQueryEnvironment environment, Expression expression)
         {
-            if (expression is LambdaExpression lambdaExpression)
-                return environment.GetKey(lambdaExpression.Body);
-
             var memberExpression = expression.AssumeMemberExpression();
 
             return memberExpression.TryGetWellKnownMember() == WellKnownMember.PropertyValue && memberExpression.Expression is MemberExpression sourceMemberExpression
