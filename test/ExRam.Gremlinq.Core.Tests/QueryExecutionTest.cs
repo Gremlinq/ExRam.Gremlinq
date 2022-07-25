@@ -2654,6 +2654,24 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task Project_to_type_with_select()
+        {
+            await _g
+                .V()
+                .Where(__ => __.In())
+                .Where(__ => __.Out())
+                .Where(__ => __.Properties())
+                .Project(_ => _
+                    .To<ProjectRecord>()
+                    .By(x => x.In, __ => __.Constant("in_value"))
+                    .By(x => x.Out, __ => __.Constant("out_value"))
+                    .By(x => x.Count, __ => __.Constant("count_value"))
+                    .By(x => x.Properties, __ => __.Constant("properties_value")))
+                .Select(x => x.In, x => x.Out)
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task Project_to_property_with_builder()
         {
             await _g
