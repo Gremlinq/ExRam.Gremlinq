@@ -1,4 +1,6 @@
 ﻿using System.Text;
+using System.Text.Json;
+
 using ExRam.Gremlinq.Core.Serialization;
 using Gremlin.Net.Process.Traversal;
 
@@ -203,16 +205,13 @@ namespace ExRam.Gremlinq.Core
 
         private static readonly ThreadLocal<StringBuilder> Builder = new(static () => new StringBuilder());
 
-        public string? TryToString(ISerializedGremlinQuery serializedQuery, IGremlinQueryEnvironment environment)
+        public string? TryToString(ISerializedGremlinQuery serializedQuery, IGremlinQueryEnvironment environment) => serializedQuery switch
         {
-            if (serializedQuery is BytecodeGremlinQuery byteCodeQuery)
-            {
-                return new GroovyWriter(Builder.Value!.Clear())
-                    .Append(byteCodeQuery.Bytecode)
-                    .ToString();
-            }
-
-            return default;
-        }
+            GroovyGremlinQuery groovyGremlinQuery => JsonSerializer.Serialize(groovyGremlinQuery),
+            BytecodeGremlinQuery byteCodeQuery => new GroovyWriter(Builder.Value!.Clear())
+                .Append(byteCodeQuery.Bytecode)
+                .ToString(),
+            _ => default
+        };
     }
 }
