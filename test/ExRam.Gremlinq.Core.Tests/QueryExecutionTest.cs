@@ -50,6 +50,22 @@ namespace ExRam.Gremlinq.Core.Tests
             public object? Properties { get; set; }
         }
 
+        private readonly struct ProjectRecordStruct
+        {
+            public ProjectRecordStruct(object? @in, object? @out, object? count, object? properties)
+            {
+                In = @in;
+                Out = @out;
+                Count = count;
+                Properties = properties;
+            }
+
+            public object? In { get; }
+            public object? Out { get;  }
+            public object? Count { get; }
+            public object? Properties { get;  }
+        }
+
         protected readonly IGremlinQuerySource _g;
 
         private static readonly string Id = "id";
@@ -2646,6 +2662,23 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Where(__ => __.Properties())
                 .Project(_ => _
                     .To<ProjectRecord>()
+                    .By(x => x.In, __ => __.Constant("in_value"))
+                    .By(x => x.Out, __ => __.Constant("out_value"))
+                    .By(x => x.Count, __ => __.Constant("count_value"))
+                    .By(x => x.Properties, __ => __.Constant("properties_value")))
+                .Verify();
+        }
+
+        [Fact]
+        public virtual async Task Project_to_type_with_struct()
+        {
+            await _g
+                .V()
+                .Where(__ => __.In())
+                .Where(__ => __.Out())
+                .Where(__ => __.Properties())
+                .Project(_ => _
+                    .To<ProjectRecordStruct>()
                     .By(x => x.In, __ => __.Constant("in_value"))
                     .By(x => x.Out, __ => __.Constant("out_value"))
                     .By(x => x.Count, __ => __.Constant("count_value"))
