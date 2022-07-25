@@ -6,43 +6,13 @@ using ExRam.Gremlinq.Tests.Entities;
 using FluentAssertions;
 using Gremlin.Net.Process.Traversal;
 using Gremlin.Net.Process.Traversal.Strategy.Decoration;
-using Microsoft.Extensions.Logging;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
     [TestCaseOrderer("ExRam.Gremlinq.Core.Tests.SideEffectTestCaseOrderer", "ExRam.Gremlinq.Core.Tests")]
     public abstract class QueryExecutionTest : GremlinqTestBase
     {
-        private sealed class XunitLogger : ILogger, IDisposable
-        {
-            private readonly ITestOutputHelper _output;
-
-            public XunitLogger(ITestOutputHelper output)
-            {
-                _output = output;
-            }
-
-            public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception, string>? formatter)
-            {
-                _output.WriteLine(state?.ToString());
-            }
-
-            public bool IsEnabled(LogLevel logLevel)
-            {
-                return true;
-            }
-
-            public IDisposable? BeginScope<TState>(TState state) where TState : notnull
-            {
-                return this;
-            }
-
-            public void Dispose()
-            {
-            }
-        }
-
-        private class ProjectRecord
+        private sealed class ProjectRecord
         {
             public object? In { get; set; }
             public object? Out { get; set; }
@@ -77,7 +47,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ConfigureEnvironment(env => env
                     .ConfigureOptions(options => options
                         .SetValue(GremlinqOption.StringComparisonTranslationStrictness, StringComparisonTranslationStrictness.Lenient))
-                    .UseLogger(new XunitLogger(testOutputHelper))
+                    .LogToXunit(testOutputHelper)
                     .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>(lookup => lookup
                         .IncludeAssembliesOfBaseTypes())));
         }
