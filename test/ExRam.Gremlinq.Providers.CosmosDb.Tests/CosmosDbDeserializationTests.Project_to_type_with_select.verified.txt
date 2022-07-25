@@ -1,1 +1,6 @@
-﻿[]
+﻿[
+  {
+    "Item1": null,
+    "Item2": null
+  }
+]
