@@ -1,18 +1,8 @@
-﻿using static ExRam.Gremlinq.Core.GremlinQuerySource;
-
-namespace ExRam.Gremlinq.Core.Tests
+﻿namespace ExRam.Gremlinq.Core.Tests
 {
     public abstract class DebugGremlinQuerySerializationTest : QueryExecutionTest
     {
-        public sealed class Fixture : GremlinqTestFixture
-        {
-            public Fixture() : base(g
-                .UseDebuggingExecutor())
-            {
-            }
-        }
-
-        public DebugGremlinQuerySerializationTest(GremlinqTestFixture fixture, ITestOutputHelper testOutputHelper) : base(
+        protected DebugGremlinQuerySerializationTest(GremlinqTestFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
             testOutputHelper)
         {
