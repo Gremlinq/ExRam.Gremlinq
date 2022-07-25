@@ -75,7 +75,7 @@ namespace ExRam.Gremlinq.Core
             private LoopBuilder<TQuery> Until(Func<TQuery, IGremlinQueryBase> untilCondition) => new(_outerQuery
                 .Continue()
                 .With(
-                    static (_, untilCondition) => untilCondition((TQuery)(object)_),
+                    static (__, untilCondition) => untilCondition((TQuery)(object)__),
                     untilCondition)
                 .Build(static (builder, innerTraversal) =>
                 {
