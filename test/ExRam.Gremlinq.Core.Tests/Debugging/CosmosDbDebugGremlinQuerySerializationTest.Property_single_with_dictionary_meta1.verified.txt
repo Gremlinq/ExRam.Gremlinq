@@ -1,0 +1,3 @@
+﻿[
+  "{\"Script\":\"g.V().hasLabel(_a).property(single,_b,_c,_d,_e)\",\"Id\":\"3c6e1fa2-f7ac-42da-a0db-c15348f84225\",\"Bindings\":{\"_a\":\"Country\",\"_b\":\"LocalizableDescription\",\"_c\":\"\",\"_d\":\"someKey\",\"_e\":\"value\"}}"
+]

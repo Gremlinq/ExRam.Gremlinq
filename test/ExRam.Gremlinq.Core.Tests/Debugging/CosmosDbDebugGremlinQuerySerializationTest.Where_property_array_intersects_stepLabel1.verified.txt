@@ -1,0 +1,3 @@
+﻿[
+  "{\"Script\":\"g.inject(_a).fold().as(_b).V().hasLabel(_c).has(_d,__.where(within(_b)))\",\"Id\":\"8a6ce6e8-8861-4a46-96e2-562586b99bab\",\"Bindings\":{\"_a\":\"\\u002B4912345\",\"_b\":\"l1\",\"_c\":\"Company\",\"_d\":\"PhoneNumbers\"}}"
+]

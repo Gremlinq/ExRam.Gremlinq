@@ -1,0 +1,3 @@
+﻿[
+  "{\"Script\":\"g.V().count()\",\"Id\":\"3ac98f6c-694a-44fc-8c41-644edc31cc44\",\"Bindings\":{}}"
+]

@@ -1,0 +1,3 @@
+﻿[
+  "{\"Script\":\"g.V().group().by(__.identity())\",\"Id\":\"6e0dcd74-305e-43e0-842e-d6d9ddc65d9a\",\"Bindings\":{}}"
+]

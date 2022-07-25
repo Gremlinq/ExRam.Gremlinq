@@ -1,0 +1,3 @@
+﻿[
+  "{\"Script\":\"g.V().hasLabel(_a).properties(_b).has(_c,_d)\",\"Id\":\"bd5e655a-5556-458d-8892-73a5f437d7a8\",\"Bindings\":{\"_a\":\"Company\",\"_b\":\"Locations\",\"_c\":\"ValidFrom\",\"_d\":\"2019-01-01T01:00:00+00:00\"}}"
+]

@@ -1,0 +1,3 @@
+﻿[
+  "{\"Script\":\"g.V().where(__.properties()).project(_a,_b).by(__.identity()).by(__.properties())\",\"Id\":\"4fc42765-1d87-4839-b020-eb80ad96392a\",\"Bindings\":{\"_a\":\"name\",\"_b\":\"Item2\"}}"
+]

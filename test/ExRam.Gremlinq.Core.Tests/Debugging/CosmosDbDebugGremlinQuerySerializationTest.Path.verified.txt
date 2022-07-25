@@ -1,0 +1,3 @@
+﻿[
+  "{\"Script\":\"g.V().out().out().path()\",\"Id\":\"edcf987f-1990-4f59-a014-883ac32aa54b\",\"Bindings\":{}}"
+]

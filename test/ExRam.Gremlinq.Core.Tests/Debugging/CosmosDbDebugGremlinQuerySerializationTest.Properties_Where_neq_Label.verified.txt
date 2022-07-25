@@ -1,0 +1,3 @@
+﻿[
+  "{\"Script\":\"g.V().hasLabel(_a).properties(_b).where(__.key().is(neq(_c)))\",\"Id\":\"cb8072cb-5145-4e64-a870-a74a6f3e4912\",\"Bindings\":{\"_a\":\"Country\",\"_b\":\"Languages\",\"_c\":\"label\"}}"
+]

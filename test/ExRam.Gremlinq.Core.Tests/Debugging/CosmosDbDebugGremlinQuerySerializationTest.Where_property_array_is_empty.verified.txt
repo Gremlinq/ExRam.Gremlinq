@@ -1,0 +1,3 @@
+﻿[
+  "{\"Script\":\"g.V().hasLabel(_a).not(__.has(_b))\",\"Id\":\"3434b007-7a32-46dc-92a4-c87d5ed66525\",\"Bindings\":{\"_a\":\"Company\",\"_b\":\"PhoneNumbers\"}}"
+]

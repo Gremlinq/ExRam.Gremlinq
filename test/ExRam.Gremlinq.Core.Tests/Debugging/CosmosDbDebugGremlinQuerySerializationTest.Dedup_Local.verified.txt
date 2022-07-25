@@ -1,0 +1,3 @@
+﻿[
+  "{\"Script\":\"g.V().fold().dedup(local)\",\"Id\":\"c2d7aaed-ede3-425d-b84b-84e59e8b4a26\",\"Bindings\":{}}"
+]

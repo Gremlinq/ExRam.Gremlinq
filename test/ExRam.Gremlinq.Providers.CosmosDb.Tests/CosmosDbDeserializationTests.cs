@@ -10,7 +10,9 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         {
             public Fixture() : base(
                 nameof(CosmosDbIntegrationTests),
-                g.UseCosmosDb(_ => _.At("ws://localhost", "", "").AuthenticateBy("")))
+                g.UseCosmosDb(_ => _
+                    .At("ws://localhost", "", "")
+                    .AuthenticateBy("")))
             {
             }
         }

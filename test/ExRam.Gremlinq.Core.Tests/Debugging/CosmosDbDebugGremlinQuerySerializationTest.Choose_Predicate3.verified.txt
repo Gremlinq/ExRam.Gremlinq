@@ -1,0 +1,3 @@
+﻿[
+  "{\"Script\":\"g.V().id().choose(lt(_a),__.constant(_b),__.constant(_c))\",\"Id\":\"98436f33-94d2-42ff-a5ed-816bc1746614\",\"Bindings\":{\"_a\":42,\"_b\":true,\"_c\":false}}"
+]

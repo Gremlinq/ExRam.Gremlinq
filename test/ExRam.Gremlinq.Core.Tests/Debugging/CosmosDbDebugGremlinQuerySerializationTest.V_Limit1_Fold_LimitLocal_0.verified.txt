@@ -1,0 +1,3 @@
+﻿[
+  "{\"Script\":\"g.V().limit(_a).fold().limit(local,_b)\",\"Id\":\"aa9ef800-8e4d-42db-a0fb-09cc6bc45729\",\"Bindings\":{\"_a\":1,\"_b\":0}}"
+]

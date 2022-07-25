@@ -1,0 +1,3 @@
+﻿[
+  "{\"Script\":\"g.V().not(__.identity())\",\"Id\":\"fe2821b4-426f-4bf5-97c3-890bc4db9543\",\"Bindings\":{}}"
+]

@@ -1,0 +1,3 @@
+﻿[
+  "{\"Script\":\"g.V().hasLabel(_a).not(__.identity())\",\"Id\":\"5727e102-511a-44ad-9a06-06f559375bf4\",\"Bindings\":{\"_a\":\"Person\"}}"
+]

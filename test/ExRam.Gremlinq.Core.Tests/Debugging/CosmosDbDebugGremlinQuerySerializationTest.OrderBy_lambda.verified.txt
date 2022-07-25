@@ -1,0 +1,3 @@
+﻿[
+  "{\"Script\":\"g.V().hasLabel(_a).has(_b).order().by({it.property(\\u0027Name\\u0027).value().length()})\",\"Id\":\"42c4103b-8fee-4b10-8ad0-6c99625e1241\",\"Bindings\":{\"_a\":\"Person\",\"_b\":\"Name\"}}"
+]

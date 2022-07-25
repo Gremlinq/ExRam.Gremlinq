@@ -1,0 +1,3 @@
+﻿[
+  "{\"Script\":\"g.V().project(_a,_b).by(__.label()).by(__.fold()).where(__.select(_b).count(local).is(lt(_c)))\",\"Id\":\"7f1d47ca-18c7-4026-a3cc-d3dfa212a693\",\"Bindings\":{\"_a\":\"Item1\",\"_b\":\"Item2\",\"_c\":3}}"
+]

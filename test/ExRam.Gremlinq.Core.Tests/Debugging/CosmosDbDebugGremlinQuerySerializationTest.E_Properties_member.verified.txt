@@ -1,0 +1,3 @@
+﻿[
+  "{\"Script\":\"g.E().hasLabel(_a).properties(_b)\",\"Id\":\"56ffbd46-4c4a-45b4-9ccf-c97c7eae0b08\",\"Bindings\":{\"_a\":\"LivesIn\",\"_b\":\"Since\"}}"
+]

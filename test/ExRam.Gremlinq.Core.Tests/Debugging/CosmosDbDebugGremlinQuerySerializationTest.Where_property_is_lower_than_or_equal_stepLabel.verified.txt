@@ -1,0 +1,3 @@
+﻿[
+  "{\"Script\":\"g.V().hasLabel(_a).values(_b).as(_c).V().hasLabel(_a).has(_b,__.where(lte(_c)))\",\"Id\":\"ef9de5f5-16fe-4c7a-8af7-5fafe30ed682\",\"Bindings\":{\"_a\":\"Person\",\"_b\":\"Age\",\"_c\":\"l1\"}}"
+]

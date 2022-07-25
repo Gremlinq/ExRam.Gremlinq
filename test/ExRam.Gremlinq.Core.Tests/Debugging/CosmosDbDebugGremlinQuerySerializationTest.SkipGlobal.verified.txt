@@ -1,0 +1,3 @@
+﻿[
+  "{\"Script\":\"g.V().range(_a,_b)\",\"Id\":\"6ff67ed1-f994-4b20-ba9b-e7daebab22bb\",\"Bindings\":{\"_a\":1,\"_b\":-1}}"
+]

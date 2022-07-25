@@ -1,0 +1,3 @@
+﻿[
+  "{\"Script\":\"g.V().hasLabel(_a).as(_b).project(_c,_d).by(__.select(_b)).by(__.select(_b)).as(_e).project(_c,_d).by(__.select(_b)).by(__.select(_e))\",\"Id\":\"09c8b52f-a18e-47f1-80d7-e3416b92ef7d\",\"Bindings\":{\"_a\":\"Person\",\"_b\":\"l1\",\"_c\":\"Item1\",\"_d\":\"Item2\",\"_e\":\"l2\"}}"
+]

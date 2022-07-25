@@ -1,0 +1,3 @@
+﻿[
+  "{\"Script\":\"g.V().where(__.in()).where(__.out()).where(__.properties()).project(_a,_b,_c,_d).by(__.in()).by(__.out()).by(__.count()).by(__.properties())\",\"Id\":\"dfb56fea-a5b7-4dfe-8f81-88783ae23e15\",\"Bindings\":{\"_a\":\"Item1\",\"_b\":\"Item2\",\"_c\":\"Item3\",\"_d\":\"Item4\"}}"
+]

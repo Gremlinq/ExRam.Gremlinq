@@ -1,0 +1,3 @@
+﻿[
+  "{\"Script\":\"g.V().properties().label()\",\"Id\":\"051302d4-e8b9-4b34-aecc-1e11cbff2a03\",\"Bindings\":{}}"
+]

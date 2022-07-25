@@ -1,0 +1,3 @@
+﻿[
+  "{\"Script\":\"g.V().hasLabel(_a).values(_b).max()\",\"Id\":\"9addfaf6-805f-4fab-9350-70428a444991\",\"Bindings\":{\"_a\":\"Person\",\"_b\":\"Age\"}}"
+]

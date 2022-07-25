@@ -1,0 +1,3 @@
+﻿[
+  "{\"Script\":\"g.V().hasLabel(_a)\",\"Id\":\"28c68eb8-f9d2-4027-a19c-7ca2109b9975\",\"Bindings\":{\"_a\":\"Person\"}}"
+]

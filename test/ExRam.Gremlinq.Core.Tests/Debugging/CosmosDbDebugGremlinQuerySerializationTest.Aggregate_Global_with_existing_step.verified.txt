@@ -1,0 +1,3 @@
+﻿[
+  "{\"Script\":\"g.V().hasLabel(_a).aggregate(_b)\",\"Id\":\"8760662c-c6a3-40c4-b6ad-e311b84ff207\",\"Bindings\":{\"_a\":\"Person\",\"_b\":\"l1\"}}"
+]
