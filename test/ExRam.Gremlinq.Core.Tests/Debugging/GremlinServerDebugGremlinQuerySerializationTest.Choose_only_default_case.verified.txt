@@ -1,0 +1,3 @@
+﻿[
+  "g.V().filter(__.properties()).choose(__.values()).option(none,__.constant(1))"
+]

@@ -1,0 +1,3 @@
+﻿[
+  "g.E().hasLabel('LivesIn').values('Since')"
+]

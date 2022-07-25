@@ -1,0 +1,3 @@
+﻿[
+  "g.V().hasLabel('Person').union(__.id(),__.values('Name'))"
+]

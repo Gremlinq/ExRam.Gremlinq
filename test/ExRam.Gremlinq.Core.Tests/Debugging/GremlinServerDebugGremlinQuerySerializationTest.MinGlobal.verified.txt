@@ -1,0 +1,3 @@
+﻿[
+  "g.V().hasLabel('Person').values('Age').min()"
+]

@@ -1,0 +1,3 @@
+﻿[
+  "g.V().group().by(__.label()).by(__.values())"
+]
