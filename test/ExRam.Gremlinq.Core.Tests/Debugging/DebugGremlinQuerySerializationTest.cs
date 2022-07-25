@@ -1,5 +1,4 @@
-﻿using ExRam.Gremlinq.Core.Execution;
-using static ExRam.Gremlinq.Core.GremlinQuerySource;
+﻿using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
@@ -8,16 +7,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public sealed class Fixture : GremlinqTestFixture
         {
             public Fixture() : base(g
-                .ConfigureEnvironment(env => env
-                    .UseExecutor(GremlinQueryExecutor.Create((query, env) =>
-                    {
-                        return AsyncEnumerable.Create(Core);
-
-                        async IAsyncEnumerator<object> Core(CancellationToken ct)
-                        {
-                            yield return env.Debugger.TryToString(query, env)!;
-                        }
-                    }))))
+                .UseDebuggingExecutor())
             {
             }
         }
