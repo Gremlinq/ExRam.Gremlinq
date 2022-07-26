@@ -1,3 +1,3 @@
 ﻿[
-  "{\"Script\":\"g.V().hasLabel(_a).properties(_b).hasValue(_c)\",\"Id\":\"a3cbff91-4dac-4ca9-8ed7-d6c583b26604\",\"Bindings\":{\"_a\":\"Country\",\"_b\":\"Languages\",\"_c\":\"de\"}}"
+  "{\"Script\":\"g.V().hasLabel(_a).properties(_b).hasValue(_c)\",\"Id\":\"Scrubbed GUID\",\"Bindings\":{\"_a\":\"Country\",\"_b\":\"Languages\",\"_c\":\"de\"}}"
 ]

@@ -1,3 +1,3 @@
 ﻿[
-  "{\"Script\":\"g.V().out().out().cyclicPath()\",\"Id\":\"060219f5-1f0c-4184-a1e7-1b76f68d289b\",\"Bindings\":{}}"
+  "{\"Script\":\"g.V().out().out().cyclicPath()\",\"Id\":\"Scrubbed GUID\",\"Bindings\":{}}"
 ]

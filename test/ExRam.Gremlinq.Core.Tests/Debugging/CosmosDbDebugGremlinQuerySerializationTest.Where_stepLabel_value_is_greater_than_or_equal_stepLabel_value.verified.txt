@@ -1,3 +1,3 @@
 ﻿[
-  "{\"Script\":\"g.V().hasLabel(_a).as(_b).V().hasLabel(_a).as(_c).where(_b,gte(_c)).by(_d).by(_d)\",\"Id\":\"5cf0aefd-9af2-4141-ae1a-2492513c30b3\",\"Bindings\":{\"_a\":\"Person\",\"_b\":\"l1\",\"_c\":\"l2\",\"_d\":\"Age\"}}"
+  "{\"Script\":\"g.V().hasLabel(_a).as(_b).V().hasLabel(_a).as(_c).where(_b,gte(_c)).by(_d).by(_d)\",\"Id\":\"Scrubbed GUID\",\"Bindings\":{\"_a\":\"Person\",\"_b\":\"l1\",\"_c\":\"l2\",\"_d\":\"Age\"}}"
 ]

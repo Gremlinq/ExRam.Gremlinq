@@ -1,3 +1,3 @@
 ﻿[
-  "{\"Script\":\"g.V().optional(__.out(_a))\",\"Id\":\"beecee33-d8f4-4c21-8b45-ff3957c11131\",\"Bindings\":{\"_a\":\"WorksFor\"}}"
+  "{\"Script\":\"g.V().optional(__.out(_a))\",\"Id\":\"Scrubbed GUID\",\"Bindings\":{\"_a\":\"WorksFor\"}}"
 ]

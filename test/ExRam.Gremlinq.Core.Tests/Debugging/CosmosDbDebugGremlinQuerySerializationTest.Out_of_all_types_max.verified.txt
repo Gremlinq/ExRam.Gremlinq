@@ -1,3 +1,3 @@
 ﻿[
-  "{\"Script\":\"g.V().out(_a,_b,_c)\",\"Id\":\"fc01ff2b-3b57-4eda-9172-fdf3d0a67ce5\",\"Bindings\":{\"_a\":\"LivesIn\",\"_b\":\"Speaks\",\"_c\":\"WorksFor\"}}"
+  "{\"Script\":\"g.V().out(_a,_b,_c)\",\"Id\":\"Scrubbed GUID\",\"Bindings\":{\"_a\":\"LivesIn\",\"_b\":\"Speaks\",\"_c\":\"WorksFor\"}}"
 ]

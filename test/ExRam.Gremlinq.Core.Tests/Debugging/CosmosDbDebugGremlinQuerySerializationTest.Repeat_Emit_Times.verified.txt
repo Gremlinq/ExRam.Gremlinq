@@ -1,3 +1,3 @@
 ﻿[
-  "{\"Script\":\"g.V().hasLabel(_a).repeat(__.inE().outV()).emit().times(_b)\",\"Id\":\"d7d57526-e8bc-4e22-949b-1303c5ef409b\",\"Bindings\":{\"_a\":\"Person\",\"_b\":10}}"
+  "{\"Script\":\"g.V().hasLabel(_a).repeat(__.inE().outV()).emit().times(_b)\",\"Id\":\"Scrubbed GUID\",\"Bindings\":{\"_a\":\"Person\",\"_b\":10}}"
 ]

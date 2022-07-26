@@ -1,3 +1,3 @@
 ﻿[
-  "{\"Script\":\"g.inject(_a).fold().as(_b).V().hasLabel(_c).has(_d,__.where(within(_b)))\",\"Id\":\"2370f939-fb29-4b4e-98ba-32735cc988c8\",\"Bindings\":{\"_a\":\"\\u002B4912345\",\"_b\":\"l1\",\"_c\":\"Company\",\"_d\":\"PhoneNumbers\"}}"
+  "{\"Script\":\"g.inject(_a).fold().as(_b).V().hasLabel(_c).has(_d,__.where(within(_b)))\",\"Id\":\"Scrubbed GUID\",\"Bindings\":{\"_a\":\"\\u002B4912345\",\"_b\":\"l1\",\"_c\":\"Company\",\"_d\":\"PhoneNumbers\"}}"
 ]

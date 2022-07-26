@@ -1,3 +1,3 @@
 ﻿[
-  "{\"Script\":\"g.V().properties().values(_a)\",\"Id\":\"6d4fae7c-882e-483f-8298-0002fdf17693\",\"Bindings\":{\"_a\":\"MetaProperty\"}}"
+  "{\"Script\":\"g.V().properties().values(_a)\",\"Id\":\"Scrubbed GUID\",\"Bindings\":{\"_a\":\"MetaProperty\"}}"
 ]

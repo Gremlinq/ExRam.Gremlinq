@@ -1,3 +1,3 @@
 ﻿[
-  "{\"Script\":\"g.V().hasLabel(_a).has(_b,endingWith(_c))\",\"Id\":\"203bf736-23fb-4e80-bc42-cc7df35e8b6f\",\"Bindings\":{\"_a\":\"Country\",\"_b\":\"CountryCallingCode\",\"_c\":\"7890\"}}"
+  "{\"Script\":\"g.V().hasLabel(_a).has(_b,endingWith(_c))\",\"Id\":\"Scrubbed GUID\",\"Bindings\":{\"_a\":\"Country\",\"_b\":\"CountryCallingCode\",\"_c\":\"7890\"}}"
 ]

@@ -1,3 +1,3 @@
 ﻿[
-  "{\"Script\":\"g.V().tail(_a)\",\"Id\":\"e82f6eda-5f83-452d-a463-f1ef5493f9f8\",\"Bindings\":{\"_a\":1}}"
+  "{\"Script\":\"g.V().tail(_a)\",\"Id\":\"Scrubbed GUID\",\"Bindings\":{\"_a\":1}}"
 ]

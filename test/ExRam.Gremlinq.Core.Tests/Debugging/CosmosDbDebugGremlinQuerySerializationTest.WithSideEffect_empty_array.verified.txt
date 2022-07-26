@@ -1,3 +1,3 @@
 ﻿[
-  "{\"Script\":\"g.withSideEffect(_a,_b).V()\",\"Id\":\"2211270a-c9fb-49c6-b255-51b3ffb244ca\",\"Bindings\":{\"_a\":\"sideEffectLabel\",\"_b\":[]}}"
+  "{\"Script\":\"g.withSideEffect(_a,_b).V()\",\"Id\":\"Scrubbed GUID\",\"Bindings\":{\"_a\":\"sideEffectLabel\",\"_b\":[]}}"
 ]

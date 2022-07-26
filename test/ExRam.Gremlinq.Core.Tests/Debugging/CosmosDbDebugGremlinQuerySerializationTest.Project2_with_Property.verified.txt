@@ -1,3 +1,3 @@
 ﻿[
-  "{\"Script\":\"g.V().hasLabel(_a).where(__.in()).project(_b,_c).by(__.in()).by(_d)\",\"Id\":\"e5180e08-aefc-4dad-b869-858bac05757b\",\"Bindings\":{\"_a\":\"Person\",\"_b\":\"Item1\",\"_c\":\"Item2\",\"_d\":\"Age\"}}"
+  "{\"Script\":\"g.V().hasLabel(_a).where(__.in()).project(_b,_c).by(__.in()).by(_d)\",\"Id\":\"Scrubbed GUID\",\"Bindings\":{\"_a\":\"Person\",\"_b\":\"Item1\",\"_c\":\"Item2\",\"_d\":\"Age\"}}"
 ]

@@ -1,3 +1,3 @@
 ﻿[
-  "{\"Script\":\"g.V().project(_a,_b).by(__.label()).by(__.fold()).where(__.select(_b).count(local).is(_c))\",\"Id\":\"c575e76d-30dd-462c-88eb-460e5cc79e02\",\"Bindings\":{\"_a\":\"Item1\",\"_b\":\"Item2\",\"_c\":3}}"
+  "{\"Script\":\"g.V().project(_a,_b).by(__.label()).by(__.fold()).where(__.select(_b).count(local).is(_c))\",\"Id\":\"Scrubbed GUID\",\"Bindings\":{\"_a\":\"Item1\",\"_b\":\"Item2\",\"_c\":3}}"
 ]

@@ -1,3 +1,3 @@
 ﻿[
-  "{\"Script\":\"g.addV(_a).property(single,_b,_c)\",\"Id\":\"72e78fb7-9135-4e52-b638-874e53f5c11e\",\"Bindings\":{\"_a\":\"Language\",\"_b\":\"IetfLanguageTag\",\"_c\":\"en\"}}"
+  "{\"Script\":\"g.addV(_a).property(single,_b,_c)\",\"Id\":\"Scrubbed GUID\",\"Bindings\":{\"_a\":\"Language\",\"_b\":\"IetfLanguageTag\",\"_c\":\"en\"}}"
 ]

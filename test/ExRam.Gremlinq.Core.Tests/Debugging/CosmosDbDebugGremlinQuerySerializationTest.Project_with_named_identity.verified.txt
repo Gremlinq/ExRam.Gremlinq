@@ -1,3 +1,3 @@
 ﻿[
-  "{\"Script\":\"g.V().where(__.properties()).project(_a,_b).by(__.identity()).by(__.properties())\",\"Id\":\"dc5714c7-f57c-45de-b7bc-afeffa816d6b\",\"Bindings\":{\"_a\":\"name\",\"_b\":\"Item2\"}}"
+  "{\"Script\":\"g.V().where(__.properties()).project(_a,_b).by(__.identity()).by(__.properties())\",\"Id\":\"Scrubbed GUID\",\"Bindings\":{\"_a\":\"name\",\"_b\":\"Item2\"}}"
 ]

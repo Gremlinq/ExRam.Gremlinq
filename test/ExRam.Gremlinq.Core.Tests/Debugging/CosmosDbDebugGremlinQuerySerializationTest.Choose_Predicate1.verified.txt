@@ -1,3 +1,3 @@
 ﻿[
-  "{\"Script\":\"g.V().id().choose(eq(_a),__.constant(_b),__.constant(_c))\",\"Id\":\"92255ffb-af01-4b39-9fb7-0acac7e83530\",\"Bindings\":{\"_a\":42,\"_b\":true,\"_c\":false}}"
+  "{\"Script\":\"g.V().id().choose(eq(_a),__.constant(_b),__.constant(_c))\",\"Id\":\"Scrubbed GUID\",\"Bindings\":{\"_a\":42,\"_b\":true,\"_c\":false}}"
 ]

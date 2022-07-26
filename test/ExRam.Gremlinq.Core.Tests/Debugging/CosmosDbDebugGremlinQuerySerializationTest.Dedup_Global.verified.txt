@@ -1,3 +1,3 @@
 ﻿[
-  "{\"Script\":\"g.V().dedup()\",\"Id\":\"67f4c3cf-165f-4c21-8343-eb4056b63193\",\"Bindings\":{}}"
+  "{\"Script\":\"g.V().dedup()\",\"Id\":\"Scrubbed GUID\",\"Bindings\":{}}"
 ]

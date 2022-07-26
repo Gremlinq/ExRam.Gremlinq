@@ -1,3 +1,3 @@
 ﻿[
-  "{\"Script\":\"g.addV(_a).property(single,_b,_c).property(single,_d,_e).property(single,_f,_g).addE(_h).from(__.V().hasLabel(_i).has(_j,_k))\",\"Id\":\"73c1d177-6dbe-44a0-b9e6-be7eacb45214\",\"Bindings\":{\"_a\":\"Person\",\"_b\":\"Age\",\"_c\":0,\"_d\":\"Name\",\"_e\":\"Bob\",\"_f\":\"RegistrationDate\",\"_g\":\"2020-04-07T14:43:36+00:00\",\"_h\":\"LivesIn\",\"_i\":\"Country\",\"_j\":\"CountryCallingCode\",\"_k\":\"\\u002B49\"}}"
+  "{\"Script\":\"g.addV(_a).property(single,_b,_c).property(single,_d,_e).property(single,_f,_g).addE(_h).from(__.V().hasLabel(_i).has(_j,_k))\",\"Id\":\"Scrubbed GUID\",\"Bindings\":{\"_a\":\"Person\",\"_b\":\"Age\",\"_c\":0,\"_d\":\"Name\",\"_e\":\"Bob\",\"_f\":\"RegistrationDate\",\"_g\":\"2020-04-07T14:43:36+00:00\",\"_h\":\"LivesIn\",\"_i\":\"Country\",\"_j\":\"CountryCallingCode\",\"_k\":\"\\u002B49\"}}"
 ]

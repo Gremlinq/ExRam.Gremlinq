@@ -1,3 +1,3 @@
 ﻿[
-  "{\"Script\":\"g.V().where(__.in()).where(__.out()).project(_a,_b,_c).by(__.in()).by(__.out()).by(__.count()).select(_a,_b)\",\"Id\":\"f45589e3-1e53-45d5-9101-eede860c178e\",\"Bindings\":{\"_a\":\"Item1\",\"_b\":\"Item2\",\"_c\":\"Item3\"}}"
+  "{\"Script\":\"g.V().where(__.in()).where(__.out()).project(_a,_b,_c).by(__.in()).by(__.out()).by(__.count()).select(_a,_b)\",\"Id\":\"Scrubbed GUID\",\"Bindings\":{\"_a\":\"Item1\",\"_b\":\"Item2\",\"_c\":\"Item3\"}}"
 ]

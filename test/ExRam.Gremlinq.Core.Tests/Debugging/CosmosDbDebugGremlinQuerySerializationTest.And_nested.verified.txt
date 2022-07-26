@@ -1,3 +1,3 @@
 ﻿[
-  "{\"Script\":\"g.V().hasLabel(_a).and(__.outE(_b),__.inE(_c),__.outE(_c))\",\"Id\":\"6029fc2e-fd09-4743-a753-f20940cd5248\",\"Bindings\":{\"_a\":\"Person\",\"_b\":\"LivesIn\",\"_c\":\"WorksFor\"}}"
+  "{\"Script\":\"g.V().hasLabel(_a).and(__.outE(_b),__.inE(_c),__.outE(_c))\",\"Id\":\"Scrubbed GUID\",\"Bindings\":{\"_a\":\"Person\",\"_b\":\"LivesIn\",\"_c\":\"WorksFor\"}}"
 ]

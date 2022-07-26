@@ -1,3 +1,3 @@
 ﻿[
-  "{\"Script\":\"g.V().hasLabel(_a).has(_b,within(_c))\",\"Id\":\"2701a11a-8927-4f2f-aa4c-58b25d2cd251\",\"Bindings\":{\"_a\":\"Country\",\"_b\":\"CountryCallingCode\",\"_c\":\"\"}}"
+  "{\"Script\":\"g.V().hasLabel(_a).has(_b,within(_c))\",\"Id\":\"Scrubbed GUID\",\"Bindings\":{\"_a\":\"Country\",\"_b\":\"CountryCallingCode\",\"_c\":\"\"}}"
 ]

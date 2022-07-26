@@ -1,3 +1,3 @@
 ﻿[
-  "{\"Script\":\"g.V().hasLabel(_a).has(_b)\",\"Id\":\"3f55f441-b26f-43dc-8e10-7f4302313f1d\",\"Bindings\":{\"_a\":\"Company\",\"_b\":\"PhoneNumbers\"}}"
+  "{\"Script\":\"g.V().hasLabel(_a).has(_b)\",\"Id\":\"Scrubbed GUID\",\"Bindings\":{\"_a\":\"Company\",\"_b\":\"PhoneNumbers\"}}"
 ]

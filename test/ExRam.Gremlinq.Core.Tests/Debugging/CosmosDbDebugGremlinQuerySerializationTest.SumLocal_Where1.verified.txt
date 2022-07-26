@@ -1,3 +1,3 @@
 ﻿[
-  "{\"Script\":\"g.V().hasLabel(_a).values(_b).fold().sum(local).is(_c)\",\"Id\":\"9144c1fc-3239-4da4-9089-c9840723bc01\",\"Bindings\":{\"_a\":\"Person\",\"_b\":\"Age\",\"_c\":100}}"
+  "{\"Script\":\"g.V().hasLabel(_a).values(_b).fold().sum(local).is(_c)\",\"Id\":\"Scrubbed GUID\",\"Bindings\":{\"_a\":\"Person\",\"_b\":\"Age\",\"_c\":100}}"
 ]

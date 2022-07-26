@@ -1,3 +1,3 @@
 ﻿[
-  "{\"Script\":\"g.V().limit(_a).fold().limit(local,_a)\",\"Id\":\"f2f69d49-e90a-4dc8-b906-a36f641e7c54\",\"Bindings\":{\"_a\":2}}"
+  "{\"Script\":\"g.V().limit(_a).fold().limit(local,_a)\",\"Id\":\"Scrubbed GUID\",\"Bindings\":{\"_a\":2}}"
 ]

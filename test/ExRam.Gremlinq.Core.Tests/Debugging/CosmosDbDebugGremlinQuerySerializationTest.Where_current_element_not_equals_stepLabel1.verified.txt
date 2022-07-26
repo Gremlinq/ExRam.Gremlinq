@@ -1,3 +1,3 @@
 ﻿[
-  "{\"Script\":\"g.V().hasLabel(_a).as(_b).V().hasLabel(_a).where(neq(_b))\",\"Id\":\"520b14e7-d15f-4ce0-baa8-213a8f54cad2\",\"Bindings\":{\"_a\":\"Language\",\"_b\":\"l1\"}}"
+  "{\"Script\":\"g.V().hasLabel(_a).as(_b).V().hasLabel(_a).where(neq(_b))\",\"Id\":\"Scrubbed GUID\",\"Bindings\":{\"_a\":\"Language\",\"_b\":\"l1\"}}"
 ]

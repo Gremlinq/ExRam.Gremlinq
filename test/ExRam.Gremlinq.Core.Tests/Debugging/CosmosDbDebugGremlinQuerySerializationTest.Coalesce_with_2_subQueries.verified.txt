@@ -1,3 +1,3 @@
 ﻿[
-  "{\"Script\":\"g.V().coalesce(__.out(),__.in())\",\"Id\":\"332021e2-9b47-4236-8662-ab05ac92732d\",\"Bindings\":{}}"
+  "{\"Script\":\"g.V().coalesce(__.out(),__.in())\",\"Id\":\"Scrubbed GUID\",\"Bindings\":{}}"
 ]

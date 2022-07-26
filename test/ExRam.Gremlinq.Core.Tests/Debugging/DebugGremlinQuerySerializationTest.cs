@@ -1,4 +1,6 @@
-﻿namespace ExRam.Gremlinq.Core.Tests
+﻿using System.Collections.Immutable;
+
+namespace ExRam.Gremlinq.Core.Tests
 {
     public abstract class DebugGremlinQuerySerializationTest : QueryExecutionTest
     {
@@ -9,5 +11,9 @@
         }
 
         public override Task Verify<TElement>(IGremlinQueryBase<TElement> query) => base.Verify(query.Cast<string>());
+
+        protected override IImmutableList<Func<string, string>> Scrubbers() => base
+            .Scrubbers()
+            .ScrubGuids();
     }
 }

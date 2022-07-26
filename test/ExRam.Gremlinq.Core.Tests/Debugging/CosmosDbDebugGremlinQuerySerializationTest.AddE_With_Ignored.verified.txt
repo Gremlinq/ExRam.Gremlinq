@@ -1,3 +1,3 @@
 ﻿[
-  "{\"Script\":\"g.addE(_a).property(_b,_c).from(__.addV(_d).property(single,_e,_f)).to(__.addV(_g).property(single,_h,_i))\",\"Id\":\"cc8f43a7-ba86-4900-8c4e-e17e7bf9c7a1\",\"Bindings\":{\"_a\":\"WorksFor\",\"_b\":\"To\",\"_c\":\"2020-04-07T14:43:36+00:00\",\"_d\":\"Person\",\"_e\":\"Age\",\"_f\":0,\"_g\":\"Company\",\"_h\":\"FoundingDate\",\"_i\":\"0001-01-01T00:00:00+00:00\"}}"
+  "{\"Script\":\"g.addE(_a).property(_b,_c).from(__.addV(_d).property(single,_e,_f)).to(__.addV(_g).property(single,_h,_i))\",\"Id\":\"Scrubbed GUID\",\"Bindings\":{\"_a\":\"WorksFor\",\"_b\":\"To\",\"_c\":\"2020-04-07T14:43:36+00:00\",\"_d\":\"Person\",\"_e\":\"Age\",\"_f\":0,\"_g\":\"Company\",\"_h\":\"FoundingDate\",\"_i\":\"0001-01-01T00:00:00+00:00\"}}"
 ]

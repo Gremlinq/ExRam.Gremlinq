@@ -1,3 +1,3 @@
 ﻿[
-  "{\"Script\":\"g.V().hasLabel(_a).has(id,_b)\",\"Id\":\"86407446-98c7-421c-9c3b-e598ce98a3b3\",\"Bindings\":{\"_a\":\"VertexWithStringId\",\"_b\":0}}"
+  "{\"Script\":\"g.V().hasLabel(_a).has(id,_b)\",\"Id\":\"Scrubbed GUID\",\"Bindings\":{\"_a\":\"VertexWithStringId\",\"_b\":0}}"
 ]

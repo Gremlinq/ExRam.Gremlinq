@@ -1,3 +1,3 @@
 ﻿[
-  "{\"Script\":\"g.E().hasLabel(_a).sideEffect(__.properties(_b).drop()).property(_b,_c)\",\"Id\":\"c6d8e281-5c34-4409-a28e-f7d42868ecb5\",\"Bindings\":{\"_a\":\"WorksFor\",\"_b\":\"To\",\"_c\":\"2020-04-07T14:43:36+00:00\"}}"
+  "{\"Script\":\"g.E().hasLabel(_a).sideEffect(__.properties(_b).drop()).property(_b,_c)\",\"Id\":\"Scrubbed GUID\",\"Bindings\":{\"_a\":\"WorksFor\",\"_b\":\"To\",\"_c\":\"2020-04-07T14:43:36+00:00\"}}"
 ]

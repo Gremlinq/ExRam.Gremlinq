@@ -1,3 +1,3 @@
 ﻿[
-  "{\"Script\":\"g.addV(_a).property(single,_b,_c).property(single,_d,_e)\",\"Id\":\"bd8865ea-1c3c-4cf8-bf56-ffc9e823463b\",\"Bindings\":{\"_a\":\"Person\",\"_b\":\"Name\",\"_c\":\"Marko\",\"_d\":\"RegistrationDate\",\"_e\":\"2020-04-07T14:43:36+00:00\"}}"
+  "{\"Script\":\"g.addV(_a).property(single,_b,_c).property(single,_d,_e)\",\"Id\":\"Scrubbed GUID\",\"Bindings\":{\"_a\":\"Person\",\"_b\":\"Name\",\"_c\":\"Marko\",\"_d\":\"RegistrationDate\",\"_e\":\"2020-04-07T14:43:36+00:00\"}}"
 ]

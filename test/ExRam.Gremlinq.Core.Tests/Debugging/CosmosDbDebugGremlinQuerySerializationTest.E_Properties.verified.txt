@@ -1,3 +1,3 @@
 ﻿[
-  "{\"Script\":\"g.E().properties()\",\"Id\":\"ef490480-c653-411a-bcbf-5bfe27fccc62\",\"Bindings\":{}}"
+  "{\"Script\":\"g.E().properties()\",\"Id\":\"Scrubbed GUID\",\"Bindings\":{}}"
 ]
