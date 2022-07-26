@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using PublicApiGenerator;
-using System.Runtime.CompilerServices;
 using GremlinqTestBase = ExRam.Gremlinq.Core.Tests.GremlinqTestBase;
 
 namespace ExRam.Gremlinq.PublicApi.Tests
@@ -54,7 +53,7 @@ namespace ExRam.Gremlinq.PublicApi.Tests
         [Fact]
         public Task WebSocketAspNet() => Verify("ExRam.Gremlinq.Providers.WebSocket.AspNet");
 
-        private Task Verify(string assemblyName, [CallerFilePath] string sourceFile = "")
+        private Task Verify(string assemblyName)
         {
             var verifySettings = new VerifySettings();
             verifySettings.UseExtension("cs");
