@@ -22,22 +22,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+
     <None Update="Queries\T4\ProjectBuilder.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ProjectBuilder.cs</LastGenOutput>
+      <LastGenOutput>ProjectBuilder.generated.cs</LastGenOutput>
     </None>
     <None Update="Queries\GremlinQuery.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>GremlinQuery.generated.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  
-  <ItemGroup>
-    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <Compile Update="Queries\T4\ProjectBuilder.cs">
+    
+    <Compile Update="Queries\T4\ProjectBuilder.generated.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>ProjectBuilder.tt</DependentUpon>
