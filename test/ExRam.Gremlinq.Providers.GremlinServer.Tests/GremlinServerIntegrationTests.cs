@@ -1,6 +1,7 @@
 ﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Providers.WebSocket;
+using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
@@ -8,7 +9,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
     {
         public new sealed class Fixture : QueryIntegrationTest.Fixture
         {
-            public Fixture() : base(Gremlinq.Core.GremlinQuerySource.g
+            public Fixture() : base(g
                 .UseGremlinServer(builder => builder
                     .AtLocalhost()))
             {
