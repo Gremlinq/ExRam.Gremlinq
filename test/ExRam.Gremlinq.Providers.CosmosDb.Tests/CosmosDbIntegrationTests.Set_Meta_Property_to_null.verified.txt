@@ -1,12 +1,12 @@
-[
+﻿[
   [
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "value": "GER",
       "label": "Name"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "value": "GER",
       "label": "Name",
       "properties": {
