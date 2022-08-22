@@ -1,6 +1,33 @@
 ﻿[
   [
     {
+      "Item2": {
+        "id": "scrubbed id",
+        "label": "Company",
+        "type": "vertex",
+        "properties": {
+          "PartitionKey": [
+            {
+              "id": "scrubbed id",
+              "value": "PartitionKey"
+            }
+          ],
+          "FoundingDate": [
+            {
+              "id": "scrubbed id",
+              "value": -62135596800000
+            }
+          ]
+        }
+      },
+      "Item3": 0,
+      "Item4": {
+        "id": "scrubbed id",
+        "value": "PartitionKey",
+        "label": "PartitionKey"
+      }
+    },
+    {
       "Item1": {
         "id": "scrubbed id",
         "label": "Country",
@@ -93,6 +120,33 @@
     {
       "Item2": {
         "id": "scrubbed id",
+        "label": "Company",
+        "type": "vertex",
+        "properties": {
+          "PartitionKey": [
+            {
+              "id": "scrubbed id",
+              "value": "PartitionKey"
+            }
+          ],
+          "FoundingDate": [
+            {
+              "id": "scrubbed id",
+              "value": -62135596800000
+            }
+          ]
+        }
+      },
+      "Item3": 0,
+      "Item4": {
+        "id": "scrubbed id",
+        "value": "PartitionKey",
+        "label": "PartitionKey"
+      }
+    },
+    {
+      "Item2": {
+        "id": "scrubbed id",
         "label": "Country",
         "type": "vertex",
         "properties": {
@@ -106,6 +160,33 @@
             {
               "id": "scrubbed id",
               "value": "+49"
+            }
+          ]
+        }
+      },
+      "Item3": 0,
+      "Item4": {
+        "id": "scrubbed id",
+        "value": "PartitionKey",
+        "label": "PartitionKey"
+      }
+    },
+    {
+      "Item2": {
+        "id": "scrubbed id",
+        "label": "Company",
+        "type": "vertex",
+        "properties": {
+          "PartitionKey": [
+            {
+              "id": "scrubbed id",
+              "value": "PartitionKey"
+            }
+          ],
+          "FoundingDate": [
+            {
+              "id": "scrubbed id",
+              "value": -62135596800000
             }
           ]
         }

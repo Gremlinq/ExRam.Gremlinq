@@ -43,6 +43,34 @@
   },
   {
     "Id": "scrubbed id",
+    "Label": "PartitionKey",
+    "Properties": {},
+    "Value": "PartitionKey",
+    "Key": null
+  },
+  {
+    "Id": "scrubbed id",
+    "Label": "FoundingDate",
+    "Properties": {},
+    "Value": "-62135596800000",
+    "Key": null
+  },
+  {
+    "Id": "scrubbed id",
+    "Label": "PartitionKey",
+    "Properties": {},
+    "Value": "PartitionKey",
+    "Key": null
+  },
+  {
+    "Id": "scrubbed id",
+    "Label": "Age",
+    "Properties": {},
+    "Value": "0",
+    "Key": null
+  },
+  {
+    "Id": "scrubbed id",
     "Label": "Name",
     "Properties": {},
     "Value": "Bob",
@@ -116,6 +144,34 @@
     "Label": "PartitionKey",
     "Properties": {},
     "Value": "PartitionKey",
+    "Key": null
+  },
+  {
+    "Id": "scrubbed id",
+    "Label": "PartitionKey",
+    "Properties": {},
+    "Value": "PartitionKey",
+    "Key": null
+  },
+  {
+    "Id": "scrubbed id",
+    "Label": "Age",
+    "Properties": {},
+    "Value": "0",
+    "Key": null
+  },
+  {
+    "Id": "scrubbed id",
+    "Label": "PartitionKey",
+    "Properties": {},
+    "Value": "PartitionKey",
+    "Key": null
+  },
+  {
+    "Id": "scrubbed id",
+    "Label": "FoundingDate",
+    "Properties": {},
+    "Value": "-62135596800000",
     "Key": null
   },
   {
@@ -172,6 +228,34 @@
     "Label": "RegistrationDate",
     "Properties": {},
     "Value": "1586270616000",
+    "Key": null
+  },
+  {
+    "Id": "scrubbed id",
+    "Label": "PartitionKey",
+    "Properties": {},
+    "Value": "PartitionKey",
+    "Key": null
+  },
+  {
+    "Id": "scrubbed id",
+    "Label": "Age",
+    "Properties": {},
+    "Value": "0",
+    "Key": null
+  },
+  {
+    "Id": "scrubbed id",
+    "Label": "PartitionKey",
+    "Properties": {},
+    "Value": "PartitionKey",
+    "Key": null
+  },
+  {
+    "Id": "scrubbed id",
+    "Label": "FoundingDate",
+    "Properties": {},
+    "Value": "-62135596800000",
     "Key": null
   },
   {

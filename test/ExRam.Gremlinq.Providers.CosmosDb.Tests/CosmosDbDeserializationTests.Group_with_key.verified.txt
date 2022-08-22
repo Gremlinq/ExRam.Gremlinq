@@ -130,45 +130,6 @@
         "Age": 0,
         "Gender": null,
         "Image": null,
-        "RegistrationDate": "2020-04-07T14:43:36+00:00",
-        "PhoneNumbers": null,
-        "SomeObscureProperty": null,
-        "Name": {
-          "Id": "scrubbed id",
-          "Label": null,
-          "Properties": null,
-          "Value": "Bob",
-          "Key": null
-        },
-        "Id": "scrubbed id",
-        "Label": "Person"
-      },
-      {
-        "Age": 0,
-        "Gender": null,
-        "Image": null,
-        "RegistrationDate": null,
-        "PhoneNumbers": null,
-        "SomeObscureProperty": null,
-        "Name": null,
-        "Id": "scrubbed id",
-        "Label": "Person"
-      },
-      {
-        "Age": 0,
-        "Gender": null,
-        "Image": null,
-        "RegistrationDate": null,
-        "PhoneNumbers": null,
-        "SomeObscureProperty": null,
-        "Name": null,
-        "Id": "scrubbed id",
-        "Label": "Person"
-      },
-      {
-        "Age": 0,
-        "Gender": null,
-        "Image": null,
         "RegistrationDate": null,
         "PhoneNumbers": null,
         "SomeObscureProperty": null,
@@ -190,6 +151,78 @@
           "Value": "Bob",
           "Key": null
         },
+        "Id": "scrubbed id",
+        "Label": "Person"
+      },
+      {
+        "Age": 0,
+        "Gender": null,
+        "Image": null,
+        "RegistrationDate": null,
+        "PhoneNumbers": null,
+        "SomeObscureProperty": null,
+        "Name": null,
+        "Id": "scrubbed id",
+        "Label": "Person"
+      },
+      {
+        "Age": 0,
+        "Gender": null,
+        "Image": null,
+        "RegistrationDate": null,
+        "PhoneNumbers": null,
+        "SomeObscureProperty": null,
+        "Name": null,
+        "Id": "scrubbed id",
+        "Label": "Person"
+      },
+      {
+        "Age": 0,
+        "Gender": null,
+        "Image": null,
+        "RegistrationDate": null,
+        "PhoneNumbers": null,
+        "SomeObscureProperty": null,
+        "Name": null,
+        "Id": "scrubbed id",
+        "Label": "Person"
+      },
+      {
+        "Age": 0,
+        "Gender": null,
+        "Image": null,
+        "RegistrationDate": null,
+        "PhoneNumbers": null,
+        "SomeObscureProperty": null,
+        "Name": null,
+        "Id": "scrubbed id",
+        "Label": "Person"
+      },
+      {
+        "Age": 0,
+        "Gender": null,
+        "Image": null,
+        "RegistrationDate": "2020-04-07T14:43:36+00:00",
+        "PhoneNumbers": null,
+        "SomeObscureProperty": null,
+        "Name": {
+          "Id": "scrubbed id",
+          "Label": null,
+          "Properties": null,
+          "Value": "Bob",
+          "Key": null
+        },
+        "Id": "scrubbed id",
+        "Label": "Person"
+      },
+      {
+        "Age": 0,
+        "Gender": null,
+        "Image": null,
+        "RegistrationDate": null,
+        "PhoneNumbers": null,
+        "SomeObscureProperty": null,
+        "Name": null,
         "Id": "scrubbed id",
         "Label": "Person"
       },
@@ -233,16 +266,31 @@
         "Label": "Person"
       }
     ],
-    "TimeFrame": [
-      {
-        "Enabled": false,
-        "StartTime": "08:00:00",
-        "Duration": "02:00:00",
-        "Id": "scrubbed id",
-        "Label": "TimeFrame"
-      }
-    ],
     "Company": [
+      {
+        "FoundingDate": "0001-01-01T00:00:00",
+        "PhoneNumbers": null,
+        "Locations": null,
+        "Name": null,
+        "Id": "scrubbed id",
+        "Label": "Company"
+      },
+      {
+        "FoundingDate": "0001-01-01T00:00:00",
+        "PhoneNumbers": null,
+        "Locations": null,
+        "Name": null,
+        "Id": "scrubbed id",
+        "Label": "Company"
+      },
+      {
+        "FoundingDate": "0001-01-01T00:00:00",
+        "PhoneNumbers": null,
+        "Locations": null,
+        "Name": null,
+        "Id": "scrubbed id",
+        "Label": "Company"
+      },
       {
         "FoundingDate": "0001-01-01T00:00:00",
         "PhoneNumbers": null,
@@ -271,6 +319,15 @@
         "Name": null,
         "Id": "scrubbed id",
         "Label": "Company"
+      }
+    ],
+    "TimeFrame": [
+      {
+        "Enabled": false,
+        "StartTime": "08:00:00",
+        "Duration": "02:00:00",
+        "Id": "scrubbed id",
+        "Label": "TimeFrame"
       }
     ]
   }
