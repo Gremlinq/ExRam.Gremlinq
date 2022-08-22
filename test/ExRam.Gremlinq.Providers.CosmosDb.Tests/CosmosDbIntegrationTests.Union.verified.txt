@@ -1,19 +1,19 @@
-[
+﻿[
   [
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "label": "Country",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "scrubbed id",
+            "id": "Scrubbed GUID|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "LocalizableDescription": [
           {
-            "id": "scrubbed id",
+            "id": "Scrubbed GUID",
             "value": "",
             "properties": {
               "someKey": "value"
@@ -23,19 +23,19 @@
       }
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "label": "Country",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "scrubbed id",
+            "id": "Scrubbed GUID|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "LocalizableDescription": [
           {
-            "id": "scrubbed id",
+            "id": "Scrubbed GUID",
             "value": "",
             "properties": {
               "someKey": "value"
@@ -45,19 +45,19 @@
       }
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "label": "Country",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "scrubbed id",
+            "id": "Scrubbed GUID|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "LocalizableDescription": [
           {
-            "id": "scrubbed id",
+            "id": "Scrubbed GUID",
             "value": "",
             "properties": {
               "someKey": "value"
@@ -67,25 +67,25 @@
       }
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "label": "Country",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "scrubbed id",
+            "id": "Scrubbed GUID|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "CountryCallingCode": [
           {
-            "id": "scrubbed id",
+            "id": "Scrubbed GUID",
             "value": "+49"
           }
         ],
         "LocalizableDescription": [
           {
-            "id": "scrubbed id",
+            "id": "Scrubbed GUID",
             "value": "",
             "properties": {
               "someKey": "value"
