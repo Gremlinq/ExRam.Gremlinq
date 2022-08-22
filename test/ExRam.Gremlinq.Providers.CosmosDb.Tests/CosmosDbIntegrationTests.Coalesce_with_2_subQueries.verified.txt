@@ -1,241 +1,241 @@
 ﻿[
   [
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "label": "Language",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "scrubbed id",
+            "id": "Scrubbed GUID|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "IetfLanguageTag": [
           {
-            "id": "scrubbed id",
+            "id": "Scrubbed GUID",
             "value": "en"
           }
         ]
       }
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "label": "Person",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "scrubbed id",
+            "id": "Scrubbed GUID|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "Age": [
           {
-            "id": "scrubbed id",
+            "id": "Scrubbed GUID",
             "value": 0
           }
         ],
         "Name": [
           {
-            "id": "scrubbed id",
+            "id": "Scrubbed GUID",
             "value": "Bob"
           }
         ],
         "RegistrationDate": [
           {
-            "id": "scrubbed id",
+            "id": "Scrubbed GUID",
             "value": 1586270616000
           }
         ]
       }
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "label": "Country",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "scrubbed id",
+            "id": "Scrubbed GUID|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "CountryCallingCode": [
           {
-            "id": "scrubbed id",
+            "id": "Scrubbed GUID",
             "value": "+49"
           }
         ]
       }
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "label": "Country",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "scrubbed id",
+            "id": "Scrubbed GUID|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "CountryCallingCode": [
           {
-            "id": "scrubbed id",
+            "id": "Scrubbed GUID",
             "value": "+49"
           }
         ]
       }
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "label": "Country",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "scrubbed id",
+            "id": "Scrubbed GUID|PartitionKey",
             "value": "PartitionKey"
           }
         ]
       }
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "label": "Person",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "scrubbed id",
+            "id": "Scrubbed GUID|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "Age": [
           {
-            "id": "scrubbed id",
+            "id": "Scrubbed GUID",
             "value": 0
           }
         ]
       }
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "label": "Country",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "scrubbed id",
+            "id": "Scrubbed GUID|PartitionKey",
             "value": "PartitionKey"
           }
         ]
       }
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "label": "Person",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "scrubbed id",
+            "id": "Scrubbed GUID|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "Age": [
           {
-            "id": "scrubbed id",
+            "id": "Scrubbed GUID",
             "value": 0
           }
         ]
       }
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "label": "Country",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "scrubbed id",
+            "id": "Scrubbed GUID|PartitionKey",
             "value": "PartitionKey"
           }
         ]
       }
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "label": "Person",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "scrubbed id",
+            "id": "Scrubbed GUID|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "Age": [
           {
-            "id": "scrubbed id",
+            "id": "Scrubbed GUID",
             "value": 0
           }
         ]
       }
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "label": "Country",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "scrubbed id",
+            "id": "Scrubbed GUID|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "CountryCallingCode": [
           {
-            "id": "scrubbed id",
+            "id": "Scrubbed GUID",
             "value": "+49"
           }
         ]
       }
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "label": "Language",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "scrubbed id",
+            "id": "Scrubbed GUID|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "IetfLanguageTag": [
           {
-            "id": "scrubbed id",
+            "id": "Scrubbed GUID",
             "value": "en"
           }
         ]
       }
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "label": "Country",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "scrubbed id",
+            "id": "Scrubbed GUID|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "CountryCallingCode": [
           {
-            "id": "scrubbed id",
+            "id": "Scrubbed GUID",
             "value": "+49"
           }
         ]

@@ -1,31 +1,31 @@
-[
+﻿[
   [
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "label": "TimeFrame",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "scrubbed id",
+            "id": "Scrubbed GUID|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "Duration": [
           {
-            "id": "scrubbed id",
+            "id": "Scrubbed GUID",
             "value": 7200000.0
           }
         ],
         "Enabled": [
           {
-            "id": "scrubbed id",
+            "id": "Scrubbed GUID",
             "value": false
           }
         ],
         "StartTime": [
           {
-            "id": "scrubbed id",
+            "id": "Scrubbed GUID",
             "value": 28800000.0
           }
         ]
