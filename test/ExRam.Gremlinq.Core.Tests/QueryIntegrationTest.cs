@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using ExRam.Gremlinq.Core.Deserialization;
+using ExRam.Gremlinq.Core.Execution;
 using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Core.Tests
@@ -12,6 +13,10 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             protected Fixture(IGremlinQuerySource source) : base(source
                 .ConfigureEnvironment(env => env
+                    .ConfigureExecutor(_ => _
+                        .TransformResult(enumerable => enumerable
+                            .Catch<object, Exception>(ex => AsyncEnumerableEx
+                                .Return<object>(new JValue(ex.Message)))))
                     .UseDeserializer(GremlinQueryExecutionResultDeserializer.Default)))
             {
             }
@@ -30,6 +35,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public override Task Verify<TElement>(IGremlinQueryBase<TElement> query) => base.Verify(query.Cast<JToken>());
 
         protected override IImmutableList<Func<string, string>> Scrubbers() => base.Scrubbers()
+            .ScrubGuids()
             .Add(x => IdRegex.Replace(x, "$1-1$4"))
             .Add(x => GuidRegex.Replace(x, "$1\"scrubbed uuid\"$4"));
     }
