@@ -6,12 +6,12 @@
       "Label": "Language"
     },
     "Person": {
+      "FoundingDate": "0001-01-01T00:00:00",
+      "PhoneNumbers": null,
+      "Locations": null,
       "Name": null,
-      "Languages": null,
-      "CountryCallingCode": "+49",
-      "LocalizableDescription": null,
       "Id": "scrubbed id",
-      "Label": "Country"
+      "Label": "Company"
     }
   }
 ]

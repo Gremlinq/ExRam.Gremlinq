@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "Id": "scrubbed id",
     "Label": "Speaks"
@@ -7,6 +7,13 @@
     "Since": null,
     "Id": "scrubbed id",
     "Label": "LivesIn"
+  },
+  {
+    "Role": "Admin",
+    "From": "2020-04-07T14:43:36Z",
+    "To": "2020-04-07T14:43:36Z",
+    "Id": "scrubbed id",
+    "Label": "WorksFor"
   },
   {
     "Since": null,
@@ -27,6 +34,13 @@
     "Label": "LivesIn"
   },
   {
+    "Role": "Admin",
+    "From": "2020-04-07T14:43:36Z",
+    "To": "2020-04-07T14:43:36Z",
+    "Id": "scrubbed id",
+    "Label": "WorksFor"
+  },
+  {
     "Id": "scrubbed id",
     "Label": "Speaks"
   },
@@ -34,5 +48,12 @@
     "Since": null,
     "Id": "scrubbed id",
     "Label": "LivesIn"
+  },
+  {
+    "Role": null,
+    "From": "0001-01-01T00:00:00",
+    "To": "2020-04-07T14:43:36Z",
+    "Id": "scrubbed id",
+    "Label": "WorksFor"
   }
 ]
