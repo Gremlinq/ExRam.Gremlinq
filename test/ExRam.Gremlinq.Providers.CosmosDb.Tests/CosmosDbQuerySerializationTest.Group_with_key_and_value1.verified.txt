@@ -1,7 +1,7 @@
 ﻿[
   {
     "Script": "g.V().group().by(__.label()).by(__.out())",
-    "Id": "Scrubbed GUID",
+    "Id": "00000000-0000-0000-0000-000000000000",
     "Bindings": {}
   }
 ]

@@ -1,7 +1,7 @@
 ﻿[
   {
     "Script": "g.V().limit(_a).fold().tail(local,_b)",
-    "Id": "Scrubbed GUID",
+    "Id": "00000000-0000-0000-0000-000000000000",
     "Bindings": {
       "_a": 0,
       "_b": 2

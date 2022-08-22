@@ -1,3 +1,3 @@
 ﻿[
-  "{\"Script\":\"g.V().hasLabel(_a).as(_b).where(gt(_b)).by(_c).by(_d)\",\"Id\":\"Scrubbed GUID\",\"Bindings\":{\"_a\":\"EntityWithTwoIntProperties\",\"_b\":\"l1\",\"_c\":\"IntProperty1\",\"_d\":\"IntProperty2\"}}"
+  "{\"Script\":\"g.V().hasLabel(_a).as(_b).where(gt(_b)).by(_c).by(_d)\",\"Id\":\"00000000-0000-0000-0000-000000000000\",\"Bindings\":{\"_a\":\"EntityWithTwoIntProperties\",\"_b\":\"l1\",\"_c\":\"IntProperty1\",\"_d\":\"IntProperty2\"}}"
 ]

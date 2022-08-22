@@ -1,7 +1,7 @@
 ﻿[
   {
     "Script": "g.V().id().choose(gt(_a).and(lt(_b)),__.constant(_c),__.constant(_d))",
-    "Id": "Scrubbed GUID",
+    "Id": "00000000-0000-0000-0000-000000000000",
     "Bindings": {
       "_a": 0,
       "_b": 42,

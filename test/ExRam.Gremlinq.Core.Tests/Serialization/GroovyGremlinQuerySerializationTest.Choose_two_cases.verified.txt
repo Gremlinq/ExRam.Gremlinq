@@ -1,7 +1,7 @@
 ﻿[
   {
     "Script": "g.V().filter(__.properties()).choose(__.values()).option(_a,__.constant(_b)).option(_c,__.constant(_d))",
-    "Id": "Scrubbed GUID",
+    "Id": "00000000-0000-0000-0000-000000000000",
     "Bindings": {
       "_a": 3,
       "_b": 1,
