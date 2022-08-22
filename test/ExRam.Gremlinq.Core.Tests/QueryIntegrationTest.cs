@@ -31,6 +31,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         protected override IImmutableList<Func<string, string>> Scrubbers() => base.Scrubbers()
             .Add(x => IdRegex.Replace(x, "$1-1$4"))
-            .Add(x => GuidRegex.Replace(x, "$1\"scrubbed uuid\"$4"));
+            .Add(x => GuidRegex.Replace(x, "$1\"scrubbed uuid\"$4"))
+            .ScrubGuids();
     }
 }

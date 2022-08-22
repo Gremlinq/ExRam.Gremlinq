@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         public static string ScrubGuids(this string str)
         {
-            return GuidRegex.Replace(str, "Scrubbed GUID");
+            return GuidRegex.Replace(str, "00000000-0000-0000-0000-000000000000");
         }
     }
 }
