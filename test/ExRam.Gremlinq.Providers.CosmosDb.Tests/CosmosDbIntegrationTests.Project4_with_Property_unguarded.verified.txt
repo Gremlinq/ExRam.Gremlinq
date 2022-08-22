@@ -2,19 +2,19 @@
   [
     {
       "Item1": {
-        "id": "scrubbed id",
+        "id": "Scrubbed GUID",
         "label": "Country",
         "type": "vertex",
         "properties": {
           "PartitionKey": [
             {
-              "id": "scrubbed id",
+              "id": "Scrubbed GUID|PartitionKey",
               "value": "PartitionKey"
             }
           ],
           "CountryCallingCode": [
             {
-              "id": "scrubbed id",
+              "id": "Scrubbed GUID",
               "value": "+49"
             }
           ]
@@ -22,20 +22,20 @@
       },
       "Item3": 0,
       "Item4": {
-        "id": "scrubbed id",
+        "id": "Scrubbed GUID|PartitionKey",
         "value": "PartitionKey",
         "label": "PartitionKey"
       }
     },
     {
       "Item2": {
-        "id": "scrubbed id",
+        "id": "Scrubbed GUID",
         "label": "Country",
         "type": "vertex",
         "properties": {
           "PartitionKey": [
             {
-              "id": "scrubbed id",
+              "id": "Scrubbed GUID|PartitionKey",
               "value": "PartitionKey"
             }
           ]
@@ -43,20 +43,20 @@
       },
       "Item3": 0,
       "Item4": {
-        "id": "scrubbed id",
+        "id": "Scrubbed GUID|PartitionKey",
         "value": "PartitionKey",
         "label": "PartitionKey"
       }
     },
     {
       "Item2": {
-        "id": "scrubbed id",
+        "id": "Scrubbed GUID",
         "label": "Country",
         "type": "vertex",
         "properties": {
           "PartitionKey": [
             {
-              "id": "scrubbed id",
+              "id": "Scrubbed GUID|PartitionKey",
               "value": "PartitionKey"
             }
           ]
@@ -64,20 +64,20 @@
       },
       "Item3": 0,
       "Item4": {
-        "id": "scrubbed id",
+        "id": "Scrubbed GUID|PartitionKey",
         "value": "PartitionKey",
         "label": "PartitionKey"
       }
     },
     {
       "Item2": {
-        "id": "scrubbed id",
+        "id": "Scrubbed GUID",
         "label": "Country",
         "type": "vertex",
         "properties": {
           "PartitionKey": [
             {
-              "id": "scrubbed id",
+              "id": "Scrubbed GUID|PartitionKey",
               "value": "PartitionKey"
             }
           ]
@@ -85,26 +85,26 @@
       },
       "Item3": 0,
       "Item4": {
-        "id": "scrubbed id",
+        "id": "Scrubbed GUID|PartitionKey",
         "value": "PartitionKey",
         "label": "PartitionKey"
       }
     },
     {
       "Item2": {
-        "id": "scrubbed id",
+        "id": "Scrubbed GUID",
         "label": "Country",
         "type": "vertex",
         "properties": {
           "PartitionKey": [
             {
-              "id": "scrubbed id",
+              "id": "Scrubbed GUID|PartitionKey",
               "value": "PartitionKey"
             }
           ],
           "CountryCallingCode": [
             {
-              "id": "scrubbed id",
+              "id": "Scrubbed GUID",
               "value": "+49"
             }
           ]
@@ -112,7 +112,7 @@
       },
       "Item3": 0,
       "Item4": {
-        "id": "scrubbed id",
+        "id": "Scrubbed GUID|PartitionKey",
         "value": "PartitionKey",
         "label": "PartitionKey"
       }
@@ -120,7 +120,7 @@
     {
       "Item3": 0,
       "Item4": {
-        "id": "scrubbed id",
+        "id": "Scrubbed GUID|PartitionKey",
         "value": "PartitionKey",
         "label": "PartitionKey"
       }
@@ -128,14 +128,14 @@
     {
       "Item3": 0,
       "Item4": {
-        "id": "scrubbed id",
+        "id": "Scrubbed GUID|PartitionKey",
         "value": "PartitionKey",
         "label": "PartitionKey"
       }
     },
     {
       "Item4": {
-        "id": "scrubbed id",
+        "id": "Scrubbed GUID|PartitionKey",
         "value": "PartitionKey",
         "label": "PartitionKey"
       }

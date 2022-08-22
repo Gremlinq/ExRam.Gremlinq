@@ -1,7 +1,7 @@
-[
+﻿[
   [
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "value": "Bob",
       "label": "Name",
       "properties": {
@@ -9,7 +9,7 @@
       }
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "value": "Bob",
       "label": "Name",
       "properties": {
@@ -17,7 +17,7 @@
       }
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "value": "Marko",
       "label": "Name",
       "properties": {

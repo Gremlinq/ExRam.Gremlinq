@@ -1,38 +1,38 @@
 ﻿[
   [
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "label": "Language",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "scrubbed id",
+            "id": "Scrubbed GUID|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "IetfLanguageTag": [
           {
-            "id": "scrubbed id",
+            "id": "Scrubbed GUID",
             "value": "en"
           }
         ]
       }
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "label": "Person",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "scrubbed id",
+            "id": "Scrubbed GUID|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "Age": [
           {
-            "id": "scrubbed id",
+            "id": "Scrubbed GUID",
             "value": 36,
             "properties": {
               "Meta": "value"
@@ -41,7 +41,7 @@
         ],
         "Name": [
           {
-            "id": "scrubbed id",
+            "id": "Scrubbed GUID",
             "value": "Bob",
             "properties": {
               "ValidFrom": 1586270616000
@@ -50,19 +50,19 @@
         ],
         "RegistrationDate": [
           {
-            "id": "scrubbed id",
+            "id": "Scrubbed GUID",
             "value": 1586270616000
           }
         ],
         "GuidKey": [
           {
-            "id": "scrubbed id",
-            "value": "scrubbed id"
+            "id": "Scrubbed GUID",
+            "value": "Scrubbed GUID"
           }
         ],
         "StringKey1": [
           {
-            "id": "scrubbed id",
+            "id": "Scrubbed GUID",
             "value": 36
           }
         ]
