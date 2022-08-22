@@ -1,7 +1,7 @@
 ﻿[
   {
     "Script": "g.V().outE().project(_a,_b,_c).by(id).by(label).by(__.valueMap())",
-    "Id": "Scrubbed GUID",
+    "Id": "00000000-0000-0000-0000-000000000000",
     "Bindings": {
       "_a": "id",
       "_b": "label",
