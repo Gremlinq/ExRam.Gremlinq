@@ -1,13 +1,8 @@
 ﻿[
   {
-    "IetfLanguageTag": "en",
-    "Id": "scrubbed id",
-    "Label": "Language"
-  },
-  {
     "Age": 0,
     "Gender": null,
-    "Image": "AQIDBAUGBwg=",
+    "Image": null,
     "RegistrationDate": null,
     "PhoneNumbers": null,
     "SomeObscureProperty": null,
@@ -16,22 +11,13 @@
     "Label": "Person"
   },
   {
-    "IetfLanguageTag": "en",
-    "Id": "scrubbed id",
-    "Label": "Language"
-  },
-  {
-    "IetfLanguageTag": null,
-    "Id": "scrubbed id",
-    "Label": "Language"
-  },
-  {
-    "IetfLanguageTag": "en",
-    "Id": "scrubbed id",
-    "Label": "Language"
-  },
-  {
-    "IetfLanguageTag": null,
+    "Age": 0,
+    "Gender": null,
+    "Image": null,
+    "RegistrationDate": null,
+    "PhoneNumbers": null,
+    "SomeObscureProperty": null,
+    "Name": null,
     "Id": "scrubbed id",
     "Label": "Language"
   },
@@ -44,7 +30,132 @@
     "SomeObscureProperty": null,
     "Name": null,
     "Id": "scrubbed id",
+    "Label": "Language"
+  },
+  {
+    "Age": 0,
+    "Gender": null,
+    "Image": null,
+    "RegistrationDate": null,
+    "PhoneNumbers": null,
+    "SomeObscureProperty": null,
+    "Name": null,
+    "Id": "scrubbed id",
+    "Label": "Country"
+  },
+  {
+    "Age": 0,
+    "Gender": null,
+    "Image": null,
+    "RegistrationDate": null,
+    "PhoneNumbers": null,
+    "SomeObscureProperty": null,
+    "Name": null,
+    "Id": "scrubbed id",
     "Label": "Person"
+  },
+  {
+    "Age": 0,
+    "Gender": null,
+    "Image": null,
+    "RegistrationDate": null,
+    "PhoneNumbers": null,
+    "SomeObscureProperty": null,
+    "Name": null,
+    "Id": "scrubbed id",
+    "Label": "Language"
+  },
+  {
+    "Age": 0,
+    "Gender": null,
+    "Image": null,
+    "RegistrationDate": null,
+    "PhoneNumbers": null,
+    "SomeObscureProperty": null,
+    "Name": null,
+    "Id": "scrubbed id",
+    "Label": "Country"
+  },
+  {
+    "Age": 0,
+    "Gender": null,
+    "Image": null,
+    "RegistrationDate": null,
+    "PhoneNumbers": [
+      {
+        "Id": "scrubbed id",
+        "Label": null,
+        "Properties": {},
+        "Value": "+4912345",
+        "Key": null
+      },
+      {
+        "Id": "scrubbed id",
+        "Label": null,
+        "Properties": {},
+        "Value": "+4923456",
+        "Key": null
+      }
+    ],
+    "SomeObscureProperty": null,
+    "Name": null,
+    "Id": "scrubbed id",
+    "Label": "Company"
+  },
+  {
+    "Age": 0,
+    "Gender": null,
+    "Image": null,
+    "RegistrationDate": null,
+    "PhoneNumbers": null,
+    "SomeObscureProperty": null,
+    "Name": null,
+    "Id": "scrubbed id",
+    "Label": "Company"
+  },
+  {
+    "Age": 0,
+    "Gender": null,
+    "Image": null,
+    "RegistrationDate": null,
+    "PhoneNumbers": null,
+    "SomeObscureProperty": null,
+    "Name": null,
+    "Id": "scrubbed id",
+    "Label": "Company"
+  },
+  {
+    "Age": 0,
+    "Gender": null,
+    "Image": null,
+    "RegistrationDate": null,
+    "PhoneNumbers": null,
+    "SomeObscureProperty": null,
+    "Name": null,
+    "Id": "scrubbed id",
+    "Label": "Language"
+  },
+  {
+    "Age": 0,
+    "Gender": 1,
+    "Image": null,
+    "RegistrationDate": null,
+    "PhoneNumbers": null,
+    "SomeObscureProperty": null,
+    "Name": null,
+    "Id": "scrubbed id",
+    "Label": "Person"
+  },
+  {
+    "Age": 0,
+    "Gender": null,
+    "Image": null,
+    "RegistrationDate": null,
+    "PhoneNumbers": null,
+    "SomeObscureProperty": null,
+    "Name": null,
+    "Id": "scrubbed id",
+    "Label": "Language"
   },
   {
     "Age": 0,
@@ -72,15 +183,35 @@
     "SomeObscureProperty": null,
     "Name": null,
     "Id": "scrubbed id",
+    "Label": "Company"
+  },
+  {
+    "Age": 0,
+    "Gender": null,
+    "Image": null,
+    "RegistrationDate": "2020-04-07T14:43:36+00:00",
+    "PhoneNumbers": null,
+    "SomeObscureProperty": null,
+    "Name": {
+      "Id": "scrubbed id",
+      "Label": null,
+      "Properties": null,
+      "Value": "Bob",
+      "Key": null
+    },
+    "Id": "scrubbed id",
     "Label": "Person"
   },
   {
+    "Age": 0,
+    "Gender": null,
+    "Image": null,
+    "RegistrationDate": null,
+    "PhoneNumbers": null,
+    "SomeObscureProperty": null,
     "Name": null,
-    "Languages": null,
-    "CountryCallingCode": null,
-    "LocalizableDescription": null,
     "Id": "scrubbed id",
-    "Label": "Country"
+    "Label": "Language"
   },
   {
     "Age": 0,
@@ -94,64 +225,78 @@
     "Label": "Person"
   },
   {
-    "FoundingDate": "0001-01-01T00:00:00",
+    "Age": 0,
+    "Gender": null,
+    "Image": null,
+    "RegistrationDate": null,
     "PhoneNumbers": null,
-    "Locations": null,
-    "Name": null,
-    "Id": "scrubbed id",
-    "Label": "Company"
-  },
-  {
+    "SomeObscureProperty": null,
     "Name": {
       "Id": "scrubbed id",
       "Label": null,
       "Properties": {
-        "de": "Deutschland",
-        "en": "Germany"
+        "ValidFrom": "0001-01-01T00:00:00+00:00"
       },
       "Value": "GER",
       "Key": null
     },
-    "Languages": null,
-    "CountryCallingCode": null,
-    "LocalizableDescription": null,
     "Id": "scrubbed id",
     "Label": "Country"
   },
   {
-    "IetfLanguageTag": "en",
+    "Age": 0,
+    "Gender": null,
+    "Image": null,
+    "RegistrationDate": null,
+    "PhoneNumbers": null,
+    "SomeObscureProperty": null,
+    "Name": null,
     "Id": "scrubbed id",
-    "Label": "Language"
+    "Label": "Country"
   },
   {
-    "IetfLanguageTag": null,
+    "Age": 0,
+    "Gender": null,
+    "Image": null,
+    "RegistrationDate": null,
+    "PhoneNumbers": null,
+    "SomeObscureProperty": null,
+    "Name": null,
     "Id": "scrubbed id",
-    "Label": "Language"
+    "Label": "Person"
   },
   {
-    "Enabled": false,
-    "StartTime": "08:00:00",
-    "Duration": "02:00:00",
+    "Age": 0,
+    "Gender": null,
+    "Image": null,
+    "RegistrationDate": null,
+    "PhoneNumbers": null,
+    "SomeObscureProperty": null,
+    "Name": null,
+    "Id": "scrubbed id",
+    "Label": "Person"
+  },
+  {
+    "Age": 0,
+    "Gender": null,
+    "Image": null,
+    "RegistrationDate": null,
+    "PhoneNumbers": null,
+    "SomeObscureProperty": null,
+    "Name": null,
     "Id": "scrubbed id",
     "Label": "TimeFrame"
   },
   {
-    "IetfLanguageTag": "en",
-    "Id": "scrubbed id",
-    "Label": "Language"
-  },
-  {
-    "IetfLanguageTag": "en",
-    "Id": "scrubbed id",
-    "Label": "Language"
-  },
-  {
-    "FoundingDate": "0001-01-01T00:00:00",
+    "Age": 0,
+    "Gender": null,
+    "Image": null,
+    "RegistrationDate": null,
     "PhoneNumbers": null,
-    "Locations": null,
+    "SomeObscureProperty": null,
     "Name": null,
     "Id": "scrubbed id",
-    "Label": "Company"
+    "Label": "Language"
   },
   {
     "Age": 0,
@@ -162,7 +307,7 @@
     "SomeObscureProperty": null,
     "Name": null,
     "Id": "scrubbed id",
-    "Label": "Person"
+    "Label": "Language"
   },
   {
     "Age": 0,
@@ -173,20 +318,7 @@
     "SomeObscureProperty": null,
     "Name": null,
     "Id": "scrubbed id",
-    "Label": "Person"
-  },
-  {
-    "IetfLanguageTag": null,
-    "Id": "scrubbed id",
     "Label": "Language"
-  },
-  {
-    "Name": null,
-    "Languages": null,
-    "CountryCallingCode": "+49",
-    "LocalizableDescription": null,
-    "Id": "scrubbed id",
-    "Label": "Country"
   },
   {
     "Age": 0,
@@ -208,7 +340,7 @@
   {
     "Age": 0,
     "Gender": null,
-    "Image": null,
+    "Image": "AQIDBAUGBwg=",
     "RegistrationDate": null,
     "PhoneNumbers": null,
     "SomeObscureProperty": null,
@@ -217,53 +349,30 @@
     "Label": "Person"
   },
   {
-    "FoundingDate": "0001-01-01T00:00:00",
+    "Age": 0,
+    "Gender": null,
+    "Image": null,
+    "RegistrationDate": null,
     "PhoneNumbers": null,
-    "Locations": [
-      {
-        "Id": "scrubbed id",
-        "Label": null,
-        "Properties": {
-          "ValidFrom": "2019-01-01T01:00:00+00:00"
-        },
-        "Value": "Aachen",
-        "Key": null
-      }
-    ],
+    "SomeObscureProperty": null,
     "Name": null,
     "Id": "scrubbed id",
-    "Label": "Company"
+    "Label": "Language"
   },
   {
-    "FoundingDate": "0001-01-01T00:00:00",
-    "PhoneNumbers": [
-      "+4912345",
-      "+4923456"
-    ],
-    "Locations": null,
-    "Name": null,
-    "Id": "scrubbed id",
-    "Label": "Company"
-  },
-  {
-    "Name": null,
-    "Languages": null,
-    "CountryCallingCode": null,
-    "LocalizableDescription": null,
-    "Id": "scrubbed id",
-    "Label": "Country"
-  },
-  {
+    "Age": 0,
+    "Gender": null,
+    "Image": null,
+    "RegistrationDate": null,
+    "PhoneNumbers": null,
+    "SomeObscureProperty": null,
     "Name": {
       "Id": "scrubbed id",
       "Label": null,
-      "Properties": {},
+      "Properties": null,
       "Value": "GER",
       "Key": null
     },
-    "Languages": null,
-    "CountryCallingCode": null,
-    "LocalizableDescription": null,
     "Id": "scrubbed id",
     "Label": "Country"
   },
@@ -271,30 +380,16 @@
     "Age": 0,
     "Gender": null,
     "Image": null,
-    "RegistrationDate": "2020-04-07T14:43:36+00:00",
+    "RegistrationDate": null,
     "PhoneNumbers": null,
     "SomeObscureProperty": null,
-    "Name": {
-      "Id": "scrubbed id",
-      "Label": null,
-      "Properties": null,
-      "Value": "Bob",
-      "Key": null
-    },
-    "Id": "scrubbed id",
-    "Label": "Person"
-  },
-  {
     "Name": null,
-    "Languages": null,
-    "CountryCallingCode": null,
-    "LocalizableDescription": null,
     "Id": "scrubbed id",
     "Label": "Country"
   },
   {
     "Age": 0,
-    "Gender": 1,
+    "Gender": null,
     "Image": null,
     "RegistrationDate": null,
     "PhoneNumbers": null,
@@ -304,17 +399,23 @@
     "Label": "Person"
   },
   {
+    "Age": 0,
+    "Gender": null,
+    "Image": null,
+    "RegistrationDate": null,
+    "PhoneNumbers": null,
+    "SomeObscureProperty": null,
     "Name": null,
-    "Languages": null,
-    "CountryCallingCode": "+49",
-    "LocalizableDescription": null,
     "Id": "scrubbed id",
     "Label": "Country"
   },
   {
-    "FoundingDate": "0001-01-01T00:00:00",
+    "Age": 0,
+    "Gender": null,
+    "Image": null,
+    "RegistrationDate": null,
     "PhoneNumbers": null,
-    "Locations": null,
+    "SomeObscureProperty": null,
     "Name": null,
     "Id": "scrubbed id",
     "Label": "Company"
