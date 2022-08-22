@@ -1,3 +1,3 @@
 ﻿[
-  "{\"Script\":\"g.addV(_a).property(single,_b,_c).as(_d).addV(_e).property(single,_f,_g).addE(_h).to(_d)\",\"Id\":\"Scrubbed GUID\",\"Bindings\":{\"_a\":\"Language\",\"_b\":\"IetfLanguageTag\",\"_c\":\"en\",\"_d\":\"l1\",\"_e\":\"Country\",\"_f\":\"CountryCallingCode\",\"_g\":\"\\u002B49\",\"_h\":\"Speaks\"}}"
+  "{\"Script\":\"g.addV(_a).property(single,_b,_c).as(_d).addV(_e).property(single,_f,_g).addE(_h).to(_d)\",\"Id\":\"00000000-0000-0000-0000-000000000000\",\"Bindings\":{\"_a\":\"Language\",\"_b\":\"IetfLanguageTag\",\"_c\":\"en\",\"_d\":\"l1\",\"_e\":\"Country\",\"_f\":\"CountryCallingCode\",\"_g\":\"\\u002B49\",\"_h\":\"Speaks\"}}"
 ]

@@ -1,7 +1,7 @@
 ﻿[
   {
     "Script": "g.V().where(__.in()).where(__.out()).project(_a,_b,_c).by(__.in()).by(__.out()).by(__.count()).select(_a)",
-    "Id": "Scrubbed GUID",
+    "Id": "00000000-0000-0000-0000-000000000000",
     "Bindings": {
       "_a": "Item1",
       "_b": "Item2",
