@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using ExRam.Gremlinq.Core.Deserialization;
+using ExRam.Gremlinq.Core.Execution;
 using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Core.Tests
@@ -12,6 +13,10 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             protected Fixture(IGremlinQuerySource source) : base(source
                 .ConfigureEnvironment(env => env
+                    .ConfigureExecutor(_ => _
+                        .TransformResult(enumerable => enumerable
+                            .Catch<object, Exception>(ex => AsyncEnumerableEx
+                                .Return<object>(new JValue(ex.Message)))))
                     .UseDeserializer(GremlinQueryExecutionResultDeserializer.Default)))
             {
             }
