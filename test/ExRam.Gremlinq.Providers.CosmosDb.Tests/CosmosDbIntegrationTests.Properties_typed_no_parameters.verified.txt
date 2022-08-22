@@ -1,259 +1,259 @@
 ﻿[
   [
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "value": "+49",
       "label": "CountryCallingCode"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "value": "en",
       "label": "IetfLanguageTag"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "value": 0,
       "label": "Age"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "value": "Bob",
       "label": "Name"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "value": 1586270616000,
       "label": "RegistrationDate"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "value": 0,
       "label": "Age"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "value": 0,
       "label": "Age"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "value": 0,
       "label": "Age"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "value": "en",
       "label": "IetfLanguageTag"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "value": "+49",
       "label": "CountryCallingCode"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "value": 0,
       "label": "Age"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "value": "Bob",
       "label": "Name"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "value": 1586270616000,
       "label": "RegistrationDate"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "value": "en",
       "label": "IetfLanguageTag"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "value": 7200000.0,
       "label": "Duration"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "value": false,
       "label": "Enabled"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "value": 28800000.0,
       "label": "StartTime"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "value": "en",
       "label": "IetfLanguageTag"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "value": "en",
       "label": "IetfLanguageTag"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "value": 0,
       "label": "Age"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "value": "AQIDBAUGBwg=",
       "label": "Image"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "value": 0,
       "label": "Age"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "value": 1,
       "label": "Gender"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "value": "Marko",
       "label": "Name"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "value": 1586270616000,
       "label": "RegistrationDate"
     }
   ],
   [
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "value": "en",
       "label": "IetfLanguageTag"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "value": -62135596800000,
       "label": "FoundingDate"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "value": "Aachen",
       "label": "Locations",
       "properties": {
@@ -261,22 +261,22 @@
       }
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "value": "GER",
       "label": "Name"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "value": "GER",
       "label": "Name",
       "properties": {
@@ -285,37 +285,37 @@
       }
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "value": -62135596800000,
       "label": "FoundingDate"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "value": "+4912345",
       "label": "PhoneNumbers"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "value": "+4923456",
       "label": "PhoneNumbers"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "value": "en",
       "label": "lang"
     }
