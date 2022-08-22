@@ -28,6 +28,35 @@
         "Age": 0,
         "Gender": null,
         "Image": null,
+        "RegistrationDate": null,
+        "PhoneNumbers": null,
+        "SomeObscureProperty": null,
+        "Name": null,
+        "Id": "scrubbed id",
+        "Label": "Person"
+      }
+    ],
+    "Item1": "Person"
+  },
+  {
+    "Item2": [
+      {
+        "FoundingDate": "0001-01-01T00:00:00",
+        "PhoneNumbers": null,
+        "Locations": null,
+        "Name": null,
+        "Id": "scrubbed id",
+        "Label": "Company"
+      }
+    ],
+    "Item1": "Company"
+  },
+  {
+    "Item2": [
+      {
+        "Age": 0,
+        "Gender": null,
+        "Image": null,
         "RegistrationDate": "2020-04-07T14:43:36+00:00",
         "PhoneNumbers": null,
         "SomeObscureProperty": null,
@@ -130,6 +159,35 @@
       }
     ],
     "Item1": "Country"
+  },
+  {
+    "Item2": [
+      {
+        "Age": 0,
+        "Gender": null,
+        "Image": null,
+        "RegistrationDate": null,
+        "PhoneNumbers": null,
+        "SomeObscureProperty": null,
+        "Name": null,
+        "Id": "scrubbed id",
+        "Label": "Person"
+      }
+    ],
+    "Item1": "Person"
+  },
+  {
+    "Item2": [
+      {
+        "FoundingDate": "0001-01-01T00:00:00",
+        "PhoneNumbers": null,
+        "Locations": null,
+        "Name": null,
+        "Id": "scrubbed id",
+        "Label": "Company"
+      }
+    ],
+    "Item1": "Company"
   },
   {
     "Item2": [
@@ -175,6 +233,35 @@
       }
     ],
     "Item1": "Person"
+  },
+  {
+    "Item2": [
+      {
+        "Age": 0,
+        "Gender": null,
+        "Image": null,
+        "RegistrationDate": null,
+        "PhoneNumbers": null,
+        "SomeObscureProperty": null,
+        "Name": null,
+        "Id": "scrubbed id",
+        "Label": "Person"
+      }
+    ],
+    "Item1": "Person"
+  },
+  {
+    "Item2": [
+      {
+        "FoundingDate": "0001-01-01T00:00:00",
+        "PhoneNumbers": null,
+        "Locations": null,
+        "Name": null,
+        "Id": "scrubbed id",
+        "Label": "Company"
+      }
+    ],
+    "Item1": "Company"
   },
   {
     "Item2": [

@@ -13,6 +13,22 @@
     "Label": "Language"
   },
   {
+    "FoundingDate": "0001-01-01T00:00:00",
+    "PhoneNumbers": null,
+    "Locations": null,
+    "Name": null,
+    "Id": "scrubbed id",
+    "Label": "Company"
+  },
+  {
+    "FoundingDate": "0001-01-01T00:00:00",
+    "PhoneNumbers": null,
+    "Locations": null,
+    "Name": null,
+    "Id": "scrubbed id",
+    "Label": "Company"
+  },
+  {
     "Age": 0,
     "Gender": null,
     "Image": null,
@@ -85,6 +101,22 @@
     "LocalizableDescription": null,
     "Id": "scrubbed id",
     "Label": "Country"
+  },
+  {
+    "FoundingDate": "0001-01-01T00:00:00",
+    "PhoneNumbers": null,
+    "Locations": null,
+    "Name": null,
+    "Id": "scrubbed id",
+    "Label": "Company"
+  },
+  {
+    "FoundingDate": "0001-01-01T00:00:00",
+    "PhoneNumbers": null,
+    "Locations": null,
+    "Name": null,
+    "Id": "scrubbed id",
+    "Label": "Company"
   },
   {
     "IetfLanguageTag": "en",
@@ -115,6 +147,22 @@
     },
     "Id": "scrubbed id",
     "Label": "Person"
+  },
+  {
+    "FoundingDate": "0001-01-01T00:00:00",
+    "PhoneNumbers": null,
+    "Locations": null,
+    "Name": null,
+    "Id": "scrubbed id",
+    "Label": "Company"
+  },
+  {
+    "FoundingDate": "0001-01-01T00:00:00",
+    "PhoneNumbers": null,
+    "Locations": null,
+    "Name": null,
+    "Id": "scrubbed id",
+    "Label": "Company"
   },
   {
     "IetfLanguageTag": "en",
