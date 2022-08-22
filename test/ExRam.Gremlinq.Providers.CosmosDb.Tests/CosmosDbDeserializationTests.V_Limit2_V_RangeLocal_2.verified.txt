@@ -4,7 +4,7 @@
     "Languages": null,
     "CountryCallingCode": "+49",
     "LocalizableDescription": {
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID",
       "Label": null,
       "Properties": {
         "someKey": "value"
@@ -12,12 +12,12 @@
       "Value": "",
       "Key": null
     },
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "Country"
   },
   {
     "IetfLanguageTag": "en",
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "Language"
   }
 ]

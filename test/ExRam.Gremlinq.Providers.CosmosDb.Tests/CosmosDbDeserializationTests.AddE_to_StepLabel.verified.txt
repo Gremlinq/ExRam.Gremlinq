@@ -1,6 +1,6 @@
-[
+﻿[
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "Speaks"
   }
 ]

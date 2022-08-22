@@ -1,7 +1,7 @@
 ﻿[
   {
     "IetfLanguageTag": "en",
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "Language"
   },
   {
@@ -12,13 +12,13 @@
     "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": {
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID",
       "Label": null,
       "Properties": null,
       "Value": "Marko",
       "Key": null
     },
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "Person"
   },
   {
@@ -29,13 +29,13 @@
     "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": {
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID",
       "Label": null,
       "Properties": null,
       "Value": "Marko",
       "Key": null
     },
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "Person"
   },
   {
@@ -43,7 +43,7 @@
     "Languages": null,
     "CountryCallingCode": "+49",
     "LocalizableDescription": {
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID",
       "Label": null,
       "Properties": {
         "someKey": "value"
@@ -51,7 +51,7 @@
       "Value": "",
       "Key": null
     },
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "Country"
   },
   {
@@ -59,7 +59,7 @@
     "Languages": null,
     "CountryCallingCode": "+49",
     "LocalizableDescription": {
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID",
       "Label": null,
       "Properties": {
         "someKey": "value"
@@ -67,7 +67,7 @@
       "Value": "",
       "Key": null
     },
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "Country"
   },
   {
@@ -75,7 +75,7 @@
     "Languages": null,
     "CountryCallingCode": null,
     "LocalizableDescription": {
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID",
       "Label": null,
       "Properties": {
         "someKey": "value"
@@ -83,7 +83,7 @@
       "Value": "",
       "Key": null
     },
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "Country"
   },
   {
@@ -94,13 +94,13 @@
     "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": {
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID",
       "Label": null,
       "Properties": null,
       "Value": "Marko",
       "Key": null
     },
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "Person"
   },
   {
@@ -108,7 +108,7 @@
     "Languages": null,
     "CountryCallingCode": null,
     "LocalizableDescription": {
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID",
       "Label": null,
       "Properties": {
         "someKey": "value"
@@ -116,7 +116,7 @@
       "Value": "",
       "Key": null
     },
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "Country"
   },
   {
@@ -127,13 +127,13 @@
     "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": {
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID",
       "Label": null,
       "Properties": null,
       "Value": "Marko",
       "Key": null
     },
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "Person"
   },
   {
@@ -141,7 +141,7 @@
     "Languages": null,
     "CountryCallingCode": null,
     "LocalizableDescription": {
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID",
       "Label": null,
       "Properties": {
         "someKey": "value"
@@ -149,7 +149,7 @@
       "Value": "",
       "Key": null
     },
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "Country"
   },
   {
@@ -160,13 +160,13 @@
     "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": {
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID",
       "Label": null,
       "Properties": null,
       "Value": "Marko",
       "Key": null
     },
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "Person"
   },
   {
@@ -174,7 +174,7 @@
     "Languages": null,
     "CountryCallingCode": "+49",
     "LocalizableDescription": {
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID",
       "Label": null,
       "Properties": {
         "someKey": "value"
@@ -182,12 +182,12 @@
       "Value": "",
       "Key": null
     },
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "Country"
   },
   {
     "IetfLanguageTag": "en",
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "Language"
   },
   {
@@ -195,7 +195,7 @@
     "Languages": null,
     "CountryCallingCode": "+49",
     "LocalizableDescription": {
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID",
       "Label": null,
       "Properties": {
         "someKey": "value"
@@ -203,7 +203,7 @@
       "Value": "",
       "Key": null
     },
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "Country"
   }
 ]

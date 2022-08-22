@@ -4,7 +4,7 @@
     "Languages": null,
     "CountryCallingCode": null,
     "LocalizableDescription": null,
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "Country"
   }
 ]

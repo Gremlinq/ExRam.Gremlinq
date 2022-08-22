@@ -8,23 +8,23 @@
       "PhoneNumbers": null,
       "SomeObscureProperty": null,
       "Name": {
-        "Id": "scrubbed id",
+        "Id": "Scrubbed GUID",
         "Label": null,
         "Properties": null,
         "Value": "Bob",
         "Key": null
       },
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID",
       "Label": "Person"
     },
     "Item2": {
       "IetfLanguageTag": "en",
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID",
       "Label": "Language"
     },
     "Item3": 1,
     "Item4": {
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID|PartitionKey",
       "Label": "PartitionKey",
       "Properties": {},
       "Value": "PartitionKey",
@@ -37,13 +37,13 @@
       "Languages": null,
       "CountryCallingCode": "+49",
       "LocalizableDescription": null,
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID",
       "Label": "Country"
     },
     "Item2": null,
     "Item3": 1,
     "Item4": {
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID|PartitionKey",
       "Label": "PartitionKey",
       "Properties": {},
       "Value": "PartitionKey",
@@ -56,13 +56,13 @@
       "Languages": null,
       "CountryCallingCode": "+49",
       "LocalizableDescription": null,
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID",
       "Label": "Country"
     },
     "Item2": null,
     "Item3": 1,
     "Item4": {
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID|PartitionKey",
       "Label": "PartitionKey",
       "Properties": {},
       "Value": "PartitionKey",
@@ -76,12 +76,12 @@
       "Languages": null,
       "CountryCallingCode": null,
       "LocalizableDescription": null,
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID",
       "Label": "Country"
     },
     "Item3": 1,
     "Item4": {
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID|PartitionKey",
       "Label": "PartitionKey",
       "Properties": {},
       "Value": "PartitionKey",
@@ -97,13 +97,13 @@
       "PhoneNumbers": null,
       "SomeObscureProperty": null,
       "Name": null,
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID",
       "Label": "Person"
     },
     "Item2": null,
     "Item3": 1,
     "Item4": {
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID|PartitionKey",
       "Label": "PartitionKey",
       "Properties": {},
       "Value": "PartitionKey",
@@ -117,12 +117,12 @@
       "Languages": null,
       "CountryCallingCode": null,
       "LocalizableDescription": null,
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID",
       "Label": "Country"
     },
     "Item3": 1,
     "Item4": {
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID|PartitionKey",
       "Label": "PartitionKey",
       "Properties": {},
       "Value": "PartitionKey",
@@ -138,13 +138,13 @@
       "PhoneNumbers": null,
       "SomeObscureProperty": null,
       "Name": null,
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID",
       "Label": "Person"
     },
     "Item2": null,
     "Item3": 1,
     "Item4": {
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID|PartitionKey",
       "Label": "PartitionKey",
       "Properties": {},
       "Value": "PartitionKey",
@@ -158,12 +158,12 @@
       "Languages": null,
       "CountryCallingCode": null,
       "LocalizableDescription": null,
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID",
       "Label": "Country"
     },
     "Item3": 1,
     "Item4": {
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID|PartitionKey",
       "Label": "PartitionKey",
       "Properties": {},
       "Value": "PartitionKey",
@@ -179,13 +179,13 @@
       "PhoneNumbers": null,
       "SomeObscureProperty": null,
       "Name": null,
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID",
       "Label": "Person"
     },
     "Item2": null,
     "Item3": 1,
     "Item4": {
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID|PartitionKey",
       "Label": "PartitionKey",
       "Properties": {},
       "Value": "PartitionKey",
@@ -198,13 +198,13 @@
       "Languages": null,
       "CountryCallingCode": "+49",
       "LocalizableDescription": null,
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID",
       "Label": "Country"
     },
     "Item2": null,
     "Item3": 1,
     "Item4": {
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID|PartitionKey",
       "Label": "PartitionKey",
       "Properties": {},
       "Value": "PartitionKey",
@@ -215,12 +215,12 @@
     "Item1": null,
     "Item2": {
       "IetfLanguageTag": "en",
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID",
       "Label": "Language"
     },
     "Item3": 1,
     "Item4": {
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID|PartitionKey",
       "Label": "PartitionKey",
       "Properties": {},
       "Value": "PartitionKey",
@@ -234,12 +234,12 @@
       "Languages": null,
       "CountryCallingCode": "+49",
       "LocalizableDescription": null,
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID",
       "Label": "Country"
     },
     "Item3": 1,
     "Item4": {
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID|PartitionKey",
       "Label": "PartitionKey",
       "Properties": {},
       "Value": "PartitionKey",
@@ -251,7 +251,7 @@
     "Item2": null,
     "Item3": 1,
     "Item4": {
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID|PartitionKey",
       "Label": "PartitionKey",
       "Properties": {},
       "Value": "PartitionKey",
@@ -263,7 +263,7 @@
     "Item2": null,
     "Item3": 1,
     "Item4": {
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID|PartitionKey",
       "Label": "PartitionKey",
       "Properties": {},
       "Value": "PartitionKey",
@@ -275,7 +275,7 @@
     "Item2": null,
     "Item3": 1,
     "Item4": {
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID|PartitionKey",
       "Label": "PartitionKey",
       "Properties": {},
       "Value": "PartitionKey",
@@ -287,7 +287,7 @@
     "Item2": null,
     "Item3": 1,
     "Item4": {
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID|PartitionKey",
       "Label": "PartitionKey",
       "Properties": {},
       "Value": "PartitionKey",
@@ -299,7 +299,7 @@
     "Item2": null,
     "Item3": 1,
     "Item4": {
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID|PartitionKey",
       "Label": "PartitionKey",
       "Properties": {},
       "Value": "PartitionKey",
@@ -311,7 +311,7 @@
     "Item2": null,
     "Item3": 1,
     "Item4": {
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID|PartitionKey",
       "Label": "PartitionKey",
       "Properties": {},
       "Value": "PartitionKey",
@@ -323,7 +323,7 @@
     "Item2": null,
     "Item3": 1,
     "Item4": {
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID|PartitionKey",
       "Label": "PartitionKey",
       "Properties": {},
       "Value": "PartitionKey",
@@ -335,7 +335,7 @@
     "Item2": null,
     "Item3": 1,
     "Item4": {
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID|PartitionKey",
       "Label": "PartitionKey",
       "Properties": {},
       "Value": "PartitionKey",
@@ -347,7 +347,7 @@
     "Item2": null,
     "Item3": 1,
     "Item4": {
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID|PartitionKey",
       "Label": "PartitionKey",
       "Properties": {},
       "Value": "PartitionKey",
@@ -359,7 +359,7 @@
     "Item2": null,
     "Item3": 1,
     "Item4": {
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID|PartitionKey",
       "Label": "PartitionKey",
       "Properties": {},
       "Value": "PartitionKey",
@@ -371,7 +371,7 @@
     "Item2": null,
     "Item3": 1,
     "Item4": {
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID|PartitionKey",
       "Label": "PartitionKey",
       "Properties": {},
       "Value": "PartitionKey",
@@ -383,7 +383,7 @@
     "Item2": null,
     "Item3": 1,
     "Item4": {
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID|PartitionKey",
       "Label": "PartitionKey",
       "Properties": {},
       "Value": "PartitionKey",
@@ -395,7 +395,7 @@
     "Item2": null,
     "Item3": 1,
     "Item4": {
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID|PartitionKey",
       "Label": "PartitionKey",
       "Properties": {},
       "Value": "PartitionKey",
@@ -407,7 +407,7 @@
     "Item2": null,
     "Item3": 1,
     "Item4": {
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID|PartitionKey",
       "Label": "PartitionKey",
       "Properties": {},
       "Value": "PartitionKey",
@@ -419,7 +419,7 @@
     "Item2": null,
     "Item3": 1,
     "Item4": {
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID|PartitionKey",
       "Label": "PartitionKey",
       "Properties": {},
       "Value": "PartitionKey",
@@ -431,7 +431,7 @@
     "Item2": null,
     "Item3": 1,
     "Item4": {
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID|PartitionKey",
       "Label": "PartitionKey",
       "Properties": {},
       "Value": "PartitionKey",

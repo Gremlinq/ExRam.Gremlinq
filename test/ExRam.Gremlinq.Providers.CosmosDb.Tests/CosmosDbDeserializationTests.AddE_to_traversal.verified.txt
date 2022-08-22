@@ -1,7 +1,7 @@
-[
+﻿[
   {
     "Since": null,
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "LivesIn"
   }
 ]

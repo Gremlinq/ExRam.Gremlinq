@@ -1,356 +1,356 @@
 ﻿[
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID|PartitionKey",
     "Label": "PartitionKey",
     "Properties": {},
     "Value": "PartitionKey",
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "CountryCallingCode",
     "Properties": {},
     "Value": "+49",
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID|PartitionKey",
     "Label": "PartitionKey",
     "Properties": {},
     "Value": "PartitionKey",
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "IetfLanguageTag",
     "Properties": {},
     "Value": "en",
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID|PartitionKey",
     "Label": "PartitionKey",
     "Properties": {},
     "Value": "PartitionKey",
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "Age",
     "Properties": {},
     "Value": 0,
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "Name",
     "Properties": {},
     "Value": "Bob",
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "RegistrationDate",
     "Properties": {},
     "Value": 1586270616000,
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID|PartitionKey",
     "Label": "PartitionKey",
     "Properties": {},
     "Value": "PartitionKey",
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "Age",
     "Properties": {},
     "Value": 0,
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID|PartitionKey",
     "Label": "PartitionKey",
     "Properties": {},
     "Value": "PartitionKey",
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID|PartitionKey",
     "Label": "PartitionKey",
     "Properties": {},
     "Value": "PartitionKey",
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "Age",
     "Properties": {},
     "Value": 0,
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID|PartitionKey",
     "Label": "PartitionKey",
     "Properties": {},
     "Value": "PartitionKey",
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID|PartitionKey",
     "Label": "PartitionKey",
     "Properties": {},
     "Value": "PartitionKey",
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "Age",
     "Properties": {},
     "Value": 0,
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID|PartitionKey",
     "Label": "PartitionKey",
     "Properties": {},
     "Value": "PartitionKey",
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID|PartitionKey",
     "Label": "PartitionKey",
     "Properties": {},
     "Value": "PartitionKey",
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "IetfLanguageTag",
     "Properties": {},
     "Value": "en",
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID|PartitionKey",
     "Label": "PartitionKey",
     "Properties": {},
     "Value": "PartitionKey",
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "CountryCallingCode",
     "Properties": {},
     "Value": "+49",
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID|PartitionKey",
     "Label": "PartitionKey",
     "Properties": {},
     "Value": "PartitionKey",
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "Age",
     "Properties": {},
     "Value": 0,
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "Name",
     "Properties": {},
     "Value": "Bob",
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "RegistrationDate",
     "Properties": {},
     "Value": 1586270616000,
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID|PartitionKey",
     "Label": "PartitionKey",
     "Properties": {},
     "Value": "PartitionKey",
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "IetfLanguageTag",
     "Properties": {},
     "Value": "en",
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID|PartitionKey",
     "Label": "PartitionKey",
     "Properties": {},
     "Value": "PartitionKey",
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID|PartitionKey",
     "Label": "PartitionKey",
     "Properties": {},
     "Value": "PartitionKey",
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "Duration",
     "Properties": {},
     "Value": 7200000.0,
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "Enabled",
     "Properties": {},
     "Value": false,
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "StartTime",
     "Properties": {},
     "Value": 28800000.0,
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID|PartitionKey",
     "Label": "PartitionKey",
     "Properties": {},
     "Value": "PartitionKey",
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "IetfLanguageTag",
     "Properties": {},
     "Value": "en",
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID|PartitionKey",
     "Label": "PartitionKey",
     "Properties": {},
     "Value": "PartitionKey",
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "IetfLanguageTag",
     "Properties": {},
     "Value": "en",
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID|PartitionKey",
     "Label": "PartitionKey",
     "Properties": {},
     "Value": "PartitionKey",
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "Age",
     "Properties": {},
     "Value": 0,
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "Image",
     "Properties": {},
     "Value": "AQIDBAUGBwg=",
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID|PartitionKey",
     "Label": "PartitionKey",
     "Properties": {},
     "Value": "PartitionKey",
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "Age",
     "Properties": {},
     "Value": 0,
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "Gender",
     "Properties": {},
     "Value": 1,
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID|PartitionKey",
     "Label": "PartitionKey",
     "Properties": {},
     "Value": "PartitionKey",
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "Name",
     "Properties": {},
     "Value": "Marko",
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "RegistrationDate",
     "Properties": {},
     "Value": 1586270616000,
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID|PartitionKey",
     "Label": "PartitionKey",
     "Properties": {},
     "Value": "PartitionKey",
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "IetfLanguageTag",
     "Properties": {},
     "Value": "en",
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID|PartitionKey",
     "Label": "PartitionKey",
     "Properties": {},
     "Value": "PartitionKey",
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID|PartitionKey",
     "Label": "PartitionKey",
     "Properties": {},
     "Value": "PartitionKey",
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "FoundingDate",
     "Properties": {},
     "Value": -62135596800000,
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "Locations",
     "Properties": {
       "ValidFrom": 1546304400000
@@ -359,28 +359,28 @@
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID|PartitionKey",
     "Label": "PartitionKey",
     "Properties": {},
     "Value": "PartitionKey",
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "Name",
     "Properties": {},
     "Value": "GER",
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID|PartitionKey",
     "Label": "PartitionKey",
     "Properties": {},
     "Value": "PartitionKey",
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "Name",
     "Properties": {
       "de": "Deutschland",
@@ -390,49 +390,49 @@
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID|PartitionKey",
     "Label": "PartitionKey",
     "Properties": {},
     "Value": "PartitionKey",
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "FoundingDate",
     "Properties": {},
     "Value": -62135596800000,
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "PhoneNumbers",
     "Properties": {},
     "Value": "+4912345",
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "PhoneNumbers",
     "Properties": {},
     "Value": "+4923456",
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID|PartitionKey",
     "Label": "PartitionKey",
     "Properties": {},
     "Value": "PartitionKey",
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID|PartitionKey",
     "Label": "PartitionKey",
     "Properties": {},
     "Value": "PartitionKey",
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "lang",
     "Properties": {},
     "Value": "en",

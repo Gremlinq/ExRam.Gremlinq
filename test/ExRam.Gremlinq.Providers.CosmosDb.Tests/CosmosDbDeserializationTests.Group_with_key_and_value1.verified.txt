@@ -2,7 +2,7 @@
   {
     "Country": {
       "IetfLanguageTag": "en",
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID",
       "Label": "Language"
     },
     "Person": {
@@ -10,7 +10,7 @@
       "Languages": null,
       "CountryCallingCode": "+49",
       "LocalizableDescription": null,
-      "Id": "scrubbed id",
+      "Id": "Scrubbed GUID",
       "Label": "Country"
     }
   }

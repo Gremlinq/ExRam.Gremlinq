@@ -1,13 +1,13 @@
-[
+﻿[
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "Name",
     "Properties": {},
     "Value": "GER",
     "Key": null
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "Name",
     "Properties": {
       "de": "Deutschland",

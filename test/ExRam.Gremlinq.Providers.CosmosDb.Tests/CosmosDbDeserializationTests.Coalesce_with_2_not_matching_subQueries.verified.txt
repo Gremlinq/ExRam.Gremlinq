@@ -1,11 +1,11 @@
 ﻿[
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "Speaks"
   },
   {
     "Since": null,
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "LivesIn"
   },
   {
@@ -13,7 +13,7 @@
     "Languages": null,
     "CountryCallingCode": "+49",
     "LocalizableDescription": null,
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "Country"
   },
   {
@@ -21,12 +21,12 @@
     "Languages": null,
     "CountryCallingCode": "+49",
     "LocalizableDescription": null,
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "Country"
   },
   {
     "Since": null,
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "LivesIn"
   },
   {
@@ -37,12 +37,12 @@
     "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": null,
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "Person"
   },
   {
     "Since": null,
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "LivesIn"
   },
   {
@@ -53,7 +53,7 @@
     "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": null,
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "Person"
   },
   {
@@ -61,7 +61,7 @@
       "Value": "2020-04-07T14:43:36+00:00",
       "Key": null
     },
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "LivesIn"
   },
   {
@@ -72,7 +72,7 @@
     "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": null,
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "Person"
   },
   {
@@ -80,16 +80,16 @@
     "Languages": null,
     "CountryCallingCode": "+49",
     "LocalizableDescription": null,
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "Country"
   },
   {
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "Speaks"
   },
   {
     "Since": null,
-    "Id": "scrubbed id",
+    "Id": "Scrubbed GUID",
     "Label": "LivesIn"
   }
 ]

@@ -1,9 +1,9 @@
 ﻿[
   {
-    "scrubbed id": [
+    "Scrubbed GUID": [
       {
         "IetfLanguageTag": null,
-        "Id": "scrubbed id",
+        "Id": "Scrubbed GUID",
         "Label": "Language"
       }
     ]
