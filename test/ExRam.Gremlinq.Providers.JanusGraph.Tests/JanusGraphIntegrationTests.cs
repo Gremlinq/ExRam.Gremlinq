@@ -30,18 +30,6 @@ namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
         {
         }
 
-        [Fact(Skip = "ServerError: Expected valid relation id: id")]
-        public override Task Properties_Where_Id()
-        {
-            return base.Properties_Where_Id();
-        }
-
-        [Fact(Skip = "ServerError: Expected valid relation id: id")]
-        public override Task Properties_Where_Id_equals_static_field()
-        {
-            return base.Properties_Where_Id_equals_static_field();
-        }
-
         protected override IImmutableList<Func<string, string>> Scrubbers() => base
             .Scrubbers()
             .Add(x => RelationIdRegex.Replace(x, "\"relationId\": \"scrubbed\""));
