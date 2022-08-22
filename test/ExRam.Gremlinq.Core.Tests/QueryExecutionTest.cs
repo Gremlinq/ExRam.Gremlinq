@@ -2349,9 +2349,9 @@ namespace ExRam.Gremlinq.Core.Tests
         public virtual async Task Order_Fold_Unfold()
         {
             await _g
-                .V<Vertex>()
+                .V<Person>()
                 .Order(b => b
-                    .By(x => x.Id))
+                    .By(x => x.Name))
                 .Fold()
                 .Unfold()
                 .Verify();
