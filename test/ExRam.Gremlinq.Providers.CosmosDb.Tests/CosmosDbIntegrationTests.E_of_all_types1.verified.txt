@@ -1,4 +1,4 @@
-[
+﻿[
   [
     {
       "id": "scrubbed id",
@@ -17,6 +17,20 @@
       "outVLabel": "Country",
       "inV": "scrubbed id",
       "outV": "scrubbed id"
+    },
+    {
+      "id": "scrubbed id",
+      "label": "WorksFor",
+      "type": "edge",
+      "inVLabel": "Company",
+      "outVLabel": "Person",
+      "inV": "scrubbed id",
+      "outV": "scrubbed id",
+      "properties": {
+        "From": 1586270616000,
+        "Role": "Admin",
+        "To": 1586270616000
+      }
     },
     {
       "id": "scrubbed id",
@@ -50,6 +64,20 @@
     },
     {
       "id": "scrubbed id",
+      "label": "WorksFor",
+      "type": "edge",
+      "inVLabel": "Company",
+      "outVLabel": "Person",
+      "inV": "scrubbed id",
+      "outV": "scrubbed id",
+      "properties": {
+        "From": 1586270616000,
+        "Role": "Admin",
+        "To": 1586270616000
+      }
+    },
+    {
+      "id": "scrubbed id",
       "label": "Speaks",
       "type": "edge",
       "inVLabel": "Language",
@@ -65,6 +93,18 @@
       "outVLabel": "Person",
       "inV": "scrubbed id",
       "outV": "scrubbed id"
+    },
+    {
+      "id": "scrubbed id",
+      "label": "WorksFor",
+      "type": "edge",
+      "inVLabel": "Company",
+      "outVLabel": "Person",
+      "inV": "scrubbed id",
+      "outV": "scrubbed id",
+      "properties": {
+        "To": 1586270616000
+      }
     }
   ]
 ]

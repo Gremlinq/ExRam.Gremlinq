@@ -67,6 +67,59 @@
             }
           }
         ],
+        "GuidKey": [
+          {
+            "id": "scrubbed id",
+            "value": "scrubbed id"
+          }
+        ],
+        "StringKey1": [
+          {
+            "id": "scrubbed id",
+            "value": 36
+          }
+        ]
+      }
+    },
+    {
+      "id": "scrubbed id",
+      "label": "Company",
+      "type": "vertex",
+      "properties": {
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
+          }
+        ],
+        "FoundingDate": [
+          {
+            "id": "scrubbed id",
+            "value": -62135596800000
+          }
+        ]
+      }
+    },
+    {
+      "id": "scrubbed id",
+      "label": "Person",
+      "type": "vertex",
+      "properties": {
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
+          }
+        ],
+        "Age": [
+          {
+            "id": "scrubbed id",
+            "value": 36,
+            "properties": {
+              "Meta": "value"
+            }
+          }
+        ],
         "Name": [
           {
             "id": "scrubbed id",
@@ -260,6 +313,61 @@
             "properties": {
               "someKey": "value"
             }
+          }
+        ]
+      }
+    }
+  ],
+  [
+    {
+      "id": "scrubbed id",
+      "label": "Person",
+      "type": "vertex",
+      "properties": {
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
+          }
+        ],
+        "Age": [
+          {
+            "id": "scrubbed id",
+            "value": 36,
+            "properties": {
+              "Meta": "value"
+            }
+          }
+        ],
+        "GuidKey": [
+          {
+            "id": "scrubbed id",
+            "value": "scrubbed id"
+          }
+        ],
+        "StringKey1": [
+          {
+            "id": "scrubbed id",
+            "value": 36
+          }
+        ]
+      }
+    },
+    {
+      "id": "scrubbed id",
+      "label": "Company",
+      "type": "vertex",
+      "properties": {
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
+          }
+        ],
+        "FoundingDate": [
+          {
+            "id": "scrubbed id",
+            "value": -62135596800000
           }
         ]
       }
@@ -310,9 +418,7 @@
           }
         ]
       }
-    }
-  ],
-  [
+    },
     {
       "id": "scrubbed id",
       "label": "Person",
@@ -358,6 +464,59 @@
           {
             "id": "scrubbed id",
             "value": 36
+          }
+        ]
+      }
+    },
+    {
+      "id": "scrubbed id",
+      "label": "Person",
+      "type": "vertex",
+      "properties": {
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
+          }
+        ],
+        "Age": [
+          {
+            "id": "scrubbed id",
+            "value": 36,
+            "properties": {
+              "Meta": "value"
+            }
+          }
+        ],
+        "GuidKey": [
+          {
+            "id": "scrubbed id",
+            "value": "scrubbed id"
+          }
+        ],
+        "StringKey1": [
+          {
+            "id": "scrubbed id",
+            "value": 36
+          }
+        ]
+      }
+    },
+    {
+      "id": "scrubbed id",
+      "label": "Company",
+      "type": "vertex",
+      "properties": {
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
+          }
+        ],
+        "FoundingDate": [
+          {
+            "id": "scrubbed id",
+            "value": -62135596800000
           }
         ]
       }
@@ -462,7 +621,9 @@
           }
         ]
       }
-    },
+    }
+  ],
+  [
     {
       "id": "scrubbed id",
       "label": "Person",
@@ -610,9 +771,7 @@
           }
         ]
       }
-    }
-  ],
-  [
+    },
     {
       "id": "scrubbed id",
       "label": "Language",
@@ -775,5 +934,6 @@
         ]
       }
     }
-  ]
+  ],
+  []
 ]

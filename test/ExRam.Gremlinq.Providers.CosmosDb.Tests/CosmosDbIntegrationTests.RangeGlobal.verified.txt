@@ -39,18 +39,6 @@
             }
           }
         ],
-        "Name": [
-          {
-            "id": "scrubbed id",
-            "value": "Bob"
-          }
-        ],
-        "RegistrationDate": [
-          {
-            "id": "scrubbed id",
-            "value": 1586270616000
-          }
-        ],
         "GuidKey": [
           {
             "id": "scrubbed id",

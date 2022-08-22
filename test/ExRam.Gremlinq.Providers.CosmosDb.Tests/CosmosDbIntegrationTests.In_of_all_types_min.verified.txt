@@ -52,63 +52,6 @@
     },
     {
       "id": "scrubbed id",
-      "label": "Country",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ],
-        "CountryCallingCode": [
-          {
-            "id": "scrubbed id",
-            "value": "+49"
-          }
-        ]
-      }
-    },
-    {
-      "id": "scrubbed id",
-      "label": "Person",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ],
-        "Age": [
-          {
-            "id": "scrubbed id",
-            "value": 0
-          }
-        ]
-      }
-    },
-    {
-      "id": "scrubbed id",
-      "label": "Person",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "scrubbed id",
-            "value": "PartitionKey"
-          }
-        ],
-        "Age": [
-          {
-            "id": "scrubbed id",
-            "value": 0
-          }
-        ]
-      }
-    },
-    {
-      "id": "scrubbed id",
       "label": "Person",
       "type": "vertex",
       "properties": {
@@ -141,6 +84,120 @@
           {
             "id": "scrubbed id",
             "value": "+49"
+          }
+        ]
+      }
+    },
+    {
+      "id": "scrubbed id",
+      "label": "Person",
+      "type": "vertex",
+      "properties": {
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
+          }
+        ],
+        "Age": [
+          {
+            "id": "scrubbed id",
+            "value": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "scrubbed id",
+      "label": "Person",
+      "type": "vertex",
+      "properties": {
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
+          }
+        ],
+        "Age": [
+          {
+            "id": "scrubbed id",
+            "value": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "scrubbed id",
+      "label": "Person",
+      "type": "vertex",
+      "properties": {
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
+          }
+        ],
+        "Age": [
+          {
+            "id": "scrubbed id",
+            "value": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "scrubbed id",
+      "label": "Person",
+      "type": "vertex",
+      "properties": {
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
+          }
+        ],
+        "Age": [
+          {
+            "id": "scrubbed id",
+            "value": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "scrubbed id",
+      "label": "Country",
+      "type": "vertex",
+      "properties": {
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
+          }
+        ],
+        "CountryCallingCode": [
+          {
+            "id": "scrubbed id",
+            "value": "+49"
+          }
+        ]
+      }
+    },
+    {
+      "id": "scrubbed id",
+      "label": "Person",
+      "type": "vertex",
+      "properties": {
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
+          }
+        ],
+        "Age": [
+          {
+            "id": "scrubbed id",
+            "value": 0
           }
         ]
       }
