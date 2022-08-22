@@ -967,7 +967,7 @@ namespace ExRam.Gremlinq.Core
                 static (builder, projections) =>
                 {
                     var keys = projections
-                        .Select(expression => (Key)expression.AssumePropertyOrFieldMemberExpression().Member.Name)
+                        .Select(static expression => (Key)expression.AssumePropertyOrFieldMemberExpression().Member.Name)
                         .ToImmutableArray();
 
                     return builder
