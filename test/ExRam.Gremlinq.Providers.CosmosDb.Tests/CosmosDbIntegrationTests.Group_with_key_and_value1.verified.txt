@@ -22,7 +22,7 @@
       },
       "Person": {
         "id": "scrubbed id",
-        "label": "Country",
+        "label": "Company",
         "type": "vertex",
         "properties": {
           "PartitionKey": [
@@ -31,10 +31,10 @@
               "value": "PartitionKey"
             }
           ],
-          "CountryCallingCode": [
+          "FoundingDate": [
             {
               "id": "scrubbed id",
-              "value": "+49"
+              "value": -62135596800000
             }
           ]
         }

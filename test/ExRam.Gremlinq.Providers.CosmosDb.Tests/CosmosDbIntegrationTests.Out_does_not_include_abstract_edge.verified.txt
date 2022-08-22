@@ -1,14 +1,20 @@
-[
+﻿[
   [
     {
       "id": "scrubbed id",
-      "label": "Country",
+      "label": "Company",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
             "id": "scrubbed id",
             "value": "PartitionKey"
+          }
+        ],
+        "FoundingDate": [
+          {
+            "id": "scrubbed id",
+            "value": -62135596800000
           }
         ]
       }
@@ -35,6 +41,38 @@
           {
             "id": "scrubbed id",
             "value": "PartitionKey"
+          }
+        ]
+      }
+    },
+    {
+      "id": "scrubbed id",
+      "label": "Country",
+      "type": "vertex",
+      "properties": {
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
+          }
+        ]
+      }
+    },
+    {
+      "id": "scrubbed id",
+      "label": "Company",
+      "type": "vertex",
+      "properties": {
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
+          }
+        ],
+        "FoundingDate": [
+          {
+            "id": "scrubbed id",
+            "value": -62135596800000
           }
         ]
       }
@@ -54,6 +92,25 @@
           {
             "id": "scrubbed id",
             "value": "+49"
+          }
+        ]
+      }
+    },
+    {
+      "id": "scrubbed id",
+      "label": "Company",
+      "type": "vertex",
+      "properties": {
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
+          }
+        ],
+        "FoundingDate": [
+          {
+            "id": "scrubbed id",
+            "value": -62135596800000
           }
         ]
       }

@@ -1,0 +1,3 @@
+﻿[
+  "ServerError: \r\n\nActivityId : 00000000-0000-0000-0000-000000000000\nExceptionType : NullReferenceException\nExceptionMessage : An unknown error occurred while processing this request. If the issue persists, please contact Azure Support: http://aka.ms/azure-support\n\tHResult : 0x80004003\r\n"
+]

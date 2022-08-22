@@ -35,6 +35,44 @@
             "id": "scrubbed id",
             "value": 0
           }
+        ]
+      }
+    },
+    {
+      "id": "scrubbed id",
+      "label": "Company",
+      "type": "vertex",
+      "properties": {
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
+          }
+        ],
+        "FoundingDate": [
+          {
+            "id": "scrubbed id",
+            "value": -62135596800000
+          }
+        ]
+      }
+    },
+    {
+      "id": "scrubbed id",
+      "label": "Person",
+      "type": "vertex",
+      "properties": {
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
+          }
+        ],
+        "Age": [
+          {
+            "id": "scrubbed id",
+            "value": 0
+          }
         ],
         "Name": [
           {
@@ -142,6 +180,44 @@
           {
             "id": "scrubbed id",
             "value": "PartitionKey"
+          }
+        ]
+      }
+    },
+    {
+      "id": "scrubbed id",
+      "label": "Person",
+      "type": "vertex",
+      "properties": {
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
+          }
+        ],
+        "Age": [
+          {
+            "id": "scrubbed id",
+            "value": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "scrubbed id",
+      "label": "Company",
+      "type": "vertex",
+      "properties": {
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
+          }
+        ],
+        "FoundingDate": [
+          {
+            "id": "scrubbed id",
+            "value": -62135596800000
           }
         ]
       }
@@ -196,6 +272,46 @@
         ]
       }
     },
+    {
+      "id": "scrubbed id",
+      "label": "Person",
+      "type": "vertex",
+      "properties": {
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
+          }
+        ],
+        "Age": [
+          {
+            "id": "scrubbed id",
+            "value": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "scrubbed id",
+      "label": "Company",
+      "type": "vertex",
+      "properties": {
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
+          }
+        ],
+        "FoundingDate": [
+          {
+            "id": "scrubbed id",
+            "value": -62135596800000
+          }
+        ]
+      }
+    }
+  ],
+  [
     {
       "id": "scrubbed id",
       "label": "TimeFrame",
@@ -301,9 +417,7 @@
           }
         ]
       }
-    }
-  ],
-  [
+    },
     {
       "id": "scrubbed id",
       "label": "Company",
