@@ -2,17 +2,7 @@
   {
     "FoundingDate": "0001-01-01T00:00:00",
     "PhoneNumbers": null,
-    "Locations": [
-      {
-        "Id": "scrubbed id",
-        "Label": null,
-        "Properties": {
-          "ValidFrom": "2019-01-01T01:00:00+00:00"
-        },
-        "Value": "Aachen",
-        "Key": null
-      }
-    ],
+    "Locations": null,
     "Name": null,
     "Id": "scrubbed id",
     "Label": "Company"

@@ -74,9 +74,9 @@
       }
     },
     {
-      "Item1": {
+      "Item2": {
         "id": "scrubbed id",
-        "label": "Country",
+        "label": "Company",
         "type": "vertex",
         "properties": {
           "PartitionKey": [
@@ -85,97 +85,10 @@
               "value": "PartitionKey"
             }
           ],
-          "CountryCallingCode": [
+          "FoundingDate": [
             {
               "id": "scrubbed id",
-              "value": "+49"
-            }
-          ]
-        }
-      }
-    },
-    {
-      "Item2": {
-        "id": "scrubbed id",
-        "label": "Country",
-        "type": "vertex",
-        "properties": {
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ]
-        }
-      }
-    },
-    {
-      "Item1": {
-        "id": "scrubbed id",
-        "label": "Person",
-        "type": "vertex",
-        "properties": {
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ],
-          "Age": [
-            {
-              "id": "scrubbed id",
-              "value": 0
-            }
-          ]
-        }
-      }
-    },
-    {
-      "Item2": {
-        "id": "scrubbed id",
-        "label": "Country",
-        "type": "vertex",
-        "properties": {
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ]
-        }
-      }
-    },
-    {
-      "Item1": {
-        "id": "scrubbed id",
-        "label": "Person",
-        "type": "vertex",
-        "properties": {
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
-            }
-          ],
-          "Age": [
-            {
-              "id": "scrubbed id",
-              "value": 0
-            }
-          ]
-        }
-      }
-    },
-    {
-      "Item2": {
-        "id": "scrubbed id",
-        "label": "Country",
-        "type": "vertex",
-        "properties": {
-          "PartitionKey": [
-            {
-              "id": "scrubbed id",
-              "value": "PartitionKey"
+              "value": -62135596800000
             }
           ]
         }
@@ -223,6 +136,179 @@
         }
       }
     },
+    {
+      "Item2": {
+        "id": "scrubbed id",
+        "label": "Country",
+        "type": "vertex",
+        "properties": {
+          "PartitionKey": [
+            {
+              "id": "scrubbed id",
+              "value": "PartitionKey"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "Item1": {
+        "id": "scrubbed id",
+        "label": "Person",
+        "type": "vertex",
+        "properties": {
+          "PartitionKey": [
+            {
+              "id": "scrubbed id",
+              "value": "PartitionKey"
+            }
+          ],
+          "Age": [
+            {
+              "id": "scrubbed id",
+              "value": 0
+            }
+          ]
+        }
+      }
+    },
+    {
+      "Item2": {
+        "id": "scrubbed id",
+        "label": "Country",
+        "type": "vertex",
+        "properties": {
+          "PartitionKey": [
+            {
+              "id": "scrubbed id",
+              "value": "PartitionKey"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "Item1": {
+        "id": "scrubbed id",
+        "label": "Person",
+        "type": "vertex",
+        "properties": {
+          "PartitionKey": [
+            {
+              "id": "scrubbed id",
+              "value": "PartitionKey"
+            }
+          ],
+          "Age": [
+            {
+              "id": "scrubbed id",
+              "value": 0
+            }
+          ]
+        }
+      }
+    },
+    {
+      "Item2": {
+        "id": "scrubbed id",
+        "label": "Country",
+        "type": "vertex",
+        "properties": {
+          "PartitionKey": [
+            {
+              "id": "scrubbed id",
+              "value": "PartitionKey"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "Item1": {
+        "id": "scrubbed id",
+        "label": "Person",
+        "type": "vertex",
+        "properties": {
+          "PartitionKey": [
+            {
+              "id": "scrubbed id",
+              "value": "PartitionKey"
+            }
+          ],
+          "Age": [
+            {
+              "id": "scrubbed id",
+              "value": 0
+            }
+          ]
+        }
+      }
+    },
+    {
+      "Item2": {
+        "id": "scrubbed id",
+        "label": "Company",
+        "type": "vertex",
+        "properties": {
+          "PartitionKey": [
+            {
+              "id": "scrubbed id",
+              "value": "PartitionKey"
+            }
+          ],
+          "FoundingDate": [
+            {
+              "id": "scrubbed id",
+              "value": -62135596800000
+            }
+          ]
+        }
+      }
+    },
+    {
+      "Item1": {
+        "id": "scrubbed id",
+        "label": "Person",
+        "type": "vertex",
+        "properties": {
+          "PartitionKey": [
+            {
+              "id": "scrubbed id",
+              "value": "PartitionKey"
+            }
+          ],
+          "Age": [
+            {
+              "id": "scrubbed id",
+              "value": 0
+            }
+          ]
+        }
+      }
+    },
+    {
+      "Item1": {
+        "id": "scrubbed id",
+        "label": "Country",
+        "type": "vertex",
+        "properties": {
+          "PartitionKey": [
+            {
+              "id": "scrubbed id",
+              "value": "PartitionKey"
+            }
+          ],
+          "CountryCallingCode": [
+            {
+              "id": "scrubbed id",
+              "value": "+49"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  [
     {
       "Item2": {
         "id": "scrubbed id",
@@ -260,6 +346,48 @@
             {
               "id": "scrubbed id",
               "value": "+49"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "Item2": {
+        "id": "scrubbed id",
+        "label": "Company",
+        "type": "vertex",
+        "properties": {
+          "PartitionKey": [
+            {
+              "id": "scrubbed id",
+              "value": "PartitionKey"
+            }
+          ],
+          "FoundingDate": [
+            {
+              "id": "scrubbed id",
+              "value": -62135596800000
+            }
+          ]
+        }
+      }
+    },
+    {
+      "Item1": {
+        "id": "scrubbed id",
+        "label": "Person",
+        "type": "vertex",
+        "properties": {
+          "PartitionKey": [
+            {
+              "id": "scrubbed id",
+              "value": "PartitionKey"
+            }
+          ],
+          "Age": [
+            {
+              "id": "scrubbed id",
+              "value": 0
             }
           ]
         }

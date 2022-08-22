@@ -40,6 +40,25 @@
     },
     {
       "id": "scrubbed id",
+      "label": "Company",
+      "type": "vertex",
+      "properties": {
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
+          }
+        ],
+        "FoundingDate": [
+          {
+            "id": "scrubbed id",
+            "value": -62135596800000
+          }
+        ]
+      }
+    },
+    {
+      "id": "scrubbed id",
       "label": "Person",
       "type": "vertex",
       "properties": {
@@ -161,6 +180,25 @@
           {
             "id": "scrubbed id",
             "value": "PartitionKey"
+          }
+        ]
+      }
+    },
+    {
+      "id": "scrubbed id",
+      "label": "Company",
+      "type": "vertex",
+      "properties": {
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
+          }
+        ],
+        "FoundingDate": [
+          {
+            "id": "scrubbed id",
+            "value": -62135596800000
           }
         ]
       }
@@ -236,6 +274,27 @@
     },
     {
       "id": "scrubbed id",
+      "label": "Company",
+      "type": "vertex",
+      "properties": {
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
+          }
+        ],
+        "FoundingDate": [
+          {
+            "id": "scrubbed id",
+            "value": -62135596800000
+          }
+        ]
+      }
+    }
+  ],
+  [
+    {
+      "id": "scrubbed id",
       "label": "Language",
       "type": "vertex",
       "properties": {
@@ -296,9 +355,7 @@
           }
         ]
       }
-    }
-  ],
-  [
+    },
     {
       "id": "scrubbed id",
       "label": "Language",
@@ -542,7 +599,9 @@
           }
         ]
       }
-    },
+    }
+  ],
+  [
     {
       "id": "scrubbed id",
       "label": "Language",

@@ -1,3 +1,46 @@
-[
-  []
+﻿[
+  [
+    {
+      "id": "scrubbed id",
+      "label": "WorksFor",
+      "type": "edge",
+      "inVLabel": "Company",
+      "outVLabel": "Person",
+      "inV": "scrubbed id",
+      "outV": "scrubbed id",
+      "properties": {
+        "From": 1586270616000,
+        "Role": "Admin",
+        "To": 1586270616000
+      }
+    },
+    {
+      "id": "scrubbed id",
+      "label": "WorksFor",
+      "type": "edge",
+      "inVLabel": "Company",
+      "outVLabel": "Person",
+      "inV": "scrubbed id",
+      "outV": "scrubbed id",
+      "properties": {
+        "From": 1586270616000,
+        "Role": "Admin",
+        "To": 1586270616000
+      }
+    },
+    {
+      "id": "scrubbed id",
+      "label": "WorksFor",
+      "type": "edge",
+      "inVLabel": "Company",
+      "outVLabel": "Person",
+      "inV": "scrubbed id",
+      "outV": "scrubbed id",
+      "properties": {
+        "From": 1586270616000,
+        "Role": "Admin",
+        "To": 1586270616000
+      }
+    }
+  ]
 ]

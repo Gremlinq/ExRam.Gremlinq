@@ -1,4 +1,4 @@
-[
+﻿[
   [
     {
       "id": "scrubbed id",
@@ -15,15 +15,6 @@
           {
             "id": "scrubbed id",
             "value": -62135596800000
-          }
-        ],
-        "Locations": [
-          {
-            "id": "scrubbed id",
-            "value": "Aachen",
-            "properties": {
-              "ValidFrom": 1546304400000
-            }
           }
         ],
         "PhoneNumbers": [
