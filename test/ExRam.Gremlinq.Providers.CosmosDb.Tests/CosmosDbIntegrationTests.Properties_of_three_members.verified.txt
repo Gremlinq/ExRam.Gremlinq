@@ -1,22 +1,22 @@
-[
+﻿[
   [
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "value": "+49",
       "label": "CountryCallingCode"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "value": "+49",
       "label": "CountryCallingCode"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "value": "GER",
       "label": "Name"
     },
     {
-      "id": "scrubbed id",
+      "id": "Scrubbed GUID",
       "value": "GER",
       "label": "Name",
       "properties": {
