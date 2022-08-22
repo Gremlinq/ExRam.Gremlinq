@@ -11,11 +11,7 @@
         {
           "OperatorName": "hasLabel",
           "Arguments": [
-            "Company",
-            "Country",
-            "Language",
-            "Person",
-            "TimeFrame"
+            "Person"
           ]
         },
         {
@@ -25,10 +21,7 @@
         {
           "OperatorName": "by",
           "Arguments": [
-            {
-              "EnumName": "T",
-              "EnumValue": "id"
-            },
+            "Name",
             {
               "EnumName": "Order",
               "EnumValue": "asc"
