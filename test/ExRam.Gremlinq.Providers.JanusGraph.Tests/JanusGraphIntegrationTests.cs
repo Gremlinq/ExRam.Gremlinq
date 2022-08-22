@@ -16,7 +16,8 @@ namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
                     .At(new Uri("ws://localhost:8183")))
                 .ConfigureEnvironment(environment => environment
                     .ConfigureExecutor(_ => _
-                        .TransformResult(_ => AsyncEnumerable.Empty<object>()))))
+                        .TransformResult(enumerable => enumerable
+                            .IgnoreElements()))))
             {
             }
         }
