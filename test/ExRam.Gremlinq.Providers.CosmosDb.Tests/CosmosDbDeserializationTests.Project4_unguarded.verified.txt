@@ -51,6 +51,47 @@
     }
   },
   {
+    "Item1": null,
+    "Item2": {
+      "FoundingDate": "0001-01-01T00:00:00",
+      "PhoneNumbers": null,
+      "Locations": null,
+      "Name": null,
+      "Id": "scrubbed id",
+      "Label": "Company"
+    },
+    "Item3": 1,
+    "Item4": {
+      "Id": "scrubbed id",
+      "Label": "PartitionKey",
+      "Properties": {},
+      "Value": "PartitionKey",
+      "Key": null
+    }
+  },
+  {
+    "Item1": {
+      "Age": 0,
+      "Gender": null,
+      "Image": null,
+      "RegistrationDate": null,
+      "PhoneNumbers": null,
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": "scrubbed id",
+      "Label": "Person"
+    },
+    "Item2": null,
+    "Item3": 1,
+    "Item4": {
+      "Id": "scrubbed id",
+      "Label": "PartitionKey",
+      "Properties": {},
+      "Value": "PartitionKey",
+      "Key": null
+    }
+  },
+  {
     "Item1": {
       "Name": null,
       "Languages": null,
@@ -160,6 +201,47 @@
       "LocalizableDescription": null,
       "Id": "scrubbed id",
       "Label": "Country"
+    },
+    "Item3": 1,
+    "Item4": {
+      "Id": "scrubbed id",
+      "Label": "PartitionKey",
+      "Properties": {},
+      "Value": "PartitionKey",
+      "Key": null
+    }
+  },
+  {
+    "Item1": {
+      "Age": 0,
+      "Gender": null,
+      "Image": null,
+      "RegistrationDate": null,
+      "PhoneNumbers": null,
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": "scrubbed id",
+      "Label": "Person"
+    },
+    "Item2": null,
+    "Item3": 1,
+    "Item4": {
+      "Id": "scrubbed id",
+      "Label": "PartitionKey",
+      "Properties": {},
+      "Value": "PartitionKey",
+      "Key": null
+    }
+  },
+  {
+    "Item1": null,
+    "Item2": {
+      "FoundingDate": "0001-01-01T00:00:00",
+      "PhoneNumbers": null,
+      "Locations": null,
+      "Name": null,
+      "Id": "scrubbed id",
+      "Label": "Company"
     },
     "Item3": 1,
     "Item4": {
@@ -237,6 +319,47 @@
       "Id": "scrubbed id",
       "Label": "Country"
     },
+    "Item3": 1,
+    "Item4": {
+      "Id": "scrubbed id",
+      "Label": "PartitionKey",
+      "Properties": {},
+      "Value": "PartitionKey",
+      "Key": null
+    }
+  },
+  {
+    "Item1": null,
+    "Item2": {
+      "FoundingDate": "0001-01-01T00:00:00",
+      "PhoneNumbers": null,
+      "Locations": null,
+      "Name": null,
+      "Id": "scrubbed id",
+      "Label": "Company"
+    },
+    "Item3": 1,
+    "Item4": {
+      "Id": "scrubbed id",
+      "Label": "PartitionKey",
+      "Properties": {},
+      "Value": "PartitionKey",
+      "Key": null
+    }
+  },
+  {
+    "Item1": {
+      "Age": 0,
+      "Gender": null,
+      "Image": null,
+      "RegistrationDate": null,
+      "PhoneNumbers": null,
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": "scrubbed id",
+      "Label": "Person"
+    },
+    "Item2": null,
     "Item3": 1,
     "Item4": {
       "Id": "scrubbed id",

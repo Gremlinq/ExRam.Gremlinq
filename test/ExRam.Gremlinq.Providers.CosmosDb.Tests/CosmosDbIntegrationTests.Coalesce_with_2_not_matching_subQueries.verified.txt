@@ -39,6 +39,39 @@
     },
     {
       "id": "scrubbed id",
+      "label": "WorksFor",
+      "type": "edge",
+      "inVLabel": "Company",
+      "outVLabel": "Person",
+      "inV": "scrubbed id",
+      "outV": "scrubbed id",
+      "properties": {
+        "From": 1586270616000,
+        "Role": "Admin",
+        "To": 1586270616000
+      }
+    },
+    {
+      "id": "scrubbed id",
+      "label": "Person",
+      "type": "vertex",
+      "properties": {
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
+          }
+        ],
+        "Age": [
+          {
+            "id": "scrubbed id",
+            "value": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "scrubbed id",
       "label": "Country",
       "type": "vertex",
       "properties": {
@@ -145,6 +178,39 @@
     },
     {
       "id": "scrubbed id",
+      "label": "WorksFor",
+      "type": "edge",
+      "inVLabel": "Company",
+      "outVLabel": "Person",
+      "inV": "scrubbed id",
+      "outV": "scrubbed id",
+      "properties": {
+        "From": 1586270616000,
+        "Role": "Admin",
+        "To": 1586270616000
+      }
+    },
+    {
+      "id": "scrubbed id",
+      "label": "Person",
+      "type": "vertex",
+      "properties": {
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
+          }
+        ],
+        "Age": [
+          {
+            "id": "scrubbed id",
+            "value": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "scrubbed id",
       "label": "Country",
       "type": "vertex",
       "properties": {
@@ -179,6 +245,39 @@
       "outVLabel": "Person",
       "inV": "scrubbed id",
       "outV": "scrubbed id"
+    }
+  ],
+  [
+    {
+      "id": "scrubbed id",
+      "label": "WorksFor",
+      "type": "edge",
+      "inVLabel": "Company",
+      "outVLabel": "Person",
+      "inV": "scrubbed id",
+      "outV": "scrubbed id",
+      "properties": {
+        "To": 1586270616000
+      }
+    },
+    {
+      "id": "scrubbed id",
+      "label": "Person",
+      "type": "vertex",
+      "properties": {
+        "PartitionKey": [
+          {
+            "id": "scrubbed id",
+            "value": "PartitionKey"
+          }
+        ],
+        "Age": [
+          {
+            "id": "scrubbed id",
+            "value": 0
+          }
+        ]
+      }
     }
   ]
 ]

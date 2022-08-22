@@ -1,6 +1,9 @@
 ﻿[
   [
     {
+      "Item2": 0
+    },
+    {
       "Item1": {
         "id": "scrubbed id",
         "label": "Country",
@@ -20,6 +23,12 @@
           ]
         }
       },
+      "Item2": 0
+    },
+    {
+      "Item2": 0
+    },
+    {
       "Item2": 0
     },
     {
