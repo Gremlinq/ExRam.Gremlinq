@@ -1,343 +1,343 @@
 ﻿[
   [
     {
-      "id": "scrubbed id",
+      "id": "00000000-0000-0000-0000-000000000000",
       "label": "Person",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "GuidKey": [
           {
-            "id": "scrubbed id",
-            "value": "scrubbed id"
+            "id": "00000000-0000-0000-0000-000000000000",
+            "value": "00000000-0000-0000-0000-000000000000"
           }
         ],
         "StringKey1": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 36
           }
         ],
         "Age": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 21
           }
         ],
         "Name": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": "Marko"
           }
         ],
         "Gender": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 0
           }
         ],
         "RegistrationDate": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 1586270616000
           }
         ]
       }
     },
     {
-      "id": "scrubbed id",
+      "id": "00000000-0000-0000-0000-000000000000",
       "label": "Person",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "GuidKey": [
           {
-            "id": "scrubbed id",
-            "value": "scrubbed id"
+            "id": "00000000-0000-0000-0000-000000000000",
+            "value": "00000000-0000-0000-0000-000000000000"
           }
         ],
         "StringKey1": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 36
           }
         ],
         "Age": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 21
           }
         ],
         "Name": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": "Marko"
           }
         ],
         "Gender": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 0
           }
         ],
         "RegistrationDate": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 1586270616000
           }
         ]
       }
     },
     {
-      "id": "scrubbed id",
+      "id": "00000000-0000-0000-0000-000000000000",
       "label": "Person",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "GuidKey": [
           {
-            "id": "scrubbed id",
-            "value": "scrubbed id"
+            "id": "00000000-0000-0000-0000-000000000000",
+            "value": "00000000-0000-0000-0000-000000000000"
           }
         ],
         "StringKey1": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 36
           }
         ],
         "Age": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 21
           }
         ],
         "Name": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": "Marko"
           }
         ],
         "Gender": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 0
           }
         ],
         "RegistrationDate": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 1586270616000
           }
         ]
       }
     },
     {
-      "id": "scrubbed id",
+      "id": "00000000-0000-0000-0000-000000000000",
       "label": "Person",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "GuidKey": [
           {
-            "id": "scrubbed id",
-            "value": "scrubbed id"
+            "id": "00000000-0000-0000-0000-000000000000",
+            "value": "00000000-0000-0000-0000-000000000000"
           }
         ],
         "StringKey1": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 36
           }
         ],
         "Age": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 21
           }
         ],
         "Name": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": "Marko"
           }
         ],
         "Gender": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 0
           }
         ],
         "RegistrationDate": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 1586270616000
           }
         ]
       }
     },
     {
-      "id": "scrubbed id",
+      "id": "00000000-0000-0000-0000-000000000000",
       "label": "Person",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "GuidKey": [
           {
-            "id": "scrubbed id",
-            "value": "scrubbed id"
+            "id": "00000000-0000-0000-0000-000000000000",
+            "value": "00000000-0000-0000-0000-000000000000"
           }
         ],
         "StringKey1": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 36
           }
         ],
         "Age": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 21
           }
         ],
         "Name": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": "Marko"
           }
         ],
         "Gender": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 0
           }
         ],
         "RegistrationDate": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 1586270616000
           }
         ]
       }
     },
     {
-      "id": "scrubbed id",
+      "id": "00000000-0000-0000-0000-000000000000",
       "label": "Person",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "GuidKey": [
           {
-            "id": "scrubbed id",
-            "value": "scrubbed id"
+            "id": "00000000-0000-0000-0000-000000000000",
+            "value": "00000000-0000-0000-0000-000000000000"
           }
         ],
         "StringKey1": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 36
           }
         ],
         "Age": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 21
           }
         ],
         "Name": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": "Marko"
           }
         ],
         "Gender": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 0
           }
         ],
         "RegistrationDate": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 1586270616000
           }
         ]
       }
     },
     {
-      "id": "scrubbed id",
+      "id": "00000000-0000-0000-0000-000000000000",
       "label": "Person",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "GuidKey": [
           {
-            "id": "scrubbed id",
-            "value": "scrubbed id"
+            "id": "00000000-0000-0000-0000-000000000000",
+            "value": "00000000-0000-0000-0000-000000000000"
           }
         ],
         "StringKey1": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 36
           }
         ],
         "Age": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 21
           }
         ],
         "Name": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": "Marko"
           }
         ],
         "Gender": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 0
           }
         ],
         "RegistrationDate": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 1586270616000
           }
         ]
@@ -346,202 +346,202 @@
   ],
   [
     {
-      "id": "scrubbed id",
+      "id": "00000000-0000-0000-0000-000000000000",
       "label": "Person",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "GuidKey": [
           {
-            "id": "scrubbed id",
-            "value": "scrubbed id"
+            "id": "00000000-0000-0000-0000-000000000000",
+            "value": "00000000-0000-0000-0000-000000000000"
           }
         ],
         "StringKey1": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 36
           }
         ],
         "Age": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 21
           }
         ],
         "Name": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": "Marko"
           }
         ],
         "Gender": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 0
           }
         ],
         "RegistrationDate": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 1586270616000
           }
         ]
       }
     },
     {
-      "id": "scrubbed id",
+      "id": "00000000-0000-0000-0000-000000000000",
       "label": "Person",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "Image": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": "AQIDBAUGBwg="
           }
         ],
         "GuidKey": [
           {
-            "id": "scrubbed id",
-            "value": "scrubbed id"
+            "id": "00000000-0000-0000-0000-000000000000",
+            "value": "00000000-0000-0000-0000-000000000000"
           }
         ],
         "StringKey1": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 36
           }
         ],
         "Age": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 21
           }
         ],
         "Name": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": "Marko"
           }
         ],
         "Gender": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 0
           }
         ],
         "RegistrationDate": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 1586270616000
           }
         ]
       }
     },
     {
-      "id": "scrubbed id",
+      "id": "00000000-0000-0000-0000-000000000000",
       "label": "Person",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "GuidKey": [
           {
-            "id": "scrubbed id",
-            "value": "scrubbed id"
+            "id": "00000000-0000-0000-0000-000000000000",
+            "value": "00000000-0000-0000-0000-000000000000"
           }
         ],
         "StringKey1": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 36
           }
         ],
         "Age": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 21
           }
         ],
         "Name": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": "Marko"
           }
         ],
         "Gender": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 0
           }
         ],
         "RegistrationDate": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 1586270616000
           }
         ]
       }
     },
     {
-      "id": "scrubbed id",
+      "id": "00000000-0000-0000-0000-000000000000",
       "label": "Person",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "GuidKey": [
           {
-            "id": "scrubbed id",
-            "value": "scrubbed id"
+            "id": "00000000-0000-0000-0000-000000000000",
+            "value": "00000000-0000-0000-0000-000000000000"
           }
         ],
         "StringKey1": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 36
           }
         ],
         "Age": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 21
           }
         ],
         "Name": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": "Marko"
           }
         ],
         "Gender": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 0
           }
         ],
         "RegistrationDate": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 1586270616000
           }
         ]
