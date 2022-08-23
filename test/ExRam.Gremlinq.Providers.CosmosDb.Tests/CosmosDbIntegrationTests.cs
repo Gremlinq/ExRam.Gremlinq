@@ -37,19 +37,11 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
             }
         }
 
-        private static readonly Regex IdRegex2 = new("\"[0-9a-f]{8}[-]?([0-9a-f]{4}[-]?){3}[0-9a-f]{12}([|]PartitionKey)?\"", RegexOptions.IgnoreCase);
-
         public CosmosDbIntegrationTests(Fixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
             testOutputHelper)
         {
             fixture.Create().Wait();
-        }
-
-        protected override IImmutableList<Func<string, string>> Scrubbers()
-        {
-            return base.Scrubbers()
-                .Add(x => IdRegex2.Replace(x, "\"scrubbed id\""));
         }
     }
 }
