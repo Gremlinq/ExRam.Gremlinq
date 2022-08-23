@@ -8,18 +8,18 @@
       "PhoneNumbers": null,
       "SomeObscureProperty": null,
       "Name": {
-        "Id": "scrubbed id",
+        "Id": "00000000-0000-0000-0000-000000000000",
         "Label": null,
         "Properties": null,
         "Value": "Bob",
         "Key": null
       },
-      "Id": "scrubbed id",
+      "Id": "00000000-0000-0000-0000-000000000000",
       "Label": "Person"
     },
     "Item2": {
       "IetfLanguageTag": "en",
-      "Id": "scrubbed id",
+      "Id": "00000000-0000-0000-0000-000000000000",
       "Label": "Language"
     },
     "Item3": 1
@@ -30,7 +30,7 @@
       "Languages": null,
       "CountryCallingCode": "+49",
       "LocalizableDescription": null,
-      "Id": "scrubbed id",
+      "Id": "00000000-0000-0000-0000-000000000000",
       "Label": "Country"
     },
     "Item2": null,
@@ -43,7 +43,7 @@
       "PhoneNumbers": null,
       "Locations": null,
       "Name": null,
-      "Id": "scrubbed id",
+      "Id": "00000000-0000-0000-0000-000000000000",
       "Label": "Company"
     },
     "Item3": 1
@@ -57,7 +57,7 @@
       "PhoneNumbers": null,
       "SomeObscureProperty": null,
       "Name": null,
-      "Id": "scrubbed id",
+      "Id": "00000000-0000-0000-0000-000000000000",
       "Label": "Person"
     },
     "Item2": null,
@@ -69,7 +69,7 @@
       "Languages": null,
       "CountryCallingCode": "+49",
       "LocalizableDescription": null,
-      "Id": "scrubbed id",
+      "Id": "00000000-0000-0000-0000-000000000000",
       "Label": "Country"
     },
     "Item2": null,
@@ -82,7 +82,7 @@
       "Languages": null,
       "CountryCallingCode": null,
       "LocalizableDescription": null,
-      "Id": "scrubbed id",
+      "Id": "00000000-0000-0000-0000-000000000000",
       "Label": "Country"
     },
     "Item3": 1
@@ -96,7 +96,7 @@
       "PhoneNumbers": null,
       "SomeObscureProperty": null,
       "Name": null,
-      "Id": "scrubbed id",
+      "Id": "00000000-0000-0000-0000-000000000000",
       "Label": "Person"
     },
     "Item2": null,
@@ -109,7 +109,7 @@
       "Languages": null,
       "CountryCallingCode": null,
       "LocalizableDescription": null,
-      "Id": "scrubbed id",
+      "Id": "00000000-0000-0000-0000-000000000000",
       "Label": "Country"
     },
     "Item3": 1
@@ -123,7 +123,7 @@
       "PhoneNumbers": null,
       "SomeObscureProperty": null,
       "Name": null,
-      "Id": "scrubbed id",
+      "Id": "00000000-0000-0000-0000-000000000000",
       "Label": "Person"
     },
     "Item2": null,
@@ -136,7 +136,7 @@
       "Languages": null,
       "CountryCallingCode": null,
       "LocalizableDescription": null,
-      "Id": "scrubbed id",
+      "Id": "00000000-0000-0000-0000-000000000000",
       "Label": "Country"
     },
     "Item3": 1
@@ -150,7 +150,7 @@
       "PhoneNumbers": null,
       "SomeObscureProperty": null,
       "Name": null,
-      "Id": "scrubbed id",
+      "Id": "00000000-0000-0000-0000-000000000000",
       "Label": "Person"
     },
     "Item2": null,
@@ -163,7 +163,7 @@
       "PhoneNumbers": null,
       "Locations": null,
       "Name": null,
-      "Id": "scrubbed id",
+      "Id": "00000000-0000-0000-0000-000000000000",
       "Label": "Company"
     },
     "Item3": 1
@@ -177,7 +177,7 @@
       "PhoneNumbers": null,
       "SomeObscureProperty": null,
       "Name": null,
-      "Id": "scrubbed id",
+      "Id": "00000000-0000-0000-0000-000000000000",
       "Label": "Person"
     },
     "Item2": null,
@@ -189,7 +189,7 @@
       "Languages": null,
       "CountryCallingCode": "+49",
       "LocalizableDescription": null,
-      "Id": "scrubbed id",
+      "Id": "00000000-0000-0000-0000-000000000000",
       "Label": "Country"
     },
     "Item2": null,
@@ -199,7 +199,7 @@
     "Item1": null,
     "Item2": {
       "IetfLanguageTag": "en",
-      "Id": "scrubbed id",
+      "Id": "00000000-0000-0000-0000-000000000000",
       "Label": "Language"
     },
     "Item3": 1
@@ -211,7 +211,7 @@
       "Languages": null,
       "CountryCallingCode": "+49",
       "LocalizableDescription": null,
-      "Id": "scrubbed id",
+      "Id": "00000000-0000-0000-0000-000000000000",
       "Label": "Country"
     },
     "Item3": 1
@@ -223,7 +223,7 @@
       "PhoneNumbers": null,
       "Locations": null,
       "Name": null,
-      "Id": "scrubbed id",
+      "Id": "00000000-0000-0000-0000-000000000000",
       "Label": "Company"
     },
     "Item3": 1
@@ -237,7 +237,7 @@
       "PhoneNumbers": null,
       "SomeObscureProperty": null,
       "Name": null,
-      "Id": "scrubbed id",
+      "Id": "00000000-0000-0000-0000-000000000000",
       "Label": "Person"
     },
     "Item2": null,

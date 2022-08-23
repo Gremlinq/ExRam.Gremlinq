@@ -6,7 +6,7 @@
     ],
     "Locations": null,
     "Name": null,
-    "Id": "scrubbed id",
+    "Id": "00000000-0000-0000-0000-000000000000",
     "Label": "Company"
   }
 ]
