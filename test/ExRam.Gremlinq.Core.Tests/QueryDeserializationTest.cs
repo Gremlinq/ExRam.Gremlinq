@@ -21,7 +21,8 @@ namespace ExRam.Gremlinq.Core.Tests
                                 File.ReadAllText(System.IO.Path.Combine(context.SourceDirectory, sourcePrefix + "." + context.MethodName + ".verified.txt")));
 
                             return jArray?
-                                .Select(x => (object)x)
+                                .Where(obj => !(obj is JObject jObject && jObject.ContainsKey("serverException")))
+                                .Cast<object>()
                                 .ToAsyncEnumerable() ?? AsyncEnumerable.Empty<object>();
                         }
                         catch (IOException)
