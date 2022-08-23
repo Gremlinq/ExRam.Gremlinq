@@ -1,11 +1,11 @@
 ﻿[
   {
-    "Id": "scrubbed id",
+    "Id": "00000000-0000-0000-0000-000000000000",
     "Label": "Speaks"
   },
   {
     "Since": null,
-    "Id": "scrubbed id",
+    "Id": "00000000-0000-0000-0000-000000000000",
     "Label": "LivesIn"
   },
   {
@@ -13,14 +13,14 @@
     "Languages": null,
     "CountryCallingCode": "+49",
     "LocalizableDescription": null,
-    "Id": "scrubbed id",
+    "Id": "00000000-0000-0000-0000-000000000000",
     "Label": "Country"
   },
   {
     "Role": "Admin",
     "From": "2020-04-07T14:43:36Z",
     "To": "2020-04-07T14:43:36Z",
-    "Id": "scrubbed id",
+    "Id": "00000000-0000-0000-0000-000000000000",
     "Label": "WorksFor"
   },
   {
@@ -31,7 +31,7 @@
     "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": null,
-    "Id": "scrubbed id",
+    "Id": "00000000-0000-0000-0000-000000000000",
     "Label": "Person"
   },
   {
@@ -39,12 +39,12 @@
     "Languages": null,
     "CountryCallingCode": "+49",
     "LocalizableDescription": null,
-    "Id": "scrubbed id",
+    "Id": "00000000-0000-0000-0000-000000000000",
     "Label": "Country"
   },
   {
     "Since": null,
-    "Id": "scrubbed id",
+    "Id": "00000000-0000-0000-0000-000000000000",
     "Label": "LivesIn"
   },
   {
@@ -55,12 +55,12 @@
     "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": null,
-    "Id": "scrubbed id",
+    "Id": "00000000-0000-0000-0000-000000000000",
     "Label": "Person"
   },
   {
     "Since": null,
-    "Id": "scrubbed id",
+    "Id": "00000000-0000-0000-0000-000000000000",
     "Label": "LivesIn"
   },
   {
@@ -71,7 +71,7 @@
     "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": null,
-    "Id": "scrubbed id",
+    "Id": "00000000-0000-0000-0000-000000000000",
     "Label": "Person"
   },
   {
@@ -79,7 +79,7 @@
       "Value": "2020-04-07T14:43:36+00:00",
       "Key": null
     },
-    "Id": "scrubbed id",
+    "Id": "00000000-0000-0000-0000-000000000000",
     "Label": "LivesIn"
   },
   {
@@ -90,14 +90,14 @@
     "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": null,
-    "Id": "scrubbed id",
+    "Id": "00000000-0000-0000-0000-000000000000",
     "Label": "Person"
   },
   {
     "Role": "Admin",
     "From": "2020-04-07T14:43:36Z",
     "To": "2020-04-07T14:43:36Z",
-    "Id": "scrubbed id",
+    "Id": "00000000-0000-0000-0000-000000000000",
     "Label": "WorksFor"
   },
   {
@@ -108,7 +108,7 @@
     "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": null,
-    "Id": "scrubbed id",
+    "Id": "00000000-0000-0000-0000-000000000000",
     "Label": "Person"
   },
   {
@@ -116,23 +116,23 @@
     "Languages": null,
     "CountryCallingCode": "+49",
     "LocalizableDescription": null,
-    "Id": "scrubbed id",
+    "Id": "00000000-0000-0000-0000-000000000000",
     "Label": "Country"
   },
   {
-    "Id": "scrubbed id",
+    "Id": "00000000-0000-0000-0000-000000000000",
     "Label": "Speaks"
   },
   {
     "Since": null,
-    "Id": "scrubbed id",
+    "Id": "00000000-0000-0000-0000-000000000000",
     "Label": "LivesIn"
   },
   {
     "Role": null,
     "From": "0001-01-01T00:00:00",
     "To": "2020-04-07T14:43:36Z",
-    "Id": "scrubbed id",
+    "Id": "00000000-0000-0000-0000-000000000000",
     "Label": "WorksFor"
   },
   {
@@ -143,7 +143,7 @@
     "PhoneNumbers": null,
     "SomeObscureProperty": null,
     "Name": null,
-    "Id": "scrubbed id",
+    "Id": "00000000-0000-0000-0000-000000000000",
     "Label": "Person"
   }
 ]
