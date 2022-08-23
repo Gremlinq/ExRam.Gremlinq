@@ -16,7 +16,17 @@ namespace ExRam.Gremlinq.Core.Tests
                     .ConfigureExecutor(_ => _
                         .TransformResult(enumerable => enumerable
                             .Catch<object, Exception>(ex => AsyncEnumerableEx
-                                .Return<object>(new JValue(ex.Message)))))
+                                .Return<object>(new JObject()
+                                {
+                                    {
+                                        "serverException",
+                                        new JObject
+                                        {
+                                            { "type", ex.GetType().Name },
+                                            { "message", ex.Message }
+                                        }
+                                    }
+                                }))))
                     .UseDeserializer(GremlinQueryExecutionResultDeserializer.Default)))
             {
             }
