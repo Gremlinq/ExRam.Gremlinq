@@ -1,19 +1,19 @@
 ﻿[
   [
     {
-      "id": "scrubbed id",
+      "id": "00000000-0000-0000-0000-000000000000",
       "label": "Person",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "Age": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 36,
             "properties": {
               "Meta": "value"
@@ -22,32 +22,32 @@
         ],
         "GuidKey": [
           {
-            "id": "scrubbed id",
-            "value": "scrubbed id"
+            "id": "00000000-0000-0000-0000-000000000000",
+            "value": "00000000-0000-0000-0000-000000000000"
           }
         ],
         "StringKey1": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 36
           }
         ]
       }
     },
     {
-      "id": "scrubbed id",
+      "id": "00000000-0000-0000-0000-000000000000",
       "label": "Person",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "Age": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 36,
             "properties": {
               "Meta": "value"
@@ -56,7 +56,7 @@
         ],
         "Name": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": "Bob",
             "properties": {
               "ValidFrom": 1586270616000
@@ -65,38 +65,38 @@
         ],
         "RegistrationDate": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 1586270616000
           }
         ],
         "GuidKey": [
           {
-            "id": "scrubbed id",
-            "value": "scrubbed id"
+            "id": "00000000-0000-0000-0000-000000000000",
+            "value": "00000000-0000-0000-0000-000000000000"
           }
         ],
         "StringKey1": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 36
           }
         ]
       }
     },
     {
-      "id": "scrubbed id",
+      "id": "00000000-0000-0000-0000-000000000000",
       "label": "Person",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "Age": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 36,
             "properties": {
               "Meta": "value"
@@ -105,32 +105,32 @@
         ],
         "GuidKey": [
           {
-            "id": "scrubbed id",
-            "value": "scrubbed id"
+            "id": "00000000-0000-0000-0000-000000000000",
+            "value": "00000000-0000-0000-0000-000000000000"
           }
         ],
         "StringKey1": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 36
           }
         ]
       }
     },
     {
-      "id": "scrubbed id",
+      "id": "00000000-0000-0000-0000-000000000000",
       "label": "Person",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "Age": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 36,
             "properties": {
               "Meta": "value"
@@ -139,32 +139,32 @@
         ],
         "GuidKey": [
           {
-            "id": "scrubbed id",
-            "value": "scrubbed id"
+            "id": "00000000-0000-0000-0000-000000000000",
+            "value": "00000000-0000-0000-0000-000000000000"
           }
         ],
         "StringKey1": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 36
           }
         ]
       }
     },
     {
-      "id": "scrubbed id",
+      "id": "00000000-0000-0000-0000-000000000000",
       "label": "Person",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "Age": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 36,
             "properties": {
               "Meta": "value"
@@ -173,32 +173,32 @@
         ],
         "GuidKey": [
           {
-            "id": "scrubbed id",
-            "value": "scrubbed id"
+            "id": "00000000-0000-0000-0000-000000000000",
+            "value": "00000000-0000-0000-0000-000000000000"
           }
         ],
         "StringKey1": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 36
           }
         ]
       }
     },
     {
-      "id": "scrubbed id",
+      "id": "00000000-0000-0000-0000-000000000000",
       "label": "Person",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "Age": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 36,
             "properties": {
               "Meta": "value"
@@ -207,32 +207,32 @@
         ],
         "GuidKey": [
           {
-            "id": "scrubbed id",
-            "value": "scrubbed id"
+            "id": "00000000-0000-0000-0000-000000000000",
+            "value": "00000000-0000-0000-0000-000000000000"
           }
         ],
         "StringKey1": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 36
           }
         ]
       }
     },
     {
-      "id": "scrubbed id",
+      "id": "00000000-0000-0000-0000-000000000000",
       "label": "Person",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "Age": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 36,
             "properties": {
               "Meta": "value"
@@ -241,7 +241,7 @@
         ],
         "Name": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": "Bob",
             "properties": {
               "ValidFrom": 1586270616000
@@ -250,38 +250,38 @@
         ],
         "RegistrationDate": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 1586270616000
           }
         ],
         "GuidKey": [
           {
-            "id": "scrubbed id",
-            "value": "scrubbed id"
+            "id": "00000000-0000-0000-0000-000000000000",
+            "value": "00000000-0000-0000-0000-000000000000"
           }
         ],
         "StringKey1": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 36
           }
         ]
       }
     },
     {
-      "id": "scrubbed id",
+      "id": "00000000-0000-0000-0000-000000000000",
       "label": "Person",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "Age": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 36,
             "properties": {
               "Meta": "value"
@@ -290,13 +290,13 @@
         ],
         "GuidKey": [
           {
-            "id": "scrubbed id",
-            "value": "scrubbed id"
+            "id": "00000000-0000-0000-0000-000000000000",
+            "value": "00000000-0000-0000-0000-000000000000"
           }
         ],
         "StringKey1": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 36
           }
         ]
@@ -305,19 +305,19 @@
   ],
   [
     {
-      "id": "scrubbed id",
+      "id": "00000000-0000-0000-0000-000000000000",
       "label": "Person",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "Age": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 36,
             "properties": {
               "Meta": "value"
@@ -326,38 +326,38 @@
         ],
         "Image": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": "AQIDBAUGBwg="
           }
         ],
         "GuidKey": [
           {
-            "id": "scrubbed id",
-            "value": "scrubbed id"
+            "id": "00000000-0000-0000-0000-000000000000",
+            "value": "00000000-0000-0000-0000-000000000000"
           }
         ],
         "StringKey1": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 36
           }
         ]
       }
     },
     {
-      "id": "scrubbed id",
+      "id": "00000000-0000-0000-0000-000000000000",
       "label": "Person",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "Age": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 36,
             "properties": {
               "Meta": "value"
@@ -366,38 +366,38 @@
         ],
         "Gender": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 1
           }
         ],
         "GuidKey": [
           {
-            "id": "scrubbed id",
-            "value": "scrubbed id"
+            "id": "00000000-0000-0000-0000-000000000000",
+            "value": "00000000-0000-0000-0000-000000000000"
           }
         ],
         "StringKey1": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 36
           }
         ]
       }
     },
     {
-      "id": "scrubbed id",
+      "id": "00000000-0000-0000-0000-000000000000",
       "label": "Person",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "Name": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": "Marko",
             "properties": {
               "ValidFrom": 1586270616000
@@ -406,19 +406,19 @@
         ],
         "RegistrationDate": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 1586270616000
           }
         ],
         "GuidKey": [
           {
-            "id": "scrubbed id",
-            "value": "scrubbed id"
+            "id": "00000000-0000-0000-0000-000000000000",
+            "value": "00000000-0000-0000-0000-000000000000"
           }
         ],
         "Age": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 36,
             "properties": {
               "Meta": "value"
@@ -427,7 +427,7 @@
         ],
         "StringKey1": [
           {
-            "id": "scrubbed id",
+            "id": "00000000-0000-0000-0000-000000000000",
             "value": 36
           }
         ]
