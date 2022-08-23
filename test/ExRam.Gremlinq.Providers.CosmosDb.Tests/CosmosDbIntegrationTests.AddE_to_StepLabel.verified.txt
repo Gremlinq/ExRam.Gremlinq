@@ -1,13 +1,13 @@
-[
+﻿[
   [
     {
-      "id": "scrubbed id",
+      "id": "00000000-0000-0000-0000-000000000000",
       "label": "Speaks",
       "type": "edge",
       "inVLabel": "Language",
       "outVLabel": "Country",
-      "inV": "scrubbed id",
-      "outV": "scrubbed id"
+      "inV": "00000000-0000-0000-0000-000000000000",
+      "outV": "00000000-0000-0000-0000-000000000000"
     }
   ]
 ]
