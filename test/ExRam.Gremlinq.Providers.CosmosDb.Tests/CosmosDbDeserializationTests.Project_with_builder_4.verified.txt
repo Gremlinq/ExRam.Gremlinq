@@ -8,23 +8,23 @@
       "PhoneNumbers": null,
       "SomeObscureProperty": null,
       "Name": {
-        "Id": "scrubbed id",
+        "Id": "00000000-0000-0000-0000-000000000000",
         "Label": null,
         "Properties": null,
         "Value": "Bob",
         "Key": null
       },
-      "Id": "scrubbed id",
+      "Id": "00000000-0000-0000-0000-000000000000",
       "Label": "Person"
     },
     "out!": {
       "IetfLanguageTag": "en",
-      "Id": "scrubbed id",
+      "Id": "00000000-0000-0000-0000-000000000000",
       "Label": "Language"
     },
     "count!": 1,
     "properties!": {
-      "id": "scrubbed id",
+      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     }
