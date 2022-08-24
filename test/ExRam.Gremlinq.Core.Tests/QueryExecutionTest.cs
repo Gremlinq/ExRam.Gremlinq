@@ -2609,10 +2609,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public virtual async Task Project_with_cast()
         {
             await _g
-                .V()
-                .Where(__ => __.In())
-                .Where(__ => __.Out())
-                .Where(__ => __.Properties())
+                .V<Person>()
                 .Project(_ => _
                     .ToDynamic()
                     .By("in", __ => __.Constant("in_value"))
@@ -2627,10 +2624,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public virtual async Task Project_to_type()
         {
             await _g
-                .V()
-                .Where(__ => __.In())
-                .Where(__ => __.Out())
-                .Where(__ => __.Properties())
+                .V<Person>()
                 .Project(_ => _
                     .To<ProjectRecord>()
                     .By(x => x.In, __ => __.Constant("in_value"))
@@ -2644,10 +2638,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public virtual async Task Project_to_type_with_struct()
         {
             await _g
-                .V()
-                .Where(__ => __.In())
-                .Where(__ => __.Out())
-                .Where(__ => __.Properties())
+                .V<Person>()
                 .Project(_ => _
                     .To<ProjectRecordStruct>()
                     .By(x => x.In, __ => __.Constant("in_value"))
@@ -2675,10 +2666,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public virtual async Task Project_to_type_with_select()
         {
             await _g
-                .V()
-                .Where(__ => __.In())
-                .Where(__ => __.Out())
-                .Where(__ => __.Properties())
+                .V<Person>()
                 .Project(_ => _
                     .To<ProjectRecord>()
                     .By(x => x.In, __ => __.Constant("in_value"))

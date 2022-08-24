@@ -24,45 +24,9 @@
           "Arguments": []
         },
         {
-          "OperatorName": "filter",
+          "OperatorName": "hasLabel",
           "Arguments": [
-            {
-              "SourceInstructions": [],
-              "StepInstructions": [
-                {
-                  "OperatorName": "in",
-                  "Arguments": []
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "OperatorName": "filter",
-          "Arguments": [
-            {
-              "SourceInstructions": [],
-              "StepInstructions": [
-                {
-                  "OperatorName": "out",
-                  "Arguments": []
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "OperatorName": "filter",
-          "Arguments": [
-            {
-              "SourceInstructions": [],
-              "StepInstructions": [
-                {
-                  "OperatorName": "properties",
-                  "Arguments": []
-                }
-              ]
-            }
+            "Person"
           ]
         },
         {

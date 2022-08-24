@@ -1,16 +1,17 @@
 ﻿[
   {
-    "Script": "g.V().where(__.in()).where(__.out()).where(__.properties()).project(_a,_b,_c,_d).by(__.constant(_e)).by(__.constant(_f)).by(__.constant(_g)).by(__.constant(_h)).select(_a,_b)",
+    "Script": "g.V().hasLabel(_a).project(_b,_c,_d,_e).by(__.constant(_f)).by(__.constant(_g)).by(__.constant(_h)).by(__.constant(_i)).select(_b,_c)",
     "Id": "00000000-0000-0000-0000-000000000000",
     "Bindings": {
-      "_a": "In",
-      "_b": "Out",
-      "_c": "Count",
-      "_d": "Properties",
-      "_e": "in_value",
-      "_f": "out_value",
-      "_g": "count_value",
-      "_h": "properties_value"
+      "_a": "Person",
+      "_b": "In",
+      "_c": "Out",
+      "_d": "Count",
+      "_e": "Properties",
+      "_f": "in_value",
+      "_g": "out_value",
+      "_h": "count_value",
+      "_i": "properties_value"
     }
   }
 ]
