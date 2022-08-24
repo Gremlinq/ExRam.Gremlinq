@@ -1,0 +1,9 @@
+﻿[
+  {
+    "Script": "g.V().hasLabel(_a).project(_a).by(__.identity())",
+    "Id": "00000000-0000-0000-0000-000000000000",
+    "Bindings": {
+      "_a": "Person"
+    }
+  }
+]
