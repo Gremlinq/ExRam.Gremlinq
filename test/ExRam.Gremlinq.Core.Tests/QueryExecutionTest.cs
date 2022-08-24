@@ -2658,6 +2658,20 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task Project_to_type_with_identity()
+        {
+            await _g
+                .V<Person>()
+                .Project(_ => _
+                    .To<ProjectRecordStruct>()
+                    .By(x => x.In, __ => __.Identity())
+                    .By(x => x.Out, __ => __.Identity())
+                    .By(x => x.Count, __ => __.Identity())
+                    .By(x => x.Properties, __ => __.Identity()))
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task Project_to_type_with_select()
         {
             await _g
