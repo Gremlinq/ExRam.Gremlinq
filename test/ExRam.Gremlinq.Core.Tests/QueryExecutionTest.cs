@@ -36,6 +36,16 @@ namespace ExRam.Gremlinq.Core.Tests
             public object? Properties { get;  }
         }
 
+        private readonly struct BugSearchStruct
+        {
+            public BugSearchStruct(Person person)
+            {
+                Person = person;
+            }
+
+            public Person Person { get; }
+        }
+
         protected readonly IGremlinQuerySource _g;
 
         private static readonly string Id = "id";
@@ -2645,6 +2655,17 @@ namespace ExRam.Gremlinq.Core.Tests
                     .By(x => x.Out, __ => __.Constant("out_value"))
                     .By(x => x.Count, __ => __.Constant("count_value"))
                     .By(x => x.Properties, __ => __.Constant("properties_value")))
+                .Verify();
+        }
+
+        [Fact]
+        public virtual async Task SearchBug()
+        {
+            await _g
+                .V<Person>()
+                .Project(_ => _
+                    .To<BugSearchStruct>()
+                    .By(x => x.Person, __ => __.Identity()))
                 .Verify();
         }
 
