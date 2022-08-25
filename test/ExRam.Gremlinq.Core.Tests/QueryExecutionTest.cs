@@ -2663,6 +2663,20 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task Project_to_type_without_explicit_identity()
+        {
+            await _g
+                .V<Person>()
+                .Project(_ => _
+                    .To<ProjectRecordStruct>()
+                    .By(x => x.In, __ => __)
+                    .By(x => x.Out, __ => __)
+                    .By(x => x.Count, __ => __)
+                    .By(x => x.Properties, __ => __))
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task Project_to_type_from_empty_traversal()
         {
             await _g
