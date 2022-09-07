@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq.Core.Tests
     {
         private static readonly AsyncLocal<GremlinqTestBase> CurrentTestBase = new();
 
-        protected GremlinqTestBase(ITestOutputHelper testOutputHelper, [CallerFilePath] string sourceFile = "") : base(CreateSettings(), sourceFile)
+        protected GremlinqTestBase(ITestOutputHelper testOutputHelper, [CallerFilePath] string sourceFile = "") : base(null, sourceFile)
         {
             CurrentTestBase.Value = this;
             XunitContext.Register(testOutputHelper, sourceFile);
@@ -29,19 +29,6 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         protected virtual IImmutableList<Func<string, string>> Scrubbers() => ImmutableList<Func<string, string>>.Empty;
-
-        private static VerifySettings CreateSettings()
-        {
-            var settings = new VerifySettings();
-
-            settings.DisableDiff();
-
-#if DEBUG
-            settings.AutoVerify();
-#endif
-
-            return settings;
-        }
 
         public static GremlinqTestBase Current { get => CurrentTestBase.Value ?? throw new InvalidOperationException(); }
     }
