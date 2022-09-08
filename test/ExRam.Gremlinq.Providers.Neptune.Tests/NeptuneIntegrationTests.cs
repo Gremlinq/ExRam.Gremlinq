@@ -27,18 +27,10 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
             }
         }
 
-        private static readonly Regex IdRegex1 = new("\"[0-9a-f]{8}[-]?([0-9a-f]{4}[-]?){3}[0-9a-f]{12}([|]PartitionKey)?\"", RegexOptions.IgnoreCase);
-        
         public NeptuneIntegrationTests(Fixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
             testOutputHelper)
         {
-        }
-
-        public override IImmutableList<Func<string, string>> Scrubbers()
-        {
-            return base.Scrubbers()
-                .Add(x => IdRegex1.Replace(x, "\"scrubbed id\""));
         }
     }
 }

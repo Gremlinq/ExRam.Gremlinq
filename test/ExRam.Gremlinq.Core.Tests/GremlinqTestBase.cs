@@ -1,6 +1,4 @@
-﻿using System.Collections.Immutable;
-using System.Runtime.CompilerServices;
-using Newtonsoft.Json;
+﻿using System.Runtime.CompilerServices;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
@@ -20,9 +18,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ToArrayAsync();
             await Verify(elements);
         }
-
-        protected virtual IImmutableList<Func<string, string>> Scrubbers() => ImmutableList<Func<string, string>>.Empty;
-
         public static GremlinqTestBase Current { get => CurrentTestBase.Value ?? throw new InvalidOperationException(); }
     }
 }

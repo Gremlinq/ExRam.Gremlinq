@@ -1,6 +1,4 @@
-﻿using System.Collections.Immutable;
-using System.Text.RegularExpressions;
-using ExRam.Gremlinq.Core;
+﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Providers.WebSocket;
@@ -22,16 +20,10 @@ namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
             }
         }
 
-        private static readonly Regex RelationIdRegex = new("\"relationId\":[\\s]?\"[0-9a-z]{3}([-][0-9a-z]{3})*\"", RegexOptions.IgnoreCase);
-
         public JanusGraphIntegrationTests(Fixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
             testOutputHelper)
         {
         }
-
-        protected override IImmutableList<Func<string, string>> Scrubbers() => base
-            .Scrubbers()
-            .Add(x => RelationIdRegex.Replace(x, "\"relationId\": \"scrubbed\""));
     }
 }

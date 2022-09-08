@@ -58,9 +58,5 @@ namespace ExRam.Gremlinq.Core.Tests
                 .E()
                 .Verify();
         }
-
-        protected override IImmutableList<Func<string, string>> Scrubbers() => base
-            .Scrubbers()
-            .ScrubGuids();
     }
 }

@@ -32,8 +32,6 @@ namespace ExRam.Gremlinq.Core.Tests
             }
         }
 
-        private static readonly Regex IdRegex = new ("(\"id\"\\s*[:,]\\s*{\\s*\"@type\"\\s*:\\s*\"g:(Int32|Int64|UUID)\"\\s*,\\s*\"@value\":\\s*)([^\\s{}]+)(\\s*})", RegexOptions.IgnoreCase);
-
         protected QueryIntegrationTest(Fixture fixture, ITestOutputHelper testOutputHelper, [CallerFilePath] string callerFilePath = "") : base(
             fixture,
             testOutputHelper,
@@ -42,9 +40,5 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         public override Task Verify<TElement>(IGremlinQueryBase<TElement> query) => base.Verify(query.Cast<JToken>());
-
-        protected override IImmutableList<Func<string, string>> Scrubbers() => base.Scrubbers()
-            .Add(x => IdRegex.Replace(x, "$1-1$4"))
-            .ScrubGuids();
     }
 }

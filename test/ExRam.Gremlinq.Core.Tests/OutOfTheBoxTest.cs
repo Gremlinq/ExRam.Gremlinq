@@ -49,9 +49,5 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Cast<GroovyGremlinQuery>()
                 .Verify();
         }
-
-        protected override IImmutableList<Func<string, string>> Scrubbers() => base
-            .Scrubbers()
-            .ScrubGuids();
     }
 }

@@ -11,9 +11,5 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         public override Task Verify<TElement>(IGremlinQueryBase<TElement> query) => base.Verify(query.Cast<string>());
-
-        protected override IImmutableList<Func<string, string>> Scrubbers() => base
-            .Scrubbers()
-            .ScrubGuids();
     }
 }
