@@ -8,7 +8,7 @@ on:
   pull_request:
 
 env:
-  IsForkedRepository: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository }}
+  IsForkedRepository: ${{ github.event.pull_request.head.repo.full_name != github.repository }}
   DotNetVersion: '7.0.100-preview.5.22307.18'
 
 jobs:
@@ -93,8 +93,8 @@ jobs:
     - name: Test
       run: dotnet test  --configuration Release --verbosity normal
       env:
-        RunGremlinServerIntegrationTests: ${{ env.IsForkedRepository == 'false' }}
-        RunJanusGraphIntegrationTests: ${{ env.IsForkedRepository == 'false' }}
+        RunGremlinServerIntegrationTests: ${{ env.IsForkedRepository == 'false' && github.event_name == 'pull_request' }}
+        RunJanusGraphIntegrationTests: ${{ env.IsForkedRepository == 'false' && github.event_name == 'pull_request' }}
 
     - name: Copy *.received-files to artifacts
       if: always()
@@ -126,7 +126,7 @@ jobs:
     - name: Test
       run: dotnet test  --configuration Release --verbosity normal
       env:
-        RunCosmosDbIntegrationTests: ${{ env.IsForkedRepository == 'false' }}
+        RunCosmosDbIntegrationTests: ${{ env.IsForkedRepository == 'false' && github.event_name == 'pull_request' }}
 
     - name: Copy *.received-files to artifacts
       if: always()
