@@ -97,7 +97,7 @@ jobs:
         RunJanusGraphIntegrationTests: ${{ env.IsForkedRepository == 'false' && github.event_name == 'pull_request' }}
 
     - name: Copy *.received-files to artifacts
-      if: always()
+      if: ${{ always() && env.IsForkedRepository == 'false' }}
       uses: actions/upload-artifact@v2
       with:
         name: test-linux-received-snapshots
@@ -129,7 +129,7 @@ jobs:
         RunCosmosDbIntegrationTests: ${{ env.IsForkedRepository == 'false' && github.event_name == 'pull_request' }}
 
     - name: Copy *.received-files to artifacts
-      if: always()
+      if: ${{ always() && env.IsForkedRepository == 'false' }}
       uses: actions/upload-artifact@v2
       with:
         name: test-windows-received-snapshots
