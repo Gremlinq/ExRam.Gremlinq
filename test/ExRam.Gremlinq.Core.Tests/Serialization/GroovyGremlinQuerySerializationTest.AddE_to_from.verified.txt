@@ -1,23 +1,23 @@
 ﻿[
   {
-    "Script": "g.addE(_a).property(_b,_c).property(_d,_e).property(_f,_c).to(__.addV(_g).property(single,_h,_i)).from(__.addV(_j).property(single,_k,_l)).project(_m,_n,_o).by(id).by(label).by(__.valueMap())",
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bindings": {
-      "_a": "WorksFor",
-      "_b": "From",
-      "_c": "2020-04-07T14:43:36+00:00",
-      "_d": "Role",
-      "_e": "Admin",
-      "_f": "To",
-      "_g": "Company",
-      "_h": "FoundingDate",
-      "_i": "0001-01-01T00:00:00+00:00",
-      "_j": "Person",
-      "_k": "Age",
-      "_l": 0,
-      "_m": "id",
-      "_n": "label",
-      "_o": "properties"
+    Script: g.addE(_a).property(_b,_c).property(_d,_e).property(_f,_c).to(__.addV(_g).property(single,_h,_i)).from(__.addV(_j).property(single,_k,_l)).project(_m,_n,_o).by(id).by(label).by(__.valueMap()),
+    Id: Guid_1,
+    Bindings: {
+      _a: WorksFor,
+      _b: From,
+      _c: DateTimeOffset_1,
+      _d: Role,
+      _e: Admin,
+      _f: To,
+      _g: Company,
+      _h: FoundingDate,
+      _i: Date_MinValue,
+      _j: Person,
+      _k: Age,
+      _l: 0,
+      _m: id,
+      _n: label,
+      _o: properties
     }
   }
 ]

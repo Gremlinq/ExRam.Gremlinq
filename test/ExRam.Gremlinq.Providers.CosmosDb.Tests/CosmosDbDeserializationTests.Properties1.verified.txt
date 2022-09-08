@@ -1,525 +1,379 @@
 ﻿[
   {
-    "Id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-    "Label": "PartitionKey",
-    "Properties": {},
-    "Value": "PartitionKey",
-    "Key": null
+    Id: Guid_Empty|PartitionKey,
+    Label: PartitionKey,
+    Value: PartitionKey
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "CountryCallingCode",
-    "Properties": {},
-    "Value": "+49",
-    "Key": null
+    Id: Guid_Empty,
+    Label: CountryCallingCode,
+    Value: +49
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-    "Label": "PartitionKey",
-    "Properties": {},
-    "Value": "PartitionKey",
-    "Key": null
+    Id: Guid_Empty|PartitionKey,
+    Label: PartitionKey,
+    Value: PartitionKey
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "IetfLanguageTag",
-    "Properties": {},
-    "Value": "en",
-    "Key": null
+    Id: Guid_Empty,
+    Label: IetfLanguageTag,
+    Value: en
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-    "Label": "PartitionKey",
-    "Properties": {},
-    "Value": "PartitionKey",
-    "Key": null
+    Id: Guid_Empty|PartitionKey,
+    Label: PartitionKey,
+    Value: PartitionKey
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Age",
-    "Properties": {},
-    "Value": 0,
-    "Key": null
+    Id: Guid_Empty,
+    Label: Age,
+    Value: 0
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-    "Label": "PartitionKey",
-    "Properties": {},
-    "Value": "PartitionKey",
-    "Key": null
+    Id: Guid_Empty|PartitionKey,
+    Label: PartitionKey,
+    Value: PartitionKey
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "FoundingDate",
-    "Properties": {},
-    "Value": -62135596800000,
-    "Key": null
+    Id: Guid_Empty,
+    Label: FoundingDate,
+    Value: -62135596800000
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-    "Label": "PartitionKey",
-    "Properties": {},
-    "Value": "PartitionKey",
-    "Key": null
+    Id: Guid_Empty|PartitionKey,
+    Label: PartitionKey,
+    Value: PartitionKey
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Age",
-    "Properties": {},
-    "Value": 0,
-    "Key": null
+    Id: Guid_Empty,
+    Label: Age,
+    Value: 0
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Name",
-    "Properties": {},
-    "Value": "Bob",
-    "Key": null
+    Id: Guid_Empty,
+    Label: Name,
+    Value: Bob
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "RegistrationDate",
-    "Properties": {},
-    "Value": 1586270616000,
-    "Key": null
+    Id: Guid_Empty,
+    Label: RegistrationDate,
+    Value: 1586270616000
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-    "Label": "PartitionKey",
-    "Properties": {},
-    "Value": "PartitionKey",
-    "Key": null
+    Id: Guid_Empty|PartitionKey,
+    Label: PartitionKey,
+    Value: PartitionKey
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Age",
-    "Properties": {},
-    "Value": 0,
-    "Key": null
+    Id: Guid_Empty,
+    Label: Age,
+    Value: 0
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-    "Label": "PartitionKey",
-    "Properties": {},
-    "Value": "PartitionKey",
-    "Key": null
+    Id: Guid_Empty|PartitionKey,
+    Label: PartitionKey,
+    Value: PartitionKey
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-    "Label": "PartitionKey",
-    "Properties": {},
-    "Value": "PartitionKey",
-    "Key": null
+    Id: Guid_Empty|PartitionKey,
+    Label: PartitionKey,
+    Value: PartitionKey
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Age",
-    "Properties": {},
-    "Value": 0,
-    "Key": null
+    Id: Guid_Empty,
+    Label: Age,
+    Value: 0
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-    "Label": "PartitionKey",
-    "Properties": {},
-    "Value": "PartitionKey",
-    "Key": null
+    Id: Guid_Empty|PartitionKey,
+    Label: PartitionKey,
+    Value: PartitionKey
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-    "Label": "PartitionKey",
-    "Properties": {},
-    "Value": "PartitionKey",
-    "Key": null
+    Id: Guid_Empty|PartitionKey,
+    Label: PartitionKey,
+    Value: PartitionKey
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Age",
-    "Properties": {},
-    "Value": 0,
-    "Key": null
+    Id: Guid_Empty,
+    Label: Age,
+    Value: 0
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-    "Label": "PartitionKey",
-    "Properties": {},
-    "Value": "PartitionKey",
-    "Key": null
+    Id: Guid_Empty|PartitionKey,
+    Label: PartitionKey,
+    Value: PartitionKey
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-    "Label": "PartitionKey",
-    "Properties": {},
-    "Value": "PartitionKey",
-    "Key": null
+    Id: Guid_Empty|PartitionKey,
+    Label: PartitionKey,
+    Value: PartitionKey
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Age",
-    "Properties": {},
-    "Value": 0,
-    "Key": null
+    Id: Guid_Empty,
+    Label: Age,
+    Value: 0
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-    "Label": "PartitionKey",
-    "Properties": {},
-    "Value": "PartitionKey",
-    "Key": null
+    Id: Guid_Empty|PartitionKey,
+    Label: PartitionKey,
+    Value: PartitionKey
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "FoundingDate",
-    "Properties": {},
-    "Value": -62135596800000,
-    "Key": null
+    Id: Guid_Empty,
+    Label: FoundingDate,
+    Value: -62135596800000
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-    "Label": "PartitionKey",
-    "Properties": {},
-    "Value": "PartitionKey",
-    "Key": null
+    Id: Guid_Empty|PartitionKey,
+    Label: PartitionKey,
+    Value: PartitionKey
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "IetfLanguageTag",
-    "Properties": {},
-    "Value": "en",
-    "Key": null
+    Id: Guid_Empty,
+    Label: IetfLanguageTag,
+    Value: en
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-    "Label": "PartitionKey",
-    "Properties": {},
-    "Value": "PartitionKey",
-    "Key": null
+    Id: Guid_Empty|PartitionKey,
+    Label: PartitionKey,
+    Value: PartitionKey
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "CountryCallingCode",
-    "Properties": {},
-    "Value": "+49",
-    "Key": null
+    Id: Guid_Empty,
+    Label: CountryCallingCode,
+    Value: +49
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-    "Label": "PartitionKey",
-    "Properties": {},
-    "Value": "PartitionKey",
-    "Key": null
+    Id: Guid_Empty|PartitionKey,
+    Label: PartitionKey,
+    Value: PartitionKey
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Age",
-    "Properties": {},
-    "Value": 0,
-    "Key": null
+    Id: Guid_Empty,
+    Label: Age,
+    Value: 0
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Name",
-    "Properties": {},
-    "Value": "Bob",
-    "Key": null
+    Id: Guid_Empty,
+    Label: Name,
+    Value: Bob
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "RegistrationDate",
-    "Properties": {},
-    "Value": 1586270616000,
-    "Key": null
+    Id: Guid_Empty,
+    Label: RegistrationDate,
+    Value: 1586270616000
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-    "Label": "PartitionKey",
-    "Properties": {},
-    "Value": "PartitionKey",
-    "Key": null
+    Id: Guid_Empty|PartitionKey,
+    Label: PartitionKey,
+    Value: PartitionKey
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Age",
-    "Properties": {},
-    "Value": 0,
-    "Key": null
+    Id: Guid_Empty,
+    Label: Age,
+    Value: 0
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-    "Label": "PartitionKey",
-    "Properties": {},
-    "Value": "PartitionKey",
-    "Key": null
+    Id: Guid_Empty|PartitionKey,
+    Label: PartitionKey,
+    Value: PartitionKey
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "FoundingDate",
-    "Properties": {},
-    "Value": -62135596800000,
-    "Key": null
+    Id: Guid_Empty,
+    Label: FoundingDate,
+    Value: -62135596800000
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-    "Label": "PartitionKey",
-    "Properties": {},
-    "Value": "PartitionKey",
-    "Key": null
+    Id: Guid_Empty|PartitionKey,
+    Label: PartitionKey,
+    Value: PartitionKey
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "IetfLanguageTag",
-    "Properties": {},
-    "Value": "en",
-    "Key": null
+    Id: Guid_Empty,
+    Label: IetfLanguageTag,
+    Value: en
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-    "Label": "PartitionKey",
-    "Properties": {},
-    "Value": "PartitionKey",
-    "Key": null
+    Id: Guid_Empty|PartitionKey,
+    Label: PartitionKey,
+    Value: PartitionKey
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-    "Label": "PartitionKey",
-    "Properties": {},
-    "Value": "PartitionKey",
-    "Key": null
+    Id: Guid_Empty|PartitionKey,
+    Label: PartitionKey,
+    Value: PartitionKey
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Duration",
-    "Properties": {},
-    "Value": 7200000.0,
-    "Key": null
+    Id: Guid_Empty,
+    Label: Duration,
+    Value: 7200000.0
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Enabled",
-    "Properties": {},
-    "Value": false,
-    "Key": null
+    Id: Guid_Empty,
+    Label: Enabled,
+    Value: false
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "StartTime",
-    "Properties": {},
-    "Value": 28800000.0,
-    "Key": null
+    Id: Guid_Empty,
+    Label: StartTime,
+    Value: 28800000.0
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-    "Label": "PartitionKey",
-    "Properties": {},
-    "Value": "PartitionKey",
-    "Key": null
+    Id: Guid_Empty|PartitionKey,
+    Label: PartitionKey,
+    Value: PartitionKey
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "IetfLanguageTag",
-    "Properties": {},
-    "Value": "en",
-    "Key": null
+    Id: Guid_Empty,
+    Label: IetfLanguageTag,
+    Value: en
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-    "Label": "PartitionKey",
-    "Properties": {},
-    "Value": "PartitionKey",
-    "Key": null
+    Id: Guid_Empty|PartitionKey,
+    Label: PartitionKey,
+    Value: PartitionKey
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "IetfLanguageTag",
-    "Properties": {},
-    "Value": "en",
-    "Key": null
+    Id: Guid_Empty,
+    Label: IetfLanguageTag,
+    Value: en
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-    "Label": "PartitionKey",
-    "Properties": {},
-    "Value": "PartitionKey",
-    "Key": null
+    Id: Guid_Empty|PartitionKey,
+    Label: PartitionKey,
+    Value: PartitionKey
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Age",
-    "Properties": {},
-    "Value": 0,
-    "Key": null
+    Id: Guid_Empty,
+    Label: Age,
+    Value: 0
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Image",
-    "Properties": {},
-    "Value": "AQIDBAUGBwg=",
-    "Key": null
+    Id: Guid_Empty,
+    Label: Image,
+    Value: AQIDBAUGBwg=
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-    "Label": "PartitionKey",
-    "Properties": {},
-    "Value": "PartitionKey",
-    "Key": null
+    Id: Guid_Empty|PartitionKey,
+    Label: PartitionKey,
+    Value: PartitionKey
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Age",
-    "Properties": {},
-    "Value": 0,
-    "Key": null
+    Id: Guid_Empty,
+    Label: Age,
+    Value: 0
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Gender",
-    "Properties": {},
-    "Value": 1,
-    "Key": null
+    Id: Guid_Empty,
+    Label: Gender,
+    Value: 1
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-    "Label": "PartitionKey",
-    "Properties": {},
-    "Value": "PartitionKey",
-    "Key": null
+    Id: Guid_Empty|PartitionKey,
+    Label: PartitionKey,
+    Value: PartitionKey
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Name",
-    "Properties": {},
-    "Value": "Marko",
-    "Key": null
+    Id: Guid_Empty,
+    Label: Name,
+    Value: Marko
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "RegistrationDate",
-    "Properties": {},
-    "Value": 1586270616000,
-    "Key": null
+    Id: Guid_Empty,
+    Label: RegistrationDate,
+    Value: 1586270616000
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-    "Label": "PartitionKey",
-    "Properties": {},
-    "Value": "PartitionKey",
-    "Key": null
+    Id: Guid_Empty|PartitionKey,
+    Label: PartitionKey,
+    Value: PartitionKey
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "IetfLanguageTag",
-    "Properties": {},
-    "Value": "en",
-    "Key": null
+    Id: Guid_Empty,
+    Label: IetfLanguageTag,
+    Value: en
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-    "Label": "PartitionKey",
-    "Properties": {},
-    "Value": "PartitionKey",
-    "Key": null
+    Id: Guid_Empty|PartitionKey,
+    Label: PartitionKey,
+    Value: PartitionKey
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-    "Label": "PartitionKey",
-    "Properties": {},
-    "Value": "PartitionKey",
-    "Key": null
+    Id: Guid_Empty|PartitionKey,
+    Label: PartitionKey,
+    Value: PartitionKey
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "FoundingDate",
-    "Properties": {},
-    "Value": -62135596800000,
-    "Key": null
+    Id: Guid_Empty,
+    Label: FoundingDate,
+    Value: -62135596800000
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Locations",
-    "Properties": {
-      "ValidFrom": 1546304400000
+    Id: Guid_Empty,
+    Label: Locations,
+    Properties: {
+      ValidFrom: 1546304400000
     },
-    "Value": "Aachen",
-    "Key": null
+    Value: Aachen
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-    "Label": "PartitionKey",
-    "Properties": {},
-    "Value": "PartitionKey",
-    "Key": null
+    Id: Guid_Empty|PartitionKey,
+    Label: PartitionKey,
+    Value: PartitionKey
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Name",
-    "Properties": {},
-    "Value": "GER",
-    "Key": null
+    Id: Guid_Empty,
+    Label: Name,
+    Value: GER
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-    "Label": "PartitionKey",
-    "Properties": {},
-    "Value": "PartitionKey",
-    "Key": null
+    Id: Guid_Empty|PartitionKey,
+    Label: PartitionKey,
+    Value: PartitionKey
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Name",
-    "Properties": {
-      "de": "Deutschland",
-      "en": "Germany"
+    Id: Guid_Empty,
+    Label: Name,
+    Properties: {
+      de: Deutschland,
+      en: Germany
     },
-    "Value": "GER",
-    "Key": null
+    Value: GER
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-    "Label": "PartitionKey",
-    "Properties": {},
-    "Value": "PartitionKey",
-    "Key": null
+    Id: Guid_Empty|PartitionKey,
+    Label: PartitionKey,
+    Value: PartitionKey
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "FoundingDate",
-    "Properties": {},
-    "Value": -62135596800000,
-    "Key": null
+    Id: Guid_Empty,
+    Label: FoundingDate,
+    Value: -62135596800000
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "PhoneNumbers",
-    "Properties": {},
-    "Value": "+4912345",
-    "Key": null
+    Id: Guid_Empty,
+    Label: PhoneNumbers,
+    Value: +4912345
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "PhoneNumbers",
-    "Properties": {},
-    "Value": "+4923456",
-    "Key": null
+    Id: Guid_Empty,
+    Label: PhoneNumbers,
+    Value: +4923456
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-    "Label": "PartitionKey",
-    "Properties": {},
-    "Value": "PartitionKey",
-    "Key": null
+    Id: Guid_Empty|PartitionKey,
+    Label: PartitionKey,
+    Value: PartitionKey
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-    "Label": "PartitionKey",
-    "Properties": {},
-    "Value": "PartitionKey",
-    "Key": null
+    Id: Guid_Empty|PartitionKey,
+    Label: PartitionKey,
+    Value: PartitionKey
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "lang",
-    "Properties": {},
-    "Value": "en",
-    "Key": null
+    Id: Guid_Empty,
+    Label: lang,
+    Value: en
   }
 ]

@@ -1,12 +1,12 @@
 ﻿[
   {
-    "Script": "g.V().outE(_a).project(_b,_c,_d).by(id).by(label).by(__.valueMap())",
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bindings": {
-      "_a": "String",
-      "_b": "id",
-      "_c": "label",
-      "_d": "properties"
+    Script: g.V().outE(_a).project(_b,_c,_d).by(id).by(label).by(__.valueMap()),
+    Id: Guid_1,
+    Bindings: {
+      _a: String,
+      _b: id,
+      _c: label,
+      _d: properties
     }
   }
 ]

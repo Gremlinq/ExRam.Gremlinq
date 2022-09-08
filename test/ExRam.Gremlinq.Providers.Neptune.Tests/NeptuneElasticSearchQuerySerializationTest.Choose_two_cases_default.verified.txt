@@ -1,66 +1,60 @@
 ﻿[
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bytecode": {
-      "SourceInstructions": [
+    Id: Guid_1,
+    Bytecode: {
+      SourceInstructions: [
         {
-          "OperatorName": "withSideEffect",
-          "Arguments": [
-            "Neptune#fts.endpoint",
-            "http://elastic.search.server"
+          OperatorName: withSideEffect,
+          Arguments: [
+            Neptune#fts.endpoint,
+            http://elastic.search.server
           ]
         },
         {
-          "OperatorName": "withSideEffect",
-          "Arguments": [
-            "Neptune#fts.queryType",
-            "query_string"
+          OperatorName: withSideEffect,
+          Arguments: [
+            Neptune#fts.queryType,
+            query_string
           ]
         }
       ],
-      "StepInstructions": [
+      StepInstructions: [
         {
-          "OperatorName": "V",
-          "Arguments": []
+          OperatorName: V
         },
         {
-          "OperatorName": "filter",
-          "Arguments": [
+          OperatorName: filter,
+          Arguments: [
             {
-              "SourceInstructions": [],
-              "StepInstructions": [
+              StepInstructions: [
                 {
-                  "OperatorName": "properties",
-                  "Arguments": []
+                  OperatorName: properties
                 }
               ]
             }
           ]
         },
         {
-          "OperatorName": "choose",
-          "Arguments": [
+          OperatorName: choose,
+          Arguments: [
             {
-              "SourceInstructions": [],
-              "StepInstructions": [
+              StepInstructions: [
                 {
-                  "OperatorName": "values",
-                  "Arguments": []
+                  OperatorName: values
                 }
               ]
             }
           ]
         },
         {
-          "OperatorName": "option",
-          "Arguments": [
+          OperatorName: option,
+          Arguments: [
             3,
             {
-              "SourceInstructions": [],
-              "StepInstructions": [
+              StepInstructions: [
                 {
-                  "OperatorName": "constant",
-                  "Arguments": [
+                  OperatorName: constant,
+                  Arguments: [
                     1
                   ]
                 }
@@ -69,15 +63,14 @@
           ]
         },
         {
-          "OperatorName": "option",
-          "Arguments": [
+          OperatorName: option,
+          Arguments: [
             4,
             {
-              "SourceInstructions": [],
-              "StepInstructions": [
+              StepInstructions: [
                 {
-                  "OperatorName": "constant",
-                  "Arguments": [
+                  OperatorName: constant,
+                  Arguments: [
                     2
                   ]
                 }
@@ -86,18 +79,17 @@
           ]
         },
         {
-          "OperatorName": "option",
-          "Arguments": [
+          OperatorName: option,
+          Arguments: [
             {
-              "EnumName": "Pick",
-              "EnumValue": "none"
+              EnumName: Pick,
+              EnumValue: none
             },
             {
-              "SourceInstructions": [],
-              "StepInstructions": [
+              StepInstructions: [
                 {
-                  "OperatorName": "constant",
-                  "Arguments": [
+                  OperatorName: constant,
+                  Arguments: [
                     3
                   ]
                 }

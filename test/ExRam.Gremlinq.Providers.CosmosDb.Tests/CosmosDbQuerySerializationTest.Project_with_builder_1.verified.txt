@@ -1,9 +1,9 @@
 ﻿[
   {
-    "Script": "g.V().where(__.in()).project(_a).by(__.in())",
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bindings": {
-      "_a": "in!"
+    Script: g.V().where(__.in()).project(_a).by(__.in()),
+    Id: Guid_1,
+    Bindings: {
+      _a: in!
     }
   }
 ]

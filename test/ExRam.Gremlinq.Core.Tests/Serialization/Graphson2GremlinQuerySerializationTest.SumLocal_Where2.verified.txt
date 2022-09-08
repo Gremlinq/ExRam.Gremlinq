@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "GraphSON": "{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"V\"],[\"hasLabel\",\"Person\"],[\"values\",\"Age\"],[\"fold\"],[\"sum\",{\"@type\":\"g:Scope\",\"@value\":\"local\"}],[\"is\",{\"@type\":\"g:P\",\"@value\":{\"predicate\":\"lt\",\"value\":{\"@type\":\"g:Int32\",\"@value\":100}}}]]}}"
+    Id: Guid_1,
+    GraphSON: {"@type":"g:Bytecode","@value":{"step":[["V"],["hasLabel","Person"],["values","Age"],["fold"],["sum",{"@type":"g:Scope","@value":"local"}],["is",{"@type":"g:P","@value":{"predicate":"lt","value":{"@type":"g:Int32","@value":100}}}]]}}
   }
 ]

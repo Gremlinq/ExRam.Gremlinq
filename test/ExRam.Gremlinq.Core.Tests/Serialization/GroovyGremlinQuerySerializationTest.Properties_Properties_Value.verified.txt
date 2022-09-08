@@ -1,10 +1,10 @@
 ﻿[
   {
-    "Script": "g.V().hasLabel(_a).properties(_b).properties().value()",
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bindings": {
-      "_a": "Company",
-      "_b": "Locations"
+    Script: g.V().hasLabel(_a).properties(_b).properties().value(),
+    Id: Guid_1,
+    Bindings: {
+      _a: Company,
+      _b: Locations
     }
   }
 ]

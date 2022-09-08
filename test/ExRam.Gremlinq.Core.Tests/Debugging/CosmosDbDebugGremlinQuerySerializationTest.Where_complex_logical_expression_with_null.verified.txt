@@ -1,3 +1,3 @@
 ﻿[
-  "{\"Script\":\"g.V().hasLabel(_a).and(__.hasNot(_b),__.has(_c,eq(_d).or(eq(_e))))\",\"Id\":\"00000000-0000-0000-0000-000000000000\",\"Bindings\":{\"_a\":\"Person\",\"_b\":\"Name\",\"_c\":\"Age\",\"_d\":42,\"_e\":99}}"
+  {"Script":"g.V().hasLabel(_a).and(__.hasNot(_b),__.has(_c,eq(_d).or(eq(_e))))","Id":"Guid_1","Bindings":{"_a":"Person","_b":"Name","_c":"Age","_d":42,"_e":99}}
 ]

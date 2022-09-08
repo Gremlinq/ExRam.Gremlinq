@@ -1,158 +1,144 @@
 ﻿[
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bytecode": {
-      "SourceInstructions": [],
-      "StepInstructions": [
+    Id: Guid_1,
+    Bytecode: {
+      StepInstructions: [
         {
-          "OperatorName": "V",
-          "Arguments": []
+          OperatorName: V
         },
         {
-          "OperatorName": "hasLabel",
-          "Arguments": [
-            "Person"
+          OperatorName: hasLabel,
+          Arguments: [
+            Person
           ]
         },
         {
-          "OperatorName": "project",
-          "Arguments": [
-            "In",
-            "Out",
-            "Count",
-            "Properties"
+          OperatorName: project,
+          Arguments: [
+            In,
+            Out,
+            Count,
+            Properties
           ]
         },
         {
-          "OperatorName": "by",
-          "Arguments": [
+          OperatorName: by,
+          Arguments: [
             {
-              "SourceInstructions": [],
-              "StepInstructions": [
+              StepInstructions: [
                 {
-                  "OperatorName": "constant",
-                  "Arguments": [
-                    "in_value"
+                  OperatorName: constant,
+                  Arguments: [
+                    in_value
                   ]
                 },
                 {
-                  "OperatorName": "limit",
-                  "Arguments": [
+                  OperatorName: limit,
+                  Arguments: [
                     1
                   ]
                 },
                 {
-                  "OperatorName": "fold",
-                  "Arguments": []
+                  OperatorName: fold
                 }
               ]
             }
           ]
         },
         {
-          "OperatorName": "by",
-          "Arguments": [
+          OperatorName: by,
+          Arguments: [
             {
-              "SourceInstructions": [],
-              "StepInstructions": [
+              StepInstructions: [
                 {
-                  "OperatorName": "constant",
-                  "Arguments": [
-                    "out_value"
+                  OperatorName: constant,
+                  Arguments: [
+                    out_value
                   ]
                 },
                 {
-                  "OperatorName": "limit",
-                  "Arguments": [
+                  OperatorName: limit,
+                  Arguments: [
                     1
                   ]
                 },
                 {
-                  "OperatorName": "fold",
-                  "Arguments": []
+                  OperatorName: fold
                 }
               ]
             }
           ]
         },
         {
-          "OperatorName": "by",
-          "Arguments": [
+          OperatorName: by,
+          Arguments: [
             {
-              "SourceInstructions": [],
-              "StepInstructions": [
+              StepInstructions: [
                 {
-                  "OperatorName": "constant",
-                  "Arguments": [
-                    "count_value"
+                  OperatorName: constant,
+                  Arguments: [
+                    count_value
                   ]
                 },
                 {
-                  "OperatorName": "limit",
-                  "Arguments": [
+                  OperatorName: limit,
+                  Arguments: [
                     1
                   ]
                 },
                 {
-                  "OperatorName": "fold",
-                  "Arguments": []
+                  OperatorName: fold
                 }
               ]
             }
           ]
         },
         {
-          "OperatorName": "by",
-          "Arguments": [
+          OperatorName: by,
+          Arguments: [
             {
-              "SourceInstructions": [],
-              "StepInstructions": [
+              StepInstructions: [
                 {
-                  "OperatorName": "constant",
-                  "Arguments": [
-                    "properties_value"
+                  OperatorName: constant,
+                  Arguments: [
+                    properties_value
                   ]
                 },
                 {
-                  "OperatorName": "limit",
-                  "Arguments": [
+                  OperatorName: limit,
+                  Arguments: [
                     1
                   ]
                 },
                 {
-                  "OperatorName": "fold",
-                  "Arguments": []
+                  OperatorName: fold
                 }
               ]
             }
           ]
         },
         {
-          "OperatorName": "map",
-          "Arguments": [
+          OperatorName: map,
+          Arguments: [
             {
-              "SourceInstructions": [],
-              "StepInstructions": [
+              StepInstructions: [
                 {
-                  "OperatorName": "unfold",
-                  "Arguments": []
+                  OperatorName: unfold
                 },
                 {
-                  "OperatorName": "group",
-                  "Arguments": []
+                  OperatorName: group
                 },
                 {
-                  "OperatorName": "by",
-                  "Arguments": [
+                  OperatorName: by,
+                  Arguments: [
                     {
-                      "SourceInstructions": [],
-                      "StepInstructions": [
+                      StepInstructions: [
                         {
-                          "OperatorName": "select",
-                          "Arguments": [
+                          OperatorName: select,
+                          Arguments: [
                             {
-                              "EnumName": "Column",
-                              "EnumValue": "keys"
+                              EnumName: Column,
+                              EnumValue: keys
                             }
                           ]
                         }
@@ -161,23 +147,21 @@
                   ]
                 },
                 {
-                  "OperatorName": "by",
-                  "Arguments": [
+                  OperatorName: by,
+                  Arguments: [
                     {
-                      "SourceInstructions": [],
-                      "StepInstructions": [
+                      StepInstructions: [
                         {
-                          "OperatorName": "select",
-                          "Arguments": [
+                          OperatorName: select,
+                          Arguments: [
                             {
-                              "EnumName": "Column",
-                              "EnumValue": "values"
+                              EnumName: Column,
+                              EnumValue: values
                             }
                           ]
                         },
                         {
-                          "OperatorName": "unfold",
-                          "Arguments": []
+                          OperatorName: unfold
                         }
                       ]
                     }
@@ -188,85 +172,77 @@
           ]
         },
         {
-          "OperatorName": "select",
-          "Arguments": [
-            "In",
-            "Out"
+          OperatorName: select,
+          Arguments: [
+            In,
+            Out
           ]
         },
         {
-          "OperatorName": "project",
-          "Arguments": [
-            "In",
-            "Out"
+          OperatorName: project,
+          Arguments: [
+            In,
+            Out
           ]
         },
         {
-          "OperatorName": "by",
-          "Arguments": [
+          OperatorName: by,
+          Arguments: [
             {
-              "SourceInstructions": [],
-              "StepInstructions": [
+              StepInstructions: [
                 {
-                  "OperatorName": "select",
-                  "Arguments": [
-                    "In"
+                  OperatorName: select,
+                  Arguments: [
+                    In
                   ]
                 },
                 {
-                  "OperatorName": "fold",
-                  "Arguments": []
+                  OperatorName: fold
                 }
               ]
             }
           ]
         },
         {
-          "OperatorName": "by",
-          "Arguments": [
+          OperatorName: by,
+          Arguments: [
             {
-              "SourceInstructions": [],
-              "StepInstructions": [
+              StepInstructions: [
                 {
-                  "OperatorName": "select",
-                  "Arguments": [
-                    "Out"
+                  OperatorName: select,
+                  Arguments: [
+                    Out
                   ]
                 },
                 {
-                  "OperatorName": "fold",
-                  "Arguments": []
+                  OperatorName: fold
                 }
               ]
             }
           ]
         },
         {
-          "OperatorName": "map",
-          "Arguments": [
+          OperatorName: map,
+          Arguments: [
             {
-              "SourceInstructions": [],
-              "StepInstructions": [
+              StepInstructions: [
                 {
-                  "OperatorName": "unfold",
-                  "Arguments": []
+                  OperatorName: unfold
                 },
                 {
-                  "OperatorName": "group",
-                  "Arguments": []
+                  OperatorName: group
                 },
                 {
-                  "OperatorName": "by",
-                  "Arguments": [
+                  OperatorName: by,
+                  Arguments: [
                     {
-                      "SourceInstructions": [],
-                      "StepInstructions": [
+                      StepInstructions: [
                         {
-                          "OperatorName": "select",
-                          "Arguments": [
+                          OperatorName: select,
+                          Arguments: [
                             {
-                              "EnumName": "Column",
-                              "EnumValue": "keys"
+                              EnumName: Column,
+                              EnumValue: keys
                             }
                           ]
                         }
@@ -275,23 +251,21 @@
                   ]
                 },
                 {
-                  "OperatorName": "by",
-                  "Arguments": [
+                  OperatorName: by,
+                  Arguments: [
                     {
-                      "SourceInstructions": [],
-                      "StepInstructions": [
+                      StepInstructions: [
                         {
-                          "OperatorName": "select",
-                          "Arguments": [
+                          OperatorName: select,
+                          Arguments: [
                             {
-                              "EnumName": "Column",
-                              "EnumValue": "values"
+                              EnumName: Column,
+                              EnumValue: values
                             }
                           ]
                         },
                         {
-                          "OperatorName": "unfold",
-                          "Arguments": []
+                          OperatorName: unfold
                         }
                       ]
                     }

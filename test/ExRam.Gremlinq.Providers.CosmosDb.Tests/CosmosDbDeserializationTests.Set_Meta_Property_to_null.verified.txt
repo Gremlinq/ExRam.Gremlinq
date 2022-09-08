@@ -1,19 +1,16 @@
 ﻿[
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Name",
-    "Properties": {},
-    "Value": "GER",
-    "Key": null
+    Id: Guid_Empty,
+    Label: Name,
+    Value: GER
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Name",
-    "Properties": {
-      "de": "Deutschland",
-      "en": "Germany"
+    Id: Guid_Empty,
+    Label: Name,
+    Properties: {
+      de: Deutschland,
+      en: Germany
     },
-    "Value": "GER",
-    "Key": null
+    Value: GER
   }
 ]

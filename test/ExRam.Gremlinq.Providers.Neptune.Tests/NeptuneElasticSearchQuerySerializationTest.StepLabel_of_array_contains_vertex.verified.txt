@@ -1,63 +1,58 @@
 ﻿[
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bytecode": {
-      "SourceInstructions": [
+    Id: Guid_1,
+    Bytecode: {
+      SourceInstructions: [
         {
-          "OperatorName": "withSideEffect",
-          "Arguments": [
-            "Neptune#fts.endpoint",
-            "http://elastic.search.server"
+          OperatorName: withSideEffect,
+          Arguments: [
+            Neptune#fts.endpoint,
+            http://elastic.search.server
           ]
         },
         {
-          "OperatorName": "withSideEffect",
-          "Arguments": [
-            "Neptune#fts.queryType",
-            "query_string"
+          OperatorName: withSideEffect,
+          Arguments: [
+            Neptune#fts.queryType,
+            query_string
           ]
         }
       ],
-      "StepInstructions": [
+      StepInstructions: [
         {
-          "OperatorName": "V",
-          "Arguments": []
+          OperatorName: V
         },
         {
-          "OperatorName": "fold",
-          "Arguments": []
+          OperatorName: fold
         },
         {
-          "OperatorName": "as",
-          "Arguments": [
-            "l3"
+          OperatorName: as,
+          Arguments: [
+            l3
           ]
         },
         {
-          "OperatorName": "V",
-          "Arguments": []
+          OperatorName: V
         },
         {
-          "OperatorName": "hasLabel",
-          "Arguments": [
-            "Person"
+          OperatorName: hasLabel,
+          Arguments: [
+            Person
           ]
         },
         {
-          "OperatorName": "where",
-          "Arguments": [
+          OperatorName: where,
+          Arguments: [
             {
-              "OperatorName": "within",
-              "Value": [
-                "l3"
-              ],
-              "Other": null
+              OperatorName: within,
+              Value: [
+                l3
+              ]
             }
           ]
         },
         {
-          "OperatorName": "count",
-          "Arguments": []
+          OperatorName: count
         }
       ]
     }

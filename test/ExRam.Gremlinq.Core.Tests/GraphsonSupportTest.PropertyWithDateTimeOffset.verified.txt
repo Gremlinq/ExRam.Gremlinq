@@ -1,6 +1,6 @@
-[
+﻿[
   {
-    "Value": "2019-01-22T15:10:12.555+00:00",
-    "Key": "ValidFrom"
+    Value: DateTimeOffset_1,
+    Key: ValidFrom
   }
 ]

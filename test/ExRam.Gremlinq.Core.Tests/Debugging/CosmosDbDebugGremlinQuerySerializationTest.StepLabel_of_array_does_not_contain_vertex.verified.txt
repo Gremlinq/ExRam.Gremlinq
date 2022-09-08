@@ -1,3 +1,3 @@
 ﻿[
-  "{\"Script\":\"g.V().fold().as(_a).V().hasLabel(_b).not(__.where(within(_a))).count()\",\"Id\":\"00000000-0000-0000-0000-000000000000\",\"Bindings\":{\"_a\":\"l1\",\"_b\":\"Person\"}}"
+  {"Script":"g.V().fold().as(_a).V().hasLabel(_b).not(__.where(within(_a))).count()","Id":"Guid_1","Bindings":{"_a":"l1","_b":"Person"}}
 ]

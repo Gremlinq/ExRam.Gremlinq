@@ -1,111 +1,109 @@
 ﻿[
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bytecode": {
-      "SourceInstructions": [
+    Id: Guid_1,
+    Bytecode: {
+      SourceInstructions: [
         {
-          "OperatorName": "withSideEffect",
-          "Arguments": [
-            "Neptune#fts.endpoint",
-            "http://elastic.search.server"
+          OperatorName: withSideEffect,
+          Arguments: [
+            Neptune#fts.endpoint,
+            http://elastic.search.server
           ]
         },
         {
-          "OperatorName": "withSideEffect",
-          "Arguments": [
-            "Neptune#fts.queryType",
-            "query_string"
+          OperatorName: withSideEffect,
+          Arguments: [
+            Neptune#fts.queryType,
+            query_string
           ]
         }
       ],
-      "StepInstructions": [
+      StepInstructions: [
         {
-          "OperatorName": "addV",
-          "Arguments": [
-            "Country"
+          OperatorName: addV,
+          Arguments: [
+            Country
           ]
         },
         {
-          "OperatorName": "property",
-          "Arguments": [
+          OperatorName: property,
+          Arguments: [
             {
-              "EnumName": "Cardinality",
-              "EnumValue": "single"
+              EnumName: Cardinality,
+              EnumValue: single
             },
-            "CountryCallingCode",
-            "+49"
+            CountryCallingCode,
+            +49
           ]
         },
         {
-          "OperatorName": "as",
-          "Arguments": [
-            "l3"
+          OperatorName: as,
+          Arguments: [
+            l3
           ]
         },
         {
-          "OperatorName": "addV",
-          "Arguments": [
-            "Language"
+          OperatorName: addV,
+          Arguments: [
+            Language
           ]
         },
         {
-          "OperatorName": "property",
-          "Arguments": [
+          OperatorName: property,
+          Arguments: [
             {
-              "EnumName": "Cardinality",
-              "EnumValue": "single"
+              EnumName: Cardinality,
+              EnumValue: single
             },
-            "IetfLanguageTag",
-            "en"
+            IetfLanguageTag,
+            en
           ]
         },
         {
-          "OperatorName": "addE",
-          "Arguments": [
-            "Speaks"
+          OperatorName: addE,
+          Arguments: [
+            Speaks
           ]
         },
         {
-          "OperatorName": "from",
-          "Arguments": [
-            "l3"
+          OperatorName: from,
+          Arguments: [
+            l3
           ]
         },
         {
-          "OperatorName": "project",
-          "Arguments": [
-            "id",
-            "label",
-            "properties"
+          OperatorName: project,
+          Arguments: [
+            id,
+            label,
+            properties
           ]
         },
         {
-          "OperatorName": "by",
-          "Arguments": [
+          OperatorName: by,
+          Arguments: [
             {
-              "EnumName": "T",
-              "EnumValue": "id"
+              EnumName: T,
+              EnumValue: id
             }
           ]
         },
         {
-          "OperatorName": "by",
-          "Arguments": [
+          OperatorName: by,
+          Arguments: [
             {
-              "EnumName": "T",
-              "EnumValue": "label"
+              EnumName: T,
+              EnumValue: label
             }
           ]
         },
         {
-          "OperatorName": "by",
-          "Arguments": [
+          OperatorName: by,
+          Arguments: [
             {
-              "SourceInstructions": [],
-              "StepInstructions": [
+              StepInstructions: [
                 {
-                  "OperatorName": "valueMap",
-                  "Arguments": []
+                  OperatorName: valueMap
                 }
               ]
             }

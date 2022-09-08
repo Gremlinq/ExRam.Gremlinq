@@ -1,9 +1,9 @@
 ﻿[
   {
-    "Role": "Admin",
-    "From": "2020-04-07T14:43:36Z",
-    "To": "2020-04-07T14:43:36Z",
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "WorksFor"
+    Role: Admin,
+    From: DateTime_1,
+    To: DateTime_1,
+    Id: Guid_Empty,
+    Label: WorksFor
   }
 ]

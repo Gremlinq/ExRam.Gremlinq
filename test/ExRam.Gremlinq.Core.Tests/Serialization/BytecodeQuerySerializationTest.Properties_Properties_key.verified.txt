@@ -1,32 +1,28 @@
 ﻿[
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bytecode": {
-      "SourceInstructions": [],
-      "StepInstructions": [
+    Id: Guid_1,
+    Bytecode: {
+      StepInstructions: [
         {
-          "OperatorName": "V",
-          "Arguments": []
+          OperatorName: V
         },
         {
-          "OperatorName": "hasLabel",
-          "Arguments": [
-            "Country"
+          OperatorName: hasLabel,
+          Arguments: [
+            Country
           ]
         },
         {
-          "OperatorName": "properties",
-          "Arguments": [
-            "Name"
+          OperatorName: properties,
+          Arguments: [
+            Name
           ]
         },
         {
-          "OperatorName": "properties",
-          "Arguments": []
+          OperatorName: properties
         },
         {
-          "OperatorName": "key",
-          "Arguments": []
+          OperatorName: key
         }
       ]
     }

@@ -1,11 +1,11 @@
 ﻿[
   {
-    "Script": "g.V().hasLabel(_a).properties().has(_b,lt(_c))",
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bindings": {
-      "_a": "Person",
-      "_b": "MetaKey",
-      "_c": 100
+    Script: g.V().hasLabel(_a).properties().has(_b,lt(_c)),
+    Id: Guid_1,
+    Bindings: {
+      _a: Person,
+      _b: MetaKey,
+      _c: 100
     }
   }
 ]

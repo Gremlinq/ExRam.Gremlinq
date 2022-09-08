@@ -1,129 +1,102 @@
 ﻿[
   {
-    "Name": null,
-    "Languages": null,
-    "CountryCallingCode": "+49",
-    "LocalizableDescription": {
-      "Id": -1,
-      "Label": "LocalizableDescription",
-      "Properties": {
-        "someKey": "value"
+    CountryCallingCode: +49,
+    LocalizableDescription: {
+      Id: -1,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
       },
-      "Value": "",
-      "Key": null
+      Value: 
     },
-    "Id": -1,
-    "Label": "Country"
+    Id: -1,
+    Label: Country
   },
   {
-    "Name": {
-      "Id": -1,
-      "Label": "Name",
-      "Properties": {},
-      "Value": "GER",
-      "Key": null
+    Name: {
+      Id: -1,
+      Label: Name,
+      Value: GER
     },
-    "Languages": null,
-    "CountryCallingCode": null,
-    "LocalizableDescription": {
-      "Id": -1,
-      "Label": "LocalizableDescription",
-      "Properties": {
-        "someKey": "value"
+    LocalizableDescription: {
+      Id: -1,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
       },
-      "Value": "",
-      "Key": null
+      Value: 
     },
-    "Id": -1,
-    "Label": "Country"
+    Id: -1,
+    Label: Country
   },
   {
-    "Name": {
-      "Id": -1,
-      "Label": "Name",
-      "Properties": {
-        "de": "Deutschland",
-        "en": "Germany"
+    Name: {
+      Id: -1,
+      Label: Name,
+      Properties: {
+        de: Deutschland,
+        en: Germany
       },
-      "Value": "GER",
-      "Key": null
+      Value: GER
     },
-    "Languages": null,
-    "CountryCallingCode": null,
-    "LocalizableDescription": {
-      "Id": -1,
-      "Label": "LocalizableDescription",
-      "Properties": {
-        "someKey": "value"
+    LocalizableDescription: {
+      Id: -1,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
       },
-      "Value": "",
-      "Key": null
+      Value: 
     },
-    "Id": -1,
-    "Label": "Country"
+    Id: -1,
+    Label: Country
   },
   {
-    "Name": null,
-    "Languages": null,
-    "CountryCallingCode": null,
-    "LocalizableDescription": {
-      "Id": -1,
-      "Label": "LocalizableDescription",
-      "Properties": {
-        "someKey": "value"
+    LocalizableDescription: {
+      Id: -1,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
       },
-      "Value": "",
-      "Key": null
+      Value: 
     },
-    "Id": -1,
-    "Label": "Country"
+    Id: -1,
+    Label: Country
   },
   {
-    "Name": null,
-    "Languages": null,
-    "CountryCallingCode": null,
-    "LocalizableDescription": {
-      "Id": -1,
-      "Label": "LocalizableDescription",
-      "Properties": {
-        "someKey": "value"
+    LocalizableDescription: {
+      Id: -1,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
       },
-      "Value": "",
-      "Key": null
+      Value: 
     },
-    "Id": -1,
-    "Label": "Country"
+    Id: -1,
+    Label: Country
   },
   {
-    "Name": null,
-    "Languages": null,
-    "CountryCallingCode": null,
-    "LocalizableDescription": {
-      "Id": -1,
-      "Label": "LocalizableDescription",
-      "Properties": {
-        "someKey": "value"
+    LocalizableDescription: {
+      Id: -1,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
       },
-      "Value": "",
-      "Key": null
+      Value: 
     },
-    "Id": -1,
-    "Label": "Country"
+    Id: -1,
+    Label: Country
   },
   {
-    "Name": null,
-    "Languages": null,
-    "CountryCallingCode": "+49",
-    "LocalizableDescription": {
-      "Id": -1,
-      "Label": "LocalizableDescription",
-      "Properties": {
-        "someKey": "value"
+    CountryCallingCode: +49,
+    LocalizableDescription: {
+      Id: -1,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
       },
-      "Value": "",
-      "Key": null
+      Value: 
     },
-    "Id": -1,
-    "Label": "Country"
+    Id: -1,
+    Label: Country
   }
 ]

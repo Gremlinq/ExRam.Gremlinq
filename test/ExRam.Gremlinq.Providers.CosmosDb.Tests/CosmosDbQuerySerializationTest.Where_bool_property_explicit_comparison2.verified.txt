@@ -1,11 +1,11 @@
 ﻿[
   {
-    "Script": "g.V().hasLabel(_a).has(_b,_c)",
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bindings": {
-      "_a": "TimeFrame",
-      "_b": "Enabled",
-      "_c": false
+    Script: g.V().hasLabel(_a).has(_b,_c),
+    Id: Guid_1,
+    Bindings: {
+      _a: TimeFrame,
+      _b: Enabled,
+      _c: false
     }
   }
 ]

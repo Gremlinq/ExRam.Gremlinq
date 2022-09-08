@@ -7,7 +7,7 @@ public static class ModuleInit
     public static void Init()
     {
         DiffRunner.Disabled = true;
-
+        VerifierSettings.ScrubInlineGuids();
 #if DEBUG
         VerifierSettings.AutoVerify();
 #endif

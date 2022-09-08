@@ -16,16 +16,9 @@ namespace ExRam.Gremlinq.Core.Tests
 
         public virtual async Task Verify<TElement>(IGremlinQueryBase<TElement> query)
         {
-            var serialized = JsonConvert.SerializeObject(
-                await query
-                    .ToArrayAsync(),
-                Formatting.Indented);
-
-            var scrubbed = this
-                .Scrubbers()
-                .Aggregate(serialized, (s, func) => func(s));
-
-            await Verify(scrubbed);
+            var elements = await query
+                .ToArrayAsync();
+            await Verify(elements);
         }
 
         protected virtual IImmutableList<Func<string, string>> Scrubbers() => ImmutableList<Func<string, string>>.Empty;

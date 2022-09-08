@@ -1,50 +1,48 @@
 ﻿[
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bytecode": {
-      "SourceInstructions": [
+    Id: Guid_1,
+    Bytecode: {
+      SourceInstructions: [
         {
-          "OperatorName": "withSideEffect",
-          "Arguments": [
-            "Neptune#fts.endpoint",
-            "http://elastic.search.server"
+          OperatorName: withSideEffect,
+          Arguments: [
+            Neptune#fts.endpoint,
+            http://elastic.search.server
           ]
         },
         {
-          "OperatorName": "withSideEffect",
-          "Arguments": [
-            "Neptune#fts.queryType",
-            "query_string"
+          OperatorName: withSideEffect,
+          Arguments: [
+            Neptune#fts.queryType,
+            query_string
           ]
         }
       ],
-      "StepInstructions": [
+      StepInstructions: [
         {
-          "OperatorName": "V",
-          "Arguments": []
+          OperatorName: V
         },
         {
-          "OperatorName": "hasLabel",
-          "Arguments": [
-            "Person"
+          OperatorName: hasLabel,
+          Arguments: [
+            Person
           ]
         },
         {
-          "OperatorName": "has",
-          "Arguments": [
-            "Name"
+          OperatorName: has,
+          Arguments: [
+            Name
           ]
         },
         {
-          "OperatorName": "filter",
-          "Arguments": [
+          OperatorName: filter,
+          Arguments: [
             {
-              "SourceInstructions": [],
-              "StepInstructions": [
+              StepInstructions: [
                 {
-                  "OperatorName": "values",
-                  "Arguments": [
-                    "Gender"
+                  OperatorName: values,
+                  Arguments: [
+                    Gender
                   ]
                 }
               ]
@@ -52,142 +50,134 @@
           ]
         },
         {
-          "OperatorName": "order",
-          "Arguments": []
+          OperatorName: order
         },
         {
-          "OperatorName": "by",
-          "Arguments": [
+          OperatorName: by,
+          Arguments: [
             {
-              "SourceInstructions": [],
-              "StepInstructions": [
+              StepInstructions: [
                 {
-                  "OperatorName": "values",
-                  "Arguments": [
-                    "Name"
+                  OperatorName: values,
+                  Arguments: [
+                    Name
                   ]
                 }
               ]
             },
             {
-              "EnumName": "Order",
-              "EnumValue": "asc"
+              EnumName: Order,
+              EnumValue: asc
             }
           ]
         },
         {
-          "OperatorName": "by",
-          "Arguments": [
+          OperatorName: by,
+          Arguments: [
             {
-              "SourceInstructions": [],
-              "StepInstructions": [
+              StepInstructions: [
                 {
-                  "OperatorName": "values",
-                  "Arguments": [
-                    "Gender"
+                  OperatorName: values,
+                  Arguments: [
+                    Gender
                   ]
                 }
               ]
             },
             {
-              "EnumName": "Order",
-              "EnumValue": "asc"
+              EnumName: Order,
+              EnumValue: asc
             }
           ]
         },
         {
-          "OperatorName": "project",
-          "Arguments": [
-            "id",
-            "label",
-            "properties"
+          OperatorName: project,
+          Arguments: [
+            id,
+            label,
+            properties
           ]
         },
         {
-          "OperatorName": "by",
-          "Arguments": [
+          OperatorName: by,
+          Arguments: [
             {
-              "EnumName": "T",
-              "EnumValue": "id"
+              EnumName: T,
+              EnumValue: id
             }
           ]
         },
         {
-          "OperatorName": "by",
-          "Arguments": [
+          OperatorName: by,
+          Arguments: [
             {
-              "EnumName": "T",
-              "EnumValue": "label"
+              EnumName: T,
+              EnumValue: label
             }
           ]
         },
         {
-          "OperatorName": "by",
-          "Arguments": [
+          OperatorName: by,
+          Arguments: [
             {
-              "SourceInstructions": [],
-              "StepInstructions": [
+              StepInstructions: [
                 {
-                  "OperatorName": "properties",
-                  "Arguments": []
+                  OperatorName: properties
                 },
                 {
-                  "OperatorName": "group",
-                  "Arguments": []
+                  OperatorName: group
                 },
                 {
-                  "OperatorName": "by",
-                  "Arguments": [
+                  OperatorName: by,
+                  Arguments: [
                     {
-                      "EnumName": "T",
-                      "EnumValue": "label"
+                      EnumName: T,
+                      EnumValue: label
                     }
                   ]
                 },
                 {
-                  "OperatorName": "by",
-                  "Arguments": [
+                  OperatorName: by,
+                  Arguments: [
                     {
-                      "SourceInstructions": [],
-                      "StepInstructions": [
+                      StepInstructions: [
                         {
-                          "OperatorName": "project",
-                          "Arguments": [
-                            "id",
-                            "label",
-                            "value"
+                          OperatorName: project,
+                          Arguments: [
+                            id,
+                            label,
+                            value
                           ]
                         },
                         {
-                          "OperatorName": "by",
-                          "Arguments": [
+                          OperatorName: by,
+                          Arguments: [
                             {
-                              "EnumName": "T",
-                              "EnumValue": "id"
+                              EnumName: T,
+                              EnumValue: id
                             }
                           ]
                         },
                         {
-                          "OperatorName": "by",
-                          "Arguments": [
+                          OperatorName: by,
+                          Arguments: [
                             {
-                              "EnumName": "T",
-                              "EnumValue": "label"
+                              EnumName: T,
+                              EnumValue: label
                             }
                           ]
                         },
                         {
-                          "OperatorName": "by",
-                          "Arguments": [
+                          OperatorName: by,
+                          Arguments: [
                             {
-                              "EnumName": "T",
-                              "EnumValue": "value"
+                              EnumName: T,
+                              EnumValue: value
                             }
                           ]
                         },
                         {
-                          "OperatorName": "fold",
-                          "Arguments": []
+                          OperatorName: fold
                         }
                       ]
                     }

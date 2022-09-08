@@ -1,68 +1,65 @@
 ﻿[
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bytecode": {
-      "SourceInstructions": [],
-      "StepInstructions": [
+    Id: Guid_1,
+    Bytecode: {
+      StepInstructions: [
         {
-          "OperatorName": "V",
-          "Arguments": []
+          OperatorName: V
         },
         {
-          "OperatorName": "hasLabel",
-          "Arguments": [
-            "Country"
+          OperatorName: hasLabel,
+          Arguments: [
+            Country
           ]
         },
         {
-          "OperatorName": "properties",
-          "Arguments": [
-            "Name"
+          OperatorName: properties,
+          Arguments: [
+            Name
           ]
         },
         {
-          "OperatorName": "has",
-          "Arguments": [
-            "ValidFrom",
+          OperatorName: has,
+          Arguments: [
+            ValidFrom,
             {
-              "OperatorName": "gte",
-              "Value": "2019-01-01T01:00:00+00:00",
-              "Other": null
+              OperatorName: gte,
+              Value: DateTimeOffset_1
             }
           ]
         },
         {
-          "OperatorName": "project",
-          "Arguments": [
-            "id",
-            "label",
-            "value"
+          OperatorName: project,
+          Arguments: [
+            id,
+            label,
+            value
           ]
         },
         {
-          "OperatorName": "by",
-          "Arguments": [
+          OperatorName: by,
+          Arguments: [
             {
-              "EnumName": "T",
-              "EnumValue": "id"
+              EnumName: T,
+              EnumValue: id
             }
           ]
         },
         {
-          "OperatorName": "by",
-          "Arguments": [
+          OperatorName: by,
+          Arguments: [
             {
-              "EnumName": "T",
-              "EnumValue": "label"
+              EnumName: T,
+              EnumValue: label
             }
           ]
         },
         {
-          "OperatorName": "by",
-          "Arguments": [
+          OperatorName: by,
+          Arguments: [
             {
-              "EnumName": "T",
-              "EnumValue": "value"
+              EnumName: T,
+              EnumValue: value
             }
           ]
         }

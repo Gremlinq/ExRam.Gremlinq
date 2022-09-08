@@ -1,53 +1,51 @@
 ﻿[
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bytecode": {
-      "SourceInstructions": [
+    Id: Guid_1,
+    Bytecode: {
+      SourceInstructions: [
         {
-          "OperatorName": "withSideEffect",
-          "Arguments": [
-            "Neptune#fts.endpoint",
-            "http://elastic.search.server"
+          OperatorName: withSideEffect,
+          Arguments: [
+            Neptune#fts.endpoint,
+            http://elastic.search.server
           ]
         },
         {
-          "OperatorName": "withSideEffect",
-          "Arguments": [
-            "Neptune#fts.queryType",
-            "query_string"
+          OperatorName: withSideEffect,
+          Arguments: [
+            Neptune#fts.queryType,
+            query_string
           ]
         }
       ],
-      "StepInstructions": [
+      StepInstructions: [
         {
-          "OperatorName": "V",
-          "Arguments": []
+          OperatorName: V
         },
         {
-          "OperatorName": "hasLabel",
-          "Arguments": [
-            "Person"
+          OperatorName: hasLabel,
+          Arguments: [
+            Person
           ]
         },
         {
-          "OperatorName": "project",
-          "Arguments": [
-            "In",
-            "Out",
-            "Count",
-            "Properties"
+          OperatorName: project,
+          Arguments: [
+            In,
+            Out,
+            Count,
+            Properties
           ]
         },
         {
-          "OperatorName": "by",
-          "Arguments": [
+          OperatorName: by,
+          Arguments: [
             {
-              "SourceInstructions": [],
-              "StepInstructions": [
+              StepInstructions: [
                 {
-                  "OperatorName": "constant",
-                  "Arguments": [
-                    "in_value"
+                  OperatorName: constant,
+                  Arguments: [
+                    in_value
                   ]
                 }
               ]
@@ -55,15 +53,14 @@
           ]
         },
         {
-          "OperatorName": "by",
-          "Arguments": [
+          OperatorName: by,
+          Arguments: [
             {
-              "SourceInstructions": [],
-              "StepInstructions": [
+              StepInstructions: [
                 {
-                  "OperatorName": "constant",
-                  "Arguments": [
-                    "out_value"
+                  OperatorName: constant,
+                  Arguments: [
+                    out_value
                   ]
                 }
               ]
@@ -71,15 +68,14 @@
           ]
         },
         {
-          "OperatorName": "by",
-          "Arguments": [
+          OperatorName: by,
+          Arguments: [
             {
-              "SourceInstructions": [],
-              "StepInstructions": [
+              StepInstructions: [
                 {
-                  "OperatorName": "constant",
-                  "Arguments": [
-                    "count_value"
+                  OperatorName: constant,
+                  Arguments: [
+                    count_value
                   ]
                 }
               ]
@@ -87,15 +83,14 @@
           ]
         },
         {
-          "OperatorName": "by",
-          "Arguments": [
+          OperatorName: by,
+          Arguments: [
             {
-              "SourceInstructions": [],
-              "StepInstructions": [
+              StepInstructions: [
                 {
-                  "OperatorName": "constant",
-                  "Arguments": [
-                    "properties_value"
+                  OperatorName: constant,
+                  Arguments: [
+                    properties_value
                   ]
                 }
               ]
@@ -103,10 +98,10 @@
           ]
         },
         {
-          "OperatorName": "select",
-          "Arguments": [
-            "In",
-            "Out"
+          OperatorName: select,
+          Arguments: [
+            In,
+            Out
           ]
         }
       ]

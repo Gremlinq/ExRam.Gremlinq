@@ -1,7 +1,6 @@
 ﻿[
   {
-    "Since": null,
-    "Id": -1,
-    "Label": "LivesIn"
+    Id: -1,
+    Label: LivesIn
   }
 ]

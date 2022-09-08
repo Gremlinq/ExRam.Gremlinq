@@ -1,12 +1,11 @@
 ﻿[
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bytecode": {
-      "SourceInstructions": [],
-      "StepInstructions": [
+    Id: Guid_1,
+    Bytecode: {
+      StepInstructions: [
         {
-          "OperatorName": "inject",
-          "Arguments": [
+          OperatorName: inject,
+          Arguments: [
             36,
             37,
             38

@@ -1,11 +1,11 @@
 ﻿[
   {
-    "Script": "g.V().hasLabel(_a).has(_b).where(__.values(_c)).order().by({it.property('Name').value().length()}).by({it.property('Age').value()})",
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bindings": {
-      "_a": "Person",
-      "_b": "Name",
-      "_c": "Age"
+    Script: g.V().hasLabel(_a).has(_b).where(__.values(_c)).order().by({it.property('Name').value().length()}).by({it.property('Age').value()}),
+    Id: Guid_1,
+    Bindings: {
+      _a: Person,
+      _b: Name,
+      _c: Age
     }
   }
 ]

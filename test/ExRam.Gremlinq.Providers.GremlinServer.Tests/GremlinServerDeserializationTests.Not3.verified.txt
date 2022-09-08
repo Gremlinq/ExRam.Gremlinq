@@ -1,130 +1,99 @@
 ﻿[
   {
-    "Name": null,
-    "Languages": null,
-    "CountryCallingCode": "+49",
-    "LocalizableDescription": null,
-    "Id": -1,
-    "Label": "Country"
+    CountryCallingCode: +49,
+    Id: -1,
+    Label: Country
   },
   {
-    "IetfLanguageTag": "en",
-    "Id": -1,
-    "Label": "Language"
+    IetfLanguageTag: en,
+    Id: -1,
+    Label: Language
   },
   {
-    "IetfLanguageTag": "en",
-    "Id": -1,
-    "Label": "Language"
+    IetfLanguageTag: en,
+    Id: -1,
+    Label: Language
   },
   {
-    "IetfLanguageTag": null,
-    "Id": -1,
-    "Label": "Language"
+    Id: -1,
+    Label: Language
   },
   {
-    "Name": {
-      "Id": -1,
-      "Label": "Name",
-      "Properties": {},
-      "Value": "GER",
-      "Key": null
+    Name: {
+      Id: -1,
+      Label: Name,
+      Value: GER
     },
-    "Languages": null,
-    "CountryCallingCode": null,
-    "LocalizableDescription": null,
-    "Id": -1,
-    "Label": "Country"
+    Id: -1,
+    Label: Country
   },
   {
-    "Name": {
-      "Id": -1,
-      "Label": "Name",
-      "Properties": {
-        "de": "Deutschland",
-        "en": "Germany"
+    Name: {
+      Id: -1,
+      Label: Name,
+      Properties: {
+        de: Deutschland,
+        en: Germany
       },
-      "Value": "GER",
-      "Key": null
+      Value: GER
     },
-    "Languages": null,
-    "CountryCallingCode": null,
-    "LocalizableDescription": null,
-    "Id": -1,
-    "Label": "Country"
+    Id: -1,
+    Label: Country
   },
   {
-    "Name": null,
-    "Languages": null,
-    "CountryCallingCode": null,
-    "LocalizableDescription": null,
-    "Id": -1,
-    "Label": "Country"
+    Id: -1,
+    Label: Country
   },
   {
-    "IetfLanguageTag": null,
-    "Id": -1,
-    "Label": "Language"
+    Id: -1,
+    Label: Language
   },
   {
-    "IetfLanguageTag": null,
-    "Id": -1,
-    "Label": "Language"
+    Id: -1,
+    Label: Language
   },
   {
-    "Name": null,
-    "Languages": null,
-    "CountryCallingCode": null,
-    "LocalizableDescription": null,
-    "Id": -1,
-    "Label": "Country"
+    Id: -1,
+    Label: Country
   },
   {
-    "Name": null,
-    "Languages": null,
-    "CountryCallingCode": null,
-    "LocalizableDescription": null,
-    "Id": -1,
-    "Label": "Country"
+    Id: -1,
+    Label: Country
   },
   {
-    "IetfLanguageTag": "en",
-    "Id": -1,
-    "Label": "Language"
+    IetfLanguageTag: en,
+    Id: -1,
+    Label: Language
   },
   {
-    "Name": null,
-    "Languages": null,
-    "CountryCallingCode": "+49",
-    "LocalizableDescription": null,
-    "Id": -1,
-    "Label": "Country"
+    CountryCallingCode: +49,
+    Id: -1,
+    Label: Country
   },
   {
-    "IetfLanguageTag": "en",
-    "Id": -1,
-    "Label": "Language"
+    IetfLanguageTag: en,
+    Id: -1,
+    Label: Language
   },
   {
-    "IetfLanguageTag": null,
-    "Id": -1,
-    "Label": "Language"
+    Id: -1,
+    Label: Language
   },
   {
-    "Enabled": false,
-    "StartTime": "08:00:00",
-    "Duration": "02:00:00",
-    "Id": -1,
-    "Label": "TimeFrame"
+    Enabled: false,
+    StartTime: 08:00:00,
+    Duration: 02:00:00,
+    Id: -1,
+    Label: TimeFrame
   },
   {
-    "IetfLanguageTag": "en",
-    "Id": -1,
-    "Label": "Language"
+    IetfLanguageTag: en,
+    Id: -1,
+    Label: Language
   },
   {
-    "IetfLanguageTag": "en",
-    "Id": -1,
-    "Label": "Language"
+    IetfLanguageTag: en,
+    Id: -1,
+    Label: Language
   }
 ]

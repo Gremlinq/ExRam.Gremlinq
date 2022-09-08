@@ -1,7 +1,6 @@
 ﻿[
   {
-    "Script": "g.V().coalesce(__.outE(),__.in())",
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bindings": {}
+    Script: g.V().coalesce(__.outE(),__.in()),
+    Id: Guid_1
   }
 ]

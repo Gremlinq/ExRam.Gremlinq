@@ -1,16 +1,10 @@
 ﻿[
   {
-    "Name": {
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": null,
-      "Properties": {},
-      "Value": "GER",
-      "Key": null
+    Name: {
+      Id: Guid_Empty,
+      Value: GER
     },
-    "Languages": null,
-    "CountryCallingCode": null,
-    "LocalizableDescription": null,
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Country"
+    Id: Guid_Empty,
+    Label: Country
   }
 ]

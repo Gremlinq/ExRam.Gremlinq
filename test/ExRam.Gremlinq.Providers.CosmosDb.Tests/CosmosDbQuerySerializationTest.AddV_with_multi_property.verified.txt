@@ -1,15 +1,15 @@
 ﻿[
   {
-    "Script": "g.addV(_a).property(_b,_b).property(single,_c,_d).property(list,_e,_f).property(list,_e,_g)",
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bindings": {
-      "_a": "Company",
-      "_b": "PartitionKey",
-      "_c": "FoundingDate",
-      "_d": "0001-01-01T00:00:00+00:00",
-      "_e": "PhoneNumbers",
-      "_f": "+4912345",
-      "_g": "+4923456"
+    Script: g.addV(_a).property(_b,_b).property(single,_c,_d).property(list,_e,_f).property(list,_e,_g),
+    Id: Guid_1,
+    Bindings: {
+      _a: Company,
+      _b: PartitionKey,
+      _c: FoundingDate,
+      _d: Date_MinValue,
+      _e: PhoneNumbers,
+      _f: +4912345,
+      _g: +4923456
     }
   }
 ]

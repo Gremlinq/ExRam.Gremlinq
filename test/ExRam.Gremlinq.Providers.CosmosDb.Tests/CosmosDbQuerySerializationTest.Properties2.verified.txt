@@ -1,7 +1,6 @@
 ﻿[
   {
-    "Script": "g.E().properties()",
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bindings": {}
+    Script: g.E().properties(),
+    Id: Guid_1
   }
 ]

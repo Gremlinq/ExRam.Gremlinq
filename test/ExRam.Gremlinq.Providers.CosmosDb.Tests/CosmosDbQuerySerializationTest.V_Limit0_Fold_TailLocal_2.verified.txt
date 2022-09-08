@@ -1,10 +1,10 @@
 ﻿[
   {
-    "Script": "g.V().limit(_a).fold().tail(local,_b)",
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bindings": {
-      "_a": 0,
-      "_b": 2
+    Script: g.V().limit(_a).fold().tail(local,_b),
+    Id: Guid_1,
+    Bindings: {
+      _a: 0,
+      _b: 2
     }
   }
 ]

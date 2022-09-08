@@ -1,14 +1,14 @@
 ﻿[
   {
-    "id": -1,
-    "label": "Language",
-    "properties": {
-      "IetfLanguageTag": [
+    id: -1,
+    label: Language,
+    properties: {
+      IetfLanguageTag: [
         {
-          "id": -1,
-          "label": "IetfLanguageTag",
-          "value": "en",
-          "properties": {}
+          id: -1,
+          label: IetfLanguageTag,
+          value: en,
+          properties: {}
         }
       ]
     }

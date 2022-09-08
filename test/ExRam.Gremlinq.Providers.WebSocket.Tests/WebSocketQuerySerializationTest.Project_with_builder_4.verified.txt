@@ -1,249 +1,225 @@
 ﻿[
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bytecode": {
-      "SourceInstructions": [],
-      "StepInstructions": [
+    Id: Guid_1,
+    Bytecode: {
+      StepInstructions: [
         {
-          "OperatorName": "V",
-          "Arguments": []
+          OperatorName: V
         },
         {
-          "OperatorName": "filter",
-          "Arguments": [
+          OperatorName: filter,
+          Arguments: [
             {
-              "SourceInstructions": [],
-              "StepInstructions": [
+              StepInstructions: [
                 {
-                  "OperatorName": "in",
-                  "Arguments": []
+                  OperatorName: in
                 }
               ]
             }
           ]
         },
         {
-          "OperatorName": "filter",
-          "Arguments": [
+          OperatorName: filter,
+          Arguments: [
             {
-              "SourceInstructions": [],
-              "StepInstructions": [
+              StepInstructions: [
                 {
-                  "OperatorName": "out",
-                  "Arguments": []
+                  OperatorName: out
                 }
               ]
             }
           ]
         },
         {
-          "OperatorName": "filter",
-          "Arguments": [
+          OperatorName: filter,
+          Arguments: [
             {
-              "SourceInstructions": [],
-              "StepInstructions": [
+              StepInstructions: [
                 {
-                  "OperatorName": "properties",
-                  "Arguments": []
+                  OperatorName: properties
                 }
               ]
             }
           ]
         },
         {
-          "OperatorName": "project",
-          "Arguments": [
-            "in!",
-            "out!",
-            "count!",
-            "properties!"
+          OperatorName: project,
+          Arguments: [
+            in!,
+            out!,
+            count!,
+            properties!
           ]
         },
         {
-          "OperatorName": "by",
-          "Arguments": [
+          OperatorName: by,
+          Arguments: [
             {
-              "SourceInstructions": [],
-              "StepInstructions": [
+              StepInstructions: [
                 {
-                  "OperatorName": "in",
-                  "Arguments": []
+                  OperatorName: in
                 }
               ]
             }
           ]
         },
         {
-          "OperatorName": "by",
-          "Arguments": [
+          OperatorName: by,
+          Arguments: [
             {
-              "SourceInstructions": [],
-              "StepInstructions": [
+              StepInstructions: [
                 {
-                  "OperatorName": "out",
-                  "Arguments": []
+                  OperatorName: out
                 }
               ]
             }
           ]
         },
         {
-          "OperatorName": "by",
-          "Arguments": [
+          OperatorName: by,
+          Arguments: [
             {
-              "SourceInstructions": [],
-              "StepInstructions": [
+              StepInstructions: [
                 {
-                  "OperatorName": "count",
-                  "Arguments": []
+                  OperatorName: count
                 }
               ]
             }
           ]
         },
         {
-          "OperatorName": "by",
-          "Arguments": [
+          OperatorName: by,
+          Arguments: [
             {
-              "SourceInstructions": [],
-              "StepInstructions": [
+              StepInstructions: [
                 {
-                  "OperatorName": "properties",
-                  "Arguments": []
+                  OperatorName: properties
                 }
               ]
             }
           ]
         },
         {
-          "OperatorName": "project",
-          "Arguments": [
-            "in!",
-            "out!",
-            "count!",
-            "properties!"
+          OperatorName: project,
+          Arguments: [
+            in!,
+            out!,
+            count!,
+            properties!
           ]
         },
         {
-          "OperatorName": "by",
-          "Arguments": [
+          OperatorName: by,
+          Arguments: [
             {
-              "SourceInstructions": [],
-              "StepInstructions": [
+              StepInstructions: [
                 {
-                  "OperatorName": "select",
-                  "Arguments": [
-                    "in!"
+                  OperatorName: select,
+                  Arguments: [
+                    in!
                   ]
                 },
                 {
-                  "OperatorName": "project",
-                  "Arguments": [
-                    "id",
-                    "label",
-                    "properties"
+                  OperatorName: project,
+                  Arguments: [
+                    id,
+                    label,
+                    properties
                   ]
                 },
                 {
-                  "OperatorName": "by",
-                  "Arguments": [
+                  OperatorName: by,
+                  Arguments: [
                     {
-                      "EnumName": "T",
-                      "EnumValue": "id"
+                      EnumName: T,
+                      EnumValue: id
                     }
                   ]
                 },
                 {
-                  "OperatorName": "by",
-                  "Arguments": [
+                  OperatorName: by,
+                  Arguments: [
                     {
-                      "EnumName": "T",
-                      "EnumValue": "label"
+                      EnumName: T,
+                      EnumValue: label
                     }
                   ]
                 },
                 {
-                  "OperatorName": "by",
-                  "Arguments": [
+                  OperatorName: by,
+                  Arguments: [
                     {
-                      "SourceInstructions": [],
-                      "StepInstructions": [
+                      StepInstructions: [
                         {
-                          "OperatorName": "properties",
-                          "Arguments": []
+                          OperatorName: properties
                         },
                         {
-                          "OperatorName": "group",
-                          "Arguments": []
+                          OperatorName: group
                         },
                         {
-                          "OperatorName": "by",
-                          "Arguments": [
+                          OperatorName: by,
+                          Arguments: [
                             {
-                              "EnumName": "T",
-                              "EnumValue": "label"
+                              EnumName: T,
+                              EnumValue: label
                             }
                           ]
                         },
                         {
-                          "OperatorName": "by",
-                          "Arguments": [
+                          OperatorName: by,
+                          Arguments: [
                             {
-                              "SourceInstructions": [],
-                              "StepInstructions": [
+                              StepInstructions: [
                                 {
-                                  "OperatorName": "project",
-                                  "Arguments": [
-                                    "id",
-                                    "label",
-                                    "value",
-                                    "properties"
+                                  OperatorName: project,
+                                  Arguments: [
+                                    id,
+                                    label,
+                                    value,
+                                    properties
                                   ]
                                 },
                                 {
-                                  "OperatorName": "by",
-                                  "Arguments": [
+                                  OperatorName: by,
+                                  Arguments: [
                                     {
-                                      "EnumName": "T",
-                                      "EnumValue": "id"
+                                      EnumName: T,
+                                      EnumValue: id
                                     }
                                   ]
                                 },
                                 {
-                                  "OperatorName": "by",
-                                  "Arguments": [
+                                  OperatorName: by,
+                                  Arguments: [
                                     {
-                                      "EnumName": "T",
-                                      "EnumValue": "label"
+                                      EnumName: T,
+                                      EnumValue: label
                                     }
                                   ]
                                 },
                                 {
-                                  "OperatorName": "by",
-                                  "Arguments": [
+                                  OperatorName: by,
+                                  Arguments: [
                                     {
-                                      "EnumName": "T",
-                                      "EnumValue": "value"
+                                      EnumName: T,
+                                      EnumValue: value
                                     }
                                   ]
                                 },
                                 {
-                                  "OperatorName": "by",
-                                  "Arguments": [
+                                  OperatorName: by,
+                                  Arguments: [
                                     {
-                                      "SourceInstructions": [],
-                                      "StepInstructions": [
+                                      StepInstructions: [
                                         {
-                                          "OperatorName": "valueMap",
-                                          "Arguments": []
+                                          OperatorName: valueMap
                                         }
                                       ]
                                     }
                                   ]
                                 },
                                 {
-                                  "OperatorName": "fold",
-                                  "Arguments": []
+                                  OperatorName: fold
                                 }
                               ]
                             }
@@ -258,125 +234,117 @@
           ]
         },
         {
-          "OperatorName": "by",
-          "Arguments": [
+          OperatorName: by,
+          Arguments: [
             {
-              "SourceInstructions": [],
-              "StepInstructions": [
+              StepInstructions: [
                 {
-                  "OperatorName": "select",
-                  "Arguments": [
-                    "out!"
+                  OperatorName: select,
+                  Arguments: [
+                    out!
                   ]
                 },
                 {
-                  "OperatorName": "project",
-                  "Arguments": [
-                    "id",
-                    "label",
-                    "properties"
+                  OperatorName: project,
+                  Arguments: [
+                    id,
+                    label,
+                    properties
                   ]
                 },
                 {
-                  "OperatorName": "by",
-                  "Arguments": [
+                  OperatorName: by,
+                  Arguments: [
                     {
-                      "EnumName": "T",
-                      "EnumValue": "id"
+                      EnumName: T,
+                      EnumValue: id
                     }
                   ]
                 },
                 {
-                  "OperatorName": "by",
-                  "Arguments": [
+                  OperatorName: by,
+                  Arguments: [
                     {
-                      "EnumName": "T",
-                      "EnumValue": "label"
+                      EnumName: T,
+                      EnumValue: label
                     }
                   ]
                 },
                 {
-                  "OperatorName": "by",
-                  "Arguments": [
+                  OperatorName: by,
+                  Arguments: [
                     {
-                      "SourceInstructions": [],
-                      "StepInstructions": [
+                      StepInstructions: [
                         {
-                          "OperatorName": "properties",
-                          "Arguments": []
+                          OperatorName: properties
                         },
                         {
-                          "OperatorName": "group",
-                          "Arguments": []
+                          OperatorName: group
                         },
                         {
-                          "OperatorName": "by",
-                          "Arguments": [
+                          OperatorName: by,
+                          Arguments: [
                             {
-                              "EnumName": "T",
-                              "EnumValue": "label"
+                              EnumName: T,
+                              EnumValue: label
                             }
                           ]
                         },
                         {
-                          "OperatorName": "by",
-                          "Arguments": [
+                          OperatorName: by,
+                          Arguments: [
                             {
-                              "SourceInstructions": [],
-                              "StepInstructions": [
+                              StepInstructions: [
                                 {
-                                  "OperatorName": "project",
-                                  "Arguments": [
-                                    "id",
-                                    "label",
-                                    "value",
-                                    "properties"
+                                  OperatorName: project,
+                                  Arguments: [
+                                    id,
+                                    label,
+                                    value,
+                                    properties
                                   ]
                                 },
                                 {
-                                  "OperatorName": "by",
-                                  "Arguments": [
+                                  OperatorName: by,
+                                  Arguments: [
                                     {
-                                      "EnumName": "T",
-                                      "EnumValue": "id"
+                                      EnumName: T,
+                                      EnumValue: id
                                     }
                                   ]
                                 },
                                 {
-                                  "OperatorName": "by",
-                                  "Arguments": [
+                                  OperatorName: by,
+                                  Arguments: [
                                     {
-                                      "EnumName": "T",
-                                      "EnumValue": "label"
+                                      EnumName: T,
+                                      EnumValue: label
                                     }
                                   ]
                                 },
                                 {
-                                  "OperatorName": "by",
-                                  "Arguments": [
+                                  OperatorName: by,
+                                  Arguments: [
                                     {
-                                      "EnumName": "T",
-                                      "EnumValue": "value"
+                                      EnumName: T,
+                                      EnumValue: value
                                     }
                                   ]
                                 },
                                 {
-                                  "OperatorName": "by",
-                                  "Arguments": [
+                                  OperatorName: by,
+                                  Arguments: [
                                     {
-                                      "SourceInstructions": [],
-                                      "StepInstructions": [
+                                      StepInstructions: [
                                         {
-                                          "OperatorName": "valueMap",
-                                          "Arguments": []
+                                          OperatorName: valueMap
                                         }
                                       ]
                                     }
                                   ]
                                 },
                                 {
-                                  "OperatorName": "fold",
-                                  "Arguments": []
+                                  OperatorName: fold
                                 }
                               ]
                             }
@@ -391,15 +359,14 @@
           ]
         },
         {
-          "OperatorName": "by",
-          "Arguments": [
+          OperatorName: by,
+          Arguments: [
             {
-              "SourceInstructions": [],
-              "StepInstructions": [
+              StepInstructions: [
                 {
-                  "OperatorName": "select",
-                  "Arguments": [
-                    "count!"
+                  OperatorName: select,
+                  Arguments: [
+                    count!
                   ]
                 }
               ]
@@ -407,62 +374,59 @@
           ]
         },
         {
-          "OperatorName": "by",
-          "Arguments": [
+          OperatorName: by,
+          Arguments: [
             {
-              "SourceInstructions": [],
-              "StepInstructions": [
+              StepInstructions: [
                 {
-                  "OperatorName": "select",
-                  "Arguments": [
-                    "properties!"
+                  OperatorName: select,
+                  Arguments: [
+                    properties!
                   ]
                 },
                 {
-                  "OperatorName": "project",
-                  "Arguments": [
-                    "id",
-                    "label",
-                    "value",
-                    "properties"
+                  OperatorName: project,
+                  Arguments: [
+                    id,
+                    label,
+                    value,
+                    properties
                   ]
                 },
                 {
-                  "OperatorName": "by",
-                  "Arguments": [
+                  OperatorName: by,
+                  Arguments: [
                     {
-                      "EnumName": "T",
-                      "EnumValue": "id"
+                      EnumName: T,
+                      EnumValue: id
                     }
                   ]
                 },
                 {
-                  "OperatorName": "by",
-                  "Arguments": [
+                  OperatorName: by,
+                  Arguments: [
                     {
-                      "EnumName": "T",
-                      "EnumValue": "label"
+                      EnumName: T,
+                      EnumValue: label
                     }
                   ]
                 },
                 {
-                  "OperatorName": "by",
-                  "Arguments": [
+                  OperatorName: by,
+                  Arguments: [
                     {
-                      "EnumName": "T",
-                      "EnumValue": "value"
+                      EnumName: T,
+                      EnumValue: value
                     }
                   ]
                 },
                 {
-                  "OperatorName": "by",
-                  "Arguments": [
+                  OperatorName: by,
+                  Arguments: [
                     {
-                      "SourceInstructions": [],
-                      "StepInstructions": [
+                      StepInstructions: [
                         {
-                          "OperatorName": "valueMap",
-                          "Arguments": []
+                          OperatorName: valueMap
                         }
                       ]
                     }

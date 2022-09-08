@@ -1,58 +1,52 @@
 ﻿[
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bytecode": {
-      "SourceInstructions": [],
-      "StepInstructions": [
+    Id: Guid_1,
+    Bytecode: {
+      StepInstructions: [
         {
-          "OperatorName": "inject",
-          "Arguments": [
-            "hello"
+          OperatorName: inject,
+          Arguments: [
+            hello
           ]
         },
         {
-          "OperatorName": "as",
-          "Arguments": [
-            "l1"
+          OperatorName: as,
+          Arguments: [
+            l1
           ]
         },
         {
-          "OperatorName": "V",
-          "Arguments": []
+          OperatorName: V
         },
         {
-          "OperatorName": "hasLabel",
-          "Arguments": [
-            "Company"
+          OperatorName: hasLabel,
+          Arguments: [
+            Company
           ]
         },
         {
-          "OperatorName": "properties",
-          "Arguments": [
-            "Locations"
+          OperatorName: properties,
+          Arguments: [
+            Locations
           ]
         },
         {
-          "OperatorName": "properties",
-          "Arguments": []
+          OperatorName: properties
         },
         {
-          "OperatorName": "filter",
-          "Arguments": [
+          OperatorName: filter,
+          Arguments: [
             {
-              "SourceInstructions": [],
-              "StepInstructions": [
+              StepInstructions: [
                 {
-                  "OperatorName": "key",
-                  "Arguments": []
+                  OperatorName: key
                 },
                 {
-                  "OperatorName": "where",
-                  "Arguments": [
+                  OperatorName: where,
+                  Arguments: [
                     {
-                      "OperatorName": "eq",
-                      "Value": "l1",
-                      "Other": null
+                      OperatorName: eq,
+                      Value: l1
                     }
                   ]
                 }

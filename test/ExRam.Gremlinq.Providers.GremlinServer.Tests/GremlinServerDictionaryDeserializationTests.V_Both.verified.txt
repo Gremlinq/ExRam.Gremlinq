@@ -1,300 +1,216 @@
 ﻿[
   {
-    "Age": 21,
-    "Gender": 0,
-    "Image": null,
-    "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": {
-      "Id": -1,
-      "Label": "Name",
-      "Properties": {
-        "ValidFrom": "0001-01-01T00:00:00+00:00"
-      },
-      "Value": "Marko",
-      "Key": null
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: DateTimeOffset_1,
+    Name: {
+      Id: -1,
+      Label: Name,
+      Properties: {},
+      Value: Marko
     },
-    "Id": -1,
-    "Label": "Person"
+    Id: -1,
+    Label: Person
   },
   {
-    "IetfLanguageTag": "en",
-    "Id": -1,
-    "Label": "Language"
+    IetfLanguageTag: en,
+    Id: -1,
+    Label: Language
   },
   {
-    "Age": 21,
-    "Gender": 0,
-    "Image": null,
-    "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": {
-      "Id": -1,
-      "Label": "Name",
-      "Properties": {
-        "ValidFrom": "0001-01-01T00:00:00+00:00"
-      },
-      "Value": "Marko",
-      "Key": null
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: DateTimeOffset_1,
+    Name: {
+      Id: -1,
+      Label: Name,
+      Properties: {},
+      Value: Marko
     },
-    "Id": -1,
-    "Label": "Person"
+    Id: -1,
+    Label: Person
   },
   {
-    "Name": null,
-    "Languages": null,
-    "CountryCallingCode": "+49",
-    "LocalizableDescription": {
-      "Id": -1,
-      "Label": "LocalizableDescription",
-      "Properties": {
-        "someKey": "value"
+    CountryCallingCode: +49,
+    LocalizableDescription: {
+      Id: -1,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
       },
-      "Value": "",
-      "Key": null
+      Value: 
     },
-    "Id": -1,
-    "Label": "Country"
+    Id: -1,
+    Label: Country
   },
   {
-    "Name": null,
-    "Languages": null,
-    "CountryCallingCode": "+49",
-    "LocalizableDescription": {
-      "Id": -1,
-      "Label": "LocalizableDescription",
-      "Properties": {
-        "someKey": "value"
+    CountryCallingCode: +49,
+    LocalizableDescription: {
+      Id: -1,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
       },
-      "Value": "",
-      "Key": null
+      Value: 
     },
-    "Id": -1,
-    "Label": "Country"
+    Id: -1,
+    Label: Country
   },
   {
-    "Name": null,
-    "Languages": null,
-    "CountryCallingCode": "+49",
-    "LocalizableDescription": {
-      "Id": -1,
-      "Label": "LocalizableDescription",
-      "Properties": {
-        "someKey": "value"
+    CountryCallingCode: +49,
+    LocalizableDescription: {
+      Id: -1,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
       },
-      "Value": "",
-      "Key": null
+      Value: 
     },
-    "Id": -1,
-    "Label": "Country"
+    Id: -1,
+    Label: Country
   },
   {
-    "Age": 21,
-    "Gender": 0,
-    "Image": null,
-    "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": {
-      "Id": -1,
-      "Label": "Name",
-      "Properties": {
-        "ValidFrom": "0001-01-01T00:00:00+00:00"
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: DateTimeOffset_1,
+    Name: {
+      Id: -1,
+      Label: Name,
+      Properties: {},
+      Value: Marko
+    },
+    Id: -1,
+    Label: Person
+  },
+  {
+    Id: -1,
+    Label: Company
+  },
+  {
+    LocalizableDescription: {
+      Id: -1,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
       },
-      "Value": "Marko",
-      "Key": null
+      Value: 
     },
-    "Id": -1,
-    "Label": "Person"
+    Id: -1,
+    Label: Country
   },
   {
-    "FoundingDate": "0001-01-01T00:00:00",
-    "PhoneNumbers": null,
-    "Locations": null,
-    "Name": null,
-    "Id": -1,
-    "Label": "Company"
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: DateTimeOffset_1,
+    Name: {
+      Id: -1,
+      Label: Name,
+      Properties: {},
+      Value: Marko
+    },
+    Id: -1,
+    Label: Person
   },
   {
-    "Name": null,
-    "Languages": null,
-    "CountryCallingCode": null,
-    "LocalizableDescription": {
-      "Id": -1,
-      "Label": "LocalizableDescription",
-      "Properties": {
-        "someKey": "value"
+    LocalizableDescription: {
+      Id: -1,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
       },
-      "Value": "",
-      "Key": null
+      Value: 
     },
-    "Id": -1,
-    "Label": "Country"
+    Id: -1,
+    Label: Country
   },
   {
-    "Age": 21,
-    "Gender": 0,
-    "Image": null,
-    "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": {
-      "Id": -1,
-      "Label": "Name",
-      "Properties": {
-        "ValidFrom": "0001-01-01T00:00:00+00:00"
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: DateTimeOffset_1,
+    Name: {
+      Id: -1,
+      Label: Name,
+      Properties: {},
+      Value: Marko
+    },
+    Id: -1,
+    Label: Person
+  },
+  {
+    LocalizableDescription: {
+      Id: -1,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
       },
-      "Value": "Marko",
-      "Key": null
+      Value: 
     },
-    "Id": -1,
-    "Label": "Person"
+    Id: -1,
+    Label: Country
   },
   {
-    "Name": null,
-    "Languages": null,
-    "CountryCallingCode": null,
-    "LocalizableDescription": {
-      "Id": -1,
-      "Label": "LocalizableDescription",
-      "Properties": {
-        "someKey": "value"
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: DateTimeOffset_1,
+    Name: {
+      Id: -1,
+      Label: Name,
+      Properties: {},
+      Value: Marko
+    },
+    Id: -1,
+    Label: Person
+  },
+  {
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: DateTimeOffset_1,
+    Name: {
+      Id: -1,
+      Label: Name,
+      Properties: {},
+      Value: Marko
+    },
+    Id: -1,
+    Label: Person
+  },
+  {
+    Id: -1,
+    Label: Company
+  },
+  {
+    CountryCallingCode: +49,
+    LocalizableDescription: {
+      Id: -1,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
       },
-      "Value": "",
-      "Key": null
+      Value: 
     },
-    "Id": -1,
-    "Label": "Country"
+    Id: -1,
+    Label: Country
   },
   {
-    "Age": 21,
-    "Gender": 0,
-    "Image": null,
-    "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": {
-      "Id": -1,
-      "Label": "Name",
-      "Properties": {
-        "ValidFrom": "0001-01-01T00:00:00+00:00"
-      },
-      "Value": "Marko",
-      "Key": null
+    IetfLanguageTag: en,
+    Id: -1,
+    Label: Language
+  },
+  {
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: DateTimeOffset_1,
+    Name: {
+      Id: -1,
+      Label: Name,
+      Properties: {},
+      Value: Marko
     },
-    "Id": -1,
-    "Label": "Person"
+    Id: -1,
+    Label: Person
   },
   {
-    "Name": null,
-    "Languages": null,
-    "CountryCallingCode": null,
-    "LocalizableDescription": {
-      "Id": -1,
-      "Label": "LocalizableDescription",
-      "Properties": {
-        "someKey": "value"
-      },
-      "Value": "",
-      "Key": null
-    },
-    "Id": -1,
-    "Label": "Country"
-  },
-  {
-    "Age": 21,
-    "Gender": 0,
-    "Image": null,
-    "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": {
-      "Id": -1,
-      "Label": "Name",
-      "Properties": {
-        "ValidFrom": "0001-01-01T00:00:00+00:00"
-      },
-      "Value": "Marko",
-      "Key": null
-    },
-    "Id": -1,
-    "Label": "Person"
-  },
-  {
-    "Age": 21,
-    "Gender": 0,
-    "Image": null,
-    "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": {
-      "Id": -1,
-      "Label": "Name",
-      "Properties": {
-        "ValidFrom": "0001-01-01T00:00:00+00:00"
-      },
-      "Value": "Marko",
-      "Key": null
-    },
-    "Id": -1,
-    "Label": "Person"
-  },
-  {
-    "FoundingDate": "0001-01-01T00:00:00",
-    "PhoneNumbers": null,
-    "Locations": null,
-    "Name": null,
-    "Id": -1,
-    "Label": "Company"
-  },
-  {
-    "Name": null,
-    "Languages": null,
-    "CountryCallingCode": "+49",
-    "LocalizableDescription": {
-      "Id": -1,
-      "Label": "LocalizableDescription",
-      "Properties": {
-        "someKey": "value"
-      },
-      "Value": "",
-      "Key": null
-    },
-    "Id": -1,
-    "Label": "Country"
-  },
-  {
-    "IetfLanguageTag": "en",
-    "Id": -1,
-    "Label": "Language"
-  },
-  {
-    "Age": 21,
-    "Gender": 0,
-    "Image": null,
-    "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": {
-      "Id": -1,
-      "Label": "Name",
-      "Properties": {
-        "ValidFrom": "0001-01-01T00:00:00+00:00"
-      },
-      "Value": "Marko",
-      "Key": null
-    },
-    "Id": -1,
-    "Label": "Person"
-  },
-  {
-    "FoundingDate": "0001-01-01T00:00:00",
-    "PhoneNumbers": null,
-    "Locations": null,
-    "Name": null,
-    "Id": -1,
-    "Label": "Company"
+    Id: -1,
+    Label: Company
   }
 ]

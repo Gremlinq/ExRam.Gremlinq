@@ -1,9 +1,9 @@
 ﻿[
   {
-    "Script": "g.V().constant(_a)",
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bindings": {
-      "_a": 42
+    Script: g.V().constant(_a),
+    Id: Guid_1,
+    Bindings: {
+      _a: 42
     }
   }
 ]

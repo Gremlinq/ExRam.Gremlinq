@@ -1,462 +1,228 @@
 ﻿[
   {
-    "Item1": {
-      "Age": 0,
-      "Gender": null,
-      "Image": null,
-      "RegistrationDate": null,
-      "PhoneNumbers": null,
-      "SomeObscureProperty": null,
-      "Name": null,
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "Person"
+    Item1: {
+      Id: Guid_Empty,
+      Label: Person
     },
-    "Item2": {
-      "Item1": {
-        "Age": 0,
-        "Gender": null,
-        "Image": null,
-        "RegistrationDate": null,
-        "PhoneNumbers": null,
-        "SomeObscureProperty": null,
-        "Name": null,
-        "Id": "00000000-0000-0000-0000-000000000000",
-        "Label": "Person"
+    Item2: {
+      Item1: {
+        Id: Guid_Empty,
+        Label: Person
       },
-      "Item2": {
-        "Age": 0,
-        "Gender": null,
-        "Image": null,
-        "RegistrationDate": null,
-        "PhoneNumbers": null,
-        "SomeObscureProperty": null,
-        "Name": null,
-        "Id": "00000000-0000-0000-0000-000000000000",
-        "Label": "Person"
+      Item2: {
+        Id: Guid_Empty,
+        Label: Person
       }
     }
   },
   {
-    "Item1": {
-      "Age": 0,
-      "Gender": null,
-      "Image": null,
-      "RegistrationDate": "2020-04-07T14:43:36+00:00",
-      "PhoneNumbers": null,
-      "SomeObscureProperty": null,
-      "Name": {
-        "Id": "00000000-0000-0000-0000-000000000000",
-        "Label": null,
-        "Properties": null,
-        "Value": "Bob",
-        "Key": null
+    Item1: {
+      RegistrationDate: DateTimeOffset_1,
+      Name: {
+        Id: Guid_Empty,
+        Value: Bob
       },
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "Person"
+      Id: Guid_Empty,
+      Label: Person
     },
-    "Item2": {
-      "Item1": {
-        "Age": 0,
-        "Gender": null,
-        "Image": null,
-        "RegistrationDate": "2020-04-07T14:43:36+00:00",
-        "PhoneNumbers": null,
-        "SomeObscureProperty": null,
-        "Name": {
-          "Id": "00000000-0000-0000-0000-000000000000",
-          "Label": null,
-          "Properties": null,
-          "Value": "Bob",
-          "Key": null
+    Item2: {
+      Item1: {
+        RegistrationDate: DateTimeOffset_1,
+        Name: {
+          Id: Guid_Empty,
+          Value: Bob
         },
-        "Id": "00000000-0000-0000-0000-000000000000",
-        "Label": "Person"
+        Id: Guid_Empty,
+        Label: Person
       },
-      "Item2": {
-        "Age": 0,
-        "Gender": null,
-        "Image": null,
-        "RegistrationDate": "2020-04-07T14:43:36+00:00",
-        "PhoneNumbers": null,
-        "SomeObscureProperty": null,
-        "Name": {
-          "Id": "00000000-0000-0000-0000-000000000000",
-          "Label": null,
-          "Properties": null,
-          "Value": "Bob",
-          "Key": null
+      Item2: {
+        RegistrationDate: DateTimeOffset_1,
+        Name: {
+          Id: Guid_Empty,
+          Value: Bob
         },
-        "Id": "00000000-0000-0000-0000-000000000000",
-        "Label": "Person"
+        Id: Guid_Empty,
+        Label: Person
       }
     }
   },
   {
-    "Item1": {
-      "Age": 0,
-      "Gender": null,
-      "Image": null,
-      "RegistrationDate": null,
-      "PhoneNumbers": null,
-      "SomeObscureProperty": null,
-      "Name": null,
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "Person"
+    Item1: {
+      Id: Guid_Empty,
+      Label: Person
     },
-    "Item2": {
-      "Item1": {
-        "Age": 0,
-        "Gender": null,
-        "Image": null,
-        "RegistrationDate": null,
-        "PhoneNumbers": null,
-        "SomeObscureProperty": null,
-        "Name": null,
-        "Id": "00000000-0000-0000-0000-000000000000",
-        "Label": "Person"
+    Item2: {
+      Item1: {
+        Id: Guid_Empty,
+        Label: Person
       },
-      "Item2": {
-        "Age": 0,
-        "Gender": null,
-        "Image": null,
-        "RegistrationDate": null,
-        "PhoneNumbers": null,
-        "SomeObscureProperty": null,
-        "Name": null,
-        "Id": "00000000-0000-0000-0000-000000000000",
-        "Label": "Person"
+      Item2: {
+        Id: Guid_Empty,
+        Label: Person
       }
     }
   },
   {
-    "Item1": {
-      "Age": 0,
-      "Gender": null,
-      "Image": null,
-      "RegistrationDate": null,
-      "PhoneNumbers": null,
-      "SomeObscureProperty": null,
-      "Name": null,
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "Person"
+    Item1: {
+      Id: Guid_Empty,
+      Label: Person
     },
-    "Item2": {
-      "Item1": {
-        "Age": 0,
-        "Gender": null,
-        "Image": null,
-        "RegistrationDate": null,
-        "PhoneNumbers": null,
-        "SomeObscureProperty": null,
-        "Name": null,
-        "Id": "00000000-0000-0000-0000-000000000000",
-        "Label": "Person"
+    Item2: {
+      Item1: {
+        Id: Guid_Empty,
+        Label: Person
       },
-      "Item2": {
-        "Age": 0,
-        "Gender": null,
-        "Image": null,
-        "RegistrationDate": null,
-        "PhoneNumbers": null,
-        "SomeObscureProperty": null,
-        "Name": null,
-        "Id": "00000000-0000-0000-0000-000000000000",
-        "Label": "Person"
+      Item2: {
+        Id: Guid_Empty,
+        Label: Person
       }
     }
   },
   {
-    "Item1": {
-      "Age": 0,
-      "Gender": null,
-      "Image": null,
-      "RegistrationDate": null,
-      "PhoneNumbers": null,
-      "SomeObscureProperty": null,
-      "Name": null,
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "Person"
+    Item1: {
+      Id: Guid_Empty,
+      Label: Person
     },
-    "Item2": {
-      "Item1": {
-        "Age": 0,
-        "Gender": null,
-        "Image": null,
-        "RegistrationDate": null,
-        "PhoneNumbers": null,
-        "SomeObscureProperty": null,
-        "Name": null,
-        "Id": "00000000-0000-0000-0000-000000000000",
-        "Label": "Person"
+    Item2: {
+      Item1: {
+        Id: Guid_Empty,
+        Label: Person
       },
-      "Item2": {
-        "Age": 0,
-        "Gender": null,
-        "Image": null,
-        "RegistrationDate": null,
-        "PhoneNumbers": null,
-        "SomeObscureProperty": null,
-        "Name": null,
-        "Id": "00000000-0000-0000-0000-000000000000",
-        "Label": "Person"
+      Item2: {
+        Id: Guid_Empty,
+        Label: Person
       }
     }
   },
   {
-    "Item1": {
-      "Age": 0,
-      "Gender": null,
-      "Image": null,
-      "RegistrationDate": null,
-      "PhoneNumbers": null,
-      "SomeObscureProperty": null,
-      "Name": null,
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "Person"
+    Item1: {
+      Id: Guid_Empty,
+      Label: Person
     },
-    "Item2": {
-      "Item1": {
-        "Age": 0,
-        "Gender": null,
-        "Image": null,
-        "RegistrationDate": null,
-        "PhoneNumbers": null,
-        "SomeObscureProperty": null,
-        "Name": null,
-        "Id": "00000000-0000-0000-0000-000000000000",
-        "Label": "Person"
+    Item2: {
+      Item1: {
+        Id: Guid_Empty,
+        Label: Person
       },
-      "Item2": {
-        "Age": 0,
-        "Gender": null,
-        "Image": null,
-        "RegistrationDate": null,
-        "PhoneNumbers": null,
-        "SomeObscureProperty": null,
-        "Name": null,
-        "Id": "00000000-0000-0000-0000-000000000000",
-        "Label": "Person"
+      Item2: {
+        Id: Guid_Empty,
+        Label: Person
       }
     }
   },
   {
-    "Item1": {
-      "Age": 0,
-      "Gender": null,
-      "Image": null,
-      "RegistrationDate": "2020-04-07T14:43:36+00:00",
-      "PhoneNumbers": null,
-      "SomeObscureProperty": null,
-      "Name": {
-        "Id": "00000000-0000-0000-0000-000000000000",
-        "Label": null,
-        "Properties": null,
-        "Value": "Bob",
-        "Key": null
+    Item1: {
+      RegistrationDate: DateTimeOffset_1,
+      Name: {
+        Id: Guid_Empty,
+        Value: Bob
       },
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "Person"
+      Id: Guid_Empty,
+      Label: Person
     },
-    "Item2": {
-      "Item1": {
-        "Age": 0,
-        "Gender": null,
-        "Image": null,
-        "RegistrationDate": "2020-04-07T14:43:36+00:00",
-        "PhoneNumbers": null,
-        "SomeObscureProperty": null,
-        "Name": {
-          "Id": "00000000-0000-0000-0000-000000000000",
-          "Label": null,
-          "Properties": null,
-          "Value": "Bob",
-          "Key": null
+    Item2: {
+      Item1: {
+        RegistrationDate: DateTimeOffset_1,
+        Name: {
+          Id: Guid_Empty,
+          Value: Bob
         },
-        "Id": "00000000-0000-0000-0000-000000000000",
-        "Label": "Person"
+        Id: Guid_Empty,
+        Label: Person
       },
-      "Item2": {
-        "Age": 0,
-        "Gender": null,
-        "Image": null,
-        "RegistrationDate": "2020-04-07T14:43:36+00:00",
-        "PhoneNumbers": null,
-        "SomeObscureProperty": null,
-        "Name": {
-          "Id": "00000000-0000-0000-0000-000000000000",
-          "Label": null,
-          "Properties": null,
-          "Value": "Bob",
-          "Key": null
+      Item2: {
+        RegistrationDate: DateTimeOffset_1,
+        Name: {
+          Id: Guid_Empty,
+          Value: Bob
         },
-        "Id": "00000000-0000-0000-0000-000000000000",
-        "Label": "Person"
+        Id: Guid_Empty,
+        Label: Person
       }
     }
   },
   {
-    "Item1": {
-      "Age": 0,
-      "Gender": null,
-      "Image": null,
-      "RegistrationDate": null,
-      "PhoneNumbers": null,
-      "SomeObscureProperty": null,
-      "Name": null,
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "Person"
+    Item1: {
+      Id: Guid_Empty,
+      Label: Person
     },
-    "Item2": {
-      "Item1": {
-        "Age": 0,
-        "Gender": null,
-        "Image": null,
-        "RegistrationDate": null,
-        "PhoneNumbers": null,
-        "SomeObscureProperty": null,
-        "Name": null,
-        "Id": "00000000-0000-0000-0000-000000000000",
-        "Label": "Person"
+    Item2: {
+      Item1: {
+        Id: Guid_Empty,
+        Label: Person
       },
-      "Item2": {
-        "Age": 0,
-        "Gender": null,
-        "Image": null,
-        "RegistrationDate": null,
-        "PhoneNumbers": null,
-        "SomeObscureProperty": null,
-        "Name": null,
-        "Id": "00000000-0000-0000-0000-000000000000",
-        "Label": "Person"
+      Item2: {
+        Id: Guid_Empty,
+        Label: Person
       }
     }
   },
   {
-    "Item1": {
-      "Age": 0,
-      "Gender": null,
-      "Image": "AQIDBAUGBwg=",
-      "RegistrationDate": null,
-      "PhoneNumbers": null,
-      "SomeObscureProperty": null,
-      "Name": null,
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "Person"
+    Item1: {
+      Image: AQIDBAUGBwg=,
+      Id: Guid_Empty,
+      Label: Person
     },
-    "Item2": {
-      "Item1": {
-        "Age": 0,
-        "Gender": null,
-        "Image": "AQIDBAUGBwg=",
-        "RegistrationDate": null,
-        "PhoneNumbers": null,
-        "SomeObscureProperty": null,
-        "Name": null,
-        "Id": "00000000-0000-0000-0000-000000000000",
-        "Label": "Person"
+    Item2: {
+      Item1: {
+        Image: AQIDBAUGBwg=,
+        Id: Guid_Empty,
+        Label: Person
       },
-      "Item2": {
-        "Age": 0,
-        "Gender": null,
-        "Image": "AQIDBAUGBwg=",
-        "RegistrationDate": null,
-        "PhoneNumbers": null,
-        "SomeObscureProperty": null,
-        "Name": null,
-        "Id": "00000000-0000-0000-0000-000000000000",
-        "Label": "Person"
+      Item2: {
+        Image: AQIDBAUGBwg=,
+        Id: Guid_Empty,
+        Label: Person
       }
     }
   },
   {
-    "Item1": {
-      "Age": 0,
-      "Gender": 1,
-      "Image": null,
-      "RegistrationDate": null,
-      "PhoneNumbers": null,
-      "SomeObscureProperty": null,
-      "Name": null,
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "Person"
+    Item1: {
+      Gender: Female,
+      Id: Guid_Empty,
+      Label: Person
     },
-    "Item2": {
-      "Item1": {
-        "Age": 0,
-        "Gender": 1,
-        "Image": null,
-        "RegistrationDate": null,
-        "PhoneNumbers": null,
-        "SomeObscureProperty": null,
-        "Name": null,
-        "Id": "00000000-0000-0000-0000-000000000000",
-        "Label": "Person"
+    Item2: {
+      Item1: {
+        Gender: Female,
+        Id: Guid_Empty,
+        Label: Person
       },
-      "Item2": {
-        "Age": 0,
-        "Gender": 1,
-        "Image": null,
-        "RegistrationDate": null,
-        "PhoneNumbers": null,
-        "SomeObscureProperty": null,
-        "Name": null,
-        "Id": "00000000-0000-0000-0000-000000000000",
-        "Label": "Person"
+      Item2: {
+        Gender: Female,
+        Id: Guid_Empty,
+        Label: Person
       }
     }
   },
   {
-    "Item1": {
-      "Age": 0,
-      "Gender": null,
-      "Image": null,
-      "RegistrationDate": "2020-04-07T14:43:36+00:00",
-      "PhoneNumbers": null,
-      "SomeObscureProperty": null,
-      "Name": {
-        "Id": "00000000-0000-0000-0000-000000000000",
-        "Label": null,
-        "Properties": null,
-        "Value": "Marko",
-        "Key": null
+    Item1: {
+      RegistrationDate: DateTimeOffset_1,
+      Name: {
+        Id: Guid_Empty,
+        Value: Marko
       },
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "Person"
+      Id: Guid_Empty,
+      Label: Person
     },
-    "Item2": {
-      "Item1": {
-        "Age": 0,
-        "Gender": null,
-        "Image": null,
-        "RegistrationDate": "2020-04-07T14:43:36+00:00",
-        "PhoneNumbers": null,
-        "SomeObscureProperty": null,
-        "Name": {
-          "Id": "00000000-0000-0000-0000-000000000000",
-          "Label": null,
-          "Properties": null,
-          "Value": "Marko",
-          "Key": null
+    Item2: {
+      Item1: {
+        RegistrationDate: DateTimeOffset_1,
+        Name: {
+          Id: Guid_Empty,
+          Value: Marko
         },
-        "Id": "00000000-0000-0000-0000-000000000000",
-        "Label": "Person"
+        Id: Guid_Empty,
+        Label: Person
       },
-      "Item2": {
-        "Age": 0,
-        "Gender": null,
-        "Image": null,
-        "RegistrationDate": "2020-04-07T14:43:36+00:00",
-        "PhoneNumbers": null,
-        "SomeObscureProperty": null,
-        "Name": {
-          "Id": "00000000-0000-0000-0000-000000000000",
-          "Label": null,
-          "Properties": null,
-          "Value": "Marko",
-          "Key": null
+      Item2: {
+        RegistrationDate: DateTimeOffset_1,
+        Name: {
+          Id: Guid_Empty,
+          Value: Marko
         },
-        "Id": "00000000-0000-0000-0000-000000000000",
-        "Label": "Person"
+        Id: Guid_Empty,
+        Label: Person
       }
     }
   }

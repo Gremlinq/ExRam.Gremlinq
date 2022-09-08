@@ -1,38 +1,35 @@
 ﻿[
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bytecode": {
-      "SourceInstructions": [],
-      "StepInstructions": [
+    Id: Guid_1,
+    Bytecode: {
+      StepInstructions: [
         {
-          "OperatorName": "V",
-          "Arguments": []
+          OperatorName: V
         },
         {
-          "OperatorName": "hasLabel",
-          "Arguments": [
-            "Person"
+          OperatorName: hasLabel,
+          Arguments: [
+            Person
           ]
         },
         {
-          "OperatorName": "project",
-          "Arguments": [
-            "in",
-            "out",
-            "count",
-            "properties"
+          OperatorName: project,
+          Arguments: [
+            in,
+            out,
+            count,
+            properties
           ]
         },
         {
-          "OperatorName": "by",
-          "Arguments": [
+          OperatorName: by,
+          Arguments: [
             {
-              "SourceInstructions": [],
-              "StepInstructions": [
+              StepInstructions: [
                 {
-                  "OperatorName": "constant",
-                  "Arguments": [
-                    "in_value"
+                  OperatorName: constant,
+                  Arguments: [
+                    in_value
                   ]
                 }
               ]
@@ -40,15 +37,14 @@
           ]
         },
         {
-          "OperatorName": "by",
-          "Arguments": [
+          OperatorName: by,
+          Arguments: [
             {
-              "SourceInstructions": [],
-              "StepInstructions": [
+              StepInstructions: [
                 {
-                  "OperatorName": "constant",
-                  "Arguments": [
-                    "out_value"
+                  OperatorName: constant,
+                  Arguments: [
+                    out_value
                   ]
                 }
               ]
@@ -56,15 +52,14 @@
           ]
         },
         {
-          "OperatorName": "by",
-          "Arguments": [
+          OperatorName: by,
+          Arguments: [
             {
-              "SourceInstructions": [],
-              "StepInstructions": [
+              StepInstructions: [
                 {
-                  "OperatorName": "constant",
-                  "Arguments": [
-                    "count_value"
+                  OperatorName: constant,
+                  Arguments: [
+                    count_value
                   ]
                 }
               ]
@@ -72,15 +67,14 @@
           ]
         },
         {
-          "OperatorName": "by",
-          "Arguments": [
+          OperatorName: by,
+          Arguments: [
             {
-              "SourceInstructions": [],
-              "StepInstructions": [
+              StepInstructions: [
                 {
-                  "OperatorName": "constant",
-                  "Arguments": [
-                    "properties_value"
+                  OperatorName: constant,
+                  Arguments: [
+                    properties_value
                   ]
                 }
               ]

@@ -1,9 +1,7 @@
 ﻿[
   {
-    "Role": null,
-    "From": "0001-01-01T00:00:00",
-    "To": "2020-04-07T14:43:36Z",
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "WorksFor"
+    To: DateTime_1,
+    Id: Guid_Empty,
+    Label: WorksFor
   }
 ]

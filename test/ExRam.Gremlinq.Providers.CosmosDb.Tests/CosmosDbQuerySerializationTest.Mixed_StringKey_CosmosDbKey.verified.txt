@@ -1,14 +1,14 @@
 ﻿[
   {
-    "Script": "g.V(_a,_b).hasLabel(_c)",
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bindings": {
-      "_a": [
-        "pk",
-        "id"
+    Script: g.V(_a,_b).hasLabel(_c),
+    Id: Guid_1,
+    Bindings: {
+      _a: [
+        pk,
+        id
       ],
-      "_b": "id2",
-      "_c": "Person"
+      _b: id2,
+      _c: Person
     }
   }
 ]

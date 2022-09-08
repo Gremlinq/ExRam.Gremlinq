@@ -1,11 +1,11 @@
 ﻿[
   {
-    "Script": "g.V().hasLabel(_a).has(_b,containing(_c))",
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bindings": {
-      "_a": "Country",
-      "_b": "CountryCallingCode",
-      "_c": "456"
+    Script: g.V().hasLabel(_a).has(_b,containing(_c)),
+    Id: Guid_1,
+    Bindings: {
+      _a: Country,
+      _b: CountryCallingCode,
+      _c: 456
     }
   }
 ]

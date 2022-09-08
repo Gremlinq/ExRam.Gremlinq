@@ -1,48 +1,44 @@
 ﻿[
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bytecode": {
-      "SourceInstructions": [],
-      "StepInstructions": [
+    Id: Guid_1,
+    Bytecode: {
+      StepInstructions: [
         {
-          "OperatorName": "E",
-          "Arguments": []
+          OperatorName: E
         },
         {
-          "OperatorName": "project",
-          "Arguments": [
-            "id",
-            "label",
-            "properties"
+          OperatorName: project,
+          Arguments: [
+            id,
+            label,
+            properties
           ]
         },
         {
-          "OperatorName": "by",
-          "Arguments": [
+          OperatorName: by,
+          Arguments: [
             {
-              "EnumName": "T",
-              "EnumValue": "id"
+              EnumName: T,
+              EnumValue: id
             }
           ]
         },
         {
-          "OperatorName": "by",
-          "Arguments": [
+          OperatorName: by,
+          Arguments: [
             {
-              "EnumName": "T",
-              "EnumValue": "label"
+              EnumName: T,
+              EnumValue: label
             }
           ]
         },
         {
-          "OperatorName": "by",
-          "Arguments": [
+          OperatorName: by,
+          Arguments: [
             {
-              "SourceInstructions": [],
-              "StepInstructions": [
+              StepInstructions: [
                 {
-                  "OperatorName": "valueMap",
-                  "Arguments": []
+                  OperatorName: valueMap
                 }
               ]
             }

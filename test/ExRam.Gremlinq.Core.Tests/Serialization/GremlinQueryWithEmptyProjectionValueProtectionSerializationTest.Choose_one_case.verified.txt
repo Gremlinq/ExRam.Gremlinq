@@ -1,51 +1,44 @@
 ﻿[
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bytecode": {
-      "SourceInstructions": [],
-      "StepInstructions": [
+    Id: Guid_1,
+    Bytecode: {
+      StepInstructions: [
         {
-          "OperatorName": "V",
-          "Arguments": []
+          OperatorName: V
         },
         {
-          "OperatorName": "filter",
-          "Arguments": [
+          OperatorName: filter,
+          Arguments: [
             {
-              "SourceInstructions": [],
-              "StepInstructions": [
+              StepInstructions: [
                 {
-                  "OperatorName": "properties",
-                  "Arguments": []
+                  OperatorName: properties
                 }
               ]
             }
           ]
         },
         {
-          "OperatorName": "choose",
-          "Arguments": [
+          OperatorName: choose,
+          Arguments: [
             {
-              "SourceInstructions": [],
-              "StepInstructions": [
+              StepInstructions: [
                 {
-                  "OperatorName": "values",
-                  "Arguments": []
+                  OperatorName: values
                 }
               ]
             }
           ]
         },
         {
-          "OperatorName": "option",
-          "Arguments": [
+          OperatorName: option,
+          Arguments: [
             3,
             {
-              "SourceInstructions": [],
-              "StepInstructions": [
+              StepInstructions: [
                 {
-                  "OperatorName": "constant",
-                  "Arguments": [
+                  OperatorName: constant,
+                  Arguments: [
                     1
                   ]
                 }

@@ -1,57 +1,51 @@
 ﻿[
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bytecode": {
-      "SourceInstructions": [],
-      "StepInstructions": [
+    Id: Guid_1,
+    Bytecode: {
+      StepInstructions: [
         {
-          "OperatorName": "V",
-          "Arguments": []
+          OperatorName: V
         },
         {
-          "OperatorName": "hasLabel",
-          "Arguments": [
-            "Person"
+          OperatorName: hasLabel,
+          Arguments: [
+            Person
           ]
         },
         {
-          "OperatorName": "local",
-          "Arguments": [
+          OperatorName: local,
+          Arguments: [
             {
-              "SourceInstructions": [],
-              "StepInstructions": [
+              StepInstructions: [
                 {
-                  "OperatorName": "count",
-                  "Arguments": []
+                  OperatorName: count
                 }
               ]
             }
           ]
         },
         {
-          "OperatorName": "order",
-          "Arguments": [
+          OperatorName: order,
+          Arguments: [
             {
-              "EnumName": "Scope",
-              "EnumValue": "local"
+              EnumName: Scope,
+              EnumValue: local
             }
           ]
         },
         {
-          "OperatorName": "by",
-          "Arguments": [
+          OperatorName: by,
+          Arguments: [
             {
-              "SourceInstructions": [],
-              "StepInstructions": [
+              StepInstructions: [
                 {
-                  "OperatorName": "identity",
-                  "Arguments": []
+                  OperatorName: identity
                 }
               ]
             },
             {
-              "EnumName": "Order",
-              "EnumValue": "asc"
+              EnumName: Order,
+              EnumValue: asc
             }
           ]
         }

@@ -1,11 +1,10 @@
-[
+﻿[
   {
-    "Id": 166,
-    "Label": "Name",
-    "Properties": {
-      "ValidFrom": "2019-01-21T23:12:45.431+00:00"
+    Id: 166,
+    Label: Name,
+    Properties: {
+      ValidFrom: DateTimeOffset_1
     },
-    "Value": "bob",
-    "Key": null
+    Value: bob
   }
 ]

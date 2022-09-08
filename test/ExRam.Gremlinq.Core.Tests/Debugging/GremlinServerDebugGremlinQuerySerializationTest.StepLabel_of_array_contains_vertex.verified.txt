@@ -1,3 +1,3 @@
 ﻿[
-  "g.V().fold().as('l1').V().hasLabel('Person').where(within('l1')).count()"
+  g.V().fold().as('l1').V().hasLabel('Person').where(within('l1')).count()
 ]

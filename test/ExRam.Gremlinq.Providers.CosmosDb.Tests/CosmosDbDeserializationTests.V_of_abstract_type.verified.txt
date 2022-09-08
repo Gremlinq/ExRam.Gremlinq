@@ -1,242 +1,157 @@
 ﻿[
   {
-    "Age": 21,
-    "Gender": 0,
-    "Image": null,
-    "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": {
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": null,
-      "Properties": null,
-      "Value": "Marko",
-      "Key": null
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: DateTimeOffset_1,
+    Name: {
+      Id: Guid_Empty,
+      Value: Marko
     },
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Person"
+    Id: Guid_Empty,
+    Label: Person
   },
   {
-    "FoundingDate": "0001-01-01T00:00:00",
-    "PhoneNumbers": null,
-    "Locations": null,
-    "Name": null,
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Company"
+    Id: Guid_Empty,
+    Label: Company
   },
   {
-    "Age": 21,
-    "Gender": 0,
-    "Image": null,
-    "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": {
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": null,
-      "Properties": null,
-      "Value": "Marko",
-      "Key": null
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: DateTimeOffset_1,
+    Name: {
+      Id: Guid_Empty,
+      Value: Marko
     },
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Person"
+    Id: Guid_Empty,
+    Label: Person
   },
   {
-    "Age": 21,
-    "Gender": 0,
-    "Image": null,
-    "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": {
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": null,
-      "Properties": null,
-      "Value": "Marko",
-      "Key": null
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: DateTimeOffset_1,
+    Name: {
+      Id: Guid_Empty,
+      Value: Marko
     },
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Person"
+    Id: Guid_Empty,
+    Label: Person
   },
   {
-    "Age": 21,
-    "Gender": 0,
-    "Image": null,
-    "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": {
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": null,
-      "Properties": null,
-      "Value": "Marko",
-      "Key": null
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: DateTimeOffset_1,
+    Name: {
+      Id: Guid_Empty,
+      Value: Marko
     },
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Person"
+    Id: Guid_Empty,
+    Label: Person
   },
   {
-    "Age": 21,
-    "Gender": 0,
-    "Image": null,
-    "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": {
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": null,
-      "Properties": null,
-      "Value": "Marko",
-      "Key": null
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: DateTimeOffset_1,
+    Name: {
+      Id: Guid_Empty,
+      Value: Marko
     },
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Person"
+    Id: Guid_Empty,
+    Label: Person
   },
   {
-    "Age": 21,
-    "Gender": 0,
-    "Image": null,
-    "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": {
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": null,
-      "Properties": null,
-      "Value": "Marko",
-      "Key": null
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: DateTimeOffset_1,
+    Name: {
+      Id: Guid_Empty,
+      Value: Marko
     },
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Person"
+    Id: Guid_Empty,
+    Label: Person
   },
   {
-    "FoundingDate": "0001-01-01T00:00:00",
-    "PhoneNumbers": null,
-    "Locations": null,
-    "Name": null,
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Company"
+    Id: Guid_Empty,
+    Label: Company
   },
   {
-    "Age": 21,
-    "Gender": 0,
-    "Image": null,
-    "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": {
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": null,
-      "Properties": null,
-      "Value": "Marko",
-      "Key": null
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: DateTimeOffset_1,
+    Name: {
+      Id: Guid_Empty,
+      Value: Marko
     },
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Person"
+    Id: Guid_Empty,
+    Label: Person
   },
   {
-    "Age": 21,
-    "Gender": 0,
-    "Image": null,
-    "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": {
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": null,
-      "Properties": null,
-      "Value": "Marko",
-      "Key": null
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: DateTimeOffset_1,
+    Name: {
+      Id: Guid_Empty,
+      Value: Marko
     },
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Person"
+    Id: Guid_Empty,
+    Label: Person
   },
   {
-    "FoundingDate": "0001-01-01T00:00:00",
-    "PhoneNumbers": null,
-    "Locations": null,
-    "Name": null,
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Company"
+    Id: Guid_Empty,
+    Label: Company
   },
   {
-    "Age": 21,
-    "Gender": 0,
-    "Image": "AQIDBAUGBwg=",
-    "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": {
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": null,
-      "Properties": null,
-      "Value": "Marko",
-      "Key": null
+    Age: 21,
+    Gender: Male,
+    Image: AQIDBAUGBwg=,
+    RegistrationDate: DateTimeOffset_1,
+    Name: {
+      Id: Guid_Empty,
+      Value: Marko
     },
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Person"
+    Id: Guid_Empty,
+    Label: Person
   },
   {
-    "Age": 21,
-    "Gender": 0,
-    "Image": null,
-    "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": {
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": null,
-      "Properties": null,
-      "Value": "Marko",
-      "Key": null
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: DateTimeOffset_1,
+    Name: {
+      Id: Guid_Empty,
+      Value: Marko
     },
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Person"
+    Id: Guid_Empty,
+    Label: Person
   },
   {
-    "Age": 21,
-    "Gender": 0,
-    "Image": null,
-    "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": {
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": null,
-      "Properties": null,
-      "Value": "Marko",
-      "Key": null
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: DateTimeOffset_1,
+    Name: {
+      Id: Guid_Empty,
+      Value: Marko
     },
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Person"
+    Id: Guid_Empty,
+    Label: Person
   },
   {
-    "FoundingDate": "0001-01-01T00:00:00",
-    "PhoneNumbers": null,
-    "Locations": [
+    Locations: [
       {
-        "Id": "00000000-0000-0000-0000-000000000000",
-        "Label": null,
-        "Properties": {
-          "ValidFrom": "2019-01-01T01:00:00+00:00"
+        Id: Guid_Empty,
+        Properties: {
+          ValidFrom: DateTimeOffset_2
         },
-        "Value": "Aachen",
-        "Key": null
+        Value: Aachen
       }
     ],
-    "Name": null,
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Company"
+    Id: Guid_Empty,
+    Label: Company
   },
   {
-    "FoundingDate": "0001-01-01T00:00:00",
-    "PhoneNumbers": [
-      "+4912345",
-      "+4923456"
+    PhoneNumbers: [
+      +4912345,
+      +4923456
     ],
-    "Locations": null,
-    "Name": null,
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Company"
+    Id: Guid_Empty,
+    Label: Company
   }
 ]

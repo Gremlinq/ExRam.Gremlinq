@@ -1,3 +1,3 @@
 ﻿[
-  "g.V().hasLabel('Person').values('Age').fold().max(local)"
+  g.V().hasLabel('Person').values('Age').fold().max(local)
 ]

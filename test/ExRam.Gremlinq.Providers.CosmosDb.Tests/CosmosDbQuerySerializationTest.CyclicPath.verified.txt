@@ -1,7 +1,6 @@
 ﻿[
   {
-    "Script": "g.V().out().out().cyclicPath()",
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bindings": {}
+    Script: g.V().out().out().cyclicPath(),
+    Id: Guid_1
   }
 ]

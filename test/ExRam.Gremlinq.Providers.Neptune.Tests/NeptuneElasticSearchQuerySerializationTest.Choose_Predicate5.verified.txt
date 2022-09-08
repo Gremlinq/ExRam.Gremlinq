@@ -1,65 +1,59 @@
 ﻿[
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bytecode": {
-      "SourceInstructions": [
+    Id: Guid_1,
+    Bytecode: {
+      SourceInstructions: [
         {
-          "OperatorName": "withSideEffect",
-          "Arguments": [
-            "Neptune#fts.endpoint",
-            "http://elastic.search.server"
+          OperatorName: withSideEffect,
+          Arguments: [
+            Neptune#fts.endpoint,
+            http://elastic.search.server
           ]
         },
         {
-          "OperatorName": "withSideEffect",
-          "Arguments": [
-            "Neptune#fts.queryType",
-            "query_string"
+          OperatorName: withSideEffect,
+          Arguments: [
+            Neptune#fts.queryType,
+            query_string
           ]
         }
       ],
-      "StepInstructions": [
+      StepInstructions: [
         {
-          "OperatorName": "V",
-          "Arguments": []
+          OperatorName: V
         },
         {
-          "OperatorName": "id",
-          "Arguments": []
+          OperatorName: id
         },
         {
-          "OperatorName": "choose",
-          "Arguments": [
+          OperatorName: choose,
+          Arguments: [
             {
-              "OperatorName": "and",
-              "Value": {
-                "OperatorName": "gt",
-                "Value": 0,
-                "Other": null
+              OperatorName: and,
+              Value: {
+                OperatorName: gt,
+                Value: 0
               },
-              "Other": {
-                "OperatorName": "lt",
-                "Value": 42,
-                "Other": null
+              Other: {
+                OperatorName: lt,
+                Value: 42
               }
             },
             {
-              "SourceInstructions": [],
-              "StepInstructions": [
+              StepInstructions: [
                 {
-                  "OperatorName": "constant",
-                  "Arguments": [
+                  OperatorName: constant,
+                  Arguments: [
                     true
                   ]
                 }
               ]
             },
             {
-              "SourceInstructions": [],
-              "StepInstructions": [
+              StepInstructions: [
                 {
-                  "OperatorName": "constant",
-                  "Arguments": [
+                  OperatorName: constant,
+                  Arguments: [
                     false
                   ]
                 }

@@ -1,164 +1,134 @@
 ﻿[
   {
-    "Item4": {
-      "id": -1,
-      "label": "RegistrationDate",
-      "value": "2020-04-07T14:43:36+00:00",
-      "properties": {}
+    Item4: {
+      id: -1,
+      label: RegistrationDate,
+      value: DateTimeOffset_1,
+      properties: {}
     }
   },
   {
-    "Item2": {
-      "FoundingDate": "0001-01-01T00:00:00",
-      "PhoneNumbers": null,
-      "Locations": null,
-      "Name": null,
-      "Id": -1,
-      "Label": "Company"
+    Item2: {
+      Id: -1,
+      Label: Company
     },
-    "Item3": 0,
-    "Item4": {
-      "id": -1,
-      "label": "Age",
-      "value": 0,
-      "properties": {}
+    Item3: 0,
+    Item4: {
+      id: -1,
+      label: Age,
+      value: 0,
+      properties: {}
     }
   },
   {
-    "Item1": {
-      "Name": null,
-      "Languages": null,
-      "CountryCallingCode": "+49",
-      "LocalizableDescription": null,
-      "Id": -1,
-      "Label": "Country"
+    Item1: {
+      CountryCallingCode: +49,
+      Id: -1,
+      Label: Country
     },
-    "Item3": 0,
-    "Item4": {
-      "id": -1,
-      "label": "RegistrationDate",
-      "value": "2020-04-07T14:43:36+00:00",
-      "properties": {}
+    Item3: 0,
+    Item4: {
+      id: -1,
+      label: RegistrationDate,
+      value: DateTimeOffset_1,
+      properties: {}
     }
   },
   {
-    "Item2": {
-      "Name": null,
-      "Languages": null,
-      "CountryCallingCode": null,
-      "LocalizableDescription": null,
-      "Id": -1,
-      "Label": "Country"
+    Item2: {
+      Id: -1,
+      Label: Country
     },
-    "Item3": 0,
-    "Item4": {
-      "id": -1,
-      "label": "Age",
-      "value": 0,
-      "properties": {}
+    Item3: 0,
+    Item4: {
+      id: -1,
+      label: Age,
+      value: 0,
+      properties: {}
     }
   },
   {
-    "Item2": {
-      "Name": null,
-      "Languages": null,
-      "CountryCallingCode": null,
-      "LocalizableDescription": null,
-      "Id": -1,
-      "Label": "Country"
+    Item2: {
+      Id: -1,
+      Label: Country
     },
-    "Item3": 0,
-    "Item4": {
-      "id": -1,
-      "label": "Age",
-      "value": 0,
-      "properties": {}
+    Item3: 0,
+    Item4: {
+      id: -1,
+      label: Age,
+      value: 0,
+      properties: {}
     }
   },
   {
-    "Item2": {
-      "Name": null,
-      "Languages": null,
-      "CountryCallingCode": null,
-      "LocalizableDescription": null,
-      "Id": -1,
-      "Label": "Country"
+    Item2: {
+      Id: -1,
+      Label: Country
     },
-    "Item3": 0,
-    "Item4": {
-      "id": -1,
-      "label": "Age",
-      "value": 0,
-      "properties": {}
+    Item3: 0,
+    Item4: {
+      id: -1,
+      label: Age,
+      value: 0,
+      properties: {}
     }
   },
   {
-    "Item2": {
-      "FoundingDate": "0001-01-01T00:00:00",
-      "PhoneNumbers": null,
-      "Locations": null,
-      "Name": null,
-      "Id": -1,
-      "Label": "Company"
+    Item2: {
+      Id: -1,
+      Label: Company
     },
-    "Item3": 0,
-    "Item4": {
-      "id": -1,
-      "label": "Age",
-      "value": 0,
-      "properties": {}
+    Item3: 0,
+    Item4: {
+      id: -1,
+      label: Age,
+      value: 0,
+      properties: {}
     }
   },
   {
-    "Item2": {
-      "Name": null,
-      "Languages": null,
-      "CountryCallingCode": "+49",
-      "LocalizableDescription": null,
-      "Id": -1,
-      "Label": "Country"
+    Item2: {
+      CountryCallingCode: +49,
+      Id: -1,
+      Label: Country
     },
-    "Item3": 0,
-    "Item4": {
-      "id": -1,
-      "label": "RegistrationDate",
-      "value": "2020-04-07T14:43:36+00:00",
-      "properties": {}
+    Item3: 0,
+    Item4: {
+      id: -1,
+      label: RegistrationDate,
+      value: DateTimeOffset_1,
+      properties: {}
     }
   },
   {
-    "Item2": {
-      "FoundingDate": "0001-01-01T00:00:00",
-      "PhoneNumbers": null,
-      "Locations": null,
-      "Name": null,
-      "Id": -1,
-      "Label": "Company"
+    Item2: {
+      Id: -1,
+      Label: Company
     },
-    "Item3": 0,
-    "Item4": {
-      "id": -1,
-      "label": "Age",
-      "value": 0,
-      "properties": {}
+    Item3: 0,
+    Item4: {
+      id: -1,
+      label: Age,
+      value: 0,
+      properties: {}
     }
   },
   {
-    "Item3": 0,
-    "Item4": {
-      "id": -1,
-      "label": "Image",
-      "value": "AQIDBAUGBwg=",
-      "properties": {}
+    Item3: 0,
+    Item4: {
+      id: -1,
+      label: Image,
+      value: AQIDBAUGBwg=,
+      properties: {}
     }
   },
   {
-    "Item3": 0,
-    "Item4": {
-      "id": -1,
-      "label": "Gender",
-      "value": 1,
-      "properties": {}
+    Item3: 0,
+    Item4: {
+      id: -1,
+      label: Gender,
+      value: 1,
+      properties: {}
     }
   }
 ]

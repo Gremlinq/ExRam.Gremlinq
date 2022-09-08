@@ -1,3 +1,3 @@
 ﻿[
-  "{\"Script\":\"g.V().where(__.in()).where(__.out()).where(__.properties()).project(_a,_b,_c,_d).by(__.in()).by(__.out()).by(__.count()).by(__.properties())\",\"Id\":\"00000000-0000-0000-0000-000000000000\",\"Bindings\":{\"_a\":\"in!\",\"_b\":\"out!\",\"_c\":\"count!\",\"_d\":\"properties!\"}}"
+  {"Script":"g.V().where(__.in()).where(__.out()).where(__.properties()).project(_a,_b,_c,_d).by(__.in()).by(__.out()).by(__.count()).by(__.properties())","Id":"Guid_1","Bindings":{"_a":"in!","_b":"out!","_c":"count!","_d":"properties!"}}
 ]

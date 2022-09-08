@@ -1,31 +1,26 @@
 ﻿[
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bytecode": {
-      "SourceInstructions": [],
-      "StepInstructions": [
+    Id: Guid_1,
+    Bytecode: {
+      StepInstructions: [
         {
-          "OperatorName": "V",
-          "Arguments": []
+          OperatorName: V
         },
         {
-          "OperatorName": "id",
-          "Arguments": []
+          OperatorName: id
         },
         {
-          "OperatorName": "choose",
-          "Arguments": [
+          OperatorName: choose,
+          Arguments: [
             {
-              "OperatorName": "eq",
-              "Value": 42,
-              "Other": null
+              OperatorName: eq,
+              Value: 42
             },
             {
-              "SourceInstructions": [],
-              "StepInstructions": [
+              StepInstructions: [
                 {
-                  "OperatorName": "constant",
-                  "Arguments": [
+                  OperatorName: constant,
+                  Arguments: [
                     true
                   ]
                 }

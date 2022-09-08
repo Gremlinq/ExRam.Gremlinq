@@ -1,48 +1,42 @@
 ﻿[
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bytecode": {
-      "SourceInstructions": [],
-      "StepInstructions": [
+    Id: Guid_1,
+    Bytecode: {
+      StepInstructions: [
         {
-          "OperatorName": "V",
-          "Arguments": []
+          OperatorName: V
         },
         {
-          "OperatorName": "fold",
-          "Arguments": []
+          OperatorName: fold
         },
         {
-          "OperatorName": "as",
-          "Arguments": [
-            "l1"
+          OperatorName: as,
+          Arguments: [
+            l1
           ]
         },
         {
-          "OperatorName": "V",
-          "Arguments": []
+          OperatorName: V
         },
         {
-          "OperatorName": "hasLabel",
-          "Arguments": [
-            "Person"
+          OperatorName: hasLabel,
+          Arguments: [
+            Person
           ]
         },
         {
-          "OperatorName": "where",
-          "Arguments": [
+          OperatorName: where,
+          Arguments: [
             {
-              "OperatorName": "within",
-              "Value": [
-                "l1"
-              ],
-              "Other": null
+              OperatorName: within,
+              Value: [
+                l1
+              ]
             }
           ]
         },
         {
-          "OperatorName": "count",
-          "Arguments": []
+          OperatorName: count
         }
       ]
     }
