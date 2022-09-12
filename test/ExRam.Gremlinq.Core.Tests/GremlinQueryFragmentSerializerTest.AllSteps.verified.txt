@@ -850,7 +850,9 @@
       },
       {
         Traversal: [
-          {}
+          {
+            Keys: null
+          }
         ]
       }
     ]
@@ -921,7 +923,9 @@
       },
       {
         Traversal: [
-          {},
+          {
+            Keys: null
+          },
           {},
           {
             Key: {
@@ -967,7 +971,9 @@
               },
               {
                 Traversal: [
-                  {}
+                  {
+                    Keys: null
+                  }
                 ]
               },
               {}
@@ -1002,8 +1008,7 @@
     }
   },
   {
-    Item1: PropertyStep.ByTraversalStep,
-    Item2: []
+    Item1: PropertyStep.ByTraversalStep
   },
   {
     Item1: RangeStep,

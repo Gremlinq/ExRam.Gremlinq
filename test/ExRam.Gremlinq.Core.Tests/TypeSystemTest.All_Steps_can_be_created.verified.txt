@@ -81,11 +81,15 @@
   },
   {
     Item1: BothEStep,
-    Item2: {}
+    Item2: {
+      Labels: null
+    }
   },
   {
     Item1: BothStep,
-    Item2: {}
+    Item2: {
+      Labels: null
+    }
   },
   {
     Item1: BothVStep,
@@ -359,7 +363,9 @@
   },
   {
     Item1: InEStep,
-    Item2: {}
+    Item2: {
+      Labels: null
+    }
   },
   {
     Item1: InjectStep,
@@ -373,7 +379,9 @@
   },
   {
     Item1: InStep,
-    Item2: {}
+    Item2: {
+      Labels: null
+    }
   },
   {
     Item1: InVStep,
@@ -568,11 +576,15 @@
   },
   {
     Item1: OutEStep,
-    Item2: {}
+    Item2: {
+      Labels: null
+    }
   },
   {
     Item1: OutStep,
-    Item2: {}
+    Item2: {
+      Labels: null
+    }
   },
   {
     Item1: OutVStep,
@@ -647,6 +659,7 @@
         EnumName: Cardinality,
         EnumValue: single
       },
+      MetaProperties: null,
       SideEffectSemanticsChange: Write
     }
   },
@@ -661,6 +674,7 @@
         EnumName: Cardinality,
         EnumValue: single
       },
+      MetaProperties: null,
       SideEffectSemanticsChange: Write
     }
   },
