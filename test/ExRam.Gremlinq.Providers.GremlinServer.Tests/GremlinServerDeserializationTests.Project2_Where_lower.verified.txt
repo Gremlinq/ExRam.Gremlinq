@@ -1,5 +1,6 @@
 ﻿[
   {
+    "Item1": "Country",
     "Item2": [
       {
         "Name": null,
@@ -9,10 +10,10 @@
         "Id": -1,
         "Label": "Country"
       }
-    ],
-    "Item1": "Country"
+    ]
   },
   {
+    "Item1": "Person",
     "Item2": [
       {
         "Age": 0,
@@ -33,30 +34,30 @@
         "Id": -1,
         "Label": "Person"
       }
-    ],
-    "Item1": "Person"
+    ]
   },
   {
+    "Item1": "Language",
     "Item2": [
       {
         "IetfLanguageTag": "en",
         "Id": -1,
         "Label": "Language"
       }
-    ],
-    "Item1": "Language"
+    ]
   },
   {
+    "Item1": "Language",
     "Item2": [
       {
         "IetfLanguageTag": "en",
         "Id": -1,
         "Label": "Language"
       }
-    ],
-    "Item1": "Language"
+    ]
   },
   {
+    "Item1": "Company",
     "Item2": [
       {
         "FoundingDate": "0001-01-01T00:00:00",
@@ -66,20 +67,20 @@
         "Id": -1,
         "Label": "Company"
       }
-    ],
-    "Item1": "Company"
+    ]
   },
   {
+    "Item1": "Language",
     "Item2": [
       {
         "IetfLanguageTag": null,
         "Id": -1,
         "Label": "Language"
       }
-    ],
-    "Item1": "Language"
+    ]
   },
   {
+    "Item1": "Company",
     "Item2": [
       {
         "FoundingDate": "0001-01-01T00:00:00",
@@ -99,10 +100,10 @@
         "Id": -1,
         "Label": "Company"
       }
-    ],
-    "Item1": "Company"
+    ]
   },
   {
+    "Item1": "Person",
     "Item2": [
       {
         "Age": 0,
@@ -115,10 +116,10 @@
         "Id": -1,
         "Label": "Person"
       }
-    ],
-    "Item1": "Person"
+    ]
   },
   {
+    "Item1": "Country",
     "Item2": [
       {
         "Name": {
@@ -134,10 +135,10 @@
         "Id": -1,
         "Label": "Country"
       }
-    ],
-    "Item1": "Country"
+    ]
   },
   {
+    "Item1": "Person",
     "Item2": [
       {
         "Age": 0,
@@ -158,10 +159,10 @@
         "Id": -1,
         "Label": "Person"
       }
-    ],
-    "Item1": "Person"
+    ]
   },
   {
+    "Item1": "Country",
     "Item2": [
       {
         "Name": {
@@ -180,10 +181,10 @@
         "Id": -1,
         "Label": "Country"
       }
-    ],
-    "Item1": "Country"
+    ]
   },
   {
+    "Item1": "Company",
     "Item2": [
       {
         "FoundingDate": "0001-01-01T00:00:00",
@@ -196,10 +197,10 @@
         "Id": -1,
         "Label": "Company"
       }
-    ],
-    "Item1": "Company"
+    ]
   },
   {
+    "Item1": "Person",
     "Item2": [
       {
         "Age": 0,
@@ -212,10 +213,10 @@
         "Id": -1,
         "Label": "Person"
       }
-    ],
-    "Item1": "Person"
+    ]
   },
   {
+    "Item1": "Country",
     "Item2": [
       {
         "Name": null,
@@ -225,30 +226,30 @@
         "Id": -1,
         "Label": "Country"
       }
-    ],
-    "Item1": "Country"
+    ]
   },
   {
+    "Item1": "Language",
     "Item2": [
       {
         "IetfLanguageTag": null,
         "Id": -1,
         "Label": "Language"
       }
-    ],
-    "Item1": "Language"
+    ]
   },
   {
+    "Item1": "Language",
     "Item2": [
       {
         "IetfLanguageTag": null,
         "Id": -1,
         "Label": "Language"
       }
-    ],
-    "Item1": "Language"
+    ]
   },
   {
+    "Item1": "Person",
     "Item2": [
       {
         "Age": 0,
@@ -261,10 +262,10 @@
         "Id": -1,
         "Label": "Person"
       }
-    ],
-    "Item1": "Person"
+    ]
   },
   {
+    "Item1": "Country",
     "Item2": [
       {
         "Name": null,
@@ -274,10 +275,10 @@
         "Id": -1,
         "Label": "Country"
       }
-    ],
-    "Item1": "Country"
+    ]
   },
   {
+    "Item1": "Person",
     "Item2": [
       {
         "Age": 0,
@@ -290,10 +291,10 @@
         "Id": -1,
         "Label": "Person"
       }
-    ],
-    "Item1": "Person"
+    ]
   },
   {
+    "Item1": "Country",
     "Item2": [
       {
         "Name": null,
@@ -303,10 +304,10 @@
         "Id": -1,
         "Label": "Country"
       }
-    ],
-    "Item1": "Country"
+    ]
   },
   {
+    "Item1": "Company",
     "Item2": [
       {
         "FoundingDate": "0001-01-01T00:00:00",
@@ -316,10 +317,10 @@
         "Id": -1,
         "Label": "Company"
       }
-    ],
-    "Item1": "Company"
+    ]
   },
   {
+    "Item1": "Person",
     "Item2": [
       {
         "Age": 0,
@@ -332,20 +333,20 @@
         "Id": -1,
         "Label": "Person"
       }
-    ],
-    "Item1": "Person"
+    ]
   },
   {
+    "Item1": "Language",
     "Item2": [
       {
         "IetfLanguageTag": "en",
         "Id": -1,
         "Label": "Language"
       }
-    ],
-    "Item1": "Language"
+    ]
   },
   {
+    "Item1": "Country",
     "Item2": [
       {
         "Name": null,
@@ -355,10 +356,10 @@
         "Id": -1,
         "Label": "Country"
       }
-    ],
-    "Item1": "Country"
+    ]
   },
   {
+    "Item1": "Person",
     "Item2": [
       {
         "Age": 0,
@@ -379,10 +380,10 @@
         "Id": -1,
         "Label": "Person"
       }
-    ],
-    "Item1": "Person"
+    ]
   },
   {
+    "Item1": "Company",
     "Item2": [
       {
         "FoundingDate": "0001-01-01T00:00:00",
@@ -392,10 +393,10 @@
         "Id": -1,
         "Label": "Company"
       }
-    ],
-    "Item1": "Company"
+    ]
   },
   {
+    "Item1": "Person",
     "Item2": [
       {
         "Age": 0,
@@ -408,30 +409,30 @@
         "Id": -1,
         "Label": "Person"
       }
-    ],
-    "Item1": "Person"
+    ]
   },
   {
+    "Item1": "Language",
     "Item2": [
       {
         "IetfLanguageTag": "en",
         "Id": -1,
         "Label": "Language"
       }
-    ],
-    "Item1": "Language"
+    ]
   },
   {
+    "Item1": "Language",
     "Item2": [
       {
         "IetfLanguageTag": null,
         "Id": -1,
         "Label": "Language"
       }
-    ],
-    "Item1": "Language"
+    ]
   },
   {
+    "Item1": "TimeFrame",
     "Item2": [
       {
         "Enabled": false,
@@ -440,30 +441,30 @@
         "Id": -1,
         "Label": "TimeFrame"
       }
-    ],
-    "Item1": "TimeFrame"
+    ]
   },
   {
+    "Item1": "Language",
     "Item2": [
       {
         "IetfLanguageTag": "en",
         "Id": -1,
         "Label": "Language"
       }
-    ],
-    "Item1": "Language"
+    ]
   },
   {
+    "Item1": "Language",
     "Item2": [
       {
         "IetfLanguageTag": "en",
         "Id": -1,
         "Label": "Language"
       }
-    ],
-    "Item1": "Language"
+    ]
   },
   {
+    "Item1": "Person",
     "Item2": [
       {
         "Age": 0,
@@ -476,10 +477,10 @@
         "Id": -1,
         "Label": "Person"
       }
-    ],
-    "Item1": "Person"
+    ]
   },
   {
+    "Item1": "Person",
     "Item2": [
       {
         "Age": 0,
@@ -492,7 +493,6 @@
         "Id": -1,
         "Label": "Person"
       }
-    ],
-    "Item1": "Person"
+    ]
   }
 ]
