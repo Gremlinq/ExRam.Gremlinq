@@ -4975,6 +4975,15 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task Where_Nullable_Value()
+        {
+            await _g
+                .V<Person>()
+                .Where(t => t.RegistrationDate!.Value == DateTime.MinValue)
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task Where_out_vertex_property()
         {
             await _g
