@@ -24,6 +24,11 @@ namespace ExRam.Gremlinq.Core
             {
                 switch (expression)
                 {
+                    case MemberExpression { Member: PropertyInfo { Name: "Value" } propertyInfo, Expression: { } memberExpressionExpression } when Nullable.GetUnderlyingType(memberExpressionExpression.Type) is not null:
+                    {
+                        expression = memberExpressionExpression;
+                        break;
+                    }
                     case UnaryExpression unaryExpression when expression.NodeType == ExpressionType.Convert:
                     {
                         expression = unaryExpression.Operand;
