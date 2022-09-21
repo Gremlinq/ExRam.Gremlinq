@@ -1747,8 +1747,8 @@ namespace ExRam.Gremlinq.Core.Steps
     }
     public sealed class ConstantStep : ExRam.Gremlinq.Core.Steps.Step
     {
-        public ConstantStep(object value) { }
-        public object Value { get; }
+        public ConstantStep(object? value) { }
+        public object? Value { get; }
     }
     public sealed class CountStep : ExRam.Gremlinq.Core.Steps.Step
     {

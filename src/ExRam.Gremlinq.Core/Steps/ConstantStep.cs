@@ -2,11 +2,11 @@
 {
     public sealed class ConstantStep : Step
     {
-        public ConstantStep(object value)
+        public ConstantStep(object? value)
         {
             Value = value;
         }
 
-        public object Value { get; }
+        public object? Value { get; }
     }
 }

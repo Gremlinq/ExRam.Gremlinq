@@ -161,7 +161,9 @@ namespace ExRam.Gremlinq.Core.Serialization
                     step.ThenTraversal))
             .Override<CoalesceStep>(static (step, env, _, recurse) => CreateInstruction("coalesce", recurse, env, step.Traversals))
             .Override<CoinStep>(static (step, env, _, recurse) => CreateInstruction("coin", recurse, env, step.Probability))
-            .Override<ConstantStep>(static (step, env, _, recurse) => CreateInstruction("constant", recurse, env, step.Value))
+            .Override<ConstantStep>(static (step, env, _, recurse) => step.Value is { } value
+                ? CreateInstruction("constant", recurse, env, value)
+                : new Instruction("constant", new [] { default(object?) }))
             .Override<CountStep>(static (step, env, _, recurse) => step.Scope.Equals(Scope.Local)
                 ? CreateInstruction("count", recurse, env, step.Scope)
                 : CreateInstruction("count"))

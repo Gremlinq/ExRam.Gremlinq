@@ -1,0 +1,20 @@
+﻿[
+  {
+    "Id": "00000000-0000-0000-0000-000000000000",
+    "Bytecode": {
+      "SourceInstructions": [],
+      "StepInstructions": [
+        {
+          "OperatorName": "V",
+          "Arguments": []
+        },
+        {
+          "OperatorName": "constant",
+          "Arguments": [
+            null
+          ]
+        }
+      ]
+    }
+  }
+]

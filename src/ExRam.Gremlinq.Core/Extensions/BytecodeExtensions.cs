@@ -115,17 +115,23 @@ namespace ExRam.Gremlinq.Core.Serialization
 
                             break;
                         }
-                        default:
+                        case { } o:
                         {
-                            if (!bindings.TryGetValue(obj, out var bindingKey))
+                            if (!bindings.TryGetValue(o, out var bindingKey))
                             {
                                 bindingKey = bindings.Count;
-                                bindings.Add(obj, bindingKey);
+                                bindings.Add(o, bindingKey);
 
-                                variables[bindingKey] = obj;
+                                variables[bindingKey] = o;
                             }
 
                             builder.Append(bindingKey);
+
+                            break;
+                        }
+                        case null:
+                        {
+                            builder.Append("null");
 
                             break;
                         }
