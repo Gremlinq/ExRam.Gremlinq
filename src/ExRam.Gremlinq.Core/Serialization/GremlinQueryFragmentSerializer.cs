@@ -161,9 +161,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                     step.ThenTraversal))
             .Override<CoalesceStep>(static (step, env, _, recurse) => CreateInstruction("coalesce", recurse, env, step.Traversals))
             .Override<CoinStep>(static (step, env, _, recurse) => CreateInstruction("coin", recurse, env, step.Probability))
-            .Override<ConstantStep>(static (step, env, _, recurse) => step.Value is { } value
-                ? CreateInstruction("constant", recurse, env, value)
-                : new Instruction("constant", new [] { default(object?) }))
+            .Override<ConstantStep>(static (step, env, _, recurse) => CreateInstruction("constant", recurse, env, step.Value))
             .Override<CountStep>(static (step, env, _, recurse) => step.Scope.Equals(Scope.Local)
                 ? CreateInstruction("count", recurse, env, step.Scope)
                 : CreateInstruction("count"))
@@ -492,24 +490,24 @@ namespace ExRam.Gremlinq.Core.Serialization
         {
             return new(
                 name,
-                recurse.Serialize(parameter, env));
+                recurse.NullAwareSerialize(parameter, env));
         }
 
         private static Instruction CreateInstruction<TParam1, TParam2>(string name, IGremlinQueryFragmentSerializer recurse, IGremlinQueryEnvironment env, TParam1 parameter1, TParam2 parameter2)
         {
             return new(
                 name,
-                recurse.Serialize(parameter1, env),
-                recurse.Serialize(parameter2, env));
+                recurse.NullAwareSerialize(parameter1, env),
+                recurse.NullAwareSerialize(parameter2, env));
         }
 
         private static Instruction CreateInstruction<TParam1, TParam2, TParam3>(string name, IGremlinQueryFragmentSerializer recurse, IGremlinQueryEnvironment env, TParam1 parameter1, TParam2 parameter2, TParam3 parameter3)
         {
             return new(
                 name,
-                recurse.Serialize(parameter1, env),
-                recurse.Serialize(parameter2, env),
-                recurse.Serialize(parameter3, env));
+                recurse.NullAwareSerialize(parameter1, env),
+                recurse.NullAwareSerialize(parameter2, env),
+                recurse.NullAwareSerialize(parameter3, env));
         }
 
         private static Instruction CreateInstruction<TParam>(string name, IGremlinQueryFragmentSerializer recurse, IGremlinQueryEnvironment env, ImmutableArray<TParam> parameters)
@@ -517,14 +515,21 @@ namespace ExRam.Gremlinq.Core.Serialization
             if (parameters.Length == 0)
                 return CreateInstruction(name);
 
-            var arguments = new object[parameters.Length];
+            var arguments = new object?[parameters.Length];
 
             for (var i = 0; i < parameters.Length; i++)
             {
-                arguments[i] = recurse.Serialize(parameters[i], env);
+                arguments[i] = recurse.NullAwareSerialize(parameters[i], env);
             }
 
             return new Instruction(name, arguments);
+        }
+
+        private static object? NullAwareSerialize<TParam>(this IGremlinQueryFragmentSerializer serializer, TParam maybeParameter, IGremlinQueryEnvironment env)
+        {
+            return maybeParameter is { } parameter
+                ? serializer.Serialize(parameter, env)
+                : default;
         }
     }
 }
