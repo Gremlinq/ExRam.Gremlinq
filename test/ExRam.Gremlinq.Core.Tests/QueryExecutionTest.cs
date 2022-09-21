@@ -4984,6 +4984,50 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task Where_Nullable_equals_nullable()
+        {
+            DateTime? dateTime = DateTime.MinValue;
+
+            await _g
+                .V<Person>()
+                .Where(t => t.RegistrationDate!.Value == dateTime)
+                .Verify();
+        }
+
+        [Fact]
+        public virtual async Task Where_Nullable_equals_nullable_Value()
+        {
+            DateTime? dateTime = DateTime.MinValue;
+
+            await _g
+                .V<Person>()
+                .Where(t => t.RegistrationDate!.Value == dateTime.Value)
+                .Verify();
+        }
+
+        [Fact]
+        public virtual async Task Where_Nullable_equals_nullable_null()
+        {
+            DateTime? dateTime = null;
+
+            await _g
+                .V<Person>()
+                .Where(t => t.RegistrationDate!.Value == dateTime)
+                .Verify();
+        }
+
+        [Fact]
+        public virtual async Task Where_Nullable_equals_nullable_null_Value()
+        {
+            DateTime? dateTime = null;
+
+            await _g
+                .V<Person>()
+                .Where(t => t.RegistrationDate!.Value == dateTime!.Value)
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task Where_out_vertex_property()
         {
             await _g
