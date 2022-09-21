@@ -1007,6 +1007,15 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task Constant_null()
+        {
+            await _g
+                .V()
+                .Constant<object?>(null)
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task Count()
         {
             await _g

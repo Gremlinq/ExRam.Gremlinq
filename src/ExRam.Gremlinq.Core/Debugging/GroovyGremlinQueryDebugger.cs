@@ -111,10 +111,10 @@ namespace ExRam.Gremlinq.Core
 
                         return writer;
                     }
+                    case null:
+                        return Write("null");
                     default:
-                    {
                         return Write(obj);
-                    }
                 }
             }
 
