@@ -311,7 +311,7 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery<TNewEdge> IStartGremlinQuery.ReplaceE<TNewEdge>(TNewEdge edge) => ((IGremlinQuerySource)this).E<TNewEdge>(edge!.GetId(Environment)).Update(edge);
 
-        IGremlinQuerySource IConfigurableGremlinQuerySource.ConfigureEnvironment(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> transformation) => new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(transformation(Environment), Steps, LabelProjections, Flags);
+        IGremlinQuerySource IConfigurableGremlinQuerySource.ConfigureEnvironment(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> transformation) => new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(transformation(Environment), Steps, LabelProjections, Flags, RequestIdSource);
 
         IGremlinQuerySource IGremlinQuerySource.WithoutStrategies(params Type[] strategyTypes) => WithoutStrategies(strategyTypes);
 
@@ -363,6 +363,7 @@ namespace ExRam.Gremlinq.Core
 
         IInOrOutEdgeGremlinQuery<TEdge, TElement> IVertexGremlinQueryBase<TElement>.AddE<TEdge>() => AddE(new TEdge());
 
+        RequestIdSource IGremlinQueryBase.RequestIdSource { get => RequestIdSource; set => RequestIdSource = value; }
         IVertexGremlinQuery<object> IVertexGremlinQueryBase.Both() => Both();
 
         IVertexGremlinQuery<object> IVertexGremlinQueryBase.Both<TEdge>() => Both<TEdge>();

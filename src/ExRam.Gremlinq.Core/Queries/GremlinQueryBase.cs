@@ -19,12 +19,14 @@ namespace ExRam.Gremlinq.Core
             IGremlinQueryEnvironment environment,
             Traversal steps,
             IImmutableDictionary<StepLabel, LabelProjections> labelProjections,
-            QueryFlags flags)
+            QueryFlags flags,
+            RequestIdSource requestIdSource)
         {
             Steps = steps;
             Flags = flags;
             Environment = environment;
             LabelProjections = labelProjections;
+            RequestIdSource = requestIdSource;
         }
 
         public override string ToString() => $"GremlinQuery(Steps.Count: {Steps.Count})";
@@ -91,7 +93,8 @@ namespace ExRam.Gremlinq.Core
                     existingQuery.Environment,
                     newTraversal,
                     newLabelProjections,
-                    newQueryFlags);
+                    newQueryFlags,
+                    existingQuery.RequestIdSource);
             };
         }
 
@@ -119,5 +122,6 @@ namespace ExRam.Gremlinq.Core
         protected internal QueryFlags Flags { get; }
         protected internal IGremlinQueryEnvironment Environment { get; }
         protected internal IImmutableDictionary<StepLabel, LabelProjections> LabelProjections { get; }
+        protected internal RequestIdSource RequestIdSource { get; set; }
     }
 }

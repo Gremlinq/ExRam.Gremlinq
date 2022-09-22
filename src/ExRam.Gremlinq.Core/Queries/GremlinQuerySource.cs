@@ -9,6 +9,7 @@ namespace ExRam.Gremlinq.Core
             GremlinQueryEnvironment.Default,
             Traversal.Empty,
             ImmutableDictionary<StepLabel, LabelProjections>.Empty,
-            QueryFlags.None);
+            QueryFlags.None,
+            RequestIdSource.Default);
     }
 }

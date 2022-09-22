@@ -50,7 +50,10 @@
                     .Serialize(query, query.AsAdmin().Environment) ?? throw new ArgumentException($"{nameof(query)} did not serialize to a non-null value.");
 
                 if (serialized is ISerializedGremlinQuery serializedQuery)
+                {
+                    query.RequestIdSource.RequestId = Guid.Parse(serializedQuery.Id); //assigns the request id to the RequestIdSource
                     return serializedQuery;
+                }
 
                 throw new InvalidOperationException($"Unable to serialize a query of type {query.GetType().FullName}.");
             }

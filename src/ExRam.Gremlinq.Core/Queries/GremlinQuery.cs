@@ -22,9 +22,10 @@ namespace ExRam.Gremlinq.Core
             IGremlinQueryEnvironment environment,
             Traversal steps,
             IImmutableDictionary<StepLabel, LabelProjections> labelProjections,
-            QueryFlags flags) : base(environment, steps, labelProjections, flags)
+            QueryFlags flags,
+            RequestIdSource requestIdSource) : base(environment, steps, labelProjections, flags, requestIdSource == RequestIdSource.Default ? new RequestIdSource() : requestIdSource)
         {
-
+            
         }
 
         private GremlinQuery<TEdge, TElement, object, object, object, object> AddE<TEdge>(TEdge newEdge) => this
@@ -261,9 +262,15 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Cast<TNewElement>()
         {
-            return typeof(TNewElement) == typeof(TElement)
-                ? (GremlinQuery<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>)(object)this
-                : CloneAs<GremlinQuery<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>();
+            GremlinQuery<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> result;
+            if (typeof(TNewElement) == typeof(TElement)) result = (GremlinQuery<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>)(object)this;
+            else
+            {
+                result = CloneAs<GremlinQuery<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>();
+                //result.RequestIdSource.RequestId = this.RequestId;
+                //result.RequestId = this.RequestId;
+            }
+            return result;
         }
 
         private TTargetQuery Choose<TTrueQuery, TFalseQuery, TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTrueQuery> trueChoice, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TFalseQuery>? maybeFalseChoice = default)
@@ -495,6 +502,13 @@ namespace ExRam.Gremlinq.Core
                    .AddStep(new AddEStep.FromLabelStep(label))
                    .AutoBuild<TNewElement, TNewOutVertex, TNewInVertex>(),
                 label);
+
+        //private Guid GetRequestId()
+        //{
+        //    var serialized = Environment.Serializer
+        //        .Serialize(this);
+        //    return this.
+        //}
 
         private IValueGremlinQuery<IDictionary<TKey, TValue>> Group<TKey, TValue>(Func<IGroupBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>, IGroupBuilderWithKeyAndValue<TKey, TValue>> projection) =>
             projection(new GroupBuilder<object, object>(Continue())).Build();

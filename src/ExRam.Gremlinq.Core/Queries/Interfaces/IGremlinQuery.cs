@@ -7,6 +7,9 @@ namespace ExRam.Gremlinq.Core
 {
     public interface IGremlinQueryBase : IStartGremlinQuery
     {
+        internal RequestIdSource RequestIdSource { get; set; }
+        public Guid RequestId => RequestIdSource.RequestId;
+
         TaskAwaiter GetAwaiter();
 
         IGremlinQuery<TResult> Cast<TResult>();
