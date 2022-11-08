@@ -53,21 +53,13 @@ namespace ExRam.Gremlinq.PublicApi.Tests
         [Fact]
         public Task WebSocketAspNet() => Verify("ExRam.Gremlinq.Providers.WebSocket.AspNet");
 
-        private Task Verify(string assemblyName)
-        {
-            var verifySettings = new VerifySettings();
-            verifySettings.UseExtension("cs");
-
-            var options = new ApiGeneratorOptions
-            {
-                IncludeAssemblyAttributes = false
-            };
-
-            return Verify(
-                Assembly
-                    .Load(assemblyName)
-                    .GeneratePublicApi(options),
-                verifySettings);
-        }
+        private Task Verify(string assemblyName) => Verify(
+            Assembly
+                .Load(assemblyName)
+                .GeneratePublicApi(new ApiGeneratorOptions
+                {
+                    IncludeAssemblyAttributes = false
+                }),
+            "cs");
     }
 }
