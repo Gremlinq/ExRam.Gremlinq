@@ -51,7 +51,7 @@ namespace ExRam.Gremlinq.Samples
                     .At(new Uri("wss://your_gremlin_endpoint.gremlin.cosmos.azure.com:443/"))
                     .OnDatabase("your database name")
                     .OnGraph("your graph name")
-                    .AuthenticateBy("your auth key");
+                    .AuthenticateBy("your auth key"));
 #elif JanusGraph
                 .UseJanusGraph(configurator => configurator
                     .AtLocalhost());
