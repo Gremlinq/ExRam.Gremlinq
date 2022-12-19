@@ -48,10 +48,10 @@ namespace ExRam.Gremlinq.Core
             {
                 return new ProjectBuilder<TItem1, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(
                     _sourceQuery.Continue().ToMulti(),
-                        FastImmutableList<string>.Empty,
-                        _emptyProjectionProtection
-                            ? _sourceQuery.Environment.Options.GetValue(GremlinqOption.EmptyProjectionProtectionDecoratorSteps)
-                            : Traversal.Empty);
+                    FastImmutableList<string>.Empty,
+                    _emptyProjectionProtection
+                        ? _sourceQuery.Environment.Options.GetValue(GremlinqOption.EmptyProjectionProtectionDecoratorSteps)
+                        : Traversal.Empty);
             }
         }
 
