@@ -32,6 +32,10 @@ namespace ExRam.Gremlinq.Core.Projections
                 ? environment.Options.GetValue(GremlinqOption.EmptyProjectionProtectionDecoratorSteps)
                 : default(Traversal?);
 
+            var overhead = emptyProjectionProtection is not null
+                ? 2
+                : 1;
+
             var projectionTraversals = _projections
                 .Select(projection =>
                 {
@@ -39,9 +43,7 @@ namespace ExRam.Gremlinq.Core.Projections
                         .ToTraversal(environment);
 
                     return Traversal.Create(
-                        emptyProjectionProtection is not null
-                            ? projectionTraversal.Count + 2
-                            : projectionTraversal.Count + 1,
+                        projectionTraversal.Count + overhead,
                         (projection, projectionTraversal, emptyProjectionProtection),
                         static (steps, state) =>
                         {
@@ -59,7 +61,7 @@ namespace ExRam.Gremlinq.Core.Projections
                 })
                 .ToArray();
 
-            if (projectionTraversals.All(static x => x.Count == 1))
+            if (projectionTraversals.All(x => x.Count == overhead)) //TODO: static delegate!
                 return Traversal.Empty;
 
             var projectStep = new ProjectStep(_projections
