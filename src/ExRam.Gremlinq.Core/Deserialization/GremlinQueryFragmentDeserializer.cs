@@ -155,21 +155,20 @@ namespace ExRam.Gremlinq.Core.Deserialization
 
         // ReSharper disable ConvertToLambdaExpression
         public static IGremlinQueryFragmentDeserializer AddNewtonsoftJson(this IGremlinQueryFragmentDeserializer deserializer) => deserializer
+            .Override<JToken>(static (jToken, type, env, overridden, recurse) => !type.IsAssignableFrom(jToken.GetType())
+                ? jToken
+                    .ToObject(
+                        type,
+                        env
+                            .GetCache()
+                            .GetJsonSerializer(recurse))
+                : overridden(jToken, type, env, recurse))
             .Override<JToken>(static (jToken, type, env, overridden, recurse) =>
             {
-                if (!type.IsAssignableFrom(jToken.GetType()))
+                if (!type.IsAssignableFrom(jToken.GetType()) && !typeof(Property).IsAssignableFrom(type) && jToken is JObject element && element.TryGetValue("id", StringComparison.OrdinalIgnoreCase, out var idToken) && element.TryGetValue("label", StringComparison.OrdinalIgnoreCase, out var labelToken) && labelToken.Type == JTokenType.String && element.TryGetValue("properties", out var propertiesToken))
                 {
-                    var serializer = env
-                        .GetCache()
-                        .GetJsonSerializer(recurse);
-
-                    if (!typeof(Property).IsAssignableFrom(type) && jToken is JObject element && element.TryGetValue("id", StringComparison.OrdinalIgnoreCase, out var idToken) && element.TryGetValue("label", StringComparison.OrdinalIgnoreCase, out var labelToken) && labelToken.Type == JTokenType.String && element.TryGetValue("properties", out var propertiesToken))
-                    {
-                        if (recurse.TryDeserialize(propertiesToken, type, env) is { } ret)
-                            return ret.SetIdAndLabel(idToken, labelToken, env, recurse);
-                    }
-
-                    return jToken.ToObject(type, serializer);
+                    if (recurse.TryDeserialize(propertiesToken, type, env) is { } ret)
+                        return ret.SetIdAndLabel(idToken, labelToken, env, recurse);
                 }
 
                 return overridden(jToken, type, env, recurse);
