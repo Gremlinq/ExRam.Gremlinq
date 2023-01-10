@@ -163,9 +163,9 @@ namespace ExRam.Gremlinq.Core.Deserialization
                         .GetCache()
                         .GetJsonSerializer(recurse);
 
-                    if (!typeof(Property).IsAssignableFrom(type) && jToken is JObject element && element.TryGetValue("id", StringComparison.OrdinalIgnoreCase, out var idToken) && element.TryGetValue("label", StringComparison.OrdinalIgnoreCase, out var labelToken) && element.TryGetElementProperties() is { } propertiesToken)
+                    if (!typeof(Property).IsAssignableFrom(type) && jToken is JObject element && element.TryGetValue("id", StringComparison.OrdinalIgnoreCase, out var idToken) && element.TryGetValue("label", StringComparison.OrdinalIgnoreCase, out var labelToken) && labelToken.Type == JTokenType.String && element.TryGetValue("properties", out var propertiesToken))
                     {
-                        if (propertiesToken.ToObject(type, serializer) is { } ret)
+                        if (recurse.TryDeserialize(propertiesToken, type, env) is { } ret)
                             return ret.SetIdAndLabel(idToken, labelToken, env, recurse);
                     }
 
