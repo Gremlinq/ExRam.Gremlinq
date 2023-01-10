@@ -165,19 +165,23 @@ namespace ExRam.Gremlinq.Core.Deserialization
                     var populatingSerializer = envCache
                         .GetPopulatingJsonSerializer(recurse);
 
-                    var ret = jToken.ToObject(type, populatingSerializer);
-
-                    if (ret is not null && ret is not JToken && ret is not Property && jToken is JObject element)
+                    if (!typeof(Property).IsAssignableFrom(type) && jToken is JObject element)
                     {
                         if (element.TryGetElementProperties() is { } propertiesToken)
                         {
-                            envCache
-                                .GetIgnoringJsonSerializer(recurse)
-                                .Populate(new JTokenReader(propertiesToken), ret);
+                            if (propertiesToken.ToObject(type, populatingSerializer) is { } ret)
+                            {
+                                ret.SetId(element, env, recurse);
+                                ret.SetLabel(element, env, recurse);
+
+                                return ret;
+                            }
+
+                            return default;
                         }
                     }
 
-                    return ret;
+                    return jToken.ToObject(type, populatingSerializer);
                 }
 
                 return overridden(jToken, type, env, recurse);
@@ -222,12 +226,12 @@ namespace ExRam.Gremlinq.Core.Deserialization
                     case DateTimeOffset dateTimeOffset:
                         return dateTimeOffset;
                     default:
-                    {
-                        if (jValue.Type == JTokenType.Integer)
-                            return DateTimeOffset.FromUnixTimeMilliseconds(jValue.Value<long>());
+                        {
+                            if (jValue.Type == JTokenType.Integer)
+                                return DateTimeOffset.FromUnixTimeMilliseconds(jValue.Value<long>());
 
-                        break;
-                    }
+                            break;
+                        }
                 }
 
                 return overridden(jValue, type, env, recurse);

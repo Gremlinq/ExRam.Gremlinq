@@ -1,8 +1,10 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Immutable;
 using System.Reflection;
+using ExRam.Gremlinq.Core.Deserialization;
 using ExRam.Gremlinq.Core.Models;
 using Gremlin.Net.Process.Traversal;
+using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -55,6 +57,36 @@ namespace ExRam.Gremlinq.Core
             return propertyInfo?.GetValue(element) is { } value
                 ? value
                 : throw new InvalidOperationException($"Unable to determine Id for {element}");
+        }
+
+        public static void SetId(this object element, JObject obj, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse)
+        {
+            if (obj.TryGetValue("id", out var idToken))
+            {
+                var (maybePropertyInfo, _, _) = environment.GetCache().GetSerializationData(element.GetType())
+                    .FirstOrDefault(static info => info.key.RawKey is T t && T.Id.Equals(t));
+
+                if (maybePropertyInfo is { } propertyInfo)
+                {
+                    // ReSharper disable once ConstantConditionalAccessQualifier
+                    propertyInfo.SetValue(element, recurse.TryDeserialize(idToken, propertyInfo.PropertyType, environment));
+                }
+            }
+        }
+
+        public static void SetLabel(this object element, JObject obj, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse)
+        {
+            if (obj.TryGetValue("label", out var labelToken))
+            {
+                var (maybePropertyInfo, _, _) = environment.GetCache().GetSerializationData(element.GetType())
+                    .FirstOrDefault(static info => info.key.RawKey is T t && T.Label.Equals(t));
+
+                if (maybePropertyInfo is { } propertyInfo)
+                {
+                    // ReSharper disable once ConstantConditionalAccessQualifier
+                    propertyInfo.SetValue(element, recurse.TryDeserialize(labelToken, propertyInfo.PropertyType, environment));
+                }
+            }
         }
 
         private static Func<object, IGremlinQueryEnvironment, SerializationBehaviour, IEnumerable<(Key key, object value)>> CreateSerializeDictionaryFunc<TKey, TValue>()
