@@ -200,10 +200,15 @@ namespace ExRam.Gremlinq.Core
                 _keyLookup = new KeyLookup(_environment.Model.PropertiesModel);
             }
 
-            public JsonSerializer GetPopulatingJsonSerializer(IGremlinQueryFragmentDeserializer fragmentDeserializer) => GetJsonSerializer(fragmentDeserializer, false);
+            public JsonSerializer GetPopulatingJsonSerializer(IGremlinQueryFragmentDeserializer fragmentDeserializer)
+            {
+                GraphsonJsonSerializer.JTokenConverterConverter._canConvert = false;
 
-            public JsonSerializer GetIgnoringJsonSerializer(IGremlinQueryFragmentDeserializer fragmentDeserializer) => GetJsonSerializer(fragmentDeserializer, true);
-            
+                return _serializers.GetValue(
+                    fragmentDeserializer,
+                    _serializerFactory);
+            }
+
             public (PropertyInfo propertyInfo, Key key, SerializationBehaviour serializationBehaviour)[] GetSerializationData(Type type)
             {
                 return _typeProperties
@@ -222,15 +227,6 @@ namespace ExRam.Gremlinq.Core
                             .OrderBy(static x => x.key)
                             .ToArray(),
                         _environment);
-            }
-
-            private JsonSerializer GetJsonSerializer(IGremlinQueryFragmentDeserializer fragmentDeserializer, bool canConvert)
-            {
-                GraphsonJsonSerializer.JTokenConverterConverter._canConvert = canConvert;
-
-                return _serializers.GetValue(
-                    fragmentDeserializer,
-                    _serializerFactory);
             }
 
             public HashSet<Type> ModelTypes { get; }
