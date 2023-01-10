@@ -168,12 +168,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                     if (!typeof(Property).IsAssignableFrom(type) && jToken is JObject element && element.TryGetValue("id", out var idToken) && element.TryGetValue("label", out var labelToken) && element.TryGetElementProperties() is { } propertiesToken)
                     {
                         if (propertiesToken.ToObject(type, populatingSerializer) is { } ret)
-                        {
-                            ret.SetId(idToken, env, recurse);
-                            ret.SetLabel(labelToken, env, recurse);
-
-                            return ret;
-                        }
+                            return ret.SetIdAndLabel(idToken, labelToken, env, recurse);
                     }
 
                     return jToken.ToObject(type, populatingSerializer);

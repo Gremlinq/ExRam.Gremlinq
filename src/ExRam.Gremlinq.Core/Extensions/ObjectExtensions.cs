@@ -59,28 +59,30 @@ namespace ExRam.Gremlinq.Core
                 : throw new InvalidOperationException($"Unable to determine Id for {element}");
         }
 
-        public static void SetId(this object element, JToken idToken, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse)
+        public static object SetIdAndLabel(this object element, JToken idToken, JToken labelToken, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse)
         {
-            var (maybePropertyInfo, _, _) = environment.GetCache().GetSerializationData(element.GetType())
-                .FirstOrDefault(static info => info.key.RawKey is T t && T.Id.Equals(t));
+            var serializationData = environment
+                .GetCache()
+                .GetSerializationData(element.GetType());
 
-            if (maybePropertyInfo is { } propertyInfo)
+            for (var i = 0; i < serializationData.Length; i++)
             {
-                // ReSharper disable once ConstantConditionalAccessQualifier
-                propertyInfo.SetValue(element, recurse.TryDeserialize(idToken, propertyInfo.PropertyType, environment));
-            }
-        }
+                var info = serializationData[i];
 
-        public static void SetLabel(this object element, JToken labelToken, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse)
-        {
-            var (maybePropertyInfo, _, _) = environment.GetCache().GetSerializationData(element.GetType())
-                .FirstOrDefault(static info => info.key.RawKey is T t && T.Label.Equals(t));
+                if (info.key.RawKey is T t && info.propertyInfo is { } propertyInfo)
+                {
+                    var maybeRelevantToken = T.Id.Equals(t)
+                        ? idToken
+                        : T.Label.Equals(t)
+                            ? labelToken
+                            : default;
 
-            if (maybePropertyInfo is { } propertyInfo)
-            {
-                // ReSharper disable once ConstantConditionalAccessQualifier
-                propertyInfo.SetValue(element, recurse.TryDeserialize(labelToken, propertyInfo.PropertyType, environment));
+                    if (maybeRelevantToken is { } token)
+                        propertyInfo.SetValue(element, recurse.TryDeserialize(token, propertyInfo.PropertyType, environment));
+                }
             }
+
+            return element;
         }
 
         private static Func<object, IGremlinQueryEnvironment, SerializationBehaviour, IEnumerable<(Key key, object value)>> CreateSerializeDictionaryFunc<TKey, TValue>()
