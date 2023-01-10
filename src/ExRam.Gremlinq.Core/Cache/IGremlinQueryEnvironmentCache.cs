@@ -7,7 +7,7 @@ namespace ExRam.Gremlinq.Core
 {
     internal interface IGremlinQueryEnvironmentCache
     {
-        JsonSerializer GetPopulatingJsonSerializer(IGremlinQueryFragmentDeserializer fragmentDeserializer);
+        JsonSerializer GetJsonSerializer(IGremlinQueryFragmentDeserializer fragmentDeserializer);
         Key GetKey(MemberInfo member);
         (PropertyInfo propertyInfo, Key key, SerializationBehaviour serializationBehaviour)[] GetSerializationData(Type type);
 

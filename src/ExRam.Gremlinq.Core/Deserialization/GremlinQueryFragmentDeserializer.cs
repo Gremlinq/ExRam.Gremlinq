@@ -163,7 +163,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                         .GetCache();
 
                     var populatingSerializer = envCache
-                        .GetPopulatingJsonSerializer(recurse);
+                        .GetJsonSerializer(recurse);
 
                     if (!typeof(Property).IsAssignableFrom(type) && jToken is JObject element && element.TryGetValue("id", out var idToken) && element.TryGetValue("label", out var labelToken) && element.TryGetElementProperties() is { } propertiesToken)
                     {

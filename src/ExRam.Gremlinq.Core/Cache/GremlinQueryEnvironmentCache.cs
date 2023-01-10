@@ -200,7 +200,7 @@ namespace ExRam.Gremlinq.Core
                 _keyLookup = new KeyLookup(_environment.Model.PropertiesModel);
             }
 
-            public JsonSerializer GetPopulatingJsonSerializer(IGremlinQueryFragmentDeserializer fragmentDeserializer)
+            public JsonSerializer GetJsonSerializer(IGremlinQueryFragmentDeserializer fragmentDeserializer)
             {
                 GraphsonJsonSerializer.JTokenConverterConverter._canConvert = false;
 
