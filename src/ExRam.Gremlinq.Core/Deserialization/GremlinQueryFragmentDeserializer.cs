@@ -165,19 +165,14 @@ namespace ExRam.Gremlinq.Core.Deserialization
                     var populatingSerializer = envCache
                         .GetPopulatingJsonSerializer(recurse);
 
-                    if (!typeof(Property).IsAssignableFrom(type) && jToken is JObject element)
+                    if (!typeof(Property).IsAssignableFrom(type) && jToken is JObject element && element.TryGetElementProperties() is { } propertiesToken)
                     {
-                        if (element.TryGetElementProperties() is { } propertiesToken)
+                        if (propertiesToken.ToObject(type, populatingSerializer) is { } ret)
                         {
-                            if (propertiesToken.ToObject(type, populatingSerializer) is { } ret)
-                            {
-                                ret.SetId(element, env, recurse);
-                                ret.SetLabel(element, env, recurse);
+                            ret.SetId(element, env, recurse);
+                            ret.SetLabel(element, env, recurse);
 
-                                return ret;
-                            }
-
-                            return default;
+                            return ret;
                         }
                     }
 
