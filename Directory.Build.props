@@ -4,7 +4,7 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <ImplicitUsings>enable</ImplicitUsings>
     <EnablePackageValidation>true</EnablePackageValidation>
-    <LangVersion>10.0</LangVersion>
+    <LangVersion>11.0</LangVersion>
     <NoWarn>$(NoWarn);IDE1006;CS1998</NoWarn>
     <Nullable>enable</Nullable>
     <Authors>Daniel Weber</Authors>
