@@ -1,81 +1,39 @@
-﻿using System;
-using System.IO;
-using System.Threading.Tasks;
-using BenchmarkDotNet.Attributes;
+﻿using BenchmarkDotNet.Attributes;
 using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Core.Models;
-using ExRam.Gremlinq.Core.Tests;
+using ExRam.Gremlinq.Core.Deserialization;
 using ExRam.Gremlinq.Tests.Entities;
-using static ExRam.Gremlinq.Core.GremlinQuerySource;
+using Newtonsoft.Json.Linq;
 
 namespace Benchmarks
 {
     [MemoryDiagnoser]
     public class Benchmarks
     {
-        private readonly IGremlinQuerySource _g;
+        private readonly IGremlinQueryFragmentDeserializer _oldDeserializer;
+        private readonly IGremlinQueryFragmentDeserializer _newDeserializer;
+        private readonly JObject _source = JObject.Parse("{ \"id\": 13, \"label\": \"Person\", \"type\": \"vertex\", \"properties\": { \"Age\": [ { \"id\": 1, \"value\": \"36\" } ], \"RegistrationDate\": [ { \"id\": 2, \"value\": 1481750076295 } ], \"Gender\": [ { \"id\": 3, \"value\": 1 } ], \"PhoneNumbers\": [ { \"id\": 4, \"value\": \"+123456\" }, { \"id\": 5, \"value\": \"+234567\" } ] } }");
 
         public Benchmarks()
         {
-            _g = g
-                .ConfigureEnvironment(env => env.UseModel(GraphModel.FromBaseTypes<Vertex, Edge>(lookup => lookup
-                    .IncludeAssembliesOfBaseTypes())));
-        }
+            _oldDeserializer = GremlinQueryFragmentDeserializer.Identity
+               .AddNewtonsoftJson();
 
-
-        //[Benchmark]
-        public async Task LargeGraphson3Path()
-        {
-            await _g
-                .WithExecutor(GetJson("Large_Graphson3_Paths"))
-                .V<Person>()
-                .Cast<ExRam.Gremlinq.Core.GraphElements.Path[]>()
-                .ToArrayAsync();
+            _newDeserializer = GremlinQueryFragmentDeserializer.Identity
+               ./*ShinyAndNew*/AddNewtonsoftJson();
         }
 
         [Benchmark]
         public void Old()
         {
-            var key = 5326256;
-            var stringKey = string.Empty;
-
-            do
-            {
-                stringKey = (char)('a' + key % 26) + stringKey;
-                key /= 26;
-            } while (key > 0);
-
-            stringKey = "_" + stringKey;
+            _oldDeserializer
+                .TryDeserialize(_source, typeof(Person), GremlinQueryEnvironment.Empty);
         }
 
         [Benchmark]
         public void New()
         {
-            var key = 5326256;
-            var digits = key > 0
-                ? (int)Math.Ceiling(Math.Log(key + 1, 26)) + 1
-                : 2;
-
-            string.Create(
-                digits,
-                (key, digits),
-                (span, tuple) =>
-                {
-                    var (key, digits) = tuple;
-
-                    span[0] = '_';
-
-                    for (var i = digits - 1; i >= 1; i--)
-                    {
-                        span[i] = (char)('a' + key % 26);
-                        key /= 26;
-                    }
-                });
-        }
-
-        private static string GetJson(string name)
-        {
-            return new StreamReader(File.OpenRead($"..\\..\\..\\..\\..\\..\\..\\..\\..\\..\\files\\GraphSon\\{name}.json")).ReadToEnd();
+            _newDeserializer
+                .TryDeserialize(_source, typeof(Person), GremlinQueryEnvironment.Empty);
         }
     }
 }
