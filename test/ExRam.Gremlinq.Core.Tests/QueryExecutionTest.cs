@@ -6380,6 +6380,19 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task WithSideEffect_assigns_projection()
+        {
+            var stepLabel = new StepLabel<IArrayGremlinQuery<Person[], Person, IVertexGremlinQuery<Person>>, Person[]>();
+
+            await _g
+                .WithSideEffect(stepLabel, Array.Empty<Person>())
+                .V<Person>()
+                .Aggregate(stepLabel)
+                .Select(stepLabel)
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task WithSideEffect1()
         {
             var stepLabel = new StepLabel<int>();
