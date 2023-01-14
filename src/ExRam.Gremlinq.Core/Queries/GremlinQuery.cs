@@ -949,17 +949,14 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> RangeLocal(long low, long high) => Range(low, high, Scope.Local);
 
-        private GremlinQuery<TSelectedElement, object, object, object, object, object> Select<TSelectedElement>(StepLabel<TSelectedElement> stepLabel) =>
-            TryGetLabelProjection(stepLabel) is { } stepLabelProjection
-                ? this
-                    .Continue()
-                    .Build(
-                        static (builder, tuple) => builder
-                            .AddStep(new SelectStepLabelStep(ImmutableArray.Create<StepLabel>(tuple.stepLabel)))
-                            .WithNewProjection(tuple.stepLabelProjection)
-                            .AutoBuild<TSelectedElement>(),
-                        (stepLabel, stepLabelProjection))
-                : throw new InvalidOperationException($"Invalid use of unknown {nameof(StepLabel)} in {nameof(Select)}. Make sure you only pass in a {nameof(StepLabel)} that comes from a previous {nameof(As)}- or {nameof(IGremlinQuerySource.WithSideEffect)}-continuation or has previously been passed to an appropriate overload of {nameof(As)} or {nameof(IGremlinQuerySource.WithSideEffect)}.");
+        private GremlinQuery<TSelectedElement, object, object, object, object, object> Select<TSelectedElement>(StepLabel<TSelectedElement> stepLabel) => this
+            .Continue()
+            .Build(
+                static (builder, tuple) => builder
+                    .AddStep(new SelectStepLabelStep(ImmutableArray.Create<StepLabel>(tuple.stepLabel)))
+                    .WithNewProjection(tuple.stepLabelProjection)
+                    .AutoBuild<TSelectedElement>(),
+                (stepLabel, stepLabelProjection: GetLabelProjection(stepLabel)));
 
         private TTargetQuery Select<TTargetQuery>(params Expression[] projections) where TTargetQuery : IGremlinQueryBase => this
             .Continue()
