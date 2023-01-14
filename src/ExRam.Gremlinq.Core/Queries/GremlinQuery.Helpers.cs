@@ -71,22 +71,22 @@ namespace ExRam.Gremlinq.Core
                 switch (key.RawKey)
                 {
                     case T t:
-                    {
-                        if (t.TryToStep() is { } step)
-                            yield return step;
-                        else
-                            throw new ExpressionNotSupportedException($"Can't find an appropriate Gremlin step for {t}.");
+                        {
+                            if (t.TryToStep() is { } step)
+                                yield return step;
+                            else
+                                throw new ExpressionNotSupportedException($"Can't find an appropriate Gremlin step for {t}.");
 
-                        hasYielded = true;
+                            hasYielded = true;
 
-                        break;
-                    }
+                            break;
+                        }
                     case string str:
-                    {
-                        (stringKeys ??= new List<string>()).Add(str);
+                        {
+                            (stringKeys ??= new List<string>()).Add(str);
 
-                        break;
-                    }
+                            break;
+                        }
                     default:
                         throw new ExpressionNotSupportedException($"Can't find an appropriate Gremlin step for {key.RawKey}.");
                 }
@@ -105,8 +105,13 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        private Projection? TryGetLabelProjection(StepLabel stepLabel) => LabelProjections.TryGetValue(stepLabel, out var projections)
-            ? projections.StepLabelProjection ?? projections.SideEffectLabelProjection
-            : default;
+        private Projection GetLabelProjection(StepLabel stepLabel)
+        {
+            LabelProjections.TryGetValue(stepLabel, out var projections);
+
+            return projections.StepLabelProjection
+                ?? projections.SideEffectLabelProjection
+                ?? Environment.Options.GetValue(GremlinqOption.StepLabelProjectionFallback)(stepLabel);
+        }
     }
 }

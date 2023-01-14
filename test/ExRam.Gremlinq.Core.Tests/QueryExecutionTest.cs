@@ -3919,6 +3919,17 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task Select_with_unknown_label_throws()
+        {
+            _g
+                .Inject(0)
+                .Invoking(_ => _
+                    .Select<int>("label"))
+                .Should()
+                .Throw<InvalidOperationException>();
+        }
+
+        [Fact]
         public virtual async Task Set_Meta_Property_to_null()
         {
             await _g
