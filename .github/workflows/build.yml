@@ -215,7 +215,12 @@ jobs:
     if: ${{ needs.determinePublicationType.outputs.publishToNuget == 'true' }}
 
     steps:
+    - uses: actions/download-artifact@v2
+      with:
+        name: NuGetPackages
+
     - name: Draft release
+      id: create_release
       uses: release-drafter/release-drafter@v5.17.6
       with:
         name: ExRam.Gremlinq ${{ needs.build.outputs.semVer2 }}
@@ -225,6 +230,11 @@ jobs:
         publish: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - uses: shogo82148/actions-upload-release-asset@v1
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} 
+        asset_path: '**/ExRam.*.nupkg'
 
     - name: Send announcement tweet!
       if: ${{ needs.build.outputs.isStableRelease == 'true' }}
