@@ -88,9 +88,9 @@ namespace ExRam.Gremlinq.Core
         public static readonly GremlinqOption<DisabledTextPredicates> DisabledTextPredicates = new(Core.DisabledTextPredicates.None);
         public static readonly GremlinqOption<StringComparisonTranslationStrictness> StringComparisonTranslationStrictness = new(Core.StringComparisonTranslationStrictness.Strict);
 
-        public static GremlinqOption<LogLevel> QueryLogLogLevel = new(LogLevel.Debug);
-        public static GremlinqOption<Formatting> QueryLogFormatting = new(Formatting.None);
-        public static GremlinqOption<QueryLogVerbosity> QueryLogVerbosity = new(Core.QueryLogVerbosity.QueryOnly);
+        public static readonly GremlinqOption<LogLevel> QueryLogLogLevel = new(LogLevel.Debug);
+        public static readonly GremlinqOption<Formatting> QueryLogFormatting = new(Formatting.None);
+        public static readonly GremlinqOption<QueryLogVerbosity> QueryLogVerbosity = new(Core.QueryLogVerbosity.QueryOnly);
     }
 
     public class GremlinqOption<TValue> : IGremlinqOption
