@@ -59,7 +59,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: NuGetPackages
-        path: ./**/ExRam.*.nupkg
+        path: ./**/*Gremlinq.*.nupkg
         if-no-files-found: error
 
   test-linux:
@@ -178,7 +178,7 @@ jobs:
 
     - name: Push NuGet packages to GitHub packages
       if: ${{ needs.determinePublicationType.outputs.publishToGithubPackages == 'true' }}
-      run: dotnet nuget push **/ExRam.*.nupkg
+      run: dotnet nuget push **/*Gremlinq.*.nupkg
         --source https://nuget.pkg.github.com/exram/index.json
         --api-key ${{ secrets.GITHUB_TOKEN }}
         --no-symbols
@@ -186,7 +186,7 @@ jobs:
 
     - name: Push NuGet packages to NuGet.org
       if: ${{ needs.determinePublicationType.outputs.publishToNuget == 'true' }}
-      run: dotnet nuget push **/ExRam.*.nupkg
+      run: dotnet nuget push **/*Gremlinq.*.nupkg
         --source https://api.nuget.org/v3/index.json
         --api-key ${{ secrets.NUGET_DEPLOY_KEY }}
         --no-symbols
@@ -231,7 +231,7 @@ jobs:
     - uses: shogo82148/actions-upload-release-asset@v1
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} 
-        asset_path: '**/ExRam.*.nupkg'
+        asset_path: '**/*Gremlinq.*.nupkg'
 
     - name: Send announcement tweet!
       if: ${{ needs.build.outputs.isStableRelease == 'true' }}
