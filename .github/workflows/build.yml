@@ -10,6 +10,7 @@ on:
 env:
   IsForkedRepository: ${{ github.event.pull_request.head.repo.full_name != github.repository }}
   DotNetVersion: '7.0.102'
+  ProductName: 'ExRam.Gremlinq'
 
 jobs:
   determinePublicationType:
@@ -220,7 +221,7 @@ jobs:
       id: create_release
       uses: release-drafter/release-drafter@v5.17.6
       with:
-        name: ExRam.Gremlinq ${{ needs.build.outputs.semVer2 }}
+        name: ${{ env.ProductName }} ${{ needs.build.outputs.semVer2 }}
         prerelease: ${{ needs.build.outputs.isPreviewRelease }}
         tag: ${{ needs.build.outputs.semVer2 }}
         commitish: ${{ github.ref }}
