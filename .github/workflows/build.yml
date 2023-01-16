@@ -92,8 +92,8 @@ jobs:
     - name: Test
       run: dotnet test  --configuration Release --verbosity normal
       env:
-        RunGremlinServerIntegrationTests: ${{ env.IsForkedRepository == 'false' && github.event_name == 'pull_request' }}
-        RunJanusGraphIntegrationTests: ${{ env.IsForkedRepository == 'false' && github.event_name == 'pull_request' }}
+        RunGremlinServerIntegrationTests: ${{ env.IsForkedRepository == 'false' }}
+        RunJanusGraphIntegrationTests: ${{ env.IsForkedRepository == 'false' }}
 
     - name: Copy *.received-files to artifacts
       if: ${{ always() && env.IsForkedRepository == 'false' }}
@@ -124,7 +124,7 @@ jobs:
     - name: Test
       run: dotnet test  --configuration Release --verbosity normal
       env:
-        RunCosmosDbIntegrationTests: ${{ env.IsForkedRepository == 'false' && github.event_name == 'pull_request' }}
+        RunCosmosDbIntegrationTests: ${{ env.IsForkedRepository == 'false' }}
 
     - name: Copy *.received-files to artifacts
       if: ${{ always() && env.IsForkedRepository == 'false' }}
