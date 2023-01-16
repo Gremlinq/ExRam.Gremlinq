@@ -207,7 +207,7 @@ jobs:
         package-name: ${{ matrix.name }}
         min-versions-to-keep: 10
 
-  announce:
+  release:
     needs: [ determinePublicationType, build, publish ]
     runs-on: ubuntu-latest
     if: ${{ needs.determinePublicationType.outputs.publishToNuget == 'true' }}
@@ -234,17 +234,3 @@ jobs:
         upload_url: ${{ steps.create_release.outputs.upload_url }} 
         asset_path: '**/*Gremlinq.*.nupkg'
 
-    - name: Send announcement tweet!
-      if: ${{ needs.build.outputs.isStableRelease == 'true' }}
-      uses: ethomson/send-tweet-action@v1
-      with:
-        status: |
-          Announcing the release of ExRam.Gremlinq ${{ needs.build.outputs.semVer2 }}!
-          
-          ExRam.Gremlinq is the first #dotnet object-graph-mapper for @apachetinkerpop #gremlin enabled #graphdb‎s like @AzureCosmosDB, @dotnetonAWS Neptune or @JanusGraph.
-          
-          https://github.com/ExRam/ExRam.Gremlinq/releases/tag/${{ needs.build.outputs.semVer2 }}
-        consumer-key: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
-        consumer-secret: ${{ secrets.TWITTER_CONSUMER_API_SECRET }}
-        access-token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
-        access-token-secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
