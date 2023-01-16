@@ -32,7 +32,6 @@
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <DebugType>embedded</DebugType>
     <DebugSymbols>true</DebugSymbols>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
   </PropertyGroup>
 

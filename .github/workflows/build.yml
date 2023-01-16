@@ -53,8 +53,8 @@ jobs:
       uses: dotnet/nbgv@master
       id: nbgv
 
-    - name: Build
-      run: dotnet build --configuration Release -p:ContinuousIntegrationBuild=true
+    - name: Pack
+      run: dotnet pack --configuration Release -p:ContinuousIntegrationBuild=true
 
     - name: Copy NuGet packages to artifacts
       uses: actions/upload-artifact@v2
