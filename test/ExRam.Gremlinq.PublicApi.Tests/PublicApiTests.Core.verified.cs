@@ -200,7 +200,7 @@ namespace ExRam.Gremlinq.Core
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.Traversal> EmptyProjectionProtectionDecoratorSteps;
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<bool> EnableEmptyProjectionValueProtection;
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.FilterLabelsVerbosity> FilterLabelsVerbosity;
-        public static readonly ExRam.Gremlinq.Core.GremlinqOption<Newtonsoft.Json.Formatting> QueryLogFormatting;
+        public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.QueryLogFormatting> QueryLogFormatting;
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<Microsoft.Extensions.Logging.LogLevel> QueryLogLogLevel;
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.QueryLogVerbosity> QueryLogVerbosity;
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<System.Func<ExRam.Gremlinq.Core.StepLabel, ExRam.Gremlinq.Core.Projections.Projection>> StepLabelProjectionFallback;
@@ -1070,6 +1070,12 @@ namespace ExRam.Gremlinq.Core
         public bool Equals(ExRam.Gremlinq.Core.LabelProjections other) { }
         public ExRam.Gremlinq.Core.LabelProjections WithSideEffectLabelProjection(ExRam.Gremlinq.Core.Projections.Projection sideEffectLabelProjection) { }
         public ExRam.Gremlinq.Core.LabelProjections WithStepLabelProjection(ExRam.Gremlinq.Core.Projections.Projection stepLabelProjection) { }
+    }
+    [System.Flags]
+    public enum QueryLogFormatting
+    {
+        None = 0,
+        Indented = 1,
     }
     [System.Flags]
     public enum QueryLogVerbosity
