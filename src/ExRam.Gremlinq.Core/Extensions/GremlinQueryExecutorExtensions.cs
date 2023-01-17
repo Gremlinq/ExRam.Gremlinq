@@ -1,8 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
+using System.Text.Json;
 using ExRam.Gremlinq.Core.Serialization;
 using Gremlin.Net.Driver.Exceptions;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 
 namespace ExRam.Gremlinq.Core.Execution
 {
@@ -72,6 +72,8 @@ namespace ExRam.Gremlinq.Core.Execution
 
         private sealed class LoggingGremlinQueryExecutor : IGremlinQueryExecutor
         {
+            private static readonly JsonSerializerOptions IndentedSerializerOptions = new() { WriteIndented = true };
+            private static readonly JsonSerializerOptions NotIndentedSerializerOptions = new() { WriteIndented = false };
             private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, Action<ISerializedGremlinQuery, string>> Loggers = new();
 
             private readonly IGremlinQueryExecutor _executor;
@@ -132,7 +134,7 @@ namespace ExRam.Gremlinq.Core.Execution
                         environment.Logger.Log(
                             logLevel,
                             "Executing Gremlin query {0}.",
-                            JsonConvert.SerializeObject(
+                            JsonSerializer.Serialize(
                                 new
                                 {
                                     RequestId = requestId,
@@ -141,7 +143,9 @@ namespace ExRam.Gremlinq.Core.Execution
                                         ? groovyQuery.Bindings
                                         : null
                                 },
-                                (Formatting)(int)formatting));
+                                formatting.HasFlag(QueryLogFormatting.Indented)
+                                    ? IndentedSerializerOptions
+                                    : NotIndentedSerializerOptions));
                     }
                 };
             }
