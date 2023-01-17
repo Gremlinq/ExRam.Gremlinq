@@ -141,7 +141,7 @@ namespace ExRam.Gremlinq.Core.Execution
                                         ? groovyQuery.Bindings
                                         : null
                                 },
-                                formatting));
+                                (Formatting)(int)formatting));
                     }
                 };
             }
