@@ -254,44 +254,46 @@ namespace ExRam.Gremlinq.Core.Deserialization
             .Override<JArray>(static (jArray, type, env, overridden, recurse) =>
             {
                 //Traversers
-                if (!type.IsArray || env.GetCache().FastNativeTypes.ContainsKey(type))
-                    return overridden(jArray, type, env, recurse);
-
-                var array = default(ArrayList);
-                var elementType = type.GetElementType()!;
-
-                for (var i = 0; i < jArray.Count; i++)
+                if (type.IsArray && !env.GetCache().FastNativeTypes.ContainsKey(type))
                 {
-                    var bulk = 1;
-                    var effectiveArrayItem = jArray[i];
+                    var array = default(ArrayList);
+                    var elementType = type.GetElementType()!;
 
-                    if (effectiveArrayItem is JObject traverserObject && traverserObject.TryGetValue("@type", out var nestedType) && "g:Traverser".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase) && traverserObject.TryGetValue("@value", out var valueToken) && valueToken is JObject nestedTraverserObject)
+                    for (var i = 0; i < jArray.Count; i++)
                     {
-                        if (nestedTraverserObject.TryGetValue("bulk", out var bulkToken) && recurse.TryDeserialize(bulkToken, typeof(int), env) is int bulkObject)
-                            bulk = bulkObject;
+                        var bulk = 1;
+                        var effectiveArrayItem = jArray[i];
 
-                        if (nestedTraverserObject.TryGetValue("value", out var traverserValue))
-                            effectiveArrayItem = traverserValue;
-                    }
-
-                    if (recurse.TryDeserialize(effectiveArrayItem, elementType, env) is { } item)
-                    {
-                        if (jArray.Count == 1 && bulk == 1)
+                        if (effectiveArrayItem is JObject traverserObject && traverserObject.TryGetValue("@type", out var nestedType) && "g:Traverser".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase) && traverserObject.TryGetValue("@value", out var valueToken) && valueToken is JObject nestedTraverserObject)
                         {
-                            var ret = Array.CreateInstance(elementType, 1);
-                            ret.SetValue(item, 0);
+                            if (nestedTraverserObject.TryGetValue("bulk", out var bulkToken) && recurse.TryDeserialize(bulkToken, typeof(int), env) is int bulkObject)
+                                bulk = bulkObject;
 
-                            return ret;
+                            if (nestedTraverserObject.TryGetValue("value", out var traverserValue))
+                                effectiveArrayItem = traverserValue;
                         }
 
-                        array ??= new ArrayList(jArray.Count);
+                        if (recurse.TryDeserialize(effectiveArrayItem, elementType, env) is { } item)
+                        {
+                            if (jArray.Count == 1 && bulk == 1)
+                            {
+                                var ret = Array.CreateInstance(elementType, 1);
+                                ret.SetValue(item, 0);
 
-                        for (var j = 0; j < bulk; j++)
-                            array.Add(item);
+                                return ret;
+                            }
+
+                            array ??= new ArrayList(jArray.Count);
+
+                            for (var j = 0; j < bulk; j++)
+                                array.Add(item);
+                        }
                     }
+
+                    return array?.ToArray(elementType) ?? Array.CreateInstance(elementType, 0);
                 }
 
-                return array?.ToArray(elementType) ?? Array.CreateInstance(elementType, 0);
+                return overridden(jArray, type, env, recurse);
             });
         // ReSharper restore ConvertToLambdaExpression
 
