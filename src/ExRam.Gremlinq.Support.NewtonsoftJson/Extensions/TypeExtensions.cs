@@ -1,0 +1,16 @@
+﻿namespace System
+{
+    internal static class TypeExtensions
+    {
+        public static IEnumerable<Type> GetTypeHierarchy(this Type type)
+        {
+            var currentType = (Type?)type;
+
+            while (currentType != null)
+            {
+                yield return currentType;
+                currentType = currentType.BaseType;
+            }
+        }
+    }
+}

@@ -1,6 +1,6 @@
-﻿using ExRam.Gremlinq.Core.Deserialization;
-using ExRam.Gremlinq.Core.Execution;
+﻿using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Core.Serialization;
+using ExRam.Gremlinq.Core.Deserialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -40,7 +40,6 @@ namespace ExRam.Gremlinq.Core.Tests
                     .ConfigureFragmentDeserializer(f => f
                         .AddNewtonsoftJson())));
         }
-
 
         public static IGremlinQuerySource UseDebuggingExecutor(this IConfigurableGremlinQuerySource source)
         {

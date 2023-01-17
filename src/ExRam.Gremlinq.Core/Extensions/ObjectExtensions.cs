@@ -4,7 +4,6 @@ using System.Reflection;
 using ExRam.Gremlinq.Core.Deserialization;
 using ExRam.Gremlinq.Core.Models;
 using Gremlin.Net.Process.Traversal;
-using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -57,32 +56,6 @@ namespace ExRam.Gremlinq.Core
             return propertyInfo?.GetValue(element) is { } value
                 ? value
                 : throw new InvalidOperationException($"Unable to determine Id for {element}");
-        }
-
-        public static object SetIdAndLabel(this object element, JToken idToken, JToken labelToken, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse)
-        {
-            var serializationData = environment
-                .GetCache()
-                .GetSerializationData(element.GetType());
-
-            for (var i = 0; i < serializationData.Length; i++)
-            {
-                var info = serializationData[i];
-
-                if (info.key.RawKey is T t && info.propertyInfo is { } propertyInfo)
-                {
-                    var maybeRelevantToken = T.Id.Equals(t)
-                        ? idToken
-                        : T.Label.Equals(t)
-                            ? labelToken
-                            : default;
-
-                    if (maybeRelevantToken is { } token)
-                        propertyInfo.SetValue(element, recurse.TryDeserialize(token, propertyInfo.PropertyType, environment));
-                }
-            }
-
-            return element;
         }
 
         private static Func<object, IGremlinQueryEnvironment, SerializationBehaviour, IEnumerable<(Key key, object value)>> CreateSerializeDictionaryFunc<TKey, TValue>()

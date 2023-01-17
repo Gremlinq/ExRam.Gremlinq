@@ -4,7 +4,6 @@ using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Core.Serialization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
-using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -103,19 +102,6 @@ namespace ExRam.Gremlinq.Core
                 .UseDeserializer(GremlinQueryExecutionResultDeserializer.Default);
         }
 
-        public static IGremlinQueryEnvironment StoreTimeSpansAsNumbers(this IGremlinQueryEnvironment environment)
-        {
-            return environment
-                .ConfigureSerializer(static serializer => serializer
-                    .ConfigureFragmentSerializer(static fragmentSerializer =>  fragmentSerializer
-                        .Override<TimeSpan>(static (t, env, _, recurse) => recurse.Serialize(t.TotalMilliseconds, env))))
-                .ConfigureDeserializer(static deserializer => deserializer
-                    .ConfigureFragmentDeserializer(static fragmentDeserializer => fragmentDeserializer
-                        .Override<JValue>(static (jValue, type, env, overridden, recurse) => type == typeof(TimeSpan)
-                            ? TimeSpan.FromMilliseconds(jValue.Value<double>())
-                            : overridden(jValue, type, env, recurse))));
-        }
-
         public static IGremlinQueryEnvironment StoreByteArraysAsBase64String(this IGremlinQueryEnvironment environment)
         {
             return environment
@@ -125,15 +111,6 @@ namespace ExRam.Gremlinq.Core
                 .ConfigureSerializer(static _ => _
                     .ConfigureFragmentSerializer(static _ => _
                         .Override<byte[]>(static (bytes, env, _, recurse) => recurse.Serialize(Convert.ToBase64String(bytes), env))));
-        }
-
-        public static IGremlinQueryEnvironment RegisterNativeType<TNative>(this IGremlinQueryEnvironment environment, GremlinQueryFragmentSerializerDelegate<TNative> serializerDelegate, GremlinQueryFragmentDeserializerDelegate<JValue> deserializer)
-        {
-            return environment
-                .RegisterNativeType(
-                    serializerDelegate,
-                    _ => _
-                        .Override<JValue, TNative>(deserializer));
         }
 
         public static IGremlinQueryEnvironment RegisterNativeType<TNative>(this IGremlinQueryEnvironment environment, GremlinQueryFragmentSerializerDelegate<TNative> serializerDelegate, Func<IGremlinQueryFragmentDeserializer, IGremlinQueryFragmentDeserializer> fragmentDeserializerTransformation)
