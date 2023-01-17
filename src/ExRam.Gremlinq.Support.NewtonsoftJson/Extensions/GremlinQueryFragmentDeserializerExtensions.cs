@@ -40,9 +40,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 ? jToken
                     .ToObject(
                         type,
-                        env
-                            .GetCache()
-                            .GetJsonSerializer(recurse))
+                        env.GetJsonSerializer(recurse))
                 : overridden(jToken, type, env, recurse))
             .Override<JToken>(static (jToken, type, env, overridden, recurse) =>
             {

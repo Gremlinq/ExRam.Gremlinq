@@ -3,13 +3,16 @@
   <PropertyGroup>
     <Description>Newtonsoft.Json support library for Gremlinq.</Description>
   </PropertyGroup>
-  
+
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-  </ItemGroup>
-  
-  <ItemGroup>
+
     <ProjectReference Include="..\ExRam.Gremlinq.Core\ExRam.Gremlinq.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\ExRam.Gremlinq.Core\Cache\GremlinQueryEnvironmentCache.cs" Link="Cache\GremlinQueryEnvironmentCache.cs" />
+    <Compile Include="..\ExRam.Gremlinq.Core\Cache\IGremlinQueryEnvironmentCache.cs" Link="Cache\IGremlinQueryEnvironmentCache.cs" />
   </ItemGroup>
 
 </Project>
