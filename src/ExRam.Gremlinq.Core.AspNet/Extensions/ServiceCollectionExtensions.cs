@@ -2,7 +2,6 @@
 using ExRam.Gremlinq.Core.AspNet;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -43,7 +42,7 @@ namespace Microsoft.Extensions.DependencyInjection
                                         if (Enum.TryParse<LogLevel>(loggingSection[$"{nameof(LogLevel)}"], out var logLevel))
                                             options = options.SetValue(GremlinqOption.QueryLogLogLevel, logLevel);
 
-                                        if (Enum.TryParse<Formatting>(loggingSection[$"{nameof(Formatting)}"], out var formatting))
+                                        if (Enum.TryParse<QueryLogFormatting>(loggingSection["Formatting"], out var formatting))
                                             options = options.SetValue(GremlinqOption.QueryLogFormatting, formatting);
 
                                         return options;

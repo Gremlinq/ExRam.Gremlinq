@@ -4,7 +4,6 @@ using ExRam.Gremlinq.Core.Projections;
 using ExRam.Gremlinq.Core.Steps;
 using Gremlin.Net.Process.Traversal;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -89,7 +88,7 @@ namespace ExRam.Gremlinq.Core
         public static readonly GremlinqOption<StringComparisonTranslationStrictness> StringComparisonTranslationStrictness = new(Core.StringComparisonTranslationStrictness.Strict);
 
         public static readonly GremlinqOption<LogLevel> QueryLogLogLevel = new(LogLevel.Debug);
-        public static readonly GremlinqOption<Formatting> QueryLogFormatting = new(Formatting.None);
+        public static readonly GremlinqOption<QueryLogFormatting> QueryLogFormatting = new(Core.QueryLogFormatting.None);
         public static readonly GremlinqOption<QueryLogVerbosity> QueryLogVerbosity = new(Core.QueryLogVerbosity.QueryOnly);
     }
 
