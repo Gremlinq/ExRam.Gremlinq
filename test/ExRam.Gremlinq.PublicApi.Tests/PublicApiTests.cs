@@ -53,6 +53,9 @@ namespace ExRam.Gremlinq.PublicApi.Tests
         [Fact]
         public Task WebSocketAspNet() => Verify("ExRam.Gremlinq.Providers.WebSocket.AspNet");
 
+        [Fact]
+        public Task SupportNewtonsoftJson() => Verify("ExRam.Gremlinq.Support.NewtonsoftJson");
+
         private Task Verify(string assemblyName) => Verify(
             Assembly
                 .Load(assemblyName)
