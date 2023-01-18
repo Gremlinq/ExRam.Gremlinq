@@ -72,7 +72,7 @@ namespace ExRam.Gremlinq.Core
                 (builderTransformation, state));
         }
 
-        private TResult With<TState, TResult>(Func<TOuterQuery, TAnonymousQuery, FastImmutableList<IGremlinQueryBase>, ContinuationFlags, TState, TResult> continuation, TState state) => _outer is { } outer && _anonymous is { } anonymous && _continuations is { } continuations
+        private TResult With<TState, TResult>(Func<TOuterQuery, TAnonymousQuery, FastImmutableList<IGremlinQueryBase>, ContinuationFlags, TState, TResult> continuation, TState state) => _outer is { } outer && _anonymous is { } anonymous && _continuations is var continuations
             ? continuation(outer, anonymous, continuations, _flags, state)
             : throw new InvalidOperationException();
 

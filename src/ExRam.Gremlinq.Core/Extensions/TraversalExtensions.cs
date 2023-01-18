@@ -191,6 +191,6 @@ namespace ExRam.Gremlinq.Core
 
         public static Step Peek(this Traversal traversal) => traversal.PeekOrDefault() ?? throw new InvalidOperationException($"{nameof(Traversal)} is Empty.");
 
-        public static Step? PeekOrDefault(this Traversal traversal) => traversal.Count > 0 ? traversal[traversal.Count - 1] : null;
+        public static Step? PeekOrDefault(this Traversal traversal) => traversal.Count > 0 ? traversal[^1] : null;
     }
 }

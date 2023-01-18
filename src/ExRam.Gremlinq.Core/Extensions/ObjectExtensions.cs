@@ -52,10 +52,7 @@ namespace ExRam.Gremlinq.Core
             var (propertyInfo, _, _) = environment.GetCache().GetSerializationData(element.GetType())
                 .FirstOrDefault(static info => info.key.RawKey is T t && T.Id.Equals(t));
 
-            // ReSharper disable once ConstantConditionalAccessQualifier
-            return propertyInfo?.GetValue(element) is { } value
-                ? value
-                : throw new InvalidOperationException($"Unable to determine Id for {element}");
+            return propertyInfo?.GetValue(element) ?? throw new InvalidOperationException($"Unable to determine Id for {element}");
         }
 
         private static Func<object, IGremlinQueryEnvironment, SerializationBehaviour, IEnumerable<(Key key, object value)>> CreateSerializeDictionaryFunc<TKey, TValue>()

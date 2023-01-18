@@ -81,7 +81,7 @@ namespace ExRam.Gremlinq.Core
         public static readonly GremlinqOption<bool> EnableEmptyProjectionValueProtection = new (false);
 
         public static readonly GremlinqOption<Func<StepLabel, Projection>> StepLabelProjectionFallback = new(
-            stepLabel => throw new InvalidOperationException($"Invalid use of unknown {nameof(StepLabel)} in {nameof(IGremlinQueryBase.Select)}. Make sure you only pass in a {nameof(StepLabel)} that comes from a previous {nameof(IGremlinQuery<int>.As)}, {nameof(IGremlinQuery<int>.Aggregate)} or {nameof(IGremlinQuerySource.WithSideEffect)}-continuation or has previously been passed to an appropriate overload of {nameof(IGremlinQuery<int>.As)}, {nameof(IGremlinQuery<int>.Aggregate)} or {nameof(IGremlinQuerySource.WithSideEffect)}."));
+            static _ => throw new InvalidOperationException($"Invalid use of unknown {nameof(StepLabel)} in {nameof(IGremlinQueryBase.Select)}. Make sure you only pass in a {nameof(StepLabel)} that comes from a previous {nameof(IGremlinQuery<int>.As)}, {nameof(IGremlinQuery<int>.Aggregate)} or {nameof(IGremlinQuerySource.WithSideEffect)}-continuation or has previously been passed to an appropriate overload of {nameof(IGremlinQuery<int>.As)}, {nameof(IGremlinQuery<int>.Aggregate)} or {nameof(IGremlinQuerySource.WithSideEffect)}."));
 
         public static readonly GremlinqOption<FilterLabelsVerbosity> FilterLabelsVerbosity = new(Core.FilterLabelsVerbosity.Maximum);
         public static readonly GremlinqOption<DisabledTextPredicates> DisabledTextPredicates = new(Core.DisabledTextPredicates.None);

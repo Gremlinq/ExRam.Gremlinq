@@ -28,11 +28,9 @@
                     {
                         if (!_stepLabelNames!.TryGetValue(stepLabel, out var stepLabelMapping))
                         {
-                            stepLabelMapping = stepLabel.Identity is string stringIdentity
-                                ? stringIdentity
-                                : _stepLabelNames.Count < StepLabelNames.Length
-                                    ? StepLabelNames[_stepLabelNames.Count]
-                                    : "l" + (_stepLabelNames.Count + 1);
+                            stepLabelMapping = stepLabel.Identity as string ?? (_stepLabelNames.Count < StepLabelNames.Length
+                                ? StepLabelNames[_stepLabelNames.Count]
+                                : "l" + (_stepLabelNames.Count + 1));
 
                             _stepLabelNames.Add(stepLabel, stepLabelMapping);
                         }

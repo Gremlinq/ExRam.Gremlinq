@@ -20,7 +20,7 @@
                 _stringKey = string.Create(
                     digits,
                     (key, digits),
-                    (span, tuple) =>
+                    static (span, tuple) =>
                     {
                         var (key, digits) = tuple;
 
@@ -37,12 +37,8 @@
 
         public static implicit operator BindingKey(int key) => new(key);
 
-        public static implicit operator string(BindingKey key) => key._stringKey is { } stringKey
-            ? stringKey
-            : throw new ArgumentException(null, nameof(key));
+        public static implicit operator string(BindingKey key) => key._stringKey ?? throw new ArgumentException(null, nameof(key));
 
-        public override string ToString() => _stringKey is { } stringKey
-            ? stringKey
-            : "(invalid)";
+        public override string ToString() => _stringKey ?? "(invalid)";
     }
 }

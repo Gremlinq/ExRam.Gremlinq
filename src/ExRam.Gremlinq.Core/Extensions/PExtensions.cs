@@ -46,13 +46,13 @@ namespace ExRam.Gremlinq.Core
 
                         string upperBound;
 
-                        if (value[value.Length - 1] == char.MaxValue)
+                        if (value[^1] == char.MaxValue)
                             upperBound = value + char.MinValue;
                         else
                         {
                             var upperBoundChars = value.ToCharArray();
 
-                            upperBoundChars[upperBoundChars.Length - 1]++;
+                            upperBoundChars[^1]++;
                             upperBound = new string(upperBoundChars);
                         }
 
@@ -88,7 +88,7 @@ namespace ExRam.Gremlinq.Core
                 {
                     var replacement = new Traversal[]
                     {
-                        (p.Value is P innerP ? innerP : (P)P.Eq(p.Value)).GetFilterStep(key),
+                        (p.Value as P ?? (P)P.Eq(p.Value)).GetFilterStep(key),
                         p.Other.GetFilterStep(key)
                     };
 
