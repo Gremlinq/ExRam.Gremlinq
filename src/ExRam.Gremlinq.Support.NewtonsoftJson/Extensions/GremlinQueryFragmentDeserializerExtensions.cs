@@ -46,8 +46,10 @@ namespace ExRam.Gremlinq.Core.Deserialization
             .Override<JToken>(static (jToken, type, env, overridden, recurse) =>
             {
                 if (jToken is JObject element && !type.IsInstanceOfType(jToken) && !typeof(Property).IsAssignableFrom(type) && element.TryGetValue("id", StringComparison.OrdinalIgnoreCase, out var idToken) && element.TryGetValue("label", StringComparison.OrdinalIgnoreCase, out var labelToken) && labelToken.Type == JTokenType.String && element.TryGetValue("properties", out var propertiesToken))
+                {
                     if (recurse.TryDeserialize(propertiesToken, type, env) is { } ret)
                         return ret.SetIdAndLabel(idToken, labelToken, env, recurse);
+                }
 
                 return overridden(jToken, type, env, recurse);
             })
