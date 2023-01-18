@@ -6,6 +6,7 @@ using System.Dynamic;
 using System.Xml;
 using System.Numerics;
 using ExRam.Gremlinq.Core.GraphElements;
+using System;
 
 namespace ExRam.Gremlinq.Core.Deserialization
 {
@@ -227,36 +228,18 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 //Traversers
                 if (type.IsArray && !env.GetCache().FastNativeTypes.ContainsKey(type))
                 {
-                    if (jObject.TryGetValue("@type", out var nestedType) && "g:Traverser".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase) && jObject.TryGetValue("@value", out var valueToken) && valueToken is JObject nestedTraverserObject)
+                    var elementType = type.GetElementType()!;
+
+                    if (jObject.TryExpandTraverser(elementType, env, recurse) is { } enumerable)
                     {
-                        var array = default(ArrayList);
-                        var elementType = type.GetElementType()!;
+                        var array = new ArrayList();
 
-                        var bulk = 1;
-
-                        if (nestedTraverserObject.TryGetValue("bulk", out var bulkToken) && recurse.TryDeserialize(bulkToken, typeof(int), env) is int bulkObject)
-                            bulk = bulkObject;
-
-                        if (nestedTraverserObject.TryGetValue("value", out var traverserValue))
+                        foreach (var item in enumerable)
                         {
-                            if (recurse.TryDeserialize(traverserValue, elementType, env) is { } item)
-                            {
-                                if (bulk == 1)
-                                {
-                                    var ret = Array.CreateInstance(elementType, 1);
-                                    ret.SetValue(item, 0);
-
-                                    return ret;
-                                }
-
-                                array ??= new ArrayList();
-
-                                for (var j = 0; j < bulk; j++)
-                                    array.Add(item);
-                            }
-
-                            return array?.ToArray(elementType) ?? Array.CreateInstance(elementType, 0);
+                            array.Add(item);
                         }
+
+                        return array.ToArray(elementType);
                     }
                 }
 
@@ -303,32 +286,20 @@ namespace ExRam.Gremlinq.Core.Deserialization
 
                     for (var i = 0; i < jArray.Count; i++)
                     {
-                        var bulk = 1;
-                        var effectiveArrayItem = jArray[i];
-
-                        if (effectiveArrayItem is JObject traverserObject && traverserObject.TryGetValue("@type", out var nestedType) && "g:Traverser".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase) && traverserObject.TryGetValue("@value", out var valueToken) && valueToken is JObject nestedTraverserObject)
+                        if (jArray[i] is JObject traverserObject && traverserObject.TryExpandTraverser(elementType, env, recurse) is { } enumerable)
                         {
-                            if (nestedTraverserObject.TryGetValue("bulk", out var bulkToken) && recurse.TryDeserialize(bulkToken, typeof(int), env) is int bulkObject)
-                                bulk = bulkObject;
-
-                            if (nestedTraverserObject.TryGetValue("value", out var traverserValue))
-                                effectiveArrayItem = traverserValue;
-                        }
-
-                        if (recurse.TryDeserialize(effectiveArrayItem, elementType, env) is { } item)
-                        {
-                            if (jArray.Count == 1 && bulk == 1)
-                            {
-                                var ret = Array.CreateInstance(elementType, 1);
-                                ret.SetValue(item, 0);
-
-                                return ret;
-                            }
-
                             array ??= new ArrayList(jArray.Count);
 
-                            for (var j = 0; j < bulk; j++)
-                                array.Add(item);
+                            foreach (var item1 in enumerable)
+                            {
+                                array.Add(item1);
+                            }
+                        }
+                        else if (recurse.TryDeserialize(jArray[i], elementType, env) is { } item2)
+                        {
+                            array ??= new ArrayList(jArray.Count);
+
+                            array.Add(item2);
                         }
                     }
 
