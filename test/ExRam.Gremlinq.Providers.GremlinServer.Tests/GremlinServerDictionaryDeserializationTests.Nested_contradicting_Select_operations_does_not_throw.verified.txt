@@ -1,7 +1,47 @@
 ﻿[
-  {
-    "Item1": {
+  [
+    {
       "Item1": {
+        "Item1": {
+          "Age": 0,
+          "Gender": null,
+          "Image": null,
+          "RegistrationDate": "2020-04-07T14:43:36+00:00",
+          "PhoneNumbers": null,
+          "SomeObscureProperty": null,
+          "Name": {
+            "Id": -1,
+            "Label": "Name",
+            "Properties": {
+              "ValidFrom": "0001-01-01T00:00:00+00:00"
+            },
+            "Value": "Marko",
+            "Key": null
+          },
+          "Id": -1,
+          "Label": "Person"
+        },
+        "Item2": {
+          "Age": 0,
+          "Gender": null,
+          "Image": null,
+          "RegistrationDate": "2020-04-07T14:43:36+00:00",
+          "PhoneNumbers": null,
+          "SomeObscureProperty": null,
+          "Name": {
+            "Id": -1,
+            "Label": "Name",
+            "Properties": {
+              "ValidFrom": "0001-01-01T00:00:00+00:00"
+            },
+            "Value": "Marko",
+            "Key": null
+          },
+          "Id": -1,
+          "Label": "Person"
+        }
+      },
+      "Item2": {
         "Age": 0,
         "Gender": null,
         "Image": null,
@@ -19,59 +59,34 @@
         },
         "Id": -1,
         "Label": "Person"
-      },
-      "Item2": {
-        "Age": 0,
-        "Gender": null,
-        "Image": null,
-        "RegistrationDate": "2020-04-07T14:43:36+00:00",
-        "PhoneNumbers": null,
-        "SomeObscureProperty": null,
-        "Name": {
-          "Id": -1,
-          "Label": "Name",
-          "Properties": {
-            "ValidFrom": "0001-01-01T00:00:00+00:00"
-          },
-          "Value": "Marko",
-          "Key": null
-        },
-        "Id": -1,
-        "Label": "Person"
       }
-    },
-    "Item2": {
-      "Age": 0,
-      "Gender": null,
-      "Image": null,
-      "RegistrationDate": "2020-04-07T14:43:36+00:00",
-      "PhoneNumbers": null,
-      "SomeObscureProperty": null,
-      "Name": {
-        "Id": -1,
-        "Label": "Name",
-        "Properties": {
-          "ValidFrom": "0001-01-01T00:00:00+00:00"
-        },
-        "Value": "Marko",
-        "Key": null
-      },
-      "Id": -1,
-      "Label": "Person"
     }
-  },
-  {
-    "Item1": {
+  ],
+  [
+    {
       "Item1": {
-        "Age": 0,
-        "Gender": null,
-        "Image": null,
-        "RegistrationDate": null,
-        "PhoneNumbers": null,
-        "SomeObscureProperty": null,
-        "Name": null,
-        "Id": -1,
-        "Label": "Person"
+        "Item1": {
+          "Age": 0,
+          "Gender": null,
+          "Image": null,
+          "RegistrationDate": null,
+          "PhoneNumbers": null,
+          "SomeObscureProperty": null,
+          "Name": null,
+          "Id": -1,
+          "Label": "Person"
+        },
+        "Item2": {
+          "Age": 0,
+          "Gender": null,
+          "Image": null,
+          "RegistrationDate": null,
+          "PhoneNumbers": null,
+          "SomeObscureProperty": null,
+          "Name": null,
+          "Id": -1,
+          "Label": "Person"
+        }
       },
       "Item2": {
         "Age": 0,
@@ -84,39 +99,49 @@
         "Id": -1,
         "Label": "Person"
       }
-    },
-    "Item2": {
-      "Age": 0,
-      "Gender": null,
-      "Image": null,
-      "RegistrationDate": null,
-      "PhoneNumbers": null,
-      "SomeObscureProperty": null,
-      "Name": null,
-      "Id": -1,
-      "Label": "Person"
     }
-  },
-  {
-    "Item1": {
+  ],
+  [
+    {
       "Item1": {
-        "Age": 0,
-        "Gender": null,
-        "Image": null,
-        "RegistrationDate": "2020-04-07T14:43:36+00:00",
-        "PhoneNumbers": null,
-        "SomeObscureProperty": null,
-        "Name": {
-          "Id": -1,
-          "Label": "Name",
-          "Properties": {
-            "ValidFrom": "0001-01-01T00:00:00+00:00"
+        "Item1": {
+          "Age": 0,
+          "Gender": null,
+          "Image": null,
+          "RegistrationDate": "2020-04-07T14:43:36+00:00",
+          "PhoneNumbers": null,
+          "SomeObscureProperty": null,
+          "Name": {
+            "Id": -1,
+            "Label": "Name",
+            "Properties": {
+              "ValidFrom": "0001-01-01T00:00:00+00:00"
+            },
+            "Value": "Bob",
+            "Key": null
           },
-          "Value": "Bob",
-          "Key": null
+          "Id": -1,
+          "Label": "Person"
         },
-        "Id": -1,
-        "Label": "Person"
+        "Item2": {
+          "Age": 0,
+          "Gender": null,
+          "Image": null,
+          "RegistrationDate": "2020-04-07T14:43:36+00:00",
+          "PhoneNumbers": null,
+          "SomeObscureProperty": null,
+          "Name": {
+            "Id": -1,
+            "Label": "Name",
+            "Properties": {
+              "ValidFrom": "0001-01-01T00:00:00+00:00"
+            },
+            "Value": "Bob",
+            "Key": null
+          },
+          "Id": -1,
+          "Label": "Person"
+        }
       },
       "Item2": {
         "Age": 0,
@@ -137,39 +162,33 @@
         "Id": -1,
         "Label": "Person"
       }
-    },
-    "Item2": {
-      "Age": 0,
-      "Gender": null,
-      "Image": null,
-      "RegistrationDate": "2020-04-07T14:43:36+00:00",
-      "PhoneNumbers": null,
-      "SomeObscureProperty": null,
-      "Name": {
-        "Id": -1,
-        "Label": "Name",
-        "Properties": {
-          "ValidFrom": "0001-01-01T00:00:00+00:00"
+    }
+  ],
+  [
+    {
+      "Item1": {
+        "Item1": {
+          "Age": 0,
+          "Gender": null,
+          "Image": null,
+          "RegistrationDate": null,
+          "PhoneNumbers": null,
+          "SomeObscureProperty": null,
+          "Name": null,
+          "Id": -1,
+          "Label": "Person"
         },
-        "Value": "Bob",
-        "Key": null
-      },
-      "Id": -1,
-      "Label": "Person"
-    }
-  },
-  {
-    "Item1": {
-      "Item1": {
-        "Age": 0,
-        "Gender": null,
-        "Image": null,
-        "RegistrationDate": null,
-        "PhoneNumbers": null,
-        "SomeObscureProperty": null,
-        "Name": null,
-        "Id": -1,
-        "Label": "Person"
+        "Item2": {
+          "Age": 0,
+          "Gender": null,
+          "Image": null,
+          "RegistrationDate": null,
+          "PhoneNumbers": null,
+          "SomeObscureProperty": null,
+          "Name": null,
+          "Id": -1,
+          "Label": "Person"
+        }
       },
       "Item2": {
         "Age": 0,
@@ -182,31 +201,33 @@
         "Id": -1,
         "Label": "Person"
       }
-    },
-    "Item2": {
-      "Age": 0,
-      "Gender": null,
-      "Image": null,
-      "RegistrationDate": null,
-      "PhoneNumbers": null,
-      "SomeObscureProperty": null,
-      "Name": null,
-      "Id": -1,
-      "Label": "Person"
     }
-  },
-  {
-    "Item1": {
+  ],
+  [
+    {
       "Item1": {
-        "Age": 0,
-        "Gender": null,
-        "Image": null,
-        "RegistrationDate": null,
-        "PhoneNumbers": null,
-        "SomeObscureProperty": null,
-        "Name": null,
-        "Id": -1,
-        "Label": "Person"
+        "Item1": {
+          "Age": 0,
+          "Gender": null,
+          "Image": null,
+          "RegistrationDate": null,
+          "PhoneNumbers": null,
+          "SomeObscureProperty": null,
+          "Name": null,
+          "Id": -1,
+          "Label": "Person"
+        },
+        "Item2": {
+          "Age": 0,
+          "Gender": null,
+          "Image": null,
+          "RegistrationDate": null,
+          "PhoneNumbers": null,
+          "SomeObscureProperty": null,
+          "Name": null,
+          "Id": -1,
+          "Label": "Person"
+        }
       },
       "Item2": {
         "Age": 0,
@@ -219,31 +240,33 @@
         "Id": -1,
         "Label": "Person"
       }
-    },
-    "Item2": {
-      "Age": 0,
-      "Gender": null,
-      "Image": null,
-      "RegistrationDate": null,
-      "PhoneNumbers": null,
-      "SomeObscureProperty": null,
-      "Name": null,
-      "Id": -1,
-      "Label": "Person"
     }
-  },
-  {
-    "Item1": {
+  ],
+  [
+    {
       "Item1": {
-        "Age": 0,
-        "Gender": null,
-        "Image": null,
-        "RegistrationDate": null,
-        "PhoneNumbers": null,
-        "SomeObscureProperty": null,
-        "Name": null,
-        "Id": -1,
-        "Label": "Person"
+        "Item1": {
+          "Age": 0,
+          "Gender": null,
+          "Image": null,
+          "RegistrationDate": null,
+          "PhoneNumbers": null,
+          "SomeObscureProperty": null,
+          "Name": null,
+          "Id": -1,
+          "Label": "Person"
+        },
+        "Item2": {
+          "Age": 0,
+          "Gender": null,
+          "Image": null,
+          "RegistrationDate": null,
+          "PhoneNumbers": null,
+          "SomeObscureProperty": null,
+          "Name": null,
+          "Id": -1,
+          "Label": "Person"
+        }
       },
       "Item2": {
         "Age": 0,
@@ -256,31 +279,33 @@
         "Id": -1,
         "Label": "Person"
       }
-    },
-    "Item2": {
-      "Age": 0,
-      "Gender": null,
-      "Image": null,
-      "RegistrationDate": null,
-      "PhoneNumbers": null,
-      "SomeObscureProperty": null,
-      "Name": null,
-      "Id": -1,
-      "Label": "Person"
     }
-  },
-  {
-    "Item1": {
+  ],
+  [
+    {
       "Item1": {
-        "Age": 0,
-        "Gender": null,
-        "Image": null,
-        "RegistrationDate": null,
-        "PhoneNumbers": null,
-        "SomeObscureProperty": null,
-        "Name": null,
-        "Id": -1,
-        "Label": "Person"
+        "Item1": {
+          "Age": 0,
+          "Gender": null,
+          "Image": null,
+          "RegistrationDate": null,
+          "PhoneNumbers": null,
+          "SomeObscureProperty": null,
+          "Name": null,
+          "Id": -1,
+          "Label": "Person"
+        },
+        "Item2": {
+          "Age": 0,
+          "Gender": null,
+          "Image": null,
+          "RegistrationDate": null,
+          "PhoneNumbers": null,
+          "SomeObscureProperty": null,
+          "Name": null,
+          "Id": -1,
+          "Label": "Person"
+        }
       },
       "Item2": {
         "Age": 0,
@@ -293,22 +318,51 @@
         "Id": -1,
         "Label": "Person"
       }
-    },
-    "Item2": {
-      "Age": 0,
-      "Gender": null,
-      "Image": null,
-      "RegistrationDate": null,
-      "PhoneNumbers": null,
-      "SomeObscureProperty": null,
-      "Name": null,
-      "Id": -1,
-      "Label": "Person"
     }
-  },
-  {
-    "Item1": {
+  ],
+  [
+    {
       "Item1": {
+        "Item1": {
+          "Age": 0,
+          "Gender": null,
+          "Image": null,
+          "RegistrationDate": "2020-04-07T14:43:36+00:00",
+          "PhoneNumbers": null,
+          "SomeObscureProperty": null,
+          "Name": {
+            "Id": -1,
+            "Label": "Name",
+            "Properties": {
+              "ValidFrom": "0001-01-01T00:00:00+00:00"
+            },
+            "Value": "Bob",
+            "Key": null
+          },
+          "Id": -1,
+          "Label": "Person"
+        },
+        "Item2": {
+          "Age": 0,
+          "Gender": null,
+          "Image": null,
+          "RegistrationDate": "2020-04-07T14:43:36+00:00",
+          "PhoneNumbers": null,
+          "SomeObscureProperty": null,
+          "Name": {
+            "Id": -1,
+            "Label": "Name",
+            "Properties": {
+              "ValidFrom": "0001-01-01T00:00:00+00:00"
+            },
+            "Value": "Bob",
+            "Key": null
+          },
+          "Id": -1,
+          "Label": "Person"
+        }
+      },
+      "Item2": {
         "Age": 0,
         "Gender": null,
         "Image": null,
@@ -326,59 +380,34 @@
         },
         "Id": -1,
         "Label": "Person"
-      },
-      "Item2": {
-        "Age": 0,
-        "Gender": null,
-        "Image": null,
-        "RegistrationDate": "2020-04-07T14:43:36+00:00",
-        "PhoneNumbers": null,
-        "SomeObscureProperty": null,
-        "Name": {
+      }
+    }
+  ],
+  [
+    {
+      "Item1": {
+        "Item1": {
+          "Age": 0,
+          "Gender": null,
+          "Image": null,
+          "RegistrationDate": null,
+          "PhoneNumbers": null,
+          "SomeObscureProperty": null,
+          "Name": null,
           "Id": -1,
-          "Label": "Name",
-          "Properties": {
-            "ValidFrom": "0001-01-01T00:00:00+00:00"
-          },
-          "Value": "Bob",
-          "Key": null
+          "Label": "Person"
         },
-        "Id": -1,
-        "Label": "Person"
-      }
-    },
-    "Item2": {
-      "Age": 0,
-      "Gender": null,
-      "Image": null,
-      "RegistrationDate": "2020-04-07T14:43:36+00:00",
-      "PhoneNumbers": null,
-      "SomeObscureProperty": null,
-      "Name": {
-        "Id": -1,
-        "Label": "Name",
-        "Properties": {
-          "ValidFrom": "0001-01-01T00:00:00+00:00"
-        },
-        "Value": "Bob",
-        "Key": null
-      },
-      "Id": -1,
-      "Label": "Person"
-    }
-  },
-  {
-    "Item1": {
-      "Item1": {
-        "Age": 0,
-        "Gender": null,
-        "Image": null,
-        "RegistrationDate": null,
-        "PhoneNumbers": null,
-        "SomeObscureProperty": null,
-        "Name": null,
-        "Id": -1,
-        "Label": "Person"
+        "Item2": {
+          "Age": 0,
+          "Gender": null,
+          "Image": null,
+          "RegistrationDate": null,
+          "PhoneNumbers": null,
+          "SomeObscureProperty": null,
+          "Name": null,
+          "Id": -1,
+          "Label": "Person"
+        }
       },
       "Item2": {
         "Age": 0,
@@ -391,31 +420,33 @@
         "Id": -1,
         "Label": "Person"
       }
-    },
-    "Item2": {
-      "Age": 0,
-      "Gender": null,
-      "Image": null,
-      "RegistrationDate": null,
-      "PhoneNumbers": null,
-      "SomeObscureProperty": null,
-      "Name": null,
-      "Id": -1,
-      "Label": "Person"
     }
-  },
-  {
-    "Item1": {
+  ],
+  [
+    {
       "Item1": {
-        "Age": 0,
-        "Gender": null,
-        "Image": "AQIDBAUGBwg=",
-        "RegistrationDate": null,
-        "PhoneNumbers": null,
-        "SomeObscureProperty": null,
-        "Name": null,
-        "Id": -1,
-        "Label": "Person"
+        "Item1": {
+          "Age": 0,
+          "Gender": null,
+          "Image": "AQIDBAUGBwg=",
+          "RegistrationDate": null,
+          "PhoneNumbers": null,
+          "SomeObscureProperty": null,
+          "Name": null,
+          "Id": -1,
+          "Label": "Person"
+        },
+        "Item2": {
+          "Age": 0,
+          "Gender": null,
+          "Image": "AQIDBAUGBwg=",
+          "RegistrationDate": null,
+          "PhoneNumbers": null,
+          "SomeObscureProperty": null,
+          "Name": null,
+          "Id": -1,
+          "Label": "Person"
+        }
       },
       "Item2": {
         "Age": 0,
@@ -428,31 +459,33 @@
         "Id": -1,
         "Label": "Person"
       }
-    },
-    "Item2": {
-      "Age": 0,
-      "Gender": null,
-      "Image": "AQIDBAUGBwg=",
-      "RegistrationDate": null,
-      "PhoneNumbers": null,
-      "SomeObscureProperty": null,
-      "Name": null,
-      "Id": -1,
-      "Label": "Person"
     }
-  },
-  {
-    "Item1": {
+  ],
+  [
+    {
       "Item1": {
-        "Age": 0,
-        "Gender": 1,
-        "Image": null,
-        "RegistrationDate": null,
-        "PhoneNumbers": null,
-        "SomeObscureProperty": null,
-        "Name": null,
-        "Id": -1,
-        "Label": "Person"
+        "Item1": {
+          "Age": 0,
+          "Gender": 1,
+          "Image": null,
+          "RegistrationDate": null,
+          "PhoneNumbers": null,
+          "SomeObscureProperty": null,
+          "Name": null,
+          "Id": -1,
+          "Label": "Person"
+        },
+        "Item2": {
+          "Age": 0,
+          "Gender": 1,
+          "Image": null,
+          "RegistrationDate": null,
+          "PhoneNumbers": null,
+          "SomeObscureProperty": null,
+          "Name": null,
+          "Id": -1,
+          "Label": "Person"
+        }
       },
       "Item2": {
         "Age": 0,
@@ -465,17 +498,6 @@
         "Id": -1,
         "Label": "Person"
       }
-    },
-    "Item2": {
-      "Age": 0,
-      "Gender": 1,
-      "Image": null,
-      "RegistrationDate": null,
-      "PhoneNumbers": null,
-      "SomeObscureProperty": null,
-      "Name": null,
-      "Id": -1,
-      "Label": "Person"
     }
-  }
+  ]
 ]

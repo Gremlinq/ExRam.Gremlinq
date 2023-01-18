@@ -1,34 +1,38 @@
 ﻿[
-  {
-    "Name": null,
-    "Languages": null,
-    "CountryCallingCode": "+49",
-    "LocalizableDescription": {
-      "Id": -1,
-      "Label": "LocalizableDescription",
-      "Properties": {
-        "someKey": "value"
+  [
+    {
+      "Name": null,
+      "Languages": null,
+      "CountryCallingCode": "+49",
+      "LocalizableDescription": {
+        "Id": -1,
+        "Label": "LocalizableDescription",
+        "Properties": {
+          "someKey": "value"
+        },
+        "Value": "",
+        "Key": null
       },
-      "Value": "",
-      "Key": null
-    },
-    "Id": -1,
-    "Label": "Country"
-  },
-  {
-    "Name": null,
-    "Languages": null,
-    "CountryCallingCode": "+49",
-    "LocalizableDescription": {
       "Id": -1,
-      "Label": "LocalizableDescription",
-      "Properties": {
-        "someKey": "value"
+      "Label": "Country"
+    }
+  ],
+  [
+    {
+      "Name": null,
+      "Languages": null,
+      "CountryCallingCode": "+49",
+      "LocalizableDescription": {
+        "Id": -1,
+        "Label": "LocalizableDescription",
+        "Properties": {
+          "someKey": "value"
+        },
+        "Value": "",
+        "Key": null
       },
-      "Value": "",
-      "Key": null
-    },
-    "Id": -1,
-    "Label": "Country"
-  }
+      "Id": -1,
+      "Label": "Country"
+    }
+  ]
 ]

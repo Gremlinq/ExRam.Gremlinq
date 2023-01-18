@@ -1,20 +1,24 @@
 ﻿[
-  {
-    "id": -1,
-    "label": "Name",
-    "value": "GER",
-    "properties": {
-      "metaKey": 1
+  [
+    {
+      "id": -1,
+      "label": "Name",
+      "value": "GER",
+      "properties": {
+        "metaKey": 1
+      }
     }
-  },
-  {
-    "id": -1,
-    "label": "Name",
-    "value": "GER",
-    "properties": {
-      "de": "Deutschland",
-      "en": "Germany",
-      "metaKey": 1
+  ],
+  [
+    {
+      "id": -1,
+      "label": "Name",
+      "value": "GER",
+      "properties": {
+        "de": "Deutschland",
+        "en": "Germany",
+        "metaKey": 1
+      }
     }
-  }
+  ]
 ]
