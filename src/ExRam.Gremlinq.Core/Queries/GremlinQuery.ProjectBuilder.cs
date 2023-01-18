@@ -18,7 +18,7 @@ namespace ExRam.Gremlinq.Core
             {
             }
 
-            public ProjectBuilder(GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> sourceQuery, bool emptyProjectionProtection)
+            private ProjectBuilder(GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> sourceQuery, bool emptyProjectionProtection)
             {
                 _sourceQuery = sourceQuery;
                 _emptyProjectionProtection = emptyProjectionProtection;

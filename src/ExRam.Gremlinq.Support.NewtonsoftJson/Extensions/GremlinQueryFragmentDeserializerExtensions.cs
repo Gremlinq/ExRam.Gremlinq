@@ -37,7 +37,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
 
         // ReSharper disable ConvertToLambdaExpression
         public static IGremlinQueryFragmentDeserializer AddNewtonsoftJson(this IGremlinQueryFragmentDeserializer deserializer) => deserializer
-            .Override<JToken>(static (jToken, type, env, overridden, recurse) => !type.IsAssignableFrom(jToken.GetType())
+            .Override<JToken>(static (jToken, type, env, overridden, recurse) => !type.IsInstanceOfType(jToken)
                 ? jToken
                     .ToObject(
                         type,
@@ -45,7 +45,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 : overridden(jToken, type, env, recurse))
             .Override<JToken>(static (jToken, type, env, overridden, recurse) =>
             {
-                if (jToken is JObject element && !type.IsAssignableFrom(jToken.GetType()) && !typeof(Property).IsAssignableFrom(type) && element.TryGetValue("id", StringComparison.OrdinalIgnoreCase, out var idToken) && element.TryGetValue("label", StringComparison.OrdinalIgnoreCase, out var labelToken) && labelToken.Type == JTokenType.String && element.TryGetValue("properties", out var propertiesToken))
+                if (jToken is JObject element && !type.IsInstanceOfType(jToken) && !typeof(Property).IsAssignableFrom(type) && element.TryGetValue("id", StringComparison.OrdinalIgnoreCase, out var idToken) && element.TryGetValue("label", StringComparison.OrdinalIgnoreCase, out var labelToken) && labelToken.Type == JTokenType.String && element.TryGetValue("properties", out var propertiesToken))
                     if (recurse.TryDeserialize(propertiesToken, type, env) is { } ret)
                         return ret.SetIdAndLabel(idToken, labelToken, env, recurse);
 
