@@ -13,7 +13,6 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class WebSocketGremlinQueryExecutor : IGremlinQueryExecutor, IDisposable
         {
-            private readonly string _alias;
             private readonly Dictionary<string, string> _aliasArgs;
             private readonly SmarterLazy<IGremlinClient> _lazyGremlinClient;
 
@@ -22,8 +21,7 @@ namespace ExRam.Gremlinq.Core
                 IGremlinClientFactory clientFactory,
                 string alias = "g")
             {
-                _alias = alias;
-                _aliasArgs = new Dictionary<string, string> { {"g", _alias} };
+                _aliasArgs = new Dictionary<string, string> { {"g", alias} };
 
                 _lazyGremlinClient = new SmarterLazy<IGremlinClient>(
                     async logger =>
@@ -34,7 +32,7 @@ namespace ExRam.Gremlinq.Core
                                 gremlinServer,
                                 JsonNetMessageSerializer.GraphSON3,
                                 new ConnectionPoolSettings(),
-                                _ => { }));
+                                static _ => { }));
                         }
                         catch (Exception ex)
                         {
@@ -56,7 +54,6 @@ namespace ExRam.Gremlinq.Core
 
                 async IAsyncEnumerator<object> Core(CancellationToken ct)
                 {
-                    var maybeResults = default(ResultSet<JToken>?);
                     var clientTask = _lazyGremlinClient.GetValue(environment.Logger);
 
                     if (!Guid.TryParse(serializedQuery.Id, out var requestId))
@@ -84,7 +81,7 @@ namespace ExRam.Gremlinq.Core
                         _ => throw new ArgumentException($"Cannot handle serialized query of type {serializedQuery.GetType()}.")
                     };
 
-                    maybeResults = await (await clientTask)
+                    var maybeResults = await (await clientTask)
                         .SubmitAsync<JToken>(requestMessage)
                         .ConfigureAwait(false);
 

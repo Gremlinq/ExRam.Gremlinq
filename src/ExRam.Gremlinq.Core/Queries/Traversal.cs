@@ -116,7 +116,7 @@ namespace ExRam.Gremlinq.Core
             {
                 if (steps[i] is { } step)
                 {
-                    if (steps[i]!.SideEffectSemanticsChange == SideEffectSemanticsChange.Write)
+                    if (step.SideEffectSemanticsChange == SideEffectSemanticsChange.Write)
                         return SideEffectSemantics.Write;
                 }
                 else

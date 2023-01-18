@@ -26,7 +26,7 @@ namespace ExRam.Gremlinq.Providers.Neptune
                         {
                             case NeptuneElasticSearchIndexConfiguration.Standard:
                             {
-                                if (!str.Any(c => char.IsWhiteSpace(c))) //Can't do better. Insight welcome.
+                                if (!str.Any(char.IsWhiteSpace)) //Can't do better. Insight welcome.
                                 {
                                     switch (stringExpressionSemantics)
                                     {

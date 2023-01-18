@@ -98,7 +98,7 @@ namespace ExRam.Gremlinq.Core.Serialization
 
             private static BaseGremlinQueryFragmentSerializerDelegate<TEffective?> CreateFunc2<TEffective>(GremlinQueryFragmentSerializerDelegate<TEffective> del)
                 where TEffective : struct => (fragment, environment, recurse) => fragment is { } value
-                    ? del(value, environment, static (_, e, s) => _!, recurse)
+                    ? del(value, environment, static (_, e, s) => _, recurse)
                     : throw new ArgumentNullException();
 
             private static BaseGremlinQueryFragmentSerializerDelegate<TStatic> CreateFunc3<TStatic, TEffective>(GremlinQueryFragmentSerializerDelegate<TEffective> del)

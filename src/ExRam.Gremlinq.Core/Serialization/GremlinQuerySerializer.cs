@@ -36,7 +36,7 @@
                         }
 
                         // ReSharper disable once TailRecursiveCall
-                        return recurse.Serialize(stepLabelMapping!, env);
+                        return recurse.Serialize(stepLabelMapping, env);
                     });
             }
 

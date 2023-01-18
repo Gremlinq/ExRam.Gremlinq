@@ -43,8 +43,6 @@ namespace Newtonsoft.Json.Linq
                             for (var j = 0; j < bulk; j++)
                                 yield return item;
                         }
-
-                        yield break;
                     }
                 }
             }

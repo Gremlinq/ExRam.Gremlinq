@@ -6,7 +6,6 @@ using System.Dynamic;
 using System.Xml;
 using System.Numerics;
 using ExRam.Gremlinq.Core.GraphElements;
-using System;
 
 namespace ExRam.Gremlinq.Core.Deserialization
 {
@@ -157,7 +156,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                     var label = jObject["label"]?.ToString();
 
                     var modelType = label != null && modelTypes.TryGetValue(label, out var types)
-                        ? types.FirstOrDefault(possibleType => type.IsAssignableFrom(possibleType))
+                        ? types.FirstOrDefault(type.IsAssignableFrom)
                         : default;
 
                     if (modelType != null && modelType != type)

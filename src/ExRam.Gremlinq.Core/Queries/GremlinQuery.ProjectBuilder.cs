@@ -172,7 +172,7 @@ namespace ExRam.Gremlinq.Core
 
                             for (var i = 0; i < traversals.Length; i++)
                             {
-                                bySteps[i] = (ProjectStep.ByStep)traversals[i][0]!;
+                                bySteps[i] = (ProjectStep.ByStep)traversals[i][0];
                             }
 
                             builder = builder

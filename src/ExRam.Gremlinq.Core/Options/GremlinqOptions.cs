@@ -16,7 +16,7 @@ namespace ExRam.Gremlinq.Core
             public TValue GetValue<TValue>(GremlinqOption<TValue> option) => _dictionary
                 .Fast()
                 .TryGetValue(option, out var value)
-                    ? (TValue)value!
+                    ? (TValue)value
                     : option.DefaultValue;
 
             public bool Contains(IGremlinqOption option) => _dictionary

@@ -59,7 +59,7 @@ namespace ExRam.Gremlinq.Core
             if (maybePrevious is { } previous && previous != DisposedTcs)
             {
                 previous.Task
-                    .ContinueWith(async t =>
+                    .ContinueWith(static async t =>
                     {
                         if (t.Result is IDisposable disposable)
                             disposable.Dispose();

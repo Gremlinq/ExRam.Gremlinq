@@ -1,12 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Collections.Immutable;
-using System.Dynamic;
-using System.Numerics;
 using System.Reflection;
-using System.Xml;
-using ExRam.Gremlinq.Core.GraphElements;
-using Gremlin.Net.Process.Traversal;
+
 using Gremlin.Net.Structure.IO.GraphSON;
 
 namespace ExRam.Gremlinq.Core.Deserialization

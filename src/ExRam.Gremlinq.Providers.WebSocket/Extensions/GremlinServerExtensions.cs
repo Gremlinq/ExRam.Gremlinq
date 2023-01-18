@@ -4,35 +4,35 @@ namespace ExRam.Gremlinq.Providers.WebSocket
 {
     public static class GremlinServerExtensions
     {
-        public static _GremlinServer WithHost(this _GremlinServer server, string host) => new _GremlinServer(
+        public static _GremlinServer WithHost(this _GremlinServer server, string host) => new(
             host,
             server.Uri.Port,
             server.IsSslEnabled(),
             server.Username,
             server.Password);
 
-        public static _GremlinServer WithPort(this _GremlinServer server, int port) => new _GremlinServer(
+        public static _GremlinServer WithPort(this _GremlinServer server, int port) => new(
             server.Uri.Host,
             port,
             server.IsSslEnabled(),
             server.Username,
             server.Password);
 
-        public static _GremlinServer WithUsername(this _GremlinServer server, string username) => new _GremlinServer(
+        public static _GremlinServer WithUsername(this _GremlinServer server, string username) => new(
             server.Uri.Host,
             server.Uri.Port,
             server.IsSslEnabled(),
             username,
             server.Password);
 
-        public static _GremlinServer WithPassword(this _GremlinServer server, string password) => new _GremlinServer(
+        public static _GremlinServer WithPassword(this _GremlinServer server, string password) => new(
             server.Uri.Host,
             server.Uri.Port,
             server.IsSslEnabled(),
             server.Username,
             password);
 
-        public static _GremlinServer WithSslEnabled(this _GremlinServer server, bool sslEnabled) => new _GremlinServer(
+        public static _GremlinServer WithSslEnabled(this _GremlinServer server, bool sslEnabled) => new(
             server.Uri.Host,
             server.Uri.Port,
             sslEnabled,

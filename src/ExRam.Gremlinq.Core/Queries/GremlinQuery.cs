@@ -3,7 +3,6 @@
 using System.Collections.Immutable;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
-
 using ExRam.Gremlinq.Core.ExpressionParsing;
 using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Core.Models;
@@ -410,7 +409,7 @@ namespace ExRam.Gremlinq.Core
             var serialized = Environment.Serializer
                 .Serialize(this);
 
-            return Environment.Debugger.TryToString(serialized, Environment) ?? serialized.ToString() ?? ToString()!;
+            return Environment.Debugger.TryToString(serialized, Environment) ?? serialized.ToString() ?? ToString();
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> DedupGlobal() => this
