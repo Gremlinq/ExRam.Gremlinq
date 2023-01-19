@@ -212,7 +212,7 @@ jobs:
 
     - name: Draft release
       id: create_release
-      uses: release-drafter/release-drafter@v5.17.6
+      uses: release-drafter/release-drafter@v5.22.0
       with:
         name: ${{ github.event.repository.name }} ${{ needs.build.outputs.semVer2 }}
         prerelease: ${{ needs.build.outputs.isPreviewRelease }}
