@@ -2,7 +2,11 @@ name: Announce
 
 on:
   release:
-    types: [published]
+    types: 
+      - published
+
+    branches:
+      - '*'
 
 jobs:
   announce:
