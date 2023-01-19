@@ -8,7 +8,7 @@ on:
   pull_request:
 
 env:
-  IsForkedRepository: ${{ github.event.pull_request.head.repo.full_name != github.repository }}
+  IsForkedRepository: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository }}
   DotNetVersion: '7.0.102'
 
 jobs:
