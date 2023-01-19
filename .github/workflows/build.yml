@@ -230,7 +230,7 @@ jobs:
         commitish: ${{ github.ref }}
         publish: true
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.CREATE_RELEASE_PAT }}
 
     - uses: shogo82148/actions-upload-release-asset@v1
       with:
