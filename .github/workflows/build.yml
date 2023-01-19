@@ -236,4 +236,5 @@ jobs:
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} 
         asset_path: '**/${{ env.ProductName }}.*.nupkg'
+        github_token: ${{ secrets.CREATE_RELEASE_PAT }}
 
