@@ -180,7 +180,6 @@ jobs:
         name: NuGetPackages
 
     - name: Push NuGet packages to GitHub packages
-      if: ${{ needs.determinePublicationType.outputs.pushToGithubPackages == 'true' }}
       run: dotnet nuget push **/${{ github.event.repository.name }}.*.nupkg
         --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
         --api-key ${{ secrets.GITHUB_TOKEN }}
@@ -202,7 +201,7 @@ jobs:
         min-versions-to-keep: 10
 
   release:
-    needs: [ determinePublicationType, build, push ]
+    needs: [ determinePublicationType, build, test-linux, test-windows ]
     runs-on: ubuntu-latest
     if: ${{ needs.determinePublicationType.outputs.createRelease == 'true' }}
 
