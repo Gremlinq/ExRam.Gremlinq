@@ -10,7 +10,6 @@ on:
 env:
   IsForkedRepository: ${{ github.event.pull_request.head.repo.full_name != github.repository }}
   DotNetVersion: '7.0.102'
-  ProductName: 'ExRam.Gremlinq'
 
 jobs:
   determinePublicationType:
@@ -63,7 +62,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: NuGetPackages
-        path: ./**/${{ env.ProductName }}.*.nupkg
+        path: ./**/${{ github.event.repository.name }}.*.nupkg
         if-no-files-found: error
 
   test-linux:
@@ -182,7 +181,7 @@ jobs:
 
     - name: Push NuGet packages to GitHub packages
       if: ${{ needs.determinePublicationType.outputs.publishToGithubPackages == 'true' }}
-      run: dotnet nuget push **/${{ env.ProductName }}.*.nupkg
+      run: dotnet nuget push **/${{ github.event.repository.name }}.*.nupkg
         --source https://nuget.pkg.github.com/exram/index.json
         --api-key ${{ secrets.GITHUB_TOKEN }}
         --no-symbols
@@ -190,7 +189,7 @@ jobs:
 
     - name: Push NuGet packages to NuGet.org
       if: ${{ needs.determinePublicationType.outputs.publishToNuget == 'true' }}
-      run: dotnet nuget push **/${{ env.ProductName }}.*.nupkg
+      run: dotnet nuget push **/${{ github.event.repository.name }}.*.nupkg
         --source https://api.nuget.org/v3/index.json
         --api-key ${{ secrets.NUGET_DEPLOY_KEY }}
         --no-symbols
@@ -224,7 +223,7 @@ jobs:
       id: create_release
       uses: release-drafter/release-drafter@v5.17.6
       with:
-        name: ${{ env.ProductName }} ${{ needs.build.outputs.semVer2 }}
+        name: ${{ github.event.repository.name }} ${{ needs.build.outputs.semVer2 }}
         prerelease: ${{ needs.build.outputs.isPreviewRelease }}
         tag: ${{ needs.build.outputs.semVer2 }}
         commitish: ${{ github.ref }}
@@ -234,7 +233,7 @@ jobs:
     - uses: shogo82148/actions-upload-release-asset@v1
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} 
-        asset_path: '**/${{ env.ProductName }}.*.nupkg'
+        asset_path: '**/${{ github.event.repository.name }}.*.nupkg'
         github_token: ${{ secrets.CREATE_RELEASE_PAT }}
         
     - uses: eregon/publish-release@v1
