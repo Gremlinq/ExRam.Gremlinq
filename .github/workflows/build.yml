@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     
     outputs:
-      publishToNuget: ${{ github.event_name == 'push' && steps.version-regex.outputs.match != '' }}
+      createRelease: ${{ github.event_name == 'push' && steps.version-regex.outputs.match != '' }}
       publishToGithubPackages: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
       
     steps:
@@ -171,7 +171,7 @@ jobs:
   publish:
     needs: [ determinePublicationType, build, test-linux, test-windows ]
     runs-on: ubuntu-latest
-    if: ${{ needs.determinePublicationType.outputs.publishToNuget == 'true' || needs.determinePublicationType.outputs.publishToGithubPackages == 'true' }}
+    if: ${{ needs.determinePublicationType.outputs.createRelease == 'true' || needs.determinePublicationType.outputs.publishToGithubPackages == 'true' }}
 
     steps:
 
@@ -188,7 +188,7 @@ jobs:
         --skip-duplicate
 
     - name: Push NuGet packages to NuGet.org
-      if: ${{ needs.determinePublicationType.outputs.publishToNuget == 'true' }}
+      if: ${{ needs.determinePublicationType.outputs.createRelease == 'true' }}
       run: dotnet nuget push **/${{ github.event.repository.name }}.*.nupkg
         --source https://api.nuget.org/v3/index.json
         --api-key ${{ secrets.NUGET_DEPLOY_KEY }}
@@ -212,7 +212,7 @@ jobs:
   release:
     needs: [ determinePublicationType, build, publish ]
     runs-on: ubuntu-latest
-    if: ${{ needs.determinePublicationType.outputs.publishToNuget == 'true' }}
+    if: ${{ needs.determinePublicationType.outputs.createRelease == 'true' }}
 
     steps:
     - uses: actions/download-artifact@v2
