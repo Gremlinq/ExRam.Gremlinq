@@ -17,7 +17,7 @@ jobs:
     
     outputs:
       createRelease: ${{ github.event_name == 'push' && steps.version-regex.outputs.match != '' }}
-      publishToGithubPackages: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+      pushToGithubPackages: ${{ github.event_name == 'push' && vars.PUSH_TO_GITHUB_PACKAGES == 'true' }}
       
     steps:
       - name: Determine type of publication
@@ -168,10 +168,10 @@ jobs:
         base: ${{ github.head_ref }}
         branch-suffix: short-commit-hash
 
-  publish:
+  push:
     needs: [ determinePublicationType, build, test-linux, test-windows ]
     runs-on: ubuntu-latest
-    if: ${{ needs.determinePublicationType.outputs.createRelease == 'true' || needs.determinePublicationType.outputs.publishToGithubPackages == 'true' }}
+    if: ${{ needs.determinePublicationType.outputs.createRelease == 'true' || needs.determinePublicationType.outputs.pushToGithubPackages == 'true' }}
 
     steps:
 
@@ -180,7 +180,7 @@ jobs:
         name: NuGetPackages
 
     - name: Push NuGet packages to GitHub packages
-      if: ${{ needs.determinePublicationType.outputs.publishToGithubPackages == 'true' }}
+      if: ${{ needs.determinePublicationType.outputs.pushToGithubPackages == 'true' }}
       run: dotnet nuget push **/${{ github.event.repository.name }}.*.nupkg
         --source https://nuget.pkg.github.com/exram/index.json
         --api-key ${{ secrets.GITHUB_TOKEN }}
@@ -196,7 +196,7 @@ jobs:
         --skip-duplicate
 
   cleanup:
-    needs: [ publish ]
+    needs: [ push ]
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -210,7 +210,7 @@ jobs:
         min-versions-to-keep: 10
 
   release:
-    needs: [ determinePublicationType, build, publish ]
+    needs: [ determinePublicationType, build, push ]
     runs-on: ubuntu-latest
     if: ${{ needs.determinePublicationType.outputs.createRelease == 'true' }}
 
