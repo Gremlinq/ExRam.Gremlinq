@@ -228,7 +228,6 @@ jobs:
         prerelease: ${{ needs.build.outputs.isPreviewRelease }}
         tag: ${{ needs.build.outputs.semVer2 }}
         commitish: ${{ github.ref }}
-        publish: true
       env:
         GITHUB_TOKEN: ${{ secrets.CREATE_RELEASE_PAT }}
 
@@ -237,4 +236,11 @@ jobs:
         upload_url: ${{ steps.create_release.outputs.upload_url }} 
         asset_path: '**/${{ env.ProductName }}.*.nupkg'
         github_token: ${{ secrets.CREATE_RELEASE_PAT }}
+        
+    - uses: eregon/publish-release@v1
+      with:
+        release_id: ${{ steps.create_release.outputs.id }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.CREATE_RELEASE_PAT }}
+
 
