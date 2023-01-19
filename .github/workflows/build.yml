@@ -182,7 +182,7 @@ jobs:
     - name: Push NuGet packages to GitHub packages
       if: ${{ needs.determinePublicationType.outputs.pushToGithubPackages == 'true' }}
       run: dotnet nuget push **/${{ github.event.repository.name }}.*.nupkg
-        --source https://nuget.pkg.github.com/exram/index.json
+        --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
         --api-key ${{ secrets.GITHUB_TOKEN }}
         --no-symbols
         --skip-duplicate
