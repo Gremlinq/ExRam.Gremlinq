@@ -171,7 +171,7 @@ jobs:
   push:
     needs: [ determinePublicationType, build, test-linux, test-windows ]
     runs-on: ubuntu-latest
-    if: ${{ needs.determinePublicationType.outputs.createRelease == 'true' || needs.determinePublicationType.outputs.pushToGithubPackages == 'true' }}
+    if: ${{ needs.determinePublicationType.outputs.pushToGithubPackages == 'true' }}
 
     steps:
 
@@ -184,14 +184,6 @@ jobs:
       run: dotnet nuget push **/${{ github.event.repository.name }}.*.nupkg
         --source https://nuget.pkg.github.com/exram/index.json
         --api-key ${{ secrets.GITHUB_TOKEN }}
-        --no-symbols
-        --skip-duplicate
-
-    - name: Push NuGet packages to NuGet.org
-      if: ${{ needs.determinePublicationType.outputs.createRelease == 'true' }}
-      run: dotnet nuget push **/${{ github.event.repository.name }}.*.nupkg
-        --source https://api.nuget.org/v3/index.json
-        --api-key ${{ secrets.NUGET_DEPLOY_KEY }}
         --no-symbols
         --skip-duplicate
 

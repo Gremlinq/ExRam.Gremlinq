@@ -1,0 +1,23 @@
+name: Announce
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  push:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - uses: robinraju/release-downloader@v1.7
+      with:
+        releaseId: ${{ github.event.release.id }}
+        fileName: "${{ github.event.repository.name }}.*.nupkg"
+
+    - name: Push NuGet packages to NuGet.org
+      run: dotnet nuget push **/${{ github.event.repository.name }}.*.nupkg
+        --source https://api.nuget.org/v3/index.json
+        --api-key ${{ secrets.NUGET_DEPLOY_KEY }}
+        --no-symbols
+        --skip-duplicate
