@@ -294,11 +294,9 @@ namespace ExRam.Gremlinq.Core.Serialization
                     }
                 }
 
-                var span = steps.Span;
-
-                for (var i = 0; i < span.Length; i++)
+                foreach (var step in steps.Span)
                 {
-                    Add(span[i]);
+                    Add(step);
                 }
 
                 if (byteCode.StepInstructions.Count == 0)
