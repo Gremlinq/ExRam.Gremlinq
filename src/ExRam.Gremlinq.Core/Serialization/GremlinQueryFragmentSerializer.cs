@@ -273,6 +273,15 @@ namespace ExRam.Gremlinq.Core.Serialization
 
                             break;
                         }
+                        case Traversal traversal:
+                        {
+                            for (var i = 0; i < traversal.Count; i++)
+                            {
+                                Add(traversal[i]);
+                            }
+
+                            break;
+                        }
                         case IEnumerable enumerable:
                         {
                             foreach (var item in enumerable)
