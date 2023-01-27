@@ -68,7 +68,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Invoking(_ => _
                     .TryDeserialize("serialized", typeof(string), GremlinQueryEnvironment.Empty))
                 .Should()
-                .Throw<InvalidCastException>();
+                .Throw<ArgumentException>();
         }
 
         [Fact]
