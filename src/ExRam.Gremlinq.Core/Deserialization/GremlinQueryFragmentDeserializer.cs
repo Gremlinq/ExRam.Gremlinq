@@ -18,7 +18,9 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 _deserializer = deserializer;
             }
 
-            public TFragmentType? From<TSerialized>(TSerialized serialized, IGremlinQueryEnvironment environment) => (TFragmentType?)_deserializer.TryDeserialize(serialized, typeof(TFragmentType), environment);
+            public TFragmentType? From<TSerialized>(TSerialized serialized, IGremlinQueryEnvironment environment) => _deserializer.TryDeserialize(serialized, typeof(TFragmentType), environment, out var value) && value is TFragmentType typedValue
+                ? typedValue
+                : default;
         }
 
 
@@ -41,7 +43,9 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 _deserializer = deserializer;
             }
 
-            public TFragmentType? From<TSerialized>(TSerialized serialized, IGremlinQueryEnvironment environment) => (TFragmentType?)_deserializer.TryDeserialize(serialized, typeof(TFragmentType), environment);
+            public TFragmentType? From<TSerialized>(TSerialized serialized, IGremlinQueryEnvironment environment) => _deserializer.TryDeserialize(serialized, typeof(TFragmentType), environment, out var value) && value is TFragmentType typedValue
+                ? typedValue
+                : default(TFragmentType?);
         }
 
         public static FluentForStruct<TFragmentType> TryDeserialize<TFragmentType>(this IGremlinQueryFragmentDeserializer deserializer)

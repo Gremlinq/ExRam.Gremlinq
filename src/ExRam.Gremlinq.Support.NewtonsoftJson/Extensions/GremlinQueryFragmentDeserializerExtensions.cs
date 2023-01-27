@@ -146,7 +146,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
 
                 return null;
             })
-            .Override<JObject, object>(static (jObject, _, env, _, recurse) => recurse.TryDeserialize(jObject, typeof(IDictionary<string, object?>), env))
+            .Override<JObject, object>(static (jObject, _, env, _, recurse) => recurse.TryDeserialize<IDictionary<string, object?>>().From(jObject, env))
             .Override<JObject>(static (jObject, type, env, overridden, recurse) =>
             {
                 if (!type.IsSealed)
@@ -211,7 +211,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                             for (var i = 0; i < setArray.Count; i += 2)
                             {
                                 var element = recurse.TryDeserialize(setArray[i], elementType, env);
-                                var bulk = (int)recurse.TryDeserialize(setArray[i + 1], typeof(int), env)!;
+                                var bulk = (int)recurse.TryDeserialize<int>().From(setArray[i + 1], env)!;
 
                                 for (var j = 0; j < bulk; j++)
                                     array.Add(element);
@@ -248,12 +248,12 @@ namespace ExRam.Gremlinq.Core.Deserialization
             })
             .Override<JObject, IDictionary<string, object?>>(static (jObject, type, env, overridden, recurse) =>
             {
-                if (recurse.TryDeserialize(jObject, typeof(JObject), env) is JObject processedFragment)
+                if (recurse.TryDeserialize<JObject>().From(jObject, env) is { } processedFragment)
                 {
                     var expando = new ExpandoObject();
 
                     foreach (var property in processedFragment)
-                        expando.TryAdd(property.Key, recurse.TryDeserialize(property.Value, typeof(object), env));
+                        expando.TryAdd(property.Key, recurse.TryDeserialize<object>().From(property.Value, env));
 
                     return expando;
                 }
@@ -273,7 +273,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
             })
             .Override<JArray>(static (jArray, type, env, overridden, recurse) =>
             {
-                return type.IsAssignableFrom(typeof(object[])) && recurse.TryDeserialize(jArray, typeof(object[]), env) is object[] tokens
+                return type.IsAssignableFrom(typeof(object[])) && recurse.TryDeserialize<object[]>().From(jArray, env) is { } tokens
                     ? tokens
                     : overridden(jArray, type, env, recurse);
             })
