@@ -12,6 +12,7 @@
         public static readonly ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer Identity;
         public static ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer AddToStringFallback(this ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer deserializer) { }
         public static ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer Override<TSerialized, TNative>(this ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer fragmentDeserializer, ExRam.Gremlinq.Core.Deserialization.GremlinQueryFragmentDeserializerDelegate<TSerialized> deserializerDelegate) { }
+        public static object? TryDeserialize<TSerializedData>(this ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer deserializer, TSerializedData serializedData, System.Type fragmentType, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
     }
     public delegate object? GremlinQueryFragmentDeserializerDelegate<TSerialized>(TSerialized serializedData, System.Type requestedType, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Deserialization.BaseGremlinQueryFragmentDeserializerDelegate<TSerialized> overridden, ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer recurse);
     public interface IGremlinQueryExecutionResultDeserializer
@@ -22,7 +23,7 @@
     public interface IGremlinQueryFragmentDeserializer
     {
         ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer Override<TSerialized>(ExRam.Gremlinq.Core.Deserialization.GremlinQueryFragmentDeserializerDelegate<TSerialized> deserializer);
-        object? TryDeserialize<TSerializedData>(TSerializedData serializedData, System.Type fragmentType, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment);
+        bool TryDeserialize<TSerializedData>(TSerializedData serializedData, System.Type fragmentType, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out object? value);
     }
 }
 namespace ExRam.Gremlinq.Core
