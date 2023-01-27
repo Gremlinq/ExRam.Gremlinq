@@ -13,6 +13,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
             private static readonly MethodInfo CreateFuncMethod1 = typeof(GremlinQueryFragmentDeserializerImpl).GetMethod(nameof(CreateFunc1), BindingFlags.NonPublic | BindingFlags.Static)!;
             private static readonly MethodInfo CreateFuncMethod2 = typeof(GremlinQueryFragmentDeserializerImpl).GetMethod(nameof(CreateFunc2), BindingFlags.NonPublic | BindingFlags.Static)!;
             private static readonly MethodInfo CreateFuncMethod3 = typeof(GremlinQueryFragmentDeserializerImpl).GetMethod(nameof(CreateFunc3), BindingFlags.NonPublic | BindingFlags.Static)!;
+            private static readonly MethodInfo CreateFuncMethod4 = typeof(GremlinQueryFragmentDeserializerImpl).GetMethod(nameof(CreateFunc4), BindingFlags.NonPublic | BindingFlags.Static)!;
 
             private readonly IImmutableDictionary<Type, Delegate> _dict;
             private readonly ConcurrentDictionary<(Type staticType, Type actualType), Delegate> _unconvertedDelegates = new();
@@ -49,7 +50,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                         {
                             var (del, staticType, fragmentType) = typeTuple;
 
-                            return (Delegate)CreateFuncMethod3
+                            return (Delegate)CreateFuncMethod4
                                 .MakeGenericMethod(staticType, fragmentType)
                                 .Invoke(null, new object[] { del })!;
                         });
@@ -70,12 +71,19 @@ namespace ExRam.Gremlinq.Core.Deserialization
                                     .GetType()
                                     .GetGenericArguments()[0];
 
-                                return (Delegate)CreateFuncMethod1
-                                    .MakeGenericMethod(staticType, effectiveType)
-                                    .Invoke(null, new object[] { del })!;
+                                if (effectiveType != actualType)
+                                {
+                                    return (Delegate)CreateFuncMethod1
+                                        .MakeGenericMethod(staticType, effectiveType)
+                                        .Invoke(null, new object[] { del })!;
+                                }
+
+                                return (Delegate)CreateFuncMethod2
+                                   .MakeGenericMethod(staticType, effectiveType)
+                                   .Invoke(null, new object[] { del })!;
                             }
 
-                            return (Delegate)CreateFuncMethod2
+                            return (Delegate)CreateFuncMethod3
                                 .MakeGenericMethod(staticType)
                                 .Invoke(null, Array.Empty<object>())!;
                         },
@@ -83,16 +91,23 @@ namespace ExRam.Gremlinq.Core.Deserialization
             }
 
             private static BaseGremlinQueryFragmentDeserializerDelegate<TStatic> CreateFunc1<TStatic, TEffective>(GremlinQueryFragmentDeserializerDelegate<TEffective> del)
+                where TStatic : TEffective
             {
-                return (serialized, fragmentType, environment, recurse) => del((TEffective)(object)serialized!, fragmentType, environment, static (serialized, _, _, _) => serialized, recurse);
+                return (serialized, fragmentType, environment, recurse) => del(serialized!, fragmentType, environment, static (serialized, _, _, _) => serialized, recurse);
             }
 
-            private static BaseGremlinQueryFragmentDeserializerDelegate<TStatic> CreateFunc2<TStatic>()
+            private static BaseGremlinQueryFragmentDeserializerDelegate<TStatic> CreateFunc2<TStatic, TEffective>(GremlinQueryFragmentDeserializerDelegate<TEffective> del)
+                where TEffective : TStatic
+            {
+                return (serialized, fragmentType, environment, recurse) => del((TEffective)serialized!, fragmentType, environment, static (serialized, _, _, _) => serialized, recurse);
+            }
+
+            private static BaseGremlinQueryFragmentDeserializerDelegate<TStatic> CreateFunc3<TStatic>()
             {
                 return static (serialized, _, _, _) => serialized;
             }
 
-            private static BaseGremlinQueryFragmentDeserializerDelegate<TSerialized> CreateFunc3<TSerialized, TFragment>(BaseGremlinQueryFragmentDeserializerDelegate<TSerialized> del)
+            private static BaseGremlinQueryFragmentDeserializerDelegate<TSerialized> CreateFunc4<TSerialized, TFragment>(BaseGremlinQueryFragmentDeserializerDelegate<TSerialized> del)
             {
                 return (serialized, fragmentType, environment, recurse) => (TFragment)del(serialized!, fragmentType, environment, recurse)!;
             }
