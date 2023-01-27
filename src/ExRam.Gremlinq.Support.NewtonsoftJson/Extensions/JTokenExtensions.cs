@@ -29,7 +29,7 @@ namespace Newtonsoft.Json.Linq
             {
                 var bulk = 1;
 
-                if (nestedTraverserObject.TryGetValue("bulk", out var bulkToken) && recurse.TryDeserialize(bulkToken, typeof(int), env) is int bulkObject)
+                if (nestedTraverserObject.TryGetValue("bulk", out var bulkToken) && recurse.TryDeserialize<int>().From(bulkToken, env) is { } bulkObject)
                     bulk = bulkObject;
 
                 if (nestedTraverserObject.TryGetValue("value", out var traverserValue))

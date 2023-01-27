@@ -26,14 +26,14 @@ namespace Benchmarks
         public void Old()
         {
             _oldDeserializer
-                .TryDeserialize(_source, typeof(Person), GremlinQueryEnvironment.Empty);
+                .TryDeserialize<Person>().From(_source, GremlinQueryEnvironment.Empty);
         }
 
         [Benchmark]
         public void New()
         {
             _newDeserializer
-                .TryDeserialize(_source, typeof(Person), GremlinQueryEnvironment.Empty);
+                .TryDeserialize<Person>().From(_source, GremlinQueryEnvironment.Empty);
         }
     }
 }
