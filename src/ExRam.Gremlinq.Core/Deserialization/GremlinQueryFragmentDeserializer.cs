@@ -6,6 +6,51 @@ using Gremlin.Net.Structure.IO.GraphSON;
 
 namespace ExRam.Gremlinq.Core.Deserialization
 {
+    public static class GremlinQueryFragmentDeserializerExtensions1
+    {
+        public readonly struct FluentForClass<TFragmentType>
+            where TFragmentType : class
+        {
+            private readonly IGremlinQueryFragmentDeserializer _deserializer;
+
+            public FluentForClass(IGremlinQueryFragmentDeserializer deserializer)
+            {
+                _deserializer = deserializer;
+            }
+
+            public TFragmentType? From<TSerialized>(TSerialized serialized, IGremlinQueryEnvironment environment) => (TFragmentType?)_deserializer.TryDeserialize(serialized, typeof(TFragmentType), environment);
+        }
+
+
+        public static FluentForClass<TFragmentType> TryDeserialize<TFragmentType>(this IGremlinQueryFragmentDeserializer deserializer)
+            where TFragmentType : class
+        {
+            return new FluentForClass<TFragmentType>(deserializer);
+        }
+    }
+
+    public static class GremlinQueryFragmentDeserializerExtensions2
+    {
+        public readonly struct FluentForStruct<TFragmentType>
+            where TFragmentType : struct
+        {
+            private readonly IGremlinQueryFragmentDeserializer _deserializer;
+
+            public FluentForStruct(IGremlinQueryFragmentDeserializer deserializer)
+            {
+                _deserializer = deserializer;
+            }
+
+            public TFragmentType? From<TSerialized>(TSerialized serialized, IGremlinQueryEnvironment environment) => (TFragmentType?)_deserializer.TryDeserialize(serialized, typeof(TFragmentType), environment);
+        }
+
+        public static FluentForStruct<TFragmentType> TryDeserialize<TFragmentType>(this IGremlinQueryFragmentDeserializer deserializer)
+          where TFragmentType : struct
+        {
+            return new FluentForStruct<TFragmentType>(deserializer);
+        }
+    }
+
     public static class GremlinQueryFragmentDeserializer
     {
         private sealed class GremlinQueryFragmentDeserializerImpl : IGremlinQueryFragmentDeserializer
