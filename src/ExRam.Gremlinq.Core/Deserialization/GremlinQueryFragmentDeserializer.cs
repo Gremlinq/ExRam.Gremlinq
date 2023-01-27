@@ -1,7 +1,7 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Immutable;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
-
 using Gremlin.Net.Structure.IO.GraphSON;
 
 namespace ExRam.Gremlinq.Core.Deserialization
@@ -21,23 +21,31 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 _dict = dict;
             }
 
-            public object? TryDeserialize<TSerialized>(TSerialized serializedData, Type fragmentType, IGremlinQueryEnvironment environment)
+
+            public bool TryDeserialize<TSerializedData>(TSerializedData serializedData, Type fragmentType, IGremlinQueryEnvironment environment, [NotNullWhen(true)] out object? value)
             {
-                if (GetUnconvertedDeserializer(typeof(TSerialized), serializedData!.GetType()) is BaseGremlinQueryFragmentDeserializerDelegate<TSerialized> del)
+                if (GetUnconvertedDeserializer(typeof(TSerializedData), serializedData!.GetType()) is BaseGremlinQueryFragmentDeserializerDelegate<TSerializedData> del)
                 {
                     if (del(serializedData, fragmentType, environment, this) is { } ret)
                     {
                         if (fragmentType.IsInstanceOfType(ret))
-                            return ret;
+                        {
+                            value = ret;
+                            return true;
+                        }
 
                         throw new InvalidCastException($"Cannot convert {ret.GetType()} to {fragmentType}.");
                     }
 
-                    return default;
+                    value = null;
+                    return false;
                 }
 
                 if (fragmentType.IsInstanceOfType(serializedData))
-                    return serializedData;
+                {
+                    value = serializedData;
+                    return true;
+                }
 
                 throw new ArgumentException($"Could not find a deserializer for {fragmentType.FullName}.");
             }
@@ -116,6 +124,13 @@ namespace ExRam.Gremlinq.Core.Deserialization
         }
 
         public static readonly IGremlinQueryFragmentDeserializer Identity = new GremlinQueryFragmentDeserializerImpl(ImmutableDictionary<Type, Delegate>.Empty);
+
+        public static object? TryDeserialize<TSerializedData>(this IGremlinQueryFragmentDeserializer deserializer, TSerializedData serializedData, Type fragmentType, IGremlinQueryEnvironment environment)
+        {
+            return deserializer.TryDeserialize(serializedData, fragmentType, environment, out var value)
+                ? value
+                : default;
+        }
 
         public static IGremlinQueryFragmentDeserializer AddToStringFallback(this IGremlinQueryFragmentDeserializer deserializer) => deserializer
             .Override<object>(static (data, type, env, overridden, recurse) => type == typeof(string)
