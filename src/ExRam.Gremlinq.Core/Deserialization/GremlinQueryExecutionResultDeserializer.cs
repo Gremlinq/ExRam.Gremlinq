@@ -1,6 +1,4 @@
-﻿using System.Collections;
-
-namespace ExRam.Gremlinq.Core.Deserialization
+﻿namespace ExRam.Gremlinq.Core.Deserialization
 {
     public static class GremlinQueryExecutionResultDeserializer
     {
@@ -15,18 +13,9 @@ namespace ExRam.Gremlinq.Core.Deserialization
 
             public IAsyncEnumerable<TElement> Deserialize<TElement>(object executionResult, IGremlinQueryEnvironment environment)
             {
-                var result = _fragmentSerializer
-                    .TryDeserialize(executionResult, typeof(TElement[]), environment);
-
-                return result switch
-                {
-                    TElement[] elements => elements.ToAsyncEnumerable(),
-                    IAsyncEnumerable<TElement> enumerable => enumerable,
-                    TElement element => new[] { element }.ToAsyncEnumerable(),
-                    IEnumerable enumerable => enumerable.ToNonNullAsyncEnumerable<TElement>(),
-                    { } obj => throw new InvalidCastException($"A result of type {obj.GetType()} can't be interpreted as {nameof(IAsyncEnumerable<TElement>)}."),
-                    _ => AsyncEnumerable.Empty<TElement>()
-                };
+                return _fragmentSerializer
+                    .TryDeserialize<TElement[]>()
+                    .From(executionResult, environment)?.ToAsyncEnumerable() ?? AsyncEnumerable.Empty<TElement>();
             }
 
             public IGremlinQueryExecutionResultDeserializer ConfigureFragmentDeserializer(Func<IGremlinQueryFragmentDeserializer, IGremlinQueryFragmentDeserializer> transformation)
