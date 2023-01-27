@@ -15,6 +15,28 @@
         public static object? TryDeserialize<TSerializedData>(this ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer deserializer, TSerializedData serializedData, System.Type fragmentType, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
     }
     public delegate object? GremlinQueryFragmentDeserializerDelegate<TSerialized>(TSerialized serializedData, System.Type requestedType, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Deserialization.BaseGremlinQueryFragmentDeserializerDelegate<TSerialized> overridden, ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer recurse);
+    public static class GremlinQueryFragmentDeserializerExtensions1
+    {
+        public static ExRam.Gremlinq.Core.Deserialization.GremlinQueryFragmentDeserializerExtensions1.FluentForClass<TFragmentType> TryDeserialize<TFragmentType>(this ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer deserializer)
+            where TFragmentType :  class { }
+        public readonly struct FluentForClass<TFragmentType>
+            where TFragmentType :  class
+        {
+            public FluentForClass(ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer deserializer) { }
+            public TFragmentType? From<TSerialized>(TSerialized serialized, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
+        }
+    }
+    public static class GremlinQueryFragmentDeserializerExtensions2
+    {
+        public static ExRam.Gremlinq.Core.Deserialization.GremlinQueryFragmentDeserializerExtensions2.FluentForStruct<TFragmentType> TryDeserialize<TFragmentType>(this ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer deserializer)
+            where TFragmentType :  struct { }
+        public readonly struct FluentForStruct<TFragmentType>
+            where TFragmentType :  struct
+        {
+            public FluentForStruct(ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer deserializer) { }
+            public TFragmentType? From<TSerialized>(TSerialized serialized, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
+        }
+    }
     public interface IGremlinQueryExecutionResultDeserializer
     {
         ExRam.Gremlinq.Core.Deserialization.IGremlinQueryExecutionResultDeserializer ConfigureFragmentDeserializer(System.Func<ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer, ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer> transformation);
