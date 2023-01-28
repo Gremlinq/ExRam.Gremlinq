@@ -1,4 +1,6 @@
-﻿using ExRam.Gremlinq.Core.Execution;
+﻿using ExRam.Gremlinq.Core.Deserialization;
+using ExRam.Gremlinq.Core.Execution;
+using ExRam.Gremlinq.Core.Serialization;
 using Microsoft.Extensions.Logging;
 
 namespace ExRam.Gremlinq.Core.Tests
@@ -38,6 +40,23 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             return environment
                 .UseLogger(new XunitLogger(testOutputHelper));
+        }
+
+        public static IGremlinQueryEnvironment EchoGraphsonString(this IGremlinQueryEnvironment environment)
+        {
+            return environment
+                .UseSerializer(GremlinQuerySerializer.Default)
+                .UseExecutor(GremlinQueryExecutor.Identity)
+                .ConfigureDeserializer(static _ => _
+                    .ToGraphsonString());
+        }
+
+        public static IGremlinQueryEnvironment EchoGroovyGremlinQuery(this IGremlinQueryEnvironment environment)
+        {
+            return environment
+                .ConfigureSerializer(static serializer => serializer.ToGroovy())
+                .UseExecutor(GremlinQueryExecutor.Identity)
+                .UseDeserializer(GremlinQueryFragmentDeserializer.Default);
         }
     }
 }
