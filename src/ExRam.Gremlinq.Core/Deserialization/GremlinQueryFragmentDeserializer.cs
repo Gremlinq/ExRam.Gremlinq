@@ -163,13 +163,5 @@ namespace ExRam.Gremlinq.Core.Deserialization
                     ? deserializerDelegate(token, type, env, overridden, recurse)
                     : overridden(token, type, env, recurse));
         }
-
-        internal static IGremlinQueryFragmentDeserializer ToGraphsonString(this IGremlinQueryFragmentDeserializer deserializer)
-        {
-            return deserializer
-                .Override<object>(static (data, type, env, overridden, recurse) => type.IsAssignableFrom(typeof(string))
-                    ? new GraphSON2Writer().WriteObject(data)
-                    : overridden(data, type, env, recurse));
-        }
     }
 }
