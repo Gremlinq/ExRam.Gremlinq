@@ -15,7 +15,7 @@ namespace ExRam.Gremlinq.Core
         IGremlinQueryEnvironment ConfigureDebugger(Func<IGremlinQueryDebugger, IGremlinQueryDebugger> debuggerTransformation);
         IGremlinQueryEnvironment ConfigureExecutor(Func<IGremlinQueryExecutor, IGremlinQueryExecutor> executorTransformation);
         IGremlinQueryEnvironment ConfigureSerializer(Func<IGremlinQuerySerializer, IGremlinQuerySerializer> serializerTransformation);
-        IGremlinQueryEnvironment ConfigureDeserializer(Func<IGremlinQueryExecutionResultDeserializer, IGremlinQueryExecutionResultDeserializer> deserializerTransformation);
+        IGremlinQueryEnvironment ConfigureDeserializer(Func<IGremlinQueryFragmentDeserializer, IGremlinQueryFragmentDeserializer> deserializerTransformation);
 
         ILogger Logger { get; }
         IGraphModel Model { get; }
@@ -24,6 +24,6 @@ namespace ExRam.Gremlinq.Core
         IGremlinQueryDebugger Debugger { get; }
         IGremlinQueryExecutor Executor { get; }
         IGremlinQuerySerializer Serializer { get; }
-        IGremlinQueryExecutionResultDeserializer Deserializer { get; }
+        IGremlinQueryFragmentDeserializer Deserializer { get; }
     }
 }

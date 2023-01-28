@@ -27,7 +27,7 @@ namespace ExRam.Gremlinq.Core.Tests
                                         }
                                     }
                                 }))))
-                    .UseDeserializer(GremlinQueryExecutionResultDeserializer.Default)))
+                    .UseDeserializer(GremlinQueryFragmentDeserializer.Default)))
             {
             }
         }
