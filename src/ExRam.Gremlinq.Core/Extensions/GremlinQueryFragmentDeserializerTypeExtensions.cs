@@ -2,8 +2,6 @@
 using System.Reflection;
 using ExRam.Gremlinq.Core.Deserialization;
 
-using Gremlin.Net.Structure.IO.GraphBinary.Types;
-
 namespace ExRam.Gremlinq.Core
 {
     public static class GremlinQueryFragmentDeserializerTypeExtensions
@@ -63,9 +61,6 @@ namespace ExRam.Gremlinq.Core
                 where TFragment : struct => (deserializer, serialized, environment) => deserializer.TryDeserialize<TFragment>().From(serialized, environment);
         }
 
-        public static FluentForType TryDeserialize(this IGremlinQueryFragmentDeserializer deserializer, Type type)
-        {
-            return new FluentForType(deserializer, type);
-        }
+        public static FluentForType TryDeserialize(this IGremlinQueryFragmentDeserializer deserializer, Type type) => new(deserializer, type);
     }
 }
