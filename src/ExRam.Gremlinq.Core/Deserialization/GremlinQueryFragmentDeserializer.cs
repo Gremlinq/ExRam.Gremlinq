@@ -20,32 +20,32 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 _delegates = delegates;
             }
 
-            public bool TryDeserialize<TSerializedData>(TSerializedData serializedData, Type fragmentType, IGremlinQueryEnvironment environment, [NotNullWhen(true)] out object? value)
+            public bool TryDeserialize<TSerializedData>(TSerializedData serializedData, Type requestedType, IGremlinQueryEnvironment environment, [NotNullWhen(true)] out object? value)
             {
                 if (GetDeserializerDelegate(typeof(TSerializedData), serializedData!.GetType()) is BaseGremlinQueryFragmentDeserializerDelegate<TSerializedData> del)
                 {
-                    if (del(serializedData, fragmentType, environment, this) is { } ret)
+                    if (del(serializedData, requestedType, environment, this) is { } ret)
                     {
-                        if (fragmentType.IsInstanceOfType(ret))
+                        if (requestedType.IsInstanceOfType(ret))
                         {
                             value = ret;
                             return true;
                         }
 
-                        throw new InvalidCastException($"Cannot convert {ret.GetType()} to {fragmentType}.");
+                        throw new InvalidCastException($"Cannot convert {ret.GetType()} to {requestedType}.");
                     }
 
                     value = null;
                     return false;
                 }
 
-                if (fragmentType.IsInstanceOfType(serializedData))
+                if (requestedType.IsInstanceOfType(serializedData))
                 {
                     value = serializedData;
                     return true;
                 }
 
-                throw new ArgumentException($"Could not find a deserializer for {fragmentType.FullName}.");
+                throw new ArgumentException($"Could not find a deserializer for {requestedType.FullName}.");
             }
 
             public IGremlinQueryFragmentDeserializer Override<TSerialized>(GremlinQueryFragmentDeserializerDelegate<TSerialized> deserializer)
@@ -54,35 +54,32 @@ namespace ExRam.Gremlinq.Core.Deserialization
                     _delegates.SetItem(
                         typeof(TSerialized),
                         GetDeserializerDelegate(typeof(TSerialized), typeof(TSerialized)) is BaseGremlinQueryFragmentDeserializerDelegate<TSerialized> existingFragmentDeserializer
-                            ? (fragment, type, env, _, recurse) => deserializer(fragment, type, env, existingFragmentDeserializer, recurse)
+                            ? (fragment, requestedType, env, _, recurse) => deserializer(fragment, requestedType, env, existingFragmentDeserializer, recurse)
                             : deserializer));
             }
 
-            private Delegate? GetDeserializerDelegate(Type staticType, Type actualType)
+            private Delegate? GetDeserializerDelegate(Type staticSerializedDataType, Type actualSerializedDataType)
             {
                 return _fastDelegates
                     .GetOrAdd(
-                        (staticType, actualType),
+                        (staticSerializedDataType, actualSerializedDataType),
                         static (typeTuple, @this) =>
                         {
-                            var (staticType, actualType) = typeTuple;
-                        
-                            if (@this.InnerLookup(actualType) is { } del)
+                            var (staticSerializedDataType, actualSerializedDataType) = typeTuple;
+
+                            if (@this.InnerLookup(actualSerializedDataType) is { } del)
                             {
-                                var effectiveType = del
+                                var effectiveSerializedDataType = del
                                     .GetType()
                                     .GetGenericArguments()[0];
 
-                                if (effectiveType != actualType)
-                                {
-                                    return (Delegate)CreateFuncMethod1
-                                        .MakeGenericMethod(staticType, effectiveType)
-                                        .Invoke(null, new object[] { del })!;
-                                }
+                                var methodInfo = effectiveSerializedDataType != actualSerializedDataType
+                                    ? CreateFuncMethod1
+                                    : CreateFuncMethod2;
 
-                                return (Delegate)CreateFuncMethod2
-                                   .MakeGenericMethod(staticType, effectiveType)
-                                   .Invoke(null, new object[] { del })!;
+                                return (Delegate?)methodInfo
+                                    .MakeGenericMethod(staticSerializedDataType, effectiveSerializedDataType)
+                                    .Invoke(null, new object[] { del });
                             }
 
                             return null;
