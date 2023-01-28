@@ -12,31 +12,8 @@
         public static readonly ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer Identity;
         public static ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer AddToStringFallback(this ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer deserializer) { }
         public static ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer Override<TSerialized, TNative>(this ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer fragmentDeserializer, ExRam.Gremlinq.Core.Deserialization.GremlinQueryFragmentDeserializerDelegate<TSerialized> deserializerDelegate) { }
-        public static object? TryDeserialize<TSerializedData>(this ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer deserializer, TSerializedData serializedData, System.Type fragmentType, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
     }
     public delegate object? GremlinQueryFragmentDeserializerDelegate<TSerialized>(TSerialized serializedData, System.Type requestedType, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Deserialization.BaseGremlinQueryFragmentDeserializerDelegate<TSerialized> overridden, ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer recurse);
-    public static class GremlinQueryFragmentDeserializerExtensions1
-    {
-        public static ExRam.Gremlinq.Core.Deserialization.GremlinQueryFragmentDeserializerExtensions1.FluentForClass<TFragmentType> TryDeserialize<TFragmentType>(this ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer deserializer)
-            where TFragmentType :  class { }
-        public readonly struct FluentForClass<TFragmentType>
-            where TFragmentType :  class
-        {
-            public FluentForClass(ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer deserializer) { }
-            public TFragmentType? From<TSerialized>(TSerialized serialized, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
-        }
-    }
-    public static class GremlinQueryFragmentDeserializerExtensions2
-    {
-        public static ExRam.Gremlinq.Core.Deserialization.GremlinQueryFragmentDeserializerExtensions2.FluentForStruct<TFragmentType> TryDeserialize<TFragmentType>(this ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer deserializer)
-            where TFragmentType :  struct { }
-        public readonly struct FluentForStruct<TFragmentType>
-            where TFragmentType :  struct
-        {
-            public FluentForStruct(ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer deserializer) { }
-            public TFragmentType? From<TSerialized>(TSerialized serialized, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
-        }
-    }
     public interface IGremlinQueryExecutionResultDeserializer
     {
         ExRam.Gremlinq.Core.Deserialization.IGremlinQueryExecutionResultDeserializer ConfigureFragmentDeserializer(System.Func<ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer, ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer> transformation);
@@ -208,6 +185,37 @@ namespace ExRam.Gremlinq.Core
         public static System.Threading.Tasks.ValueTask<TElement> SingleAsync<TElement>(this ExRam.Gremlinq.Core.IGremlinQueryBase<TElement> query, System.Threading.CancellationToken ct = default) { }
         public static System.Threading.Tasks.ValueTask<TElement?> SingleOrDefaultAsync<TElement>(this ExRam.Gremlinq.Core.IGremlinQueryBase<TElement> query, System.Threading.CancellationToken ct = default) { }
         public static System.Threading.Tasks.ValueTask<TElement[]> ToArrayAsync<TElement>(this ExRam.Gremlinq.Core.IGremlinQueryBase<TElement> query, System.Threading.CancellationToken ct = default) { }
+    }
+    public static class GremlinQueryFragmentDeserializerClassExtensions
+    {
+        public static ExRam.Gremlinq.Core.GremlinQueryFragmentDeserializerClassExtensions.FluentForClass<TFragmentType> TryDeserialize<TFragmentType>(this ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer deserializer)
+            where TFragmentType :  class { }
+        public readonly struct FluentForClass<TFragmentType>
+            where TFragmentType :  class
+        {
+            public FluentForClass(ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer deserializer) { }
+            public TFragmentType? From<TSerialized>(TSerialized serialized, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
+        }
+    }
+    public static class GremlinQueryFragmentDeserializerStructExtensions
+    {
+        public static ExRam.Gremlinq.Core.GremlinQueryFragmentDeserializerStructExtensions.FluentForStruct<TFragmentType> TryDeserialize<TFragmentType>(this ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer deserializer)
+            where TFragmentType :  struct { }
+        public readonly struct FluentForStruct<TFragmentType>
+            where TFragmentType :  struct
+        {
+            public FluentForStruct(ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer deserializer) { }
+            public TFragmentType? From<TSerialized>(TSerialized serialized, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
+        }
+    }
+    public static class GremlinQueryFragmentDeserializerTypeExtensions
+    {
+        public static ExRam.Gremlinq.Core.GremlinQueryFragmentDeserializerTypeExtensions.FluentForType TryDeserialize(this ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer deserializer, System.Type type) { }
+        public readonly struct FluentForType
+        {
+            public FluentForType(ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer deserializer, System.Type type) { }
+            public object? From<TSerialized>(TSerialized serialized, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
+        }
     }
     public static class GremlinQuerySource
     {

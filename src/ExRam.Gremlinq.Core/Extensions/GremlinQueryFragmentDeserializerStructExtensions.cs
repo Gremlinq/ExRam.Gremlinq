@@ -20,7 +20,7 @@ namespace ExRam.Gremlinq.Core
         }
 
         public static FluentForStruct<TFragmentType> TryDeserialize<TFragmentType>(this IGremlinQueryFragmentDeserializer deserializer)
-          where TFragmentType : struct
+            where TFragmentType : struct
         {
             return new FluentForStruct<TFragmentType>(deserializer);
         }
