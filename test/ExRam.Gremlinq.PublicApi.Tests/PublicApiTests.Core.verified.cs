@@ -5,7 +5,6 @@
     {
         public static readonly ExRam.Gremlinq.Core.Deserialization.IGremlinQueryExecutionResultDeserializer Default;
         public static readonly ExRam.Gremlinq.Core.Deserialization.IGremlinQueryExecutionResultDeserializer Identity;
-        public static readonly ExRam.Gremlinq.Core.Deserialization.IGremlinQueryExecutionResultDeserializer Invalid;
     }
     public static class GremlinQueryFragmentDeserializer
     {
