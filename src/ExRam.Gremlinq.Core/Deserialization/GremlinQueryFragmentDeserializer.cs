@@ -130,6 +130,27 @@ namespace ExRam.Gremlinq.Core.Deserialization
 
         public static readonly IGremlinQueryFragmentDeserializer Identity = new GremlinQueryFragmentDeserializerImpl(ImmutableDictionary<Type, Delegate>.Empty);
 
+        public static readonly IGremlinQueryFragmentDeserializer Default = Identity
+            .Override<object>(static (data, type, env, overridden, recurse) =>
+            {
+                if (type.IsInstanceOfType(data))
+                    return data;
+
+                if (type.IsArray)
+                {
+                    var elementType = type.GetElementType()!;
+                    var ret = Array.CreateInstance(elementType, 1);
+
+                    ret
+                        .SetValue(recurse.TryDeserialize(elementType).From(data, env), 0);
+
+                    return ret;
+                }
+
+                return overridden(data, type, env, recurse);
+            })
+            .AddToStringFallback();
+
         public static IGremlinQueryFragmentDeserializer AddToStringFallback(this IGremlinQueryFragmentDeserializer deserializer) => deserializer
             .Override<object>(static (data, type, env, overridden, recurse) => type == typeof(string)
                 ? data.ToString()

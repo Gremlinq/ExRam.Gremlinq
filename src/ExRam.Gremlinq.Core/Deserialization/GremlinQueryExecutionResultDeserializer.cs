@@ -27,25 +27,6 @@
         public static readonly IGremlinQueryExecutionResultDeserializer Identity = new GremlinQueryExecutionResultDeserializerImpl(GremlinQueryFragmentDeserializer.Identity);
 
         public static readonly IGremlinQueryExecutionResultDeserializer Default = Identity
-            .ConfigureFragmentDeserializer(static _ => _
-                .Override<object>(static (data, type, env, overridden, recurse) =>
-                {
-                    if (type.IsInstanceOfType(data))
-                        return data;
-
-                    if (type.IsArray)
-                    {
-                        var elementType = type.GetElementType()!;
-                        var ret = Array.CreateInstance(elementType, 1);
-
-                        ret
-                            .SetValue(recurse.TryDeserialize(elementType).From(data, env), 0);
-
-                        return ret;
-                    }
-
-                    return overridden(data, type, env, recurse);
-                })
-                .AddToStringFallback());
+            .ConfigureFragmentDeserializer(static _ => GremlinQueryFragmentDeserializer.Default);
     }
 }
