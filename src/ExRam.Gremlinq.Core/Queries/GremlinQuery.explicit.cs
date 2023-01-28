@@ -212,7 +212,8 @@ namespace ExRam.Gremlinq.Core
                     .Serialize(this),
                 Environment)
             .SelectMany(executionResult => Environment.Deserializer
-                .Deserialize<TElement>(executionResult, Environment));
+                .TryDeserialize<TElement[]>()
+                .From(executionResult, Environment)?.ToAsyncEnumerable() ?? AsyncEnumerable.Empty<TElement>());
 
         IValueGremlinQuery<Path> IGremlinQueryBase.Path() => Path();
 
