@@ -84,23 +84,6 @@ namespace ExRam.Gremlinq.Core
 
         public static IGremlinQueryEnvironment UseDebugger(this IGremlinQueryEnvironment environment, IGremlinQueryDebugger debugger) => environment.ConfigureDebugger(_ => debugger);
 
-        public static IGremlinQueryEnvironment EchoGraphsonString(this IGremlinQueryEnvironment environment)
-        {
-            return environment
-                .UseSerializer(GremlinQuerySerializer.Default)
-                .UseExecutor(GremlinQueryExecutor.Identity)
-                .ConfigureDeserializer(static _ => _
-                    .ToGraphsonString());
-        }
-
-        public static IGremlinQueryEnvironment EchoGroovyGremlinQuery(this IGremlinQueryEnvironment environment)
-        {
-            return environment
-                .ConfigureSerializer(static serializer => serializer.ToGroovy())
-                .UseExecutor(GremlinQueryExecutor.Identity)
-                .UseDeserializer(GremlinQueryFragmentDeserializer.Default);
-        }
-
         public static IGremlinQueryEnvironment StoreByteArraysAsBase64String(this IGremlinQueryEnvironment environment)
         {
             return environment
