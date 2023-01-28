@@ -46,7 +46,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
             {
                 if (jToken is JObject element && !type.IsInstanceOfType(jToken) && !typeof(Property).IsAssignableFrom(type) && element.TryGetValue("id", StringComparison.OrdinalIgnoreCase, out var idToken) && element.TryGetValue("label", StringComparison.OrdinalIgnoreCase, out var labelToken) && labelToken.Type == JTokenType.String && element.TryGetValue("properties", out var propertiesToken))
                 {
-                    if (recurse.TryDeserialize(propertiesToken, type, env) is { } ret)
+                    if (recurse.TryDeserialize(type).From(propertiesToken, env) is { } ret)
                         return ret.SetIdAndLabel(idToken, labelToken, env, recurse);
                 }
 
@@ -59,7 +59,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                     type = type.GetElementType()!;
 
                     var array = Array.CreateInstance(type, 1);
-                    array.SetValue(recurse.TryDeserialize(jToken, type, env), 0);
+                    array.SetValue(recurse.TryDeserialize(type).From(jToken, env), 0);
 
                     return array;
                 }
@@ -71,13 +71,13 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>)
                     ? jToken.Type == JTokenType.Null
                         ? null
-                        : recurse.TryDeserialize(jToken, type.GetGenericArguments()[0], env)
+                        : recurse.TryDeserialize(type.GetGenericArguments()[0]).From(jToken, env)
                     : overridden(jToken, type, env, recurse);
             })
             .Override<JValue>(static (jToken, type, env, overridden, recurse) =>
             {
                 return typeof(Property).IsAssignableFrom(type) && type.IsGenericType
-                    ? Activator.CreateInstance(type, recurse.TryDeserialize(jToken, type.GetGenericArguments()[0], env))
+                    ? Activator.CreateInstance(type, recurse.TryDeserialize(type.GetGenericArguments()[0]).From(jToken, env))
                     : overridden(jToken, type, env, recurse);
             })
             .Override<JValue, TimeSpan>(static (jValue, type, env, overridden, recurse) => jValue.Type == JTokenType.String
@@ -128,7 +128,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>)
                     ? jToken.Value is null
                         ? null
-                        : recurse.TryDeserialize(jToken, type.GetGenericArguments()[0], env)
+                        : recurse.TryDeserialize(type.GetGenericArguments()[0]).From(jToken, env)
                     : overridden(jToken, type, env, recurse);
             })
             .Override<JValue>(static (jValue, type, env, overridden, recurse) =>
@@ -160,7 +160,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                         : default;
 
                     if (modelType != null && modelType != type)
-                        return recurse.TryDeserialize(jObject, modelType, env);
+                        return recurse.TryDeserialize(modelType).From(jObject, env);
                 }
 
                 return overridden(jObject, type, env, recurse);
@@ -172,7 +172,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
 
                 if (nativeTypes.ContainsKey(type) || type.IsEnum && nativeTypes.ContainsKey(type.GetEnumUnderlyingType()))
                     if (jObject.TryGetValue("value", out var valueToken))
-                        return recurse.TryDeserialize(valueToken, type, env);
+                        return recurse.TryDeserialize(type).From(valueToken, env);
 
                 return overridden(jObject, type, env, recurse);
             })
@@ -184,7 +184,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                         if (type != moreSpecificType && type.IsAssignableFrom(moreSpecificType))
                             type = moreSpecificType;
 
-                    return recurse.TryDeserialize(valueToken, type, env);
+                    return recurse.TryDeserialize(type).From(valueToken, env);
                 }
 
                 return overridden(jObject, type, env, recurse);
@@ -193,7 +193,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
             {
                 //@type == "g:Map"
                 return jObject.TryUnmap() is { } unmappedObject
-                    ? recurse.TryDeserialize(unmappedObject, type, env)
+                    ? recurse.TryDeserialize(type).From(unmappedObject, env)
                     : overridden(jObject, type, env, recurse);
             })
             .Override<JObject>(static (jObject, type, env, overridden, recurse) =>
@@ -210,7 +210,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
 
                             for (var i = 0; i < setArray.Count; i += 2)
                             {
-                                var element = recurse.TryDeserialize(setArray[i], elementType, env);
+                                var element = recurse.TryDeserialize(elementType).From(setArray[i], env);
                                 var bulk = (int)recurse.TryDeserialize<int>().From(setArray[i + 1], env)!;
 
                                 for (var j = 0; j < bulk; j++)
@@ -267,7 +267,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                         ? jArray.Count == 0 && type.IsClass
                             ? default
                             : throw new JsonReaderException($"Cannot convert array\r\n\r\n{jArray}\r\n\r\nto scalar value of type {type}.")
-                        : recurse.TryDeserialize(jArray[0], type, env);
+                        : recurse.TryDeserialize(type).From(jArray[0], env);
 
                 return overridden(jArray, type, env, recurse);
             })
@@ -296,7 +296,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                                 array.Add(item1);
                             }
                         }
-                        else if (recurse.TryDeserialize(jArray[i], elementType, env) is { } item2)
+                        else if (recurse.TryDeserialize(elementType).From(jArray[i], env) is { } item2)
                         {
                             array ??= new ArrayList(jArray.Count);
 

@@ -54,7 +54,7 @@
                         var ret = Array.CreateInstance(elementType, 1);
 
                         ret
-                            .SetValue(recurse.TryDeserialize(data, elementType, env), 0);
+                            .SetValue(recurse.TryDeserialize(elementType).From(data, env), 0);
 
                         return ret;
                     }

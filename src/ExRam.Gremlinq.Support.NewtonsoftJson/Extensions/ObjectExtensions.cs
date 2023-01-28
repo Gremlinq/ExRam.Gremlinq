@@ -26,7 +26,7 @@ namespace System
                             : default;
 
                     if (maybeRelevantToken is { } token)
-                        propertyInfo.SetValue(element, recurse.TryDeserialize(token, propertyInfo.PropertyType, environment));
+                        propertyInfo.SetValue(element, recurse.TryDeserialize(propertyInfo.PropertyType).From(token, environment));
                 }
             }
 
