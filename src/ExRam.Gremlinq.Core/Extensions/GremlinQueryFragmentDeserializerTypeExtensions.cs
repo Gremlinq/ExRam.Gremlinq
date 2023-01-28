@@ -2,6 +2,8 @@
 using System.Reflection;
 using ExRam.Gremlinq.Core.Deserialization;
 
+using Gremlin.Net.Structure.IO.GraphBinary.Types;
+
 namespace ExRam.Gremlinq.Core
 {
     public static class GremlinQueryFragmentDeserializerTypeExtensions
@@ -25,13 +27,20 @@ namespace ExRam.Gremlinq.Core
 
             public object? From<TSerialized>(TSerialized serialized, IGremlinQueryEnvironment environment)
             {
-                var delegatesDict = _type.IsValueType
+                return TryGetDelegate(typeof(TSerialized), _type) is Func<IGremlinQueryFragmentDeserializer, TSerialized, IGremlinQueryEnvironment, object?> fromDelegate
+                    ? fromDelegate(_deserializer, serialized, environment)
+                    : default;
+            }
+
+            private static Delegate? TryGetDelegate(Type serializedType, Type fragmentType)
+            {
+                var delegatesDict = fragmentType.IsValueType
                     ? FromStructDelegates
                     : FromClassDelegates;
 
-                var maybeFromDelegate = delegatesDict
+                return delegatesDict
                     .GetOrAdd(
-                        (typeof(TSerialized), _type),
+                        (serializedType, fragmentType),
                         static tuple =>
                         {
                             var (serializedType, fragmentType) = tuple;
@@ -45,10 +54,6 @@ namespace ExRam.Gremlinq.Core
                                 .MakeGenericMethod(serializedType, fragmentType)
                                 .Invoke(null, Array.Empty<object>()) as Delegate;
                         });
-
-                return maybeFromDelegate is Func<IGremlinQueryFragmentDeserializer, TSerialized, IGremlinQueryEnvironment, object?> fromDelegate
-                    ? fromDelegate(_deserializer, serialized, environment)
-                    : default;
             }
 
             private static Func<IGremlinQueryFragmentDeserializer, TSerialized, IGremlinQueryEnvironment, object?> FromClass<TSerialized, TFragment>()
