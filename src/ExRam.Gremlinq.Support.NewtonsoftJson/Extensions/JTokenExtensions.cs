@@ -38,7 +38,7 @@ namespace Newtonsoft.Json.Linq
 
                     IEnumerable<object> Core()
                     {
-                        if (recurse.TryDeserialize(traverserValue, type, env) is { } item)
+                        if (recurse.TryDeserialize(type).From(traverserValue, env) is { } item)
                         {
                             for (var j = 0; j < bulk; j++)
                                 yield return item;

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq.Expressions;
 using System.Reflection;
 using Gremlin.Net.Structure.IO.GraphSON;
 
@@ -57,6 +58,11 @@ namespace ExRam.Gremlinq.Core.Deserialization
                         GetUnconvertedDeserializer(typeof(TSerialized), typeof(TSerialized)) is BaseGremlinQueryFragmentDeserializerDelegate<TSerialized> existingFragmentDeserializer
                             ? (fragment, type, env, _, recurse) => deserializer(fragment, type, env, existingFragmentDeserializer, recurse)
                             : deserializer));
+            }
+
+            private int Test<T>()
+            {
+                return 0;
             }
 
             private Delegate? GetUnconvertedDeserializer(Type staticType, Type actualType)
@@ -123,13 +129,6 @@ namespace ExRam.Gremlinq.Core.Deserialization
         }
 
         public static readonly IGremlinQueryFragmentDeserializer Identity = new GremlinQueryFragmentDeserializerImpl(ImmutableDictionary<Type, Delegate>.Empty);
-
-        public static object? TryDeserialize<TSerializedData>(this IGremlinQueryFragmentDeserializer deserializer, TSerializedData serializedData, Type fragmentType, IGremlinQueryEnvironment environment)
-        {
-            return deserializer.TryDeserialize(serializedData, fragmentType, environment, out var value)
-                ? value
-                : default;
-        }
 
         public static IGremlinQueryFragmentDeserializer AddToStringFallback(this IGremlinQueryFragmentDeserializer deserializer) => deserializer
             .Override<object>(static (data, type, env, overridden, recurse) => type == typeof(string)
