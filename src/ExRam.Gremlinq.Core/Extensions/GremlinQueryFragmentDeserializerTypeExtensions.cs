@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Collections.Concurrent;
+using System.Reflection;
 using ExRam.Gremlinq.Core.Deserialization;
 
 namespace ExRam.Gremlinq.Core
@@ -9,6 +10,9 @@ namespace ExRam.Gremlinq.Core
         {
             private readonly Type _type;
             private readonly IGremlinQueryFragmentDeserializer _deserializer;
+
+            private static readonly ConcurrentDictionary<(Type, Type), Delegate?> FromClassDelegates = new();
+            private static readonly ConcurrentDictionary<(Type, Type), Delegate?> FromStructDelegates = new();
 
             public FluentForType(IGremlinQueryFragmentDeserializer deserializer, Type type)
             {
@@ -21,34 +25,37 @@ namespace ExRam.Gremlinq.Core
 
             public object? From<TSerialized>(TSerialized serialized, IGremlinQueryEnvironment environment)
             {
-                var methodName = _type.IsValueType
-                    ? nameof(FromStruct)
-                    : nameof(FromClass);
+                var delegatesDict = _type.IsValueType
+                    ? FromStructDelegates
+                    : FromClassDelegates;
 
-                try
-                {
-                    return typeof(FluentForType)
-                        .GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic)!
-                        .MakeGenericMethod(typeof(TSerialized), _type)
-                        .Invoke(this, new object?[] { serialized, environment });
-                }
-                catch(TargetInvocationException ex) //TODO: This is to be made into a delegate and stuff.
-                {
-                    throw ex.InnerException!;
-                }
+                var maybeFromDelegate = delegatesDict
+                    .GetOrAdd(
+                        (typeof(TSerialized), _type),
+                        static tuple =>
+                        {
+                            var (serializedType, fragmentType) = tuple;
+
+                            var methodName = fragmentType.IsValueType
+                                ? nameof(FromStruct)
+                                : nameof(FromClass);
+
+                            return typeof(FluentForType)
+                                .GetMethod(methodName, BindingFlags.Static | BindingFlags.NonPublic)!
+                                .MakeGenericMethod(serializedType, fragmentType)
+                                .Invoke(null, Array.Empty<object>()) as Delegate;
+                        });
+
+                return maybeFromDelegate is Func<IGremlinQueryFragmentDeserializer, TSerialized, IGremlinQueryEnvironment, object?> fromDelegate
+                    ? fromDelegate(_deserializer, serialized, environment)
+                    : default;
             }
 
-            private object? FromClass<TSerialized, TFragment>(TSerialized serialized, IGremlinQueryEnvironment environment)
-                where TFragment : class
-            {
-                return _deserializer.TryDeserialize<TFragment>().From(serialized, environment);
-            }
+            private static Func<IGremlinQueryFragmentDeserializer, TSerialized, IGremlinQueryEnvironment, object?> FromClass<TSerialized, TFragment>()
+                where TFragment : class => (deserializer, serialized, environment) => deserializer.TryDeserialize<TFragment>().From(serialized, environment);
 
-            private object? FromStruct<TSerialized, TFragment>(TSerialized serialized, IGremlinQueryEnvironment environment)
-                where TFragment : struct
-            {
-                return _deserializer.TryDeserialize<TFragment>().From(serialized, environment);
-            }
+            private static Func<IGremlinQueryFragmentDeserializer, TSerialized, IGremlinQueryEnvironment, object?> FromStruct<TSerialized, TFragment>()
+                where TFragment : struct => (deserializer, serialized, environment) => deserializer.TryDeserialize<TFragment>().From(serialized, environment);
         }
 
         public static FluentForType TryDeserialize(this IGremlinQueryFragmentDeserializer deserializer, Type type)
