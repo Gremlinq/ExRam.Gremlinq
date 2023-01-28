@@ -146,8 +146,7 @@ namespace ExRam.Gremlinq.Core
                     .ConfigureExecutor(executor => executor
                         .Log())
                     .ConfigureDeserializer(d => d
-                        .ConfigureFragmentDeserializer(f => f
-                            .AddNewtonsoftJson())));
+                        .AddNewtonsoftJson()));
         }
     }
 }

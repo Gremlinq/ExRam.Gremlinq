@@ -15,7 +15,7 @@ namespace ExRam.Gremlinq.Core
                 IGraphModel model,
                 IGremlinQuerySerializer serializer,
                 IGremlinQueryExecutor executor,
-                IGremlinQueryExecutionResultDeserializer deserializer,
+                IGremlinQueryFragmentDeserializer deserializer,
                 IGremlinQueryDebugger debugger,
                 IFeatureSet featureSet,
                 IGremlinqOptions options,
@@ -39,7 +39,7 @@ namespace ExRam.Gremlinq.Core
 
             public IGremlinQueryEnvironment ConfigureLogger(Func<ILogger, ILogger> loggerTransformation) => new GremlinQueryEnvironmentImpl(Model, Serializer, Executor, Deserializer, Debugger, FeatureSet, Options, loggerTransformation(Logger));
 
-            public IGremlinQueryEnvironment ConfigureDeserializer(Func<IGremlinQueryExecutionResultDeserializer, IGremlinQueryExecutionResultDeserializer> configurator) => new GremlinQueryEnvironmentImpl(Model, Serializer, Executor, configurator(Deserializer), Debugger, FeatureSet, Options, Logger);
+            public IGremlinQueryEnvironment ConfigureDeserializer(Func<IGremlinQueryFragmentDeserializer, IGremlinQueryFragmentDeserializer> configurator) => new GremlinQueryEnvironmentImpl(Model, Serializer, Executor, configurator(Deserializer), Debugger, FeatureSet, Options, Logger);
 
             public IGremlinQueryEnvironment ConfigureSerializer(Func<IGremlinQuerySerializer, IGremlinQuerySerializer> configurator) => new GremlinQueryEnvironmentImpl(Model, configurator(Serializer), Executor, Deserializer, Debugger, FeatureSet, Options, Logger);
 
@@ -54,14 +54,14 @@ namespace ExRam.Gremlinq.Core
             public IGremlinQueryDebugger Debugger { get; }
             public IGremlinQueryExecutor Executor { get; }
             public IGremlinQuerySerializer Serializer { get; }
-            public IGremlinQueryExecutionResultDeserializer Deserializer { get; }
+            public IGremlinQueryFragmentDeserializer Deserializer { get; }
         }
 
         public static readonly IGremlinQueryEnvironment Empty = new GremlinQueryEnvironmentImpl(
             GraphModel.Empty,
             GremlinQuerySerializer.Identity,
             GremlinQueryExecutor.Empty,
-            GremlinQueryExecutionResultDeserializer.Identity,
+            GremlinQueryFragmentDeserializer.Identity,
             GremlinQueryDebugger.Groovy,
             FeatureSet.Full,
             GremlinqOptions.Empty,
@@ -70,7 +70,7 @@ namespace ExRam.Gremlinq.Core
         public static readonly IGremlinQueryEnvironment Default = Empty
             .UseSerializer(GremlinQuerySerializer.Default)
             .UseExecutor(GremlinQueryExecutor.Invalid)
-            .UseDeserializer(GremlinQueryExecutionResultDeserializer.Default);
+            .UseDeserializer(GremlinQueryFragmentDeserializer.Default);
 
         public static IGremlinQueryEnvironment UseModel(this IGremlinQueryEnvironment source, IGraphModel model) => source.ConfigureModel(_ => model);
 
@@ -78,7 +78,7 @@ namespace ExRam.Gremlinq.Core
 
         public static IGremlinQueryEnvironment UseSerializer(this IGremlinQueryEnvironment environment, IGremlinQuerySerializer serializer) => environment.ConfigureSerializer(_ => serializer);
 
-        public static IGremlinQueryEnvironment UseDeserializer(this IGremlinQueryEnvironment environment, IGremlinQueryExecutionResultDeserializer deserializer) => environment.ConfigureDeserializer(_ => deserializer);
+        public static IGremlinQueryEnvironment UseDeserializer(this IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer deserializer) => environment.ConfigureDeserializer(_ => deserializer);
 
         public static IGremlinQueryEnvironment UseExecutor(this IGremlinQueryEnvironment environment, IGremlinQueryExecutor executor) => environment.ConfigureExecutor(_ => executor);
 
@@ -90,8 +90,7 @@ namespace ExRam.Gremlinq.Core
                 .UseSerializer(GremlinQuerySerializer.Default)
                 .UseExecutor(GremlinQueryExecutor.Identity)
                 .ConfigureDeserializer(static _ => _
-                    .ConfigureFragmentDeserializer(static _ => _
-                        .ToGraphsonString()));
+                    .ToGraphsonString());
         }
 
         public static IGremlinQueryEnvironment EchoGroovyGremlinQuery(this IGremlinQueryEnvironment environment)
@@ -99,7 +98,7 @@ namespace ExRam.Gremlinq.Core
             return environment
                 .ConfigureSerializer(static serializer => serializer.ToGroovy())
                 .UseExecutor(GremlinQueryExecutor.Identity)
-                .UseDeserializer(GremlinQueryExecutionResultDeserializer.Default);
+                .UseDeserializer(GremlinQueryFragmentDeserializer.Default);
         }
 
         public static IGremlinQueryEnvironment StoreByteArraysAsBase64String(this IGremlinQueryEnvironment environment)
@@ -122,8 +121,7 @@ namespace ExRam.Gremlinq.Core
                 .ConfigureSerializer(_ => _
                     .ConfigureFragmentSerializer(_ => _
                         .Override(serializerDelegate)))
-                .ConfigureDeserializer(_ => _
-                    .ConfigureFragmentDeserializer(fragmentDeserializerTransformation));
+                .ConfigureDeserializer(fragmentDeserializerTransformation);
         }
     }
 }
