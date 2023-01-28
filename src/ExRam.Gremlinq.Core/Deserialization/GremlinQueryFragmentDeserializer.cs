@@ -12,17 +12,17 @@ namespace ExRam.Gremlinq.Core.Deserialization
             private static readonly MethodInfo CreateFuncMethod1 = typeof(GremlinQueryFragmentDeserializerImpl).GetMethod(nameof(CreateFunc1), BindingFlags.NonPublic | BindingFlags.Static)!;
             private static readonly MethodInfo CreateFuncMethod2 = typeof(GremlinQueryFragmentDeserializerImpl).GetMethod(nameof(CreateFunc2), BindingFlags.NonPublic | BindingFlags.Static)!;
 
-            private readonly IImmutableDictionary<Type, Delegate> _dict;
-            private readonly ConcurrentDictionary<(Type staticType, Type actualType), Delegate?> _unconvertedDelegates = new();
+            private readonly IImmutableDictionary<Type, Delegate> _delegates;
+            private readonly ConcurrentDictionary<(Type staticType, Type actualType), Delegate?> _fastDelegates = new();
 
-            public GremlinQueryFragmentDeserializerImpl(IImmutableDictionary<Type, Delegate> dict)
+            public GremlinQueryFragmentDeserializerImpl(IImmutableDictionary<Type, Delegate> delegates)
             {
-                _dict = dict;
+                _delegates = delegates;
             }
 
             public bool TryDeserialize<TSerializedData>(TSerializedData serializedData, Type fragmentType, IGremlinQueryEnvironment environment, [NotNullWhen(true)] out object? value)
             {
-                if (GetUnconvertedDeserializer(typeof(TSerializedData), serializedData!.GetType()) is BaseGremlinQueryFragmentDeserializerDelegate<TSerializedData> del)
+                if (GetDeserializerDelegate(typeof(TSerializedData), serializedData!.GetType()) is BaseGremlinQueryFragmentDeserializerDelegate<TSerializedData> del)
                 {
                     if (del(serializedData, fragmentType, environment, this) is { } ret)
                     {
@@ -51,16 +51,16 @@ namespace ExRam.Gremlinq.Core.Deserialization
             public IGremlinQueryFragmentDeserializer Override<TSerialized>(GremlinQueryFragmentDeserializerDelegate<TSerialized> deserializer)
             {
                 return new GremlinQueryFragmentDeserializerImpl(
-                    _dict.SetItem(
+                    _delegates.SetItem(
                         typeof(TSerialized),
-                        GetUnconvertedDeserializer(typeof(TSerialized), typeof(TSerialized)) is BaseGremlinQueryFragmentDeserializerDelegate<TSerialized> existingFragmentDeserializer
+                        GetDeserializerDelegate(typeof(TSerialized), typeof(TSerialized)) is BaseGremlinQueryFragmentDeserializerDelegate<TSerialized> existingFragmentDeserializer
                             ? (fragment, type, env, _, recurse) => deserializer(fragment, type, env, existingFragmentDeserializer, recurse)
                             : deserializer));
             }
 
-            private Delegate? GetUnconvertedDeserializer(Type staticType, Type actualType)
+            private Delegate? GetDeserializerDelegate(Type staticType, Type actualType)
             {
-                return _unconvertedDelegates
+                return _fastDelegates
                     .GetOrAdd(
                         (staticType, actualType),
                         static (typeTuple, @this) =>
@@ -104,7 +104,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
 
             private Delegate? InnerLookup(Type actualType)
             {
-                if (_dict.TryGetValue(actualType, out var ret))
+                if (_delegates.TryGetValue(actualType, out var ret))
                     return ret;
 
                 var baseType = actualType.BaseType;
