@@ -25,10 +25,17 @@ namespace ExRam.Gremlinq.Core
                     ? nameof(FromStruct)
                     : nameof(FromClass);
 
-                return typeof(FluentForType)
-                    .GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic)!
-                    .MakeGenericMethod(typeof(TSerialized), _type)
-                    .Invoke(this, new object?[] { serialized, environment });
+                try
+                {
+                    return typeof(FluentForType)
+                        .GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic)!
+                        .MakeGenericMethod(typeof(TSerialized), _type)
+                        .Invoke(this, new object?[] { serialized, environment });
+                }
+                catch(TargetInvocationException ex) //TODO: This is to be made into a delegate and stuff.
+                {
+                    throw ex.InnerException!;
+                }
             }
 
             private object? FromClass<TSerialized, TFragment>(TSerialized serialized, IGremlinQueryEnvironment environment)
