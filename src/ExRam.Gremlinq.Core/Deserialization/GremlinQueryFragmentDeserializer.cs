@@ -7,16 +7,16 @@ namespace ExRam.Gremlinq.Core.Deserialization
     {
         private sealed class GremlinQueryFragmentDeserializerImpl : IGremlinQueryFragmentDeserializer
         {
-            private readonly IImmutableList<GremlinQueryFragmentDeserializerDelegate> _delegates;
+            private readonly ImmutableStack<GremlinQueryFragmentDeserializerDelegate> _delegates;
 
-            public GremlinQueryFragmentDeserializerImpl(IImmutableList<GremlinQueryFragmentDeserializerDelegate> delegates)
+            public GremlinQueryFragmentDeserializerImpl(ImmutableStack<GremlinQueryFragmentDeserializerDelegate> delegates)
             {
                 _delegates = delegates;
             }
 
             public bool TryDeserialize<TSerialized, TRequested>(TSerialized serialized, IGremlinQueryEnvironment environment, [NotNullWhen(true)] out TRequested? value)
             {
-                foreach (var deserializer in _delegates.Reverse())//TODO: Horror.
+                foreach (var deserializer in _delegates)
                 {
                     if (deserializer.Execute(serialized, typeof(TRequested), environment, this) is TRequested ret)
                     {
@@ -31,11 +31,11 @@ namespace ExRam.Gremlinq.Core.Deserialization
 
             public IGremlinQueryFragmentDeserializer Override(GremlinQueryFragmentDeserializerDelegate deserializer)
             {
-                return new GremlinQueryFragmentDeserializerImpl(_delegates.Add(deserializer));
+                return new GremlinQueryFragmentDeserializerImpl(_delegates.Push(deserializer));
             }
         }
 
-        public static readonly IGremlinQueryFragmentDeserializer Identity = new GremlinQueryFragmentDeserializerImpl(ImmutableList<GremlinQueryFragmentDeserializerDelegate>.Empty)
+        public static readonly IGremlinQueryFragmentDeserializer Identity = new GremlinQueryFragmentDeserializerImpl(ImmutableStack<GremlinQueryFragmentDeserializerDelegate>.Empty)
             .Override(GremlinQueryFragmentDeserializerDelegate.Identity);
 
         public static readonly IGremlinQueryFragmentDeserializer Default = Identity
