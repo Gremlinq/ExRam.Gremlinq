@@ -1,6 +1,5 @@
 ﻿namespace ExRam.Gremlinq.Core.Deserialization
 {
-    public delegate object? BaseGremlinQueryFragmentDeserializerDelegate<in TSerialized>(TSerialized serializedData, System.Type requestedType, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer recurse);
     public static class GremlinQueryFragmentDeserializer
     {
         public static readonly ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer Default;
@@ -12,13 +11,13 @@
     {
         public static ExRam.Gremlinq.Core.Deserialization.GremlinQueryFragmentDeserializerDelegate Identity;
         protected GremlinQueryFragmentDeserializerDelegate() { }
-        public abstract object? Execute<TAvailableSerialized>(TAvailableSerialized serializedData, System.Type requestedType, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer recurse);
+        public abstract object? Execute<TSerialized>(TSerialized serializedData, System.Type requestedType, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer recurse);
         public static ExRam.Gremlinq.Core.Deserialization.GremlinQueryFragmentDeserializerDelegate From<TSerialized>(System.Func<TSerialized, System.Type, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer, object?> func) { }
     }
     public interface IGremlinQueryFragmentDeserializer
     {
         ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer Override(ExRam.Gremlinq.Core.Deserialization.GremlinQueryFragmentDeserializerDelegate deserializer);
-        bool TryDeserialize<TSerializedData>(TSerializedData serializedData, System.Type requestedType, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out object? value);
+        bool TryDeserialize<TSerialized>(TSerialized serialized, System.Type requestedType, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out object? value);
     }
 }
 namespace ExRam.Gremlinq.Core
