@@ -18,7 +18,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
             {
                 foreach (var deserializer in _delegates)
                 {
-                    if (deserializer.Execute(serialized, environment, this, out value))
+                    if (deserializer.Transform(serialized, environment, this, out value))
                         return true;
                 }
 
@@ -70,7 +70,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
             //TODO: Dedicated!
             return fragmentDeserializer
                 .Override<TSerialized>((token, type, env, recurse) => type == typeof(TNative)
-                    ? deserializerDelegate.Execute<TSerialized, TNative>(token, env, recurse, out var value)
+                    ? deserializerDelegate.Transform<TSerialized, TNative>(token, env, recurse, out var value)
                         ? value
                         : default(object?)
                     : default(object?));

@@ -4,14 +4,14 @@ namespace ExRam.Gremlinq.Core.Deserialization
 {
     public interface IDeserializationTransformation
     {
-        bool Execute<TSerialized, TRequested>(TSerialized serialized, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse, [NotNullWhen(true)] out TRequested? value);
+        bool Transform<TSerialized, TRequested>(TSerialized serialized, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse, [NotNullWhen(true)] out TRequested? value);
     }
 
     public static class DeserializationTransformation
     {
         private sealed class IdentityDeserializationTransformation : IDeserializationTransformation
         {
-            public bool Execute<TSerialized, TRequested>(TSerialized serialized, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse, [NotNullWhen(true)] out TRequested? value)
+            public bool Transform<TSerialized, TRequested>(TSerialized serialized, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse, [NotNullWhen(true)] out TRequested? value)
             {
                 if (typeof(TRequested).IsInstanceOfType(serialized))
                 {
@@ -34,7 +34,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 _func = func;
             }
 
-            public bool Execute<TSerialized, TRequested>(TSerialized serialized, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse, [NotNullWhen(true)] out TRequested? value)
+            public bool Transform<TSerialized, TRequested>(TSerialized serialized, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse, [NotNullWhen(true)] out TRequested? value)
             {
                 if (serialized is TStaticSerialized staticSerialized)
                 {
