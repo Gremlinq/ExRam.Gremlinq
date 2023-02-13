@@ -66,7 +66,7 @@ namespace ExRam.Gremlinq.Core
         //TODO: Das hier kann nicht für immer bleiben.
         public static IGremlinQueryFragmentDeserializer Override<TSerialized>(this IGremlinQueryFragmentDeserializer deserializer, Func<TSerialized, Type, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, object?> func)
         {
-            return deserializer.Override(DeserializationTransformation.From(func));
+            return deserializer.Override(DeserializationTransformationFactory.From(func));
         }
     }
 }
