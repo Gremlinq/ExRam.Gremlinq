@@ -27,6 +27,12 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void What()
+        {
+
+        }
+
+        [Fact]
         public async Task Echo()
         {
             await g

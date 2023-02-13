@@ -80,10 +80,10 @@ namespace ExRam.Gremlinq.Core.Deserialization
                     ? Activator.CreateInstance(type, recurse.TryDeserialize(type.GetGenericArguments()[0]).From(jToken, env))
                     : overridden(jToken, type, env, recurse);
             })
-            .Override<JValue, TimeSpan>(static (jValue, type, env, overridden, recurse) => jValue.Type == JTokenType.String
+            .Override<JValue, TimeSpan>(GremlinQueryFragmentDeserializerDelegate<JValue>.From(static (jValue, type, env, overridden, recurse) => jValue.Type == JTokenType.String
                 ? XmlConvert.ToTimeSpan(jValue.Value<string>()!)
-                : overridden(jValue, type, env, recurse))
-            .Override<JValue, DateTimeOffset>(static (jValue, type, env, overridden, recurse) =>
+                : overridden(jValue, type, env, recurse)))
+            .Override<JValue, DateTimeOffset>(GremlinQueryFragmentDeserializerDelegate<JValue>.From(static (jValue, type, env, overridden, recurse) =>
             {
                 switch (jValue.Value)
                 {
@@ -101,8 +101,8 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 }
 
                 return overridden(jValue, type, env, recurse);
-            })
-            .Override<JValue, DateTime>(static (jValue, type, env, overridden, recurse) =>
+            }))
+            .Override<JValue, DateTime>(GremlinQueryFragmentDeserializerDelegate<JValue>.From(static (jValue, type, env, overridden, recurse) =>
             {
                 switch (jValue.Value)
                 {
@@ -116,13 +116,13 @@ namespace ExRam.Gremlinq.Core.Deserialization
                     return new DateTime(DateTimeOffset.FromUnixTimeMilliseconds(jValue.Value<long>()).Ticks, DateTimeKind.Utc);
 
                 return overridden(jValue, type, env, recurse);
-            })
-            .Override<JValue, byte[]>(static (jValue, type, env, overridden, recurse) =>
+            }))
+            .Override<JValue, byte[]>(GremlinQueryFragmentDeserializerDelegate<JValue>.From(static (jValue, type, env, overridden, recurse) =>
             {
                 return jValue.Type == JTokenType.String
                     ? Convert.FromBase64String(jValue.Value<string>()!)
                     : overridden(jValue, type, env, recurse);
-            })
+            }))
             .Override<JValue>(static (jToken, type, env, overridden, recurse) =>
             {
                 return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>)
@@ -146,7 +146,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
 
                 return null;
             })
-            .Override<JObject, object>(static (jObject, _, env, _, recurse) => recurse.TryDeserialize<IDictionary<string, object?>>().From(jObject, env))
+            .Override<JObject, object>(GremlinQueryFragmentDeserializerDelegate<JObject>.From(static (jObject, _, env, _, recurse) => recurse.TryDeserialize<IDictionary<string, object?>>().From(jObject, env)))
             .Override<JObject>(static (jObject, type, env, overridden, recurse) =>
             {
                 if (!type.IsSealed)
@@ -246,7 +246,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
 
                 return overridden(jObject, type, env, recurse);
             })
-            .Override<JObject, IDictionary<string, object?>>(static (jObject, type, env, overridden, recurse) =>
+            .Override<JObject, IDictionary<string, object?>>(GremlinQueryFragmentDeserializerDelegate<JObject>.From(static (jObject, type, env, overridden, recurse) =>
             {
                 if (recurse.TryDeserialize<JObject>().From(jObject, env) is { } processedFragment)
                 {
@@ -259,7 +259,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 }
 
                 return overridden(jObject, type, env, recurse);
-            })
+            }))
             .Override<JArray>(static (jArray, type, env, overridden, recurse) =>
             {
                 if ((!type.IsArray || env.GetCache().FastNativeTypes.ContainsKey(type)) && !type.IsInstanceOfType(jArray))
