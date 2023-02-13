@@ -12,10 +12,10 @@ namespace ExRam.Gremlinq.Core.Deserialization
             private static readonly MethodInfo CreateFuncMethod1 = typeof(GremlinQueryFragmentDeserializerImpl).GetMethod(nameof(CreateFunc1), BindingFlags.NonPublic | BindingFlags.Static)!;
             private static readonly MethodInfo CreateFuncMethod2 = typeof(GremlinQueryFragmentDeserializerImpl).GetMethod(nameof(CreateFunc2), BindingFlags.NonPublic | BindingFlags.Static)!;
 
-            private readonly IImmutableDictionary<Type, Delegate> _delegates;
+            private readonly IImmutableDictionary<Type, GremlinQueryFragmentDeserializerDelegate> _delegates;
             private readonly ConcurrentDictionary<(Type staticType, Type actualType), Delegate?> _fastDelegates = new();
 
-            public GremlinQueryFragmentDeserializerImpl(IImmutableDictionary<Type, Delegate> delegates)
+            public GremlinQueryFragmentDeserializerImpl(IImmutableDictionary<Type, GremlinQueryFragmentDeserializerDelegate> delegates)
             {
                 _delegates = delegates;
             }
@@ -54,7 +54,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                     _delegates.SetItem(
                         typeof(TSerialized),
                         GetDeserializerDelegate(typeof(TSerialized), typeof(TSerialized)) is BaseGremlinQueryFragmentDeserializerDelegate<TSerialized> existingFragmentDeserializer
-                            ? (fragment, requestedType, env, _, recurse) => deserializer(fragment, requestedType, env, existingFragmentDeserializer, recurse)
+                            ? GremlinQueryFragmentDeserializerDelegate<TSerialized>.From((fragment, requestedType, env, _, recurse) => deserializer.Execute(fragment, requestedType, env, existingFragmentDeserializer, recurse))
                             : deserializer));
             }
 
@@ -90,16 +90,16 @@ namespace ExRam.Gremlinq.Core.Deserialization
             private static BaseGremlinQueryFragmentDeserializerDelegate<TStatic> CreateFunc1<TStatic, TEffective>(GremlinQueryFragmentDeserializerDelegate<TEffective> del)
                 where TStatic : TEffective
             {
-                return (serialized, fragmentType, environment, recurse) => del(serialized!, fragmentType, environment, static (serialized, _, _, _) => serialized, recurse);
+                return (serialized, fragmentType, environment, recurse) => del.Execute(serialized!, fragmentType, environment, static (serialized, _, _, _) => serialized, recurse);
             }
 
             private static BaseGremlinQueryFragmentDeserializerDelegate<TStatic> CreateFunc2<TStatic, TEffective>(GremlinQueryFragmentDeserializerDelegate<TEffective> del)
                 where TEffective : TStatic
             {
-                return (serialized, fragmentType, environment, recurse) => del((TEffective)serialized!, fragmentType, environment, static (serialized, _, _, _) => serialized, recurse);
+                return (serialized, fragmentType, environment, recurse) => del.Execute((TEffective)serialized!, fragmentType, environment, static (serialized, _, _, _) => serialized, recurse);
             }
 
-            private Delegate? InnerLookup(Type actualType)
+            private GremlinQueryFragmentDeserializerDelegate? InnerLookup(Type actualType)
             {
                 if (_delegates.TryGetValue(actualType, out var ret))
                     return ret;
@@ -118,7 +118,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
             }
         }
 
-        public static readonly IGremlinQueryFragmentDeserializer Identity = new GremlinQueryFragmentDeserializerImpl(ImmutableDictionary<Type, Delegate>.Empty);
+        public static readonly IGremlinQueryFragmentDeserializer Identity = new GremlinQueryFragmentDeserializerImpl(ImmutableDictionary<Type, GremlinQueryFragmentDeserializerDelegate>.Empty);
 
         public static readonly IGremlinQueryFragmentDeserializer Default = Identity
             .Override<object>(static (data, type, env, overridden, recurse) =>
@@ -150,7 +150,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
         {
             return fragmentDeserializer
                 .Override<TSerialized>((token, type, env, overridden, recurse) => type == typeof(TNative)
-                    ? deserializerDelegate(token, type, env, overridden, recurse)
+                    ? deserializerDelegate.Execute(token, type, env, overridden, recurse)
                     : overridden(token, type, env, recurse));
         }
     }
