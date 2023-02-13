@@ -18,11 +18,8 @@ namespace ExRam.Gremlinq.Core.Deserialization
             {
                 foreach (var deserializer in _delegates)
                 {
-                    if (deserializer.Execute(serialized, typeof(TRequested), environment, this) is TRequested ret)
-                    {
-                        value = ret;
+                    if (deserializer.Execute(serialized, environment, this, out value))
                         return true;
-                    }
                 }
 
                 value = default;
@@ -70,10 +67,13 @@ namespace ExRam.Gremlinq.Core.Deserialization
 
         public static IGremlinQueryFragmentDeserializer Override<TSerialized, TNative>(this IGremlinQueryFragmentDeserializer fragmentDeserializer, GremlinQueryFragmentDeserializerDelegate deserializerDelegate)
         {
+            //TODO: Dedicated!
             return fragmentDeserializer
                 .Override<TSerialized>((token, type, env, recurse) => type == typeof(TNative)
-                    ? deserializerDelegate.Execute(token, type, env, recurse)
-                    : default);
+                    ? deserializerDelegate.Execute<TSerialized, TNative>(token, env, recurse, out var value)
+                        ? value
+                        : default(object?)
+                    : default(object?));
         }
     }
 }

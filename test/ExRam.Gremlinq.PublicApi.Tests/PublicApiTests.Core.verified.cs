@@ -11,7 +11,7 @@
     {
         public static ExRam.Gremlinq.Core.Deserialization.GremlinQueryFragmentDeserializerDelegate Identity;
         protected GremlinQueryFragmentDeserializerDelegate() { }
-        public abstract object? Execute<TSerialized>(TSerialized serializedData, System.Type requestedType, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer recurse);
+        public abstract bool Execute<TSerialized, TRequested>(TSerialized serializedData, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer recurse, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out TRequested? value);
         public static ExRam.Gremlinq.Core.Deserialization.GremlinQueryFragmentDeserializerDelegate From<TSerialized>(System.Func<TSerialized, System.Type, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer, object?> func) { }
     }
     public interface IGremlinQueryFragmentDeserializer
