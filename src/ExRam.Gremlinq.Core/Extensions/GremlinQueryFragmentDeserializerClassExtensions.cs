@@ -14,8 +14,8 @@ namespace ExRam.Gremlinq.Core
                 _deserializer = deserializer;
             }
 
-            public TFragmentType? From<TSerialized>(TSerialized serialized, IGremlinQueryEnvironment environment) => _deserializer.TryDeserialize(serialized, typeof(TFragmentType), environment, out var value) && value is TFragmentType typedValue
-                ? typedValue
+            public TFragmentType? From<TSerialized>(TSerialized serialized, IGremlinQueryEnvironment environment) => _deserializer.TryDeserialize<TSerialized, TFragmentType>(serialized, environment, out var value)
+                ? value
                 : default;
         }
 
