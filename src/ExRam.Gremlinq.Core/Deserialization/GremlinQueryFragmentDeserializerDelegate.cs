@@ -13,18 +13,18 @@
             }
         }
 
-        private sealed class GremlinQueryFragmentDeserializerDelegateImpl<TSerialized> : GremlinQueryFragmentDeserializerDelegate
+        private sealed class GremlinQueryFragmentDeserializerDelegateImpl<TStaticSerialized> : GremlinQueryFragmentDeserializerDelegate
         {
-            private readonly Func<TSerialized, Type, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, object?> _func;
+            private readonly Func<TStaticSerialized, Type, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, object?> _func;
 
-            public GremlinQueryFragmentDeserializerDelegateImpl(Func<TSerialized, Type, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, object?> func)
+            public GremlinQueryFragmentDeserializerDelegateImpl(Func<TStaticSerialized, Type, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, object?> func)
             {
                 _func = func;
             }
 
-            public override object? Execute<TAvailableSerialized>(TAvailableSerialized serializedData, Type requestedType, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse)
+            public override object? Execute<TSerialized>(TSerialized serializedData, Type requestedType, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse)
             {
-                if (serializedData is TSerialized staticSerialized)
+                if (serializedData is TStaticSerialized staticSerialized)
                     return _func(staticSerialized, requestedType, environment, recurse);
 
                 return null;
@@ -38,6 +38,6 @@
             return new GremlinQueryFragmentDeserializerDelegateImpl<TSerialized>(func);
         }
 
-        public abstract object? Execute<TAvailableSerialized>(TAvailableSerialized serializedData, Type requestedType, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse);
+        public abstract object? Execute<TSerialized>(TSerialized serializedData, Type requestedType, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse);
     }
 }

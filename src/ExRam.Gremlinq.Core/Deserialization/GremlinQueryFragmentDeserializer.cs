@@ -14,11 +14,11 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 _delegates = delegates;
             }
 
-            public bool TryDeserialize<TSerializedData>(TSerializedData serializedData, Type requestedType, IGremlinQueryEnvironment environment, [NotNullWhen(true)] out object? value)
+            public bool TryDeserialize<TSerialized>(TSerialized serialized, Type requestedType, IGremlinQueryEnvironment environment, [NotNullWhen(true)] out object? value)
             {
                 foreach (var deserializer in _delegates.Reverse())//TODO: Horror.
                 {
-                    if (deserializer.Execute(serializedData, requestedType, environment, this) is { } ret)
+                    if (deserializer.Execute(serialized, requestedType, environment, this) is { } ret)
                     {
                         value = ret;
                         return true;
