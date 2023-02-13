@@ -8,9 +8,9 @@ namespace ExRam.Gremlinq.Core.Tests
         public static IGremlinQueryFragmentDeserializer ToGraphsonString(this IGremlinQueryFragmentDeserializer deserializer)
         {
             return deserializer
-                .Override<object>(static (data, type, env, overridden, recurse) => type.IsAssignableFrom(typeof(string))
+                .Override<object>(static (data, type, env, recurse) => type.IsAssignableFrom(typeof(string))
                     ? new GraphSON2Writer().WriteObject(data)
-                    : overridden(data, type, env, recurse));
+                    : default(object?));
         }
     }
 }

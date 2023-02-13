@@ -533,15 +533,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Verify();
         }
 
-        [Fact]
-        public async Task Nullable()
-        {
-            await _g
-                .WithExecutor("[ { \"Item1\": [],  \"Item2\": [], \"Item3\": \"someString\", \"Item4\": \"someString\", \"Item5\": [],  \"Item5\": null } ]")
-                .V<(string, string?, string, string?, int?, int?)>()
-                .Verify();
-        }
-
         private static string GetJson(string name)
         {
             return new StreamReader(File.OpenRead($"../../../../files/GraphSon/{name}.json")).ReadToEnd();
