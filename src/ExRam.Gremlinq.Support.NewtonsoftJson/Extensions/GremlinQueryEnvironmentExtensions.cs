@@ -151,7 +151,7 @@ namespace ExRam.Gremlinq.Core
                         : default(object?)));
         }
 
-        public static IGremlinQueryEnvironment RegisterNativeType<TNative>(this IGremlinQueryEnvironment environment, GremlinQueryFragmentSerializerDelegate<TNative> serializerDelegate, GremlinQueryFragmentDeserializerDelegate deserializer)
+        public static IGremlinQueryEnvironment RegisterNativeType<TNative>(this IGremlinQueryEnvironment environment, GremlinQueryFragmentSerializerDelegate<TNative> serializerDelegate, IDeserializationTransformation deserializer)
         {
             return environment
                 .RegisterNativeType(

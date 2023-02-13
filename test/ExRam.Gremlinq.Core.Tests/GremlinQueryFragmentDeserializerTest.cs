@@ -149,7 +149,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             var deserialized = GremlinQueryFragmentDeserializer.Identity
                 .AddNewtonsoftJson()
-                .Override<JObject, IDictionary<string, object?>>(GremlinQueryFragmentDeserializerDelegate.From<JObject>(static (jObject, type, env, recurse) =>
+                .Override<JObject, IDictionary<string, object?>>(DeserializationTransformation.From<JObject>(static (jObject, type, env, recurse) =>
                 {
                     if (recurse.TryDeserialize<JObject>().From(jObject, env) is JObject processedFragment)
                     {
