@@ -1,15 +1,22 @@
-﻿namespace ExRam.Gremlinq.Core.Deserialization
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace ExRam.Gremlinq.Core.Deserialization
 {
     public abstract class GremlinQueryFragmentDeserializerDelegate
     {
         private sealed class IdentityGremlinQueryFragmentDeserializerDelegate : GremlinQueryFragmentDeserializerDelegate
         {
-            public override object? Execute<TAvailableSerialized>(TAvailableSerialized serializedData, Type requestedType, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse)
+            public override bool Execute<TSerialized, TRequested>(TSerialized serialized, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse, [NotNullWhen(true)] out TRequested? value) where TRequested : default
             {
-                if (requestedType.IsInstanceOfType(serializedData))
-                    return serializedData;
+                if (typeof(TRequested).IsInstanceOfType(serialized))
+                {
+                    value = (TRequested)(object)serialized!;
 
-                return null;
+                    return true;
+                }
+
+                value = default;
+                return false;
             }
         }
 
@@ -22,12 +29,20 @@
                 _func = func;
             }
 
-            public override object? Execute<TSerialized>(TSerialized serializedData, Type requestedType, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse)
+            public override bool Execute<TSerialized, TRequested>(TSerialized serialized, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse, [NotNullWhen(true)] out TRequested? value)
+                where TRequested : default
             {
-                if (serializedData is TStaticSerialized staticSerialized)
-                    return _func(staticSerialized, requestedType, environment, recurse);
+                if (serialized is TStaticSerialized staticSerialized)
+                {
+                    if (_func(staticSerialized, typeof(TRequested), environment, recurse) is TRequested value2)
+                    {
+                        value = value2;
+                        return true;
+                    }
+                }
 
-                return null;
+                value = default;
+                return false;
             }
         }
 
@@ -38,6 +53,6 @@
             return new GremlinQueryFragmentDeserializerDelegateImpl<TSerialized>(func);
         }
 
-        public abstract object? Execute<TSerialized>(TSerialized serializedData, Type requestedType, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse);
+        public abstract bool Execute<TSerialized, TRequested>(TSerialized serializedData, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse, [NotNullWhen(true)] out TRequested? value);
     }
 }
