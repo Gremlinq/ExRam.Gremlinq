@@ -14,18 +14,18 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 _delegates = delegates;
             }
 
-            public bool TryDeserialize<TSerialized>(TSerialized serialized, Type requestedType, IGremlinQueryEnvironment environment, [NotNullWhen(true)] out object? value)
+            public bool TryDeserialize<TSerialized, TRequested>(TSerialized serialized, IGremlinQueryEnvironment environment, [NotNullWhen(true)] out TRequested? value)
             {
                 foreach (var deserializer in _delegates.Reverse())//TODO: Horror.
                 {
-                    if (deserializer.Execute(serialized, requestedType, environment, this) is { } ret)
+                    if (deserializer.Execute(serialized, typeof(TRequested), environment, this) is TRequested ret)
                     {
                         value = ret;
                         return true;
                     }
                 }
 
-                value = null;
+                value = default;
                 return false;
             }
 
@@ -48,7 +48,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 {
                     var elementType = type.GetElementType()!;
 
-                    if (recurse.TryDeserialize(data, elementType, env, out var element))
+                    if (recurse.TryDeserialize(elementType).From(data, env) is { } element)
                     {
                         var ret = Array.CreateInstance(elementType, 1);
 

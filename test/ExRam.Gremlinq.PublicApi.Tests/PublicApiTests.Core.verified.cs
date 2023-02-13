@@ -17,7 +17,7 @@
     public interface IGremlinQueryFragmentDeserializer
     {
         ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer Override(ExRam.Gremlinq.Core.Deserialization.GremlinQueryFragmentDeserializerDelegate deserializer);
-        bool TryDeserialize<TSerialized>(TSerialized serialized, System.Type requestedType, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out object? value);
+        bool TryDeserialize<TSerialized, TRequested>(TSerialized serialized, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out TRequested? value);
     }
 }
 namespace ExRam.Gremlinq.Core
