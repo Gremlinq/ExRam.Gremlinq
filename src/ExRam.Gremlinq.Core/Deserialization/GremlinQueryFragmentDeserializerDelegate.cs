@@ -1,29 +1,43 @@
 ﻿namespace ExRam.Gremlinq.Core.Deserialization
 {
-    public delegate object? BaseGremlinQueryFragmentDeserializerDelegate<in TSerialized>(TSerialized serializedData, Type requestedType, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse);
-
     public abstract class GremlinQueryFragmentDeserializerDelegate
     {
-
-    }
-
-    public sealed class GremlinQueryFragmentDeserializerDelegate<TSerialized> : GremlinQueryFragmentDeserializerDelegate
-    {
-        private readonly Func<TSerialized, Type, IGremlinQueryEnvironment, BaseGremlinQueryFragmentDeserializerDelegate<TSerialized>, IGremlinQueryFragmentDeserializer, object?> _func;
-
-        private GremlinQueryFragmentDeserializerDelegate(Func<TSerialized, Type, IGremlinQueryEnvironment, BaseGremlinQueryFragmentDeserializerDelegate<TSerialized>, IGremlinQueryFragmentDeserializer, object?> func)
+        private sealed class IdentityGremlinQueryFragmentDeserializerDelegate : GremlinQueryFragmentDeserializerDelegate
         {
-            _func = func;
+            public override object? Execute<TAvailableSerialized>(TAvailableSerialized serializedData, Type requestedType, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse)
+            {
+                if (requestedType.IsInstanceOfType(serializedData))
+                    return serializedData;
+
+                return null;
+            }
         }
 
-        public static GremlinQueryFragmentDeserializerDelegate<TSerialized> From(Func<TSerialized, Type, IGremlinQueryEnvironment, BaseGremlinQueryFragmentDeserializerDelegate<TSerialized>, IGremlinQueryFragmentDeserializer, object?> func)
+        private sealed class GremlinQueryFragmentDeserializerDelegateImpl<TSerialized> : GremlinQueryFragmentDeserializerDelegate
         {
-            return new GremlinQueryFragmentDeserializerDelegate<TSerialized>(func);
+            private readonly Func<TSerialized, Type, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, object?> _func;
+
+            public GremlinQueryFragmentDeserializerDelegateImpl(Func<TSerialized, Type, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, object?> func)
+            {
+                _func = func;
+            }
+
+            public override object? Execute<TAvailableSerialized>(TAvailableSerialized serializedData, Type requestedType, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse)
+            {
+                if (serializedData is TSerialized staticSerialized)
+                    return _func(staticSerialized, requestedType, environment, recurse);
+
+                return null;
+            }
         }
 
-        public object? Execute(TSerialized serializedData, Type requestedType, IGremlinQueryEnvironment environment, BaseGremlinQueryFragmentDeserializerDelegate<TSerialized> overridden, IGremlinQueryFragmentDeserializer recurse)
+        public static GremlinQueryFragmentDeserializerDelegate Identity = new IdentityGremlinQueryFragmentDeserializerDelegate();
+
+        public static GremlinQueryFragmentDeserializerDelegate From<TSerialized>(Func<TSerialized, Type, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, object?> func)
         {
-            return _func(serializedData, requestedType, environment, overridden, recurse);
+            return new GremlinQueryFragmentDeserializerDelegateImpl<TSerialized>(func);
         }
+
+        public abstract object? Execute<TAvailableSerialized>(TAvailableSerialized serializedData, Type requestedType, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse);
     }
 }

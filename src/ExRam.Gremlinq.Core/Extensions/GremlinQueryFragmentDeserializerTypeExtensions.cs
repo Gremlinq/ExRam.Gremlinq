@@ -64,9 +64,9 @@ namespace ExRam.Gremlinq.Core
         public static FluentForType TryDeserialize(this IGremlinQueryFragmentDeserializer deserializer, Type type) => new(deserializer, type);
 
         //TODO: Das hier kann nicht für immer bleiben.
-        public static IGremlinQueryFragmentDeserializer Override<TSerialized>(this IGremlinQueryFragmentDeserializer deserializer, Func<TSerialized, Type, IGremlinQueryEnvironment, BaseGremlinQueryFragmentDeserializerDelegate<TSerialized>, IGremlinQueryFragmentDeserializer, object?> func)
+        public static IGremlinQueryFragmentDeserializer Override<TSerialized>(this IGremlinQueryFragmentDeserializer deserializer, Func<TSerialized, Type, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, object?> func)
         {
-            return deserializer.Override(GremlinQueryFragmentDeserializerDelegate<TSerialized>.From(func));
+            return deserializer.Override(GremlinQueryFragmentDeserializerDelegate.From(func));
         }
     }
 }
