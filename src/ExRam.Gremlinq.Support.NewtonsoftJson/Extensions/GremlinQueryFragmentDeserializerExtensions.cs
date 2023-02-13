@@ -80,10 +80,10 @@ namespace ExRam.Gremlinq.Core.Deserialization
                     ? Activator.CreateInstance(type, recurse.TryDeserialize(type.GetGenericArguments()[0]).From(jToken, env))
                     : default(object?);
             })
-            .Override<JValue, TimeSpan>(GremlinQueryFragmentDeserializerDelegate.From<JValue>(static (jValue, type, env, recurse) => jValue.Type == JTokenType.String
+            .Override<JValue, TimeSpan>(DeserializationTransformation.From<JValue>(static (jValue, type, env, recurse) => jValue.Type == JTokenType.String
                 ? XmlConvert.ToTimeSpan(jValue.Value<string>()!)
                 : default(object?)))
-            .Override<JValue, DateTimeOffset>(GremlinQueryFragmentDeserializerDelegate.From<JValue>(static (jValue, type, env, recurse) =>
+            .Override<JValue, DateTimeOffset>(DeserializationTransformation.From<JValue>(static (jValue, type, env, recurse) =>
             {
                 switch (jValue.Value)
                 {
@@ -102,7 +102,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
 
                 return default(object?);
             }))
-            .Override<JValue, DateTime>(GremlinQueryFragmentDeserializerDelegate.From<JValue>(static (jValue, type, env, recurse) =>
+            .Override<JValue, DateTime>(DeserializationTransformation.From<JValue>(static (jValue, type, env, recurse) =>
             {
                 switch (jValue.Value)
                 {
@@ -117,7 +117,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
 
                 return default(object?);
             }))
-            .Override<JValue, byte[]>(GremlinQueryFragmentDeserializerDelegate.From<JValue>(static (jValue, type, env, recurse) =>
+            .Override<JValue, byte[]>(DeserializationTransformation.From<JValue>(static (jValue, type, env, recurse) =>
             {
                 return jValue.Type == JTokenType.String
                     ? Convert.FromBase64String(jValue.Value<string>()!)
@@ -144,7 +144,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
 
                 return null;
             })
-            .Override<JObject, object>(GremlinQueryFragmentDeserializerDelegate.From<JObject>(static (jObject, _, env, recurse) => recurse.TryDeserialize<IDictionary<string, object?>>().From(jObject, env)))
+            .Override<JObject, object>(DeserializationTransformation.From<JObject>(static (jObject, _, env, recurse) => recurse.TryDeserialize<IDictionary<string, object?>>().From(jObject, env)))
             .Override<JObject>(static (jObject, type, env, recurse) =>
             {
                 if (!type.IsSealed)
@@ -244,7 +244,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
 
                 return default(object?);
             })
-            .Override<JObject, IDictionary<string, object?>>(GremlinQueryFragmentDeserializerDelegate.From<JObject>(static (jObject, type, env, recurse) =>
+            .Override<JObject, IDictionary<string, object?>>(DeserializationTransformation.From<JObject>(static (jObject, type, env, recurse) =>
             {
                 if (recurse.TryDeserialize<JObject>().From(jObject, env) is { } processedFragment)
                 {

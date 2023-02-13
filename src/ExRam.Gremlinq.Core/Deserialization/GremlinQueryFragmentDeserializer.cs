@@ -7,9 +7,9 @@ namespace ExRam.Gremlinq.Core.Deserialization
     {
         private sealed class GremlinQueryFragmentDeserializerImpl : IGremlinQueryFragmentDeserializer
         {
-            private readonly ImmutableStack<GremlinQueryFragmentDeserializerDelegate> _delegates;
+            private readonly ImmutableStack<IDeserializationTransformation> _delegates;
 
-            public GremlinQueryFragmentDeserializerImpl(ImmutableStack<GremlinQueryFragmentDeserializerDelegate> delegates)
+            public GremlinQueryFragmentDeserializerImpl(ImmutableStack<IDeserializationTransformation> delegates)
             {
                 _delegates = delegates;
             }
@@ -26,14 +26,14 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 return false;
             }
 
-            public IGremlinQueryFragmentDeserializer Override(GremlinQueryFragmentDeserializerDelegate deserializer)
+            public IGremlinQueryFragmentDeserializer Override(IDeserializationTransformation deserializer)
             {
                 return new GremlinQueryFragmentDeserializerImpl(_delegates.Push(deserializer));
             }
         }
 
-        public static readonly IGremlinQueryFragmentDeserializer Identity = new GremlinQueryFragmentDeserializerImpl(ImmutableStack<GremlinQueryFragmentDeserializerDelegate>.Empty)
-            .Override(GremlinQueryFragmentDeserializerDelegate.Identity);
+        public static readonly IGremlinQueryFragmentDeserializer Identity = new GremlinQueryFragmentDeserializerImpl(ImmutableStack<IDeserializationTransformation>.Empty)
+            .Override(DeserializationTransformation.Identity);
 
         public static readonly IGremlinQueryFragmentDeserializer Default = Identity
             .Override<object>(static (data, type, env, recurse) =>
@@ -65,7 +65,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 ? data.ToString()
                 : default(object?));
 
-        public static IGremlinQueryFragmentDeserializer Override<TSerialized, TNative>(this IGremlinQueryFragmentDeserializer fragmentDeserializer, GremlinQueryFragmentDeserializerDelegate deserializerDelegate)
+        public static IGremlinQueryFragmentDeserializer Override<TSerialized, TNative>(this IGremlinQueryFragmentDeserializer fragmentDeserializer, IDeserializationTransformation deserializerDelegate)
         {
             //TODO: Dedicated!
             return fragmentDeserializer
