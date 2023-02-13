@@ -6,6 +6,6 @@ namespace ExRam.Gremlinq.Core.Deserialization
     {
         bool TryDeserialize<TSerializedData>(TSerializedData serializedData, Type requestedType, IGremlinQueryEnvironment environment, [NotNullWhen(true)] out object? value);
 
-        IGremlinQueryFragmentDeserializer Override<TSerialized>(GremlinQueryFragmentDeserializerDelegate<TSerialized> deserializer);
+        IGremlinQueryFragmentDeserializer Override(GremlinQueryFragmentDeserializerDelegate deserializer);
     }
 }
