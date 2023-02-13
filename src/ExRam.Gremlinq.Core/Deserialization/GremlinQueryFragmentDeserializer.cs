@@ -7,33 +7,36 @@ namespace ExRam.Gremlinq.Core.Deserialization
     {
         private sealed class GremlinQueryFragmentDeserializerImpl : IGremlinQueryFragmentDeserializer
         {
-            private readonly ImmutableStack<IDeserializationTransformation> _delegates;
+            private readonly ImmutableStack<IDeserializationTransformationFactory> _transformationFactories;
 
-            public GremlinQueryFragmentDeserializerImpl(ImmutableStack<IDeserializationTransformation> delegates)
+            public GremlinQueryFragmentDeserializerImpl(ImmutableStack<IDeserializationTransformationFactory> transformationFactories)
             {
-                _delegates = delegates;
+                _transformationFactories = transformationFactories;
             }
 
             public bool TryDeserialize<TSerialized, TRequested>(TSerialized serialized, IGremlinQueryEnvironment environment, [NotNullWhen(true)] out TRequested? value)
             {
-                foreach (var deserializer in _delegates)
+                foreach (var transformationFactory in _transformationFactories)
                 {
-                    if (deserializer.Transform(serialized, environment, this, out value))
-                        return true;
+                    if (transformationFactory.TryCreate<TSerialized, TRequested>() is { } transformation)
+                    {
+                        if (transformation.Transform(serialized, environment, this, out value))
+                            return true;
+                    }
                 }
 
                 value = default;
                 return false;
             }
 
-            public IGremlinQueryFragmentDeserializer Override(IDeserializationTransformation deserializer)
+            public IGremlinQueryFragmentDeserializer Override(IDeserializationTransformationFactory deserializer)
             {
-                return new GremlinQueryFragmentDeserializerImpl(_delegates.Push(deserializer));
+                return new GremlinQueryFragmentDeserializerImpl(_transformationFactories.Push(deserializer));
             }
         }
 
-        public static readonly IGremlinQueryFragmentDeserializer Identity = new GremlinQueryFragmentDeserializerImpl(ImmutableStack<IDeserializationTransformation>.Empty)
-            .Override(DeserializationTransformation.Identity);
+        public static readonly IGremlinQueryFragmentDeserializer Identity = new GremlinQueryFragmentDeserializerImpl(ImmutableStack<IDeserializationTransformationFactory>.Empty)
+            .Override(DeserializationTransformationFactory.Identity);
 
         public static readonly IGremlinQueryFragmentDeserializer Default = Identity
             .Override<object>(static (data, type, env, recurse) =>
