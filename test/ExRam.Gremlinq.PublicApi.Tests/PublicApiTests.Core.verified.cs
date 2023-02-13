@@ -1,22 +1,24 @@
 ﻿namespace ExRam.Gremlinq.Core.Deserialization
 {
+    public static class DeserializationTransformation
+    {
+        public static ExRam.Gremlinq.Core.Deserialization.IDeserializationTransformation Identity;
+        public static ExRam.Gremlinq.Core.Deserialization.IDeserializationTransformation From<TSerialized>(System.Func<TSerialized, System.Type, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer, object?> func) { }
+    }
     public static class GremlinQueryFragmentDeserializer
     {
         public static readonly ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer Default;
         public static readonly ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer Identity;
         public static ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer AddToStringFallback(this ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer deserializer) { }
-        public static ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer Override<TSerialized, TNative>(this ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer fragmentDeserializer, ExRam.Gremlinq.Core.Deserialization.GremlinQueryFragmentDeserializerDelegate deserializerDelegate) { }
+        public static ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer Override<TSerialized, TNative>(this ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer fragmentDeserializer, ExRam.Gremlinq.Core.Deserialization.IDeserializationTransformation deserializerDelegate) { }
     }
-    public abstract class GremlinQueryFragmentDeserializerDelegate
+    public interface IDeserializationTransformation
     {
-        public static ExRam.Gremlinq.Core.Deserialization.GremlinQueryFragmentDeserializerDelegate Identity;
-        protected GremlinQueryFragmentDeserializerDelegate() { }
-        public abstract bool Execute<TSerialized, TRequested>(TSerialized serializedData, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer recurse, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out TRequested? value);
-        public static ExRam.Gremlinq.Core.Deserialization.GremlinQueryFragmentDeserializerDelegate From<TSerialized>(System.Func<TSerialized, System.Type, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer, object?> func) { }
+        bool Execute<TSerialized, TRequested>(TSerialized serialized, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer recurse, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out TRequested? value);
     }
     public interface IGremlinQueryFragmentDeserializer
     {
-        ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer Override(ExRam.Gremlinq.Core.Deserialization.GremlinQueryFragmentDeserializerDelegate deserializer);
+        ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer Override(ExRam.Gremlinq.Core.Deserialization.IDeserializationTransformation deserializer);
         bool TryDeserialize<TSerialized, TRequested>(TSerialized serialized, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out TRequested? value);
     }
 }
