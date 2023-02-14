@@ -24,5 +24,16 @@ namespace ExRam.Gremlinq.Core
         {
             return new FluentForStruct<TFragmentType>(deserializer);
         }
+
+        public static IGremlinQueryFragmentDeserializer Override<TSerialized, TNative>(this IGremlinQueryFragmentDeserializer fragmentDeserializer, Func<TSerialized, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, TNative?> func)
+            where TNative : struct
+        {
+            return fragmentDeserializer
+                .Override<TSerialized>((token, type, env, recurse) => type == typeof(TNative)
+                    ? func(token, env, recurse) is { } value
+                        ? value
+                        : default(object?)
+                    : default);
+        }
     }
 }
