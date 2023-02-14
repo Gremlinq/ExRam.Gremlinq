@@ -11,13 +11,13 @@
         public static readonly ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer Identity;
         public static ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer AddToStringFallback(this ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer deserializer) { }
     }
-    public interface IDeserializationTransformation
-    {
-        bool Transform<TSerialized, TRequested>(TSerialized serialized, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer recurse, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out TRequested? value);
-    }
     public interface IDeserializationTransformationFactory
     {
-        ExRam.Gremlinq.Core.Deserialization.IDeserializationTransformation? TryCreate<TSerialized, TRequested>();
+        ExRam.Gremlinq.Core.Deserialization.IDeserializationTransformation<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>();
+    }
+    public interface IDeserializationTransformation<TSerialized, TRequested>
+    {
+        bool Transform(TSerialized serialized, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer recurse, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out TRequested? value);
     }
     public interface IGremlinQueryFragmentDeserializer
     {
