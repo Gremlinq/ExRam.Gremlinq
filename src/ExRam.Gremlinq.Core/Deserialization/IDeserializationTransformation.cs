@@ -4,19 +4,19 @@ namespace ExRam.Gremlinq.Core.Deserialization
 {
     public interface IDeserializationTransformationFactory
     {
-        IDeserializationTransformation? TryCreate<TSerialized, TRequested>();
+        IDeserializationTransformation<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>();
     }
 
-    public interface IDeserializationTransformation
+    public interface IDeserializationTransformation<TSerialized, TRequested>
     {
-        bool Transform<TSerialized, TRequested>(TSerialized serialized, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse, [NotNullWhen(true)] out TRequested? value);
+        bool Transform(TSerialized serialized, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse, [NotNullWhen(true)] out TRequested? value);
     }
 
     public static class DeserializationTransformationFactory
     {
         private sealed class DeserializationTransformationFactoryImpl<TStaticSerialized> : IDeserializationTransformationFactory
         {
-            private sealed class DeserializationTransformationImpl : IDeserializationTransformation
+            private sealed class DeserializationTransformationImpl<TSerialized, TRequested> : IDeserializationTransformation<TSerialized, TRequested>
             {
                 private readonly Func<TStaticSerialized, Type, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, object?> _func;
 
@@ -25,7 +25,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                     _func = func;
                 }
 
-                public bool Transform<TSerialized, TRequested>(TSerialized serialized, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse, [NotNullWhen(true)] out TRequested? value)
+                public bool Transform(TSerialized serialized, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse, [NotNullWhen(true)] out TRequested? value)
                 {
                     if (serialized is TStaticSerialized staticSerialized)
                     {
@@ -48,10 +48,10 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 _func = func;
             }
 
-            public IDeserializationTransformation? TryCreate<TSerialized, TRequested>()
+            public IDeserializationTransformation<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
             {
                 if (typeof(TStaticSerialized).IsAssignableFrom(typeof(TSerialized)) || (typeof(TSerialized).IsAssignableFrom(typeof(TStaticSerialized))))
-                    return new DeserializationTransformationImpl(_func);
+                    return new DeserializationTransformationImpl<TSerialized, TRequested>(_func);
 
                 return null;
             }
@@ -59,9 +59,9 @@ namespace ExRam.Gremlinq.Core.Deserialization
 
         private sealed class IdentityDeserializationTransformationFactory : IDeserializationTransformationFactory
         {
-            private sealed class IdentityDeserializationTransformation : IDeserializationTransformation
+            private sealed class IdentityDeserializationTransformation<TSerialized, TRequested> : IDeserializationTransformation<TSerialized, TRequested>
             {
-                public bool Transform<TSerialized, TRequested>(TSerialized serialized, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse, [NotNullWhen(true)] out TRequested? value)
+                public bool Transform(TSerialized serialized, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse, [NotNullWhen(true)] out TRequested? value)
                 {
                     if (typeof(TRequested).IsInstanceOfType(serialized))
                     {
@@ -75,7 +75,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 }
             }
 
-            public IDeserializationTransformation? TryCreate<TSerialized, TRequested>() => new IdentityDeserializationTransformation();
+            public IDeserializationTransformation<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>() => new IdentityDeserializationTransformation<TSerialized, TRequested>();
         }
 
         public static readonly IDeserializationTransformationFactory Identity = new IdentityDeserializationTransformationFactory();
