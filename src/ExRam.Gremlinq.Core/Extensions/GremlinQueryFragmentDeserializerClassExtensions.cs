@@ -4,8 +4,8 @@ namespace ExRam.Gremlinq.Core
 {
     public static class GremlinQueryFragmentDeserializerClassExtensions
     {
-        public readonly struct FluentForClass<TFragmentType>
-            where TFragmentType : class
+        public readonly struct FluentForClass<TRequested>
+            where TRequested : class
         {
             private readonly IGremlinQueryFragmentDeserializer _deserializer;
 
@@ -14,22 +14,22 @@ namespace ExRam.Gremlinq.Core
                 _deserializer = deserializer;
             }
 
-            public TFragmentType? From<TSerialized>(TSerialized serialized, IGremlinQueryEnvironment environment) => _deserializer.TryDeserialize<TSerialized, TFragmentType>(serialized, environment, out var value)
+            public TRequested? From<TSerialized>(TSerialized serialized, IGremlinQueryEnvironment environment) => _deserializer.TryDeserialize<TSerialized, TRequested>(serialized, environment, out var value)
                 ? value
                 : default;
         }
 
-        public static FluentForClass<TFragmentType> TryDeserialize<TFragmentType>(this IGremlinQueryFragmentDeserializer deserializer)
-            where TFragmentType : class
+        public static FluentForClass<TRequested> TryDeserialize<TRequested>(this IGremlinQueryFragmentDeserializer deserializer)
+            where TRequested : class
         {
-            return new FluentForClass<TFragmentType>(deserializer);
+            return new FluentForClass<TRequested>(deserializer);
         }
 
-        public static IGremlinQueryFragmentDeserializer Override<TSerialized, TNative>(this IGremlinQueryFragmentDeserializer fragmentDeserializer, Func<TSerialized, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, TNative?> func)
-            where TNative : class
+        public static IGremlinQueryFragmentDeserializer Override<TSerialized, TRequested>(this IGremlinQueryFragmentDeserializer fragmentDeserializer, Func<TSerialized, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, TRequested?> func)
+            where TRequested : class
         {
             return fragmentDeserializer
-                .Override<TSerialized>((token, type, env, recurse) => type == typeof(TNative)
+                .Override<TSerialized>((token, type, env, recurse) => type == typeof(TRequested)
                     ? func(token, env, recurse)
                     : default(object?));
         }
