@@ -78,7 +78,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
             public IDeserializationTransformation? TryCreate<TSerialized, TRequested>() => new IdentityDeserializationTransformation();
         }
 
-        public static IDeserializationTransformationFactory Identity = new IdentityDeserializationTransformationFactory();
+        public static readonly IDeserializationTransformationFactory Identity = new IdentityDeserializationTransformationFactory();
 
         public static IDeserializationTransformationFactory From<TSerialized>(Func<TSerialized, Type, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, object?> func)
         {

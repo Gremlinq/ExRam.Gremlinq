@@ -2,7 +2,7 @@
 {
     public static class DeserializationTransformationFactory
     {
-        public static ExRam.Gremlinq.Core.Deserialization.IDeserializationTransformationFactory Identity;
+        public static readonly ExRam.Gremlinq.Core.Deserialization.IDeserializationTransformationFactory Identity;
         public static ExRam.Gremlinq.Core.Deserialization.IDeserializationTransformationFactory From<TSerialized>(System.Func<TSerialized, System.Type, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer, object?> func) { }
     }
     public static class GremlinQueryFragmentDeserializer
