@@ -191,28 +191,28 @@ namespace ExRam.Gremlinq.Core
     }
     public static class GremlinQueryFragmentDeserializerClassExtensions
     {
-        public static ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer Override<TSerialized, TNative>(this ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer fragmentDeserializer, System.Func<TSerialized, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer, TNative?> func)
-            where TNative :  class { }
-        public static ExRam.Gremlinq.Core.GremlinQueryFragmentDeserializerClassExtensions.FluentForClass<TFragmentType> TryDeserialize<TFragmentType>(this ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer deserializer)
-            where TFragmentType :  class { }
-        public readonly struct FluentForClass<TFragmentType>
-            where TFragmentType :  class
+        public static ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer Override<TSerialized, TRequested>(this ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer fragmentDeserializer, System.Func<TSerialized, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer, TRequested?> func)
+            where TRequested :  class { }
+        public static ExRam.Gremlinq.Core.GremlinQueryFragmentDeserializerClassExtensions.FluentForClass<TRequested> TryDeserialize<TRequested>(this ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer deserializer)
+            where TRequested :  class { }
+        public readonly struct FluentForClass<TRequested>
+            where TRequested :  class
         {
             public FluentForClass(ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer deserializer) { }
-            public TFragmentType? From<TSerialized>(TSerialized serialized, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
+            public TRequested? From<TSerialized>(TSerialized serialized, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
         }
     }
     public static class GremlinQueryFragmentDeserializerStructExtensions
     {
-        public static ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer Override<TSerialized, TNative>(this ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer fragmentDeserializer, System.Func<TSerialized, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer, TNative?> func)
-            where TNative :  struct { }
-        public static ExRam.Gremlinq.Core.GremlinQueryFragmentDeserializerStructExtensions.FluentForStruct<TFragmentType> TryDeserialize<TFragmentType>(this ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer deserializer)
-            where TFragmentType :  struct { }
-        public readonly struct FluentForStruct<TFragmentType>
-            where TFragmentType :  struct
+        public static ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer Override<TSerialized, TRequested>(this ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer fragmentDeserializer, System.Func<TSerialized, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer, TRequested?> func)
+            where TRequested :  struct { }
+        public static ExRam.Gremlinq.Core.GremlinQueryFragmentDeserializerStructExtensions.FluentForStruct<TRequested> TryDeserialize<TRequested>(this ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer deserializer)
+            where TRequested :  struct { }
+        public readonly struct FluentForStruct<TRequested>
+            where TRequested :  struct
         {
             public FluentForStruct(ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer deserializer) { }
-            public TFragmentType? From<TSerialized>(TSerialized serialized, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
+            public TRequested? From<TSerialized>(TSerialized serialized, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
         }
     }
     public static class GremlinQueryFragmentDeserializerTypeExtensions
