@@ -67,16 +67,5 @@ namespace ExRam.Gremlinq.Core.Deserialization
             .Override<object>(static (data, type, env, recurse) => type == typeof(string)
                 ? data.ToString()
                 : default(object?));
-
-        public static IGremlinQueryFragmentDeserializer Override<TSerialized, TNative>(this IGremlinQueryFragmentDeserializer fragmentDeserializer, IDeserializationTransformation deserializerDelegate)
-        {
-            //TODO: Dedicated!
-            return fragmentDeserializer
-                .Override<TSerialized>((token, type, env, recurse) => type == typeof(TNative)
-                    ? deserializerDelegate.Transform<TSerialized, TNative>(token, env, recurse, out var value)
-                        ? value
-                        : default(object?)
-                    : default(object?));
-        }
     }
 }

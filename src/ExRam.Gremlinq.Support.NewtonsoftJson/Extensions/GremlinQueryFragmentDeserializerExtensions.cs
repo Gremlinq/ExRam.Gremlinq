@@ -80,10 +80,10 @@ namespace ExRam.Gremlinq.Core.Deserialization
                     ? Activator.CreateInstance(type, recurse.TryDeserialize(type.GetGenericArguments()[0]).From(jToken, env))
                     : default(object?);
             })
-            .Override<JValue, TimeSpan>(DeserializationTransformation.From<JValue>(static (jValue, type, env, recurse) => jValue.Type == JTokenType.String
+            .Override<JValue, TimeSpan>(static (jValue, env, recurse) => jValue.Type == JTokenType.String
                 ? XmlConvert.ToTimeSpan(jValue.Value<string>()!)
-                : default(object?)))
-            .Override<JValue, DateTimeOffset>(DeserializationTransformation.From<JValue>(static (jValue, type, env, recurse) =>
+                : default(TimeSpan?))
+            .Override<JValue, DateTimeOffset>(static (jValue, env, recurse) =>
             {
                 switch (jValue.Value)
                 {
@@ -92,17 +92,17 @@ namespace ExRam.Gremlinq.Core.Deserialization
                     case DateTimeOffset dateTimeOffset:
                         return dateTimeOffset;
                     default:
-                        {
-                            if (jValue.Type == JTokenType.Integer)
-                                return DateTimeOffset.FromUnixTimeMilliseconds(jValue.Value<long>());
+                    {
+                        if (jValue.Type == JTokenType.Integer)
+                            return DateTimeOffset.FromUnixTimeMilliseconds(jValue.Value<long>());
 
-                            break;
-                        }
+                        break;
+                    }
                 }
 
-                return default(object?);
-            }))
-            .Override<JValue, DateTime>(DeserializationTransformation.From<JValue>(static (jValue, type, env, recurse) =>
+                return default(DateTimeOffset?);
+            })
+            .Override<JValue, DateTime>(static (jValue, env, recurse) =>
             {
                 switch (jValue.Value)
                 {
@@ -115,14 +115,14 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 if (jValue.Type == JTokenType.Integer)
                     return new DateTime(DateTimeOffset.FromUnixTimeMilliseconds(jValue.Value<long>()).Ticks, DateTimeKind.Utc);
 
-                return default(object?);
-            }))
-            .Override<JValue, byte[]>(DeserializationTransformation.From<JValue>(static (jValue, type, env, recurse) =>
+                return default;
+            })
+            .Override<JValue, byte[]>(static (jValue, env, recurse) =>
             {
                 return jValue.Type == JTokenType.String
                     ? Convert.FromBase64String(jValue.Value<string>()!)
-                    : default(object?);
-            }))
+                    : default(byte[]?);
+            })
             .Override<JValue>(static (jToken, type, env, recurse) =>
             {
                 return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>)
@@ -144,7 +144,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
 
                 return null;
             })
-            .Override<JObject, object>(DeserializationTransformation.From<JObject>(static (jObject, _, env, recurse) => recurse.TryDeserialize<IDictionary<string, object?>>().From(jObject, env)))
+            .Override<JObject, object>(static (jObject, env, recurse) => recurse.TryDeserialize<IDictionary<string, object?>>().From(jObject, env))
             .Override<JObject>(static (jObject, type, env, recurse) =>
             {
                 if (!type.IsSealed)
@@ -244,7 +244,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
 
                 return default(object?);
             })
-            .Override<JObject, IDictionary<string, object?>>(DeserializationTransformation.From<JObject>(static (jObject, type, env, recurse) =>
+            .Override<JObject, IDictionary<string, object?>>(static (jObject, env, recurse) =>
             {
                 if (recurse.TryDeserialize<JObject>().From(jObject, env) is { } processedFragment)
                 {
@@ -256,8 +256,8 @@ namespace ExRam.Gremlinq.Core.Deserialization
                     return expando;
                 }
 
-                return default(object?);
-            }))
+                return default;
+            })
             .Override<JArray>(static (jArray, type, env, recurse) =>
             {
                 if ((!type.IsArray || env.GetCache().FastNativeTypes.ContainsKey(type)) && !type.IsInstanceOfType(jArray))

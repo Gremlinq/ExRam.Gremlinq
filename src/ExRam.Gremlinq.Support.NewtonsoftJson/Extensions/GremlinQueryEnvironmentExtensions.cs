@@ -151,14 +151,14 @@ namespace ExRam.Gremlinq.Core
                         : default(object?)));
         }
 
-        public static IGremlinQueryEnvironment RegisterNativeType<TNative>(this IGremlinQueryEnvironment environment, GremlinQueryFragmentSerializerDelegate<TNative> serializerDelegate, IDeserializationTransformation deserializer)
-        {
-            return environment
-                .RegisterNativeType(
-                    serializerDelegate,
-                    _ => _
-                        .Override<JValue, TNative>(deserializer));
-        }
+        //public static IGremlinQueryEnvironment RegisterNativeType<TNative>(this IGremlinQueryEnvironment environment, GremlinQueryFragmentSerializerDelegate<TNative> serializerDelegate, IDeserializationTransformation deserializer)
+        //{
+        //    return environment
+        //        .RegisterNativeType(
+        //            serializerDelegate,
+        //            _ => _
+        //                .Override<JValue, TNative>(deserializer));
+        //}
 
         public static JsonSerializer GetJsonSerializer(this IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer deserializer)
         {
