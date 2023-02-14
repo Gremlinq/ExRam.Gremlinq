@@ -1,10 +1,5 @@
 ﻿namespace ExRam.Gremlinq.Core.Deserialization
 {
-    public static class DeserializationTransformation
-    {
-        public static ExRam.Gremlinq.Core.Deserialization.IDeserializationTransformation Identity;
-        public static ExRam.Gremlinq.Core.Deserialization.IDeserializationTransformation From<TSerialized>(System.Func<TSerialized, System.Type, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer, object?> func) { }
-    }
     public static class DeserializationTransformationFactory
     {
         public static ExRam.Gremlinq.Core.Deserialization.IDeserializationTransformationFactory Identity;
