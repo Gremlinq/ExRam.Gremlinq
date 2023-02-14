@@ -41,7 +41,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                     .ToObject(
                         type,
                         env.GetJsonSerializer(recurse))
-                : default(object?))
+                : default)
             .Override<JToken>(static (jToken, type, env, recurse) =>
             {
                 if (jToken is JObject element && !type.IsInstanceOfType(jToken) && !typeof(Property).IsAssignableFrom(type) && element.TryGetValue("id", StringComparison.OrdinalIgnoreCase, out var idToken) && element.TryGetValue("label", StringComparison.OrdinalIgnoreCase, out var labelToken) && labelToken.Type == JTokenType.String && element.TryGetValue("properties", out var propertiesToken))
@@ -50,7 +50,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                         return ret.SetIdAndLabel(idToken, labelToken, env, recurse);
                 }
 
-                return default(object?);
+                return default;
             })
             .Override<JToken>(static (jToken, type, env, recurse) =>
             {
@@ -64,7 +64,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                     return array;
                 }
 
-                return default(object?);
+                return default;
             })
             .Override<JToken>(static (jToken, type, env, recurse) =>
             {
@@ -72,13 +72,13 @@ namespace ExRam.Gremlinq.Core.Deserialization
                     ? jToken.Type == JTokenType.Null
                         ? null
                         : recurse.TryDeserialize(type.GetGenericArguments()[0]).From(jToken, env)
-                    : default(object?);
+                    : default;
             })
             .Override<JValue>(static (jToken, type, env, recurse) =>
             {
                 return typeof(Property).IsAssignableFrom(type) && type.IsGenericType
                     ? Activator.CreateInstance(type, recurse.TryDeserialize(type.GetGenericArguments()[0]).From(jToken, env))
-                    : default(object?);
+                    : default;
             })
             .Override<JValue, TimeSpan>(static (jValue, env, recurse) => jValue.Type == JTokenType.String
                 ? XmlConvert.ToTimeSpan(jValue.Value<string>()!)
@@ -100,7 +100,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                     }
                 }
 
-                return default(DateTimeOffset?);
+                return default;
             })
             .Override<JValue, DateTime>(static (jValue, env, recurse) =>
             {
@@ -121,7 +121,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
             {
                 return jValue.Type == JTokenType.String
                     ? Convert.FromBase64String(jValue.Value<string>()!)
-                    : default(byte[]?);
+                    : default;
             })
             .Override<JValue>(static (jToken, type, env, recurse) =>
             {
@@ -129,7 +129,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                     ? jToken.Value is null
                         ? null
                         : recurse.TryDeserialize(type.GetGenericArguments()[0]).From(jToken, env)
-                    : default(object?);
+                    : default;
             })
             .Override<JValue>(static (jValue, type, env, recurse) =>
             {
@@ -161,7 +161,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                         return recurse.TryDeserialize(modelType).From(jObject, env);
                 }
 
-                return default(object?);
+                return default;
             })
             .Override<JObject>(static (jObject, type, env, recurse) =>
             {
@@ -172,7 +172,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                     if (jObject.TryGetValue("value", out var valueToken))
                         return recurse.TryDeserialize(type).From(valueToken, env);
 
-                return default(object?);
+                return default;
             })
             .Override<JObject>(static (jObject, type, env, recurse) =>
             {
@@ -185,14 +185,14 @@ namespace ExRam.Gremlinq.Core.Deserialization
                     return recurse.TryDeserialize(type).From(valueToken, env);
                 }
 
-                return default(object?);
+                return default;
             })
             .Override<JObject>(static (jObject, type, env, recurse) =>
             {
                 //@type == "g:Map"
                 return jObject.TryUnmap() is { } unmappedObject
                     ? recurse.TryDeserialize(type).From(unmappedObject, env)
-                    : default(object?);
+                    : default;
             })
             .Override<JObject>(static (jObject, type, env, recurse) =>
             {
@@ -220,7 +220,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                     }
                 }
 
-                return default(object?);
+                return default;
             })
             .Override<JObject>(static (jObject, type, env, recurse) =>
             {
@@ -242,7 +242,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                     }
                 }
 
-                return default(object?);
+                return default;
             })
             .Override<JObject, IDictionary<string, object?>>(static (jObject, env, recurse) =>
             {
@@ -267,7 +267,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                             : throw new JsonReaderException($"Cannot convert array\r\n\r\n{jArray}\r\n\r\nto scalar value of type {type}.")
                         : recurse.TryDeserialize(type).From(jArray[0], env);
 
-                return default(object?);
+                return default;
             })
             .Override<JArray>(static (jArray, type, env, recurse) =>
             {
@@ -305,7 +305,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                     return array?.ToArray(elementType) ?? Array.CreateInstance(elementType, 0);
                 }
 
-                return default(object?);
+                return default;
             });
         // ReSharper restore ConvertToLambdaExpression
 
