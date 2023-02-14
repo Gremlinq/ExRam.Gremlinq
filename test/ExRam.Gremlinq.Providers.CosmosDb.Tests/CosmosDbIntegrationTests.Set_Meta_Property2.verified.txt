@@ -1,28 +1,8 @@
 ﻿[
-  [
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "value": "Bob",
-      "label": "Name",
-      "properties": {
-        "ValidFrom": 1586270616000
-      }
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "value": "Bob",
-      "label": "Name",
-      "properties": {
-        "ValidFrom": 1586270616000
-      }
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "value": "Marko",
-      "label": "Name",
-      "properties": {
-        "ValidFrom": 1586270616000
-      }
+  {
+    "serverException": {
+      "type": "AggregateException",
+      "message": "One or more errors occurred. (The server returned status code '500' when status code '101' was expected.)"
     }
-  ]
+  }
 ]

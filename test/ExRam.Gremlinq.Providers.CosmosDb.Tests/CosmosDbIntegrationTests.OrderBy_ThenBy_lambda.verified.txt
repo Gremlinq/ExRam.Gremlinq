@@ -1,8 +1,8 @@
 ﻿[
   {
     "serverException": {
-      "type": "ResponseException",
-      "message": "ServerEvaluationError: \r\n\nActivityId : 00000000-0000-0000-0000-000000000000\nExceptionType : GraphSyntaxException\nExceptionMessage : \r\n\tGremlin query syntax error: Unsupported groovy language rule: 'closure' text: '{it.property('Name').value().length()}' @ line 1, column 60.\r\n\tUnsupported groovy language rule: 'closure' text: '{it.property('Age').value()}' @ line 1, column 103.\r\n\t2 Error(s)\n\tGremlinRequestId : 00000000-0000-0000-0000-000000000000\n\tContext : graphcompute\n\tScope : graphparse-translate-outer\n\tGraphInterOpStatusCode : QuerySyntaxError\n\tHResult : 0x80131500\r\n"
+      "type": "AggregateException",
+      "message": "One or more errors occurred. (The server returned status code '500' when status code '101' was expected.)"
     }
   }
 ]
