@@ -64,8 +64,6 @@ namespace ExRam.Gremlinq.Core.Deserialization
             .AddToStringFallback();
 
         public static IGremlinQueryFragmentDeserializer AddToStringFallback(this IGremlinQueryFragmentDeserializer deserializer) => deserializer
-            .Override<object>(static (data, type, env, recurse) => type == typeof(string)
-                ? data.ToString()
-                : default(object?));
+            .Override<object, string>(static (data, env, recurse) => data.ToString());
     }
 }
