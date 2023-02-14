@@ -3,7 +3,6 @@ using System.Runtime.CompilerServices;
 using ExRam.Gremlinq.Core.Deserialization;
 using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Core.Models;
-using ExRam.Gremlinq.Core.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
@@ -146,19 +145,8 @@ namespace ExRam.Gremlinq.Core
                     .ConfigureFragmentSerializer(static fragmentSerializer => fragmentSerializer
                         .Override<TimeSpan>(static (t, env, _, recurse) => recurse.Serialize(t.TotalMilliseconds, env))))
                 .ConfigureDeserializer(static deserializer => deserializer
-                    .Override<JValue>(static (jValue, type, env, recurse) => type == typeof(TimeSpan)
-                        ? TimeSpan.FromMilliseconds(jValue.Value<double>())
-                        : default(object?)));
+                    .Override<JValue, TimeSpan>(static (jValue, env, recurse) => TimeSpan.FromMilliseconds(jValue.Value<double>())));
         }
-
-        //public static IGremlinQueryEnvironment RegisterNativeType<TNative>(this IGremlinQueryEnvironment environment, GremlinQueryFragmentSerializerDelegate<TNative> serializerDelegate, IDeserializationTransformation deserializer)
-        //{
-        //    return environment
-        //        .RegisterNativeType(
-        //            serializerDelegate,
-        //            _ => _
-        //                .Override<JValue, TNative>(deserializer));
-        //}
 
         public static JsonSerializer GetJsonSerializer(this IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer deserializer)
         {
