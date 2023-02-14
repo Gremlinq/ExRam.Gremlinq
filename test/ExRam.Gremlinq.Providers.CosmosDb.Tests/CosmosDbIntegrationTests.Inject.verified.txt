@@ -1,7 +1,8 @@
-[
-  [
-    38,
-    37,
-    36
-  ]
+﻿[
+  {
+    "serverException": {
+      "type": "AggregateException",
+      "message": "One or more errors occurred. (The server returned status code '500' when status code '101' was expected.)"
+    }
+  }
 ]

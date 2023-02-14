@@ -1,28 +1,8 @@
 ﻿[
-  [
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "value": "+49",
-      "label": "CountryCallingCode"
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "value": "+49",
-      "label": "CountryCallingCode"
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "value": "GER",
-      "label": "Name"
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "value": "GER",
-      "label": "Name",
-      "properties": {
-        "de": "Deutschland",
-        "en": "Germany"
-      }
+  {
+    "serverException": {
+      "type": "AggregateException",
+      "message": "One or more errors occurred. (The server returned status code '500' when status code '101' was expected.)"
     }
-  ]
+  }
 ]

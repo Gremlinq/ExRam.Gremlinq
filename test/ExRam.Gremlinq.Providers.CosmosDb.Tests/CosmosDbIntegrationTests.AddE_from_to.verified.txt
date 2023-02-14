@@ -1,18 +1,8 @@
 ﻿[
-  [
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "label": "WorksFor",
-      "type": "edge",
-      "inVLabel": "Company",
-      "outVLabel": "Person",
-      "inV": "00000000-0000-0000-0000-000000000000",
-      "outV": "00000000-0000-0000-0000-000000000000",
-      "properties": {
-        "From": 1586270616000,
-        "Role": "Admin",
-        "To": 1586270616000
-      }
+  {
+    "serverException": {
+      "type": "AggregateException",
+      "message": "One or more errors occurred. (The server returned status code '500' when status code '101' was expected.)"
     }
-  ]
+  }
 ]
