@@ -41,9 +41,6 @@ namespace ExRam.Gremlinq.Core.Deserialization
         public static readonly IGremlinQueryFragmentDeserializer Default = Identity
             .Override<object>(static (data, type, env, recurse) =>
             {
-                if (type.IsInstanceOfType(data))
-                    return data;
-
                 if (type.IsArray)
                 {
                     var elementType = type.GetElementType()!;
