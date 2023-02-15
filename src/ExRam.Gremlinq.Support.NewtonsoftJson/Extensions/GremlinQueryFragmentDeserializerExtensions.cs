@@ -67,19 +67,39 @@ namespace ExRam.Gremlinq.Core.Deserialization
             }
         }
 
+        private sealed class VertexOrEdgeDeserializationTransformationFactory : IDeserializationTransformationFactory
+        {
+            private sealed class VertexOrEdgeDeserializationTransformation<TSerialized, TRequested> : IDeserializationTransformation<TSerialized, TRequested>
+                where TSerialized : JObject
+            {
+                public bool Transform(TSerialized jObject, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse, [NotNullWhen(true)] out TRequested? value)
+                {
+                    if (jObject.TryGetValue("id", StringComparison.OrdinalIgnoreCase, out var idToken) && jObject.TryGetValue("label", StringComparison.OrdinalIgnoreCase, out var labelToken) && labelToken.Type == JTokenType.String && jObject.TryGetValue("properties", out var propertiesToken) && propertiesToken is JObject propertiesObject)
+                    {
+                        if (recurse.TryDeserialize(propertiesObject, environment, out value))
+                        {
+                            value.SetIdAndLabel(idToken, labelToken, environment, recurse);
+                            return true;
+                        }
+                    }
+
+                    value = default;
+                    return false;
+                }
+            }
+
+            public IDeserializationTransformation<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
+            {
+                return (typeof(JObject).IsAssignableFrom(typeof(TSerialized)) && !typeof(TRequested).IsAssignableFrom(typeof(TSerialized)) && !typeof(Property).IsAssignableFrom(typeof(TRequested)))
+                    ? (IDeserializationTransformation<TSerialized, TRequested>?)Activator.CreateInstance(typeof(VertexOrEdgeDeserializationTransformation<,>).MakeGenericType(typeof(TSerialized), typeof(TRequested)))
+                    : default;
+            }
+        }
+
         // ReSharper disable ConvertToLambdaExpression
         public static IGremlinQueryFragmentDeserializer AddNewtonsoftJson(this IGremlinQueryFragmentDeserializer deserializer) => deserializer
             .Override(new NewtonsoftJsonSerializerDeserializationTransformationFactory())
-            .Override<JToken>(static (jToken, type, env, recurse) =>
-            {
-                if (jToken is JObject element && !type.IsInstanceOfType(jToken) && !typeof(Property).IsAssignableFrom(type) && element.TryGetValue("id", StringComparison.OrdinalIgnoreCase, out var idToken) && element.TryGetValue("label", StringComparison.OrdinalIgnoreCase, out var labelToken) && labelToken.Type == JTokenType.String && element.TryGetValue("properties", out var propertiesToken))
-                {
-                    if (recurse.TryDeserialize(type).From(propertiesToken, env) is { } ret)
-                        return ret.SetIdAndLabel(idToken, labelToken, env, recurse);
-                }
-
-                return default;
-            })
+            .Override(new VertexOrEdgeDeserializationTransformationFactory())
             .Override<JToken>(static (jToken, type, env, recurse) =>
             {
                 if (type.IsArray && !env.GetCache().FastNativeTypes.ContainsKey(type))
