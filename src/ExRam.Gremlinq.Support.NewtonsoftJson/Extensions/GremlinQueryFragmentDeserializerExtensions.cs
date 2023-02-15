@@ -154,18 +154,45 @@ namespace ExRam.Gremlinq.Core.Deserialization
             }
         }
 
+        private sealed class PropertyDeserializationTransformationFactory : IDeserializationTransformationFactory
+        {
+            private sealed class PropertyDeserializationTransformation<TSerialized, TRequestedProperty, TRequestedPropertyValue> : IDeserializationTransformation<TSerialized, TRequestedProperty>
+                where TSerialized : JValue
+                where TRequestedProperty : Property
+            {
+                public bool Transform(TSerialized serialized, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse, [NotNullWhen(true)] out TRequestedProperty? value)
+                {
+                    if (recurse.TryDeserialize<TSerialized, TRequestedPropertyValue>(serialized, environment, out var propertyValue))
+                    {
+                        //TODO: Improvement opportunity.
+
+                        if (Activator.CreateInstance(typeof(TRequestedProperty), propertyValue) is TRequestedProperty requestedProperty)
+                        {
+                            value = requestedProperty;
+                            return true;
+                        }
+                    }
+
+                    value = default;
+                    return false;
+                }
+            }
+
+            public IDeserializationTransformation<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
+            {
+                return typeof(JValue).IsAssignableFrom(typeof(TSerialized)) && typeof(Property).IsAssignableFrom(typeof(TRequested)) && typeof(TRequested).IsGenericType
+                    ? (IDeserializationTransformation<TSerialized, TRequested>?)Activator.CreateInstance(typeof(PropertyDeserializationTransformation<,,>).MakeGenericType(typeof(TSerialized), typeof(TRequested), typeof(TRequested).GetGenericArguments()[0]))
+                    : default;
+            }
+        }
+
         // ReSharper disable ConvertToLambdaExpression
         public static IGremlinQueryFragmentDeserializer AddNewtonsoftJson(this IGremlinQueryFragmentDeserializer deserializer) => deserializer
             .Override(new NewtonsoftJsonSerializerDeserializationTransformationFactory())
             .Override(new VertexOrEdgeDeserializationTransformationFactory())
             .Override(new SingleItemArrayFallbackDeserializationTransformationFactory())
             .Override(new NullableDeserializationTransformationFactory())
-            .Override<JValue>(static (jToken, type, env, recurse) =>
-            {
-                return typeof(Property).IsAssignableFrom(type) && type.IsGenericType
-                    ? Activator.CreateInstance(type, recurse.TryDeserialize(type.GetGenericArguments()[0]).From(jToken, env))
-                    : default;
-            })
+            .Override(new PropertyDeserializationTransformationFactory())
             .Override<JValue, TimeSpan>(static (jValue, env, recurse) => jValue.Type == JTokenType.String
                 ? XmlConvert.ToTimeSpan(jValue.Value<string>()!)
                 : default(TimeSpan?))
