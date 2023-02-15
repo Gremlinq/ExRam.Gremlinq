@@ -1,5 +1,7 @@
-﻿using System.Collections.Immutable;
+﻿using System.Collections.Concurrent;
+using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 
 namespace ExRam.Gremlinq.Core.Deserialization
 {
@@ -7,7 +9,23 @@ namespace ExRam.Gremlinq.Core.Deserialization
     {
         private sealed class GremlinQueryFragmentDeserializerImpl : IGremlinQueryFragmentDeserializer
         {
+            private readonly struct Option<T>
+            {
+                private Option(T value)
+                {
+                    HasValue = true;
+                    Value = value;
+                }
+
+                public T Value { get; }
+                public bool HasValue { get; }
+
+                public static Option<T> None = new();
+                public static Option<T> From(T value) => new(value);
+            }
+
             private readonly ImmutableStack<IDeserializationTransformationFactory> _transformationFactories;
+            private readonly ConcurrentDictionary<(Type, Type, Type), Delegate> _transformationDelegates = new();
 
             public GremlinQueryFragmentDeserializerImpl(ImmutableStack<IDeserializationTransformationFactory> transformationFactories)
             {
@@ -16,13 +34,23 @@ namespace ExRam.Gremlinq.Core.Deserialization
 
             public bool TryDeserialize<TSerialized, TRequested>(TSerialized serialized, IGremlinQueryEnvironment environment, [NotNullWhen(true)] out TRequested? value)
             {
-                foreach (var transformationFactory in _transformationFactories)
+                var maybeDeserializerDelegate = _transformationDelegates
+                    .GetOrAdd(
+                        (typeof(TSerialized), serialized!.GetType(), typeof(TRequested)),
+                        static typeTuple =>
+                        {
+                            var (staticSerializedType, actualSerializedType, requestedType) = typeTuple;
+
+                            return (Delegate)typeof(GremlinQueryFragmentDeserializerImpl)
+                                .GetMethod(nameof(GetDeserializationFunction), BindingFlags.Static | BindingFlags.NonPublic)!
+                                .MakeGenericMethod(staticSerializedType, actualSerializedType, requestedType)!
+                                .Invoke(null, Array.Empty<object>())!;
+                        }) as Func<GremlinQueryFragmentDeserializerImpl, TSerialized, IGremlinQueryEnvironment, Option<TRequested>>;
+
+                if (maybeDeserializerDelegate is { } deserializerDelegate && deserializerDelegate(this, serialized, environment) is { HasValue: true, Value: { } optionValue })
                 {
-                    if (transformationFactory.TryCreate<TSerialized, TRequested>() is { } transformation)
-                    {
-                        if (transformation.Transform(serialized, environment, this, out value))
-                            return true;
-                    }
+                    value = optionValue;
+                    return true;
                 }
 
                 value = default;
@@ -32,6 +60,27 @@ namespace ExRam.Gremlinq.Core.Deserialization
             public IGremlinQueryFragmentDeserializer Override(IDeserializationTransformationFactory deserializer)
             {
                 return new GremlinQueryFragmentDeserializerImpl(_transformationFactories.Push(deserializer));
+            }
+
+            private static Func<GremlinQueryFragmentDeserializerImpl, TStaticSerialized, IGremlinQueryEnvironment, Option<TRequested>> GetDeserializationFunction<TStaticSerialized, TActualSerialized, TRequested>()
+                where TActualSerialized : TStaticSerialized
+            {
+                return static (deserializer, staticSerialized, environment) =>
+                {
+                    if (staticSerialized is TActualSerialized actualSerialized)
+                    {
+                        foreach (var transformationFactory in deserializer._transformationFactories)
+                        {
+                            if (transformationFactory.TryCreate<TActualSerialized, TRequested>() is { } transformation)
+                            {
+                                if (transformation.Transform(actualSerialized, environment, deserializer, out var value))
+                                    return Option<TRequested>.From(value);
+                            }
+                        }
+                    }
+
+                    return Option<TRequested>.None;
+                };
             }
         }
 
