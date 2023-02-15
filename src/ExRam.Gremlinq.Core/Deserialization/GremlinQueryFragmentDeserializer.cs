@@ -34,23 +34,26 @@ namespace ExRam.Gremlinq.Core.Deserialization
 
             public bool TryDeserialize<TSerialized, TRequested>(TSerialized serialized, IGremlinQueryEnvironment environment, [NotNullWhen(true)] out TRequested? value)
             {
-                var maybeDeserializerDelegate = _transformationDelegates
-                    .GetOrAdd(
-                        (typeof(TSerialized), serialized!.GetType(), typeof(TRequested)),
-                        static typeTuple =>
-                        {
-                            var (staticSerializedType, actualSerializedType, requestedType) = typeTuple;
-
-                            return (Delegate)typeof(GremlinQueryFragmentDeserializerImpl)
-                                .GetMethod(nameof(GetDeserializationFunction), BindingFlags.Static | BindingFlags.NonPublic)!
-                                .MakeGenericMethod(staticSerializedType, actualSerializedType, requestedType)!
-                                .Invoke(null, Array.Empty<object>())!;
-                        }) as Func<GremlinQueryFragmentDeserializerImpl, TSerialized, IGremlinQueryEnvironment, Option<TRequested>>;
-
-                if (maybeDeserializerDelegate is { } deserializerDelegate && deserializerDelegate(this, serialized, environment) is { HasValue: true, Value: { } optionValue })
+                if (serialized is { } actualSerialized)
                 {
-                    value = optionValue;
-                    return true;
+                    var maybeDeserializerDelegate = _transformationDelegates
+                        .GetOrAdd(
+                            (typeof(TSerialized), actualSerialized.GetType(), typeof(TRequested)),
+                            static typeTuple =>
+                            {
+                                var (staticSerializedType, actualSerializedType, requestedType) = typeTuple;
+
+                                return (Delegate)typeof(GremlinQueryFragmentDeserializerImpl)
+                                    .GetMethod(nameof(GetDeserializationFunction), BindingFlags.Static | BindingFlags.NonPublic)!
+                                    .MakeGenericMethod(staticSerializedType, actualSerializedType, requestedType)!
+                                    .Invoke(null, Array.Empty<object>())!;
+                            }) as Func<GremlinQueryFragmentDeserializerImpl, TSerialized, IGremlinQueryEnvironment, Option<TRequested>>;
+
+                    if (maybeDeserializerDelegate is { } deserializerDelegate && deserializerDelegate(this, serialized, environment) is { HasValue: true, Value: { } optionValue })
+                    {
+                        value = optionValue;
+                        return true;
+                    }
                 }
 
                 value = default;
