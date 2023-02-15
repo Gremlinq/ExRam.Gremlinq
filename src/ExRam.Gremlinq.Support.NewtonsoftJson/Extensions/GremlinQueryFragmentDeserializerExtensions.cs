@@ -6,6 +6,7 @@ using System.Dynamic;
 using System.Xml;
 using System.Numerics;
 using ExRam.Gremlinq.Core.GraphElements;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ExRam.Gremlinq.Core.Deserialization
 {
@@ -34,14 +35,41 @@ namespace ExRam.Gremlinq.Core.Deserialization
             { "gx:Int16", typeof(short) }
         };
 
+        private sealed class NewtonsoftJsonSerializerDeserializationTransformationFactory : IDeserializationTransformationFactory
+        {
+            private sealed class NewtonsoftJsonSerializerDeserializationTransformation<TSerialized, TRequested> : IDeserializationTransformation<TSerialized, TRequested>
+                where TSerialized : JToken
+            {
+                public bool Transform(TSerialized serialized, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse, [NotNullWhen(true)] out TRequested? value)
+                {
+                    if (serialized is TRequested alreadyRequestedValue)
+                    {
+                        value = alreadyRequestedValue;
+                        return true;
+                    }
+
+                    if (serialized.ToObject<TRequested>(environment.GetJsonSerializer(recurse)) is { } requestedValue)
+                    {
+                        value = requestedValue;
+                        return true;
+                    }
+
+                    value = default;
+                    return false;
+                }
+            }
+
+            public IDeserializationTransformation<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
+            {
+                return typeof(JToken).IsAssignableFrom(typeof(TSerialized))
+                    ? (IDeserializationTransformation<TSerialized, TRequested>?)Activator.CreateInstance(typeof(NewtonsoftJsonSerializerDeserializationTransformation<,>).MakeGenericType(typeof(TSerialized), typeof(TRequested)))
+                    : null;
+            }
+        }
+
         // ReSharper disable ConvertToLambdaExpression
         public static IGremlinQueryFragmentDeserializer AddNewtonsoftJson(this IGremlinQueryFragmentDeserializer deserializer) => deserializer
-            .Override<JToken>(static (jToken, type, env, recurse) => !type.IsInstanceOfType(jToken)
-                ? jToken
-                    .ToObject(
-                        type,
-                        env.GetJsonSerializer(recurse))
-                : default)
+            .Override(new NewtonsoftJsonSerializerDeserializationTransformationFactory())
             .Override<JToken>(static (jToken, type, env, recurse) =>
             {
                 if (jToken is JObject element && !type.IsInstanceOfType(jToken) && !typeof(Property).IsAssignableFrom(type) && element.TryGetValue("id", StringComparison.OrdinalIgnoreCase, out var idToken) && element.TryGetValue("label", StringComparison.OrdinalIgnoreCase, out var labelToken) && labelToken.Type == JTokenType.String && element.TryGetValue("properties", out var propertiesToken))
