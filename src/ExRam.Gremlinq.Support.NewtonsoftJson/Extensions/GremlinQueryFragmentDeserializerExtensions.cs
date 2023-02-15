@@ -96,24 +96,36 @@ namespace ExRam.Gremlinq.Core.Deserialization
             }
         }
 
+        private sealed class SingleItemArrayFallbackDeserializationTransformationFactory : IDeserializationTransformationFactory
+        {
+            private sealed class SingleItemArrayFallbackDeserializationTransformation<TSerialized, TRequestedArray, TRequestedArrayItem> : IDeserializationTransformation<TSerialized, TRequestedArray>
+            {
+                public bool Transform(TSerialized serialized, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse, [NotNullWhen(true)] out TRequestedArray? value)
+                {
+                    if (!environment.GetCache().FastNativeTypes.ContainsKey(typeof(TRequestedArray)) && recurse.TryDeserialize<TSerialized, TRequestedArrayItem>(serialized, environment, out var typedValue))
+                    {
+                        value = (TRequestedArray)(object)new[] { typedValue };
+                        return true;
+                    }
+
+                    value = default;
+                    return false;
+                }
+            }
+
+            public IDeserializationTransformation<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
+            {
+                return typeof(TRequested).IsArray
+                    ? (IDeserializationTransformation<TSerialized, TRequested>?)Activator.CreateInstance(typeof(SingleItemArrayFallbackDeserializationTransformation<,,>).MakeGenericType(typeof(TSerialized), typeof(TRequested), typeof(TRequested).GetElementType()!))
+                    : default;
+            }
+        }
+
         // ReSharper disable ConvertToLambdaExpression
         public static IGremlinQueryFragmentDeserializer AddNewtonsoftJson(this IGremlinQueryFragmentDeserializer deserializer) => deserializer
             .Override(new NewtonsoftJsonSerializerDeserializationTransformationFactory())
             .Override(new VertexOrEdgeDeserializationTransformationFactory())
-            .Override<JToken>(static (jToken, type, env, recurse) =>
-            {
-                if (type.IsArray && !env.GetCache().FastNativeTypes.ContainsKey(type))
-                {
-                    type = type.GetElementType()!;
-
-                    var array = Array.CreateInstance(type, 1);
-                    array.SetValue(recurse.TryDeserialize(type).From(jToken, env), 0);
-
-                    return array;
-                }
-
-                return default;
-            })
+            .Override(new SingleItemArrayFallbackDeserializationTransformationFactory())
             .Override<JToken>(static (jToken, type, env, recurse) =>
             {
                 return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>)
