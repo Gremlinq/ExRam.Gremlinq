@@ -236,14 +236,6 @@ namespace ExRam.Gremlinq.Core.Deserialization
                     ? Convert.FromBase64String(jValue.Value<string>()!)
                     : default;
             })
-            .Override<JValue>(static (jToken, type, env, recurse) =>
-            {
-                return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>)
-                    ? jToken.Value is null
-                        ? null
-                        : recurse.TryDeserialize(type.GetGenericArguments()[0]).From(jToken, env)
-                    : default;
-            })
             .Override<JValue>(static (jValue, type, env, recurse) =>
             {
                 if (jValue.Value is { } value)
