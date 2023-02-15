@@ -223,6 +223,37 @@ namespace ExRam.Gremlinq.Core.Deserialization
             }
         }
 
+        private sealed class ExpandoObjectDeserializationTransformationFactory : IDeserializationTransformationFactory
+        {
+            private sealed class ExpandoObjectDeserializationTransformation<TSerialized, TRequested> : IDeserializationTransformation<TSerialized, TRequested>
+                where TSerialized : JObject
+            {
+                public bool Transform(TSerialized serialized, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse, [NotNullWhen(true)] out TRequested? value)
+                {
+                    if (recurse.TryDeserialize<TSerialized, JObject>(serialized, environment, out var processedFragment))
+                    {
+                        var expando = new ExpandoObject();
+
+                        foreach (var property in processedFragment)
+                            expando.TryAdd(property.Key, recurse.TryDeserialize<object>().From(property.Value, environment));
+
+                        value = (TRequested)(object)expando;
+                        return true;
+                    }
+
+                    value = default;
+                    return false;
+                }
+            }
+
+            public IDeserializationTransformation<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
+            {
+                return typeof(JObject).IsAssignableFrom(typeof(TSerialized)) && typeof(TRequested).IsAssignableFrom(typeof(ExpandoObject))
+                    ? (IDeserializationTransformation<TSerialized, TRequested>?)Activator.CreateInstance(typeof(ExpandoObjectDeserializationTransformation<,>).MakeGenericType(typeof(TSerialized), typeof(TRequested)))
+                    : default;
+            }
+        }
+
         // ReSharper disable ConvertToLambdaExpression
         public static IGremlinQueryFragmentDeserializer AddNewtonsoftJson(this IGremlinQueryFragmentDeserializer deserializer) => deserializer
             .Override(new NewtonsoftJsonSerializerDeserializationTransformationFactory())
@@ -274,23 +305,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                     ? Convert.FromBase64String(jValue.Value<string>()!)
                     : default;
             })
-            .Override<JObject>(static (jObject, type, env, recurse) =>
-            {
-                if (type.IsAssignableFrom(typeof(ExpandoObject)))
-                {
-                    if (recurse.TryDeserialize<JObject>().From(jObject, env) is { } processedFragment)
-                    {
-                        var expando = new ExpandoObject();
-
-                        foreach (var property in processedFragment)
-                            expando.TryAdd(property.Key, recurse.TryDeserialize<object>().From(property.Value, env));
-
-                        return expando;
-                    }
-                }
-
-                return default;
-            })
+            .Override(new ExpandoObjectDeserializationTransformationFactory())
             .Override<JObject>(static (jObject, type, env, recurse) =>
             {
                 if (!type.IsSealed)
