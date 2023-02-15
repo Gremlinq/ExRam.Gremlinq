@@ -193,6 +193,19 @@ namespace ExRam.Gremlinq.Core.Deserialization
             .Override(new SingleItemArrayFallbackDeserializationTransformationFactory())
             .Override(new NullableDeserializationTransformationFactory())
             .Override(new PropertyDeserializationTransformationFactory())
+            .Override<JValue>(static (jValue, type, env, recurse) =>
+            {
+                if (jValue.Value is { } value)
+                {
+                    if (type.IsInstanceOfType(value))
+                        return value;
+
+                    if (type == typeof(int) || type == typeof(byte) || type == typeof(sbyte) || type == typeof(ushort) || type == typeof(short) || type == typeof(uint) || type == typeof(ulong) || type == typeof(long) || type == typeof(float) || type == typeof(double))
+                        return Convert.ChangeType(value, type);
+                }
+
+                return null;
+            })
             .Override<JValue, TimeSpan>(static (jValue, env, recurse) => jValue.Type == JTokenType.String
                 ? XmlConvert.ToTimeSpan(jValue.Value<string>()!)
                 : default(TimeSpan?))
@@ -235,19 +248,6 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 return jValue.Type == JTokenType.String
                     ? Convert.FromBase64String(jValue.Value<string>()!)
                     : default;
-            })
-            .Override<JValue>(static (jValue, type, env, recurse) =>
-            {
-                if (jValue.Value is { } value)
-                {
-                    if (type.IsInstanceOfType(value))
-                        return value;
-
-                    if (type == typeof(int) || type == typeof(byte) || type == typeof(sbyte) || type == typeof(ushort) || type == typeof(short) || type == typeof(uint) || type == typeof(ulong) || type == typeof(long) || type == typeof(float) || type == typeof(double))
-                        return Convert.ChangeType(value, type);
-                }
-
-                return null;
             })
             .Override<JObject>(static (jObject, type, env, recurse) =>
             {
