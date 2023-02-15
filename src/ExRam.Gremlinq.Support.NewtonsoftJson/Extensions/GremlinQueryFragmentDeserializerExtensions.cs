@@ -291,6 +291,37 @@ namespace ExRam.Gremlinq.Core.Deserialization
             }
         }
 
+        private sealed class VertexPropertyExtractDeserializationTransformationFactory : IDeserializationTransformationFactory
+        {
+            private sealed class VertexPropertyExtractDeserializationTransformation<TSerialized, TRequested> : IDeserializationTransformation<TSerialized, TRequested>
+                where TSerialized : JObject
+            {
+                public bool Transform(TSerialized serialized, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse, [NotNullWhen(true)] out TRequested? value)
+                {
+                    var nativeTypes = environment.GetCache().FastNativeTypes;
+
+                    if (nativeTypes.ContainsKey(typeof(TRequested)) || typeof(TRequested).IsEnum && nativeTypes.ContainsKey(typeof(TRequested).GetEnumUnderlyingType()))
+                    {
+                        if (serialized.TryGetValue("value", out var valueToken))
+                        {
+                            if (recurse.TryDeserialize(valueToken, environment, out value))
+                                return true;
+                        }
+                    }
+
+                    value = default;
+                    return false;
+                }
+            }
+
+            public IDeserializationTransformation<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
+            {
+                return typeof(JObject).IsAssignableFrom(typeof(TSerialized))
+                    ? (IDeserializationTransformation<TSerialized, TRequested>?)Activator.CreateInstance(typeof(VertexPropertyExtractDeserializationTransformation<,>).MakeGenericType(typeof(TSerialized), typeof(TRequested)))
+                    : default;
+            }
+        }
+
         // ReSharper disable ConvertToLambdaExpression
         public static IGremlinQueryFragmentDeserializer AddNewtonsoftJson(this IGremlinQueryFragmentDeserializer deserializer) => deserializer
             .Override(new NewtonsoftJsonSerializerDeserializationTransformationFactory())
@@ -344,17 +375,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
             })
             .Override(new ExpandoObjectDeserializationTransformationFactory())  //TODO: Move
             .Override(new LabelLookupDeserializationTransformationFactory())
-            .Override<JObject>(static (jObject, type, env, recurse) =>
-            {
-                //Vertex Properties
-                var nativeTypes = env.GetCache().FastNativeTypes;
-
-                if (nativeTypes.ContainsKey(type) || type.IsEnum && nativeTypes.ContainsKey(type.GetEnumUnderlyingType()))
-                    if (jObject.TryGetValue("value", out var valueToken))
-                        return recurse.TryDeserialize(type).From(valueToken, env);
-
-                return default;
-            })
+            .Override(new VertexPropertyExtractDeserializationTransformationFactory())
             .Override<JObject>(static (jObject, type, env, recurse) =>
             {
                 if (jObject.TryGetValue("@type", out var typeName) && jObject.TryGetValue("@value", out var valueToken))
