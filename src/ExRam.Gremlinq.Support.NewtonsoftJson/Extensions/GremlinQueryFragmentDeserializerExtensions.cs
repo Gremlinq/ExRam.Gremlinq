@@ -186,6 +186,43 @@ namespace ExRam.Gremlinq.Core.Deserialization
             }
         }
 
+        private sealed class NativeTypeDeserializationTransformationFactory : IDeserializationTransformationFactory
+        {
+            public sealed class NativeTypeDeserializationTransformation<TSerialized, TRequested> : IDeserializationTransformation<TSerialized, TRequested>
+                where TSerialized : JValue
+            {
+                public bool Transform(TSerialized serialized, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse, [NotNullWhen(true)] out TRequested? value)
+                {
+                    if (serialized.Value is TRequested serializedValue)
+                    {
+                        value = serializedValue;
+                        return true;
+                    }
+
+                    if (serialized.Value is { } otherSerializedValue)
+                    {
+                        var type = typeof(TRequested);
+
+                        if (type == typeof(int) || type == typeof(byte) || type == typeof(sbyte) || type == typeof(ushort) || type == typeof(short) || type == typeof(uint) || type == typeof(ulong) || type == typeof(long) || type == typeof(float) || type == typeof(double))
+                        {
+                            value = (TRequested)Convert.ChangeType(otherSerializedValue, type);
+                            return true;
+                        }
+                    }
+
+                    value = default;
+                    return false;
+                }
+            }
+
+            public IDeserializationTransformation<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
+            {
+                return typeof(JValue).IsAssignableFrom(typeof(TSerialized))
+                    ? (IDeserializationTransformation<TSerialized, TRequested>?)Activator.CreateInstance(typeof(NativeTypeDeserializationTransformation<,>).MakeGenericType(typeof(TSerialized), typeof(TRequested)))
+                    : default;
+            }
+        }
+
         // ReSharper disable ConvertToLambdaExpression
         public static IGremlinQueryFragmentDeserializer AddNewtonsoftJson(this IGremlinQueryFragmentDeserializer deserializer) => deserializer
             .Override(new NewtonsoftJsonSerializerDeserializationTransformationFactory())
@@ -193,19 +230,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
             .Override(new SingleItemArrayFallbackDeserializationTransformationFactory())
             .Override(new NullableDeserializationTransformationFactory())
             .Override(new PropertyDeserializationTransformationFactory())
-            .Override<JValue>(static (jValue, type, env, recurse) =>
-            {
-                if (jValue.Value is { } value)
-                {
-                    if (type.IsInstanceOfType(value))
-                        return value;
-
-                    if (type == typeof(int) || type == typeof(byte) || type == typeof(sbyte) || type == typeof(ushort) || type == typeof(short) || type == typeof(uint) || type == typeof(ulong) || type == typeof(long) || type == typeof(float) || type == typeof(double))
-                        return Convert.ChangeType(value, type);
-                }
-
-                return null;
-            })
+            .Override(new NativeTypeDeserializationTransformationFactory())
             .Override<JValue, TimeSpan>(static (jValue, env, recurse) => jValue.Type == JTokenType.String
                 ? XmlConvert.ToTimeSpan(jValue.Value<string>()!)
                 : default(TimeSpan?))
