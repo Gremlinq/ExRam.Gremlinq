@@ -121,19 +121,45 @@ namespace ExRam.Gremlinq.Core.Deserialization
             }
         }
 
+        private sealed class NullableDeserializationTransformationFactory : IDeserializationTransformationFactory
+        {
+            private sealed class NullableDeserializationTransformation<TSerialized, TRequested> : IDeserializationTransformation<TSerialized, TRequested?>
+                where TSerialized : JToken
+                where TRequested : struct
+            {
+                public bool Transform(TSerialized serialized, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse, [NotNullWhen(true)] out TRequested? value)
+                {
+                    if (serialized.Type == JTokenType.Null)
+                    {
+                        value = default(TRequested);
+                        return true;
+                    }
+
+                    if (recurse.TryDeserialize<TSerialized, TRequested>(serialized, environment, out var requestedValue))
+                    {
+                        value = requestedValue;
+                        return true;
+                    }
+
+                    value = default;
+                    return false;
+                }
+            }
+
+            public IDeserializationTransformation<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
+            {
+                return typeof(JToken).IsAssignableFrom(typeof(TSerialized)) && typeof(TRequested).IsGenericType && typeof(TRequested).GetGenericTypeDefinition() == typeof(Nullable<>)
+                    ? (IDeserializationTransformation<TSerialized, TRequested>?)Activator.CreateInstance(typeof(NullableDeserializationTransformation<,>).MakeGenericType(typeof(TSerialized), typeof(TRequested).GetGenericArguments()[0]))
+                    : default;
+            }
+        }
+
         // ReSharper disable ConvertToLambdaExpression
         public static IGremlinQueryFragmentDeserializer AddNewtonsoftJson(this IGremlinQueryFragmentDeserializer deserializer) => deserializer
             .Override(new NewtonsoftJsonSerializerDeserializationTransformationFactory())
             .Override(new VertexOrEdgeDeserializationTransformationFactory())
             .Override(new SingleItemArrayFallbackDeserializationTransformationFactory())
-            .Override<JToken>(static (jToken, type, env, recurse) =>
-            {
-                return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>)
-                    ? jToken.Type == JTokenType.Null
-                        ? null
-                        : recurse.TryDeserialize(type.GetGenericArguments()[0]).From(jToken, env)
-                    : default;
-            })
+            .Override(new NullableDeserializationTransformationFactory())
             .Override<JValue>(static (jToken, type, env, recurse) =>
             {
                 return typeof(Property).IsAssignableFrom(type) && type.IsGenericType
