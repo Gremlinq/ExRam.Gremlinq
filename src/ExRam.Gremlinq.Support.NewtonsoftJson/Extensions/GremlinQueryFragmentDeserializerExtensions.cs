@@ -310,6 +310,5 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 return default;
             });
         // ReSharper restore ConvertToLambdaExpression
-
     }
 }

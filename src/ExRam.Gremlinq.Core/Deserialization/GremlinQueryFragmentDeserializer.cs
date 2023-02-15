@@ -35,29 +35,36 @@ namespace ExRam.Gremlinq.Core.Deserialization
             }
         }
 
+        private sealed class SingleItemArrayFallbackDeserializationTransformationFactory : IDeserializationTransformationFactory
+        {
+            private sealed class SingleItemArrayFallbackDeserializationTransformation<TSerialized, TRequestedArray, TRequestedArrayItem> : IDeserializationTransformation<TSerialized, TRequestedArray>
+            {
+                public bool Transform(TSerialized serialized, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse, [NotNullWhen(true)] out TRequestedArray? value)
+                {
+                    if (recurse.TryDeserialize<TSerialized, TRequestedArrayItem>(serialized, environment, out var typedValue))
+                    {
+                        value = (TRequestedArray)(object) new[] { typedValue };
+                        return true;
+                    }
+
+                    value = default;
+                    return false;
+                }
+            }
+
+            public IDeserializationTransformation<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
+            {
+                return typeof(TRequested).IsArray
+                    ? (IDeserializationTransformation<TSerialized, TRequested>?)Activator.CreateInstance(typeof(SingleItemArrayFallbackDeserializationTransformation<,,>).MakeGenericType(typeof(TSerialized), typeof(TRequested), typeof(TRequested).GetElementType()!))
+                    : default;
+            }
+        }
+
         public static readonly IGremlinQueryFragmentDeserializer Identity = new GremlinQueryFragmentDeserializerImpl(ImmutableStack<IDeserializationTransformationFactory>.Empty)
             .Override(DeserializationTransformationFactory.Identity);
 
         public static readonly IGremlinQueryFragmentDeserializer Default = Identity
-            .Override<object>(static (data, type, env, recurse) =>
-            {
-                if (type.IsArray)
-                {
-                    var elementType = type.GetElementType()!;
-
-                    if (recurse.TryDeserialize(elementType).From(data, env) is { } element)
-                    {
-                        var ret = Array.CreateInstance(elementType, 1);
-
-                        ret
-                            .SetValue(element, 0);
-
-                        return ret;
-                    }
-                }
-
-                return default;
-            })
+            .Override(new SingleItemArrayFallbackDeserializationTransformationFactory())
             .AddToStringFallback();
 
         public static IGremlinQueryFragmentDeserializer AddToStringFallback(this IGremlinQueryFragmentDeserializer deserializer) => deserializer
