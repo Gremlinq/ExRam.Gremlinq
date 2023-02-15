@@ -254,6 +254,43 @@ namespace ExRam.Gremlinq.Core.Deserialization
             }
         }
 
+        private sealed class LabelLookupDeserializationTransformationFactory : IDeserializationTransformationFactory
+        {
+            private sealed class LabelLookupDeserializationTransformation<TSerialized, TRequested> : IDeserializationTransformation<TSerialized, TRequested>
+                where TSerialized : JObject
+            {
+                public bool Transform(TSerialized serialized, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse, [NotNullWhen(true)] out TRequested? value)
+                {
+                    // Elements
+                    var modelTypes = environment.GetCache().ModelTypesForLabels;
+                    var label = serialized["label"]?.ToString();
+
+                    var modelType = label != null && modelTypes.TryGetValue(label, out var types)
+                        ? types.FirstOrDefault(typeof(TRequested).IsAssignableFrom)
+                        : default;
+
+                    if (modelType != null && modelType != typeof(TRequested))
+                    {
+                        if (recurse.TryDeserialize(modelType).From(serialized, environment) is TRequested requested)
+                        {
+                            value = requested;
+                            return true;
+                        }
+                    }
+
+                    value = default;
+                    return false;
+                }
+            }
+
+            public IDeserializationTransformation<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
+            {
+                return typeof(JObject).IsAssignableFrom(typeof(TSerialized)) && !typeof(TSerialized).IsSealed
+                    ? (IDeserializationTransformation<TSerialized, TRequested>?)Activator.CreateInstance(typeof(LabelLookupDeserializationTransformation<,>).MakeGenericType(typeof(TSerialized), typeof(TRequested)))
+                    : default;
+            }
+        }
+
         // ReSharper disable ConvertToLambdaExpression
         public static IGremlinQueryFragmentDeserializer AddNewtonsoftJson(this IGremlinQueryFragmentDeserializer deserializer) => deserializer
             .Override(new NewtonsoftJsonSerializerDeserializationTransformationFactory())
@@ -306,24 +343,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                     : default;
             })
             .Override(new ExpandoObjectDeserializationTransformationFactory())  //TODO: Move
-            .Override<JObject>(static (jObject, type, env, recurse) =>
-            {
-                if (!type.IsSealed)
-                {
-                    // Elements
-                    var modelTypes = env.GetCache().ModelTypesForLabels;
-                    var label = jObject["label"]?.ToString();
-
-                    var modelType = label != null && modelTypes.TryGetValue(label, out var types)
-                        ? types.FirstOrDefault(type.IsAssignableFrom)
-                        : default;
-
-                    if (modelType != null && modelType != type)
-                        return recurse.TryDeserialize(modelType).From(jObject, env);
-                }
-
-                return default;
-            })
+            .Override(new LabelLookupDeserializationTransformationFactory())
             .Override<JObject>(static (jObject, type, env, recurse) =>
             {
                 //Vertex Properties
