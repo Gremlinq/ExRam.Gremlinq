@@ -7,12 +7,11 @@ namespace Newtonsoft.Json.Linq
     {
         public static IEnumerable<TItem>? TryExpandTraverser<TItem>(this JObject jObject, IGremlinQueryEnvironment env, IGremlinQueryFragmentDeserializer recurse)
         {
-            //Traversers
             if (jObject.TryGetValue("@type", out var nestedType) && "g:Traverser".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase) && jObject.TryGetValue("@value", out var valueToken) && valueToken is JObject nestedTraverserObject)
             {
                 var bulk = 1;
 
-                if (nestedTraverserObject.TryGetValue("bulk", out var bulkToken) && recurse.TryDeserialize<int>().From(bulkToken, env) is { } bulkObject)
+                if (nestedTraverserObject.TryGetValue("bulk", out var bulkToken) && recurse.TryDeserialize<JToken, int>(bulkToken, env, out var bulkObject))
                     bulk = bulkObject;
 
                 if (nestedTraverserObject.TryGetValue("value", out var traverserValue))
