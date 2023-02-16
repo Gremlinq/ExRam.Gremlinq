@@ -5,7 +5,7 @@ namespace Newtonsoft.Json.Linq
 {
     internal static class JTokenExtensions
     {
-        public static IEnumerable<object>? TryExpandTraverser(this JObject jObject, Type type, IGremlinQueryEnvironment env, IGremlinQueryFragmentDeserializer recurse)
+        public static IEnumerable<TItem>? TryExpandTraverser<TItem>(this JObject jObject, IGremlinQueryEnvironment env, IGremlinQueryFragmentDeserializer recurse)
         {
             //Traversers
             if (jObject.TryGetValue("@type", out var nestedType) && "g:Traverser".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase) && jObject.TryGetValue("@value", out var valueToken) && valueToken is JObject nestedTraverserObject)
@@ -19,9 +19,9 @@ namespace Newtonsoft.Json.Linq
                 {
                     return Core();
 
-                    IEnumerable<object> Core()
+                    IEnumerable<TItem> Core()
                     {
-                        if (recurse.TryDeserialize(type).From(traverserValue, env) is { } item)
+                        if (recurse.TryDeserialize<JToken, TItem>(traverserValue, env, out var item))
                         {
                             for (var j = 0; j < bulk; j++)
                                 yield return item;
