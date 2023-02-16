@@ -23,7 +23,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Base_type()
         {
             await Verify(GremlinQueryFragmentDeserializer.Identity
-                .Override<object>((serialized, type, env, recurse) => "overridden")
+                .Override<object, string>((serialized, env, recurse) => "overridden")
                 .TryDeserialize<string>().From("serialized", GremlinQueryEnvironment.Empty));
         }
 
@@ -31,7 +31,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Irrelevant()
         {
             await Verify(GremlinQueryFragmentDeserializer.Identity
-                .Override<JObject>((serialized, type, env, recurse) => "should not be here")
+                .Override<JObject, string>((serialized, env, recurse) => "should not be here")
                 .TryDeserialize<string>().From("serialized", GremlinQueryEnvironment.Empty));
         }
 
@@ -39,7 +39,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Override1()
         {
             await Verify(GremlinQueryFragmentDeserializer.Identity
-                .Override<string>((serialized, type, env, recurse) => "overridden 1")
+                .Override<string, string>((serialized, env, recurse) => "overridden 1")
                 .TryDeserialize<string>().From("serialized", GremlinQueryEnvironment.Empty));
         }
 
@@ -47,8 +47,8 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Override2()
         {
             await Verify(GremlinQueryFragmentDeserializer.Identity
-                .Override<string>((serialized, type, env, recurse) => "overridden 1")
-                .Override<string>((serialized, type, env, recurse) => "overridden 2")
+                .Override<string, string>((serialized, env, recurse) => "overridden 1")
+                .Override<string, string>((serialized, env, recurse) => "overridden 2")
                 .TryDeserialize<string>().From("serialized", GremlinQueryEnvironment.Empty));
         }
 
@@ -56,7 +56,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Recurse()
         {
             await Verify(GremlinQueryFragmentDeserializer.Identity
-                .Override<string>((serialized, type, env, recurse) => recurse.TryDeserialize(type).From(36, env))
+                .Override<string, int>((serialized, env, recurse) => recurse.TryDeserialize<int>().From(36, env))
                 .TryDeserialize<int>().From("serialized", GremlinQueryEnvironment.Empty));
         }
 
@@ -64,7 +64,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Recurse_wrong_type()
         {
             GremlinQueryFragmentDeserializer.Identity
-                .Override<string>((serialized, type, env, recurse) => recurse.TryDeserialize(type).From(36, env))
+                .Override<string, int>((serialized, env, recurse) => recurse.TryDeserialize<int>().From(36, env))
                 .TryDeserialize<int, string>(36, GremlinQueryEnvironment.Empty, out var _)
                 .Should()
                 .BeFalse();
@@ -74,8 +74,8 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Recurse_to_previous_override()
         {
             await Verify(GremlinQueryFragmentDeserializer.Identity
-                .Override<int>((serialized, type, env, recurse) => serialized.ToString())
-                .Override<string>((serialized, type, env, recurse) => recurse.TryDeserialize<string>().From(serialized.Length, env))
+                .Override<int, string>((serialized, env, recurse) => serialized.ToString())
+                .Override<string, string>((serialized, env, recurse) => recurse.TryDeserialize<string>().From(serialized.Length, env))
                 .TryDeserialize<string>().From("serialized", GremlinQueryEnvironment.Empty));
         }
 
@@ -83,8 +83,8 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Recurse_to_later_override()
         {
             await Verify(GremlinQueryFragmentDeserializer.Identity
-                .Override<string>((serialized, type, env, recurse) => recurse.TryDeserialize<string>().From(serialized.Length, env))
-                .Override<int>((serialized, type, env, recurse) => serialized.ToString())
+                .Override<string, string>((serialized, env, recurse) => recurse.TryDeserialize<string>().From(serialized.Length, env))
+                .Override<int, string>((serialized, env, recurse) => serialized.ToString())
                 .TryDeserialize<string>().From("serialized", GremlinQueryEnvironment.Empty));
         }
 
