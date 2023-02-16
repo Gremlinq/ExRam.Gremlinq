@@ -481,6 +481,40 @@ namespace ExRam.Gremlinq.Core.Deserialization
             }
         }
 
+        private sealed class ArrayExtractDeserializationTransformationFactory : IDeserializationTransformationFactory
+        {
+            //TODO: Item Parameter
+            private sealed class ArrayExtractDeserializationTransformation<TSerialized, TRequested> : IDeserializationTransformation<TSerialized, TRequested>
+                where TSerialized : JArray
+            {
+                public bool Transform(TSerialized serialized, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse, [NotNullWhen(true)] out TRequested? value)
+                {
+                    if ((!typeof(TRequested).IsArray || environment.GetCache().FastNativeTypes.ContainsKey(typeof(TRequested))) && !typeof(TRequested).IsInstanceOfType(serialized))
+                    {
+                        if (serialized.Count != 1)
+                        {
+                            value = serialized.Count == 0 && typeof(TRequested).IsClass
+                                ? default!  //TODO: Drop NotNullWhen(true) ?
+                                : throw new JsonReaderException($"Cannot convert array\r\n\r\n{serialized}\r\n\r\nto scalar value of type {typeof(TRequested)}.");
+
+                            return true;
+                        }
+
+                        return recurse.TryDeserialize(serialized[0], environment, out value);
+                    }
+
+                    value = default;
+                    return false;
+                }
+            }
+
+            public IDeserializationTransformation<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
+            {
+                return typeof(JArray).IsAssignableFrom(typeof(TSerialized))
+                    ? (IDeserializationTransformation<TSerialized, TRequested>?)Activator.CreateInstance(typeof(ArrayExtractDeserializationTransformation<,>).MakeGenericType(typeof(TSerialized), typeof(TRequested)))
+                    : default;
+            }
+        }
 
         // ReSharper disable ConvertToLambdaExpression
         public static IGremlinQueryFragmentDeserializer AddNewtonsoftJson(this IGremlinQueryFragmentDeserializer deserializer) => deserializer
@@ -540,17 +574,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
             .Override(new ConvertMapsDeserializationTransformationFactory())
             .Override(new BulkSetDeserializationTransformationFactory())
             .Override(new TravsererDeserializationTransformationFactory())
-            .Override<JArray>(static (jArray, type, env, recurse) =>
-            {
-                if ((!type.IsArray || env.GetCache().FastNativeTypes.ContainsKey(type)) && !type.IsInstanceOfType(jArray))
-                    return jArray.Count != 1
-                        ? jArray.Count == 0 && type.IsClass
-                            ? default
-                            : throw new JsonReaderException($"Cannot convert array\r\n\r\n{jArray}\r\n\r\nto scalar value of type {type}.")
-                        : recurse.TryDeserialize(type).From(jArray[0], env);
-
-                return default;
-            })
+            .Override(new ArrayExtractDeserializationTransformationFactory())
             .Override<JArray>(static (jArray, type, env, recurse) =>
             {
                 return type.IsAssignableFrom(typeof(object[])) && recurse.TryDeserialize<object[]>().From(jArray, env) is { } tokens
