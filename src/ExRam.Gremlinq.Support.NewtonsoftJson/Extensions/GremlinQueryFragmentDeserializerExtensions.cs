@@ -359,6 +359,42 @@ namespace ExRam.Gremlinq.Core.Deserialization
             }
         }
 
+        private sealed class ConvertMapsDeserializationTransformationFactory : IDeserializationTransformationFactory
+        {
+            private sealed class ConvertMapsDeserializationTransformation<TSerialized, TRequested> : IDeserializationTransformation<TSerialized, TRequested>
+                where TSerialized : JObject
+            {
+                public bool Transform(TSerialized serialized, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse, [NotNullWhen(true)] out TRequested? value)
+                {
+                    if (serialized.TryGetValue("@type", out var nestedType) && "g:Map".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase))
+                    {
+                        if (serialized.TryGetValue("@value", out var valueToken) && valueToken is JArray mapArray)
+                        {
+                            var retObject = new JObject();
+
+                            for (var i = 0; i < mapArray.Count / 2; i++)
+                            {
+                                if (mapArray[i * 2] is JValue { Type: JTokenType.String } key)
+                                    retObject.Add(key.Value<string>()!, mapArray[i * 2 + 1]);
+                            }
+
+                            return recurse.TryDeserialize(retObject, environment, out value);
+                        }
+                    }
+
+                    value = default;
+                    return false;
+                }
+            }
+
+            public IDeserializationTransformation<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
+            {
+                return typeof(JObject).IsAssignableFrom(typeof(TSerialized))
+                    ? (IDeserializationTransformation<TSerialized, TRequested>?)Activator.CreateInstance(typeof(ConvertMapsDeserializationTransformation<,>).MakeGenericType(typeof(TSerialized), typeof(TRequested)))
+                    : default;
+            }
+        }
+
         // ReSharper disable ConvertToLambdaExpression
         public static IGremlinQueryFragmentDeserializer AddNewtonsoftJson(this IGremlinQueryFragmentDeserializer deserializer) => deserializer
             .Override(new NewtonsoftJsonSerializerDeserializationTransformationFactory())
@@ -414,13 +450,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
             .Override(new LabelLookupDeserializationTransformationFactory())
             .Override(new VertexPropertyExtractDeserializationTransformationFactory())
             .Override(new TypedValueDeserializationTransformationFactory())
-            .Override<JObject>(static (jObject, type, env, recurse) =>
-            {
-                //@type == "g:Map"
-                return jObject.TryUnmap() is { } unmappedObject
-                    ? recurse.TryDeserialize(type).From(unmappedObject, env)
-                    : default;
-            })
+            .Override(new ConvertMapsDeserializationTransformationFactory())
             .Override<JObject>(static (jObject, type, env, recurse) =>
             {
                 if (type.IsArray && !env.GetCache().FastNativeTypes.ContainsKey(type))
