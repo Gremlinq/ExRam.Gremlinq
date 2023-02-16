@@ -502,6 +502,56 @@ namespace ExRam.Gremlinq.Core.Deserialization
             }
         }
 
+        private sealed class TraverserDeserializationTransformationFactory : IDeserializationTransformationFactory
+        {
+            //TODO: Item type parameter
+            private sealed class TraverserDeserializationTransformation<TSerialized, TRequested> : IDeserializationTransformation<TSerialized, TRequested>
+                where TSerialized : JArray
+            {
+                public bool Transform(TSerialized serialized, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse, [NotNullWhen(true)] out TRequested? value)
+                {
+                    //Traversers
+                    if (!environment.GetCache().FastNativeTypes.ContainsKey(typeof(TRequested)))
+                    {
+                        var array = default(ArrayList);
+                        var elementType = typeof(TRequested).GetElementType()!;
+
+                        for (var i = 0; i < serialized.Count; i++)
+                        {
+                            if (serialized[i] is JObject traverserObject && traverserObject.TryExpandTraverser(elementType, environment, recurse) is { } enumerable)
+                            {
+                                array ??= new ArrayList(serialized.Count);
+
+                                foreach (var item1 in enumerable)
+                                {
+                                    array.Add(item1);
+                                }
+                            }
+                            else if (recurse.TryDeserialize(elementType).From(serialized[i], environment) is { } item2)
+                            {
+                                array ??= new ArrayList(serialized.Count);
+
+                                array.Add(item2);
+                            }
+                        }
+
+                        value = (TRequested)(object)(array?.ToArray(elementType) ?? Array.CreateInstance(elementType, 0));
+                        return true;
+                    }
+
+                    value = default;
+                    return false;
+                }
+            }
+
+            public IDeserializationTransformation<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
+            {
+                return typeof(JArray).IsAssignableFrom(typeof(TSerialized)) && typeof(TRequested).IsArray
+                    ? (IDeserializationTransformation<TSerialized, TRequested>?)Activator.CreateInstance(typeof(TraverserDeserializationTransformation<,>).MakeGenericType(typeof(TSerialized), typeof(TRequested)))
+                    : default;
+            }
+        }
+
         // ReSharper disable ConvertToLambdaExpression
         public static IGremlinQueryFragmentDeserializer AddNewtonsoftJson(this IGremlinQueryFragmentDeserializer deserializer) => deserializer
             .Override(new NewtonsoftJsonSerializerDeserializationTransformationFactory())
@@ -522,12 +572,12 @@ namespace ExRam.Gremlinq.Core.Deserialization
                     case DateTimeOffset dateTimeOffset:
                         return dateTimeOffset;
                     default:
-                    {
-                        if (jValue.Type == JTokenType.Integer)
-                            return DateTimeOffset.FromUnixTimeMilliseconds(jValue.Value<long>());
+                        {
+                            if (jValue.Type == JTokenType.Integer)
+                                return DateTimeOffset.FromUnixTimeMilliseconds(jValue.Value<long>());
 
-                        break;
-                    }
+                            break;
+                        }
                 }
 
                 return default;
@@ -561,38 +611,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
             .Override(new BulkSetDeserializationTransformationFactory())
             .Override(new ArrayExtractDeserializationTransformationFactory())
             .Override(new ArrayLiftingDeserializationTransformationFactory())
-            .Override<JArray>(static (jArray, type, env, recurse) =>
-            {
-                //Traversers
-                if (type.IsArray && !env.GetCache().FastNativeTypes.ContainsKey(type))
-                {
-                    var array = default(ArrayList);
-                    var elementType = type.GetElementType()!;
-
-                    for (var i = 0; i < jArray.Count; i++)
-                    {
-                        if (jArray[i] is JObject traverserObject && traverserObject.TryExpandTraverser(elementType, env, recurse) is { } enumerable)
-                        {
-                            array ??= new ArrayList(jArray.Count);
-
-                            foreach (var item1 in enumerable)
-                            {
-                                array.Add(item1);
-                            }
-                        }
-                        else if (recurse.TryDeserialize(elementType).From(jArray[i], env) is { } item2)
-                        {
-                            array ??= new ArrayList(jArray.Count);
-
-                            array.Add(item2);
-                        }
-                    }
-
-                    return array?.ToArray(elementType) ?? Array.CreateInstance(elementType, 0);
-                }
-
-                return default;
-            });
+            .Override(new TraverserDeserializationTransformationFactory());
         // ReSharper restore ConvertToLambdaExpression
     }
 }
