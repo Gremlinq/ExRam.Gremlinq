@@ -443,7 +443,6 @@ namespace ExRam.Gremlinq.Core.Deserialization
 
         private sealed class ArrayExtractDeserializationTransformationFactory : IDeserializationTransformationFactory
         {
-            //TODO: Item Parameter
             private sealed class ArrayExtractDeserializationTransformation<TSerialized, TRequested> : IDeserializationTransformation<TSerialized, TRequested>
                 where TSerialized : JArray
             {
@@ -511,13 +510,13 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 {
                     if (!environment.GetCache().FastNativeTypes.ContainsKey(typeof(TRequestedArray)))
                     {
-                        var array = default(ArrayList);
+                        var array = default(List<TRequestedItem>);
 
                         for (var i = 0; i < serialized.Count; i++)
                         {
                             if (serialized[i] is JObject traverserObject && traverserObject.TryExpandTraverser<TRequestedItem>(environment, recurse) is { } enumerable)
                             {
-                                array ??= new ArrayList(serialized.Count);
+                                array ??= new List<TRequestedItem>(serialized.Count);
 
                                 foreach (var item1 in enumerable)
                                 {
@@ -526,13 +525,13 @@ namespace ExRam.Gremlinq.Core.Deserialization
                             }
                             else if (recurse.TryDeserialize<JToken, TRequestedItem>(serialized[i], environment, out var item2))
                             {
-                                array ??= new ArrayList(serialized.Count);
+                                array ??= new List<TRequestedItem>(serialized.Count);
 
                                 array.Add(item2);
                             }
                         }
 
-                        value = (TRequestedArray)(object)(array?.ToArray(typeof(TRequestedItem)) ?? Array.CreateInstance(typeof(TRequestedItem), 0));
+                        value = (TRequestedArray)(object)(array?.ToArray() ?? Array.Empty<TRequestedItem>());
                         return true;
                     }
 
