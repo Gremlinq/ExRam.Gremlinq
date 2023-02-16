@@ -516,6 +516,32 @@ namespace ExRam.Gremlinq.Core.Deserialization
             }
         }
 
+        private sealed class ArrayLiftingDeserializationTransformationFactory : IDeserializationTransformationFactory
+        {
+            private sealed class ArrayLiftingDeserializationTransformation<TSerialized, TRequested> : IDeserializationTransformation<TSerialized, TRequested>
+                where TSerialized : JArray
+            {
+                public bool Transform(TSerialized serialized, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse, [NotNullWhen(true)] out TRequested? value)
+                {
+                    if (recurse.TryDeserialize<TSerialized, object[]>(serialized, environment, out var requested))
+                    {
+                        value = (TRequested)(object)requested;
+                        return true;
+                    }
+
+                    value = default;
+                    return false;
+                }
+            }
+
+            public IDeserializationTransformation<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
+            {
+                return typeof(JArray).IsAssignableFrom(typeof(TSerialized)) && typeof(TRequested).IsAssignableFrom(typeof(object[]))
+                    ? (IDeserializationTransformation<TSerialized, TRequested>?)Activator.CreateInstance(typeof(ArrayLiftingDeserializationTransformation<,>).MakeGenericType(typeof(TSerialized), typeof(TRequested)))
+                    : default;
+            }
+        }
+
         // ReSharper disable ConvertToLambdaExpression
         public static IGremlinQueryFragmentDeserializer AddNewtonsoftJson(this IGremlinQueryFragmentDeserializer deserializer) => deserializer
             .Override(new NewtonsoftJsonSerializerDeserializationTransformationFactory())
@@ -575,12 +601,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
             .Override(new BulkSetDeserializationTransformationFactory())
             .Override(new TravsererDeserializationTransformationFactory())
             .Override(new ArrayExtractDeserializationTransformationFactory())
-            .Override<JArray>(static (jArray, type, env, recurse) =>
-            {
-                return type.IsAssignableFrom(typeof(object[])) && recurse.TryDeserialize<object[]>().From(jArray, env) is { } tokens
-                    ? tokens
-                    : default(object?);
-            })
+            .Override(new ArrayLiftingDeserializationTransformationFactory())
             .Override<JArray>(static (jArray, type, env, recurse) =>
             {
                 //Traversers
