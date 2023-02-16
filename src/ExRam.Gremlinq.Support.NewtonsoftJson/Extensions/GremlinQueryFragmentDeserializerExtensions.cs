@@ -509,14 +509,13 @@ namespace ExRam.Gremlinq.Core.Deserialization
             {
                 public bool Transform(TSerialized serialized, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse, [NotNullWhen(true)] out TRequestedArray? value)
                 {
-                    //Traversers
                     if (!environment.GetCache().FastNativeTypes.ContainsKey(typeof(TRequestedArray)))
                     {
                         var array = default(ArrayList);
 
                         for (var i = 0; i < serialized.Count; i++)
                         {
-                            if (serialized[i] is JObject traverserObject && traverserObject.TryExpandTraverser(typeof(TRequestedItem), environment, recurse) is { } enumerable)
+                            if (serialized[i] is JObject traverserObject && traverserObject.TryExpandTraverser<TRequestedItem>(environment, recurse) is { } enumerable)
                             {
                                 array ??= new ArrayList(serialized.Count);
 
