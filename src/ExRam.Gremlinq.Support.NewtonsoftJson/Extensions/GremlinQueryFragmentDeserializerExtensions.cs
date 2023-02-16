@@ -400,38 +400,36 @@ namespace ExRam.Gremlinq.Core.Deserialization
 
         private sealed class BulkSetDeserializationTransformationFactory : IDeserializationTransformationFactory
         {
-            //TODO: Item Parameter
-            private sealed class BulkSetDeserializationTransformation<TSerialized, TRequested> : IDeserializationTransformation<TSerialized, TRequested>
+            private sealed class BulkSetDeserializationTransformation<TSerialized, TRequestedArray, TRequestedItem> : IDeserializationTransformation<TSerialized, TRequestedArray>
                 where TSerialized : JObject
             {
-                public bool Transform(TSerialized serialized, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse, [NotNullWhen(true)] out TRequested? value)
+                public bool Transform(TSerialized serialized, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse, [NotNullWhen(true)] out TRequestedArray? value)
                 {
-                    if (!environment.GetCache().FastNativeTypes.ContainsKey(typeof(TRequested)))
+                    if (!environment.GetCache().FastNativeTypes.ContainsKey(typeof(TRequestedArray)))
                     {
-                        var elementType = typeof(TRequested).GetElementType()!;
-
                         if (serialized.TryGetValue("@type", out var typeToken) && "g:BulkSet".Equals(typeToken.Value<string>(), StringComparison.OrdinalIgnoreCase))
                         {
                             if (serialized.TryGetValue("@value", out var valueToken) && valueToken is JArray setArray)
                             {
-                                var array = new ArrayList();
+                                var array = new List<TRequestedItem>();
 
                                 for (var i = 0; i < setArray.Count; i += 2)
                                 {
-                                    var element = recurse.TryDeserialize(elementType).From(setArray[i], environment);
-
-                                    if (recurse.TryDeserialize<JToken, int>(setArray[i + 1], environment, out var bulk) && bulk != 1)
+                                    if (recurse.TryDeserialize<JToken, TRequestedItem>(setArray[i], environment, out var element))
                                     {
-                                        for (var j = 0; j < bulk; j++)
+                                        if (recurse.TryDeserialize<JToken, int>(setArray[i + 1], environment, out var bulk) && bulk != 1)
                                         {
-                                            array.Add(element);
+                                            for (var j = 0; j < bulk; j++)
+                                            {
+                                                array.Add(element);
+                                            }
                                         }
+                                        else
+                                            array.Add(element);
                                     }
-                                    else
-                                        array.Add(element);
                                 }
 
-                                value = (TRequested)(object)array.ToArray(elementType);
+                                value = (TRequestedArray)(object)array.ToArray();
                                 return true;
                             }
                         }
@@ -445,7 +443,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
             public IDeserializationTransformation<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
             {
                 return typeof(TRequested).IsArray && typeof(JObject).IsAssignableFrom(typeof(TSerialized))
-                    ? (IDeserializationTransformation<TSerialized, TRequested>?)Activator.CreateInstance(typeof(BulkSetDeserializationTransformation<,>).MakeGenericType(typeof(TSerialized), typeof(TRequested)))
+                    ? (IDeserializationTransformation<TSerialized, TRequested>?)Activator.CreateInstance(typeof(BulkSetDeserializationTransformation<,,>).MakeGenericType(typeof(TSerialized), typeof(TRequested), typeof(TRequested).GetElementType()!))
                     : default;
             }
         }
