@@ -563,6 +563,15 @@ namespace ExRam.Gremlinq.Core.Deserialization
             .Override(new NullableDeserializationTransformationFactory())
             .Override(new PropertyDeserializationTransformationFactory())
             .Override(new NativeTypeDeserializationTransformationFactory())
+            .Override(new ExpandoObjectDeserializationTransformationFactory())  //TODO: Move
+            .Override(new LabelLookupDeserializationTransformationFactory())
+            .Override(new VertexPropertyExtractDeserializationTransformationFactory())
+            .Override(new ArrayExtractDeserializationTransformationFactory())
+            .Override(new ArrayLiftingDeserializationTransformationFactory())
+            .Override(new TypedValueDeserializationTransformationFactory())
+            .Override(new ConvertMapsDeserializationTransformationFactory())
+            .Override(new BulkSetDeserializationTransformationFactory())
+            .Override(new TraverserDeserializationTransformationFactory())
             .Override<JValue, TimeSpan>(static (jValue, env, recurse) => jValue.Type == JTokenType.String
                 ? XmlConvert.ToTimeSpan(jValue.Value<string>()!)
                 : default(TimeSpan?))
@@ -575,12 +584,12 @@ namespace ExRam.Gremlinq.Core.Deserialization
                     case DateTimeOffset dateTimeOffset:
                         return dateTimeOffset;
                     default:
-                        {
-                            if (jValue.Type == JTokenType.Integer)
-                                return DateTimeOffset.FromUnixTimeMilliseconds(jValue.Value<long>());
+                    {
+                        if (jValue.Type == JTokenType.Integer)
+                            return DateTimeOffset.FromUnixTimeMilliseconds(jValue.Value<long>());
 
-                            break;
-                        }
+                        break;
+                    }
                 }
 
                 return default;
@@ -605,16 +614,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 return jValue.Type == JTokenType.String
                     ? Convert.FromBase64String(jValue.Value<string>()!)
                     : default;
-            })
-            .Override(new ExpandoObjectDeserializationTransformationFactory())  //TODO: Move
-            .Override(new LabelLookupDeserializationTransformationFactory())
-            .Override(new VertexPropertyExtractDeserializationTransformationFactory())
-            .Override(new ArrayExtractDeserializationTransformationFactory())
-            .Override(new ArrayLiftingDeserializationTransformationFactory())
-            .Override(new TypedValueDeserializationTransformationFactory())
-            .Override(new ConvertMapsDeserializationTransformationFactory())
-            .Override(new BulkSetDeserializationTransformationFactory())
-            .Override(new TraverserDeserializationTransformationFactory());
+            });
         // ReSharper restore ConvertToLambdaExpression
     }
 }
