@@ -193,15 +193,6 @@ namespace ExRam.Gremlinq.Core
         public static ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer Override<TSerialized, TRequested>(this ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer fragmentDeserializer, System.Func<TSerialized, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer, TRequested?> func)
             where TRequested :  struct { }
     }
-    public static class GremlinQueryFragmentDeserializerTypeExtensions
-    {
-        public static ExRam.Gremlinq.Core.GremlinQueryFragmentDeserializerTypeExtensions.FluentForType TryDeserialize(this ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer deserializer, System.Type type) { }
-        public readonly struct FluentForType
-        {
-            public FluentForType(ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer deserializer, System.Type type) { }
-            public object? From<TSerialized>(TSerialized serialized, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
-        }
-    }
     public static class GremlinQuerySource
     {
         public static readonly ExRam.Gremlinq.Core.IConfigurableGremlinQuerySource g;

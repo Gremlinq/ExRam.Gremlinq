@@ -4,7 +4,7 @@ using ExRam.Gremlinq.Core.Deserialization;
 
 namespace ExRam.Gremlinq.Core
 {
-    public static class GremlinQueryFragmentDeserializerTypeExtensions
+    internal static class GremlinQueryFragmentDeserializerTypeExtensions
     {
         public readonly struct FluentForType
         {
