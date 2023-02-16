@@ -609,11 +609,11 @@ namespace ExRam.Gremlinq.Core.Deserialization
             .Override(new ExpandoObjectDeserializationTransformationFactory())  //TODO: Move
             .Override(new LabelLookupDeserializationTransformationFactory())
             .Override(new VertexPropertyExtractDeserializationTransformationFactory())
+            .Override(new ArrayExtractDeserializationTransformationFactory())
+            .Override(new ArrayLiftingDeserializationTransformationFactory())
             .Override(new TypedValueDeserializationTransformationFactory())
             .Override(new ConvertMapsDeserializationTransformationFactory())
             .Override(new BulkSetDeserializationTransformationFactory())
-            .Override(new ArrayExtractDeserializationTransformationFactory())
-            .Override(new ArrayLiftingDeserializationTransformationFactory())
             .Override(new TraverserDeserializationTransformationFactory());
         // ReSharper restore ConvertToLambdaExpression
     }
