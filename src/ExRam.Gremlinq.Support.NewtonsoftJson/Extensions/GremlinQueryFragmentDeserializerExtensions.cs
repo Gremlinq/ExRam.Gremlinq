@@ -504,21 +504,19 @@ namespace ExRam.Gremlinq.Core.Deserialization
 
         private sealed class TraverserDeserializationTransformationFactory : IDeserializationTransformationFactory
         {
-            //TODO: Item type parameter
-            private sealed class TraverserDeserializationTransformation<TSerialized, TRequested> : IDeserializationTransformation<TSerialized, TRequested>
+            private sealed class TraverserDeserializationTransformation<TSerialized, TRequestedArray, TRequestedItem> : IDeserializationTransformation<TSerialized, TRequestedArray>
                 where TSerialized : JArray
             {
-                public bool Transform(TSerialized serialized, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse, [NotNullWhen(true)] out TRequested? value)
+                public bool Transform(TSerialized serialized, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse, [NotNullWhen(true)] out TRequestedArray? value)
                 {
                     //Traversers
-                    if (!environment.GetCache().FastNativeTypes.ContainsKey(typeof(TRequested)))
+                    if (!environment.GetCache().FastNativeTypes.ContainsKey(typeof(TRequestedArray)))
                     {
                         var array = default(ArrayList);
-                        var elementType = typeof(TRequested).GetElementType()!;
 
                         for (var i = 0; i < serialized.Count; i++)
                         {
-                            if (serialized[i] is JObject traverserObject && traverserObject.TryExpandTraverser(elementType, environment, recurse) is { } enumerable)
+                            if (serialized[i] is JObject traverserObject && traverserObject.TryExpandTraverser(typeof(TRequestedItem), environment, recurse) is { } enumerable)
                             {
                                 array ??= new ArrayList(serialized.Count);
 
@@ -527,7 +525,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                                     array.Add(item1);
                                 }
                             }
-                            else if (recurse.TryDeserialize(elementType).From(serialized[i], environment) is { } item2)
+                            else if (recurse.TryDeserialize<JToken, TRequestedItem>(serialized[i], environment, out var item2))
                             {
                                 array ??= new ArrayList(serialized.Count);
 
@@ -535,7 +533,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                             }
                         }
 
-                        value = (TRequested)(object)(array?.ToArray(elementType) ?? Array.CreateInstance(elementType, 0));
+                        value = (TRequestedArray)(object)(array?.ToArray(typeof(TRequestedItem)) ?? Array.CreateInstance(typeof(TRequestedItem), 0));
                         return true;
                     }
 
@@ -547,7 +545,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
             public IDeserializationTransformation<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
             {
                 return typeof(JArray).IsAssignableFrom(typeof(TSerialized)) && typeof(TRequested).IsArray
-                    ? (IDeserializationTransformation<TSerialized, TRequested>?)Activator.CreateInstance(typeof(TraverserDeserializationTransformation<,>).MakeGenericType(typeof(TSerialized), typeof(TRequested)))
+                    ? (IDeserializationTransformation<TSerialized, TRequested>?)Activator.CreateInstance(typeof(TraverserDeserializationTransformation<,,>).MakeGenericType(typeof(TSerialized), typeof(TRequested), typeof(TRequested).GetElementType()!))
                     : default;
             }
         }
