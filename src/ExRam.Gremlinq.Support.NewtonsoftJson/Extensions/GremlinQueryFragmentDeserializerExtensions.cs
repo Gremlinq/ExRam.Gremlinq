@@ -334,19 +334,19 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 {
                     if (serialized.TryGetValue("@type", out var typeName) && serialized.TryGetValue("@value", out var valueToken))
                     {
-                        var type = typeof(TRequested);
-
                         if (typeName.Type == JTokenType.String && typeName.Value<string>() is { } typeNameString && GraphSONTypes.TryGetValue(typeNameString, out var moreSpecificType))
                         {
-                            if (type != moreSpecificType && type.IsAssignableFrom(moreSpecificType))
-                                type = moreSpecificType;
+                            if (typeof(TRequested) != moreSpecificType && typeof(TRequested).IsAssignableFrom(moreSpecificType))
+                            {
+                                if (recurse.TryDeserialize(moreSpecificType).From(valueToken, environment) is TRequested requested)
+                                {
+                                    value = requested;
+                                    return true;
+                                }
+                            }
                         }
 
-                        if (recurse.TryDeserialize(type).From(valueToken, environment) is TRequested requested)
-                        {
-                            value = requested;
-                            return true;
-                        }
+                        return recurse.TryDeserialize(valueToken, environment, out value);
                     }
 
                     value = default;
