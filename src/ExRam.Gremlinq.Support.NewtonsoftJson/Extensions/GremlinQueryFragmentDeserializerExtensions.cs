@@ -235,7 +235,10 @@ namespace ExRam.Gremlinq.Core.Deserialization
                         var expando = new ExpandoObject();
 
                         foreach (var property in processedFragment)
-                            expando.TryAdd(property.Key, recurse.TryDeserialize<object>().From(property.Value, environment));
+                        {
+                            if (property.Value is { } propertyValue && recurse.TryDeserialize<JToken, object>(propertyValue, environment, out var item))
+                                expando.TryAdd(property.Key, item);
+                        }
 
                         value = (TRequested)(object)expando;
                         return true;
@@ -416,9 +419,15 @@ namespace ExRam.Gremlinq.Core.Deserialization
                                 for (var i = 0; i < setArray.Count; i += 2)
                                 {
                                     var element = recurse.TryDeserialize(elementType).From(setArray[i], environment);
-                                    var bulk = (int)recurse.TryDeserialize<int>().From(setArray[i + 1], environment)!;
 
-                                    for (var j = 0; j < bulk; j++)
+                                    if (recurse.TryDeserialize<JToken, int>(setArray[i + 1], environment, out var bulk) && bulk != 1)
+                                    {
+                                        for (var j = 0; j < bulk; j++)
+                                        {
+                                            array.Add(element);
+                                        }
+                                    }
+                                    else
                                         array.Add(element);
                                 }
 

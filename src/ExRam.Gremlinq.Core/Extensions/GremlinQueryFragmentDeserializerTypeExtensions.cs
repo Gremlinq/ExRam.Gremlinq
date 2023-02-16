@@ -55,10 +55,14 @@ namespace ExRam.Gremlinq.Core
             }
 
             private static Func<IGremlinQueryFragmentDeserializer, TSerialized, IGremlinQueryEnvironment, object?> FromClass<TSerialized, TFragment>()
-                where TFragment : class => (deserializer, serialized, environment) => deserializer.TryDeserialize<TFragment>().From(serialized, environment);
+                where TFragment : class => (deserializer, serialized, environment) => deserializer.TryDeserialize<TSerialized, TFragment>(serialized, environment, out var value)
+                    ? value
+                    : default;
 
             private static Func<IGremlinQueryFragmentDeserializer, TSerialized, IGremlinQueryEnvironment, object?> FromStruct<TSerialized, TFragment>()
-                where TFragment : struct => (deserializer, serialized, environment) => deserializer.TryDeserialize<TFragment>().From(serialized, environment);
+                where TFragment : struct => (deserializer, serialized, environment) => deserializer.TryDeserialize<TSerialized, TFragment>(serialized, environment, out var value)
+                    ? value
+                    : default(TFragment?);
         }
 
         public static FluentForType TryDeserialize(this IGremlinQueryFragmentDeserializer deserializer, Type type) => new(deserializer, type);
