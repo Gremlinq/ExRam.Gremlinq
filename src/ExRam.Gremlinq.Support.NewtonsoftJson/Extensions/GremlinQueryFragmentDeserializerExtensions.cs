@@ -395,6 +395,52 @@ namespace ExRam.Gremlinq.Core.Deserialization
             }
         }
 
+        private sealed class BulkSetDeserializationTransformationFactory : IDeserializationTransformationFactory
+        {
+            //TODO: Item Parameter
+            private sealed class BulkSetDeserializationTransformation<TSerialized, TRequested> : IDeserializationTransformation<TSerialized, TRequested>
+                where TSerialized : JObject
+            {
+                public bool Transform(TSerialized serialized, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse, [NotNullWhen(true)] out TRequested? value)
+                {
+                    if (!environment.GetCache().FastNativeTypes.ContainsKey(typeof(TRequested)))
+                    {
+                        var elementType = typeof(TRequested).GetElementType()!;
+
+                        if (serialized.TryGetValue("@type", out var typeToken) && "g:BulkSet".Equals(typeToken.Value<string>(), StringComparison.OrdinalIgnoreCase))
+                        {
+                            if (serialized.TryGetValue("@value", out var valueToken) && valueToken is JArray setArray)
+                            {
+                                var array = new ArrayList();
+
+                                for (var i = 0; i < setArray.Count; i += 2)
+                                {
+                                    var element = recurse.TryDeserialize(elementType).From(setArray[i], environment);
+                                    var bulk = (int)recurse.TryDeserialize<int>().From(setArray[i + 1], environment)!;
+
+                                    for (var j = 0; j < bulk; j++)
+                                        array.Add(element);
+                                }
+
+                                value = (TRequested)(object)array.ToArray(elementType);
+                                return true;
+                            }
+                        }
+                    }
+
+                    value = default;
+                    return false;
+                }
+            }
+
+            public IDeserializationTransformation<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
+            {
+                return typeof(TRequested).IsArray && typeof(JObject).IsAssignableFrom(typeof(TSerialized))
+                    ? (IDeserializationTransformation<TSerialized, TRequested>?)Activator.CreateInstance(typeof(BulkSetDeserializationTransformation<,>).MakeGenericType(typeof(TSerialized), typeof(TRequested)))
+                    : default;
+            }
+        }
+
         // ReSharper disable ConvertToLambdaExpression
         public static IGremlinQueryFragmentDeserializer AddNewtonsoftJson(this IGremlinQueryFragmentDeserializer deserializer) => deserializer
             .Override(new NewtonsoftJsonSerializerDeserializationTransformationFactory())
@@ -451,34 +497,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
             .Override(new VertexPropertyExtractDeserializationTransformationFactory())
             .Override(new TypedValueDeserializationTransformationFactory())
             .Override(new ConvertMapsDeserializationTransformationFactory())
-            .Override<JObject>(static (jObject, type, env, recurse) =>
-            {
-                if (type.IsArray && !env.GetCache().FastNativeTypes.ContainsKey(type))
-                {
-                    var elementType = type.GetElementType()!;
-
-                    if (jObject.TryGetValue("@type", out var typeToken) && "g:BulkSet".Equals(typeToken.Value<string>(), StringComparison.OrdinalIgnoreCase))
-                    {
-                        if (jObject.TryGetValue("@value", out var valueToken) && valueToken is JArray setArray)
-                        {
-                            var array = new ArrayList();
-
-                            for (var i = 0; i < setArray.Count; i += 2)
-                            {
-                                var element = recurse.TryDeserialize(elementType).From(setArray[i], env);
-                                var bulk = (int)recurse.TryDeserialize<int>().From(setArray[i + 1], env)!;
-
-                                for (var j = 0; j < bulk; j++)
-                                    array.Add(element);
-                            }
-
-                            return array.ToArray(elementType);
-                        }
-                    }
-                }
-
-                return default;
-            })
+            .Override(new BulkSetDeserializationTransformationFactory())
             .Override<JObject>(static (jObject, type, env, recurse) =>
             {
                 //Traversers
