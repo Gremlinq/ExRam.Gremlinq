@@ -441,46 +441,6 @@ namespace ExRam.Gremlinq.Core.Deserialization
             }
         }
 
-        private sealed class TravsererDeserializationTransformationFactory : IDeserializationTransformationFactory
-        {
-            //TODO: Item Parameter
-            private sealed class TraverserDeserializationTransformation<TSerialized, TRequested> : IDeserializationTransformation<TSerialized, TRequested>
-                where TSerialized : JObject
-            {
-                public bool Transform(TSerialized serialized, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse, [NotNullWhen(true)] out TRequested? value)
-                {
-                    //Traversers
-                    if (!environment.GetCache().FastNativeTypes.ContainsKey(typeof(TRequested)))
-                    {
-                        var elementType = typeof(TRequested).GetElementType()!;
-
-                        if (serialized.TryExpandTraverser(elementType, environment, recurse) is { } enumerable)
-                        {
-                            var array = new ArrayList();
-
-                            foreach (var item in enumerable)
-                            {
-                                array.Add(item);
-                            }
-
-                            value = (TRequested)(object)array.ToArray(elementType);
-                            return true;
-                        }
-                    }
-
-                    value = default;
-                    return false;
-                }
-            }
-
-            public IDeserializationTransformation<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
-            {
-                return typeof(TRequested).IsArray && typeof(JObject).IsAssignableFrom(typeof(TSerialized))
-                    ? (IDeserializationTransformation<TSerialized, TRequested>?)Activator.CreateInstance(typeof(TraverserDeserializationTransformation<,>).MakeGenericType(typeof(TSerialized), typeof(TRequested)))
-                    : default;
-            }
-        }
-
         private sealed class ArrayExtractDeserializationTransformationFactory : IDeserializationTransformationFactory
         {
             //TODO: Item Parameter
@@ -599,7 +559,6 @@ namespace ExRam.Gremlinq.Core.Deserialization
             .Override(new TypedValueDeserializationTransformationFactory())
             .Override(new ConvertMapsDeserializationTransformationFactory())
             .Override(new BulkSetDeserializationTransformationFactory())
-            .Override(new TravsererDeserializationTransformationFactory())
             .Override(new ArrayExtractDeserializationTransformationFactory())
             .Override(new ArrayLiftingDeserializationTransformationFactory())
             .Override<JArray>(static (jArray, type, env, recurse) =>
