@@ -587,10 +587,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 string dateTimeString when DateTime.TryParse(dateTimeString, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out var parseResult) => parseResult,
                 _ when jValue.Type == JTokenType.Integer => new DateTime(DateTimeOffset.FromUnixTimeMilliseconds(jValue.Value<long>()).Ticks, DateTimeKind.Utc),
                 _ => default(DateTime?)
-            })
-            .Override<JValue, byte[]>(static (jValue, env, recurse) => jValue.Type == JTokenType.String
-                ? Convert.FromBase64String(jValue.Value<string>()!)
-                : default);
+            });
         // ReSharper restore ConvertToLambdaExpression
     }
 }
