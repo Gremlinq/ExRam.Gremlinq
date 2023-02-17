@@ -13,8 +13,8 @@ namespace ExRam.Gremlinq.Core.Deserialization
             {
                 private Option(T value)
                 {
-                    HasValue = true;
                     Value = value;
+                    HasValue = true;
                 }
 
                 public T Value { get; }
@@ -39,17 +39,18 @@ namespace ExRam.Gremlinq.Core.Deserialization
                     var maybeDeserializerDelegate = _transformationDelegates
                         .GetOrAdd(
                             (typeof(TSerialized), actualSerialized.GetType(), typeof(TRequested)),
-                            static typeTuple =>
+                            static (typeTuple, @this) =>
                             {
                                 var (staticSerializedType, actualSerializedType, requestedType) = typeTuple;
 
                                 return (Delegate)typeof(GremlinQueryFragmentDeserializerImpl)
-                                    .GetMethod(nameof(GetDeserializationFunction), BindingFlags.Static | BindingFlags.NonPublic)!
+                                    .GetMethod(nameof(GetDeserializationFunction), BindingFlags.Instance | BindingFlags.NonPublic)!
                                     .MakeGenericMethod(staticSerializedType, actualSerializedType, requestedType)!
-                                    .Invoke(null, Array.Empty<object>())!;
-                            }) as Func<GremlinQueryFragmentDeserializerImpl, TSerialized, IGremlinQueryEnvironment, Option<TRequested>>;
+                                    .Invoke(@this, Array.Empty<object>())!;
+                            },
+                            this) as Func<TSerialized, IGremlinQueryEnvironment, Option<TRequested>>;
 
-                    if (maybeDeserializerDelegate is { } deserializerDelegate && deserializerDelegate(this, serialized, environment) is { HasValue: true, Value: { } optionValue })
+                    if (maybeDeserializerDelegate is { } deserializerDelegate && deserializerDelegate(serialized, environment) is { HasValue: true, Value: { } optionValue })
                     {
                         value = optionValue;
                         return true;
@@ -65,18 +66,18 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 return new GremlinQueryFragmentDeserializerImpl(_transformationFactories.Push(deserializer));
             }
 
-            private static Func<GremlinQueryFragmentDeserializerImpl, TStaticSerialized, IGremlinQueryEnvironment, Option<TRequested>> GetDeserializationFunction<TStaticSerialized, TActualSerialized, TRequested>()
+            private Func<TStaticSerialized, IGremlinQueryEnvironment, Option<TRequested>> GetDeserializationFunction<TStaticSerialized, TActualSerialized, TRequested>()
                 where TActualSerialized : TStaticSerialized
             {
-                return static (deserializer, staticSerialized, environment) =>
+                return (staticSerialized, environment) =>
                 {
                     if (staticSerialized is TActualSerialized actualSerialized)
                     {
-                        foreach (var transformationFactory in deserializer._transformationFactories)
+                        foreach (var transformationFactory in _transformationFactories)
                         {
                             if (transformationFactory.TryCreate<TActualSerialized, TRequested>() is { } transformation)
                             {
-                                if (transformation.Transform(actualSerialized, environment, deserializer, out var value))
+                                if (transformation.Transform(actualSerialized, environment, this, out var value))
                                     return Option<TRequested>.From(value);
                             }
                         }
