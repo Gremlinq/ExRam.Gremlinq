@@ -148,7 +148,7 @@ namespace ExRam.Gremlinq.Core
                     .Override<JValue, TimeSpan>(static (jValue, env, recurse) => TimeSpan.FromMilliseconds(jValue.Value<double>())));
         }
 
-        public static JsonSerializer GetJsonSerializer(this IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer deserializer)
+        internal static JsonSerializer GetJsonSerializer(this IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer deserializer)
         {
             return Caches
                 .GetValue(
