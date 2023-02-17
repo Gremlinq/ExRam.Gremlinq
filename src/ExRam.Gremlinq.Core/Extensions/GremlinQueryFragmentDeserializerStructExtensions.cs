@@ -41,7 +41,7 @@ namespace ExRam.Gremlinq.Core
 
             public IDeserializationTransformation<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
             {
-                return ((typeof(TSerialized).IsAssignableFrom(typeof(TStaticSerialized)) || typeof(TStaticSerialized).IsAssignableFrom(typeof(TSerialized))) && (typeof(TRequested) == typeof(TStaticRequested)))
+                return typeof(TStaticSerialized).IsAssignableFrom(typeof(TSerialized)) && (typeof(TRequested) == typeof(TStaticRequested))
                     ? (IDeserializationTransformation<TSerialized, TRequested>)(object)new FixedTypeDeserializationTransformation<TSerialized>(_func)
                     : null;
             }
