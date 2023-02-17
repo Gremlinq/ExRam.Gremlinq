@@ -116,6 +116,31 @@ namespace ExRam.Gremlinq.Core.Deserialization
             }
         }
 
+        private sealed class ToStringFallbackDeserializationTransformationFactory : IDeserializationTransformationFactory
+        {
+            private sealed class ToStringFallbackDeserializationTransformation<TSerialized, TRequested> : IDeserializationTransformation<TSerialized, TRequested>
+            {
+                public bool Transform(TSerialized serialized, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse, [NotNullWhen(true)] out TRequested? value)
+                {
+                    if (serialized?.ToString() is TRequested requested)
+                    {
+                        value = requested;
+                        return true;
+                    }
+
+                    value = default;
+                    return false;
+                }
+            }
+
+            public IDeserializationTransformation<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
+            {
+                return typeof(TRequested) == typeof(string)
+                    ? (IDeserializationTransformation<TSerialized, TRequested>?)Activator.CreateInstance(typeof(ToStringFallbackDeserializationTransformation<,>).MakeGenericType(typeof(TSerialized), typeof(TRequested)))
+                    : default;
+            }
+        }
+
         public static readonly IGremlinQueryFragmentDeserializer Identity = new GremlinQueryFragmentDeserializerImpl(ImmutableStack<IDeserializationTransformationFactory>.Empty)
             .Override(DeserializationTransformationFactory.Identity);
 
@@ -124,6 +149,6 @@ namespace ExRam.Gremlinq.Core.Deserialization
             .AddToStringFallback();
 
         public static IGremlinQueryFragmentDeserializer AddToStringFallback(this IGremlinQueryFragmentDeserializer deserializer) => deserializer
-            .Override<object, string>(static (data, env, recurse) => data.ToString());
+            .Override(new ToStringFallbackDeserializationTransformationFactory());
     }
 }
