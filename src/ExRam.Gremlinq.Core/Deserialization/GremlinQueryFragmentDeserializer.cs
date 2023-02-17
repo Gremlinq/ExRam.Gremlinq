@@ -118,11 +118,11 @@ namespace ExRam.Gremlinq.Core.Deserialization
 
         private sealed class ToStringFallbackDeserializationTransformationFactory : IDeserializationTransformationFactory
         {
-            private sealed class ToStringFallbackDeserializationTransformation<TSerialized, TRequested> : IDeserializationTransformation<TSerialized, TRequested>
+            private sealed class ToStringFallbackDeserializationTransformation<TSerialized> : IDeserializationTransformation<TSerialized, string>
             {
-                public bool Transform(TSerialized serialized, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse, [NotNullWhen(true)] out TRequested? value)
+                public bool Transform(TSerialized serialized, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse, [NotNullWhen(true)] out string? value)
                 {
-                    if (serialized?.ToString() is TRequested requested)
+                    if (serialized?.ToString() is { } requested)
                     {
                         value = requested;
                         return true;
@@ -136,7 +136,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
             public IDeserializationTransformation<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
             {
                 return typeof(TRequested) == typeof(string)
-                    ? (IDeserializationTransformation<TSerialized, TRequested>?)Activator.CreateInstance(typeof(ToStringFallbackDeserializationTransformation<,>).MakeGenericType(typeof(TSerialized), typeof(TRequested)))
+                    ? (IDeserializationTransformation<TSerialized, TRequested>)(object)new ToStringFallbackDeserializationTransformation<TSerialized>()
                     : default;
             }
         }
