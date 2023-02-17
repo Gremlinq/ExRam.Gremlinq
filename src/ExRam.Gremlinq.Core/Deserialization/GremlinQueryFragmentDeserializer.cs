@@ -69,17 +69,20 @@ namespace ExRam.Gremlinq.Core.Deserialization
             private Func<TStaticSerialized, IGremlinQueryEnvironment, Option<TRequested>> GetDeserializationFunction<TStaticSerialized, TActualSerialized, TRequested>()
                 where TActualSerialized : TStaticSerialized
             {
+                var transformations = _transformationFactories
+                    .Select(factory => factory.TryCreate<TActualSerialized, TRequested>())
+                    .Where(transformation => transformation != null)
+                    .Select(transformation => transformation!)
+                    .ToArray();
+
                 return (staticSerialized, environment) =>
                 {
                     if (staticSerialized is TActualSerialized actualSerialized)
                     {
-                        foreach (var transformationFactory in _transformationFactories)
+                        foreach (var transformation in transformations)
                         {
-                            if (transformationFactory.TryCreate<TActualSerialized, TRequested>() is { } transformation)
-                            {
-                                if (transformation.Transform(actualSerialized, environment, this, out var value))
-                                    return Option<TRequested>.From(value);
-                            }
+                            if (transformation.Transform(actualSerialized, environment, this, out var value))
+                                return Option<TRequested>.From(value);
                         }
                     }
 
