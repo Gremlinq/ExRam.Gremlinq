@@ -573,48 +573,24 @@ namespace ExRam.Gremlinq.Core.Deserialization
             .Override<JValue, TimeSpan>(static (jValue, env, recurse) => jValue.Type == JTokenType.String
                 ? XmlConvert.ToTimeSpan(jValue.Value<string>()!)
                 : default(TimeSpan?))
-            .Override<JValue, DateTimeOffset>(static (jValue, env, recurse) =>
+            .Override<JValue, DateTimeOffset>(static (jValue, env, recurse) => jValue.Value switch
             {
-                switch (jValue.Value)
-                {
-                    case DateTime dateTime:
-                        return new DateTimeOffset(dateTime);
-                    case DateTimeOffset dateTimeOffset:
-                        return dateTimeOffset;
-                    default:
-                    {
-                        if (jValue.Type == JTokenType.Integer)
-                            return DateTimeOffset.FromUnixTimeMilliseconds(jValue.Value<long>());
-
-                        break;
-                    }
-                }
-
-                return default;
+                DateTime dateTime => new DateTimeOffset(dateTime),
+                DateTimeOffset dateTimeOffset => dateTimeOffset,
+                _ when jValue.Type == JTokenType.Integer => DateTimeOffset.FromUnixTimeMilliseconds(jValue.Value<long>()),
+                _ => default(DateTimeOffset?)
             })
-            .Override<JValue, DateTime>(static (jValue, env, recurse) =>
+            .Override<JValue, DateTime>(static (jValue, env, recurse) => jValue.Value switch
             {
-                switch (jValue.Value)
-                {
-                    case DateTime dateTime:
-                        return dateTime;
-                    case DateTimeOffset dateTimeOffset:
-                        return dateTimeOffset.UtcDateTime;
-                    case string dateTimeString when DateTime.TryParse(dateTimeString, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out var parseResult):
-                        return parseResult;
-                }
-
-                if (jValue.Type == JTokenType.Integer)
-                    return new DateTime(DateTimeOffset.FromUnixTimeMilliseconds(jValue.Value<long>()).Ticks, DateTimeKind.Utc);
-
-                return default;
+                DateTime dateTime => dateTime,
+                DateTimeOffset dateTimeOffset => dateTimeOffset.UtcDateTime,
+                string dateTimeString when DateTime.TryParse(dateTimeString, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out var parseResult) => parseResult,
+                _ when jValue.Type == JTokenType.Integer => new DateTime(DateTimeOffset.FromUnixTimeMilliseconds(jValue.Value<long>()).Ticks, DateTimeKind.Utc),
+                _ => default(DateTime?)
             })
-            .Override<JValue, byte[]>(static (jValue, env, recurse) =>
-            {
-                return jValue.Type == JTokenType.String
-                    ? Convert.FromBase64String(jValue.Value<string>()!)
-                    : default;
-            });
+            .Override<JValue, byte[]>(static (jValue, env, recurse) => jValue.Type == JTokenType.String
+                ? Convert.FromBase64String(jValue.Value<string>()!)
+                : default);
         // ReSharper restore ConvertToLambdaExpression
     }
 }
