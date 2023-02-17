@@ -6,6 +6,7 @@ using System.Xml;
 using System.Numerics;
 using ExRam.Gremlinq.Core.GraphElements;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 
 namespace ExRam.Gremlinq.Core.Deserialization
 {
@@ -192,19 +193,17 @@ namespace ExRam.Gremlinq.Core.Deserialization
             {
                 public bool Transform(TSerialized serialized, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse, [NotNullWhen(true)] out TRequested? value)
                 {
-                    if (serialized.Value is TRequested serializedValue)
+					if (serialized.Value is TRequested serializedValue)
                     {
                         value = serializedValue;
                         return true;
                     }
 
-                    if (serialized.Value is { } otherSerializedValue)
+                    if (environment.GetCache().FastNativeTypes.ContainsKey(typeof(TRequested)))
                     {
-                        var type = typeof(TRequested);
-
-                        if (type == typeof(int) || type == typeof(byte) || type == typeof(sbyte) || type == typeof(ushort) || type == typeof(short) || type == typeof(uint) || type == typeof(ulong) || type == typeof(long) || type == typeof(float) || type == typeof(double))
+                        if (serialized.ToObject<TRequested>() is { } convertedSerializedValue)
                         {
-                            value = (TRequested)Convert.ChangeType(otherSerializedValue, type);
+                            value = convertedSerializedValue;
                             return true;
                         }
                     }
@@ -601,6 +600,8 @@ namespace ExRam.Gremlinq.Core.Deserialization
                         return dateTime;
                     case DateTimeOffset dateTimeOffset:
                         return dateTimeOffset.UtcDateTime;
+                    case string dateTimeString when DateTime.TryParse(dateTimeString, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out var parseResult):
+                        return parseResult;
                 }
 
                 if (jValue.Type == JTokenType.Integer)
