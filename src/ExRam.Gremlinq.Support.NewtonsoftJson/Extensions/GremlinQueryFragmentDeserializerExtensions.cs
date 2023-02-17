@@ -558,7 +558,6 @@ namespace ExRam.Gremlinq.Core.Deserialization
             .Override(new NewtonsoftJsonSerializerDeserializationTransformationFactory())
             .Override(new VertexOrEdgeDeserializationTransformationFactory())
             .Override(new SingleItemArrayFallbackDeserializationTransformationFactory())
-            .Override(new NullableDeserializationTransformationFactory())
             .Override(new PropertyDeserializationTransformationFactory())
             .Override(new ExpandoObjectDeserializationTransformationFactory())  //TODO: Move
             .Override(new LabelLookupDeserializationTransformationFactory())
@@ -569,6 +568,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
             .Override(new ConvertMapsDeserializationTransformationFactory())
             .Override(new BulkSetDeserializationTransformationFactory())
             .Override(new TraverserDeserializationTransformationFactory())
+            .Override(new NullableDeserializationTransformationFactory())
             .Override(new NativeTypeDeserializationTransformationFactory())
             .Override<JValue, TimeSpan>(static (jValue, env, recurse) => jValue.Type == JTokenType.String
                 ? XmlConvert.ToTimeSpan(jValue.Value<string>()!)
