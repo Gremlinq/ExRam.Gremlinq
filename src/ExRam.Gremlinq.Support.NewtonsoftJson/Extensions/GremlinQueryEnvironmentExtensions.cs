@@ -107,11 +107,11 @@ namespace ExRam.Gremlinq.Core
                 public GraphsonJsonSerializer(
                     DefaultValueHandling defaultValueHandling,
                     IGremlinQueryEnvironment environment,
-                    IDeserializer fragmentDeserializer)
+                    IDeserializer deserializer)
                 {
                     DefaultValueHandling = defaultValueHandling;
                     ContractResolver = new GremlinContractResolver(environment.Model.PropertiesModel);
-                    Converters.Add(new JTokenConverterConverter(fragmentDeserializer, environment));
+                    Converters.Add(new JTokenConverterConverter(deserializer, environment));
                 }
             }
 
@@ -126,12 +126,12 @@ namespace ExRam.Gremlinq.Core
                     closure);
             }
 
-            public JsonSerializer GetSerializer(IDeserializer fragmentDeserializer)
+            public JsonSerializer GetSerializer(IDeserializer deserializer)
             {
                 GraphsonJsonSerializer.JTokenConverterConverter._canConvert = false;
 
                 return _serializers.GetValue(
-                    fragmentDeserializer,
+                    deserializer,
                     _serializerFactory);
             }
         }
