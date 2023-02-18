@@ -183,16 +183,6 @@ namespace ExRam.Gremlinq.Core
         public static System.Threading.Tasks.ValueTask<TElement?> SingleOrDefaultAsync<TElement>(this ExRam.Gremlinq.Core.IGremlinQueryBase<TElement> query, System.Threading.CancellationToken ct = default) { }
         public static System.Threading.Tasks.ValueTask<TElement[]> ToArrayAsync<TElement>(this ExRam.Gremlinq.Core.IGremlinQueryBase<TElement> query, System.Threading.CancellationToken ct = default) { }
     }
-    public static class GremlinQueryFragmentDeserializerClassExtensions
-    {
-        public static ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer Override<TSerialized, TRequested>(this ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer fragmentDeserializer, System.Func<TSerialized, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer, TRequested?> func)
-            where TRequested :  class { }
-    }
-    public static class GremlinQueryFragmentDeserializerStructExtensions
-    {
-        public static ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer Override<TSerialized, TRequested>(this ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer fragmentDeserializer, System.Func<TSerialized, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer, TRequested?> func)
-            where TRequested :  struct { }
-    }
     public static class GremlinQuerySource
     {
         public static readonly ExRam.Gremlinq.Core.IConfigurableGremlinQuerySource g;
