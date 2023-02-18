@@ -97,10 +97,9 @@ namespace ExRam.Gremlinq.Core.Deserialization
             {
                 public bool Transform(TSerialized serialized, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse, [NotNullWhen(true)] out TRequested? value)
                 {
-                    if (typeof(TRequested).IsInstanceOfType(serialized))
+                    if (serialized is TRequested requested)
                     {
-                        value = (TRequested)(object)serialized!;
-
+                        value = requested;
                         return true;
                     }
 
