@@ -1,9 +1,5 @@
 ﻿namespace ExRam.Gremlinq.Core.Deserialization
 {
-    public static class ConverterFactory
-    {
-        public static readonly ExRam.Gremlinq.Core.Deserialization.IConverterFactory Identity;
-    }
     public static class GremlinQueryFragmentDeserializer
     {
         public static readonly ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer Default;
