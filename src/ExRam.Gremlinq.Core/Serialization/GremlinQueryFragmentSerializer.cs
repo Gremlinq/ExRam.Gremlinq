@@ -341,7 +341,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                         span[i - j] = sourceStep;
                 }
 
-                return overridden(steps[..(steps.Length - j)], env, recurse);
+                return overridden(steps[..^j], env, recurse);
             })
             .Override<MinStep>(static (step, env, _, recurse) => step.Scope.Equals(Scope.Local)
                 ? CreateInstruction("min", recurse, env, step.Scope)

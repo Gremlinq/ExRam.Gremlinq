@@ -10,7 +10,7 @@
     {
         ExRam.Gremlinq.Core.Deserialization.IConverter<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>();
     }
-    public interface IConverter<TSerialized, TRequested>
+    public interface IConverter<in TSerialized, TRequested>
     {
         bool Transform(TSerialized serialized, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Deserialization.IDeserializer recurse, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out TRequested? value);
     }
