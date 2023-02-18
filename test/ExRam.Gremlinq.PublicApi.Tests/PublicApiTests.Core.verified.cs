@@ -1,8 +1,8 @@
 ﻿namespace ExRam.Gremlinq.Core.Deserialization
 {
-    public static class DeserializationTransformationFactory
+    public static class ConverterFactory
     {
-        public static readonly ExRam.Gremlinq.Core.Deserialization.IDeserializationTransformationFactory Identity;
+        public static readonly ExRam.Gremlinq.Core.Deserialization.IConverterFactory Identity;
     }
     public static class GremlinQueryFragmentDeserializer
     {
@@ -10,17 +10,17 @@
         public static readonly ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer Identity;
         public static ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer AddToStringFallback(this ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer deserializer) { }
     }
-    public interface IDeserializationTransformationFactory
+    public interface IConverterFactory
     {
-        ExRam.Gremlinq.Core.Deserialization.IDeserializationTransformation<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>();
+        ExRam.Gremlinq.Core.Deserialization.IConverter<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>();
     }
-    public interface IDeserializationTransformation<TSerialized, TRequested>
+    public interface IConverter<TSerialized, TRequested>
     {
         bool Transform(TSerialized serialized, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer recurse, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out TRequested? value);
     }
     public interface IGremlinQueryFragmentDeserializer
     {
-        ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer Add(ExRam.Gremlinq.Core.Deserialization.IDeserializationTransformationFactory transformationFactory);
+        ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer Add(ExRam.Gremlinq.Core.Deserialization.IConverterFactory transformationFactory);
         bool TryDeserialize<TSerialized, TRequested>(TSerialized serialized, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out TRequested? value);
     }
 }

@@ -2,11 +2,11 @@
 
 namespace ExRam.Gremlinq.Core.Deserialization
 {
-    public static class DeserializationTransformationFactory
+    public static class ConverterFactory
     {
-        private sealed class IdentityDeserializationTransformationFactory : IDeserializationTransformationFactory
+        private sealed class IdentityConverterFactory : IConverterFactory
         {
-            private sealed class IdentityDeserializationTransformation<TSerialized, TRequested> : IDeserializationTransformation<TSerialized, TRequested>
+            private sealed class IdentityConverter<TSerialized, TRequested> : IConverter<TSerialized, TRequested>
             {
                 public bool Transform(TSerialized serialized, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse, [NotNullWhen(true)] out TRequested? value)
                 {
@@ -22,9 +22,9 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 }
             }
 
-            public IDeserializationTransformation<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>() => new IdentityDeserializationTransformation<TSerialized, TRequested>();
+            public IConverter<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>() => new IdentityConverter<TSerialized, TRequested>();
         }
 
-        public static readonly IDeserializationTransformationFactory Identity = new IdentityDeserializationTransformationFactory();
+        public static readonly IConverterFactory Identity = new IdentityConverterFactory();
     }
 }
