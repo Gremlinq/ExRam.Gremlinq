@@ -162,7 +162,7 @@ namespace ExRam.Gremlinq.Core
     {
         public static readonly ExRam.Gremlinq.Core.IGremlinQueryEnvironment Default;
         public static readonly ExRam.Gremlinq.Core.IGremlinQueryEnvironment Empty;
-        public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment RegisterNativeType<TNative>(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Serialization.GremlinQueryFragmentSerializerDelegate<TNative> serializerDelegate, System.Func<ExRam.Gremlinq.Core.Deserialization.IDeserializer, ExRam.Gremlinq.Core.Deserialization.IDeserializer> fragmentDeserializerTransformation) { }
+        public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment RegisterNativeType<TNative>(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Serialization.GremlinQueryFragmentSerializerDelegate<TNative> serializerDelegate, System.Func<ExRam.Gremlinq.Core.Deserialization.IDeserializer, ExRam.Gremlinq.Core.Deserialization.IDeserializer> deserializerTransformation) { }
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment StoreByteArraysAsBase64String(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseDebugger(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.IGremlinQueryDebugger debugger) { }
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseDeserializer(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Deserialization.IDeserializer deserializer) { }

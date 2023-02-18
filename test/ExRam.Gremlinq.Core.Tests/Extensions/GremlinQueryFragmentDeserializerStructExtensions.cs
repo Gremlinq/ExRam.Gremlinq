@@ -68,10 +68,10 @@ namespace ExRam.Gremlinq.Core
             return new FluentForStruct<TRequested>(deserializer);
         }
 
-        public static IDeserializer Override<TSerialized, TRequested>(this IDeserializer fragmentDeserializer, Func<TSerialized, IGremlinQueryEnvironment, IDeserializer, TRequested?> func)
+        public static IDeserializer Override<TSerialized, TRequested>(this IDeserializer deserializer, Func<TSerialized, IGremlinQueryEnvironment, IDeserializer, TRequested?> func)
             where TRequested : struct
         {
-            return fragmentDeserializer
+            return deserializer
                 .Add(new FixedTypeConverterFactory<TSerialized, TRequested>(func));
         }
     }
