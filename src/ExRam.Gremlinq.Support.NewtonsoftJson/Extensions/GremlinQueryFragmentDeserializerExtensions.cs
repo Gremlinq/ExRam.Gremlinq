@@ -581,24 +581,24 @@ namespace ExRam.Gremlinq.Core.Deserialization
 
         // ReSharper disable ConvertToLambdaExpression
         public static IGremlinQueryFragmentDeserializer AddNewtonsoftJson(this IGremlinQueryFragmentDeserializer deserializer) => deserializer
-            .Override(new NewtonsoftJsonSerializerDeserializationTransformationFactory())
-            .Override(new VertexOrEdgeDeserializationTransformationFactory())
-            .Override(new SingleItemArrayFallbackDeserializationTransformationFactory())
-            .Override(new PropertyDeserializationTransformationFactory())
-            .Override(new ExpandoObjectDeserializationTransformationFactory())  //TODO: Move
-            .Override(new LabelLookupDeserializationTransformationFactory())
-            .Override(new VertexPropertyExtractDeserializationTransformationFactory())
-            .Override(new ArrayExtractDeserializationTransformationFactory())
-            .Override(new ArrayLiftingDeserializationTransformationFactory())
-            .Override(new TypedValueDeserializationTransformationFactory())
-            .Override(new ConvertMapsDeserializationTransformationFactory())
-            .Override(new BulkSetDeserializationTransformationFactory())
-            .Override(new TraverserDeserializationTransformationFactory())
-            .Override(new NullableDeserializationTransformationFactory())
-            .Override(new NativeTypeDeserializationTransformationFactory())
-            .Override(new TimeSpanDeserializationTransformationFactory())
-            .Override(new DateTimeOffsetDeserializationTransformationFactory())
-            .Override(new DateTimeDeserializationTransformationFactory());
+            .Add(new NewtonsoftJsonSerializerDeserializationTransformationFactory())
+            .Add(new VertexOrEdgeDeserializationTransformationFactory())
+            .Add(new SingleItemArrayFallbackDeserializationTransformationFactory())
+            .Add(new PropertyDeserializationTransformationFactory())
+            .Add(new ExpandoObjectDeserializationTransformationFactory())  //TODO: Move
+            .Add(new LabelLookupDeserializationTransformationFactory())
+            .Add(new VertexPropertyExtractDeserializationTransformationFactory())
+            .Add(new ArrayExtractDeserializationTransformationFactory())
+            .Add(new ArrayLiftingDeserializationTransformationFactory())
+            .Add(new TypedValueDeserializationTransformationFactory())
+            .Add(new ConvertMapsDeserializationTransformationFactory())
+            .Add(new BulkSetDeserializationTransformationFactory())
+            .Add(new TraverserDeserializationTransformationFactory())
+            .Add(new NullableDeserializationTransformationFactory())
+            .Add(new NativeTypeDeserializationTransformationFactory())
+            .Add(new TimeSpanDeserializationTransformationFactory())
+            .Add(new DateTimeOffsetDeserializationTransformationFactory())
+            .Add(new DateTimeDeserializationTransformationFactory());
         // ReSharper restore ConvertToLambdaExpression
     }
 }

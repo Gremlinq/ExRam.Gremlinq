@@ -20,7 +20,7 @@
     }
     public interface IGremlinQueryFragmentDeserializer
     {
-        ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer Override(ExRam.Gremlinq.Core.Deserialization.IDeserializationTransformationFactory transformationFactory);
+        ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer Add(ExRam.Gremlinq.Core.Deserialization.IDeserializationTransformationFactory transformationFactory);
         bool TryDeserialize<TSerialized, TRequested>(TSerialized serialized, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out TRequested? value);
     }
 }

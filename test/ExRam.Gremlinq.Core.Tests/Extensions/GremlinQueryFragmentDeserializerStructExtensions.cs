@@ -72,7 +72,7 @@ namespace ExRam.Gremlinq.Core
             where TRequested : struct
         {
             return fragmentDeserializer
-                .Override(new FixedTypeDeserializationTransformationFactory<TSerialized, TRequested>(func));
+                .Add(new FixedTypeDeserializationTransformationFactory<TSerialized, TRequested>(func));
         }
     }
 }
