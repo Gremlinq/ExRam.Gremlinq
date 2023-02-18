@@ -3,14 +3,14 @@ using ExRam.Gremlinq.Core.Deserialization;
 
 namespace ExRam.Gremlinq.Core
 {
-    public static class GremlinQueryFragmentDeserializerStructExtensions
+    public static class DeserializerStructExtensions
     {
         public readonly struct FluentForStruct<TRequested>
             where TRequested : struct
         {
-            private readonly IGremlinQueryFragmentDeserializer _deserializer;
+            private readonly IDeserializer _deserializer;
 
-            public FluentForStruct(IGremlinQueryFragmentDeserializer deserializer)
+            public FluentForStruct(IDeserializer deserializer)
             {
                 _deserializer = deserializer;
             }
@@ -25,14 +25,14 @@ namespace ExRam.Gremlinq.Core
         {
             private sealed class FixedTypeConverter<TSerialized> : IConverter<TSerialized, TStaticRequested>
             {
-                private readonly Func<TStaticSerialized, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, TStaticRequested?> _func;
+                private readonly Func<TStaticSerialized, IGremlinQueryEnvironment, IDeserializer, TStaticRequested?> _func;
 
-                public FixedTypeConverter(Func<TStaticSerialized, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, TStaticRequested?> func)
+                public FixedTypeConverter(Func<TStaticSerialized, IGremlinQueryEnvironment, IDeserializer, TStaticRequested?> func)
                 {
                     _func = func;
                 }
 
-                public bool Transform(TSerialized serialized, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse, [NotNullWhen(true)] out TStaticRequested value)
+                public bool Transform(TSerialized serialized, IGremlinQueryEnvironment environment, IDeserializer recurse, [NotNullWhen(true)] out TStaticRequested value)
                 {
                     if (serialized is TStaticSerialized staticSerialized && _func(staticSerialized, environment, recurse) is { } requested)
                     {
@@ -47,9 +47,9 @@ namespace ExRam.Gremlinq.Core
                 }
             }
 
-            private readonly Func<TStaticSerialized, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, TStaticRequested?> _func;
+            private readonly Func<TStaticSerialized, IGremlinQueryEnvironment, IDeserializer, TStaticRequested?> _func;
 
-            public FixedTypeConverterFactory(Func<TStaticSerialized, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, TStaticRequested?> func)
+            public FixedTypeConverterFactory(Func<TStaticSerialized, IGremlinQueryEnvironment, IDeserializer, TStaticRequested?> func)
             {
                 _func = func;
             }
@@ -62,13 +62,13 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        public static FluentForStruct<TRequested> TryDeserialize<TRequested>(this IGremlinQueryFragmentDeserializer deserializer)
+        public static FluentForStruct<TRequested> TryDeserialize<TRequested>(this IDeserializer deserializer)
             where TRequested : struct
         {
             return new FluentForStruct<TRequested>(deserializer);
         }
 
-        public static IGremlinQueryFragmentDeserializer Override<TSerialized, TRequested>(this IGremlinQueryFragmentDeserializer fragmentDeserializer, Func<TSerialized, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, TRequested?> func)
+        public static IDeserializer Override<TSerialized, TRequested>(this IDeserializer fragmentDeserializer, Func<TSerialized, IGremlinQueryEnvironment, IDeserializer, TRequested?> func)
             where TRequested : struct
         {
             return fragmentDeserializer

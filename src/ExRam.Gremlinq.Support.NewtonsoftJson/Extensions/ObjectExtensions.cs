@@ -11,22 +11,22 @@ namespace System
     {
         private static class Info<TElement>
         {
-            private static readonly ConcurrentDictionary<IGremlinQueryEnvironment, Action<TElement, JToken, IGremlinQueryFragmentDeserializer>?> IdSetters = new();
-            private static readonly ConcurrentDictionary<IGremlinQueryEnvironment, Action<TElement, JToken, IGremlinQueryFragmentDeserializer>?> LabelSetters = new();
+            private static readonly ConcurrentDictionary<IGremlinQueryEnvironment, Action<TElement, JToken, IDeserializer>?> IdSetters = new();
+            private static readonly ConcurrentDictionary<IGremlinQueryEnvironment, Action<TElement, JToken, IDeserializer>?> LabelSetters = new();
 
-            public static void SetId(TElement element, JToken idToken, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse)
+            public static void SetId(TElement element, JToken idToken, IGremlinQueryEnvironment environment, IDeserializer recurse)
             {
                 if (TryGetSetter(IdSetters, T.Id, environment) is { } idSetter)
                     idSetter(element, idToken, recurse);
             }
 
-            public static void SetLabel(TElement element, JToken idToken, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse)
+            public static void SetLabel(TElement element, JToken idToken, IGremlinQueryEnvironment environment, IDeserializer recurse)
             {
                 if (TryGetSetter(LabelSetters, T.Label, environment) is { } labelSetter)
                     labelSetter(element, idToken, recurse);
             }
 
-            private static Action<TElement, JToken, IGremlinQueryFragmentDeserializer>? TryGetSetter(ConcurrentDictionary<IGremlinQueryEnvironment, Action<TElement, JToken, IGremlinQueryFragmentDeserializer>?> dict, T relevantT, IGremlinQueryEnvironment environment)
+            private static Action<TElement, JToken, IDeserializer>? TryGetSetter(ConcurrentDictionary<IGremlinQueryEnvironment, Action<TElement, JToken, IDeserializer>?> dict, T relevantT, IGremlinQueryEnvironment environment)
             {
                 return dict
                     .GetOrAdd(
@@ -43,7 +43,7 @@ namespace System
 
                                 if (info.key.RawKey is T t && relevantT.Equals(t) && info.propertyInfo is { } propertyInfo)
                                 {
-                                    return (Action<TElement, JToken, IGremlinQueryFragmentDeserializer>)typeof(Info<TElement>)
+                                    return (Action<TElement, JToken, IDeserializer>)typeof(Info<TElement>)
                                         .GetMethod(nameof(CreateSetter), BindingFlags.NonPublic | BindingFlags.Static)!
                                         .MakeGenericMethod(propertyInfo.PropertyType)
                                         .Invoke(null, new object[] { propertyInfo, environment })!;
@@ -55,7 +55,7 @@ namespace System
                         relevantT);
             }
 
-            private static Action<TElement, JToken, IGremlinQueryFragmentDeserializer>? CreateSetter<TProperty>(PropertyInfo propertyInfo, IGremlinQueryEnvironment environment)
+            private static Action<TElement, JToken, IDeserializer>? CreateSetter<TProperty>(PropertyInfo propertyInfo, IGremlinQueryEnvironment environment)
             {
                 return (element, token, recurse) =>
                 {
@@ -66,7 +66,7 @@ namespace System
         }
 
 
-        public static TElement SetIdAndLabel<TElement>(this TElement element, JToken idToken, JToken labelToken, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse)
+        public static TElement SetIdAndLabel<TElement>(this TElement element, JToken idToken, JToken labelToken, IGremlinQueryEnvironment environment, IDeserializer recurse)
         {
             Info<TElement>.SetId(element, idToken, environment, recurse);
             Info<TElement>.SetLabel(element, labelToken, environment, recurse);

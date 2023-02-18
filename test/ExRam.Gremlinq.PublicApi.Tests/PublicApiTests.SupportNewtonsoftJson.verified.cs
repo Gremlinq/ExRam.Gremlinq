@@ -1,8 +1,8 @@
 ﻿namespace ExRam.Gremlinq.Core.Deserialization
 {
-    public static class GremlinQueryFragmentDeserializerExtensions
+    public static class DeserializerExtensions
     {
-        public static ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer AddNewtonsoftJson(this ExRam.Gremlinq.Core.Deserialization.IGremlinQueryFragmentDeserializer deserializer) { }
+        public static ExRam.Gremlinq.Core.Deserialization.IDeserializer AddNewtonsoftJson(this ExRam.Gremlinq.Core.Deserialization.IDeserializer deserializer) { }
     }
 }
 namespace ExRam.Gremlinq.Core

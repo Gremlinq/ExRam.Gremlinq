@@ -14,13 +14,13 @@
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:ExRam.Gremlinq.Core.Deserialization.BaseGremlinQueryFragmentDeserializerDelegate`1.#ctor(System.Object,System.IntPtr)</Target>
+    <Target>M:ExRam.Gremlinq.Core.Deserialization.BaseDeserializerDelegate`1.#ctor(System.Object,System.IntPtr)</Target>
     <Left>lib/net6.0/ExRam.Gremlinq.Core.dll</Left>
     <Right>lib/net7.0/ExRam.Gremlinq.Core.dll</Right>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:ExRam.Gremlinq.Core.Deserialization.GremlinQueryFragmentDeserializerDelegate`1.#ctor(System.Object,System.IntPtr)</Target>
+    <Target>M:ExRam.Gremlinq.Core.Deserialization.DeserializerDelegate`1.#ctor(System.Object,System.IntPtr)</Target>
     <Left>lib/net6.0/ExRam.Gremlinq.Core.dll</Left>
     <Right>lib/net7.0/ExRam.Gremlinq.Core.dll</Right>
   </Suppression>

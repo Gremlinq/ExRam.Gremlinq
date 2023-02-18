@@ -3,9 +3,9 @@ using Gremlin.Net.Structure.IO.GraphSON;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public static class GremlinQueryFragmentDeserializerExtensions
+    public static class DeserializerExtensions
     {
-        public static IGremlinQueryFragmentDeserializer ToGraphsonString(this IGremlinQueryFragmentDeserializer deserializer)
+        public static IDeserializer ToGraphsonString(this IDeserializer deserializer)
         {
             return deserializer
                 .Override<object, string>(static (data, env, recurse) => new GraphSON2Writer().WriteObject(data));

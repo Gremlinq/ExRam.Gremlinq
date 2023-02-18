@@ -5,7 +5,7 @@ namespace Newtonsoft.Json.Linq
 {
     internal static class JTokenExtensions
     {
-        public static IEnumerable<TItem>? TryExpandTraverser<TItem>(this JObject jObject, IGremlinQueryEnvironment env, IGremlinQueryFragmentDeserializer recurse)
+        public static IEnumerable<TItem>? TryExpandTraverser<TItem>(this JObject jObject, IGremlinQueryEnvironment env, IDeserializer recurse)
         {
             if (jObject.TryGetValue("@type", out var nestedType) && "g:Traverser".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase) && jObject.TryGetValue("@value", out var valueToken) && valueToken is JObject nestedTraverserObject)
             {
