@@ -30,39 +30,39 @@ namespace ExRam.Gremlinq.Core
                     : default;
             }
 
-            private static Delegate? TryGetDelegate(Type serializedType, Type fragmentType)
+            private static Delegate? TryGetDelegate(Type serializedType, Type requestedType)
             {
-                var delegatesDict = fragmentType.IsValueType
+                var delegatesDict = requestedType.IsValueType
                     ? FromStructDelegates
                     : FromClassDelegates;
 
                 return delegatesDict
                     .GetOrAdd(
-                        (serializedType, fragmentType),
+                        (serializedType, requestedType),
                         static tuple =>
                         {
-                            var (serializedType, fragmentType) = tuple;
+                            var (serializedType, requestedType) = tuple;
 
-                            var methodName = fragmentType.IsValueType
+                            var methodName = requestedType.IsValueType
                                 ? nameof(FromStruct)
                                 : nameof(FromClass);
 
                             return typeof(FluentForType)
                                 .GetMethod(methodName, BindingFlags.Static | BindingFlags.NonPublic)!
-                                .MakeGenericMethod(serializedType, fragmentType)
+                                .MakeGenericMethod(serializedType, requestedType)
                                 .Invoke(null, Array.Empty<object>()) as Delegate;
                         });
             }
 
-            private static Func<IDeserializer, TSerialized, IGremlinQueryEnvironment, object?> FromClass<TSerialized, TFragment>()
-                where TFragment : class => (deserializer, serialized, environment) => deserializer.TryDeserialize<TSerialized, TFragment>(serialized, environment, out var value)
+            private static Func<IDeserializer, TSerialized, IGremlinQueryEnvironment, object?> FromClass<TSerialized, TRequested>()
+                where TRequested : class => (deserializer, serialized, environment) => deserializer.TryDeserialize<TSerialized, TRequested>(serialized, environment, out var value)
                     ? value
                     : default;
 
-            private static Func<IDeserializer, TSerialized, IGremlinQueryEnvironment, object?> FromStruct<TSerialized, TFragment>()
-                where TFragment : struct => (deserializer, serialized, environment) => deserializer.TryDeserialize<TSerialized, TFragment>(serialized, environment, out var value)
+            private static Func<IDeserializer, TSerialized, IGremlinQueryEnvironment, object?> FromStruct<TSerialized, TRequested>()
+                where TRequested : struct => (deserializer, serialized, environment) => deserializer.TryDeserialize<TSerialized, TRequested>(serialized, environment, out var value)
                     ? value
-                    : default(TFragment?);
+                    : default(TRequested?);
         }
 
         public static FluentForType TryDeserialize(this IDeserializer deserializer, Type type) => new(deserializer, type);
