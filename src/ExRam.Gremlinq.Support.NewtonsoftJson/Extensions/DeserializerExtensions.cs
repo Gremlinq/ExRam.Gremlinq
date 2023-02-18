@@ -223,11 +223,11 @@ namespace ExRam.Gremlinq.Core.Deserialization
             {
                 public bool Transform(JObject serialized, IGremlinQueryEnvironment environment, IDeserializer recurse, [NotNullWhen(true)] out TRequested? value)
                 {
-                    if (recurse.TryDeserialize<JObject, JObject>(serialized, environment, out var processedFragment))
+                    if (recurse.TryDeserialize<JObject, JObject>(serialized, environment, out var strippedJObject))
                     {
                         var expando = new ExpandoObject();
 
-                        foreach (var property in processedFragment)
+                        foreach (var property in strippedJObject)
                         {
                             if (property.Value is { } propertyValue && recurse.TryDeserialize<JToken, object>(propertyValue, environment, out var item))
                                 expando.TryAdd(property.Key, item);
