@@ -91,6 +91,27 @@ namespace ExRam.Gremlinq.Core.Deserialization
             }
         }
 
+        private sealed class IdentityConverterFactory : IConverterFactory
+        {
+            private sealed class IdentityConverter<TSerialized, TRequested> : IConverter<TSerialized, TRequested>
+            {
+                public bool Transform(TSerialized serialized, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse, [NotNullWhen(true)] out TRequested? value)
+                {
+                    if (typeof(TRequested).IsInstanceOfType(serialized))
+                    {
+                        value = (TRequested)(object)serialized!;
+
+                        return true;
+                    }
+
+                    value = default;
+                    return false;
+                }
+            }
+
+            public IConverter<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>() => new IdentityConverter<TSerialized, TRequested>();
+        }
+
         private sealed class SingleItemArrayFallbackConverterFactory : IConverterFactory
         {
             private sealed class SingleItemArrayFallbackConverter<TSerialized, TRequestedArray, TRequestedArrayItem> : IConverter<TSerialized, TRequestedArray>
@@ -142,7 +163,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
         }
 
         public static readonly IGremlinQueryFragmentDeserializer Identity = new GremlinQueryFragmentDeserializerImpl(ImmutableStack<IConverterFactory>.Empty)
-            .Add(ConverterFactory.Identity);
+            .Add(new IdentityConverterFactory());
 
         public static readonly IGremlinQueryFragmentDeserializer Default = Identity
             .Add(new SingleItemArrayFallbackConverterFactory())
