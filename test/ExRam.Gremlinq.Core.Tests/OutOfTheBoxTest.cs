@@ -44,7 +44,7 @@ namespace ExRam.Gremlinq.Core.Tests
                             .IncludeAssembliesOfBaseTypes()))
                     .ConfigureSerializer(s => s.ToGroovy())
                     .UseExecutor(GremlinQueryExecutor.Identity)
-                    .UseDeserializer(GremlinQueryFragmentDeserializer.Default))
+                    .UseDeserializer(Deserializer.Default))
                 .V<SomeEntity>()
                 .Cast<GroovyGremlinQuery>()
                 .Verify();

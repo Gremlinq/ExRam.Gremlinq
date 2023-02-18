@@ -2,10 +2,10 @@
 
 namespace ExRam.Gremlinq.Core.Deserialization
 {
-    public interface IGremlinQueryFragmentDeserializer
+    public interface IDeserializer
     {
         bool TryDeserialize<TSerialized, TRequested>(TSerialized serialized, IGremlinQueryEnvironment environment, [NotNullWhen(true)] out TRequested? value);
 
-        IGremlinQueryFragmentDeserializer Add(IConverterFactory transformationFactory);
+        IDeserializer Add(IConverterFactory transformationFactory);
     }
 }

@@ -56,7 +56,7 @@ namespace ExRam.Gremlinq.Core.Tests
             return environment
                 .ConfigureSerializer(static serializer => serializer.ToGroovy())
                 .UseExecutor(GremlinQueryExecutor.Identity)
-                .UseDeserializer(GremlinQueryFragmentDeserializer.Default);
+                .UseDeserializer(Deserializer.Default);
         }
     }
 }
