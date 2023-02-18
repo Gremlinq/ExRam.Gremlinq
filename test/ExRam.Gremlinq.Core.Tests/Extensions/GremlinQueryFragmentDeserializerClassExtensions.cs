@@ -20,14 +20,14 @@ namespace ExRam.Gremlinq.Core
                 : default;
         }
 
-        private sealed class FixedTypeDeserializationTransformationFactory<TStaticSerialized, TStaticRequested> : IDeserializationTransformationFactory
+        private sealed class FixedTypeConverterFactory<TStaticSerialized, TStaticRequested> : IConverterFactory
            where TStaticRequested : class
         {
-            private sealed class FixedTypeDeserializationTransformation<TSerialized> : IDeserializationTransformation<TSerialized, TStaticRequested>
+            private sealed class FixedTypeConverter<TSerialized> : IConverter<TSerialized, TStaticRequested>
             {
                 private readonly Func<TStaticSerialized, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, TStaticRequested?> _func;
 
-                public FixedTypeDeserializationTransformation(Func<TStaticSerialized, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, TStaticRequested?> func)
+                public FixedTypeConverter(Func<TStaticSerialized, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, TStaticRequested?> func)
                 {
                     _func = func;
                 }
@@ -49,15 +49,15 @@ namespace ExRam.Gremlinq.Core
 
             private readonly Func<TStaticSerialized, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, TStaticRequested?> _func;
 
-            public FixedTypeDeserializationTransformationFactory(Func<TStaticSerialized, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, TStaticRequested?> func)
+            public FixedTypeConverterFactory(Func<TStaticSerialized, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, TStaticRequested?> func)
             {
                 _func = func;
             }
 
-            public IDeserializationTransformation<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
+            public IConverter<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
             {
                 return ((typeof(TSerialized).IsAssignableFrom(typeof(TStaticSerialized)) || typeof(TStaticSerialized).IsAssignableFrom(typeof(TSerialized))) && (typeof(TRequested) == typeof(TStaticRequested)))
-                    ? (IDeserializationTransformation<TSerialized, TRequested>)(object)new FixedTypeDeserializationTransformation<TSerialized>(_func)
+                    ? (IConverter<TSerialized, TRequested>)(object)new FixedTypeConverter<TSerialized>(_func)
                     : null;
             }
         }
@@ -72,7 +72,7 @@ namespace ExRam.Gremlinq.Core
             where TRequested : class
         {
             return fragmentDeserializer
-                .Add(new FixedTypeDeserializationTransformationFactory<TSerialized, TRequested>(func));
+                .Add(new FixedTypeConverterFactory<TSerialized, TRequested>(func));
         }
     }
 }

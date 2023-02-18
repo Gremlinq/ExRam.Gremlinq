@@ -4,14 +4,14 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace ExRam.Gremlinq.Core.Deserialization
 {
-    internal abstract class FixedTypeDeserializationTransformationFactory<TStaticRequested> : IDeserializationTransformationFactory
+    internal abstract class FixedTypeConverterFactory<TStaticRequested> : IConverterFactory
         where TStaticRequested : struct
     {
-        private sealed class FixedTypeDeserializationTransformation : IDeserializationTransformation<JValue, TStaticRequested>
+        private sealed class FixedTypeConverter : IConverter<JValue, TStaticRequested>
         {
-            private readonly FixedTypeDeserializationTransformationFactory<TStaticRequested> _factory;
+            private readonly FixedTypeConverterFactory<TStaticRequested> _factory;
 
-            public FixedTypeDeserializationTransformation(FixedTypeDeserializationTransformationFactory<TStaticRequested> factory)
+            public FixedTypeConverter(FixedTypeConverterFactory<TStaticRequested> factory)
             {
                 _factory = factory;
             }
@@ -32,10 +32,10 @@ namespace ExRam.Gremlinq.Core.Deserialization
         }
 
 
-        public IDeserializationTransformation<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
+        public IConverter<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
         {
             return typeof(TRequested) == typeof(TStaticRequested) && typeof(TSerialized) == typeof(JValue)
-                ? (IDeserializationTransformation<TSerialized, TRequested>)(object)new FixedTypeDeserializationTransformation(this)
+                ? (IConverter<TSerialized, TRequested>)(object)new FixedTypeConverter(this)
                 : null;
         }
 

@@ -24,10 +24,10 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 public static Option<T> From(T value) => new(value);
             }
 
-            private readonly ImmutableStack<IDeserializationTransformationFactory> _transformationFactories;
+            private readonly ImmutableStack<IConverterFactory> _transformationFactories;
             private readonly ConcurrentDictionary<(Type, Type, Type), Delegate> _transformationDelegates = new();
 
-            public GremlinQueryFragmentDeserializerImpl(ImmutableStack<IDeserializationTransformationFactory> transformationFactories)
+            public GremlinQueryFragmentDeserializerImpl(ImmutableStack<IConverterFactory> transformationFactories)
             {
                 _transformationFactories = transformationFactories;
             }
@@ -61,7 +61,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 return false;
             }
 
-            public IGremlinQueryFragmentDeserializer Add(IDeserializationTransformationFactory deserializer)
+            public IGremlinQueryFragmentDeserializer Add(IConverterFactory deserializer)
             {
                 return new GremlinQueryFragmentDeserializerImpl(_transformationFactories.Push(deserializer));
             }
@@ -91,9 +91,9 @@ namespace ExRam.Gremlinq.Core.Deserialization
             }
         }
 
-        private sealed class SingleItemArrayFallbackDeserializationTransformationFactory : IDeserializationTransformationFactory
+        private sealed class SingleItemArrayFallbackConverterFactory : IConverterFactory
         {
-            private sealed class SingleItemArrayFallbackDeserializationTransformation<TSerialized, TRequestedArray, TRequestedArrayItem> : IDeserializationTransformation<TSerialized, TRequestedArray>
+            private sealed class SingleItemArrayFallbackConverter<TSerialized, TRequestedArray, TRequestedArrayItem> : IConverter<TSerialized, TRequestedArray>
             {
                 public bool Transform(TSerialized serialized, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse, [NotNullWhen(true)] out TRequestedArray? value)
                 {
@@ -108,17 +108,17 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 }
             }
 
-            public IDeserializationTransformation<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
+            public IConverter<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
             {
                 return typeof(TRequested).IsArray
-                    ? (IDeserializationTransformation<TSerialized, TRequested>?)Activator.CreateInstance(typeof(SingleItemArrayFallbackDeserializationTransformation<,,>).MakeGenericType(typeof(TSerialized), typeof(TRequested), typeof(TRequested).GetElementType()!))
+                    ? (IConverter<TSerialized, TRequested>?)Activator.CreateInstance(typeof(SingleItemArrayFallbackConverter<,,>).MakeGenericType(typeof(TSerialized), typeof(TRequested), typeof(TRequested).GetElementType()!))
                     : default;
             }
         }
 
-        private sealed class ToStringFallbackDeserializationTransformationFactory : IDeserializationTransformationFactory
+        private sealed class ToStringFallbackConverterFactory : IConverterFactory
         {
-            private sealed class ToStringFallbackDeserializationTransformation<TSerialized> : IDeserializationTransformation<TSerialized, string>
+            private sealed class ToStringFallbackConverter<TSerialized> : IConverter<TSerialized, string>
             {
                 public bool Transform(TSerialized serialized, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse, [NotNullWhen(true)] out string? value)
                 {
@@ -133,22 +133,22 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 }
             }
 
-            public IDeserializationTransformation<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
+            public IConverter<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
             {
                 return typeof(TRequested) == typeof(string)
-                    ? (IDeserializationTransformation<TSerialized, TRequested>)(object)new ToStringFallbackDeserializationTransformation<TSerialized>()
+                    ? (IConverter<TSerialized, TRequested>)(object)new ToStringFallbackConverter<TSerialized>()
                     : default;
             }
         }
 
-        public static readonly IGremlinQueryFragmentDeserializer Identity = new GremlinQueryFragmentDeserializerImpl(ImmutableStack<IDeserializationTransformationFactory>.Empty)
-            .Add(DeserializationTransformationFactory.Identity);
+        public static readonly IGremlinQueryFragmentDeserializer Identity = new GremlinQueryFragmentDeserializerImpl(ImmutableStack<IConverterFactory>.Empty)
+            .Add(ConverterFactory.Identity);
 
         public static readonly IGremlinQueryFragmentDeserializer Default = Identity
-            .Add(new SingleItemArrayFallbackDeserializationTransformationFactory())
+            .Add(new SingleItemArrayFallbackConverterFactory())
             .AddToStringFallback();
 
         public static IGremlinQueryFragmentDeserializer AddToStringFallback(this IGremlinQueryFragmentDeserializer deserializer) => deserializer
-            .Add(new ToStringFallbackDeserializationTransformationFactory());
+            .Add(new ToStringFallbackConverterFactory());
     }
 }

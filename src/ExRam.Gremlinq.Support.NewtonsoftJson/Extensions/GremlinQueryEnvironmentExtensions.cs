@@ -136,7 +136,7 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        private sealed class TimeSpanAsNumberDeserializationTransformationFactory : FixedTypeDeserializationTransformationFactory<TimeSpan>
+        private sealed class TimeSpanAsNumberConverterFactory : FixedTypeConverterFactory<TimeSpan>
         {
             protected override TimeSpan? Convert(JValue jValue, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse)
             {
@@ -153,7 +153,7 @@ namespace ExRam.Gremlinq.Core
                     .ConfigureFragmentSerializer(static fragmentSerializer => fragmentSerializer
                         .Override<TimeSpan>(static (t, env, _, recurse) => recurse.Serialize(t.TotalMilliseconds, env))))
                 .ConfigureDeserializer(static deserializer => deserializer
-                    .Add(new TimeSpanAsNumberDeserializationTransformationFactory()));
+                    .Add(new TimeSpanAsNumberConverterFactory()));
         }
 
         internal static JsonSerializer GetJsonSerializer(this IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer deserializer)
