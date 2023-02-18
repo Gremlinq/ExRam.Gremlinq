@@ -20,7 +20,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 public T Value { get; }
                 public bool HasValue { get; }
 
-                public static Option<T> None = new();
+                public static readonly Option<T> None = new();
                 public static Option<T> From(T value) => new(value);
             }
 
@@ -45,7 +45,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
 
                                 return (Delegate)typeof(DeserializerImpl)
                                     .GetMethod(nameof(GetDeserializationFunction), BindingFlags.Instance | BindingFlags.NonPublic)!
-                                    .MakeGenericMethod(staticSerializedType, actualSerializedType, requestedType)!
+                                    .MakeGenericMethod(staticSerializedType, actualSerializedType, requestedType)
                                     .Invoke(@this, Array.Empty<object>())!;
                             },
                             this) as Func<TSerialized, IGremlinQueryEnvironment, Option<TRequested>>;
@@ -70,9 +70,9 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 where TActualSerialized : TStaticSerialized
             {
                 var transformations = _transformationFactories
-                    .Select(factory => factory.TryCreate<TActualSerialized, TRequested>())
-                    .Where(transformation => transformation != null)
-                    .Select(transformation => transformation!)
+                    .Select(static factory => factory.TryCreate<TActualSerialized, TRequested>())
+                    .Where(static transformation => transformation != null)
+                    .Select(static transformation => transformation!)
                     .ToArray();
 
                 return (staticSerialized, environment) =>
@@ -108,7 +108,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 }
             }
 
-            public IConverter<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>() => new IdentityConverter<TSerialized, TRequested>();
+            public IConverter<TSerialized, TRequested> TryCreate<TSerialized, TRequested>() => new IdentityConverter<TSerialized, TRequested>();
         }
 
         private sealed class SingleItemArrayFallbackConverterFactory : IConverterFactory

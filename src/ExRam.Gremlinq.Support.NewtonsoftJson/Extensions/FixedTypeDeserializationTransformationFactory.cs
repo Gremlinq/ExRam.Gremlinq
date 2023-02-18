@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json.Linq;
-
 using System.Diagnostics.CodeAnalysis;
 
 namespace ExRam.Gremlinq.Core.Deserialization
@@ -30,7 +29,6 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 return false;
             }
         }
-
 
         public IConverter<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
         {
