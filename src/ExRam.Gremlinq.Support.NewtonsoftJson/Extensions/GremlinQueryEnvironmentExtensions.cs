@@ -153,7 +153,7 @@ namespace ExRam.Gremlinq.Core
                     .ConfigureFragmentSerializer(static fragmentSerializer => fragmentSerializer
                         .Override<TimeSpan>(static (t, env, _, recurse) => recurse.Serialize(t.TotalMilliseconds, env))))
                 .ConfigureDeserializer(static deserializer => deserializer
-                    .Override(new TimeSpanAsNumberDeserializationTransformationFactory()));
+                    .Add(new TimeSpanAsNumberDeserializationTransformationFactory()));
         }
 
         internal static JsonSerializer GetJsonSerializer(this IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer deserializer)

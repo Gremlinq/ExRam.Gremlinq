@@ -61,7 +61,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 return false;
             }
 
-            public IGremlinQueryFragmentDeserializer Override(IDeserializationTransformationFactory deserializer)
+            public IGremlinQueryFragmentDeserializer Add(IDeserializationTransformationFactory deserializer)
             {
                 return new GremlinQueryFragmentDeserializerImpl(_transformationFactories.Push(deserializer));
             }
@@ -142,13 +142,13 @@ namespace ExRam.Gremlinq.Core.Deserialization
         }
 
         public static readonly IGremlinQueryFragmentDeserializer Identity = new GremlinQueryFragmentDeserializerImpl(ImmutableStack<IDeserializationTransformationFactory>.Empty)
-            .Override(DeserializationTransformationFactory.Identity);
+            .Add(DeserializationTransformationFactory.Identity);
 
         public static readonly IGremlinQueryFragmentDeserializer Default = Identity
-            .Override(new SingleItemArrayFallbackDeserializationTransformationFactory())
+            .Add(new SingleItemArrayFallbackDeserializationTransformationFactory())
             .AddToStringFallback();
 
         public static IGremlinQueryFragmentDeserializer AddToStringFallback(this IGremlinQueryFragmentDeserializer deserializer) => deserializer
-            .Override(new ToStringFallbackDeserializationTransformationFactory());
+            .Add(new ToStringFallbackDeserializationTransformationFactory());
     }
 }
