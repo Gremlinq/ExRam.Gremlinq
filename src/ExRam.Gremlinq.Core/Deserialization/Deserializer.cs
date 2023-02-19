@@ -11,6 +11,8 @@ namespace ExRam.Gremlinq.Core.Deserialization
         {
             private readonly struct Option<T>
             {
+                public static readonly Option<T> None = new();
+
                 private Option(T value)
                 {
                     Value = value;
@@ -20,7 +22,6 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 public T Value { get; }
                 public bool HasValue { get; }
 
-                public static readonly Option<T> None = new();
                 public static Option<T> From(T value) => new(value);
             }
 
