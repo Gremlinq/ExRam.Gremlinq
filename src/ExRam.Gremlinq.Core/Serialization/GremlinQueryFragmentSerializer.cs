@@ -442,13 +442,15 @@ namespace ExRam.Gremlinq.Core.Serialization
             .Override<Step>(static (_, _, _, _) => Array.Empty<Instruction>())
             .Override<StepLabel>(static (stepLabel, env, _, recurse) =>
             {
-                if (!GremlinQuerySerializer._stepLabelNames!.TryGetValue(stepLabel, out var stepLabelMapping))
-                {
-                    stepLabelMapping = stepLabel.Identity as string ?? (GremlinQuerySerializer._stepLabelNames.Count < GremlinQuerySerializer.StepLabelNames.Length
-                        ? GremlinQuerySerializer.StepLabelNames[GremlinQuerySerializer._stepLabelNames.Count]
-                        : "l" + (GremlinQuerySerializer._stepLabelNames.Count + 1));
+                var stepLabelNames = (GremlinQuerySerializer._stepLabelNames ??= new Dictionary<StepLabel, string>());
 
-                    GremlinQuerySerializer._stepLabelNames.Add(stepLabel, stepLabelMapping);
+                if (!stepLabelNames!.TryGetValue(stepLabel, out var stepLabelMapping))
+                {
+                    stepLabelMapping = stepLabel.Identity as string ?? (stepLabelNames.Count < GremlinQuerySerializer.StepLabelNameCache.Length
+                        ? GremlinQuerySerializer.StepLabelNameCache[stepLabelNames.Count]
+                        : "l" + (stepLabelNames.Count + 1));
+
+                    stepLabelNames.Add(stepLabel, stepLabelMapping);
                 }
 
                 // ReSharper disable once TailRecursiveCall
