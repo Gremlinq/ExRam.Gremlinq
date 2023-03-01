@@ -30,14 +30,13 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .ConfigureEnvironment(env => env
                     .ConfigureSerializer(ser => ser
-                        .ConfigureFragmentSerializer(f => f
-                            .Override<EStep>((step, env, overridden, recurse) => recurse.Serialize(
-                                new Step[]
-                                {
-                                    new VStep(ImmutableArray<object>.Empty),
-                                    new OutEStep(ImmutableArray<string>.Empty)
-                                },
-                                env)))))
+                        .Override<EStep>((step, env, overridden, recurse) => recurse.Serialize(
+                            new Step[]
+                            {
+                                new VStep(ImmutableArray<object>.Empty),
+                                new OutEStep(ImmutableArray<string>.Empty)
+                            },
+                            env))))
                 .E()
                 .Verify();
         }
@@ -48,13 +47,12 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .ConfigureEnvironment(env => env
                     .ConfigureSerializer(ser => ser
-                        .ConfigureFragmentSerializer(f => f
-                            .Override<EStep>((step, env, overridden, recurse) =>
-                                new Step[]
-                                {
-                                    new VStep(ImmutableArray<object>.Empty),
-                                    new OutEStep(ImmutableArray<string>.Empty)
-                                }))))
+                        .Override<EStep>((step, env, overridden, recurse) =>
+                            new Step[]
+                            {
+                                new VStep(ImmutableArray<object>.Empty),
+                                new OutEStep(ImmutableArray<string>.Empty)
+                            })))
                 .E()
                 .Verify();
         }
