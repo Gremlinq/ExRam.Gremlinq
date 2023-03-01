@@ -211,7 +211,7 @@ namespace ExRam.Gremlinq.Core
                 Environment.Serializer
                     .Serialize(this),
                 Environment)
-            .SelectMany(executionResult => Environment.Deserializer.TryDeserialize<object, TElement[]>(executionResult, Environment, out var elements)
+            .SelectMany(executionResult => Environment.Deserializer.TryTransform<object, TElement[]>(executionResult, Environment, out var elements)
                 ? elements.ToAsyncEnumerable()
                 : throw new InvalidCastException($"Cannot convert {executionResult.GetType()} to {typeof(TElement[])}."));
 

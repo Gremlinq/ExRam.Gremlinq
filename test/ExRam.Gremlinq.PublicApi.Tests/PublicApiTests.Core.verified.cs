@@ -2,14 +2,9 @@
 {
     public static class Deserializer
     {
-        public static readonly ExRam.Gremlinq.Core.Deserialization.IDeserializer Default;
-        public static readonly ExRam.Gremlinq.Core.Deserialization.IDeserializer Identity;
-        public static ExRam.Gremlinq.Core.Deserialization.IDeserializer AddToStringFallback(this ExRam.Gremlinq.Core.Deserialization.IDeserializer deserializer) { }
-    }
-    public interface IDeserializer
-    {
-        ExRam.Gremlinq.Core.Deserialization.IDeserializer Add(ExRam.Gremlinq.Core.Transformation.IConverterFactory converterFactory);
-        bool TryDeserialize<TSource, TTarget>(TSource source, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out TTarget? value);
+        public static readonly ExRam.Gremlinq.Core.Transformation.ITransformer Default;
+        public static readonly ExRam.Gremlinq.Core.Transformation.ITransformer Identity;
+        public static ExRam.Gremlinq.Core.Transformation.ITransformer AddToStringFallback(this ExRam.Gremlinq.Core.Transformation.ITransformer deserializer) { }
     }
 }
 namespace ExRam.Gremlinq.Core
@@ -154,10 +149,10 @@ namespace ExRam.Gremlinq.Core
     {
         public static readonly ExRam.Gremlinq.Core.IGremlinQueryEnvironment Default;
         public static readonly ExRam.Gremlinq.Core.IGremlinQueryEnvironment Empty;
-        public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment RegisterNativeType<TNative>(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Serialization.GremlinQueryFragmentSerializerDelegate<TNative> serializerDelegate, System.Func<ExRam.Gremlinq.Core.Deserialization.IDeserializer, ExRam.Gremlinq.Core.Deserialization.IDeserializer> deserializerTransformation) { }
+        public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment RegisterNativeType<TNative>(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Serialization.GremlinQueryFragmentSerializerDelegate<TNative> serializerDelegate, System.Func<ExRam.Gremlinq.Core.Transformation.ITransformer, ExRam.Gremlinq.Core.Transformation.ITransformer> deserializerTransformation) { }
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment StoreByteArraysAsBase64String(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseDebugger(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.IGremlinQueryDebugger debugger) { }
-        public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseDeserializer(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Deserialization.IDeserializer deserializer) { }
+        public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseDeserializer(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Transformation.ITransformer deserializer) { }
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseExecutor(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor executor) { }
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseLogger(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment source, Microsoft.Extensions.Logging.ILogger logger) { }
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseModel(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment source, ExRam.Gremlinq.Core.Models.IGraphModel model) { }
@@ -553,7 +548,7 @@ namespace ExRam.Gremlinq.Core
     public interface IGremlinQueryEnvironment
     {
         ExRam.Gremlinq.Core.IGremlinQueryDebugger Debugger { get; }
-        ExRam.Gremlinq.Core.Deserialization.IDeserializer Deserializer { get; }
+        ExRam.Gremlinq.Core.Transformation.ITransformer Deserializer { get; }
         ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor Executor { get; }
         ExRam.Gremlinq.Core.IFeatureSet FeatureSet { get; }
         Microsoft.Extensions.Logging.ILogger Logger { get; }
@@ -561,7 +556,7 @@ namespace ExRam.Gremlinq.Core
         ExRam.Gremlinq.Core.IGremlinqOptions Options { get; }
         ExRam.Gremlinq.Core.Serialization.IGremlinQuerySerializer Serializer { get; }
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureDebugger(System.Func<ExRam.Gremlinq.Core.IGremlinQueryDebugger, ExRam.Gremlinq.Core.IGremlinQueryDebugger> debuggerTransformation);
-        ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureDeserializer(System.Func<ExRam.Gremlinq.Core.Deserialization.IDeserializer, ExRam.Gremlinq.Core.Deserialization.IDeserializer> deserializerTransformation);
+        ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureDeserializer(System.Func<ExRam.Gremlinq.Core.Transformation.ITransformer, ExRam.Gremlinq.Core.Transformation.ITransformer> deserializerTransformation);
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureExecutor(System.Func<ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor, ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor> executorTransformation);
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureFeatureSet(System.Func<ExRam.Gremlinq.Core.IFeatureSet, ExRam.Gremlinq.Core.IFeatureSet> featureSetTransformation);
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureLogger(System.Func<Microsoft.Extensions.Logging.ILogger, Microsoft.Extensions.Logging.ILogger> loggerTransformation);
@@ -2272,6 +2267,11 @@ namespace ExRam.Gremlinq.Core.Transformation
     }
     public interface IConverter<in TSource, TTarget>
     {
-        bool TryConvert(TSource source, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Deserialization.IDeserializer recurse, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out TTarget? value);
+        bool TryConvert(TSource source, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Transformation.ITransformer recurse, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out TTarget? value);
+    }
+    public interface ITransformer
+    {
+        ExRam.Gremlinq.Core.Transformation.ITransformer Add(ExRam.Gremlinq.Core.Transformation.IConverterFactory converterFactory);
+        bool TryTransform<TSource, TTarget>(TSource source, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out TTarget? value);
     }
 }

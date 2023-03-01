@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using ExRam.Gremlinq.Core.Deserialization;
 using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Core.Models;
+using ExRam.Gremlinq.Core.Transformation;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
@@ -55,14 +56,14 @@ namespace ExRam.Gremlinq.Core
                 internal sealed class JTokenConverterConverter : JsonConverter
                 {
                     private readonly IGremlinQueryEnvironment _environment;
-                    private readonly IDeserializer _deserializer;
+                    private readonly ITransformer _deserializer;
 
                     [ThreadStatic]
                     // ReSharper disable once StaticMemberInGenericType
                     internal static bool _canConvert;
 
                     public JTokenConverterConverter(
-                        IDeserializer deserializer,
+                        ITransformer deserializer,
                         IGremlinQueryEnvironment environment)
                     {
                         _deserializer = deserializer;
@@ -107,7 +108,7 @@ namespace ExRam.Gremlinq.Core
                 public GraphsonJsonSerializer(
                     DefaultValueHandling defaultValueHandling,
                     IGremlinQueryEnvironment environment,
-                    IDeserializer deserializer)
+                    ITransformer deserializer)
                 {
                     DefaultValueHandling = defaultValueHandling;
                     ContractResolver = new GremlinContractResolver(environment.Model.PropertiesModel);
@@ -115,8 +116,8 @@ namespace ExRam.Gremlinq.Core
                 }
             }
 
-            private readonly ConditionalWeakTable<IDeserializer, JsonSerializer> _serializers = new();
-            private readonly ConditionalWeakTable<IDeserializer, JsonSerializer>.CreateValueCallback _serializerFactory;
+            private readonly ConditionalWeakTable<ITransformer, JsonSerializer> _serializers = new();
+            private readonly ConditionalWeakTable<ITransformer, JsonSerializer>.CreateValueCallback _serializerFactory;
 
             public GremlinQueryEnvironmentCacheImpl(IGremlinQueryEnvironment environment)
             {
@@ -126,7 +127,7 @@ namespace ExRam.Gremlinq.Core
                     closure);
             }
 
-            public JsonSerializer GetSerializer(IDeserializer deserializer)
+            public JsonSerializer GetSerializer(ITransformer deserializer)
             {
                 GraphsonJsonSerializer.JTokenConverterConverter._canConvert = false;
 
@@ -138,7 +139,7 @@ namespace ExRam.Gremlinq.Core
 
         private sealed class TimeSpanAsNumberConverterFactory : FixedTypeConverterFactory<TimeSpan>
         {
-            protected override TimeSpan? Convert(JValue jValue, IGremlinQueryEnvironment environment, IDeserializer recurse)
+            protected override TimeSpan? Convert(JValue jValue, IGremlinQueryEnvironment environment, ITransformer recurse)
             {
                 return TimeSpan.FromMilliseconds(jValue.Value<double>());
             }
@@ -156,7 +157,7 @@ namespace ExRam.Gremlinq.Core
                     .Add(new TimeSpanAsNumberConverterFactory()));
         }
 
-        internal static JsonSerializer GetJsonSerializer(this IGremlinQueryEnvironment environment, IDeserializer deserializer)
+        internal static JsonSerializer GetJsonSerializer(this IGremlinQueryEnvironment environment, ITransformer deserializer)
         {
             return Caches
                 .GetValue(

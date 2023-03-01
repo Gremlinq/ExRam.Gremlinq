@@ -1,6 +1,7 @@
 ﻿using System.Collections.Concurrent;
 using System.Reflection;
 using ExRam.Gremlinq.Core.Deserialization;
+using ExRam.Gremlinq.Core.Transformation;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -9,12 +10,12 @@ namespace ExRam.Gremlinq.Core
         public readonly struct FluentForType
         {
             private readonly Type _type;
-            private readonly IDeserializer _deserializer;
+            private readonly ITransformer _deserializer;
 
             private static readonly ConcurrentDictionary<(Type, Type), Delegate?> FromClassDelegates = new();
             private static readonly ConcurrentDictionary<(Type, Type), Delegate?> FromStructDelegates = new();
 
-            public FluentForType(IDeserializer deserializer, Type type)
+            public FluentForType(ITransformer deserializer, Type type)
             {
                 if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
                     type = type.GetGenericArguments()[0];
@@ -25,7 +26,7 @@ namespace ExRam.Gremlinq.Core
 
             public object? From<TSource>(TSource source, IGremlinQueryEnvironment environment)
             {
-                return TryGetDelegate(typeof(TSource), _type) is Func<IDeserializer, TSource, IGremlinQueryEnvironment, object?> fromDelegate
+                return TryGetDelegate(typeof(TSource), _type) is Func<ITransformer, TSource, IGremlinQueryEnvironment, object?> fromDelegate
                     ? fromDelegate(_deserializer, source, environment)
                     : default;
             }
@@ -54,17 +55,17 @@ namespace ExRam.Gremlinq.Core
                         });
             }
 
-            private static Func<IDeserializer, TSource, IGremlinQueryEnvironment, object?> FromClass<TSource, TTarget>()
-                where TTarget : class => (deserializer, serialized, environment) => deserializer.TryDeserialize<TSource, TTarget>(serialized, environment, out var value)
+            private static Func<ITransformer, TSource, IGremlinQueryEnvironment, object?> FromClass<TSource, TTarget>()
+                where TTarget : class => (deserializer, serialized, environment) => deserializer.TryTransform<TSource, TTarget>(serialized, environment, out var value)
                     ? value
                     : default;
 
-            private static Func<IDeserializer, TSource, IGremlinQueryEnvironment, object?> FromStruct<TSource, TTarget>()
-                where TTarget : struct => (deserializer, serialized, environment) => deserializer.TryDeserialize<TSource, TTarget>(serialized, environment, out var value)
+            private static Func<ITransformer, TSource, IGremlinQueryEnvironment, object?> FromStruct<TSource, TTarget>()
+                where TTarget : struct => (deserializer, serialized, environment) => deserializer.TryTransform<TSource, TTarget>(serialized, environment, out var value)
                     ? value
                     : default(TTarget?);
         }
 
-        public static FluentForType TryDeserialize(this IDeserializer deserializer, Type type) => new(deserializer, type);
+        public static FluentForType TryDeserialize(this ITransformer deserializer, Type type) => new(deserializer, type);
     }
 }

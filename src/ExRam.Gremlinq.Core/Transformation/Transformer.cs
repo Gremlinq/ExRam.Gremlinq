@@ -2,11 +2,10 @@
 using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
-using ExRam.Gremlinq.Core.Deserialization;
 
 namespace ExRam.Gremlinq.Core.Transformation
 {
-    internal sealed class Transformer : IDeserializer
+    internal sealed class Transformer : ITransformer
     {
         private readonly struct Option<T>
         {
@@ -32,7 +31,7 @@ namespace ExRam.Gremlinq.Core.Transformation
             _converterFactories = converterFactories;
         }
 
-        public bool TryDeserialize<TSource, TTarget>(TSource source, IGremlinQueryEnvironment environment, [NotNullWhen(true)] out TTarget? value)
+        public bool TryTransform<TSource, TTarget>(TSource source, IGremlinQueryEnvironment environment, [NotNullWhen(true)] out TTarget? value)
         {
             if (source is { } actualSerialized)
             {
@@ -61,7 +60,7 @@ namespace ExRam.Gremlinq.Core.Transformation
             return false;
         }
 
-        public IDeserializer Add(IConverterFactory converterFactory)
+        public ITransformer Add(IConverterFactory converterFactory)
         {
             return new Transformer(_converterFactories.Push(converterFactory));
         }
