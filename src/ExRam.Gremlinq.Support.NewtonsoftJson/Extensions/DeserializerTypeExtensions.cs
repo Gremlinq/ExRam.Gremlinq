@@ -30,26 +30,26 @@ namespace ExRam.Gremlinq.Core
                     : default;
             }
 
-            private static Delegate? TryGetDelegate(Type serializedType, Type requestedType)
+            private static Delegate? TryGetDelegate(Type sourceType, Type targetType)
             {
-                var delegatesDict = requestedType.IsValueType
+                var delegatesDict = targetType.IsValueType
                     ? FromStructDelegates
                     : FromClassDelegates;
 
                 return delegatesDict
                     .GetOrAdd(
-                        (serializedType, requestedType),
+                        (sourceType, targetType),
                         static tuple =>
                         {
-                            var (serializedType, requestedType) = tuple;
+                            var (sourceType, targetType) = tuple;
 
-                            var methodName = requestedType.IsValueType
+                            var methodName = targetType.IsValueType
                                 ? nameof(FromStruct)
                                 : nameof(FromClass);
 
                             return typeof(FluentForType)
                                 .GetMethod(methodName, BindingFlags.Static | BindingFlags.NonPublic)!
-                                .MakeGenericMethod(serializedType, requestedType)
+                                .MakeGenericMethod(sourceType, targetType)
                                 .Invoke(null, Array.Empty<object>()) as Delegate;
                         });
             }
