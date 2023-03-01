@@ -20,10 +20,10 @@ namespace ExRam.Gremlinq.Core.Transformation
             }
         }
 
-        public IConverter<TSource, TRequested>? TryCreate<TSource, TRequested>()
+        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>()
         {
-            return typeof(TRequested) == typeof(string)
-                ? (IConverter<TSource, TRequested>)(object)new ToStringFallbackConverter<TSource>()
+            return typeof(TTarget) == typeof(string)
+                ? (IConverter<TSource, TTarget>)(object)new ToStringFallbackConverter<TSource>()
                 : default;
         }
     }

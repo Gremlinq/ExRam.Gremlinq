@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-
 using ExRam.Gremlinq.Core.Deserialization;
 using ExRam.Gremlinq.Core.Transformation;
 
@@ -7,8 +6,8 @@ namespace ExRam.Gremlinq.Core
 {
     public static class DeserializerClassExtensions
     {
-        public readonly struct FluentForClass<TRequested>
-            where TRequested : class
+        public readonly struct FluentForClass<TTarget>
+            where TTarget : class
         {
             private readonly IDeserializer _deserializer;
 
@@ -17,7 +16,7 @@ namespace ExRam.Gremlinq.Core
                 _deserializer = deserializer;
             }
 
-            public TRequested? From<TSource>(TSource source, IGremlinQueryEnvironment environment) => _deserializer.TryDeserialize<TSource, TRequested>(source, environment, out var value)
+            public TTarget? From<TSource>(TSource source, IGremlinQueryEnvironment environment) => _deserializer.TryDeserialize<TSource, TTarget>(source, environment, out var value)
                 ? value
                 : default;
         }
@@ -56,25 +55,25 @@ namespace ExRam.Gremlinq.Core
                 _func = func;
             }
 
-            public IConverter<TSource, TRequested>? TryCreate<TSource, TRequested>()
+            public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>()
             {
-                return ((typeof(TSource).IsAssignableFrom(typeof(TStaticSerialized)) || typeof(TStaticSerialized).IsAssignableFrom(typeof(TSource))) && (typeof(TRequested) == typeof(TStaticRequested)))
-                    ? (IConverter<TSource, TRequested>)(object)new FixedTypeConverter<TSource>(_func)
+                return ((typeof(TSource).IsAssignableFrom(typeof(TStaticSerialized)) || typeof(TStaticSerialized).IsAssignableFrom(typeof(TSource))) && (typeof(TTarget) == typeof(TStaticRequested)))
+                    ? (IConverter<TSource, TTarget>)(object)new FixedTypeConverter<TSource>(_func)
                     : null;
             }
         }
 
-        public static FluentForClass<TRequested> TryDeserialize<TRequested>(this IDeserializer deserializer)
-            where TRequested : class
+        public static FluentForClass<TTarget> TryDeserialize<TTarget>(this IDeserializer deserializer)
+            where TTarget : class
         {
-            return new FluentForClass<TRequested>(deserializer);
+            return new FluentForClass<TTarget>(deserializer);
         }
 
-        public static IDeserializer Override<TSource, TRequested>(this IDeserializer deserializer, Func<TSource, IGremlinQueryEnvironment, IDeserializer, TRequested?> func)
-            where TRequested : class
+        public static IDeserializer Override<TSource, TTarget>(this IDeserializer deserializer, Func<TSource, IGremlinQueryEnvironment, IDeserializer, TTarget?> func)
+            where TTarget : class
         {
             return deserializer
-                .Add(new FixedTypeConverterFactory<TSource, TRequested>(func));
+                .Add(new FixedTypeConverterFactory<TSource, TTarget>(func));
         }
     }
 }

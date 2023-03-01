@@ -5,7 +5,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
 {
     public interface IDeserializer
     {
-        bool TryDeserialize<TSource, TRequested>(TSource source, IGremlinQueryEnvironment environment, [NotNullWhen(true)] out TRequested? value);
+        bool TryDeserialize<TSource, TTarget>(TSource source, IGremlinQueryEnvironment environment, [NotNullWhen(true)] out TTarget? value);
 
         IDeserializer Add(IConverterFactory converterFactory);
     }
