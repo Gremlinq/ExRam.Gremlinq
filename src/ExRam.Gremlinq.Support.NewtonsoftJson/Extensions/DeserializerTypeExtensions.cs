@@ -54,15 +54,15 @@ namespace ExRam.Gremlinq.Core
                         });
             }
 
-            private static Func<IDeserializer, TSource, IGremlinQueryEnvironment, object?> FromClass<TSource, TRequested>()
-                where TRequested : class => (deserializer, serialized, environment) => deserializer.TryDeserialize<TSource, TRequested>(serialized, environment, out var value)
+            private static Func<IDeserializer, TSource, IGremlinQueryEnvironment, object?> FromClass<TSource, TTarget>()
+                where TTarget : class => (deserializer, serialized, environment) => deserializer.TryDeserialize<TSource, TTarget>(serialized, environment, out var value)
                     ? value
                     : default;
 
-            private static Func<IDeserializer, TSource, IGremlinQueryEnvironment, object?> FromStruct<TSource, TRequested>()
-                where TRequested : struct => (deserializer, serialized, environment) => deserializer.TryDeserialize<TSource, TRequested>(serialized, environment, out var value)
+            private static Func<IDeserializer, TSource, IGremlinQueryEnvironment, object?> FromStruct<TSource, TTarget>()
+                where TTarget : struct => (deserializer, serialized, environment) => deserializer.TryDeserialize<TSource, TTarget>(serialized, environment, out var value)
                     ? value
-                    : default(TRequested?);
+                    : default(TTarget?);
         }
 
         public static FluentForType TryDeserialize(this IDeserializer deserializer, Type type) => new(deserializer, type);

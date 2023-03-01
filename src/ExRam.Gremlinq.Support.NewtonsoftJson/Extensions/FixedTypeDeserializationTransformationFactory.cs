@@ -33,10 +33,10 @@ namespace ExRam.Gremlinq.Core.Deserialization
             }
         }
 
-        public IConverter<TSource, TRequested>? TryCreate<TSource, TRequested>()
+        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>()
         {
-            return typeof(TRequested) == typeof(TStaticRequested) && typeof(TSource) == typeof(JValue)
-                ? (IConverter<TSource, TRequested>)(object)new FixedTypeConverter(this)
+            return typeof(TTarget) == typeof(TStaticRequested) && typeof(TSource) == typeof(JValue)
+                ? (IConverter<TSource, TTarget>)(object)new FixedTypeConverter(this)
                 : null;
         }
 

@@ -2,6 +2,6 @@
 {
     public interface IConverterFactory
     {
-        IConverter<TSource, TRequested>? TryCreate<TSource, TRequested>();
+        IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>();
     }
 }

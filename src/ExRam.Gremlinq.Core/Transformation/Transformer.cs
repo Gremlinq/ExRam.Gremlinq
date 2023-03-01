@@ -66,11 +66,11 @@ namespace ExRam.Gremlinq.Core.Transformation
             return new Transformer(_converterFactories.Push(converterFactory));
         }
 
-        private Func<TStaticSerialized, IGremlinQueryEnvironment, Option<TRequested>> GetTransformationFunction<TStaticSerialized, TActualSerialized, TRequested>()
+        private Func<TStaticSerialized, IGremlinQueryEnvironment, Option<TTarget>> GetTransformationFunction<TStaticSerialized, TActualSerialized, TTarget>()
             where TActualSerialized : TStaticSerialized
         {
             var converters = _converterFactories
-                .Select(static factory => factory.TryCreate<TActualSerialized, TRequested>())
+                .Select(static factory => factory.TryCreate<TActualSerialized, TTarget>())
                 .Where(static converter => converter != null)
                 .Select(static converter => converter!)
                 .ToArray();
@@ -80,9 +80,9 @@ namespace ExRam.Gremlinq.Core.Transformation
                 if (staticSerialized is TActualSerialized actualSerialized)
                     foreach (var converter in converters)
                         if (converter.TryConvert(actualSerialized, environment, this, out var value))
-                            return Option<TRequested>.From(value);
+                            return Option<TTarget>.From(value);
 
-                return Option<TRequested>.None;
+                return Option<TTarget>.None;
             };
         }
     }
