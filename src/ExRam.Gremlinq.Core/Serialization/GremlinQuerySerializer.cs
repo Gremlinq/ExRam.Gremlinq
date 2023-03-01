@@ -36,9 +36,13 @@ namespace ExRam.Gremlinq.Core.Serialization
 
             public object Serialize<TFragment>(TFragment fragment, IGremlinQueryEnvironment gremlinQueryEnvironment)
             {
-                return TryGetSerializer(typeof(TFragment), fragment!.GetType()) is BaseGremlinQueryFragmentSerializerDelegate<TFragment> del
+                var maybeRet = TryGetSerializer(typeof(TFragment), fragment!.GetType()) is BaseGremlinQueryFragmentSerializerDelegate<TFragment> del
                     ? del(fragment, gremlinQueryEnvironment, this)
                     : fragment;
+
+                return maybeRet is { } ret
+                    ? ret
+                    : throw new InvalidOperationException();
             }
 
             public IGremlinQuerySerializer Override<TFragment>(GremlinQueryFragmentSerializerDelegate<TFragment> serializer)
