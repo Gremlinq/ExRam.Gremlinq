@@ -267,9 +267,9 @@ namespace ExRam.Gremlinq.Core.Deserialization
 
                     if (modelType != null && modelType != typeof(TTarget))
                     {
-                        if (recurse.TryDeserialize(modelType).From(serialized, environment) is TTarget requested)
+                        if (recurse.TryDeserialize(modelType).From(serialized, environment) is TTarget target)
                         {
-                            value = requested;
+                            value = target;
                             return true;
                         }
                     }
@@ -329,9 +329,9 @@ namespace ExRam.Gremlinq.Core.Deserialization
                         {
                             if (typeof(TTarget) != moreSpecificType && typeof(TTarget).IsAssignableFrom(moreSpecificType))
                             {
-                                if (recurse.TryDeserialize(moreSpecificType).From(valueToken, environment) is TTarget requested)
+                                if (recurse.TryDeserialize(moreSpecificType).From(valueToken, environment) is TTarget target)
                                 {
-                                    value = requested;
+                                    value = target;
                                     return true;
                                 }
                             }
