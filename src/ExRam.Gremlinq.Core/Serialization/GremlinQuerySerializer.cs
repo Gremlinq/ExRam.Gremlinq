@@ -17,7 +17,7 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         private static readonly ConcurrentDictionary<string, Instruction> SimpleInstructions = new();
 
-        private sealed class GremlinQuerySerializerImpl : IGremlinQuerySerializer
+        private sealed class GremlinQuerySerializerImpl : ISerializer
         {
             private static readonly MethodInfo CreateFuncMethod1 = typeof(GremlinQuerySerializerImpl).GetMethod(nameof(CreateFunc1), BindingFlags.NonPublic | BindingFlags.Static)!;
             private static readonly MethodInfo CreateFuncMethod2 = typeof(GremlinQuerySerializerImpl).GetMethod(nameof(CreateFunc2), BindingFlags.NonPublic | BindingFlags.Static)!;
@@ -43,7 +43,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                     : throw new InvalidOperationException();
             }
 
-            public IGremlinQuerySerializer Override<TFragment>(GremlinQueryFragmentSerializerDelegate<TFragment> serializer)
+            public ISerializer Override<TFragment>(GremlinQueryFragmentSerializerDelegate<TFragment> serializer)
             {
                 return new GremlinQuerySerializerImpl(
                     _dict.SetItem(
@@ -121,34 +121,34 @@ namespace ExRam.Gremlinq.Core.Serialization
                 where TStatic : TEffective => (fragment, environment, recurse) => del(fragment, environment, recurse);
         }
 
-        private sealed class InvalidGremlinQuerySerializer : IGremlinQuerySerializer
+        private sealed class InvalidGremlinQuerySerializer : ISerializer
         {
-            public IGremlinQuerySerializer Override<TFragment>(GremlinQueryFragmentSerializerDelegate<TFragment> serializer) => throw new InvalidOperationException($"{nameof(Override)} must not be called on {nameof(GremlinQuerySerializer)}.{nameof(Invalid)}. If you are getting this exception while executing a query, configure a proper {nameof(IGremlinQuerySerializer)} on your {nameof(GremlinQuerySource)}.");
+            public ISerializer Override<TFragment>(GremlinQueryFragmentSerializerDelegate<TFragment> serializer) => throw new InvalidOperationException($"{nameof(Override)} must not be called on {nameof(GremlinQuerySerializer)}.{nameof(Invalid)}. If you are getting this exception while executing a query, configure a proper {nameof(ISerializer)} on your {nameof(GremlinQuerySource)}.");
 
-            public object Serialize<TFragment>(TFragment fragment, IGremlinQueryEnvironment gremlinQueryEnvironment) => throw new InvalidOperationException($"{nameof(Serialize)} must not be called on {nameof(GremlinQuerySerializer)}.{nameof(Invalid)}. If you are getting this exception while executing a query, configure a proper {nameof(IGremlinQuerySerializer)} on your {nameof(GremlinQuerySource)}.");
+            public object Serialize<TFragment>(TFragment fragment, IGremlinQueryEnvironment gremlinQueryEnvironment) => throw new InvalidOperationException($"{nameof(Serialize)} must not be called on {nameof(GremlinQuerySerializer)}.{nameof(Invalid)}. If you are getting this exception while executing a query, configure a proper {nameof(ISerializer)} on your {nameof(GremlinQuerySource)}.");
         }
 
-        private sealed class SelectGremlinQuerySerializer : IGremlinQuerySerializer
+        private sealed class SelectGremlinQuerySerializer : ISerializer
         {
             private readonly Func<object, object> _projection;
-            private readonly IGremlinQuerySerializer _baseSerializer;
+            private readonly ISerializer _baseSerializer;
 
-            public SelectGremlinQuerySerializer(IGremlinQuerySerializer baseSerializer, Func<object, object> projection)
+            public SelectGremlinQuerySerializer(ISerializer baseSerializer, Func<object, object> projection)
             {
                 _projection = projection;
                 _baseSerializer = baseSerializer;
             }
 
-            public IGremlinQuerySerializer Override<TFragment>(GremlinQueryFragmentSerializerDelegate<TFragment> serializer) => new SelectGremlinQuerySerializer(_baseSerializer.Override(serializer), _projection);
+            public ISerializer Override<TFragment>(GremlinQueryFragmentSerializerDelegate<TFragment> serializer) => new SelectGremlinQuerySerializer(_baseSerializer.Override(serializer), _projection);
 
             public object Serialize<TFragment>(TFragment fragment, IGremlinQueryEnvironment gremlinQueryEnvironment) => _projection(_baseSerializer.Serialize(fragment, gremlinQueryEnvironment));
         }
 
-        public static readonly IGremlinQuerySerializer Invalid = new InvalidGremlinQuerySerializer();
+        public static readonly ISerializer Invalid = new InvalidGremlinQuerySerializer();
 
-        public static readonly IGremlinQuerySerializer Identity = new GremlinQuerySerializerImpl(ImmutableDictionary<Type, Delegate>.Empty);
+        public static readonly ISerializer Identity = new GremlinQuerySerializerImpl(ImmutableDictionary<Type, Delegate>.Empty);
 
-        public static readonly IGremlinQuerySerializer Default = Identity.UseDefaultGremlinStepSerializationHandlers();
+        public static readonly ISerializer Default = Identity.UseDefaultGremlinStepSerializationHandlers();
 
         static GremlinQuerySerializer()
         {
@@ -157,12 +157,12 @@ namespace ExRam.Gremlinq.Core.Serialization
                 .ToArray();
         }
 
-        public static IGremlinQuerySerializer Select(this IGremlinQuerySerializer serializer, Func<object, object> projection)
+        public static ISerializer Select(this ISerializer serializer, Func<object, object> projection)
         {
             return new SelectGremlinQuerySerializer(serializer, projection);
         }
 
-        public static IGremlinQuerySerializer ToGroovy(this IGremlinQuerySerializer serializer)
+        public static ISerializer ToGroovy(this ISerializer serializer)
         {
             return serializer
                 .Select(static serialized => serialized is ISerializedGremlinQuery serializedQuery
@@ -170,7 +170,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                     : serialized);
         }
 
-        public static IGremlinQuerySerializer UseDefaultGremlinStepSerializationHandlers(this IGremlinQuerySerializer serializer) => serializer
+        public static ISerializer UseDefaultGremlinStepSerializationHandlers(this ISerializer serializer) => serializer
             .Override<AddEStep>(static (step, env, recurse) => CreateInstruction("addE", recurse, env, step.Label))
             .Override<AddEStep.ToLabelStep>(static (step, env, recurse) => CreateInstruction("to", recurse, env, step.StepLabel))
             .Override<AddEStep.ToTraversalStep>(static (step, env, recurse) => CreateInstruction("to", recurse, env, step.Traversal))
@@ -438,7 +438,7 @@ namespace ExRam.Gremlinq.Core.Serialization
             .Override<PropertiesStep>(static (step, env, recurse) => CreateInstruction("properties", recurse, env, step.Keys))
             .Override<PropertyStep.ByKeyStep>(static (step, env, recurse) =>
             {
-                static object[] GetPropertyStepArguments(PropertyStep.ByKeyStep propertyStep, IGremlinQuerySerializer recurse, IGremlinQueryEnvironment env)
+                static object[] GetPropertyStepArguments(PropertyStep.ByKeyStep propertyStep, ISerializer recurse, IGremlinQueryEnvironment env)
                 {
                     var i = 0;
                     object[] ret;
@@ -557,7 +557,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                 : CreateInstruction("by"))
             .Override<WhereStepLabelAndPredicateStep>(static (step, env, recurse) => CreateInstruction("where", recurse, env, step.StepLabel, step.Predicate));
 
-        internal static ISerializedGremlinQuery Serialize(this IGremlinQuerySerializer serializer, IGremlinQueryBase query)
+        internal static ISerializedGremlinQuery Serialize(this ISerializer serializer, IGremlinQueryBase query)
         {
             try
             {
@@ -582,14 +582,14 @@ namespace ExRam.Gremlinq.Core.Serialization
                 static closure => new Instruction(closure));
         }
 
-        private static Instruction CreateInstruction<TParam>(string name, IGremlinQuerySerializer recurse, IGremlinQueryEnvironment env, TParam parameter)
+        private static Instruction CreateInstruction<TParam>(string name, ISerializer recurse, IGremlinQueryEnvironment env, TParam parameter)
         {
             return new(
                 name,
                 recurse.NullAwareSerialize(parameter, env));
         }
 
-        private static Instruction CreateInstruction<TParam1, TParam2>(string name, IGremlinQuerySerializer recurse, IGremlinQueryEnvironment env, TParam1 parameter1, TParam2 parameter2)
+        private static Instruction CreateInstruction<TParam1, TParam2>(string name, ISerializer recurse, IGremlinQueryEnvironment env, TParam1 parameter1, TParam2 parameter2)
         {
             return new(
                 name,
@@ -597,7 +597,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                 recurse.NullAwareSerialize(parameter2, env));
         }
 
-        private static Instruction CreateInstruction<TParam1, TParam2, TParam3>(string name, IGremlinQuerySerializer recurse, IGremlinQueryEnvironment env, TParam1 parameter1, TParam2 parameter2, TParam3 parameter3)
+        private static Instruction CreateInstruction<TParam1, TParam2, TParam3>(string name, ISerializer recurse, IGremlinQueryEnvironment env, TParam1 parameter1, TParam2 parameter2, TParam3 parameter3)
         {
             return new(
                 name,
@@ -606,7 +606,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                 recurse.NullAwareSerialize(parameter3, env));
         }
 
-        private static Instruction CreateInstruction<TParam>(string name, IGremlinQuerySerializer recurse, IGremlinQueryEnvironment env, ImmutableArray<TParam> parameters)
+        private static Instruction CreateInstruction<TParam>(string name, ISerializer recurse, IGremlinQueryEnvironment env, ImmutableArray<TParam> parameters)
         {
             if (parameters.Length == 0)
                 return CreateInstruction(name);
@@ -621,7 +621,7 @@ namespace ExRam.Gremlinq.Core.Serialization
             return new Instruction(name, arguments);
         }
 
-        private static object? NullAwareSerialize<TParam>(this IGremlinQuerySerializer serializer, TParam maybeParameter, IGremlinQueryEnvironment env)
+        private static object? NullAwareSerialize<TParam>(this ISerializer serializer, TParam maybeParameter, IGremlinQueryEnvironment env)
         {
             return maybeParameter is { } parameter
                 ? serializer.Serialize(parameter, env)
