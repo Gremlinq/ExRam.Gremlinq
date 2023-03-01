@@ -2,42 +2,22 @@
 {
     public static class GremlinQuerySerializer
     {
+        [ThreadStatic]
+        internal static Dictionary<StepLabel, string>? _stepLabelNames;
+
+        internal static readonly string[] StepLabelNames;
+
         private sealed class GremlinQuerySerializerImpl : IGremlinQuerySerializer
         {
-            [ThreadStatic]
-            private static Dictionary<StepLabel, string>? _stepLabelNames;
-
-            private static readonly string[] StepLabelNames;
-
             private readonly IGremlinQueryFragmentSerializer _fragmentSerializer;
             private readonly IGremlinQueryFragmentSerializer _originalFragmentSerializer;
-
-            static GremlinQuerySerializerImpl()
-            {
-                StepLabelNames = Enumerable.Range(1, 100)
-                    .Select(static x => "l" + x)
-                    .ToArray();
-            }
 
             public GremlinQuerySerializerImpl(IGremlinQueryFragmentSerializer fragmentSerializer)
             {
                 _originalFragmentSerializer = fragmentSerializer;
 
                 _fragmentSerializer = fragmentSerializer
-                    .Override<StepLabel>(static (stepLabel, env, _, recurse) =>
-                    {
-                        if (!_stepLabelNames!.TryGetValue(stepLabel, out var stepLabelMapping))
-                        {
-                            stepLabelMapping = stepLabel.Identity as string ?? (_stepLabelNames.Count < StepLabelNames.Length
-                                ? StepLabelNames[_stepLabelNames.Count]
-                                : "l" + (_stepLabelNames.Count + 1));
-
-                            _stepLabelNames.Add(stepLabel, stepLabelMapping);
-                        }
-
-                        // ReSharper disable once TailRecursiveCall
-                        return recurse.Serialize(stepLabelMapping, env);
-                    });
+                    ;
             }
 
             public ISerializedGremlinQuery Serialize(IGremlinQueryBase query)
@@ -93,6 +73,9 @@
 
         static GremlinQuerySerializer()
         {
+            StepLabelNames = Enumerable.Range(1, 100)
+                .Select(static x => "l" + x)
+                .ToArray();
         }
 
         public static IGremlinQuerySerializer Select(this IGremlinQuerySerializer serializer, Func<ISerializedGremlinQuery, ISerializedGremlinQuery> projection)
