@@ -5,10 +5,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
 {
     public static class Deserializer
     {
-        public static readonly ITransformer Identity = new Transformer(ImmutableStack<IConverterFactory>.Empty)
-            .Add(new IdentityConverterFactory());
-
-        public static readonly ITransformer Default = Identity
+        public static readonly ITransformer Default = Transformer.Identity
             .Add(new SingleItemArrayFallbackConverterFactory())
             .AddToStringFallback();
 
