@@ -1,4 +1,6 @@
-﻿namespace ExRam.Gremlinq.Core.Serialization
+﻿using ExRam.Gremlinq.Core.Transformation;
+
+namespace ExRam.Gremlinq.Core.Serialization
 {
-    public delegate object? GremlinQueryFragmentSerializerDelegate<in TFragment>(TFragment fragment, IGremlinQueryEnvironment environment, ISerializer recurse);
+    public delegate object? GremlinQueryFragmentSerializerDelegate<in TFragment>(TFragment fragment, IGremlinQueryEnvironment environment, ITransformer recurse);
 }
