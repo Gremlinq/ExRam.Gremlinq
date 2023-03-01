@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using ExRam.Gremlinq.Core.Deserialization;
 using ExRam.Gremlinq.Core.Transformation;
 
 namespace ExRam.Gremlinq.Core
@@ -9,14 +8,14 @@ namespace ExRam.Gremlinq.Core
         public readonly struct FluentForClass<TTarget>
             where TTarget : class
         {
-            private readonly IDeserializer _deserializer;
+            private readonly ITransformer _deserializer;
 
-            public FluentForClass(IDeserializer deserializer)
+            public FluentForClass(ITransformer deserializer)
             {
                 _deserializer = deserializer;
             }
 
-            public TTarget? From<TSource>(TSource source, IGremlinQueryEnvironment environment) => _deserializer.TryDeserialize<TSource, TTarget>(source, environment, out var value)
+            public TTarget? From<TSource>(TSource source, IGremlinQueryEnvironment environment) => _deserializer.TryTransform<TSource, TTarget>(source, environment, out var value)
                 ? value
                 : default;
         }
@@ -26,14 +25,14 @@ namespace ExRam.Gremlinq.Core
         {
             private sealed class FixedTypeConverter<TSource> : IConverter<TSource, TStaticRequested>
             {
-                private readonly Func<TStaticSerialized, IGremlinQueryEnvironment, IDeserializer, TStaticRequested?> _func;
+                private readonly Func<TStaticSerialized, IGremlinQueryEnvironment, ITransformer, TStaticRequested?> _func;
 
-                public FixedTypeConverter(Func<TStaticSerialized, IGremlinQueryEnvironment, IDeserializer, TStaticRequested?> func)
+                public FixedTypeConverter(Func<TStaticSerialized, IGremlinQueryEnvironment, ITransformer, TStaticRequested?> func)
                 {
                     _func = func;
                 }
 
-                public bool TryConvert(TSource source, IGremlinQueryEnvironment environment, IDeserializer recurse, [NotNullWhen(true)] out TStaticRequested? value)
+                public bool TryConvert(TSource source, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TStaticRequested? value)
                 {
                     if (source is TStaticSerialized staticSerialized && _func(staticSerialized, environment, recurse) is { } requested)
                     {
@@ -48,9 +47,9 @@ namespace ExRam.Gremlinq.Core
                 }
             }
 
-            private readonly Func<TStaticSerialized, IGremlinQueryEnvironment, IDeserializer, TStaticRequested?> _func;
+            private readonly Func<TStaticSerialized, IGremlinQueryEnvironment, ITransformer, TStaticRequested?> _func;
 
-            public FixedTypeConverterFactory(Func<TStaticSerialized, IGremlinQueryEnvironment, IDeserializer, TStaticRequested?> func)
+            public FixedTypeConverterFactory(Func<TStaticSerialized, IGremlinQueryEnvironment, ITransformer, TStaticRequested?> func)
             {
                 _func = func;
             }
@@ -63,13 +62,13 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        public static FluentForClass<TTarget> TryDeserialize<TTarget>(this IDeserializer deserializer)
+        public static FluentForClass<TTarget> TryDeserialize<TTarget>(this ITransformer deserializer)
             where TTarget : class
         {
             return new FluentForClass<TTarget>(deserializer);
         }
 
-        public static IDeserializer Override<TSource, TTarget>(this IDeserializer deserializer, Func<TSource, IGremlinQueryEnvironment, IDeserializer, TTarget?> func)
+        public static ITransformer Override<TSource, TTarget>(this ITransformer deserializer, Func<TSource, IGremlinQueryEnvironment, ITransformer, TTarget?> func)
             where TTarget : class
         {
             return deserializer

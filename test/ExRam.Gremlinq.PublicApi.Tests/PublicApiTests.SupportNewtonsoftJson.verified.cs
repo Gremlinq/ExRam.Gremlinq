@@ -2,7 +2,7 @@
 {
     public static class DeserializerExtensions
     {
-        public static ExRam.Gremlinq.Core.Deserialization.IDeserializer AddNewtonsoftJson(this ExRam.Gremlinq.Core.Deserialization.IDeserializer deserializer) { }
+        public static ExRam.Gremlinq.Core.Transformation.ITransformer AddNewtonsoftJson(this ExRam.Gremlinq.Core.Transformation.ITransformer deserializer) { }
     }
 }
 namespace ExRam.Gremlinq.Core

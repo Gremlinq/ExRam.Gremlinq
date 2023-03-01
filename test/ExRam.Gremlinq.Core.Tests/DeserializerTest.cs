@@ -65,7 +65,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             Deserializer.Identity
                 .Override<string, int>((serialized, env, recurse) => recurse.TryDeserialize<int>().From(36, env))
-                .TryDeserialize<int, string>(36, GremlinQueryEnvironment.Empty, out var _)
+                .TryTransform<int, string>(36, GremlinQueryEnvironment.Empty, out var _)
                 .Should()
                 .BeFalse();
         }

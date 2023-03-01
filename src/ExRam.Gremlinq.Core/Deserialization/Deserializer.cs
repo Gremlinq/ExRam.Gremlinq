@@ -1,20 +1,18 @@
 ﻿using System.Collections.Immutable;
-using System.Diagnostics.CodeAnalysis;
-
 using ExRam.Gremlinq.Core.Transformation;
 
 namespace ExRam.Gremlinq.Core.Deserialization
 {
     public static class Deserializer
     {
-        public static readonly IDeserializer Identity = new Transformer(ImmutableStack<IConverterFactory>.Empty)
+        public static readonly ITransformer Identity = new Transformer(ImmutableStack<IConverterFactory>.Empty)
             .Add(new IdentityConverterFactory());
 
-        public static readonly IDeserializer Default = Identity
+        public static readonly ITransformer Default = Identity
             .Add(new SingleItemArrayFallbackConverterFactory())
             .AddToStringFallback();
 
-        public static IDeserializer AddToStringFallback(this IDeserializer deserializer) => deserializer
+        public static ITransformer AddToStringFallback(this ITransformer deserializer) => deserializer
             .Add(new ToStringFallbackConverterFactory());
     }
 }

@@ -2,6 +2,8 @@
 using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Core.Serialization;
+using ExRam.Gremlinq.Core.Transformation;
+
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
@@ -15,7 +17,7 @@ namespace ExRam.Gremlinq.Core
                 IGraphModel model,
                 IGremlinQuerySerializer serializer,
                 IGremlinQueryExecutor executor,
-                IDeserializer deserializer,
+                ITransformer deserializer,
                 IGremlinQueryDebugger debugger,
                 IFeatureSet featureSet,
                 IGremlinqOptions options,
@@ -39,7 +41,7 @@ namespace ExRam.Gremlinq.Core
 
             public IGremlinQueryEnvironment ConfigureLogger(Func<ILogger, ILogger> loggerTransformation) => new GremlinQueryEnvironmentImpl(Model, Serializer, Executor, Deserializer, Debugger, FeatureSet, Options, loggerTransformation(Logger));
 
-            public IGremlinQueryEnvironment ConfigureDeserializer(Func<IDeserializer, IDeserializer> configurator) => new GremlinQueryEnvironmentImpl(Model, Serializer, Executor, configurator(Deserializer), Debugger, FeatureSet, Options, Logger);
+            public IGremlinQueryEnvironment ConfigureDeserializer(Func<ITransformer, ITransformer> configurator) => new GremlinQueryEnvironmentImpl(Model, Serializer, Executor, configurator(Deserializer), Debugger, FeatureSet, Options, Logger);
 
             public IGremlinQueryEnvironment ConfigureSerializer(Func<IGremlinQuerySerializer, IGremlinQuerySerializer> configurator) => new GremlinQueryEnvironmentImpl(Model, configurator(Serializer), Executor, Deserializer, Debugger, FeatureSet, Options, Logger);
 
@@ -54,7 +56,7 @@ namespace ExRam.Gremlinq.Core
             public IGremlinQueryDebugger Debugger { get; }
             public IGremlinQueryExecutor Executor { get; }
             public IGremlinQuerySerializer Serializer { get; }
-            public IDeserializer Deserializer { get; }
+            public ITransformer Deserializer { get; }
         }
 
         public static readonly IGremlinQueryEnvironment Empty = new GremlinQueryEnvironmentImpl(
@@ -78,7 +80,7 @@ namespace ExRam.Gremlinq.Core
 
         public static IGremlinQueryEnvironment UseSerializer(this IGremlinQueryEnvironment environment, IGremlinQuerySerializer serializer) => environment.ConfigureSerializer(_ => serializer);
 
-        public static IGremlinQueryEnvironment UseDeserializer(this IGremlinQueryEnvironment environment, IDeserializer deserializer) => environment.ConfigureDeserializer(_ => deserializer);
+        public static IGremlinQueryEnvironment UseDeserializer(this IGremlinQueryEnvironment environment, ITransformer deserializer) => environment.ConfigureDeserializer(_ => deserializer);
 
         public static IGremlinQueryEnvironment UseExecutor(this IGremlinQueryEnvironment environment, IGremlinQueryExecutor executor) => environment.ConfigureExecutor(_ => executor);
 
@@ -95,7 +97,7 @@ namespace ExRam.Gremlinq.Core
                         .Override<byte[]>(static (bytes, env, _, recurse) => recurse.Serialize(Convert.ToBase64String(bytes), env))));
         }
 
-        public static IGremlinQueryEnvironment RegisterNativeType<TNative>(this IGremlinQueryEnvironment environment, GremlinQueryFragmentSerializerDelegate<TNative> serializerDelegate, Func<IDeserializer, IDeserializer> deserializerTransformation)
+        public static IGremlinQueryEnvironment RegisterNativeType<TNative>(this IGremlinQueryEnvironment environment, GremlinQueryFragmentSerializerDelegate<TNative> serializerDelegate, Func<ITransformer, ITransformer> deserializerTransformation)
         {
             return environment
                 .ConfigureModel(static _ => _

@@ -1,7 +1,5 @@
 ﻿using ExRam.Gremlinq.Core.Transformation;
-
 using Newtonsoft.Json.Linq;
-
 using System.Diagnostics.CodeAnalysis;
 
 namespace ExRam.Gremlinq.Core.Deserialization
@@ -18,7 +16,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 _factory = factory;
             }
 
-            public bool TryConvert(JValue serialized, IGremlinQueryEnvironment environment, IDeserializer recurse, [NotNullWhen(true)] out TStaticTarget value)
+            public bool TryConvert(JValue serialized, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TStaticTarget value)
             {
                 if (_factory.Convert(serialized, environment, recurse) is { } requested)
                 {
@@ -40,6 +38,6 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 : null;
         }
 
-        protected abstract TStaticTarget? Convert(JValue jValue, IGremlinQueryEnvironment environment, IDeserializer recurse);
+        protected abstract TStaticTarget? Convert(JValue jValue, IGremlinQueryEnvironment environment, ITransformer recurse);
     }
 }

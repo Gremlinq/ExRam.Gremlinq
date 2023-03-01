@@ -2,6 +2,8 @@
 using System.Reflection;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Deserialization;
+using ExRam.Gremlinq.Core.Transformation;
+
 using Gremlin.Net.Process.Traversal;
 using Newtonsoft.Json.Linq;
 
@@ -11,22 +13,22 @@ namespace System
     {
         private static class Info<TElement>
         {
-            private static readonly ConcurrentDictionary<IGremlinQueryEnvironment, Action<TElement, JToken, IDeserializer>?> IdSetters = new();
-            private static readonly ConcurrentDictionary<IGremlinQueryEnvironment, Action<TElement, JToken, IDeserializer>?> LabelSetters = new();
+            private static readonly ConcurrentDictionary<IGremlinQueryEnvironment, Action<TElement, JToken, ITransformer>?> IdSetters = new();
+            private static readonly ConcurrentDictionary<IGremlinQueryEnvironment, Action<TElement, JToken, ITransformer>?> LabelSetters = new();
 
-            public static void SetId(TElement element, JToken idToken, IGremlinQueryEnvironment environment, IDeserializer recurse)
+            public static void SetId(TElement element, JToken idToken, IGremlinQueryEnvironment environment, ITransformer recurse)
             {
                 if (TryGetSetter(IdSetters, T.Id, environment) is { } idSetter)
                     idSetter(element, idToken, recurse);
             }
 
-            public static void SetLabel(TElement element, JToken idToken, IGremlinQueryEnvironment environment, IDeserializer recurse)
+            public static void SetLabel(TElement element, JToken idToken, IGremlinQueryEnvironment environment, ITransformer recurse)
             {
                 if (TryGetSetter(LabelSetters, T.Label, environment) is { } labelSetter)
                     labelSetter(element, idToken, recurse);
             }
 
-            private static Action<TElement, JToken, IDeserializer>? TryGetSetter(ConcurrentDictionary<IGremlinQueryEnvironment, Action<TElement, JToken, IDeserializer>?> dict, T relevantT, IGremlinQueryEnvironment environment)
+            private static Action<TElement, JToken, ITransformer>? TryGetSetter(ConcurrentDictionary<IGremlinQueryEnvironment, Action<TElement, JToken, ITransformer>?> dict, T relevantT, IGremlinQueryEnvironment environment)
             {
                 return dict
                     .GetOrAdd(
@@ -43,7 +45,7 @@ namespace System
 
                                 if (info.key.RawKey is T t && relevantT.Equals(t) && info.propertyInfo is { } propertyInfo)
                                 {
-                                    return (Action<TElement, JToken, IDeserializer>)typeof(Info<TElement>)
+                                    return (Action<TElement, JToken, ITransformer>)typeof(Info<TElement>)
                                         .GetMethod(nameof(CreateSetter), BindingFlags.NonPublic | BindingFlags.Static)!
                                         .MakeGenericMethod(propertyInfo.PropertyType)
                                         .Invoke(null, new object[] { propertyInfo, environment })!;
@@ -55,18 +57,18 @@ namespace System
                         relevantT);
             }
 
-            private static Action<TElement, JToken, IDeserializer>? CreateSetter<TProperty>(PropertyInfo propertyInfo, IGremlinQueryEnvironment environment)
+            private static Action<TElement, JToken, ITransformer>? CreateSetter<TProperty>(PropertyInfo propertyInfo, IGremlinQueryEnvironment environment)
             {
                 return (element, token, recurse) =>
                 {
-                    if (recurse.TryDeserialize<JToken, TProperty>(token, environment, out var value))
+                    if (recurse.TryTransform<JToken, TProperty>(token, environment, out var value))
                         propertyInfo.SetValue(element, value);
                 };
             }
         }
 
 
-        public static TElement SetIdAndLabel<TElement>(this TElement element, JToken idToken, JToken labelToken, IGremlinQueryEnvironment environment, IDeserializer recurse)
+        public static TElement SetIdAndLabel<TElement>(this TElement element, JToken idToken, JToken labelToken, IGremlinQueryEnvironment environment, ITransformer recurse)
         {
             Info<TElement>.SetId(element, idToken, environment, recurse);
             Info<TElement>.SetLabel(element, labelToken, environment, recurse);
