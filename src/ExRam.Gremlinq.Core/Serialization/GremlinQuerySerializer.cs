@@ -305,60 +305,6 @@ namespace ExRam.Gremlinq.Core.Serialization
                 : CreateInstruction("mean"))
             .Override<Memory<Step>>(static (steps, env, _, recurse) =>
             {
-                var byteCode = new Bytecode();
-
-                void Add(object? obj)
-                {
-                    switch (obj)
-                    {
-                        case Instruction instruction:
-                            {
-                                if (byteCode.StepInstructions.Count == 0 && instruction.OperatorName.StartsWith("with", StringComparison.OrdinalIgnoreCase))
-                                    byteCode.SourceInstructions.Add(instruction);
-                                else
-                                    byteCode.StepInstructions.Add(instruction);
-
-                                break;
-                            }
-                        case Step step:
-                            {
-                                Add(recurse.Serialize(step, env));
-
-                                break;
-                            }
-                        case Traversal traversal:
-                            {
-                                for (var i = 0; i < traversal.Count; i++)
-                                {
-                                    Add(traversal[i]);
-                                }
-
-                                break;
-                            }
-                        case IEnumerable enumerable:
-                            {
-                                foreach (var item in enumerable)
-                                {
-                                    Add(item);
-                                }
-
-                                break;
-                            }
-                    }
-                }
-
-                foreach (var step in steps.Span)
-                {
-                    Add(step);
-                }
-
-                if (byteCode.StepInstructions.Count == 0)
-                    Add(IdentityStep.Instance);
-
-                return recurse.Serialize(byteCode, env);
-            })
-            .Override<Memory<Step>>(static (steps, env, overridden, recurse) =>
-            {
                 var j = 0;
                 var span = steps.Span;
 
@@ -394,7 +340,59 @@ namespace ExRam.Gremlinq.Core.Serialization
                         span[i - j] = sourceStep;
                 }
 
-                return overridden(steps[..^j], env, recurse);
+                span = span[..^j];
+
+                var byteCode = new Bytecode();
+
+                void Add(object? obj)
+                {
+                    switch (obj)
+                    {
+                        case Instruction instruction:
+                        {
+                            if (byteCode.StepInstructions.Count == 0 && instruction.OperatorName.StartsWith("with", StringComparison.OrdinalIgnoreCase))
+                                byteCode.SourceInstructions.Add(instruction);
+                            else
+                                byteCode.StepInstructions.Add(instruction);
+
+                            break;
+                        }
+                        case Step step:
+                        {
+                            Add(recurse.Serialize(step, env));
+
+                            break;
+                        }
+                        case Traversal traversal:
+                        {
+                            for (var i = 0; i < traversal.Count; i++)
+                            {
+                                Add(traversal[i]);
+                            }
+
+                            break;
+                        }
+                        case IEnumerable enumerable:
+                        {
+                            foreach (var item in enumerable)
+                            {
+                                Add(item);
+                            }
+
+                            break;
+                        }
+                    }
+                }
+
+                foreach (var step in span)
+                {
+                    Add(step);
+                }
+
+                if (byteCode.StepInstructions.Count == 0)
+                    Add(IdentityStep.Instance);
+
+                return recurse.Serialize(byteCode, env);
             })
             .Override<MinStep>(static (step, env, _, recurse) => step.Scope.Equals(Scope.Local)
                 ? CreateInstruction("min", recurse, env, step.Scope)
