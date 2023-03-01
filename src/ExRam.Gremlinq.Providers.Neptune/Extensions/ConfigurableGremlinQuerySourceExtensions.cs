@@ -2,6 +2,7 @@
 using ExRam.Gremlinq.Providers.Neptune;
 using ExRam.Gremlinq.Providers.WebSocket;
 using Gremlin.Net.Process.Traversal;
+using ExRam.Gremlinq.Core.Serialization;
 
 namespace ExRam.Gremlinq.Core
 {

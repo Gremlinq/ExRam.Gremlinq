@@ -14,7 +14,7 @@ namespace ExRam.Gremlinq.Core
         {
             public GremlinQueryEnvironmentImpl(
                 IGraphModel model,
-                ISerializer serializer,
+                ITransformer serializer,
                 IGremlinQueryExecutor executor,
                 ITransformer deserializer,
                 IGremlinQueryDebugger debugger,
@@ -42,7 +42,7 @@ namespace ExRam.Gremlinq.Core
 
             public IGremlinQueryEnvironment ConfigureDeserializer(Func<ITransformer, ITransformer> configurator) => new GremlinQueryEnvironmentImpl(Model, Serializer, Executor, configurator(Deserializer), Debugger, FeatureSet, Options, Logger);
 
-            public IGremlinQueryEnvironment ConfigureSerializer(Func<ISerializer, ISerializer> configurator) => new GremlinQueryEnvironmentImpl(Model, configurator(Serializer), Executor, Deserializer, Debugger, FeatureSet, Options, Logger);
+            public IGremlinQueryEnvironment ConfigureSerializer(Func<ITransformer, ITransformer> configurator) => new GremlinQueryEnvironmentImpl(Model, configurator(Serializer), Executor, Deserializer, Debugger, FeatureSet, Options, Logger);
 
             public IGremlinQueryEnvironment ConfigureExecutor(Func<IGremlinQueryExecutor, IGremlinQueryExecutor> configurator) => new GremlinQueryEnvironmentImpl(Model, Serializer, configurator(Executor), Deserializer, Debugger, FeatureSet, Options, Logger);
 
@@ -54,7 +54,7 @@ namespace ExRam.Gremlinq.Core
             public IGremlinqOptions Options { get; }
             public IGremlinQueryDebugger Debugger { get; }
             public IGremlinQueryExecutor Executor { get; }
-            public ISerializer Serializer { get; }
+            public ITransformer Serializer { get; }
             public ITransformer Deserializer { get; }
         }
 
@@ -77,7 +77,7 @@ namespace ExRam.Gremlinq.Core
 
         public static IGremlinQueryEnvironment UseLogger(this IGremlinQueryEnvironment source, ILogger logger) => source.ConfigureLogger(_ => logger);
 
-        public static IGremlinQueryEnvironment UseSerializer(this IGremlinQueryEnvironment environment, ISerializer serializer) => environment.ConfigureSerializer(_ => serializer);
+        public static IGremlinQueryEnvironment UseSerializer(this IGremlinQueryEnvironment environment, ITransformer serializer) => environment.ConfigureSerializer(_ => serializer);
 
         public static IGremlinQueryEnvironment UseDeserializer(this IGremlinQueryEnvironment environment, ITransformer deserializer) => environment.ConfigureDeserializer(_ => deserializer);
 

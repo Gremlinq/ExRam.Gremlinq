@@ -1008,7 +1008,19 @@
     }
   },
   {
-    Item1: PropertyStep.ByTraversalStep
+    Item1: PropertyStep.ByTraversalStep,
+    Item2: {
+      Traversal: [
+        {}
+      ],
+      Value: string,
+      Cardinality: {
+        EnumName: Cardinality,
+        EnumValue: single
+      },
+      MetaProperties: null,
+      SideEffectSemanticsChange: Write
+    }
   },
   {
     Item1: RangeStep,
