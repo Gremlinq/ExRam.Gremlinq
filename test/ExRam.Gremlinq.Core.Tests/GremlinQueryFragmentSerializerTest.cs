@@ -14,14 +14,14 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public async Task Empty()
         {
-            await Verify(GremlinQuerySerializer.Identity
+            await Verify(Serializer.Identity
                 .Serialize(new HasLabelStep(ImmutableArray.Create("label")), GremlinQueryEnvironment.Empty));
         }
 
         [Fact]
         public async Task Base_type()
         {
-            await Verify(GremlinQuerySerializer.Identity
+            await Verify(Serializer.Identity
                 .Override<Step>((step, env, recurse) => new VStep(ImmutableArray.Create<object>("id")))
                 .Serialize(new HasLabelStep(ImmutableArray.Create("label")), GremlinQueryEnvironment.Empty));
         }
@@ -29,7 +29,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public async Task Irrelevant()
         {
-            await Verify(GremlinQuerySerializer.Identity
+            await Verify(Serializer.Identity
                 .Override<HasKeyStep>((step, env, recurse) => new HasLabelStep(ImmutableArray.Create("should not be here")))
                 .Serialize(new HasLabelStep(ImmutableArray.Create("label")), GremlinQueryEnvironment.Empty));
         }
@@ -54,7 +54,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public async Task Recurse()
         {
-            await Verify(GremlinQuerySerializer.Identity
+            await Verify(Serializer.Identity
                 .Override<HasLabelStep>((step, env, recurse) => recurse.Serialize(new VStep(ImmutableArray.Create<object>("id")), env))
                 .Serialize(new HasLabelStep(ImmutableArray.Create("label")), GremlinQueryEnvironment.Empty));
         }
@@ -84,7 +84,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 TypeSystemTest.AllSteps
                     .Select(step => (
                         step.GetType(),
-                        GremlinQuerySerializer.Default
+                        Serializer.Default
                             .Serialize(step, GremlinQueryEnvironment.Empty)))
                     .ToArray());
         }
