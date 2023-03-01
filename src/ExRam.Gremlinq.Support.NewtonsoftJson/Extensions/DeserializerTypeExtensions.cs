@@ -23,10 +23,10 @@ namespace ExRam.Gremlinq.Core
                 _deserializer = deserializer;
             }
 
-            public object? From<TSource>(TSource serialized, IGremlinQueryEnvironment environment)
+            public object? From<TSource>(TSource source, IGremlinQueryEnvironment environment)
             {
                 return TryGetDelegate(typeof(TSource), _type) is Func<IDeserializer, TSource, IGremlinQueryEnvironment, object?> fromDelegate
-                    ? fromDelegate(_deserializer, serialized, environment)
+                    ? fromDelegate(_deserializer, source, environment)
                     : default;
             }
 

@@ -17,7 +17,7 @@ namespace ExRam.Gremlinq.Core
                 _deserializer = deserializer;
             }
 
-            public TRequested? From<TSource>(TSource serialized, IGremlinQueryEnvironment environment) => _deserializer.TryDeserialize<TSource, TRequested>(serialized, environment, out var value)
+            public TRequested? From<TSource>(TSource source, IGremlinQueryEnvironment environment) => _deserializer.TryDeserialize<TSource, TRequested>(source, environment, out var value)
                 ? value
                 : default(TRequested?);
         }
@@ -34,9 +34,9 @@ namespace ExRam.Gremlinq.Core
                     _func = func;
                 }
 
-                public bool TryConvert(TSource serialized, IGremlinQueryEnvironment environment, IDeserializer recurse, [NotNullWhen(true)] out TStaticRequested value)
+                public bool TryConvert(TSource source, IGremlinQueryEnvironment environment, IDeserializer recurse, [NotNullWhen(true)] out TStaticRequested value)
                 {
-                    if (serialized is TStaticSerialized staticSerialized && _func(staticSerialized, environment, recurse) is { } requested)
+                    if (source is TStaticSerialized staticSerialized && _func(staticSerialized, environment, recurse) is { } requested)
                     {
                         value = requested;
 

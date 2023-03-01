@@ -7,9 +7,9 @@ namespace ExRam.Gremlinq.Core.Transformation
     {
         private sealed class SingleItemArrayFallbackConverter<TSource, TRequestedArray, TRequestedArrayItem> : IConverter<TSource, TRequestedArray>
         {
-            public bool TryConvert(TSource serialized, IGremlinQueryEnvironment environment, IDeserializer recurse, [NotNullWhen(true)] out TRequestedArray? value)
+            public bool TryConvert(TSource source, IGremlinQueryEnvironment environment, IDeserializer recurse, [NotNullWhen(true)] out TRequestedArray? value)
             {
-                if (recurse.TryDeserialize<TSource, TRequestedArrayItem>(serialized, environment, out var typedValue))
+                if (recurse.TryDeserialize<TSource, TRequestedArrayItem>(source, environment, out var typedValue))
                 {
                     value = (TRequestedArray)(object)new[] { typedValue };
                     return true;
