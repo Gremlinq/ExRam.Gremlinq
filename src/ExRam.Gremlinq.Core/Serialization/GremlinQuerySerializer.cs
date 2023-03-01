@@ -3,9 +3,7 @@ using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Immutable;
 using System.Reflection;
-
 using ExRam.Gremlinq.Core.Steps;
-
 using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core.Serialization
@@ -36,7 +34,7 @@ namespace ExRam.Gremlinq.Core.Serialization
 
             public object Serialize<TFragment>(TFragment fragment, IGremlinQueryEnvironment gremlinQueryEnvironment)
             {
-                var maybeRet = TryGetSerializer(typeof(TFragment), fragment!.GetType()) is BaseGremlinQueryFragmentSerializerDelegate<TFragment> del
+                var maybeRet = TryGetSerializer(typeof(TFragment), fragment!.GetType()) is GremlinQueryFragmentSerializerDelegate<TFragment> del
                     ? del(fragment, gremlinQueryEnvironment, this)
                     : fragment;
 
@@ -50,7 +48,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                 return new GremlinQuerySerializerImpl(
                     _dict.SetItem(
                         typeof(TFragment),
-                        TryGetSerializer(typeof(TFragment), typeof(TFragment)) is BaseGremlinQueryFragmentSerializerDelegate<TFragment> existingFragmentSerializer
+                        TryGetSerializer(typeof(TFragment), typeof(TFragment)) is GremlinQueryFragmentSerializerDelegate<TFragment> existingFragmentSerializer
                             ? (fragment, env, recurse) => serializer(fragment, env, recurse) is { } ret
                                 ? ret
                                 : existingFragmentSerializer(fragment, env, recurse)
@@ -109,17 +107,17 @@ namespace ExRam.Gremlinq.Core.Serialization
                     : null;
             }
 
-            private static BaseGremlinQueryFragmentSerializerDelegate<TStatic> CreateFunc1<TStatic>(GremlinQueryFragmentSerializerDelegate<TStatic> del) => (fragment, environment, recurse) => del(fragment!, environment, recurse);
+            private static GremlinQueryFragmentSerializerDelegate<TStatic> CreateFunc1<TStatic>(GremlinQueryFragmentSerializerDelegate<TStatic> del) => (fragment, environment, recurse) => del(fragment!, environment, recurse);
 
-            private static BaseGremlinQueryFragmentSerializerDelegate<TEffective?> CreateFunc2<TEffective>(GremlinQueryFragmentSerializerDelegate<TEffective> del)
+            private static GremlinQueryFragmentSerializerDelegate<TEffective?> CreateFunc2<TEffective>(GremlinQueryFragmentSerializerDelegate<TEffective> del)
                 where TEffective : struct => (fragment, environment, recurse) => fragment is { } value
                     ? del(value, environment, recurse)
                     : throw new ArgumentNullException();
 
-            private static BaseGremlinQueryFragmentSerializerDelegate<TStatic> CreateFunc3<TStatic, TEffective>(GremlinQueryFragmentSerializerDelegate<TEffective> del)
+            private static GremlinQueryFragmentSerializerDelegate<TStatic> CreateFunc3<TStatic, TEffective>(GremlinQueryFragmentSerializerDelegate<TEffective> del)
                 where TEffective : TStatic => (fragment, environment, recurse) => del((TEffective)(fragment ?? throw new ArgumentNullException()), environment, recurse);
 
-            private static BaseGremlinQueryFragmentSerializerDelegate<TStatic> CreateFunc4<TStatic, TEffective>(GremlinQueryFragmentSerializerDelegate<TEffective> del)
+            private static GremlinQueryFragmentSerializerDelegate<TStatic> CreateFunc4<TStatic, TEffective>(GremlinQueryFragmentSerializerDelegate<TEffective> del)
                 where TStatic : TEffective => (fragment, environment, recurse) => del(fragment, environment, recurse);
         }
 
