@@ -2,8 +2,8 @@
 {
     public interface IGremlinQuerySerializer
     {
-        ISerializedGremlinQuery Serialize(IGremlinQueryBase query);
+        object Serialize<TFragment>(TFragment fragment, IGremlinQueryEnvironment gremlinQueryEnvironment);
 
-        IGremlinQuerySerializer ConfigureFragmentSerializer(Func<IGremlinQueryFragmentSerializer, IGremlinQueryFragmentSerializer> transformation);
+        IGremlinQuerySerializer Override<TFragment>(GremlinQueryFragmentSerializerDelegate<TFragment> serializer);
     }
 }
