@@ -3,8 +3,8 @@ using ExRam.Gremlinq.Core.Deserialization;
 
 namespace ExRam.Gremlinq.Core.Transformation
 {
-    public interface IConverter<in TSerialized, TRequested>
+    public interface IConverter<in TSource, TRequested>
     {
-        bool TryConvert(TSerialized serialized, IGremlinQueryEnvironment environment, IDeserializer recurse, [NotNullWhen(true)] out TRequested? value);
+        bool TryConvert(TSource serialized, IGremlinQueryEnvironment environment, IDeserializer recurse, [NotNullWhen(true)] out TRequested? value);
     }
 }

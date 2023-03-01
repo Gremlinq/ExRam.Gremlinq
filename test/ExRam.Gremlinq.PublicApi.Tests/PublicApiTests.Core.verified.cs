@@ -9,7 +9,7 @@
     public interface IDeserializer
     {
         ExRam.Gremlinq.Core.Deserialization.IDeserializer Add(ExRam.Gremlinq.Core.Transformation.IConverterFactory converterFactory);
-        bool TryDeserialize<TSerialized, TRequested>(TSerialized serialized, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out TRequested? value);
+        bool TryDeserialize<TSource, TRequested>(TSource serialized, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out TRequested? value);
     }
 }
 namespace ExRam.Gremlinq.Core
@@ -2268,10 +2268,10 @@ namespace ExRam.Gremlinq.Core.Transformation
 {
     public interface IConverterFactory
     {
-        ExRam.Gremlinq.Core.Transformation.IConverter<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>();
+        ExRam.Gremlinq.Core.Transformation.IConverter<TSource, TRequested>? TryCreate<TSource, TRequested>();
     }
-    public interface IConverter<in TSerialized, TRequested>
+    public interface IConverter<in TSource, TRequested>
     {
-        bool TryConvert(TSerialized serialized, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Deserialization.IDeserializer recurse, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out TRequested? value);
+        bool TryConvert(TSource serialized, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Deserialization.IDeserializer recurse, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out TRequested? value);
     }
 }

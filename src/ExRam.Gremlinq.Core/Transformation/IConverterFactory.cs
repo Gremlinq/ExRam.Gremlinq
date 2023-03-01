@@ -2,6 +2,6 @@
 {
     public interface IConverterFactory
     {
-        IConverter<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>();
+        IConverter<TSource, TRequested>? TryCreate<TSource, TRequested>();
     }
 }
