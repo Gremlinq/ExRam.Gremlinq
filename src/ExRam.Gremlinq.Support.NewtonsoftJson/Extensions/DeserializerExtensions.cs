@@ -41,15 +41,15 @@ namespace ExRam.Gremlinq.Core.Deserialization
             private sealed class NewtonsoftJsonSerializerConverter<TSource, TRequested> : IConverter<TSource, TRequested>
                 where TSource : JToken
             {
-                public bool TryConvert(TSource serialized, IGremlinQueryEnvironment environment, IDeserializer recurse, [NotNullWhen(true)] out TRequested? value)
+                public bool TryConvert(TSource source, IGremlinQueryEnvironment environment, IDeserializer recurse, [NotNullWhen(true)] out TRequested? value)
                 {
-                    if (serialized is TRequested alreadyRequestedValue)
+                    if (source is TRequested alreadyRequestedValue)
                     {
                         value = alreadyRequestedValue;
                         return true;
                     }
 
-                    if (serialized.ToObject<TRequested>(environment.GetJsonSerializer(recurse)) is { } requestedValue)
+                    if (source.ToObject<TRequested>(environment.GetJsonSerializer(recurse)) is { } requestedValue)
                     {
                         value = requestedValue;
                         return true;
@@ -100,9 +100,9 @@ namespace ExRam.Gremlinq.Core.Deserialization
         {
             private sealed class SingleItemArrayFallbackConverter<TSource, TRequestedArray, TRequestedArrayItem> : IConverter<TSource, TRequestedArray>
             {
-                public bool TryConvert(TSource serialized, IGremlinQueryEnvironment environment, IDeserializer recurse, [NotNullWhen(true)] out TRequestedArray? value)
+                public bool TryConvert(TSource source, IGremlinQueryEnvironment environment, IDeserializer recurse, [NotNullWhen(true)] out TRequestedArray? value)
                 {
-                    if (!environment.GetCache().FastNativeTypes.ContainsKey(typeof(TRequestedArray)) && recurse.TryDeserialize<TSource, TRequestedArrayItem>(serialized, environment, out var typedValue))
+                    if (!environment.GetCache().FastNativeTypes.ContainsKey(typeof(TRequestedArray)) && recurse.TryDeserialize<TSource, TRequestedArrayItem>(source, environment, out var typedValue))
                     {
                         value = (TRequestedArray)(object)new[] { typedValue };
                         return true;

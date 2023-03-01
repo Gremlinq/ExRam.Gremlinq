@@ -32,9 +32,9 @@ namespace ExRam.Gremlinq.Core.Transformation
             _converterFactories = converterFactories;
         }
 
-        public bool TryDeserialize<TSource, TTarget>(TSource serialized, IGremlinQueryEnvironment environment, [NotNullWhen(true)] out TTarget? value)
+        public bool TryDeserialize<TSource, TTarget>(TSource source, IGremlinQueryEnvironment environment, [NotNullWhen(true)] out TTarget? value)
         {
-            if (serialized is { } actualSerialized)
+            if (source is { } actualSerialized)
             {
                 var maybeDeserializerDelegate = _conversionDelegates
                     .GetOrAdd(
@@ -50,7 +50,7 @@ namespace ExRam.Gremlinq.Core.Transformation
                         },
                         this) as Func<TSource, IGremlinQueryEnvironment, Option<TTarget>>;
 
-                if (maybeDeserializerDelegate is { } deserializerDelegate && deserializerDelegate(serialized, environment) is { HasValue: true, Value: { } optionValue })
+                if (maybeDeserializerDelegate is { } deserializerDelegate && deserializerDelegate(source, environment) is { HasValue: true, Value: { } optionValue })
                 {
                     value = optionValue;
                     return true;
