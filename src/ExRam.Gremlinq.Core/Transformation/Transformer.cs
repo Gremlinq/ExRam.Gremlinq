@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using ExRam.Gremlinq.Core.Deserialization;
 
-namespace ExRam.Gremlinq.Core
+namespace ExRam.Gremlinq.Core.Transformation
 {
     internal sealed class Transformer : IDeserializer
     {

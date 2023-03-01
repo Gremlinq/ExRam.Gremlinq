@@ -1,4 +1,7 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using ExRam.Gremlinq.Core.Transformation;
+
+using Newtonsoft.Json.Linq;
+
 using System.Diagnostics.CodeAnalysis;
 
 namespace ExRam.Gremlinq.Core.Deserialization

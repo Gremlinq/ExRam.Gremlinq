@@ -1,6 +1,8 @@
 ﻿using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 
+using ExRam.Gremlinq.Core.Transformation;
+
 namespace ExRam.Gremlinq.Core.Deserialization
 {
     public static class Deserializer

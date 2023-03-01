@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
+using ExRam.Gremlinq.Core.Transformation;
+
 namespace ExRam.Gremlinq.Core.Deserialization
 {
     public interface IDeserializer

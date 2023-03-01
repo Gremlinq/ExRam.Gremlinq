@@ -7,6 +7,7 @@ using System.Numerics;
 using ExRam.Gremlinq.Core.GraphElements;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using ExRam.Gremlinq.Core.Transformation;
 
 namespace ExRam.Gremlinq.Core.Deserialization
 {
