@@ -60,7 +60,7 @@ namespace ExRam.Gremlinq.Core
 
         public static readonly IGremlinQueryEnvironment Empty = new GremlinQueryEnvironmentImpl(
             GraphModel.Empty,
-            GremlinQuerySerializer.Identity,
+            Serializer.Identity,
             GremlinQueryExecutor.Empty,
             Deserializer.Identity,
             GremlinQueryDebugger.Groovy,
@@ -69,7 +69,7 @@ namespace ExRam.Gremlinq.Core
             NullLogger.Instance);
 
         public static readonly IGremlinQueryEnvironment Default = Empty
-            .UseSerializer(GremlinQuerySerializer.Default)
+            .UseSerializer(Serializer.Default)
             .UseExecutor(GremlinQueryExecutor.Invalid)
             .UseDeserializer(Deserializer.Default);
 
