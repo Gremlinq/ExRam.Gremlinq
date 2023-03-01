@@ -25,19 +25,19 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 public static Option<T> From(T value) => new(value);
             }
 
-            private readonly ImmutableStack<IConverterFactory> _transformationFactories;
-            private readonly ConcurrentDictionary<(Type, Type, Type), Delegate> _transformationDelegates = new();
+            private readonly ImmutableStack<IConverterFactory> _converterFactories;
+            private readonly ConcurrentDictionary<(Type, Type, Type), Delegate> _conversionDelegates = new();
 
-            public DeserializerImpl(ImmutableStack<IConverterFactory> transformationFactories)
+            public DeserializerImpl(ImmutableStack<IConverterFactory> converterFactories)
             {
-                _transformationFactories = transformationFactories;
+                _converterFactories = converterFactories;
             }
 
             public bool TryDeserialize<TSerialized, TRequested>(TSerialized serialized, IGremlinQueryEnvironment environment, [NotNullWhen(true)] out TRequested? value)
             {
                 if (serialized is { } actualSerialized)
                 {
-                    var maybeDeserializerDelegate = _transformationDelegates
+                    var maybeDeserializerDelegate = _conversionDelegates
                         .GetOrAdd(
                             (typeof(TSerialized), actualSerialized.GetType(), typeof(TRequested)),
                             static (typeTuple, @this) =>
@@ -62,27 +62,27 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 return false;
             }
 
-            public IDeserializer Add(IConverterFactory deserializer)
+            public IDeserializer Add(IConverterFactory converterFactory)
             {
-                return new DeserializerImpl(_transformationFactories.Push(deserializer));
+                return new DeserializerImpl(_converterFactories.Push(converterFactory));
             }
 
             private Func<TStaticSerialized, IGremlinQueryEnvironment, Option<TRequested>> GetDeserializationFunction<TStaticSerialized, TActualSerialized, TRequested>()
                 where TActualSerialized : TStaticSerialized
             {
-                var transformations = _transformationFactories
+                var converters = _converterFactories
                     .Select(static factory => factory.TryCreate<TActualSerialized, TRequested>())
-                    .Where(static transformation => transformation != null)
-                    .Select(static transformation => transformation!)
+                    .Where(static converter => converter != null)
+                    .Select(static converter => converter!)
                     .ToArray();
 
                 return (staticSerialized, environment) =>
                 {
                     if (staticSerialized is TActualSerialized actualSerialized)
                     {
-                        foreach (var transformation in transformations)
+                        foreach (var converter in converters)
                         {
-                            if (transformation.Transform(actualSerialized, environment, this, out var value))
+                            if (converter.TryConvert(actualSerialized, environment, this, out var value))
                                 return Option<TRequested>.From(value);
                         }
                     }
@@ -96,7 +96,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
         {
             private sealed class IdentityConverter<TSerialized, TRequested> : IConverter<TSerialized, TRequested>
             {
-                public bool Transform(TSerialized serialized, IGremlinQueryEnvironment environment, IDeserializer recurse, [NotNullWhen(true)] out TRequested? value)
+                public bool TryConvert(TSerialized serialized, IGremlinQueryEnvironment environment, IDeserializer recurse, [NotNullWhen(true)] out TRequested? value)
                 {
                     if (serialized is TRequested requested)
                     {
@@ -116,7 +116,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
         {
             private sealed class SingleItemArrayFallbackConverter<TSerialized, TRequestedArray, TRequestedArrayItem> : IConverter<TSerialized, TRequestedArray>
             {
-                public bool Transform(TSerialized serialized, IGremlinQueryEnvironment environment, IDeserializer recurse, [NotNullWhen(true)] out TRequestedArray? value)
+                public bool TryConvert(TSerialized serialized, IGremlinQueryEnvironment environment, IDeserializer recurse, [NotNullWhen(true)] out TRequestedArray? value)
                 {
                     if (recurse.TryDeserialize<TSerialized, TRequestedArrayItem>(serialized, environment, out var typedValue))
                     {
@@ -141,7 +141,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
         {
             private sealed class ToStringFallbackConverter<TSerialized> : IConverter<TSerialized, string>
             {
-                public bool Transform(TSerialized serialized, IGremlinQueryEnvironment environment, IDeserializer recurse, [NotNullWhen(true)] out string? value)
+                public bool TryConvert(TSerialized serialized, IGremlinQueryEnvironment environment, IDeserializer recurse, [NotNullWhen(true)] out string? value)
                 {
                     if (serialized?.ToString() is { } requested)
                     {

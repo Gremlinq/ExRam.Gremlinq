@@ -15,7 +15,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 _factory = factory;
             }
 
-            public bool Transform(JValue serialized, IGremlinQueryEnvironment environment, IDeserializer recurse, [NotNullWhen(true)] out TStaticRequested value)
+            public bool TryConvert(JValue serialized, IGremlinQueryEnvironment environment, IDeserializer recurse, [NotNullWhen(true)] out TStaticRequested value)
             {
                 if (_factory.Convert(serialized, environment, recurse) is { } requested)
                 {

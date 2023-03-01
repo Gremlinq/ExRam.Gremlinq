@@ -6,6 +6,6 @@ namespace ExRam.Gremlinq.Core.Deserialization
     {
         bool TryDeserialize<TSerialized, TRequested>(TSerialized serialized, IGremlinQueryEnvironment environment, [NotNullWhen(true)] out TRequested? value);
 
-        IDeserializer Add(IConverterFactory transformationFactory);
+        IDeserializer Add(IConverterFactory converterFactory);
     }
 }
