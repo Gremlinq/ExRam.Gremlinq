@@ -3,7 +3,6 @@
     public static class Deserializer
     {
         public static readonly ExRam.Gremlinq.Core.Transformation.ITransformer Default;
-        public static readonly ExRam.Gremlinq.Core.Transformation.ITransformer Identity;
         public static ExRam.Gremlinq.Core.Transformation.ITransformer AddToStringFallback(this ExRam.Gremlinq.Core.Transformation.ITransformer deserializer) { }
     }
 }
@@ -1601,9 +1600,8 @@ namespace ExRam.Gremlinq.Core.Serialization
     public static class Serializer
     {
         public static readonly ExRam.Gremlinq.Core.Transformation.ITransformer Default;
-        public static readonly ExRam.Gremlinq.Core.Transformation.ITransformer Identity;
         public static readonly ExRam.Gremlinq.Core.Transformation.ITransformer Invalid;
-        public static ExRam.Gremlinq.Core.Transformation.ITransformer Override<TFragment>(this ExRam.Gremlinq.Core.Transformation.ITransformer serializer, System.Func<TFragment, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Transformation.ITransformer, object?> converter) { }
+        public static ExRam.Gremlinq.Core.Transformation.ITransformer Override<TSource>(this ExRam.Gremlinq.Core.Transformation.ITransformer serializer, System.Func<TSource, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Transformation.ITransformer, object?> converter) { }
         public static ExRam.Gremlinq.Core.Transformation.ITransformer Select(this ExRam.Gremlinq.Core.Transformation.ITransformer serializer, System.Func<object, object> projection) { }
         public static object Serialize<TFragment>(this ExRam.Gremlinq.Core.Transformation.ITransformer serializer, TFragment fragment, ExRam.Gremlinq.Core.IGremlinQueryEnvironment gremlinQueryEnvironment) { }
         public static ExRam.Gremlinq.Core.Transformation.ITransformer ToGroovy(this ExRam.Gremlinq.Core.Transformation.ITransformer serializer) { }
@@ -2258,5 +2256,9 @@ namespace ExRam.Gremlinq.Core.Transformation
     {
         ExRam.Gremlinq.Core.Transformation.ITransformer Add(ExRam.Gremlinq.Core.Transformation.IConverterFactory converterFactory);
         bool TryTransform<TSource, TTarget>(TSource source, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out TTarget? value);
+    }
+    public static class Transformer
+    {
+        public static readonly ExRam.Gremlinq.Core.Transformation.ITransformer Identity;
     }
 }

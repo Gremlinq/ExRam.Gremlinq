@@ -60,9 +60,9 @@ namespace ExRam.Gremlinq.Core
 
         public static readonly IGremlinQueryEnvironment Empty = new GremlinQueryEnvironmentImpl(
             GraphModel.Empty,
-            Serializer.Identity,
+            Transformer.Identity,
             GremlinQueryExecutor.Empty,
-            Deserializer.Identity,
+            Transformer.Identity,
             GremlinQueryDebugger.Groovy,
             FeatureSet.Full,
             GremlinqOptions.Empty,
