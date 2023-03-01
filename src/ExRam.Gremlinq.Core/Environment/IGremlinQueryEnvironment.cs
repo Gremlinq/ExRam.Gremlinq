@@ -1,4 +1,5 @@
-﻿using ExRam.Gremlinq.Core.Execution;
+﻿using ExRam.Gremlinq.Core.Deserialization;
+using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Core.Transformation;
@@ -15,7 +16,7 @@ namespace ExRam.Gremlinq.Core
         IGremlinQueryEnvironment ConfigureOptions(Func<IGremlinqOptions, IGremlinqOptions> optionsTransformation);
         IGremlinQueryEnvironment ConfigureDebugger(Func<IGremlinQueryDebugger, IGremlinQueryDebugger> debuggerTransformation);
         IGremlinQueryEnvironment ConfigureExecutor(Func<IGremlinQueryExecutor, IGremlinQueryExecutor> executorTransformation);
-        IGremlinQueryEnvironment ConfigureSerializer(Func<IGremlinQuerySerializer, IGremlinQuerySerializer> serializerTransformation);
+        IGremlinQueryEnvironment ConfigureSerializer(Func<ISerializer, ISerializer> serializerTransformation);
         IGremlinQueryEnvironment ConfigureDeserializer(Func<ITransformer, ITransformer> deserializerTransformation);
 
         ILogger Logger { get; }
@@ -24,7 +25,7 @@ namespace ExRam.Gremlinq.Core
         IGremlinqOptions Options { get; }
         IGremlinQueryDebugger Debugger { get; }
         IGremlinQueryExecutor Executor { get; }
-        IGremlinQuerySerializer Serializer { get; }
+        ISerializer Serializer { get; }
         ITransformer Deserializer { get; }
     }
 }
