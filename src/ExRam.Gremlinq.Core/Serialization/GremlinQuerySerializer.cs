@@ -5,37 +5,38 @@
         [ThreadStatic]
         internal static Dictionary<StepLabel, string>? _stepLabelNames;
 
-        internal static readonly string[] StepLabelNames;
+        internal static readonly string[] StepLabelNameCache;
 
         private sealed class GremlinQuerySerializerImpl : IGremlinQuerySerializer
         {
             private readonly IGremlinQueryFragmentSerializer _fragmentSerializer;
-            private readonly IGremlinQueryFragmentSerializer _originalFragmentSerializer;
 
             public GremlinQuerySerializerImpl(IGremlinQueryFragmentSerializer fragmentSerializer)
             {
-                _originalFragmentSerializer = fragmentSerializer;
-
-                _fragmentSerializer = fragmentSerializer
-                    ;
+                _fragmentSerializer = fragmentSerializer;
             }
 
             public ISerializedGremlinQuery Serialize(IGremlinQueryBase query)
             {
-                (_stepLabelNames ??= new Dictionary<StepLabel, string>()).Clear();
+                try
+                {
+                    var serialized = _fragmentSerializer
+                        .Serialize(query, query.AsAdmin().Environment) ?? throw new ArgumentException($"{nameof(query)} did not serialize to a non-null value.");
 
-                var serialized = _fragmentSerializer
-                    .Serialize(query, query.AsAdmin().Environment) ?? throw new ArgumentException($"{nameof(query)} did not serialize to a non-null value.");
+                    if (serialized is ISerializedGremlinQuery serializedQuery)
+                        return serializedQuery;
 
-                if (serialized is ISerializedGremlinQuery serializedQuery)
-                    return serializedQuery;
-
-                throw new InvalidOperationException($"Unable to serialize a query of type {query.GetType().FullName}.");
+                    throw new InvalidOperationException($"Unable to serialize a query of type {query.GetType().FullName}.");
+                }
+                finally
+                {
+                    _stepLabelNames = null;
+                }
             }
 
             public IGremlinQuerySerializer ConfigureFragmentSerializer(Func<IGremlinQueryFragmentSerializer, IGremlinQueryFragmentSerializer> transformation)
             {
-                return new GremlinQuerySerializerImpl(transformation(_originalFragmentSerializer));
+                return new GremlinQuerySerializerImpl(transformation(_fragmentSerializer));
             }
         }
 
@@ -73,7 +74,7 @@
 
         static GremlinQuerySerializer()
         {
-            StepLabelNames = Enumerable.Range(1, 100)
+            StepLabelNameCache = Enumerable.Range(1, 100)
                 .Select(static x => "l" + x)
                 .ToArray();
         }
