@@ -9,9 +9,9 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         {
             return env
                 .ConfigureSerializer(serializer => serializer
-                    .Override<AddVStep>((step, env, overridden, recurse) => new[]
+                    .Override<AddVStep>((step, env, recurse) => new[]
                     {
-                        overridden(step, env, recurse),
+                        step,
                         recurse.Serialize(new PropertyStep.ByKeyStep("PartitionKey", "PartitionKey"), env)
                     }));
         }
