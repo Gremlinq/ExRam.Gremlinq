@@ -34,7 +34,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public static IGremlinQuerySource WithExecutor(this IGremlinQuerySource source, string json)
         {
             return source.ConfigureEnvironment(env => env
-                .UseSerializer(GremlinQuerySerializer.Default)
+                .UseSerializer(Serializer.Default)
                 .UseExecutor(new TestJsonQueryExecutor(json))
                 .ConfigureDeserializer(d => d
                     .AddNewtonsoftJson()));
