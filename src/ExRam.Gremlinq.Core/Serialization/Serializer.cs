@@ -59,9 +59,9 @@ namespace ExRam.Gremlinq.Core.Serialization
         {
             private sealed class FixedTypeConverter<TSource> : IConverter<TSource, object>
             {
-                private readonly GremlinQueryFragmentSerializerDelegate<TStaticSource> _func;
+                private readonly Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, object?> _func;
 
-                public FixedTypeConverter(GremlinQueryFragmentSerializerDelegate<TStaticSource> func)
+                public FixedTypeConverter(Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, object?> func)
                 {
                     _func = func;
                 }
@@ -81,9 +81,9 @@ namespace ExRam.Gremlinq.Core.Serialization
                 }
             }
 
-            private readonly GremlinQueryFragmentSerializerDelegate<TStaticSource> _func;
+            private readonly Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, object?> _func;
 
-            public FixedTypeConverterFactory(GremlinQueryFragmentSerializerDelegate<TStaticSource> del)
+            public FixedTypeConverterFactory(Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, object?> del)
             {
                 _func = del;
             }
@@ -130,10 +130,10 @@ namespace ExRam.Gremlinq.Core.Serialization
                 : throw new InvalidOperationException();
         }
 
-        public static ITransformer Override<TFragment>(this ITransformer serializer, GremlinQueryFragmentSerializerDelegate<TFragment> del)
+        public static ITransformer Override<TFragment>(this ITransformer serializer, Func<TFragment, IGremlinQueryEnvironment, ITransformer, object?> converter)
         {
             return serializer
-                .Add(new FixedTypeConverterFactory<TFragment>(del));
+                .Add(new FixedTypeConverterFactory<TFragment>(converter));
         }
 
         public static ITransformer UseDefaultGremlinStepSerializationHandlers(this ITransformer serializer) => serializer

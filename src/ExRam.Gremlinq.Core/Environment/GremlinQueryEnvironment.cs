@@ -95,7 +95,7 @@ namespace ExRam.Gremlinq.Core
                     .Override<byte[]>(static (bytes, env, recurse) => recurse.Serialize(Convert.ToBase64String(bytes), env)));
         }
 
-        public static IGremlinQueryEnvironment RegisterNativeType<TNative>(this IGremlinQueryEnvironment environment, GremlinQueryFragmentSerializerDelegate<TNative> serializerDelegate, Func<ITransformer, ITransformer> deserializerTransformation)
+        public static IGremlinQueryEnvironment RegisterNativeType<TNative>(this IGremlinQueryEnvironment environment, Func<TNative, IGremlinQueryEnvironment, ITransformer, object> serializerDelegate, Func<ITransformer, ITransformer> deserializerTransformation)
         {
             return environment
                 .ConfigureModel(static _ => _
