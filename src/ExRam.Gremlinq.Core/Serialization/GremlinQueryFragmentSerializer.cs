@@ -440,6 +440,20 @@ namespace ExRam.Gremlinq.Core.Serialization
                 ? CreateInstruction("skip", recurse, env, step.Scope, step.Count)
                 : CreateInstruction("skip", recurse, env, step.Count))
             .Override<Step>(static (_, _, _, _) => Array.Empty<Instruction>())
+            .Override<StepLabel>(static (stepLabel, env, _, recurse) =>
+            {
+                if (!GremlinQuerySerializer._stepLabelNames!.TryGetValue(stepLabel, out var stepLabelMapping))
+                {
+                    stepLabelMapping = stepLabel.Identity as string ?? (GremlinQuerySerializer._stepLabelNames.Count < GremlinQuerySerializer.StepLabelNames.Length
+                        ? GremlinQuerySerializer.StepLabelNames[GremlinQuerySerializer._stepLabelNames.Count]
+                        : "l" + (GremlinQuerySerializer._stepLabelNames.Count + 1));
+
+                    GremlinQuerySerializer._stepLabelNames.Add(stepLabel, stepLabelMapping);
+                }
+
+                // ReSharper disable once TailRecursiveCall
+                return recurse.Serialize(stepLabelMapping, env);
+            })
             .Override<Traversal>(static (traversal, env, _, recurse) =>
             {
                 var steps = ArrayPool<Step>.Shared.Rent(traversal.Count);
