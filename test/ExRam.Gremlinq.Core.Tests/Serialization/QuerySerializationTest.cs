@@ -1,6 +1,7 @@
 ﻿using System.Collections.Immutable;
 using System.Runtime.CompilerServices;
 using ExRam.Gremlinq.Core.Steps;
+using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Tests.Entities;
 
 namespace ExRam.Gremlinq.Core.Tests
