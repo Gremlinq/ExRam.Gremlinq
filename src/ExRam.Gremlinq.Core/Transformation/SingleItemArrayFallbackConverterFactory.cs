@@ -5,11 +5,11 @@ namespace ExRam.Gremlinq.Core.Transformation
 {
     internal sealed class SingleItemArrayFallbackConverterFactory : IConverterFactory
     {
-        private sealed class SingleItemArrayFallbackConverter<TSerialized, TRequestedArray, TRequestedArrayItem> : IConverter<TSerialized, TRequestedArray>
+        private sealed class SingleItemArrayFallbackConverter<TSource, TRequestedArray, TRequestedArrayItem> : IConverter<TSource, TRequestedArray>
         {
-            public bool TryConvert(TSerialized serialized, IGremlinQueryEnvironment environment, IDeserializer recurse, [NotNullWhen(true)] out TRequestedArray? value)
+            public bool TryConvert(TSource serialized, IGremlinQueryEnvironment environment, IDeserializer recurse, [NotNullWhen(true)] out TRequestedArray? value)
             {
-                if (recurse.TryDeserialize<TSerialized, TRequestedArrayItem>(serialized, environment, out var typedValue))
+                if (recurse.TryDeserialize<TSource, TRequestedArrayItem>(serialized, environment, out var typedValue))
                 {
                     value = (TRequestedArray)(object)new[] { typedValue };
                     return true;
@@ -20,10 +20,10 @@ namespace ExRam.Gremlinq.Core.Transformation
             }
         }
 
-        public IConverter<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
+        public IConverter<TSource, TRequested>? TryCreate<TSource, TRequested>()
         {
             return typeof(TRequested).IsArray
-                ? (IConverter<TSerialized, TRequested>?)Activator.CreateInstance(typeof(SingleItemArrayFallbackConverter<,,>).MakeGenericType(typeof(TSerialized), typeof(TRequested), typeof(TRequested).GetElementType()!))
+                ? (IConverter<TSource, TRequested>?)Activator.CreateInstance(typeof(SingleItemArrayFallbackConverter<,,>).MakeGenericType(typeof(TSource), typeof(TRequested), typeof(TRequested).GetElementType()!))
                 : default;
         }
     }

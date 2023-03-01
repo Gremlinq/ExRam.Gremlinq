@@ -23,9 +23,9 @@ namespace ExRam.Gremlinq.Core
                 _deserializer = deserializer;
             }
 
-            public object? From<TSerialized>(TSerialized serialized, IGremlinQueryEnvironment environment)
+            public object? From<TSource>(TSource serialized, IGremlinQueryEnvironment environment)
             {
-                return TryGetDelegate(typeof(TSerialized), _type) is Func<IDeserializer, TSerialized, IGremlinQueryEnvironment, object?> fromDelegate
+                return TryGetDelegate(typeof(TSource), _type) is Func<IDeserializer, TSource, IGremlinQueryEnvironment, object?> fromDelegate
                     ? fromDelegate(_deserializer, serialized, environment)
                     : default;
             }
@@ -54,13 +54,13 @@ namespace ExRam.Gremlinq.Core
                         });
             }
 
-            private static Func<IDeserializer, TSerialized, IGremlinQueryEnvironment, object?> FromClass<TSerialized, TRequested>()
-                where TRequested : class => (deserializer, serialized, environment) => deserializer.TryDeserialize<TSerialized, TRequested>(serialized, environment, out var value)
+            private static Func<IDeserializer, TSource, IGremlinQueryEnvironment, object?> FromClass<TSource, TRequested>()
+                where TRequested : class => (deserializer, serialized, environment) => deserializer.TryDeserialize<TSource, TRequested>(serialized, environment, out var value)
                     ? value
                     : default;
 
-            private static Func<IDeserializer, TSerialized, IGremlinQueryEnvironment, object?> FromStruct<TSerialized, TRequested>()
-                where TRequested : struct => (deserializer, serialized, environment) => deserializer.TryDeserialize<TSerialized, TRequested>(serialized, environment, out var value)
+            private static Func<IDeserializer, TSource, IGremlinQueryEnvironment, object?> FromStruct<TSource, TRequested>()
+                where TRequested : struct => (deserializer, serialized, environment) => deserializer.TryDeserialize<TSource, TRequested>(serialized, environment, out var value)
                     ? value
                     : default(TRequested?);
         }

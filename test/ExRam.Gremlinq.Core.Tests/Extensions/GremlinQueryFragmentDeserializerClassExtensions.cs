@@ -17,7 +17,7 @@ namespace ExRam.Gremlinq.Core
                 _deserializer = deserializer;
             }
 
-            public TRequested? From<TSerialized>(TSerialized serialized, IGremlinQueryEnvironment environment) => _deserializer.TryDeserialize<TSerialized, TRequested>(serialized, environment, out var value)
+            public TRequested? From<TSource>(TSource serialized, IGremlinQueryEnvironment environment) => _deserializer.TryDeserialize<TSource, TRequested>(serialized, environment, out var value)
                 ? value
                 : default;
         }
@@ -25,7 +25,7 @@ namespace ExRam.Gremlinq.Core
         private sealed class FixedTypeConverterFactory<TStaticSerialized, TStaticRequested> : IConverterFactory
            where TStaticRequested : class
         {
-            private sealed class FixedTypeConverter<TSerialized> : IConverter<TSerialized, TStaticRequested>
+            private sealed class FixedTypeConverter<TSource> : IConverter<TSource, TStaticRequested>
             {
                 private readonly Func<TStaticSerialized, IGremlinQueryEnvironment, IDeserializer, TStaticRequested?> _func;
 
@@ -34,7 +34,7 @@ namespace ExRam.Gremlinq.Core
                     _func = func;
                 }
 
-                public bool TryConvert(TSerialized serialized, IGremlinQueryEnvironment environment, IDeserializer recurse, [NotNullWhen(true)] out TStaticRequested? value)
+                public bool TryConvert(TSource serialized, IGremlinQueryEnvironment environment, IDeserializer recurse, [NotNullWhen(true)] out TStaticRequested? value)
                 {
                     if (serialized is TStaticSerialized staticSerialized && _func(staticSerialized, environment, recurse) is { } requested)
                     {
@@ -56,10 +56,10 @@ namespace ExRam.Gremlinq.Core
                 _func = func;
             }
 
-            public IConverter<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
+            public IConverter<TSource, TRequested>? TryCreate<TSource, TRequested>()
             {
-                return ((typeof(TSerialized).IsAssignableFrom(typeof(TStaticSerialized)) || typeof(TStaticSerialized).IsAssignableFrom(typeof(TSerialized))) && (typeof(TRequested) == typeof(TStaticRequested)))
-                    ? (IConverter<TSerialized, TRequested>)(object)new FixedTypeConverter<TSerialized>(_func)
+                return ((typeof(TSource).IsAssignableFrom(typeof(TStaticSerialized)) || typeof(TStaticSerialized).IsAssignableFrom(typeof(TSource))) && (typeof(TRequested) == typeof(TStaticRequested)))
+                    ? (IConverter<TSource, TRequested>)(object)new FixedTypeConverter<TSource>(_func)
                     : null;
             }
         }
@@ -70,11 +70,11 @@ namespace ExRam.Gremlinq.Core
             return new FluentForClass<TRequested>(deserializer);
         }
 
-        public static IDeserializer Override<TSerialized, TRequested>(this IDeserializer deserializer, Func<TSerialized, IGremlinQueryEnvironment, IDeserializer, TRequested?> func)
+        public static IDeserializer Override<TSource, TRequested>(this IDeserializer deserializer, Func<TSource, IGremlinQueryEnvironment, IDeserializer, TRequested?> func)
             where TRequested : class
         {
             return deserializer
-                .Add(new FixedTypeConverterFactory<TSerialized, TRequested>(func));
+                .Add(new FixedTypeConverterFactory<TSource, TRequested>(func));
         }
     }
 }

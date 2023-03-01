@@ -38,10 +38,10 @@ namespace ExRam.Gremlinq.Core.Deserialization
 
         private sealed class NewtonsoftJsonSerializerConverterFactory : IConverterFactory
         {
-            private sealed class NewtonsoftJsonSerializerConverter<TSerialized, TRequested> : IConverter<TSerialized, TRequested>
-                where TSerialized : JToken
+            private sealed class NewtonsoftJsonSerializerConverter<TSource, TRequested> : IConverter<TSource, TRequested>
+                where TSource : JToken
             {
-                public bool TryConvert(TSerialized serialized, IGremlinQueryEnvironment environment, IDeserializer recurse, [NotNullWhen(true)] out TRequested? value)
+                public bool TryConvert(TSource serialized, IGremlinQueryEnvironment environment, IDeserializer recurse, [NotNullWhen(true)] out TRequested? value)
                 {
                     if (serialized is TRequested alreadyRequestedValue)
                     {
@@ -60,10 +60,10 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 }
             }
 
-            public IConverter<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
+            public IConverter<TSource, TRequested>? TryCreate<TSource, TRequested>()
             {
-                return typeof(JToken).IsAssignableFrom(typeof(TSerialized))
-                    ? (IConverter<TSerialized, TRequested>?)Activator.CreateInstance(typeof(NewtonsoftJsonSerializerConverter<,>).MakeGenericType(typeof(TSerialized), typeof(TRequested)))
+                return typeof(JToken).IsAssignableFrom(typeof(TSource))
+                    ? (IConverter<TSource, TRequested>?)Activator.CreateInstance(typeof(NewtonsoftJsonSerializerConverter<,>).MakeGenericType(typeof(TSource), typeof(TRequested)))
                     : null;
             }
         }
@@ -88,21 +88,21 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 }
             }
 
-            public IConverter<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
+            public IConverter<TSource, TRequested>? TryCreate<TSource, TRequested>()
             {
-                return typeof(TSerialized) == typeof(JObject) && !typeof(TRequested).IsAssignableFrom(typeof(TSerialized)) && !typeof(Property).IsAssignableFrom(typeof(TRequested))
-                    ? (IConverter<TSerialized, TRequested>)(object)new VertexOrEdgeConverter<TRequested>()
+                return typeof(TSource) == typeof(JObject) && !typeof(TRequested).IsAssignableFrom(typeof(TSource)) && !typeof(Property).IsAssignableFrom(typeof(TRequested))
+                    ? (IConverter<TSource, TRequested>)(object)new VertexOrEdgeConverter<TRequested>()
                     : default;
             }
         }
 
         private sealed class SingleItemArrayFallbackConverterFactory : IConverterFactory
         {
-            private sealed class SingleItemArrayFallbackConverter<TSerialized, TRequestedArray, TRequestedArrayItem> : IConverter<TSerialized, TRequestedArray>
+            private sealed class SingleItemArrayFallbackConverter<TSource, TRequestedArray, TRequestedArrayItem> : IConverter<TSource, TRequestedArray>
             {
-                public bool TryConvert(TSerialized serialized, IGremlinQueryEnvironment environment, IDeserializer recurse, [NotNullWhen(true)] out TRequestedArray? value)
+                public bool TryConvert(TSource serialized, IGremlinQueryEnvironment environment, IDeserializer recurse, [NotNullWhen(true)] out TRequestedArray? value)
                 {
-                    if (!environment.GetCache().FastNativeTypes.ContainsKey(typeof(TRequestedArray)) && recurse.TryDeserialize<TSerialized, TRequestedArrayItem>(serialized, environment, out var typedValue))
+                    if (!environment.GetCache().FastNativeTypes.ContainsKey(typeof(TRequestedArray)) && recurse.TryDeserialize<TSource, TRequestedArrayItem>(serialized, environment, out var typedValue))
                     {
                         value = (TRequestedArray)(object)new[] { typedValue };
                         return true;
@@ -113,10 +113,10 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 }
             }
 
-            public IConverter<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
+            public IConverter<TSource, TRequested>? TryCreate<TSource, TRequested>()
             {
                 return typeof(TRequested).IsArray
-                    ? (IConverter<TSerialized, TRequested>?)Activator.CreateInstance(typeof(SingleItemArrayFallbackConverter<,,>).MakeGenericType(typeof(TSerialized), typeof(TRequested), typeof(TRequested).GetElementType()!))
+                    ? (IConverter<TSource, TRequested>?)Activator.CreateInstance(typeof(SingleItemArrayFallbackConverter<,,>).MakeGenericType(typeof(TSource), typeof(TRequested), typeof(TRequested).GetElementType()!))
                     : default;
             }
         }
@@ -145,10 +145,10 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 }
             }
 
-            public IConverter<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
+            public IConverter<TSource, TRequested>? TryCreate<TSource, TRequested>()
             {
-                return typeof(TSerialized) == typeof(JToken) && typeof(TRequested).IsGenericType && typeof(TRequested).GetGenericTypeDefinition() == typeof(Nullable<>)
-                    ? (IConverter<TSerialized, TRequested>?)Activator.CreateInstance(typeof(NullableConverter<>).MakeGenericType(typeof(TRequested).GetGenericArguments()[0]))
+                return typeof(TSource) == typeof(JToken) && typeof(TRequested).IsGenericType && typeof(TRequested).GetGenericTypeDefinition() == typeof(Nullable<>)
+                    ? (IConverter<TSource, TRequested>?)Activator.CreateInstance(typeof(NullableConverter<>).MakeGenericType(typeof(TRequested).GetGenericArguments()[0]))
                     : default;
             }
         }
@@ -176,10 +176,10 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 }
             }
 
-            public IConverter<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
+            public IConverter<TSource, TRequested>? TryCreate<TSource, TRequested>()
             {
-                return typeof(TSerialized) == typeof(JValue) && typeof(Property).IsAssignableFrom(typeof(TRequested)) && typeof(TRequested).IsGenericType
-                    ? (IConverter<TSerialized, TRequested>?)Activator.CreateInstance(typeof(PropertyConverter<,>).MakeGenericType(typeof(TRequested), typeof(TRequested).GetGenericArguments()[0]))
+                return typeof(TSource) == typeof(JValue) && typeof(Property).IsAssignableFrom(typeof(TRequested)) && typeof(TRequested).IsGenericType
+                    ? (IConverter<TSource, TRequested>?)Activator.CreateInstance(typeof(PropertyConverter<,>).MakeGenericType(typeof(TRequested), typeof(TRequested).GetGenericArguments()[0]))
                     : default;
             }
         }
@@ -210,10 +210,10 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 }
             }
 
-            public IConverter<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
+            public IConverter<TSource, TRequested>? TryCreate<TSource, TRequested>()
             {
-                return typeof(JValue).IsAssignableFrom(typeof(TSerialized))
-                    ? (IConverter<TSerialized, TRequested>)(object)new NativeTypeConverter<TRequested>()
+                return typeof(JValue).IsAssignableFrom(typeof(TSource))
+                    ? (IConverter<TSource, TRequested>)(object)new NativeTypeConverter<TRequested>()
                     : default;
             }
         }
@@ -243,10 +243,10 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 }
             }
 
-            public IConverter<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
+            public IConverter<TSource, TRequested>? TryCreate<TSource, TRequested>()
             {
-                return typeof(TSerialized) == typeof(JObject) && typeof(TRequested).IsAssignableFrom(typeof(ExpandoObject))
-                    ? (IConverter<TSerialized, TRequested>)(object)new ExpandoObjectConverter<TRequested>()
+                return typeof(TSource) == typeof(JObject) && typeof(TRequested).IsAssignableFrom(typeof(ExpandoObject))
+                    ? (IConverter<TSource, TRequested>)(object)new ExpandoObjectConverter<TRequested>()
                     : default;
             }
         }
@@ -279,10 +279,10 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 }
             }
 
-            public IConverter<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
+            public IConverter<TSource, TRequested>? TryCreate<TSource, TRequested>()
             {
-                return typeof(TSerialized) == typeof(JObject) && !typeof(TSerialized).IsSealed
-                    ? (IConverter<TSerialized, TRequested>)(object)new LabelLookupConverter<TRequested>()
+                return typeof(TSource) == typeof(JObject) && !typeof(TSource).IsSealed
+                    ? (IConverter<TSource, TRequested>)(object)new LabelLookupConverter<TRequested>()
                     : default;
             }
         }
@@ -309,10 +309,10 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 }
             }
 
-            public IConverter<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
+            public IConverter<TSource, TRequested>? TryCreate<TSource, TRequested>()
             {
-                return typeof(TSerialized) == typeof(JObject)
-                    ? (IConverter<TSerialized, TRequested>)(object)new VertexPropertyExtractConverter<TRequested>()
+                return typeof(TSource) == typeof(JObject)
+                    ? (IConverter<TSource, TRequested>)(object)new VertexPropertyExtractConverter<TRequested>()
                     : default;
             }
         }
@@ -345,10 +345,10 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 }
             }
 
-            public IConverter<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
+            public IConverter<TSource, TRequested>? TryCreate<TSource, TRequested>()
             {
-                return typeof(TSerialized) == typeof(JObject)
-                    ? (IConverter<TSerialized, TRequested>)(object)new TypedValueConverter<TRequested>()
+                return typeof(TSource) == typeof(JObject)
+                    ? (IConverter<TSource, TRequested>)(object)new TypedValueConverter<TRequested>()
                     : default;
             }
         }
@@ -380,10 +380,10 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 }
             }
 
-            public IConverter<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
+            public IConverter<TSource, TRequested>? TryCreate<TSource, TRequested>()
             {
-                return typeof(TSerialized) == typeof(JObject)
-                    ? (IConverter<TSerialized, TRequested>)(object)new ConvertMapsConverter<TRequested>()
+                return typeof(TSource) == typeof(JObject)
+                    ? (IConverter<TSource, TRequested>)(object)new ConvertMapsConverter<TRequested>()
                     : default;
             }
         }
@@ -429,10 +429,10 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 }
             }
 
-            public IConverter<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
+            public IConverter<TSource, TRequested>? TryCreate<TSource, TRequested>()
             {
-                return typeof(TRequested).IsArray && typeof(TSerialized) == typeof(JObject)
-                    ? (IConverter<TSerialized, TRequested>?)Activator.CreateInstance(typeof(BulkSetConverter<,>).MakeGenericType(typeof(TRequested), typeof(TRequested).GetElementType()!))
+                return typeof(TRequested).IsArray && typeof(TSource) == typeof(JObject)
+                    ? (IConverter<TSource, TRequested>?)Activator.CreateInstance(typeof(BulkSetConverter<,>).MakeGenericType(typeof(TRequested), typeof(TRequested).GetElementType()!))
                     : default;
             }
         }
@@ -462,10 +462,10 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 }
             }
 
-            public IConverter<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
+            public IConverter<TSource, TRequested>? TryCreate<TSource, TRequested>()
             {
-                return typeof(TSerialized) == typeof(JArray) 
-                    ? (IConverter<TSerialized, TRequested>)(object)new ArrayExtractConverter<TRequested>()
+                return typeof(TSource) == typeof(JArray) 
+                    ? (IConverter<TSource, TRequested>)(object)new ArrayExtractConverter<TRequested>()
                     : default;
             }
         }
@@ -487,10 +487,10 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 }
             }
 
-            public IConverter<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
+            public IConverter<TSource, TRequested>? TryCreate<TSource, TRequested>()
             {
-                return typeof(TSerialized) == typeof(JArray) && typeof(TRequested).IsAssignableFrom(typeof(object[]))
-                    ? (IConverter<TSerialized, TRequested>)(object)new ArrayLiftingConverter<TRequested>()
+                return typeof(TSource) == typeof(JArray) && typeof(TRequested).IsAssignableFrom(typeof(object[]))
+                    ? (IConverter<TSource, TRequested>)(object)new ArrayLiftingConverter<TRequested>()
                     : default;
             }
         }
@@ -533,10 +533,10 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 }
             }
 
-            public IConverter<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>()
+            public IConverter<TSource, TRequested>? TryCreate<TSource, TRequested>()
             {
-                return typeof(TSerialized) == typeof(JArray) && typeof(TRequested).IsArray
-                    ? (IConverter<TSerialized, TRequested>?)Activator.CreateInstance(typeof(TraverserConverter<,>).MakeGenericType(typeof(TRequested), typeof(TRequested).GetElementType()!))
+                return typeof(TSource) == typeof(JArray) && typeof(TRequested).IsArray
+                    ? (IConverter<TSource, TRequested>?)Activator.CreateInstance(typeof(TraverserConverter<,>).MakeGenericType(typeof(TRequested), typeof(TRequested).GetElementType()!))
                     : default;
             }
         }
