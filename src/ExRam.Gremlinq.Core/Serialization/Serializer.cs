@@ -8,7 +8,7 @@ using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core.Serialization
 {
-    public static class GremlinQuerySerializer
+    public static class Serializer
     {
         [ThreadStatic]
         internal static Dictionary<StepLabel, string>? _stepLabelNames;
@@ -17,17 +17,17 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         private static readonly ConcurrentDictionary<string, Instruction> SimpleInstructions = new();
 
-        private sealed class GremlinQuerySerializerImpl : ISerializer
+        private sealed class SerializerImpl : ISerializer
         {
-            private static readonly MethodInfo CreateFuncMethod1 = typeof(GremlinQuerySerializerImpl).GetMethod(nameof(CreateFunc1), BindingFlags.NonPublic | BindingFlags.Static)!;
-            private static readonly MethodInfo CreateFuncMethod2 = typeof(GremlinQuerySerializerImpl).GetMethod(nameof(CreateFunc2), BindingFlags.NonPublic | BindingFlags.Static)!;
-            private static readonly MethodInfo CreateFuncMethod3 = typeof(GremlinQuerySerializerImpl).GetMethod(nameof(CreateFunc3), BindingFlags.NonPublic | BindingFlags.Static)!;
-            private static readonly MethodInfo CreateFuncMethod4 = typeof(GremlinQuerySerializerImpl).GetMethod(nameof(CreateFunc4), BindingFlags.NonPublic | BindingFlags.Static)!;
+            private static readonly MethodInfo CreateFuncMethod1 = typeof(SerializerImpl).GetMethod(nameof(CreateFunc1), BindingFlags.NonPublic | BindingFlags.Static)!;
+            private static readonly MethodInfo CreateFuncMethod2 = typeof(SerializerImpl).GetMethod(nameof(CreateFunc2), BindingFlags.NonPublic | BindingFlags.Static)!;
+            private static readonly MethodInfo CreateFuncMethod3 = typeof(SerializerImpl).GetMethod(nameof(CreateFunc3), BindingFlags.NonPublic | BindingFlags.Static)!;
+            private static readonly MethodInfo CreateFuncMethod4 = typeof(SerializerImpl).GetMethod(nameof(CreateFunc4), BindingFlags.NonPublic | BindingFlags.Static)!;
 
             private readonly IImmutableDictionary<Type, Delegate> _dict;
             private readonly ConcurrentDictionary<(Type staticType, Type actualType), Delegate?> _fastDict = new();
 
-            public GremlinQuerySerializerImpl(IImmutableDictionary<Type, Delegate> dict)
+            public SerializerImpl(IImmutableDictionary<Type, Delegate> dict)
             {
                 _dict = dict;
             }
@@ -45,7 +45,7 @@ namespace ExRam.Gremlinq.Core.Serialization
 
             public ISerializer Override<TFragment>(GremlinQueryFragmentSerializerDelegate<TFragment> serializer)
             {
-                return new GremlinQuerySerializerImpl(
+                return new SerializerImpl(
                     _dict.SetItem(
                         typeof(TFragment),
                         TryGetSerializer(typeof(TFragment), typeof(TFragment)) is GremlinQueryFragmentSerializerDelegate<TFragment> existingFragmentSerializer
@@ -121,36 +121,36 @@ namespace ExRam.Gremlinq.Core.Serialization
                 where TStatic : TEffective => (fragment, environment, recurse) => del(fragment, environment, recurse);
         }
 
-        private sealed class InvalidGremlinQuerySerializer : ISerializer
+        private sealed class InvalidSerializer : ISerializer
         {
-            public ISerializer Override<TFragment>(GremlinQueryFragmentSerializerDelegate<TFragment> serializer) => throw new InvalidOperationException($"{nameof(Override)} must not be called on {nameof(GremlinQuerySerializer)}.{nameof(Invalid)}. If you are getting this exception while executing a query, configure a proper {nameof(ISerializer)} on your {nameof(GremlinQuerySource)}.");
+            public ISerializer Override<TFragment>(GremlinQueryFragmentSerializerDelegate<TFragment> serializer) => throw new InvalidOperationException($"{nameof(Override)} must not be called on {nameof(Serializer)}.{nameof(Invalid)}. If you are getting this exception while executing a query, configure a proper {nameof(ISerializer)} on your {nameof(GremlinQuerySource)}.");
 
-            public object Serialize<TFragment>(TFragment fragment, IGremlinQueryEnvironment gremlinQueryEnvironment) => throw new InvalidOperationException($"{nameof(Serialize)} must not be called on {nameof(GremlinQuerySerializer)}.{nameof(Invalid)}. If you are getting this exception while executing a query, configure a proper {nameof(ISerializer)} on your {nameof(GremlinQuerySource)}.");
+            public object Serialize<TFragment>(TFragment fragment, IGremlinQueryEnvironment gremlinQueryEnvironment) => throw new InvalidOperationException($"{nameof(Serialize)} must not be called on {nameof(Serializer)}.{nameof(Invalid)}. If you are getting this exception while executing a query, configure a proper {nameof(ISerializer)} on your {nameof(GremlinQuerySource)}.");
         }
 
-        private sealed class SelectGremlinQuerySerializer : ISerializer
+        private sealed class SelectSerializer : ISerializer
         {
             private readonly Func<object, object> _projection;
             private readonly ISerializer _baseSerializer;
 
-            public SelectGremlinQuerySerializer(ISerializer baseSerializer, Func<object, object> projection)
+            public SelectSerializer(ISerializer baseSerializer, Func<object, object> projection)
             {
                 _projection = projection;
                 _baseSerializer = baseSerializer;
             }
 
-            public ISerializer Override<TFragment>(GremlinQueryFragmentSerializerDelegate<TFragment> serializer) => new SelectGremlinQuerySerializer(_baseSerializer.Override(serializer), _projection);
+            public ISerializer Override<TFragment>(GremlinQueryFragmentSerializerDelegate<TFragment> serializer) => new SelectSerializer(_baseSerializer.Override(serializer), _projection);
 
             public object Serialize<TFragment>(TFragment fragment, IGremlinQueryEnvironment gremlinQueryEnvironment) => _projection(_baseSerializer.Serialize(fragment, gremlinQueryEnvironment));
         }
 
-        public static readonly ISerializer Invalid = new InvalidGremlinQuerySerializer();
+        public static readonly ISerializer Invalid = new InvalidSerializer();
 
-        public static readonly ISerializer Identity = new GremlinQuerySerializerImpl(ImmutableDictionary<Type, Delegate>.Empty);
+        public static readonly ISerializer Identity = new SerializerImpl(ImmutableDictionary<Type, Delegate>.Empty);
 
         public static readonly ISerializer Default = Identity.UseDefaultGremlinStepSerializationHandlers();
 
-        static GremlinQuerySerializer()
+        static Serializer()
         {
             StepLabelNameCache = Enumerable.Range(1, 100)
                 .Select(static x => "l" + x)
@@ -159,7 +159,7 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         public static ISerializer Select(this ISerializer serializer, Func<object, object> projection)
         {
-            return new SelectGremlinQuerySerializer(serializer, projection);
+            return new SelectSerializer(serializer, projection);
         }
 
         public static ISerializer ToGroovy(this ISerializer serializer)
@@ -631,3 +631,4 @@ namespace ExRam.Gremlinq.Core.Serialization
         }
     }
 }
+

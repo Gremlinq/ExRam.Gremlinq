@@ -45,7 +45,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public static IGremlinQueryEnvironment EchoGraphsonString(this IGremlinQueryEnvironment environment)
         {
             return environment
-                .UseSerializer(GremlinQuerySerializer.Default)
+                .UseSerializer(Serializer.Default)
                 .UseExecutor(GremlinQueryExecutor.Identity)
                 .ConfigureDeserializer(static _ => _
                     .ToGraphsonString());
