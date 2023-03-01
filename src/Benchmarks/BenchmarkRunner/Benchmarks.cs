@@ -16,10 +16,10 @@ namespace Benchmarks
 
         public Benchmarks()
         {
-            _oldDeserializer = Deserializer.Identity
+            _oldDeserializer = Transformer.Identity
                .AddNewtonsoftJson();
 
-            _newDeserializer = Deserializer.Identity
+            _newDeserializer = Transformer.Identity
                ./*ShinyAndNew*/AddNewtonsoftJson();
         }
 

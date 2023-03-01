@@ -98,10 +98,8 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         public static readonly ITransformer Invalid = new InvalidSerializer();
 
-        public static readonly ITransformer Identity = new Transformer(ImmutableStack<IConverterFactory>.Empty)
-            .Add(new IdentityConverterFactory());
-
-        public static readonly ITransformer Default = Identity.UseDefaultGremlinStepSerializationHandlers();
+        public static readonly ITransformer Default = Transformer.Identity
+            .UseDefaultGremlinStepSerializationHandlers();
 
         static Serializer()
         {
@@ -130,10 +128,10 @@ namespace ExRam.Gremlinq.Core.Serialization
                 : throw new InvalidOperationException();
         }
 
-        public static ITransformer Override<TFragment>(this ITransformer serializer, Func<TFragment, IGremlinQueryEnvironment, ITransformer, object?> converter)
+        public static ITransformer Override<TSource>(this ITransformer serializer, Func<TSource, IGremlinQueryEnvironment, ITransformer, object?> converter)
         {
             return serializer
-                .Add(new FixedTypeConverterFactory<TFragment>(converter));
+                .Add(new FixedTypeConverterFactory<TSource>(converter));
         }
 
         public static ITransformer UseDefaultGremlinStepSerializationHandlers(this ITransformer serializer) => serializer
