@@ -17,6 +17,8 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         internal static readonly string[] StepLabelNameCache;
 
+        private static readonly ConcurrentDictionary<string, Instruction> SimpleInstructions = new();
+
         private sealed class GremlinQuerySerializerImpl : IGremlinQuerySerializer
         {
             private static readonly MethodInfo CreateFuncMethod1 = typeof(GremlinQuerySerializerImpl).GetMethod(nameof(CreateFunc1), BindingFlags.NonPublic | BindingFlags.Static)!;
@@ -113,8 +115,6 @@ namespace ExRam.Gremlinq.Core.Serialization
 
             private static BaseGremlinQueryFragmentSerializerDelegate<TStatic> CreateFunc4<TStatic, TEffective>(GremlinQueryFragmentSerializerDelegate<TEffective> del)
                 where TStatic : TEffective => (fragment, environment, recurse) => del(fragment, environment, static (_, e, s) => _!, recurse);
-
-
         }
 
         private sealed class InvalidGremlinQuerySerializer : IGremlinQuerySerializer
@@ -165,31 +165,6 @@ namespace ExRam.Gremlinq.Core.Serialization
                     ? serializedQuery.ToGroovy()
                     : serialized);
         }
-
-        internal static ISerializedGremlinQuery Serialize(this IGremlinQuerySerializer serializer, IGremlinQueryBase query)
-        {
-            try
-            {
-                var serialized = serializer
-                    .Serialize(query, query.AsAdmin().Environment) ?? throw new ArgumentException($"{nameof(query)} did not serialize to a non-null value.");
-
-                if (serialized is ISerializedGremlinQuery serializedQuery)
-                    return serializedQuery;
-
-                throw new InvalidOperationException($"Unable to serialize a query of type {query.GetType().FullName}.");
-            }
-            finally
-            {
-                _stepLabelNames = null;
-            }
-        }
-
-
-
-
-
-
-        private static readonly ConcurrentDictionary<string, Instruction> SimpleInstructions = new();
 
         public static IGremlinQuerySerializer UseDefaultGremlinStepSerializationHandlers(this IGremlinQuerySerializer serializer) => serializer
             .Override<AddEStep>(static (step, env, _, recurse) => CreateInstruction("addE", recurse, env, step.Label))
@@ -520,12 +495,12 @@ namespace ExRam.Gremlinq.Core.Serialization
             .Override<Step>(static (_, _, _, _) => Array.Empty<Instruction>())
             .Override<StepLabel>(static (stepLabel, env, _, recurse) =>
             {
-                var stepLabelNames = (GremlinQuerySerializer._stepLabelNames ??= new Dictionary<StepLabel, string>());
+                var stepLabelNames = _stepLabelNames ??= new Dictionary<StepLabel, string>();
 
                 if (!stepLabelNames!.TryGetValue(stepLabel, out var stepLabelMapping))
                 {
-                    stepLabelMapping = stepLabel.Identity as string ?? (stepLabelNames.Count < GremlinQuerySerializer.StepLabelNameCache.Length
-                        ? GremlinQuerySerializer.StepLabelNameCache[stepLabelNames.Count]
+                    stepLabelMapping = stepLabel.Identity as string ?? (stepLabelNames.Count < StepLabelNameCache.Length
+                        ? StepLabelNameCache[stepLabelNames.Count]
                         : "l" + (stepLabelNames.Count + 1));
 
                     stepLabelNames.Add(stepLabel, stepLabelMapping);
@@ -579,6 +554,24 @@ namespace ExRam.Gremlinq.Core.Serialization
                 ? CreateInstruction("by", recurse, env, key)
                 : CreateInstruction("by"))
             .Override<WhereStepLabelAndPredicateStep>(static (step, env, _, recurse) => CreateInstruction("where", recurse, env, step.StepLabel, step.Predicate));
+
+        internal static ISerializedGremlinQuery Serialize(this IGremlinQuerySerializer serializer, IGremlinQueryBase query)
+        {
+            try
+            {
+                var serialized = serializer
+                    .Serialize(query, query.AsAdmin().Environment) ?? throw new ArgumentException($"{nameof(query)} did not serialize to a non-null value.");
+
+                if (serialized is ISerializedGremlinQuery serializedQuery)
+                    return serializedQuery;
+
+                throw new InvalidOperationException($"Unable to serialize a query of type {query.GetType().FullName}.");
+            }
+            finally
+            {
+                _stepLabelNames = null;
+            }
+        }
 
         private static Instruction CreateInstruction(string name)
         {
