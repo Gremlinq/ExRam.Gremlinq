@@ -6,19 +6,19 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace ExRam.Gremlinq.Core.Deserialization
 {
-    internal abstract class FixedTypeConverterFactory<TStaticRequested> : IConverterFactory
-        where TStaticRequested : struct
+    internal abstract class FixedTypeConverterFactory<TStaticTarget> : IConverterFactory
+        where TStaticTarget : struct
     {
-        private sealed class FixedTypeConverter : IConverter<JValue, TStaticRequested>
+        private sealed class FixedTypeConverter : IConverter<JValue, TStaticTarget>
         {
-            private readonly FixedTypeConverterFactory<TStaticRequested> _factory;
+            private readonly FixedTypeConverterFactory<TStaticTarget> _factory;
 
-            public FixedTypeConverter(FixedTypeConverterFactory<TStaticRequested> factory)
+            public FixedTypeConverter(FixedTypeConverterFactory<TStaticTarget> factory)
             {
                 _factory = factory;
             }
 
-            public bool TryConvert(JValue serialized, IGremlinQueryEnvironment environment, IDeserializer recurse, [NotNullWhen(true)] out TStaticRequested value)
+            public bool TryConvert(JValue serialized, IGremlinQueryEnvironment environment, IDeserializer recurse, [NotNullWhen(true)] out TStaticTarget value)
             {
                 if (_factory.Convert(serialized, environment, recurse) is { } requested)
                 {
@@ -35,11 +35,11 @@ namespace ExRam.Gremlinq.Core.Deserialization
 
         public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>()
         {
-            return typeof(TTarget) == typeof(TStaticRequested) && typeof(TSource) == typeof(JValue)
+            return typeof(TTarget) == typeof(TStaticTarget) && typeof(TSource) == typeof(JValue)
                 ? (IConverter<TSource, TTarget>)(object)new FixedTypeConverter(this)
                 : null;
         }
 
-        protected abstract TStaticRequested? Convert(JValue jValue, IGremlinQueryEnvironment environment, IDeserializer recurse);
+        protected abstract TStaticTarget? Convert(JValue jValue, IGremlinQueryEnvironment environment, IDeserializer recurse);
     }
 }
