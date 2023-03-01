@@ -73,8 +73,7 @@ namespace ExRam.Gremlinq.Core.Tests
                             .IncludeAssembliesOfBaseTypes()))
                     .EchoGroovyGremlinQuery()
                     .ConfigureSerializer(_ => _
-                        .ConfigureFragmentSerializer(fragmentSerializer => fragmentSerializer
-                            .Override<FancyId>((key, env, overridden, recurse) => recurse.Serialize(key.Id, env)))))
+                        .Override<FancyId>((key, env, overridden, recurse) => recurse.Serialize(key.Id, env))))
                 .V<Person>(new FancyId { Id = "someId" })
                 .Cast<string>()
                 .Verify();
@@ -90,8 +89,7 @@ namespace ExRam.Gremlinq.Core.Tests
                             .IncludeAssembliesOfBaseTypes()))
                     .EchoGroovyGremlinQuery()
                     .ConfigureSerializer(_ => _
-                        .ConfigureFragmentSerializer(fragmentSerializer => fragmentSerializer
-                            .Override<FancyId>((key, env, overridden, recurse) => recurse.Serialize(key.Id, env)))))
+                        .Override<FancyId>((key, env, overridden, recurse) => recurse.Serialize(key.Id, env))))
                 .V<Person>(new EvenMoreFancyId { Id = "someId" })
                 .Cast<string>()
                 .Verify();
@@ -107,8 +105,7 @@ namespace ExRam.Gremlinq.Core.Tests
                             .IncludeAssembliesOfBaseTypes()))
                     .EchoGroovyGremlinQuery()
                     .ConfigureSerializer(_ => _
-                        .ConfigureFragmentSerializer(fragmentSerializer => fragmentSerializer
-                            .Override<IFancyId>((key, env, overridden, recurse) => recurse.Serialize(key.Id, env)))))
+                        .Override<IFancyId>((key, env, overridden, recurse) => recurse.Serialize(key.Id, env))))
                 .V<Person>(new FancyId { Id = "someId" })
                 .Cast<string>()
                 .Verify();
@@ -124,8 +121,7 @@ namespace ExRam.Gremlinq.Core.Tests
                             .IncludeAssembliesOfBaseTypes()))
                     .EchoGroovyGremlinQuery()
                     .ConfigureSerializer(_ => _
-                        .ConfigureFragmentSerializer(fragmentSerializer => fragmentSerializer
-                            .Override<IFancyId>((key, env, overridden, recurse) => recurse.Serialize(key.Id, env)))))
+                        .Override<IFancyId>((key, env, overridden, recurse) => recurse.Serialize(key.Id, env))))
                 .V<Person>(new FancyId { Id = "someId" })
                 .Cast<string>()
                 .Verify();
