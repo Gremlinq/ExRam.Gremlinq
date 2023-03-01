@@ -31,6 +31,11 @@ namespace ExRam.Gremlinq.Core.Transformation
             _converterFactories = converterFactories;
         }
 
+        public ITransformer Add(IConverterFactory converterFactory)
+        {
+            return new Transformer(_converterFactories.Push(converterFactory));
+        }
+
         public bool TryTransform<TSource, TTarget>(TSource source, IGremlinQueryEnvironment environment, [NotNullWhen(true)] out TTarget? value)
         {
             if (source is { } actualSerialized)
@@ -58,11 +63,6 @@ namespace ExRam.Gremlinq.Core.Transformation
 
             value = default;
             return false;
-        }
-
-        public ITransformer Add(IConverterFactory converterFactory)
-        {
-            return new Transformer(_converterFactories.Push(converterFactory));
         }
 
         private Func<TStaticSource, IGremlinQueryEnvironment, Option<TTarget>> GetTransformationFunction<TStaticSource, TActualSource, TTarget>()
