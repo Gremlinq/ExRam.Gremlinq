@@ -6,17 +6,9 @@
         public static readonly ExRam.Gremlinq.Core.Deserialization.IDeserializer Identity;
         public static ExRam.Gremlinq.Core.Deserialization.IDeserializer AddToStringFallback(this ExRam.Gremlinq.Core.Deserialization.IDeserializer deserializer) { }
     }
-    public interface IConverterFactory
-    {
-        ExRam.Gremlinq.Core.Deserialization.IConverter<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>();
-    }
-    public interface IConverter<in TSerialized, TRequested>
-    {
-        bool TryConvert(TSerialized serialized, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Deserialization.IDeserializer recurse, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out TRequested? value);
-    }
     public interface IDeserializer
     {
-        ExRam.Gremlinq.Core.Deserialization.IDeserializer Add(ExRam.Gremlinq.Core.Deserialization.IConverterFactory converterFactory);
+        ExRam.Gremlinq.Core.Deserialization.IDeserializer Add(ExRam.Gremlinq.Core.Transformation.IConverterFactory converterFactory);
         bool TryDeserialize<TSerialized, TRequested>(TSerialized serialized, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out TRequested? value);
     }
 }
@@ -2270,5 +2262,16 @@ namespace ExRam.Gremlinq.Core.Steps
     {
         public WithoutStrategiesStep(System.Collections.Immutable.ImmutableArray<System.Type> strategyTypes) { }
         public System.Collections.Immutable.ImmutableArray<System.Type> StrategyTypes { get; }
+    }
+}
+namespace ExRam.Gremlinq.Core.Transformation
+{
+    public interface IConverterFactory
+    {
+        ExRam.Gremlinq.Core.Transformation.IConverter<TSerialized, TRequested>? TryCreate<TSerialized, TRequested>();
+    }
+    public interface IConverter<in TSerialized, TRequested>
+    {
+        bool TryConvert(TSerialized serialized, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Deserialization.IDeserializer recurse, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out TRequested? value);
     }
 }

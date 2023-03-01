@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Core.Deserialization
+﻿namespace ExRam.Gremlinq.Core.Transformation
 {
     public interface IConverterFactory
     {
