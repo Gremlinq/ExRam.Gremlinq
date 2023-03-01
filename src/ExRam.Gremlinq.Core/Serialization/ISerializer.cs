@@ -1,9 +1,10 @@
 ﻿namespace ExRam.Gremlinq.Core.Serialization
 {
-    public interface IGremlinQuerySerializer
+    public interface ISerializer
     {
         object Serialize<TFragment>(TFragment fragment, IGremlinQueryEnvironment gremlinQueryEnvironment);
 
-        IGremlinQuerySerializer Override<TFragment>(GremlinQueryFragmentSerializerDelegate<TFragment> serializer);
+        ISerializer Override<TFragment>(GremlinQueryFragmentSerializerDelegate<TFragment> serializer);
     }
 }
+
