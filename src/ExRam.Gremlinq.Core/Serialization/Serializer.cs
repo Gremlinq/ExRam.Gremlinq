@@ -5,7 +5,6 @@ using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Core.Transformation;
-
 using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core.Serialization
