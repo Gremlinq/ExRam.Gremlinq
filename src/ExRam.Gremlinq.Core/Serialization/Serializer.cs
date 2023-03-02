@@ -118,31 +118,31 @@ namespace ExRam.Gremlinq.Core.Serialization
                 : throw new InvalidOperationException();
         }
 
-        public static ITransformer Override<TSource>(this ITransformer serializer, Func<TSource, IGremlinQueryEnvironment, ITransformer, object?> converter)
+        public static ITransformer Add<TSource>(this ITransformer serializer, Func<TSource, IGremlinQueryEnvironment, ITransformer, object?> converter)
         {
             return serializer
                 .Add(new FixedTypeConverterFactory<TSource>(converter));
         }
 
         public static ITransformer UseDefaultGremlinStepSerializationHandlers(this ITransformer serializer) => serializer
-            .Override<AddEStep>(static (step, env, recurse) => CreateInstruction("addE", recurse, env, step.Label))
-            .Override<AddEStep.ToLabelStep>(static (step, env, recurse) => CreateInstruction("to", recurse, env, step.StepLabel))
-            .Override<AddEStep.ToTraversalStep>(static (step, env, recurse) => CreateInstruction("to", recurse, env, step.Traversal))
-            .Override<AddEStep.FromLabelStep>(static (step, env, recurse) => CreateInstruction("from", recurse, env, step.StepLabel))
-            .Override<AddEStep.FromTraversalStep>(static (step, env, recurse) => CreateInstruction("from", recurse, env, step.Traversal))
-            .Override<AddVStep>(static (step, env, recurse) => CreateInstruction("addV", recurse, env, step.Label))
-            .Override<AndStep>(static (step, env, recurse) => CreateInstruction("and", recurse, env, step.Traversals))
-            .Override<AggregateStep>(static (step, env, recurse) => step.Scope.Equals(Scope.Global)
+            .Add<AddEStep>(static (step, env, recurse) => CreateInstruction("addE", recurse, env, step.Label))
+            .Add<AddEStep.ToLabelStep>(static (step, env, recurse) => CreateInstruction("to", recurse, env, step.StepLabel))
+            .Add<AddEStep.ToTraversalStep>(static (step, env, recurse) => CreateInstruction("to", recurse, env, step.Traversal))
+            .Add<AddEStep.FromLabelStep>(static (step, env, recurse) => CreateInstruction("from", recurse, env, step.StepLabel))
+            .Add<AddEStep.FromTraversalStep>(static (step, env, recurse) => CreateInstruction("from", recurse, env, step.Traversal))
+            .Add<AddVStep>(static (step, env, recurse) => CreateInstruction("addV", recurse, env, step.Label))
+            .Add<AndStep>(static (step, env, recurse) => CreateInstruction("and", recurse, env, step.Traversals))
+            .Add<AggregateStep>(static (step, env, recurse) => step.Scope.Equals(Scope.Global)
                 ? CreateInstruction("aggregate", recurse, env, step.StepLabel)
                 : CreateInstruction("aggregate", recurse, env, step.Scope, step.StepLabel))
-            .Override<AsStep>(static (step, env, recurse) => CreateInstruction("as", recurse, env, step.StepLabel))
-            .Override<BarrierStep>(static (_, _, _) => CreateInstruction("barrier"))
-            .Override<BothStep>(static (step, env, recurse) => CreateInstruction("both", recurse, env, step.Labels))
-            .Override<BothEStep>(static (step, env, recurse) => CreateInstruction("bothE", recurse, env, step.Labels))
-            .Override<BothVStep>(static (_, _, _) => CreateInstruction("bothV"))
-            .Override<CapStep>(static (step, env, recurse) => CreateInstruction("cap", recurse, env, step.StepLabel))
-            .Override<ChooseOptionTraversalStep>(static (step, env, recurse) => CreateInstruction("choose", recurse, env, step.Traversal))
-            .Override<ChoosePredicateStep>(static (step, env, recurse) => step.ElseTraversal is { } elseTraversal
+            .Add<AsStep>(static (step, env, recurse) => CreateInstruction("as", recurse, env, step.StepLabel))
+            .Add<BarrierStep>(static (_, _, _) => CreateInstruction("barrier"))
+            .Add<BothStep>(static (step, env, recurse) => CreateInstruction("both", recurse, env, step.Labels))
+            .Add<BothEStep>(static (step, env, recurse) => CreateInstruction("bothE", recurse, env, step.Labels))
+            .Add<BothVStep>(static (_, _, _) => CreateInstruction("bothV"))
+            .Add<CapStep>(static (step, env, recurse) => CreateInstruction("cap", recurse, env, step.StepLabel))
+            .Add<ChooseOptionTraversalStep>(static (step, env, recurse) => CreateInstruction("choose", recurse, env, step.Traversal))
+            .Add<ChoosePredicateStep>(static (step, env, recurse) => step.ElseTraversal is { } elseTraversal
                 ? CreateInstruction(
                     "choose",
                     recurse,
@@ -156,7 +156,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                     env,
                     step.Predicate,
                     step.ThenTraversal))
-            .Override<ChooseTraversalStep>(static (step, env, recurse) => step.ElseTraversal is { } elseTraversal
+            .Add<ChooseTraversalStep>(static (step, env, recurse) => step.ElseTraversal is { } elseTraversal
                 ? CreateInstruction(
                     "choose",
                     recurse,
@@ -170,40 +170,40 @@ namespace ExRam.Gremlinq.Core.Serialization
                     env,
                     step.IfTraversal,
                     step.ThenTraversal))
-            .Override<CoalesceStep>(static (step, env, recurse) => CreateInstruction("coalesce", recurse, env, step.Traversals))
-            .Override<CoinStep>(static (step, env, recurse) => CreateInstruction("coin", recurse, env, step.Probability))
-            .Override<ConstantStep>(static (step, env, recurse) => CreateInstruction("constant", recurse, env, step.Value))
-            .Override<CountStep>(static (step, env, recurse) => step.Scope.Equals(Scope.Local)
+            .Add<CoalesceStep>(static (step, env, recurse) => CreateInstruction("coalesce", recurse, env, step.Traversals))
+            .Add<CoinStep>(static (step, env, recurse) => CreateInstruction("coin", recurse, env, step.Probability))
+            .Add<ConstantStep>(static (step, env, recurse) => CreateInstruction("constant", recurse, env, step.Value))
+            .Add<CountStep>(static (step, env, recurse) => step.Scope.Equals(Scope.Local)
                 ? CreateInstruction("count", recurse, env, step.Scope)
                 : CreateInstruction("count"))
-            .Override<CyclicPathStep>(static (_, _, _) => CreateInstruction("cyclicPath"))
-            .Override<DateTime>(static (dateTime, env, recurse) => recurse.Serialize(new DateTimeOffset(dateTime.ToUniversalTime()), env))
-            .Override<DedupStep>(static (step, env, recurse) => step.Scope.Equals(Scope.Local)
+            .Add<CyclicPathStep>(static (_, _, _) => CreateInstruction("cyclicPath"))
+            .Add<DateTime>(static (dateTime, env, recurse) => recurse.Serialize(new DateTimeOffset(dateTime.ToUniversalTime()), env))
+            .Add<DedupStep>(static (step, env, recurse) => step.Scope.Equals(Scope.Local)
                 ? CreateInstruction("dedup", recurse, env, step.Scope)
                 : CreateInstruction("dedup"))
-            .Override<DropStep>(static (_, _, _) => CreateInstruction("drop"))
-            .Override<EmitStep>(static (_, _, _) => CreateInstruction("emit"))
-            .Override<EStep>(static (step, env, recurse) => CreateInstruction("E", recurse, env, step.Ids))
-            .Override<ExplainStep>(static (_, _, _) => CreateInstruction("explain"))
-            .Override<FailStep>(static (step, env, recurse) => step.Message is { } message
+            .Add<DropStep>(static (_, _, _) => CreateInstruction("drop"))
+            .Add<EmitStep>(static (_, _, _) => CreateInstruction("emit"))
+            .Add<EStep>(static (step, env, recurse) => CreateInstruction("E", recurse, env, step.Ids))
+            .Add<ExplainStep>(static (_, _, _) => CreateInstruction("explain"))
+            .Add<FailStep>(static (step, env, recurse) => step.Message is { } message
                 ? CreateInstruction("fail", recurse, env, message)
                 : CreateInstruction("fail"))
-            .Override<FoldStep>(static (_, _, _) => CreateInstruction("fold"))
-            .Override<FilterStep.ByLambdaStep>(static (step, env, recurse) => CreateInstruction("filter", recurse, env, step.Lambda))
-            .Override<FilterStep.ByTraversalStep>(static (step, env, recurse) => CreateInstruction("filter", recurse, env, step.Traversal))
-            .Override<FlatMapStep>(static (step, env, recurse) => CreateInstruction("flatMap", recurse, env, step.Traversal))
-            .Override<GroupStep>(static (_, _, _) => CreateInstruction("group"))
-            .Override<GroupStep.ByTraversalStep>(static (step, env, recurse) => CreateInstruction("by", recurse, env, step.Traversal))
-            .Override<GroupStep.ByKeyStep>(static (step, env, recurse) => CreateInstruction("by", recurse, env, step.Key))
-            .Override<HasStep>(static (step, env, recurse) => CreateInstruction("has", recurse, env, step.Key))
-            .Override<HasKeyStep>(static (step, env, recurse) => CreateInstruction(
+            .Add<FoldStep>(static (_, _, _) => CreateInstruction("fold"))
+            .Add<FilterStep.ByLambdaStep>(static (step, env, recurse) => CreateInstruction("filter", recurse, env, step.Lambda))
+            .Add<FilterStep.ByTraversalStep>(static (step, env, recurse) => CreateInstruction("filter", recurse, env, step.Traversal))
+            .Add<FlatMapStep>(static (step, env, recurse) => CreateInstruction("flatMap", recurse, env, step.Traversal))
+            .Add<GroupStep>(static (_, _, _) => CreateInstruction("group"))
+            .Add<GroupStep.ByTraversalStep>(static (step, env, recurse) => CreateInstruction("by", recurse, env, step.Traversal))
+            .Add<GroupStep.ByKeyStep>(static (step, env, recurse) => CreateInstruction("by", recurse, env, step.Key))
+            .Add<HasStep>(static (step, env, recurse) => CreateInstruction("has", recurse, env, step.Key))
+            .Add<HasKeyStep>(static (step, env, recurse) => CreateInstruction(
                 "hasKey",
                 recurse,
                 env,
                 step.Argument is P { OperatorName: "eq" } p
                     ? (object)p.Value
                     : step.Argument))
-            .Override<HasPredicateStep>(static (step, env, recurse) => CreateInstruction(
+            .Add<HasPredicateStep>(static (step, env, recurse) => CreateInstruction(
                 "has",
                 recurse,
                 env,
@@ -211,19 +211,19 @@ namespace ExRam.Gremlinq.Core.Serialization
                 step.Predicate.OperatorName == "eq"
                     ? (object)step.Predicate.Value
                     : step.Predicate))
-            .Override<HasTraversalStep>(static (step, env, recurse) => CreateInstruction("has", recurse, env, step.Key, step.Traversal))
-            .Override<HasLabelStep>(static (step, env, recurse) => CreateInstruction("hasLabel", recurse, env, step.Labels))
-            .Override<HasNotStep>(static (step, env, recurse) => CreateInstruction("hasNot", recurse, env, step.Key))
-            .Override<HasValueStep>(static (step, env, recurse) => CreateInstruction(
+            .Add<HasTraversalStep>(static (step, env, recurse) => CreateInstruction("has", recurse, env, step.Key, step.Traversal))
+            .Add<HasLabelStep>(static (step, env, recurse) => CreateInstruction("hasLabel", recurse, env, step.Labels))
+            .Add<HasNotStep>(static (step, env, recurse) => CreateInstruction("hasNot", recurse, env, step.Key))
+            .Add<HasValueStep>(static (step, env, recurse) => CreateInstruction(
                 "hasValue",
                 recurse,
                 env,
                 step.Argument is P { OperatorName: "eq" } p
                     ? (object)p.Value
                     : step.Argument))
-            .Override<IdentityStep>(static (_, _, _) => CreateInstruction("identity"))
-            .Override<IdStep>(static (_, _, _) => CreateInstruction("id"))
-            .Override<IGremlinQueryBase>(static (query, env, recurse) =>
+            .Add<IdentityStep>(static (_, _, _) => CreateInstruction("identity"))
+            .Add<IdStep>(static (_, _, _) => CreateInstruction("id"))
+            .Add<IGremlinQueryBase>(static (query, env, recurse) =>
             {
                 var serialized = recurse.Serialize(
                     query
@@ -235,33 +235,33 @@ namespace ExRam.Gremlinq.Core.Serialization
                     ? new BytecodeGremlinQuery(bytecode)
                     : serialized;
             })
-            .Override<InjectStep>(static (step, env, recurse) => CreateInstruction("inject", recurse, env, step.Elements))
-            .Override<InEStep>(static (step, env, recurse) => CreateInstruction("inE", recurse, env, step.Labels))
-            .Override<InStep>(static (step, env, recurse) => CreateInstruction("in", recurse, env, step.Labels))
-            .Override<InVStep>(static (_, _, _) => CreateInstruction("inV"))
-            .Override<IsStep>(static (step, env, recurse) => CreateInstruction(
+            .Add<InjectStep>(static (step, env, recurse) => CreateInstruction("inject", recurse, env, step.Elements))
+            .Add<InEStep>(static (step, env, recurse) => CreateInstruction("inE", recurse, env, step.Labels))
+            .Add<InStep>(static (step, env, recurse) => CreateInstruction("in", recurse, env, step.Labels))
+            .Add<InVStep>(static (_, _, _) => CreateInstruction("inV"))
+            .Add<IsStep>(static (step, env, recurse) => CreateInstruction(
                 "is",
                 recurse,
                 env,
                 step.Predicate.OperatorName == "eq"
                     ? (object)step.Predicate.Value
                     : step.Predicate))
-            .Override<Key>(static (key, env, recurse) => recurse.Serialize(key.RawKey, env))
-            .Override<KeyStep>(static (_, _, _) => CreateInstruction("key"))
-            .Override<LabelStep>(static (_, _, _) => CreateInstruction("label"))
-            .Override<LimitStep>(static (step, env, recurse) => step.Scope.Equals(Scope.Local)
+            .Add<Key>(static (key, env, recurse) => recurse.Serialize(key.RawKey, env))
+            .Add<KeyStep>(static (_, _, _) => CreateInstruction("key"))
+            .Add<LabelStep>(static (_, _, _) => CreateInstruction("label"))
+            .Add<LimitStep>(static (step, env, recurse) => step.Scope.Equals(Scope.Local)
                 ? CreateInstruction("limit", recurse, env, step.Scope, step.Count)
                 : CreateInstruction("limit", recurse, env, step.Count))
-            .Override<LocalStep>(static (step, env, recurse) => CreateInstruction("local", recurse, env, step.Traversal))
-            .Override<MaxStep>(static (step, env, recurse) => step.Scope.Equals(Scope.Local)
+            .Add<LocalStep>(static (step, env, recurse) => CreateInstruction("local", recurse, env, step.Traversal))
+            .Add<MaxStep>(static (step, env, recurse) => step.Scope.Equals(Scope.Local)
                 ? CreateInstruction("max", recurse, env, step.Scope)
                 : CreateInstruction("max"))
-            .Override<MatchStep>(static (step, env, recurse) => CreateInstruction("match", recurse, env, step.Traversals))
-            .Override<MapStep>(static (step, env, recurse) => CreateInstruction("map", recurse, env, step.Traversal))
-            .Override<MeanStep>(static (step, env, recurse) => step.Scope.Equals(Scope.Local)
+            .Add<MatchStep>(static (step, env, recurse) => CreateInstruction("match", recurse, env, step.Traversals))
+            .Add<MapStep>(static (step, env, recurse) => CreateInstruction("map", recurse, env, step.Traversal))
+            .Add<MeanStep>(static (step, env, recurse) => step.Scope.Equals(Scope.Local)
                 ? CreateInstruction("mean", recurse, env, step.Scope)
                 : CreateInstruction("mean"))
-            .Override<Memory<Step>>(static (steps, env, recurse) =>
+            .Add<Memory<Step>>(static (steps, env, recurse) =>
             {
                 var j = 0;
                 var span = steps.Span;
@@ -352,25 +352,25 @@ namespace ExRam.Gremlinq.Core.Serialization
 
                 return recurse.Serialize(byteCode, env);
             })
-            .Override<MinStep>(static (step, env, recurse) => step.Scope.Equals(Scope.Local)
+            .Add<MinStep>(static (step, env, recurse) => step.Scope.Equals(Scope.Local)
                 ? CreateInstruction("min", recurse, env, step.Scope)
                 : CreateInstruction("min"))
-            .Override<NoneStep>(static (_, _, _) => CreateInstruction("none"))
-            .Override<NotStep>(static (step, env, recurse) => CreateInstruction("not", recurse, env, step.Traversal))
-            .Override<OptionalStep>(static (step, env, recurse) => CreateInstruction("optional", recurse, env, step.Traversal))
-            .Override<OptionTraversalStep>(static (step, env, recurse) => CreateInstruction("option", recurse, env, step.Guard ?? Pick.None, step.OptionTraversal))
-            .Override<OrderStep>(static (step, env, recurse) => step.Scope.Equals(Scope.Local)
+            .Add<NoneStep>(static (_, _, _) => CreateInstruction("none"))
+            .Add<NotStep>(static (step, env, recurse) => CreateInstruction("not", recurse, env, step.Traversal))
+            .Add<OptionalStep>(static (step, env, recurse) => CreateInstruction("optional", recurse, env, step.Traversal))
+            .Add<OptionTraversalStep>(static (step, env, recurse) => CreateInstruction("option", recurse, env, step.Guard ?? Pick.None, step.OptionTraversal))
+            .Add<OrderStep>(static (step, env, recurse) => step.Scope.Equals(Scope.Local)
                 ? CreateInstruction("order", recurse, env, step.Scope)
                 : CreateInstruction("order"))
-            .Override<OrderStep.ByLambdaStep>(static (step, env, recurse) => CreateInstruction("by", recurse, env, step.Lambda))
-            .Override<OrderStep.ByMemberStep>(static (step, env, recurse) => CreateInstruction("by", recurse, env, step.Key, step.Order))
-            .Override<OrderStep.ByTraversalStep>(static (step, env, recurse) => CreateInstruction("by", recurse, env, step.Traversal, step.Order))
-            .Override<OrStep>(static (step, env, recurse) => CreateInstruction("or", recurse, env, step.Traversals))
-            .Override<OutStep>(static (step, env, recurse) => CreateInstruction("out", recurse, env, step.Labels))
-            .Override<OutEStep>(static (step, env, recurse) => CreateInstruction("outE", recurse, env, step.Labels))
-            .Override<OutVStep>(static (_, _, _) => CreateInstruction("outV"))
-            .Override<OtherVStep>(static (_, _, _) => CreateInstruction("otherV"))
-            .Override<P>(static (p, env, recurse) =>
+            .Add<OrderStep.ByLambdaStep>(static (step, env, recurse) => CreateInstruction("by", recurse, env, step.Lambda))
+            .Add<OrderStep.ByMemberStep>(static (step, env, recurse) => CreateInstruction("by", recurse, env, step.Key, step.Order))
+            .Add<OrderStep.ByTraversalStep>(static (step, env, recurse) => CreateInstruction("by", recurse, env, step.Traversal, step.Order))
+            .Add<OrStep>(static (step, env, recurse) => CreateInstruction("or", recurse, env, step.Traversals))
+            .Add<OutStep>(static (step, env, recurse) => CreateInstruction("out", recurse, env, step.Labels))
+            .Add<OutEStep>(static (step, env, recurse) => CreateInstruction("outE", recurse, env, step.Labels))
+            .Add<OutVStep>(static (_, _, _) => CreateInstruction("outV"))
+            .Add<OtherVStep>(static (_, _, _) => CreateInstruction("otherV"))
+            .Add<P>(static (p, env, recurse) =>
             {
                 if (p.Value is null)
                     throw new NotSupportedException("Cannot serialize a P-predicate with a null-value.");
@@ -387,10 +387,10 @@ namespace ExRam.Gremlinq.Core.Serialization
                         ? recurse.Serialize(other, env) as P
                         : null);
             })
-            .Override<PathStep>(static (_, _, _) => CreateInstruction("path"))
-            .Override<ProfileStep>(static (_, _, _) => CreateInstruction("profile"))
-            .Override<PropertiesStep>(static (step, env, recurse) => CreateInstruction("properties", recurse, env, step.Keys))
-            .Override<PropertyStep.ByKeyStep>(static (step, env, recurse) =>
+            .Add<PathStep>(static (_, _, _) => CreateInstruction("path"))
+            .Add<ProfileStep>(static (_, _, _) => CreateInstruction("profile"))
+            .Add<PropertiesStep>(static (step, env, recurse) => CreateInstruction("properties", recurse, env, step.Keys))
+            .Add<PropertyStep.ByKeyStep>(static (step, env, recurse) =>
             {
                 static object[] GetPropertyStepArguments(PropertyStep.ByKeyStep propertyStep, ITransformer recurse, IGremlinQueryEnvironment env)
                 {
@@ -421,8 +421,8 @@ namespace ExRam.Gremlinq.Core.Serialization
                     ? throw new NotSupportedException("Cannot have an id property on non-single cardinality.")
                     : new Instruction("property", GetPropertyStepArguments(step, recurse, env));
             })
-            .Override<ProjectStep>(static (step, env, recurse) => CreateInstruction("project", recurse, env, step.Projections))
-            .Override<ProjectStep.ByTraversalStep>(static (step, env, recurse) =>
+            .Add<ProjectStep>(static (step, env, recurse) => CreateInstruction("project", recurse, env, step.Projections))
+            .Add<ProjectStep.ByTraversalStep>(static (step, env, recurse) =>
             {
                 var traversal = step.Traversal;
 
@@ -431,24 +431,24 @@ namespace ExRam.Gremlinq.Core.Serialization
 
                 return CreateInstruction("by", recurse, env, traversal);
             })
-            .Override<ProjectStep.ByKeyStep>(static (step, env, recurse) => CreateInstruction("by", recurse, env, step.Key))
-            .Override<ProjectVertexStep>(static (_, env, _) => env.Options.GetValue(env.FeatureSet.Supports(VertexFeatures.MetaProperties)
+            .Add<ProjectStep.ByKeyStep>(static (step, env, recurse) => CreateInstruction("by", recurse, env, step.Key))
+            .Add<ProjectVertexStep>(static (_, env, _) => env.Options.GetValue(env.FeatureSet.Supports(VertexFeatures.MetaProperties)
                 ? GremlinqOption.VertexProjectionSteps
                 : GremlinqOption.VertexProjectionWithoutMetaPropertiesSteps))
-            .Override<ProjectEdgeStep>(static (_, env, _) => env.Options.GetValue(GremlinqOption.EdgeProjectionSteps))
-            .Override<RangeStep>(static (step, env, recurse) => step.Scope.Equals(Scope.Local)
+            .Add<ProjectEdgeStep>(static (_, env, _) => env.Options.GetValue(GremlinqOption.EdgeProjectionSteps))
+            .Add<RangeStep>(static (step, env, recurse) => step.Scope.Equals(Scope.Local)
                 ? CreateInstruction("range", recurse, env, step.Scope, step.Lower, step.Upper)
                 : CreateInstruction("range", recurse, env, step.Lower, step.Upper))
-            .Override<RepeatStep>(static (step, env, recurse) => CreateInstruction("repeat", recurse, env, step.Traversal))
-            .Override<SelectColumnStep>(static (step, env, recurse) => CreateInstruction("select", recurse, env, step.Column))
-            .Override<SelectKeysStep>(static (step, env, recurse) => CreateInstruction("select", recurse, env, step.Keys))
-            .Override<SelectStepLabelStep>(static (step, env, recurse) => CreateInstruction("select", recurse, env, step.StepLabels))
-            .Override<SideEffectStep>(static (step, env, recurse) => CreateInstruction("sideEffect", recurse, env, step.Traversal))
-            .Override<SimplePathStep>(static (_, _, _) => CreateInstruction("simplePath"))
-            .Override<SkipStep>(static (step, env, recurse) => step.Scope.Equals(Scope.Local)
+            .Add<RepeatStep>(static (step, env, recurse) => CreateInstruction("repeat", recurse, env, step.Traversal))
+            .Add<SelectColumnStep>(static (step, env, recurse) => CreateInstruction("select", recurse, env, step.Column))
+            .Add<SelectKeysStep>(static (step, env, recurse) => CreateInstruction("select", recurse, env, step.Keys))
+            .Add<SelectStepLabelStep>(static (step, env, recurse) => CreateInstruction("select", recurse, env, step.StepLabels))
+            .Add<SideEffectStep>(static (step, env, recurse) => CreateInstruction("sideEffect", recurse, env, step.Traversal))
+            .Add<SimplePathStep>(static (_, _, _) => CreateInstruction("simplePath"))
+            .Add<SkipStep>(static (step, env, recurse) => step.Scope.Equals(Scope.Local)
                 ? CreateInstruction("skip", recurse, env, step.Scope, step.Count)
                 : CreateInstruction("skip", recurse, env, step.Count))
-            .Override<StepLabel>(static (stepLabel, env, recurse) =>
+            .Add<StepLabel>(static (stepLabel, env, recurse) =>
             {
                 var stepLabelNames = _stepLabelNames ??= new Dictionary<StepLabel, string>();
 
@@ -464,7 +464,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                 // ReSharper disable once TailRecursiveCall
                 return recurse.Serialize(stepLabelMapping, env);
             })
-            .Override<Traversal>(static (traversal, env, recurse) =>
+            .Add<Traversal>(static (traversal, env, recurse) =>
             {
                 var steps = ArrayPool<Step>.Shared.Rent(traversal.Count);
 
@@ -484,31 +484,31 @@ namespace ExRam.Gremlinq.Core.Serialization
                     ArrayPool<Step>.Shared.Return(steps);
                 }
             })
-            .Override<SumStep>(static (step, env, recurse) => step.Scope.Equals(Scope.Local)
+            .Add<SumStep>(static (step, env, recurse) => step.Scope.Equals(Scope.Local)
                 ? CreateInstruction("sum", recurse, env, step.Scope)
                 : CreateInstruction("sum"))
-            .Override<TextP>(static (textP, _, _) => textP)
-            .Override<TailStep>(static (step, env, recurse) => step.Scope.Equals(Scope.Local)
+            .Add<TextP>(static (textP, _, _) => textP)
+            .Add<TailStep>(static (step, env, recurse) => step.Scope.Equals(Scope.Local)
                 ? CreateInstruction("tail", recurse, env, step.Scope, step.Count)
                 : CreateInstruction("tail", recurse, env, step.Count))
-            .Override<TimesStep>(static (step, env, recurse) => CreateInstruction("times", recurse, env, step.Count))
-            .Override<Type>(static (type, _, _) => type)
-            .Override<UnfoldStep>(static (_, _, _) => CreateInstruction("unfold"))
-            .Override<UnionStep>(static (step, env, recurse) => CreateInstruction("union", recurse, env, step.Traversals))
-            .Override<UntilStep>(static (step, env, recurse) => CreateInstruction("until", recurse, env, step.Traversal))
-            .Override<ValueStep>(static (_, _, _) => CreateInstruction("value"))
-            .Override<ValueMapStep>(static (step, env, recurse) => CreateInstruction("valueMap", recurse, env, step.Keys))
-            .Override<ValuesStep>(static (step, env, recurse) => CreateInstruction("values", recurse, env, step.Keys))
-            .Override<VStep>(static (step, env, recurse) => CreateInstruction("V", recurse, env, step.Ids))
-            .Override<WhereTraversalStep>(static (step, env, recurse) => CreateInstruction("where", recurse, env, step.Traversal))
-            .Override<WithStrategiesStep>(static (step, env, recurse) => CreateInstruction("withStrategies", recurse, env, step.Traversal))
-            .Override<WithoutStrategiesStep>(static (step, env, recurse) => CreateInstruction("withoutStrategies", recurse, env, step.StrategyTypes))
-            .Override<WithSideEffectStep>(static (step, env, recurse) => CreateInstruction("withSideEffect", recurse, env, step.Label, step.Value))
-            .Override<WherePredicateStep>(static (step, env, recurse) => CreateInstruction("where", recurse, env, step.Predicate))
-            .Override<WherePredicateStep.ByMemberStep>(static (step, env, recurse) => step.Key is { } key
+            .Add<TimesStep>(static (step, env, recurse) => CreateInstruction("times", recurse, env, step.Count))
+            .Add<Type>(static (type, _, _) => type)
+            .Add<UnfoldStep>(static (_, _, _) => CreateInstruction("unfold"))
+            .Add<UnionStep>(static (step, env, recurse) => CreateInstruction("union", recurse, env, step.Traversals))
+            .Add<UntilStep>(static (step, env, recurse) => CreateInstruction("until", recurse, env, step.Traversal))
+            .Add<ValueStep>(static (_, _, _) => CreateInstruction("value"))
+            .Add<ValueMapStep>(static (step, env, recurse) => CreateInstruction("valueMap", recurse, env, step.Keys))
+            .Add<ValuesStep>(static (step, env, recurse) => CreateInstruction("values", recurse, env, step.Keys))
+            .Add<VStep>(static (step, env, recurse) => CreateInstruction("V", recurse, env, step.Ids))
+            .Add<WhereTraversalStep>(static (step, env, recurse) => CreateInstruction("where", recurse, env, step.Traversal))
+            .Add<WithStrategiesStep>(static (step, env, recurse) => CreateInstruction("withStrategies", recurse, env, step.Traversal))
+            .Add<WithoutStrategiesStep>(static (step, env, recurse) => CreateInstruction("withoutStrategies", recurse, env, step.StrategyTypes))
+            .Add<WithSideEffectStep>(static (step, env, recurse) => CreateInstruction("withSideEffect", recurse, env, step.Label, step.Value))
+            .Add<WherePredicateStep>(static (step, env, recurse) => CreateInstruction("where", recurse, env, step.Predicate))
+            .Add<WherePredicateStep.ByMemberStep>(static (step, env, recurse) => step.Key is { } key
                 ? CreateInstruction("by", recurse, env, key)
                 : CreateInstruction("by"))
-            .Override<WhereStepLabelAndPredicateStep>(static (step, env, recurse) => CreateInstruction("where", recurse, env, step.StepLabel, step.Predicate));
+            .Add<WhereStepLabelAndPredicateStep>(static (step, env, recurse) => CreateInstruction("where", recurse, env, step.StepLabel, step.Predicate));
 
         internal static ISerializedGremlinQuery Serialize(this ITransformer serializer, IGremlinQueryBase query)
         {

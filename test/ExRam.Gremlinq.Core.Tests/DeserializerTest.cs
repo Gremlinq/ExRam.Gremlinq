@@ -58,7 +58,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Recurse()
         {
             await Verify(Transformer.Identity
-                .Override<string, int>((serialized, env, recurse) => recurse.TryTransformTo<int>().From(36, env))
+                .Add<string, int>((serialized, env, recurse) => recurse.TryTransformTo<int>().From(36, env))
                 .TryTransformTo<int>().From("serialized", GremlinQueryEnvironment.Empty));
         }
 
@@ -66,7 +66,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Recurse_wrong_type()
         {
             Transformer.Identity
-                .Override<string, int>((serialized, env, recurse) => recurse.TryTransformTo<int>().From(36, env))
+                .Add<string, int>((serialized, env, recurse) => recurse.TryTransformTo<int>().From(36, env))
                 .TryTransform<int, string>(36, GremlinQueryEnvironment.Empty, out var _)
                 .Should()
                 .BeFalse();

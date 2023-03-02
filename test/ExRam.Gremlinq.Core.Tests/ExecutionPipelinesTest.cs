@@ -74,7 +74,7 @@ namespace ExRam.Gremlinq.Core.Tests
                             .IncludeAssembliesOfBaseTypes()))
                     .EchoGroovyGremlinQuery()
                     .ConfigureSerializer(_ => _
-                        .Override<FancyId>((key, env, recurse) => recurse.Serialize(key.Id, env))))
+                        .Add<FancyId>((key, env, recurse) => recurse.Serialize(key.Id, env))))
                 .V<Person>(new FancyId { Id = "someId" })
                 .Cast<string>()
                 .Verify();
@@ -90,7 +90,7 @@ namespace ExRam.Gremlinq.Core.Tests
                             .IncludeAssembliesOfBaseTypes()))
                     .EchoGroovyGremlinQuery()
                     .ConfigureSerializer(_ => _
-                        .Override<FancyId>((key, env, recurse) => recurse.Serialize(key.Id, env))))
+                        .Add<FancyId>((key, env, recurse) => recurse.Serialize(key.Id, env))))
                 .V<Person>(new EvenMoreFancyId { Id = "someId" })
                 .Cast<string>()
                 .Verify();
@@ -106,7 +106,7 @@ namespace ExRam.Gremlinq.Core.Tests
                             .IncludeAssembliesOfBaseTypes()))
                     .EchoGroovyGremlinQuery()
                     .ConfigureSerializer(_ => _
-                        .Override<IFancyId>((key, env, recurse) => recurse.Serialize(key.Id, env))))
+                        .Add<IFancyId>((key, env, recurse) => recurse.Serialize(key.Id, env))))
                 .V<Person>(new FancyId { Id = "someId" })
                 .Cast<string>()
                 .Verify();
@@ -122,7 +122,7 @@ namespace ExRam.Gremlinq.Core.Tests
                             .IncludeAssembliesOfBaseTypes()))
                     .EchoGroovyGremlinQuery()
                     .ConfigureSerializer(_ => _
-                        .Override<IFancyId>((key, env, recurse) => recurse.Serialize(key.Id, env))))
+                        .Add<IFancyId>((key, env, recurse) => recurse.Serialize(key.Id, env))))
                 .V<Person>(new FancyId { Id = "someId" })
                 .Cast<string>()
                 .Verify();
