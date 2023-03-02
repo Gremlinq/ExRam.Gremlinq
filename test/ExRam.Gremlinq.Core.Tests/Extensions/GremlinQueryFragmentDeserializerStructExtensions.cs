@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using ExRam.Gremlinq.Core.Deserialization;
 using ExRam.Gremlinq.Core.Transformation;
 
 namespace ExRam.Gremlinq.Core
