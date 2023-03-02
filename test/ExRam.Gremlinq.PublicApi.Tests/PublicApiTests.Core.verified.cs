@@ -1093,12 +1093,12 @@ namespace ExRam.Gremlinq.Core
     {
         public static ExRam.Gremlinq.Core.Transformation.ITransformer Override<TSource, TTarget>(this ExRam.Gremlinq.Core.Transformation.ITransformer transformer, System.Func<TSource, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Transformation.ITransformer, TTarget?> func)
             where TTarget :  class { }
-        public static ExRam.Gremlinq.Core.TransformerClassExtensions.FluentForClass<TTarget> TryTransformTo<TTarget>(this ExRam.Gremlinq.Core.Transformation.ITransformer transformer)
+        public static ExRam.Gremlinq.Core.TransformerClassExtensions.TryTransformToBuilder<TTarget> TryTransformTo<TTarget>(this ExRam.Gremlinq.Core.Transformation.ITransformer transformer)
             where TTarget :  class { }
-        public readonly struct FluentForClass<TTarget>
+        public readonly struct TryTransformToBuilder<TTarget>
             where TTarget :  class
         {
-            public FluentForClass(ExRam.Gremlinq.Core.Transformation.ITransformer transformer) { }
+            public TryTransformToBuilder(ExRam.Gremlinq.Core.Transformation.ITransformer transformer) { }
             public TTarget? From<TSource>(TSource source, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
         }
     }
@@ -1106,12 +1106,12 @@ namespace ExRam.Gremlinq.Core
     {
         public static ExRam.Gremlinq.Core.Transformation.ITransformer Override<TSource, TTarget>(this ExRam.Gremlinq.Core.Transformation.ITransformer transformer, System.Func<TSource, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Transformation.ITransformer, TTarget?> func)
             where TTarget :  struct { }
-        public static ExRam.Gremlinq.Core.TransformerStructExtensions.FluentForStruct<TTarget> TryTransformTo<TTarget>(this ExRam.Gremlinq.Core.Transformation.ITransformer transformer)
+        public static ExRam.Gremlinq.Core.TransformerStructExtensions.TryTransformToBuilder<TTarget> TryTransformTo<TTarget>(this ExRam.Gremlinq.Core.Transformation.ITransformer transformer)
             where TTarget :  struct { }
-        public readonly struct FluentForStruct<TTarget>
+        public readonly struct TryTransformToBuilder<TTarget>
             where TTarget :  struct
         {
-            public FluentForStruct(ExRam.Gremlinq.Core.Transformation.ITransformer transformer) { }
+            public TryTransformToBuilder(ExRam.Gremlinq.Core.Transformation.ITransformer transformer) { }
             public TTarget? From<TSource>(TSource source, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
         }
     }
