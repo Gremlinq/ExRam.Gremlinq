@@ -89,37 +89,37 @@ namespace ExRam.Gremlinq.Core
                         .SetValue(GremlinqOption.EdgeProjectionSteps, Traversal.Empty)
                         .SetValue(GremlinqOption.VertexPropertyProjectionSteps, Traversal.Empty))
                     .ConfigureSerializer(serializer => serializer
-                        .Override<byte[]>((bytes, env, recurse) => recurse.Serialize(Convert.ToBase64String(bytes), env))
-                        .Override<CosmosDbKey>((key, env, recurse) => recurse.Serialize(
+                        .Add<byte[]>((bytes, env, recurse) => recurse.Serialize(Convert.ToBase64String(bytes), env))
+                        .Add<CosmosDbKey>((key, env, recurse) => recurse.Serialize(
                             key.PartitionKey != null
                                 ? new[] { key.PartitionKey, key.Id }
                                 : (object)key.Id,
                             env))
-                        .Override<FilterStep.ByTraversalStep>(static (step, env, recurse) => recurse.Serialize(
+                        .Add<FilterStep.ByTraversalStep>(static (step, env, recurse) => recurse.Serialize(
                             new WhereTraversalStep(
                                 step.Traversal.Count > 0 && step.Traversal[0] is AsStep
                                     ? new MapStep(step.Traversal)
                                     : step.Traversal),
                             env))
-                        .Override<HasKeyStep>((step, env, recurse) => step.Argument is P p && (!p.OperatorName.Equals("eq", StringComparison.OrdinalIgnoreCase))
+                        .Add<HasKeyStep>((step, env, recurse) => step.Argument is P p && (!p.OperatorName.Equals("eq", StringComparison.OrdinalIgnoreCase))
                             ? recurse.Serialize(
                                 new WhereTraversalStep(Traversal.Empty.Push(
                                     KeyStep.Instance,
                                     new IsStep(p))),
                                 env)
                             : default)
-                        .Override<NoneStep>((step, env, recurse) => recurse.Serialize(NoneWorkaround, env))
-                        .Override<SkipStep>((step, env, recurse) => recurse.Serialize(new RangeStep(step.Count, -1, step.Scope), env))
-                        .Override<LimitStep>((step, env, recurse) => step.Count > int.MaxValue
+                        .Add<NoneStep>((step, env, recurse) => recurse.Serialize(NoneWorkaround, env))
+                        .Add<SkipStep>((step, env, recurse) => recurse.Serialize(new RangeStep(step.Count, -1, step.Scope), env))
+                        .Add<LimitStep>((step, env, recurse) => step.Count > int.MaxValue
                             ? throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Limit' outside the range of a 32-bit-integer.")
                             : default)
-                        .Override<TailStep>((step, env, recurse) => step.Count > int.MaxValue
+                        .Add<TailStep>((step, env, recurse) => step.Count > int.MaxValue
                             ? throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Tail' outside the range of a 32-bit-integer.")
                             : default)
-                        .Override<RangeStep>((step, env, recurse) => step.Lower > int.MaxValue || step.Upper > int.MaxValue
+                        .Add<RangeStep>((step, env, recurse) => step.Lower > int.MaxValue || step.Upper > int.MaxValue
                             ? throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Range' outside the range of a 32-bit-integer.")
                             : default)
-                        .Override<Order>((order, env, recurse) => order.Equals(Order.Asc)
+                        .Add<Order>((order, env, recurse) => order.Equals(Order.Asc)
                             ? recurse.Serialize(WorkaroundOrder.Incr, env)
                             : order.Equals(Order.Desc)
                                 ? recurse.Serialize(WorkaroundOrder.Decr, env)
