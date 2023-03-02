@@ -1610,11 +1610,6 @@ namespace ExRam.Gremlinq.Core.Serialization
         string Id { get; }
         ExRam.Gremlinq.Core.Serialization.ISerializedGremlinQuery WithNewId();
     }
-    public interface ISerializer
-    {
-        ExRam.Gremlinq.Core.Serialization.ISerializer Override<TFragment>(ExRam.Gremlinq.Core.Serialization.GremlinQueryFragmentSerializerDelegate<TFragment> serializer);
-        object Serialize<TFragment>(TFragment fragment, ExRam.Gremlinq.Core.IGremlinQueryEnvironment gremlinQueryEnvironment);
-    }
     public static class SerializedGremlinQueryExtensions
     {
         public static ExRam.Gremlinq.Core.Serialization.GroovyGremlinQuery ToGroovy(this ExRam.Gremlinq.Core.Serialization.ISerializedGremlinQuery serializedGremlinQuery) { }
