@@ -63,16 +63,9 @@ namespace ExRam.Gremlinq.Core
         }
 
         public static TryTransformToBuilder<TTarget> TryTransformTo<TTarget>(this ITransformer transformer)
-            where TTarget : struct
-        {
-            return new TryTransformToBuilder<TTarget>(transformer);
-        }
+            where TTarget : struct => new(transformer);
 
-        public static ITransformer Override<TSource, TTarget>(this ITransformer transformer, Func<TSource, IGremlinQueryEnvironment, ITransformer, TTarget?> func)
-            where TTarget : struct
-        {
-            return transformer
-                .Add(new FixedTypeConverterFactory<TSource, TTarget>(func));
-        }
+        public static ITransformer Add<TSource, TTarget>(this ITransformer transformer, Func<TSource, IGremlinQueryEnvironment, ITransformer, TTarget?> func)
+            where TTarget : struct => transformer.Add(new FixedTypeConverterFactory<TSource, TTarget>(func));
     }
 }

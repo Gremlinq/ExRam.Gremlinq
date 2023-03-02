@@ -23,7 +23,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Base_type()
         {
             await Verify(Transformer.Identity
-                .Override<Step>((step, env, recurse) => new VStep(ImmutableArray.Create<object>("id")))
+                .Add<Step>((step, env, recurse) => new VStep(ImmutableArray.Create<object>("id")))
                 .Serialize(new HasLabelStep(ImmutableArray.Create("label")), GremlinQueryEnvironment.Empty));
         }
 
@@ -31,7 +31,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Irrelevant()
         {
             await Verify(Transformer.Identity
-                .Override<HasKeyStep>((step, env, recurse) => new HasLabelStep(ImmutableArray.Create("should not be here")))
+                .Add<HasKeyStep>((step, env, recurse) => new HasLabelStep(ImmutableArray.Create("should not be here")))
                 .Serialize(new HasLabelStep(ImmutableArray.Create("label")), GremlinQueryEnvironment.Empty));
         }
 
@@ -56,7 +56,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Recurse()
         {
             await Verify(Transformer.Identity
-                .Override<HasLabelStep>((step, env, recurse) => recurse.Serialize(new VStep(ImmutableArray.Create<object>("id")), env))
+                .Add<HasLabelStep>((step, env, recurse) => recurse.Serialize(new VStep(ImmutableArray.Create<object>("id")), env))
                 .Serialize(new HasLabelStep(ImmutableArray.Create("label")), GremlinQueryEnvironment.Empty));
         }
 
