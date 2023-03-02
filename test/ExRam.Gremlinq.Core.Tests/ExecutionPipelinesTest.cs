@@ -2,6 +2,7 @@
 using ExRam.Gremlinq.Tests.Entities;
 using FluentAssertions;
 using ExRam.Gremlinq.Core.Serialization;
+using ExRam.Gremlinq.Core.Transformation;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
@@ -74,7 +75,7 @@ namespace ExRam.Gremlinq.Core.Tests
                             .IncludeAssembliesOfBaseTypes()))
                     .EchoGroovyGremlinQuery()
                     .ConfigureSerializer(_ => _
-                        .Add<FancyId>((key, env, recurse) => recurse.Serialize(key.Id, env))))
+                        .Add<FancyId>((key, env, recurse) => recurse.TransformTo<object>().From(key.Id, env))))
                 .V<Person>(new FancyId { Id = "someId" })
                 .Cast<string>()
                 .Verify();
@@ -90,7 +91,7 @@ namespace ExRam.Gremlinq.Core.Tests
                             .IncludeAssembliesOfBaseTypes()))
                     .EchoGroovyGremlinQuery()
                     .ConfigureSerializer(_ => _
-                        .Add<FancyId>((key, env, recurse) => recurse.Serialize(key.Id, env))))
+                        .Add<FancyId>((key, env, recurse) => recurse.TransformTo<object>().From(key.Id, env))))
                 .V<Person>(new EvenMoreFancyId { Id = "someId" })
                 .Cast<string>()
                 .Verify();
@@ -106,7 +107,7 @@ namespace ExRam.Gremlinq.Core.Tests
                             .IncludeAssembliesOfBaseTypes()))
                     .EchoGroovyGremlinQuery()
                     .ConfigureSerializer(_ => _
-                        .Add<IFancyId>((key, env, recurse) => recurse.Serialize(key.Id, env))))
+                        .Add<IFancyId>((key, env, recurse) => recurse.TransformTo<object>().From(key.Id, env))))
                 .V<Person>(new FancyId { Id = "someId" })
                 .Cast<string>()
                 .Verify();
@@ -122,7 +123,7 @@ namespace ExRam.Gremlinq.Core.Tests
                             .IncludeAssembliesOfBaseTypes()))
                     .EchoGroovyGremlinQuery()
                     .ConfigureSerializer(_ => _
-                        .Add<IFancyId>((key, env, recurse) => recurse.Serialize(key.Id, env))))
+                        .Add<IFancyId>((key, env, recurse) => recurse.TransformTo<object>().From(key.Id, env))))
                 .V<Person>(new FancyId { Id = "someId" })
                 .Cast<string>()
                 .Verify();

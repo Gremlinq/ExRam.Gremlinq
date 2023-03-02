@@ -1,5 +1,6 @@
 ﻿using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Core.Steps;
+using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Providers.CosmosDb;
 using ExRam.Gremlinq.Providers.WebSocket;
 using Gremlin.Net.Process.Traversal;
@@ -89,27 +90,27 @@ namespace ExRam.Gremlinq.Core
                         .SetValue(GremlinqOption.EdgeProjectionSteps, Traversal.Empty)
                         .SetValue(GremlinqOption.VertexPropertyProjectionSteps, Traversal.Empty))
                     .ConfigureSerializer(serializer => serializer
-                        .Add<byte[]>((bytes, env, recurse) => recurse.Serialize(Convert.ToBase64String(bytes), env))
-                        .Add<CosmosDbKey>((key, env, recurse) => recurse.Serialize(
+                        .Add<byte[]>((bytes, env, recurse) => recurse.TransformTo<object>().From(Convert.ToBase64String(bytes), env))
+                        .Add<CosmosDbKey>((key, env, recurse) => recurse.TransformTo<object>().From(
                             key.PartitionKey != null
                                 ? new[] { key.PartitionKey, key.Id }
                                 : (object)key.Id,
                             env))
-                        .Add<FilterStep.ByTraversalStep>(static (step, env, recurse) => recurse.Serialize(
+                        .Add<FilterStep.ByTraversalStep>(static (step, env, recurse) => recurse.TransformTo<object>().From(
                             new WhereTraversalStep(
                                 step.Traversal.Count > 0 && step.Traversal[0] is AsStep
                                     ? new MapStep(step.Traversal)
                                     : step.Traversal),
                             env))
                         .Add<HasKeyStep>((step, env, recurse) => step.Argument is P p && (!p.OperatorName.Equals("eq", StringComparison.OrdinalIgnoreCase))
-                            ? recurse.Serialize(
+                            ? recurse.TransformTo<object>().From(
                                 new WhereTraversalStep(Traversal.Empty.Push(
                                     KeyStep.Instance,
                                     new IsStep(p))),
                                 env)
                             : default)
-                        .Add<NoneStep>((step, env, recurse) => recurse.Serialize(NoneWorkaround, env))
-                        .Add<SkipStep>((step, env, recurse) => recurse.Serialize(new RangeStep(step.Count, -1, step.Scope), env))
+                        .Add<NoneStep>((step, env, recurse) => recurse.TransformTo<object>().From(NoneWorkaround, env))
+                        .Add<SkipStep>((step, env, recurse) => recurse.TransformTo<object>().From(new RangeStep(step.Count, -1, step.Scope), env))
                         .Add<LimitStep>((step, env, recurse) => step.Count > int.MaxValue
                             ? throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Limit' outside the range of a 32-bit-integer.")
                             : default)
@@ -120,9 +121,9 @@ namespace ExRam.Gremlinq.Core
                             ? throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Range' outside the range of a 32-bit-integer.")
                             : default)
                         .Add<Order>((order, env, recurse) => order.Equals(Order.Asc)
-                            ? recurse.Serialize(WorkaroundOrder.Incr, env)
+                            ? recurse.TransformTo<object>().From(WorkaroundOrder.Incr, env)
                             : order.Equals(Order.Desc)
-                                ? recurse.Serialize(WorkaroundOrder.Decr, env)
+                                ? recurse.TransformTo<object>().From(WorkaroundOrder.Decr, env)
                                 : default)
                         .ToGroovy())
                     .StoreTimeSpansAsNumbers());

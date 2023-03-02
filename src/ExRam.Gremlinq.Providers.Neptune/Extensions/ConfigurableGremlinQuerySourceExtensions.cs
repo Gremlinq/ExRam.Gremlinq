@@ -3,6 +3,7 @@ using ExRam.Gremlinq.Providers.Neptune;
 using ExRam.Gremlinq.Providers.WebSocket;
 using Gremlin.Net.Process.Traversal;
 using ExRam.Gremlinq.Core.Serialization;
+using ExRam.Gremlinq.Core.Transformation;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -31,7 +32,7 @@ namespace ExRam.Gremlinq.Core
                 .ConfigureEnvironment(environment => environment
                     .ConfigureSerializer(serializer => serializer
                         .Add<PropertyStep.ByKeyStep>((step, env, recurse) => Cardinality.List.Equals(step.Cardinality)
-                            ? recurse.Serialize(new PropertyStep.ByKeyStep(step.Key, step.Value, step.MetaProperties, Cardinality.Set), env)
+                            ? recurse.TransformTo<object>().From(new PropertyStep.ByKeyStep(step.Key, step.Value, step.MetaProperties, Cardinality.Set), env)
                             : default))
                     .StoreTimeSpansAsNumbers()
                     .StoreByteArraysAsBase64String()

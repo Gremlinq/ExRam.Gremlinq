@@ -16,7 +16,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Empty()
         {
             await Verify(Transformer.Identity
-                .Serialize(new HasLabelStep(ImmutableArray.Create("label")), GremlinQueryEnvironment.Empty));
+                .TransformTo<object>().From(new HasLabelStep(ImmutableArray.Create("label")), GremlinQueryEnvironment.Empty));
         }
 
         [Fact]
@@ -24,7 +24,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await Verify(Transformer.Identity
                 .Add<Step>((step, env, recurse) => new VStep(ImmutableArray.Create<object>("id")))
-                .Serialize(new HasLabelStep(ImmutableArray.Create("label")), GremlinQueryEnvironment.Empty));
+                .TransformTo<object>().From(new HasLabelStep(ImmutableArray.Create("label")), GremlinQueryEnvironment.Empty));
         }
 
         [Fact]
@@ -32,7 +32,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await Verify(Transformer.Identity
                 .Add<HasKeyStep>((step, env, recurse) => new HasLabelStep(ImmutableArray.Create("should not be here")))
-                .Serialize(new HasLabelStep(ImmutableArray.Create("label")), GremlinQueryEnvironment.Empty));
+                .TransformTo<object>().From(new HasLabelStep(ImmutableArray.Create("label")), GremlinQueryEnvironment.Empty));
         }
 
         //[Fact]
@@ -56,8 +56,8 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Recurse()
         {
             await Verify(Transformer.Identity
-                .Add<HasLabelStep>((step, env, recurse) => recurse.Serialize(new VStep(ImmutableArray.Create<object>("id")), env))
-                .Serialize(new HasLabelStep(ImmutableArray.Create("label")), GremlinQueryEnvironment.Empty));
+                .Add<HasLabelStep>((step, env, recurse) => recurse.TransformTo<object>().From(new VStep(ImmutableArray.Create<object>("id")), env))
+                .TransformTo<object>().From(new HasLabelStep(ImmutableArray.Create("label")), GremlinQueryEnvironment.Empty));
         }
 
         //[Fact]
@@ -86,7 +86,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .Select(step => (
                         step.GetType(),
                         Serializer.Default
-                            .Serialize(step, GremlinQueryEnvironment.Empty)))
+                            .TransformTo<object>().From(step, GremlinQueryEnvironment.Empty)))
                     .ToArray());
         }
     }
