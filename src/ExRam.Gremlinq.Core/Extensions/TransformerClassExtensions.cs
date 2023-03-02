@@ -25,16 +25,16 @@ namespace ExRam.Gremlinq.Core
         {
             private sealed class FixedTypeConverter<TSource> : IConverter<TSource, TStaticTarget>
             {
-                private readonly Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, TStaticTarget?> _func;
+                private readonly Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, ITransformer, TStaticTarget?> _func;
 
-                public FixedTypeConverter(Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, TStaticTarget?> func)
+                public FixedTypeConverter(Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, ITransformer, TStaticTarget?> func)
                 {
                     _func = func;
                 }
 
-                public bool TryConvert(TSource source, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TStaticTarget? value)
+                public bool TryConvert(TSource source, IGremlinQueryEnvironment environment, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TStaticTarget? value)
                 {
-                    if (source is TStaticSource staticSerialized && _func(staticSerialized, environment, recurse) is { } requested)
+                    if (source is TStaticSource staticSerialized && _func(staticSerialized, environment, defer, recurse) is { } requested)
                     {
                         value = requested;
 
@@ -47,9 +47,9 @@ namespace ExRam.Gremlinq.Core
                 }
             }
 
-            private readonly Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, TStaticTarget?> _func;
+            private readonly Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, ITransformer, TStaticTarget?> _func;
 
-            public FixedTypeConverterFactory(Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, TStaticTarget?> func)
+            public FixedTypeConverterFactory(Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, ITransformer, TStaticTarget?> func)
             {
                 _func = func;
             }
@@ -66,6 +66,9 @@ namespace ExRam.Gremlinq.Core
             where TTarget : class => new(transformer);
 
         public static ITransformer Override<TSource, TTarget>(this ITransformer transformer, Func<TSource, IGremlinQueryEnvironment, ITransformer, TTarget?> func)
+            where TTarget : class => transformer.Override<TSource, TTarget>((source, env, _, recurse) => func(source, env, recurse));
+
+        public static ITransformer Override<TSource, TTarget>(this ITransformer transformer, Func<TSource, IGremlinQueryEnvironment, ITransformer, ITransformer, TTarget?> func)
             where TTarget : class => transformer.Add(new FixedTypeConverterFactory<TSource, TTarget>(func));
     }
 }

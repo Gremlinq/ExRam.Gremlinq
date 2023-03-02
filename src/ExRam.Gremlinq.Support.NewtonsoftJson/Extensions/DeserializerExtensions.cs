@@ -41,7 +41,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
             private sealed class NewtonsoftJsonSerializerConverter<TSource, TTarget> : IConverter<TSource, TTarget>
                 where TSource : JToken
             {
-                public bool TryConvert(TSource source, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+                public bool TryConvert(TSource source, IGremlinQueryEnvironment environment, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
                 {
                     if (source is TTarget alreadyRequestedValue)
                     {
@@ -72,7 +72,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
         {
             private sealed class VertexOrEdgeConverter<TTarget> : IConverter<JObject, TTarget>
             {
-                public bool TryConvert(JObject jObject, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+                public bool TryConvert(JObject jObject, IGremlinQueryEnvironment environment, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
                 {
                     if (jObject.TryGetValue("id", StringComparison.OrdinalIgnoreCase, out var idToken) && jObject.TryGetValue("label", StringComparison.OrdinalIgnoreCase, out var labelToken) && labelToken.Type == JTokenType.String && jObject.TryGetValue("properties", out var propertiesToken) && propertiesToken is JObject propertiesObject)
                     {
@@ -100,7 +100,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
         {
             private sealed class SingleItemArrayFallbackConverter<TSource, TTargetArray, TTargetArrayItem> : IConverter<TSource, TTargetArray>
             {
-                public bool TryConvert(TSource source, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTargetArray? value)
+                public bool TryConvert(TSource source, IGremlinQueryEnvironment environment, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTargetArray? value)
                 {
                     if (!environment.GetCache().FastNativeTypes.ContainsKey(typeof(TTargetArray)) && recurse.TryTransform<TSource, TTargetArrayItem>(source, environment, out var typedValue))
                     {
@@ -126,7 +126,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
             private sealed class NullableConverter<TTarget> : IConverter<JToken, TTarget?>
                 where TTarget : struct
             {
-                public bool TryConvert(JToken serialized, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+                public bool TryConvert(JToken serialized, IGremlinQueryEnvironment environment, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
                 {
                     if (serialized.Type == JTokenType.Null)
                     {
@@ -158,7 +158,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
             private sealed class PropertyConverter<TTargetProperty, TTargetPropertyValue> : IConverter<JValue, TTargetProperty>
                 where TTargetProperty : Property
             {
-                public bool TryConvert(JValue serialized, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTargetProperty? value)
+                public bool TryConvert(JValue serialized, IGremlinQueryEnvironment environment, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTargetProperty? value)
                 {
                     if (recurse.TryTransform<JValue, TTargetPropertyValue>(serialized, environment, out var propertyValue))
                     {
@@ -188,7 +188,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
         {
             public sealed class NativeTypeConverter<TTarget> : IConverter<JValue, TTarget>
             {
-                public bool TryConvert(JValue serialized, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+                public bool TryConvert(JValue serialized, IGremlinQueryEnvironment environment, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
                 {
 					if (serialized.Value is TTarget serializedValue)
                     {
@@ -222,7 +222,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
         {
             private sealed class ExpandoObjectConverter<TTarget> : IConverter<JObject, TTarget>
             {
-                public bool TryConvert(JObject serialized, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+                public bool TryConvert(JObject serialized, IGremlinQueryEnvironment environment, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
                 {
                     if (recurse.TryTransform<JObject, JObject>(serialized, environment, out var strippedJObject))
                     {
@@ -255,7 +255,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
         {
             private sealed class LabelLookupConverter<TTarget> : IConverter<JObject, TTarget>
             {
-                public bool TryConvert(JObject serialized, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+                public bool TryConvert(JObject serialized, IGremlinQueryEnvironment environment, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
                 {
                     // Elements
                     var modelTypes = environment.GetCache().ModelTypesForLabels;
@@ -291,7 +291,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
         {
             private sealed class VertexPropertyExtractConverter<TTarget> : IConverter<JObject, TTarget>
             {
-                public bool TryConvert(JObject serialized, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+                public bool TryConvert(JObject serialized, IGremlinQueryEnvironment environment, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
                 {
                     var nativeTypes = environment.GetCache().FastNativeTypes;
 
@@ -321,7 +321,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
         {
             public sealed class TypedValueConverter<TTarget> : IConverter<JObject, TTarget>
             {
-                public bool TryConvert(JObject serialized, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+                public bool TryConvert(JObject serialized, IGremlinQueryEnvironment environment, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
                 {
                     if (serialized.TryGetValue("@type", out var typeName) && serialized.TryGetValue("@value", out var valueToken))
                     {
@@ -357,7 +357,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
         {
             private sealed class ConvertMapsConverter<TTarget> : IConverter<JObject, TTarget>
             {
-                public bool TryConvert(JObject serialized, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+                public bool TryConvert(JObject serialized, IGremlinQueryEnvironment environment, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
                 {
                     if (serialized.TryGetValue("@type", out var nestedType) && "g:Map".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase))
                     {
@@ -392,7 +392,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
         {
             private sealed class BulkSetConverter<TTargetArray, TTargetArrayItem> : IConverter<JObject, TTargetArray>
             {
-                public bool TryConvert(JObject serialized, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTargetArray? value)
+                public bool TryConvert(JObject serialized, IGremlinQueryEnvironment environment, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTargetArray? value)
                 {
                     if (!environment.GetCache().FastNativeTypes.ContainsKey(typeof(TTargetArray)))
                     {
@@ -441,7 +441,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
         {
             private sealed class ArrayExtractConverter<TTarget> : IConverter<JArray, TTarget>
             {
-                public bool TryConvert(JArray serialized, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+                public bool TryConvert(JArray serialized, IGremlinQueryEnvironment environment, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
                 {
                     if ((!typeof(TTarget).IsArray || environment.GetCache().FastNativeTypes.ContainsKey(typeof(TTarget))) && !typeof(TTarget).IsInstanceOfType(serialized))
                     {
@@ -474,7 +474,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
         {
             private sealed class ArrayLiftingConverter<TTarget> : IConverter<JArray, TTarget>
             {
-                public bool TryConvert(JArray serialized, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+                public bool TryConvert(JArray serialized, IGremlinQueryEnvironment environment, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
                 {
                     if (recurse.TryTransform<JArray, object[]>(serialized, environment, out var requested))
                     {
@@ -499,7 +499,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
         {
             private sealed class TraverserConverter<TTargetArray, TTargetItem> : IConverter<JArray, TTargetArray>
             {
-                public bool TryConvert(JArray serialized, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTargetArray? value)
+                public bool TryConvert(JArray serialized, IGremlinQueryEnvironment environment, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTargetArray? value)
                 {
                     if (!environment.GetCache().FastNativeTypes.ContainsKey(typeof(TTargetArray)))
                     {
@@ -543,7 +543,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
 
         private sealed class TimeSpanConverterFactory : FixedTypeConverterFactory<TimeSpan>
         {
-            protected override TimeSpan? Convert(JValue jValue, IGremlinQueryEnvironment environment, ITransformer recurse)
+            protected override TimeSpan? Convert(JValue jValue, IGremlinQueryEnvironment environment, ITransformer defer, ITransformer recurse)
             {
                 return jValue.Type == JTokenType.String
                     ? XmlConvert.ToTimeSpan(jValue.Value<string>()!)
@@ -553,7 +553,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
 
         private sealed class DateTimeOffsetConverterFactory : FixedTypeConverterFactory<DateTimeOffset>
         {
-            protected override DateTimeOffset? Convert(JValue jValue, IGremlinQueryEnvironment environment, ITransformer recurse)
+            protected override DateTimeOffset? Convert(JValue jValue, IGremlinQueryEnvironment environment, ITransformer defer, ITransformer recurse)
             {
                 return jValue.Value switch
                 {
@@ -567,7 +567,7 @@ namespace ExRam.Gremlinq.Core.Deserialization
 
         private sealed class DateTimeConverterFactory : FixedTypeConverterFactory<DateTime>
         {
-            protected override DateTime? Convert(JValue jValue, IGremlinQueryEnvironment environment, ITransformer recurse)
+            protected override DateTime? Convert(JValue jValue, IGremlinQueryEnvironment environment, ITransformer defer, ITransformer recurse)
             {
                 return jValue.Value switch
                 {
