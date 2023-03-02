@@ -1089,36 +1089,6 @@ namespace ExRam.Gremlinq.Core
         Strict = 0,
         Lenient = 1,
     }
-    public static class TransformerClassExtensions
-    {
-        public static ExRam.Gremlinq.Core.Transformation.ITransformer Add<TSource, TTarget>(this ExRam.Gremlinq.Core.Transformation.ITransformer transformer, System.Func<TSource, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Transformation.ITransformer, TTarget?> func)
-            where TTarget :  class { }
-        public static ExRam.Gremlinq.Core.Transformation.ITransformer Override<TSource, TTarget>(this ExRam.Gremlinq.Core.Transformation.ITransformer transformer, System.Func<TSource, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Transformation.ITransformer, ExRam.Gremlinq.Core.Transformation.ITransformer, TTarget?> func)
-            where TTarget :  class { }
-        public static ExRam.Gremlinq.Core.TransformerClassExtensions.TryTransformToBuilder<TTarget> TryTransformTo<TTarget>(this ExRam.Gremlinq.Core.Transformation.ITransformer transformer)
-            where TTarget :  class { }
-        public readonly struct TryTransformToBuilder<TTarget>
-            where TTarget :  class
-        {
-            public TryTransformToBuilder(ExRam.Gremlinq.Core.Transformation.ITransformer transformer) { }
-            public TTarget? From<TSource>(TSource source, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
-        }
-    }
-    public static class TransformerStructExtensions
-    {
-        public static ExRam.Gremlinq.Core.Transformation.ITransformer Add<TSource, TTarget>(this ExRam.Gremlinq.Core.Transformation.ITransformer transformer, System.Func<TSource, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Transformation.ITransformer, TTarget?> func)
-            where TTarget :  struct { }
-        public static ExRam.Gremlinq.Core.Transformation.ITransformer Add<TSource, TTarget>(this ExRam.Gremlinq.Core.Transformation.ITransformer transformer, System.Func<TSource, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Transformation.ITransformer, ExRam.Gremlinq.Core.Transformation.ITransformer, TTarget?> func)
-            where TTarget :  struct { }
-        public static ExRam.Gremlinq.Core.TransformerStructExtensions.TryTransformToBuilder<TTarget> TryTransformTo<TTarget>(this ExRam.Gremlinq.Core.Transformation.ITransformer transformer)
-            where TTarget :  struct { }
-        public readonly struct TryTransformToBuilder<TTarget>
-            where TTarget :  struct
-        {
-            public TryTransformToBuilder(ExRam.Gremlinq.Core.Transformation.ITransformer transformer) { }
-            public TTarget? From<TSource>(TSource source, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
-        }
-    }
     public readonly struct Traversal : System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Steps.Step>, System.Collections.Generic.IReadOnlyCollection<ExRam.Gremlinq.Core.Steps.Step>, System.Collections.Generic.IReadOnlyList<ExRam.Gremlinq.Core.Steps.Step>, System.Collections.IEnumerable
     {
         public static readonly ExRam.Gremlinq.Core.Traversal Empty;
@@ -2290,5 +2260,35 @@ namespace ExRam.Gremlinq.Core.Transformation
     public static class Transformer
     {
         public static readonly ExRam.Gremlinq.Core.Transformation.ITransformer Identity;
+    }
+    public static class TransformerClassExtensions
+    {
+        public static ExRam.Gremlinq.Core.Transformation.ITransformer Add<TSource, TTarget>(this ExRam.Gremlinq.Core.Transformation.ITransformer transformer, System.Func<TSource, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Transformation.ITransformer, TTarget?> func)
+            where TTarget :  class { }
+        public static ExRam.Gremlinq.Core.Transformation.ITransformer Override<TSource, TTarget>(this ExRam.Gremlinq.Core.Transformation.ITransformer transformer, System.Func<TSource, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Transformation.ITransformer, ExRam.Gremlinq.Core.Transformation.ITransformer, TTarget?> func)
+            where TTarget :  class { }
+        public static ExRam.Gremlinq.Core.Transformation.TransformerClassExtensions.TryTransformToBuilder<TTarget> TryTransformTo<TTarget>(this ExRam.Gremlinq.Core.Transformation.ITransformer transformer)
+            where TTarget :  class { }
+        public readonly struct TryTransformToBuilder<TTarget>
+            where TTarget :  class
+        {
+            public TryTransformToBuilder(ExRam.Gremlinq.Core.Transformation.ITransformer transformer) { }
+            public TTarget? From<TSource>(TSource source, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
+        }
+    }
+    public static class TransformerStructExtensions
+    {
+        public static ExRam.Gremlinq.Core.Transformation.ITransformer Add<TSource, TTarget>(this ExRam.Gremlinq.Core.Transformation.ITransformer transformer, System.Func<TSource, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Transformation.ITransformer, TTarget?> func)
+            where TTarget :  struct { }
+        public static ExRam.Gremlinq.Core.Transformation.ITransformer Add<TSource, TTarget>(this ExRam.Gremlinq.Core.Transformation.ITransformer transformer, System.Func<TSource, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Transformation.ITransformer, ExRam.Gremlinq.Core.Transformation.ITransformer, TTarget?> func)
+            where TTarget :  struct { }
+        public static ExRam.Gremlinq.Core.Transformation.TransformerStructExtensions.TryTransformToBuilder<TTarget> TryTransformTo<TTarget>(this ExRam.Gremlinq.Core.Transformation.ITransformer transformer)
+            where TTarget :  struct { }
+        public readonly struct TryTransformToBuilder<TTarget>
+            where TTarget :  struct
+        {
+            public TryTransformToBuilder(ExRam.Gremlinq.Core.Transformation.ITransformer transformer) { }
+            public TTarget? From<TSource>(TSource source, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
+        }
     }
 }

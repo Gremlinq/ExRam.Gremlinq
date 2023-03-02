@@ -1,6 +1,7 @@
 ﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Core.Serialization;
+using ExRam.Gremlinq.Core.Transformation;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
