@@ -561,6 +561,8 @@ namespace ExRam.Gremlinq.Core.Serialization
         {
             try
             {
+                _stepLabelNames = null;
+
                 var serialized = serializer
                     .Serialize(query, query.AsAdmin().Environment) ?? throw new ArgumentException($"{nameof(query)} did not serialize to a non-null value.");
 
