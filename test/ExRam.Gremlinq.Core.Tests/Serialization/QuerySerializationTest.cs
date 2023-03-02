@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Tests.Entities;
+using ExRam.Gremlinq.Core.Transformation;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
@@ -31,13 +32,15 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .ConfigureEnvironment(env => env
                     .ConfigureSerializer(ser => ser
-                        .Add<EStep>((step, env, recurse) => recurse.Serialize(
-                            new Step[]
-                            {
-                                new VStep(ImmutableArray<object>.Empty),
-                                new OutEStep(ImmutableArray<string>.Empty)
-                            },
-                            env))))
+                        .Add<EStep>((step, env, recurse) => recurse
+                            .TransformTo<object>()
+                            .From(
+                                new Step[]
+                                {
+                                    new VStep(ImmutableArray<object>.Empty),
+                                    new OutEStep(ImmutableArray<string>.Empty)
+                                },
+                                env))))
                 .E()
                 .Verify();
         }

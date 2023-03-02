@@ -152,7 +152,7 @@ namespace ExRam.Gremlinq.Core
         {
             return environment
                 .ConfigureSerializer(static serializer => serializer
-                    .Add<TimeSpan>(static (t, env, recurse) => recurse.Serialize(t.TotalMilliseconds, env)))
+                    .Add<TimeSpan>(static (t, env, recurse) => recurse.TransformTo<object>().From(t.TotalMilliseconds, env)))
                 .ConfigureDeserializer(static deserializer => deserializer
                     .Add(new TimeSpanAsNumberConverterFactory()));
         }

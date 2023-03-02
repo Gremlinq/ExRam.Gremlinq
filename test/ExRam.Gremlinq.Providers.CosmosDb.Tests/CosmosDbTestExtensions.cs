@@ -14,7 +14,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                     .Add<AddVStep>((step, env, defer, recurse) => new[]
                     {
                         defer.TransformTo<object>().From(step, env),
-                        recurse.Serialize(new PropertyStep.ByKeyStep("PartitionKey", "PartitionKey"), env)
+                        recurse.TransformTo<object>().From(new PropertyStep.ByKeyStep("PartitionKey", "PartitionKey"), env)
                     }));
         }
     }
