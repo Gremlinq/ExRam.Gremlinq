@@ -19,13 +19,6 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         private static readonly ConcurrentDictionary<string, Instruction> SimpleInstructions = new();
 
-        private sealed class InvalidSerializer : ITransformer
-        {
-            public ITransformer Add(IConverterFactory converterFactory) => throw new InvalidOperationException($"{nameof(Add)} must not be called on {nameof(Serializer)}.{nameof(Invalid)}. If you are getting this exception while executing a query, configure a proper {nameof(ITransformer)} on your {nameof(GremlinQuerySource)}.");
-
-            public bool TryTransform<TSource, TTarget>(TSource source, IGremlinQueryEnvironment environment, [NotNullWhen(true)] out TTarget? value) => throw new InvalidOperationException($"{nameof(Serialize)} must not be called on {nameof(Serializer)}.{nameof(Invalid)}. If you are getting this exception while executing a query, configure a proper {nameof(ITransformer)} on your {nameof(GremlinQuerySource)}.");
-        }
-
         private sealed class SelectSerializer : ITransformer
         {
             private readonly Func<object, object> _projection;
@@ -95,8 +88,6 @@ namespace ExRam.Gremlinq.Core.Serialization
                     : null;
             }
         }
-
-        public static readonly ITransformer Invalid = new InvalidSerializer();
 
         public static readonly ITransformer Default = Transformer.Identity
             .UseDefaultGremlinStepSerializationHandlers();

@@ -1,5 +1,4 @@
-﻿using System.Collections.Immutable;
-using ExRam.Gremlinq.Core.Transformation;
+﻿using ExRam.Gremlinq.Core.Transformation;
 
 namespace ExRam.Gremlinq.Core.Deserialization
 {
