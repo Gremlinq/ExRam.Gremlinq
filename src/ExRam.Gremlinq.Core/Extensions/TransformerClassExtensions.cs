@@ -1,7 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using ExRam.Gremlinq.Core.Transformation;
 
-namespace ExRam.Gremlinq.Core
+namespace ExRam.Gremlinq.Core.Transformation
 {
     public static class TransformerClassExtensions
     {
