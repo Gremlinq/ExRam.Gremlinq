@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public static ITransformer ToGraphsonString(this ITransformer transformer)
         {
             return transformer
-                .Override<object, string>(static (data, env, recurse) => new GraphSON2Writer().WriteObject(data));
+                .Add<object, string>(static (data, env, recurse) => new GraphSON2Writer().WriteObject(data));
         }
     }
 }
