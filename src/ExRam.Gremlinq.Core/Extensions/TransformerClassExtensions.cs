@@ -56,7 +56,7 @@ namespace ExRam.Gremlinq.Core
 
             public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>()
             {
-                return ((typeof(TSource).IsAssignableFrom(typeof(TStaticSource)) || typeof(TStaticSource).IsAssignableFrom(typeof(TSource))) && (typeof(TTarget) == typeof(TStaticTarget)))
+                return ((typeof(TSource).IsAssignableFrom(typeof(TStaticSource)) || typeof(TStaticSource).IsAssignableFrom(typeof(TSource))) && typeof(TTarget).IsAssignableFrom(typeof(TStaticTarget)))
                     ? (IConverter<TSource, TTarget>)(object)new FixedTypeConverter<TSource>(_func)
                     : null;
             }
