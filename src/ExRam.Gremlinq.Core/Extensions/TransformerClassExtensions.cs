@@ -65,7 +65,7 @@ namespace ExRam.Gremlinq.Core
         public static TryTransformToBuilder<TTarget> TryTransformTo<TTarget>(this ITransformer transformer)
             where TTarget : class => new(transformer);
 
-        public static ITransformer Override<TSource, TTarget>(this ITransformer transformer, Func<TSource, IGremlinQueryEnvironment, ITransformer, TTarget?> func)
+        public static ITransformer Add<TSource, TTarget>(this ITransformer transformer, Func<TSource, IGremlinQueryEnvironment, ITransformer, TTarget?> func)
             where TTarget : class => transformer.Override<TSource, TTarget>((source, env, _, recurse) => func(source, env, recurse));
 
         public static ITransformer Override<TSource, TTarget>(this ITransformer transformer, Func<TSource, IGremlinQueryEnvironment, ITransformer, ITransformer, TTarget?> func)

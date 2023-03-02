@@ -102,7 +102,7 @@ namespace ExRam.Gremlinq.Core
                     .ConfigureNativeTypes(static _ => _
                         .Add(typeof(TNative))))
                 .ConfigureSerializer(_ => _
-                    .Override(serializerDelegate))
+                    .Add(serializerDelegate))
                 .ConfigureDeserializer(deserializerTransformation);
         }
     }
