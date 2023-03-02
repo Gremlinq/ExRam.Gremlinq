@@ -47,47 +47,6 @@ namespace ExRam.Gremlinq.Core.Serialization
             }
         }
 
-        private sealed class FixedTypeConverterFactory<TStaticSource> : IConverterFactory
-        {
-            private sealed class FixedTypeConverter<TSource> : IConverter<TSource, object>
-            {
-                private readonly Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, ITransformer, object?> _func;
-
-                public FixedTypeConverter(Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, ITransformer, object?> func)
-                {
-                    _func = func;
-                }
-
-                public bool TryConvert(TSource source, IGremlinQueryEnvironment environment, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out object? value)
-                {
-                    if (source is TStaticSource staticSerialized && _func(staticSerialized, environment, defer, recurse) is { } requested)
-                    {
-                        value = requested;
-
-                        return true;
-                    }
-
-                    value = default;
-
-                    return false;
-                }
-            }
-
-            private readonly Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, ITransformer, object?> _func;
-
-            public FixedTypeConverterFactory(Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, ITransformer, object?> del)
-            {
-                _func = del;
-            }
-
-            public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>()
-            {
-                return ((typeof(TSource).IsAssignableFrom(typeof(TStaticSource)) || typeof(TStaticSource).IsAssignableFrom(typeof(TSource))) && (typeof(TTarget) == typeof(object)))
-                    ? (IConverter<TSource, TTarget>)(object)new FixedTypeConverter<TSource>(_func)
-                    : null;
-            }
-        }
-
         public static readonly ITransformer Default = Transformer.Identity
             .UseDefaultGremlinStepSerializationHandlers();
 
@@ -120,7 +79,7 @@ namespace ExRam.Gremlinq.Core.Serialization
         public static ITransformer Add<TSource>(this ITransformer serializer, Func<TSource, IGremlinQueryEnvironment, ITransformer, ITransformer, object?> converter)
         {
             return serializer
-                .Add(new FixedTypeConverterFactory<TSource>(converter));
+                .Add<TSource, object>(converter);
         }
 
         public static ITransformer UseDefaultGremlinStepSerializationHandlers(this ITransformer serializer) => serializer
