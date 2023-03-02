@@ -18,7 +18,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Empty()
         {
             await Verify(Transformer.Identity
-                .TryDeserialize<string>().From("serialized", GremlinQueryEnvironment.Empty));
+                .TryTransformTo<string>().From("serialized", GremlinQueryEnvironment.Empty));
         }
 
         [Fact]
@@ -26,7 +26,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await Verify(Transformer.Identity
                 .Override<object, string>((serialized, env, recurse) => "overridden")
-                .TryDeserialize<string>().From("serialized", GremlinQueryEnvironment.Empty));
+                .TryTransformTo<string>().From("serialized", GremlinQueryEnvironment.Empty));
         }
 
         [Fact]
@@ -34,7 +34,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await Verify(Transformer.Identity
                 .Override<JObject, string>((serialized, env, recurse) => "should not be here")
-                .TryDeserialize<string>().From("serialized", GremlinQueryEnvironment.Empty));
+                .TryTransformTo<string>().From("serialized", GremlinQueryEnvironment.Empty));
         }
 
         [Fact]
@@ -42,7 +42,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await Verify(Transformer.Identity
                 .Override<string, string>((serialized, env, recurse) => "overridden 1")
-                .TryDeserialize<string>().From("serialized", GremlinQueryEnvironment.Empty));
+                .TryTransformTo<string>().From("serialized", GremlinQueryEnvironment.Empty));
         }
 
         [Fact]
@@ -51,22 +51,22 @@ namespace ExRam.Gremlinq.Core.Tests
             await Verify(Transformer.Identity
                 .Override<string, string>((serialized, env, recurse) => "overridden 1")
                 .Override<string, string>((serialized, env, recurse) => "overridden 2")
-                .TryDeserialize<string>().From("serialized", GremlinQueryEnvironment.Empty));
+                .TryTransformTo<string>().From("serialized", GremlinQueryEnvironment.Empty));
         }
 
         [Fact]
         public async Task Recurse()
         {
             await Verify(Transformer.Identity
-                .Override<string, int>((serialized, env, recurse) => recurse.TryDeserialize<int>().From(36, env))
-                .TryDeserialize<int>().From("serialized", GremlinQueryEnvironment.Empty));
+                .Override<string, int>((serialized, env, recurse) => recurse.TryTransformTo<int>().From(36, env))
+                .TryTransformTo<int>().From("serialized", GremlinQueryEnvironment.Empty));
         }
 
         [Fact]
         public void Recurse_wrong_type()
         {
             Transformer.Identity
-                .Override<string, int>((serialized, env, recurse) => recurse.TryDeserialize<int>().From(36, env))
+                .Override<string, int>((serialized, env, recurse) => recurse.TryTransformTo<int>().From(36, env))
                 .TryTransform<int, string>(36, GremlinQueryEnvironment.Empty, out var _)
                 .Should()
                 .BeFalse();
@@ -77,17 +77,17 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await Verify(Transformer.Identity
                 .Override<int, string>((serialized, env, recurse) => serialized.ToString())
-                .Override<string, string>((serialized, env, recurse) => recurse.TryDeserialize<string>().From(serialized.Length, env))
-                .TryDeserialize<string>().From("serialized", GremlinQueryEnvironment.Empty));
+                .Override<string, string>((serialized, env, recurse) => recurse.TryTransformTo<string>().From(serialized.Length, env))
+                .TryTransformTo<string>().From("serialized", GremlinQueryEnvironment.Empty));
         }
 
         [Fact]
         public async Task Recurse_to_later_override()
         {
             await Verify(Transformer.Identity
-                .Override<string, string>((serialized, env, recurse) => recurse.TryDeserialize<string>().From(serialized.Length, env))
+                .Override<string, string>((serialized, env, recurse) => recurse.TryTransformTo<string>().From(serialized.Length, env))
                 .Override<int, string>((serialized, env, recurse) => serialized.ToString())
-                .TryDeserialize<string>().From("serialized", GremlinQueryEnvironment.Empty));
+                .TryTransformTo<string>().From("serialized", GremlinQueryEnvironment.Empty));
         }
 
         [Fact]
@@ -95,7 +95,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await Verify(Transformer.Identity
                 .AddNewtonsoftJson()
-                .TryDeserialize<object>().From(JObject.Parse("{ \"@type\": \"g:Date\", \"@value\": 1657527969000 }"), GremlinQueryEnvironment.Empty));
+                .TryTransformTo<object>().From(JObject.Parse("{ \"@type\": \"g:Date\", \"@value\": 1657527969000 }"), GremlinQueryEnvironment.Empty));
         }
 
         [Fact]
@@ -105,7 +105,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             var deserialized = Transformer.Identity
                 .AddNewtonsoftJson()
-                .TryDeserialize<JObject>().From(original, GremlinQueryEnvironment.Empty);
+                .TryTransformTo<JObject>().From(original, GremlinQueryEnvironment.Empty);
 
             deserialized
                 .Should()
@@ -119,7 +119,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             var deserialized = Transformer.Identity
                 .AddNewtonsoftJson()
-                .TryDeserialize<IDictionary<string, object>>().From(original, GremlinQueryEnvironment.Empty);
+                .TryTransformTo<IDictionary<string, object>>().From(original, GremlinQueryEnvironment.Empty);
 
             deserialized
                 .Should()
@@ -135,7 +135,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             var deserialized = Transformer.Identity
                 .AddNewtonsoftJson()
-                .TryDeserialize<IDictionary<string, object>>().From(original, GremlinQueryEnvironment.Empty);
+                .TryTransformTo<IDictionary<string, object>>().From(original, GremlinQueryEnvironment.Empty);
 
             deserialized
                 .Should()
@@ -153,13 +153,13 @@ namespace ExRam.Gremlinq.Core.Tests
                 .AddNewtonsoftJson()
                 .Override<JObject, IDictionary<string, object?>>(static (jObject,  env, recurse) =>
                 {
-                    if (recurse.TryDeserialize<JObject>().From(jObject, env) is JObject processedFragment)
+                    if (recurse.TryTransformTo<JObject>().From(jObject, env) is JObject processedFragment)
                     {
                         var dict = new Dictionary<string, object?>();
 
                         foreach (var property in processedFragment)
                         {
-                            dict.TryAdd(property.Key, recurse.TryDeserialize<object>().From(property.Value, env));
+                            dict.TryAdd(property.Key, recurse.TryTransformTo<object>().From(property.Value, env));
                         }
 
                         return dict;
@@ -167,7 +167,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
                     return default;
                 })
-                .TryDeserialize<IDictionary<string, object>>().From(original, GremlinQueryEnvironment.Empty);
+                .TryTransformTo<IDictionary<string, object>>().From(original, GremlinQueryEnvironment.Empty);
 
             deserialized
                 .Should()
