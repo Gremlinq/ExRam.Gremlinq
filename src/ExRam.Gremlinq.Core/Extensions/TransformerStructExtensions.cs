@@ -5,12 +5,12 @@ namespace ExRam.Gremlinq.Core
 {
     public static class TransformerStructExtensions
     {
-        public readonly struct FluentForStruct<TTarget>
+        public readonly struct TryTransformToBuilder<TTarget>
             where TTarget : struct
         {
             private readonly ITransformer _transformer;
 
-            public FluentForStruct(ITransformer transformer)
+            public TryTransformToBuilder(ITransformer transformer)
             {
                 _transformer = transformer;
             }
@@ -62,10 +62,10 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        public static FluentForStruct<TTarget> TryTransformTo<TTarget>(this ITransformer transformer)
+        public static TryTransformToBuilder<TTarget> TryTransformTo<TTarget>(this ITransformer transformer)
             where TTarget : struct
         {
-            return new FluentForStruct<TTarget>(transformer);
+            return new TryTransformToBuilder<TTarget>(transformer);
         }
 
         public static ITransformer Override<TSource, TTarget>(this ITransformer transformer, Func<TSource, IGremlinQueryEnvironment, ITransformer, TTarget?> func)
