@@ -1600,7 +1600,6 @@ namespace ExRam.Gremlinq.Core.Serialization
     public static class Serializer
     {
         public static readonly ExRam.Gremlinq.Core.Transformation.ITransformer Default;
-        public static readonly ExRam.Gremlinq.Core.Transformation.ITransformer Invalid;
         public static ExRam.Gremlinq.Core.Transformation.ITransformer Override<TSource>(this ExRam.Gremlinq.Core.Transformation.ITransformer serializer, System.Func<TSource, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Transformation.ITransformer, object?> converter) { }
         public static ExRam.Gremlinq.Core.Transformation.ITransformer Select(this ExRam.Gremlinq.Core.Transformation.ITransformer serializer, System.Func<object, object> projection) { }
         public static object Serialize<TFragment>(this ExRam.Gremlinq.Core.Transformation.ITransformer serializer, TFragment fragment, ExRam.Gremlinq.Core.IGremlinQueryEnvironment gremlinQueryEnvironment) { }
