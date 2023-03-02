@@ -65,9 +65,9 @@ namespace ExRam.Gremlinq.Core.Transformation
             where TTarget : class => new(transformer);
 
         public static ITransformer Add<TSource, TTarget>(this ITransformer transformer, Func<TSource, IGremlinQueryEnvironment, ITransformer, TTarget?> func)
-            where TTarget : class => transformer.Override<TSource, TTarget>((source, env, _, recurse) => func(source, env, recurse));
+            where TTarget : class => transformer.Add<TSource, TTarget>((source, env, _, recurse) => func(source, env, recurse));
 
-        public static ITransformer Override<TSource, TTarget>(this ITransformer transformer, Func<TSource, IGremlinQueryEnvironment, ITransformer, ITransformer, TTarget?> func)
+        public static ITransformer Add<TSource, TTarget>(this ITransformer transformer, Func<TSource, IGremlinQueryEnvironment, ITransformer, ITransformer, TTarget?> func)
             where TTarget : class => transformer.Add(new FixedTypeConverterFactory<TSource, TTarget>(func));
     }
 }
