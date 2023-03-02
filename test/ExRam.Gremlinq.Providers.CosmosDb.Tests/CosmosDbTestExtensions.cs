@@ -13,7 +13,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ConfigureSerializer(serializer => serializer
                     .Add<AddVStep>((step, env, defer, recurse) => new[]
                     {
-                        defer.TryTransformTo<object>().From(step, env) ?? throw new InvalidOperationException(),
+                        defer.TransformTo<object>().From(step, env),
                         recurse.Serialize(new PropertyStep.ByKeyStep("PartitionKey", "PartitionKey"), env)
                     }));
         }
