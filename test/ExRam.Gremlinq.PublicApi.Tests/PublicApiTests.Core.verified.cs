@@ -2276,6 +2276,15 @@ namespace ExRam.Gremlinq.Core.Transformation
             public TTarget? From<TSource>(TSource source, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
         }
     }
+    public static class TransformerExtensions
+    {
+        public static ExRam.Gremlinq.Core.Transformation.TransformerExtensions.TransformToBuilder<TTarget> TransformTo<TTarget>(this ExRam.Gremlinq.Core.Transformation.ITransformer transformer) { }
+        public readonly struct TransformToBuilder<TTarget>
+        {
+            public TransformToBuilder(ExRam.Gremlinq.Core.Transformation.ITransformer transformer) { }
+            public TTarget From<TSource>(TSource source, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
+        }
+    }
     public static class TransformerStructExtensions
     {
         public static ExRam.Gremlinq.Core.Transformation.ITransformer Add<TSource, TTarget>(this ExRam.Gremlinq.Core.Transformation.ITransformer transformer, System.Func<TSource, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Transformation.ITransformer, TTarget?> func)
