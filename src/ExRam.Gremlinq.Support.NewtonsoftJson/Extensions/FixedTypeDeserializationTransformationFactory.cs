@@ -16,9 +16,9 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 _factory = factory;
             }
 
-            public bool TryConvert(JValue serialized, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TStaticTarget value)
+            public bool TryConvert(JValue serialized, IGremlinQueryEnvironment environment, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TStaticTarget value)
             {
-                if (_factory.Convert(serialized, environment, recurse) is { } requested)
+                if (_factory.Convert(serialized, environment, defer, recurse) is { } requested)
                 {
                     value = requested;
 
@@ -38,6 +38,6 @@ namespace ExRam.Gremlinq.Core.Deserialization
                 : null;
         }
 
-        protected abstract TStaticTarget? Convert(JValue jValue, IGremlinQueryEnvironment environment, ITransformer recurse);
+        protected abstract TStaticTarget? Convert(JValue jValue, IGremlinQueryEnvironment environment, ITransformer defer, ITransformer recurse);
     }
 }

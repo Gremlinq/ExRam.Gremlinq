@@ -51,16 +51,16 @@ namespace ExRam.Gremlinq.Core.Serialization
         {
             private sealed class FixedTypeConverter<TSource> : IConverter<TSource, object>
             {
-                private readonly Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, object?> _func;
+                private readonly Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, ITransformer, object?> _func;
 
-                public FixedTypeConverter(Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, object?> func)
+                public FixedTypeConverter(Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, ITransformer, object?> func)
                 {
                     _func = func;
                 }
 
-                public bool TryConvert(TSource source, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out object? value)
+                public bool TryConvert(TSource source, IGremlinQueryEnvironment environment, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out object? value)
                 {
-                    if (source is TStaticSource staticSerialized && _func(staticSerialized, environment, recurse) is { } requested)
+                    if (source is TStaticSource staticSerialized && _func(staticSerialized, environment, defer, recurse) is { } requested)
                     {
                         value = requested;
 
@@ -73,9 +73,9 @@ namespace ExRam.Gremlinq.Core.Serialization
                 }
             }
 
-            private readonly Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, object?> _func;
+            private readonly Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, ITransformer, object?> _func;
 
-            public FixedTypeConverterFactory(Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, object?> del)
+            public FixedTypeConverterFactory(Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, ITransformer, object?> del)
             {
                 _func = del;
             }
@@ -119,6 +119,12 @@ namespace ExRam.Gremlinq.Core.Serialization
         }
 
         public static ITransformer Add<TSource>(this ITransformer serializer, Func<TSource, IGremlinQueryEnvironment, ITransformer, object?> converter)
+        {
+            return serializer
+                .Add<TSource>((source, env, _, recurse) => converter(source, env, recurse));
+        }
+
+        public static ITransformer Add<TSource>(this ITransformer serializer, Func<TSource, IGremlinQueryEnvironment, ITransformer, ITransformer, object?> converter)
         {
             return serializer
                 .Add(new FixedTypeConverterFactory<TSource>(converter));

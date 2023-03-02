@@ -1,7 +1,6 @@
 ﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Core.Serialization;
-using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
@@ -11,9 +10,9 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         {
             return env
                 .ConfigureSerializer(serializer => serializer
-                    .Add<AddVStep>((step, env, recurse) => new[]
+                    .Add<AddVStep>((step, env, defer, recurse) => new[]
                     {
-                        new Instruction("addV", step.Label),    //TODO: Override...?
+                        defer.TryTransformTo<object>().From(step, env) ?? throw new InvalidOperationException(),
                         recurse.Serialize(new PropertyStep.ByKeyStep("PartitionKey", "PartitionKey"), env)
                     }));
         }

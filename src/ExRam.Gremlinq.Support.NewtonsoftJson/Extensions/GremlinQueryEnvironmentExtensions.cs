@@ -140,7 +140,7 @@ namespace ExRam.Gremlinq.Core
 
         private sealed class TimeSpanAsNumberConverterFactory : FixedTypeConverterFactory<TimeSpan>
         {
-            protected override TimeSpan? Convert(JValue jValue, IGremlinQueryEnvironment environment, ITransformer recurse)
+            protected override TimeSpan? Convert(JValue jValue, IGremlinQueryEnvironment environment, ITransformer defer, ITransformer recurse)
             {
                 return TimeSpan.FromMilliseconds(jValue.Value<double>());
             }
