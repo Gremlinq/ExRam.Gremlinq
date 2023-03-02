@@ -3,7 +3,6 @@
     public static class Deserializer
     {
         public static readonly ExRam.Gremlinq.Core.Transformation.ITransformer Default;
-        public static readonly ExRam.Gremlinq.Core.Transformation.ITransformer Identity;
         public static ExRam.Gremlinq.Core.Transformation.ITransformer AddToStringFallback(this ExRam.Gremlinq.Core.Transformation.ITransformer deserializer) { }
     }
 }
@@ -149,14 +148,14 @@ namespace ExRam.Gremlinq.Core
     {
         public static readonly ExRam.Gremlinq.Core.IGremlinQueryEnvironment Default;
         public static readonly ExRam.Gremlinq.Core.IGremlinQueryEnvironment Empty;
-        public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment RegisterNativeType<TNative>(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Serialization.GremlinQueryFragmentSerializerDelegate<TNative> serializerDelegate, System.Func<ExRam.Gremlinq.Core.Transformation.ITransformer, ExRam.Gremlinq.Core.Transformation.ITransformer> deserializerTransformation) { }
+        public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment RegisterNativeType<TNative>(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, System.Func<TNative, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Transformation.ITransformer, object> serializerDelegate, System.Func<ExRam.Gremlinq.Core.Transformation.ITransformer, ExRam.Gremlinq.Core.Transformation.ITransformer> deserializerTransformation) { }
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment StoreByteArraysAsBase64String(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseDebugger(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.IGremlinQueryDebugger debugger) { }
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseDeserializer(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Transformation.ITransformer deserializer) { }
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseExecutor(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor executor) { }
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseLogger(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment source, Microsoft.Extensions.Logging.ILogger logger) { }
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseModel(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment source, ExRam.Gremlinq.Core.Models.IGraphModel model) { }
-        public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseSerializer(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Serialization.IGremlinQuerySerializer serializer) { }
+        public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseSerializer(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Transformation.ITransformer serializer) { }
     }
     public static class GremlinQueryExtensions
     {
@@ -554,7 +553,7 @@ namespace ExRam.Gremlinq.Core
         Microsoft.Extensions.Logging.ILogger Logger { get; }
         ExRam.Gremlinq.Core.Models.IGraphModel Model { get; }
         ExRam.Gremlinq.Core.IGremlinqOptions Options { get; }
-        ExRam.Gremlinq.Core.Serialization.IGremlinQuerySerializer Serializer { get; }
+        ExRam.Gremlinq.Core.Transformation.ITransformer Serializer { get; }
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureDebugger(System.Func<ExRam.Gremlinq.Core.IGremlinQueryDebugger, ExRam.Gremlinq.Core.IGremlinQueryDebugger> debuggerTransformation);
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureDeserializer(System.Func<ExRam.Gremlinq.Core.Transformation.ITransformer, ExRam.Gremlinq.Core.Transformation.ITransformer> deserializerTransformation);
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureExecutor(System.Func<ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor, ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor> executorTransformation);
@@ -562,7 +561,7 @@ namespace ExRam.Gremlinq.Core
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureLogger(System.Func<Microsoft.Extensions.Logging.ILogger, Microsoft.Extensions.Logging.ILogger> loggerTransformation);
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureModel(System.Func<ExRam.Gremlinq.Core.Models.IGraphModel, ExRam.Gremlinq.Core.Models.IGraphModel> modelTransformation);
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureOptions(System.Func<ExRam.Gremlinq.Core.IGremlinqOptions, ExRam.Gremlinq.Core.IGremlinqOptions> optionsTransformation);
-        ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureSerializer(System.Func<ExRam.Gremlinq.Core.Serialization.IGremlinQuerySerializer, ExRam.Gremlinq.Core.Serialization.IGremlinQuerySerializer> serializerTransformation);
+        ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureSerializer(System.Func<ExRam.Gremlinq.Core.Transformation.ITransformer, ExRam.Gremlinq.Core.Transformation.ITransformer> serializerTransformation);
     }
     public interface IGremlinQuerySource : ExRam.Gremlinq.Core.IConfigurableGremlinQuerySource, ExRam.Gremlinq.Core.IStartGremlinQuery
     {
@@ -1090,6 +1089,32 @@ namespace ExRam.Gremlinq.Core
         Strict = 0,
         Lenient = 1,
     }
+    public static class TransformerClassExtensions
+    {
+        public static ExRam.Gremlinq.Core.Transformation.ITransformer Override<TSource, TTarget>(this ExRam.Gremlinq.Core.Transformation.ITransformer transformer, System.Func<TSource, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Transformation.ITransformer, TTarget?> func)
+            where TTarget :  class { }
+        public static ExRam.Gremlinq.Core.TransformerClassExtensions.TryTransformToBuilder<TTarget> TryTransformTo<TTarget>(this ExRam.Gremlinq.Core.Transformation.ITransformer transformer)
+            where TTarget :  class { }
+        public readonly struct TryTransformToBuilder<TTarget>
+            where TTarget :  class
+        {
+            public TryTransformToBuilder(ExRam.Gremlinq.Core.Transformation.ITransformer transformer) { }
+            public TTarget? From<TSource>(TSource source, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
+        }
+    }
+    public static class TransformerStructExtensions
+    {
+        public static ExRam.Gremlinq.Core.Transformation.ITransformer Add<TSource, TTarget>(this ExRam.Gremlinq.Core.Transformation.ITransformer transformer, System.Func<TSource, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Transformation.ITransformer, TTarget?> func)
+            where TTarget :  struct { }
+        public static ExRam.Gremlinq.Core.TransformerStructExtensions.TryTransformToBuilder<TTarget> TryTransformTo<TTarget>(this ExRam.Gremlinq.Core.Transformation.ITransformer transformer)
+            where TTarget :  struct { }
+        public readonly struct TryTransformToBuilder<TTarget>
+            where TTarget :  struct
+        {
+            public TryTransformToBuilder(ExRam.Gremlinq.Core.Transformation.ITransformer transformer) { }
+            public TTarget? From<TSource>(TSource source, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
+        }
+    }
     public readonly struct Traversal : System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Steps.Step>, System.Collections.Generic.IReadOnlyCollection<ExRam.Gremlinq.Core.Steps.Step>, System.Collections.Generic.IReadOnlyList<ExRam.Gremlinq.Core.Steps.Step>, System.Collections.IEnumerable
     {
         public static readonly ExRam.Gremlinq.Core.Traversal Empty;
@@ -1559,7 +1584,6 @@ namespace ExRam.Gremlinq.Core.Projections
 }
 namespace ExRam.Gremlinq.Core.Serialization
 {
-    public delegate object? BaseGremlinQueryFragmentSerializerDelegate<in TFragment>(TFragment fragment, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Serialization.IGremlinQuerySerializer recurse);
     public static class BytecodeExtensions
     {
         public static ExRam.Gremlinq.Core.Serialization.GroovyGremlinQuery ToGroovy(this ExRam.Gremlinq.Core.Serialization.BytecodeGremlinQuery bytecodeQuery) { }
@@ -1580,16 +1604,6 @@ namespace ExRam.Gremlinq.Core.Serialization
         public string Id { get; }
         public ExRam.Gremlinq.Core.Serialization.ISerializedGremlinQuery WithNewId() { }
     }
-    public delegate object? GremlinQueryFragmentSerializerDelegate<TFragment>(TFragment fragment, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Serialization.BaseGremlinQueryFragmentSerializerDelegate<TFragment> overridden, ExRam.Gremlinq.Core.Serialization.IGremlinQuerySerializer recurse);
-    public static class GremlinQuerySerializer
-    {
-        public static readonly ExRam.Gremlinq.Core.Serialization.IGremlinQuerySerializer Default;
-        public static readonly ExRam.Gremlinq.Core.Serialization.IGremlinQuerySerializer Identity;
-        public static readonly ExRam.Gremlinq.Core.Serialization.IGremlinQuerySerializer Invalid;
-        public static ExRam.Gremlinq.Core.Serialization.IGremlinQuerySerializer Select(this ExRam.Gremlinq.Core.Serialization.IGremlinQuerySerializer serializer, System.Func<object, object> projection) { }
-        public static ExRam.Gremlinq.Core.Serialization.IGremlinQuerySerializer ToGroovy(this ExRam.Gremlinq.Core.Serialization.IGremlinQuerySerializer serializer) { }
-        public static ExRam.Gremlinq.Core.Serialization.IGremlinQuerySerializer UseDefaultGremlinStepSerializationHandlers(this ExRam.Gremlinq.Core.Serialization.IGremlinQuerySerializer serializer) { }
-    }
     public sealed class GroovyGremlinQuery : ExRam.Gremlinq.Core.Serialization.ISerializedGremlinQuery
     {
         public GroovyGremlinQuery(string script, System.Collections.Generic.IReadOnlyDictionary<string, object> bindings) { }
@@ -1600,11 +1614,6 @@ namespace ExRam.Gremlinq.Core.Serialization
         public override string ToString() { }
         public ExRam.Gremlinq.Core.Serialization.ISerializedGremlinQuery WithNewId() { }
     }
-    public interface IGremlinQuerySerializer
-    {
-        ExRam.Gremlinq.Core.Serialization.IGremlinQuerySerializer Override<TFragment>(ExRam.Gremlinq.Core.Serialization.GremlinQueryFragmentSerializerDelegate<TFragment> serializer);
-        object Serialize<TFragment>(TFragment fragment, ExRam.Gremlinq.Core.IGremlinQueryEnvironment gremlinQueryEnvironment);
-    }
     public interface ISerializedGremlinQuery
     {
         string Id { get; }
@@ -1613,6 +1622,15 @@ namespace ExRam.Gremlinq.Core.Serialization
     public static class SerializedGremlinQueryExtensions
     {
         public static ExRam.Gremlinq.Core.Serialization.GroovyGremlinQuery ToGroovy(this ExRam.Gremlinq.Core.Serialization.ISerializedGremlinQuery serializedGremlinQuery) { }
+    }
+    public static class Serializer
+    {
+        public static readonly ExRam.Gremlinq.Core.Transformation.ITransformer Default;
+        public static ExRam.Gremlinq.Core.Transformation.ITransformer Add<TSource>(this ExRam.Gremlinq.Core.Transformation.ITransformer serializer, System.Func<TSource, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Transformation.ITransformer, object?> converter) { }
+        public static ExRam.Gremlinq.Core.Transformation.ITransformer Select(this ExRam.Gremlinq.Core.Transformation.ITransformer serializer, System.Func<object, object> projection) { }
+        public static object Serialize<TFragment>(this ExRam.Gremlinq.Core.Transformation.ITransformer serializer, TFragment fragment, ExRam.Gremlinq.Core.IGremlinQueryEnvironment gremlinQueryEnvironment) { }
+        public static ExRam.Gremlinq.Core.Transformation.ITransformer ToGroovy(this ExRam.Gremlinq.Core.Transformation.ITransformer serializer) { }
+        public static ExRam.Gremlinq.Core.Transformation.ITransformer UseDefaultGremlinStepSerializationHandlers(this ExRam.Gremlinq.Core.Transformation.ITransformer serializer) { }
     }
 }
 namespace ExRam.Gremlinq.Core.Steps
@@ -2263,5 +2281,9 @@ namespace ExRam.Gremlinq.Core.Transformation
     {
         ExRam.Gremlinq.Core.Transformation.ITransformer Add(ExRam.Gremlinq.Core.Transformation.IConverterFactory converterFactory);
         bool TryTransform<TSource, TTarget>(TSource source, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out TTarget? value);
+    }
+    public static class Transformer
+    {
+        public static readonly ExRam.Gremlinq.Core.Transformation.ITransformer Identity;
     }
 }
