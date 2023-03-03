@@ -9,16 +9,20 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
     {
         public static IGremlinQueryEnvironment AddFakePartitionKey(this IGremlinQueryEnvironment env)
         {
-            var threadLocal = new ThreadLocal<AddVStep?>();
+            var threadLocal = new ThreadLocal<Stack<AddVStep>?>();
 
             return env
                 .ConfigureSerializer(serializer => serializer
                     .Add<AddVStep>((step, env, recurse) =>
                     {
-                        if (threadLocal.Value == step)
+                        var stack = threadLocal.Value is { } presentStack
+                            ? presentStack
+                            : threadLocal.Value = new Stack<AddVStep>();
+
+                        if (stack.TryPeek(out var result) && result == step)
                             return default;
 
-                        threadLocal.Value = step;
+                        stack.Push(step);
 
                         try
                         {
@@ -30,7 +34,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                         }
                         finally
                         {
-                            threadLocal.Value = null;
+                            stack.Pop();
                         }
                     }));
         }
