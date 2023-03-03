@@ -1604,7 +1604,6 @@ namespace ExRam.Gremlinq.Core.Serialization
         public static ExRam.Gremlinq.Core.Transformation.ITransformer Add<TSource>(this ExRam.Gremlinq.Core.Transformation.ITransformer serializer, System.Func<TSource, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Transformation.ITransformer, ExRam.Gremlinq.Core.Transformation.ITransformer, object?> converter) { }
         public static ExRam.Gremlinq.Core.Transformation.ITransformer Select(this ExRam.Gremlinq.Core.Transformation.ITransformer serializer, System.Func<object, object> projection) { }
         public static ExRam.Gremlinq.Core.Transformation.ITransformer ToGroovy(this ExRam.Gremlinq.Core.Transformation.ITransformer serializer) { }
-        public static ExRam.Gremlinq.Core.Transformation.ITransformer UseDefaultGremlinStepSerializationHandlers(this ExRam.Gremlinq.Core.Transformation.ITransformer serializer) { }
     }
 }
 namespace ExRam.Gremlinq.Core.Steps
