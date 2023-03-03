@@ -1601,7 +1601,6 @@ namespace ExRam.Gremlinq.Core.Serialization
     {
         public static readonly ExRam.Gremlinq.Core.Transformation.ITransformer Default;
         public static ExRam.Gremlinq.Core.Transformation.ITransformer Add<TSource>(this ExRam.Gremlinq.Core.Transformation.ITransformer serializer, System.Func<TSource, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Transformation.ITransformer, object?> converter) { }
-        public static ExRam.Gremlinq.Core.Transformation.ITransformer Add<TSource>(this ExRam.Gremlinq.Core.Transformation.ITransformer serializer, System.Func<TSource, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Transformation.ITransformer, ExRam.Gremlinq.Core.Transformation.ITransformer, object?> converter) { }
         public static ExRam.Gremlinq.Core.Transformation.ITransformer Select(this ExRam.Gremlinq.Core.Transformation.ITransformer serializer, System.Func<object, object> projection) { }
         public static ExRam.Gremlinq.Core.Transformation.ITransformer ToGroovy(this ExRam.Gremlinq.Core.Transformation.ITransformer serializer) { }
     }
@@ -2248,7 +2247,7 @@ namespace ExRam.Gremlinq.Core.Transformation
     }
     public interface IConverter<in TSource, TTarget>
     {
-        bool TryConvert(TSource source, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Transformation.ITransformer defer, ExRam.Gremlinq.Core.Transformation.ITransformer recurse, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out TTarget? value);
+        bool TryConvert(TSource source, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Transformation.ITransformer recurse, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out TTarget? value);
     }
     public interface ITransformer
     {
@@ -2262,8 +2261,6 @@ namespace ExRam.Gremlinq.Core.Transformation
     public static class TransformerClassExtensions
     {
         public static ExRam.Gremlinq.Core.Transformation.ITransformer Add<TSource, TTarget>(this ExRam.Gremlinq.Core.Transformation.ITransformer transformer, System.Func<TSource, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Transformation.ITransformer, TTarget?> func)
-            where TTarget :  class { }
-        public static ExRam.Gremlinq.Core.Transformation.ITransformer Add<TSource, TTarget>(this ExRam.Gremlinq.Core.Transformation.ITransformer transformer, System.Func<TSource, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Transformation.ITransformer, ExRam.Gremlinq.Core.Transformation.ITransformer, TTarget?> func)
             where TTarget :  class { }
         public static ExRam.Gremlinq.Core.Transformation.TransformerClassExtensions.TryTransformToBuilder<TTarget> TryTransformTo<TTarget>(this ExRam.Gremlinq.Core.Transformation.ITransformer transformer)
             where TTarget :  class { }
@@ -2286,8 +2283,6 @@ namespace ExRam.Gremlinq.Core.Transformation
     public static class TransformerStructExtensions
     {
         public static ExRam.Gremlinq.Core.Transformation.ITransformer Add<TSource, TTarget>(this ExRam.Gremlinq.Core.Transformation.ITransformer transformer, System.Func<TSource, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Transformation.ITransformer, TTarget?> func)
-            where TTarget :  struct { }
-        public static ExRam.Gremlinq.Core.Transformation.ITransformer Add<TSource, TTarget>(this ExRam.Gremlinq.Core.Transformation.ITransformer transformer, System.Func<TSource, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Transformation.ITransformer, ExRam.Gremlinq.Core.Transformation.ITransformer, TTarget?> func)
             where TTarget :  struct { }
         public static ExRam.Gremlinq.Core.Transformation.TransformerStructExtensions.TryTransformToBuilder<TTarget> TryTransformTo<TTarget>(this ExRam.Gremlinq.Core.Transformation.ITransformer transformer)
             where TTarget :  struct { }

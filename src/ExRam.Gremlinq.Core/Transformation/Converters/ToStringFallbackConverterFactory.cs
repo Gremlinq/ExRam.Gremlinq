@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq.Core.Transformation
     {
         private sealed class ToStringFallbackConverter<TSource> : IConverter<TSource, string>
         {
-            public bool TryConvert(TSource source, IGremlinQueryEnvironment environment, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out string? value)
+            public bool TryConvert(TSource source, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out string? value)
             {
                 if (source?.ToString() is { } requested)
                 {
