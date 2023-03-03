@@ -25,7 +25,6 @@ namespace ExRam.Gremlinq.Core.Transformation
                 public static Option<T> From(T value) => new(value);
             }
 
-            private readonly ITransformer? _previousTransformer;
             private readonly ImmutableStack<IConverterFactory> _converterFactories;
             private readonly ConcurrentDictionary<(Type, Type, Type), Delegate> _conversionDelegates = new();
 
@@ -33,15 +32,11 @@ namespace ExRam.Gremlinq.Core.Transformation
             {
                 _converterFactories = converterFactories;
             }
-
-            public TransformerImpl(ITransformer previous, ImmutableStack<IConverterFactory> converterFactories) : this(converterFactories)
-            {
-                _previousTransformer = previous;
-            }
+     
 
             public ITransformer Add(IConverterFactory converterFactory)
             {
-                return new TransformerImpl(this, _converterFactories.Push(converterFactory));
+                return new TransformerImpl(_converterFactories.Push(converterFactory));
             }
 
             public bool TryTransform<TSource, TTarget>(TSource source, IGremlinQueryEnvironment environment, [NotNullWhen(true)] out TTarget? value)
@@ -88,7 +83,7 @@ namespace ExRam.Gremlinq.Core.Transformation
                     {
                         foreach (var converter in converters)
                         {
-                            if (converter.TryConvert(actualSerialized, environment, _previousTransformer ?? Empty, this, out var value))
+                            if (converter.TryConvert(actualSerialized, environment, this, out var value))
                                 return Option<TTarget>.From(value);
                         }
                     }

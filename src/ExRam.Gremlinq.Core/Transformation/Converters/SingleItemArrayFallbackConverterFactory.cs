@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq.Core.Transformation
     {
         private sealed class SingleItemArrayFallbackConverter<TSource, TTargetArray, TTargetArrayItem> : IConverter<TSource, TTargetArray>
         {
-            public bool TryConvert(TSource source, IGremlinQueryEnvironment environment, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTargetArray? value)
+            public bool TryConvert(TSource source, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTargetArray? value)
             {
                 if (recurse.TryTransform<TSource, TTargetArrayItem>(source, environment, out var typedValue))
                 {

@@ -73,12 +73,6 @@ namespace ExRam.Gremlinq.Core.Serialization
         public static ITransformer Add<TSource>(this ITransformer serializer, Func<TSource, IGremlinQueryEnvironment, ITransformer, object?> converter)
         {
             return serializer
-                .Add<TSource>((source, env, _, recurse) => converter(source, env, recurse));
-        }
-
-        public static ITransformer Add<TSource>(this ITransformer serializer, Func<TSource, IGremlinQueryEnvironment, ITransformer, ITransformer, object?> converter)
-        {
-            return serializer
                 .Add<TSource, object>(converter);
         }
 
