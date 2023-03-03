@@ -2,7 +2,6 @@
 using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Core.Transformation;
-using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
@@ -33,7 +32,6 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                         {
                             threadLocal.Value = null;
                         }
-
                     }));
         }
     }
