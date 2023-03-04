@@ -64,10 +64,33 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         public static ITransformer ToGroovy(this ITransformer serializer)
         {
+            var threadLocal = new ThreadLocal<Stack<IGremlinQueryBase>?>();
+
             return serializer
-                .Select(static serialized => serialized is ISerializedGremlinQuery serializedQuery
-                    ? serializedQuery.ToGroovy()
-                    : serialized);
+                .Add<IGremlinQueryBase>((query, env, recurse) =>
+                {
+                    var stack = threadLocal.Value is { } presentStack
+                        ? presentStack
+                        : threadLocal.Value = new Stack<IGremlinQueryBase>();
+
+                    if (stack.TryPeek(out var result) && result == query)
+                        return default;
+
+                    stack.Push(query);
+
+                    try
+                    {
+                        return recurse.TransformTo<object>().From(query, env) is { } transformed
+                            ? transformed is ISerializedGremlinQuery serializedQuery
+                                ? serializedQuery.ToGroovy()
+                                : transformed
+                            : default;
+                    }
+                    finally
+                    {
+                        stack.Pop();
+                    }
+                });
         }
 
         public static ITransformer Add<TSource>(this ITransformer serializer, Func<TSource, IGremlinQueryEnvironment, ITransformer, object?> converter)
