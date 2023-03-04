@@ -18,35 +18,6 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         private static readonly ConcurrentDictionary<string, Instruction> SimpleInstructions = new();
 
-        private sealed class SelectSerializer : ITransformer
-        {
-            private readonly Func<object, object> _projection;
-            private readonly ITransformer _baseSerializer;
-
-            public SelectSerializer(ITransformer baseSerializer, Func<object, object> projection)
-            {
-                _projection = projection;
-                _baseSerializer = baseSerializer;
-            }
-
-            public ITransformer Add(IConverterFactory converterFactory) => new SelectSerializer(_baseSerializer.Add(converterFactory), _projection);
-
-            public bool TryTransform<TSource, TTarget>(TSource source, IGremlinQueryEnvironment environment, [NotNullWhen(true)] out TTarget? value)
-            {
-                if (_baseSerializer.TryTransform<TSource, TTarget>(source, environment, out var serialized))
-                {
-                    if (_projection(serialized) is TTarget target)
-                    {
-                        value = target;
-                        return true;
-                    }
-                }
-
-                value = default;
-                return false;
-            }
-        }
-
         public static readonly ITransformer Default = Transformer.Identity
             .UseDefaultGremlinStepSerializationHandlers();
 
@@ -57,10 +28,6 @@ namespace ExRam.Gremlinq.Core.Serialization
                 .ToArray();
         }
 
-        public static ITransformer Select(this ITransformer serializer, Func<object, object> projection)
-        {
-            return new SelectSerializer(serializer, projection);
-        }
 
         public static ITransformer ToGroovy(this ITransformer serializer)
         {
