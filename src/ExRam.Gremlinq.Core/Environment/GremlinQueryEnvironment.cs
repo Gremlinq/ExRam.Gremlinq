@@ -92,7 +92,9 @@ namespace ExRam.Gremlinq.Core
                     .ConfigureNativeTypes(static types => types
                         .Remove(typeof(byte[]))))
                 .ConfigureSerializer(static _ => _
-                    .Add<byte[]>(static (bytes, env, recurse) => recurse.TransformTo<object>().From(Convert.ToBase64String(bytes), env)));
+                    .Add<byte[], object>(static (bytes, env, recurse) => recurse
+                        .TransformTo<object>()
+                        .From(Convert.ToBase64String(bytes), env)));
         }
 
         public static IGremlinQueryEnvironment RegisterNativeType<TNative>(this IGremlinQueryEnvironment environment, Func<TNative, IGremlinQueryEnvironment, ITransformer, object> serializerDelegate, Func<ITransformer, ITransformer> deserializerTransformation)
