@@ -1,5 +1,4 @@
-﻿using System;
-using System.Buffers;
+﻿using System.Buffers;
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Immutable;
@@ -32,32 +31,11 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         public static ITransformer ToGroovy(this ITransformer serializer)
         {
-            var threadLocal = new ThreadLocal<Stack<Bytecode>?>();
-
             return serializer
-                .Add(Create<Bytecode, GroovyGremlinQuery>((bytecode, env, recurse) =>
-                {
-                    var stack = threadLocal.Value is { } presentStack
-                        ? presentStack
-                        : threadLocal.Value = new Stack<Bytecode>();
-
-                    if (stack.TryPeek(out var result) && result == bytecode)
-                        return default;
-
-                    stack.Push(bytecode);
-
-                    try
-                    {
-                        return recurse
-                            .TransformTo<ISerializedGremlinQuery>()
-                            .From(bytecode, env)
-                            .ToGroovy();
-                    }
-                    finally
-                    {
-                        stack.Pop();
-                    }
-                }));
+                .Add(Create<Bytecode, GroovyGremlinQuery>((bytecode, env, recurse) => recurse
+                    .TransformTo<BytecodeGremlinQuery>()
+                    .From(bytecode, env)
+                    .ToGroovy()));
         }
 
         internal static ISerializedGremlinQuery Serialize(this ITransformer serializer, IGremlinQueryBase query)
