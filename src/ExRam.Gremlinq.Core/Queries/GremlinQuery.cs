@@ -9,6 +9,7 @@ using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Core.Projections;
 using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Core.Steps;
+using ExRam.Gremlinq.Core.Transformation;
 using Gremlin.Net.Process.Traversal;
 using Microsoft.Extensions.Logging;
 using Path = ExRam.Gremlinq.Core.GraphElements.Path;
@@ -407,7 +408,8 @@ namespace ExRam.Gremlinq.Core
         private string Debug()
         {
             var serialized = Environment.Serializer
-                .Serialize(this);
+                .TransformTo<ISerializedGremlinQuery>()
+                .From(this, Environment);
 
             return Environment.Debugger.TryToString(serialized, Environment) ?? serialized.ToString() ?? ToString();
         }
