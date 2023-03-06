@@ -7,9 +7,9 @@ using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public class DeserializerTest : GremlinqTestBase
+    public class TansformerTest : GremlinqTestBase
     {
-        public DeserializerTest(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
+        public TansformerTest(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
 
         }
