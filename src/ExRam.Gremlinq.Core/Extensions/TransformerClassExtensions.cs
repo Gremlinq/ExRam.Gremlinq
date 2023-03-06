@@ -22,16 +22,17 @@ namespace ExRam.Gremlinq.Core.Transformation
         private sealed class FixedTypeConverterFactory<TStaticSource, TStaticTarget> : IConverterFactory
            where TStaticTarget : class
         {
-            private sealed class FixedTypeConverter<TSource> : IConverter<TSource, TStaticTarget>
+            private sealed class FixedTypeConverter<TSource, TTarget> : IConverter<TSource, TTarget>
+                where TTarget : class
             {
-                private readonly Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, TStaticTarget?> _func;
+                private readonly Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, TTarget?> _func;
 
                 public FixedTypeConverter(Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, TStaticTarget?> func)
                 {
-                    _func = func;
+                    _func = (Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, TTarget?>)(object)func;
                 }
 
-                public bool TryConvert(TSource source, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TStaticTarget? value)
+                public bool TryConvert(TSource source, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
                 {
                     if (source is TStaticSource staticSerialized && _func(staticSerialized, environment, recurse) is { } requested)
                     {
@@ -55,8 +56,8 @@ namespace ExRam.Gremlinq.Core.Transformation
 
             public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>()
             {
-                return ((typeof(TSource).IsAssignableFrom(typeof(TStaticSource)) || typeof(TStaticSource).IsAssignableFrom(typeof(TSource))) && typeof(TTarget).IsAssignableFrom(typeof(TStaticTarget)))
-                    ? (IConverter<TSource, TTarget>)(object)new FixedTypeConverter<TSource>(_func)
+                return (typeof(TSource).IsAssignableFrom(typeof(TStaticSource)) || typeof(TStaticSource).IsAssignableFrom(typeof(TSource))) && typeof(TTarget).IsAssignableFrom(typeof(TStaticTarget))
+                    ? (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(FixedTypeConverter<,>).MakeGenericType(typeof(TStaticSource), typeof(TStaticTarget), typeof(TSource), typeof(TTarget)), _func)
                     : null;
             }
         }
