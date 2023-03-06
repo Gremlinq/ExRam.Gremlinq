@@ -30,6 +30,22 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public async Task Base_type_in_request()
+        {
+            await Verify(Transformer.Identity
+                .Add<object, string>((serialized, env, recurse) => "overridden")
+                .TryTransformTo<object>().From("serialized", GremlinQueryEnvironment.Empty));
+        }
+
+        [Fact]
+        public async Task Base_type_in_request_with_struct_available()
+        {
+            await Verify(Transformer.Identity
+                .Add<object, int>((serialized, env, recurse) => 36)
+                .TryTransformTo<object>().From("serialized", GremlinQueryEnvironment.Empty));
+        }
+
+        [Fact]
         public async Task Irrelevant()
         {
             await Verify(Transformer.Identity

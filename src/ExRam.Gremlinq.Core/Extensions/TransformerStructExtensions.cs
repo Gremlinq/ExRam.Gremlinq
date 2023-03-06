@@ -22,11 +22,36 @@ namespace ExRam.Gremlinq.Core.Transformation
         private sealed class FixedTypeConverterFactory<TStaticSource, TStaticTarget> : IConverterFactory
             where TStaticTarget : struct
         {
-            private sealed class FixedTypeConverter<TSource> : IConverter<TSource, TStaticTarget>
+            private sealed class FixedTypeToClassConverter<TSource, TTarget> : IConverter<TSource, TTarget>
+                where TTarget : class
+            {
+                private readonly Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, TTarget?> _func;
+
+                public FixedTypeToClassConverter(Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, TStaticTarget?> func)
+                {
+                    _func = (source, env, recurse) => (TTarget?)(object?)func(source, env, recurse);
+                }
+
+                public bool TryConvert(TSource source, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+                {
+                    if (source is TStaticSource staticSource && _func(staticSource, environment, recurse) is { } requested)
+                    {
+                        value = requested;
+
+                        return true;
+                    }
+
+                    value = default;
+
+                    return false;
+                }
+            }
+
+            private sealed class FixedTypeToStructConverter<TSource> : IConverter<TSource, TStaticTarget>
             {
                 private readonly Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, TStaticTarget?> _func;
 
-                public FixedTypeConverter(Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, TStaticTarget?> func)
+                public FixedTypeToStructConverter(Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, TStaticTarget?> func)
                 {
                     _func = func;
                 }
@@ -55,9 +80,18 @@ namespace ExRam.Gremlinq.Core.Transformation
 
             public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>()
             {
-                return ((typeof(TSource).IsAssignableFrom(typeof(TStaticSource)) || typeof(TStaticSource).IsAssignableFrom(typeof(TSource))) && typeof(TTarget).IsAssignableFrom(typeof(TStaticTarget)))
-                    ? (IConverter<TSource, TTarget>)(object)new FixedTypeConverter<TSource>(_func)
-                    : null;
+                if ((typeof(TSource).IsAssignableFrom(typeof(TStaticSource)) || typeof(TStaticSource).IsAssignableFrom(typeof(TSource))) && typeof(TTarget).IsAssignableFrom(typeof(TStaticTarget)))
+                {
+                    if (typeof(TTarget).IsClass)
+                        return (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(FixedTypeToClassConverter<,>).MakeGenericType(typeof(TStaticSource), typeof(TStaticTarget), typeof(TSource), typeof(TTarget)), _func);
+
+                    if (typeof(TStaticTarget) == typeof(TTarget))
+                        return (IConverter<TSource, TTarget>)(object)new FixedTypeToStructConverter<TSource>(_func);
+
+                    throw new NotSupportedException();
+                }
+
+                return null;
             }
         }
 
