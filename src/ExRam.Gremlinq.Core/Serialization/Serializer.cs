@@ -32,25 +32,26 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         public static ITransformer ToGroovy(this ITransformer serializer)
         {
-            var threadLocal = new ThreadLocal<Stack<IGremlinQueryBase>?>();
+            var threadLocal = new ThreadLocal<Stack<Bytecode>?>();
 
             return serializer
-                .Add(Create<IGremlinQueryBase, ISerializedGremlinQuery>((query, env, recurse) =>
+                .Add(Create<Bytecode, GroovyGremlinQuery>((bytecode, env, recurse) =>
                 {
                     var stack = threadLocal.Value is { } presentStack
                         ? presentStack
-                        : threadLocal.Value = new Stack<IGremlinQueryBase>();
+                        : threadLocal.Value = new Stack<Bytecode>();
 
-                    if (stack.TryPeek(out var result) && result == query)
+                    if (stack.TryPeek(out var result) && result == bytecode)
                         return default;
 
-                    stack.Push(query);
+                    stack.Push(bytecode);
 
                     try
                     {
-                        return recurse.TransformTo<ISerializedGremlinQuery>().From(query, env) is { } transformed
-                            ? transformed.ToGroovy()
-                            : default;
+                        return recurse
+                            .TransformTo<ISerializedGremlinQuery>()
+                            .From(bytecode, env)
+                            .ToGroovy();
                     }
                     finally
                     {
@@ -61,18 +62,23 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         internal static ISerializedGremlinQuery Serialize(this ITransformer serializer, IGremlinQueryBase query)
         {
+            var env = query.AsAdmin().Environment;
+
             try
             {
                 _stepLabelNames = null;
 
-                var serialized = serializer
-                    .TransformTo<object>()
-                    .From(query, query.AsAdmin().Environment);
+                var traversal = serializer
+                    .TransformTo<Traversal>()
+                    .From(query, env);
 
-                if (serialized is ISerializedGremlinQuery serializedQuery)
-                    return serializedQuery;
+                var bytecode = serializer
+                    .TransformTo<Bytecode>()
+                    .From(traversal, env);
 
-                throw new InvalidOperationException($"Unable to serialize a query of type {query.GetType().FullName}.");
+                return serializer
+                    .TransformTo<ISerializedGremlinQuery>()
+                    .From(bytecode, env);
             }
             finally
             {
@@ -84,20 +90,6 @@ namespace ExRam.Gremlinq.Core.Serialization
             .Add(Create<IGremlinQueryBase, Traversal>((static (query, env, recurse) => query
                 .ToTraversal()
                 .IncludeProjection(env))))
-            .Add(Create<IGremlinQueryBase, ISerializedGremlinQuery>((static (query, env, recurse) =>
-            {
-                var serialized = recurse
-                    .TransformTo<Bytecode>()
-                    .From(
-                        query
-                            .ToTraversal()
-                            .IncludeProjection(env),
-                        env);
-
-                return (serialized is Bytecode bytecode)
-                    ? new BytecodeGremlinQuery(bytecode)
-                    : default;
-            })))
             .Add(Create<Traversal, Bytecode>((static (traversal, env, recurse) =>
             {
                 var steps = ArrayPool<Step>.Shared.Rent(traversal.Count);
@@ -207,7 +199,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                     ArrayPool<Step>.Shared.Return(steps);
                 }
             })))
-            .Add(Create<Bytecode, ISerializedGremlinQuery>((static (bytecode, env, recurse) => new BytecodeGremlinQuery(bytecode))))
+            .Add(Create<Bytecode, BytecodeGremlinQuery>((static (bytecode, env, recurse) => new BytecodeGremlinQuery(bytecode))))
             .Add(Create<StepLabel, string>((static (stepLabel, env, recurse) =>
             {
                 var stepLabelNames = _stepLabelNames ??= new Dictionary<StepLabel, string>();
