@@ -123,8 +123,8 @@ namespace ExRam.Gremlinq.Core
                         .SetValue(GremlinqOption.VertexProjectionSteps, Traversal.Empty)
                         .SetValue(GremlinqOption.EdgeProjectionSteps, Traversal.Empty)
                         .SetValue(GremlinqOption.VertexPropertyProjectionSteps, Traversal.Empty))
+                    .StoreByteArraysAsBase64String()
                     .ConfigureSerializer(serializer => serializer
-                        .Add<byte[], object>((bytes, env, recurse) => recurse.TransformTo<object>().From(Convert.ToBase64String(bytes), env))
                         .Add<CosmosDbKey, object>((key, env, recurse) => recurse.TransformTo<object>().From(
                             key.PartitionKey != null
                                 ? new[] { key.PartitionKey, key.Id }
