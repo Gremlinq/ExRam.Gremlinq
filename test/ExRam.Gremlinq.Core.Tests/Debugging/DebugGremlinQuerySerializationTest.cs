@@ -1,12 +1,14 @@
 ﻿using System.Collections.Immutable;
+using System.Runtime.CompilerServices;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
     public abstract class DebugGremlinQuerySerializationTest : QueryExecutionTest
     {
-        protected DebugGremlinQuerySerializationTest(GremlinqTestFixture fixture, ITestOutputHelper testOutputHelper) : base(
+        protected DebugGremlinQuerySerializationTest(GremlinqTestFixture fixture, ITestOutputHelper testOutputHelper, [CallerFilePath] string callerFilePath = "") : base(
             fixture,
-            testOutputHelper)
+            testOutputHelper,
+            callerFilePath)
         {
         }
 
