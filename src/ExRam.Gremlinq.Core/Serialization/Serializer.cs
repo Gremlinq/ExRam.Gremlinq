@@ -28,13 +28,12 @@ namespace ExRam.Gremlinq.Core.Serialization
                 .ToArray();
         }
 
-
         public static ITransformer ToGroovy(this ITransformer serializer)
         {
             var threadLocal = new ThreadLocal<Stack<IGremlinQueryBase>?>();
 
             return serializer
-                .Add<IGremlinQueryBase>((query, env, recurse) =>
+                .Add<IGremlinQueryBase, object>((query, env, recurse) =>
                 {
                     var stack = threadLocal.Value is { } presentStack
                         ? presentStack
@@ -58,12 +57,6 @@ namespace ExRam.Gremlinq.Core.Serialization
                         stack.Pop();
                     }
                 });
-        }
-
-        public static ITransformer Add<TSource>(this ITransformer serializer, Func<TSource, IGremlinQueryEnvironment, ITransformer, object?> converter)
-        {
-            return serializer
-                .Add<TSource, object>(converter);
         }
 
         internal static ISerializedGremlinQuery Serialize(this ITransformer serializer, IGremlinQueryBase query)
@@ -139,7 +132,9 @@ namespace ExRam.Gremlinq.Core.Serialization
                 ? CreateInstruction("count", recurse, env, step.Scope)
                 : CreateInstruction("count"))
             .Add<CyclicPathStep>(static (_, _, _) => CreateInstruction("cyclicPath"))
-            .Add<DateTime>(static (dateTime, env, recurse) => recurse.TransformTo<object>().From(new DateTimeOffset(dateTime.ToUniversalTime()), env))
+            .Add<DateTime, object>(static (dateTime, env, recurse) => recurse
+                .TransformTo<object>()
+                .From(new DateTimeOffset(dateTime.ToUniversalTime()), env))
             .Add<DedupStep>(static (step, env, recurse) => step.Scope.Equals(Scope.Local)
                 ? CreateInstruction("dedup", recurse, env, step.Scope)
                 : CreateInstruction("dedup"))
@@ -185,7 +180,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                     : step.Argument))
             .Add<IdentityStep>(static (_, _, _) => CreateInstruction("identity"))
             .Add<IdStep>(static (_, _, _) => CreateInstruction("id"))
-            .Add<IGremlinQueryBase>(static (query, env, recurse) =>
+            .Add<IGremlinQueryBase, object>(static (query, env, recurse) =>
             {
                 var serialized = recurse
                     .TransformTo<object>()
@@ -210,7 +205,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                 step.Predicate.OperatorName == "eq"
                     ? (object)step.Predicate.Value
                     : step.Predicate))
-            .Add<Key>(static (key, env, recurse) => recurse.TransformTo<object>().From(key.RawKey, env))
+            .Add<Key, object>(static (key, env, recurse) => recurse.TransformTo<object>().From(key.RawKey, env))
             .Add<KeyStep>(static (_, _, _) => CreateInstruction("key"))
             .Add<LabelStep>(static (_, _, _) => CreateInstruction("label"))
             .Add<LimitStep>(static (step, env, recurse) => step.Scope.Equals(Scope.Local)
@@ -225,7 +220,7 @@ namespace ExRam.Gremlinq.Core.Serialization
             .Add<MeanStep>(static (step, env, recurse) => step.Scope.Equals(Scope.Local)
                 ? CreateInstruction("mean", recurse, env, step.Scope)
                 : CreateInstruction("mean"))
-            .Add<Memory<Step>>(static (steps, env, recurse) =>
+            .Add<Memory<Step>, object>(static (steps, env, recurse) =>
             {
                 var j = 0;
                 var span = steps.Span;
@@ -334,7 +329,7 @@ namespace ExRam.Gremlinq.Core.Serialization
             .Add<OutEStep>(static (step, env, recurse) => CreateInstruction("outE", recurse, env, step.Labels))
             .Add<OutVStep>(static (_, _, _) => CreateInstruction("outV"))
             .Add<OtherVStep>(static (_, _, _) => CreateInstruction("otherV"))
-            .Add<P>(static (p, env, recurse) =>
+            .Add<P, P>(static (p, env, recurse) =>
             {
                 if (p.Value is null)
                     throw new NotSupportedException("Cannot serialize a P-predicate with a null-value.");
@@ -396,10 +391,10 @@ namespace ExRam.Gremlinq.Core.Serialization
                 return CreateInstruction("by", recurse, env, traversal);
             })
             .Add<ProjectStep.ByKeyStep>(static (step, env, recurse) => CreateInstruction("by", recurse, env, step.Key))
-            .Add<ProjectVertexStep>(static (_, env, _) => env.Options.GetValue(env.FeatureSet.Supports(VertexFeatures.MetaProperties)
+            .Add<ProjectVertexStep, Traversal>(static (_, env, _) => env.Options.GetValue(env.FeatureSet.Supports(VertexFeatures.MetaProperties)
                 ? GremlinqOption.VertexProjectionSteps
                 : GremlinqOption.VertexProjectionWithoutMetaPropertiesSteps))
-            .Add<ProjectEdgeStep>(static (_, env, _) => env.Options.GetValue(GremlinqOption.EdgeProjectionSteps))
+            .Add<ProjectEdgeStep, Traversal>(static (_, env, _) => env.Options.GetValue(GremlinqOption.EdgeProjectionSteps))
             .Add<RangeStep>(static (step, env, recurse) => step.Scope.Equals(Scope.Local)
                 ? CreateInstruction("range", recurse, env, step.Scope, step.Lower, step.Upper)
                 : CreateInstruction("range", recurse, env, step.Lower, step.Upper))
@@ -412,7 +407,7 @@ namespace ExRam.Gremlinq.Core.Serialization
             .Add<SkipStep>(static (step, env, recurse) => step.Scope.Equals(Scope.Local)
                 ? CreateInstruction("skip", recurse, env, step.Scope, step.Count)
                 : CreateInstruction("skip", recurse, env, step.Count))
-            .Add<StepLabel>(static (stepLabel, env, recurse) =>
+            .Add<StepLabel, object>(static (stepLabel, env, recurse) =>
             {
                 var stepLabelNames = _stepLabelNames ??= new Dictionary<StepLabel, string>();
 
@@ -428,7 +423,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                 // ReSharper disable once TailRecursiveCall
                 return recurse.TransformTo<object>().From(stepLabelMapping, env);
             })
-            .Add<Traversal>(static (traversal, env, recurse) =>
+            .Add<Traversal, object>(static (traversal, env, recurse) =>
             {
                 var steps = ArrayPool<Step>.Shared.Rent(traversal.Count);
 
@@ -451,12 +446,12 @@ namespace ExRam.Gremlinq.Core.Serialization
             .Add<SumStep>(static (step, env, recurse) => step.Scope.Equals(Scope.Local)
                 ? CreateInstruction("sum", recurse, env, step.Scope)
                 : CreateInstruction("sum"))
-            .Add<TextP>(static (textP, _, _) => textP)
+            .Add<TextP, TextP>(static (textP, _, _) => textP)
             .Add<TailStep>(static (step, env, recurse) => step.Scope.Equals(Scope.Local)
                 ? CreateInstruction("tail", recurse, env, step.Scope, step.Count)
                 : CreateInstruction("tail", recurse, env, step.Count))
             .Add<TimesStep>(static (step, env, recurse) => CreateInstruction("times", recurse, env, step.Count))
-            .Add<Type>(static (type, _, _) => type)
+            .Add<Type, Type>(static (type, _, _) => type)
             .Add<UnfoldStep>(static (_, _, _) => CreateInstruction("unfold"))
             .Add<UnionStep>(static (step, env, recurse) => CreateInstruction("union", recurse, env, step.Traversals))
             .Add<UntilStep>(static (step, env, recurse) => CreateInstruction("until", recurse, env, step.Traversal))
@@ -473,6 +468,12 @@ namespace ExRam.Gremlinq.Core.Serialization
                 ? CreateInstruction("by", recurse, env, key)
                 : CreateInstruction("by"))
             .Add<WhereStepLabelAndPredicateStep>(static (step, env, recurse) => CreateInstruction("where", recurse, env, step.StepLabel, step.Predicate));
+
+        private static ITransformer Add<TSource>(this ITransformer serializer, Func<TSource, IGremlinQueryEnvironment, ITransformer, Instruction?> converter)
+        {
+            return serializer
+                .Add<TSource, Instruction>(converter);
+        }
 
         private static Instruction CreateInstruction(string name)
         {

@@ -1,4 +1,6 @@
-﻿using ExRam.Gremlinq.Core.Serialization;
+﻿using System.Diagnostics.CodeAnalysis;
+
+using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Providers.CosmosDb;
@@ -71,6 +73,39 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
+        private sealed class CosmosDbLimitationFilterConverterFactory<TStaticSource> : IConverterFactory
+        {
+            public sealed class CosmosDbLimitationFilterConverter<TSource, TTarget> : IConverter<TSource, TTarget>
+            {
+                private readonly Action<TStaticSource> _filter;
+
+                public CosmosDbLimitationFilterConverter(Action<TStaticSource> filter)
+                {
+                    _filter = filter;
+                }
+
+                public bool TryConvert(TSource source, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+                {
+                    if (source is TStaticSource staticSource)
+                        _filter(staticSource);
+
+                    value = default;
+                    return false;
+                }
+            }
+
+            private readonly Action<TStaticSource> _filter;
+
+            public CosmosDbLimitationFilterConverterFactory(Action<TStaticSource> filter)
+            {
+                _filter = filter;
+            }
+
+            public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>() => typeof(TStaticSource).IsAssignableFrom(typeof(TSource)) || typeof(TSource).IsAssignableFrom(typeof(TStaticSource))
+                ? new CosmosDbLimitationFilterConverter<TSource, TTarget>(_filter)
+                : null;
+        }
+
         private static readonly Step NoneWorkaround = new NotStep(IdentityStep.Instance);
 
         public static IGremlinQuerySource UseCosmosDb(this IConfigurableGremlinQuerySource source, Func<ICosmosDbConfigurator, IGremlinQuerySourceTransformation> transformation)
@@ -90,37 +125,43 @@ namespace ExRam.Gremlinq.Core
                         .SetValue(GremlinqOption.EdgeProjectionSteps, Traversal.Empty)
                         .SetValue(GremlinqOption.VertexPropertyProjectionSteps, Traversal.Empty))
                     .ConfigureSerializer(serializer => serializer
-                        .Add<byte[]>((bytes, env, recurse) => recurse.TransformTo<object>().From(Convert.ToBase64String(bytes), env))
-                        .Add<CosmosDbKey>((key, env, recurse) => recurse.TransformTo<object>().From(
+                        .Add<byte[], object>((bytes, env, recurse) => recurse.TransformTo<object>().From(Convert.ToBase64String(bytes), env))
+                        .Add<CosmosDbKey, object>((key, env, recurse) => recurse.TransformTo<object>().From(
                             key.PartitionKey != null
                                 ? new[] { key.PartitionKey, key.Id }
                                 : (object)key.Id,
                             env))
-                        .Add<FilterStep.ByTraversalStep>(static (step, env, recurse) => recurse.TransformTo<object>().From(
+                        .Add<FilterStep.ByTraversalStep, object>(static (step, env, recurse) => recurse.TransformTo<object>().From(
                             new WhereTraversalStep(
                                 step.Traversal.Count > 0 && step.Traversal[0] is AsStep
                                     ? new MapStep(step.Traversal)
                                     : step.Traversal),
                             env))
-                        .Add<HasKeyStep>((step, env, recurse) => step.Argument is P p && (!p.OperatorName.Equals("eq", StringComparison.OrdinalIgnoreCase))
+                        .Add<HasKeyStep, object>((step, env, recurse) => step.Argument is P p && (!p.OperatorName.Equals("eq", StringComparison.OrdinalIgnoreCase))
                             ? recurse.TransformTo<object>().From(
                                 new WhereTraversalStep(Traversal.Empty.Push(
                                     KeyStep.Instance,
                                     new IsStep(p))),
                                 env)
                             : default)
-                        .Add<NoneStep>((step, env, recurse) => recurse.TransformTo<object>().From(NoneWorkaround, env))
-                        .Add<SkipStep>((step, env, recurse) => recurse.TransformTo<object>().From(new RangeStep(step.Count, -1, step.Scope), env))
-                        .Add<LimitStep>((step, env, recurse) => step.Count > int.MaxValue
-                            ? throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Limit' outside the range of a 32-bit-integer.")
-                            : default)
-                        .Add<TailStep>((step, env, recurse) => step.Count > int.MaxValue
-                            ? throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Tail' outside the range of a 32-bit-integer.")
-                            : default)
-                        .Add<RangeStep>((step, env, recurse) => step.Lower > int.MaxValue || step.Upper > int.MaxValue
-                            ? throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Range' outside the range of a 32-bit-integer.")
-                            : default)
-                        .Add<Order>((order, env, recurse) => order.Equals(Order.Asc)
+                        .Add<NoneStep, object>((step, env, recurse) => recurse.TransformTo<object>().From(NoneWorkaround, env))
+                        .Add<SkipStep, object>((step, env, recurse) => recurse.TransformTo<object>().From(new RangeStep(step.Count, -1, step.Scope), env))
+                        .Add(new CosmosDbLimitationFilterConverterFactory<LimitStep>(step =>
+                        {
+                            if (step.Count > int.MaxValue)
+                                throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Limit' outside the range of a 32-bit-integer.");
+                        }))
+                        .Add(new CosmosDbLimitationFilterConverterFactory<TailStep>(step =>
+                        {
+                            if (step.Count > int.MaxValue)
+                                throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Tail' outside the range of a 32-bit-integer.");
+                        }))
+                        .Add(new CosmosDbLimitationFilterConverterFactory<RangeStep>(step =>
+                        {
+                            if (step.Lower > int.MaxValue || step.Upper > int.MaxValue)
+                                throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Range' outside the range of a 32-bit-integer.");
+                        }))
+                        .Add<Order, object>((order, env, recurse) => order.Equals(Order.Asc)
                             ? recurse.TransformTo<object>().From(WorkaroundOrder.Incr, env)
                             : order.Equals(Order.Desc)
                                 ? recurse.TransformTo<object>().From(WorkaroundOrder.Decr, env)
