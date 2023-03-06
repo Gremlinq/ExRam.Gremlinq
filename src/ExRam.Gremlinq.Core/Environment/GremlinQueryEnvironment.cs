@@ -92,8 +92,8 @@ namespace ExRam.Gremlinq.Core
                     .ConfigureNativeTypes(static types => types
                         .Remove(typeof(byte[]))))
                 .ConfigureSerializer(static _ => _
-                    .Add<byte[], object>(static (bytes, env, recurse) => recurse
-                        .TransformTo<object>()
+                    .Add<byte[], string>(static (bytes, env, recurse) => recurse
+                        .TransformTo<string>()
                         .From(Convert.ToBase64String(bytes), env)));
         }
 
