@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using ExRam.Gremlinq.Core.Transformation;
 using Gremlin.Net.Structure.IO.GraphSON;
+using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
@@ -43,7 +44,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public static ITransformer ToGraphsonString(this ITransformer transformer)
         {
             return transformer
-                .Add<object, string>(static (data, env, recurse) => new GraphSON2Writer().WriteObject(data));
+                .Add(Create<object, string>((static (data, env, recurse) => new GraphSON2Writer().WriteObject(data))));
         }
     }
 }

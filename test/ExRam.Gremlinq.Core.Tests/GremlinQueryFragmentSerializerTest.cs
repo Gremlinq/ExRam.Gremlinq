@@ -2,6 +2,7 @@
 using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Core.Transformation;
+using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
@@ -23,7 +24,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Base_type()
         {
             await Verify(Transformer.Identity
-                .Add<Step, object>((step, env, recurse) => new VStep(ImmutableArray.Create<object>("id")))
+                .Add(Create<Step, object>((step, env, recurse) => new VStep(ImmutableArray.Create<object>("id"))))
                 .TransformTo<object>().From(new HasLabelStep(ImmutableArray.Create("label")), GremlinQueryEnvironment.Empty));
         }
 
@@ -31,7 +32,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Irrelevant()
         {
             await Verify(Transformer.Identity
-                .Add<HasKeyStep, object>((step, env, recurse) => new HasLabelStep(ImmutableArray.Create("should not be here")))
+                .Add(Create<HasKeyStep, object>((step, env, recurse) => new HasLabelStep(ImmutableArray.Create("should not be here"))))
                 .TransformTo<object>().From(new HasLabelStep(ImmutableArray.Create("label")), GremlinQueryEnvironment.Empty));
         }
 
@@ -56,7 +57,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Recurse()
         {
             await Verify(Transformer.Identity
-                .Add<HasLabelStep, object>((step, env, recurse) => recurse.TransformTo<object>().From(new VStep(ImmutableArray.Create<object>("id")), env))
+                .Add(Create<HasLabelStep, object>((step, env, recurse) => recurse.TransformTo<object>().From(new VStep(ImmutableArray.Create<object>("id")), env)))
                 .TransformTo<object>().From(new HasLabelStep(ImmutableArray.Create("label")), GremlinQueryEnvironment.Empty));
         }
 

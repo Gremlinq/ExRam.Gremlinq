@@ -1,6 +1,7 @@
 ﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Core.Transformation;
+using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
@@ -12,7 +13,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 
             return env
                 .ConfigureSerializer(serializer => serializer
-                    .Add<AddVStep, object>((step, env, recurse) =>
+                    .Add(Create<AddVStep, object>((step, env, recurse) =>
                     {
                         var stack = threadLocal.Value is { } presentStack
                             ? presentStack
@@ -35,7 +36,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                         {
                             stack.Pop();
                         }
-                    }));
+                    })));
         }
     }
 }
