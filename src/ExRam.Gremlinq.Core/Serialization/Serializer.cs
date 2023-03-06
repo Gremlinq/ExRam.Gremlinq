@@ -1,4 +1,5 @@
-﻿using System.Buffers;
+﻿using System;
+using System.Buffers;
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Immutable;
@@ -222,97 +223,6 @@ namespace ExRam.Gremlinq.Core.Serialization
             .Add<MeanStep>(static (step, env, recurse) => step.Scope.Equals(Scope.Local)
                 ? CreateInstruction("mean", recurse, env, step.Scope)
                 : CreateInstruction("mean"))
-            .Add(Create<Memory<Step>, object>((static (steps, env, recurse) =>
-            {
-                var j = 0;
-                var span = steps.Span;
-
-                for (var i = 1; i < span.Length; i++)
-                {
-                    var sourceStep = span[i];
-                    var targetStep = span[i - j - 1];
-
-                    if (sourceStep is SelectStepLabelStep selectStep && targetStep is AsStep asStep && selectStep.StepLabels.Length == 1 && ReferenceEquals(asStep.StepLabel, selectStep.StepLabels[0]))
-                        j++;
-                    else if (sourceStep is AsStep asStep1 && targetStep is AsStep asStep2 && asStep1.StepLabel.Equals(asStep2.StepLabel))
-                        j++;
-                    else if (sourceStep is IdentityStep && targetStep is IdentityStep)
-                        j++;
-                    else if (sourceStep is NoneStep && targetStep is NoneStep)
-                        j++;
-                    else if (sourceStep is HasLabelStep hasLabelStep1 && targetStep is HasLabelStep hasLabelStep2)
-                    {
-                        span[i - j - 1] = new HasLabelStep(hasLabelStep1.Labels.Intersect(hasLabelStep2.Labels).ToImmutableArray());
-                        j++;
-                    }
-                    else if (sourceStep is HasPredicateStep hasPredicateStep1 && targetStep is HasPredicateStep hasPredicateStep2 && hasPredicateStep1.Key == hasPredicateStep2.Key)
-                    {
-                        span[i - j - 1] = new HasPredicateStep(hasPredicateStep1.Key, hasPredicateStep2.Predicate.And(hasPredicateStep1.Predicate));
-                        j++;
-                    }
-                    else if (sourceStep is WithoutStrategiesStep withoutStrategiesStep1 && targetStep is WithoutStrategiesStep withoutStrategiesStep2)
-                    {
-                        span[i - j - 1] = new WithoutStrategiesStep(withoutStrategiesStep2.StrategyTypes.Concat(withoutStrategiesStep1.StrategyTypes).Distinct().ToImmutableArray());
-                        j++;
-                    }
-                    else if (j != 0)
-                        span[i - j] = sourceStep;
-                }
-
-                span = span[..^j];
-
-                var byteCode = new Bytecode();
-
-                void Add(object? obj)
-                {
-                    switch (obj)
-                    {
-                        case Instruction instruction:
-                        {
-                            if (byteCode.StepInstructions.Count == 0 && instruction.OperatorName.StartsWith("with", StringComparison.OrdinalIgnoreCase))
-                                byteCode.SourceInstructions.Add(instruction);
-                            else
-                                byteCode.StepInstructions.Add(instruction);
-
-                            break;
-                        }
-                        case Step step:
-                        {
-                            Add(recurse.TransformTo<object>().From(step, env));
-
-                            break;
-                        }
-                        case Traversal traversal:
-                        {
-                            for (var i = 0; i < traversal.Count; i++)
-                            {
-                                Add(traversal[i]);
-                            }
-
-                            break;
-                        }
-                        case IEnumerable enumerable:
-                        {
-                            foreach (var item in enumerable)
-                            {
-                                Add(item);
-                            }
-
-                            break;
-                        }
-                    }
-                }
-
-                foreach (var step in span)
-                {
-                    Add(step);
-                }
-
-                if (byteCode.StepInstructions.Count == 0)
-                    Add(IdentityStep.Instance);
-
-                return recurse.TransformTo<object>().From(byteCode, env);
-            })))
             .Add<MinStep>(static (step, env, recurse) => step.Scope.Equals(Scope.Local)
                 ? CreateInstruction("min", recurse, env, step.Scope)
                 : CreateInstruction("min"))
@@ -425,7 +335,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                 // ReSharper disable once TailRecursiveCall
                 return recurse.TransformTo<object>().From(stepLabelMapping, env);
             })))
-            .Add(Create<Traversal, object>((static (traversal, env, recurse) =>
+            .Add(Create<Traversal, Bytecode>((static (traversal, env, recurse) =>
             {
                 var steps = ArrayPool<Step>.Shared.Rent(traversal.Count);
 
@@ -438,7 +348,96 @@ namespace ExRam.Gremlinq.Core.Serialization
                         .AsSpan()
                         .CopyTo(stepsMemory.Span);
 
-                    return recurse.TransformTo<object>().From(stepsMemory, env);
+                    var j = 0;
+                    var span = stepsMemory.Span;
+
+                    for (var i = 1; i < span.Length; i++)
+                    {
+                        var sourceStep = span[i];
+                        var targetStep = span[i - j - 1];
+
+                        if (sourceStep is SelectStepLabelStep selectStep && targetStep is AsStep asStep && selectStep.StepLabels.Length == 1 && ReferenceEquals(asStep.StepLabel, selectStep.StepLabels[0]))
+                            j++;
+                        else if (sourceStep is AsStep asStep1 && targetStep is AsStep asStep2 && asStep1.StepLabel.Equals(asStep2.StepLabel))
+                            j++;
+                        else if (sourceStep is IdentityStep && targetStep is IdentityStep)
+                            j++;
+                        else if (sourceStep is NoneStep && targetStep is NoneStep)
+                            j++;
+                        else if (sourceStep is HasLabelStep hasLabelStep1 && targetStep is HasLabelStep hasLabelStep2)
+                        {
+                            span[i - j - 1] = new HasLabelStep(hasLabelStep1.Labels.Intersect(hasLabelStep2.Labels).ToImmutableArray());
+                            j++;
+                        }
+                        else if (sourceStep is HasPredicateStep hasPredicateStep1 && targetStep is HasPredicateStep hasPredicateStep2 && hasPredicateStep1.Key == hasPredicateStep2.Key)
+                        {
+                            span[i - j - 1] = new HasPredicateStep(hasPredicateStep1.Key, hasPredicateStep2.Predicate.And(hasPredicateStep1.Predicate));
+                            j++;
+                        }
+                        else if (sourceStep is WithoutStrategiesStep withoutStrategiesStep1 && targetStep is WithoutStrategiesStep withoutStrategiesStep2)
+                        {
+                            span[i - j - 1] = new WithoutStrategiesStep(withoutStrategiesStep2.StrategyTypes.Concat(withoutStrategiesStep1.StrategyTypes).Distinct().ToImmutableArray());
+                            j++;
+                        }
+                        else if (j != 0)
+                            span[i - j] = sourceStep;
+                    }
+
+                    span = span[..^j];
+
+                    var byteCode = new Bytecode();
+
+                    void Add(object? obj)
+                    {
+                        switch (obj)
+                        {
+                            case Instruction instruction:
+                            {
+                                if (byteCode.StepInstructions.Count == 0 && instruction.OperatorName.StartsWith("with", StringComparison.OrdinalIgnoreCase))
+                                    byteCode.SourceInstructions.Add(instruction);
+                                else
+                                    byteCode.StepInstructions.Add(instruction);
+
+                                break;
+                            }
+                            case Step step:
+                            {
+                                Add(recurse.TransformTo<object>().From(step, env));
+
+                                break;
+                            }
+                            case Traversal traversal:
+                            {
+                                for (var i = 0; i < traversal.Count; i++)
+                                {
+                                    Add(traversal[i]);
+                                }
+
+                                break;
+                            }
+                            case IEnumerable enumerable:
+                            {
+                                foreach (var item in enumerable)
+                                {
+                                    Add(item);
+                                }
+
+                                break;
+                            }
+                        }
+                    }
+
+                    foreach (var step in span)
+                    {
+                        Add(step);
+                    }
+
+                    if (byteCode.StepInstructions.Count == 0)
+                        Add(IdentityStep.Instance);
+
+                    return recurse
+                        .TransformTo<Bytecode>()
+                        .From(byteCode, env);
                 }
                 finally
                 {
