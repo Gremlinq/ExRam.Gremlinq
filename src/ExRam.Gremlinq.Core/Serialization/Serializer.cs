@@ -205,7 +205,9 @@ namespace ExRam.Gremlinq.Core.Serialization
                 step.Predicate.OperatorName == "eq"
                     ? (object)step.Predicate.Value
                     : step.Predicate))
-            .Add<Key, object>(static (key, env, recurse) => recurse.TransformTo<object>().From(key.RawKey, env))
+            .Add<Key, object>(static (key, env, recurse) => recurse
+                .TransformTo<object>()
+                .From(key.RawKey, env))
             .Add<KeyStep>(static (_, _, _) => CreateInstruction("key"))
             .Add<LabelStep>(static (_, _, _) => CreateInstruction("label"))
             .Add<LimitStep>(static (step, env, recurse) => step.Scope.Equals(Scope.Local)
