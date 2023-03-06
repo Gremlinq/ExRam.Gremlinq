@@ -81,6 +81,9 @@ namespace ExRam.Gremlinq.Core.Serialization
         }
 
         private static ITransformer AddBaseConverters(this ITransformer serializer) => serializer
+            .Add(Create<IGremlinQueryBase, Traversal>((static (query, env, recurse) => query
+                .ToTraversal()
+                .IncludeProjection(env))))
             .Add(Create<IGremlinQueryBase, ISerializedGremlinQuery>((static (query, env, recurse) =>
             {
                 var serialized = recurse
@@ -204,7 +207,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                     ArrayPool<Step>.Shared.Return(steps);
                 }
             })))
-
+            .Add(Create<Bytecode, ISerializedGremlinQuery>((static (bytecode, env, recurse) => new BytecodeGremlinQuery(bytecode))))
             .Add(Create<StepLabel, string>((static (stepLabel, env, recurse) =>
             {
                 var stepLabelNames = _stepLabelNames ??= new Dictionary<StepLabel, string>();
