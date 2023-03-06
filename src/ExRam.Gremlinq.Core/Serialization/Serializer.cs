@@ -66,7 +66,8 @@ namespace ExRam.Gremlinq.Core.Serialization
                 _stepLabelNames = null;
 
                 var serialized = serializer
-                    .TransformTo<object>().From(query, query.AsAdmin().Environment);
+                    .TransformTo<object>()
+                    .From(query, query.AsAdmin().Environment);
 
                 if (serialized is ISerializedGremlinQuery serializedQuery)
                     return serializedQuery;
@@ -204,7 +205,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                 }
             })))
 
-            .Add(Create<StepLabel, object>((static (stepLabel, env, recurse) =>
+            .Add(Create<StepLabel, string>((static (stepLabel, env, recurse) =>
             {
                 var stepLabelNames = _stepLabelNames ??= new Dictionary<StepLabel, string>();
 
@@ -218,7 +219,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                 }
 
                 // ReSharper disable once TailRecursiveCall
-                return recurse.TransformTo<object>().From(stepLabelMapping, env);
+                return stepLabelMapping;
             })))
             .Add(Create<DateTime, object>(static (dateTime, env, recurse) => recurse
                 .TransformTo<object>()
