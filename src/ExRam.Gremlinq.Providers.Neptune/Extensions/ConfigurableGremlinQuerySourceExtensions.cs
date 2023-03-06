@@ -2,8 +2,8 @@
 using ExRam.Gremlinq.Providers.Neptune;
 using ExRam.Gremlinq.Providers.WebSocket;
 using Gremlin.Net.Process.Traversal;
-using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Core.Transformation;
+using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -31,9 +31,9 @@ namespace ExRam.Gremlinq.Core
                 .UseWebSocket(configurator => transformation(new NeptuneConfigurator(configurator)))
                 .ConfigureEnvironment(environment => environment
                     .ConfigureSerializer(serializer => serializer
-                        .Add<PropertyStep.ByKeyStep, object>((step, env, recurse) => Cardinality.List.Equals(step.Cardinality)
+                        .Add(Create<PropertyStep.ByKeyStep, object>((step, env, recurse) => Cardinality.List.Equals(step.Cardinality)
                             ? recurse.TransformTo<object>().From(new PropertyStep.ByKeyStep(step.Key, step.Value, step.MetaProperties, Cardinality.Set), env)
-                            : default))
+                            : default)))
                     .StoreTimeSpansAsNumbers()
                     .StoreByteArraysAsBase64String()
                     .ConfigureFeatureSet(featureSet => featureSet

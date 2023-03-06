@@ -1,9 +1,9 @@
 ﻿using System.Collections.Immutable;
 using System.Runtime.CompilerServices;
 using ExRam.Gremlinq.Core.Steps;
-using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Tests.Entities;
 using ExRam.Gremlinq.Core.Transformation;
+using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
@@ -32,7 +32,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .ConfigureEnvironment(env => env
                     .ConfigureSerializer(ser => ser
-                        .Add<EStep, object>((step, env, recurse) => recurse
+                        .Add(Create<EStep, object>((step, env, recurse) => recurse
                             .TransformTo<object>()
                             .From(
                                 new Step[]
@@ -40,7 +40,7 @@ namespace ExRam.Gremlinq.Core.Tests
                                     new VStep(ImmutableArray<object>.Empty),
                                     new OutEStep(ImmutableArray<string>.Empty)
                                 },
-                                env))))
+                                env)))))
                 .E()
                 .Verify();
         }
@@ -51,12 +51,12 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .ConfigureEnvironment(env => env
                     .ConfigureSerializer(ser => ser
-                        .Add<EStep, object>((step, env, recurse) =>
+                        .Add(Create<EStep, object>((step, env, recurse) =>
                             new Step[]
                             {
                                 new VStep(ImmutableArray<object>.Empty),
                                 new OutEStep(ImmutableArray<string>.Empty)
-                            })))
+                            }))))
                 .E()
                 .Verify();
         }

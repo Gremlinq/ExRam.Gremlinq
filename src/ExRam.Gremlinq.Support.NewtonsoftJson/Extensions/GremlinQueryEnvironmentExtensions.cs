@@ -8,6 +8,7 @@ using ExRam.Gremlinq.Core.Transformation;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
+using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -152,9 +153,9 @@ namespace ExRam.Gremlinq.Core
         {
             return environment
                 .ConfigureSerializer(static serializer => serializer
-                    .Add<TimeSpan, object>(static (t, env, recurse) => recurse
+                    .Add(Create<TimeSpan, object>(static (t, env, recurse) => recurse
                         .TransformTo<object>()
-                        .From(t.TotalMilliseconds, env)))
+                        .From(t.TotalMilliseconds, env))))
                 .ConfigureDeserializer(static deserializer => deserializer
                     .Add(new TimeSpanAsNumberConverterFactory()));
         }

@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace ExRam.Gremlinq.Core.Transformation
+﻿namespace ExRam.Gremlinq.Core.Transformation
 {
     public static class TransformerClassExtensions
     {
@@ -19,53 +17,7 @@ namespace ExRam.Gremlinq.Core.Transformation
                 : default;
         }
 
-        private sealed class FixedTypeConverterFactory<TStaticSource, TStaticTarget> : IConverterFactory
-           where TStaticTarget : class
-        {
-            private sealed class FixedTypeConverter<TSource, TTarget> : IConverter<TSource, TTarget>
-                where TTarget : class
-            {
-                private readonly Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, TTarget?> _func;
-
-                public FixedTypeConverter(Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, TStaticTarget?> func)
-                {
-                    _func = (Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, TTarget?>)(object)func;
-                }
-
-                public bool TryConvert(TSource source, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
-                {
-                    if (source is TStaticSource staticSerialized && _func(staticSerialized, environment, recurse) is { } requested)
-                    {
-                        value = requested;
-
-                        return true;
-                    }
-
-                    value = default;
-
-                    return false;
-                }
-            }
-
-            private readonly Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, TStaticTarget?> _func;
-
-            public FixedTypeConverterFactory(Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, TStaticTarget?> func)
-            {
-                _func = func;
-            }
-
-            public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>()
-            {
-                return (typeof(TSource).IsAssignableFrom(typeof(TStaticSource)) || typeof(TStaticSource).IsAssignableFrom(typeof(TSource))) && typeof(TTarget).IsAssignableFrom(typeof(TStaticTarget))
-                    ? (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(FixedTypeConverter<,>).MakeGenericType(typeof(TStaticSource), typeof(TStaticTarget), typeof(TSource), typeof(TTarget)), _func)
-                    : null;
-            }
-        }
-
         public static TryTransformToBuilder<TTarget> TryTransformTo<TTarget>(this ITransformer transformer)
             where TTarget : class => new(transformer);
-
-        public static ITransformer Add<TSource, TTarget>(this ITransformer transformer, Func<TSource, IGremlinQueryEnvironment, ITransformer, TTarget?> func)
-            where TTarget : class => transformer.Add(new FixedTypeConverterFactory<TSource, TTarget>(func));
     }
 }

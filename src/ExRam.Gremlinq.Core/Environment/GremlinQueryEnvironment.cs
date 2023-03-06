@@ -5,6 +5,7 @@ using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Core.Transformation;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
+using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -92,9 +93,9 @@ namespace ExRam.Gremlinq.Core
                     .ConfigureNativeTypes(static types => types
                         .Remove(typeof(byte[]))))
                 .ConfigureSerializer(static _ => _
-                    .Add<byte[], string>(static (bytes, env, recurse) => recurse
+                    .Add(Create<byte[], string>(static (bytes, env, recurse) => recurse
                         .TransformTo<string>()
-                        .From(Convert.ToBase64String(bytes), env)));
+                        .From(Convert.ToBase64String(bytes), env))));
         }
 
         public static IGremlinQueryEnvironment RegisterNativeType<TNative>(this IGremlinQueryEnvironment environment, Func<TNative, IGremlinQueryEnvironment, ITransformer, object> serializerDelegate, Func<ITransformer, ITransformer> deserializerTransformation)
@@ -104,7 +105,7 @@ namespace ExRam.Gremlinq.Core
                     .ConfigureNativeTypes(static _ => _
                         .Add(typeof(TNative))))
                 .ConfigureSerializer(_ => _
-                    .Add(serializerDelegate))
+                    .Add(Create(serializerDelegate)))
                 .ConfigureDeserializer(deserializerTransformation);
         }
     }

@@ -1,9 +1,9 @@
 ﻿using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Tests.Entities;
 using FluentAssertions;
-using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Core.Transformation;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
+using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
@@ -75,7 +75,7 @@ namespace ExRam.Gremlinq.Core.Tests
                             .IncludeAssembliesOfBaseTypes()))
                     .EchoGroovyGremlinQuery()
                     .ConfigureSerializer(_ => _
-                        .Add<FancyId, object>((key, env, recurse) => recurse.TransformTo<object>().From(key.Id, env))))
+                        .Add(Create<FancyId, object>((key, env, recurse) => recurse.TransformTo<object>().From(key.Id, env)))))
                 .V<Person>(new FancyId { Id = "someId" })
                 .Cast<string>()
                 .Verify();
@@ -91,7 +91,7 @@ namespace ExRam.Gremlinq.Core.Tests
                             .IncludeAssembliesOfBaseTypes()))
                     .EchoGroovyGremlinQuery()
                     .ConfigureSerializer(_ => _
-                        .Add<FancyId, object>((key, env, recurse) => recurse.TransformTo<object>().From(key.Id, env))))
+                        .Add(Create<FancyId, object>((key, env, recurse) => recurse.TransformTo<object>().From(key.Id, env)))))
                 .V<Person>(new EvenMoreFancyId { Id = "someId" })
                 .Cast<string>()
                 .Verify();
@@ -107,7 +107,7 @@ namespace ExRam.Gremlinq.Core.Tests
                             .IncludeAssembliesOfBaseTypes()))
                     .EchoGroovyGremlinQuery()
                     .ConfigureSerializer(_ => _
-                        .Add<IFancyId, object>((key, env, recurse) => recurse.TransformTo<object>().From(key.Id, env))))
+                        .Add(Create<IFancyId, object>(((key, env, recurse) => recurse.TransformTo<object>().From(key.Id, env))))))
                 .V<Person>(new FancyId { Id = "someId" })
                 .Cast<string>()
                 .Verify();
@@ -123,7 +123,7 @@ namespace ExRam.Gremlinq.Core.Tests
                             .IncludeAssembliesOfBaseTypes()))
                     .EchoGroovyGremlinQuery()
                     .ConfigureSerializer(_ => _
-                        .Add<IFancyId, object>((key, env, recurse) => recurse.TransformTo<object>().From(key.Id, env))))
+                        .Add(Create<IFancyId, object>(((key, env, recurse) => recurse.TransformTo<object>().From(key.Id, env))))))
                 .V<Person>(new FancyId { Id = "someId" })
                 .Cast<string>()
                 .Verify();

@@ -2239,6 +2239,13 @@ namespace ExRam.Gremlinq.Core.Steps
 }
 namespace ExRam.Gremlinq.Core.Transformation
 {
+    public static class ConverterFactory
+    {
+        public static ExRam.Gremlinq.Core.Transformation.IConverterFactory Create<TSource, TTarget>(System.Func<TSource, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Transformation.ITransformer, TTarget?> func)
+            where TTarget :  struct { }
+        public static ExRam.Gremlinq.Core.Transformation.IConverterFactory Create<TSource, TTarget>(System.Func<TSource, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Transformation.ITransformer, TTarget?> func)
+            where TTarget :  class { }
+    }
     public interface IConverterFactory
     {
         ExRam.Gremlinq.Core.Transformation.IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>();
@@ -2258,8 +2265,6 @@ namespace ExRam.Gremlinq.Core.Transformation
     }
     public static class TransformerClassExtensions
     {
-        public static ExRam.Gremlinq.Core.Transformation.ITransformer Add<TSource, TTarget>(this ExRam.Gremlinq.Core.Transformation.ITransformer transformer, System.Func<TSource, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Transformation.ITransformer, TTarget?> func)
-            where TTarget :  class { }
         public static ExRam.Gremlinq.Core.Transformation.TransformerClassExtensions.TryTransformToBuilder<TTarget> TryTransformTo<TTarget>(this ExRam.Gremlinq.Core.Transformation.ITransformer transformer)
             where TTarget :  class { }
         public readonly struct TryTransformToBuilder<TTarget>
@@ -2280,8 +2285,6 @@ namespace ExRam.Gremlinq.Core.Transformation
     }
     public static class TransformerStructExtensions
     {
-        public static ExRam.Gremlinq.Core.Transformation.ITransformer Add<TSource, TTarget>(this ExRam.Gremlinq.Core.Transformation.ITransformer transformer, System.Func<TSource, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Transformation.ITransformer, TTarget?> func)
-            where TTarget :  struct { }
         public static ExRam.Gremlinq.Core.Transformation.TransformerStructExtensions.TryTransformToBuilder<TTarget> TryTransformTo<TTarget>(this ExRam.Gremlinq.Core.Transformation.ITransformer transformer)
             where TTarget :  struct { }
         public readonly struct TryTransformToBuilder<TTarget>
