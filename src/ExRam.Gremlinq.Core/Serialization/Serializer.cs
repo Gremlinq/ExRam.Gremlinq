@@ -35,7 +35,7 @@ namespace ExRam.Gremlinq.Core.Serialization
             var threadLocal = new ThreadLocal<Stack<IGremlinQueryBase>?>();
 
             return serializer
-                .Add(Create<IGremlinQueryBase, object>((query, env, recurse) =>
+                .Add(Create<IGremlinQueryBase, ISerializedGremlinQuery>((query, env, recurse) =>
                 {
                     var stack = threadLocal.Value is { } presentStack
                         ? presentStack
@@ -48,10 +48,8 @@ namespace ExRam.Gremlinq.Core.Serialization
 
                     try
                     {
-                        return recurse.TransformTo<object>().From(query, env) is { } transformed
-                            ? transformed is ISerializedGremlinQuery serializedQuery
-                                ? serializedQuery.ToGroovy()
-                                : transformed
+                        return recurse.TransformTo<ISerializedGremlinQuery>().From(query, env) is { } transformed
+                            ? transformed.ToGroovy()
                             : default;
                     }
                     finally
@@ -82,10 +80,10 @@ namespace ExRam.Gremlinq.Core.Serialization
         }
 
         private static ITransformer AddBaseConverters(this ITransformer serializer) => serializer
-            .Add(Create<IGremlinQueryBase, object>((static (query, env, recurse) =>
+            .Add(Create<IGremlinQueryBase, ISerializedGremlinQuery>((static (query, env, recurse) =>
             {
                 var serialized = recurse
-                    .TransformTo<object>()
+                    .TransformTo<Bytecode>()
                     .From(
                         query
                             .ToTraversal()
@@ -94,7 +92,7 @@ namespace ExRam.Gremlinq.Core.Serialization
 
                 return (serialized is Bytecode bytecode)
                     ? new BytecodeGremlinQuery(bytecode)
-                    : serialized;
+                    : default;
             })))
             .Add(Create<Traversal, Bytecode>((static (traversal, env, recurse) =>
             {
