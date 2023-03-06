@@ -38,33 +38,26 @@ namespace ExRam.Gremlinq.Core.Serialization
                     .ToGroovy()));
         }
 
-        internal static ISerializedGremlinQuery Serialize(this ITransformer serializer, IGremlinQueryBase query)
-        {
-            var env = query.AsAdmin().Environment;
-
-            try
-            {
-                _stepLabelNames = null;
-
-                var traversal = serializer
-                    .TransformTo<Traversal>()
-                    .From(query, env);
-
-                var bytecode = serializer
-                    .TransformTo<Bytecode>()
-                    .From(traversal, env);
-
-                return serializer
-                    .TransformTo<ISerializedGremlinQuery>()
-                    .From(bytecode, env);
-            }
-            finally
-            {
-                _stepLabelNames = null;
-            }
-        }
-
         private static ITransformer AddBaseConverters(this ITransformer serializer) => serializer
+            .Add(Create<IGremlinQueryBase, ISerializedGremlinQuery>(static (query, env, recurse) =>
+            {
+                try
+                {
+                    _stepLabelNames = null;
+
+                    return recurse
+                        .TransformTo<ISerializedGremlinQuery>()
+                        .From(recurse
+                            .TransformTo<Bytecode>()
+                            .From(recurse
+                                .TransformTo<Traversal>()
+                                .From(query, env), env), env);
+                }
+                finally
+                {
+                    _stepLabelNames = null;
+                }
+            }))
             .Add(Create<IGremlinQueryBase, Traversal>((static (query, env, recurse) => query
                 .ToTraversal()
                 .IncludeProjection(env))))
