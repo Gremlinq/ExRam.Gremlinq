@@ -1,3 +1,1 @@
-﻿[
-  "{\"Script\":\"g.addV(_a).property(single,_b,_c,_d,_e,_f,_g)\",\"Id\":\"00000000-0000-0000-0000-000000000000\",\"Bindings\":{\"_a\":\"Country\",\"_b\":\"Name\",\"_c\":\"GER\",\"_d\":\"de\",\"_e\":\"Deutschland\",\"_f\":\"en\",\"_g\":\"Germany\"}}"
-]
+﻿{"Script":"g.addV(_a).property(single,_b,_c,_d,_e,_f,_g)","Id":"2f1ae16f-136d-4d2e-ac92-49baf0e96571","Bindings":{"_a":"Country","_b":"Name","_c":"GER","_d":"de","_e":"Deutschland","_f":"en","_g":"Germany"}}

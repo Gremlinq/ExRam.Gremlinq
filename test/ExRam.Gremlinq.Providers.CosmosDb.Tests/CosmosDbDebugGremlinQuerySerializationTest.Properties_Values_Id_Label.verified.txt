@@ -1,3 +1,1 @@
-﻿[
-  "{\"Script\":\"g.V().properties().union(__.label(),__.id())\",\"Id\":\"00000000-0000-0000-0000-000000000000\",\"Bindings\":{}}"
-]
+﻿{"Script":"g.V().properties().union(__.label(),__.id())","Id":"6b964e6d-a400-40cf-ad5f-cf72911a2049","Bindings":{}}

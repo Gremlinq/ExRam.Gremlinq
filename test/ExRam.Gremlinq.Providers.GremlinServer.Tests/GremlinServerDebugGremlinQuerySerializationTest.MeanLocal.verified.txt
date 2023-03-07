@@ -1,3 +1,1 @@
-﻿[
-  "g.V().hasLabel('Person').values('Age').fold().mean(local)"
-]
+﻿g.V().hasLabel('Person').values('Age').fold().mean(local)

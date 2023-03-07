@@ -1,3 +1,1 @@
-﻿[
-  "{\"Script\":\"g.V().hasLabel(_a).has(_b,containing(_c))\",\"Id\":\"00000000-0000-0000-0000-000000000000\",\"Bindings\":{\"_a\":\"Country\",\"_b\":\"CountryCallingCode\",\"_c\":\"456\"}}"
-]
+﻿{"Script":"g.V().hasLabel(_a).has(_b,containing(_c))","Id":"d0c99183-85c1-431a-a71f-7ee577fae208","Bindings":{"_a":"Country","_b":"CountryCallingCode","_c":"456"}}

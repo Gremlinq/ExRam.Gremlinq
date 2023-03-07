@@ -1,3 +1,1 @@
-﻿[
-  "g.V().fail('There's been an error.')"
-]
+﻿g.V().fail('There's been an error.')

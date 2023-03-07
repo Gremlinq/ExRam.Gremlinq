@@ -1,3 +1,1 @@
-﻿[
-  "{\"Script\":\"g.V().hasLabel(_a).as(_b).V().hasLabel(_a).where(neq(_b))\",\"Id\":\"00000000-0000-0000-0000-000000000000\",\"Bindings\":{\"_a\":\"Language\",\"_b\":\"l1\"}}"
-]
+﻿{"Script":"g.V().hasLabel(_a).as(_b).V().hasLabel(_a).where(neq(_b))","Id":"fbed32e6-4262-4745-9d35-ceb2b35e3974","Bindings":{"_a":"Language","_b":"l1"}}

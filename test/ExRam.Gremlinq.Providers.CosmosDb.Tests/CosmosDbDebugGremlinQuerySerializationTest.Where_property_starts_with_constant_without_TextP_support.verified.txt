@@ -1,3 +1,1 @@
-﻿[
-  "{\"Script\":\"g.V().hasLabel(_a).has(_b,between(_c,_d))\",\"Id\":\"00000000-0000-0000-0000-000000000000\",\"Bindings\":{\"_a\":\"Country\",\"_b\":\"CountryCallingCode\",\"_c\":\"\\u002B49123\",\"_d\":\"\\u002B49124\"}}"
-]
+﻿{"Script":"g.V().hasLabel(_a).has(_b,between(_c,_d))","Id":"d158d1ec-318a-4a93-bdb2-411c24b4b7f0","Bindings":{"_a":"Country","_b":"CountryCallingCode","_c":"\u002B49123","_d":"\u002B49124"}}

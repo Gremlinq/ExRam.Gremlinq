@@ -1,3 +1,1 @@
-﻿[
-  "{\"Script\":\"g.addV(_a).property(single,_b,_c).property(single,_d,_e).property(single,_f,_g)\",\"Id\":\"00000000-0000-0000-0000-000000000000\",\"Bindings\":{\"_a\":\"TimeFrame\",\"_b\":\"Duration\",\"_c\":7200000,\"_d\":\"Enabled\",\"_e\":false,\"_f\":\"StartTime\",\"_g\":28800000}}"
-]
+﻿{"Script":"g.addV(_a).property(single,_b,_c).property(single,_d,_e).property(single,_f,_g)","Id":"ba5a91b7-cd9f-4236-b3bd-b8d45150967e","Bindings":{"_a":"TimeFrame","_b":"Duration","_c":7200000,"_d":"Enabled","_e":false,"_f":"StartTime","_g":28800000}}

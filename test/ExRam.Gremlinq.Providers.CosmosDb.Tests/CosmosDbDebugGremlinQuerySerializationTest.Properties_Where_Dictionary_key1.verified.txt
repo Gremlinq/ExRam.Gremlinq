@@ -1,3 +1,1 @@
-﻿[
-  "{\"Script\":\"g.V().hasLabel(_a).properties().has(_b,_c)\",\"Id\":\"00000000-0000-0000-0000-000000000000\",\"Bindings\":{\"_a\":\"Person\",\"_b\":\"MetaKey\",\"_c\":\"MetaValue\"}}"
-]
+﻿{"Script":"g.V().hasLabel(_a).properties().has(_b,_c)","Id":"3936385c-8f0d-4cdf-bbfa-fe007b9981f6","Bindings":{"_a":"Person","_b":"MetaKey","_c":"MetaValue"}}

@@ -1,3 +1,1 @@
-﻿[
-  "{\"Script\":\"g.V().hasLabel(_a).has(_b)\",\"Id\":\"00000000-0000-0000-0000-000000000000\",\"Bindings\":{\"_a\":\"Country\",\"_b\":\"CountryCallingCode\"}}"
-]
+﻿{"Script":"g.V().hasLabel(_a).has(_b)","Id":"6d1c6f75-57e2-4a9c-93ce-fc625009c2c0","Bindings":{"_a":"Country","_b":"CountryCallingCode"}}

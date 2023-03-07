@@ -1,3 +1,1 @@
-﻿[
-  "{\"Script\":\"g.inject(_a).fold().as(_b).V().hasLabel(_c).has(_d,__.where(within(_b)))\",\"Id\":\"00000000-0000-0000-0000-000000000000\",\"Bindings\":{\"_a\":\"\\u002B4912345\",\"_b\":\"l1\",\"_c\":\"Company\",\"_d\":\"PhoneNumbers\"}}"
-]
+﻿{"Script":"g.inject(_a).fold().as(_b).V().hasLabel(_c).has(_d,__.where(within(_b)))","Id":"92ef7e74-0981-41dc-95dd-86e3efffd8f9","Bindings":{"_a":"\u002B4912345","_b":"l1","_c":"Company","_d":"PhoneNumbers"}}

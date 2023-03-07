@@ -1,3 +1,1 @@
-﻿[
-  "{\"Script\":\"g.V().properties().values(_a)\",\"Id\":\"00000000-0000-0000-0000-000000000000\",\"Bindings\":{\"_a\":\"MetaProperty\"}}"
-]
+﻿{"Script":"g.V().properties().values(_a)","Id":"b3448e0d-0e5d-4970-870a-72df7bd90cd9","Bindings":{"_a":"MetaProperty"}}

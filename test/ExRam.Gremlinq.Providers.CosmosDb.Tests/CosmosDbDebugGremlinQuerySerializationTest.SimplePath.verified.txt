@@ -1,3 +1,1 @@
-﻿[
-  "{\"Script\":\"g.V().out().out().simplePath()\",\"Id\":\"00000000-0000-0000-0000-000000000000\",\"Bindings\":{}}"
-]
+﻿{"Script":"g.V().out().out().simplePath()","Id":"2e4783ef-3825-4ec2-bbe6-539f679b3aeb","Bindings":{}}

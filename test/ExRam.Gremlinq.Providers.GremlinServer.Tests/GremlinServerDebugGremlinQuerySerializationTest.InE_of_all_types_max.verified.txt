@@ -1,3 +1,1 @@
-﻿[
-  "g.V().inE('LivesIn','Speaks','WorksFor').project('id','label','properties').by(id).by(label).by(__.valueMap())"
-]
+﻿g.V().inE('LivesIn','Speaks','WorksFor').project('id','label','properties').by(id).by(label).by(__.valueMap())

@@ -1,3 +1,1 @@
-﻿[
-  "{\"Script\":\"g.V().hasLabel(_a).project(_b,_c).by(__.in().limit(_d).fold()).by(__.values(_e).limit(_d).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold()))\",\"Id\":\"00000000-0000-0000-0000-000000000000\",\"Bindings\":{\"_a\":\"Person\",\"_b\":\"Item1\",\"_c\":\"Item2\",\"_d\":1,\"_e\":\"Age\"}}"
-]
+﻿{"Script":"g.V().hasLabel(_a).project(_b,_c).by(__.in().limit(_d).fold()).by(__.values(_e).limit(_d).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold()))","Id":"69ae58e8-6d44-4767-8914-92836138e3ca","Bindings":{"_a":"Person","_b":"Item1","_c":"Item2","_d":1,"_e":"Age"}}

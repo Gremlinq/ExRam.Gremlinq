@@ -1,3 +1,1 @@
-﻿[
-  "{\"Script\":\"g.addV(_a).property(single,_b,_c).as(_d).addV(_e).property(single,_f,_g).addE(_h).from(_d)\",\"Id\":\"00000000-0000-0000-0000-000000000000\",\"Bindings\":{\"_a\":\"Country\",\"_b\":\"CountryCallingCode\",\"_c\":\"\\u002B49\",\"_d\":\"l1\",\"_e\":\"Language\",\"_f\":\"IetfLanguageTag\",\"_g\":\"en\",\"_h\":\"Speaks\"}}"
-]
+﻿{"Script":"g.addV(_a).property(single,_b,_c).as(_d).addV(_e).property(single,_f,_g).addE(_h).from(_d)","Id":"17546eb5-3a22-4bfb-9c43-b85e29a00e03","Bindings":{"_a":"Country","_b":"CountryCallingCode","_c":"\u002B49","_d":"l1","_e":"Language","_f":"IetfLanguageTag","_g":"en","_h":"Speaks"}}

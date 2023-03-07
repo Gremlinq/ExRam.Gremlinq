@@ -1,3 +1,1 @@
-﻿[
-  "{\"Script\":\"g.V().where(__.properties()).choose(__.values()).option(_a,__.constant(_b))\",\"Id\":\"00000000-0000-0000-0000-000000000000\",\"Bindings\":{\"_a\":3,\"_b\":1}}"
-]
+﻿{"Script":"g.V().where(__.properties()).choose(__.values()).option(_a,__.constant(_b))","Id":"50e190a2-938b-415c-a969-1c33eb2556d8","Bindings":{"_a":3,"_b":1}}

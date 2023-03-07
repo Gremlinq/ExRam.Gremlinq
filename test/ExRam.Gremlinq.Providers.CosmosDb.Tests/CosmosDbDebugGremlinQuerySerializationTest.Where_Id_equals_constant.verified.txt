@@ -1,3 +1,1 @@
-﻿[
-  "{\"Script\":\"g.V().hasLabel(_a).has(id,_b)\",\"Id\":\"00000000-0000-0000-0000-000000000000\",\"Bindings\":{\"_a\":\"Language\",\"_b\":1}}"
-]
+﻿{"Script":"g.V().hasLabel(_a).has(id,_b)","Id":"19738adb-7c8f-4ae0-8de2-4d4cabb1dd6a","Bindings":{"_a":"Language","_b":1}}
