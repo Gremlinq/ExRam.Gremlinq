@@ -1,1 +1,1 @@
-﻿{"Script":"g.V().hasLabel(_a).has(_b)","Id":"d17ce362-7f95-4240-bef0-5a321e7d46cd","Bindings":{"_a":"Country","_b":"CountryCallingCode"}}
+﻿g.V().hasLabel('Country').has('CountryCallingCode')

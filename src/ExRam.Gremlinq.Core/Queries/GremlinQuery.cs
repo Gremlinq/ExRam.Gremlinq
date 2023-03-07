@@ -407,11 +407,24 @@ namespace ExRam.Gremlinq.Core
 
         private string Debug()
         {
-            var serialized = Environment.Serializer
-                .TransformTo<ISerializedGremlinQuery>()
-                .From(this, Environment);
+            try
+            {
+                Serializer._stepLabelNames = null;
 
-            return Environment.Debugger.TryToString(serialized, Environment) ?? serialized.ToString() ?? ToString();
+                var serialized = Environment.Serializer
+                    .TransformTo<BytecodeGremlinQuery>()
+                    .From(Environment.Serializer
+                        .TransformTo<Bytecode>()
+                        .From(Environment.Serializer
+                            .TransformTo<Traversal>()
+                            .From(this, Environment), Environment), Environment);
+
+                return Environment.Debugger.TryToString(serialized, Environment) ?? serialized.ToString() ?? ToString();
+            }
+            finally
+            {
+                Serializer._stepLabelNames = null;
+            }
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> DedupGlobal() => this

@@ -1,1 +1,1 @@
-﻿{"Script":"g.E(_a).hasLabel(_b).sideEffect(__.properties(_c,_d,_e).drop()).property(_c,_f).property(_d,_g).property(_e,_f)","Id":"c7d3177d-09a9-46f3-a606-e1173500df29","Bindings":{"_a":0,"_b":"WorksFor","_c":"From","_d":"Role","_e":"To","_f":"2020-04-07T14:43:36+00:00","_g":"Admin"}}
+﻿g.E(0).hasLabel('WorksFor').sideEffect(__.properties('From','Role','To').drop()).property('From','2020-04-07T14:43:36.0000000+00:00').property('Role','Admin').property('To','2020-04-07T14:43:36.0000000+00:00')

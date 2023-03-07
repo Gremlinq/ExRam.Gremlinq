@@ -1,1 +1,1 @@
-﻿{"Script":"g.V().hasLabel(_a).has(_b,eq(_c).and(eq(_d)))","Id":"31c43b7b-726a-4259-90e1-51760f42b18d","Bindings":{"_a":"Person","_b":"Age","_c":36,"_d":42}}
+﻿g.V().hasLabel('Person').has('Age',eq(36).and(eq(42)))

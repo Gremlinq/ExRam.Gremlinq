@@ -1,1 +1,1 @@
-﻿{"Script":"g.V().hasLabel(_a).project(_b,_c,_d,_e).by(__.constant(_f)).by(__.constant(_g)).by(__.constant(_h)).by(__.constant(_i))","Id":"e6fc7fe0-92ef-4c27-812a-a148ccd4ac7a","Bindings":{"_a":"Person","_b":"in","_c":"out","_d":"count","_e":"properties","_f":"in_value","_g":"out_value","_h":"count_value","_i":"properties_value"}}
+﻿g.V().hasLabel('Person').project('in','out','count','properties').by(__.constant('in_value')).by(__.constant('out_value')).by(__.constant('count_value')).by(__.constant('properties_value'))

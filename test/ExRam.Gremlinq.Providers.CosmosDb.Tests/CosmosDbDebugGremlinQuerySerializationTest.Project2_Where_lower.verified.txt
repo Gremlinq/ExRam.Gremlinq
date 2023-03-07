@@ -1,1 +1,1 @@
-﻿{"Script":"g.V().project(_a,_b).by(__.label()).by(__.fold()).where(__.select(_b).count(local).is(lt(_c)))","Id":"fae0fda3-d2f3-4c0a-a870-86961ec11ce5","Bindings":{"_a":"Item1","_b":"Item2","_c":3}}
+﻿g.V().project('Item1','Item2').by(__.label()).by(__.fold()).where(__.select('Item2').count(local).is(lt(3)))

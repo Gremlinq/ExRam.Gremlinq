@@ -1,1 +1,1 @@
-﻿{"Script":"g.V().fold()","Id":"7ed00b1c-2af0-4e00-95c3-04d4f53e2f80","Bindings":{}}
+﻿g.V().fold()

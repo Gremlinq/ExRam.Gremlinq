@@ -1,1 +1,1 @@
-﻿{"Script":"g.withoutStrategies(SubgraphStrategy).V()","Id":"e1420dda-5c1d-4bab-b8a9-14808a608679","Bindings":{}}
+﻿g.withoutStrategies(SubgraphStrategy).V()

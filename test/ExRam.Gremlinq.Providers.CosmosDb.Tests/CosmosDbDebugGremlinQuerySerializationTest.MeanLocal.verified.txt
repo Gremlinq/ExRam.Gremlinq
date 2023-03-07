@@ -1,1 +1,1 @@
-﻿{"Script":"g.V().hasLabel(_a).values(_b).fold().mean(local)","Id":"24154969-8377-4b90-8874-e1f0e3d07901","Bindings":{"_a":"Person","_b":"Age"}}
+﻿g.V().hasLabel('Person').values('Age').fold().mean(local)

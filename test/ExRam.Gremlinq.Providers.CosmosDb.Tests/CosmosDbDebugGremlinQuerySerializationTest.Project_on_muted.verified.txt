@@ -1,1 +1,1 @@
-﻿{"Script":"g.V().not(__.identity())","Id":"e5809944-a895-4574-ad7a-f5b2cf9d52da","Bindings":{}}
+﻿g.V().not(__.identity())

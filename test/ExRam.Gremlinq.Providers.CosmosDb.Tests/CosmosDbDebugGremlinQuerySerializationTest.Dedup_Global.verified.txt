@@ -1,1 +1,1 @@
-﻿{"Script":"g.V().dedup()","Id":"d9e6ba84-d173-4809-b4bf-9720fa84cccd","Bindings":{}}
+﻿g.V().dedup()

@@ -1,1 +1,1 @@
-﻿{"Script":"g.V().hasLabel(_a).limit(_b).sideEffect(__.properties(_c).drop())","Id":"eeda754e-6806-4558-ac20-69b6c27fa984","Bindings":{"_a":"Company","_b":1,"_c":"PhoneNumbers"}}
+﻿g.V().hasLabel('Company').limit(1).sideEffect(__.properties('PhoneNumbers').drop())

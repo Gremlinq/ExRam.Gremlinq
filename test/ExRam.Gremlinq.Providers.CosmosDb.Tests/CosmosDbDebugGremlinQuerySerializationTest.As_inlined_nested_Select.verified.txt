@@ -1,1 +1,1 @@
-﻿{"Script":"g.V().hasLabel(_a).as(_b).out().hasLabel(_a).as(_c).project(_d,_e).by(__.select(_b)).by(__.select(_c))","Id":"04b1432f-d951-42b9-bc93-a87a8ad9730b","Bindings":{"_a":"Person","_b":"l1","_c":"l2","_d":"Item1","_e":"Item2"}}
+﻿g.V().hasLabel('Person').as('l1').out().hasLabel('Person').as('l2').project('Item1','Item2').by(__.select('l1')).by(__.select('l2'))

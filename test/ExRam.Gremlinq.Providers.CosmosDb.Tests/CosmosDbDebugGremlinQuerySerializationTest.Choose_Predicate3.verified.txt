@@ -1,1 +1,1 @@
-﻿{"Script":"g.V().id().choose(lt(_a),__.constant(_b),__.constant(_c))","Id":"a889cc13-821e-491b-846a-839e2230ebc8","Bindings":{"_a":42,"_b":true,"_c":false}}
+﻿g.V().id().choose(lt(42),__.constant(true),__.constant(false))

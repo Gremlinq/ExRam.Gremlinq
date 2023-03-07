@@ -1,1 +1,1 @@
-﻿{"Script":"g.V().hasLabel(_a).as(_b).V().hasLabel(_a).where(eq(_b))","Id":"172b3f27-15bc-42f2-a7cc-8dc8768bbc1c","Bindings":{"_a":"Language","_b":"l1"}}
+﻿g.V().hasLabel('Language').as('l1').V().hasLabel('Language').where(eq('l1'))

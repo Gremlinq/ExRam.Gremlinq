@@ -1,1 +1,1 @@
-﻿{"Script":"g.V().hasLabel(_a).has(_b,gt(_c))","Id":"e0305c2e-94bf-4d55-a16e-4c84e92ef48a","Bindings":{"_a":"Person","_b":"Name","_c":"Some name"}}
+﻿g.V().hasLabel('Person').has('Name',gt('Some name'))

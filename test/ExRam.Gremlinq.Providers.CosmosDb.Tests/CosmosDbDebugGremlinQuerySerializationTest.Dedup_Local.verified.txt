@@ -1,1 +1,1 @@
-﻿{"Script":"g.V().fold().dedup(local)","Id":"2eabea86-8f04-4bd1-a597-ba81f7d51e51","Bindings":{}}
+﻿g.V().fold().dedup(local)

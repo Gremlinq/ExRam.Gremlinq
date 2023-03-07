@@ -1,1 +1,1 @@
-﻿{"Script":"g.inject(_a).as(_b).V().hasLabel(_c).properties(_d).properties().where(__.key().where(eq(_b)))","Id":"4f20ec20-a1d9-46c2-a06e-96fd291571ed","Bindings":{"_a":"hello","_b":"l1","_c":"Company","_d":"Locations"}}
+﻿g.inject('hello').as('l1').V().hasLabel('Company').properties('Locations').properties().where(__.key().where(eq('l1')))

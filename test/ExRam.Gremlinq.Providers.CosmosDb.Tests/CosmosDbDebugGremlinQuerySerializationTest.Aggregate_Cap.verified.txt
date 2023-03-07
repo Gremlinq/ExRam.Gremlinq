@@ -1,1 +1,1 @@
-﻿{"Script":"g.V().hasLabel(_a).aggregate(_b).cap(_b)","Id":"46a3afb0-ad37-43fb-98c0-e0b089a35a1a","Bindings":{"_a":"Person","_b":"l1"}}
+﻿g.V().hasLabel('Person').aggregate('l1').cap('l1')

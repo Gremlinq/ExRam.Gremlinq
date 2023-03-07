@@ -1,1 +1,1 @@
-﻿{"Script":"g.addV(_a).property(single,_b,_c).addE(_d).to(__.addV(_e)).outV()","Id":"89f28245-c5de-4937-8016-da6fa31efb4b","Bindings":{"_a":"Person","_b":"Age","_c":0,"_d":"LivesIn","_e":"Country"}}
+﻿g.addV('Person').property(single,'Age',0).addE('LivesIn').to(__.addV('Country')).outV()

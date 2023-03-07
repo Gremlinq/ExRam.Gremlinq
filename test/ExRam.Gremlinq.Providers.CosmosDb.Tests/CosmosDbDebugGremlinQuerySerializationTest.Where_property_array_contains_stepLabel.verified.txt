@@ -1,1 +1,1 @@
-﻿{"Script":"g.inject(_a).as(_b).V().hasLabel(_c).has(_d,__.where(eq(_b)))","Id":"9a265d10-02f6-4199-9262-e17163d280a7","Bindings":{"_a":"\u002B4912345","_b":"l1","_c":"Company","_d":"PhoneNumbers"}}
+﻿g.inject('+4912345').as('l1').V().hasLabel('Company').has('PhoneNumbers',__.where(eq('l1')))

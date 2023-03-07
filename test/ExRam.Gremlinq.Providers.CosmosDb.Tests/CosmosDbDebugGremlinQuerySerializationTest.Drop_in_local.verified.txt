@@ -1,1 +1,1 @@
-﻿{"Script":"g.inject(_a).local(__.V().drop())","Id":"453208a0-b10a-4724-bbc7-c3a2dce9d885","Bindings":{"_a":1}}
+﻿g.inject(1).local(__.V().drop())

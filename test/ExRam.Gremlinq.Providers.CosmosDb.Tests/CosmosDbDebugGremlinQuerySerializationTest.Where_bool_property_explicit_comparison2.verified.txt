@@ -1,1 +1,1 @@
-﻿{"Script":"g.V().hasLabel(_a).has(_b,_c)","Id":"0293daea-6afc-474c-8e6d-4735708e104f","Bindings":{"_a":"TimeFrame","_b":"Enabled","_c":false}}
+﻿g.V().hasLabel('TimeFrame').has('Enabled',false)

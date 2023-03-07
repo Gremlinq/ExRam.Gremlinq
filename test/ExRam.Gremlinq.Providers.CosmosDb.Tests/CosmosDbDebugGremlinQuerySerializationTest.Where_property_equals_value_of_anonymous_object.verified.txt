@@ -1,1 +1,1 @@
-﻿{"Script":"g.V().hasLabel(_a).has(id,_b)","Id":"dea0790a-6dfb-487e-bf46-158c9753dec0","Bindings":{"_a":"Language","_b":1}}
+﻿g.V().hasLabel('Language').has(id,1)

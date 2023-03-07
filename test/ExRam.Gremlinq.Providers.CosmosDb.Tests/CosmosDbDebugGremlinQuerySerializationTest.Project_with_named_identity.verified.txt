@@ -1,1 +1,1 @@
-﻿{"Script":"g.V().where(__.properties()).project(_a,_b).by(__.identity()).by(__.properties())","Id":"7f05b448-2fd5-4085-9602-456126eefbb4","Bindings":{"_a":"name","_b":"Item2"}}
+﻿g.V().where(__.properties()).project('name','Item2').by(__.identity()).by(__.properties())

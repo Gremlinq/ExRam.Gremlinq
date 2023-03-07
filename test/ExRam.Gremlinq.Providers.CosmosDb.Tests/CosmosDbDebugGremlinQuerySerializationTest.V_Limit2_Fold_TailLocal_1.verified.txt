@@ -1,1 +1,1 @@
-﻿{"Script":"g.V().limit(_a).fold().tail(local,_b)","Id":"86661dbf-fe42-4d11-aa99-6e642fe12704","Bindings":{"_a":2,"_b":1}}
+﻿g.V().limit(2).fold().tail(local,1)
