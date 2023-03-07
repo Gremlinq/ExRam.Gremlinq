@@ -347,34 +347,30 @@ namespace ExRam.Gremlinq.Core.Serialization
             .Add<PropertiesStep>(static (step, env, recurse) => CreateInstruction("properties", recurse, env, step.Keys))
             .Add<PropertyStep.ByKeyStep>(static (step, env, recurse) =>
             {
-                static object[] GetPropertyStepArguments(PropertyStep.ByKeyStep propertyStep)
+                if (T.Id.Equals(step.Key.RawKey) && !Cardinality.Single.Equals(step.Cardinality ?? Cardinality.Single))
+                    throw new NotSupportedException("Cannot have an id property on non-single cardinality.");
+
+                var i = 0;
+                object[] parameters;
+
+                if (step.Cardinality != null && !T.Id.Equals(step.Key.RawKey))
                 {
-                    var i = 0;
-                    object[] ret;
+                    parameters = new object[step.MetaProperties.Length * 2 + 3];
+                    parameters[i++] = step.Cardinality;
+                }
+                else
+                    parameters = new object[step.MetaProperties.Length * 2 + 2];
 
-                    if (propertyStep.Cardinality != null && !T.Id.Equals(propertyStep.Key.RawKey))
-                    {
-                        ret = new object[propertyStep.MetaProperties.Length * 2 + 3];
-                        ret[i++] = propertyStep.Cardinality;
-                    }
-                    else
-                        ret = new object[propertyStep.MetaProperties.Length * 2 + 2];
+                parameters[i++] = step.Key;
+                parameters[i++] = step.Value;
 
-                    ret[i++] = propertyStep.Key;
-                    ret[i++] = propertyStep.Value;
-
-                    for (var j = 0; j < propertyStep.MetaProperties.Length; j++)
-                    {
-                        ret[i++] = propertyStep.MetaProperties[j].Key;
-                        ret[i++] = propertyStep.MetaProperties[j].Value;
-                    }
-
-                    return ret;
+                for (var j = 0; j < step.MetaProperties.Length; j++)
+                {
+                    parameters[i++] = step.MetaProperties[j].Key;
+                    parameters[i++] = step.MetaProperties[j].Value;
                 }
 
-                return (T.Id.Equals(step.Key.RawKey) && !Cardinality.Single.Equals(step.Cardinality ?? Cardinality.Single))
-                    ? throw new NotSupportedException("Cannot have an id property on non-single cardinality.")
-                    : CreateInstruction("property", recurse, env, GetPropertyStepArguments(step));
+                return CreateInstruction("property", recurse, env, parameters);
             })
             .Add<ProjectStep>(static (step, env, recurse) => CreateInstruction("project", recurse, env, step.Projections))
             .Add<ProjectStep.ByTraversalStep>(static (step, env, recurse) =>
