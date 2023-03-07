@@ -1,3 +1,1 @@
-﻿[
-  "{\"Script\":\"g.V().fold().as(_a).V().hasLabel(_b).where(within(_a)).count()\",\"Id\":\"00000000-0000-0000-0000-000000000000\",\"Bindings\":{\"_a\":\"l1\",\"_b\":\"Person\"}}"
-]
+﻿{"Script":"g.V().fold().as(_a).V().hasLabel(_b).where(within(_a)).count()","Id":"af0cd367-4625-4763-9191-edafc526642c","Bindings":{"_a":"l1","_b":"Person"}}

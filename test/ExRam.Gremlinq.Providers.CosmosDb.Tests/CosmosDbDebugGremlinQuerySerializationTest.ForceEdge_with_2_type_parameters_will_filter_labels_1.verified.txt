@@ -1,3 +1,1 @@
-﻿[
-  "{\"Script\":\"g.E().hasLabel(_a).inV().hasLabel(_b)\",\"Id\":\"00000000-0000-0000-0000-000000000000\",\"Bindings\":{\"_a\":\"LivesIn\",\"_b\":\"Country\"}}"
-]
+﻿{"Script":"g.E().hasLabel(_a).inV().hasLabel(_b)","Id":"037904d2-4c7e-4a60-8b84-a1980bd0fcf2","Bindings":{"_a":"LivesIn","_b":"Country"}}

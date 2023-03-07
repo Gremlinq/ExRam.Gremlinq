@@ -1,3 +1,1 @@
-﻿[
-  "{\"Script\":\"g.V().hasLabel(_a).has(id,_b)\",\"Id\":\"00000000-0000-0000-0000-000000000000\",\"Bindings\":{\"_a\":\"VertexWithStringId\",\"_b\":0}}"
-]
+﻿{"Script":"g.V().hasLabel(_a).has(id,_b)","Id":"abc317ef-0078-4e0e-a4fb-d487f75967d0","Bindings":{"_a":"VertexWithStringId","_b":0}}

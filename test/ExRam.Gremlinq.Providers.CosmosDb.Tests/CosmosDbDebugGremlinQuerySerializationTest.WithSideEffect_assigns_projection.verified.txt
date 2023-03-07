@@ -1,3 +1,1 @@
-﻿[
-  "{\"Script\":\"g.withSideEffect(_a,_b).V().hasLabel(_c).aggregate(_a).select(_a)\",\"Id\":\"00000000-0000-0000-0000-000000000000\",\"Bindings\":{\"_a\":\"l1\",\"_b\":[],\"_c\":\"Person\"}}"
-]
+﻿{"Script":"g.withSideEffect(_a,_b).V().hasLabel(_c).aggregate(_a).select(_a)","Id":"a8756e60-dfee-48e8-9cce-21738c74f5a3","Bindings":{"_a":"l1","_b":[],"_c":"Person"}}

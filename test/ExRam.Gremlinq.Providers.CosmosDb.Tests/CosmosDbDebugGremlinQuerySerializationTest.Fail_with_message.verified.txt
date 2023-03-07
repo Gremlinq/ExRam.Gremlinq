@@ -1,3 +1,1 @@
-﻿[
-  "{\"Script\":\"g.V().fail(_a)\",\"Id\":\"00000000-0000-0000-0000-000000000000\",\"Bindings\":{\"_a\":\"There\\u0027s been an error.\"}}"
-]
+﻿{"Script":"g.V().fail(_a)","Id":"d89c13d1-3040-403f-a86b-8a70b4f59784","Bindings":{"_a":"There\u0027s been an error."}}

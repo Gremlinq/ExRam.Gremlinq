@@ -1,3 +1,1 @@
-﻿[
-  "{\"Script\":\"g.V().choose(__.values(),__.out(),__.in())\",\"Id\":\"00000000-0000-0000-0000-000000000000\",\"Bindings\":{}}"
-]
+﻿{"Script":"g.V().choose(__.values(),__.out(),__.in())","Id":"e8b56f09-6103-4bbc-8fda-694470a74dba","Bindings":{}}

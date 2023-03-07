@@ -1,3 +1,1 @@
-﻿[
-  "{\"Script\":\"g.addV(_a).property(single,_b,_c).property(list,_d,_e).property(list,_d,_f)\",\"Id\":\"00000000-0000-0000-0000-000000000000\",\"Bindings\":{\"_a\":\"Company\",\"_b\":\"FoundingDate\",\"_c\":\"0001-01-01T00:00:00+00:00\",\"_d\":\"PhoneNumbers\",\"_e\":\"\\u002B4912345\",\"_f\":\"\\u002B4923456\"}}"
-]
+﻿{"Script":"g.addV(_a).property(single,_b,_c).property(list,_d,_e).property(list,_d,_f)","Id":"d910477b-45b2-444f-8519-c203b6703766","Bindings":{"_a":"Company","_b":"FoundingDate","_c":"0001-01-01T00:00:00+00:00","_d":"PhoneNumbers","_e":"\u002B4912345","_f":"\u002B4923456"}}

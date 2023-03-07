@@ -1,3 +1,1 @@
-﻿[
-  "{\"Script\":\"g.V().properties().values()\",\"Id\":\"00000000-0000-0000-0000-000000000000\",\"Bindings\":{}}"
-]
+﻿{"Script":"g.V().properties().values()","Id":"ed815e0c-6f66-4cf5-b778-ef4a541ce6ca","Bindings":{}}

@@ -13,8 +13,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
             public Fixture() : base(g
                 .UseCosmosDb(_ => _
                     .At("ws://localhost", "", "")
-                    .AuthenticateBy(""))
-                .UseDebuggingExecutor())
+                    .AuthenticateBy("")))
             {
             }
         }

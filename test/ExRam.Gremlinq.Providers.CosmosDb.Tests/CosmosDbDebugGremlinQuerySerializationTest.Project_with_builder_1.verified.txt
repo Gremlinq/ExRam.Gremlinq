@@ -1,3 +1,1 @@
-﻿[
-  "{\"Script\":\"g.V().where(__.in()).project(_a).by(__.in())\",\"Id\":\"00000000-0000-0000-0000-000000000000\",\"Bindings\":{\"_a\":\"in!\"}}"
-]
+﻿{"Script":"g.V().where(__.in()).project(_a).by(__.in())","Id":"51cc7f7c-558b-41e3-9e95-f9e3e1d5754e","Bindings":{"_a":"in!"}}

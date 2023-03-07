@@ -1,3 +1,1 @@
-﻿[
-  "{\"Script\":\"g.V().group().by(__.identity())\",\"Id\":\"00000000-0000-0000-0000-000000000000\",\"Bindings\":{}}"
-]
+﻿{"Script":"g.V().group().by(__.identity())","Id":"c77b49b3-3018-4595-a010-67e3cff2f425","Bindings":{}}

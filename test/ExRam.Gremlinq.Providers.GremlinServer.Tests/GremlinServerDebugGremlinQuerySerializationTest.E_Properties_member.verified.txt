@@ -1,3 +1,1 @@
-﻿[
-  "g.E().hasLabel('LivesIn').properties('Since')"
-]
+﻿g.E().hasLabel('LivesIn').properties('Since')

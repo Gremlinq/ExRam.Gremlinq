@@ -1,3 +1,1 @@
-﻿[
-  "{\"Script\":\"g.V().fold().fold().unfold().unfold()\",\"Id\":\"00000000-0000-0000-0000-000000000000\",\"Bindings\":{}}"
-]
+﻿{"Script":"g.V().fold().fold().unfold().unfold()","Id":"cde56914-a259-4715-8dc4-e304fa33f71a","Bindings":{}}

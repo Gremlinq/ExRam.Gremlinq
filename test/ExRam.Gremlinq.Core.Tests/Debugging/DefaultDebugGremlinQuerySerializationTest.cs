@@ -6,8 +6,7 @@ namespace ExRam.Gremlinq.Core.Tests
     {
         public sealed class Fixture : GremlinqTestFixture
         {
-            public Fixture() : base(g
-                .UseDebuggingExecutor())
+            public Fixture() : base(g.ConfigureEnvironment(_ => _))
             {
             }
         }

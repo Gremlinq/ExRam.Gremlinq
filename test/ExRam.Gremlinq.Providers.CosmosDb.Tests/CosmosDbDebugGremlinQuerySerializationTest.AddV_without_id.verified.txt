@@ -1,3 +1,1 @@
-﻿[
-  "{\"Script\":\"g.addV(_a).property(single,_b,_c)\",\"Id\":\"00000000-0000-0000-0000-000000000000\",\"Bindings\":{\"_a\":\"Language\",\"_b\":\"IetfLanguageTag\",\"_c\":\"en\"}}"
-]
+﻿{"Script":"g.addV(_a).property(single,_b,_c)","Id":"e805e157-f3a3-450e-9a66-51ca07880804","Bindings":{"_a":"Language","_b":"IetfLanguageTag","_c":"en"}}

@@ -39,20 +39,5 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ConfigureDeserializer(d => d
                     .AddNewtonsoftJson()));
         }
-
-        public static IGremlinQuerySource UseDebuggingExecutor(this IConfigurableGremlinQuerySource source)
-        {
-            return source
-                .ConfigureEnvironment(env => env
-                    .UseExecutor(GremlinQueryExecutor.Create((query, env) =>
-                    {
-                        return AsyncEnumerable.Create(Core);
-
-                        async IAsyncEnumerator<object> Core(CancellationToken ct)
-                        {
-                            yield return env.Debugger.TryToString(query, env)!;
-                        }
-                    })));
-        }
     }
 }

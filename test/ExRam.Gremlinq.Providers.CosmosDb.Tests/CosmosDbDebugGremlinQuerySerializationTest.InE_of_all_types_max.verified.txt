@@ -1,3 +1,1 @@
-﻿[
-  "{\"Script\":\"g.V().inE(_a,_b,_c)\",\"Id\":\"00000000-0000-0000-0000-000000000000\",\"Bindings\":{\"_a\":\"LivesIn\",\"_b\":\"Speaks\",\"_c\":\"WorksFor\"}}"
-]
+﻿{"Script":"g.V().inE(_a,_b,_c)","Id":"07429c4e-0daf-4fb0-80d7-1915b9bf0f2b","Bindings":{"_a":"LivesIn","_b":"Speaks","_c":"WorksFor"}}

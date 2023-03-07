@@ -1,3 +1,1 @@
-﻿[
-  "{\"Script\":\"g.V().limit(_a).fold().tail(local,_b)\",\"Id\":\"00000000-0000-0000-0000-000000000000\",\"Bindings\":{\"_a\":0,\"_b\":1}}"
-]
+﻿{"Script":"g.V().limit(_a).fold().tail(local,_b)","Id":"d7df7961-855c-484c-959d-e66a9ce0e8d2","Bindings":{"_a":0,"_b":1}}

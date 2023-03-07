@@ -1,3 +1,1 @@
-﻿[
-  "{\"Script\":\"g.addV(_a).property(single,_b,_c).property(single,_d,_e)\",\"Id\":\"00000000-0000-0000-0000-000000000000\",\"Bindings\":{\"_a\":\"Person\",\"_b\":\"Age\",\"_c\":0,\"_d\":\"Gender\",\"_e\":1}}"
-]
+﻿{"Script":"g.addV(_a).property(single,_b,_c).property(single,_d,_e)","Id":"f12783b2-6624-4d8e-b9ba-5242c5c94289","Bindings":{"_a":"Person","_b":"Age","_c":0,"_d":"Gender","_e":1}}

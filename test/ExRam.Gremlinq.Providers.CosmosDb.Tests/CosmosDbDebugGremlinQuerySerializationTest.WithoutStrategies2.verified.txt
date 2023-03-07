@@ -1,3 +1,1 @@
-﻿[
-  "{\"Script\":\"g.withoutStrategies(SubgraphStrategy,ElementIdStrategy).V()\",\"Id\":\"00000000-0000-0000-0000-000000000000\",\"Bindings\":{}}"
-]
+﻿{"Script":"g.withoutStrategies(SubgraphStrategy,ElementIdStrategy).V()","Id":"362c3fa1-37d6-474f-8b94-4f7b305ed8b1","Bindings":{}}

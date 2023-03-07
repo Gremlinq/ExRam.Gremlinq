@@ -1,3 +1,1 @@
-﻿[
-  "{\"Script\":\"g.addV(_a)\",\"Id\":\"00000000-0000-0000-0000-000000000000\",\"Bindings\":{\"_a\":\"Language\"}}"
-]
+﻿{"Script":"g.addV(_a)","Id":"43fcd383-49e6-4a02-87f3-4b08b6ad207f","Bindings":{"_a":"Language"}}

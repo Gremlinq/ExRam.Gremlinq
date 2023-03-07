@@ -1,3 +1,1 @@
-﻿[
-  "{\"Script\":\"g.V().constant(_a)\",\"Id\":\"00000000-0000-0000-0000-000000000000\",\"Bindings\":{\"_a\":42}}"
-]
+﻿{"Script":"g.V().constant(_a)","Id":"5eec45d5-2695-4c66-a0cb-2ba7f26dc346","Bindings":{"_a":42}}

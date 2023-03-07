@@ -1,3 +1,1 @@
-﻿[
-  "{\"Script\":\"g.V().outE(_a)\",\"Id\":\"00000000-0000-0000-0000-000000000000\",\"Bindings\":{\"_a\":\"String\"}}"
-]
+﻿{"Script":"g.V().outE(_a)","Id":"688ec6f1-f163-4fca-83ed-5e72339d7fee","Bindings":{"_a":"String"}}

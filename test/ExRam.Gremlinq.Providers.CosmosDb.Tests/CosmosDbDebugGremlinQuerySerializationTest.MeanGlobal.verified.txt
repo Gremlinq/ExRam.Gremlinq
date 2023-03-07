@@ -1,3 +1,1 @@
-﻿[
-  "{\"Script\":\"g.V().hasLabel(_a).values(_b).mean()\",\"Id\":\"00000000-0000-0000-0000-000000000000\",\"Bindings\":{\"_a\":\"Person\",\"_b\":\"Age\"}}"
-]
+﻿{"Script":"g.V().hasLabel(_a).values(_b).mean()","Id":"4ace66cb-06d8-4dfe-96dd-1c4dd8ef9411","Bindings":{"_a":"Person","_b":"Age"}}

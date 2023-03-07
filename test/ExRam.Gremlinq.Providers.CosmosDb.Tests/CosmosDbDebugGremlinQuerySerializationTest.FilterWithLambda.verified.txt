@@ -1,3 +1,1 @@
-﻿[
-  "{\"Script\":\"g.V().hasLabel(_a).has(_b).filter({it.get().property(\\u0027Name\\u0027).value().length() == 2})\",\"Id\":\"00000000-0000-0000-0000-000000000000\",\"Bindings\":{\"_a\":\"Person\",\"_b\":\"Name\"}}"
-]
+﻿{"Script":"g.V().hasLabel(_a).has(_b).filter({it.get().property(\u0027Name\u0027).value().length() == 2})","Id":"c3c76340-5e58-4dfe-a9e0-9ec6d4fcf6f9","Bindings":{"_a":"Person","_b":"Name"}}

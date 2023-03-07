@@ -1,3 +1,1 @@
-﻿[
-  "{\"Script\":\"g.V().hasLabel(_a,_b)\",\"Id\":\"00000000-0000-0000-0000-000000000000\",\"Bindings\":{\"_a\":\"Company\",\"_b\":\"Person\"}}"
-]
+﻿{"Script":"g.V().hasLabel(_a,_b)","Id":"1a6b17a9-a56d-4cc6-bcd8-8ce67f119690","Bindings":{"_a":"Company","_b":"Person"}}
