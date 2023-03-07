@@ -43,8 +43,6 @@ namespace ExRam.Gremlinq.Core.Serialization
             {
                 try
                 {
-                    _stepLabelNames = null;
-
                     return recurse
                         .TransformTo<ISerializedGremlinQuery>()
                         .From(recurse
