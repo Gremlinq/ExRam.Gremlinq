@@ -153,9 +153,9 @@ namespace ExRam.Gremlinq.Core
         {
             return environment
                 .ConfigureSerializer(static serializer => serializer
-                    .Add(Create<TimeSpan, object>(static (t, env, recurse) => recurse
-                        .TransformTo<object>()
-                        .From(t.TotalMilliseconds, env))))
+                    .Add(ConverterFactory
+                        .Create<TimeSpan, double>(static (t, env, recurse) => t.TotalMilliseconds)
+                        .AutoRecurse<double>()))
                 .ConfigureDeserializer(static deserializer => deserializer
                     .Add(new TimeSpanAsNumberConverterFactory()));
         }
