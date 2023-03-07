@@ -1,1 +1,1 @@
-﻿{"Script":"g.V().range(_a,_b)","Id":"78faa1da-f056-482a-93fd-10b448caa031","Bindings":{"_a":1,"_b":3}}
+﻿g.V().range(1,3)

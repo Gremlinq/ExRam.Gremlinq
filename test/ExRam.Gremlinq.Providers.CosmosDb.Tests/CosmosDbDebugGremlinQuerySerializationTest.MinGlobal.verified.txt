@@ -1,1 +1,1 @@
-﻿{"Script":"g.V().hasLabel(_a).values(_b).min()","Id":"b52237a9-b118-4d6d-ba12-09b700b53251","Bindings":{"_a":"Person","_b":"Age"}}
+﻿g.V().hasLabel('Person').values('Age').min()

@@ -1,1 +1,1 @@
-﻿{"Script":"g.V(_a).hasLabel(_b).sideEffect(__.properties(_c,_d,_e).drop()).property(single,_c,_f).property(single,_d,_g).property(single,_e,_h)","Id":"ef029471-7319-43bb-8679-6f8880845436","Bindings":{"_a":0,"_b":"Person","_c":"Age","_d":"Gender","_e":"Name","_f":21,"_g":0,"_h":"Marko"}}
+﻿g.V(0).hasLabel('Person').sideEffect(__.properties('Age','Gender','Name').drop()).property(single,'Age',21).property(single,'Gender',Male).property(single,'Name','Marko')

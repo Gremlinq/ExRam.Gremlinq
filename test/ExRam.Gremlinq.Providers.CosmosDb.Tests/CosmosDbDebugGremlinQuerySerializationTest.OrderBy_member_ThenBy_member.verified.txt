@@ -1,1 +1,1 @@
-﻿{"Script":"g.V().hasLabel(_a).has(_b).where(__.values(_c)).order().by(_b,incr).by(_c,incr)","Id":"a3690e16-3bf2-4bd0-a5d0-d830d9530173","Bindings":{"_a":"Person","_b":"Name","_c":"Age"}}
+﻿g.V().hasLabel('Person').has('Name').where(__.values('Age')).order().by('Name',incr).by('Age',incr)

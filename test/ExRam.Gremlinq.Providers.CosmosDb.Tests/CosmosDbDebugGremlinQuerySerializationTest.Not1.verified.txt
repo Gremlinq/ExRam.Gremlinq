@@ -1,1 +1,1 @@
-﻿{"Script":"g.V().not(__.out(_a))","Id":"a68d8fda-6c27-49c0-af02-ef62393c14b0","Bindings":{"_a":"WorksFor"}}
+﻿g.V().not(__.out('WorksFor'))

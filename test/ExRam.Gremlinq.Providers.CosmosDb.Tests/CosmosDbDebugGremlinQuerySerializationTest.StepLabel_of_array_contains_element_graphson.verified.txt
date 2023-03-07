@@ -1,1 +1,1 @@
-﻿{"Script":"g.inject(_a,_b,_c).fold().as(_d).V().hasLabel(_e).has(_f,__.where(within(_d)))","Id":"9c100c50-8f9d-4af7-971a-2da4687aaf45","Bindings":{"_a":1,"_b":2,"_c":3,"_d":"l1","_e":"Person","_f":"Age"}}
+﻿g.inject(1,2,3).fold().as('l1').V().hasLabel('Person').has('Age',__.where(within('l1')))

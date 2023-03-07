@@ -1,1 +1,1 @@
-﻿{"Script":"g.V().hasLabel(_a).limit(_b).property(list,_c,_d)","Id":"aeb5becc-9bd8-4b46-8c23-9b9228fcabad","Bindings":{"_a":"Company","_b":1,"_c":"PhoneNumbers","_d":"\u002B4912345"}}
+﻿g.V().hasLabel('Company').limit(1).property(list,'PhoneNumbers','+4912345')

@@ -1,1 +1,1 @@
-﻿{"Script":"g.V().out(_a,_b,_c)","Id":"cb99b59d-3ab1-4ab9-9e85-3bd75d7410d9","Bindings":{"_a":"LivesIn","_b":"Speaks","_c":"WorksFor"}}
+﻿g.V().out('LivesIn','Speaks','WorksFor')

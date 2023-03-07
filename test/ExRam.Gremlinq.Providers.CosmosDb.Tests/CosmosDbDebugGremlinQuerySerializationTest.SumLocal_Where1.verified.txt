@@ -1,1 +1,1 @@
-﻿{"Script":"g.V().hasLabel(_a).values(_b).fold().sum(local).is(_c)","Id":"5828c2ae-a4f0-462a-bbf9-d7e70c2b94f2","Bindings":{"_a":"Person","_b":"Age","_c":100}}
+﻿g.V().hasLabel('Person').values('Age').fold().sum(local).is(100)

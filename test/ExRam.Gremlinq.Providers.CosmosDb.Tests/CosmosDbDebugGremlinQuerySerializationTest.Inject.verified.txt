@@ -1,1 +1,1 @@
-﻿{"Script":"g.inject(_a,_b,_c)","Id":"9238b86a-b15f-4b06-b6a4-913da873a277","Bindings":{"_a":36,"_b":37,"_c":38}}
+﻿g.inject(36,37,38)

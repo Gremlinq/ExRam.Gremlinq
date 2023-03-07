@@ -1,1 +1,1 @@
-﻿{"Script":"g.V().hasLabel(_a).properties(_b).properties()","Id":"2957fc8a-2506-4120-a8d1-52b3d66d0215","Bindings":{"_a":"Country","_b":"Name"}}
+﻿g.V().hasLabel('Country').properties('Name').properties()

@@ -1,1 +1,1 @@
-﻿{"Script":"g.V().fold().sideEffect(__.identity()).unfold()","Id":"d46f6c69-90cf-4c17-b500-6104a43f7e2d","Bindings":{}}
+﻿g.V().fold().sideEffect(__.identity()).unfold()

@@ -1,1 +1,1 @@
-﻿{"Script":"g.V().group().by(__.label()).by(__.out())","Id":"3050a46d-8d1e-41a9-8286-111f9e13b856","Bindings":{}}
+﻿g.V().group().by(__.label()).by(__.out())

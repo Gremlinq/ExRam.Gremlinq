@@ -1,1 +1,1 @@
-﻿{"Script":"g.V().limit(_a)","Id":"04b2076a-b0e5-4468-b5c6-6e05a31a96ab","Bindings":{"_a":1}}
+﻿g.V().limit(1)

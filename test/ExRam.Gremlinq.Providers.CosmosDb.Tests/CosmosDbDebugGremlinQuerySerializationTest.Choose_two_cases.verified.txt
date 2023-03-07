@@ -1,1 +1,1 @@
-﻿{"Script":"g.V().where(__.properties()).choose(__.values()).option(_a,__.constant(_b)).option(_c,__.constant(_d))","Id":"f15f0c56-9a30-4ffe-9f42-5c0031ef25de","Bindings":{"_a":3,"_b":1,"_c":4,"_d":2}}
+﻿g.V().where(__.properties()).choose(__.values()).option(3,__.constant(1)).option(4,__.constant(2))

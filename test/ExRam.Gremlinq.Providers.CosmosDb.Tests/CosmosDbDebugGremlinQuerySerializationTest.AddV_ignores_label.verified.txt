@@ -1,1 +1,1 @@
-﻿{"Script":"g.addV(_a)","Id":"aed07cad-f79b-42f8-b7ca-1a61591a1d48","Bindings":{"_a":"Language"}}
+﻿g.addV('Language')

@@ -1,1 +1,1 @@
-﻿{"Script":"g.V().hasLabel(_a).has(_b,_c)","Id":"20bc5509-49fa-45a9-888e-e1a9d33f1ecb","Bindings":{"_a":"Country","_b":"CountryCallingCode","_c":"\u002B49123"}}
+﻿g.V().hasLabel('Country').has('CountryCallingCode','+49123')

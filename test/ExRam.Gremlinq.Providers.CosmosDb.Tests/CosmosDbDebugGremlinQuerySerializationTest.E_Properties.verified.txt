@@ -1,1 +1,1 @@
-﻿{"Script":"g.E().properties()","Id":"f6574550-c545-416f-ae5f-c6b39a2227b9","Bindings":{}}
+﻿g.E().properties()

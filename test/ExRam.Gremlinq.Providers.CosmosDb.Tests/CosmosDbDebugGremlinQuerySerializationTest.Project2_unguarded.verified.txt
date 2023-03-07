@@ -1,1 +1,1 @@
-﻿{"Script":"g.V().project(_a,_b).by(__.in().limit(_c).fold()).by(__.out().limit(_c).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold()))","Id":"248ebd47-db7f-4f11-a86b-7330648eac55","Bindings":{"_a":"Item1","_b":"Item2","_c":1}}
+﻿g.V().project('Item1','Item2').by(__.in().limit(1).fold()).by(__.out().limit(1).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold()))

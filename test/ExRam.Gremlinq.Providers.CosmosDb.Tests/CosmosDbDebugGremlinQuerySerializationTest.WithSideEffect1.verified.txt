@@ -1,1 +1,1 @@
-﻿{"Script":"g.withSideEffect(_a,_b).V()","Id":"16dd7d4d-f1a9-46c3-908c-533b708fb592","Bindings":{"_a":"l1","_b":36}}
+﻿g.withSideEffect('l1',36).V()

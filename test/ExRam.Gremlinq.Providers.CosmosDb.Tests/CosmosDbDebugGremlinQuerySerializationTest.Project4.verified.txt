@@ -1,1 +1,1 @@
-﻿{"Script":"g.V().where(__.in()).where(__.out()).where(__.properties()).project(_a,_b,_c,_d).by(__.in()).by(__.out()).by(__.count()).by(__.properties())","Id":"56a899e2-2018-4ca4-a8c9-4e24c416e6bc","Bindings":{"_a":"Item1","_b":"Item2","_c":"Item3","_d":"Item4"}}
+﻿g.V().where(__.in()).where(__.out()).where(__.properties()).project('Item1','Item2','Item3','Item4').by(__.in()).by(__.out()).by(__.count()).by(__.properties())

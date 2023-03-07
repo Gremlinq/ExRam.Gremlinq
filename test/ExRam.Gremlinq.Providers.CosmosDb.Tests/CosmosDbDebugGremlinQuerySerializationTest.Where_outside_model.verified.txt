@@ -1,1 +1,1 @@
-﻿{"Script":"g.V().hasLabel(_a).has(id,_b)","Id":"abc317ef-0078-4e0e-a4fb-d487f75967d0","Bindings":{"_a":"VertexWithStringId","_b":0}}
+﻿g.V().hasLabel('VertexWithStringId').has(id,0)

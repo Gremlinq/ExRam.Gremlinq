@@ -1,1 +1,1 @@
-﻿{"Script":"g.V().hasLabel(_a).has(_b,startingWith(_c))","Id":"22df545e-4be9-40a7-9d46-054681f59c1d","Bindings":{"_a":"Country","_b":"Name","_c":"456"}}
+﻿g.V().hasLabel('Country').has('Name',startingWith('456'))

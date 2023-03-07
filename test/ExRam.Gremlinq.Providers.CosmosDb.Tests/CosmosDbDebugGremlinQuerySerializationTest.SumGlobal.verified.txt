@@ -1,1 +1,1 @@
-﻿{"Script":"g.V().hasLabel(_a).values(_b).sum()","Id":"af34bd43-107b-4a56-b12a-d974e4b0b093","Bindings":{"_a":"Person","_b":"Age"}}
+﻿g.V().hasLabel('Person').values('Age').sum()

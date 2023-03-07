@@ -1,1 +1,1 @@
-﻿{"Script":"g.addE(_a).property(_b,_c).from(__.addV(_d).property(single,_e,_f)).to(__.addV(_g).property(single,_h,_i))","Id":"59e1677c-302c-4424-b675-b445ae0df1a9","Bindings":{"_a":"WorksFor","_b":"To","_c":"2020-04-07T14:43:36+00:00","_d":"Person","_e":"Age","_f":0,"_g":"Company","_h":"FoundingDate","_i":"0001-01-01T00:00:00+00:00"}}
+﻿g.addE('WorksFor').property('To','2020-04-07T14:43:36.0000000+00:00').from(__.addV('Person').property(single,'Age',0)).to(__.addV('Company').property(single,'FoundingDate','0001-01-01T00:00:00.0000000+00:00'))

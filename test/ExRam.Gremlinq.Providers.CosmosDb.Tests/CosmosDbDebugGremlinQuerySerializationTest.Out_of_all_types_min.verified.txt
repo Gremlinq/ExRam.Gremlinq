@@ -1,1 +1,1 @@
-﻿{"Script":"g.V().out()","Id":"e54cad91-ba7a-4e80-8dab-230d4f190e8a","Bindings":{}}
+﻿g.V().out()

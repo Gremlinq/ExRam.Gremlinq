@@ -1,1 +1,1 @@
-﻿{"Script":"g.V().coalesce(__.outE(),__.in())","Id":"0b1f70c6-1d78-45e0-97eb-eb324886374b","Bindings":{}}
+﻿g.V().coalesce(__.outE(),__.in())

@@ -1,1 +1,1 @@
-﻿{"Script":"g.V().hasLabel(_a).emit().repeat(__.inE().outV())","Id":"aa9b7eff-6557-412c-b5ae-2f4d2c7d4fc8","Bindings":{"_a":"Person"}}
+﻿g.V().hasLabel('Person').emit().repeat(__.inE().outV())

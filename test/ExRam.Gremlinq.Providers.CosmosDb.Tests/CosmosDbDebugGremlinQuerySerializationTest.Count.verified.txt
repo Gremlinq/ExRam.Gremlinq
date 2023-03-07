@@ -1,1 +1,1 @@
-﻿{"Script":"g.V().count()","Id":"d89e15fc-08e0-4a5a-ab3e-c360a6df87ee","Bindings":{}}
+﻿g.V().count()

@@ -1,1 +1,1 @@
-﻿{"Script":"g.V().properties().values(_a)","Id":"d8c08f90-6835-4114-9ccd-573af550575a","Bindings":{"_a":"ValidFrom"}}
+﻿g.V().properties().values('ValidFrom')

@@ -1,1 +1,1 @@
-﻿{"Script":"g.V().out().out().cyclicPath()","Id":"588be437-f3af-450a-9be4-f611f53d11ca","Bindings":{}}
+﻿g.V().out().out().cyclicPath()

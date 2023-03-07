@@ -1,1 +1,1 @@
-﻿{"Script":"g.withSideEffect(_a,_b).V()","Id":"93e6501e-1c2b-41fe-9d2a-ed21a630ac4d","Bindings":{"_a":"sideEffectLabel","_b":[]}}
+﻿g.withSideEffect('sideEffectLabel',ExRam.Gremlinq.Tests.Entities.Vertex[]).V()

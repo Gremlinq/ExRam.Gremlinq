@@ -1,1 +1,1 @@
-﻿{"Script":"g.V().fail()","Id":"6eac941e-db8d-4193-8566-2e7f313de62d","Bindings":{}}
+﻿g.V().fail()

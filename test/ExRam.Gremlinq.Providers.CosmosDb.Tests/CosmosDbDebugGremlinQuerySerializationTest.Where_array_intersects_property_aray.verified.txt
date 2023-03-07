@@ -1,1 +1,1 @@
-﻿{"Script":"g.V().hasLabel(_a).has(_b,within(_c,_d))","Id":"155bfba3-3249-46a5-9632-ed64c03b9069","Bindings":{"_a":"Company","_b":"PhoneNumbers","_c":"\u002B4912345","_d":"\u002B4923456"}}
+﻿g.V().hasLabel('Company').has('PhoneNumbers',within('+4912345','+4923456'))
