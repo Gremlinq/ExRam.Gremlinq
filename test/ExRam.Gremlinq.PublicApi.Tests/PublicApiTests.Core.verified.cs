@@ -2241,10 +2241,11 @@ namespace ExRam.Gremlinq.Core.Transformation
 {
     public static class ConverterFactory
     {
-        public static ExRam.Gremlinq.Core.Transformation.IConverterFactory Create<TSource, TTarget>(System.Func<TSource, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Transformation.ITransformer, TTarget?> func)
-            where TTarget :  struct { }
-        public static ExRam.Gremlinq.Core.Transformation.IConverterFactory Create<TSource, TTarget>(System.Func<TSource, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Transformation.ITransformer, TTarget?> func)
-            where TTarget :  class { }
+        public static ExRam.Gremlinq.Core.Transformation.IConverterFactory AutoRecurse<TStaticTarget>(this ExRam.Gremlinq.Core.Transformation.IConverterFactory baseFactory) { }
+        public static ExRam.Gremlinq.Core.Transformation.IConverterFactory Create<TStaticSource, TStaticTarget>(System.Func<TStaticSource, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Transformation.ITransformer, TStaticTarget?> func)
+            where TStaticTarget :  struct { }
+        public static ExRam.Gremlinq.Core.Transformation.IConverterFactory Create<TStaticSource, TStaticTarget>(System.Func<TStaticSource, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Transformation.ITransformer, TStaticTarget?> func)
+            where TStaticTarget :  class { }
         public static ExRam.Gremlinq.Core.Transformation.IConverterFactory Finally(this ExRam.Gremlinq.Core.Transformation.IConverterFactory factory, System.Action finallyAction) { }
     }
     public interface IConverterFactory
