@@ -154,29 +154,33 @@ namespace ExRam.Gremlinq.Core.Serialization
                     }
                 }))
                 .AutoRecurse<Bytecode>())
-            .Add(Create<Bytecode, BytecodeGremlinQuery>((static (bytecode, env, recurse) => new BytecodeGremlinQuery(bytecode))))
-            .Add(Create<StepLabel, string>((static (stepLabel, env, recurse) =>
-            {
-                var stepLabelNames = _stepLabelNames ??= new Dictionary<StepLabel, string>();
-
-                if (!stepLabelNames!.TryGetValue(stepLabel, out var stepLabelMapping))
+            .Add(ConverterFactory
+                .Create<Bytecode, BytecodeGremlinQuery>((static (bytecode, env, recurse) => new BytecodeGremlinQuery(bytecode)))
+                .AutoRecurse<BytecodeGremlinQuery>())
+            .Add(ConverterFactory
+                .Create<StepLabel, string>((static (stepLabel, env, recurse) =>
                 {
-                    stepLabelMapping = stepLabel.Identity as string ?? (stepLabelNames.Count < StepLabelNameCache.Length
-                        ? StepLabelNameCache[stepLabelNames.Count]
-                        : "l" + (stepLabelNames.Count + 1));
+                    var stepLabelNames = _stepLabelNames ??= new Dictionary<StepLabel, string>();
 
-                    stepLabelNames.Add(stepLabel, stepLabelMapping);
-                }
+                    if (!stepLabelNames!.TryGetValue(stepLabel, out var stepLabelMapping))
+                    {
+                        stepLabelMapping = stepLabel.Identity as string ?? (stepLabelNames.Count < StepLabelNameCache.Length
+                            ? StepLabelNameCache[stepLabelNames.Count]
+                            : "l" + (stepLabelNames.Count + 1));
 
-                // ReSharper disable once TailRecursiveCall
-                return stepLabelMapping;
-            })))
-            .Add(Create<DateTime, object>(static (dateTime, env, recurse) => recurse
-                .TransformTo<object>()
-                .From(new DateTimeOffset(dateTime.ToUniversalTime()), env)))
-            .Add(Create<Key, object>((static (key, env, recurse) => recurse
-                .TransformTo<object>()
-                .From(key.RawKey, env))))
+                        stepLabelNames.Add(stepLabel, stepLabelMapping);
+                    }
+
+                    // ReSharper disable once TailRecursiveCall
+                    return stepLabelMapping;
+                }))
+                .AutoRecurse<string>())
+            .Add(ConverterFactory
+                .Create<DateTime, DateTimeOffset>(static (dateTime, env, recurse) => new DateTimeOffset(dateTime.ToUniversalTime()))
+                .AutoRecurse<DateTimeOffset>())
+            .Add(ConverterFactory
+                .Create<Key, object>((static (key, env, recurse) => key.RawKey))
+                .AutoRecurse<object>())
             .Add(Create<P, P>((static (p, env, recurse) =>
             {
                 if (p.Value is null)
