@@ -31,9 +31,11 @@ namespace ExRam.Gremlinq.Core
                 .UseWebSocket(configurator => transformation(new NeptuneConfigurator(configurator)))
                 .ConfigureEnvironment(environment => environment
                     .ConfigureSerializer(serializer => serializer
-                        .Add(Create<PropertyStep.ByKeyStep, object>((step, env, recurse) => Cardinality.List.Equals(step.Cardinality)
-                            ? recurse.TransformTo<object>().From(new PropertyStep.ByKeyStep(step.Key, step.Value, step.MetaProperties, Cardinality.Set), env)
-                            : default)))
+                        .Add(ConverterFactory
+                            .Create<PropertyStep.ByKeyStep, PropertyStep.ByKeyStep>((step, env, recurse) => Cardinality.List.Equals(step.Cardinality)
+                                ? new PropertyStep.ByKeyStep(step.Key, step.Value, step.MetaProperties, Cardinality.Set)
+                                : default)
+                            .AutoRecurse<PropertyStep.ByKeyStep>()))
                     .StoreTimeSpansAsNumbers()
                     .StoreByteArraysAsBase64String()
                     .ConfigureFeatureSet(featureSet => featureSet
