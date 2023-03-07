@@ -347,7 +347,7 @@ namespace ExRam.Gremlinq.Core.Serialization
             .Add<PropertiesStep>(static (step, env, recurse) => CreateInstruction("properties", recurse, env, step.Keys))
             .Add<PropertyStep.ByKeyStep>(static (step, env, recurse) =>
             {
-                static object[] GetPropertyStepArguments(PropertyStep.ByKeyStep propertyStep, ITransformer recurse, IGremlinQueryEnvironment env)
+                static object[] GetPropertyStepArguments(PropertyStep.ByKeyStep propertyStep)
                 {
                     var i = 0;
                     object[] ret;
@@ -355,18 +355,18 @@ namespace ExRam.Gremlinq.Core.Serialization
                     if (propertyStep.Cardinality != null && !T.Id.Equals(propertyStep.Key.RawKey))
                     {
                         ret = new object[propertyStep.MetaProperties.Length * 2 + 3];
-                        ret[i++] = recurse.TransformTo<object>().From(propertyStep.Cardinality, env);
+                        ret[i++] = propertyStep.Cardinality;
                     }
                     else
                         ret = new object[propertyStep.MetaProperties.Length * 2 + 2];
 
-                    ret[i++] = recurse.TransformTo<object>().From(propertyStep.Key, env);
-                    ret[i++] = recurse.TransformTo<object>().From(propertyStep.Value, env);
+                    ret[i++] = propertyStep.Key;
+                    ret[i++] = propertyStep.Value;
 
                     for (var j = 0; j < propertyStep.MetaProperties.Length; j++)
                     {
-                        ret[i++] = recurse.TransformTo<object>().From(propertyStep.MetaProperties[j].Key, env);
-                        ret[i++] = recurse.TransformTo<object>().From(propertyStep.MetaProperties[j].Value, env);
+                        ret[i++] = propertyStep.MetaProperties[j].Key;
+                        ret[i++] = propertyStep.MetaProperties[j].Value;
                     }
 
                     return ret;
@@ -374,7 +374,7 @@ namespace ExRam.Gremlinq.Core.Serialization
 
                 return (T.Id.Equals(step.Key.RawKey) && !Cardinality.Single.Equals(step.Cardinality ?? Cardinality.Single))
                     ? throw new NotSupportedException("Cannot have an id property on non-single cardinality.")
-                    : new Instruction("property", GetPropertyStepArguments(step, recurse, env));
+                    : CreateInstruction("property", recurse, env, GetPropertyStepArguments(step));
             })
             .Add<ProjectStep>(static (step, env, recurse) => CreateInstruction("project", recurse, env, step.Projections))
             .Add<ProjectStep.ByTraversalStep>(static (step, env, recurse) =>
@@ -464,6 +464,19 @@ namespace ExRam.Gremlinq.Core.Serialization
                 recurse.NullAwareSerialize(parameter3, env));
         }
 
+        private static Instruction CreateInstruction(string name, ITransformer recurse, IGremlinQueryEnvironment env, object?[] parameters)
+        {
+            if (parameters.Length == 0)
+                return CreateInstruction(name);
+
+            for (var i = 0; i < parameters.Length; i++)
+            {
+                parameters[i] = recurse.NullAwareSerialize(parameters[i], env);
+            }
+
+            return new Instruction(name, parameters);
+
+        }
         private static Instruction CreateInstruction<TParam>(string name, ITransformer recurse, IGremlinQueryEnvironment env, ImmutableArray<TParam> parameters)
         {
             if (parameters.Length == 0)
