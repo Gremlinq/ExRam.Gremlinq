@@ -2245,6 +2245,7 @@ namespace ExRam.Gremlinq.Core.Transformation
             where TTarget :  struct { }
         public static ExRam.Gremlinq.Core.Transformation.IConverterFactory Create<TSource, TTarget>(System.Func<TSource, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Transformation.ITransformer, TTarget?> func)
             where TTarget :  class { }
+        public static ExRam.Gremlinq.Core.Transformation.IConverterFactory Finally(this ExRam.Gremlinq.Core.Transformation.IConverterFactory factory, System.Action finallyAction) { }
     }
     public interface IConverterFactory
     {
