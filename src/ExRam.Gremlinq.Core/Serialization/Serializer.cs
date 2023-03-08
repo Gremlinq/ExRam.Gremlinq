@@ -169,8 +169,11 @@ namespace ExRam.Gremlinq.Core.Serialization
                 .Create<DateTime, DateTimeOffset>(static (dateTime, env, recurse) => new DateTimeOffset(dateTime.ToUniversalTime()))
                 .AutoRecurse<DateTimeOffset>())
             .Add(ConverterFactory
-                .Create<Key, object>((static (key, env, recurse) => key.RawKey))
-                .AutoRecurse<object>())
+                .Create<Key, T>(static (key, env, recurse) => key.RawKey as T)
+                .AutoRecurse<T>())
+            .Add(ConverterFactory
+                .Create<Key, string>(static (key, env, recurse) => key.RawKey as string)
+                .AutoRecurse<string>())
             .Add(Create<P, P>((static (p, env, recurse) =>
             {
                 if (p.Value is null)
