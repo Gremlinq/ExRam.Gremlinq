@@ -98,11 +98,11 @@ namespace ExRam.Gremlinq.Core.Serialization
 
                         var byteCode = new Bytecode();
 
-                        void AddStep(Step step)
+                        static void AddStep(Step step, Bytecode byteCode, IGremlinQueryEnvironment env, ITransformer recurse)
                         {
-                            void AddInstruction(Instruction instruction)
+                            static void AddInstruction(Instruction instruction, Bytecode byteCode, IGremlinQueryEnvironment env, ITransformer recurse)
                             {
-                                void AddInnerInstruction(Instruction instruction)
+                                static void AddInnerInstruction(Instruction instruction, Bytecode byteCode, IGremlinQueryEnvironment env, ITransformer recurse)
                                 {
                                     if (byteCode.StepInstructions.Count == 0 && instruction.OperatorName.StartsWith("with", StringComparison.OrdinalIgnoreCase))
                                         byteCode.SourceInstructions.Add(instruction);
@@ -114,40 +114,40 @@ namespace ExRam.Gremlinq.Core.Serialization
                                 {
                                     foreach (var expandedInnerInstruction in expandedInnerInstructions)
                                     {
-                                        AddInnerInstruction(expandedInnerInstruction);
+                                        AddInnerInstruction(expandedInnerInstruction, byteCode, env, recurse);
                                     }
                                 }
                                 else if (recurse.TryTransform(instruction, env, out Instruction? expandedInstruction))
-                                    AddInnerInstruction(expandedInstruction);
+                                    AddInnerInstruction(expandedInstruction, byteCode, env, recurse);
                                 else
-                                    AddInnerInstruction(instruction);
+                                    AddInnerInstruction(instruction, byteCode, env, recurse);
                             }
 
                             if (recurse.TryTransform(step, env, out Step[]? expandedSteps))
                             {
                                 foreach (var expandedStep in expandedSteps)
                                 {
-                                    AddStep(expandedStep);
+                                    AddStep(expandedStep, byteCode, env, recurse);
                                 }
                             }
                             else if (recurse.TryTransform(step, env, out Instruction[]? expandedInstructions))
                             {
                                 foreach (var expandedInstruction in expandedInstructions)
                                 {
-                                    AddInstruction(expandedInstruction);
+                                    AddInstruction(expandedInstruction, byteCode, env, recurse);
                                 }
                             }
                             else if (recurse.TryTransform(step, env, out Instruction? expandedInstruction))
-                                AddInstruction(expandedInstruction);
+                                AddInstruction(expandedInstruction, byteCode, env, recurse);
                         }
 
                         foreach (var step in span)
                         {
-                            AddStep(step);
+                            AddStep(step, byteCode, env, recurse);
                         }
 
                         if (byteCode.StepInstructions.Count == 0)
-                            AddStep(IdentityStep.Instance);
+                            AddStep(IdentityStep.Instance, byteCode, env, recurse);
 
                         return byteCode;
                     }
