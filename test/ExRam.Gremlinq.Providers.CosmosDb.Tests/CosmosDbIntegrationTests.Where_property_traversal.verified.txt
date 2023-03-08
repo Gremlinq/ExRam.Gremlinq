@@ -2,7 +2,7 @@
   {
     "serverException": {
       "type": "ResponseException",
-      "message": "ServerError: \r\n\nActivityId : 00000000-0000-0000-0000-000000000000\nExceptionType : NullReferenceException\nExceptionMessage : An unknown error occurred while processing this request. If the issue persists, please contact Azure Support: http://aka.ms/azure-support\n\tHResult : 0x80004003\r\n"
+      "message": "MalformedRequest: \r\n\nActivityId : 00000000-0000-0000-0000-000000000000\nExceptionType : GraphMalformedException\nExceptionMessage : \r\n\tGremlin Malformed Request: GraphSON v3 IO is not supported.\n\tGremlinRequestId : 00000000-0000-0000-0000-000000000000\n\tContext : global\n\tGraphInterOpStatusCode : MalformedRequest\n\tHResult : 0x80131500\r\n"
     }
   }
 ]

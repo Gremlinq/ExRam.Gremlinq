@@ -1,28 +1,8 @@
 ﻿[
-  [
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "value": "Bob",
-      "label": "Name",
-      "properties": {
-        "ValidFrom": 1586270616000
-      }
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "value": "Bob",
-      "label": "Name",
-      "properties": {
-        "ValidFrom": 1586270616000
-      }
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "value": "Marko",
-      "label": "Name",
-      "properties": {
-        "ValidFrom": 1586270616000
-      }
+  {
+    "serverException": {
+      "type": "ResponseException",
+      "message": "MalformedRequest: \r\n\nActivityId : 00000000-0000-0000-0000-000000000000\nExceptionType : GraphMalformedException\nExceptionMessage : \r\n\tGremlin Malformed Request: GraphSON v3 IO is not supported.\n\tGremlinRequestId : 00000000-0000-0000-0000-000000000000\n\tContext : global\n\tGraphInterOpStatusCode : MalformedRequest\n\tHResult : 0x80131500\r\n"
     }
-  ]
+  }
 ]
