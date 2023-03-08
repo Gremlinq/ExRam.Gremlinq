@@ -12,3 +12,11 @@ namespace ExRam.Gremlinq.Core
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment StoreTimeSpansAsNumbers(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
     }
 }
+namespace ExRam.Gremlinq.Core.Transformation
+{
+    public static class TransformerExtensions
+    {
+        public static ExRam.Gremlinq.Core.Transformation.ITransformer UseGraphSon2(this ExRam.Gremlinq.Core.Transformation.ITransformer transformer) { }
+        public static ExRam.Gremlinq.Core.Transformation.ITransformer UseGraphSon3(this ExRam.Gremlinq.Core.Transformation.ITransformer transformer) { }
+    }
+}

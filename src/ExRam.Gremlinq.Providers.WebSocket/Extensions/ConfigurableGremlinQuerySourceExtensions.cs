@@ -1,6 +1,7 @@
 ﻿using ExRam.Gremlinq.Core.Deserialization;
 using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Core.Serialization;
+using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Providers.WebSocket;
 using Gremlin.Net.Driver;
 using Gremlin.Net.Driver.Messages;
@@ -13,6 +14,9 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class WebSocketGremlinQueryExecutor : IGremlinQueryExecutor, IDisposable
         {
+            [ThreadStatic]
+            private static IGremlinQueryEnvironment? _currentEnvironment;
+
             private readonly Dictionary<string, string> _aliasArgs;
             private readonly SmarterLazy<IGremlinClient> _lazyGremlinClient;
 
@@ -30,7 +34,7 @@ namespace ExRam.Gremlinq.Core
                         {
                             return await Task.Run(() => clientFactory.Create(
                                 gremlinServer,
-                                JsonNetMessageSerializer.GraphSON3,
+                                new JsonNetMessageSerializer(() => _currentEnvironment ?? throw new InvalidOperationException()),
                                 new ConnectionPoolSettings(),
                                 static _ => { }));
                         }
@@ -81,11 +85,23 @@ namespace ExRam.Gremlinq.Core
                         _ => throw new ArgumentException($"Cannot handle serialized query of type {serializedQuery.GetType()}.")
                     };
 
-                    var maybeResults = await (await clientTask)
-                        .SubmitAsync<JToken>(requestMessage)
-                        .ConfigureAwait(false);
+                    var client = await clientTask;
 
-                    if (maybeResults is { } results)
+                    Task<ResultSet<JToken>>? resultTask = null;
+
+                    try
+                    {
+                        _currentEnvironment = environment;
+
+                        resultTask = client
+                            .SubmitAsync<JToken>(requestMessage);
+                    }
+                    finally
+                    {
+                        _currentEnvironment = null;
+                    }
+
+                    if (await resultTask.ConfigureAwait(false) is { } results)
                     {
                         foreach (var obj in results)
                         {
@@ -143,6 +159,8 @@ namespace ExRam.Gremlinq.Core
                 .Transform(source
                     .ConfigureEnvironment(_ => _))
                 .ConfigureEnvironment(environment => environment
+                    .ConfigureSerializer(ser => ser
+                        .UseGraphSon3())
                     .ConfigureExecutor(executor => executor
                         .Log())
                     .ConfigureDeserializer(d => d
