@@ -29,7 +29,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                 .ToArray();
         }
 
-        public static ITransformer ToGroovy(this ITransformer serializer)
+        public static ITransformer PreferGroovySerialization(this ITransformer serializer)
         {
             return serializer
                 .Add(Create<Bytecode, ISerializedGremlinQuery>((bytecode, env, recurse) => recurse
