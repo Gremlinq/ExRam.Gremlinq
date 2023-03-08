@@ -29,23 +29,20 @@ namespace ExRam.Gremlinq.Core.Serialization
                 .ToArray();
         }
 
-        public static ITransformer PreferGroovySerialization(this ITransformer serializer)
-        {
-            return serializer
-                .Add(Create<Bytecode, ISerializedGremlinQuery>((bytecode, env, recurse) => recurse
-                    .TransformTo<GroovyGremlinQuery>()
-                    .From(bytecode, env)));
-        }
+        public static ITransformer PreferGroovySerialization(this ITransformer serializer) => serializer
+            .Add(Create<Bytecode, ISerializedGremlinQuery>((bytecode, env, recurse) => recurse
+                .TransformTo<GroovyGremlinQuery>()
+                .From(bytecode, env)));
 
         private static ITransformer AddBaseConverters(this ITransformer serializer) => serializer
             .Add(ConverterFactory
-                .Create<IGremlinQueryBase, Traversal>((static (query, env, recurse) => query
+                .Create<IGremlinQueryBase, Traversal>(static (query, env, recurse) => query
                     .ToTraversal()
-                    .IncludeProjection(env)))
+                    .IncludeProjection(env))
                 .AutoRecurse<Traversal>()
                 .Finally(() => _stepLabelNames = null))
             .Add(ConverterFactory
-                .Create<Traversal, Bytecode>((static (traversal, env, recurse) =>
+                .Create<Traversal, Bytecode>(static (traversal, env, recurse) =>
                 {
                     var steps = ArrayPool<Step>.Shared.Rent(traversal.Count);
 
@@ -154,17 +151,17 @@ namespace ExRam.Gremlinq.Core.Serialization
                     {
                         ArrayPool<Step>.Shared.Return(steps);
                     }
-                }))
+                })
                 .AutoRecurse<Bytecode>())
             .Add(Create<Bytecode, GroovyGremlinQuery>((bytecode, env, recurse) => recurse
                 .TransformTo<BytecodeGremlinQuery>()
                 .From(bytecode, env)
                 .ToGroovy()))
             .Add(ConverterFactory
-                .Create<Bytecode, BytecodeGremlinQuery>((static (bytecode, env, recurse) => new BytecodeGremlinQuery(bytecode)))
+                .Create<Bytecode, BytecodeGremlinQuery>(static (bytecode, env, recurse) => new BytecodeGremlinQuery(bytecode))
                 .AutoRecurse<BytecodeGremlinQuery>())
             .Add(ConverterFactory
-                .Create<StepLabel, string>((static (stepLabel, env, recurse) =>
+                .Create<StepLabel, string>(static (stepLabel, env, recurse) =>
                 {
                     var stepLabelNames = _stepLabelNames ??= new Dictionary<StepLabel, string>();
 
@@ -179,7 +176,7 @@ namespace ExRam.Gremlinq.Core.Serialization
 
                     // ReSharper disable once TailRecursiveCall
                     return stepLabelMapping;
-                }))
+                })
                 .AutoRecurse<string>())
             .Add(ConverterFactory
                 .Create<DateTime, DateTimeOffset>(static (dateTime, env, recurse) => new DateTimeOffset(dateTime.ToUniversalTime()))
@@ -190,7 +187,7 @@ namespace ExRam.Gremlinq.Core.Serialization
             .Add(ConverterFactory
                 .Create<Key, string>(static (key, env, recurse) => key.RawKey as string)
                 .AutoRecurse<string>())
-            .Add(Create<P, P>((static (p, env, recurse) =>
+            .Add(Create<P, P>(static (p, env, recurse) =>
             {
                 if (p.Value is null)
                     throw new NotSupportedException("Cannot serialize a P-predicate with a null-value.");
@@ -206,9 +203,9 @@ namespace ExRam.Gremlinq.Core.Serialization
                     p.Other is { } other
                         ? recurse.TransformTo<object>().From(other, env) as P
                         : null);
-            })))
-            .Add(Create<TextP, TextP>((static (textP, _, _) => textP)))
-            .Add(Create<Type, Type>((static (type, _, _) => type)));
+            }))
+            .Add(Create<TextP, TextP>(static (textP, _, _) => textP))
+            .Add(Create<Type, Type>(static (type, _, _) => type));
 
         private static ITransformer AddDefaultStepConverters(this ITransformer serializer) => serializer
             .Add<AddEStep>(static (step, env, recurse) => CreateInstruction("addE", recurse, env, step.Label))
@@ -392,10 +389,10 @@ namespace ExRam.Gremlinq.Core.Serialization
                 return CreateInstruction("by", recurse, env, traversal);
             })
             .Add<ProjectStep.ByKeyStep>(static (step, env, recurse) => CreateInstruction("by", recurse, env, step.Key))
-            .Add(Create<ProjectVertexStep, Traversal>((static (_, env, _) => env.Options.GetValue(env.FeatureSet.Supports(VertexFeatures.MetaProperties)
+            .Add(Create<ProjectVertexStep, Traversal>(static (_, env, _) => env.Options.GetValue(env.FeatureSet.Supports(VertexFeatures.MetaProperties)
                 ? GremlinqOption.VertexProjectionSteps
-                : GremlinqOption.VertexProjectionWithoutMetaPropertiesSteps))))
-            .Add(Create<ProjectEdgeStep, Traversal>((static (_, env, _) => env.Options.GetValue(GremlinqOption.EdgeProjectionSteps))))
+                : GremlinqOption.VertexProjectionWithoutMetaPropertiesSteps)))
+            .Add(Create<ProjectEdgeStep, Traversal>(static (_, env, _) => env.Options.GetValue(GremlinqOption.EdgeProjectionSteps)))
             .Add<RangeStep>(static (step, env, recurse) => step.Scope.Equals(Scope.Local)
                 ? CreateInstruction("range", recurse, env, step.Scope, step.Lower, step.Upper)
                 : CreateInstruction("range", recurse, env, step.Lower, step.Upper))
