@@ -127,10 +127,13 @@ namespace ExRam.Gremlinq.Core
                     .StoreByteArraysAsBase64String()
                     .ConfigureSerializer(serializer => serializer
                         .Add(ConverterFactory
-                            .Create<CosmosDbKey, object>((key, env, recurse) => key.PartitionKey != null
-                                ? new[] { key.PartitionKey, key.Id }
-                                : key.Id)
-                            .AutoRecurse<object>())
+                            .Create<CosmosDbKey, string>((key, env, recurse) => key.Id)
+                            .AutoRecurse<string>())
+                        .Add(ConverterFactory
+                            .Create<CosmosDbKey, string[]>((key, env, recurse) => key.PartitionKey is { } partitionKey
+                                ? new[] { partitionKey, key.Id }
+                                : default)
+                            .AutoRecurse<string[]>())
                         .Add(ConverterFactory
                             .Create<FilterStep.ByTraversalStep, WhereTraversalStep>(static (step, env, recurse) => new WhereTraversalStep(
                                 step.Traversal.Count > 0 && step.Traversal[0] is AsStep
