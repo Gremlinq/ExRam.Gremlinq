@@ -9,6 +9,8 @@ namespace ExRam.Gremlinq.Core
     {
         public static readonly Traversal Empty = new(FastImmutableList<Step>.Empty, SideEffectSemantics.Read, Projection.Empty);
 
+        private readonly FastImmutableList<Step> _steps;
+
         internal Traversal(Step[] steps, Projection projection) : this(new FastImmutableList<Step>(steps, steps.Length), projection)
         {
         }
@@ -19,7 +21,7 @@ namespace ExRam.Gremlinq.Core
 
         internal Traversal(FastImmutableList<Step> steps, SideEffectSemantics semantics, Projection projection)
         {
-            Steps = steps;
+            _steps = steps;
             Projection = projection;
             SideEffectSemantics = semantics;
         }
@@ -27,7 +29,7 @@ namespace ExRam.Gremlinq.Core
         public Traversal Push(params Step[] steps)
         {
             return new Traversal(
-                Steps.Push(steps),
+                _steps.Push(steps),
                 SideEffectSemanticsHelper(steps.AsSpan()) == SideEffectSemantics.Write
                     ? SideEffectSemantics.Write
                     : SideEffectSemantics,
@@ -37,7 +39,7 @@ namespace ExRam.Gremlinq.Core
         public Traversal Push(Step step)
         {
             return new Traversal(
-                Steps.Push(step),
+                _steps.Push(step),
                 step.SideEffectSemanticsChange == SideEffectSemanticsChange.Write
                     ? SideEffectSemantics.Write
                     : SideEffectSemantics,
@@ -48,16 +50,16 @@ namespace ExRam.Gremlinq.Core
 
         public Traversal Pop(out Step poppedStep)
         {
-            var newSteps = Steps.Pop(out poppedStep);
+            var newSteps = _steps.Pop(out poppedStep);
 
             return poppedStep.SideEffectSemanticsChange == SideEffectSemanticsChange.Write
                 ? new Traversal(newSteps, Projection)
                 : new Traversal(newSteps, SideEffectSemantics, Projection);
         }
 
-        public Traversal WithProjection(Projection projection) => new(Steps, SideEffectSemantics, projection);
+        public Traversal WithProjection(Projection projection) => new(_steps, SideEffectSemantics, projection);
 
-        public IEnumerator<Step> GetEnumerator() => Steps.GetEnumerator();
+        public IEnumerator<Step> GetEnumerator() => _steps.GetEnumerator();
 
         public Traversal IncludeProjection(IGremlinQueryEnvironment environment)
         {
@@ -70,7 +72,7 @@ namespace ExRam.Gremlinq.Core
                     var newSteps = FastImmutableList<Step>
                         .Create(
                             Count + projectionTraversal.Count,
-                            (Steps, projectionTraversal),
+                            (_steps, projectionTraversal),
                             static (newSteps, state) =>
                             {
                                 var (steps, projectionTraversal) = state;
@@ -81,7 +83,6 @@ namespace ExRam.Gremlinq.Core
 
                                 projectionTraversal
                                     .Steps
-                                    .AsSpan()
                                     .CopyTo(newSteps[steps.Count..]);
                             });
 
@@ -100,7 +101,7 @@ namespace ExRam.Gremlinq.Core
             FastImmutableList<Step>.Create(length, state, action),
             Projection.Empty);
 
-        public int Count => Steps.Count;
+        public int Count => _steps.Count;
 
         public Projection Projection { get; }
 
@@ -108,7 +109,7 @@ namespace ExRam.Gremlinq.Core
 
         public SideEffectSemantics SideEffectSemantics { get; }
 
-        public FastImmutableList<Step> Steps { get; }
+        public ReadOnlySpan<Step> Steps { get => _steps.AsSpan(); }
 
         private static SideEffectSemantics SideEffectSemanticsHelper(ReadOnlySpan<Step> steps)
         {

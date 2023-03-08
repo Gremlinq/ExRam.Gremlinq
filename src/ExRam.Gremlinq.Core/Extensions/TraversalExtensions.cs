@@ -77,8 +77,7 @@ namespace ExRam.Gremlinq.Core
                             {
                                 var (traversal, newStep) = state;
 
-                                traversal.Steps
-                                    .AsSpan()[..^1]
+                                traversal.Steps[..^1]
                                     .CopyTo(steps);
 
                                 steps[^1] = newStep;

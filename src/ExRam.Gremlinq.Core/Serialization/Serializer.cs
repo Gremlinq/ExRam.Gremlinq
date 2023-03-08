@@ -46,7 +46,6 @@ namespace ExRam.Gremlinq.Core.Serialization
                             .AsMemory()[..traversal.Count];
 
                         traversal.Steps
-                            .AsSpan()
                             .CopyTo(stepsMemory.Span);
 
                         var j = 0;

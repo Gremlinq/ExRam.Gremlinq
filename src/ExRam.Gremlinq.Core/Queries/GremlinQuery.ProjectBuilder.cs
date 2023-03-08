@@ -200,7 +200,6 @@ namespace ExRam.Gremlinq.Core
                                                 steps[^1] = FoldStep.Instance;
 
                                                 byTraversalStep.Traversal.Steps
-                                                    .AsSpan()
                                                     .CopyTo(steps);
                                             })
                                         .WithProjection(byTraversalStep.Traversal.Projection));
