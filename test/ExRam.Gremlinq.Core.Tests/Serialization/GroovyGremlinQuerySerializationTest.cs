@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             public Fixture() : base(g
                 .ConfigureEnvironment(_ => _
-                    .ConfigureSerializer(_ => _.ToGroovy())
+                    .ConfigureSerializer(_ => _.PreferGroovySerialization())
                     .UseExecutor(GremlinQueryExecutor.Identity)))
             {
             }

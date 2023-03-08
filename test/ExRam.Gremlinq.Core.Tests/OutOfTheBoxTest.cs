@@ -42,7 +42,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .UseModel(GraphModel
                         .FromBaseTypes<Vertex, Edge>(lookup => lookup
                             .IncludeAssembliesOfBaseTypes()))
-                    .ConfigureSerializer(s => s.ToGroovy())
+                    .ConfigureSerializer(s => s.PreferGroovySerialization())
                     .UseExecutor(GremlinQueryExecutor.Identity)
                     .UseDeserializer(Deserializer.Default))
                 .V<SomeEntity>()

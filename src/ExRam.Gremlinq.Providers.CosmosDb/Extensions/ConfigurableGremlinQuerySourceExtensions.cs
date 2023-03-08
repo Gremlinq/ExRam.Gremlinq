@@ -175,7 +175,7 @@ namespace ExRam.Gremlinq.Core
                                     ? WorkaroundOrder.Decr
                                     : default)
                             .AutoRecurse<WorkaroundOrder>())
-                        .ToGroovy())
+                        .PreferGroovySerialization())
                     .StoreTimeSpansAsNumbers());
         }
     }
