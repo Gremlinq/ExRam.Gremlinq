@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using ExRam.Gremlinq.Core.Serialization;
+﻿using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Providers.CosmosDb;
@@ -73,39 +72,6 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        private sealed class CosmosDbLimitationFilterConverterFactory<TStaticSource> : IConverterFactory
-        {
-            public sealed class CosmosDbLimitationFilterConverter<TSource, TTarget> : IConverter<TSource, TTarget>
-            {
-                private readonly Action<TStaticSource> _filter;
-
-                public CosmosDbLimitationFilterConverter(Action<TStaticSource> filter)
-                {
-                    _filter = filter;
-                }
-
-                public bool TryConvert(TSource source, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
-                {
-                    if (source is TStaticSource staticSource)
-                        _filter(staticSource);
-
-                    value = default;
-                    return false;
-                }
-            }
-
-            private readonly Action<TStaticSource> _filter;
-
-            public CosmosDbLimitationFilterConverterFactory(Action<TStaticSource> filter)
-            {
-                _filter = filter;
-            }
-
-            public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>() => typeof(TStaticSource).IsAssignableFrom(typeof(TSource)) || typeof(TSource).IsAssignableFrom(typeof(TStaticSource))
-                ? new CosmosDbLimitationFilterConverter<TSource, TTarget>(_filter)
-                : null;
-        }
-
         private static readonly NotStep NoneWorkaround = new NotStep(IdentityStep.Instance);
 
         public static IGremlinQuerySource UseCosmosDb(this IConfigurableGremlinQuerySource source, Func<ICosmosDbConfigurator, IGremlinQuerySourceTransformation> transformation)
@@ -153,17 +119,17 @@ namespace ExRam.Gremlinq.Core
                         .Add(ConverterFactory
                             .Create<SkipStep, RangeStep>((step, env, recurse) => new RangeStep(step.Count, -1, step.Scope))
                             .AutoRecurse<RangeStep>())
-                        .Add(new CosmosDbLimitationFilterConverterFactory<LimitStep>(step =>
+                        .Add(Guard<LimitStep>(step =>
                         {
                             if (step.Count > int.MaxValue)
                                 throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Limit' outside the range of a 32-bit-integer.");
                         }))
-                        .Add(new CosmosDbLimitationFilterConverterFactory<TailStep>(step =>
+                        .Add(Guard<TailStep>(step =>
                         {
                             if (step.Count > int.MaxValue)
                                 throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Tail' outside the range of a 32-bit-integer.");
                         }))
-                        .Add(new CosmosDbLimitationFilterConverterFactory<RangeStep>(step =>
+                        .Add(Guard<RangeStep>(step =>
                         {
                             if (step.Lower > int.MaxValue || step.Upper > int.MaxValue)
                                 throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Range' outside the range of a 32-bit-integer.");

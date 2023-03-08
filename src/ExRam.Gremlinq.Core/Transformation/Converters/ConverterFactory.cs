@@ -210,11 +210,46 @@ namespace ExRam.Gremlinq.Core.Transformation
             }
         }
 
+        private sealed class GuardConverterFactory<TStaticSource> : IConverterFactory
+        {
+            public sealed class GuardConverter<TSource, TTarget> : IConverter<TSource, TTarget>
+            {
+                private readonly Action<TStaticSource> _filter;
+
+                public GuardConverter(Action<TStaticSource> filter)
+                {
+                    _filter = filter;
+                }
+
+                public bool TryConvert(TSource source, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+                {
+                    if (source is TStaticSource staticSource)
+                        _filter(staticSource);
+
+                    value = default;
+                    return false;
+                }
+            }
+
+            private readonly Action<TStaticSource> _filter;
+
+            public GuardConverterFactory(Action<TStaticSource> filter)
+            {
+                _filter = filter;
+            }
+
+            public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>() => typeof(TStaticSource).IsAssignableFrom(typeof(TSource)) || typeof(TSource).IsAssignableFrom(typeof(TStaticSource))
+                ? new GuardConverter<TSource, TTarget>(_filter)
+                : null;
+        }
+
         public static IConverterFactory Create<TStaticSource, TStaticTarget>(Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, TStaticTarget?> func)
             where TStaticTarget : struct => new StructFuncConverterFactory<TStaticSource, TStaticTarget>(func);
 
         public static IConverterFactory Create<TStaticSource, TStaticTarget>(Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, TStaticTarget?> func)
             where TStaticTarget : class => new ClassFuncConverterFactory<TStaticSource, TStaticTarget>(func);
+
+        public static IConverterFactory Guard<TStaticSource>(Action<TStaticSource> guard) => new GuardConverterFactory<TStaticSource>(guard);
 
         public static IConverterFactory AutoRecurse<TStaticTarget>(this IConverterFactory baseFactory) => new AutoRecurseConverterFactory<TStaticTarget>(baseFactory);
 
