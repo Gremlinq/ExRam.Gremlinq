@@ -429,42 +429,27 @@ namespace ExRam.Gremlinq.Core.Serialization
                 : CreateInstruction("by"))
             .Add<WhereStepLabelAndPredicateStep>(static (step, env, recurse) => CreateInstruction("where", recurse, env, step.StepLabel, step.Predicate));
 
-        private static ITransformer Add<TSource>(this ITransformer serializer, Func<TSource, IGremlinQueryEnvironment, ITransformer, Instruction?> converter)
-        {
-            return serializer
-                .Add(Create(converter));
-        }
+        private static ITransformer Add<TSource>(this ITransformer serializer, Func<TSource, IGremlinQueryEnvironment, ITransformer, Instruction?> converter) => serializer
+            .Add(Create(converter));
 
-        private static Instruction CreateInstruction(string name)
-        {
-            return SimpleInstructions.GetOrAdd(
-                name,
-                static closure => new Instruction(closure));
-        }
+        private static Instruction CreateInstruction(string name) => SimpleInstructions.GetOrAdd(
+            name,
+            static closure => new Instruction(closure));
 
-        private static Instruction CreateInstruction<TParam>(string name, ITransformer recurse, IGremlinQueryEnvironment env, TParam parameter)
-        {
-            return new(
-                name,
-                recurse.NullAwareSerialize(parameter, env));
-        }
+        private static Instruction CreateInstruction<TParam>(string name, ITransformer recurse, IGremlinQueryEnvironment env, TParam parameter) => new(
+            name,
+            recurse.NullAwareSerialize(parameter, env));
 
-        private static Instruction CreateInstruction<TParam1, TParam2>(string name, ITransformer recurse, IGremlinQueryEnvironment env, TParam1 parameter1, TParam2 parameter2)
-        {
-            return new(
-                name,
-                recurse.NullAwareSerialize(parameter1, env),
-                recurse.NullAwareSerialize(parameter2, env));
-        }
+        private static Instruction CreateInstruction<TParam1, TParam2>(string name, ITransformer recurse, IGremlinQueryEnvironment env, TParam1 parameter1, TParam2 parameter2) => new(
+            name,
+            recurse.NullAwareSerialize(parameter1, env),
+            recurse.NullAwareSerialize(parameter2, env));
 
-        private static Instruction CreateInstruction<TParam1, TParam2, TParam3>(string name, ITransformer recurse, IGremlinQueryEnvironment env, TParam1 parameter1, TParam2 parameter2, TParam3 parameter3)
-        {
-            return new(
-                name,
-                recurse.NullAwareSerialize(parameter1, env),
-                recurse.NullAwareSerialize(parameter2, env),
-                recurse.NullAwareSerialize(parameter3, env));
-        }
+        private static Instruction CreateInstruction<TParam1, TParam2, TParam3>(string name, ITransformer recurse, IGremlinQueryEnvironment env, TParam1 parameter1, TParam2 parameter2, TParam3 parameter3) => new(
+            name,
+            recurse.NullAwareSerialize(parameter1, env),
+            recurse.NullAwareSerialize(parameter2, env),
+            recurse.NullAwareSerialize(parameter3, env));
 
         private static Instruction CreateInstruction(string name, ITransformer recurse, IGremlinQueryEnvironment env, object[] parameters) => CreateInstruction<object>(name, recurse, env, parameters.AsSpan());
 
@@ -485,12 +470,9 @@ namespace ExRam.Gremlinq.Core.Serialization
             return new Instruction(name, arguments);
         }
 
-        private static object? NullAwareSerialize<TParam>(this ITransformer serializer, TParam maybeParameter, IGremlinQueryEnvironment env)
-        {
-            return maybeParameter is { } parameter
-                ? serializer.TransformTo<object>().From(parameter, env)
-                : default;
-        }
+        private static object? NullAwareSerialize<TParam>(this ITransformer serializer, TParam maybeParameter, IGremlinQueryEnvironment env) => maybeParameter is { } parameter
+            ? serializer.TransformTo<object>().From(parameter, env)
+            : default;
     }
 }
 
