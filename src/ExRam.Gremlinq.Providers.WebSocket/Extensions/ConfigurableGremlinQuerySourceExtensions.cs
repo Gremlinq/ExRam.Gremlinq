@@ -14,8 +14,7 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class WebSocketGremlinQueryExecutor : IGremlinQueryExecutor, IDisposable
         {
-            [ThreadStatic]
-            private static IGremlinQueryEnvironment? _currentEnvironment;
+            private static readonly AsyncLocal<IGremlinQueryEnvironment?> _currentEnvironment = new();
 
             private readonly Dictionary<string, string> _aliasArgs;
             private readonly SmarterLazy<IGremlinClient> _lazyGremlinClient;
@@ -34,7 +33,7 @@ namespace ExRam.Gremlinq.Core
                         {
                             return await Task.Run(() => clientFactory.Create(
                                 gremlinServer,
-                                new JsonNetMessageSerializer(() => _currentEnvironment ?? throw new InvalidOperationException()),
+                                new JsonNetMessageSerializer(() => _currentEnvironment.Value ?? throw new InvalidOperationException()),
                                 new ConnectionPoolSettings(),
                                 static _ => { }));
                         }
@@ -91,14 +90,14 @@ namespace ExRam.Gremlinq.Core
 
                     try
                     {
-                        _currentEnvironment = environment;
+                        _currentEnvironment.Value = environment;
 
                         resultTask = client
                             .SubmitAsync<JToken>(requestMessage);
                     }
                     finally
                     {
-                        _currentEnvironment = null;
+                        _currentEnvironment.Value = null;
                     }
 
                     if (await resultTask.ConfigureAwait(false) is { } results)
