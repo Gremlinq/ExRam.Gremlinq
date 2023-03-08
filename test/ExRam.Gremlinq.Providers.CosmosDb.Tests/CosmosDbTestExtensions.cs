@@ -1,6 +1,9 @@
 ﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Core.Transformation;
+
+using Gremlin.Net.Process.Traversal;
+
 using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
@@ -13,7 +16,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 
             return env
                 .ConfigureSerializer(serializer => serializer
-                    .Add(Create<AddVStep, object>((step, env, recurse) =>
+                    .Add(Create<AddVStep, Instruction[]>((step, env, recurse) =>
                     {
                         var stack = threadLocal.Value is { } presentStack
                             ? presentStack
@@ -28,8 +31,8 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                         {
                             return new[]
                             {
-                                recurse.TransformTo<object>().From(step, env),
-                                recurse.TransformTo<object>().From(new PropertyStep.ByKeyStep("PartitionKey", "PartitionKey"), env)
+                                recurse.TransformTo<Instruction>().From(step, env),
+                                recurse.TransformTo<Instruction>().From(new PropertyStep.ByKeyStep("PartitionKey", "PartitionKey"), env)
                             };
                         }
                         finally

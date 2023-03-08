@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Immutable;
+using System.Linq;
 using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Core.Transformation;
 using Gremlin.Net.Process.Traversal;
@@ -126,11 +127,20 @@ namespace ExRam.Gremlinq.Core.Serialization
 
                                     break;
                                 }
-                                case IEnumerable enumerable:
+                                case Step[] steps:
                                 {
-                                    foreach (var item in enumerable)
+                                    foreach (var item in steps)
                                     {
                                         Add(item);
+                                    }
+
+                                    break;
+                                }
+                                case Instruction[] instructions:
+                                {
+                                    foreach (var instruction in instructions)
+                                    {
+                                        Add(instruction);
                                     }
 
                                     break;
