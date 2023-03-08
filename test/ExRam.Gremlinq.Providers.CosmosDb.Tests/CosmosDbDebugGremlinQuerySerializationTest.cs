@@ -4,7 +4,7 @@ using ExRam.Gremlinq.Providers.CosmosDb;
 using ExRam.Gremlinq.Providers.WebSocket;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
-namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
+namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
     public sealed class CosmosDbDebugGremlinQuerySerializationTest : DebugGremlinQuerySerializationTest, IClassFixture<CosmosDbDebugGremlinQuerySerializationTest.Fixture>
     {
