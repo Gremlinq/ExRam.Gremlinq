@@ -417,7 +417,7 @@ namespace ExRam.Gremlinq.Core.Serialization
         private static ITransformer Add<TSource>(this ITransformer serializer, Func<TSource, IGremlinQueryEnvironment, ITransformer, Instruction?> converter)
         {
             return serializer
-                .Add(Create<TSource, Instruction>(converter));
+                .Add(Create(converter));
         }
 
         private static Instruction CreateInstruction(string name)
@@ -451,20 +451,11 @@ namespace ExRam.Gremlinq.Core.Serialization
                 recurse.NullAwareSerialize(parameter3, env));
         }
 
-        private static Instruction CreateInstruction(string name, ITransformer recurse, IGremlinQueryEnvironment env, object?[] parameters)
-        {
-            if (parameters.Length == 0)
-                return CreateInstruction(name);
+        private static Instruction CreateInstruction(string name, ITransformer recurse, IGremlinQueryEnvironment env, object[] parameters) => CreateInstruction<object>(name, recurse, env, parameters.AsSpan());
 
-            for (var i = 0; i < parameters.Length; i++)
-            {
-                parameters[i] = recurse.NullAwareSerialize(parameters[i], env);
-            }
+        private static Instruction CreateInstruction<TParam>(string name, ITransformer recurse, IGremlinQueryEnvironment env, ImmutableArray<TParam> parameters) => CreateInstruction<TParam>(name, recurse, env, parameters.AsSpan());
 
-            return new Instruction(name, parameters);
-
-        }
-        private static Instruction CreateInstruction<TParam>(string name, ITransformer recurse, IGremlinQueryEnvironment env, ImmutableArray<TParam> parameters)
+        private static Instruction CreateInstruction<TParam>(string name, ITransformer recurse, IGremlinQueryEnvironment env, ReadOnlySpan<TParam> parameters)
         {
             if (parameters.Length == 0)
                 return CreateInstruction(name);
