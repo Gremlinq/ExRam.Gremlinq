@@ -51,14 +51,16 @@ namespace ExRam.Gremlinq.Core
 
             public IGremlinQuerySource Transform(IGremlinQuerySource source)
             {
-                var webSocketConfigurator = _webSocketConfigurator
-                    .ConfigureMessageSerializer(_ => JsonNetMessageSerializer.GraphSON2);
+                var webSocketConfigurator = _webSocketConfigurator;
 
                 if (_databaseName is { } databaseName && _graphName is { } graphName && _authKey is { } authKey)
                     webSocketConfigurator = webSocketConfigurator.AuthenticateBy($"/dbs/{databaseName}/colls/{graphName}", authKey);
 
                 return webSocketConfigurator
-                    .Transform(source);
+                    .Transform(source)
+                    .ConfigureEnvironment(env => env
+                        .ConfigureSerializer(ser => ser
+                            .UseGraphSon2()));
             }
         }
 

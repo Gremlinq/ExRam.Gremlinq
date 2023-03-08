@@ -3,7 +3,6 @@ using System.Runtime.CompilerServices;
 using ExRam.Gremlinq.Core.Deserialization;
 using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Core.Models;
-using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Core.Transformation;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;

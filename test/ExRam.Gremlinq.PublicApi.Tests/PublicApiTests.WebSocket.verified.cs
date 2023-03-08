@@ -9,14 +9,6 @@
         public static Gremlin.Net.Driver.IGremlinClient ObserveResultStatusAttributes(this Gremlin.Net.Driver.IGremlinClient client, System.Action<Gremlin.Net.Driver.Messages.RequestMessage, System.Collections.Generic.IReadOnlyDictionary<string, object>> observer) { }
         public static Gremlin.Net.Driver.IGremlinClient TransformRequest(this Gremlin.Net.Driver.IGremlinClient client, System.Func<Gremlin.Net.Driver.Messages.RequestMessage, System.Threading.Tasks.Task<Gremlin.Net.Driver.Messages.RequestMessage>> transformation) { }
     }
-    public abstract class JsonNetMessageSerializer : Gremlin.Net.Driver.IMessageSerializer
-    {
-        public static readonly Gremlin.Net.Driver.IMessageSerializer GraphSON2;
-        public static readonly Gremlin.Net.Driver.IMessageSerializer GraphSON3;
-        protected JsonNetMessageSerializer(string mimeType, Gremlin.Net.Structure.IO.GraphSON.GraphSONWriter graphSonWriter) { }
-        public System.Threading.Tasks.Task<Gremlin.Net.Driver.Messages.ResponseMessage<System.Collections.Generic.List<object>>> DeserializeMessageAsync(byte[] message) { }
-        public System.Threading.Tasks.Task<byte[]> SerializeMessageAsync(Gremlin.Net.Driver.Messages.RequestMessage requestMessage) { }
-    }
 }
 namespace ExRam.Gremlinq.Providers.WebSocket
 {
