@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace ExRam.Gremlinq.Core
 {
-    public readonly struct FastImmutableList<T> : IReadOnlyList<T>
+    internal readonly struct FastImmutableList<T> : IReadOnlyList<T>
         where T : class
     {
         public static readonly FastImmutableList<T> Empty = new(Array.Empty<T>());

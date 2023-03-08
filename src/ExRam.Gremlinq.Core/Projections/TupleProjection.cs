@@ -52,7 +52,6 @@ namespace ExRam.Gremlinq.Core.Projections
                             steps[0] = new SelectKeysStep(projection.Key);
 
                             projectionTraversal.Steps
-                                .AsSpan()
                                 .CopyTo(steps[1..]);
 
                             if (emptyProjectionProtection is not null)
@@ -87,7 +86,6 @@ namespace ExRam.Gremlinq.Core.Projections
                     if (emptyProjectionProtection is { } protection)
                     {
                         protection.Steps
-                            .AsSpan()
                             .CopyTo(steps[^protection.Count..]);
                     }
                 });

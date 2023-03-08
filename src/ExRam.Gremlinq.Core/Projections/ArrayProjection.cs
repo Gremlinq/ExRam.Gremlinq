@@ -27,7 +27,6 @@ namespace ExRam.Gremlinq.Core.Projections
 
                         inner
                             .Steps
-                            .AsSpan()
                             .CopyTo(steps[1..]);
                     }));
             }
