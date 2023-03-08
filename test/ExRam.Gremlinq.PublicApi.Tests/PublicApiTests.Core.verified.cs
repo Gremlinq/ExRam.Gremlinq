@@ -120,7 +120,6 @@ namespace ExRam.Gremlinq.Core
     public static class GremlinQueryDebugger
     {
         public static readonly ExRam.Gremlinq.Core.IGremlinQueryDebugger Groovy;
-        public static ExRam.Gremlinq.Core.IGremlinQueryDebugger Override(this ExRam.Gremlinq.Core.IGremlinQueryDebugger debugger, ExRam.Gremlinq.Core.IGremlinQueryDebugger overridingDebugger) { }
     }
     public static class GremlinQueryEnvironment
     {
@@ -520,7 +519,7 @@ namespace ExRam.Gremlinq.Core
     }
     public interface IGremlinQueryDebugger
     {
-        string? TryToString(ExRam.Gremlinq.Core.Serialization.ISerializedGremlinQuery serializedQuery, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment);
+        string Debug(ExRam.Gremlinq.Core.Serialization.BytecodeGremlinQuery serializedQuery, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment);
     }
     public interface IGremlinQueryEnvironment
     {

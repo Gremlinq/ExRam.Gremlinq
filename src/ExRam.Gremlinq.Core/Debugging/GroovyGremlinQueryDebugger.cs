@@ -204,13 +204,8 @@ namespace ExRam.Gremlinq.Core
 
         private static readonly ThreadLocal<StringBuilder> Builder = new(static () => new StringBuilder());
 
-        public string? TryToString(ISerializedGremlinQuery serializedQuery, IGremlinQueryEnvironment environment) => serializedQuery switch
-        {
-            GroovyGremlinQuery groovyGremlinQuery => JsonSerializer.Serialize(groovyGremlinQuery),
-            BytecodeGremlinQuery byteCodeQuery => new GroovyWriter(Builder.Value!.Clear())
-                .Append(byteCodeQuery.Bytecode)
-                .ToString(),
-            _ => default
-        };
+        public string Debug(BytecodeGremlinQuery serializedQuery, IGremlinQueryEnvironment environment) => new GroovyWriter(Builder.Value!.Clear())
+            .Append(serializedQuery.Bytecode)
+            .ToString();
     }
 }

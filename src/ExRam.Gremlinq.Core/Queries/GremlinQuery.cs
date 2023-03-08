@@ -419,7 +419,7 @@ namespace ExRam.Gremlinq.Core
                             .TransformTo<Traversal>()
                             .From(this, Environment), Environment), Environment);
 
-                return Environment.Debugger.TryToString(serialized, Environment) ?? serialized.ToString() ?? ToString();
+                return Environment.Debugger.Debug(serialized, Environment) ?? serialized.ToString() ?? ToString();
             }
             finally
             {
