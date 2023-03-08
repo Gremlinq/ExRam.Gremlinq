@@ -14,18 +14,14 @@ namespace ExRam.Gremlinq.Core.Serialization
         [ThreadStatic]
         internal static Dictionary<StepLabel, string>? _stepLabelNames;
 
-        internal static readonly string[] StepLabelNameCache;
+        internal static readonly string[] StepLabelNameCache = Enumerable
+            .Range(1, 100)
+            .Select(static x => "l" + x)
+            .ToArray();
 
         public static readonly ITransformer Default = Transformer.Identity
             .AddBaseConverters()
             .AddDefaultStepConverters();
-
-        static Serializer()
-        {
-            StepLabelNameCache = Enumerable.Range(1, 100)
-                .Select(static x => "l" + x)
-                .ToArray();
-        }
 
         public static ITransformer PreferGroovySerialization(this ITransformer serializer) => serializer
             .Add(Create<Bytecode, ISerializedGremlinQuery>((bytecode, env, recurse) => recurse
