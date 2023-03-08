@@ -1196,7 +1196,7 @@ namespace ExRam.Gremlinq.Core
             .Continue()
             .Build(
                 static (builder, traversal) => builder
-                    .AddSteps(traversal.Count > 0 && traversal.All(static x => x is IIsOptimizableInWhere)
+                    .AddSteps(traversal.Count > 0 && traversal.Steps.All(static x => x is IIsOptimizableInWhere)
                         ? traversal
                         : new FilterStep.ByTraversalStep(traversal))
                     .Build(),

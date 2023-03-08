@@ -15,9 +15,12 @@
   {
     Item1: AddEStep.FromTraversalStep,
     Item2: {
-      Traversal: [
-        {}
-      ]
+      Traversal: {
+        Count: 1,
+        Projection: {
+          Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+        }
+      }
     }
   },
   {
@@ -29,9 +32,12 @@
   {
     Item1: AddEStep.ToTraversalStep,
     Item2: {
-      Traversal: [
-        {}
-      ]
+      Traversal: {
+        Count: 1,
+        Projection: {
+          Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+        }
+      }
     }
   },
   {
@@ -57,15 +63,24 @@
     Item2: {
       Name: and,
       Traversals: [
-        [
-          {}
-        ],
-        [
-          {}
-        ],
-        [
-          {}
-        ]
+        {
+          Count: 1,
+          Projection: {
+            Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+          }
+        },
+        {
+          Count: 1,
+          Projection: {
+            Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+          }
+        },
+        {
+          Count: 1,
+          Projection: {
+            Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+          }
+        }
       ]
     }
   },
@@ -104,9 +119,12 @@
   {
     Item1: ChooseOptionTraversalStep,
     Item2: {
-      Traversal: [
-        {}
-      ]
+      Traversal: {
+        Count: 1,
+        Projection: {
+          Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+        }
+      }
     }
   },
   {
@@ -120,41 +138,65 @@
           string
         ]
       },
-      ThenTraversal: [
-        {}
-      ],
-      ElseTraversal: [
-        {}
-      ]
+      ThenTraversal: {
+        Count: 1,
+        Projection: {
+          Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+        }
+      },
+      ElseTraversal: {
+        Count: 1,
+        Projection: {
+          Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+        }
+      }
     }
   },
   {
     Item1: ChooseTraversalStep,
     Item2: {
-      IfTraversal: [
-        {}
-      ],
-      ThenTraversal: [
-        {}
-      ],
-      ElseTraversal: [
-        {}
-      ]
+      IfTraversal: {
+        Count: 1,
+        Projection: {
+          Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+        }
+      },
+      ThenTraversal: {
+        Count: 1,
+        Projection: {
+          Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+        }
+      },
+      ElseTraversal: {
+        Count: 1,
+        Projection: {
+          Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+        }
+      }
     }
   },
   {
     Item1: CoalesceStep,
     Item2: {
       Traversals: [
-        [
-          {}
-        ],
-        [
-          {}
-        ],
-        [
-          {}
-        ]
+        {
+          Count: 1,
+          Projection: {
+            Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+          }
+        },
+        {
+          Count: 1,
+          Projection: {
+            Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+          }
+        },
+        {
+          Count: 1,
+          Projection: {
+            Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+          }
+        }
       ]
     }
   },
@@ -236,17 +278,23 @@
   {
     Item1: FilterStep.ByTraversalStep,
     Item2: {
-      Traversal: [
-        {}
-      ]
+      Traversal: {
+        Count: 1,
+        Projection: {
+          Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+        }
+      }
     }
   },
   {
     Item1: FlatMapStep,
     Item2: {
-      Traversal: [
-        {}
-      ]
+      Traversal: {
+        Count: 1,
+        Projection: {
+          Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+        }
+      }
     }
   },
   {
@@ -260,9 +308,12 @@
   {
     Item1: GroupStep.ByTraversalStep,
     Item2: {
-      Traversal: [
-        {}
-      ]
+      Traversal: {
+        Count: 1,
+        Projection: {
+          Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+        }
+      }
     }
   },
   {
@@ -342,9 +393,12 @@
           EnumValue: id
         }
       },
-      Traversal: [
-        {}
-      ]
+      Traversal: {
+        Count: 1,
+        Projection: {
+          Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+        }
+      }
     }
   },
   {
@@ -421,32 +475,47 @@
   {
     Item1: LocalStep,
     Item2: {
-      Traversal: [
-        {}
-      ]
+      Traversal: {
+        Count: 1,
+        Projection: {
+          Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+        }
+      }
     }
   },
   {
     Item1: MapStep,
     Item2: {
-      Traversal: [
-        {}
-      ]
+      Traversal: {
+        Count: 1,
+        Projection: {
+          Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+        }
+      }
     }
   },
   {
     Item1: MatchStep,
     Item2: {
       Traversals: [
-        [
-          {}
-        ],
-        [
-          {}
-        ],
-        [
-          {}
-        ]
+        {
+          Count: 1,
+          Projection: {
+            Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+          }
+        },
+        {
+          Count: 1,
+          Projection: {
+            Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+          }
+        },
+        {
+          Count: 1,
+          Projection: {
+            Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+          }
+        }
       ]
     }
   },
@@ -484,26 +553,35 @@
   {
     Item1: NotStep,
     Item2: {
-      Traversal: [
-        {}
-      ]
+      Traversal: {
+        Count: 1,
+        Projection: {
+          Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+        }
+      }
     }
   },
   {
     Item1: OptionalStep,
     Item2: {
-      Traversal: [
-        {}
-      ]
+      Traversal: {
+        Count: 1,
+        Projection: {
+          Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+        }
+      }
     }
   },
   {
     Item1: OptionTraversalStep,
     Item2: {
       Guard: string,
-      OptionTraversal: [
-        {}
-      ]
+      OptionTraversal: {
+        Count: 1,
+        Projection: {
+          Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+        }
+      }
     }
   },
   {
@@ -548,9 +626,12 @@
         EnumName: Order,
         EnumValue: asc
       },
-      Traversal: [
-        {}
-      ]
+      Traversal: {
+        Count: 1,
+        Projection: {
+          Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+        }
+      }
     }
   },
   {
@@ -558,15 +639,24 @@
     Item2: {
       Name: or,
       Traversals: [
-        [
-          {}
-        ],
-        [
-          {}
-        ],
-        [
-          {}
-        ]
+        {
+          Count: 1,
+          Projection: {
+            Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+          }
+        },
+        {
+          Count: 1,
+          Projection: {
+            Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+          }
+        },
+        {
+          Count: 1,
+          Projection: {
+            Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+          }
+        }
       ]
     }
   },
@@ -615,9 +705,12 @@
   {
     Item1: ProjectStep.ByTraversalStep,
     Item2: {
-      Traversal: [
-        {}
-      ]
+      Traversal: {
+        Count: 1,
+        Projection: {
+          Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+        }
+      }
     }
   },
   {
@@ -666,9 +759,12 @@
   {
     Item1: PropertyStep.ByTraversalStep,
     Item2: {
-      Traversal: [
-        {}
-      ],
+      Traversal: {
+        Count: 1,
+        Projection: {
+          Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+        }
+      },
       Value: string,
       Cardinality: {
         EnumName: Cardinality,
@@ -692,9 +788,12 @@
   {
     Item1: RepeatStep,
     Item2: {
-      Traversal: [
-        {}
-      ]
+      Traversal: {
+        Count: 1,
+        Projection: {
+          Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+        }
+      }
     }
   },
   {
@@ -730,9 +829,12 @@
   {
     Item1: SideEffectStep,
     Item2: {
-      Traversal: [
-        {}
-      ]
+      Traversal: {
+        Count: 1,
+        Projection: {
+          Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+        }
+      }
     }
   },
   {
@@ -782,24 +884,36 @@
     Item1: UnionStep,
     Item2: {
       Traversals: [
-        [
-          {}
-        ],
-        [
-          {}
-        ],
-        [
-          {}
-        ]
+        {
+          Count: 1,
+          Projection: {
+            Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+          }
+        },
+        {
+          Count: 1,
+          Projection: {
+            Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+          }
+        },
+        {
+          Count: 1,
+          Projection: {
+            Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+          }
+        }
       ]
     }
   },
   {
     Item1: UntilStep,
     Item2: {
-      Traversal: [
-        {}
-      ]
+      Traversal: {
+        Count: 1,
+        Projection: {
+          Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+        }
+      }
     }
   },
   {
@@ -877,9 +991,12 @@
   {
     Item1: WhereTraversalStep,
     Item2: {
-      Traversal: [
-        {}
-      ]
+      Traversal: {
+        Count: 1,
+        Projection: {
+          Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+        }
+      }
     }
   },
   {
@@ -902,9 +1019,12 @@
   {
     Item1: WithStrategiesStep,
     Item2: {
-      Traversal: [
-        {}
-      ]
+      Traversal: {
+        Count: 1,
+        Projection: {
+          Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+        }
+      }
     }
   }
 ]

@@ -824,38 +824,12 @@
   },
   {
     Item1: ProjectEdgeStep,
-    Item2: [
-      {
-        Projections: [
-          id,
-          label,
-          properties
-        ]
-      },
-      {
-        Key: {
-          RawKey: {
-            EnumName: T,
-            EnumValue: id
-          }
-        }
-      },
-      {
-        Key: {
-          RawKey: {
-            EnumName: T,
-            EnumValue: label
-          }
-        }
-      },
-      {
-        Traversal: [
-          {
-            Keys: null
-          }
-        ]
+    Item2: {
+      Count: 4,
+      Projection: {
+        Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
       }
-    ]
+    }
   },
   {
     Item1: ProjectStep,
@@ -897,91 +871,12 @@
   },
   {
     Item1: ProjectVertexStep,
-    Item2: [
-      {
-        Projections: [
-          id,
-          label,
-          properties
-        ]
-      },
-      {
-        Key: {
-          RawKey: {
-            EnumName: T,
-            EnumValue: id
-          }
-        }
-      },
-      {
-        Key: {
-          RawKey: {
-            EnumName: T,
-            EnumValue: label
-          }
-        }
-      },
-      {
-        Traversal: [
-          {
-            Keys: null
-          },
-          {},
-          {
-            Key: {
-              RawKey: {
-                EnumName: T,
-                EnumValue: label
-              }
-            }
-          },
-          {
-            Traversal: [
-              {
-                Projections: [
-                  id,
-                  label,
-                  value,
-                  properties
-                ]
-              },
-              {
-                Key: {
-                  RawKey: {
-                    EnumName: T,
-                    EnumValue: id
-                  }
-                }
-              },
-              {
-                Key: {
-                  RawKey: {
-                    EnumName: T,
-                    EnumValue: label
-                  }
-                }
-              },
-              {
-                Key: {
-                  RawKey: {
-                    EnumName: T,
-                    EnumValue: value
-                  }
-                }
-              },
-              {
-                Traversal: [
-                  {
-                    Keys: null
-                  }
-                ]
-              },
-              {}
-            ]
-          }
-        ]
+    Item2: {
+      Count: 4,
+      Projection: {
+        Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
       }
-    ]
+    }
   },
   {
     Item1: PropertiesStep,
@@ -1010,9 +905,12 @@
   {
     Item1: PropertyStep.ByTraversalStep,
     Item2: {
-      Traversal: [
-        {}
-      ],
+      Traversal: {
+        Count: 1,
+        Projection: {
+          Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+        }
+      },
       Value: string,
       Cardinality: {
         EnumName: Cardinality,

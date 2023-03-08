@@ -1,11 +1,10 @@
 ﻿using System.Buffers;
-using System.Collections;
 using ExRam.Gremlinq.Core.Projections;
 using ExRam.Gremlinq.Core.Steps;
 
 namespace ExRam.Gremlinq.Core
 {
-    public readonly struct Traversal : IReadOnlyList<Step>
+    public readonly struct Traversal
     {
         public static readonly Traversal Empty = new(FastImmutableList<Step>.Empty, SideEffectSemantics.Read, Projection.Empty);
 
@@ -59,8 +58,6 @@ namespace ExRam.Gremlinq.Core
 
         public Traversal WithProjection(Projection projection) => new(_steps, SideEffectSemantics, projection);
 
-        public IEnumerator<Step> GetEnumerator() => _steps.GetEnumerator();
-
         public Traversal IncludeProjection(IGremlinQueryEnvironment environment)
         {
             if (Projection != Projection.Empty)
@@ -92,8 +89,6 @@ namespace ExRam.Gremlinq.Core
 
             return this;
         }
-
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public static implicit operator Traversal(Step step) => new(new[] { step }, Projection.Empty);
 
