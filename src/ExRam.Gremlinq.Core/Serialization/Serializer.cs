@@ -118,15 +118,6 @@ namespace ExRam.Gremlinq.Core.Serialization
 
                                     break;
                                 }
-                                case Traversal traversal:
-                                {
-                                    for (var i = 0; i < traversal.Count; i++)
-                                    {
-                                        Add(traversal[i]);
-                                    }
-
-                                    break;
-                                }
                                 case Step[] steps:
                                 {
                                     foreach (var item in steps)
