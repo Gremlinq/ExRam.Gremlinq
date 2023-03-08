@@ -99,53 +99,43 @@ namespace ExRam.Gremlinq.Core.Serialization
 
                         var byteCode = new Bytecode();
 
-                        void Add(object? obj)
+                        void AddStep(Step step)
                         {
-                            switch (obj)
+                            if (recurse.TryTransform(step, env, out Step[]? expandedSteps))
                             {
-                                case Instruction instruction:
+                                foreach (var expandedStep in expandedSteps)
                                 {
-                                    if (byteCode.StepInstructions.Count == 0 && instruction.OperatorName.StartsWith("with", StringComparison.OrdinalIgnoreCase))
-                                        byteCode.SourceInstructions.Add(instruction);
-                                    else
-                                        byteCode.StepInstructions.Add(instruction);
-                            
-                                    break;
-                                }
-                                case Step step:
-                                {
-                                    Add(recurse.TransformTo<object>().From(step, env));
-
-                                    break;
-                                }
-                                case Step[] steps:
-                                {
-                                    foreach (var item in steps)
-                                    {
-                                        Add(item);
-                                    }
-
-                                    break;
-                                }
-                                case Instruction[] instructions:
-                                {
-                                    foreach (var instruction in instructions)
-                                    {
-                                        Add(instruction);
-                                    }
-
-                                    break;
+                                    AddStep(expandedStep);
                                 }
                             }
+                            else if (recurse.TryTransform(step, env, out Instruction[]? expandedInstructions))
+                            {
+                                foreach (var expandedInstruction in expandedInstructions)
+                                {
+                                    AddInstruction(expandedInstruction);
+                                }
+                            }
+                            else if (recurse.TryTransform(step, env, out Instruction? expandedInstruction))
+                            {
+                                AddInstruction(expandedInstruction);
+                            }
+                        }
+
+                        void AddInstruction(Instruction instruction)
+                        {
+                            if (byteCode.StepInstructions.Count == 0 && instruction.OperatorName.StartsWith("with", StringComparison.OrdinalIgnoreCase))
+                                byteCode.SourceInstructions.Add(instruction);
+                            else
+                                byteCode.StepInstructions.Add(instruction);
                         }
 
                         foreach (var step in span)
                         {
-                            Add(step);
+                            AddStep(step);
                         }
 
                         if (byteCode.StepInstructions.Count == 0)
-                            Add(IdentityStep.Instance);
+                            AddStep(IdentityStep.Instance);
 
                         return byteCode;
                     }
