@@ -2,106 +2,6 @@
   [
     {
       "id": "00000000-0000-0000-0000-000000000000",
-      "label": "Country",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-            "value": "PartitionKey"
-          }
-        ],
-        "CountryCallingCode": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": "+49"
-          }
-        ],
-        "LocalizableDescription": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": "",
-            "properties": {
-              "someKey": "value"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "label": "Language",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-            "value": "PartitionKey"
-          }
-        ],
-        "IetfLanguageTag": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": "en"
-          }
-        ]
-      }
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "label": "Person",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-            "value": "PartitionKey"
-          }
-        ],
-        "Age": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": 36,
-            "properties": {
-              "Meta": "value"
-            }
-          }
-        ],
-        "GuidKey": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": "00000000-0000-0000-0000-000000000000"
-          }
-        ],
-        "StringKey1": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": 36
-          }
-        ]
-      }
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "label": "Company",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-            "value": "PartitionKey"
-          }
-        ],
-        "FoundingDate": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": -62135596800000
-          }
-        ]
-      }
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
       "label": "Person",
       "type": "vertex",
       "properties": {
@@ -260,6 +160,99 @@
     },
     {
       "id": "00000000-0000-0000-0000-000000000000",
+      "label": "Language",
+      "type": "vertex",
+      "properties": {
+        "PartitionKey": [
+          {
+            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+            "value": "PartitionKey"
+          }
+        ],
+        "IetfLanguageTag": [
+          {
+            "id": "00000000-0000-0000-0000-000000000000",
+            "value": "en"
+          }
+        ]
+      }
+    },
+    {
+      "id": "00000000-0000-0000-0000-000000000000",
+      "label": "Country",
+      "type": "vertex",
+      "properties": {
+        "PartitionKey": [
+          {
+            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+            "value": "PartitionKey"
+          }
+        ],
+        "CountryCallingCode": [
+          {
+            "id": "00000000-0000-0000-0000-000000000000",
+            "value": "+49"
+          }
+        ],
+        "LocalizableDescription": [
+          {
+            "id": "00000000-0000-0000-0000-000000000000",
+            "value": "",
+            "properties": {
+              "someKey": "value"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "00000000-0000-0000-0000-000000000000",
+      "label": "Person",
+      "type": "vertex",
+      "properties": {
+        "PartitionKey": [
+          {
+            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+            "value": "PartitionKey"
+          }
+        ],
+        "Age": [
+          {
+            "id": "00000000-0000-0000-0000-000000000000",
+            "value": 36,
+            "properties": {
+              "Meta": "value"
+            }
+          }
+        ],
+        "Name": [
+          {
+            "id": "00000000-0000-0000-0000-000000000000",
+            "value": "Bob"
+          }
+        ],
+        "RegistrationDate": [
+          {
+            "id": "00000000-0000-0000-0000-000000000000",
+            "value": 1586270616000
+          }
+        ],
+        "GuidKey": [
+          {
+            "id": "00000000-0000-0000-0000-000000000000",
+            "value": "00000000-0000-0000-0000-000000000000"
+          }
+        ],
+        "StringKey1": [
+          {
+            "id": "00000000-0000-0000-0000-000000000000",
+            "value": 36
+          }
+        ]
+      }
+    },
+    {
+      "id": "00000000-0000-0000-0000-000000000000",
       "label": "Person",
       "type": "vertex",
       "properties": {
@@ -294,7 +287,7 @@
     },
     {
       "id": "00000000-0000-0000-0000-000000000000",
-      "label": "Country",
+      "label": "Company",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
@@ -303,218 +296,16 @@
             "value": "PartitionKey"
           }
         ],
-        "LocalizableDescription": [
+        "FoundingDate": [
           {
             "id": "00000000-0000-0000-0000-000000000000",
-            "value": "",
-            "properties": {
-              "someKey": "value"
-            }
+            "value": -62135596800000
           }
         ]
       }
     }
   ],
   [
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "label": "Person",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-            "value": "PartitionKey"
-          }
-        ],
-        "Age": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": 36,
-            "properties": {
-              "Meta": "value"
-            }
-          }
-        ],
-        "GuidKey": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": "00000000-0000-0000-0000-000000000000"
-          }
-        ],
-        "StringKey1": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": 36
-          }
-        ]
-      }
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "label": "Company",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-            "value": "PartitionKey"
-          }
-        ],
-        "FoundingDate": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": -62135596800000
-          }
-        ]
-      }
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "label": "Language",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-            "value": "PartitionKey"
-          }
-        ],
-        "IetfLanguageTag": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": "en"
-          }
-        ]
-      }
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "label": "Country",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-            "value": "PartitionKey"
-          }
-        ],
-        "CountryCallingCode": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": "+49"
-          }
-        ],
-        "LocalizableDescription": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": "",
-            "properties": {
-              "someKey": "value"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "label": "Person",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-            "value": "PartitionKey"
-          }
-        ],
-        "Age": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": 36,
-            "properties": {
-              "Meta": "value"
-            }
-          }
-        ],
-        "Name": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": "Bob"
-          }
-        ],
-        "RegistrationDate": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": 1586270616000
-          }
-        ],
-        "GuidKey": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": "00000000-0000-0000-0000-000000000000"
-          }
-        ],
-        "StringKey1": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": 36
-          }
-        ]
-      }
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "label": "Person",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-            "value": "PartitionKey"
-          }
-        ],
-        "Age": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": 36,
-            "properties": {
-              "Meta": "value"
-            }
-          }
-        ],
-        "GuidKey": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": "00000000-0000-0000-0000-000000000000"
-          }
-        ],
-        "StringKey1": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": 36
-          }
-        ]
-      }
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "label": "Company",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-            "value": "PartitionKey"
-          }
-        ],
-        "FoundingDate": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": -62135596800000
-          }
-        ]
-      }
-    },
     {
       "id": "00000000-0000-0000-0000-000000000000",
       "label": "Language",
@@ -597,27 +388,6 @@
         ]
       }
     },
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "label": "Language",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-            "value": "PartitionKey"
-          }
-        ],
-        "IetfLanguageTag": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": "en"
-          }
-        ]
-      }
-    }
-  ],
-  [
     {
       "id": "00000000-0000-0000-0000-000000000000",
       "label": "Person",
@@ -818,34 +588,6 @@
         "Name": [
           {
             "id": "00000000-0000-0000-0000-000000000000",
-            "value": "GER"
-          }
-        ],
-        "LocalizableDescription": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": "",
-            "properties": {
-              "someKey": "value"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "label": "Country",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-            "value": "PartitionKey"
-          }
-        ],
-        "Name": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000",
             "value": "GER",
             "properties": {
               "de": "Deutschland",
@@ -863,7 +605,9 @@
           }
         ]
       }
-    },
+    }
+  ],
+  [
     {
       "id": "00000000-0000-0000-0000-000000000000",
       "label": "Company",
@@ -925,6 +669,5 @@
         ]
       }
     }
-  ],
-  []
+  ]
 ]

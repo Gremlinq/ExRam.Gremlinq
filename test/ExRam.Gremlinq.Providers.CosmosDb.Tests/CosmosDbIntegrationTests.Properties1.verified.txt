@@ -7,46 +7,6 @@
     },
     {
       "id": "00000000-0000-0000-0000-000000000000",
-      "value": "+49",
-      "label": "CountryCallingCode"
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "value": "en",
-      "label": "IetfLanguageTag"
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "value": 0,
-      "label": "Age"
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "value": -62135596800000,
-      "label": "FoundingDate"
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
       "value": 0,
       "label": "Age"
     },
@@ -89,41 +49,6 @@
       "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "value": 0,
-      "label": "Age"
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "value": 0,
-      "label": "Age"
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "value": -62135596800000,
-      "label": "FoundingDate"
     },
     {
       "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
@@ -224,18 +149,6 @@
       "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
-    }
-  ],
-  [
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "value": "en",
-      "label": "IetfLanguageTag"
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
     },
     {
       "id": "00000000-0000-0000-0000-000000000000",
@@ -311,7 +224,9 @@
       "id": "00000000-0000-0000-0000-000000000000",
       "value": -62135596800000,
       "label": "FoundingDate"
-    },
+    }
+  ],
+  [
     {
       "id": "00000000-0000-0000-0000-000000000000",
       "value": "Aachen",
@@ -319,16 +234,6 @@
       "properties": {
         "ValidFrom": 1546304400000
       }
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "value": "GER",
-      "label": "Name"
     },
     {
       "id": "00000000-0000-0000-0000-000000000000|PartitionKey",

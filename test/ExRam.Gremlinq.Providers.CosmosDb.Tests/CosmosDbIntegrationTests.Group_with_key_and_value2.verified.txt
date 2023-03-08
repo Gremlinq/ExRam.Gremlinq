@@ -1,9 +1,9 @@
 ﻿[
   [
     {
+      "Person": 1586270616000,
       "Country": "GER",
       "Language": "en",
-      "Person": 1586270616000,
       "Company": "+4923456",
       "TimeFrame": 28800000.0
     }
