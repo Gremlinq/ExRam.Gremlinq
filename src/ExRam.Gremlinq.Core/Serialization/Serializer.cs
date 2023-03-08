@@ -100,6 +100,29 @@ namespace ExRam.Gremlinq.Core.Serialization
 
                         void AddStep(Step step)
                         {
+                            void AddInstruction(Instruction instruction)
+                            {
+                                void AddInnerInstruction(Instruction instruction)
+                                {
+                                    if (byteCode.StepInstructions.Count == 0 && instruction.OperatorName.StartsWith("with", StringComparison.OrdinalIgnoreCase))
+                                        byteCode.SourceInstructions.Add(instruction);
+                                    else
+                                        byteCode.StepInstructions.Add(instruction);
+                                }
+
+                                if (recurse.TryTransform(instruction, env, out Instruction[]? expandedInnerInstructions))
+                                {
+                                    foreach (var expandedInnerInstruction in expandedInnerInstructions)
+                                    {
+                                        AddInnerInstruction(expandedInnerInstruction);
+                                    }
+                                }
+                                else if (recurse.TryTransform(instruction, env, out Instruction? expandedInstruction))
+                                    AddInnerInstruction(expandedInstruction);
+                                else
+                                    AddInnerInstruction(instruction);
+                            }
+
                             if (recurse.TryTransform(step, env, out Step[]? expandedSteps))
                             {
                                 foreach (var expandedStep in expandedSteps)
@@ -115,17 +138,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                                 }
                             }
                             else if (recurse.TryTransform(step, env, out Instruction? expandedInstruction))
-                            {
                                 AddInstruction(expandedInstruction);
-                            }
-                        }
-
-                        void AddInstruction(Instruction instruction)
-                        {
-                            if (byteCode.StepInstructions.Count == 0 && instruction.OperatorName.StartsWith("with", StringComparison.OrdinalIgnoreCase))
-                                byteCode.SourceInstructions.Add(instruction);
-                            else
-                                byteCode.StepInstructions.Add(instruction);
                         }
 
                         foreach (var step in span)
