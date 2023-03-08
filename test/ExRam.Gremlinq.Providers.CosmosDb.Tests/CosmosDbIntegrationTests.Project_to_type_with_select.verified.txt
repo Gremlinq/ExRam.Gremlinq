@@ -1,48 +1,8 @@
 ﻿[
-  [
-    {
-      "In": "in_value",
-      "Out": "out_value"
-    },
-    {
-      "In": "in_value",
-      "Out": "out_value"
-    },
-    {
-      "In": "in_value",
-      "Out": "out_value"
-    },
-    {
-      "In": "in_value",
-      "Out": "out_value"
-    },
-    {
-      "In": "in_value",
-      "Out": "out_value"
-    },
-    {
-      "In": "in_value",
-      "Out": "out_value"
-    },
-    {
-      "In": "in_value",
-      "Out": "out_value"
-    },
-    {
-      "In": "in_value",
-      "Out": "out_value"
-    },
-    {
-      "In": "in_value",
-      "Out": "out_value"
-    },
-    {
-      "In": "in_value",
-      "Out": "out_value"
-    },
-    {
-      "In": "in_value",
-      "Out": "out_value"
+  {
+    "serverException": {
+      "type": "InvalidOperationException",
+      "message": "Operation is not valid due to the current state of the object."
     }
-  ]
+  }
 ]

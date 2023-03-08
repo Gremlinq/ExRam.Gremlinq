@@ -1,54 +1,8 @@
 ﻿[
-  [
-    {
-      "Item2": 0
-    },
-    {
-      "Item1": {
-        "id": "00000000-0000-0000-0000-000000000000",
-        "label": "Country",
-        "type": "vertex",
-        "properties": {
-          "PartitionKey": [
-            {
-              "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-              "value": "PartitionKey"
-            }
-          ],
-          "CountryCallingCode": [
-            {
-              "id": "00000000-0000-0000-0000-000000000000",
-              "value": "+49"
-            }
-          ]
-        }
-      },
-      "Item2": 0
-    },
-    {
-      "Item2": 0
-    },
-    {
-      "Item2": 0
-    },
-    {
-      "Item2": 0
-    },
-    {
-      "Item2": 0
-    },
-    {
-      "Item2": 0
-    },
-    {
-      "Item2": 0
-    },
-    {
-      "Item2": 0
-    },
-    {
-      "Item2": 0
-    },
-    {}
-  ]
+  {
+    "serverException": {
+      "type": "InvalidOperationException",
+      "message": "Operation is not valid due to the current state of the object."
+    }
+  }
 ]

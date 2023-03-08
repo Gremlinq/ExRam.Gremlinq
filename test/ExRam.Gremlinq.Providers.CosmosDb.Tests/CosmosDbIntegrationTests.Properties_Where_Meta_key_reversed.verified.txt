@@ -1,12 +1,8 @@
 ﻿[
-  [
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "value": "Aachen",
-      "label": "Locations",
-      "properties": {
-        "ValidFrom": 1546304400000
-      }
+  {
+    "serverException": {
+      "type": "InvalidOperationException",
+      "message": "Operation is not valid due to the current state of the object."
     }
-  ]
+  }
 ]

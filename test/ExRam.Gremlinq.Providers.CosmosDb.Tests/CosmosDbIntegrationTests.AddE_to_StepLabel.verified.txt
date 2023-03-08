@@ -1,13 +1,8 @@
 ﻿[
-  [
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "label": "Speaks",
-      "type": "edge",
-      "inVLabel": "Language",
-      "outVLabel": "Country",
-      "inV": "00000000-0000-0000-0000-000000000000",
-      "outV": "00000000-0000-0000-0000-000000000000"
+  {
+    "serverException": {
+      "type": "InvalidOperationException",
+      "message": "Operation is not valid due to the current state of the object."
     }
-  ]
+  }
 ]

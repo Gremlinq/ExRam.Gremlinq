@@ -1,59 +1,8 @@
 ﻿[
-  [
-    {
-      "Age": [
-        21
-      ]
-    },
-    {
-      "Age": [
-        21
-      ]
-    },
-    {
-      "Age": [
-        21
-      ]
-    },
-    {
-      "Age": [
-        21
-      ]
-    },
-    {
-      "Age": [
-        21
-      ]
-    },
-    {
-      "Age": [
-        21
-      ]
-    },
-    {
-      "Age": [
-        21
-      ]
-    },
-    {
-      "Age": [
-        21
-      ]
-    },
-    {
-      "Age": [
-        21
-      ]
-    },
-    {
-      "Age": [
-        21
-      ]
-    },
-    {
-      "Age": [
-        21
-      ]
+  {
+    "serverException": {
+      "type": "InvalidOperationException",
+      "message": "Operation is not valid due to the current state of the object."
     }
-  ]
+  }
 ]
