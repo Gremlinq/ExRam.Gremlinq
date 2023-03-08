@@ -1,6 +1,5 @@
 ﻿using System.Text;
 using System.Text.Json;
-
 using ExRam.Gremlinq.Core.Serialization;
 using Gremlin.Net.Process.Traversal;
 
