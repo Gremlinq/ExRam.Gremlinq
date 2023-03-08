@@ -57,10 +57,7 @@ namespace ExRam.Gremlinq.Core
                     webSocketConfigurator = webSocketConfigurator.AuthenticateBy($"/dbs/{databaseName}/colls/{graphName}", authKey);
 
                 return webSocketConfigurator
-                    .Transform(source)
-                    .ConfigureEnvironment(env => env
-                        .ConfigureSerializer(ser => ser
-                            .UseGraphSon2()));
+                    .Transform(source);
             }
         }
 
@@ -143,7 +140,8 @@ namespace ExRam.Gremlinq.Core
                                     ? WorkaroundOrder.Decr
                                     : default)
                             .AutoRecurse<WorkaroundOrder>())
-                        .PreferGroovySerialization())
+                        .PreferGroovySerialization()
+                        .UseGraphSon2())
                     .StoreTimeSpansAsNumbers());
         }
     }
