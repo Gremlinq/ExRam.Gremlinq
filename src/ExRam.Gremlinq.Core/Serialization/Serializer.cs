@@ -32,10 +32,9 @@ namespace ExRam.Gremlinq.Core.Serialization
         public static ITransformer ToGroovy(this ITransformer serializer)
         {
             return serializer
-                .Add(Create<Bytecode, GroovyGremlinQuery>((bytecode, env, recurse) => recurse
-                    .TransformTo<BytecodeGremlinQuery>()
-                    .From(bytecode, env)
-                    .ToGroovy()));
+                .Add(Create<Bytecode, ISerializedGremlinQuery>((bytecode, env, recurse) => recurse
+                    .TransformTo<GroovyGremlinQuery>()
+                    .From(bytecode, env)));
         }
 
         private static ITransformer AddBaseConverters(this ITransformer serializer) => serializer
@@ -157,6 +156,10 @@ namespace ExRam.Gremlinq.Core.Serialization
                     }
                 }))
                 .AutoRecurse<Bytecode>())
+            .Add(Create<Bytecode, GroovyGremlinQuery>((bytecode, env, recurse) => recurse
+                .TransformTo<BytecodeGremlinQuery>()
+                .From(bytecode, env)
+                .ToGroovy()))
             .Add(ConverterFactory
                 .Create<Bytecode, BytecodeGremlinQuery>((static (bytecode, env, recurse) => new BytecodeGremlinQuery(bytecode)))
                 .AutoRecurse<BytecodeGremlinQuery>())
