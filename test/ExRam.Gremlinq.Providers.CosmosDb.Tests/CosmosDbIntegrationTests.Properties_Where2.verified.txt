@@ -1,54 +1,8 @@
 ﻿[
-  [
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "value": 0,
-      "label": "Age"
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "value": 0,
-      "label": "Age"
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "value": 0,
-      "label": "Age"
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "value": 0,
-      "label": "Age"
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "value": 0,
-      "label": "Age"
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "value": 0,
-      "label": "Age"
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "value": 0,
-      "label": "Age"
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "value": 0,
-      "label": "Age"
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "value": 0,
-      "label": "Age"
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "value": 0,
-      "label": "Age"
+  {
+    "serverException": {
+      "type": "ResponseException",
+      "message": "MalformedRequest: \r\n\nActivityId : 00000000-0000-0000-0000-000000000000\nExceptionType : GraphMalformedException\nExceptionMessage : \r\n\tGremlin Malformed Request: GraphSON v3 IO is not supported.\n\tGremlinRequestId : 00000000-0000-0000-0000-000000000000\n\tContext : global\n\tGraphInterOpStatusCode : MalformedRequest\n\tHResult : 0x80131500\r\n"
     }
-  ]
+  }
 ]
