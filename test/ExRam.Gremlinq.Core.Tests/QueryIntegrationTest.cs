@@ -1,7 +1,6 @@
 ﻿using System.Collections.Immutable;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
-using ExRam.Gremlinq.Core.Deserialization;
 using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Core.Transformation;
 using Newtonsoft.Json.Linq;
@@ -28,8 +27,8 @@ namespace ExRam.Gremlinq.Core.Tests
                                         }
                                     }
                                 }))))
+                    .AddNewtonsoftJson()
                     .ConfigureDeserializer(d => d
-                        .AddNewtonsoftJson()
                         .Add(ConverterFactory
                             .Create<JToken, JToken[]>((token, env, recurse) => new[] { token })))))
             {

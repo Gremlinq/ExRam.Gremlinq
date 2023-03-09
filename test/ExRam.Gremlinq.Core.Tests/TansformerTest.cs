@@ -1,5 +1,4 @@
 ﻿using System.Dynamic;
-using ExRam.Gremlinq.Core.Deserialization;
 using ExRam.Gremlinq.Core.Transformation;
 using FluentAssertions;
 using Newtonsoft.Json.Linq;
@@ -109,8 +108,9 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public async Task More_specific_type_is_deserialized()
         {
-            await Verify(Transformer.Identity
+            await Verify(GremlinQueryEnvironment.Default
                 .AddNewtonsoftJson()
+                .Deserializer
                 .TryTransformTo<object>().From(JObject.Parse("{ \"@type\": \"g:Date\", \"@value\": 1657527969000 }"), GremlinQueryEnvironment.Empty));
         }
 
@@ -119,8 +119,9 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             var original = JObject.Parse("{ \"prop1\": \"value\", \"prop2\": 1657527969000 }");
 
-            var deserialized = Transformer.Identity
+            var deserialized = GremlinQueryEnvironment.Default
                 .AddNewtonsoftJson()
+                .Deserializer
                 .TryTransformTo<JObject>().From(original, GremlinQueryEnvironment.Empty);
 
             deserialized
@@ -133,8 +134,9 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             var original = JObject.Parse("{ \"prop1\": \"value\", \"prop2\": 1657527969000 }");
 
-            var deserialized = Transformer.Identity
+            var deserialized = GremlinQueryEnvironment.Default
                 .AddNewtonsoftJson()
+                .Deserializer
                 .TryTransformTo<IDictionary<string, object>>().From(original, GremlinQueryEnvironment.Empty);
 
             deserialized
@@ -149,8 +151,9 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             var original = JObject.Parse("{ \"@type\": \"g:unknown\", \"@value\": { \"prop1\": \"value\", \"prop2\": 1657527969000 } }");
 
-            var deserialized = Transformer.Identity
+            var deserialized = GremlinQueryEnvironment.Default
                 .AddNewtonsoftJson()
+                .Deserializer
                 .TryTransformTo<IDictionary<string, object>>().From(original, GremlinQueryEnvironment.Empty);
 
             deserialized
@@ -165,8 +168,9 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             var original = JObject.Parse("{ \"prop1\": \"value\", \"prop2\": 1657527969000 }");
 
-            var deserialized = Transformer.Identity
+            var deserialized = GremlinQueryEnvironment.Default
                 .AddNewtonsoftJson()
+                .Deserializer
                 .Add(Create<JObject, IDictionary<string, object?>>((static (jObject,  env, recurse) =>
                 {
                     if (recurse.TryTransformTo<JObject>().From(jObject, env) is JObject processedFragment)

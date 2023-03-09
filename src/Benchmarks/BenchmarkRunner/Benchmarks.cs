@@ -1,6 +1,5 @@
 ﻿using BenchmarkDotNet.Attributes;
 using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Core.Deserialization;
 using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Tests.Entities;
 using Newtonsoft.Json.Linq;
@@ -16,11 +15,13 @@ namespace Benchmarks
 
         public Benchmarks()
         {
-            _oldDeserializer = Transformer.Identity
-               .AddNewtonsoftJson();
+            _oldDeserializer = GremlinQueryEnvironment.Default
+               .AddNewtonsoftJson()
+               .Deserializer;
 
-            _newDeserializer = Transformer.Identity
-               ./*ShinyAndNew*/AddNewtonsoftJson();
+            _newDeserializer = GremlinQueryEnvironment.Default
+               ./*ShinyAndNew*/AddNewtonsoftJson()
+               .Deserializer;
         }
 
         [Benchmark]

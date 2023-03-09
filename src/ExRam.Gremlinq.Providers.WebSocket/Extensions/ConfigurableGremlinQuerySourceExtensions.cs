@@ -137,10 +137,9 @@ namespace ExRam.Gremlinq.Core
                     .ConfigureEnvironment(_ => _))
                 .ConfigureEnvironment(environment => environment
                     .UseGraphSon3()
+                    .AddNewtonsoftJson()
                     .ConfigureExecutor(executor => executor
-                        .Log())
-                    .ConfigureDeserializer(d => d
-                        .AddNewtonsoftJson()));
+                        .Log()));
         }
     }
 }
