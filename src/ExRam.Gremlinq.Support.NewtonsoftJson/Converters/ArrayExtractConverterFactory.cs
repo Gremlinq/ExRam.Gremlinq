@@ -3,6 +3,7 @@ using Newtonsoft.Json.Linq;
 using System.Diagnostics.CodeAnalysis;
 using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Core;
+using System.Collections;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson
 {
@@ -12,7 +13,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
         {
             public bool TryConvert(JArray serialized, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
             {
-                if ((!typeof(TTarget).IsArray || environment.GetCache().FastNativeTypes.ContainsKey(typeof(TTarget))) && !typeof(TTarget).IsInstanceOfType(serialized))
+                if ((!typeof(IEnumerable).IsAssignableFrom(typeof(TTarget)) || environment.GetCache().FastNativeTypes.ContainsKey(typeof(TTarget))) && !typeof(TTarget).IsInstanceOfType(serialized))
                 {
                     if (serialized.Count != 1)
                     {
