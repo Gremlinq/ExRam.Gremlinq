@@ -1,12 +1,10 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Text;
 using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Support.NewtonsoftJson;
 using Gremlin.Net.Driver.Messages;
-using Gremlin.Net.Structure.IO.GraphSON;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;

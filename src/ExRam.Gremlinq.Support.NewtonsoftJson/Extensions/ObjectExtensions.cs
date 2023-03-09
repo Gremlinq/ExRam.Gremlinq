@@ -1,9 +1,7 @@
 ﻿using System.Collections.Concurrent;
 using System.Reflection;
 using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Core.Deserialization;
 using ExRam.Gremlinq.Core.Transformation;
-
 using Gremlin.Net.Process.Traversal;
 using Newtonsoft.Json.Linq;
 
