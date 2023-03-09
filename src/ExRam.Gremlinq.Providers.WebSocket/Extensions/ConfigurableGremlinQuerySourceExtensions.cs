@@ -1,4 +1,5 @@
-﻿using ExRam.Gremlinq.Core.Deserialization;
+﻿using System.Collections.Concurrent;
+using ExRam.Gremlinq.Core.Deserialization;
 using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Core.Transformation;
@@ -14,41 +15,19 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class WebSocketGremlinQueryExecutor : IGremlinQueryExecutor, IDisposable
         {
-            private static readonly AsyncLocal<IGremlinQueryEnvironment?> _currentEnvironment = new();
-
+            private readonly GremlinServer _gremlinServer;
+            private readonly IGremlinClientFactory _clientFactory;
             private readonly Dictionary<string, string> _aliasArgs;
-            private readonly SmarterLazy<IGremlinClient> _lazyGremlinClient;
+            private readonly ConcurrentDictionary<IGremlinQueryEnvironment, IGremlinClient> _clients = new();
 
             public WebSocketGremlinQueryExecutor(
                 GremlinServer gremlinServer,
                 IGremlinClientFactory clientFactory,
-                string alias = "g")
+                string alias = "g") 
             {
+                _gremlinServer = gremlinServer;
+                _clientFactory = clientFactory;
                 _aliasArgs = new Dictionary<string, string> { {"g", alias} };
-
-                _lazyGremlinClient = new SmarterLazy<IGremlinClient>(
-                    async logger =>
-                    {
-                        try
-                        {
-                            return await Task.Run(() => clientFactory.Create(
-                                gremlinServer,
-                                new JsonNetMessageSerializer(() => _currentEnvironment.Value ?? throw new InvalidOperationException()),
-                                new ConnectionPoolSettings(),
-                                static _ => { }));
-                        }
-                        catch (Exception ex)
-                        {
-                            logger.LogError(ex, $"Failure creating an instance of {nameof(IGremlinClient)}.");
-
-                            throw;
-                        }
-                    });
-            }
-
-            public void Dispose()
-            {
-                _lazyGremlinClient.Dispose();
             }
 
             public IAsyncEnumerable<object> Execute(ISerializedGremlinQuery serializedQuery, IGremlinQueryEnvironment environment)
@@ -57,7 +36,16 @@ namespace ExRam.Gremlinq.Core
 
                 async IAsyncEnumerator<object> Core(CancellationToken ct)
                 {
-                    var clientTask = _lazyGremlinClient.GetValue(environment.Logger);
+                    var client = _clients
+                        .GetOrAdd(
+                            environment,
+                            static (environment, @this) => @this._clientFactory.Create(
+                                @this._gremlinServer,
+                                new JsonNetMessageSerializer(environment),
+                                new ConnectionPoolSettings(),
+                                static _ => { }),
+                            this);
+
 
                     if (!Guid.TryParse(serializedQuery.Id, out var requestId))
                     {
@@ -84,23 +72,11 @@ namespace ExRam.Gremlinq.Core
                         _ => throw new ArgumentException($"Cannot handle serialized query of type {serializedQuery.GetType()}.")
                     };
 
-                    var client = await clientTask;
+                    var maybeResults = await client
+                        .SubmitAsync<JToken>(requestMessage)
+                        .ConfigureAwait(false);
 
-                    Task<ResultSet<JToken>>? resultTask = null;
-
-                    try
-                    {
-                        _currentEnvironment.Value = environment;
-
-                        resultTask = client
-                            .SubmitAsync<JToken>(requestMessage);
-                    }
-                    finally
-                    {
-                        _currentEnvironment.Value = null;
-                    }
-
-                    if (await resultTask.ConfigureAwait(false) is { } results)
+                    if (maybeResults is { } results)
                     {
                         foreach (var obj in results)
                         {
@@ -108,6 +84,11 @@ namespace ExRam.Gremlinq.Core
                         }
                     }
                 }
+            }
+
+            public void Dispose()
+            {
+                //TODO: Dispose clients ?
             }
         }
 
