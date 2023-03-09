@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ExRam.Gremlinq.Providers.WebSocket\ExRam.Gremlinq.Providers.WebSocket.csproj" />
+    <ProjectReference Include="..\ExRam.Gremlinq.Support.NewtonsoftJson\ExRam.Gremlinq.Support.NewtonsoftJson.csproj" />
   </ItemGroup>
 
 </Project>
