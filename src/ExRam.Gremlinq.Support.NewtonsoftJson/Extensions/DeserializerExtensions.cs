@@ -8,6 +8,7 @@ using ExRam.Gremlinq.Core.GraphElements;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using ExRam.Gremlinq.Core.Transformation;
+using Gremlin.Net.Driver.Messages;
 
 namespace ExRam.Gremlinq.Core.Deserialization
 {
@@ -580,8 +581,39 @@ namespace ExRam.Gremlinq.Core.Deserialization
             }
         }
 
+        private static readonly JsonSerializer Serializer = JsonSerializer.Create(
+            new JsonSerializerSettings
+            {
+                DateParseHandling = DateParseHandling.None
+            });
+
         // ReSharper disable ConvertToLambdaExpression
         public static ITransformer AddNewtonsoftJson(this ITransformer deserializer) => deserializer
+            .Add(ConverterFactory
+                .Create<byte[], ResponseMessage<List<object>>>(static (message, env, recurse) =>
+                {
+                    var maybeResponseMessage = Serializer
+                        .Deserialize<ResponseMessage<JToken>>(new JsonTextReader(new StreamReader(new MemoryStream(message))));
+
+                    if (maybeResponseMessage is { } responseMessage)
+                    {
+                        return new ResponseMessage<List<object>>
+                        {
+                            RequestId = responseMessage.RequestId,
+                            Status = responseMessage.Status,
+                            Result = new ResponseResult<List<object>>
+                            {
+                                Data = new List<object>
+                                {
+                                    responseMessage.Result.Data
+                                },
+                                Meta = responseMessage.Result.Meta
+                            }
+                        };
+                    }
+
+                    return default;
+                }))
             .Add(new NewtonsoftJsonSerializerConverterFactory())
             .Add(new VertexOrEdgeConverterFactory())
             .Add(new SingleItemArrayFallbackConverterFactory())
