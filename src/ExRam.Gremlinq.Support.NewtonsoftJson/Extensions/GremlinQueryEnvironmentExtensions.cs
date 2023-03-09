@@ -151,57 +151,60 @@ namespace ExRam.Gremlinq.Core
 
         private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, GremlinQueryEnvironmentCacheImpl> Caches = new();
 
-        private static readonly JsonSerializer Serializer = JsonSerializer.Create(
-            new JsonSerializerSettings
-            {
-                DateParseHandling = DateParseHandling.None
-            });
+        public static IGremlinQueryEnvironment AddNewtonsoftJson(this IGremlinQueryEnvironment environment)
+        {
+            var jsonSerializer = JsonSerializer.Create(
+                new JsonSerializerSettings
+                {
+                    DateParseHandling = DateParseHandling.None
+                });
 
-        public static IGremlinQueryEnvironment AddNewtonsoftJson(this IGremlinQueryEnvironment environment) => environment
-            .ConfigureDeserializer(deserializer => deserializer
-                .Add(ConverterFactory
-                    .Create<byte[], ResponseMessage<List<object>>>(static (message, env, recurse) =>
-                    {
-                        var maybeResponseMessage = Serializer
-                            .Deserialize<ResponseMessage<JToken>>(new JsonTextReader(new StreamReader(new MemoryStream(message))));
-
-                        if (maybeResponseMessage is { } responseMessage)
+            return environment
+                .ConfigureDeserializer(deserializer => deserializer
+                    .Add(ConverterFactory
+                        .Create<byte[], ResponseMessage<List<object>>>((message, env, recurse) =>
                         {
-                            return new ResponseMessage<List<object>>
-                            {
-                                RequestId = responseMessage.RequestId,
-                                Status = responseMessage.Status,
-                                Result = new ResponseResult<List<object>>
-                                {
-                                    Data = new List<object>
-                                    {
-                                                responseMessage.Result.Data
-                                    },
-                                    Meta = responseMessage.Result.Meta
-                                }
-                            };
-                        }
+                            var maybeResponseMessage = jsonSerializer
+                                .Deserialize<ResponseMessage<JToken>>(new JsonTextReader(new StreamReader(new MemoryStream(message))));
 
-                        return default;
-                    }))
-                .Add(new NewtonsoftJsonSerializerConverterFactory())
-                .Add(new VertexOrEdgeConverterFactory())
-                .Add(new SingleItemArrayFallbackConverterFactory())
-                .Add(new PropertyConverterFactory())
-                .Add(new ExpandoObjectConverterFactory())  //TODO: Move
-                .Add(new LabelLookupConverterFactory())
-                .Add(new VertexPropertyExtractConverterFactory())
-                .Add(new ArrayExtractConverterFactory())
-                .Add(new ArrayLiftingConverterFactory())
-                .Add(new TypedValueConverterFactory())
-                .Add(new ConvertMapsConverterFactory())
-                .Add(new BulkSetConverterFactory())
-                .Add(new TraverserConverterFactory())
-                .Add(new NullableConverterFactory())
-                .Add(new NativeTypeConverterFactory())
-                .Add(new TimeSpanConverterFactory())
-                .Add(new DateTimeOffsetConverterFactory())
-                .Add(new DateTimeConverterFactory()));
+                            if (maybeResponseMessage is { } responseMessage)
+                            {
+                                return new ResponseMessage<List<object>>
+                                {
+                                    RequestId = responseMessage.RequestId,
+                                    Status = responseMessage.Status,
+                                    Result = new ResponseResult<List<object>>
+                                    {
+                                        Data = new List<object>
+                                        {
+                                                    responseMessage.Result.Data
+                                        },
+                                        Meta = responseMessage.Result.Meta
+                                    }
+                                };
+                            }
+
+                            return default;
+                        }))
+                    .Add(new NewtonsoftJsonSerializerConverterFactory())
+                    .Add(new VertexOrEdgeConverterFactory())
+                    .Add(new SingleItemArrayFallbackConverterFactory())
+                    .Add(new PropertyConverterFactory())
+                    .Add(new ExpandoObjectConverterFactory())  //TODO: Move
+                    .Add(new LabelLookupConverterFactory())
+                    .Add(new VertexPropertyExtractConverterFactory())
+                    .Add(new ArrayExtractConverterFactory())
+                    .Add(new ArrayLiftingConverterFactory())
+                    .Add(new TypedValueConverterFactory())
+                    .Add(new ConvertMapsConverterFactory())
+                    .Add(new BulkSetConverterFactory())
+                    .Add(new TraverserConverterFactory())
+                    .Add(new NullableConverterFactory())
+                    .Add(new NativeTypeConverterFactory())
+                    .Add(new TimeSpanConverterFactory())
+                    .Add(new DateTimeOffsetConverterFactory())
+                    .Add(new DateTimeConverterFactory()));
+        }
 
         public static IGremlinQueryEnvironment UseGraphSon2(this IGremlinQueryEnvironment environment) => environment.UseGraphSon(new GraphSON2Writer(), "application/vnd.gremlin-v2.0+json");
 
