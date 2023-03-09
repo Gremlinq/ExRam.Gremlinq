@@ -2,7 +2,6 @@
 using ExRam.Gremlinq.Core.Deserialization;
 using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Core.Serialization;
-using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Providers.WebSocket;
 using Gremlin.Net.Driver;
 using Gremlin.Net.Driver.Messages;
@@ -137,8 +136,7 @@ namespace ExRam.Gremlinq.Core
                 .Transform(source
                     .ConfigureEnvironment(_ => _))
                 .ConfigureEnvironment(environment => environment
-                    .ConfigureSerializer(ser => ser
-                        .UseGraphSon3())
+                    .UseGraphSon3()
                     .ConfigureExecutor(executor => executor
                         .Log())
                     .ConfigureDeserializer(d => d

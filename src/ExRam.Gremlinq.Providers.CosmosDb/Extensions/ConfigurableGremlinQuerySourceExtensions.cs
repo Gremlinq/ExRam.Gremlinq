@@ -90,6 +90,8 @@ namespace ExRam.Gremlinq.Core
                         .SetValue(GremlinqOption.EdgeProjectionSteps, Traversal.Empty)
                         .SetValue(GremlinqOption.VertexPropertyProjectionSteps, Traversal.Empty))
                     .StoreByteArraysAsBase64String()
+                    .UseGraphSon2()
+                    .StoreTimeSpansAsNumbers()
                     .ConfigureSerializer(serializer => serializer
                         .Add(ConverterFactory
                             .Create<CosmosDbKey, string>((key, env, recurse) => key.Id)
@@ -140,9 +142,8 @@ namespace ExRam.Gremlinq.Core
                                     ? WorkaroundOrder.Decr
                                     : default)
                             .AutoRecurse<WorkaroundOrder>())
-                        .PreferGroovySerialization()
-                        .UseGraphSon2())
-                    .StoreTimeSpansAsNumbers());
+                        .PreferGroovySerialization())
+                    );
         }
     }
 }
