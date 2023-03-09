@@ -13,21 +13,18 @@ namespace ExRam.Gremlinq.Core
             {
                 DateParseHandling = DateParseHandling.None
             });
+        private readonly IGremlinQueryEnvironment _environment;
 
-        private readonly Func<IGremlinQueryEnvironment> _currentEnvironmentGetter;
-
-        public JsonNetMessageSerializer(Func<IGremlinQueryEnvironment> currentEnvironmentGetter)
+        public JsonNetMessageSerializer(IGremlinQueryEnvironment environment)
         {
-            _currentEnvironmentGetter = currentEnvironmentGetter;
+            _environment = environment;
         }
 
         public async Task<byte[]> SerializeMessageAsync(RequestMessage requestMessage)
         {
-            var currentEnvironment = _currentEnvironmentGetter();
-
-            return currentEnvironment.Serializer
+            return _environment.Serializer
                 .TransformTo<byte[]>()
-                .From(requestMessage, currentEnvironment);
+                .From(requestMessage, _environment);
         }
 
         public async Task<ResponseMessage<List<object>>> DeserializeMessageAsync(byte[] message)
