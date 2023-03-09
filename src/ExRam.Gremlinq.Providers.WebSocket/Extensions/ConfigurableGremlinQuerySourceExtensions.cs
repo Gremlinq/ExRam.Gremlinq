@@ -7,7 +7,6 @@ using ExRam.Gremlinq.Providers.WebSocket;
 using Gremlin.Net.Driver;
 using Gremlin.Net.Driver.Messages;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -72,7 +71,7 @@ namespace ExRam.Gremlinq.Core
                     };
 
                     var maybeResults = await client
-                        .SubmitAsync<JToken>(requestMessage)
+                        .SubmitAsync<object>(requestMessage)
                         .ConfigureAwait(false);
 
                     if (maybeResults is { } results)
