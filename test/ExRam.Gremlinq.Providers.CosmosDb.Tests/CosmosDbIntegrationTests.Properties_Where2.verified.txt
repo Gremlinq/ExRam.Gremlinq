@@ -1,54 +1,8 @@
 ﻿[
-  [
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "value": 0,
-      "label": "Age"
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "value": 0,
-      "label": "Age"
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "value": 0,
-      "label": "Age"
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "value": 0,
-      "label": "Age"
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "value": 0,
-      "label": "Age"
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "value": 0,
-      "label": "Age"
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "value": 0,
-      "label": "Age"
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "value": 0,
-      "label": "Age"
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "value": 0,
-      "label": "Age"
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "value": 0,
-      "label": "Age"
+  {
+    "serverException": {
+      "type": "InvalidCastException",
+      "message": "Cannot convert System.Byte[] to Gremlin.Net.Driver.Messages.ResponseMessage`1[System.Collections.Generic.List`1[System.Object]]."
     }
-  ]
+  }
 ]

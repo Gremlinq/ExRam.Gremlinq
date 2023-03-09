@@ -1,20 +1,8 @@
-[
+﻿[
   {
-    "@type": "g:List",
-    "@value": [
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Int64",
-            "@value": 396
-          }
-        }
-      }
-    ]
+    "serverException": {
+      "type": "InvalidCastException",
+      "message": "Cannot convert System.Byte[] to Gremlin.Net.Driver.Messages.ResponseMessage`1[System.Collections.Generic.List`1[System.Object]]."
+    }
   }
 ]

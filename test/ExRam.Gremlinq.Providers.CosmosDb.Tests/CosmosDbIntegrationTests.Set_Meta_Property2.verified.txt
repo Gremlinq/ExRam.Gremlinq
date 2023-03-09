@@ -1,28 +1,8 @@
 ﻿[
-  [
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "value": "Bob",
-      "label": "Name",
-      "properties": {
-        "ValidFrom": 1586270616000
-      }
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "value": "Bob",
-      "label": "Name",
-      "properties": {
-        "ValidFrom": 1586270616000
-      }
-    },
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "value": "Marko",
-      "label": "Name",
-      "properties": {
-        "ValidFrom": 1586270616000
-      }
+  {
+    "serverException": {
+      "type": "InvalidCastException",
+      "message": "Cannot convert System.Byte[] to Gremlin.Net.Driver.Messages.ResponseMessage`1[System.Collections.Generic.List`1[System.Object]]."
     }
-  ]
+  }
 ]

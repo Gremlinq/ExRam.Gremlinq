@@ -1,70 +1,8 @@
 ﻿[
-  [
-    {
-      "in": "in_value",
-      "out": "out_value",
-      "count": "count_value",
-      "properties": "properties_value"
-    },
-    {
-      "in": "in_value",
-      "out": "out_value",
-      "count": "count_value",
-      "properties": "properties_value"
-    },
-    {
-      "in": "in_value",
-      "out": "out_value",
-      "count": "count_value",
-      "properties": "properties_value"
-    },
-    {
-      "in": "in_value",
-      "out": "out_value",
-      "count": "count_value",
-      "properties": "properties_value"
-    },
-    {
-      "in": "in_value",
-      "out": "out_value",
-      "count": "count_value",
-      "properties": "properties_value"
-    },
-    {
-      "in": "in_value",
-      "out": "out_value",
-      "count": "count_value",
-      "properties": "properties_value"
-    },
-    {
-      "in": "in_value",
-      "out": "out_value",
-      "count": "count_value",
-      "properties": "properties_value"
-    },
-    {
-      "in": "in_value",
-      "out": "out_value",
-      "count": "count_value",
-      "properties": "properties_value"
-    },
-    {
-      "in": "in_value",
-      "out": "out_value",
-      "count": "count_value",
-      "properties": "properties_value"
-    },
-    {
-      "in": "in_value",
-      "out": "out_value",
-      "count": "count_value",
-      "properties": "properties_value"
-    },
-    {
-      "in": "in_value",
-      "out": "out_value",
-      "count": "count_value",
-      "properties": "properties_value"
+  {
+    "serverException": {
+      "type": "InvalidCastException",
+      "message": "Cannot convert System.Byte[] to Gremlin.Net.Driver.Messages.ResponseMessage`1[System.Collections.Generic.List`1[System.Object]]."
     }
-  ]
+  }
 ]

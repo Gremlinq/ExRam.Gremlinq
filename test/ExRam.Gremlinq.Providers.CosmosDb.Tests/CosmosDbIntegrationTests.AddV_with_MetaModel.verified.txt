@@ -1,32 +1,8 @@
 ﻿[
-  [
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "label": "Company",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-            "value": "PartitionKey"
-          }
-        ],
-        "FoundingDate": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": -62135596800000
-          }
-        ],
-        "Locations": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": "Aachen",
-            "properties": {
-              "ValidFrom": 1546304400000
-            }
-          }
-        ]
-      }
+  {
+    "serverException": {
+      "type": "InvalidCastException",
+      "message": "Cannot convert System.Byte[] to Gremlin.Net.Driver.Messages.ResponseMessage`1[System.Collections.Generic.List`1[System.Object]]."
     }
-  ]
+  }
 ]

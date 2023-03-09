@@ -1,8 +1,8 @@
-[
-  [
-    {
-      "key": "Since",
-      "value": 1586270616000
+﻿[
+  {
+    "serverException": {
+      "type": "InvalidCastException",
+      "message": "Cannot convert System.Byte[] to Gremlin.Net.Driver.Messages.ResponseMessage`1[System.Collections.Generic.List`1[System.Object]]."
     }
-  ]
+  }
 ]

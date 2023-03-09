@@ -1,36 +1,8 @@
 ﻿[
-  [
-    {
-      "key": "From",
-      "value": 1586270616000
-    },
-    {
-      "key": "Role",
-      "value": "Admin"
-    },
-    {
-      "key": "To",
-      "value": 1586270616000
-    },
-    {
-      "key": "Since",
-      "value": 1586270616000
-    },
-    {
-      "key": "From",
-      "value": 1586270616000
-    },
-    {
-      "key": "Role",
-      "value": "Admin"
-    },
-    {
-      "key": "To",
-      "value": 1586270616000
-    },
-    {
-      "key": "To",
-      "value": 1586270616000
+  {
+    "serverException": {
+      "type": "InvalidCastException",
+      "message": "Cannot convert System.Byte[] to Gremlin.Net.Driver.Messages.ResponseMessage`1[System.Collections.Generic.List`1[System.Object]]."
     }
-  ]
+  }
 ]
