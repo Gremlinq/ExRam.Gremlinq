@@ -1,9 +1,12 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Text;
 using ExRam.Gremlinq.Core.Deserialization;
 using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Core.Transformation;
+using Gremlin.Net.Driver.Messages;
+using Gremlin.Net.Structure.IO.GraphSON;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
@@ -147,6 +150,28 @@ namespace ExRam.Gremlinq.Core
         }
 
         private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, GremlinQueryEnvironmentCacheImpl> Caches = new();
+
+        public static IGremlinQueryEnvironment UseGraphSon2(this IGremlinQueryEnvironment environment) => environment.UseGraphSon(new GraphSON2Writer(), "application/vnd.gremlin-v2.0+json");
+
+        public static IGremlinQueryEnvironment UseGraphSon3(this IGremlinQueryEnvironment environment) => environment.UseGraphSon(new GraphSON3Writer(), "application/vnd.gremlin-v3.0+json");
+
+        private static IGremlinQueryEnvironment UseGraphSon(this IGremlinQueryEnvironment environment, GraphSONWriter writer, string mimeType)
+        {
+            var mimeTypeBytes = Encoding.UTF8.GetBytes($"{(char)mimeType.Length}{mimeType}");
+
+            return environment
+                .ConfigureSerializer(serializer => serializer
+                    .Add(ConverterFactory.Create<RequestMessage, byte[]>((message, env, recurse) =>
+                    {
+                        var graphSONMessage = writer.WriteObject(message);
+                        var ret = new byte[Encoding.UTF8.GetByteCount(graphSONMessage) + mimeTypeBytes.Length];
+
+                        mimeTypeBytes.CopyTo(ret, 0);
+                        Encoding.UTF8.GetBytes(graphSONMessage, 0, graphSONMessage.Length, ret, mimeTypeBytes.Length);
+
+                        return ret;
+                    })));
+        }
 
         public static IGremlinQueryEnvironment StoreTimeSpansAsNumbers(this IGremlinQueryEnvironment environment)
         {
