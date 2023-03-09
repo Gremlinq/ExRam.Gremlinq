@@ -1,6 +1,5 @@
 ﻿using System.Collections.Concurrent;
 using System.Reflection;
-using ExRam.Gremlinq.Core.Deserialization;
 using ExRam.Gremlinq.Core.Transformation;
 
 namespace ExRam.Gremlinq.Core

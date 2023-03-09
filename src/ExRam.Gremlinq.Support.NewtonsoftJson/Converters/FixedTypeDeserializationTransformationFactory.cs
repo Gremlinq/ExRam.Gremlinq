@@ -1,8 +1,9 @@
-﻿using ExRam.Gremlinq.Core.Transformation;
+﻿using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Core.Transformation;
 using Newtonsoft.Json.Linq;
 using System.Diagnostics.CodeAnalysis;
 
-namespace ExRam.Gremlinq.Core.Deserialization
+namespace ExRam.Gremlinq.Support.NewtonsoftJson
 {
     internal abstract class FixedTypeConverterFactory<TStaticTarget> : IConverterFactory
         where TStaticTarget : struct
