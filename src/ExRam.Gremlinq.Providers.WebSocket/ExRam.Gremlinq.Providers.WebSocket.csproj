@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ExRam.Gremlinq.Providers.Core\ExRam.Gremlinq.Providers.Core.csproj" />
-    <ProjectReference Include="..\ExRam.Gremlinq.Support.NewtonsoftJson\ExRam.Gremlinq.Support.NewtonsoftJson.csproj" />
   </ItemGroup>
 
 </Project>
