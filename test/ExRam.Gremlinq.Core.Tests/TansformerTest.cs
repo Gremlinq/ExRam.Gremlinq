@@ -109,7 +109,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task More_specific_type_is_deserialized()
         {
             await Verify(GremlinQueryEnvironment.Default
-                .AddNewtonsoftJson()
+                .UseNewtonsoftJson()
                 .Deserializer
                 .TryTransformTo<object>().From(JObject.Parse("{ \"@type\": \"g:Date\", \"@value\": 1657527969000 }"), GremlinQueryEnvironment.Empty));
         }
@@ -120,7 +120,7 @@ namespace ExRam.Gremlinq.Core.Tests
             var original = JObject.Parse("{ \"prop1\": \"value\", \"prop2\": 1657527969000 }");
 
             var deserialized = GremlinQueryEnvironment.Default
-                .AddNewtonsoftJson()
+                .UseNewtonsoftJson()
                 .Deserializer
                 .TryTransformTo<JObject>().From(original, GremlinQueryEnvironment.Empty);
 
@@ -135,7 +135,7 @@ namespace ExRam.Gremlinq.Core.Tests
             var original = JObject.Parse("{ \"prop1\": \"value\", \"prop2\": 1657527969000 }");
 
             var deserialized = GremlinQueryEnvironment.Default
-                .AddNewtonsoftJson()
+                .UseNewtonsoftJson()
                 .Deserializer
                 .TryTransformTo<IDictionary<string, object>>().From(original, GremlinQueryEnvironment.Empty);
 
@@ -152,7 +152,7 @@ namespace ExRam.Gremlinq.Core.Tests
             var original = JObject.Parse("{ \"@type\": \"g:unknown\", \"@value\": { \"prop1\": \"value\", \"prop2\": 1657527969000 } }");
 
             var deserialized = GremlinQueryEnvironment.Default
-                .AddNewtonsoftJson()
+                .UseNewtonsoftJson()
                 .Deserializer
                 .TryTransformTo<IDictionary<string, object>>().From(original, GremlinQueryEnvironment.Empty);
 
@@ -169,7 +169,7 @@ namespace ExRam.Gremlinq.Core.Tests
             var original = JObject.Parse("{ \"prop1\": \"value\", \"prop2\": 1657527969000 }");
 
             var deserialized = GremlinQueryEnvironment.Default
-                .AddNewtonsoftJson()
+                .UseNewtonsoftJson()
                 .Deserializer
                 .Add(Create<JObject, IDictionary<string, object?>>((static (jObject,  env, recurse) =>
                 {

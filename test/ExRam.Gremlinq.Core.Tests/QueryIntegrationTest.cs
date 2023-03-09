@@ -27,7 +27,7 @@ namespace ExRam.Gremlinq.Core.Tests
                                         }
                                     }
                                 }))))
-                    .AddNewtonsoftJson()
+                    .UseNewtonsoftJson()
                     .ConfigureDeserializer(d => d
                         .Add(ConverterFactory
                             .Create<JToken, JToken[]>((token, env, recurse) => new[] { token })))))

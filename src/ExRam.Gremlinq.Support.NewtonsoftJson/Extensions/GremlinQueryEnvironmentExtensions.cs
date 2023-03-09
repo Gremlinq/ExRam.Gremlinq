@@ -151,7 +151,7 @@ namespace ExRam.Gremlinq.Core
 
         private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, GremlinQueryEnvironmentCacheImpl> Caches = new();
 
-        public static IGremlinQueryEnvironment AddNewtonsoftJson(this IGremlinQueryEnvironment environment)
+        public static IGremlinQueryEnvironment UseNewtonsoftJson(this IGremlinQueryEnvironment environment)
         {
             var jsonSerializer = JsonSerializer.Create(
                 new JsonSerializerSettings

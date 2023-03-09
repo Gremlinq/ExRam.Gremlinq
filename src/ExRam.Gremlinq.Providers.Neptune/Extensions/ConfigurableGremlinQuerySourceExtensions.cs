@@ -36,7 +36,7 @@ namespace ExRam.Gremlinq.Core
                                 ? new PropertyStep.ByKeyStep(step.Key, step.Value, step.MetaProperties, Cardinality.Set)
                                 : default)
                             .AutoRecurse<PropertyStep.ByKeyStep>()))
-                    .AddNewtonsoftJson()
+                    .UseNewtonsoftJson()
                     .StoreTimeSpansAsNumbers()
                     .StoreByteArraysAsBase64String()
                     .ConfigureFeatureSet(featureSet => featureSet

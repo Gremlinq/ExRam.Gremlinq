@@ -16,11 +16,11 @@ namespace Benchmarks
         public Benchmarks()
         {
             _oldDeserializer = GremlinQueryEnvironment.Default
-               .AddNewtonsoftJson()
+               .UseNewtonsoftJson()
                .Deserializer;
 
             _newDeserializer = GremlinQueryEnvironment.Default
-               ./*ShinyAndNew*/AddNewtonsoftJson()
+               ./*ShinyAndNew*/UseNewtonsoftJson()
                .Deserializer;
         }
 
