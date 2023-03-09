@@ -26,6 +26,7 @@ namespace ExRam.Gremlinq.Core
             return source
                 .UseWebSocket(configurator => configuratorTransformation(new GremlinServerConfigurator(configurator)))
                 .ConfigureEnvironment(environment => environment
+                    .AddNewtonsoftJson()
                     .ConfigureFeatureSet(featureSet => featureSet
                         .ConfigureGraphFeatures(graphFeatures => graphFeatures & ~(GraphFeatures.Transactions | GraphFeatures.ThreadedTransactions | GraphFeatures.ConcurrentAccess))
                         .ConfigureVertexFeatures(vertexFeatures => vertexFeatures & ~(VertexFeatures.Upsert | VertexFeatures.CustomIds))
