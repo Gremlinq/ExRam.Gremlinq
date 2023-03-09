@@ -26,7 +26,7 @@ namespace ExRam.Gremlinq.Core
             return environment
                 .UseWebSocket(builder => transformation(new JanusGraphConfigurator(builder)))
                 .ConfigureEnvironment(environment => environment
-                    .AddNewtonsoftJson()
+                    .UseNewtonsoftJson()
                     .ConfigureFeatureSet(featureSet => featureSet
                         .ConfigureGraphFeatures(_ => GraphFeatures.Computer | GraphFeatures.Transactions | GraphFeatures.ThreadedTransactions | GraphFeatures.Persistence)
                         .ConfigureVariableFeatures(_ => VariableFeatures.MapValues)

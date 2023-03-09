@@ -35,7 +35,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             return source.ConfigureEnvironment(env => env
                 .UseSerializer(Serializer.Default)
-                .AddNewtonsoftJson()
+                .UseNewtonsoftJson()
                 .UseExecutor(new TestJsonQueryExecutor(json)));
         }
     }

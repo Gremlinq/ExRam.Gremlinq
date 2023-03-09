@@ -14,7 +14,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
                     .AtLocalhost())
                 .ConfigureEnvironment(env => env
                     .UseExecutor(GremlinQueryExecutor.Identity)
-                    .AddNewtonsoftJson()))
+                    .UseNewtonsoftJson()))
             {
             }
         }

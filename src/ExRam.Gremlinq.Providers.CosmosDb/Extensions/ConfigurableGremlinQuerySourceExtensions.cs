@@ -90,7 +90,7 @@ namespace ExRam.Gremlinq.Core
                         .SetValue(GremlinqOption.EdgeProjectionSteps, Traversal.Empty)
                         .SetValue(GremlinqOption.VertexPropertyProjectionSteps, Traversal.Empty))
                     .UseGraphSon2()
-                    .AddNewtonsoftJson()
+                    .UseNewtonsoftJson()
                     .StoreByteArraysAsBase64String()
                     .StoreTimeSpansAsNumbers()
                     .ConfigureSerializer(serializer => serializer
