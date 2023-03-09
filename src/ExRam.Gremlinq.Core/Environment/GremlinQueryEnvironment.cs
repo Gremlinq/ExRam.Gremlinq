@@ -1,8 +1,11 @@
-﻿using ExRam.Gremlinq.Core.Deserialization;
+﻿using System.Text;
+using ExRam.Gremlinq.Core.Deserialization;
 using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Core.Transformation;
+using Gremlin.Net.Driver.Messages;
+using Gremlin.Net.Structure.IO.GraphSON;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
@@ -86,6 +89,10 @@ namespace ExRam.Gremlinq.Core
 
         public static IGremlinQueryEnvironment UseDebugger(this IGremlinQueryEnvironment environment, IGremlinQueryDebugger debugger) => environment.ConfigureDebugger(_ => debugger);
 
+        public static IGremlinQueryEnvironment UseGraphSon2(this IGremlinQueryEnvironment environment) => environment.UseGraphSon(new GraphSON2Writer(), "application/vnd.gremlin-v2.0+json");
+
+        public static IGremlinQueryEnvironment UseGraphSon3(this IGremlinQueryEnvironment environment) => environment.UseGraphSon(new GraphSON3Writer(), "application/vnd.gremlin-v3.0+json");
+
         public static IGremlinQueryEnvironment StoreByteArraysAsBase64String(this IGremlinQueryEnvironment environment)
         {
             return environment
@@ -107,6 +114,24 @@ namespace ExRam.Gremlinq.Core
                 .ConfigureSerializer(_ => _
                     .Add(Create(serializerDelegate)))
                 .ConfigureDeserializer(deserializerTransformation);
+        }
+
+        private static IGremlinQueryEnvironment UseGraphSon(this IGremlinQueryEnvironment environment, GraphSONWriter writer, string mimeType)
+        {
+            var mimeTypeBytes = Encoding.UTF8.GetBytes($"{(char)mimeType.Length}{mimeType}");
+
+            return environment
+                .ConfigureSerializer(serializer => serializer
+                    .Add(ConverterFactory.Create<RequestMessage, byte[]>((message, env, recurse) =>
+                    {
+                        var graphSONMessage = writer.WriteObject(message);
+                        var ret = new byte[Encoding.UTF8.GetByteCount(graphSONMessage) + mimeTypeBytes.Length];
+
+                        mimeTypeBytes.CopyTo(ret, 0);
+                        Encoding.UTF8.GetBytes(graphSONMessage, 0, graphSONMessage.Length, ret, mimeTypeBytes.Length);
+
+                        return ret;
+                    })));
         }
     }
 }
