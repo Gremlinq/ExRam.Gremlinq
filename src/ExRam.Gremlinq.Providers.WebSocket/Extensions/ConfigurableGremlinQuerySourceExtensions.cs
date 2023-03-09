@@ -41,11 +41,10 @@ namespace ExRam.Gremlinq.Core
                             environment,
                             static (environment, @this) => @this._clientFactory.Create(
                                 @this._gremlinServer,
-                                new JsonNetMessageSerializer(environment),
+                                new DefaultMessageSerializer(environment),
                                 new ConnectionPoolSettings(),
                                 static _ => { }),
                             this);
-
 
                     if (!Guid.TryParse(serializedQuery.Id, out var requestId))
                     {
