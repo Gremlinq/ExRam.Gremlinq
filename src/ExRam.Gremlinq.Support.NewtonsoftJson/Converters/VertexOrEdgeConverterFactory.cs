@@ -13,11 +13,13 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             public bool TryConvert(JObject jObject, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
             {
                 if (jObject.TryGetValue("id", StringComparison.OrdinalIgnoreCase, out var idToken) && jObject.TryGetValue("label", StringComparison.OrdinalIgnoreCase, out var labelToken) && labelToken.Type == JTokenType.String && jObject.TryGetValue("properties", out var propertiesToken) && propertiesToken is JObject propertiesObject)
+                {
                     if (recurse.TryTransform(propertiesObject, environment, out value))
                     {
                         value.SetIdAndLabel(idToken, labelToken, environment, recurse);
                         return true;
                     }
+                }
 
                 value = default;
                 return false;

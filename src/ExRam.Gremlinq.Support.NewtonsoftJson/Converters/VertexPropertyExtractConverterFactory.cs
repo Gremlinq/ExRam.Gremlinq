@@ -14,9 +14,13 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 var nativeTypes = environment.GetCache().FastNativeTypes;
 
                 if (nativeTypes.ContainsKey(typeof(TTarget)) || typeof(TTarget).IsEnum && nativeTypes.ContainsKey(typeof(TTarget).GetEnumUnderlyingType()))
+                {
                     if (serialized.TryGetValue("value", out var valueToken))
+                    {
                         if (recurse.TryTransform(valueToken, environment, out value))
                             return true;
+                    }
+                }
 
                 value = default;
                 return false;
