@@ -14,13 +14,14 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             public bool TryConvert(JValue serialized, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTargetProperty? value)
             {
                 if (recurse.TryTransform<JValue, TTargetPropertyValue>(serialized, environment, out var propertyValue))
+                {
                     //TODO: Improvement opportunity.
-
                     if (Activator.CreateInstance(typeof(TTargetProperty), propertyValue) is TTargetProperty requestedProperty)
                     {
                         value = requestedProperty;
                         return true;
                     }
+                }
 
                 value = default;
                 return false;
