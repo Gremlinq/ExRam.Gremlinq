@@ -148,6 +148,7 @@ namespace ExRam.Gremlinq.Core
         }
 
         private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, GremlinQueryEnvironmentCacheImpl> Caches = new();
+        private static readonly ConditionalWeakTable<ITransformer, ITransformer> ShortcutTransformers = new();
 
         public static IGremlinQueryEnvironment UseNewtonsoftJson(this IGremlinQueryEnvironment environment)
         {
@@ -162,27 +163,16 @@ namespace ExRam.Gremlinq.Core
                     .Add(ConverterFactory
                         .Create<byte[], ResponseMessage<List<object>>>((message, env, recurse) =>
                         {
-                            var maybeResponseMessage = jsonSerializer
-                                .Deserialize<ResponseMessage<JToken>>(new JsonTextReader(new StreamReader(new MemoryStream(message))));
+                            var token = JToken.Load(new JsonTextReader(new StreamReader(new MemoryStream(message))));
 
-                            if (maybeResponseMessage is { } responseMessage)
-                            {
-                                return new ResponseMessage<List<object>>
-                                {
-                                    RequestId = responseMessage.RequestId,
-                                    Status = responseMessage.Status,
-                                    Result = new ResponseResult<List<object>>
-                                    {
-                                        Data = new List<object>
-                                        {
-                                                    responseMessage.Result.Data
-                                        },
-                                        Meta = responseMessage.Result.Meta
-                                    }
-                                };
-                            }
-
-                            return default;
+                            return ShortcutTransformers
+                                .GetValue(
+                                    recurse,
+                                    transformer => transformer
+                                        .Add(ConverterFactory
+                                            .Create<JToken, JToken>((token, env, recurse) => token)))
+                                .TransformTo<ResponseMessage<List<object>>>()
+                                .From(token, env);
                         }))
                     .Add(new NewtonsoftJsonSerializerConverterFactory())
                     .Add(new VertexOrEdgeConverterFactory())
