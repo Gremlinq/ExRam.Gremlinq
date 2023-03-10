@@ -7,47 +7,24 @@ using ExRam.Gremlinq.Core.GraphElements;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson
 {
-    //TODO: Merge and unify some stuff here.
     internal sealed class VertexPropertyExtractConverterFactory : IConverterFactory
     {
-        private sealed class VertexPropertyExtractConverter<TTarget> : IConverter<JObject, TTarget>
+        private sealed class VertexPropertyExtractConverter<TTarget> : IConverter<JToken, TTarget>
         {
-            public bool TryConvert(JObject serialized, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+            public bool TryConvert(JToken serialized, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
             {
                 var nativeTypes = environment.GetCache().FastNativeTypes;
+                var isNativeType = nativeTypes.ContainsKey(typeof(TTarget)) || typeof(TTarget).IsEnum && nativeTypes.ContainsKey(typeof(TTarget).GetEnumUnderlyingType());
 
-                if (nativeTypes.ContainsKey(typeof(TTarget)) || typeof(TTarget).IsEnum && nativeTypes.ContainsKey(typeof(TTarget).GetEnumUnderlyingType()))
+                if (serialized is JObject jObject)
                 {
-                    if (serialized.TryGetValue("value", out var valueToken))
-                    {
-                        if (recurse.TryTransform(valueToken, environment, out value))
-                            return true;
-                    }
-                }
-
-                value = default;
-                return false;
-            }
-        }
-
-        private sealed class VertexPropertyArrayExtractConverter<TTarget> : IConverter<JArray, TTarget>
-        {
-            public bool TryConvert(JArray serialized, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
-            {
-                var nativeTypes = environment.GetCache().FastNativeTypes;
-
-                if (((typeof(TTarget).IsConstructedGenericType && (typeof(TTarget).GetGenericTypeDefinition() == typeof(VertexProperty<>) || typeof(TTarget).GetGenericTypeDefinition() == typeof(VertexProperty<,>))) || (nativeTypes.ContainsKey(typeof(TTarget)) || typeof(TTarget).IsEnum && nativeTypes.ContainsKey(typeof(TTarget).GetEnumUnderlyingType()))) && !typeof(TTarget).IsInstanceOfType(serialized))
-                {
-                    if (serialized.Count != 1)
-                    {
-                        value = serialized.Count == 0 && typeof(TTarget).IsClass
-                            ? default!  //TODO: Drop NotNullWhen(true) ?
-                            : throw new JsonReaderException($"Cannot convert array\r\n\r\n{serialized}\r\n\r\nto scalar value of type {typeof(TTarget)}.");
-
+                    if (isNativeType && jObject.TryGetValue("value", out var valueToken) && recurse.TryTransform(valueToken, environment, out value))
                         return true;
-                    }
-
-                    return recurse.TryTransform(serialized[0], environment, out value);
+                }
+                else if ((serialized is JArray { Count: 1 } jArray) && !typeof(TTarget).IsInstanceOfType(jArray))
+                {
+                    if (isNativeType || (typeof(TTarget).IsConstructedGenericType && (typeof(TTarget).GetGenericTypeDefinition() == typeof(VertexProperty<>) || typeof(TTarget).GetGenericTypeDefinition() == typeof(VertexProperty<,>))))
+                        return recurse.TryTransform(jArray[0], environment, out value);
                 }
 
                 value = default;
@@ -55,15 +32,8 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             }
         }
 
-        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>()
-        {
-            if (typeof(TSource) == typeof(JObject))
-                return (IConverter<TSource, TTarget>)(object)new VertexPropertyExtractConverter<TTarget>();
-
-            if (typeof(TSource) == typeof(JArray))
-                return (IConverter<TSource, TTarget>)(object)new VertexPropertyArrayExtractConverter<TTarget>();
-
-            return default;
-        }
+        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>() => typeof(JToken).IsAssignableFrom(typeof(TSource))
+            ? (IConverter<TSource, TTarget>)(object)new VertexPropertyExtractConverter<TTarget>()
+            : default;
     }
 }
