@@ -211,11 +211,12 @@ namespace ExRam.Gremlinq.Core
         IAsyncEnumerable<TElement> IGremlinQueryBase<TElement>.ToAsyncEnumerable() => Environment.Executor
             .Execute(
                 Environment.Serializer
-                    .TransformTo<ISerializedGremlinQuery>().From(this, Environment),
+                    .TransformTo<ISerializedGremlinQuery>()
+                    .From(this, Environment),
                 Environment)
-            .SelectMany(executionResult => Environment.Deserializer.TryTransform<object, TElement[]>(executionResult, Environment, out var elements)
-                ? elements.ToAsyncEnumerable()
-                : throw new InvalidCastException($"Cannot convert {executionResult.GetType()} to {typeof(TElement[])}."));
+            .Select(executionResult => Environment.Deserializer
+                .TransformTo<TElement>()
+                .From(executionResult, Environment));
 
         IValueGremlinQuery<Path> IGremlinQueryBase.Path() => Path();
 
