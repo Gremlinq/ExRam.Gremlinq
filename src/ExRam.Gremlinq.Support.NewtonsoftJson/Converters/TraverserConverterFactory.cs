@@ -42,11 +42,11 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             }
         }
 
-        private sealed class ListConverter<TTargetItem> : EnumerableConverter<TTargetItem>, IConverter<JArray, List<TTargetItem>>
+        private sealed class ListConverter<TTarget, TTargetItem> : EnumerableConverter<TTargetItem>, IConverter<JArray, TTarget>
         {
-            public bool TryConvert(JArray serialized, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out List<TTargetItem>? value)
+            public bool TryConvert(JArray serialized, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
             {
-                value = GetEnumerable(serialized, environment, recurse).ToList();
+                value = (TTarget)(object)GetEnumerable(serialized, environment, recurse).ToList();
                 return true;
             }
         }
@@ -65,7 +65,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                         var listType = typeof(List<>).MakeGenericType(elementType);
 
                         if (typeof(TTarget).IsAssignableFrom(listType))
-                            return (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(ListConverter<>).MakeGenericType(typeof(TTarget).GenericTypeArguments[0]));
+                            return (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(ListConverter<,>).MakeGenericType(typeof(TTarget), typeof(TTarget).GenericTypeArguments[0]));
                     }
                 }
             }
