@@ -163,7 +163,8 @@ namespace ExRam.Gremlinq.Core
                     .Add(ConverterFactory
                         .Create<byte[], ResponseMessage<List<object>>>((message, env, recurse) =>
                         {
-                            var token = JToken.Load(new JsonTextReader(new StreamReader(new MemoryStream(message))));
+                            var token = jsonSerializer
+                                .Deserialize<JToken>(new JsonTextReader(new StreamReader(new MemoryStream(message))));
 
                             return ShortcutTransformers
                                 .GetValue(
