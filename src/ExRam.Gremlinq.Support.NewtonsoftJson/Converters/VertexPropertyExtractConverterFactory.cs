@@ -3,11 +3,11 @@ using System.Diagnostics.CodeAnalysis;
 using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Core;
 using Newtonsoft.Json;
-using System.Collections;
 using ExRam.Gremlinq.Core.GraphElements;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson
 {
+    //TODO: Merge and unify some stuff here.
     internal sealed class VertexPropertyExtractConverterFactory : IConverterFactory
     {
         private sealed class VertexPropertyExtractConverter<TTarget> : IConverter<JObject, TTarget>
