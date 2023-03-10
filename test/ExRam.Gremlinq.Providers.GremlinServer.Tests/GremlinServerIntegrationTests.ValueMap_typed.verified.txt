@@ -1,30 +1,166 @@
-[
+﻿[
   {
-    "@type": "g:List",
+    "@type": "g:Map",
     "@value": [
+      "Age",
       {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 11
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": [
-              "Age",
-              {
-                "@type": "g:List",
-                "@value": [
-                  {
-                    "@type": "g:Int32",
-                    "@value": 21
-                  }
-                ]
-              }
-            ]
+        "@type": "g:List",
+        "@value": [
+          {
+            "@type": "g:Int32",
+            "@value": 21
           }
-        }
+        ]
+      }
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "Age",
+      {
+        "@type": "g:List",
+        "@value": [
+          {
+            "@type": "g:Int32",
+            "@value": 21
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "Age",
+      {
+        "@type": "g:List",
+        "@value": [
+          {
+            "@type": "g:Int32",
+            "@value": 21
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "Age",
+      {
+        "@type": "g:List",
+        "@value": [
+          {
+            "@type": "g:Int32",
+            "@value": 21
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "Age",
+      {
+        "@type": "g:List",
+        "@value": [
+          {
+            "@type": "g:Int32",
+            "@value": 21
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "Age",
+      {
+        "@type": "g:List",
+        "@value": [
+          {
+            "@type": "g:Int32",
+            "@value": 21
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "Age",
+      {
+        "@type": "g:List",
+        "@value": [
+          {
+            "@type": "g:Int32",
+            "@value": 21
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "Age",
+      {
+        "@type": "g:List",
+        "@value": [
+          {
+            "@type": "g:Int32",
+            "@value": 21
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "Age",
+      {
+        "@type": "g:List",
+        "@value": [
+          {
+            "@type": "g:Int32",
+            "@value": 21
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "Age",
+      {
+        "@type": "g:List",
+        "@value": [
+          {
+            "@type": "g:Int32",
+            "@value": 21
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "Age",
+      {
+        "@type": "g:List",
+        "@value": [
+          {
+            "@type": "g:Int32",
+            "@value": 21
+          }
+        ]
       }
     ]
   }

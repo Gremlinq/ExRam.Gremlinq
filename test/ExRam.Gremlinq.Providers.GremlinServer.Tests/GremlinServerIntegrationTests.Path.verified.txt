@@ -1,139 +1,116 @@
 ﻿[
   {
-    "@type": "g:List",
-    "@value": [
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
+    "@type": "g:Path",
+    "@value": {
+      "labels": {
+        "@type": "g:List",
+        "@value": [
+          {
+            "@type": "g:Set",
+            "@value": []
           },
-          "value": {
-            "@type": "g:Path",
-            "@value": {
-              "labels": {
-                "@type": "g:List",
-                "@value": [
-                  {
-                    "@type": "g:Set",
-                    "@value": []
-                  },
-                  {
-                    "@type": "g:Set",
-                    "@value": []
-                  },
-                  {
-                    "@type": "g:Set",
-                    "@value": []
-                  }
-                ]
-              },
-              "objects": {
-                "@type": "g:List",
-                "@value": [
-                  {
-                    "@type": "g:Vertex",
-                    "@value": {
-                      "id": {
-                        "@type": "g:Int64",
-                        "@value": -1
-                      },
-                      "label": "Person"
-                    }
-                  },
-                  {
-                    "@type": "g:Vertex",
-                    "@value": {
-                      "id": {
-                        "@type": "g:Int64",
-                        "@value": -1
-                      },
-                      "label": "Country"
-                    }
-                  },
-                  {
-                    "@type": "g:Vertex",
-                    "@value": {
-                      "id": {
-                        "@type": "g:Int64",
-                        "@value": -1
-                      },
-                      "label": "Person"
-                    }
-                  }
-                ]
-              }
-            }
+          {
+            "@type": "g:Set",
+            "@value": []
+          },
+          {
+            "@type": "g:Set",
+            "@value": []
           }
-        }
+        ]
       },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Path",
+      "objects": {
+        "@type": "g:List",
+        "@value": [
+          {
+            "@type": "g:Vertex",
             "@value": {
-              "labels": {
-                "@type": "g:List",
-                "@value": [
-                  {
-                    "@type": "g:Set",
-                    "@value": []
-                  },
-                  {
-                    "@type": "g:Set",
-                    "@value": []
-                  },
-                  {
-                    "@type": "g:Set",
-                    "@value": []
-                  }
-                ]
+              "id": {
+                "@type": "g:Int64",
+                "@value": -1
               },
-              "objects": {
-                "@type": "g:List",
-                "@value": [
-                  {
-                    "@type": "g:Vertex",
-                    "@value": {
-                      "id": {
-                        "@type": "g:Int64",
-                        "@value": -1
-                      },
-                      "label": "Person"
-                    }
-                  },
-                  {
-                    "@type": "g:Vertex",
-                    "@value": {
-                      "id": {
-                        "@type": "g:Int64",
-                        "@value": -1
-                      },
-                      "label": "Country"
-                    }
-                  },
-                  {
-                    "@type": "g:Vertex",
-                    "@value": {
-                      "id": {
-                        "@type": "g:Int64",
-                        "@value": -1
-                      },
-                      "label": "Language"
-                    }
-                  }
-                ]
-              }
+              "label": "Person"
+            }
+          },
+          {
+            "@type": "g:Vertex",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": -1
+              },
+              "label": "Country"
+            }
+          },
+          {
+            "@type": "g:Vertex",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": -1
+              },
+              "label": "Person"
             }
           }
-        }
+        ]
       }
-    ]
+    }
+  },
+  {
+    "@type": "g:Path",
+    "@value": {
+      "labels": {
+        "@type": "g:List",
+        "@value": [
+          {
+            "@type": "g:Set",
+            "@value": []
+          },
+          {
+            "@type": "g:Set",
+            "@value": []
+          },
+          {
+            "@type": "g:Set",
+            "@value": []
+          }
+        ]
+      },
+      "objects": {
+        "@type": "g:List",
+        "@value": [
+          {
+            "@type": "g:Vertex",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": -1
+              },
+              "label": "Person"
+            }
+          },
+          {
+            "@type": "g:Vertex",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": -1
+              },
+              "label": "Country"
+            }
+          },
+          {
+            "@type": "g:Vertex",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": -1
+              },
+              "label": "Language"
+            }
+          }
+        ]
+      }
+    }
   }
 ]

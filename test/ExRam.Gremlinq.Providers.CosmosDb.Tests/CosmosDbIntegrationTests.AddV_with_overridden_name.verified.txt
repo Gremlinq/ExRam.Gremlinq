@@ -1,23 +1,21 @@
 ﻿[
-  [
-    {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "label": "Language",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-            "value": "PartitionKey"
-          }
-        ],
-        "lang": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": "en"
-          }
-        ]
-      }
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "label": "Language",
+    "type": "vertex",
+    "properties": {
+      "PartitionKey": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "value": "PartitionKey"
+        }
+      ],
+      "lang": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000",
+          "value": "en"
+        }
+      ]
     }
-  ]
+  }
 ]

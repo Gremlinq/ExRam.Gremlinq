@@ -1,39 +1,25 @@
 ﻿[
   {
-    "@type": "g:List",
+    "@type": "g:Map",
     "@value": [
+      "TimeFrame",
       {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": [
-              "TimeFrame",
-              {
-                "@type": "gx:Duration",
-                "@value": "PT8H"
-              },
-              "Country",
-              "+49",
-              "Company",
-              {
-                "@type": "g:Date",
-                "@value": -62135596800000
-              },
-              "Language",
-              "en",
-              "Person",
-              {
-                "@type": "g:Int32",
-                "@value": 1
-              }
-            ]
-          }
-        }
+        "@type": "gx:Duration",
+        "@value": "PT8H"
+      },
+      "Country",
+      "+49",
+      "Company",
+      {
+        "@type": "g:Date",
+        "@value": -62135596800000
+      },
+      "Language",
+      "en",
+      "Person",
+      {
+        "@type": "g:Int32",
+        "@value": 1
       }
     ]
   }
