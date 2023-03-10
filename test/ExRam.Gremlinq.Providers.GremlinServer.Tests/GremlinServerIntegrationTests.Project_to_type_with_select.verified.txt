@@ -1,25 +1,101 @@
 ﻿[
   {
-    "@type": "g:List",
+    "@type": "g:Map",
     "@value": [
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 11
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": [
-              "In",
-              "in_value",
-              "Out",
-              "out_value"
-            ]
-          }
-        }
-      }
+      "In",
+      "in_value",
+      "Out",
+      "out_value"
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "In",
+      "in_value",
+      "Out",
+      "out_value"
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "In",
+      "in_value",
+      "Out",
+      "out_value"
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "In",
+      "in_value",
+      "Out",
+      "out_value"
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "In",
+      "in_value",
+      "Out",
+      "out_value"
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "In",
+      "in_value",
+      "Out",
+      "out_value"
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "In",
+      "in_value",
+      "Out",
+      "out_value"
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "In",
+      "in_value",
+      "Out",
+      "out_value"
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "In",
+      "in_value",
+      "Out",
+      "out_value"
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "In",
+      "in_value",
+      "Out",
+      "out_value"
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "In",
+      "in_value",
+      "Out",
+      "out_value"
     ]
   }
 ]
