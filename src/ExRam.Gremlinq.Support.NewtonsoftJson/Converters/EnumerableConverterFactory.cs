@@ -55,6 +55,9 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
         {
             if (typeof(TSource) == typeof(JArray))
             {
+                if (typeof(TTarget).IsAssignableFrom(typeof(object[])))
+                    return (IConverter<TSource, TTarget>?)(object)new ArrayConverter<TTarget, object>();
+
                 if (typeof(TTarget).IsArray)
                     return (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(ArrayConverter<,>).MakeGenericType(typeof(TTarget), typeof(TTarget).GetElementType()!));
 
