@@ -7,33 +7,42 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 {
     internal sealed class TraverserConverterFactory : IConverterFactory
     {
-        private sealed class TraverserConverter<TTargetArray, TTargetItem> : IConverter<JArray, TTargetArray>
+        private sealed class EnumerableConverter<TTargetItem> : IConverter<JArray, IEnumerable<TTargetItem>>
+        {
+            public bool TryConvert(JArray source, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out IEnumerable<TTargetItem>? value)
+            {
+                IEnumerable<TTargetItem> GetEnumerable()
+                {
+                    for (var i = 0; i < source.Count; i++)
+                    {
+                        if (source[i] is JObject traverserObject && traverserObject.TryExpandTraverser<TTargetItem>(environment, recurse) is { } enumerable)
+                        {
+                            foreach (var item1 in enumerable)
+                                yield return item1;
+                        }
+                        else if (recurse.TryTransform<JToken, TTargetItem>(source[i], environment, out var item2))
+                        {
+                            yield return item2;
+                        }
+                    }
+                }
+
+                value = GetEnumerable();
+                return true;
+            }
+        }
+
+        private sealed class ArrayConverter<TTargetArray, TTargetItem> : IConverter<JArray, TTargetArray>
         {
             public bool TryConvert(JArray serialized, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTargetArray? value)
             {
                 if (!environment.GetCache().FastNativeTypes.ContainsKey(typeof(TTargetArray)))
                 {
-                    var array = default(List<TTargetItem>);
-
-                    for (var i = 0; i < serialized.Count; i++)
+                    if (recurse.TryTransform(serialized, environment, out IEnumerable<TTargetItem>? enumerable))
                     {
-                        if (serialized[i] is JObject traverserObject && traverserObject.TryExpandTraverser<TTargetItem>(environment, recurse) is { } enumerable)
-                        {
-                            array ??= new List<TTargetItem>(serialized.Count);
-
-                            foreach (var item1 in enumerable)
-                                array.Add(item1);
-                        }
-                        else if (recurse.TryTransform<JToken, TTargetItem>(serialized[i], environment, out var item2))
-                        {
-                            array ??= new List<TTargetItem>(serialized.Count);
-
-                            array.Add(item2);
-                        }
+                        value = (TTargetArray)(object)enumerable.ToArray();
+                        return true;
                     }
-
-                    value = (TTargetArray)(object)(array?.ToArray() ?? Array.Empty<TTargetItem>());
-                    return true;
                 }
 
                 value = default;
@@ -43,9 +52,17 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
         public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>()
         {
-            return typeof(TSource) == typeof(JArray) && typeof(TTarget).IsArray
-                ? (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(TraverserConverter<,>).MakeGenericType(typeof(TTarget), typeof(TTarget).GetElementType()!))
-                : default;
+            if (typeof(TSource) == typeof(JArray))
+            {
+                if (typeof(TTarget).IsArray)
+                    return (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(ArrayConverter<,>).MakeGenericType(typeof(TTarget), typeof(TTarget).GetElementType()!));
+
+                if (typeof(TTarget).IsConstructedGenericType && typeof(TTarget).GetGenericTypeDefinition() == typeof(IEnumerable<>))
+                    return (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(EnumerableConverter<>).MakeGenericType(typeof(TTarget).GenericTypeArguments[0]));
+
+            }
+
+            return default;
         }
     }
 }
