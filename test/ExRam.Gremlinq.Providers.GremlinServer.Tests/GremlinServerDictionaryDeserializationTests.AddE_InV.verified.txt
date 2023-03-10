@@ -1,10 +1,12 @@
 ﻿[
-  {
-    "Name": null,
-    "Languages": null,
-    "CountryCallingCode": null,
-    "LocalizableDescription": null,
-    "Id": -1,
-    "Label": "Country"
-  }
+  [
+    {
+      "Name": null,
+      "Languages": null,
+      "CountryCallingCode": null,
+      "LocalizableDescription": null,
+      "Id": -1,
+      "Label": "Country"
+    }
+  ]
 ]

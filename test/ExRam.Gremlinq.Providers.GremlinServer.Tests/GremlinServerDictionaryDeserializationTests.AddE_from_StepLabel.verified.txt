@@ -1,6 +1,8 @@
 ﻿[
-  {
-    "Id": -1,
-    "Label": "Speaks"
-  }
+  [
+    {
+      "Id": -1,
+      "Label": "Speaks"
+    }
+  ]
 ]

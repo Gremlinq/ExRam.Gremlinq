@@ -1,62 +1,60 @@
 ﻿[
-  [
-    {
-      "in!": {
-        "id": "00000000-0000-0000-0000-000000000000",
-        "label": "Person",
-        "type": "vertex",
-        "properties": {
-          "PartitionKey": [
-            {
-              "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-              "value": "PartitionKey"
-            }
-          ],
-          "Age": [
-            {
-              "id": "00000000-0000-0000-0000-000000000000",
-              "value": 0
-            }
-          ],
-          "Name": [
-            {
-              "id": "00000000-0000-0000-0000-000000000000",
-              "value": "Bob"
-            }
-          ],
-          "RegistrationDate": [
-            {
-              "id": "00000000-0000-0000-0000-000000000000",
-              "value": 1586270616000
-            }
-          ]
-        }
-      },
-      "out!": {
-        "id": "00000000-0000-0000-0000-000000000000",
-        "label": "Language",
-        "type": "vertex",
-        "properties": {
-          "PartitionKey": [
-            {
-              "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-              "value": "PartitionKey"
-            }
-          ],
-          "IetfLanguageTag": [
-            {
-              "id": "00000000-0000-0000-0000-000000000000",
-              "value": "en"
-            }
-          ]
-        }
-      },
-      "count!": 1,
-      "properties!": {
-        "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-        "value": "PartitionKey",
-        "label": "PartitionKey"
+  {
+    "in!": {
+      "id": "00000000-0000-0000-0000-000000000000",
+      "label": "Person",
+      "type": "vertex",
+      "properties": {
+        "PartitionKey": [
+          {
+            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+            "value": "PartitionKey"
+          }
+        ],
+        "Age": [
+          {
+            "id": "00000000-0000-0000-0000-000000000000",
+            "value": 0
+          }
+        ],
+        "Name": [
+          {
+            "id": "00000000-0000-0000-0000-000000000000",
+            "value": "Bob"
+          }
+        ],
+        "RegistrationDate": [
+          {
+            "id": "00000000-0000-0000-0000-000000000000",
+            "value": 1586270616000
+          }
+        ]
       }
+    },
+    "out!": {
+      "id": "00000000-0000-0000-0000-000000000000",
+      "label": "Language",
+      "type": "vertex",
+      "properties": {
+        "PartitionKey": [
+          {
+            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+            "value": "PartitionKey"
+          }
+        ],
+        "IetfLanguageTag": [
+          {
+            "id": "00000000-0000-0000-0000-000000000000",
+            "value": "en"
+          }
+        ]
+      }
+    },
+    "count!": 1,
+    "properties!": {
+      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+      "value": "PartitionKey",
+      "label": "PartitionKey"
     }
-  ]
+  }
 ]

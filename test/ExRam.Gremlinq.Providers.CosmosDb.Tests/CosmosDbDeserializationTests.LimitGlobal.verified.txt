@@ -1,10 +1,12 @@
 ﻿[
-  {
-    "Name": null,
-    "Languages": null,
-    "CountryCallingCode": "+49",
-    "LocalizableDescription": null,
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Country"
-  }
+  [
+    {
+      "Name": null,
+      "Languages": null,
+      "CountryCallingCode": "+49",
+      "LocalizableDescription": null,
+      "Id": "00000000-0000-0000-0000-000000000000",
+      "Label": "Country"
+    }
+  ]
 ]

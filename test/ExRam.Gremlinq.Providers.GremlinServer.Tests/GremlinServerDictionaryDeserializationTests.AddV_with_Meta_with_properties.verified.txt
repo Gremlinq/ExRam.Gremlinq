@@ -1,19 +1,21 @@
 ﻿[
-  {
-    "Name": {
-      "Id": -1,
-      "Label": "Name",
-      "Properties": {
-        "de": "Deutschland",
-        "en": "Germany"
+  [
+    {
+      "Name": {
+        "Id": -1,
+        "Label": "Name",
+        "Properties": {
+          "de": "Deutschland",
+          "en": "Germany"
+        },
+        "Value": "GER",
+        "Key": null
       },
-      "Value": "GER",
-      "Key": null
-    },
-    "Languages": null,
-    "CountryCallingCode": null,
-    "LocalizableDescription": null,
-    "Id": -1,
-    "Label": "Country"
-  }
+      "Languages": null,
+      "CountryCallingCode": null,
+      "LocalizableDescription": null,
+      "Id": -1,
+      "Label": "Country"
+    }
+  ]
 ]

@@ -1,111 +1,45 @@
 ﻿[
   {
-    "@type": "g:List",
+    "@type": "g:Map",
     "@value": [
+      "Country",
       {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
+        "@type": "g:List",
+        "@value": [
+          {
             "@type": "g:Map",
             "@value": [
-              "Country",
+              "id",
               {
-                "@type": "g:List",
-                "@value": [
-                  {
-                    "@type": "g:Map",
-                    "@value": [
-                      "id",
-                      {
-                        "@type": "g:Int64",
-                        "@value": -1
-                      },
-                      "label",
-                      "Language",
-                      "properties",
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "IetfLanguageTag",
-                          {
-                            "@type": "g:List",
-                            "@value": [
-                              {
-                                "@type": "g:Map",
-                                "@value": [
-                                  "id",
-                                  {
-                                    "@type": "g:Int64",
-                                    "@value": -1
-                                  },
-                                  "label",
-                                  "IetfLanguageTag",
-                                  "value",
-                                  "en",
-                                  "properties",
-                                  {
-                                    "@type": "g:Map",
-                                    "@value": []
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
+                "@type": "g:Int64",
+                "@value": -1
               },
-              "Person",
+              "label",
+              "Language",
+              "properties",
               {
-                "@type": "g:List",
+                "@type": "g:Map",
                 "@value": [
+                  "IetfLanguageTag",
                   {
-                    "@type": "g:Map",
+                    "@type": "g:List",
                     "@value": [
-                      "id",
-                      {
-                        "@type": "g:Int64",
-                        "@value": -1
-                      },
-                      "label",
-                      "Company",
-                      "properties",
                       {
                         "@type": "g:Map",
                         "@value": [
-                          "FoundingDate",
+                          "id",
                           {
-                            "@type": "g:List",
-                            "@value": [
-                              {
-                                "@type": "g:Map",
-                                "@value": [
-                                  "id",
-                                  {
-                                    "@type": "g:Int64",
-                                    "@value": -1
-                                  },
-                                  "label",
-                                  "FoundingDate",
-                                  "value",
-                                  {
-                                    "@type": "g:Date",
-                                    "@value": -62135596800000
-                                  },
-                                  "properties",
-                                  {
-                                    "@type": "g:Map",
-                                    "@value": []
-                                  }
-                                ]
-                              }
-                            ]
+                            "@type": "g:Int64",
+                            "@value": -1
+                          },
+                          "label",
+                          "IetfLanguageTag",
+                          "value",
+                          "en",
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
                           }
                         ]
                       }
@@ -115,7 +49,59 @@
               }
             ]
           }
-        }
+        ]
+      },
+      "Person",
+      {
+        "@type": "g:List",
+        "@value": [
+          {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": -1
+              },
+              "label",
+              "Company",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "FoundingDate",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": -1
+                          },
+                          "label",
+                          "FoundingDate",
+                          "value",
+                          {
+                            "@type": "g:Date",
+                            "@value": -62135596800000
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       }
     ]
   }

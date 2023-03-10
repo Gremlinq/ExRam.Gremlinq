@@ -1,29 +1,31 @@
 ﻿[
-  {
-    "id": -1,
-    "label": "CountryCallingCode",
-    "value": "+49",
-    "properties": {}
-  },
-  {
-    "id": -1,
-    "label": "Name",
-    "value": "GER",
-    "properties": {}
-  },
-  {
-    "id": -1,
-    "label": "Name",
-    "value": "GER",
-    "properties": {
-      "de": "Deutschland",
-      "en": "Germany"
+  [
+    {
+      "id": -1,
+      "label": "CountryCallingCode",
+      "value": "+49",
+      "properties": {}
+    },
+    {
+      "id": -1,
+      "label": "Name",
+      "value": "GER",
+      "properties": {}
+    },
+    {
+      "id": -1,
+      "label": "Name",
+      "value": "GER",
+      "properties": {
+        "de": "Deutschland",
+        "en": "Germany"
+      }
+    },
+    {
+      "id": -1,
+      "label": "CountryCallingCode",
+      "value": "+49",
+      "properties": {}
     }
-  },
-  {
-    "id": -1,
-    "label": "CountryCallingCode",
-    "value": "+49",
-    "properties": {}
-  }
+  ]
 ]
