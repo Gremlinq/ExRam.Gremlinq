@@ -15,7 +15,6 @@
   "Language",
   "Country",
   "Person",
-  "Person",
   "Company",
   "Language",
   "Language",
