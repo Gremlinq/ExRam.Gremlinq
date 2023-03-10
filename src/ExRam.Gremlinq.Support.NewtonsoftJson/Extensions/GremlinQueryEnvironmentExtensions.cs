@@ -191,7 +191,6 @@ namespace ExRam.Gremlinq.Core
                     .Add(new ExpandoObjectConverterFactory())  //TODO: Move
                     .Add(new LabelLookupConverterFactory())
                     .Add(new VertexPropertyExtractConverterFactory())
-                    .Add(new ArrayExtractConverterFactory())
                     .Add(new TypedValueConverterFactory())
                     .Add(new ConvertMapsConverterFactory())
                     .Add(new BulkSetConverterFactory())
