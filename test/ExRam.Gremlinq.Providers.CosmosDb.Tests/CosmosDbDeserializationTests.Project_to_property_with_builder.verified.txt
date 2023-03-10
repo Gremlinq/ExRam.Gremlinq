@@ -1,13 +1,15 @@
 ﻿[
-  {
-    "in!": {
-      "Name": null,
-      "Languages": null,
-      "CountryCallingCode": "+49",
-      "LocalizableDescription": null,
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "Country"
-    },
-    "Age": 0
-  }
+  [
+    {
+      "in!": {
+        "Name": null,
+        "Languages": null,
+        "CountryCallingCode": "+49",
+        "LocalizableDescription": null,
+        "Id": "00000000-0000-0000-0000-000000000000",
+        "Label": "Country"
+      },
+      "Age": 0
+    }
+  ]
 ]

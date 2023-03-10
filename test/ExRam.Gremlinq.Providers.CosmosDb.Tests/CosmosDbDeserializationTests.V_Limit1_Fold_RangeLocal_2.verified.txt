@@ -1,20 +1,22 @@
 ﻿[
   [
-    {
-      "Name": null,
-      "Languages": null,
-      "CountryCallingCode": "+49",
-      "LocalizableDescription": {
-        "Id": "00000000-0000-0000-0000-000000000000",
-        "Label": null,
-        "Properties": {
-          "someKey": "value"
+    [
+      {
+        "Name": null,
+        "Languages": null,
+        "CountryCallingCode": "+49",
+        "LocalizableDescription": {
+          "Id": "00000000-0000-0000-0000-000000000000",
+          "Label": null,
+          "Properties": {
+            "someKey": "value"
+          },
+          "Value": "",
+          "Key": null
         },
-        "Value": "",
-        "Key": null
-      },
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "Country"
-    }
+        "Id": "00000000-0000-0000-0000-000000000000",
+        "Label": "Country"
+      }
+    ]
   ]
 ]

@@ -1,18 +1,20 @@
 ﻿[
-  {
-    "IetfLanguageTag": "en",
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Language"
-  },
-  {
-    "Age": 36,
-    "Gender": null,
-    "Image": null,
-    "RegistrationDate": null,
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": null,
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Person"
-  }
+  [
+    {
+      "IetfLanguageTag": "en",
+      "Id": "00000000-0000-0000-0000-000000000000",
+      "Label": "Language"
+    },
+    {
+      "Age": 36,
+      "Gender": null,
+      "Image": null,
+      "RegistrationDate": null,
+      "PhoneNumbers": null,
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": "00000000-0000-0000-0000-000000000000",
+      "Label": "Person"
+    }
+  ]
 ]

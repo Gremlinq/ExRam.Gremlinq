@@ -1,10 +1,12 @@
 ﻿[
-  {
-    "key": "de",
-    "value": "Deutschland"
-  },
-  {
-    "key": "en",
-    "value": "Germany"
-  }
+  [
+    {
+      "key": "de",
+      "value": "Deutschland"
+    },
+    {
+      "key": "en",
+      "value": "Germany"
+    }
+  ]
 ]

@@ -1,35 +1,37 @@
 ﻿[
-  {
-    "Name": null,
-    "Languages": null,
-    "CountryCallingCode": "+49",
-    "LocalizableDescription": {
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": null,
-      "Properties": {
-        "someKey": "value"
+  [
+    {
+      "Name": null,
+      "Languages": null,
+      "CountryCallingCode": "+49",
+      "LocalizableDescription": {
+        "Id": "00000000-0000-0000-0000-000000000000",
+        "Label": null,
+        "Properties": {
+          "someKey": "value"
+        },
+        "Value": "",
+        "Key": null
       },
-      "Value": "",
-      "Key": null
-    },
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Country"
-  },
-  {
-    "Age": 36,
-    "Gender": null,
-    "Image": null,
-    "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": {
       "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": null,
-      "Properties": null,
-      "Value": "Bob",
-      "Key": null
+      "Label": "Country"
     },
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Person"
-  }
+    {
+      "Age": 36,
+      "Gender": null,
+      "Image": null,
+      "RegistrationDate": "2020-04-07T14:43:36+00:00",
+      "PhoneNumbers": null,
+      "SomeObscureProperty": null,
+      "Name": {
+        "Id": "00000000-0000-0000-0000-000000000000",
+        "Label": null,
+        "Properties": null,
+        "Value": "Bob",
+        "Key": null
+      },
+      "Id": "00000000-0000-0000-0000-000000000000",
+      "Label": "Person"
+    }
+  ]
 ]

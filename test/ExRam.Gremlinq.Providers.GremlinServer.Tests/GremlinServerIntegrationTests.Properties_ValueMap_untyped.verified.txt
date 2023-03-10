@@ -1,57 +1,173 @@
 ﻿[
   {
-    "@type": "g:List",
+    "@type": "g:Map",
+    "@value": []
+  },
+  {
+    "@type": "g:Map",
+    "@value": []
+  },
+  {
+    "@type": "g:Map",
+    "@value": []
+  },
+  {
+    "@type": "g:Map",
+    "@value": []
+  },
+  {
+    "@type": "g:Map",
+    "@value": []
+  },
+  {
+    "@type": "g:Map",
+    "@value": []
+  },
+  {
+    "@type": "g:Map",
+    "@value": []
+  },
+  {
+    "@type": "g:Map",
+    "@value": []
+  },
+  {
+    "@type": "g:Map",
+    "@value": []
+  },
+  {
+    "@type": "g:Map",
+    "@value": []
+  },
+  {
+    "@type": "g:Map",
+    "@value": []
+  },
+  {
+    "@type": "g:Map",
+    "@value": []
+  },
+  {
+    "@type": "g:Map",
+    "@value": []
+  },
+  {
+    "@type": "g:Map",
+    "@value": []
+  },
+  {
+    "@type": "g:Map",
+    "@value": []
+  },
+  {
+    "@type": "g:Map",
+    "@value": []
+  },
+  {
+    "@type": "g:Map",
+    "@value": []
+  },
+  {
+    "@type": "g:Map",
+    "@value": []
+  },
+  {
+    "@type": "g:Map",
+    "@value": []
+  },
+  {
+    "@type": "g:Map",
+    "@value": []
+  },
+  {
+    "@type": "g:Map",
+    "@value": []
+  },
+  {
+    "@type": "g:Map",
+    "@value": []
+  },
+  {
+    "@type": "g:Map",
+    "@value": []
+  },
+  {
+    "@type": "g:Map",
+    "@value": []
+  },
+  {
+    "@type": "g:Map",
+    "@value": []
+  },
+  {
+    "@type": "g:Map",
+    "@value": []
+  },
+  {
+    "@type": "g:Map",
+    "@value": []
+  },
+  {
+    "@type": "g:Map",
+    "@value": []
+  },
+  {
+    "@type": "g:Map",
+    "@value": []
+  },
+  {
+    "@type": "g:Map",
+    "@value": []
+  },
+  {
+    "@type": "g:Map",
+    "@value": []
+  },
+  {
+    "@type": "g:Map",
+    "@value": []
+  },
+  {
+    "@type": "g:Map",
+    "@value": []
+  },
+  {
+    "@type": "g:Map",
+    "@value": []
+  },
+  {
+    "@type": "g:Map",
+    "@value": []
+  },
+  {
+    "@type": "g:Map",
+    "@value": []
+  },
+  {
+    "@type": "g:Map",
+    "@value": []
+  },
+  {
+    "@type": "g:Map",
+    "@value": []
+  },
+  {
+    "@type": "g:Map",
     "@value": [
+      "ValidFrom",
       {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 38
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": []
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": [
-              "ValidFrom",
-              {
-                "@type": "g:Date",
-                "@value": 1546304400000
-              }
-            ]
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": [
-              "de",
-              "Deutschland",
-              "en",
-              "Germany"
-            ]
-          }
-        }
+        "@type": "g:Date",
+        "@value": 1546304400000
       }
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "de",
+      "Deutschland",
+      "en",
+      "Germany"
     ]
   }
 ]

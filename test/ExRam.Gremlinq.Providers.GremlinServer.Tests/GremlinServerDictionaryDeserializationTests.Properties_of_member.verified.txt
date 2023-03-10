@@ -1,17 +1,19 @@
 ﻿[
-  {
-    "id": -1,
-    "label": "Name",
-    "value": "GER",
-    "properties": {}
-  },
-  {
-    "id": -1,
-    "label": "Name",
-    "value": "GER",
-    "properties": {
-      "de": "Deutschland",
-      "en": "Germany"
+  [
+    {
+      "id": -1,
+      "label": "Name",
+      "value": "GER",
+      "properties": {}
+    },
+    {
+      "id": -1,
+      "label": "Name",
+      "value": "GER",
+      "properties": {
+        "de": "Deutschland",
+        "en": "Germany"
+      }
     }
-  }
+  ]
 ]
