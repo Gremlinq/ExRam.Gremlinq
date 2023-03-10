@@ -19,14 +19,19 @@ namespace ExRam.Gremlinq.Core.Tests
 
             public IAsyncEnumerable<object> Execute(ISerializedGremlinQuery serializedQuery, IGremlinQueryEnvironment environment)
             {
+                var token = JsonConvert.DeserializeObject<JToken>(
+                    _json,
+                    new JsonSerializerSettings()
+                    {
+                        DateParseHandling = DateParseHandling.None
+                    })!;
+
+                if (token is JArray jArray)
+                    return jArray.Cast<object>().ToAsyncEnumerable();
+
                 return new object[]
                 {
-                    JsonConvert.DeserializeObject<JToken>(
-                        _json,
-                        new JsonSerializerSettings()
-                        {
-                            DateParseHandling = DateParseHandling.None
-                        })!
+                    token   
                 }.ToAsyncEnumerable();
             }
         }
