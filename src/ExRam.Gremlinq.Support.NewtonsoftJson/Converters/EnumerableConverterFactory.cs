@@ -6,7 +6,7 @@ using System.Collections;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson
 {
-    internal sealed class TraverserConverterFactory : IConverterFactory
+    internal sealed class EnumerableConverterFactory : IConverterFactory
     {
         private abstract class EnumerableConverter<TTargetItem>
         {
