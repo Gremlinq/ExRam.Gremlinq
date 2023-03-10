@@ -4,6 +4,7 @@ using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Core;
 using Newtonsoft.Json;
 using System.Collections;
+using ExRam.Gremlinq.Core.GraphElements;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson
 {
@@ -33,7 +34,9 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
         {
             public bool TryConvert(JArray serialized, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
             {
-                if ((!typeof(IEnumerable).IsAssignableFrom(typeof(TTarget)) || environment.GetCache().FastNativeTypes.ContainsKey(typeof(TTarget))) && !typeof(TTarget).IsInstanceOfType(serialized))
+                var nativeTypes = environment.GetCache().FastNativeTypes;
+
+                if (((typeof(TTarget).IsConstructedGenericType && (typeof(TTarget).GetGenericTypeDefinition() == typeof(VertexProperty<>) || typeof(TTarget).GetGenericTypeDefinition() == typeof(VertexProperty<,>))) || (nativeTypes.ContainsKey(typeof(TTarget)) || typeof(TTarget).IsEnum && nativeTypes.ContainsKey(typeof(TTarget).GetEnumUnderlyingType()))) && !typeof(TTarget).IsInstanceOfType(serialized))
                 {
                     if (serialized.Count != 1)
                     {
