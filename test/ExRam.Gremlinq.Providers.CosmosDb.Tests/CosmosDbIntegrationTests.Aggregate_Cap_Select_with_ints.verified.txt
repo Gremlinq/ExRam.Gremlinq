@@ -1,15 +1,8 @@
 ﻿[
-  [
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1
-  ]
+  {
+    "serverException": {
+      "type": "ResponseException",
+      "message": "ServerError: \r\n\nActivityId : 00000000-0000-0000-0000-000000000000\nExceptionType : DocumentClientException\nExceptionMessage : Message: {\"Errors\":[\"An unknown error occurred while processing this request. If the issue persists, please contact Azure Support: http://aka.ms/azure-support\"]}\r\nActivityId: 00000000-0000-0000-0000-000000000000, Request URI: /apps/DocDbApp/services/DocDbServer24/partitions/00000000-0000-0000-0000-000000000000/replicas/1p/, RequestStats: \r\nRequestStartTime: 2023-03-10T22:33:43.5278359Z, RequestEndTime: 2023-03-10T22:33:43.5478373Z,  Number of regions attempted:1\r\n{\"systemHistory\":[{\"dateUtc\":\"2023-03-10T22:33:01.2537004Z\",\"cpu\":10.848,\"memory\":3106496.000,\"threadInfo\":{\"isThreadStarving\":\"no info\",\"availableThreads\":32764,\"minThreads\":2,\"maxThreads\":32767},\"numberOfOpenTcpConnection\":0},{\"dateUtc\":\"2023-03-10T22:33:11.3100191Z\",\"cpu\":95.568,\"memory\":3097320.000,\"threadInfo\":{\"isThreadStarving\":\"False\",\"threadWaitIntervalInMs\":1.0755,\"availableThreads\":32765,\"minThreads\":2,\"maxThreads\":32767},\"numberOfOpenTcpConnection\":2},{\"dateUtc\":\"2023-03-10T22:33:21.6137503Z\",\"cpu\":100.000,\"memory\":2898168.000,\"threadInfo\":{\"isThreadStarving\":\"False\",\"threadWaitIntervalInMs\":0.1444,\"availableThreads\":32764,\"minThreads\":2,\"maxThreads\":32767},\"numberOfOpenTcpConnection\":2},{\"dateUtc\":\"2023-03-10T22:33:31.7117589Z\",\"cpu\":99.226,\"memory\":3166256.000,\"threadInfo\":{\"isThreadStarving\":\"False\",\"threadWaitIntervalInMs\":0.5369,\"availableThreads\":32765,\"minThreads\":2,\"maxThreads\":32767},\"numberOfOpenTcpConnection\":2},{\"dateUtc\":\"2023-03-10T22:33:41.7552988Z\",\"cpu\":100.000,\"memory\":3122732.000,\"threadInfo\":{\"isThreadStarving\":\"False\",\"threadWaitIntervalInMs\":0.0821,\"availableThreads\":32765,\"minThreads\":2,\"maxThreads\":32767},\"numberOfOpenTcpConnection\":2}]}\r\nRequestStart: 2023-03-10T22:33:43.5288347Z; ResponseTime: 2023-03-10T22:33:43.5478373Z; StoreResult: StorePhysicalAddress: rntbd://127.0.0.1:10253/apps/DocDbApp/services/DocDbServer24/partitions/00000000-0000-0000-0000-000000000000/replicas/1p/, LSN: 2, GlobalCommittedLsn: -1, PartitionKeyRangeId: 3, IsValid: True, StatusCode: 500, SubStatusCode: 0, RequestCharge: 1, ItemLSN: -1, SessionToken: -1#2, UsingLocalLSN: True, TransportException: null, BELatencyMs: 1.511, ActivityId: 00000000-0000-0000-0000-000000000000, RetryAfterInMs: , TransportRequestTimeline: {\"requestTimeline\":[{\"event\": \"Created\", \"startTimeUtc\": \"2023-03-10T22:33:43.5278359Z\", \"durationInMs\": 0.0131},{\"event\": \"ChannelAcquisitionStarted\", \"startTimeUtc\": \"2023-03-10T22:33:43.5278490Z\", \"durationInMs\": 0.0047},{\"event\": \"Pipelined\", \"startTimeUtc\": \"2023-03-10T22:33:43.5278537Z\", \"durationInMs\": 1.0182},{\"event\": \"Transit Time\", \"startTimeUtc\": \"2023-03-10T22:33:43.5288719Z\", \"durationInMs\": 1.4223},{\"event\": \"Received\", \"startTimeUtc\": \"2023-03-10T22:33:43.5302942Z\", \"durationInMs\": 1.4293},{\"event\": \"Completed\", \"startTimeUtc\": \"2023-03-10T22:33:43.5317235Z\", \"durationInMs\": 0}],\"serviceEndpointStats\":{\"inflightRequests\":1,\"openConnections\":1},\"connectionStats\":{\"waitforConnectionInit\":\"False\",\"callsPendingReceive\":0,\"lastSendAttempt\":\"2023-03-10T22:33:43.0608289Z\",\"lastSend\":\"2023-03-10T22:33:43.0618309Z\",\"lastReceive\":\"2023-03-10T22:33:43.0638311Z\"},\"requestSizeInBytes\":450,\"responseMetadataSizeInBytes\":176,\"responseBodySizeInBytes\":152};\r\n ResourceType: Collection, OperationType: Read\r\n, SDK: Microsoft.Azure.Documents.Common/2.14.0, documentdb-dotnet-sdk/2.14.0 Host/64-bit MicrosoftWindowsNT/10.0.17763.0\n\tBackendStatusCode : InternalServerError\n\tBackendActivityId : 00000000-0000-0000-0000-000000000000\n\tHResult : 0x80131500\r\n"
+    }
+  }
 ]
