@@ -15,15 +15,6 @@
           "id": "00000000-0000-0000-0000-000000000000",
           "value": "+49"
         }
-      ],
-      "LocalizableDescription": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "",
-          "properties": {
-            "someKey": "value"
-          }
-        }
       ]
     }
   },
@@ -192,15 +183,6 @@
           "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
           "value": "PartitionKey"
         }
-      ],
-      "LocalizableDescription": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "",
-          "properties": {
-            "someKey": "value"
-          }
-        }
       ]
     }
   },
@@ -248,15 +230,6 @@
           "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
           "value": "PartitionKey"
         }
-      ],
-      "LocalizableDescription": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "",
-          "properties": {
-            "someKey": "value"
-          }
-        }
       ]
     }
   },
@@ -303,15 +276,6 @@
         {
           "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
           "value": "PartitionKey"
-        }
-      ],
-      "LocalizableDescription": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "",
-          "properties": {
-            "someKey": "value"
-          }
         }
       ]
     }
@@ -403,64 +367,6 @@
         {
           "id": "00000000-0000-0000-0000-000000000000",
           "value": "+49"
-        }
-      ],
-      "LocalizableDescription": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "",
-          "properties": {
-            "someKey": "value"
-          }
-        }
-      ]
-    }
-  },
-  {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Person",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ],
-      "Age": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 36,
-          "properties": {
-            "Meta": "value"
-          }
-        }
-      ],
-      "Name": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "Bob",
-          "properties": {
-            "ValidFrom": 1586270616000
-          }
-        }
-      ],
-      "RegistrationDate": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 1586270616000
-        }
-      ],
-      "GuidKey": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "00000000-0000-0000-0000-000000000000"
-        }
-      ],
-      "StringKey1": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 36
         }
       ]
     }
@@ -824,15 +730,6 @@
           "id": "00000000-0000-0000-0000-000000000000",
           "value": "GER"
         }
-      ],
-      "LocalizableDescription": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "",
-          "properties": {
-            "someKey": "value"
-          }
-        }
       ]
     }
   },
@@ -854,15 +751,6 @@
           "properties": {
             "de": "Deutschland",
             "en": "Germany"
-          }
-        }
-      ],
-      "LocalizableDescription": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "",
-          "properties": {
-            "someKey": "value"
           }
         }
       ]

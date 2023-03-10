@@ -66,15 +66,6 @@
           "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
           "value": "PartitionKey"
         }
-      ],
-      "LocalizableDescription": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "",
-          "properties": {
-            "someKey": "value"
-          }
-        }
       ]
     }
   },
@@ -88,15 +79,6 @@
           "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
           "value": "PartitionKey"
         }
-      ],
-      "LocalizableDescription": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "",
-          "properties": {
-            "someKey": "value"
-          }
-        }
       ]
     }
   },
@@ -109,43 +91,6 @@
         {
           "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
           "value": "PartitionKey"
-        }
-      ],
-      "LocalizableDescription": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "",
-          "properties": {
-            "someKey": "value"
-          }
-        }
-      ]
-    }
-  },
-  {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Country",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ],
-      "CountryCallingCode": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "+49"
-        }
-      ],
-      "LocalizableDescription": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "",
-          "properties": {
-            "someKey": "value"
-          }
         }
       ]
     }
