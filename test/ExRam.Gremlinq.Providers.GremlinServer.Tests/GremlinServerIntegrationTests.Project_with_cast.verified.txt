@@ -1,29 +1,145 @@
 ﻿[
   {
-    "@type": "g:List",
+    "@type": "g:Map",
     "@value": [
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 11
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": [
-              "in",
-              "in_value",
-              "out",
-              "out_value",
-              "count",
-              "count_value",
-              "properties",
-              "properties_value"
-            ]
-          }
-        }
-      }
+      "in",
+      "in_value",
+      "out",
+      "out_value",
+      "count",
+      "count_value",
+      "properties",
+      "properties_value"
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "in",
+      "in_value",
+      "out",
+      "out_value",
+      "count",
+      "count_value",
+      "properties",
+      "properties_value"
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "in",
+      "in_value",
+      "out",
+      "out_value",
+      "count",
+      "count_value",
+      "properties",
+      "properties_value"
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "in",
+      "in_value",
+      "out",
+      "out_value",
+      "count",
+      "count_value",
+      "properties",
+      "properties_value"
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "in",
+      "in_value",
+      "out",
+      "out_value",
+      "count",
+      "count_value",
+      "properties",
+      "properties_value"
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "in",
+      "in_value",
+      "out",
+      "out_value",
+      "count",
+      "count_value",
+      "properties",
+      "properties_value"
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "in",
+      "in_value",
+      "out",
+      "out_value",
+      "count",
+      "count_value",
+      "properties",
+      "properties_value"
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "in",
+      "in_value",
+      "out",
+      "out_value",
+      "count",
+      "count_value",
+      "properties",
+      "properties_value"
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "in",
+      "in_value",
+      "out",
+      "out_value",
+      "count",
+      "count_value",
+      "properties",
+      "properties_value"
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "in",
+      "in_value",
+      "out",
+      "out_value",
+      "count",
+      "count_value",
+      "properties",
+      "properties_value"
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "in",
+      "in_value",
+      "out",
+      "out_value",
+      "count",
+      "count_value",
+      "properties",
+      "properties_value"
     ]
   }
 ]
