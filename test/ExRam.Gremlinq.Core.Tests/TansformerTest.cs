@@ -231,5 +231,17 @@ namespace ExRam.Gremlinq.Core.Tests
                 .TransformTo<IEnumerable<object>>()
                 .From(token, GremlinQueryEnvironment.Default));
         }
+
+        [Fact]
+        public Task Transform_from_JArray_to_object()
+        {
+            var token = JObject.Parse("{ \"@type\": \"g:List\", \"@value\": [ { \"@type\": \"g:Traverser\", \"@value\": { \"bulk\": { \"@type\": \"g:Int64\", \"@value\": 3 }, \"value\": { \"@type\": \"g:Map\", \"@value\": [ \"id\", { \"@type\": \"g:Int64\", \"@value\": 184 }, \"label\", \"Label\", \"properties\", { \"@type\": \"g:Map\", \"@value\": [] } ] } } } ]}");
+
+            return Verify(GremlinQueryEnvironment.Default
+                .UseNewtonsoftJson()
+                .Deserializer
+                .TransformTo<object>()
+                .From(token, GremlinQueryEnvironment.Default));
+        }
     }
 }
