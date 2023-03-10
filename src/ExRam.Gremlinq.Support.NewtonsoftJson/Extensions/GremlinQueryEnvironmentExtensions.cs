@@ -196,7 +196,7 @@ namespace ExRam.Gremlinq.Core
                     .Add(new TypedValueConverterFactory())
                     .Add(new ConvertMapsConverterFactory())
                     .Add(new BulkSetConverterFactory())
-                    .Add(new TraverserConverterFactory())
+                    .Add(new EnumerableConverterFactory())
                     .Add(new NullableConverterFactory())
                     .Add(new NativeTypeConverterFactory())
                     .Add(new TimeSpanConverterFactory())
