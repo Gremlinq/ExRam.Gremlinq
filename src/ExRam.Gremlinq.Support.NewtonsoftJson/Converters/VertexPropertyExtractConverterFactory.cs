@@ -2,7 +2,6 @@
 using System.Diagnostics.CodeAnalysis;
 using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Core;
-using Newtonsoft.Json;
 using ExRam.Gremlinq.Core.GraphElements;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson
@@ -21,7 +20,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                     if (isNativeType && jObject.TryGetValue("value", out var valueToken) && recurse.TryTransform(valueToken, environment, out value))
                         return true;
                 }
-                else if ((serialized is JArray { Count: 1 } jArray) && !typeof(TTarget).IsInstanceOfType(jArray))
+                else if (serialized is JArray { Count: 1 } jArray)
                 {
                     if (isNativeType || (typeof(TTarget).IsConstructedGenericType && (typeof(TTarget).GetGenericTypeDefinition() == typeof(VertexProperty<>) || typeof(TTarget).GetGenericTypeDefinition() == typeof(VertexProperty<,>))))
                         return recurse.TryTransform(jArray[0], environment, out value);
