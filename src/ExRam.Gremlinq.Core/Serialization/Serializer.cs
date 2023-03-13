@@ -38,8 +38,6 @@ namespace ExRam.Gremlinq.Core.Serialization
             .Add(ConverterFactory
                 .Create<Traversal, Bytecode>(static (traversal, env, recurse) =>
                 {
-                    var byteCode = new Bytecode();
-
                     static void AddStep(Step step, Bytecode byteCode, IGremlinQueryEnvironment env, ITransformer recurse)
                     {
                         static void AddInstruction(Instruction instruction, Bytecode byteCode, IGremlinQueryEnvironment env, ITransformer recurse)
@@ -85,6 +83,7 @@ namespace ExRam.Gremlinq.Core.Serialization
 
                     var j = 0;
                     var span = traversal.Steps;
+                    var byteCode = new Bytecode();
 
                     for (var i = 0; i < span.Length; i++)
                     {
