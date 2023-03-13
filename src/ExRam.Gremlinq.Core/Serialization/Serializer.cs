@@ -24,17 +24,17 @@ namespace ExRam.Gremlinq.Core.Serialization
             .AddDefaultStepConverters();
 
         public static ITransformer PreferGroovySerialization(this ITransformer serializer) => serializer
-            .Add(Create<Bytecode, ISerializedGremlinQuery>((bytecode, env, recurse) => recurse
+            .Add(Create<Bytecode, ISerializedGremlinQuery>(static (bytecode, env, recurse) => recurse
                 .TransformTo<GroovyGremlinQuery>()
                 .From(bytecode, env)));
 
         private static ITransformer AddBaseConverters(this ITransformer serializer) => serializer
             .Add(ConverterFactory
-                .Create<IGremlinQueryBase, Traversal>(static (query, env, recurse) => query
+                .Create<IGremlinQueryBase, Traversal>(static (query, env, _) => query
                     .ToTraversal()
                     .IncludeProjection(env))
                 .AutoRecurse<Traversal>()
-                .Finally(() => _stepLabelNames = null))
+                .Finally(static () => _stepLabelNames = null))
             .Add(ConverterFactory
                 .Create<Traversal, Bytecode>(static (traversal, env, recurse) =>
                 {
@@ -146,19 +146,19 @@ namespace ExRam.Gremlinq.Core.Serialization
                     }
                 })
                 .AutoRecurse<Bytecode>())
-            .Add(Create<Bytecode, GroovyGremlinQuery>((bytecode, env, recurse) => recurse
+            .Add(Create<Bytecode, GroovyGremlinQuery>(static (bytecode, env, recurse) => recurse
                 .TransformTo<BytecodeGremlinQuery>()
                 .From(bytecode, env)
                 .ToGroovy()))
             .Add(ConverterFactory
-                .Create<Bytecode, BytecodeGremlinQuery>(static (bytecode, env, recurse) => new BytecodeGremlinQuery(bytecode))
+                .Create<Bytecode, BytecodeGremlinQuery>(static (bytecode, _, _) => new BytecodeGremlinQuery(bytecode))
                 .AutoRecurse<BytecodeGremlinQuery>())
             .Add(ConverterFactory
                 .Create<StepLabel, string>(static (stepLabel, env, recurse) =>
                 {
                     var stepLabelNames = _stepLabelNames ??= new Dictionary<StepLabel, string>();
 
-                    if (!stepLabelNames!.TryGetValue(stepLabel, out var stepLabelMapping))
+                    if (!stepLabelNames.TryGetValue(stepLabel, out var stepLabelMapping))
                     {
                         stepLabelMapping = stepLabel.Identity as string ?? (stepLabelNames.Count < StepLabelNameCache.Length
                             ? StepLabelNameCache[stepLabelNames.Count]
@@ -172,13 +172,13 @@ namespace ExRam.Gremlinq.Core.Serialization
                 })
                 .AutoRecurse<string>())
             .Add(ConverterFactory
-                .Create<DateTime, DateTimeOffset>(static (dateTime, env, recurse) => new DateTimeOffset(dateTime.ToUniversalTime()))
+                .Create<DateTime, DateTimeOffset>(static (dateTime, _, _) => new DateTimeOffset(dateTime.ToUniversalTime()))
                 .AutoRecurse<DateTimeOffset>())
             .Add(ConverterFactory
-                .Create<Key, T>(static (key, env, recurse) => key.RawKey as T)
+                .Create<Key, T>(static (key, _, _) => key.RawKey as T)
                 .AutoRecurse<T>())
             .Add(ConverterFactory
-                .Create<Key, string>(static (key, env, recurse) => key.RawKey as string)
+                .Create<Key, string>(static (key, _, _) => key.RawKey as string)
                 .AutoRecurse<string>())
             .Add(Create<P, P>(static (p, env, recurse) =>
             {
@@ -442,7 +442,7 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         private static Instruction CreateInstruction(string name, ITransformer recurse, IGremlinQueryEnvironment env, object[] parameters) => CreateInstruction<object>(name, recurse, env, parameters.AsSpan());
 
-        private static Instruction CreateInstruction<TParam>(string name, ITransformer recurse, IGremlinQueryEnvironment env, ImmutableArray<TParam> parameters) => CreateInstruction<TParam>(name, recurse, env, parameters.AsSpan());
+        private static Instruction CreateInstruction<TParam>(string name, ITransformer recurse, IGremlinQueryEnvironment env, ImmutableArray<TParam> parameters) => CreateInstruction(name, recurse, env, parameters.AsSpan());
 
         private static Instruction CreateInstruction<TParam>(string name, ITransformer recurse, IGremlinQueryEnvironment env, ReadOnlySpan<TParam> parameters)
         {

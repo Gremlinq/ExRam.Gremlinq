@@ -84,7 +84,7 @@ namespace ExRam.Gremlinq.Core.Transformation
                     _func = func;
                 }
 
-                public bool TryConvert(TSource source, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TStaticTarget value)
+                public bool TryConvert(TSource source, IGremlinQueryEnvironment environment, ITransformer recurse, out TStaticTarget value)
                 {
                     if (source is TStaticSource staticSource && _func(staticSource, environment, recurse) is { } requested)
                     {
@@ -212,7 +212,7 @@ namespace ExRam.Gremlinq.Core.Transformation
 
         private sealed class GuardConverterFactory<TStaticSource> : IConverterFactory
         {
-            public sealed class GuardConverter<TSource, TTarget> : IConverter<TSource, TTarget>
+            private sealed class GuardConverter<TSource, TTarget> : IConverter<TSource, TTarget>
             {
                 private readonly Action<TStaticSource> _filter;
 
