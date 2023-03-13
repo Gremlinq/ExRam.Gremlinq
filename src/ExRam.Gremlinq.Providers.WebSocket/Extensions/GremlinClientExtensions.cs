@@ -16,9 +16,9 @@ namespace ExRam.Gremlinq.Core
                 _transformation = transformation;
             }
 
-            public async Task<ResultSet<TResult>> SubmitAsync<TResult>(RequestMessage requestMessage)
+            public async Task<ResultSet<TResult>> SubmitAsync<TResult>(RequestMessage requestMessage, CancellationToken ct)
             {
-                return await _baseClient.SubmitAsync<TResult>(await _transformation(requestMessage));
+                return await _baseClient.SubmitAsync<TResult>(await _transformation(requestMessage), ct);
             }
 
             public void Dispose()
@@ -38,9 +38,9 @@ namespace ExRam.Gremlinq.Core
                 _baseClient = baseClient;
             }
 
-            public async Task<ResultSet<TResult>> SubmitAsync<TResult>(RequestMessage requestMessage)
+            public async Task<ResultSet<TResult>> SubmitAsync<TResult>(RequestMessage requestMessage, CancellationToken ct)
             {
-                var resultSet = await _baseClient.SubmitAsync<TResult>(requestMessage);
+                var resultSet = await _baseClient.SubmitAsync<TResult>(requestMessage, ct);
 
                 _observer(requestMessage, resultSet.StatusAttributes);
 

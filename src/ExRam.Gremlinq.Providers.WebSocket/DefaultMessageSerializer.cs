@@ -14,11 +14,11 @@ namespace ExRam.Gremlinq.Providers.WebSocket
             _environment = environment;
         }
 
-        public async Task<byte[]> SerializeMessageAsync(RequestMessage requestMessage) => _environment.Serializer
+        public async Task<byte[]> SerializeMessageAsync(RequestMessage requestMessage, CancellationToken ct) => _environment.Serializer
             .TransformTo<byte[]>()
             .From(requestMessage, _environment);
 
-        public async Task<ResponseMessage<List<object>>> DeserializeMessageAsync(byte[] message) => message.Length == 0
+        public async Task<ResponseMessage<List<object>>> DeserializeMessageAsync(byte[] message, CancellationToken ct) => message.Length == 0
             ? null!
             : _environment.Deserializer
                 .TransformTo<ResponseMessage<List<object>>>()
