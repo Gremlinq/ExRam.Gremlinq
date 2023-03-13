@@ -61,7 +61,8 @@ namespace ExRam.Gremlinq.PublicApi.Tests
                 .Load(assemblyName)
                 .GeneratePublicApi(new ApiGeneratorOptions
                 {
-                    IncludeAssemblyAttributes = false
+                    IncludeAssemblyAttributes = false,
+                    DenyNamespacePrefixes = Array.Empty<string>()
                 }),
             "cs");
     }

@@ -1,4 +1,4 @@
-namespace ExRam.Gremlinq.Core.AspNet
+﻿namespace ExRam.Gremlinq.Core.AspNet
 {
     public readonly struct GremlinqSetup
     {
@@ -16,9 +16,15 @@ namespace ExRam.Gremlinq.Core.AspNet
 }
 namespace Microsoft.Extensions.Configuration
 {
-    public static class ConfigurationExtensions { }
+    public static class ConfigurationExtensions
+    {
+        public static string GetRequiredConfiguration(this Microsoft.Extensions.Configuration.IConfiguration configuration, string key) { }
+    }
 }
 namespace Microsoft.Extensions.DependencyInjection
 {
-    public static class ServiceCollectionExtensions { }
+    public static class ServiceCollectionExtensions
+    {
+        public static Microsoft.Extensions.DependencyInjection.IServiceCollection AddGremlinq(this Microsoft.Extensions.DependencyInjection.IServiceCollection serviceCollection, System.Action<ExRam.Gremlinq.Core.AspNet.GremlinqSetup> configuration) { }
+    }
 }
