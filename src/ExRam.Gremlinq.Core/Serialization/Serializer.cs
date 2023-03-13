@@ -38,112 +38,159 @@ namespace ExRam.Gremlinq.Core.Serialization
             .Add(ConverterFactory
                 .Create<Traversal, Bytecode>(static (traversal, env, recurse) =>
                 {
-                    var steps = ArrayPool<Step>.Shared.Rent(traversal.Count);
+                    var byteCode = new Bytecode();
 
-                    try
+                    static void AddStep(Step step, Bytecode byteCode, IGremlinQueryEnvironment env, ITransformer recurse)
                     {
-                        var stepsMemory = steps
-                            .AsMemory()[..traversal.Count];
-
-                        traversal.Steps
-                            .CopyTo(stepsMemory.Span);
-
-                        var j = 0;
-                        var span = stepsMemory.Span;
-
-                        for (var i = 1; i < span.Length; i++)
+                        static void AddInstruction(Instruction instruction, Bytecode byteCode, IGremlinQueryEnvironment env, ITransformer recurse)
                         {
-                            var sourceStep = span[i];
-                            var targetStep = span[i - j - 1];
-
-                            if (sourceStep is SelectStepLabelStep selectStep && targetStep is AsStep asStep && selectStep.StepLabels.Length == 1 && ReferenceEquals(asStep.StepLabel, selectStep.StepLabels[0]))
-                                j++;
-                            else if (sourceStep is AsStep asStep1 && targetStep is AsStep asStep2 && asStep1.StepLabel.Equals(asStep2.StepLabel))
-                                j++;
-                            else if (sourceStep is IdentityStep && targetStep is IdentityStep)
-                                j++;
-                            else if (sourceStep is NoneStep && targetStep is NoneStep)
-                                j++;
-                            else if (sourceStep is HasLabelStep hasLabelStep1 && targetStep is HasLabelStep hasLabelStep2)
+                            static void AddInnerInstruction(Instruction instruction, Bytecode byteCode, IGremlinQueryEnvironment env, ITransformer recurse)
                             {
-                                span[i - j - 1] = new HasLabelStep(hasLabelStep1.Labels.Intersect(hasLabelStep2.Labels).ToImmutableArray());
-                                j++;
-                            }
-                            else if (sourceStep is HasPredicateStep hasPredicateStep1 && targetStep is HasPredicateStep hasPredicateStep2 && hasPredicateStep1.Key == hasPredicateStep2.Key)
-                            {
-                                span[i - j - 1] = new HasPredicateStep(hasPredicateStep1.Key, hasPredicateStep2.Predicate.And(hasPredicateStep1.Predicate));
-                                j++;
-                            }
-                            else if (sourceStep is WithoutStrategiesStep withoutStrategiesStep1 && targetStep is WithoutStrategiesStep withoutStrategiesStep2)
-                            {
-                                span[i - j - 1] = new WithoutStrategiesStep(withoutStrategiesStep2.StrategyTypes.Concat(withoutStrategiesStep1.StrategyTypes).Distinct().ToImmutableArray());
-                                j++;
-                            }
-                            else if (j != 0)
-                                span[i - j] = sourceStep;
-                        }
-
-                        span = span[..^j];
-
-                        var byteCode = new Bytecode();
-
-                        static void AddStep(Step step, Bytecode byteCode, IGremlinQueryEnvironment env, ITransformer recurse)
-                        {
-                            static void AddInstruction(Instruction instruction, Bytecode byteCode, IGremlinQueryEnvironment env, ITransformer recurse)
-                            {
-                                static void AddInnerInstruction(Instruction instruction, Bytecode byteCode, IGremlinQueryEnvironment env, ITransformer recurse)
-                                {
-                                    if (byteCode.StepInstructions.Count == 0 && instruction.OperatorName.StartsWith("with", StringComparison.OrdinalIgnoreCase))
-                                        byteCode.SourceInstructions.Add(instruction);
-                                    else
-                                        byteCode.StepInstructions.Add(instruction);
-                                }
-
-                                if (recurse.TryTransform(instruction, env, out Instruction[]? expandedInnerInstructions))
-                                {
-                                    foreach (var expandedInnerInstruction in expandedInnerInstructions)
-                                    {
-                                        AddInnerInstruction(expandedInnerInstruction, byteCode, env, recurse);
-                                    }
-                                }
-                                else if (recurse.TryTransform(instruction, env, out Instruction? expandedInstruction))
-                                    AddInnerInstruction(expandedInstruction, byteCode, env, recurse);
+                                if (byteCode.StepInstructions.Count == 0 && instruction.OperatorName.StartsWith("with", StringComparison.OrdinalIgnoreCase))
+                                    byteCode.SourceInstructions.Add(instruction);
                                 else
-                                    AddInnerInstruction(instruction, byteCode, env, recurse);
+                                    byteCode.StepInstructions.Add(instruction);
                             }
 
-                            if (recurse.TryTransform(step, env, out Step[]? expandedSteps))
+                            if (recurse.TryTransform(instruction, env, out Instruction[]? expandedInnerInstructions))
                             {
-                                foreach (var expandedStep in expandedSteps)
+                                foreach (var expandedInnerInstruction in expandedInnerInstructions)
                                 {
-                                    AddStep(expandedStep, byteCode, env, recurse);
+                                    AddInnerInstruction(expandedInnerInstruction, byteCode, env, recurse);
                                 }
                             }
-                            else if (recurse.TryTransform(step, env, out Instruction[]? expandedInstructions))
-                            {
-                                foreach (var expandedInstruction in expandedInstructions)
-                                {
-                                    AddInstruction(expandedInstruction, byteCode, env, recurse);
-                                }
-                            }
-                            else if (recurse.TryTransform(step, env, out Instruction? expandedInstruction))
-                                AddInstruction(expandedInstruction, byteCode, env, recurse);
+                            else if (recurse.TryTransform(instruction, env, out Instruction? expandedInstruction))
+                                AddInnerInstruction(expandedInstruction, byteCode, env, recurse);
+                            else
+                                AddInnerInstruction(instruction, byteCode, env, recurse);
                         }
 
-                        foreach (var step in span)
+                        if (recurse.TryTransform(step, env, out Step[]? expandedSteps))
                         {
-                            AddStep(step, byteCode, env, recurse);
+                            foreach (var expandedStep in expandedSteps)
+                            {
+                                AddStep(expandedStep, byteCode, env, recurse);
+                            }
                         }
-
-                        if (byteCode.StepInstructions.Count == 0)
-                            AddStep(IdentityStep.Instance, byteCode, env, recurse);
-
-                        return byteCode;
+                        else if (recurse.TryTransform(step, env, out Instruction[]? expandedInstructions))
+                        {
+                            foreach (var expandedInstruction in expandedInstructions)
+                            {
+                                AddInstruction(expandedInstruction, byteCode, env, recurse);
+                            }
+                        }
+                        else if (recurse.TryTransform(step, env, out Instruction? expandedInstruction))
+                            AddInstruction(expandedInstruction, byteCode, env, recurse);
                     }
-                    finally
+
+                    var j = 0;
+                    var span = traversal.Steps;
+
+                    for (var i = 0; i < span.Length; i++)
                     {
-                        ArrayPool<Step>.Shared.Return(steps);
+                        var step = span[i];
+
+                        if (step is AsStep asStep)
+                        {
+                            AddStep(asStep, byteCode, env, recurse);
+
+                            for (j = i + 1; j < span.Length; j++)
+                            {
+                                if (span[j] is SelectStepLabelStep selectStep && ReferenceEquals(asStep.StepLabel, selectStep.StepLabels[0]))
+                                    continue;
+
+                                if (span[j] is AsStep asStep2 && asStep2.StepLabel.Equals(asStep2.StepLabel))
+                                    continue;
+
+                                break;
+                            }
+
+                            i = j - 1;
+                        }
+                        else if (step is IdentityStep identityStep)
+                        {
+                            AddStep(identityStep, byteCode, env, recurse);
+
+                            for (j = i + 1; j < span.Length; j++)
+                            {
+                                if (span[j] is IdentityStep)
+                                    continue;
+
+                                break;
+                            }
+
+                            i = j - 1;
+                        }
+                        else if (step is NoneStep noneStep)
+                        {
+                            AddStep(noneStep, byteCode, env, recurse);
+
+                            for (j = i + 1; j < span.Length; j++)
+                            {
+                                if (span[j] is NoneStep)
+                                    continue;
+
+                                break;
+                            }
+
+                            i = j - 1;
+                        }
+                        else if (step is HasLabelStep hasLabelStep1)
+                        {
+                            for (j = i + 1; j < span.Length; j++)
+                            {
+                                if (span[j] is HasLabelStep hasLabelStep2)
+                                {
+                                    hasLabelStep1 = new HasLabelStep(hasLabelStep2.Labels.Intersect(hasLabelStep1.Labels).ToImmutableArray());
+                                    continue;
+                                }
+
+                                break;
+                            }
+
+                            AddStep(hasLabelStep1, byteCode, env, recurse);
+                            i = j - 1;
+                        }
+                        else if (step is HasPredicateStep hasPredicateStep1)
+                        {
+                            for (j = i + 1; j < span.Length; j++)
+                            {
+                                if (span[j] is HasPredicateStep hasPredicateStep2 && hasPredicateStep1.Key == hasPredicateStep2.Key)
+                                {
+                                    hasPredicateStep1 = new HasPredicateStep(hasPredicateStep2.Key, hasPredicateStep1.Predicate.And(hasPredicateStep2.Predicate));
+                                    continue;
+                                }
+
+                                break;
+                            }
+
+                            AddStep(hasPredicateStep1, byteCode, env, recurse);
+                            i = j - 1;
+                        }
+                        else if (step is WithoutStrategiesStep withoutStrategiesStep1)
+                        {
+                            for (j = i + 1; j < span.Length; j++)
+                            {
+                                if (span[j] is WithoutStrategiesStep withoutStrategiesStep2)
+                                {
+                                    withoutStrategiesStep1 = new WithoutStrategiesStep(withoutStrategiesStep1.StrategyTypes.Concat(withoutStrategiesStep2.StrategyTypes).Distinct().ToImmutableArray());
+                                    continue;
+                                }
+
+                                break;
+                            }
+
+                            AddStep(withoutStrategiesStep1, byteCode, env, recurse);
+                            i = j - 1;
+                        }
+                        else
+                            AddStep(step, byteCode, env, recurse);
                     }
+
+                    if (byteCode.StepInstructions.Count == 0)
+                        AddStep(IdentityStep.Instance, byteCode, env, recurse);
+
+                    return byteCode;
                 })
                 .AutoRecurse<Bytecode>())
             .Add(Create<Bytecode, GroovyGremlinQuery>(static (bytecode, env, recurse) => recurse
