@@ -823,15 +823,6 @@
     }
   },
   {
-    Item1: ProjectEdgeStep,
-    Item2: {
-      Count: 4,
-      Projection: {
-        Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
-      }
-    }
-  },
-  {
     Item1: ProjectStep,
     Item2: {
       OperatorName: project,
@@ -867,15 +858,6 @@
           EnumValue: id
         }
       ]
-    }
-  },
-  {
-    Item1: ProjectVertexStep,
-    Item2: {
-      Count: 4,
-      Projection: {
-        Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
-      }
     }
   },
   {

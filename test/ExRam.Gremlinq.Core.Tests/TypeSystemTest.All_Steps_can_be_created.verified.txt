@@ -689,10 +689,6 @@
     Item2: {}
   },
   {
-    Item1: ProjectEdgeStep,
-    Item2: {}
-  },
-  {
     Item1: ProjectStep,
     Item2: {
       Projections: [
@@ -723,10 +719,6 @@
         }
       }
     }
-  },
-  {
-    Item1: ProjectVertexStep,
-    Item2: {}
   },
   {
     Item1: PropertiesStep,
