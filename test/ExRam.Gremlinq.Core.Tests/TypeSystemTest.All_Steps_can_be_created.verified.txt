@@ -1007,16 +1007,5 @@
       Value: string,
       Label: {}
     }
-  },
-  {
-    Item1: WithStrategiesStep,
-    Item2: {
-      Traversal: {
-        Count: 1,
-        Projection: {
-          Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
-        }
-      }
-    }
   }
 ]
