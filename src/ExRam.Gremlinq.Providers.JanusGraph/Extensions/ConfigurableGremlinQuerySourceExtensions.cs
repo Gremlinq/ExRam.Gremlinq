@@ -1,5 +1,6 @@
 ﻿using ExRam.Gremlinq.Providers.JanusGraph;
 using ExRam.Gremlinq.Providers.WebSocket;
+using Gremlin.Net.Driver;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -7,34 +8,41 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class JanusGraphConfigurator : IJanusGraphConfigurator
         {
-            private readonly IWebSocketConfigurator _webSocketConfigurator;
+            private readonly WebSocketProviderConfigurator _baseConfigurator;
 
-            public JanusGraphConfigurator(IWebSocketConfigurator webSocketConfigurator)
+            public JanusGraphConfigurator() : this(new WebSocketProviderConfigurator())
             {
-                _webSocketConfigurator = webSocketConfigurator;
             }
 
-            public IJanusGraphConfigurator At(Uri uri) => new JanusGraphConfigurator(_webSocketConfigurator.At(uri));
+            public JanusGraphConfigurator(WebSocketProviderConfigurator baseConfigurator)
+            {
+                _baseConfigurator = baseConfigurator;
+            }
 
-            public IJanusGraphConfigurator ConfigureWebSocket(Func<IWebSocketConfigurator, IWebSocketConfigurator> transformation) => new JanusGraphConfigurator(transformation(_webSocketConfigurator));
+            public IJanusGraphConfigurator ConfigureAlias(Func<string, string> transformation) => new JanusGraphConfigurator(_baseConfigurator.ConfigureAlias(transformation));
 
-            public IGremlinQuerySource Transform(IGremlinQuerySource source) => _webSocketConfigurator.Transform(source);
+            public IJanusGraphConfigurator ConfigureClientFactory(Func<IGremlinClientFactory, IGremlinClientFactory> transformation) => new JanusGraphConfigurator(_baseConfigurator.ConfigureClientFactory(transformation));
+
+            public IJanusGraphConfigurator ConfigureServer(Func<GremlinServer, GremlinServer> transformation) => new JanusGraphConfigurator(_baseConfigurator.ConfigureServer(transformation));
+
+            public IGremlinQuerySource Transform(IGremlinQuerySource source) => _baseConfigurator.Transform(source);
         }
 
-        public static IGremlinQuerySource UseJanusGraph(this IConfigurableGremlinQuerySource environment, Func<IJanusGraphConfigurator, IGremlinQuerySourceTransformation> transformation)
+        public static IGremlinQuerySource UseJanusGraph(this IConfigurableGremlinQuerySource source, Func<IJanusGraphConfigurator, IGremlinQuerySourceTransformation> configuratorTransformation)
         {
-            return environment
-                .UseWebSocket(builder => transformation(new JanusGraphConfigurator(builder)))
-                .ConfigureEnvironment(environment => environment
-                    .UseNewtonsoftJson()
-                    .ConfigureFeatureSet(featureSet => featureSet
-                        .ConfigureGraphFeatures(_ => GraphFeatures.Computer | GraphFeatures.Transactions | GraphFeatures.ThreadedTransactions | GraphFeatures.Persistence)
-                        .ConfigureVariableFeatures(_ => VariableFeatures.MapValues)
-                        .ConfigureVertexFeatures(_ => VertexFeatures.AddVertices | VertexFeatures.RemoveVertices | VertexFeatures.MultiProperties | VertexFeatures.AddProperty | VertexFeatures.RemoveProperty | VertexFeatures.StringIds)
-                        .ConfigureVertexPropertyFeatures(_ => VertexPropertyFeatures.RemoveProperty | VertexPropertyFeatures.NumericIds | VertexPropertyFeatures.StringIds | VertexPropertyFeatures.Properties | VertexPropertyFeatures.BooleanValues | VertexPropertyFeatures.ByteValues | VertexPropertyFeatures.DoubleValues | VertexPropertyFeatures.FloatValues | VertexPropertyFeatures.IntegerValues | VertexPropertyFeatures.LongValues | VertexPropertyFeatures.StringValues)
-                        .ConfigureEdgeFeatures(_ => EdgeFeatures.AddEdges | EdgeFeatures.RemoveEdges | EdgeFeatures.AddProperty | EdgeFeatures.RemoveProperty | EdgeFeatures.NumericIds | EdgeFeatures.StringIds | EdgeFeatures.UuidIds | EdgeFeatures.CustomIds | EdgeFeatures.AnyIds)
-                        .ConfigureEdgePropertyFeatures(_ => EdgePropertyFeatures.Properties | EdgePropertyFeatures.BooleanValues | EdgePropertyFeatures.ByteValues | EdgePropertyFeatures.DoubleValues | EdgePropertyFeatures.FloatValues | EdgePropertyFeatures.IntegerValues | EdgePropertyFeatures.LongValues | EdgePropertyFeatures.StringValues))
-                    .StoreByteArraysAsBase64String());
+            return configuratorTransformation
+                .Invoke(new JanusGraphConfigurator())
+                .Transform(source
+                    .ConfigureEnvironment(environment => environment
+                        .UseNewtonsoftJson()
+                        .ConfigureFeatureSet(featureSet => featureSet
+                            .ConfigureGraphFeatures(_ => GraphFeatures.Computer | GraphFeatures.Transactions | GraphFeatures.ThreadedTransactions | GraphFeatures.Persistence)
+                            .ConfigureVariableFeatures(_ => VariableFeatures.MapValues)
+                            .ConfigureVertexFeatures(_ => VertexFeatures.AddVertices | VertexFeatures.RemoveVertices | VertexFeatures.MultiProperties | VertexFeatures.AddProperty | VertexFeatures.RemoveProperty | VertexFeatures.StringIds)
+                            .ConfigureVertexPropertyFeatures(_ => VertexPropertyFeatures.RemoveProperty | VertexPropertyFeatures.NumericIds | VertexPropertyFeatures.StringIds | VertexPropertyFeatures.Properties | VertexPropertyFeatures.BooleanValues | VertexPropertyFeatures.ByteValues | VertexPropertyFeatures.DoubleValues | VertexPropertyFeatures.FloatValues | VertexPropertyFeatures.IntegerValues | VertexPropertyFeatures.LongValues | VertexPropertyFeatures.StringValues)
+                            .ConfigureEdgeFeatures(_ => EdgeFeatures.AddEdges | EdgeFeatures.RemoveEdges | EdgeFeatures.AddProperty | EdgeFeatures.RemoveProperty | EdgeFeatures.NumericIds | EdgeFeatures.StringIds | EdgeFeatures.UuidIds | EdgeFeatures.CustomIds | EdgeFeatures.AnyIds)
+                            .ConfigureEdgePropertyFeatures(_ => EdgePropertyFeatures.Properties | EdgePropertyFeatures.BooleanValues | EdgePropertyFeatures.ByteValues | EdgePropertyFeatures.DoubleValues | EdgePropertyFeatures.FloatValues | EdgePropertyFeatures.IntegerValues | EdgePropertyFeatures.LongValues | EdgePropertyFeatures.StringValues))
+                        .StoreByteArraysAsBase64String()));
         }
     }
 }

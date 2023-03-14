@@ -3,6 +3,7 @@ using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Providers.CosmosDb;
 using ExRam.Gremlinq.Providers.WebSocket;
+using Gremlin.Net.Driver;
 using Gremlin.Net.Process.Traversal;
 using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
 
@@ -15,50 +16,60 @@ namespace ExRam.Gremlinq.Core
             private readonly string? _authKey;
             private readonly string? _graphName;
             private readonly string? _databaseName;
-            private readonly IWebSocketConfigurator _webSocketConfigurator;
+            private readonly WebSocketProviderConfigurator _webSocketConfigurator;
 
-            public CosmosDbConfigurator(IWebSocketConfigurator webSocketConfigurator, string? databaseName, string? graphName, string? authKey)
+            public CosmosDbConfigurator() : this(new WebSocketProviderConfigurator(), null, null, null)
+            {
+            }
+
+            public CosmosDbConfigurator(WebSocketProviderConfigurator webSocketProviderConfigurator, string? databaseName, string? graphName, string? authKey)
             {
                 _authKey = authKey;
                 _graphName = graphName;
                 _databaseName = databaseName;
-                _webSocketConfigurator = webSocketConfigurator;
+                _webSocketConfigurator = webSocketProviderConfigurator;
             }
 
             public ICosmosDbConfigurator OnDatabase(string databaseName) => new CosmosDbConfigurator(
-                _webSocketConfigurator,
+                _webSocketConfigurator
+                    .ConfigureServer(server => server.WithUsername($"/dbs/{databaseName}/colls/{_graphName ?? string.Empty}")),
                 databaseName,
                 _graphName,
                 _authKey);
 
             public ICosmosDbConfigurator OnGraph(string graphName) => new CosmosDbConfigurator(
-                _webSocketConfigurator,
+                _webSocketConfigurator
+                    .ConfigureServer(server => server.WithUsername($"/dbs/{_databaseName ?? string.Empty}/colls/{graphName}")),
                 _databaseName,
                 graphName,
                 _authKey);
 
             public ICosmosDbConfigurator AuthenticateBy(string authKey) => new CosmosDbConfigurator(
-                _webSocketConfigurator,
+                _webSocketConfigurator
+                    .ConfigureServer(server => server.WithPassword(authKey)),
                 _databaseName,
                 _graphName,
                 authKey);
 
-            public ICosmosDbConfigurator ConfigureWebSocket(Func<IWebSocketConfigurator, IWebSocketConfigurator> transformation) => new CosmosDbConfigurator(
-                transformation(_webSocketConfigurator),
+            public ICosmosDbConfigurator ConfigureAlias(Func<string, string> transformation) => new CosmosDbConfigurator(
+                _webSocketConfigurator.ConfigureAlias(transformation),
                 _databaseName,
                 _graphName,
                 _authKey);
 
-            public IGremlinQuerySource Transform(IGremlinQuerySource source)
-            {
-                var webSocketConfigurator = _webSocketConfigurator;
+            public ICosmosDbConfigurator ConfigureServer(Func<GremlinServer, GremlinServer> transformation) => new CosmosDbConfigurator(
+                _webSocketConfigurator.ConfigureServer(transformation),
+                _databaseName,
+                _graphName,
+                _authKey);
 
-                if (_databaseName is { } databaseName && _graphName is { } graphName && _authKey is { } authKey)
-                    webSocketConfigurator = webSocketConfigurator.AuthenticateBy($"/dbs/{databaseName}/colls/{graphName}", authKey);
+            public ICosmosDbConfigurator ConfigureClientFactory(Func<IGremlinClientFactory, IGremlinClientFactory> transformation) => new CosmosDbConfigurator(
+                _webSocketConfigurator.ConfigureClientFactory(transformation),
+                _databaseName,
+                _graphName,
+                _authKey);
 
-                return webSocketConfigurator
-                    .Transform(source);
-            }
+            public IGremlinQuerySource Transform(IGremlinQuerySource source) => _webSocketConfigurator.Transform(source);
         }
 
         private class WorkaroundOrder : EnumWrapper, IComparator
@@ -73,24 +84,26 @@ namespace ExRam.Gremlinq.Core
 
         private static readonly NotStep NoneWorkaround = new NotStep(IdentityStep.Instance);
 
-        public static IGremlinQuerySource UseCosmosDb(this IConfigurableGremlinQuerySource source, Func<ICosmosDbConfigurator, IGremlinQuerySourceTransformation> transformation)
+        public static IGremlinQuerySource UseCosmosDb(this IConfigurableGremlinQuerySource source, Func<ICosmosDbConfigurator, IGremlinQuerySourceTransformation> configuratorTransformation)
         {
-            return source
-                .UseWebSocket(builder => transformation(new CosmosDbConfigurator(builder, null, null, null)))
+            return configuratorTransformation
+                .Invoke(new CosmosDbConfigurator())
+                .Transform(source
+                    .ConfigureEnvironment(environment => environment
+                        .ConfigureFeatureSet(featureSet => featureSet
+                            .ConfigureGraphFeatures(_ => GraphFeatures.Transactions | GraphFeatures.Persistence | GraphFeatures.ConcurrentAccess)
+                            .ConfigureVariableFeatures(_ => VariableFeatures.BooleanValues | VariableFeatures.IntegerValues | VariableFeatures.ByteValues | VariableFeatures.DoubleValues | VariableFeatures.FloatValues | VariableFeatures.IntegerValues | VariableFeatures.LongValues | VariableFeatures.StringValues)
+                            .ConfigureVertexFeatures(_ => VertexFeatures.RemoveVertices | VertexFeatures.MetaProperties | VertexFeatures.AddVertices | VertexFeatures.MultiProperties | VertexFeatures.StringIds | VertexFeatures.UserSuppliedIds | VertexFeatures.AddProperty | VertexFeatures.RemoveProperty)
+                            .ConfigureVertexPropertyFeatures(_ => VertexPropertyFeatures.StringIds | VertexPropertyFeatures.UserSuppliedIds | VertexPropertyFeatures.RemoveProperty | VertexPropertyFeatures.BooleanValues | VertexPropertyFeatures.ByteValues | VertexPropertyFeatures.DoubleValues | VertexPropertyFeatures.FloatValues | VertexPropertyFeatures.IntegerValues | VertexPropertyFeatures.LongValues | VertexPropertyFeatures.StringValues)
+                            .ConfigureEdgeFeatures(_ => EdgeFeatures.AddEdges | EdgeFeatures.RemoveEdges | EdgeFeatures.StringIds | EdgeFeatures.UserSuppliedIds | EdgeFeatures.AddProperty | EdgeFeatures.RemoveProperty)
+                            .ConfigureEdgePropertyFeatures(_ => EdgePropertyFeatures.Properties | EdgePropertyFeatures.BooleanValues | EdgePropertyFeatures.ByteValues | EdgePropertyFeatures.DoubleValues | EdgePropertyFeatures.FloatValues | EdgePropertyFeatures.IntegerValues | EdgePropertyFeatures.LongValues | EdgePropertyFeatures.StringValues))
+                        .ConfigureOptions(options => options
+                            .SetValue(GremlinqOption.VertexProjectionSteps, Traversal.Empty)
+                            .SetValue(GremlinqOption.EdgeProjectionSteps, Traversal.Empty)
+                            .SetValue(GremlinqOption.VertexPropertyProjectionSteps, Traversal.Empty))
+                        .UseGraphSon2()
+                        .UseNewtonsoftJson()))
                 .ConfigureEnvironment(environment => environment
-                    .ConfigureFeatureSet(featureSet => featureSet
-                        .ConfigureGraphFeatures(_ => GraphFeatures.Transactions | GraphFeatures.Persistence | GraphFeatures.ConcurrentAccess)
-                        .ConfigureVariableFeatures(_ => VariableFeatures.BooleanValues | VariableFeatures.IntegerValues | VariableFeatures.ByteValues | VariableFeatures.DoubleValues | VariableFeatures.FloatValues | VariableFeatures.IntegerValues | VariableFeatures.LongValues | VariableFeatures.StringValues)
-                        .ConfigureVertexFeatures(_ => VertexFeatures.RemoveVertices | VertexFeatures.MetaProperties | VertexFeatures.AddVertices | VertexFeatures.MultiProperties | VertexFeatures.StringIds | VertexFeatures.UserSuppliedIds | VertexFeatures.AddProperty | VertexFeatures.RemoveProperty)
-                        .ConfigureVertexPropertyFeatures(_ => VertexPropertyFeatures.StringIds | VertexPropertyFeatures.UserSuppliedIds | VertexPropertyFeatures.RemoveProperty | VertexPropertyFeatures.BooleanValues | VertexPropertyFeatures.ByteValues | VertexPropertyFeatures.DoubleValues | VertexPropertyFeatures.FloatValues | VertexPropertyFeatures.IntegerValues | VertexPropertyFeatures.LongValues | VertexPropertyFeatures.StringValues)
-                        .ConfigureEdgeFeatures(_ => EdgeFeatures.AddEdges | EdgeFeatures.RemoveEdges | EdgeFeatures.StringIds | EdgeFeatures.UserSuppliedIds | EdgeFeatures.AddProperty | EdgeFeatures.RemoveProperty)
-                        .ConfigureEdgePropertyFeatures(_ => EdgePropertyFeatures.Properties | EdgePropertyFeatures.BooleanValues | EdgePropertyFeatures.ByteValues | EdgePropertyFeatures.DoubleValues | EdgePropertyFeatures.FloatValues | EdgePropertyFeatures.IntegerValues | EdgePropertyFeatures.LongValues | EdgePropertyFeatures.StringValues))
-                    .ConfigureOptions(options => options
-                        .SetValue(GremlinqOption.VertexProjectionSteps, Traversal.Empty)
-                        .SetValue(GremlinqOption.EdgeProjectionSteps, Traversal.Empty)
-                        .SetValue(GremlinqOption.VertexPropertyProjectionSteps, Traversal.Empty))
-                    .UseGraphSon2()
-                    .UseNewtonsoftJson()
                     .StoreByteArraysAsBase64String()
                     .StoreTimeSpansAsNumbers()
                     .ConfigureSerializer(serializer => serializer
@@ -143,8 +156,7 @@ namespace ExRam.Gremlinq.Core
                                     ? WorkaroundOrder.Decr
                                     : default)
                             .AutoRecurse<WorkaroundOrder>())
-                        .PreferGroovySerialization())
-                    );
+                        .PreferGroovySerialization()));
         }
     }
 }
