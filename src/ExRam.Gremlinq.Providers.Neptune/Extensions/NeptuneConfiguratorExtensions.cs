@@ -1,6 +1,7 @@
 ﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.ExpressionParsing;
 using ExRam.Gremlinq.Providers.WebSocket;
+using Gremlin.Net.Driver;
 using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Providers.Neptune
@@ -77,43 +78,36 @@ namespace ExRam.Gremlinq.Providers.Neptune
                 _elasticSearchEndPoint = elasticSearchEndPoint;
             }
 
-            public IGremlinQuerySource Transform(IGremlinQuerySource source)
-            {
-                return _baseConfigurator
-                    .Transform(source)
-                    .WithSideEffect("Neptune#fts.endpoint", _elasticSearchEndPoint.OriginalString)
-                    .WithSideEffect("Neptune#fts.queryType", "query_string")
-                    .ConfigureEnvironment(env => env
-                        .ConfigureOptions(options => options
-                            .ConfigureValue(
-                                PFactory.PFactoryOption,
-                                factory => factory
-                                    .Override(new ElasticSearchAwarePFactory(_indexConfiguration)))));
-            }
+            public IGremlinQuerySource Transform(IGremlinQuerySource source) => _baseConfigurator
+                .Transform(source)
+                .WithSideEffect("Neptune#fts.endpoint", _elasticSearchEndPoint.OriginalString)
+                .WithSideEffect("Neptune#fts.queryType", "query_string")
+                .ConfigureEnvironment(env => env
+                    .ConfigureOptions(options => options
+                        .ConfigureValue(
+                            PFactory.PFactoryOption,
+                            factory => factory
+                                .Override(new ElasticSearchAwarePFactory(_indexConfiguration)))));
 
-            public INeptuneConfigurator ConfigureWebSocket(Func<IWebSocketConfigurator, IWebSocketConfigurator> transformation)
-            {
-                return new ElasticSearchAwareNeptuneConfigurator(
-                    _baseConfigurator.ConfigureWebSocket(transformation),
-                    _elasticSearchEndPoint,
-                    _indexConfiguration);
-            }
+            public INeptuneConfigurator ConfigureAlias(Func<string, string> transformation) => new ElasticSearchAwareNeptuneConfigurator(
+                _baseConfigurator.ConfigureAlias(transformation),
+                _elasticSearchEndPoint,
+                _indexConfiguration);
 
-            public INeptuneConfigurator At(Uri uri)
-            {
-                return new ElasticSearchAwareNeptuneConfigurator(
-                    _baseConfigurator.At(uri),
-                    _elasticSearchEndPoint,
-                    _indexConfiguration);
-            }
+            public INeptuneConfigurator ConfigureServer(Func<GremlinServer, GremlinServer> transformation) => new ElasticSearchAwareNeptuneConfigurator(
+                _baseConfigurator.ConfigureServer(transformation),
+                _elasticSearchEndPoint,
+                _indexConfiguration);
+
+            public INeptuneConfigurator ConfigureClientFactory(Func<IGremlinClientFactory, IGremlinClientFactory> transformation) => new ElasticSearchAwareNeptuneConfigurator(
+                _baseConfigurator.ConfigureClientFactory(transformation),
+                _elasticSearchEndPoint,
+                _indexConfiguration);
         }
 
-        public static INeptuneConfigurator UseElasticSearch(this INeptuneConfigurator configurator, Uri elasticSearchEndPoint, NeptuneElasticSearchIndexConfiguration indexConfiguration = NeptuneElasticSearchIndexConfiguration.Standard)
-        {
-            return new ElasticSearchAwareNeptuneConfigurator(
-                configurator,
-                elasticSearchEndPoint,
-                indexConfiguration);
-        }
+        public static INeptuneConfigurator UseElasticSearch(this INeptuneConfigurator configurator, Uri elasticSearchEndPoint, NeptuneElasticSearchIndexConfiguration indexConfiguration = NeptuneElasticSearchIndexConfiguration.Standard) => new ElasticSearchAwareNeptuneConfigurator(
+            configurator,
+            elasticSearchEndPoint,
+            indexConfiguration);
     }
 }
