@@ -2006,11 +2006,6 @@ namespace ExRam.Gremlinq.Core.Steps
         public static readonly ExRam.Gremlinq.Core.Steps.ProfileStep Instance;
         public ProfileStep() { }
     }
-    public sealed class ProjectEdgeStep : ExRam.Gremlinq.Core.Steps.Step
-    {
-        public static readonly ExRam.Gremlinq.Core.Steps.ProjectEdgeStep Instance;
-        public ProjectEdgeStep() { }
-    }
     public sealed class ProjectStep : ExRam.Gremlinq.Core.Steps.Step
     {
         public ProjectStep(System.Collections.Immutable.ImmutableArray<string> projections) { }
@@ -2032,11 +2027,6 @@ namespace ExRam.Gremlinq.Core.Steps
             public ExRam.Gremlinq.Core.Traversal Traversal { get; }
             public override ExRam.Gremlinq.Core.Steps.ProjectStep.ByTraversalStep ToByTraversalStep() { }
         }
-    }
-    public sealed class ProjectVertexStep : ExRam.Gremlinq.Core.Steps.Step
-    {
-        public static readonly ExRam.Gremlinq.Core.Steps.ProjectVertexStep Instance;
-        public ProjectVertexStep() { }
     }
     public sealed class PropertiesStep : ExRam.Gremlinq.Core.Steps.Step
     {

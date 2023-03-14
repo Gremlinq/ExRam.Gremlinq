@@ -422,16 +422,12 @@ namespace ExRam.Gremlinq.Core.Serialization
             {
                 var traversal = step.Traversal;
 
-                if (traversal.Count == 1 && traversal[0] is LocalStep localStep)
+                if (traversal is [LocalStep localStep])
                     traversal = localStep.Traversal;
 
                 return CreateInstruction("by", recurse, env, traversal);
             })
             .Add<ProjectStep.ByKeyStep>(static (step, env, recurse) => CreateInstruction("by", recurse, env, step.Key))
-            .Add(Create<ProjectVertexStep, Traversal>(static (_, env, _) => env.Options.GetValue(env.FeatureSet.Supports(VertexFeatures.MetaProperties)
-                ? GremlinqOption.VertexProjectionSteps
-                : GremlinqOption.VertexProjectionWithoutMetaPropertiesSteps)))
-            .Add(Create<ProjectEdgeStep, Traversal>(static (_, env, _) => env.Options.GetValue(GremlinqOption.EdgeProjectionSteps)))
             .Add<RangeStep>(static (step, env, recurse) => step.Scope.Equals(Scope.Local)
                 ? CreateInstruction("range", recurse, env, step.Scope, step.Lower, step.Upper)
                 : CreateInstruction("range", recurse, env, step.Lower, step.Upper))
