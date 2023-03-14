@@ -1,8 +1,8 @@
 ﻿[
   {
     "serverException": {
-      "type": "ResponseException",
-      "message": "ServerTimeout: A timeout occurred during traversal evaluation of [RequestMessage{, requestId=00000000-0000-0000-0000-000000000000, op='bytecode', processor='traversal', args={gremlin=[[], [V(), hasLabel(Person), map([[], [aggregate(l1)]]), select(l1), local([[], [unfold(), project(id, label, properties), by(id), by(label), by([[], [properties(), group(), by(label), by([[], [project(id, label, value), by(id), by(label), by(value), fold()]])]]), fold()]])]], aliases={g=g}}}] - consider increasing the limit given to evaluationTimeout"
+      "type": "ConnectionClosedException",
+      "message": "Connection closed by server. CloseStatus: NormalClosure, CloseDescription: . Any in-progress requests on the connection will be in an unknown state, and may need to be retried."
     }
   }
 ]

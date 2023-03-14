@@ -1,76 +1,8 @@
 ﻿[
   {
-    "@type": "g:Property",
-    "@value": {
-      "key": "Role",
-      "value": "Admin"
-    }
-  },
-  {
-    "@type": "g:Property",
-    "@value": {
-      "key": "Role",
-      "value": "Admin"
-    }
-  },
-  {
-    "@type": "g:Property",
-    "@value": {
-      "key": "From",
-      "value": {
-        "@type": "g:Date",
-        "@value": 1586270616000
-      }
-    }
-  },
-  {
-    "@type": "g:Property",
-    "@value": {
-      "key": "From",
-      "value": {
-        "@type": "g:Date",
-        "@value": 1586270616000
-      }
-    }
-  },
-  {
-    "@type": "g:Property",
-    "@value": {
-      "key": "To",
-      "value": {
-        "@type": "g:Date",
-        "@value": 1586270616000
-      }
-    }
-  },
-  {
-    "@type": "g:Property",
-    "@value": {
-      "key": "To",
-      "value": {
-        "@type": "g:Date",
-        "@value": 1586270616000
-      }
-    }
-  },
-  {
-    "@type": "g:Property",
-    "@value": {
-      "key": "To",
-      "value": {
-        "@type": "g:Date",
-        "@value": 1586270616000
-      }
-    }
-  },
-  {
-    "@type": "g:Property",
-    "@value": {
-      "key": "Since",
-      "value": {
-        "@type": "g:Date",
-        "@value": 1586270616000
-      }
+    "serverException": {
+      "type": "ConnectionClosedException",
+      "message": "Connection closed by server. CloseStatus: NormalClosure, CloseDescription: . Any in-progress requests on the connection will be in an unknown state, and may need to be retried."
     }
   }
 ]

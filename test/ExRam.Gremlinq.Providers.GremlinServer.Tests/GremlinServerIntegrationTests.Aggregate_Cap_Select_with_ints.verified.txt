@@ -1,15 +1,8 @@
 ﻿[
   {
-    "@type": "g:BulkSet",
-    "@value": [
-      {
-        "@type": "g:Int64",
-        "@value": 1
-      },
-      {
-        "@type": "g:Int64",
-        "@value": 11
-      }
-    ]
+    "serverException": {
+      "type": "ConnectionClosedException",
+      "message": "Connection closed by server. CloseStatus: NormalClosure, CloseDescription: . Any in-progress requests on the connection will be in an unknown state, and may need to be retried."
+    }
   }
 ]

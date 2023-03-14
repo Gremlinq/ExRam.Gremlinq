@@ -1,42 +1,8 @@
 ﻿[
-  "CountryCallingCode",
-  "CountryCallingCode",
-  "RegistrationDate",
-  "RegistrationDate",
-  "RegistrationDate",
-  "Name",
-  "Name",
-  "Name",
-  "Name",
-  "Name",
-  "IetfLanguageTag",
-  "IetfLanguageTag",
-  "IetfLanguageTag",
-  "IetfLanguageTag",
-  "IetfLanguageTag",
-  "IetfLanguageTag",
-  "FoundingDate",
-  "FoundingDate",
-  "FoundingDate",
-  "FoundingDate",
-  "FoundingDate",
-  "Locations",
-  "Age",
-  "Age",
-  "Age",
-  "Age",
-  "Age",
-  "Age",
-  "Age",
-  "Age",
-  "Age",
-  "Age",
-  "PhoneNumbers",
-  "PhoneNumbers",
-  "lang",
-  "StartTime",
-  "Enabled",
-  "Duration",
-  "Image",
-  "Gender"
+  {
+    "serverException": {
+      "type": "ConnectionClosedException",
+      "message": "Connection closed by server. CloseStatus: NormalClosure, CloseDescription: . Any in-progress requests on the connection will be in an unknown state, and may need to be retried."
+    }
+  }
 ]

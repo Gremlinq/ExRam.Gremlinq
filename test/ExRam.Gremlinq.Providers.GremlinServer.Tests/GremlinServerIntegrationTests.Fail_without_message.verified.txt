@@ -1,8 +1,8 @@
 ﻿[
   {
     "serverException": {
-      "type": "ResponseException",
-      "message": "ServerErrorFailStep: fail() step triggered"
+      "type": "ConnectionClosedException",
+      "message": "Connection closed by server. CloseStatus: NormalClosure, CloseDescription: . Any in-progress requests on the connection will be in an unknown state, and may need to be retried."
     }
   }
 ]

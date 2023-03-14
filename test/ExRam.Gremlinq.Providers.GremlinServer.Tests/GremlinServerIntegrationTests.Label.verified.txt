@@ -1,36 +1,8 @@
 ﻿[
-  "Country",
-  "Country",
-  "Country",
-  "Country",
-  "Country",
-  "Country",
-  "Country",
-  "Person",
-  "Person",
-  "Person",
-  "Person",
-  "Person",
-  "Person",
-  "Person",
-  "Person",
-  "Person",
-  "Person",
-  "Person",
-  "Language",
-  "Language",
-  "Language",
-  "Language",
-  "Language",
-  "Language",
-  "Language",
-  "Language",
-  "Language",
-  "Language",
-  "Company",
-  "Company",
-  "Company",
-  "Company",
-  "Company",
-  "TimeFrame"
+  {
+    "serverException": {
+      "type": "ConnectionClosedException",
+      "message": "Connection closed by server. CloseStatus: NormalClosure, CloseDescription: . Any in-progress requests on the connection will be in an unknown state, and may need to be retried."
+    }
+  }
 ]

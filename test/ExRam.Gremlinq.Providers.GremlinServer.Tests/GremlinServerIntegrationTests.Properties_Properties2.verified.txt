@@ -1,12 +1,8 @@
 ﻿[
   {
-    "@type": "g:Property",
-    "@value": {
-      "key": "ValidFrom",
-      "value": {
-        "@type": "g:Date",
-        "@value": 1546304400000
-      }
+    "serverException": {
+      "type": "InvalidCastException",
+      "message": "Cannot convert Gremlin.Net.Driver.Messages.RequestMessage to System.Byte[]."
     }
   }
 ]

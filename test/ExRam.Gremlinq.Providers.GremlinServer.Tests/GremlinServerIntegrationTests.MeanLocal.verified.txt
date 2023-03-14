@@ -1,6 +1,8 @@
 ﻿[
   {
-    "@type": "g:Double",
-    "@value": 0.0
+    "serverException": {
+      "type": "InvalidCastException",
+      "message": "Cannot convert Gremlin.Net.Driver.Messages.RequestMessage to System.Byte[]."
+    }
   }
 ]
