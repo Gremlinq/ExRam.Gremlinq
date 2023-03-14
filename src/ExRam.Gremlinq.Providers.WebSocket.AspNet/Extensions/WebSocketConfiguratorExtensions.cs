@@ -29,9 +29,9 @@ namespace ExRam.Gremlinq.Providers.WebSocket
             }
         }
 
-        public static IWebSocketConfigurator ConfigureFrom(
-            this IWebSocketConfigurator webSocketConfigurator,
-            IConfiguration configuration)
+        public static TConfigurator ConfigureFrom<TConfigurator>(
+            this TConfigurator webSocketConfigurator,
+            IConfiguration configuration) where TConfigurator : IWebSocketProviderConfigurator<TConfigurator>
         {
             var authenticationSection = configuration.GetSection("Authentication");
             var connectionPoolSection = configuration.GetSection("ConnectionPool");

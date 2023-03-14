@@ -13,8 +13,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                     "GremlinServer",
                     (source, configuratorTransformation) => source
                         .UseGremlinServer(configuratorTransformation),
-                    setup => setup
-                        .ConfigureWebSocket(),
+                    setup => { },
                     extraSetupAction);
         }
 
