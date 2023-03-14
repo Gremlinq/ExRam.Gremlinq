@@ -1,4 +1,6 @@
-﻿namespace ExRam.Gremlinq.Core.Serialization
+﻿using ExRam.Gremlinq.Core.Serialization;
+
+namespace ExRam.Gremlinq.Core.Tests
 {
     public sealed class GraphSONGremlinQuery : ISerializedGremlinQuery
     {

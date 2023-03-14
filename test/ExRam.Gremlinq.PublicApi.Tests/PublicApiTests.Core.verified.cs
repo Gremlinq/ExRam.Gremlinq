@@ -1548,14 +1548,6 @@ namespace ExRam.Gremlinq.Core.Serialization
         public string Id { get; }
         public ExRam.Gremlinq.Core.Serialization.ISerializedGremlinQuery WithNewId() { }
     }
-    public sealed class GraphSONGremlinQuery : ExRam.Gremlinq.Core.Serialization.ISerializedGremlinQuery
-    {
-        public GraphSONGremlinQuery(string graphSON) { }
-        public GraphSONGremlinQuery(string queryId, string graphSON) { }
-        public string GraphSON { get; }
-        public string Id { get; }
-        public ExRam.Gremlinq.Core.Serialization.ISerializedGremlinQuery WithNewId() { }
-    }
     public sealed class GroovyGremlinQuery : ExRam.Gremlinq.Core.Serialization.ISerializedGremlinQuery
     {
         public GroovyGremlinQuery(string script, System.Collections.Generic.IReadOnlyDictionary<string, object> bindings) { }
