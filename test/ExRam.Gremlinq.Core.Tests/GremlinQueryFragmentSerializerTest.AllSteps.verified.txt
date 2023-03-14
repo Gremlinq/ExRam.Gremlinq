@@ -1183,20 +1183,5 @@
         string
       ]
     }
-  },
-  {
-    Item1: WithStrategiesStep,
-    Item2: {
-      OperatorName: withStrategies,
-      Arguments: [
-        {
-          StepInstructions: [
-            {
-              OperatorName: identity
-            }
-          ]
-        }
-      ]
-    }
   }
 ]

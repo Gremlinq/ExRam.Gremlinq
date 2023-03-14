@@ -2194,11 +2194,6 @@ namespace ExRam.Gremlinq.Core.Steps
         public ExRam.Gremlinq.Core.StepLabel Label { get; }
         public object Value { get; }
     }
-    public sealed class WithStrategiesStep : ExRam.Gremlinq.Core.Steps.Step
-    {
-        public WithStrategiesStep(ExRam.Gremlinq.Core.Traversal traversal) { }
-        public ExRam.Gremlinq.Core.Traversal Traversal { get; }
-    }
     public sealed class WithoutStrategiesStep : ExRam.Gremlinq.Core.Steps.Step
     {
         public WithoutStrategiesStep(System.Collections.Immutable.ImmutableArray<System.Type> strategyTypes) { }

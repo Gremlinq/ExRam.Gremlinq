@@ -455,7 +455,6 @@ namespace ExRam.Gremlinq.Core.Serialization
             .Add<ValuesStep>(static (step, env, recurse) => CreateInstruction("values", recurse, env, step.Keys))
             .Add<VStep>(static (step, env, recurse) => CreateInstruction("V", recurse, env, step.Ids))
             .Add<WhereTraversalStep>(static (step, env, recurse) => CreateInstruction("where", recurse, env, step.Traversal))
-            .Add<WithStrategiesStep>(static (step, env, recurse) => CreateInstruction("withStrategies", recurse, env, step.Traversal))
             .Add<WithoutStrategiesStep>(static (step, env, recurse) => CreateInstruction("withoutStrategies", recurse, env, step.StrategyTypes))
             .Add<WithSideEffectStep>(static (step, env, recurse) => CreateInstruction("withSideEffect", recurse, env, step.Label, step.Value))
             .Add<WherePredicateStep>(static (step, env, recurse) => CreateInstruction("where", recurse, env, step.Predicate))
