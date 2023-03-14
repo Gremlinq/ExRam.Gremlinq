@@ -4,6 +4,7 @@ using ExRam.Gremlinq.Providers.WebSocket;
 using Gremlin.Net.Process.Traversal;
 using ExRam.Gremlinq.Core.Transformation;
 using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
+using Gremlin.Net.Driver;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -11,24 +12,41 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class NeptuneConfigurator : INeptuneConfigurator
         {
-            private readonly IWebSocketConfigurator _webSocketConfigurator;
+            private readonly WebSocketProviderConfigurator _baseConfigurator;
 
-            public NeptuneConfigurator(IWebSocketConfigurator webSocketConfigurator)
+            public NeptuneConfigurator() : this(new WebSocketProviderConfigurator())
             {
-                _webSocketConfigurator = webSocketConfigurator;
             }
 
-            public INeptuneConfigurator At(Uri uri) => new NeptuneConfigurator(_webSocketConfigurator.At(uri));
+            public NeptuneConfigurator(WebSocketProviderConfigurator baseConfigurator)
+            {
+                _baseConfigurator = baseConfigurator;
+            }
 
-            public INeptuneConfigurator ConfigureWebSocket(Func<IWebSocketConfigurator, IWebSocketConfigurator> transformation) => new NeptuneConfigurator(transformation(_webSocketConfigurator));
+            public INeptuneConfigurator ConfigureAlias(Func<string, string> transformation) => new NeptuneConfigurator(_baseConfigurator.ConfigureAlias(transformation));
 
-            public IGremlinQuerySource Transform(IGremlinQuerySource source) => _webSocketConfigurator.Transform(source);
+            public INeptuneConfigurator ConfigureClientFactory(Func<IGremlinClientFactory, IGremlinClientFactory> transformation) => new NeptuneConfigurator(_baseConfigurator.ConfigureClientFactory(transformation));
+
+            public INeptuneConfigurator ConfigureServer(Func<GremlinServer, GremlinServer> transformation) => new NeptuneConfigurator(_baseConfigurator.ConfigureServer(transformation));
+
+            public IGremlinQuerySource Transform(IGremlinQuerySource source) => _baseConfigurator.Transform(source);
         }
 
-        public static IGremlinQuerySource UseNeptune(this IConfigurableGremlinQuerySource source, Func<INeptuneConfigurator, IGremlinQuerySourceTransformation> transformation)
+        public static IGremlinQuerySource UseNeptune(this IConfigurableGremlinQuerySource source, Func<INeptuneConfigurator, IGremlinQuerySourceTransformation> configuratorTransformation)
         {
-            return source
-                .UseWebSocket(configurator => transformation(new NeptuneConfigurator(configurator)))
+            return configuratorTransformation
+                .Invoke(new NeptuneConfigurator())
+                .Transform(source
+                    .ConfigureEnvironment(environment => environment
+                        .ConfigureFeatureSet(featureSet => featureSet
+                            .ConfigureGraphFeatures(_ => GraphFeatures.Transactions | GraphFeatures.Persistence | GraphFeatures.ConcurrentAccess)
+                            .ConfigureVariableFeatures(_ => VariableFeatures.None)
+                            .ConfigureVertexFeatures(_ => VertexFeatures.AddVertices | VertexFeatures.RemoveVertices | VertexFeatures.MultiProperties | VertexFeatures.UserSuppliedIds | VertexFeatures.AddProperty | VertexFeatures.RemoveProperty | VertexFeatures.StringIds)
+                            .ConfigureVertexPropertyFeatures(_ => VertexPropertyFeatures.RemoveProperty | VertexPropertyFeatures.NumericIds | VertexPropertyFeatures.StringIds | VertexPropertyFeatures.Properties | VertexPropertyFeatures.BooleanValues | VertexPropertyFeatures.ByteValues | VertexPropertyFeatures.DoubleValues | VertexPropertyFeatures.FloatValues | VertexPropertyFeatures.IntegerValues | VertexPropertyFeatures.LongValues | VertexPropertyFeatures.StringValues)
+                            .ConfigureEdgeFeatures(_ => EdgeFeatures.AddEdges | EdgeFeatures.RemoveEdges | EdgeFeatures.UserSuppliedIds | EdgeFeatures.AddProperty | EdgeFeatures.RemoveProperty | EdgeFeatures.NumericIds | EdgeFeatures.StringIds | EdgeFeatures.UuidIds | EdgeFeatures.CustomIds | EdgeFeatures.AnyIds)
+                            .ConfigureEdgePropertyFeatures(_ => EdgePropertyFeatures.Properties | EdgePropertyFeatures.BooleanValues | EdgePropertyFeatures.ByteValues | EdgePropertyFeatures.DoubleValues | EdgePropertyFeatures.FloatValues | EdgePropertyFeatures.IntegerValues | EdgePropertyFeatures.LongValues | EdgePropertyFeatures.StringValues))
+                        .UseGraphSon3()
+                        .UseNewtonsoftJson()))
                 .ConfigureEnvironment(environment => environment
                     .ConfigureSerializer(serializer => serializer
                         .Add(ConverterFactory
@@ -36,16 +54,8 @@ namespace ExRam.Gremlinq.Core
                                 ? new PropertyStep.ByKeyStep(step.Key, step.Value, step.MetaProperties, Cardinality.Set)
                                 : default)
                             .AutoRecurse<PropertyStep.ByKeyStep>()))
-                    .UseNewtonsoftJson()
                     .StoreTimeSpansAsNumbers()
-                    .StoreByteArraysAsBase64String()
-                    .ConfigureFeatureSet(featureSet => featureSet
-                        .ConfigureGraphFeatures(_ => GraphFeatures.Transactions | GraphFeatures.Persistence | GraphFeatures.ConcurrentAccess)
-                        .ConfigureVariableFeatures(_ => VariableFeatures.None)
-                        .ConfigureVertexFeatures(_ => VertexFeatures.AddVertices | VertexFeatures.RemoveVertices | VertexFeatures.MultiProperties | VertexFeatures.UserSuppliedIds | VertexFeatures.AddProperty | VertexFeatures.RemoveProperty | VertexFeatures.StringIds)
-                        .ConfigureVertexPropertyFeatures(_ => VertexPropertyFeatures.RemoveProperty | VertexPropertyFeatures.NumericIds | VertexPropertyFeatures.StringIds | VertexPropertyFeatures.Properties | VertexPropertyFeatures.BooleanValues | VertexPropertyFeatures.ByteValues | VertexPropertyFeatures.DoubleValues | VertexPropertyFeatures.FloatValues | VertexPropertyFeatures.IntegerValues | VertexPropertyFeatures.LongValues | VertexPropertyFeatures.StringValues)
-                        .ConfigureEdgeFeatures(_ => EdgeFeatures.AddEdges | EdgeFeatures.RemoveEdges | EdgeFeatures.UserSuppliedIds | EdgeFeatures.AddProperty | EdgeFeatures.RemoveProperty | EdgeFeatures.NumericIds | EdgeFeatures.StringIds | EdgeFeatures.UuidIds | EdgeFeatures.CustomIds | EdgeFeatures.AnyIds)
-                        .ConfigureEdgePropertyFeatures(_ => EdgePropertyFeatures.Properties | EdgePropertyFeatures.BooleanValues | EdgePropertyFeatures.ByteValues | EdgePropertyFeatures.DoubleValues | EdgePropertyFeatures.FloatValues | EdgePropertyFeatures.IntegerValues | EdgePropertyFeatures.LongValues | EdgePropertyFeatures.StringValues)));
+                    .StoreByteArraysAsBase64String());
         }
     }
 }
