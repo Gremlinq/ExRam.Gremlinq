@@ -1,4 +1,5 @@
-﻿using ExRam.Gremlinq.Core.AspNet;
+﻿using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Core.AspNet;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ExRam.Gremlinq.Providers.Core.AspNet
@@ -28,8 +29,13 @@ namespace ExRam.Gremlinq.Providers.Core.AspNet
             return setup
                 .Configure((configurator, providerSection) =>
                 {
-                    //if (configuration["Alias"] is { } alias)
-                    //    configurator = configurator.SetAlias(alias);
+                    if (providerSection["Alias"] is { Length: > 0 } alias)
+                    {
+                        configurator = configurator.ConfigureQuerySource(source => source
+                            .ConfigureEnvironment(env => env
+                                .ConfigureOptions(options => options
+                                    .SetValue(GremlinqOption.Alias, alias))));
+                    }
 
                     return configurator;
                 });
