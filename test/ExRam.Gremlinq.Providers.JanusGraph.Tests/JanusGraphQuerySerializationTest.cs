@@ -12,7 +12,8 @@ namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
         {
             public Fixture() : base(g
                 .UseJanusGraph(builder => builder
-                    .AtLocalhost())
+                    .AtLocalhost()
+                    .UseNewtonsoftJson())
                 .ConfigureEnvironment(_ => _
                     .UseExecutor(GremlinQueryExecutor.Identity)))
             {

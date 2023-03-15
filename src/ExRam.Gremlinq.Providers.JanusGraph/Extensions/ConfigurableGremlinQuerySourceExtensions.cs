@@ -46,7 +46,6 @@ namespace ExRam.Gremlinq.Core
                             .ConfigureEdgePropertyFeatures(_ => EdgePropertyFeatures.Properties | EdgePropertyFeatures.BooleanValues | EdgePropertyFeatures.ByteValues | EdgePropertyFeatures.DoubleValues | EdgePropertyFeatures.FloatValues | EdgePropertyFeatures.IntegerValues | EdgePropertyFeatures.LongValues | EdgePropertyFeatures.StringValues))))
                 .ConfigureEnvironment(environment => environment
                     .UseGraphSon3()
-                    .UseNewtonsoftJson()
                     .StoreByteArraysAsBase64String());
         }
     }
