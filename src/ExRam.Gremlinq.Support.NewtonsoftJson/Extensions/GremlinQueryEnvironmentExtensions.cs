@@ -1,9 +1,9 @@
-﻿using System.Reflection;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Core.Transformation;
-using ExRam.Gremlinq.Support.NewtonsoftJson;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
@@ -136,15 +136,7 @@ namespace ExRam.Gremlinq.Core
                     deserializer,
                     _serializerFactory);
             }
-        }
-
-        private sealed class TimeSpanAsNumberConverterFactory : FixedTypeConverterFactory<TimeSpan>
-        {
-            protected override TimeSpan? Convert(JValue jValue, IGremlinQueryEnvironment environment, ITransformer recurse)
-            {
-                return TimeSpan.FromMilliseconds(jValue.Value<double>());
-            }
-        }
+        }     
 
         private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, GremlinQueryEnvironmentCacheImpl> Caches = new();
 
@@ -153,17 +145,6 @@ namespace ExRam.Gremlinq.Core
             return environment
                 .ConfigureDeserializer(deserializer => deserializer
                     .UseNewtonsoftJson());
-        }
-
-        public static IGremlinQueryEnvironment StoreTimeSpansAsNumbers(this IGremlinQueryEnvironment environment)
-        {
-            return environment
-                .ConfigureSerializer(static serializer => serializer
-                    .Add(ConverterFactory
-                        .Create<TimeSpan, double>(static (t, env, recurse) => t.TotalMilliseconds)
-                        .AutoRecurse<double>()))
-                .ConfigureDeserializer(static deserializer => deserializer
-                    .Add(new TimeSpanAsNumberConverterFactory()));
         }
 
         internal static JsonSerializer GetJsonSerializer(this IGremlinQueryEnvironment environment, ITransformer deserializer)
