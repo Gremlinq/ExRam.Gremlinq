@@ -42,15 +42,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .UseLogger(new XunitLogger(testOutputHelper));
         }
 
-        public static IGremlinQueryEnvironment EchoGraphsonString(this IGremlinQueryEnvironment environment)
-        {
-            return environment
-                .UseSerializer(Serializer.Default)
-                .UseExecutor(GremlinQueryExecutor.Identity)
-                .ConfigureDeserializer(static _ => _
-                    .ToGraphsonString());
-        }
-
         public static IGremlinQueryEnvironment EchoGroovyGremlinQuery(this IGremlinQueryEnvironment environment)
         {
             return environment
