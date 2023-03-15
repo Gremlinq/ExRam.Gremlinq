@@ -12,7 +12,8 @@ namespace ExRam.Gremlinq.Core.AspNet
                 .UseProvider(
                     "GremlinServer",
                     (source, configuratorTransformation) => source
-                        .UseGremlinServer(configuratorTransformation),
+                        .UseGremlinServer(_ => configuratorTransformation
+                            .Invoke(_.UseNewtonsoftJson())),
                     setup => setup
                         .ConfigureWebSocket(),
                     extraSetupAction);

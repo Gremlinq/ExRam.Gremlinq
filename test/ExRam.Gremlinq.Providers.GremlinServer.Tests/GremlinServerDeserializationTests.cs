@@ -10,7 +10,9 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
         {
             public Fixture() : base(
                 nameof(GremlinServerIntegrationTests),
-                g.UseGremlinServer(_ => _))
+                g
+                    .UseGremlinServer(_ => _
+                        .UseNewtonsoftJson()))
             {
             }
         }
