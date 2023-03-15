@@ -1,5 +1,4 @@
 ﻿using System.Text;
-using System.Text.Json;
 using ExRam.Gremlinq.Core.Serialization;
 using Gremlin.Net.Process.Traversal;
 
@@ -9,10 +8,16 @@ namespace ExRam.Gremlinq.Core
     {
         private readonly struct GroovyWriter
         {
+            private static readonly ThreadLocal<StringBuilder> Builder = new(static () => new StringBuilder());
+
             private readonly bool _hasIdentifier;
             private readonly StringBuilder _builder;
 
-            public GroovyWriter(StringBuilder builder, bool hasIdentifier = false)
+            public GroovyWriter() : this(Builder.Value!.Clear())
+            {
+            }
+
+            private GroovyWriter(StringBuilder builder, bool hasIdentifier = false)
             {
                 _builder = builder;
                 _hasIdentifier = hasIdentifier;
@@ -202,9 +207,7 @@ namespace ExRam.Gremlinq.Core
             public override string ToString() => _builder.ToString();
         }
 
-        private static readonly ThreadLocal<StringBuilder> Builder = new(static () => new StringBuilder());
-
-        public string Debug(BytecodeGremlinQuery serializedQuery, IGremlinQueryEnvironment environment) => new GroovyWriter(Builder.Value!.Clear())
+        public string Debug(BytecodeGremlinQuery serializedQuery, IGremlinQueryEnvironment environment) => new GroovyWriter()
             .Append(serializedQuery.Bytecode)
             .ToString();
     }
