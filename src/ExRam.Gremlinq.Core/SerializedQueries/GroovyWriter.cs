@@ -32,12 +32,16 @@ namespace ExRam.Gremlinq.Core
                         StartTraversal();
 
                     foreach (var instruction in byteCode.SourceInstructions)
+                    {
                         writer = writer
                             .Append(instruction);
+                    }
 
                     foreach (var instruction in byteCode.StepInstructions)
+                    {
                         writer = writer
                             .Append(instruction);
+                    }
 
                     return writer;
                 }
