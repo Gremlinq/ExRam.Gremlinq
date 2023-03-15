@@ -1,12 +1,12 @@
 ﻿using System.Collections.Concurrent;
+using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Core.Serialization;
-using ExRam.Gremlinq.Providers.WebSocket;
 using Gremlin.Net.Driver;
 using Gremlin.Net.Driver.Messages;
 using Microsoft.Extensions.Logging;
 
-namespace ExRam.Gremlinq.Core
+namespace ExRam.Gremlinq.Providers.WebSocket
 {
     public sealed class WebSocketProviderConfigurator
     {
@@ -73,12 +73,8 @@ namespace ExRam.Gremlinq.Core
                         .ConfigureAwait(false);
 
                     if (maybeResults is { } results)
-                    {
                         foreach (var obj in results)
-                        {
                             yield return obj;
-                        }
-                    }
                 }
             }
 
@@ -119,7 +115,7 @@ namespace ExRam.Gremlinq.Core
             .ConfigureEnvironment(environment => environment
                 .UseExecutor(Build().Log()));
 
-        private IGremlinQueryExecutor Build() => (!"ws".Equals(_gremlinServer.Uri.Scheme, StringComparison.OrdinalIgnoreCase) && !"wss".Equals(_gremlinServer.Uri.Scheme, StringComparison.OrdinalIgnoreCase))
+        private IGremlinQueryExecutor Build() => !"ws".Equals(_gremlinServer.Uri.Scheme, StringComparison.OrdinalIgnoreCase) && !"wss".Equals(_gremlinServer.Uri.Scheme, StringComparison.OrdinalIgnoreCase)
             ? throw new ArgumentException("Expected the Uri-Scheme to be either \"ws\" or \"wss\".")
             : new WebSocketGremlinQueryExecutor(
                 _gremlinServer,
