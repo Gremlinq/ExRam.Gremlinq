@@ -12,7 +12,8 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 nameof(CosmosDbIntegrationTests),
                 g.UseCosmosDb(_ => _
                     .At("ws://localhost", "", "")
-                    .AuthenticateBy("")))
+                    .AuthenticateBy("")
+                    .UseNewtonsoftJson()))
             {
             }
         }
