@@ -13,10 +13,9 @@ namespace ExRam.Gremlinq.Core.AspNet
                 .UseProvider(
                     "CosmosDb",
                     (source, configuratorTransformation) => source
-                        .UseCosmosDb(_ => configuratorTransformation
-                            .Invoke(_)
-                            .UseNewtonsoftJson()),
+                        .UseCosmosDb(configuratorTransformation),
                     setup => setup
+                        .UseNewtonsoftJson()
                         .ConfigureWebSocket()
                         .Configure((configurator, providerSection) =>
                         {
