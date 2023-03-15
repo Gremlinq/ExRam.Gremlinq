@@ -23,8 +23,6 @@ namespace ExRam.Gremlinq.Core
                 _webSocketProviderConfigurator = webSocketProviderConfigurator;
             }
 
-            public INeptuneConfigurator ConfigureAlias(Func<string, string> transformation) => new NeptuneConfigurator(_webSocketProviderConfigurator.ConfigureAlias(transformation));
-
             public INeptuneConfigurator ConfigureClientFactory(Func<IGremlinClientFactory, IGremlinClientFactory> transformation) => new NeptuneConfigurator(_webSocketProviderConfigurator.ConfigureClientFactory(transformation));
 
             public INeptuneConfigurator ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> transformation) => new NeptuneConfigurator(_webSocketProviderConfigurator.ConfigureQuerySource(transformation));

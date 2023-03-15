@@ -51,12 +51,6 @@ namespace ExRam.Gremlinq.Core
                 _graphName,
                 authKey);
 
-            public ICosmosDbConfigurator ConfigureAlias(Func<string, string> transformation) => new CosmosDbConfigurator(
-                _webSocketConfigurator.ConfigureAlias(transformation),
-                _databaseName,
-                _graphName,
-                _authKey);
-
             public ICosmosDbConfigurator ConfigureServer(Func<GremlinServer, GremlinServer> transformation) => new CosmosDbConfigurator(
                 _webSocketConfigurator.ConfigureServer(transformation),
                 _databaseName,

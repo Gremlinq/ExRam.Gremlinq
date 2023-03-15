@@ -6,8 +6,6 @@ namespace ExRam.Gremlinq.Providers.WebSocket
     public interface IWebSocketProviderConfigurator<out TConfigurator> : IProviderConfigurator<TConfigurator>
         where TConfigurator : IProviderConfigurator<TConfigurator>
     {
-        TConfigurator ConfigureAlias(Func<string, string> transformation);
-
         TConfigurator ConfigureServer(Func<_GremlinServer, _GremlinServer> transformation);
 
         TConfigurator ConfigureClientFactory(Func<IGremlinClientFactory, IGremlinClientFactory> transformation);

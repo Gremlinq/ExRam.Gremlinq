@@ -21,8 +21,6 @@ namespace ExRam.Gremlinq.Core
                 _webSocketProviderConfigurator = webSocketProviderConfigurator;
             }
 
-            public IJanusGraphConfigurator ConfigureAlias(Func<string, string> transformation) => new JanusGraphConfigurator(_webSocketProviderConfigurator.ConfigureAlias(transformation));
-
             public IJanusGraphConfigurator ConfigureClientFactory(Func<IGremlinClientFactory, IGremlinClientFactory> transformation) => new JanusGraphConfigurator(_webSocketProviderConfigurator.ConfigureClientFactory(transformation));
 
             public IJanusGraphConfigurator ConfigureServer(Func<GremlinServer, GremlinServer> transformation) => new JanusGraphConfigurator(_webSocketProviderConfigurator.ConfigureServer(transformation));

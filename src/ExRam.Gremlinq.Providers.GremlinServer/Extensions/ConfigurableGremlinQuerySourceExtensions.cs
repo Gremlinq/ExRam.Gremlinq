@@ -20,8 +20,6 @@ namespace ExRam.Gremlinq.Core
                 _webSocketConfigurator = webSocketConfigurator;
             }
 
-            public IGremlinServerConfigurator ConfigureAlias(Func<string, string> transformation) => new GremlinServerConfigurator(_webSocketConfigurator.ConfigureAlias(transformation));
-
             public IGremlinServerConfigurator ConfigureClientFactory(Func<IGremlinClientFactory, IGremlinClientFactory> transformation) => new GremlinServerConfigurator(_webSocketConfigurator.ConfigureClientFactory(transformation));
 
             public IGremlinServerConfigurator ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> transformation) => new GremlinServerConfigurator(_webSocketConfigurator.ConfigureQuerySource(transformation));

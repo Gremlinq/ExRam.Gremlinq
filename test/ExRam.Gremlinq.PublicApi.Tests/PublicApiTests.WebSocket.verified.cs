@@ -28,7 +28,6 @@ namespace ExRam.Gremlinq.Providers.WebSocket
     public interface IWebSocketProviderConfigurator<out TConfigurator> : ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation, ExRam.Gremlinq.Core.IGremlinqConfigurator<TConfigurator>, ExRam.Gremlinq.Providers.Core.IProviderConfigurator<TConfigurator>
         where out TConfigurator : ExRam.Gremlinq.Providers.Core.IProviderConfigurator<TConfigurator>
     {
-        TConfigurator ConfigureAlias(System.Func<string, string> transformation);
         TConfigurator ConfigureClientFactory(System.Func<ExRam.Gremlinq.Providers.WebSocket.IGremlinClientFactory, ExRam.Gremlinq.Providers.WebSocket.IGremlinClientFactory> transformation);
         TConfigurator ConfigureServer(System.Func<Gremlin.Net.Driver.GremlinServer, Gremlin.Net.Driver.GremlinServer> transformation);
     }
@@ -46,14 +45,11 @@ namespace ExRam.Gremlinq.Providers.WebSocket
             where TConfigurator : ExRam.Gremlinq.Providers.WebSocket.IWebSocketProviderConfigurator<TConfigurator> { }
         public static TConfigurator ConfigureMessageSerializer<TConfigurator>(this ExRam.Gremlinq.Providers.WebSocket.IWebSocketProviderConfigurator<TConfigurator> configurator, System.Func<Gremlin.Net.Driver.IMessageSerializer, Gremlin.Net.Driver.IMessageSerializer> transformation)
             where TConfigurator : ExRam.Gremlinq.Providers.WebSocket.IWebSocketProviderConfigurator<TConfigurator> { }
-        public static TConfigurator SetAlias<TConfigurator>(this ExRam.Gremlinq.Providers.WebSocket.IWebSocketProviderConfigurator<TConfigurator> configurator, string alias)
-            where TConfigurator : ExRam.Gremlinq.Providers.WebSocket.IWebSocketProviderConfigurator<TConfigurator> { }
     }
     public sealed class WebSocketProviderConfigurator : ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation, ExRam.Gremlinq.Core.IGremlinqConfigurator<ExRam.Gremlinq.Providers.WebSocket.WebSocketProviderConfigurator>, ExRam.Gremlinq.Providers.Core.IProviderConfigurator<ExRam.Gremlinq.Providers.WebSocket.WebSocketProviderConfigurator>, ExRam.Gremlinq.Providers.WebSocket.IWebSocketProviderConfigurator<ExRam.Gremlinq.Providers.WebSocket.WebSocketProviderConfigurator>
     {
         public WebSocketProviderConfigurator() { }
-        public WebSocketProviderConfigurator(ExRam.Gremlinq.Core.GremlinqConfigurator gremlinqConfigurator, Gremlin.Net.Driver.GremlinServer gremlinServer, ExRam.Gremlinq.Providers.WebSocket.IGremlinClientFactory clientFactory, string alias) { }
-        public ExRam.Gremlinq.Providers.WebSocket.WebSocketProviderConfigurator ConfigureAlias(System.Func<string, string> transformation) { }
+        public WebSocketProviderConfigurator(ExRam.Gremlinq.Core.GremlinqConfigurator gremlinqConfigurator, Gremlin.Net.Driver.GremlinServer gremlinServer, ExRam.Gremlinq.Providers.WebSocket.IGremlinClientFactory clientFactory) { }
         public ExRam.Gremlinq.Providers.WebSocket.WebSocketProviderConfigurator ConfigureClientFactory(System.Func<ExRam.Gremlinq.Providers.WebSocket.IGremlinClientFactory, ExRam.Gremlinq.Providers.WebSocket.IGremlinClientFactory> transformation) { }
         public ExRam.Gremlinq.Providers.WebSocket.WebSocketProviderConfigurator ConfigureQuerySource(System.Func<ExRam.Gremlinq.Core.IGremlinQuerySource, ExRam.Gremlinq.Core.IGremlinQuerySource> transformation) { }
         public ExRam.Gremlinq.Providers.WebSocket.WebSocketProviderConfigurator ConfigureServer(System.Func<Gremlin.Net.Driver.GremlinServer, Gremlin.Net.Driver.GremlinServer> transformation) { }
