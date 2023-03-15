@@ -12,7 +12,8 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
         {
             public Fixture() : base(g
                 .UseNeptune(builder => builder
-                    .AtLocalhost())
+                    .AtLocalhost()
+                    .UseNewtonsoftJson())
                 .ConfigureEnvironment(_ => _
                     .UseExecutor(GremlinQueryExecutor.Identity)))
             {
