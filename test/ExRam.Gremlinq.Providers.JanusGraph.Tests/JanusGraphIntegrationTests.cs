@@ -13,7 +13,8 @@ namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
         {
             public Fixture() : base(Gremlinq.Core.GremlinQuerySource.g
                 .UseJanusGraph(builder => builder
-                    .At(new Uri("ws://localhost:8183")))
+                    .At(new Uri("ws://localhost:8183"))
+                    .UseNewtonsoftJson())
                 .ConfigureEnvironment(environment => environment
                     .ConfigureExecutor(_ => _
                         .TransformResult(enumerable => enumerable
