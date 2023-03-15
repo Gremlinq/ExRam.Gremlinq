@@ -14,6 +14,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                     (source, configuratorTransformation) => source
                         .UseNeptune(configuratorTransformation),
                     setup => setup
+                        .ConfigureBase()
                         .ConfigureWebSocket()
                         .Configure((configurator, providerSection) =>
                         {

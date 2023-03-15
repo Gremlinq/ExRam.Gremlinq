@@ -29,7 +29,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
             }
         }
 
-        public static TConfigurator ConfigureFrom<TConfigurator>(
+        public static TConfigurator ConfigureWebSocketFrom<TConfigurator>(
             this TConfigurator webSocketConfigurator,
             IConfiguration configuration) where TConfigurator : IWebSocketProviderConfigurator<TConfigurator>
         {
