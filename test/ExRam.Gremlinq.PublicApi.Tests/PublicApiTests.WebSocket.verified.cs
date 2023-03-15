@@ -49,7 +49,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
         public static TConfigurator SetAlias<TConfigurator>(this ExRam.Gremlinq.Providers.WebSocket.IWebSocketProviderConfigurator<TConfigurator> configurator, string alias)
             where TConfigurator : ExRam.Gremlinq.Providers.WebSocket.IWebSocketProviderConfigurator<TConfigurator> { }
     }
-    public sealed class WebSocketProviderConfigurator
+    public sealed class WebSocketProviderConfigurator : ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation, ExRam.Gremlinq.Core.IGremlinqConfigurator<ExRam.Gremlinq.Providers.WebSocket.WebSocketProviderConfigurator>, ExRam.Gremlinq.Providers.Core.IProviderConfigurator<ExRam.Gremlinq.Providers.WebSocket.WebSocketProviderConfigurator>, ExRam.Gremlinq.Providers.WebSocket.IWebSocketProviderConfigurator<ExRam.Gremlinq.Providers.WebSocket.WebSocketProviderConfigurator>
     {
         public WebSocketProviderConfigurator() { }
         public WebSocketProviderConfigurator(Gremlin.Net.Driver.GremlinServer gremlinServer, ExRam.Gremlinq.Providers.WebSocket.IGremlinClientFactory clientFactory, string alias) { }
