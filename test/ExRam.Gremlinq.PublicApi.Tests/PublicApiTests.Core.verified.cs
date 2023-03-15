@@ -158,6 +158,7 @@ namespace ExRam.Gremlinq.Core
     }
     public static class GremlinqOption
     {
+        public static readonly ExRam.Gremlinq.Core.GremlinqOption<string> Alias;
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.DisabledTextPredicates> DisabledTextPredicates;
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.Traversal> EdgeProjectionSteps;
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.Traversal> EmptyProjectionProtectionDecoratorSteps;

@@ -78,6 +78,8 @@ namespace ExRam.Gremlinq.Core
             }
             .ToImmutableDictionary());
 
+        public static readonly GremlinqOption<string> Alias = new("g");
+
         public static readonly GremlinqOption<bool> EnableEmptyProjectionValueProtection = new (false);
 
         public static readonly GremlinqOption<Func<StepLabel, Projection>> StepLabelProjectionFallback = new(
