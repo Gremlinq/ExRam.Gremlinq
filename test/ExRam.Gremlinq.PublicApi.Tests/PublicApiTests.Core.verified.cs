@@ -152,8 +152,8 @@ namespace ExRam.Gremlinq.Core
     public sealed class GremlinqConfigurator : ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation, ExRam.Gremlinq.Core.IGremlinqConfigurator<ExRam.Gremlinq.Core.GremlinqConfigurator>
     {
         public GremlinqConfigurator() { }
-        public GremlinqConfigurator(System.Func<ExRam.Gremlinq.Core.Transformation.ITransformer, ExRam.Gremlinq.Core.Transformation.ITransformer> deserializerTransformation) { }
-        public ExRam.Gremlinq.Core.GremlinqConfigurator ConfigureDeserialization(System.Func<ExRam.Gremlinq.Core.Transformation.ITransformer, ExRam.Gremlinq.Core.Transformation.ITransformer> deserializerTransformation) { }
+        public GremlinqConfigurator(System.Func<ExRam.Gremlinq.Core.IGremlinQuerySource, ExRam.Gremlinq.Core.IGremlinQuerySource> transformation) { }
+        public ExRam.Gremlinq.Core.GremlinqConfigurator ConfigureQuerySource(System.Func<ExRam.Gremlinq.Core.IGremlinQuerySource, ExRam.Gremlinq.Core.IGremlinQuerySource> transformation) { }
         public ExRam.Gremlinq.Core.IGremlinQuerySource Transform(ExRam.Gremlinq.Core.IGremlinQuerySource source) { }
     }
     public static class GremlinqOption
@@ -566,7 +566,7 @@ namespace ExRam.Gremlinq.Core
     public interface IGremlinqConfigurator<out TConfigurator> : ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation
         where out TConfigurator : ExRam.Gremlinq.Core.IGremlinqConfigurator<TConfigurator>
     {
-        TConfigurator ConfigureDeserialization(System.Func<ExRam.Gremlinq.Core.Transformation.ITransformer, ExRam.Gremlinq.Core.Transformation.ITransformer> deserializerTransformation);
+        TConfigurator ConfigureQuerySource(System.Func<ExRam.Gremlinq.Core.IGremlinQuerySource, ExRam.Gremlinq.Core.IGremlinQuerySource> transformation);
     }
     public interface IGremlinqOption { }
     public interface IGremlinqOptions

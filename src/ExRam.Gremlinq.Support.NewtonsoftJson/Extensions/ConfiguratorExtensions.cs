@@ -5,7 +5,9 @@
         public static TConfigurator UseNewtonsoftJson<TConfigurator>(this TConfigurator configurator)
             where TConfigurator : IGremlinqConfigurator<TConfigurator>
         {
-            return configurator.ConfigureDeserialization(transformer =>  transformer.UseNewtonsoftJson());
+            return configurator.ConfigureQuerySource(source => source
+                .ConfigureEnvironment(environment => environment
+                    .ConfigureDeserializer(transformer =>  transformer.UseNewtonsoftJson())));
         }
     }
 }

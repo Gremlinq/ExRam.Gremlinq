@@ -1,24 +1,20 @@
-﻿using ExRam.Gremlinq.Core.Transformation;
-
-namespace ExRam.Gremlinq.Core
+﻿namespace ExRam.Gremlinq.Core
 {
     public sealed class GremlinqConfigurator : IGremlinqConfigurator<GremlinqConfigurator>
     {
-        private readonly Func<ITransformer, ITransformer> _deserializerTransformation;
+        private readonly Func<IGremlinQuerySource, IGremlinQuerySource> _transformation;
 
         public GremlinqConfigurator() : this(_ => _)
         {
         }
 
-        public GremlinqConfigurator(Func<ITransformer, ITransformer> deserializerTransformation)
+        public GremlinqConfigurator(Func<IGremlinQuerySource, IGremlinQuerySource> transformation)
         {
-            _deserializerTransformation = deserializerTransformation;
+            _transformation = transformation;
         }
 
-        public GremlinqConfigurator ConfigureDeserialization(Func<ITransformer, ITransformer> deserializerTransformation) => new (deserializerTransformation);
+        public GremlinqConfigurator ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> transformation) => new GremlinqConfigurator(_ => transformation(_transformation(_)));
 
-        public IGremlinQuerySource Transform(IGremlinQuerySource source) => source
-            .ConfigureEnvironment(environment => environment
-                .ConfigureDeserializer(deserializer => _deserializerTransformation(deserializer)));
+        public IGremlinQuerySource Transform(IGremlinQuerySource source) => _transformation(source);
     }
 }

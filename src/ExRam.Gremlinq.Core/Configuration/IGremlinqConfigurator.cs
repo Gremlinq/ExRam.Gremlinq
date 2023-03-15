@@ -1,10 +1,8 @@
-﻿using ExRam.Gremlinq.Core.Transformation;
-
-namespace ExRam.Gremlinq.Core
+﻿namespace ExRam.Gremlinq.Core
 {
     public interface IGremlinqConfigurator<out TConfigurator> : IGremlinQuerySourceTransformation
         where TConfigurator : IGremlinqConfigurator<TConfigurator>
     {
-        TConfigurator ConfigureDeserialization(Func<ITransformer, ITransformer> deserializerTransformation);
+        TConfigurator ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> transformation);
     }
 }
