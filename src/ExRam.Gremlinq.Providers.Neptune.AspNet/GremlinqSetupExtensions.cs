@@ -12,7 +12,9 @@ namespace ExRam.Gremlinq.Core.AspNet
                 .UseProvider(
                     "Neptune",
                     (source, configuratorTransformation) => source
-                        .UseNeptune(configuratorTransformation),
+                        .UseNeptune(_ => configuratorTransformation
+                            .Invoke(_)
+                            .UseNewtonsoftJson()),
                     setup => setup
                         .ConfigureWebSocket()
                         .Configure((configurator, providerSection) =>
