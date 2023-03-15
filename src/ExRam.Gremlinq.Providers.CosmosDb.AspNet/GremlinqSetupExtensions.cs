@@ -15,7 +15,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                     (source, configuratorTransformation) => source
                         .UseCosmosDb(configuratorTransformation),
                     setup => setup
-                        .ConfigureBase()
+                        .Configure()
                         .ConfigureWebSocket()
                         .Configure((configurator, providerSection) =>
                         {
