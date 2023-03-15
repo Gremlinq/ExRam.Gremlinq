@@ -37,9 +37,6 @@ namespace ExRam.Gremlinq.Providers.Core.AspNet
             return setup
                 .Configure((configurator, providerSection) =>
                 {
-                    providerSection = providerSection
-                        .MergeWithGremlinqSection();
-
                     var authenticationSection = providerSection.GetSection("Authentication");
                     var connectionPoolSection = providerSection.GetSection("ConnectionPool");
 
