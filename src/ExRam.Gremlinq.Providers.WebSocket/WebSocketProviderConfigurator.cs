@@ -15,17 +15,14 @@ namespace ExRam.Gremlinq.Providers.WebSocket
         {
             private readonly GremlinServer _gremlinServer;
             private readonly IGremlinClientFactory _clientFactory;
-            private readonly Dictionary<string, string> _aliasArgs;
             private readonly ConcurrentDictionary<IGremlinQueryEnvironment, IGremlinClient> _clients = new();
 
             public WebSocketGremlinQueryExecutor(
                 GremlinServer gremlinServer,
-                IGremlinClientFactory clientFactory,
-                string alias = "g")
+                IGremlinClientFactory clientFactory)
             {
                 _gremlinServer = gremlinServer;
                 _clientFactory = clientFactory;
-                _aliasArgs = new Dictionary<string, string> { { "g", alias } };
             }
 
             public IAsyncEnumerable<object> Execute(ISerializedGremlinQuery serializedQuery, IGremlinQueryEnvironment environment)
@@ -50,12 +47,17 @@ namespace ExRam.Gremlinq.Providers.WebSocket
                         environment.Logger.LogInformation($"Mapping query id {serializedQuery.Id} to request id {requestId}.");
                     }
 
+                    var aliasArgs = new Dictionary<string, string>
+                    {
+                        { "g", environment.Options.GetValue(GremlinqOption.Alias) }
+                    };
+
                     var requestMessage = serializedQuery switch
                     {
                         GroovyGremlinQuery groovyScript => RequestMessage
                             .Build(Tokens.OpsEval)
                             .AddArgument(Tokens.ArgsGremlin, groovyScript.Script)
-                            .AddArgument(Tokens.ArgsAliases, _aliasArgs)
+                            .AddArgument(Tokens.ArgsAliases, aliasArgs)
                             .AddArgument(Tokens.ArgsBindings, groovyScript.Bindings)
                             .OverrideRequestId(requestId)
                             .Create(),
@@ -63,7 +65,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
                             .Build(Tokens.OpsBytecode)
                             .Processor(Tokens.ProcessorTraversal)
                             .AddArgument(Tokens.ArgsGremlin, bytecodeQuery.Bytecode)
-                            .AddArgument(Tokens.ArgsAliases, _aliasArgs)
+                            .AddArgument(Tokens.ArgsAliases, aliasArgs)
                             .OverrideRequestId(requestId)
                             .Create(),
                         _ => throw new ArgumentException($"Cannot handle serialized query of type {serializedQuery.GetType()}.")
@@ -143,7 +145,6 @@ namespace ExRam.Gremlinq.Providers.WebSocket
             ? throw new ArgumentException("Expected the Uri-Scheme to be either \"ws\" or \"wss\".")
             : new WebSocketGremlinQueryExecutor(
                 _gremlinServer,
-                _clientFactory,
-                _alias);
+                _clientFactory);
     }
 }
