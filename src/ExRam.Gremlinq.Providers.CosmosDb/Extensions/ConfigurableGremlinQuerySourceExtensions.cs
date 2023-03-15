@@ -109,7 +109,6 @@ namespace ExRam.Gremlinq.Core
                             .SetValue(GremlinqOption.VertexPropertyProjectionSteps, Traversal.Empty))))
                 .ConfigureEnvironment(environment => environment
                     .UseGraphSon2()
-                    .UseNewtonsoftJson()
                     .StoreByteArraysAsBase64String()
                     .StoreTimeSpansAsNumbers()
                     .ConfigureSerializer(serializer => serializer

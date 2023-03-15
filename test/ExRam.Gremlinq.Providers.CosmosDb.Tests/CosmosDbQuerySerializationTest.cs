@@ -14,7 +14,8 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
             public Fixture() : base(g
                 .UseCosmosDb(builder => builder
                     .At(new Uri("wss://localhost"), "database", "graph")
-                    .AuthenticateBy("authKey"))
+                    .AuthenticateBy("authKey")
+                    .UseNewtonsoftJson())
                 .ConfigureEnvironment(env => env
                     .AddFakePartitionKey()
                     .UseExecutor(GremlinQueryExecutor.Identity)))

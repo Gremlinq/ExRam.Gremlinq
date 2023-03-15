@@ -1,7 +1,5 @@
 ﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
-using ExRam.Gremlinq.Providers.CosmosDb;
-using ExRam.Gremlinq.Providers.WebSocket;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
@@ -13,7 +11,8 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
             public Fixture() : base(g
                 .UseCosmosDb(_ => _
                     .At("ws://localhost", "", "")
-                    .AuthenticateBy("")))
+                    .AuthenticateBy("")
+                    .UseNewtonsoftJson()))
             {
             }
         }
