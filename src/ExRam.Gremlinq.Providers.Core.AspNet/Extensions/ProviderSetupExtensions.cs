@@ -28,9 +28,6 @@ namespace ExRam.Gremlinq.Providers.Core.AspNet
             return setup
                 .Configure((configurator, providerSection) =>
                 {
-                    providerSection = providerSection
-                        .MergeWithGremlinqSection();
-
                     //if (configuration["Alias"] is { } alias)
                     //    configurator = configurator.SetAlias(alias);
 
@@ -42,7 +39,7 @@ namespace ExRam.Gremlinq.Providers.Core.AspNet
            where TConfigurator : IProviderConfigurator<TConfigurator>
         {
             return setup
-                .Configure((configurator, _, providerSection) => extraConfiguration(configurator, providerSection));
+                .Configure((configurator, _, providerSection) => extraConfiguration(configurator, providerSection.MergeWithGremlinqSection()));
         }
 
         public static ProviderSetup<TConfigurator> Configure<TConfigurator>(this ProviderSetup<TConfigurator> setup, Func<TConfigurator, IGremlinqConfigurationSection, IProviderConfigurationSection, TConfigurator> extraConfiguration)
