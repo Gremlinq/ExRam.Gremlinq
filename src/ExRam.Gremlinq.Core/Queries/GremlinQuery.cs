@@ -408,7 +408,7 @@ namespace ExRam.Gremlinq.Core
         private string Debug()
         {
             var serialized = Environment.Serializer
-                .TransformTo<BytecodeGremlinQuery>()
+                .TransformTo<Bytecode>()
                 .From(this, Environment);
 
             return Environment.Debugger.Debug(serialized, Environment);

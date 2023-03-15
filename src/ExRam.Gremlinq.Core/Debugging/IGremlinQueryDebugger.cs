@@ -1,11 +1,11 @@
 ﻿#pragma warning disable IDE0003
 // ReSharper disable ArrangeThisQualifier
-using ExRam.Gremlinq.Core.Serialization;
+using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
 {
     public interface IGremlinQueryDebugger
     {
-        string Debug(BytecodeGremlinQuery serializedQuery, IGremlinQueryEnvironment environment);
+        string Debug(Bytecode bytecode, IGremlinQueryEnvironment environment);
     }
 }

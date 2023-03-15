@@ -529,7 +529,7 @@ namespace ExRam.Gremlinq.Core
     }
     public interface IGremlinQueryDebugger
     {
-        string Debug(ExRam.Gremlinq.Core.Serialization.BytecodeGremlinQuery serializedQuery, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment);
+        string Debug(Gremlin.Net.Process.Traversal.Bytecode bytecode, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment);
     }
     public interface IGremlinQueryEnvironment
     {
