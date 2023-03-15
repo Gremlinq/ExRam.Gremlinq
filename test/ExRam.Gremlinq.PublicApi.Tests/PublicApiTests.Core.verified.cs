@@ -148,6 +148,13 @@ namespace ExRam.Gremlinq.Core
     {
         public static readonly ExRam.Gremlinq.Core.IConfigurableGremlinQuerySource g;
     }
+    public sealed class GremlinqConfigurator : ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation, ExRam.Gremlinq.Core.IGremlinqConfigurator<ExRam.Gremlinq.Core.GremlinqConfigurator>
+    {
+        public GremlinqConfigurator() { }
+        public GremlinqConfigurator(System.Func<ExRam.Gremlinq.Core.Transformation.ITransformer, ExRam.Gremlinq.Core.Transformation.ITransformer> deserializerTransformation) { }
+        public ExRam.Gremlinq.Core.GremlinqConfigurator ConfigureDeserialization(System.Func<ExRam.Gremlinq.Core.Transformation.ITransformer, ExRam.Gremlinq.Core.Transformation.ITransformer> deserializerTransformation) { }
+        public ExRam.Gremlinq.Core.IGremlinQuerySource Transform(ExRam.Gremlinq.Core.IGremlinQuerySource source) { }
+    }
     public static class GremlinqOption
     {
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.DisabledTextPredicates> DisabledTextPredicates;
@@ -556,7 +563,10 @@ namespace ExRam.Gremlinq.Core
     }
     public interface IGremlinQuery<TElement> : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<ExRam.Gremlinq.Core.IGremlinQuery<TElement>>, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TElement, ExRam.Gremlinq.Core.IGremlinQuery<TElement>>, ExRam.Gremlinq.Core.IGremlinQueryBase<TElement>, ExRam.Gremlinq.Core.IStartGremlinQuery { }
     public interface IGremlinqConfigurator<out TConfigurator> : ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation
-        where out TConfigurator : ExRam.Gremlinq.Core.IGremlinqConfigurator<TConfigurator> { }
+        where out TConfigurator : ExRam.Gremlinq.Core.IGremlinqConfigurator<TConfigurator>
+    {
+        TConfigurator ConfigureDeserialization(System.Func<ExRam.Gremlinq.Core.Transformation.ITransformer, ExRam.Gremlinq.Core.Transformation.ITransformer> deserializerTransformation);
+    }
     public interface IGremlinqOption { }
     public interface IGremlinqOptions
     {

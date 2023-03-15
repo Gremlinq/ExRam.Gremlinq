@@ -12,24 +12,26 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class NeptuneConfigurator : INeptuneConfigurator
         {
-            private readonly WebSocketProviderConfigurator _baseConfigurator;
+            private readonly WebSocketProviderConfigurator _webSocketProviderConfigurator;
 
             public NeptuneConfigurator() : this(new WebSocketProviderConfigurator())
             {
             }
 
-            public NeptuneConfigurator(WebSocketProviderConfigurator baseConfigurator)
+            public NeptuneConfigurator(WebSocketProviderConfigurator webSocketProviderConfigurator)
             {
-                _baseConfigurator = baseConfigurator;
+                _webSocketProviderConfigurator = webSocketProviderConfigurator;
             }
 
-            public INeptuneConfigurator ConfigureAlias(Func<string, string> transformation) => new NeptuneConfigurator(_baseConfigurator.ConfigureAlias(transformation));
+            public INeptuneConfigurator ConfigureAlias(Func<string, string> transformation) => new NeptuneConfigurator(_webSocketProviderConfigurator.ConfigureAlias(transformation));
 
-            public INeptuneConfigurator ConfigureClientFactory(Func<IGremlinClientFactory, IGremlinClientFactory> transformation) => new NeptuneConfigurator(_baseConfigurator.ConfigureClientFactory(transformation));
+            public INeptuneConfigurator ConfigureClientFactory(Func<IGremlinClientFactory, IGremlinClientFactory> transformation) => new NeptuneConfigurator(_webSocketProviderConfigurator.ConfigureClientFactory(transformation));
 
-            public INeptuneConfigurator ConfigureServer(Func<GremlinServer, GremlinServer> transformation) => new NeptuneConfigurator(_baseConfigurator.ConfigureServer(transformation));
+            public INeptuneConfigurator ConfigureDeserialization(Func<ITransformer, ITransformer> deserializerTransformation) => new NeptuneConfigurator(_webSocketProviderConfigurator.ConfigureDeserialization(deserializerTransformation));
 
-            public IGremlinQuerySource Transform(IGremlinQuerySource source) => _baseConfigurator.Transform(source);
+            public INeptuneConfigurator ConfigureServer(Func<GremlinServer, GremlinServer> transformation) => new NeptuneConfigurator(_webSocketProviderConfigurator.ConfigureServer(transformation));
+
+            public IGremlinQuerySource Transform(IGremlinQuerySource source) => _webSocketProviderConfigurator.Transform(source);
         }
 
         public static IGremlinQuerySource UseNeptune(this IConfigurableGremlinQuerySource source, Func<INeptuneConfigurator, IGremlinQuerySourceTransformation> configuratorTransformation)
