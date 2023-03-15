@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Text;
 using ExRam.Gremlinq.Core.Deserialization;
 using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Core.Models;
@@ -62,6 +63,31 @@ namespace ExRam.Gremlinq.Core
             public ITransformer Deserializer { get; }
         }
 
+        private sealed class TimeSpanAsNumberConverterFactory : IConverterFactory
+        {
+            public sealed class TimeSpanAsNumberConverter<TSource> : IConverter<TSource, TimeSpan>
+            {
+                public bool TryConvert(TSource source, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TimeSpan value)
+                {
+                    if (recurse.TryTransformTo<double>().From(source, environment) is { } parsedDouble)
+                    {
+                        value = TimeSpan.FromMilliseconds(parsedDouble);
+                        return true;
+                    }
+
+                    value = default;
+                    return false;
+                }
+            }
+
+            public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>()
+            {
+                return typeof(TTarget) == typeof(TimeSpan)
+                    ? (IConverter<TSource, TTarget>)(object)new TimeSpanAsNumberConverter<TSource>()
+                    : default;
+            }
+        }
+
         public static readonly IGremlinQueryEnvironment Empty = new GremlinQueryEnvironmentImpl(
             GraphModel.Empty,
             Transformer.Identity,
@@ -92,6 +118,17 @@ namespace ExRam.Gremlinq.Core
         public static IGremlinQueryEnvironment UseGraphSon2(this IGremlinQueryEnvironment environment) => environment.UseGraphSon(new GraphSON2Writer(), "application/vnd.gremlin-v2.0+json");
 
         public static IGremlinQueryEnvironment UseGraphSon3(this IGremlinQueryEnvironment environment) => environment.UseGraphSon(new GraphSON3Writer(), "application/vnd.gremlin-v3.0+json");
+
+        public static IGremlinQueryEnvironment StoreTimeSpansAsNumbers(this IGremlinQueryEnvironment environment)
+        {
+            return environment
+                .ConfigureSerializer(static serializer => serializer
+                    .Add(ConverterFactory
+                        .Create<TimeSpan, double>(static (t, env, recurse) => t.TotalMilliseconds)
+                        .AutoRecurse<double>()))
+                .ConfigureDeserializer(static deserializer => deserializer
+                    .Add(new TimeSpanAsNumberConverterFactory()));
+        }
 
         public static IGremlinQueryEnvironment StoreByteArraysAsBase64String(this IGremlinQueryEnvironment environment)
         {
