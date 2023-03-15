@@ -24,7 +24,7 @@ namespace ExRam.Gremlinq.Core
 
             public IGremlinServerConfigurator ConfigureClientFactory(Func<IGremlinClientFactory, IGremlinClientFactory> transformation) => new GremlinServerConfigurator(_webSocketConfigurator.ConfigureClientFactory(transformation));
 
-            public IGremlinServerConfigurator ConfigureDeserialization(Func<ITransformer, ITransformer> deserializerTransformation) => new GremlinServerConfigurator(_webSocketConfigurator.ConfigureDeserialization(deserializerTransformation));
+            public IGremlinServerConfigurator ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> transformation) => new GremlinServerConfigurator(_webSocketConfigurator.ConfigureQuerySource(transformation));
 
             public IGremlinServerConfigurator ConfigureServer(Func<GremlinServer, GremlinServer> transformation) => new GremlinServerConfigurator(_webSocketConfigurator.ConfigureServer(transformation));
 

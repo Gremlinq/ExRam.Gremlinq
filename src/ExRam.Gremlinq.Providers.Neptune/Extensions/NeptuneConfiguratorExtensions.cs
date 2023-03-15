@@ -105,8 +105,8 @@ namespace ExRam.Gremlinq.Providers.Neptune
                 _elasticSearchEndPoint,
                 _indexConfiguration);
 
-            public INeptuneConfigurator ConfigureDeserialization(Func<ITransformer, ITransformer> deserializerTransformation) => new ElasticSearchAwareNeptuneConfigurator(
-                _baseConfigurator.ConfigureDeserialization(deserializerTransformation),
+            public INeptuneConfigurator ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> transformation) => new ElasticSearchAwareNeptuneConfigurator(
+                _baseConfigurator.ConfigureQuerySource(transformation),
                 _elasticSearchEndPoint,
                 _indexConfiguration);
         }

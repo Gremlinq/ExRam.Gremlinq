@@ -27,7 +27,7 @@ namespace ExRam.Gremlinq.Core
 
             public INeptuneConfigurator ConfigureClientFactory(Func<IGremlinClientFactory, IGremlinClientFactory> transformation) => new NeptuneConfigurator(_webSocketProviderConfigurator.ConfigureClientFactory(transformation));
 
-            public INeptuneConfigurator ConfigureDeserialization(Func<ITransformer, ITransformer> deserializerTransformation) => new NeptuneConfigurator(_webSocketProviderConfigurator.ConfigureDeserialization(deserializerTransformation));
+            public INeptuneConfigurator ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> transformation) => new NeptuneConfigurator(_webSocketProviderConfigurator.ConfigureQuerySource(transformation));
 
             public INeptuneConfigurator ConfigureServer(Func<GremlinServer, GremlinServer> transformation) => new NeptuneConfigurator(_webSocketProviderConfigurator.ConfigureServer(transformation));
 

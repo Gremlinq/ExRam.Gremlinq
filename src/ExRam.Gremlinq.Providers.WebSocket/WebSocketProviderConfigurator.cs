@@ -128,16 +128,16 @@ namespace ExRam.Gremlinq.Providers.WebSocket
             _clientFactory,
             transformation(_alias));
 
-        public WebSocketProviderConfigurator ConfigureDeserialization(Func<ITransformer, ITransformer> deserializerTransformation) => new(
-            _gremlinqConfigurator.ConfigureDeserialization(deserializerTransformation),
+        public WebSocketProviderConfigurator ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> transformation) => new(
+            _gremlinqConfigurator.ConfigureQuerySource(transformation),
             _gremlinServer,
             _clientFactory,
             _alias);
 
         public IGremlinQuerySource Transform(IGremlinQuerySource source) => _gremlinqConfigurator
-            .Transform(source)
-            .ConfigureEnvironment(environment => environment
-                .UseExecutor(Build().Log()));
+            .Transform(source
+                .ConfigureEnvironment(environment => environment
+                    .UseExecutor(Build().Log())));
 
         private IGremlinQueryExecutor Build() => !"ws".Equals(_gremlinServer.Uri.Scheme, StringComparison.OrdinalIgnoreCase) && !"wss".Equals(_gremlinServer.Uri.Scheme, StringComparison.OrdinalIgnoreCase)
             ? throw new ArgumentException("Expected the Uri-Scheme to be either \"ws\" or \"wss\".")

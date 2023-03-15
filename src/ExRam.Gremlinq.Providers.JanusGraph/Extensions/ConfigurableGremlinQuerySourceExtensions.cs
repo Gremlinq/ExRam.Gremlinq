@@ -1,4 +1,5 @@
 ﻿using ExRam.Gremlinq.Core.Transformation;
+using ExRam.Gremlinq.Providers.GremlinServer;
 using ExRam.Gremlinq.Providers.JanusGraph;
 using ExRam.Gremlinq.Providers.WebSocket;
 using Gremlin.Net.Driver;
@@ -26,7 +27,7 @@ namespace ExRam.Gremlinq.Core
 
             public IJanusGraphConfigurator ConfigureServer(Func<GremlinServer, GremlinServer> transformation) => new JanusGraphConfigurator(_webSocketProviderConfigurator.ConfigureServer(transformation));
 
-            public IJanusGraphConfigurator ConfigureDeserialization(Func<ITransformer, ITransformer> deserializerTransformation) => new JanusGraphConfigurator(_webSocketProviderConfigurator.ConfigureDeserialization(deserializerTransformation));
+            public IJanusGraphConfigurator ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> transformation) => new JanusGraphConfigurator(_webSocketProviderConfigurator.ConfigureQuerySource(transformation));
 
             public IGremlinQuerySource Transform(IGremlinQuerySource source) => _webSocketProviderConfigurator.Transform(source);
         }
