@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq.Providers.Core.AspNet
         {
             return setup
                 .Configure((configurator, providerSection) => configurator
-                    .ConfigureFrom(providerSection
+                    .ConfigureWebSocketFrom(providerSection
                         .MergeWithGremlinqSection()));
         }
     }

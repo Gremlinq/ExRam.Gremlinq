@@ -1,4 +1,6 @@
 ﻿using ExRam.Gremlinq.Core.AspNet;
+using ExRam.Gremlinq.Providers.Core.AspNet.Extensions;
+
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ExRam.Gremlinq.Providers.Core.AspNet
@@ -20,6 +22,15 @@ namespace ExRam.Gremlinq.Providers.Core.AspNet
             }
 
             public TConfigurator Transform(TConfigurator configurator) => _extraConfiguration(configurator, _gremlinqSection, _providerSection);
+        }
+
+        public static ProviderSetup<TConfigurator> ConfigureBase<TConfigurator>(this ProviderSetup<TConfigurator> setup)
+           where TConfigurator : IProviderConfigurator<TConfigurator>
+        {
+            return setup
+                .Configure((configurator, providerSection) => configurator
+                    .ConfigureBaseFrom(providerSection
+                        .MergeWithGremlinqSection()));
         }
 
         public static ProviderSetup<TConfigurator> Configure<TConfigurator>(this ProviderSetup<TConfigurator> setup, Func<TConfigurator, IProviderConfigurationSection, TConfigurator> extraConfiguration)
