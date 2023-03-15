@@ -7,7 +7,6 @@
   <ItemGroup>
     <ProjectReference Include="..\ExRam.Gremlinq.Providers.JanusGraph\ExRam.Gremlinq.Providers.JanusGraph.csproj" />
     <ProjectReference Include="..\ExRam.Gremlinq.Providers.GremlinServer.AspNet\ExRam.Gremlinq.Providers.GremlinServer.AspNet.csproj" />
-    <ProjectReference Include="..\ExRam.Gremlinq.Support.NewtonsoftJson.AspNet\ExRam.Gremlinq.Support.NewtonsoftJson.AspNet.csproj" />
   </ItemGroup>
 
 </Project>
