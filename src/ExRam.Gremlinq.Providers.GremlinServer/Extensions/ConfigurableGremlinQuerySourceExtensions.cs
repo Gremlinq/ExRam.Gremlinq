@@ -43,8 +43,7 @@ namespace ExRam.Gremlinq.Core
                             .ConfigureVertexPropertyFeatures(vPropertiesFeatures => vPropertiesFeatures & ~(VertexPropertyFeatures.CustomIds))
                             .ConfigureEdgeFeatures(edgeProperties => edgeProperties & ~(EdgeFeatures.Upsert | EdgeFeatures.CustomIds)))))
                 .ConfigureEnvironment(environment => environment
-                    .UseGraphSon3()
-                    .UseNewtonsoftJson());
+                    .UseGraphSon3());
         }
     }
 }
