@@ -1,4 +1,4 @@
-﻿using System;
+﻿using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Providers.JanusGraph;
 using ExRam.Gremlinq.Providers.WebSocket;
 using Gremlin.Net.Driver;
@@ -9,24 +9,26 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class JanusGraphConfigurator : IJanusGraphConfigurator
         {
-            private readonly WebSocketProviderConfigurator _baseConfigurator;
+            private readonly WebSocketProviderConfigurator _webSocketProviderConfigurator;
 
             public JanusGraphConfigurator() : this(new WebSocketProviderConfigurator())
             {
             }
 
-            public JanusGraphConfigurator(WebSocketProviderConfigurator baseConfigurator)
+            public JanusGraphConfigurator(WebSocketProviderConfigurator webSocketProviderConfigurator)
             {
-                _baseConfigurator = baseConfigurator;
+                _webSocketProviderConfigurator = webSocketProviderConfigurator;
             }
 
-            public IJanusGraphConfigurator ConfigureAlias(Func<string, string> transformation) => new JanusGraphConfigurator(_baseConfigurator.ConfigureAlias(transformation));
+            public IJanusGraphConfigurator ConfigureAlias(Func<string, string> transformation) => new JanusGraphConfigurator(_webSocketProviderConfigurator.ConfigureAlias(transformation));
 
-            public IJanusGraphConfigurator ConfigureClientFactory(Func<IGremlinClientFactory, IGremlinClientFactory> transformation) => new JanusGraphConfigurator(_baseConfigurator.ConfigureClientFactory(transformation));
+            public IJanusGraphConfigurator ConfigureClientFactory(Func<IGremlinClientFactory, IGremlinClientFactory> transformation) => new JanusGraphConfigurator(_webSocketProviderConfigurator.ConfigureClientFactory(transformation));
 
-            public IJanusGraphConfigurator ConfigureServer(Func<GremlinServer, GremlinServer> transformation) => new JanusGraphConfigurator(_baseConfigurator.ConfigureServer(transformation));
+            public IJanusGraphConfigurator ConfigureServer(Func<GremlinServer, GremlinServer> transformation) => new JanusGraphConfigurator(_webSocketProviderConfigurator.ConfigureServer(transformation));
 
-            public IGremlinQuerySource Transform(IGremlinQuerySource source) => _baseConfigurator.Transform(source);
+            public IJanusGraphConfigurator ConfigureDeserialization(Func<ITransformer, ITransformer> deserializerTransformation) => new JanusGraphConfigurator(_webSocketProviderConfigurator.ConfigureDeserialization(deserializerTransformation));
+
+            public IGremlinQuerySource Transform(IGremlinQuerySource source) => _webSocketProviderConfigurator.Transform(source);
         }
 
         public static IGremlinQuerySource UseJanusGraph(this IConfigurableGremlinQuerySource source, Func<IJanusGraphConfigurator, IGremlinQuerySourceTransformation> configuratorTransformation)

@@ -1,5 +1,6 @@
 ﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.ExpressionParsing;
+using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Providers.WebSocket;
 using Gremlin.Net.Driver;
 using Gremlin.Net.Process.Traversal;
@@ -101,6 +102,11 @@ namespace ExRam.Gremlinq.Providers.Neptune
 
             public INeptuneConfigurator ConfigureClientFactory(Func<IGremlinClientFactory, IGremlinClientFactory> transformation) => new ElasticSearchAwareNeptuneConfigurator(
                 _baseConfigurator.ConfigureClientFactory(transformation),
+                _elasticSearchEndPoint,
+                _indexConfiguration);
+
+            public INeptuneConfigurator ConfigureDeserialization(Func<ITransformer, ITransformer> deserializerTransformation) => new ElasticSearchAwareNeptuneConfigurator(
+                _baseConfigurator.ConfigureDeserialization(deserializerTransformation),
                 _elasticSearchEndPoint,
                 _indexConfiguration);
         }

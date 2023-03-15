@@ -2,6 +2,7 @@
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Core.Serialization;
+using ExRam.Gremlinq.Core.Transformation;
 using Gremlin.Net.Driver;
 using Gremlin.Net.Driver.Messages;
 using Microsoft.Extensions.Logging;
@@ -87,8 +88,10 @@ namespace ExRam.Gremlinq.Providers.WebSocket
         private readonly string _alias;
         private readonly GremlinServer _gremlinServer;
         private readonly IGremlinClientFactory _clientFactory;
+        private readonly GremlinqConfigurator _gremlinqConfigurator;
 
         public WebSocketProviderConfigurator() : this(
+            new GremlinqConfigurator(),
             new GremlinServer(),
             GremlinClientFactory.Default,
             "g")
@@ -96,6 +99,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
         }
 
         public WebSocketProviderConfigurator(
+            GremlinqConfigurator gremlinqConfigurator,
             GremlinServer gremlinServer,
             IGremlinClientFactory clientFactory,
             string alias)
@@ -103,15 +107,35 @@ namespace ExRam.Gremlinq.Providers.WebSocket
             _alias = alias;
             _gremlinServer = gremlinServer;
             _clientFactory = clientFactory;
+            _gremlinqConfigurator = gremlinqConfigurator;
         }
 
-        public WebSocketProviderConfigurator ConfigureServer(Func<GremlinServer, GremlinServer> transformation) => new WebSocketProviderConfigurator(transformation(_gremlinServer), _clientFactory, _alias);
+        public WebSocketProviderConfigurator ConfigureServer(Func<GremlinServer, GremlinServer> transformation) => new (
+            _gremlinqConfigurator,
+            transformation(_gremlinServer),
+            _clientFactory,
+            _alias);
 
-        public WebSocketProviderConfigurator ConfigureClientFactory(Func<IGremlinClientFactory, IGremlinClientFactory> transformation) => new WebSocketProviderConfigurator(_gremlinServer, transformation(_clientFactory), _alias);
+        public WebSocketProviderConfigurator ConfigureClientFactory(Func<IGremlinClientFactory, IGremlinClientFactory> transformation) => new (
+            _gremlinqConfigurator,
+            _gremlinServer,
+            transformation(_clientFactory),
+            _alias);
 
-        public WebSocketProviderConfigurator ConfigureAlias(Func<string, string> transformation) => new WebSocketProviderConfigurator(_gremlinServer, _clientFactory, transformation(_alias));
+        public WebSocketProviderConfigurator ConfigureAlias(Func<string, string> transformation) => new (
+            _gremlinqConfigurator,
+            _gremlinServer,
+            _clientFactory,
+            transformation(_alias));
 
-        public IGremlinQuerySource Transform(IGremlinQuerySource source) => source
+        public WebSocketProviderConfigurator ConfigureDeserialization(Func<ITransformer, ITransformer> deserializerTransformation) => new(
+            _gremlinqConfigurator.ConfigureDeserialization(deserializerTransformation),
+            _gremlinServer,
+            _clientFactory,
+            _alias);
+
+        public IGremlinQuerySource Transform(IGremlinQuerySource source) => _gremlinqConfigurator
+            .Transform(source)
             .ConfigureEnvironment(environment => environment
                 .UseExecutor(Build().Log()));
 

@@ -1,4 +1,5 @@
-﻿using ExRam.Gremlinq.Providers.GremlinServer;
+﻿using ExRam.Gremlinq.Core.Transformation;
+using ExRam.Gremlinq.Providers.GremlinServer;
 using ExRam.Gremlinq.Providers.WebSocket;
 using Gremlin.Net.Driver;
 
@@ -8,24 +9,26 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class GremlinServerConfigurator : IGremlinServerConfigurator
         {
-            private readonly WebSocketProviderConfigurator _baseConfigurator;
+            private readonly WebSocketProviderConfigurator _webSocketConfigurator;
 
             public GremlinServerConfigurator() : this(new WebSocketProviderConfigurator())
             {
             }
 
-            public GremlinServerConfigurator(WebSocketProviderConfigurator baseConfigurator)
+            public GremlinServerConfigurator(WebSocketProviderConfigurator webSocketConfigurator)
             {
-                _baseConfigurator = baseConfigurator;
+                _webSocketConfigurator = webSocketConfigurator;
             }
 
-            public IGremlinServerConfigurator ConfigureAlias(Func<string, string> transformation) => new GremlinServerConfigurator(_baseConfigurator.ConfigureAlias(transformation));
+            public IGremlinServerConfigurator ConfigureAlias(Func<string, string> transformation) => new GremlinServerConfigurator(_webSocketConfigurator.ConfigureAlias(transformation));
 
-            public IGremlinServerConfigurator ConfigureClientFactory(Func<IGremlinClientFactory, IGremlinClientFactory> transformation) => new GremlinServerConfigurator(_baseConfigurator.ConfigureClientFactory(transformation));
+            public IGremlinServerConfigurator ConfigureClientFactory(Func<IGremlinClientFactory, IGremlinClientFactory> transformation) => new GremlinServerConfigurator(_webSocketConfigurator.ConfigureClientFactory(transformation));
 
-            public IGremlinServerConfigurator ConfigureServer(Func<GremlinServer, GremlinServer> transformation) => new GremlinServerConfigurator(_baseConfigurator.ConfigureServer(transformation));
+            public IGremlinServerConfigurator ConfigureDeserialization(Func<ITransformer, ITransformer> deserializerTransformation) => new GremlinServerConfigurator(_webSocketConfigurator.ConfigureDeserialization(deserializerTransformation));
 
-            public IGremlinQuerySource Transform(IGremlinQuerySource source) => _baseConfigurator.Transform(source);
+            public IGremlinServerConfigurator ConfigureServer(Func<GremlinServer, GremlinServer> transformation) => new GremlinServerConfigurator(_webSocketConfigurator.ConfigureServer(transformation));
+
+            public IGremlinQuerySource Transform(IGremlinQuerySource source) => _webSocketConfigurator.Transform(source);
         }
 
         public static IGremlinQuerySource UseGremlinServer(this IConfigurableGremlinQuerySource source, Func<IGremlinServerConfigurator, IGremlinQuerySourceTransformation> configuratorTransformation)

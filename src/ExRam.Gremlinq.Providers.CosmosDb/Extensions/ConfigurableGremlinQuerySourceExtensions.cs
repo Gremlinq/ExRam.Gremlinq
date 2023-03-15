@@ -69,6 +69,12 @@ namespace ExRam.Gremlinq.Core
                 _graphName,
                 _authKey);
 
+            public ICosmosDbConfigurator ConfigureDeserialization(Func<ITransformer, ITransformer> deserializerTransformation) => new CosmosDbConfigurator(
+                _webSocketConfigurator.ConfigureDeserialization(deserializerTransformation),
+                _databaseName,
+                _graphName,
+                _authKey);
+
             public IGremlinQuerySource Transform(IGremlinQuerySource source) => _webSocketConfigurator.Transform(source);
         }
 
