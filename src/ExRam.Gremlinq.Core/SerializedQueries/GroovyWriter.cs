@@ -20,7 +20,9 @@ namespace ExRam.Gremlinq.Core
             _hasIdentifier = hasIdentifier;
         }
 
-        public GroovyWriter Append(
+        public string ToString(Bytecode bytecode) => Append(bytecode)._builder.ToString();
+
+        private GroovyWriter Append(
             object obj,
             bool allowEnumerableExpansion = false)
         {
@@ -200,7 +202,5 @@ namespace ExRam.Gremlinq.Core
                 _hasIdentifier);
 #endif
         }
-
-        public override string ToString() => _builder.ToString();
     }
 }
