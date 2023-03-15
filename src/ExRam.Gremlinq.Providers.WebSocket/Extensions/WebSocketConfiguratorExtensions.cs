@@ -20,9 +20,6 @@ namespace ExRam.Gremlinq.Providers.WebSocket
                 .ConfigureClientFactory(factory => GremlinClientFactory
                     .Create((server, maybeSerializer, poolSettings, optionsTransformation, sessionId) => factory.Create(server, maybeSerializer is { } serializer ? transformation(serializer) : maybeSerializer, poolSettings, optionsTransformation, sessionId)));
 
-        public static TConfigurator SetAlias<TConfigurator>(this IWebSocketProviderConfigurator<TConfigurator> configurator, string alias)
-            where TConfigurator : IWebSocketProviderConfigurator<TConfigurator> => configurator.ConfigureAlias(_ => alias);
-
         public static TConfigurator At<TConfigurator>(this IWebSocketProviderConfigurator<TConfigurator> configurator, Uri uri)
             where TConfigurator : IWebSocketProviderConfigurator<TConfigurator> => configurator
                 .ConfigureServer(server => server

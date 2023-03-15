@@ -46,9 +46,6 @@ namespace ExRam.Gremlinq.Providers.Core.AspNet
                     configurator
                         .ConfigureClientFactory(factory => new ConnectionPoolSettingsGremlinClientFactory(factory, connectionPoolSection));
 
-                    if (providerSection["Alias"] is { } alias)
-                        configurator = configurator.SetAlias(alias);
-
                     if (authenticationSection["Username"] is { } username && authenticationSection["Password"] is { } password)
                         configurator = configurator.AuthenticateBy(username, password);
 
