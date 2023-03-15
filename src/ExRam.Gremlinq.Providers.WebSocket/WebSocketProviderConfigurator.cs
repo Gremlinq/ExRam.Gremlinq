@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace ExRam.Gremlinq.Providers.WebSocket
 {
-    public sealed class WebSocketProviderConfigurator
+    public sealed class WebSocketProviderConfigurator : IWebSocketProviderConfigurator<WebSocketProviderConfigurator>
     {
         private sealed class WebSocketGremlinQueryExecutor : IGremlinQueryExecutor, IDisposable
         {
