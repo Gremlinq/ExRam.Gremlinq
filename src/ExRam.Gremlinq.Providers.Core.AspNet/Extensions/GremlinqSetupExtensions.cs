@@ -40,7 +40,7 @@ namespace ExRam.Gremlinq.Core.AspNet
         public static GremlinqSetup UseProvider<TConfigurator>(
             this GremlinqSetup setup,
             string sectionName,
-            Func<IConfigurableGremlinQuerySource, Func<TConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource> providerChoice,
+            Func<IConfigurableGremlinQuerySource, Func<TConfigurator, TConfigurator>, IGremlinQuerySource> providerChoice,
             Action<ProviderSetup<TConfigurator>> setupAction,
             Action<ProviderSetup<TConfigurator>>? extraSetupAction) where TConfigurator : IProviderConfigurator<TConfigurator>
         {
