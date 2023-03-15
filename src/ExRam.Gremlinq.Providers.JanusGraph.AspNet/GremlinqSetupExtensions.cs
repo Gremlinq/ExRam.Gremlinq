@@ -12,10 +12,9 @@ namespace ExRam.Gremlinq.Core.AspNet
                 .UseProvider(
                     "JanusGraph",
                     (source, configuratorTransformation) => source
-                        .UseJanusGraph(_ => configuratorTransformation
-                            .Invoke(_)
-                            .UseNewtonsoftJson()),
+                        .UseJanusGraph(configuratorTransformation),
                     setup => setup
+                        .UseNewtonsoftJson()
                         .ConfigureWebSocket(),
                     extraSetupAction);
         }
