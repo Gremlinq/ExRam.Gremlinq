@@ -196,7 +196,7 @@ jobs:
   release:
     needs: [ build, test-linux, test-windows ]
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' && github.ref != 'main' }}
+    if: ${{ github.event_name == 'push' && github.ref_name != 'main' }}
 
     steps:
     - uses: actions/download-artifact@v2
