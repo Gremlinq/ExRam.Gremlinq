@@ -49,6 +49,25 @@ namespace ExRam.Gremlinq.Providers.Core.AspNet
             }
         }
 
+        public static ProviderSetup<TConfigurator> Configure<TConfigurator>(this ProviderSetup<TConfigurator> setup)
+           where TConfigurator : IProviderConfigurator<TConfigurator>
+        {
+            return setup
+                .Configure((configurator, providerSection) =>
+                {
+                    if (providerSection["Alias"] is { Length: > 0 } alias)
+                    {
+                        configurator = configurator
+                            .ConfigureQuerySource(source => source
+                                .ConfigureEnvironment(env => env
+                                    .ConfigureOptions(options => options
+                                        .SetValue(GremlinqOption.Alias, alias))));
+                    }
+
+                    return configurator;
+                });
+        }
+
         public static ProviderSetup<TConfigurator> ConfigureWebSocket<TConfigurator>(this ProviderSetup<TConfigurator> setup)
            where TConfigurator : IWebSocketProviderConfigurator<TConfigurator>
         {
@@ -71,24 +90,6 @@ namespace ExRam.Gremlinq.Providers.Core.AspNet
                 });
         }
 
-        public static ProviderSetup<TConfigurator> Configure<TConfigurator>(this ProviderSetup<TConfigurator> setup)
-           where TConfigurator : IProviderConfigurator<TConfigurator>
-        {
-            return setup
-                .Configure((configurator, providerSection) =>
-                {
-                    if (providerSection["Alias"] is { Length: > 0 } alias)
-                    {
-                        configurator = configurator.ConfigureQuerySource(source => source
-                            .ConfigureEnvironment(env => env
-                                .ConfigureOptions(options => options
-                                    .SetValue(GremlinqOption.Alias, alias))));
-                    }
-
-                    return configurator;
-                });
-        }
-
         public static ProviderSetup<TConfigurator> Configure<TConfigurator>(this ProviderSetup<TConfigurator> setup, Func<TConfigurator, IProviderConfigurationSection, TConfigurator> extraConfiguration)
            where TConfigurator : IProviderConfigurator<TConfigurator>
         {
@@ -101,9 +102,9 @@ namespace ExRam.Gremlinq.Providers.Core.AspNet
         {
             return new ProviderSetup<TConfigurator>(setup
                 .ServiceCollection
-                .AddSingleton<IProviderConfiguratorTransformation<TConfigurator>>(s => new ExtraConfigurationProviderConfiguratorTransformation<TConfigurator>(
-                    s.GetRequiredService<IGremlinqConfigurationSection>(),
-                    s.GetRequiredService<IProviderConfigurationSection>(),
+                .AddSingleton<IProviderConfiguratorTransformation<TConfigurator>>(serviceProvider => new ExtraConfigurationProviderConfiguratorTransformation<TConfigurator>(
+                    serviceProvider.GetRequiredService<IGremlinqConfigurationSection>(),
+                    serviceProvider.GetRequiredService<IProviderConfigurationSection>(),
                     extraConfiguration)));
         }
     }
