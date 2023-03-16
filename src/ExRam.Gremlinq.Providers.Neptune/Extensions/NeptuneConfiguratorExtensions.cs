@@ -1,7 +1,7 @@
 ﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.ExpressionParsing;
-using ExRam.Gremlinq.Core.Transformation;
-using ExRam.Gremlinq.Providers.WebSocket;
+using ExRam.Gremlinq.Providers.Core;
+
 using Gremlin.Net.Driver;
 using Gremlin.Net.Process.Traversal;
 

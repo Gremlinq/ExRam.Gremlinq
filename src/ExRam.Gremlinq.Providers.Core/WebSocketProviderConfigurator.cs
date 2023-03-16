@@ -6,7 +6,7 @@ using Gremlin.Net.Driver;
 using Gremlin.Net.Driver.Messages;
 using Microsoft.Extensions.Logging;
 
-namespace ExRam.Gremlinq.Providers.WebSocket
+namespace ExRam.Gremlinq.Providers.Core
 {
     public sealed class WebSocketProviderConfigurator : IWebSocketProviderConfigurator<WebSocketProviderConfigurator>
     {

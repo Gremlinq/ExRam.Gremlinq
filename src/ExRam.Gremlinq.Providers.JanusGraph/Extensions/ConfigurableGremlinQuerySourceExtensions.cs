@@ -1,7 +1,5 @@
-﻿using ExRam.Gremlinq.Core.Transformation;
-using ExRam.Gremlinq.Providers.GremlinServer;
+﻿using ExRam.Gremlinq.Providers.Core;
 using ExRam.Gremlinq.Providers.JanusGraph;
-using ExRam.Gremlinq.Providers.WebSocket;
 using Gremlin.Net.Driver;
 
 namespace ExRam.Gremlinq.Core

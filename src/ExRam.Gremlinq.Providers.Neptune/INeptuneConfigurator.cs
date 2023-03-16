@@ -1,4 +1,4 @@
-﻿using ExRam.Gremlinq.Providers.WebSocket;
+﻿using ExRam.Gremlinq.Providers.Core;
 
 namespace ExRam.Gremlinq.Providers.Neptune
 {
