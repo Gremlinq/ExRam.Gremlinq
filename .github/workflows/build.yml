@@ -12,20 +12,6 @@ env:
   DotNetVersion: '7.0.102'
 
 jobs:
-  determinePublicationType:
-    runs-on: ubuntu-latest
-    
-    outputs:
-      createRelease: ${{ github.event_name == 'push' && steps.version-regex.outputs.match != '' }}
-      pushToGithubPackages: ${{ github.event_name == 'push' && vars.PUSH_TO_GITHUB_PACKAGES == 'true' }}
-      
-    steps:
-      - name: Determine type of publication
-        uses: actions-ecosystem/action-regex-match@v2.0.2
-        id: version-regex
-        with:
-          text: ${{ github.ref }}
-          regex: '^refs/heads/\d+\.x$'
 
   build:
     runs-on: ubuntu-latest
@@ -176,9 +162,9 @@ jobs:
         branch-suffix: short-commit-hash
 
   push:
-    needs: [ determinePublicationType, build, test-linux, test-windows ]
+    needs: [ build, test-linux, test-windows ]
     runs-on: ubuntu-latest
-    if: ${{ needs.determinePublicationType.outputs.pushToGithubPackages == 'true' }}
+    if: ${{ github.event_name == 'push' && vars.PUSH_TO_GITHUB_PACKAGES == 'true' }}
 
     steps:
 
@@ -208,9 +194,9 @@ jobs:
         min-versions-to-keep: 10
 
   release:
-    needs: [ determinePublicationType, build, test-linux, test-windows ]
+    needs: [ build, test-linux, test-windows ]
     runs-on: ubuntu-latest
-    if: ${{ needs.determinePublicationType.outputs.createRelease == 'true' }}
+    if: ${{ github.event_name == 'push' && github.event_name != 'main' }}
 
     steps:
     - uses: actions/download-artifact@v2
