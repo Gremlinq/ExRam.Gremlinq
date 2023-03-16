@@ -6,11 +6,11 @@
       "_a": "TimeFrame",
       "_b": "PartitionKey",
       "_c": "Duration",
-      "_d": 7200000.0,
+      "_d": "02:00:00",
       "_e": "Enabled",
       "_f": false,
       "_g": "StartTime",
-      "_h": 28800000.0
+      "_h": "08:00:00"
     }
   }
 ]

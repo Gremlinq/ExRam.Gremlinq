@@ -1,1 +1,1 @@
-﻿g.addV('TimeFrame').property(single,'Duration',7200000).property(single,'Enabled',false).property(single,'StartTime',28800000)
+﻿g.addV('TimeFrame').property(single,'Duration',02:00:00).property(single,'Enabled',false).property(single,'StartTime',08:00:00)

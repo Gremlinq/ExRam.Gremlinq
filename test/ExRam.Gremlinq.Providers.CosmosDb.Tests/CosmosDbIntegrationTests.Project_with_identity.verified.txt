@@ -522,44 +522,6 @@
   {
     "Item1": {
       "id": "00000000-0000-0000-0000-000000000000",
-      "label": "TimeFrame",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-            "value": "PartitionKey"
-          }
-        ],
-        "Duration": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": 7200000.0
-          }
-        ],
-        "Enabled": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": false
-          }
-        ],
-        "StartTime": [
-          {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": 28800000.0
-          }
-        ]
-      }
-    },
-    "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
-    }
-  },
-  {
-    "Item1": {
-      "id": "00000000-0000-0000-0000-000000000000",
       "label": "Language",
       "type": "vertex",
       "properties": {
