@@ -1,5 +1,4 @@
-﻿using Gremlin.Net.Driver;
-using Gremlin.Net.Driver.Messages;
+﻿using Gremlin.Net.Driver.Messages;
 
 namespace Gremlin.Net.Driver
 {

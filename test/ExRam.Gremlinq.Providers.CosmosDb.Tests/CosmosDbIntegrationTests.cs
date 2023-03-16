@@ -1,6 +1,4 @@
-﻿using System.Collections.Immutable;
-using System.Text.RegularExpressions;
-using ExRam.Gremlinq.Core;
+﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
 using Microsoft.Azure.Cosmos;
 
