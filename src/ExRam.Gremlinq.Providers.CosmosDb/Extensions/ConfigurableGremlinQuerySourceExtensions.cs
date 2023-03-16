@@ -104,7 +104,6 @@ namespace ExRam.Gremlinq.Core
                 .ConfigureEnvironment(environment => environment
                     .UseGraphSon2()
                     .StoreByteArraysAsBase64String()
-                    .StoreTimeSpansAsNumbers()
                     .ConfigureSerializer(serializer => serializer
                         .Add(ConverterFactory
                             .Create<CosmosDbKey, string>((key, env, recurse) => key.Id)
