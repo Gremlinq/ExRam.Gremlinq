@@ -17,7 +17,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 _factory = factory;
             }
 
-            public bool TryConvert(JValue serialized, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TStaticTarget value)
+            public bool TryConvert(JValue serialized, IGremlinQueryEnvironment environment, ITransformer recurse, out TStaticTarget value)
             {
                 if (_factory.Convert(serialized, environment, recurse) is { } requested)
                 {

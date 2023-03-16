@@ -1,5 +1,4 @@
-﻿using System.Buffers;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Immutable;
 using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Core.Transformation;
@@ -42,7 +41,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                     {
                         static void AddInstruction(Instruction instruction, Bytecode byteCode, IGremlinQueryEnvironment env, ITransformer recurse)
                         {
-                            static void AddInnerInstruction(Instruction instruction, Bytecode byteCode, IGremlinQueryEnvironment env, ITransformer recurse)
+                            static void AddInnerInstruction(Instruction instruction, Bytecode byteCode)
                             {
                                 if (byteCode.StepInstructions.Count == 0 && instruction.OperatorName.StartsWith("with", StringComparison.OrdinalIgnoreCase))
                                     byteCode.SourceInstructions.Add(instruction);
@@ -54,13 +53,13 @@ namespace ExRam.Gremlinq.Core.Serialization
                             {
                                 foreach (var expandedInnerInstruction in expandedInnerInstructions)
                                 {
-                                    AddInnerInstruction(expandedInnerInstruction, byteCode, env, recurse);
+                                    AddInnerInstruction(expandedInnerInstruction, byteCode);
                                 }
                             }
                             else if (recurse.TryTransform(instruction, env, out Instruction? expandedInstruction))
-                                AddInnerInstruction(expandedInstruction, byteCode, env, recurse);
+                                AddInnerInstruction(expandedInstruction, byteCode);
                             else
-                                AddInnerInstruction(instruction, byteCode, env, recurse);
+                                AddInnerInstruction(instruction, byteCode);
                         }
 
                         if (recurse.TryTransform(step, env, out Step[]? expandedSteps))
@@ -80,13 +79,13 @@ namespace ExRam.Gremlinq.Core.Serialization
                         else if (recurse.TryTransform(step, env, out Instruction? expandedInstruction))
                             AddInstruction(expandedInstruction, byteCode, env, recurse);
                     }
-
-                    var j = 0;
+                    
                     var span = traversal.Steps;
                     var byteCode = new Bytecode();
 
                     for (var i = 0; i < span.Length; i++)
                     {
+                        var j = 0;
                         var step = span[i];
 
                         if (step is AsStep asStep)
@@ -200,7 +199,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                 .Create<Bytecode, BytecodeGremlinQuery>(static (bytecode, _, _) => new BytecodeGremlinQuery(bytecode))
                 .AutoRecurse<BytecodeGremlinQuery>())
             .Add(ConverterFactory
-                .Create<StepLabel, string>(static (stepLabel, env, recurse) =>
+                .Create<StepLabel, string>(static (stepLabel, _, _) =>
                 {
                     var stepLabelNames = _stepLabelNames ??= new Dictionary<StepLabel, string>();
 

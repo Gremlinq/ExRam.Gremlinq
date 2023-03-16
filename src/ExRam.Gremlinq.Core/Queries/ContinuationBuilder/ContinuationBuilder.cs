@@ -17,7 +17,7 @@
 
         public ContinuationBuilder<TNewOuterQuery, TAnonymousQuery> WithOuter<TNewOuterQuery>(TNewOuterQuery query)
             where TNewOuterQuery : GremlinQueryBase, IGremlinQueryBase => With(
-                static (outer, anonymous, flags, query) => new ContinuationBuilder<TNewOuterQuery, TAnonymousQuery>(query, anonymous, flags),
+                static (_, anonymous, flags, query) => new ContinuationBuilder<TNewOuterQuery, TAnonymousQuery>(query, anonymous, flags),
                 query);
 
         public SingleContinuationBuilder<TOuterQuery, TAnonymousQuery> With<TProjectedQuery, TState>(Func<TAnonymousQuery, TState, TProjectedQuery> continuation, TState state)

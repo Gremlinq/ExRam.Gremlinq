@@ -24,7 +24,7 @@ namespace ExRam.Gremlinq.Core
             {
                 switch (expression)
                 {
-                    case MemberExpression { Member: PropertyInfo { Name: "Value" } propertyInfo, Expression: { } memberExpressionExpression } when Nullable.GetUnderlyingType(memberExpressionExpression.Type) is not null:
+                    case MemberExpression { Member: PropertyInfo { Name: "Value" }, Expression: { } memberExpressionExpression } when Nullable.GetUnderlyingType(memberExpressionExpression.Type) is not null:
                     {
                         expression = memberExpressionExpression;
                         break;
@@ -112,7 +112,7 @@ namespace ExRam.Gremlinq.Core
 
                         if (methodInfo.IsGenericMethod && methodInfo.GetGenericMethodDefinition() == EnumerableAny)
                         {
-                            return thisExpression is MethodCallExpression previousMethodCallExpression && previousMethodCallExpression.Method.IsGenericMethod && previousMethodCallExpression.Method.GetGenericMethodDefinition() == EnumerableIntersect
+                            return thisExpression is MethodCallExpression { Method.IsGenericMethod: true } previousMethodCallExpression && previousMethodCallExpression.Method.GetGenericMethodDefinition() == EnumerableIntersect
                                 ? WellKnownMember.EnumerableIntersectAny
                                 : WellKnownMember.EnumerableAny;
                         }
@@ -383,7 +383,7 @@ namespace ExRam.Gremlinq.Core
                             var instanceExpression = methodCallExpression.Object!.StripConvert();
                             var argumentExpression = methodCallExpression.Arguments[0].StripConvert();
 
-                            var stringComparison = methodCallExpression.Arguments.Count >= 2 && methodCallExpression.Arguments[1] is { } secondArgument && secondArgument.Type == typeof(StringComparison)
+                            var stringComparison = methodCallExpression.Arguments is [_, { } secondArgument, ..] && secondArgument.Type == typeof(StringComparison)
                                 ? (StringComparison)secondArgument.GetValue()!
                                 : StringComparison.Ordinal;
 

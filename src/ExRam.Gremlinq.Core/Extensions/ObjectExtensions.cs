@@ -63,7 +63,7 @@ namespace ExRam.Gremlinq.Core
         {
             foreach (var kvp in dict)
             {
-                if (kvp.Key is {} key && kvp.Value is { } value && key.ToString() is { } stringKey)
+                if (kvp is { Key: {} key, Value: { } value } && key.ToString() is { } stringKey)
                     yield return (stringKey, value);
             }
         }

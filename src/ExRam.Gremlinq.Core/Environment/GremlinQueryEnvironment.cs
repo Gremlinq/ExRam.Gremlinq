@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Text;
+﻿using System.Text;
 using ExRam.Gremlinq.Core.Deserialization;
 using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Core.Models;
@@ -65,9 +64,9 @@ namespace ExRam.Gremlinq.Core
 
         private sealed class TimeSpanAsNumberConverterFactory : IConverterFactory
         {
-            public sealed class TimeSpanAsNumberConverter<TSource> : IConverter<TSource, TimeSpan>
+            private sealed class TimeSpanAsNumberConverter<TSource> : IConverter<TSource, TimeSpan>
             {
-                public bool TryConvert(TSource source, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TimeSpan value)
+                public bool TryConvert(TSource source, IGremlinQueryEnvironment environment, ITransformer recurse, out TimeSpan value)
                 {
                     if (recurse.TryTransformTo<double>().From(source, environment) is { } parsedDouble)
                     {
@@ -124,7 +123,7 @@ namespace ExRam.Gremlinq.Core
             return environment
                 .ConfigureSerializer(static serializer => serializer
                     .Add(ConverterFactory
-                        .Create<TimeSpan, double>(static (t, env, recurse) => t.TotalMilliseconds)
+                        .Create<TimeSpan, double>(static (t, _, _) => t.TotalMilliseconds)
                         .AutoRecurse<double>()))
                 .ConfigureDeserializer(static deserializer => deserializer
                     .Add(new TimeSpanAsNumberConverterFactory()));
@@ -159,7 +158,7 @@ namespace ExRam.Gremlinq.Core
 
             return environment
                 .ConfigureSerializer(serializer => serializer
-                    .Add(ConverterFactory.Create<RequestMessage, byte[]>((message, env, recurse) =>
+                    .Add(Create<RequestMessage, byte[]>((message, _, _) =>
                     {
                         var graphSONMessage = writer.WriteObject(message);
                         var ret = new byte[Encoding.UTF8.GetByteCount(graphSONMessage) + mimeTypeBytes.Length];

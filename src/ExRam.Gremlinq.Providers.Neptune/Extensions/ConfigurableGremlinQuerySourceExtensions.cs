@@ -2,7 +2,6 @@
 using ExRam.Gremlinq.Providers.Neptune;
 using Gremlin.Net.Process.Traversal;
 using ExRam.Gremlinq.Core.Transformation;
-using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
 using Gremlin.Net.Driver;
 using ExRam.Gremlinq.Providers.Core;
 
@@ -18,7 +17,7 @@ namespace ExRam.Gremlinq.Core
             {
             }
 
-            public NeptuneConfigurator(WebSocketProviderConfigurator webSocketProviderConfigurator)
+            private NeptuneConfigurator(WebSocketProviderConfigurator webSocketProviderConfigurator)
             {
                 _webSocketProviderConfigurator = webSocketProviderConfigurator;
             }

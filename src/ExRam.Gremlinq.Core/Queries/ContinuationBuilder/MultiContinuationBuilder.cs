@@ -31,7 +31,7 @@ namespace ExRam.Gremlinq.Core
             where TNewQuery : IGremlinQueryBase
         {
             return With(
-                static (outer, anonymous, continuations, flags, state) =>
+                static (outer, _, continuations, flags, state) =>
                 {
                     var (builderTransformation, innerState) = state;
 

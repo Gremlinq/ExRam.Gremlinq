@@ -71,7 +71,7 @@ namespace ExRam.Gremlinq.Providers.Core
                     };
 
                     var maybeResults = await client
-                        .SubmitAsync<object>(requestMessage)
+                        .SubmitAsync<object>(requestMessage, ct)
                         .ConfigureAwait(false);
 
                     if (maybeResults is { } results)

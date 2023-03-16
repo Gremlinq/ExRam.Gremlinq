@@ -22,7 +22,7 @@ namespace ExRam.Gremlinq.Core
             {
             }
 
-            public CosmosDbConfigurator(WebSocketProviderConfigurator webSocketProviderConfigurator, string? databaseName, string? graphName, string? authKey)
+            private CosmosDbConfigurator(WebSocketProviderConfigurator webSocketProviderConfigurator, string? databaseName, string? graphName, string? authKey)
             {
                 _authKey = authKey;
                 _graphName = graphName;

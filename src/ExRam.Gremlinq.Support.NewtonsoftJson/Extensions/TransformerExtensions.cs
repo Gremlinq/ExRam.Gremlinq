@@ -29,7 +29,7 @@ namespace ExRam.Gremlinq.Core
                         return ShortcutTransformers
                             .GetValue(
                                 recurse,
-                                transformer => transformer
+                                static transformer => transformer
                                     .Add(ConverterFactory
                                         .Create<JToken, JToken>((token, env, recurse) => token)))
                             .TransformTo<ResponseMessage<List<object>>>()

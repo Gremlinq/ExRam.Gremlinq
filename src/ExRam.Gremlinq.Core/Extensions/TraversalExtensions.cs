@@ -34,7 +34,7 @@ namespace ExRam.Gremlinq.Core
         {
             if (flags.HasFlag(ContinuationFlags.Filter))
             {
-                if (traversal.Count == 1 && traversal[0] is FilterStep.ByTraversalStep filterStep)
+                if (traversal is [FilterStep.ByTraversalStep filterStep])
                     return filterStep.Traversal.Rewrite(flags);
 
                 if (traversal.RewriteForIsContext() is { } rewrittenTraversal)
@@ -184,7 +184,7 @@ namespace ExRam.Gremlinq.Core
             return traversals;
         }
 
-        public static bool IsIdentity(this Traversal traversal) => traversal.Count == 0 || (traversal.Count == 1 && traversal[0] is IdentityStep);
+        public static bool IsIdentity(this Traversal traversal) => traversal.Count == 0 || traversal is [IdentityStep];
 
         public static bool IsNone(this Traversal traversal) => traversal.PeekOrDefault() is NoneStep;
 

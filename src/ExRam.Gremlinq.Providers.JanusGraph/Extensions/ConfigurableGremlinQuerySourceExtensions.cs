@@ -14,7 +14,7 @@ namespace ExRam.Gremlinq.Core
             {
             }
 
-            public JanusGraphConfigurator(WebSocketProviderConfigurator webSocketProviderConfigurator)
+            private JanusGraphConfigurator(WebSocketProviderConfigurator webSocketProviderConfigurator)
             {
                 _webSocketProviderConfigurator = webSocketProviderConfigurator;
             }

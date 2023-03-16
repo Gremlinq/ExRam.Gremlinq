@@ -55,7 +55,7 @@ namespace System
                         relevantT);
             }
 
-            private static Action<TElement, JToken, ITransformer>? CreateSetter<TProperty>(PropertyInfo propertyInfo, IGremlinQueryEnvironment environment)
+            private static Action<TElement, JToken, ITransformer> CreateSetter<TProperty>(PropertyInfo propertyInfo, IGremlinQueryEnvironment environment)
             {
                 return (element, token, recurse) =>
                 {

@@ -20,39 +20,37 @@ namespace ExRam.Gremlinq.Providers.Core
 
         public async Task<ResponseMessage<List<object>>> DeserializeMessageAsync(byte[] message, CancellationToken ct) => message.Length == 0
             ? null!
-            : _environment.Deserializer.TryTransformTo<ResponseMessage<List<object>>>().From(message, _environment) is { } responseMessage
-                ? responseMessage
-                : throw new InvalidOperationException("""
-                       No deserializer configured!
-                       In Gremlinq v12, query result deserialization has been decoupled from the core library.
-                       To keep using Newtonsoft.Json as Json-deserialization mechanism, add a reference to
-                       ExRam.Gremlinq.Support.NewtonsoftJson (or ExRam.Gremlinq.Support.NewtonsoftJson.AspNet on ASP.NET Core)
-                       and call 'UseNewtonsoftJson()' in the provider configuration.
+            : _environment.Deserializer.TryTransformTo<ResponseMessage<List<object>>>().From(message, _environment) ?? throw new InvalidOperationException("""
+                 No deserializer configured!
+                 In Gremlinq v12, query result deserialization has been decoupled from the core library.
+                 To keep using Newtonsoft.Json as Json-deserialization mechanism, add a reference to
+                 ExRam.Gremlinq.Support.NewtonsoftJson (or ExRam.Gremlinq.Support.NewtonsoftJson.AspNet on ASP.NET Core)
+                 and call 'UseNewtonsoftJson()' in the provider configuration.
 
-                       Examples:
+                 Examples:
 
-                       Provider configuration
+                 Provider configuration
 
-                           IGremlinQuerySource g = ...
+                     IGremlinQuerySource g = ...
 
-                           g = g.UseCosmosDb(c => c
-                                   .UseNewtonsoftJson());
+                     g = g.UseCosmosDb(c => c
+                             .UseNewtonsoftJson());
 
-                       ASP.NET Core
+                 ASP.NET Core
 
-                           IServiceCollection services = ...
+                     IServiceCollection services = ...
 
-                           services.AddGremlinq(setup => setup
-                               .UseCosmosDb(providerSetup => providerSetup
-                                   .UseNewtonsoftJson()));
+                     services.AddGremlinq(setup => setup
+                         .UseCosmosDb(providerSetup => providerSetup
+                             .UseNewtonsoftJson()));
 
-                       Manual configuration
+                 Manual configuration
 
-                           IGremlinQuerySource g = ...
+                     IGremlinQuerySource g = ...
 
-                           g = g.ConfigureEnvironment(env => env
-                               .UseNewtonsoftJson());
-                       
-                       """);
+                     g = g.ConfigureEnvironment(env => env
+                         .UseNewtonsoftJson());
+                 
+                 """);
     }
 }

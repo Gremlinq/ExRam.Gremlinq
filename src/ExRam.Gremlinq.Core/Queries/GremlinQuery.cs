@@ -307,7 +307,7 @@ namespace ExRam.Gremlinq.Core
                                         var (chooseTraversal, trueTraversal) = state;
 
                                         return builder
-                                            .AddStep<Step>((chooseTraversal.Count == 1 && chooseTraversal[0] is IsStep isStep)
+                                            .AddStep<Step>(chooseTraversal is [IsStep isStep]
                                                 ? new ChoosePredicateStep(
                                                     isStep.Predicate,
                                                     trueTraversal,
@@ -325,7 +325,7 @@ namespace ExRam.Gremlinq.Core
                         }
 
                         return builder
-                            .AddStep<Step>((chooseTraversal.Count == 1 && chooseTraversal[0] is IsStep isStep)
+                            .AddStep<Step>(chooseTraversal is [IsStep isStep]
                                 ? new ChoosePredicateStep(
                                     isStep.Predicate,
                                     trueTraversal)
@@ -1306,7 +1306,7 @@ namespace ExRam.Gremlinq.Core
                                                                 .Create(
                                                                     3,
                                                                     (stringKey, effectivePredicate),
-                                                                    (steps, state) =>
+                                                                    static (steps, state) =>
                                                                     {
                                                                         var (stringKey, effectivePredicate) = state;
 
@@ -1324,10 +1324,10 @@ namespace ExRam.Gremlinq.Core
                                                     new FilterStep.ByTraversalStep(Traversal
                                                         .Create(
                                                             3,
-                                                            (leftMemberExpression, effectivePredicate),
-                                                            (steps, state) =>
+                                                            (leftMemberExpressionKey, effectivePredicate),
+                                                            static (steps, state) =>
                                                             {
-                                                                var (leftMemberExpression, effectivePredicate) = state;
+                                                                var (leftMemberExpressionKey, effectivePredicate) = state;
 
                                                                 steps[0] = new SelectKeysStep(ImmutableArray.Create(leftMemberExpressionKey));
                                                                 steps[1] = CountStep.Local;

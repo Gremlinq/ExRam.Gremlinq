@@ -14,7 +14,7 @@ namespace ExRam.Gremlinq.Core
             {
             }
 
-            public GremlinServerConfigurator(WebSocketProviderConfigurator webSocketConfigurator)
+            private GremlinServerConfigurator(WebSocketProviderConfigurator webSocketConfigurator)
             {
                 _webSocketConfigurator = webSocketConfigurator;
             }

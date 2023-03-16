@@ -95,7 +95,9 @@ namespace ExRam.Gremlinq.Core
             return new(steps);
         }
 
+#pragma warning disable CS8619
         public ReadOnlySpan<T> AsSpan() => Items.AsSpan()[..Count];
+#pragma warning restore CS8619
 
         public ReadOnlySpan<T> AsSpan(Range range) => AsSpan()[range];
 
@@ -103,9 +105,10 @@ namespace ExRam.Gremlinq.Core
 
         public ReadOnlySpan<T> AsSpan(int start) => AsSpan()[start..];
 
-
+#pragma warning disable CS8619
         public ReadOnlyMemory<T> AsMemory() => Items.AsMemory()[..Count];
-
+#pragma warning restore CS8619
+        
         public ReadOnlyMemory<T> AsMemory(Range range) => AsMemory()[range];
 
         public ReadOnlyMemory<T> AsMemory(int start, int length) => AsMemory().Slice(start, length);

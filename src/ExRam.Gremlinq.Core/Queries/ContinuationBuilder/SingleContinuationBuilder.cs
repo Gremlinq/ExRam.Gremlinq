@@ -27,7 +27,7 @@
         public TNewQuery Build<TNewQuery, TState>(Func<FinalContinuationBuilder<TOuterQuery>, Traversal, TState, TNewQuery> builderTransformation, TState state)
         {
             return With(
-                static (outer, anonymous, continuation, flags, state) =>
+                static (outer, _, continuation, flags, state) =>
                 {
                     var (builderTransformation, innerState) = state;
 

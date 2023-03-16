@@ -13,7 +13,7 @@
             _transformation = transformation;
         }
 
-        public GremlinqConfigurator ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> transformation) => new GremlinqConfigurator(_ => transformation(_transformation(_)));
+        public GremlinqConfigurator ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> transformation) => new (_ => transformation(_transformation(_)));
 
         public IGremlinQuerySource Transform(IGremlinQuerySource source) => _transformation(source);
     }
