@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Core.Models;
@@ -134,7 +135,55 @@ namespace ExRam.Gremlinq.Core
                     deserializer,
                     _serializerFactory);
             }
-        }     
+        }
+
+        private sealed class NativeTypeSerializerConverterFactory<TNative, TSerialized> : IConverterFactory, IConverter<TNative, TSerialized>
+        {
+            private readonly Func<TNative, IGremlinQueryEnvironment, ITransformer, TSerialized> _serializer;
+
+            public NativeTypeSerializerConverterFactory(Func<TNative, IGremlinQueryEnvironment, ITransformer, TSerialized> serializer)
+            {
+                _serializer = serializer;
+            }
+
+            public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>() => this as IConverter<TSource, TTarget>;
+
+            public bool TryConvert(TNative source, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TSerialized? value)
+            {
+                if (_serializer(source, environment, recurse) is { } serialized)
+                {
+                    value = serialized;
+                    return true;
+                }
+
+                value = default;
+                return false;
+            }
+        }
+
+        private sealed class NativeTypeDeserializerConverterFactory<TNative> : IConverterFactory, IConverter<JValue, TNative>
+        {           
+            private readonly Func<JValue, IGremlinQueryEnvironment, ITransformer, TNative> _deserializer;
+
+            public NativeTypeDeserializerConverterFactory(Func<JValue, IGremlinQueryEnvironment, ITransformer, TNative> deserializer)
+            {
+                _deserializer = deserializer;
+            }
+
+            public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>() => this as IConverter<TSource, TTarget>;
+
+            bool IConverter<JValue, TNative>.TryConvert(JValue source, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TNative? value)
+            {
+                if (_deserializer(source, environment, recurse) is { } deserialized)
+                {
+                    value = deserialized;
+                    return true;
+                }
+
+                value = default;
+                return false;
+            }
+        }
 
         private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, GremlinQueryEnvironmentCacheImpl> Caches = new();
 
@@ -143,6 +192,18 @@ namespace ExRam.Gremlinq.Core
             return environment
                 .ConfigureDeserializer(deserializer => deserializer
                     .UseNewtonsoftJson());
+        }
+
+        public static IGremlinQueryEnvironment RegisterNativeType<TNative, TSerialized>(this IGremlinQueryEnvironment environment, Func<TNative, IGremlinQueryEnvironment, ITransformer, TSerialized> serializer, Func<JValue, IGremlinQueryEnvironment, ITransformer, TNative> deserializer)
+        {
+            return environment
+                .ConfigureModel(_ => _
+                    .ConfigureNativeTypes(_ => _
+                        .Add(typeof(TNative))))
+                .ConfigureSerializer(_ => _
+                    .Add(new NativeTypeSerializerConverterFactory<TNative, TSerialized>(serializer)))
+                .ConfigureDeserializer(_ => _
+                    .Add(new NativeTypeDeserializerConverterFactory<TNative>(deserializer)));
         }
 
         internal static JsonSerializer GetJsonSerializer(this IGremlinQueryEnvironment environment, ITransformer deserializer)

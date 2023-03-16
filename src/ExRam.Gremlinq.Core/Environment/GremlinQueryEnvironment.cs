@@ -141,17 +141,6 @@ namespace ExRam.Gremlinq.Core
                         .From(Convert.ToBase64String(bytes), env))));
         }
 
-        public static IGremlinQueryEnvironment RegisterNativeType<TNative>(this IGremlinQueryEnvironment environment, Func<TNative, IGremlinQueryEnvironment, ITransformer, object> serializerDelegate, Func<ITransformer, ITransformer> deserializerTransformation)
-        {
-            return environment
-                .ConfigureModel(static _ => _
-                    .ConfigureNativeTypes(static _ => _
-                        .Add(typeof(TNative))))
-                .ConfigureSerializer(_ => _
-                    .Add(Create(serializerDelegate)))
-                .ConfigureDeserializer(deserializerTransformation);
-        }
-
         private static IGremlinQueryEnvironment UseGraphSon(this IGremlinQueryEnvironment environment, GraphSONWriter writer, string mimeType)
         {
             var mimeTypeBytes = Encoding.UTF8.GetBytes($"{(char)mimeType.Length}{mimeType}");
