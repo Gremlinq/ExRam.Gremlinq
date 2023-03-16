@@ -20,6 +20,8 @@ namespace ExRam.Gremlinq.Providers.Core.AspNet
             where TConfigurator : ExRam.Gremlinq.Providers.Core.IProviderConfigurator<TConfigurator> { }
         public static ExRam.Gremlinq.Providers.Core.AspNet.ProviderSetup<TConfigurator> Configure<TConfigurator>(this ExRam.Gremlinq.Providers.Core.AspNet.ProviderSetup<TConfigurator> setup, System.Func<TConfigurator, ExRam.Gremlinq.Core.AspNet.IGremlinqConfigurationSection, ExRam.Gremlinq.Providers.Core.AspNet.IProviderConfigurationSection, TConfigurator> extraConfiguration)
             where TConfigurator : ExRam.Gremlinq.Providers.Core.IProviderConfigurator<TConfigurator> { }
+        public static ExRam.Gremlinq.Providers.Core.AspNet.ProviderSetup<TConfigurator> ConfigureWebSocket<TConfigurator>(this ExRam.Gremlinq.Providers.Core.AspNet.ProviderSetup<TConfigurator> setup)
+            where TConfigurator : ExRam.Gremlinq.Providers.WebSocket.IWebSocketProviderConfigurator<TConfigurator> { }
     }
     public readonly struct ProviderSetup<TConfigurator>
         where TConfigurator : ExRam.Gremlinq.Providers.Core.IProviderConfigurator<TConfigurator>
