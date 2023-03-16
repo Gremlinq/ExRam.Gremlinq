@@ -30,9 +30,6 @@ namespace ExRam.Gremlinq.PublicApi.Tests
         public Task JanusGraph() => Verify("ExRam.Gremlinq.Providers.JanusGraph");
 
         [Fact]
-        public Task WebSocket() => Verify("ExRam.Gremlinq.Providers.WebSocket");
-
-        [Fact]
         public Task CoreAspNet() => Verify("ExRam.Gremlinq.Core.AspNet");
 
         [Fact]
@@ -49,9 +46,6 @@ namespace ExRam.Gremlinq.PublicApi.Tests
 
         [Fact]
         public Task JanusGraphAspNet() => Verify("ExRam.Gremlinq.Providers.JanusGraph.AspNet");
-
-        [Fact]
-        public Task WebSocketAspNet() => Verify("ExRam.Gremlinq.Providers.WebSocket.AspNet");
 
         [Fact]
         public Task SupportNewtonsoftJson() => Verify("ExRam.Gremlinq.Support.NewtonsoftJson");
