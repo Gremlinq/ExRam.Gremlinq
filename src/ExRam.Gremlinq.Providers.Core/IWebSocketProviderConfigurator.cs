@@ -1,7 +1,7 @@
 ﻿using ExRam.Gremlinq.Providers.Core;
 using _GremlinServer = Gremlin.Net.Driver.GremlinServer;
 
-namespace ExRam.Gremlinq.Providers.WebSocket
+namespace ExRam.Gremlinq.Providers.Core
 {
     public interface IWebSocketProviderConfigurator<out TConfigurator> : IProviderConfigurator<TConfigurator>
         where TConfigurator : IProviderConfigurator<TConfigurator>

@@ -3,7 +3,7 @@ using ExRam.Gremlinq.Core.Transformation;
 using Gremlin.Net.Driver;
 using Gremlin.Net.Driver.Messages;
 
-namespace ExRam.Gremlinq.Providers.WebSocket
+namespace ExRam.Gremlinq.Providers.Core
 {
     internal sealed class DefaultMessageSerializer : IMessageSerializer
     {

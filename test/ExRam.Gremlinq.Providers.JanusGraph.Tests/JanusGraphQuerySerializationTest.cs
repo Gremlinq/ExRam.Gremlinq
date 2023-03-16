@@ -1,7 +1,7 @@
 ﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Core.Tests;
-using ExRam.Gremlinq.Providers.WebSocket;
+using ExRam.Gremlinq.Providers.Core;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.JanusGraph.Tests

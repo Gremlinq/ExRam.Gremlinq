@@ -1,6 +1,6 @@
 ﻿using _GremlinServer = Gremlin.Net.Driver.GremlinServer;
 
-namespace ExRam.Gremlinq.Providers.WebSocket
+namespace Gremlin.Net.Driver
 {
     public static class GremlinServerExtensions
     {

@@ -1,7 +1,6 @@
 ﻿using System.Net.WebSockets;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.AspNet;
-using ExRam.Gremlinq.Providers.WebSocket;
 using Gremlin.Net.Driver;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

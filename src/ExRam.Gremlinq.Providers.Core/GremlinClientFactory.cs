@@ -1,7 +1,7 @@
 ﻿using System.Net.WebSockets;
 using Gremlin.Net.Driver;
 
-namespace ExRam.Gremlinq.Providers.WebSocket
+namespace ExRam.Gremlinq.Providers.Core
 {
     public static class GremlinClientFactory
     {

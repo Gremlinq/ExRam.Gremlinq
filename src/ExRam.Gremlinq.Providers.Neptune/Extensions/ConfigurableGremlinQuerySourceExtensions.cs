@@ -1,10 +1,10 @@
 ﻿using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Providers.Neptune;
-using ExRam.Gremlinq.Providers.WebSocket;
 using Gremlin.Net.Process.Traversal;
 using ExRam.Gremlinq.Core.Transformation;
 using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
 using Gremlin.Net.Driver;
+using ExRam.Gremlinq.Providers.Core;
 
 namespace ExRam.Gremlinq.Core
 {

@@ -1,7 +1,7 @@
 ﻿using Gremlin.Net.Driver;
 using Gremlin.Net.Driver.Messages;
 
-namespace ExRam.Gremlinq.Core
+namespace Gremlin.Net.Driver
 {
     public static class GremlinClientExtensions
     {

@@ -1,8 +1,8 @@
 ﻿using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Core.Transformation;
+using ExRam.Gremlinq.Providers.Core;
 using ExRam.Gremlinq.Providers.CosmosDb;
-using ExRam.Gremlinq.Providers.WebSocket;
 using Gremlin.Net.Driver;
 using Gremlin.Net.Process.Traversal;
 using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;

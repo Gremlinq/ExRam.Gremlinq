@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Core.Tests;
-using ExRam.Gremlinq.Providers.WebSocket;
+using ExRam.Gremlinq.Providers.Core;
 
 namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
 {
