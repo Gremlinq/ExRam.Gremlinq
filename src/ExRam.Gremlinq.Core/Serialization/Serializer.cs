@@ -29,9 +29,14 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         private static ITransformer AddBaseConverters(this ITransformer serializer) => serializer
             .Add(ConverterFactory
-                .Create<IGremlinQueryBase, Traversal>(static (query, env, _) => query
-                    .ToTraversal()
-                    .IncludeProjection(env))
+                .Create<IGremlinQueryBase, Traversal>(static (query, env, _) =>
+                {
+                    _stepLabelNames = null;
+
+                    return query
+                        .ToTraversal()
+                        .IncludeProjection(env);
+                })
                 .AutoRecurse<Traversal>()
                 .Finally(static () => _stepLabelNames = null))
             .Add(ConverterFactory
