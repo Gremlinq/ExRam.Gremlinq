@@ -5,11 +5,48 @@ using ExRam.Gremlinq.Core.Transformation;
 using Gremlin.Net.Process.Traversal;
 using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
 using static ExRam.Gremlinq.Core.Serialization.Instructions;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ExRam.Gremlinq.Core.Serialization
 {
     public static class Serializer
     {
+        private sealed class ByteArrayToStringFallbackConverterFactory : IConverterFactory
+        {
+            private sealed class ByteArrayToStringFallbackConverter<TTarget> : IConverter<byte[], TTarget>
+            {
+                private readonly IGremlinQueryEnvironment _environment;
+
+                public ByteArrayToStringFallbackConverter(IGremlinQueryEnvironment environment)
+                {
+                    _environment = environment;
+                }
+
+                public bool TryConvert(byte[] bytes, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+                {
+                    if (recurse.TryTransform(Convert.ToBase64String(bytes), _environment, out string? requestedString) && requestedString is TTarget targetString)
+                    {
+                        value = targetString;
+                        return true;
+                    }
+
+                    value = default;
+                    return false;
+                }
+            }
+
+            public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
+            {
+                if (!environment.SupportsTypeNatively(typeof(byte[])))
+                {
+                    if (typeof(TSource) == typeof(byte[]) && typeof(TTarget).IsAssignableFrom(typeof(string)))
+                        return (IConverter<TSource, TTarget>)(object)new ByteArrayToStringFallbackConverter<TTarget>(environment);
+                }
+
+                return default;
+            }
+        }
+
         [ThreadStatic]
         internal static Dictionary<StepLabel, string>? _stepLabelNames;
 
@@ -230,12 +267,8 @@ namespace ExRam.Gremlinq.Core.Serialization
             .Add(ConverterFactory
                 .Create<Key, string>(static (key, _, _) => key.RawKey as string)
                 .AutoRecurse<string>())
-            .Add(Create<byte[], string>(static (bytes, env, recurse) => !env.SupportsTypeNatively(typeof(byte[]))
-                ? recurse
-                    .TransformTo<string>()
-                    .From(Convert.ToBase64String(bytes), env)
-                : default))
-             .Add(Create<TimeSpan, double>(static (t, env, recurse) => !env.SupportsTypeNatively(typeof(TimeSpan))
+            .Add(new ByteArrayToStringFallbackConverterFactory())
+            .Add(Create<TimeSpan, double>(static (t, env, recurse) => !env.SupportsTypeNatively(typeof(TimeSpan))
                 ? recurse
                     .TransformTo<double>()
                     .From(t.TotalMilliseconds, env)
