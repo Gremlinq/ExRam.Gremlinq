@@ -1216,7 +1216,7 @@ namespace ExRam.Gremlinq.Core
                         static (__, state) => __.Where(state.right),
                         (left: binary.Left, right: binary.Right)),
 
-                    _ when expression.TryToGremlinExpression(Environment.Model) is { } gremlinExpression => gremlinExpression.Equals(GremlinExpression.True)
+                    _ when expression.TryToGremlinExpression(Environment) is { } gremlinExpression => gremlinExpression.Equals(GremlinExpression.True)
                         ? this
                         : gremlinExpression.Equals(GremlinExpression.False)
                             ? None()
@@ -1390,7 +1390,7 @@ namespace ExRam.Gremlinq.Core
                                                 new FilterStep.ByTraversalStep(this
                                                     .Where(
                                                         KeyStep.Instance,
-                                                        ExpressionFragment.Create(parameterExpression, Environment.Model),
+                                                        ExpressionFragment.Create(parameterExpression, Environment),
                                                         default,
                                                         semantics,
                                                         right)));
@@ -1402,7 +1402,7 @@ namespace ExRam.Gremlinq.Core
                                                 new FilterStep.ByTraversalStep(this
                                                     .Where(
                                                         LabelStep.Instance,
-                                                        ExpressionFragment.Create(parameterExpression, Environment.Model),
+                                                        ExpressionFragment.Create(parameterExpression, Environment),
                                                         default,
                                                         semantics,
                                                         right)));

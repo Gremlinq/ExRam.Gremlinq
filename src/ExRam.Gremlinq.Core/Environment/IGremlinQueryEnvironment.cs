@@ -1,4 +1,5 @@
-﻿using ExRam.Gremlinq.Core.Execution;
+﻿using System.Collections.Immutable;
+using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Core.Transformation;
 using Microsoft.Extensions.Logging;
@@ -13,6 +14,7 @@ namespace ExRam.Gremlinq.Core
         IGremlinQueryEnvironment ConfigureSerializer(Func<ITransformer, ITransformer> serializerTransformation);
         IGremlinQueryEnvironment ConfigureOptions(Func<IGremlinqOptions, IGremlinqOptions> optionsTransformation);
         IGremlinQueryEnvironment ConfigureDeserializer(Func<ITransformer, ITransformer> deserializerTransformation);
+        IGremlinQueryEnvironment ConfigureNativeTypes(Func<IImmutableSet<Type>, IImmutableSet<Type>> transformation);
         IGremlinQueryEnvironment ConfigureDebugger(Func<IGremlinQueryDebugger, IGremlinQueryDebugger> debuggerTransformation);
         IGremlinQueryEnvironment ConfigureExecutor(Func<IGremlinQueryExecutor, IGremlinQueryExecutor> executorTransformation);
 
@@ -25,5 +27,6 @@ namespace ExRam.Gremlinq.Core
         ITransformer Deserializer { get; }
         IGremlinQueryDebugger Debugger { get; }
         IGremlinQueryExecutor Executor { get; }
+        IImmutableSet<Type> NativeTypes { get; }
     }
 }

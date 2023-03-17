@@ -539,6 +539,7 @@ namespace ExRam.Gremlinq.Core
         ExRam.Gremlinq.Core.IFeatureSet FeatureSet { get; }
         Microsoft.Extensions.Logging.ILogger Logger { get; }
         ExRam.Gremlinq.Core.Models.IGraphModel Model { get; }
+        System.Collections.Immutable.IImmutableSet<System.Type> NativeTypes { get; }
         ExRam.Gremlinq.Core.IGremlinqOptions Options { get; }
         ExRam.Gremlinq.Core.Transformation.ITransformer Serializer { get; }
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureDebugger(System.Func<ExRam.Gremlinq.Core.IGremlinQueryDebugger, ExRam.Gremlinq.Core.IGremlinQueryDebugger> debuggerTransformation);
@@ -547,6 +548,7 @@ namespace ExRam.Gremlinq.Core
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureFeatureSet(System.Func<ExRam.Gremlinq.Core.IFeatureSet, ExRam.Gremlinq.Core.IFeatureSet> featureSetTransformation);
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureLogger(System.Func<Microsoft.Extensions.Logging.ILogger, Microsoft.Extensions.Logging.ILogger> loggerTransformation);
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureModel(System.Func<ExRam.Gremlinq.Core.Models.IGraphModel, ExRam.Gremlinq.Core.Models.IGraphModel> modelTransformation);
+        ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureNativeTypes(System.Func<System.Collections.Immutable.IImmutableSet<System.Type>, System.Collections.Immutable.IImmutableSet<System.Type>> transformation);
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureOptions(System.Func<ExRam.Gremlinq.Core.IGremlinqOptions, ExRam.Gremlinq.Core.IGremlinqOptions> optionsTransformation);
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureSerializer(System.Func<ExRam.Gremlinq.Core.Transformation.ITransformer, ExRam.Gremlinq.Core.Transformation.ITransformer> serializerTransformation);
     }
@@ -1441,11 +1443,9 @@ namespace ExRam.Gremlinq.Core.Models
     public interface IGraphModel
     {
         ExRam.Gremlinq.Core.Models.IGraphElementModel EdgesModel { get; }
-        System.Collections.Immutable.IImmutableSet<System.Type> NativeTypes { get; }
         ExRam.Gremlinq.Core.Models.IGraphElementPropertyModel PropertiesModel { get; }
         ExRam.Gremlinq.Core.Models.IGraphElementModel VerticesModel { get; }
         ExRam.Gremlinq.Core.Models.IGraphModel ConfigureEdges(System.Func<ExRam.Gremlinq.Core.Models.IGraphElementModel, ExRam.Gremlinq.Core.Models.IGraphElementModel> transformation);
-        ExRam.Gremlinq.Core.Models.IGraphModel ConfigureNativeTypes(System.Func<System.Collections.Immutable.IImmutableSet<System.Type>, System.Collections.Immutable.IImmutableSet<System.Type>> transformation);
         ExRam.Gremlinq.Core.Models.IGraphModel ConfigureProperties(System.Func<ExRam.Gremlinq.Core.Models.IGraphElementPropertyModel, ExRam.Gremlinq.Core.Models.IGraphElementPropertyModel> transformation);
         ExRam.Gremlinq.Core.Models.IGraphModel ConfigureVertices(System.Func<ExRam.Gremlinq.Core.Models.IGraphElementModel, ExRam.Gremlinq.Core.Models.IGraphElementModel> transformation);
     }
