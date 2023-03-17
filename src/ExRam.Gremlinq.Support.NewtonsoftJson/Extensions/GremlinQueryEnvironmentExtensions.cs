@@ -197,9 +197,8 @@ namespace ExRam.Gremlinq.Core
         public static IGremlinQueryEnvironment RegisterNativeType<TNative, TSerialized>(this IGremlinQueryEnvironment environment, Func<TNative, IGremlinQueryEnvironment, ITransformer, TSerialized> serializer, Func<JValue, IGremlinQueryEnvironment, ITransformer, TNative> deserializer)
         {
             return environment
-                .ConfigureModel(_ => _
-                    .ConfigureNativeTypes(_ => _
-                        .Add(typeof(TNative))))
+                .ConfigureNativeTypes(_ => _
+                    .Add(typeof(TNative)))
                 .ConfigureSerializer(_ => _
                     .Add(new NativeTypeSerializerConverterFactory<TNative, TSerialized>(serializer)))
                 .ConfigureDeserializer(_ => _

@@ -80,7 +80,7 @@ namespace ExRam.Gremlinq.Core
                             .ToArray(),
                         StringComparer.OrdinalIgnoreCase);
 
-                FastNativeTypes = environment.Model.NativeTypes
+                FastNativeTypes = environment.NativeTypes
                     .ToDictionary(static x => x, static _ => default(object?));
 
                 _keyLookup = new KeyLookup(_environment.Model.PropertiesModel);

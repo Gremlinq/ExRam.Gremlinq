@@ -40,7 +40,7 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
 
         public ExpressionFragmentType Type { get; }
 
-        public static ExpressionFragment Create(Expression expression, IGraphModel model)
+        public static ExpressionFragment Create(Expression expression, IGremlinQueryEnvironment environment)
         {
             expression = expression.StripConvert();
 
@@ -50,7 +50,7 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
                     ? StepLabel(stepLabel!, stepLabelExpression)
                     : Constant(expression.GetValue() switch
                     {
-                        IEnumerable enumerable when enumerable is not ICollection && !model.NativeTypes.Contains(enumerable.GetType()) => enumerable.Cast<object>().ToArray(),
+                        IEnumerable enumerable when enumerable is not ICollection && !environment.NativeTypes.Contains(enumerable.GetType()) => enumerable.Cast<object>().ToArray(),
                         { } val => val,
                         _ => null
                     });
