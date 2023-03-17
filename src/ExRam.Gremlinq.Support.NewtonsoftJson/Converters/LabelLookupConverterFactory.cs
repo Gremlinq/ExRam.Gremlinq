@@ -20,11 +20,13 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                     : default;
 
                 if (modelType != null && modelType != typeof(TTarget))
+                {
                     if (recurse.TryDeserialize(modelType).From(serialized, environment) is TTarget target)
                     {
                         value = target;
                         return true;
                     }
+                }
 
                 value = default;
                 return false;
