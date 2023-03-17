@@ -1298,7 +1298,7 @@ namespace ExRam.Gremlinq.Core
                                         {
                                             if (leftMemberExpressionKey.RawKey is string stringKey)
                                             {
-                                                if (!Environment.GetCache().FastNativeTypes.ContainsKey(leftMemberExpression.Type))
+                                                if (!Environment.SupportsType(leftMemberExpression.Type))
                                                 {
                                                     return traversal
                                                         .Push(

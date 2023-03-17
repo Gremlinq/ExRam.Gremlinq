@@ -50,7 +50,7 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
                     ? StepLabel(stepLabel!, stepLabelExpression)
                     : Constant(expression.GetValue() switch
                     {
-                        IEnumerable enumerable when enumerable is not ICollection && !environment.GetCache().FastNativeTypes.ContainsKey(enumerable.GetType()) => enumerable.Cast<object>().ToArray(),
+                        IEnumerable enumerable when enumerable is not ICollection && !environment.SupportsType(enumerable.GetType()) => enumerable.Cast<object>().ToArray(),
                         { } val => val,
                         _ => null
                     });

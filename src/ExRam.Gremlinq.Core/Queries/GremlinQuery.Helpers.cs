@@ -15,7 +15,7 @@ namespace ExRam.Gremlinq.Core
     {
         private IEnumerable<PropertyStep> GetPropertySteps(Key key, object value, bool allowExplicitCardinality)
         {
-            if (value is not Traversal && value is IEnumerable enumerable && !Environment.GetCache().FastNativeTypes.ContainsKey(value.GetType()))
+            if (value is not Traversal && value is IEnumerable enumerable && !Environment.SupportsType(value.GetType()))
             {
                 if (!allowExplicitCardinality)
                     throw new NotSupportedException($"A value of type {value.GetType()} is not supported for property '{key}'.");
