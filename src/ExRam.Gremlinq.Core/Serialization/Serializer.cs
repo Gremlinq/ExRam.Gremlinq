@@ -235,6 +235,11 @@ namespace ExRam.Gremlinq.Core.Serialization
                     .TransformTo<string>()
                     .From(Convert.ToBase64String(bytes), env)
                 : default))
+             .Add(Create<TimeSpan, double>(static (t, env, recurse) => !env.SupportsTypeNatively(typeof(TimeSpan))
+                ? recurse
+                    .TransformTo<double>()
+                    .From(t.TotalMilliseconds, env)
+                : default(double?)))
             .Add(Create<P, P>(static (p, env, recurse) =>
             {
                 if (p.Value is null)

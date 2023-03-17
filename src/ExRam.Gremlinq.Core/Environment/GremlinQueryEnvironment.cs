@@ -147,17 +147,6 @@ namespace ExRam.Gremlinq.Core
 
         public static IGremlinQueryEnvironment UseGraphSon3(this IGremlinQueryEnvironment environment) => environment.UseGraphSon(new GraphSON3Writer(), "application/vnd.gremlin-v3.0+json");
 
-        public static IGremlinQueryEnvironment StoreTimeSpansAsNumbers(this IGremlinQueryEnvironment environment)
-        {
-            return environment
-                .ConfigureSerializer(static serializer => serializer
-                    .Add(ConverterFactory
-                        .Create<TimeSpan, double>(static (t, _, _) => t.TotalMilliseconds)
-                        .AutoRecurse<double>()))
-                .ConfigureDeserializer(static deserializer => deserializer
-                    .Add(new TimeSpanAsNumberConverterFactory()));
-        }
-
         private static IGremlinQueryEnvironment UseGraphSon(this IGremlinQueryEnvironment environment, GraphSONWriter writer, string mimeType)
         {
             var mimeTypeBytes = Encoding.UTF8.GetBytes($"{(char)mimeType.Length}{mimeType}");

@@ -102,7 +102,8 @@ namespace ExRam.Gremlinq.Core
                             .SetValue(GremlinqOption.EdgeProjectionSteps, Traversal.Empty)
                             .SetValue(GremlinqOption.VertexPropertyProjectionSteps, Traversal.Empty))
                         .ConfigureNativeTypes(nativeTypes => nativeTypes
-                            .Remove(typeof(byte[])))
+                            .Remove(typeof(byte[]))
+                            .Remove(typeof(TimeSpan)))
                         .UseGraphSon2()
                         .ConfigureSerializer(serializer => serializer
                             .Add(ConverterFactory
@@ -154,9 +155,7 @@ namespace ExRam.Gremlinq.Core
                                         ? WorkaroundOrder.Decr
                                         : default)
                                 .AutoRecurse<WorkaroundOrder>())
-                            .PreferGroovySerialization())))
-                .ConfigureEnvironment(environment => environment
-                    .StoreTimeSpansAsNumbers());
+                            .PreferGroovySerialization())));
         }
     }
 }

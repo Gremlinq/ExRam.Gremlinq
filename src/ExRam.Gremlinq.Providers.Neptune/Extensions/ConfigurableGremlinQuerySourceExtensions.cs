@@ -45,16 +45,15 @@ namespace ExRam.Gremlinq.Core
                             .ConfigureEdgeFeatures(_ => EdgeFeatures.AddEdges | EdgeFeatures.RemoveEdges | EdgeFeatures.UserSuppliedIds | EdgeFeatures.AddProperty | EdgeFeatures.RemoveProperty | EdgeFeatures.NumericIds | EdgeFeatures.StringIds | EdgeFeatures.UuidIds | EdgeFeatures.CustomIds | EdgeFeatures.AnyIds)
                             .ConfigureEdgePropertyFeatures(_ => EdgePropertyFeatures.Properties | EdgePropertyFeatures.BooleanValues | EdgePropertyFeatures.ByteValues | EdgePropertyFeatures.DoubleValues | EdgePropertyFeatures.FloatValues | EdgePropertyFeatures.IntegerValues | EdgePropertyFeatures.LongValues | EdgePropertyFeatures.StringValues))
                         .ConfigureNativeTypes(nativeTypes => nativeTypes
-                            .Remove(typeof(byte[])))
+                            .Remove(typeof(byte[]))
+                            .Remove(typeof(TimeSpan)))
                         .UseGraphSon3()
                         .ConfigureSerializer(serializer => serializer
                             .Add(ConverterFactory
                                 .Create<PropertyStep.ByKeyStep, PropertyStep.ByKeyStep>((step, env, recurse) => Cardinality.List.Equals(step.Cardinality)
                                     ? new PropertyStep.ByKeyStep(step.Key, step.Value, step.MetaProperties, Cardinality.Set)
                                     : default)
-                                .AutoRecurse<PropertyStep.ByKeyStep>()))))
-                .ConfigureEnvironment(environment => environment
-                    .StoreTimeSpansAsNumbers());
+                                .AutoRecurse<PropertyStep.ByKeyStep>()))));
         }
     }
 }
