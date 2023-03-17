@@ -47,6 +47,42 @@ namespace ExRam.Gremlinq.Core.Serialization
             }
         }
 
+        private sealed class TimeSpanToDoubleConverterFactory : IConverterFactory
+        {
+            private sealed class TimeSpanToDoubleConverter<TTarget> : IConverter<TimeSpan, TTarget>
+            {
+                private readonly IGremlinQueryEnvironment _environment;
+
+                public TimeSpanToDoubleConverter(IGremlinQueryEnvironment environment)
+                {
+                    _environment = environment;
+                }
+
+                public bool TryConvert(TimeSpan timeSpan, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+                {
+                    if (recurse.TryTransform(timeSpan.TotalMilliseconds, _environment, out double? requestedDouble) && requestedDouble is TTarget targetDouble)
+                    {
+                        value = targetDouble;
+                        return true;
+                    }
+
+                    value = default;
+                    return false;
+                }
+            }
+
+            public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
+            {
+                if (!environment.SupportsTypeNatively(typeof(TimeSpan)))
+                {
+                    if (typeof(TSource) == typeof(TimeSpan) && typeof(TTarget).IsAssignableFrom(typeof(double)))
+                        return (IConverter<TSource, TTarget>)(object)new TimeSpanToDoubleConverter<TTarget>(environment);
+                }
+
+                return default;
+            }
+        }
+
         [ThreadStatic]
         internal static Dictionary<StepLabel, string>? _stepLabelNames;
 
@@ -268,11 +304,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                 .Create<Key, string>(static (key, _, _) => key.RawKey as string)
                 .AutoRecurse<string>())
             .Add(new ByteArrayToStringFallbackConverterFactory())
-            .Add(Create<TimeSpan, double>(static (t, env, recurse) => !env.SupportsTypeNatively(typeof(TimeSpan))
-                ? recurse
-                    .TransformTo<double>()
-                    .From(t.TotalMilliseconds, env)
-                : default(double?)))
+            .Add(new TimeSpanToDoubleConverterFactory())
             .Add(Create<P, P>(static (p, env, recurse) =>
             {
                 if (p.Value is null)
