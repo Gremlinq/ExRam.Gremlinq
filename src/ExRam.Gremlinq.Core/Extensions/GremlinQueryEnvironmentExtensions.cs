@@ -7,7 +7,7 @@
             if (environment.SupportsTypeNatively(type))
                 return true;
 
-            if (type == typeof(byte))
+            if (type == typeof(byte[]))
                 return environment.SupportsTypeNatively(typeof(string));
 
             if (type == typeof(TimeSpan))
