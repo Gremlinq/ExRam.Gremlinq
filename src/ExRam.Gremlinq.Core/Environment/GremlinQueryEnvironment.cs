@@ -94,9 +94,16 @@ namespace ExRam.Gremlinq.Core
         {
             private sealed class TimeSpanAsNumberConverter<TSource> : IConverter<TSource, TimeSpan>
             {
-                public bool TryConvert(TSource source, IGremlinQueryEnvironment environment, ITransformer recurse, out TimeSpan value)
+                private readonly IGremlinQueryEnvironment _environment;
+
+                public TimeSpanAsNumberConverter(IGremlinQueryEnvironment environment)
                 {
-                    if (recurse.TryTransformTo<double>().From(source, environment) is { } parsedDouble)
+                    _environment = environment;
+                }
+
+                public bool TryConvert(TSource source, ITransformer recurse, out TimeSpan value)
+                {
+                    if (recurse.TryTransformTo<double>().From(source, _environment) is { } parsedDouble)
                     {
                         value = TimeSpan.FromMilliseconds(parsedDouble);
                         return true;
@@ -107,10 +114,10 @@ namespace ExRam.Gremlinq.Core
                 }
             }
 
-            public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>()
+            public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
             {
                 return typeof(TTarget) == typeof(TimeSpan)
-                    ? (IConverter<TSource, TTarget>)(object)new TimeSpanAsNumberConverter<TSource>()
+                    ? (IConverter<TSource, TTarget>)(object)new TimeSpanAsNumberConverter<TSource>(environment)
                     : default;
             }
         }

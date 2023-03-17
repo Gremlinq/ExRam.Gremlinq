@@ -10,30 +10,41 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
     {
         private abstract class EnumerableConverter<TTargetItem>
         {
-            protected IEnumerable<TTargetItem> GetEnumerable(JArray source, IGremlinQueryEnvironment environment, ITransformer recurse)
+            protected EnumerableConverter(IGremlinQueryEnvironment environment)
+            {
+                Environment = environment;
+            }
+
+            protected IEnumerable<TTargetItem> GetEnumerable(JArray source, ITransformer recurse)
             {
                 for (var i = 0; i < source.Count; i++)
                 {
-                    if (source[i] is JObject traverserObject && traverserObject.TryExpandTraverser<TTargetItem>(environment, recurse) is { } enumerable)
+                    if (source[i] is JObject traverserObject && traverserObject.TryExpandTraverser<TTargetItem>(Environment, recurse) is { } enumerable)
                     {
                         foreach (var item1 in enumerable)
                             yield return item1;
                     }
-                    else if (recurse.TryTransform<JToken, TTargetItem>(source[i], environment, out var item2))
+                    else if (recurse.TryTransform<JToken, TTargetItem>(source[i], Environment, out var item2))
                     {
                         yield return item2;
                     }
                 }
             }
+
+            protected IGremlinQueryEnvironment Environment { get; }
         }
 
         private sealed class ArrayConverter<TTargetArray, TTargetItem> : EnumerableConverter<TTargetItem>, IConverter<JArray, TTargetArray>
         {
-            public bool TryConvert(JArray serialized, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTargetArray? value)
+            public ArrayConverter(IGremlinQueryEnvironment environment) : base(environment)
             {
-                if (!environment.SupportsType(typeof(TTargetArray)))
+            }
+
+            public bool TryConvert(JArray serialized, ITransformer recurse, [NotNullWhen(true)] out TTargetArray? value)
+            {
+                if (!Environment.SupportsType(typeof(TTargetArray)))
                 {
-                    value = (TTargetArray)(object)GetEnumerable(serialized, environment, recurse).ToArray();
+                    value = (TTargetArray)(object)GetEnumerable(serialized, recurse).ToArray();
                     return true;
                 }
 
@@ -44,22 +55,26 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
         private sealed class ListConverter<TTarget, TTargetItem> : EnumerableConverter<TTargetItem>, IConverter<JArray, TTarget>
         {
-            public bool TryConvert(JArray serialized, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+            public ListConverter(IGremlinQueryEnvironment environment) : base(environment)
             {
-                value = (TTarget)(object)GetEnumerable(serialized, environment, recurse).ToList();
+            }
+
+            public bool TryConvert(JArray serialized, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+            {
+                value = (TTarget)(object)GetEnumerable(serialized, recurse).ToList();
                 return true;
             }
         }
 
-        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>()
+        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
         {
             if (typeof(TSource) == typeof(JArray))
             {
                 if (typeof(TTarget).IsAssignableFrom(typeof(object[])))
-                    return (IConverter<TSource, TTarget>?)(object)new ArrayConverter<TTarget, object>();
+                    return (IConverter<TSource, TTarget>?)(object)new ArrayConverter<TTarget, object>(environment);
 
                 if (typeof(TTarget).IsArray)
-                    return (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(ArrayConverter<,>).MakeGenericType(typeof(TTarget), typeof(TTarget).GetElementType()!));
+                    return (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(ArrayConverter<,>).MakeGenericType(typeof(TTarget), typeof(TTarget).GetElementType()!), environment);
 
                 if (typeof(TTarget).IsConstructedGenericType && typeof(IEnumerable).IsAssignableFrom(typeof(TTarget)))
                 {
@@ -68,7 +83,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                         var listType = typeof(List<>).MakeGenericType(elementType);
 
                         if (typeof(TTarget).IsAssignableFrom(listType))
-                            return (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(ListConverter<,>).MakeGenericType(typeof(TTarget), typeof(TTarget).GenericTypeArguments[0]));
+                            return (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(ListConverter<,>).MakeGenericType(typeof(TTarget), typeof(TTarget).GenericTypeArguments[0]), environment);
                     }
                 }
             }

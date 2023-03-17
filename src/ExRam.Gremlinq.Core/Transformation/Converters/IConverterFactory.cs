@@ -2,6 +2,6 @@
 {
     public interface IConverterFactory
     {
-        IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>();
+        IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment);
     }
 }

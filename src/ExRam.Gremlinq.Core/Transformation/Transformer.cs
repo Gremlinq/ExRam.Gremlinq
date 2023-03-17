@@ -26,13 +26,12 @@ namespace ExRam.Gremlinq.Core.Transformation
             }
 
             private readonly ImmutableStack<IConverterFactory> _converterFactories;
-            private readonly ConcurrentDictionary<(Type, Type, Type), Delegate> _conversionDelegates = new();
+            private readonly ConcurrentDictionary<(IGremlinQueryEnvironment, Type, Type, Type), Delegate> _conversionDelegates = new();
 
             public TransformerImpl(ImmutableStack<IConverterFactory> converterFactories)
             {
                 _converterFactories = converterFactories;
             }
-     
 
             public ITransformer Add(IConverterFactory converterFactory)
             {
@@ -45,19 +44,19 @@ namespace ExRam.Gremlinq.Core.Transformation
                 {
                     var maybeDeserializerDelegate = _conversionDelegates
                         .GetOrAdd(
-                            (typeof(TSource), actualSerialized.GetType(), typeof(TTarget)),
+                            (environment, typeof(TSource), actualSerialized.GetType(), typeof(TTarget)),
                             static (typeTuple, @this) =>
                             {
-                                var (staticSerializedType, actualSerializedType, requestedType) = typeTuple;
+                                var (environment, staticSerializedType, actualSerializedType, requestedType) = typeTuple;
 
                                 return (Delegate)typeof(TransformerImpl)
                                     .GetMethod(nameof(GetTransformationFunction), BindingFlags.Instance | BindingFlags.NonPublic)!
                                     .MakeGenericMethod(staticSerializedType, actualSerializedType, requestedType)
-                                    .Invoke(@this, Array.Empty<object>())!;
+                                    .Invoke(@this, new object [] { environment })!;
                             },
-                            this) as Func<TSource, IGremlinQueryEnvironment, Option<TTarget>>;
+                            this) as Func<TSource, Option<TTarget>>;
 
-                    if (maybeDeserializerDelegate is { } deserializerDelegate && deserializerDelegate(source, environment) is { HasValue: true, Value: { } optionValue })
+                    if (maybeDeserializerDelegate is { } deserializerDelegate && deserializerDelegate(source) is { HasValue: true, Value: { } optionValue })
                     {
                         value = optionValue;
                         return true;
@@ -68,22 +67,22 @@ namespace ExRam.Gremlinq.Core.Transformation
                 return false;
             }
 
-            private Func<TStaticSource, IGremlinQueryEnvironment, Option<TTarget>> GetTransformationFunction<TStaticSource, TActualSource, TTarget>()
+            private Func<TStaticSource, Option<TTarget>> GetTransformationFunction<TStaticSource, TActualSource, TTarget>(IGremlinQueryEnvironment environment)
                 where TActualSource : TStaticSource
             {
                 var converters = _converterFactories
-                    .Select(static factory => factory.TryCreate<TActualSource, TTarget>())
+                    .Select(factory => factory.TryCreate<TActualSource, TTarget>(environment))
                     .Where(static converter => converter != null)
                     .Select(static converter => converter!)
                     .ToArray();
 
-                return (staticSerialized, environment) =>
+                return (staticSerialized) =>
                 {
                     if (staticSerialized is TActualSource actualSerialized)
                     {
                         foreach (var converter in converters)
                         {
-                            if (converter.TryConvert(actualSerialized, environment, this, out var value))
+                            if (converter.TryConvert(actualSerialized, this, out var value))
                                 return Option<TTarget>.From(value);
                         }
                     }

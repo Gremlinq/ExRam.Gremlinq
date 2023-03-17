@@ -10,16 +10,18 @@ namespace ExRam.Gremlinq.Core.Transformation
             private sealed class ClassFuncConverter<TSource, TTarget> : IConverter<TSource, TTarget>
                 where TTarget : class
             {
+                private readonly IGremlinQueryEnvironment _environment;
                 private readonly Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, TTarget?> _func;
 
-                public ClassFuncConverter(Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, TStaticTarget?> func)
+                public ClassFuncConverter(Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, TStaticTarget?> func, IGremlinQueryEnvironment environment)
                 {
+                    _environment = environment;
                     _func = (Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, TTarget?>)(object)func;
                 }
 
-                public bool TryConvert(TSource source, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+                public bool TryConvert(TSource source, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
                 {
-                    if (source is TStaticSource staticSerialized && _func(staticSerialized, environment, recurse) is { } requested)
+                    if (source is TStaticSource staticSerialized && _func(staticSerialized, _environment, recurse) is { } requested)
                     {
                         value = requested;
 
@@ -39,10 +41,10 @@ namespace ExRam.Gremlinq.Core.Transformation
                 _func = func;
             }
 
-            public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>()
+            public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
             {
                 return (typeof(TSource).IsAssignableFrom(typeof(TStaticSource)) || typeof(TStaticSource).IsAssignableFrom(typeof(TSource))) && typeof(TTarget).IsAssignableFrom(typeof(TStaticTarget))
-                    ? (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(ClassFuncConverter<,>).MakeGenericType(typeof(TStaticSource), typeof(TStaticTarget), typeof(TSource), typeof(TTarget)), _func)
+                    ? (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(ClassFuncConverter<,>).MakeGenericType(typeof(TStaticSource), typeof(TStaticTarget), typeof(TSource), typeof(TTarget)), _func, environment)
                     : null;
             }
         }
@@ -53,16 +55,18 @@ namespace ExRam.Gremlinq.Core.Transformation
             private sealed class StructToClassFuncConverter<TSource, TTarget> : IConverter<TSource, TTarget>
                 where TTarget : class
             {
+                private readonly IGremlinQueryEnvironment _environment;
                 private readonly Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, TTarget?> _func;
 
-                public StructToClassFuncConverter(Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, TStaticTarget?> func)
+                public StructToClassFuncConverter(Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, TStaticTarget?> func, IGremlinQueryEnvironment environment)
                 {
+                    _environment = environment;
                     _func = (source, env, recurse) => (TTarget?)(object?)func(source, env, recurse);
                 }
 
-                public bool TryConvert(TSource source, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+                public bool TryConvert(TSource source, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
                 {
-                    if (source is TStaticSource staticSource && _func(staticSource, environment, recurse) is { } requested)
+                    if (source is TStaticSource staticSource && _func(staticSource, _environment, recurse) is { } requested)
                     {
                         value = requested;
 
@@ -77,16 +81,18 @@ namespace ExRam.Gremlinq.Core.Transformation
 
             private sealed class StructToStructFuncConverter<TSource> : IConverter<TSource, TStaticTarget>
             {
+                private readonly IGremlinQueryEnvironment _environment;
                 private readonly Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, TStaticTarget?> _func;
 
-                public StructToStructFuncConverter(Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, TStaticTarget?> func)
+                public StructToStructFuncConverter(Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, TStaticTarget?> func, IGremlinQueryEnvironment environment)
                 {
                     _func = func;
+                    _environment = environment;
                 }
 
-                public bool TryConvert(TSource source, IGremlinQueryEnvironment environment, ITransformer recurse, out TStaticTarget value)
+                public bool TryConvert(TSource source, ITransformer recurse, out TStaticTarget value)
                 {
-                    if (source is TStaticSource staticSource && _func(staticSource, environment, recurse) is { } requested)
+                    if (source is TStaticSource staticSource && _func(staticSource, _environment, recurse) is { } requested)
                     {
                         value = requested;
 
@@ -106,15 +112,15 @@ namespace ExRam.Gremlinq.Core.Transformation
                 _func = func;
             }
 
-            public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>()
+            public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
             {
                 if ((typeof(TSource).IsAssignableFrom(typeof(TStaticSource)) || typeof(TStaticSource).IsAssignableFrom(typeof(TSource))) && typeof(TTarget).IsAssignableFrom(typeof(TStaticTarget)))
                 {
                     if (typeof(TTarget).IsClass)
-                        return (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(StructToClassFuncConverter<,>).MakeGenericType(typeof(TStaticSource), typeof(TStaticTarget), typeof(TSource), typeof(TTarget)), _func);
+                        return (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(StructToClassFuncConverter<,>).MakeGenericType(typeof(TStaticSource), typeof(TStaticTarget), typeof(TSource), typeof(TTarget)), _func, environment);
 
                     if (typeof(TStaticTarget) == typeof(TTarget))
-                        return (IConverter<TSource, TTarget>)(object)new StructToStructFuncConverter<TSource>(_func);
+                        return (IConverter<TSource, TTarget>)(object)new StructToStructFuncConverter<TSource>(_func, environment);
 
                     throw new NotSupportedException();
                 }
@@ -127,16 +133,18 @@ namespace ExRam.Gremlinq.Core.Transformation
         {
             private sealed class AutoRecurseConverter<TSource, TTarget> : IConverter<TSource, TTarget>
             {
+                private readonly IGremlinQueryEnvironment _environment;
                 private readonly IConverter<TSource, TStaticTarget> _baseConverter;
 
-                public AutoRecurseConverter(IConverter<TSource, TStaticTarget> baseConverter)
+                public AutoRecurseConverter(IConverter<TSource, TStaticTarget> baseConverter, IGremlinQueryEnvironment environment)
                 {
+                    _environment = environment;
                     _baseConverter = baseConverter;
                 }
 
-                public bool TryConvert(TSource source, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+                public bool TryConvert(TSource source, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
                 {
-                    if (_baseConverter.TryConvert(source, environment, recurse, out var staticTargetValue))
+                    if (_baseConverter.TryConvert(source, recurse, out var staticTargetValue))
                     {
                         if (staticTargetValue is TTarget targetValue)
                         {
@@ -144,7 +152,7 @@ namespace ExRam.Gremlinq.Core.Transformation
                             return true;
                         }
 
-                        return recurse.TryTransform(staticTargetValue, environment, out value);
+                        return recurse.TryTransform(staticTargetValue, _environment, out value);
                     }
 
                     value = default;
@@ -159,10 +167,10 @@ namespace ExRam.Gremlinq.Core.Transformation
                 _baseFactory = baseFactory;
             }
 
-            public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>()
+            public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
             {
-                return _baseFactory.TryCreate<TSource, TStaticTarget>() is { } baseConverter
-                    ? new AutoRecurseConverter<TSource, TTarget>(baseConverter)
+                return _baseFactory.TryCreate<TSource, TStaticTarget>(environment) is { } baseConverter
+                    ? new AutoRecurseConverter<TSource, TTarget>(baseConverter, environment)
                     : default;
             }
         }
@@ -180,11 +188,11 @@ namespace ExRam.Gremlinq.Core.Transformation
                     _finallyAction = finallyAction;
                 }
 
-                public bool TryConvert(TSource source, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+                public bool TryConvert(TSource source, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
                 {
                     try
                     {
-                        return _baseConverter.TryConvert(source, environment, recurse, out value);
+                        return _baseConverter.TryConvert(source, recurse, out value);
                     }
                     finally
                     {
@@ -202,9 +210,9 @@ namespace ExRam.Gremlinq.Core.Transformation
                 _baseConverterFactory = baseConverterFactory;
             }
 
-            public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>()
+            public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
             {
-                return _baseConverterFactory.TryCreate<TSource, TTarget>() is { } converter
+                return _baseConverterFactory.TryCreate<TSource, TTarget>(environment) is { } converter
                     ? new FinallyConverter<TSource, TTarget>(converter, _finallyAction)
                     : default;
             }
@@ -221,7 +229,7 @@ namespace ExRam.Gremlinq.Core.Transformation
                     _filter = filter;
                 }
 
-                public bool TryConvert(TSource source, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+                public bool TryConvert(TSource source, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
                 {
                     if (source is TStaticSource staticSource)
                         _filter(staticSource);
@@ -238,7 +246,7 @@ namespace ExRam.Gremlinq.Core.Transformation
                 _filter = filter;
             }
 
-            public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>() => typeof(TStaticSource).IsAssignableFrom(typeof(TSource)) || typeof(TSource).IsAssignableFrom(typeof(TStaticSource))
+            public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment) => typeof(TStaticSource).IsAssignableFrom(typeof(TSource)) || typeof(TSource).IsAssignableFrom(typeof(TStaticSource))
                 ? new GuardConverter<TSource, TTarget>(_filter)
                 : null;
         }

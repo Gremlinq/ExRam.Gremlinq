@@ -9,7 +9,14 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
     {
         private sealed class ConvertMapsConverter<TTarget> : IConverter<JObject, TTarget>
         {
-            public bool TryConvert(JObject serialized, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+            private readonly IGremlinQueryEnvironment _environment;
+
+            public ConvertMapsConverter(IGremlinQueryEnvironment environment)
+            {
+                _environment = environment;
+            }
+
+            public bool TryConvert(JObject serialized, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
             {
                 if (serialized.TryGetValue("@type", out var nestedType) && "g:Map".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase))
                 {
@@ -23,7 +30,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                                 retObject.Add(key.Value<string>()!, mapArray[i * 2 + 1]);
                         }
 
-                        return recurse.TryTransform(retObject, environment, out value);
+                        return recurse.TryTransform(retObject, _environment, out value);
                     }
                 }
 
@@ -32,10 +39,10 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             }
         }
 
-        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>()
+        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
         {
             return typeof(TSource) == typeof(JObject)
-                ? (IConverter<TSource, TTarget>)(object)new ConvertMapsConverter<TTarget>()
+                ? (IConverter<TSource, TTarget>)(object)new ConvertMapsConverter<TTarget>(environment)
                 : default;
         }
     }

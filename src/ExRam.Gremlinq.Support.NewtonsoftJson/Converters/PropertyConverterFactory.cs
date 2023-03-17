@@ -11,9 +11,16 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
         private sealed class PropertyConverter<TTargetProperty, TTargetPropertyValue> : IConverter<JValue, TTargetProperty>
             where TTargetProperty : Property
         {
-            public bool TryConvert(JValue serialized, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTargetProperty? value)
+            private readonly IGremlinQueryEnvironment _environment;
+
+            public PropertyConverter(IGremlinQueryEnvironment environment)
             {
-                if (recurse.TryTransform<JValue, TTargetPropertyValue>(serialized, environment, out var propertyValue))
+                _environment = environment;
+            }
+
+            public bool TryConvert(JValue serialized, ITransformer recurse, [NotNullWhen(true)] out TTargetProperty? value)
+            {
+                if (recurse.TryTransform<JValue, TTargetPropertyValue>(serialized, _environment, out var propertyValue))
                 {
                     //TODO: Improvement opportunity.
                     if (Activator.CreateInstance(typeof(TTargetProperty), propertyValue) is TTargetProperty requestedProperty)
@@ -28,10 +35,10 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             }
         }
 
-        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>()
+        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
         {
             return typeof(TSource) == typeof(JValue) && typeof(Property).IsAssignableFrom(typeof(TTarget)) && typeof(TTarget).IsGenericType
-                ? (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(PropertyConverter<,>).MakeGenericType(typeof(TTarget), typeof(TTarget).GetGenericArguments()[0]))
+                ? (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(PropertyConverter<,>).MakeGenericType(typeof(TTarget), typeof(TTarget).GetGenericArguments()[0]), environment)
                 : default;
         }
     }
