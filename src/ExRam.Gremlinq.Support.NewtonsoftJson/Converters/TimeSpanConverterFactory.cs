@@ -11,7 +11,11 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
         {
             return jValue.Type == JTokenType.String
                 ? XmlConvert.ToTimeSpan(jValue.Value<string>()!)
-                : default(TimeSpan?);
+                : jValue.Type == JTokenType.Float
+                    ? TimeSpan.FromMilliseconds(jValue.Value<double>())
+                    : jValue.Type == JTokenType.Integer
+                        ? TimeSpan.FromMilliseconds(jValue.Value<long>())
+                        : default(TimeSpan?);
         }
     }
 }
