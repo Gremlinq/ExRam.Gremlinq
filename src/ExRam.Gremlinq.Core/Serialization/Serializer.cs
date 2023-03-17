@@ -84,7 +84,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                         else if (recurse.TryTransform(step, env, out Instruction? expandedInstruction))
                             AddInstruction(expandedInstruction, byteCode, env, recurse);
                     }
-                    
+
                     var span = traversal.Steps;
                     var byteCode = new Bytecode();
 
@@ -230,6 +230,11 @@ namespace ExRam.Gremlinq.Core.Serialization
             .Add(ConverterFactory
                 .Create<Key, string>(static (key, _, _) => key.RawKey as string)
                 .AutoRecurse<string>())
+            .Add(Create<byte[], string>(static (bytes, env, recurse) => !env.SupportsTypeNatively(typeof(byte[]))
+                ? recurse
+                    .TransformTo<string>()
+                    .From(Convert.ToBase64String(bytes), env)
+                : default))
             .Add(Create<P, P>(static (p, env, recurse) =>
             {
                 if (p.Value is null)
