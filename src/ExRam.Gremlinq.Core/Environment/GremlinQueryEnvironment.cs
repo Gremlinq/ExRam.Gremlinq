@@ -161,6 +161,8 @@ namespace ExRam.Gremlinq.Core
         public static IGremlinQueryEnvironment StoreByteArraysAsBase64String(this IGremlinQueryEnvironment environment)
         {
             return environment
+                .ConfigureNativeTypes(nativeTypes => nativeTypes
+                    .Remove(typeof(byte[])))
                 .ConfigureSerializer(static _ => _
                     .Add(Create<byte[], string>(static (bytes, env, recurse) => recurse
                         .TransformTo<string>()
