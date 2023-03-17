@@ -34,7 +34,14 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
         public sealed class TypedValueConverter<TTarget> : IConverter<JObject, TTarget>
         {
-            public bool TryConvert(JObject serialized, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+            private readonly IGremlinQueryEnvironment _environment;
+
+            public TypedValueConverter(IGremlinQueryEnvironment environment)
+            {
+                _environment = environment;
+            }
+
+            public bool TryConvert(JObject serialized, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
             {
                 if (serialized.TryGetValue("@type", out var typeName) && serialized.TryGetValue("@value", out var valueToken))
                 {
@@ -42,7 +49,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                     {
                         if (typeof(TTarget) != moreSpecificType && typeof(TTarget).IsAssignableFrom(moreSpecificType))
                         {
-                            if (recurse.TryDeserialize(moreSpecificType).From(valueToken, environment) is TTarget target)
+                            if (recurse.TryDeserialize(moreSpecificType).From(valueToken, _environment) is TTarget target)
                             {
                                 value = target;
                                 return true;
@@ -50,7 +57,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                         }
                     }
 
-                    return recurse.TryTransform(valueToken, environment, out value);
+                    return recurse.TryTransform(valueToken, _environment, out value);
                 }
 
                 value = default;
@@ -58,10 +65,10 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             }
         }
 
-        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>()
+        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
         {
             return typeof(TSource) == typeof(JObject)
-                ? (IConverter<TSource, TTarget>)(object)new TypedValueConverter<TTarget>()
+                ? (IConverter<TSource, TTarget>)(object)new TypedValueConverter<TTarget>(environment)
                 : default;
         }
     }

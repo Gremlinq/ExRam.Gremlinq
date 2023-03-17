@@ -10,14 +10,21 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
     {
         private sealed class ExpandoObjectConverter<TTarget> : IConverter<JObject, TTarget>
         {
-            public bool TryConvert(JObject serialized, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+            private readonly IGremlinQueryEnvironment _environment;
+
+            public ExpandoObjectConverter(IGremlinQueryEnvironment environment)
             {
-                if (recurse.TryTransform<JObject, JObject>(serialized, environment, out var strippedJObject))
+                _environment = environment;
+            }
+
+            public bool TryConvert(JObject serialized, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+            {
+                if (recurse.TryTransform<JObject, JObject>(serialized, _environment, out var strippedJObject))
                 {
                     var expando = new ExpandoObject();
 
                     foreach (var property in strippedJObject)
-                        if (property.Value is { } propertyValue && recurse.TryTransform<JToken, object>(propertyValue, environment, out var item))
+                        if (property.Value is { } propertyValue && recurse.TryTransform<JToken, object>(propertyValue, _environment, out var item))
                             expando.TryAdd(property.Key, item);
 
                     value = (TTarget)(object)expando;
@@ -29,10 +36,10 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             }
         }
 
-        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>()
+        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
         {
             return typeof(TSource) == typeof(JObject) && typeof(TTarget).IsAssignableFrom(typeof(ExpandoObject))
-                ? (IConverter<TSource, TTarget>)(object)new ExpandoObjectConverter<TTarget>()
+                ? (IConverter<TSource, TTarget>)(object)new ExpandoObjectConverter<TTarget>(environment)
                 : default;
         }
     }

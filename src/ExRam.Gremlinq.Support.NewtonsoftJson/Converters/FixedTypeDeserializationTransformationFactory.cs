@@ -10,16 +10,18 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
     {
         private sealed class FixedTypeConverter : IConverter<JValue, TStaticTarget>
         {
+            private readonly IGremlinQueryEnvironment _environment;
             private readonly FixedTypeConverterFactory<TStaticTarget> _factory;
 
-            public FixedTypeConverter(FixedTypeConverterFactory<TStaticTarget> factory)
+            public FixedTypeConverter(FixedTypeConverterFactory<TStaticTarget> factory, IGremlinQueryEnvironment environment)
             {
                 _factory = factory;
+                _environment = environment;
             }
 
-            public bool TryConvert(JValue serialized, IGremlinQueryEnvironment environment, ITransformer recurse, out TStaticTarget value)
+            public bool TryConvert(JValue serialized, ITransformer recurse, out TStaticTarget value)
             {
-                if (_factory.Convert(serialized, environment, recurse) is { } requested)
+                if (_factory.Convert(serialized, _environment, recurse) is { } requested)
                 {
                     value = requested;
 
@@ -32,10 +34,10 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             }
         }
 
-        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>()
+        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
         {
             return typeof(TTarget) == typeof(TStaticTarget) && typeof(TSource) == typeof(JValue)
-                ? (IConverter<TSource, TTarget>)(object)new FixedTypeConverter(this)
+                ? (IConverter<TSource, TTarget>)(object)new FixedTypeConverter(this, environment)
                 : null;
         }
 

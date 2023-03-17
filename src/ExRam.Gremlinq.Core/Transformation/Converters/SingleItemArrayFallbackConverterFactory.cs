@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ExRam.Gremlinq.Core.Transformation
 {
@@ -6,9 +7,16 @@ namespace ExRam.Gremlinq.Core.Transformation
     {
         private sealed class SingleItemArrayFallbackConverter<TSource, TTargetArray, TTargetArrayItem> : IConverter<TSource, TTargetArray>
         {
-            public bool TryConvert(TSource source, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTargetArray? value)
+            private readonly IGremlinQueryEnvironment _environment;
+
+            public SingleItemArrayFallbackConverter(IGremlinQueryEnvironment environment)
             {
-                if (recurse.TryTransform<TSource, TTargetArrayItem>(source, environment, out var typedValue))
+                _environment = environment;
+            }
+
+            public bool TryConvert(TSource source, ITransformer recurse, [NotNullWhen(true)] out TTargetArray? value)
+            {
+                if (recurse.TryTransform<TSource, TTargetArrayItem>(source, _environment, out var typedValue))
                 {
                     value = (TTargetArray)(object)new[] { typedValue };
                     return true;
@@ -19,10 +27,10 @@ namespace ExRam.Gremlinq.Core.Transformation
             }
         }
 
-        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>()
+        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
         {
             return typeof(TTarget).IsArray
-                ? (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(SingleItemArrayFallbackConverter<,,>).MakeGenericType(typeof(TSource), typeof(TTarget), typeof(TTarget).GetElementType()!))
+                ? (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(SingleItemArrayFallbackConverter<,,>).MakeGenericType(typeof(TSource), typeof(TTarget), typeof(TTarget).GetElementType()!), environment)
                 : default;
         }
     }

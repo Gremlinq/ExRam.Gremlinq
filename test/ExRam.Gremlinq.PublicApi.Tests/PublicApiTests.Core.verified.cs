@@ -2222,11 +2222,11 @@ namespace ExRam.Gremlinq.Core.Transformation
     }
     public interface IConverterFactory
     {
-        ExRam.Gremlinq.Core.Transformation.IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>();
+        ExRam.Gremlinq.Core.Transformation.IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment);
     }
     public interface IConverter<in TSource, TTarget>
     {
-        bool TryConvert(TSource source, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Transformation.ITransformer recurse, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out TTarget? value);
+        bool TryConvert(TSource source, ExRam.Gremlinq.Core.Transformation.ITransformer recurse, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out TTarget? value);
     }
     public interface ITransformer
     {

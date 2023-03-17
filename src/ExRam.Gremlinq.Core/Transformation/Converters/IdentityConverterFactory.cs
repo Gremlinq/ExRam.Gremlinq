@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq.Core.Transformation
     {
         private sealed class IdentityConverter<TSource, TRequested> : IConverter<TSource, TRequested>
         {
-            public bool TryConvert(TSource serialized, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TRequested? value)
+            public bool TryConvert(TSource serialized, ITransformer recurse, [NotNullWhen(true)] out TRequested? value)
             {
                 if (serialized is TRequested requested)
                 {
@@ -19,6 +19,6 @@ namespace ExRam.Gremlinq.Core.Transformation
             }
         }
 
-        public IConverter<TSource, TRequested> TryCreate<TSource, TRequested>() => new IdentityConverter<TSource, TRequested>();
+        public IConverter<TSource, TRequested> TryCreate<TSource, TRequested>(IGremlinQueryEnvironment environment) => new IdentityConverter<TSource, TRequested>();
     }
 }

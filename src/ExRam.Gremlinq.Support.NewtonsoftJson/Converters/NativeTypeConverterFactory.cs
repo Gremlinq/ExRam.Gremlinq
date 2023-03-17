@@ -9,7 +9,14 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
     {
         public sealed class NativeTypeConverter<TTarget> : IConverter<JValue, TTarget>
         {
-            public bool TryConvert(JValue serialized, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+            private readonly IGremlinQueryEnvironment _environment;
+
+            public NativeTypeConverter(IGremlinQueryEnvironment environment)
+            {
+                _environment = environment;
+            }
+
+            public bool TryConvert(JValue serialized, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
             {
                 if (serialized.Value is TTarget serializedValue)
                 {
@@ -17,22 +24,24 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                     return true;
                 }
 
-                if (environment.SupportsType(typeof(TTarget)))
+                if (_environment.SupportsType(typeof(TTarget)))
+                {
                     if (serialized.ToObject<TTarget>() is { } convertedSerializedValue)
                     {
                         value = convertedSerializedValue;
                         return true;
                     }
+                }
 
                 value = default;
                 return false;
             }
         }
 
-        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>()
+        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
         {
             return typeof(JValue).IsAssignableFrom(typeof(TSource))
-                ? (IConverter<TSource, TTarget>)(object)new NativeTypeConverter<TTarget>()
+                ? (IConverter<TSource, TTarget>)(object)new NativeTypeConverter<TTarget>(environment)
                 : default;
         }
     }

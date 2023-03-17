@@ -10,7 +10,14 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
         private sealed class NullableConverter<TTarget> : IConverter<JToken, TTarget?>
             where TTarget : struct
         {
-            public bool TryConvert(JToken serialized, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+            private readonly IGremlinQueryEnvironment _environment;
+
+            public NullableConverter(IGremlinQueryEnvironment environment)
+            {
+                _environment = environment;
+            }
+
+            public bool TryConvert(JToken serialized, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
             {
                 if (serialized.Type == JTokenType.Null)
                 {
@@ -18,7 +25,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                     return true;
                 }
 
-                if (recurse.TryTransform<JToken, TTarget>(serialized, environment, out var requestedValue))
+                if (recurse.TryTransform<JToken, TTarget>(serialized, _environment, out var requestedValue))
                 {
                     value = requestedValue;
                     return true;
@@ -29,10 +36,10 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             }
         }
 
-        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>()
+        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
         {
             return typeof(TSource) == typeof(JToken) && typeof(TTarget).IsGenericType && typeof(TTarget).GetGenericTypeDefinition() == typeof(Nullable<>)
-                ? (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(NullableConverter<>).MakeGenericType(typeof(TTarget).GetGenericArguments()[0]))
+                ? (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(NullableConverter<>).MakeGenericType(typeof(TTarget).GetGenericArguments()[0]), environment)
                 : default;
         }
     }
