@@ -136,6 +136,11 @@ namespace ExRam.Gremlinq.Core
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseModel(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment source, ExRam.Gremlinq.Core.Models.IGraphModel model) { }
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseSerializer(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Transformation.ITransformer serializer) { }
     }
+    public static class GremlinQueryEnvironmentExtensions
+    {
+        public static bool SupportsType(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, System.Type type) { }
+        public static bool SupportsTypeNatively(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, System.Type type) { }
+    }
     public static class GremlinQueryExtensions
     {
         public static System.Threading.Tasks.ValueTask<TElement> FirstAsync<TElement>(this ExRam.Gremlinq.Core.IGremlinQueryBase<TElement> query, System.Threading.CancellationToken ct = default) { }

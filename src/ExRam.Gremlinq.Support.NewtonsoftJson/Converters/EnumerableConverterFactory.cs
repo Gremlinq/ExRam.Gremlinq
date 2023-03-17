@@ -31,7 +31,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
         {
             public bool TryConvert(JArray serialized, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTargetArray? value)
             {
-                if (!environment.GetCache().FastNativeTypes.ContainsKey(typeof(TTargetArray)))
+                if (!environment.SupportsType(typeof(TTargetArray)))
                 {
                     value = (TTargetArray)(object)GetEnumerable(serialized, environment, recurse).ToArray();
                     return true;

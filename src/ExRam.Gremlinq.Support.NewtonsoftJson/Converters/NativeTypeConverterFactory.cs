@@ -17,7 +17,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                     return true;
                 }
 
-                if (environment.GetCache().FastNativeTypes.ContainsKey(typeof(TTarget)))
+                if (environment.SupportsType(typeof(TTarget)))
                     if (serialized.ToObject<TTarget>() is { } convertedSerializedValue)
                     {
                         value = convertedSerializedValue;

@@ -11,7 +11,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
         {
             public bool TryConvert(JObject serialized, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTargetArray? value)
             {
-                if (!environment.GetCache().FastNativeTypes.ContainsKey(typeof(TTargetArray)))
+                if (!environment.SupportsType(typeof(TTargetArray)))
                 {
                     if (serialized.TryGetValue("@type", out var typeToken) && "g:BulkSet".Equals(typeToken.Value<string>(), StringComparison.OrdinalIgnoreCase))
                     {

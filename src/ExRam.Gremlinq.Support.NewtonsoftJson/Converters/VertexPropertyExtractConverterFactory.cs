@@ -12,8 +12,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
         {
             public bool TryConvert(JToken serialized, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
             {
-                var nativeTypes = environment.GetCache().FastNativeTypes;
-                var isNativeType = nativeTypes.ContainsKey(typeof(TTarget)) || typeof(TTarget).IsEnum && nativeTypes.ContainsKey(typeof(TTarget).GetEnumUnderlyingType());
+                var isNativeType = environment.SupportsType(typeof(TTarget)) || typeof(TTarget).IsEnum && environment.SupportsType(typeof(TTarget).GetEnumUnderlyingType());
 
                 if (serialized is JObject jObject)
                 {

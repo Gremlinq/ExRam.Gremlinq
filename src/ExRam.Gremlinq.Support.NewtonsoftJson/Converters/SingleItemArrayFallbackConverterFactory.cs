@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
         {
             public bool TryConvert(TSource source, IGremlinQueryEnvironment environment, ITransformer recurse, [NotNullWhen(true)] out TTargetArray? value)
             {
-                if (!environment.GetCache().FastNativeTypes.ContainsKey(typeof(TTargetArray)) && recurse.TryTransform<TSource, TTargetArrayItem>(source, environment, out var typedValue))
+                if (!environment.SupportsType(typeof(TTargetArray)) && recurse.TryTransform<TSource, TTargetArrayItem>(source, environment, out var typedValue))
                 {
                     value = (TTargetArray)(object)new[] { typedValue };
                     return true;

@@ -237,7 +237,7 @@ namespace ExRam.Gremlinq.Core.Serialization
 
                 return new P(
                     p.OperatorName,
-                    p.Value is IEnumerable enumerable && !env.GetCache().FastNativeTypes.ContainsKey(enumerable.GetType())
+                    p.Value is IEnumerable enumerable && !env.SupportsType(enumerable.GetType())
                         ? enumerable
                             .Cast<object>()
                             .Select(x => recurse.TransformTo<object>().From(x, env))
