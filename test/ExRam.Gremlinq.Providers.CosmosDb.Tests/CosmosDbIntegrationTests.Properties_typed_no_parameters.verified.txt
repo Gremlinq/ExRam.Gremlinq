@@ -50,41 +50,6 @@
     "label": "Age"
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "value": "Bob",
-    "label": "Name"
-  },
-  {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "value": 1586270616000,
-    "label": "RegistrationDate"
-  },
-  {
-    "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-    "value": "PartitionKey",
-    "label": "PartitionKey"
-  },
-  {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "value": 0,
-    "label": "Age"
-  },
-  {
-    "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-    "value": "PartitionKey",
-    "label": "PartitionKey"
-  },
-  {
-    "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-    "value": "PartitionKey",
-    "label": "PartitionKey"
-  },
-  {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "value": 0,
-    "label": "Age"
-  },
-  {
     "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
     "value": "PartitionKey",
     "label": "PartitionKey"
