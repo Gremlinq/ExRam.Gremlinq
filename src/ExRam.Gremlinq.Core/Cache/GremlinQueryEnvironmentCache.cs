@@ -80,9 +80,6 @@ namespace ExRam.Gremlinq.Core
                             .ToArray(),
                         StringComparer.OrdinalIgnoreCase);
 
-                FastNativeTypes = environment.NativeTypes
-                    .ToDictionary(static x => x, static _ => default(object?));
-
                 _keyLookup = new KeyLookup(_environment.Model.PropertiesModel);
             }
 
@@ -107,8 +104,6 @@ namespace ExRam.Gremlinq.Core
             }
 
             public HashSet<Type> ModelTypes { get; }
-
-            public IReadOnlyDictionary<Type, object?> FastNativeTypes { get; }
 
             public Key GetKey(MemberInfo member) => _keyLookup.GetKey(member);
 

@@ -9,7 +9,6 @@ namespace ExRam.Gremlinq.Core
         (PropertyInfo propertyInfo, Key key, SerializationBehaviour serializationBehaviour)[] GetSerializationData(Type type);
 
         HashSet<Type> ModelTypes { get; }
-        IReadOnlyDictionary<Type, object?> FastNativeTypes { get;  }
         IReadOnlyDictionary<string, Type[]> ModelTypesForLabels { get; }
     }
 }
