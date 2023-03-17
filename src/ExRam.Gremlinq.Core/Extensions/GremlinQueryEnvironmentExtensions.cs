@@ -16,9 +16,6 @@
             return false;
         }
 
-        public static bool SupportsTypeNatively(this IGremlinQueryEnvironment environment, Type type)
-        {
-            return environment.GetCache().FastNativeTypes.ContainsKey(type);
-        }
+        public static bool SupportsTypeNatively(this IGremlinQueryEnvironment environment, Type type) => environment.NativeTypes.Contains(type);
     }
 }
