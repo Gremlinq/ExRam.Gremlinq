@@ -158,17 +158,6 @@ namespace ExRam.Gremlinq.Core
                     .Add(new TimeSpanAsNumberConverterFactory()));
         }
 
-        public static IGremlinQueryEnvironment StoreByteArraysAsBase64String(this IGremlinQueryEnvironment environment)
-        {
-            return environment
-                .ConfigureNativeTypes(nativeTypes => nativeTypes
-                    .Remove(typeof(byte[])))
-                .ConfigureSerializer(static _ => _
-                    .Add(Create<byte[], string>(static (bytes, env, recurse) => recurse
-                        .TransformTo<string>()
-                        .From(Convert.ToBase64String(bytes), env))));
-        }
-
         private static IGremlinQueryEnvironment UseGraphSon(this IGremlinQueryEnvironment environment, GraphSONWriter writer, string mimeType)
         {
             var mimeTypeBytes = Encoding.UTF8.GetBytes($"{(char)mimeType.Length}{mimeType}");

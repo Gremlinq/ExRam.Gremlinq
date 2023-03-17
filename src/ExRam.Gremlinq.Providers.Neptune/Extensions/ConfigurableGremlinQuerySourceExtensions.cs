@@ -44,6 +44,8 @@ namespace ExRam.Gremlinq.Core
                             .ConfigureVertexPropertyFeatures(_ => VertexPropertyFeatures.RemoveProperty | VertexPropertyFeatures.NumericIds | VertexPropertyFeatures.StringIds | VertexPropertyFeatures.Properties | VertexPropertyFeatures.BooleanValues | VertexPropertyFeatures.ByteValues | VertexPropertyFeatures.DoubleValues | VertexPropertyFeatures.FloatValues | VertexPropertyFeatures.IntegerValues | VertexPropertyFeatures.LongValues | VertexPropertyFeatures.StringValues)
                             .ConfigureEdgeFeatures(_ => EdgeFeatures.AddEdges | EdgeFeatures.RemoveEdges | EdgeFeatures.UserSuppliedIds | EdgeFeatures.AddProperty | EdgeFeatures.RemoveProperty | EdgeFeatures.NumericIds | EdgeFeatures.StringIds | EdgeFeatures.UuidIds | EdgeFeatures.CustomIds | EdgeFeatures.AnyIds)
                             .ConfigureEdgePropertyFeatures(_ => EdgePropertyFeatures.Properties | EdgePropertyFeatures.BooleanValues | EdgePropertyFeatures.ByteValues | EdgePropertyFeatures.DoubleValues | EdgePropertyFeatures.FloatValues | EdgePropertyFeatures.IntegerValues | EdgePropertyFeatures.LongValues | EdgePropertyFeatures.StringValues))
+                        .ConfigureNativeTypes(nativeTypes => nativeTypes
+                            .Remove(typeof(byte[])))
                         .UseGraphSon3()
                         .ConfigureSerializer(serializer => serializer
                             .Add(ConverterFactory
@@ -52,8 +54,7 @@ namespace ExRam.Gremlinq.Core
                                     : default)
                                 .AutoRecurse<PropertyStep.ByKeyStep>()))))
                 .ConfigureEnvironment(environment => environment
-                    .StoreTimeSpansAsNumbers()
-                    .StoreByteArraysAsBase64String());
+                    .StoreTimeSpansAsNumbers());
         }
     }
 }
