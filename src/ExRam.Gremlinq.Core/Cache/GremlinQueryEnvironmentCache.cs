@@ -11,48 +11,8 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class GremlinQueryEnvironmentCacheImpl : IGremlinQueryEnvironmentCache
         {
-            private sealed class KeyLookup
-            {
-                private readonly IGraphElementPropertyModel _model;
-                private readonly ConcurrentDictionary<MemberInfo, Key> _members = new();
-
-                public KeyLookup(IGraphElementPropertyModel model)
-                {
-                    _model = model;
-                }
-
-                public Key GetKey(MemberInfo member)
-                {
-                    return _members.GetOrAdd(
-                        member,
-                        static (closureMember, model) =>
-                        {
-                            var name = closureMember.Name;
-
-                            if (model.MemberMetadata.TryGetValue(closureMember, out var metadata))
-                            {
-                                if (metadata.Key.RawKey is T t)
-                                    return t;
-
-                                name = (string)metadata.Key.RawKey;
-                            }
-
-                            var maybeDefaultT = "id".Equals(name, StringComparison.OrdinalIgnoreCase)
-                                ? T.Id
-                                : "label".Equals(name, StringComparison.OrdinalIgnoreCase)
-                                    ? T.Label
-                                    : default;
-
-                            return maybeDefaultT is { } defaultT && !model.MemberMetadata.Any(kvp => kvp.Value.Key.RawKey is T t && t == defaultT)
-                                ? defaultT
-                                : name;
-                        },
-                        _model);
-                }
-            }
-
-            private readonly KeyLookup _keyLookup;
             private readonly IGremlinQueryEnvironment _environment;
+            private readonly ConcurrentDictionary<MemberInfo, Key> _members = new();
             private readonly ConcurrentDictionary<Type, (PropertyInfo propertyInfo, Key key, SerializationBehaviour serializationBehaviour)[]> _typeProperties = new();
 
             public GremlinQueryEnvironmentCacheImpl(IGremlinQueryEnvironment environment)
@@ -62,8 +22,6 @@ namespace ExRam.Gremlinq.Core
                 ModelTypes = new HashSet<Type>(environment.Model
                     .VerticesModel.Metadata.Keys
                     .Concat(environment.Model.EdgesModel.Metadata.Keys));
-
-                _keyLookup = new KeyLookup(_environment.Model.PropertiesModel);
             }
 
             public (PropertyInfo propertyInfo, Key key, SerializationBehaviour serializationBehaviour)[] GetSerializationData(Type type)
@@ -86,9 +44,33 @@ namespace ExRam.Gremlinq.Core
                         _environment);
             }
 
-            public HashSet<Type> ModelTypes { get; }
+            public Key GetKey(MemberInfo member) => _members.GetOrAdd(
+                member,
+                static (closureMember, model) =>
+                {
+                    var name = closureMember.Name;
 
-            public Key GetKey(MemberInfo member) => _keyLookup.GetKey(member);
+                    if (model.MemberMetadata.TryGetValue(closureMember, out var metadata))
+                    {
+                        if (metadata.Key.RawKey is T t)
+                            return t;
+
+                        name = (string)metadata.Key.RawKey;
+                    }
+
+                    var maybeDefaultT = "id".Equals(name, StringComparison.OrdinalIgnoreCase)
+                        ? T.Id
+                        : "label".Equals(name, StringComparison.OrdinalIgnoreCase)
+                            ? T.Label
+                            : default;
+
+                    return maybeDefaultT is { } defaultT && !model.MemberMetadata.Any(kvp => kvp.Value.Key.RawKey is T t && t == defaultT)
+                        ? defaultT
+                        : name;
+                },
+                _environment.Model.PropertiesModel);
+
+            public HashSet<Type> ModelTypes { get; }
         }
 
         private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, IGremlinQueryEnvironmentCache> Caches = new();
