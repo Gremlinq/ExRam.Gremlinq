@@ -13,34 +13,23 @@ namespace ExRam.Gremlinq.Core
         {
             private sealed class KeyLookup
             {
-                private static readonly Dictionary<string, T> DefaultTs = new(StringComparer.OrdinalIgnoreCase)
-                {
-                    { "id", T.Id },
-                    { "label", T.Label }
-                };
-
-                private readonly HashSet<T> _configuredTs;
                 private readonly IGraphElementPropertyModel _model;
                 private readonly ConcurrentDictionary<MemberInfo, Key> _members = new();
 
                 public KeyLookup(IGraphElementPropertyModel model)
                 {
                     _model = model;
-                    _configuredTs = new HashSet<T>(model.MemberMetadata
-                        .Where(static kvp => kvp.Value.Key.RawKey is T)
-                        .ToDictionary(static kvp => (T)kvp.Value.Key.RawKey, static kvp => kvp.Key)
-                        .Keys);
                 }
 
                 public Key GetKey(MemberInfo member)
                 {
                     return _members.GetOrAdd(
                         member,
-                        static (closureMember, @this) =>
+                        static (closureMember, model) =>
                         {
                             var name = closureMember.Name;
 
-                            if (@this._model.MemberMetadata.TryGetValue(closureMember, out var metadata))
+                            if (model.MemberMetadata.TryGetValue(closureMember, out var metadata))
                             {
                                 if (metadata.Key.RawKey is T t)
                                     return t;
@@ -48,11 +37,17 @@ namespace ExRam.Gremlinq.Core
                                 name = (string)metadata.Key.RawKey;
                             }
 
-                            return DefaultTs.TryGetValue(name, out var defaultT) && !@this._configuredTs.Contains(defaultT)
+                            var maybeDefaultT = "id".Equals(name, StringComparison.OrdinalIgnoreCase)
+                                ? T.Id
+                                : "label".Equals(name, StringComparison.OrdinalIgnoreCase)
+                                    ? T.Label
+                                    : default;
+
+                            return maybeDefaultT is { } defaultT && !model.MemberMetadata.Any(kvp => kvp.Value.Key.RawKey is T t && t == defaultT)
                                 ? defaultT
                                 : name;
                         },
-                        this);
+                        _model);
                 }
             }
 
