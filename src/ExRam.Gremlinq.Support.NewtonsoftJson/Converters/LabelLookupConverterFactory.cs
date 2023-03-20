@@ -10,19 +10,33 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
         private sealed class LabelLookupConverter<TTarget> : IConverter<JObject, TTarget>
         {
             private readonly IGremlinQueryEnvironment _environment;
+            private readonly IReadOnlyDictionary<string, Type[]> _modelTypesForLabels;
 
             public LabelLookupConverter(IGremlinQueryEnvironment environment)
             {
                 _environment = environment;
+
+                _modelTypesForLabels = environment.Model
+                    .VerticesModel
+                    .Metadata
+                    .Concat(environment.Model
+                        .EdgesModel
+                        .Metadata)
+                    .GroupBy(static x => x.Value.Label)
+                    .ToDictionary(
+                        static group => group.Key,
+                        static group => group
+                            .Select(static x => x.Key)
+                            .ToArray(),
+                        StringComparer.OrdinalIgnoreCase);
             }
 
             public bool TryConvert(JObject serialized, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
             {
                 // Elements
-                var modelTypes = _environment.GetCache().ModelTypesForLabels;
                 var label = serialized["label"]?.ToString();
 
-                var modelType = label != null && modelTypes.TryGetValue(label, out var types)
+                var modelType = label != null && _modelTypesForLabels.TryGetValue(label, out var types)
                     ? types.FirstOrDefault(typeof(TTarget).IsAssignableFrom)
                     : default;
 

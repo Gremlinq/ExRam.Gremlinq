@@ -68,18 +68,6 @@ namespace ExRam.Gremlinq.Core
                     .VerticesModel.Metadata.Keys
                     .Concat(environment.Model.EdgesModel.Metadata.Keys));
 
-                ModelTypesForLabels = environment.Model
-                    .VerticesModel
-                    .Metadata
-                    .Concat(environment.Model.EdgesModel.Metadata)
-                    .GroupBy(static x => x.Value.Label)
-                    .ToDictionary(
-                        static group => group.Key,
-                        static group => group
-                            .Select(static x => x.Key)
-                            .ToArray(),
-                        StringComparer.OrdinalIgnoreCase);
-
                 _keyLookup = new KeyLookup(_environment.Model.PropertiesModel);
             }
 
@@ -106,8 +94,6 @@ namespace ExRam.Gremlinq.Core
             public HashSet<Type> ModelTypes { get; }
 
             public Key GetKey(MemberInfo member) => _keyLookup.GetKey(member);
-
-            public IReadOnlyDictionary<string, Type[]> ModelTypesForLabels { get; }
         }
 
         private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, IGremlinQueryEnvironmentCache> Caches = new();
