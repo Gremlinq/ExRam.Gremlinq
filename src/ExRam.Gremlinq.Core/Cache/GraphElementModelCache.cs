@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq.Core
         private sealed class GraphElementModelCacheImpl : IGraphElementModelCache
         {
             private readonly IGraphElementModel _model;
-            private readonly ConcurrentDictionary<Type, string> _dict = new();
+            private readonly ConcurrentDictionary<Type, string> _labels = new();
             private readonly ConcurrentDictionary<Type, ImmutableArray<string>> _derivedLabels = new();
 
             public GraphElementModelCacheImpl(IGraphElementModel model)
@@ -20,7 +20,7 @@ namespace ExRam.Gremlinq.Core
 
             public string GetLabel(Type type)
             {
-                return _dict
+                return _labels
                     .GetOrAdd(
                         type,
                         static (closureType, closureModel) => closureType
