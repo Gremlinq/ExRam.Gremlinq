@@ -183,10 +183,10 @@ namespace ExRam.Gremlinq.Core.Serialization
 
                             for (j = i + 1; j < span.Length; j++)
                             {
-                                if (span[j] is SelectStepLabelStep selectStep && ReferenceEquals(asStep.StepLabel, selectStep.StepLabels[0]))
+                                if (span[j] is SelectStepLabelStep { StepLabels: [ var selectedStepLabel ] } && ReferenceEquals(asStep.StepLabel, selectedStepLabel))
                                     continue;
 
-                                if (span[j] is AsStep asStep2 && asStep2.StepLabel.Equals(asStep.StepLabel))
+                                if (span[j] is AsStep { StepLabel: { } markedStepLabel } && markedStepLabel.Equals(asStep.StepLabel))
                                     continue;
 
                                 break;
