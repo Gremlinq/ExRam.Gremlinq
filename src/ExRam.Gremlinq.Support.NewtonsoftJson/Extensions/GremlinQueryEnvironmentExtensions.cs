@@ -139,12 +139,12 @@ namespace ExRam.Gremlinq.Core
 
         private sealed class NativeTypeSerializerConverterFactory<TNative, TSerialized> : IConverterFactory
         {
-            private sealed class NativeTypeDeserializerConverter : IConverter<TNative, TSerialized>
+            private sealed class NativeTypeSerializerConverter : IConverter<TNative, TSerialized>
             {
                 private readonly IGremlinQueryEnvironment _environment;
                 private readonly Func<TNative, IGremlinQueryEnvironment, ITransformer, TSerialized> _serializer;
 
-                public NativeTypeDeserializerConverter(Func<TNative, IGremlinQueryEnvironment, ITransformer, TSerialized> serializer, IGremlinQueryEnvironment environment)
+                public NativeTypeSerializerConverter(Func<TNative, IGremlinQueryEnvironment, ITransformer, TSerialized> serializer, IGremlinQueryEnvironment environment)
                 {
                     _environment = environment;
                     _serializer = serializer;
@@ -171,7 +171,7 @@ namespace ExRam.Gremlinq.Core
             }
 
             public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment) => typeof(TSource) == typeof(TNative) && typeof(TSerialized) == typeof(TTarget)
-                ? (IConverter<TSource, TTarget>)(object)new NativeTypeDeserializerConverter(_serializer, environment)
+                ? (IConverter<TSource, TTarget>)(object)new NativeTypeSerializerConverter(_serializer, environment)
                 : default;
         }
 
