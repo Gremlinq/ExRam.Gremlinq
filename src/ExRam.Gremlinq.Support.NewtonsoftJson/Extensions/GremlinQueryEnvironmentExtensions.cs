@@ -139,7 +139,7 @@ namespace ExRam.Gremlinq.Core
 
         private sealed class NativeTypeSerializerConverterFactory<TNative, TSerialized> : IConverterFactory
         {
-            private sealed class NativeTypeSerializerConverter : IConverter<TNative, TSerialized>
+            private sealed class NativeTypeSerializerConverter<TTarget> : IConverter<TNative, TTarget>
             {
                 private readonly IGremlinQueryEnvironment _environment;
                 private readonly Func<TNative, IGremlinQueryEnvironment, ITransformer, TSerialized> _serializer;
@@ -150,9 +150,9 @@ namespace ExRam.Gremlinq.Core
                     _serializer = serializer;
                 }
 
-                public bool TryConvert(TNative source, ITransformer recurse, [NotNullWhen(true)] out TSerialized? value)
+                public bool TryConvert(TNative source, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
                 {
-                    if (_serializer(source, _environment, recurse) is { } serialized)
+                    if (_serializer(source, _environment, recurse) is TTarget serialized)
                     {
                         value = serialized;
                         return true;
@@ -170,14 +170,14 @@ namespace ExRam.Gremlinq.Core
                 _serializer = serializer;
             }
 
-            public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment) => typeof(TSource) == typeof(TNative) && typeof(TSerialized) == typeof(TTarget)
-                ? (IConverter<TSource, TTarget>)(object)new NativeTypeSerializerConverter(_serializer, environment)
+            public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment) => typeof(TSource) == typeof(TNative) && typeof(TTarget).IsAssignableFrom(typeof(TSerialized))
+                ? (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(NativeTypeSerializerConverter<>).MakeGenericType(typeof(TNative), typeof(TSerialized), typeof(TTarget)), _serializer, environment)
                 : default;
         }
 
         private sealed class NativeTypeDeserializerConverterFactory<TNative> : IConverterFactory
         {
-            private sealed class NativeTypeDeserializerConverter : IConverter<JValue, TNative>
+            private sealed class NativeTypeDeserializerConverter<TTarget> : IConverter<JValue, TTarget>
             {
                 private readonly IGremlinQueryEnvironment _environment;
                 private readonly Func<JValue, IGremlinQueryEnvironment, ITransformer, TNative> _deserializer;
@@ -188,9 +188,9 @@ namespace ExRam.Gremlinq.Core
                     _deserializer = deserializer;
                 }
 
-                public bool TryConvert(JValue source, ITransformer recurse, [NotNullWhen(true)] out TNative? value)
+                public bool TryConvert(JValue source, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
                 {
-                    if (_deserializer(source, _environment, recurse) is { } deserialized)
+                    if (_deserializer(source, _environment, recurse) is TTarget deserialized)
                     {
                         value = deserialized;
                         return true;
@@ -208,10 +208,9 @@ namespace ExRam.Gremlinq.Core
                 _deserializer = deserializer;
             }
 
-            public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment) => typeof(TSource) == typeof(JValue) && typeof(TTarget) == typeof(TNative)
-                ? (IConverter<TSource, TTarget>)(object)new NativeTypeDeserializerConverter(_deserializer, environment)
+            public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment) => typeof(TSource) == typeof(JValue) && typeof(TTarget).IsAssignableFrom(typeof(TNative))
+                ? (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(NativeTypeDeserializerConverter<>).MakeGenericType(typeof(TNative), typeof(TTarget)), _deserializer, environment)
                 : default;
-
         }
 
         private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, GremlinQueryEnvironmentCacheImpl> Caches = new();
