@@ -186,7 +186,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                                 if (span[j] is SelectStepLabelStep selectStep && ReferenceEquals(asStep.StepLabel, selectStep.StepLabels[0]))
                                     continue;
 
-                                if (span[j] is AsStep asStep2 && asStep2.StepLabel.Equals(asStep2.StepLabel))
+                                if (span[j] is AsStep asStep2 && asStep2.StepLabel.Equals(asStep.StepLabel))
                                     continue;
 
                                 break;
