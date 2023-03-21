@@ -663,6 +663,19 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task As_As_with_different_labels()
+        {
+            var label1 = "label1";
+            var label2 = "label2";
+
+            await _g
+                .V<Person>()
+                .As(label1)
+                .As(label2)
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task As_followed_by_Select()
         {
             await _g
