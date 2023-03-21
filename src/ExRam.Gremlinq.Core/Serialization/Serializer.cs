@@ -142,10 +142,14 @@ namespace ExRam.Gremlinq.Core.Serialization
 
                         if (recurse.TryTransform(step, env, out Step[]? expandedSteps))
                         {
-                            foreach (var expandedStep in expandedSteps)
+                            foreach (var innerExpandedStep in expandedSteps)
                             {
-                                AddStep(expandedStep, byteCode, env, recurse);
+                                AddStep(innerExpandedStep, byteCode, env, recurse);
                             }
+                        }
+                        else if (recurse.TryTransform(step, env, out Step? expandedStep) && !object.ReferenceEquals(step, expandedStep))
+                        {
+                            AddStep(expandedStep, byteCode, env, recurse);
                         }
                         else if (recurse.TryTransform(step, env, out Instruction[]? expandedInstructions))
                         {

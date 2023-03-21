@@ -52,8 +52,7 @@ namespace ExRam.Gremlinq.Core
                             .Add(ConverterFactory
                                 .Create<PropertyStep.ByKeyStep, PropertyStep.ByKeyStep>((step, env, recurse) => Cardinality.List.Equals(step.Cardinality)
                                     ? new PropertyStep.ByKeyStep(step.Key, step.Value, step.MetaProperties, Cardinality.Set)
-                                    : default)
-                                .AutoRecurse<PropertyStep.ByKeyStep>()))));
+                                    : default)))));
         }
     }
 }

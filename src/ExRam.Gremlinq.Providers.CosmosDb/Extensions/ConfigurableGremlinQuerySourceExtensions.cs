@@ -118,21 +118,17 @@ namespace ExRam.Gremlinq.Core
                                 .Create<FilterStep.ByTraversalStep, WhereTraversalStep>(static (step, env, recurse) => new WhereTraversalStep(
                                     step.Traversal.Count > 0 && step.Traversal[0] is AsStep
                                         ? new MapStep(step.Traversal)
-                                        : step.Traversal))
-                                .AutoRecurse<WhereTraversalStep>())
+                                        : step.Traversal)))
                             .Add(ConverterFactory
                                 .Create<HasKeyStep, WhereTraversalStep>((step, env, recurse) => step.Argument is P p && (!p.OperatorName.Equals("eq", StringComparison.OrdinalIgnoreCase))
                                     ? new WhereTraversalStep(Traversal.Empty.Push(
                                         KeyStep.Instance,
                                         new IsStep(p)))
-                                    : default)
-                                .AutoRecurse<WhereTraversalStep>())
+                                    : default))
                             .Add(ConverterFactory
-                                .Create<NoneStep, NotStep>((step, env, recurse) => NoneWorkaround)
-                                .AutoRecurse<NotStep>())
+                                .Create<NoneStep, NotStep>((step, env, recurse) => NoneWorkaround))
                             .Add(ConverterFactory
-                                .Create<SkipStep, RangeStep>((step, env, recurse) => new RangeStep(step.Count, -1, step.Scope))
-                                .AutoRecurse<RangeStep>())
+                                .Create<SkipStep, RangeStep>((step, env, recurse) => new RangeStep(step.Count, -1, step.Scope)))
                             .Add(Guard<LimitStep>(step =>
                             {
                                 if (step.Count > int.MaxValue)
