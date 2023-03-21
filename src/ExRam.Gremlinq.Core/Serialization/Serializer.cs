@@ -151,6 +151,13 @@ namespace ExRam.Gremlinq.Core.Serialization
                         {
                             AddStep(expandedStep, byteCode, env, recurse);
                         }
+                        else if (recurse.TryTransform(step, env, out Traversal traversal))
+                        {
+                            foreach (var innerExpandedStep in traversal.Steps)
+                            {
+                                AddStep(innerExpandedStep, byteCode, env, recurse);
+                            }
+                        }
                         else if (recurse.TryTransform(step, env, out Instruction[]? expandedInstructions))
                         {
                             foreach (var expandedInstruction in expandedInstructions)
