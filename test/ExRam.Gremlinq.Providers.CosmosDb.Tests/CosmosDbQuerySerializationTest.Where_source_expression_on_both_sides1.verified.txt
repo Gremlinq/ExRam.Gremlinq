@@ -6,7 +6,7 @@
       "_a": "Country",
       "_b": "Name",
       "_c": "CountryCallingCode",
-      "_d": "l1"
+      "_d": "_a"
     }
   }
 ]

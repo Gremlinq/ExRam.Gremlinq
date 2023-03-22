@@ -23,7 +23,7 @@
                 {
                   "OperatorName": "as",
                   "Arguments": [
-                    "l1"
+                    "_a"
                   ]
                 }
               ]

@@ -17,7 +17,7 @@
         {
           "OperatorName": "aggregate",
           "Arguments": [
-            "l1"
+            "_a"
           ]
         },
         {

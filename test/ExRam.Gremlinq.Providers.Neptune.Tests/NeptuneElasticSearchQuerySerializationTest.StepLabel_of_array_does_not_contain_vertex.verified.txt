@@ -30,7 +30,7 @@
         {
           "OperatorName": "as",
           "Arguments": [
-            "l3"
+            "_c"
           ]
         },
         {
@@ -55,7 +55,7 @@
                     {
                       "OperatorName": "within",
                       "Value": [
-                        "l3"
+                        "_c"
                       ],
                       "Other": null
                     }

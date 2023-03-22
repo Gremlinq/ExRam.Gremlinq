@@ -42,7 +42,7 @@
         {
           "OperatorName": "as",
           "Arguments": [
-            "l3"
+            "_c"
           ]
         }
       ]

@@ -6,7 +6,7 @@
       "_a": "Language",
       "_b": "IetfLanguageTag",
       "_c": "en",
-      "_d": "l1",
+      "_d": "_a",
       "_e": "Country",
       "_f": "CountryCallingCode",
       "_g": "+49",

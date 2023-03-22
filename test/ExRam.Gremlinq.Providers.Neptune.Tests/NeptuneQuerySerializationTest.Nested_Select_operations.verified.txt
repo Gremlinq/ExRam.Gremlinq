@@ -17,7 +17,7 @@
         {
           "OperatorName": "as",
           "Arguments": [
-            "l1"
+            "_a"
           ]
         },
         {
@@ -36,7 +36,7 @@
                 {
                   "OperatorName": "select",
                   "Arguments": [
-                    "l1"
+                    "_a"
                   ]
                 }
               ]
@@ -52,7 +52,7 @@
                 {
                   "OperatorName": "select",
                   "Arguments": [
-                    "l1"
+                    "_a"
                   ]
                 }
               ]
@@ -62,7 +62,7 @@
         {
           "OperatorName": "as",
           "Arguments": [
-            "l2"
+            "_b"
           ]
         },
         {
@@ -81,7 +81,7 @@
                 {
                   "OperatorName": "select",
                   "Arguments": [
-                    "l1"
+                    "_a"
                   ]
                 }
               ]
@@ -97,7 +97,7 @@
                 {
                   "OperatorName": "select",
                   "Arguments": [
-                    "l2"
+                    "_b"
                   ]
                 }
               ]

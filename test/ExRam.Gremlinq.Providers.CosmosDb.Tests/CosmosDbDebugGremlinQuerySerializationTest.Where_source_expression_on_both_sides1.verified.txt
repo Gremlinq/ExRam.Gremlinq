@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Country').has('Name').has('CountryCallingCode').as('l1').where(eq('l1')).by('Name').by('CountryCallingCode')
+﻿g.V().hasLabel('Country').has('Name').has('CountryCallingCode').as('_a').where(eq('_a')).by('Name').by('CountryCallingCode')

@@ -23,7 +23,7 @@
         {
           "OperatorName": "as",
           "Arguments": [
-            "l1"
+            "_a"
           ]
         },
         {
@@ -48,7 +48,7 @@
                   "Arguments": [
                     {
                       "OperatorName": "lte",
-                      "Value": "l1",
+                      "Value": "_a",
                       "Other": null
                     }
                   ]

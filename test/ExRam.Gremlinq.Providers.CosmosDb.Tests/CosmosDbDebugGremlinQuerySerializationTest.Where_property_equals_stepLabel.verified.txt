@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Language').values('IetfLanguageTag').as('l1').V().hasLabel('Language').has('IetfLanguageTag',__.where(eq('l1')))
+﻿g.V().hasLabel('Language').values('IetfLanguageTag').as('_a').V().hasLabel('Language').has('IetfLanguageTag',__.where(eq('_a')))

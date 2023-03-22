@@ -1,6 +1,6 @@
 ﻿[
   {
     "Id": "00000000-0000-0000-0000-000000000000",
-    "GraphSON": "{\"@type\":\"g:Bytecode\",\"@value\":{\"source\":[[\"withSideEffect\",\"l1\",{\"@type\":\"g:Int32\",\"@value\":36}]],\"step\":[[\"V\"],[\"select\",\"l1\"]]}}"
+    "GraphSON": "{\"@type\":\"g:Bytecode\",\"@value\":{\"source\":[[\"withSideEffect\",\"_a\",{\"@type\":\"g:Int32\",\"@value\":36}]],\"step\":[[\"V\"],[\"select\",\"_a\"]]}}"
   }
 ]

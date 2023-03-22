@@ -295,7 +295,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                     {
                         stepLabelMapping = stepLabel.Identity is string stringIdentity
                             ? stringIdentity
-                            : stepLabelNames.Count + 1;
+                            : stepLabelNames.Count;
 
                         stepLabelNames.Add(stepLabel, stepLabelMapping);
                     }

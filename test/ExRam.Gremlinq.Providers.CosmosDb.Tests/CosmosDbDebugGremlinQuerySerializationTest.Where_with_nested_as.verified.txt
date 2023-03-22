@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Company').where(__.map(__.as('l1')))
+﻿g.V().hasLabel('Company').where(__.map(__.as('_a')))

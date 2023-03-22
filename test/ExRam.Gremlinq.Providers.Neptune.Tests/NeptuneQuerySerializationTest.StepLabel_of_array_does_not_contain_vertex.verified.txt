@@ -15,7 +15,7 @@
         {
           "OperatorName": "as",
           "Arguments": [
-            "l1"
+            "_a"
           ]
         },
         {
@@ -40,7 +40,7 @@
                     {
                       "OperatorName": "within",
                       "Value": [
-                        "l1"
+                        "_a"
                       ],
                       "Other": null
                     }

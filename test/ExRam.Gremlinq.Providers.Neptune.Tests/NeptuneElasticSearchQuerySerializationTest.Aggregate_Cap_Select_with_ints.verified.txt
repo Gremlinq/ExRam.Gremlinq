@@ -41,19 +41,19 @@
         {
           "OperatorName": "aggregate",
           "Arguments": [
-            "l3"
+            "_c"
           ]
         },
         {
           "OperatorName": "cap",
           "Arguments": [
-            "l3"
+            "_c"
           ]
         },
         {
           "OperatorName": "select",
           "Arguments": [
-            "l3"
+            "_c"
           ]
         }
       ]

@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('EntityWithTwoIntProperties').as('l1').where(gt('l1')).by('IntProperty1').by('IntProperty2')
+﻿g.V().hasLabel('EntityWithTwoIntProperties').as('_a').where(gt('_a')).by('IntProperty1').by('IntProperty2')
