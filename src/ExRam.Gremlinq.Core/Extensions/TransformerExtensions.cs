@@ -13,7 +13,7 @@
 
             public TTarget From<TSource>(TSource source, IGremlinQueryEnvironment environment) => _transformer.TryTransform<TSource, TTarget>(source, environment, out var value)
                 ? value
-                : throw new InvalidCastException($"Cannot convert {typeof(TSource)} to {typeof(TTarget)}.");
+                : throw new InvalidCastException($"Cannot convert {source?.GetType() ?? typeof(TSource)} to {typeof(TTarget)}.");
         }
 
         public static TransformToBuilder<TTarget> TransformTo<TTarget>(this ITransformer transformer) => new(transformer);
