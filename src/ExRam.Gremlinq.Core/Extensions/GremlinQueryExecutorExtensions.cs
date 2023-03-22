@@ -56,7 +56,7 @@ namespace ExRam.Gremlinq.Core.Execution
                                     await Task.Delay((_rnd ??= new Random((int)(DateTime.Now.Ticks & int.MaxValue) ^ Thread.CurrentThread.ManagedThreadId)).Next(i + 2) * 16, ct);
 
                                     var newSerializedQuery = (BytecodeGremlinQuery)serializedQuery.WithNewId(); //TODO!!!!
-                                    environment.Logger.LogInformation($"Retrying serialized query {serializedQuery.Id} with new {nameof(ISerializedGremlinQuery.Id)} {newSerializedQuery.Id}.");
+                                    environment.Logger.LogInformation($"Retrying serialized query {serializedQuery.Id} with new {nameof(BytecodeGremlinQuery.Id)} {newSerializedQuery.Id}.");
                                     serializedQuery = newSerializedQuery;
 
                                     break;
@@ -74,7 +74,7 @@ namespace ExRam.Gremlinq.Core.Execution
         {
             private static readonly JsonSerializerOptions IndentedSerializerOptions = new() { WriteIndented = true };
             private static readonly JsonSerializerOptions NotIndentedSerializerOptions = new() { WriteIndented = false };
-            private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, Action<ISerializedGremlinQuery, string>> Loggers = new();
+            private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, Action<BytecodeGremlinQuery, string>> Loggers = new();
 
             private readonly IGremlinQueryExecutor _executor;
 
@@ -119,7 +119,7 @@ namespace ExRam.Gremlinq.Core.Execution
                 }
             }
 
-            private static Action<ISerializedGremlinQuery, string> GetLoggingFunction(IGremlinQueryEnvironment environment)
+            private static Action<BytecodeGremlinQuery, string> GetLoggingFunction(IGremlinQueryEnvironment environment)
             {
                 var logLevel = environment.Options.GetValue(GremlinqOption.QueryLogLogLevel);
                 var verbosity = environment.Options.GetValue(GremlinqOption.QueryLogVerbosity);

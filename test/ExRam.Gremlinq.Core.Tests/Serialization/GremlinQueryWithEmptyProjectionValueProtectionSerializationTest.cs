@@ -3,7 +3,7 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public sealed class GremlinQueryWithEmptyProjectionValueProtectionSerializationTest : QuerySerializationTest<ISerializedGremlinQuery>, IClassFixture<GremlinQueryWithEmptyProjectionValueProtectionSerializationTest.Fixture>
+    public sealed class GremlinQueryWithEmptyProjectionValueProtectionSerializationTest : QuerySerializationTest<BytecodeGremlinQuery>, IClassFixture<GremlinQueryWithEmptyProjectionValueProtectionSerializationTest.Fixture>
     {
         public sealed class Fixture : GremlinqTestFixture
         {

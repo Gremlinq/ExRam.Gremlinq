@@ -6,7 +6,7 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.Neptune.Tests
 {
-    public sealed class NeptuneQuerySerializationTest : QuerySerializationTest<ISerializedGremlinQuery>, IClassFixture<NeptuneQuerySerializationTest.Fixture>
+    public sealed class NeptuneQuerySerializationTest : QuerySerializationTest<BytecodeGremlinQuery>, IClassFixture<NeptuneQuerySerializationTest.Fixture>
     {
         public sealed class Fixture : GremlinqTestFixture
         {

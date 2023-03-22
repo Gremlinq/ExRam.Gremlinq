@@ -6,9 +6,9 @@ namespace ExRam.Gremlinq.Core.Execution
     {
         private sealed class GremlinQueryExecutorImpl : IGremlinQueryExecutor
         {
-            private readonly Func<ISerializedGremlinQuery, IGremlinQueryEnvironment, IAsyncEnumerable<object>> _factory;
+            private readonly Func<BytecodeGremlinQuery, IGremlinQueryEnvironment, IAsyncEnumerable<object>> _factory;
 
-            public GremlinQueryExecutorImpl(Func<ISerializedGremlinQuery, IGremlinQueryEnvironment, IAsyncEnumerable<object>> factory)
+            public GremlinQueryExecutorImpl(Func<BytecodeGremlinQuery, IGremlinQueryEnvironment, IAsyncEnumerable<object>> factory)
             {
                 _factory = factory;
             }
@@ -59,7 +59,7 @@ namespace ExRam.Gremlinq.Core.Execution
 
         public static readonly IGremlinQueryExecutor Empty = Create(static (_, _) => AsyncEnumerable.Empty<object>());
 
-        public static IGremlinQueryExecutor Create(Func<ISerializedGremlinQuery, IGremlinQueryEnvironment, IAsyncEnumerable<object>> executor) => new GremlinQueryExecutorImpl(executor);
+        public static IGremlinQueryExecutor Create(Func<BytecodeGremlinQuery, IGremlinQueryEnvironment, IAsyncEnumerable<object>> executor) => new GremlinQueryExecutorImpl(executor);
 
         public static IGremlinQueryExecutor TransformQuery(this IGremlinQueryExecutor baseExecutor, Func<BytecodeGremlinQuery, BytecodeGremlinQuery> transformation) => new TransformQueryGremlinQueryExecutor(baseExecutor, transformation);
 
