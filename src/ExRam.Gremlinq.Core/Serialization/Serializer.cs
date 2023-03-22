@@ -84,7 +84,7 @@ namespace ExRam.Gremlinq.Core.Serialization
         }
 
         [ThreadStatic]
-        internal static Dictionary<StepLabel, StepLabelName>? _stepLabelNames;
+        internal static Dictionary<StepLabel, Label>? _stepLabelNames;
 
         internal static readonly string[] StepLabelNameCache = Enumerable
             .Range(1, 100)
@@ -289,7 +289,7 @@ namespace ExRam.Gremlinq.Core.Serialization
             .Add(ConverterFactory
                 .Create<StepLabel, string>(static (stepLabel, _, _) =>
                 {
-                    var stepLabelNames = _stepLabelNames ??= new Dictionary<StepLabel, StepLabelName>();
+                    var stepLabelNames = _stepLabelNames ??= new Dictionary<StepLabel, Label>();
 
                     if (!stepLabelNames.TryGetValue(stepLabel, out var stepLabelMapping))
                     {
