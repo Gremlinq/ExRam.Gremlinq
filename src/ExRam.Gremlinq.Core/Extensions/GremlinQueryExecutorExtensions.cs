@@ -22,7 +22,7 @@ namespace ExRam.Gremlinq.Core.Execution
                 _shouldRetry = shouldRetry;
             }
 
-            public IAsyncEnumerable<object> Execute(ISerializedGremlinQuery serializedQuery, IGremlinQueryEnvironment environment)
+            public IAsyncEnumerable<object> Execute(BytecodeGremlinQuery serializedQuery, IGremlinQueryEnvironment environment)
             {
                 return AsyncEnumerable.Create(Core);
 
@@ -55,7 +55,7 @@ namespace ExRam.Gremlinq.Core.Execution
                                     //requests fail roughly at the same time
                                     await Task.Delay((_rnd ??= new Random((int)(DateTime.Now.Ticks & int.MaxValue) ^ Thread.CurrentThread.ManagedThreadId)).Next(i + 2) * 16, ct);
 
-                                    var newSerializedQuery = serializedQuery.WithNewId();
+                                    var newSerializedQuery = (BytecodeGremlinQuery)serializedQuery.WithNewId(); //TODO!!!!
                                     environment.Logger.LogInformation($"Retrying serialized query {serializedQuery.Id} with new {nameof(ISerializedGremlinQuery.Id)} {newSerializedQuery.Id}.");
                                     serializedQuery = newSerializedQuery;
 
@@ -83,7 +83,7 @@ namespace ExRam.Gremlinq.Core.Execution
                 _executor = executor;
             }
 
-            public IAsyncEnumerable<object> Execute(ISerializedGremlinQuery serializedQuery, IGremlinQueryEnvironment environment)
+            public IAsyncEnumerable<object> Execute(BytecodeGremlinQuery serializedQuery, IGremlinQueryEnvironment environment)
             {
                 return AsyncEnumerable.Create(Core);
 
@@ -162,7 +162,7 @@ namespace ExRam.Gremlinq.Core.Execution
                 _exceptionTransformation = exceptionTransformation;
             }
 
-            public IAsyncEnumerable<object> Execute(ISerializedGremlinQuery serializedQuery, IGremlinQueryEnvironment environment)
+            public IAsyncEnumerable<object> Execute(BytecodeGremlinQuery serializedQuery, IGremlinQueryEnvironment environment)
             {
                 return AsyncEnumerable.Create(Core);
 

@@ -16,7 +16,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 _json = json;
             }
 
-            public IAsyncEnumerable<object> Execute(ISerializedGremlinQuery serializedQuery, IGremlinQueryEnvironment environment)
+            public IAsyncEnumerable<object> Execute(BytecodeGremlinQuery serializedQuery, IGremlinQueryEnvironment environment)
             {
                 var token = JsonConvert.DeserializeObject<JToken>(
                     _json,

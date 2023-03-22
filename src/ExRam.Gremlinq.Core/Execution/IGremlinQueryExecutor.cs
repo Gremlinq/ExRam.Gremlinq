@@ -4,6 +4,6 @@ namespace ExRam.Gremlinq.Core.Execution
 {
     public interface IGremlinQueryExecutor
     {
-        IAsyncEnumerable<object> Execute(ISerializedGremlinQuery serializedQuery, IGremlinQueryEnvironment environment);
+        IAsyncEnumerable<object> Execute(BytecodeGremlinQuery serializedQuery, IGremlinQueryEnvironment environment);
     }
 }

@@ -211,7 +211,7 @@ namespace ExRam.Gremlinq.Core
         IAsyncEnumerable<TElement> IGremlinQueryBase<TElement>.ToAsyncEnumerable() => Environment.Executor
             .Execute(
                 Environment.Serializer
-                    .TransformTo<ISerializedGremlinQuery>()
+                    .TransformTo<BytecodeGremlinQuery>()
                     .From(this, Environment),
                 Environment)
             .Select(executionResult => Environment.Deserializer
