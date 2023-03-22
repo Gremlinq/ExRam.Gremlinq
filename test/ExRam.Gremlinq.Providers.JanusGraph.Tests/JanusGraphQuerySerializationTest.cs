@@ -6,7 +6,7 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
 {
-    public sealed class JanusGraphQuerySerializationTest : QuerySerializationTest<ISerializedGremlinQuery>, IClassFixture<JanusGraphQuerySerializationTest.Fixture>
+    public sealed class JanusGraphQuerySerializationTest : QuerySerializationTest<BytecodeGremlinQuery>, IClassFixture<JanusGraphQuerySerializationTest.Fixture>
     {
         public sealed class Fixture : GremlinqTestFixture
         {

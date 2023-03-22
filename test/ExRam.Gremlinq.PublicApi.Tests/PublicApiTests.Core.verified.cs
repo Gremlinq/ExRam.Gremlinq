@@ -1188,7 +1188,7 @@ namespace ExRam.Gremlinq.Core.Execution
         public static readonly ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor Empty;
         public static readonly ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor Identity;
         public static readonly ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor Invalid;
-        public static ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor Create(System.Func<ExRam.Gremlinq.Core.Serialization.ISerializedGremlinQuery, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, System.Collections.Generic.IAsyncEnumerable<object>> executor) { }
+        public static ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor Create(System.Func<ExRam.Gremlinq.Core.Serialization.BytecodeGremlinQuery, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, System.Collections.Generic.IAsyncEnumerable<object>> executor) { }
         public static ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor TransformQuery(this ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor baseExecutor, System.Func<ExRam.Gremlinq.Core.Serialization.BytecodeGremlinQuery, ExRam.Gremlinq.Core.Serialization.BytecodeGremlinQuery> transformation) { }
         public static ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor TransformResult(this ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor baseExecutor, System.Func<System.Collections.Generic.IAsyncEnumerable<object>, System.Collections.Generic.IAsyncEnumerable<object>> transformation) { }
     }
@@ -1578,10 +1578,6 @@ namespace ExRam.Gremlinq.Core.Serialization
     {
         string Id { get; }
         ExRam.Gremlinq.Core.Serialization.ISerializedGremlinQuery WithNewId();
-    }
-    public static class SerializedGremlinQueryExtensions
-    {
-        public static ExRam.Gremlinq.Core.Serialization.GroovyGremlinQuery ToGroovy(this ExRam.Gremlinq.Core.Serialization.ISerializedGremlinQuery serializedGremlinQuery) { }
     }
     public static class Serializer
     {
