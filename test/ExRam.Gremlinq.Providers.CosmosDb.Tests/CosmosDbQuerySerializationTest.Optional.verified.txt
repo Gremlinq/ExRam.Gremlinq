@@ -1,9 +1,7 @@
-﻿[
-  {
-    "Script": "g.V().optional(__.out(_a))",
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bindings": {
-      "_a": "WorksFor"
-    }
+﻿{
+  Script: g.V().optional(__.out(_a)),
+  Id: Guid_1,
+  Bindings: {
+    _a: WorksFor
   }
-]
+}

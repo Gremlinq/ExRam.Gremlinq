@@ -1,14 +1,12 @@
-﻿[
-  {
-    "Script": "g.addV(_a).property(_b,_b).property(single,_c,_d).addE(_e).to(__.addV(_f).property(_b,_b)).outV()",
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bindings": {
-      "_a": "Person",
-      "_b": "PartitionKey",
-      "_c": "Age",
-      "_d": 0,
-      "_e": "LivesIn",
-      "_f": "Country"
-    }
+﻿{
+  Script: g.addV(_a).property(_b,_b).property(single,_c,_d).addE(_e).to(__.addV(_f).property(_b,_b)).outV(),
+  Id: Guid_1,
+  Bindings: {
+    _a: Person,
+    _b: PartitionKey,
+    _c: Age,
+    _d: 0,
+    _e: LivesIn,
+    _f: Country
   }
-]
+}

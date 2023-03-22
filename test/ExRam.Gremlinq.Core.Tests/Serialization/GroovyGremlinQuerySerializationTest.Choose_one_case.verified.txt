@@ -1,10 +1,8 @@
-﻿[
-  {
-    "Script": "g.V().filter(__.properties()).choose(__.values()).option(_a,__.constant(_b))",
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bindings": {
-      "_a": 3,
-      "_b": 1
-    }
+﻿{
+  Script: g.V().filter(__.properties()).choose(__.values()).option(_a,__.constant(_b)),
+  Id: Guid_1,
+  Bindings: {
+    _a: 3,
+    _b: 1
   }
-]
+}

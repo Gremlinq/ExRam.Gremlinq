@@ -1,9 +1,7 @@
-﻿[
-  {
-    "Script": "g.inject(_a).local(__.V().drop())",
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bindings": {
-      "_a": 1
-    }
+﻿{
+  Script: g.inject(_a).local(__.V().drop()),
+  Id: Guid_1,
+  Bindings: {
+    _a: 1
   }
-]
+}

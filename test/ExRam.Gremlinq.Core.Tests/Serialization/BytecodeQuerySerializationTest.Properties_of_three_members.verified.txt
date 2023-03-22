@@ -1,78 +1,72 @@
-﻿[
-  {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bytecode": {
-      "SourceInstructions": [],
-      "StepInstructions": [
-        {
-          "OperatorName": "V",
-          "Arguments": []
-        },
-        {
-          "OperatorName": "hasLabel",
-          "Arguments": [
-            "Country"
-          ]
-        },
-        {
-          "OperatorName": "properties",
-          "Arguments": [
-            "Name",
-            "CountryCallingCode",
-            "Languages"
-          ]
-        },
-        {
-          "OperatorName": "project",
-          "Arguments": [
-            "id",
-            "label",
-            "value",
-            "properties"
-          ]
-        },
-        {
-          "OperatorName": "by",
-          "Arguments": [
-            {
-              "EnumName": "T",
-              "EnumValue": "id"
-            }
-          ]
-        },
-        {
-          "OperatorName": "by",
-          "Arguments": [
-            {
-              "EnumName": "T",
-              "EnumValue": "label"
-            }
-          ]
-        },
-        {
-          "OperatorName": "by",
-          "Arguments": [
-            {
-              "EnumName": "T",
-              "EnumValue": "value"
-            }
-          ]
-        },
-        {
-          "OperatorName": "by",
-          "Arguments": [
-            {
-              "SourceInstructions": [],
-              "StepInstructions": [
-                {
-                  "OperatorName": "valueMap",
-                  "Arguments": []
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }
+﻿{
+  Id: Guid_1,
+  Bytecode: {
+    StepInstructions: [
+      {
+        OperatorName: V
+      },
+      {
+        OperatorName: hasLabel,
+        Arguments: [
+          Country
+        ]
+      },
+      {
+        OperatorName: properties,
+        Arguments: [
+          Name,
+          CountryCallingCode,
+          Languages
+        ]
+      },
+      {
+        OperatorName: project,
+        Arguments: [
+          id,
+          label,
+          value,
+          properties
+        ]
+      },
+      {
+        OperatorName: by,
+        Arguments: [
+          {
+            EnumName: T,
+            EnumValue: id
+          }
+        ]
+      },
+      {
+        OperatorName: by,
+        Arguments: [
+          {
+            EnumName: T,
+            EnumValue: label
+          }
+        ]
+      },
+      {
+        OperatorName: by,
+        Arguments: [
+          {
+            EnumName: T,
+            EnumValue: value
+          }
+        ]
+      },
+      {
+        OperatorName: by,
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: valueMap
+              }
+            ]
+          }
+        ]
+      }
+    ]
   }
-]
+}

@@ -1,3 +1,1 @@
-﻿[
-  "{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"V\"],[\"properties\"],[\"values\",\"MetaProperty\"]]}}"
-]
+﻿{"@type":"g:Bytecode","@value":{"step":[["V"],["properties"],["values","MetaProperty"]]}}

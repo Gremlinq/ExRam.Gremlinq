@@ -1,28 +1,25 @@
-﻿[
-  {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bytecode": {
-      "SourceInstructions": [
-        {
-          "OperatorName": "withSideEffect",
-          "Arguments": [
-            "_a",
-            36
-          ]
-        }
-      ],
-      "StepInstructions": [
-        {
-          "OperatorName": "V",
-          "Arguments": []
-        },
-        {
-          "OperatorName": "select",
-          "Arguments": [
-            "_a"
-          ]
-        }
-      ]
-    }
+﻿{
+  Id: Guid_1,
+  Bytecode: {
+    SourceInstructions: [
+      {
+        OperatorName: withSideEffect,
+        Arguments: [
+          _a,
+          36
+        ]
+      }
+    ],
+    StepInstructions: [
+      {
+        OperatorName: V
+      },
+      {
+        OperatorName: select,
+        Arguments: [
+          _a
+        ]
+      }
+    ]
   }
-]
+}

@@ -1,10 +1,8 @@
-﻿[
-  {
-    "Script": "g.V().where(__.in()).where(__.out()).project(_a,_b).by(__.in()).by(__.out())",
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bindings": {
-      "_a": "Item1",
-      "_b": "Item2"
-    }
+﻿{
+  Script: g.V().where(__.in()).where(__.out()).project(_a,_b).by(__.in()).by(__.out()),
+  Id: Guid_1,
+  Bindings: {
+    _a: Item1,
+    _b: Item2
   }
-]
+}

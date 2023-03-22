@@ -1,66 +1,58 @@
-﻿[
-  {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bytecode": {
-      "SourceInstructions": [],
-      "StepInstructions": [
-        {
-          "OperatorName": "inject",
-          "Arguments": [
-            "hello"
-          ]
-        },
-        {
-          "OperatorName": "as",
-          "Arguments": [
-            "_a"
-          ]
-        },
-        {
-          "OperatorName": "V",
-          "Arguments": []
-        },
-        {
-          "OperatorName": "hasLabel",
-          "Arguments": [
-            "Company"
-          ]
-        },
-        {
-          "OperatorName": "properties",
-          "Arguments": [
-            "Locations"
-          ]
-        },
-        {
-          "OperatorName": "properties",
-          "Arguments": []
-        },
-        {
-          "OperatorName": "filter",
-          "Arguments": [
-            {
-              "SourceInstructions": [],
-              "StepInstructions": [
-                {
-                  "OperatorName": "key",
-                  "Arguments": []
-                },
-                {
-                  "OperatorName": "where",
-                  "Arguments": [
-                    {
-                      "OperatorName": "eq",
-                      "Value": "_a",
-                      "Other": null
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }
+﻿{
+  Id: Guid_1,
+  Bytecode: {
+    StepInstructions: [
+      {
+        OperatorName: inject,
+        Arguments: [
+          hello
+        ]
+      },
+      {
+        OperatorName: as,
+        Arguments: [
+          _a
+        ]
+      },
+      {
+        OperatorName: V
+      },
+      {
+        OperatorName: hasLabel,
+        Arguments: [
+          Company
+        ]
+      },
+      {
+        OperatorName: properties,
+        Arguments: [
+          Locations
+        ]
+      },
+      {
+        OperatorName: properties
+      },
+      {
+        OperatorName: filter,
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: key
+              },
+              {
+                OperatorName: where,
+                Arguments: [
+                  {
+                    OperatorName: eq,
+                    Value: _a
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
   }
-]
+}

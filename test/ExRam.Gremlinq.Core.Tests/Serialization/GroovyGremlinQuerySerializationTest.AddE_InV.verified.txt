@@ -1,17 +1,15 @@
-﻿[
-  {
-    "Script": "g.addV(_a).property(single,_b,_c).addE(_d).to(__.addV(_e)).inV().project(_f,_g,_h).by(id).by(label).by(__.properties().group().by(label).by(__.project(_f,_g,_i,_h).by(id).by(label).by(value).by(__.valueMap()).fold()))",
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bindings": {
-      "_a": "Person",
-      "_b": "Age",
-      "_c": 0,
-      "_d": "LivesIn",
-      "_e": "Country",
-      "_f": "id",
-      "_g": "label",
-      "_h": "properties",
-      "_i": "value"
-    }
+﻿{
+  Script: g.addV(_a).property(single,_b,_c).addE(_d).to(__.addV(_e)).inV().project(_f,_g,_h).by(id).by(label).by(__.properties().group().by(label).by(__.project(_f,_g,_i,_h).by(id).by(label).by(value).by(__.valueMap()).fold())),
+  Id: Guid_1,
+  Bindings: {
+    _a: Person,
+    _b: Age,
+    _c: 0,
+    _d: LivesIn,
+    _e: Country,
+    _f: id,
+    _g: label,
+    _h: properties,
+    _i: value
   }
-]
+}

@@ -1,12 +1,10 @@
-﻿[
-  {
-    "Script": "g.V().hasLabel(_a).has(_b,gt(_c).and(lt(_d)))",
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bindings": {
-      "_a": "Person",
-      "_b": "Age",
-      "_c": 36,
-      "_d": 72
-    }
+﻿{
+  Script: g.V().hasLabel(_a).has(_b,gt(_c).and(lt(_d))),
+  Id: Guid_1,
+  Bindings: {
+    _a: Person,
+    _b: Age,
+    _c: 36,
+    _d: 72
   }
-]
+}

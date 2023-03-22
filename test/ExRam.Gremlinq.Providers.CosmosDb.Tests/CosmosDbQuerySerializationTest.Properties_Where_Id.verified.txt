@@ -1,11 +1,9 @@
-﻿[
-  {
-    "Script": "g.V().hasLabel(_a).properties(_b).has(id,_c)",
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bindings": {
-      "_a": "Country",
-      "_b": "Languages",
-      "_c": "id"
-    }
+﻿{
+  Script: g.V().hasLabel(_a).properties(_b).has(id,_c),
+  Id: Guid_1,
+  Bindings: {
+    _a: Country,
+    _b: Languages,
+    _c: id
   }
-]
+}

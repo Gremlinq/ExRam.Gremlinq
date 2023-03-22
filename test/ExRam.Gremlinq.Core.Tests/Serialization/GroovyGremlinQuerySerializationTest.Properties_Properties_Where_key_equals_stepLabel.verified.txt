@@ -1,12 +1,10 @@
-﻿[
-  {
-    "Script": "g.inject(_a).as(_b).V().hasLabel(_c).properties(_d).properties().filter(__.key().where(eq(_b)))",
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bindings": {
-      "_a": "hello",
-      "_b": "_a",
-      "_c": "Company",
-      "_d": "Locations"
-    }
+﻿{
+  Script: g.inject(_a).as(_b).V().hasLabel(_c).properties(_d).properties().filter(__.key().where(eq(_b))),
+  Id: Guid_1,
+  Bindings: {
+    _a: hello,
+    _b: _a,
+    _c: Company,
+    _d: Locations
   }
-]
+}

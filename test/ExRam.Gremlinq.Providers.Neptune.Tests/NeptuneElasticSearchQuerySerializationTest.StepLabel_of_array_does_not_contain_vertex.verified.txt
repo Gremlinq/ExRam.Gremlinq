@@ -1,75 +1,67 @@
-﻿[
-  {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bytecode": {
-      "SourceInstructions": [
-        {
-          "OperatorName": "withSideEffect",
-          "Arguments": [
-            "Neptune#fts.endpoint",
-            "http://elastic.search.server"
-          ]
-        },
-        {
-          "OperatorName": "withSideEffect",
-          "Arguments": [
-            "Neptune#fts.queryType",
-            "query_string"
-          ]
-        }
-      ],
-      "StepInstructions": [
-        {
-          "OperatorName": "V",
-          "Arguments": []
-        },
-        {
-          "OperatorName": "fold",
-          "Arguments": []
-        },
-        {
-          "OperatorName": "as",
-          "Arguments": [
-            "_c"
-          ]
-        },
-        {
-          "OperatorName": "V",
-          "Arguments": []
-        },
-        {
-          "OperatorName": "hasLabel",
-          "Arguments": [
-            "Person"
-          ]
-        },
-        {
-          "OperatorName": "not",
-          "Arguments": [
-            {
-              "SourceInstructions": [],
-              "StepInstructions": [
-                {
-                  "OperatorName": "where",
-                  "Arguments": [
-                    {
-                      "OperatorName": "within",
-                      "Value": [
-                        "_c"
-                      ],
-                      "Other": null
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "OperatorName": "count",
-          "Arguments": []
-        }
-      ]
-    }
+﻿{
+  Id: Guid_1,
+  Bytecode: {
+    SourceInstructions: [
+      {
+        OperatorName: withSideEffect,
+        Arguments: [
+          Neptune#fts.endpoint,
+          http://elastic.search.server
+        ]
+      },
+      {
+        OperatorName: withSideEffect,
+        Arguments: [
+          Neptune#fts.queryType,
+          query_string
+        ]
+      }
+    ],
+    StepInstructions: [
+      {
+        OperatorName: V
+      },
+      {
+        OperatorName: fold
+      },
+      {
+        OperatorName: as,
+        Arguments: [
+          _c
+        ]
+      },
+      {
+        OperatorName: V
+      },
+      {
+        OperatorName: hasLabel,
+        Arguments: [
+          Person
+        ]
+      },
+      {
+        OperatorName: not,
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: where,
+                Arguments: [
+                  {
+                    OperatorName: within,
+                    Value: [
+                      _c
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        OperatorName: count
+      }
+    ]
   }
-]
+}

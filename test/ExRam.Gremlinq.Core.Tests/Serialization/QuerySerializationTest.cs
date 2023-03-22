@@ -4,10 +4,11 @@ using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Tests.Entities;
 using ExRam.Gremlinq.Core.Transformation;
 using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
+using ExRam.Gremlinq.Core.Serialization;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public abstract class QuerySerializationTest : QueryExecutionTest
+    public abstract class QuerySerializationTest<TSerialized> : QueryExecutionTest
     {
         protected QuerySerializationTest(GremlinqTestFixture fixture, ITestOutputHelper testOutputHelper, [CallerFilePath] string callerFilePath = "") : base(
             fixture,
@@ -16,7 +17,15 @@ namespace ExRam.Gremlinq.Core.Tests
         {
         }
 
-        public override Task Verify<TElement>(IGremlinQueryBase<TElement> query) => base.Verify(query.Cast<object>());
+        public override Task Verify<TElement>(IGremlinQueryBase<TElement> query)
+        {
+            var env = query.AsAdmin().Environment;
+
+            return Verify(env
+                .Serializer
+                .TransformTo<TSerialized>()
+                .From(query, env));
+        }
 
         [Fact]
         public async Task StringKey()

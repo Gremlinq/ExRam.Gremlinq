@@ -1,11 +1,9 @@
-﻿[
-  {
-    "Script": "g.V().hasLabel(_a).has(_b).where(__.values(_c)).order().by(__.values(_b),incr).by(__.values(_c),incr)",
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bindings": {
-      "_a": "Person",
-      "_b": "Name",
-      "_c": "Gender"
-    }
+﻿{
+  Script: g.V().hasLabel(_a).has(_b).where(__.values(_c)).order().by(__.values(_b),incr).by(__.values(_c),incr),
+  Id: Guid_1,
+  Bindings: {
+    _a: Person,
+    _b: Name,
+    _c: Gender
   }
-]
+}

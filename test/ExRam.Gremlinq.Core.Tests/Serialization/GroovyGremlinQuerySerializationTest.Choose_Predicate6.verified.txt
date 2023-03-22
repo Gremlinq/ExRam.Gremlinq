@@ -1,13 +1,11 @@
-﻿[
-  {
-    "Script": "g.V().id().choose(gt(_a).and(lt(_b)).or(neq(_c)),__.constant(_d),__.constant(_e))",
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bindings": {
-      "_a": 0,
-      "_b": 42,
-      "_c": 37,
-      "_d": true,
-      "_e": false
-    }
+﻿{
+  Script: g.V().id().choose(gt(_a).and(lt(_b)).or(neq(_c)),__.constant(_d),__.constant(_e)),
+  Id: Guid_1,
+  Bindings: {
+    _a: 0,
+    _b: 42,
+    _c: 37,
+    _d: true,
+    _e: false
   }
-]
+}

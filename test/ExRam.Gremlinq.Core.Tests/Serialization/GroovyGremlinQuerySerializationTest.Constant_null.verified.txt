@@ -1,7 +1,4 @@
-﻿[
-  {
-    "Script": "g.V().constant(null)",
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bindings": {}
-  }
-]
+﻿{
+  Script: g.V().constant(null),
+  Id: Guid_1
+}

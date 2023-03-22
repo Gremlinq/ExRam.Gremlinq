@@ -1,47 +1,41 @@
-﻿[
-  {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bytecode": {
-      "SourceInstructions": [],
-      "StepInstructions": [
-        {
-          "OperatorName": "V",
-          "Arguments": []
-        },
-        {
-          "OperatorName": "hasLabel",
-          "Arguments": [
-            "Person"
-          ]
-        },
-        {
-          "OperatorName": "union",
-          "Arguments": [
-            {
-              "SourceInstructions": [],
-              "StepInstructions": [
-                {
-                  "OperatorName": "out",
-                  "Arguments": [
-                    "WorksFor"
-                  ]
-                }
-              ]
-            },
-            {
-              "SourceInstructions": [],
-              "StepInstructions": [
-                {
-                  "OperatorName": "outE",
-                  "Arguments": [
-                    "LivesIn"
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }
+﻿{
+  Id: Guid_1,
+  Bytecode: {
+    StepInstructions: [
+      {
+        OperatorName: V
+      },
+      {
+        OperatorName: hasLabel,
+        Arguments: [
+          Person
+        ]
+      },
+      {
+        OperatorName: union,
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: out,
+                Arguments: [
+                  WorksFor
+                ]
+              }
+            ]
+          },
+          {
+            StepInstructions: [
+              {
+                OperatorName: outE,
+                Arguments: [
+                  LivesIn
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
   }
-]
+}

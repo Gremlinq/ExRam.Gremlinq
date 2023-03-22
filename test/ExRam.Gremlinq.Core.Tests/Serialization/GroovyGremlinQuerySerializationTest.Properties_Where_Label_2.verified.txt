@@ -1,14 +1,12 @@
-﻿[
-  {
-    "Script": "g.V().hasLabel(_a).properties(_b).hasKey(_c).project(_d,_c,_e,_f).by(id).by(label).by(value).by(__.valueMap())",
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bindings": {
-      "_a": "Country",
-      "_b": "Languages",
-      "_c": "label",
-      "_d": "id",
-      "_e": "value",
-      "_f": "properties"
-    }
+﻿{
+  Script: g.V().hasLabel(_a).properties(_b).hasKey(_c).project(_d,_c,_e,_f).by(id).by(label).by(value).by(__.valueMap()),
+  Id: Guid_1,
+  Bindings: {
+    _a: Country,
+    _b: Languages,
+    _c: label,
+    _d: id,
+    _e: value,
+    _f: properties
   }
-]
+}

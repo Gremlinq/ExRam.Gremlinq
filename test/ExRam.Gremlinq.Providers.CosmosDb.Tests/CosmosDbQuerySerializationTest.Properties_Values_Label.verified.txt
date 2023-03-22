@@ -1,7 +1,4 @@
-﻿[
-  {
-    "Script": "g.V().properties().label()",
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bindings": {}
-  }
-]
+﻿{
+  Script: g.V().properties().label(),
+  Id: Guid_1
+}

@@ -1,7 +1,4 @@
-﻿[
-  {
-    "Script": "g.V().group().by(__.identity())",
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bindings": {}
-  }
-]
+﻿{
+  Script: g.V().group().by(__.identity()),
+  Id: Guid_1
+}

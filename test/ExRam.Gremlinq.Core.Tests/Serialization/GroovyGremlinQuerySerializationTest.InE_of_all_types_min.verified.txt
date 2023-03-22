@@ -1,11 +1,9 @@
-﻿[
-  {
-    "Script": "g.V().inE().project(_a,_b,_c).by(id).by(label).by(__.valueMap())",
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bindings": {
-      "_a": "id",
-      "_b": "label",
-      "_c": "properties"
-    }
+﻿{
+  Script: g.V().inE().project(_a,_b,_c).by(id).by(label).by(__.valueMap()),
+  Id: Guid_1,
+  Bindings: {
+    _a: id,
+    _b: label,
+    _c: properties
   }
-]
+}

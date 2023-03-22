@@ -1,3 +1,1 @@
-﻿[
-  "{\"@type\":\"g:Bytecode\",\"@value\":{\"source\":[[\"withSideEffect\",\"_a\",{\"@type\":\"g:Int32\",\"@value\":36}]],\"step\":[[\"V\"],[\"select\",\"_a\"]]}}"
-]
+﻿{"@type":"g:Bytecode","@value":{"source":[["withSideEffect","_a",{"@type":"g:Int32","@value":36}]],"step":[["V"],["select","_a"]]}}
