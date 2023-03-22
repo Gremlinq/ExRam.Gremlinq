@@ -55,7 +55,7 @@ namespace ExRam.Gremlinq.Core.Execution
 
         public static readonly IGremlinQueryExecutor Invalid = Create(static (_, _) => throw new InvalidOperationException($"'{nameof(IGremlinQueryExecutor.Execute)}' must not be called on {nameof(GremlinQueryExecutor)}.{nameof(Invalid)}. If you are getting this exception while executing a query, set a proper {nameof(GremlinQueryExecutor)} on the {nameof(GremlinQuerySource)} (e.g. with 'g.UseGremlinServer(...)' for GremlinServer which can be found in the 'ExRam.Gremlinq.Providers.GremlinServer' package)."));
 
-        public static readonly IGremlinQueryExecutor Identity = Create(static (query, _) => new[] { query }.ToAsyncEnumerable());
+        public static readonly IGremlinQueryExecutor Identity = Create(static (query, _) => new object[] { query }.ToAsyncEnumerable());
 
         public static readonly IGremlinQueryExecutor Empty = Create(static (_, _) => AsyncEnumerable.Empty<object>());
 

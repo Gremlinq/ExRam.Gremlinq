@@ -1,24 +1,28 @@
 ﻿namespace ExRam.Gremlinq.Core.Serialization
 {
-    public sealed class GroovyGremlinQuery
+    public readonly struct GroovyGremlinQuery
     {
+        private readonly string? _id;
+        private readonly string? _script;
+        private readonly IReadOnlyDictionary<string, object>? _bindings;
+
         public GroovyGremlinQuery(string script, IReadOnlyDictionary<string, object> bindings) : this(Guid.NewGuid().ToString(), script, bindings)
         {
         }
 
         public GroovyGremlinQuery(string id, string script, IReadOnlyDictionary<string, object> bindings)
         {
-            Id = id;
-            Script = script;
-            Bindings = bindings;
+            _id = id;
+            _script = script;
+            _bindings = bindings;
         }
 
         public override string ToString() => Script;
 
-        public string Id { get; }
+        public string Id => _id ?? throw new InvalidOperationException();
 
-        public string Script { get; }
+        public string Script => _script ?? throw new InvalidOperationException();
 
-        public IReadOnlyDictionary<string, object> Bindings { get; }
+        public IReadOnlyDictionary<string, object> Bindings => _bindings ?? throw new InvalidOperationException();
     }
 }
