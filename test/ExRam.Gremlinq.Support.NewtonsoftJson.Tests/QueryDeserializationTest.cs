@@ -1,9 +1,11 @@
 ﻿using System.Runtime.CompilerServices;
+using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Execution;
+using ExRam.Gremlinq.Core.Tests;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace ExRam.Gremlinq.Core.Tests
+namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
 {
     public abstract class QueryDeserializationTest : QueryExecutionTest
     {
