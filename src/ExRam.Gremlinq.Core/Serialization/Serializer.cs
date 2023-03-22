@@ -94,9 +94,6 @@ namespace ExRam.Gremlinq.Core.Serialization
             .AddDefaultStepConverters();
 
         public static ITransformer PreferGroovySerialization(this ITransformer serializer) => serializer
-            .Add(Create<Bytecode, ISerializedGremlinQuery>(static (bytecode, env, recurse) => recurse
-                .TransformTo<GroovyGremlinQuery>()
-                .From(bytecode, env)))
             .Add(Create<BytecodeGremlinQuery, RequestMessage>((query, env, recurse) =>
             {
                 var groovyQuery = query.ToGroovy();
