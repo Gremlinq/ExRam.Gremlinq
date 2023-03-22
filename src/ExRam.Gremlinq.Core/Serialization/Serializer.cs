@@ -293,7 +293,7 @@ namespace ExRam.Gremlinq.Core.Serialization
 
                     if (!stepLabelNames.TryGetValue(stepLabel, out var stepLabelMapping))
                     {
-                        stepLabelMapping = stepLabel.Identity is string stringIdentity
+                        stepLabelMapping = stepLabel.Identity is string { Length: > 0 } stringIdentity && !stringIdentity.StartsWith('_')
                             ? stringIdentity
                             : stepLabelNames.Count;
 
