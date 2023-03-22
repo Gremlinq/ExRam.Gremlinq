@@ -1,4 +1,4 @@
 ﻿{
-  Script: g.V().choose(__.values(),__.out()),
-  Id: Guid_1
+  Id: Guid_1,
+  Script: g.V().choose(__.values(),__.out())
 }

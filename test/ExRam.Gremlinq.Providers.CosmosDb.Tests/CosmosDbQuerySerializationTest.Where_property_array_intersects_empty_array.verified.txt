@@ -1,6 +1,6 @@
 ﻿{
-  Script: g.V().hasLabel(_a).not(__.identity()),
   Id: Guid_1,
+  Script: g.V().hasLabel(_a).not(__.identity()),
   Bindings: {
     _a: Company
   }
