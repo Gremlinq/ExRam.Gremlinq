@@ -4,7 +4,7 @@
     <None Remove="*.verified.json" />
     <None Remove="*.received.json" />
     <ProjectReference Include="..\..\src\ExRam.Gremlinq.Providers.Neptune.AspNet\ExRam.Gremlinq.Providers.Neptune.AspNet.csproj" />
-    <ProjectReference Include="..\ExRam.Gremlinq.Core.Tests\ExRam.Gremlinq.Core.Tests.csproj" />
+    <ProjectReference Include="..\ExRam.Gremlinq.Support.NewtonsoftJson.Tests\ExRam.Gremlinq.Support.NewtonsoftJson.Tests.csproj" />
   </ItemGroup>
 
 </Project>

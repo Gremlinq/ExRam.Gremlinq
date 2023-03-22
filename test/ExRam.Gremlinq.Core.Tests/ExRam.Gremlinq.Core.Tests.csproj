@@ -12,7 +12,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\ExRam.Gremlinq.Core\ExRam.Gremlinq.Core.csproj" />
-    <ProjectReference Include="..\..\src\ExRam.Gremlinq.Support.NewtonsoftJson\ExRam.Gremlinq.Support.NewtonsoftJson.csproj" />
     <ProjectReference Include="..\ExRam.Gremlinq.Tests.Entities\ExRam.Gremlinq.Tests.Entities.csproj" />
   </ItemGroup>
 

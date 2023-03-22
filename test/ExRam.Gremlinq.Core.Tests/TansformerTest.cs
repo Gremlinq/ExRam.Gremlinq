@@ -1,7 +1,5 @@
-﻿using System.Dynamic;
-using ExRam.Gremlinq.Core.Transformation;
+﻿using ExRam.Gremlinq.Core.Transformation;
 using FluentAssertions;
-using Newtonsoft.Json.Linq;
 using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
 
 namespace ExRam.Gremlinq.Core.Tests
@@ -42,14 +40,6 @@ namespace ExRam.Gremlinq.Core.Tests
             await Verify(Transformer.Identity
                 .Add(Create<object, int>((serialized, env, recurse) => 36))
                 .TryTransformTo<object>().From("serialized", GremlinQueryEnvironment.Empty));
-        }
-
-        [Fact]
-        public async Task Irrelevant()
-        {
-            await Verify(Transformer.Identity
-                .Add(Create<JObject, string>((serialized, env, recurse) => "should not be here"))
-                .TryTransformTo<string>().From("serialized", GremlinQueryEnvironment.Empty));
         }
 
         [Fact]
@@ -103,145 +93,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Add(Create<string, string>((serialized, env, recurse) => recurse.TryTransformTo<string>().From(serialized.Length, env)))
                 .Add(Create<int, string>((serialized, env, recurse) => serialized.ToString()))
                 .TryTransformTo<string>().From("serialized", GremlinQueryEnvironment.Empty));
-        }
-
-        [Fact]
-        public async Task More_specific_type_is_deserialized()
-        {
-            await Verify(GremlinQueryEnvironment.Default
-                .UseNewtonsoftJson()
-                .Deserializer
-                .TryTransformTo<object>().From(JObject.Parse("{ \"@type\": \"g:Date\", \"@value\": 1657527969000 }"), GremlinQueryEnvironment.Empty));
-        }
-
-        [Fact]
-        public async Task JObject_is_not_changed()
-        {
-            var original = JObject.Parse("{ \"prop1\": \"value\", \"prop2\": 1657527969000 }");
-
-            var deserialized = GremlinQueryEnvironment.Default
-                .UseNewtonsoftJson()
-                .Deserializer
-                .TryTransformTo<JObject>().From(original, GremlinQueryEnvironment.Empty);
-
-            deserialized
-                .Should()
-                .BeSameAs(original);
-        }
-
-        [Fact]
-        public async Task Request_for_Dictionary_yields_expandoObject()
-        {
-            var original = JObject.Parse("{ \"prop1\": \"value\", \"prop2\": 1657527969000 }");
-
-            var deserialized = GremlinQueryEnvironment.Default
-                .UseNewtonsoftJson()
-                .Deserializer
-                .TryTransformTo<IDictionary<string, object>>().From(original, GremlinQueryEnvironment.Empty);
-
-            deserialized
-                .Should()
-                .BeOfType<ExpandoObject>();
-
-            await Verify(deserialized);
-        }
-
-        [Fact]
-        public async Task Request_for_Dictionary_yields_expandoObject_from_typed_GraphSON()
-        {
-            var original = JObject.Parse("{ \"@type\": \"g:unknown\", \"@value\": { \"prop1\": \"value\", \"prop2\": 1657527969000 } }");
-
-            var deserialized = GremlinQueryEnvironment.Default
-                .UseNewtonsoftJson()
-                .Deserializer
-                .TryTransformTo<IDictionary<string, object>>().From(original, GremlinQueryEnvironment.Empty);
-
-            deserialized
-                .Should()
-                .BeOfType<ExpandoObject>();
-
-            await Verify(deserialized);
-        }
-
-        [Fact]
-        public async Task Overridden_request_for_Dictionary_yields_dictionary()
-        {
-            var original = JObject.Parse("{ \"prop1\": \"value\", \"prop2\": 1657527969000 }");
-
-            var deserialized = GremlinQueryEnvironment.Default
-                .UseNewtonsoftJson()
-                .Deserializer
-                .Add(Create<JObject, IDictionary<string, object?>>((static (jObject,  env, recurse) =>
-                {
-                    if (recurse.TryTransformTo<JObject>().From(jObject, env) is JObject processedFragment)
-                    {
-                        var dict = new Dictionary<string, object?>();
-
-                        foreach (var property in processedFragment)
-                        {
-                            dict.TryAdd(property.Key, recurse.TryTransformTo<object>().From(property.Value, env));
-                        }
-
-                        return dict;
-                    }
-
-                    return default;
-                })))
-                .TryTransformTo<IDictionary<string, object>>().From(original, GremlinQueryEnvironment.Empty);
-
-            deserialized
-                .Should()
-                .BeOfType<Dictionary<string, object?>>();
-
-            await Verify(deserialized);
-        }
-
-        [Fact]
-        public Task Transform_to_List()
-        {
-            var token = JObject.Parse("{ \"@type\": \"g:List\", \"@value\": [ { \"@type\": \"g:Traverser\", \"@value\": { \"bulk\": { \"@type\": \"g:Int64\", \"@value\": 3 }, \"value\": { \"@type\": \"g:Map\", \"@value\": [ \"id\", { \"@type\": \"g:Int64\", \"@value\": 184 }, \"label\", \"Label\", \"properties\", { \"@type\": \"g:Map\", \"@value\": [] } ] } } } ]}");
-
-            return Verify(GremlinQueryEnvironment.Default
-                .UseNewtonsoftJson()
-                .Deserializer
-                .TransformTo<List<object>>()
-                .From(token, GremlinQueryEnvironment.Default));
-        }
-
-        [Fact]
-        public Task Transform_to_array()
-        {
-            var token = JObject.Parse("{ \"@type\": \"g:List\", \"@value\": [ { \"@type\": \"g:Traverser\", \"@value\": { \"bulk\": { \"@type\": \"g:Int64\", \"@value\": 3 }, \"value\": { \"@type\": \"g:Map\", \"@value\": [ \"id\", { \"@type\": \"g:Int64\", \"@value\": 184 }, \"label\", \"Label\", \"properties\", { \"@type\": \"g:Map\", \"@value\": [] } ] } } } ]}");
-
-            return Verify(GremlinQueryEnvironment.Default
-                .UseNewtonsoftJson()
-                .Deserializer
-                .TransformTo<object[]>()
-                .From(token, GremlinQueryEnvironment.Default));
-        }
-
-        [Fact]
-        public Task Transform_to_IEnumerable()
-        {
-            var token = JObject.Parse("{ \"@type\": \"g:List\", \"@value\": [ { \"@type\": \"g:Traverser\", \"@value\": { \"bulk\": { \"@type\": \"g:Int64\", \"@value\": 3 }, \"value\": { \"@type\": \"g:Map\", \"@value\": [ \"id\", { \"@type\": \"g:Int64\", \"@value\": 184 }, \"label\", \"Label\", \"properties\", { \"@type\": \"g:Map\", \"@value\": [] } ] } } } ]}");
-
-            return Verify(GremlinQueryEnvironment.Default
-                .UseNewtonsoftJson()
-                .Deserializer
-                .TransformTo<IEnumerable<object>>()
-                .From(token, GremlinQueryEnvironment.Default));
-        }
-
-        [Fact]
-        public Task Transform_from_JArray_to_object()
-        {
-            var token = JObject.Parse("{ \"@type\": \"g:List\", \"@value\": [ { \"@type\": \"g:Traverser\", \"@value\": { \"bulk\": { \"@type\": \"g:Int64\", \"@value\": 3 }, \"value\": { \"@type\": \"g:Map\", \"@value\": [ \"id\", { \"@type\": \"g:Int64\", \"@value\": 184 }, \"label\", \"Label\", \"properties\", { \"@type\": \"g:Map\", \"@value\": [] } ] } } } ]}");
-
-            return Verify(GremlinQueryEnvironment.Default
-                .UseNewtonsoftJson()
-                .Deserializer
-                .TransformTo<object>()
-                .From(token, GremlinQueryEnvironment.Default));
         }
     }
 }
