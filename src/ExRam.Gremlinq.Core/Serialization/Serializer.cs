@@ -8,7 +8,6 @@ using static ExRam.Gremlinq.Core.Serialization.Instructions;
 using System.Diagnostics.CodeAnalysis;
 using Gremlin.Net.Driver.Messages;
 using Gremlin.Net.Driver;
-using System.Collections.Generic;
 
 namespace ExRam.Gremlinq.Core.Serialization
 {
@@ -94,18 +93,15 @@ namespace ExRam.Gremlinq.Core.Serialization
             .AddDefaultStepConverters();
 
         public static ITransformer PreferGroovySerialization(this ITransformer serializer) => serializer
-            .Add(Create<BytecodeGremlinQuery, RequestMessage>((query, env, recurse) =>
-            {
-                var groovyQuery = query.ToGroovy();
-
-                return RequestMessage
+            .Add(Create<BytecodeGremlinQuery, RequestMessage>((query, env, recurse) => recurse.TryTransform(query, env, out GroovyGremlinQuery? groovyQuery)
+                ? RequestMessage
                     .Build(Tokens.OpsEval)
                     .OverrideRequestId(query, env)
                     .AddArgument(Tokens.ArgsGremlin, groovyQuery.Script)
                     .AddArgument(Tokens.ArgsBindings, groovyQuery.Bindings)
                     .AddAlias(env)
-                    .Create();
-            }));
+                    .Create()
+                : default));
 
         private static ITransformer AddBaseConverters(this ITransformer serializer) => serializer
             .Add(ConverterFactory
@@ -293,6 +289,8 @@ namespace ExRam.Gremlinq.Core.Serialization
             .Add(ConverterFactory
                 .Create<Bytecode, BytecodeGremlinQuery>(static (bytecode, _, _) => new BytecodeGremlinQuery(bytecode))
                 .AutoRecurse<BytecodeGremlinQuery>())
+            .Add(ConverterFactory
+                .Create<BytecodeGremlinQuery, GroovyGremlinQuery>((query, _, _) => query.ToGroovy()))
             .Add(ConverterFactory
                 .Create<StepLabel, string>(static (stepLabel, _, _) =>
                 {
