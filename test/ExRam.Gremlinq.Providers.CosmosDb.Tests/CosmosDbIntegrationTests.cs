@@ -1,5 +1,5 @@
 ﻿using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Core.Tests;
+using ExRam.Gremlinq.Support.NewtonsoftJson.Tests;
 using Microsoft.Azure.Cosmos;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests

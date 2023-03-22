@@ -1,11 +1,13 @@
 ﻿using System.Collections.Immutable;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
+using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Execution;
+using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Core.Transformation;
 using Newtonsoft.Json.Linq;
 
-namespace ExRam.Gremlinq.Core.Tests
+namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
 {
     public abstract class QueryIntegrationTest : QueryExecutionTest
     {
