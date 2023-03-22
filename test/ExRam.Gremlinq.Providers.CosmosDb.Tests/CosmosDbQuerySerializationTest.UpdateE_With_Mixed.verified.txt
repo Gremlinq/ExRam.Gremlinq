@@ -1,11 +1,9 @@
-﻿[
-  {
-    "Script": "g.E().hasLabel(_a).sideEffect(__.properties(_b).drop()).property(_b,_c)",
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bindings": {
-      "_a": "WorksFor",
-      "_b": "To",
-      "_c": "2020-04-07T14:43:36+00:00"
-    }
+﻿{
+  Script: g.E().hasLabel(_a).sideEffect(__.properties(_b).drop()).property(_b,_c),
+  Id: Guid_1,
+  Bindings: {
+    _a: WorksFor,
+    _b: To,
+    _c: DateTimeOffset_1
   }
-]
+}

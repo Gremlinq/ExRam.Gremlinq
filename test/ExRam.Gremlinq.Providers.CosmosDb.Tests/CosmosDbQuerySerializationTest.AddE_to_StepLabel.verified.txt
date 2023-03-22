@@ -1,17 +1,15 @@
-﻿[
-  {
-    "Script": "g.addV(_a).property(_b,_b).property(single,_c,_d).as(_e).addV(_f).property(_b,_b).property(single,_g,_h).addE(_i).to(_e)",
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bindings": {
-      "_a": "Language",
-      "_b": "PartitionKey",
-      "_c": "IetfLanguageTag",
-      "_d": "en",
-      "_e": "_a",
-      "_f": "Country",
-      "_g": "CountryCallingCode",
-      "_h": "+49",
-      "_i": "Speaks"
-    }
+﻿{
+  Script: g.addV(_a).property(_b,_b).property(single,_c,_d).as(_e).addV(_f).property(_b,_b).property(single,_g,_h).addE(_i).to(_e),
+  Id: Guid_1,
+  Bindings: {
+    _a: Language,
+    _b: PartitionKey,
+    _c: IetfLanguageTag,
+    _d: en,
+    _e: _a,
+    _f: Country,
+    _g: CountryCallingCode,
+    _h: +49,
+    _i: Speaks
   }
-]
+}

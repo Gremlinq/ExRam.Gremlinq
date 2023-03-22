@@ -1,60 +1,51 @@
-﻿[
-  {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bytecode": {
-      "SourceInstructions": [],
-      "StepInstructions": [
-        {
-          "OperatorName": "V",
-          "Arguments": []
-        },
-        {
-          "OperatorName": "fold",
-          "Arguments": []
-        },
-        {
-          "OperatorName": "as",
-          "Arguments": [
-            "_a"
-          ]
-        },
-        {
-          "OperatorName": "V",
-          "Arguments": []
-        },
-        {
-          "OperatorName": "hasLabel",
-          "Arguments": [
-            "Person"
-          ]
-        },
-        {
-          "OperatorName": "not",
-          "Arguments": [
-            {
-              "SourceInstructions": [],
-              "StepInstructions": [
-                {
-                  "OperatorName": "where",
-                  "Arguments": [
-                    {
-                      "OperatorName": "within",
-                      "Value": [
-                        "_a"
-                      ],
-                      "Other": null
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "OperatorName": "count",
-          "Arguments": []
-        }
-      ]
-    }
+﻿{
+  Id: Guid_1,
+  Bytecode: {
+    StepInstructions: [
+      {
+        OperatorName: V
+      },
+      {
+        OperatorName: fold
+      },
+      {
+        OperatorName: as,
+        Arguments: [
+          _a
+        ]
+      },
+      {
+        OperatorName: V
+      },
+      {
+        OperatorName: hasLabel,
+        Arguments: [
+          Person
+        ]
+      },
+      {
+        OperatorName: not,
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: where,
+                Arguments: [
+                  {
+                    OperatorName: within,
+                    Value: [
+                      _a
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        OperatorName: count
+      }
+    ]
   }
-]
+}

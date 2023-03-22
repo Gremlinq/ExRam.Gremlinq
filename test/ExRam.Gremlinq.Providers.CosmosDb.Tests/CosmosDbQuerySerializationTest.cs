@@ -1,5 +1,4 @@
 ﻿using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Tests.Entities;
@@ -7,7 +6,7 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
-    public sealed class CosmosDbQuerySerializationTest : QuerySerializationTest, IClassFixture<CosmosDbQuerySerializationTest.Fixture>
+    public sealed class CosmosDbQuerySerializationTest : QuerySerializationTest<ISerializedGremlinQuery>, IClassFixture<CosmosDbQuerySerializationTest.Fixture>
     {
         public sealed class Fixture : GremlinqTestFixture
         {
@@ -17,8 +16,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                     .AuthenticateBy("authKey")
                     .UseNewtonsoftJson())
                 .ConfigureEnvironment(env => env
-                    .AddFakePartitionKey()
-                    .UseExecutor(GremlinQueryExecutor.Identity)))
+                    .AddFakePartitionKey()))
             {
             }
         }

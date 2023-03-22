@@ -1,193 +1,175 @@
-﻿[
-  {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bytecode": {
-      "SourceInstructions": [],
-      "StepInstructions": [
-        {
-          "OperatorName": "V",
-          "Arguments": []
-        },
-        {
-          "OperatorName": "hasLabel",
-          "Arguments": [
-            "Person"
-          ]
-        },
-        {
-          "OperatorName": "project",
-          "Arguments": [
-            "in",
-            "out",
-            "count",
-            "properties"
-          ]
-        },
-        {
-          "OperatorName": "by",
-          "Arguments": [
-            {
-              "SourceInstructions": [],
-              "StepInstructions": [
-                {
-                  "OperatorName": "constant",
-                  "Arguments": [
-                    "in_value"
-                  ]
-                },
-                {
-                  "OperatorName": "limit",
-                  "Arguments": [
-                    1
-                  ]
-                },
-                {
-                  "OperatorName": "fold",
-                  "Arguments": []
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "OperatorName": "by",
-          "Arguments": [
-            {
-              "SourceInstructions": [],
-              "StepInstructions": [
-                {
-                  "OperatorName": "constant",
-                  "Arguments": [
-                    "out_value"
-                  ]
-                },
-                {
-                  "OperatorName": "limit",
-                  "Arguments": [
-                    1
-                  ]
-                },
-                {
-                  "OperatorName": "fold",
-                  "Arguments": []
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "OperatorName": "by",
-          "Arguments": [
-            {
-              "SourceInstructions": [],
-              "StepInstructions": [
-                {
-                  "OperatorName": "constant",
-                  "Arguments": [
-                    "count_value"
-                  ]
-                },
-                {
-                  "OperatorName": "limit",
-                  "Arguments": [
-                    1
-                  ]
-                },
-                {
-                  "OperatorName": "fold",
-                  "Arguments": []
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "OperatorName": "by",
-          "Arguments": [
-            {
-              "SourceInstructions": [],
-              "StepInstructions": [
-                {
-                  "OperatorName": "constant",
-                  "Arguments": [
-                    "properties_value"
-                  ]
-                },
-                {
-                  "OperatorName": "limit",
-                  "Arguments": [
-                    1
-                  ]
-                },
-                {
-                  "OperatorName": "fold",
-                  "Arguments": []
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "OperatorName": "map",
-          "Arguments": [
-            {
-              "SourceInstructions": [],
-              "StepInstructions": [
-                {
-                  "OperatorName": "unfold",
-                  "Arguments": []
-                },
-                {
-                  "OperatorName": "group",
-                  "Arguments": []
-                },
-                {
-                  "OperatorName": "by",
-                  "Arguments": [
-                    {
-                      "SourceInstructions": [],
-                      "StepInstructions": [
-                        {
-                          "OperatorName": "select",
-                          "Arguments": [
-                            {
-                              "EnumName": "Column",
-                              "EnumValue": "keys"
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "OperatorName": "by",
-                  "Arguments": [
-                    {
-                      "SourceInstructions": [],
-                      "StepInstructions": [
-                        {
-                          "OperatorName": "select",
-                          "Arguments": [
-                            {
-                              "EnumName": "Column",
-                              "EnumValue": "values"
-                            }
-                          ]
-                        },
-                        {
-                          "OperatorName": "unfold",
-                          "Arguments": []
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }
+﻿{
+  Id: Guid_1,
+  Bytecode: {
+    StepInstructions: [
+      {
+        OperatorName: V
+      },
+      {
+        OperatorName: hasLabel,
+        Arguments: [
+          Person
+        ]
+      },
+      {
+        OperatorName: project,
+        Arguments: [
+          in,
+          out,
+          count,
+          properties
+        ]
+      },
+      {
+        OperatorName: by,
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: constant,
+                Arguments: [
+                  in_value
+                ]
+              },
+              {
+                OperatorName: limit,
+                Arguments: [
+                  1
+                ]
+              },
+              {
+                OperatorName: fold
+              }
+            ]
+          }
+        ]
+      },
+      {
+        OperatorName: by,
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: constant,
+                Arguments: [
+                  out_value
+                ]
+              },
+              {
+                OperatorName: limit,
+                Arguments: [
+                  1
+                ]
+              },
+              {
+                OperatorName: fold
+              }
+            ]
+          }
+        ]
+      },
+      {
+        OperatorName: by,
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: constant,
+                Arguments: [
+                  count_value
+                ]
+              },
+              {
+                OperatorName: limit,
+                Arguments: [
+                  1
+                ]
+              },
+              {
+                OperatorName: fold
+              }
+            ]
+          }
+        ]
+      },
+      {
+        OperatorName: by,
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: constant,
+                Arguments: [
+                  properties_value
+                ]
+              },
+              {
+                OperatorName: limit,
+                Arguments: [
+                  1
+                ]
+              },
+              {
+                OperatorName: fold
+              }
+            ]
+          }
+        ]
+      },
+      {
+        OperatorName: map,
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: unfold
+              },
+              {
+                OperatorName: group
+              },
+              {
+                OperatorName: by,
+                Arguments: [
+                  {
+                    StepInstructions: [
+                      {
+                        OperatorName: select,
+                        Arguments: [
+                          {
+                            EnumName: Column,
+                            EnumValue: keys
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                OperatorName: by,
+                Arguments: [
+                  {
+                    StepInstructions: [
+                      {
+                        OperatorName: select,
+                        Arguments: [
+                          {
+                            EnumName: Column,
+                            EnumValue: values
+                          }
+                        ]
+                      },
+                      {
+                        OperatorName: unfold
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
   }
-]
+}

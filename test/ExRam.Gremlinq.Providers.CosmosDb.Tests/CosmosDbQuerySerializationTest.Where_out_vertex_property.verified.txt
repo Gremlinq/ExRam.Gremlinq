@@ -1,13 +1,11 @@
-﻿[
-  {
-    "Script": "g.V().hasLabel(_a).where(__.out(_b).hasLabel(_c).has(_d,_e))",
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bindings": {
-      "_a": "Person",
-      "_b": "WorksFor",
-      "_c": "Company",
-      "_d": "Name",
-      "_e": "MyCompany"
-    }
+﻿{
+  Script: g.V().hasLabel(_a).where(__.out(_b).hasLabel(_c).has(_d,_e)),
+  Id: Guid_1,
+  Bindings: {
+    _a: Person,
+    _b: WorksFor,
+    _c: Company,
+    _d: Name,
+    _e: MyCompany
   }
-]
+}

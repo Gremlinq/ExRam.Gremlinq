@@ -1,77 +1,69 @@
-﻿[
-  {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bytecode": {
-      "SourceInstructions": [
-        {
-          "OperatorName": "withSideEffect",
-          "Arguments": [
-            "Neptune#fts.endpoint",
-            "http://elastic.search.server"
-          ]
-        },
-        {
-          "OperatorName": "withSideEffect",
-          "Arguments": [
-            "Neptune#fts.queryType",
-            "query_string"
-          ]
-        }
-      ],
-      "StepInstructions": [
-        {
-          "OperatorName": "V",
-          "Arguments": []
-        },
-        {
-          "OperatorName": "filter",
-          "Arguments": [
-            {
-              "SourceInstructions": [],
-              "StepInstructions": [
-                {
-                  "OperatorName": "properties",
-                  "Arguments": []
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "OperatorName": "choose",
-          "Arguments": [
-            {
-              "SourceInstructions": [],
-              "StepInstructions": [
-                {
-                  "OperatorName": "values",
-                  "Arguments": []
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "OperatorName": "option",
-          "Arguments": [
-            {
-              "EnumName": "Pick",
-              "EnumValue": "none"
-            },
-            {
-              "SourceInstructions": [],
-              "StepInstructions": [
-                {
-                  "OperatorName": "constant",
-                  "Arguments": [
-                    1
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }
+﻿{
+  Id: Guid_1,
+  Bytecode: {
+    SourceInstructions: [
+      {
+        OperatorName: withSideEffect,
+        Arguments: [
+          Neptune#fts.endpoint,
+          http://elastic.search.server
+        ]
+      },
+      {
+        OperatorName: withSideEffect,
+        Arguments: [
+          Neptune#fts.queryType,
+          query_string
+        ]
+      }
+    ],
+    StepInstructions: [
+      {
+        OperatorName: V
+      },
+      {
+        OperatorName: filter,
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: properties
+              }
+            ]
+          }
+        ]
+      },
+      {
+        OperatorName: choose,
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: values
+              }
+            ]
+          }
+        ]
+      },
+      {
+        OperatorName: option,
+        Arguments: [
+          {
+            EnumName: Pick,
+            EnumValue: none
+          },
+          {
+            StepInstructions: [
+              {
+                OperatorName: constant,
+                Arguments: [
+                  1
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
   }
-]
+}

@@ -1,12 +1,10 @@
-﻿[
-  {
-    "Script": "g.addV(_a).property(_b,_b).property(single,_c,_d)",
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bindings": {
-      "_a": "Country",
-      "_b": "PartitionKey",
-      "_c": "Name",
-      "_d": "GER"
-    }
+﻿{
+  Script: g.addV(_a).property(_b,_b).property(single,_c,_d),
+  Id: Guid_1,
+  Bindings: {
+    _a: Country,
+    _b: PartitionKey,
+    _c: Name,
+    _d: GER
   }
-]
+}

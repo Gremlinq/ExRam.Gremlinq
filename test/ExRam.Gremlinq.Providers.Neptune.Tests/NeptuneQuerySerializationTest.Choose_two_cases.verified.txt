@@ -1,76 +1,66 @@
-﻿[
-  {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bytecode": {
-      "SourceInstructions": [],
-      "StepInstructions": [
-        {
-          "OperatorName": "V",
-          "Arguments": []
-        },
-        {
-          "OperatorName": "filter",
-          "Arguments": [
-            {
-              "SourceInstructions": [],
-              "StepInstructions": [
-                {
-                  "OperatorName": "properties",
-                  "Arguments": []
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "OperatorName": "choose",
-          "Arguments": [
-            {
-              "SourceInstructions": [],
-              "StepInstructions": [
-                {
-                  "OperatorName": "values",
-                  "Arguments": []
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "OperatorName": "option",
-          "Arguments": [
-            3,
-            {
-              "SourceInstructions": [],
-              "StepInstructions": [
-                {
-                  "OperatorName": "constant",
-                  "Arguments": [
-                    1
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "OperatorName": "option",
-          "Arguments": [
-            4,
-            {
-              "SourceInstructions": [],
-              "StepInstructions": [
-                {
-                  "OperatorName": "constant",
-                  "Arguments": [
-                    2
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }
+﻿{
+  Id: Guid_1,
+  Bytecode: {
+    StepInstructions: [
+      {
+        OperatorName: V
+      },
+      {
+        OperatorName: filter,
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: properties
+              }
+            ]
+          }
+        ]
+      },
+      {
+        OperatorName: choose,
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: values
+              }
+            ]
+          }
+        ]
+      },
+      {
+        OperatorName: option,
+        Arguments: [
+          3,
+          {
+            StepInstructions: [
+              {
+                OperatorName: constant,
+                Arguments: [
+                  1
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        OperatorName: option,
+        Arguments: [
+          4,
+          {
+            StepInstructions: [
+              {
+                OperatorName: constant,
+                Arguments: [
+                  2
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
   }
-]
+}

@@ -1,10 +1,8 @@
-﻿[
-  {
-    "Script": "g.V().hasLabel(_a).or(__.aggregate(_b).not(__.identity()),__.outE())",
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bindings": {
-      "_a": "Person",
-      "_b": "_a"
-    }
+﻿{
+  Script: g.V().hasLabel(_a).or(__.aggregate(_b).not(__.identity()),__.outE()),
+  Id: Guid_1,
+  Bindings: {
+    _a: Person,
+    _b: _a
   }
-]
+}

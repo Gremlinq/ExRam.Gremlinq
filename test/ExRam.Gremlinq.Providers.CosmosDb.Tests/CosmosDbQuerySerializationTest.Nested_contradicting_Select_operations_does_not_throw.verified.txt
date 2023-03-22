@@ -1,13 +1,11 @@
-﻿[
-  {
-    "Script": "g.V().hasLabel(_a).as(_b).project(_c,_d).by(__.select(_b)).by(__.select(_b)).as(_e).project(_c,_d).by(__.select(_e)).by(__.select(_b))",
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bindings": {
-      "_a": "Person",
-      "_b": "_a",
-      "_c": "Item1",
-      "_d": "Item2",
-      "_e": "_b"
-    }
+﻿{
+  Script: g.V().hasLabel(_a).as(_b).project(_c,_d).by(__.select(_b)).by(__.select(_b)).as(_e).project(_c,_d).by(__.select(_e)).by(__.select(_b)),
+  Id: Guid_1,
+  Bindings: {
+    _a: Person,
+    _b: _a,
+    _c: Item1,
+    _d: Item2,
+    _e: _b
   }
-]
+}

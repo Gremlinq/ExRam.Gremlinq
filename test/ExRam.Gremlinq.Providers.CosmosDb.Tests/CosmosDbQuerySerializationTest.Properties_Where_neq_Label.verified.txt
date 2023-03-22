@@ -1,11 +1,9 @@
-﻿[
-  {
-    "Script": "g.V().hasLabel(_a).properties(_b).where(__.key().is(neq(_c)))",
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bindings": {
-      "_a": "Country",
-      "_b": "Languages",
-      "_c": "label"
-    }
+﻿{
+  Script: g.V().hasLabel(_a).properties(_b).where(__.key().is(neq(_c))),
+  Id: Guid_1,
+  Bindings: {
+    _a: Country,
+    _b: Languages,
+    _c: label
   }
-]
+}

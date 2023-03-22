@@ -1,11 +1,11 @@
-﻿using ExRam.Gremlinq.Core.Execution;
-using Gremlin.Net.Structure.IO.GraphSON;
+﻿using Gremlin.Net.Structure.IO.GraphSON;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 using ExRam.Gremlinq.Core.Serialization;
+using ExRam.Gremlinq.Core.Transformation;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public sealed class Graphson3GremlinQuerySerializationTest : QuerySerializationTest, IClassFixture<Graphson3GremlinQuerySerializationTest.Fixture>
+    public sealed class Graphson3GremlinQuerySerializationTest : QuerySerializationTest<string>, IClassFixture<Graphson3GremlinQuerySerializationTest.Fixture>
     {
         public sealed class Fixture : GremlinqTestFixture
         {
@@ -13,10 +13,9 @@ namespace ExRam.Gremlinq.Core.Tests
 
             public Fixture() : base(g
                 .ConfigureEnvironment(_ => _
-                    .UseExecutor(GremlinQueryExecutor.Identity
-                        .TransformResult(result => result
-                            .OfType<BytecodeGremlinQuery>()
-                            .Select(query => Writer.WriteObject(query.Bytecode))))))
+                    .ConfigureSerializer(ser => ser
+                        .Add(ConverterFactory
+                            .Create<BytecodeGremlinQuery, string>((query, env, recurse) => Writer.WriteObject(query.Bytecode))))))
             {
             }
         }

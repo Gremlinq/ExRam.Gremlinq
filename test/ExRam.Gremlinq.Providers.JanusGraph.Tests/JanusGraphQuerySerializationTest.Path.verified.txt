@@ -1,26 +1,19 @@
-﻿[
-  {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bytecode": {
-      "SourceInstructions": [],
-      "StepInstructions": [
-        {
-          "OperatorName": "V",
-          "Arguments": []
-        },
-        {
-          "OperatorName": "out",
-          "Arguments": []
-        },
-        {
-          "OperatorName": "out",
-          "Arguments": []
-        },
-        {
-          "OperatorName": "path",
-          "Arguments": []
-        }
-      ]
-    }
+﻿{
+  Id: Guid_1,
+  Bytecode: {
+    StepInstructions: [
+      {
+        OperatorName: V
+      },
+      {
+        OperatorName: out
+      },
+      {
+        OperatorName: out
+      },
+      {
+        OperatorName: path
+      }
+    ]
   }
-]
+}

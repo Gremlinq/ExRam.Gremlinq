@@ -1,58 +1,51 @@
-﻿[
-  {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bytecode": {
-      "SourceInstructions": [],
-      "StepInstructions": [
-        {
-          "OperatorName": "V",
-          "Arguments": []
-        },
-        {
-          "OperatorName": "inE",
-          "Arguments": []
-        },
-        {
-          "OperatorName": "project",
-          "Arguments": [
-            "id",
-            "label",
-            "properties"
-          ]
-        },
-        {
-          "OperatorName": "by",
-          "Arguments": [
-            {
-              "EnumName": "T",
-              "EnumValue": "id"
-            }
-          ]
-        },
-        {
-          "OperatorName": "by",
-          "Arguments": [
-            {
-              "EnumName": "T",
-              "EnumValue": "label"
-            }
-          ]
-        },
-        {
-          "OperatorName": "by",
-          "Arguments": [
-            {
-              "SourceInstructions": [],
-              "StepInstructions": [
-                {
-                  "OperatorName": "valueMap",
-                  "Arguments": []
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }
+﻿{
+  Id: Guid_1,
+  Bytecode: {
+    StepInstructions: [
+      {
+        OperatorName: V
+      },
+      {
+        OperatorName: inE
+      },
+      {
+        OperatorName: project,
+        Arguments: [
+          id,
+          label,
+          properties
+        ]
+      },
+      {
+        OperatorName: by,
+        Arguments: [
+          {
+            EnumName: T,
+            EnumValue: id
+          }
+        ]
+      },
+      {
+        OperatorName: by,
+        Arguments: [
+          {
+            EnumName: T,
+            EnumValue: label
+          }
+        ]
+      },
+      {
+        OperatorName: by,
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: valueMap
+              }
+            ]
+          }
+        ]
+      }
+    ]
   }
-]
+}

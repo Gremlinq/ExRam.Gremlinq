@@ -1,10 +1,8 @@
-﻿[
-  {
-    "Script": "g.V().where(__.properties()).project(_a,_b).by(__.identity()).by(__.properties())",
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bindings": {
-      "_a": "name",
-      "_b": "Item2"
-    }
+﻿{
+  Script: g.V().where(__.properties()).project(_a,_b).by(__.identity()).by(__.properties()),
+  Id: Guid_1,
+  Bindings: {
+    _a: name,
+    _b: Item2
   }
-]
+}

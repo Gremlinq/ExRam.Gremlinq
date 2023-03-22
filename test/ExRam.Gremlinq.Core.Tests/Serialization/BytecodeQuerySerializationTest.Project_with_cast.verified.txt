@@ -1,93 +1,85 @@
-﻿[
-  {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Bytecode": {
-      "SourceInstructions": [],
-      "StepInstructions": [
-        {
-          "OperatorName": "V",
-          "Arguments": []
-        },
-        {
-          "OperatorName": "hasLabel",
-          "Arguments": [
-            "Person"
-          ]
-        },
-        {
-          "OperatorName": "project",
-          "Arguments": [
-            "in",
-            "out",
-            "count",
-            "properties"
-          ]
-        },
-        {
-          "OperatorName": "by",
-          "Arguments": [
-            {
-              "SourceInstructions": [],
-              "StepInstructions": [
-                {
-                  "OperatorName": "constant",
-                  "Arguments": [
-                    "in_value"
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "OperatorName": "by",
-          "Arguments": [
-            {
-              "SourceInstructions": [],
-              "StepInstructions": [
-                {
-                  "OperatorName": "constant",
-                  "Arguments": [
-                    "out_value"
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "OperatorName": "by",
-          "Arguments": [
-            {
-              "SourceInstructions": [],
-              "StepInstructions": [
-                {
-                  "OperatorName": "constant",
-                  "Arguments": [
-                    "count_value"
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "OperatorName": "by",
-          "Arguments": [
-            {
-              "SourceInstructions": [],
-              "StepInstructions": [
-                {
-                  "OperatorName": "constant",
-                  "Arguments": [
-                    "properties_value"
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }
+﻿{
+  Id: Guid_1,
+  Bytecode: {
+    StepInstructions: [
+      {
+        OperatorName: V
+      },
+      {
+        OperatorName: hasLabel,
+        Arguments: [
+          Person
+        ]
+      },
+      {
+        OperatorName: project,
+        Arguments: [
+          in,
+          out,
+          count,
+          properties
+        ]
+      },
+      {
+        OperatorName: by,
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: constant,
+                Arguments: [
+                  in_value
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        OperatorName: by,
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: constant,
+                Arguments: [
+                  out_value
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        OperatorName: by,
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: constant,
+                Arguments: [
+                  count_value
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        OperatorName: by,
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: constant,
+                Arguments: [
+                  properties_value
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
   }
-]
+}
