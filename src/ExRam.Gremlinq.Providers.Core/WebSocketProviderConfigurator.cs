@@ -3,7 +3,6 @@ using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Core.Transformation;
-
 using Gremlin.Net.Driver;
 using Gremlin.Net.Driver.Messages;
 using Microsoft.Extensions.Logging;
@@ -44,15 +43,20 @@ namespace ExRam.Gremlinq.Providers.Core
 
                     var requestMessage = environment
                         .Serializer
-                        .TransformTo<RequestMessage>().From(serializedQuery, environment);
+                        .TransformTo<RequestMessage>()
+                        .From(serializedQuery, environment);
 
                     var maybeResults = await client
                         .SubmitAsync<object>(requestMessage, ct)
                         .ConfigureAwait(false);
 
                     if (maybeResults is { } results)
+                    {
                         foreach (var obj in results)
+                        {
                             yield return obj;
+                        }
+                    }
                 }
             }
 
