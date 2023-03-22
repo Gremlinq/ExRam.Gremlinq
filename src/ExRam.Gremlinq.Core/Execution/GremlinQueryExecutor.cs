@@ -13,9 +13,9 @@ namespace ExRam.Gremlinq.Core.Execution
                 _factory = factory;
             }
 
-            public IAsyncEnumerable<object> Execute(BytecodeGremlinQuery serializedQuery, IGremlinQueryEnvironment environment)
+            public IAsyncEnumerable<object> Execute(BytecodeGremlinQuery query, IGremlinQueryEnvironment environment)
             {
-                return _factory(serializedQuery, environment);
+                return _factory(query, environment);
             }
         }
 
@@ -30,9 +30,9 @@ namespace ExRam.Gremlinq.Core.Execution
                 _baseExecutor = baseExecutor;
             }
 
-            public IAsyncEnumerable<object> Execute(BytecodeGremlinQuery serializedQuery, IGremlinQueryEnvironment environment)
+            public IAsyncEnumerable<object> Execute(BytecodeGremlinQuery query, IGremlinQueryEnvironment environment)
             {
-                return _baseExecutor.Execute(_transformation(serializedQuery), environment);
+                return _baseExecutor.Execute(_transformation(query), environment);
             }
         }
 
@@ -47,9 +47,9 @@ namespace ExRam.Gremlinq.Core.Execution
                 _baseExecutor = baseExecutor;
             }
 
-            public IAsyncEnumerable<object> Execute(BytecodeGremlinQuery serializedQuery, IGremlinQueryEnvironment environment)
+            public IAsyncEnumerable<object> Execute(BytecodeGremlinQuery query, IGremlinQueryEnvironment environment)
             {
-                return _transformation(_baseExecutor.Execute(serializedQuery, environment));
+                return _transformation(_baseExecutor.Execute(query, environment));
             }
         }
 

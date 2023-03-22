@@ -22,7 +22,7 @@ namespace ExRam.Gremlinq.Core.Execution
                 _shouldRetry = shouldRetry;
             }
 
-            public IAsyncEnumerable<object> Execute(BytecodeGremlinQuery serializedQuery, IGremlinQueryEnvironment environment)
+            public IAsyncEnumerable<object> Execute(BytecodeGremlinQuery query, IGremlinQueryEnvironment environment)
             {
                 return AsyncEnumerable.Create(Core);
 
@@ -32,7 +32,7 @@ namespace ExRam.Gremlinq.Core.Execution
 
                     for (var i = 0; i < int.MaxValue; i++)
                     {
-                        await using (var enumerator = _baseExecutor.Execute(serializedQuery, environment).GetAsyncEnumerator(ct))
+                        await using (var enumerator = _baseExecutor.Execute(query, environment).GetAsyncEnumerator(ct))
                         {
                             while (true)
                             {
@@ -55,9 +55,9 @@ namespace ExRam.Gremlinq.Core.Execution
                                     //requests fail roughly at the same time
                                     await Task.Delay((_rnd ??= new Random((int)(DateTime.Now.Ticks & int.MaxValue) ^ Thread.CurrentThread.ManagedThreadId)).Next(i + 2) * 16, ct);
 
-                                    var newSerializedQuery = serializedQuery.WithNewId();
-                                    environment.Logger.LogInformation($"Retrying serialized query {serializedQuery.Id} with new {nameof(BytecodeGremlinQuery.Id)} {newSerializedQuery.Id}.");
-                                    serializedQuery = newSerializedQuery;
+                                    var newSerializedQuery = query.WithNewId();
+                                    environment.Logger.LogInformation($"Retrying serialized query {query.Id} with new {nameof(BytecodeGremlinQuery.Id)} {newSerializedQuery.Id}.");
+                                    query = newSerializedQuery;
 
                                     break;
                                 }
@@ -83,13 +83,13 @@ namespace ExRam.Gremlinq.Core.Execution
                 _executor = executor;
             }
 
-            public IAsyncEnumerable<object> Execute(BytecodeGremlinQuery serializedQuery, IGremlinQueryEnvironment environment)
+            public IAsyncEnumerable<object> Execute(BytecodeGremlinQuery query, IGremlinQueryEnvironment environment)
             {
                 return AsyncEnumerable.Create(Core);
 
                 async IAsyncEnumerator<object> Core(CancellationToken ct)
                 {
-                    await using (var enumerator = _executor.Execute(serializedQuery, environment).GetAsyncEnumerator(ct))
+                    await using (var enumerator = _executor.Execute(query, environment).GetAsyncEnumerator(ct))
                     {
                         try
                         {
@@ -99,14 +99,14 @@ namespace ExRam.Gremlinq.Core.Execution
                                 environment,
                                 static environment => GetLoggingFunction(environment));
 
-                            logger(serializedQuery, serializedQuery.Id);
+                            logger(query, query.Id);
 
                             if (!await moveNext)
                                 yield break;
                         }
                         catch (Exception ex)
                         {
-                            environment.Logger.LogError($"Error executing Gremlin query with id {serializedQuery.Id}: {ex}");
+                            environment.Logger.LogError($"Error executing Gremlin query with id {query.Id}: {ex}");
 
                             throw;
                         }
@@ -125,11 +125,11 @@ namespace ExRam.Gremlinq.Core.Execution
                 var verbosity = environment.Options.GetValue(GremlinqOption.QueryLogVerbosity);
                 var formatting = environment.Options.GetValue(GremlinqOption.QueryLogFormatting);
 
-                return (serializedQuery, requestId) =>
+                return (query, requestId) =>
                 {
                     if (environment.Logger.IsEnabled(logLevel))
                     {
-                        var groovyQuery = serializedQuery.ToGroovy();
+                        var groovyQuery = query.ToGroovy();
 
                         environment.Logger.Log(
                             logLevel,
@@ -162,7 +162,7 @@ namespace ExRam.Gremlinq.Core.Execution
                 _exceptionTransformation = exceptionTransformation;
             }
 
-            public IAsyncEnumerable<object> Execute(BytecodeGremlinQuery serializedQuery, IGremlinQueryEnvironment environment)
+            public IAsyncEnumerable<object> Execute(BytecodeGremlinQuery query, IGremlinQueryEnvironment environment)
             {
                 return AsyncEnumerable.Create(Core);
 
@@ -173,7 +173,7 @@ namespace ExRam.Gremlinq.Core.Execution
                     try
                     {
                         enumerator = _baseExecutor
-                            .Execute(serializedQuery, environment)
+                            .Execute(query, environment)
                             .GetAsyncEnumerator(ct);
                     }
                     catch (Exception ex)
