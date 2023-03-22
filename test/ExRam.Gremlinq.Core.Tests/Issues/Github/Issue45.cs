@@ -10,15 +10,10 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Repro()
-        {
-            await g
-                .ConfigureEnvironment(env => env
-                    .EchoGroovyGremlinQuery())
-                .V()
-                .Drop()
-                .Cast<string>()
-                .Verify();
-        }
+        public Task Repro() => Verify(g
+            .ConfigureEnvironment(env => env)
+            .V()
+            .Drop()
+            .Debug());
     }
 }

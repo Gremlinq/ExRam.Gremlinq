@@ -36,27 +36,17 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Working()
-        {
-            await g
-                .ConfigureEnvironment(env => env
-                    .UseModel(GraphModel.FromBaseTypes<VertexBase, Edge>())
-                    .EchoGroovyGremlinQuery())
-                .AddV(new Item { Value = "MyValue" })
-                .Cast<string>()
-                .Verify();
-        }
+        public Task Working() => Verify(g
+            .ConfigureEnvironment(env => env
+                .UseModel(GraphModel.FromBaseTypes<VertexBase, Edge>()))
+            .AddV(new Item { Value = "MyValue" })
+            .Debug());
 
         [Fact]
-        public async Task Buggy()
-        {
-            await g
-                .ConfigureEnvironment(env => env
-                    .UseModel(GraphModel.FromBaseTypes<VertexBase, Edge>())
-                    .EchoGroovyGremlinQuery())
-                .AddV(new ItemOverride { Value = "MyValue" })
-                .Cast<string>()
-                .Verify();
-        }
+        public Task Buggy() => Verify(g
+            .ConfigureEnvironment(env => env
+                .UseModel(GraphModel.FromBaseTypes<VertexBase, Edge>()))
+            .AddV(new ItemOverride { Value = "MyValue" })
+            .Debug());
     }
 }
