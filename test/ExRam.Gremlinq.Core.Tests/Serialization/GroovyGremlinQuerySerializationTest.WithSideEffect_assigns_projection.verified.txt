@@ -1,6 +1,6 @@
 ﻿{
-  Script: g.withSideEffect(_a,_b).V().hasLabel(_c).aggregate(_a).select(_a).local(__.unfold().project(_d,_e,_f).by(id).by(label).by(__.properties().group().by(label).by(__.project(_d,_e,_g,_f).by(id).by(label).by(value).by(__.valueMap()).fold())).fold()),
   Id: Guid_1,
+  Script: g.withSideEffect(_a,_b).V().hasLabel(_c).aggregate(_a).select(_a).local(__.unfold().project(_d,_e,_f).by(id).by(label).by(__.properties().group().by(label).by(__.project(_d,_e,_g,_f).by(id).by(label).by(value).by(__.valueMap()).fold())).fold()),
   Bindings: {
     _a: _a,
     _c: Person,

@@ -1,6 +1,6 @@
 ﻿{
-  Script: g.inject(_a,_b,_c),
   Id: Guid_1,
+  Script: g.inject(_a,_b,_c),
   Bindings: {
     _a: 36,
     _b: 37,

@@ -1,4 +1,4 @@
 ﻿{
-  Script: g.V().group().by(__.label()).by(__.out()),
-  Id: Guid_1
+  Id: Guid_1,
+  Script: g.V().group().by(__.label()).by(__.out())
 }

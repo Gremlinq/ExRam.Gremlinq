@@ -1,6 +1,6 @@
 ﻿{
-  Script: g.V().project(_a,_b).by(__.label()).by(__.fold()).where(__.select(_b).count(local).is(_c)),
   Id: Guid_1,
+  Script: g.V().project(_a,_b).by(__.label()).by(__.fold()).where(__.select(_b).count(local).is(_c)),
   Bindings: {
     _a: Item1,
     _b: Item2,

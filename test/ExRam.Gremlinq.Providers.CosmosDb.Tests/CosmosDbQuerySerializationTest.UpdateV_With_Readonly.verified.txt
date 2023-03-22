@@ -1,6 +1,6 @@
 ﻿{
-  Script: g.V().hasLabel(_a).sideEffect(__.properties(_b,_c).drop()).property(single,_b,_d).property(single,_c,_e),
   Id: Guid_1,
+  Script: g.V().hasLabel(_a).sideEffect(__.properties(_b,_c).drop()).property(single,_b,_d).property(single,_c,_e),
   Bindings: {
     _a: Person,
     _b: Name,

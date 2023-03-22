@@ -1,6 +1,6 @@
 ﻿{
-  Script: g.V().filter(__.properties()).choose(__.values()).option(_a,__.constant(_b)),
   Id: Guid_1,
+  Script: g.V().filter(__.properties()).choose(__.values()).option(_a,__.constant(_b)),
   Bindings: {
     _a: 3,
     _b: 1

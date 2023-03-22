@@ -1,4 +1,4 @@
 ﻿{
-  Script: g.V().properties().union(__.label(),__.id()),
-  Id: Guid_1
+  Id: Guid_1,
+  Script: g.V().properties().union(__.label(),__.id())
 }

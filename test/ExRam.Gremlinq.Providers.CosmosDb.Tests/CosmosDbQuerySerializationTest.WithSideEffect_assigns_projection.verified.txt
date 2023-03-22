@@ -1,6 +1,6 @@
 ﻿{
-  Script: g.withSideEffect(_a,_b).V().hasLabel(_c).aggregate(_a).select(_a),
   Id: Guid_1,
+  Script: g.withSideEffect(_a,_b).V().hasLabel(_c).aggregate(_a).select(_a),
   Bindings: {
     _a: _a,
     _c: Person

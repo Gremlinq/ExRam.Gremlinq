@@ -1,6 +1,6 @@
 ﻿{
-  Script: g.V().limit(_a).tail(local,_b),
   Id: Guid_1,
+  Script: g.V().limit(_a).tail(local,_b),
   Bindings: {
     _a: 0,
     _b: 1
