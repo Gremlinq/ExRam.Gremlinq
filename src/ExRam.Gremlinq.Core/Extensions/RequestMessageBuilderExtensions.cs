@@ -6,7 +6,7 @@ namespace Gremlin.Net.Driver.Messages
 {
     internal static class RequestMessageBuilderExtensions
     {
-        public static RequestMessage.Builder OverrideRequestId(this RequestMessage.Builder builder, ISerializedGremlinQuery query, IGremlinQueryEnvironment environment)
+        public static RequestMessage.Builder OverrideRequestId(this RequestMessage.Builder builder, BytecodeGremlinQuery query, IGremlinQueryEnvironment environment)
         {
             if (!Guid.TryParse(query.Id, out var requestId))
             {
