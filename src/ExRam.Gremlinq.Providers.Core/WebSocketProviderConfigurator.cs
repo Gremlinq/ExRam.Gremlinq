@@ -25,7 +25,7 @@ namespace ExRam.Gremlinq.Providers.Core
                 _clientFactory = clientFactory;
             }
 
-            public IAsyncEnumerable<object> Execute(ISerializedGremlinQuery serializedQuery, IGremlinQueryEnvironment environment)
+            public IAsyncEnumerable<object> Execute(BytecodeGremlinQuery serializedQuery, IGremlinQueryEnvironment environment)
             {
                 return AsyncEnumerable.Create(Core);
 

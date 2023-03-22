@@ -1189,7 +1189,7 @@ namespace ExRam.Gremlinq.Core.Execution
         public static readonly ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor Identity;
         public static readonly ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor Invalid;
         public static ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor Create(System.Func<ExRam.Gremlinq.Core.Serialization.ISerializedGremlinQuery, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, System.Collections.Generic.IAsyncEnumerable<object>> executor) { }
-        public static ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor TransformQuery(this ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor baseExecutor, System.Func<ExRam.Gremlinq.Core.Serialization.ISerializedGremlinQuery, ExRam.Gremlinq.Core.Serialization.ISerializedGremlinQuery> transformation) { }
+        public static ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor TransformQuery(this ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor baseExecutor, System.Func<ExRam.Gremlinq.Core.Serialization.BytecodeGremlinQuery, ExRam.Gremlinq.Core.Serialization.BytecodeGremlinQuery> transformation) { }
         public static ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor TransformResult(this ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor baseExecutor, System.Func<System.Collections.Generic.IAsyncEnumerable<object>, System.Collections.Generic.IAsyncEnumerable<object>> transformation) { }
     }
     public static class GremlinQueryExecutorExtensions
@@ -1200,7 +1200,7 @@ namespace ExRam.Gremlinq.Core.Execution
     }
     public interface IGremlinQueryExecutor
     {
-        System.Collections.Generic.IAsyncEnumerable<object> Execute(ExRam.Gremlinq.Core.Serialization.ISerializedGremlinQuery serializedQuery, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment);
+        System.Collections.Generic.IAsyncEnumerable<object> Execute(ExRam.Gremlinq.Core.Serialization.BytecodeGremlinQuery serializedQuery, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment);
     }
 }
 namespace ExRam.Gremlinq.Core.ExpressionParsing
