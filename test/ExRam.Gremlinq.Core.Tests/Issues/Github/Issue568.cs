@@ -22,16 +22,11 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Repro()
-        {
-            await g
-                .ConfigureEnvironment(env => env
-                    .UseModel(GraphModel.FromBaseTypes<VertexBaseAbstract, Edge>())
-                    .EchoGroovyGremlinQuery())
-                .V<Thing>("id")
-                .Update(new Thing())
-                .Cast<string>()
-                .Verify();
-        }
+        public Task Repro() => Verify(g
+            .ConfigureEnvironment(env => env
+                .UseModel(GraphModel.FromBaseTypes<VertexBaseAbstract, Edge>()))
+            .V<Thing>("id")
+            .Update(new Thing())
+            .Debug());
     }
 }
