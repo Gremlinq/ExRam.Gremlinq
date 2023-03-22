@@ -2,9 +2,9 @@
 using System.Globalization;
 using System.Linq.Expressions;
 using System.Reflection;
+
 using ExRam.Gremlinq.Core.ExpressionParsing;
 using ExRam.Gremlinq.Core.GraphElements;
-using ExRam.Gremlinq.Core.Models;
 
 namespace ExRam.Gremlinq.Core
 {

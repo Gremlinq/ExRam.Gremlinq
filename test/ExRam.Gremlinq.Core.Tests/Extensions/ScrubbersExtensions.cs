@@ -1,5 +1,4 @@
 ﻿using System.Collections.Immutable;
-using System.Text.RegularExpressions;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
