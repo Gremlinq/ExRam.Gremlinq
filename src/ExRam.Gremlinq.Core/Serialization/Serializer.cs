@@ -335,26 +335,16 @@ namespace ExRam.Gremlinq.Core.Serialization
             .Add(Create<BytecodeGremlinQuery, RequestMessage>((query, env, recurse) => RequestMessage
                 .Build(Tokens.OpsBytecode)
                 .Processor(Tokens.ProcessorTraversal)
-                .AddArgument(Tokens.ArgsGremlin, query.Bytecode)
-                .AddArgument(
-                    Tokens.ArgsAliases,
-                    new Dictionary<string, string>
-                    {
-                        { "g", env.Options.GetValue(GremlinqOption.Alias) }
-                    })
                 .OverrideRequestId(query, env)
+                .AddArgument(Tokens.ArgsGremlin, query.Bytecode)
+                .AddAlias(env)
                 .Create()))
             .Add(Create<GroovyGremlinQuery, RequestMessage>((query, env, recurse) => RequestMessage
                 .Build(Tokens.OpsEval)
-                .AddArgument(Tokens.ArgsGremlin, query.Script)
-                .AddArgument(
-                    Tokens.ArgsAliases,
-                    new Dictionary<string, string>
-                    {
-                        { "g", env.Options.GetValue(GremlinqOption.Alias) }
-                    })
-                .AddArgument(Tokens.ArgsBindings, query.Bindings)
                 .OverrideRequestId(query, env)
+                .AddArgument(Tokens.ArgsGremlin, query.Script)
+                .AddArgument(Tokens.ArgsBindings, query.Bindings)
+                .AddAlias(env)
                 .Create()));
 
         private static ITransformer AddDefaultStepConverters(this ITransformer serializer) => serializer
