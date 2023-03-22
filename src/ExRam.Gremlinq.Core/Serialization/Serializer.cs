@@ -6,6 +6,8 @@ using Gremlin.Net.Process.Traversal;
 using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
 using static ExRam.Gremlinq.Core.Serialization.Instructions;
 using System.Diagnostics.CodeAnalysis;
+using Gremlin.Net.Driver.Messages;
+using Gremlin.Net.Driver;
 
 namespace ExRam.Gremlinq.Core.Serialization
 {
@@ -328,7 +330,32 @@ namespace ExRam.Gremlinq.Core.Serialization
                         : null);
             }))
             .Add(Create<TextP, TextP>(static (textP, _, _) => textP))
-            .Add(Create<Type, Type>(static (type, _, _) => type));
+            .Add(Create<Type, Type>(static (type, _, _) => type))
+
+            .Add(Create<BytecodeGremlinQuery, RequestMessage>((query, env, recurse) => RequestMessage
+                .Build(Tokens.OpsBytecode)
+                .Processor(Tokens.ProcessorTraversal)
+                .AddArgument(Tokens.ArgsGremlin, query.Bytecode)
+                .AddArgument(
+                    Tokens.ArgsAliases,
+                    new Dictionary<string, string>
+                    {
+                        { "g", env.Options.GetValue(GremlinqOption.Alias) }
+                    })
+                .OverrideRequestId(query, env)
+                .Create()))
+            .Add(Create<GroovyGremlinQuery, RequestMessage>((query, env, recurse) => RequestMessage
+                .Build(Tokens.OpsEval)
+                .AddArgument(Tokens.ArgsGremlin, query.Script)
+                .AddArgument(
+                    Tokens.ArgsAliases,
+                    new Dictionary<string, string>
+                    {
+                        { "g", env.Options.GetValue(GremlinqOption.Alias) }
+                    })
+                .AddArgument(Tokens.ArgsBindings, query.Bindings)
+                .OverrideRequestId(query, env)
+                .Create()));
 
         private static ITransformer AddDefaultStepConverters(this ITransformer serializer) => serializer
             .Add<AddEStep>(static (step, env, recurse) => CreateInstruction("addE", recurse, env, step.Label))

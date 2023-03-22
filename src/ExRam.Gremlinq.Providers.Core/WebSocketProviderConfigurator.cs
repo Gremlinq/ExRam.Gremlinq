@@ -2,6 +2,8 @@
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Core.Serialization;
+using ExRam.Gremlinq.Core.Transformation;
+
 using Gremlin.Net.Driver;
 using Gremlin.Net.Driver.Messages;
 using Microsoft.Extensions.Logging;
@@ -40,35 +42,9 @@ namespace ExRam.Gremlinq.Providers.Core
                                 static _ => { }),
                             this);
 
-                    if (!Guid.TryParse(serializedQuery.Id, out var requestId))
-                    {
-                        requestId = Guid.NewGuid();
-                        environment.Logger.LogInformation($"Mapping query id {serializedQuery.Id} to request id {requestId}.");
-                    }
-
-                    var aliasArgs = new Dictionary<string, string>
-                    {
-                        { "g", environment.Options.GetValue(GremlinqOption.Alias) }
-                    };
-
-                    var requestMessage = serializedQuery switch
-                    {
-                        GroovyGremlinQuery groovyScript => RequestMessage
-                            .Build(Tokens.OpsEval)
-                            .AddArgument(Tokens.ArgsGremlin, groovyScript.Script)
-                            .AddArgument(Tokens.ArgsAliases, aliasArgs)
-                            .AddArgument(Tokens.ArgsBindings, groovyScript.Bindings)
-                            .OverrideRequestId(requestId)
-                            .Create(),
-                        BytecodeGremlinQuery bytecodeQuery => RequestMessage
-                            .Build(Tokens.OpsBytecode)
-                            .Processor(Tokens.ProcessorTraversal)
-                            .AddArgument(Tokens.ArgsGremlin, bytecodeQuery.Bytecode)
-                            .AddArgument(Tokens.ArgsAliases, aliasArgs)
-                            .OverrideRequestId(requestId)
-                            .Create(),
-                        _ => throw new ArgumentException($"Cannot handle serialized query of type {serializedQuery.GetType()}.")
-                    };
+                    var requestMessage = environment
+                        .Serializer
+                        .TransformTo<RequestMessage>().From(serializedQuery, environment);
 
                     var maybeResults = await client
                         .SubmitAsync<object>(requestMessage, ct)
