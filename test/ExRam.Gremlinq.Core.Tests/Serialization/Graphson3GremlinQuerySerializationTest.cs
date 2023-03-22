@@ -1,8 +1,7 @@
 ﻿using ExRam.Gremlinq.Core.Execution;
-using Gremlin.Net.Process.Traversal;
-using ExRam.Gremlinq.Core.Transformation;
 using Gremlin.Net.Structure.IO.GraphSON;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
+using ExRam.Gremlinq.Core.Serialization;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
@@ -14,10 +13,10 @@ namespace ExRam.Gremlinq.Core.Tests
 
             public Fixture() : base(g
                 .ConfigureEnvironment(_ => _
-                    .ConfigureSerializer(_ => _
-                        .Add(ConverterFactory
-                            .Create<Bytecode, GraphSONGremlinQuery>((bytecode, env, recurse) => new GraphSONGremlinQuery(Writer.WriteObject(bytecode)))))
-                    .UseExecutor(GremlinQueryExecutor.Identity)))
+                    .UseExecutor(GremlinQueryExecutor.Identity
+                        .TransformResult(result => result
+                            .OfType<BytecodeGremlinQuery>()
+                            .Select(query => Writer.WriteObject(query.Bytecode))))))
             {
             }
         }
