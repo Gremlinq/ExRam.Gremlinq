@@ -4,7 +4,6 @@ using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Tests.Entities;
 using ExRam.Gremlinq.Core.Transformation;
 using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
-using ExRam.Gremlinq.Core.Serialization;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
