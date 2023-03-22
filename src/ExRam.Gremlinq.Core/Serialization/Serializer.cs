@@ -8,6 +8,7 @@ using static ExRam.Gremlinq.Core.Serialization.Instructions;
 using System.Diagnostics.CodeAnalysis;
 using Gremlin.Net.Driver.Messages;
 using Gremlin.Net.Driver;
+using System.Collections.Generic;
 
 namespace ExRam.Gremlinq.Core.Serialization
 {
@@ -96,11 +97,18 @@ namespace ExRam.Gremlinq.Core.Serialization
             .Add(Create<Bytecode, ISerializedGremlinQuery>(static (bytecode, env, recurse) => recurse
                 .TransformTo<GroovyGremlinQuery>()
                 .From(bytecode, env)))
-            .Add(Create<BytecodeGremlinQuery, RequestMessage>((query, env, recurse) => recurse
-                .TransformTo<RequestMessage>()
-                .From(
-                    query.ToGroovy(),
-                    env)));
+            .Add(Create<BytecodeGremlinQuery, RequestMessage>((query, env, recurse) =>
+            {
+                var groovyQuery = query.ToGroovy();
+
+                return RequestMessage
+                    .Build(Tokens.OpsEval)
+                    .OverrideRequestId(query, env)
+                    .AddArgument(Tokens.ArgsGremlin, groovyQuery.Script)
+                    .AddArgument(Tokens.ArgsBindings, groovyQuery.Bindings)
+                    .AddAlias(env)
+                    .Create();
+            }));
 
         private static ITransformer AddBaseConverters(this ITransformer serializer) => serializer
             .Add(ConverterFactory
@@ -342,13 +350,6 @@ namespace ExRam.Gremlinq.Core.Serialization
                 .Processor(Tokens.ProcessorTraversal)
                 .OverrideRequestId(query, env)
                 .AddArgument(Tokens.ArgsGremlin, query.Bytecode)
-                .AddAlias(env)
-                .Create()))
-            .Add(Create<GroovyGremlinQuery, RequestMessage>((query, env, recurse) => RequestMessage
-                .Build(Tokens.OpsEval)
-                .OverrideRequestId(query, env)
-                .AddArgument(Tokens.ArgsGremlin, query.Script)
-                .AddArgument(Tokens.ArgsBindings, query.Bindings)
                 .AddAlias(env)
                 .Create()));
 
