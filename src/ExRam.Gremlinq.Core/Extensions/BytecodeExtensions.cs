@@ -15,7 +15,7 @@ namespace ExRam.Gremlinq.Core.Serialization
 
             try
             {
-                var bindings = new Dictionary<object, BindingKey>();
+                var bindings = new Dictionary<object, Label>();
                 var variables = new Dictionary<string, object>();
 
                 void Append(object obj, bool allowEnumerableExpansion = false)
