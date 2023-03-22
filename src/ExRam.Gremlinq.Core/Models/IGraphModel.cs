@@ -1,6 +1,4 @@
-﻿using System.Collections.Immutable;
-
-namespace ExRam.Gremlinq.Core.Models
+﻿namespace ExRam.Gremlinq.Core.Models
 {
     public interface IGraphModel
     {
