@@ -297,7 +297,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                             ? stringIdentity
                             : stepLabelNames.Count + 1;
 
-                        stepLabelNames.Add(stepLabel, stepLabelMapping.ToString());
+                        stepLabelNames.Add(stepLabel, stepLabelMapping);
                     }
 
                     // ReSharper disable once TailRecursiveCall
