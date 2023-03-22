@@ -24,7 +24,7 @@
         {
           "OperatorName": "as",
           "Arguments": [
-            "l1"
+            "_a"
           ]
         },
         {
@@ -53,7 +53,7 @@
         {
           "OperatorName": "from",
           "Arguments": [
-            "l1"
+            "_a"
           ]
         },
         {

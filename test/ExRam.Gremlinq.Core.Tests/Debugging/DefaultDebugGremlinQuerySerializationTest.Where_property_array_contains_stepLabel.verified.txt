@@ -1,1 +1,1 @@
-﻿g.inject('+4912345').as('l1').V().hasLabel('Company').has('PhoneNumbers',__.where(eq('l1'))).project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold()))
+﻿g.inject('+4912345').as('_a').V().hasLabel('Company').has('PhoneNumbers',__.where(eq('_a'))).project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold()))

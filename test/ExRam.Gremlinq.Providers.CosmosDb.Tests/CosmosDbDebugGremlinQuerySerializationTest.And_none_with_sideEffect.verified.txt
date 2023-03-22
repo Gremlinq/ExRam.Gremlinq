@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Person').and(__.aggregate('l1').not(__.identity()),__.outE())
+﻿g.V().hasLabel('Person').and(__.aggregate('_a').not(__.identity()),__.outE())

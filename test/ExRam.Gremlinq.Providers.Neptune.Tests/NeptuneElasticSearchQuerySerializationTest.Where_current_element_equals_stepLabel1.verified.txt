@@ -32,7 +32,7 @@
         {
           "OperatorName": "as",
           "Arguments": [
-            "l3"
+            "_c"
           ]
         },
         {
@@ -50,7 +50,7 @@
           "Arguments": [
             {
               "OperatorName": "eq",
-              "Value": "l3",
+              "Value": "_c",
               "Other": null
             }
           ]

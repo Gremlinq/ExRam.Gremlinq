@@ -1,1 +1,1 @@
-﻿g.inject('+4912345').fold().as('l1').V().hasLabel('Company').has('PhoneNumbers',__.where(within('l1')))
+﻿g.inject('+4912345').fold().as('_a').V().hasLabel('Company').has('PhoneNumbers',__.where(within('_a')))

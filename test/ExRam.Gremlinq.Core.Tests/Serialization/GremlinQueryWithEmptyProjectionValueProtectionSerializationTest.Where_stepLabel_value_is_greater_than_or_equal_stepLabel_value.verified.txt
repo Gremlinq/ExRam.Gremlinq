@@ -17,7 +17,7 @@
         {
           "OperatorName": "as",
           "Arguments": [
-            "l1"
+            "_a"
           ]
         },
         {
@@ -33,16 +33,16 @@
         {
           "OperatorName": "as",
           "Arguments": [
-            "l2"
+            "_b"
           ]
         },
         {
           "OperatorName": "where",
           "Arguments": [
-            "l1",
+            "_a",
             {
               "OperatorName": "gte",
-              "Value": "l2",
+              "Value": "_b",
               "Other": null
             }
           ]

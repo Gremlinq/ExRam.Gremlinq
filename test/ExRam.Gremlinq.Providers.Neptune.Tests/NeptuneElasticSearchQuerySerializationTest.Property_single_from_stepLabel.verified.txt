@@ -28,7 +28,7 @@
         {
           "OperatorName": "as",
           "Arguments": [
-            "l3"
+            "_c"
           ]
         },
         {
@@ -55,7 +55,7 @@
                 {
                   "OperatorName": "select",
                   "Arguments": [
-                    "l3"
+                    "_c"
                   ]
                 }
               ]

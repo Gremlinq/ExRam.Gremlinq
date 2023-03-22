@@ -20,7 +20,7 @@
         {
           "OperatorName": "withSideEffect",
           "Arguments": [
-            "l3",
+            "_c",
             36
           ]
         }
@@ -33,7 +33,7 @@
         {
           "OperatorName": "select",
           "Arguments": [
-            "l3"
+            "_c"
           ]
         }
       ]

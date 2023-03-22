@@ -7,7 +7,7 @@
       "_b": "PartitionKey",
       "_c": "CountryCallingCode",
       "_d": "+49",
-      "_e": "l1",
+      "_e": "_a",
       "_f": "Language",
       "_g": "IetfLanguageTag",
       "_h": "en",

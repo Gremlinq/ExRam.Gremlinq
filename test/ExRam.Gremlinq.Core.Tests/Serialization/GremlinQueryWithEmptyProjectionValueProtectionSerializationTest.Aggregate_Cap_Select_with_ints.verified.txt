@@ -26,19 +26,19 @@
         {
           "OperatorName": "aggregate",
           "Arguments": [
-            "l1"
+            "_a"
           ]
         },
         {
           "OperatorName": "cap",
           "Arguments": [
-            "l1"
+            "_a"
           ]
         },
         {
           "OperatorName": "select",
           "Arguments": [
-            "l1"
+            "_a"
           ]
         }
       ]

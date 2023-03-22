@@ -19,7 +19,7 @@
             else
             {
                 var digits = key > 0
-                    ? (int)Math.Ceiling(Math.Log(key + 1, 10)) + 1
+                    ? (int)Math.Ceiling(Math.Log(key + 1, 26)) + 1
                     : 2;
 
                 _stringKey = string.Create(
@@ -29,12 +29,12 @@
                     {
                         var (key, digits) = tuple;
 
-                        span[0] = 'l';
+                        span[0] = '_';
 
                         for (var i = digits - 1; i >= 1; i--)
                         {
-                            span[i] = (char)('0' + key % 10);
-                            key /= 10;
+                            span[i] = (char)('a' + key % 26);
+                            key /= 26;
                         }
                     });
             }

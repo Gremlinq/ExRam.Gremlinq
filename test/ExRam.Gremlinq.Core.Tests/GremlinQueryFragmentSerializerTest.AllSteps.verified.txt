@@ -13,7 +13,7 @@
     Item2: {
       OperatorName: from,
       Arguments: [
-        l1
+        _a
       ]
     }
   },
@@ -37,7 +37,7 @@
     Item2: {
       OperatorName: to,
       Arguments: [
-        l2
+        _b
       ]
     }
   },
@@ -70,7 +70,7 @@
     Item2: {
       OperatorName: aggregate,
       Arguments: [
-        l3
+        _c
       ]
     }
   },
@@ -108,7 +108,7 @@
     Item2: {
       OperatorName: as,
       Arguments: [
-        l4
+        _d
       ]
     }
   },
@@ -141,7 +141,7 @@
     Item2: {
       OperatorName: cap,
       Arguments: [
-        l5
+        _e
       ]
     }
   },
@@ -956,7 +956,7 @@
     Item2: {
       OperatorName: select,
       Arguments: [
-        l6
+        _f
       ]
     }
   },
@@ -1136,7 +1136,7 @@
     Item2: {
       OperatorName: where,
       Arguments: [
-        l7,
+        _g,
         {
           OperatorName: between,
           Value: [
@@ -1179,7 +1179,7 @@
     Item2: {
       OperatorName: withSideEffect,
       Arguments: [
-        l8,
+        _h,
         string
       ]
     }

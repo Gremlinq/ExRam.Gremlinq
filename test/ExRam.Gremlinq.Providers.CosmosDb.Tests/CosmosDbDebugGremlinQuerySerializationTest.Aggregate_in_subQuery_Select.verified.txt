@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Person').map(__.aggregate('l1')).select('l1')
+﻿g.V().hasLabel('Person').map(__.aggregate('_a')).select('_a')

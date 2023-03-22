@@ -32,7 +32,7 @@
         {
           "OperatorName": "as",
           "Arguments": [
-            "l3"
+            "_c"
           ]
         },
         {
@@ -48,7 +48,7 @@
         {
           "OperatorName": "as",
           "Arguments": [
-            "l4"
+            "_d"
           ]
         },
         {
@@ -71,7 +71,7 @@
                 {
                   "OperatorName": "select",
                   "Arguments": [
-                    "l3"
+                    "_c"
                   ]
                 }
               ]
@@ -87,7 +87,7 @@
                 {
                   "OperatorName": "select",
                   "Arguments": [
-                    "l4"
+                    "_d"
                   ]
                 }
               ]

@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Person').as('l1').out().hasLabel('Person').as('l2').out().project('Item1','Item2').by(__.select('l1')).by(__.select('l2'))
+﻿g.V().hasLabel('Person').as('_a').out().hasLabel('Person').as('_b').out().project('Item1','Item2').by(__.select('_a')).by(__.select('_b'))

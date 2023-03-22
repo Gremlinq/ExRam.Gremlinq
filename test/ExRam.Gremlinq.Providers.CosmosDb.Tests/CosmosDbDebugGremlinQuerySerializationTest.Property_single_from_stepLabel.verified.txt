@@ -1,1 +1,1 @@
-﻿g.inject(36).as('l1').V().hasLabel('Person').property(single,'Age',__.select('l1'))
+﻿g.inject(36).as('_a').V().hasLabel('Person').property(single,'Age',__.select('_a'))

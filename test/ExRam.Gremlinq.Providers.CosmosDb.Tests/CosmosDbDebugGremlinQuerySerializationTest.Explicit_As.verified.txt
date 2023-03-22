@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Person').as('l1')
+﻿g.V().hasLabel('Person').as('_a')
