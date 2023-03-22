@@ -86,11 +86,6 @@ namespace ExRam.Gremlinq.Core.Serialization
         [ThreadStatic]
         internal static Dictionary<StepLabel, Label>? _stepLabelNames;
 
-        internal static readonly string[] StepLabelNameCache = Enumerable
-            .Range(1, 100)
-            .Select(static x => "l" + x)
-            .ToArray();
-
         public static readonly ITransformer Default = Transformer.Identity
             .AddBaseConverters()
             .AddDefaultStepConverters();
