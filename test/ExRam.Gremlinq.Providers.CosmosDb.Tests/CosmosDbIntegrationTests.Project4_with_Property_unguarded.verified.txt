@@ -1,223 +1,223 @@
 ﻿[
   {
     "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "label": "Company",
-      "type": "vertex",
+      "id": [],
+      "label": [],
+      "type": [],
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-            "value": "PartitionKey"
+            "id": [],
+            "value": []
           }
         ],
         "FoundingDate": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": -62135596800000
+            "id": [],
+            "value": []
           }
         ]
       }
     },
-    "Item3": 0,
+    "Item3": [],
     "Item4": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+      "id": [],
+      "value": [],
+      "label": []
     }
   },
   {
     "Item1": {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "label": "Country",
-      "type": "vertex",
+      "id": [],
+      "label": [],
+      "type": [],
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-            "value": "PartitionKey"
+            "id": [],
+            "value": []
           }
         ],
         "CountryCallingCode": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": "+49"
+            "id": [],
+            "value": []
           }
         ]
       }
     },
-    "Item3": 0,
+    "Item3": [],
     "Item4": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+      "id": [],
+      "value": [],
+      "label": []
     }
   },
   {
     "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "label": "Country",
-      "type": "vertex",
+      "id": [],
+      "label": [],
+      "type": [],
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-            "value": "PartitionKey"
+            "id": [],
+            "value": []
           }
         ]
       }
     },
-    "Item3": 0,
+    "Item3": [],
     "Item4": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+      "id": [],
+      "value": [],
+      "label": []
     }
   },
   {
     "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "label": "Country",
-      "type": "vertex",
+      "id": [],
+      "label": [],
+      "type": [],
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-            "value": "PartitionKey"
+            "id": [],
+            "value": []
           }
         ]
       }
     },
-    "Item3": 0,
+    "Item3": [],
     "Item4": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+      "id": [],
+      "value": [],
+      "label": []
     }
   },
   {
     "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "label": "Country",
-      "type": "vertex",
+      "id": [],
+      "label": [],
+      "type": [],
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-            "value": "PartitionKey"
+            "id": [],
+            "value": []
           }
         ]
       }
     },
-    "Item3": 0,
+    "Item3": [],
     "Item4": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+      "id": [],
+      "value": [],
+      "label": []
     }
   },
   {
     "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "label": "Company",
-      "type": "vertex",
+      "id": [],
+      "label": [],
+      "type": [],
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-            "value": "PartitionKey"
+            "id": [],
+            "value": []
           }
         ],
         "FoundingDate": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": -62135596800000
+            "id": [],
+            "value": []
           }
         ]
       }
     },
-    "Item3": 0,
+    "Item3": [],
     "Item4": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+      "id": [],
+      "value": [],
+      "label": []
     }
   },
   {
     "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "label": "Country",
-      "type": "vertex",
+      "id": [],
+      "label": [],
+      "type": [],
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-            "value": "PartitionKey"
+            "id": [],
+            "value": []
           }
         ],
         "CountryCallingCode": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": "+49"
+            "id": [],
+            "value": []
           }
         ]
       }
     },
-    "Item3": 0,
+    "Item3": [],
     "Item4": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+      "id": [],
+      "value": [],
+      "label": []
     }
   },
   {
     "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "label": "Company",
-      "type": "vertex",
+      "id": [],
+      "label": [],
+      "type": [],
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-            "value": "PartitionKey"
+            "id": [],
+            "value": []
           }
         ],
         "FoundingDate": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": -62135596800000
+            "id": [],
+            "value": []
           }
         ]
       }
     },
-    "Item3": 0,
+    "Item3": [],
     "Item4": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+      "id": [],
+      "value": [],
+      "label": []
     }
   },
   {
-    "Item3": 0,
+    "Item3": [],
     "Item4": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+      "id": [],
+      "value": [],
+      "label": []
     }
   },
   {
-    "Item3": 0,
+    "Item3": [],
     "Item4": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+      "id": [],
+      "value": [],
+      "label": []
     }
   },
   {
     "Item4": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+      "id": [],
+      "value": [],
+      "label": []
     }
   }
 ]

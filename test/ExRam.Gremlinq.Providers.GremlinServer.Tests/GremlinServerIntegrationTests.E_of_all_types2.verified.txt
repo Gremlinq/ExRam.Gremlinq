@@ -1,207 +1,207 @@
 ﻿[
   {
-    "@type": "g:Map",
+    "@type": [],
     "@value": [
-      "id",
+      [],
       {
-        "@type": "g:Int64",
-        "@value": -1
+        "@type": [],
+        "@value": []
       },
-      "label",
-      "LivesIn",
-      "properties",
+      [],
+      [],
+      [],
       {
-        "@type": "g:Map",
+        "@type": [],
         "@value": []
       }
     ]
   },
   {
-    "@type": "g:Map",
+    "@type": [],
     "@value": [
-      "id",
+      [],
       {
-        "@type": "g:Int64",
-        "@value": -1
+        "@type": [],
+        "@value": []
       },
-      "label",
-      "Speaks",
-      "properties",
+      [],
+      [],
+      [],
       {
-        "@type": "g:Map",
+        "@type": [],
         "@value": []
       }
     ]
   },
   {
-    "@type": "g:Map",
+    "@type": [],
     "@value": [
-      "id",
+      [],
       {
-        "@type": "g:Int64",
-        "@value": -1
+        "@type": [],
+        "@value": []
       },
-      "label",
-      "Speaks",
-      "properties",
+      [],
+      [],
+      [],
       {
-        "@type": "g:Map",
+        "@type": [],
         "@value": []
       }
     ]
   },
   {
-    "@type": "g:Map",
+    "@type": [],
     "@value": [
-      "id",
+      [],
       {
-        "@type": "g:Int64",
-        "@value": -1
+        "@type": [],
+        "@value": []
       },
-      "label",
-      "LivesIn",
-      "properties",
+      [],
+      [],
+      [],
       {
-        "@type": "g:Map",
+        "@type": [],
         "@value": []
       }
     ]
   },
   {
-    "@type": "g:Map",
+    "@type": [],
     "@value": [
-      "id",
+      [],
       {
-        "@type": "g:Int64",
-        "@value": -1
+        "@type": [],
+        "@value": []
       },
-      "label",
-      "WorksFor",
-      "properties",
+      [],
+      [],
+      [],
       {
-        "@type": "g:Map",
+        "@type": [],
         "@value": [
-          "Role",
-          "Admin",
-          "From",
+          [],
+          [],
+          [],
           {
-            "@type": "g:Date",
-            "@value": 1586270616000
+            "@type": [],
+            "@value": []
           },
-          "To",
+          [],
           {
-            "@type": "g:Date",
-            "@value": 1586270616000
+            "@type": [],
+            "@value": []
           }
         ]
       }
     ]
   },
   {
-    "@type": "g:Map",
+    "@type": [],
     "@value": [
-      "id",
+      [],
       {
-        "@type": "g:Int64",
-        "@value": -1
+        "@type": [],
+        "@value": []
       },
-      "label",
-      "LivesIn",
-      "properties",
+      [],
+      [],
+      [],
       {
-        "@type": "g:Map",
+        "@type": [],
         "@value": []
       }
     ]
   },
   {
-    "@type": "g:Map",
+    "@type": [],
     "@value": [
-      "id",
+      [],
       {
-        "@type": "g:Int64",
-        "@value": -1
+        "@type": [],
+        "@value": []
       },
-      "label",
-      "LivesIn",
-      "properties",
+      [],
+      [],
+      [],
       {
-        "@type": "g:Map",
+        "@type": [],
         "@value": [
-          "Since",
+          [],
           {
-            "@type": "g:Date",
-            "@value": 1586270616000
+            "@type": [],
+            "@value": []
           }
         ]
       }
     ]
   },
   {
-    "@type": "g:Map",
+    "@type": [],
     "@value": [
-      "id",
+      [],
       {
-        "@type": "g:Int64",
-        "@value": -1
+        "@type": [],
+        "@value": []
       },
-      "label",
-      "LivesIn",
-      "properties",
+      [],
+      [],
+      [],
       {
-        "@type": "g:Map",
+        "@type": [],
         "@value": []
       }
     ]
   },
   {
-    "@type": "g:Map",
+    "@type": [],
     "@value": [
-      "id",
+      [],
       {
-        "@type": "g:Int64",
-        "@value": -1
+        "@type": [],
+        "@value": []
       },
-      "label",
-      "WorksFor",
-      "properties",
+      [],
+      [],
+      [],
       {
-        "@type": "g:Map",
+        "@type": [],
         "@value": [
-          "To",
+          [],
           {
-            "@type": "g:Date",
-            "@value": 1586270616000
+            "@type": [],
+            "@value": []
           }
         ]
       }
     ]
   },
   {
-    "@type": "g:Map",
+    "@type": [],
     "@value": [
-      "id",
+      [],
       {
-        "@type": "g:Int64",
-        "@value": -1
+        "@type": [],
+        "@value": []
       },
-      "label",
-      "WorksFor",
-      "properties",
+      [],
+      [],
+      [],
       {
-        "@type": "g:Map",
+        "@type": [],
         "@value": [
-          "Role",
-          "Admin",
-          "From",
+          [],
+          [],
+          [],
           {
-            "@type": "g:Date",
-            "@value": 1586270616000
+            "@type": [],
+            "@value": []
           },
-          "To",
+          [],
           {
-            "@type": "g:Date",
-            "@value": 1586270616000
+            "@type": [],
+            "@value": []
           }
         ]
       }

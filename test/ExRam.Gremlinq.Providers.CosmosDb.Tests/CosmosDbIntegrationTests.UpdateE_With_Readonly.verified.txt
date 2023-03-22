@@ -1,42 +1,42 @@
 ﻿[
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "WorksFor",
-    "type": "edge",
-    "inVLabel": "Company",
-    "outVLabel": "Person",
-    "inV": "00000000-0000-0000-0000-000000000000",
-    "outV": "00000000-0000-0000-0000-000000000000",
+    "id": [],
+    "label": [],
+    "type": [],
+    "inVLabel": [],
+    "outVLabel": [],
+    "inV": [],
+    "outV": [],
     "properties": {
-      "From": 1586270616000,
-      "Role": "Admin",
-      "To": 1586270616000
+      "From": [],
+      "Role": [],
+      "To": []
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "WorksFor",
-    "type": "edge",
-    "inVLabel": "Company",
-    "outVLabel": "Person",
-    "inV": "00000000-0000-0000-0000-000000000000",
-    "outV": "00000000-0000-0000-0000-000000000000",
+    "id": [],
+    "label": [],
+    "type": [],
+    "inVLabel": [],
+    "outVLabel": [],
+    "inV": [],
+    "outV": [],
     "properties": {
-      "From": 1586270616000,
-      "Role": "Admin",
-      "To": 1586270616000
+      "From": [],
+      "Role": [],
+      "To": []
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "WorksFor",
-    "type": "edge",
-    "inVLabel": "Company",
-    "outVLabel": "Person",
-    "inV": "00000000-0000-0000-0000-000000000000",
-    "outV": "00000000-0000-0000-0000-000000000000",
+    "id": [],
+    "label": [],
+    "type": [],
+    "inVLabel": [],
+    "outVLabel": [],
+    "inV": [],
+    "outV": [],
     "properties": {
-      "To": 1586270616000
+      "To": []
     }
   }
 ]

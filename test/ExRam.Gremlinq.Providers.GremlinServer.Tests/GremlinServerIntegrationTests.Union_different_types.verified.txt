@@ -1,112 +1,112 @@
 ﻿[
   {
-    "@type": "g:Vertex",
+    "@type": [],
     "@value": {
       "id": {
-        "@type": "g:Int64",
-        "@value": -1
+        "@type": [],
+        "@value": []
       },
-      "label": "Company"
+      "label": []
     }
   },
   {
-    "@type": "g:Edge",
+    "@type": [],
     "@value": {
       "id": {
-        "@type": "g:Int64",
-        "@value": -1
+        "@type": [],
+        "@value": []
       },
-      "label": "LivesIn",
-      "inVLabel": "Country",
-      "outVLabel": "Person",
+      "label": [],
+      "inVLabel": [],
+      "outVLabel": [],
       "inV": {
-        "@type": "g:Int64",
-        "@value": 17
+        "@type": [],
+        "@value": []
       },
       "outV": {
-        "@type": "g:Int64",
-        "@value": 15
+        "@type": [],
+        "@value": []
       }
     }
   },
   {
-    "@type": "g:Edge",
+    "@type": [],
     "@value": {
       "id": {
-        "@type": "g:Int64",
-        "@value": -1
+        "@type": [],
+        "@value": []
       },
-      "label": "LivesIn",
-      "inVLabel": "Country",
-      "outVLabel": "Person",
+      "label": [],
+      "inVLabel": [],
+      "outVLabel": [],
       "inV": {
-        "@type": "g:Int64",
-        "@value": 21
+        "@type": [],
+        "@value": []
       },
       "outV": {
-        "@type": "g:Int64",
-        "@value": 19
+        "@type": [],
+        "@value": []
       }
     }
   },
   {
-    "@type": "g:Edge",
+    "@type": [],
     "@value": {
       "id": {
-        "@type": "g:Int64",
-        "@value": -1
+        "@type": [],
+        "@value": []
       },
-      "label": "LivesIn",
-      "inVLabel": "Country",
-      "outVLabel": "Person",
+      "label": [],
+      "inVLabel": [],
+      "outVLabel": [],
       "inV": {
-        "@type": "g:Int64",
-        "@value": 25
+        "@type": [],
+        "@value": []
       },
       "outV": {
-        "@type": "g:Int64",
-        "@value": 23
+        "@type": [],
+        "@value": []
       }
     }
   },
   {
-    "@type": "g:Vertex",
+    "@type": [],
     "@value": {
       "id": {
-        "@type": "g:Int64",
-        "@value": -1
+        "@type": [],
+        "@value": []
       },
-      "label": "Company"
+      "label": []
     }
   },
   {
-    "@type": "g:Edge",
+    "@type": [],
     "@value": {
       "id": {
-        "@type": "g:Int64",
-        "@value": -1
+        "@type": [],
+        "@value": []
       },
-      "label": "LivesIn",
-      "inVLabel": "Country",
-      "outVLabel": "Person",
+      "label": [],
+      "inVLabel": [],
+      "outVLabel": [],
       "inV": {
-        "@type": "g:Int64",
-        "@value": 0
+        "@type": [],
+        "@value": []
       },
       "outV": {
-        "@type": "g:Int64",
-        "@value": 37
+        "@type": [],
+        "@value": []
       }
     }
   },
   {
-    "@type": "g:Vertex",
+    "@type": [],
     "@value": {
       "id": {
-        "@type": "g:Int64",
-        "@value": -1
+        "@type": [],
+        "@value": []
       },
-      "label": "Company"
+      "label": []
     }
   }
 ]

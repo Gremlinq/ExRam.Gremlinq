@@ -1,281 +1,281 @@
 ﻿[
   {
-    "@type": "g:UUID",
-    "@value": "00000000-0000-0000-0000-000000000000"
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:UUID",
-    "@value": "00000000-0000-0000-0000-000000000000"
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:UUID",
-    "@value": "00000000-0000-0000-0000-000000000000"
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:UUID",
-    "@value": "00000000-0000-0000-0000-000000000000"
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:UUID",
-    "@value": "00000000-0000-0000-0000-000000000000"
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:UUID",
-    "@value": "00000000-0000-0000-0000-000000000000"
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:UUID",
-    "@value": "00000000-0000-0000-0000-000000000000"
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:UUID",
-    "@value": "00000000-0000-0000-0000-000000000000"
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:UUID",
-    "@value": "00000000-0000-0000-0000-000000000000"
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:UUID",
-    "@value": "00000000-0000-0000-0000-000000000000"
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:UUID",
-    "@value": "00000000-0000-0000-0000-000000000000"
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Date",
-    "@value": 1586270616000
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Date",
-    "@value": 1586270616000
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Date",
-    "@value": 1586270616000
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Date",
-    "@value": 1586270616000
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Date",
-    "@value": 1586270616000
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Date",
-    "@value": 1586270616000
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Date",
-    "@value": 1586270616000
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Date",
-    "@value": 1586270616000
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Date",
-    "@value": 1586270616000
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Date",
-    "@value": 1586270616000
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Date",
-    "@value": 1586270616000
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Int32",
-    "@value": 36
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Int32",
-    "@value": 36
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Int32",
-    "@value": 36
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Int32",
-    "@value": 36
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Int32",
-    "@value": 36
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Int32",
-    "@value": 36
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Int32",
-    "@value": 36
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Int32",
-    "@value": 36
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Int32",
-    "@value": 36
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Int32",
-    "@value": 36
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Int32",
-    "@value": 36
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Int32",
-    "@value": 36
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Int32",
-    "@value": 36
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Int32",
-    "@value": 36
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Int32",
-    "@value": 36
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Int32",
-    "@value": 36
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Int32",
-    "@value": 36
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Int32",
-    "@value": 36
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Int32",
-    "@value": 36
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Int32",
-    "@value": 36
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Int32",
-    "@value": 36
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Int32",
-    "@value": 36
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Int32",
-    "@value": 0
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Int32",
-    "@value": 0
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Int32",
-    "@value": 0
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Int32",
-    "@value": 0
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Int32",
-    "@value": 0
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Int32",
-    "@value": 0
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Int32",
-    "@value": 0
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Int32",
-    "@value": 0
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Int32",
-    "@value": 0
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Int32",
-    "@value": 0
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Int32",
-    "@value": 0
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Int32",
-    "@value": 21
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Int32",
-    "@value": 21
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Int32",
-    "@value": 21
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Int32",
-    "@value": 21
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Int32",
-    "@value": 21
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Int32",
-    "@value": 21
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Int32",
-    "@value": 21
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Int32",
-    "@value": 21
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Int32",
-    "@value": 21
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Int32",
-    "@value": 21
+    "@type": [],
+    "@value": []
   },
   {
-    "@type": "g:Int32",
-    "@value": 21
+    "@type": [],
+    "@value": []
   },
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
   {
-    "@type": "gx:ByteBuffer",
-    "@value": "AQIDBAUGBwg="
+    "@type": [],
+    "@value": []
   }
 ]

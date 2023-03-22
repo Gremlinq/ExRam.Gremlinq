@@ -1,25 +1,25 @@
 ﻿[
   {
-    "@type": "g:Map",
+    "@type": [],
     "@value": [
-      "TimeFrame",
+      [],
       {
-        "@type": "gx:Duration",
-        "@value": "PT8H"
+        "@type": [],
+        "@value": []
       },
-      "Country",
-      "+49",
-      "Company",
+      [],
+      [],
+      [],
       {
-        "@type": "g:Date",
-        "@value": -62135596800000
+        "@type": [],
+        "@value": []
       },
-      "Language",
-      "en",
-      "Person",
+      [],
+      [],
+      [],
       {
-        "@type": "g:Int32",
-        "@value": 1
+        "@type": [],
+        "@value": []
       }
     ]
   }

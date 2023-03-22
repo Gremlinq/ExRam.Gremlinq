@@ -1,150 +1,150 @@
 ﻿[
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Company",
-    "type": "vertex",
+    "id": [],
+    "label": [],
+    "type": [],
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          "id": [],
+          "value": []
         }
       ],
       "FoundingDate": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": -62135596800000
+          "id": [],
+          "value": []
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Company",
-    "type": "vertex",
+    "id": [],
+    "label": [],
+    "type": [],
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          "id": [],
+          "value": []
         }
       ],
       "FoundingDate": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": -62135596800000
+          "id": [],
+          "value": []
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Company",
-    "type": "vertex",
+    "id": [],
+    "label": [],
+    "type": [],
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          "id": [],
+          "value": []
         }
       ],
       "FoundingDate": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": -62135596800000
+          "id": [],
+          "value": []
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Country",
-    "type": "vertex",
+    "id": [],
+    "label": [],
+    "type": [],
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          "id": [],
+          "value": []
         }
       ],
       "LocalizableDescription": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "",
+          "id": [],
+          "value": [],
           "properties": {
-            "someKey": "value"
+            "someKey": []
           }
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Country",
-    "type": "vertex",
+    "id": [],
+    "label": [],
+    "type": [],
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          "id": [],
+          "value": []
         }
       ],
       "LocalizableDescription": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "",
+          "id": [],
+          "value": [],
           "properties": {
-            "someKey": "value"
+            "someKey": []
           }
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Country",
-    "type": "vertex",
+    "id": [],
+    "label": [],
+    "type": [],
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          "id": [],
+          "value": []
         }
       ],
       "LocalizableDescription": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "",
+          "id": [],
+          "value": [],
           "properties": {
-            "someKey": "value"
+            "someKey": []
           }
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Country",
-    "type": "vertex",
+    "id": [],
+    "label": [],
+    "type": [],
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          "id": [],
+          "value": []
         }
       ],
       "CountryCallingCode": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "+49"
+          "id": [],
+          "value": []
         }
       ],
       "LocalizableDescription": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "",
+          "id": [],
+          "value": [],
           "properties": {
-            "someKey": "value"
+            "someKey": []
           }
         }
       ]

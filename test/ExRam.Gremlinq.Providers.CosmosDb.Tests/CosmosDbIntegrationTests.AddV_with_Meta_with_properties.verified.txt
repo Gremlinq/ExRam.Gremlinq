@@ -1,22 +1,22 @@
 ﻿[
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Country",
-    "type": "vertex",
+    "id": [],
+    "label": [],
+    "type": [],
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          "id": [],
+          "value": []
         }
       ],
       "Name": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "GER",
+          "id": [],
+          "value": [],
           "properties": {
-            "de": "Deutschland",
-            "en": "Germany"
+            "de": [],
+            "en": []
           }
         }
       ]

@@ -1,84 +1,84 @@
 ﻿[
   {
-    "@type": "g:Map",
+    "@type": [],
     "@value": [
-      "id",
+      [],
       {
-        "@type": "g:Int64",
-        "@value": -1
+        "@type": [],
+        "@value": []
       },
-      "label",
-      "Company",
-      "properties",
+      [],
+      [],
+      [],
       {
-        "@type": "g:Map",
+        "@type": [],
         "@value": [
-          "PhoneNumbers",
+          [],
           {
-            "@type": "g:List",
+            "@type": [],
             "@value": [
               {
-                "@type": "g:Map",
+                "@type": [],
                 "@value": [
-                  "id",
+                  [],
                   {
-                    "@type": "g:Int64",
-                    "@value": -1
+                    "@type": [],
+                    "@value": []
                   },
-                  "label",
-                  "PhoneNumbers",
-                  "value",
-                  "+4912345",
-                  "properties",
+                  [],
+                  [],
+                  [],
+                  [],
+                  [],
                   {
-                    "@type": "g:Map",
+                    "@type": [],
                     "@value": []
                   }
                 ]
               },
               {
-                "@type": "g:Map",
+                "@type": [],
                 "@value": [
-                  "id",
+                  [],
                   {
-                    "@type": "g:Int64",
-                    "@value": -1
+                    "@type": [],
+                    "@value": []
                   },
-                  "label",
-                  "PhoneNumbers",
-                  "value",
-                  "+4923456",
-                  "properties",
+                  [],
+                  [],
+                  [],
+                  [],
+                  [],
                   {
-                    "@type": "g:Map",
+                    "@type": [],
                     "@value": []
                   }
                 ]
               }
             ]
           },
-          "FoundingDate",
+          [],
           {
-            "@type": "g:List",
+            "@type": [],
             "@value": [
               {
-                "@type": "g:Map",
+                "@type": [],
                 "@value": [
-                  "id",
+                  [],
                   {
-                    "@type": "g:Int64",
-                    "@value": -1
+                    "@type": [],
+                    "@value": []
                   },
-                  "label",
-                  "FoundingDate",
-                  "value",
+                  [],
+                  [],
+                  [],
                   {
-                    "@type": "g:Date",
-                    "@value": -62135596800000
+                    "@type": [],
+                    "@value": []
                   },
-                  "properties",
+                  [],
                   {
-                    "@type": "g:Map",
+                    "@type": [],
                     "@value": []
                   }
                 ]

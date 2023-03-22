@@ -1,84 +1,84 @@
 ﻿[
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Company",
-    "type": "vertex",
+    "id": [],
+    "label": [],
+    "type": [],
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          "id": [],
+          "value": []
         }
       ],
       "FoundingDate": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": -62135596800000
+          "id": [],
+          "value": []
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Company",
-    "type": "vertex",
+    "id": [],
+    "label": [],
+    "type": [],
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          "id": [],
+          "value": []
         }
       ],
       "FoundingDate": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": -62135596800000
+          "id": [],
+          "value": []
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Company",
-    "type": "vertex",
+    "id": [],
+    "label": [],
+    "type": [],
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          "id": [],
+          "value": []
         }
       ],
       "FoundingDate": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": -62135596800000
+          "id": [],
+          "value": []
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Company",
-    "type": "vertex",
+    "id": [],
+    "label": [],
+    "type": [],
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          "id": [],
+          "value": []
         }
       ],
       "FoundingDate": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": -62135596800000
+          "id": [],
+          "value": []
         }
       ],
       "Locations": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "Aachen",
+          "id": [],
+          "value": [],
           "properties": {
-            "ValidFrom": 1546304400000
+            "ValidFrom": []
           }
         }
       ]

@@ -1,43 +1,43 @@
 ﻿[
   {
-    "@type": "g:Map",
+    "@type": [],
     "@value": [
-      "id",
+      [],
       {
-        "@type": "g:Int64",
-        "@value": -1
+        "@type": [],
+        "@value": []
       },
-      "label",
-      "Name",
-      "value",
-      "GER",
-      "properties",
+      [],
+      [],
+      [],
+      [],
+      [],
       {
-        "@type": "g:Map",
+        "@type": [],
         "@value": []
       }
     ]
   },
   {
-    "@type": "g:Map",
+    "@type": [],
     "@value": [
-      "id",
+      [],
       {
-        "@type": "g:Int64",
-        "@value": -1
+        "@type": [],
+        "@value": []
       },
-      "label",
-      "Name",
-      "value",
-      "GER",
-      "properties",
+      [],
+      [],
+      [],
+      [],
+      [],
       {
-        "@type": "g:Map",
+        "@type": [],
         "@value": [
-          "de",
-          "Deutschland",
-          "en",
-          "Germany"
+          [],
+          [],
+          [],
+          []
         ]
       }
     ]

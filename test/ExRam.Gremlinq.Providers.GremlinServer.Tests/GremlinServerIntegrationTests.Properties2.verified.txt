@@ -1,75 +1,75 @@
 ﻿[
   {
-    "@type": "g:Property",
+    "@type": [],
     "@value": {
-      "key": "Role",
-      "value": "Admin"
+      "key": [],
+      "value": []
     }
   },
   {
-    "@type": "g:Property",
+    "@type": [],
     "@value": {
-      "key": "Role",
-      "value": "Admin"
+      "key": [],
+      "value": []
     }
   },
   {
-    "@type": "g:Property",
+    "@type": [],
     "@value": {
-      "key": "From",
+      "key": [],
       "value": {
-        "@type": "g:Date",
-        "@value": 1586270616000
+        "@type": [],
+        "@value": []
       }
     }
   },
   {
-    "@type": "g:Property",
+    "@type": [],
     "@value": {
-      "key": "From",
+      "key": [],
       "value": {
-        "@type": "g:Date",
-        "@value": 1586270616000
+        "@type": [],
+        "@value": []
       }
     }
   },
   {
-    "@type": "g:Property",
+    "@type": [],
     "@value": {
-      "key": "To",
+      "key": [],
       "value": {
-        "@type": "g:Date",
-        "@value": 1586270616000
+        "@type": [],
+        "@value": []
       }
     }
   },
   {
-    "@type": "g:Property",
+    "@type": [],
     "@value": {
-      "key": "To",
+      "key": [],
       "value": {
-        "@type": "g:Date",
-        "@value": 1586270616000
+        "@type": [],
+        "@value": []
       }
     }
   },
   {
-    "@type": "g:Property",
+    "@type": [],
     "@value": {
-      "key": "To",
+      "key": [],
       "value": {
-        "@type": "g:Date",
-        "@value": 1586270616000
+        "@type": [],
+        "@value": []
       }
     }
   },
   {
-    "@type": "g:Property",
+    "@type": [],
     "@value": {
-      "key": "Since",
+      "key": [],
       "value": {
-        "@type": "g:Date",
-        "@value": 1586270616000
+        "@type": [],
+        "@value": []
       }
     }
   }

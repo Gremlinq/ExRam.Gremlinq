@@ -1,11 +1,11 @@
 ﻿[
   {
-    "@type": "g:Property",
+    "@type": [],
     "@value": {
-      "key": "Since",
+      "key": [],
       "value": {
-        "@type": "g:Date",
-        "@value": 1586270616000
+        "@type": [],
+        "@value": []
       }
     }
   }

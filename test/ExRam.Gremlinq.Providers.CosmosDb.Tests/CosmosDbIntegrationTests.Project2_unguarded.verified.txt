@@ -1,51 +1,51 @@
 ﻿[
   {
     "Item1": {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "label": "Person",
-      "type": "vertex",
+      "id": [],
+      "label": [],
+      "type": [],
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-            "value": "PartitionKey"
+            "id": [],
+            "value": []
           }
         ],
         "Age": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": 0
+            "id": [],
+            "value": []
           }
         ],
         "Name": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": "Bob"
+            "id": [],
+            "value": []
           }
         ],
         "RegistrationDate": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": 1586270616000
+            "id": [],
+            "value": []
           }
         ]
       }
     },
     "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "label": "Language",
-      "type": "vertex",
+      "id": [],
+      "label": [],
+      "type": [],
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-            "value": "PartitionKey"
+            "id": [],
+            "value": []
           }
         ],
         "IetfLanguageTag": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": "en"
+            "id": [],
+            "value": []
           }
         ]
       }
@@ -53,20 +53,20 @@
   },
   {
     "Item1": {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "label": "Country",
-      "type": "vertex",
+      "id": [],
+      "label": [],
+      "type": [],
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-            "value": "PartitionKey"
+            "id": [],
+            "value": []
           }
         ],
         "CountryCallingCode": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": "+49"
+            "id": [],
+            "value": []
           }
         ]
       }
@@ -74,20 +74,20 @@
   },
   {
     "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "label": "Company",
-      "type": "vertex",
+      "id": [],
+      "label": [],
+      "type": [],
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-            "value": "PartitionKey"
+            "id": [],
+            "value": []
           }
         ],
         "FoundingDate": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": -62135596800000
+            "id": [],
+            "value": []
           }
         ]
       }
@@ -95,20 +95,20 @@
   },
   {
     "Item1": {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "label": "Person",
-      "type": "vertex",
+      "id": [],
+      "label": [],
+      "type": [],
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-            "value": "PartitionKey"
+            "id": [],
+            "value": []
           }
         ],
         "Age": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": 0
+            "id": [],
+            "value": []
           }
         ]
       }
@@ -116,20 +116,20 @@
   },
   {
     "Item1": {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "label": "Country",
-      "type": "vertex",
+      "id": [],
+      "label": [],
+      "type": [],
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-            "value": "PartitionKey"
+            "id": [],
+            "value": []
           }
         ],
         "CountryCallingCode": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": "+49"
+            "id": [],
+            "value": []
           }
         ]
       }
@@ -137,14 +137,14 @@
   },
   {
     "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "label": "Country",
-      "type": "vertex",
+      "id": [],
+      "label": [],
+      "type": [],
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-            "value": "PartitionKey"
+            "id": [],
+            "value": []
           }
         ]
       }
@@ -152,20 +152,20 @@
   },
   {
     "Item1": {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "label": "Person",
-      "type": "vertex",
+      "id": [],
+      "label": [],
+      "type": [],
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-            "value": "PartitionKey"
+            "id": [],
+            "value": []
           }
         ],
         "Age": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": 0
+            "id": [],
+            "value": []
           }
         ]
       }
@@ -173,14 +173,14 @@
   },
   {
     "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "label": "Country",
-      "type": "vertex",
+      "id": [],
+      "label": [],
+      "type": [],
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-            "value": "PartitionKey"
+            "id": [],
+            "value": []
           }
         ]
       }
@@ -188,20 +188,20 @@
   },
   {
     "Item1": {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "label": "Person",
-      "type": "vertex",
+      "id": [],
+      "label": [],
+      "type": [],
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-            "value": "PartitionKey"
+            "id": [],
+            "value": []
           }
         ],
         "Age": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": 0
+            "id": [],
+            "value": []
           }
         ]
       }
@@ -209,14 +209,14 @@
   },
   {
     "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "label": "Country",
-      "type": "vertex",
+      "id": [],
+      "label": [],
+      "type": [],
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-            "value": "PartitionKey"
+            "id": [],
+            "value": []
           }
         ]
       }
@@ -224,20 +224,20 @@
   },
   {
     "Item1": {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "label": "Person",
-      "type": "vertex",
+      "id": [],
+      "label": [],
+      "type": [],
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-            "value": "PartitionKey"
+            "id": [],
+            "value": []
           }
         ],
         "Age": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": 0
+            "id": [],
+            "value": []
           }
         ]
       }
@@ -245,20 +245,20 @@
   },
   {
     "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "label": "Company",
-      "type": "vertex",
+      "id": [],
+      "label": [],
+      "type": [],
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-            "value": "PartitionKey"
+            "id": [],
+            "value": []
           }
         ],
         "FoundingDate": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": -62135596800000
+            "id": [],
+            "value": []
           }
         ]
       }
@@ -266,20 +266,20 @@
   },
   {
     "Item1": {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "label": "Person",
-      "type": "vertex",
+      "id": [],
+      "label": [],
+      "type": [],
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-            "value": "PartitionKey"
+            "id": [],
+            "value": []
           }
         ],
         "Age": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": 0
+            "id": [],
+            "value": []
           }
         ]
       }
@@ -287,20 +287,20 @@
   },
   {
     "Item1": {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "label": "Country",
-      "type": "vertex",
+      "id": [],
+      "label": [],
+      "type": [],
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-            "value": "PartitionKey"
+            "id": [],
+            "value": []
           }
         ],
         "CountryCallingCode": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": "+49"
+            "id": [],
+            "value": []
           }
         ]
       }
@@ -308,20 +308,20 @@
   },
   {
     "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "label": "Language",
-      "type": "vertex",
+      "id": [],
+      "label": [],
+      "type": [],
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-            "value": "PartitionKey"
+            "id": [],
+            "value": []
           }
         ],
         "IetfLanguageTag": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": "en"
+            "id": [],
+            "value": []
           }
         ]
       }
@@ -329,20 +329,20 @@
   },
   {
     "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "label": "Country",
-      "type": "vertex",
+      "id": [],
+      "label": [],
+      "type": [],
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-            "value": "PartitionKey"
+            "id": [],
+            "value": []
           }
         ],
         "CountryCallingCode": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": "+49"
+            "id": [],
+            "value": []
           }
         ]
       }
@@ -350,20 +350,20 @@
   },
   {
     "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "label": "Company",
-      "type": "vertex",
+      "id": [],
+      "label": [],
+      "type": [],
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-            "value": "PartitionKey"
+            "id": [],
+            "value": []
           }
         ],
         "FoundingDate": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": -62135596800000
+            "id": [],
+            "value": []
           }
         ]
       }
@@ -371,20 +371,20 @@
   },
   {
     "Item1": {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "label": "Person",
-      "type": "vertex",
+      "id": [],
+      "label": [],
+      "type": [],
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-            "value": "PartitionKey"
+            "id": [],
+            "value": []
           }
         ],
         "Age": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": 0
+            "id": [],
+            "value": []
           }
         ]
       }

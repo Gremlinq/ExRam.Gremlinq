@@ -1,10 +1,10 @@
 ﻿[
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "value": "Aachen",
-    "label": "Locations",
+    "id": [],
+    "value": [],
+    "label": [],
     "properties": {
-      "ValidFrom": 1546304400000
+      "ValidFrom": []
     }
   }
 ]
