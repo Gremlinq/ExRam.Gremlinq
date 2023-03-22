@@ -1,4 +1,4 @@
 ﻿{
-  Script: g.withoutStrategies(SubgraphStrategy,ElementIdStrategy).V(),
-  Id: Guid_1
+  Id: Guid_1,
+  Script: g.withoutStrategies(SubgraphStrategy,ElementIdStrategy).V()
 }

@@ -2,7 +2,7 @@
 
 namespace ExRam.Gremlinq.Core.Serialization
 {
-    public sealed class BytecodeGremlinQuery : ISerializedGremlinQuery
+    public sealed class BytecodeGremlinQuery
     {
         public BytecodeGremlinQuery(Bytecode bytecode) : this(Guid.NewGuid().ToString(), bytecode)
         {
@@ -14,7 +14,7 @@ namespace ExRam.Gremlinq.Core.Serialization
             Bytecode = bytecode;
         }
 
-        public ISerializedGremlinQuery WithNewId() => new BytecodeGremlinQuery(Bytecode);
+        public BytecodeGremlinQuery WithNewId() => new (Bytecode);
 
         public string Id { get; }
 

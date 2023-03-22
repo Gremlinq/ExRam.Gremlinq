@@ -1,6 +1,6 @@
 ﻿{
-  Script: g.V().hasLabel(_a).has(id,_b),
   Id: Guid_1,
+  Script: g.V().hasLabel(_a).has(id,_b),
   Bindings: {
     _a: Language,
     _b: 1

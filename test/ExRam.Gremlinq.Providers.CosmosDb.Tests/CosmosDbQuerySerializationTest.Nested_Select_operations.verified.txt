@@ -1,6 +1,6 @@
 ﻿{
-  Script: g.V().hasLabel(_a).as(_b).project(_c,_d).by(__.select(_b)).by(__.select(_b)).as(_e).project(_c,_d).by(__.select(_b)).by(__.select(_e)),
   Id: Guid_1,
+  Script: g.V().hasLabel(_a).as(_b).project(_c,_d).by(__.select(_b)).by(__.select(_b)).as(_e).project(_c,_d).by(__.select(_b)).by(__.select(_e)),
   Bindings: {
     _a: Person,
     _b: _a,
