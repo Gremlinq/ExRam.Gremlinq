@@ -1,6 +1,6 @@
 ﻿{
-  Script: g.V().hasLabel(_a).where(__.map(__.as(_b))),
   Id: Guid_1,
+  Script: g.V().hasLabel(_a).where(__.map(__.as(_b))),
   Bindings: {
     _a: Company,
     _b: _a

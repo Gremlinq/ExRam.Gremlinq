@@ -1,6 +1,6 @@
 ﻿{
-  Script: g.E().hasLabel(_a).inV().hasLabel(_b),
   Id: Guid_1,
+  Script: g.E().hasLabel(_a).inV().hasLabel(_b),
   Bindings: {
     _a: LivesIn,
     _b: Country

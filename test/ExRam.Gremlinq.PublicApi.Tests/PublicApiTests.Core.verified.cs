@@ -1556,15 +1556,15 @@ namespace ExRam.Gremlinq.Core.Serialization
     {
         public static ExRam.Gremlinq.Core.Serialization.GroovyGremlinQuery ToGroovy(this ExRam.Gremlinq.Core.Serialization.BytecodeGremlinQuery bytecodeQuery) { }
     }
-    public sealed class BytecodeGremlinQuery : ExRam.Gremlinq.Core.Serialization.ISerializedGremlinQuery
+    public sealed class BytecodeGremlinQuery
     {
         public BytecodeGremlinQuery(Gremlin.Net.Process.Traversal.Bytecode bytecode) { }
         public BytecodeGremlinQuery(string queryId, Gremlin.Net.Process.Traversal.Bytecode bytecode) { }
         public Gremlin.Net.Process.Traversal.Bytecode Bytecode { get; }
         public string Id { get; }
-        public ExRam.Gremlinq.Core.Serialization.ISerializedGremlinQuery WithNewId() { }
+        public ExRam.Gremlinq.Core.Serialization.BytecodeGremlinQuery WithNewId() { }
     }
-    public sealed class GroovyGremlinQuery : ExRam.Gremlinq.Core.Serialization.ISerializedGremlinQuery
+    public sealed class GroovyGremlinQuery
     {
         public GroovyGremlinQuery(string script, System.Collections.Generic.IReadOnlyDictionary<string, object> bindings) { }
         public GroovyGremlinQuery(string id, string script, System.Collections.Generic.IReadOnlyDictionary<string, object> bindings) { }
@@ -1572,12 +1572,6 @@ namespace ExRam.Gremlinq.Core.Serialization
         public string Id { get; }
         public string Script { get; }
         public override string ToString() { }
-        public ExRam.Gremlinq.Core.Serialization.ISerializedGremlinQuery WithNewId() { }
-    }
-    public interface ISerializedGremlinQuery
-    {
-        string Id { get; }
-        ExRam.Gremlinq.Core.Serialization.ISerializedGremlinQuery WithNewId();
     }
     public static class Serializer
     {

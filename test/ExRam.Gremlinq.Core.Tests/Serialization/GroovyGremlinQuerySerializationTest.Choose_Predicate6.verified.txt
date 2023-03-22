@@ -1,6 +1,6 @@
 ﻿{
-  Script: g.V().id().choose(gt(_a).and(lt(_b)).or(neq(_c)),__.constant(_d),__.constant(_e)),
   Id: Guid_1,
+  Script: g.V().id().choose(gt(_a).and(lt(_b)).or(neq(_c)),__.constant(_d),__.constant(_e)),
   Bindings: {
     _a: 0,
     _b: 42,

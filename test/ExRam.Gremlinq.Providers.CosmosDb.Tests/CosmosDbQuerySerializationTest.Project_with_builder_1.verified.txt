@@ -1,6 +1,6 @@
 ﻿{
-  Script: g.V().where(__.in()).project(_a).by(__.in()),
   Id: Guid_1,
+  Script: g.V().where(__.in()).project(_a).by(__.in()),
   Bindings: {
     _a: in!
   }

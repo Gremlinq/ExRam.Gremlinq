@@ -1,4 +1,4 @@
 ﻿{
-  Script: g.V().count(local),
-  Id: Guid_1
+  Id: Guid_1,
+  Script: g.V().count(local)
 }

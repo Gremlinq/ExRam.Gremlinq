@@ -1,6 +1,6 @@
 ﻿namespace ExRam.Gremlinq.Core.Serialization
 {
-    public sealed class GroovyGremlinQuery : ISerializedGremlinQuery
+    public sealed class GroovyGremlinQuery
     {
         public GroovyGremlinQuery(string script, IReadOnlyDictionary<string, object> bindings) : this(Guid.NewGuid().ToString(), script, bindings)
         {
@@ -15,11 +15,9 @@
 
         public override string ToString() => Script;
 
-        public ISerializedGremlinQuery WithNewId() => new GroovyGremlinQuery(Script, Bindings);
+        public string Id { get; }
 
         public string Script { get; }
-
-        public string Id { get; }
 
         public IReadOnlyDictionary<string, object> Bindings { get; }
     }

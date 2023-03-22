@@ -1,6 +1,6 @@
 ﻿{
-  Script: g.V().hasLabel(_a).project(_b,_c,_d).by(__.in().limit(_e).fold()).by(__.out().limit(_e).fold()).by(__.values(_f).limit(_e).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold())).select(_b,_d),
   Id: Guid_1,
+  Script: g.V().hasLabel(_a).project(_b,_c,_d).by(__.in().limit(_e).fold()).by(__.out().limit(_e).fold()).by(__.values(_f).limit(_e).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold())).select(_b,_d),
   Bindings: {
     _a: Person,
     _b: Item1,

@@ -1,6 +1,6 @@
 ﻿{
-  Script: g.V().hasLabel(_a).has(_b).order().by({it.property('Name').value().length()}),
   Id: Guid_1,
+  Script: g.V().hasLabel(_a).has(_b).order().by({it.property('Name').value().length()}),
   Bindings: {
     _a: Person,
     _b: Name
