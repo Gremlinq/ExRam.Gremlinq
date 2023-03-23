@@ -40,7 +40,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .ConfigureEnvironment(env => env
                     .ConfigureSerializer(ser => ser
-                        .Add(Create<EStep, Step[]>((step, env, recurse) => recurse
+                        .Add(Create<EStep, Step[]>((step, env, _, recurse) => recurse
                             .TransformTo<Step[]>()
                             .From(
                                 new Step[]
@@ -59,7 +59,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .ConfigureEnvironment(env => env
                     .ConfigureSerializer(ser => ser
-                        .Add(Create<EStep, Step[]>((step, env, recurse) =>
+                        .Add(Create<EStep, Step[]>((step, env, _, recurse) =>
                             new Step[]
                             {
                                 new VStep(ImmutableArray<object>.Empty),

@@ -17,7 +17,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 _environment = environment;
             }
 
-            public bool TryConvert(JToken serialized, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+            public bool TryConvert(JToken serialized, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
             {
                 var isNativeType = _environment.SupportsType(typeof(TTarget)) || typeof(TTarget).IsEnum && _environment.SupportsType(typeof(TTarget).GetEnumUnderlyingType());
 

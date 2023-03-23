@@ -77,7 +77,7 @@ namespace ExRam.Gremlinq.Core.Transformation
             private Func<TStaticSource, Option<TTarget>> GetTransformationFunction<TStaticSource, TActualSource, TTarget>(IGremlinQueryEnvironment environment)
                 where TActualSource : TStaticSource
             {
-                IEnumerable<(IConverter<TActualSource, TTarget> converter, TransformerImpl overridden)> Converters()
+                IEnumerable<(IConverter<TActualSource, TTarget> converter, TransformerImpl defer)> Converters()
                 {
                     var stack = _converterFactories;
 
@@ -99,9 +99,9 @@ namespace ExRam.Gremlinq.Core.Transformation
                 {
                     if (staticSerialized is TActualSource actualSerialized)
                     {
-                        foreach (var converter in converters)
+                        foreach (var tuple in converters)
                         {
-                            if (converter.converter.TryConvert(actualSerialized, _recurse, out var value))
+                            if (tuple.converter.TryConvert(actualSerialized, tuple.defer, _recurse, out var value))
                                 return Option<TTarget>.From(value);
                         }
                     }

@@ -101,7 +101,7 @@ namespace ExRam.Gremlinq.Core
                     _environment = environment;
                 }
 
-                public bool TryConvert(TSource source, ITransformer recurse, out TimeSpan value)
+                public bool TryConvert(TSource source, ITransformer defer, ITransformer recurse, out TimeSpan value)
                 {
                     if (recurse.TryTransformTo<double>().From(source, _environment) is { } parsedDouble)
                     {
@@ -160,7 +160,7 @@ namespace ExRam.Gremlinq.Core
 
             return environment
                 .ConfigureSerializer(serializer => serializer
-                    .Add(Create<RequestMessage, byte[]>((message, _, _) =>
+                    .Add(Create<RequestMessage, byte[]>((message, _, _, _) =>
                     {
                         var graphSONMessage = writer.WriteObject(message);
                         var ret = new byte[Encoding.UTF8.GetByteCount(graphSONMessage) + mimeTypeBytes.Length];

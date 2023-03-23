@@ -17,7 +17,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Irrelevant()
         {
             await Verify(Transformer.Identity
-                .Add(Create<JObject, string>((serialized, env, recurse) => "should not be here"))
+                .Add(Create<JObject, string>((serialized, env, _, recurse) => "should not be here"))
                 .TryTransformTo<string>().From("serialized", GremlinQueryEnvironment.Empty));
         }
 
@@ -87,7 +87,7 @@ namespace ExRam.Gremlinq.Core.Tests
             var deserialized = GremlinQueryEnvironment.Default
                 .UseNewtonsoftJson()
                 .Deserializer
-                .Add(Create<JObject, IDictionary<string, object?>>((static (jObject,  env, recurse) =>
+                .Add(Create<JObject, IDictionary<string, object?>>((static (jObject, env, _, recurse) =>
                 {
                     if (recurse.TryTransformTo<JObject>().From(jObject, env) is JObject processedFragment)
                     {

@@ -24,7 +24,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                     _environment = environment;
                 }
 
-                public bool TryConvert(byte[] bytes, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+                public bool TryConvert(byte[] bytes, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
                 {
                     if (recurse.TryTransform(Convert.ToBase64String(bytes), _environment, out string? requestedString) && requestedString is TTarget targetString)
                     {
@@ -60,7 +60,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                     _environment = environment;
                 }
 
-                public bool TryConvert(TimeSpan timeSpan, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+                public bool TryConvert(TimeSpan timeSpan, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
                 {
                     if (recurse.TryTransform(timeSpan.TotalMilliseconds, _environment, out double? requestedDouble) && requestedDouble is TTarget targetDouble)
                     {
@@ -93,7 +93,7 @@ namespace ExRam.Gremlinq.Core.Serialization
             .AddDefaultStepConverters();
 
         public static ITransformer PreferGroovySerialization(this ITransformer serializer) => serializer
-            .Add(Create<BytecodeGremlinQuery, RequestMessage>((query, env, recurse) => recurse.TryTransform(query, env, out GroovyGremlinQuery groovyQuery)
+            .Add(Create<BytecodeGremlinQuery, RequestMessage>((query, env, _, recurse) => recurse.TryTransform(query, env, out GroovyGremlinQuery groovyQuery)
                 ? RequestMessage
                     .Build(Tokens.OpsEval)
                     .OverrideRequestId(query, env)
@@ -105,7 +105,7 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         private static ITransformer AddBaseConverters(this ITransformer serializer) => serializer
             .Add(ConverterFactory
-                .Create<IGremlinQueryBase, Traversal>(static (query, env, _) =>
+                .Create<IGremlinQueryBase, Traversal>(static (query, env, _, _) =>
                 {
                     _stepLabelNames = null;
 
@@ -116,7 +116,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                 .AutoRecurse<Traversal>()
                 .Finally(static () => _stepLabelNames = null))
             .Add(ConverterFactory
-                .Create<Traversal, Bytecode>(static (traversal, env, recurse) =>
+                .Create<Traversal, Bytecode>(static (traversal, env, _, recurse) =>
                 {
                     var byteCode = new Bytecode();
 
@@ -282,17 +282,17 @@ namespace ExRam.Gremlinq.Core.Serialization
                     return byteCode;
                 })
                 .AutoRecurse<Bytecode>())
-            .Add(Create<Bytecode, GroovyGremlinQuery>(static (bytecode, env, recurse) => recurse
+            .Add(Create<Bytecode, GroovyGremlinQuery>(static (bytecode, env, _, recurse) => recurse
                 .TransformTo<BytecodeGremlinQuery>()
                 .From(bytecode, env)
                 .ToGroovy()))
             .Add(ConverterFactory
-                .Create<Bytecode, BytecodeGremlinQuery>(static (bytecode, _, _) => new BytecodeGremlinQuery(bytecode))
+                .Create<Bytecode, BytecodeGremlinQuery>(static (bytecode, _, _, _) => new BytecodeGremlinQuery(bytecode))
                 .AutoRecurse<BytecodeGremlinQuery>())
             .Add(ConverterFactory
-                .Create<BytecodeGremlinQuery, GroovyGremlinQuery>((query, _, _) => query.ToGroovy()))
+                .Create<BytecodeGremlinQuery, GroovyGremlinQuery>((query, _, _, _) => query.ToGroovy()))
             .Add(ConverterFactory
-                .Create<StepLabel, string>(static (stepLabel, _, _) =>
+                .Create<StepLabel, string>(static (stepLabel, _, _, _) =>
                 {
                     var stepLabelNames = _stepLabelNames ??= new Dictionary<StepLabel, Label>();
 
@@ -310,17 +310,17 @@ namespace ExRam.Gremlinq.Core.Serialization
                 })
                 .AutoRecurse<string>())
             .Add(ConverterFactory
-                .Create<DateTime, DateTimeOffset>(static (dateTime, _, _) => new DateTimeOffset(dateTime.ToUniversalTime()))
+                .Create<DateTime, DateTimeOffset>(static (dateTime, _, _, _) => new DateTimeOffset(dateTime.ToUniversalTime()))
                 .AutoRecurse<DateTimeOffset>())
             .Add(ConverterFactory
-                .Create<Key, T>(static (key, _, _) => key.RawKey as T)
+                .Create<Key, T>(static (key, _, _, _) => key.RawKey as T)
                 .AutoRecurse<T>())
             .Add(ConverterFactory
-                .Create<Key, string>(static (key, _, _) => key.RawKey as string)
+                .Create<Key, string>(static (key, _, _, _) => key.RawKey as string)
                 .AutoRecurse<string>())
             .Add(new ByteArrayToStringFallbackConverterFactory())
             .Add(new TimeSpanToDoubleConverterFactory())
-            .Add(Create<P, P>(static (p, env, recurse) =>
+            .Add(Create<P, P>(static (p, env, _, recurse) =>
             {
                 if (p.Value is null)
                     throw new NotSupportedException("Cannot serialize a P-predicate with a null-value.");
@@ -337,10 +337,10 @@ namespace ExRam.Gremlinq.Core.Serialization
                         ? recurse.TransformTo<object>().From(other, env) as P
                         : null);
             }))
-            .Add(Create<TextP, TextP>(static (textP, _, _) => textP))
-            .Add(Create<Type, Type>(static (type, _, _) => type))
+            .Add(Create<TextP, TextP>(static (textP, _, _, _) => textP))
+            .Add(Create<Type, Type>(static (type, _, _, _) => type))
 
-            .Add(Create<BytecodeGremlinQuery, RequestMessage>((query, env, recurse) => RequestMessage
+            .Add(Create<BytecodeGremlinQuery, RequestMessage>((query, env, _, recurse) => RequestMessage
                 .Build(Tokens.OpsBytecode)
                 .Processor(Tokens.ProcessorTraversal)
                 .OverrideRequestId(query, env)
@@ -566,7 +566,7 @@ namespace ExRam.Gremlinq.Core.Serialization
             .Add<WhereStepLabelAndPredicateStep>(static (step, env, recurse) => CreateInstruction("where", recurse, env, step.StepLabel, step.Predicate));
 
         private static ITransformer Add<TSource>(this ITransformer serializer, Func<TSource, IGremlinQueryEnvironment, ITransformer, Instruction?> converter) => serializer
-            .Add(Create(converter));
+            .Add(Create<TSource, Instruction>((source, env, _, recurse) => converter(source, env, recurse)));
 
         private static Instruction CreateInstruction<TParam>(string name, ITransformer recurse, IGremlinQueryEnvironment env, TParam parameter) => new(
             name,

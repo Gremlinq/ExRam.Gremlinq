@@ -21,7 +21,7 @@ namespace ExRam.Gremlinq.Core
         {
             return transformer
                 .Add(ConverterFactory
-                    .Create<byte[], ResponseMessage<List<object>>>((message, env, recurse) =>
+                    .Create<byte[], ResponseMessage<List<object>>>((message, env, _, recurse) =>
                     {
                         var token = jsonSerializer
                             .Deserialize<JToken>(new JsonTextReader(new StreamReader(new MemoryStream(message))));
@@ -31,7 +31,7 @@ namespace ExRam.Gremlinq.Core
                                 recurse,
                                 static transformer => transformer
                                     .Add(ConverterFactory
-                                        .Create<JToken, JToken>((token, env, recurse) => token)))
+                                        .Create<JToken, JToken>((token, env, _, recurse) => token)))
                             .TransformTo<ResponseMessage<List<object>>>()
                             .From(token, env);
                     }))

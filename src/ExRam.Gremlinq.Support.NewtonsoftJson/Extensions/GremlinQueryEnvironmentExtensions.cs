@@ -142,17 +142,17 @@ namespace ExRam.Gremlinq.Core
             private sealed class NativeTypeSerializerConverter<TTarget> : IConverter<TNative, TTarget>
             {
                 private readonly IGremlinQueryEnvironment _environment;
-                private readonly Func<TNative, IGremlinQueryEnvironment, ITransformer, TSerialized> _serializer;
+                private readonly Func<TNative, IGremlinQueryEnvironment, ITransformer, ITransformer, TSerialized> _serializer;
 
-                public NativeTypeSerializerConverter(Func<TNative, IGremlinQueryEnvironment, ITransformer, TSerialized> serializer, IGremlinQueryEnvironment environment)
+                public NativeTypeSerializerConverter(Func<TNative, IGremlinQueryEnvironment, ITransformer, ITransformer, TSerialized> serializer, IGremlinQueryEnvironment environment)
                 {
                     _environment = environment;
                     _serializer = serializer;
                 }
 
-                public bool TryConvert(TNative source, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+                public bool TryConvert(TNative source, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
                 {
-                    if (_serializer(source, _environment, recurse) is TTarget serialized)
+                    if (_serializer(source, _environment, defer, recurse) is TTarget serialized)
                     {
                         value = serialized;
                         return true;
@@ -163,9 +163,9 @@ namespace ExRam.Gremlinq.Core
                 }
             }
 
-            private readonly Func<TNative, IGremlinQueryEnvironment, ITransformer, TSerialized> _serializer;
+            private readonly Func<TNative, IGremlinQueryEnvironment, ITransformer, ITransformer, TSerialized> _serializer;
 
-            public NativeTypeSerializerConverterFactory(Func<TNative, IGremlinQueryEnvironment, ITransformer, TSerialized> serializer)
+            public NativeTypeSerializerConverterFactory(Func<TNative, IGremlinQueryEnvironment, ITransformer, ITransformer, TSerialized> serializer)
             {
                 _serializer = serializer;
             }
@@ -180,17 +180,17 @@ namespace ExRam.Gremlinq.Core
             private sealed class NativeTypeDeserializerConverter<TTarget> : IConverter<JValue, TTarget>
             {
                 private readonly IGremlinQueryEnvironment _environment;
-                private readonly Func<JValue, IGremlinQueryEnvironment, ITransformer, TNative> _deserializer;
+                private readonly Func<JValue, IGremlinQueryEnvironment, ITransformer, ITransformer, TNative> _deserializer;
 
-                public NativeTypeDeserializerConverter(Func<JValue, IGremlinQueryEnvironment, ITransformer, TNative> deserializer, IGremlinQueryEnvironment environment)
+                public NativeTypeDeserializerConverter(Func<JValue, IGremlinQueryEnvironment, ITransformer, ITransformer, TNative> deserializer, IGremlinQueryEnvironment environment)
                 {
                     _environment = environment;
                     _deserializer = deserializer;
                 }
 
-                public bool TryConvert(JValue source, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+                public bool TryConvert(JValue source, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
                 {
-                    if (_deserializer(source, _environment, recurse) is TTarget deserialized)
+                    if (_deserializer(source, _environment, defer, recurse) is TTarget deserialized)
                     {
                         value = deserialized;
                         return true;
@@ -201,9 +201,9 @@ namespace ExRam.Gremlinq.Core
                 }
             }
 
-            private readonly Func<JValue, IGremlinQueryEnvironment, ITransformer, TNative> _deserializer;
+            private readonly Func<JValue, IGremlinQueryEnvironment, ITransformer, ITransformer, TNative> _deserializer;
 
-            public NativeTypeDeserializerConverterFactory(Func<JValue, IGremlinQueryEnvironment, ITransformer, TNative> deserializer)
+            public NativeTypeDeserializerConverterFactory(Func<JValue, IGremlinQueryEnvironment, ITransformer, ITransformer, TNative> deserializer)
             {
                 _deserializer = deserializer;
             }
@@ -222,7 +222,7 @@ namespace ExRam.Gremlinq.Core
                     .UseNewtonsoftJson());
         }
 
-        public static IGremlinQueryEnvironment RegisterNativeType<TNative, TSerialized>(this IGremlinQueryEnvironment environment, Func<TNative, IGremlinQueryEnvironment, ITransformer, TSerialized> serializer, Func<JValue, IGremlinQueryEnvironment, ITransformer, TNative> deserializer)
+        public static IGremlinQueryEnvironment RegisterNativeType<TNative, TSerialized>(this IGremlinQueryEnvironment environment, Func<TNative, IGremlinQueryEnvironment, ITransformer, ITransformer, TSerialized> serializer, Func<JValue, IGremlinQueryEnvironment, ITransformer, ITransformer, TNative> deserializer)
         {
             return environment
                 .ConfigureNativeTypes(_ => _

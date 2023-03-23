@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq.Core.Transformation
     {
         private sealed class IdentityConverter<TSource, TRequested> : IConverter<TSource, TRequested>
         {
-            public bool TryConvert(TSource serialized, ITransformer recurse, [NotNullWhen(true)] out TRequested? value)
+            public bool TryConvert(TSource serialized, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TRequested? value)
             {
                 if (serialized is TRequested requested)
                 {

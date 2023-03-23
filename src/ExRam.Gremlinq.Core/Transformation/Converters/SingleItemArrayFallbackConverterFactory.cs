@@ -13,7 +13,7 @@ namespace ExRam.Gremlinq.Core.Transformation
                 _environment = environment;
             }
 
-            public bool TryConvert(TSource source, ITransformer recurse, [NotNullWhen(true)] out TTargetArray? value)
+            public bool TryConvert(TSource source, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTargetArray? value)
             {
                 if (recurse.TryTransform<TSource, TTargetArrayItem>(source, _environment, out var typedValue))
                 {
