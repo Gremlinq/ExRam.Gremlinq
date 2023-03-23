@@ -82,7 +82,7 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        private static readonly NotStep NoneWorkaround = new NotStep(IdentityStep.Instance);
+        private static readonly NotStep NoneWorkaround = new(IdentityStep.Instance);
 
         public static IGremlinQuerySource UseCosmosDb(this IConfigurableGremlinQuerySource source, Func<ICosmosDbConfigurator, IGremlinQuerySourceTransformation> configuratorTransformation)
         {
