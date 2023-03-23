@@ -12,8 +12,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
         {
             public Fixture() : base(g
                 .UseGremlinServer(builder => builder
-                    .AtLocalhost()
-                    .UseNewtonsoftJson()))
+                    .AtLocalhost()))
             {
             }
         }
