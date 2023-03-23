@@ -63,12 +63,19 @@ namespace ExRam.Gremlinq.Core.Transformation
                 public static Option<T> From(T value) => new(value);
             }
 
+            private readonly EmptyTransformer _recurse;
             private readonly ImmutableStack<IConverterFactory> _converterFactories;
             private readonly ConcurrentDictionary<(IGremlinQueryEnvironment, Type, Type, Type), Delegate> _conversionDelegates = new();
 
             public EmptyTransformer(ImmutableStack<IConverterFactory> converterFactories)
             {
+                _recurse = this;
                 _converterFactories = converterFactories;
+            }
+
+            public EmptyTransformer(ImmutableStack<IConverterFactory> converterFactories, EmptyTransformer recurse) : this(converterFactories)
+            {
+                _recurse = recurse;
             }
 
             public ITransformer Add(IConverterFactory converterFactory)
@@ -114,10 +121,22 @@ namespace ExRam.Gremlinq.Core.Transformation
             private Func<TStaticSource, Option<TTarget>> GetTransformationFunction<TStaticSource, TActualSource, TTarget>(IGremlinQueryEnvironment environment)
                 where TActualSource : TStaticSource
             {
-                var converters = _converterFactories
-                    .Select(factory => factory.TryCreate<TActualSource, TTarget>(environment))
-                    .Where(static converter => converter != null)
-                    .Select(static converter => converter!)
+                IEnumerable<(IConverter<TActualSource, TTarget> converter, EmptyTransformer overridden)> Converters()
+                {
+                    var stack = _converterFactories;
+
+                    while (!stack.IsEmpty)
+                    {
+                        var previousStack = stack.Pop(out var converterFactory);
+
+                        if (converterFactory.TryCreate<TActualSource, TTarget>(environment) is { } converter)
+                            yield return (converter, new EmptyTransformer(previousStack, this));
+
+                        stack = previousStack;
+                    }
+                }
+
+                var converters = Converters()
                     .ToArray();
 
                 return (staticSerialized) =>
@@ -126,7 +145,7 @@ namespace ExRam.Gremlinq.Core.Transformation
                     {
                         foreach (var converter in converters)
                         {
-                            if (converter.TryConvert(actualSerialized, this, out var value))
+                            if (converter.converter.TryConvert(actualSerialized, _recurse, out var value))
                                 return Option<TTarget>.From(value);
                         }
                     }
