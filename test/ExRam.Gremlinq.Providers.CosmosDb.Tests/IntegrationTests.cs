@@ -1,10 +1,12 @@
 ﻿using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Providers.CosmosDb.Tests.Extensions;
 using ExRam.Gremlinq.Support.NewtonsoftJson.Tests;
+
 using Microsoft.Azure.Cosmos;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
-    public class CosmosDbIntegrationTests : QueryIntegrationTest, IClassFixture<CosmosDbIntegrationTests.Fixture>
+    public sealed class IntegrationTests : QueryIntegrationTest, IClassFixture<IntegrationTests.Fixture>
     {
         public new sealed class Fixture : QueryIntegrationTest.Fixture
         {
@@ -36,7 +38,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
             }
         }
 
-        public CosmosDbIntegrationTests(Fixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public IntegrationTests(Fixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
             testOutputHelper)
         {

@@ -4,9 +4,9 @@ using ExRam.Gremlinq.Core.Transformation;
 using Gremlin.Net.Process.Traversal;
 using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
 
-namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
+namespace ExRam.Gremlinq.Providers.CosmosDb.Tests.Extensions
 {
-    internal static class CosmosDbTestExtensions
+    internal static class GremlinQueryEnvironmentExtensions
     {
         public static IGremlinQueryEnvironment AddFakePartitionKey(this IGremlinQueryEnvironment env) => env
             .ConfigureSerializer(serializer => serializer

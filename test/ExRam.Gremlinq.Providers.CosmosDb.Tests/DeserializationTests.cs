@@ -4,12 +4,12 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
-    public sealed class CosmosDbDeserializationTests : QueryDeserializationTest, IClassFixture<CosmosDbDeserializationTests.Fixture>
+    public sealed class DeserializationTests : QueryDeserializationTest, IClassFixture<DeserializationTests.Fixture>
     {
         public new sealed class Fixture : QueryDeserializationTest.Fixture
         {
             public Fixture() : base(
-                nameof(CosmosDbIntegrationTests),
+                nameof(IntegrationTests),
                 g.UseCosmosDb(_ => _
                     .At("ws://localhost", "", "")
                     .AuthenticateBy("")
@@ -18,7 +18,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
             }
         }
 
-        public CosmosDbDeserializationTests(Fixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public DeserializationTests(Fixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
             testOutputHelper)
         {

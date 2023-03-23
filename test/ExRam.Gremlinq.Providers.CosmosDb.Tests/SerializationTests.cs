@@ -1,12 +1,13 @@
 ﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Core.Tests;
+using ExRam.Gremlinq.Providers.CosmosDb.Tests.Extensions;
 using ExRam.Gremlinq.Tests.Entities;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
-    public sealed class CosmosDbQuerySerializationTest : QuerySerializationTest<GroovyGremlinQuery>, IClassFixture<CosmosDbQuerySerializationTest.Fixture>
+    public sealed class SerializationTests : QuerySerializationTest<GroovyGremlinQuery>, IClassFixture<SerializationTests.Fixture>
     {
         public sealed class Fixture : GremlinqTestFixture
         {
@@ -21,7 +22,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
             }
         }
 
-        public CosmosDbQuerySerializationTest(Fixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public SerializationTests(Fixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
             testOutputHelper)
         {
