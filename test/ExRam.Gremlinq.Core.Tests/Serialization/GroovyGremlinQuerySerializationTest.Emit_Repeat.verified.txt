@@ -1,5 +1,4 @@
 ﻿{
-  Id: Guid_1,
   Script: g.V().hasLabel(_a).emit().repeat(__.inE().outV()).project(_b,_c,_d).by(id).by(label).by(__.properties().group().by(label).by(__.project(_b,_c,_e,_d).by(id).by(label).by(value).by(__.valueMap()).fold())),
   Bindings: {
     _a: Person,

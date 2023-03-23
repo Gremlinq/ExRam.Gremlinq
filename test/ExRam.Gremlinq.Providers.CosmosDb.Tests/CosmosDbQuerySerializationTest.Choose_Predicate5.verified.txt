@@ -1,5 +1,4 @@
 ﻿{
-  Id: Guid_1,
   Script: g.V().id().choose(gt(_a).and(lt(_b)),__.constant(_c),__.constant(_d)),
   Bindings: {
     _a: 0,

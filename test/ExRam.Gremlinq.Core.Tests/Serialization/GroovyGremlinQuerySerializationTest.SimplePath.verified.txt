@@ -1,5 +1,4 @@
 ﻿{
-  Id: Guid_1,
   Script: g.V().out().out().simplePath().project(_a,_b,_c).by(id).by(label).by(__.properties().group().by(label).by(__.project(_a,_b,_d,_c).by(id).by(label).by(value).by(__.valueMap()).fold())),
   Bindings: {
     _a: id,

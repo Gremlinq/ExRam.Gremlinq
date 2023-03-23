@@ -1,5 +1,4 @@
 ﻿{
-  Id: Guid_1,
   Script: g.V().constant(_a),
   Bindings: {
     _a: 42

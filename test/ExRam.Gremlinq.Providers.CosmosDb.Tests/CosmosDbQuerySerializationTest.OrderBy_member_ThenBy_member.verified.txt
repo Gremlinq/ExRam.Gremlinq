@@ -1,5 +1,4 @@
 ﻿{
-  Id: Guid_1,
   Script: g.V().hasLabel(_a).has(_b).where(__.values(_c)).order().by(_b,incr).by(_c,incr),
   Bindings: {
     _a: Person,

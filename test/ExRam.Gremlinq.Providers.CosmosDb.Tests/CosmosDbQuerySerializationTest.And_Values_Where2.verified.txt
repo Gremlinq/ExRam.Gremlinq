@@ -1,5 +1,4 @@
 ﻿{
-  Id: Guid_1,
   Script: g.V().hasLabel(_a).has(_b,gt(_c).and(lt(_d))),
   Bindings: {
     _a: Person,

@@ -1,5 +1,4 @@
 ﻿{
-  Id: Guid_1,
   Script: g.V().range(_a,_b),
   Bindings: {
     _a: 1,

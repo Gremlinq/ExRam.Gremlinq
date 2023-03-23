@@ -1,5 +1,4 @@
 ﻿{
-  Id: Guid_1,
   Script: g.V().hasLabel(_a).project(_b,_c,_d,_e).by(__.in().limit(_f).fold()).by(__.out().limit(_f).fold()).by(__.values(_g).limit(_f).fold()).by(__.properties().limit(_f).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold())),
   Bindings: {
     _a: Person,

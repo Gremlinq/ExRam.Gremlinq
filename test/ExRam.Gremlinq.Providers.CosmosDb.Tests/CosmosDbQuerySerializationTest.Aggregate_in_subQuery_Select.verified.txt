@@ -1,5 +1,4 @@
 ﻿{
-  Id: Guid_1,
   Script: g.V().hasLabel(_a).map(__.aggregate(_b)).select(_b),
   Bindings: {
     _a: Person,

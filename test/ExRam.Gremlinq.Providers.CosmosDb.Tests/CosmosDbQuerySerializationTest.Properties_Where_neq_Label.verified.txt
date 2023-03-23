@@ -1,5 +1,4 @@
 ﻿{
-  Id: Guid_1,
   Script: g.V().hasLabel(_a).properties(_b).where(__.key().is(neq(_c))),
   Bindings: {
     _a: Country,

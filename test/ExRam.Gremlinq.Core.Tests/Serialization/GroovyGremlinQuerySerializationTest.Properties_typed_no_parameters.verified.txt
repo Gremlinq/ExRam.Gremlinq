@@ -1,5 +1,4 @@
 ﻿{
-  Id: Guid_1,
   Script: g.V().properties().project(_a,_b,_c,_d).by(id).by(label).by(value).by(__.valueMap()),
   Bindings: {
     _a: id,

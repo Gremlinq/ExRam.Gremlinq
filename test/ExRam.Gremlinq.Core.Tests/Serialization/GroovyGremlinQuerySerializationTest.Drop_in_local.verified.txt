@@ -1,5 +1,4 @@
 ﻿{
-  Id: Guid_1,
   Script: g.inject(_a).local(__.V().drop()),
   Bindings: {
     _a: 1
