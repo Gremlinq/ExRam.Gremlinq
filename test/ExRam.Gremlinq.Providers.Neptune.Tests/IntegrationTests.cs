@@ -13,7 +13,7 @@ using Xunit.Abstractions;
 
 namespace ExRam.Gremlinq.Providers.Neptune.Tests
 {
-    public class NeptuneIntegrationTests : QueryIntegrationTest, IClassFixture<NeptuneIntegrationTests.Fixture>
+    public class IntegrationTests : QueryIntegrationTest, IClassFixture<IntegrationTests.Fixture>
     {
         public new sealed class Fixture : QueryIntegrationTest.Fixture
         {
@@ -29,7 +29,7 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
 
         private static readonly Regex IdRegex1 = new("\"[0-9a-f]{8}[-]?([0-9a-f]{4}[-]?){3}[0-9a-f]{12}([|]PartitionKey)?\"", RegexOptions.IgnoreCase);
         
-        public NeptuneIntegrationTests(Fixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public IntegrationTests(Fixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
             testOutputHelper)
         {

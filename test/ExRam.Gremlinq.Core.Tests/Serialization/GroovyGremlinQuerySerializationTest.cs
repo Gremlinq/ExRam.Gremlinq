@@ -3,7 +3,7 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public sealed class GroovyGremlinQuerySerializationTest : QuerySerializationTest<GroovyGremlinQuery>, IClassFixture<GroovyGremlinQuerySerializationTest.Fixture>
+    public sealed class GroovyGremlinQuerySerializationTest : SerializationTestsBase<GroovyGremlinQuery>, IClassFixture<GroovyGremlinQuerySerializationTest.Fixture>
     {
         public sealed class Fixture : GremlinqTestFixture
         {

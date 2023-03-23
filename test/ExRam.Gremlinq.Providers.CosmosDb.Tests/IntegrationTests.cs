@@ -1,14 +1,13 @@
 ﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Providers.CosmosDb.Tests.Extensions;
 using ExRam.Gremlinq.Support.NewtonsoftJson.Tests;
-
 using Microsoft.Azure.Cosmos;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
-    public sealed class IntegrationTests : QueryIntegrationTest, IClassFixture<IntegrationTests.Fixture>
+    public sealed class IntegrationTests : IntegrationTestsBase, IClassFixture<IntegrationTests.Fixture>
     {
-        public new sealed class Fixture : QueryIntegrationTest.Fixture
+        public new sealed class Fixture : IntegrationTestsBase.Fixture
         {
             private readonly Task _task;
 

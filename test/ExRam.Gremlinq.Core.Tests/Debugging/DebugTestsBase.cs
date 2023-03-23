@@ -3,9 +3,9 @@ using System.Runtime.CompilerServices;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public abstract class DebugGremlinQuerySerializationTest : QueryExecutionTest
+    public abstract class DebugTestsBase : QueryExecutionTest
     {
-        protected DebugGremlinQuerySerializationTest(GremlinqTestFixture fixture, ITestOutputHelper testOutputHelper, [CallerFilePath] string callerFilePath = "") : base(
+        protected DebugTestsBase(GremlinqTestFixture fixture, ITestOutputHelper testOutputHelper, [CallerFilePath] string callerFilePath = "") : base(
             fixture,
             testOutputHelper,
             callerFilePath)

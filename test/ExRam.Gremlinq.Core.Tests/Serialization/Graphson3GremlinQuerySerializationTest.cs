@@ -5,7 +5,7 @@ using ExRam.Gremlinq.Core.Transformation;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public sealed class Graphson3GremlinQuerySerializationTest : QuerySerializationTest<string>, IClassFixture<Graphson3GremlinQuerySerializationTest.Fixture>
+    public sealed class Graphson3GremlinQuerySerializationTest : SerializationTestsBase<string>, IClassFixture<Graphson3GremlinQuerySerializationTest.Fixture>
     {
         public sealed class Fixture : GremlinqTestFixture
         {

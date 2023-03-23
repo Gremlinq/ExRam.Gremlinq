@@ -5,7 +5,7 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public sealed class Graphson2GremlinQuerySerializationTest : QuerySerializationTest<string>, IClassFixture<Graphson2GremlinQuerySerializationTest.Fixture>
+    public sealed class Graphson2GremlinQuerySerializationTest : SerializationTestsBase<string>, IClassFixture<Graphson2GremlinQuerySerializationTest.Fixture>
     {
         public sealed class Fixture : GremlinqTestFixture
         {

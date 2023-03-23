@@ -7,9 +7,9 @@ using ExRam.Gremlinq.Support.NewtonsoftJson.Tests;
 
 namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
 {
-    public class JanusGraphIntegrationTests : QueryIntegrationTest, IClassFixture<JanusGraphIntegrationTests.Fixture>
+    public class IntegrationTests : IntegrationTestsBase, IClassFixture<IntegrationTests.Fixture>
     {
-        public new sealed class Fixture : QueryIntegrationTest.Fixture
+        public new sealed class Fixture : IntegrationTestsBase.Fixture
         {
             public Fixture() : base(Gremlinq.Core.GremlinQuerySource.g
                 .UseJanusGraph(builder => builder
@@ -25,7 +25,7 @@ namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
 
         private static readonly Regex RelationIdRegex = new("\"relationId\":[\\s]?\"[0-9a-z]{3}([-][0-9a-z]{3})*\"", RegexOptions.IgnoreCase);
 
-        public JanusGraphIntegrationTests(Fixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public IntegrationTests(Fixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
             testOutputHelper)
         {

@@ -1,13 +1,14 @@
 ﻿using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Core.Serialization;
+using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Providers.Core;
-using ExRam.Gremlinq.Support.NewtonsoftJson.Tests;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
-    public class GremlinServerIntegrationTests : QueryIntegrationTest, IClassFixture<GremlinServerIntegrationTests.Fixture>
+    public sealed class SerializationTests : SerializationTestsBase<BytecodeGremlinQuery>, IClassFixture<SerializationTests.Fixture>
     {
-        public new sealed class Fixture : QueryIntegrationTest.Fixture
+        public sealed class Fixture : GremlinqTestFixture
         {
             public Fixture() : base(g
                 .UseGremlinServer(builder => builder
@@ -17,10 +18,11 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
             }
         }
 
-        public GremlinServerIntegrationTests(Fixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public SerializationTests(Fixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
             testOutputHelper)
         {
+
         }
     }
 }
