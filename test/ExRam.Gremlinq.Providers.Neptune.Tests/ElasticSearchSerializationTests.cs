@@ -14,8 +14,7 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
             public Fixture() : base(g
                 .UseNeptune(builder => builder
                     .AtLocalhost()
-                    .UseElasticSearch(new Uri("http://elastic.search.server"))
-                    .UseNewtonsoftJson()))
+                    .UseElasticSearch(new Uri("http://elastic.search.server"))))
             {
             }
         }

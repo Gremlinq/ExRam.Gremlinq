@@ -11,8 +11,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
             public Fixture() : base(g
                 .UseCosmosDb(_ => _
                     .At("ws://localhost", "", "")
-                    .AuthenticateBy("")
-                    .UseNewtonsoftJson()))
+                    .AuthenticateBy("")))
             {
             }
         }

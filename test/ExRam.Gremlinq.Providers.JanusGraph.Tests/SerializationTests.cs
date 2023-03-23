@@ -12,8 +12,7 @@ namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
         {
             public Fixture() : base(g
                 .UseJanusGraph(builder => builder
-                    .AtLocalhost()
-                    .UseNewtonsoftJson()))
+                    .AtLocalhost()))
             {
             }
         }
