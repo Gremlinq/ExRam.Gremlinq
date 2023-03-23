@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
 {
-    public abstract class QueryIntegrationTest : QueryExecutionTest
+    public abstract class IntegrationTestsBase : QueryExecutionTest
     {
         public abstract class Fixture : GremlinqTestFixture
         {
@@ -39,7 +39,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
 
         private static readonly Regex IdRegex = new ("(\"id\"\\s*[:,]\\s*{\\s*\"@type\"\\s*:\\s*\"g:(Int32|Int64|UUID)\"\\s*,\\s*\"@value\":\\s*)([^\\s{}]+)(\\s*})", RegexOptions.IgnoreCase);
 
-        protected QueryIntegrationTest(Fixture fixture, ITestOutputHelper testOutputHelper, [CallerFilePath] string callerFilePath = "") : base(
+        protected IntegrationTestsBase(Fixture fixture, ITestOutputHelper testOutputHelper, [CallerFilePath] string callerFilePath = "") : base(
             fixture,
             testOutputHelper,
             callerFilePath)

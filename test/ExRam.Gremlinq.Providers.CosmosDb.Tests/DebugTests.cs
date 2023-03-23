@@ -4,7 +4,7 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
-    public sealed class DebugTests : DebugGremlinQuerySerializationTest, IClassFixture<DebugTests.Fixture>
+    public sealed class DebugTests : DebugTestsBase, IClassFixture<DebugTests.Fixture>
     {
         public sealed class Fixture : GremlinqTestFixture
         {

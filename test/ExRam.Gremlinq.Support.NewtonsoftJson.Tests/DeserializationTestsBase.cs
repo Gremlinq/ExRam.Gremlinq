@@ -7,7 +7,7 @@ using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
 {
-    public abstract class QueryDeserializationTest : QueryExecutionTest
+    public abstract class DeserializationTestsBase : QueryExecutionTest
     {
         public abstract class Fixture : GremlinqTestFixture
         {
@@ -36,7 +36,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
             }
         }
 
-        protected QueryDeserializationTest(Fixture fixture, ITestOutputHelper testOutputHelper, [CallerFilePath] string callerFilePath = "") : base(
+        protected DeserializationTestsBase(Fixture fixture, ITestOutputHelper testOutputHelper, [CallerFilePath] string callerFilePath = "") : base(
             fixture,
             testOutputHelper,
             callerFilePath)
