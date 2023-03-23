@@ -1,5 +1,4 @@
 ﻿{
-  Id: Guid_1,
   Script: g.V().hasLabel(_a).has(_b,startingWith(_c)),
   Bindings: {
     _a: Country,

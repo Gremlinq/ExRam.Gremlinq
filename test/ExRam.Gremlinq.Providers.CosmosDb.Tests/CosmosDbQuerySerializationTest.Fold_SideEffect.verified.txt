@@ -1,4 +1,3 @@
 ﻿{
-  Id: Guid_1,
   Script: g.V().fold().sideEffect(__.identity()).unfold()
 }

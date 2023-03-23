@@ -1,5 +1,4 @@
 ﻿{
-  Id: Guid_1,
   Script: g.V().project(_a,_b,_c).by(__.in().limit(_d).fold()).by(__.out().limit(_d).fold()).by(__.count().limit(_d).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold())).select(_a),
   Bindings: {
     _a: Item1,

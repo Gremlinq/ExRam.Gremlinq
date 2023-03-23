@@ -1,5 +1,4 @@
 ﻿{
-  Id: Guid_1,
   Script: g.V().hasLabel(_a).repeat(__.inE().outV()).times(_b),
   Bindings: {
     _a: Person,

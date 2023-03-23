@@ -1,5 +1,4 @@
 ﻿{
-  Id: Guid_1,
   Script: g.addE(_a).property(_b,_c).property(_d,_e).property(_f,_c).from(__.addV(_g).property(_h,_h).property(single,_i,_j)).to(__.addV(_k).property(_h,_h).property(single,_l,_m)),
   Bindings: {
     _a: WorksFor,

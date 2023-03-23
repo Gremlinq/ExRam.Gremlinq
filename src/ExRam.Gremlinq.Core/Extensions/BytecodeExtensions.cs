@@ -141,7 +141,6 @@ namespace ExRam.Gremlinq.Core.Serialization
                 Append(bytecodeQuery.Bytecode);
 
                 return new GroovyGremlinQuery(
-                    bytecodeQuery.Id,
                     builder.ToString(),
                     variables);
             }

@@ -1,5 +1,4 @@
 ﻿{
-  Id: Guid_1,
   Script: g.V().limit(_a).limit(local,_a),
   Bindings: {
     _a: 1

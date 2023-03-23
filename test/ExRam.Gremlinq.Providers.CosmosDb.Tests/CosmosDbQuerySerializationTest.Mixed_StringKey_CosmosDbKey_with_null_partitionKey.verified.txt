@@ -1,5 +1,4 @@
 ﻿{
-  Id: Guid_1,
   Script: g.V(_a,_b).hasLabel(_c),
   Bindings: {
     _a: id,

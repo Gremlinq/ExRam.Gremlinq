@@ -1567,9 +1567,7 @@ namespace ExRam.Gremlinq.Core.Serialization
     public readonly struct GroovyGremlinQuery
     {
         public GroovyGremlinQuery(string script, System.Collections.Generic.IReadOnlyDictionary<string, object> bindings) { }
-        public GroovyGremlinQuery(string id, string script, System.Collections.Generic.IReadOnlyDictionary<string, object> bindings) { }
         public System.Collections.Generic.IReadOnlyDictionary<string, object> Bindings { get; }
-        public string Id { get; }
         public string Script { get; }
         public override string ToString() { }
     }

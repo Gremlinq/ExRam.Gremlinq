@@ -1,5 +1,4 @@
 ﻿{
-  Id: Guid_1,
   Script: g.E().hasLabel(_a).project(_b,_c,_d).by(id).by(label).by(__.valueMap()),
   Bindings: {
     _a: WorksFor,
