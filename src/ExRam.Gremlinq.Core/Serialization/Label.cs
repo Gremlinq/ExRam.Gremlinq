@@ -2,10 +2,11 @@
 {
     internal readonly struct Label
     {
-        private readonly string? _stringKey;
         private static readonly Label[]? Keys = Enumerable.Range(0, 100)
             .Select(static x => (Label)x)
             .ToArray();
+
+        private readonly string? _stringKey;
 
         public Label(string key)
         {
@@ -45,6 +46,8 @@
         public static implicit operator string(Label key) => key._stringKey ?? throw new ArgumentException(null, nameof(key));
 
         public static implicit operator Label(string key) => new(key);
+
+        public override int GetHashCode() => _stringKey?.GetHashCode() ?? 0;
 
         public override string ToString() => _stringKey ?? "(invalid)";
     }
