@@ -3,9 +3,6 @@
   Operation: eval,
   Processor: ,
   Arguments: {
-    aliases: {
-      g: g
-    },
     gremlin: g.V().properties().union(__.label(),__.id())
   }
 }
