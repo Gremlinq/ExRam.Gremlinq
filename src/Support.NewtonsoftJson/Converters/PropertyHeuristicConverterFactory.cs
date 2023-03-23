@@ -17,7 +17,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 _environment = environment;
             }
 
-            public bool TryConvert(JObject jObject, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+            public bool TryConvert(JObject jObject, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
             {
                 if (jObject.LooksLikeVertexProperty())
                 {

@@ -22,7 +22,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Base_type()
         {
             await Verify(Transformer.Empty
-                .Add(Create<object, string>((serialized, env, recurse) => "overridden"))
+                .Add(Create<object, string>((serialized, env, _, recurse) => "overridden"))
                 .TryTransformTo<string>().From("serialized", GremlinQueryEnvironment.Invalid));
         }
 
@@ -30,7 +30,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Base_type_in_request()
         {
             await Verify(Transformer.Empty
-                .Add(Create<object, string>((serialized, env, recurse) => "overridden"))
+                .Add(Create<object, string>((serialized, env, _, recurse) => "overridden"))
                 .TryTransformTo<object>().From("serialized", GremlinQueryEnvironment.Invalid));
         }
 
@@ -38,7 +38,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Base_type_in_request_with_struct_available()
         {
             await Verify(Transformer.Empty
-                .Add(Create<object, int>((serialized, env, recurse) => 36))
+                .Add(Create<object, int>((serialized, env, _, recurse) => 36))
                 .TryTransformTo<object>().From("serialized", GremlinQueryEnvironment.Invalid));
         }
 
@@ -46,7 +46,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Override1()
         {
             await Verify(Transformer.Empty
-                .Add(Create<string, string>((serialized, env, recurse) => "overridden 1"))
+                .Add(Create<string, string>((serialized, env, _, recurse) => "overridden 1"))
                 .TryTransformTo<string>().From("serialized", GremlinQueryEnvironment.Invalid));
         }
 
@@ -54,8 +54,8 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Override2()
         {
             await Verify(Transformer.Empty
-                .Add(Create<string, string>((serialized, env, recurse) => "overridden 1"))
-                .Add(Create<string, string>((serialized, env, recurse) => "overridden 2"))
+                .Add(Create<string, string>((serialized, env, _, recurse) => "overridden 1"))
+                .Add(Create<string, string>((serialized, env, _, recurse) => "overridden 2"))
                 .TryTransformTo<string>().From("serialized", GremlinQueryEnvironment.Invalid));
         }
 
@@ -63,7 +63,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Recurse()
         {
             await Verify(Transformer.Empty
-                .Add(Create<string, int>((serialized, env, recurse) => recurse.TryTransformTo<int>().From(36, env)))
+                .Add(Create<string, int>((serialized, env, _, recurse) => recurse.TryTransformTo<int>().From(36, env)))
                 .TryTransformTo<int>().From("serialized", GremlinQueryEnvironment.Invalid));
         }
 
@@ -71,7 +71,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Recurse_wrong_type()
         {
             Transformer.Empty
-                .Add(Create<string, int>((serialized, env, recurse) => recurse.TryTransformTo<int>().From(36, env)))
+                .Add(Create<string, int>((serialized, env, _, recurse) => recurse.TryTransformTo<int>().From(36, env)))
                 .TryTransform<int, string>(36, GremlinQueryEnvironment.Invalid, out var _)
                 .Should()
                 .BeFalse();
@@ -81,8 +81,8 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Recurse_to_previous_override()
         {
             await Verify(Transformer.Empty
-                .Add(Create<int, string>((serialized, env, recurse) => serialized.ToString()))
-                .Add(Create<string, string>((serialized, env, recurse) => recurse.TryTransformTo<string>().From(serialized.Length, env)))
+                .Add(Create<int, string>((serialized, env, _, recurse) => serialized.ToString()))
+                .Add(Create<string, string>((serialized, env, _, recurse) => recurse.TryTransformTo<string>().From(serialized.Length, env)))
                 .TryTransformTo<string>().From("serialized", GremlinQueryEnvironment.Invalid));
         }
 
@@ -90,8 +90,8 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Recurse_to_later_override()
         {
             await Verify(Transformer.Empty
-                .Add(Create<string, string>((serialized, env, recurse) => recurse.TryTransformTo<string>().From(serialized.Length, env)))
-                .Add(Create<int, string>((serialized, env, recurse) => serialized.ToString()))
+                .Add(Create<string, string>((serialized, env, _, recurse) => recurse.TryTransformTo<string>().From(serialized.Length, env)))
+                .Add(Create<int, string>((serialized, env, _, recurse) => serialized.ToString()))
                 .TryTransformTo<string>().From("serialized", GremlinQueryEnvironment.Invalid));
         }
     }

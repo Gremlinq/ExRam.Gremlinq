@@ -14,7 +14,7 @@ namespace ExRam.Gremlinq.Providers.Core
         private sealed class WebSocketGremlinQueryExecutor : IGremlinQueryExecutor
         {
             private static readonly IConverterFactory ObjectIdentityConverterFactory = ConverterFactory
-                .Create<object, object>((token, env, recurse) => token);
+                .Create<object, object>((token, _, _, _) => token);
 
             private readonly GremlinServer _gremlinServer;
             private readonly IGremlinClientFactory _clientFactory;

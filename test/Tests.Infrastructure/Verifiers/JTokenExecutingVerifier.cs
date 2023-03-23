@@ -22,7 +22,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 .ConfigureEnvironment(env => env
                     .ConfigureDeserializer(d => d
                         .Add(ConverterFactory
-                            .Create<JToken, JToken>((token, env, recurse) => token))))
+                            .Create<JToken, JToken>((token, env, _, recurse) => token))))
                 .AsAdmin()
                 .ChangeQueryType<IGremlinQueryBase<JToken>>()
                 .ToAsyncEnumerable()

@@ -1152,7 +1152,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
         public Task Multi_step_serialization() => _g
             .ConfigureEnvironment(env => env
                 .ConfigureSerializer(ser => ser
-                    .Add(Create<EStep, Step[]>((step, env, recurse) => recurse
+                    .Add(Create<EStep, Step[]>((step, env, _, recurse) => recurse
                         .TransformTo<Step[]>()
                         .From(
                             new Step[]
@@ -1168,7 +1168,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
         public Task Multi_step_serialization_with_forgotten_serialize() => _g
             .ConfigureEnvironment(env => env
                 .ConfigureSerializer(ser => ser
-                    .Add(Create<EStep, Step[]>((step, env, recurse) =>
+                    .Add(Create<EStep, Step[]>((step, env, _, recurse) =>
                         new Step[]
                         {
                             new VStep(ImmutableArray<object>.Empty),
@@ -4819,8 +4819,8 @@ namespace ExRam.Gremlinq.Tests.TestCases
             await _g
                 .ConfigureEnvironment(env => env
                     .RegisterNativeType(
-                        (languageCode, env, recurse) => languageCode.ToString().ToLower(),
-                        (valueToken, env, recurse) => Enum.TryParse<DateTimeKind>(valueToken.Value<string>(), true, out var res)
+                        (languageCode, env, _, recurse) => languageCode.ToString().ToLower(),
+                        (valueToken, env, _, recurse) => Enum.TryParse<DateTimeKind>(valueToken.Value<string>(), true, out var res)
                             ? res
                             : default))
                 .Inject("Utc")
