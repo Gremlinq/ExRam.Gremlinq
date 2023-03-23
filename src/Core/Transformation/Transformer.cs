@@ -145,7 +145,7 @@ namespace ExRam.Gremlinq.Core.Transformation
                     {
                         foreach (var converter in converters)
                         {
-                            if (converter.converter.TryConvert(actualSerialized, _recurse, out var value))
+                            if (converter.converter.TryConvert(actualSerialized, converter.overridden, _recurse, out var value))
                                 return Option<TTarget>.From(value);
                         }
                     }

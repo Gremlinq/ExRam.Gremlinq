@@ -123,7 +123,7 @@ namespace ExRam.Gremlinq.Core
 
             return environment
                 .ConfigureSerializer(serializer => serializer
-                    .Add(Create<RequestMessage, byte[]>((message, _, _) =>
+                    .Add(Create<RequestMessage, byte[]>((message, _, _, _) =>
                     {
                         var graphSONMessage = writer.WriteObject(message);
                         var ret = new byte[Encoding.UTF8.GetByteCount(graphSONMessage) + mimeTypeBytes.Length];

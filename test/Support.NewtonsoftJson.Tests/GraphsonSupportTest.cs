@@ -211,8 +211,8 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
 
             await Verify<NativeType>(data, _environment
                 .RegisterNativeType(
-                    (nativeType, env, recurse) => 42,
-                    (jValue, env, recurse) => jValue.Type is JTokenType.Integer
+                    (nativeType, env, _, recurse) => 42,
+                    (jValue, env, _, recurse) => jValue.Type is JTokenType.Integer
                         ? new NativeType(jValue.Value<int>())
                         : default));
         }
@@ -224,8 +224,8 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
 
             await Verify<object>(data, _environment
                 .RegisterNativeType(
-                    (nativeType, env, recurse) => 42,
-                    (jValue, env, recurse) => jValue.Type is JTokenType.Integer
+                    (nativeType, env, _, recurse) => 42,
+                    (jValue, env, _, recurse) => jValue.Type is JTokenType.Integer
                         ? new NativeType(jValue.Value<int>())
                         : default));
         }

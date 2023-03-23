@@ -25,8 +25,8 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
             .ConfigureEnvironment(env => env
                 .UseNewtonsoftJson()
                 .RegisterNativeType(
-                    (fancyId, env, recurse) => fancyId.WrappedId,
-                    (jValue, env, recurse) => new FancyId(jValue.Value<string>()!)))
+                    (fancyId, env, _, recurse) => fancyId.WrappedId,
+                    (jValue, env, _, recurse) => new FancyId(jValue.Value<string>()!)))
             .Inject(new FancyId("fancyId"))
             .Debug());
 

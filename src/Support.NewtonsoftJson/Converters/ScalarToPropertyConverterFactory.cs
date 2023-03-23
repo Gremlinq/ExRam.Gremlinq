@@ -25,7 +25,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                     throw new ArgumentException();
             }
 
-            public bool TryConvert(JValue serialized, ITransformer recurse, [NotNullWhen(true)] out TTargetProperty? value)
+            public bool TryConvert(JValue serialized, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTargetProperty? value)
             {
                 if (recurse.TryTransform<JValue, TTargetPropertyValue>(serialized, _environment, out var propertyValue))
                 {

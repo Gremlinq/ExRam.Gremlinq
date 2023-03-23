@@ -20,7 +20,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 _environment = environment;
             }
 
-            public bool TryConvert(byte[] source, ITransformer recurse, [NotNullWhen(true)] out ResponseMessage<T>? value)
+            public bool TryConvert(byte[] source, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out ResponseMessage<T>? value)
             {
                 var token = recurse
                     .TransformTo<JToken>()

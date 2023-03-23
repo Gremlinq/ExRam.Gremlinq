@@ -2187,9 +2187,9 @@ namespace ExRam.Gremlinq.Core.Transformation
     public static class ConverterFactory
     {
         public static ExRam.Gremlinq.Core.Transformation.IConverterFactory AutoRecurse<TStaticTarget>(this ExRam.Gremlinq.Core.Transformation.IConverterFactory baseFactory) { }
-        public static ExRam.Gremlinq.Core.Transformation.IConverterFactory Create<TStaticSource, TStaticTarget>(System.Func<TStaticSource, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Transformation.ITransformer, TStaticTarget?> func)
+        public static ExRam.Gremlinq.Core.Transformation.IConverterFactory Create<TStaticSource, TStaticTarget>(System.Func<TStaticSource, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Transformation.ITransformer, ExRam.Gremlinq.Core.Transformation.ITransformer, TStaticTarget?> func)
             where TStaticTarget :  struct { }
-        public static ExRam.Gremlinq.Core.Transformation.IConverterFactory Create<TStaticSource, TStaticTarget>(System.Func<TStaticSource, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Transformation.ITransformer, TStaticTarget?> func)
+        public static ExRam.Gremlinq.Core.Transformation.IConverterFactory Create<TStaticSource, TStaticTarget>(System.Func<TStaticSource, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.Transformation.ITransformer, ExRam.Gremlinq.Core.Transformation.ITransformer, TStaticTarget?> func)
             where TStaticTarget :  class { }
         public static ExRam.Gremlinq.Core.Transformation.IConverterFactory Finally(this ExRam.Gremlinq.Core.Transformation.IConverterFactory factory, System.Action finallyAction) { }
         public static ExRam.Gremlinq.Core.Transformation.IConverterFactory Guard<TStaticSource>(System.Action<TStaticSource> guard) { }
@@ -2200,7 +2200,7 @@ namespace ExRam.Gremlinq.Core.Transformation
     }
     public interface IConverter<in TSource, TTarget>
     {
-        bool TryConvert(TSource source, ExRam.Gremlinq.Core.Transformation.ITransformer recurse, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out TTarget? value);
+        bool TryConvert(TSource source, ExRam.Gremlinq.Core.Transformation.ITransformer defer, ExRam.Gremlinq.Core.Transformation.ITransformer recurse, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out TTarget? value);
     }
     public interface ITransformer
     {

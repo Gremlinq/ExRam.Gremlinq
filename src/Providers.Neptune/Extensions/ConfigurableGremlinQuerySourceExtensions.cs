@@ -66,7 +66,7 @@ namespace ExRam.Gremlinq.Core
                         .UseGraphSon3()
                         .ConfigureSerializer(serializer => serializer
                             .Add(ConverterFactory
-                                .Create<PropertyStep.ByKeyStep, PropertyStep.ByKeyStep>((step, _, _) => Cardinality.List.Equals(step.Cardinality)
+                                .Create<PropertyStep.ByKeyStep, PropertyStep.ByKeyStep>((step, _, _, _) => Cardinality.List.Equals(step.Cardinality)
                                     ? new PropertyStep.ByKeyStep(step.Key, step.Value, step.MetaProperties, Cardinality.Set)
                                     : default)))))
                 .ConfigureEnvironment(environment => environment

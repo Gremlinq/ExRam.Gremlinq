@@ -17,7 +17,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 _environment = environment;
             }
 
-            public bool TryConvert(TSource source, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+            public bool TryConvert(TSource source, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
             {
                 if (source is TTarget alreadyRequestedValue)
                 {

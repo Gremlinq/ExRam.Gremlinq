@@ -19,7 +19,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 _environment = environment;
             }
 
-            public bool TryConvert(JValue serialized, ITransformer recurse, out TStaticTarget value)
+            public bool TryConvert(JValue serialized, ITransformer defer, ITransformer recurse, out TStaticTarget value)
             {
                 if (_factory.Convert(serialized, _environment, recurse) is { } requested)
                 {

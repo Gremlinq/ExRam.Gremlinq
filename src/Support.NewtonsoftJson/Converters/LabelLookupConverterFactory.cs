@@ -37,7 +37,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                             StringComparer.OrdinalIgnoreCase));
             }
 
-            public bool TryConvert(JObject serialized, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+            public bool TryConvert(JObject serialized, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
             {
                 if (serialized.LooksLikeElement(out _, out var labelValue, out _))
                 {

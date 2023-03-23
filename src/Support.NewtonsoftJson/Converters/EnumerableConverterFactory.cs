@@ -40,7 +40,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             {
             }
 
-            public bool TryConvert(JArray serialized, ITransformer recurse, [NotNullWhen(true)] out TTargetArray? value)
+            public bool TryConvert(JArray serialized, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTargetArray? value)
             {
                 if (!Environment.SupportsType(typeof(TTargetArray)))
                 {
@@ -59,7 +59,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             {
             }
 
-            public bool TryConvert(JArray serialized, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+            public bool TryConvert(JArray serialized, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
             {
                 value = (TTarget)(object)GetEnumerable(serialized, recurse).ToList();
                 return true;
