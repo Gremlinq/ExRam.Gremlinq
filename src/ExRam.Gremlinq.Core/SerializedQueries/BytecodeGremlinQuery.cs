@@ -17,8 +17,6 @@ namespace ExRam.Gremlinq.Core.Serialization
             _bytecode = bytecode;
         }
 
-        public BytecodeGremlinQuery WithNewId() => new (Bytecode);
-
         public string Id => _id ?? throw new InvalidOperationException();
 
         public Bytecode Bytecode => _bytecode ?? throw new InvalidOperationException();
