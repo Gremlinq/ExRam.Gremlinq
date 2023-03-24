@@ -1,7 +1,6 @@
 ﻿using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Core.Serialization;
 using Gremlin.Net.Process.Traversal;
-
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -18,7 +17,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 _json = json;
             }
 
-            public IAsyncEnumerable<object> Execute(Bytecode bytecode, IGremlinQueryEnvironment environment)
+            public IAsyncEnumerable<object> Execute(IGremlinQueryBase query, IGremlinQueryEnvironment environment)
             {
                 var token = JsonConvert.DeserializeObject<JToken>(
                     _json,

@@ -212,9 +212,7 @@ namespace ExRam.Gremlinq.Core
 
         IAsyncEnumerable<TElement> IGremlinQueryBase<TElement>.ToAsyncEnumerable() => Environment.Executor
             .Execute(
-                Environment.Serializer
-                    .TransformTo<Bytecode>()
-                    .From(this, Environment),
+                this,
                 Environment)
             .Select(executionResult => Environment.Deserializer
                 .TransformTo<TElement>()

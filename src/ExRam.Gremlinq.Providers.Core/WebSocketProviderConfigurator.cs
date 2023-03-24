@@ -25,7 +25,7 @@ namespace ExRam.Gremlinq.Providers.Core
                 _clientFactory = clientFactory;
             }
 
-            public IAsyncEnumerable<object> Execute(Bytecode bytecode, IGremlinQueryEnvironment environment)
+            public IAsyncEnumerable<object> Execute(IGremlinQueryBase query, IGremlinQueryEnvironment environment)
             {
                 return AsyncEnumerable.Create(Core);
 
@@ -45,7 +45,7 @@ namespace ExRam.Gremlinq.Providers.Core
                     var requestMessage = environment
                         .Serializer
                         .TransformTo<RequestMessage>()
-                        .From(bytecode, environment);
+                        .From(query, environment);
 
                     var maybeResults = await client
                         .SubmitAsync<object>(requestMessage, ct)

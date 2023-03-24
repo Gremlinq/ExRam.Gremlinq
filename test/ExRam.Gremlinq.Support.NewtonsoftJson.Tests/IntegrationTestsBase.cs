@@ -3,8 +3,13 @@ using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Execution;
+using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Core.Transformation;
+using ExRam.Gremlinq.Tests.Entities;
+
+using FluentAssertions;
+
 using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
@@ -44,6 +49,23 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
             testOutputHelper,
             callerFilePath)
         {
+        }
+
+        [Fact]
+        public virtual async Task AddV_list_cardinality_id()
+        {
+            if (_g.Environment.FeatureSet.Supports(VertexFeatures.UserSuppliedIds))
+            {
+                await _g
+                    .ConfigureEnvironment(env => env
+                        .UseModel(GraphModel
+                            .FromBaseTypes<VertexWithListId, Edge>(lookup => lookup
+                                .IncludeAssembliesOfBaseTypes())))
+                    .AddV(new VertexWithListId { Id = new[] { "123", "456" } })
+                    .Awaiting(x => x.FirstAsync())
+                    .Should()
+                    .ThrowAsync<NotSupportedException>();
+            }
         }
 
         public override Task Verify<TElement>(IGremlinQueryBase<TElement> query) => base.Verify(query.Cast<JToken>());
