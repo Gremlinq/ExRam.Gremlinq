@@ -1558,9 +1558,7 @@ namespace ExRam.Gremlinq.Core.Serialization
     public readonly struct BytecodeGremlinQuery
     {
         public BytecodeGremlinQuery(Gremlin.Net.Process.Traversal.Bytecode bytecode) { }
-        public BytecodeGremlinQuery(string queryId, Gremlin.Net.Process.Traversal.Bytecode bytecode) { }
         public Gremlin.Net.Process.Traversal.Bytecode Bytecode { get; }
-        public string Id { get; }
     }
     public readonly struct GroovyGremlinQuery
     {

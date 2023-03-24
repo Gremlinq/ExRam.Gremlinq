@@ -1,5 +1,4 @@
 ﻿{
-  Id: Guid_1,
   Bytecode: {
     StepInstructions: [
       {

@@ -1,5 +1,4 @@
 ﻿{
-  Id: Guid_1,
   Bytecode: {
     SourceInstructions: [
       {
@@ -35,7 +34,7 @@
             EnumValue: single
           },
           GuidKey,
-          Guid_2
+          Guid_1
         ]
       },
       {
