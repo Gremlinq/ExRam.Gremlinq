@@ -30,5 +30,10 @@ namespace ExRam.Gremlinq.Providers.Core
         public static readonly IGremlinClientFactory Default = new DefaultGremlinClientFactory();
 
         public static IGremlinClientFactory Create(Func<GremlinServer, IMessageSerializer, ConnectionPoolSettings, Action<ClientWebSocketOptions>, string?, IGremlinClient> factory) => new FuncGremlinClientFactory(factory);
+
+        public static IGremlinClientFactory ConfigureClient(this IGremlinClientFactory clientFactory, Func<IGremlinClient, IGremlinClient> clientTransformation)
+        {
+            return Create((server, serializer, poolSettings, optionsTransformation, sessionId) => clientTransformation(clientFactory.Create(server, serializer, poolSettings, optionsTransformation, sessionId)));
+        }
     }
 }
