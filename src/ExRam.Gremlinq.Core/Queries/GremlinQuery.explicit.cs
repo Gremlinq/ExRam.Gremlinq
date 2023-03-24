@@ -9,6 +9,8 @@ using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Core.Transformation;
 
+using Gremlin.Net.Process.Traversal;
+
 using Path = ExRam.Gremlinq.Core.GraphElements.Path;
 
 namespace ExRam.Gremlinq.Core
@@ -211,7 +213,7 @@ namespace ExRam.Gremlinq.Core
         IAsyncEnumerable<TElement> IGremlinQueryBase<TElement>.ToAsyncEnumerable() => Environment.Executor
             .Execute(
                 Environment.Serializer
-                    .TransformTo<BytecodeGremlinQuery>()
+                    .TransformTo<Bytecode>()
                     .From(this, Environment),
                 Environment)
             .Select(executionResult => Environment.Deserializer

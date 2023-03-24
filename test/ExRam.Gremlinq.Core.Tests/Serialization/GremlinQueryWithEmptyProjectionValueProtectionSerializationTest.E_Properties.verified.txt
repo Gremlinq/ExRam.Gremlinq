@@ -1,12 +1,10 @@
 ﻿{
-  Bytecode: {
-    StepInstructions: [
-      {
-        OperatorName: E
-      },
-      {
-        OperatorName: properties
-      }
-    ]
-  }
+  StepInstructions: [
+    {
+      OperatorName: E
+    },
+    {
+      OperatorName: properties
+    }
+  ]
 }

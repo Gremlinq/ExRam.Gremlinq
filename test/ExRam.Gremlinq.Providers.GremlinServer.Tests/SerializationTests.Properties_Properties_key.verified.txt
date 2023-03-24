@@ -1,27 +1,25 @@
 ﻿{
-  Bytecode: {
-    StepInstructions: [
-      {
-        OperatorName: V
-      },
-      {
-        OperatorName: hasLabel,
-        Arguments: [
-          Country
-        ]
-      },
-      {
-        OperatorName: properties,
-        Arguments: [
-          Name
-        ]
-      },
-      {
-        OperatorName: properties
-      },
-      {
-        OperatorName: key
-      }
-    ]
-  }
+  StepInstructions: [
+    {
+      OperatorName: V
+    },
+    {
+      OperatorName: hasLabel,
+      Arguments: [
+        Country
+      ]
+    },
+    {
+      OperatorName: properties,
+      Arguments: [
+        Name
+      ]
+    },
+    {
+      OperatorName: properties
+    },
+    {
+      OperatorName: key
+    }
+  ]
 }

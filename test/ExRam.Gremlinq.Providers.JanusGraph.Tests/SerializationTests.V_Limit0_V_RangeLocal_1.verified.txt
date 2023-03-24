@@ -1,123 +1,121 @@
 ﻿{
-  Bytecode: {
-    StepInstructions: [
-      {
-        OperatorName: V
-      },
-      {
-        OperatorName: limit,
-        Arguments: [
-          0
-        ]
-      },
-      {
-        OperatorName: range,
-        Arguments: [
-          {
-            EnumName: Scope,
-            EnumValue: local
-          },
-          0,
-          1
-        ]
-      },
-      {
-        OperatorName: project,
-        Arguments: [
-          id,
-          label,
-          properties
-        ]
-      },
-      {
-        OperatorName: by,
-        Arguments: [
-          {
-            EnumName: T,
-            EnumValue: id
-          }
-        ]
-      },
-      {
-        OperatorName: by,
-        Arguments: [
-          {
-            EnumName: T,
-            EnumValue: label
-          }
-        ]
-      },
-      {
-        OperatorName: by,
-        Arguments: [
-          {
-            StepInstructions: [
-              {
-                OperatorName: properties
-              },
-              {
-                OperatorName: group
-              },
-              {
-                OperatorName: by,
-                Arguments: [
-                  {
-                    EnumName: T,
-                    EnumValue: label
-                  }
-                ]
-              },
-              {
-                OperatorName: by,
-                Arguments: [
-                  {
-                    StepInstructions: [
-                      {
-                        OperatorName: project,
-                        Arguments: [
-                          id,
-                          label,
-                          value
-                        ]
-                      },
-                      {
-                        OperatorName: by,
-                        Arguments: [
-                          {
-                            EnumName: T,
-                            EnumValue: id
-                          }
-                        ]
-                      },
-                      {
-                        OperatorName: by,
-                        Arguments: [
-                          {
-                            EnumName: T,
-                            EnumValue: label
-                          }
-                        ]
-                      },
-                      {
-                        OperatorName: by,
-                        Arguments: [
-                          {
-                            EnumName: T,
-                            EnumValue: value
-                          }
-                        ]
-                      },
-                      {
-                        OperatorName: fold
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  }
+  StepInstructions: [
+    {
+      OperatorName: V
+    },
+    {
+      OperatorName: limit,
+      Arguments: [
+        0
+      ]
+    },
+    {
+      OperatorName: range,
+      Arguments: [
+        {
+          EnumName: Scope,
+          EnumValue: local
+        },
+        0,
+        1
+      ]
+    },
+    {
+      OperatorName: project,
+      Arguments: [
+        id,
+        label,
+        properties
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          EnumName: T,
+          EnumValue: id
+        }
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          EnumName: T,
+          EnumValue: label
+        }
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: properties
+            },
+            {
+              OperatorName: group
+            },
+            {
+              OperatorName: by,
+              Arguments: [
+                {
+                  EnumName: T,
+                  EnumValue: label
+                }
+              ]
+            },
+            {
+              OperatorName: by,
+              Arguments: [
+                {
+                  StepInstructions: [
+                    {
+                      OperatorName: project,
+                      Arguments: [
+                        id,
+                        label,
+                        value
+                      ]
+                    },
+                    {
+                      OperatorName: by,
+                      Arguments: [
+                        {
+                          EnumName: T,
+                          EnumValue: id
+                        }
+                      ]
+                    },
+                    {
+                      OperatorName: by,
+                      Arguments: [
+                        {
+                          EnumName: T,
+                          EnumValue: label
+                        }
+                      ]
+                    },
+                    {
+                      OperatorName: by,
+                      Arguments: [
+                        {
+                          EnumName: T,
+                          EnumValue: value
+                        }
+                      ]
+                    },
+                    {
+                      OperatorName: fold
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

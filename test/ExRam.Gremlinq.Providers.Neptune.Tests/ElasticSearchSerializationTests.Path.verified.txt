@@ -1,34 +1,32 @@
 ﻿{
-  Bytecode: {
-    SourceInstructions: [
-      {
-        OperatorName: withSideEffect,
-        Arguments: [
-          Neptune#fts.endpoint,
-          http://elastic.search.server
-        ]
-      },
-      {
-        OperatorName: withSideEffect,
-        Arguments: [
-          Neptune#fts.queryType,
-          query_string
-        ]
-      }
-    ],
-    StepInstructions: [
-      {
-        OperatorName: V
-      },
-      {
-        OperatorName: out
-      },
-      {
-        OperatorName: out
-      },
-      {
-        OperatorName: path
-      }
-    ]
-  }
+  SourceInstructions: [
+    {
+      OperatorName: withSideEffect,
+      Arguments: [
+        Neptune#fts.endpoint,
+        http://elastic.search.server
+      ]
+    },
+    {
+      OperatorName: withSideEffect,
+      Arguments: [
+        Neptune#fts.queryType,
+        query_string
+      ]
+    }
+  ],
+  StepInstructions: [
+    {
+      OperatorName: V
+    },
+    {
+      OperatorName: out
+    },
+    {
+      OperatorName: out
+    },
+    {
+      OperatorName: path
+    }
+  ]
 }

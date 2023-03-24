@@ -1,18 +1,16 @@
 ﻿{
-  Bytecode: {
-    StepInstructions: [
-      {
-        OperatorName: V
-      },
-      {
-        OperatorName: properties
-      },
-      {
-        OperatorName: values,
-        Arguments: [
-          ValidFrom
-        ]
-      }
-    ]
-  }
+  StepInstructions: [
+    {
+      OperatorName: V
+    },
+    {
+      OperatorName: properties
+    },
+    {
+      OperatorName: values,
+      Arguments: [
+        ValidFrom
+      ]
+    }
+  ]
 }

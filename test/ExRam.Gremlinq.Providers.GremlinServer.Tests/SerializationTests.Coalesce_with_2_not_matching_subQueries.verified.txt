@@ -1,28 +1,26 @@
 ﻿{
-  Bytecode: {
-    StepInstructions: [
-      {
-        OperatorName: V
-      },
-      {
-        OperatorName: coalesce,
-        Arguments: [
-          {
-            StepInstructions: [
-              {
-                OperatorName: outE
-              }
-            ]
-          },
-          {
-            StepInstructions: [
-              {
-                OperatorName: in
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  }
+  StepInstructions: [
+    {
+      OperatorName: V
+    },
+    {
+      OperatorName: coalesce,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: outE
+            }
+          ]
+        },
+        {
+          StepInstructions: [
+            {
+              OperatorName: in
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

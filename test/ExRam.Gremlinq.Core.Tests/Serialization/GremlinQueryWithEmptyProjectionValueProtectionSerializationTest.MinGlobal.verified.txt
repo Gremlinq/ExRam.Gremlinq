@@ -1,24 +1,22 @@
 ﻿{
-  Bytecode: {
-    StepInstructions: [
-      {
-        OperatorName: V
-      },
-      {
-        OperatorName: hasLabel,
-        Arguments: [
-          Person
-        ]
-      },
-      {
-        OperatorName: values,
-        Arguments: [
-          Age
-        ]
-      },
-      {
-        OperatorName: min
-      }
-    ]
-  }
+  StepInstructions: [
+    {
+      OperatorName: V
+    },
+    {
+      OperatorName: hasLabel,
+      Arguments: [
+        Person
+      ]
+    },
+    {
+      OperatorName: values,
+      Arguments: [
+        Age
+      ]
+    },
+    {
+      OperatorName: min
+    }
+  ]
 }

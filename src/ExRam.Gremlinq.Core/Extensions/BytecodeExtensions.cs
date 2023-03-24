@@ -7,7 +7,7 @@ namespace ExRam.Gremlinq.Core.Serialization
     {
         private static readonly ThreadLocal<StringBuilder> Builder = new(static () => new StringBuilder());
 
-        public static GroovyGremlinQuery ToGroovy(this BytecodeGremlinQuery bytecodeQuery)
+        public static GroovyGremlinQuery ToGroovy(this Bytecode bytecode)
         {
             var builder = Builder.Value!;
 
@@ -138,7 +138,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                     }
                 }
 
-                Append(bytecodeQuery.Bytecode);
+                Append(bytecode);
 
                 return new GroovyGremlinQuery(
                     builder.ToString(),

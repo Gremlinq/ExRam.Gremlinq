@@ -1,21 +1,19 @@
 ﻿{
-  Bytecode: {
-    StepInstructions: [
-      {
-        OperatorName: E
-      },
-      {
-        OperatorName: hasLabel,
-        Arguments: [
-          LivesIn
-        ]
-      },
-      {
-        OperatorName: properties,
-        Arguments: [
-          Since
-        ]
-      }
-    ]
-  }
+  StepInstructions: [
+    {
+      OperatorName: E
+    },
+    {
+      OperatorName: hasLabel,
+      Arguments: [
+        LivesIn
+      ]
+    },
+    {
+      OperatorName: properties,
+      Arguments: [
+        Since
+      ]
+    }
+  ]
 }

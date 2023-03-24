@@ -1,14 +1,12 @@
 ﻿{
-  Bytecode: {
-    StepInstructions: [
-      {
-        OperatorName: inject,
-        Arguments: [
-          36,
-          37,
-          38
-        ]
-      }
-    ]
-  }
+  StepInstructions: [
+    {
+      OperatorName: inject,
+      Arguments: [
+        36,
+        37,
+        38
+      ]
+    }
+  ]
 }

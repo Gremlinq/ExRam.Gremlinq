@@ -1,50 +1,48 @@
 ﻿{
-  Bytecode: {
-    StepInstructions: [
-      {
-        OperatorName: V
-      },
-      {
-        OperatorName: fold
-      },
-      {
-        OperatorName: as,
-        Arguments: [
-          _a
-        ]
-      },
-      {
-        OperatorName: V
-      },
-      {
-        OperatorName: hasLabel,
-        Arguments: [
-          Person
-        ]
-      },
-      {
-        OperatorName: not,
-        Arguments: [
-          {
-            StepInstructions: [
-              {
-                OperatorName: where,
-                Arguments: [
-                  {
-                    OperatorName: within,
-                    Value: [
-                      _a
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        OperatorName: count
-      }
-    ]
-  }
+  StepInstructions: [
+    {
+      OperatorName: V
+    },
+    {
+      OperatorName: fold
+    },
+    {
+      OperatorName: as,
+      Arguments: [
+        _a
+      ]
+    },
+    {
+      OperatorName: V
+    },
+    {
+      OperatorName: hasLabel,
+      Arguments: [
+        Person
+      ]
+    },
+    {
+      OperatorName: not,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: where,
+              Arguments: [
+                {
+                  OperatorName: within,
+                  Value: [
+                    _a
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      OperatorName: count
+    }
+  ]
 }

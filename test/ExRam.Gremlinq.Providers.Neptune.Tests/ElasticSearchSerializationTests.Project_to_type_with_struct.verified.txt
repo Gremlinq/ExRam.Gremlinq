@@ -1,100 +1,98 @@
 ﻿{
-  Bytecode: {
-    SourceInstructions: [
-      {
-        OperatorName: withSideEffect,
-        Arguments: [
-          Neptune#fts.endpoint,
-          http://elastic.search.server
-        ]
-      },
-      {
-        OperatorName: withSideEffect,
-        Arguments: [
-          Neptune#fts.queryType,
-          query_string
-        ]
-      }
-    ],
-    StepInstructions: [
-      {
-        OperatorName: V
-      },
-      {
-        OperatorName: hasLabel,
-        Arguments: [
-          Person
-        ]
-      },
-      {
-        OperatorName: project,
-        Arguments: [
-          In,
-          Out,
-          Count,
-          Properties
-        ]
-      },
-      {
-        OperatorName: by,
-        Arguments: [
-          {
-            StepInstructions: [
-              {
-                OperatorName: constant,
-                Arguments: [
-                  in_value
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        OperatorName: by,
-        Arguments: [
-          {
-            StepInstructions: [
-              {
-                OperatorName: constant,
-                Arguments: [
-                  out_value
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        OperatorName: by,
-        Arguments: [
-          {
-            StepInstructions: [
-              {
-                OperatorName: constant,
-                Arguments: [
-                  count_value
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        OperatorName: by,
-        Arguments: [
-          {
-            StepInstructions: [
-              {
-                OperatorName: constant,
-                Arguments: [
-                  properties_value
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  }
+  SourceInstructions: [
+    {
+      OperatorName: withSideEffect,
+      Arguments: [
+        Neptune#fts.endpoint,
+        http://elastic.search.server
+      ]
+    },
+    {
+      OperatorName: withSideEffect,
+      Arguments: [
+        Neptune#fts.queryType,
+        query_string
+      ]
+    }
+  ],
+  StepInstructions: [
+    {
+      OperatorName: V
+    },
+    {
+      OperatorName: hasLabel,
+      Arguments: [
+        Person
+      ]
+    },
+    {
+      OperatorName: project,
+      Arguments: [
+        In,
+        Out,
+        Count,
+        Properties
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: constant,
+              Arguments: [
+                in_value
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: constant,
+              Arguments: [
+                out_value
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: constant,
+              Arguments: [
+                count_value
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: constant,
+              Arguments: [
+                properties_value
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

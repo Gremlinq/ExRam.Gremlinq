@@ -1,48 +1,46 @@
 ﻿{
-  Bytecode: {
-    StepInstructions: [
-      {
-        OperatorName: V
-      },
-      {
-        OperatorName: id
-      },
-      {
-        OperatorName: choose,
-        Arguments: [
-          {
-            OperatorName: and,
-            Value: {
-              OperatorName: gt,
-              Value: 0
-            },
-            Other: {
-              OperatorName: lt,
-              Value: 42
-            }
+  StepInstructions: [
+    {
+      OperatorName: V
+    },
+    {
+      OperatorName: id
+    },
+    {
+      OperatorName: choose,
+      Arguments: [
+        {
+          OperatorName: and,
+          Value: {
+            OperatorName: gt,
+            Value: 0
           },
-          {
-            StepInstructions: [
-              {
-                OperatorName: constant,
-                Arguments: [
-                  true
-                ]
-              }
-            ]
-          },
-          {
-            StepInstructions: [
-              {
-                OperatorName: constant,
-                Arguments: [
-                  false
-                ]
-              }
-            ]
+          Other: {
+            OperatorName: lt,
+            Value: 42
           }
-        ]
-      }
-    ]
-  }
+        },
+        {
+          StepInstructions: [
+            {
+              OperatorName: constant,
+              Arguments: [
+                true
+              ]
+            }
+          ]
+        },
+        {
+          StepInstructions: [
+            {
+              OperatorName: constant,
+              Arguments: [
+                false
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
