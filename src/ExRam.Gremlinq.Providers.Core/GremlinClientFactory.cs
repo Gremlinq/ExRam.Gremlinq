@@ -1,7 +1,5 @@
 ﻿using System.Net.WebSockets;
-
 using ExRam.Gremlinq.Core;
-
 using Gremlin.Net.Driver;
 
 namespace ExRam.Gremlinq.Providers.Core
@@ -34,9 +32,13 @@ namespace ExRam.Gremlinq.Providers.Core
 
         public static IGremlinClientFactory Create(Func<IGremlinQueryEnvironment, GremlinServer, IMessageSerializer, ConnectionPoolSettings, Action<ClientWebSocketOptions>, string?, IGremlinClient> factory) => new FuncGremlinClientFactory(factory);
 
-        public static IGremlinClientFactory ConfigureClient(this IGremlinClientFactory clientFactory, Func<IGremlinClient, IGremlinClient> clientTransformation)
+        public static IGremlinClientFactory ConfigureClient(this IGremlinClientFactory clientFactory, Func<IGremlinClient, IGremlinClient> clientTransformation) => Create((environment, server, serializer, poolSettings, optionsTransformation, sessionId) => clientTransformation(clientFactory.Create(environment, server, serializer, poolSettings, optionsTransformation, sessionId)));
+
+        internal static IGremlinClientFactory Log(this IGremlinClientFactory clientFactory)
         {
-            return Create((environment, server, serializer, poolSettings, optionsTransformation, sessionId) => clientTransformation(clientFactory.Create(environment, server, serializer, poolSettings, optionsTransformation, sessionId)));
+            return Create((environment, server, serializer, poolSettings, optionsTransformation, sessionId) => clientFactory
+                .Create(environment, server, serializer, poolSettings, optionsTransformation, sessionId)
+                .Log(environment));
         }
     }
 }
