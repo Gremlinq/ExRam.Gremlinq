@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using System.Text.Json;
-using ExRam.Gremlinq.Core.Serialization;
+﻿using ExRam.Gremlinq.Core.Serialization;
 using Gremlin.Net.Driver.Exceptions;
 using Microsoft.Extensions.Logging;
 
@@ -70,87 +68,6 @@ namespace ExRam.Gremlinq.Core.Execution
             }
         }
 
-        private sealed class LoggingGremlinQueryExecutor : IGremlinQueryExecutor
-        {
-            private static readonly JsonSerializerOptions IndentedSerializerOptions = new() { WriteIndented = true };
-            private static readonly JsonSerializerOptions NotIndentedSerializerOptions = new() { WriteIndented = false };
-            private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, Action<BytecodeGremlinQuery, string>> Loggers = new();
-
-            private readonly IGremlinQueryExecutor _executor;
-
-            public LoggingGremlinQueryExecutor(IGremlinQueryExecutor executor)
-            {
-                _executor = executor;
-            }
-
-            public IAsyncEnumerable<object> Execute(BytecodeGremlinQuery query, IGremlinQueryEnvironment environment)
-            {
-                return AsyncEnumerable.Create(Core);
-
-                async IAsyncEnumerator<object> Core(CancellationToken ct)
-                {
-                    await using (var enumerator = _executor.Execute(query, environment).GetAsyncEnumerator(ct))
-                    {
-                        try
-                        {
-                            var moveNext = enumerator.MoveNextAsync();
-
-                            var logger = Loggers.GetValue(
-                                environment,
-                                static environment => GetLoggingFunction(environment));
-
-                            logger(query, query.Id);
-
-                            if (!await moveNext)
-                                yield break;
-                        }
-                        catch (Exception ex)
-                        {
-                            environment.Logger.LogError($"Error executing Gremlin query with id {query.Id}: {ex}");
-
-                            throw;
-                        }
-
-                        do
-                        {
-                            yield return enumerator.Current;
-                        } while (await enumerator.MoveNextAsync());
-                    }
-                }
-            }
-
-            private static Action<BytecodeGremlinQuery, string> GetLoggingFunction(IGremlinQueryEnvironment environment)
-            {
-                var logLevel = environment.Options.GetValue(GremlinqOption.QueryLogLogLevel);
-                var verbosity = environment.Options.GetValue(GremlinqOption.QueryLogVerbosity);
-                var formatting = environment.Options.GetValue(GremlinqOption.QueryLogFormatting);
-
-                return (query, requestId) =>
-                {
-                    if (environment.Logger.IsEnabled(logLevel))
-                    {
-                        var groovyQuery = query.ToGroovy();
-
-                        environment.Logger.Log(
-                            logLevel,
-                            "Executing Gremlin query {0}.",
-                            JsonSerializer.Serialize(
-                                new
-                                {
-                                    RequestId = requestId,
-                                    groovyQuery.Script,
-                                    Bindings = (verbosity & QueryLogVerbosity.IncludeBindings) > QueryLogVerbosity.QueryOnly
-                                        ? groovyQuery.Bindings
-                                        : null
-                                },
-                                formatting.HasFlag(QueryLogFormatting.Indented)
-                                    ? IndentedSerializerOptions
-                                    : NotIndentedSerializerOptions));
-                    }
-                };
-            }
-        }
-
         private sealed class TransformExecutionExceptionGremlinQueryExecutor : IGremlinQueryExecutor
         {
             private readonly IGremlinQueryExecutor _baseExecutor;
@@ -205,7 +122,5 @@ namespace ExRam.Gremlinq.Core.Execution
         public static IGremlinQueryExecutor TransformExecutionException(this IGremlinQueryExecutor executor, Func<Exception, Exception> exceptionTransformation) => new TransformExecutionExceptionGremlinQueryExecutor(executor, exceptionTransformation);
 
         public static IGremlinQueryExecutor RetryWithExponentialBackoff(this IGremlinQueryExecutor executor, Func<int, ResponseException, bool> shouldRetry) => new ExponentialBackoffExecutor(executor, shouldRetry);
-
-        public static IGremlinQueryExecutor Log(this IGremlinQueryExecutor executor) => new LoggingGremlinQueryExecutor(executor);
     }
 }
