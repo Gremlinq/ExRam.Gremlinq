@@ -43,6 +43,8 @@ namespace ExRam.Gremlinq.Core.Execution
                                 }
                                 catch (ResponseException ex)
                                 {
+                                    environment.Logger.LogInformation(ex, $"Query failed.");
+
                                     if (hasSeenFirst)
                                         throw;
 
@@ -53,9 +55,7 @@ namespace ExRam.Gremlinq.Core.Execution
                                     //requests fail roughly at the same time
                                     await Task.Delay((_rnd ??= new Random((int)(DateTime.Now.Ticks & int.MaxValue) ^ Thread.CurrentThread.ManagedThreadId)).Next(i + 2) * 16, ct);
 
-                                    var newSerializedQuery = new BytecodeGremlinQuery(query.Bytecode);
-                                    environment.Logger.LogInformation($"Retrying serialized query {query.Id} with new {nameof(BytecodeGremlinQuery.Id)} {newSerializedQuery.Id}.");
-                                    query = newSerializedQuery;
+                                    environment.Logger.LogInformation($"Retrying query.");
 
                                     break;
                                 }

@@ -96,7 +96,6 @@ namespace ExRam.Gremlinq.Core.Serialization
             .Add(Create<BytecodeGremlinQuery, RequestMessage>((query, env, recurse) => recurse.TryTransform(query, env, out GroovyGremlinQuery groovyQuery)
                 ? RequestMessage
                     .Build(Tokens.OpsEval)
-                    .OverrideRequestId(query, env)
                     .AddArgument(Tokens.ArgsGremlin, groovyQuery.Script)
                     .AddArgument(Tokens.ArgsBindings, groovyQuery.Bindings)
                     .AddAlias(env)
@@ -343,7 +342,6 @@ namespace ExRam.Gremlinq.Core.Serialization
             .Add(Create<BytecodeGremlinQuery, RequestMessage>((query, env, recurse) => RequestMessage
                 .Build(Tokens.OpsBytecode)
                 .Processor(Tokens.ProcessorTraversal)
-                .OverrideRequestId(query, env)
                 .AddArgument(Tokens.ArgsGremlin, query.Bytecode)
                 .AddAlias(env)
                 .Create()));
