@@ -35,6 +35,7 @@ namespace ExRam.Gremlinq.Providers.Core
                         .GetOrAdd(
                             environment,
                             static (environment, @this) => @this._clientFactory.Create(
+                                environment,
                                 @this._gremlinServer,
                                 new DefaultMessageSerializer(environment),
                                 new ConnectionPoolSettings(),

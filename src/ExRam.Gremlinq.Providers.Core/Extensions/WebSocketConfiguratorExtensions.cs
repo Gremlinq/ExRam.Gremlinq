@@ -13,7 +13,7 @@ namespace ExRam.Gremlinq.Providers.Core
         public static TConfigurator ConfigureMessageSerializer<TConfigurator>(this IWebSocketProviderConfigurator<TConfigurator> configurator, Func<IMessageSerializer, IMessageSerializer> transformation)
             where TConfigurator : IWebSocketProviderConfigurator<TConfigurator> => configurator
                 .ConfigureClientFactory(factory => GremlinClientFactory
-                    .Create((server, maybeSerializer, poolSettings, optionsTransformation, sessionId) => factory.Create(server, maybeSerializer is { } serializer ? transformation(serializer) : maybeSerializer, poolSettings, optionsTransformation, sessionId)));
+                    .Create((environment, server, maybeSerializer, poolSettings, optionsTransformation, sessionId) => factory.Create(environment, server, maybeSerializer is { } serializer ? transformation(serializer) : maybeSerializer, poolSettings, optionsTransformation, sessionId)));
 
         public static TConfigurator At<TConfigurator>(this IWebSocketProviderConfigurator<TConfigurator> configurator, Uri uri)
             where TConfigurator : IWebSocketProviderConfigurator<TConfigurator> => configurator

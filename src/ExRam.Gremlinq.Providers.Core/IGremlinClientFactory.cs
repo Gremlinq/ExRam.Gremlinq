@@ -1,10 +1,11 @@
 ﻿using System.Net.WebSockets;
+using ExRam.Gremlinq.Core;
 using Gremlin.Net.Driver;
 
 namespace ExRam.Gremlinq.Providers.Core
 {
     public interface IGremlinClientFactory
     {
-        IGremlinClient Create(GremlinServer gremlinServer, IMessageSerializer messageSerializer, ConnectionPoolSettings connectionPoolSettings, Action<ClientWebSocketOptions> webSocketConfiguration, string? sessionId = null);
+        IGremlinClient Create(IGremlinQueryEnvironment environment, GremlinServer gremlinServer, IMessageSerializer messageSerializer, ConnectionPoolSettings connectionPoolSettings, Action<ClientWebSocketOptions> webSocketConfiguration, string? sessionId = null);
     }
 }
