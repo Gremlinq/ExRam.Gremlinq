@@ -10,11 +10,6 @@ namespace ExRam.Gremlinq.Providers.Core
         public static TConfigurator AtLocalhost<TConfigurator>(this IWebSocketProviderConfigurator<TConfigurator> builder)
             where TConfigurator : IWebSocketProviderConfigurator<TConfigurator> => builder.At(new Uri("ws://localhost:8182"));
 
-        public static TConfigurator ConfigureClient<TConfigurator>(this IWebSocketProviderConfigurator<TConfigurator> configurator, Func<IGremlinClient, IGremlinClient> transformation)
-            where TConfigurator : IWebSocketProviderConfigurator<TConfigurator> => configurator
-                .ConfigureClientFactory(factory => GremlinClientFactory
-                    .Create((server, serializer, poolSettings, optionsTransformation, sessionId) => transformation(factory.Create(server, serializer, poolSettings, optionsTransformation, sessionId))));
-
         public static TConfigurator ConfigureMessageSerializer<TConfigurator>(this IWebSocketProviderConfigurator<TConfigurator> configurator, Func<IMessageSerializer, IMessageSerializer> transformation)
             where TConfigurator : IWebSocketProviderConfigurator<TConfigurator> => configurator
                 .ConfigureClientFactory(factory => GremlinClientFactory
