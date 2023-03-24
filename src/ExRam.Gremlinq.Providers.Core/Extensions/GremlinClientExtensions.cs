@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using System.Text.Json;
+﻿using System.Text.Json;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Serialization;
 using Gremlin.Net.Driver.Messages;

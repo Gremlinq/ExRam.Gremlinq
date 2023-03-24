@@ -1,6 +1,4 @@
-﻿using Gremlin.Net.Process.Traversal;
-
-namespace ExRam.Gremlinq.Core.Execution
+﻿namespace ExRam.Gremlinq.Core.Execution
 {
     public static class GremlinQueryExecutor
     {

@@ -1,6 +1,5 @@
 ﻿using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Core.Serialization;
-using Gremlin.Net.Process.Traversal;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 

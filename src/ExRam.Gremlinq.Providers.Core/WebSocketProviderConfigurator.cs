@@ -1,11 +1,9 @@
 ﻿using System.Collections.Concurrent;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Execution;
-using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Core.Transformation;
 using Gremlin.Net.Driver;
 using Gremlin.Net.Driver.Messages;
-using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Providers.Core
 {

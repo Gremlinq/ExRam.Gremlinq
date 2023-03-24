@@ -1,5 +1,4 @@
-﻿using ExRam.Gremlinq.Core.Serialization;
-using Gremlin.Net.Process.Traversal;
+﻿using Gremlin.Net.Process.Traversal;
 
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 

@@ -1,6 +1,4 @@
-﻿using ExRam.Gremlinq.Core.Serialization;
-using Gremlin.Net.Driver.Exceptions;
-using Gremlin.Net.Process.Traversal;
+﻿using Gremlin.Net.Driver.Exceptions;
 
 using Microsoft.Extensions.Logging;
 
