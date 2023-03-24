@@ -22,7 +22,7 @@ namespace ExRam.Gremlinq.Core.Execution
                 _shouldRetry = shouldRetry;
             }
 
-            public IAsyncEnumerable<object> Execute(Bytecode bytecode, IGremlinQueryEnvironment environment)
+            public IAsyncEnumerable<object> Execute(IGremlinQueryBase query, IGremlinQueryEnvironment environment)
             {
                 return AsyncEnumerable.Create(Core);
 
@@ -32,7 +32,7 @@ namespace ExRam.Gremlinq.Core.Execution
 
                     for (var i = 0; i < int.MaxValue; i++)
                     {
-                        await using (var enumerator = _baseExecutor.Execute(bytecode, environment).GetAsyncEnumerator(ct))
+                        await using (var enumerator = _baseExecutor.Execute(query, environment).GetAsyncEnumerator(ct))
                         {
                             while (true)
                             {
@@ -81,7 +81,7 @@ namespace ExRam.Gremlinq.Core.Execution
                 _exceptionTransformation = exceptionTransformation;
             }
 
-            public IAsyncEnumerable<object> Execute(Bytecode bytecode, IGremlinQueryEnvironment environment)
+            public IAsyncEnumerable<object> Execute(IGremlinQueryBase query, IGremlinQueryEnvironment environment)
             {
                 return AsyncEnumerable.Create(Core);
 
@@ -92,7 +92,7 @@ namespace ExRam.Gremlinq.Core.Execution
                     try
                     {
                         enumerator = _baseExecutor
-                            .Execute(bytecode, environment)
+                            .Execute(query, environment)
                             .GetAsyncEnumerator(ct);
                     }
                     catch (Exception ex)
