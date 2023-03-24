@@ -1,5 +1,4 @@
 ﻿{
-  Id: Guid_1,
   Bytecode: {
     StepInstructions: [
       {
@@ -19,7 +18,7 @@
             EnumValue: single
           },
           GuidKey,
-          Guid_2
+          Guid_1
         ]
       },
       {
