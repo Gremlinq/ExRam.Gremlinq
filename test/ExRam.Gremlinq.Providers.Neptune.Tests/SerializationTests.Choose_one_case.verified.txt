@@ -1,49 +1,47 @@
 ﻿{
-  Bytecode: {
-    StepInstructions: [
-      {
-        OperatorName: V
-      },
-      {
-        OperatorName: filter,
-        Arguments: [
-          {
-            StepInstructions: [
-              {
-                OperatorName: properties
-              }
-            ]
-          }
-        ]
-      },
-      {
-        OperatorName: choose,
-        Arguments: [
-          {
-            StepInstructions: [
-              {
-                OperatorName: values
-              }
-            ]
-          }
-        ]
-      },
-      {
-        OperatorName: option,
-        Arguments: [
-          3,
-          {
-            StepInstructions: [
-              {
-                OperatorName: constant,
-                Arguments: [
-                  1
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  }
+  StepInstructions: [
+    {
+      OperatorName: V
+    },
+    {
+      OperatorName: filter,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: properties
+            }
+          ]
+        }
+      ]
+    },
+    {
+      OperatorName: choose,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: values
+            }
+          ]
+        }
+      ]
+    },
+    {
+      OperatorName: option,
+      Arguments: [
+        3,
+        {
+          StepInstructions: [
+            {
+              OperatorName: constant,
+              Arguments: [
+                1
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

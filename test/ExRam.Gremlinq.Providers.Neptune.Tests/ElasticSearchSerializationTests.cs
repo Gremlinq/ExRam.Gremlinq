@@ -3,11 +3,11 @@ using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Tests.Entities;
 using ExRam.Gremlinq.Providers.Core;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
-using ExRam.Gremlinq.Core.Serialization;
+using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Providers.Neptune.Tests
 {
-    public sealed class ElasticSearchSerializationTests : SerializationTestsBase<BytecodeGremlinQuery>, IClassFixture<ElasticSearchSerializationTests.Fixture>
+    public sealed class ElasticSearchSerializationTests : SerializationTestsBase<Bytecode>, IClassFixture<ElasticSearchSerializationTests.Fixture>
     {
         public sealed class Fixture : GremlinqTestFixture
         {

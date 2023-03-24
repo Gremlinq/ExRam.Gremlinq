@@ -1,15 +1,13 @@
 ﻿{
-  Bytecode: {
-    StepInstructions: [
-      {
-        OperatorName: V
-      },
-      {
-        OperatorName: fail,
-        Arguments: [
-          There's been an error.
-        ]
-      }
-    ]
-  }
+  StepInstructions: [
+    {
+      OperatorName: V
+    },
+    {
+      OperatorName: fail,
+      Arguments: [
+        There's been an error.
+      ]
+    }
+  ]
 }

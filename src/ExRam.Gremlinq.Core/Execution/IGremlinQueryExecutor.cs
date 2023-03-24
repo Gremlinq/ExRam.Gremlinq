@@ -1,9 +1,9 @@
-﻿using ExRam.Gremlinq.Core.Serialization;
+﻿using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core.Execution
 {
     public interface IGremlinQueryExecutor
     {
-        IAsyncEnumerable<object> Execute(BytecodeGremlinQuery query, IGremlinQueryEnvironment environment);
+        IAsyncEnumerable<object> Execute(Bytecode bytecode, IGremlinQueryEnvironment environment);
     }
 }

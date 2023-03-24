@@ -93,7 +93,7 @@ namespace ExRam.Gremlinq.Core.Serialization
             .AddDefaultStepConverters();
 
         public static ITransformer PreferGroovySerialization(this ITransformer serializer) => serializer
-            .Add(Create<BytecodeGremlinQuery, RequestMessage>((query, env, recurse) => recurse.TryTransform(query, env, out GroovyGremlinQuery groovyQuery)
+            .Add(Create<Bytecode, RequestMessage>((query, env, recurse) => recurse.TryTransform(query, env, out GroovyGremlinQuery groovyQuery)
                 ? RequestMessage
                     .Build(Tokens.OpsEval)
                     .AddArgument(Tokens.ArgsGremlin, groovyQuery.Script)
@@ -281,15 +281,8 @@ namespace ExRam.Gremlinq.Core.Serialization
                     return byteCode;
                 })
                 .AutoRecurse<Bytecode>())
-            .Add(Create<Bytecode, GroovyGremlinQuery>((bytecode, env, recurse) => recurse
-                .TransformTo<BytecodeGremlinQuery>()
-                .From(bytecode, env)
-                .ToGroovy()))
             .Add(ConverterFactory
-                .Create<Bytecode, BytecodeGremlinQuery>((bytecode, _, _) => new BytecodeGremlinQuery(bytecode))
-                .AutoRecurse<BytecodeGremlinQuery>())
-            .Add(ConverterFactory
-                .Create<BytecodeGremlinQuery, GroovyGremlinQuery>((query, _, _) => query.ToGroovy()))
+                .Create<Bytecode, GroovyGremlinQuery>((query, _, _) => query.ToGroovy()))
             .Add(ConverterFactory
                 .Create<StepLabel, string>((stepLabel, _, _) =>
                 {
@@ -339,10 +332,10 @@ namespace ExRam.Gremlinq.Core.Serialization
             .Add(Create<TextP, TextP>((textP, _, _) => textP))
             .Add(Create<Type, Type>((type, _, _) => type))
 
-            .Add(Create<BytecodeGremlinQuery, RequestMessage>((query, env, recurse) => RequestMessage
+            .Add(Create<Bytecode, RequestMessage>((bytecode, env, recurse) => RequestMessage
                 .Build(Tokens.OpsBytecode)
                 .Processor(Tokens.ProcessorTraversal)
-                .AddArgument(Tokens.ArgsGremlin, query.Bytecode)
+                .AddArgument(Tokens.ArgsGremlin, bytecode)
                 .AddAlias(env)
                 .Create()));
 

@@ -97,7 +97,7 @@ namespace Gremlin.Net.Driver
                         {
                             if (requestMessage.Arguments.TryGetValue(Tokens.ArgsGremlin, out var bytecodeObject) && bytecodeObject is Bytecode bytecode)
                             {
-                                maybeGroovyQuery = new BytecodeGremlinQuery(bytecode).ToGroovy();    //TODO: Directly on Bytecode
+                                maybeGroovyQuery = bytecode.ToGroovy();
                             }
                         }
                         else if (requestMessage.Operation == Tokens.OpsEval)

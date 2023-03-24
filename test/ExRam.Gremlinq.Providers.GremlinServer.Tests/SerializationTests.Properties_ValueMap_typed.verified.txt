@@ -1,15 +1,13 @@
 ﻿{
-  Bytecode: {
-    StepInstructions: [
-      {
-        OperatorName: V
-      },
-      {
-        OperatorName: properties
-      },
-      {
-        OperatorName: valueMap
-      }
-    ]
-  }
+  StepInstructions: [
+    {
+      OperatorName: V
+    },
+    {
+      OperatorName: properties
+    },
+    {
+      OperatorName: valueMap
+    }
+  ]
 }

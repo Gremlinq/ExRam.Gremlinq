@@ -1,15 +1,13 @@
 ﻿{
-  Bytecode: {
-    StepInstructions: [
-      {
-        OperatorName: V
-      },
-      {
-        OperatorName: constant,
-        Arguments: [
-          42
-        ]
-      }
-    ]
-  }
+  StepInstructions: [
+    {
+      OperatorName: V
+    },
+    {
+      OperatorName: constant,
+      Arguments: [
+        42
+      ]
+    }
+  ]
 }

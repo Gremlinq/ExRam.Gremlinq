@@ -1,18 +1,16 @@
 ﻿{
-  Bytecode: {
-    StepInstructions: [
-      {
-        OperatorName: V
-      },
-      {
-        OperatorName: out
-      },
-      {
-        OperatorName: out
-      },
-      {
-        OperatorName: path
-      }
-    ]
-  }
+  StepInstructions: [
+    {
+      OperatorName: V
+    },
+    {
+      OperatorName: out
+    },
+    {
+      OperatorName: out
+    },
+    {
+      OperatorName: path
+    }
+  ]
 }

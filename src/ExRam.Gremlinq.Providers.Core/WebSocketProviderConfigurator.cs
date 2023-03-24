@@ -5,7 +5,7 @@ using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Core.Transformation;
 using Gremlin.Net.Driver;
 using Gremlin.Net.Driver.Messages;
-using Microsoft.Extensions.Logging;
+using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Providers.Core
 {
@@ -25,7 +25,7 @@ namespace ExRam.Gremlinq.Providers.Core
                 _clientFactory = clientFactory;
             }
 
-            public IAsyncEnumerable<object> Execute(BytecodeGremlinQuery query, IGremlinQueryEnvironment environment)
+            public IAsyncEnumerable<object> Execute(Bytecode bytecode, IGremlinQueryEnvironment environment)
             {
                 return AsyncEnumerable.Create(Core);
 
@@ -45,7 +45,7 @@ namespace ExRam.Gremlinq.Providers.Core
                     var requestMessage = environment
                         .Serializer
                         .TransformTo<RequestMessage>()
-                        .From(query, environment);
+                        .From(bytecode, environment);
 
                     var maybeResults = await client
                         .SubmitAsync<object>(requestMessage, ct)

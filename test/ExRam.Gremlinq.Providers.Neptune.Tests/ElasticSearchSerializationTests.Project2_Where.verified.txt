@@ -1,235 +1,233 @@
 ﻿{
-  Bytecode: {
-    SourceInstructions: [
-      {
-        OperatorName: withSideEffect,
-        Arguments: [
-          Neptune#fts.endpoint,
-          http://elastic.search.server
-        ]
-      },
-      {
-        OperatorName: withSideEffect,
-        Arguments: [
-          Neptune#fts.queryType,
-          query_string
-        ]
-      }
-    ],
-    StepInstructions: [
-      {
-        OperatorName: V
-      },
-      {
-        OperatorName: project,
-        Arguments: [
-          Item1,
-          Item2
-        ]
-      },
-      {
-        OperatorName: by,
-        Arguments: [
-          {
-            StepInstructions: [
-              {
-                OperatorName: label
-              }
-            ]
-          }
-        ]
-      },
-      {
-        OperatorName: by,
-        Arguments: [
-          {
-            StepInstructions: [
-              {
-                OperatorName: fold
-              }
-            ]
-          }
-        ]
-      },
-      {
-        OperatorName: filter,
-        Arguments: [
-          {
-            StepInstructions: [
-              {
-                OperatorName: select,
-                Arguments: [
-                  Item2
-                ]
-              },
-              {
-                OperatorName: count,
-                Arguments: [
-                  {
-                    EnumName: Scope,
-                    EnumValue: local
-                  }
-                ]
-              },
-              {
-                OperatorName: is,
-                Arguments: [
-                  3
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        OperatorName: project,
-        Arguments: [
-          Item1,
-          Item2
-        ]
-      },
-      {
-        OperatorName: by,
-        Arguments: [
-          {
-            StepInstructions: [
-              {
-                OperatorName: select,
-                Arguments: [
-                  Item1
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        OperatorName: by,
-        Arguments: [
-          {
-            StepInstructions: [
-              {
-                OperatorName: select,
-                Arguments: [
-                  Item2
-                ]
-              },
-              {
-                OperatorName: local,
-                Arguments: [
-                  {
-                    StepInstructions: [
-                      {
-                        OperatorName: unfold
-                      },
-                      {
-                        OperatorName: project,
-                        Arguments: [
-                          id,
-                          label,
-                          properties
-                        ]
-                      },
-                      {
-                        OperatorName: by,
-                        Arguments: [
-                          {
-                            EnumName: T,
-                            EnumValue: id
-                          }
-                        ]
-                      },
-                      {
-                        OperatorName: by,
-                        Arguments: [
-                          {
-                            EnumName: T,
-                            EnumValue: label
-                          }
-                        ]
-                      },
-                      {
-                        OperatorName: by,
-                        Arguments: [
-                          {
-                            StepInstructions: [
-                              {
-                                OperatorName: properties
-                              },
-                              {
-                                OperatorName: group
-                              },
-                              {
-                                OperatorName: by,
-                                Arguments: [
-                                  {
-                                    EnumName: T,
-                                    EnumValue: label
-                                  }
-                                ]
-                              },
-                              {
-                                OperatorName: by,
-                                Arguments: [
-                                  {
-                                    StepInstructions: [
-                                      {
-                                        OperatorName: project,
-                                        Arguments: [
-                                          id,
-                                          label,
-                                          value
-                                        ]
-                                      },
-                                      {
-                                        OperatorName: by,
-                                        Arguments: [
-                                          {
-                                            EnumName: T,
-                                            EnumValue: id
-                                          }
-                                        ]
-                                      },
-                                      {
-                                        OperatorName: by,
-                                        Arguments: [
-                                          {
-                                            EnumName: T,
-                                            EnumValue: label
-                                          }
-                                        ]
-                                      },
-                                      {
-                                        OperatorName: by,
-                                        Arguments: [
-                                          {
-                                            EnumName: T,
-                                            EnumValue: value
-                                          }
-                                        ]
-                                      },
-                                      {
-                                        OperatorName: fold
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        OperatorName: fold
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  }
+  SourceInstructions: [
+    {
+      OperatorName: withSideEffect,
+      Arguments: [
+        Neptune#fts.endpoint,
+        http://elastic.search.server
+      ]
+    },
+    {
+      OperatorName: withSideEffect,
+      Arguments: [
+        Neptune#fts.queryType,
+        query_string
+      ]
+    }
+  ],
+  StepInstructions: [
+    {
+      OperatorName: V
+    },
+    {
+      OperatorName: project,
+      Arguments: [
+        Item1,
+        Item2
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: label
+            }
+          ]
+        }
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: fold
+            }
+          ]
+        }
+      ]
+    },
+    {
+      OperatorName: filter,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: select,
+              Arguments: [
+                Item2
+              ]
+            },
+            {
+              OperatorName: count,
+              Arguments: [
+                {
+                  EnumName: Scope,
+                  EnumValue: local
+                }
+              ]
+            },
+            {
+              OperatorName: is,
+              Arguments: [
+                3
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      OperatorName: project,
+      Arguments: [
+        Item1,
+        Item2
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: select,
+              Arguments: [
+                Item1
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: select,
+              Arguments: [
+                Item2
+              ]
+            },
+            {
+              OperatorName: local,
+              Arguments: [
+                {
+                  StepInstructions: [
+                    {
+                      OperatorName: unfold
+                    },
+                    {
+                      OperatorName: project,
+                      Arguments: [
+                        id,
+                        label,
+                        properties
+                      ]
+                    },
+                    {
+                      OperatorName: by,
+                      Arguments: [
+                        {
+                          EnumName: T,
+                          EnumValue: id
+                        }
+                      ]
+                    },
+                    {
+                      OperatorName: by,
+                      Arguments: [
+                        {
+                          EnumName: T,
+                          EnumValue: label
+                        }
+                      ]
+                    },
+                    {
+                      OperatorName: by,
+                      Arguments: [
+                        {
+                          StepInstructions: [
+                            {
+                              OperatorName: properties
+                            },
+                            {
+                              OperatorName: group
+                            },
+                            {
+                              OperatorName: by,
+                              Arguments: [
+                                {
+                                  EnumName: T,
+                                  EnumValue: label
+                                }
+                              ]
+                            },
+                            {
+                              OperatorName: by,
+                              Arguments: [
+                                {
+                                  StepInstructions: [
+                                    {
+                                      OperatorName: project,
+                                      Arguments: [
+                                        id,
+                                        label,
+                                        value
+                                      ]
+                                    },
+                                    {
+                                      OperatorName: by,
+                                      Arguments: [
+                                        {
+                                          EnumName: T,
+                                          EnumValue: id
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      OperatorName: by,
+                                      Arguments: [
+                                        {
+                                          EnumName: T,
+                                          EnumValue: label
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      OperatorName: by,
+                                      Arguments: [
+                                        {
+                                          EnumName: T,
+                                          EnumValue: value
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      OperatorName: fold
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      OperatorName: fold
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

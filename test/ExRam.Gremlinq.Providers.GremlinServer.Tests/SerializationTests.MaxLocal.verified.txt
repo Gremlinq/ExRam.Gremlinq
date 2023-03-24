@@ -1,33 +1,31 @@
 ﻿{
-  Bytecode: {
-    StepInstructions: [
-      {
-        OperatorName: V
-      },
-      {
-        OperatorName: hasLabel,
-        Arguments: [
-          Person
-        ]
-      },
-      {
-        OperatorName: values,
-        Arguments: [
-          Age
-        ]
-      },
-      {
-        OperatorName: fold
-      },
-      {
-        OperatorName: max,
-        Arguments: [
-          {
-            EnumName: Scope,
-            EnumValue: local
-          }
-        ]
-      }
-    ]
-  }
+  StepInstructions: [
+    {
+      OperatorName: V
+    },
+    {
+      OperatorName: hasLabel,
+      Arguments: [
+        Person
+      ]
+    },
+    {
+      OperatorName: values,
+      Arguments: [
+        Age
+      ]
+    },
+    {
+      OperatorName: fold
+    },
+    {
+      OperatorName: max,
+      Arguments: [
+        {
+          EnumName: Scope,
+          EnumValue: local
+        }
+      ]
+    }
+  ]
 }

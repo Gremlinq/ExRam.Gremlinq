@@ -1,181 +1,179 @@
 ﻿{
-  Bytecode: {
-    StepInstructions: [
-      {
-        OperatorName: V
-      },
-      {
-        OperatorName: hasLabel,
-        Arguments: [
-          Person
-        ]
-      },
-      {
-        OperatorName: project,
-        Arguments: [
-          In,
-          Out,
-          Count,
-          Properties
-        ]
-      },
-      {
-        OperatorName: by,
-        Arguments: [
-          {
-            StepInstructions: [
-              {
-                OperatorName: constant,
-                Arguments: [
-                  in_value
-                ]
-              },
-              {
-                OperatorName: limit,
-                Arguments: [
-                  1
-                ]
-              },
-              {
-                OperatorName: fold
-              }
-            ]
-          }
-        ]
-      },
-      {
-        OperatorName: by,
-        Arguments: [
-          {
-            StepInstructions: [
-              {
-                OperatorName: constant,
-                Arguments: [
-                  out_value
-                ]
-              },
-              {
-                OperatorName: limit,
-                Arguments: [
-                  1
-                ]
-              },
-              {
-                OperatorName: fold
-              }
-            ]
-          }
-        ]
-      },
-      {
-        OperatorName: by,
-        Arguments: [
-          {
-            StepInstructions: [
-              {
-                OperatorName: constant,
-                Arguments: [
-                  count_value
-                ]
-              },
-              {
-                OperatorName: limit,
-                Arguments: [
-                  1
-                ]
-              },
-              {
-                OperatorName: fold
-              }
-            ]
-          }
-        ]
-      },
-      {
-        OperatorName: by,
-        Arguments: [
-          {
-            StepInstructions: [
-              {
-                OperatorName: constant,
-                Arguments: [
-                  properties_value
-                ]
-              },
-              {
-                OperatorName: limit,
-                Arguments: [
-                  1
-                ]
-              },
-              {
-                OperatorName: fold
-              }
-            ]
-          }
-        ]
-      },
-      {
-        OperatorName: map,
-        Arguments: [
-          {
-            StepInstructions: [
-              {
-                OperatorName: unfold
-              },
-              {
-                OperatorName: group
-              },
-              {
-                OperatorName: by,
-                Arguments: [
-                  {
-                    StepInstructions: [
-                      {
-                        OperatorName: select,
-                        Arguments: [
-                          {
-                            EnumName: Column,
-                            EnumValue: keys
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                OperatorName: by,
-                Arguments: [
-                  {
-                    StepInstructions: [
-                      {
-                        OperatorName: select,
-                        Arguments: [
-                          {
-                            EnumName: Column,
-                            EnumValue: values
-                          }
-                        ]
-                      },
-                      {
-                        OperatorName: unfold
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        OperatorName: select,
-        Arguments: [
-          In,
-          Out
-        ]
-      }
-    ]
-  }
+  StepInstructions: [
+    {
+      OperatorName: V
+    },
+    {
+      OperatorName: hasLabel,
+      Arguments: [
+        Person
+      ]
+    },
+    {
+      OperatorName: project,
+      Arguments: [
+        In,
+        Out,
+        Count,
+        Properties
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: constant,
+              Arguments: [
+                in_value
+              ]
+            },
+            {
+              OperatorName: limit,
+              Arguments: [
+                1
+              ]
+            },
+            {
+              OperatorName: fold
+            }
+          ]
+        }
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: constant,
+              Arguments: [
+                out_value
+              ]
+            },
+            {
+              OperatorName: limit,
+              Arguments: [
+                1
+              ]
+            },
+            {
+              OperatorName: fold
+            }
+          ]
+        }
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: constant,
+              Arguments: [
+                count_value
+              ]
+            },
+            {
+              OperatorName: limit,
+              Arguments: [
+                1
+              ]
+            },
+            {
+              OperatorName: fold
+            }
+          ]
+        }
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: constant,
+              Arguments: [
+                properties_value
+              ]
+            },
+            {
+              OperatorName: limit,
+              Arguments: [
+                1
+              ]
+            },
+            {
+              OperatorName: fold
+            }
+          ]
+        }
+      ]
+    },
+    {
+      OperatorName: map,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: unfold
+            },
+            {
+              OperatorName: group
+            },
+            {
+              OperatorName: by,
+              Arguments: [
+                {
+                  StepInstructions: [
+                    {
+                      OperatorName: select,
+                      Arguments: [
+                        {
+                          EnumName: Column,
+                          EnumValue: keys
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              OperatorName: by,
+              Arguments: [
+                {
+                  StepInstructions: [
+                    {
+                      OperatorName: select,
+                      Arguments: [
+                        {
+                          EnumName: Column,
+                          EnumValue: values
+                        }
+                      ]
+                    },
+                    {
+                      OperatorName: unfold
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      OperatorName: select,
+      Arguments: [
+        In,
+        Out
+      ]
+    }
+  ]
 }

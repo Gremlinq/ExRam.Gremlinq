@@ -1,9 +1,9 @@
-﻿using ExRam.Gremlinq.Core.Serialization;
+﻿using Gremlin.Net.Process.Traversal;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public sealed class BytecodeQuerySerializationTest : SerializationTestsBase<BytecodeGremlinQuery>, IClassFixture<BytecodeQuerySerializationTest.Fixture>
+    public sealed class BytecodeQuerySerializationTest : SerializationTestsBase<Bytecode>, IClassFixture<BytecodeQuerySerializationTest.Fixture>
     {
         public sealed class Fixture : GremlinqTestFixture
         {

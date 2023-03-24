@@ -1,71 +1,69 @@
 ﻿{
-  Bytecode: {
-    SourceInstructions: [
-      {
-        OperatorName: withSideEffect,
-        Arguments: [
-          Neptune#fts.endpoint,
-          http://elastic.search.server
-        ]
-      },
-      {
-        OperatorName: withSideEffect,
-        Arguments: [
-          Neptune#fts.queryType,
-          query_string
-        ]
-      }
-    ],
-    StepInstructions: [
-      {
-        OperatorName: V
-      },
-      {
-        OperatorName: inE,
-        Arguments: [
-          LivesIn,
-          Speaks,
-          WorksFor
-        ]
-      },
-      {
-        OperatorName: project,
-        Arguments: [
-          id,
-          label,
-          properties
-        ]
-      },
-      {
-        OperatorName: by,
-        Arguments: [
-          {
-            EnumName: T,
-            EnumValue: id
-          }
-        ]
-      },
-      {
-        OperatorName: by,
-        Arguments: [
-          {
-            EnumName: T,
-            EnumValue: label
-          }
-        ]
-      },
-      {
-        OperatorName: by,
-        Arguments: [
-          {
-            StepInstructions: [
-              {
-                OperatorName: valueMap
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  }
+  SourceInstructions: [
+    {
+      OperatorName: withSideEffect,
+      Arguments: [
+        Neptune#fts.endpoint,
+        http://elastic.search.server
+      ]
+    },
+    {
+      OperatorName: withSideEffect,
+      Arguments: [
+        Neptune#fts.queryType,
+        query_string
+      ]
+    }
+  ],
+  StepInstructions: [
+    {
+      OperatorName: V
+    },
+    {
+      OperatorName: inE,
+      Arguments: [
+        LivesIn,
+        Speaks,
+        WorksFor
+      ]
+    },
+    {
+      OperatorName: project,
+      Arguments: [
+        id,
+        label,
+        properties
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          EnumName: T,
+          EnumValue: id
+        }
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          EnumName: T,
+          EnumValue: label
+        }
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: valueMap
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

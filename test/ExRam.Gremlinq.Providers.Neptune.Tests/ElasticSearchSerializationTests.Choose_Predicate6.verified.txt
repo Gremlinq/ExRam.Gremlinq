@@ -1,71 +1,69 @@
 ﻿{
-  Bytecode: {
-    SourceInstructions: [
-      {
-        OperatorName: withSideEffect,
-        Arguments: [
-          Neptune#fts.endpoint,
-          http://elastic.search.server
-        ]
-      },
-      {
-        OperatorName: withSideEffect,
-        Arguments: [
-          Neptune#fts.queryType,
-          query_string
-        ]
-      }
-    ],
-    StepInstructions: [
-      {
-        OperatorName: V
-      },
-      {
-        OperatorName: id
-      },
-      {
-        OperatorName: choose,
-        Arguments: [
-          {
-            OperatorName: or,
+  SourceInstructions: [
+    {
+      OperatorName: withSideEffect,
+      Arguments: [
+        Neptune#fts.endpoint,
+        http://elastic.search.server
+      ]
+    },
+    {
+      OperatorName: withSideEffect,
+      Arguments: [
+        Neptune#fts.queryType,
+        query_string
+      ]
+    }
+  ],
+  StepInstructions: [
+    {
+      OperatorName: V
+    },
+    {
+      OperatorName: id
+    },
+    {
+      OperatorName: choose,
+      Arguments: [
+        {
+          OperatorName: or,
+          Value: {
+            OperatorName: and,
             Value: {
-              OperatorName: and,
-              Value: {
-                OperatorName: gt,
-                Value: 0
-              },
-              Other: {
-                OperatorName: lt,
-                Value: 42
-              }
+              OperatorName: gt,
+              Value: 0
             },
             Other: {
-              OperatorName: neq,
-              Value: 37
+              OperatorName: lt,
+              Value: 42
             }
           },
-          {
-            StepInstructions: [
-              {
-                OperatorName: constant,
-                Arguments: [
-                  true
-                ]
-              }
-            ]
-          },
-          {
-            StepInstructions: [
-              {
-                OperatorName: constant,
-                Arguments: [
-                  false
-                ]
-              }
-            ]
+          Other: {
+            OperatorName: neq,
+            Value: 37
           }
-        ]
-      }
-    ]
-  }
+        },
+        {
+          StepInstructions: [
+            {
+              OperatorName: constant,
+              Arguments: [
+                true
+              ]
+            }
+          ]
+        },
+        {
+          StepInstructions: [
+            {
+              OperatorName: constant,
+              Arguments: [
+                false
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
