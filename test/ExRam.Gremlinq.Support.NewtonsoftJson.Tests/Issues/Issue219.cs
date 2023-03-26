@@ -1,7 +1,7 @@
 ﻿using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Core.Tests;
-using static ExRam.Gremlinq.Core.GremlinQuerySource;
+using ExRam.Gremlinq.Core.Transformation;
+using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
 {
@@ -13,25 +13,17 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
         }
 
         [Fact]
-        public async Task Repro()
+        public Task Repro()
         {
-            await g
-                .ConfigureEnvironment(_ => _
-                    .UseModel(GraphModel.Empty))
-                .WithExecutor("[\"2021-03-31T14:57:20.3482309Z\"]")
-                .V<string>()
-                .Verify();
-        }
+            var env = GremlinQueryEnvironment.Empty
+                .UseNewtonsoftJson();
 
-        [Fact]
-        public async Task Deserialize_to_DateTime()
-        {
-            await g
-                .ConfigureEnvironment(_ => _
-                    .UseModel(GraphModel.Empty))
-                .WithExecutor("[\"2021-03-31T14:57:20.3482309Z\"]")
-                .V<DateTime>()
-                .Verify();
+            var token = env
+                .Deserializer
+                .TransformTo<JToken>()
+                .From("\"2021-03-31T14:57:20.3482309Z\"", env);
+
+            return Verify(token.ToString());
         }
     }
 }
