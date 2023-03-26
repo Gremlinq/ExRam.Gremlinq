@@ -1,28 +1,18 @@
 ﻿[
   {
-    "Age": 36,
-    "Gender": 1,
-    "Image": null,
-    "RegistrationDate": null,
-    "PhoneNumbers": [
+    Age: 36,
+    Gender: Female,
+    PhoneNumbers: [
       {
-        "Id": 4,
-        "Label": null,
-        "Properties": {},
-        "Value": "+123456",
-        "Key": null
+        Id: 4,
+        Value: +123456
       },
       {
-        "Id": 5,
-        "Label": null,
-        "Properties": {},
-        "Value": "+234567",
-        "Key": null
+        Id: 5,
+        Value: +234567
       }
     ],
-    "SomeObscureProperty": null,
-    "Name": null,
-    "Id": 13,
-    "Label": "Person"
+    Id: 13,
+    Label: Person
   }
 ]

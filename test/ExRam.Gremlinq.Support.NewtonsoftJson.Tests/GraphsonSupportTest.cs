@@ -5,6 +5,9 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
+using ExRam.Gremlinq.Core.Transformation;
+using ExRam.Gremlinq.Core.GraphElements;
+using Path = ExRam.Gremlinq.Core.GraphElements.Path;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
 {
@@ -21,19 +24,35 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
             public Language? Value { get; set; }
         }
 
-        private readonly IGremlinQuerySource _g;
+        private readonly IGremlinQueryEnvironment _environment;
+        //private readonly IGremlinQuerySource _g;
 
         public GraphsonSupportTest(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
-            _g = g
-                .ConfigureEnvironment(env => env.UseModel(GraphModel.FromBaseTypes<Vertex, Edge>(lookup => lookup
-                    .IncludeAssembliesOfBaseTypes())));
+            _environment = g
+                .ConfigureEnvironment(env => env
+                    .UseModel(GraphModel
+                        .FromBaseTypes<Vertex, Edge>(lookup => lookup
+                            .IncludeAssembliesOfBaseTypes()))
+                    .UseNewtonsoftJson())
+                .AsAdmin()
+                .Environment;
         }
+
+        private Task Verify<T>(JToken token, IGremlinQueryEnvironment environment)
+        {
+            return Verify(environment
+                .Deserializer
+                .TransformTo<T[]>()
+                .From(token, environment));
+        }
+
+        private Task Verify<T>(JToken token) => Verify<T>(token, _environment);
 
         [Fact]
         public void JToken_Load_does_not_reuse()
         {
-            var token = JToken.Parse(GetJson("Single_Language"));
+            var token = GetJson("Single_Language");
 
             var readToken1 = JToken.Load(new JTokenReader(token));
             var readToken2 = JToken.Load(new JTokenReader(token));
@@ -44,500 +63,149 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
         }
 
         [Fact]
-        public async Task GraphSon3ReferenceVertex()
-        {
-            await _g
-                .WithExecutor(GetJson("Graphson3ReferenceVertex"))
-                .V()
-                .Verify();
-        }
+        public Task GraphSon3ReferenceVertex() => Verify<object>(GetJson("Graphson3ReferenceVertex"));
 
         [Fact]
-        public async Task Configured_property_name()
-        {
-            await _g
-                .ConfigureEnvironment(env => env
-                    .ConfigureModel(model => model
-                        .ConfigureProperties(prop => prop
-                            .ConfigureElement<Person>(conf => conf
-                                .ConfigureName(x => x.Name, "replacement")))))
-                .WithExecutor("[ { \"id\": 13, \"label\": \"Person\", \"type\": \"vertex\", \"properties\": { \"replacement\": [ { \"id\": 1, \"value\": \"nameValue\" } ] } } ]")
-                .V<Person>()
-                .Verify();
-        }
+        public Task Configured_property_name() => Verify<Person>(
+            JToken.Parse("[ { \"id\": 13, \"label\": \"Person\", \"type\": \"vertex\", \"properties\": { \"replacement\": [ { \"id\": 1, \"value\": \"nameValue\" } ] } } ]"),
+            _environment
+                .ConfigureModel(model => model
+                    .ConfigureProperties(prop => prop
+                        .ConfigureElement<Person>(conf => conf
+                            .ConfigureName(x => x.Name, "replacement")))));
 
         [Fact]
-        public async Task IsDescribedIn()
-        {
-            await _g
-                .WithExecutor(GetJson("Single_WorksFor"))
-                .E<WorksFor>()
-                .Verify();
-        }
+        public Task IsDescribedIn() => Verify<WorksFor>(GetJson("Single_WorksFor"));
 
         [Fact]
-        public async Task DynamicData()
-        {
-            await _g
-                .WithExecutor("{ \"values\": [ ], \"count\": { \"@type\": \"g:Int32\", \"@value\": 36 } }")
-                .V()
-                .Project(_ => _
-                    .ToDynamic()
-                    .By("values", __ => __.Values())
-                    .By("count", __ => __.Count()))
-                .Verify();
-        }
-
-        [Fact(Skip = "Source data no longer according to new execution pipeline.")]
-        public async Task WorksFor_with_Graphson3()
-        {
-            await _g
-                .WithExecutor("{\"@type\":\"g:List\",\"@value\":[{\"@type\":\"g:Edge\",\"@value\":{\"id\":{\"@type\":\"g:Int64\",\"@value\":23},\"label\":\"WorksFor\",\"inVLabel\":\"Company\",\"outVLabel\":\"Person\",\"inV\":\"companyId\",\"outV\":\"personId\",\"properties\":{\"Role\":{\"@type\":\"g:Property\",\"@value\":{\"key\":\"Role\",\"value\":\"Admin\"}},\"ActiveFrom\":{\"@type\":\"g:Property\",\"@value\":{\"key\":\"ActiveFrom\",\"value\":{\"@type\":\"g:Int64\",\"@value\":1523879885819}}}}}}]}")
-                .E<WorksFor>()
-                .Verify();
-        }
+        public Task DynamicData() => Verify<dynamic>(JToken.Parse("{ \"values\": [ ], \"count\": { \"@type\": \"g:Int32\", \"@value\": 36 } }"));
 
         [Fact]
-        public async Task Empty1()
-        {
-            await _g
-                .WithExecutor("[]")
-                .V()
-                .Drop()
-                .Verify();
-        }
+        public Task Empty1() => Verify<object>(JToken.Parse("[]"));
 
         [Fact]
-        public async Task Empty2()
-        {
-            await _g
-                .WithExecutor("[]")
-                .V<Person>()
-                .Verify();
-        }
+        public Task Empty2() => Verify<Person>(JToken.Parse("[]"));
 
         [Fact]
-        public async Task String_Ids()
-        {
-            await _g
-                .WithExecutor("[ \"id1\", \"id2\" ]")
-                .V()
-                .Id()
-                .Verify();
-        }
+        public Task String_Ids() => Verify<object>(JToken.Parse("[ \"id1\", \"id2\" ]"));
 
         [Fact]
-        public async Task String_Ids2()
-        {
-            await _g
-                .WithExecutor("[ \"1\", \"2\" ]")
-                .V()
-                .Id()
-                .Verify();
-        }
+        public Task String_Ids2() => Verify<object>(JToken.Parse("[ \"1\", \"2\" ]"));
 
         [Fact]
-        public async Task Int_Ids()
-        {
-            await _g
-                .WithExecutor("[ 1, 2 ]")
-                .V()
-                .Id()
-                .Verify();
-        }
+        public Task Int_Ids() => Verify<object>(JToken.Parse("[ 1, 2 ]"));
 
         [Fact]
-        public async Task Empty_to_ints()
-        {
-            await _g
-                .WithExecutor("[{ \"Item1\": [], \"Item2\": [] }]")
-                .V<(int[] ints, string[] strings)>()
-                .Verify();   //Must be Verify(...).
-        }
+        public Task Empty_to_ints() => Verify<(int[] ints, string[] strings)>(JToken.Parse("[{ \"Item1\": [], \"Item2\": [] }]"));
 
         [Fact]
-        public async Task Mixed_Ids()
-        {
-            await _g
-                .WithExecutor("[ 1, \"id2\" ]")
-                .V()
-                .Id()
-                .Verify();
-        }
+        public Task Mixed_Ids() => Verify<object>(JToken.Parse("[ 1, \"id2\" ]"));
 
         [Fact]
-        public async Task DateTime_is_UTC()
-        {
-            await _g
-                .WithExecutor(GetJson("Single_Company"))
-                .V<Company>()
-                .Verify();
-        }
+        public Task DateTime_is_UTC() => Verify<Company>(GetJson("Single_Company"));
 
         [Fact]
-        public async Task SingleCompany_dynamic()
-        {
-            await _g
-                .WithExecutor(GetJson("Single_Company"))
-                .V<dynamic>()
-                .Verify();
-        }
+        public Task Language_unknown_type() => Verify<object>(GetJson("Single_Language"));
 
         [Fact]
-        public async Task Language_unknown_type()
-        {
-            await _g
-                .WithExecutor(GetJson("Single_Language"))
-                .V<object>()
-                .Verify();
-        }
+        public Task Language_unknown_type_without_model() => Verify<object>(
+            GetJson("Single_Language"),
+            _environment
+                .UseModel(GraphModel.Empty));
 
         [Fact]
-        public async Task Language_unknown_type_without_model()
-        {
-            await _g
-                .ConfigureEnvironment(env => env
-                    .UseModel(GraphModel.Empty))
-                .WithExecutor(GetJson("Single_Language"))
-                .V()
-                .Cast<object>()
-                .Verify();
-        }
+        public Task Language_strongly_typed() => Verify<Language>(GetJson("Single_Language"));
 
         [Fact]
-        public async Task Language_strongly_typed()
-        {
-            await _g
-                .WithExecutor(GetJson("Single_Language"))
-                .V<Language>()
-                .Verify();
-        }
+        public Task Language_strongly_typed_without_model() => Verify<Language>(
+            GetJson("Single_Language"),
+            _environment
+                .UseModel(GraphModel.Empty));
 
         [Fact]
-        public async Task Language_strongly_typed_without_model()
-        {
-            await _g
-                .ConfigureEnvironment(env => env
-                    .UseModel(GraphModel.Empty))
-                .WithExecutor(GetJson("Single_Language"))
-                .V()
-                .Cast<Language>()
-                .Verify();
-        }
+        public Task Language_to_generic_vertex() => Verify<Vertex>(GetJson("Single_Language"));
 
         [Fact]
-        public async Task Language_to_generic_vertex()
-        {
-            await _g
-                .WithExecutor(GetJson("Single_Language"))
-                .V<Vertex>()
-                .Verify();
-        }
+        public Task Languages_to_object() => Verify<object>(GetJson("Array_of_Languages"));
 
         [Fact]
-        public async Task Languages_to_object()
-        {
-            await _g
-                .WithExecutor(GetJson("Array_of_Languages"))
-                .V<object>()
-                .Verify();
-        }
+        public Task Person_strongly_typed() => Verify<Person>(GetJson("Single_Person"));
 
         [Fact]
-        public async Task Person_strongly_typed()
-        {
-            await _g
-                .WithExecutor(GetJson("Single_Person"))
-                .V<Person>()
-                .Verify();
-        }
+        public Task Person_with_null() => Verify<Person>(GetJson("Single_Person_with_null"));
 
         [Fact]
-        public async Task Person_with_null()
-        {
-            await _g
-                .WithExecutor(GetJson("Single_Person_with_null"))
-                .V<Person>()
-                .Verify();
-        }
+        public Task Person_StringId() => Verify<Person>(GetJson("Single_Person_String_Id"));
 
         [Fact]
-        public async Task Person_StringId()
-        {
-            await _g
-                .WithExecutor(GetJson("Single_Person_String_Id"))
-                .V<Person>()
-                .Verify();
-        }
+        public Task Person_lowercase_strongly_typed() => Verify<Person>(GetJson("Single_Person_lowercase_properties"));
 
         [Fact]
-        public async Task Person_lowercase_strongly_typed()
-        {
-            await _g
-                .WithExecutor(GetJson("Single_Person_lowercase_properties"))
-                .V<Person>()
-                .Verify();
-        }
+        public Task Person_without_PhoneNumbers_strongly_typed() => Verify<Person>(GetJson("Single_Person_without_PhoneNumbers"));
 
         [Fact]
-        public async Task Person_without_PhoneNumbers_strongly_typed()
-        {
-            await _g
-                .WithExecutor(GetJson("Single_Person_without_PhoneNumbers"))
-                .V<Person>()
-                .Verify();
-        }
+        public Task TimeFrame_strongly_typed() => Verify<TimeFrame>(GetJson("Single_TimeFrame"));
 
         [Fact]
-        public async Task TimeFrame_strongly_typed()
-        {
-            await _g
-                .WithExecutor(GetJson("Single_TimeFrame"))
-                .V<TimeFrame>()
-                .Verify();
-        }
-
-        [Fact(Skip = "Not standard behaviour!")]
-        public async Task TimeFrame_with_numbers_strongly_typed()
-        {
-            await _g
-                .WithExecutor(GetJson("Single_TimeFrame_with_numbers"))
-                .V<TimeFrame>()
-                .Verify();
-        }
+        public Task Language_by_vertex_inheritance() => Verify<object>(GetJson("Single_Language"));
 
         [Fact]
-        public async Task Language_by_vertex_inheritance()
-        {
-            await _g
-                .WithExecutor(GetJson("Single_Language"))
-                .V()
-                .Verify();
-        }
+        public Task Tuple() => Verify<(Person, Language)>(GetJson("Tuple_of_Person_Language"));
 
         [Fact]
-        public async Task Tuple()
-        {
-            await _g
-                .WithExecutor(GetJson("Tuple_of_Person_Language"))
-                .V()
-                .Cast<(Person, Language)>()
-                .Verify();
-        }
+        public Task Tuple_vertex_vertex() => Verify<(Vertex, Vertex)>(GetJson("Tuple_of_Person_Language"));
 
         [Fact]
-        public async Task Tuple_vertex_vertex()
-        {
-            await _g
-                .WithExecutor(GetJson("Tuple_of_Person_Language"))
-                .V()
-                .Cast<(Vertex, Vertex)>()
-                .Verify();
-        }
+        public Task NamedTuple() => Verify<PersonLanguageTuple>(GetJson("Named_tuple_of_Person_Language"));
 
         [Fact]
-        public async Task NamedTuple()
-        {
-            await _g
-                .WithExecutor(GetJson("Named_tuple_of_Person_Language"))
-                .V()
-                .Cast<PersonLanguageTuple>()
-                .Verify();
-        }
-
-        [Fact(Skip = "Source data no longer according to new execution pipeline.")]
-        public async Task Graphson3_Tuple()
-        {
-            await _g
-                .WithExecutor(GetJson("Graphson3_Tuple_of_Person_Language"))
-                .V()
-                .Cast<(Person, Language)>()
-                .Verify();
-        }
+        public Task SingleVertex_as_array() => Verify<Person[]>(JToken.Parse("[ { \"id\": \"3110d0db-17c0-4f82-89d8-0a7e9ae41c27\", \"label\": \"vertex\", \"type\": \"vertex\", \"properties\": { \"PartitionKey\": [ { \"id\": \"3110d0db-17c0-4f82-89d8-0a7e9ae41c27|PartitionKey\", \"value\": \"p\" } ] } } ]"));
 
         [Fact]
-        public async Task SingleVertex_as_array()
-        {
-            await _g
-                .WithExecutor("[ { \"id\": \"3110d0db-17c0-4f82-89d8-0a7e9ae41c27\", \"label\": \"vertex\", \"type\": \"vertex\", \"properties\": { \"PartitionKey\": [ { \"id\": \"3110d0db-17c0-4f82-89d8-0a7e9ae41c27|PartitionKey\", \"value\": \"p\" } ] } } ]")
-                .V<Person>()
-                .Fold()
-                .Verify();
-        }
+        public Task SingleVertex_as_array_of_arrays() => Verify<Person[][]>(JToken.Parse("[ { \"id\": \"3110d0db-17c0-4f82-89d8-0a7e9ae41c27\", \"label\": \"vertex\", \"type\": \"vertex\", \"properties\": { \"PartitionKey\": [ { \"id\": \"3110d0db-17c0-4f82-89d8-0a7e9ae41c27|PartitionKey\", \"value\": \"p\" } ] } } ]"));
 
         [Fact]
-        public async Task SingleVertex_as_array_of_arrays()
-        {
-            await _g
-                .WithExecutor("[ { \"id\": \"3110d0db-17c0-4f82-89d8-0a7e9ae41c27\", \"label\": \"vertex\", \"type\": \"vertex\", \"properties\": { \"PartitionKey\": [ { \"id\": \"3110d0db-17c0-4f82-89d8-0a7e9ae41c27|PartitionKey\", \"value\": \"p\" } ] } } ]")
-                .V<Person>()
-                .Fold()
-                .Fold()
-                .Verify();
-        }
+        public Task Graphson2Path() => Verify<Path[]>(GetJson("Graphson2_Paths"));
 
         [Fact]
-        public async Task Graphson2Path()
-        {
-            await _g
-                .WithExecutor(GetJson("Graphson2_Paths"))
-                .V<Language>()
-                .Cast<Core.GraphElements.Path[]>()
-                .Verify();
-        }
+        public Task Graphson3Path() => Verify<Path[]>(GetJson("Graphson3_Paths"));
 
         [Fact]
-        public async Task Graphson3Path()
-        {
-            await _g
-                .WithExecutor(GetJson("Graphson3_Paths"))
-                .V<Person>()
-                .Cast<Core.GraphElements.Path[]>()
-                .Verify();
-        }
+        public Task LargeGraphson3Path() => Verify<Path[]>(GetJson("Large_Graphson3_Paths"));
 
         [Fact]
-        public async Task LargeGraphson3Path()
-        {
-            await _g
-                .WithExecutor(GetJson("Large_Graphson3_Paths"))
-                .V<Person>()
-                .Cast<Core.GraphElements.Path[]>()
-                .Verify();
-        }
+        public Task Array() => Verify<Language[]>(GetJson("Array_of_Languages"));
 
         [Fact]
-        public async Task Array()
-        {
-            await _g
-                .WithExecutor(GetJson("Array_of_Languages"))
-                .V()
-                .Cast<Language[]>()
-                .Verify();
-        }
+        public Task Nested_Array() => Verify<Language[][]>(GetJson("Nested_array_of_Languages"));
 
         [Fact]
-        public async Task Nested_Array()
-        {
-            await _g
-                .WithExecutor(GetJson("Nested_array_of_Languages"))
-                .V()
-                .Cast<Language[][]>()
-                .Verify();
-        }
+        public Task Scalar() => Verify<int>(JToken.Parse("[ 36 ]"));
 
         [Fact]
-        public async Task Scalar()
-        {
-            await _g
-                .WithExecutor("[ 36 ]")
-                .V()
-                .Cast<int>()
-                .Verify();
-        }
+        public Task Meta_Properties() => Verify<Country>(GetJson("Country_with_meta_properties"));
 
         [Fact]
-        public async Task Meta_Properties()
-        {
-            await _g
-                .WithExecutor(GetJson("Country_with_meta_properties"))
-                .V<Country>()
-                .Verify();
-        }
+        public Task VertexProperties() => Verify<VertexProperty<object>>(GetJson("VertexProperties"));
 
         [Fact]
-        public async Task VertexProperties()
-        {
-            await _g
-                .WithExecutor(GetJson("VertexProperties"))
-                .V()
-                .Properties()
-                .Verify();
-        }
+        public Task VertexProperties_with_model() => Verify<VertexProperty<object, MetaPoco>>(GetJson("VertexProperties"));
 
         [Fact]
-        public async Task VertexProperties_with_model()
-        {
-            await _g
-                .WithExecutor(GetJson("VertexProperties"))
-                .V()
-                .Properties()
-                .Meta<MetaPoco>()
-                .Verify();
-        }
+        public Task MetaProperties() => Verify<Property<object>>(GetJson("Properties"));
 
         [Fact]
-        public async Task MetaProperties()
-        {
-            await _g
-                .WithExecutor(GetJson("Properties"))
-                .V()
-                .Properties()
-                .Properties()
-                .Verify();
-        }
+        public Task Guid() => Verify<Guid>(JToken.Parse("[ \"FCE0765A-454F-4D00-83DA-D76790156E29\" ]"));
 
         [Fact]
-        public async Task Guid()
-        {
-            await _g
-                .WithExecutor("[ \"FCE0765A-454F-4D00-83DA-D76790156E29\" ]")
-                .V<Guid>()
-                .Verify();
-        }
+        public Task VertexPropertyWithoutProperties() => Verify<VertexProperty<object, object>>(JToken.Parse("[ { \"id\": 166, \"value\": \"bob\", \"label\": \"Name\" } ]"));
 
         [Fact]
-        public async Task VertexPropertyWithoutProperties()
-        {
-            await _g
-                .WithExecutor("[ { \"id\": 166, \"value\": \"bob\", \"label\": \"Name\" } ]")
-                .V<Person>()
-                .Properties(x => x.SomeObscureProperty!)
-                .Verify();
-        }
+        public Task VertexPropertyWithDateTimeOffset() => Verify<VertexProperty<string, PropertyValidity>>(JToken.Parse("[ { \"id\": 166, \"value\": \"bob\", \"label\": \"Name\", \"properties\": { \"ValidFrom\": 1548112365431 } } ]"));
 
-        [Fact]
-        public async Task VertexPropertyWithDateTimeOffset()
+        private static JToken GetJson(string name)
         {
-            await _g
-                .WithExecutor("[ { \"id\": 166, \"value\": \"bob\", \"label\": \"Name\", \"properties\": { \"ValidFrom\": 1548112365431 } } ]")
-                .V<Person>()
-                .Properties(x => x.Name!)
-                .Verify();
-        }
-
-        [Fact(Skip = "Source data no longer according to new execution pipeline.")]
-        public async Task PropertyWithDateTimeOffset()
-        {
-            await _g
-                .WithExecutor("{ \"@type\": \"g:List\",\"@value\": [ { \"@type\": \"g:Property\", \"@value\": { \"key\": \"ValidFrom\", \"value\": { \"@type\": \"g:Date\", \"@value\": 1548169812555 } } } ] }")
-                .V<Person>()
-                .Properties(x => x.Name!)
-                .Properties(x => x.ValidFrom)
-                .Verify();
-        }
-
-        [Fact(Skip = "Source data no longer according to new execution pipeline.")]
-        public async Task BulkSet()
-        {
-            await _g
-                .WithExecutor("{ \"@type\": \"g:BulkSet\", \"@value\": [ { \"@type\": \"g:Vertex\", \"@value\": { \"id\": { \"@type\": \"g:Int64\", \"@value\": 69 }, \"label\": \"Person\" } }, { \"@type\": \"g:Int64\", \"@value\": 1 } ] }")
-                .V<Person>()
-                .Verify();
-        }
-
-        [Fact(Skip = "Source data no longer according to new execution pipeline.")]
-        public async Task Traverser()
-        {
-            await _g
-                .WithExecutor(GetJson("Traverser"))
-                .V<Company>()
-                .Verify();
-        }
-
-        private static string GetJson(string name)
-        {
-            return new StreamReader(File.OpenRead($"../../../../files/GraphSon/{name}.json")).ReadToEnd();
+            return JToken.Parse(new StreamReader(File.OpenRead($"../../../../files/GraphSon/{name}.json")).ReadToEnd());
         }
     }
 }
