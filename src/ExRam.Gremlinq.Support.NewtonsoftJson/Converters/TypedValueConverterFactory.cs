@@ -49,7 +49,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                     {
                         if (typeof(TTarget) != moreSpecificType && typeof(TTarget).IsAssignableFrom(moreSpecificType))
                         {
-                            if (recurse.TryDeserialize(moreSpecificType).From(valueToken, _environment) is TTarget target)
+                            if (recurse.TryTransformTo(moreSpecificType).From(valueToken, _environment) is TTarget target)
                             {
                                 value = target;
                                 return true;

@@ -42,7 +42,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
                 if (modelType != null && modelType != typeof(TTarget))
                 {
-                    if (recurse.TryDeserialize(modelType).From(serialized, _environment) is TTarget target)
+                    if (recurse.TryTransformTo(modelType).From(serialized, _environment) is TTarget target)
                     {
                         value = target;
                         return true;

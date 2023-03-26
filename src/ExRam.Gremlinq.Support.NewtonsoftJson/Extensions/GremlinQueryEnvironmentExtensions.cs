@@ -95,7 +95,7 @@ namespace ExRam.Gremlinq.Core
                         {
                             _canConvert = false;
 
-                            return _deserializer.TryDeserialize(objectType).From(token, _environment);
+                            return _deserializer.TryTransformTo(objectType).From(token, _environment);
                         }
                         finally
                         {
