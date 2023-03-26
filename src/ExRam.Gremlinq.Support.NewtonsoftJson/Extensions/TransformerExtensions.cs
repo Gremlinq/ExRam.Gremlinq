@@ -82,10 +82,17 @@ namespace ExRam.Gremlinq.Core
         {
             return transformer
                 .Add(ConverterFactory
+                    .Create<string, JToken>((str, env, recurse) => jsonSerializer
+                        .Deserialize<JToken>(new JsonTextReader(new StringReader(str)))))
+                .Add(ConverterFactory
+                    .Create<byte[], JToken>((bytes, env, recurse) => jsonSerializer
+                        .Deserialize<JToken>(new JsonTextReader(new StreamReader(new MemoryStream(bytes))))))
+                .Add(ConverterFactory
                     .Create<byte[], ResponseMessage<List<object>>>((message, env, recurse) =>
                     {
-                        var token = jsonSerializer
-                            .Deserialize<JToken>(new JsonTextReader(new StreamReader(new MemoryStream(message))));
+                        var token = recurse
+                            .TransformTo<JToken>()
+                            .From(message, env);
 
                         return ShortcutTransformers
                             .GetValue(
