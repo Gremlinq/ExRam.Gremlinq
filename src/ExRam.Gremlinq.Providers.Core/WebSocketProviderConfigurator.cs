@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Providers.Core
 {
     public sealed class WebSocketProviderConfigurator : IWebSocketProviderConfigurator<WebSocketProviderConfigurator>
     {
-        private sealed class WebSocketGremlinQueryExecutor : IGremlinQueryExecutor, IDisposable
+        private sealed class WebSocketGremlinQueryExecutor : IGremlinQueryExecutor
         {
             private readonly GremlinServer _gremlinServer;
             private readonly IGremlinClientFactory _clientFactory;
@@ -57,11 +57,6 @@ namespace ExRam.Gremlinq.Providers.Core
                         }
                     }
                 }
-            }
-
-            public void Dispose()
-            {
-                //TODO: Dispose clients ?
             }
         }
 
