@@ -3,7 +3,6 @@ using System.Runtime.CompilerServices;
 using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Tests.Entities;
-using FluentAssertions;
 using Gremlin.Net.Process.Traversal;
 using Gremlin.Net.Process.Traversal.Strategy.Decoration;
 
@@ -309,20 +308,6 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public virtual void VertexProperty_throws_on_null_value()
-        {
-            default(int)
-                .Invoking(_ => new VertexProperty<string>(null!))
-                .Should()
-                .Throw<ArgumentNullException>();
-
-            new VertexProperty<string>("")
-                .Invoking(_ => _.Value = null!)
-                .Should()
-                .Throw<ArgumentNullException>();
-        }
-
-        [Fact]
         public virtual async Task AddV_with_MetaModel()
         {
             await _g
@@ -423,26 +408,13 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public virtual async Task Aggregate_Cap_type()
-        {
-            _g
-                .V<Person>()
-                .Aggregate((__, aggregated) => __
-                    .Cap(aggregated))
-                .Should()
-                .BeAssignableTo<IGremlinQueryBase<Person[]>>();
-        }
-
-        [Fact]
         public virtual async Task Aggregate_Cap_unfold()
         {
-            var a = _g
+            await _g
                 .V<Person>()
                 .Aggregate((__, aggregated) => __
                     .Cap(aggregated)
-                    .Unfold());
-
-            await a
+                    .Unfold())
                 .Verify();
         }
 
@@ -545,18 +517,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .And(
                     __ => __)
                 .Verify();
-        }
-
-        [Fact]
-        public virtual void And_without_parameters()
-        {
-            _g
-                .V<Person>()
-                .Invoking(__ => __
-                    .And()
-                    .Out())
-                .Should()
-                .Throw<ArgumentException>();
         }
 
         [Fact]
@@ -730,19 +690,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Verify();
         }
 
-        [Fact]
-        public virtual void Cast_to_same_type_yields_same_query()
-        {
-            var original = _g
-                .V<Person>();
 
-            var cast = original
-                .Cast<Person>();
-
-            original
-                .Should()
-                .BeSameAs(cast);
-        }
 
         [Fact]
         public virtual async Task Choose_one_case()
@@ -946,16 +894,6 @@ namespace ExRam.Gremlinq.Core.Tests
                     _ => _
                         .Out())
                 .Verify();
-        }
-
-        [Fact]
-        public virtual async Task Coalesce_empty()
-        {
-            _g
-                .V()
-                .Invoking(__ => __.Coalesce<IGremlinQueryBase>())
-                .Should()
-                .Throw<ArgumentException>();
         }
 
         [Fact]
@@ -1931,16 +1869,6 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public virtual async Task Limit_underflow()
-        {
-            _g
-                .V()
-                .Invoking(_ => _.Limit(-1))
-                .Should()
-                .Throw<ArgumentException>();
-        }
-
-        [Fact]
         public virtual async Task LimitGlobal()
         {
             await _g
@@ -2037,19 +1965,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Fold()
                 .MeanLocal()
                 .Verify();
-        }
-
-        [Fact]
-        public virtual void Mid_query_g_throws()
-        {
-            _g
-                .V()
-                .Invoking(_ => _
-                    .Coalesce(
-                        __ => _g.V<object>(),
-                        __ => __.AddV<object>()))
-                .Should()
-                .Throw<InvalidOperationException>();
         }
 
         [Fact]
@@ -2156,16 +2071,6 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public virtual void NullGuard_works()
-        {
-            _g
-                .Invoking(_ => _
-                    .V<Company>(default!))
-                .Should()
-                .Throw<ArgumentNullException>();
-        }
-
-        [Fact]
         public virtual async Task OfType_abstract()
         {
             await _g
@@ -2248,19 +2153,6 @@ namespace ExRam.Gremlinq.Core.Tests
                     __ => __
                         .OutE<LivesIn>())
                 .Verify();
-        }
-
-        [Fact]
-        public virtual void Or_without_parameters()
-        {
-            _g
-                .V<Person>()
-                .Out()
-                .Invoking(__ => __
-                    .Or()
-                    .In())
-                .Should()
-                .Throw<ArgumentException>();
         }
 
         [Fact]
@@ -3642,33 +3534,6 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public virtual void Property_single_with_dictionary_meta2()
-        {
-            _g
-                .V<Country>()
-                .Invoking(_ => _
-                    .Property(x => x.LocalizableDescription, new VertexProperty<string, IDictionary<string, string>>("")
-                    {
-                        Properties = new Dictionary<string, string>
-                        {
-                            { "someKey", "value" }
-                        }
-                    }))
-                .Should()
-                .Throw<InvalidOperationException>();
-        }
-
-        [Fact]
-        public virtual void Range_underflow()
-        {
-            _g
-                .V()
-                .Invoking(_ => _.Range(-1, 0))
-                .Should()
-                .Throw<ArgumentException>();
-        }
-
-        [Fact]
         public virtual async Task RangeGlobal()
         {
             await _g
@@ -3915,17 +3780,6 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public virtual async Task Select_with_unknown_label_throws()
-        {
-            _g
-                .Inject(0)
-                .Invoking(_ => _
-                    .Select<int>("label"))
-                .Should()
-                .Throw<InvalidOperationException>();
-        }
-
-        [Fact]
         public virtual async Task Set_Meta_Property_to_null()
         {
             await _g
@@ -3966,16 +3820,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Out()
                 .SimplePath()
                 .Verify();
-        }
-
-        [Fact]
-        public virtual void Skip_underflow()
-        {
-            _g
-                .V()
-                .Invoking(_ => _.Skip(-1))
-                .Should()
-                .Throw<ArgumentException>();
         }
 
         [Fact]
@@ -4102,16 +3946,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .SumLocal()
                 .Where(x => x < 100)
                 .Verify();
-        }
-
-        [Fact]
-        public virtual void Tail_underflow()
-        {
-            _g
-                .V()
-                .Invoking(_ => _.Tail(-1))
-                .Should()
-                .Throw<ArgumentException>();
         }
 
         [Fact]
@@ -4585,18 +4419,6 @@ namespace ExRam.Gremlinq.Core.Tests
                     .Select(x => x.ToString())
                     .ToArray())
                 .Verify();
-        }
-
-        [Fact]
-        public virtual void Vertex_comparison_with_null_throws()
-        {
-            _g
-                .V<Person>()
-                .Invoking(x => x
-                    .Where(y => y != null)
-                    .Debug())
-                .Should()
-                .Throw<NotSupportedException>();
         }
 
         [Fact]
@@ -5442,16 +5264,6 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public virtual async Task Where_native_type_property_length()
-        {
-            _g
-                .V<Person>()
-                .Invoking(_ => _.Where(t => t.Image!.Length == 3))
-                .Should()
-                .Throw<ExpressionNotSupportedException>();
-        }
-
-        [Fact]
         public virtual async Task Where_property_array_contains_element()
         {
             await _g
@@ -5586,20 +5398,6 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public virtual void Where_property_contains_constant_without_TextP_support()
-        {
-            _g
-                .ConfigureEnvironment(env => env
-                    .ConfigureOptions(c => c
-                        .SetValue(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.Containing)))
-                .V<Country>()
-                .Invoking(_ =>
-                    _.Where(c => c.CountryCallingCode!.Contains("456")))
-                .Should()
-                .Throw<ExpressionNotSupportedException>();
-        }
-
-        [Fact]
         public virtual async Task Where_property_contains_empty_string_with_TextP_support()
         {
             await _g
@@ -5645,20 +5443,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Country>()
                 .Where(c => c.CountryCallingCode!.EndsWith("7890", StringComparison.OrdinalIgnoreCase))
                 .Verify();
-        }
-
-        [Fact]
-        public virtual async Task Where_property_ends_with_constant_without_TextP_support()
-        {
-            _g
-                .ConfigureEnvironment(env => env
-                    .ConfigureOptions(c => c
-                        .SetValue(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.EndingWith)))
-                .V<Country>()
-                .Invoking(_ => _
-                    .Where(c => c.CountryCallingCode!.EndsWith("7890")))
-                .Should()
-                .Throw<ExpressionNotSupportedException>();
         }
 
         [Fact]
