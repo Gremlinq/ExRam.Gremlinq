@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Tests.Entities;
@@ -49,7 +50,9 @@ namespace ExRam.Gremlinq.Core.Tests
                         .SetValue(GremlinqOption.StringComparisonTranslationStrictness, StringComparisonTranslationStrictness.Lenient))
                     .LogToXunit(testOutputHelper)
                     .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>(lookup => lookup
-                        .IncludeAssembliesOfBaseTypes())));
+                        .IncludeAssembliesOfBaseTypes()))
+                    .ConfigureExecutor(executor => executor
+                        .CatchExecutionExceptions()));
         }
 
         [Fact]
@@ -387,6 +390,18 @@ namespace ExRam.Gremlinq.Core.Tests
                     .UseModel(GraphModel.Empty))
                 .AddV(new Language { IetfLanguageTag = "en" })
                 .Verify();
+        }
+
+        [Fact]
+        public virtual async Task AddV_list_cardinality_id()
+        {
+            await _g
+               .ConfigureEnvironment(env => env
+                   .UseModel(GraphModel
+                       .FromBaseTypes<VertexWithListId, Edge>(lookup => lookup
+                           .IncludeAssembliesOfBaseTypes())))
+               .AddV(new VertexWithListId { Id = new[] { "123", "456" } })
+               .Verify();
         }
 
         [Fact]
