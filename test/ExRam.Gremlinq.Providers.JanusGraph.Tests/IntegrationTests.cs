@@ -17,8 +17,7 @@ namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
                     .UseNewtonsoftJson())
                 .ConfigureEnvironment(environment => environment
                     .ConfigureExecutor(_ => _
-                        .TransformResult(enumerable => enumerable
-                            .IgnoreElements()))))
+                        .IgnoreResults())))
             {
             }
         }

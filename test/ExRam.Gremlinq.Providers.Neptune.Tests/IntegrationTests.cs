@@ -16,8 +16,7 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
                     .AtLocalhost())
                 .ConfigureEnvironment(environment => environment
                     .ConfigureExecutor(_ => _
-                        .TransformResult(_ => _
-                            .IgnoreElements()))))
+                        .IgnoreResults())))
             {
             }
         }
