@@ -1,560 +1,430 @@
 ﻿[
   {
-    "name": {
-      "Name": null,
-      "Languages": null,
-      "CountryCallingCode": "+49",
-      "LocalizableDescription": null,
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "Country"
+    Item2: {
+      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      label: PartitionKey,
+      value: PartitionKey
     },
-    "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+    name: {
+      CountryCallingCode: +49,
+      Id: 00000000-0000-0000-0000-000000000000,
+      Label: Country
     }
   },
   {
-    "name": {
-      "IetfLanguageTag": "en",
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "Language"
+    Item2: {
+      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      label: PartitionKey,
+      value: PartitionKey
     },
-    "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+    name: {
+      IetfLanguageTag: en,
+      Id: 00000000-0000-0000-0000-000000000000,
+      Label: Language
     }
   },
   {
-    "name": {
-      "Age": 0,
-      "Gender": null,
-      "Image": null,
-      "RegistrationDate": null,
-      "PhoneNumbers": null,
-      "SomeObscureProperty": null,
-      "Name": null,
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "Person"
+    Item2: {
+      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      label: PartitionKey,
+      value: PartitionKey
     },
-    "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+    name: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Label: Person
     }
   },
   {
-    "name": {
-      "FoundingDate": "0001-01-01T00:00:00",
-      "PhoneNumbers": null,
-      "Locations": null,
-      "Name": null,
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "Company"
+    Item2: {
+      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      label: PartitionKey,
+      value: PartitionKey
     },
-    "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+    name: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Label: Company
     }
   },
   {
-    "name": {
-      "Age": 0,
-      "Gender": null,
-      "Image": null,
-      "RegistrationDate": "2020-04-07T14:43:36+00:00",
-      "PhoneNumbers": null,
-      "SomeObscureProperty": null,
-      "Name": {
-        "Id": "00000000-0000-0000-0000-000000000000",
-        "Label": null,
-        "Properties": null,
-        "Value": "Bob",
-        "Key": null
+    Item2: {
+      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      label: PartitionKey,
+      value: PartitionKey
+    },
+    name: {
+      RegistrationDate: 2020-04-07 14:43:36 +0,
+      Name: {
+        Id: 00000000-0000-0000-0000-000000000000,
+        Value: Bob
       },
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "Person"
-    },
-    "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+      Id: 00000000-0000-0000-0000-000000000000,
+      Label: Person
     }
   },
   {
-    "name": {
-      "Age": 0,
-      "Gender": null,
-      "Image": null,
-      "RegistrationDate": null,
-      "PhoneNumbers": null,
-      "SomeObscureProperty": null,
-      "Name": null,
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "Person"
+    Item2: {
+      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      label: PartitionKey,
+      value: PartitionKey
     },
-    "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+    name: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Label: Person
     }
   },
   {
-    "name": {
-      "Name": null,
-      "Languages": null,
-      "CountryCallingCode": null,
-      "LocalizableDescription": null,
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "Country"
+    Item2: {
+      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      label: PartitionKey,
+      value: PartitionKey
     },
-    "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+    name: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Label: Country
     }
   },
   {
-    "name": {
-      "Age": 0,
-      "Gender": null,
-      "Image": null,
-      "RegistrationDate": null,
-      "PhoneNumbers": null,
-      "SomeObscureProperty": null,
-      "Name": null,
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "Person"
+    Item2: {
+      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      label: PartitionKey,
+      value: PartitionKey
     },
-    "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+    name: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Label: Person
     }
   },
   {
-    "name": {
-      "Name": null,
-      "Languages": null,
-      "CountryCallingCode": null,
-      "LocalizableDescription": null,
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "Country"
+    Item2: {
+      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      label: PartitionKey,
+      value: PartitionKey
     },
-    "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+    name: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Label: Country
     }
   },
   {
-    "name": {
-      "Age": 0,
-      "Gender": null,
-      "Image": null,
-      "RegistrationDate": null,
-      "PhoneNumbers": null,
-      "SomeObscureProperty": null,
-      "Name": null,
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "Person"
+    Item2: {
+      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      label: PartitionKey,
+      value: PartitionKey
     },
-    "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+    name: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Label: Person
     }
   },
   {
-    "name": {
-      "Name": null,
-      "Languages": null,
-      "CountryCallingCode": null,
-      "LocalizableDescription": null,
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "Country"
+    Item2: {
+      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      label: PartitionKey,
+      value: PartitionKey
     },
-    "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+    name: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Label: Country
     }
   },
   {
-    "name": {
-      "Age": 0,
-      "Gender": null,
-      "Image": null,
-      "RegistrationDate": null,
-      "PhoneNumbers": null,
-      "SomeObscureProperty": null,
-      "Name": null,
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "Person"
+    Item2: {
+      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      label: PartitionKey,
+      value: PartitionKey
     },
-    "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+    name: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Label: Person
     }
   },
   {
-    "name": {
-      "FoundingDate": "0001-01-01T00:00:00",
-      "PhoneNumbers": null,
-      "Locations": null,
-      "Name": null,
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "Company"
+    Item2: {
+      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      label: PartitionKey,
+      value: PartitionKey
     },
-    "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+    name: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Label: Company
     }
   },
   {
-    "name": {
-      "IetfLanguageTag": "en",
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "Language"
+    Item2: {
+      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      label: PartitionKey,
+      value: PartitionKey
     },
-    "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+    name: {
+      IetfLanguageTag: en,
+      Id: 00000000-0000-0000-0000-000000000000,
+      Label: Language
     }
   },
   {
-    "name": {
-      "Name": null,
-      "Languages": null,
-      "CountryCallingCode": "+49",
-      "LocalizableDescription": null,
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "Country"
+    Item2: {
+      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      label: PartitionKey,
+      value: PartitionKey
     },
-    "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+    name: {
+      CountryCallingCode: +49,
+      Id: 00000000-0000-0000-0000-000000000000,
+      Label: Country
     }
   },
   {
-    "name": {
-      "Age": 0,
-      "Gender": null,
-      "Image": null,
-      "RegistrationDate": "2020-04-07T14:43:36+00:00",
-      "PhoneNumbers": null,
-      "SomeObscureProperty": null,
-      "Name": {
-        "Id": "00000000-0000-0000-0000-000000000000",
-        "Label": null,
-        "Properties": null,
-        "Value": "Bob",
-        "Key": null
+    Item2: {
+      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      label: PartitionKey,
+      value: PartitionKey
+    },
+    name: {
+      RegistrationDate: 2020-04-07 14:43:36 +0,
+      Name: {
+        Id: 00000000-0000-0000-0000-000000000000,
+        Value: Bob
       },
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "Person"
-    },
-    "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+      Id: 00000000-0000-0000-0000-000000000000,
+      Label: Person
     }
   },
   {
-    "name": {
-      "Age": 0,
-      "Gender": null,
-      "Image": null,
-      "RegistrationDate": null,
-      "PhoneNumbers": null,
-      "SomeObscureProperty": null,
-      "Name": null,
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "Person"
+    Item2: {
+      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      label: PartitionKey,
+      value: PartitionKey
     },
-    "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+    name: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Label: Person
     }
   },
   {
-    "name": {
-      "FoundingDate": "0001-01-01T00:00:00",
-      "PhoneNumbers": null,
-      "Locations": null,
-      "Name": null,
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "Company"
+    Item2: {
+      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      label: PartitionKey,
+      value: PartitionKey
     },
-    "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+    name: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Label: Company
     }
   },
   {
-    "name": {
-      "IetfLanguageTag": "en",
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "Language"
+    Item2: {
+      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      label: PartitionKey,
+      value: PartitionKey
     },
-    "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+    name: {
+      IetfLanguageTag: en,
+      Id: 00000000-0000-0000-0000-000000000000,
+      Label: Language
     }
   },
   {
-    "name": {
-      "IetfLanguageTag": null,
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "Language"
+    Item2: {
+      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      label: PartitionKey,
+      value: PartitionKey
     },
-    "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+    name: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Label: Language
     }
   },
   {
-    "name": {
-      "Enabled": false,
-      "StartTime": "08:00:00",
-      "Duration": "02:00:00",
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "TimeFrame"
+    Item2: {
+      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      label: PartitionKey,
+      value: PartitionKey
     },
-    "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+    name: {
+      Enabled: false,
+      StartTime: 08:00:00,
+      Duration: 02:00:00,
+      Id: 00000000-0000-0000-0000-000000000000,
+      Label: TimeFrame
     }
   },
   {
-    "name": {
-      "IetfLanguageTag": "en",
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "Language"
+    Item2: {
+      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      label: PartitionKey,
+      value: PartitionKey
     },
-    "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+    name: {
+      IetfLanguageTag: en,
+      Id: 00000000-0000-0000-0000-000000000000,
+      Label: Language
     }
   },
   {
-    "name": {
-      "IetfLanguageTag": "en",
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "Language"
+    Item2: {
+      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      label: PartitionKey,
+      value: PartitionKey
     },
-    "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+    name: {
+      IetfLanguageTag: en,
+      Id: 00000000-0000-0000-0000-000000000000,
+      Label: Language
     }
   },
   {
-    "name": {
-      "Age": 0,
-      "Gender": null,
-      "Image": "AQIDBAUGBwg=",
-      "RegistrationDate": null,
-      "PhoneNumbers": null,
-      "SomeObscureProperty": null,
-      "Name": null,
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "Person"
+    Item2: {
+      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      label: PartitionKey,
+      value: PartitionKey
     },
-    "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+    name: {
+      Image: AQIDBAUGBwg=,
+      Id: 00000000-0000-0000-0000-000000000000,
+      Label: Person
     }
   },
   {
-    "name": {
-      "Age": 0,
-      "Gender": 1,
-      "Image": null,
-      "RegistrationDate": null,
-      "PhoneNumbers": null,
-      "SomeObscureProperty": null,
-      "Name": null,
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "Person"
+    Item2: {
+      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      label: PartitionKey,
+      value: PartitionKey
     },
-    "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+    name: {
+      Gender: Female,
+      Id: 00000000-0000-0000-0000-000000000000,
+      Label: Person
     }
   },
   {
-    "name": {
-      "Age": 0,
-      "Gender": null,
-      "Image": null,
-      "RegistrationDate": "2020-04-07T14:43:36+00:00",
-      "PhoneNumbers": null,
-      "SomeObscureProperty": null,
-      "Name": {
-        "Id": "00000000-0000-0000-0000-000000000000",
-        "Label": null,
-        "Properties": null,
-        "Value": "Marko",
-        "Key": null
+    Item2: {
+      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      label: PartitionKey,
+      value: PartitionKey
+    },
+    name: {
+      RegistrationDate: 2020-04-07 14:43:36 +0,
+      Name: {
+        Id: 00000000-0000-0000-0000-000000000000,
+        Value: Marko
       },
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "Person"
-    },
-    "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+      Id: 00000000-0000-0000-0000-000000000000,
+      Label: Person
     }
   },
   {
-    "name": {
-      "IetfLanguageTag": "en",
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "Language"
+    Item2: {
+      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      label: PartitionKey,
+      value: PartitionKey
     },
-    "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+    name: {
+      IetfLanguageTag: en,
+      Id: 00000000-0000-0000-0000-000000000000,
+      Label: Language
     }
   },
   {
-    "name": {
-      "IetfLanguageTag": null,
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "Language"
+    Item2: {
+      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      label: PartitionKey,
+      value: PartitionKey
     },
-    "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+    name: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Label: Language
     }
   },
   {
-    "name": {
-      "FoundingDate": "0001-01-01T00:00:00",
-      "PhoneNumbers": null,
-      "Locations": [
+    Item2: {
+      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      label: PartitionKey,
+      value: PartitionKey
+    },
+    name: {
+      Locations: [
         {
-          "Id": "00000000-0000-0000-0000-000000000000",
-          "Label": null,
-          "Properties": {
-            "ValidFrom": "2019-01-01T01:00:00+00:00"
+          Id: 00000000-0000-0000-0000-000000000000,
+          Properties: {
+            ValidFrom: 2019-01-01 01:00 +0
           },
-          "Value": "Aachen",
-          "Key": null
+          Value: Aachen
         }
       ],
-      "Name": null,
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "Company"
-    },
-    "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+      Id: 00000000-0000-0000-0000-000000000000,
+      Label: Company
     }
   },
   {
-    "name": {
-      "Name": {
-        "Id": "00000000-0000-0000-0000-000000000000",
-        "Label": null,
-        "Properties": {},
-        "Value": "GER",
-        "Key": null
+    Item2: {
+      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      label: PartitionKey,
+      value: PartitionKey
+    },
+    name: {
+      Name: {
+        Id: 00000000-0000-0000-0000-000000000000,
+        Properties: {},
+        Value: GER
       },
-      "Languages": null,
-      "CountryCallingCode": null,
-      "LocalizableDescription": null,
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "Country"
-    },
-    "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+      Id: 00000000-0000-0000-0000-000000000000,
+      Label: Country
     }
   },
   {
-    "name": {
-      "Name": {
-        "Id": "00000000-0000-0000-0000-000000000000",
-        "Label": null,
-        "Properties": {
-          "de": "Deutschland",
-          "en": "Germany"
+    Item2: {
+      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      label: PartitionKey,
+      value: PartitionKey
+    },
+    name: {
+      Name: {
+        Id: 00000000-0000-0000-0000-000000000000,
+        Properties: {
+          de: Deutschland,
+          en: Germany
         },
-        "Value": "GER",
-        "Key": null
+        Value: GER
       },
-      "Languages": null,
-      "CountryCallingCode": null,
-      "LocalizableDescription": null,
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "Country"
-    },
-    "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+      Id: 00000000-0000-0000-0000-000000000000,
+      Label: Country
     }
   },
   {
-    "name": {
-      "FoundingDate": "0001-01-01T00:00:00",
-      "PhoneNumbers": [
-        "+4912345",
-        "+4923456"
+    Item2: {
+      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      label: PartitionKey,
+      value: PartitionKey
+    },
+    name: {
+      PhoneNumbers: [
+        +4912345,
+        +4923456
       ],
-      "Locations": null,
-      "Name": null,
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "Company"
-    },
-    "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+      Id: 00000000-0000-0000-0000-000000000000,
+      Label: Company
     }
   },
   {
-    "name": {
-      "IetfLanguageTag": null,
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "Language"
+    Item2: {
+      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      label: PartitionKey,
+      value: PartitionKey
     },
-    "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+    name: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Label: Language
     }
   },
   {
-    "name": {
-      "IetfLanguageTag": null,
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "Language"
+    Item2: {
+      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      label: PartitionKey,
+      value: PartitionKey
     },
-    "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-      "value": "PartitionKey",
-      "label": "PartitionKey"
+    name: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Label: Language
     }
   }
 ]

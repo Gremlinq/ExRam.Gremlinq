@@ -1,6 +1,5 @@
 ﻿using System.Runtime.CompilerServices;
 using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Core.Transformation;
 using Newtonsoft.Json;
@@ -10,53 +9,39 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
 {
     public abstract class DeserializationTestsBase : QueryExecutionTest
     {
-        private sealed class DeserializationGremlinQueryExecutor : IGremlinQueryExecutor
-        {
-            private readonly string _sourcePrefix;
-
-            public DeserializationGremlinQueryExecutor(string sourcePrefix)
-            {
-                _sourcePrefix = sourcePrefix;
-            }
-
-            public IAsyncEnumerable<T> Execute<T>(IGremlinQueryBase query, IGremlinQueryEnvironment environment)
-            {
-                var context = XunitContext.Context;
-
-                try
-                {
-                    var jArray = JsonConvert.DeserializeObject<JArray>(
-                        File.ReadAllText(System.IO.Path.Combine(context.SourceDirectory, _sourcePrefix + "." + context.MethodName + ".verified.txt"))) ?? new JArray();
-
-                    return jArray
-                        .Where(obj => !(obj is JObject jObject && jObject.ContainsKey("serverException")))
-                        .Select(token => environment
-                            .Deserializer
-                            .TransformTo<T>()
-                            .From(token, environment))
-                        .ToAsyncEnumerable();
-                }
-                catch (IOException)
-                {
-                    return AsyncEnumerable.Empty<T>();
-                }
-            }
-        }
-
-        public abstract class Fixture : GremlinqTestFixture
-        {
-            protected Fixture(string sourcePrefix, IGremlinQuerySource source) : base(source
-                .ConfigureEnvironment(env => env
-                    .UseExecutor(new DeserializationGremlinQueryExecutor(sourcePrefix))))
-            {
-            }
-        }
-
-        protected DeserializationTestsBase(Fixture fixture, ITestOutputHelper testOutputHelper, [CallerFilePath] string callerFilePath = "") : base(
+        protected DeserializationTestsBase(GremlinqTestFixture fixture, ITestOutputHelper testOutputHelper, [CallerFilePath] string callerFilePath = "") : base(
             fixture,
             testOutputHelper,
             callerFilePath)
         {
+        }
+
+        public override async Task Verify<TElement>(IGremlinQueryBase<TElement> query)
+        {
+            var context = XunitContext.Context;
+            var environment = query.AsAdmin().Environment;
+
+            try
+            {
+                if (JsonConvert.DeserializeObject<JArray>(File.ReadAllText(System.IO.Path.Combine(context.SourceDirectory, "IntegrationTests" + "." + context.MethodName + ".verified.txt"))) is { } jArray)
+                {
+                    await this
+                        .Verify(jArray
+                            .Where(obj => !(obj is JObject jObject && jObject.ContainsKey("serverException")))
+                            .Select(token => environment
+                                .Deserializer
+                                .TransformTo<TElement>()
+                                .From(token, environment))
+                            .ToArray())
+                        .DontScrubDateTimes()
+                        .DontScrubGuids()
+                        .DontIgnoreEmptyCollections();
+                }
+            }
+            catch (IOException)
+            {
+                
+            }
         }
     }
 }

@@ -1,368 +1,261 @@
 ﻿[
   {
-    "Age": 36,
-    "Gender": null,
-    "Image": null,
-    "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": {
-      "Id": -1,
-      "Label": "Name",
-      "Properties": {
-        "ValidFrom": "2020-04-07T14:43:36+00:00"
+    Age: 36,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: -1,
+      Label: Name,
+      Properties: {
+        ValidFrom: 2020-04-07 14:43:36 +0
       },
-      "Value": "Marko",
-      "Key": null
+      Value: Marko
     },
-    "Id": -1,
-    "Label": "Person"
+    Id: -1,
+    Label: Person
   },
   {
-    "IetfLanguageTag": "en",
-    "Id": -1,
-    "Label": "Language"
+    IetfLanguageTag: en,
+    Id: -1,
+    Label: Language
   },
   {
-    "IetfLanguageTag": "en",
-    "Id": -1,
-    "Label": "Language"
+    IetfLanguageTag: en,
+    Id: -1,
+    Label: Language
   },
   {
-    "FoundingDate": "0001-01-01T00:00:00",
-    "PhoneNumbers": null,
-    "Locations": null,
-    "Name": null,
-    "Id": -1,
-    "Label": "Company"
+    Id: -1,
+    Label: Company
   },
   {
-    "IetfLanguageTag": null,
-    "Id": -1,
-    "Label": "Language"
+    Id: -1,
+    Label: Language
   },
   {
-    "FoundingDate": "0001-01-01T00:00:00",
-    "PhoneNumbers": null,
-    "Locations": [
+    Locations: [
       {
-        "Id": -1,
-        "Label": "Locations",
-        "Properties": {
-          "ValidFrom": "2019-01-01T01:00:00+00:00"
+        Id: -1,
+        Label: Locations,
+        Properties: {
+          ValidFrom: 2019-01-01 01:00 +0
         },
-        "Value": "Aachen",
-        "Key": null
+        Value: Aachen
       }
     ],
-    "Name": null,
-    "Id": -1,
-    "Label": "Company"
+    Id: -1,
+    Label: Company
   },
   {
-    "Age": 36,
-    "Gender": null,
-    "Image": null,
-    "RegistrationDate": null,
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": null,
-    "Id": -1,
-    "Label": "Person"
+    Age: 36,
+    Id: -1,
+    Label: Person
   },
   {
-    "Name": {
-      "Id": -1,
-      "Label": "Name",
-      "Properties": {},
-      "Value": "GER",
-      "Key": null
+    Name: {
+      Id: -1,
+      Label: Name,
+      Properties: {},
+      Value: GER
     },
-    "Languages": null,
-    "CountryCallingCode": null,
-    "LocalizableDescription": {
-      "Id": -1,
-      "Label": "LocalizableDescription",
-      "Properties": {
-        "someKey": "value"
+    LocalizableDescription: {
+      Id: -1,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
       },
-      "Value": "",
-      "Key": null
+      Value: 
     },
-    "Id": -1,
-    "Label": "Country"
+    Id: -1,
+    Label: Country
   },
   {
-    "Age": 36,
-    "Gender": null,
-    "Image": null,
-    "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": {
-      "Id": -1,
-      "Label": "Name",
-      "Properties": {
-        "ValidFrom": "2020-04-07T14:43:36+00:00"
+    Age: 36,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: -1,
+      Label: Name,
+      Properties: {
+        ValidFrom: 2020-04-07 14:43:36 +0
       },
-      "Value": "Bob",
-      "Key": null
+      Value: Bob
     },
-    "Id": -1,
-    "Label": "Person"
+    Id: -1,
+    Label: Person
   },
   {
-    "Name": {
-      "Id": -1,
-      "Label": "Name",
-      "Properties": {
-        "de": "Deutschland",
-        "en": "Germany"
+    Name: {
+      Id: -1,
+      Label: Name,
+      Properties: {
+        de: Deutschland,
+        en: Germany
       },
-      "Value": "GER",
-      "Key": null
+      Value: GER
     },
-    "Languages": null,
-    "CountryCallingCode": null,
-    "LocalizableDescription": {
-      "Id": -1,
-      "Label": "LocalizableDescription",
-      "Properties": {
-        "someKey": "value"
+    LocalizableDescription: {
+      Id: -1,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
       },
-      "Value": "",
-      "Key": null
+      Value: 
     },
-    "Id": -1,
-    "Label": "Country"
+    Id: -1,
+    Label: Country
   },
   {
-    "FoundingDate": "0001-01-01T00:00:00",
-    "PhoneNumbers": [
-      "+4912345",
-      "+4923456"
+    PhoneNumbers: [
+      +4912345,
+      +4923456
     ],
-    "Locations": null,
-    "Name": null,
-    "Id": -1,
-    "Label": "Company"
+    Id: -1,
+    Label: Company
   },
   {
-    "Age": 36,
-    "Gender": null,
-    "Image": null,
-    "RegistrationDate": null,
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": null,
-    "Id": -1,
-    "Label": "Person"
+    Age: 36,
+    Id: -1,
+    Label: Person
   },
   {
-    "Name": null,
-    "Languages": null,
-    "CountryCallingCode": null,
-    "LocalizableDescription": {
-      "Id": -1,
-      "Label": "LocalizableDescription",
-      "Properties": {
-        "someKey": "value"
+    LocalizableDescription: {
+      Id: -1,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
       },
-      "Value": "",
-      "Key": null
+      Value: 
     },
-    "Id": -1,
-    "Label": "Country"
+    Id: -1,
+    Label: Country
   },
   {
-    "IetfLanguageTag": null,
-    "Id": -1,
-    "Label": "Language"
+    Id: -1,
+    Label: Language
   },
   {
-    "IetfLanguageTag": null,
-    "Id": -1,
-    "Label": "Language"
+    Id: -1,
+    Label: Language
   },
   {
-    "Age": 36,
-    "Gender": null,
-    "Image": null,
-    "RegistrationDate": null,
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": null,
-    "Id": -1,
-    "Label": "Person"
+    Age: 36,
+    Id: -1,
+    Label: Person
   },
   {
-    "Name": null,
-    "Languages": null,
-    "CountryCallingCode": null,
-    "LocalizableDescription": {
-      "Id": -1,
-      "Label": "LocalizableDescription",
-      "Properties": {
-        "someKey": "value"
+    LocalizableDescription: {
+      Id: -1,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
       },
-      "Value": "",
-      "Key": null
+      Value: 
     },
-    "Id": -1,
-    "Label": "Country"
+    Id: -1,
+    Label: Country
   },
   {
-    "Age": 36,
-    "Gender": null,
-    "Image": null,
-    "RegistrationDate": null,
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": null,
-    "Id": -1,
-    "Label": "Person"
+    Age: 36,
+    Id: -1,
+    Label: Person
   },
   {
-    "Name": null,
-    "Languages": null,
-    "CountryCallingCode": null,
-    "LocalizableDescription": {
-      "Id": -1,
-      "Label": "LocalizableDescription",
-      "Properties": {
-        "someKey": "value"
+    LocalizableDescription: {
+      Id: -1,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
       },
-      "Value": "",
-      "Key": null
+      Value: 
     },
-    "Id": -1,
-    "Label": "Country"
+    Id: -1,
+    Label: Country
   },
   {
-    "FoundingDate": "0001-01-01T00:00:00",
-    "PhoneNumbers": null,
-    "Locations": null,
-    "Name": null,
-    "Id": -1,
-    "Label": "Company"
+    Id: -1,
+    Label: Company
   },
   {
-    "Age": 36,
-    "Gender": null,
-    "Image": null,
-    "RegistrationDate": null,
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": null,
-    "Id": -1,
-    "Label": "Person"
+    Age: 36,
+    Id: -1,
+    Label: Person
   },
   {
-    "IetfLanguageTag": "en",
-    "Id": -1,
-    "Label": "Language"
+    IetfLanguageTag: en,
+    Id: -1,
+    Label: Language
   },
   {
-    "Name": null,
-    "Languages": null,
-    "CountryCallingCode": "+49",
-    "LocalizableDescription": {
-      "Id": -1,
-      "Label": "LocalizableDescription",
-      "Properties": {
-        "someKey": "value"
+    CountryCallingCode: +49,
+    LocalizableDescription: {
+      Id: -1,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
       },
-      "Value": "",
-      "Key": null
+      Value: 
     },
-    "Id": -1,
-    "Label": "Country"
+    Id: -1,
+    Label: Country
   },
   {
-    "Age": 36,
-    "Gender": null,
-    "Image": null,
-    "RegistrationDate": "2020-04-07T14:43:36+00:00",
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": {
-      "Id": -1,
-      "Label": "Name",
-      "Properties": {
-        "ValidFrom": "2020-04-07T14:43:36+00:00"
+    Age: 36,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: -1,
+      Label: Name,
+      Properties: {
+        ValidFrom: 2020-04-07 14:43:36 +0
       },
-      "Value": "Bob",
-      "Key": null
+      Value: Bob
     },
-    "Id": -1,
-    "Label": "Person"
+    Id: -1,
+    Label: Person
   },
   {
-    "FoundingDate": "0001-01-01T00:00:00",
-    "PhoneNumbers": null,
-    "Locations": null,
-    "Name": null,
-    "Id": -1,
-    "Label": "Company"
+    Id: -1,
+    Label: Company
   },
   {
-    "Age": 36,
-    "Gender": null,
-    "Image": null,
-    "RegistrationDate": null,
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": null,
-    "Id": -1,
-    "Label": "Person"
+    Age: 36,
+    Id: -1,
+    Label: Person
   },
   {
-    "IetfLanguageTag": "en",
-    "Id": -1,
-    "Label": "Language"
+    IetfLanguageTag: en,
+    Id: -1,
+    Label: Language
   },
   {
-    "IetfLanguageTag": null,
-    "Id": -1,
-    "Label": "Language"
+    Id: -1,
+    Label: Language
   },
   {
-    "Enabled": false,
-    "StartTime": "08:00:00",
-    "Duration": "02:00:00",
-    "Id": -1,
-    "Label": "TimeFrame"
+    Enabled: false,
+    StartTime: 08:00:00,
+    Duration: 02:00:00,
+    Id: -1,
+    Label: TimeFrame
   },
   {
-    "IetfLanguageTag": "en",
-    "Id": -1,
-    "Label": "Language"
+    IetfLanguageTag: en,
+    Id: -1,
+    Label: Language
   },
   {
-    "IetfLanguageTag": "en",
-    "Id": -1,
-    "Label": "Language"
+    IetfLanguageTag: en,
+    Id: -1,
+    Label: Language
   },
   {
-    "Age": 36,
-    "Gender": null,
-    "Image": "AQIDBAUGBwg=",
-    "RegistrationDate": null,
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": null,
-    "Id": -1,
-    "Label": "Person"
+    Age: 36,
+    Image: AQIDBAUGBwg=,
+    Id: -1,
+    Label: Person
   },
   {
-    "Age": 36,
-    "Gender": 1,
-    "Image": null,
-    "RegistrationDate": null,
-    "PhoneNumbers": null,
-    "SomeObscureProperty": null,
-    "Name": null,
-    "Id": -1,
-    "Label": "Person"
+    Age: 36,
+    Gender: Female,
+    Id: -1,
+    Label: Person
   }
 ]

@@ -38,10 +38,10 @@
   {},
   {},
   {
-    "ValidFrom": "2019-01-01T01:00:00+00:00"
+    ValidFrom: 2019-01-01 01:00 +0
   },
   {
-    "de": "Deutschland",
-    "en": "Germany"
+    de: Deutschland,
+    en: Germany
   }
 ]

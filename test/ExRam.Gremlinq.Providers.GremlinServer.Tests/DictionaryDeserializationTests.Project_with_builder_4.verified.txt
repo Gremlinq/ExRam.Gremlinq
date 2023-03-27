@@ -1,49 +1,33 @@
 ﻿[
   {
-    "in!": {
-      "Age": 0,
-      "Gender": null,
-      "Image": null,
-      "RegistrationDate": "2020-04-07T14:43:36+00:00",
-      "PhoneNumbers": null,
-      "SomeObscureProperty": null,
-      "Name": {
-        "Id": -1,
-        "Label": "Name",
-        "Properties": {
-          "ValidFrom": "0001-01-01T00:00:00+00:00"
-        },
-        "Value": "Bob",
-        "Key": null
+    count!: 1,
+    in!: {
+      RegistrationDate: 2020-04-07 14:43:36 +0,
+      Name: {
+        Id: -1,
+        Label: Name,
+        Properties: {},
+        Value: Bob
       },
-      "Id": -1,
-      "Label": "Person"
+      Id: -1,
+      Label: Person
     },
-    "out!": {
-      "Age": 0,
-      "Gender": null,
-      "Image": null,
-      "RegistrationDate": "2020-04-07T14:43:36+00:00",
-      "PhoneNumbers": null,
-      "SomeObscureProperty": null,
-      "Name": {
-        "Id": -1,
-        "Label": "Name",
-        "Properties": {
-          "ValidFrom": "0001-01-01T00:00:00+00:00"
-        },
-        "Value": "Bob",
-        "Key": null
+    out!: {
+      RegistrationDate: 2020-04-07 14:43:36 +0,
+      Name: {
+        Id: -1,
+        Label: Name,
+        Properties: {},
+        Value: Bob
       },
-      "Id": -1,
-      "Label": "Person"
+      Id: -1,
+      Label: Person
     },
-    "count!": 1,
-    "properties!": {
-      "id": -1,
-      "label": "CountryCallingCode",
-      "value": "+49",
-      "properties": {}
+    properties!: {
+      id: -1,
+      label: CountryCallingCode,
+      properties: {},
+      value: +49
     }
   }
 ]

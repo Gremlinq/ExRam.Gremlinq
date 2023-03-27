@@ -1,10 +1,6 @@
 ﻿[
   {
-    "FoundingDate": "0001-01-01T00:00:00",
-    "PhoneNumbers": null,
-    "Locations": null,
-    "Name": null,
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Company"
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Company
   }
 ]

@@ -1,58 +1,31 @@
 ﻿[
   {
-    "FoundingDate": "0001-01-01T00:00:00",
-    "PhoneNumbers": null,
-    "Locations": null,
-    "Name": null,
-    "Id": -1,
-    "Label": "Company"
+    Id: -1,
+    Label: Company
   },
   {
-    "Name": null,
-    "Languages": null,
-    "CountryCallingCode": null,
-    "LocalizableDescription": null,
-    "Id": -1,
-    "Label": "Country"
+    Id: -1,
+    Label: Country
   },
   {
-    "Name": null,
-    "Languages": null,
-    "CountryCallingCode": null,
-    "LocalizableDescription": null,
-    "Id": -1,
-    "Label": "Country"
+    Id: -1,
+    Label: Country
   },
   {
-    "Name": null,
-    "Languages": null,
-    "CountryCallingCode": null,
-    "LocalizableDescription": null,
-    "Id": -1,
-    "Label": "Country"
+    Id: -1,
+    Label: Country
   },
   {
-    "FoundingDate": "0001-01-01T00:00:00",
-    "PhoneNumbers": null,
-    "Locations": null,
-    "Name": null,
-    "Id": -1,
-    "Label": "Company"
+    Id: -1,
+    Label: Company
   },
   {
-    "Name": null,
-    "Languages": null,
-    "CountryCallingCode": "+49",
-    "LocalizableDescription": null,
-    "Id": -1,
-    "Label": "Country"
+    CountryCallingCode: +49,
+    Id: -1,
+    Label: Country
   },
   {
-    "FoundingDate": "0001-01-01T00:00:00",
-    "PhoneNumbers": null,
-    "Locations": null,
-    "Name": null,
-    "Id": -1,
-    "Label": "Company"
+    Id: -1,
+    Label: Company
   }
 ]

@@ -1,7 +1,6 @@
 ﻿[
   {
-    "IetfLanguageTag": null,
-    "Id": -1,
-    "Label": "Language"
+    Id: -1,
+    Label: Language
   }
 ]
