@@ -19,20 +19,8 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
         {
             protected Fixture(IGremlinQuerySource source) : base(source
                 .ConfigureEnvironment(env => env
-                    .ConfigureExecutor(_ => _
-                        .TransformResult(enumerable => enumerable
-                            .Catch<object, Exception>(ex => AsyncEnumerableEx
-                                .Return<object>(new JObject()
-                                {
-                                    {
-                                        "serverException",
-                                        new JObject
-                                        {
-                                            { "type", ex.GetType().Name },
-                                            { "message", ex.Message }
-                                        }
-                                    }
-                                }))))
+                    .ConfigureExecutor(executor => executor
+                        .CatchExecutionExceptions())
                     .UseNewtonsoftJson()
                     .ConfigureDeserializer(d => d
                         .Add(ConverterFactory
