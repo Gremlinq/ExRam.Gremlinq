@@ -1,1 +1,13 @@
-﻿[]
+﻿[
+  {
+    "Age": 0,
+    "Gender": null,
+    "Image": null,
+    "RegistrationDate": null,
+    "PhoneNumbers": null,
+    "SomeObscureProperty": null,
+    "Name": null,
+    "Id": null,
+    "Label": null
+  }
+]
