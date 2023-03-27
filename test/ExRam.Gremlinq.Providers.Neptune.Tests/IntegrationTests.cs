@@ -1,28 +1,23 @@
-﻿#if RUNNEPTUNEINTEGRATIONTESTS
-using System;
-using System.Collections.Immutable;
-using System.Linq;
+﻿using System.Collections.Immutable;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Execution;
-using ExRam.Gremlinq.Core.Tests;
-using ExRam.Gremlinq.Providers.GremlinServer;
-using Xunit;
-using Xunit.Abstractions;
+using ExRam.Gremlinq.Providers.Core;
+using ExRam.Gremlinq.Support.NewtonsoftJson.Tests;
 
 namespace ExRam.Gremlinq.Providers.Neptune.Tests
 {
-    public class IntegrationTests : QueryIntegrationTest, IClassFixture<IntegrationTests.Fixture>
+    public class IntegrationTests : IntegrationTestsBase, IClassFixture<IntegrationTests.Fixture>
     {
-        public new sealed class Fixture : QueryIntegrationTest.Fixture
+        public new sealed class Fixture : IntegrationTestsBase.Fixture
         {
             public Fixture() : base(Gremlinq.Core.GremlinQuerySource.g
                 .UseNeptune(builder => builder
                     .AtLocalhost())
                 .ConfigureEnvironment(environment => environment
                     .ConfigureExecutor(_ => _
-                        .TransformResult(_ => _.Where(x => false)))))
+                        .TransformResult(_ => _
+                            .IgnoreElements()))))
             {
             }
         }
@@ -35,11 +30,10 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
         {
         }
 
-        public override IImmutableList<Func<string, string>> Scrubbers()
+        protected override IImmutableList<Func<string, string>> Scrubbers()
         {
             return base.Scrubbers()
                 .Add(x => IdRegex1.Replace(x, "\"scrubbed id\""));
         }
     }
 }
-#endif
