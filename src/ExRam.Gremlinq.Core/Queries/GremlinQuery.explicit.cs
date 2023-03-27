@@ -208,12 +208,7 @@ namespace ExRam.Gremlinq.Core
         GremlinQueryAwaiter<TElement> IGremlinQueryBase<TElement>.GetAwaiter() => new((this).ToArrayAsync().AsTask().GetAwaiter());
 
         IAsyncEnumerable<TElement> IGremlinQueryBase<TElement>.ToAsyncEnumerable() => Environment.Executor
-            .Execute(
-                this,
-                Environment)
-            .Select(executionResult => Environment.Deserializer
-                .TransformTo<TElement>()
-                .From(executionResult, Environment));
+            .Execute<TElement>(this, Environment);
 
         IValueGremlinQuery<Path> IGremlinQueryBase.Path() => Path();
 

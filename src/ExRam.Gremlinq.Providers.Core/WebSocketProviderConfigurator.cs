@@ -23,11 +23,11 @@ namespace ExRam.Gremlinq.Providers.Core
                 _clientFactory = clientFactory;
             }
 
-            public IAsyncEnumerable<object> Execute(IGremlinQueryBase query, IGremlinQueryEnvironment environment)
+            public IAsyncEnumerable<T> Execute<T>(IGremlinQueryBase query, IGremlinQueryEnvironment environment)
             {
                 return AsyncEnumerable.Create(Core);
 
-                async IAsyncEnumerator<object> Core(CancellationToken ct)
+                async IAsyncEnumerator<T> Core(CancellationToken ct)
                 {
                     var client = _clients
                         .GetOrAdd(
@@ -53,7 +53,9 @@ namespace ExRam.Gremlinq.Providers.Core
                     {
                         foreach (var obj in results)
                         {
-                            yield return obj;
+                            yield return environment.Deserializer
+                                .TransformTo<T>()
+                                .From(obj, environment);
                         }
                     }
                 }

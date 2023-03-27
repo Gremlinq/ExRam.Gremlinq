@@ -13,20 +13,22 @@ namespace ExRam.Gremlinq.Core.Execution
                 _baseExecutor = baseExecutor;
             }
 
-            public IAsyncEnumerable<object> Execute(IGremlinQueryBase query, IGremlinQueryEnvironment environment) => _baseExecutor
-                .Execute(query, environment)
-                .Catch<object, Exception>(ex => AsyncEnumerableEx
-                    .Return<object>(new JObject()
-                    {
+            public IAsyncEnumerable<T> Execute<T>(IGremlinQueryBase query, IGremlinQueryEnvironment environment) => _baseExecutor
+                .Execute<T>(query, environment)
+                .Catch<T, Exception>(ex => typeof(T).IsAssignableFrom(typeof(JObject))
+                    ? AsyncEnumerableEx
+                        .Return((T)(object)new JObject()
                         {
-                            "serverException",
-                            new JObject
                             {
-                                { "type", ex.GetType().Name },
-                                { "message", ex.Message }
+                                "serverException",
+                                new JObject
+                                {
+                                    { "type", ex.GetType().Name },
+                                    { "message", ex.Message }
+                                }
                             }
-                        }
-                    }));
+                        })
+                    : AsyncEnumerable.Empty<T>());
         }
 
         public static IGremlinQueryExecutor CatchExecutionExceptions(this IGremlinQueryExecutor executor) => new CatchingGremlinQueryExecutor(executor);
