@@ -5,7 +5,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "@value": 0
       },
       "label",
       "Country",
@@ -23,7 +23,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "@value": 1
                   },
                   "label",
                   "CountryCallingCode",
@@ -48,7 +48,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "@value": 129
                   },
                   "label",
                   "LocalizableDescription",
@@ -76,7 +76,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "@value": 34
       },
       "label",
       "Country",
@@ -94,7 +94,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "@value": 35
                   },
                   "label",
                   "CountryCallingCode",
@@ -119,7 +119,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "@value": 135
                   },
                   "label",
                   "LocalizableDescription",
