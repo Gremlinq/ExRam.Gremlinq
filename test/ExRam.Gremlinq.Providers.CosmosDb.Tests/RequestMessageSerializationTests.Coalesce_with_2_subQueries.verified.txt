@@ -3,6 +3,9 @@
   Operation: eval,
   Processor: ,
   Arguments: {
+    aliases: {
+      g: g
+    },
     gremlin: g.V().coalesce(__.out(),__.in())
   }
 }

@@ -3,6 +3,9 @@
   Operation: eval,
   Processor: ,
   Arguments: {
+    aliases: {
+      g: g
+    },
     bindings: {
       _a: in!,
       _b: out!,

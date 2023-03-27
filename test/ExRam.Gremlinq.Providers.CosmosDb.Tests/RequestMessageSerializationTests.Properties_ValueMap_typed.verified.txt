@@ -3,6 +3,9 @@
   Operation: eval,
   Processor: ,
   Arguments: {
+    aliases: {
+      g: g
+    },
     gremlin: g.V().properties().valueMap()
   }
 }
