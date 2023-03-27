@@ -1,12 +1,8 @@
 ﻿[
   {
-    "@type": "g:Property",
-    "@value": {
-      "key": "Since",
-      "value": {
-        "@type": "g:Date",
-        "@value": 1586270616000
-      }
+    "serverException": {
+      "type": "ResponseException",
+      "message": "InvalidRequestArguments: A message with [bytecode] op code requires a [aliases] argument."
     }
   }
 ]

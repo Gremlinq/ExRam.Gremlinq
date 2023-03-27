@@ -2,7 +2,7 @@
   {
     "serverException": {
       "type": "ResponseException",
-      "message": "ServerErrorFailStep: fail() step triggered"
+      "message": "InvalidRequestArguments: A message with [bytecode] op code requires a [aliases] argument."
     }
   }
 ]

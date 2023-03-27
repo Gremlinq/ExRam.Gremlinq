@@ -1,42 +1,8 @@
 ﻿[
-  "CountryCallingCode",
-  "CountryCallingCode",
-  "RegistrationDate",
-  "RegistrationDate",
-  "RegistrationDate",
-  "Name",
-  "Name",
-  "Name",
-  "Name",
-  "Name",
-  "IetfLanguageTag",
-  "IetfLanguageTag",
-  "IetfLanguageTag",
-  "IetfLanguageTag",
-  "IetfLanguageTag",
-  "IetfLanguageTag",
-  "FoundingDate",
-  "FoundingDate",
-  "FoundingDate",
-  "FoundingDate",
-  "FoundingDate",
-  "Locations",
-  "Age",
-  "Age",
-  "Age",
-  "Age",
-  "Age",
-  "Age",
-  "Age",
-  "Age",
-  "Age",
-  "Age",
-  "PhoneNumbers",
-  "PhoneNumbers",
-  "lang",
-  "StartTime",
-  "Enabled",
-  "Duration",
-  "Image",
-  "Gender"
+  {
+    "serverException": {
+      "type": "ResponseException",
+      "message": "InvalidRequestArguments: A message with [bytecode] op code requires a [aliases] argument."
+    }
+  }
 ]

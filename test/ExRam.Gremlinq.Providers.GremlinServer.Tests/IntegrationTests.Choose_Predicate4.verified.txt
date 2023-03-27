@@ -1,36 +1,8 @@
 ﻿[
-  true,
-  true,
-  true,
-  true,
-  true,
-  true,
-  true,
-  true,
-  true,
-  true,
-  true,
-  true,
-  true,
-  true,
-  true,
-  true,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false
+  {
+    "serverException": {
+      "type": "ResponseException",
+      "message": "InvalidRequestArguments: A message with [bytecode] op code requires a [aliases] argument."
+    }
+  }
 ]

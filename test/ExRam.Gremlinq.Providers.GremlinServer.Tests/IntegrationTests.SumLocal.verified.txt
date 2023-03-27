@@ -1,6 +1,8 @@
 ﻿[
   {
-    "@type": "g:Int32",
-    "@value": 396
+    "serverException": {
+      "type": "ResponseException",
+      "message": "InvalidRequestArguments: A message with [bytecode] op code requires a [aliases] argument."
+    }
   }
 ]

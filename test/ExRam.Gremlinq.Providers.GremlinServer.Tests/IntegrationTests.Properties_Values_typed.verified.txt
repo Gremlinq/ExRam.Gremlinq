@@ -1,8 +1,8 @@
 ﻿[
   {
-    "@type": "g:Date",
-    "@value": 1546304400000
-  },
-  "Deutschland",
-  "Germany"
+    "serverException": {
+      "type": "ResponseException",
+      "message": "InvalidRequestArguments: A message with [bytecode] op code requires a [aliases] argument."
+    }
+  }
 ]

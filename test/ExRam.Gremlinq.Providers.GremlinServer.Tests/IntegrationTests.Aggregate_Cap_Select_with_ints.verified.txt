@@ -1,15 +1,8 @@
 ﻿[
   {
-    "@type": "g:BulkSet",
-    "@value": [
-      {
-        "@type": "g:Int64",
-        "@value": 1
-      },
-      {
-        "@type": "g:Int64",
-        "@value": 11
-      }
-    ]
+    "serverException": {
+      "type": "ResponseException",
+      "message": "InvalidRequestArguments: A message with [bytecode] op code requires a [aliases] argument."
+    }
   }
 ]

@@ -1,36 +1,8 @@
 ﻿[
-  "Country",
-  "Country",
-  "Country",
-  "Country",
-  "Country",
-  "Country",
-  "Country",
-  "Person",
-  "Person",
-  "Person",
-  "Person",
-  "Person",
-  "Person",
-  "Person",
-  "Person",
-  "Person",
-  "Person",
-  "Person",
-  "Language",
-  "Language",
-  "Language",
-  "Language",
-  "Language",
-  "Language",
-  "Language",
-  "Language",
-  "Language",
-  "Language",
-  "Company",
-  "Company",
-  "Company",
-  "Company",
-  "Company",
-  "TimeFrame"
+  {
+    "serverException": {
+      "type": "ResponseException",
+      "message": "InvalidRequestArguments: A message with [bytecode] op code requires a [aliases] argument."
+    }
+  }
 ]

@@ -1,13 +1,8 @@
 ﻿[
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko"
+  {
+    "serverException": {
+      "type": "ResponseException",
+      "message": "InvalidRequestArguments: A message with [bytecode] op code requires a [aliases] argument."
+    }
+  }
 ]
