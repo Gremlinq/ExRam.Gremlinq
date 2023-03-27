@@ -1,5 +1,4 @@
-﻿using System.Collections.Immutable;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Execution;
@@ -45,11 +44,9 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
                     .ToArrayAsync(),
                 Formatting.Indented);
 
-            var scrubbed = this
-                .Scrubbers()
-                .Aggregate(serialized, (s, func) => func(s));
-
-            await Verify(scrubbed);
+            await Verify(serialized)
+                .ScrubLinesWithReplace(Scrub)
+                .ScrubInlineGuids();
         }
 
         [Fact]
@@ -64,8 +61,6 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
                .Verify();
         }
 
-        protected virtual IImmutableList<Func<string, string>> Scrubbers() => ImmutableList<Func<string, string>>.Empty
-            .Add(x => IdRegex.Replace(x, "$1-1$4"))
-            .ScrubGuids();
+        protected virtual string Scrub(string str) => IdRegex.Replace(str, "$1-1$4");
     }
 }

@@ -29,8 +29,6 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
         {
         }
 
-        protected override IImmutableList<Func<string, string>> Scrubbers() => base
-            .Scrubbers()
-            .Add(x => IdRegex1.Replace(x, "\"scrubbed id\""));
+        protected override string Scrub(string str) => base.Scrub(IdRegex1.Replace(str, "\"scrubbed id\""));
     }
 }

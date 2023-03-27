@@ -1,5 +1,4 @@
-﻿using System.Collections.Immutable;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Providers.Core;
@@ -30,8 +29,6 @@ namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
         {
         }
 
-        protected override IImmutableList<Func<string, string>> Scrubbers() => base
-            .Scrubbers()
-            .Add(x => RelationIdRegex.Replace(x, "\"relationId\": \"scrubbed\""));
+        protected override string Scrub(string str) => base.Scrub(RelationIdRegex.Replace(str, "\"relationId\": \"scrubbed\""));
     }
 }
