@@ -7,8 +7,6 @@ using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Tests.Entities;
-using FluentAssertions;
-
 using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests

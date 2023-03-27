@@ -1193,7 +1193,7 @@ namespace ExRam.Gremlinq.Core.Execution
     }
     public interface IGremlinQueryExecutor
     {
-        System.Collections.Generic.IAsyncEnumerable<object> Execute(ExRam.Gremlinq.Core.IGremlinQueryBase query, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment);
+        System.Collections.Generic.IAsyncEnumerable<T> Execute<T>(ExRam.Gremlinq.Core.IGremlinQueryBase query, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment);
     }
 }
 namespace ExRam.Gremlinq.Core.ExpressionParsing
