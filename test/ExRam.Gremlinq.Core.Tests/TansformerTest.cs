@@ -4,9 +4,9 @@ using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public class TansformerTest : GremlinqTestBase
+    public class TansformerTest : VerifyBase
     {
-        public TansformerTest(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
+        public TansformerTest() : base()
         {
 
         }

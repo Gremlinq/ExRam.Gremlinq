@@ -10,10 +10,10 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public Task Repro() => Verify(g
+        public Task Repro() => g
             .ConfigureEnvironment(env => env)
             .V()
             .Drop()
-            .Debug());
+            .Verify();
     }
 }

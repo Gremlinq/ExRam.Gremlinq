@@ -36,17 +36,17 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public Task Working() => Verify(g
+        public Task Working() => g
             .ConfigureEnvironment(env => env
                 .UseModel(GraphModel.FromBaseTypes<VertexBase, Edge>()))
             .AddV(new Item { Value = "MyValue" })
-            .Debug());
+            .Verify();
 
         [Fact]
-        public Task Buggy() => Verify(g
+        public Task Buggy() => g
             .ConfigureEnvironment(env => env
                 .UseModel(GraphModel.FromBaseTypes<VertexBase, Edge>()))
             .AddV(new ItemOverride { Value = "MyValue" })
-            .Debug());
+            .Verify();
     }
 }

@@ -5,7 +5,6 @@ using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Tests.Entities;
 using Gremlin.Net.Process.Traversal;
 using Gremlin.Net.Process.Traversal.Strategy.Decoration;
-
 using Newtonsoft.Json;
 
 namespace ExRam.Gremlinq.Core.Tests
