@@ -3,6 +3,9 @@
   Operation: bytecode,
   Processor: traversal,
   Arguments: {
+    aliases: {
+      g: g
+    },
     gremlin: {
       SourceInstructions: [
         {
