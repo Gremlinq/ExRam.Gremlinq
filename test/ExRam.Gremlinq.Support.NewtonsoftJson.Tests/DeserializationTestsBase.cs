@@ -23,7 +23,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
                                 File.ReadAllText(System.IO.Path.Combine(context.SourceDirectory, sourcePrefix + "." + context.MethodName + ".verified.txt")));
 
                             return jArray?
-                                .Where(obj => !(obj is JObject jObject && jObject.ContainsKey("serverException")))
+                                .Where(obj => !(obj is JObject jObject && jObject.ContainsKey("ServerException")))
                                 .Cast<object>()
                                 .ToAsyncEnumerable() ?? AsyncEnumerable.Empty<object>();
                         }

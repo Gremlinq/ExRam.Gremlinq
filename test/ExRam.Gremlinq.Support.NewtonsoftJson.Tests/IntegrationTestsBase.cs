@@ -8,7 +8,6 @@ using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Tests.Entities;
 using FluentAssertions;
-
 using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
@@ -22,15 +21,12 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
                     .ConfigureExecutor(_ => _
                         .TransformResult(enumerable => enumerable
                             .Catch<object, Exception>(ex => AsyncEnumerableEx
-                                .Return<object>(new JObject()
+                                .Return<object>(new
                                 {
+                                    ServerException = new
                                     {
-                                        "serverException",
-                                        new JObject
-                                        {
-                                            { "type", ex.GetType().Name },
-                                            { "message", ex.Message }
-                                        }
+                                        Type = ex.GetType().Name,
+                                        ex.Message
                                     }
                                 }))))
                     .UseNewtonsoftJson()
