@@ -5,11 +5,11 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public class GremlinQueryTest : GremlinqTestBase
+    public class GremlinQueryTest : VerifyBase
     {
         private readonly IGremlinQuerySource _g;
 
-        public GremlinQueryTest(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
+        public GremlinQueryTest() : base()
         {
             _g = g
                 .ConfigureEnvironment(_ => _
@@ -92,14 +92,12 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public async Task ForceVertex_has_correct_semantics()
         {
-            var s = _g
+            await Verify(_g
                 .V<Person>()
                 .Count()
                 .ForceVertex()
                 .ToTraversal()
-                .Projection;
-
-            await Verify(s);
+                .Projection);
         }
     }
 }

@@ -22,11 +22,11 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public Task Repro() => Verify(g
+        public Task Repro() => g
             .ConfigureEnvironment(env => env
                 .UseModel(GraphModel.FromBaseTypes<VertexBaseAbstract, Edge>()))
             .V<Thing>("id")
             .Update(new Thing())
-            .Debug());
+            .Verify();
     }
 }

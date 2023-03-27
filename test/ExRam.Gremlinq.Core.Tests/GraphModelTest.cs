@@ -6,7 +6,7 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public class GraphModelTest : GremlinqTestBase
+    public class GraphModelTest : VerifyBase
     {
         private sealed class VertexOutsideHierarchy
         {
@@ -17,7 +17,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
         }
 
-        public GraphModelTest(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
+        public GraphModelTest() : base()
         {
 
         }

@@ -11,7 +11,7 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public class TypeSystemTest : GremlinqTestBase
+    public class TypeSystemTest : VerifyBase
     {
         private sealed class Vertex
         {
@@ -117,7 +117,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ToArray();
         }
 
-        public TypeSystemTest(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
+        public TypeSystemTest() : base()
         {
 
         }
