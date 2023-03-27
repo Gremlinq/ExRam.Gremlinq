@@ -15,8 +15,6 @@ namespace ExRam.Gremlinq.Core.Tests
 
         public virtual async Task Verify<TElement>(IGremlinQueryBase<TElement> query) => await Verify(query.Debug());
 
-        protected virtual IImmutableList<Func<string, string>> Scrubbers() => ImmutableList<Func<string, string>>.Empty;
-
         public static GremlinqTestBase Current { get => CurrentTestBase.Value ?? throw new InvalidOperationException(); }
     }
 }
