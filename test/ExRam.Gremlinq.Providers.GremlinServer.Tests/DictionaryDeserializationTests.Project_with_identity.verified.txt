@@ -1,516 +1,404 @@
 ﻿[
   {
-    "Item1": {
-      "Name": null,
-      "Languages": null,
-      "CountryCallingCode": "+49",
-      "LocalizableDescription": null,
-      "Id": -1,
-      "Label": "Country"
+    Item1: {
+      CountryCallingCode: +49,
+      Id: -1,
+      Label: Country
     },
-    "Item2": {
-      "id": -1,
-      "label": "CountryCallingCode",
-      "value": "+49",
-      "properties": {}
+    Item2: {
+      id: -1,
+      label: CountryCallingCode,
+      properties: {},
+      value: +49
     }
   },
   {
-    "Item1": {
-      "Age": 0,
-      "Gender": null,
-      "Image": null,
-      "RegistrationDate": "2020-04-07T14:43:36+00:00",
-      "PhoneNumbers": null,
-      "SomeObscureProperty": null,
-      "Name": {
-        "Id": -1,
-        "Label": "Name",
-        "Properties": {
-          "ValidFrom": "0001-01-01T00:00:00+00:00"
-        },
-        "Value": "Marko",
-        "Key": null
+    Item1: {
+      RegistrationDate: 2020-04-07 14:43:36 +0,
+      Name: {
+        Id: -1,
+        Label: Name,
+        Properties: {},
+        Value: Marko
       },
-      "Id": -1,
-      "Label": "Person"
+      Id: -1,
+      Label: Person
     },
-    "Item2": {
-      "id": -1,
-      "label": "RegistrationDate",
-      "value": "2020-04-07T14:43:36+00:00",
-      "properties": {}
+    Item2: {
+      id: -1,
+      label: RegistrationDate,
+      properties: {},
+      value: 2020-04-07 14:43:36 +0
     }
   },
   {
-    "Item1": {
-      "IetfLanguageTag": "en",
-      "Id": -1,
-      "Label": "Language"
+    Item1: {
+      IetfLanguageTag: en,
+      Id: -1,
+      Label: Language
     },
-    "Item2": {
-      "id": -1,
-      "label": "IetfLanguageTag",
-      "value": "en",
-      "properties": {}
+    Item2: {
+      id: -1,
+      label: IetfLanguageTag,
+      properties: {},
+      value: en
     }
   },
   {
-    "Item1": {
-      "IetfLanguageTag": "en",
-      "Id": -1,
-      "Label": "Language"
+    Item1: {
+      IetfLanguageTag: en,
+      Id: -1,
+      Label: Language
     },
-    "Item2": {
-      "id": -1,
-      "label": "IetfLanguageTag",
-      "value": "en",
-      "properties": {}
+    Item2: {
+      id: -1,
+      label: IetfLanguageTag,
+      properties: {},
+      value: en
     }
   },
   {
-    "Item1": {
-      "FoundingDate": "0001-01-01T00:00:00",
-      "PhoneNumbers": null,
-      "Locations": null,
-      "Name": null,
-      "Id": -1,
-      "Label": "Company"
+    Item1: {
+      Id: -1,
+      Label: Company
     },
-    "Item2": {
-      "id": -1,
-      "label": "FoundingDate",
-      "value": "0001-01-01T00:00:00+00:00",
-      "properties": {}
+    Item2: {
+      id: -1,
+      label: FoundingDate,
+      properties: {},
+      value: 0001-01-01 +0
     }
   },
   {
-    "Item1": {
-      "FoundingDate": "0001-01-01T00:00:00",
-      "PhoneNumbers": null,
-      "Locations": [
+    Item1: {
+      Locations: [
         {
-          "Id": -1,
-          "Label": "Locations",
-          "Properties": {
-            "ValidFrom": "2019-01-01T01:00:00+00:00"
+          Id: -1,
+          Label: Locations,
+          Properties: {
+            ValidFrom: 2019-01-01 01:00 +0
           },
-          "Value": "Aachen",
-          "Key": null
+          Value: Aachen
         }
       ],
-      "Name": null,
-      "Id": -1,
-      "Label": "Company"
+      Id: -1,
+      Label: Company
     },
-    "Item2": {
-      "id": -1,
-      "label": "FoundingDate",
-      "value": "0001-01-01T00:00:00+00:00",
-      "properties": {}
+    Item2: {
+      id: -1,
+      label: FoundingDate,
+      properties: {},
+      value: 0001-01-01 +0
     }
   },
   {
-    "Item1": {
-      "Age": 0,
-      "Gender": null,
-      "Image": null,
-      "RegistrationDate": null,
-      "PhoneNumbers": null,
-      "SomeObscureProperty": null,
-      "Name": null,
-      "Id": -1,
-      "Label": "Person"
+    Item1: {
+      Id: -1,
+      Label: Person
     },
-    "Item2": {
-      "id": -1,
-      "label": "Age",
-      "value": 0,
-      "properties": {}
+    Item2: {
+      id: -1,
+      label: Age,
+      properties: {},
+      value: 0
     }
   },
   {
-    "Item1": {
-      "Name": {
-        "Id": -1,
-        "Label": "Name",
-        "Properties": {},
-        "Value": "GER",
-        "Key": null
+    Item1: {
+      Name: {
+        Id: -1,
+        Label: Name,
+        Properties: {},
+        Value: GER
       },
-      "Languages": null,
-      "CountryCallingCode": null,
-      "LocalizableDescription": null,
-      "Id": -1,
-      "Label": "Country"
+      Id: -1,
+      Label: Country
     },
-    "Item2": {
-      "id": -1,
-      "label": "Name",
-      "value": "GER",
-      "properties": {}
+    Item2: {
+      id: -1,
+      label: Name,
+      properties: {},
+      value: GER
     }
   },
   {
-    "Item1": {
-      "Age": 0,
-      "Gender": null,
-      "Image": null,
-      "RegistrationDate": "2020-04-07T14:43:36+00:00",
-      "PhoneNumbers": null,
-      "SomeObscureProperty": null,
-      "Name": {
-        "Id": -1,
-        "Label": "Name",
-        "Properties": {
-          "ValidFrom": "0001-01-01T00:00:00+00:00"
+    Item1: {
+      RegistrationDate: 2020-04-07 14:43:36 +0,
+      Name: {
+        Id: -1,
+        Label: Name,
+        Properties: {},
+        Value: Bob
+      },
+      Id: -1,
+      Label: Person
+    },
+    Item2: {
+      id: -1,
+      label: RegistrationDate,
+      properties: {},
+      value: 2020-04-07 14:43:36 +0
+    }
+  },
+  {
+    Item1: {
+      Name: {
+        Id: -1,
+        Label: Name,
+        Properties: {
+          de: Deutschland,
+          en: Germany
         },
-        "Value": "Bob",
-        "Key": null
+        Value: GER
       },
-      "Id": -1,
-      "Label": "Person"
+      Id: -1,
+      Label: Country
     },
-    "Item2": {
-      "id": -1,
-      "label": "RegistrationDate",
-      "value": "2020-04-07T14:43:36+00:00",
-      "properties": {}
+    Item2: {
+      id: -1,
+      label: Name,
+      properties: {
+        de: Deutschland,
+        en: Germany
+      },
+      value: GER
     }
   },
   {
-    "Item1": {
-      "Name": {
-        "Id": -1,
-        "Label": "Name",
-        "Properties": {
-          "de": "Deutschland",
-          "en": "Germany"
-        },
-        "Value": "GER",
-        "Key": null
-      },
-      "Languages": null,
-      "CountryCallingCode": null,
-      "LocalizableDescription": null,
-      "Id": -1,
-      "Label": "Country"
-    },
-    "Item2": {
-      "id": -1,
-      "label": "Name",
-      "value": "GER",
-      "properties": {
-        "de": "Deutschland",
-        "en": "Germany"
-      }
-    }
-  },
-  {
-    "Item1": {
-      "FoundingDate": "0001-01-01T00:00:00",
-      "PhoneNumbers": [
-        "+4912345",
-        "+4923456"
+    Item1: {
+      PhoneNumbers: [
+        +4912345,
+        +4923456
       ],
-      "Locations": null,
-      "Name": null,
-      "Id": -1,
-      "Label": "Company"
+      Id: -1,
+      Label: Company
     },
-    "Item2": {
-      "id": -1,
-      "label": "PhoneNumbers",
-      "value": "+4912345",
-      "properties": {}
+    Item2: {
+      id: -1,
+      label: PhoneNumbers,
+      properties: {},
+      value: +4912345
     }
   },
   {
-    "Item1": {
-      "Age": 0,
-      "Gender": null,
-      "Image": null,
-      "RegistrationDate": null,
-      "PhoneNumbers": null,
-      "SomeObscureProperty": null,
-      "Name": null,
-      "Id": -1,
-      "Label": "Person"
+    Item1: {
+      Id: -1,
+      Label: Person
     },
-    "Item2": {
-      "id": -1,
-      "label": "Age",
-      "value": 0,
-      "properties": {}
+    Item2: {
+      id: -1,
+      label: Age,
+      properties: {},
+      value: 0
     }
   },
   {
-    "Item1": {
-      "IetfLanguageTag": null,
-      "Id": -1,
-      "Label": "Language"
+    Item1: {
+      Id: -1,
+      Label: Language
     },
-    "Item2": {
-      "id": -1,
-      "label": "lang",
-      "value": "en",
-      "properties": {}
+    Item2: {
+      id: -1,
+      label: lang,
+      properties: {},
+      value: en
     }
   },
   {
-    "Item1": {
-      "Age": 0,
-      "Gender": null,
-      "Image": null,
-      "RegistrationDate": null,
-      "PhoneNumbers": null,
-      "SomeObscureProperty": null,
-      "Name": null,
-      "Id": -1,
-      "Label": "Person"
+    Item1: {
+      Id: -1,
+      Label: Person
     },
-    "Item2": {
-      "id": -1,
-      "label": "Age",
-      "value": 0,
-      "properties": {}
+    Item2: {
+      id: -1,
+      label: Age,
+      properties: {},
+      value: 0
     }
   },
   {
-    "Item1": {
-      "Age": 0,
-      "Gender": null,
-      "Image": null,
-      "RegistrationDate": null,
-      "PhoneNumbers": null,
-      "SomeObscureProperty": null,
-      "Name": null,
-      "Id": -1,
-      "Label": "Person"
+    Item1: {
+      Id: -1,
+      Label: Person
     },
-    "Item2": {
-      "id": -1,
-      "label": "Age",
-      "value": 0,
-      "properties": {}
+    Item2: {
+      id: -1,
+      label: Age,
+      properties: {},
+      value: 0
     }
   },
   {
-    "Item1": {
-      "FoundingDate": "0001-01-01T00:00:00",
-      "PhoneNumbers": null,
-      "Locations": null,
-      "Name": null,
-      "Id": -1,
-      "Label": "Company"
+    Item1: {
+      Id: -1,
+      Label: Company
     },
-    "Item2": {
-      "id": -1,
-      "label": "FoundingDate",
-      "value": "0001-01-01T00:00:00+00:00",
-      "properties": {}
+    Item2: {
+      id: -1,
+      label: FoundingDate,
+      properties: {},
+      value: 0001-01-01 +0
     }
   },
   {
-    "Item1": {
-      "Age": 0,
-      "Gender": null,
-      "Image": null,
-      "RegistrationDate": null,
-      "PhoneNumbers": null,
-      "SomeObscureProperty": null,
-      "Name": null,
-      "Id": -1,
-      "Label": "Person"
+    Item1: {
+      Id: -1,
+      Label: Person
     },
-    "Item2": {
-      "id": -1,
-      "label": "Age",
-      "value": 0,
-      "properties": {}
+    Item2: {
+      id: -1,
+      label: Age,
+      properties: {},
+      value: 0
     }
   },
   {
-    "Item1": {
-      "IetfLanguageTag": "en",
-      "Id": -1,
-      "Label": "Language"
+    Item1: {
+      IetfLanguageTag: en,
+      Id: -1,
+      Label: Language
     },
-    "Item2": {
-      "id": -1,
-      "label": "IetfLanguageTag",
-      "value": "en",
-      "properties": {}
+    Item2: {
+      id: -1,
+      label: IetfLanguageTag,
+      properties: {},
+      value: en
     }
   },
   {
-    "Item1": {
-      "Name": null,
-      "Languages": null,
-      "CountryCallingCode": "+49",
-      "LocalizableDescription": null,
-      "Id": -1,
-      "Label": "Country"
+    Item1: {
+      CountryCallingCode: +49,
+      Id: -1,
+      Label: Country
     },
-    "Item2": {
-      "id": -1,
-      "label": "CountryCallingCode",
-      "value": "+49",
-      "properties": {}
+    Item2: {
+      id: -1,
+      label: CountryCallingCode,
+      properties: {},
+      value: +49
     }
   },
   {
-    "Item1": {
-      "Age": 0,
-      "Gender": null,
-      "Image": null,
-      "RegistrationDate": "2020-04-07T14:43:36+00:00",
-      "PhoneNumbers": null,
-      "SomeObscureProperty": null,
-      "Name": {
-        "Id": -1,
-        "Label": "Name",
-        "Properties": {
-          "ValidFrom": "0001-01-01T00:00:00+00:00"
-        },
-        "Value": "Bob",
-        "Key": null
+    Item1: {
+      RegistrationDate: 2020-04-07 14:43:36 +0,
+      Name: {
+        Id: -1,
+        Label: Name,
+        Properties: {},
+        Value: Bob
       },
-      "Id": -1,
-      "Label": "Person"
+      Id: -1,
+      Label: Person
     },
-    "Item2": {
-      "id": -1,
-      "label": "RegistrationDate",
-      "value": "2020-04-07T14:43:36+00:00",
-      "properties": {}
+    Item2: {
+      id: -1,
+      label: RegistrationDate,
+      properties: {},
+      value: 2020-04-07 14:43:36 +0
     }
   },
   {
-    "Item1": {
-      "FoundingDate": "0001-01-01T00:00:00",
-      "PhoneNumbers": null,
-      "Locations": null,
-      "Name": null,
-      "Id": -1,
-      "Label": "Company"
+    Item1: {
+      Id: -1,
+      Label: Company
     },
-    "Item2": {
-      "id": -1,
-      "label": "FoundingDate",
-      "value": "0001-01-01T00:00:00+00:00",
-      "properties": {}
+    Item2: {
+      id: -1,
+      label: FoundingDate,
+      properties: {},
+      value: 0001-01-01 +0
     }
   },
   {
-    "Item1": {
-      "Age": 0,
-      "Gender": null,
-      "Image": null,
-      "RegistrationDate": null,
-      "PhoneNumbers": null,
-      "SomeObscureProperty": null,
-      "Name": null,
-      "Id": -1,
-      "Label": "Person"
+    Item1: {
+      Id: -1,
+      Label: Person
     },
-    "Item2": {
-      "id": -1,
-      "label": "Age",
-      "value": 0,
-      "properties": {}
+    Item2: {
+      id: -1,
+      label: Age,
+      properties: {},
+      value: 0
     }
   },
   {
-    "Item1": {
-      "IetfLanguageTag": "en",
-      "Id": -1,
-      "Label": "Language"
+    Item1: {
+      IetfLanguageTag: en,
+      Id: -1,
+      Label: Language
     },
-    "Item2": {
-      "id": -1,
-      "label": "IetfLanguageTag",
-      "value": "en",
-      "properties": {}
+    Item2: {
+      id: -1,
+      label: IetfLanguageTag,
+      properties: {},
+      value: en
     }
   },
   {
-    "Item1": {
-      "Enabled": false,
-      "StartTime": "08:00:00",
-      "Duration": "02:00:00",
-      "Id": -1,
-      "Label": "TimeFrame"
+    Item1: {
+      Enabled: false,
+      StartTime: 08:00:00,
+      Duration: 02:00:00,
+      Id: -1,
+      Label: TimeFrame
     },
-    "Item2": {
-      "id": -1,
-      "label": "StartTime",
-      "value": "08:00:00",
-      "properties": {}
+    Item2: {
+      id: -1,
+      label: StartTime,
+      properties: {},
+      value: 08:00:00
     }
   },
   {
-    "Item1": {
-      "IetfLanguageTag": "en",
-      "Id": -1,
-      "Label": "Language"
+    Item1: {
+      IetfLanguageTag: en,
+      Id: -1,
+      Label: Language
     },
-    "Item2": {
-      "id": -1,
-      "label": "IetfLanguageTag",
-      "value": "en",
-      "properties": {}
+    Item2: {
+      id: -1,
+      label: IetfLanguageTag,
+      properties: {},
+      value: en
     }
   },
   {
-    "Item1": {
-      "IetfLanguageTag": "en",
-      "Id": -1,
-      "Label": "Language"
+    Item1: {
+      IetfLanguageTag: en,
+      Id: -1,
+      Label: Language
     },
-    "Item2": {
-      "id": -1,
-      "label": "IetfLanguageTag",
-      "value": "en",
-      "properties": {}
+    Item2: {
+      id: -1,
+      label: IetfLanguageTag,
+      properties: {},
+      value: en
     }
   },
   {
-    "Item1": {
-      "Age": 0,
-      "Gender": null,
-      "Image": "AQIDBAUGBwg=",
-      "RegistrationDate": null,
-      "PhoneNumbers": null,
-      "SomeObscureProperty": null,
-      "Name": null,
-      "Id": -1,
-      "Label": "Person"
+    Item1: {
+      Image: AQIDBAUGBwg=,
+      Id: -1,
+      Label: Person
     },
-    "Item2": {
-      "id": -1,
-      "label": "Image",
-      "value": "AQIDBAUGBwg=",
-      "properties": {}
+    Item2: {
+      id: -1,
+      label: Image,
+      properties: {},
+      value: AQIDBAUGBwg=
     }
   },
   {
-    "Item1": {
-      "Age": 0,
-      "Gender": 1,
-      "Image": null,
-      "RegistrationDate": null,
-      "PhoneNumbers": null,
-      "SomeObscureProperty": null,
-      "Name": null,
-      "Id": -1,
-      "Label": "Person"
+    Item1: {
+      Gender: Female,
+      Id: -1,
+      Label: Person
     },
-    "Item2": {
-      "id": -1,
-      "label": "Gender",
-      "value": 1,
-      "properties": {}
+    Item2: {
+      id: -1,
+      label: Gender,
+      properties: {},
+      value: 1
     }
   }
 ]

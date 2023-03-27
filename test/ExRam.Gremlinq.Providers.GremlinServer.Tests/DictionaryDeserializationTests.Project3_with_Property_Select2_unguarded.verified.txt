@@ -1,13 +1,10 @@
 ﻿[
   {
-    "Item1": {
-      "Name": null,
-      "Languages": null,
-      "CountryCallingCode": "+49",
-      "LocalizableDescription": null,
-      "Id": -1,
-      "Label": "Country"
+    Item1: {
+      CountryCallingCode: +49,
+      Id: -1,
+      Label: Country
     },
-    "Item3": 0
+    Item3: 0
   }
 ]

@@ -1,26 +1,26 @@
 ﻿[
   {
-    "id": -1,
-    "label": "Name",
-    "value": "Marko",
-    "properties": {
-      "ValidFrom": "2020-04-07T14:43:36+00:00"
-    }
+    id: -1,
+    label: Name,
+    properties: {
+      ValidFrom: 2020-04-07 14:43:36 +0
+    },
+    value: Marko
   },
   {
-    "id": -1,
-    "label": "Name",
-    "value": "Bob",
-    "properties": {
-      "ValidFrom": "2020-04-07T14:43:36+00:00"
-    }
+    id: -1,
+    label: Name,
+    properties: {
+      ValidFrom: 2020-04-07 14:43:36 +0
+    },
+    value: Bob
   },
   {
-    "id": -1,
-    "label": "Name",
-    "value": "Bob",
-    "properties": {
-      "ValidFrom": "2020-04-07T14:43:36+00:00"
-    }
+    id: -1,
+    label: Name,
+    properties: {
+      ValidFrom: 2020-04-07 14:43:36 +0
+    },
+    value: Bob
   }
 ]

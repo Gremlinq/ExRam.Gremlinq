@@ -1,5 +1,5 @@
 ﻿[
-  "2019-01-01T01:00:00+00:00",
-  "Deutschland",
-  "Germany"
+  2019-01-01 01:00 +0,
+  Deutschland,
+  Germany
 ]

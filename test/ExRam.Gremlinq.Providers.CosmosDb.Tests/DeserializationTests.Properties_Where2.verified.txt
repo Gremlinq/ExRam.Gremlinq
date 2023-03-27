@@ -1,72 +1,62 @@
 ﻿[
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Age",
-    "Properties": {},
-    "Value": 0,
-    "Key": null
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Age,
+    Properties: {},
+    Value: 0
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Age",
-    "Properties": {},
-    "Value": 0,
-    "Key": null
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Age,
+    Properties: {},
+    Value: 0
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Age",
-    "Properties": {},
-    "Value": 0,
-    "Key": null
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Age,
+    Properties: {},
+    Value: 0
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Age",
-    "Properties": {},
-    "Value": 0,
-    "Key": null
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Age,
+    Properties: {},
+    Value: 0
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Age",
-    "Properties": {},
-    "Value": 0,
-    "Key": null
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Age,
+    Properties: {},
+    Value: 0
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Age",
-    "Properties": {},
-    "Value": 0,
-    "Key": null
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Age,
+    Properties: {},
+    Value: 0
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Age",
-    "Properties": {},
-    "Value": 0,
-    "Key": null
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Age,
+    Properties: {},
+    Value: 0
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Age",
-    "Properties": {},
-    "Value": 0,
-    "Key": null
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Age,
+    Properties: {},
+    Value: 0
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Age",
-    "Properties": {},
-    "Value": 0,
-    "Key": null
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Age,
+    Properties: {},
+    Value: 0
   },
   {
-    "Id": "00000000-0000-0000-0000-000000000000",
-    "Label": "Age",
-    "Properties": {},
-    "Value": 0,
-    "Key": null
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Age,
+    Properties: {},
+    Value: 0
   }
 ]

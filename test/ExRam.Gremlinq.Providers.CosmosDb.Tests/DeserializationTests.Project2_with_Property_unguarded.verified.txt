@@ -1,53 +1,19 @@
 ﻿[
+  {},
   {
-    "Item1": null,
-    "Item2": 0
+    Item1: {
+      CountryCallingCode: +49,
+      Id: 00000000-0000-0000-0000-000000000000,
+      Label: Country
+    }
   },
-  {
-    "Item1": {
-      "Name": null,
-      "Languages": null,
-      "CountryCallingCode": "+49",
-      "LocalizableDescription": null,
-      "Id": "00000000-0000-0000-0000-000000000000",
-      "Label": "Country"
-    },
-    "Item2": 0
-  },
-  {
-    "Item1": null,
-    "Item2": 0
-  },
-  {
-    "Item1": null,
-    "Item2": 0
-  },
-  {
-    "Item1": null,
-    "Item2": 0
-  },
-  {
-    "Item1": null,
-    "Item2": 0
-  },
-  {
-    "Item1": null,
-    "Item2": 0
-  },
-  {
-    "Item1": null,
-    "Item2": 0
-  },
-  {
-    "Item1": null,
-    "Item2": 0
-  },
-  {
-    "Item1": null,
-    "Item2": 0
-  },
-  {
-    "Item1": null,
-    "Item2": 0
-  }
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {}
 ]

@@ -1,287 +1,247 @@
 ﻿[
   {
-    "Id": -1,
-    "Label": "CountryCallingCode",
-    "Properties": {},
-    "Value": "+49",
-    "Key": null
+    Id: -1,
+    Label: CountryCallingCode,
+    Properties: {},
+    Value: +49
   },
   {
-    "Id": -1,
-    "Label": "RegistrationDate",
-    "Properties": {},
-    "Value": "2020-04-07T14:43:36+00:00",
-    "Key": null
+    Id: -1,
+    Label: RegistrationDate,
+    Properties: {},
+    Value: 2020-04-07 14:43:36 +0
   },
   {
-    "Id": -1,
-    "Label": "Name",
-    "Properties": {},
-    "Value": "Marko",
-    "Key": null
+    Id: -1,
+    Label: Name,
+    Properties: {},
+    Value: Marko
   },
   {
-    "Id": -1,
-    "Label": "IetfLanguageTag",
-    "Properties": {},
-    "Value": "en",
-    "Key": null
+    Id: -1,
+    Label: IetfLanguageTag,
+    Properties: {},
+    Value: en
   },
   {
-    "Id": -1,
-    "Label": "IetfLanguageTag",
-    "Properties": {},
-    "Value": "en",
-    "Key": null
+    Id: -1,
+    Label: IetfLanguageTag,
+    Properties: {},
+    Value: en
   },
   {
-    "Id": -1,
-    "Label": "FoundingDate",
-    "Properties": {},
-    "Value": "0001-01-01T00:00:00+00:00",
-    "Key": null
+    Id: -1,
+    Label: FoundingDate,
+    Properties: {},
+    Value: 0001-01-01 +0
   },
   {
-    "Id": -1,
-    "Label": "FoundingDate",
-    "Properties": {},
-    "Value": "0001-01-01T00:00:00+00:00",
-    "Key": null
+    Id: -1,
+    Label: FoundingDate,
+    Properties: {},
+    Value: 0001-01-01 +0
   },
   {
-    "Id": -1,
-    "Label": "Locations",
-    "Properties": {
-      "ValidFrom": "2019-01-01T01:00:00+00:00"
+    Id: -1,
+    Label: Locations,
+    Properties: {
+      ValidFrom: 2019-01-01 01:00 +0
     },
-    "Value": "Aachen",
-    "Key": null
+    Value: Aachen
   },
   {
-    "Id": -1,
-    "Label": "Age",
-    "Properties": {},
-    "Value": 0,
-    "Key": null
+    Id: -1,
+    Label: Age,
+    Properties: {},
+    Value: 0
   },
   {
-    "Id": -1,
-    "Label": "Name",
-    "Properties": {},
-    "Value": "GER",
-    "Key": null
+    Id: -1,
+    Label: Name,
+    Properties: {},
+    Value: GER
   },
   {
-    "Id": -1,
-    "Label": "RegistrationDate",
-    "Properties": {},
-    "Value": "2020-04-07T14:43:36+00:00",
-    "Key": null
+    Id: -1,
+    Label: RegistrationDate,
+    Properties: {},
+    Value: 2020-04-07 14:43:36 +0
   },
   {
-    "Id": -1,
-    "Label": "Age",
-    "Properties": {},
-    "Value": 0,
-    "Key": null
+    Id: -1,
+    Label: Age,
+    Properties: {},
+    Value: 0
   },
   {
-    "Id": -1,
-    "Label": "Name",
-    "Properties": {},
-    "Value": "Bob",
-    "Key": null
+    Id: -1,
+    Label: Name,
+    Properties: {},
+    Value: Bob
   },
   {
-    "Id": -1,
-    "Label": "Name",
-    "Properties": {
-      "de": "Deutschland",
-      "en": "Germany"
+    Id: -1,
+    Label: Name,
+    Properties: {
+      de: Deutschland,
+      en: Germany
     },
-    "Value": "GER",
-    "Key": null
+    Value: GER
   },
   {
-    "Id": -1,
-    "Label": "PhoneNumbers",
-    "Properties": {},
-    "Value": "+4912345",
-    "Key": null
+    Id: -1,
+    Label: PhoneNumbers,
+    Properties: {},
+    Value: +4912345
   },
   {
-    "Id": -1,
-    "Label": "PhoneNumbers",
-    "Properties": {},
-    "Value": "+4923456",
-    "Key": null
+    Id: -1,
+    Label: PhoneNumbers,
+    Properties: {},
+    Value: +4923456
   },
   {
-    "Id": -1,
-    "Label": "FoundingDate",
-    "Properties": {},
-    "Value": "0001-01-01T00:00:00+00:00",
-    "Key": null
+    Id: -1,
+    Label: FoundingDate,
+    Properties: {},
+    Value: 0001-01-01 +0
   },
   {
-    "Id": -1,
-    "Label": "Age",
-    "Properties": {},
-    "Value": 0,
-    "Key": null
+    Id: -1,
+    Label: Age,
+    Properties: {},
+    Value: 0
   },
   {
-    "Id": -1,
-    "Label": "lang",
-    "Properties": {},
-    "Value": "en",
-    "Key": null
+    Id: -1,
+    Label: lang,
+    Properties: {},
+    Value: en
   },
   {
-    "Id": -1,
-    "Label": "Age",
-    "Properties": {},
-    "Value": 0,
-    "Key": null
+    Id: -1,
+    Label: Age,
+    Properties: {},
+    Value: 0
   },
   {
-    "Id": -1,
-    "Label": "Age",
-    "Properties": {},
-    "Value": 0,
-    "Key": null
+    Id: -1,
+    Label: Age,
+    Properties: {},
+    Value: 0
   },
   {
-    "Id": -1,
-    "Label": "FoundingDate",
-    "Properties": {},
-    "Value": "0001-01-01T00:00:00+00:00",
-    "Key": null
+    Id: -1,
+    Label: FoundingDate,
+    Properties: {},
+    Value: 0001-01-01 +0
   },
   {
-    "Id": -1,
-    "Label": "Age",
-    "Properties": {},
-    "Value": 0,
-    "Key": null
+    Id: -1,
+    Label: Age,
+    Properties: {},
+    Value: 0
   },
   {
-    "Id": -1,
-    "Label": "IetfLanguageTag",
-    "Properties": {},
-    "Value": "en",
-    "Key": null
+    Id: -1,
+    Label: IetfLanguageTag,
+    Properties: {},
+    Value: en
   },
   {
-    "Id": -1,
-    "Label": "CountryCallingCode",
-    "Properties": {},
-    "Value": "+49",
-    "Key": null
+    Id: -1,
+    Label: CountryCallingCode,
+    Properties: {},
+    Value: +49
   },
   {
-    "Id": -1,
-    "Label": "RegistrationDate",
-    "Properties": {},
-    "Value": "2020-04-07T14:43:36+00:00",
-    "Key": null
+    Id: -1,
+    Label: RegistrationDate,
+    Properties: {},
+    Value: 2020-04-07 14:43:36 +0
   },
   {
-    "Id": -1,
-    "Label": "Age",
-    "Properties": {},
-    "Value": 0,
-    "Key": null
+    Id: -1,
+    Label: Age,
+    Properties: {},
+    Value: 0
   },
   {
-    "Id": -1,
-    "Label": "Name",
-    "Properties": {},
-    "Value": "Bob",
-    "Key": null
+    Id: -1,
+    Label: Name,
+    Properties: {},
+    Value: Bob
   },
   {
-    "Id": -1,
-    "Label": "FoundingDate",
-    "Properties": {},
-    "Value": "0001-01-01T00:00:00+00:00",
-    "Key": null
+    Id: -1,
+    Label: FoundingDate,
+    Properties: {},
+    Value: 0001-01-01 +0
   },
   {
-    "Id": -1,
-    "Label": "Age",
-    "Properties": {},
-    "Value": 0,
-    "Key": null
+    Id: -1,
+    Label: Age,
+    Properties: {},
+    Value: 0
   },
   {
-    "Id": -1,
-    "Label": "IetfLanguageTag",
-    "Properties": {},
-    "Value": "en",
-    "Key": null
+    Id: -1,
+    Label: IetfLanguageTag,
+    Properties: {},
+    Value: en
   },
   {
-    "Id": -1,
-    "Label": "StartTime",
-    "Properties": {},
-    "Value": "08:00:00",
-    "Key": null
+    Id: -1,
+    Label: StartTime,
+    Properties: {},
+    Value: 08:00:00
   },
   {
-    "Id": -1,
-    "Label": "Enabled",
-    "Properties": {},
-    "Value": false,
-    "Key": null
+    Id: -1,
+    Label: Enabled,
+    Properties: {},
+    Value: false
   },
   {
-    "Id": -1,
-    "Label": "Duration",
-    "Properties": {},
-    "Value": "02:00:00",
-    "Key": null
+    Id: -1,
+    Label: Duration,
+    Properties: {},
+    Value: 02:00:00
   },
   {
-    "Id": -1,
-    "Label": "IetfLanguageTag",
-    "Properties": {},
-    "Value": "en",
-    "Key": null
+    Id: -1,
+    Label: IetfLanguageTag,
+    Properties: {},
+    Value: en
   },
   {
-    "Id": -1,
-    "Label": "IetfLanguageTag",
-    "Properties": {},
-    "Value": "en",
-    "Key": null
+    Id: -1,
+    Label: IetfLanguageTag,
+    Properties: {},
+    Value: en
   },
   {
-    "Id": -1,
-    "Label": "Image",
-    "Properties": {},
-    "Value": "AQIDBAUGBwg=",
-    "Key": null
+    Id: -1,
+    Label: Image,
+    Properties: {},
+    Value: AQIDBAUGBwg=
   },
   {
-    "Id": -1,
-    "Label": "Age",
-    "Properties": {},
-    "Value": 0,
-    "Key": null
+    Id: -1,
+    Label: Age,
+    Properties: {},
+    Value: 0
   },
   {
-    "Id": -1,
-    "Label": "Gender",
-    "Properties": {},
-    "Value": 1,
-    "Key": null
+    Id: -1,
+    Label: Gender,
+    Properties: {},
+    Value: 1
   },
   {
-    "Id": -1,
-    "Label": "Age",
-    "Properties": {},
-    "Value": 0,
-    "Key": null
+    Id: -1,
+    Label: Age,
+    Properties: {},
+    Value: 0
   }
 ]

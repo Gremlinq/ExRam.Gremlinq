@@ -1,17 +1,17 @@
 ﻿[
   {
-    "id": -1,
-    "label": "Name",
-    "value": "GER",
-    "properties": {}
+    id: -1,
+    label: Name,
+    properties: {},
+    value: GER
   },
   {
-    "id": -1,
-    "label": "Name",
-    "value": "GER",
-    "properties": {
-      "de": "Deutschland",
-      "en": "Germany"
-    }
+    id: -1,
+    label: Name,
+    properties: {
+      de: Deutschland,
+      en: Germany
+    },
+    value: GER
   }
 ]

@@ -1,247 +1,247 @@
 ﻿[
   {
-    "id": -1,
-    "label": "CountryCallingCode",
-    "value": "+49",
-    "properties": {}
+    id: -1,
+    label: CountryCallingCode,
+    properties: {},
+    value: +49
   },
   {
-    "id": -1,
-    "label": "RegistrationDate",
-    "value": "2020-04-07T14:43:36+00:00",
-    "properties": {}
+    id: -1,
+    label: RegistrationDate,
+    properties: {},
+    value: 2020-04-07 14:43:36 +0
   },
   {
-    "id": -1,
-    "label": "Name",
-    "value": "Marko",
-    "properties": {}
+    id: -1,
+    label: Name,
+    properties: {},
+    value: Marko
   },
   {
-    "id": -1,
-    "label": "IetfLanguageTag",
-    "value": "en",
-    "properties": {}
+    id: -1,
+    label: IetfLanguageTag,
+    properties: {},
+    value: en
   },
   {
-    "id": -1,
-    "label": "IetfLanguageTag",
-    "value": "en",
-    "properties": {}
+    id: -1,
+    label: IetfLanguageTag,
+    properties: {},
+    value: en
   },
   {
-    "id": -1,
-    "label": "FoundingDate",
-    "value": "0001-01-01T00:00:00+00:00",
-    "properties": {}
+    id: -1,
+    label: FoundingDate,
+    properties: {},
+    value: 0001-01-01 +0
   },
   {
-    "id": -1,
-    "label": "FoundingDate",
-    "value": "0001-01-01T00:00:00+00:00",
-    "properties": {}
+    id: -1,
+    label: FoundingDate,
+    properties: {},
+    value: 0001-01-01 +0
   },
   {
-    "id": -1,
-    "label": "Locations",
-    "value": "Aachen",
-    "properties": {
-      "ValidFrom": "2019-01-01T01:00:00+00:00"
-    }
+    id: -1,
+    label: Locations,
+    properties: {
+      ValidFrom: 2019-01-01 01:00 +0
+    },
+    value: Aachen
   },
   {
-    "id": -1,
-    "label": "Age",
-    "value": 0,
-    "properties": {}
+    id: -1,
+    label: Age,
+    properties: {},
+    value: 0
   },
   {
-    "id": -1,
-    "label": "Name",
-    "value": "GER",
-    "properties": {}
+    id: -1,
+    label: Name,
+    properties: {},
+    value: GER
   },
   {
-    "id": -1,
-    "label": "RegistrationDate",
-    "value": "2020-04-07T14:43:36+00:00",
-    "properties": {}
+    id: -1,
+    label: RegistrationDate,
+    properties: {},
+    value: 2020-04-07 14:43:36 +0
   },
   {
-    "id": -1,
-    "label": "Age",
-    "value": 0,
-    "properties": {}
+    id: -1,
+    label: Age,
+    properties: {},
+    value: 0
   },
   {
-    "id": -1,
-    "label": "Name",
-    "value": "Bob",
-    "properties": {}
+    id: -1,
+    label: Name,
+    properties: {},
+    value: Bob
   },
   {
-    "id": -1,
-    "label": "Name",
-    "value": "GER",
-    "properties": {
-      "de": "Deutschland",
-      "en": "Germany"
-    }
+    id: -1,
+    label: Name,
+    properties: {
+      de: Deutschland,
+      en: Germany
+    },
+    value: GER
   },
   {
-    "id": -1,
-    "label": "PhoneNumbers",
-    "value": "+4912345",
-    "properties": {}
+    id: -1,
+    label: PhoneNumbers,
+    properties: {},
+    value: +4912345
   },
   {
-    "id": -1,
-    "label": "PhoneNumbers",
-    "value": "+4923456",
-    "properties": {}
+    id: -1,
+    label: PhoneNumbers,
+    properties: {},
+    value: +4923456
   },
   {
-    "id": -1,
-    "label": "FoundingDate",
-    "value": "0001-01-01T00:00:00+00:00",
-    "properties": {}
+    id: -1,
+    label: FoundingDate,
+    properties: {},
+    value: 0001-01-01 +0
   },
   {
-    "id": -1,
-    "label": "Age",
-    "value": 0,
-    "properties": {}
+    id: -1,
+    label: Age,
+    properties: {},
+    value: 0
   },
   {
-    "id": -1,
-    "label": "lang",
-    "value": "en",
-    "properties": {}
+    id: -1,
+    label: lang,
+    properties: {},
+    value: en
   },
   {
-    "id": -1,
-    "label": "Age",
-    "value": 0,
-    "properties": {}
+    id: -1,
+    label: Age,
+    properties: {},
+    value: 0
   },
   {
-    "id": -1,
-    "label": "Age",
-    "value": 0,
-    "properties": {}
+    id: -1,
+    label: Age,
+    properties: {},
+    value: 0
   },
   {
-    "id": -1,
-    "label": "FoundingDate",
-    "value": "0001-01-01T00:00:00+00:00",
-    "properties": {}
+    id: -1,
+    label: FoundingDate,
+    properties: {},
+    value: 0001-01-01 +0
   },
   {
-    "id": -1,
-    "label": "Age",
-    "value": 0,
-    "properties": {}
+    id: -1,
+    label: Age,
+    properties: {},
+    value: 0
   },
   {
-    "id": -1,
-    "label": "IetfLanguageTag",
-    "value": "en",
-    "properties": {}
+    id: -1,
+    label: IetfLanguageTag,
+    properties: {},
+    value: en
   },
   {
-    "id": -1,
-    "label": "CountryCallingCode",
-    "value": "+49",
-    "properties": {}
+    id: -1,
+    label: CountryCallingCode,
+    properties: {},
+    value: +49
   },
   {
-    "id": -1,
-    "label": "RegistrationDate",
-    "value": "2020-04-07T14:43:36+00:00",
-    "properties": {}
+    id: -1,
+    label: RegistrationDate,
+    properties: {},
+    value: 2020-04-07 14:43:36 +0
   },
   {
-    "id": -1,
-    "label": "Age",
-    "value": 0,
-    "properties": {}
+    id: -1,
+    label: Age,
+    properties: {},
+    value: 0
   },
   {
-    "id": -1,
-    "label": "Name",
-    "value": "Bob",
-    "properties": {}
+    id: -1,
+    label: Name,
+    properties: {},
+    value: Bob
   },
   {
-    "id": -1,
-    "label": "FoundingDate",
-    "value": "0001-01-01T00:00:00+00:00",
-    "properties": {}
+    id: -1,
+    label: FoundingDate,
+    properties: {},
+    value: 0001-01-01 +0
   },
   {
-    "id": -1,
-    "label": "Age",
-    "value": 0,
-    "properties": {}
+    id: -1,
+    label: Age,
+    properties: {},
+    value: 0
   },
   {
-    "id": -1,
-    "label": "IetfLanguageTag",
-    "value": "en",
-    "properties": {}
+    id: -1,
+    label: IetfLanguageTag,
+    properties: {},
+    value: en
   },
   {
-    "id": -1,
-    "label": "StartTime",
-    "value": "08:00:00",
-    "properties": {}
+    id: -1,
+    label: StartTime,
+    properties: {},
+    value: 08:00:00
   },
   {
-    "id": -1,
-    "label": "Enabled",
-    "value": false,
-    "properties": {}
+    id: -1,
+    label: Enabled,
+    properties: {},
+    value: false
   },
   {
-    "id": -1,
-    "label": "Duration",
-    "value": "02:00:00",
-    "properties": {}
+    id: -1,
+    label: Duration,
+    properties: {},
+    value: 02:00:00
   },
   {
-    "id": -1,
-    "label": "IetfLanguageTag",
-    "value": "en",
-    "properties": {}
+    id: -1,
+    label: IetfLanguageTag,
+    properties: {},
+    value: en
   },
   {
-    "id": -1,
-    "label": "IetfLanguageTag",
-    "value": "en",
-    "properties": {}
+    id: -1,
+    label: IetfLanguageTag,
+    properties: {},
+    value: en
   },
   {
-    "id": -1,
-    "label": "Image",
-    "value": "AQIDBAUGBwg=",
-    "properties": {}
+    id: -1,
+    label: Image,
+    properties: {},
+    value: AQIDBAUGBwg=
   },
   {
-    "id": -1,
-    "label": "Age",
-    "value": 0,
-    "properties": {}
+    id: -1,
+    label: Age,
+    properties: {},
+    value: 0
   },
   {
-    "id": -1,
-    "label": "Gender",
-    "value": 1,
-    "properties": {}
+    id: -1,
+    label: Gender,
+    properties: {},
+    value: 1
   },
   {
-    "id": -1,
-    "label": "Age",
-    "value": 0,
-    "properties": {}
+    id: -1,
+    label: Age,
+    properties: {},
+    value: 0
   }
 ]

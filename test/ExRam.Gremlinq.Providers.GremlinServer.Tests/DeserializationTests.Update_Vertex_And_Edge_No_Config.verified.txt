@@ -1,23 +1,23 @@
 ﻿[
   {
-    "Role": "Admin",
-    "From": "2020-04-07T14:43:36Z",
-    "To": "2020-04-07T14:43:36Z",
-    "Id": -1,
-    "Label": "WorksFor"
+    Role: Admin,
+    From: 2020-04-07 14:43:36 Utc,
+    To: 2020-04-07 14:43:36 Utc,
+    Id: -1,
+    Label: WorksFor
   },
   {
-    "Role": "Admin",
-    "From": "2020-04-07T14:43:36Z",
-    "To": "2020-04-07T14:43:36Z",
-    "Id": -1,
-    "Label": "WorksFor"
+    Role: Admin,
+    From: 2020-04-07 14:43:36 Utc,
+    To: 2020-04-07 14:43:36 Utc,
+    Id: -1,
+    Label: WorksFor
   },
   {
-    "Role": "Admin",
-    "From": "2020-04-07T14:43:36Z",
-    "To": "2020-04-07T14:43:36Z",
-    "Id": -1,
-    "Label": "WorksFor"
+    Role: Admin,
+    From: 2020-04-07 14:43:36 Utc,
+    To: 2020-04-07 14:43:36 Utc,
+    Id: -1,
+    Label: WorksFor
   }
 ]
