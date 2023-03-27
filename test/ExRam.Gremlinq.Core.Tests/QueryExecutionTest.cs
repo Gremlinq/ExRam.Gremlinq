@@ -5,7 +5,6 @@ using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Tests.Entities;
 using Gremlin.Net.Process.Traversal;
 using Gremlin.Net.Process.Traversal.Strategy.Decoration;
-using Newtonsoft.Json;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
@@ -50,20 +49,6 @@ namespace ExRam.Gremlinq.Core.Tests
                     .LogToXunit(testOutputHelper)
                     .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>(lookup => lookup
                         .IncludeAssembliesOfBaseTypes())));
-        }
-
-        public override async Task Verify<TElement>(IGremlinQueryBase<TElement> query)
-        {
-            var serialized = JsonConvert.SerializeObject(
-                await query
-                    .ToArrayAsync(),
-                Formatting.Indented);
-
-            var scrubbed = this
-                .Scrubbers()
-                .Aggregate(serialized, (s, func) => func(s));
-
-            await Verify(scrubbed);
         }
 
         [Fact]

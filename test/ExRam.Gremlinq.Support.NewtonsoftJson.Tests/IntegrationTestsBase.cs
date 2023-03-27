@@ -7,6 +7,7 @@ using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Tests.Entities;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
@@ -36,6 +37,21 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
         {
         }
 
+        public override async Task Verify<TElement>(IGremlinQueryBase<TElement> query)
+        {
+            var serialized = JsonConvert.SerializeObject(
+                await query
+                    .Cast<JToken>()
+                    .ToArrayAsync(),
+                Formatting.Indented);
+
+            var scrubbed = this
+                .Scrubbers()
+                .Aggregate(serialized, (s, func) => func(s));
+
+            await Verify(scrubbed);
+        }
+
         [Fact]
         public virtual async Task AddV_list_cardinality_id()
         {
@@ -48,9 +64,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
                .Verify();
         }
 
-        public override Task Verify<TElement>(IGremlinQueryBase<TElement> query) => base.Verify(query.Cast<JToken>());
-
-        protected override IImmutableList<Func<string, string>> Scrubbers() => base.Scrubbers()
+        protected virtual IImmutableList<Func<string, string>> Scrubbers() => ImmutableList<Func<string, string>>.Empty
             .Add(x => IdRegex.Replace(x, "$1-1$4"))
             .ScrubGuids();
     }
