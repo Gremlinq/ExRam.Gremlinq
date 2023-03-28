@@ -28,7 +28,7 @@ namespace ExRam.Gremlinq.Core.Execution
                 _baseExecutor = baseExecutor;
             }
 
-            public IAsyncEnumerable<T> Execute<T>(GremlinQueryExecutionContext context) => _baseExecutor.Execute<T>(new GremlinQueryExecutionContext(_transformation(context.Query), context.ExecutionId));
+            public IAsyncEnumerable<T> Execute<T>(GremlinQueryExecutionContext context) => _baseExecutor.Execute<T>(context.TransformQuery(_transformation));
         }
 
         private sealed class ExponentialBackoffExecutor : IGremlinQueryExecutor
@@ -82,7 +82,7 @@ namespace ExRam.Gremlinq.Core.Execution
                                     //requests fail roughly at the same time
                                     await Task.Delay((_rnd ??= new Random((int)(DateTime.Now.Ticks & int.MaxValue) ^ Thread.CurrentThread.ManagedThreadId)).Next(i + 2) * 16, ct);
 
-                                    var newContext = new GremlinQueryExecutionContext(context.Query);
+                                    var newContext = context.WithNewExecutionId();
                                     environment.Logger.LogInformation($"Retrying serialized query {newContext.ExecutionId} with new {nameof(GremlinQueryExecutionContext.ExecutionId)} {newContext.ExecutionId}.");
                                     context = newContext;
 

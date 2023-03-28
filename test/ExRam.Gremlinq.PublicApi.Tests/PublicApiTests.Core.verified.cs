@@ -1185,10 +1185,11 @@ namespace ExRam.Gremlinq.Core.Execution
 {
     public readonly struct GremlinQueryExecutionContext
     {
-        public GremlinQueryExecutionContext(ExRam.Gremlinq.Core.IGremlinQueryBase query) { }
-        public GremlinQueryExecutionContext(ExRam.Gremlinq.Core.IGremlinQueryBase query, System.Guid executionId) { }
         public System.Guid ExecutionId { get; }
         public ExRam.Gremlinq.Core.IGremlinQueryBase Query { get; }
+        public ExRam.Gremlinq.Core.Execution.GremlinQueryExecutionContext TransformQuery(System.Func<ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBase> transformation) { }
+        public ExRam.Gremlinq.Core.Execution.GremlinQueryExecutionContext WithNewExecutionId() { }
+        public static ExRam.Gremlinq.Core.Execution.GremlinQueryExecutionContext Create(ExRam.Gremlinq.Core.IGremlinQueryBase query) { }
     }
     public static class GremlinQueryExecutor
     {
