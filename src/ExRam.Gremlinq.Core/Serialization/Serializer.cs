@@ -93,14 +93,14 @@ namespace ExRam.Gremlinq.Core.Serialization
             .AddDefaultStepConverters();
 
         public static ITransformer PreferGroovySerialization(this ITransformer serializer) => serializer
-            .Add(Create<Bytecode, RequestMessage>((query, env, recurse) => recurse.TryTransform(query, env, out GroovyGremlinQuery groovyQuery)
-                ? RequestMessage
-                    .Build(Tokens.OpsEval)
-                    .AddArgument(Tokens.ArgsGremlin, groovyQuery.Script)
-                    .AddArgument(Tokens.ArgsBindings, groovyQuery.Bindings)
-                    .AddAlias(env)
-                    .Create()
-                : default));
+            .Add(ConverterFactory
+                .Create<Bytecode, RequestMessage.Builder>((query, env, recurse) => recurse.TryTransform(query, env, out GroovyGremlinQuery groovyQuery)
+                    ? RequestMessage
+                        .Build(Tokens.OpsEval)
+                        .AddArgument(Tokens.ArgsGremlin, groovyQuery.Script)
+                        .AddArgument(Tokens.ArgsBindings, groovyQuery.Bindings)
+                        .AddAlias(env)
+                    : default));
 
         private static ITransformer AddBaseConverters(this ITransformer serializer) => serializer
             .Add(ConverterFactory
@@ -332,12 +332,17 @@ namespace ExRam.Gremlinq.Core.Serialization
             .Add(Create<TextP, TextP>((textP, _, _) => textP))
             .Add(Create<Type, Type>((type, _, _) => type))
 
-            .Add(Create<Bytecode, RequestMessage>((bytecode, env, recurse) => RequestMessage
-                .Build(Tokens.OpsBytecode)
-                .Processor(Tokens.ProcessorTraversal)
-                .AddArgument(Tokens.ArgsGremlin, bytecode)
-                .AddAlias(env)
-                .Create()));
+            .Add(ConverterFactory
+                .Create<Bytecode, RequestMessage.Builder>((bytecode, env, recurse) => RequestMessage
+                    .Build(Tokens.OpsBytecode)
+                    .Processor(Tokens.ProcessorTraversal)
+                    .AddArgument(Tokens.ArgsGremlin, bytecode)
+                    .AddAlias(env)))
+
+            .Add(ConverterFactory
+                .Create<Bytecode, RequestMessage>((bytecode, env, recurse) => recurse.TryTransform(bytecode, env, out RequestMessage.Builder? builder)
+                    ? builder.Create()
+                    : default));
 
         private static ITransformer AddDefaultStepConverters(this ITransformer serializer) => serializer
             .Add<AddEStep>((step, env, recurse) => CreateInstruction("addE", recurse, env, step.Label))

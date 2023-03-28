@@ -2,6 +2,6 @@
 {
     public interface IGremlinQueryExecutor
     {
-        IAsyncEnumerable<T> Execute<T>(IGremlinQueryBase query);
+        IAsyncEnumerable<T> Execute<T>(GremlinQueryExecutionContext context);
     }
 }
