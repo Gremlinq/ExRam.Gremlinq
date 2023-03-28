@@ -284,6 +284,16 @@ namespace ExRam.Gremlinq.Core.Serialization
             .Add(ConverterFactory
                 .Create<Bytecode, GroovyGremlinQuery>((query, _, _) => query.ToGroovy()))
             .Add(ConverterFactory
+                .Create<Bytecode, RequestMessage.Builder>((bytecode, env, recurse) => RequestMessage
+                    .Build(Tokens.OpsBytecode)
+                    .Processor(Tokens.ProcessorTraversal)
+                    .AddArgument(Tokens.ArgsGremlin, bytecode)
+                    .AddAlias(env)))
+            .Add(ConverterFactory
+                .Create<Bytecode, RequestMessage>((bytecode, env, recurse) => recurse.TryTransform(bytecode, env, out RequestMessage.Builder? builder)
+                    ? builder.Create()
+                    : default))
+            .Add(ConverterFactory
                 .Create<StepLabel, string>((stepLabel, _, _) =>
                 {
                     var stepLabelNames = _stepLabelNames ??= new Dictionary<StepLabel, Label>();
@@ -330,19 +340,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                         : null);
             }))
             .Add(Create<TextP, TextP>((textP, _, _) => textP))
-            .Add(Create<Type, Type>((type, _, _) => type))
-
-            .Add(ConverterFactory
-                .Create<Bytecode, RequestMessage.Builder>((bytecode, env, recurse) => RequestMessage
-                    .Build(Tokens.OpsBytecode)
-                    .Processor(Tokens.ProcessorTraversal)
-                    .AddArgument(Tokens.ArgsGremlin, bytecode)
-                    .AddAlias(env)))
-
-            .Add(ConverterFactory
-                .Create<Bytecode, RequestMessage>((bytecode, env, recurse) => recurse.TryTransform(bytecode, env, out RequestMessage.Builder? builder)
-                    ? builder.Create()
-                    : default));
+            .Add(Create<Type, Type>((type, _, _) => type));
 
         private static ITransformer AddDefaultStepConverters(this ITransformer serializer) => serializer
             .Add<AddEStep>((step, env, recurse) => CreateInstruction("addE", recurse, env, step.Label))

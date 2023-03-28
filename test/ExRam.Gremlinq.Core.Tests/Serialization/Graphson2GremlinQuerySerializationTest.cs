@@ -1,5 +1,4 @@
 ﻿using ExRam.Gremlinq.Core.Transformation;
-
 using Gremlin.Net.Process.Traversal;
 using Gremlin.Net.Structure.IO.GraphSON;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
