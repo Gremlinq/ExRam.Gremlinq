@@ -1,18 +1,20 @@
 ﻿using Gremlin.Net.Driver.Exceptions;
 using Microsoft.Extensions.Logging;
 
+using Polly;
+
 namespace ExRam.Gremlinq.Core.Execution
 {
     public static class GremlinQueryExecutor
     {
         private sealed class InvalidGremlinQueryExecutor : IGremlinQueryExecutor
         {
-            public IAsyncEnumerable<T> Execute<T>(IGremlinQueryBase query) => throw new InvalidOperationException($"'{nameof(IGremlinQueryExecutor.Execute)}' must not be called on {nameof(GremlinQueryExecutor)}.{nameof(Invalid)}. If you are getting this exception while executing a query, set a proper {nameof(GremlinQueryExecutor)} on the {nameof(GremlinQuerySource)} (e.g. with 'g.UseGremlinServer(...)' for GremlinServer which can be found in the 'ExRam.Gremlinq.Providers.GremlinServer' package).");
+            public IAsyncEnumerable<T> Execute<T>(GremlinQueryExecutionContext context) => throw new InvalidOperationException($"'{nameof(IGremlinQueryExecutor.Execute)}' must not be called on {nameof(GremlinQueryExecutor)}.{nameof(Invalid)}. If you are getting this exception while executing a query, set a proper {nameof(GremlinQueryExecutor)} on the {nameof(GremlinQuerySource)} (e.g. with 'g.UseGremlinServer(...)' for GremlinServer which can be found in the 'ExRam.Gremlinq.Providers.GremlinServer' package).");
         }
 
         private sealed class EmptyGremlinQueryExecutor : IGremlinQueryExecutor
         {
-            public IAsyncEnumerable<T> Execute<T>(IGremlinQueryBase query) => AsyncEnumerable.Empty<T>();
+            public IAsyncEnumerable<T> Execute<T>(GremlinQueryExecutionContext context) => AsyncEnumerable.Empty<T>();
         }
 
         private sealed class TransformQueryGremlinQueryExecutor : IGremlinQueryExecutor
@@ -26,7 +28,7 @@ namespace ExRam.Gremlinq.Core.Execution
                 _baseExecutor = baseExecutor;
             }
 
-            public IAsyncEnumerable<T> Execute<T>(IGremlinQueryBase query) => _baseExecutor.Execute<T>(_transformation(query));
+            public IAsyncEnumerable<T> Execute<T>(GremlinQueryExecutionContext context) => _baseExecutor.Execute<T>(new GremlinQueryExecutionContext(_transformation(context.Query), context.ExecutionId));
         }
 
         private sealed class ExponentialBackoffExecutor : IGremlinQueryExecutor
@@ -43,18 +45,19 @@ namespace ExRam.Gremlinq.Core.Execution
                 _shouldRetry = shouldRetry;
             }
 
-            public IAsyncEnumerable<T> Execute<T>(IGremlinQueryBase query)
+            public IAsyncEnumerable<T> Execute<T>(GremlinQueryExecutionContext context)
             {
                 return AsyncEnumerable.Create(Core);
 
                 async IAsyncEnumerator<T> Core(CancellationToken ct)
                 {
                     var hasSeenFirst = false;
-                    var environment = query.AsAdmin().Environment;
+                    var environment = context.Query
+                        .AsAdmin().Environment;
 
                     for (var i = 0; i < int.MaxValue; i++)
                     {
-                        await using (var enumerator = _baseExecutor.Execute<T>(query).GetAsyncEnumerator(ct))
+                        await using (var enumerator = _baseExecutor.Execute<T>(context).GetAsyncEnumerator(ct))
                         {
                             while (true)
                             {
@@ -103,7 +106,7 @@ namespace ExRam.Gremlinq.Core.Execution
                 _exceptionTransformation = exceptionTransformation;
             }
 
-            public IAsyncEnumerable<T> Execute<T>(IGremlinQueryBase query)
+            public IAsyncEnumerable<T> Execute<T>(GremlinQueryExecutionContext context)
             {
                 return AsyncEnumerable.Create(Core);
 
@@ -114,7 +117,7 @@ namespace ExRam.Gremlinq.Core.Execution
                     try
                     {
                         enumerator = _baseExecutor
-                            .Execute<T>(query)
+                            .Execute<T>(context)
                             .GetAsyncEnumerator(ct);
                     }
                     catch (Exception ex)

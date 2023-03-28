@@ -1183,6 +1183,13 @@ namespace ExRam.Gremlinq.Core
 }
 namespace ExRam.Gremlinq.Core.Execution
 {
+    public readonly struct GremlinQueryExecutionContext
+    {
+        public GremlinQueryExecutionContext(ExRam.Gremlinq.Core.IGremlinQueryBase query) { }
+        public GremlinQueryExecutionContext(ExRam.Gremlinq.Core.IGremlinQueryBase query, System.Guid executionId) { }
+        public System.Guid ExecutionId { get; }
+        public ExRam.Gremlinq.Core.IGremlinQueryBase Query { get; }
+    }
     public static class GremlinQueryExecutor
     {
         public static readonly ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor Empty;
@@ -1193,7 +1200,7 @@ namespace ExRam.Gremlinq.Core.Execution
     }
     public interface IGremlinQueryExecutor
     {
-        System.Collections.Generic.IAsyncEnumerable<T> Execute<T>(ExRam.Gremlinq.Core.IGremlinQueryBase query);
+        System.Collections.Generic.IAsyncEnumerable<T> Execute<T>(ExRam.Gremlinq.Core.Execution.GremlinQueryExecutionContext context);
     }
 }
 namespace ExRam.Gremlinq.Core.ExpressionParsing

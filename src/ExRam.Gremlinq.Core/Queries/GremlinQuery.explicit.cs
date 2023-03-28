@@ -3,6 +3,8 @@
 using System.Collections.Immutable;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
+
+using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Core.Projections;
 using ExRam.Gremlinq.Core.Steps;
@@ -208,7 +210,7 @@ namespace ExRam.Gremlinq.Core
         GremlinQueryAwaiter<TElement> IGremlinQueryBase<TElement>.GetAwaiter() => new((this).ToArrayAsync().AsTask().GetAwaiter());
 
         IAsyncEnumerable<TElement> IGremlinQueryBase<TElement>.ToAsyncEnumerable() => Environment.Executor
-            .Execute<TElement>(this);
+            .Execute<TElement>(new GremlinQueryExecutionContext(this));
 
         IValueGremlinQuery<Path> IGremlinQueryBase.Path() => Path();
 

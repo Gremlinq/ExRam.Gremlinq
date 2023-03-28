@@ -13,8 +13,8 @@ namespace ExRam.Gremlinq.Core.Execution
                 _baseExecutor = baseExecutor;
             }
 
-            public IAsyncEnumerable<T> Execute<T>(IGremlinQueryBase query) => _baseExecutor
-                .Execute<T>(query)
+            public IAsyncEnumerable<T> Execute<T>(GremlinQueryExecutionContext context) => _baseExecutor
+                .Execute<T>(context)
                 .Catch<T, Exception>(ex => typeof(T).IsAssignableFrom(typeof(JObject))
                     ? AsyncEnumerableEx
                         .Return((T)(object)new JObject()
