@@ -7,12 +7,12 @@ namespace ExRam.Gremlinq.Core.Execution
     {
         private sealed class InvalidGremlinQueryExecutor : IGremlinQueryExecutor
         {
-            public IAsyncEnumerable<T> Execute<T>(IGremlinQueryBase query, IGremlinQueryEnvironment environment) => throw new InvalidOperationException($"'{nameof(IGremlinQueryExecutor.Execute)}' must not be called on {nameof(GremlinQueryExecutor)}.{nameof(Invalid)}. If you are getting this exception while executing a query, set a proper {nameof(GremlinQueryExecutor)} on the {nameof(GremlinQuerySource)} (e.g. with 'g.UseGremlinServer(...)' for GremlinServer which can be found in the 'ExRam.Gremlinq.Providers.GremlinServer' package).");
+            public IAsyncEnumerable<T> Execute<T>(IGremlinQueryBase query) => throw new InvalidOperationException($"'{nameof(IGremlinQueryExecutor.Execute)}' must not be called on {nameof(GremlinQueryExecutor)}.{nameof(Invalid)}. If you are getting this exception while executing a query, set a proper {nameof(GremlinQueryExecutor)} on the {nameof(GremlinQuerySource)} (e.g. with 'g.UseGremlinServer(...)' for GremlinServer which can be found in the 'ExRam.Gremlinq.Providers.GremlinServer' package).");
         }
 
         private sealed class EmptyGremlinQueryExecutor : IGremlinQueryExecutor
         {
-            public IAsyncEnumerable<T> Execute<T>(IGremlinQueryBase query, IGremlinQueryEnvironment environment) => AsyncEnumerable.Empty<T>();
+            public IAsyncEnumerable<T> Execute<T>(IGremlinQueryBase query) => AsyncEnumerable.Empty<T>();
         }
 
         private sealed class TransformQueryGremlinQueryExecutor : IGremlinQueryExecutor
@@ -26,7 +26,7 @@ namespace ExRam.Gremlinq.Core.Execution
                 _baseExecutor = baseExecutor;
             }
 
-            public IAsyncEnumerable<T> Execute<T>(IGremlinQueryBase query, IGremlinQueryEnvironment environment) => _baseExecutor.Execute<T>(_transformation(query), environment);
+            public IAsyncEnumerable<T> Execute<T>(IGremlinQueryBase query) => _baseExecutor.Execute<T>(_transformation(query));
         }
 
         private sealed class ExponentialBackoffExecutor : IGremlinQueryExecutor
@@ -43,17 +43,18 @@ namespace ExRam.Gremlinq.Core.Execution
                 _shouldRetry = shouldRetry;
             }
 
-            public IAsyncEnumerable<T> Execute<T>(IGremlinQueryBase query, IGremlinQueryEnvironment environment)
+            public IAsyncEnumerable<T> Execute<T>(IGremlinQueryBase query)
             {
                 return AsyncEnumerable.Create(Core);
 
                 async IAsyncEnumerator<T> Core(CancellationToken ct)
                 {
                     var hasSeenFirst = false;
+                    var environment = query.AsAdmin().Environment;
 
                     for (var i = 0; i < int.MaxValue; i++)
                     {
-                        await using (var enumerator = _baseExecutor.Execute<T>(query, environment).GetAsyncEnumerator(ct))
+                        await using (var enumerator = _baseExecutor.Execute<T>(query).GetAsyncEnumerator(ct))
                         {
                             while (true)
                             {
@@ -102,7 +103,7 @@ namespace ExRam.Gremlinq.Core.Execution
                 _exceptionTransformation = exceptionTransformation;
             }
 
-            public IAsyncEnumerable<T> Execute<T>(IGremlinQueryBase query, IGremlinQueryEnvironment environment)
+            public IAsyncEnumerable<T> Execute<T>(IGremlinQueryBase query)
             {
                 return AsyncEnumerable.Create(Core);
 
@@ -113,7 +114,7 @@ namespace ExRam.Gremlinq.Core.Execution
                     try
                     {
                         enumerator = _baseExecutor
-                            .Execute<T>(query, environment)
+                            .Execute<T>(query)
                             .GetAsyncEnumerator(ct);
                     }
                     catch (Exception ex)

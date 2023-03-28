@@ -23,12 +23,16 @@ namespace ExRam.Gremlinq.Providers.Core
                 _clientFactory = clientFactory;
             }
 
-            public IAsyncEnumerable<T> Execute<T>(IGremlinQueryBase query, IGremlinQueryEnvironment environment)
+            public IAsyncEnumerable<T> Execute<T>(IGremlinQueryBase query)
             {
                 return AsyncEnumerable.Create(Core);
 
                 async IAsyncEnumerator<T> Core(CancellationToken ct)
                 {
+                    var environment = query
+                        .AsAdmin()
+                        .Environment;
+
                     var client = _clients
                         .GetOrAdd(
                             environment,
