@@ -167,7 +167,7 @@ namespace ExRam.Gremlinq.Core
                         {
                             var (names, emptyProjectionProtectionDecoratorSteps) = state;
 
-                            var projectStep = new ProjectStep(names.ToImmutableArray());
+                            var projectStep = new ProjectStep(names.AsSpan().ToImmutableArray());
                             var bySteps = new ProjectStep.ByStep[traversals.Length];
 
                             for (var i = 0; i < traversals.Length; i++)

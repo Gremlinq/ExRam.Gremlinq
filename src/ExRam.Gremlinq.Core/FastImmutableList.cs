@@ -1,9 +1,8 @@
 ﻿using System.Buffers;
-using System.Collections;
 
 namespace ExRam.Gremlinq.Core
 {
-    internal readonly struct FastImmutableList<T> : IReadOnlyList<T>
+    internal readonly struct FastImmutableList<T>
         where T : class
     {
         public static readonly FastImmutableList<T> Empty = new(Array.Empty<T>());
@@ -54,18 +53,6 @@ namespace ExRam.Gremlinq.Core
             poppedItem = this[Count - 1];
             return new FastImmutableList<T>(Items, Count - 1);
         }
-
-        public IEnumerator<T> GetEnumerator()
-        {
-            var steps = Items;
-
-            for (var i = 0; i < Count; i++)
-            {
-                yield return steps[i]!;
-            }
-        }
-
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public int Count { get; }
 

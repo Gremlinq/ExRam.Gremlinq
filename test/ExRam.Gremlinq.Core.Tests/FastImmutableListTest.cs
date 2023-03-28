@@ -17,11 +17,15 @@ namespace ExRam.Gremlinq.Core.Tests
 
             list
                 .Push("3")
+                .AsSpan()
+                .ToArray()
                 .Should()
                 .Equal("1", "2", "3");
 
             list
                 .Push("4")
+                .AsSpan()
+                .ToArray()
                 .Should()
                 .Equal("1", "2", "4");
         }
