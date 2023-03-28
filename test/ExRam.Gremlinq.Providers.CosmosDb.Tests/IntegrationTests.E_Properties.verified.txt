@@ -1,34 +1,8 @@
 ﻿[
   {
-    "key": "From",
-    "value": 1586270616000
-  },
-  {
-    "key": "Role",
-    "value": "Admin"
-  },
-  {
-    "key": "To",
-    "value": 1586270616000
-  },
-  {
-    "key": "Since",
-    "value": 1586270616000
-  },
-  {
-    "key": "From",
-    "value": 1586270616000
-  },
-  {
-    "key": "Role",
-    "value": "Admin"
-  },
-  {
-    "key": "To",
-    "value": 1586270616000
-  },
-  {
-    "key": "To",
-    "value": 1586270616000
+    "serverException": {
+      "type": "InvalidCastException",
+      "message": "Cannot convert ExRam.Gremlinq.Core.Execution.GremlinQueryExecutionContext to Gremlin.Net.Driver.Messages.RequestMessage+Builder."
+    }
   }
 ]

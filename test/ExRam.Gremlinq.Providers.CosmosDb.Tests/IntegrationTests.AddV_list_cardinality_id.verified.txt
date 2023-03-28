@@ -1,8 +1,8 @@
 ﻿[
   {
     "serverException": {
-      "type": "NotSupportedException",
-      "message": "Cannot have an id property on non-single cardinality."
+      "type": "InvalidCastException",
+      "message": "Cannot convert ExRam.Gremlinq.Core.Execution.GremlinQueryExecutionContext to Gremlin.Net.Driver.Messages.RequestMessage+Builder."
     }
   }
 ]

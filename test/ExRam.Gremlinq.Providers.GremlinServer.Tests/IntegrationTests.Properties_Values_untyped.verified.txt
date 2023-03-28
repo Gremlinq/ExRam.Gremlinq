@@ -1,8 +1,8 @@
 ﻿[
   {
-    "@type": "g:Date",
-    "@value": 1546304400000
-  },
-  "Deutschland",
-  "Germany"
+    "serverException": {
+      "type": "InvalidCastException",
+      "message": "Cannot convert ExRam.Gremlinq.Core.Execution.GremlinQueryExecutionContext to Gremlin.Net.Driver.Messages.RequestMessage+Builder."
+    }
+  }
 ]

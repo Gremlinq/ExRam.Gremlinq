@@ -1,13 +1,8 @@
 ﻿[
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko"
+  {
+    "serverException": {
+      "type": "InvalidCastException",
+      "message": "Cannot convert ExRam.Gremlinq.Core.Execution.GremlinQueryExecutionContext to Gremlin.Net.Driver.Messages.RequestMessage+Builder."
+    }
+  }
 ]

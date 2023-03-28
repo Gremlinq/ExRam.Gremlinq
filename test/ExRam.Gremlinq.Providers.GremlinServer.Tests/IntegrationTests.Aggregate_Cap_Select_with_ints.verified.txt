@@ -1,15 +1,8 @@
 ﻿[
   {
-    "@type": "g:BulkSet",
-    "@value": [
-      {
-        "@type": "g:Int64",
-        "@value": 1
-      },
-      {
-        "@type": "g:Int64",
-        "@value": 11
-      }
-    ]
+    "serverException": {
+      "type": "InvalidCastException",
+      "message": "Cannot convert ExRam.Gremlinq.Core.Execution.GremlinQueryExecutionContext to Gremlin.Net.Driver.Messages.RequestMessage+Builder."
+    }
   }
 ]

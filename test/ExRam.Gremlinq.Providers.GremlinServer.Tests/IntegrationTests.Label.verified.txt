@@ -1,36 +1,8 @@
 ﻿[
-  "Country",
-  "Country",
-  "Country",
-  "Country",
-  "Country",
-  "Country",
-  "Country",
-  "Person",
-  "Person",
-  "Person",
-  "Person",
-  "Person",
-  "Person",
-  "Person",
-  "Person",
-  "Person",
-  "Person",
-  "Person",
-  "Language",
-  "Language",
-  "Language",
-  "Language",
-  "Language",
-  "Language",
-  "Language",
-  "Language",
-  "Language",
-  "Language",
-  "Company",
-  "Company",
-  "Company",
-  "Company",
-  "Company",
-  "TimeFrame"
+  {
+    "serverException": {
+      "type": "InvalidCastException",
+      "message": "Cannot convert ExRam.Gremlinq.Core.Execution.GremlinQueryExecutionContext to Gremlin.Net.Driver.Messages.RequestMessage+Builder."
+    }
+  }
 ]

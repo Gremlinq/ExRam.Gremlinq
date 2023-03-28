@@ -1,8 +1,8 @@
 ﻿[
   {
     "serverException": {
-      "type": "ResponseException",
-      "message": "ServerError: Expected valid relation id: id"
+      "type": "InvalidCastException",
+      "message": "Cannot convert ExRam.Gremlinq.Core.Execution.GremlinQueryExecutionContext to Gremlin.Net.Driver.Messages.RequestMessage+Builder."
     }
   }
 ]
