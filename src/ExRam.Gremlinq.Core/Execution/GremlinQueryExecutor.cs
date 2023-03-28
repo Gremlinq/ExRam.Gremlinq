@@ -1,8 +1,6 @@
 ﻿using Gremlin.Net.Driver.Exceptions;
 using Microsoft.Extensions.Logging;
 
-using Polly;
-
 namespace ExRam.Gremlinq.Core.Execution
 {
     public static class GremlinQueryExecutor

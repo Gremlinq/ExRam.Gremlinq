@@ -1,5 +1,4 @@
 ﻿// ReSharper disable ArrangeThisQualifier
-using System.Collections.Immutable;
 using System.Linq.Expressions;
 using ExRam.Gremlinq.Core.Steps;
 
