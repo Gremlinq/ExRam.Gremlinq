@@ -37,17 +37,11 @@ namespace ExRam.Gremlinq.Core
         {
             var steps = Items;
 
-            if (Count < steps.Length)
-            {
-                if (Interlocked.CompareExchange(ref steps[Count], item, default) != null)
-                    return Clone().Push(item);
-
-                return new FastImmutableList<T>(
-                    steps,
-                    Count + 1);
-            }
-            else
-                return EnsureCapacity(Math.Max(steps.Length * 2, 16)).Push(item);
+            return Count < steps.Length
+                ? Interlocked.CompareExchange(ref steps[Count], item, default) != null
+                    ? Clone().Push(item)
+                    : new FastImmutableList<T>(steps, Count + 1)
+                : EnsureCapacity(Math.Max(steps.Length * 2, 16)).Push(item);
         }
 
         public FastImmutableList<T> Pop() => Pop(out _);
