@@ -11,10 +11,10 @@
                 _baseExecutor = baseExecutor;
             }
 
-            public IAsyncEnumerable<T> Execute<T>(IGremlinQueryBase query)
+            public IAsyncEnumerable<T> Execute<T>(GremlinQueryExecutionContext context)
             {
                 return _baseExecutor
-                    .Execute<T>(query)
+                    .Execute<T>(context)
                     .IgnoreElements();
             }
         }

@@ -23,13 +23,13 @@ namespace ExRam.Gremlinq.Providers.Core
                 _clientFactory = clientFactory;
             }
 
-            public IAsyncEnumerable<T> Execute<T>(IGremlinQueryBase query)
+            public IAsyncEnumerable<T> Execute<T>(GremlinQueryExecutionContext context)
             {
                 return AsyncEnumerable.Create(Core);
 
                 async IAsyncEnumerator<T> Core(CancellationToken ct)
                 {
-                    var environment = query
+                    var environment = context.Query
                         .AsAdmin()
                         .Environment;
 
@@ -44,10 +44,14 @@ namespace ExRam.Gremlinq.Providers.Core
                                 static _ => { }),
                             this);
 
-                    var requestMessage = environment
+                    var requestMessageBuilder = environment
                         .Serializer
-                        .TransformTo<RequestMessage>()
-                        .From(query, environment);
+                        .TransformTo<RequestMessage.Builder>()
+                        .From(context, environment);
+
+                    var requestMessage = requestMessageBuilder
+                        .OverrideRequestId(context.ExecutionId)
+                        .Create();
 
                     var maybeResults = await client
                         .SubmitAsync<object>(requestMessage, ct)
