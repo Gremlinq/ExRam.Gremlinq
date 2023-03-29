@@ -93,19 +93,20 @@ namespace ExRam.Gremlinq.Core.Serialization
             .AddDefaultStepConverters();
 
         public static ITransformer PreferGroovySerialization(this ITransformer serializer) => serializer
+            .Add(Chain<IGremlinQueryBase, Bytecode, GroovyGremlinQuery>())
+            .Add(Chain<Bytecode, GroovyGremlinQuery, RequestMessage.Builder>())
             .Add(ConverterFactory
-                .Create<Bytecode, RequestMessage.Builder>((query, env, recurse) => recurse.TryTransform(query, env, out GroovyGremlinQuery groovyQuery)
-                    ? RequestMessage
-                        .Build(Tokens.OpsEval)
-                        .AddArgument(Tokens.ArgsGremlin, groovyQuery.Script)
-                        .AddArgument(Tokens.ArgsBindings, groovyQuery.Bindings)
-                        .AddAlias(env)
-                    : default));
+                .Create<Bytecode, GroovyGremlinQuery>((query, _, _) => query.ToGroovy()))
+            .Add(ConverterFactory
+                .Create<GroovyGremlinQuery, RequestMessage.Builder>((query, env, recurse) => RequestMessage
+                    .Build(Tokens.OpsEval)
+                    .AddArgument(Tokens.ArgsGremlin, query.Script)
+                    .AddArgument(Tokens.ArgsBindings, query.Bindings)
+                    .AddAlias(env)));
 
         private static ITransformer AddBaseConverters(this ITransformer serializer) => serializer
             .Add(Chain<IGremlinQueryBase, RequestMessage.Builder, RequestMessage>())
             .Add(Chain<IGremlinQueryBase, Bytecode, RequestMessage.Builder>())
-            .Add(Chain<IGremlinQueryBase, Bytecode, GroovyGremlinQuery>())
             .Add(Chain<IGremlinQueryBase, Traversal, Bytecode>())
             .Add(Chain<Bytecode, RequestMessage.Builder, RequestMessage>())
 
@@ -285,8 +286,6 @@ namespace ExRam.Gremlinq.Core.Serialization
 
                     return byteCode;
                 }))
-            .Add(ConverterFactory
-                .Create<Bytecode, GroovyGremlinQuery>((query, _, _) => query.ToGroovy()))
             .Add(ConverterFactory
                 .Create<Bytecode, RequestMessage.Builder>((bytecode, env, recurse) => RequestMessage
                     .Build(Tokens.OpsBytecode)

@@ -7,7 +7,9 @@ namespace ExRam.Gremlinq.Core.Tests
     {
         public sealed class Fixture : GremlinqTestFixture
         {
-            public Fixture() : base(g.ConfigureEnvironment(_ => _))
+            public Fixture() : base(g.ConfigureEnvironment(_ => _
+                .ConfigureSerializer(ser => ser
+                    .PreferGroovySerialization())))
             {
             }
         }
