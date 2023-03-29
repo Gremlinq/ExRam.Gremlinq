@@ -1,8 +1,6 @@
 ﻿using System.Text.Json;
 using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Core.Serialization;
 using Gremlin.Net.Driver.Messages;
-using Gremlin.Net.Process.Traversal;
 using Microsoft.Extensions.Logging;
 
 namespace Gremlin.Net.Driver
@@ -84,33 +82,15 @@ namespace Gremlin.Net.Driver
             {
                 var logLevel = environment.Options.GetValue(GremlinqOption.QueryLogLogLevel);
                 var verbosity = environment.Options.GetValue(GremlinqOption.QueryLogVerbosity);
-                var formatting = environment.Options.GetValue(GremlinqOption.QueryLogFormatting);
+                var formatting = environment.Options.GetValue(GremlinqOption.QueryLogFormatting).HasFlag(QueryLogFormatting.Indented)
+                    ? IndentedSerializerOptions
+                    : NotIndentedSerializerOptions;
 
                 return (requestMessage) =>
                 {
                     if (environment.Logger.IsEnabled(logLevel))
                     {
-                        GroovyGremlinQuery? maybeGroovyQuery = null;
-
-                        if (requestMessage.Operation == Tokens.OpsBytecode)
-                        {
-                            if (requestMessage.Arguments.TryGetValue(Tokens.ArgsGremlin, out var bytecodeObject) && bytecodeObject is Bytecode bytecode)
-                            {
-                                maybeGroovyQuery = bytecode.ToGroovy();
-                            }
-                        }
-                        else if (requestMessage.Operation == Tokens.OpsEval)
-                        {
-                            if (requestMessage.Arguments.TryGetValue(Tokens.ArgsGremlin, out var scriptObject) && scriptObject is string script)
-                            {
-                                if (requestMessage.Arguments.TryGetValue(Tokens.ArgsBindings, out var bindingsObject) && bindingsObject is IReadOnlyDictionary<string, object> bindings)
-                                {
-                                    maybeGroovyQuery = new GroovyGremlinQuery(script, bindings);
-                                }
-                            }
-                        }
-
-                        if (maybeGroovyQuery is { } groovyQuery)
+                        if (requestMessage.TryGetGroovyQuery() is { } groovyQuery)
                         {
                             environment.Logger.Log(
                                 logLevel,
@@ -124,9 +104,7 @@ namespace Gremlin.Net.Driver
                                             ? groovyQuery.Bindings
                                             : null
                                     },
-                                    formatting.HasFlag(QueryLogFormatting.Indented)
-                                        ? IndentedSerializerOptions
-                                        : NotIndentedSerializerOptions));
+                                    formatting));
                         }
                         else
                             environment.Logger.LogWarning($"Failed to log {nameof(RequestMessage)} {requestMessage.RequestId}.");
