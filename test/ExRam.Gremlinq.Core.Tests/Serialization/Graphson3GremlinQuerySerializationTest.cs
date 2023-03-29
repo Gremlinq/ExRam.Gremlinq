@@ -15,7 +15,10 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ConfigureEnvironment(_ => _
                     .ConfigureSerializer(ser => ser
                         .Add(ConverterFactory
-                            .Create<Bytecode, string>((bytecode, env, recurse) => Writer.WriteObject(bytecode))))))
+                            .Create<IGremlinQueryBase, string>((query, env, recurse) => Writer
+                                .WriteObject(recurse
+                                    .TransformTo<Bytecode>()
+                                    .From(query, env)))))))
             {
             }
         }
