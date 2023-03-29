@@ -251,6 +251,41 @@ namespace ExRam.Gremlinq.Core.Transformation
                 : null;
         }
 
+        private sealed class ChainConverterFactory<TStaticSource, TIntermediateSource, TStaticTarget> : IConverterFactory
+        {
+            private sealed class ChainConverter<TSource, TTarget> : IConverter<TSource, TTarget>
+            {
+                private readonly IGremlinQueryEnvironment _environment;
+
+                public ChainConverter(IGremlinQueryEnvironment environment)
+                {
+                    _environment = environment;
+                }
+
+                public bool TryConvert(TSource source, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+                {
+                    value = default;
+
+                    if (recurse.TryTransform(source, _environment, out TIntermediateSource? intermediate))
+                    {
+                        if (recurse.TryTransform(intermediate, _environment, out value))
+                        {
+                            return true;
+                        }
+                    }
+
+                    return false;
+                }
+            }
+
+            public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
+            {
+                return (typeof(TStaticSource).IsAssignableFrom(typeof(TSource)) && (typeof(TTarget).IsAssignableFrom(typeof(TStaticTarget))))
+                    ? (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(ChainConverter<,>).MakeGenericType(typeof(TStaticSource), typeof(TIntermediateSource), typeof(TStaticTarget), typeof(TSource), typeof(TTarget)), environment)
+                    : default;
+            }
+        }
+
         public static IConverterFactory Create<TStaticSource, TStaticTarget>(Func<TStaticSource, IGremlinQueryEnvironment, ITransformer, TStaticTarget?> func)
             where TStaticTarget : struct => new StructFuncConverterFactory<TStaticSource, TStaticTarget>(func);
 
@@ -262,5 +297,7 @@ namespace ExRam.Gremlinq.Core.Transformation
         public static IConverterFactory AutoRecurse<TStaticTarget>(this IConverterFactory baseFactory) => new AutoRecurseConverterFactory<TStaticTarget>(baseFactory);
 
         public static IConverterFactory Finally(this IConverterFactory factory, Action finallyAction) => new FinallyConverterFactory(factory, finallyAction);
+
+        internal static IConverterFactory Chain<TStaticSource, TIntermediateSource, TStaticTarget>() => new ChainConverterFactory<TStaticSource, TIntermediateSource, TStaticTarget>();
     }
 }
