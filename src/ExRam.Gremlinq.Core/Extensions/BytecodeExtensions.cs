@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Collections.Immutable;
+using System.Text;
 using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core.Serialization
@@ -7,7 +8,9 @@ namespace ExRam.Gremlinq.Core.Serialization
     {
         private static readonly ThreadLocal<StringBuilder> Builder = new(static () => new StringBuilder());
 
-        public static GroovyGremlinQuery ToGroovy(this Bytecode bytecode)
+        public static GroovyGremlinQuery ToGroovy(this Bytecode bytecode) => bytecode.ToGroovy(true);
+
+        internal static GroovyGremlinQuery ToGroovy(this Bytecode bytecode, bool includeBindings)
         {
             var builder = Builder.Value!;
 
@@ -16,7 +19,9 @@ namespace ExRam.Gremlinq.Core.Serialization
             try
             {
                 var bindings = new Dictionary<object, Label>();
-                var variables = new Dictionary<string, object>();
+                var variables = includeBindings
+                    ? new Dictionary<string, object>()
+                    : default;
 
                 void Append(object obj, bool allowEnumerableExpansion = false)
                 {
@@ -122,7 +127,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                                 bindingKey = bindings.Count;
                                 bindings.Add(o, bindingKey);
 
-                                variables[bindingKey] = o;
+                                variables?.Add(bindingKey, o);
                             }
 
                             builder.Append(bindingKey);
@@ -142,7 +147,7 @@ namespace ExRam.Gremlinq.Core.Serialization
 
                 return new GroovyGremlinQuery(
                     builder.ToString(),
-                    variables);
+                    (IReadOnlyDictionary<string, object>?)variables ?? ImmutableDictionary<string, object>.Empty);
             }
             finally
             {
