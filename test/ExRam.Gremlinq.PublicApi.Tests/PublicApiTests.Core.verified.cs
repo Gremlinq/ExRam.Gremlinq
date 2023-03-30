@@ -1555,7 +1555,7 @@ namespace ExRam.Gremlinq.Core.Serialization
 {
     public static class BytecodeExtensions
     {
-        public static ExRam.Gremlinq.Core.Serialization.GroovyGremlinQuery ToGroovy(this Gremlin.Net.Process.Traversal.Bytecode bytecode) { }
+        public static ExRam.Gremlinq.Core.Serialization.GroovyGremlinQuery ToGroovy(this Gremlin.Net.Process.Traversal.Bytecode bytecode, bool includeBindings = true) { }
     }
     public readonly struct GroovyGremlinQuery
     {
