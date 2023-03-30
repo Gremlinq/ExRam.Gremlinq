@@ -13,6 +13,16 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
 {
     public class GraphsonSupportTest : GremlinqTestBase
     {
+        private readonly struct NativeType
+        {
+            public NativeType(int value)
+            {
+                Value = value;
+            }
+
+            public int Value { get; }
+        }
+
         private sealed class MetaPoco
         {
             public string? MetaKey { get; set; }
@@ -202,6 +212,32 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
 
         [Fact]
         public Task VertexPropertyWithDateTimeOffset() => Verify<VertexProperty<string, PropertyValidity>>(JToken.Parse("[ { \"id\": 166, \"value\": \"bob\", \"label\": \"Name\", \"properties\": { \"ValidFrom\": 1548112365431 } } ]"));
+
+        [Fact]
+        public async Task NativeType_is_deserialized()
+        {
+            var data = JToken.Parse("[ 42 ]");
+
+            await Verify<NativeType>(data, _environment
+                .RegisterNativeType(
+                    (nativeType, env, recurse) => 42,
+                    (jValue, env, recurse) => jValue.Type is JTokenType.Integer
+                        ? new NativeType(jValue.Value<int>())
+                        : default));
+        }
+
+        [Fact]
+        public async Task NativeType_is_only_deserialized_when_requested_explicitly()
+        {
+            var data = JToken.Parse("[ \"originalString\" ]");
+
+            await Verify<object>(data, _environment
+                .RegisterNativeType(
+                    (nativeType, env, recurse) => 42,
+                    (jValue, env, recurse) => jValue.Type is JTokenType.Integer
+                        ? new NativeType(jValue.Value<int>())
+                        : default));
+        }
 
         private static JToken GetJson(string name)
         {
