@@ -7,12 +7,12 @@ namespace Gremlin.Net.Driver
 {
     internal static class RequestMessageExtensions
     {
-        public static GroovyGremlinQuery? TryGetGroovyQuery(this RequestMessage requestMessage)
+        public static GroovyGremlinQuery? TryGetGroovyQuery(this RequestMessage requestMessage, bool includeBindings)
         {
             if (requestMessage.Operation == Tokens.OpsBytecode)
             {
                 if (requestMessage.Arguments.TryGetValue(Tokens.ArgsGremlin, out var bytecodeObject) && bytecodeObject is Bytecode bytecode)
-                    return bytecode.ToGroovy();
+                    return bytecode.ToGroovy(includeBindings);
             }
             else if (requestMessage.Operation == Tokens.OpsEval)
             {

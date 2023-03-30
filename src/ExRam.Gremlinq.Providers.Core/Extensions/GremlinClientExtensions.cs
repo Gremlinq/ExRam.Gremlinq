@@ -81,7 +81,7 @@ namespace Gremlin.Net.Driver
             private static Action<RequestMessage> GetLoggingFunction(IGremlinQueryEnvironment environment)
             {
                 var logLevel = environment.Options.GetValue(GremlinqOption.QueryLogLogLevel);
-                var verbosity = environment.Options.GetValue(GremlinqOption.QueryLogVerbosity);
+                var includeBindings = (environment.Options.GetValue(GremlinqOption.QueryLogVerbosity) & QueryLogVerbosity.IncludeBindings) > QueryLogVerbosity.QueryOnly;
                 var formatting = environment.Options.GetValue(GremlinqOption.QueryLogFormatting).HasFlag(QueryLogFormatting.Indented)
                     ? IndentedSerializerOptions
                     : NotIndentedSerializerOptions;
@@ -90,7 +90,7 @@ namespace Gremlin.Net.Driver
                 {
                     if (environment.Logger.IsEnabled(logLevel))
                     {
-                        if (requestMessage.TryGetGroovyQuery() is { } groovyQuery)
+                        if (requestMessage.TryGetGroovyQuery(includeBindings) is { } groovyQuery)
                         {
                             environment.Logger.Log(
                                 logLevel,
@@ -100,9 +100,7 @@ namespace Gremlin.Net.Driver
                                     {
                                         requestMessage.RequestId,
                                         groovyQuery.Script,
-                                        Bindings = (verbosity & QueryLogVerbosity.IncludeBindings) > QueryLogVerbosity.QueryOnly
-                                            ? groovyQuery.Bindings
-                                            : null
+                                        groovyQuery.Bindings
                                     },
                                     formatting));
                         }
