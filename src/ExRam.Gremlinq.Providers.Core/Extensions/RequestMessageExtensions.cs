@@ -1,5 +1,5 @@
-﻿using ExRam.Gremlinq.Core.Serialization;
-
+﻿using System.Collections.Immutable;
+using ExRam.Gremlinq.Core.Serialization;
 using Gremlin.Net.Driver.Messages;
 using Gremlin.Net.Process.Traversal;
 
@@ -18,8 +18,11 @@ namespace Gremlin.Net.Driver
             {
                 if (requestMessage.Arguments.TryGetValue(Tokens.ArgsGremlin, out var scriptObject) && scriptObject is string script)
                 {
-                    if (requestMessage.Arguments.TryGetValue(Tokens.ArgsBindings, out var bindingsObject) && bindingsObject is IReadOnlyDictionary<string, object> bindings)
-                        return new GroovyGremlinQuery(script, bindings);
+                    return new GroovyGremlinQuery(
+                        script,
+                        requestMessage.Arguments.TryGetValue(Tokens.ArgsBindings, out var bindingsObject) && bindingsObject is IReadOnlyDictionary<string, object> bindings
+                            ? bindings
+                            : ImmutableDictionary<string, object>.Empty);
                 }
             }
 
