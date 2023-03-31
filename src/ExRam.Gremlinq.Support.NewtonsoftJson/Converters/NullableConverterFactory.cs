@@ -7,7 +7,8 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 {
     internal sealed class NullableConverterFactory : IConverterFactory
     {
-        private sealed class NullableConverter<TTarget> : IConverter<JToken, TTarget?>
+        private sealed class NullableConverter<TToken, TTarget> : IConverter<TToken, TTarget?>
+            where TToken : JToken
             where TTarget : struct
         {
             private readonly IGremlinQueryEnvironment _environment;
@@ -17,15 +18,15 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 _environment = environment;
             }
 
-            public bool TryConvert(JToken serialized, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
+            public bool TryConvert(TToken serialized, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
             {
                 if (serialized.Type == JTokenType.Null)
                 {
-                    value = default(TTarget);
+                    value = default!;
                     return true;
                 }
 
-                if (recurse.TryTransform<JToken, TTarget>(serialized, _environment, out var requestedValue))
+                if (recurse.TryTransform(serialized, _environment, out TTarget requestedValue))
                 {
                     value = requestedValue;
                     return true;
@@ -38,8 +39,8 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
         public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
         {
-            return typeof(TSource) == typeof(JToken) && typeof(TTarget).IsGenericType && typeof(TTarget).GetGenericTypeDefinition() == typeof(Nullable<>)
-                ? (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(NullableConverter<>).MakeGenericType(typeof(TTarget).GetGenericArguments()[0]), environment)
+            return typeof(JToken).IsAssignableFrom(typeof(TSource)) && typeof(TTarget).IsGenericType && typeof(TTarget).GetGenericTypeDefinition() == typeof(Nullable<>)
+                ? (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(NullableConverter<,>).MakeGenericType(typeof(TSource), typeof(TTarget).GetGenericArguments()[0]), environment)
                 : default;
         }
     }
