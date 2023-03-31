@@ -81,6 +81,7 @@ namespace ExRam.Gremlinq.Core
         public static ITransformer UseNewtonsoftJson(this ITransformer transformer)
         {
             return transformer
+                .Add(new NewtonsoftJsonSerializerConverterFactory())
                 .Add(ConverterFactory
                     .Create<string, JToken>((str, env, recurse) => jsonSerializer
                         .Deserialize<JToken>(new JsonTextReader(new StringReader(str)))))
@@ -103,7 +104,6 @@ namespace ExRam.Gremlinq.Core
                             .TransformTo<ResponseMessage<List<object>>>()
                             .From(token, env);
                     }))
-                .Add(new NewtonsoftJsonSerializerConverterFactory())
                 .Add(new ExpandoObjectConverterFactory())
                 .Add(new VertexOrEdgeConverterFactory())
                 .Add(new SingleItemArrayFallbackConverterFactory())
