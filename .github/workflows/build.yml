@@ -106,13 +106,6 @@ jobs:
         dotnet-version: |
           ${{ env.DotNetVersion }}
           
-    - name: Downgrade CosmosDb Emulator
-      shell: powershell
-      run: |
-        Import-Module "$env:ProgramFiles\Azure Cosmos DB Emulator\PSModules\Microsoft.Azure.CosmosDB.Emulator"
-        Uninstall-CosmosDbEmulator
-        choco install azure-cosmosdb-emulator --version=2.14.12
-
     - name: Start CosmosDb Emulator
       uses: Gremlinq/cosmos-emulator-github-action@EnableGremlin
 
