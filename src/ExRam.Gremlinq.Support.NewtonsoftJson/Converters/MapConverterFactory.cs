@@ -5,13 +5,13 @@ using ExRam.Gremlinq.Core;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson
 {
-    internal sealed class ConvertMapsConverterFactory : IConverterFactory
+    internal sealed class MapConverterFactory : IConverterFactory
     {
-        private sealed class ConvertMapsConverter<TTarget> : IConverter<JObject, TTarget>
+        private sealed class MapConverter<TTarget> : IConverter<JObject, TTarget>
         {
             private readonly IGremlinQueryEnvironment _environment;
 
-            public ConvertMapsConverter(IGremlinQueryEnvironment environment)
+            public MapConverter(IGremlinQueryEnvironment environment)
             {
                 _environment = environment;
             }
@@ -42,7 +42,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
         public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
         {
             return typeof(TSource) == typeof(JObject)
-                ? (IConverter<TSource, TTarget>)(object)new ConvertMapsConverter<TTarget>(environment)
+                ? (IConverter<TSource, TTarget>)(object)new MapConverter<TTarget>(environment)
                 : default;
         }
     }

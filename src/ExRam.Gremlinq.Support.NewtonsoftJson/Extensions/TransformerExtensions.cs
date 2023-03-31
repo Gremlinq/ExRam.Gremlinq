@@ -111,7 +111,7 @@ namespace ExRam.Gremlinq.Core
                 .Add(new LabelLookupConverterFactory())
                 .Add(new VertexPropertyExtractConverterFactory())
                 .Add(new TypedValueConverterFactory())
-                .Add(new ConvertMapsConverterFactory())
+                .Add(new MapConverterFactory())
                 .Add(new BulkSetConverterFactory())
                 .Add(new EnumerableConverterFactory())
                 .Add(new NullableConverterFactory())
