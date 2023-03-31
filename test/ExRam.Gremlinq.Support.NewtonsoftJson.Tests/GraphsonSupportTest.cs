@@ -208,6 +208,12 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
         public Task Guid() => Verify<Guid>(JToken.Parse("[ \"FCE0765A-454F-4D00-83DA-D76790156E29\" ]"));
 
         [Fact]
+        public Task Nullable() => Verify<int?>(JToken.Parse("[ 42 ]"));
+
+        [Fact]
+        public Task Nullable_null() => Verify<int?>(JToken.Parse("[ 42, null ]"));
+
+        [Fact]
         public Task VertexPropertyWithoutProperties() => Verify<VertexProperty<object, object>>(JToken.Parse("[ { \"id\": 166, \"value\": \"bob\", \"label\": \"Name\" } ]"));
 
         [Fact]
