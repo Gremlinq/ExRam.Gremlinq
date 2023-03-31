@@ -5,7 +5,7 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
-    public sealed class DictionaryDeserializationTests : DeserializationTestsBase, IClassFixture<DictionaryDeserializationTests.Fixture>
+    public sealed class ObjectDeserializationTests : DeserializationTestsBase, IClassFixture<ObjectDeserializationTests.Fixture>
     {
         public sealed class Fixture : GremlinqTestFixture
         {
@@ -16,7 +16,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
             }
         }
 
-        public DictionaryDeserializationTests(Fixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public ObjectDeserializationTests(Fixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
             testOutputHelper)
         {
