@@ -104,10 +104,10 @@ namespace ExRam.Gremlinq.Core
                             .From(token, env);
                     }))
                 .Add(new NewtonsoftJsonSerializerConverterFactory())
+                .Add(new ExpandoObjectConverterFactory())
                 .Add(new VertexOrEdgeConverterFactory())
                 .Add(new SingleItemArrayFallbackConverterFactory())
                 .Add(new PropertyConverterFactory())
-                .Add(new ExpandoObjectConverterFactory())  //TODO: Move
                 .Add(new LabelLookupConverterFactory())
                 .Add(new VertexPropertyExtractConverterFactory())
                 .Add(new TypedValueConverterFactory())
