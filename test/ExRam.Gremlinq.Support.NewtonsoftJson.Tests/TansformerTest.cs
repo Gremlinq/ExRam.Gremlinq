@@ -1,4 +1,5 @@
-﻿using System.Dynamic;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Dynamic;
 using ExRam.Gremlinq.Core.Transformation;
 using FluentAssertions;
 using Newtonsoft.Json.Linq;
@@ -43,6 +44,23 @@ namespace ExRam.Gremlinq.Core.Tests
             deserialized
                 .Should()
                 .BeSameAs(original);
+        }
+
+        [Fact]
+        public async Task Request_for_object_yields_expandoObject()
+        {
+            var original = JObject.Parse("{ \"prop1\": \"value\", \"prop2\": 1657527969000 }");
+
+            var deserialized = GremlinQueryEnvironment.Default
+                .UseNewtonsoftJson()
+                .Deserializer
+                .TryTransformTo<object>().From(original, GremlinQueryEnvironment.Empty);
+
+            deserialized
+                .Should()
+                .BeOfType<ExpandoObject>();
+
+            await Verify(deserialized);
         }
 
         [Fact]
@@ -141,11 +159,13 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             var token = JObject.Parse("{ \"@type\": \"g:List\", \"@value\": [ { \"@type\": \"g:Traverser\", \"@value\": { \"bulk\": { \"@type\": \"g:Int64\", \"@value\": 3 }, \"value\": { \"@type\": \"g:Map\", \"@value\": [ \"id\", { \"@type\": \"g:Int64\", \"@value\": 184 }, \"label\", \"Label\", \"properties\", { \"@type\": \"g:Map\", \"@value\": [] } ] } } } ]}");
 
-            return Verify(GremlinQueryEnvironment.Default
+            var result = GremlinQueryEnvironment.Default
                 .UseNewtonsoftJson()
                 .Deserializer
                 .TransformTo<IEnumerable<object>>()
-                .From(token, GremlinQueryEnvironment.Default));
+                .From(token, GremlinQueryEnvironment.Default);
+
+            return Verify(result);
         }
 
         [Fact]
