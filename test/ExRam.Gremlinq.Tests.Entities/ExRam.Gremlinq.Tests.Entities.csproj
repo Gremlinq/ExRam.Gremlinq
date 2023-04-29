@@ -1,7 +1,0 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\ExRam.Gremlinq.Core\ExRam.Gremlinq.Core.csproj" />
-  </ItemGroup>
-
-</Project>

@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>Newtonsoft.Json support library for Gremlinq.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+
+    <ProjectReference Include="..\Core\ExRam.Gremlinq.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Core\Cache\GremlinQueryEnvironmentCache.cs" Link="Cache\GremlinQueryEnvironmentCache.cs" />
+    <Compile Include="..\Core\Cache\IGremlinQueryEnvironmentCache.cs" Link="Cache\IGremlinQueryEnvironmentCache.cs" />
+  </ItemGroup>
+
+</Project>

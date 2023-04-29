@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>ASP.NET Core support package for ExRam.Gremlinq.Providers.JanusGraph.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Providers.JanusGraph\ExRam.Gremlinq.Providers.JanusGraph.csproj" />
+    <ProjectReference Include="..\Providers.Core.AspNet\ExRam.Gremlinq.Providers.Core.AspNet.csproj" />
+  </ItemGroup>
+
+</Project>

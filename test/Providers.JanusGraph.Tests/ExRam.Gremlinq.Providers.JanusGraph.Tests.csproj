@@ -1,0 +1,10 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <None Remove="*.verified.txt" />
+    <None Remove="*.received.txt" />
+    <ProjectReference Include="..\..\src\Providers.JanusGraph.AspNet\ExRam.Gremlinq.Providers.JanusGraph.AspNet.csproj" />
+    <ProjectReference Include="..\Support.NewtonsoftJson.Tests\ExRam.Gremlinq.Support.NewtonsoftJson.Tests.csproj" />
+  </ItemGroup>
+
+</Project>

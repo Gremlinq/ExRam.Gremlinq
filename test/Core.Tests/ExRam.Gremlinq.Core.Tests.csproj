@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <None Remove="**\*.verified.txt" />
+    <None Remove="**\*.received.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoFixture" Version="4.18.0" />
+    <PackageReference Include="System.Interactive.Async" Version="6.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Core\ExRam.Gremlinq.Core.csproj" />
+    <ProjectReference Include="..\Tests.Entities\ExRam.Gremlinq.Tests.Entities.csproj" />
+  </ItemGroup>
+
+  </Project>

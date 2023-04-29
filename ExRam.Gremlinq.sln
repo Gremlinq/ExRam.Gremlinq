@@ -3,19 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.31903.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Core", "src\ExRam.Gremlinq.Core\ExRam.Gremlinq.Core.csproj", "{8E7F39D7-8E11-4E11-97AF-8669A97B498C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Core", "src\Core\ExRam.Gremlinq.Core.csproj", "{8E7F39D7-8E11-4E11-97AF-8669A97B498C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Core.Tests", "test\ExRam.Gremlinq.Core.Tests\ExRam.Gremlinq.Core.Tests.csproj", "{4620AFD8-78E5-4299-988C-9A3A7D71A9DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Core.Tests", "test\Core.Tests\ExRam.Gremlinq.Core.Tests.csproj", "{4620AFD8-78E5-4299-988C-9A3A7D71A9DA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.CosmosDb", "src\ExRam.Gremlinq.Providers.CosmosDb\ExRam.Gremlinq.Providers.CosmosDb.csproj", "{1CFD6C6F-137F-4402-ACF2-A7775824282D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.CosmosDb", "src\Providers.CosmosDb\ExRam.Gremlinq.Providers.CosmosDb.csproj", "{1CFD6C6F-137F-4402-ACF2-A7775824282D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{4E6D1C9D-C1F7-43CF-99F7-9D610B3D1989}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.CosmosDb.Tests", "test\ExRam.Gremlinq.Providers.CosmosDb.Tests\ExRam.Gremlinq.Providers.CosmosDb.Tests.csproj", "{E0F57FD2-0666-42B5-95ED-14D155A47F38}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.CosmosDb.Tests", "test\Providers.CosmosDb.Tests\ExRam.Gremlinq.Providers.CosmosDb.Tests.csproj", "{E0F57FD2-0666-42B5-95ED-14D155A47F38}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.Tests", "test\ExRam.Gremlinq.Providers.Tests\ExRam.Gremlinq.Providers.Tests.csproj", "{CCC2B0E4-FD5D-49E0-9872-2EA0A720EB1B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.Tests", "test\Providers.Tests\ExRam.Gremlinq.Providers.Tests.csproj", "{CCC2B0E4-FD5D-49E0-9872-2EA0A720EB1B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Tests.Entities", "test\ExRam.Gremlinq.Tests.Entities\ExRam.Gremlinq.Tests.Entities.csproj", "{65F0D284-7DD6-40DA-8B89-BDAA02326DF0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Tests.Entities", "test\Tests.Entities\ExRam.Gremlinq.Tests.Entities.csproj", "{65F0D284-7DD6-40DA-8B89-BDAA02326DF0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2CD9652B-1596-4A02-AF9B-6CE149AB3F65}"
 	ProjectSection(SolutionItems) = preProject
@@ -23,31 +23,31 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.GremlinServer", "src\ExRam.Gremlinq.Providers.GremlinServer\ExRam.Gremlinq.Providers.GremlinServer.csproj", "{20804D10-7599-407F-898E-B53A6BCA5C1D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.GremlinServer", "src\Providers.GremlinServer\ExRam.Gremlinq.Providers.GremlinServer.csproj", "{20804D10-7599-407F-898E-B53A6BCA5C1D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.GremlinServer.Tests", "test\ExRam.Gremlinq.Providers.GremlinServer.Tests\ExRam.Gremlinq.Providers.GremlinServer.Tests.csproj", "{91CDCB6C-CCB1-4695-9C75-6D31D807C86F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.GremlinServer.Tests", "test\Providers.GremlinServer.Tests\ExRam.Gremlinq.Providers.GremlinServer.Tests.csproj", "{91CDCB6C-CCB1-4695-9C75-6D31D807C86F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.Neptune", "src\ExRam.Gremlinq.Providers.Neptune\ExRam.Gremlinq.Providers.Neptune.csproj", "{E7D07EBD-5530-4843-802A-6DD0D15F7037}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.Neptune", "src\Providers.Neptune\ExRam.Gremlinq.Providers.Neptune.csproj", "{E7D07EBD-5530-4843-802A-6DD0D15F7037}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.Neptune.Tests", "test\ExRam.Gremlinq.Providers.Neptune.Tests\ExRam.Gremlinq.Providers.Neptune.Tests.csproj", "{C6EA6478-0A18-4D8F-B475-8370413C79BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.Neptune.Tests", "test\Providers.Neptune.Tests\ExRam.Gremlinq.Providers.Neptune.Tests.csproj", "{C6EA6478-0A18-4D8F-B475-8370413C79BE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.PublicApi.Tests", "test\ExRam.Gremlinq.PublicApi.Tests\ExRam.Gremlinq.PublicApi.Tests.csproj", "{D4BB3324-E416-4C41-9FCB-1C1FDA5FE7E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.PublicApi.Tests", "test\PublicApi.Tests\ExRam.Gremlinq.PublicApi.Tests.csproj", "{D4BB3324-E416-4C41-9FCB-1C1FDA5FE7E4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Core.AspNet", "src\ExRam.Gremlinq.Core.AspNet\ExRam.Gremlinq.Core.AspNet.csproj", "{6E351A4C-C1E6-4EEB-A956-3E241CB377A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Core.AspNet", "src\Core.AspNet\ExRam.Gremlinq.Core.AspNet.csproj", "{6E351A4C-C1E6-4EEB-A956-3E241CB377A9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AspNet", "AspNet", "{179A3F19-19B0-4DE2-B843-83AF4241244A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.GremlinServer.AspNet", "src\ExRam.Gremlinq.Providers.GremlinServer.AspNet\ExRam.Gremlinq.Providers.GremlinServer.AspNet.csproj", "{A3E92EDA-3FAC-4B65-BE3E-106A1BB1167C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.GremlinServer.AspNet", "src\Providers.GremlinServer.AspNet\ExRam.Gremlinq.Providers.GremlinServer.AspNet.csproj", "{A3E92EDA-3FAC-4B65-BE3E-106A1BB1167C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.CosmosDb.AspNet", "src\ExRam.Gremlinq.Providers.CosmosDb.AspNet\ExRam.Gremlinq.Providers.CosmosDb.AspNet.csproj", "{B3DD7F6D-49DE-42CE-97BA-F90F9820D126}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.CosmosDb.AspNet", "src\Providers.CosmosDb.AspNet\ExRam.Gremlinq.Providers.CosmosDb.AspNet.csproj", "{B3DD7F6D-49DE-42CE-97BA-F90F9820D126}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.Neptune.AspNet", "src\ExRam.Gremlinq.Providers.Neptune.AspNet\ExRam.Gremlinq.Providers.Neptune.AspNet.csproj", "{7C211878-D55B-444E-AFD0-4095A5B3573B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.Neptune.AspNet", "src\Providers.Neptune.AspNet\ExRam.Gremlinq.Providers.Neptune.AspNet.csproj", "{7C211878-D55B-444E-AFD0-4095A5B3573B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.JanusGraph", "src\ExRam.Gremlinq.Providers.JanusGraph\ExRam.Gremlinq.Providers.JanusGraph.csproj", "{84D78612-38F6-4FE7-BAB1-4B94316D2299}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.JanusGraph", "src\Providers.JanusGraph\ExRam.Gremlinq.Providers.JanusGraph.csproj", "{84D78612-38F6-4FE7-BAB1-4B94316D2299}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.JanusGraph.AspNet", "src\ExRam.Gremlinq.Providers.JanusGraph.AspNet\ExRam.Gremlinq.Providers.JanusGraph.AspNet.csproj", "{69C738C8-37D2-41DB-A8DE-00E38B22BCA6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.JanusGraph.AspNet", "src\Providers.JanusGraph.AspNet\ExRam.Gremlinq.Providers.JanusGraph.AspNet.csproj", "{69C738C8-37D2-41DB-A8DE-00E38B22BCA6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.JanusGraph.Tests", "test\ExRam.Gremlinq.Providers.JanusGraph.Tests\ExRam.Gremlinq.Providers.JanusGraph.Tests.csproj", "{A1DA8260-60D7-4D47-A7FA-C83E727653D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.JanusGraph.Tests", "test\Providers.JanusGraph.Tests\ExRam.Gremlinq.Providers.JanusGraph.Tests.csproj", "{A1DA8260-60D7-4D47-A7FA-C83E727653D1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Meta", "Meta", "{E944FDE9-B35D-4B16-B7A1-BF3644F5B7FA}"
 EndProject
@@ -73,19 +73,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gremlinq.Providers.Neptune"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BenchmarkRunner", "src\Benchmarks\BenchmarkRunner\BenchmarkRunner.csproj", "{08B239B3-1A9A-4D29-AF18-50B8EEAFF97A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.Core", "src\ExRam.Gremlinq.Providers.Core\ExRam.Gremlinq.Providers.Core.csproj", "{358A8F94-4AEC-4A56-8568-96814BB019A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.Core", "src\Providers.Core\ExRam.Gremlinq.Providers.Core.csproj", "{358A8F94-4AEC-4A56-8568-96814BB019A0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gremlinq.Providers.Core", "meta\Gremlinq.Providers.Core\Gremlinq.Providers.Core.csproj", "{0426F77B-0949-438C-864C-312DDA530CBC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Core.AspNet.Tests", "test\ExRam.Gremlinq.Core.AspNet.Tests\ExRam.Gremlinq.Core.AspNet.Tests.csproj", "{4B7289D1-5E6D-45BA-B811-8CA87E2DACE2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Core.AspNet.Tests", "test\Core.AspNet.Tests\ExRam.Gremlinq.Core.AspNet.Tests.csproj", "{4B7289D1-5E6D-45BA-B811-8CA87E2DACE2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.Core.AspNet", "src\ExRam.Gremlinq.Providers.Core.AspNet\ExRam.Gremlinq.Providers.Core.AspNet.csproj", "{4D785209-763F-4510-B90A-BA010CDA1F82}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.Core.AspNet", "src\Providers.Core.AspNet\ExRam.Gremlinq.Providers.Core.AspNet.csproj", "{4D785209-763F-4510-B90A-BA010CDA1F82}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Support.NewtonsoftJson", "src\ExRam.Gremlinq.Support.NewtonsoftJson\ExRam.Gremlinq.Support.NewtonsoftJson.csproj", "{8AE96159-8543-46A3-8809-B73933D549AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Support.NewtonsoftJson", "src\Support.NewtonsoftJson\ExRam.Gremlinq.Support.NewtonsoftJson.csproj", "{8AE96159-8543-46A3-8809-B73933D549AD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Support.NewtonsoftJson.AspNet", "src\ExRam.Gremlinq.Support.NewtonsoftJson.AspNet\ExRam.Gremlinq.Support.NewtonsoftJson.AspNet.csproj", "{60237AC4-3F97-4C25-B278-FC404FFA3C10}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Support.NewtonsoftJson.AspNet", "src\Support.NewtonsoftJson.AspNet\ExRam.Gremlinq.Support.NewtonsoftJson.AspNet.csproj", "{60237AC4-3F97-4C25-B278-FC404FFA3C10}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Support.NewtonsoftJson.Tests", "test\ExRam.Gremlinq.Support.NewtonsoftJson.Tests\ExRam.Gremlinq.Support.NewtonsoftJson.Tests.csproj", "{4E8EDB84-CB46-49BF-A8A8-129D2A5FF181}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Support.NewtonsoftJson.Tests", "test\Support.NewtonsoftJson.Tests\ExRam.Gremlinq.Support.NewtonsoftJson.Tests.csproj", "{4E8EDB84-CB46-49BF-A8A8-129D2A5FF181}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

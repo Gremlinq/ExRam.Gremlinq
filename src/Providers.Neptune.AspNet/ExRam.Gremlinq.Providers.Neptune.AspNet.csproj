@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>ASP.NET Core support package for ExRam.Gremlinq.Providers.Neptune.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Providers.Neptune\ExRam.Gremlinq.Providers.Neptune.csproj" />
+    <ProjectReference Include="..\Providers.Core.AspNet\ExRam.Gremlinq.Providers.Core.AspNet.csproj" />
+  </ItemGroup>
+
+</Project>

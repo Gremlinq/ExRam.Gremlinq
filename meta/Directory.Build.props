@@ -12,7 +12,7 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <ProjectReference Include="..\..\src\ExRam.$(ProjectName)\ExRam.$(ProjectName).csproj" />
+    <ProjectReference Include="..\..\src\$(ProjectName.Replace('Gremlinq.',''))\ExRam.$(ProjectName).csproj" />
   </ItemGroup>
 
 </Project>
