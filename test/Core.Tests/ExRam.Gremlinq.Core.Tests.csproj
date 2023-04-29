@@ -11,8 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Core\ExRam.Gremlinq.Core.csproj" />
     <ProjectReference Include="..\Tests.Entities\ExRam.Gremlinq.Tests.Entities.csproj" />
   </ItemGroup>
 
-  </Project>
+</Project>
