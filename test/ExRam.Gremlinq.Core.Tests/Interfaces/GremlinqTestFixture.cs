@@ -1,6 +1,6 @@
 ﻿namespace ExRam.Gremlinq.Core.Tests
 {
-    public abstract class GremlinqTestFixture : IGremlinqTestFixture
+    public abstract class GremlinqTestFixture
     {
         protected GremlinqTestFixture(IGremlinQuerySource source)
         {
