@@ -1,10 +1,9 @@
 ﻿using Gremlin.Net.Process.Traversal;
-
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public sealed class GremlinQueryWithEmptyProjectionValueProtectionSerializationTest : SerializationTestsBase<Bytecode>, IClassFixture<GremlinQueryWithEmptyProjectionValueProtectionSerializationTest.Fixture>
+    public sealed class EmptyProjectionValueProtectionSerializationTest : SerializationTestsBase<Bytecode>, IClassFixture<EmptyProjectionValueProtectionSerializationTest.Fixture>
     {
         public sealed class Fixture : GremlinqTestFixture
         {
@@ -15,7 +14,7 @@ namespace ExRam.Gremlinq.Core.Tests
             }
         }
 
-        public GremlinQueryWithEmptyProjectionValueProtectionSerializationTest(Fixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public EmptyProjectionValueProtectionSerializationTest(Fixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
             testOutputHelper)
         {
