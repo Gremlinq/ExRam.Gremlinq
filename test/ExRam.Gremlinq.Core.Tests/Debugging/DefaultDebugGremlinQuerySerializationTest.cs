@@ -1,9 +1,9 @@
 ﻿namespace ExRam.Gremlinq.Core.Tests
 {
-    public sealed class DefaultDebugGremlinQuerySerializationTest : QueryExecutionTest, IClassFixture<EmptyGremlinqTestFixture>
+    public sealed class DefaultDebugGremlinQuerySerializationTest : QueryExecutionTest
     {
-        public DefaultDebugGremlinQuerySerializationTest(EmptyGremlinqTestFixture fixture, ITestOutputHelper testOutputHelper) : base(
-            fixture,
+        public DefaultDebugGremlinQuerySerializationTest(ITestOutputHelper testOutputHelper) : base(
+            GremlinqTestFixture.Empty,
             testOutputHelper)
         {
         }
