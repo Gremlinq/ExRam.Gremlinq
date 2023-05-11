@@ -35,7 +35,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
         public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
         {
-            return typeof(TSource) == typeof(JObject) && !typeof(TTarget).IsAssignableFrom(typeof(TSource)) && typeof(TTarget) != typeof(object) && !typeof(TTarget).IsInterface && !typeof(Property).IsAssignableFrom(typeof(TTarget))
+            return typeof(TSource) == typeof(JObject) && !typeof(TTarget).IsAssignableFrom(typeof(TSource)) && !typeof(TTarget).IsArray && typeof(TTarget) != typeof(object) && !typeof(TTarget).IsInterface && !typeof(Property).IsAssignableFrom(typeof(TTarget))
                 ? (IConverter<TSource, TTarget>)(object)new VertexOrEdgeConverter<TTarget>(environment)
                 : default;
         }
