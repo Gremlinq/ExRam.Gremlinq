@@ -2,6 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Core;
+using System.Runtime.CompilerServices;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson
 {
@@ -12,23 +13,27 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             private readonly IGremlinQueryEnvironment _environment;
             private readonly IReadOnlyDictionary<string, Type[]> _modelTypesForLabels;
 
+            private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, IReadOnlyDictionary<string, Type[]>> ModelTypesForLabels = new ();
+
             public LabelLookupConverter(IGremlinQueryEnvironment environment)
             {
                 _environment = environment;
 
-                _modelTypesForLabels = environment.Model
-                    .VerticesModel
-                    .Metadata
-                    .Concat(environment.Model
-                        .EdgesModel
-                        .Metadata)
-                    .GroupBy(static x => x.Value.Label)
-                    .ToDictionary(
-                        static group => group.Key,
-                        static group => group
-                            .Select(static x => x.Key)
-                            .ToArray(),
-                        StringComparer.OrdinalIgnoreCase);
+                _modelTypesForLabels = ModelTypesForLabels.GetValue(
+                    environment,
+                    static environment => environment.Model
+                        .VerticesModel
+                        .Metadata
+                        .Concat(environment.Model
+                            .EdgesModel
+                            .Metadata)
+                        .GroupBy(static x => x.Value.Label)
+                        .ToDictionary(
+                            static group => group.Key,
+                            static group => group
+                                .Select(static x => x.Key)
+                                .ToArray(),
+                            StringComparer.OrdinalIgnoreCase));
             }
 
             public bool TryConvert(JObject serialized, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
