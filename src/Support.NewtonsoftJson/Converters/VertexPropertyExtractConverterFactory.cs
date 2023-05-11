@@ -21,16 +21,13 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             {
                 var isNativeType = _environment.SupportsType(typeof(TTarget)) || typeof(TTarget).IsEnum && _environment.SupportsType(typeof(TTarget).GetEnumUnderlyingType());
 
-                if (serialized is JObject jObject)
+                if (serialized is JObject jObject && !typeof(Property).IsAssignableFrom(typeof(TTarget)))
                 {
                     if (isNativeType && jObject.TryGetValue("value", out var valueToken) && recurse.TryTransform(valueToken, _environment, out value))
                         return true;
                 }
                 else if (serialized is JArray { Count: 1 } jArray)
-                {
-                    if (isNativeType || (typeof(TTarget).IsConstructedGenericType && (typeof(TTarget).GetGenericTypeDefinition() == typeof(VertexProperty<>) || typeof(TTarget).GetGenericTypeDefinition() == typeof(VertexProperty<,>))))
-                        return recurse.TryTransform(jArray[0], _environment, out value);
-                }
+                    return recurse.TryTransform(jArray[0], _environment, out value);
 
                 value = default;
                 return false;
