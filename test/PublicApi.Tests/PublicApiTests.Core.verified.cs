@@ -372,7 +372,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery AddStep<TTargetQuery>(ExRam.Gremlinq.Core.Steps.Step step, System.Func<ExRam.Gremlinq.Core.Projections.Projection, ExRam.Gremlinq.Core.Projections.Projection>? projectionTransformation = null)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
         TTargetQuery ChangeQueryType<TTargetQuery>()
-            where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
+            where TTargetQuery : ExRam.Gremlinq.Core.IStartGremlinQuery;
         TTargetQuery ConfigureSteps<TTargetQuery>(System.Func<ExRam.Gremlinq.Core.Traversal, ExRam.Gremlinq.Core.Traversal> configurator, System.Func<ExRam.Gremlinq.Core.Projections.Projection, ExRam.Gremlinq.Core.Projections.Projection>? projectionTransformation = null)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
         ExRam.Gremlinq.Core.IGremlinQuerySource GetSource();

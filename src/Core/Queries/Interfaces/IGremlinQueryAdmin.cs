@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery ConfigureSteps<TTargetQuery>(Func<Traversal, Traversal> configurator, Func<Projection, Projection>? projectionTransformation = null) where TTargetQuery : IGremlinQueryBase;
         TTargetQuery AddStep<TTargetQuery>(Step step, Func<Projection, Projection>? projectionTransformation = null) where TTargetQuery : IGremlinQueryBase;
 
-        TTargetQuery ChangeQueryType<TTargetQuery>() where TTargetQuery : IGremlinQueryBase;
+        TTargetQuery ChangeQueryType<TTargetQuery>() where TTargetQuery : IStartGremlinQuery;
 
         IGremlinQuerySource GetSource();
 

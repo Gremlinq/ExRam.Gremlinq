@@ -41,6 +41,17 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void ChangeQueryType_to_IGremlinQuerySource()
+        {
+            _g
+                .V()
+                .AsAdmin()
+                .ChangeQueryType<IGremlinQuerySource>()
+                .Should()
+                .NotBeNull();
+        }
+            
+        [Fact]
         public void ChangeQueryType_optimizes()
         {
             var query = _g
