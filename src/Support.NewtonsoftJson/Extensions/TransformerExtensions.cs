@@ -106,11 +106,14 @@ namespace ExRam.Gremlinq.Core
                     }))
                 .Add(new ExpandoObjectConverterFactory())
                 .Add(new DictionaryDeferralConverterFactory())
-                .Add(new VertexOrEdgeConverterFactory())
                 .Add(new SingleItemArrayFallbackConverterFactory())
+
+                .Add(new VertexOrEdgeConverterFactory())
                 .Add(new LabelLookupConverterFactory())
+
                 .Add(new VertexPropertyExtractConverterFactory())
                 .Add(new PropertyConverterFactory())
+
                 .Add(new TypedValueConverterFactory())
                 .Add(new MapConverterFactory())
                 .Add(new BulkSetConverterFactory())
