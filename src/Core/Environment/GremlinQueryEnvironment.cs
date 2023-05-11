@@ -134,6 +134,7 @@ namespace ExRam.Gremlinq.Core
             NullLogger.Instance);
 
         public static readonly IGremlinQueryEnvironment Default = Empty
+            .UseModel(GraphModel.Invalid)
             .UseSerializer(Serializer.Default)
             .UseExecutor(GremlinQueryExecutor.Invalid)
             .UseDeserializer(Deserializer.Default);
