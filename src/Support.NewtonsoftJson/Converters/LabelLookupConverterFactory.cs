@@ -38,19 +38,22 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
             public bool TryConvert(JObject serialized, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
             {
-                // Elements
-                var label = serialized["label"]?.ToString();
-
-                var modelType = label != null && _modelTypesForLabels.TryGetValue(label, out var types)
-                    ? types.FirstOrDefault(typeof(TTarget).IsAssignableFrom)
-                    : default;
-
-                if (modelType != null && modelType != typeof(TTarget))
+                if (!serialized.ContainsKey("value"))
                 {
-                    if (recurse.TryTransformTo(modelType).From(serialized, _environment) is TTarget target)
+                    // Elements
+                    var label = serialized["label"]?.ToString();
+
+                    var modelType = label != null && _modelTypesForLabels.TryGetValue(label, out var types)
+                        ? types.FirstOrDefault(typeof(TTarget).IsAssignableFrom)
+                        : default;
+
+                    if (modelType != null && modelType != typeof(TTarget))
                     {
-                        value = target;
-                        return true;
+                        if (recurse.TryTransformTo(modelType).From(serialized, _environment) is TTarget target)
+                        {
+                            value = target;
+                            return true;
+                        }
                     }
                 }
 
