@@ -130,14 +130,15 @@ namespace ExRam.Gremlinq.Core
             GremlinQueryDebugger.Groovy,
             FeatureSet.Full,
             GremlinqOptions.Empty,
-            DefaultNativeTypes,
+            ImmutableHashSet<Type>.Empty,
             NullLogger.Instance);
 
         public static readonly IGremlinQueryEnvironment Default = Empty
             .UseModel(GraphModel.Invalid)
             .UseSerializer(Serializer.Default)
             .UseExecutor(GremlinQueryExecutor.Invalid)
-            .UseDeserializer(Deserializer.Default);
+            .UseDeserializer(Deserializer.Default)
+            .ConfigureNativeTypes(_ => DefaultNativeTypes);
 
         public static IGremlinQueryEnvironment UseModel(this IGremlinQueryEnvironment source, IGraphModel model) => source.ConfigureModel(_ => model);
 
