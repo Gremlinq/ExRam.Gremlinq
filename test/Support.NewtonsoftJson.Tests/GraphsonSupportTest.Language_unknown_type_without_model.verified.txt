@@ -5,8 +5,8 @@
     properties: {
       IetfLanguageTag: [
         {
-          id: 1,
-          value: de
+          Id: 1,
+          Value: de
         }
       ]
     },

@@ -32,19 +32,53 @@ namespace Newtonsoft.Json.Linq
             return null;
         }
 
-        public static bool LooksLikeProperty(this JObject jObject) =>
-            jObject.Count == 2 &&
-            jObject.TryGetValue("key", out var keyToken) &&
-            keyToken.Type == JTokenType.String &&
-            jObject.ContainsKey("value");
+        public static bool LooksLikeProperty(this JObject jObject)
+        {
+            if (jObject.ContainsKey("value"))
+            {
+                if (jObject.TryGetValue("key", out var keyToken))
+                {
+                    if (keyToken.Type != JTokenType.String)
+                        return false;
 
-        public static bool LooksLikeVertexProperty(this JObject jObject) =>
-            jObject.Count <= 4 &&
-            jObject.TryGetValue("id", out var idToken) &&
-            idToken.Type != JTokenType.Array &&
-            jObject.TryGetValue("label", out var labelToken) &&
-            labelToken.Type == JTokenType.String &&
-            jObject.ContainsKey("value") &&
-            (!jObject.TryGetValue("properties", out var propertiesToken) || (propertiesToken.Type == JTokenType.Object && jObject.Count == 4));
+                    return jObject.Count == 2;
+                }
+
+                return jObject.Count == 1;
+            }
+
+            return false;
+        }
+
+        public static bool LooksLikeVertexProperty(this JObject jObject)
+        {
+            if (jObject.ContainsKey("value") && jObject.TryGetValue("id", out var idToken))
+            {
+                if (idToken.Type == JTokenType.Array)
+                    return false;
+
+                var count = 2;
+
+                if (jObject.TryGetValue("label", out var labelToken))
+                {
+                    if (labelToken.Type != JTokenType.String)
+                        return false;
+
+                    count++;
+                }
+
+                if (jObject.TryGetValue("properties", out var propertiesToken))
+                {
+                    if (propertiesToken.Type != JTokenType.Object)
+                        return false;
+
+                    count++;
+                }
+
+                return jObject.Count == count;
+            }
+
+            return false;
+        }
     }
 }
