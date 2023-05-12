@@ -58,11 +58,8 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             }
         }
 
-        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
-        {
-            return typeof(TSource) == typeof(JObject) && !typeof(TTarget).IsSealed
-                ? (IConverter<TSource, TTarget>)(object)new LabelLookupConverter<TTarget>(environment)
-                : default;
-        }
+        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment) => typeof(TSource) == typeof(JObject) && !typeof(TTarget).IsSealed
+            ? (IConverter<TSource, TTarget>)(object)new LabelLookupConverter<TTarget>(environment)
+            : default;
     }
 }
