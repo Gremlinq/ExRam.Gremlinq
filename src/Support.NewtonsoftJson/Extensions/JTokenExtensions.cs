@@ -31,5 +31,15 @@ namespace Newtonsoft.Json.Linq
 
             return null;
         }
+
+        public static bool LooksLikeProperty(this JObject jObject)
+        {
+            return jObject.Count == 2 && jObject.ContainsKey("key") && jObject.ContainsKey("value");
+        }
+
+        public static bool LooksLikeVertexProperty(this JObject jObject)
+        {
+            return jObject.Count == 4 && jObject.ContainsKey("id") && jObject.ContainsKey("label") && jObject.ContainsKey("value") && jObject.ContainsKey("properties");
+        }
     }
 }
