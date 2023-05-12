@@ -16,7 +16,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
             public ScalarToPropertyConverter(IGremlinQueryEnvironment environment)
             {
-                if (typeof(TTargetProperty).GetConstructor(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public, new[] { typeof(TTargetPropertyValue) }) is { } constructor)
+                if (typeof(TTargetProperty).GetConstructor(new[] { typeof(TTargetPropertyValue) }) is { } constructor)
                 {
                     _environment = environment;
                     _constructor = value => constructor.Invoke(new object?[] { value }) as TTargetProperty; //TODO: Create Func generically
