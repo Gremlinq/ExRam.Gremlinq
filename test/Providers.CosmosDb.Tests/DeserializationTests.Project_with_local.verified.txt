@@ -1,9 +1,10 @@
 ﻿[
   {
     Item2: {
-      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
-      label: PartitionKey,
-      value: PartitionKey
+      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Label: PartitionKey,
+      Properties: {},
+      Value: PartitionKey
     },
     name: {
       CountryCallingCode: +49,
@@ -13,9 +14,10 @@
   },
   {
     Item2: {
-      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
-      label: PartitionKey,
-      value: PartitionKey
+      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Label: PartitionKey,
+      Properties: {},
+      Value: PartitionKey
     },
     name: {
       IetfLanguageTag: en,
@@ -25,9 +27,10 @@
   },
   {
     Item2: {
-      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
-      label: PartitionKey,
-      value: PartitionKey
+      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Label: PartitionKey,
+      Properties: {},
+      Value: PartitionKey
     },
     name: {
       Id: 00000000-0000-0000-0000-000000000000,
@@ -36,9 +39,10 @@
   },
   {
     Item2: {
-      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
-      label: PartitionKey,
-      value: PartitionKey
+      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Label: PartitionKey,
+      Properties: {},
+      Value: PartitionKey
     },
     name: {
       Id: 00000000-0000-0000-0000-000000000000,
@@ -47,9 +51,10 @@
   },
   {
     Item2: {
-      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
-      label: PartitionKey,
-      value: PartitionKey
+      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Label: PartitionKey,
+      Properties: {},
+      Value: PartitionKey
     },
     name: {
       RegistrationDate: 2020-04-07 14:43:36 +0,
@@ -63,9 +68,10 @@
   },
   {
     Item2: {
-      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
-      label: PartitionKey,
-      value: PartitionKey
+      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Label: PartitionKey,
+      Properties: {},
+      Value: PartitionKey
     },
     name: {
       Id: 00000000-0000-0000-0000-000000000000,
@@ -74,9 +80,10 @@
   },
   {
     Item2: {
-      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
-      label: PartitionKey,
-      value: PartitionKey
+      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Label: PartitionKey,
+      Properties: {},
+      Value: PartitionKey
     },
     name: {
       Id: 00000000-0000-0000-0000-000000000000,
@@ -85,9 +92,10 @@
   },
   {
     Item2: {
-      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
-      label: PartitionKey,
-      value: PartitionKey
+      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Label: PartitionKey,
+      Properties: {},
+      Value: PartitionKey
     },
     name: {
       Id: 00000000-0000-0000-0000-000000000000,
@@ -96,9 +104,10 @@
   },
   {
     Item2: {
-      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
-      label: PartitionKey,
-      value: PartitionKey
+      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Label: PartitionKey,
+      Properties: {},
+      Value: PartitionKey
     },
     name: {
       Id: 00000000-0000-0000-0000-000000000000,
@@ -107,9 +116,10 @@
   },
   {
     Item2: {
-      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
-      label: PartitionKey,
-      value: PartitionKey
+      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Label: PartitionKey,
+      Properties: {},
+      Value: PartitionKey
     },
     name: {
       Id: 00000000-0000-0000-0000-000000000000,
@@ -118,9 +128,10 @@
   },
   {
     Item2: {
-      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
-      label: PartitionKey,
-      value: PartitionKey
+      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Label: PartitionKey,
+      Properties: {},
+      Value: PartitionKey
     },
     name: {
       Id: 00000000-0000-0000-0000-000000000000,
@@ -129,9 +140,10 @@
   },
   {
     Item2: {
-      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
-      label: PartitionKey,
-      value: PartitionKey
+      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Label: PartitionKey,
+      Properties: {},
+      Value: PartitionKey
     },
     name: {
       Id: 00000000-0000-0000-0000-000000000000,
@@ -140,9 +152,10 @@
   },
   {
     Item2: {
-      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
-      label: PartitionKey,
-      value: PartitionKey
+      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Label: PartitionKey,
+      Properties: {},
+      Value: PartitionKey
     },
     name: {
       Id: 00000000-0000-0000-0000-000000000000,
@@ -151,9 +164,10 @@
   },
   {
     Item2: {
-      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
-      label: PartitionKey,
-      value: PartitionKey
+      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Label: PartitionKey,
+      Properties: {},
+      Value: PartitionKey
     },
     name: {
       IetfLanguageTag: en,
@@ -163,9 +177,10 @@
   },
   {
     Item2: {
-      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
-      label: PartitionKey,
-      value: PartitionKey
+      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Label: PartitionKey,
+      Properties: {},
+      Value: PartitionKey
     },
     name: {
       CountryCallingCode: +49,
@@ -175,9 +190,10 @@
   },
   {
     Item2: {
-      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
-      label: PartitionKey,
-      value: PartitionKey
+      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Label: PartitionKey,
+      Properties: {},
+      Value: PartitionKey
     },
     name: {
       RegistrationDate: 2020-04-07 14:43:36 +0,
@@ -191,9 +207,10 @@
   },
   {
     Item2: {
-      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
-      label: PartitionKey,
-      value: PartitionKey
+      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Label: PartitionKey,
+      Properties: {},
+      Value: PartitionKey
     },
     name: {
       Id: 00000000-0000-0000-0000-000000000000,
@@ -202,9 +219,10 @@
   },
   {
     Item2: {
-      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
-      label: PartitionKey,
-      value: PartitionKey
+      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Label: PartitionKey,
+      Properties: {},
+      Value: PartitionKey
     },
     name: {
       Id: 00000000-0000-0000-0000-000000000000,
@@ -213,9 +231,10 @@
   },
   {
     Item2: {
-      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
-      label: PartitionKey,
-      value: PartitionKey
+      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Label: PartitionKey,
+      Properties: {},
+      Value: PartitionKey
     },
     name: {
       IetfLanguageTag: en,
@@ -225,9 +244,10 @@
   },
   {
     Item2: {
-      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
-      label: PartitionKey,
-      value: PartitionKey
+      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Label: PartitionKey,
+      Properties: {},
+      Value: PartitionKey
     },
     name: {
       Id: 00000000-0000-0000-0000-000000000000,
@@ -236,9 +256,10 @@
   },
   {
     Item2: {
-      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
-      label: PartitionKey,
-      value: PartitionKey
+      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Label: PartitionKey,
+      Properties: {},
+      Value: PartitionKey
     },
     name: {
       Enabled: false,
@@ -250,9 +271,10 @@
   },
   {
     Item2: {
-      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
-      label: PartitionKey,
-      value: PartitionKey
+      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Label: PartitionKey,
+      Properties: {},
+      Value: PartitionKey
     },
     name: {
       IetfLanguageTag: en,
@@ -262,9 +284,10 @@
   },
   {
     Item2: {
-      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
-      label: PartitionKey,
-      value: PartitionKey
+      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Label: PartitionKey,
+      Properties: {},
+      Value: PartitionKey
     },
     name: {
       IetfLanguageTag: en,
@@ -274,9 +297,10 @@
   },
   {
     Item2: {
-      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
-      label: PartitionKey,
-      value: PartitionKey
+      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Label: PartitionKey,
+      Properties: {},
+      Value: PartitionKey
     },
     name: {
       Image: AQIDBAUGBwg=,
@@ -286,9 +310,10 @@
   },
   {
     Item2: {
-      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
-      label: PartitionKey,
-      value: PartitionKey
+      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Label: PartitionKey,
+      Properties: {},
+      Value: PartitionKey
     },
     name: {
       Gender: Female,
@@ -298,9 +323,10 @@
   },
   {
     Item2: {
-      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
-      label: PartitionKey,
-      value: PartitionKey
+      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Label: PartitionKey,
+      Properties: {},
+      Value: PartitionKey
     },
     name: {
       RegistrationDate: 2020-04-07 14:43:36 +0,
@@ -314,9 +340,10 @@
   },
   {
     Item2: {
-      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
-      label: PartitionKey,
-      value: PartitionKey
+      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Label: PartitionKey,
+      Properties: {},
+      Value: PartitionKey
     },
     name: {
       IetfLanguageTag: en,
@@ -326,9 +353,10 @@
   },
   {
     Item2: {
-      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
-      label: PartitionKey,
-      value: PartitionKey
+      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Label: PartitionKey,
+      Properties: {},
+      Value: PartitionKey
     },
     name: {
       Id: 00000000-0000-0000-0000-000000000000,
@@ -337,9 +365,10 @@
   },
   {
     Item2: {
-      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
-      label: PartitionKey,
-      value: PartitionKey
+      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Label: PartitionKey,
+      Properties: {},
+      Value: PartitionKey
     },
     name: {
       Locations: [
@@ -357,9 +386,10 @@
   },
   {
     Item2: {
-      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
-      label: PartitionKey,
-      value: PartitionKey
+      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Label: PartitionKey,
+      Properties: {},
+      Value: PartitionKey
     },
     name: {
       Name: {
@@ -373,9 +403,10 @@
   },
   {
     Item2: {
-      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
-      label: PartitionKey,
-      value: PartitionKey
+      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Label: PartitionKey,
+      Properties: {},
+      Value: PartitionKey
     },
     name: {
       Name: {
@@ -392,9 +423,10 @@
   },
   {
     Item2: {
-      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
-      label: PartitionKey,
-      value: PartitionKey
+      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Label: PartitionKey,
+      Properties: {},
+      Value: PartitionKey
     },
     name: {
       PhoneNumbers: [
@@ -407,9 +439,10 @@
   },
   {
     Item2: {
-      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
-      label: PartitionKey,
-      value: PartitionKey
+      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Label: PartitionKey,
+      Properties: {},
+      Value: PartitionKey
     },
     name: {
       Id: 00000000-0000-0000-0000-000000000000,
@@ -418,9 +451,10 @@
   },
   {
     Item2: {
-      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
-      label: PartitionKey,
-      value: PartitionKey
+      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Label: PartitionKey,
+      Properties: {},
+      Value: PartitionKey
     },
     name: {
       Id: 00000000-0000-0000-0000-000000000000,
