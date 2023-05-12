@@ -34,6 +34,13 @@ namespace Newtonsoft.Json.Linq
 
         public static bool LooksLikeProperty(this JObject jObject) => jObject.Count == 2 && jObject.ContainsKey("key") && jObject.ContainsKey("value");
 
-        public static bool LooksLikeVertexProperty(this JObject jObject) => jObject.Count <= 4 && jObject.ContainsKey("id") && jObject.ContainsKey("label") && jObject.ContainsKey("value") && (!jObject.ContainsKey("properties") || jObject.Count == 4);
+        public static bool LooksLikeVertexProperty(this JObject jObject) =>
+            jObject.Count <= 4 &&
+            jObject.TryGetValue("id", out var idToken) &&
+            idToken.Type != JTokenType.Array &&
+            jObject.TryGetValue("label", out var labelToken) &&
+            labelToken.Type == JTokenType.String &&
+            jObject.ContainsKey("value") &&
+            (!jObject.TryGetValue("properties", out var propertiesToken) || (propertiesToken.Type == JTokenType.Object && jObject.Count == 4));
     }
 }
