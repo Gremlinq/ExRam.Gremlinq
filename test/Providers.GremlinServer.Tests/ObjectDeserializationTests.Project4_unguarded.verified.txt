@@ -24,19 +24,19 @@
     },
     Item3: 1,
     Item4: {
-      id: -1,
-      label: CountryCallingCode,
-      properties: {},
-      value: +49
+      Id: -1,
+      Label: CountryCallingCode,
+      Properties: {},
+      Value: +49
     }
   },
   {
     Item3: 1,
     Item4: {
-      id: -1,
-      label: RegistrationDate,
-      properties: {},
-      value: 2020-04-07 14:43:36 +0
+      Id: -1,
+      Label: RegistrationDate,
+      Properties: {},
+      Value: 2020-04-07 14:43:36 +0
     }
   },
   {
@@ -47,19 +47,19 @@
     },
     Item3: 1,
     Item4: {
-      id: -1,
-      label: IetfLanguageTag,
-      properties: {},
-      value: en
+      Id: -1,
+      Label: IetfLanguageTag,
+      Properties: {},
+      Value: en
     }
   },
   {
     Item3: 1,
     Item4: {
-      id: -1,
-      label: IetfLanguageTag,
-      properties: {},
-      value: en
+      Id: -1,
+      Label: IetfLanguageTag,
+      Properties: {},
+      Value: en
     }
   },
   {
@@ -69,10 +69,10 @@
     },
     Item3: 1,
     Item4: {
-      id: -1,
-      label: FoundingDate,
-      properties: {},
-      value: 0001-01-01 +0
+      Id: -1,
+      Label: FoundingDate,
+      Properties: {},
+      Value: 0001-01-01 +0
     }
   },
   {
@@ -87,10 +87,10 @@
   {
     Item3: 1,
     Item4: {
-      id: -1,
-      label: FoundingDate,
-      properties: {},
-      value: 0001-01-01 +0
+      Id: -1,
+      Label: FoundingDate,
+      Properties: {},
+      Value: 0001-01-01 +0
     }
   },
   {
@@ -100,19 +100,19 @@
     },
     Item3: 1,
     Item4: {
-      id: -1,
-      label: Age,
-      properties: {},
-      value: 0
+      Id: -1,
+      Label: Age,
+      Properties: {},
+      Value: 0
     }
   },
   {
     Item3: 1,
     Item4: {
-      id: -1,
-      label: Name,
-      properties: {},
-      value: GER
+      Id: -1,
+      Label: Name,
+      Properties: {},
+      Value: GER
     }
   },
   {
@@ -123,31 +123,31 @@
     },
     Item3: 1,
     Item4: {
-      id: -1,
-      label: RegistrationDate,
-      properties: {},
-      value: 2020-04-07 14:43:36 +0
+      Id: -1,
+      Label: RegistrationDate,
+      Properties: {},
+      Value: 2020-04-07 14:43:36 +0
     }
   },
   {
     Item3: 1,
     Item4: {
-      id: -1,
-      label: Name,
-      properties: {
+      Id: -1,
+      Label: Name,
+      Properties: {
         de: Deutschland,
         en: Germany
       },
-      value: GER
+      Value: GER
     }
   },
   {
     Item3: 1,
     Item4: {
-      id: -1,
-      label: PhoneNumbers,
-      properties: {},
-      value: +4912345
+      Id: -1,
+      Label: PhoneNumbers,
+      Properties: {},
+      Value: +4912345
     }
   },
   {
@@ -157,10 +157,10 @@
     },
     Item3: 1,
     Item4: {
-      id: -1,
-      label: Age,
-      properties: {},
-      value: 0
+      Id: -1,
+      Label: Age,
+      Properties: {},
+      Value: 0
     }
   },
   {
@@ -173,10 +173,10 @@
   {
     Item3: 1,
     Item4: {
-      id: -1,
-      label: lang,
-      properties: {},
-      value: en
+      Id: -1,
+      Label: lang,
+      Properties: {},
+      Value: en
     }
   },
   {
@@ -186,10 +186,10 @@
     },
     Item3: 1,
     Item4: {
-      id: -1,
-      label: Age,
-      properties: {},
-      value: 0
+      Id: -1,
+      Label: Age,
+      Properties: {},
+      Value: 0
     }
   },
   {
@@ -206,10 +206,10 @@
     },
     Item3: 1,
     Item4: {
-      id: -1,
-      label: Age,
-      properties: {},
-      value: 0
+      Id: -1,
+      Label: Age,
+      Properties: {},
+      Value: 0
     }
   },
   {
@@ -226,10 +226,10 @@
     },
     Item3: 1,
     Item4: {
-      id: -1,
-      label: FoundingDate,
-      properties: {},
-      value: 0001-01-01 +0
+      Id: -1,
+      Label: FoundingDate,
+      Properties: {},
+      Value: 0001-01-01 +0
     }
   },
   {
@@ -239,10 +239,10 @@
     },
     Item3: 1,
     Item4: {
-      id: -1,
-      label: Age,
-      properties: {},
-      value: 0
+      Id: -1,
+      Label: Age,
+      Properties: {},
+      Value: 0
     }
   },
   {
@@ -253,10 +253,10 @@
     },
     Item3: 1,
     Item4: {
-      id: -1,
-      label: IetfLanguageTag,
-      properties: {},
-      value: en
+      Id: -1,
+      Label: IetfLanguageTag,
+      Properties: {},
+      Value: en
     }
   },
   {
@@ -267,10 +267,10 @@
     },
     Item3: 1,
     Item4: {
-      id: -1,
-      label: CountryCallingCode,
-      properties: {},
-      value: +49
+      Id: -1,
+      Label: CountryCallingCode,
+      Properties: {},
+      Value: +49
     }
   },
   {
@@ -281,10 +281,10 @@
     },
     Item3: 1,
     Item4: {
-      id: -1,
-      label: RegistrationDate,
-      properties: {},
-      value: 2020-04-07 14:43:36 +0
+      Id: -1,
+      Label: RegistrationDate,
+      Properties: {},
+      Value: 2020-04-07 14:43:36 +0
     }
   },
   {
@@ -294,10 +294,10 @@
     },
     Item3: 1,
     Item4: {
-      id: -1,
-      label: FoundingDate,
-      properties: {},
-      value: 0001-01-01 +0
+      Id: -1,
+      Label: FoundingDate,
+      Properties: {},
+      Value: 0001-01-01 +0
     }
   },
   {
@@ -307,64 +307,64 @@
     },
     Item3: 1,
     Item4: {
-      id: -1,
-      label: Age,
-      properties: {},
-      value: 0
+      Id: -1,
+      Label: Age,
+      Properties: {},
+      Value: 0
     }
   },
   {
     Item3: 1,
     Item4: {
-      id: -1,
-      label: IetfLanguageTag,
-      properties: {},
-      value: en
+      Id: -1,
+      Label: IetfLanguageTag,
+      Properties: {},
+      Value: en
     }
   },
   {
     Item3: 1,
     Item4: {
-      id: -1,
-      label: StartTime,
-      properties: {},
-      value: 08:00:00
+      Id: -1,
+      Label: StartTime,
+      Properties: {},
+      Value: 08:00:00
     }
   },
   {
     Item3: 1,
     Item4: {
-      id: -1,
-      label: IetfLanguageTag,
-      properties: {},
-      value: en
+      Id: -1,
+      Label: IetfLanguageTag,
+      Properties: {},
+      Value: en
     }
   },
   {
     Item3: 1,
     Item4: {
-      id: -1,
-      label: IetfLanguageTag,
-      properties: {},
-      value: en
+      Id: -1,
+      Label: IetfLanguageTag,
+      Properties: {},
+      Value: en
     }
   },
   {
     Item3: 1,
     Item4: {
-      id: -1,
-      label: Image,
-      properties: {},
-      value: AQIDBAUGBwg=
+      Id: -1,
+      Label: Image,
+      Properties: {},
+      Value: AQIDBAUGBwg=
     }
   },
   {
     Item3: 1,
     Item4: {
-      id: -1,
-      label: Gender,
-      properties: {},
-      value: 1
+      Id: -1,
+      Label: Gender,
+      Properties: {},
+      Value: 1
     }
   }
 ]

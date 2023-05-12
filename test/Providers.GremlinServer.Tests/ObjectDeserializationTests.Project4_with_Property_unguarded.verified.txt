@@ -1,10 +1,10 @@
 ﻿[
   {
     Item4: {
-      id: -1,
-      label: RegistrationDate,
-      properties: {},
-      value: 2020-04-07 14:43:36 +0
+      Id: -1,
+      Label: RegistrationDate,
+      Properties: {},
+      Value: 2020-04-07 14:43:36 +0
     }
   },
   {
@@ -14,10 +14,10 @@
     },
     Item3: 0,
     Item4: {
-      id: -1,
-      label: Age,
-      properties: {},
-      value: 0
+      Id: -1,
+      Label: Age,
+      Properties: {},
+      Value: 0
     }
   },
   {
@@ -28,10 +28,10 @@
     },
     Item3: 0,
     Item4: {
-      id: -1,
-      label: RegistrationDate,
-      properties: {},
-      value: 2020-04-07 14:43:36 +0
+      Id: -1,
+      Label: RegistrationDate,
+      Properties: {},
+      Value: 2020-04-07 14:43:36 +0
     }
   },
   {
@@ -41,10 +41,10 @@
     },
     Item3: 0,
     Item4: {
-      id: -1,
-      label: Age,
-      properties: {},
-      value: 0
+      Id: -1,
+      Label: Age,
+      Properties: {},
+      Value: 0
     }
   },
   {
@@ -54,10 +54,10 @@
     },
     Item3: 0,
     Item4: {
-      id: -1,
-      label: Age,
-      properties: {},
-      value: 0
+      Id: -1,
+      Label: Age,
+      Properties: {},
+      Value: 0
     }
   },
   {
@@ -67,10 +67,10 @@
     },
     Item3: 0,
     Item4: {
-      id: -1,
-      label: Age,
-      properties: {},
-      value: 0
+      Id: -1,
+      Label: Age,
+      Properties: {},
+      Value: 0
     }
   },
   {
@@ -80,10 +80,10 @@
     },
     Item3: 0,
     Item4: {
-      id: -1,
-      label: Age,
-      properties: {},
-      value: 0
+      Id: -1,
+      Label: Age,
+      Properties: {},
+      Value: 0
     }
   },
   {
@@ -94,10 +94,10 @@
     },
     Item3: 0,
     Item4: {
-      id: -1,
-      label: RegistrationDate,
-      properties: {},
-      value: 2020-04-07 14:43:36 +0
+      Id: -1,
+      Label: RegistrationDate,
+      Properties: {},
+      Value: 2020-04-07 14:43:36 +0
     }
   },
   {
@@ -107,28 +107,28 @@
     },
     Item3: 0,
     Item4: {
-      id: -1,
-      label: Age,
-      properties: {},
-      value: 0
+      Id: -1,
+      Label: Age,
+      Properties: {},
+      Value: 0
     }
   },
   {
     Item3: 0,
     Item4: {
-      id: -1,
-      label: Image,
-      properties: {},
-      value: AQIDBAUGBwg=
+      Id: -1,
+      Label: Image,
+      Properties: {},
+      Value: AQIDBAUGBwg=
     }
   },
   {
     Item3: 0,
     Item4: {
-      id: -1,
-      label: Gender,
-      properties: {},
-      value: 1
+      Id: -1,
+      Label: Gender,
+      Properties: {},
+      Value: 1
     }
   }
 ]

@@ -24,10 +24,10 @@
       Label: Person
     },
     properties!: {
-      id: -1,
-      label: CountryCallingCode,
-      properties: {},
-      value: +49
+      Id: -1,
+      Label: CountryCallingCode,
+      Properties: {},
+      Value: +49
     }
   }
 ]
