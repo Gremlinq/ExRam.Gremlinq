@@ -16,9 +16,10 @@
       Label: Language
     },
     properties!: {
-      id: 00000000-0000-0000-0000-000000000000|PartitionKey,
-      label: PartitionKey,
-      value: PartitionKey
+      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Label: PartitionKey,
+      Properties: {},
+      Value: PartitionKey
     }
   }
 ]
