@@ -23,23 +23,6 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
                 if (serialized is JObject jObject && !typeof(Property).IsAssignableFrom(typeof(TTarget)))
                 {
-                    if (jObject.LooksLikeVertexProperty() && typeof(TTarget).IsAssignableFrom(typeof(VertexProperty<object>)))
-                    {
-                        if (recurse.TryTransform(jObject, _environment, out VertexProperty<object>? vProp) && vProp is TTarget target)
-                        {
-                            value = target;
-                            return true;
-                        }
-                    }
-                    else if (jObject.LooksLikeProperty() && typeof(TTarget).IsAssignableFrom(typeof(Property<object>)))
-                    {
-                        if (recurse.TryTransform(jObject, _environment, out Property<object>? prop) && prop is TTarget target)
-                        {
-                            value = target;
-                            return true;
-                        }
-                    }
-
                     if (isNativeType && jObject.TryGetValue("value", out var valueToken) && recurse.TryTransform(valueToken, _environment, out value))
                         return true;
                 }
