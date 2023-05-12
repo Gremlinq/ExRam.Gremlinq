@@ -110,6 +110,7 @@ namespace ExRam.Gremlinq.Core
 
                 .Add(new VertexPropertyExtractConverterFactory())
                 .Add(new ScalarToPropertyConverterFactory())
+                .Add(new PropertyHeuristicConverterFactory())
 
                 .Add(new VertexOrEdgeConverterFactory())
                 .Add(new LabelLookupConverterFactory())
