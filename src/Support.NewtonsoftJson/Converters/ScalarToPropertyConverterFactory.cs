@@ -12,18 +12,24 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             where TTargetProperty : Property
         {
             private readonly IGremlinQueryEnvironment _environment;
+            private readonly Func<TTargetPropertyValue, TTargetProperty?> _constructor;
 
             public ScalarToPropertyConverter(IGremlinQueryEnvironment environment)
             {
-                _environment = environment;
+                if (typeof(TTargetProperty).GetConstructor(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public, new[] { typeof(TTargetPropertyValue) }) is { } constructor)
+                {
+                    _environment = environment;
+                    _constructor = value => constructor.Invoke(new object?[] { value }) as TTargetProperty; //TODO: Create Func generically
+                }
+                else
+                    throw new ArgumentException();
             }
 
             public bool TryConvert(JValue serialized, ITransformer recurse, [NotNullWhen(true)] out TTargetProperty? value)
             {
                 if (recurse.TryTransform<JValue, TTargetPropertyValue>(serialized, _environment, out var propertyValue))
                 {
-                    //TODO: Improvement opportunity.
-                    if (Activator.CreateInstance(typeof(TTargetProperty), propertyValue) is TTargetProperty requestedProperty)
+                    if (_constructor(propertyValue) is { } requestedProperty)
                     {
                         value = requestedProperty;
                         return true;
