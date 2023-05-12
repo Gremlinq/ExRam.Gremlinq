@@ -463,5 +463,9 @@ namespace ExRam.Gremlinq.Core
         IInEdgeGremlinQuery<TElement, TInVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.AsInEdge() => this;
 
         IOutEdgeGremlinQuery<TElement, TOutVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.AsOutEdge() => this;
+
+        IGremlinQuerySource IGremlinQuerySource.WithStrategy<TStrategy>(Func<IGremlinQuerySource, TStrategy> factory) => WithStrategy(factory(this));
+
+        IGremlinQuerySource IGremlinQuerySource.WithStrategy<TStrategy>(TStrategy strategy) => WithStrategy(strategy);
     }
 }

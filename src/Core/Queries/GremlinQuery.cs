@@ -1484,6 +1484,15 @@ namespace ExRam.Gremlinq.Core
                    .AutoBuild(),
                 strategyTypes);
 
+        private GremlinQuery<object, object, object, object, object, object> WithStrategy<TStrategy>(TStrategy strategy)
+            where TStrategy : IGremlinQueryStrategy => this
+                .Continue()
+                .Build(
+                     static (builder, strategy) => builder  //TODO: Merge
+                        .AddStep(new WithStrategiesStep(ImmutableArray.Create<IGremlinQueryStrategy>(strategy)))
+                        .AutoBuild(),
+                     strategy);
+
         private TQuery WithSideEffect<TSideEffect, TQuery>(TSideEffect value, Func<IGremlinQuerySource, StepLabel<TSideEffect>, TQuery> continuation)
         {
             var stepLabel = new StepLabel<TSideEffect>();
