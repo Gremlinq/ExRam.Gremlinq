@@ -6,13 +6,13 @@ using ExRam.Gremlinq.Core.GraphElements;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson
 {
-    internal sealed class VertexPropertyExtractConverterFactory : IConverterFactory
+    internal sealed class ExtractPropertyValueConverterFactory : IConverterFactory
     {
-        private sealed class VertexPropertyExtractConverter<TTarget> : IConverter<JToken, TTarget>
+        private sealed class ExtractPropertyValueConverter<TTarget> : IConverter<JToken, TTarget>
         {
             private readonly IGremlinQueryEnvironment _environment;
 
-            public VertexPropertyExtractConverter(IGremlinQueryEnvironment environment)
+            public ExtractPropertyValueConverter(IGremlinQueryEnvironment environment)
             {
                 _environment = environment;
             }
@@ -33,7 +33,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
         }
 
         public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment) => typeof(JToken).IsAssignableFrom(typeof(TSource))
-            ? (IConverter<TSource, TTarget>)(object)new VertexPropertyExtractConverter<TTarget>(environment)
+            ? (IConverter<TSource, TTarget>)(object)new ExtractPropertyValueConverter<TTarget>(environment)
             : default;
     }
 }
