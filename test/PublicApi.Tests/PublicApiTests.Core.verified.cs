@@ -561,11 +561,21 @@ namespace ExRam.Gremlinq.Core
         ExRam.Gremlinq.Core.IGremlinQuerySource WithSideEffect<TSideEffect>(ExRam.Gremlinq.Core.StepLabel<TSideEffect> label, TSideEffect value);
         TQuery WithSideEffect<TSideEffect, TQuery>(TSideEffect value, System.Func<ExRam.Gremlinq.Core.IGremlinQuerySource, ExRam.Gremlinq.Core.StepLabel<TSideEffect>, TQuery> continuation)
             where TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
+        ExRam.Gremlinq.Core.IGremlinQuerySource WithStrategy<TStrategy>(System.Func<ExRam.Gremlinq.Core.IGremlinQuerySource, TStrategy> factory)
+            where TStrategy : ExRam.Gremlinq.Core.IGremlinQueryStrategy;
+        ExRam.Gremlinq.Core.IGremlinQuerySource WithStrategy<TStrategy>(TStrategy strategy)
+            where TStrategy : ExRam.Gremlinq.Core.IGremlinQueryStrategy;
         ExRam.Gremlinq.Core.IGremlinQuerySource WithoutStrategies(params System.Type[] strategyTypes);
     }
     public interface IGremlinQuerySourceTransformation
     {
         ExRam.Gremlinq.Core.IGremlinQuerySource Transform(ExRam.Gremlinq.Core.IGremlinQuerySource source);
+    }
+    public interface IGremlinQueryStrategy { }
+    public interface IGremlinQueryStrategyBuilder<TStrategy>
+        where TStrategy : ExRam.Gremlinq.Core.IGremlinQueryStrategy
+    {
+        System.Func<ExRam.Gremlinq.Core.IGremlinQuerySource, TStrategy> Create();
     }
     public interface IGremlinQuery<TElement> : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<ExRam.Gremlinq.Core.IGremlinQuery<TElement>>, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TElement, ExRam.Gremlinq.Core.IGremlinQuery<TElement>>, ExRam.Gremlinq.Core.IGremlinQueryBase<TElement>, ExRam.Gremlinq.Core.IStartGremlinQuery { }
     public interface IGremlinqConfigurator<out TConfigurator> : ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation
@@ -2182,6 +2192,11 @@ namespace ExRam.Gremlinq.Core.Steps
         public WithSideEffectStep(ExRam.Gremlinq.Core.StepLabel label, object value) { }
         public ExRam.Gremlinq.Core.StepLabel Label { get; }
         public object Value { get; }
+    }
+    public sealed class WithStrategiesStep : ExRam.Gremlinq.Core.Steps.Step
+    {
+        public WithStrategiesStep(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.IGremlinQueryStrategy> strategies) { }
+        public System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.IGremlinQueryStrategy> Strategies { get; }
     }
     public sealed class WithoutStrategiesStep : ExRam.Gremlinq.Core.Steps.Step
     {

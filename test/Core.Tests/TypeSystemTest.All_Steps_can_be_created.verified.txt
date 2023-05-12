@@ -1007,5 +1007,15 @@
       Value: string,
       Label: {}
     }
+  },
+  {
+    Item1: WithStrategiesStep,
+    Item2: {
+      Strategies: [
+        {},
+        {},
+        {}
+      ]
+    }
   }
 ]

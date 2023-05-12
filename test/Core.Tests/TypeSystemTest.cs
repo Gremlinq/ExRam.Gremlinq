@@ -38,6 +38,11 @@ namespace ExRam.Gremlinq.Core.Tests
             public Property<string>? StringEdgeProperty { get; }
         }
 
+        private sealed class GremlinQueryStrategy : IGremlinQueryStrategy
+        {
+
+        }
+
         private sealed class SpecimenBuilder : ISpecimenBuilder
         {
             public object Create(object request, ISpecimenContext context)
@@ -88,6 +93,9 @@ namespace ExRam.Gremlinq.Core.Tests
 
                     if (type == typeof(long))
                         return 4711;
+
+                    if (type == typeof(IGremlinQueryStrategy))
+                        return new GremlinQueryStrategy();
                 }
 
                 return new NoSpecimen();
