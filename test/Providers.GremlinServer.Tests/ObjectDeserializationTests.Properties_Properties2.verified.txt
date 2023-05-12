@@ -1,6 +1,6 @@
 ﻿[
   {
-    key: ValidFrom,
-    value: 2019-01-01 01:00 +0
+    Value: 2019-01-01 01:00 +0,
+    Key: ValidFrom
   }
 ]

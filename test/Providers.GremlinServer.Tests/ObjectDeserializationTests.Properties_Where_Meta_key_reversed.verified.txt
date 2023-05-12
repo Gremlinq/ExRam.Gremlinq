@@ -1,10 +1,10 @@
 ﻿[
   {
-    id: -1,
-    label: Locations,
-    properties: {
+    Id: -1,
+    Label: Locations,
+    Properties: {
       ValidFrom: 2019-01-01 01:00 +0
     },
-    value: Aachen
+    Value: Aachen
   }
 ]
