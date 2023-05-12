@@ -6,14 +6,14 @@ using ExRam.Gremlinq.Core;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson
 {
-    internal sealed class PropertyConverterFactory : IConverterFactory
+    internal sealed class ScalarToPropertyConverterFactory : IConverterFactory
     {
-        private sealed class PropertyConverter<TTargetProperty, TTargetPropertyValue> : IConverter<JValue, TTargetProperty>
+        private sealed class ScalarToPropertyConverter<TTargetProperty, TTargetPropertyValue> : IConverter<JValue, TTargetProperty>
             where TTargetProperty : Property
         {
             private readonly IGremlinQueryEnvironment _environment;
 
-            public PropertyConverter(IGremlinQueryEnvironment environment)
+            public ScalarToPropertyConverter(IGremlinQueryEnvironment environment)
             {
                 _environment = environment;
             }
@@ -38,7 +38,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
         public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
         {
             return typeof(TSource) == typeof(JValue) && typeof(Property).IsAssignableFrom(typeof(TTarget)) && typeof(TTarget).IsGenericType
-                ? (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(PropertyConverter<,>).MakeGenericType(typeof(TTarget), typeof(TTarget).GetGenericArguments()[0]), environment)
+                ? (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(ScalarToPropertyConverter<,>).MakeGenericType(typeof(TTarget), typeof(TTarget).GetGenericArguments()[0]), environment)
                 : default;
         }
     }

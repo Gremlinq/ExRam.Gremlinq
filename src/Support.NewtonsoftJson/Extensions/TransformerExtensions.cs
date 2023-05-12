@@ -109,7 +109,7 @@ namespace ExRam.Gremlinq.Core
                 .Add(new SingleItemArrayFallbackConverterFactory())
 
                 .Add(new VertexPropertyExtractConverterFactory())
-                .Add(new PropertyConverterFactory())
+                .Add(new ScalarToPropertyConverterFactory())
 
                 .Add(new VertexOrEdgeConverterFactory())
                 .Add(new LabelLookupConverterFactory())
