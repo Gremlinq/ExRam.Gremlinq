@@ -19,12 +19,10 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
             public bool TryConvert(JToken serialized, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
             {
-                var isNativeType = _environment.SupportsType(typeof(TTarget)) || typeof(TTarget).IsEnum && _environment.SupportsType(typeof(TTarget).GetEnumUnderlyingType());
-
-                if (serialized is JObject jObject && !typeof(Property).IsAssignableFrom(typeof(TTarget)))
+                if (serialized is JObject jObject)
                 {
-                    if (isNativeType && jObject.TryGetValue("value", out var valueToken) && recurse.TryTransform(valueToken, _environment, out value))
-                        return true;
+                    if (!typeof(Property).IsAssignableFrom(typeof(TTarget)) && (jObject.LooksLikeProperty() || jObject.LooksLikeVertexProperty()) && jObject.TryGetValue("value", out var valueToken))
+                        return recurse.TryTransform(valueToken, _environment, out value);
                 }
                 else if (serialized is JArray { Count: 1 } jArray)
                     return recurse.TryTransform(jArray[0], _environment, out value);
