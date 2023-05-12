@@ -108,7 +108,7 @@ namespace ExRam.Gremlinq.Core
                 .Add(new DictionaryDeferralConverterFactory())
                 .Add(new SingleItemArrayFallbackConverterFactory())
 
-                .Add(new VertexPropertyExtractConverterFactory())
+                .Add(new ExtractPropertyValueConverterFactory())
                 .Add(new ScalarToPropertyConverterFactory())
                 .Add(new PropertyHeuristicConverterFactory())
 
