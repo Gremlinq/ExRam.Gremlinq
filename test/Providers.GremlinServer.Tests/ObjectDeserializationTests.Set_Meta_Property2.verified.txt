@@ -1,26 +1,26 @@
 ﻿[
   {
-    id: -1,
-    label: Name,
-    properties: {
+    Id: -1,
+    Label: Name,
+    Properties: {
       ValidFrom: 2020-04-07 14:43:36 +0
     },
-    value: Marko
+    Value: Marko
   },
   {
-    id: -1,
-    label: Name,
-    properties: {
+    Id: -1,
+    Label: Name,
+    Properties: {
       ValidFrom: 2020-04-07 14:43:36 +0
     },
-    value: Bob
+    Value: Bob
   },
   {
-    id: -1,
-    label: Name,
-    properties: {
+    Id: -1,
+    Label: Name,
+    Properties: {
       ValidFrom: 2020-04-07 14:43:36 +0
     },
-    value: Bob
+    Value: Bob
   }
 ]

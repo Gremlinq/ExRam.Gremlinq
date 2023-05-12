@@ -5,10 +5,10 @@
     properties: {
       IetfLanguageTag: [
         {
-          id: -1,
-          label: IetfLanguageTag,
-          properties: {},
-          value: en
+          Id: -1,
+          Label: IetfLanguageTag,
+          Properties: {},
+          Value: en
         }
       ]
     }
