@@ -1,16 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <Choose>
-    <When Condition="$(SolutionName) == 'ExRam.Gremlinq'">
-      <ItemGroup>
-        <ProjectReference Include="..\..\src\Core\ExRam.Gremlinq.Core.csproj" />
-      </ItemGroup>
-    </When>
-    <Otherwise>
-      <ItemGroup>
-        <PackageReference Include="ExRam.Gremlinq.Core" Version="12.0.0-preview.460" />
-      </ItemGroup>
-    </Otherwise>
-  </Choose>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Core\ExRam.Gremlinq.Core.csproj" />
+  </ItemGroup>
 
 </Project>
