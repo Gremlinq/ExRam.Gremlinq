@@ -563,6 +563,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                     .Select(strategy => recurse
                         .TransformTo<AbstractTraversalStrategy>()
                         .From(strategy, env))
+                    .Cast<object>()
                     .ToArray()))
             .Add<WherePredicateStep>((step, env, recurse) => CreateInstruction("where", recurse, env, step.Predicate))
             .Add<WherePredicateStep.ByMemberStep>((step, env, recurse) => step.Key is { } key
