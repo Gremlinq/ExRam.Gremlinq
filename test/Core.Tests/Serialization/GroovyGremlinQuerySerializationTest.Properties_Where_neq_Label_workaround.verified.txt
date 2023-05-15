@@ -1,5 +1,7 @@
 ﻿{
-  Script: g.V().hasLabel(_a).properties(_b).has(label,neq(_c)).project(_d,_c,_e,_f).by(id).by(label).by(value).by(__.valueMap()),
+  Script: {
+    Value: g.V().hasLabel(_a).properties(_b).has(label,neq(_c)).project(_d,_c,_e,_f).by(id).by(label).by(value).by(__.valueMap())
+  },
   Bindings: {
     _a: Country,
     _b: Languages,

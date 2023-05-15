@@ -1,5 +1,7 @@
 ﻿{
-  Script: g.V().hasLabel(_a).has(_b,gt(_c).or(lt(_d))),
+  Script: {
+    Value: g.V().hasLabel(_a).has(_b,gt(_c).or(lt(_d)))
+  },
   Bindings: {
     _a: Person,
     _b: Age,

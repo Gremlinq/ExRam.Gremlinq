@@ -1,5 +1,7 @@
 ﻿{
-  Script: g.V().not(__.hasLabel(_a)),
+  Script: {
+    Value: g.V().not(__.hasLabel(_a))
+  },
   Bindings: {
     _a: Language
   }

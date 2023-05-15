@@ -1,5 +1,7 @@
 ﻿{
-  Script: g.V().hasLabel(_a).has(_b,endingWith(_c)),
+  Script: {
+    Value: g.V().hasLabel(_a).has(_b,endingWith(_c))
+  },
   Bindings: {
     _a: Country,
     _b: CountryCallingCode,

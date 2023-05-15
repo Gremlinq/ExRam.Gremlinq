@@ -1,5 +1,7 @@
 ﻿{
-  Script: g.V().limit(_a).project(_b,_c,_d,_e).by(__.identity()).by(__.identity()).by(__.identity()).by(__.identity()),
+  Script: {
+    Value: g.V().limit(_a).project(_b,_c,_d,_e).by(__.identity()).by(__.identity()).by(__.identity()).by(__.identity())
+  },
   Bindings: {
     _a: 0,
     _b: In,

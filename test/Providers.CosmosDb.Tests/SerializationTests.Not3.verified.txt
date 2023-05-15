@@ -1,5 +1,7 @@
 ﻿{
-  Script: g.V().not(__.hasLabel(_a,_b)),
+  Script: {
+    Value: g.V().not(__.hasLabel(_a,_b))
+  },
   Bindings: {
     _a: Company,
     _b: Person

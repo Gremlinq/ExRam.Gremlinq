@@ -1,5 +1,7 @@
 ﻿{
-  Script: g.V().outE(_a),
+  Script: {
+    Value: g.V().outE(_a)
+  },
   Bindings: {
     _a: String
   }

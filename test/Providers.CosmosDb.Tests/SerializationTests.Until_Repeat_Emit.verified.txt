@@ -1,5 +1,7 @@
 ﻿{
-  Script: g.V().hasLabel(_a).until(__.V().hasLabel(_b)).repeat(__.inE().outV()).emit(),
+  Script: {
+    Value: g.V().hasLabel(_a).until(__.V().hasLabel(_b)).repeat(__.inE().outV()).emit()
+  },
   Bindings: {
     _a: Person,
     _b: Company

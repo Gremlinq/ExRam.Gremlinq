@@ -1,3 +1,5 @@
 ﻿{
-  Script: g.V().label()
+  Script: {
+    Value: g.V().label()
+  }
 }

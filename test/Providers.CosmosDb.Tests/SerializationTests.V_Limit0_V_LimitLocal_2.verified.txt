@@ -1,5 +1,7 @@
 ﻿{
-  Script: g.V().limit(_a).limit(local,_b),
+  Script: {
+    Value: g.V().limit(_a).limit(local,_b)
+  },
   Bindings: {
     _a: 0,
     _b: 2

@@ -1,3 +1,5 @@
 ﻿{
-  Script: g.V().fold()
+  Script: {
+    Value: g.V().fold()
+  }
 }

@@ -1,3 +1,5 @@
 ﻿{
-  Script: g.V().fold().sideEffect(__.identity()).unfold()
+  Script: {
+    Value: g.V().fold().sideEffect(__.identity()).unfold()
+  }
 }

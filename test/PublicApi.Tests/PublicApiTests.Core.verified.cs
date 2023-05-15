@@ -1569,10 +1569,15 @@ namespace ExRam.Gremlinq.Core.Serialization
     }
     public readonly struct GroovyGremlinQuery
     {
-        public GroovyGremlinQuery(string script, System.Collections.Generic.IReadOnlyDictionary<string, object> bindings) { }
+        public GroovyGremlinQuery(ExRam.Gremlinq.Core.Serialization.GroovyScript script, System.Collections.Generic.IReadOnlyDictionary<string, object> bindings) { }
         public System.Collections.Generic.IReadOnlyDictionary<string, object> Bindings { get; }
-        public string Script { get; }
+        public ExRam.Gremlinq.Core.Serialization.GroovyScript Script { get; }
         public override string ToString() { }
+    }
+    public readonly struct GroovyScript
+    {
+        public string Value { get; }
+        public static ExRam.Gremlinq.Core.Serialization.GroovyScript From(string value) { }
     }
     public static class Serializer
     {

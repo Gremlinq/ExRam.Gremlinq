@@ -1,5 +1,7 @@
 ﻿{
-  Script: g.V().hasLabel(_a).drop(),
+  Script: {
+    Value: g.V().hasLabel(_a).drop()
+  },
   Bindings: {
     _a: Person
   }

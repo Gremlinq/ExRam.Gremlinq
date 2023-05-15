@@ -1,5 +1,7 @@
 ﻿{
-  Script: g.addV(_a).property(_b,_b).property(single,_c,_d),
+  Script: {
+    Value: g.addV(_a).property(_b,_b).property(single,_c,_d)
+  },
   Bindings: {
     _a: Country,
     _b: PartitionKey,

@@ -1,5 +1,7 @@
 ﻿{
-  Script: g.V().constant(_a),
+  Script: {
+    Value: g.V().constant(_a)
+  },
   Bindings: {
     _a: 42
   }

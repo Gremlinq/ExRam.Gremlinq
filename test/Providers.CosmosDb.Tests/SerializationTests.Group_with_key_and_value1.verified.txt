@@ -1,3 +1,5 @@
 ﻿{
-  Script: g.V().group().by(__.label()).by(__.out())
+  Script: {
+    Value: g.V().group().by(__.label()).by(__.out())
+  }
 }

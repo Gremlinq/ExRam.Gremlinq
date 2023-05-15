@@ -1,3 +1,5 @@
 ﻿{
-  Script: g.V().not(__.identity())
+  Script: {
+    Value: g.V().not(__.identity())
+  }
 }

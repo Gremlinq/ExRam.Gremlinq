@@ -1,5 +1,7 @@
 ﻿{
-  Script: g.V(_a,_b).hasLabel(_c),
+  Script: {
+    Value: g.V(_a,_b).hasLabel(_c)
+  },
   Bindings: {
     _a: id,
     _b: id2,

@@ -1,3 +1,5 @@
 ﻿{
-  Script: g.V().coalesce(__.out())
+  Script: {
+    Value: g.V().coalesce(__.out())
+  }
 }

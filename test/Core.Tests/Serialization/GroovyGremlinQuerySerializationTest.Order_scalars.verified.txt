@@ -1,5 +1,7 @@
 ﻿{
-  Script: g.V().hasLabel(_a).local(__.count()).order().by(__.identity(),asc),
+  Script: {
+    Value: g.V().hasLabel(_a).local(__.count()).order().by(__.identity(),asc)
+  },
   Bindings: {
     _a: Person
   }

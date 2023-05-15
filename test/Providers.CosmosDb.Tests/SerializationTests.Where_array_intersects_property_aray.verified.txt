@@ -1,5 +1,7 @@
 ﻿{
-  Script: g.V().hasLabel(_a).has(_b,within(_c,_d)),
+  Script: {
+    Value: g.V().hasLabel(_a).has(_b,within(_c,_d))
+  },
   Bindings: {
     _a: Company,
     _b: PhoneNumbers,

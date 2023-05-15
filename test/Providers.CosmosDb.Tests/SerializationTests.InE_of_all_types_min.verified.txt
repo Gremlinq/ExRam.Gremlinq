@@ -1,3 +1,5 @@
 ﻿{
-  Script: g.V().inE()
+  Script: {
+    Value: g.V().inE()
+  }
 }

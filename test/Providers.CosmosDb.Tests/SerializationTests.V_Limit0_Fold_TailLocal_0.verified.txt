@@ -1,5 +1,7 @@
 ﻿{
-  Script: g.V().limit(_a).fold().tail(local,_a),
+  Script: {
+    Value: g.V().limit(_a).fold().tail(local,_a)
+  },
   Bindings: {
     _a: 0
   }
