@@ -1,3 +1,5 @@
 ﻿{
-  Script: g.V().out().out().simplePath()
+  Script: {
+    Value: g.V().out().out().simplePath()
+  }
 }

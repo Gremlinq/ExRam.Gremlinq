@@ -1,5 +1,7 @@
 ﻿{
-  Script: g.V().hasLabel(_a).properties(_b).properties().key(),
+  Script: {
+    Value: g.V().hasLabel(_a).properties(_b).properties().key()
+  },
   Bindings: {
     _a: Country,
     _b: Name

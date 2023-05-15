@@ -1,5 +1,7 @@
 ﻿{
-  Script: g.V().where(__.in()).project(_a).by(__.in()),
+  Script: {
+    Value: g.V().where(__.in()).project(_a).by(__.in())
+  },
   Bindings: {
     _a: in!
   }

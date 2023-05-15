@@ -1,5 +1,7 @@
 ﻿{
-  Script: g.V().tail(_a),
+  Script: {
+    Value: g.V().tail(_a)
+  },
   Bindings: {
     _a: 1
   }

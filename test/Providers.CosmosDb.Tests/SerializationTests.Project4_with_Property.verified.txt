@@ -1,5 +1,7 @@
 ﻿{
-  Script: g.V().hasLabel(_a).where(__.in()).where(__.out()).where(__.properties()).project(_b,_c,_d,_e).by(__.in()).by(__.out()).by(_f).by(__.properties()),
+  Script: {
+    Value: g.V().hasLabel(_a).where(__.in()).where(__.out()).where(__.properties()).project(_b,_c,_d,_e).by(__.in()).by(__.out()).by(_f).by(__.properties())
+  },
   Bindings: {
     _a: Person,
     _b: Item1,

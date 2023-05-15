@@ -1,5 +1,7 @@
 ﻿{
-  Script: g.V().fail(_a),
+  Script: {
+    Value: g.V().fail(_a)
+  },
   Bindings: {
     _a: There's been an error.
   }

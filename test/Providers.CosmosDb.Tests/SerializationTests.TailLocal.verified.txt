@@ -1,5 +1,7 @@
 ﻿{
-  Script: g.V().tail(local,_a),
+  Script: {
+    Value: g.V().tail(local,_a)
+  },
   Bindings: {
     _a: 1
   }

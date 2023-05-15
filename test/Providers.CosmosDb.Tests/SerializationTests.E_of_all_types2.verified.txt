@@ -1,3 +1,5 @@
 ﻿{
-  Script: g.E()
+  Script: {
+    Value: g.E()
+  }
 }

@@ -1,5 +1,7 @@
 ﻿{
-  Script: g.addE(_a).property(_b,_c).from(__.addV(_d).property(_e,_e).property(single,_f,_g)).to(__.addV(_h).property(_e,_e).property(single,_i,_j)),
+  Script: {
+    Value: g.addE(_a).property(_b,_c).from(__.addV(_d).property(_e,_e).property(single,_f,_g)).to(__.addV(_h).property(_e,_e).property(single,_i,_j))
+  },
   Bindings: {
     _a: WorksFor,
     _b: To,

@@ -1,3 +1,5 @@
 ﻿{
-  Script: g.withoutStrategies(SubgraphStrategy).V()
+  Script: {
+    Value: g.withoutStrategies(SubgraphStrategy).V()
+  }
 }

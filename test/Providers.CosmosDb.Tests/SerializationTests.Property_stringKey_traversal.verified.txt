@@ -1,5 +1,7 @@
 ﻿{
-  Script: g.V().hasLabel(_a).property(single,_b,__.constant(_c)),
+  Script: {
+    Value: g.V().hasLabel(_a).property(single,_b,__.constant(_c))
+  },
   Bindings: {
     _a: Person,
     _b: StringKey2,

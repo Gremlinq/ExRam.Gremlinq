@@ -1,5 +1,7 @@
 ﻿{
-  Script: g.V().hasLabel(_a).limit(_b).sideEffect(__.properties(_c).drop()),
+  Script: {
+    Value: g.V().hasLabel(_a).limit(_b).sideEffect(__.properties(_c).drop())
+  },
   Bindings: {
     _a: Company,
     _b: 1,

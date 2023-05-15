@@ -1,5 +1,7 @@
 ﻿{
-  Script: g.V().hasLabel(_a).in(_b),
+  Script: {
+    Value: g.V().hasLabel(_a).in(_b)
+  },
   Bindings: {
     _a: Person,
     _b: WorksFor

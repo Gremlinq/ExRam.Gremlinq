@@ -1,3 +1,5 @@
 ﻿{
-  Script: g.V().properties().id()
+  Script: {
+    Value: g.V().properties().id()
+  }
 }
