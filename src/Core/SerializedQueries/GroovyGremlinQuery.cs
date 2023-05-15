@@ -2,18 +2,18 @@
 {
     public readonly struct GroovyGremlinQuery
     {
-        private readonly string? _script;
+        private readonly GroovyScript? _script;
         private readonly IReadOnlyDictionary<string, object>? _bindings;
 
-        public GroovyGremlinQuery(string script, IReadOnlyDictionary<string, object> bindings)
+        public GroovyGremlinQuery(GroovyScript script, IReadOnlyDictionary<string, object> bindings)
         {
             _script = script;
             _bindings = bindings;
         }
 
-        public override string ToString() => Script;
+        public override string ToString() => Script.Value;
 
-        public string Script => _script ?? throw new InvalidOperationException();
+        public GroovyScript Script => _script ?? throw new InvalidOperationException();
 
         public IReadOnlyDictionary<string, object> Bindings => _bindings ?? throw new InvalidOperationException();
     }

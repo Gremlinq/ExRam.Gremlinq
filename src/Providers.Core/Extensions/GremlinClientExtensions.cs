@@ -99,7 +99,7 @@ namespace Gremlin.Net.Driver
                                     new
                                     {
                                         requestMessage.RequestId,
-                                        groovyQuery.Script,
+                                        groovyQuery.Script.Value,
                                         groovyQuery.Bindings
                                     },
                                     formatting));

@@ -144,7 +144,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                 Append(bytecode);
 
                 return new GroovyGremlinQuery(
-                    builder.ToString(),
+                    GroovyScript.From(builder.ToString()),
                     (IReadOnlyDictionary<string, object>?)variables ?? ImmutableDictionary<string, object>.Empty);
             }
             finally

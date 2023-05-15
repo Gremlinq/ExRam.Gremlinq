@@ -19,7 +19,7 @@ namespace Gremlin.Net.Driver
                 if (requestMessage.Arguments.TryGetValue(Tokens.ArgsGremlin, out var scriptObject) && scriptObject is string script)
                 {
                     return new GroovyGremlinQuery(
-                        script,
+                        GroovyScript.From(script),
                         requestMessage.Arguments.TryGetValue(Tokens.ArgsBindings, out var bindingsObject) && bindingsObject is IReadOnlyDictionary<string, object> bindings
                             ? bindings
                             : ImmutableDictionary<string, object>.Empty);
