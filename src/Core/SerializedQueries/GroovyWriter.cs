@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System.Collections.Immutable;
+using System.Text;
+using ExRam.Gremlinq.Core.Serialization;
 using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
@@ -17,14 +19,30 @@ namespace ExRam.Gremlinq.Core
             var groovyWriter = new GroovyWriter();
             var stringBuilder = new StringBuilder();
 
-            groovyWriter.Append(bytecode, stringBuilder);
+            groovyWriter.Append(bytecode, stringBuilder, null);
 
             return stringBuilder.ToString();
+        }
+
+        public static GroovyGremlinQuery ToGroovyGremlinQuery(Bytecode bytecode, bool includeBindings)
+        {
+            var groovyWriter = new GroovyWriter();
+            var stringBuilder = new StringBuilder();
+            var bindings = new Dictionary<object, Label>();
+            
+            groovyWriter.Append(bytecode, stringBuilder, bindings);
+
+            return new GroovyGremlinQuery(
+                stringBuilder.ToString(),
+                includeBindings
+                    ? bindings.ToDictionary(kvp => (string)kvp.Value, kvp => kvp.Key)
+                    : ImmutableDictionary<string, object>.Empty);
         }
 
         private GroovyWriter Append(
             object obj,
             StringBuilder stringBuilder,
+            Dictionary<object, Label>? bindings,
             bool allowEnumerableExpansion = false)
         {
             switch (obj)
@@ -36,13 +54,13 @@ namespace ExRam.Gremlinq.Core
                     foreach (var instruction in byteCode.SourceInstructions)
                     {
                         writer = writer
-                            .Append(instruction, stringBuilder);
+                            .Append(instruction, stringBuilder, bindings);
                     }
 
                     foreach (var instruction in byteCode.StepInstructions)
                     {
                         writer = writer
-                            .Append(instruction, stringBuilder);
+                            .Append(instruction, stringBuilder, bindings);
                     }
 
                     return writer;
@@ -51,22 +69,22 @@ namespace ExRam.Gremlinq.Core
                 {
                     return this
                         .StartOperator(instruction.OperatorName, stringBuilder)
-                        .Append(instruction.Arguments, stringBuilder, true)
+                        .Append(instruction.Arguments, stringBuilder, bindings, true)
                         .EndOperator(stringBuilder);
                 }
                 case P { Value: P p1 } p:
                 {
                     return this
-                        .Append(p1, stringBuilder)
+                        .Append(p1, stringBuilder, bindings)
                         .StartOperator(p.OperatorName, stringBuilder)
-                        .Append(p.Other, stringBuilder)
+                        .Append(p.Other, stringBuilder, bindings)
                         .EndOperator(stringBuilder);
                 }
                 case P p:
                 {
                     return this
                         .StartOperator(p.OperatorName, stringBuilder)
-                        .Append((object)p.Value, stringBuilder, true)
+                        .Append((object)p.Value, stringBuilder, bindings, true)
                         .EndOperator(stringBuilder);
                 }
                 case EnumWrapper t:
@@ -77,19 +95,19 @@ namespace ExRam.Gremlinq.Core
                 {
                     return WriteLambda(lambda.LambdaExpression, stringBuilder);
                 }
-                case string str:
+                case string str when bindings == null:
                 {
                     return WriteQuoted(str, stringBuilder);
                 }
-                case DateTimeOffset dateTime:
+                case DateTimeOffset dateTime when bindings == null:
                 {
                     return WriteQuoted(dateTime.ToString("o"), stringBuilder);
                 }
-                case DateTime dateTime:
+                case DateTime dateTime when bindings == null:
                 {
                     return WriteQuoted(dateTime.ToString("o"), stringBuilder);
                 }
-                case bool b:
+                case bool b when bindings == null:
                 {
                     return Write(b ? "true" : "false", stringBuilder);
                 }
@@ -105,13 +123,25 @@ namespace ExRam.Gremlinq.Core
                     {
                         writer = writer
                             .StartParameter(i, stringBuilder)
-                            .Append(objectArray[i], stringBuilder);
+                            .Append(objectArray[i], stringBuilder, bindings);
                     }
 
                     return writer;
                 }
                 case null:
                     return Write("null", stringBuilder);
+                case object when bindings != null:
+                {
+                    if (!bindings.TryGetValue(obj, out var bindingKey))
+                    {
+                        bindingKey = bindings.Count;
+                        bindings.Add(obj, bindingKey);
+                    }
+
+                    stringBuilder.Append(bindingKey);
+
+                    return new();
+                }
                 default:
                     return Write(obj, stringBuilder);
             }
