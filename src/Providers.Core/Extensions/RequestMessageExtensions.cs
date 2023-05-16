@@ -20,7 +20,7 @@ namespace Gremlin.Net.Driver
                 {
                     return new GroovyGremlinQuery(
                         script,
-                        requestMessage.Arguments.TryGetValue(Tokens.ArgsBindings, out var bindingsObject) && bindingsObject is IReadOnlyDictionary<string, object> bindings
+                        includeBindings && requestMessage.Arguments.TryGetValue(Tokens.ArgsBindings, out var bindingsObject) && bindingsObject is IReadOnlyDictionary<string, object> bindings
                             ? bindings
                             : ImmutableDictionary<string, object>.Empty);
                 }
