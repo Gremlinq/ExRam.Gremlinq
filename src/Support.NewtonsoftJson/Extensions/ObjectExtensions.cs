@@ -20,10 +20,10 @@ namespace System
                     idSetter(element, idToken, recurse);
             }
 
-            public static void SetLabel(TElement element, JToken idToken, IGremlinQueryEnvironment environment, ITransformer recurse)
+            public static void SetLabel(TElement element, JToken labelToken, IGremlinQueryEnvironment environment, ITransformer recurse)
             {
                 if (TryGetSetter(LabelSetters, T.Label, environment) is { } labelSetter)
-                    labelSetter(element, idToken, recurse);
+                    labelSetter(element, labelToken, recurse);
             }
 
             private static Action<TElement, JToken, ITransformer>? TryGetSetter(ConcurrentDictionary<IGremlinQueryEnvironment, Action<TElement, JToken, ITransformer>?> dict, T relevantT, IGremlinQueryEnvironment environment)
