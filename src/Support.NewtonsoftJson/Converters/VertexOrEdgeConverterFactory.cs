@@ -10,6 +10,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
     {
         private sealed class VertexOrEdgeConverter<TTarget> : IConverter<JObject, TTarget>
         {
+            private static readonly JObject EmptyJObject = new();
             private readonly IGremlinQueryEnvironment _environment;
 
             public VertexOrEdgeConverter(IGremlinQueryEnvironment environment)
@@ -19,11 +20,11 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
             public bool TryConvert(JObject jObject, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
             {
-                if (jObject.TryGetValue("id", StringComparison.OrdinalIgnoreCase, out var idToken) && jObject.TryGetValue("label", StringComparison.OrdinalIgnoreCase, out var labelToken) && labelToken.Type == JTokenType.String && jObject.TryGetValue("properties", out var propertiesToken) && propertiesToken is JObject propertiesObject)
+                if (jObject.LooksLikeElement(out var idToken, out var label, out var maybePropertiesObject))
                 {
-                    if (recurse.TryTransform(propertiesObject, _environment, out value))
+                    if (recurse.TryTransform(maybePropertiesObject ?? EmptyJObject, _environment, out value))
                     {
-                        value.SetIdAndLabel(idToken, labelToken, _environment, recurse);
+                        value.SetIdAndLabel(idToken, label, _environment, recurse);
                         return true;
                     }
                 }
@@ -33,15 +34,8 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             }
         }
 
-        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
-        {
-            if (typeof(TSource) == typeof(JObject) && !typeof(TTarget).IsAssignableFrom(typeof(TSource)) && !typeof(TTarget).IsArray && typeof(TTarget) != typeof(object) && !typeof(TTarget).IsInterface && !typeof(Property).IsAssignableFrom(typeof(TTarget)))
-            {
-                if (environment.Model.VerticesModel.Metadata.Keys.Concat(environment.Model.EdgesModel.Metadata.Keys).Any(type => type.IsAssignableFrom(typeof(TTarget))))
-                    return (IConverter<TSource, TTarget>)(object)new VertexOrEdgeConverter<TTarget>(environment);
-            }
-
-            return default;
-        }
+        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment) => (typeof(TSource) == typeof(JObject) && !typeof(TTarget).IsAssignableFrom(typeof(TSource)) && !typeof(TTarget).IsArray && typeof(TTarget) != typeof(object) && !typeof(TTarget).IsInterface && !typeof(Property).IsAssignableFrom(typeof(TTarget)))
+            ? (IConverter<TSource, TTarget>)(object)new VertexOrEdgeConverter<TTarget>(environment)
+            : default;
     }
 }
