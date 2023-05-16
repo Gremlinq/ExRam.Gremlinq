@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Transformation;
 
@@ -9,14 +8,14 @@ namespace Newtonsoft.Json.Linq
     {
         public static IEnumerable<TItem>? TryExpandTraverser<TItem>(this JObject jObject, IGremlinQueryEnvironment env, ITransformer recurse)
         {
-            if (jObject.TryGetValue("@type", out var nestedType) && "g:Traverser".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase) && jObject.TryGetValue("@value", out var valueToken) && valueToken is JObject nestedTraverserObject)
+            if (jObject.TryGetValue("@type", StringComparison.OrdinalIgnoreCase, out var nestedType) && "g:Traverser".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase) && jObject.TryGetValue("@value", StringComparison.OrdinalIgnoreCase, out var valueToken) && valueToken is JObject nestedTraverserObject)
             {
                 var bulk = 1;
 
-                if (nestedTraverserObject.TryGetValue("bulk", out var bulkToken) && recurse.TryTransform<JToken, int>(bulkToken, env, out var bulkObject))
+                if (nestedTraverserObject.TryGetValue("bulk", StringComparison.OrdinalIgnoreCase, out var bulkToken) && recurse.TryTransform<JToken, int>(bulkToken, env, out var bulkObject))
                     bulk = bulkObject;
 
-                if (nestedTraverserObject.TryGetValue("value", out var traverserValue))
+                if (nestedTraverserObject.TryGetValue("value", StringComparison.OrdinalIgnoreCase, out var traverserValue))
                 {
                     return Core();
 
@@ -40,11 +39,11 @@ namespace Newtonsoft.Json.Linq
             labelValue = null;
             propertiesObject = null;
 
-            if (!jObject.ContainsKey("value") && jObject.TryGetValue("id", StringComparison.OrdinalIgnoreCase, out idToken) && idToken.Type != JTokenType.Array && jObject.TryGetValue("label", StringComparison.OrdinalIgnoreCase, out var labelToken) && labelToken.Type == JTokenType.String)
+            if (!jObject.TryGetValue("value", StringComparison.OrdinalIgnoreCase, out _) && jObject.TryGetValue("id", StringComparison.OrdinalIgnoreCase, out idToken) && idToken.Type != JTokenType.Array && jObject.TryGetValue("label", StringComparison.OrdinalIgnoreCase, out var labelToken) && labelToken.Type == JTokenType.String)
             {
                 if ((labelValue = labelToken as JValue) is not null)
                 {
-                    if (jObject.TryGetValue("properties", out var propertiesToken))
+                    if (jObject.TryGetValue("properties", StringComparison.OrdinalIgnoreCase, out var propertiesToken))
                     {
                         propertiesObject = propertiesToken as JObject;
 
@@ -61,9 +60,9 @@ namespace Newtonsoft.Json.Linq
 
         public static bool LooksLikeProperty(this JObject jObject)
         {
-            if (jObject.ContainsKey("value"))
+            if (jObject.TryGetValue("value", StringComparison.OrdinalIgnoreCase, out _))
             {
-                if (jObject.TryGetValue("key", out var keyToken))
+                if (jObject.TryGetValue("key", StringComparison.OrdinalIgnoreCase, out var keyToken))
                 {
                     if (keyToken.Type != JTokenType.String)
                         return false;
@@ -79,14 +78,14 @@ namespace Newtonsoft.Json.Linq
 
         public static bool LooksLikeVertexProperty(this JObject jObject)
         {
-            if (jObject.ContainsKey("value") && jObject.TryGetValue("id", out var idToken))
+            if (jObject.TryGetValue("value", StringComparison.OrdinalIgnoreCase, out _) && jObject.TryGetValue("id", StringComparison.OrdinalIgnoreCase, out var idToken))
             {
                 if (idToken.Type == JTokenType.Array)
                     return false;
 
                 var count = 2;
 
-                if (jObject.TryGetValue("label", out var labelToken))
+                if (jObject.TryGetValue("label", StringComparison.OrdinalIgnoreCase, out var labelToken))
                 {
                     if (labelToken.Type != JTokenType.String)
                         return false;
@@ -94,7 +93,7 @@ namespace Newtonsoft.Json.Linq
                     count++;
                 }
 
-                if (jObject.TryGetValue("properties", out var propertiesToken))
+                if (jObject.TryGetValue("properties", StringComparison.OrdinalIgnoreCase, out var propertiesToken))
                 {
                     if (propertiesToken.Type != JTokenType.Object)
                         return false;
