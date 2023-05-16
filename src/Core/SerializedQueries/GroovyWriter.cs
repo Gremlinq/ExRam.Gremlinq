@@ -5,101 +5,100 @@ namespace ExRam.Gremlinq.Core
 {
     internal readonly struct GroovyWriter
     {
-        private static readonly ThreadLocal<StringBuilder> Builder = new(static () => new StringBuilder());
-
         private readonly bool _hasIdentifier;
-        private readonly StringBuilder _builder;
 
-        public GroovyWriter() : this(Builder.Value!.Clear())
+        private GroovyWriter(bool hasIdentifier)
         {
-        }
-
-        private GroovyWriter(StringBuilder builder, bool hasIdentifier = false)
-        {
-            _builder = builder;
             _hasIdentifier = hasIdentifier;
         }
 
-        public string ToString(Bytecode bytecode) => Append(bytecode)._builder.ToString();
+        public string ToString(Bytecode bytecode)
+        {
+            var stringBuilder = new StringBuilder();
+
+            Append(bytecode, stringBuilder);
+
+            return stringBuilder.ToString();
+        }
 
         private GroovyWriter Append(
             object obj,
+            StringBuilder stringBuilder,
             bool allowEnumerableExpansion = false)
         {
             switch (obj)
             {
                 case Bytecode byteCode:
                 {
-                    var writer = 
-                        StartTraversal();
+                    var writer = StartTraversal(stringBuilder);
 
                     foreach (var instruction in byteCode.SourceInstructions)
                     {
                         writer = writer
-                            .Append(instruction);
+                            .Append(instruction, stringBuilder);
                     }
 
                     foreach (var instruction in byteCode.StepInstructions)
                     {
                         writer = writer
-                            .Append(instruction);
+                            .Append(instruction, stringBuilder);
                     }
 
                     return writer;
                 }
                 case Instruction instruction:
                 {
-                    return 
-                        StartOperator(instruction.OperatorName)
-                        .Append(instruction.Arguments, true)
-                        .EndOperator();
+                    return this
+                        .StartOperator(instruction.OperatorName, stringBuilder)
+                        .Append(instruction.Arguments, stringBuilder, true)
+                        .EndOperator(stringBuilder);
                 }
                 case P { Value: P p1 } p:
                 {
-                    return 
-                        Append(p1)
-                        .StartOperator(p.OperatorName)
-                        .Append(p.Other)
-                        .EndOperator();
+                    return this
+                        .Append(p1, stringBuilder)
+                        .StartOperator(p.OperatorName, stringBuilder)
+                        .Append(p.Other, stringBuilder)
+                        .EndOperator(stringBuilder);
                 }
                 case P p:
                 {
-                    return 
-                        StartOperator(p.OperatorName)
-                        .Append((object)p.Value, true)
-                        .EndOperator();
+                    return this
+                        .StartOperator(p.OperatorName, stringBuilder)
+                        .Append((object)p.Value, stringBuilder, true)
+                        .EndOperator(stringBuilder);
                 }
                 case EnumWrapper t:
                 {
-                    return Write(t.EnumValue);
+                    return Write(t.EnumValue, stringBuilder);
                 }
                 case ILambda lambda:
                 {
-                    return WriteLambda(lambda.LambdaExpression);
+                    return WriteLambda(lambda.LambdaExpression, stringBuilder);
                 }
                 case string str:
                 {
                     return 
-                        WriteQuoted(str);
+                        WriteQuoted(str, stringBuilder);
                 }
                 case DateTimeOffset dateTime:
                 {
                     return 
-                        WriteQuoted(dateTime.ToString("o"));
+                        WriteQuoted(dateTime.ToString("o"), stringBuilder);
                 }
                 case DateTime dateTime:
                 {
                     return 
-                        WriteQuoted(dateTime.ToString("o"));
+                        WriteQuoted(dateTime.ToString("o"), stringBuilder);
                 }
                 case bool b:
                 {
                     return 
-                        Write(b ? "true" : "false");
+                        Write(b ? "true" : "false", stringBuilder);
                 }
                 case Type type:
                 {
-                    return Write(type.Name);
+                    return Write(type.Name, stringBuilder);
                 }
                 case object[] objectArray when allowEnumerableExpansion:
                 {
@@ -108,99 +107,100 @@ namespace ExRam.Gremlinq.Core
                     for (var i = 0; i < objectArray.Length; i++)
                     {
                         writer = writer
-                            .StartParameter(i)
-                            .Append(objectArray[i]);
+                            .StartParameter(i, stringBuilder)
+                            .Append(objectArray[i], stringBuilder);
                     }
 
                     return writer;
                 }
                 case null:
-                    return Write("null");
+                    return Write("null", stringBuilder);
                 default:
-                    return Write(obj);
+                    return Write(obj, stringBuilder);
             }
         }
 
-        private GroovyWriter StartTraversal() => Identifier(_builder.Length == 0
-            ? "g"
-            : "__");
+        private GroovyWriter StartTraversal(StringBuilder stringBuilder) => Identifier(
+            stringBuilder.Length == 0
+                ? "g"
+                : "__",
+            stringBuilder);
 
-        private GroovyWriter Identifier(string identifier) => new(
-             _builder.Append(identifier),
-            true);
-
-        private GroovyWriter StartOperator(string operatorName)
+        private GroovyWriter Identifier(string identifier, StringBuilder stringBuilder)
         {
-            var builder = _builder;
+            stringBuilder.Append(identifier);
 
+            return new(true);
+        }
+
+        private GroovyWriter StartOperator(string operatorName, StringBuilder stringBuilder)
+        {
             if (_hasIdentifier)
-                builder = builder.Append('.');
+                stringBuilder.Append('.');
 
-            return new(
-                builder
-                    .Append(operatorName)
-                    .Append('('));
+            stringBuilder
+                .Append(operatorName)
+                .Append('(');
+
+            return new();
         }
 
-        private GroovyWriter StartParameter(int parameterIndex)
+        private GroovyWriter StartParameter(int parameterIndex, StringBuilder stringBuilder)
         {
-            var builder = _builder;
-
             if (parameterIndex > 0)
-                builder = builder.Append(',');
+                stringBuilder.Append(',');
 
-            return new(
-                builder,
-                _hasIdentifier);
+            return new(_hasIdentifier);
         }
 
-        private GroovyWriter WriteLambda(string lambda) => new(
-            _builder
+        private GroovyWriter WriteLambda(string lambda, StringBuilder stringBuilder)
+        {
+            stringBuilder
                 .Append('{')
                 .Append(lambda)
-                .Append('}'),
-            _hasIdentifier);
+                .Append('}');
 
-        private GroovyWriter EndOperator() => new(
-            _builder
-                .Append(')'),
-            true);
-
-        private GroovyWriter WriteQuoted(object value)
-        {
-#if NET6_0_OR_GREATER
-            var handler = new StringBuilder.AppendInterpolatedStringHandler(2, 1, _builder);
-            handler.AppendLiteral("'");
-            handler.AppendFormatted(value);
-            handler.AppendLiteral("'");
-
-            return new(
-                _builder.Append(ref handler),
-                _hasIdentifier);
-#else
-            return new(
-                _builder
-                    .Append('\'')
-                    .Append(value)
-                    .Append('\''),
-                _hasIdentifier);
-#endif
+            return new(_hasIdentifier);
         }
 
-        private GroovyWriter Write(object value)
+        private GroovyWriter EndOperator(StringBuilder stringBuilder)
+        {
+            stringBuilder.Append(')');
+
+            return new(true);
+        }
+
+        private GroovyWriter WriteQuoted(object value, StringBuilder stringBuilder)
         {
 #if NET6_0_OR_GREATER
-            var handler = new StringBuilder.AppendInterpolatedStringHandler(0, 1, _builder);
+            var handler = new StringBuilder.AppendInterpolatedStringHandler(2, 1, stringBuilder);
+            handler.AppendLiteral("'");
+            handler.AppendFormatted(value);
+            handler.AppendLiteral("'");
+
+            stringBuilder.Append(ref handler);
+#else
+            stringBuilder
+                .Append('\'')
+                .Append(value)
+                .Append('\'');
+#endif
+
+            return new(_hasIdentifier);
+        }
+
+        private GroovyWriter Write(object value, StringBuilder stringBuilder)
+        {
+#if NET6_0_OR_GREATER
+            var handler = new StringBuilder.AppendInterpolatedStringHandler(0, 1, stringBuilder);
             handler.AppendFormatted(value);
 
-            return new(
-                _builder.Append(ref handler),
-                _hasIdentifier);
+            stringBuilder.Append(ref handler);
 #else
-            return new(
-                _builder.Append(value),
-                _hasIdentifier);
+            stringBuilder.Append(value);
 #endif
+
+            return new(_hasIdentifier);
         }
     }
 }
