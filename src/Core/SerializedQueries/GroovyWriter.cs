@@ -1,5 +1,7 @@
 ﻿using System.Collections.Immutable;
 using System.Text;
+
+using ExRam.Gremlinq.Core.Projections;
 using ExRam.Gremlinq.Core.Serialization;
 using Gremlin.Net.Process.Traversal;
 
@@ -7,16 +9,18 @@ namespace ExRam.Gremlinq.Core
 {
     internal readonly struct GroovyWriter
     {
+        private readonly bool _isEmpty;
         private readonly bool _hasIdentifier;
 
-        private GroovyWriter(bool hasIdentifier)
+        private GroovyWriter(bool isEmpty, bool hasIdentifier)
         {
+            _isEmpty = isEmpty;
             _hasIdentifier = hasIdentifier;
         }
 
         public static string ToString(Bytecode bytecode)
         {
-            var groovyWriter = new GroovyWriter();
+            var groovyWriter = new GroovyWriter(true, false);
             var stringBuilder = new StringBuilder();
 
             groovyWriter.Append(bytecode, stringBuilder, null);
@@ -26,10 +30,10 @@ namespace ExRam.Gremlinq.Core
 
         public static GroovyGremlinQuery ToGroovyGremlinQuery(Bytecode bytecode, bool includeBindings)
         {
-            var groovyWriter = new GroovyWriter();
             var stringBuilder = new StringBuilder();
             var bindings = new Dictionary<object, Label>();
-            
+            var groovyWriter = new GroovyWriter(true, false);
+
             groovyWriter.Append(bytecode, stringBuilder, bindings);
 
             return new GroovyGremlinQuery(
@@ -148,7 +152,7 @@ namespace ExRam.Gremlinq.Core
         }
 
         private GroovyWriter StartTraversal(StringBuilder stringBuilder) => Identifier(
-            stringBuilder.Length == 0
+            _isEmpty
                 ? "g"
                 : "__",
             stringBuilder);
@@ -157,7 +161,7 @@ namespace ExRam.Gremlinq.Core
         {
             stringBuilder.Append(identifier);
 
-            return new(true);
+            return new(false, true);
         }
 
         private GroovyWriter StartOperator(string operatorName, StringBuilder stringBuilder)
@@ -177,7 +181,7 @@ namespace ExRam.Gremlinq.Core
             if (parameterIndex > 0)
                 stringBuilder.Append(',');
 
-            return new(_hasIdentifier);
+            return new(false, _hasIdentifier);
         }
 
         private GroovyWriter WriteLambda(string lambda, StringBuilder stringBuilder)
@@ -187,14 +191,14 @@ namespace ExRam.Gremlinq.Core
                 .Append(lambda)
                 .Append('}');
 
-            return new(_hasIdentifier);
+            return new(false, _hasIdentifier);
         }
 
         private GroovyWriter EndOperator(StringBuilder stringBuilder)
         {
             stringBuilder.Append(')');
 
-            return new(true);
+            return new(false, true);
         }
 
         private GroovyWriter WriteQuoted(object value, StringBuilder stringBuilder)
@@ -213,7 +217,7 @@ namespace ExRam.Gremlinq.Core
                 .Append('\'');
 #endif
 
-            return new(_hasIdentifier);
+            return new(false, _hasIdentifier);
         }
 
         private GroovyWriter Write(object value, StringBuilder stringBuilder)
@@ -227,7 +231,7 @@ namespace ExRam.Gremlinq.Core
             stringBuilder.Append(value);
 #endif
 
-            return new(_hasIdentifier);
+            return new(false, _hasIdentifier);
         }
     }
 }
