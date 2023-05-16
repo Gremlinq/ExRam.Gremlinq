@@ -12,11 +12,12 @@ namespace ExRam.Gremlinq.Core
             _hasIdentifier = hasIdentifier;
         }
 
-        public string ToString(Bytecode bytecode)
+        public static string ToString(Bytecode bytecode)
         {
+            var groovyWriter = new GroovyWriter();
             var stringBuilder = new StringBuilder();
 
-            Append(bytecode, stringBuilder);
+            groovyWriter.Append(bytecode, stringBuilder);
 
             return stringBuilder.ToString();
         }
@@ -78,23 +79,19 @@ namespace ExRam.Gremlinq.Core
                 }
                 case string str:
                 {
-                    return 
-                        WriteQuoted(str, stringBuilder);
+                    return WriteQuoted(str, stringBuilder);
                 }
                 case DateTimeOffset dateTime:
                 {
-                    return 
-                        WriteQuoted(dateTime.ToString("o"), stringBuilder);
+                    return WriteQuoted(dateTime.ToString("o"), stringBuilder);
                 }
                 case DateTime dateTime:
                 {
-                    return 
-                        WriteQuoted(dateTime.ToString("o"), stringBuilder);
+                    return WriteQuoted(dateTime.ToString("o"), stringBuilder);
                 }
                 case bool b:
                 {
-                    return 
-                        Write(b ? "true" : "false", stringBuilder);
+                    return Write(b ? "true" : "false", stringBuilder);
                 }
                 case Type type:
                 {
