@@ -60,48 +60,18 @@ namespace Newtonsoft.Json.Linq
 
         public static bool LooksLikeProperty(this JObject jObject)
         {
-            if (jObject.TryGetValue("value", StringComparison.OrdinalIgnoreCase, out _))
-            {
-                if (jObject.TryGetValue("key", StringComparison.OrdinalIgnoreCase, out var keyToken))
-                {
-                    if (keyToken.Type != JTokenType.String)
-                        return false;
-
-                    return jObject.Count == 2;
-                }
-
-                return jObject.Count == 1;
-            }
-
-            return false;
+            return jObject.TryGetValue("value", StringComparison.OrdinalIgnoreCase, out _) && jObject.TryGetValue("key", StringComparison.OrdinalIgnoreCase, out var keyToken) && keyToken.Type == JTokenType.String;
         }
 
         public static bool LooksLikeVertexProperty(this JObject jObject)
         {
-            if (jObject.TryGetValue("value", StringComparison.OrdinalIgnoreCase, out _) && jObject.TryGetValue("id", StringComparison.OrdinalIgnoreCase, out var idToken))
+            if (jObject.TryGetValue("value", StringComparison.OrdinalIgnoreCase, out _) && jObject.TryGetValue("id", StringComparison.OrdinalIgnoreCase, out var idToken) && idToken.Type != JTokenType.Array)
             {
-                if (idToken.Type == JTokenType.Array)
-                    return false;
-
-                var count = 2;
-
-                if (jObject.TryGetValue("label", StringComparison.OrdinalIgnoreCase, out var labelToken))
+                if (!jObject.TryGetValue("label", StringComparison.OrdinalIgnoreCase, out var labelToken) || labelToken.Type == JTokenType.String)
                 {
-                    if (labelToken.Type != JTokenType.String)
-                        return false;
-
-                    count++;
+                    if (!jObject.TryGetValue("properties", StringComparison.OrdinalIgnoreCase, out var propertiesToken) || propertiesToken.Type == JTokenType.Object)
+                        return true;
                 }
-
-                if (jObject.TryGetValue("properties", StringComparison.OrdinalIgnoreCase, out var propertiesToken))
-                {
-                    if (propertiesToken.Type != JTokenType.Object)
-                        return false;
-
-                    count++;
-                }
-
-                return jObject.Count == count;
             }
 
             return false;
