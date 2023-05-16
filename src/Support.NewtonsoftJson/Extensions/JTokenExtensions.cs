@@ -1,4 +1,6 @@
-﻿using ExRam.Gremlinq.Core;
+﻿using System.Diagnostics.CodeAnalysis;
+
+using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Transformation;
 
 namespace Newtonsoft.Json.Linq
@@ -30,6 +32,31 @@ namespace Newtonsoft.Json.Linq
             }
 
             return null;
+        }
+
+        public static bool LooksLikeElement(this JObject jObject, [NotNullWhen(true)] out JToken? idToken, [NotNullWhen(true)] out JValue? labelValue, out JObject? propertiesObject)
+        {
+            idToken = null;
+            labelValue = null;
+            propertiesObject = null;
+
+            if (!jObject.ContainsKey("value") && jObject.TryGetValue("id", StringComparison.OrdinalIgnoreCase, out idToken) && idToken.Type != JTokenType.Array && jObject.TryGetValue("label", StringComparison.OrdinalIgnoreCase, out var labelToken) && labelToken.Type == JTokenType.String)
+            {
+                if ((labelValue = labelToken as JValue) is not null)
+                {
+                    if (jObject.TryGetValue("properties", out var propertiesToken))
+                    {
+                        propertiesObject = propertiesToken as JObject;
+
+                        if (propertiesToken is null)
+                            return false;
+                    }
+
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public static bool LooksLikeProperty(this JObject jObject)
