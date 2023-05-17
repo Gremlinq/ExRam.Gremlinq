@@ -1,0 +1,14 @@
+﻿{
+  RequestId: Guid_1,
+  Operation: eval,
+  Processor: ,
+  Arguments: {
+    aliases: {
+      g: g
+    },
+    bindings: {
+      _a: 1
+    },
+    gremlin: g.V().where(__.properties()).choose(__.values()).option(none,__.constant(_a))
+  }
+}
