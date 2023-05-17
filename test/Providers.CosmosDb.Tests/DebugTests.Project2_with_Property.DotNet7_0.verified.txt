@@ -1,0 +1,1 @@
+﻿g.V().hasLabel('Person').where(__.in()).project('Item1','Item2').by(__.in()).by('Age')

@@ -1,0 +1,4 @@
+﻿{
+  Item1: provider1_value1,
+  Item2: provider1_value2
+}

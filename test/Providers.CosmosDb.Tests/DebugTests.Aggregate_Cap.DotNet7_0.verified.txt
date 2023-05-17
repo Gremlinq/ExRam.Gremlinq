@@ -1,0 +1,1 @@
+﻿g.V().hasLabel('Person').aggregate('_a').cap('_a')

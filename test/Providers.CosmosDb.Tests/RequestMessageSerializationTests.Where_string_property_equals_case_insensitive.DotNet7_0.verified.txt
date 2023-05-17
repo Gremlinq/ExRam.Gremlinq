@@ -1,0 +1,16 @@
+﻿{
+  RequestId: Guid_1,
+  Operation: eval,
+  Processor: ,
+  Arguments: {
+    aliases: {
+      g: g
+    },
+    bindings: {
+      _a: Country,
+      _b: CountryCallingCode,
+      _c: +49123
+    },
+    gremlin: g.V().hasLabel(_a).has(_b,startingWith(_c))
+  }
+}

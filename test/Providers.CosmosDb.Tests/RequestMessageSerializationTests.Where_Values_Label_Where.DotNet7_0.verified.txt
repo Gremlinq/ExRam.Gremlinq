@@ -1,0 +1,18 @@
+﻿{
+  RequestId: Guid_1,
+  Operation: eval,
+  Processor: ,
+  Arguments: {
+    aliases: {
+      g: g
+    },
+    bindings: {
+      _a: Company,
+      _b: Country,
+      _c: Language,
+      _d: Person,
+      _e: TimeFrame
+    },
+    gremlin: g.V().hasLabel(_a,_b,_c,_d,_e).has(label,_d)
+  }
+}

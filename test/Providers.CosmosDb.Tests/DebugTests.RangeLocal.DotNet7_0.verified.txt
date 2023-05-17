@@ -1,0 +1,1 @@
+﻿g.V().range(local,1,3)

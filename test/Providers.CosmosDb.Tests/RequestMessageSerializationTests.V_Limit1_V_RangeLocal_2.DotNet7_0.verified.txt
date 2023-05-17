@@ -1,0 +1,16 @@
+﻿{
+  RequestId: Guid_1,
+  Operation: eval,
+  Processor: ,
+  Arguments: {
+    aliases: {
+      g: g
+    },
+    bindings: {
+      _a: 1,
+      _b: 0,
+      _c: 2
+    },
+    gremlin: g.V().limit(_a).range(local,_b,_c)
+  }
+}
