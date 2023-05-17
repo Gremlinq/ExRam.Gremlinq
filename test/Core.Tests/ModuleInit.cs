@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿#if DEBUG
+using System.Runtime.CompilerServices;
 using DiffEngine;
 
 public static class ModuleInit
@@ -8,8 +9,7 @@ public static class ModuleInit
     {
         DiffRunner.Disabled = true;
 
-#if DEBUG
         VerifierSettings.AutoVerify();
-#endif
     }
 }
+#endif
