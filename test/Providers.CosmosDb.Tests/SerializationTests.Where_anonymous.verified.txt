@@ -1,6 +1,0 @@
-﻿{
-  Script: g.V().hasLabel(_a),
-  Bindings: {
-    _a: Person
-  }
-}

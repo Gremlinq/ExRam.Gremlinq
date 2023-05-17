@@ -10,6 +10,7 @@ namespace ExRam.Gremlinq.Core.Tests
         static GremlinqTestBase()
         {
             DiffRunner.Disabled = true;
+            VerifierSettings.UniqueForTargetFrameworkAndVersion();
 
 #if (DEBUG)
             VerifierSettings.AutoVerify();

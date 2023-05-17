@@ -1,8 +1,0 @@
-﻿{
-  Script: g.V().project(_a,_b).by(__.in().limit(_c).fold()).by(__.out().limit(_c).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold())),
-  Bindings: {
-    _a: Item1,
-    _b: Item2,
-    _c: 1
-  }
-}
