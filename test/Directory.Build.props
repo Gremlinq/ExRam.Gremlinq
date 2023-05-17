@@ -2,8 +2,8 @@
   <Import Project="..\Directory.Build.props" />
 
   <PropertyGroup>
-    <TestTargetFrameworks>net7.0</TestTargetFrameworks>
-    <TargetFrameworks>$(TestTargetFrameworks)</TargetFrameworks>
+    <TestTargetFramework>net7.0</TestTargetFramework>
+    <TargetFrameworks>$(TestTargetFramework)</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>
