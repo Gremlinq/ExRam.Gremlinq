@@ -1,23 +1,22 @@
-﻿using DiffEngine;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
     public abstract class GremlinqTestBase : VerifyBase
     {
+        private static readonly VerifySettings Settings = new ();
         private static readonly AsyncLocal<GremlinqTestBase> CurrentTestBase = new();
 
         static GremlinqTestBase()
         {
-            DiffRunner.Disabled = true;
-            VerifierSettings.UniqueForTargetFrameworkAndVersion();
+            Settings.UniqueForTargetFrameworkAndVersion();
 
-#if (DEBUG)
-            VerifierSettings.AutoVerify();
+#if DEBUG
+            Settings.AutoVerify();
 #endif
         }
 
-        protected GremlinqTestBase(ITestOutputHelper testOutputHelper, [CallerFilePath] string sourceFile = "") : base(null, sourceFile)
+        protected GremlinqTestBase(ITestOutputHelper testOutputHelper, [CallerFilePath] string sourceFile = "") : base(Settings, sourceFile)
         {
             CurrentTestBase.Value = this;
             XunitContext.Register(testOutputHelper, sourceFile);
