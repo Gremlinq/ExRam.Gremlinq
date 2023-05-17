@@ -1,0 +1,1 @@
+﻿g.V().fold().as('_a').V().hasLabel('Person').where(within('_a')).count()

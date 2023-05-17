@@ -1,0 +1,6 @@
+﻿{
+  Script: g.V().limit(_a).range(local,_a,_a),
+  Bindings: {
+    _a: 0
+  }
+}

@@ -1,0 +1,14 @@
+﻿{
+  RequestId: Guid_1,
+  Operation: eval,
+  Processor: ,
+  Arguments: {
+    aliases: {
+      g: g
+    },
+    bindings: {
+      _a: WorksFor
+    },
+    gremlin: g.V().not(__.out(_a))
+  }
+}

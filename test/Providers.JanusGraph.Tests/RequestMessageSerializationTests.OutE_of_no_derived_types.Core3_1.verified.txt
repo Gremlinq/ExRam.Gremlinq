@@ -1,0 +1,61 @@
+﻿{
+  RequestId: Guid_1,
+  Operation: bytecode,
+  Processor: traversal,
+  Arguments: {
+    aliases: {
+      g: g
+    },
+    gremlin: {
+      StepInstructions: [
+        {
+          OperatorName: V
+        },
+        {
+          OperatorName: outE,
+          Arguments: [
+            String
+          ]
+        },
+        {
+          OperatorName: project,
+          Arguments: [
+            id,
+            label,
+            properties
+          ]
+        },
+        {
+          OperatorName: by,
+          Arguments: [
+            {
+              EnumName: T,
+              EnumValue: id
+            }
+          ]
+        },
+        {
+          OperatorName: by,
+          Arguments: [
+            {
+              EnumName: T,
+              EnumValue: label
+            }
+          ]
+        },
+        {
+          OperatorName: by,
+          Arguments: [
+            {
+              StepInstructions: [
+                {
+                  OperatorName: valueMap
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

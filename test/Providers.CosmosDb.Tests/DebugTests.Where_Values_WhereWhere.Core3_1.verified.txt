@@ -1,0 +1,1 @@
+﻿g.V().hasLabel('Person').has('Name',eq('hallo1').and(eq('hallo2')))

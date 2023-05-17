@@ -1,0 +1,1 @@
+﻿g.V().hasLabel('Person').where(__.in()).project('in!','Age').by(__.in()).by('Age')

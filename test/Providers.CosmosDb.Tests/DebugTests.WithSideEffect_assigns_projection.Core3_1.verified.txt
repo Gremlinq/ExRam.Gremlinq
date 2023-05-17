@@ -1,0 +1,1 @@
+﻿g.withSideEffect('_a',ExRam.Gremlinq.Tests.Entities.Person[]).V().hasLabel('Person').aggregate('_a').select('_a')

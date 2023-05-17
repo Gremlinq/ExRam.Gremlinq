@@ -1,0 +1,34 @@
+﻿{
+  StepInstructions: [
+    {
+      OperatorName: V
+    },
+    {
+      OperatorName: group
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: label
+            }
+          ]
+        }
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: values
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
