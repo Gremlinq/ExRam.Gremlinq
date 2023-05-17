@@ -53,6 +53,9 @@ jobs:
 
   test-linux:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        testFramework: [ net7.0 ]
 
     services:
       gremlinServer:
@@ -78,7 +81,7 @@ jobs:
           ${{ env.DotNetVersion }}
 
     - name: Test
-      run: dotnet test ./${{ github.event.repository.name }}.sln -c Release -v normal
+      run: dotnet test ./${{ github.event.repository.name }}.sln -c Release -p:TestTargetFramework=${{ matrix.testFramework }} -v normal
       env:
         RunGremlinServerIntegrationTests: ${{ env.IsForkedRepository == 'false' }}
         RunJanusGraphIntegrationTests: ${{ env.IsForkedRepository == 'false' }}
@@ -92,6 +95,9 @@ jobs:
 
   test-windows:
     runs-on: windows-2019
+    strategy:
+      matrix:
+        testFramework: [ net7.0 ]
 
     steps:
     - name: Checkout
@@ -110,7 +116,7 @@ jobs:
       uses: Gremlinq/cosmos-emulator-github-action@EnableGremlin
 
     - name: Test
-      run: dotnet test ./${{ github.event.repository.name }}.sln -c Release -v normal
+      run: dotnet test ./${{ github.event.repository.name }}.sln -c Release -p:TestTargetFramework=${{ matrix.testFramework }} -v normal
       env:
         RunCosmosDbIntegrationTests: ${{ env.IsForkedRepository == 'false' }}
 
