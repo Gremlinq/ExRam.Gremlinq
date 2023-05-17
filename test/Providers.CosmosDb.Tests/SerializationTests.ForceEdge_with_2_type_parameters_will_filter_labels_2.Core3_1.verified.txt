@@ -1,0 +1,7 @@
+﻿{
+  Script: g.E().hasLabel(_a).outV().hasLabel(_b),
+  Bindings: {
+    _a: LivesIn,
+    _b: Person
+  }
+}

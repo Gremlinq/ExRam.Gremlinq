@@ -1,0 +1,161 @@
+﻿{
+  RequestId: Guid_1,
+  Operation: bytecode,
+  Processor: traversal,
+  Arguments: {
+    aliases: {
+      g: a
+    },
+    gremlin: {
+      StepInstructions: [
+        {
+          OperatorName: V
+        },
+        {
+          OperatorName: limit,
+          Arguments: [
+            2
+          ]
+        },
+        {
+          OperatorName: fold
+        },
+        {
+          OperatorName: tail,
+          Arguments: [
+            {
+              EnumName: Scope,
+              EnumValue: local
+            },
+            2
+          ]
+        },
+        {
+          OperatorName: local,
+          Arguments: [
+            {
+              StepInstructions: [
+                {
+                  OperatorName: unfold
+                },
+                {
+                  OperatorName: project,
+                  Arguments: [
+                    id,
+                    label,
+                    properties
+                  ]
+                },
+                {
+                  OperatorName: by,
+                  Arguments: [
+                    {
+                      EnumName: T,
+                      EnumValue: id
+                    }
+                  ]
+                },
+                {
+                  OperatorName: by,
+                  Arguments: [
+                    {
+                      EnumName: T,
+                      EnumValue: label
+                    }
+                  ]
+                },
+                {
+                  OperatorName: by,
+                  Arguments: [
+                    {
+                      StepInstructions: [
+                        {
+                          OperatorName: properties
+                        },
+                        {
+                          OperatorName: group
+                        },
+                        {
+                          OperatorName: by,
+                          Arguments: [
+                            {
+                              EnumName: T,
+                              EnumValue: label
+                            }
+                          ]
+                        },
+                        {
+                          OperatorName: by,
+                          Arguments: [
+                            {
+                              StepInstructions: [
+                                {
+                                  OperatorName: project,
+                                  Arguments: [
+                                    id,
+                                    label,
+                                    value,
+                                    properties
+                                  ]
+                                },
+                                {
+                                  OperatorName: by,
+                                  Arguments: [
+                                    {
+                                      EnumName: T,
+                                      EnumValue: id
+                                    }
+                                  ]
+                                },
+                                {
+                                  OperatorName: by,
+                                  Arguments: [
+                                    {
+                                      EnumName: T,
+                                      EnumValue: label
+                                    }
+                                  ]
+                                },
+                                {
+                                  OperatorName: by,
+                                  Arguments: [
+                                    {
+                                      EnumName: T,
+                                      EnumValue: value
+                                    }
+                                  ]
+                                },
+                                {
+                                  OperatorName: by,
+                                  Arguments: [
+                                    {
+                                      StepInstructions: [
+                                        {
+                                          OperatorName: valueMap
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  OperatorName: fold
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  OperatorName: fold
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

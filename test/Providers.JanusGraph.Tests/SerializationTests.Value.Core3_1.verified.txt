@@ -1,0 +1,13 @@
+﻿{
+  StepInstructions: [
+    {
+      OperatorName: V
+    },
+    {
+      OperatorName: properties
+    },
+    {
+      OperatorName: value
+    }
+  ]
+}

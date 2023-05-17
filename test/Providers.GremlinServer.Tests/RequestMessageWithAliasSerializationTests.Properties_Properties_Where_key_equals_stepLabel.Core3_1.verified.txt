@@ -1,0 +1,65 @@
+﻿{
+  RequestId: Guid_1,
+  Operation: bytecode,
+  Processor: traversal,
+  Arguments: {
+    aliases: {
+      g: a
+    },
+    gremlin: {
+      StepInstructions: [
+        {
+          OperatorName: inject,
+          Arguments: [
+            hello
+          ]
+        },
+        {
+          OperatorName: as,
+          Arguments: [
+            _a
+          ]
+        },
+        {
+          OperatorName: V
+        },
+        {
+          OperatorName: hasLabel,
+          Arguments: [
+            Company
+          ]
+        },
+        {
+          OperatorName: properties,
+          Arguments: [
+            Locations
+          ]
+        },
+        {
+          OperatorName: properties
+        },
+        {
+          OperatorName: filter,
+          Arguments: [
+            {
+              StepInstructions: [
+                {
+                  OperatorName: key
+                },
+                {
+                  OperatorName: where,
+                  Arguments: [
+                    {
+                      OperatorName: eq,
+                      Value: _a
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

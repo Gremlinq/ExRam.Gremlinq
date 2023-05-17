@@ -1,0 +1,14 @@
+﻿[
+  {
+    Name: {
+      Id: 1,
+      Properties: {
+        de: Deutschland,
+        en: Germany
+      },
+      Value: GER
+    },
+    Id: 3,
+    Label: Country
+  }
+]
