@@ -1,0 +1,386 @@
+﻿{
+  StepInstructions: [
+    {
+      OperatorName: V
+    },
+    {
+      OperatorName: filter,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: properties
+            }
+          ]
+        }
+      ]
+    },
+    {
+      OperatorName: project,
+      Arguments: [
+        name,
+        Item2
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: identity
+            },
+            {
+              OperatorName: limit,
+              Arguments: [
+                1
+              ]
+            },
+            {
+              OperatorName: fold
+            }
+          ]
+        }
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: local,
+              Arguments: [
+                {
+                  StepInstructions: [
+                    {
+                      OperatorName: properties
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              OperatorName: limit,
+              Arguments: [
+                1
+              ]
+            },
+            {
+              OperatorName: fold
+            }
+          ]
+        }
+      ]
+    },
+    {
+      OperatorName: map,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: unfold
+            },
+            {
+              OperatorName: group
+            },
+            {
+              OperatorName: by,
+              Arguments: [
+                {
+                  StepInstructions: [
+                    {
+                      OperatorName: select,
+                      Arguments: [
+                        {
+                          EnumName: Column,
+                          EnumValue: keys
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              OperatorName: by,
+              Arguments: [
+                {
+                  StepInstructions: [
+                    {
+                      OperatorName: select,
+                      Arguments: [
+                        {
+                          EnumName: Column,
+                          EnumValue: values
+                        }
+                      ]
+                    },
+                    {
+                      OperatorName: unfold
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      OperatorName: project,
+      Arguments: [
+        name,
+        Item2
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: select,
+              Arguments: [
+                name
+              ]
+            },
+            {
+              OperatorName: project,
+              Arguments: [
+                id,
+                label,
+                properties
+              ]
+            },
+            {
+              OperatorName: by,
+              Arguments: [
+                {
+                  EnumName: T,
+                  EnumValue: id
+                }
+              ]
+            },
+            {
+              OperatorName: by,
+              Arguments: [
+                {
+                  EnumName: T,
+                  EnumValue: label
+                }
+              ]
+            },
+            {
+              OperatorName: by,
+              Arguments: [
+                {
+                  StepInstructions: [
+                    {
+                      OperatorName: properties
+                    },
+                    {
+                      OperatorName: group
+                    },
+                    {
+                      OperatorName: by,
+                      Arguments: [
+                        {
+                          EnumName: T,
+                          EnumValue: label
+                        }
+                      ]
+                    },
+                    {
+                      OperatorName: by,
+                      Arguments: [
+                        {
+                          StepInstructions: [
+                            {
+                              OperatorName: project,
+                              Arguments: [
+                                id,
+                                label,
+                                value,
+                                properties
+                              ]
+                            },
+                            {
+                              OperatorName: by,
+                              Arguments: [
+                                {
+                                  EnumName: T,
+                                  EnumValue: id
+                                }
+                              ]
+                            },
+                            {
+                              OperatorName: by,
+                              Arguments: [
+                                {
+                                  EnumName: T,
+                                  EnumValue: label
+                                }
+                              ]
+                            },
+                            {
+                              OperatorName: by,
+                              Arguments: [
+                                {
+                                  EnumName: T,
+                                  EnumValue: value
+                                }
+                              ]
+                            },
+                            {
+                              OperatorName: by,
+                              Arguments: [
+                                {
+                                  StepInstructions: [
+                                    {
+                                      OperatorName: valueMap
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              OperatorName: fold
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              OperatorName: fold
+            }
+          ]
+        }
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: select,
+              Arguments: [
+                Item2
+              ]
+            },
+            {
+              OperatorName: project,
+              Arguments: [
+                id,
+                label,
+                value,
+                properties
+              ]
+            },
+            {
+              OperatorName: by,
+              Arguments: [
+                {
+                  EnumName: T,
+                  EnumValue: id
+                }
+              ]
+            },
+            {
+              OperatorName: by,
+              Arguments: [
+                {
+                  EnumName: T,
+                  EnumValue: label
+                }
+              ]
+            },
+            {
+              OperatorName: by,
+              Arguments: [
+                {
+                  EnumName: T,
+                  EnumValue: value
+                }
+              ]
+            },
+            {
+              OperatorName: by,
+              Arguments: [
+                {
+                  StepInstructions: [
+                    {
+                      OperatorName: valueMap
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              OperatorName: fold
+            }
+          ]
+        }
+      ]
+    },
+    {
+      OperatorName: map,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: unfold
+            },
+            {
+              OperatorName: group
+            },
+            {
+              OperatorName: by,
+              Arguments: [
+                {
+                  StepInstructions: [
+                    {
+                      OperatorName: select,
+                      Arguments: [
+                        {
+                          EnumName: Column,
+                          EnumValue: keys
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              OperatorName: by,
+              Arguments: [
+                {
+                  StepInstructions: [
+                    {
+                      OperatorName: select,
+                      Arguments: [
+                        {
+                          EnumName: Column,
+                          EnumValue: values
+                        }
+                      ]
+                    },
+                    {
+                      OperatorName: unfold
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

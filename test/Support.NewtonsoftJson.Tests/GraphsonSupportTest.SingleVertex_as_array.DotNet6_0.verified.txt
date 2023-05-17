@@ -1,0 +1,8 @@
+﻿[
+  [
+    {
+      Id: Guid_1,
+      Label: vertex
+    }
+  ]
+]

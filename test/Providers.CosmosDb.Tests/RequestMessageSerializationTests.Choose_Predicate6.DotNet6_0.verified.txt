@@ -1,0 +1,18 @@
+﻿{
+  RequestId: Guid_1,
+  Operation: eval,
+  Processor: ,
+  Arguments: {
+    aliases: {
+      g: g
+    },
+    bindings: {
+      _a: 0,
+      _b: 42,
+      _c: 37,
+      _d: true,
+      _e: false
+    },
+    gremlin: g.V().id().choose(gt(_a).and(lt(_b)).or(neq(_c)),__.constant(_d),__.constant(_e))
+  }
+}

@@ -1,0 +1,29 @@
+﻿{
+  RequestId: Guid_1,
+  Operation: bytecode,
+  Processor: traversal,
+  Arguments: {
+    aliases: {
+      g: a
+    },
+    gremlin: {
+      StepInstructions: [
+        {
+          OperatorName: E
+        },
+        {
+          OperatorName: hasLabel,
+          Arguments: [
+            LivesIn
+          ]
+        },
+        {
+          OperatorName: properties,
+          Arguments: [
+            Since
+          ]
+        }
+      ]
+    }
+  }
+}

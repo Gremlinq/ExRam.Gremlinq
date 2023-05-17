@@ -1,0 +1,3 @@
+﻿{
+  Script: g.withoutStrategies(SubgraphStrategy,ElementIdStrategy).V()
+}

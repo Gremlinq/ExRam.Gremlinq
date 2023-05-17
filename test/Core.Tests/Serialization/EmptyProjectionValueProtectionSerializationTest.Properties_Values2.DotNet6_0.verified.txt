@@ -1,0 +1,16 @@
+﻿{
+  StepInstructions: [
+    {
+      OperatorName: V
+    },
+    {
+      OperatorName: properties
+    },
+    {
+      OperatorName: values,
+      Arguments: [
+        MetaProperty
+      ]
+    }
+  ]
+}
