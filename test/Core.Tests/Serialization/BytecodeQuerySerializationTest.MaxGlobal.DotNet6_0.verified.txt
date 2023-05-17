@@ -1,0 +1,22 @@
+﻿{
+  StepInstructions: [
+    {
+      OperatorName: V
+    },
+    {
+      OperatorName: hasLabel,
+      Arguments: [
+        Person
+      ]
+    },
+    {
+      OperatorName: values,
+      Arguments: [
+        Age
+      ]
+    },
+    {
+      OperatorName: max
+    }
+  ]
+}

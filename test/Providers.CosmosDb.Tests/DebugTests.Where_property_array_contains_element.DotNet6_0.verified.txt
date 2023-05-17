@@ -1,0 +1,1 @@
+﻿g.V().hasLabel('Company').has('PhoneNumbers','+4912345')

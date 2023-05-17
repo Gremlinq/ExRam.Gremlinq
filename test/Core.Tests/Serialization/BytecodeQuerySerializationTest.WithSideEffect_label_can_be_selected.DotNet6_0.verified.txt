@@ -1,0 +1,22 @@
+﻿{
+  SourceInstructions: [
+    {
+      OperatorName: withSideEffect,
+      Arguments: [
+        _a,
+        36
+      ]
+    }
+  ],
+  StepInstructions: [
+    {
+      OperatorName: V
+    },
+    {
+      OperatorName: select,
+      Arguments: [
+        _a
+      ]
+    }
+  ]
+}

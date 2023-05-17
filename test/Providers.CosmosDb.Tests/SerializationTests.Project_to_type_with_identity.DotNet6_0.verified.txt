@@ -1,0 +1,10 @@
+﻿{
+  Script: g.V().hasLabel(_a).project(_b,_c,_d,_e).by(__.identity()).by(__.identity()).by(__.identity()).by(__.identity()),
+  Bindings: {
+    _a: Person,
+    _b: In,
+    _c: Out,
+    _d: Count,
+    _e: Properties
+  }
+}

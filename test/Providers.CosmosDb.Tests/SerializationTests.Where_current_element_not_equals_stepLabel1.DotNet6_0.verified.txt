@@ -1,0 +1,7 @@
+﻿{
+  Script: g.V().hasLabel(_a).as(_b).V().hasLabel(_a).where(neq(_b)),
+  Bindings: {
+    _a: Language,
+    _b: _a
+  }
+}

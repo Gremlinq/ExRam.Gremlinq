@@ -1,0 +1,1 @@
+﻿g.V().project('Item1','Item2','Item3').by(__.in().limit(1).fold()).by(__.out().limit(1).fold()).by(__.count().limit(1).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold()))
