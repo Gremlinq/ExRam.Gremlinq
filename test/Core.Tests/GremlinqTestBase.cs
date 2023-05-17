@@ -1,10 +1,20 @@
-﻿using System.Runtime.CompilerServices;
+﻿using DiffEngine;
+using System.Runtime.CompilerServices;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
     public abstract class GremlinqTestBase : VerifyBase
     {
         private static readonly AsyncLocal<GremlinqTestBase> CurrentTestBase = new();
+
+        static GremlinqTestBase()
+        {
+            DiffRunner.Disabled = true;
+
+#if (DEBUG)
+            VerifierSettings.AutoVerify();
+#endif
+        }
 
         protected GremlinqTestBase(ITestOutputHelper testOutputHelper, [CallerFilePath] string sourceFile = "") : base(null, sourceFile)
         {
