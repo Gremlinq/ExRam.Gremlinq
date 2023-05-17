@@ -1,16 +1,15 @@
 ﻿[
   {
-    Item1: Country,
     Item2: [
       {
         CountryCallingCode: +49,
         Id: -1,
         Label: Country
       }
-    ]
+    ],
+    Item1: Country
   },
   {
-    Item1: Person,
     Item2: [
       {
         RegistrationDate: 2020-04-07 14:43:36 +0,
@@ -23,48 +22,48 @@
         Id: -1,
         Label: Person
       }
-    ]
+    ],
+    Item1: Person
   },
   {
-    Item1: Language,
     Item2: [
       {
         IetfLanguageTag: en,
         Id: -1,
         Label: Language
       }
-    ]
+    ],
+    Item1: Language
   },
   {
-    Item1: Language,
     Item2: [
       {
         IetfLanguageTag: en,
         Id: -1,
         Label: Language
       }
-    ]
+    ],
+    Item1: Language
   },
   {
-    Item1: Company,
     Item2: [
       {
         Id: -1,
         Label: Company
       }
-    ]
+    ],
+    Item1: Company
   },
   {
-    Item1: Language,
     Item2: [
       {
         Id: -1,
         Label: Language
       }
-    ]
+    ],
+    Item1: Language
   },
   {
-    Item1: Company,
     Item2: [
       {
         Locations: [
@@ -80,19 +79,19 @@
         Id: -1,
         Label: Company
       }
-    ]
+    ],
+    Item1: Company
   },
   {
-    Item1: Person,
     Item2: [
       {
         Id: -1,
         Label: Person
       }
-    ]
+    ],
+    Item1: Person
   },
   {
-    Item1: Country,
     Item2: [
       {
         Name: {
@@ -104,10 +103,10 @@
         Id: -1,
         Label: Country
       }
-    ]
+    ],
+    Item1: Country
   },
   {
-    Item1: Person,
     Item2: [
       {
         RegistrationDate: 2020-04-07 14:43:36 +0,
@@ -120,10 +119,10 @@
         Id: -1,
         Label: Person
       }
-    ]
+    ],
+    Item1: Person
   },
   {
-    Item1: Country,
     Item2: [
       {
         Name: {
@@ -138,10 +137,10 @@
         Id: -1,
         Label: Country
       }
-    ]
+    ],
+    Item1: Country
   },
   {
-    Item1: Company,
     Item2: [
       {
         PhoneNumbers: [
@@ -151,120 +150,120 @@
         Id: -1,
         Label: Company
       }
-    ]
+    ],
+    Item1: Company
   },
   {
-    Item1: Person,
     Item2: [
       {
         Id: -1,
         Label: Person
       }
-    ]
+    ],
+    Item1: Person
   },
   {
-    Item1: Country,
     Item2: [
       {
         Id: -1,
         Label: Country
       }
-    ]
+    ],
+    Item1: Country
   },
   {
-    Item1: Language,
     Item2: [
       {
         Id: -1,
         Label: Language
       }
-    ]
+    ],
+    Item1: Language
   },
   {
-    Item1: Language,
     Item2: [
       {
         Id: -1,
         Label: Language
       }
-    ]
+    ],
+    Item1: Language
   },
   {
-    Item1: Person,
     Item2: [
       {
         Id: -1,
         Label: Person
       }
-    ]
+    ],
+    Item1: Person
   },
   {
-    Item1: Country,
     Item2: [
       {
         Id: -1,
         Label: Country
       }
-    ]
+    ],
+    Item1: Country
   },
   {
-    Item1: Person,
     Item2: [
       {
         Id: -1,
         Label: Person
       }
-    ]
+    ],
+    Item1: Person
   },
   {
-    Item1: Country,
     Item2: [
       {
         Id: -1,
         Label: Country
       }
-    ]
+    ],
+    Item1: Country
   },
   {
-    Item1: Company,
     Item2: [
       {
         Id: -1,
         Label: Company
       }
-    ]
+    ],
+    Item1: Company
   },
   {
-    Item1: Person,
     Item2: [
       {
         Id: -1,
         Label: Person
       }
-    ]
+    ],
+    Item1: Person
   },
   {
-    Item1: Language,
     Item2: [
       {
         IetfLanguageTag: en,
         Id: -1,
         Label: Language
       }
-    ]
+    ],
+    Item1: Language
   },
   {
-    Item1: Country,
     Item2: [
       {
         CountryCallingCode: +49,
         Id: -1,
         Label: Country
       }
-    ]
+    ],
+    Item1: Country
   },
   {
-    Item1: Person,
     Item2: [
       {
         RegistrationDate: 2020-04-07 14:43:36 +0,
@@ -277,47 +276,47 @@
         Id: -1,
         Label: Person
       }
-    ]
+    ],
+    Item1: Person
   },
   {
-    Item1: Company,
     Item2: [
       {
         Id: -1,
         Label: Company
       }
-    ]
+    ],
+    Item1: Company
   },
   {
-    Item1: Person,
     Item2: [
       {
         Id: -1,
         Label: Person
       }
-    ]
+    ],
+    Item1: Person
   },
   {
-    Item1: Language,
     Item2: [
       {
         IetfLanguageTag: en,
         Id: -1,
         Label: Language
       }
-    ]
+    ],
+    Item1: Language
   },
   {
-    Item1: Language,
     Item2: [
       {
         Id: -1,
         Label: Language
       }
-    ]
+    ],
+    Item1: Language
   },
   {
-    Item1: TimeFrame,
     Item2: [
       {
         Enabled: false,
@@ -326,46 +325,47 @@
         Id: -1,
         Label: TimeFrame
       }
-    ]
+    ],
+    Item1: TimeFrame
   },
   {
-    Item1: Language,
     Item2: [
       {
         IetfLanguageTag: en,
         Id: -1,
         Label: Language
       }
-    ]
+    ],
+    Item1: Language
   },
   {
-    Item1: Language,
     Item2: [
       {
         IetfLanguageTag: en,
         Id: -1,
         Label: Language
       }
-    ]
+    ],
+    Item1: Language
   },
   {
-    Item1: Person,
     Item2: [
       {
         Image: AQIDBAUGBwg=,
         Id: -1,
         Label: Person
       }
-    ]
+    ],
+    Item1: Person
   },
   {
-    Item1: Person,
     Item2: [
       {
         Gender: Female,
         Id: -1,
         Label: Person
       }
-    ]
+    ],
+    Item1: Person
   }
 ]

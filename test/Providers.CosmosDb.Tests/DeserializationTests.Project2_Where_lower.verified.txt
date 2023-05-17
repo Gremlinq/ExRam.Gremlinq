@@ -1,44 +1,43 @@
 ﻿[
   {
-    Item1: Country,
     Item2: [
       {
         CountryCallingCode: +49,
         Id: 00000000-0000-0000-0000-000000000000,
         Label: Country
       }
-    ]
+    ],
+    Item1: Country
   },
   {
-    Item1: Language,
     Item2: [
       {
         IetfLanguageTag: en,
         Id: 00000000-0000-0000-0000-000000000000,
         Label: Language
       }
-    ]
+    ],
+    Item1: Language
   },
   {
-    Item1: Person,
     Item2: [
       {
         Id: 00000000-0000-0000-0000-000000000000,
         Label: Person
       }
-    ]
+    ],
+    Item1: Person
   },
   {
-    Item1: Company,
     Item2: [
       {
         Id: 00000000-0000-0000-0000-000000000000,
         Label: Company
       }
-    ]
+    ],
+    Item1: Company
   },
   {
-    Item1: Person,
     Item2: [
       {
         RegistrationDate: 2020-04-07 14:43:36 +0,
@@ -49,102 +48,102 @@
         Id: 00000000-0000-0000-0000-000000000000,
         Label: Person
       }
-    ]
+    ],
+    Item1: Person
   },
   {
-    Item1: Person,
     Item2: [
       {
         Id: 00000000-0000-0000-0000-000000000000,
         Label: Person
       }
-    ]
+    ],
+    Item1: Person
   },
   {
-    Item1: Country,
     Item2: [
       {
         Id: 00000000-0000-0000-0000-000000000000,
         Label: Country
       }
-    ]
+    ],
+    Item1: Country
   },
   {
-    Item1: Person,
     Item2: [
       {
         Id: 00000000-0000-0000-0000-000000000000,
         Label: Person
       }
-    ]
+    ],
+    Item1: Person
   },
   {
-    Item1: Country,
     Item2: [
       {
         Id: 00000000-0000-0000-0000-000000000000,
         Label: Country
       }
-    ]
+    ],
+    Item1: Country
   },
   {
-    Item1: Person,
     Item2: [
       {
         Id: 00000000-0000-0000-0000-000000000000,
         Label: Person
       }
-    ]
+    ],
+    Item1: Person
   },
   {
-    Item1: Country,
     Item2: [
       {
         Id: 00000000-0000-0000-0000-000000000000,
         Label: Country
       }
-    ]
+    ],
+    Item1: Country
   },
   {
-    Item1: Person,
     Item2: [
       {
         Id: 00000000-0000-0000-0000-000000000000,
         Label: Person
       }
-    ]
+    ],
+    Item1: Person
   },
   {
-    Item1: Company,
     Item2: [
       {
         Id: 00000000-0000-0000-0000-000000000000,
         Label: Company
       }
-    ]
+    ],
+    Item1: Company
   },
   {
-    Item1: Language,
     Item2: [
       {
         IetfLanguageTag: en,
         Id: 00000000-0000-0000-0000-000000000000,
         Label: Language
       }
-    ]
+    ],
+    Item1: Language
   },
   {
-    Item1: Country,
     Item2: [
       {
         CountryCallingCode: +49,
         Id: 00000000-0000-0000-0000-000000000000,
         Label: Country
       }
-    ]
+    ],
+    Item1: Country
   },
   {
-    Item1: Person,
     Item2: [
       {
         RegistrationDate: 2020-04-07 14:43:36 +0,
@@ -155,47 +154,47 @@
         Id: 00000000-0000-0000-0000-000000000000,
         Label: Person
       }
-    ]
+    ],
+    Item1: Person
   },
   {
-    Item1: Person,
     Item2: [
       {
         Id: 00000000-0000-0000-0000-000000000000,
         Label: Person
       }
-    ]
+    ],
+    Item1: Person
   },
   {
-    Item1: Company,
     Item2: [
       {
         Id: 00000000-0000-0000-0000-000000000000,
         Label: Company
       }
-    ]
+    ],
+    Item1: Company
   },
   {
-    Item1: Language,
     Item2: [
       {
         IetfLanguageTag: en,
         Id: 00000000-0000-0000-0000-000000000000,
         Label: Language
       }
-    ]
+    ],
+    Item1: Language
   },
   {
-    Item1: Language,
     Item2: [
       {
         Id: 00000000-0000-0000-0000-000000000000,
         Label: Language
       }
-    ]
+    ],
+    Item1: Language
   },
   {
-    Item1: TimeFrame,
     Item2: [
       {
         Enabled: false,
@@ -204,50 +203,50 @@
         Id: 00000000-0000-0000-0000-000000000000,
         Label: TimeFrame
       }
-    ]
+    ],
+    Item1: TimeFrame
   },
   {
-    Item1: Language,
     Item2: [
       {
         IetfLanguageTag: en,
         Id: 00000000-0000-0000-0000-000000000000,
         Label: Language
       }
-    ]
+    ],
+    Item1: Language
   },
   {
-    Item1: Language,
     Item2: [
       {
         IetfLanguageTag: en,
         Id: 00000000-0000-0000-0000-000000000000,
         Label: Language
       }
-    ]
+    ],
+    Item1: Language
   },
   {
-    Item1: Person,
     Item2: [
       {
         Image: AQIDBAUGBwg=,
         Id: 00000000-0000-0000-0000-000000000000,
         Label: Person
       }
-    ]
+    ],
+    Item1: Person
   },
   {
-    Item1: Person,
     Item2: [
       {
         Gender: Female,
         Id: 00000000-0000-0000-0000-000000000000,
         Label: Person
       }
-    ]
+    ],
+    Item1: Person
   },
   {
-    Item1: Person,
     Item2: [
       {
         RegistrationDate: 2020-04-07 14:43:36 +0,
@@ -258,29 +257,29 @@
         Id: 00000000-0000-0000-0000-000000000000,
         Label: Person
       }
-    ]
+    ],
+    Item1: Person
   },
   {
-    Item1: Language,
     Item2: [
       {
         IetfLanguageTag: en,
         Id: 00000000-0000-0000-0000-000000000000,
         Label: Language
       }
-    ]
+    ],
+    Item1: Language
   },
   {
-    Item1: Language,
     Item2: [
       {
         Id: 00000000-0000-0000-0000-000000000000,
         Label: Language
       }
-    ]
+    ],
+    Item1: Language
   },
   {
-    Item1: Company,
     Item2: [
       {
         Locations: [
@@ -295,10 +294,10 @@
         Id: 00000000-0000-0000-0000-000000000000,
         Label: Company
       }
-    ]
+    ],
+    Item1: Company
   },
   {
-    Item1: Country,
     Item2: [
       {
         Name: {
@@ -309,10 +308,10 @@
         Id: 00000000-0000-0000-0000-000000000000,
         Label: Country
       }
-    ]
+    ],
+    Item1: Country
   },
   {
-    Item1: Country,
     Item2: [
       {
         Name: {
@@ -326,10 +325,10 @@
         Id: 00000000-0000-0000-0000-000000000000,
         Label: Country
       }
-    ]
+    ],
+    Item1: Country
   },
   {
-    Item1: Company,
     Item2: [
       {
         PhoneNumbers: [
@@ -339,24 +338,25 @@
         Id: 00000000-0000-0000-0000-000000000000,
         Label: Company
       }
-    ]
+    ],
+    Item1: Company
   },
   {
-    Item1: Language,
     Item2: [
       {
         Id: 00000000-0000-0000-0000-000000000000,
         Label: Language
       }
-    ]
+    ],
+    Item1: Language
   },
   {
-    Item1: Language,
     Item2: [
       {
         Id: 00000000-0000-0000-0000-000000000000,
         Label: Language
       }
-    ]
+    ],
+    Item1: Language
   }
 ]
