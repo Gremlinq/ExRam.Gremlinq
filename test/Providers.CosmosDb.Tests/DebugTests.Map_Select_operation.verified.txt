@@ -1,1 +1,0 @@
-﻿g.V().hasLabel('Person').as('_a').map(__.project('Item1','Item2').by(__.select('_a')).by(__.select('_a')))

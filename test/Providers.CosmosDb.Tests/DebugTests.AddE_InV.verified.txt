@@ -1,1 +1,0 @@
-﻿g.addV('Person').property(single,'Age',0).addE('LivesIn').to(__.addV('Country')).inV()

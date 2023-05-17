@@ -1,1 +1,0 @@
-﻿g.addV('Country').property(single,'CountryCallingCode','+49').as('_a').addV('Language').property(single,'IetfLanguageTag','en').addE('Speaks').from('_a')
