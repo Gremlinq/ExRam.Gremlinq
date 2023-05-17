@@ -2,6 +2,9 @@
   <Import Project="..\Directory.Build.props" />
 
   <PropertyGroup>
+    <TargetFrameworks Condition="'$(Configuration)'=='Release'">netstandard2.1;net5.0;net6.0;net7.0</TargetFrameworks>
+    <TargetFrameworks Condition="'$(Configuration)'=='Debug'">net7.0</TargetFrameworks>
+
     <Deterministic>true</Deterministic>
     <WeaverConfiguration>
       <Weavers>
