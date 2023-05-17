@@ -1,0 +1,1 @@
+﻿g.V().hasLabel('Person').and(__.inE('WorksFor'),__.outE('LivesIn'))

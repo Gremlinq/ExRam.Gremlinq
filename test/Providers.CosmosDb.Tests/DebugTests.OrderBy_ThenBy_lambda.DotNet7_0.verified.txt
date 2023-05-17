@@ -1,0 +1,1 @@
+﻿g.V().hasLabel('Person').has('Name').where(__.values('Age')).order().by({it.property('Name').value().length()}).by({it.property('Age').value()})

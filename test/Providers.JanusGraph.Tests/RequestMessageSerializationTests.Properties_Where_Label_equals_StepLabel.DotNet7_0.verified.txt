@@ -1,0 +1,97 @@
+﻿{
+  RequestId: Guid_1,
+  Operation: bytecode,
+  Processor: traversal,
+  Arguments: {
+    aliases: {
+      g: g
+    },
+    gremlin: {
+      StepInstructions: [
+        {
+          OperatorName: inject,
+          Arguments: [
+            label
+          ]
+        },
+        {
+          OperatorName: as,
+          Arguments: [
+            _a
+          ]
+        },
+        {
+          OperatorName: V
+        },
+        {
+          OperatorName: hasLabel,
+          Arguments: [
+            Country
+          ]
+        },
+        {
+          OperatorName: properties,
+          Arguments: [
+            Languages
+          ]
+        },
+        {
+          OperatorName: filter,
+          Arguments: [
+            {
+              StepInstructions: [
+                {
+                  OperatorName: label
+                },
+                {
+                  OperatorName: where,
+                  Arguments: [
+                    {
+                      OperatorName: eq,
+                      Value: _a
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          OperatorName: project,
+          Arguments: [
+            id,
+            label,
+            value
+          ]
+        },
+        {
+          OperatorName: by,
+          Arguments: [
+            {
+              EnumName: T,
+              EnumValue: id
+            }
+          ]
+        },
+        {
+          OperatorName: by,
+          Arguments: [
+            {
+              EnumName: T,
+              EnumValue: label
+            }
+          ]
+        },
+        {
+          OperatorName: by,
+          Arguments: [
+            {
+              EnumName: T,
+              EnumValue: value
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

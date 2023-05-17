@@ -1,0 +1,123 @@
+﻿{
+  StepInstructions: [
+    {
+      OperatorName: V
+    },
+    {
+      OperatorName: hasLabel,
+      Arguments: [
+        Country
+      ]
+    },
+    {
+      OperatorName: property,
+      Arguments: [
+        {
+          EnumName: Cardinality,
+          EnumValue: single
+        },
+        LocalizableDescription,
+        ,
+        someKey,
+        value
+      ]
+    },
+    {
+      OperatorName: project,
+      Arguments: [
+        id,
+        label,
+        properties
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          EnumName: T,
+          EnumValue: id
+        }
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          EnumName: T,
+          EnumValue: label
+        }
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: properties
+            },
+            {
+              OperatorName: group
+            },
+            {
+              OperatorName: by,
+              Arguments: [
+                {
+                  EnumName: T,
+                  EnumValue: label
+                }
+              ]
+            },
+            {
+              OperatorName: by,
+              Arguments: [
+                {
+                  StepInstructions: [
+                    {
+                      OperatorName: project,
+                      Arguments: [
+                        id,
+                        label,
+                        value
+                      ]
+                    },
+                    {
+                      OperatorName: by,
+                      Arguments: [
+                        {
+                          EnumName: T,
+                          EnumValue: id
+                        }
+                      ]
+                    },
+                    {
+                      OperatorName: by,
+                      Arguments: [
+                        {
+                          EnumName: T,
+                          EnumValue: label
+                        }
+                      ]
+                    },
+                    {
+                      OperatorName: by,
+                      Arguments: [
+                        {
+                          EnumName: T,
+                          EnumValue: value
+                        }
+                      ]
+                    },
+                    {
+                      OperatorName: fold
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

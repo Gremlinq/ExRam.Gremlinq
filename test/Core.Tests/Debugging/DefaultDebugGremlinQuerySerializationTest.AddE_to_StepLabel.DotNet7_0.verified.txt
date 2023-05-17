@@ -1,0 +1,1 @@
+﻿g.addV('Language').property(single,'IetfLanguageTag','en').as('_a').addV('Country').property(single,'CountryCallingCode','+49').addE('Speaks').to('_a').project('id','label','properties').by(id).by(label).by(__.valueMap())

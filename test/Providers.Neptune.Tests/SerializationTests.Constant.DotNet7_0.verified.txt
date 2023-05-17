@@ -1,0 +1,13 @@
+﻿{
+  StepInstructions: [
+    {
+      OperatorName: V
+    },
+    {
+      OperatorName: constant,
+      Arguments: [
+        42
+      ]
+    }
+  ]
+}
