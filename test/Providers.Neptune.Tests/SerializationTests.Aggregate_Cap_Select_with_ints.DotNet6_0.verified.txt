@@ -1,0 +1,40 @@
+﻿{
+  StepInstructions: [
+    {
+      OperatorName: V
+    },
+    {
+      OperatorName: hasLabel,
+      Arguments: [
+        Person
+      ]
+    },
+    {
+      OperatorName: count,
+      Arguments: [
+        {
+          EnumName: Scope,
+          EnumValue: local
+        }
+      ]
+    },
+    {
+      OperatorName: aggregate,
+      Arguments: [
+        _a
+      ]
+    },
+    {
+      OperatorName: cap,
+      Arguments: [
+        _a
+      ]
+    },
+    {
+      OperatorName: select,
+      Arguments: [
+        _a
+      ]
+    }
+  ]
+}
