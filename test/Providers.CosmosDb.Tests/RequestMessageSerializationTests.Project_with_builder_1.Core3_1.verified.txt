@@ -1,0 +1,14 @@
+﻿{
+  RequestId: Guid_1,
+  Operation: eval,
+  Processor: ,
+  Arguments: {
+    aliases: {
+      g: g
+    },
+    bindings: {
+      _a: in!
+    },
+    gremlin: g.V().where(__.in()).project(_a).by(__.in())
+  }
+}

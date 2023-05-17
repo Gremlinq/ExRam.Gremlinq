@@ -1,0 +1,1 @@
+﻿g.inject('hello').as('_a').V().hasLabel('Company').properties('Locations').properties().where(__.key().where(eq('_a')))

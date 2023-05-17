@@ -1,0 +1,92 @@
+﻿{
+  RequestId: Guid_1,
+  Operation: bytecode,
+  Processor: traversal,
+  Arguments: {
+    aliases: {
+      g: a
+    },
+    gremlin: {
+      StepInstructions: [
+        {
+          OperatorName: V
+        },
+        {
+          OperatorName: hasLabel,
+          Arguments: [
+            Person
+          ]
+        },
+        {
+          OperatorName: project,
+          Arguments: [
+            In,
+            Out,
+            Count,
+            Properties
+          ]
+        },
+        {
+          OperatorName: by,
+          Arguments: [
+            {
+              StepInstructions: [
+                {
+                  OperatorName: constant,
+                  Arguments: [
+                    in_value
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          OperatorName: by,
+          Arguments: [
+            {
+              StepInstructions: [
+                {
+                  OperatorName: constant,
+                  Arguments: [
+                    out_value
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          OperatorName: by,
+          Arguments: [
+            {
+              StepInstructions: [
+                {
+                  OperatorName: constant,
+                  Arguments: [
+                    count_value
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          OperatorName: by,
+          Arguments: [
+            {
+              StepInstructions: [
+                {
+                  OperatorName: constant,
+                  Arguments: [
+                    properties_value
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
