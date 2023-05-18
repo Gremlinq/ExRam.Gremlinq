@@ -1,0 +1,18 @@
+﻿{
+  RequestId: Guid_1,
+  Operation: eval,
+  Processor: ,
+  Arguments: {
+    aliases: {
+      g: g
+    },
+    bindings: {
+      _a: Person,
+      _b: In,
+      _c: Out,
+      _d: Count,
+      _e: Properties
+    },
+    gremlin: g.V().hasLabel(_a).project(_b,_c,_d,_e).by(__.identity()).by(__.identity()).by(__.identity()).by(__.identity())
+  }
+}

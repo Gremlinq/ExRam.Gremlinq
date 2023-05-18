@@ -1087,8 +1087,7 @@ namespace ExRam.Gremlinq.Core
         where TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
     {
         public StepLabel() { }
-        [System.Runtime.CompilerServices.PreserveBaseOverrides]
-        public virtual ExRam.Gremlinq.Core.StepLabel<ExRam.Gremlinq.Core.IValueGremlinQuery<TNewValue>, TNewValue> Cast<TNewValue>() { }
+        public ExRam.Gremlinq.Core.StepLabel<ExRam.Gremlinq.Core.IValueGremlinQuery<TNewValue>, TNewValue> Cast<TNewValue>() { }
         public static ExRam.Gremlinq.Core.StepLabel<TQuery, TElement> op_Implicit(string str) { }
     }
     public enum StringComparisonTranslationStrictness

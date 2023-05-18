@@ -1,0 +1,16 @@
+﻿{
+  StepInstructions: [
+    {
+      OperatorName: V
+    },
+    {
+      OperatorName: out
+    },
+    {
+      OperatorName: out
+    },
+    {
+      OperatorName: path
+    }
+  ]
+}
