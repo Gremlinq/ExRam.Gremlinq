@@ -1,0 +1,17 @@
+﻿[
+  {
+    Label: Property1,
+    Properties: {
+      metaKey: MetaValue
+    },
+    Value: 1540202009475
+  },
+  {
+    Label: Property2,
+    Value: Some string
+  },
+  {
+    Label: Property3,
+    Value: 36
+  }
+]

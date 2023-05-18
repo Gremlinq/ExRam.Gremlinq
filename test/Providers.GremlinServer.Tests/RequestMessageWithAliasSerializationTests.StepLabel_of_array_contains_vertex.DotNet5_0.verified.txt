@@ -1,0 +1,49 @@
+﻿{
+  RequestId: Guid_1,
+  Operation: bytecode,
+  Processor: traversal,
+  Arguments: {
+    aliases: {
+      g: a
+    },
+    gremlin: {
+      StepInstructions: [
+        {
+          OperatorName: V
+        },
+        {
+          OperatorName: fold
+        },
+        {
+          OperatorName: as,
+          Arguments: [
+            _a
+          ]
+        },
+        {
+          OperatorName: V
+        },
+        {
+          OperatorName: hasLabel,
+          Arguments: [
+            Person
+          ]
+        },
+        {
+          OperatorName: where,
+          Arguments: [
+            {
+              OperatorName: within,
+              Value: [
+                _a
+              ]
+            }
+          ]
+        },
+        {
+          OperatorName: count
+        }
+      ]
+    }
+  }
+}
