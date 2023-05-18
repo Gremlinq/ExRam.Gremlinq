@@ -1,0 +1,8 @@
+﻿{
+  Script: g.V().hasLabel(_a).or(__.has(_b,_c),__.hasNot(_b)),
+  Bindings: {
+    _a: Person,
+    _b: Name,
+    _c: hello
+  }
+}

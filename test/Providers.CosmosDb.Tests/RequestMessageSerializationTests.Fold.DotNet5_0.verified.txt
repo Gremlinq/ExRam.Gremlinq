@@ -1,0 +1,11 @@
+﻿{
+  RequestId: Guid_1,
+  Operation: eval,
+  Processor: ,
+  Arguments: {
+    aliases: {
+      g: g
+    },
+    gremlin: g.V().fold()
+  }
+}

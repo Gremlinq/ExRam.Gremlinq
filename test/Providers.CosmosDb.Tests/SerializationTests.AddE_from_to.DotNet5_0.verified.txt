@@ -1,0 +1,18 @@
+﻿{
+  Script: g.addE(_a).property(_b,_c).property(_d,_e).property(_f,_c).from(__.addV(_g).property(_h,_h).property(single,_i,_j)).to(__.addV(_k).property(_h,_h).property(single,_l,_m)),
+  Bindings: {
+    _a: WorksFor,
+    _b: From,
+    _c: DateTimeOffset_1,
+    _d: Role,
+    _e: Admin,
+    _f: To,
+    _g: Person,
+    _h: PartitionKey,
+    _i: Age,
+    _j: 0,
+    _k: Company,
+    _l: FoundingDate,
+    _m: Date_MinValue
+  }
+}
