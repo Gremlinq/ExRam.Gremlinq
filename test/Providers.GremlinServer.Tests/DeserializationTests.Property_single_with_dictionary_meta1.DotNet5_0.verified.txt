@@ -1,0 +1,103 @@
+﻿[
+  {
+    CountryCallingCode: +49,
+    LocalizableDescription: {
+      Id: -1,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: -1,
+    Label: Country
+  },
+  {
+    Name: {
+      Id: -1,
+      Label: Name,
+      Properties: {},
+      Value: GER
+    },
+    LocalizableDescription: {
+      Id: -1,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: -1,
+    Label: Country
+  },
+  {
+    Name: {
+      Id: -1,
+      Label: Name,
+      Properties: {
+        de: Deutschland,
+        en: Germany
+      },
+      Value: GER
+    },
+    LocalizableDescription: {
+      Id: -1,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: -1,
+    Label: Country
+  },
+  {
+    LocalizableDescription: {
+      Id: -1,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: -1,
+    Label: Country
+  },
+  {
+    LocalizableDescription: {
+      Id: -1,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: -1,
+    Label: Country
+  },
+  {
+    LocalizableDescription: {
+      Id: -1,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: -1,
+    Label: Country
+  },
+  {
+    CountryCallingCode: +49,
+    LocalizableDescription: {
+      Id: -1,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: -1,
+    Label: Country
+  }
+]

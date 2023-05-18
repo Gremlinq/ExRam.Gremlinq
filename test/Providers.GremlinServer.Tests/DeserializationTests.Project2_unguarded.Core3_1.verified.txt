@@ -1,0 +1,149 @@
+﻿[
+  {
+    Item1: {
+      RegistrationDate: 2020-04-07 14:43:36 +0,
+      Name: {
+        Id: -1,
+        Label: Name,
+        Properties: {},
+        Value: Bob
+      },
+      Id: -1,
+      Label: Person
+    },
+    Item2: {
+      RegistrationDate: 2020-04-07 14:43:36 +0,
+      Name: {
+        Id: -1,
+        Label: Name,
+        Properties: {},
+        Value: Bob
+      },
+      Id: -1,
+      Label: Person
+    }
+  },
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {
+    Item1: {
+      CountryCallingCode: +49,
+      Id: -1,
+      Label: Country
+    }
+  },
+  {
+    Item1: {
+      CountryCallingCode: +49,
+      Id: -1,
+      Label: Country
+    }
+  },
+  {
+    Item1: {
+      Id: -1,
+      Label: Person
+    }
+  },
+  {
+    Item2: {
+      Id: -1,
+      Label: Company
+    }
+  },
+  {
+    Item2: {
+      Id: -1,
+      Label: Country
+    }
+  },
+  {
+    Item1: {
+      Id: -1,
+      Label: Person
+    }
+  },
+  {
+    Item2: {
+      Id: -1,
+      Label: Country
+    }
+  },
+  {
+    Item1: {
+      Id: -1,
+      Label: Person
+    }
+  },
+  {
+    Item2: {
+      Id: -1,
+      Label: Country
+    }
+  },
+  {
+    Item1: {
+      Id: -1,
+      Label: Person
+    }
+  },
+  {
+    Item1: {
+      Id: -1,
+      Label: Person
+    }
+  },
+  {
+    Item2: {
+      Id: -1,
+      Label: Company
+    }
+  },
+  {
+    Item1: {
+      CountryCallingCode: +49,
+      Id: -1,
+      Label: Country
+    }
+  },
+  {
+    Item2: {
+      IetfLanguageTag: en,
+      Id: -1,
+      Label: Language
+    }
+  },
+  {
+    Item2: {
+      CountryCallingCode: +49,
+      Id: -1,
+      Label: Country
+    }
+  },
+  {
+    Item1: {
+      Id: -1,
+      Label: Person
+    }
+  },
+  {
+    Item2: {
+      Id: -1,
+      Label: Company
+    }
+  }
+]

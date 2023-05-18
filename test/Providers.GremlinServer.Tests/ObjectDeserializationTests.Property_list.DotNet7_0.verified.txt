@@ -1,0 +1,9 @@
+﻿[
+  {
+    PhoneNumbers: [
+      +4912345
+    ],
+    Id: -1,
+    Label: Company
+  }
+]
