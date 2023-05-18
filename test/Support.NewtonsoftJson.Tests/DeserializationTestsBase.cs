@@ -23,7 +23,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
 
             try
             {
-                if (JsonConvert.DeserializeObject<JArray>(File.ReadAllText(System.IO.Path.Combine(context.SourceDirectory, "IntegrationTests" + "." + context.MethodName + ".verified.txt"))) is { } jArray)
+                if (JsonConvert.DeserializeObject<JArray>(File.ReadAllText(System.IO.Path.Combine(context.SourceDirectory, "IntegrationTests" + "." + context.MethodName + "." + Namer.RuntimeAndVersion + ".verified.txt"))) is { } jArray)
                 {
                     await this
                         .Verify(jArray
