@@ -1,3 +1,0 @@
-﻿{
-  Name: ExRam.Gremlinq.Core.Projections.EdgeProjection
-}
