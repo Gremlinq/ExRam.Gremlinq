@@ -55,7 +55,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        testFramework: [ netcoreapp3.1, net6.0, net7.0 ]
+        testFramework: [ netcoreapp3.1, net5.0, net6.0, net7.0 ]
 
     services:
       gremlinServer:
@@ -79,6 +79,7 @@ jobs:
       with:
         dotnet-version: |
           3.1
+          5.0
           6.0
           7.0
 
@@ -99,7 +100,7 @@ jobs:
     runs-on: windows-2019
     strategy:
       matrix:
-        testFramework: [ netcoreapp3.1, net6.0, net7.0 ]
+        testFramework: [ netcoreapp3.1, net5.0, net6.0, net7.0 ]
 
     steps:
     - name: Checkout
@@ -113,6 +114,7 @@ jobs:
       with:
         dotnet-version: |
           3.1
+          5.0
           6.0
           7.0
           
