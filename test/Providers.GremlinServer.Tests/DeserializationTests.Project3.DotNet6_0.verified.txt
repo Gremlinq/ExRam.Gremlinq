@@ -1,0 +1,27 @@
+﻿[
+  {
+    Item1: {
+      RegistrationDate: 2020-04-07 14:43:36 +0,
+      Name: {
+        Id: -1,
+        Label: Name,
+        Properties: {},
+        Value: Bob
+      },
+      Id: -1,
+      Label: Person
+    },
+    Item2: {
+      RegistrationDate: 2020-04-07 14:43:36 +0,
+      Name: {
+        Id: -1,
+        Label: Name,
+        Properties: {},
+        Value: Bob
+      },
+      Id: -1,
+      Label: Person
+    },
+    Item3: 1
+  }
+]

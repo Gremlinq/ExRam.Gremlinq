@@ -1,0 +1,68 @@
+﻿[
+  {
+    count: count_value,
+    in: in_value,
+    out: out_value,
+    properties: properties_value
+  },
+  {
+    count: count_value,
+    in: in_value,
+    out: out_value,
+    properties: properties_value
+  },
+  {
+    count: count_value,
+    in: in_value,
+    out: out_value,
+    properties: properties_value
+  },
+  {
+    count: count_value,
+    in: in_value,
+    out: out_value,
+    properties: properties_value
+  },
+  {
+    count: count_value,
+    in: in_value,
+    out: out_value,
+    properties: properties_value
+  },
+  {
+    count: count_value,
+    in: in_value,
+    out: out_value,
+    properties: properties_value
+  },
+  {
+    count: count_value,
+    in: in_value,
+    out: out_value,
+    properties: properties_value
+  },
+  {
+    count: count_value,
+    in: in_value,
+    out: out_value,
+    properties: properties_value
+  },
+  {
+    count: count_value,
+    in: in_value,
+    out: out_value,
+    properties: properties_value
+  },
+  {
+    count: count_value,
+    in: in_value,
+    out: out_value,
+    properties: properties_value
+  },
+  {
+    count: count_value,
+    in: in_value,
+    out: out_value,
+    properties: properties_value
+  }
+]

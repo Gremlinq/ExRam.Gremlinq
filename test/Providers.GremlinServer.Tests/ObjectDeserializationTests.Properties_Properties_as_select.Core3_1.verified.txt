@@ -1,0 +1,10 @@
+﻿[
+  {
+    Value: Deutschland,
+    Key: de
+  },
+  {
+    Value: Germany,
+    Key: en
+  }
+]

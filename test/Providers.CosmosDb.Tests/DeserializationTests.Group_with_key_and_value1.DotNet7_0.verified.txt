@@ -1,0 +1,13 @@
+﻿[
+  {
+    Country: {
+      IetfLanguageTag: en,
+      Id: 00000000-0000-0000-0000-000000000000,
+      Label: Language
+    },
+    Person: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Label: Company
+    }
+  }
+]

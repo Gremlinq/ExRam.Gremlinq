@@ -1,0 +1,19 @@
+﻿[
+  {
+    Age: 36,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: -1,
+      Label: Name,
+      Properties: {},
+      Value: Marko
+    },
+    Id: -1,
+    Label: Person
+  },
+  {
+    IetfLanguageTag: en,
+    Id: -1,
+    Label: Language
+  }
+]

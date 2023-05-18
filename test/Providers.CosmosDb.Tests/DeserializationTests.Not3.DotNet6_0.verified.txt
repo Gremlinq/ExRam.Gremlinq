@@ -1,0 +1,98 @@
+﻿[
+  {
+    CountryCallingCode: +49,
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Country
+  },
+  {
+    IetfLanguageTag: en,
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Language
+  },
+  {
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Country
+  },
+  {
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Country
+  },
+  {
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Country
+  },
+  {
+    IetfLanguageTag: en,
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Language
+  },
+  {
+    CountryCallingCode: +49,
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Country
+  },
+  {
+    IetfLanguageTag: en,
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Language
+  },
+  {
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Language
+  },
+  {
+    Enabled: false,
+    StartTime: 08:00:00,
+    Duration: 02:00:00,
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: TimeFrame
+  },
+  {
+    IetfLanguageTag: en,
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Language
+  },
+  {
+    IetfLanguageTag: en,
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Language
+  },
+  {
+    IetfLanguageTag: en,
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Language
+  },
+  {
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Language
+  },
+  {
+    Name: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Properties: {},
+      Value: GER
+    },
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Country
+  },
+  {
+    Name: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Properties: {
+        de: Deutschland,
+        en: Germany
+      },
+      Value: GER
+    },
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Country
+  },
+  {
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Language
+  },
+  {
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Language
+  }
+]
