@@ -1,0 +1,334 @@
+﻿[
+  {
+    CountryCallingCode: +49,
+    LocalizableDescription: {
+      Id: -1,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: -1,
+    Label: Country
+  },
+  {
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: -1,
+      Label: Name,
+      Properties: {},
+      Value: Marko
+    },
+    Id: -1,
+    Label: Person
+  },
+  {
+    IetfLanguageTag: en,
+    Id: -1,
+    Label: Language
+  },
+  {
+    IetfLanguageTag: en,
+    Id: -1,
+    Label: Language
+  },
+  {
+    Id: -1,
+    Label: Company
+  },
+  {
+    Id: -1,
+    Label: Language
+  },
+  {
+    Locations: [
+      {
+        Id: -1,
+        Label: Locations,
+        Properties: {
+          ValidFrom: 2019-01-01 01:00 +0
+        },
+        Value: Aachen
+      }
+    ],
+    Id: -1,
+    Label: Company
+  },
+  {
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: -1,
+      Label: Name,
+      Properties: {},
+      Value: Marko
+    },
+    Id: -1,
+    Label: Person
+  },
+  {
+    Name: {
+      Id: -1,
+      Label: Name,
+      Properties: {},
+      Value: GER
+    },
+    LocalizableDescription: {
+      Id: -1,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: -1,
+    Label: Country
+  },
+  {
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: -1,
+      Label: Name,
+      Properties: {},
+      Value: Marko
+    },
+    Id: -1,
+    Label: Person
+  },
+  {
+    Name: {
+      Id: -1,
+      Label: Name,
+      Properties: {
+        de: Deutschland,
+        en: Germany
+      },
+      Value: GER
+    },
+    LocalizableDescription: {
+      Id: -1,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: -1,
+    Label: Country
+  },
+  {
+    PhoneNumbers: [
+      +4912345,
+      +4923456
+    ],
+    Id: -1,
+    Label: Company
+  },
+  {
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: -1,
+      Label: Name,
+      Properties: {},
+      Value: Marko
+    },
+    Id: -1,
+    Label: Person
+  },
+  {
+    LocalizableDescription: {
+      Id: -1,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: -1,
+    Label: Country
+  },
+  {
+    Id: -1,
+    Label: Language
+  },
+  {
+    Id: -1,
+    Label: Language
+  },
+  {
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: -1,
+      Label: Name,
+      Properties: {},
+      Value: Marko
+    },
+    Id: -1,
+    Label: Person
+  },
+  {
+    LocalizableDescription: {
+      Id: -1,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: -1,
+    Label: Country
+  },
+  {
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: -1,
+      Label: Name,
+      Properties: {},
+      Value: Marko
+    },
+    Id: -1,
+    Label: Person
+  },
+  {
+    LocalizableDescription: {
+      Id: -1,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: -1,
+    Label: Country
+  },
+  {
+    Id: -1,
+    Label: Company
+  },
+  {
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: -1,
+      Label: Name,
+      Properties: {},
+      Value: Marko
+    },
+    Id: -1,
+    Label: Person
+  },
+  {
+    IetfLanguageTag: en,
+    Id: -1,
+    Label: Language
+  },
+  {
+    CountryCallingCode: +49,
+    LocalizableDescription: {
+      Id: -1,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: -1,
+    Label: Country
+  },
+  {
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: -1,
+      Label: Name,
+      Properties: {},
+      Value: Marko
+    },
+    Id: -1,
+    Label: Person
+  },
+  {
+    Id: -1,
+    Label: Company
+  },
+  {
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: -1,
+      Label: Name,
+      Properties: {},
+      Value: Marko
+    },
+    Id: -1,
+    Label: Person
+  },
+  {
+    IetfLanguageTag: en,
+    Id: -1,
+    Label: Language
+  },
+  {
+    Id: -1,
+    Label: Language
+  },
+  {
+    Enabled: false,
+    StartTime: 08:00:00,
+    Duration: 02:00:00,
+    Id: -1,
+    Label: TimeFrame
+  },
+  {
+    IetfLanguageTag: en,
+    Id: -1,
+    Label: Language
+  },
+  {
+    IetfLanguageTag: en,
+    Id: -1,
+    Label: Language
+  },
+  {
+    Age: 21,
+    Gender: Male,
+    Image: AQIDBAUGBwg=,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: -1,
+      Label: Name,
+      Properties: {},
+      Value: Marko
+    },
+    Id: -1,
+    Label: Person
+  },
+  {
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: -1,
+      Label: Name,
+      Properties: {},
+      Value: Marko
+    },
+    Id: -1,
+    Label: Person
+  }
+]

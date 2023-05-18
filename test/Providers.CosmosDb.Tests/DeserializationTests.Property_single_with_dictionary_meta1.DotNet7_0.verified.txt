@@ -1,0 +1,94 @@
+﻿[
+  {
+    CountryCallingCode: +49,
+    LocalizableDescription: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Country
+  },
+  {
+    LocalizableDescription: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Country
+  },
+  {
+    LocalizableDescription: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Country
+  },
+  {
+    LocalizableDescription: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Country
+  },
+  {
+    CountryCallingCode: +49,
+    LocalizableDescription: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Country
+  },
+  {
+    Name: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Properties: {},
+      Value: GER
+    },
+    LocalizableDescription: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Country
+  },
+  {
+    Name: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Properties: {
+        de: Deutschland,
+        en: Germany
+      },
+      Value: GER
+    },
+    LocalizableDescription: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Country
+  }
+]

@@ -1,0 +1,52 @@
+﻿[
+  {
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: -1,
+      Label: Name,
+      Properties: {},
+      Value: Bob
+    },
+    Id: -1,
+    Label: Person
+  },
+  {
+    CountryCallingCode: +49,
+    Id: -1,
+    Label: Country
+  },
+  {
+    CountryCallingCode: +49,
+    Id: -1,
+    Label: Country
+  },
+  {
+    Id: -1,
+    Label: Person
+  },
+  {
+    Id: -1,
+    Label: Person
+  },
+  {
+    Id: -1,
+    Label: Person
+  },
+  {
+    Id: -1,
+    Label: Person
+  },
+  {
+    Id: -1,
+    Label: Person
+  },
+  {
+    CountryCallingCode: +49,
+    Id: -1,
+    Label: Country
+  },
+  {
+    Id: -1,
+    Label: Person
+  }
+]

@@ -1,0 +1,100 @@
+﻿[
+  {
+    CountryCallingCode: +49,
+    Id: -1,
+    Label: Country
+  },
+  {
+    IetfLanguageTag: en,
+    Id: -1,
+    Label: Language
+  },
+  {
+    IetfLanguageTag: en,
+    Id: -1,
+    Label: Language
+  },
+  {
+    Id: -1,
+    Label: Language
+  },
+  {
+    Name: {
+      Id: -1,
+      Label: Name,
+      Properties: {},
+      Value: GER
+    },
+    Id: -1,
+    Label: Country
+  },
+  {
+    Name: {
+      Id: -1,
+      Label: Name,
+      Properties: {
+        de: Deutschland,
+        en: Germany
+      },
+      Value: GER
+    },
+    Id: -1,
+    Label: Country
+  },
+  {
+    Id: -1,
+    Label: Country
+  },
+  {
+    Id: -1,
+    Label: Language
+  },
+  {
+    Id: -1,
+    Label: Language
+  },
+  {
+    Id: -1,
+    Label: Country
+  },
+  {
+    Id: -1,
+    Label: Country
+  },
+  {
+    IetfLanguageTag: en,
+    Id: -1,
+    Label: Language
+  },
+  {
+    CountryCallingCode: +49,
+    Id: -1,
+    Label: Country
+  },
+  {
+    IetfLanguageTag: en,
+    Id: -1,
+    Label: Language
+  },
+  {
+    Id: -1,
+    Label: Language
+  },
+  {
+    Enabled: false,
+    StartTime: 08:00:00,
+    Duration: 02:00:00,
+    Id: -1,
+    Label: TimeFrame
+  },
+  {
+    IetfLanguageTag: en,
+    Id: -1,
+    Label: Language
+  },
+  {
+    IetfLanguageTag: en,
+    Id: -1,
+    Label: Language
+  }
+]

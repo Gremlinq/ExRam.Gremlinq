@@ -1,0 +1,28 @@
+﻿[
+  {
+    Id: -1,
+    Label: Company
+  },
+  {
+    Locations: [
+      {
+        Id: -1,
+        Label: Locations,
+        Properties: {
+          ValidFrom: 2019-01-01 01:00 +0
+        },
+        Value: Aachen
+      }
+    ],
+    Id: -1,
+    Label: Company
+  },
+  {
+    Id: -1,
+    Label: Company
+  },
+  {
+    Id: -1,
+    Label: Company
+  }
+]

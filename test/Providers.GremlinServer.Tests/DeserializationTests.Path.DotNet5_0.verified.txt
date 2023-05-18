@@ -1,0 +1,44 @@
+﻿[
+  {
+    Labels: [
+      [],
+      [],
+      []
+    ],
+    Objects: [
+      {
+        Id: -1,
+        Label: Person
+      },
+      {
+        Id: -1,
+        Label: Country
+      },
+      {
+        Id: -1,
+        Label: Person
+      }
+    ]
+  },
+  {
+    Labels: [
+      [],
+      [],
+      []
+    ],
+    Objects: [
+      {
+        Id: -1,
+        Label: Person
+      },
+      {
+        Id: -1,
+        Label: Country
+      },
+      {
+        Id: -1,
+        Label: Language
+      }
+    ]
+  }
+]
