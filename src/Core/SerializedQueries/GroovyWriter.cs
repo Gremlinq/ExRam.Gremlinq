@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using System;
+using System.Collections.Immutable;
 using System.Text;
 using ExRam.Gremlinq.Core.Serialization;
 using Gremlin.Net.Process.Traversal;
@@ -49,6 +50,18 @@ namespace ExRam.Gremlinq.Core
         {
             switch (obj)
             {
+                case GroovyExpression expression:
+                {
+                    var writer = Identifier(expression.Identifier, stringBuilder);
+
+                    foreach (var instruction in expression.Instructions)
+                    {
+                        writer = writer
+                            .Append(instruction, stringBuilder, bindings);
+                    }
+
+                    return writer;
+                }
                 case Bytecode byteCode:
                 {
                     var writer = StartTraversal(stringBuilder);

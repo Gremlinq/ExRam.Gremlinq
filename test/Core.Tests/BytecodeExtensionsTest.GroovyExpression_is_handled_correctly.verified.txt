@@ -1,0 +1,3 @@
+﻿{
+  Script: g.outerInstruction(StaticType.innerInstruction1().innerInstruction2().innerInstruction3())
+}
