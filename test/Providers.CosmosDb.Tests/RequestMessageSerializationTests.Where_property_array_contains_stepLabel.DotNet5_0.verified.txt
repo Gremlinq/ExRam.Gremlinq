@@ -1,0 +1,17 @@
+﻿{
+  RequestId: Guid_1,
+  Operation: eval,
+  Processor: ,
+  Arguments: {
+    aliases: {
+      g: g
+    },
+    bindings: {
+      _a: +4912345,
+      _b: _a,
+      _c: Company,
+      _d: PhoneNumbers
+    },
+    gremlin: g.inject(_a).as(_b).V().hasLabel(_c).has(_d,__.where(eq(_b)))
+  }
+}

@@ -1,0 +1,3 @@
+﻿{
+  Script: g.V().coalesce(__.out(),__.in())
+}

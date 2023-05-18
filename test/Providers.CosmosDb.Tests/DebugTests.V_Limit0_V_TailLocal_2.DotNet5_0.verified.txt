@@ -1,0 +1,1 @@
+﻿g.V().limit(0).tail(local,2)

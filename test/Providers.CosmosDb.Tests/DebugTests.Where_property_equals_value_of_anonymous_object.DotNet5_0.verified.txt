@@ -1,0 +1,1 @@
+﻿g.V().hasLabel('Language').has(id,1)

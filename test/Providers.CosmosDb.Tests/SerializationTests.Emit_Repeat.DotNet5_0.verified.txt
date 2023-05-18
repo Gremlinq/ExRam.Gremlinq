@@ -1,0 +1,6 @@
+﻿{
+  Script: g.V().hasLabel(_a).emit().repeat(__.inE().outV()),
+  Bindings: {
+    _a: Person
+  }
+}

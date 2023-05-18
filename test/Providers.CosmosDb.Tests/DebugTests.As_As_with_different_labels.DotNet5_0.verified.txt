@@ -1,0 +1,1 @@
+﻿g.V().hasLabel('Person').as('label1').as('label2')

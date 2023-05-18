@@ -1,0 +1,1 @@
+﻿g.inject('label').as('_a').V().hasLabel('Country').properties('Languages').where(__.label().where(eq('_a')))
