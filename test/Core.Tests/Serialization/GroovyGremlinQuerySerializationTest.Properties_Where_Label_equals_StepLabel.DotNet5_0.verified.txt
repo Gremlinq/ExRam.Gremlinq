@@ -1,0 +1,12 @@
+﻿{
+  Script: g.inject(_a).as(_b).V().hasLabel(_c).properties(_d).filter(__.label().where(eq(_b))).project(_e,_a,_f,_g).by(id).by(label).by(value).by(__.valueMap()),
+  Bindings: {
+    _a: label,
+    _b: _a,
+    _c: Country,
+    _d: Languages,
+    _e: id,
+    _f: value,
+    _g: properties
+  }
+}

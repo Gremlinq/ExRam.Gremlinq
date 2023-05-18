@@ -1,0 +1,7 @@
+﻿{
+  Script: g.V().hasLabel(_a,_b),
+  Bindings: {
+    _a: Company,
+    _b: Person
+  }
+}

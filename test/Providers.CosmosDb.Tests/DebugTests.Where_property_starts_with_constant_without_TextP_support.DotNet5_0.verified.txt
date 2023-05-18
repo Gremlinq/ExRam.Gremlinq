@@ -1,0 +1,1 @@
+﻿g.V().hasLabel('Country').has('CountryCallingCode',between('+49123','+49124'))

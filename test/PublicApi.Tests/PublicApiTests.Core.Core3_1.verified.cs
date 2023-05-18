@@ -1566,6 +1566,12 @@ namespace ExRam.Gremlinq.Core.Serialization
     {
         public static ExRam.Gremlinq.Core.Serialization.GroovyGremlinQuery ToGroovy(this Gremlin.Net.Process.Traversal.Bytecode bytecode, bool includeBindings = true) { }
     }
+    public readonly struct GroovyExpression
+    {
+        public string Identifier { get; }
+        public System.Collections.Immutable.ImmutableArray<Gremlin.Net.Process.Traversal.Instruction> Instructions { get; }
+        public static ExRam.Gremlinq.Core.Serialization.GroovyExpression From(string identifier, System.Collections.Immutable.ImmutableArray<Gremlin.Net.Process.Traversal.Instruction> instructions) { }
+    }
     public readonly struct GroovyGremlinQuery
     {
         public GroovyGremlinQuery(string script, System.Collections.Generic.IReadOnlyDictionary<string, object> bindings) { }
