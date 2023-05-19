@@ -24,8 +24,6 @@ namespace ExRam.Gremlinq.Core.Tests
             XunitContext.Register(testOutputHelper, sourceFile);
         }
 
-        public virtual IImmutableList<Func<string, string>> Scrubbers() => ImmutableList<Func<string, string>>.Empty;
-
         public GremlinqTestFixture Fixture { get; }
 
         public static GremlinqTestBase Current { get => CurrentTestBase.Value ?? throw new InvalidOperationException(); }
