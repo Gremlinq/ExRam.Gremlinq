@@ -4,12 +4,12 @@
     Message:
 ServerEvaluationError: 
 
-ActivityId : 95bc4d5f-ccbf-497a-9852-57954f349d2d
+ActivityId : d31a4a56-6b7f-4279-a42e-abb016c27c37
 ExceptionType : GraphCompileException
 ExceptionMessage : 
 	Gremlin Query Compilation Error: Unable to resolve symbol 'SubgraphStrategy' in the current context. @ line 1, column 21.
 	1 Error(s)
-	GremlinRequestId : 4b1e2a7d-c8e7-4f75-960c-31db0b2338c7
+	GremlinRequestId : f53ed597-a5c1-4277-b358-76bdcff1302e
 	Context : graphcompute
 	Scope : graphparse-translate-validatesymbolresolution
 	GraphInterOpStatusCode : QuerySyntaxError

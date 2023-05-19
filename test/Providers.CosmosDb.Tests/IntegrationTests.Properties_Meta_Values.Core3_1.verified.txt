@@ -4,11 +4,11 @@
     Message:
 ServerEvaluationError: 
 
-ActivityId : c4b503bf-20b3-41fe-ab7b-b13192a49f8d
+ActivityId : 8dc92033-eb82-429a-a959-13e57bd6c976
 ExceptionType : GraphRuntimeException
 ExceptionMessage : 
 	Gremlin Query Execution Error: All Values: Cross Apply: The input of values() cannot be a meta or edge property.
-	GremlinRequestId : 7e35e38b-09d2-43ed-8751-f9a918365032
+	GremlinRequestId : 1839d95a-45b1-4121-8d4c-2f198b72a4ce
 	Context : graphcompute
 	Scope : graphcomp-execquery
 	GraphInterOpStatusCode : GraphRuntimeError

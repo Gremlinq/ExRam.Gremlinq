@@ -4,11 +4,11 @@
     Message:
 ServerEvaluationError: 
 
-ActivityId : 14ef0dbd-a18a-4616-9484-57fe15fe1c49
+ActivityId : de9ccae8-38d8-4060-8ae2-50529bb428ef
 ExceptionType : GraphSyntaxException
 ExceptionMessage : 
 	Gremlin query syntax error: Valid supported values for Constant() are: list, array, number, string or boolean.
-	GremlinRequestId : 45e18cc4-c43f-402d-870a-61aa38ac1b74
+	GremlinRequestId : 00d35cc3-f689-4ae2-bdaf-3b19f90381a4
 	Context : graphcompute
 	Scope : graphcmd-invoke
 	GraphInterOpStatusCode : QuerySyntaxError

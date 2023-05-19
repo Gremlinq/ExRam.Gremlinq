@@ -4,12 +4,12 @@
     Message:
 ServerEvaluationError: 
 
-ActivityId : 7678f5b3-6b23-47c4-8c59-4fed609c0a24
+ActivityId : 3264c9b3-2a73-41db-a53b-da4796cd5913
 ExceptionType : GraphCompileException
 ExceptionMessage : 
 	Gremlin Query Compilation Error: Unable to find any method 'withSideEffect' @ line 1, column 17.
 	1 Error(s)
-	GremlinRequestId : 537772ab-6850-46d8-bc10-cd4c7ef334eb
+	GremlinRequestId : 942cd85d-5601-40df-a5ab-11fb15e0da13
 	Context : graphcompute
 	Scope : graphparse-translate-csharpexpressionbinding
 	GraphInterOpStatusCode : QuerySyntaxError

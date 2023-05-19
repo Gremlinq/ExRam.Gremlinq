@@ -4,11 +4,11 @@
     Message:
 ServerEvaluationError: 
 
-ActivityId : 50c3b266-b69b-4543-8226-27206e4c2639
+ActivityId : 93b06999-6553-4bfd-aaad-d56c841f8a24
 ExceptionType : GraphRuntimeException
 ExceptionMessage : 
 	Gremlin Query Execution Error: Cannot create ValueField on non-primitive type GraphTraversal.
-	GremlinRequestId : 09d27768-0d9b-4b0b-ac29-be5f44d18c59
+	GremlinRequestId : 6b9e898b-c1b9-40ee-9706-019ecde7ed6d
 	Context : graphcompute
 	Scope : graphstg-logplan
 	GraphInterOpStatusCode : GraphRuntimeError

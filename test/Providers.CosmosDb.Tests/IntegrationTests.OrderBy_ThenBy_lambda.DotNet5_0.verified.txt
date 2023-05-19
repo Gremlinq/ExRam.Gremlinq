@@ -4,13 +4,13 @@
     Message:
 ServerEvaluationError: 
 
-ActivityId : e93e35bc-5cbd-4372-9470-57b321b36652
+ActivityId : bbb0cf68-dd2a-4889-9507-efe5ae652591
 ExceptionType : GraphSyntaxException
 ExceptionMessage : 
 	Gremlin query syntax error: Unsupported groovy language rule: 'closure' text: '{it.property('Name').value().length()}' @ line 1, column 60.
 	Unsupported groovy language rule: 'closure' text: '{it.property('Age').value()}' @ line 1, column 103.
 	2 Error(s)
-	GremlinRequestId : 59015554-a370-4213-8ee3-dd9ec11e087d
+	GremlinRequestId : df06b440-804c-4eca-b46e-d6075098f730
 	Context : graphcompute
 	Scope : graphparse-translate-outer
 	GraphInterOpStatusCode : QuerySyntaxError

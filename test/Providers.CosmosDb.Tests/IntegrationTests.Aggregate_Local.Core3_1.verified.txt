@@ -4,12 +4,12 @@
     Message:
 ServerEvaluationError: 
 
-ActivityId : 6fd30041-ffbc-464a-af81-a65c5eb041d1
+ActivityId : 6d749fe2-220e-453d-ad8c-be96dfd12b62
 ExceptionType : GraphCompileException
 ExceptionMessage : 
 	Gremlin Query Compilation Error: Unable to bind to method 'aggregate', with arguments of type: (Scope,String) @ line 1, column 29.
 	1 Error(s)
-	GremlinRequestId : ce252eee-325f-4aac-af5b-21ab4e635c35
+	GremlinRequestId : 5bd9c886-3255-4af1-9eea-a923cd8dc558
 	Context : graphcompute
 	Scope : graphparse-translate-csharpexpressionbinding
 	GraphInterOpStatusCode : QuerySyntaxError

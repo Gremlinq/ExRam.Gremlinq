@@ -1,8 +1,20 @@
-﻿[
-  {
-    "serverException": {
-      "type": "ResponseException",
-      "message": "ServerEvaluationError: \r\n\nActivityId : 00000000-0000-0000-0000-000000000000\nExceptionType : GraphCompileException\nExceptionMessage : \r\n\tGremlin Query Compilation Error: Unable to resolve symbol 'SubgraphStrategy' in the current context. @ line 1, column 21.\r\n\tUnable to resolve symbol 'ElementIdStrategy' in the current context. @ line 1, column 38.\r\n\t2 Error(s)\n\tGremlinRequestId : 00000000-0000-0000-0000-000000000000\n\tContext : graphcompute\n\tScope : graphparse-translate-validatesymbolresolution\n\tGraphInterOpStatusCode : QuerySyntaxError\n\tHResult : 0x80131500\r\n"
-    }
+﻿{
+  Exception: {
+    Type: ResponseException,
+    Message:
+ServerEvaluationError: 
+
+ActivityId : 1b46d5ad-e857-45e0-8154-2d04f4106fc9
+ExceptionType : GraphCompileException
+ExceptionMessage : 
+	Gremlin Query Compilation Error: Unable to resolve symbol 'SubgraphStrategy' in the current context. @ line 1, column 21.
+	Unable to resolve symbol 'ElementIdStrategy' in the current context. @ line 1, column 38.
+	2 Error(s)
+	GremlinRequestId : 3059ddbf-9b55-4cd2-a0b8-a1eb4179b38b
+	Context : graphcompute
+	Scope : graphparse-translate-validatesymbolresolution
+	GraphInterOpStatusCode : QuerySyntaxError
+	HResult : 0x80131500
+
   }
-]
+}

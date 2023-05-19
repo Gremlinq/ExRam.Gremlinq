@@ -4,12 +4,12 @@
     Message:
 ServerEvaluationError: 
 
-ActivityId : f7fb6274-dfaa-4dab-8b55-820611163347
+ActivityId : c125f4e6-d0cd-4356-a46d-f5ed6ce68d68
 ExceptionType : GraphCompileException
 ExceptionMessage : 
 	Gremlin Query Compilation Error: Unable to resolve symbol 'none' in the current context. @ line 1, column 57.
 	1 Error(s)
-	GremlinRequestId : 3fba5f2b-5109-448a-a881-517060702cd0
+	GremlinRequestId : 33e35112-a55c-45ac-865f-4b3c7b723df3
 	Context : graphcompute
 	Scope : graphparse-translate-validatesymbolresolution
 	GraphInterOpStatusCode : QuerySyntaxError

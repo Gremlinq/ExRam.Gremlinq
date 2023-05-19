@@ -4,12 +4,12 @@
     Message:
 ServerEvaluationError: 
 
-ActivityId : 37599d3b-935b-4272-97ac-e8f8ca5279aa
+ActivityId : c2e643b5-c4c1-4f9f-b18b-07a7068930f8
 ExceptionType : GraphSyntaxException
 ExceptionMessage : 
 	Gremlin query syntax error: Unsupported groovy language rule: 'closure' text: '{it.get().property('Name').value().length()==2}' @ line 1, column 35.
 	1 Error(s)
-	GremlinRequestId : bd91a702-9bad-4fba-8579-a3785afb4ade
+	GremlinRequestId : 07e4dbef-e426-4a86-bc17-273752ce3652
 	Context : graphcompute
 	Scope : graphparse-translate-outer
 	GraphInterOpStatusCode : QuerySyntaxError

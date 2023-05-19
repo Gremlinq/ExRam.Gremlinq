@@ -1,8 +1,6 @@
-﻿[
-  {
-    "serverException": {
-      "type": "ResponseException",
-      "message": "ServerError: Expected valid relation id: id"
-    }
+﻿{
+  Exception: {
+    Type: ResponseException,
+    Message: ServerError: Expected valid relation id: id
   }
-]
+}

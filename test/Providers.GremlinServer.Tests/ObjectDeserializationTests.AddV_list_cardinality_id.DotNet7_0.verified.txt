@@ -1,1 +1,6 @@
-﻿[]
+﻿{
+  Exception: {
+    Type: JsonReaderException,
+    Message: Error parsing NaN value. Path 'Exception.Type', line 3, position 11.
+  }
+}

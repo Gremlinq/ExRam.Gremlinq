@@ -4,12 +4,12 @@
     Message:
 ServerEvaluationError: 
 
-ActivityId : 957d1dd9-813b-46d2-b60b-0a441c6ac26d
+ActivityId : 3efcd172-1324-498c-abda-2e444fe94187
 ExceptionType : GraphCompileException
 ExceptionMessage : 
 	Gremlin Query Compilation Error: Unable to find any method 'fail' @ line 1, column 11.
 	1 Error(s)
-	GremlinRequestId : 5a25d208-a148-4271-a2d6-9de1a15eca8d
+	GremlinRequestId : ebcdf959-2f73-447e-8cac-b770d991807a
 	Context : graphcompute
 	Scope : graphparse-translate-csharpexpressionbinding
 	GraphInterOpStatusCode : QuerySyntaxError

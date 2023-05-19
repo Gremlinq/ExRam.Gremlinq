@@ -1,8 +1,6 @@
-﻿[
-  {
-    "serverException": {
-      "type": "ResponseException",
-      "message": "ServerSerializationError: Could not locate method: DefaultGraphTraversal.fail()"
-    }
+﻿{
+  Exception: {
+    Type: ResponseException,
+    Message: ServerSerializationError: Could not locate method: DefaultGraphTraversal.fail()
   }
-]
+}
