@@ -1,8 +1,6 @@
-﻿[
-  {
-    "serverException": {
-      "type": "ResponseException",
-      "message": "ServerErrorFailStep: There's been an error."
-    }
+﻿{
+  Exception: {
+    Type: ResponseException,
+    Message: ServerErrorFailStep: There's been an error.
   }
-]
+}

@@ -1,8 +1,19 @@
-﻿[
-  {
-    "serverException": {
-      "type": "ResponseException",
-      "message": "ServerEvaluationError: \r\n\nActivityId : 00000000-0000-0000-0000-000000000000\nExceptionType : GraphCompileException\nExceptionMessage : \r\n\tGremlin Query Compilation Error: Unable to resolve symbol 'SubgraphStrategy' in the current context. @ line 1, column 21.\r\n\t1 Error(s)\n\tGremlinRequestId : 00000000-0000-0000-0000-000000000000\n\tContext : graphcompute\n\tScope : graphparse-translate-validatesymbolresolution\n\tGraphInterOpStatusCode : QuerySyntaxError\n\tHResult : 0x80131500\r\n"
-    }
+﻿{
+  Exception: {
+    Type: ResponseException,
+    Message:
+ServerEvaluationError: 
+
+ActivityId : 95bc4d5f-ccbf-497a-9852-57954f349d2d
+ExceptionType : GraphCompileException
+ExceptionMessage : 
+	Gremlin Query Compilation Error: Unable to resolve symbol 'SubgraphStrategy' in the current context. @ line 1, column 21.
+	1 Error(s)
+	GremlinRequestId : 4b1e2a7d-c8e7-4f75-960c-31db0b2338c7
+	Context : graphcompute
+	Scope : graphparse-translate-validatesymbolresolution
+	GraphInterOpStatusCode : QuerySyntaxError
+	HResult : 0x80131500
+
   }
-]
+}
