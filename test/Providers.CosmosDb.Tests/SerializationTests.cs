@@ -4,7 +4,6 @@ using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Core.Tests.Fixtures;
 using ExRam.Gremlinq.Providers.CosmosDb.Tests.Extensions;
 using ExRam.Gremlinq.Tests.Entities;
-
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
