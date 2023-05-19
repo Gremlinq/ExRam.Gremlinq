@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Dynamic;
+﻿using System.Dynamic;
 using ExRam.Gremlinq.Core.Transformation;
 using FluentAssertions;
 using Newtonsoft.Json.Linq;
@@ -9,7 +8,7 @@ namespace ExRam.Gremlinq.Core.Tests
 {
     public class TansformerTest : GremlinqTestBase
     {
-        public TansformerTest(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
+        public TansformerTest(ITestOutputHelper testOutputHelper) : base(GremlinqTestFixture.Empty, testOutputHelper)
         {
 
         }

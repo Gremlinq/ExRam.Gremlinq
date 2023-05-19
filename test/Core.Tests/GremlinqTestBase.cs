@@ -16,13 +16,16 @@ namespace ExRam.Gremlinq.Core.Tests
 #endif
         }
 
-        protected GremlinqTestBase(ITestOutputHelper testOutputHelper, [CallerFilePath] string sourceFile = "") : base(Settings, sourceFile)
+        protected GremlinqTestBase(GremlinqTestFixture fixture, ITestOutputHelper testOutputHelper, [CallerFilePath] string sourceFile = "") : base(Settings, sourceFile)
         {
+            Fixture = fixture;
             CurrentTestBase.Value = this;
             XunitContext.Register(testOutputHelper, sourceFile);
         }
 
         public virtual async Task Verify<TElement>(IGremlinQueryBase<TElement> query) => await Verify(query.Debug());
+
+        public GremlinqTestFixture Fixture { get; }
 
         public static GremlinqTestBase Current { get => CurrentTestBase.Value ?? throw new InvalidOperationException(); }
     }

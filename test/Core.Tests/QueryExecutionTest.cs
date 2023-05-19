@@ -15,7 +15,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         protected readonly IGremlinQuerySource _g;
 
-        protected QueryExecutionTest(GremlinqTestFixture fixture, ITestOutputHelper testOutputHelper, [CallerFilePath] string callerFilePath = "") : base(testOutputHelper, callerFilePath)
+        protected QueryExecutionTest(GremlinqTestFixture fixture, ITestOutputHelper testOutputHelper, [CallerFilePath] string callerFilePath = "") : base(fixture, testOutputHelper, callerFilePath)
         {
             _g = fixture.GremlinQuerySource
                 .ConfigureEnvironment(env => env

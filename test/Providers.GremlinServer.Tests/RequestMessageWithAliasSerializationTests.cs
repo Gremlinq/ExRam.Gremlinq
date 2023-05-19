@@ -6,11 +6,11 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
-    public sealed class RequestMessageWithAliasSerializationTests : SerializationTestsBase<RequestMessage>, IClassFixture<RequestMessageWithAliasSerializationTests.Fixture>
+    public sealed class RequestMessageWithAliasSerializationTests : SerializationTestsBase<RequestMessage>, IClassFixture<RequestMessageWithAliasSerializationTests.RequestMessageWithAliasFixture>
     {
-        public sealed class Fixture : GremlinqTestFixture
+        public sealed class RequestMessageWithAliasFixture : GremlinqTestFixture
         {
-            public Fixture() : base(g
+            public RequestMessageWithAliasFixture() : base(g
                 .UseGremlinServer(builder => builder
                     .AtLocalhost())
                 .ConfigureEnvironment(env => env
@@ -20,7 +20,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
             }
         }
 
-        public RequestMessageWithAliasSerializationTests(Fixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public RequestMessageWithAliasSerializationTests(RequestMessageWithAliasFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
             testOutputHelper)
         {

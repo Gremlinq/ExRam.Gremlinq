@@ -5,18 +5,18 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
-    public sealed class DebugTests : QueryExecutionTest, IClassFixture<DebugTests.Fixture>
+    public sealed class DebugTests : QueryExecutionTest, IClassFixture<DebugTests.DebugFixture>
     {
-        public sealed class Fixture : GremlinqTestFixture
+        public sealed class DebugFixture : GremlinqTestFixture
         {
-            public Fixture() : base(g
+            public DebugFixture() : base(g
                 .UseGremlinServer(_ => _
                     .AtLocalhost()))
             {
             }
         }
 
-        public DebugTests(Fixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public DebugTests(DebugFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
             testOutputHelper)
         {

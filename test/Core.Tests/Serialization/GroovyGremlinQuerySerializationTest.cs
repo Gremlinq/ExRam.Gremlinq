@@ -3,18 +3,18 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public sealed class GroovyGremlinQuerySerializationTest : SerializationTestsBase<GroovyGremlinQuery>, IClassFixture<GroovyGremlinQuerySerializationTest.Fixture>
+    public sealed class GroovyGremlinQuerySerializationTest : SerializationTestsBase<GroovyGremlinQuery>, IClassFixture<GroovyGremlinQuerySerializationTest.GroovyFixture>
     {
-        public sealed class Fixture : GremlinqTestFixture
+        public sealed class GroovyFixture : GremlinqTestFixture
         {
-            public Fixture() : base(g.ConfigureEnvironment(_ => _
+            public GroovyFixture() : base(g.ConfigureEnvironment(_ => _
                 .ConfigureSerializer(ser => ser
                     .PreferGroovySerialization())))
             {
             }
         }
 
-        public GroovyGremlinQuerySerializationTest(Fixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public GroovyGremlinQuerySerializationTest(GroovyFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
             testOutputHelper)
         {

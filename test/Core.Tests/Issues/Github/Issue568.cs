@@ -16,7 +16,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
         }
 
-        public Issue568(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
+        public Issue568(ITestOutputHelper testOutputHelper) : base(GremlinqTestFixture.Empty, testOutputHelper)
         {
 
         }

@@ -6,18 +6,18 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.Neptune.Tests
 {
-    public sealed class RequestMessageSerializationTests : SerializationTestsBase<RequestMessage>, IClassFixture<RequestMessageSerializationTests.Fixture>
+    public sealed class RequestMessageSerializationTests : SerializationTestsBase<RequestMessage>, IClassFixture<RequestMessageSerializationTests.RequestMessageFixture>
     {
-        public sealed class Fixture : GremlinqTestFixture
+        public sealed class RequestMessageFixture : GremlinqTestFixture
         {
-            public Fixture() : base(g
+            public RequestMessageFixture() : base(g
                 .UseNeptune(builder => builder
                     .AtLocalhost()))
             {
             }
         }
 
-        public RequestMessageSerializationTests(Fixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public RequestMessageSerializationTests(RequestMessageFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
             testOutputHelper)
         {

@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
 {
     public class IntegrationTests : IntegrationTestsBase, IClassFixture<IntegrationTests.Fixture>
     {
-        public new sealed class Fixture : IntegrationTestsBase.Fixture
+        public new sealed class Fixture : IntegrationTestsBase.IntegrationTestFixture
         {
             public Fixture() : base(Gremlinq.Core.GremlinQuerySource.g
                 .UseJanusGraph(builder => builder

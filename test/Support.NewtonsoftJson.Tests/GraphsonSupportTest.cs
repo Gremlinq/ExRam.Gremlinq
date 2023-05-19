@@ -37,7 +37,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
         private readonly IGremlinQueryEnvironment _environment;
         //private readonly IGremlinQuerySource _g;
 
-        public GraphsonSupportTest(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
+        public GraphsonSupportTest(ITestOutputHelper testOutputHelper) : base(GremlinqTestFixture.Empty, testOutputHelper)
         {
             _environment = g
                 .ConfigureEnvironment(env => env
