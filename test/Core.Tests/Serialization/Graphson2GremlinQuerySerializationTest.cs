@@ -2,9 +2,9 @@
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public sealed class Graphson2GremlinQuerySerializationTest : SerializationTestsBase, IClassFixture<Graphson2StringFixture>
+    public sealed class Graphson2GremlinQuerySerializationTest : QueryExecutionTest, IClassFixture<Graphson2StringSerializationFixture>
     {
-        public Graphson2GremlinQuerySerializationTest(Graphson2StringFixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public Graphson2GremlinQuerySerializationTest(Graphson2StringSerializationFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
             testOutputHelper)
         {

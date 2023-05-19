@@ -2,15 +2,14 @@
 using Gremlin.Net.Process.Traversal;
 using Gremlin.Net.Structure.IO.GraphSON;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
-using static ExRam.Gremlinq.Core.Tests.SerializationTestsBase;
 
 namespace ExRam.Gremlinq.Core.Tests.Fixtures
 {
-    public sealed class Graphson2StringFixture : SerializationTestsFixture<string>
+    public sealed class Graphson2StringSerializationFixture : SerializationFixture<string>
     {
         private static readonly GraphSON2Writer Writer = new();
 
-        public Graphson2StringFixture() : base(g
+        public Graphson2StringSerializationFixture() : base(g
             .ConfigureEnvironment(_ => _
                 .ConfigureSerializer(ser => ser
                     .Add(ConverterFactory

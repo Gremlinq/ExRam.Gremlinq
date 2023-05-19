@@ -1,10 +1,14 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Immutable;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Core.Models;
+using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Tests.Entities;
 using Gremlin.Net.Process.Traversal;
 using Gremlin.Net.Process.Traversal.Strategy.Decoration;
+using ExRam.Gremlinq.Core.Transformation;
+using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
@@ -24,6 +28,49 @@ namespace ExRam.Gremlinq.Core.Tests
                     .LogToXunit(testOutputHelper)
                     .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>(lookup => lookup
                         .IncludeAssembliesOfBaseTypes())));
+        }
+
+        [Fact]
+        public async Task StringKey()
+        {
+            await _g
+                .V<Person>("id")
+                .Verify();
+        }
+
+        [Fact]
+        public async Task Multi_step_serialization()
+        {
+            await _g
+                .ConfigureEnvironment(env => env
+                    .ConfigureSerializer(ser => ser
+                        .Add(Create<EStep, Step[]>((step, env, recurse) => recurse
+                            .TransformTo<Step[]>()
+                            .From(
+                                new Step[]
+                                {
+                                    new VStep(ImmutableArray<object>.Empty),
+                                    new OutEStep(ImmutableArray<string>.Empty)
+                                },
+                                env)))))
+                .E()
+                .Verify();
+        }
+
+        [Fact]
+        public async Task Multi_step_serialization_with_forgotten_serialize()
+        {
+            await _g
+                .ConfigureEnvironment(env => env
+                    .ConfigureSerializer(ser => ser
+                        .Add(Create<EStep, Step[]>((step, env, recurse) =>
+                            new Step[]
+                            {
+                                new VStep(ImmutableArray<object>.Empty),
+                                new OutEStep(ImmutableArray<string>.Empty)
+                            }))))
+                .E()
+                .Verify();
         }
 
         [Fact]

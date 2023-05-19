@@ -1,14 +1,17 @@
 ﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
+using ExRam.Gremlinq.Core.Tests.Fixtures;
 using ExRam.Gremlinq.Providers.Core;
+
 using Gremlin.Net.Driver.Messages;
+
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.Neptune.Tests
 {
-    public sealed class RequestMessageSerializationTests : SerializationTestsBase, IClassFixture<RequestMessageSerializationTests.RequestMessageFixture>
+    public sealed class RequestMessageSerializationTests : QueryExecutionTest, IClassFixture<RequestMessageSerializationTests.RequestMessageFixture>
     {
-        public sealed class RequestMessageFixture : SerializationTestsFixture<RequestMessage>
+        public sealed class RequestMessageFixture : SerializationFixture<RequestMessage>
         {
             public RequestMessageFixture() : base(g
                 .UseNeptune(builder => builder

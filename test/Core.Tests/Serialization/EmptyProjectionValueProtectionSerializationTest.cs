@@ -1,11 +1,14 @@
-﻿using Gremlin.Net.Process.Traversal;
+﻿using ExRam.Gremlinq.Core.Tests.Fixtures;
+
+using Gremlin.Net.Process.Traversal;
+
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public sealed class EmptyProjectionValueProtectionSerializationTest : SerializationTestsBase, IClassFixture<EmptyProjectionValueProtectionSerializationTest.EmptyProjectionValueProtectionFixture>
+    public sealed class EmptyProjectionValueProtectionSerializationTest : QueryExecutionTest, IClassFixture<EmptyProjectionValueProtectionSerializationTest.EmptyProjectionValueProtectionFixture>
     {
-        public sealed class EmptyProjectionValueProtectionFixture : SerializationTestsFixture<Bytecode>
+        public sealed class EmptyProjectionValueProtectionFixture : SerializationFixture<Bytecode>
         {
             public EmptyProjectionValueProtectionFixture() : base(g
                 .ConfigureEnvironment(_ => _
