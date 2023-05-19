@@ -7,13 +7,15 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
     public sealed class ObjectDeserializationTests : DeserializationTestsBase, IClassFixture<ObjectDeserializationTests.ObjectDeserializationFixture>
     {
-        public sealed class ObjectDeserializationFixture : GremlinqTestFixture
+        public sealed class ObjectDeserializationFixture : DeserializationTestFixture
         {
             public ObjectDeserializationFixture() : base(g
                 .UseGremlinServer(_ => _
                     .UseNewtonsoftJson()))
             {
             }
+
+            public override Task Verify<TElement>(IGremlinQueryBase<TElement> query) => base.Verify(query.Cast<object>());
         }
 
         public ObjectDeserializationTests(ObjectDeserializationFixture fixture, ITestOutputHelper testOutputHelper) : base(
@@ -21,7 +23,5 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
             testOutputHelper)
         {
         }
-
-        public override Task Verify<TElement>(IGremlinQueryBase<TElement> query) => base.Verify(query.Cast<object>());
     }
 }

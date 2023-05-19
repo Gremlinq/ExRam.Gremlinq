@@ -7,9 +7,9 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.Neptune.Tests
 {
-    public sealed class SerializationTests : SerializationTestsBase<Bytecode>, IClassFixture<SerializationTests.SerializationFixture>
+    public sealed class SerializationTests : SerializationTestsBase, IClassFixture<SerializationTests.SerializationFixture>
     {
-        public sealed class SerializationFixture : GremlinqTestFixture
+        public sealed class SerializationFixture : SerializationTestsFixture<Bytecode>
         {
             public SerializationFixture() : base(g
                 .UseNeptune(builder => builder

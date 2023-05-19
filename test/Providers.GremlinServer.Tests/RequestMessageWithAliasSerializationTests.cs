@@ -6,9 +6,9 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
-    public sealed class RequestMessageWithAliasSerializationTests : SerializationTestsBase<RequestMessage>, IClassFixture<RequestMessageWithAliasSerializationTests.RequestMessageWithAliasFixture>
+    public sealed class RequestMessageWithAliasSerializationTests : SerializationTestsBase, IClassFixture<RequestMessageWithAliasSerializationTests.RequestMessageWithAliasFixture>
     {
-        public sealed class RequestMessageWithAliasFixture : GremlinqTestFixture
+        public sealed class RequestMessageWithAliasFixture : SerializationTestsFixture<RequestMessage>
         {
             public RequestMessageWithAliasFixture() : base(g
                 .UseGremlinServer(builder => builder

@@ -26,6 +26,21 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
                             .Create<JToken, JToken>((token, env, recurse) => token)))))
             {
             }
+
+            public override async Task Verify<TElement>(IGremlinQueryBase<TElement> query)
+            {
+                var serialized = JsonConvert.SerializeObject(
+                    await query
+                        .Cast<JToken>()
+                        .ToArrayAsync(),
+                    Formatting.Indented);
+
+                var scrubbed = Current
+                    .Scrubbers()
+                    .Aggregate(serialized, (s, func) => func(s));
+
+                await Current.Verify(scrubbed);
+            }
         }
 
         private static readonly Regex IdRegex = new ("(\"id\"\\s*[:,]\\s*{\\s*\"@type\"\\s*:\\s*\"g:(Int32|Int64|UUID)\"\\s*,\\s*\"@value\":\\s*)([^\\s{}]+)(\\s*})", RegexOptions.IgnoreCase);
@@ -35,21 +50,6 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
             testOutputHelper,
             callerFilePath)
         {
-        }
-
-        public override async Task Verify<TElement>(IGremlinQueryBase<TElement> query)
-        {
-            var serialized = JsonConvert.SerializeObject(
-                await query
-                    .Cast<JToken>()
-                    .ToArrayAsync(),
-                Formatting.Indented);
-
-            var scrubbed = this
-                .Scrubbers()
-                .Aggregate(serialized, (s, func) => func(s));
-
-            await Verify(scrubbed);
         }
 
         [Fact]
@@ -64,7 +64,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
                .Verify();
         }
 
-        protected virtual IImmutableList<Func<string, string>> Scrubbers() => ImmutableList<Func<string, string>>.Empty
+        public override IImmutableList<Func<string, string>> Scrubbers() => ImmutableList<Func<string, string>>.Empty
             .Add(x => IdRegex.Replace(x, "$1-1$4"))
             .ScrubGuids();
     }

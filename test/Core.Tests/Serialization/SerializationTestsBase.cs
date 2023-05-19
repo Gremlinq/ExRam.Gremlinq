@@ -7,23 +7,30 @@ using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public abstract class SerializationTestsBase<TSerialized> : QueryExecutionTest
+    public abstract class SerializationTestsBase : QueryExecutionTest
     {
+        public abstract class SerializationTestsFixture<TSerialized> : GremlinqTestFixture
+        {
+            protected SerializationTestsFixture(IGremlinQuerySource source) : base(source)
+            {
+            }
+
+            public override Task Verify<TElement>(IGremlinQueryBase<TElement> query)
+            {
+                var env = query.AsAdmin().Environment;
+
+                return Current.Verify(env
+                    .Serializer
+                    .TransformTo<TSerialized>()
+                    .From(query, env));
+            }
+        }
+ 
         protected SerializationTestsBase(GremlinqTestFixture fixture, ITestOutputHelper testOutputHelper, [CallerFilePath] string callerFilePath = "") : base(
             fixture,
             testOutputHelper,
             callerFilePath)
         {
-        }
-
-        public override Task Verify<TElement>(IGremlinQueryBase<TElement> query)
-        {
-            var env = query.AsAdmin().Environment;
-
-            return Verify(env
-                .Serializer
-                .TransformTo<TSerialized>()
-                .From(query, env));
         }
 
         [Fact]

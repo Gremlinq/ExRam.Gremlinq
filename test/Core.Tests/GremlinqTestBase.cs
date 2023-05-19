@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Collections.Immutable;
+using System.Runtime.CompilerServices;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
@@ -23,7 +24,7 @@ namespace ExRam.Gremlinq.Core.Tests
             XunitContext.Register(testOutputHelper, sourceFile);
         }
 
-        public virtual async Task Verify<TElement>(IGremlinQueryBase<TElement> query) => await Verify(query.Debug());
+        public virtual IImmutableList<Func<string, string>> Scrubbers() => ImmutableList<Func<string, string>>.Empty;
 
         public GremlinqTestFixture Fixture { get; }
 
