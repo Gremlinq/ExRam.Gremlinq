@@ -1,0 +1,6 @@
+﻿{
+  Exception: {
+    Type: NotSupportedException,
+    Message: Cannot have an id property on non-single cardinality.
+  }
+}

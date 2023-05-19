@@ -50,18 +50,6 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
         {
         }
 
-        [Fact]
-        public virtual async Task AddV_list_cardinality_id()
-        {
-            await _g
-               .ConfigureEnvironment(env => env
-                   .UseModel(GraphModel
-                       .FromBaseTypes<VertexWithListId, Edge>(lookup => lookup
-                           .IncludeAssembliesOfBaseTypes())))
-               .AddV(new VertexWithListId { Id = new[] { "123", "456" } })
-               .Verify();
-        }
-
         public override IImmutableList<Func<string, string>> Scrubbers() => ImmutableList<Func<string, string>>.Empty
             .Add(x => IdRegex.Replace(x, "$1-1$4"))
             .ScrubGuids();

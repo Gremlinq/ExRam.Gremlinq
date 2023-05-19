@@ -16,10 +16,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         protected GremlinqTestFixture(IGremlinQuerySource source)
         {
-            GremlinQuerySource = source
-                .ConfigureEnvironment(env => env
-                    .ConfigureExecutor(exe => exe
-                        .CatchExecutionExceptions()));
+            GremlinQuerySource = source;
         }
 
         public virtual async Task Verify<TElement>(IGremlinQueryBase<TElement> query) => await GremlinqTestBase.Current.Verify(query.Debug());

@@ -31,6 +31,18 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task AddV_list_cardinality_id()
+        {
+            await _g
+               .ConfigureEnvironment(env => env
+                   .UseModel(GraphModel
+                       .FromBaseTypes<VertexWithListId, Edge>(lookup => lookup
+                           .IncludeAssembliesOfBaseTypes())))
+               .AddV(new VertexWithListId { Id = new[] { "123", "456" } })
+               .Verify();
+        }
+
+        [Fact]
         public async Task StringKey()
         {
             await _g
