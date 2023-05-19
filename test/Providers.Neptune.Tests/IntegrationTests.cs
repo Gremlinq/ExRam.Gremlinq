@@ -2,12 +2,13 @@
 using System.Text.RegularExpressions;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Execution;
+using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Providers.Core;
 using ExRam.Gremlinq.Support.NewtonsoftJson.Tests;
 
 namespace ExRam.Gremlinq.Providers.Neptune.Tests
 {
-    public class IntegrationTests : IntegrationTestsBase, IClassFixture<IntegrationTests.Fixture>
+    public class IntegrationTests : QueryExecutionTest, IClassFixture<IntegrationTests.Fixture>
     {
         public new sealed class Fixture : IntegrationTestFixture
         {
