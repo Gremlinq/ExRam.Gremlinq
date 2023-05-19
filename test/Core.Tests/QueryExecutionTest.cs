@@ -9,6 +9,7 @@ using Gremlin.Net.Process.Traversal;
 using Gremlin.Net.Process.Traversal.Strategy.Decoration;
 using ExRam.Gremlinq.Core.Transformation;
 using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
+using FluentAssertions;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
@@ -28,6 +29,22 @@ namespace ExRam.Gremlinq.Core.Tests
                     .LogToXunit(testOutputHelper)
                     .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>(lookup => lookup
                         .IncludeAssembliesOfBaseTypes())));
+        }
+
+
+        [Fact]
+        public virtual void AddV_list_cardinality_id()
+        {
+            _g
+               .ConfigureEnvironment(env => env
+                   .UseModel(GraphModel
+                       .FromBaseTypes<VertexWithListId, Edge>(lookup => lookup
+                           .IncludeAssembliesOfBaseTypes())))
+               .AddV(new VertexWithListId { Id = new[] { "123", "456" } })
+               .Invoking(__ => __
+                   .Verify())
+               .Should()
+               .Throw<NotSupportedException>();
         }
 
         [Fact]
