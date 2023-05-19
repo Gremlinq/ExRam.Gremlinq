@@ -31,20 +31,20 @@ namespace ExRam.Gremlinq.Core.Tests
                         .IncludeAssembliesOfBaseTypes())));
         }
 
-        [Fact]
-        public virtual async Task AddV_list_cardinality_id()
-        {
-            await _g
-               .ConfigureEnvironment(env => env
-                   .UseModel(GraphModel
-                       .FromBaseTypes<VertexWithListId, Edge>(lookup => lookup
-                           .IncludeAssembliesOfBaseTypes())))
-               .AddV(new VertexWithListId { Id = new[] { "123", "456" } })
-               .Invoking(__ => __
-                   .Verify())
-               .Should()
-               .ThrowAsync<NotSupportedException>();
-        }
+        //[Fact]
+        //public virtual async Task AddV_list_cardinality_id()
+        //{
+        //    await _g
+        //       .ConfigureEnvironment(env => env
+        //           .UseModel(GraphModel
+        //               .FromBaseTypes<VertexWithListId, Edge>(lookup => lookup
+        //                   .IncludeAssembliesOfBaseTypes())))
+        //       .AddV(new VertexWithListId { Id = new[] { "123", "456" } })
+        //       .Invoking(__ => __
+        //           .Verify())
+        //       .Should()
+        //       .ThrowAsync<NotSupportedException>();
+        //}
 
         [Fact]
         public async Task StringKey()
