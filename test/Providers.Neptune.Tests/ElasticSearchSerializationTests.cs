@@ -7,9 +7,9 @@ using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Providers.Neptune.Tests
 {
-    public sealed class ElasticSearchSerializationTests : SerializationTestsBase<Bytecode>, IClassFixture<ElasticSearchSerializationTests.ElasticSearchFixture>
+    public sealed class ElasticSearchSerializationTests : SerializationTestsBase, IClassFixture<ElasticSearchSerializationTests.ElasticSearchFixture>
     {
-        public sealed class ElasticSearchFixture : GremlinqTestFixture
+        public sealed class ElasticSearchFixture : SerializationTestsFixture<Bytecode>
         {
             public ElasticSearchFixture() : base(g
                 .UseNeptune(builder => builder

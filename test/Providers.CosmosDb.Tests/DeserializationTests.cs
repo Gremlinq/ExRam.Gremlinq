@@ -7,7 +7,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
     public sealed class DeserializationTests : DeserializationTestsBase, IClassFixture<DeserializationTests.DeserializationFixture>
     {
-        public sealed class DeserializationFixture : GremlinqTestFixture
+        public sealed class DeserializationFixture : DeserializationTestFixture
         {
             public DeserializationFixture() : base(
                 g.UseCosmosDb(_ => _

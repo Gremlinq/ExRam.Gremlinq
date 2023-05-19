@@ -30,7 +30,7 @@ namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
         {
         }
 
-        protected override IImmutableList<Func<string, string>> Scrubbers() => base
+        public override IImmutableList<Func<string, string>> Scrubbers() => base
             .Scrubbers()
             .Add(x => RelationIdRegex.Replace(x, "\"relationId\": \"scrubbed\""));
     }

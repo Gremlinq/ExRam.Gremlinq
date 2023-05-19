@@ -1,7 +1,6 @@
 ﻿using System.Reflection;
 using ExRam.Gremlinq.Core.Tests;
 using PublicApiGenerator;
-using GremlinqTestBase = ExRam.Gremlinq.Core.Tests.GremlinqTestBase;
 
 namespace ExRam.Gremlinq.PublicApi.Tests
 {

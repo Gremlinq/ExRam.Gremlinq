@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
 {
     public class IntegrationTests : IntegrationTestsBase, IClassFixture<IntegrationTests.Fixture>
     {
-        public new sealed class Fixture : IntegrationTestsBase.IntegrationTestFixture
+        public new sealed class Fixture : IntegrationTestFixture
         {
             public Fixture() : base(Gremlinq.Core.GremlinQuerySource.g
                 .UseNeptune(builder => builder
@@ -29,7 +29,7 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
         {
         }
 
-        protected override IImmutableList<Func<string, string>> Scrubbers() => base
+        public override IImmutableList<Func<string, string>> Scrubbers() => base
             .Scrubbers()
             .Add(x => IdRegex1.Replace(x, "\"scrubbed id\""));
     }
