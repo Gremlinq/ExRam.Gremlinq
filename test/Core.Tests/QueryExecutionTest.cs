@@ -31,7 +31,6 @@ namespace ExRam.Gremlinq.Core.Tests
                         .IncludeAssembliesOfBaseTypes())));
         }
 
-
         [Fact]
         public virtual async Task AddV_list_cardinality_id()
         {

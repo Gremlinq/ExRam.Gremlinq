@@ -1,11 +1,12 @@
 ﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Support.NewtonsoftJson.Tests;
+
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
-    public sealed class DeserializationTests : DeserializationTestsBase, IClassFixture<DeserializationTests.DeserializationFixture>
+    public sealed class DeserializationTests : QueryExecutionTest, IClassFixture<DeserializationTests.DeserializationFixture>
     {
         public sealed class DeserializationFixture : DeserializationTestFixture
         {
