@@ -33,9 +33,9 @@ namespace ExRam.Gremlinq.Core.Tests
 
 
         [Fact]
-        public virtual void AddV_list_cardinality_id()
+        public virtual async Task AddV_list_cardinality_id()
         {
-            _g
+            await _g
                .ConfigureEnvironment(env => env
                    .UseModel(GraphModel
                        .FromBaseTypes<VertexWithListId, Edge>(lookup => lookup
@@ -44,7 +44,7 @@ namespace ExRam.Gremlinq.Core.Tests
                .Invoking(__ => __
                    .Verify())
                .Should()
-               .Throw<NotSupportedException>();
+               .ThrowAsync<NotSupportedException>();
         }
 
         [Fact]
