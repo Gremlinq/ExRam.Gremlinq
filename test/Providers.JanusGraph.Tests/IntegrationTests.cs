@@ -9,8 +9,10 @@ namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
 {
     public class IntegrationTests : IntegrationTestsBase, IClassFixture<IntegrationTests.Fixture>
     {
-        public new sealed class Fixture : IntegrationTestsBase.IntegrationTestFixture
+        public new sealed class Fixture : IntegrationTestFixture
         {
+            private static readonly Regex RelationIdRegex = new("\"relationId\":[\\s]?\"[0-9a-z]{3}([-][0-9a-z]{3})*\"", RegexOptions.IgnoreCase);
+
             public Fixture() : base(Gremlinq.Core.GremlinQuerySource.g
                 .UseJanusGraph(builder => builder
                     .At(new Uri("ws://localhost:8183"))
@@ -20,18 +22,16 @@ namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
                         .IgnoreResults())))
             {
             }
-        }
 
-        private static readonly Regex RelationIdRegex = new("\"relationId\":[\\s]?\"[0-9a-z]{3}([-][0-9a-z]{3})*\"", RegexOptions.IgnoreCase);
+            protected override IImmutableList<Func<string, string>> Scrubbers() => base
+                .Scrubbers()
+                .Add(x => RelationIdRegex.Replace(x, "\"relationId\": \"scrubbed\""));
+        }
 
         public IntegrationTests(Fixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
             testOutputHelper)
         {
         }
-
-        public override IImmutableList<Func<string, string>> Scrubbers() => base
-            .Scrubbers()
-            .Add(x => RelationIdRegex.Replace(x, "\"relationId\": \"scrubbed\""));
     }
 }

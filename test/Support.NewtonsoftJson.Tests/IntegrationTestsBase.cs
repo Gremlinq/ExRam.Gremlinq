@@ -2,7 +2,6 @@
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Core.Transformation;
@@ -16,6 +15,8 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
     {
         public abstract class IntegrationTestFixture : GremlinqTestFixture
         {
+            private static readonly Regex IdRegex = new("(\"id\"\\s*[:,]\\s*{\\s*\"@type\"\\s*:\\s*\"g:(Int32|Int64|UUID)\"\\s*,\\s*\"@value\":\\s*)([^\\s{}]+)(\\s*})", RegexOptions.IgnoreCase);
+
             protected IntegrationTestFixture(IGremlinQuerySource source) : base(source
                 .ConfigureEnvironment(env => env
                     .UseNewtonsoftJson()
@@ -33,15 +34,17 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
                         .ToArrayAsync(),
                     Formatting.Indented);
 
-                var scrubbed = Current
+                var scrubbed = this
                     .Scrubbers()
                     .Aggregate(serialized, (s, func) => func(s));
 
                 await Current.Verify(scrubbed);
             }
-        }
 
-        private static readonly Regex IdRegex = new ("(\"id\"\\s*[:,]\\s*{\\s*\"@type\"\\s*:\\s*\"g:(Int32|Int64|UUID)\"\\s*,\\s*\"@value\":\\s*)([^\\s{}]+)(\\s*})", RegexOptions.IgnoreCase);
+            protected virtual IImmutableList<Func<string, string>> Scrubbers() => ImmutableList<Func<string, string>>.Empty
+                .Add(x => IdRegex.Replace(x, "$1-1$4"))
+                .ScrubGuids();
+        }
 
         protected IntegrationTestsBase(IntegrationTestFixture fixture, ITestOutputHelper testOutputHelper, [CallerFilePath] string callerFilePath = "") : base(
             fixture,
@@ -61,9 +64,5 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
                .AddV(new VertexWithListId { Id = new[] { "123", "456" } })
                .Verify();
         }
-
-        public override IImmutableList<Func<string, string>> Scrubbers() => ImmutableList<Func<string, string>>.Empty
-            .Add(x => IdRegex.Replace(x, "$1-1$4"))
-            .ScrubGuids();
     }
 }
