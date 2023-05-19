@@ -18,8 +18,6 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
         {
             protected IntegrationTestFixture(IGremlinQuerySource source) : base(source
                 .ConfigureEnvironment(env => env
-                    .ConfigureExecutor(executor => executor
-                        .CatchExecutionExceptions())
                     .UseNewtonsoftJson()
                     .ConfigureDeserializer(d => d
                         .Add(ConverterFactory
