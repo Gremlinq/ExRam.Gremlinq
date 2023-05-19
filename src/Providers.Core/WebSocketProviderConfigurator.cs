@@ -11,50 +11,45 @@ namespace ExRam.Gremlinq.Providers.Core
     {
         private sealed class WebSocketGremlinQueryExecutor : IGremlinQueryExecutor
         {
-            private readonly GremlinServer _gremlinServer;
-            private readonly IGremlinClientFactory _clientFactory;
-            private readonly ConcurrentDictionary<IGremlinQueryEnvironment, IGremlinClient> _clients = new();
-
-            public WebSocketGremlinQueryExecutor(
-                GremlinServer gremlinServer,
-                IGremlinClientFactory clientFactory)
+            private sealed class ExecutionEnumerable<T> : IAsyncEnumerable<T>
             {
-                _gremlinServer = gremlinServer;
-                _clientFactory = clientFactory;
-            }
+                private readonly GremlinQueryExecutionContext _context;
+                private readonly WebSocketGremlinQueryExecutor _executor;
 
-            public IAsyncEnumerable<T> Execute<T>(GremlinQueryExecutionContext context)
-            {
-                return AsyncEnumerable.Create(Core);
-
-                async IAsyncEnumerator<T> Core(CancellationToken ct)
+                public ExecutionEnumerable(WebSocketGremlinQueryExecutor executor, GremlinQueryExecutionContext context)
                 {
-                    var environment = context.Query
+                    _context = context;
+                    _executor = executor;
+                }
+
+                public async IAsyncEnumerator<T> GetAsyncEnumerator(CancellationToken cancellationToken = default)
+                {
+                    var environment = _context.Query
                         .AsAdmin()
                         .Environment;
 
-                    var client = _clients
+                    var client = _executor._clients
                         .GetOrAdd(
                             environment,
-                            static (environment, @this) => @this._clientFactory.Create(
+                            static (environment, executor) => executor._clientFactory.Create(
                                 environment,
-                                @this._gremlinServer,
+                                executor._gremlinServer,
                                 new DefaultMessageSerializer(environment),
                                 new ConnectionPoolSettings(),
                                 static _ => { }),
-                            this);
+                            _executor);
 
                     var requestMessageBuilder = environment
                         .Serializer
                         .TransformTo<RequestMessage.Builder>()
-                        .From(context.Query, environment);
+                        .From(_context.Query, environment);
 
                     var requestMessage = requestMessageBuilder
-                        .OverrideRequestId(context.ExecutionId)
+                        .OverrideRequestId(_context.ExecutionId)
                         .Create();
 
                     var maybeResults = await client
-                        .SubmitAsync<object>(requestMessage, ct)
+                        .SubmitAsync<object>(requestMessage, cancellationToken)
                         .ConfigureAwait(false);
 
                     if (maybeResults is { } results)
@@ -68,6 +63,20 @@ namespace ExRam.Gremlinq.Providers.Core
                     }
                 }
             }
+
+            private readonly GremlinServer _gremlinServer;
+            private readonly IGremlinClientFactory _clientFactory;
+            private readonly ConcurrentDictionary<IGremlinQueryEnvironment, IGremlinClient> _clients = new();
+
+            public WebSocketGremlinQueryExecutor(
+                GremlinServer gremlinServer,
+                IGremlinClientFactory clientFactory)
+            {
+                _gremlinServer = gremlinServer;
+                _clientFactory = clientFactory;
+            }
+
+            public IAsyncEnumerable<T> Execute<T>(GremlinQueryExecutionContext context) => new ExecutionEnumerable<T>(this, context);
         }
 
         private readonly GremlinServer _gremlinServer;
