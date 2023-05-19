@@ -3,9 +3,9 @@ using ExRam.Gremlinq.Core.Tests.Fixtures;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public sealed class GroovyGremlinQuerySerializationTest : SerializationTestsBase, IClassFixture<GroovySerializationFixture>
+    public sealed class GroovyGremlinQuerySerializationTest : QueryExecutionTest, IClassFixture<GroovyGremlinQuerySerializationFixture>
     {
-        public GroovyGremlinQuerySerializationTest(GroovySerializationFixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public GroovyGremlinQuerySerializationTest(GroovyGremlinQuerySerializationFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
             testOutputHelper)
         {
