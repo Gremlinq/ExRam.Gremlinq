@@ -1,8 +1,20 @@
-﻿[
-  {
-    "serverException": {
-      "type": "ResponseException",
-      "message": "ServerEvaluationError: \r\n\nActivityId : 00000000-0000-0000-0000-000000000000\nExceptionType : GraphSyntaxException\nExceptionMessage : \r\n\tGremlin query syntax error: Unsupported groovy language rule: 'closure' text: '{it.property('Name').value().length()}' @ line 1, column 60.\r\n\tUnsupported groovy language rule: 'closure' text: '{it.property('Age').value()}' @ line 1, column 103.\r\n\t2 Error(s)\n\tGremlinRequestId : 00000000-0000-0000-0000-000000000000\n\tContext : graphcompute\n\tScope : graphparse-translate-outer\n\tGraphInterOpStatusCode : QuerySyntaxError\n\tHResult : 0x80131500\r\n"
-    }
+﻿{
+  Exception: {
+    Type: ResponseException,
+    Message:
+ServerEvaluationError: 
+
+ActivityId : e93e35bc-5cbd-4372-9470-57b321b36652
+ExceptionType : GraphSyntaxException
+ExceptionMessage : 
+	Gremlin query syntax error: Unsupported groovy language rule: 'closure' text: '{it.property('Name').value().length()}' @ line 1, column 60.
+	Unsupported groovy language rule: 'closure' text: '{it.property('Age').value()}' @ line 1, column 103.
+	2 Error(s)
+	GremlinRequestId : 59015554-a370-4213-8ee3-dd9ec11e087d
+	Context : graphcompute
+	Scope : graphparse-translate-outer
+	GraphInterOpStatusCode : QuerySyntaxError
+	HResult : 0x80131500
+
   }
-]
+}
