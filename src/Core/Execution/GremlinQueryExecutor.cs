@@ -1,4 +1,5 @@
-﻿using Gremlin.Net.Driver.Exceptions;
+﻿using System.Linq.Async;
+using Gremlin.Net.Driver.Exceptions;
 using Microsoft.Extensions.Logging;
 
 namespace ExRam.Gremlinq.Core.Execution
