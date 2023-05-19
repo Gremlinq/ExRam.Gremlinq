@@ -5,7 +5,7 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
-    public sealed class DeserializationTests : DeserializationTestsBase, IClassFixture<DeserializationTests.DeserializationFixture>
+    public sealed class DeserializationTests : QueryExecutionTest, IClassFixture<DeserializationTests.DeserializationFixture>
     {
         public sealed class DeserializationFixture : DeserializationTestFixture
         {
