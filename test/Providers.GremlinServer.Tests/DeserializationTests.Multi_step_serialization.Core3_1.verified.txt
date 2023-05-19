@@ -1,0 +1,52 @@
+﻿[
+  {
+    Id: -1,
+    Label: LivesIn
+  },
+  {
+    Id: -1,
+    Label: Speaks
+  },
+  {
+    Role: Admin,
+    From: 2020-04-07 14:43:36 Utc,
+    To: 2020-04-07 14:43:36 Utc,
+    Id: -1,
+    Label: WorksFor
+  },
+  {
+    Id: -1,
+    Label: LivesIn
+  },
+  {
+    Id: -1,
+    Label: LivesIn
+  },
+  {
+    Since: {
+      Value: 2020-04-07 14:43:36 +0
+    },
+    Id: -1,
+    Label: LivesIn
+  },
+  {
+    Role: Admin,
+    From: 2020-04-07 14:43:36 Utc,
+    To: 2020-04-07 14:43:36 Utc,
+    Id: -1,
+    Label: WorksFor
+  },
+  {
+    Id: -1,
+    Label: Speaks
+  },
+  {
+    Id: -1,
+    Label: LivesIn
+  },
+  {
+    To: 2020-04-07 14:43:36 Utc,
+    Id: -1,
+    Label: WorksFor
+  }
+]
