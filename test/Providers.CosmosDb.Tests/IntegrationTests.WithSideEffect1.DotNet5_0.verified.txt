@@ -1,19 +1,8 @@
-﻿{
-  Exception: {
-    Type: ResponseException,
-    Message:
-ServerEvaluationError: 
-
-ActivityId : b36ce66a-da0e-4b07-a213-a032f42125fe
-ExceptionType : GraphCompileException
-ExceptionMessage : 
-	Gremlin Query Compilation Error: Unable to find any method 'withSideEffect' @ line 1, column 17.
-	1 Error(s)
-	GremlinRequestId : 830be13a-3c55-4364-8a31-47bd1074e71d
-	Context : graphcompute
-	Scope : graphparse-translate-csharpexpressionbinding
-	GraphInterOpStatusCode : QuerySyntaxError
-	HResult : 0x80131500
-
+﻿[
+  {
+    "serverException": {
+      "type": "ResponseException",
+      "message": "ServerEvaluationError: \r\n\nActivityId : 00000000-0000-0000-0000-000000000000\nExceptionType : GraphCompileException\nExceptionMessage : \r\n\tGremlin Query Compilation Error: Unable to find any method 'withSideEffect' @ line 1, column 17.\r\n\t1 Error(s)\n\tGremlinRequestId : 00000000-0000-0000-0000-000000000000\n\tContext : graphcompute\n\tScope : graphparse-translate-csharpexpressionbinding\n\tGraphInterOpStatusCode : QuerySyntaxError\n\tHResult : 0x80131500\r\n"
+    }
   }
-}
+]

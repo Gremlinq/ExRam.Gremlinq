@@ -1,6 +1,8 @@
-﻿{
-  Exception: {
-    Type: ResponseException,
-    Message: ServerErrorFailStep: fail() step triggered
+﻿[
+  {
+    "serverException": {
+      "type": "ResponseException",
+      "message": "ServerErrorFailStep: fail() step triggered"
+    }
   }
-}
+]

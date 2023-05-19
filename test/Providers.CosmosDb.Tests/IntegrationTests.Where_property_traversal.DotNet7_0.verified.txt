@@ -1,13 +1,8 @@
-﻿{
-  Exception: {
-    Type: ResponseException,
-    Message:
-ServerError: 
-
-ActivityId : 0f4f23b1-a13c-45e2-b08b-5292a10c2535
-ExceptionType : NullReferenceException
-ExceptionMessage : An unknown error occurred while processing this request. If the issue persists, please contact Azure Support: http://aka.ms/azure-support
-	HResult : 0x80004003
-
+﻿[
+  {
+    "serverException": {
+      "type": "ResponseException",
+      "message": "ServerError: \r\n\nActivityId : 00000000-0000-0000-0000-000000000000\nExceptionType : NullReferenceException\nExceptionMessage : An unknown error occurred while processing this request. If the issue persists, please contact Azure Support: http://aka.ms/azure-support\n\tHResult : 0x80004003\r\n"
+    }
   }
-}
+]

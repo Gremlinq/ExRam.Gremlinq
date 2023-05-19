@@ -1,6 +1,8 @@
-﻿{
-  Exception: {
-    Type: NotSupportedException,
-    Message: Cannot have an id property on non-single cardinality.
+﻿[
+  {
+    "serverException": {
+      "type": "NotSupportedException",
+      "message": "Cannot have an id property on non-single cardinality."
+    }
   }
-}
+]

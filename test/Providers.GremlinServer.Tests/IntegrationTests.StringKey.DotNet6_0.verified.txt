@@ -1,6 +1,8 @@
-﻿{
-  Exception: {
-    Type: ResponseException,
-    Message: ServerError: Expected an id that is convertible to class java.lang.Long but received class java.lang.String - [id]
+﻿[
+  {
+    "serverException": {
+      "type": "ResponseException",
+      "message": "ServerError: Expected an id that is convertible to class java.lang.Long but received class java.lang.String - [id]"
+    }
   }
-}
+]

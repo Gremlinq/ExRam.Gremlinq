@@ -1,19 +1,8 @@
-﻿{
-  Exception: {
-    Type: ResponseException,
-    Message:
-ServerEvaluationError: 
-
-ActivityId : e77fb39c-5e1e-4970-b88f-b0690c3d85af
-ExceptionType : GraphCompileException
-ExceptionMessage : 
-	Gremlin Query Compilation Error: Unable to find any method 'fail' @ line 1, column 11.
-	1 Error(s)
-	GremlinRequestId : 0b6000c5-6fee-4cb3-9a6c-3ab1a3966f00
-	Context : graphcompute
-	Scope : graphparse-translate-csharpexpressionbinding
-	GraphInterOpStatusCode : QuerySyntaxError
-	HResult : 0x80131500
-
+﻿[
+  {
+    "serverException": {
+      "type": "ResponseException",
+      "message": "ServerEvaluationError: \r\n\nActivityId : 00000000-0000-0000-0000-000000000000\nExceptionType : GraphCompileException\nExceptionMessage : \r\n\tGremlin Query Compilation Error: Unable to find any method 'fail' @ line 1, column 11.\r\n\t1 Error(s)\n\tGremlinRequestId : 00000000-0000-0000-0000-000000000000\n\tContext : graphcompute\n\tScope : graphparse-translate-csharpexpressionbinding\n\tGraphInterOpStatusCode : QuerySyntaxError\n\tHResult : 0x80131500\r\n"
+    }
   }
-}
+]

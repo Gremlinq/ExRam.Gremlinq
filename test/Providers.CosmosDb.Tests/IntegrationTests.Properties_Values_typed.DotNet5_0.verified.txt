@@ -1,18 +1,8 @@
-﻿{
-  Exception: {
-    Type: ResponseException,
-    Message:
-ServerEvaluationError: 
-
-ActivityId : 32d5e8a5-a034-4fcc-ae57-8ed902e67fbc
-ExceptionType : GraphRuntimeException
-ExceptionMessage : 
-	Gremlin Query Execution Error: All Values: Cross Apply: The input of values() cannot be a meta or edge property.
-	GremlinRequestId : d15f747e-0ed4-4ca2-8a2f-a4e958154638
-	Context : graphcompute
-	Scope : graphcomp-execquery
-	GraphInterOpStatusCode : GraphRuntimeError
-	HResult : 0x80131500
-
+﻿[
+  {
+    "serverException": {
+      "type": "ResponseException",
+      "message": "ServerEvaluationError: \r\n\nActivityId : 00000000-0000-0000-0000-000000000000\nExceptionType : GraphRuntimeException\nExceptionMessage : \r\n\tGremlin Query Execution Error: All Values: Cross Apply: The input of values() cannot be a meta or edge property.\n\tGremlinRequestId : 00000000-0000-0000-0000-000000000000\n\tContext : graphcompute\n\tScope : graphcomp-execquery\n\tGraphInterOpStatusCode : GraphRuntimeError\n\tHResult : 0x80131500\r\n"
+    }
   }
-}
+]

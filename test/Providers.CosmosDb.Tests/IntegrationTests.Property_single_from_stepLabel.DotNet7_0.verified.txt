@@ -1,18 +1,8 @@
-﻿{
-  Exception: {
-    Type: ResponseException,
-    Message:
-ServerEvaluationError: 
-
-ActivityId : 4c9552bc-5bcf-4ece-99ea-95524306a106
-ExceptionType : GraphRuntimeException
-ExceptionMessage : 
-	Gremlin Query Execution Error: Cannot create ValueField on non-primitive type GraphTraversal.
-	GremlinRequestId : 4019a91c-fc32-41d9-ad25-b7f966458b03
-	Context : graphcompute
-	Scope : graphstg-logplan
-	GraphInterOpStatusCode : GraphRuntimeError
-	HResult : 0x80131500
-
+﻿[
+  {
+    "serverException": {
+      "type": "ResponseException",
+      "message": "ServerEvaluationError: \r\n\nActivityId : 00000000-0000-0000-0000-000000000000\nExceptionType : GraphRuntimeException\nExceptionMessage : \r\n\tGremlin Query Execution Error: Cannot create ValueField on non-primitive type GraphTraversal.\n\tGremlinRequestId : 00000000-0000-0000-0000-000000000000\n\tContext : graphcompute\n\tScope : graphstg-logplan\n\tGraphInterOpStatusCode : GraphRuntimeError\n\tHResult : 0x80131500\r\n"
+    }
   }
-}
+]
