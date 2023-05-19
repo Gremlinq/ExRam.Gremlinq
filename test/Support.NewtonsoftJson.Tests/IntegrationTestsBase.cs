@@ -14,9 +14,9 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
 {
     public abstract class IntegrationTestsBase : QueryExecutionTest
     {
-        public abstract class Fixture : GremlinqTestFixture
+        public abstract class IntegrationTestFixture : GremlinqTestFixture
         {
-            protected Fixture(IGremlinQuerySource source) : base(source
+            protected IntegrationTestFixture(IGremlinQuerySource source) : base(source
                 .ConfigureEnvironment(env => env
                     .ConfigureExecutor(executor => executor
                         .CatchExecutionExceptions())
@@ -30,7 +30,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
 
         private static readonly Regex IdRegex = new ("(\"id\"\\s*[:,]\\s*{\\s*\"@type\"\\s*:\\s*\"g:(Int32|Int64|UUID)\"\\s*,\\s*\"@value\":\\s*)([^\\s{}]+)(\\s*})", RegexOptions.IgnoreCase);
 
-        protected IntegrationTestsBase(Fixture fixture, ITestOutputHelper testOutputHelper, [CallerFilePath] string callerFilePath = "") : base(
+        protected IntegrationTestsBase(IntegrationTestFixture fixture, ITestOutputHelper testOutputHelper, [CallerFilePath] string callerFilePath = "") : base(
             fixture,
             testOutputHelper,
             callerFilePath)

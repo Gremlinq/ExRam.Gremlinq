@@ -5,13 +5,13 @@ using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public sealed class Graphson3GremlinQuerySerializationTest : SerializationTestsBase<string>, IClassFixture<Graphson3GremlinQuerySerializationTest.Fixture>
+    public sealed class Graphson3GremlinQuerySerializationTest : SerializationTestsBase<string>, IClassFixture<Graphson3GremlinQuerySerializationTest.Graphson3Fixture>
     {
-        public sealed class Fixture : GremlinqTestFixture
+        public sealed class Graphson3Fixture : GremlinqTestFixture
         {
             private static readonly GraphSON3Writer Writer = new();
 
-            public Fixture() : base(g
+            public Graphson3Fixture() : base(g
                 .ConfigureEnvironment(_ => _
                     .ConfigureSerializer(ser => ser
                         .Add(ConverterFactory
@@ -23,7 +23,7 @@ namespace ExRam.Gremlinq.Core.Tests
             }
         }
 
-        public Graphson3GremlinQuerySerializationTest(Fixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public Graphson3GremlinQuerySerializationTest(Graphson3Fixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
             testOutputHelper)
         {

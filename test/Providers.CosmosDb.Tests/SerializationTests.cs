@@ -7,11 +7,11 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
-    public sealed class SerializationTests : SerializationTestsBase<GroovyGremlinQuery>, IClassFixture<SerializationTests.Fixture>
+    public sealed class SerializationTests : SerializationTestsBase<GroovyGremlinQuery>, IClassFixture<SerializationTests.SerializationFixture>
     {
-        public sealed class Fixture : GremlinqTestFixture
+        public sealed class SerializationFixture : GremlinqTestFixture
         {
-            public Fixture() : base(g
+            public SerializationFixture() : base(g
                 .UseCosmosDb(builder => builder
                     .At(new Uri("wss://localhost"), "database", "graph")
                     .AuthenticateBy("authKey"))
@@ -21,7 +21,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
             }
         }
 
-        public SerializationTests(Fixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public SerializationTests(SerializationFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
             testOutputHelper)
         {

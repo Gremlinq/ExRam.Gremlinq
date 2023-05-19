@@ -5,18 +5,18 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
-    public sealed class ObjectDeserializationTests : DeserializationTestsBase, IClassFixture<ObjectDeserializationTests.Fixture>
+    public sealed class ObjectDeserializationTests : DeserializationTestsBase, IClassFixture<ObjectDeserializationTests.ObjectDeserializationFixture>
     {
-        public sealed class Fixture : GremlinqTestFixture
+        public sealed class ObjectDeserializationFixture : GremlinqTestFixture
         {
-            public Fixture() : base(g
+            public ObjectDeserializationFixture() : base(g
                 .UseGremlinServer(_ => _
                     .UseNewtonsoftJson()))
             {
             }
         }
 
-        public ObjectDeserializationTests(Fixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public ObjectDeserializationTests(ObjectDeserializationFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
             testOutputHelper)
         {

@@ -3,18 +3,18 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public sealed class EmptyProjectionValueProtectionSerializationTest : SerializationTestsBase<Bytecode>, IClassFixture<EmptyProjectionValueProtectionSerializationTest.Fixture>
+    public sealed class EmptyProjectionValueProtectionSerializationTest : SerializationTestsBase<Bytecode>, IClassFixture<EmptyProjectionValueProtectionSerializationTest.EmptyProjectionValueProtectionFixture>
     {
-        public sealed class Fixture : GremlinqTestFixture
+        public sealed class EmptyProjectionValueProtectionFixture : GremlinqTestFixture
         {
-            public Fixture() : base(g
+            public EmptyProjectionValueProtectionFixture() : base(g
                 .ConfigureEnvironment(_ => _
                     .ConfigureOptions(o => o.SetValue(GremlinqOption.EnableEmptyProjectionValueProtection, true))))
             {
             }
         }
 
-        public EmptyProjectionValueProtectionSerializationTest(Fixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public EmptyProjectionValueProtectionSerializationTest(EmptyProjectionValueProtectionFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
             testOutputHelper)
         {

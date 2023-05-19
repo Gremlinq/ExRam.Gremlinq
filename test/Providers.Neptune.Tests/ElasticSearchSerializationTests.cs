@@ -7,11 +7,11 @@ using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Providers.Neptune.Tests
 {
-    public sealed class ElasticSearchSerializationTests : SerializationTestsBase<Bytecode>, IClassFixture<ElasticSearchSerializationTests.Fixture>
+    public sealed class ElasticSearchSerializationTests : SerializationTestsBase<Bytecode>, IClassFixture<ElasticSearchSerializationTests.ElasticSearchFixture>
     {
-        public sealed class Fixture : GremlinqTestFixture
+        public sealed class ElasticSearchFixture : GremlinqTestFixture
         {
-            public Fixture() : base(g
+            public ElasticSearchFixture() : base(g
                 .UseNeptune(builder => builder
                     .AtLocalhost()
                     .UseElasticSearch(new Uri("http://elastic.search.server"))))
@@ -19,7 +19,7 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
             }
         }
 
-        public ElasticSearchSerializationTests(Fixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public ElasticSearchSerializationTests(ElasticSearchFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
             testOutputHelper)
         {
