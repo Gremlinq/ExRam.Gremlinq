@@ -1,8 +1,0 @@
-﻿[
-  {
-    "serverException": {
-      "type": "NotSupportedException",
-      "message": "Cannot have an id property on non-single cardinality."
-    }
-  }
-]
