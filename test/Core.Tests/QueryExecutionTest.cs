@@ -11,35 +11,10 @@ namespace ExRam.Gremlinq.Core.Tests
     [TestCaseOrderer("ExRam.Gremlinq.Core.Tests.SideEffectTestCaseOrderer", "ExRam.Gremlinq.Core.Tests")]
     public abstract class QueryExecutionTest : GremlinqTestBase
     {
-        private sealed class ProjectRecord
-        {
-            public object? In { get; set; }
-            public object? Out { get; set; }
-            public object? Count { get; set; }
-            public object? Properties { get; set; }
-        }
-
-        private readonly struct ProjectRecordStruct
-        {
-            public ProjectRecordStruct(object? @in, object? @out, object? count, object? properties)
-            {
-                In = @in;
-                Out = @out;
-                Count = count;
-                Properties = properties;
-            }
-
-            public object? In { get; }
-            public object? Out { get;  }
-            public object? Count { get; }
-            public object? Properties { get;  }
-        }
+        private static readonly string Id = "id";
 
         protected readonly IGremlinQuerySource _g;
 
-        private static readonly string Id = "id";
-
-        // ReSharper disable once ExplicitCallerInfoArgument
         protected QueryExecutionTest(GremlinqTestFixture fixture, ITestOutputHelper testOutputHelper, [CallerFilePath] string callerFilePath = "") : base(testOutputHelper, callerFilePath)
         {
             _g = fixture.GremlinQuerySource
