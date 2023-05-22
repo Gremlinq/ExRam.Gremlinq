@@ -21,7 +21,6 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
 
         public new sealed class Fixture : ExecutingTestFixture
         {
-
             public Fixture() : base(Gremlinq.Core.GremlinQuerySource.g
                 .UseNeptune(builder => builder
                     .AtLocalhost())

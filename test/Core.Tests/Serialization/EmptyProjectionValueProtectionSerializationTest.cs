@@ -1,4 +1,6 @@
 ﻿using ExRam.Gremlinq.Core.Tests.Fixtures;
+using ExRam.Gremlinq.Core.Tests.Verifiers;
+
 using Gremlin.Net.Process.Traversal;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 

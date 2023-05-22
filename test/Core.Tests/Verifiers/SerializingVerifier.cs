@@ -1,6 +1,6 @@
 ﻿using ExRam.Gremlinq.Core.Transformation;
 
-namespace ExRam.Gremlinq.Core.Tests.Fixtures
+namespace ExRam.Gremlinq.Core.Tests.Verifiers
 {
     public sealed class SerializingVerifier<TSerialized> : GremlinQueryVerifier
     {

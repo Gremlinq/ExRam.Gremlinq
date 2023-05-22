@@ -9,7 +9,6 @@ namespace ExRam.Gremlinq.Core.Tests
             public override async Task Verify<TElement>(IGremlinQueryBase<TElement> query) => await GremlinqTestBase.Current.Verify(query.Debug());
         }
 
-
         public static readonly GremlinQueryVerifier Default = new DefaultGremlinQueryVerifier();
 
         public abstract Task Verify<TElement>(IGremlinQueryBase<TElement> query);
