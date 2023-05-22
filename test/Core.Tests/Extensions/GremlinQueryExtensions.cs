@@ -2,6 +2,6 @@
 {
     public static class GremlinQueryExtensions
     {
-        public static Task Verify<TElement>(this IGremlinQueryBase<TElement> query) => GremlinqTestBase.Current.Fixture.Verify(query);
+        public static Task Verify<TElement>(this IGremlinQueryBase<TElement> query) => GremlinqTestBase.Current.Verifier.Verify(query);
     }
 }
