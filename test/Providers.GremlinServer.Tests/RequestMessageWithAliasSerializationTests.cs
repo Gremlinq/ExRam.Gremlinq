@@ -1,6 +1,7 @@
 ﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Core.Tests.Fixtures;
+using ExRam.Gremlinq.Core.Tests.Verifiers;
 using ExRam.Gremlinq.Providers.Core;
 
 using Gremlin.Net.Driver.Messages;
