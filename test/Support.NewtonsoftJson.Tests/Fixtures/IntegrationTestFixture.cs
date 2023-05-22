@@ -29,14 +29,15 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
                     .ToArrayAsync(),
                 Formatting.Indented);
 
-            var scrubbed = 
-                Scrubbers()
+            var scrubbed = this
+                .Scrubbers()
                 .Aggregate(serialized, (s, func) => func(s));
 
             await GremlinqTestBase.Current.Verify(scrubbed);
         }
 
-        protected virtual IImmutableList<Func<string, string>> Scrubbers() => ImmutableList<Func<string, string>>.Empty
+        protected override IImmutableList<Func<string, string>> Scrubbers() => base
+            .Scrubbers()
             .Add(x => IdRegex.Replace(x, "$1-1$4"))
             .ScrubGuids();
     }

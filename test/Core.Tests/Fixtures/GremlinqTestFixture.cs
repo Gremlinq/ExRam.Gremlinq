@@ -1,4 +1,6 @@
-﻿using ExRam.Gremlinq.Core.Execution;
+﻿using System.Collections.Immutable;
+
+using ExRam.Gremlinq.Core.Execution;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
@@ -21,6 +23,9 @@ namespace ExRam.Gremlinq.Core.Tests
                     .ConfigureExecutor(exe => exe
                         .CatchExecutionExceptions()));
         }
+
+
+        protected virtual IImmutableList<Func<string, string>> Scrubbers() => ImmutableList<Func<string, string>>.Empty;
 
         public virtual async Task Verify<TElement>(IGremlinQueryBase<TElement> query) => await GremlinqTestBase.Current.Verify(query.Debug());
 
