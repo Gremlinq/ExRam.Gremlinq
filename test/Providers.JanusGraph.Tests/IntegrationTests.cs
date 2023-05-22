@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
 {
     public class IntegrationTests : QueryExecutionTest, IClassFixture<IntegrationTests.Fixture>
     {
-        public new sealed class Fixture : IntegrationTestFixture
+        public new sealed class Fixture : ExecutingTestFixture
         {
             private static readonly Regex RelationIdRegex = new("\"relationId\":[\\s]?\"[0-9a-z]{3}([-][0-9a-z]{3})*\"", RegexOptions.IgnoreCase);
 

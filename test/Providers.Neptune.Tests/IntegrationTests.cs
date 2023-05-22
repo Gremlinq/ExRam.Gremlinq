@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
 {
     public class IntegrationTests : QueryExecutionTest, IClassFixture<IntegrationTests.Fixture>
     {
-        public new sealed class Fixture : IntegrationTestFixture
+        public new sealed class Fixture : ExecutingTestFixture
         {
             private static readonly Regex IdRegex1 = new("\"[0-9a-f]{8}[-]?([0-9a-f]{4}[-]?){3}[0-9a-f]{12}([|]PartitionKey)?\"", RegexOptions.IgnoreCase);
 
