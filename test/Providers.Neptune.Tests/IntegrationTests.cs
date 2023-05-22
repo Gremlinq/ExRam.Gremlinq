@@ -8,7 +8,7 @@ using ExRam.Gremlinq.Support.NewtonsoftJson.Tests;
 
 namespace ExRam.Gremlinq.Providers.Neptune.Tests
 {
-    public class IntegrationTests : QueryExecutionTest, IClassFixture<IntegrationTests.Fixture>
+    public sealed class IntegrationTests : QueryExecutionTest, IClassFixture<IntegrationTests.Fixture>
     {
         public new sealed class Fixture : ExecutingTestFixture
         {
@@ -30,6 +30,7 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
         
         public IntegrationTests(Fixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
+            GremlinQueryVerifier.Default,
             testOutputHelper)
         {
         }

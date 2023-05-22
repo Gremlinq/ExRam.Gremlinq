@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq.PublicApi.Tests
 {
     public class PublicApiTests : GremlinqTestBase
     {
-        public PublicApiTests(ITestOutputHelper testOutputHelper) : base(GremlinqTestFixture.Empty, testOutputHelper)
+        public PublicApiTests(ITestOutputHelper testOutputHelper) : base(GremlinqTestFixture.Empty, GremlinQueryVerifier.Default, testOutputHelper)
         {
 
         }

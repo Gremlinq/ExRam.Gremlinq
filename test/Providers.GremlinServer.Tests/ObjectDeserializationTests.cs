@@ -20,6 +20,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 
         public ObjectDeserializationTests(ObjectDeserializationFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
+            GremlinQueryVerifier.Default,
             testOutputHelper)
         {
         }

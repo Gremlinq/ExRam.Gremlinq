@@ -30,7 +30,7 @@ namespace ExRam.Gremlinq.Core.Tests
             public override string PartitionKey { get; set; } = "MyKey";
         }
 
-        public Issue37(ITestOutputHelper testOutputHelper) : base(GremlinqTestFixture.Empty, testOutputHelper)
+        public Issue37(ITestOutputHelper testOutputHelper) : base(GremlinqTestFixture.Empty, GremlinQueryVerifier.Default, testOutputHelper)
         {
 
         }

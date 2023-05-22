@@ -24,6 +24,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 
         public SerializationTests(SerializationFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
+            GremlinQueryVerifier.Default,
             testOutputHelper)
         {
 

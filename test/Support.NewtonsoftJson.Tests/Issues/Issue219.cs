@@ -7,7 +7,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
 {
     public class Issue219 : GremlinqTestBase
     {
-        public Issue219(ITestOutputHelper testOutputHelper) : base(GremlinqTestFixture.Empty, testOutputHelper)
+        public Issue219(ITestOutputHelper testOutputHelper) : base(GremlinqTestFixture.Empty, GremlinQueryVerifier.Default, testOutputHelper)
         {
 
         }

@@ -21,7 +21,7 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
         }
 
         public ElasticSearchSerializationTests(ElasticSearchFixture fixture, ITestOutputHelper testOutputHelper) : base(
-            fixture,
+            fixture,            GremlinQueryVerifier.Default,
             testOutputHelper)
         {
         }

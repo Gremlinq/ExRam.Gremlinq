@@ -2,9 +2,7 @@
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Core.Tests.Fixtures;
 using ExRam.Gremlinq.Providers.Core;
-
 using Gremlin.Net.Process.Traversal;
-
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.Neptune.Tests
@@ -22,6 +20,7 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
 
         public SerializationTests(SerializationFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
+            GremlinQueryVerifier.Default,
             testOutputHelper)
         {
         }

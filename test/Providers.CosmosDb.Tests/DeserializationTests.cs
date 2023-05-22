@@ -20,6 +20,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 
         public DeserializationTests(DeserializationFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
+            GremlinQueryVerifier.Default,
             testOutputHelper)
         {
         }

@@ -2,9 +2,7 @@
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Core.Tests.Fixtures;
 using ExRam.Gremlinq.Providers.Core;
-
 using Gremlin.Net.Driver.Messages;
-
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
@@ -22,6 +20,7 @@ namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
 
         public RequestMessageSerializationTests(RequestMessageFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
+            GremlinQueryVerifier.Default,
             testOutputHelper)
         {
 
