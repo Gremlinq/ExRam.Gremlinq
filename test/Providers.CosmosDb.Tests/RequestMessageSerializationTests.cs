@@ -23,6 +23,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 
         public RequestMessageSerializationTests(RequestMessageFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
+            GremlinQueryVerifier.Default,
             testOutputHelper)
         {
 

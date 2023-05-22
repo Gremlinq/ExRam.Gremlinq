@@ -6,6 +6,7 @@ namespace ExRam.Gremlinq.Core.Tests
     {
         public Graphson2GremlinQuerySerializationTest(Graphson2StringSerializationFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
+            GremlinQueryVerifier.Default,
             testOutputHelper)
         {
         }

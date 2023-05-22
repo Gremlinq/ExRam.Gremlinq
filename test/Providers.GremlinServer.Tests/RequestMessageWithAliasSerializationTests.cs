@@ -25,6 +25,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 
         public RequestMessageWithAliasSerializationTests(RequestMessageWithAliasFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
+            GremlinQueryVerifier.Default,
             testOutputHelper)
         {
 

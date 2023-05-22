@@ -14,7 +14,7 @@ namespace ExRam.Gremlinq.Core.Tests
             }
         }
 
-        public BytecodeQuerySerializationTest(BytecodeQueryFixture fixture, ITestOutputHelper testOutputHelper) : base(fixture, testOutputHelper)
+        public BytecodeQuerySerializationTest(BytecodeQueryFixture fixture, ITestOutputHelper testOutputHelper) : base(fixture, GremlinQueryVerifier.Default, testOutputHelper)
         {
         }
     }

@@ -17,6 +17,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         public EmptyProjectionValueProtectionSerializationTest(EmptyProjectionValueProtectionFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
+            GremlinQueryVerifier.Default,
             testOutputHelper)
         {
         }

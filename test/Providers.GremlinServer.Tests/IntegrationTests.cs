@@ -6,7 +6,7 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
-    public class IntegrationTests : QueryExecutionTest, IClassFixture<IntegrationTests.Fixture>
+    public sealed class IntegrationTests : QueryExecutionTest, IClassFixture<IntegrationTests.Fixture>
     {
         public new sealed class Fixture : ExecutingTestFixture
         {
@@ -20,6 +20,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 
         public IntegrationTests(Fixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
+            GremlinQueryVerifier.Default,
             testOutputHelper)
         {
         }

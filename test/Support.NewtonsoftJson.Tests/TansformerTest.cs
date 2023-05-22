@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq.Core.Tests
 {
     public class TansformerTest : GremlinqTestBase
     {
-        public TansformerTest(ITestOutputHelper testOutputHelper) : base(GremlinqTestFixture.Empty, testOutputHelper)
+        public TansformerTest(ITestOutputHelper testOutputHelper) : base(GremlinqTestFixture.Empty, GremlinQueryVerifier.Default, testOutputHelper)
         {
 
         }
