@@ -7,7 +7,12 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
     public sealed class ObjectDeserializationTests : QueryExecutionTest, IClassFixture<ObjectDeserializationTests.ObjectDeserializationFixture>
     {
-        public sealed class ObjectDeserializationFixture : DeserializationTestFixture
+        public new sealed class Verifier : DeserializingGremlinqVerifier
+        {
+            public override Task Verify<TElement>(IGremlinQueryBase<TElement> query) => base.Verify(query.Cast<object>());
+        }
+
+        public sealed class ObjectDeserializationFixture : GremlinqTestFixture
         {
             public ObjectDeserializationFixture() : base(g
                 .UseGremlinServer(_ => _
@@ -15,12 +20,11 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
             {
             }
 
-            public override Task Verify<TElement>(IGremlinQueryBase<TElement> query) => base.Verify(query.Cast<object>());
         }
 
         public ObjectDeserializationTests(ObjectDeserializationFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
-            GremlinQueryVerifier.Default,
+            new Verifier(),
             testOutputHelper)
         {
         }

@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
     public sealed class SerializationTests : QueryExecutionTest, IClassFixture<SerializationTests.SerializationFixture>
     {
-        public sealed class SerializationFixture : SerializationFixture<GroovyGremlinQuery>
+        public sealed class SerializationFixture : GremlinqTestFixture
         {
             public SerializationFixture() : base(g
                 .UseCosmosDb(builder => builder
@@ -24,7 +24,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 
         public SerializationTests(SerializationFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
-            GremlinQueryVerifier.Default,
+            new SerializingVerifier<GroovyGremlinQuery>(),
             testOutputHelper)
         {
 

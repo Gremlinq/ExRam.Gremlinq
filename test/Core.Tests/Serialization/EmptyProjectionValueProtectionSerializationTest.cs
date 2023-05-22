@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq.Core.Tests
 {
     public sealed class EmptyProjectionValueProtectionSerializationTest : QueryExecutionTest, IClassFixture<EmptyProjectionValueProtectionSerializationTest.EmptyProjectionValueProtectionFixture>
     {
-        public sealed class EmptyProjectionValueProtectionFixture : SerializationFixture<Bytecode>
+        public sealed class EmptyProjectionValueProtectionFixture : GremlinqTestFixture
         {
             public EmptyProjectionValueProtectionFixture() : base(g
                 .ConfigureEnvironment(_ => _
@@ -17,7 +17,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         public EmptyProjectionValueProtectionSerializationTest(EmptyProjectionValueProtectionFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
-            GremlinQueryVerifier.Default,
+            new SerializingVerifier<Bytecode>(),
             testOutputHelper)
         {
         }

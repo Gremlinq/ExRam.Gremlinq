@@ -11,7 +11,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
     public sealed class RequestMessageWithAliasSerializationTests : QueryExecutionTest, IClassFixture<RequestMessageWithAliasSerializationTests.RequestMessageWithAliasFixture>
     {
-        public sealed class RequestMessageWithAliasFixture : SerializationFixture<RequestMessage>
+        public sealed class RequestMessageWithAliasFixture : GremlinqTestFixture
         {
             public RequestMessageWithAliasFixture() : base(g
                 .UseGremlinServer(builder => builder
@@ -25,7 +25,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 
         public RequestMessageWithAliasSerializationTests(RequestMessageWithAliasFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
-            GremlinQueryVerifier.Default,
+            new SerializingVerifier<RequestMessage>(),
             testOutputHelper)
         {
 

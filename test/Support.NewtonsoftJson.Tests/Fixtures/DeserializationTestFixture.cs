@@ -6,12 +6,8 @@ using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
 {
-    public abstract class DeserializationTestFixture : GremlinqTestFixture
+    public class DeserializingGremlinqVerifier : GremlinQueryVerifier
     {
-        protected DeserializationTestFixture(IGremlinQuerySource source) : base(source)
-        {
-        }
-
         public override async Task Verify<TElement>(IGremlinQueryBase<TElement> query)
         {
             var context = XunitContext.Context;

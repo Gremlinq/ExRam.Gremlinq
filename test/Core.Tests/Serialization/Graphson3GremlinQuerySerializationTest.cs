@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq.Core.Tests
     {
         public Graphson3GremlinQuerySerializationTest(GraphSon3StringSerializationFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
-            GremlinQueryVerifier.Default,
+            new SerializingVerifier<string>(),
             testOutputHelper)
         {
         }

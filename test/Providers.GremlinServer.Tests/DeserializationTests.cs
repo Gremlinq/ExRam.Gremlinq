@@ -7,7 +7,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
     public sealed class DeserializationTests : QueryExecutionTest, IClassFixture<DeserializationTests.DeserializationFixture>
     {
-        public sealed class DeserializationFixture : DeserializationTestFixture
+        public sealed class DeserializationFixture : GremlinqTestFixture
         {
             public DeserializationFixture() : base(g
                 .UseGremlinServer(_ => _
@@ -18,7 +18,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 
         public DeserializationTests(DeserializationFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
-            GremlinQueryVerifier.Default,
+            new DeserializingGremlinqVerifier(),
             testOutputHelper)
         {
         }
