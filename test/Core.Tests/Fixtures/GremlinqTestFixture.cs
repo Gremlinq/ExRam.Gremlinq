@@ -1,6 +1,7 @@
 ﻿using System.Collections.Immutable;
 
 using ExRam.Gremlinq.Core.Execution;
+
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
