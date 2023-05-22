@@ -20,7 +20,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 
         public IntegrationTests(Fixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
-            GremlinQueryVerifier.Default,
+            new ExecutingVerifier(),
             testOutputHelper)
         {
         }

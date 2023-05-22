@@ -2,16 +2,14 @@
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Core.Tests.Fixtures;
 using ExRam.Gremlinq.Providers.Core;
-
 using Gremlin.Net.Process.Traversal;
-
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
     public sealed class SerializationTests : QueryExecutionTest, IClassFixture<SerializationTests.SerializationFixture>
     {
-        public sealed class SerializationFixture : SerializationFixture<Bytecode>
+        public sealed class SerializationFixture : GremlinqTestFixture
         {
             public SerializationFixture() : base(g
                 .UseGremlinServer(builder => builder
@@ -22,7 +20,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 
         public SerializationTests(SerializationFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
-            GremlinQueryVerifier.Default,
+            new SerializingVerifier<Bytecode>(),
             testOutputHelper)
         {
 

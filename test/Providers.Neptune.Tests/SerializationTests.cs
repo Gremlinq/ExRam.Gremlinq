@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
 {
     public sealed class SerializationTests : QueryExecutionTest, IClassFixture<SerializationTests.SerializationFixture>
     {
-        public sealed class SerializationFixture : SerializationFixture<Bytecode>
+        public sealed class SerializationFixture : GremlinqTestFixture
         {
             public SerializationFixture() : base(g
                 .UseNeptune(builder => builder
@@ -20,7 +20,7 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
 
         public SerializationTests(SerializationFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
-            GremlinQueryVerifier.Default,
+            new SerializingVerifier<Bytecode>(),
             testOutputHelper)
         {
         }

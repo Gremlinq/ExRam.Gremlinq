@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
 {
     public sealed class ElasticSearchSerializationTests : QueryExecutionTest, IClassFixture<ElasticSearchSerializationTests.ElasticSearchFixture>
     {
-        public sealed class ElasticSearchFixture : SerializationFixture<Bytecode>
+        public sealed class ElasticSearchFixture : GremlinqTestFixture
         {
             public ElasticSearchFixture() : base(g
                 .UseNeptune(builder => builder
@@ -21,7 +21,8 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
         }
 
         public ElasticSearchSerializationTests(ElasticSearchFixture fixture, ITestOutputHelper testOutputHelper) : base(
-            fixture,            GremlinQueryVerifier.Default,
+            fixture,
+            new SerializingVerifier<Bytecode>(),
             testOutputHelper)
         {
         }

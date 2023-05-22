@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
 {
     public sealed class RequestMessageSerializationTests : QueryExecutionTest, IClassFixture<RequestMessageSerializationTests.RequestMessageFixture>
     {
-        public sealed class RequestMessageFixture : SerializationFixture<RequestMessage>
+        public sealed class RequestMessageFixture : GremlinqTestFixture
         {
             public RequestMessageFixture() : base(g
                 .UseNeptune(builder => builder
@@ -20,7 +20,7 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
 
         public RequestMessageSerializationTests(RequestMessageFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
-            GremlinQueryVerifier.Default,
+            new SerializingVerifier<RequestMessage>(),
             testOutputHelper)
         {
         }

@@ -40,7 +40,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 
         public IntegrationTests(Fixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
-            GremlinQueryVerifier.Default,
+            new ExecutingVerifier(),
             testOutputHelper)
         {
             fixture.Create().Wait();

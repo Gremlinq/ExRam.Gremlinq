@@ -5,7 +5,7 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests.Fixtures
 {
-    public sealed class Graphson2StringSerializationFixture : SerializationFixture<string>
+    public sealed class Graphson2StringSerializationFixture : GremlinqTestFixture
     {
         private static readonly GraphSON2Writer Writer = new();
 

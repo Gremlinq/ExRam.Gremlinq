@@ -8,18 +8,9 @@ using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
 {
-    public abstract class ExecutingTestFixture : GremlinqTestFixture
+    public class ExecutingVerifier : GremlinQueryVerifier
     {
         private static readonly Regex IdRegex = new("(\"id\"\\s*[:,]\\s*{\\s*\"@type\"\\s*:\\s*\"g:(Int32|Int64|UUID)\"\\s*,\\s*\"@value\":\\s*)([^\\s{}]+)(\\s*})", RegexOptions.IgnoreCase);
-
-        protected ExecutingTestFixture(IGremlinQuerySource source) : base(source
-            .ConfigureEnvironment(env => env
-                .UseNewtonsoftJson()
-                .ConfigureDeserializer(d => d
-                    .Add(ConverterFactory
-                        .Create<JToken, JToken>((token, env, recurse) => token)))))
-        {
-        }
 
         public override async Task Verify<TElement>(IGremlinQueryBase<TElement> query)
         {
@@ -40,5 +31,17 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
             .Scrubbers()
             .Add(x => IdRegex.Replace(x, "$1-1$4"))
             .ScrubGuids();
+    }
+
+    public abstract class ExecutingTestFixture : GremlinqTestFixture
+    {
+        protected ExecutingTestFixture(IGremlinQuerySource source) : base(source
+            .ConfigureEnvironment(env => env
+                .UseNewtonsoftJson()
+                .ConfigureDeserializer(d => d
+                    .Add(ConverterFactory
+                        .Create<JToken, JToken>((token, env, recurse) => token)))))
+        {
+        }
     }
 }
