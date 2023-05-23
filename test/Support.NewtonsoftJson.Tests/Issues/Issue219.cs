@@ -1,6 +1,6 @@
 ﻿using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Core.Transformation;
+using ExRam.Gremlinq.Tests.Infrastructure;
 using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests

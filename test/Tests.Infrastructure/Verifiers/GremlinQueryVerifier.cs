@@ -1,7 +1,8 @@
 ﻿using System.Collections.Immutable;
 using System.Runtime.CompilerServices;
+using ExRam.Gremlinq.Core;
 
-namespace ExRam.Gremlinq.Core.Tests
+namespace ExRam.Gremlinq.Tests.Infrastructure
 {
     public abstract class GremlinQueryVerifier
     {

@@ -2,7 +2,7 @@
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Tests.Entities;
 using Gremlin.Net.Process.Traversal;
-using ExRam.Gremlinq.Core.Tests.Verifiers;
+using ExRam.Gremlinq.Tests.Infrastructure;
 
 namespace ExRam.Gremlinq.Providers.Neptune.Tests
 {

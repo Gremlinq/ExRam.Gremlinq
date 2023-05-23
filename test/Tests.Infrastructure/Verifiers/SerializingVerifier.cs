@@ -1,7 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
+using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Transformation;
 
-namespace ExRam.Gremlinq.Core.Tests.Verifiers
+namespace ExRam.Gremlinq.Tests.Infrastructure
 {
     public sealed class SerializingVerifier<TSerialized> : GremlinQueryVerifier
     {

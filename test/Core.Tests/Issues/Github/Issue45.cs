@@ -1,4 +1,5 @@
-﻿using static ExRam.Gremlinq.Core.GremlinQuerySource;
+﻿using ExRam.Gremlinq.Tests.Infrastructure;
+using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {

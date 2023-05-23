@@ -7,7 +7,7 @@ using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Core.GraphElements;
 using Path = ExRam.Gremlinq.Core.GraphElements.Path;
-using ExRam.Gremlinq.Core.Tests;
+using ExRam.Gremlinq.Tests.Infrastructure;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
 {
