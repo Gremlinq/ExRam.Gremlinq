@@ -1,24 +1,13 @@
-﻿using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Core.Tests;
+﻿using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Core.Tests.Verifiers;
-using ExRam.Gremlinq.Providers.Core;
+using ExRam.Gremlinq.Providers.GremlinServer.Tests.Fixtures;
 using Gremlin.Net.Driver.Messages;
-using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
-    public sealed class RequestMessageSerializationTests : QueryExecutionTest, IClassFixture<RequestMessageSerializationTests.RequestMessageFixture>
+    public sealed class RequestMessageSerializationTests : QueryExecutionTest, IClassFixture<SimpleGremlinServerFixture>
     {
-        public sealed class RequestMessageFixture : GremlinqTestFixture
-        {
-            public RequestMessageFixture() : base(g
-                .UseGremlinServer(builder => builder
-                    .AtLocalhost()))
-            {
-            }
-        }
-
-        public RequestMessageSerializationTests(RequestMessageFixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public RequestMessageSerializationTests(SimpleGremlinServerFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
             new SerializingVerifier<RequestMessage>(),
             testOutputHelper)

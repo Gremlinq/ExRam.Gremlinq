@@ -1,22 +1,12 @@
-﻿using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Core.Tests;
+﻿using ExRam.Gremlinq.Core.Tests;
+using ExRam.Gremlinq.Providers.GremlinServer.Tests.Fixtures;
 using ExRam.Gremlinq.Support.NewtonsoftJson.Tests;
-using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
-    public sealed class DeserializationTests : QueryExecutionTest, IClassFixture<DeserializationTests.DeserializationFixture>
+    public sealed class DeserializationTests : QueryExecutionTest, IClassFixture<SimpleGremlinServerFixture>
     {
-        public sealed class DeserializationFixture : GremlinqTestFixture
-        {
-            public DeserializationFixture() : base(g
-                .UseGremlinServer(_ => _
-                   .UseNewtonsoftJson()))
-            {
-            }
-        }
-
-        public DeserializationTests(DeserializationFixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public DeserializationTests(SimpleGremlinServerFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
             new DeserializingGremlinqVerifier(testOutputHelper),
             testOutputHelper)
