@@ -6,7 +6,7 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
-    public sealed class IntegrationCosmosDbFixture : GremlinqFixture
+    public sealed class CosmosDbFixture : GremlinqFixture
     {
         private const string CosmosDbEmulatorDatabaseName = "db";
         private const string CosmosDbEmulatorCollectionName = "graph";
@@ -14,7 +14,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 
         private readonly Task _task;
 
-        public IntegrationCosmosDbFixture() : base(g
+        public CosmosDbFixture() : base(g
             .UseCosmosDb(builder => builder
                 .At(new Uri("ws://localhost:8901"), CosmosDbEmulatorDatabaseName, CosmosDbEmulatorCollectionName)
                 .AuthenticateBy(CosmosDbEmulatorAuthKey)

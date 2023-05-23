@@ -4,9 +4,9 @@ using Gremlin.Net.Driver.Messages;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
-    public sealed class RequestMessageSerializationTests : QueryExecutionTest, IClassFixture<SimpleCosmosDbFixture>
+    public sealed class RequestMessageSerializationTests : QueryExecutionTest, IClassFixture<CosmosDbFixture>
     {
-        public RequestMessageSerializationTests(SimpleCosmosDbFixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public RequestMessageSerializationTests(CosmosDbFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
             new SerializingVerifier<RequestMessage>(),
             testOutputHelper)

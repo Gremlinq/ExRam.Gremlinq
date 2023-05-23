@@ -5,9 +5,9 @@ using ExRam.Gremlinq.Tests.Entities;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
-    public sealed class SerializationTests : QueryExecutionTest, IClassFixture<SimpleCosmosDbFixture>
+    public sealed class SerializationTests : QueryExecutionTest, IClassFixture<CosmosDbFixture>
     {
-        public SerializationTests(SimpleCosmosDbFixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public SerializationTests(CosmosDbFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
             new SerializingVerifier<GroovyGremlinQuery>(),
             testOutputHelper)
