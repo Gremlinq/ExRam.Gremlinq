@@ -6,7 +6,7 @@ using Microsoft.Azure.Cosmos;
 using Newtonsoft.Json.Linq;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
-namespace ExRam.Gremlinq.Providers.CosmosDb.Tests.Fixtures
+namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
     public sealed class CosmosDbIntegrationTestFixture : GremlinqTestFixture
     {

@@ -2,12 +2,10 @@
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Providers.Core;
-
 using Newtonsoft.Json.Linq;
-
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
-namespace ExRam.Gremlinq.Providers.GremlinServer.Tests.Fixtures
+namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
     public sealed class GremlinServerIntegrationTestFixture : GremlinqTestFixture
     {
