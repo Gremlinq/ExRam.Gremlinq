@@ -1,57 +1,101 @@
 ﻿[
   {
-    "@type": "g:Int64",
-    "@value": 64
-  },
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  {
-    "@type": "g:Int64",
-    "@value": 7
+    "Result": {
+      "@type": "g:Int64",
+      "@value": 64
+    }
   },
   {
-    "@type": "g:Int64",
-    "@value": 10
+    "Result": "Marko"
   },
   {
-    "@type": "g:Int64",
-    "@value": 15
+    "Result": "Marko"
   },
   {
-    "@type": "g:Int64",
-    "@value": 19
+    "Result": "Marko"
   },
   {
-    "@type": "g:Int64",
-    "@value": 23
+    "Result": "Marko"
   },
   {
-    "@type": "g:Int64",
-    "@value": 29
+    "Result": "Marko"
   },
   {
-    "@type": "g:Int64",
-    "@value": 37
+    "Result": "Marko"
   },
   {
-    "@type": "g:Int64",
-    "@value": 44
+    "Result": "Marko"
   },
   {
-    "@type": "g:Int64",
-    "@value": 58
+    "Result": "Marko"
   },
   {
-    "@type": "g:Int64",
-    "@value": 61
+    "Result": "Marko"
+  },
+  {
+    "Result": "Marko"
+  },
+  {
+    "Result": "Marko"
+  },
+  {
+    "Result": {
+      "@type": "g:Int64",
+      "@value": 7
+    }
+  },
+  {
+    "Result": {
+      "@type": "g:Int64",
+      "@value": 10
+    }
+  },
+  {
+    "Result": {
+      "@type": "g:Int64",
+      "@value": 15
+    }
+  },
+  {
+    "Result": {
+      "@type": "g:Int64",
+      "@value": 19
+    }
+  },
+  {
+    "Result": {
+      "@type": "g:Int64",
+      "@value": 23
+    }
+  },
+  {
+    "Result": {
+      "@type": "g:Int64",
+      "@value": 29
+    }
+  },
+  {
+    "Result": {
+      "@type": "g:Int64",
+      "@value": 37
+    }
+  },
+  {
+    "Result": {
+      "@type": "g:Int64",
+      "@value": 44
+    }
+  },
+  {
+    "Result": {
+      "@type": "g:Int64",
+      "@value": 58
+    }
+  },
+  {
+    "Result": {
+      "@type": "g:Int64",
+      "@value": 61
+    }
   }
 ]

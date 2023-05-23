@@ -1,331 +1,545 @@
 ﻿[
-  "+49",
-  "+49",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
   {
-    "@type": "g:UUID",
-    "@value": "00000000-0000-0000-0000-000000000000"
+    "Result": "+49"
   },
   {
-    "@type": "g:UUID",
-    "@value": "00000000-0000-0000-0000-000000000000"
+    "Result": "+49"
   },
   {
-    "@type": "g:UUID",
-    "@value": "00000000-0000-0000-0000-000000000000"
+    "Result": ""
   },
   {
-    "@type": "g:UUID",
-    "@value": "00000000-0000-0000-0000-000000000000"
+    "Result": ""
   },
   {
-    "@type": "g:UUID",
-    "@value": "00000000-0000-0000-0000-000000000000"
+    "Result": ""
   },
   {
-    "@type": "g:UUID",
-    "@value": "00000000-0000-0000-0000-000000000000"
+    "Result": ""
   },
   {
-    "@type": "g:UUID",
-    "@value": "00000000-0000-0000-0000-000000000000"
+    "Result": ""
   },
   {
-    "@type": "g:UUID",
-    "@value": "00000000-0000-0000-0000-000000000000"
+    "Result": ""
   },
   {
-    "@type": "g:UUID",
-    "@value": "00000000-0000-0000-0000-000000000000"
+    "Result": ""
   },
   {
-    "@type": "g:UUID",
-    "@value": "00000000-0000-0000-0000-000000000000"
+    "Result": {
+      "@type": "g:UUID",
+      "@value": "00000000-0000-0000-0000-000000000000"
+    }
   },
   {
-    "@type": "g:UUID",
-    "@value": "00000000-0000-0000-0000-000000000000"
+    "Result": {
+      "@type": "g:UUID",
+      "@value": "00000000-0000-0000-0000-000000000000"
+    }
   },
   {
-    "@type": "g:Date",
-    "@value": 1586270616000
+    "Result": {
+      "@type": "g:UUID",
+      "@value": "00000000-0000-0000-0000-000000000000"
+    }
   },
   {
-    "@type": "g:Date",
-    "@value": 1586270616000
+    "Result": {
+      "@type": "g:UUID",
+      "@value": "00000000-0000-0000-0000-000000000000"
+    }
   },
   {
-    "@type": "g:Date",
-    "@value": 1586270616000
+    "Result": {
+      "@type": "g:UUID",
+      "@value": "00000000-0000-0000-0000-000000000000"
+    }
   },
   {
-    "@type": "g:Date",
-    "@value": 1586270616000
+    "Result": {
+      "@type": "g:UUID",
+      "@value": "00000000-0000-0000-0000-000000000000"
+    }
   },
   {
-    "@type": "g:Date",
-    "@value": 1586270616000
+    "Result": {
+      "@type": "g:UUID",
+      "@value": "00000000-0000-0000-0000-000000000000"
+    }
   },
   {
-    "@type": "g:Date",
-    "@value": 1586270616000
+    "Result": {
+      "@type": "g:UUID",
+      "@value": "00000000-0000-0000-0000-000000000000"
+    }
   },
   {
-    "@type": "g:Date",
-    "@value": 1586270616000
+    "Result": {
+      "@type": "g:UUID",
+      "@value": "00000000-0000-0000-0000-000000000000"
+    }
   },
   {
-    "@type": "g:Date",
-    "@value": 1586270616000
+    "Result": {
+      "@type": "g:UUID",
+      "@value": "00000000-0000-0000-0000-000000000000"
+    }
   },
   {
-    "@type": "g:Date",
-    "@value": 1586270616000
+    "Result": {
+      "@type": "g:UUID",
+      "@value": "00000000-0000-0000-0000-000000000000"
+    }
   },
   {
-    "@type": "g:Date",
-    "@value": 1586270616000
+    "Result": {
+      "@type": "g:Date",
+      "@value": 1586270616000
+    }
   },
   {
-    "@type": "g:Date",
-    "@value": 1586270616000
+    "Result": {
+      "@type": "g:Date",
+      "@value": 1586270616000
+    }
   },
   {
-    "@type": "g:Int32",
-    "@value": 36
+    "Result": {
+      "@type": "g:Date",
+      "@value": 1586270616000
+    }
   },
   {
-    "@type": "g:Int32",
-    "@value": 36
+    "Result": {
+      "@type": "g:Date",
+      "@value": 1586270616000
+    }
   },
   {
-    "@type": "g:Int32",
-    "@value": 36
+    "Result": {
+      "@type": "g:Date",
+      "@value": 1586270616000
+    }
   },
   {
-    "@type": "g:Int32",
-    "@value": 36
+    "Result": {
+      "@type": "g:Date",
+      "@value": 1586270616000
+    }
   },
   {
-    "@type": "g:Int32",
-    "@value": 36
+    "Result": {
+      "@type": "g:Date",
+      "@value": 1586270616000
+    }
   },
   {
-    "@type": "g:Int32",
-    "@value": 36
+    "Result": {
+      "@type": "g:Date",
+      "@value": 1586270616000
+    }
   },
   {
-    "@type": "g:Int32",
-    "@value": 36
+    "Result": {
+      "@type": "g:Date",
+      "@value": 1586270616000
+    }
   },
   {
-    "@type": "g:Int32",
-    "@value": 36
+    "Result": {
+      "@type": "g:Date",
+      "@value": 1586270616000
+    }
   },
   {
-    "@type": "g:Int32",
-    "@value": 36
+    "Result": {
+      "@type": "g:Date",
+      "@value": 1586270616000
+    }
   },
   {
-    "@type": "g:Int32",
-    "@value": 36
+    "Result": {
+      "@type": "g:Int32",
+      "@value": 36
+    }
   },
   {
-    "@type": "g:Int32",
-    "@value": 36
+    "Result": {
+      "@type": "g:Int32",
+      "@value": 36
+    }
   },
   {
-    "@type": "g:Int32",
-    "@value": 36
+    "Result": {
+      "@type": "g:Int32",
+      "@value": 36
+    }
   },
   {
-    "@type": "g:Int32",
-    "@value": 36
+    "Result": {
+      "@type": "g:Int32",
+      "@value": 36
+    }
   },
   {
-    "@type": "g:Int32",
-    "@value": 36
+    "Result": {
+      "@type": "g:Int32",
+      "@value": 36
+    }
   },
   {
-    "@type": "g:Int32",
-    "@value": 36
+    "Result": {
+      "@type": "g:Int32",
+      "@value": 36
+    }
   },
   {
-    "@type": "g:Int32",
-    "@value": 36
+    "Result": {
+      "@type": "g:Int32",
+      "@value": 36
+    }
   },
   {
-    "@type": "g:Int32",
-    "@value": 36
+    "Result": {
+      "@type": "g:Int32",
+      "@value": 36
+    }
   },
   {
-    "@type": "g:Int32",
-    "@value": 36
+    "Result": {
+      "@type": "g:Int32",
+      "@value": 36
+    }
   },
   {
-    "@type": "g:Int32",
-    "@value": 36
+    "Result": {
+      "@type": "g:Int32",
+      "@value": 36
+    }
   },
   {
-    "@type": "g:Int32",
-    "@value": 36
+    "Result": {
+      "@type": "g:Int32",
+      "@value": 36
+    }
   },
   {
-    "@type": "g:Int32",
-    "@value": 36
+    "Result": {
+      "@type": "g:Int32",
+      "@value": 36
+    }
   },
   {
-    "@type": "g:Int32",
-    "@value": 36
+    "Result": {
+      "@type": "g:Int32",
+      "@value": 36
+    }
   },
   {
-    "@type": "g:Int32",
-    "@value": 0
+    "Result": {
+      "@type": "g:Int32",
+      "@value": 36
+    }
   },
   {
-    "@type": "g:Int32",
-    "@value": 0
+    "Result": {
+      "@type": "g:Int32",
+      "@value": 36
+    }
   },
   {
-    "@type": "g:Int32",
-    "@value": 0
+    "Result": {
+      "@type": "g:Int32",
+      "@value": 36
+    }
   },
   {
-    "@type": "g:Int32",
-    "@value": 0
+    "Result": {
+      "@type": "g:Int32",
+      "@value": 36
+    }
   },
   {
-    "@type": "g:Int32",
-    "@value": 0
+    "Result": {
+      "@type": "g:Int32",
+      "@value": 36
+    }
   },
   {
-    "@type": "g:Int32",
-    "@value": 0
+    "Result": {
+      "@type": "g:Int32",
+      "@value": 36
+    }
   },
   {
-    "@type": "g:Int32",
-    "@value": 0
+    "Result": {
+      "@type": "g:Int32",
+      "@value": 36
+    }
   },
   {
-    "@type": "g:Int32",
-    "@value": 0
+    "Result": {
+      "@type": "g:Int32",
+      "@value": 36
+    }
   },
   {
-    "@type": "g:Int32",
-    "@value": 0
+    "Result": {
+      "@type": "g:Int32",
+      "@value": 36
+    }
   },
   {
-    "@type": "g:Int32",
-    "@value": 0
+    "Result": {
+      "@type": "g:Int32",
+      "@value": 0
+    }
   },
   {
-    "@type": "g:Int32",
-    "@value": 0
+    "Result": {
+      "@type": "g:Int32",
+      "@value": 0
+    }
   },
   {
-    "@type": "g:Int32",
-    "@value": 21
+    "Result": {
+      "@type": "g:Int32",
+      "@value": 0
+    }
   },
   {
-    "@type": "g:Int32",
-    "@value": 21
+    "Result": {
+      "@type": "g:Int32",
+      "@value": 0
+    }
   },
   {
-    "@type": "g:Int32",
-    "@value": 21
+    "Result": {
+      "@type": "g:Int32",
+      "@value": 0
+    }
   },
   {
-    "@type": "g:Int32",
-    "@value": 21
+    "Result": {
+      "@type": "g:Int32",
+      "@value": 0
+    }
   },
   {
-    "@type": "g:Int32",
-    "@value": 21
+    "Result": {
+      "@type": "g:Int32",
+      "@value": 0
+    }
   },
   {
-    "@type": "g:Int32",
-    "@value": 21
+    "Result": {
+      "@type": "g:Int32",
+      "@value": 0
+    }
   },
   {
-    "@type": "g:Int32",
-    "@value": 21
+    "Result": {
+      "@type": "g:Int32",
+      "@value": 0
+    }
   },
   {
-    "@type": "g:Int32",
-    "@value": 21
+    "Result": {
+      "@type": "g:Int32",
+      "@value": 0
+    }
   },
   {
-    "@type": "g:Int32",
-    "@value": 21
+    "Result": {
+      "@type": "g:Int32",
+      "@value": 0
+    }
   },
   {
-    "@type": "g:Int32",
-    "@value": 21
+    "Result": {
+      "@type": "g:Int32",
+      "@value": 21
+    }
   },
   {
-    "@type": "g:Int32",
-    "@value": 21
+    "Result": {
+      "@type": "g:Int32",
+      "@value": 21
+    }
   },
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "en",
-  "en",
-  "en",
-  "en",
-  "en",
-  "en",
-  "en",
   {
-    "@type": "g:Date",
-    "@value": -62135596800000
+    "Result": {
+      "@type": "g:Int32",
+      "@value": 21
+    }
   },
   {
-    "@type": "g:Date",
-    "@value": -62135596800000
+    "Result": {
+      "@type": "g:Int32",
+      "@value": 21
+    }
   },
   {
-    "@type": "g:Date",
-    "@value": -62135596800000
+    "Result": {
+      "@type": "g:Int32",
+      "@value": 21
+    }
   },
   {
-    "@type": "g:Date",
-    "@value": -62135596800000
+    "Result": {
+      "@type": "g:Int32",
+      "@value": 21
+    }
   },
   {
-    "@type": "g:Date",
-    "@value": -62135596800000
+    "Result": {
+      "@type": "g:Int32",
+      "@value": 21
+    }
   },
-  "Aachen",
-  "GER",
-  "GER",
-  "+4912345",
-  "+4923456",
   {
-    "@type": "gx:Duration",
-    "@value": "PT8H"
+    "Result": {
+      "@type": "g:Int32",
+      "@value": 21
+    }
   },
-  false,
   {
-    "@type": "gx:Duration",
-    "@value": "PT2H"
+    "Result": {
+      "@type": "g:Int32",
+      "@value": 21
+    }
   },
   {
-    "@type": "gx:ByteBuffer",
-    "@value": "AQIDBAUGBwg="
+    "Result": {
+      "@type": "g:Int32",
+      "@value": 21
+    }
+  },
+  {
+    "Result": {
+      "@type": "g:Int32",
+      "@value": 21
+    }
+  },
+  {
+    "Result": "Marko"
+  },
+  {
+    "Result": "Marko"
+  },
+  {
+    "Result": "Marko"
+  },
+  {
+    "Result": "Marko"
+  },
+  {
+    "Result": "Marko"
+  },
+  {
+    "Result": "Marko"
+  },
+  {
+    "Result": "Marko"
+  },
+  {
+    "Result": "Marko"
+  },
+  {
+    "Result": "Marko"
+  },
+  {
+    "Result": "Marko"
+  },
+  {
+    "Result": "Marko"
+  },
+  {
+    "Result": "en"
+  },
+  {
+    "Result": "en"
+  },
+  {
+    "Result": "en"
+  },
+  {
+    "Result": "en"
+  },
+  {
+    "Result": "en"
+  },
+  {
+    "Result": "en"
+  },
+  {
+    "Result": "en"
+  },
+  {
+    "Result": {
+      "@type": "g:Date",
+      "@value": -62135596800000
+    }
+  },
+  {
+    "Result": {
+      "@type": "g:Date",
+      "@value": -62135596800000
+    }
+  },
+  {
+    "Result": {
+      "@type": "g:Date",
+      "@value": -62135596800000
+    }
+  },
+  {
+    "Result": {
+      "@type": "g:Date",
+      "@value": -62135596800000
+    }
+  },
+  {
+    "Result": {
+      "@type": "g:Date",
+      "@value": -62135596800000
+    }
+  },
+  {
+    "Result": "Aachen"
+  },
+  {
+    "Result": "GER"
+  },
+  {
+    "Result": "GER"
+  },
+  {
+    "Result": "+4912345"
+  },
+  {
+    "Result": "+4923456"
+  },
+  {
+    "Result": {
+      "@type": "gx:Duration",
+      "@value": "PT8H"
+    }
+  },
+  {
+    "Result": false
+  },
+  {
+    "Result": {
+      "@type": "gx:Duration",
+      "@value": "PT2H"
+    }
+  },
+  {
+    "Result": {
+      "@type": "gx:ByteBuffer",
+      "@value": "AQIDBAUGBwg="
+    }
   }
 ]

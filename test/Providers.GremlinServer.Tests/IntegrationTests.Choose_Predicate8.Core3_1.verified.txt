@@ -1,36 +1,104 @@
 ﻿[
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  true
+  {
+    "Result": false
+  },
+  {
+    "Result": false
+  },
+  {
+    "Result": false
+  },
+  {
+    "Result": false
+  },
+  {
+    "Result": false
+  },
+  {
+    "Result": false
+  },
+  {
+    "Result": false
+  },
+  {
+    "Result": false
+  },
+  {
+    "Result": false
+  },
+  {
+    "Result": false
+  },
+  {
+    "Result": false
+  },
+  {
+    "Result": false
+  },
+  {
+    "Result": false
+  },
+  {
+    "Result": false
+  },
+  {
+    "Result": false
+  },
+  {
+    "Result": false
+  },
+  {
+    "Result": false
+  },
+  {
+    "Result": false
+  },
+  {
+    "Result": false
+  },
+  {
+    "Result": false
+  },
+  {
+    "Result": false
+  },
+  {
+    "Result": false
+  },
+  {
+    "Result": false
+  },
+  {
+    "Result": false
+  },
+  {
+    "Result": false
+  },
+  {
+    "Result": false
+  },
+  {
+    "Result": false
+  },
+  {
+    "Result": false
+  },
+  {
+    "Result": false
+  },
+  {
+    "Result": false
+  },
+  {
+    "Result": false
+  },
+  {
+    "Result": false
+  },
+  {
+    "Result": false
+  },
+  {
+    "Result": true
+  }
 ]

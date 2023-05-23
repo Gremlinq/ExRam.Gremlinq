@@ -1,13 +1,35 @@
 ﻿[
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko",
-  "Marko"
+  {
+    "Result": "Marko"
+  },
+  {
+    "Result": "Marko"
+  },
+  {
+    "Result": "Marko"
+  },
+  {
+    "Result": "Marko"
+  },
+  {
+    "Result": "Marko"
+  },
+  {
+    "Result": "Marko"
+  },
+  {
+    "Result": "Marko"
+  },
+  {
+    "Result": "Marko"
+  },
+  {
+    "Result": "Marko"
+  },
+  {
+    "Result": "Marko"
+  },
+  {
+    "Result": "Marko"
+  }
 ]

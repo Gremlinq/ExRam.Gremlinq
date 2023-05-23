@@ -1,6 +1,8 @@
 ﻿[
   {
-    "@type": "g:List",
-    "@value": []
+    "Result": {
+      "@type": "g:List",
+      "@value": []
+    }
   }
 ]

@@ -1,16 +1,20 @@
 ﻿[
   {
-    "@type": "g:Property",
-    "@value": {
-      "key": "de",
-      "value": "Deutschland"
+    "Result": {
+      "@type": "g:Property",
+      "@value": {
+        "key": "de",
+        "value": "Deutschland"
+      }
     }
   },
   {
-    "@type": "g:Property",
-    "@value": {
-      "key": "en",
-      "value": "Germany"
+    "Result": {
+      "@type": "g:Property",
+      "@value": {
+        "key": "en",
+        "value": "Germany"
+      }
     }
   }
 ]

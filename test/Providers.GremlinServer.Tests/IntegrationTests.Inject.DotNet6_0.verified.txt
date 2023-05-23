@@ -1,14 +1,20 @@
 ﻿[
   {
-    "@type": "g:Int32",
-    "@value": 36
+    "Result": {
+      "@type": "g:Int32",
+      "@value": 36
+    }
   },
   {
-    "@type": "g:Int32",
-    "@value": 37
+    "Result": {
+      "@type": "g:Int32",
+      "@value": 37
+    }
   },
   {
-    "@type": "g:Int32",
-    "@value": 38
+    "Result": {
+      "@type": "g:Int32",
+      "@value": 38
+    }
   }
 ]

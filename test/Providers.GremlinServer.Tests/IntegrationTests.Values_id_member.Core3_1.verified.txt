@@ -1,46 +1,68 @@
 ﻿[
   {
-    "@type": "g:Int64",
-    "@value": 64
+    "Result": {
+      "@type": "g:Int64",
+      "@value": 64
+    }
   },
   {
-    "@type": "g:Int64",
-    "@value": 7
+    "Result": {
+      "@type": "g:Int64",
+      "@value": 7
+    }
   },
   {
-    "@type": "g:Int64",
-    "@value": 10
+    "Result": {
+      "@type": "g:Int64",
+      "@value": 10
+    }
   },
   {
-    "@type": "g:Int64",
-    "@value": 15
+    "Result": {
+      "@type": "g:Int64",
+      "@value": 15
+    }
   },
   {
-    "@type": "g:Int64",
-    "@value": 19
+    "Result": {
+      "@type": "g:Int64",
+      "@value": 19
+    }
   },
   {
-    "@type": "g:Int64",
-    "@value": 23
+    "Result": {
+      "@type": "g:Int64",
+      "@value": 23
+    }
   },
   {
-    "@type": "g:Int64",
-    "@value": 29
+    "Result": {
+      "@type": "g:Int64",
+      "@value": 29
+    }
   },
   {
-    "@type": "g:Int64",
-    "@value": 37
+    "Result": {
+      "@type": "g:Int64",
+      "@value": 37
+    }
   },
   {
-    "@type": "g:Int64",
-    "@value": 44
+    "Result": {
+      "@type": "g:Int64",
+      "@value": 44
+    }
   },
   {
-    "@type": "g:Int64",
-    "@value": 58
+    "Result": {
+      "@type": "g:Int64",
+      "@value": 58
+    }
   },
   {
-    "@type": "g:Int64",
-    "@value": 61
+    "Result": {
+      "@type": "g:Int64",
+      "@value": 61
+    }
   }
 ]

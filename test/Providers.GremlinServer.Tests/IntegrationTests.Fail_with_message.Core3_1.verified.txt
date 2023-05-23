@@ -1,8 +1,1 @@
-﻿[
-  {
-    "serverException": {
-      "type": "ResponseException",
-      "message": "ServerErrorFailStep: There's been an error."
-    }
-  }
-]
+﻿[]

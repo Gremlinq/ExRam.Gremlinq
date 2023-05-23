@@ -1,4 +1,8 @@
 ﻿[
-  "de",
-  "en"
+  {
+    "Result": "de"
+  },
+  {
+    "Result": "en"
+  }
 ]

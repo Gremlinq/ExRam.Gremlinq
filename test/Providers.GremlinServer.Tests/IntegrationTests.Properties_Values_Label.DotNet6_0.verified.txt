@@ -1,42 +1,122 @@
 ﻿[
-  "CountryCallingCode",
-  "CountryCallingCode",
-  "RegistrationDate",
-  "RegistrationDate",
-  "RegistrationDate",
-  "Name",
-  "Name",
-  "Name",
-  "Name",
-  "Name",
-  "IetfLanguageTag",
-  "IetfLanguageTag",
-  "IetfLanguageTag",
-  "IetfLanguageTag",
-  "IetfLanguageTag",
-  "IetfLanguageTag",
-  "FoundingDate",
-  "FoundingDate",
-  "FoundingDate",
-  "FoundingDate",
-  "FoundingDate",
-  "Locations",
-  "Age",
-  "Age",
-  "Age",
-  "Age",
-  "Age",
-  "Age",
-  "Age",
-  "Age",
-  "Age",
-  "Age",
-  "PhoneNumbers",
-  "PhoneNumbers",
-  "lang",
-  "StartTime",
-  "Enabled",
-  "Duration",
-  "Image",
-  "Gender"
+  {
+    "Result": "CountryCallingCode"
+  },
+  {
+    "Result": "CountryCallingCode"
+  },
+  {
+    "Result": "RegistrationDate"
+  },
+  {
+    "Result": "RegistrationDate"
+  },
+  {
+    "Result": "RegistrationDate"
+  },
+  {
+    "Result": "Name"
+  },
+  {
+    "Result": "Name"
+  },
+  {
+    "Result": "Name"
+  },
+  {
+    "Result": "Name"
+  },
+  {
+    "Result": "Name"
+  },
+  {
+    "Result": "IetfLanguageTag"
+  },
+  {
+    "Result": "IetfLanguageTag"
+  },
+  {
+    "Result": "IetfLanguageTag"
+  },
+  {
+    "Result": "IetfLanguageTag"
+  },
+  {
+    "Result": "IetfLanguageTag"
+  },
+  {
+    "Result": "IetfLanguageTag"
+  },
+  {
+    "Result": "FoundingDate"
+  },
+  {
+    "Result": "FoundingDate"
+  },
+  {
+    "Result": "FoundingDate"
+  },
+  {
+    "Result": "FoundingDate"
+  },
+  {
+    "Result": "FoundingDate"
+  },
+  {
+    "Result": "Locations"
+  },
+  {
+    "Result": "Age"
+  },
+  {
+    "Result": "Age"
+  },
+  {
+    "Result": "Age"
+  },
+  {
+    "Result": "Age"
+  },
+  {
+    "Result": "Age"
+  },
+  {
+    "Result": "Age"
+  },
+  {
+    "Result": "Age"
+  },
+  {
+    "Result": "Age"
+  },
+  {
+    "Result": "Age"
+  },
+  {
+    "Result": "Age"
+  },
+  {
+    "Result": "PhoneNumbers"
+  },
+  {
+    "Result": "PhoneNumbers"
+  },
+  {
+    "Result": "lang"
+  },
+  {
+    "Result": "StartTime"
+  },
+  {
+    "Result": "Enabled"
+  },
+  {
+    "Result": "Duration"
+  },
+  {
+    "Result": "Image"
+  },
+  {
+    "Result": "Gender"
+  }
 ]

@@ -1,6 +1,8 @@
 ﻿[
   {
-    "@type": "g:Double",
-    "@value": 0.0
+    "Result": {
+      "@type": "g:Double",
+      "@value": 0.0
+    }
   }
 ]

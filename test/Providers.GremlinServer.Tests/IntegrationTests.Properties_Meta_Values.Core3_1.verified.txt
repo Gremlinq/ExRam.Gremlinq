@@ -1,8 +1,14 @@
 ﻿[
   {
-    "@type": "g:Date",
-    "@value": 1546304400000
+    "Result": {
+      "@type": "g:Date",
+      "@value": 1546304400000
+    }
   },
-  "Deutschland",
-  "Germany"
+  {
+    "Result": "Deutschland"
+  },
+  {
+    "Result": "Germany"
+  }
 ]

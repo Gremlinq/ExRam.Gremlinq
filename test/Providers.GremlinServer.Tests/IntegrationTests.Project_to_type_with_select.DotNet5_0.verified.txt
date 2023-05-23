@@ -1,101 +1,123 @@
 ﻿[
   {
-    "@type": "g:Map",
-    "@value": [
-      "In",
-      "in_value",
-      "Out",
-      "out_value"
-    ]
+    "Result": {
+      "@type": "g:Map",
+      "@value": [
+        "In",
+        "in_value",
+        "Out",
+        "out_value"
+      ]
+    }
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "In",
-      "in_value",
-      "Out",
-      "out_value"
-    ]
+    "Result": {
+      "@type": "g:Map",
+      "@value": [
+        "In",
+        "in_value",
+        "Out",
+        "out_value"
+      ]
+    }
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "In",
-      "in_value",
-      "Out",
-      "out_value"
-    ]
+    "Result": {
+      "@type": "g:Map",
+      "@value": [
+        "In",
+        "in_value",
+        "Out",
+        "out_value"
+      ]
+    }
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "In",
-      "in_value",
-      "Out",
-      "out_value"
-    ]
+    "Result": {
+      "@type": "g:Map",
+      "@value": [
+        "In",
+        "in_value",
+        "Out",
+        "out_value"
+      ]
+    }
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "In",
-      "in_value",
-      "Out",
-      "out_value"
-    ]
+    "Result": {
+      "@type": "g:Map",
+      "@value": [
+        "In",
+        "in_value",
+        "Out",
+        "out_value"
+      ]
+    }
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "In",
-      "in_value",
-      "Out",
-      "out_value"
-    ]
+    "Result": {
+      "@type": "g:Map",
+      "@value": [
+        "In",
+        "in_value",
+        "Out",
+        "out_value"
+      ]
+    }
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "In",
-      "in_value",
-      "Out",
-      "out_value"
-    ]
+    "Result": {
+      "@type": "g:Map",
+      "@value": [
+        "In",
+        "in_value",
+        "Out",
+        "out_value"
+      ]
+    }
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "In",
-      "in_value",
-      "Out",
-      "out_value"
-    ]
+    "Result": {
+      "@type": "g:Map",
+      "@value": [
+        "In",
+        "in_value",
+        "Out",
+        "out_value"
+      ]
+    }
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "In",
-      "in_value",
-      "Out",
-      "out_value"
-    ]
+    "Result": {
+      "@type": "g:Map",
+      "@value": [
+        "In",
+        "in_value",
+        "Out",
+        "out_value"
+      ]
+    }
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "In",
-      "in_value",
-      "Out",
-      "out_value"
-    ]
+    "Result": {
+      "@type": "g:Map",
+      "@value": [
+        "In",
+        "in_value",
+        "Out",
+        "out_value"
+      ]
+    }
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "In",
-      "in_value",
-      "Out",
-      "out_value"
-    ]
+    "Result": {
+      "@type": "g:Map",
+      "@value": [
+        "In",
+        "in_value",
+        "Out",
+        "out_value"
+      ]
+    }
   }
 ]
