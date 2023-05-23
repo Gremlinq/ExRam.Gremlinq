@@ -1,26 +1,14 @@
 ﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Tests.Entities;
-using ExRam.Gremlinq.Providers.Core;
-using static ExRam.Gremlinq.Core.GremlinQuerySource;
 using Gremlin.Net.Process.Traversal;
 using ExRam.Gremlinq.Core.Tests.Verifiers;
 
 namespace ExRam.Gremlinq.Providers.Neptune.Tests
 {
-    public sealed class ElasticSearchSerializationTests : QueryExecutionTest, IClassFixture<ElasticSearchSerializationTests.ElasticSearchFixture>
+    public sealed class ElasticSearchSerializationTests : QueryExecutionTest, IClassFixture<ElasticSearchNeptuneFixture>
     {
-        public sealed class ElasticSearchFixture : GremlinqTestFixture
-        {
-            public ElasticSearchFixture() : base(g
-                .UseNeptune(builder => builder
-                    .AtLocalhost()
-                    .UseElasticSearch(new Uri("http://elastic.search.server"))))
-            {
-            }
-        }
-
-        public ElasticSearchSerializationTests(ElasticSearchFixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public ElasticSearchSerializationTests(ElasticSearchNeptuneFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
             new SerializingVerifier<Bytecode>(),
             testOutputHelper)
