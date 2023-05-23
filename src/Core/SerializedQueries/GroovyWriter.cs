@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 using System.Text;
 using ExRam.Gremlinq.Core.Serialization;
 using Gremlin.Net.Process.Traversal;
