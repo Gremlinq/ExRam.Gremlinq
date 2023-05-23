@@ -1,1 +1,1 @@
-﻿g.addV('Language').property(single,'IetfLanguageTag','en')
+﻿g.addV('Language').property('PartitionKey','PartitionKey').property(single,'IetfLanguageTag','en')
