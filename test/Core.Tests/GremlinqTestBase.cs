@@ -12,6 +12,7 @@
         }
 
         public GremlinQueryVerifier Verifier { get; }
+
         public static GremlinqTestBase Current { get => CurrentTestBase.Value ?? throw new InvalidOperationException(); }
     }
 }
