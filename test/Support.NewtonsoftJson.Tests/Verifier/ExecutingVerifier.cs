@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
+using ExRam.Gremlinq.Core.Transformation;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -20,7 +21,14 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests.Verifier
         {
             var serialized = JsonConvert.SerializeObject(
                 await query
-                    .Cast<JToken>()
+                    .AsAdmin()
+                    .ChangeQueryType<IGremlinQuerySource>()
+                    .ConfigureEnvironment(env => env
+                        .ConfigureDeserializer(d => d
+                            .Add(ConverterFactory
+                                .Create<JToken, JToken>((token, env, recurse) => token))))
+                    .AsAdmin()
+                    .ChangeQueryType<IGremlinQueryBase<JToken>>()
                     .ToArrayAsync(),
                 Formatting.Indented);
 

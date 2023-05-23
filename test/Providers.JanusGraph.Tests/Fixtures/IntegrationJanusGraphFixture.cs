@@ -13,10 +13,6 @@ namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
             .UseJanusGraph(builder => builder
                 .At(new Uri("ws://localhost:8183"))
                 .UseNewtonsoftJson())
-            .ConfigureEnvironment(env => env
-                .ConfigureDeserializer(d => d
-                    .Add(ConverterFactory
-                        .Create<JToken, JToken>((token, env, recurse) => token))))
             .ConfigureEnvironment(environment => environment
                 .ConfigureExecutor(_ => _
                     .IgnoreResults())))
