@@ -1,10 +1,11 @@
 ﻿using ExRam.Gremlinq.Core.Tests;
+using ExRam.Gremlinq.Providers.CosmosDb.Tests.Fixtures;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
-    public sealed class DebugTests : QueryExecutionTest, IClassFixture<CosmosDbFixture>
+    public sealed class DebugTests : QueryExecutionTest, IClassFixture<SimpleCosmosDbFixture>
     {
-        public DebugTests(CosmosDbFixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public DebugTests(SimpleCosmosDbFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
             new DebugGremlinQueryVerifier(),
             testOutputHelper)

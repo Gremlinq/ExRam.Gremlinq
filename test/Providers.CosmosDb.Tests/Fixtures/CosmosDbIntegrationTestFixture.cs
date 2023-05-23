@@ -4,14 +4,16 @@ using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Providers.CosmosDb.Tests.Extensions;
 using Microsoft.Azure.Cosmos;
 using Newtonsoft.Json.Linq;
+using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
-namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
+namespace ExRam.Gremlinq.Providers.CosmosDb.Tests.Fixtures
 {
-    public sealed class CosmosDbFixture : GremlinqTestFixture
+
+    public sealed class CosmosDbIntegrationTestFixture : GremlinqTestFixture
     {
         private readonly Task _task;
 
-        public CosmosDbFixture() : base(Gremlinq.Core.GremlinQuerySource.g
+        public CosmosDbIntegrationTestFixture() : base(g
             .UseCosmosDb(builder => builder
                 .At(new Uri("ws://localhost:8901"), "db", "graph")
                 .AuthenticateBy(
