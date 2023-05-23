@@ -6,7 +6,7 @@ using ExRam.Gremlinq.Support.NewtonsoftJson.Tests.Verifier;
 
 namespace ExRam.Gremlinq.Providers.Neptune.Tests
 {
-    public sealed class IntegrationTests : QueryExecutionTest, IClassFixture<IntegrationTestNeptuneFixture>
+    public sealed class IntegrationTests : QueryExecutionTest, IClassFixture<NeptuneFixture>
     {
         public new sealed class Verifier : ExecutingVerifier
         {
@@ -21,7 +21,7 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
                 .Add(x => IdRegex1.Replace(x, "\"scrubbed id\""));
         }
 
-        public IntegrationTests(IntegrationTestNeptuneFixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public IntegrationTests(NeptuneFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
             new Verifier(),
             testOutputHelper)
