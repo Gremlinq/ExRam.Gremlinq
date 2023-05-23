@@ -5,6 +5,7 @@
     <None Remove="*.received.txt" />
     <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.34.0" />
     <ProjectReference Include="..\..\src\Providers.CosmosDb.AspNet\ExRam.Gremlinq.Providers.CosmosDb.AspNet.csproj" />
+    <ProjectReference Include="..\Core.Tests\ExRam.Gremlinq.Core.Tests.csproj" />
     <ProjectReference Include="..\Support.NewtonsoftJson.Tests\ExRam.Gremlinq.Support.NewtonsoftJson.Tests.csproj" />
   </ItemGroup>
 

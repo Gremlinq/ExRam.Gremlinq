@@ -4,6 +4,7 @@
     <None Remove="*.verified.txt" />
     <None Remove="*.received.txt" />
     <ProjectReference Include="..\..\src\Providers.JanusGraph.AspNet\ExRam.Gremlinq.Providers.JanusGraph.AspNet.csproj" />
+    <ProjectReference Include="..\Core.Tests\ExRam.Gremlinq.Core.Tests.csproj" />
     <ProjectReference Include="..\Support.NewtonsoftJson.Tests\ExRam.Gremlinq.Support.NewtonsoftJson.Tests.csproj" />
   </ItemGroup>
 
