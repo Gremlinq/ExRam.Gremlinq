@@ -1,9 +1,7 @@
 ﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
-using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Providers.CosmosDb.Tests.Extensions;
 using Microsoft.Azure.Cosmos;
-using Newtonsoft.Json.Linq;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
@@ -22,10 +20,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .AuthenticateBy(CosmosDbEmulatorAuthKey)
                 .UseNewtonsoftJson())
             .ConfigureEnvironment(env => env
-                .AddFakePartitionKey()
-                .ConfigureDeserializer(d => d
-                    .Add(ConverterFactory
-                        .Create<JToken, JToken>((token, env, recurse) => token)))))
+                .AddFakePartitionKey()))
         {
             _task = Task.Run(
                 async () =>

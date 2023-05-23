@@ -12,10 +12,6 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
         public IntegrationTestNeptuneFixture() : base(Gremlinq.Core.GremlinQuerySource.g
             .UseNeptune(builder => builder
                 .AtLocalhost())
-            .ConfigureEnvironment(env => env
-                .ConfigureDeserializer(d => d
-                    .Add(ConverterFactory
-                        .Create<JToken, JToken>((token, env, recurse) => token))))
             .ConfigureEnvironment(environment => environment
                 .ConfigureExecutor(_ => _
                     .IgnoreResults())))
