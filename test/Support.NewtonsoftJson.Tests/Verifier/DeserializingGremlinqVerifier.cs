@@ -16,8 +16,8 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
             try
             {
                 if (JsonConvert.DeserializeObject<JArray>(File.ReadAllText(Path.Combine(context.SourceDirectory, "IntegrationTests" + "." + context.MethodName + "." + Namer.RuntimeAndVersion + ".verified.txt"))) is { } jArray)
-                    await GremlinqTestBase.Current
-                        .Verify(jArray
+                    await base
+                        .InnerVerify(jArray
                             .Where(obj => !(obj is JObject jObject && jObject.ContainsKey("serverException")))
                             .Select(token => environment
                                 .Deserializer

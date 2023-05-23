@@ -24,7 +24,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
                 .Scrubbers()
                 .Aggregate(serialized, (s, func) => func(s));
 
-            await GremlinqTestBase.Current.Verify(scrubbed);
+            await InnerVerify(scrubbed);
         }
 
         protected override IImmutableList<Func<string, string>> Scrubbers() => base

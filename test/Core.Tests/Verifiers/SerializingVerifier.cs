@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq.Core.Tests.Verifiers
         {
             var env = query.AsAdmin().Environment;
 
-            return GremlinqTestBase.Current.Verify(env
+            return InnerVerify(env
                 .Serializer
                 .TransformTo<TSerialized>()
                 .From(query, env));
