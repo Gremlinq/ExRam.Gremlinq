@@ -1,7 +1,7 @@
-﻿using ExRam.Gremlinq.Core;
+﻿using System.Runtime.CompilerServices;
+using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Support.NewtonsoftJson.Tests;
-
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
@@ -10,6 +10,10 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
     {
         public new sealed class Verifier : DeserializingGremlinqVerifier
         {
+            public Verifier([CallerFilePath] string sourceFile = "") : base(sourceFile)
+            {
+            }
+
             public override Task Verify<TElement>(IGremlinQueryBase<TElement> query) => base.Verify(query.Cast<object>());
         }
 

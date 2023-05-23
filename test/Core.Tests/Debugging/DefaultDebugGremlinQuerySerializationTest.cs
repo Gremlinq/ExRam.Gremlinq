@@ -4,7 +4,7 @@
     {
         public DefaultDebugGremlinQuerySerializationTest(ITestOutputHelper testOutputHelper) : base(
             GremlinqTestFixture.Empty,
-            GremlinQueryVerifier.Default,
+            new DebugGremlinQueryVerifier(),
             testOutputHelper)
         {
         }

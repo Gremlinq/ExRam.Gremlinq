@@ -4,7 +4,7 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public class Issue37 : GremlinqTestBase
+    public sealed class Issue37 : GremlinqTestBase
     {
         public class VertexBase
         {
@@ -30,7 +30,7 @@ namespace ExRam.Gremlinq.Core.Tests
             public override string PartitionKey { get; set; } = "MyKey";
         }
 
-        public Issue37(ITestOutputHelper testOutputHelper) : base(GremlinqTestFixture.Empty, GremlinQueryVerifier.Default, testOutputHelper)
+        public Issue37(ITestOutputHelper testOutputHelper) : base(GremlinqTestFixture.Empty, new DebugGremlinQueryVerifier(), testOutputHelper)
         {
 
         }

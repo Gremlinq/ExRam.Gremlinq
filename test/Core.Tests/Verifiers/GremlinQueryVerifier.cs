@@ -1,19 +1,34 @@
 ﻿using System.Collections.Immutable;
+using System.Runtime.CompilerServices;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
     public abstract class GremlinQueryVerifier
     {
-        public sealed class DefaultGremlinQueryVerifier : GremlinQueryVerifier
+        private static readonly VerifySettings Settings = new();
+
+        private readonly string _sourceFile;
+
+        static GremlinQueryVerifier()
         {
-            public override Task Verify<TElement>(IGremlinQueryBase<TElement> query) => InnerVerify(query.Debug());
+            Settings.UniqueForTargetFrameworkAndVersion();
+
+#if DEBUG
+            Settings.AutoVerify();
+#endif
         }
 
-        public static readonly GremlinQueryVerifier Default = new DefaultGremlinQueryVerifier();
+        protected GremlinQueryVerifier([CallerFilePath] string sourceFile = "")
+        {
+            _sourceFile = sourceFile;
+        }
 
         public abstract Task Verify<TElement>(IGremlinQueryBase<TElement> query);
 
-        protected SettingsTask InnerVerify<T>(T value) => GremlinqTestBase.Current.Verify(value);
+        protected SettingsTask InnerVerify<T>(T value)
+        {
+            return Verifier.Verify(value, Settings, _sourceFile);
+        }
 
         protected virtual IImmutableList<Func<string, string>> Scrubbers() => ImmutableList<Func<string, string>>.Empty;
     }
