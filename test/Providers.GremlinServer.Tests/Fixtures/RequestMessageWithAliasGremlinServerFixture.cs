@@ -5,9 +5,9 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
-    public sealed class RequestMessageWithAliasFixture : GremlinqTestFixture
+    public sealed class RequestMessageWithAliasGremlinServerFixture : GremlinqTestFixture
     {
-        public RequestMessageWithAliasFixture() : base(g
+        public RequestMessageWithAliasGremlinServerFixture() : base(g
             .UseGremlinServer(builder => builder
                 .AtLocalhost())
             .ConfigureEnvironment(env => env

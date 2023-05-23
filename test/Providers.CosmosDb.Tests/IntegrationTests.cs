@@ -3,9 +3,9 @@ using ExRam.Gremlinq.Support.NewtonsoftJson.Tests.Verifier;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
-    public sealed class IntegrationTests : QueryExecutionTest, IClassFixture<CosmosDbIntegrationTestFixture>
+    public sealed class IntegrationTests : QueryExecutionTest, IClassFixture<IntegrationCosmosDbFixture>
     {
-        public IntegrationTests(CosmosDbIntegrationTestFixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public IntegrationTests(IntegrationCosmosDbFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
             new ExecutingVerifier(),
             testOutputHelper)

@@ -7,9 +7,9 @@ using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
 {
-    public sealed class JanusGraphIntegrationTestFixture : GremlinqTestFixture
+    public sealed class IntegrationJanusGraphFixture : GremlinqTestFixture
     {
-        public JanusGraphIntegrationTestFixture() : base(Gremlinq.Core.GremlinQuerySource.g
+        public IntegrationJanusGraphFixture() : base(Gremlinq.Core.GremlinQuerySource.g
             .UseJanusGraph(builder => builder
                 .At(new Uri("ws://localhost:8183"))
                 .UseNewtonsoftJson())
