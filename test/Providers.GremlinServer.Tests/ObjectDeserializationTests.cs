@@ -5,7 +5,7 @@ using ExRam.Gremlinq.Support.NewtonsoftJson.Tests;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
-    public sealed class ObjectDeserializationTests : QueryExecutionTest, IClassFixture<SimpleGremlinServerFixture>
+    public sealed class ObjectDeserializationTests : QueryExecutionTest, IClassFixture<GremlinServerFixture>
     {
         public new sealed class Verifier : DeserializingGremlinqVerifier
         {
@@ -16,7 +16,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
             public override Task Verify<TElement>(IGremlinQueryBase<TElement> query) => base.Verify(query.Cast<object>());
         }
 
-        public ObjectDeserializationTests(SimpleGremlinServerFixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public ObjectDeserializationTests(GremlinServerFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
             new Verifier(testOutputHelper),
             testOutputHelper)
