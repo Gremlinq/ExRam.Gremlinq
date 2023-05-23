@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
     {
         public new sealed class Verifier : ExecutingVerifier
         {
-            private static readonly Regex RelationIdRegex = new("\"relationId\":[\\s]?\"[0-9a-z]{3}([-][0-9a-z]{3})*\"", RegexOptions.IgnoreCase);
+            private static readonly Regex RelationIdRegex = new("\"relationId\":[\\s]?\"[0-9a-z]{3}([-][0-9a-z]{3})*\"", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
             public Verifier([CallerFilePath] string sourceFile = "") : base(sourceFile)
             {

@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
     {
         public new sealed class Verifier : ExecutingVerifier
         {
-            private static readonly Regex IdRegex1 = new("\"[0-9a-f]{8}[-]?([0-9a-f]{4}[-]?){3}[0-9a-f]{12}([|]PartitionKey)?\"", RegexOptions.IgnoreCase);
+            private static readonly Regex IdRegex1 = new("\"[0-9a-f]{8}[-]?([0-9a-f]{4}[-]?){3}[0-9a-f]{12}([|]PartitionKey)?\"", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
             public Verifier([CallerFilePath] string sourceFile = "") : base(sourceFile)
             {

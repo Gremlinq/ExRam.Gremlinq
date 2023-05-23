@@ -11,7 +11,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests.Verifier
 {
     public class ExecutingVerifier : GremlinQueryVerifier
     {
-        private static readonly Regex IdRegex = new("(\"id\"\\s*[:,]\\s*{\\s*\"@type\"\\s*:\\s*\"g:(Int32|Int64|UUID)\"\\s*,\\s*\"@value\":\\s*)([^\\s{}]+)(\\s*})", RegexOptions.IgnoreCase);
+        private static readonly Regex IdRegex = new("(\"id\"\\s*[:,]\\s*{\\s*\"@type\"\\s*:\\s*\"g:(Int32|Int64|UUID)\"\\s*,\\s*\"@value\":\\s*)([^\\s{}]+)(\\s*})", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
         public ExecutingVerifier([CallerFilePath] string sourceFile = "") : base(sourceFile)
         {
