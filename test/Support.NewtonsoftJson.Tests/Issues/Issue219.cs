@@ -5,9 +5,9 @@ using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
 {
-    public sealed class Issue219 : GremlinqTestBase
+    public sealed class Issue219 : VerifyBase
     {
-        public Issue219(ITestOutputHelper testOutputHelper) : base(GremlinqTestFixture.Empty, new DebugGremlinQueryVerifier(), testOutputHelper)
+        public Issue219() : base(GremlinQueryVerifier.DefaultSettings)
         {
 
         }

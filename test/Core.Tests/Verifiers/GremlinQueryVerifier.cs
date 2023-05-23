@@ -5,16 +5,16 @@ namespace ExRam.Gremlinq.Core.Tests
 {
     public abstract class GremlinQueryVerifier
     {
-        private static readonly VerifySettings Settings = new();
-
         private readonly string _sourceFile;
+
+        public static readonly VerifySettings DefaultSettings = new();
 
         static GremlinQueryVerifier()
         {
-            Settings.UniqueForTargetFrameworkAndVersion();
+            DefaultSettings.UniqueForTargetFrameworkAndVersion();
 
 #if DEBUG
-            Settings.AutoVerify();
+            DefaultSettings.AutoVerify();
 #endif
         }
 
@@ -27,7 +27,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         protected SettingsTask InnerVerify<T>(T value)
         {
-            return Verifier.Verify(value, Settings, _sourceFile);
+            return Verifier.Verify(value, DefaultSettings, _sourceFile);
         }
 
         protected virtual IImmutableList<Func<string, string>> Scrubbers() => ImmutableList<Func<string, string>>.Empty;

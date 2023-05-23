@@ -2,21 +2,12 @@
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public abstract class GremlinqTestBase : VerifyBase
+    [UsesVerify]
+    public abstract class GremlinqTestBase
     {
-        private static readonly VerifySettings Settings = new ();
         private static readonly AsyncLocal<GremlinqTestBase> CurrentTestBase = new();
 
-        static GremlinqTestBase()
-        {
-            Settings.UniqueForTargetFrameworkAndVersion();
-
-#if DEBUG
-            Settings.AutoVerify();
-#endif
-        }
-
-        protected GremlinqTestBase(GremlinqTestFixture fixture, GremlinQueryVerifier verifier, ITestOutputHelper testOutputHelper, [CallerFilePath] string sourceFile = "") : base(Settings, sourceFile)
+        protected GremlinqTestBase(GremlinqTestFixture fixture, GremlinQueryVerifier verifier, ITestOutputHelper testOutputHelper, [CallerFilePath] string sourceFile = "")
         {
             Fixture = fixture;
             Verifier = verifier;
