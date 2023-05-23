@@ -87,6 +87,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Support.Newt
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Support.NewtonsoftJson.Tests", "test\Support.NewtonsoftJson.Tests\ExRam.Gremlinq.Support.NewtonsoftJson.Tests.csproj", "{4E8EDB84-CB46-49BF-A8A8-129D2A5FF181}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Tests.Infrastructure", "test\Tests.Infrastructure\ExRam.Gremlinq.Tests.Infrastructure.csproj", "{3732F587-2E67-45BE-A64C-3F0F60A4C07D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -237,6 +239,10 @@ Global
 		{4E8EDB84-CB46-49BF-A8A8-129D2A5FF181}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E8EDB84-CB46-49BF-A8A8-129D2A5FF181}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E8EDB84-CB46-49BF-A8A8-129D2A5FF181}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3732F587-2E67-45BE-A64C-3F0F60A4C07D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3732F587-2E67-45BE-A64C-3F0F60A4C07D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3732F587-2E67-45BE-A64C-3F0F60A4C07D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3732F587-2E67-45BE-A64C-3F0F60A4C07D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -271,6 +277,7 @@ Global
 		{4D785209-763F-4510-B90A-BA010CDA1F82} = {179A3F19-19B0-4DE2-B843-83AF4241244A}
 		{60237AC4-3F97-4C25-B278-FC404FFA3C10} = {179A3F19-19B0-4DE2-B843-83AF4241244A}
 		{4E8EDB84-CB46-49BF-A8A8-129D2A5FF181} = {4E6D1C9D-C1F7-43CF-99F7-9D610B3D1989}
+		{3732F587-2E67-45BE-A64C-3F0F60A4C07D} = {4E6D1C9D-C1F7-43CF-99F7-9D610B3D1989}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7A76E21B-5855-4DA7-AAAE-4EBEE631CB3A}
