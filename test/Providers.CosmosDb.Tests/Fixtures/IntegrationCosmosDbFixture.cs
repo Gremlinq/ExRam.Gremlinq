@@ -8,11 +8,11 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
-    public sealed class CosmosDbIntegrationTestFixture : GremlinqTestFixture
+    public sealed class IntegrationCosmosDbFixture : GremlinqTestFixture
     {
         private readonly Task _task;
 
-        public CosmosDbIntegrationTestFixture() : base(g
+        public IntegrationCosmosDbFixture() : base(g
             .UseCosmosDb(builder => builder
                 .At(new Uri("ws://localhost:8901"), "db", "graph")
                 .AuthenticateBy(
