@@ -1,28 +1,13 @@
-﻿using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Core.Serialization;
+﻿using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Core.Tests.Verifiers;
-using ExRam.Gremlinq.Providers.CosmosDb.Tests.Extensions;
 using ExRam.Gremlinq.Tests.Entities;
-using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
-    public sealed class SerializationTests : QueryExecutionTest, IClassFixture<SerializationTests.SerializationFixture>
+    public sealed class SerializationTests : QueryExecutionTest, IClassFixture<CosmosDbFixture>
     {
-        public sealed class SerializationFixture : GremlinqTestFixture
-        {
-            public SerializationFixture() : base(g
-                .UseCosmosDb(builder => builder
-                    .At(new Uri("wss://localhost"), "database", "graph")
-                    .AuthenticateBy("authKey"))
-                .ConfigureEnvironment(env => env
-                    .AddFakePartitionKey()))
-            {
-            }
-        }
-
-        public SerializationTests(SerializationFixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public SerializationTests(CosmosDbFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
             new SerializingVerifier<GroovyGremlinQuery>(),
             testOutputHelper)

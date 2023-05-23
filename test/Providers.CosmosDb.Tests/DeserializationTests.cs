@@ -1,24 +1,12 @@
 ﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Support.NewtonsoftJson.Tests;
-using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
-    public sealed class DeserializationTests : QueryExecutionTest, IClassFixture<DeserializationTests.DeserializationFixture>
+    public sealed class DeserializationTests : QueryExecutionTest, IClassFixture<CosmosDbFixture>
     {
-        public sealed class DeserializationFixture : GremlinqTestFixture
-        {
-            public DeserializationFixture() : base(
-                g.UseCosmosDb(_ => _
-                    .At("ws://localhost", "", "")
-                    .AuthenticateBy("")
-                    .UseNewtonsoftJson()))
-            {
-            }
-        }
-
-        public DeserializationTests(DeserializationFixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public DeserializationTests(CosmosDbFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
             new DeserializingGremlinqVerifier(testOutputHelper),
             testOutputHelper)
