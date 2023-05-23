@@ -25,7 +25,7 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
                 .Add(x => IdRegex1.Replace(x, "\"scrubbed id\""));
         }
 
-        public new sealed class Fixture : ExecutingTestFixture
+        public sealed class Fixture : ExecutingTestFixture
         {
             public Fixture() : base(Gremlinq.Core.GremlinQuerySource.g
                 .UseNeptune(builder => builder

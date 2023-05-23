@@ -25,7 +25,7 @@ namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
                 .Add(x => RelationIdRegex.Replace(x, "\"relationId\": \"scrubbed\""));
         }
 
-        public new sealed class Fixture : ExecutingTestFixture
+        public sealed class Fixture : ExecutingTestFixture
         {
             public Fixture() : base(Gremlinq.Core.GremlinQuerySource.g
                 .UseJanusGraph(builder => builder

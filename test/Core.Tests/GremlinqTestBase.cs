@@ -7,15 +7,13 @@ namespace ExRam.Gremlinq.Core.Tests
     {
         private static readonly AsyncLocal<GremlinqTestBase> CurrentTestBase = new();
 
-        protected GremlinqTestBase(GremlinqTestFixture fixture, GremlinQueryVerifier verifier, ITestOutputHelper testOutputHelper, [CallerFilePath] string sourceFile = "")
+        protected GremlinqTestBase(GremlinQueryVerifier verifier, ITestOutputHelper testOutputHelper, [CallerFilePath] string sourceFile = "")
         {
-            Fixture = fixture;
             Verifier = verifier;
             CurrentTestBase.Value = this;
             XunitContext.Register(testOutputHelper, sourceFile);
         }
 
-        public GremlinqTestFixture Fixture { get; }
         public GremlinQueryVerifier Verifier { get; }
         public static GremlinqTestBase Current { get => CurrentTestBase.Value ?? throw new InvalidOperationException(); }
     }
