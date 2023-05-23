@@ -9,18 +9,20 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
 {
     public class DeserializingGremlinqVerifier : GremlinQueryVerifier
     {
-        public DeserializingGremlinqVerifier([CallerFilePath] string sourceFile = "") : base(sourceFile)
+        private readonly Context _context;
+
+        public DeserializingGremlinqVerifier(ITestOutputHelper testOutputHelper, [CallerFilePath] string sourceFile = "") : base(sourceFile)
         {
+            _context = XunitContext.Register(testOutputHelper, sourceFile);
         }
 
         public override async Task Verify<TElement>(IGremlinQueryBase<TElement> query)
         {
-            var context = XunitContext.Context;
             var environment = query.AsAdmin().Environment;
 
             try
             {
-                if (JsonConvert.DeserializeObject<JArray>(File.ReadAllText(Path.Combine(context.SourceDirectory, "IntegrationTests" + "." + context.MethodName + "." + Namer.RuntimeAndVersion + ".verified.txt"))) is { } jArray)
+                if (JsonConvert.DeserializeObject<JArray>(File.ReadAllText(Path.Combine(_context.SourceDirectory, "IntegrationTests" + "." + _context.MethodName + "." + Namer.RuntimeAndVersion + ".verified.txt"))) is { } jArray)
                     await base
                         .InnerVerify(jArray
                             .Where(obj => !(obj is JObject jObject && jObject.ContainsKey("serverException")))

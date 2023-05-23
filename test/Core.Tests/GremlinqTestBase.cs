@@ -1,17 +1,14 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace ExRam.Gremlinq.Core.Tests
+﻿namespace ExRam.Gremlinq.Core.Tests
 {
     [UsesVerify]
     public abstract class GremlinqTestBase
     {
         private static readonly AsyncLocal<GremlinqTestBase> CurrentTestBase = new();
 
-        protected GremlinqTestBase(GremlinQueryVerifier verifier, ITestOutputHelper testOutputHelper, [CallerFilePath] string sourceFile = "")
+        protected GremlinqTestBase(GremlinQueryVerifier verifier)
         {
             Verifier = verifier;
             CurrentTestBase.Value = this;
-            XunitContext.Register(testOutputHelper, sourceFile);
         }
 
         public GremlinQueryVerifier Verifier { get; }
