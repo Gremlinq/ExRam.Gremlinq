@@ -24,8 +24,8 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests.Verifier
                     .ToArrayAsync(),
                 Formatting.Indented);
 
-            var scrubbed = 
-                Scrubbers()
+            var scrubbed = this
+                .Scrubbers()
                 .Aggregate(serialized, (s, func) => func(s));
 
             await InnerVerify(scrubbed);

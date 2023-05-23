@@ -1,6 +1,5 @@
 ﻿using System.Collections.Immutable;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Core.Steps;
