@@ -1,5 +1,5 @@
 ﻿using ExRam.Gremlinq.Core.Tests;
-using ExRam.Gremlinq.Core.Tests.Verifiers;
+using ExRam.Gremlinq.Tests.Infrastructure;
 using Gremlin.Net.Driver.Messages;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests

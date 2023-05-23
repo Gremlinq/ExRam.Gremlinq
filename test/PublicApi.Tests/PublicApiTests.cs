@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using ExRam.Gremlinq.Core.Tests;
+using ExRam.Gremlinq.Tests.Infrastructure;
 using PublicApiGenerator;
 
 namespace ExRam.Gremlinq.PublicApi.Tests

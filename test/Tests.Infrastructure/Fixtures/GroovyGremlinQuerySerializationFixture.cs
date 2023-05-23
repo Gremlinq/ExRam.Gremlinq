@@ -1,7 +1,7 @@
 ﻿using ExRam.Gremlinq.Core.Serialization;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
-namespace ExRam.Gremlinq.Core.Tests.Fixtures
+namespace ExRam.Gremlinq.Tests.Infrastructure
 {
     public sealed class GroovyGremlinQuerySerializationFixture : GremlinqFixture
     {

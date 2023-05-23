@@ -1,6 +1,5 @@
 ﻿using ExRam.Gremlinq.Core.Serialization;
-using ExRam.Gremlinq.Core.Tests.Fixtures;
-using ExRam.Gremlinq.Core.Tests.Verifiers;
+using ExRam.Gremlinq.Tests.Infrastructure;
 
 namespace ExRam.Gremlinq.Core.Tests
 {

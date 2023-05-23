@@ -2,8 +2,9 @@
 using ExRam.Gremlinq.Core.Transformation;
 using Gremlin.Net.Process.Traversal;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
+using ExRam.Gremlinq.Core;
 
-namespace ExRam.Gremlinq.Core.Tests.Fixtures
+namespace ExRam.Gremlinq.Tests.Infrastructure
 {
     public sealed class GraphSon3StringSerializationFixture : GremlinqFixture
     {

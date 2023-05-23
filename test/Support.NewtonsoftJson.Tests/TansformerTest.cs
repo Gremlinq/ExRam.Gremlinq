@@ -1,5 +1,6 @@
 ﻿using System.Dynamic;
 using ExRam.Gremlinq.Core.Transformation;
+using ExRam.Gremlinq.Tests.Infrastructure;
 using FluentAssertions;
 using Newtonsoft.Json.Linq;
 using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;

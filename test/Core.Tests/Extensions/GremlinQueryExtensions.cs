@@ -1,4 +1,6 @@
-﻿namespace ExRam.Gremlinq.Core.Tests
+﻿using ExRam.Gremlinq.Tests.Infrastructure;
+
+namespace ExRam.Gremlinq.Core.Tests
 {
     public static class GremlinQueryExtensions
     {

@@ -1,9 +1,10 @@
-﻿using ExRam.Gremlinq.Core.Transformation;
+﻿using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Core.Transformation;
 using Gremlin.Net.Process.Traversal;
 using Gremlin.Net.Structure.IO.GraphSON;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
-namespace ExRam.Gremlinq.Core.Tests.Fixtures
+namespace ExRam.Gremlinq.Tests.Infrastructure
 {
     public sealed class Graphson2StringSerializationFixture : GremlinqFixture
     {
