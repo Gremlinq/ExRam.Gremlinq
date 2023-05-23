@@ -3,9 +3,9 @@ using ExRam.Gremlinq.Support.NewtonsoftJson.Tests.Verifier;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
-    public sealed class IntegrationTests : QueryExecutionTest, IClassFixture<IntegrationGremlinServerFixture>
+    public sealed class IntegrationTests : QueryExecutionTest, IClassFixture<GremlinServerFixture>
     {
-        public IntegrationTests(IntegrationGremlinServerFixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public IntegrationTests(GremlinServerFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
             new ExecutingVerifier(),
             testOutputHelper)
