@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
     {
         public new sealed class Verifier : DeserializingGremlinqVerifier
         {
-            public Verifier([CallerFilePath] string sourceFile = "") : base(sourceFile)
+            public Verifier(ITestOutputHelper testOutputHelper, [CallerFilePath] string sourceFile = "") : base(testOutputHelper, sourceFile)
             {
             }
 
@@ -29,7 +29,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 
         public ObjectDeserializationTests(ObjectDeserializationFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
-            new Verifier(),
+            new Verifier(testOutputHelper),
             testOutputHelper)
         {
         }
