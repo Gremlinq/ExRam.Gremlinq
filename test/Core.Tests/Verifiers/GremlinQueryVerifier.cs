@@ -6,12 +6,14 @@ namespace ExRam.Gremlinq.Core.Tests
     {
         public sealed class DefaultGremlinQueryVerifier : GremlinQueryVerifier
         {
-            public override async Task Verify<TElement>(IGremlinQueryBase<TElement> query) => await GremlinqTestBase.Current.Verify(query.Debug());
+            public override Task Verify<TElement>(IGremlinQueryBase<TElement> query) => InnerVerify(query.Debug());
         }
 
         public static readonly GremlinQueryVerifier Default = new DefaultGremlinQueryVerifier();
 
         public abstract Task Verify<TElement>(IGremlinQueryBase<TElement> query);
+
+        protected SettingsTask InnerVerify<T>(T value) => GremlinqTestBase.Current.Verify(value);
 
         protected virtual IImmutableList<Func<string, string>> Scrubbers() => ImmutableList<Func<string, string>>.Empty;
     }
