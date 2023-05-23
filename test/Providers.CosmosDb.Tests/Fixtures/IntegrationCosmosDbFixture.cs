@@ -10,13 +10,16 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
     public sealed class IntegrationCosmosDbFixture : GremlinqFixture
     {
+        private const string CosmosDbEmulatorDatabaseName = "db";
+        private const string CosmosDbEmulatorCollectionName = "graph";
+        private const string CosmosDbEmulatorAuthKey = "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==";
+
         private readonly Task _task;
 
         public IntegrationCosmosDbFixture() : base(g
             .UseCosmosDb(builder => builder
-                .At(new Uri("ws://localhost:8901"), "db", "graph")
-                .AuthenticateBy(
-                    "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==")
+                .At(new Uri("ws://localhost:8901"), CosmosDbEmulatorDatabaseName, CosmosDbEmulatorCollectionName)
+                .AuthenticateBy(CosmosDbEmulatorAuthKey)
                 .UseNewtonsoftJson())
             .ConfigureEnvironment(env => env
                 .AddFakePartitionKey()
@@ -24,20 +27,16 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                     .Add(ConverterFactory
                         .Create<JToken, JToken>((token, env, recurse) => token)))))
         {
-            _task = CreateImpl();
+            _task = Task.Run(
+                async () =>
+                {
+                    var cosmosClient = new CosmosClient("https://localhost:8081", CosmosDbEmulatorAuthKey);
+                    var database = await cosmosClient.CreateDatabaseIfNotExistsAsync(CosmosDbEmulatorDatabaseName, ThroughputProperties.CreateAutoscaleThroughput(40000));
+
+                    await database.Database.CreateContainerIfNotExistsAsync(CosmosDbEmulatorCollectionName, "/PartitionKey");
+                });
         }
 
-        public Task Create()
-        {
-            return _task;
-        }
-
-        private static async Task CreateImpl()
-        {
-            var cosmosClient = new CosmosClient("https://localhost:8081", "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==");
-
-            var database = await cosmosClient.CreateDatabaseIfNotExistsAsync("db", ThroughputProperties.CreateAutoscaleThroughput(40000));
-            await database.Database.CreateContainerIfNotExistsAsync("graph", "/PartitionKey");
-        }
+        public Task Create() => _task;
     }
 }
