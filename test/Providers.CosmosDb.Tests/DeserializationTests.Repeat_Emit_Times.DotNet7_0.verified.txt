@@ -1,24 +1,76 @@
 ﻿[
   {
-    CountryCallingCode: +49,
-    LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Properties: {
-        someKey: value
-      },
-      Value: 
+    id: [],
+    label: [],
+    properties: {
+      CountryCallingCode: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      LocalizableDescription: [
+        {
+          id: [],
+          properties: {
+            someKey: []
+          },
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
     },
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
+    type: []
   },
   {
-    Age: 36,
-    RegistrationDate: 2020-04-07 14:43:36 +0,
-    Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Value: Bob
+    id: [],
+    label: [],
+    properties: {
+      Age: [
+        {
+          id: [],
+          properties: {
+            Meta: []
+          },
+          value: []
+        }
+      ],
+      GuidKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      Name: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      RegistrationDate: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      StringKey1: [
+        {
+          id: [],
+          value: []
+        }
+      ]
     },
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    type: []
   }
 ]

@@ -62,14 +62,14 @@
   {},
   {},
   {
-    ValidFrom: 1546304400000
+    ValidFrom: []
   },
   {},
   {},
   {},
   {
-    de: Deutschland,
-    en: Germany
+    de: [],
+    en: []
   },
   {},
   {},

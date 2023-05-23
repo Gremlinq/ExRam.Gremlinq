@@ -1,33 +1,98 @@
 ﻿[
   {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Company
-  },
-  {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Company
-  },
-  {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Company
-  },
-  {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: LivesIn
-  },
-  {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: LivesIn
-  },
-  {
-    Since: {
-      Value: 2020-04-07 14:43:36 +0
+    id: [],
+    label: [],
+    properties: {
+      FoundingDate: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
     },
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: LivesIn
+    type: []
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: LivesIn
+    id: [],
+    label: [],
+    properties: {
+      FoundingDate: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
+  },
+  {
+    id: [],
+    label: [],
+    properties: {
+      FoundingDate: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
+  },
+  {
+    id: [],
+    inV: [],
+    inVLabel: [],
+    label: [],
+    outV: [],
+    outVLabel: [],
+    type: []
+  },
+  {
+    id: [],
+    inV: [],
+    inVLabel: [],
+    label: [],
+    outV: [],
+    outVLabel: [],
+    type: []
+  },
+  {
+    id: [],
+    inV: [],
+    inVLabel: [],
+    label: [],
+    outV: [],
+    outVLabel: [],
+    properties: {
+      Since: []
+    },
+    type: []
+  },
+  {
+    id: [],
+    inV: [],
+    inVLabel: [],
+    label: [],
+    outV: [],
+    outVLabel: [],
+    type: []
   }
 ]

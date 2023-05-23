@@ -1,83 +1,433 @@
 ﻿[
   {
-    Age: 36,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
-  },
-  {
-    Age: 36,
-    RegistrationDate: 2020-04-07 14:43:36 +0,
-    Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Properties: {
-        ValidFrom: 2020-04-07 14:43:36 +0
-      },
-      Value: Bob
+    id: [],
+    label: [],
+    properties: {
+      Age: [
+        {
+          id: [],
+          properties: {
+            Meta: []
+          },
+          value: []
+        }
+      ],
+      GuidKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      StringKey1: [
+        {
+          id: [],
+          value: []
+        }
+      ]
     },
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    type: []
   },
   {
-    Age: 36,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
-  },
-  {
-    Age: 36,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
-  },
-  {
-    Age: 36,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
-  },
-  {
-    Age: 36,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
-  },
-  {
-    Age: 36,
-    RegistrationDate: 2020-04-07 14:43:36 +0,
-    Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Properties: {
-        ValidFrom: 2020-04-07 14:43:36 +0
-      },
-      Value: Bob
+    id: [],
+    label: [],
+    properties: {
+      Age: [
+        {
+          id: [],
+          properties: {
+            Meta: []
+          },
+          value: []
+        }
+      ],
+      GuidKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      Name: [
+        {
+          id: [],
+          properties: {
+            ValidFrom: []
+          },
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      RegistrationDate: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      StringKey1: [
+        {
+          id: [],
+          value: []
+        }
+      ]
     },
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    type: []
   },
   {
-    Age: 36,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
-  },
-  {
-    Age: 36,
-    Image: AQIDBAUGBwg=,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
-  },
-  {
-    Age: 36,
-    Gender: Female,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
-  },
-  {
-    Age: 36,
-    RegistrationDate: 2020-04-07 14:43:36 +0,
-    Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Properties: {
-        ValidFrom: 2020-04-07 14:43:36 +0
-      },
-      Value: Marko
+    id: [],
+    label: [],
+    properties: {
+      Age: [
+        {
+          id: [],
+          properties: {
+            Meta: []
+          },
+          value: []
+        }
+      ],
+      GuidKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      StringKey1: [
+        {
+          id: [],
+          value: []
+        }
+      ]
     },
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    type: []
+  },
+  {
+    id: [],
+    label: [],
+    properties: {
+      Age: [
+        {
+          id: [],
+          properties: {
+            Meta: []
+          },
+          value: []
+        }
+      ],
+      GuidKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      StringKey1: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
+  },
+  {
+    id: [],
+    label: [],
+    properties: {
+      Age: [
+        {
+          id: [],
+          properties: {
+            Meta: []
+          },
+          value: []
+        }
+      ],
+      GuidKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      StringKey1: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
+  },
+  {
+    id: [],
+    label: [],
+    properties: {
+      Age: [
+        {
+          id: [],
+          properties: {
+            Meta: []
+          },
+          value: []
+        }
+      ],
+      GuidKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      StringKey1: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
+  },
+  {
+    id: [],
+    label: [],
+    properties: {
+      Age: [
+        {
+          id: [],
+          properties: {
+            Meta: []
+          },
+          value: []
+        }
+      ],
+      GuidKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      Name: [
+        {
+          id: [],
+          properties: {
+            ValidFrom: []
+          },
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      RegistrationDate: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      StringKey1: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
+  },
+  {
+    id: [],
+    label: [],
+    properties: {
+      Age: [
+        {
+          id: [],
+          properties: {
+            Meta: []
+          },
+          value: []
+        }
+      ],
+      GuidKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      StringKey1: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
+  },
+  {
+    id: [],
+    label: [],
+    properties: {
+      Age: [
+        {
+          id: [],
+          properties: {
+            Meta: []
+          },
+          value: []
+        }
+      ],
+      GuidKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      Image: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      StringKey1: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
+  },
+  {
+    id: [],
+    label: [],
+    properties: {
+      Age: [
+        {
+          id: [],
+          properties: {
+            Meta: []
+          },
+          value: []
+        }
+      ],
+      Gender: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      GuidKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      StringKey1: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
+  },
+  {
+    id: [],
+    label: [],
+    properties: {
+      Age: [
+        {
+          id: [],
+          properties: {
+            Meta: []
+          },
+          value: []
+        }
+      ],
+      GuidKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      Name: [
+        {
+          id: [],
+          properties: {
+            ValidFrom: []
+          },
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      RegistrationDate: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      StringKey1: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
   }
 ]

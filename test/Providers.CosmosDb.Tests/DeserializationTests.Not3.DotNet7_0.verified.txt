@@ -1,98 +1,324 @@
 ﻿[
   {
-    CountryCallingCode: +49,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
-  },
-  {
-    IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language
-  },
-  {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
-  },
-  {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
-  },
-  {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
-  },
-  {
-    IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language
-  },
-  {
-    CountryCallingCode: +49,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
-  },
-  {
-    IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language
-  },
-  {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language
-  },
-  {
-    Enabled: false,
-    StartTime: 08:00:00,
-    Duration: 02:00:00,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: TimeFrame
-  },
-  {
-    IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language
-  },
-  {
-    IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language
-  },
-  {
-    IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language
-  },
-  {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language
-  },
-  {
-    Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Properties: {},
-      Value: GER
+    id: [],
+    label: [],
+    properties: {
+      CountryCallingCode: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
     },
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
+    type: []
   },
   {
-    Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Properties: {
-        de: Deutschland,
-        en: Germany
-      },
-      Value: GER
+    id: [],
+    label: [],
+    properties: {
+      IetfLanguageTag: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
     },
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
+    type: []
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language
+    id: [],
+    label: [],
+    properties: {
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language
+    id: [],
+    label: [],
+    properties: {
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
+  },
+  {
+    id: [],
+    label: [],
+    properties: {
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
+  },
+  {
+    id: [],
+    label: [],
+    properties: {
+      IetfLanguageTag: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
+  },
+  {
+    id: [],
+    label: [],
+    properties: {
+      CountryCallingCode: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
+  },
+  {
+    id: [],
+    label: [],
+    properties: {
+      IetfLanguageTag: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
+  },
+  {
+    id: [],
+    label: [],
+    properties: {
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
+  },
+  {
+    id: [],
+    label: [],
+    properties: {
+      Duration: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      Enabled: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      StartTime: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
+  },
+  {
+    id: [],
+    label: [],
+    properties: {
+      IetfLanguageTag: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
+  },
+  {
+    id: [],
+    label: [],
+    properties: {
+      IetfLanguageTag: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
+  },
+  {
+    id: [],
+    label: [],
+    properties: {
+      IetfLanguageTag: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
+  },
+  {
+    id: [],
+    label: [],
+    properties: {
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
+  },
+  {
+    id: [],
+    label: [],
+    properties: {
+      Name: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
+  },
+  {
+    id: [],
+    label: [],
+    properties: {
+      Name: [
+        {
+          id: [],
+          properties: {
+            de: [],
+            en: []
+          },
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
+  },
+  {
+    id: [],
+    label: [],
+    properties: {
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
+  },
+  {
+    id: [],
+    label: [],
+    properties: {
+      lang: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
   }
 ]

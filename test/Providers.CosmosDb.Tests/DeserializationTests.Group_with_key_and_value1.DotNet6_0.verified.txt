@@ -1,13 +1,42 @@
 ﻿[
   {
     Country: {
-      IetfLanguageTag: en,
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Language
+      id: [],
+      label: [],
+      properties: {
+        IetfLanguageTag: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     },
     Person: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Company
+      id: [],
+      label: [],
+      properties: {
+        FoundingDate: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     }
   }
 ]

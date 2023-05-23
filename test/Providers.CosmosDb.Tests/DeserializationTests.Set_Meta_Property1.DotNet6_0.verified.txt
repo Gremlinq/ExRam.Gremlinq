@@ -1,19 +1,19 @@
 ﻿[
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: [],
     Label: Name,
     Properties: {
-      metaKey: 1
+      metaKey: []
     },
     Value: GER
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: [],
     Label: Name,
     Properties: {
-      de: Deutschland,
-      en: Germany,
-      metaKey: 1
+      de: [],
+      en: [],
+      metaKey: []
     },
     Value: GER
   }

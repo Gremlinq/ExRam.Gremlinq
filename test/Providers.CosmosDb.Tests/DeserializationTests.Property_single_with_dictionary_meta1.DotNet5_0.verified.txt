@@ -2,93 +2,93 @@
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: [],
       Properties: {
         someKey: value
       },
-      Value: 
+      Value: []
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: [],
     Label: Country
   },
   {
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: [],
       Properties: {
         someKey: value
       },
-      Value: 
+      Value: []
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: [],
     Label: Country
   },
   {
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: [],
       Properties: {
         someKey: value
       },
-      Value: 
+      Value: []
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: [],
     Label: Country
   },
   {
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: [],
       Properties: {
         someKey: value
       },
-      Value: 
+      Value: []
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: [],
     Label: Country
   },
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: [],
       Properties: {
         someKey: value
       },
-      Value: 
+      Value: []
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: [],
     Label: Country
   },
   {
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: [],
       Properties: {},
       Value: GER
     },
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: [],
       Properties: {
         someKey: value
       },
-      Value: 
+      Value: []
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: [],
     Label: Country
   },
   {
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: [],
       Properties: {
-        de: Deutschland,
-        en: Germany
+        de: [],
+        en: []
       },
       Value: GER
     },
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: [],
       Properties: {
         someKey: value
       },
-      Value: 
+      Value: []
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: [],
     Label: Country
   }
 ]

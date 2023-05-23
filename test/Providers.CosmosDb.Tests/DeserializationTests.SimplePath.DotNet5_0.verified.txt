@@ -1,20 +1,70 @@
 ﻿[
   {
-    IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language
+    id: [],
+    label: [],
+    properties: {
+      IetfLanguageTag: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
   },
   {
-    Age: 36,
-    RegistrationDate: 2020-04-07 14:43:36 +0,
-    Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Properties: {
-        ValidFrom: 2020-04-07 14:43:36 +0
-      },
-      Value: Bob
+    id: [],
+    label: [],
+    properties: {
+      Age: [
+        {
+          id: [],
+          properties: {
+            Meta: []
+          },
+          value: []
+        }
+      ],
+      GuidKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      Name: [
+        {
+          id: [],
+          properties: {
+            ValidFrom: []
+          },
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      RegistrationDate: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      StringKey1: [
+        {
+          id: [],
+          value: []
+        }
+      ]
     },
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    type: []
   }
 ]

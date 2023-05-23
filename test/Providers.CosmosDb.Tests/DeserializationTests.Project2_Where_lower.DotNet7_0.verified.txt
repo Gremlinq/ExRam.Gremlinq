@@ -3,123 +3,23 @@
     Item1: Country,
     Item2: [
       {
-        CountryCallingCode: +49,
-        Id: 00000000-0000-0000-0000-000000000000,
-        Label: Country
-      }
-    ]
-  },
-  {
-    Item1: Language,
-    Item2: [
-      {
-        IetfLanguageTag: en,
-        Id: 00000000-0000-0000-0000-000000000000,
-        Label: Language
-      }
-    ]
-  },
-  {
-    Item1: Person,
-    Item2: [
-      {
-        Id: 00000000-0000-0000-0000-000000000000,
-        Label: Person
-      }
-    ]
-  },
-  {
-    Item1: Company,
-    Item2: [
-      {
-        Id: 00000000-0000-0000-0000-000000000000,
-        Label: Company
-      }
-    ]
-  },
-  {
-    Item1: Person,
-    Item2: [
-      {
-        RegistrationDate: 2020-04-07 14:43:36 +0,
-        Name: {
-          Id: 00000000-0000-0000-0000-000000000000,
-          Value: Bob
+        id: [],
+        label: [],
+        properties: {
+          CountryCallingCode: [
+            {
+              id: [],
+              value: []
+            }
+          ],
+          PartitionKey: [
+            {
+              id: [],
+              value: []
+            }
+          ]
         },
-        Id: 00000000-0000-0000-0000-000000000000,
-        Label: Person
-      }
-    ]
-  },
-  {
-    Item1: Person,
-    Item2: [
-      {
-        Id: 00000000-0000-0000-0000-000000000000,
-        Label: Person
-      }
-    ]
-  },
-  {
-    Item1: Country,
-    Item2: [
-      {
-        Id: 00000000-0000-0000-0000-000000000000,
-        Label: Country
-      }
-    ]
-  },
-  {
-    Item1: Person,
-    Item2: [
-      {
-        Id: 00000000-0000-0000-0000-000000000000,
-        Label: Person
-      }
-    ]
-  },
-  {
-    Item1: Country,
-    Item2: [
-      {
-        Id: 00000000-0000-0000-0000-000000000000,
-        Label: Country
-      }
-    ]
-  },
-  {
-    Item1: Person,
-    Item2: [
-      {
-        Id: 00000000-0000-0000-0000-000000000000,
-        Label: Person
-      }
-    ]
-  },
-  {
-    Item1: Country,
-    Item2: [
-      {
-        Id: 00000000-0000-0000-0000-000000000000,
-        Label: Country
-      }
-    ]
-  },
-  {
-    Item1: Person,
-    Item2: [
-      {
-        Id: 00000000-0000-0000-0000-000000000000,
-        Label: Person
-      }
-    ]
-  },
-  {
-    Item1: Company,
-    Item2: [
-      {
-        Id: 00000000-0000-0000-0000-000000000000,
-        Label: Company
+        type: []
       }
     ]
   },
@@ -127,33 +27,23 @@
     Item1: Language,
     Item2: [
       {
-        IetfLanguageTag: en,
-        Id: 00000000-0000-0000-0000-000000000000,
-        Label: Language
-      }
-    ]
-  },
-  {
-    Item1: Country,
-    Item2: [
-      {
-        CountryCallingCode: +49,
-        Id: 00000000-0000-0000-0000-000000000000,
-        Label: Country
-      }
-    ]
-  },
-  {
-    Item1: Person,
-    Item2: [
-      {
-        RegistrationDate: 2020-04-07 14:43:36 +0,
-        Name: {
-          Id: 00000000-0000-0000-0000-000000000000,
-          Value: Bob
+        id: [],
+        label: [],
+        properties: {
+          IetfLanguageTag: [
+            {
+              id: [],
+              value: []
+            }
+          ],
+          PartitionKey: [
+            {
+              id: [],
+              value: []
+            }
+          ]
         },
-        Id: 00000000-0000-0000-0000-000000000000,
-        Label: Person
+        type: []
       }
     ]
   },
@@ -161,8 +51,23 @@
     Item1: Person,
     Item2: [
       {
-        Id: 00000000-0000-0000-0000-000000000000,
-        Label: Person
+        id: [],
+        label: [],
+        properties: {
+          Age: [
+            {
+              id: [],
+              value: []
+            }
+          ],
+          PartitionKey: [
+            {
+              id: [],
+              value: []
+            }
+          ]
+        },
+        type: []
       }
     ]
   },
@@ -170,8 +75,233 @@
     Item1: Company,
     Item2: [
       {
-        Id: 00000000-0000-0000-0000-000000000000,
-        Label: Company
+        id: [],
+        label: [],
+        properties: {
+          FoundingDate: [
+            {
+              id: [],
+              value: []
+            }
+          ],
+          PartitionKey: [
+            {
+              id: [],
+              value: []
+            }
+          ]
+        },
+        type: []
+      }
+    ]
+  },
+  {
+    Item1: Person,
+    Item2: [
+      {
+        id: [],
+        label: [],
+        properties: {
+          Age: [
+            {
+              id: [],
+              value: []
+            }
+          ],
+          Name: [
+            {
+              id: [],
+              value: []
+            }
+          ],
+          PartitionKey: [
+            {
+              id: [],
+              value: []
+            }
+          ],
+          RegistrationDate: [
+            {
+              id: [],
+              value: []
+            }
+          ]
+        },
+        type: []
+      }
+    ]
+  },
+  {
+    Item1: Person,
+    Item2: [
+      {
+        id: [],
+        label: [],
+        properties: {
+          Age: [
+            {
+              id: [],
+              value: []
+            }
+          ],
+          PartitionKey: [
+            {
+              id: [],
+              value: []
+            }
+          ]
+        },
+        type: []
+      }
+    ]
+  },
+  {
+    Item1: Country,
+    Item2: [
+      {
+        id: [],
+        label: [],
+        properties: {
+          PartitionKey: [
+            {
+              id: [],
+              value: []
+            }
+          ]
+        },
+        type: []
+      }
+    ]
+  },
+  {
+    Item1: Person,
+    Item2: [
+      {
+        id: [],
+        label: [],
+        properties: {
+          Age: [
+            {
+              id: [],
+              value: []
+            }
+          ],
+          PartitionKey: [
+            {
+              id: [],
+              value: []
+            }
+          ]
+        },
+        type: []
+      }
+    ]
+  },
+  {
+    Item1: Country,
+    Item2: [
+      {
+        id: [],
+        label: [],
+        properties: {
+          PartitionKey: [
+            {
+              id: [],
+              value: []
+            }
+          ]
+        },
+        type: []
+      }
+    ]
+  },
+  {
+    Item1: Person,
+    Item2: [
+      {
+        id: [],
+        label: [],
+        properties: {
+          Age: [
+            {
+              id: [],
+              value: []
+            }
+          ],
+          PartitionKey: [
+            {
+              id: [],
+              value: []
+            }
+          ]
+        },
+        type: []
+      }
+    ]
+  },
+  {
+    Item1: Country,
+    Item2: [
+      {
+        id: [],
+        label: [],
+        properties: {
+          PartitionKey: [
+            {
+              id: [],
+              value: []
+            }
+          ]
+        },
+        type: []
+      }
+    ]
+  },
+  {
+    Item1: Person,
+    Item2: [
+      {
+        id: [],
+        label: [],
+        properties: {
+          Age: [
+            {
+              id: [],
+              value: []
+            }
+          ],
+          PartitionKey: [
+            {
+              id: [],
+              value: []
+            }
+          ]
+        },
+        type: []
+      }
+    ]
+  },
+  {
+    Item1: Company,
+    Item2: [
+      {
+        id: [],
+        label: [],
+        properties: {
+          FoundingDate: [
+            {
+              id: [],
+              value: []
+            }
+          ],
+          PartitionKey: [
+            {
+              id: [],
+              value: []
+            }
+          ]
+        },
+        type: []
       }
     ]
   },
@@ -179,9 +309,131 @@
     Item1: Language,
     Item2: [
       {
-        IetfLanguageTag: en,
-        Id: 00000000-0000-0000-0000-000000000000,
-        Label: Language
+        id: [],
+        label: [],
+        properties: {
+          IetfLanguageTag: [
+            {
+              id: [],
+              value: []
+            }
+          ],
+          PartitionKey: [
+            {
+              id: [],
+              value: []
+            }
+          ]
+        },
+        type: []
+      }
+    ]
+  },
+  {
+    Item1: Country,
+    Item2: [
+      {
+        id: [],
+        label: [],
+        properties: {
+          CountryCallingCode: [
+            {
+              id: [],
+              value: []
+            }
+          ],
+          PartitionKey: [
+            {
+              id: [],
+              value: []
+            }
+          ]
+        },
+        type: []
+      }
+    ]
+  },
+  {
+    Item1: Person,
+    Item2: [
+      {
+        id: [],
+        label: [],
+        properties: {
+          Age: [
+            {
+              id: [],
+              value: []
+            }
+          ],
+          Name: [
+            {
+              id: [],
+              value: []
+            }
+          ],
+          PartitionKey: [
+            {
+              id: [],
+              value: []
+            }
+          ],
+          RegistrationDate: [
+            {
+              id: [],
+              value: []
+            }
+          ]
+        },
+        type: []
+      }
+    ]
+  },
+  {
+    Item1: Person,
+    Item2: [
+      {
+        id: [],
+        label: [],
+        properties: {
+          Age: [
+            {
+              id: [],
+              value: []
+            }
+          ],
+          PartitionKey: [
+            {
+              id: [],
+              value: []
+            }
+          ]
+        },
+        type: []
+      }
+    ]
+  },
+  {
+    Item1: Company,
+    Item2: [
+      {
+        id: [],
+        label: [],
+        properties: {
+          FoundingDate: [
+            {
+              id: [],
+              value: []
+            }
+          ],
+          PartitionKey: [
+            {
+              id: [],
+              value: []
+            }
+          ]
+        },
+        type: []
       }
     ]
   },
@@ -189,8 +441,41 @@
     Item1: Language,
     Item2: [
       {
-        Id: 00000000-0000-0000-0000-000000000000,
-        Label: Language
+        id: [],
+        label: [],
+        properties: {
+          IetfLanguageTag: [
+            {
+              id: [],
+              value: []
+            }
+          ],
+          PartitionKey: [
+            {
+              id: [],
+              value: []
+            }
+          ]
+        },
+        type: []
+      }
+    ]
+  },
+  {
+    Item1: Language,
+    Item2: [
+      {
+        id: [],
+        label: [],
+        properties: {
+          PartitionKey: [
+            {
+              id: [],
+              value: []
+            }
+          ]
+        },
+        type: []
       }
     ]
   },
@@ -198,65 +483,35 @@
     Item1: TimeFrame,
     Item2: [
       {
-        Enabled: false,
-        StartTime: 08:00:00,
-        Duration: 02:00:00,
-        Id: 00000000-0000-0000-0000-000000000000,
-        Label: TimeFrame
-      }
-    ]
-  },
-  {
-    Item1: Language,
-    Item2: [
-      {
-        IetfLanguageTag: en,
-        Id: 00000000-0000-0000-0000-000000000000,
-        Label: Language
-      }
-    ]
-  },
-  {
-    Item1: Language,
-    Item2: [
-      {
-        IetfLanguageTag: en,
-        Id: 00000000-0000-0000-0000-000000000000,
-        Label: Language
-      }
-    ]
-  },
-  {
-    Item1: Person,
-    Item2: [
-      {
-        Image: AQIDBAUGBwg=,
-        Id: 00000000-0000-0000-0000-000000000000,
-        Label: Person
-      }
-    ]
-  },
-  {
-    Item1: Person,
-    Item2: [
-      {
-        Gender: Female,
-        Id: 00000000-0000-0000-0000-000000000000,
-        Label: Person
-      }
-    ]
-  },
-  {
-    Item1: Person,
-    Item2: [
-      {
-        RegistrationDate: 2020-04-07 14:43:36 +0,
-        Name: {
-          Id: 00000000-0000-0000-0000-000000000000,
-          Value: Marko
+        id: [],
+        label: [],
+        properties: {
+          Duration: [
+            {
+              id: [],
+              value: []
+            }
+          ],
+          Enabled: [
+            {
+              id: [],
+              value: []
+            }
+          ],
+          PartitionKey: [
+            {
+              id: [],
+              value: []
+            }
+          ],
+          StartTime: [
+            {
+              id: [],
+              value: []
+            }
+          ]
         },
-        Id: 00000000-0000-0000-0000-000000000000,
-        Label: Person
+        type: []
       }
     ]
   },
@@ -264,9 +519,23 @@
     Item1: Language,
     Item2: [
       {
-        IetfLanguageTag: en,
-        Id: 00000000-0000-0000-0000-000000000000,
-        Label: Language
+        id: [],
+        label: [],
+        properties: {
+          IetfLanguageTag: [
+            {
+              id: [],
+              value: []
+            }
+          ],
+          PartitionKey: [
+            {
+              id: [],
+              value: []
+            }
+          ]
+        },
+        type: []
       }
     ]
   },
@@ -274,8 +543,155 @@
     Item1: Language,
     Item2: [
       {
-        Id: 00000000-0000-0000-0000-000000000000,
-        Label: Language
+        id: [],
+        label: [],
+        properties: {
+          IetfLanguageTag: [
+            {
+              id: [],
+              value: []
+            }
+          ],
+          PartitionKey: [
+            {
+              id: [],
+              value: []
+            }
+          ]
+        },
+        type: []
+      }
+    ]
+  },
+  {
+    Item1: Person,
+    Item2: [
+      {
+        id: [],
+        label: [],
+        properties: {
+          Age: [
+            {
+              id: [],
+              value: []
+            }
+          ],
+          Image: [
+            {
+              id: [],
+              value: []
+            }
+          ],
+          PartitionKey: [
+            {
+              id: [],
+              value: []
+            }
+          ]
+        },
+        type: []
+      }
+    ]
+  },
+  {
+    Item1: Person,
+    Item2: [
+      {
+        id: [],
+        label: [],
+        properties: {
+          Age: [
+            {
+              id: [],
+              value: []
+            }
+          ],
+          Gender: [
+            {
+              id: [],
+              value: []
+            }
+          ],
+          PartitionKey: [
+            {
+              id: [],
+              value: []
+            }
+          ]
+        },
+        type: []
+      }
+    ]
+  },
+  {
+    Item1: Person,
+    Item2: [
+      {
+        id: [],
+        label: [],
+        properties: {
+          Name: [
+            {
+              id: [],
+              value: []
+            }
+          ],
+          PartitionKey: [
+            {
+              id: [],
+              value: []
+            }
+          ],
+          RegistrationDate: [
+            {
+              id: [],
+              value: []
+            }
+          ]
+        },
+        type: []
+      }
+    ]
+  },
+  {
+    Item1: Language,
+    Item2: [
+      {
+        id: [],
+        label: [],
+        properties: {
+          IetfLanguageTag: [
+            {
+              id: [],
+              value: []
+            }
+          ],
+          PartitionKey: [
+            {
+              id: [],
+              value: []
+            }
+          ]
+        },
+        type: []
+      }
+    ]
+  },
+  {
+    Item1: Language,
+    Item2: [
+      {
+        id: [],
+        label: [],
+        properties: {
+          PartitionKey: [
+            {
+              id: [],
+              value: []
+            }
+          ]
+        },
+        type: []
       }
     ]
   },
@@ -283,61 +699,118 @@
     Item1: Company,
     Item2: [
       {
-        Locations: [
-          {
-            Id: 00000000-0000-0000-0000-000000000000,
-            Properties: {
-              ValidFrom: 2019-01-01 01:00 +0
+        id: [],
+        label: [],
+        properties: {
+          FoundingDate: [
+            {
+              id: [],
+              value: []
+            }
+          ],
+          Locations: [
+            {
+              id: [],
+              properties: {
+                ValidFrom: []
+              },
+              value: []
+            }
+          ],
+          PartitionKey: [
+            {
+              id: [],
+              value: []
+            }
+          ]
+        },
+        type: []
+      }
+    ]
+  },
+  {
+    Item1: Country,
+    Item2: [
+      {
+        id: [],
+        label: [],
+        properties: {
+          Name: [
+            {
+              id: [],
+              value: []
+            }
+          ],
+          PartitionKey: [
+            {
+              id: [],
+              value: []
+            }
+          ]
+        },
+        type: []
+      }
+    ]
+  },
+  {
+    Item1: Country,
+    Item2: [
+      {
+        id: [],
+        label: [],
+        properties: {
+          Name: [
+            {
+              id: [],
+              properties: {
+                de: [],
+                en: []
+              },
+              value: []
+            }
+          ],
+          PartitionKey: [
+            {
+              id: [],
+              value: []
+            }
+          ]
+        },
+        type: []
+      }
+    ]
+  },
+  {
+    Item1: Company,
+    Item2: [
+      {
+        id: [],
+        label: [],
+        properties: {
+          FoundingDate: [
+            {
+              id: [],
+              value: []
+            }
+          ],
+          PartitionKey: [
+            {
+              id: [],
+              value: []
+            }
+          ],
+          PhoneNumbers: [
+            {
+              id: [],
+              value: []
             },
-            Value: Aachen
-          }
-        ],
-        Id: 00000000-0000-0000-0000-000000000000,
-        Label: Company
-      }
-    ]
-  },
-  {
-    Item1: Country,
-    Item2: [
-      {
-        Name: {
-          Id: 00000000-0000-0000-0000-000000000000,
-          Properties: {},
-          Value: GER
+            {
+              id: [],
+              value: []
+            }
+          ]
         },
-        Id: 00000000-0000-0000-0000-000000000000,
-        Label: Country
-      }
-    ]
-  },
-  {
-    Item1: Country,
-    Item2: [
-      {
-        Name: {
-          Id: 00000000-0000-0000-0000-000000000000,
-          Properties: {
-            de: Deutschland,
-            en: Germany
-          },
-          Value: GER
-        },
-        Id: 00000000-0000-0000-0000-000000000000,
-        Label: Country
-      }
-    ]
-  },
-  {
-    Item1: Company,
-    Item2: [
-      {
-        PhoneNumbers: [
-          +4912345,
-          +4923456
-        ],
-        Id: 00000000-0000-0000-0000-000000000000,
-        Label: Company
+        type: []
       }
     ]
   },
@@ -345,8 +818,17 @@
     Item1: Language,
     Item2: [
       {
-        Id: 00000000-0000-0000-0000-000000000000,
-        Label: Language
+        id: [],
+        label: [],
+        properties: {
+          PartitionKey: [
+            {
+              id: [],
+              value: []
+            }
+          ]
+        },
+        type: []
       }
     ]
   },
@@ -354,8 +836,23 @@
     Item1: Language,
     Item2: [
       {
-        Id: 00000000-0000-0000-0000-000000000000,
-        Label: Language
+        id: [],
+        label: [],
+        properties: {
+          lang: [
+            {
+              id: [],
+              value: []
+            }
+          ],
+          PartitionKey: [
+            {
+              id: [],
+              value: []
+            }
+          ]
+        },
+        type: []
       }
     ]
   }

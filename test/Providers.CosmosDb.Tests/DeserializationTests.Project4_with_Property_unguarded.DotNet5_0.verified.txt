@@ -1,124 +1,224 @@
 ﻿[
   {
     Item2: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Company
+      id: [],
+      label: [],
+      properties: {
+        FoundingDate: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     },
     Item4: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Id: [],
       Label: PartitionKey,
       Properties: {},
-      Value: PartitionKey
+      Value: []
     }
   },
   {
     Item1: {
-      CountryCallingCode: +49,
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Country
+      id: [],
+      label: [],
+      properties: {
+        CountryCallingCode: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     },
     Item4: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Id: [],
       Label: PartitionKey,
       Properties: {},
-      Value: PartitionKey
+      Value: []
     }
   },
   {
     Item2: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Country
+      id: [],
+      label: [],
+      properties: {
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     },
     Item4: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Id: [],
       Label: PartitionKey,
       Properties: {},
-      Value: PartitionKey
+      Value: []
     }
   },
   {
     Item2: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Country
+      id: [],
+      label: [],
+      properties: {
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     },
     Item4: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Id: [],
       Label: PartitionKey,
       Properties: {},
-      Value: PartitionKey
+      Value: []
     }
   },
   {
     Item2: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Country
+      id: [],
+      label: [],
+      properties: {
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     },
     Item4: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Id: [],
       Label: PartitionKey,
       Properties: {},
-      Value: PartitionKey
+      Value: []
     }
   },
   {
     Item2: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Company
+      id: [],
+      label: [],
+      properties: {
+        FoundingDate: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     },
     Item4: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Id: [],
       Label: PartitionKey,
       Properties: {},
-      Value: PartitionKey
+      Value: []
     }
   },
   {
     Item2: {
-      CountryCallingCode: +49,
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Country
+      id: [],
+      label: [],
+      properties: {
+        CountryCallingCode: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     },
     Item4: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Id: [],
       Label: PartitionKey,
       Properties: {},
-      Value: PartitionKey
+      Value: []
     }
   },
   {
     Item2: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Company
+      id: [],
+      label: [],
+      properties: {
+        FoundingDate: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     },
     Item4: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Id: [],
       Label: PartitionKey,
       Properties: {},
-      Value: PartitionKey
+      Value: []
     }
   },
   {
     Item4: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Id: [],
       Label: PartitionKey,
       Properties: {},
-      Value: PartitionKey
+      Value: []
     }
   },
   {
     Item4: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Id: [],
       Label: PartitionKey,
       Properties: {},
-      Value: PartitionKey
+      Value: []
     }
   },
   {
     Item4: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Id: [],
       Label: PartitionKey,
       Properties: {},
-      Value: PartitionKey
+      Value: []
     }
   }
 ]

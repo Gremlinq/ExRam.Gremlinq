@@ -1,10 +1,10 @@
 ﻿[
   {
-    Value: Deutschland,
+    Value: [],
     Key: de
   },
   {
-    Value: Germany,
+    Value: [],
     Key: en
   }
 ]

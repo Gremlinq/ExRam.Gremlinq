@@ -1,12 +1,55 @@
 ﻿[
   {
-    IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language
+    id: [],
+    label: [],
+    properties: {
+      IetfLanguageTag: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
   },
   {
-    Age: 36,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    id: [],
+    label: [],
+    properties: {
+      Age: [
+        {
+          id: [],
+          properties: {
+            Meta: []
+          },
+          value: []
+        }
+      ],
+      GuidKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      StringKey1: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
   }
 ]

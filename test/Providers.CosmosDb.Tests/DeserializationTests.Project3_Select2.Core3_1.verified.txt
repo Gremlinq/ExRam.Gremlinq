@@ -1,18 +1,54 @@
 ﻿[
   {
     Item1: {
-      RegistrationDate: 2020-04-07 14:43:36 +0,
-      Name: {
-        Id: 00000000-0000-0000-0000-000000000000,
-        Value: Bob
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        Name: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        RegistrationDate: [
+          {
+            id: [],
+            value: []
+          }
+        ]
       },
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      type: []
     },
     Item2: {
-      IetfLanguageTag: en,
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Language
+      id: [],
+      label: [],
+      properties: {
+        IetfLanguageTag: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     }
   }
 ]

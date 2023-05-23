@@ -1,62 +1,62 @@
 ﻿[
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: [],
     Label: Age,
     Properties: {},
-    Value: 0
+    Value: []
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: [],
     Label: Age,
     Properties: {},
-    Value: 0
+    Value: []
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: [],
     Label: Age,
     Properties: {},
-    Value: 0
+    Value: []
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: [],
     Label: Age,
     Properties: {},
-    Value: 0
+    Value: []
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: [],
     Label: Age,
     Properties: {},
-    Value: 0
+    Value: []
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: [],
     Label: Age,
     Properties: {},
-    Value: 0
+    Value: []
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: [],
     Label: Age,
     Properties: {},
-    Value: 0
+    Value: []
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: [],
     Label: Age,
     Properties: {},
-    Value: 0
+    Value: []
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: [],
     Label: Age,
     Properties: {},
-    Value: 0
+    Value: []
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: [],
     Label: Age,
     Properties: {},
-    Value: 0
+    Value: []
   }
 ]

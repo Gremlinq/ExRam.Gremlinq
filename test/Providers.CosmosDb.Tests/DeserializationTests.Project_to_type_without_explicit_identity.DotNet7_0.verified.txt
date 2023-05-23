@@ -1,268 +1,1028 @@
 ﻿[
   {
     In: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     },
     Out: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     },
     Count: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     },
     Properties: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     }
   },
   {
     In: {
-      RegistrationDate: 2020-04-07 14:43:36 +0,
-      Name: {
-        Id: 00000000-0000-0000-0000-000000000000,
-        Value: Bob
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        Name: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        RegistrationDate: [
+          {
+            id: [],
+            value: []
+          }
+        ]
       },
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      type: []
     },
     Out: {
-      RegistrationDate: 2020-04-07 14:43:36 +0,
-      Name: {
-        Id: 00000000-0000-0000-0000-000000000000,
-        Value: Bob
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        Name: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        RegistrationDate: [
+          {
+            id: [],
+            value: []
+          }
+        ]
       },
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      type: []
     },
     Count: {
-      RegistrationDate: 2020-04-07 14:43:36 +0,
-      Name: {
-        Id: 00000000-0000-0000-0000-000000000000,
-        Value: Bob
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        Name: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        RegistrationDate: [
+          {
+            id: [],
+            value: []
+          }
+        ]
       },
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      type: []
     },
     Properties: {
-      RegistrationDate: 2020-04-07 14:43:36 +0,
-      Name: {
-        Id: 00000000-0000-0000-0000-000000000000,
-        Value: Bob
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        Name: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        RegistrationDate: [
+          {
+            id: [],
+            value: []
+          }
+        ]
       },
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      type: []
     }
   },
   {
     In: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     },
     Out: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     },
     Count: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     },
     Properties: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     }
   },
   {
     In: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     },
     Out: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     },
     Count: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     },
     Properties: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     }
   },
   {
     In: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     },
     Out: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     },
     Count: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     },
     Properties: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     }
   },
   {
     In: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     },
     Out: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     },
     Count: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     },
     Properties: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     }
   },
   {
     In: {
-      RegistrationDate: 2020-04-07 14:43:36 +0,
-      Name: {
-        Id: 00000000-0000-0000-0000-000000000000,
-        Value: Bob
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        Name: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        RegistrationDate: [
+          {
+            id: [],
+            value: []
+          }
+        ]
       },
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      type: []
     },
     Out: {
-      RegistrationDate: 2020-04-07 14:43:36 +0,
-      Name: {
-        Id: 00000000-0000-0000-0000-000000000000,
-        Value: Bob
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        Name: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        RegistrationDate: [
+          {
+            id: [],
+            value: []
+          }
+        ]
       },
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      type: []
     },
     Count: {
-      RegistrationDate: 2020-04-07 14:43:36 +0,
-      Name: {
-        Id: 00000000-0000-0000-0000-000000000000,
-        Value: Bob
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        Name: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        RegistrationDate: [
+          {
+            id: [],
+            value: []
+          }
+        ]
       },
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      type: []
     },
     Properties: {
-      RegistrationDate: 2020-04-07 14:43:36 +0,
-      Name: {
-        Id: 00000000-0000-0000-0000-000000000000,
-        Value: Bob
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        Name: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        RegistrationDate: [
+          {
+            id: [],
+            value: []
+          }
+        ]
       },
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      type: []
     }
   },
   {
     In: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     },
     Out: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     },
     Count: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     },
     Properties: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     }
   },
   {
     In: {
-      Image: AQIDBAUGBwg=,
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        Image: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     },
     Out: {
-      Image: AQIDBAUGBwg=,
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        Image: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     },
     Count: {
-      Image: AQIDBAUGBwg=,
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        Image: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     },
     Properties: {
-      Image: AQIDBAUGBwg=,
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        Image: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     }
   },
   {
     In: {
-      Gender: Female,
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        Gender: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     },
     Out: {
-      Gender: Female,
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        Gender: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     },
     Count: {
-      Gender: Female,
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        Gender: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     },
     Properties: {
-      Gender: Female,
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        Gender: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     }
   },
   {
     In: {
-      RegistrationDate: 2020-04-07 14:43:36 +0,
-      Name: {
-        Id: 00000000-0000-0000-0000-000000000000,
-        Value: Marko
+      id: [],
+      label: [],
+      properties: {
+        Name: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        RegistrationDate: [
+          {
+            id: [],
+            value: []
+          }
+        ]
       },
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      type: []
     },
     Out: {
-      RegistrationDate: 2020-04-07 14:43:36 +0,
-      Name: {
-        Id: 00000000-0000-0000-0000-000000000000,
-        Value: Marko
+      id: [],
+      label: [],
+      properties: {
+        Name: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        RegistrationDate: [
+          {
+            id: [],
+            value: []
+          }
+        ]
       },
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      type: []
     },
     Count: {
-      RegistrationDate: 2020-04-07 14:43:36 +0,
-      Name: {
-        Id: 00000000-0000-0000-0000-000000000000,
-        Value: Marko
+      id: [],
+      label: [],
+      properties: {
+        Name: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        RegistrationDate: [
+          {
+            id: [],
+            value: []
+          }
+        ]
       },
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      type: []
     },
     Properties: {
-      RegistrationDate: 2020-04-07 14:43:36 +0,
-      Name: {
-        Id: 00000000-0000-0000-0000-000000000000,
-        Value: Marko
+      id: [],
+      label: [],
+      properties: {
+        Name: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        RegistrationDate: [
+          {
+            id: [],
+            value: []
+          }
+        ]
       },
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      type: []
     }
   }
 ]

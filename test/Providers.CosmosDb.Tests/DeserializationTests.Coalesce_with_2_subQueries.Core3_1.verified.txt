@@ -1,89 +1,357 @@
 ﻿[
   {
-    IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language
-  },
-  {
-    RegistrationDate: 2020-04-07 14:43:36 +0,
-    Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Value: Bob
+    id: [],
+    label: [],
+    properties: {
+      IetfLanguageTag: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
     },
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    type: []
   },
   {
-    CountryCallingCode: +49,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
+    id: [],
+    label: [],
+    properties: {
+      Age: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      Name: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      RegistrationDate: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Company
+    id: [],
+    label: [],
+    properties: {
+      CountryCallingCode: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    id: [],
+    label: [],
+    properties: {
+      FoundingDate: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
   },
   {
-    CountryCallingCode: +49,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
+    id: [],
+    label: [],
+    properties: {
+      Age: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
+    id: [],
+    label: [],
+    properties: {
+      CountryCallingCode: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    id: [],
+    label: [],
+    properties: {
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
+    id: [],
+    label: [],
+    properties: {
+      Age: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    id: [],
+    label: [],
+    properties: {
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
+    id: [],
+    label: [],
+    properties: {
+      Age: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    id: [],
+    label: [],
+    properties: {
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Company
+    id: [],
+    label: [],
+    properties: {
+      Age: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    id: [],
+    label: [],
+    properties: {
+      FoundingDate: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
   },
   {
-    CountryCallingCode: +49,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
+    id: [],
+    label: [],
+    properties: {
+      Age: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
   },
   {
-    IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language
+    id: [],
+    label: [],
+    properties: {
+      CountryCallingCode: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
   },
   {
-    CountryCallingCode: +49,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
+    id: [],
+    label: [],
+    properties: {
+      IetfLanguageTag: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Company
+    id: [],
+    label: [],
+    properties: {
+      CountryCallingCode: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    id: [],
+    label: [],
+    properties: {
+      FoundingDate: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
+  },
+  {
+    id: [],
+    label: [],
+    properties: {
+      Age: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
   }
 ]

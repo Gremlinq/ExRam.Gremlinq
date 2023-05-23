@@ -1,52 +1,108 @@
 ﻿[
   {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: LivesIn
+    id: [],
+    inV: [],
+    inVLabel: [],
+    label: [],
+    outV: [],
+    outVLabel: [],
+    type: []
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Speaks
+    id: [],
+    inV: [],
+    inVLabel: [],
+    label: [],
+    outV: [],
+    outVLabel: [],
+    type: []
   },
   {
-    Role: Admin,
-    From: 2020-04-07 14:43:36 Utc,
-    To: 2020-04-07 14:43:36 Utc,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: WorksFor
-  },
-  {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: LivesIn
-  },
-  {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: LivesIn
-  },
-  {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: LivesIn
-  },
-  {
-    Since: {
-      Value: 2020-04-07 14:43:36 +0
+    id: [],
+    inV: [],
+    inVLabel: [],
+    label: [],
+    outV: [],
+    outVLabel: [],
+    properties: {
+      From: [],
+      Role: [],
+      To: []
     },
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: LivesIn
+    type: []
   },
   {
-    Role: Admin,
-    From: 2020-04-07 14:43:36 Utc,
-    To: 2020-04-07 14:43:36 Utc,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: WorksFor
+    id: [],
+    inV: [],
+    inVLabel: [],
+    label: [],
+    outV: [],
+    outVLabel: [],
+    type: []
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Speaks
+    id: [],
+    inV: [],
+    inVLabel: [],
+    label: [],
+    outV: [],
+    outVLabel: [],
+    type: []
   },
   {
-    To: 2020-04-07 14:43:36 Utc,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: WorksFor
+    id: [],
+    inV: [],
+    inVLabel: [],
+    label: [],
+    outV: [],
+    outVLabel: [],
+    type: []
+  },
+  {
+    id: [],
+    inV: [],
+    inVLabel: [],
+    label: [],
+    outV: [],
+    outVLabel: [],
+    properties: {
+      Since: []
+    },
+    type: []
+  },
+  {
+    id: [],
+    inV: [],
+    inVLabel: [],
+    label: [],
+    outV: [],
+    outVLabel: [],
+    properties: {
+      From: [],
+      Role: [],
+      To: []
+    },
+    type: []
+  },
+  {
+    id: [],
+    inV: [],
+    inVLabel: [],
+    label: [],
+    outV: [],
+    outVLabel: [],
+    type: []
+  },
+  {
+    id: [],
+    inV: [],
+    inVLabel: [],
+    label: [],
+    outV: [],
+    outVLabel: [],
+    properties: {
+      To: []
+    },
+    type: []
   }
 ]

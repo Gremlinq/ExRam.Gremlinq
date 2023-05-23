@@ -1,35 +1,116 @@
 ﻿[
   {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Company
+    id: [],
+    label: [],
+    properties: {
+      FoundingDate: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Company
+    id: [],
+    label: [],
+    properties: {
+      FoundingDate: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Company
+    id: [],
+    label: [],
+    properties: {
+      FoundingDate: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
   },
   {
-    Locations: [
-      {
-        Id: 00000000-0000-0000-0000-000000000000,
-        Properties: {
-          ValidFrom: 2019-01-01 01:00 +0
+    id: [],
+    label: [],
+    properties: {
+      FoundingDate: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      Locations: [
+        {
+          id: [],
+          properties: {
+            ValidFrom: []
+          },
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
+  },
+  {
+    id: [],
+    label: [],
+    properties: {
+      FoundingDate: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PhoneNumbers: [
+        {
+          id: [],
+          value: []
         },
-        Value: Aachen
-      }
-    ],
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Company
-  },
-  {
-    PhoneNumbers: [
-      +4912345,
-      +4923456
-    ],
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Company
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
   }
 ]

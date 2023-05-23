@@ -1,19 +1,49 @@
 ﻿[
   {
-    CountryCallingCode: +49,
-    LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Properties: {
-        someKey: value
-      },
-      Value: 
+    id: [],
+    label: [],
+    properties: {
+      CountryCallingCode: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      LocalizableDescription: [
+        {
+          id: [],
+          properties: {
+            someKey: []
+          },
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
     },
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
+    type: []
   },
   {
-    IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language
+    id: [],
+    label: [],
+    properties: {
+      IetfLanguageTag: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
   }
 ]

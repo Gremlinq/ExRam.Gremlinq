@@ -4,10 +4,10 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: [],
       Value: Marko
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: [],
     Label: Person
   },
   {
@@ -15,10 +15,10 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: [],
       Value: Marko
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: [],
     Label: Person
   },
   {
@@ -26,10 +26,10 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: [],
       Value: Marko
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: [],
     Label: Person
   },
   {
@@ -37,10 +37,10 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: [],
       Value: Marko
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: [],
     Label: Person
   },
   {
@@ -48,10 +48,10 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: [],
       Value: Marko
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: [],
     Label: Person
   },
   {
@@ -59,10 +59,10 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: [],
       Value: Marko
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: [],
     Label: Person
   },
   {
@@ -70,10 +70,10 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: [],
       Value: Marko
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: [],
     Label: Person
   }
 ]

@@ -1,59 +1,153 @@
 ﻿[
   {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Company
-  },
-  {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Company
-  },
-  {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Company
-  },
-  {
-    LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Properties: {
-        someKey: value
-      },
-      Value: 
+    id: [],
+    label: [],
+    properties: {
+      FoundingDate: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
     },
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
+    type: []
   },
   {
-    LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Properties: {
-        someKey: value
-      },
-      Value: 
+    id: [],
+    label: [],
+    properties: {
+      FoundingDate: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
     },
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
+    type: []
   },
   {
-    LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Properties: {
-        someKey: value
-      },
-      Value: 
+    id: [],
+    label: [],
+    properties: {
+      FoundingDate: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
     },
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
+    type: []
   },
   {
-    CountryCallingCode: +49,
-    LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Properties: {
-        someKey: value
-      },
-      Value: 
+    id: [],
+    label: [],
+    properties: {
+      LocalizableDescription: [
+        {
+          id: [],
+          properties: {
+            someKey: []
+          },
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
     },
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
+    type: []
+  },
+  {
+    id: [],
+    label: [],
+    properties: {
+      LocalizableDescription: [
+        {
+          id: [],
+          properties: {
+            someKey: []
+          },
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
+  },
+  {
+    id: [],
+    label: [],
+    properties: {
+      LocalizableDescription: [
+        {
+          id: [],
+          properties: {
+            someKey: []
+          },
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
+  },
+  {
+    id: [],
+    label: [],
+    properties: {
+      CountryCallingCode: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      LocalizableDescription: [
+        {
+          id: [],
+          properties: {
+            someKey: []
+          },
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
   }
 ]

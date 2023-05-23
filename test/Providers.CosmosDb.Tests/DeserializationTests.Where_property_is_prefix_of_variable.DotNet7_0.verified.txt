@@ -2,25 +2,25 @@
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: [],
       Properties: {
         someKey: value
       },
-      Value: 
+      Value: []
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: [],
     Label: Country
   },
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: [],
       Properties: {
         someKey: value
       },
-      Value: 
+      Value: []
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: [],
     Label: Country
   }
 ]

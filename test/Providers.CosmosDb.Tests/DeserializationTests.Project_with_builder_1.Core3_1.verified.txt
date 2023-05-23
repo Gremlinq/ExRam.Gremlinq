@@ -1,70 +1,224 @@
 ﻿[
   {
     in!: {
-      RegistrationDate: 2020-04-07 14:43:36 +0,
-      Name: {
-        Id: 00000000-0000-0000-0000-000000000000,
-        Value: Bob
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        Name: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        RegistrationDate: [
+          {
+            id: [],
+            value: []
+          }
+        ]
       },
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      type: []
     }
   },
   {
     in!: {
-      CountryCallingCode: +49,
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Country
+      id: [],
+      label: [],
+      properties: {
+        CountryCallingCode: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     }
   },
   {
     in!: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     }
   },
   {
     in!: {
-      CountryCallingCode: +49,
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Country
+      id: [],
+      label: [],
+      properties: {
+        CountryCallingCode: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     }
   },
   {
     in!: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     }
   },
   {
     in!: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     }
   },
   {
     in!: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     }
   },
   {
     in!: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     }
   },
   {
     in!: {
-      CountryCallingCode: +49,
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Country
+      id: [],
+      label: [],
+      properties: {
+        CountryCallingCode: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     }
   },
   {
     in!: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
+      id: [],
+      label: [],
+      properties: {
+        Age: [
+          {
+            id: [],
+            value: []
+          }
+        ],
+        PartitionKey: [
+          {
+            id: [],
+            value: []
+          }
+        ]
+      },
+      type: []
     }
   }
 ]

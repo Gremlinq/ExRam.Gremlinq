@@ -1,302 +1,1046 @@
 ﻿[
   {
-    CountryCallingCode: +49,
-    LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Properties: {
-        someKey: value
-      },
-      Value: 
+    id: [],
+    label: [],
+    properties: {
+      CountryCallingCode: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      LocalizableDescription: [
+        {
+          id: [],
+          properties: {
+            someKey: []
+          },
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
     },
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
+    type: []
   },
   {
-    IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language
-  },
-  {
-    Age: 21,
-    Gender: Male,
-    RegistrationDate: 2020-04-07 14:43:36 +0,
-    Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Value: Marko
+    id: [],
+    label: [],
+    properties: {
+      IetfLanguageTag: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
     },
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    type: []
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Company
-  },
-  {
-    Age: 21,
-    Gender: Male,
-    RegistrationDate: 2020-04-07 14:43:36 +0,
-    Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Value: Marko
+    id: [],
+    label: [],
+    properties: {
+      Age: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      Gender: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      GuidKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      Name: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      RegistrationDate: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      StringKey1: [
+        {
+          id: [],
+          value: []
+        }
+      ]
     },
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    type: []
   },
   {
-    Age: 21,
-    Gender: Male,
-    RegistrationDate: 2020-04-07 14:43:36 +0,
-    Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Value: Marko
+    id: [],
+    label: [],
+    properties: {
+      FoundingDate: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
     },
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    type: []
   },
   {
-    LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Properties: {
-        someKey: value
-      },
-      Value: 
+    id: [],
+    label: [],
+    properties: {
+      Age: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      Gender: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      GuidKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      Name: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      RegistrationDate: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      StringKey1: [
+        {
+          id: [],
+          value: []
+        }
+      ]
     },
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
+    type: []
   },
   {
-    Age: 21,
-    Gender: Male,
-    RegistrationDate: 2020-04-07 14:43:36 +0,
-    Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Value: Marko
+    id: [],
+    label: [],
+    properties: {
+      Age: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      Gender: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      GuidKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      Name: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      RegistrationDate: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      StringKey1: [
+        {
+          id: [],
+          value: []
+        }
+      ]
     },
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    type: []
   },
   {
-    LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Properties: {
-        someKey: value
-      },
-      Value: 
+    id: [],
+    label: [],
+    properties: {
+      LocalizableDescription: [
+        {
+          id: [],
+          properties: {
+            someKey: []
+          },
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
     },
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
+    type: []
   },
   {
-    Age: 21,
-    Gender: Male,
-    RegistrationDate: 2020-04-07 14:43:36 +0,
-    Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Value: Marko
+    id: [],
+    label: [],
+    properties: {
+      Age: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      Gender: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      GuidKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      Name: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      RegistrationDate: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      StringKey1: [
+        {
+          id: [],
+          value: []
+        }
+      ]
     },
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    type: []
   },
   {
-    LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Properties: {
-        someKey: value
-      },
-      Value: 
+    id: [],
+    label: [],
+    properties: {
+      LocalizableDescription: [
+        {
+          id: [],
+          properties: {
+            someKey: []
+          },
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
     },
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
+    type: []
   },
   {
-    Age: 21,
-    Gender: Male,
-    RegistrationDate: 2020-04-07 14:43:36 +0,
-    Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Value: Marko
+    id: [],
+    label: [],
+    properties: {
+      Age: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      Gender: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      GuidKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      Name: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      RegistrationDate: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      StringKey1: [
+        {
+          id: [],
+          value: []
+        }
+      ]
     },
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    type: []
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Company
-  },
-  {
-    IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language
-  },
-  {
-    CountryCallingCode: +49,
-    LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Properties: {
-        someKey: value
-      },
-      Value: 
+    id: [],
+    label: [],
+    properties: {
+      LocalizableDescription: [
+        {
+          id: [],
+          properties: {
+            someKey: []
+          },
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
     },
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
+    type: []
   },
   {
-    Age: 21,
-    Gender: Male,
-    RegistrationDate: 2020-04-07 14:43:36 +0,
-    Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Value: Marko
+    id: [],
+    label: [],
+    properties: {
+      Age: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      Gender: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      GuidKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      Name: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      RegistrationDate: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      StringKey1: [
+        {
+          id: [],
+          value: []
+        }
+      ]
     },
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    type: []
   },
   {
-    Age: 21,
-    Gender: Male,
-    RegistrationDate: 2020-04-07 14:43:36 +0,
-    Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Value: Marko
+    id: [],
+    label: [],
+    properties: {
+      FoundingDate: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
     },
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    type: []
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Company
-  },
-  {
-    IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language
-  },
-  {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language
-  },
-  {
-    Enabled: false,
-    StartTime: 08:00:00,
-    Duration: 02:00:00,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: TimeFrame
-  },
-  {
-    IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language
-  },
-  {
-    IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language
-  },
-  {
-    Age: 21,
-    Gender: Male,
-    Image: AQIDBAUGBwg=,
-    RegistrationDate: 2020-04-07 14:43:36 +0,
-    Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Value: Marko
+    id: [],
+    label: [],
+    properties: {
+      IetfLanguageTag: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
     },
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    type: []
   },
   {
-    Age: 21,
-    Gender: Male,
-    RegistrationDate: 2020-04-07 14:43:36 +0,
-    Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Value: Marko
+    id: [],
+    label: [],
+    properties: {
+      CountryCallingCode: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      LocalizableDescription: [
+        {
+          id: [],
+          properties: {
+            someKey: []
+          },
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
     },
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    type: []
   },
   {
-    Age: 21,
-    Gender: Male,
-    RegistrationDate: 2020-04-07 14:43:36 +0,
-    Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Value: Marko
+    id: [],
+    label: [],
+    properties: {
+      Age: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      Gender: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      GuidKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      Name: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      RegistrationDate: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      StringKey1: [
+        {
+          id: [],
+          value: []
+        }
+      ]
     },
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Person
+    type: []
   },
   {
-    IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language
+    id: [],
+    label: [],
+    properties: {
+      Age: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      Gender: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      GuidKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      Name: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      RegistrationDate: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      StringKey1: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language
+    id: [],
+    label: [],
+    properties: {
+      FoundingDate: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
   },
   {
-    Locations: [
-      {
-        Id: 00000000-0000-0000-0000-000000000000,
-        Properties: {
-          ValidFrom: 2019-01-01 01:00 +0
+    id: [],
+    label: [],
+    properties: {
+      IetfLanguageTag: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
+  },
+  {
+    id: [],
+    label: [],
+    properties: {
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
+  },
+  {
+    id: [],
+    label: [],
+    properties: {
+      Duration: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      Enabled: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      StartTime: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
+  },
+  {
+    id: [],
+    label: [],
+    properties: {
+      IetfLanguageTag: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
+  },
+  {
+    id: [],
+    label: [],
+    properties: {
+      IetfLanguageTag: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
+  },
+  {
+    id: [],
+    label: [],
+    properties: {
+      Age: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      Gender: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      GuidKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      Image: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      Name: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      RegistrationDate: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      StringKey1: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
+  },
+  {
+    id: [],
+    label: [],
+    properties: {
+      Age: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      Gender: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      GuidKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      Name: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      RegistrationDate: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      StringKey1: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
+  },
+  {
+    id: [],
+    label: [],
+    properties: {
+      Age: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      Gender: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      GuidKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      Name: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      RegistrationDate: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      StringKey1: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
+  },
+  {
+    id: [],
+    label: [],
+    properties: {
+      IetfLanguageTag: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
+  },
+  {
+    id: [],
+    label: [],
+    properties: {
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
+  },
+  {
+    id: [],
+    label: [],
+    properties: {
+      FoundingDate: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      Locations: [
+        {
+          id: [],
+          properties: {
+            ValidFrom: []
+          },
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
+  },
+  {
+    id: [],
+    label: [],
+    properties: {
+      LocalizableDescription: [
+        {
+          id: [],
+          properties: {
+            someKey: []
+          },
+          value: []
+        }
+      ],
+      Name: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
+  },
+  {
+    id: [],
+    label: [],
+    properties: {
+      LocalizableDescription: [
+        {
+          id: [],
+          properties: {
+            someKey: []
+          },
+          value: []
+        }
+      ],
+      Name: [
+        {
+          id: [],
+          properties: {
+            de: [],
+            en: []
+          },
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
+    },
+    type: []
+  },
+  {
+    id: [],
+    label: [],
+    properties: {
+      FoundingDate: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PhoneNumbers: [
+        {
+          id: [],
+          value: []
         },
-        Value: Aachen
-      }
-    ],
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Company
-  },
-  {
-    Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Properties: {},
-      Value: GER
+        {
+          id: [],
+          value: []
+        }
+      ]
     },
-    LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Properties: {
-        someKey: value
-      },
-      Value: 
+    type: []
+  },
+  {
+    id: [],
+    label: [],
+    properties: {
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
     },
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
+    type: []
   },
   {
-    Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Properties: {
-        de: Deutschland,
-        en: Germany
-      },
-      Value: GER
+    id: [],
+    label: [],
+    properties: {
+      lang: [
+        {
+          id: [],
+          value: []
+        }
+      ],
+      PartitionKey: [
+        {
+          id: [],
+          value: []
+        }
+      ]
     },
-    LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Properties: {
-        someKey: value
-      },
-      Value: 
-    },
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
-  },
-  {
-    PhoneNumbers: [
-      +4912345,
-      +4923456
-    ],
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Company
-  },
-  {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language
-  },
-  {
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language
+    type: []
   }
 ]
