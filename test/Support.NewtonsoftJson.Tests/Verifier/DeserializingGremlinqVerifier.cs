@@ -1,4 +1,5 @@
-﻿using ExRam.Gremlinq.Core;
+﻿using System.Runtime.CompilerServices;
+using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Core.Transformation;
 using Newtonsoft.Json;
@@ -8,6 +9,10 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
 {
     public class DeserializingGremlinqVerifier : GremlinQueryVerifier
     {
+        public DeserializingGremlinqVerifier([CallerFilePath] string sourceFile = "") : base(sourceFile)
+        {
+        }
+
         public override async Task Verify<TElement>(IGremlinQueryBase<TElement> query)
         {
             var context = XunitContext.Context;

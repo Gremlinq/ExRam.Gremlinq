@@ -4,7 +4,7 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public class Issue568 : GremlinqTestBase
+    public sealed class Issue568 : GremlinqTestBase
     {
         public abstract class VertexBaseAbstract
         {
@@ -16,7 +16,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
         }
 
-        public Issue568(ITestOutputHelper testOutputHelper) : base(GremlinqTestFixture.Empty, GremlinQueryVerifier.Default, testOutputHelper)
+        public Issue568(ITestOutputHelper testOutputHelper) : base(GremlinqTestFixture.Empty, new DebugGremlinQueryVerifier(), testOutputHelper)
         {
 
         }

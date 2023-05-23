@@ -2,9 +2,9 @@
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public class Issue45 : GremlinqTestBase
+    public sealed class Issue45 : GremlinqTestBase
     {
-        public Issue45(ITestOutputHelper testOutputHelper) : base(GremlinqTestFixture.Empty, GremlinQueryVerifier.Default, testOutputHelper)
+        public Issue45(ITestOutputHelper testOutputHelper) : base(GremlinqTestFixture.Empty, new DebugGremlinQueryVerifier(), testOutputHelper)
         {
 
         }

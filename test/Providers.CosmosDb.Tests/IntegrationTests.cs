@@ -3,7 +3,6 @@ using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Providers.CosmosDb.Tests.Extensions;
 using ExRam.Gremlinq.Support.NewtonsoftJson.Tests;
 using ExRam.Gremlinq.Support.NewtonsoftJson.Tests.Verifier;
-
 using Microsoft.Azure.Cosmos;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests

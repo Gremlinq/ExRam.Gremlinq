@@ -18,7 +18,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 
         public DebugTests(DebugFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
-            GremlinQueryVerifier.Default,
+            new DebugGremlinQueryVerifier(),
             testOutputHelper)
         {
         }
