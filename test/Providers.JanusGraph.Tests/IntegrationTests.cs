@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using ExRam.Gremlinq.Core.Tests;
-using ExRam.Gremlinq.Support.NewtonsoftJson.Tests.Verifier;
+using ExRam.Gremlinq.Support.NewtonsoftJson.Tests;
 
 namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
 {

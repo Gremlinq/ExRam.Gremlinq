@@ -8,7 +8,7 @@ using ExRam.Gremlinq.Tests.Infrastructure;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests.Verifier
+namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
 {
     public class ExecutingVerifier : GremlinQueryVerifier
     {
