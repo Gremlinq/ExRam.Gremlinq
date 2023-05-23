@@ -4,7 +4,6 @@ using ExRam.Gremlinq.Tests.Entities;
 using ExRam.Gremlinq.Providers.Core;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 using Gremlin.Net.Process.Traversal;
-using ExRam.Gremlinq.Core.Tests.Fixtures;
 using ExRam.Gremlinq.Core.Tests.Verifiers;
 
 namespace ExRam.Gremlinq.Providers.Neptune.Tests

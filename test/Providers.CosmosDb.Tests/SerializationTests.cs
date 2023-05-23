@@ -1,7 +1,6 @@
 ﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Core.Tests;
-using ExRam.Gremlinq.Core.Tests.Fixtures;
 using ExRam.Gremlinq.Core.Tests.Verifiers;
 using ExRam.Gremlinq.Providers.CosmosDb.Tests.Extensions;
 using ExRam.Gremlinq.Tests.Entities;
