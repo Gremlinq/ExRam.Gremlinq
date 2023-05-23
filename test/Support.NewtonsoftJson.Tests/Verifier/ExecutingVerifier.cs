@@ -33,11 +33,13 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests.Verifier
             var serialized = JsonConvert.SerializeObject(
                 await query
                     .Cast<JTokenExecutionResult>()
+                    .ToAsyncEnumerable()
+                    .Select(x => x.Result)
                     .ToArrayAsync(),
                 Formatting.Indented);
 
-            var scrubbed = 
-                Scrubbers()
+            var scrubbed = this
+                .Scrubbers()
                 .Aggregate(serialized, (s, func) => func(s));
 
             await InnerVerify(scrubbed);
