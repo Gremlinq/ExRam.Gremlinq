@@ -1,7 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 using ExRam.Gremlinq.Core;
 
-namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
+namespace ExRam.Gremlinq.Tests.Infrastructure
 {
     public sealed class ObjectDeserializingGremlinqVerifier : DeserializingGremlinqVerifier
     {
