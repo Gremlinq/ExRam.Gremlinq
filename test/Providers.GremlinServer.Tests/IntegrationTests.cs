@@ -19,7 +19,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
                 .ConfigureEnvironment(env => env
                     .ConfigureDeserializer(d => d
                         .Add(ConverterFactory
-                            .Create<JToken, JToken>((token, env, recurse) => token)))))
+                            .Create<JToken, JTokenExecutionResult>((token, env, recurse) => new JTokenExecutionResult(token))))))
             {
             }
         }

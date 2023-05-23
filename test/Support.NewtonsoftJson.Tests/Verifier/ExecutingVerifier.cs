@@ -8,6 +8,18 @@ using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests.Verifier
 {
+    public readonly struct JTokenExecutionResult
+    {
+        private readonly JToken? _result;
+
+        public JTokenExecutionResult(JToken result)
+        {
+            _result = result;
+        }
+
+        public JToken Result => _result ?? throw new InvalidOperationException();
+    }
+
     public class ExecutingVerifier : GremlinQueryVerifier
     {
         private static readonly Regex IdRegex = new("(\"id\"\\s*[:,]\\s*{\\s*\"@type\"\\s*:\\s*\"g:(Int32|Int64|UUID)\"\\s*,\\s*\"@value\":\\s*)([^\\s{}]+)(\\s*})", RegexOptions.IgnoreCase);
@@ -20,7 +32,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests.Verifier
         {
             var serialized = JsonConvert.SerializeObject(
                 await query
-                    .Cast<JToken>()
+                    .Cast<JTokenExecutionResult>()
                     .ToArrayAsync(),
                 Formatting.Indented);
 

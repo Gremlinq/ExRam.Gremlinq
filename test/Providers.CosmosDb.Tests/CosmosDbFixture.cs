@@ -2,6 +2,7 @@
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Providers.CosmosDb.Tests.Extensions;
+using ExRam.Gremlinq.Support.NewtonsoftJson.Tests.Verifier;
 using Microsoft.Azure.Cosmos;
 using Newtonsoft.Json.Linq;
 
@@ -21,7 +22,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .AddFakePartitionKey()
                 .ConfigureDeserializer(d => d
                     .Add(ConverterFactory
-                        .Create<JToken, JToken>((token, env, recurse) => token)))))
+                        .Create<JToken, JTokenExecutionResult>((token, env, recurse) => new JTokenExecutionResult(token))))))
         {
             _task = CreateImpl();
         }
