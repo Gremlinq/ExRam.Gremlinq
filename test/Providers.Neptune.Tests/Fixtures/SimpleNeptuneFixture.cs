@@ -6,7 +6,7 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.Neptune.Tests.Fixtures
 {
-    public sealed class SimpleNeptuneFixture : GremlinqTestFixture
+    public sealed class SimpleNeptuneFixture : GremlinqFixture
     {
         public SimpleNeptuneFixture() : base(g
             .UseNeptune(builder => builder

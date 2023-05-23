@@ -7,7 +7,7 @@ using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Providers.Neptune.Tests
 {
-    public sealed class IntegrationTestNeptuneFixture : GremlinqTestFixture
+    public sealed class IntegrationTestNeptuneFixture : GremlinqFixture
     {
         public IntegrationTestNeptuneFixture() : base(Gremlinq.Core.GremlinQuerySource.g
             .UseNeptune(builder => builder

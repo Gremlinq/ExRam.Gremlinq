@@ -8,7 +8,7 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
-    public sealed class IntegrationCosmosDbFixture : GremlinqTestFixture
+    public sealed class IntegrationCosmosDbFixture : GremlinqFixture
     {
         private readonly Task _task;
 
