@@ -7,7 +7,7 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
-    public sealed class IntegrationGremlinServerFixture : GremlinqTestFixture
+    public sealed class IntegrationGremlinServerFixture : GremlinqFixture
     {
         public IntegrationGremlinServerFixture() : base(g
             .UseGremlinServer(builder => builder

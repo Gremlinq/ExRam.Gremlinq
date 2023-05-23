@@ -3,7 +3,7 @@
     public sealed class DefaultDebugGremlinQuerySerializationTest : QueryExecutionTest
     {
         public DefaultDebugGremlinQuerySerializationTest(ITestOutputHelper testOutputHelper) : base(
-            GremlinqTestFixture.Empty,
+            GremlinqFixture.Empty,
             new DebugGremlinQueryVerifier(),
             testOutputHelper)
         {

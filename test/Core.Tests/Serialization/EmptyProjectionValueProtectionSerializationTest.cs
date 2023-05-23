@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq.Core.Tests
 {
     public sealed class EmptyProjectionValueProtectionSerializationTest : QueryExecutionTest, IClassFixture<EmptyProjectionValueProtectionSerializationTest.EmptyProjectionValueProtectionFixture>
     {
-        public sealed class EmptyProjectionValueProtectionFixture : GremlinqTestFixture
+        public sealed class EmptyProjectionValueProtectionFixture : GremlinqFixture
         {
             public EmptyProjectionValueProtectionFixture() : base(g
                 .ConfigureEnvironment(_ => _

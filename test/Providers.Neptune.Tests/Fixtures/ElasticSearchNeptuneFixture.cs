@@ -5,7 +5,7 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.Neptune.Tests
 {
-    public sealed class ElasticSearchNeptuneFixture : GremlinqTestFixture
+    public sealed class ElasticSearchNeptuneFixture : GremlinqFixture
     {
         public ElasticSearchNeptuneFixture() : base(g
             .UseNeptune(builder => builder

@@ -3,18 +3,18 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public abstract class GremlinqTestFixture
+    public abstract class GremlinqFixture
     {
-        private sealed class EmptyGremlinqTestFixture : GremlinqTestFixture
+        private sealed class EmptyGremlinqTestFixture : GremlinqFixture
         {
             public EmptyGremlinqTestFixture() : base(g.ConfigureEnvironment(_ => _))
             {
             }
         }
 
-        public static readonly GremlinqTestFixture Empty = new EmptyGremlinqTestFixture();
+        public static readonly GremlinqFixture Empty = new EmptyGremlinqTestFixture();
 
-        protected GremlinqTestFixture(IGremlinQuerySource source)
+        protected GremlinqFixture(IGremlinQuerySource source)
         {
             GremlinQuerySource = source
                 .ConfigureEnvironment(env => env
