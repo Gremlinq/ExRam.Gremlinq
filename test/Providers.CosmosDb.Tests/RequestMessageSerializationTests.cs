@@ -1,6 +1,5 @@
 ﻿using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Core.Tests.Verifiers;
-using ExRam.Gremlinq.Providers.CosmosDb.Tests.Fixtures;
 using Gremlin.Net.Driver.Messages;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
