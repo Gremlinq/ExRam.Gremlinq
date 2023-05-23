@@ -1,17 +1,12 @@
 ﻿using System.Collections.Immutable;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
-using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Core.Tests;
-using ExRam.Gremlinq.Core.Transformation;
-using ExRam.Gremlinq.Providers.Core;
 using ExRam.Gremlinq.Support.NewtonsoftJson.Tests.Verifier;
-using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Providers.Neptune.Tests
 {
-    public sealed class IntegrationTests : QueryExecutionTest, IClassFixture<IntegrationTests.Fixture>
+    public sealed class IntegrationTests : QueryExecutionTest, IClassFixture<IntegrationTestNeptuneFixture>
     {
         public new sealed class Verifier : ExecutingVerifier
         {
@@ -26,23 +21,7 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
                 .Add(x => IdRegex1.Replace(x, "\"scrubbed id\""));
         }
 
-        public sealed class Fixture : GremlinqTestFixture
-        {
-            public Fixture() : base(Gremlinq.Core.GremlinQuerySource.g
-                .UseNeptune(builder => builder
-                    .AtLocalhost())
-                .ConfigureEnvironment(env => env
-                    .ConfigureDeserializer(d => d
-                        .Add(ConverterFactory
-                            .Create<JToken, JToken>((token, env, recurse) => token))))
-                .ConfigureEnvironment(environment => environment
-                    .ConfigureExecutor(_ => _
-                        .IgnoreResults())))
-            {
-            }
-        }
-        
-        public IntegrationTests(Fixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public IntegrationTests(IntegrationTestNeptuneFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
             new Verifier(),
             testOutputHelper)
