@@ -5,6 +5,8 @@ using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Tests.Infrastructure;
+using Gremlin.Net.Process.Traversal;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -30,6 +32,19 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
                                 .Create<JToken, JToken>((token, env, recurse) => token))))
                     .AsAdmin()
                     .ChangeQueryType<IGremlinQueryBase<JToken>>()
+                    .ToAsyncEnumerable()
+                    .Catch<JToken, Exception>(ex => AsyncEnumerableEx
+                        .Return<JToken>(new JObject()
+                        {
+                            {
+                                "serverException",
+                                new JObject
+                                {
+                                    { "type", ex.GetType().Name },
+                                    { "message", ex.Message }
+                                }
+                            }
+                        }))
                     .ToArrayAsync(),
                 Formatting.Indented);
 
