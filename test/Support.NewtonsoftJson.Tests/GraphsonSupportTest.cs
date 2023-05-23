@@ -4,14 +4,14 @@ using Newtonsoft.Json.Linq;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Core.GraphElements;
 using Path = ExRam.Gremlinq.Core.GraphElements.Path;
+using ExRam.Gremlinq.Core.Tests;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
 {
-    public sealed class GraphsonSupportTest : GremlinqTestBase
+    public sealed class GraphsonSupportTest : VerifyBase
     {
         private readonly struct NativeType
         {
@@ -35,9 +35,8 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
         }
 
         private readonly IGremlinQueryEnvironment _environment;
-        //private readonly IGremlinQuerySource _g;
 
-        public GraphsonSupportTest(ITestOutputHelper testOutputHelper) : base(GremlinqTestFixture.Empty, new DebugGremlinQueryVerifier(), testOutputHelper)
+        public GraphsonSupportTest() : base(GremlinQueryVerifier.DefaultSettings)
         {
             _environment = g
                 .ConfigureEnvironment(env => env

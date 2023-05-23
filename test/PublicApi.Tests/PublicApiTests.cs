@@ -4,9 +4,9 @@ using PublicApiGenerator;
 
 namespace ExRam.Gremlinq.PublicApi.Tests
 {
-    public sealed class PublicApiTests : GremlinqTestBase
+    public sealed class PublicApiTests : VerifyBase
     {
-        public PublicApiTests(ITestOutputHelper testOutputHelper) : base(GremlinqTestFixture.Empty, new DebugGremlinQueryVerifier(), testOutputHelper)
+        public PublicApiTests() : base(GremlinQueryVerifier.DefaultSettings)
         {
 
         }

@@ -6,9 +6,9 @@ using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public sealed class TansformerTest : GremlinqTestBase
+    public class TansformerTest : VerifyBase
     {
-        public TansformerTest(ITestOutputHelper testOutputHelper) : base(GremlinqTestFixture.Empty, new DebugGremlinQueryVerifier(), testOutputHelper)
+        public TansformerTest() : base(GremlinQueryVerifier.DefaultSettings)
         {
 
         }
