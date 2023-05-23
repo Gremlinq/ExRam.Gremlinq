@@ -1,5 +1,4 @@
 ﻿using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Core.Execution;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Tests.Infrastructure
@@ -17,10 +16,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         protected GremlinqFixture(IGremlinQuerySource source)
         {
-            GremlinQuerySource = source
-                .ConfigureEnvironment(env => env
-                    .ConfigureExecutor(exe => exe
-                        .CatchExecutionExceptions()));
+            GremlinQuerySource = source;
         }
 
         public IGremlinQuerySource GremlinQuerySource { get; }
