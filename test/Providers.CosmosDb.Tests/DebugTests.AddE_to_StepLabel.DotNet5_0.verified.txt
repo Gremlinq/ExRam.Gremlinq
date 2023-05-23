@@ -1,1 +1,1 @@
-﻿g.addV('Language').property(single,'IetfLanguageTag','en').as('_a').addV('Country').property(single,'CountryCallingCode','+49').addE('Speaks').to('_a')
+﻿g.addV('Language').property('PartitionKey','PartitionKey').property(single,'IetfLanguageTag','en').as('_a').addV('Country').property('PartitionKey','PartitionKey').property(single,'CountryCallingCode','+49').addE('Speaks').to('_a')
