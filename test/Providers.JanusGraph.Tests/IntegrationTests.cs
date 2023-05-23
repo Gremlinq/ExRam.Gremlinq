@@ -6,7 +6,7 @@ using ExRam.Gremlinq.Support.NewtonsoftJson.Tests.Verifier;
 
 namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
 {
-    public sealed class IntegrationTests : QueryExecutionTest, IClassFixture<IntegrationJanusGraphFixture>
+    public sealed class IntegrationTests : QueryExecutionTest, IClassFixture<JanusGraphFixture>
     {
         public new sealed class Verifier : ExecutingVerifier
         {
@@ -21,7 +21,7 @@ namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
                 .Add(x => RelationIdRegex.Replace(x, "\"relationId\": \"scrubbed\""));
         }
 
-        public IntegrationTests(IntegrationJanusGraphFixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public IntegrationTests(JanusGraphFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
             new Verifier(),
             testOutputHelper)
