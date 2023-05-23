@@ -1,11 +1,10 @@
 ﻿using System.Runtime.CompilerServices;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Transformation;
-using ExRam.Gremlinq.Tests.Infrastructure;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
+namespace ExRam.Gremlinq.Tests.Infrastructure
 {
     public class DeserializingGremlinqVerifier : GremlinQueryVerifier
     {

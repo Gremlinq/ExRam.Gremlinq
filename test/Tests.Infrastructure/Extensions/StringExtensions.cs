@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace ExRam.Gremlinq.Core.Tests
+namespace System
 {
     internal static class StringExtensions
     {

@@ -2,15 +2,11 @@
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Core.Transformation;
-using ExRam.Gremlinq.Tests.Infrastructure;
-using Gremlin.Net.Process.Traversal;
-
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
+namespace ExRam.Gremlinq.Tests.Infrastructure
 {
     public class ExecutingVerifier : GremlinQueryVerifier
     {

@@ -1,6 +1,4 @@
-﻿using System.Collections.Immutable;
-
-namespace ExRam.Gremlinq.Core.Tests
+﻿namespace System.Collections.Immutable
 {
     public static class ScrubbersExtensions
     {
