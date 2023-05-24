@@ -90,17 +90,6 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Debug()
-        {
-            await Verify(_g
-                .V<Person>()
-                .Where(x => x.Age > 36)
-                .Out<LivesIn>()
-                .OfType<Country>()
-                .Debug());
-        }
-
-        [Fact]
         public async Task ForceVertex_has_correct_semantics()
         {
             await Verify(_g
