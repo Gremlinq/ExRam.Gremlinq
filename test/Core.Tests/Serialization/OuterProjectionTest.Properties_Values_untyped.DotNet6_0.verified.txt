@@ -1,0 +1,5 @@
+﻿{
+  Projection: {
+    Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+  }
+}

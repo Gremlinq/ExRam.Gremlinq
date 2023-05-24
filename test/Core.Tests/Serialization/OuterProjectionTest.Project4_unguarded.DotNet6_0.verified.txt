@@ -1,0 +1,6 @@
+﻿{
+  Count: 6,
+  Projection: {
+    Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+  }
+}
