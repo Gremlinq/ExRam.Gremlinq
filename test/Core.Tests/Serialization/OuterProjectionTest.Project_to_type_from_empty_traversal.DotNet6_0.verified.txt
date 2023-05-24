@@ -1,0 +1,42 @@
+﻿[
+  {
+    Projections: [
+      In,
+      Out,
+      Count,
+      Properties
+    ]
+  },
+  {
+    Traversal: {
+      Count: 5,
+      Projection: {
+        Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+      }
+    }
+  },
+  {
+    Traversal: {
+      Count: 5,
+      Projection: {
+        Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+      }
+    }
+  },
+  {
+    Traversal: {
+      Count: 5,
+      Projection: {
+        Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+      }
+    }
+  },
+  {
+    Traversal: {
+      Count: 5,
+      Projection: {
+        Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+      }
+    }
+  }
+]

@@ -1,0 +1,32 @@
+﻿[
+  {
+    Projections: [
+      Item1,
+      Item2
+    ]
+  },
+  {
+    Traversal: {
+      Count: 6,
+      Projection: {
+        Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+      }
+    }
+  },
+  {
+    Traversal: {
+      Count: 6,
+      Projection: {
+        Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+      }
+    }
+  },
+  {
+    Traversal: {
+      Count: 4,
+      Projection: {
+        Name: ExRam.Gremlinq.Core.Projections.EmptyProjection
+      }
+    }
+  }
+]
