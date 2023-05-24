@@ -42,6 +42,7 @@ jobs:
       run: dotnet build ./${{ github.event.repository.name }}.sln -c Release -p:ContinuousIntegrationBuild=true
 
     - name: Pack
+      if: ${{ github.event_name == 'push' }}
       run: dotnet pack ./${{ github.event.repository.name }}.sln -c Release --no-build
 
     - name: Copy NuGet packages to artifacts
