@@ -1,1 +1,8 @@
-﻿[]
+﻿[
+  {
+    "serverException": {
+      "type": "ResponseException",
+      "message": "ServerTimeout: \r\n\nActivityId : 00000000-0000-0000-0000-000000000000\nExceptionType : GraphTimeoutException\nExceptionMessage : \r\n\tTimeout: Request timed out after 60000ms. Consider reducing the complexity of the request.\n\tGremlinRequestId : 00000000-0000-0000-0000-000000000000\n\tContext : graphcompute\n\tScope : graphcomp-execquery\n\tGraphInterOpStatusCode : SessionCommandTimedOut\n\tHResult : 0x80131500\r\n"
+    }
+  }
+]
