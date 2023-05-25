@@ -1,6 +1,6 @@
 ﻿using Xunit.Sdk;
 
-namespace ExRam.Gremlinq.Core.Tests
+namespace ExRam.Gremlinq.Tests.Infrastructure
 {
     public class SideEffectTestCaseOrderer : ITestCaseOrderer
     {
