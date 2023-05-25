@@ -64,7 +64,7 @@ namespace ExRam.Gremlinq.Core
                             ? T.Label
                             : default;
 
-                    return maybeDefaultT is { } defaultT && !model.MemberMetadata.Any(kvp => kvp.Value.Key.RawKey is T t && t == defaultT)
+                    return maybeDefaultT is { } defaultT && !model.MemberMetadata.Any(kvp => kvp.Value.Key.RawKey is T t && t.Equals(defaultT))
                         ? defaultT
                         : name;
                 },
