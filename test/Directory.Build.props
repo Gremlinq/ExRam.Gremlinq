@@ -12,7 +12,7 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5" />
     <PackageReference Include="FluentAssertions" Version="6.11.0" />
     <PackageReference Include="xunit" Version="2.4.2" />
-    <PackageReference Include="Verify.Xunit" Version="20.0.0" />
+    <PackageReference Include="Verify.Xunit" Version="20.1.0" />
     <PackageReference Include="XunitContext" Version="3.2.5" />
   </ItemGroup>
 
