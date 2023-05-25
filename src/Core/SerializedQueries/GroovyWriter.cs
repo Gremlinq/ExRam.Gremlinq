@@ -144,7 +144,7 @@ namespace ExRam.Gremlinq.Core
                 }
                 case null:
                     return Write("null", stringBuilder);
-                case object when bindings != null:
+                case not null when bindings != null:
                 {
                     if (!bindings.TryGetValue(obj, out var bindingKey))
                     {

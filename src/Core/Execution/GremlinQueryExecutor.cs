@@ -69,7 +69,7 @@ namespace ExRam.Gremlinq.Core.Execution
                                 }
                                 catch (ResponseException ex)
                                 {
-                                    environment.Logger.LogInformation(ex, $"Query failed.");
+                                    environment.Logger.LogInformation(ex, "Query failed.");
 
                                     if (hasSeenFirst)
                                         throw;
