@@ -179,14 +179,14 @@ namespace ExRam.Gremlinq.Core.Serialization
 
                         for (var i = 0; i < span.Length; i++)
                         {
-                            var j = 0;
+                            var j = i + 1;
                             var step = span[i];
 
                             if (step is AsStep asStep)
                             {
                                 AddStep(asStep, byteCode, env, recurse);
 
-                                for (j = i + 1; j < span.Length; j++)
+                                for (; j < span.Length; j++)
                                 {
                                     if (span[j] is SelectStepLabelStep { StepLabels: [var selectedStepLabel] } && ReferenceEquals(asStep.StepLabel, selectedStepLabel))
                                         continue;
@@ -203,7 +203,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                             {
                                 AddStep(identityStep, byteCode, env, recurse);
 
-                                for (j = i + 1; j < span.Length; j++)
+                                for (; j < span.Length; j++)
                                 {
                                     if (span[j] is IdentityStep)
                                         continue;
@@ -217,7 +217,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                             {
                                 AddStep(noneStep, byteCode, env, recurse);
 
-                                for (j = i + 1; j < span.Length; j++)
+                                for (; j < span.Length; j++)
                                 {
                                     if (span[j] is NoneStep)
                                         continue;
@@ -229,7 +229,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                             }
                             else if (step is HasLabelStep hasLabelStep1)
                             {
-                                for (j = i + 1; j < span.Length; j++)
+                                for (; j < span.Length; j++)
                                 {
                                     if (span[j] is HasLabelStep hasLabelStep2)
                                     {
@@ -245,7 +245,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                             }
                             else if (step is HasPredicateStep hasPredicateStep1)
                             {
-                                for (j = i + 1; j < span.Length; j++)
+                                for (; j < span.Length; j++)
                                 {
                                     if (span[j] is HasPredicateStep hasPredicateStep2 && hasPredicateStep1.Key == hasPredicateStep2.Key)
                                     {
@@ -261,7 +261,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                             }
                             else if (step is WithoutStrategiesStep withoutStrategiesStep1)
                             {
-                                for (j = i + 1; j < span.Length; j++)
+                                for (; j < span.Length; j++)
                                 {
                                     if (span[j] is WithoutStrategiesStep withoutStrategiesStep2)
                                     {
