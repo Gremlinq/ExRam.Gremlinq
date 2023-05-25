@@ -90,38 +90,6 @@ namespace ExRam.Gremlinq.Core
             public IImmutableSet<Type> NativeTypes { get; }
         }
 
-        private sealed class TimeSpanAsNumberConverterFactory : IConverterFactory
-        {
-            private sealed class TimeSpanAsNumberConverter<TSource> : IConverter<TSource, TimeSpan>
-            {
-                private readonly IGremlinQueryEnvironment _environment;
-
-                public TimeSpanAsNumberConverter(IGremlinQueryEnvironment environment)
-                {
-                    _environment = environment;
-                }
-
-                public bool TryConvert(TSource source, ITransformer recurse, out TimeSpan value)
-                {
-                    if (recurse.TryTransformTo<double>().From(source, _environment) is { } parsedDouble)
-                    {
-                        value = TimeSpan.FromMilliseconds(parsedDouble);
-                        return true;
-                    }
-
-                    value = default;
-                    return false;
-                }
-            }
-
-            public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
-            {
-                return typeof(TTarget) == typeof(TimeSpan)
-                    ? (IConverter<TSource, TTarget>)(object)new TimeSpanAsNumberConverter<TSource>(environment)
-                    : default;
-            }
-        }
-
         public static readonly IGremlinQueryEnvironment Empty = new GremlinQueryEnvironmentImpl(
             GraphModel.Empty,
             Transformer.Identity,
