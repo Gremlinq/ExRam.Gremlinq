@@ -99,7 +99,7 @@ namespace ExRam.Gremlinq.Core.Serialization
             .Add(ConverterFactory
                 .Create<Bytecode, GroovyGremlinQuery>((query, _, _) => query.ToGroovy()))
             .Add(ConverterFactory
-                .Create<GroovyGremlinQuery, RequestMessage.Builder>((query, env, recurse) => RequestMessage
+                .Create<GroovyGremlinQuery, RequestMessage.Builder>((query, env, _) => RequestMessage
                     .Build(Tokens.OpsEval)
                     .AddArgument(Tokens.ArgsGremlin, query.Script)
                     .AddArgument(Tokens.ArgsBindings, query.Bindings)
@@ -288,13 +288,13 @@ namespace ExRam.Gremlinq.Core.Serialization
                     return byteCode;
                 }))
             .Add(ConverterFactory
-                .Create<Bytecode, RequestMessage.Builder>((bytecode, env, recurse) => RequestMessage
+                .Create<Bytecode, RequestMessage.Builder>((bytecode, env, _) => RequestMessage
                     .Build(Tokens.OpsBytecode)
                     .Processor(Tokens.ProcessorTraversal)
                     .AddArgument(Tokens.ArgsGremlin, bytecode)
                     .AddAlias(env)))
             .Add(ConverterFactory
-                .Create<RequestMessage.Builder, RequestMessage>((builder, env, recurse) => builder.Create()))
+                .Create<RequestMessage.Builder, RequestMessage>((builder, _, _) => builder.Create()))
             .Add(ConverterFactory
                 .Create<StepLabel, string>((stepLabel, _, _) =>
                 {
