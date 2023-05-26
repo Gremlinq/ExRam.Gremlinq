@@ -47,7 +47,7 @@ namespace Newtonsoft.Json.Linq
                     {
                         propertiesObject = propertiesToken as JObject;
 
-                        if (propertiesToken is null)
+                        if (propertiesObject is null)
                             return false;
                     }
 
