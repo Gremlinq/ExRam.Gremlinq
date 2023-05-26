@@ -13,8 +13,6 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             private readonly IGremlinQueryEnvironment _environment;
             private readonly IReadOnlyDictionary<string, Type[]> _modelTypesForLabels;
 
-            private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, IReadOnlyDictionary<string, Type[]>> ModelTypesForLabels = new ();
-
             public LabelLookupConverter(IGremlinQueryEnvironment environment)
             {
                 _environment = environment;
@@ -38,7 +36,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
             public bool TryConvert(JObject serialized, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
             {
-                if (serialized.LooksLikeElement(out var idToken, out var labelValue, out var propertiesObject))
+                if (serialized.LooksLikeElement(out _, out var labelValue, out _))
                 {
                     if (labelValue.Value<string>() is { } label && _modelTypesForLabels.TryGetValue(label, out var types) && types.FirstOrDefault(typeof(TTarget).IsAssignableFrom) is { } modelType)
                     {
@@ -54,6 +52,8 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 return false;
             }
         }
+
+        private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, IReadOnlyDictionary<string, Type[]>> ModelTypesForLabels = new();
 
         public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment) => typeof(TSource) == typeof(JObject) && !typeof(TTarget).IsSealed
             ? (IConverter<TSource, TTarget>)(object)new LabelLookupConverter<TTarget>(environment)

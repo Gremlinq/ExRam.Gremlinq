@@ -10,7 +10,6 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
     {
         private sealed class VertexOrEdgeConverter<TTarget> : IConverter<JObject, TTarget>
         {
-            private static readonly JObject EmptyJObject = new();
             private readonly IGremlinQueryEnvironment _environment;
 
             public VertexOrEdgeConverter(IGremlinQueryEnvironment environment)
@@ -33,6 +32,8 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 return false;
             }
         }
+
+        private static readonly JObject EmptyJObject = new();
 
         public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment) => (typeof(TSource) == typeof(JObject) && !typeof(TTarget).IsAssignableFrom(typeof(TSource)) && !typeof(TTarget).IsArray && typeof(TTarget) != typeof(object) && !typeof(TTarget).IsInterface && !typeof(Property).IsAssignableFrom(typeof(TTarget)))
             ? (IConverter<TSource, TTarget>)(object)new VertexOrEdgeConverter<TTarget>(environment)

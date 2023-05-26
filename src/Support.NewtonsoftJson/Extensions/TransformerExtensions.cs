@@ -83,10 +83,10 @@ namespace ExRam.Gremlinq.Core
             return transformer
                 .Add(new NewtonsoftJsonSerializerConverterFactory())
                 .Add(ConverterFactory
-                    .Create<string, JToken>((str, env, recurse) => jsonSerializer
+                    .Create<string, JToken>((str, _, _) => jsonSerializer
                         .Deserialize<JToken>(new JsonTextReader(new StringReader(str)))))
                 .Add(ConverterFactory
-                    .Create<byte[], JToken>((bytes, env, recurse) => jsonSerializer
+                    .Create<byte[], JToken>((bytes, _, _) => jsonSerializer
                         .Deserialize<JToken>(new JsonTextReader(new StreamReader(new MemoryStream(bytes))))))
                 .Add(ConverterFactory
                     .Create<byte[], ResponseMessage<List<object>>>((message, env, recurse) =>

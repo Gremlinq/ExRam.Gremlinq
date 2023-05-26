@@ -107,28 +107,28 @@ namespace ExRam.Gremlinq.Core
                         .UseGraphSon2()
                         .ConfigureSerializer(serializer => serializer
                             .Add(ConverterFactory
-                                .Create<CosmosDbKey, string>((key, env, recurse) => key.Id)
+                                .Create<CosmosDbKey, string>((key, _, _) => key.Id)
                                 .AutoRecurse<string>())
                             .Add(ConverterFactory
-                                .Create<CosmosDbKey, string[]>((key, env, recurse) => key.PartitionKey is { } partitionKey
+                                .Create<CosmosDbKey, string[]>((key, _, _) => key.PartitionKey is { } partitionKey
                                     ? new[] { partitionKey, key.Id }
                                     : default)
                                 .AutoRecurse<string[]>())
                             .Add(ConverterFactory
-                                .Create<FilterStep.ByTraversalStep, WhereTraversalStep>(static (step, env, recurse) => new WhereTraversalStep(
+                                .Create<FilterStep.ByTraversalStep, WhereTraversalStep>(static (step, _, _) => new WhereTraversalStep(
                                     step.Traversal.Count > 0 && step.Traversal[0] is AsStep
                                         ? new MapStep(step.Traversal)
                                         : step.Traversal)))
                             .Add(ConverterFactory
-                                .Create<HasKeyStep, WhereTraversalStep>((step, env, recurse) => step.Argument is P p && (!p.OperatorName.Equals("eq", StringComparison.OrdinalIgnoreCase))
+                                .Create<HasKeyStep, WhereTraversalStep>((step, _, _) => step.Argument is P p && (!p.OperatorName.Equals("eq", StringComparison.OrdinalIgnoreCase))
                                     ? new WhereTraversalStep(Traversal.Empty.Push(
                                         KeyStep.Instance,
                                         new IsStep(p)))
                                     : default))
                             .Add(ConverterFactory
-                                .Create<NoneStep, NotStep>((step, env, recurse) => NoneWorkaround))
+                                .Create<NoneStep, NotStep>((_, _, _) => NoneWorkaround))
                             .Add(ConverterFactory
-                                .Create<SkipStep, RangeStep>((step, env, recurse) => new RangeStep(step.Count, -1, step.Scope)))
+                                .Create<SkipStep, RangeStep>((step, _, _) => new RangeStep(step.Count, -1, step.Scope)))
                             .Add(Guard<LimitStep>(step =>
                             {
                                 if (step.Count > int.MaxValue)
@@ -145,7 +145,7 @@ namespace ExRam.Gremlinq.Core
                                     throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Range' outside the range of a 32-bit-integer.");
                             }))
                             .Add(ConverterFactory
-                                .Create<Order, WorkaroundOrder>((order, env, recurse) => order.Equals(Order.Asc)
+                                .Create<Order, WorkaroundOrder>((order, _, _) => order.Equals(Order.Asc)
                                     ? WorkaroundOrder.Incr
                                     : order.Equals(Order.Desc)
                                         ? WorkaroundOrder.Decr
