@@ -2,6 +2,7 @@
 using ExRam.Gremlinq.Providers.CosmosDb.Tests.Extensions;
 using ExRam.Gremlinq.Tests.Infrastructure;
 using Microsoft.Azure.Cosmos;
+using Polly;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
@@ -27,20 +28,14 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 {
                     var cosmosClient = new CosmosClient("https://localhost:8081", CosmosDbEmulatorAuthKey);
 
-                    for (var i = 0; i < 3; i++)
-                    {
-                        try
+                    await Policy
+                        .Handle<CosmosException>()
+                        .WaitAndRetry(5, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)))
+                        .Execute(async () =>
                         {
                             var database = await cosmosClient.CreateDatabaseIfNotExistsAsync(CosmosDbEmulatorDatabaseName, ThroughputProperties.CreateAutoscaleThroughput(40000));
                             await database.Database.CreateContainerIfNotExistsAsync(CosmosDbEmulatorCollectionName, "/PartitionKey");
-
-                            break;
-                        }
-                        catch (CosmosException)
-                        {
-                            await Task.Delay(TimeSpan.FromSeconds(Math.Pow(2, i)));
-                        }
-                    }
+                        });
                 });
         }
 
