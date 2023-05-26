@@ -26,9 +26,21 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 async () =>
                 {
                     var cosmosClient = new CosmosClient("https://localhost:8081", CosmosDbEmulatorAuthKey);
-                    var database = await cosmosClient.CreateDatabaseIfNotExistsAsync(CosmosDbEmulatorDatabaseName, ThroughputProperties.CreateAutoscaleThroughput(40000));
 
-                    await database.Database.CreateContainerIfNotExistsAsync(CosmosDbEmulatorCollectionName, "/PartitionKey");
+                    for (var i = 0; i < 3; i++)
+                    {
+                        try
+                        {
+                            var database = await cosmosClient.CreateDatabaseIfNotExistsAsync(CosmosDbEmulatorDatabaseName, ThroughputProperties.CreateAutoscaleThroughput(40000));
+                            await database.Database.CreateContainerIfNotExistsAsync(CosmosDbEmulatorCollectionName, "/PartitionKey");
+
+                            break;
+                        }
+                        catch (CosmosException)
+                        {
+                            await Task.Delay(TimeSpan.FromSeconds(Math.Pow(2, i)));
+                        }
+                    }
                 });
         }
 
