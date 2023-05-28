@@ -1,1 +1,13 @@
-﻿{"@type":"g:Bytecode","@value":{"step":[["V"],["fail"]]}}
+﻿{
+  "@type": "g:Bytecode",
+  "@value": {
+    "step": [
+      [
+        "V"
+      ],
+      [
+        "fail"
+      ]
+    ]
+  }
+}

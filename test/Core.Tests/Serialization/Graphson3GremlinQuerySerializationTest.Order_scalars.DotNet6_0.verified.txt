@@ -1,1 +1,47 @@
-﻿{"@type":"g:Bytecode","@value":{"step":[["V"],["hasLabel","Person"],["local",{"@type":"g:Bytecode","@value":{"step":[["count"]]}}],["order"],["by",{"@type":"g:Bytecode","@value":{"step":[["identity"]]}},{"@type":"g:Order","@value":"asc"}]]}}
+﻿{
+  "@type": "g:Bytecode",
+  "@value": {
+    "step": [
+      [
+        "V"
+      ],
+      [
+        "hasLabel",
+        "Person"
+      ],
+      [
+        "local",
+        {
+          "@type": "g:Bytecode",
+          "@value": {
+            "step": [
+              [
+                "count"
+              ]
+            ]
+          }
+        }
+      ],
+      [
+        "order"
+      ],
+      [
+        "by",
+        {
+          "@type": "g:Bytecode",
+          "@value": {
+            "step": [
+              [
+                "identity"
+              ]
+            ]
+          }
+        },
+        {
+          "@type": "g:Order",
+          "@value": "asc"
+        }
+      ]
+    ]
+  }
+}
