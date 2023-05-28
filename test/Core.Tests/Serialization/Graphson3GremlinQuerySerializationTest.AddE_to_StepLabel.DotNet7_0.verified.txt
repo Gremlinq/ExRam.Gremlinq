@@ -1,1 +1,78 @@
-﻿{"@type":"g:Bytecode","@value":{"step":[["addV","Language"],["property",{"@type":"g:Cardinality","@value":"single"},"IetfLanguageTag","en"],["as","_a"],["addV","Country"],["property",{"@type":"g:Cardinality","@value":"single"},"CountryCallingCode","+49"],["addE","Speaks"],["to","_a"],["project","id","label","properties"],["by",{"@type":"g:T","@value":"id"}],["by",{"@type":"g:T","@value":"label"}],["by",{"@type":"g:Bytecode","@value":{"step":[["valueMap"]]}}]]}}
+﻿{
+  "@type": "g:Bytecode",
+  "@value": {
+    "step": [
+      [
+        "addV",
+        "Language"
+      ],
+      [
+        "property",
+        {
+          "@type": "g:Cardinality",
+          "@value": "single"
+        },
+        "IetfLanguageTag",
+        "en"
+      ],
+      [
+        "as",
+        "_a"
+      ],
+      [
+        "addV",
+        "Country"
+      ],
+      [
+        "property",
+        {
+          "@type": "g:Cardinality",
+          "@value": "single"
+        },
+        "CountryCallingCode",
+        "+49"
+      ],
+      [
+        "addE",
+        "Speaks"
+      ],
+      [
+        "to",
+        "_a"
+      ],
+      [
+        "project",
+        "id",
+        "label",
+        "properties"
+      ],
+      [
+        "by",
+        {
+          "@type": "g:T",
+          "@value": "id"
+        }
+      ],
+      [
+        "by",
+        {
+          "@type": "g:T",
+          "@value": "label"
+        }
+      ],
+      [
+        "by",
+        {
+          "@type": "g:Bytecode",
+          "@value": {
+            "step": [
+              [
+                "valueMap"
+              ]
+            ]
+          }
+        }
+      ]
+    ]
+  }
+}

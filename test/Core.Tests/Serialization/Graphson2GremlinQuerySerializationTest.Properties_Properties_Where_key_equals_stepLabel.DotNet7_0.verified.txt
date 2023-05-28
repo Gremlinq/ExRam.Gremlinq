@@ -1,1 +1,52 @@
-﻿{"@type":"g:Bytecode","@value":{"step":[["inject","hello"],["as","_a"],["V"],["hasLabel","Company"],["properties","Locations"],["properties"],["filter",{"@type":"g:Bytecode","@value":{"step":[["key"],["where",{"@type":"g:P","@value":{"predicate":"eq","value":"_a"}}]]}}]]}}
+﻿{
+  "@type": "g:Bytecode",
+  "@value": {
+    "step": [
+      [
+        "inject",
+        "hello"
+      ],
+      [
+        "as",
+        "_a"
+      ],
+      [
+        "V"
+      ],
+      [
+        "hasLabel",
+        "Company"
+      ],
+      [
+        "properties",
+        "Locations"
+      ],
+      [
+        "properties"
+      ],
+      [
+        "filter",
+        {
+          "@type": "g:Bytecode",
+          "@value": {
+            "step": [
+              [
+                "key"
+              ],
+              [
+                "where",
+                {
+                  "@type": "g:P",
+                  "@value": {
+                    "predicate": "eq",
+                    "value": "_a"
+                  }
+                }
+              ]
+            ]
+          }
+        }
+      ]
+    ]
+  }
+}

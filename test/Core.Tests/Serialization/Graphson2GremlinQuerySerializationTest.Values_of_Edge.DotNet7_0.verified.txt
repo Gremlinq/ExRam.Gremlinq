@@ -1,1 +1,18 @@
-﻿{"@type":"g:Bytecode","@value":{"step":[["E"],["hasLabel","LivesIn"],["values","Since"]]}}
+﻿{
+  "@type": "g:Bytecode",
+  "@value": {
+    "step": [
+      [
+        "E"
+      ],
+      [
+        "hasLabel",
+        "LivesIn"
+      ],
+      [
+        "values",
+        "Since"
+      ]
+    ]
+  }
+}

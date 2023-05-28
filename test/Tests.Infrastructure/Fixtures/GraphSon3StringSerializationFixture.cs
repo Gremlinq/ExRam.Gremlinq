@@ -17,7 +17,8 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                         .Create<IGremlinQueryBase, string>((query, env, recurse) => Writer
                             .WriteObject(recurse
                                 .TransformTo<Bytecode>()
-                                .From(query, env)))))))
+                                .From(query, env))
+                            .FormatJson())))))
         {
         }
     }

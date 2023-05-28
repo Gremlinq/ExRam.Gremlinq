@@ -1,1 +1,25 @@
-﻿{"@type":"g:Bytecode","@value":{"step":[["V"],["hasLabel","Person"],["values","Age"],["is",{"@type":"g:Int32","@value":36}]]}}
+﻿{
+  "@type": "g:Bytecode",
+  "@value": {
+    "step": [
+      [
+        "V"
+      ],
+      [
+        "hasLabel",
+        "Person"
+      ],
+      [
+        "values",
+        "Age"
+      ],
+      [
+        "is",
+        {
+          "@type": "g:Int32",
+          "@value": 36
+        }
+      ]
+    ]
+  }
+}
