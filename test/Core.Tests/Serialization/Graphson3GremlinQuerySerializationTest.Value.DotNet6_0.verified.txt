@@ -1,1 +1,16 @@
-﻿{"@type":"g:Bytecode","@value":{"step":[["V"],["properties"],["value"]]}}
+﻿{
+  "@type": "g:Bytecode",
+  "@value": {
+    "step": [
+      [
+        "V"
+      ],
+      [
+        "properties"
+      ],
+      [
+        "value"
+      ]
+    ]
+  }
+}

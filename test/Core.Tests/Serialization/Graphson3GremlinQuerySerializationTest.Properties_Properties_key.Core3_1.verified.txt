@@ -1,1 +1,24 @@
-﻿{"@type":"g:Bytecode","@value":{"step":[["V"],["hasLabel","Country"],["properties","Name"],["properties"],["key"]]}}
+﻿{
+  "@type": "g:Bytecode",
+  "@value": {
+    "step": [
+      [
+        "V"
+      ],
+      [
+        "hasLabel",
+        "Country"
+      ],
+      [
+        "properties",
+        "Name"
+      ],
+      [
+        "properties"
+      ],
+      [
+        "key"
+      ]
+    ]
+  }
+}
