@@ -1902,7 +1902,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .Inject(42)
-                .V("id")
+                .V()
                 .Verify();
         }
 
@@ -1911,7 +1911,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .Inject(36, 37, 38)
-                .V("id")
+                .V()
                 .Verify();
         }
 
