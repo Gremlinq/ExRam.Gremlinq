@@ -9,9 +9,8 @@
     bindings: {
       _a: 36,
       _b: 37,
-      _c: 38,
-      _d: id
+      _c: 38
     },
-    gremlin: g.inject(_a,_b,_c).V(_d)
+    gremlin: g.inject(_a,_b,_c).V()
   }
 }
