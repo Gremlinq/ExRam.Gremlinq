@@ -17,10 +17,7 @@
           ]
         },
         {
-          OperatorName: V,
-          Arguments: [
-            id
-          ]
+          OperatorName: V
         },
         {
           OperatorName: project,
