@@ -1,6 +1,3 @@
 ﻿{
-  Script: g.V(_a),
-  Bindings: {
-    _a: id
-  }
+  Script: g.V()
 }
