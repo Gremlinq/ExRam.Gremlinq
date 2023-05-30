@@ -126,7 +126,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                 {
                     static void AddTraversal(Traversal traversal, Bytecode byteCode, IGremlinQueryEnvironment env, ITransformer recurse)
                     {
-                        AddSteps(traversal.Steps, byteCode, env, recurse);
+                        AddSteps(traversal.Steps, byteCode, true, env, recurse);
                     }
 
                     static void AddInstruction(Instruction instruction, Bytecode byteCode, bool isSourceInstruction, IGremlinQueryEnvironment env, ITransformer recurse)
@@ -181,10 +181,8 @@ namespace ExRam.Gremlinq.Core.Serialization
                             AddInstruction(expandedInstruction, byteCode, isSourceStep, env, recurse);
                     }
 
-                    static void AddSteps(ReadOnlySpan<Step> steps, Bytecode byteCode, IGremlinQueryEnvironment env, ITransformer recurse)
+                    static void AddSteps(ReadOnlySpan<Step> steps, Bytecode byteCode, bool isSourceStep, IGremlinQueryEnvironment env, ITransformer recurse)
                     {
-                        var isSourceStep = true;
-
                         for (var i = 0; i < steps.Length; i++)
                         {
                             var j = i + 1;
@@ -195,9 +193,11 @@ namespace ExRam.Gremlinq.Core.Serialization
                                 if (!isSourceStep)
                                     throw new InvalidOperationException();
                             }
-                            else
+                            else if (isSourceStep)
                             {
-                                isSourceStep = false;
+                                AddSteps(steps[i..], byteCode, false, env, recurse);
+
+                                return;
                             }
 
                             if (step is AsStep asStep)

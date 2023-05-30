@@ -3360,6 +3360,16 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task WithSideEffect_Single_Inject_V()
+        {
+            await _g
+                .WithSideEffect("stepLabel", "sideEffect")
+                .Inject(42)
+                .V()
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task SkipGlobal()
         {
             await _g
