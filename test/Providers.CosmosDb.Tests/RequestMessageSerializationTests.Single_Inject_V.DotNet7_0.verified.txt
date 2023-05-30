@@ -7,9 +7,8 @@
       g: g
     },
     bindings: {
-      _a: 42,
-      _b: id
+      _a: id
     },
-    gremlin: g.inject(_a).V(_b)
+    gremlin: g.V(_a)
   }
 }

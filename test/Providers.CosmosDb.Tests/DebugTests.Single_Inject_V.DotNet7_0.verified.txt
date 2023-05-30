@@ -1,1 +1,1 @@
-﻿g.inject(42).V('id')
+﻿g.V('id')
