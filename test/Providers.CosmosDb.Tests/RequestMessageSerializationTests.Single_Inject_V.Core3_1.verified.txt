@@ -6,9 +6,6 @@
     aliases: {
       g: g
     },
-    bindings: {
-      _a: id
-    },
-    gremlin: g.V(_a)
+    gremlin: g.V()
   }
 }

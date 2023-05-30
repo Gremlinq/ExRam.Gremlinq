@@ -1,55 +1,8 @@
 ﻿[
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Language",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ],
-      "IetfLanguageTag": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "en"
-        }
-      ]
-    }
-  },
-  {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Person",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ],
-      "Age": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 36,
-          "properties": {
-            "Meta": "value"
-          }
-        }
-      ],
-      "GuidKey": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "00000000-0000-0000-0000-000000000000"
-        }
-      ],
-      "StringKey1": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 36
-        }
-      ]
+    "serverException": {
+      "type": "ResponseException",
+      "message": "ServerError: \r\n\nActivityId : 00000000-0000-0000-0000-000000000000\nExceptionType : DocumentClientException\nExceptionMessage : Message: {\"Errors\":[\"An unknown error occurred while processing this request. If the issue persists, please contact Azure Support: http://aka.ms/azure-support\"]}\r\nActivityId: 00000000-0000-0000-0000-000000000000, Request URI: /apps/DocDbApp/services/DocDbServer21/partitions/00000000-0000-0000-0000-000000000000/replicas/1p/, RequestStats: \r\nRequestStartTime: 2023-05-30T13:33:28.0696764Z, RequestEndTime: 2023-05-30T13:33:28.1036767Z,  Number of regions attempted:1\r\n{\"systemHistory\":[{\"dateUtc\":\"2023-05-30T13:32:35.0975358Z\",\"cpu\":100.000,\"memory\":3338944.000,\"threadInfo\":{\"isThreadStarving\":\"False\",\"threadWaitIntervalInMs\":0.0743,\"availableThreads\":32764,\"minThreads\":2,\"maxThreads\":32767},\"numberOfOpenTcpConnection\":2},{\"dateUtc\":\"2023-05-30T13:32:45.2568306Z\",\"cpu\":100.000,\"memory\":3275808.000,\"threadInfo\":{\"isThreadStarving\":\"False\",\"threadWaitIntervalInMs\":0.0478,\"availableThreads\":32763,\"minThreads\":2,\"maxThreads\":32767},\"numberOfOpenTcpConnection\":2},{\"dateUtc\":\"2023-05-30T13:32:55.4445586Z\",\"cpu\":100.000,\"memory\":3259856.000,\"threadInfo\":{\"isThreadStarving\":\"False\",\"threadWaitIntervalInMs\":1.7905,\"availableThreads\":32765,\"minThreads\":2,\"maxThreads\":32767},\"numberOfOpenTcpConnection\":2},{\"dateUtc\":\"2023-05-30T13:33:05.5834751Z\",\"cpu\":100.000,\"memory\":3181336.000,\"threadInfo\":{\"isThreadStarving\":\"False\",\"threadWaitIntervalInMs\":0.0684,\"availableThreads\":32765,\"minThreads\":2,\"maxThreads\":32767},\"numberOfOpenTcpConnection\":2},{\"dateUtc\":\"2023-05-30T13:33:15.8092376Z\",\"cpu\":100.000,\"memory\":3092152.000,\"threadInfo\":{\"isThreadStarving\":\"False\",\"threadWaitIntervalInMs\":2.4648,\"availableThreads\":32765,\"minThreads\":2,\"maxThreads\":32767},\"numberOfOpenTcpConnection\":2},{\"dateUtc\":\"2023-05-30T13:33:25.8768412Z\",\"cpu\":100.000,\"memory\":3480856.000,\"threadInfo\":{\"isThreadStarving\":\"False\",\"threadWaitIntervalInMs\":0.0546,\"availableThreads\":32766,\"minThreads\":2,\"maxThreads\":32767},\"numberOfOpenTcpConnection\":2}]}\r\nRequestStart: 2023-05-30T13:33:28.0696764Z; ResponseTime: 2023-05-30T13:33:28.1036767Z; StoreResult: StorePhysicalAddress: rntbd://127.0.0.1:10253/apps/DocDbApp/services/DocDbServer21/partitions/00000000-0000-0000-0000-000000000000/replicas/1p/, LSN: 2, GlobalCommittedLsn: -1, PartitionKeyRangeId: 3, IsValid: True, StatusCode: 500, SubStatusCode: 0, RequestCharge: 1, ItemLSN: -1, SessionToken: -1#2, UsingLocalLSN: True, TransportException: null, BELatencyMs: 0.488, ActivityId: 00000000-0000-0000-0000-000000000000, RetryAfterInMs: , TransportRequestTimeline: {\"requestTimeline\":[{\"event\": \"Created\", \"startTimeUtc\": \"2023-05-30T13:33:28.0696764Z\", \"durationInMs\": 0.0214},{\"event\": \"ChannelAcquisitionStarted\", \"startTimeUtc\": \"2023-05-30T13:33:28.0696978Z\", \"durationInMs\": 0.0045},{\"event\": \"Pipelined\", \"startTimeUtc\": \"2023-05-30T13:33:28.0697023Z\", \"durationInMs\": 0.2452},{\"event\": \"Transit Time\", \"startTimeUtc\": \"2023-05-30T13:33:28.0699475Z\", \"durationInMs\": 1.7251},{\"event\": \"Received\", \"startTimeUtc\": \"2023-05-30T13:33:28.0716726Z\", \"durationInMs\": 32.193},{\"event\": \"Completed\", \"startTimeUtc\": \"2023-05-30T13:33:28.1038656Z\", \"durationInMs\": 0}],\"serviceEndpointStats\":{\"inflightRequests\":1,\"openConnections\":1},\"connectionStats\":{\"waitforConnectionInit\":\"False\",\"callsPendingReceive\":0,\"lastSendAttempt\":\"2023-05-30T13:33:27.8606745Z\",\"lastSend\":\"2023-05-30T13:33:27.8606745Z\",\"lastReceive\":\"2023-05-30T13:33:27.9306745Z\"},\"requestSizeInBytes\":454,\"responseMetadataSizeInBytes\":176,\"responseBodySizeInBytes\":152};\r\n ResourceType: Collection, OperationType: Read\r\n, SDK: Microsoft.Azure.Documents.Common/2.14.0, documentdb-dotnet-sdk/2.14.0 Host/64-bit MicrosoftWindowsNT/10.0.17763.0\n\tBackendStatusCode : InternalServerError\n\tBackendActivityId : 00000000-0000-0000-0000-000000000000\n\tHResult : 0x80131500\r\n"
     }
   }
 ]
