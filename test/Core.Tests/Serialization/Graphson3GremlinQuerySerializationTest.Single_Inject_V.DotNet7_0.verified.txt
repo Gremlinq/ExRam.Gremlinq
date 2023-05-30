@@ -3,13 +3,6 @@
   "@value": {
     "step": [
       [
-        "inject",
-        {
-          "@type": "g:Int32",
-          "@value": 42
-        }
-      ],
-      [
         "V",
         "id"
       ],

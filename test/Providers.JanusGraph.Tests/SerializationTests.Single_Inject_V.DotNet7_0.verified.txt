@@ -1,12 +1,6 @@
 ﻿{
   StepInstructions: [
     {
-      OperatorName: inject,
-      Arguments: [
-        42
-      ]
-    },
-    {
       OperatorName: V,
       Arguments: [
         id

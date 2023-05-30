@@ -1,7 +1,6 @@
 ﻿{
-  Script: g.inject(_a).V(_b),
+  Script: g.V(_a),
   Bindings: {
-    _a: 42,
-    _b: id
+    _a: id
   }
 }

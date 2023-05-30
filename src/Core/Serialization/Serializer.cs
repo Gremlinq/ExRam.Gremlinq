@@ -275,6 +275,8 @@ namespace ExRam.Gremlinq.Core.Serialization
                                 AddStep(withoutStrategiesStep1, byteCode, env, recurse);
                                 i = j - 1;
                             }
+                            else if (step is InjectStep { Elements: { Length: 1 } } && i == 0 && span.Length > 1 && span[1] is VStep)
+                                continue;
                             else
                                 AddStep(step, byteCode, env, recurse);
                         }
