@@ -3,8 +3,7 @@
   "@value": {
     "step": [
       [
-        "V",
-        "id"
+        "V"
       ],
       [
         "project",
