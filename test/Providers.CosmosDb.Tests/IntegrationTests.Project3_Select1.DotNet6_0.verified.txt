@@ -1,8 +1,33 @@
 ﻿[
   {
-    "serverException": {
-      "type": "ResponseException",
-      "message": "ServerError: \r\n\nActivityId : 00000000-0000-0000-0000-000000000000\nExceptionType : DocumentClientException\nExceptionMessage : Message: {\"Errors\":[\"An unknown error occurred while processing this request. If the issue persists, please contact Azure Support: http://aka.ms/azure-support\"]}\r\nActivityId: 00000000-0000-0000-0000-000000000000, Request URI: /apps/DocDbApp/services/DocDbServer21/partitions/00000000-0000-0000-0000-000000000000/replicas/1p/, RequestStats: \r\nRequestStartTime: 2023-05-30T13:32:57.4351421Z, RequestEndTime: 2023-05-30T13:32:57.4361390Z,  Number of regions attempted:1\r\n{\"systemHistory\":[{\"dateUtc\":\"2023-05-30T13:32:04.9105863Z\",\"cpu\":99.298,\"memory\":3451176.000,\"threadInfo\":{\"isThreadStarving\":\"False\",\"threadWaitIntervalInMs\":0.0537,\"availableThreads\":32762,\"minThreads\":2,\"maxThreads\":32767},\"numberOfOpenTcpConnection\":2},{\"dateUtc\":\"2023-05-30T13:32:14.9113711Z\",\"cpu\":100.000,\"memory\":3421756.000,\"threadInfo\":{\"isThreadStarving\":\"False\",\"threadWaitIntervalInMs\":0.0201,\"availableThreads\":32763,\"minThreads\":2,\"maxThreads\":32767},\"numberOfOpenTcpConnection\":2},{\"dateUtc\":\"2023-05-30T13:32:24.9777800Z\",\"cpu\":100.000,\"memory\":3401968.000,\"threadInfo\":{\"isThreadStarving\":\"False\",\"threadWaitIntervalInMs\":0.0479,\"availableThreads\":32763,\"minThreads\":2,\"maxThreads\":32767},\"numberOfOpenTcpConnection\":2},{\"dateUtc\":\"2023-05-30T13:32:35.0975358Z\",\"cpu\":100.000,\"memory\":3338944.000,\"threadInfo\":{\"isThreadStarving\":\"False\",\"threadWaitIntervalInMs\":0.0743,\"availableThreads\":32764,\"minThreads\":2,\"maxThreads\":32767},\"numberOfOpenTcpConnection\":2},{\"dateUtc\":\"2023-05-30T13:32:45.2568306Z\",\"cpu\":100.000,\"memory\":3275808.000,\"threadInfo\":{\"isThreadStarving\":\"False\",\"threadWaitIntervalInMs\":0.0478,\"availableThreads\":32763,\"minThreads\":2,\"maxThreads\":32767},\"numberOfOpenTcpConnection\":2},{\"dateUtc\":\"2023-05-30T13:32:55.4445586Z\",\"cpu\":100.000,\"memory\":3259856.000,\"threadInfo\":{\"isThreadStarving\":\"False\",\"threadWaitIntervalInMs\":1.7905,\"availableThreads\":32765,\"minThreads\":2,\"maxThreads\":32767},\"numberOfOpenTcpConnection\":2}]}\r\nRequestStart: 2023-05-30T13:32:57.4361390Z; ResponseTime: 2023-05-30T13:32:57.4361390Z; StoreResult: StorePhysicalAddress: rntbd://127.0.0.1:10253/apps/DocDbApp/services/DocDbServer21/partitions/00000000-0000-0000-0000-000000000000/replicas/1p/, LSN: 2, GlobalCommittedLsn: -1, PartitionKeyRangeId: 3, IsValid: True, StatusCode: 500, SubStatusCode: 0, RequestCharge: 1, ItemLSN: -1, SessionToken: -1#2, UsingLocalLSN: True, TransportException: null, BELatencyMs: 0.503, ActivityId: 00000000-0000-0000-0000-000000000000, RetryAfterInMs: , TransportRequestTimeline: {\"requestTimeline\":[{\"event\": \"Created\", \"startTimeUtc\": \"2023-05-30T13:32:57.4351421Z\", \"durationInMs\": 0.012},{\"event\": \"ChannelAcquisitionStarted\", \"startTimeUtc\": \"2023-05-30T13:32:57.4351541Z\", \"durationInMs\": 0.0063},{\"event\": \"Pipelined\", \"startTimeUtc\": \"2023-05-30T13:32:57.4351604Z\", \"durationInMs\": 1.1903},{\"event\": \"Transit Time\", \"startTimeUtc\": \"2023-05-30T13:32:57.4363507Z\", \"durationInMs\": -0.1203},{\"event\": \"Received\", \"startTimeUtc\": \"2023-05-30T13:32:57.4362304Z\", \"durationInMs\": 0.2838},{\"event\": \"Completed\", \"startTimeUtc\": \"2023-05-30T13:32:57.4365142Z\", \"durationInMs\": 0}],\"serviceEndpointStats\":{\"inflightRequests\":1,\"openConnections\":1},\"connectionStats\":{\"waitforConnectionInit\":\"False\",\"callsPendingReceive\":0,\"lastSendAttempt\":\"2023-05-30T13:32:57.1698203Z\",\"lastSend\":\"2023-05-30T13:32:57.1698203Z\",\"lastReceive\":\"2023-05-30T13:32:57.1708321Z\"},\"requestSizeInBytes\":452,\"responseMetadataSizeInBytes\":176,\"responseBodySizeInBytes\":152};\r\n ResourceType: Collection, OperationType: Read\r\n, SDK: Microsoft.Azure.Documents.Common/2.14.0, documentdb-dotnet-sdk/2.14.0 Host/64-bit MicrosoftWindowsNT/10.0.17763.0\n\tBackendStatusCode : InternalServerError\n\tBackendActivityId : 00000000-0000-0000-0000-000000000000\n\tHResult : 0x80131500\r\n"
+    "id": "00000000-0000-0000-0000-000000000000",
+    "label": "Person",
+    "type": "vertex",
+    "properties": {
+      "PartitionKey": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "value": "PartitionKey"
+        }
+      ],
+      "Age": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000",
+          "value": 0
+        }
+      ],
+      "Name": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000",
+          "value": "Bob"
+        }
+      ],
+      "RegistrationDate": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000",
+          "value": 1586270616000
+        }
+      ]
     }
   }
 ]

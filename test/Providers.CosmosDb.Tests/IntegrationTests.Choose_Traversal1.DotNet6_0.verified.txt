@@ -1,8 +1,186 @@
 ﻿[
   {
-    "serverException": {
-      "type": "ResponseException",
-      "message": "ServerError: \r\n\nActivityId : 00000000-0000-0000-0000-000000000000\nExceptionType : DocumentClientException\nExceptionMessage : Message: {\"Errors\":[\"An unknown error occurred while processing this request. If the issue persists, please contact Azure Support: http://aka.ms/azure-support\"]}\r\nActivityId: 00000000-0000-0000-0000-000000000000, Request URI: /apps/DocDbApp/services/DocDbServer21/partitions/00000000-0000-0000-0000-000000000000/replicas/1p/, RequestStats: \r\nRequestStartTime: 2023-05-30T13:32:31.1416167Z, RequestEndTime: 2023-05-30T13:32:31.1446182Z,  Number of regions attempted:1\r\n{\"systemHistory\":[{\"dateUtc\":\"2023-05-30T13:31:28.8230973Z\",\"cpu\":100.000,\"memory\":3417668.000,\"threadInfo\":{\"isThreadStarving\":\"False\",\"threadWaitIntervalInMs\":0.1682,\"availableThreads\":32765,\"minThreads\":2,\"maxThreads\":32767},\"numberOfOpenTcpConnection\":2},{\"dateUtc\":\"2023-05-30T13:31:44.7585451Z\",\"cpu\":100.000,\"memory\":3441984.000,\"threadInfo\":{\"isThreadStarving\":\"False\",\"threadWaitIntervalInMs\":0.0736,\"availableThreads\":32762,\"minThreads\":2,\"maxThreads\":32767},\"numberOfOpenTcpConnection\":2},{\"dateUtc\":\"2023-05-30T13:31:54.9026044Z\",\"cpu\":100.000,\"memory\":3358764.000,\"threadInfo\":{\"isThreadStarving\":\"False\",\"threadWaitIntervalInMs\":2.7674,\"availableThreads\":32765,\"minThreads\":2,\"maxThreads\":32767},\"numberOfOpenTcpConnection\":2},{\"dateUtc\":\"2023-05-30T13:32:04.9105863Z\",\"cpu\":99.298,\"memory\":3451176.000,\"threadInfo\":{\"isThreadStarving\":\"False\",\"threadWaitIntervalInMs\":0.0537,\"availableThreads\":32762,\"minThreads\":2,\"maxThreads\":32767},\"numberOfOpenTcpConnection\":2},{\"dateUtc\":\"2023-05-30T13:32:14.9113711Z\",\"cpu\":100.000,\"memory\":3421756.000,\"threadInfo\":{\"isThreadStarving\":\"False\",\"threadWaitIntervalInMs\":0.0201,\"availableThreads\":32763,\"minThreads\":2,\"maxThreads\":32767},\"numberOfOpenTcpConnection\":2},{\"dateUtc\":\"2023-05-30T13:32:24.9777800Z\",\"cpu\":100.000,\"memory\":3401968.000,\"threadInfo\":{\"isThreadStarving\":\"False\",\"threadWaitIntervalInMs\":0.0479,\"availableThreads\":32763,\"minThreads\":2,\"maxThreads\":32767},\"numberOfOpenTcpConnection\":2}]}\r\nRequestStart: 2023-05-30T13:32:31.1436178Z; ResponseTime: 2023-05-30T13:32:31.1446182Z; StoreResult: StorePhysicalAddress: rntbd://127.0.0.1:10253/apps/DocDbApp/services/DocDbServer21/partitions/00000000-0000-0000-0000-000000000000/replicas/1p/, LSN: 2, GlobalCommittedLsn: -1, PartitionKeyRangeId: 3, IsValid: True, StatusCode: 500, SubStatusCode: 0, RequestCharge: 1, ItemLSN: -1, SessionToken: -1#2, UsingLocalLSN: True, TransportException: null, BELatencyMs: 0.514, ActivityId: 00000000-0000-0000-0000-000000000000, RetryAfterInMs: , TransportRequestTimeline: {\"requestTimeline\":[{\"event\": \"Created\", \"startTimeUtc\": \"2023-05-30T13:32:31.1416167Z\", \"durationInMs\": 0.0211},{\"event\": \"ChannelAcquisitionStarted\", \"startTimeUtc\": \"2023-05-30T13:32:31.1416378Z\", \"durationInMs\": 0.0047},{\"event\": \"Pipelined\", \"startTimeUtc\": \"2023-05-30T13:32:31.1416425Z\", \"durationInMs\": 1.4254},{\"event\": \"Transit Time\", \"startTimeUtc\": \"2023-05-30T13:32:31.1430679Z\", \"durationInMs\": -0.0745},{\"event\": \"Received\", \"startTimeUtc\": \"2023-05-30T13:32:31.1429934Z\", \"durationInMs\": 0.5442},{\"event\": \"Completed\", \"startTimeUtc\": \"2023-05-30T13:32:31.1435376Z\", \"durationInMs\": 0}],\"serviceEndpointStats\":{\"inflightRequests\":1,\"openConnections\":1},\"connectionStats\":{\"waitforConnectionInit\":\"False\",\"callsPendingReceive\":0,\"lastSendAttempt\":\"2023-05-30T13:32:30.9616148Z\",\"lastSend\":\"2023-05-30T13:32:30.9626173Z\",\"lastReceive\":\"2023-05-30T13:32:30.9626173Z\"},\"requestSizeInBytes\":448,\"responseMetadataSizeInBytes\":176,\"responseBodySizeInBytes\":152};\r\n ResourceType: Collection, OperationType: Read\r\n, SDK: Microsoft.Azure.Documents.Common/2.14.0, documentdb-dotnet-sdk/2.14.0 Host/64-bit MicrosoftWindowsNT/10.0.17763.0\n\tBackendStatusCode : InternalServerError\n\tBackendActivityId : 00000000-0000-0000-0000-000000000000\n\tHResult : 0x80131500\r\n"
+    "id": "00000000-0000-0000-0000-000000000000",
+    "label": "Language",
+    "type": "vertex",
+    "properties": {
+      "PartitionKey": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "value": "PartitionKey"
+        }
+      ],
+      "IetfLanguageTag": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000",
+          "value": "en"
+        }
+      ]
+    }
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "label": "Person",
+    "type": "vertex",
+    "properties": {
+      "PartitionKey": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "value": "PartitionKey"
+        }
+      ],
+      "Age": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000",
+          "value": 0
+        }
+      ],
+      "Name": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000",
+          "value": "Bob"
+        }
+      ],
+      "RegistrationDate": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000",
+          "value": 1586270616000
+        }
+      ]
+    }
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "label": "Company",
+    "type": "vertex",
+    "properties": {
+      "PartitionKey": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "value": "PartitionKey"
+        }
+      ],
+      "FoundingDate": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000",
+          "value": -62135596800000
+        }
+      ]
+    }
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "label": "Country",
+    "type": "vertex",
+    "properties": {
+      "PartitionKey": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "value": "PartitionKey"
+        }
+      ]
+    }
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "label": "Country",
+    "type": "vertex",
+    "properties": {
+      "PartitionKey": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "value": "PartitionKey"
+        }
+      ]
+    }
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "label": "Country",
+    "type": "vertex",
+    "properties": {
+      "PartitionKey": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "value": "PartitionKey"
+        }
+      ]
+    }
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "label": "Company",
+    "type": "vertex",
+    "properties": {
+      "PartitionKey": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "value": "PartitionKey"
+        }
+      ],
+      "FoundingDate": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000",
+          "value": -62135596800000
+        }
+      ]
+    }
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "label": "Language",
+    "type": "vertex",
+    "properties": {
+      "PartitionKey": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "value": "PartitionKey"
+        }
+      ],
+      "IetfLanguageTag": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000",
+          "value": "en"
+        }
+      ]
+    }
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "label": "Country",
+    "type": "vertex",
+    "properties": {
+      "PartitionKey": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "value": "PartitionKey"
+        }
+      ],
+      "CountryCallingCode": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000",
+          "value": "+49"
+        }
+      ]
+    }
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "label": "Company",
+    "type": "vertex",
+    "properties": {
+      "PartitionKey": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "value": "PartitionKey"
+        }
+      ],
+      "FoundingDate": [
+        {
+          "id": "00000000-0000-0000-0000-000000000000",
+          "value": -62135596800000
+        }
+      ]
     }
   }
 ]
