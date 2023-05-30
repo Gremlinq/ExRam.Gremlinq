@@ -1898,6 +1898,24 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public virtual async Task Single_Inject_V()
+        {
+            await _g
+                .Inject(42)
+                .V("id")
+                .Verify();
+        }
+
+        [Fact]
+        public virtual async Task Multi_Inject_V()
+        {
+            await _g
+                .Inject(36, 37, 38)
+                .V("id")
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task Label()
         {
             await _g
