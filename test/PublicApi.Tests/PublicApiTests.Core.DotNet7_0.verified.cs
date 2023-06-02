@@ -1819,6 +1819,7 @@ namespace ExRam.Gremlinq.Core.Steps
         public HasValueStep(object argument) { }
         public object Argument { get; }
     }
+    public interface ISourceStep { }
     public sealed class IdStep : ExRam.Gremlinq.Core.Steps.Step
     {
         public static readonly ExRam.Gremlinq.Core.Steps.IdStep Instance;
@@ -2188,18 +2189,18 @@ namespace ExRam.Gremlinq.Core.Steps
         public WhereTraversalStep(ExRam.Gremlinq.Core.Traversal traversal) { }
         public ExRam.Gremlinq.Core.Traversal Traversal { get; }
     }
-    public sealed class WithSideEffectStep : ExRam.Gremlinq.Core.Steps.Step
+    public sealed class WithSideEffectStep : ExRam.Gremlinq.Core.Steps.Step, ExRam.Gremlinq.Core.Steps.ISourceStep
     {
         public WithSideEffectStep(ExRam.Gremlinq.Core.StepLabel label, object value) { }
         public ExRam.Gremlinq.Core.StepLabel Label { get; }
         public object Value { get; }
     }
-    public sealed class WithStrategiesStep : ExRam.Gremlinq.Core.Steps.Step
+    public sealed class WithStrategiesStep : ExRam.Gremlinq.Core.Steps.Step, ExRam.Gremlinq.Core.Steps.ISourceStep
     {
         public WithStrategiesStep(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.IGremlinQueryStrategy> strategies) { }
         public System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.IGremlinQueryStrategy> Strategies { get; }
     }
-    public sealed class WithoutStrategiesStep : ExRam.Gremlinq.Core.Steps.Step
+    public sealed class WithoutStrategiesStep : ExRam.Gremlinq.Core.Steps.Step, ExRam.Gremlinq.Core.Steps.ISourceStep
     {
         public WithoutStrategiesStep(System.Collections.Immutable.ImmutableArray<System.Type> strategyTypes) { }
         public System.Collections.Immutable.ImmutableArray<System.Type> StrategyTypes { get; }
