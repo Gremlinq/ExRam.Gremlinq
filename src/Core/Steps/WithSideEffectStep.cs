@@ -1,6 +1,6 @@
 ﻿namespace ExRam.Gremlinq.Core.Steps
 {
-    public sealed class WithSideEffectStep : Step
+    public sealed class WithSideEffectStep : Step, ISourceStep
     {
         public WithSideEffectStep(StepLabel label, object value)
         {

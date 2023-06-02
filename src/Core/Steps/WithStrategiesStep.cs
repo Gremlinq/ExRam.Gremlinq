@@ -2,7 +2,7 @@
 
 namespace ExRam.Gremlinq.Core.Steps
 {
-    public sealed class WithStrategiesStep : Step
+    public sealed class WithStrategiesStep : Step, ISourceStep
     {
         public WithStrategiesStep(ImmutableArray<IGremlinQueryStrategy> strategies)
         {
