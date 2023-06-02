@@ -10,6 +10,18 @@ namespace ExRam.Gremlinq.Core
     {
         private static readonly ConcurrentDictionary<Type, Func<object, IGremlinQueryEnvironment, SerializationBehaviour, IEnumerable<(Key key, object value)>>> SerializerDict = new();
 
+        public static TSource Apply<TSource>(this TSource source, Action<TSource> application)
+        {
+            application(source);
+            return source;
+        }
+
+        public static TSource Apply<TSource, TState>(this TSource source, Action<TSource, TState> application, TState state)
+        {
+            application(source, state);
+            return source;
+        }
+
         public static TResult Map<TSource, TResult>(this TSource source, Func<TSource, TResult> transformation) => transformation(source);
 
         public static TResult Map<TSource, TResult, TState>(this TSource source, Func<TSource, TState, TResult> transformation, TState state) => transformation(source, state);

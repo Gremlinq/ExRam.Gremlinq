@@ -303,11 +303,8 @@ namespace ExRam.Gremlinq.Core.Serialization
                             AddStep(IdentityStep.Instance, byteCode, false, env, recurse);
                     }
 
-                    var byteCode = new Bytecode();
-
-                    AddTraversal(traversal, byteCode, env, recurse);
-
-                    return byteCode;
+                    return new Bytecode()
+                        .Apply(byteCode => AddTraversal(traversal, byteCode, env, recurse));
                 }))
             .Add(ConverterFactory
                 .Create<Bytecode, RequestMessage.Builder>((bytecode, env, _) => RequestMessage
