@@ -3,15 +3,8 @@
     {
       OperatorName: withSideEffect,
       Arguments: [
-        Neptune#fts.endpoint,
-        http://elastic.search.server
-      ]
-    },
-    {
-      OperatorName: withSideEffect,
-      Arguments: [
-        Neptune#fts.queryType,
-        query_string
+        stepLabel,
+        sideEffect
       ]
     }
   ],
@@ -75,7 +68,8 @@
                       Arguments: [
                         id,
                         label,
-                        value
+                        value,
+                        properties
                       ]
                     },
                     {
@@ -102,6 +96,18 @@
                         {
                           EnumName: T,
                           EnumValue: value
+                        }
+                      ]
+                    },
+                    {
+                      OperatorName: by,
+                      Arguments: [
+                        {
+                          StepInstructions: [
+                            {
+                              OperatorName: valueMap
+                            }
+                          ]
                         }
                       ]
                     },

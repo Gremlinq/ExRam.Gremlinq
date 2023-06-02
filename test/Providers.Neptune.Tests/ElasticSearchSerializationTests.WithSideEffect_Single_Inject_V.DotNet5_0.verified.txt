@@ -13,6 +13,13 @@
         Neptune#fts.queryType,
         query_string
       ]
+    },
+    {
+      OperatorName: withSideEffect,
+      Arguments: [
+        stepLabel,
+        sideEffect
+      ]
     }
   ],
   StepInstructions: [
