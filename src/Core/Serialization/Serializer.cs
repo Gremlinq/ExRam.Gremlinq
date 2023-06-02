@@ -129,21 +129,21 @@ namespace ExRam.Gremlinq.Core.Serialization
                         AddSteps(traversal.Steps, byteCode, env, recurse);
                     }
 
-                    static void AddInnerInstruction(Instruction instruction, Bytecode byteCode, bool isSouceInstruction)
-                    {
-                        if (isSouceInstruction)
-                        {
-                            if (byteCode.StepInstructions.Count != 0)
-                                throw new InvalidOperationException();
-
-                            byteCode.SourceInstructions.Add(instruction);
-                        }
-                        else
-                            byteCode.StepInstructions.Add(instruction);
-                    }
-
                     static void AddInstruction(Instruction instruction, Bytecode byteCode, bool isSourceInstruction, IGremlinQueryEnvironment env, ITransformer recurse)
                     {
+                        static void AddInnerInstruction(Instruction instruction, Bytecode byteCode, bool isSouceInstruction)
+                        {
+                            if (isSouceInstruction)
+                            {
+                                if (byteCode.StepInstructions.Count != 0)
+                                    throw new InvalidOperationException();
+
+                                byteCode.SourceInstructions.Add(instruction);
+                            }
+                            else
+                                byteCode.StepInstructions.Add(instruction);
+                        }
+
                         if (recurse.TryTransform(instruction, env, out Instruction[]? expandedInnerInstructions))
                         {
                             foreach (var expandedInnerInstruction in expandedInnerInstructions)
