@@ -102,7 +102,7 @@ namespace ExRam.Gremlinq.Core
 
             return this
                 .Aggregate(scope, stepLabel)
-                .Apply(continuation, stepLabel);
+                .Map(continuation, stepLabel);
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Aggregate<TStepLabel>(Scope scope, TStepLabel stepLabel)
@@ -193,7 +193,7 @@ namespace ExRam.Gremlinq.Core
             }
 
             return toContinue
-                .Apply(continuation, stepLabel);
+                .Map(continuation, stepLabel);
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> As(StepLabel stepLabel) => this
@@ -864,14 +864,14 @@ namespace ExRam.Gremlinq.Core
         private IMapGremlinQuery<TResult> Project<TResult>(Func<IProjectBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement>, IProjectMapResult<TResult>> continuation)
         {
             return new ProjectBuilder(this)
-                .Apply(continuation)
+                .Map(continuation)
                 .Build();
         }
 
         private IValueGremlinQuery<dynamic> Project(Func<IProjectBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement>, IProjectDynamicResult> continuation)
         {
             return new ProjectBuilder(this)
-                .Apply(continuation)
+                .Map(continuation)
                 .Build();
         }
 
@@ -879,7 +879,7 @@ namespace ExRam.Gremlinq.Core
             where TResult : ITuple
         {
             return new ProjectBuilder(this)
-                .Apply(continuation)
+                .Map(continuation)
                 .Build();
         }
 
