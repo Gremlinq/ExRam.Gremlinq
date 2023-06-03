@@ -127,7 +127,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Throw<ArgumentException>();
         }
 
-
         [Fact]
         public virtual void Property_single_with_dictionary_meta2()
         {
