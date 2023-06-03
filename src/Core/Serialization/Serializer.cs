@@ -101,7 +101,6 @@ namespace ExRam.Gremlinq.Core.Serialization
             .Add(Chain<IGremlinQueryBase, RequestMessage.Builder, RequestMessage>())
             .Add(Chain<IGremlinQueryBase, Bytecode, RequestMessage.Builder>())
             .Add(Chain<IGremlinQueryBase, Traversal, Bytecode>())
-            .Add(Chain<Bytecode, RequestMessage.Builder, RequestMessage>())
 
             .Add(ConverterFactory
                 .Create<IGremlinQueryBase, Traversal>((query, env, _) =>
@@ -298,6 +297,8 @@ namespace ExRam.Gremlinq.Core.Serialization
                     return new Bytecode()
                         .Apply(byteCode => AddTraversal(traversal, byteCode, env, recurse));
                 }))
+            .Add(Chain<Bytecode, RequestMessage.Builder, RequestMessage>())
+
             .Add(ConverterFactory
                 .Create<Bytecode, GroovyGremlinQuery>((query, _, _) => query.ToGroovy()))
             .Add(ConverterFactory
