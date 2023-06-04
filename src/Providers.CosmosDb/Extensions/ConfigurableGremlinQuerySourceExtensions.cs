@@ -100,7 +100,8 @@ namespace ExRam.Gremlinq.Core
                         .ConfigureOptions(options => options
                             .SetValue(GremlinqOption.VertexProjectionSteps, Traversal.Empty)
                             .SetValue(GremlinqOption.EdgeProjectionSteps, Traversal.Empty)
-                            .SetValue(GremlinqOption.VertexPropertyProjectionSteps, Traversal.Empty))
+                            .SetValue(GremlinqOption.VertexPropertyProjectionSteps, Traversal.Empty)
+                            .SetValue(GremlinqOption.PreferGroovySerialization, true))
                         .ConfigureNativeTypes(nativeTypes => nativeTypes
                             .Remove(typeof(byte[]))
                             .Remove(typeof(TimeSpan)))
@@ -150,8 +151,7 @@ namespace ExRam.Gremlinq.Core
                                     : order.Equals(Order.Desc)
                                         ? WorkaroundOrder.Decr
                                         : default)
-                                .AutoRecurse<WorkaroundOrder>())
-                            .PreferGroovySerialization())));
+                                .AutoRecurse<WorkaroundOrder>()))));
         }
     }
 }
