@@ -588,16 +588,7 @@ namespace ExRam.Gremlinq.Core.Serialization
             .Add<WhereTraversalStep>((step, env, recurse) => CreateInstruction("where", recurse, env, step.Traversal))
             .Add<WithoutStrategiesStep>((step, env, recurse) => CreateInstruction("withoutStrategies", recurse, env, step.StrategyTypes))
             .Add<WithSideEffectStep>((step, env, recurse) => CreateInstruction("withSideEffect", recurse, env, step.Label, step.Value))
-            .Add<WithStrategiesStep>((step, env, recurse) => CreateInstruction(
-                "withStrategies",
-                recurse,
-                env,
-                step.Strategies
-                    .Select(strategy => recurse
-                        .TransformTo<AbstractTraversalStrategy>()
-                        .From(strategy, env))
-                    .Cast<object>()
-                    .ToArray()))
+            .Add<WithStrategiesStep>((step, env, recurse) => throw new NotSupportedException($"{nameof(WithStrategiesStep)} is not supported."))
             .Add<WherePredicateStep>((step, env, recurse) => CreateInstruction("where", recurse, env, step.Predicate))
             .Add<WherePredicateStep.ByMemberStep>((step, env, recurse) => step.Key is { } key
                 ? CreateInstruction("by", recurse, env, key)
