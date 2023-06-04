@@ -1579,7 +1579,6 @@ namespace ExRam.Gremlinq.Core.Serialization
     public static class Serializer
     {
         public static readonly ExRam.Gremlinq.Core.Transformation.ITransformer Default;
-        public static ExRam.Gremlinq.Core.Transformation.ITransformer PreferGroovySerialization(this ExRam.Gremlinq.Core.Transformation.ITransformer serializer) { }
     }
 }
 namespace ExRam.Gremlinq.Core.Steps

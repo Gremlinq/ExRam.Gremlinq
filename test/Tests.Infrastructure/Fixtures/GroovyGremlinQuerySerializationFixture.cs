@@ -1,4 +1,4 @@
-﻿using ExRam.Gremlinq.Core.Serialization;
+﻿using ExRam.Gremlinq.Core;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Tests.Infrastructure
@@ -6,8 +6,8 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
     public sealed class GroovyGremlinQuerySerializationFixture : GremlinqFixture
     {
         public GroovyGremlinQuerySerializationFixture() : base(g.ConfigureEnvironment(_ => _
-            .ConfigureSerializer(ser => ser
-                .PreferGroovySerialization())))
+            .ConfigureOptions(options => options
+                .SetValue(GremlinqOption.PreferGroovySerialization, true))))
         {
         }
     }

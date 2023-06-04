@@ -27,9 +27,6 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         public async Task Inlined_CosmosDbKey()
         {
             await _g
-                .ConfigureEnvironment(e => e
-                    .ConfigureSerializer(s => s
-                        .PreferGroovySerialization()))
                 .V<Person>(new CosmosDbKey("pk", "id"))
                 .Verify();
         }

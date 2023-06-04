@@ -93,9 +93,6 @@ namespace ExRam.Gremlinq.Core.Serialization
             .AddBaseConverters()
             .AddDefaultStepConverters();
 
-        public static ITransformer PreferGroovySerialization(this ITransformer serializer) => serializer
-            .Add(Chain<Bytecode, GroovyGremlinQuery, RequestMessage.Builder>());
-
         private static ITransformer AddBaseConverters(this ITransformer serializer) => serializer
             .Add(Chain<IGremlinQueryBase, Bytecode, GroovyGremlinQuery>())
             .Add(Chain<IGremlinQueryBase, RequestMessage.Builder, RequestMessage>())
@@ -313,6 +310,22 @@ namespace ExRam.Gremlinq.Core.Serialization
                     .Processor(Tokens.ProcessorTraversal)
                     .AddArgument(Tokens.ArgsGremlin, bytecode)
                     .AddAlias(env)))
+            .Add(ConverterFactory
+                .Create<Bytecode, RequestMessage.Builder>((bytecode, env, recurse) =>
+                {
+                    if (env.Options.GetValue(GremlinqOption.PreferGroovySerialization))
+                    {
+                        if (recurse.TryTransform(bytecode, env, out GroovyGremlinQuery groovyQuery))
+                        {
+                            if (recurse.TryTransform(groovyQuery, env, out RequestMessage.Builder? builder))
+                            {
+                                return builder;
+                            }
+                        }
+                    }
+
+                    return null;
+                }))
             .Add(ConverterFactory
                 .Create<RequestMessage.Builder, RequestMessage>((builder, _, _) => builder.Create()))
             .Add(ConverterFactory
