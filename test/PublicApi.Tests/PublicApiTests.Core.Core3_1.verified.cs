@@ -166,6 +166,7 @@ namespace ExRam.Gremlinq.Core
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.Traversal> EmptyProjectionProtectionDecoratorSteps;
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<bool> EnableEmptyProjectionValueProtection;
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.FilterLabelsVerbosity> FilterLabelsVerbosity;
+        public static readonly ExRam.Gremlinq.Core.GremlinqOption<bool> PreferGroovySerialization;
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.QueryLogFormatting> QueryLogFormatting;
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<Microsoft.Extensions.Logging.LogLevel> QueryLogLogLevel;
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.QueryLogVerbosity> QueryLogVerbosity;
@@ -1577,7 +1578,6 @@ namespace ExRam.Gremlinq.Core.Serialization
     public static class Serializer
     {
         public static readonly ExRam.Gremlinq.Core.Transformation.ITransformer Default;
-        public static ExRam.Gremlinq.Core.Transformation.ITransformer PreferGroovySerialization(this ExRam.Gremlinq.Core.Transformation.ITransformer serializer) { }
     }
 }
 namespace ExRam.Gremlinq.Core.Steps
