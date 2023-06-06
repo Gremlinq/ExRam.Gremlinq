@@ -79,7 +79,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Throw<ArgumentException>();
         }
 
-
         [Fact]
         public virtual async Task Limit_underflow()
         {
