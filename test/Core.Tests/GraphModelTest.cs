@@ -22,7 +22,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         }
 
-        [Fact]
+        [ReleaseOnlyFact]
         public void Fody_works()
         {
             g
@@ -44,7 +44,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Throw<InvalidOperationException>();
         }
 
-        [Fact]
+        [ReleaseOnlyFact]
         public void ElementMetadata_name_cannot_be_null()
         {
             var m = default(ElementMetadata);

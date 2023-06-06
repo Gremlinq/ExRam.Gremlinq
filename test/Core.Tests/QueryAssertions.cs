@@ -18,7 +18,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .IncludeAssembliesOfBaseTypes())));
         }
 
-        [Fact]
+        [ReleaseOnlyFact]
         public virtual void VertexProperty_throws_on_null_value()
         {
             default(int)
@@ -104,7 +104,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
 
-        [Fact]
+        [ReleaseOnlyFact]
         public virtual void NullGuard_works()
         {
             _g
