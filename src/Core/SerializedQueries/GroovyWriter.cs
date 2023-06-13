@@ -1,6 +1,7 @@
 ﻿using System.Collections.Immutable;
 using System.Text;
 using ExRam.Gremlinq.Core.Serialization;
+using ExRam.Gremlinq.Core.Transformation;
 using Gremlin.Net.Process.Traversal;
 using Gremlin.Net.Process.Traversal.Strategy;
 
@@ -133,10 +134,14 @@ namespace ExRam.Gremlinq.Core
                 }
                 case AbstractTraversalStrategy traversalStrategy:
                 {
-                    if (environment.Serializer.TryTransform(traversalStrategy, environment, out GroovyExpression groovyExpression))
-                        return Append(groovyExpression, stringBuilder, bindings, environment, allowEnumerableExpansion);
-
-                    throw new NotSupportedException("Cannot ");
+                    return Append(
+                        environment.Serializer
+                            .TransformTo<GroovyExpression>()
+                            .From(traversalStrategy, environment),
+                        stringBuilder,
+                        bindings,
+                        environment,
+                        allowEnumerableExpansion);
                 }
                 case object[] objectArray when allowEnumerableExpansion:
                 {
