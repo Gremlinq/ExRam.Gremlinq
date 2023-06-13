@@ -2,6 +2,7 @@
 using System.Text;
 using ExRam.Gremlinq.Core.Serialization;
 using Gremlin.Net.Process.Traversal;
+using Gremlin.Net.Process.Traversal.Strategy;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -16,23 +17,23 @@ namespace ExRam.Gremlinq.Core
             _hasIdentifier = hasIdentifier;
         }
 
-        public static string ToString(Bytecode bytecode)
+        public static string ToString(Bytecode bytecode, IGremlinQueryEnvironment environment)
         {
             var groovyWriter = new GroovyWriter(true, false);
             var stringBuilder = new StringBuilder();
 
-            groovyWriter.Append(bytecode, stringBuilder, null);
+            groovyWriter.Append(bytecode, stringBuilder, null, environment);
 
             return stringBuilder.ToString();
         }
 
-        public static GroovyGremlinQuery ToGroovyGremlinQuery(Bytecode bytecode, bool includeBindings)
+        public static GroovyGremlinQuery ToGroovyGremlinQuery(Bytecode bytecode, IGremlinQueryEnvironment environment, bool includeBindings)
         {
             var stringBuilder = new StringBuilder();
             var bindings = new Dictionary<object, Label>();
             var groovyWriter = new GroovyWriter(true, false);
 
-            groovyWriter.Append(bytecode, stringBuilder, bindings);
+            groovyWriter.Append(bytecode, stringBuilder, bindings, environment);
 
             return new GroovyGremlinQuery(
                 stringBuilder.ToString(),
@@ -45,6 +46,7 @@ namespace ExRam.Gremlinq.Core
             object obj,
             StringBuilder stringBuilder,
             Dictionary<object, Label>? bindings,
+            IGremlinQueryEnvironment environment,
             bool allowEnumerableExpansion = false)
         {
             switch (obj)
@@ -56,7 +58,7 @@ namespace ExRam.Gremlinq.Core
                     foreach (var instruction in expression.Instructions)
                     {
                         writer = writer
-                            .Append(instruction, stringBuilder, bindings);
+                            .Append(instruction, stringBuilder, bindings, environment);
                     }
 
                     return writer;
@@ -68,13 +70,13 @@ namespace ExRam.Gremlinq.Core
                     foreach (var instruction in byteCode.SourceInstructions)
                     {
                         writer = writer
-                            .Append(instruction, stringBuilder, bindings);
+                            .Append(instruction, stringBuilder, bindings, environment);
                     }
 
                     foreach (var instruction in byteCode.StepInstructions)
                     {
                         writer = writer
-                            .Append(instruction, stringBuilder, bindings);
+                            .Append(instruction, stringBuilder, bindings, environment);
                     }
 
                     return writer;
@@ -83,22 +85,22 @@ namespace ExRam.Gremlinq.Core
                 {
                     return this
                         .StartOperator(instruction.OperatorName, stringBuilder)
-                        .Append(instruction.Arguments, stringBuilder, bindings, true)
+                        .Append(instruction.Arguments, stringBuilder, bindings, environment, true)
                         .EndOperator(stringBuilder);
                 }
                 case P { Value: P p1 } p:
                 {
                     return this
-                        .Append(p1, stringBuilder, bindings)
+                        .Append(p1, stringBuilder, bindings, environment)
                         .StartOperator(p.OperatorName, stringBuilder)
-                        .Append(p.Other, stringBuilder, bindings)
+                        .Append(p.Other, stringBuilder, bindings, environment)
                         .EndOperator(stringBuilder);
                 }
                 case P p:
                 {
                     return this
                         .StartOperator(p.OperatorName, stringBuilder)
-                        .Append((object)p.Value, stringBuilder, bindings, true)
+                        .Append((object)p.Value, stringBuilder, bindings, environment, true)
                         .EndOperator(stringBuilder);
                 }
                 case EnumWrapper t:
@@ -129,6 +131,13 @@ namespace ExRam.Gremlinq.Core
                 {
                     return Write(type.Name, stringBuilder);
                 }
+                case AbstractTraversalStrategy traversalStrategy:
+                {
+                    if (environment.Serializer.TryTransform(traversalStrategy, environment, out GroovyExpression groovyExpression))
+                        return Append(groovyExpression, stringBuilder, bindings, environment, allowEnumerableExpansion);
+
+                    throw new NotSupportedException("Cannot ");
+                }
                 case object[] objectArray when allowEnumerableExpansion:
                 {
                     var writer = this;
@@ -137,7 +146,7 @@ namespace ExRam.Gremlinq.Core
                     {
                         writer = writer
                             .StartParameter(i, stringBuilder)
-                            .Append(objectArray[i], stringBuilder, bindings);
+                            .Append(objectArray[i], stringBuilder, bindings, environment);
                     }
 
                     return writer;

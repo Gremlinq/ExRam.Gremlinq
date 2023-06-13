@@ -297,7 +297,7 @@ namespace ExRam.Gremlinq.Core.Serialization
             .Add(Chain<Bytecode, RequestMessage.Builder, RequestMessage>())
 
             .Add(ConverterFactory
-                .Create<Bytecode, GroovyGremlinQuery>((query, _, _) => query.ToGroovy()))
+                .Create<Bytecode, GroovyGremlinQuery>((query, env, _) => query.ToGroovy(env)))
             .Add(ConverterFactory
                 .Create<GroovyGremlinQuery, RequestMessage.Builder>((query, env, _) => RequestMessage
                     .Build(Tokens.OpsEval)

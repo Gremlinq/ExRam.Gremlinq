@@ -90,7 +90,7 @@ namespace Gremlin.Net.Driver
                 {
                     if (environment.Logger.IsEnabled(logLevel))
                     {
-                        if (requestMessage.TryGetGroovyQuery(includeBindings) is { } groovyQuery)
+                        if (requestMessage.TryGetGroovyQuery(environment, includeBindings) is { } groovyQuery)
                         {
                             environment.Logger.Log(
                                 logLevel,
