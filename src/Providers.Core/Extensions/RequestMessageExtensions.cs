@@ -1,4 +1,5 @@
 ﻿using System.Collections.Immutable;
+using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Serialization;
 using Gremlin.Net.Driver.Messages;
 using Gremlin.Net.Process.Traversal;
@@ -7,12 +8,12 @@ namespace Gremlin.Net.Driver
 {
     internal static class RequestMessageExtensions
     {
-        public static GroovyGremlinQuery? TryGetGroovyQuery(this RequestMessage requestMessage, bool includeBindings)
+        public static GroovyGremlinQuery? TryGetGroovyQuery(this RequestMessage requestMessage, IGremlinQueryEnvironment environment, bool includeBindings)
         {
             if (requestMessage.Operation == Tokens.OpsBytecode)
             {
                 if (requestMessage.Arguments.TryGetValue(Tokens.ArgsGremlin, out var bytecodeObject) && bytecodeObject is Bytecode bytecode)
-                    return bytecode.ToGroovy(includeBindings);
+                    return bytecode.ToGroovy(environment, includeBindings);
             }
             else if (requestMessage.Operation == Tokens.OpsEval)
             {
