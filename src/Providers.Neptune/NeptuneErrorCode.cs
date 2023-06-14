@@ -22,6 +22,7 @@
         public static readonly NeptuneErrorCode TimeLimitExceededException = From(nameof(TimeLimitExceededException));
         public static readonly NeptuneErrorCode TooManyRequestsException = From(nameof(TooManyRequestsException));
         public static readonly NeptuneErrorCode UnsupportedOperationException = From(nameof(UnsupportedOperationException));
+        public static readonly NeptuneErrorCode FailureByQueryException = From(nameof(FailureByQueryException));
 
         private readonly string? _code;
 
