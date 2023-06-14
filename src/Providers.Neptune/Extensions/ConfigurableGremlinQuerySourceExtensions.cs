@@ -35,7 +35,7 @@ namespace ExRam.Gremlinq.Core
             public IGremlinQuerySource Transform(IGremlinQuerySource source) => _webSocketProviderConfigurator.Transform(source);
         }
 
-        private record struct NeptuneErrorResponse(string? requestId, NeptuneErrorCode? code, string? detailedMessage);
+        private record struct NeptuneErrorResponse(string? requestId, string? code, string? detailedMessage);
 
         public static IGremlinQuerySource UseNeptune(this IConfigurableGremlinQuerySource source, Func<INeptuneConfigurator, IGremlinQuerySourceTransformation> configuratorTransformation)
         {
@@ -81,8 +81,8 @@ namespace ExRam.Gremlinq.Core
                                         {
                                             var response = JsonSerializer.Deserialize<NeptuneErrorResponse>(responseException.Message.AsSpan()[(statusCodeString.Length + 1)..], serializerOptions);
 
-                                            if (response.code is { } errorCode)
-                                                return new NeptuneResponseException(errorCode, response.detailedMessage ?? string.Empty, responseException);
+                                            if (response.code is { Length: > 0 } errorCode)
+                                                return new NeptuneResponseException(NeptuneErrorCode.From(errorCode), response.detailedMessage ?? string.Empty, responseException);
                                         }
                                         catch (JsonException)
                                         {
