@@ -94,7 +94,7 @@ jobs:
 
     - name: Copy *.received-files to artifacts
       if: ${{ always() && env.IsForkedRepository == 'false' }}
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: test-linux-received-snapshots
         path: ./**/*.received.*
@@ -132,7 +132,7 @@ jobs:
 
     - name: Copy *.received-files to artifacts
       if: ${{ always() && env.IsForkedRepository == 'false' }}
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: test-windows-received-snapshots
         path: ./**/*.received.*
