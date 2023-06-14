@@ -1,5 +1,4 @@
 ﻿using System.Linq.Async;
-using Gremlin.Net.Driver.Exceptions;
 using Microsoft.Extensions.Logging;
 
 namespace ExRam.Gremlinq.Core.Execution
@@ -36,9 +35,9 @@ namespace ExRam.Gremlinq.Core.Execution
             private static Random? _rnd;
 
             private readonly IGremlinQueryExecutor _baseExecutor;
-            private readonly Func<int, ResponseException, bool> _shouldRetry;
+            private readonly Func<int, GremlinQueryExecutionException, bool> _shouldRetry;
 
-            public ExponentialBackoffExecutor(IGremlinQueryExecutor baseExecutor, Func<int, ResponseException, bool> shouldRetry)
+            public ExponentialBackoffExecutor(IGremlinQueryExecutor baseExecutor, Func<int, GremlinQueryExecutionException, bool> shouldRetry)
             {
                 _baseExecutor = baseExecutor;
                 _shouldRetry = shouldRetry;
@@ -67,7 +66,7 @@ namespace ExRam.Gremlinq.Core.Execution
 
                                     hasSeenFirst = true;
                                 }
-                                catch (ResponseException ex)
+                                catch (GremlinQueryExecutionException ex)
                                 {
                                     environment.Logger.LogInformation(ex, "Query failed.");
 
@@ -99,9 +98,9 @@ namespace ExRam.Gremlinq.Core.Execution
         private sealed class TransformExecutionExceptionGremlinQueryExecutor : IGremlinQueryExecutor
         {
             private readonly IGremlinQueryExecutor _baseExecutor;
-            private readonly Func<Exception, Exception> _exceptionTransformation;
+            private readonly Func<GremlinQueryExecutionException, GremlinQueryExecutionException> _exceptionTransformation;
 
-            public TransformExecutionExceptionGremlinQueryExecutor(IGremlinQueryExecutor baseExecutor, Func<Exception, Exception> exceptionTransformation)
+            public TransformExecutionExceptionGremlinQueryExecutor(IGremlinQueryExecutor baseExecutor, Func<GremlinQueryExecutionException, GremlinQueryExecutionException> exceptionTransformation)
             {
                 _baseExecutor = baseExecutor;
                 _exceptionTransformation = exceptionTransformation;
@@ -127,7 +126,7 @@ namespace ExRam.Gremlinq.Core.Execution
                                 if (!await enumerator.MoveNextAsync())
                                     yield break;
                             }
-                            catch (Exception ex)
+                            catch (GremlinQueryExecutionException ex)
                             {
                                 throw _exceptionTransformation(ex);
                             }
@@ -145,8 +144,8 @@ namespace ExRam.Gremlinq.Core.Execution
 
         public static IGremlinQueryExecutor TransformQuery(this IGremlinQueryExecutor baseExecutor, Func<IGremlinQueryBase, IGremlinQueryBase> transformation) => new TransformQueryGremlinQueryExecutor(baseExecutor, transformation);
 
-        public static IGremlinQueryExecutor TransformExecutionException(this IGremlinQueryExecutor executor, Func<Exception, Exception> exceptionTransformation) => new TransformExecutionExceptionGremlinQueryExecutor(executor, exceptionTransformation);
+        public static IGremlinQueryExecutor TransformExecutionException(this IGremlinQueryExecutor executor, Func<GremlinQueryExecutionException, GremlinQueryExecutionException> exceptionTransformation) => new TransformExecutionExceptionGremlinQueryExecutor(executor, exceptionTransformation);
 
-        public static IGremlinQueryExecutor RetryWithExponentialBackoff(this IGremlinQueryExecutor executor, Func<int, ResponseException, bool> shouldRetry) => new ExponentialBackoffExecutor(executor, shouldRetry);
+        public static IGremlinQueryExecutor RetryWithExponentialBackoff(this IGremlinQueryExecutor executor, Func<int, GremlinQueryExecutionException, bool> shouldRetry) => new ExponentialBackoffExecutor(executor, shouldRetry);
     }
 }
