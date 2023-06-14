@@ -17,28 +17,35 @@ namespace ExRam.Gremlinq.Providers.Neptune
         Standard = 0,
         LowercaseKeyword = 1,
     }
-    public enum NeptuneErrorCode
+    public readonly struct NeptuneErrorCode : System.IEquatable<ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode>
     {
-        AccessDeniedException = 0,
-        BadRequestException = 1,
-        CancelledByUserException = 2,
-        ConcurrentModificationException = 3,
-        ConstraintViolationException = 4,
-        InternalFailureException = 5,
-        InvalidNumericDataException = 6,
-        InvalidParameterException = 7,
-        MalformedQueryException = 8,
-        MemoryLimitExceededException = 9,
-        MethodNotAllowedException = 10,
-        MissingParameterException = 11,
-        QueryLimitExceededException = 12,
-        QueryLimitException = 13,
-        QueryTooLargeException = 14,
-        ReadOnlyViolationException = 15,
-        ThrottlingException = 16,
-        TimeLimitExceededException = 17,
-        TooManyRequestsException = 18,
-        UnsupportedOperationException = 19,
+        public static readonly ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode AccessDeniedException;
+        public static readonly ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode BadRequestException;
+        public static readonly ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode CancelledByUserException;
+        public static readonly ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode ConcurrentModificationException;
+        public static readonly ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode ConstraintViolationException;
+        public static readonly ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode InternalFailureException;
+        public static readonly ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode InvalidNumericDataException;
+        public static readonly ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode InvalidParameterException;
+        public static readonly ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode MalformedQueryException;
+        public static readonly ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode MemoryLimitExceededException;
+        public static readonly ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode MethodNotAllowedException;
+        public static readonly ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode MissingParameterException;
+        public static readonly ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode QueryLimitExceededException;
+        public static readonly ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode QueryLimitException;
+        public static readonly ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode QueryTooLargeException;
+        public static readonly ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode ReadOnlyViolationException;
+        public static readonly ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode ThrottlingException;
+        public static readonly ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode TimeLimitExceededException;
+        public static readonly ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode TooManyRequestsException;
+        public static readonly ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode UnsupportedOperationException;
+        public string Code { get; }
+        public bool Equals(ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode other) { }
+        public override bool Equals(object? obj) { }
+        public override int GetHashCode() { }
+        public static ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode From(string code) { }
+        public static bool operator !=(ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode left, ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode right) { }
+        public static bool operator ==(ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode left, ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode right) { }
     }
     public sealed class NeptuneResponseException : System.Exception
     {
