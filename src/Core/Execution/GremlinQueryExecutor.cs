@@ -79,7 +79,7 @@ namespace ExRam.Gremlinq.Core.Execution
 
                                     //This is done not to end up with the same seeds if many of these
                                     //requests fail roughly at the same time
-                                    await Task.Delay((_rnd ??= new Random((int)(DateTime.Now.Ticks & int.MaxValue) ^ Thread.CurrentThread.ManagedThreadId)).Next(i + 2) * 16, ct);
+                                    await Task.Delay((_rnd ??= new Random((int)(DateTime.Now.Ticks & int.MaxValue) ^ Environment.CurrentManagedThreadId)).Next(i + 2) * 16, ct);
 
                                     var newContext = context.WithNewExecutionId();
                                     environment.Logger.LogInformation($"Retrying serialized query {newContext.ExecutionId} with new {nameof(GremlinQueryExecutionContext.ExecutionId)} {newContext.ExecutionId}.");
