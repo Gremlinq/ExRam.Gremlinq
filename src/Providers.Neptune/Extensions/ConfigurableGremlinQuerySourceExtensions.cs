@@ -4,6 +4,10 @@ using Gremlin.Net.Process.Traversal;
 using ExRam.Gremlinq.Core.Transformation;
 using Gremlin.Net.Driver;
 using ExRam.Gremlinq.Providers.Core;
+using ExRam.Gremlinq.Core.Execution;
+using Gremlin.Net.Driver.Exceptions;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -31,8 +35,19 @@ namespace ExRam.Gremlinq.Core
             public IGremlinQuerySource Transform(IGremlinQuerySource source) => _webSocketProviderConfigurator.Transform(source);
         }
 
+        private record struct NeptuneErrorResponse(string? requestId, NeptuneErrorCode? code, string? detailedMessage);
+
         public static IGremlinQuerySource UseNeptune(this IConfigurableGremlinQuerySource source, Func<INeptuneConfigurator, IGremlinQuerySourceTransformation> configuratorTransformation)
         {
+            var serializerOptions = new JsonSerializerOptions()
+            {
+                PropertyNameCaseInsensitive = true,
+                Converters =
+                {
+                    new JsonStringEnumConverter(JsonNamingPolicy.CamelCase)
+                }
+            };
+            
             return configuratorTransformation
                 .Invoke(new NeptuneConfigurator())
                 .Transform(source
@@ -52,7 +67,32 @@ namespace ExRam.Gremlinq.Core
                             .Add(ConverterFactory
                                 .Create<PropertyStep.ByKeyStep, PropertyStep.ByKeyStep>((step, _, _) => Cardinality.List.Equals(step.Cardinality)
                                     ? new PropertyStep.ByKeyStep(step.Key, step.Value, step.MetaProperties, Cardinality.Set)
-                                    : default)))));
+                                    : default)))
+                        .ConfigureExecutor(executor => executor
+                            .TransformExecutionException(ex =>
+                            {
+                                if (ex is ResponseException responseException)
+                                {
+                                    var statusCodeString = responseException.StatusCode.ToString();
+
+                                    if (responseException.Message.StartsWith(statusCodeString) && responseException.Message.Length > statusCodeString.Length)
+                                    {
+                                        try
+                                        {
+                                            var response = JsonSerializer.Deserialize<NeptuneErrorResponse>(responseException.Message.AsSpan()[(statusCodeString.Length + 1)..], serializerOptions);
+
+                                            if (response.code is { } errorCode)
+                                                return new NeptuneResponseException(errorCode, response.detailedMessage ?? string.Empty, responseException);
+                                        }
+                                        catch (JsonException)
+                                        {
+
+                                        }
+                                    }
+                                }
+
+                                return ex;
+                            }))));
         }
     }
 }
