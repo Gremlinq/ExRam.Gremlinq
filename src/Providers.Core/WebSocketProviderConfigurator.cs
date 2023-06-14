@@ -3,6 +3,7 @@ using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Core.Transformation;
 using Gremlin.Net.Driver;
+using Gremlin.Net.Driver.Exceptions;
 using Gremlin.Net.Driver.Messages;
 
 namespace ExRam.Gremlinq.Providers.Core
@@ -48,9 +49,26 @@ namespace ExRam.Gremlinq.Providers.Core
                         .OverrideRequestId(_context.ExecutionId)
                         .Create();
 
-                    var maybeResults = await client
-                        .SubmitAsync<object>(requestMessage, cancellationToken)
-                        .ConfigureAwait(false);
+                    ResultSet<object>? maybeResults;
+
+                    try
+                    {
+                        maybeResults = await client
+                            .SubmitAsync<object>(requestMessage, cancellationToken)
+                            .ConfigureAwait(false);
+                    }
+                    catch (ConnectionClosedException ex)
+                    {
+                        throw new GremlinQueryExecutionException(_context.ExecutionId, ex);
+                    }
+                    catch (NoConnectionAvailableException ex)
+                    {
+                        throw new GremlinQueryExecutionException(_context.ExecutionId, ex);
+                    }
+                    catch (ResponseException ex)
+                    {
+                        throw new GremlinQueryExecutionException(_context.ExecutionId, ex);
+                    }
 
                     if (maybeResults is { } results)
                     {

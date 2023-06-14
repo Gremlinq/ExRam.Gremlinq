@@ -71,7 +71,7 @@ namespace ExRam.Gremlinq.Core
                         .ConfigureExecutor(executor => executor
                             .TransformExecutionException(ex =>
                             {
-                                if (ex is ResponseException responseException)
+                                if (ex.InnerException is ResponseException responseException)
                                 {
                                     var statusCodeString = responseException.StatusCode.ToString();
 
@@ -82,7 +82,7 @@ namespace ExRam.Gremlinq.Core
                                             var response = JsonSerializer.Deserialize<NeptuneErrorResponse>(responseException.Message.AsSpan()[(statusCodeString.Length + 1)..], serializerOptions);
 
                                             if (response.code is { Length: > 0 } errorCode)
-                                                return new NeptuneResponseException(NeptuneErrorCode.From(errorCode), response.detailedMessage ?? string.Empty, responseException);
+                                                return new NeptuneResponseException(NeptuneErrorCode.From(errorCode), response.detailedMessage ?? string.Empty, ex.RequestId, responseException);
                                         }
                                         catch (JsonException)
                                         {

@@ -48,9 +48,10 @@ namespace ExRam.Gremlinq.Providers.Neptune
         public static bool operator !=(ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode left, ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode right) { }
         public static bool operator ==(ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode left, ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode right) { }
     }
-    public sealed class NeptuneResponseException : System.Exception
+    public sealed class NeptuneResponseException : ExRam.Gremlinq.Core.Execution.GremlinQueryExecutionException
     {
-        public NeptuneResponseException(ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode code, string detailedMessage, System.Exception innerException) { }
+        public NeptuneResponseException(ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode code, string detailedMessage, System.Guid requestId, System.Exception innerException) { }
         public ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode Code { get; }
+        public string DetailedMessage { get; }
     }
 }
