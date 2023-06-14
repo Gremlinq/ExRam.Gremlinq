@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Core.Transformation;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -29,7 +30,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                     .AsAdmin()
                     .ChangeQueryType<IGremlinQueryBase<JToken>>()
                     .ToAsyncEnumerable()
-                    .Catch<JToken, Exception>(ex => AsyncEnumerableEx
+                    .Catch<JToken, GremlinQueryExecutionException>(ex => AsyncEnumerableEx
                         .Return<JToken>(new JObject()
                         {
                             {
@@ -37,7 +38,15 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                                 new JObject
                                 {
                                     { "type", ex.GetType().Name },
-                                    { "message", ex.Message }
+                                    { "message", ex.Message },
+                                    {
+                                        "innerException",
+                                        new JObject
+                                        {
+                                            { "type", ex.InnerException?.GetType()?.Name },
+                                            { "message", ex.InnerException?.Message },
+                                        }
+                                    }
                                 }
                             }
                         }))
