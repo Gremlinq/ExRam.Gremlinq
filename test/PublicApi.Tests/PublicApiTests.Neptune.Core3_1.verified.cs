@@ -24,6 +24,7 @@ namespace ExRam.Gremlinq.Providers.Neptune
         public static readonly ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode CancelledByUserException;
         public static readonly ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode ConcurrentModificationException;
         public static readonly ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode ConstraintViolationException;
+        public static readonly ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode FailureByQueryException;
         public static readonly ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode InternalFailureException;
         public static readonly ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode InvalidNumericDataException;
         public static readonly ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode InvalidParameterException;
