@@ -113,18 +113,10 @@ namespace ExRam.Gremlinq.Core.Execution
 
                 async IAsyncEnumerator<T> Core(CancellationToken ct)
                 {
-                    IAsyncEnumerator<T> enumerator;
-
-                    try
-                    {
-                        enumerator = _baseExecutor
-                            .Execute<T>(context)
-                            .GetAsyncEnumerator(ct);
-                    }
-                    catch (Exception ex)
-                    {
-                        throw _exceptionTransformation(ex);
-                    }
+                    var enumerator = _baseExecutor
+                        .Execute<T>(context)
+                        .WithCancellation(ct)
+                        .GetAsyncEnumerator();
 
                     await using (enumerator)
                     {
