@@ -1197,12 +1197,17 @@ namespace ExRam.Gremlinq.Core.Execution
         public ExRam.Gremlinq.Core.Execution.GremlinQueryExecutionContext WithNewExecutionId() { }
         public static ExRam.Gremlinq.Core.Execution.GremlinQueryExecutionContext Create(ExRam.Gremlinq.Core.IGremlinQueryBase query) { }
     }
+    public class GremlinQueryExecutionException : System.Exception
+    {
+        public GremlinQueryExecutionException(System.Guid requestId, System.Exception innerException) { }
+        public System.Guid RequestId { get; }
+    }
     public static class GremlinQueryExecutor
     {
         public static readonly ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor Empty;
         public static readonly ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor Invalid;
-        public static ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor RetryWithExponentialBackoff(this ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor executor, System.Func<int, Gremlin.Net.Driver.Exceptions.ResponseException, bool> shouldRetry) { }
-        public static ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor TransformExecutionException(this ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor executor, System.Func<System.Exception, System.Exception> exceptionTransformation) { }
+        public static ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor RetryWithExponentialBackoff(this ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor executor, System.Func<int, ExRam.Gremlinq.Core.Execution.GremlinQueryExecutionException, bool> shouldRetry) { }
+        public static ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor TransformExecutionException(this ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor executor, System.Func<ExRam.Gremlinq.Core.Execution.GremlinQueryExecutionException, ExRam.Gremlinq.Core.Execution.GremlinQueryExecutionException> exceptionTransformation) { }
         public static ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor TransformQuery(this ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor baseExecutor, System.Func<ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBase> transformation) { }
     }
     public interface IGremlinQueryExecutor
