@@ -8,7 +8,6 @@ using static ExRam.Gremlinq.Core.Serialization.Instructions;
 using System.Diagnostics.CodeAnalysis;
 using Gremlin.Net.Driver.Messages;
 using Gremlin.Net.Driver;
-using Gremlin.Net.Process.Traversal.Strategy;
 
 namespace ExRam.Gremlinq.Core.Serialization
 {
