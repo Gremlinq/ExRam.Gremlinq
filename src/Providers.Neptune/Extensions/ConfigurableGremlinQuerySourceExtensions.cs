@@ -85,8 +85,8 @@ namespace ExRam.Gremlinq.Core
                                         if (response.code is { Length: > 0 } errorCode)
                                         {
                                             return response.detailedMessage is { Length: > 0 } detailedMessage
-                                                ? new NeptuneGremlinQueryExecutionException(NeptuneErrorCode.From(errorCode), ex.ExecutionContext, detailedMessage, responseException)
-                                                : new NeptuneGremlinQueryExecutionException(NeptuneErrorCode.From(errorCode), ex.ExecutionContext, responseException);
+                                                ? new NeptuneGremlinQueryExecutionException(NeptuneErrorCode.From(errorCode), ex.ExecutionContext, detailedMessage, ex)
+                                                : new NeptuneGremlinQueryExecutionException(NeptuneErrorCode.From(errorCode), ex.ExecutionContext, ex);
                                         }
                                     }
                                     catch (JsonException)
