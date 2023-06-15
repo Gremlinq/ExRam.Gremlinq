@@ -82,11 +82,11 @@ namespace ExRam.Gremlinq.Core
                                     {
                                         var response = JsonSerializer.Deserialize<NeptuneErrorResponse>(responseException.Message.AsSpan()[(statusCodeString.Length + 1)..], serializerOptions);
 
-                                        if (response.code is { Length: > 0 } errorCode)
+                                        if (response.code is { Length: > 0 } errorCode && NeptuneErrorCode.From(errorCode) is { } neptuneErrorCode)
                                         {
                                             return response.detailedMessage is { Length: > 0 } detailedMessage
-                                                ? new NeptuneGremlinQueryExecutionException(NeptuneErrorCode.From(errorCode), ex.ExecutionContext, detailedMessage, ex)
-                                                : new NeptuneGremlinQueryExecutionException(NeptuneErrorCode.From(errorCode), ex.ExecutionContext, ex);
+                                                ? new NeptuneGremlinQueryExecutionException(neptuneErrorCode, ex.ExecutionContext, detailedMessage, ex)
+                                                : new NeptuneGremlinQueryExecutionException(neptuneErrorCode, ex.ExecutionContext, ex);
                                         }
                                     }
                                     catch (JsonException)
