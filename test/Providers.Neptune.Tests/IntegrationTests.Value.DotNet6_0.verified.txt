@@ -10,47 +10,47 @@
   "",
   {
     "@type": "g:UUID",
-    "@value": "scrubbed id"
+    "@value": "00000000-0000-0000-0000-000000000000"
   },
   {
     "@type": "g:UUID",
-    "@value": "scrubbed id"
+    "@value": "00000000-0000-0000-0000-000000000000"
   },
   {
     "@type": "g:UUID",
-    "@value": "scrubbed id"
+    "@value": "00000000-0000-0000-0000-000000000000"
   },
   {
     "@type": "g:UUID",
-    "@value": "scrubbed id"
+    "@value": "00000000-0000-0000-0000-000000000000"
   },
   {
     "@type": "g:UUID",
-    "@value": "scrubbed id"
+    "@value": "00000000-0000-0000-0000-000000000000"
   },
   {
     "@type": "g:UUID",
-    "@value": "scrubbed id"
+    "@value": "00000000-0000-0000-0000-000000000000"
   },
   {
     "@type": "g:UUID",
-    "@value": "scrubbed id"
+    "@value": "00000000-0000-0000-0000-000000000000"
   },
   {
     "@type": "g:UUID",
-    "@value": "scrubbed id"
+    "@value": "00000000-0000-0000-0000-000000000000"
   },
   {
     "@type": "g:UUID",
-    "@value": "scrubbed id"
+    "@value": "00000000-0000-0000-0000-000000000000"
   },
   {
     "@type": "g:UUID",
-    "@value": "scrubbed id"
+    "@value": "00000000-0000-0000-0000-000000000000"
   },
   {
     "@type": "g:UUID",
-    "@value": "scrubbed id"
+    "@value": "00000000-0000-0000-0000-000000000000"
   },
   {
     "@type": "g:Date",
