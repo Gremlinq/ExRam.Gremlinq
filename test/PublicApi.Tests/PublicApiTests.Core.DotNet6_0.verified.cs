@@ -1199,8 +1199,9 @@ namespace ExRam.Gremlinq.Core.Execution
     }
     public class GremlinQueryExecutionException : System.Exception
     {
-        public GremlinQueryExecutionException(System.Guid requestId, System.Exception innerException) { }
-        public System.Guid RequestId { get; }
+        public GremlinQueryExecutionException(ExRam.Gremlinq.Core.Execution.GremlinQueryExecutionContext executionContext, System.Exception innerException) { }
+        public GremlinQueryExecutionException(ExRam.Gremlinq.Core.Execution.GremlinQueryExecutionContext executionContext, string message, System.Exception innerException) { }
+        public ExRam.Gremlinq.Core.Execution.GremlinQueryExecutionContext ExecutionContext { get; }
     }
     public static class GremlinQueryExecutor
     {
