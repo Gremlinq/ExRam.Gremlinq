@@ -4,14 +4,16 @@ namespace ExRam.Gremlinq.Providers.Neptune
 {
     public sealed class NeptuneGremlinQueryExecutionException : GremlinQueryExecutionException
     {
-        public NeptuneGremlinQueryExecutionException(NeptuneErrorCode code, string detailedMessage, Guid requestId, Exception innerException) : base(requestId, innerException)
+        public NeptuneGremlinQueryExecutionException(NeptuneErrorCode code, GremlinQueryExecutionContext executionContext, string message, Exception innerException) : base(executionContext, message, innerException)
         {
             Code = code;
-            DetailedMessage = detailedMessage;
+        }
+
+        public NeptuneGremlinQueryExecutionException(NeptuneErrorCode code, GremlinQueryExecutionContext executionContext, Exception innerException) : base(executionContext, innerException)
+        {
+            Code = code;
         }
 
         public NeptuneErrorCode Code { get; }
-
-        public string DetailedMessage { get; }
     }
 }

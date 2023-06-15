@@ -2,11 +2,15 @@
 {
     public class GremlinQueryExecutionException : Exception
     {
-        public GremlinQueryExecutionException(Guid requestId, Exception innerException) : base($"Executing query {requestId:N} failed.", innerException)
+        public GremlinQueryExecutionException(GremlinQueryExecutionContext executionContext, Exception innerException) : this(executionContext, $"Executing query {executionContext.ExecutionId:N} failed.", innerException)
         {
-            RequestId = requestId;
         }
 
-        public Guid RequestId { get; }
+        public GremlinQueryExecutionException(GremlinQueryExecutionContext executionContext, string message, Exception innerException) : base(message, innerException)
+        {
+            ExecutionContext = executionContext;
+        }
+
+        public GremlinQueryExecutionContext ExecutionContext { get; }
     }
 }
