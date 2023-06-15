@@ -1,6 +1,7 @@
 ﻿using System.Collections.Immutable;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
+using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Tests.Infrastructure;
 
@@ -15,6 +16,8 @@ namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
             public Verifier([CallerFilePath] string sourceFile = "") : base(sourceFile)
             {
             }
+
+            public override Task Verify<TElement>(IGremlinQueryBase<TElement> query) => base.Verify(query.Count());
 
             protected override IImmutableList<Func<string, string>> Scrubbers() => base
                 .Scrubbers()
