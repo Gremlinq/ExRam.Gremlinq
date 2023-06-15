@@ -67,36 +67,37 @@ namespace ExRam.Gremlinq.Core
                             .Add(ConverterFactory
                                 .Create<PropertyStep.ByKeyStep, PropertyStep.ByKeyStep>((step, _, _) => Cardinality.List.Equals(step.Cardinality)
                                     ? new PropertyStep.ByKeyStep(step.Key, step.Value, step.MetaProperties, Cardinality.Set)
-                                    : default)))
-                        .ConfigureExecutor(executor => executor
-                            .TransformExecutionException(ex =>
+                                    : default)))))
+                .ConfigureEnvironment(environment => environment
+                    .ConfigureExecutor(executor => executor
+                        .TransformExecutionException(ex =>
+                        {
+                            if (ex.InnerException is ResponseException responseException)
                             {
-                                if (ex.InnerException is ResponseException responseException)
+                                var statusCodeString = responseException.StatusCode.ToString();
+
+                                if (responseException.Message.StartsWith(statusCodeString) && responseException.Message.Length > statusCodeString.Length)
                                 {
-                                    var statusCodeString = responseException.StatusCode.ToString();
-
-                                    if (responseException.Message.StartsWith(statusCodeString) && responseException.Message.Length > statusCodeString.Length)
+                                    try
                                     {
-                                        try
-                                        {
-                                            var response = JsonSerializer.Deserialize<NeptuneErrorResponse>(responseException.Message.AsSpan()[(statusCodeString.Length + 1)..], serializerOptions);
+                                        var response = JsonSerializer.Deserialize<NeptuneErrorResponse>(responseException.Message.AsSpan()[(statusCodeString.Length + 1)..], serializerOptions);
 
-                                            if (response.code is { Length: > 0 } errorCode)
-                                            {
-                                                return response.detailedMessage is { Length: > 0 } detailedMessage
-                                                    ? new NeptuneGremlinQueryExecutionException(NeptuneErrorCode.From(errorCode), ex.ExecutionContext, detailedMessage, responseException)
-                                                    : new NeptuneGremlinQueryExecutionException(NeptuneErrorCode.From(errorCode), ex.ExecutionContext, responseException);
-                                            }
-                                        }
-                                        catch (JsonException)
+                                        if (response.code is { Length: > 0 } errorCode)
                                         {
-
+                                            return response.detailedMessage is { Length: > 0 } detailedMessage
+                                                ? new NeptuneGremlinQueryExecutionException(NeptuneErrorCode.From(errorCode), ex.ExecutionContext, detailedMessage, responseException)
+                                                : new NeptuneGremlinQueryExecutionException(NeptuneErrorCode.From(errorCode), ex.ExecutionContext, responseException);
                                         }
                                     }
-                                }
+                                    catch (JsonException)
+                                    {
 
-                                return ex;
-                            }))));
+                                    }
+                                }
+                            }
+
+                            return ex;
+                        })));
         }
     }
 }
