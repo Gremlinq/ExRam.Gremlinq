@@ -50,8 +50,8 @@ namespace ExRam.Gremlinq.Providers.Neptune
     }
     public sealed class NeptuneGremlinQueryExecutionException : ExRam.Gremlinq.Core.Execution.GremlinQueryExecutionException
     {
-        public NeptuneGremlinQueryExecutionException(ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode code, string detailedMessage, System.Guid requestId, System.Exception innerException) { }
+        public NeptuneGremlinQueryExecutionException(ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode code, ExRam.Gremlinq.Core.Execution.GremlinQueryExecutionContext executionContext, System.Exception innerException) { }
+        public NeptuneGremlinQueryExecutionException(ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode code, ExRam.Gremlinq.Core.Execution.GremlinQueryExecutionContext executionContext, string message, System.Exception innerException) { }
         public ExRam.Gremlinq.Providers.Neptune.NeptuneErrorCode Code { get; }
-        public string DetailedMessage { get; }
     }
 }
