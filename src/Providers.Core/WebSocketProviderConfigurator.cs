@@ -59,15 +59,15 @@ namespace ExRam.Gremlinq.Providers.Core
                     }
                     catch (ConnectionClosedException ex)
                     {
-                        throw new GremlinQueryExecutionException(_context.ExecutionId, ex);
+                        throw new GremlinQueryExecutionException(_context, ex);
                     }
                     catch (NoConnectionAvailableException ex)
                     {
-                        throw new GremlinQueryExecutionException(_context.ExecutionId, ex);
+                        throw new GremlinQueryExecutionException(_context, ex);
                     }
                     catch (ResponseException ex)
                     {
-                        throw new GremlinQueryExecutionException(_context.ExecutionId, ex);
+                        throw new GremlinQueryExecutionException(_context, ex);
                     }
 
                     if (maybeResults is { } results)
