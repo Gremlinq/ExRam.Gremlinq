@@ -9,7 +9,6 @@ on:
 
 env:
   IsForkedRepository: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository }}
-  DotNetVersion: '7.0.304'
 
 jobs:
 
@@ -28,11 +27,11 @@ jobs:
         fetch-depth: 0
         submodules: 'true'
         
-    - name: Setup .NET ${{ env.DotNetVersion }}
+    - name: Setup .NET ${{ 7.0 }}
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: |
-          ${{ env.DotNetVersion }}
+          7.0
 
     - name: Determine semantic version
       uses: dotnet/nbgv@master
@@ -81,7 +80,7 @@ jobs:
         fetch-depth: 0
         submodules: 'true'
         
-    - name: Setup .NET ${{ env.DotNetVersion }}
+    - name: Setup .NET SDKs
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: |
@@ -118,7 +117,7 @@ jobs:
         fetch-depth: 0
         submodules: 'true'
 
-    - name: Setup .NET ${{ env.DotNetVersion }}
+    - name: Setup .NET SDKs
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: |
