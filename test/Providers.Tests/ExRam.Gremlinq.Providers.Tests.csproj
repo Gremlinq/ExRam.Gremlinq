@@ -3,7 +3,6 @@
   <ItemGroup>
     <None Remove="*.verified.json" />
     <None Remove="*.received.json" />
-    <ProjectReference Include="..\Core.Tests\ExRam.Gremlinq.Core.Tests.csproj" />
   </ItemGroup>
 
 </Project>

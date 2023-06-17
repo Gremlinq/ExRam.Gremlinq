@@ -15,7 +15,7 @@
     <ProjectReference Include="..\..\src\Providers.JanusGraph.AspNet\ExRam.Gremlinq.Providers.JanusGraph.AspNet.csproj" />
     <ProjectReference Include="..\..\src\Providers.JanusGraph\ExRam.Gremlinq.Providers.JanusGraph.csproj" />
     <ProjectReference Include="..\..\src\Support.NewtonsoftJson\ExRam.Gremlinq.Support.NewtonsoftJson.csproj" />
-    <ProjectReference Include="..\Core.Tests\ExRam.Gremlinq.Core.Tests.csproj" />
+    <ProjectReference Include="..\Tests.Infrastructure\ExRam.Gremlinq.Tests.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
