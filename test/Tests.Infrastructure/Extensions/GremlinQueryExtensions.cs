@@ -1,6 +1,6 @@
 ﻿using ExRam.Gremlinq.Tests.Infrastructure;
 
-namespace ExRam.Gremlinq.Core.Tests
+namespace ExRam.Gremlinq.Core
 {
     public static class GremlinQueryExtensions
     {
