@@ -2,7 +2,7 @@
 using ExRam.Gremlinq.Providers.Core;
 using ExRam.Gremlinq.Tests.Fixtures;
 
-namespace ExRam.Gremlinq.Providers.Neptune.Tests
+namespace ExRam.Gremlinq.Tests.Fixtures
 {
     public sealed class NeptuneFixture : GremlinqFixture
     {

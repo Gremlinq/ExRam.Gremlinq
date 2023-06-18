@@ -3,8 +3,6 @@
   <ItemGroup>
     <None Remove="*.verified.txt" />
     <None Remove="*.received.txt" />
-    <ProjectReference Include="..\..\src\Providers.GremlinServer.AspNet\ExRam.Gremlinq.Providers.GremlinServer.AspNet.csproj" />
-    <ProjectReference Include="..\Support.NewtonsoftJson.Tests\ExRam.Gremlinq.Support.NewtonsoftJson.Tests.csproj" />
     <ProjectReference Include="..\Tests.Fixtures\ExRam.Gremlinq.Tests.Fixtures.csproj" />
   </ItemGroup>
 

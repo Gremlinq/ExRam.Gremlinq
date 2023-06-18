@@ -1,11 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
     <None Remove="*.verified.txt" />
     <None Remove="*.received.txt" />
-    <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.34.0" />
-    <ProjectReference Include="..\..\src\Providers.CosmosDb.AspNet\ExRam.Gremlinq.Providers.CosmosDb.AspNet.csproj" />
-    <ProjectReference Include="..\Support.NewtonsoftJson.Tests\ExRam.Gremlinq.Support.NewtonsoftJson.Tests.csproj" />
     <ProjectReference Include="..\Tests.Fixtures\ExRam.Gremlinq.Tests.Fixtures.csproj" />
   </ItemGroup>
 
