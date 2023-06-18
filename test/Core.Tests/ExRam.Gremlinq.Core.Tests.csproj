@@ -10,12 +10,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Tests.Entities\ExRam.Gremlinq.Tests.Entities.csproj" />
-    <ProjectReference Include="..\Tests.Infrastructure\ExRam.Gremlinq.Tests.Infrastructure.csproj" />
+    <Folder Include="Extensions\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Extensions\" />
+    <ProjectReference Include="..\Tests.Fixtures\ExRam.Gremlinq.Tests.Fixtures.csproj" />
   </ItemGroup>
 
 </Project>

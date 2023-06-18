@@ -1,8 +1,8 @@
 ﻿using System.Collections.Immutable;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
-using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Tests.Infrastructure;
+using ExRam.Gremlinq.Tests.TestCases;
 
 namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
 {

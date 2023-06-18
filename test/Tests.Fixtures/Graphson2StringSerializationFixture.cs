@@ -1,16 +1,16 @@
-﻿using Gremlin.Net.Structure.IO.GraphSON;
+﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Transformation;
 using Gremlin.Net.Process.Traversal;
+using Gremlin.Net.Structure.IO.GraphSON;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
-using ExRam.Gremlinq.Core;
 
-namespace ExRam.Gremlinq.Tests.Infrastructure
+namespace ExRam.Gremlinq.Tests.Fixtures
 {
-    public sealed class GraphSon3StringSerializationFixture : GremlinqFixture
+    public sealed class Graphson2StringSerializationFixture : GremlinqFixture
     {
-        private static readonly GraphSON3Writer Writer = new();
+        private static readonly GraphSON2Writer Writer = new();
 
-        public GraphSon3StringSerializationFixture() : base(g
+        public Graphson2StringSerializationFixture() : base(g
             .ConfigureEnvironment(_ => _
                 .ConfigureSerializer(ser => ser
                     .Add(ConverterFactory

@@ -1,8 +1,8 @@
 ﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Serialization;
-using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Tests.Entities;
 using ExRam.Gremlinq.Tests.Infrastructure;
+using ExRam.Gremlinq.Tests.TestCases;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {

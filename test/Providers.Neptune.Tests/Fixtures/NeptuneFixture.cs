@@ -1,6 +1,6 @@
 ﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Providers.Core;
-using ExRam.Gremlinq.Tests.Infrastructure;
+using ExRam.Gremlinq.Tests.Fixtures;
 
 namespace ExRam.Gremlinq.Providers.Neptune.Tests
 {

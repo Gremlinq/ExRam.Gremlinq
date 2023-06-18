@@ -1,7 +1,7 @@
 ﻿using ExRam.Gremlinq.Core;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
-namespace ExRam.Gremlinq.Tests.Infrastructure
+namespace ExRam.Gremlinq.Tests.Fixtures
 {
     public abstract class GremlinqFixture
     {
