@@ -1,8 +1,8 @@
 ﻿using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Tests.Entities;
 using Gremlin.Net.Process.Traversal;
 using ExRam.Gremlinq.Tests.Infrastructure;
+using ExRam.Gremlinq.Tests.TestCases;
 
 namespace ExRam.Gremlinq.Providers.Neptune.Tests
 {

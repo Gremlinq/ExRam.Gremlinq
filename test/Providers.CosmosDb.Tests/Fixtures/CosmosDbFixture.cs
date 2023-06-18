@@ -1,6 +1,6 @@
 ﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Providers.CosmosDb.Tests.Extensions;
-using ExRam.Gremlinq.Tests.Infrastructure;
+using ExRam.Gremlinq.Tests.Fixtures;
 using Microsoft.Azure.Cosmos;
 using Polly;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;

@@ -10,8 +10,10 @@ using ExRam.Gremlinq.Core.Transformation;
 using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
 using FluentAssertions;
 using ExRam.Gremlinq.Tests.Infrastructure;
+using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Tests.Fixtures;
 
-namespace ExRam.Gremlinq.Core.Tests
+namespace ExRam.Gremlinq.Tests.TestCases
 {
     [TestCaseOrderer("ExRam.Gremlinq.Tests.Infrastructure.SideEffectTestCaseOrderer", "ExRam.Gremlinq.Tests.Infrastructure")]
     public abstract class QueryExecutionTest : GremlinqTestBase

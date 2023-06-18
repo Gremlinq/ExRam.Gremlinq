@@ -11,7 +11,5 @@ namespace System
         {
             return GuidRegex.Replace(str, "00000000-0000-0000-0000-000000000000");
         }
-
-        public static string FormatJson(this string json) => JToken.Parse(json).ToString();
     }
 }
