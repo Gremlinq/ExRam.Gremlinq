@@ -2,8 +2,15 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Core\ExRam.Gremlinq.Core.csproj" />
+    <ProjectReference Include="..\..\src\Providers.CosmosDb\ExRam.Gremlinq.Providers.CosmosDb.csproj" />
+    <ProjectReference Include="..\..\src\Providers.GremlinServer\ExRam.Gremlinq.Providers.GremlinServer.csproj" />
+    <ProjectReference Include="..\..\src\Providers.JanusGraph\ExRam.Gremlinq.Providers.JanusGraph.csproj" />
+    <ProjectReference Include="..\..\src\Providers.Neptune\ExRam.Gremlinq.Providers.Neptune.csproj" />
+    <ProjectReference Include="..\..\src\Support.NewtonsoftJson\ExRam.Gremlinq.Support.NewtonsoftJson.csproj" />
     <ProjectReference Include="..\Tests.Entities\ExRam.Gremlinq.Tests.Entities.csproj" />
     <ProjectReference Include="..\Tests.Infrastructure\ExRam.Gremlinq.Tests.Infrastructure.csproj" />
+
+    <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.34.0" />
     <PackageReference Include="System.Interactive.Async" Version="6.0.1" />
   </ItemGroup>
 
