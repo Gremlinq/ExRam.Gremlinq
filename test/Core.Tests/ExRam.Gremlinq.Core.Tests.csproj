@@ -10,10 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Extensions\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Tests.Fixtures\ExRam.Gremlinq.Tests.Fixtures.csproj" />
   </ItemGroup>
 
