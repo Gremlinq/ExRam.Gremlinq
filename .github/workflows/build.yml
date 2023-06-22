@@ -90,7 +90,7 @@ jobs:
           7.0
 
     - name: Test
-      run: dotnet test ./${{ github.event.repository.name }}.sln -c Release -p:TestTargetFramework=${{ matrix.testFramework }} -v normal
+      run: dotnet test ./${{ github.event.repository.name }}.sln -c Release -p:TestTargetFramework=${{ matrix.testFramework }}
       env:
         RunGremlinServerIntegrationTests: ${{ env.IsForkedRepository == 'false' }}
         RunJanusGraphIntegrationTests: ${{ env.IsForkedRepository == 'false' }}
@@ -130,7 +130,7 @@ jobs:
       uses: Gremlinq/cosmos-emulator-github-action@EnableGremlin
 
     - name: Test
-      run: dotnet test ./${{ github.event.repository.name }}.sln -c Release -p:TestTargetFramework=${{ matrix.testFramework }} -v normal
+      run: dotnet test ./${{ github.event.repository.name }}.sln -c Release -p:TestTargetFramework=${{ matrix.testFramework }}
       env:
         RunCosmosDbIntegrationTests: ${{ env.IsForkedRepository == 'false' }}
 
