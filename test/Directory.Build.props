@@ -2,8 +2,7 @@
   <Import Project="..\Directory.Build.props" />
 
   <PropertyGroup>
-    <TestTargetFramework>net7.0</TestTargetFramework>
-    <TargetFrameworks>$(TestTargetFramework)</TargetFrameworks>
+    <TargetFrameworks Condition="'$(TargetFrameworks)' == ''">net7.0</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>
