@@ -83,10 +83,10 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: |
-          3.1
-          5.0
-          6.0
-          7.0
+          3
+          5
+          6
+          7
 
     - name: Test
       run: dotnet test ./${{ github.event.repository.name }}.sln -c Release -p:TestTargetFramework=${{ matrix.testFramework }}
@@ -119,10 +119,10 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: |
-          3.1
-          5.0
-          6.0
-          7.0
+          3
+          5
+          6
+          7
           
     - name: Start CosmosDb Emulator
       uses: Gremlinq/cosmos-emulator-github-action@EnableGremlin
