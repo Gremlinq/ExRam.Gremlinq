@@ -78,7 +78,6 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
       with:
-        fetch-depth: 0
         submodules: 'true'
         
     - name: Setup .NET SDKs
@@ -115,7 +114,6 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
       with:
-        fetch-depth: 0
         submodules: 'true'
 
     - name: Setup .NET SDKs
@@ -150,8 +148,6 @@ jobs:
       pr-message: 'Fix snapshots for #${{ github.event.number }}.'
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
 
     - uses: actions/download-artifact@v2
       continue-on-error: true
