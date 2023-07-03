@@ -30,11 +30,14 @@ namespace ExRam.Gremlinq.Tests.Fixtures
 
                     await Policy
                         .Handle<CosmosException>()
-                        .WaitAndRetry(5, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)))
+                        .WaitAndRetry(10, retryAttempt => TimeSpan.FromSeconds(5))
                         .Execute(async () =>
                         {
-                            var database = await cosmosClient.CreateDatabaseIfNotExistsAsync(CosmosDbEmulatorDatabaseName, ThroughputProperties.CreateAutoscaleThroughput(40000));
-                            await database.Database.CreateContainerIfNotExistsAsync(CosmosDbEmulatorCollectionName, "/PartitionKey");
+                            var database = await cosmosClient
+                                .CreateDatabaseIfNotExistsAsync(CosmosDbEmulatorDatabaseName, ThroughputProperties.CreateAutoscaleThroughput(40000));
+
+                            await database.Database
+                                .CreateContainerIfNotExistsAsync(CosmosDbEmulatorCollectionName, "/PartitionKey");
                         });
                 });
         }
