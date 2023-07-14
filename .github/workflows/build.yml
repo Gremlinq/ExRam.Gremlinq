@@ -95,6 +95,11 @@ jobs:
         RunJanusGraphIntegrationTests: ${{ env.IsForkedRepository == 'false' }}
         RunNeptuneIntegrationTests: ${{ env.IsForkedRepository == 'false' }}
 
+    - name: Collect coverage
+      if: ${{ matrix.testFramework == 'net7.0' }}
+      uses: codecov/codecov-action@v3
+      
+    
     - name: Copy *.received-files to artifacts
       if: ${{ always() && env.IsForkedRepository == 'false' }}
       uses: actions/upload-artifact@v3
