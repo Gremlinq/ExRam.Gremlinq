@@ -4,6 +4,9 @@
   <PropertyGroup>
     <TargetFrameworks>$(TestTargetFramework)</TargetFrameworks>
     <TargetFrameworks Condition="'$(TargetFrameworks)' == ''">net7.0</TargetFrameworks>
+
+    <CollectCoverage>true</CollectCoverage>
+    <CoverletOutputFormat>opencover</CoverletOutputFormat>
   </PropertyGroup>
 
   <ItemGroup>
