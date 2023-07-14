@@ -6,6 +6,7 @@
 ExRam.Gremlinq is a .NET object-graph-mapper for [Apache TinkerPop™](http://tinkerpop.apache.org/) Gremlin enabled databases.
 
 ![Build status](https://github.com/ExRam/ExRam.Gremlinq/workflows/Build%20+%20Test/badge.svg)
+[![codecov](https://codecov.io/github/ExRam/ExRam.Gremlinq/branch/main/graph/badge.svg?token=YrGnIo6XyH)](https://codecov.io/github/ExRam/ExRam.Gremlinq)
 
 ## Packages
 
