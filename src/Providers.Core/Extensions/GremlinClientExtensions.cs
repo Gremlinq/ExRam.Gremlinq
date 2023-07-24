@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System;
+using System.Text.Json;
 using ExRam.Gremlinq.Core;
 using Gremlin.Net.Driver.Messages;
 using Microsoft.Extensions.Logging;
@@ -62,10 +63,12 @@ namespace Gremlin.Net.Driver
 
             private readonly IGremlinClient _client;
             private readonly Action<RequestMessage> _logger;
+            private readonly IGremlinQueryEnvironment _environment;
 
             public LoggingGremlinQueryClient(IGremlinClient client, IGremlinQueryEnvironment environment)
             {
                 _client = client;
+                _environment = environment;
                 _logger = GetLoggingFunction(environment);
             }
 
@@ -75,7 +78,16 @@ namespace Gremlin.Net.Driver
 
                 _logger(requestMessage);
 
-                return await task;
+                try
+                {
+                    return await task;
+                }
+                catch (Exception ex)
+                {
+                    _environment.Logger.LogError(ex, "Execution of Gremlin query {RequestId} failed.", requestMessage.RequestId);
+
+                    throw;
+                }
             }
 
             private static Action<RequestMessage> GetLoggingFunction(IGremlinQueryEnvironment environment)
