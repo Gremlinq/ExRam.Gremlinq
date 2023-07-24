@@ -24,10 +24,7 @@ namespace Gremlin.Net.Driver
                 return await _baseClient.SubmitAsync<TResult>(await _transformation(requestMessage), ct);
             }
 
-            public void Dispose()
-            {
-                _baseClient.Dispose();
-            }
+            public void Dispose() => _baseClient.Dispose();
         }
 
         private sealed class ObserveResultStatusAttributesGremlinClient : IGremlinClient
@@ -50,10 +47,7 @@ namespace Gremlin.Net.Driver
                 return resultSet;
             }
 
-            public void Dispose()
-            {
-                _baseClient.Dispose();
-            }
+            public void Dispose() => _baseClient.Dispose();
         }
 
         private sealed class LoggingGremlinQueryClient : IGremlinClient
@@ -117,10 +111,7 @@ namespace Gremlin.Net.Driver
                 };
             }
 
-            public void Dispose()
-            {
-                _client.Dispose();
-            }
+            public void Dispose() => _client.Dispose();
         }
 
         public static IGremlinClient TransformRequest(this IGremlinClient client, Func<RequestMessage, Task<RequestMessage>> transformation) => new RequestInterceptingGremlinClient(client, transformation);
