@@ -84,11 +84,12 @@ namespace ExRam.Gremlinq.Core
                 }
                 case Instruction instruction:
                 {
-                    return this
+#pragma warning disable IDE0003 // Remove qualification
+                        return this
                         .StartOperator(instruction.OperatorName, stringBuilder)
                         .Append(instruction.Arguments, stringBuilder, bindings, environment, true)
                         .EndOperator(stringBuilder);
-                }
+                    }
                 case P { Value: P p1 } p:
                 {
                     return this
@@ -103,7 +104,8 @@ namespace ExRam.Gremlinq.Core
                         .StartOperator(p.OperatorName, stringBuilder)
                         .Append((object)p.Value, stringBuilder, bindings, environment, true)
                         .EndOperator(stringBuilder);
-                }
+#pragma warning restore IDE0003 // Remove qualification
+                    }
                 case EnumWrapper t:
                 {
                     return Write(t.EnumValue, stringBuilder);
@@ -181,7 +183,9 @@ namespace ExRam.Gremlinq.Core
                 : "__",
             stringBuilder);
 
+#pragma warning disable CA1822 // Mark members as static
         private GroovyWriter Identifier(string identifier, StringBuilder stringBuilder)
+#pragma warning restore CA1822 // Mark members as static
         {
             stringBuilder.Append(identifier);
 
@@ -218,7 +222,9 @@ namespace ExRam.Gremlinq.Core
             return new(false, _hasIdentifier);
         }
 
+#pragma warning disable CA1822 // Mark members as static
         private GroovyWriter EndOperator(StringBuilder stringBuilder)
+#pragma warning restore CA1822 // Mark members as static
         {
             stringBuilder.Append(')');
 
