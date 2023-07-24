@@ -94,18 +94,13 @@ namespace Gremlin.Net.Driver
                         {
                             environment.Logger.Log(
                                 logLevel,
-                                "Executing Gremlin query {0}.",
-                                JsonSerializer.Serialize(
-                                    new
-                                    {
-                                        requestMessage.RequestId,
-                                        groovyQuery.Script,
-                                        groovyQuery.Bindings
-                                    },
-                                    formatting));
+                                "Executing Gremlin query {RequestId} (Script={Script}, Bindings={Bindings}).",
+                                requestMessage.RequestId,
+                                groovyQuery.Script,
+                                JsonSerializer.Serialize(groovyQuery.Bindings, formatting));
                         }
                         else
-                            environment.Logger.LogWarning($"Failed to log {nameof(RequestMessage)} {requestMessage.RequestId}.");
+                            environment.Logger.LogWarning("Failed to log RequestMessage {RequestId}.", requestMessage.RequestId);
                     }
                 };
             }
