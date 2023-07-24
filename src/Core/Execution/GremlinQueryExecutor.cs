@@ -78,7 +78,7 @@ namespace ExRam.Gremlinq.Core.Execution
                                     var waitTask = Task.Delay(waitInterval, ct);
 
                                     var newContext = context.WithNewExecutionId();
-                                    environment.Logger.LogInformation($"Query {context.ExecutionId} failed. Backing off for {waitInterval.Milliseconds} milliseconds. It will be retried with new {nameof(GremlinQueryExecutionContext.ExecutionId)} {newContext.ExecutionId}.");
+                                    environment.Logger.LogInformation("Query {executionId} failed. Backing off for {waitInterval} milliseconds. It will be retried with new ExecutionId {newExecutionId}.", context.ExecutionId, waitInterval.Milliseconds, newContext.ExecutionId);
 
                                     await waitTask;
 
