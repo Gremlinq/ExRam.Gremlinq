@@ -53,7 +53,7 @@ namespace ExRam.Gremlinq.Core.Execution
                     var environment = context.Query
                         .AsAdmin().Environment;
 
-                    for (var i = 0; i < int.MaxValue; i++)
+                    for (var i = 1; i < int.MaxValue; i++)
                     {
                         await using (var enumerator = _baseExecutor.Execute<T>(context).GetAsyncEnumerator(ct))
                         {
@@ -68,20 +68,20 @@ namespace ExRam.Gremlinq.Core.Execution
                                 }
                                 catch (GremlinQueryExecutionException ex)
                                 {
-                                    environment.Logger.LogInformation(ex, "Query failed.");
-
                                     if (hasSeenFirst)
                                         throw;
 
                                     if (!_shouldRetry(i, ex))
                                         throw;
 
-                                    //This is done not to end up with the same seeds if many of these
-                                    //requests fail roughly at the same time
-                                    await Task.Delay((_rnd ??= new Random((int)(DateTime.Now.Ticks & int.MaxValue) ^ Environment.CurrentManagedThreadId)).Next(i + 2) * 16, ct);
+                                    var waitInterval = TimeSpan.FromMilliseconds(93.75 * Math.Pow(2, Math.Min(i - 1, 5)) + Rnd.Next(8) * 2);
+                                    var waitTask = Task.Delay(waitInterval, ct);
 
                                     var newContext = context.WithNewExecutionId();
-                                    environment.Logger.LogInformation($"Retrying serialized query {newContext.ExecutionId} with new {nameof(GremlinQueryExecutionContext.ExecutionId)} {newContext.ExecutionId}.");
+                                    environment.Logger.LogInformation($"Query {context.ExecutionId} failed. Backing off for {waitInterval.Milliseconds} milliseconds. It will be retried with new {nameof(GremlinQueryExecutionContext.ExecutionId)} {newContext.ExecutionId}.");
+
+                                    await waitTask;
+
                                     context = newContext;
 
                                     break;
@@ -92,6 +92,11 @@ namespace ExRam.Gremlinq.Core.Execution
                         }
                     }
                 }
+            }
+
+            private static Random Rnd
+            {
+                get => _rnd ??= new Random((int)(DateTime.Now.Ticks & int.MaxValue) ^ Environment.CurrentManagedThreadId);
             }
         }
 
