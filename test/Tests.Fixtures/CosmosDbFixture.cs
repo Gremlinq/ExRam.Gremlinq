@@ -31,7 +31,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
 
                     await Policy
                         .Handle<CosmosException>()
-                        .WaitAndRetry(5, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)))
+                        .WaitAndRetry(8, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)))
                         .Execute(async () =>
                         {
                             var database = await cosmosClient.CreateDatabaseIfNotExistsAsync(CosmosDbEmulatorDatabaseName, ThroughputProperties.CreateAutoscaleThroughput(40000));
