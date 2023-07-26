@@ -1,1 +1,12 @@
-﻿[]
+﻿[
+  {
+    "serverException": {
+      "type": "GremlinQueryExecutionException",
+      "message": "Executing query 00000000-0000-0000-0000-000000000000 failed.",
+      "innerException": {
+        "type": "ResponseException",
+        "message": "ServerError: (JE 18.3.12) Deadlock was detected. Locker: \"841087166 366_gremlin-server-exec-3_Txn\" was chosen randomly as the victim.\nDB: edgestore. Timeout: 500ms.\nLocker: \"286221805 350_gremlin-server-exec-2_Txn\" waits for lock: 82282719(LSN: 0x0/0x4e6d, requestType: WRITE).\nLocker: \"841087166 366_gremlin-server-exec-3_Txn\" owns lock: 82282719(LSN: 0x0/0x4e6d, ownedType: null). Locker: \"841087166 366_gremlin-server-exec-3_Txn\" waits for lock: 445352030(LSN: 0x0/0xa9f4, requestType: READ).\n"
+      }
+    }
+  }
+]
