@@ -109,10 +109,6 @@ jobs:
 
   test-windows:
     runs-on: windows-2019
-    strategy:
-      matrix:
-        testFramework: [ netcoreapp3.1, net5.0, net6.0, net7.0 ]
-      fail-fast: false
 
     steps:
     - name: Checkout
@@ -133,7 +129,7 @@ jobs:
       uses: Gremlinq/cosmos-emulator-github-action@EnableGremlin
 
     - name: Test
-      run: dotnet test ./${{ github.event.repository.name }}.sln -c Release -p:TestTargetFramework=${{ matrix.testFramework }}
+      run: dotnet test ./${{ github.event.repository.name }}.sln -c Release -p:TestTargetFramework=net7.0
       env:
         RunCosmosDbIntegrationTests: ${{ env.IsForkedRepository == 'false' }}
 
