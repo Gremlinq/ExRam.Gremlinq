@@ -4,14 +4,14 @@ using ExRam.Gremlinq.Tests.TestCases;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
-    public sealed class IntegrationTests : QueryExecutionTest, IClassFixture<CosmosDbFixture>
+    public sealed class IntegrationTests : QueryExecutionTest, IClassFixture<Integration<CosmosDbFixture>>
     {
-        public IntegrationTests(CosmosDbFixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public IntegrationTests(Integration<CosmosDbFixture> fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
             new ExecutingVerifier(),
             testOutputHelper)
         {
-            fixture.Create().Wait();
+            fixture.Inner.Create().Wait();
         }
     }
 }
