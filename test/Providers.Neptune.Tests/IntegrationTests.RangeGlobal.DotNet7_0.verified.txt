@@ -8,6 +8,44 @@
         "@value": -1
       },
       "label",
+      "Language",
+      "properties",
+      {
+        "@type": "g:Map",
+        "@value": [
+          "IetfLanguageTag",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": -1
+                  },
+                  "label",
+                  "IetfLanguageTag",
+                  "value",
+                  "en"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "id",
+      {
+        "@type": "g:Int64",
+        "@value": -1
+      },
+      "label",
       "Person",
       "properties",
       {
@@ -59,7 +97,7 @@
               }
             ]
           },
-          "RegistrationDate",
+          "Image",
           {
             "@type": "g:List",
             "@value": [
@@ -72,12 +110,9 @@
                     "@value": -1
                   },
                   "label",
-                  "RegistrationDate",
+                  "Image",
                   "value",
-                  {
-                    "@type": "g:Date",
-                    "@value": 1586270616000
-                  }
+                  "AQIDBAUGBwg="
                 ]
               }
             ]
@@ -124,64 +159,6 @@
                     "@type": "g:Int32",
                     "@value": 36
                   }
-                ]
-              }
-            ]
-          },
-          "Name",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": -1
-                  },
-                  "label",
-                  "Name",
-                  "value",
-                  "Marko"
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": -1
-      },
-      "label",
-      "Language",
-      "properties",
-      {
-        "@type": "g:Map",
-        "@value": [
-          "IetfLanguageTag",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": -1
-                  },
-                  "label",
-                  "IetfLanguageTag",
-                  "value",
-                  "en"
                 ]
               }
             ]

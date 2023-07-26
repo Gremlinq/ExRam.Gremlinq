@@ -10,7 +10,7 @@
       "label",
       "Name",
       "value",
-      "Marko"
+      "Bob"
     ]
   },
   {
@@ -24,7 +24,7 @@
       "label",
       "Name",
       "value",
-      "Bob"
+      "Marko"
     ]
   },
   {

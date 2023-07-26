@@ -8,12 +8,12 @@
         "@value": -1
       },
       "label",
-      "Country",
+      "Person",
       "properties",
       {
         "@type": "g:Map",
         "@value": [
-          "CountryCallingCode",
+          "Age",
           {
             "@type": "g:List",
             "@value": [
@@ -26,9 +26,12 @@
                     "@value": -1
                   },
                   "label",
-                  "CountryCallingCode",
+                  "Age",
                   "value",
-                  "+49",
+                  {
+                    "@type": "g:Int32",
+                    "@value": 0
+                  },
                   "properties",
                   {
                     "@type": "g:Map",

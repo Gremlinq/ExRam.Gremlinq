@@ -59,12 +59,12 @@
                 "@value": -1
               },
               "label",
-              "Company",
+              "Country",
               "properties",
               {
                 "@type": "g:Map",
                 "@value": [
-                  "FoundingDate",
+                  "CountryCallingCode",
                   {
                     "@type": "g:List",
                     "@value": [
@@ -77,12 +77,9 @@
                             "@value": -1
                           },
                           "label",
-                          "FoundingDate",
+                          "CountryCallingCode",
                           "value",
-                          {
-                            "@type": "g:Date",
-                            "@value": -62135596800000
-                          }
+                          "+49"
                         ]
                       }
                     ]
