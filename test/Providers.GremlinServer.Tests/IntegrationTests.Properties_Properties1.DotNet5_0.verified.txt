@@ -1,16 +1,1 @@
-﻿[
-  {
-    "@type": "g:Property",
-    "@value": {
-      "key": "de",
-      "value": "Deutschland"
-    }
-  },
-  {
-    "@type": "g:Property",
-    "@value": {
-      "key": "en",
-      "value": "Germany"
-    }
-  }
-]
+﻿[]

@@ -1,12 +1,1 @@
-﻿[
-  {
-    "@type": "g:Property",
-    "@value": {
-      "key": "ValidFrom",
-      "value": {
-        "@type": "g:Date",
-        "@value": 1546304400000
-      }
-    }
-  }
-]
+﻿[]
