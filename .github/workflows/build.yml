@@ -54,10 +54,6 @@ jobs:
 
   test-linux:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        testFramework: [ netcoreapp3.1, net5.0, net6.0, net7.0 ]
-      fail-fast: false
 
     services:
       gremlinServer:
@@ -89,17 +85,15 @@ jobs:
           7
 
     - name: Test
-      run: dotnet test ./${{ github.event.repository.name }}.sln -c Release -p:TestTargetFramework=${{ matrix.testFramework }} -p:DisableNBGV=true
+      run: dotnet test ./${{ github.event.repository.name }}.sln -c Release -p:DisableNBGV=true
       env:
         RunGremlinServerIntegrationTests: ${{ env.IsForkedRepository == 'false' }}
         RunJanusGraphIntegrationTests: ${{ env.IsForkedRepository == 'false' }}
         RunNeptuneIntegrationTests: ${{ env.IsForkedRepository == 'false' }}
 
     - name: Collect coverage
-      if: ${{ matrix.testFramework == 'net7.0' }}
       uses: codecov/codecov-action@v3
       
-    
     - name: Copy *.received-files to artifacts
       if: ${{ always() && env.IsForkedRepository == 'false' }}
       uses: actions/upload-artifact@v3
