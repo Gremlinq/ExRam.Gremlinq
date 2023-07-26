@@ -1,4 +1,5 @@
-﻿using ExRam.Gremlinq.Core;
+﻿using System.Runtime.InteropServices;
+using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Providers.CosmosDb;
 using ExRam.Gremlinq.Providers.CosmosDb.Tests.Extensions;
 using Microsoft.Azure.Cosmos;
@@ -10,7 +11,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
     public sealed class CosmosDbFixture : GremlinqFixture
     {
         private const string CosmosDbEmulatorDatabaseName = "db";
-        private const string CosmosDbEmulatorCollectionName = "graph";
+        private static readonly string CosmosDbEmulatorCollectionName = "graph" + RuntimeInformation.FrameworkDescription.Replace(' ', '_');
         private const string CosmosDbEmulatorAuthKey = "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==";
 
         private readonly Task _task;
