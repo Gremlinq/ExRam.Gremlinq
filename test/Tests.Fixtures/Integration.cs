@@ -5,7 +5,7 @@
     {
         public Integration() : this(new TFixture())
         {
-
+            Console.WriteLine($"Creating Integration<{typeof(TFixture).Name}>.");
         }
 
         private Integration(TFixture inner) : base(inner.GremlinQuerySource)
@@ -17,6 +17,8 @@
 
         public void Dispose()
         {
+            Console.WriteLine($"Disposing Integration<{typeof(TFixture).Name}>....");
+
             using (Inner as IDisposable)
             {
                 try
@@ -34,6 +36,8 @@
 
                 }
             }
+
+            Console.WriteLine($"Disposed Integration<{typeof(TFixture).Name}>.");
         }
     }
 }
