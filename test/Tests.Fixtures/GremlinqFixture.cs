@@ -1,9 +1,12 @@
 ﻿using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Core.Models;
+using ExRam.Gremlinq.Tests.Entities;
+
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Tests.Fixtures
 {
-    public abstract class GremlinqFixture
+    public abstract class GremlinqFixture : IDisposable
     {
         private sealed class EmptyGremlinqTestFixture : GremlinqFixture
         {
@@ -20,5 +23,18 @@ namespace ExRam.Gremlinq.Tests.Fixtures
         }
 
         public IGremlinQuerySource GremlinQuerySource { get; }
+
+        public void Dispose()
+        {
+            GremlinQuerySource
+                .ConfigureEnvironment(_ => _
+                    .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>(lookup => lookup
+                        .IncludeAssembliesOfBaseTypes())))
+                .V()
+                .Drop()
+                .ToArrayAsync()
+                .AsTask()
+                .Wait();
+        }
     }
 }
