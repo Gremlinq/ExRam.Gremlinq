@@ -119,11 +119,7 @@ jobs:
     - name: Setup .NET SDKs
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: |
-          3
-          5
-          6
-          7
+        dotnet-version: 7
           
     - name: Start CosmosDb Emulator
       uses: Gremlinq/cosmos-emulator-github-action@EnableGremlin
