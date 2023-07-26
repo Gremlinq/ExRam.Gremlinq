@@ -7,7 +7,7 @@ using ExRam.Gremlinq.Tests.TestCases;
 
 namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
 {
-    public sealed class IntegrationTests : QueryExecutionTest, IClassFixture<JanusGraphFixture>
+    public sealed class IntegrationTests : QueryExecutionTest, IClassFixture<Integration<JanusGraphFixture>>
     {
         public new sealed class Verifier : ExecutingVerifier
         {
@@ -22,7 +22,7 @@ namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
                 .Add(x => RelationIdRegex.Replace(x, "\"relationId\": \"scrubbed\""));
         }
 
-        public IntegrationTests(JanusGraphFixture fixture, ITestOutputHelper testOutputHelper) : base(
+        public IntegrationTests(Integration<JanusGraphFixture> fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
             new Verifier(),
             testOutputHelper)
