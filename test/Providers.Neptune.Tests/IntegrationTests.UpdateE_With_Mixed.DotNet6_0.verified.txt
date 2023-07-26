@@ -13,13 +13,6 @@
       {
         "@type": "g:Map",
         "@value": [
-          "Role",
-          "Admin",
-          "From",
-          {
-            "@type": "g:Date",
-            "@value": 1586270616000
-          },
           "To",
           {
             "@type": "g:Date",
@@ -43,6 +36,13 @@
       {
         "@type": "g:Map",
         "@value": [
+          "Role",
+          "Admin",
+          "From",
+          {
+            "@type": "g:Date",
+            "@value": 1586270616000
+          },
           "To",
           {
             "@type": "g:Date",

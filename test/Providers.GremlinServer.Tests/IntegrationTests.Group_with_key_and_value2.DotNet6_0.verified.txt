@@ -8,18 +8,15 @@
         "@value": "PT8H"
       },
       "Country",
-      "+49",
+      "GER",
       "Company",
-      {
-        "@type": "g:Date",
-        "@value": -62135596800000
-      },
+      "+4912345",
       "Language",
       "en",
       "Person",
       {
-        "@type": "g:Int32",
-        "@value": 1
+        "@type": "g:Date",
+        "@value": 1586270616000
       }
     ]
   }

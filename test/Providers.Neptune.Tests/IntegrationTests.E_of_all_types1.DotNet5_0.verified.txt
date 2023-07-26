@@ -8,74 +8,6 @@
         "@value": -1
       },
       "label",
-      "LivesIn",
-      "properties",
-      {
-        "@type": "g:Map",
-        "@value": []
-      }
-    ]
-  },
-  {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": -1
-      },
-      "label",
-      "Speaks",
-      "properties",
-      {
-        "@type": "g:Map",
-        "@value": []
-      }
-    ]
-  },
-  {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": -1
-      },
-      "label",
-      "Speaks",
-      "properties",
-      {
-        "@type": "g:Map",
-        "@value": []
-      }
-    ]
-  },
-  {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": -1
-      },
-      "label",
-      "LivesIn",
-      "properties",
-      {
-        "@type": "g:Map",
-        "@value": []
-      }
-    ]
-  },
-  {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": -1
-      },
-      "label",
       "WorksFor",
       "properties",
       {
@@ -204,6 +136,74 @@
             "@value": 1586270616000
           }
         ]
+      }
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "id",
+      {
+        "@type": "g:Int64",
+        "@value": -1
+      },
+      "label",
+      "LivesIn",
+      "properties",
+      {
+        "@type": "g:Map",
+        "@value": []
+      }
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "id",
+      {
+        "@type": "g:Int64",
+        "@value": -1
+      },
+      "label",
+      "Speaks",
+      "properties",
+      {
+        "@type": "g:Map",
+        "@value": []
+      }
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "id",
+      {
+        "@type": "g:Int64",
+        "@value": -1
+      },
+      "label",
+      "Speaks",
+      "properties",
+      {
+        "@type": "g:Map",
+        "@value": []
+      }
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "id",
+      {
+        "@type": "g:Int64",
+        "@value": -1
+      },
+      "label",
+      "LivesIn",
+      "properties",
+      {
+        "@type": "g:Map",
+        "@value": []
       }
     ]
   }

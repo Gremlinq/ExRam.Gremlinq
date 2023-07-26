@@ -10,7 +10,7 @@
       "label",
       "Name",
       "value",
-      "Marko",
+      "Bob",
       "properties",
       {
         "@type": "g:Map",
@@ -35,7 +35,7 @@
       "label",
       "Name",
       "value",
-      "Bob",
+      "Marko",
       "properties",
       {
         "@type": "g:Map",

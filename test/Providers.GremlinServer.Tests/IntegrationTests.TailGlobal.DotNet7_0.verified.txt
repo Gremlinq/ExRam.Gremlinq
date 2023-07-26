@@ -8,12 +8,12 @@
         "@value": -1
       },
       "label",
-      "Person",
+      "TimeFrame",
       "properties",
       {
         "@type": "g:Map",
         "@value": [
-          "GuidKey",
+          "StartTime",
           {
             "@type": "g:List",
             "@value": [
@@ -26,11 +26,11 @@
                     "@value": -1
                   },
                   "label",
-                  "GuidKey",
+                  "StartTime",
                   "value",
                   {
-                    "@type": "g:UUID",
-                    "@value": "00000000-0000-0000-0000-000000000000"
+                    "@type": "gx:Duration",
+                    "@value": "PT8H"
                   },
                   "properties",
                   {
@@ -41,7 +41,7 @@
               }
             ]
           },
-          "StringKey1",
+          "Enabled",
           {
             "@type": "g:List",
             "@value": [
@@ -54,12 +54,9 @@
                     "@value": -1
                   },
                   "label",
-                  "StringKey1",
+                  "Enabled",
                   "value",
-                  {
-                    "@type": "g:Int32",
-                    "@value": 36
-                  },
+                  false,
                   "properties",
                   {
                     "@type": "g:Map",
@@ -69,7 +66,7 @@
               }
             ]
           },
-          "Gender",
+          "Duration",
           {
             "@type": "g:List",
             "@value": [
@@ -82,70 +79,11 @@
                     "@value": -1
                   },
                   "label",
-                  "Gender",
+                  "Duration",
                   "value",
                   {
-                    "@type": "g:Int32",
-                    "@value": 1
-                  },
-                  "properties",
-                  {
-                    "@type": "g:Map",
-                    "@value": []
-                  }
-                ]
-              }
-            ]
-          },
-          "Age",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": -1
-                  },
-                  "label",
-                  "Age",
-                  "value",
-                  {
-                    "@type": "g:Int32",
-                    "@value": 36
-                  },
-                  "properties",
-                  {
-                    "@type": "g:Map",
-                    "@value": [
-                      "Meta",
-                      "value"
-                    ]
-                  }
-                ]
-              }
-            ]
-          },
-          "StringKey2",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": -1
-                  },
-                  "label",
-                  "StringKey2",
-                  "value",
-                  {
-                    "@type": "g:Int32",
-                    "@value": 36
+                    "@type": "gx:Duration",
+                    "@value": "PT2H"
                   },
                   "properties",
                   {

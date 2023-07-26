@@ -1,15 +1,5 @@
 ﻿[
   {
-    "@type": "g:Vertex",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": -1
-      },
-      "label": "Company"
-    }
-  },
-  {
     "@type": "g:Edge",
     "@value": {
       "id": {
@@ -21,11 +11,11 @@
       "outVLabel": "Person",
       "inV": {
         "@type": "g:Int64",
-        "@value": 17
+        "@value": 707
       },
       "outV": {
         "@type": "g:Int64",
-        "@value": 15
+        "@value": 705
       }
     }
   },
@@ -41,11 +31,11 @@
       "outVLabel": "Person",
       "inV": {
         "@type": "g:Int64",
-        "@value": 21
+        "@value": 711
       },
       "outV": {
         "@type": "g:Int64",
-        "@value": 19
+        "@value": 709
       }
     }
   },
@@ -61,11 +51,11 @@
       "outVLabel": "Person",
       "inV": {
         "@type": "g:Int64",
-        "@value": 25
+        "@value": 715
       },
       "outV": {
         "@type": "g:Int64",
-        "@value": 23
+        "@value": 713
       }
     }
   },
@@ -91,12 +81,22 @@
       "outVLabel": "Person",
       "inV": {
         "@type": "g:Int64",
-        "@value": 0
+        "@value": 724
       },
       "outV": {
         "@type": "g:Int64",
-        "@value": 37
+        "@value": 727
       }
+    }
+  },
+  {
+    "@type": "g:Vertex",
+    "@value": {
+      "id": {
+        "@type": "g:Int64",
+        "@value": -1
+      },
+      "label": "Company"
     }
   },
   {

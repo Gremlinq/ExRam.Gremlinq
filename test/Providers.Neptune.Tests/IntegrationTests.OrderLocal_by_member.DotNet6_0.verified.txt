@@ -36,6 +36,29 @@
               }
             ]
           },
+          "Age",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": -1
+                  },
+                  "label",
+                  "Age",
+                  "value",
+                  {
+                    "@type": "g:Int32",
+                    "@value": 0
+                  }
+                ]
+              }
+            ]
+          },
           "Name",
           {
             "@type": "g:List",
@@ -51,7 +74,7 @@
                   "label",
                   "Name",
                   "value",
-                  "Marko"
+                  "Bob"
                 ]
               }
             ]
@@ -97,29 +120,6 @@
               }
             ]
           },
-          "Age",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": -1
-                  },
-                  "label",
-                  "Age",
-                  "value",
-                  {
-                    "@type": "g:Int32",
-                    "@value": 0
-                  }
-                ]
-              }
-            ]
-          },
           "Name",
           {
             "@type": "g:List",
@@ -135,7 +135,7 @@
                   "label",
                   "Name",
                   "value",
-                  "Bob"
+                  "Marko"
                 ]
               }
             ]
