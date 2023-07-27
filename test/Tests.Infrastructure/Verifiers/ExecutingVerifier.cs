@@ -43,7 +43,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                                         "innerException",
                                         new JObject
                                         {
-                                            { "type", ex.InnerException?.GetType()?.Name },
+                                            { "type", ex.InnerException?.GetType().Name },
                                             { "message", ex.InnerException?.Message },
                                         }
                                     }

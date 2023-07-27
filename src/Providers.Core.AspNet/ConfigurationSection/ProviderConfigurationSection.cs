@@ -26,9 +26,9 @@ namespace ExRam.Gremlinq.Core.AspNet
                 set => _providerSection[key] = value;
             }
 
-            string IConfigurationSection.Key => _providerSection.Key ?? _gremlinqSection.Key;
+            string IConfigurationSection.Key => _providerSection.Key;
 
-            string IConfigurationSection.Path => _providerSection.Path ?? _gremlinqSection.Path;
+            string IConfigurationSection.Path => _providerSection.Path;
 
             string? IConfigurationSection.Value
             {
