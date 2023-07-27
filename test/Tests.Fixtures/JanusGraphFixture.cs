@@ -6,9 +6,9 @@ namespace ExRam.Gremlinq.Tests.Fixtures
 {
     public sealed class JanusGraphFixture : GremlinqFixture
     {
-        public JanusGraphFixture() : base(Gremlinq.Core.GremlinQuerySource.g
+        public JanusGraphFixture() : base(Core.GremlinQuerySource.g
             .UseJanusGraph(builder => builder
-                .At(new Uri("ws://localhost:8183"))
+                .At(new Uri("ws://janusgraph:8182"))
                 .UseNewtonsoftJson())
             .ConfigureEnvironment(environment => environment
                 .ConfigureExecutor(_ => _
