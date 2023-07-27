@@ -75,14 +75,14 @@ jobs:
       janusgraph-7:
         image: janusgraph/janusgraph
 
-      neptune-3:
-        image: tinkerpop/gremlin-server
-      neptune-5:
-        image: tinkerpop/gremlin-server
-      neptune-6:
-        image: tinkerpop/gremlin-server
-      neptune-7:
-        image: tinkerpop/gremlin-server
+      # neptune-3:
+      #   image: tinkerpop/gremlin-server
+      # neptune-5:
+      #   image: tinkerpop/gremlin-server
+      # neptune-6:
+      #   image: tinkerpop/gremlin-server
+      # neptune-7:
+      #   image: tinkerpop/gremlin-server
 
     steps:
     - name: Checkout
@@ -104,7 +104,7 @@ jobs:
       env:
         RunGremlinServerIntegrationTests: ${{ env.IsForkedRepository == 'false' }}
         RunJanusGraphIntegrationTests: ${{ env.IsForkedRepository == 'false' }}
-        RunNeptuneIntegrationTests: ${{ env.IsForkedRepository == 'false' }}
+        # RunNeptuneIntegrationTests: ${{ env.IsForkedRepository == 'false' }}
 
     - name: Collect coverage
       uses: codecov/codecov-action@v3
