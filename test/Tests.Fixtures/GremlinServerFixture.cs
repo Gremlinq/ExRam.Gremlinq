@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
     {
         public GremlinServerFixture() : base(g
             .UseGremlinServer(_ => _
-                .At(new Uri("ws://gremlinServer:8182"))
+                .At(new Uri($"ws://gremlinServer-{Environment.Version.Major}:8182"))
                 .UseNewtonsoftJson()))
         {
         }

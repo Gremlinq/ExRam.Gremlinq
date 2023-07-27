@@ -7,7 +7,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
     {
         public NeptuneFixture() : base(Core.GremlinQuerySource.g
             .UseNeptune(builder => builder
-                .At(new Uri("ws://neptune:8182"))
+                .At(new Uri($"ws://neptune-{Environment.Version.Major}:8182"))
                 .UseNewtonsoftJson()))
         {
         }

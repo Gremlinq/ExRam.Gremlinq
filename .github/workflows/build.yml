@@ -57,11 +57,31 @@ jobs:
     container: mcr.microsoft.com/dotnet/sdk:7.0
 
     services:
-      gremlinServer:
+      gremlinServer-3:
         image: tinkerpop/gremlin-server
-      janusgraph:
+      gremlinServer-5:
+        image: tinkerpop/gremlin-server
+      gremlinServer-6:
+        image: tinkerpop/gremlin-server
+      gremlinServer-7:
+        image: tinkerpop/gremlin-server
+
+      janusgraph-3:
         image: janusgraph/janusgraph
-      neptune:
+      janusgraph-5:
+        image: janusgraph/janusgraph
+      janusgraph-6:
+        image: janusgraph/janusgraph
+      janusgraph-7:
+        image: janusgraph/janusgraph
+
+      neptune-3:
+        image: tinkerpop/gremlin-server
+      neptune-5:
+        image: tinkerpop/gremlin-server
+      neptune-6:
+        image: tinkerpop/gremlin-server
+      neptune-7:
         image: tinkerpop/gremlin-server
 
     steps:

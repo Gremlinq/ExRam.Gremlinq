@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
     {
         public JanusGraphFixture() : base(Core.GremlinQuerySource.g
             .UseJanusGraph(builder => builder
-                .At(new Uri("ws://janusgraph:8182"))
+                .At(new Uri($"ws://janusgraph-{Environment.Version.Major}:8182"))
                 .UseNewtonsoftJson())
             .ConfigureEnvironment(environment => environment
                 .ConfigureExecutor(_ => _
