@@ -11,7 +11,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
     public sealed class CosmosDbFixture : GremlinqFixture
     {
         private const string CosmosDbEmulatorDatabaseName = "db";
-        private static readonly string CosmosDbEmulatorCollectionName = "graph" + RuntimeInformation.FrameworkDescription.Replace(' ', '_');
+        private static readonly string CosmosDbEmulatorCollectionName = "graph-" + Environment.Version.Major;
         private const string CosmosDbEmulatorAuthKey = "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==";
 
         private readonly Task _task;
