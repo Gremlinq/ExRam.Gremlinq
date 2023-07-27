@@ -28,7 +28,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                 .Where(testCase =>
                 {
                     return (testCase.TestMethod.TestClass.Class.Name is { } className && className.EndsWith(".IntegrationTests"))
-                        ? Environment.GetEnvironmentVariable($"Run{className.Split('.')[^3]}IntegrationTests") is { } env && bool.TryParse(env, out var enabled) && enabled
+                        ? Environment.Version.Major == 7 && Environment.GetEnvironmentVariable($"Run{className.Split('.')[^3]}IntegrationTests") is { } env && bool.TryParse(env, out var enabled) && enabled
                         : true;
                 })
                 .OrderBy(x => x, TestCaseComparer<TTestCase>.Instance)
