@@ -14,13 +14,6 @@
     }
     public interface IGremlinqConfigurationSection : Microsoft.Extensions.Configuration.IConfiguration, Microsoft.Extensions.Configuration.IConfigurationSection { }
 }
-namespace Microsoft.Extensions.Configuration
-{
-    public static class ConfigurationExtensions
-    {
-        public static string GetRequiredConfiguration(this Microsoft.Extensions.Configuration.IConfiguration configuration, string key) { }
-    }
-}
 namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtensions
