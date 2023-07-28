@@ -55,7 +55,7 @@ namespace System.Linq.Async
 
         public static async ValueTask<TSource> SingleAsync<TSource>(this IAsyncEnumerable<TSource> source, CancellationToken ct = default)
         {
-            await using (var e = source.WithCancellation(ct).ConfigureAwait(false).GetAsyncEnumerator())
+            await using (var e = source.WithCancellation(ct).GetAsyncEnumerator())
             {
                 if (!await e.MoveNextAsync())
                     throw new InvalidOperationException(NoElements);
@@ -71,7 +71,7 @@ namespace System.Linq.Async
 
         public static async ValueTask<TSource?> SingleOrDefaultAsync<TSource>(this IAsyncEnumerable<TSource> source, CancellationToken ct = default)
         {
-            await using (var e = source.WithCancellation(ct).ConfigureAwait(false).GetAsyncEnumerator())
+            await using (var e = source.WithCancellation(ct).GetAsyncEnumerator())
             {
                 if (!await e.MoveNextAsync())
                     throw new InvalidOperationException(NoElements);
