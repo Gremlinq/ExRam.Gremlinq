@@ -46,21 +46,5 @@ namespace ExRam.Gremlinq.Core
                     disposable.Dispose();
             }
         }
-
-        internal static IAsyncEnumerable<TElement> ToNonNullAsyncEnumerable<TElement>(this IEnumerable enumerable)
-        {
-            return AsyncEnumerable.Create(Core);
-
-            async IAsyncEnumerator<TElement> Core(CancellationToken ct)
-            {
-                foreach (TElement element in enumerable)
-                {
-                    ct.ThrowIfCancellationRequested();
-
-                    if (element is not null)
-                        yield return element;
-                }
-            }
-        }
     }
 }
