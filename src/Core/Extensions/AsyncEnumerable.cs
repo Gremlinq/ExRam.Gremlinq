@@ -7,20 +7,6 @@ namespace System.Linq.Async
         private const string NoElements = "Source sequence doesn't contain any elements.";
         private const string MoreThanOneElement = "Source sequence contains more than one element.";
 
-        private sealed class AnonymousAsyncEnumerable<T> : IAsyncEnumerable<T>
-        {
-            private readonly Func<CancellationToken, IAsyncEnumerator<T>> _enumeratorFactory;
-
-            public AnonymousAsyncEnumerable(Func<CancellationToken, IAsyncEnumerator<T>> enumeratorFactory) => _enumeratorFactory = enumeratorFactory;
-
-            public IAsyncEnumerator<T> GetAsyncEnumerator(CancellationToken ct)
-            {
-                ct.ThrowIfCancellationRequested();
-
-                return _enumeratorFactory(ct);
-            }
-        }
-
         public static IAsyncEnumerable<T> Empty<T>()
         {
             return Core();
@@ -29,11 +15,6 @@ namespace System.Linq.Async
             {
                 yield break;
             }
-        }
-
-        public static IAsyncEnumerable<T> Create<T>(Func<CancellationToken, IAsyncEnumerator<T>> enumeratorFactory)
-        {
-            return new AnonymousAsyncEnumerable<T>(enumeratorFactory);
         }
 
         public static async ValueTask<TSource?> FirstOrDefaultAsync<TSource>(this IAsyncEnumerable<TSource> source, CancellationToken ct = default)
