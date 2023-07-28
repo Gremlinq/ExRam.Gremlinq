@@ -1,4 +1,6 @@
-﻿namespace System.Linq.Async
+﻿using System.Runtime.CompilerServices;
+
+namespace System.Linq.Async
 {
     internal static class AsyncEnumerable
     {
@@ -21,9 +23,9 @@
 
         public static IAsyncEnumerable<T> Empty<T>()
         {
-            return Create(Core);
+            return Core();
 
-            static async IAsyncEnumerator<T> Core(CancellationToken ct)
+            static async IAsyncEnumerable<T> Core([EnumeratorCancellation] CancellationToken ct = default)
             {
                 yield break;
             }
