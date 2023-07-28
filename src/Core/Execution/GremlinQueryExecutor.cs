@@ -8,7 +8,13 @@ namespace ExRam.Gremlinq.Core.Execution
     {
         private sealed class InvalidGremlinQueryExecutor : IGremlinQueryExecutor
         {
-            public IAsyncEnumerable<T> Execute<T>(GremlinQueryExecutionContext context) => throw new InvalidOperationException($"'{nameof(IGremlinQueryExecutor.Execute)}' must not be called on {nameof(GremlinQueryExecutor)}.{nameof(Invalid)}. If you are getting this exception while executing a query, set a proper {nameof(GremlinQueryExecutor)} on the {nameof(GremlinQuerySource)} (e.g. with 'g.UseGremlinServer(...)' for GremlinServer which can be found in the 'ExRam.Gremlinq.Providers.GremlinServer' package).");
+            public async IAsyncEnumerable<T> Execute<T>(GremlinQueryExecutionContext context)
+            {
+                throw new InvalidOperationException($"'{nameof(IGremlinQueryExecutor.Execute)}' must not be called on {nameof(GremlinQueryExecutor)}.{nameof(Invalid)}. If you are getting this exception while executing a query, set a proper {nameof(GremlinQueryExecutor)} on the {nameof(GremlinQuerySource)} (e.g. with 'g.UseGremlinServer(...)' for GremlinServer which can be found in the 'ExRam.Gremlinq.Providers.GremlinServer' package).");
+#pragma warning disable CS0162 // Unreachable code detected
+                yield break;
+#pragma warning restore CS0162 // Unreachable code detected
+            }
         }
 
         private sealed class EmptyGremlinQueryExecutor : IGremlinQueryExecutor
