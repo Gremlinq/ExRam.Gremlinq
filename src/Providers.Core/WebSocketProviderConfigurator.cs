@@ -1,4 +1,5 @@
 ﻿using System.Collections.Concurrent;
+using System.Runtime.CompilerServices;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Core.Transformation;
@@ -12,24 +13,27 @@ namespace ExRam.Gremlinq.Providers.Core
     {
         private sealed class WebSocketGremlinQueryExecutor : IGremlinQueryExecutor
         {
-            private sealed class ExecutionEnumerable<T> : IAsyncEnumerable<T>
+            private readonly GremlinServer _gremlinServer;
+            private readonly IGremlinClientFactory _clientFactory;
+            private readonly ConcurrentDictionary<IGremlinQueryEnvironment, IGremlinClient> _clients = new();
+
+            public WebSocketGremlinQueryExecutor(GremlinServer gremlinServer, IGremlinClientFactory clientFactory)
             {
-                private readonly GremlinQueryExecutionContext _context;
-                private readonly WebSocketGremlinQueryExecutor _executor;
+                _gremlinServer = gremlinServer;
+                _clientFactory = clientFactory;
+            }
 
-                public ExecutionEnumerable(WebSocketGremlinQueryExecutor executor, GremlinQueryExecutionContext context)
-                {
-                    _context = context;
-                    _executor = executor;
-                }
+            public IAsyncEnumerable<T> Execute<T>(GremlinQueryExecutionContext context)
+            {
+                return Core(this, context);
 
-                public async IAsyncEnumerator<T> GetAsyncEnumerator(CancellationToken cancellationToken = default)
+                async static IAsyncEnumerable<T> Core(WebSocketGremlinQueryExecutor executor, GremlinQueryExecutionContext context, [EnumeratorCancellation] CancellationToken ct = default)
                 {
-                    var environment = _context.Query
+                    var environment = context.Query
                         .AsAdmin()
                         .Environment;
 
-                    var client = _executor._clients
+                    var client = executor._clients
                         .GetOrAdd(
                             environment,
                             static (environment, executor) => executor._clientFactory.Create(
@@ -38,15 +42,15 @@ namespace ExRam.Gremlinq.Providers.Core
                                 new DefaultMessageSerializer(environment),
                                 new ConnectionPoolSettings(),
                                 static _ => { }),
-                            _executor);
+                            executor);
 
                     var requestMessageBuilder = environment
                         .Serializer
                         .TransformTo<RequestMessage.Builder>()
-                        .From(_context.Query, environment);
+                        .From(context.Query, environment);
 
                     var requestMessage = requestMessageBuilder
-                        .OverrideRequestId(_context.ExecutionId)
+                        .OverrideRequestId(context.ExecutionId)
                         .Create();
 
                     ResultSet<object>? maybeResults;
@@ -54,20 +58,20 @@ namespace ExRam.Gremlinq.Providers.Core
                     try
                     {
                         maybeResults = await client
-                            .SubmitAsync<object>(requestMessage, cancellationToken)
+                            .SubmitAsync<object>(requestMessage, ct)
                             .ConfigureAwait(false);
                     }
                     catch (ConnectionClosedException ex)
                     {
-                        throw new GremlinQueryExecutionException(_context, ex);
+                        throw new GremlinQueryExecutionException(context, ex);
                     }
                     catch (NoConnectionAvailableException ex)
                     {
-                        throw new GremlinQueryExecutionException(_context, ex);
+                        throw new GremlinQueryExecutionException(context, ex);
                     }
                     catch (ResponseException ex)
                     {
-                        throw new GremlinQueryExecutionException(_context, ex);
+                        throw new GremlinQueryExecutionException(context, ex);
                     }
 
                     if (maybeResults is { } results)
@@ -81,20 +85,6 @@ namespace ExRam.Gremlinq.Providers.Core
                     }
                 }
             }
-
-            private readonly GremlinServer _gremlinServer;
-            private readonly IGremlinClientFactory _clientFactory;
-            private readonly ConcurrentDictionary<IGremlinQueryEnvironment, IGremlinClient> _clients = new();
-
-            public WebSocketGremlinQueryExecutor(
-                GremlinServer gremlinServer,
-                IGremlinClientFactory clientFactory)
-            {
-                _gremlinServer = gremlinServer;
-                _clientFactory = clientFactory;
-            }
-
-            public IAsyncEnumerable<T> Execute<T>(GremlinQueryExecutionContext context) => new ExecutionEnumerable<T>(this, context);
         }
 
         private readonly GremlinServer _gremlinServer;
