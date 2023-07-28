@@ -33,7 +33,18 @@ namespace ExRam.Gremlinq.Core.Execution
                 _baseExecutor = baseExecutor;
             }
 
-            public IAsyncEnumerable<T> Execute<T>(GremlinQueryExecutionContext context) => _baseExecutor.Execute<T>(context.TransformQuery(_transformation));
+            public IAsyncEnumerable<T> Execute<T>(GremlinQueryExecutionContext context)
+            {
+                return Core(this, context);
+
+                async static IAsyncEnumerable<T> Core(TransformQueryGremlinQueryExecutor @this, GremlinQueryExecutionContext context, [EnumeratorCancellation] CancellationToken ct = default)
+                {
+                    await foreach (var item in @this._baseExecutor.Execute<T>(context.TransformQuery(@this._transformation)).WithCancellation(ct).ConfigureAwait(false))
+                    {
+                        yield return item;
+                    }
+                }
+            }
         }
 
         private sealed class ExponentialBackoffExecutor : IGremlinQueryExecutor
