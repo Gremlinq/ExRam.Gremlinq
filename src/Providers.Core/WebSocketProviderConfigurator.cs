@@ -27,13 +27,13 @@ namespace ExRam.Gremlinq.Providers.Core
             {
                 return Core(this, context);
 
-                async static IAsyncEnumerable<T> Core(WebSocketGremlinQueryExecutor executor, GremlinQueryExecutionContext context, [EnumeratorCancellation] CancellationToken ct = default)
+                async static IAsyncEnumerable<T> Core(WebSocketGremlinQueryExecutor @this, GremlinQueryExecutionContext context, [EnumeratorCancellation] CancellationToken ct = default)
                 {
                     var environment = context.Query
                         .AsAdmin()
                         .Environment;
 
-                    var client = executor._clients
+                    var client = @this._clients
                         .GetOrAdd(
                             environment,
                             static (environment, executor) => executor._clientFactory.Create(
@@ -42,7 +42,7 @@ namespace ExRam.Gremlinq.Providers.Core
                                 new DefaultMessageSerializer(environment),
                                 new ConnectionPoolSettings(),
                                 static _ => { }),
-                            executor);
+                            @this);
 
                     var requestMessageBuilder = environment
                         .Serializer
