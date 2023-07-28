@@ -65,7 +65,7 @@ namespace ExRam.Gremlinq.Core.Execution
             {
                 return Core(this, context);
 
-                static async IAsyncEnumerable<T> Core(ExponentialBackoffExecutor executor, GremlinQueryExecutionContext context, [EnumeratorCancellation] CancellationToken ct = default)
+                static async IAsyncEnumerable<T> Core(ExponentialBackoffExecutor @this, GremlinQueryExecutionContext context, [EnumeratorCancellation] CancellationToken ct = default)
                 {
                     var hasSeenFirst = false;
                     var environment = context.Query
@@ -73,7 +73,7 @@ namespace ExRam.Gremlinq.Core.Execution
 
                     for (var i = 1; i < int.MaxValue; i++)
                     {
-                        await using (var enumerator = executor._baseExecutor.Execute<T>(context).GetAsyncEnumerator(ct))
+                        await using (var enumerator = @this._baseExecutor.Execute<T>(context).GetAsyncEnumerator(ct))
                         {
                             while (true)
                             {
@@ -89,7 +89,7 @@ namespace ExRam.Gremlinq.Core.Execution
                                     if (hasSeenFirst)
                                         throw;
 
-                                    if (!executor._shouldRetry(i, ex))
+                                    if (!@this._shouldRetry(i, ex))
                                         throw;
 
                                     var waitInterval = TimeSpan.FromMilliseconds(93.75 * Math.Pow(2, Math.Min(i - 1, 5)) + Rnd.Next(8) * 2);
