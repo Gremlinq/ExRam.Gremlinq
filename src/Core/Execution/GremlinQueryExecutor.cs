@@ -114,11 +114,11 @@ namespace ExRam.Gremlinq.Core.Execution
 
             public IAsyncEnumerable<T> Execute<T>(GremlinQueryExecutionContext context)
             {
-                return AsyncEnumerable.Create(Core);
+                return Core(this, context);
 
-                async IAsyncEnumerator<T> Core(CancellationToken ct)
+                static async IAsyncEnumerable<T> Core(TransformExecutionExceptionGremlinQueryExecutor @this, GremlinQueryExecutionContext context, [EnumeratorCancellation] CancellationToken ct = default)
                 {
-                    var enumerator = _baseExecutor
+                    var enumerator = @this._baseExecutor
                         .Execute<T>(context)
                         .WithCancellation(ct)
                         .GetAsyncEnumerator();
@@ -134,7 +134,7 @@ namespace ExRam.Gremlinq.Core.Execution
                             }
                             catch (GremlinQueryExecutionException ex)
                             {
-                                throw _exceptionTransformation(ex);
+                                throw @this._exceptionTransformation(ex);
                             }
 
                             yield return enumerator.Current;
