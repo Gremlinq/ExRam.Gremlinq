@@ -72,6 +72,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
       with:
+        fetch-depth: 0
         submodules: 'true'
         
     - name: Setup .NET SDKs
@@ -107,6 +108,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
       with:
+        fetch-depth: 0
         submodules: 'true'
 
     - name: Setup .NET SDKs
