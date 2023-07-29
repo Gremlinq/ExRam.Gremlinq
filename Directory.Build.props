@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <EnablePackageValidation>true</EnablePackageValidation>
     <LangVersion>11.0</LangVersion>
-    <NoWarn>$(NoWarn);IDE1006;CS1998</NoWarn>
+    <NoWarn>$(NoWarn);IDE1006;IDE0063;CS1998</NoWarn>
     <Nullable>enable</Nullable>
     <Authors>Daniel Weber</Authors>
     <Company>ExRam Innovations GmbH</Company>

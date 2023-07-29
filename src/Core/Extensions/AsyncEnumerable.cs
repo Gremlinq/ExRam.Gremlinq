@@ -11,7 +11,7 @@ namespace System.Linq.Async
         {
             return Core();
 
-            static async IAsyncEnumerable<T> Core([EnumeratorCancellation] CancellationToken ct = default)
+            static async IAsyncEnumerable<T> Core([EnumeratorCancellation] CancellationToken _ = default)
             {
                 yield break;
             }
