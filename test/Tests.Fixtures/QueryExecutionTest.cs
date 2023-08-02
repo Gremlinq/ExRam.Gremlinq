@@ -3759,7 +3759,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
 
             await _g
                 .V<Person>()
-                .Update(new Person { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now })
+                .Update(new Person { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now, PhoneNumbers = new[] { new VertexProperty<string>("012345") } })
                 .Verify();
         }
 
