@@ -42,7 +42,10 @@ namespace ExRam.Gremlinq.Core
             {
                 if (property is IVertexProperty vertexProperty)
                 {
-                    metaProperties = vertexProperty.GetProperties(Environment)
+                    metaProperties = vertexProperty
+                        .GetProperties(Environment)
+                        .Where(static kvp => kvp.Value != null)
+                        .Select(static kvp => new KeyValuePair<string, object>(kvp.Key, kvp.Value!))
                         .ToImmutableArray();
                 }
 

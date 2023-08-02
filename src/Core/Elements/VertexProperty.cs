@@ -23,9 +23,9 @@ namespace ExRam.Gremlinq.Core.GraphElements
         {
             if (Properties is { } properties)
             {
-                foreach (var (key, value) in properties.Serialize(environment, SerializationBehaviour.Default))
+                foreach (var (key, maybeValue) in properties.Serialize(environment, SerializationBehaviour.Default))
                 {
-                    if (key.RawKey is string str)
+                    if (key.RawKey is string str && maybeValue is { } value)
                         yield return new KeyValuePair<string, object>(str, value);
                 }
             }

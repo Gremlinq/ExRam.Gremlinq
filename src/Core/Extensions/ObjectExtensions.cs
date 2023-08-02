@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq.Core
 {
     internal static class ObjectExtensions
     {
-        private static readonly ConcurrentDictionary<Type, Func<object, IGremlinQueryEnvironment, SerializationBehaviour, IEnumerable<(Key key, object value)>>> SerializerDict = new();
+        private static readonly ConcurrentDictionary<Type, Func<object, IGremlinQueryEnvironment, SerializationBehaviour, IEnumerable<(Key key, object? value)>>> SerializerDict = new();
 
         public static TSource Apply<TSource>(this TSource source, Action<TSource> application)
         {
@@ -26,13 +26,13 @@ namespace ExRam.Gremlinq.Core
 
         public static TResult Map<TSource, TResult, TState>(this TSource source, Func<TSource, TState, TResult> transformation, TState state) => transformation(source, state);
 
-        public static IEnumerable<(Key key, object value)> Serialize(
+        public static IEnumerable<(Key key, object? value)> Serialize(
             this object? obj,
             IGremlinQueryEnvironment environment,
             SerializationBehaviour ignoreMask)
         {
             if (obj == null)
-                return Array.Empty<(Key key, object value)>();
+                return Array.Empty<(Key key, object? value)>();
 
             var func = SerializerDict
                 .GetOrAdd(
@@ -45,7 +45,7 @@ namespace ExRam.Gremlinq.Core
                         {
                             if (iface.IsGenericType && iface.GetGenericTypeDefinition() == typeof(IDictionary<,>))
                             {
-                                return (Func<object, IGremlinQueryEnvironment, SerializationBehaviour, IEnumerable<(Key key, object value)>>)typeof(ObjectExtensions)
+                                return (Func<object, IGremlinQueryEnvironment, SerializationBehaviour, IEnumerable<(Key key, object? value)>>)typeof(ObjectExtensions)
                                     .GetMethod(nameof(CreateSerializeDictionaryFunc), BindingFlags.Static | BindingFlags.NonPublic)!
                                     .MakeGenericMethod(iface.GetGenericArguments())
                                     .Invoke(null, Array.Empty<object>())!;
@@ -66,21 +66,21 @@ namespace ExRam.Gremlinq.Core
             return propertyInfo?.GetValue(element) ?? throw new InvalidOperationException($"Unable to determine Id for {element}");
         }
 
-        private static Func<object, IGremlinQueryEnvironment, SerializationBehaviour, IEnumerable<(Key key, object value)>> CreateSerializeDictionaryFunc<TKey, TValue>()
+        private static Func<object, IGremlinQueryEnvironment, SerializationBehaviour, IEnumerable<(Key key, object? value)>> CreateSerializeDictionaryFunc<TKey, TValue>()
         {
             return static (dict, _, _) => SerializeDictionary((IDictionary<TKey, TValue>)dict);
         }
 
-        private static IEnumerable<(Key key, object value)> SerializeDictionary<TKey, TValue>(IDictionary<TKey, TValue> dict)
+        private static IEnumerable<(Key key, object? value)> SerializeDictionary<TKey, TValue>(IDictionary<TKey, TValue> dict)
         {
             foreach (var kvp in dict)
             {
-                if (kvp is { Key: {} key, Value: { } value } && key.ToString() is { } stringKey)
+                if (kvp is { Key: {} key, Value: var value } && key.ToString() is { } stringKey)
                     yield return (stringKey, value);
             }
         }
 
-        private static IEnumerable<(Key key, object value)> SerializeObject(object obj, IGremlinQueryEnvironment environment, SerializationBehaviour ignoreMask)
+        private static IEnumerable<(Key key, object? value)> SerializeObject(object obj, IGremlinQueryEnvironment environment, SerializationBehaviour ignoreMask)
         {
             var serializationBehaviourOverrides = environment.Options
                 .GetValue(GremlinqOption.TSerializationBehaviourOverrides);
@@ -96,12 +96,7 @@ namespace ExRam.Gremlinq.Core
                 }
 
                 if ((actualSerializationBehaviour & ignoreMask) == 0)
-                {
-                    var value = propertyInfo.GetValue(obj);
-
-                    if (value != null)
-                        yield return (key, value);
-                }
+                    yield return (key, propertyInfo.GetValue(obj));
             }
         }
     }
