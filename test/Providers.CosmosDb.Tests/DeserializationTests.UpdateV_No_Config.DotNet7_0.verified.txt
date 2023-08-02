@@ -3,6 +3,13 @@
     Age: 21,
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
+    PhoneNumbers: [
+      {
+        Id: 00000000-0000-0000-0000-000000000000,
+        Properties: {},
+        Value: 012345
+      }
+    ],
     Name: {
       Id: 00000000-0000-0000-0000-000000000000,
       Value: Marko
@@ -14,6 +21,13 @@
     Age: 21,
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
+    PhoneNumbers: [
+      {
+        Id: 00000000-0000-0000-0000-000000000000,
+        Properties: {},
+        Value: 012345
+      }
+    ],
     Name: {
       Id: 00000000-0000-0000-0000-000000000000,
       Value: Marko
@@ -25,6 +39,13 @@
     Age: 21,
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
+    PhoneNumbers: [
+      {
+        Id: 00000000-0000-0000-0000-000000000000,
+        Properties: {},
+        Value: 012345
+      }
+    ],
     Name: {
       Id: 00000000-0000-0000-0000-000000000000,
       Value: Marko
@@ -36,6 +57,13 @@
     Age: 21,
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
+    PhoneNumbers: [
+      {
+        Id: 00000000-0000-0000-0000-000000000000,
+        Properties: {},
+        Value: 012345
+      }
+    ],
     Name: {
       Id: 00000000-0000-0000-0000-000000000000,
       Value: Marko
@@ -47,6 +75,13 @@
     Age: 21,
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
+    PhoneNumbers: [
+      {
+        Id: 00000000-0000-0000-0000-000000000000,
+        Properties: {},
+        Value: 012345
+      }
+    ],
     Name: {
       Id: 00000000-0000-0000-0000-000000000000,
       Value: Marko
@@ -58,6 +93,13 @@
     Age: 21,
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
+    PhoneNumbers: [
+      {
+        Id: 00000000-0000-0000-0000-000000000000,
+        Properties: {},
+        Value: 012345
+      }
+    ],
     Name: {
       Id: 00000000-0000-0000-0000-000000000000,
       Value: Marko
@@ -69,6 +111,13 @@
     Age: 21,
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
+    PhoneNumbers: [
+      {
+        Id: 00000000-0000-0000-0000-000000000000,
+        Properties: {},
+        Value: 012345
+      }
+    ],
     Name: {
       Id: 00000000-0000-0000-0000-000000000000,
       Value: Marko
@@ -80,6 +129,13 @@
     Age: 21,
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
+    PhoneNumbers: [
+      {
+        Id: 00000000-0000-0000-0000-000000000000,
+        Properties: {},
+        Value: 012345
+      }
+    ],
     Name: {
       Id: 00000000-0000-0000-0000-000000000000,
       Value: Marko
@@ -91,6 +147,13 @@
     Age: 21,
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
+    PhoneNumbers: [
+      {
+        Id: 00000000-0000-0000-0000-000000000000,
+        Properties: {},
+        Value: 012345
+      }
+    ],
     Name: {
       Id: 00000000-0000-0000-0000-000000000000,
       Value: Marko
@@ -102,6 +165,13 @@
     Age: 21,
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
+    PhoneNumbers: [
+      {
+        Id: 00000000-0000-0000-0000-000000000000,
+        Properties: {},
+        Value: 012345
+      }
+    ],
     Name: {
       Id: 00000000-0000-0000-0000-000000000000,
       Value: Marko
@@ -113,6 +183,13 @@
     Age: 21,
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
+    PhoneNumbers: [
+      {
+        Id: 00000000-0000-0000-0000-000000000000,
+        Properties: {},
+        Value: 012345
+      }
+    ],
     Name: {
       Id: 00000000-0000-0000-0000-000000000000,
       Value: Marko

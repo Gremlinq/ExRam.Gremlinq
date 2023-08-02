@@ -3,6 +3,14 @@
     Age: 21,
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
+    PhoneNumbers: [
+      {
+        Id: -1,
+        Label: PhoneNumbers,
+        Properties: {},
+        Value: 012345
+      }
+    ],
     Name: {
       Id: -1,
       Label: Name,
@@ -16,6 +24,14 @@
     Age: 21,
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
+    PhoneNumbers: [
+      {
+        Id: -1,
+        Label: PhoneNumbers,
+        Properties: {},
+        Value: 012345
+      }
+    ],
     Name: {
       Id: -1,
       Label: Name,
@@ -29,6 +45,14 @@
     Age: 21,
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
+    PhoneNumbers: [
+      {
+        Id: -1,
+        Label: PhoneNumbers,
+        Properties: {},
+        Value: 012345
+      }
+    ],
     Name: {
       Id: -1,
       Label: Name,
@@ -42,6 +66,14 @@
     Age: 21,
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
+    PhoneNumbers: [
+      {
+        Id: -1,
+        Label: PhoneNumbers,
+        Properties: {},
+        Value: 012345
+      }
+    ],
     Name: {
       Id: -1,
       Label: Name,
@@ -55,6 +87,14 @@
     Age: 21,
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
+    PhoneNumbers: [
+      {
+        Id: -1,
+        Label: PhoneNumbers,
+        Properties: {},
+        Value: 012345
+      }
+    ],
     Name: {
       Id: -1,
       Label: Name,
@@ -68,6 +108,14 @@
     Age: 21,
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
+    PhoneNumbers: [
+      {
+        Id: -1,
+        Label: PhoneNumbers,
+        Properties: {},
+        Value: 012345
+      }
+    ],
     Name: {
       Id: -1,
       Label: Name,
@@ -81,6 +129,14 @@
     Age: 21,
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
+    PhoneNumbers: [
+      {
+        Id: -1,
+        Label: PhoneNumbers,
+        Properties: {},
+        Value: 012345
+      }
+    ],
     Name: {
       Id: -1,
       Label: Name,
@@ -94,6 +150,14 @@
     Age: 21,
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
+    PhoneNumbers: [
+      {
+        Id: -1,
+        Label: PhoneNumbers,
+        Properties: {},
+        Value: 012345
+      }
+    ],
     Name: {
       Id: -1,
       Label: Name,
@@ -107,6 +171,14 @@
     Age: 21,
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
+    PhoneNumbers: [
+      {
+        Id: -1,
+        Label: PhoneNumbers,
+        Properties: {},
+        Value: 012345
+      }
+    ],
     Name: {
       Id: -1,
       Label: Name,
@@ -120,6 +192,14 @@
     Age: 21,
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
+    PhoneNumbers: [
+      {
+        Id: -1,
+        Label: PhoneNumbers,
+        Properties: {},
+        Value: 012345
+      }
+    ],
     Name: {
       Id: -1,
       Label: Name,
@@ -133,6 +213,14 @@
     Age: 21,
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
+    PhoneNumbers: [
+      {
+        Id: -1,
+        Label: PhoneNumbers,
+        Properties: {},
+        Value: 012345
+      }
+    ],
     Name: {
       Id: -1,
       Label: Name,
