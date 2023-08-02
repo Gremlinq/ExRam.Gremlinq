@@ -17,11 +17,7 @@
             "step": [
               [
                 "properties",
-                "Image",
-                "Name",
-                "PhoneNumbers",
-                "RegistrationDate",
-                "SomeObscureProperty"
+                "Image"
               ],
               [
                 "drop"
@@ -40,6 +36,23 @@
         "Marko"
       ],
       [
+        "sideEffect",
+        {
+          "@type": "g:Bytecode",
+          "@value": {
+            "step": [
+              [
+                "properties",
+                "PhoneNumbers"
+              ],
+              [
+                "drop"
+              ]
+            ]
+          }
+        }
+      ],
+      [
         "property",
         {
           "@type": "g:Cardinality",
@@ -49,6 +62,23 @@
         {
           "@type": "g:Date",
           "@value": 1586270616000
+        }
+      ],
+      [
+        "sideEffect",
+        {
+          "@type": "g:Bytecode",
+          "@value": {
+            "step": [
+              [
+                "properties",
+                "SomeObscureProperty"
+              ],
+              [
+                "drop"
+              ]
+            ]
+          }
         }
       ],
       [

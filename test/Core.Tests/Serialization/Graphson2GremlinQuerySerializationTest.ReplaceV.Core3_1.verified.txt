@@ -14,29 +14,6 @@
         "Person"
       ],
       [
-        "sideEffect",
-        {
-          "@type": "g:Bytecode",
-          "@value": {
-            "step": [
-              [
-                "properties",
-                "Age",
-                "Gender",
-                "Image",
-                "Name",
-                "PhoneNumbers",
-                "RegistrationDate",
-                "SomeObscureProperty"
-              ],
-              [
-                "drop"
-              ]
-            ]
-          }
-        }
-      ],
-      [
         "property",
         {
           "@type": "g:Cardinality",
@@ -58,6 +35,23 @@
         0
       ],
       [
+        "sideEffect",
+        {
+          "@type": "g:Bytecode",
+          "@value": {
+            "step": [
+              [
+                "properties",
+                "Image"
+              ],
+              [
+                "drop"
+              ]
+            ]
+          }
+        }
+      ],
+      [
         "property",
         {
           "@type": "g:Cardinality",
@@ -65,6 +59,23 @@
         },
         "Name",
         "Marko"
+      ],
+      [
+        "sideEffect",
+        {
+          "@type": "g:Bytecode",
+          "@value": {
+            "step": [
+              [
+                "properties",
+                "PhoneNumbers"
+              ],
+              [
+                "drop"
+              ]
+            ]
+          }
+        }
       ],
       [
         "property",
@@ -76,6 +87,23 @@
         {
           "@type": "g:Date",
           "@value": 1586270616000
+        }
+      ],
+      [
+        "sideEffect",
+        {
+          "@type": "g:Bytecode",
+          "@value": {
+            "step": [
+              [
+                "properties",
+                "SomeObscureProperty"
+              ],
+              [
+                "drop"
+              ]
+            ]
+          }
         }
       ],
       [

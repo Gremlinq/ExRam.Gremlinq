@@ -26,30 +26,6 @@
       ]
     },
     {
-      OperatorName: sideEffect,
-      Arguments: [
-        {
-          StepInstructions: [
-            {
-              OperatorName: properties,
-              Arguments: [
-                Age,
-                Gender,
-                Image,
-                Name,
-                PhoneNumbers,
-                RegistrationDate,
-                SomeObscureProperty
-              ]
-            },
-            {
-              OperatorName: drop
-            }
-          ]
-        }
-      ]
-    },
-    {
       OperatorName: property,
       Arguments: [
         {
@@ -72,6 +48,24 @@
       ]
     },
     {
+      OperatorName: sideEffect,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: properties,
+              Arguments: [
+                Image
+              ]
+            },
+            {
+              OperatorName: drop
+            }
+          ]
+        }
+      ]
+    },
+    {
       OperatorName: property,
       Arguments: [
         {
@@ -80,6 +74,24 @@
         },
         Name,
         Marko
+      ]
+    },
+    {
+      OperatorName: sideEffect,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: properties,
+              Arguments: [
+                PhoneNumbers
+              ]
+            },
+            {
+              OperatorName: drop
+            }
+          ]
+        }
       ]
     },
     {
@@ -102,6 +114,24 @@
         },
         RegistrationDate,
         DateTimeOffset_1
+      ]
+    },
+    {
+      OperatorName: sideEffect,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: properties,
+              Arguments: [
+                SomeObscureProperty
+              ]
+            },
+            {
+              OperatorName: drop
+            }
+          ]
+        }
       ]
     },
     {

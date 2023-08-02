@@ -1,22 +1,22 @@
 ﻿{
-  Script: g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d,_e,_f,_g,_h).drop()).property(single,_b,_i).property(single,_c,_j).property(single,_e,_k).property(single,_g,_l).outE(_m).sideEffect(__.properties(_n,_o,_p).drop()).property(_n,_l).property(_o,_q).property(_p,_l),
+  Script: g.V().hasLabel(_a).property(single,_b,_c).property(single,_d,_e).sideEffect(__.properties(_f).drop()).property(single,_g,_h).sideEffect(__.properties(_i).drop()).property(single,_j,_k).sideEffect(__.properties(_l).drop()).outE(_m).property(_n,_k).property(_o,_p).property(_q,_k),
   Bindings: {
     _a: Person,
     _b: Age,
-    _c: Gender,
-    _d: Image,
-    _e: Name,
-    _f: PhoneNumbers,
-    _g: RegistrationDate,
-    _h: SomeObscureProperty,
-    _i: 21,
-    _j: Male,
-    _k: Marko,
-    _l: DateTimeOffset_1,
+    _c: 21,
+    _d: Gender,
+    _e: Male,
+    _f: Image,
+    _g: Name,
+    _h: Marko,
+    _i: PhoneNumbers,
+    _j: RegistrationDate,
+    _k: DateTimeOffset_1,
+    _l: SomeObscureProperty,
     _m: WorksFor,
     _n: From,
     _o: Role,
-    _p: To,
-    _q: Admin
+    _p: Admin,
+    _q: To
   }
 }

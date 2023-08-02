@@ -21,26 +21,6 @@
           ]
         },
         {
-          OperatorName: sideEffect,
-          Arguments: [
-            {
-              StepInstructions: [
-                {
-                  OperatorName: properties,
-                  Arguments: [
-                    From,
-                    Role,
-                    To
-                  ]
-                },
-                {
-                  OperatorName: drop
-                }
-              ]
-            }
-          ]
-        },
-        {
           OperatorName: property,
           Arguments: [
             From,

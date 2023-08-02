@@ -26,6 +26,17 @@
       ]
     },
     {
+      OperatorName: property,
+      Arguments: [
+        {
+          EnumName: Cardinality,
+          EnumValue: single
+        },
+        Gender,
+        Male
+      ]
+    },
+    {
       OperatorName: sideEffect,
       Arguments: [
         {
@@ -33,11 +44,7 @@
             {
               OperatorName: properties,
               Arguments: [
-                Gender,
-                Image,
-                PhoneNumbers,
-                RegistrationDate,
-                SomeObscureProperty
+                Image
               ]
             },
             {
@@ -48,14 +55,21 @@
       ]
     },
     {
-      OperatorName: property,
+      OperatorName: sideEffect,
       Arguments: [
         {
-          EnumName: Cardinality,
-          EnumValue: single
-        },
-        Gender,
-        Male
+          StepInstructions: [
+            {
+              OperatorName: properties,
+              Arguments: [
+                PhoneNumbers
+              ]
+            },
+            {
+              OperatorName: drop
+            }
+          ]
+        }
       ]
     },
     {
@@ -70,12 +84,6 @@
       ]
     },
     {
-      OperatorName: outE,
-      Arguments: [
-        WorksFor
-      ]
-    },
-    {
       OperatorName: sideEffect,
       Arguments: [
         {
@@ -83,7 +91,7 @@
             {
               OperatorName: properties,
               Arguments: [
-                To
+                SomeObscureProperty
               ]
             },
             {
@@ -91,6 +99,12 @@
             }
           ]
         }
+      ]
+    },
+    {
+      OperatorName: outE,
+      Arguments: [
+        WorksFor
       ]
     },
     {

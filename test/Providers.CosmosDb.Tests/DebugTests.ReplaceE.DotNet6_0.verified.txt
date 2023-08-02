@@ -1,1 +1,1 @@
-﻿g.E(0).hasLabel('WorksFor').sideEffect(__.properties('From','Role','To').drop()).property('From','2020-04-07T14:43:36.0000000+00:00').property('Role','Admin').property('To','2020-04-07T14:43:36.0000000+00:00')
+﻿g.E(0).hasLabel('WorksFor').property('From','2020-04-07T14:43:36.0000000+00:00').property('Role','Admin').property('To','2020-04-07T14:43:36.0000000+00:00')
