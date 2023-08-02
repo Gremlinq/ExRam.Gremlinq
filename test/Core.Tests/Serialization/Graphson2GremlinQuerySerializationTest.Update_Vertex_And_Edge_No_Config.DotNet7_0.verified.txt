@@ -10,29 +10,6 @@
         "Person"
       ],
       [
-        "sideEffect",
-        {
-          "@type": "g:Bytecode",
-          "@value": {
-            "step": [
-              [
-                "properties",
-                "Age",
-                "Gender",
-                "Image",
-                "Name",
-                "PhoneNumbers",
-                "RegistrationDate",
-                "SomeObscureProperty"
-              ],
-              [
-                "drop"
-              ]
-            ]
-          }
-        }
-      ],
-      [
         "property",
         {
           "@type": "g:Cardinality",
@@ -54,6 +31,23 @@
         0
       ],
       [
+        "sideEffect",
+        {
+          "@type": "g:Bytecode",
+          "@value": {
+            "step": [
+              [
+                "properties",
+                "Image"
+              ],
+              [
+                "drop"
+              ]
+            ]
+          }
+        }
+      ],
+      [
         "property",
         {
           "@type": "g:Cardinality",
@@ -61,6 +55,23 @@
         },
         "Name",
         "Marko"
+      ],
+      [
+        "sideEffect",
+        {
+          "@type": "g:Bytecode",
+          "@value": {
+            "step": [
+              [
+                "properties",
+                "PhoneNumbers"
+              ],
+              [
+                "drop"
+              ]
+            ]
+          }
+        }
       ],
       [
         "property",
@@ -75,10 +86,6 @@
         }
       ],
       [
-        "outE",
-        "WorksFor"
-      ],
-      [
         "sideEffect",
         {
           "@type": "g:Bytecode",
@@ -86,9 +93,7 @@
             "step": [
               [
                 "properties",
-                "From",
-                "Role",
-                "To"
+                "SomeObscureProperty"
               ],
               [
                 "drop"
@@ -96,6 +101,10 @@
             ]
           }
         }
+      ],
+      [
+        "outE",
+        "WorksFor"
       ],
       [
         "property",

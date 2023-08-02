@@ -10,24 +10,6 @@
       ]
     },
     {
-      OperatorName: sideEffect,
-      Arguments: [
-        {
-          StepInstructions: [
-            {
-              OperatorName: properties,
-              Arguments: [
-                To
-              ]
-            },
-            {
-              OperatorName: drop
-            }
-          ]
-        }
-      ]
-    },
-    {
       OperatorName: property,
       Arguments: [
         To,

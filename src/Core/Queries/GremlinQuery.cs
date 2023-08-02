@@ -47,40 +47,38 @@ namespace ExRam.Gremlinq.Core
                         : SerializationBehaviour.IgnoreOnUpdate)
                 .ToArray();
 
-            if (!add)
-            {
-                var droppableKeys = props
-                    .Select(static p => p.key.RawKey)
-                    .OfType<string>()
-                    .ToArray();
-
-                if (droppableKeys.Length > 0)
-                {
-                    ret = ret
-                        .SideEffect(__ => __
-                            .Properties<object, object, object>(
-                                Projection.Empty,
-                                droppableKeys)
-                            .Drop());
-                }
-            }
-
             foreach (var (key, maybeValue) in props)
             {
-                if (maybeValue is { } value)
+                if (!Environment.FeatureSet.Supports(VertexFeatures.UserSuppliedIds) && T.Id.Equals(key.RawKey))
+                    Environment.Logger.LogWarning($"User supplied ids are not supported according to the environment's {nameof(Environment.FeatureSet)}.");
+                else
                 {
-                    if (!Environment.FeatureSet.Supports(VertexFeatures.UserSuppliedIds) && T.Id.Equals(key.RawKey))
-                        Environment.Logger.LogWarning($"User supplied ids are not supported according to the environment's {nameof(Environment.FeatureSet)}.");
-                    else
+                    var propertySteps = maybeValue is { } value
+                        ? this
+                            .GetPropertySteps(key, value, Steps.Projection == Projection.Vertex)
+                            .ToArray()
+                        : Array.Empty<PropertyStep>();
+
+                    if (!add && key.RawKey is string rawStringKey && propertySteps.All(propertyStep => Cardinality.List.Equals(propertyStep.Cardinality)))
                     {
                         ret = ret
-                            .Continue()
-                            .Build(
-                                static (builder, tuple) => builder
-                                    .AddSteps(builder.OuterQuery.GetPropertySteps(tuple.key, tuple.value, builder.OuterQuery.Steps.Projection == Projection.Vertex))
-                                    .Build(),
-                                (key, value));
+                            .SideEffect(__ => __
+                                .Properties<object, object, object>(
+                                    Projection.Empty,
+                                    new[] { rawStringKey })
+                                .Drop());
                     }
+
+                    ret = ret
+                        .Continue()
+                        .Build(
+                            static (builder, propertySteps) =>
+                            {
+                                return builder
+                                    .AddSteps(propertySteps)
+                                    .Build();
+                            },
+                            propertySteps);
                 }
             }
 
