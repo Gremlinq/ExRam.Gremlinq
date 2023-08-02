@@ -18,7 +18,10 @@
               [
                 "properties",
                 "Gender",
-                "RegistrationDate"
+                "Image",
+                "PhoneNumbers",
+                "RegistrationDate",
+                "SomeObscureProperty"
               ],
               [
                 "drop"

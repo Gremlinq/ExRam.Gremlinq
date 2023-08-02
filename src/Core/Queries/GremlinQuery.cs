@@ -65,19 +65,22 @@ namespace ExRam.Gremlinq.Core
                 }
             }
 
-            foreach (var (key, value) in props)
+            foreach (var (key, maybeValue) in props)
             {
-                if (!Environment.FeatureSet.Supports(VertexFeatures.UserSuppliedIds) && T.Id.Equals(key.RawKey))
-                    Environment.Logger.LogWarning($"User supplied ids are not supported according to the environment's {nameof(Environment.FeatureSet)}.");
-                else
+                if (maybeValue is { } value)
                 {
-                    ret = ret
-                        .Continue()
-                        .Build(
-                            static (builder, tuple) => builder
-                                .AddSteps(builder.OuterQuery.GetPropertySteps(tuple.key, tuple.value, builder.OuterQuery.Steps.Projection == Projection.Vertex))
-                                .Build(),
-                            (key, value));
+                    if (!Environment.FeatureSet.Supports(VertexFeatures.UserSuppliedIds) && T.Id.Equals(key.RawKey))
+                        Environment.Logger.LogWarning($"User supplied ids are not supported according to the environment's {nameof(Environment.FeatureSet)}.");
+                    else
+                    {
+                        ret = ret
+                            .Continue()
+                            .Build(
+                                static (builder, tuple) => builder
+                                    .AddSteps(builder.OuterQuery.GetPropertySteps(tuple.key, tuple.value, builder.OuterQuery.Steps.Projection == Projection.Vertex))
+                                    .Build(),
+                                (key, value));
+                    }
                 }
             }
 
