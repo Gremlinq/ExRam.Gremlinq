@@ -323,6 +323,5 @@
   {
     "@type": "g:Double",
     "@value": 7200000.0
-  },
-  "AQIDBAUGBwg="
+  }
 ]

@@ -1,1 +1,1 @@
-﻿g.V(0).hasLabel('Person').sideEffect(__.properties('Age','Gender','Name').drop()).property(single,'Age',21).property(single,'Gender',Male).property(single,'Name','Marko')
+﻿g.V(0).hasLabel('Person').sideEffect(__.properties('Age','Gender','Image','Name','PhoneNumbers','SomeObscureProperty').drop()).property(single,'Age',21).property(single,'Gender',Male).property(single,'Name','Marko')

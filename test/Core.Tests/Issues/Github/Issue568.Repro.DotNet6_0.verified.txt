@@ -1,1 +1,1 @@
-﻿g.V('id').hasLabel('Thing').project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold()))
+﻿g.V('id').hasLabel('Thing').sideEffect(__.properties('PartitionKey').drop()).project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold()))

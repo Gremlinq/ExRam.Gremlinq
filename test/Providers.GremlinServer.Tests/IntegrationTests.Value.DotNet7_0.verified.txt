@@ -323,9 +323,5 @@
   {
     "@type": "gx:Duration",
     "@value": "PT2H"
-  },
-  {
-    "@type": "gx:ByteBuffer",
-    "@value": "AQIDBAUGBwg="
   }
 ]
