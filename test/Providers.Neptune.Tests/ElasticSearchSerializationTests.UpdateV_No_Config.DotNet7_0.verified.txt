@@ -87,6 +87,17 @@
       Arguments: [
         {
           EnumName: Cardinality,
+          EnumValue: set
+        },
+        PhoneNumbers,
+        012345
+      ]
+    },
+    {
+      OperatorName: property,
+      Arguments: [
+        {
+          EnumName: Cardinality,
           EnumValue: single
         },
         RegistrationDate,
