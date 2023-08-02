@@ -1290,7 +1290,6 @@
     {
       Age: 21,
       Gender: Male,
-      Image: AQIDBAUGBwg=,
       RegistrationDate: 2020-04-07 14:43:36 +0,
       Name: {
         Id: -1,
@@ -1304,7 +1303,6 @@
     {
       Age: 21,
       Gender: Male,
-      Image: AQIDBAUGBwg=,
       RegistrationDate: 2020-04-07 14:43:36 +0,
       Name: {
         Id: -1,
@@ -1318,7 +1316,6 @@
     {
       Age: 21,
       Gender: Male,
-      Image: AQIDBAUGBwg=,
       RegistrationDate: 2020-04-07 14:43:36 +0,
       Name: {
         Id: -1,
@@ -1332,7 +1329,6 @@
     {
       Age: 21,
       Gender: Male,
-      Image: AQIDBAUGBwg=,
       RegistrationDate: 2020-04-07 14:43:36 +0,
       Name: {
         Id: -1,
@@ -1346,7 +1342,6 @@
     {
       Age: 21,
       Gender: Male,
-      Image: AQIDBAUGBwg=,
       RegistrationDate: 2020-04-07 14:43:36 +0,
       Name: {
         Id: -1,
@@ -1360,7 +1355,6 @@
     {
       Age: 21,
       Gender: Male,
-      Image: AQIDBAUGBwg=,
       RegistrationDate: 2020-04-07 14:43:36 +0,
       Name: {
         Id: -1,
@@ -1374,7 +1368,6 @@
     {
       Age: 21,
       Gender: Male,
-      Image: AQIDBAUGBwg=,
       RegistrationDate: 2020-04-07 14:43:36 +0,
       Name: {
         Id: -1,
@@ -1388,7 +1381,6 @@
     {
       Age: 21,
       Gender: Male,
-      Image: AQIDBAUGBwg=,
       RegistrationDate: 2020-04-07 14:43:36 +0,
       Name: {
         Id: -1,
@@ -1402,7 +1394,6 @@
     {
       Age: 21,
       Gender: Male,
-      Image: AQIDBAUGBwg=,
       RegistrationDate: 2020-04-07 14:43:36 +0,
       Name: {
         Id: -1,
@@ -1416,7 +1407,6 @@
     {
       Age: 21,
       Gender: Male,
-      Image: AQIDBAUGBwg=,
       RegistrationDate: 2020-04-07 14:43:36 +0,
       Name: {
         Id: -1,
@@ -1430,7 +1420,6 @@
     {
       Age: 21,
       Gender: Male,
-      Image: AQIDBAUGBwg=,
       RegistrationDate: 2020-04-07 14:43:36 +0,
       Name: {
         Id: -1,
