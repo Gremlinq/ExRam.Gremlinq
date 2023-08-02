@@ -66,6 +66,15 @@
         "property",
         {
           "@type": "g:Cardinality",
+          "@value": "list"
+        },
+        "PhoneNumbers",
+        "012345"
+      ],
+      [
+        "property",
+        {
+          "@type": "g:Cardinality",
           "@value": "single"
         },
         "RegistrationDate",
