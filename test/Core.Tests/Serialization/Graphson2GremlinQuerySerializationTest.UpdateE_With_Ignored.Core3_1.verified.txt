@@ -10,23 +10,6 @@
         "WorksFor"
       ],
       [
-        "sideEffect",
-        {
-          "@type": "g:Bytecode",
-          "@value": {
-            "step": [
-              [
-                "properties",
-                "To"
-              ],
-              [
-                "drop"
-              ]
-            ]
-          }
-        }
-      ],
-      [
         "property",
         "To",
         {

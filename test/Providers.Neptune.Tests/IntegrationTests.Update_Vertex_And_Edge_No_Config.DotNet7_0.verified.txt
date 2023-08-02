@@ -75,12 +75,12 @@
         "@value": [
           "Role",
           "Admin",
-          "From",
+          "To",
           {
             "@type": "g:Date",
             "@value": 1586270616000
           },
-          "To",
+          "From",
           {
             "@type": "g:Date",
             "@value": 1586270616000

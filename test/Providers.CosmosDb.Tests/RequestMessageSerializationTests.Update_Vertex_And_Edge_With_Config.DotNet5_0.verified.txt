@@ -9,15 +9,15 @@
     bindings: {
       _a: Person,
       _b: Gender,
-      _c: Image,
-      _d: PhoneNumbers,
-      _e: RegistrationDate,
-      _f: SomeObscureProperty,
-      _g: Male,
-      _h: DateTimeOffset_1,
+      _c: Male,
+      _d: Image,
+      _e: PhoneNumbers,
+      _f: RegistrationDate,
+      _g: DateTimeOffset_1,
+      _h: SomeObscureProperty,
       _i: WorksFor,
       _j: To
     },
-    gremlin: g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d,_e,_f).drop()).property(single,_b,_g).property(single,_e,_h).outE(_i).sideEffect(__.properties(_j).drop()).property(_j,_h)
+    gremlin: g.V().hasLabel(_a).property(single,_b,_c).sideEffect(__.properties(_d).drop()).sideEffect(__.properties(_e).drop()).property(single,_f,_g).sideEffect(__.properties(_h).drop()).outE(_i).property(_j,_g)
   }
 }
