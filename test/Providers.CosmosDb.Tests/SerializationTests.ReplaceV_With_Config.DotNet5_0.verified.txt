@@ -1,16 +1,16 @@
 ﻿{
-  Script: g.V(_a).hasLabel(_b).sideEffect(__.properties(_c,_d,_e,_f,_g,_h).drop()).property(single,_c,_i).property(single,_d,_j).property(single,_f,_k),
+  Script: g.V(_a).hasLabel(_b).property(single,_c,_d).property(single,_e,_f).sideEffect(__.properties(_g).drop()).property(single,_h,_i).sideEffect(__.properties(_j).drop()).sideEffect(__.properties(_k).drop()),
   Bindings: {
     _a: 0,
     _b: Person,
     _c: Age,
-    _d: Gender,
-    _e: Image,
-    _f: Name,
-    _g: PhoneNumbers,
-    _h: SomeObscureProperty,
-    _i: 21,
-    _j: Male,
-    _k: Marko
+    _d: 21,
+    _e: Gender,
+    _f: Male,
+    _g: Image,
+    _h: Name,
+    _i: Marko,
+    _j: PhoneNumbers,
+    _k: SomeObscureProperty
   }
 }
