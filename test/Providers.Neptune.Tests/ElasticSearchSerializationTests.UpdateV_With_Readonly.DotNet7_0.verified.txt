@@ -33,8 +33,11 @@
             {
               OperatorName: properties,
               Arguments: [
+                Image,
                 Name,
-                RegistrationDate
+                PhoneNumbers,
+                RegistrationDate,
+                SomeObscureProperty
               ]
             },
             {

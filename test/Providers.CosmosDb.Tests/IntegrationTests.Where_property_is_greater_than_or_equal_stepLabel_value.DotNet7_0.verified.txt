@@ -402,12 +402,6 @@
           "value": "PartitionKey"
         }
       ],
-      "Image": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "AQIDBAUGBwg="
-        }
-      ],
       "GuidKey": [
         {
           "id": "00000000-0000-0000-0000-000000000000",
@@ -945,12 +939,6 @@
         {
           "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
           "value": "PartitionKey"
-        }
-      ],
-      "Image": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "AQIDBAUGBwg="
         }
       ],
       "GuidKey": [
@@ -1490,12 +1478,6 @@
         {
           "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
           "value": "PartitionKey"
-        }
-      ],
-      "Image": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "AQIDBAUGBwg="
         }
       ],
       "GuidKey": [
@@ -2035,12 +2017,6 @@
         {
           "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
           "value": "PartitionKey"
-        }
-      ],
-      "Image": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "AQIDBAUGBwg="
         }
       ],
       "GuidKey": [
@@ -2582,12 +2558,6 @@
           "value": "PartitionKey"
         }
       ],
-      "Image": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "AQIDBAUGBwg="
-        }
-      ],
       "GuidKey": [
         {
           "id": "00000000-0000-0000-0000-000000000000",
@@ -3125,12 +3095,6 @@
         {
           "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
           "value": "PartitionKey"
-        }
-      ],
-      "Image": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "AQIDBAUGBwg="
         }
       ],
       "GuidKey": [
@@ -3670,12 +3634,6 @@
         {
           "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
           "value": "PartitionKey"
-        }
-      ],
-      "Image": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "AQIDBAUGBwg="
         }
       ],
       "GuidKey": [
@@ -4215,12 +4173,6 @@
         {
           "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
           "value": "PartitionKey"
-        }
-      ],
-      "Image": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "AQIDBAUGBwg="
         }
       ],
       "GuidKey": [
@@ -4760,12 +4712,6 @@
         {
           "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
           "value": "PartitionKey"
-        }
-      ],
-      "Image": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "AQIDBAUGBwg="
         }
       ],
       "GuidKey": [
@@ -5305,12 +5251,6 @@
         {
           "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
           "value": "PartitionKey"
-        }
-      ],
-      "Image": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "AQIDBAUGBwg="
         }
       ],
       "GuidKey": [
@@ -5850,12 +5790,6 @@
         {
           "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
           "value": "PartitionKey"
-        }
-      ],
-      "Image": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "AQIDBAUGBwg="
         }
       ],
       "GuidKey": [

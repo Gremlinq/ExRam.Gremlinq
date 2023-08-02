@@ -22,7 +22,10 @@
               Arguments: [
                 Age,
                 Gender,
-                Name
+                Image,
+                Name,
+                PhoneNumbers,
+                SomeObscureProperty
               ]
             },
             {

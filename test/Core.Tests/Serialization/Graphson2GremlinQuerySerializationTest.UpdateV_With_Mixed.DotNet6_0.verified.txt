@@ -17,8 +17,11 @@
             "step": [
               [
                 "properties",
+                "Image",
                 "Name",
-                "RegistrationDate"
+                "PhoneNumbers",
+                "RegistrationDate",
+                "SomeObscureProperty"
               ],
               [
                 "drop"

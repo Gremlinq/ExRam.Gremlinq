@@ -19,8 +19,11 @@
               Arguments: [
                 Age,
                 Gender,
+                Image,
                 Name,
-                RegistrationDate
+                PhoneNumbers,
+                RegistrationDate,
+                SomeObscureProperty
               ]
             },
             {

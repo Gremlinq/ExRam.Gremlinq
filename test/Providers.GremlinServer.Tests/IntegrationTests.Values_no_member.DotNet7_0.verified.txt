@@ -273,9 +273,5 @@
   "Marko",
   "Marko",
   "Marko",
-  "Marko",
-  {
-    "@type": "gx:ByteBuffer",
-    "@value": "AQIDBAUGBwg="
-  }
+  "Marko"
 ]
