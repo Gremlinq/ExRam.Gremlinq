@@ -90,22 +90,22 @@ namespace ExRam.Gremlinq.Core
                         .Append(instruction.Arguments, stringBuilder, bindings, environment, true)
                         .EndOperator(stringBuilder);
                     }
-                case P { Value: P p1 } p:
+                case P { Value: P p1, Other: { } otherP, OperatorName: { } operatorName }:
                 {
                     return this
                         .Append(p1, stringBuilder, bindings, environment)
-                        .StartOperator(p.OperatorName, stringBuilder)
-                        .Append(p.Other, stringBuilder, bindings, environment)
+                        .StartOperator(operatorName, stringBuilder)
+                        .Append(otherP, stringBuilder, bindings, environment)
                         .EndOperator(stringBuilder);
                 }
-                case P p:
+                case P { Value: { } pValue, OperatorName: { } operatorName }:
                 {
                     return this
-                        .StartOperator(p.OperatorName, stringBuilder)
-                        .Append((object)p.Value, stringBuilder, bindings, environment, true)
+                        .StartOperator(operatorName, stringBuilder)
+                        .Append(pValue, stringBuilder, bindings, environment, true)
                         .EndOperator(stringBuilder);
 #pragma warning restore IDE0003 // Remove qualification
-                    }
+                }
                 case EnumWrapper t:
                 {
                     return Write(t.EnumValue, stringBuilder);
