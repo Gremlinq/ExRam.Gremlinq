@@ -587,29 +587,6 @@
       {
         "@type": "g:Map",
         "@value": [
-          "Age",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": -1
-                  },
-                  "label",
-                  "Age",
-                  "value",
-                  {
-                    "@type": "g:Int32",
-                    "@value": 0
-                  }
-                ]
-              }
-            ]
-          },
           "Gender",
           {
             "@type": "g:List",
@@ -628,6 +605,29 @@
                   {
                     "@type": "g:Int32",
                     "@value": 1
+                  }
+                ]
+              }
+            ]
+          },
+          "Age",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": -1
+                  },
+                  "label",
+                  "Age",
+                  "value",
+                  {
+                    "@type": "g:Int32",
+                    "@value": 0
                   }
                 ]
               }

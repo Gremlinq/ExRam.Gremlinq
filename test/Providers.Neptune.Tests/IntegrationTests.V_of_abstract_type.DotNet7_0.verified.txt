@@ -230,26 +230,6 @@
       {
         "@type": "g:Map",
         "@value": [
-          "Locations",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": -1
-                  },
-                  "label",
-                  "Locations",
-                  "value",
-                  "Aachen"
-                ]
-              }
-            ]
-          },
           "FoundingDate",
           {
             "@type": "g:List",
@@ -269,6 +249,26 @@
                     "@type": "g:Date",
                     "@value": -62135596800000
                   }
+                ]
+              }
+            ]
+          },
+          "Locations",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": -1
+                  },
+                  "label",
+                  "Locations",
+                  "value",
+                  "Aachen"
                 ]
               }
             ]

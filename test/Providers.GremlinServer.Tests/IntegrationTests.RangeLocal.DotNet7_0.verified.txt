@@ -112,34 +112,6 @@
               }
             ]
           },
-          "StringKey1",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": -1
-                  },
-                  "label",
-                  "StringKey1",
-                  "value",
-                  {
-                    "@type": "g:Int32",
-                    "@value": 36
-                  },
-                  "properties",
-                  {
-                    "@type": "g:Map",
-                    "@value": []
-                  }
-                ]
-              }
-            ]
-          },
           "RegistrationDate",
           {
             "@type": "g:List",
@@ -158,6 +130,34 @@
                   {
                     "@type": "g:Date",
                     "@value": 1586270616000
+                  },
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": []
+                  }
+                ]
+              }
+            ]
+          },
+          "StringKey1",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": -1
+                  },
+                  "label",
+                  "StringKey1",
+                  "value",
+                  {
+                    "@type": "g:Int32",
+                    "@value": 36
                   },
                   "properties",
                   {
@@ -419,6 +419,34 @@
       {
         "@type": "g:Map",
         "@value": [
+          "FoundingDate",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": -1
+                  },
+                  "label",
+                  "FoundingDate",
+                  "value",
+                  {
+                    "@type": "g:Date",
+                    "@value": -62135596800000
+                  },
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": []
+                  }
+                ]
+              }
+            ]
+          },
           "Locations",
           {
             "@type": "g:List",
@@ -445,34 +473,6 @@
                         "@value": 1546304400000
                       }
                     ]
-                  }
-                ]
-              }
-            ]
-          },
-          "FoundingDate",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": -1
-                  },
-                  "label",
-                  "FoundingDate",
-                  "value",
-                  {
-                    "@type": "g:Date",
-                    "@value": -62135596800000
-                  },
-                  "properties",
-                  {
-                    "@type": "g:Map",
-                    "@value": []
                   }
                 ]
               }
@@ -728,34 +728,6 @@
               }
             ]
           },
-          "StringKey1",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": -1
-                  },
-                  "label",
-                  "StringKey1",
-                  "value",
-                  {
-                    "@type": "g:Int32",
-                    "@value": 36
-                  },
-                  "properties",
-                  {
-                    "@type": "g:Map",
-                    "@value": []
-                  }
-                ]
-              }
-            ]
-          },
           "RegistrationDate",
           {
             "@type": "g:List",
@@ -774,6 +746,34 @@
                   {
                     "@type": "g:Date",
                     "@value": 1586270616000
+                  },
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": []
+                  }
+                ]
+              }
+            ]
+          },
+          "StringKey1",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": -1
+                  },
+                  "label",
+                  "StringKey1",
+                  "value",
+                  {
+                    "@type": "g:Int32",
+                    "@value": 36
                   },
                   "properties",
                   {
@@ -1970,34 +1970,6 @@
               }
             ]
           },
-          "StringKey1",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": -1
-                  },
-                  "label",
-                  "StringKey1",
-                  "value",
-                  {
-                    "@type": "g:Int32",
-                    "@value": 36
-                  },
-                  "properties",
-                  {
-                    "@type": "g:Map",
-                    "@value": []
-                  }
-                ]
-              }
-            ]
-          },
           "RegistrationDate",
           {
             "@type": "g:List",
@@ -2016,6 +1988,34 @@
                   {
                     "@type": "g:Date",
                     "@value": 1586270616000
+                  },
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": []
+                  }
+                ]
+              }
+            ]
+          },
+          "StringKey1",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": -1
+                  },
+                  "label",
+                  "StringKey1",
+                  "value",
+                  {
+                    "@type": "g:Int32",
+                    "@value": 36
                   },
                   "properties",
                   {

@@ -94,29 +94,6 @@
               }
             ]
           },
-          "StringKey1",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": -1
-                  },
-                  "label",
-                  "StringKey1",
-                  "value",
-                  {
-                    "@type": "g:Int32",
-                    "@value": 36
-                  }
-                ]
-              }
-            ]
-          },
           "RegistrationDate",
           {
             "@type": "g:List",
@@ -135,6 +112,29 @@
                   {
                     "@type": "g:Date",
                     "@value": 1586270616000
+                  }
+                ]
+              }
+            ]
+          },
+          "StringKey1",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": -1
+                  },
+                  "label",
+                  "StringKey1",
+                  "value",
+                  {
+                    "@type": "g:Int32",
+                    "@value": 36
                   }
                 ]
               }
@@ -358,26 +358,6 @@
       {
         "@type": "g:Map",
         "@value": [
-          "Locations",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": -1
-                  },
-                  "label",
-                  "Locations",
-                  "value",
-                  "Aachen"
-                ]
-              }
-            ]
-          },
           "FoundingDate",
           {
             "@type": "g:List",
@@ -397,6 +377,26 @@
                     "@type": "g:Date",
                     "@value": -62135596800000
                   }
+                ]
+              }
+            ]
+          },
+          "Locations",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": -1
+                  },
+                  "label",
+                  "Locations",
+                  "value",
+                  "Aachen"
                 ]
               }
             ]
@@ -610,29 +610,6 @@
               }
             ]
           },
-          "StringKey1",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": -1
-                  },
-                  "label",
-                  "StringKey1",
-                  "value",
-                  {
-                    "@type": "g:Int32",
-                    "@value": 36
-                  }
-                ]
-              }
-            ]
-          },
           "RegistrationDate",
           {
             "@type": "g:List",
@@ -651,6 +628,29 @@
                   {
                     "@type": "g:Date",
                     "@value": 1586270616000
+                  }
+                ]
+              }
+            ]
+          },
+          "StringKey1",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": -1
+                  },
+                  "label",
+                  "StringKey1",
+                  "value",
+                  {
+                    "@type": "g:Int32",
+                    "@value": 36
                   }
                 ]
               }
@@ -1642,29 +1642,6 @@
               }
             ]
           },
-          "StringKey1",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": -1
-                  },
-                  "label",
-                  "StringKey1",
-                  "value",
-                  {
-                    "@type": "g:Int32",
-                    "@value": 36
-                  }
-                ]
-              }
-            ]
-          },
           "RegistrationDate",
           {
             "@type": "g:List",
@@ -1683,6 +1660,29 @@
                   {
                     "@type": "g:Date",
                     "@value": 1586270616000
+                  }
+                ]
+              }
+            ]
+          },
+          "StringKey1",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": -1
+                  },
+                  "label",
+                  "StringKey1",
+                  "value",
+                  {
+                    "@type": "g:Int32",
+                    "@value": 36
                   }
                 ]
               }
