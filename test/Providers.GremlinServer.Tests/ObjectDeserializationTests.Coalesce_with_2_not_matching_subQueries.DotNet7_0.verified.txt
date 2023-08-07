@@ -8,10 +8,12 @@
     Label: Speaks
   },
   {
+    CountryCallingCode: +49,
     Id: -1,
     Label: Country
   },
   {
+    CountryCallingCode: +49,
     Id: -1,
     Label: Country
   },
@@ -20,6 +22,9 @@
     Label: Person
   },
   {
+    Role: Admin,
+    From: 2020-04-07 14:43:36 Utc,
+    To: 2020-04-07 14:43:36 Utc,
     Id: -1,
     Label: WorksFor
   },
@@ -40,6 +45,10 @@
     Label: Person
   },
   {
+    Since: {
+      Value: 2020-04-07 14:43:36 +0,
+      Key: Since
+    },
     Id: -1,
     Label: LivesIn
   },
@@ -52,10 +61,14 @@
     Label: Person
   },
   {
+    Role: Admin,
+    From: 2020-04-07 14:43:36 Utc,
+    To: 2020-04-07 14:43:36 Utc,
     Id: -1,
     Label: WorksFor
   },
   {
+    CountryCallingCode: +49,
     Id: -1,
     Label: Country
   },
@@ -72,6 +85,7 @@
     Label: Person
   },
   {
+    To: 2020-04-07 14:43:36 Utc,
     Id: -1,
     Label: WorksFor
   }
