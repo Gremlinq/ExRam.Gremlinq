@@ -13,12 +13,12 @@ namespace ExRam.Gremlinq.Core
                 //"containing" when p.Value is string str && str.Length == 0 => value,
                 "within" => !value && p.Value is IEnumerable enumerable && !enumerable.InternalAny(),
                 "without" => value && p.Value is IEnumerable enumerable && !enumerable.InternalAny(),
-                "and" => value
-                    ? ((P)p.Value).EqualsConstant(true) && p.Other.EqualsConstant(true)
-                    : ((P)p.Value).EqualsConstant(false) || p.Other.EqualsConstant(false),
-                "or" => value
-                    ? ((P)p.Value).EqualsConstant(true) || p.Other.EqualsConstant(true)
-                    : ((P)p.Value).EqualsConstant(false) && p.Other.EqualsConstant(false),
+                "and" when p.Value is P pValue && p.Other is { } otherP => value
+                    ? pValue.EqualsConstant(true) && otherP.EqualsConstant(true)
+                    : pValue.EqualsConstant(false) || otherP.EqualsConstant(false),
+                "or" when p.Value is P pValue && p.Other is { } otherP => value
+                    ? pValue.EqualsConstant(true) || otherP.EqualsConstant(true)
+                    : pValue.EqualsConstant(false) && otherP.EqualsConstant(false),
                 "true" => value,
                 "false" => !value,
                 _ => false
@@ -33,11 +33,9 @@ namespace ExRam.Gremlinq.Core
             {
                 switch (textP.OperatorName)
                 {
-                    case "startingWith":
+                    case "startingWith" when textP.Value is string stringValue:
                     {
-                        var value = (string)textP.Value;
-
-                        if (value.Length == 0)
+                        if (stringValue.Length == 0)
                             return new P("true", default);
 
                         if ((disabledTextPredicates & DisabledTextPredicates.StartingWith) == 0)
@@ -45,17 +43,17 @@ namespace ExRam.Gremlinq.Core
 
                         string upperBound;
 
-                        if (value[^1] == char.MaxValue)
-                            upperBound = value + char.MinValue;
+                        if (stringValue[^1] == char.MaxValue)
+                            upperBound = stringValue + char.MinValue;
                         else
                         {
-                            var upperBoundChars = value.ToCharArray();
+                            var upperBoundChars = stringValue.ToCharArray();
 
                             upperBoundChars[^1]++;
                             upperBound = new string(upperBoundChars);
                         }
 
-                        return P.Between(value, upperBound);
+                        return P.Between(stringValue, upperBound);
                     }
                     case "endingWith" when (disabledTextPredicates & DisabledTextPredicates.EndingWith) != 0:
                         throw new ExpressionNotSupportedException($"Can't work around {nameof(TextP.EndingWith)} without the use of {nameof(TextP)} predicates.");
@@ -83,12 +81,12 @@ namespace ExRam.Gremlinq.Core
         {
             if (p.ContainsNullArgument())
             {
-                if (p.IsAnd() || p.IsOr())
+                if ((p.IsAnd() || p.IsOr()) && p.Other is { } otherP)
                 {
                     var replacement = new Traversal[]
                     {
                         (p.Value as P ?? (P)P.Eq(p.Value)).GetFilterStep(key),
-                        p.Other.GetFilterStep(key)
+                        otherP.GetFilterStep(key)
                     };
 
                     if (p.IsOr())

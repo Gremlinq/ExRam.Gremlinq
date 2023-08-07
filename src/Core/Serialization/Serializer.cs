@@ -451,16 +451,16 @@ namespace ExRam.Gremlinq.Core.Serialization
                 "hasKey",
                 recurse,
                 env,
-                step.Argument is P { OperatorName: "eq" } p
-                    ? (object)p.Value
+                step.Argument is P { OperatorName: "eq", Value:{ } pValue }
+                    ? pValue
                     : step.Argument))
             .Add<HasPredicateStep>((step, env, recurse) => CreateInstruction(
                 "has",
                 recurse,
                 env,
                 step.Key,
-                step.Predicate.OperatorName == "eq"
-                    ? (object)step.Predicate.Value
+                step.Predicate.OperatorName == "eq" && step.Predicate.Value is { } predicateValue
+                    ? predicateValue
                     : step.Predicate))
             .Add<HasTraversalStep>((step, env, recurse) => CreateInstruction("has", recurse, env, step.Key, step.Traversal))
             .Add<HasLabelStep>((step, env, recurse) => CreateInstruction("hasLabel", recurse, env, step.Labels))
@@ -469,8 +469,8 @@ namespace ExRam.Gremlinq.Core.Serialization
                 "hasValue",
                 recurse,
                 env,
-                step.Argument is P { OperatorName: "eq" } p
-                    ? (object)p.Value
+                step.Argument is P { OperatorName: "eq", Value: { } pValue }
+                    ? pValue
                     : step.Argument))
             .Add<IdentityStep>((_, _, _) => identity)
             .Add<IdStep>((_, _, _) => id)
@@ -482,8 +482,8 @@ namespace ExRam.Gremlinq.Core.Serialization
                 "is",
                 recurse,
                 env,
-                step.Predicate.OperatorName == "eq"
-                    ? (object)step.Predicate.Value
+                step.Predicate.OperatorName == "eq" && step.Predicate.Value is { } predicateValue
+                    ? predicateValue
                     : step.Predicate))
             .Add<KeyStep>((_, _, _) => key)
             .Add<LabelStep>((_, _, _) => label)

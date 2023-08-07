@@ -18,8 +18,8 @@ namespace ExRam.Gremlinq.Providers.Core
             .TransformTo<byte[]>()
             .From(requestMessage, _environment);
 
-        public async Task<ResponseMessage<List<object>>> DeserializeMessageAsync(byte[] message, CancellationToken ct) => message.Length == 0
-            ? null!
+        public async Task<ResponseMessage<List<object>>?> DeserializeMessageAsync(byte[] message, CancellationToken ct) => message.Length == 0
+            ? null
             : _environment.Deserializer.TryTransformTo<ResponseMessage<List<object>>>().From(message, _environment) ?? throw new InvalidOperationException("""
                  No deserializer configured!
                  In Gremlinq v12, query result deserialization has been decoupled from the core library.
