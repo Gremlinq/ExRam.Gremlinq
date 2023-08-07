@@ -6,7 +6,25 @@
         "@type": "g:Int64",
         "@value": -1
       },
-      "label": "Company"
+      "label": "Company",
+      "properties": {
+        "FoundingDate": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": -1
+              },
+              "value": {
+                "@type": "g:Date",
+                "@value": -62135596800000
+              },
+              "label": "FoundingDate"
+            }
+          }
+        ]
+      }
     }
   },
   {
@@ -66,6 +84,18 @@
       "outV": {
         "@type": "g:Int64",
         "@value": 23
+      },
+      "properties": {
+        "Since": {
+          "@type": "g:Property",
+          "@value": {
+            "key": "Since",
+            "value": {
+              "@type": "g:Date",
+              "@value": 1586270616000
+            }
+          }
+        }
       }
     }
   },
@@ -76,7 +106,25 @@
         "@type": "g:Int64",
         "@value": -1
       },
-      "label": "Company"
+      "label": "Company",
+      "properties": {
+        "FoundingDate": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": -1
+              },
+              "value": {
+                "@type": "g:Date",
+                "@value": -62135596800000
+              },
+              "label": "FoundingDate"
+            }
+          }
+        ]
+      }
     }
   },
   {
@@ -106,7 +154,25 @@
         "@type": "g:Int64",
         "@value": -1
       },
-      "label": "Company"
+      "label": "Company",
+      "properties": {
+        "FoundingDate": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": -1
+              },
+              "value": {
+                "@type": "g:Date",
+                "@value": -62135596800000
+              },
+              "label": "FoundingDate"
+            }
+          }
+        ]
+      }
     }
   }
 ]

@@ -46,7 +46,22 @@
         "@type": "g:Int64",
         "@value": -1
       },
-      "label": "Country"
+      "label": "Country",
+      "properties": {
+        "CountryCallingCode": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": -1
+              },
+              "value": "+49",
+              "label": "CountryCallingCode"
+            }
+          }
+        ]
+      }
     }
   },
   {
@@ -56,7 +71,22 @@
         "@type": "g:Int64",
         "@value": -1
       },
-      "label": "Country"
+      "label": "Country",
+      "properties": {
+        "CountryCallingCode": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": -1
+              },
+              "value": "+49",
+              "label": "CountryCallingCode"
+            }
+          }
+        ]
+      }
     }
   },
   {
@@ -66,7 +96,25 @@
         "@type": "g:Int64",
         "@value": -1
       },
-      "label": "Person"
+      "label": "Person",
+      "properties": {
+        "Age": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": -1
+              },
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              },
+              "label": "Age"
+            }
+          }
+        ]
+      }
     }
   },
   {
@@ -86,6 +134,35 @@
       "outV": {
         "@type": "g:Int64",
         "@value": 7
+      },
+      "properties": {
+        "Role": {
+          "@type": "g:Property",
+          "@value": {
+            "key": "Role",
+            "value": "Admin"
+          }
+        },
+        "From": {
+          "@type": "g:Property",
+          "@value": {
+            "key": "From",
+            "value": {
+              "@type": "g:Date",
+              "@value": 1586270616000
+            }
+          }
+        },
+        "To": {
+          "@type": "g:Property",
+          "@value": {
+            "key": "To",
+            "value": {
+              "@type": "g:Date",
+              "@value": 1586270616000
+            }
+          }
+        }
       }
     }
   },
@@ -116,7 +193,25 @@
         "@type": "g:Int64",
         "@value": -1
       },
-      "label": "Person"
+      "label": "Person",
+      "properties": {
+        "Age": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": -1
+              },
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              },
+              "label": "Age"
+            }
+          }
+        ]
+      }
     }
   },
   {
@@ -146,7 +241,25 @@
         "@type": "g:Int64",
         "@value": -1
       },
-      "label": "Person"
+      "label": "Person",
+      "properties": {
+        "Age": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": -1
+              },
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              },
+              "label": "Age"
+            }
+          }
+        ]
+      }
     }
   },
   {
@@ -166,6 +279,18 @@
       "outV": {
         "@type": "g:Int64",
         "@value": 23
+      },
+      "properties": {
+        "Since": {
+          "@type": "g:Property",
+          "@value": {
+            "key": "Since",
+            "value": {
+              "@type": "g:Date",
+              "@value": 1586270616000
+            }
+          }
+        }
       }
     }
   },
@@ -176,7 +301,25 @@
         "@type": "g:Int64",
         "@value": -1
       },
-      "label": "Person"
+      "label": "Person",
+      "properties": {
+        "Age": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": -1
+              },
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              },
+              "label": "Age"
+            }
+          }
+        ]
+      }
     }
   },
   {
@@ -186,7 +329,25 @@
         "@type": "g:Int64",
         "@value": -1
       },
-      "label": "Person"
+      "label": "Person",
+      "properties": {
+        "Age": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": -1
+              },
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              },
+              "label": "Age"
+            }
+          }
+        ]
+      }
     }
   },
   {
@@ -206,6 +367,35 @@
       "outV": {
         "@type": "g:Int64",
         "@value": 29
+      },
+      "properties": {
+        "Role": {
+          "@type": "g:Property",
+          "@value": {
+            "key": "Role",
+            "value": "Admin"
+          }
+        },
+        "From": {
+          "@type": "g:Property",
+          "@value": {
+            "key": "From",
+            "value": {
+              "@type": "g:Date",
+              "@value": 1586270616000
+            }
+          }
+        },
+        "To": {
+          "@type": "g:Property",
+          "@value": {
+            "key": "To",
+            "value": {
+              "@type": "g:Date",
+              "@value": 1586270616000
+            }
+          }
+        }
       }
     }
   },
@@ -216,7 +406,22 @@
         "@type": "g:Int64",
         "@value": -1
       },
-      "label": "Country"
+      "label": "Country",
+      "properties": {
+        "CountryCallingCode": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": -1
+              },
+              "value": "+49",
+              "label": "CountryCallingCode"
+            }
+          }
+        ]
+      }
     }
   },
   {
@@ -266,7 +471,25 @@
         "@type": "g:Int64",
         "@value": -1
       },
-      "label": "Person"
+      "label": "Person",
+      "properties": {
+        "Age": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": -1
+              },
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              },
+              "label": "Age"
+            }
+          }
+        ]
+      }
     }
   },
   {
@@ -286,6 +509,18 @@
       "outV": {
         "@type": "g:Int64",
         "@value": 44
+      },
+      "properties": {
+        "To": {
+          "@type": "g:Property",
+          "@value": {
+            "key": "To",
+            "value": {
+              "@type": "g:Date",
+              "@value": 1586270616000
+            }
+          }
+        }
       }
     }
   }
