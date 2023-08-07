@@ -7,8 +7,6 @@
         "@type": "gx:Duration",
         "@value": "PT8H"
       },
-      "Country",
-      "+49",
       "Company",
       {
         "@type": "g:Date",
@@ -16,6 +14,8 @@
       },
       "Language",
       "en",
+      "Country",
+      "+49",
       "Person",
       {
         "@type": "g:Int32",

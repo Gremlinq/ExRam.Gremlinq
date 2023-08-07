@@ -7,8 +7,6 @@
         "@type": "g:Double",
         "@value": 28800000.0
       },
-      "Country",
-      "+49",
       "Company",
       {
         "@type": "g:Date",
@@ -16,6 +14,8 @@
       },
       "Language",
       "en",
+      "Country",
+      "+49",
       "Person",
       {
         "@type": "g:Int32",

@@ -1325,34 +1325,6 @@
           {
             "@type": "g:Map",
             "@value": [
-              "Age",
-              {
-                "@type": "g:List",
-                "@value": [
-                  {
-                    "@type": "g:Map",
-                    "@value": [
-                      "id",
-                      {
-                        "@type": "g:Int64",
-                        "@value": -1
-                      },
-                      "label",
-                      "Age",
-                      "value",
-                      {
-                        "@type": "g:Int32",
-                        "@value": 0
-                      },
-                      "properties",
-                      {
-                        "@type": "g:Map",
-                        "@value": []
-                      }
-                    ]
-                  }
-                ]
-              },
               "Gender",
               {
                 "@type": "g:List",
@@ -1371,6 +1343,34 @@
                       {
                         "@type": "g:Int32",
                         "@value": 1
+                      },
+                      "properties",
+                      {
+                        "@type": "g:Map",
+                        "@value": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              "Age",
+              {
+                "@type": "g:List",
+                "@value": [
+                  {
+                    "@type": "g:Map",
+                    "@value": [
+                      "id",
+                      {
+                        "@type": "g:Int64",
+                        "@value": -1
+                      },
+                      "label",
+                      "Age",
+                      "value",
+                      {
+                        "@type": "g:Int32",
+                        "@value": 0
                       },
                       "properties",
                       {
@@ -1400,34 +1400,6 @@
           {
             "@type": "g:Map",
             "@value": [
-              "Age",
-              {
-                "@type": "g:List",
-                "@value": [
-                  {
-                    "@type": "g:Map",
-                    "@value": [
-                      "id",
-                      {
-                        "@type": "g:Int64",
-                        "@value": -1
-                      },
-                      "label",
-                      "Age",
-                      "value",
-                      {
-                        "@type": "g:Int32",
-                        "@value": 0
-                      },
-                      "properties",
-                      {
-                        "@type": "g:Map",
-                        "@value": []
-                      }
-                    ]
-                  }
-                ]
-              },
               "Gender",
               {
                 "@type": "g:List",
@@ -1446,6 +1418,34 @@
                       {
                         "@type": "g:Int32",
                         "@value": 1
+                      },
+                      "properties",
+                      {
+                        "@type": "g:Map",
+                        "@value": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              "Age",
+              {
+                "@type": "g:List",
+                "@value": [
+                  {
+                    "@type": "g:Map",
+                    "@value": [
+                      "id",
+                      {
+                        "@type": "g:Int64",
+                        "@value": -1
+                      },
+                      "label",
+                      "Age",
+                      "value",
+                      {
+                        "@type": "g:Int32",
+                        "@value": 0
                       },
                       "properties",
                       {

@@ -13,29 +13,6 @@
       {
         "@type": "g:Map",
         "@value": [
-          "RegistrationDate",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": -1
-                  },
-                  "label",
-                  "RegistrationDate",
-                  "value",
-                  {
-                    "@type": "g:Date",
-                    "@value": 1586270616000
-                  }
-                ]
-              }
-            ]
-          },
           "GuidKey",
           {
             "@type": "g:List",
@@ -54,6 +31,29 @@
                   {
                     "@type": "g:UUID",
                     "@value": "00000000-0000-0000-0000-000000000000"
+                  }
+                ]
+              }
+            ]
+          },
+          "RegistrationDate",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": -1
+                  },
+                  "label",
+                  "RegistrationDate",
+                  "value",
+                  {
+                    "@type": "g:Date",
+                    "@value": 1586270616000
                   }
                 ]
               }
@@ -695,26 +695,6 @@
       {
         "@type": "g:Map",
         "@value": [
-          "Image",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": -1
-                  },
-                  "label",
-                  "Image",
-                  "value",
-                  "AQIDBAUGBwg="
-                ]
-              }
-            ]
-          },
           "GuidKey",
           {
             "@type": "g:List",
@@ -734,6 +714,26 @@
                     "@type": "g:UUID",
                     "@value": "00000000-0000-0000-0000-000000000000"
                   }
+                ]
+              }
+            ]
+          },
+          "Image",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": -1
+                  },
+                  "label",
+                  "Image",
+                  "value",
+                  "AQIDBAUGBwg="
                 ]
               }
             ]
@@ -802,29 +802,6 @@
               }
             ]
           },
-          "Age",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": -1
-                  },
-                  "label",
-                  "Age",
-                  "value",
-                  {
-                    "@type": "g:Int32",
-                    "@value": 0
-                  }
-                ]
-              }
-            ]
-          },
           "Gender",
           {
             "@type": "g:List",
@@ -843,6 +820,29 @@
                   {
                     "@type": "g:Int32",
                     "@value": 1
+                  }
+                ]
+              }
+            ]
+          },
+          "Age",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": -1
+                  },
+                  "label",
+                  "Age",
+                  "value",
+                  {
+                    "@type": "g:Int32",
+                    "@value": 0
                   }
                 ]
               }
