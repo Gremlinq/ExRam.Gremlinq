@@ -33,8 +33,6 @@ namespace ExRam.Gremlinq.Tests.TestCases
                         .IncludeAssembliesOfBaseTypes())));
         }
 
-
-
         [Fact]
         public virtual async Task AddE_from_StepLabel()
         {
