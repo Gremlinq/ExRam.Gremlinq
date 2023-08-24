@@ -22,13 +22,13 @@ namespace ExRam.Gremlinq.Core
 
         public static ValueTask<TElement> SingleAsync<TElement>(this IGremlinQueryBase<TElement> query, CancellationToken ct = default) => query
             .Cast<TElement>()
-            .Limit(1)
+            .Limit(2)
             .ToAsyncEnumerable()
             .SingleAsync(ct);
 
         public static ValueTask<TElement?> SingleOrDefaultAsync<TElement>(this IGremlinQueryBase<TElement> query, CancellationToken ct = default) => query
             .Cast<TElement>()
-            .Limit(1)
+            .Limit(2)
             .ToAsyncEnumerable()
             .SingleOrDefaultAsync(ct);
 
