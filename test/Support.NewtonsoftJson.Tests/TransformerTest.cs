@@ -7,9 +7,9 @@ using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public class TansformerTest : VerifyBase
+    public class TransformerTest : VerifyBase
     {
-        public TansformerTest() : base(GremlinQueryVerifier.DefaultSettings)
+        public TransformerTest() : base(GremlinQueryVerifier.DefaultSettings)
         {
 
         }
@@ -64,7 +64,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Request_for_Dictionary_yields_expandoObject()
+        public async Task Request_for_Dictionary_yields_Dictionary()
         {
             var original = JObject.Parse("{ \"prop1\": \"value\", \"prop2\": 1657527969000 }");
 
@@ -81,7 +81,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Request_for_Dictionary_yields_expandoObject_from_typed_GraphSON()
+        public async Task Request_for_Dictionary_from_typed_GraphSON_yields_Dictionary()
         {
             var original = JObject.Parse("{ \"@type\": \"g:unknown\", \"@value\": { \"prop1\": \"value\", \"prop2\": 1657527969000 } }");
 
