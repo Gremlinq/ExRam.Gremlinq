@@ -104,8 +104,8 @@ namespace ExRam.Gremlinq.Core
                             .TransformTo<ResponseMessage<List<object>>>()
                             .From(token, env);
                     }))
+                .Add(new DictionaryConverterFactory())
                 .Add(new ExpandoObjectConverterFactory())
-                .Add(new DictionaryDeferralConverterFactory())
                 .Add(new SingleItemArrayFallbackConverterFactory())
 
                 .Add(new ExtractPropertyValueConverterFactory())

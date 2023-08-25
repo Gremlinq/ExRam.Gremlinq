@@ -1,25 +1,24 @@
 ﻿using Newtonsoft.Json.Linq;
-using System.Dynamic;
 using System.Diagnostics.CodeAnalysis;
 using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Core;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson
 {
-    internal sealed class ExpandoObjectConverterFactory : IConverterFactory
+    internal sealed class DictionaryConverterFactory : IConverterFactory
     {
-        private sealed class ExpandoObjectConverter<TTarget> : IConverter<JObject, TTarget>
+        private sealed class DictionaryConverter<TTarget> : IConverter<JObject, TTarget>
         {
             private readonly IGremlinQueryEnvironment _environment;
 
-            public ExpandoObjectConverter(IGremlinQueryEnvironment environment)
+            public DictionaryConverter(IGremlinQueryEnvironment environment)
             {
                 _environment = environment;
             }
 
             public bool TryConvert(JObject serialized, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
             {
-                var expando = new ExpandoObject();
+                var expando = new Dictionary<string, object?>();
 
                 foreach (var property in serialized)
                 {
@@ -34,8 +33,8 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
         public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
         {
-            return typeof(TSource) == typeof(JObject) && typeof(TTarget).IsAssignableFrom(typeof(ExpandoObject)) && typeof(TTarget) != typeof(IDictionary<string, object?>)
-                ? (IConverter<TSource, TTarget>)(object)new ExpandoObjectConverter<TTarget>(environment)
+            return typeof(TSource) == typeof(JObject) && typeof(TTarget).IsAssignableFrom(typeof(Dictionary<string, object?>))
+                ? (IConverter<TSource, TTarget>)(object)new DictionaryConverter<TTarget>(environment)
                 : default;
         }
     }
