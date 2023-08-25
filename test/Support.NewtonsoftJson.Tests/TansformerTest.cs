@@ -75,7 +75,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             deserialized
                 .Should()
-                .BeOfType<ExpandoObject>();
+                .BeOfType<Dictionary<string, object?>>();
 
             await Verify(deserialized);
         }
@@ -92,7 +92,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             deserialized
                 .Should()
-                .BeOfType<ExpandoObject>();
+                .BeOfType<Dictionary<string, object?>>();
 
             await Verify(deserialized);
         }
