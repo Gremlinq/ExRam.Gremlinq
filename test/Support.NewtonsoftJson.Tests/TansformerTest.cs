@@ -98,6 +98,23 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public async Task Request_for_object_from_map_yields_expandoObject()
+        {
+            var original = JObject.Parse("{ \"@type\": \"g:Map\", \"@value\": [ \"name\", \"Daniel Weber\", \"timestamp\", { \"@type\": \"g:Date\", \"@value\": 1689868807115 } ] }");
+
+            var deserialized = GremlinQueryEnvironment.Default
+                .UseNewtonsoftJson()
+                .Deserializer
+                .TryTransformTo<object>().From(original, GremlinQueryEnvironment.Empty);
+
+            deserialized
+                .Should()
+                .BeOfType<ExpandoObject>();
+
+            await Verify(deserialized);
+        }
+
+        [Fact]
         public async Task Overridden_request_for_Dictionary_yields_dictionary()
         {
             var original = JObject.Parse("{ \"prop1\": \"value\", \"prop2\": 1657527969000 }");
