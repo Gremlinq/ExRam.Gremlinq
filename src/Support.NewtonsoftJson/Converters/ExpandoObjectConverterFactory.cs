@@ -19,22 +19,16 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
             public bool TryConvert(JObject serialized, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
             {
-                if (recurse.TryTransform<JObject, JObject>(serialized, _environment, out var strippedJObject))
+                var expando = new ExpandoObject();
+
+                foreach (var property in serialized)
                 {
-                    var expando = new ExpandoObject();
-
-                    foreach (var property in strippedJObject)
-                    {
-                        if (property.Value is { } propertyValue && recurse.TryTransform<JToken, object>(propertyValue, _environment, out var item))
-                            expando.TryAdd(property.Key, item);
-                    }
-
-                    value = (TTarget)(object)expando;
-                    return true;
+                    if (property.Value is { } propertyValue && recurse.TryTransform<JToken, object>(propertyValue, _environment, out var item))
+                        expando.TryAdd(property.Key, item);
                 }
 
-                value = default;
-                return false;
+                value = (TTarget)(object)expando;
+                return true;
             }
         }
 
