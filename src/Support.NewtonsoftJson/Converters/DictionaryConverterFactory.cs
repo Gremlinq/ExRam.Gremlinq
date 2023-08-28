@@ -22,7 +22,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
                 foreach (var property in serialized)
                 {
-                    if (property.Value is { } propertyValue && recurse.TryTransform<JToken, object>(propertyValue, _environment, out var item))
+                    if (property.Value is { } propertyValue && recurse.TryTransform(propertyValue, _environment, out object? item))
                         ret.TryAdd(property.Key, item);
                 }
 
