@@ -6,7 +6,7 @@ namespace Benchmarks
     {
         private static void Main()
         {
-            Run<DeserializerBenchmarks>();
+            Run<DictionaryAddBenchmarks>();
         }
     }
 }
