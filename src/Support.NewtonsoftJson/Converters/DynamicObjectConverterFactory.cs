@@ -4,7 +4,6 @@ using System.Diagnostics.CodeAnalysis;
 using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Core;
 using System.Collections;
-using System.Linq.Expressions;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson
 {
@@ -15,9 +14,9 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             #region DynamicDictionary
             private sealed class DynamicDictionary : DynamicObject, IReadOnlyDictionary<string, object?>, IDictionary<string, object?>
             {
-                private readonly Dictionary<string, object?> _dictionary;
+                private readonly IDictionary<string, object?> _dictionary;
 
-                public DynamicDictionary(Dictionary<string, object?> dictionary)
+                public DynamicDictionary(IDictionary<string, object?> dictionary)
                 {
                     _dictionary = dictionary;
                 }
@@ -38,15 +37,15 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
                 int IReadOnlyCollection<KeyValuePair<string, object?>>.Count => _dictionary.Count;
 
-                ICollection<string> IDictionary<string, object?>.Keys => ((IDictionary<string, object?>)_dictionary).Keys;
+                ICollection<string> IDictionary<string, object?>.Keys => _dictionary.Keys;
 
-                ICollection<object?> IDictionary<string, object?>.Values => ((IDictionary<string, object?>)_dictionary).Values;
+                ICollection<object?> IDictionary<string, object?>.Values => _dictionary.Values;
 
-                int ICollection<KeyValuePair<string, object?>>.Count => ((ICollection<KeyValuePair<string, object?>>)_dictionary).Count;
+                int ICollection<KeyValuePair<string, object?>>.Count => _dictionary.Count;
 
-                bool ICollection<KeyValuePair<string, object?>>.IsReadOnly => ((ICollection<KeyValuePair<string, object?>>)_dictionary).IsReadOnly;
+                bool ICollection<KeyValuePair<string, object?>>.IsReadOnly => _dictionary.IsReadOnly;
 
-                object? IDictionary<string, object?>.this[string key] { get => ((IDictionary<string, object?>)_dictionary)[key]; set => ((IDictionary<string, object?>)_dictionary)[key] = value; }
+                object? IDictionary<string, object?>.this[string key] { get => _dictionary[key]; set => _dictionary[key] = value; }
 
                 bool IReadOnlyDictionary<string, object?>.ContainsKey(string key) => _dictionary.ContainsKey(key);
 
@@ -56,23 +55,23 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
                 IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable)_dictionary).GetEnumerator();
 
-                void IDictionary<string, object?>.Add(string key, object? value) => ((IDictionary<string, object?>)_dictionary).Add(key, value);
+                void IDictionary<string, object?>.Add(string key, object? value) => _dictionary.Add(key, value);
 
-                bool IDictionary<string, object?>.ContainsKey(string key) => ((IDictionary<string, object?>)_dictionary).ContainsKey(key);
+                bool IDictionary<string, object?>.ContainsKey(string key) => _dictionary.ContainsKey(key);
 
-                bool IDictionary<string, object?>.Remove(string key) => ((IDictionary<string, object?>)_dictionary).Remove(key);
+                bool IDictionary<string, object?>.Remove(string key) => _dictionary.Remove(key);
 
-                bool IDictionary<string, object?>.TryGetValue(string key, [MaybeNullWhen(false)] out object? value) => ((IDictionary<string, object?>)_dictionary).TryGetValue(key, out value);
+                bool IDictionary<string, object?>.TryGetValue(string key, [MaybeNullWhen(false)] out object? value) => _dictionary.TryGetValue(key, out value);
 
-                void ICollection<KeyValuePair<string, object?>>.Add(KeyValuePair<string, object?> item) => ((ICollection<KeyValuePair<string, object?>>)_dictionary).Add(item);
+                void ICollection<KeyValuePair<string, object?>>.Add(KeyValuePair<string, object?> item) => _dictionary.Add(item);
 
-                void ICollection<KeyValuePair<string, object?>>.Clear() => ((ICollection<KeyValuePair<string, object?>>)_dictionary).Clear();
+                void ICollection<KeyValuePair<string, object?>>.Clear() => _dictionary.Clear();
 
-                bool ICollection<KeyValuePair<string, object?>>.Contains(KeyValuePair<string, object?> item) => ((ICollection<KeyValuePair<string, object?>>)_dictionary).Contains(item);
+                bool ICollection<KeyValuePair<string, object?>>.Contains(KeyValuePair<string, object?> item) => _dictionary.Contains(item);
 
-                void ICollection<KeyValuePair<string, object?>>.CopyTo(KeyValuePair<string, object?>[] array, int arrayIndex) => ((ICollection<KeyValuePair<string, object?>>)_dictionary).CopyTo(array, arrayIndex);
+                void ICollection<KeyValuePair<string, object?>>.CopyTo(KeyValuePair<string, object?>[] array, int arrayIndex) => _dictionary.CopyTo(array, arrayIndex);
 
-                bool ICollection<KeyValuePair<string, object?>>.Remove(KeyValuePair<string, object?> item) => ((ICollection<KeyValuePair<string, object?>>)_dictionary).Remove(item);
+                bool ICollection<KeyValuePair<string, object?>>.Remove(KeyValuePair<string, object?> item) => _dictionary.Remove(item);
             }
             #endregion
 
@@ -85,16 +84,14 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
             public bool TryConvert(JObject serialized, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
             {
-                var dict = new Dictionary<string, object?>();
-
-                foreach (var property in serialized)
+                if (recurse.TryTransform(serialized, _environment, out IDictionary<string, object?>? dictionary))
                 {
-                    if (property.Value is { } propertyValue && recurse.TryTransform<JToken, object>(propertyValue, _environment, out var item))
-                        dict.TryAdd(property.Key, item);
+                    value = (TTarget)(object)new DynamicDictionary(dictionary);
+                    return true;
                 }
 
-                value = (TTarget)(object)new DynamicDictionary(dict);
-                return true;
+                value = default;
+                return false;
             }
         }
 
