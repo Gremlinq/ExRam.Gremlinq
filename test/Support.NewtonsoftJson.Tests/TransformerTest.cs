@@ -47,7 +47,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Request_for_object_yields_expandoObject()
+        public async Task Request_for_object_yields_DynamicObject()
         {
             var original = JObject.Parse("{ \"prop1\": \"value\", \"prop2\": 1657527969000 }");
 
@@ -58,7 +58,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             deserialized
                 .Should()
-                .BeOfType<ExpandoObject>();
+                .BeAssignableTo<DynamicObject>();
 
             await Verify(deserialized);
         }
@@ -98,7 +98,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Request_for_object_from_map_yields_expandoObject()
+        public async Task Request_for_object_from_map_yields_DynamicObject()
         {
             var original = JObject.Parse("{ \"@type\": \"g:Map\", \"@value\": [ \"name\", \"Daniel Weber\", \"timestamp\", { \"@type\": \"g:Date\", \"@value\": 1689868807115 } ] }");
 
@@ -109,7 +109,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             deserialized
                 .Should()
-                .BeOfType<ExpandoObject>();
+                .BeAssignableTo<DynamicObject>();
 
             await Verify(deserialized);
         }
