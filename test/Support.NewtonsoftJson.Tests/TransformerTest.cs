@@ -115,6 +115,22 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public async Task Dynamic_access()
+        {
+            var original = JObject.Parse("{ \"@type\": \"g:Map\", \"@value\": [ \"name\", \"A name\", \"timestamp\", { \"@type\": \"g:Date\", \"@value\": 1689868807115 } ] }");
+
+            var deserialized = GremlinQueryEnvironment.Default
+                .UseNewtonsoftJson()
+                .Deserializer
+                .TryTransformTo<dynamic>().From(original, GremlinQueryEnvironment.Empty);
+
+            var name = deserialized!.name;
+            var timestamp = deserialized!.timestamp;
+
+            await Verify((name, timestamp));
+        }
+
+        [Fact]
         public async Task Overridden_request_for_Dictionary_yields_dictionary()
         {
             var original = JObject.Parse("{ \"prop1\": \"value\", \"prop2\": 1657527969000 }");
