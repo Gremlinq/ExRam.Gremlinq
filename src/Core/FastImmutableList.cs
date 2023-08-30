@@ -54,6 +54,10 @@ namespace ExRam.Gremlinq.Core
             return new FastImmutableList<T>(Items, Count - 1);
         }
 
+        public FastImmutableList<T> Slice(int start, int length) => length <= Count - start
+            ? new (Items[start..], length)
+            : throw new ArgumentOutOfRangeException(nameof(length));
+
         public int Count { get; }
 
         public T this[int index]
@@ -80,22 +84,10 @@ namespace ExRam.Gremlinq.Core
         public ReadOnlySpan<T> AsSpan() => Items.Span[..Count];
 #pragma warning restore CS8619
 
-        public ReadOnlySpan<T> AsSpan(Range range) => AsSpan()[range];
-
-        public ReadOnlySpan<T> AsSpan(int start, int length) => AsSpan().Slice(start, length);
-
-        public ReadOnlySpan<T> AsSpan(int start) => AsSpan()[start..];
-
 #pragma warning disable CS8619
         public ReadOnlyMemory<T> AsMemory() => Items[..Count];
 #pragma warning restore CS8619
         
-        public ReadOnlyMemory<T> AsMemory(Range range) => AsMemory()[range];
-
-        public ReadOnlyMemory<T> AsMemory(int start, int length) => AsMemory().Slice(start, length);
-
-        public ReadOnlyMemory<T> AsMemory(int start) => AsMemory()[start..];
-
         private FastImmutableList<T> EnsureCapacity(int count)
         {
             if (Items.Length < count)
