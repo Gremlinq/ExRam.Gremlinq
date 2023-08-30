@@ -56,6 +56,8 @@ namespace ExRam.Gremlinq.Core
                 : new Traversal(newSteps, SideEffectSemantics, Projection);
         }
 
+        public Traversal Slice(int start, int length) => new (_steps.Slice(start, length), Projection);
+
         public Traversal WithProjection(Projection projection) => new(_steps, SideEffectSemantics, projection);
 
         public Traversal IncludeProjection(IGremlinQueryEnvironment environment)
