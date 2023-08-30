@@ -7,14 +7,14 @@ namespace ExRam.Gremlinq.Core
     {
         public static readonly FastImmutableList<T> Empty = new(Array.Empty<T>());
 
-        private readonly T?[]? _items;
+        private readonly Memory<T?>? _items;
 
         internal FastImmutableList(T[] items) : this(items, items.Length)
         {
 
         }
 
-        internal FastImmutableList(T?[] steps, int count)
+        internal FastImmutableList(Memory<T?> steps, int count)
         {
             Count = count;
             _items = steps;
@@ -37,7 +37,7 @@ namespace ExRam.Gremlinq.Core
             var steps = Items;
 
             return Count < steps.Length
-                ? Interlocked.CompareExchange(ref steps[Count], item, default) != null
+                ? Interlocked.CompareExchange(ref steps.Span[Count], item, default) != null
                     ? Clone().Push(item)
                     : new FastImmutableList<T>(steps, Count + 1)
                 : EnsureCapacity(Math.Max(steps.Length * 2, 16)).Push(item);
@@ -60,7 +60,7 @@ namespace ExRam.Gremlinq.Core
         {
             get => index < 0 || index >= Count
                 ? throw new ArgumentOutOfRangeException(nameof(index))
-                : Items[index]!;
+                : Items.Span[index]!;
         }
 
         public static implicit operator FastImmutableList<T>(T item) => new(new[] { item });
@@ -77,7 +77,7 @@ namespace ExRam.Gremlinq.Core
         }
 
 #pragma warning disable CS8619
-        public ReadOnlySpan<T> AsSpan() => Items.AsSpan()[..Count];
+        public ReadOnlySpan<T> AsSpan() => Items.Span[..Count];
 #pragma warning restore CS8619
 
         public ReadOnlySpan<T> AsSpan(Range range) => AsSpan()[range];
@@ -87,7 +87,7 @@ namespace ExRam.Gremlinq.Core
         public ReadOnlySpan<T> AsSpan(int start) => AsSpan()[start..];
 
 #pragma warning disable CS8619
-        public ReadOnlyMemory<T> AsMemory() => Items.AsMemory()[..Count];
+        public ReadOnlyMemory<T> AsMemory() => Items[..Count];
 #pragma warning restore CS8619
         
         public ReadOnlyMemory<T> AsMemory(Range range) => AsMemory()[range];
@@ -101,7 +101,10 @@ namespace ExRam.Gremlinq.Core
             if (Items.Length < count)
             {
                 var newItems = new T[count];
-                Array.Copy(Items, newItems, Count);
+
+                this
+                    .AsSpan()
+                    .CopyTo(newItems);
 
                 return new(newItems, Count);
             }
@@ -112,12 +115,15 @@ namespace ExRam.Gremlinq.Core
         private FastImmutableList<T> Clone()
         {
             var newItems = new T[Items.Length];
-            Array.Copy(Items, newItems, Count);
+
+            this
+                .AsSpan()
+                .CopyTo(newItems);
 
             return new(newItems, Count);
         }
 
-        private T?[] Items => _items ?? Array.Empty<T?>();
+        private Memory<T?> Items => _items ?? Array.Empty<T?>();
 
         internal bool IsEmpty { get => Count == 0; }
     }
