@@ -56,5 +56,36 @@ namespace ExRam.Gremlinq.Core.Tests
             sliced[1].Should().Be(_step5);
             sliced[2].Should().Be(newStep);
         }
+
+        [Fact]
+        public void Slice_only_start()
+        {
+#pragma warning disable IDE0057 // Use range operator
+            var sliced = _traversal.Slice(3);
+#pragma warning restore IDE0057 // Use range operator
+
+            sliced.Count.Should().Be(3);
+            sliced[0].Should().Be(_step4);
+            sliced[1].Should().Be(_step5);
+            sliced[2].Should().Be(_step6);
+        }
+
+        [Fact]
+        public void Slice_only_start_push()
+        {
+            var newStep = new IdentityStep();
+
+#pragma warning disable IDE0057 // Use range operator
+            var sliced = _traversal.Slice(3);
+#pragma warning restore IDE0057 // Use range operator
+
+            sliced = sliced.Push(newStep);
+
+            sliced.Count.Should().Be(4);
+            sliced[0].Should().Be(_step4);
+            sliced[1].Should().Be(_step5);
+            sliced[2].Should().Be(_step6);
+            sliced[3].Should().Be(newStep);
+        }
     }
 }
