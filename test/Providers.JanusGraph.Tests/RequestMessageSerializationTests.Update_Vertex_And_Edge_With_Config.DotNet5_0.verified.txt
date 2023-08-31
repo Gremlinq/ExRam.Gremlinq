@@ -18,6 +18,26 @@
           ]
         },
         {
+          OperatorName: sideEffect,
+          Arguments: [
+            {
+              StepInstructions: [
+                {
+                  OperatorName: properties,
+                  Arguments: [
+                    Image,
+                    PhoneNumbers,
+                    SomeObscureProperty
+                  ]
+                },
+                {
+                  OperatorName: drop
+                }
+              ]
+            }
+          ]
+        },
+        {
           OperatorName: property,
           Arguments: [
             {
@@ -29,42 +49,6 @@
           ]
         },
         {
-          OperatorName: sideEffect,
-          Arguments: [
-            {
-              StepInstructions: [
-                {
-                  OperatorName: properties,
-                  Arguments: [
-                    Image
-                  ]
-                },
-                {
-                  OperatorName: drop
-                }
-              ]
-            }
-          ]
-        },
-        {
-          OperatorName: sideEffect,
-          Arguments: [
-            {
-              StepInstructions: [
-                {
-                  OperatorName: properties,
-                  Arguments: [
-                    PhoneNumbers
-                  ]
-                },
-                {
-                  OperatorName: drop
-                }
-              ]
-            }
-          ]
-        },
-        {
           OperatorName: property,
           Arguments: [
             {
@@ -73,24 +57,6 @@
             },
             RegistrationDate,
             DateTimeOffset_1
-          ]
-        },
-        {
-          OperatorName: sideEffect,
-          Arguments: [
-            {
-              StepInstructions: [
-                {
-                  OperatorName: properties,
-                  Arguments: [
-                    SomeObscureProperty
-                  ]
-                },
-                {
-                  OperatorName: drop
-                }
-              ]
-            }
           ]
         },
         {
