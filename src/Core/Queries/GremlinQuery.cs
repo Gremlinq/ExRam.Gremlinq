@@ -47,42 +47,45 @@ namespace ExRam.Gremlinq.Core
                         : SerializationBehaviour.IgnoreOnUpdate)
                 .ToArray();
 
+            var droppableKeys = new List<string>();
+            var propertySteps = new List<PropertyStep>();
+
             foreach (var (key, maybeValue) in props)
             {
                 if (!Environment.FeatureSet.Supports(VertexFeatures.UserSuppliedIds) && T.Id.Equals(key.RawKey))
                     Environment.Logger.LogWarning($"User supplied ids are not supported according to the environment's {nameof(Environment.FeatureSet)}.");
                 else
                 {
-                    var propertySteps = maybeValue is { } value
+                    var localPropertySteps = maybeValue is { } value
                         ? this
                             .GetPropertySteps(key, value, Steps.Projection == Projection.Vertex)
                             .ToArray()
                         : Array.Empty<PropertyStep>();
 
-                    if (!add && key.RawKey is string rawStringKey && propertySteps.All(propertyStep => Cardinality.List.Equals(propertyStep.Cardinality)))
-                    {
-                        ret = ret
-                            .SideEffect(__ => __
-                                .Properties<object, object, object>(
-                                    Projection.Empty,
-                                    new[] { rawStringKey })
-                                .Drop());
-                    }
+                    if (!add && key.RawKey is string rawStringKey && localPropertySteps.All(propertyStep => Cardinality.List.Equals(propertyStep.Cardinality)))
+                        droppableKeys.Add(rawStringKey);
 
-                    ret = ret
-                        .Continue()
-                        .Build(
-                            static (builder, propertySteps) =>
-                            {
-                                return builder
-                                    .AddSteps(propertySteps)
-                                    .Build();
-                            },
-                            propertySteps);
+                    propertySteps.AddRange(localPropertySteps);
                 }
             }
 
-            return ret;
+            if (droppableKeys.Count > 0)
+            {
+                ret = ret
+                    .SideEffect(__ => __
+                        .Properties<object, object, object>(
+                            Projection.Empty,
+                            droppableKeys)
+                        .Drop());
+            }
+
+            return ret
+                .Continue()
+                .Build(
+                    static (builder, propertySteps) => builder
+                        .AddSteps(propertySteps)
+                        .Build(),
+                    propertySteps);
         }
 
         private GremlinQuery<TVertex, object, object, object, object, object> AddV<TVertex>(TVertex vertex) => this
