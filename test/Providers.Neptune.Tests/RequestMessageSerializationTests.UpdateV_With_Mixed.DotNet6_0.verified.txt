@@ -25,7 +25,9 @@
                 {
                   OperatorName: properties,
                   Arguments: [
-                    Image
+                    Image,
+                    PhoneNumbers,
+                    SomeObscureProperty
                   ]
                 },
                 {
@@ -47,24 +49,6 @@
           ]
         },
         {
-          OperatorName: sideEffect,
-          Arguments: [
-            {
-              StepInstructions: [
-                {
-                  OperatorName: properties,
-                  Arguments: [
-                    PhoneNumbers
-                  ]
-                },
-                {
-                  OperatorName: drop
-                }
-              ]
-            }
-          ]
-        },
-        {
           OperatorName: property,
           Arguments: [
             {
@@ -73,24 +57,6 @@
             },
             RegistrationDate,
             DateTimeOffset_1
-          ]
-        },
-        {
-          OperatorName: sideEffect,
-          Arguments: [
-            {
-              StepInstructions: [
-                {
-                  OperatorName: properties,
-                  Arguments: [
-                    SomeObscureProperty
-                  ]
-                },
-                {
-                  OperatorName: drop
-                }
-              ]
-            }
           ]
         },
         {
