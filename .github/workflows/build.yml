@@ -9,7 +9,8 @@ on:
   workflow_call:
 
 env:
-  IsForkedRepository: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository }}
+  IsRelease: ${{ github.event_name == 'push' && github.ref_name != 'main' }}
+  RunIntegrationTests: ${{ env.IsRelease == 'true' || (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository ) }}
 
 jobs:
 
@@ -87,15 +88,15 @@ jobs:
     - name: Test
       run: dotnet test ./${{ github.event.repository.name }}.sln -c Release
       env:
-        RunGremlinServerIntegrationTests: ${{ env.IsForkedRepository == 'false' }}
-        RunJanusGraphIntegrationTests: ${{ env.IsForkedRepository == 'false' }}
-        RunNeptuneIntegrationTests: ${{ env.IsForkedRepository == 'false' }}
+        RunGremlinServerIntegrationTests: ${{ env.RunIntegrationTests == 'true' }}
+        RunJanusGraphIntegrationTests: ${{ env.RunIntegrationTests == 'true' }}
+        RunNeptuneIntegrationTests: ${{ env.RunIntegrationTests == 'true' }}
 
     - name: Collect coverage
       uses: codecov/codecov-action@v3
 
     - name: Copy *.received-files to artifacts
-      if: ${{ always() && env.IsForkedRepository == 'false' }}
+      if: ${{ always() && env.RunIntegrationTests == 'true' }}
       uses: actions/upload-artifact@v3
       with:
         name: test-linux-received-snapshots
@@ -126,10 +127,10 @@ jobs:
     - name: Test
       run: dotnet test ./${{ github.event.repository.name }}.sln -c Release
       env:
-        RunCosmosDbIntegrationTests: ${{ env.IsForkedRepository == 'false' }}
+        RunCosmosDbIntegrationTests: ${{ env.RunIntegrationTests == 'true' }}
 
     - name: Copy *.received-files to artifacts
-      if: ${{ always() && env.IsForkedRepository == 'false' }}
+      if: ${{ always() && env.RunIntegrationTests == 'true' }}
       uses: actions/upload-artifact@v3
       with:
         name: test-windows-received-snapshots
@@ -203,7 +204,7 @@ jobs:
   release:
     needs: [ build, test-linux, test-windows ]
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' && github.ref_name != 'main' }}
+    if: ${{ env.IsRelease == 'true' }}
 
     steps:
     - uses: actions/download-artifact@v2
