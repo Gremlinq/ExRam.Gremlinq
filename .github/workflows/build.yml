@@ -10,7 +10,7 @@ on:
 
 env:
   IsRelease: ${{ github.event_name == 'push' && github.ref_name != 'main' }}
-  RunIntegrationTests: ${{ env.IsRelease == 'true' || github.event_name == 'pull_request' }}
+  RunIntegrationTests: ${{ github.ref_name != 'main' || github.event_name == 'pull_request' }}
 
 jobs:
 
