@@ -13,10 +13,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         static GremlinQueryVerifier()
         {
             DefaultSettings.UniqueForTargetFrameworkAndVersion();
-
-#if DEBUG
-            DefaultSettings.AutoVerify();
-#endif
         }
 
         protected GremlinQueryVerifier([CallerFilePath] string sourceFile = "")
