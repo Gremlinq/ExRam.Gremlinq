@@ -118,9 +118,9 @@ namespace ExRam.Gremlinq.Core.Serialization
 
                     static void AddInstruction(Instruction instruction, Bytecode byteCode, bool isSourceInstruction, IGremlinQueryEnvironment env, ITransformer recurse)
                     {
-                        static void AddInnerInstruction(Instruction instruction, Bytecode byteCode, bool isSouceInstruction)
+                        static void AddInnerInstruction(Instruction instruction, Bytecode byteCode, bool isSourceInstruction)
                         {
-                            if (isSouceInstruction)
+                            if (isSourceInstruction)
                             {
                                 if (byteCode.StepInstructions.Count != 0)
                                     throw new InvalidOperationException();
