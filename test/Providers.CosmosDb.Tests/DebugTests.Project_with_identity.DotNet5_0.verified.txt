@@ -1,1 +1,0 @@
-﻿g.V().where(__.properties()).project('Item1','Item2').by(__.identity()).by(__.properties())

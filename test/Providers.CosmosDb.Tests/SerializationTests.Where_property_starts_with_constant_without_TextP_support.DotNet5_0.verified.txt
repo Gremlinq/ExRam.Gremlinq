@@ -1,9 +1,0 @@
-﻿{
-  Script: g.V().hasLabel(_a).has(_b,between(_c,_d)),
-  Bindings: {
-    _a: Country,
-    _b: CountryCallingCode,
-    _c: +49123,
-    _d: +49124
-  }
-}

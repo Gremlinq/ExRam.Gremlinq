@@ -1,1 +1,0 @@
-﻿g.V().hasLabel('Person').sideEffect(__.properties('Image','PhoneNumbers','SomeObscureProperty').drop()).property(single,'Name','Marko').property(single,'RegistrationDate','2020-04-07T14:43:36.0000000+00:00')

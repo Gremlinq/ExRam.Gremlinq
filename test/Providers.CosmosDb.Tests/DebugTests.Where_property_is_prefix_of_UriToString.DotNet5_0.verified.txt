@@ -1,1 +1,0 @@
-﻿g.V().hasLabel('Country').has('CountryCallingCode',within('','t','te','tel','tel:','tel:+','tel:+4','tel:+49','tel:+491','tel:+4912','tel:+49123'))

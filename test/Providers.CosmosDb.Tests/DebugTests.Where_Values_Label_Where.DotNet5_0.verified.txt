@@ -1,1 +1,0 @@
-﻿g.V().hasLabel('Company','Country','Language','Person','TimeFrame').has(label,'Person')
