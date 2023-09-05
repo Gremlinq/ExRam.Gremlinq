@@ -1,8 +1,0 @@
-﻿{
-  Script: g.V().hasLabel(_a).properties(_b,_c),
-  Bindings: {
-    _a: Country,
-    _b: Name,
-    _c: CountryCallingCode
-  }
-}
