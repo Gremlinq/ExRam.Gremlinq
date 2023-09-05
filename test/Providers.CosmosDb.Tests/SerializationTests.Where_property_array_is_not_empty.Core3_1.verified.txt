@@ -1,7 +1,0 @@
-﻿{
-  Script: g.V().hasLabel(_a).has(_b),
-  Bindings: {
-    _a: Company,
-    _b: PhoneNumbers
-  }
-}
