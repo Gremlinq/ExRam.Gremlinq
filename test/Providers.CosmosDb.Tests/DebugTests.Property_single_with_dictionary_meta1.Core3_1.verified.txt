@@ -1,1 +1,0 @@
-﻿g.V().hasLabel('Country').property(single,'LocalizableDescription','','someKey','value')

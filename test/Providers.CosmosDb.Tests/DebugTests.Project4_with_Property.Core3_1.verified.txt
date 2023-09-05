@@ -1,1 +1,0 @@
-﻿g.V().hasLabel('Person').where(__.in()).where(__.out()).where(__.properties()).project('Item1','Item2','Item3','Item4').by(__.in()).by(__.out()).by('Age').by(__.properties())

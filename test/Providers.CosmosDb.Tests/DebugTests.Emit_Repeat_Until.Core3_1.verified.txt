@@ -1,1 +1,0 @@
-﻿g.V().hasLabel('Person').emit().repeat(__.inE().outV()).until(__.V().hasLabel('Company'))

@@ -1,1 +1,0 @@
-﻿g.addV('Country').property('PartitionKey','PartitionKey').property(single,'Name','GER')

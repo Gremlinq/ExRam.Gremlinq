@@ -1,7 +1,0 @@
-﻿{
-  Script: g.withSideEffect(_a,_b).V().select(_a),
-  Bindings: {
-    _a: _a,
-    _b: 36
-  }
-}
