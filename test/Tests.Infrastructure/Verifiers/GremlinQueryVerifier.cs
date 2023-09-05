@@ -18,8 +18,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         protected SettingsTask InnerVerify<T>(T value)
         {
             return Verifier
-                .Verify(value, sourceFile: _sourceFile)
-                .UniqueForTargetFrameworkAndVersion();
+                .Verify(value, sourceFile: _sourceFile);
         }
 
         protected virtual IImmutableList<Func<string, string>> Scrubbers() => ImmutableList<Func<string, string>>.Empty;
