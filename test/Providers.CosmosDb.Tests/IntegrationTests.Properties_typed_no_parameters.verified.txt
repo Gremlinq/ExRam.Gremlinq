@@ -1,0 +1,379 @@
+﻿[
+  {
+    "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+    "value": "PartitionKey",
+    "label": "PartitionKey"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "value": "+49",
+    "label": "CountryCallingCode"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+    "value": "PartitionKey",
+    "label": "PartitionKey"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "value": "en",
+    "label": "IetfLanguageTag"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+    "value": "PartitionKey",
+    "label": "PartitionKey"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "value": 0,
+    "label": "Age"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+    "value": "PartitionKey",
+    "label": "PartitionKey"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "value": -62135596800000,
+    "label": "FoundingDate"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+    "value": "PartitionKey",
+    "label": "PartitionKey"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "value": 0,
+    "label": "Age"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "value": "Bob",
+    "label": "Name"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "value": 1586270616000,
+    "label": "RegistrationDate"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+    "value": "PartitionKey",
+    "label": "PartitionKey"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "value": 0,
+    "label": "Age"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+    "value": "PartitionKey",
+    "label": "PartitionKey"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+    "value": "PartitionKey",
+    "label": "PartitionKey"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "value": 0,
+    "label": "Age"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+    "value": "PartitionKey",
+    "label": "PartitionKey"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+    "value": "PartitionKey",
+    "label": "PartitionKey"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "value": 0,
+    "label": "Age"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+    "value": "PartitionKey",
+    "label": "PartitionKey"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+    "value": "PartitionKey",
+    "label": "PartitionKey"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "value": 0,
+    "label": "Age"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+    "value": "PartitionKey",
+    "label": "PartitionKey"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "value": -62135596800000,
+    "label": "FoundingDate"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+    "value": "PartitionKey",
+    "label": "PartitionKey"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "value": "en",
+    "label": "IetfLanguageTag"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+    "value": "PartitionKey",
+    "label": "PartitionKey"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "value": "+49",
+    "label": "CountryCallingCode"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+    "value": "PartitionKey",
+    "label": "PartitionKey"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "value": 0,
+    "label": "Age"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "value": "Bob",
+    "label": "Name"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "value": 1586270616000,
+    "label": "RegistrationDate"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+    "value": "PartitionKey",
+    "label": "PartitionKey"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "value": 0,
+    "label": "Age"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+    "value": "PartitionKey",
+    "label": "PartitionKey"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "value": -62135596800000,
+    "label": "FoundingDate"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+    "value": "PartitionKey",
+    "label": "PartitionKey"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "value": "en",
+    "label": "IetfLanguageTag"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+    "value": "PartitionKey",
+    "label": "PartitionKey"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+    "value": "PartitionKey",
+    "label": "PartitionKey"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "value": 7200000.0,
+    "label": "Duration"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "value": false,
+    "label": "Enabled"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "value": 28800000.0,
+    "label": "StartTime"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+    "value": "PartitionKey",
+    "label": "PartitionKey"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "value": "en",
+    "label": "IetfLanguageTag"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+    "value": "PartitionKey",
+    "label": "PartitionKey"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "value": "en",
+    "label": "IetfLanguageTag"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+    "value": "PartitionKey",
+    "label": "PartitionKey"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "value": 0,
+    "label": "Age"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "value": "AQIDBAUGBwg=",
+    "label": "Image"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+    "value": "PartitionKey",
+    "label": "PartitionKey"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "value": 0,
+    "label": "Age"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "value": 1,
+    "label": "Gender"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+    "value": "PartitionKey",
+    "label": "PartitionKey"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "value": "Marko",
+    "label": "Name"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "value": 1586270616000,
+    "label": "RegistrationDate"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+    "value": "PartitionKey",
+    "label": "PartitionKey"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "value": "en",
+    "label": "IetfLanguageTag"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+    "value": "PartitionKey",
+    "label": "PartitionKey"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+    "value": "PartitionKey",
+    "label": "PartitionKey"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "value": -62135596800000,
+    "label": "FoundingDate"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "value": "Aachen",
+    "label": "Locations",
+    "properties": {
+      "ValidFrom": 1546304400000
+    }
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+    "value": "PartitionKey",
+    "label": "PartitionKey"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "value": "GER",
+    "label": "Name"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+    "value": "PartitionKey",
+    "label": "PartitionKey"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "value": "GER",
+    "label": "Name",
+    "properties": {
+      "de": "Deutschland",
+      "en": "Germany"
+    }
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+    "value": "PartitionKey",
+    "label": "PartitionKey"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "value": -62135596800000,
+    "label": "FoundingDate"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "value": "+4912345",
+    "label": "PhoneNumbers"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "value": "+4923456",
+    "label": "PhoneNumbers"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+    "value": "PartitionKey",
+    "label": "PartitionKey"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+    "value": "PartitionKey",
+    "label": "PartitionKey"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "value": "en",
+    "label": "lang"
+  }
+]

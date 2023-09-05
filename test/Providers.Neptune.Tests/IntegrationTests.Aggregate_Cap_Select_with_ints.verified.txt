@@ -1,0 +1,15 @@
+﻿[
+  {
+    "@type": "g:BulkSet",
+    "@value": [
+      {
+        "@type": "g:Int64",
+        "@value": 1
+      },
+      {
+        "@type": "g:Int64",
+        "@value": 11
+      }
+    ]
+  }
+]
