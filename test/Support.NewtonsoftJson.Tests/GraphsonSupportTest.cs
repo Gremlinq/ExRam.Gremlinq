@@ -7,7 +7,6 @@ using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Core.GraphElements;
 using Path = ExRam.Gremlinq.Core.GraphElements.Path;
-using ExRam.Gremlinq.Tests.Infrastructure;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
 {
@@ -36,7 +35,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
 
         private readonly IGremlinQueryEnvironment _environment;
 
-        public GraphsonSupportTest() : base(GremlinQueryVerifier.DefaultSettings)
+        public GraphsonSupportTest() : base()
         {
             _environment = g
                 .ConfigureEnvironment(env => env
