@@ -1,0 +1,1 @@
+﻿g.addV('Person').property('PartitionKey','PartitionKey').property(single,'Age',0).property(single,'Name','Bob').property(single,'RegistrationDate','2020-04-07T14:43:36.0000000+00:00').addE('LivesIn').from(__.V().hasLabel('Country').has('CountryCallingCode','+49'))

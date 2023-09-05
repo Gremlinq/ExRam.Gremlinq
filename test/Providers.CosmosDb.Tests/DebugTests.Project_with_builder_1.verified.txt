@@ -1,0 +1,1 @@
+﻿g.V().where(__.in()).project('in!').by(__.in())

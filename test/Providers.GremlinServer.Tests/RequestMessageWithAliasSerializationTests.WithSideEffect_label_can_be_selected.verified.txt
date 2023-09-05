@@ -1,0 +1,32 @@
+﻿{
+  RequestId: Guid_1,
+  Operation: bytecode,
+  Processor: traversal,
+  Arguments: {
+    aliases: {
+      g: a
+    },
+    gremlin: {
+      SourceInstructions: [
+        {
+          OperatorName: withSideEffect,
+          Arguments: [
+            _a,
+            36
+          ]
+        }
+      ],
+      StepInstructions: [
+        {
+          OperatorName: V
+        },
+        {
+          OperatorName: select,
+          Arguments: [
+            _a
+          ]
+        }
+      ]
+    }
+  }
+}

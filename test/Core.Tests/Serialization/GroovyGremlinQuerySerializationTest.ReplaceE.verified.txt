@@ -1,0 +1,15 @@
+﻿{
+  Script: g.E(_a).hasLabel(_b).property(_c,_d).property(_e,_f).property(_g,_d).project(_h,_i,_j).by(id).by(label).by(__.valueMap()),
+  Bindings: {
+    _a: 0,
+    _b: WorksFor,
+    _c: From,
+    _d: DateTimeOffset_1,
+    _e: Role,
+    _f: Admin,
+    _g: To,
+    _h: id,
+    _i: label,
+    _j: properties
+  }
+}

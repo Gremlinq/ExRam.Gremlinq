@@ -1,0 +1,1 @@
+﻿g.addV('Person').property('PartitionKey','PartitionKey').property(single,'Age',0).property(single,'Image','AQIDBAUGBwg=')

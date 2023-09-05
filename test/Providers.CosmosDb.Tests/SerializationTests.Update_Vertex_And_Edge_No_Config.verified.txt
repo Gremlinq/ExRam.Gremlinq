@@ -1,0 +1,22 @@
+﻿{
+  Script: g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d).drop()).property(single,_e,_f).property(single,_g,_h).property(single,_i,_j).property(single,_k,_l).outE(_m).property(_n,_l).property(_o,_p).property(_q,_l),
+  Bindings: {
+    _a: Person,
+    _b: Image,
+    _c: PhoneNumbers,
+    _d: SomeObscureProperty,
+    _e: Age,
+    _f: 21,
+    _g: Gender,
+    _h: Male,
+    _i: Name,
+    _j: Marko,
+    _k: RegistrationDate,
+    _l: DateTimeOffset_1,
+    _m: WorksFor,
+    _n: From,
+    _o: Role,
+    _p: Admin,
+    _q: To
+  }
+}

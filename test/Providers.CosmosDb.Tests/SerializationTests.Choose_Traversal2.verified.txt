@@ -1,0 +1,3 @@
+﻿{
+  Script: g.V().choose(__.values(),__.out())
+}

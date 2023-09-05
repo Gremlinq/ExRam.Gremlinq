@@ -1,0 +1,57 @@
+﻿{
+  RequestId: Guid_1,
+  Operation: bytecode,
+  Processor: traversal,
+  Arguments: {
+    aliases: {
+      g: g
+    },
+    gremlin: {
+      StepInstructions: [
+        {
+          OperatorName: V
+        },
+        {
+          OperatorName: filter,
+          Arguments: [
+            {
+              StepInstructions: [
+                {
+                  OperatorName: properties
+                }
+              ]
+            }
+          ]
+        },
+        {
+          OperatorName: choose,
+          Arguments: [
+            {
+              StepInstructions: [
+                {
+                  OperatorName: values
+                }
+              ]
+            }
+          ]
+        },
+        {
+          OperatorName: option,
+          Arguments: [
+            3,
+            {
+              StepInstructions: [
+                {
+                  OperatorName: constant,
+                  Arguments: [
+                    1
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

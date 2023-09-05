@@ -1,0 +1,16 @@
+﻿{
+  "@type": "g:Bytecode",
+  "@value": {
+    "step": [
+      [
+        "V"
+      ],
+      [
+        "properties"
+      ],
+      [
+        "valueMap"
+      ]
+    ]
+  }
+}
