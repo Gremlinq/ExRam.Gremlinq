@@ -1,12 +1,11 @@
 ﻿using System.Reflection;
-using ExRam.Gremlinq.Tests.Infrastructure;
 using PublicApiGenerator;
 
 namespace ExRam.Gremlinq.PublicApi.Tests
 {
     public sealed class PublicApiTests : VerifyBase
     {
-        public PublicApiTests() : base(GremlinQueryVerifier.DefaultSettings)
+        public PublicApiTests() : base()
         {
 
         }
@@ -50,14 +49,16 @@ namespace ExRam.Gremlinq.PublicApi.Tests
         [Fact]
         public Task SupportNewtonsoftJson() => Verify("ExRam.Gremlinq.Support.NewtonsoftJson");
 
-        private Task Verify(string assemblyName) => Verify(
-            Assembly
-                .Load(assemblyName)
-                .GeneratePublicApi(new ApiGeneratorOptions
-                {
-                    IncludeAssemblyAttributes = false,
-                    DenyNamespacePrefixes = Array.Empty<string>()
-                }),
-            "cs");
+        private Task Verify(string assemblyName) => base
+            .Verify(
+                Assembly
+                    .Load(assemblyName)
+                    .GeneratePublicApi(new ApiGeneratorOptions
+                    {
+                        IncludeAssemblyAttributes = false,
+                        DenyNamespacePrefixes = Array.Empty<string>()
+                    }),
+                "cs")
+            .UniqueForTargetFrameworkAndVersion();
     }
 }
