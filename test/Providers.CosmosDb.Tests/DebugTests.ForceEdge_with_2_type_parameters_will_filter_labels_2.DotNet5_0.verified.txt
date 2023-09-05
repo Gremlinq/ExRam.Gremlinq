@@ -1,1 +1,0 @@
-﻿g.E().hasLabel('LivesIn').outV().hasLabel('Person')

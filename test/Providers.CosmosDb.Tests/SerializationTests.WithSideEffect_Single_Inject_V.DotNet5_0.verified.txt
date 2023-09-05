@@ -1,7 +1,0 @@
-﻿{
-  Script: g.withSideEffect(_a,_b).V(),
-  Bindings: {
-    _a: stepLabel,
-    _b: sideEffect
-  }
-}

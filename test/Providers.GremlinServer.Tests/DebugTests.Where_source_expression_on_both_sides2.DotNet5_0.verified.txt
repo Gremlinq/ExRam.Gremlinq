@@ -1,1 +1,0 @@
-﻿g.V().hasLabel('EntityWithTwoIntProperties').as('_a').where(gt('_a')).by('IntProperty1').by('IntProperty2').project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold()))

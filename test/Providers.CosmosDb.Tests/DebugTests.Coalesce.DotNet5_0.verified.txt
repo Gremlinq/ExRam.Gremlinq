@@ -1,1 +1,0 @@
-﻿g.V().coalesce(__.out())
