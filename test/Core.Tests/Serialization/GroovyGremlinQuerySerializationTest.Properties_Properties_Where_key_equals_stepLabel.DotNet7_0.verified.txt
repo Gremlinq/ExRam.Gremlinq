@@ -1,9 +1,0 @@
-﻿{
-  Script: g.inject(_a).as(_b).V().hasLabel(_c).properties(_d).properties().filter(__.key().where(eq(_b))),
-  Bindings: {
-    _a: hello,
-    _b: _a,
-    _c: Company,
-    _d: Locations
-  }
-}

@@ -1,7 +1,0 @@
-﻿[
-  {
-    Gender: Female,
-    Id: -1,
-    Label: Person
-  }
-]
