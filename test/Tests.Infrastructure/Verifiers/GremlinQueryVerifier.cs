@@ -8,13 +8,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
     {
         private readonly string _sourceFile;
 
-        public static readonly VerifySettings DefaultSettings = new();
-
-        static GremlinQueryVerifier()
-        {
-            DefaultSettings.UniqueForTargetFrameworkAndVersion();
-        }
-
         protected GremlinQueryVerifier([CallerFilePath] string sourceFile = "")
         {
             _sourceFile = sourceFile;
@@ -24,7 +17,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         protected SettingsTask InnerVerify<T>(T value)
         {
-            return Verifier.Verify(value, DefaultSettings, _sourceFile);
+            return Verifier
+                .Verify(value, sourceFile: _sourceFile)
+                .UniqueForTargetFrameworkAndVersion();
         }
 
         protected virtual IImmutableList<Func<string, string>> Scrubbers() => ImmutableList<Func<string, string>>.Empty;
