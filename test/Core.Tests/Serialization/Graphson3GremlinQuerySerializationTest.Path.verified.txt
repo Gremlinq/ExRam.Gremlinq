@@ -1,0 +1,19 @@
+﻿{
+  "@type": "g:Bytecode",
+  "@value": {
+    "step": [
+      [
+        "V"
+      ],
+      [
+        "out"
+      ],
+      [
+        "out"
+      ],
+      [
+        "path"
+      ]
+    ]
+  }
+}

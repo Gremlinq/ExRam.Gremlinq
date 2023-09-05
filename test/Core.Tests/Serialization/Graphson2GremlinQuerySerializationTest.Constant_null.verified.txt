@@ -1,0 +1,14 @@
+﻿{
+  "@type": "g:Bytecode",
+  "@value": {
+    "step": [
+      [
+        "V"
+      ],
+      [
+        "constant",
+        null
+      ]
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+﻿{
+  Script: g.V().hasLabel(_a).property(single,_b,_c),
+  Bindings: {
+    _a: Person,
+    _b: GuidKey,
+    _c: Guid_1
+  }
+}

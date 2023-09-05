@@ -1,0 +1,1 @@
+﻿g.addV('Company').property('PartitionKey','PartitionKey').property(single,'FoundingDate','0001-01-01T00:00:00.0000000+00:00').property(list,'Locations','Aachen','ValidFrom','2019-01-01T01:00:00.0000000+00:00')

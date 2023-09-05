@@ -1,0 +1,61 @@
+﻿{
+  StepInstructions: [
+    {
+      OperatorName: V
+    },
+    {
+      OperatorName: hasLabel,
+      Arguments: [
+        Company
+      ]
+    },
+    {
+      OperatorName: properties,
+      Arguments: [
+        Locations
+      ]
+    },
+    {
+      OperatorName: has,
+      Arguments: [
+        ValidFrom,
+        DateTimeOffset_1
+      ]
+    },
+    {
+      OperatorName: project,
+      Arguments: [
+        id,
+        label,
+        value
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          EnumName: T,
+          EnumValue: id
+        }
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          EnumName: T,
+          EnumValue: label
+        }
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          EnumName: T,
+          EnumValue: value
+        }
+      ]
+    }
+  ]
+}

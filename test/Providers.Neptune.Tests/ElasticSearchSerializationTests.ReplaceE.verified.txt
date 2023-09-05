@@ -1,0 +1,91 @@
+﻿{
+  SourceInstructions: [
+    {
+      OperatorName: withSideEffect,
+      Arguments: [
+        Neptune#fts.endpoint,
+        http://elastic.search.server
+      ]
+    },
+    {
+      OperatorName: withSideEffect,
+      Arguments: [
+        Neptune#fts.queryType,
+        query_string
+      ]
+    }
+  ],
+  StepInstructions: [
+    {
+      OperatorName: E,
+      Arguments: [
+        0
+      ]
+    },
+    {
+      OperatorName: hasLabel,
+      Arguments: [
+        WorksFor
+      ]
+    },
+    {
+      OperatorName: property,
+      Arguments: [
+        From,
+        DateTimeOffset_1
+      ]
+    },
+    {
+      OperatorName: property,
+      Arguments: [
+        Role,
+        Admin
+      ]
+    },
+    {
+      OperatorName: property,
+      Arguments: [
+        To,
+        DateTimeOffset_1
+      ]
+    },
+    {
+      OperatorName: project,
+      Arguments: [
+        id,
+        label,
+        properties
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          EnumName: T,
+          EnumValue: id
+        }
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          EnumName: T,
+          EnumValue: label
+        }
+      ]
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: valueMap
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

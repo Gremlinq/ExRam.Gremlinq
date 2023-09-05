@@ -1,0 +1,21 @@
+﻿{
+  RequestId: Guid_1,
+  Operation: eval,
+  Processor: ,
+  Arguments: {
+    aliases: {
+      g: g
+    },
+    bindings: {
+      _a: Person,
+      _b: Image,
+      _c: PhoneNumbers,
+      _d: SomeObscureProperty,
+      _e: Name,
+      _f: Marko,
+      _g: RegistrationDate,
+      _h: DateTimeOffset_1
+    },
+    gremlin: g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d).drop()).property(single,_e,_f).property(single,_g,_h)
+  }
+}
