@@ -1,1 +1,0 @@
-﻿g.V().hasLabel('Person').not(__.has('Age',within(36,37,38)))

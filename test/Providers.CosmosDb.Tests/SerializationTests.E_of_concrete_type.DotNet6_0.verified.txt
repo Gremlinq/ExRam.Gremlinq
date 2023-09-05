@@ -1,6 +1,0 @@
-﻿{
-  Script: g.E().hasLabel(_a),
-  Bindings: {
-    _a: WorksFor
-  }
-}

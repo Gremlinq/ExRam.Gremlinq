@@ -1,1 +1,0 @@
-﻿g.V().where(__.in()).where(__.out()).where(__.properties()).project('in!','out!','count!','properties!').by(__.in()).by(__.out()).by(__.count()).by(__.properties())
