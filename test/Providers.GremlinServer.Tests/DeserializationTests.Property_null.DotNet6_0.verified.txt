@@ -1,6 +1,0 @@
-﻿[
-  {
-    Id: -1,
-    Label: Company
-  }
-]

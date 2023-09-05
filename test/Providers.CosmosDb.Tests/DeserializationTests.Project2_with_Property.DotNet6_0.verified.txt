@@ -1,9 +1,0 @@
-﻿[
-  {
-    Item1: {
-      CountryCallingCode: +49,
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Country
-    }
-  }
-]

@@ -1,1 +1,0 @@
-﻿g.V().hasLabel('Person').has('Age',gt(36).or(lt(72)))

@@ -1,1 +1,0 @@
-﻿g.V().hasLabel('Company').not(__.has('PhoneNumbers','+4912345'))

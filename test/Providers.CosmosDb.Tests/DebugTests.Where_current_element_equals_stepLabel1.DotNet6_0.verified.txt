@@ -1,1 +1,0 @@
-﻿g.V().hasLabel('Language').as('_a').V().hasLabel('Language').where(eq('_a'))

@@ -1,7 +1,0 @@
-﻿{
-  Script: g.V().limit(_a).fold().range(local,_b,_a),
-  Bindings: {
-    _a: 1,
-    _b: 0
-  }
-}
