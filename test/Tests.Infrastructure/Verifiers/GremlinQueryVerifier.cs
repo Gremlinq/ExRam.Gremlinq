@@ -17,15 +17,11 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         protected SettingsTask InnerVerify<T>(T value)
         {
-            if (value is string stringValue)
-            {
-                value= (T)(object)this
-                    .Scrubbers()
-                    .Aggregate(stringValue, (s, func) => func(s));
-            }
-
             return Verifier
-                .Verify(value, sourceFile: _sourceFile);
+                .Verify(value, sourceFile: _sourceFile)
+                .ScrubLinesWithReplace(stringValue => this
+                    .Scrubbers()
+                    .Aggregate(stringValue, (s, func) => func(s)));
         }
 
         protected virtual IImmutableList<Func<string, string>> Scrubbers() => ImmutableList<Func<string, string>>.Empty;
