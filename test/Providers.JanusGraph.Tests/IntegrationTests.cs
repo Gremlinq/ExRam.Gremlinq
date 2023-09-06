@@ -17,9 +17,12 @@ namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
             {
             }
 
-            protected override IImmutableList<Func<string, string>> Scrubbers() => base
-                .Scrubbers()
-                .Add(x => RelationIdRegex.Replace(x, "\"relationId\": \"scrubbed\""));
+            protected override SettingsTask InnerVerify<T>(T value)
+            {
+                return base
+                    .InnerVerify(value)
+                    .ScrubRegex(RelationIdRegex, "\"relationId\": \"scrubbed\"");
+            }
         }
 
         public IntegrationTests(JanusGraphFixture fixture, ITestOutputHelper testOutputHelper) : base(
