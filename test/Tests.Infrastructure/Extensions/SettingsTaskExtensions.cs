@@ -4,10 +4,18 @@ namespace VerifyTests
 {
     public static class SettingsTaskExtensions
     {
+        private static readonly Regex GuidRegex = new("[0-9a-f]{8}[-]?([0-9a-f]{4}[-]?){3}[0-9a-f]{12}", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
         public static SettingsTask ScrubRegex(this SettingsTask task, Regex regex, string replacement)
         {
             return task
                 .ScrubLinesWithReplace(str => regex.Replace(str, replacement));
+        }
+
+        public static SettingsTask ScrubGuids(this SettingsTask task)
+        {
+            return task
+                .ScrubRegex(GuidRegex, "00000000-0000-0000-0000-000000000000");
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Collections.Immutable;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Execution;
@@ -53,12 +52,10 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                     .ToArrayAsync(),
                 Formatting.Indented);
 
-            await InnerVerify(serialized);
+            await base
+                .InnerVerify(serialized)
+                .ScrubRegex(IdRegex, "\"@value\": -1")
+                .ScrubGuids();
         }
-
-        protected override IImmutableList<Func<string, string>> Scrubbers() => base
-            .Scrubbers()
-            .Add(x => IdRegex.Replace(x, "\"@value\": -1"))
-            .ScrubGuids();
     }
 }
