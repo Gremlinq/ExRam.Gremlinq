@@ -1,98 +1,98 @@
 ﻿[
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_1",
     "label": "Company",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_1|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "FoundingDate": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_2",
           "value": -62135596800000
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_3",
     "label": "Company",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_3|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "FoundingDate": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_4",
           "value": -62135596800000
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_5",
     "label": "Company",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_5|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "FoundingDate": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_6",
           "value": -62135596800000
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_7",
     "label": "LivesIn",
     "type": "edge",
     "inVLabel": "Country",
     "outVLabel": "Person",
-    "inV": "00000000-0000-0000-0000-000000000000",
-    "outV": "00000000-0000-0000-0000-000000000000"
+    "inV": "Guid_8",
+    "outV": "Guid_9"
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_10",
     "label": "LivesIn",
     "type": "edge",
     "inVLabel": "Country",
     "outVLabel": "Person",
-    "inV": "00000000-0000-0000-0000-000000000000",
-    "outV": "00000000-0000-0000-0000-000000000000"
+    "inV": "Guid_11",
+    "outV": "Guid_12"
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_13",
     "label": "LivesIn",
     "type": "edge",
     "inVLabel": "Country",
     "outVLabel": "Person",
-    "inV": "00000000-0000-0000-0000-000000000000",
-    "outV": "00000000-0000-0000-0000-000000000000",
+    "inV": "Guid_14",
+    "outV": "Guid_15",
     "properties": {
       "Since": 1586270616000
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_16",
     "label": "LivesIn",
     "type": "edge",
     "inVLabel": "Country",
     "outVLabel": "Person",
-    "inV": "00000000-0000-0000-0000-000000000000",
-    "outV": "00000000-0000-0000-0000-000000000000"
+    "inV": "Guid_17",
+    "outV": "Guid_18"
   }
 ]

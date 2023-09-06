@@ -1,86 +1,86 @@
 ﻿[
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_1",
     "label": "Person",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_1|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "Name": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_2",
           "value": "Marko"
         }
       ],
       "RegistrationDate": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_3",
           "value": 1586270616000
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_4",
     "label": "Person",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_4|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "Age": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_5",
           "value": 0
         }
       ],
       "Name": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_6",
           "value": "Bob"
         }
       ],
       "RegistrationDate": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_7",
           "value": 1586270616000
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_8",
     "label": "Person",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_8|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "Age": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_9",
           "value": 0
         }
       ],
       "Name": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_10",
           "value": "Bob"
         }
       ],
       "RegistrationDate": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_11",
           "value": 1586270616000
         }
       ]

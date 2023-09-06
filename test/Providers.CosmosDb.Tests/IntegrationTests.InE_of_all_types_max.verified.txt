@@ -1,30 +1,30 @@
 ﻿[
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_1",
     "label": "LivesIn",
     "type": "edge",
     "inVLabel": "Country",
     "outVLabel": "Person",
-    "inV": "00000000-0000-0000-0000-000000000000",
-    "outV": "00000000-0000-0000-0000-000000000000"
+    "inV": "Guid_2",
+    "outV": "Guid_3"
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_4",
     "label": "Speaks",
     "type": "edge",
     "inVLabel": "Language",
     "outVLabel": "Country",
-    "inV": "00000000-0000-0000-0000-000000000000",
-    "outV": "00000000-0000-0000-0000-000000000000"
+    "inV": "Guid_5",
+    "outV": "Guid_2"
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_6",
     "label": "WorksFor",
     "type": "edge",
     "inVLabel": "Company",
     "outVLabel": "Person",
-    "inV": "00000000-0000-0000-0000-000000000000",
-    "outV": "00000000-0000-0000-0000-000000000000",
+    "inV": "Guid_7",
+    "outV": "Guid_8",
     "properties": {
       "From": 1586270616000,
       "Role": "Admin",
@@ -32,52 +32,52 @@
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_9",
     "label": "LivesIn",
     "type": "edge",
     "inVLabel": "Person",
     "outVLabel": "Country",
-    "inV": "00000000-0000-0000-0000-000000000000",
-    "outV": "00000000-0000-0000-0000-000000000000"
+    "inV": "Guid_10",
+    "outV": "Guid_2"
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_11",
     "label": "LivesIn",
     "type": "edge",
     "inVLabel": "Country",
     "outVLabel": "Person",
-    "inV": "00000000-0000-0000-0000-000000000000",
-    "outV": "00000000-0000-0000-0000-000000000000"
+    "inV": "Guid_12",
+    "outV": "Guid_13"
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_14",
     "label": "LivesIn",
     "type": "edge",
     "inVLabel": "Country",
     "outVLabel": "Person",
-    "inV": "00000000-0000-0000-0000-000000000000",
-    "outV": "00000000-0000-0000-0000-000000000000"
+    "inV": "Guid_15",
+    "outV": "Guid_16"
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_17",
     "label": "LivesIn",
     "type": "edge",
     "inVLabel": "Country",
     "outVLabel": "Person",
-    "inV": "00000000-0000-0000-0000-000000000000",
-    "outV": "00000000-0000-0000-0000-000000000000",
+    "inV": "Guid_18",
+    "outV": "Guid_19",
     "properties": {
       "Since": 1586270616000
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_20",
     "label": "WorksFor",
     "type": "edge",
     "inVLabel": "Company",
     "outVLabel": "Person",
-    "inV": "00000000-0000-0000-0000-000000000000",
-    "outV": "00000000-0000-0000-0000-000000000000",
+    "inV": "Guid_21",
+    "outV": "Guid_22",
     "properties": {
       "From": 1586270616000,
       "Role": "Admin",
@@ -85,22 +85,22 @@
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_23",
     "label": "Speaks",
     "type": "edge",
     "inVLabel": "Language",
     "outVLabel": "Country",
-    "inV": "00000000-0000-0000-0000-000000000000",
-    "outV": "00000000-0000-0000-0000-000000000000"
+    "inV": "Guid_24",
+    "outV": "Guid_25"
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_26",
     "label": "WorksFor",
     "type": "edge",
     "inVLabel": "Company",
     "outVLabel": "Person",
-    "inV": "00000000-0000-0000-0000-000000000000",
-    "outV": "00000000-0000-0000-0000-000000000000",
+    "inV": "Guid_27",
+    "outV": "Guid_28",
     "properties": {
       "To": 1586270616000
     }

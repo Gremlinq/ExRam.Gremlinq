@@ -1,50 +1,50 @@
 ﻿[
   {
     "Item1": {
-      "id": "00000000-0000-0000-0000-000000000000",
+      "id": "Guid_1",
       "label": "Person",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+            "id": "Guid_1|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "Age": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
+            "id": "Guid_2",
             "value": 0
           }
         ],
         "Name": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
+            "id": "Guid_3",
             "value": "Bob"
           }
         ],
         "RegistrationDate": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
+            "id": "Guid_4",
             "value": 1586270616000
           }
         ]
       }
     },
     "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000",
+      "id": "Guid_5",
       "label": "Language",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+            "id": "Guid_5|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "IetfLanguageTag": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
+            "id": "Guid_6",
             "value": "en"
           }
         ]
@@ -52,26 +52,26 @@
     },
     "Item3": 1,
     "Item4": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+      "id": "Guid_7|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     }
   },
   {
     "Item1": {
-      "id": "00000000-0000-0000-0000-000000000000",
+      "id": "Guid_7",
       "label": "Country",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+            "id": "Guid_7|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "CountryCallingCode": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
+            "id": "Guid_8",
             "value": "+49"
           }
         ]
@@ -79,26 +79,26 @@
     },
     "Item3": 1,
     "Item4": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+      "id": "Guid_5|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     }
   },
   {
     "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000",
+      "id": "Guid_9",
       "label": "Company",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+            "id": "Guid_9|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "FoundingDate": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
+            "id": "Guid_10",
             "value": -62135596800000
           }
         ]
@@ -106,26 +106,26 @@
     },
     "Item3": 1,
     "Item4": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+      "id": "Guid_11|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     }
   },
   {
     "Item1": {
-      "id": "00000000-0000-0000-0000-000000000000",
+      "id": "Guid_11",
       "label": "Person",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+            "id": "Guid_11|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "Age": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
+            "id": "Guid_12",
             "value": 0
           }
         ]
@@ -133,26 +133,26 @@
     },
     "Item3": 1,
     "Item4": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+      "id": "Guid_9|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     }
   },
   {
     "Item1": {
-      "id": "00000000-0000-0000-0000-000000000000",
+      "id": "Guid_7",
       "label": "Country",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+            "id": "Guid_7|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "CountryCallingCode": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
+            "id": "Guid_8",
             "value": "+49"
           }
         ]
@@ -160,20 +160,20 @@
     },
     "Item3": 1,
     "Item4": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+      "id": "Guid_13|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     }
   },
   {
     "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000",
+      "id": "Guid_14",
       "label": "Country",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+            "id": "Guid_14|PartitionKey",
             "value": "PartitionKey"
           }
         ]
@@ -181,26 +181,26 @@
     },
     "Item3": 1,
     "Item4": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+      "id": "Guid_15|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     }
   },
   {
     "Item1": {
-      "id": "00000000-0000-0000-0000-000000000000",
+      "id": "Guid_15",
       "label": "Person",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+            "id": "Guid_15|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "Age": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
+            "id": "Guid_16",
             "value": 0
           }
         ]
@@ -208,20 +208,20 @@
     },
     "Item3": 1,
     "Item4": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+      "id": "Guid_14|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     }
   },
   {
     "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000",
+      "id": "Guid_17",
       "label": "Country",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+            "id": "Guid_17|PartitionKey",
             "value": "PartitionKey"
           }
         ]
@@ -229,26 +229,26 @@
     },
     "Item3": 1,
     "Item4": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+      "id": "Guid_18|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     }
   },
   {
     "Item1": {
-      "id": "00000000-0000-0000-0000-000000000000",
+      "id": "Guid_18",
       "label": "Person",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+            "id": "Guid_18|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "Age": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
+            "id": "Guid_19",
             "value": 0
           }
         ]
@@ -256,20 +256,20 @@
     },
     "Item3": 1,
     "Item4": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+      "id": "Guid_17|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     }
   },
   {
     "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000",
+      "id": "Guid_20",
       "label": "Country",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+            "id": "Guid_20|PartitionKey",
             "value": "PartitionKey"
           }
         ]
@@ -277,26 +277,26 @@
     },
     "Item3": 1,
     "Item4": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+      "id": "Guid_21|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     }
   },
   {
     "Item1": {
-      "id": "00000000-0000-0000-0000-000000000000",
+      "id": "Guid_21",
       "label": "Person",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+            "id": "Guid_21|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "Age": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
+            "id": "Guid_22",
             "value": 0
           }
         ]
@@ -304,26 +304,26 @@
     },
     "Item3": 1,
     "Item4": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+      "id": "Guid_20|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     }
   },
   {
     "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000",
+      "id": "Guid_23",
       "label": "Company",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+            "id": "Guid_23|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "FoundingDate": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
+            "id": "Guid_24",
             "value": -62135596800000
           }
         ]
@@ -331,26 +331,26 @@
     },
     "Item3": 1,
     "Item4": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+      "id": "Guid_25|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     }
   },
   {
     "Item1": {
-      "id": "00000000-0000-0000-0000-000000000000",
+      "id": "Guid_25",
       "label": "Person",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+            "id": "Guid_25|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "Age": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
+            "id": "Guid_26",
             "value": 0
           }
         ]
@@ -358,26 +358,26 @@
     },
     "Item3": 1,
     "Item4": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+      "id": "Guid_23|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     }
   },
   {
     "Item1": {
-      "id": "00000000-0000-0000-0000-000000000000",
+      "id": "Guid_27",
       "label": "Country",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+            "id": "Guid_27|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "CountryCallingCode": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
+            "id": "Guid_28",
             "value": "+49"
           }
         ]
@@ -385,26 +385,26 @@
     },
     "Item3": 1,
     "Item4": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+      "id": "Guid_29|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     }
   },
   {
     "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000",
+      "id": "Guid_29",
       "label": "Language",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+            "id": "Guid_29|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "IetfLanguageTag": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
+            "id": "Guid_30",
             "value": "en"
           }
         ]
@@ -412,26 +412,26 @@
     },
     "Item3": 1,
     "Item4": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+      "id": "Guid_27|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     }
   },
   {
     "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000",
+      "id": "Guid_7",
       "label": "Country",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+            "id": "Guid_7|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "CountryCallingCode": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
+            "id": "Guid_8",
             "value": "+49"
           }
         ]
@@ -439,26 +439,26 @@
     },
     "Item3": 1,
     "Item4": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+      "id": "Guid_1|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     }
   },
   {
     "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000",
+      "id": "Guid_31",
       "label": "Company",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+            "id": "Guid_31|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "FoundingDate": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
+            "id": "Guid_32",
             "value": -62135596800000
           }
         ]
@@ -466,26 +466,26 @@
     },
     "Item3": 1,
     "Item4": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+      "id": "Guid_33|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     }
   },
   {
     "Item1": {
-      "id": "00000000-0000-0000-0000-000000000000",
+      "id": "Guid_33",
       "label": "Person",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+            "id": "Guid_33|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "Age": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
+            "id": "Guid_34",
             "value": 0
           }
         ]
@@ -493,7 +493,7 @@
     },
     "Item3": 1,
     "Item4": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+      "id": "Guid_31|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     }
@@ -501,7 +501,7 @@
   {
     "Item3": 1,
     "Item4": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+      "id": "Guid_35|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     }
@@ -509,7 +509,7 @@
   {
     "Item3": 1,
     "Item4": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+      "id": "Guid_36|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     }
@@ -517,7 +517,7 @@
   {
     "Item3": 1,
     "Item4": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+      "id": "Guid_37|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     }
@@ -525,7 +525,7 @@
   {
     "Item3": 1,
     "Item4": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+      "id": "Guid_38|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     }
@@ -533,7 +533,7 @@
   {
     "Item3": 1,
     "Item4": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+      "id": "Guid_39|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     }
@@ -541,7 +541,7 @@
   {
     "Item3": 1,
     "Item4": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+      "id": "Guid_40|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     }
@@ -549,7 +549,7 @@
   {
     "Item3": 1,
     "Item4": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+      "id": "Guid_41|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     }
@@ -557,7 +557,7 @@
   {
     "Item3": 1,
     "Item4": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+      "id": "Guid_42|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     }
@@ -565,7 +565,7 @@
   {
     "Item3": 1,
     "Item4": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+      "id": "Guid_43|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     }
@@ -573,7 +573,7 @@
   {
     "Item3": 1,
     "Item4": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+      "id": "Guid_44|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     }
@@ -581,7 +581,7 @@
   {
     "Item3": 1,
     "Item4": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+      "id": "Guid_45|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     }
@@ -589,7 +589,7 @@
   {
     "Item3": 1,
     "Item4": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+      "id": "Guid_46|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     }
@@ -597,7 +597,7 @@
   {
     "Item3": 1,
     "Item4": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+      "id": "Guid_47|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     }
@@ -605,7 +605,7 @@
   {
     "Item3": 1,
     "Item4": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+      "id": "Guid_48|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     }
@@ -613,7 +613,7 @@
   {
     "Item3": 1,
     "Item4": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+      "id": "Guid_49|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     }
@@ -621,7 +621,7 @@
   {
     "Item3": 1,
     "Item4": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+      "id": "Guid_50|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     }

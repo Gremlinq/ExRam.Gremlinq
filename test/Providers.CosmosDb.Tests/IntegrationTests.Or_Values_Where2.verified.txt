@@ -1,225 +1,225 @@
 ﻿[
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_1",
     "label": "Person",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_1|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "Age": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_2",
           "value": 0
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_3",
     "label": "Person",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_3|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "Age": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_4",
           "value": 0
         }
       ],
       "Name": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_5",
           "value": "Bob"
         }
       ],
       "RegistrationDate": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_6",
           "value": 1586270616000
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_7",
     "label": "Person",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_7|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "Age": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_8",
           "value": 0
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_9",
     "label": "Person",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_9|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "Age": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_10",
           "value": 0
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_11",
     "label": "Person",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_11|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "Age": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_12",
           "value": 0
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_13",
     "label": "Person",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_13|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "Age": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_14",
           "value": 0
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_15",
     "label": "Person",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_15|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "Age": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_16",
           "value": 0
         }
       ],
       "Name": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_17",
           "value": "Bob"
         }
       ],
       "RegistrationDate": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_18",
           "value": 1586270616000
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_19",
     "label": "Person",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_19|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "Age": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_20",
           "value": 0
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_21",
     "label": "Person",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_21|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "Age": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_22",
           "value": 0
         }
       ],
       "Image": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_23",
           "value": "AQIDBAUGBwg="
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_24",
     "label": "Person",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_24|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "Age": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_25",
           "value": 0
         }
       ],
       "Gender": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_26",
           "value": 1
         }
       ]
