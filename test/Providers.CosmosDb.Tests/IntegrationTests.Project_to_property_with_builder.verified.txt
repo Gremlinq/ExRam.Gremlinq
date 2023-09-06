@@ -1,19 +1,19 @@
 ﻿[
   {
     "in!": {
-      "id": "00000000-0000-0000-0000-000000000000",
+      "id": "Guid_1",
       "label": "Country",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+            "id": "Guid_1|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "CountryCallingCode": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
+            "id": "Guid_2",
             "value": "+49"
           }
         ]

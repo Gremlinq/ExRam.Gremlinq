@@ -1,24 +1,24 @@
 ﻿[
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_1",
     "label": "Country",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_1|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "CountryCallingCode": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_2",
           "value": "+49"
         }
       ],
       "LocalizableDescription": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_3",
           "value": "",
           "properties": {
             "someKey": "value"
@@ -28,19 +28,19 @@
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_4",
     "label": "Country",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_4|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "LocalizableDescription": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_5",
           "value": "",
           "properties": {
             "someKey": "value"
@@ -50,19 +50,19 @@
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_6",
     "label": "Country",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_6|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "LocalizableDescription": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_7",
           "value": "",
           "properties": {
             "someKey": "value"
@@ -72,19 +72,19 @@
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_8",
     "label": "Country",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_8|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "LocalizableDescription": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_9",
           "value": "",
           "properties": {
             "someKey": "value"
@@ -94,25 +94,25 @@
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_10",
     "label": "Country",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_10|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "CountryCallingCode": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_11",
           "value": "+49"
         }
       ],
       "LocalizableDescription": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_12",
           "value": "",
           "properties": {
             "someKey": "value"
@@ -122,25 +122,25 @@
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_13",
     "label": "Country",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_13|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "Name": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_14",
           "value": "GER"
         }
       ],
       "LocalizableDescription": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_15",
           "value": "",
           "properties": {
             "someKey": "value"
@@ -150,19 +150,19 @@
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_16",
     "label": "Country",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_16|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "Name": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_17",
           "value": "GER",
           "properties": {
             "de": "Deutschland",
@@ -172,7 +172,7 @@
       ],
       "LocalizableDescription": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_18",
           "value": "",
           "properties": {
             "someKey": "value"

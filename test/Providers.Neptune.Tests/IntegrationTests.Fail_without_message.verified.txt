@@ -2,7 +2,7 @@
   {
     "serverException": {
       "type": "GremlinQueryExecutionException",
-      "message": "Executing query 00000000-0000-0000-0000-000000000000 failed.",
+      "message": "Executing query e974bdbe329c4a1bab90958c8e8ca4fb failed.",
       "innerException": {
         "type": "ResponseException",
         "message": "ServerErrorFailStep: fail() step triggered"

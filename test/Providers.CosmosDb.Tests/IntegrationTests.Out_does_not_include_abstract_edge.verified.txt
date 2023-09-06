@@ -1,114 +1,114 @@
 ﻿[
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_1",
     "label": "Company",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_1|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "FoundingDate": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_2",
           "value": -62135596800000
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_3",
     "label": "Country",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_3|PartitionKey",
           "value": "PartitionKey"
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_4",
     "label": "Country",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_4|PartitionKey",
           "value": "PartitionKey"
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_5",
     "label": "Country",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_5|PartitionKey",
           "value": "PartitionKey"
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_6",
     "label": "Company",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_6|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "FoundingDate": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_7",
           "value": -62135596800000
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_8",
     "label": "Country",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_8|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "CountryCallingCode": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_9",
           "value": "+49"
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_10",
     "label": "Company",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_10|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "FoundingDate": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_11",
           "value": -62135596800000
         }
       ]

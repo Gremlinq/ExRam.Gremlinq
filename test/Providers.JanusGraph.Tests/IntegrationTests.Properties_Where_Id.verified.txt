@@ -2,7 +2,7 @@
   {
     "serverException": {
       "type": "GremlinQueryExecutionException",
-      "message": "Executing query 00000000-0000-0000-0000-000000000000 failed.",
+      "message": "Executing query cfe93704b9904665a021342b676c29fb failed.",
       "innerException": {
         "type": "ResponseException",
         "message": "ServerError: Expected valid relation id: id"

@@ -1,24 +1,24 @@
 ﻿[
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_1",
     "label": "Country",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_1|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "CountryCallingCode": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_2",
           "value": "+49"
         }
       ],
       "LocalizableDescription": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_3",
           "value": "",
           "properties": {
             "someKey": "value"
@@ -28,38 +28,38 @@
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_4",
     "label": "Language",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_4|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "IetfLanguageTag": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_5",
           "value": "en"
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_6",
     "label": "Person",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_6|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "Age": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_7",
           "value": 36,
           "properties": {
             "Meta": "value"
@@ -68,51 +68,51 @@
       ],
       "GuidKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "00000000-0000-0000-0000-000000000000"
+          "id": "Guid_8",
+          "value": "Guid_9"
         }
       ],
       "StringKey1": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_10",
           "value": 36
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_11",
     "label": "Company",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_11|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "FoundingDate": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_12",
           "value": -62135596800000
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_13",
     "label": "Person",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_13|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "Age": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_14",
           "value": 36,
           "properties": {
             "Meta": "value"
@@ -121,44 +121,44 @@
       ],
       "Name": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_15",
           "value": "Bob"
         }
       ],
       "RegistrationDate": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_16",
           "value": 1586270616000
         }
       ],
       "GuidKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "00000000-0000-0000-0000-000000000000"
+          "id": "Guid_17",
+          "value": "Guid_9"
         }
       ],
       "StringKey1": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_18",
           "value": 36
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_19",
     "label": "Person",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_19|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "Age": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_20",
           "value": 36,
           "properties": {
             "Meta": "value"
@@ -167,32 +167,32 @@
       ],
       "GuidKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "00000000-0000-0000-0000-000000000000"
+          "id": "Guid_21",
+          "value": "Guid_9"
         }
       ],
       "StringKey1": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_22",
           "value": 36
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_23",
     "label": "Country",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_23|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "LocalizableDescription": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_24",
           "value": "",
           "properties": {
             "someKey": "value"
@@ -202,19 +202,19 @@
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_25",
     "label": "Person",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_25|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "Age": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_26",
           "value": 36,
           "properties": {
             "Meta": "value"
@@ -223,32 +223,32 @@
       ],
       "GuidKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "00000000-0000-0000-0000-000000000000"
+          "id": "Guid_27",
+          "value": "Guid_9"
         }
       ],
       "StringKey1": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_28",
           "value": 36
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_29",
     "label": "Country",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_29|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "LocalizableDescription": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_30",
           "value": "",
           "properties": {
             "someKey": "value"
@@ -258,19 +258,19 @@
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_31",
     "label": "Person",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_31|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "Age": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_32",
           "value": 36,
           "properties": {
             "Meta": "value"
@@ -279,32 +279,32 @@
       ],
       "GuidKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "00000000-0000-0000-0000-000000000000"
+          "id": "Guid_33",
+          "value": "Guid_9"
         }
       ],
       "StringKey1": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_34",
           "value": 36
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_35",
     "label": "Country",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_35|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "LocalizableDescription": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_36",
           "value": "",
           "properties": {
             "someKey": "value"
@@ -314,19 +314,19 @@
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_37",
     "label": "Person",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_37|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "Age": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_38",
           "value": 36,
           "properties": {
             "Meta": "value"
@@ -335,76 +335,76 @@
       ],
       "GuidKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "00000000-0000-0000-0000-000000000000"
+          "id": "Guid_39",
+          "value": "Guid_9"
         }
       ],
       "StringKey1": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_40",
           "value": 36
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_41",
     "label": "Company",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_41|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "FoundingDate": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_42",
           "value": -62135596800000
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_43",
     "label": "Language",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_43|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "IetfLanguageTag": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_44",
           "value": "en"
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_45",
     "label": "Country",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_45|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "CountryCallingCode": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_46",
           "value": "+49"
         }
       ],
       "LocalizableDescription": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_47",
           "value": "",
           "properties": {
             "someKey": "value"
@@ -414,19 +414,19 @@
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_48",
     "label": "Person",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_48|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "Age": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_49",
           "value": 36,
           "properties": {
             "Meta": "value"
@@ -435,44 +435,44 @@
       ],
       "Name": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_50",
           "value": "Bob"
         }
       ],
       "RegistrationDate": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_51",
           "value": 1586270616000
         }
       ],
       "GuidKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "00000000-0000-0000-0000-000000000000"
+          "id": "Guid_52",
+          "value": "Guid_9"
         }
       ],
       "StringKey1": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_53",
           "value": 36
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_54",
     "label": "Person",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_54|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "Age": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_55",
           "value": 36,
           "properties": {
             "Meta": "value"
@@ -481,152 +481,152 @@
       ],
       "GuidKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "00000000-0000-0000-0000-000000000000"
+          "id": "Guid_56",
+          "value": "Guid_9"
         }
       ],
       "StringKey1": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_57",
           "value": 36
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_58",
     "label": "Company",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_58|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "FoundingDate": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_59",
           "value": -62135596800000
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_60",
     "label": "Language",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_60|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "IetfLanguageTag": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_61",
           "value": "en"
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_62",
     "label": "Language",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_62|PartitionKey",
           "value": "PartitionKey"
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_63",
     "label": "TimeFrame",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_63|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "Duration": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_64",
           "value": 7200000.0
         }
       ],
       "Enabled": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_65",
           "value": false
         }
       ],
       "StartTime": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_66",
           "value": 28800000.0
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_67",
     "label": "Language",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_67|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "IetfLanguageTag": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_68",
           "value": "en"
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_69",
     "label": "Language",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_69|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "IetfLanguageTag": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_70",
           "value": "en"
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_71",
     "label": "Person",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_71|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "Age": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_72",
           "value": 36,
           "properties": {
             "Meta": "value"
@@ -635,38 +635,38 @@
       ],
       "Image": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_73",
           "value": "AQIDBAUGBwg="
         }
       ],
       "GuidKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "00000000-0000-0000-0000-000000000000"
+          "id": "Guid_74",
+          "value": "Guid_9"
         }
       ],
       "StringKey1": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_75",
           "value": 36
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_76",
     "label": "Person",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_76|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "Age": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_77",
           "value": 36,
           "properties": {
             "Meta": "value"
@@ -675,56 +675,56 @@
       ],
       "Gender": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_78",
           "value": 1
         }
       ],
       "GuidKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "00000000-0000-0000-0000-000000000000"
+          "id": "Guid_79",
+          "value": "Guid_9"
         }
       ],
       "StringKey1": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_80",
           "value": 36
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_81",
     "label": "Person",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_81|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "Name": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_82",
           "value": "Marko"
         }
       ],
       "RegistrationDate": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_83",
           "value": 1586270616000
         }
       ],
       "GuidKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "00000000-0000-0000-0000-000000000000"
+          "id": "Guid_84",
+          "value": "Guid_9"
         }
       ],
       "Age": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_85",
           "value": 36,
           "properties": {
             "Meta": "value"
@@ -733,64 +733,64 @@
       ],
       "StringKey1": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_86",
           "value": 36
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_87",
     "label": "Language",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_87|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "IetfLanguageTag": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_88",
           "value": "en"
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_89",
     "label": "Language",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_89|PartitionKey",
           "value": "PartitionKey"
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_90",
     "label": "Company",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_90|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "FoundingDate": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_91",
           "value": -62135596800000
         }
       ],
       "Locations": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_92",
           "value": "Aachen",
           "properties": {
             "ValidFrom": 1546304400000
@@ -800,25 +800,25 @@
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_93",
     "label": "Country",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_93|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "Name": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_94",
           "value": "GER"
         }
       ],
       "LocalizableDescription": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_95",
           "value": "",
           "properties": {
             "someKey": "value"
@@ -828,19 +828,19 @@
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_96",
     "label": "Country",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_96|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "Name": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_97",
           "value": "GER",
           "properties": {
             "de": "Deutschland",
@@ -850,7 +850,7 @@
       ],
       "LocalizableDescription": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_98",
           "value": "",
           "properties": {
             "someKey": "value"
@@ -860,61 +860,61 @@
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_99",
     "label": "Company",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_99|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "FoundingDate": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_100",
           "value": -62135596800000
         }
       ],
       "PhoneNumbers": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_101",
           "value": "+4912345"
         },
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_102",
           "value": "+4923456"
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_103",
     "label": "Language",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_103|PartitionKey",
           "value": "PartitionKey"
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_104",
     "label": "Language",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_104|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "lang": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_105",
           "value": "en"
         }
       ]

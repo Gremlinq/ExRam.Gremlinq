@@ -1,18 +1,18 @@
 ﻿[
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_1",
     "label": "Person",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_1|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "Age": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_2",
           "value": 36,
           "properties": {
             "Meta": "value"
@@ -21,178 +21,26 @@
       ],
       "GuidKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "00000000-0000-0000-0000-000000000000"
+          "id": "Guid_3",
+          "value": "Guid_4"
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_5",
     "label": "Person",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_5|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "Age": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 36,
-          "properties": {
-            "Meta": "value"
-          }
-        }
-      ],
-      "Name": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "Bob"
-        }
-      ],
-      "RegistrationDate": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 1586270616000
-        }
-      ],
-      "GuidKey": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "00000000-0000-0000-0000-000000000000"
-        }
-      ]
-    }
-  },
-  {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Person",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ],
-      "Age": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 36,
-          "properties": {
-            "Meta": "value"
-          }
-        }
-      ],
-      "GuidKey": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "00000000-0000-0000-0000-000000000000"
-        }
-      ]
-    }
-  },
-  {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Person",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ],
-      "Age": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 36,
-          "properties": {
-            "Meta": "value"
-          }
-        }
-      ],
-      "GuidKey": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "00000000-0000-0000-0000-000000000000"
-        }
-      ]
-    }
-  },
-  {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Person",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ],
-      "Age": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 36,
-          "properties": {
-            "Meta": "value"
-          }
-        }
-      ],
-      "GuidKey": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "00000000-0000-0000-0000-000000000000"
-        }
-      ]
-    }
-  },
-  {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Person",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ],
-      "Age": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 36,
-          "properties": {
-            "Meta": "value"
-          }
-        }
-      ],
-      "GuidKey": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "00000000-0000-0000-0000-000000000000"
-        }
-      ]
-    }
-  },
-  {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Person",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
-        }
-      ],
-      "Age": [
-        {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_6",
           "value": 36,
           "properties": {
             "Meta": "value"
@@ -201,38 +49,38 @@
       ],
       "Name": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_7",
           "value": "Bob"
         }
       ],
       "RegistrationDate": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_8",
           "value": 1586270616000
         }
       ],
       "GuidKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "00000000-0000-0000-0000-000000000000"
+          "id": "Guid_9",
+          "value": "Guid_4"
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_10",
     "label": "Person",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_10|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "Age": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_11",
           "value": 36,
           "properties": {
             "Meta": "value"
@@ -241,26 +89,178 @@
       ],
       "GuidKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "00000000-0000-0000-0000-000000000000"
+          "id": "Guid_12",
+          "value": "Guid_4"
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_13",
     "label": "Person",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_13|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "Age": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_14",
+          "value": 36,
+          "properties": {
+            "Meta": "value"
+          }
+        }
+      ],
+      "GuidKey": [
+        {
+          "id": "Guid_15",
+          "value": "Guid_4"
+        }
+      ]
+    }
+  },
+  {
+    "id": "Guid_16",
+    "label": "Person",
+    "type": "vertex",
+    "properties": {
+      "PartitionKey": [
+        {
+          "id": "Guid_16|PartitionKey",
+          "value": "PartitionKey"
+        }
+      ],
+      "Age": [
+        {
+          "id": "Guid_17",
+          "value": 36,
+          "properties": {
+            "Meta": "value"
+          }
+        }
+      ],
+      "GuidKey": [
+        {
+          "id": "Guid_18",
+          "value": "Guid_4"
+        }
+      ]
+    }
+  },
+  {
+    "id": "Guid_19",
+    "label": "Person",
+    "type": "vertex",
+    "properties": {
+      "PartitionKey": [
+        {
+          "id": "Guid_19|PartitionKey",
+          "value": "PartitionKey"
+        }
+      ],
+      "Age": [
+        {
+          "id": "Guid_20",
+          "value": 36,
+          "properties": {
+            "Meta": "value"
+          }
+        }
+      ],
+      "GuidKey": [
+        {
+          "id": "Guid_21",
+          "value": "Guid_4"
+        }
+      ]
+    }
+  },
+  {
+    "id": "Guid_22",
+    "label": "Person",
+    "type": "vertex",
+    "properties": {
+      "PartitionKey": [
+        {
+          "id": "Guid_22|PartitionKey",
+          "value": "PartitionKey"
+        }
+      ],
+      "Age": [
+        {
+          "id": "Guid_23",
+          "value": 36,
+          "properties": {
+            "Meta": "value"
+          }
+        }
+      ],
+      "Name": [
+        {
+          "id": "Guid_24",
+          "value": "Bob"
+        }
+      ],
+      "RegistrationDate": [
+        {
+          "id": "Guid_25",
+          "value": 1586270616000
+        }
+      ],
+      "GuidKey": [
+        {
+          "id": "Guid_26",
+          "value": "Guid_4"
+        }
+      ]
+    }
+  },
+  {
+    "id": "Guid_27",
+    "label": "Person",
+    "type": "vertex",
+    "properties": {
+      "PartitionKey": [
+        {
+          "id": "Guid_27|PartitionKey",
+          "value": "PartitionKey"
+        }
+      ],
+      "Age": [
+        {
+          "id": "Guid_28",
+          "value": 36,
+          "properties": {
+            "Meta": "value"
+          }
+        }
+      ],
+      "GuidKey": [
+        {
+          "id": "Guid_29",
+          "value": "Guid_4"
+        }
+      ]
+    }
+  },
+  {
+    "id": "Guid_30",
+    "label": "Person",
+    "type": "vertex",
+    "properties": {
+      "PartitionKey": [
+        {
+          "id": "Guid_30|PartitionKey",
+          "value": "PartitionKey"
+        }
+      ],
+      "Age": [
+        {
+          "id": "Guid_31",
           "value": 36,
           "properties": {
             "Meta": "value"
@@ -269,32 +269,32 @@
       ],
       "Image": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_32",
           "value": "AQIDBAUGBwg="
         }
       ],
       "GuidKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "00000000-0000-0000-0000-000000000000"
+          "id": "Guid_33",
+          "value": "Guid_4"
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_34",
     "label": "Person",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_34|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "Age": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_35",
           "value": 36,
           "properties": {
             "Meta": "value"
@@ -303,50 +303,50 @@
       ],
       "Gender": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_36",
           "value": 1
         }
       ],
       "GuidKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "00000000-0000-0000-0000-000000000000"
+          "id": "Guid_37",
+          "value": "Guid_4"
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "Guid_38",
     "label": "Person",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "Guid_38|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "Name": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_39",
           "value": "Marko"
         }
       ],
       "RegistrationDate": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_40",
           "value": 1586270616000
         }
       ],
       "GuidKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "00000000-0000-0000-0000-000000000000"
+          "id": "Guid_41",
+          "value": "Guid_4"
         }
       ],
       "Age": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "Guid_42",
           "value": 36,
           "properties": {
             "Meta": "value"
