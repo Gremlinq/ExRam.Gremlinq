@@ -3,7 +3,6 @@ using System.Text.RegularExpressions;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Core.Transformation;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Tests.Infrastructure
@@ -18,42 +17,41 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         public override async Task Verify<TElement>(IGremlinQueryBase<TElement> query)
         {
-            var serialized = JsonConvert.SerializeObject(
-                await query
-                    .AsAdmin()
-                    .ChangeQueryType<IGremlinQuerySource>()
-                    .ConfigureEnvironment(env => env
-                        .ConfigureDeserializer(d => d
-                            .Add(ConverterFactory
-                                .Create<JToken, JToken>((token, env, recurse) => token))))
-                    .AsAdmin()
-                    .ChangeQueryType<IGremlinQueryBase<JToken>>()
-                    .ToAsyncEnumerable()
-                    .Catch<JToken, GremlinQueryExecutionException>(ex => AsyncEnumerableEx
-                        .Return<JToken>(new JObject()
+            var tokens = await query
+                .AsAdmin()
+                .ChangeQueryType<IGremlinQuerySource>()
+                .ConfigureEnvironment(env => env
+                    .ConfigureDeserializer(d => d
+                        .Add(ConverterFactory
+                            .Create<JToken, JToken>((token, env, recurse) => token))))
+                .AsAdmin()
+                .ChangeQueryType<IGremlinQueryBase<JToken>>()
+                .ToAsyncEnumerable()
+                .Catch<JToken, GremlinQueryExecutionException>(ex => AsyncEnumerableEx
+                    .Return<JToken>(new JObject()
+                    {
                         {
+                            "serverException",
+                            new JObject
                             {
-                                "serverException",
-                                new JObject
+                                { "type", ex.GetType().Name },
+                                { "message", ex.Message },
                                 {
-                                    { "type", ex.GetType().Name },
-                                    { "message", ex.Message },
+                                    "innerException",
+                                    new JObject
                                     {
-                                        "innerException",
-                                        new JObject
-                                        {
-                                            { "type", ex.InnerException?.GetType().Name },
-                                            { "message", ex.InnerException?.Message },
-                                        }
+                                        { "type", ex.InnerException?.GetType().Name },
+                                        { "message", ex.InnerException?.Message },
                                     }
                                 }
                             }
-                        }))
-                    .ToArrayAsync(),
-                Formatting.Indented);
+                        }
+                    }))
+                .Select(token => Argon.JToken.Parse(token.ToString()))
+                .ToArrayAsync();
 
             await this
-                .InnerVerify(serialized);
+                .InnerVerify(tokens);
         }
 
         protected override SettingsTask InnerVerify(object? value) => base
