@@ -19,7 +19,7 @@
       "key": "From",
       "value": {
         "@type": "g:Date",
-        "@value": -1
+        "@value": 1586270616000
       }
     }
   },
@@ -29,7 +29,7 @@
       "key": "From",
       "value": {
         "@type": "g:Date",
-        "@value": -1
+        "@value": 1586270616000
       }
     }
   },
@@ -39,7 +39,7 @@
       "key": "To",
       "value": {
         "@type": "g:Date",
-        "@value": -1
+        "@value": 1586270616000
       }
     }
   },
@@ -49,7 +49,7 @@
       "key": "To",
       "value": {
         "@type": "g:Date",
-        "@value": -1
+        "@value": 1586270616000
       }
     }
   },
@@ -59,7 +59,7 @@
       "key": "To",
       "value": {
         "@type": "g:Date",
-        "@value": -1
+        "@value": 1586270616000
       }
     }
   },
@@ -69,7 +69,7 @@
       "key": "Since",
       "value": {
         "@type": "g:Date",
-        "@value": -1
+        "@value": 1586270616000
       }
     }
   }

@@ -1,98 +1,98 @@
 ﻿[
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "9df32609-ad90-4a40-bb38-8fd3ab4e1814",
     "label": "Company",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "9df32609-ad90-4a40-bb38-8fd3ab4e1814|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "FoundingDate": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "5f58f809-3116-45b6-b78d-fb5c91a8832b",
           "value": -62135596800000
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "72d8cd06-054d-472f-957f-3b71e3c1aec8",
     "label": "Company",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "72d8cd06-054d-472f-957f-3b71e3c1aec8|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "FoundingDate": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "9bc9f7ae-9a81-45aa-9973-b3fd6ed27323",
           "value": -62135596800000
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "de6f63bf-bfbd-47d4-8f31-c13515169dab",
     "label": "Company",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "de6f63bf-bfbd-47d4-8f31-c13515169dab|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "FoundingDate": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "450da9e0-b4b9-4476-a415-14719d85fd4a",
           "value": -62135596800000
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "4d2e9913-a2db-441f-b632-f7a1b96caf20",
     "label": "LivesIn",
     "type": "edge",
     "inVLabel": "Country",
     "outVLabel": "Person",
-    "inV": "00000000-0000-0000-0000-000000000000",
-    "outV": "00000000-0000-0000-0000-000000000000"
+    "inV": "495d430b-0967-4a7f-b238-970e6bd5fd81",
+    "outV": "78b88b85-1883-44fb-a816-5eea9a5d77e5"
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "fd23944d-71d0-43f3-9abf-053c70cfa3eb",
     "label": "LivesIn",
     "type": "edge",
     "inVLabel": "Country",
     "outVLabel": "Person",
-    "inV": "00000000-0000-0000-0000-000000000000",
-    "outV": "00000000-0000-0000-0000-000000000000"
+    "inV": "fd7188d4-c1a9-40a1-a58c-ecb6ec1f4312",
+    "outV": "54a29cdd-b2a8-4d44-8573-0440dcdef66e"
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "c37c7b31-5f5c-4bd1-aafb-72136f2e71c4",
     "label": "LivesIn",
     "type": "edge",
     "inVLabel": "Country",
     "outVLabel": "Person",
-    "inV": "00000000-0000-0000-0000-000000000000",
-    "outV": "00000000-0000-0000-0000-000000000000",
+    "inV": "ba5d2d55-c219-41a9-9fb9-d9a85d4bd278",
+    "outV": "4c36f46c-1a6d-48e3-8a10-abcf60efd055",
     "properties": {
       "Since": 1586270616000
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "d77121de-fa52-48ac-ae24-a3287f8cbf67",
     "label": "LivesIn",
     "type": "edge",
     "inVLabel": "Country",
     "outVLabel": "Person",
-    "inV": "00000000-0000-0000-0000-000000000000",
-    "outV": "00000000-0000-0000-0000-000000000000"
+    "inV": "1edbdeb0-cc88-4a13-9d81-8608cccd5ce8",
+    "outV": "a3dc6110-8202-49ae-8959-d4c28d2eecf9"
   }
 ]

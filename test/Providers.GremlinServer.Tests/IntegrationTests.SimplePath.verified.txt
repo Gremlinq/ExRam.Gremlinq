@@ -5,7 +5,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "@value": 10
       },
       "label",
       "Person",
@@ -23,14 +23,14 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "@value": 86
                   },
                   "label",
                   "GuidKey",
                   "value",
                   {
                     "@type": "g:UUID",
-                    "@value": "00000000-0000-0000-0000-000000000000"
+                    "@value": "aebacdfb-2c00-4808-a8b6-8d62217a8059"
                   },
                   "properties",
                   {
@@ -51,14 +51,14 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "@value": 13
                   },
                   "label",
                   "RegistrationDate",
                   "value",
                   {
                     "@type": "g:Date",
-                    "@value": -1
+                    "@value": 1586270616000
                   },
                   "properties",
                   {
@@ -79,14 +79,14 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "@value": 149
                   },
                   "label",
                   "StringKey1",
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": -1
+                    "@value": 36
                   },
                   "properties",
                   {
@@ -107,14 +107,14 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "@value": 138
                   },
                   "label",
                   "Age",
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": -1
+                    "@value": 36
                   },
                   "properties",
                   {
@@ -138,14 +138,14 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "@value": 160
                   },
                   "label",
                   "StringKey2",
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": -1
+                    "@value": 36
                   },
                   "properties",
                   {
@@ -166,7 +166,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "@value": 12
                   },
                   "label",
                   "Name",
@@ -179,7 +179,7 @@
                       "ValidFrom",
                       {
                         "@type": "g:Date",
-                        "@value": -1
+                        "@value": 1586270616000
                       }
                     ]
                   }
@@ -197,7 +197,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "@value": 2
       },
       "label",
       "Language",
@@ -215,7 +215,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "@value": 3
                   },
                   "label",
                   "IetfLanguageTag",

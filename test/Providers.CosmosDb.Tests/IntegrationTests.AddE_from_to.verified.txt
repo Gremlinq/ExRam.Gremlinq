@@ -1,12 +1,12 @@
 ﻿[
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "9cec7409-adf3-4294-ae5e-edeb1734e14a",
     "label": "WorksFor",
     "type": "edge",
     "inVLabel": "Company",
     "outVLabel": "Person",
-    "inV": "00000000-0000-0000-0000-000000000000",
-    "outV": "00000000-0000-0000-0000-000000000000",
+    "inV": "9df32609-ad90-4a40-bb38-8fd3ab4e1814",
+    "outV": "c68a301a-664a-40e1-a6d3-3374c7d6ec72",
     "properties": {
       "From": 1586270616000,
       "Role": "Admin",

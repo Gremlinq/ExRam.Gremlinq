@@ -1,18 +1,18 @@
 ﻿[
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "9df32609-ad90-4a40-bb38-8fd3ab4e1814",
     "label": "Company",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "9df32609-ad90-4a40-bb38-8fd3ab4e1814|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "FoundingDate": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "5f58f809-3116-45b6-b78d-fb5c91a8832b",
           "value": -62135596800000
         }
       ]

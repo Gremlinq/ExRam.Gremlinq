@@ -1,37 +1,37 @@
 ﻿[
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "6e860689-5c40-473b-af29-0cd72b1c4b25",
     "label": "Language",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "6e860689-5c40-473b-af29-0cd72b1c4b25|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "IetfLanguageTag": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "c0dbe706-c0f5-461b-ab6d-fa94e4bf4d29",
           "value": "en"
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "c68a301a-664a-40e1-a6d3-3374c7d6ec72",
     "label": "Person",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "c68a301a-664a-40e1-a6d3-3374c7d6ec72|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "Age": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "0e6cb02c-fad1-473e-8146-94115a570870",
           "value": 36,
           "properties": {
             "Meta": "value"
@@ -40,13 +40,13 @@
       ],
       "GuidKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "00000000-0000-0000-0000-000000000000"
+          "id": "53eb264e-b36d-4c85-817a-c6607aa8f4d4",
+          "value": "aebacdfb-2c00-4808-a8b6-8d62217a8059"
         }
       ],
       "StringKey1": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "a382d788-dd4c-425b-9a6f-548953cf7422",
           "value": 36
         }
       ]

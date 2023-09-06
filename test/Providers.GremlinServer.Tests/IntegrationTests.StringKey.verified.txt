@@ -2,7 +2,7 @@
   {
     "serverException": {
       "type": "GremlinQueryExecutionException",
-      "message": "Executing query 00000000-0000-0000-0000-000000000000 failed.",
+      "message": "Executing query 161e8834-8dde-4ac8-bbeb-c9729e2f5d6d failed.",
       "innerException": {
         "type": "ResponseException",
         "message": "ServerError: Expected an id that is convertible to class java.lang.Long but received class java.lang.String - [id]"

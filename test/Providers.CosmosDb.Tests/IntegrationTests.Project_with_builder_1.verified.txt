@@ -1,31 +1,31 @@
 ﻿[
   {
     "in!": {
-      "id": "00000000-0000-0000-0000-000000000000",
+      "id": "a3dc6110-8202-49ae-8959-d4c28d2eecf9",
       "label": "Person",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+            "id": "a3dc6110-8202-49ae-8959-d4c28d2eecf9|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "Age": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
+            "id": "c99c0fcc-c775-4d55-a89f-9d90b50004ba",
             "value": 0
           }
         ],
         "Name": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
+            "id": "3cb124e3-d5cd-4184-a4c8-880f61734f82",
             "value": "Bob"
           }
         ],
         "RegistrationDate": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
+            "id": "cdde3dc9-3f88-458b-8fc6-8e580053447e",
             "value": 1586270616000
           }
         ]
@@ -34,19 +34,19 @@
   },
   {
     "in!": {
-      "id": "00000000-0000-0000-0000-000000000000",
+      "id": "1edbdeb0-cc88-4a13-9d81-8608cccd5ce8",
       "label": "Country",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+            "id": "1edbdeb0-cc88-4a13-9d81-8608cccd5ce8|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "CountryCallingCode": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
+            "id": "a82299fb-7a1d-4fad-8a7d-8bfbeb793513",
             "value": "+49"
           }
         ]
@@ -55,19 +55,19 @@
   },
   {
     "in!": {
-      "id": "00000000-0000-0000-0000-000000000000",
+      "id": "c68a301a-664a-40e1-a6d3-3374c7d6ec72",
       "label": "Person",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+            "id": "c68a301a-664a-40e1-a6d3-3374c7d6ec72|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "Age": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
+            "id": "2409719f-e7fd-4d17-a5ad-193f61b889fa",
             "value": 0
           }
         ]
@@ -76,19 +76,19 @@
   },
   {
     "in!": {
-      "id": "00000000-0000-0000-0000-000000000000",
+      "id": "1edbdeb0-cc88-4a13-9d81-8608cccd5ce8",
       "label": "Country",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+            "id": "1edbdeb0-cc88-4a13-9d81-8608cccd5ce8|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "CountryCallingCode": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
+            "id": "a82299fb-7a1d-4fad-8a7d-8bfbeb793513",
             "value": "+49"
           }
         ]
@@ -97,19 +97,19 @@
   },
   {
     "in!": {
-      "id": "00000000-0000-0000-0000-000000000000",
+      "id": "78b88b85-1883-44fb-a816-5eea9a5d77e5",
       "label": "Person",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+            "id": "78b88b85-1883-44fb-a816-5eea9a5d77e5|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "Age": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
+            "id": "23f4f6e8-61c3-4a98-9e44-b5ab1fd7faa3",
             "value": 0
           }
         ]
@@ -118,19 +118,19 @@
   },
   {
     "in!": {
-      "id": "00000000-0000-0000-0000-000000000000",
+      "id": "54a29cdd-b2a8-4d44-8573-0440dcdef66e",
       "label": "Person",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+            "id": "54a29cdd-b2a8-4d44-8573-0440dcdef66e|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "Age": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
+            "id": "1cc27b3d-1426-4d34-ad27-91e870d5bce1",
             "value": 0
           }
         ]
@@ -139,19 +139,19 @@
   },
   {
     "in!": {
-      "id": "00000000-0000-0000-0000-000000000000",
+      "id": "4c36f46c-1a6d-48e3-8a10-abcf60efd055",
       "label": "Person",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+            "id": "4c36f46c-1a6d-48e3-8a10-abcf60efd055|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "Age": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
+            "id": "344c8892-f3a7-49ac-895c-69c588c30ae5",
             "value": 0
           }
         ]
@@ -160,19 +160,19 @@
   },
   {
     "in!": {
-      "id": "00000000-0000-0000-0000-000000000000",
+      "id": "7914b56a-e3a8-4f82-874d-6647b13cbb3e",
       "label": "Person",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+            "id": "7914b56a-e3a8-4f82-874d-6647b13cbb3e|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "Age": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
+            "id": "ed7fe629-4752-44a4-9d35-3b42780015ef",
             "value": 0
           }
         ]
@@ -181,19 +181,19 @@
   },
   {
     "in!": {
-      "id": "00000000-0000-0000-0000-000000000000",
+      "id": "6af4858a-1a35-445e-b721-5c934b193ffb",
       "label": "Country",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+            "id": "6af4858a-1a35-445e-b721-5c934b193ffb|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "CountryCallingCode": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
+            "id": "c0cecf9e-d1db-4f89-9987-d45bf9f16fe9",
             "value": "+49"
           }
         ]
@@ -202,19 +202,19 @@
   },
   {
     "in!": {
-      "id": "00000000-0000-0000-0000-000000000000",
+      "id": "cd0d08be-5dbc-4a90-b2f0-1347d6255566",
       "label": "Person",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+            "id": "cd0d08be-5dbc-4a90-b2f0-1347d6255566|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "Age": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
+            "id": "fff96588-4b77-4674-90c3-208c74cc3f48",
             "value": 0
           }
         ]

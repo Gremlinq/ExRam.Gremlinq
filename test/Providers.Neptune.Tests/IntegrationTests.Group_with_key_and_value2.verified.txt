@@ -5,7 +5,7 @@
       "TimeFrame",
       {
         "@type": "g:Double",
-        "@value": -1.0
+        "@value": 28800000.0
       },
       "Company",
       {
@@ -19,7 +19,7 @@
       "Person",
       {
         "@type": "g:Int32",
-        "@value": -1
+        "@value": 1
       }
     ]
   }

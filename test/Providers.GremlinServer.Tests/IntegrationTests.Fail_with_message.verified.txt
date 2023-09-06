@@ -2,7 +2,7 @@
   {
     "serverException": {
       "type": "GremlinQueryExecutionException",
-      "message": "Executing query 00000000-0000-0000-0000-000000000000 failed.",
+      "message": "Executing query 245ee06d-2fa8-4b83-8981-4e5a37a63352 failed.",
       "innerException": {
         "type": "ResponseException",
         "message": "ServerErrorFailStep: There's been an error."

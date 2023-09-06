@@ -1,12 +1,12 @@
 ﻿[
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "c37c7b31-5f5c-4bd1-aafb-72136f2e71c4",
     "label": "LivesIn",
     "type": "edge",
     "inVLabel": "Country",
     "outVLabel": "Person",
-    "inV": "00000000-0000-0000-0000-000000000000",
-    "outV": "00000000-0000-0000-0000-000000000000",
+    "inV": "ba5d2d55-c219-41a9-9fb9-d9a85d4bd278",
+    "outV": "4c36f46c-1a6d-48e3-8a10-abcf60efd055",
     "properties": {
       "Since": 1586270616000
     }

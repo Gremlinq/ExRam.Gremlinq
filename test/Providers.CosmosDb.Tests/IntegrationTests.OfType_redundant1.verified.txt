@@ -1,81 +1,81 @@
 ﻿[
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "9df32609-ad90-4a40-bb38-8fd3ab4e1814",
     "label": "Company",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "9df32609-ad90-4a40-bb38-8fd3ab4e1814|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "FoundingDate": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "5f58f809-3116-45b6-b78d-fb5c91a8832b",
           "value": -62135596800000
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "72d8cd06-054d-472f-957f-3b71e3c1aec8",
     "label": "Company",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "72d8cd06-054d-472f-957f-3b71e3c1aec8|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "FoundingDate": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "9bc9f7ae-9a81-45aa-9973-b3fd6ed27323",
           "value": -62135596800000
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "de6f63bf-bfbd-47d4-8f31-c13515169dab",
     "label": "Company",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "de6f63bf-bfbd-47d4-8f31-c13515169dab|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "FoundingDate": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "450da9e0-b4b9-4476-a415-14719d85fd4a",
           "value": -62135596800000
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "152cd57b-416f-4eee-9dc3-c4a63a2b7a53",
     "label": "Company",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "152cd57b-416f-4eee-9dc3-c4a63a2b7a53|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "FoundingDate": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "45624f94-39d8-44e2-b13e-291d09e4a58c",
           "value": -62135596800000
         }
       ],
       "Locations": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "7dd3d219-5910-4a2e-be5b-7688554138b6",
           "value": "Aachen",
           "properties": {
             "ValidFrom": 1546304400000
@@ -85,29 +85,29 @@
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "0a294fb7-0762-4af6-893d-0dcf88aa2f3b",
     "label": "Company",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "0a294fb7-0762-4af6-893d-0dcf88aa2f3b|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "FoundingDate": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "cc169285-bed5-4b56-8749-57d87d2564e4",
           "value": -62135596800000
         }
       ],
       "PhoneNumbers": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "b2e5786f-f0d1-47e9-9249-845ef6793b0d",
           "value": "+4912345"
         },
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "6bdf7901-b460-4681-af69-56540af5e5d2",
           "value": "+4923456"
         }
       ]

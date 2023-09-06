@@ -2,7 +2,7 @@
   {
     "serverException": {
       "type": "GremlinQueryExecutionException",
-      "message": "Executing query 00000000-0000-0000-0000-000000000000 failed.",
+      "message": "Executing query 1420f42c-3dc7-499c-b10d-62303d481918 failed.",
       "innerException": {
         "type": "ResponseException",
         "message": "ServerSerializationError: Could not locate method: DefaultGraphTraversal.fail()"

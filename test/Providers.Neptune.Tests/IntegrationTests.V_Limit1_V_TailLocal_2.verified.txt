@@ -5,7 +5,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "@value": 0
       },
       "label",
       "Country",
@@ -23,7 +23,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "@value": 1
                   },
                   "label",
                   "CountryCallingCode",
@@ -43,7 +43,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "@value": 129
                   },
                   "label",
                   "LocalizableDescription",

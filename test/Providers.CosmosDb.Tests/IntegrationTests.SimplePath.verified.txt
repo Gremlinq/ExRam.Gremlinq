@@ -1,37 +1,37 @@
 ﻿[
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "6e860689-5c40-473b-af29-0cd72b1c4b25",
     "label": "Language",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "6e860689-5c40-473b-af29-0cd72b1c4b25|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "IetfLanguageTag": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "c0dbe706-c0f5-461b-ab6d-fa94e4bf4d29",
           "value": "en"
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "4f5c96c7-878f-4599-894d-84549e4e22d1",
     "label": "Person",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "4f5c96c7-878f-4599-894d-84549e4e22d1|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "Age": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "7d2cf5fa-62df-4630-9cba-518eff4396ca",
           "value": 36,
           "properties": {
             "Meta": "value"
@@ -40,7 +40,7 @@
       ],
       "Name": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "2e416dbf-1823-4d9d-8c58-e2157eb3c898",
           "value": "Bob",
           "properties": {
             "ValidFrom": 1586270616000
@@ -49,19 +49,19 @@
       ],
       "RegistrationDate": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "75b6fd90-d35c-4e23-a264-c8795fb92a6d",
           "value": 1586270616000
         }
       ],
       "GuidKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "00000000-0000-0000-0000-000000000000"
+          "id": "37dabd1e-56b9-43e6-b8cb-cbdf3aa40f03",
+          "value": "aebacdfb-2c00-4808-a8b6-8d62217a8059"
         }
       ],
       "StringKey1": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "e490ea2b-d33d-4c61-a142-4b4b73ed4fbf",
           "value": 36
         }
       ]

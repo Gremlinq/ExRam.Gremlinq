@@ -1,18 +1,18 @@
 ﻿[
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "54a29cdd-b2a8-4d44-8573-0440dcdef66e",
     "label": "Person",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "54a29cdd-b2a8-4d44-8573-0440dcdef66e|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "Age": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "1cc27b3d-1426-4d34-ad27-91e870d5bce1",
           "value": 0
         }
       ]

@@ -1,24 +1,24 @@
 ﻿[
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "ae2a222b-6016-417c-82f3-53360e098bb8",
     "label": "Person",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "ae2a222b-6016-417c-82f3-53360e098bb8|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "Age": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "c29eefd3-6e91-476f-bece-1be1362311cc",
           "value": 0
         }
       ],
       "Gender": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "ee5b71f3-0541-4e0c-89eb-86e4e98b73fb",
           "value": 1
         }
       ]

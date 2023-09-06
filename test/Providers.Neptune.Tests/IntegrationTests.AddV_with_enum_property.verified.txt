@@ -5,7 +5,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "@value": 61
       },
       "label",
       "Person",
@@ -23,14 +23,14 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "@value": 63
                   },
                   "label",
                   "Gender",
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": -1
+                    "@value": 1
                   }
                 ]
               }
@@ -46,14 +46,14 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "@value": 62
                   },
                   "label",
                   "Age",
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": -1
+                    "@value": 0
                   }
                 ]
               }

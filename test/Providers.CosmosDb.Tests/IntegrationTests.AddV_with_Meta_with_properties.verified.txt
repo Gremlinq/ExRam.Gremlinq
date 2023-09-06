@@ -1,18 +1,18 @@
 ﻿[
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "644de8da-565f-4e9f-95bb-fd31398c8181",
     "label": "Country",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "644de8da-565f-4e9f-95bb-fd31398c8181|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "Name": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "42151735-4305-4817-a459-94c304db85e1",
           "value": "GER",
           "properties": {
             "de": "Deutschland",

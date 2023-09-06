@@ -1,50 +1,50 @@
 ﻿[
   {
     "Item1": {
-      "id": "00000000-0000-0000-0000-000000000000",
+      "id": "a3dc6110-8202-49ae-8959-d4c28d2eecf9",
       "label": "Person",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+            "id": "a3dc6110-8202-49ae-8959-d4c28d2eecf9|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "Age": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
+            "id": "c99c0fcc-c775-4d55-a89f-9d90b50004ba",
             "value": 0
           }
         ],
         "Name": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
+            "id": "3cb124e3-d5cd-4184-a4c8-880f61734f82",
             "value": "Bob"
           }
         ],
         "RegistrationDate": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
+            "id": "cdde3dc9-3f88-458b-8fc6-8e580053447e",
             "value": 1586270616000
           }
         ]
       }
     },
     "Item2": {
-      "id": "00000000-0000-0000-0000-000000000000",
+      "id": "6e860689-5c40-473b-af29-0cd72b1c4b25",
       "label": "Language",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+            "id": "6e860689-5c40-473b-af29-0cd72b1c4b25|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "IetfLanguageTag": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
+            "id": "c0dbe706-c0f5-461b-ab6d-fa94e4bf4d29",
             "value": "en"
           }
         ]
@@ -52,7 +52,7 @@
     },
     "Item3": 1,
     "Item4": {
-      "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+      "id": "1edbdeb0-cc88-4a13-9d81-8608cccd5ce8|PartitionKey",
       "value": "PartitionKey",
       "label": "PartitionKey"
     }

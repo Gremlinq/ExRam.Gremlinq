@@ -5,7 +5,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "@value": 65
       },
       "label",
       "Name",
@@ -18,7 +18,7 @@
           "ValidFrom",
           {
             "@type": "g:Date",
-            "@value": -1
+            "@value": 1586270616000
           }
         ]
       }
@@ -30,7 +30,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "@value": 12
       },
       "label",
       "Name",
@@ -43,7 +43,7 @@
           "ValidFrom",
           {
             "@type": "g:Date",
-            "@value": -1
+            "@value": 1586270616000
           }
         ]
       }
@@ -55,7 +55,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "@value": 39
       },
       "label",
       "Name",
@@ -68,7 +68,7 @@
           "ValidFrom",
           {
             "@type": "g:Date",
-            "@value": -1
+            "@value": 1586270616000
           }
         ]
       }

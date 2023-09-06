@@ -1,24 +1,24 @@
 ﻿[
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "152cd57b-416f-4eee-9dc3-c4a63a2b7a53",
     "label": "Company",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "152cd57b-416f-4eee-9dc3-c4a63a2b7a53|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "FoundingDate": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "45624f94-39d8-44e2-b13e-291d09e4a58c",
           "value": -62135596800000
         }
       ],
       "Locations": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "7dd3d219-5910-4a2e-be5b-7688554138b6",
           "value": "Aachen",
           "properties": {
             "ValidFrom": 1546304400000

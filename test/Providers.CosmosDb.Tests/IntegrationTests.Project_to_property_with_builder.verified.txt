@@ -1,19 +1,19 @@
 ﻿[
   {
     "in!": {
-      "id": "00000000-0000-0000-0000-000000000000",
+      "id": "1edbdeb0-cc88-4a13-9d81-8608cccd5ce8",
       "label": "Country",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+            "id": "1edbdeb0-cc88-4a13-9d81-8608cccd5ce8|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "CountryCallingCode": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
+            "id": "a82299fb-7a1d-4fad-8a7d-8bfbeb793513",
             "value": "+49"
           }
         ]

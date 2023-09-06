@@ -1,30 +1,30 @@
 ﻿[
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "d77121de-fa52-48ac-ae24-a3287f8cbf67",
     "label": "LivesIn",
     "type": "edge",
     "inVLabel": "Country",
     "outVLabel": "Person",
-    "inV": "00000000-0000-0000-0000-000000000000",
-    "outV": "00000000-0000-0000-0000-000000000000"
+    "inV": "1edbdeb0-cc88-4a13-9d81-8608cccd5ce8",
+    "outV": "a3dc6110-8202-49ae-8959-d4c28d2eecf9"
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "c5863ca1-2a71-46f8-bebb-e21f727f61eb",
     "label": "Speaks",
     "type": "edge",
     "inVLabel": "Language",
     "outVLabel": "Country",
-    "inV": "00000000-0000-0000-0000-000000000000",
-    "outV": "00000000-0000-0000-0000-000000000000"
+    "inV": "6e860689-5c40-473b-af29-0cd72b1c4b25",
+    "outV": "1edbdeb0-cc88-4a13-9d81-8608cccd5ce8"
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "9cec7409-adf3-4294-ae5e-edeb1734e14a",
     "label": "WorksFor",
     "type": "edge",
     "inVLabel": "Company",
     "outVLabel": "Person",
-    "inV": "00000000-0000-0000-0000-000000000000",
-    "outV": "00000000-0000-0000-0000-000000000000",
+    "inV": "9df32609-ad90-4a40-bb38-8fd3ab4e1814",
+    "outV": "c68a301a-664a-40e1-a6d3-3374c7d6ec72",
     "properties": {
       "From": 1586270616000,
       "Role": "Admin",
@@ -32,52 +32,52 @@
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "62702732-7bdd-4af8-939f-acc54a282921",
     "label": "LivesIn",
     "type": "edge",
     "inVLabel": "Person",
     "outVLabel": "Country",
-    "inV": "00000000-0000-0000-0000-000000000000",
-    "outV": "00000000-0000-0000-0000-000000000000"
+    "inV": "4f5c96c7-878f-4599-894d-84549e4e22d1",
+    "outV": "1edbdeb0-cc88-4a13-9d81-8608cccd5ce8"
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "4d2e9913-a2db-441f-b632-f7a1b96caf20",
     "label": "LivesIn",
     "type": "edge",
     "inVLabel": "Country",
     "outVLabel": "Person",
-    "inV": "00000000-0000-0000-0000-000000000000",
-    "outV": "00000000-0000-0000-0000-000000000000"
+    "inV": "495d430b-0967-4a7f-b238-970e6bd5fd81",
+    "outV": "78b88b85-1883-44fb-a816-5eea9a5d77e5"
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "fd23944d-71d0-43f3-9abf-053c70cfa3eb",
     "label": "LivesIn",
     "type": "edge",
     "inVLabel": "Country",
     "outVLabel": "Person",
-    "inV": "00000000-0000-0000-0000-000000000000",
-    "outV": "00000000-0000-0000-0000-000000000000"
+    "inV": "fd7188d4-c1a9-40a1-a58c-ecb6ec1f4312",
+    "outV": "54a29cdd-b2a8-4d44-8573-0440dcdef66e"
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "c37c7b31-5f5c-4bd1-aafb-72136f2e71c4",
     "label": "LivesIn",
     "type": "edge",
     "inVLabel": "Country",
     "outVLabel": "Person",
-    "inV": "00000000-0000-0000-0000-000000000000",
-    "outV": "00000000-0000-0000-0000-000000000000",
+    "inV": "ba5d2d55-c219-41a9-9fb9-d9a85d4bd278",
+    "outV": "4c36f46c-1a6d-48e3-8a10-abcf60efd055",
     "properties": {
       "Since": 1586270616000
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "89f4f906-3c8e-49b5-9a8d-ce7b57101cc1",
     "label": "WorksFor",
     "type": "edge",
     "inVLabel": "Company",
     "outVLabel": "Person",
-    "inV": "00000000-0000-0000-0000-000000000000",
-    "outV": "00000000-0000-0000-0000-000000000000",
+    "inV": "72d8cd06-054d-472f-957f-3b71e3c1aec8",
+    "outV": "7914b56a-e3a8-4f82-874d-6647b13cbb3e",
     "properties": {
       "From": 1586270616000,
       "Role": "Admin",
@@ -85,22 +85,22 @@
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "78102519-5b84-47dc-8ea0-708125b5943a",
     "label": "Speaks",
     "type": "edge",
     "inVLabel": "Language",
     "outVLabel": "Country",
-    "inV": "00000000-0000-0000-0000-000000000000",
-    "outV": "00000000-0000-0000-0000-000000000000"
+    "inV": "95444e73-fc59-4d0a-8449-fdf32ced33b3",
+    "outV": "6af4858a-1a35-445e-b721-5c934b193ffb"
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "fb7045cd-b065-43f7-90f1-22bf41a85bb3",
     "label": "WorksFor",
     "type": "edge",
     "inVLabel": "Company",
     "outVLabel": "Person",
-    "inV": "00000000-0000-0000-0000-000000000000",
-    "outV": "00000000-0000-0000-0000-000000000000",
+    "inV": "de6f63bf-bfbd-47d4-8f31-c13515169dab",
+    "outV": "cd0d08be-5dbc-4a90-b2f0-1347d6255566",
     "properties": {
       "To": 1586270616000
     }

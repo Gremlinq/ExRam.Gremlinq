@@ -1,18 +1,18 @@
 ﻿[
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "e20e9c96-46f5-48a2-bba5-3822bf648a55",
     "label": "Language",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "e20e9c96-46f5-48a2-bba5-3822bf648a55|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "IetfLanguageTag": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "dbc4470a-a6fd-4109-9ab4-0132f4ff07db",
           "value": "en"
         }
       ]

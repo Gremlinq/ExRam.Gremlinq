@@ -1,12 +1,12 @@
 ﻿[
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "c6bd3c2c-4f4d-4038-be6d-6738d535935b",
     "label": "Language",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "c6bd3c2c-4f4d-4038-be6d-6738d535935b|PartitionKey",
           "value": "PartitionKey"
         }
       ]

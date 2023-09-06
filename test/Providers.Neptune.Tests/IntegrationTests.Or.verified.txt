@@ -5,7 +5,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "@value": 15
       },
       "label",
       "Person",
@@ -23,14 +23,14 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "@value": 16
                   },
                   "label",
                   "Age",
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": -1
+                    "@value": 0
                   }
                 ]
               }
@@ -46,7 +46,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "@value": 19
       },
       "label",
       "Person",
@@ -64,14 +64,14 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "@value": 20
                   },
                   "label",
                   "Age",
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": -1
+                    "@value": 0
                   }
                 ]
               }
@@ -87,7 +87,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "@value": 23
       },
       "label",
       "Person",
@@ -105,14 +105,14 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "@value": 24
                   },
                   "label",
                   "Age",
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": -1
+                    "@value": 0
                   }
                 ]
               }
@@ -128,7 +128,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "@value": 37
       },
       "label",
       "Person",
@@ -146,14 +146,14 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "@value": 40
                   },
                   "label",
                   "RegistrationDate",
                   "value",
                   {
                     "@type": "g:Date",
-                    "@value": -1
+                    "@value": 1586270616000
                   }
                 ]
               }
@@ -169,14 +169,14 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "@value": 38
                   },
                   "label",
                   "Age",
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": -1
+                    "@value": 0
                   }
                 ]
               }
@@ -192,7 +192,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "@value": 39
                   },
                   "label",
                   "Name",

@@ -1,86 +1,86 @@
 ﻿[
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "4e52674f-8f9b-4abd-a2dc-07b43872089e",
     "label": "Person",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "4e52674f-8f9b-4abd-a2dc-07b43872089e|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "Name": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "72bcc55b-1737-41af-8135-221b8a6178ad",
           "value": "Marko"
         }
       ],
       "RegistrationDate": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "754a00d4-ebe5-4420-9a1b-0440e4a37b0a",
           "value": 1586270616000
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "a3dc6110-8202-49ae-8959-d4c28d2eecf9",
     "label": "Person",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "a3dc6110-8202-49ae-8959-d4c28d2eecf9|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "Age": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "c99c0fcc-c775-4d55-a89f-9d90b50004ba",
           "value": 0
         }
       ],
       "Name": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "3cb124e3-d5cd-4184-a4c8-880f61734f82",
           "value": "Bob"
         }
       ],
       "RegistrationDate": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "cdde3dc9-3f88-458b-8fc6-8e580053447e",
           "value": 1586270616000
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
+    "id": "4f5c96c7-878f-4599-894d-84549e4e22d1",
     "label": "Person",
     "type": "vertex",
     "properties": {
       "PartitionKey": [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+          "id": "4f5c96c7-878f-4599-894d-84549e4e22d1|PartitionKey",
           "value": "PartitionKey"
         }
       ],
       "Age": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "bfd21ed3-632f-4a37-a44c-e39f4ac725d8",
           "value": 0
         }
       ],
       "Name": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "2e416dbf-1823-4d9d-8c58-e2157eb3c898",
           "value": "Bob"
         }
       ],
       "RegistrationDate": [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
+          "id": "75b6fd90-d35c-4e23-a264-c8795fb92a6d",
           "value": 1586270616000
         }
       ]

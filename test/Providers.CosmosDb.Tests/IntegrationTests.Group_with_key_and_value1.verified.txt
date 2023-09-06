@@ -1,38 +1,38 @@
 ﻿[
   {
     "Country": {
-      "id": "00000000-0000-0000-0000-000000000000",
+      "id": "95444e73-fc59-4d0a-8449-fdf32ced33b3",
       "label": "Language",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+            "id": "95444e73-fc59-4d0a-8449-fdf32ced33b3|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "IetfLanguageTag": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
+            "id": "9e4559c5-4fe4-4a25-8407-864ae05f74b2",
             "value": "en"
           }
         ]
       }
     },
     "Person": {
-      "id": "00000000-0000-0000-0000-000000000000",
+      "id": "de6f63bf-bfbd-47d4-8f31-c13515169dab",
       "label": "Company",
       "type": "vertex",
       "properties": {
         "PartitionKey": [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
+            "id": "de6f63bf-bfbd-47d4-8f31-c13515169dab|PartitionKey",
             "value": "PartitionKey"
           }
         ],
         "FoundingDate": [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
+            "id": "450da9e0-b4b9-4476-a415-14719d85fd4a",
             "value": -62135596800000
           }
         ]
