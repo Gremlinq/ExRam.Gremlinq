@@ -1,30 +1,30 @@
 ﻿[
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
+    @type: g:Map,
+    @value: [
+      id,
       {
-        "@type": "g:Int64",
-        "@value": -1
+        @type: g:Int64,
+        @value: 74
       },
-      "label",
-      "Name",
-      "value",
-      "GER"
+      label,
+      Name,
+      value,
+      GER
     ]
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
+    @type: g:Map,
+    @value: [
+      id,
       {
-        "@type": "g:Int64",
-        "@value": -1
+        @type: g:Int64,
+        @value: 76
       },
-      "label",
-      "Name",
-      "value",
-      "GER"
+      label,
+      Name,
+      value,
+      GER
     ]
   }
 ]

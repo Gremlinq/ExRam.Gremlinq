@@ -1,52 +1,51 @@
 ﻿[
   {
-    "Item2": 0
+    Item2: 0
   },
   {
-    "Item1": {
-      "id": "00000000-0000-0000-0000-000000000000",
-      "label": "Country",
-      "type": "vertex",
-      "properties": {
-        "PartitionKey": [
+    Item1: {
+      id: Guid_1,
+      label: Country,
+      type: vertex,
+      properties: {
+        PartitionKey: [
           {
-            "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-            "value": "PartitionKey"
+            id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+            value: PartitionKey
           }
         ],
-        "CountryCallingCode": [
+        CountryCallingCode: [
           {
-            "id": "00000000-0000-0000-0000-000000000000",
-            "value": "+49"
+            id: Guid_2,
+            value: +49
           }
         ]
       }
     },
-    "Item2": 0
+    Item2: 0
   },
   {
-    "Item2": 0
+    Item2: 0
   },
   {
-    "Item2": 0
+    Item2: 0
   },
   {
-    "Item2": 0
+    Item2: 0
   },
   {
-    "Item2": 0
+    Item2: 0
   },
   {
-    "Item2": 0
+    Item2: 0
   },
   {
-    "Item2": 0
+    Item2: 0
   },
   {
-    "Item2": 0
+    Item2: 0
   },
   {
-    "Item2": 0
-  },
-  {}
+    Item2: 0
+  }
 ]

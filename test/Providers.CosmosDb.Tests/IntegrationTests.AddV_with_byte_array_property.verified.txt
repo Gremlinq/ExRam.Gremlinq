@@ -1,25 +1,25 @@
 ﻿[
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Person",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
+    id: Guid_1,
+    label: Person,
+    type: vertex,
+    properties: {
+      PartitionKey: [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+          value: PartitionKey
         }
       ],
-      "Age": [
+      Age: [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 0
+          id: Guid_2,
+          value: 0
         }
       ],
-      "Image": [
+      Image: [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "AQIDBAUGBwg="
+          id: Guid_3,
+          value: AQIDBAUGBwg=
         }
       ]
     }

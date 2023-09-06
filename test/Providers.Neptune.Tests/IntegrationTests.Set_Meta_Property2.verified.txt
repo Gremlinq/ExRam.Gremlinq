@@ -1,44 +1,44 @@
 ﻿[
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
+    @type: g:Map,
+    @value: [
+      id,
       {
-        "@type": "g:Int64",
-        "@value": -1
+        @type: g:Int64,
+        @value: 65
       },
-      "label",
-      "Name",
-      "value",
-      "Marko"
+      label,
+      Name,
+      value,
+      Marko
     ]
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
+    @type: g:Map,
+    @value: [
+      id,
       {
-        "@type": "g:Int64",
-        "@value": -1
+        @type: g:Int64,
+        @value: 12
       },
-      "label",
-      "Name",
-      "value",
-      "Bob"
+      label,
+      Name,
+      value,
+      Bob
     ]
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
+    @type: g:Map,
+    @value: [
+      id,
       {
-        "@type": "g:Int64",
-        "@value": -1
+        @type: g:Int64,
+        @value: 39
       },
-      "label",
-      "Name",
-      "value",
-      "Bob"
+      label,
+      Name,
+      value,
+      Bob
     ]
   }
 ]

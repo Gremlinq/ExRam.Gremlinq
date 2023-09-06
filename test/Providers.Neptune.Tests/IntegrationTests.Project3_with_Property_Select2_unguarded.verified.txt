@@ -1,38 +1,38 @@
 ﻿[
   {
-    "@type": "g:Map",
-    "@value": [
-      "Item1",
+    @type: g:Map,
+    @value: [
+      Item1,
       {
-        "@type": "g:Map",
-        "@value": [
-          "id",
+        @type: g:Map,
+        @value: [
+          id,
           {
-            "@type": "g:Int64",
-            "@value": -1
+            @type: g:Int64,
+            @value: 0
           },
-          "label",
-          "Country",
-          "properties",
+          label,
+          Country,
+          properties,
           {
-            "@type": "g:Map",
-            "@value": [
-              "CountryCallingCode",
+            @type: g:Map,
+            @value: [
+              CountryCallingCode,
               {
-                "@type": "g:List",
-                "@value": [
+                @type: g:List,
+                @value: [
                   {
-                    "@type": "g:Map",
-                    "@value": [
-                      "id",
+                    @type: g:Map,
+                    @value: [
+                      id,
                       {
-                        "@type": "g:Int64",
-                        "@value": -1
+                        @type: g:Int64,
+                        @value: 1
                       },
-                      "label",
-                      "CountryCallingCode",
-                      "value",
-                      "+49"
+                      label,
+                      CountryCallingCode,
+                      value,
+                      +49
                     ]
                   }
                 ]
@@ -41,10 +41,10 @@
           }
         ]
       },
-      "Item3",
+      Item3,
       {
-        "@type": "g:Int32",
-        "@value": -1
+        @type: g:Int32,
+        @value: 0
       }
     ]
   }

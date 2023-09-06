@@ -1,16 +1,16 @@
 ﻿[
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
+    @type: g:Map,
+    @value: [
+      id,
       {
-        "@type": "g:Int64",
-        "@value": -1
+        @type: g:Int64,
+        @value: 72
       },
-      "label",
-      "Locations",
-      "value",
-      "Aachen"
+      label,
+      Locations,
+      value,
+      Aachen
     ]
   }
 ]

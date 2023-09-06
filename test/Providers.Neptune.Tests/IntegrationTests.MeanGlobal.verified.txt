@@ -1,6 +1,6 @@
 ﻿[
   {
-    "@type": "g:Double",
-    "@value": -1.0
+    @type: g:Double,
+    @value: 0.0
   }
 ]

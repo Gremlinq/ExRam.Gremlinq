@@ -1,630 +1,630 @@
 ﻿[
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Country",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
+    id: Guid_1,
+    label: Country,
+    type: vertex,
+    properties: {
+      PartitionKey: [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+          value: PartitionKey
         }
       ],
-      "CountryCallingCode": [
+      CountryCallingCode: [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "+49"
+          id: Guid_2,
+          value: +49
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Language",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
+    id: Guid_3,
+    label: Language,
+    type: vertex,
+    properties: {
+      PartitionKey: [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+          value: PartitionKey
         }
       ],
-      "IetfLanguageTag": [
+      IetfLanguageTag: [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "en"
+          id: Guid_4,
+          value: en
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Company",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
+    id: Guid_5,
+    label: Company,
+    type: vertex,
+    properties: {
+      PartitionKey: [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+          value: PartitionKey
         }
       ],
-      "FoundingDate": [
+      FoundingDate: [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": -62135596800000
+          id: Guid_6,
+          value: -62135596800000
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Person",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
+    id: Guid_7,
+    label: Person,
+    type: vertex,
+    properties: {
+      PartitionKey: [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+          value: PartitionKey
         }
       ],
-      "Age": [
+      Age: [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 0
+          id: Guid_8,
+          value: 0
         }
       ],
-      "Name": [
+      Name: [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "Bob"
+          id: Guid_9,
+          value: Bob
         }
       ],
-      "RegistrationDate": [
+      RegistrationDate: [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 1586270616000
+          id: Guid_10,
+          value: 1586270616000
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Person",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
+    id: Guid_11,
+    label: Person,
+    type: vertex,
+    properties: {
+      PartitionKey: [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+          value: PartitionKey
         }
       ],
-      "Age": [
+      Age: [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 0
+          id: Guid_12,
+          value: 0
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Country",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
+    id: Guid_13,
+    label: Country,
+    type: vertex,
+    properties: {
+      PartitionKey: [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+          value: PartitionKey
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Person",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
+    id: Guid_14,
+    label: Person,
+    type: vertex,
+    properties: {
+      PartitionKey: [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+          value: PartitionKey
         }
       ],
-      "Age": [
+      Age: [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 0
+          id: Guid_15,
+          value: 0
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Country",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
+    id: Guid_16,
+    label: Country,
+    type: vertex,
+    properties: {
+      PartitionKey: [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+          value: PartitionKey
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Person",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
+    id: Guid_17,
+    label: Person,
+    type: vertex,
+    properties: {
+      PartitionKey: [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+          value: PartitionKey
         }
       ],
-      "Age": [
+      Age: [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 0
+          id: Guid_18,
+          value: 0
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Country",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
+    id: Guid_19,
+    label: Country,
+    type: vertex,
+    properties: {
+      PartitionKey: [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+          value: PartitionKey
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Company",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
+    id: Guid_20,
+    label: Company,
+    type: vertex,
+    properties: {
+      PartitionKey: [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+          value: PartitionKey
         }
       ],
-      "FoundingDate": [
+      FoundingDate: [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": -62135596800000
+          id: Guid_21,
+          value: -62135596800000
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Language",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
+    id: Guid_22,
+    label: Language,
+    type: vertex,
+    properties: {
+      PartitionKey: [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+          value: PartitionKey
         }
       ],
-      "IetfLanguageTag": [
+      IetfLanguageTag: [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "en"
+          id: Guid_23,
+          value: en
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Country",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
+    id: Guid_24,
+    label: Country,
+    type: vertex,
+    properties: {
+      PartitionKey: [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+          value: PartitionKey
         }
       ],
-      "CountryCallingCode": [
+      CountryCallingCode: [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "+49"
+          id: Guid_25,
+          value: +49
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Person",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
+    id: Guid_26,
+    label: Person,
+    type: vertex,
+    properties: {
+      PartitionKey: [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+          value: PartitionKey
         }
       ],
-      "Age": [
+      Age: [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 0
+          id: Guid_27,
+          value: 0
         }
       ],
-      "Name": [
+      Name: [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "Bob"
+          id: Guid_28,
+          value: Bob
         }
       ],
-      "RegistrationDate": [
+      RegistrationDate: [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 1586270616000
+          id: Guid_29,
+          value: 1586270616000
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Company",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
+    id: Guid_30,
+    label: Company,
+    type: vertex,
+    properties: {
+      PartitionKey: [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+          value: PartitionKey
         }
       ],
-      "FoundingDate": [
+      FoundingDate: [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": -62135596800000
+          id: Guid_31,
+          value: -62135596800000
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Language",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
+    id: Guid_32,
+    label: Language,
+    type: vertex,
+    properties: {
+      PartitionKey: [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+          value: PartitionKey
         }
       ],
-      "IetfLanguageTag": [
+      IetfLanguageTag: [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "en"
+          id: Guid_33,
+          value: en
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Language",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
+    id: Guid_34,
+    label: Language,
+    type: vertex,
+    properties: {
+      PartitionKey: [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+          value: PartitionKey
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "TimeFrame",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
+    id: Guid_35,
+    label: TimeFrame,
+    type: vertex,
+    properties: {
+      PartitionKey: [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+          value: PartitionKey
         }
       ],
-      "Duration": [
+      Duration: [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 7200000.0
+          id: Guid_36,
+          value: 7200000.0
         }
       ],
-      "Enabled": [
+      Enabled: [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": false
+          id: Guid_37,
+          value: false
         }
       ],
-      "StartTime": [
+      StartTime: [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 28800000.0
+          id: Guid_38,
+          value: 28800000.0
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Language",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
+    id: Guid_39,
+    label: Language,
+    type: vertex,
+    properties: {
+      PartitionKey: [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+          value: PartitionKey
         }
       ],
-      "IetfLanguageTag": [
+      IetfLanguageTag: [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "en"
+          id: Guid_40,
+          value: en
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Language",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
+    id: Guid_41,
+    label: Language,
+    type: vertex,
+    properties: {
+      PartitionKey: [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+          value: PartitionKey
         }
       ],
-      "IetfLanguageTag": [
+      IetfLanguageTag: [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "en"
+          id: Guid_42,
+          value: en
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Person",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
+    id: Guid_43,
+    label: Person,
+    type: vertex,
+    properties: {
+      PartitionKey: [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+          value: PartitionKey
         }
       ],
-      "Age": [
+      Age: [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 0
+          id: Guid_44,
+          value: 0
         }
       ],
-      "Image": [
+      Image: [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "AQIDBAUGBwg="
+          id: Guid_45,
+          value: AQIDBAUGBwg=
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Person",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
+    id: Guid_46,
+    label: Person,
+    type: vertex,
+    properties: {
+      PartitionKey: [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+          value: PartitionKey
         }
       ],
-      "Age": [
+      Age: [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 0
+          id: Guid_47,
+          value: 0
         }
       ],
-      "Gender": [
+      Gender: [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 1
+          id: Guid_48,
+          value: 1
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Person",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
+    id: Guid_49,
+    label: Person,
+    type: vertex,
+    properties: {
+      PartitionKey: [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+          value: PartitionKey
         }
       ],
-      "Name": [
+      Name: [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "Marko"
+          id: Guid_50,
+          value: Marko
         }
       ],
-      "RegistrationDate": [
+      RegistrationDate: [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 1586270616000
+          id: Guid_51,
+          value: 1586270616000
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Language",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
+    id: Guid_52,
+    label: Language,
+    type: vertex,
+    properties: {
+      PartitionKey: [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+          value: PartitionKey
         }
       ],
-      "IetfLanguageTag": [
+      IetfLanguageTag: [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "en"
+          id: Guid_53,
+          value: en
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Language",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
+    id: Guid_54,
+    label: Language,
+    type: vertex,
+    properties: {
+      PartitionKey: [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+          value: PartitionKey
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Company",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
+    id: Guid_55,
+    label: Company,
+    type: vertex,
+    properties: {
+      PartitionKey: [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+          value: PartitionKey
         }
       ],
-      "FoundingDate": [
+      FoundingDate: [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": -62135596800000
+          id: Guid_56,
+          value: -62135596800000
         }
       ],
-      "Locations": [
+      Locations: [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "Aachen",
-          "properties": {
-            "ValidFrom": 1546304400000
+          id: Guid_57,
+          value: Aachen,
+          properties: {
+            ValidFrom: 1546304400000
           }
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Country",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
+    id: Guid_58,
+    label: Country,
+    type: vertex,
+    properties: {
+      PartitionKey: [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+          value: PartitionKey
         }
       ],
-      "Name": [
+      Name: [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "GER"
+          id: Guid_59,
+          value: GER
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Country",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
+    id: Guid_60,
+    label: Country,
+    type: vertex,
+    properties: {
+      PartitionKey: [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+          value: PartitionKey
         }
       ],
-      "Name": [
+      Name: [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "GER",
-          "properties": {
-            "de": "Deutschland",
-            "en": "Germany"
+          id: Guid_61,
+          value: GER,
+          properties: {
+            de: Deutschland,
+            en: Germany
           }
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Company",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
+    id: Guid_62,
+    label: Company,
+    type: vertex,
+    properties: {
+      PartitionKey: [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+          value: PartitionKey
         }
       ],
-      "FoundingDate": [
+      FoundingDate: [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": -62135596800000
+          id: Guid_63,
+          value: -62135596800000
         }
       ],
-      "PhoneNumbers": [
+      PhoneNumbers: [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "+4912345"
+          id: Guid_64,
+          value: +4912345
         },
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "+4923456"
+          id: Guid_65,
+          value: +4923456
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Language",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
+    id: Guid_66,
+    label: Language,
+    type: vertex,
+    properties: {
+      PartitionKey: [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+          value: PartitionKey
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Language",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
+    id: Guid_67,
+    label: Language,
+    type: vertex,
+    properties: {
+      PartitionKey: [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+          value: PartitionKey
         }
       ],
-      "lang": [
+      lang: [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "en"
+          id: Guid_68,
+          value: en
         }
       ]
     }

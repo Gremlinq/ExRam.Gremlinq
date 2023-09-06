@@ -1,108 +1,108 @@
 ﻿[
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Speaks",
-    "type": "edge",
-    "inVLabel": "Language",
-    "outVLabel": "Country",
-    "inV": "00000000-0000-0000-0000-000000000000",
-    "outV": "00000000-0000-0000-0000-000000000000"
+    id: Guid_1,
+    label: Speaks,
+    type: edge,
+    inVLabel: Language,
+    outVLabel: Country,
+    inV: Guid_2,
+    outV: Guid_3
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "LivesIn",
-    "type": "edge",
-    "inVLabel": "Person",
-    "outVLabel": "Country",
-    "inV": "00000000-0000-0000-0000-000000000000",
-    "outV": "00000000-0000-0000-0000-000000000000"
+    id: Guid_4,
+    label: LivesIn,
+    type: edge,
+    inVLabel: Person,
+    outVLabel: Country,
+    inV: Guid_5,
+    outV: Guid_3
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "WorksFor",
-    "type": "edge",
-    "inVLabel": "Company",
-    "outVLabel": "Person",
-    "inV": "00000000-0000-0000-0000-000000000000",
-    "outV": "00000000-0000-0000-0000-000000000000",
-    "properties": {
-      "From": 1586270616000,
-      "Role": "Admin",
-      "To": 1586270616000
+    id: Guid_6,
+    label: WorksFor,
+    type: edge,
+    inVLabel: Company,
+    outVLabel: Person,
+    inV: Guid_7,
+    outV: Guid_8,
+    properties: {
+      From: 1586270616000,
+      Role: Admin,
+      To: 1586270616000
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "LivesIn",
-    "type": "edge",
-    "inVLabel": "Country",
-    "outVLabel": "Person",
-    "inV": "00000000-0000-0000-0000-000000000000",
-    "outV": "00000000-0000-0000-0000-000000000000"
+    id: Guid_9,
+    label: LivesIn,
+    type: edge,
+    inVLabel: Country,
+    outVLabel: Person,
+    inV: Guid_10,
+    outV: Guid_11
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "LivesIn",
-    "type": "edge",
-    "inVLabel": "Country",
-    "outVLabel": "Person",
-    "inV": "00000000-0000-0000-0000-000000000000",
-    "outV": "00000000-0000-0000-0000-000000000000"
+    id: Guid_12,
+    label: LivesIn,
+    type: edge,
+    inVLabel: Country,
+    outVLabel: Person,
+    inV: Guid_13,
+    outV: Guid_14
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "LivesIn",
-    "type": "edge",
-    "inVLabel": "Country",
-    "outVLabel": "Person",
-    "inV": "00000000-0000-0000-0000-000000000000",
-    "outV": "00000000-0000-0000-0000-000000000000",
-    "properties": {
-      "Since": 1586270616000
+    id: Guid_15,
+    label: LivesIn,
+    type: edge,
+    inVLabel: Country,
+    outVLabel: Person,
+    inV: Guid_16,
+    outV: Guid_17,
+    properties: {
+      Since: 1586270616000
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "WorksFor",
-    "type": "edge",
-    "inVLabel": "Company",
-    "outVLabel": "Person",
-    "inV": "00000000-0000-0000-0000-000000000000",
-    "outV": "00000000-0000-0000-0000-000000000000",
-    "properties": {
-      "From": 1586270616000,
-      "Role": "Admin",
-      "To": 1586270616000
+    id: Guid_18,
+    label: WorksFor,
+    type: edge,
+    inVLabel: Company,
+    outVLabel: Person,
+    inV: Guid_19,
+    outV: Guid_20,
+    properties: {
+      From: 1586270616000,
+      Role: Admin,
+      To: 1586270616000
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Speaks",
-    "type": "edge",
-    "inVLabel": "Language",
-    "outVLabel": "Country",
-    "inV": "00000000-0000-0000-0000-000000000000",
-    "outV": "00000000-0000-0000-0000-000000000000"
+    id: Guid_21,
+    label: Speaks,
+    type: edge,
+    inVLabel: Language,
+    outVLabel: Country,
+    inV: Guid_22,
+    outV: Guid_23
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "LivesIn",
-    "type": "edge",
-    "inVLabel": "Country",
-    "outVLabel": "Person",
-    "inV": "00000000-0000-0000-0000-000000000000",
-    "outV": "00000000-0000-0000-0000-000000000000"
+    id: Guid_24,
+    label: LivesIn,
+    type: edge,
+    inVLabel: Country,
+    outVLabel: Person,
+    inV: Guid_3,
+    outV: Guid_25
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "WorksFor",
-    "type": "edge",
-    "inVLabel": "Company",
-    "outVLabel": "Person",
-    "inV": "00000000-0000-0000-0000-000000000000",
-    "outV": "00000000-0000-0000-0000-000000000000",
-    "properties": {
-      "To": 1586270616000
+    id: Guid_26,
+    label: WorksFor,
+    type: edge,
+    inVLabel: Company,
+    outVLabel: Person,
+    inV: Guid_27,
+    outV: Guid_28,
+    properties: {
+      To: 1586270616000
     }
   }
 ]

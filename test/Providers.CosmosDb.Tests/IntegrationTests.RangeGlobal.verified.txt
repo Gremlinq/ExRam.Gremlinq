@@ -1,53 +1,53 @@
 ﻿[
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Language",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
+    id: Guid_1,
+    label: Language,
+    type: vertex,
+    properties: {
+      PartitionKey: [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+          value: PartitionKey
         }
       ],
-      "IetfLanguageTag": [
+      IetfLanguageTag: [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "en"
+          id: Guid_2,
+          value: en
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Person",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
+    id: Guid_3,
+    label: Person,
+    type: vertex,
+    properties: {
+      PartitionKey: [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+          value: PartitionKey
         }
       ],
-      "Age": [
+      Age: [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 36,
-          "properties": {
-            "Meta": "value"
+          id: Guid_4,
+          value: 36,
+          properties: {
+            Meta: value
           }
         }
       ],
-      "GuidKey": [
+      GuidKey: [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "00000000-0000-0000-0000-000000000000"
+          id: Guid_5,
+          value: Guid_6
         }
       ],
-      "StringKey1": [
+      StringKey1: [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": 36
+          id: Guid_7,
+          value: 36
         }
       ]
     }

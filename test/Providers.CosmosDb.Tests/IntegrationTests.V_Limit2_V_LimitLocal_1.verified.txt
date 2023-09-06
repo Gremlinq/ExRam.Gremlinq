@@ -1,47 +1,47 @@
 ﻿[
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Country",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
+    id: Guid_1,
+    label: Country,
+    type: vertex,
+    properties: {
+      PartitionKey: [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+          value: PartitionKey
         }
       ],
-      "CountryCallingCode": [
+      CountryCallingCode: [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "+49"
+          id: Guid_2,
+          value: +49
         }
       ],
-      "LocalizableDescription": [
+      LocalizableDescription: [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "",
-          "properties": {
-            "someKey": "value"
+          id: Guid_3,
+          value: ,
+          properties: {
+            someKey: value
           }
         }
       ]
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "Language",
-    "type": "vertex",
-    "properties": {
-      "PartitionKey": [
+    id: Guid_4,
+    label: Language,
+    type: vertex,
+    properties: {
+      PartitionKey: [
         {
-          "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-          "value": "PartitionKey"
+          id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+          value: PartitionKey
         }
       ],
-      "IetfLanguageTag": [
+      IetfLanguageTag: [
         {
-          "id": "00000000-0000-0000-0000-000000000000",
-          "value": "en"
+          id: Guid_5,
+          value: en
         }
       ]
     }

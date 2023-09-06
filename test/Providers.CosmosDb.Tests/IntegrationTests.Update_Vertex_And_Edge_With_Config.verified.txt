@@ -1,44 +1,44 @@
 ﻿[
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "WorksFor",
-    "type": "edge",
-    "inVLabel": "Company",
-    "outVLabel": "Person",
-    "inV": "00000000-0000-0000-0000-000000000000",
-    "outV": "00000000-0000-0000-0000-000000000000",
-    "properties": {
-      "From": 1586270616000,
-      "Role": "Admin",
-      "To": 1586270616000
+    id: Guid_1,
+    label: WorksFor,
+    type: edge,
+    inVLabel: Company,
+    outVLabel: Person,
+    inV: Guid_2,
+    outV: Guid_3,
+    properties: {
+      From: 1586270616000,
+      Role: Admin,
+      To: 1586270616000
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "WorksFor",
-    "type": "edge",
-    "inVLabel": "Company",
-    "outVLabel": "Person",
-    "inV": "00000000-0000-0000-0000-000000000000",
-    "outV": "00000000-0000-0000-0000-000000000000",
-    "properties": {
-      "From": 1586270616000,
-      "Role": "Admin",
-      "To": 1586270616000
+    id: Guid_4,
+    label: WorksFor,
+    type: edge,
+    inVLabel: Company,
+    outVLabel: Person,
+    inV: Guid_5,
+    outV: Guid_6,
+    properties: {
+      From: 1586270616000,
+      Role: Admin,
+      To: 1586270616000
     }
   },
   {
-    "id": "00000000-0000-0000-0000-000000000000",
-    "label": "WorksFor",
-    "type": "edge",
-    "inVLabel": "Company",
-    "outVLabel": "Person",
-    "inV": "00000000-0000-0000-0000-000000000000",
-    "outV": "00000000-0000-0000-0000-000000000000",
-    "properties": {
-      "To": 1586270616000,
-      "From": 1586270616000,
-      "Role": "Admin"
+    id: Guid_7,
+    label: WorksFor,
+    type: edge,
+    inVLabel: Company,
+    outVLabel: Person,
+    inV: Guid_8,
+    outV: Guid_9,
+    properties: {
+      To: 1586270616000,
+      From: 1586270616000,
+      Role: Admin
     }
   }
 ]

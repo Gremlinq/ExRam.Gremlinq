@@ -1,25 +1,25 @@
 ﻿[
   {
-    "@type": "g:Map",
-    "@value": [
-      "TimeFrame",
+    @type: g:Map,
+    @value: [
+      TimeFrame,
       {
-        "@type": "g:Double",
-        "@value": -1.0
+        @type: g:Double,
+        @value: 28800000.0
       },
-      "Company",
+      Company,
       {
-        "@type": "g:Date",
-        "@value": -62135596800000
+        @type: g:Date,
+        @value: -62135596800000
       },
-      "Language",
-      "en",
-      "Country",
-      "+49",
-      "Person",
+      Language,
+      en,
+      Country,
+      +49,
+      Person,
       {
-        "@type": "g:Int32",
-        "@value": -1
+        @type: g:Int32,
+        @value: 1
       }
     ]
   }

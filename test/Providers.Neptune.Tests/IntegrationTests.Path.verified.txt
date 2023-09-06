@@ -1,55 +1,52 @@
 ﻿[
   {
-    "@type": "g:Path",
-    "@value": {
-      "labels": {
-        "@type": "g:List",
-        "@value": [
+    @type: g:Path,
+    @value: {
+      labels: {
+        @type: g:List,
+        @value: [
           {
-            "@type": "g:Set",
-            "@value": []
+            @type: g:Set
           },
           {
-            "@type": "g:Set",
-            "@value": []
+            @type: g:Set
           },
           {
-            "@type": "g:Set",
-            "@value": []
+            @type: g:Set
           }
         ]
       },
-      "objects": {
-        "@type": "g:List",
-        "@value": [
+      objects: {
+        @type: g:List,
+        @value: [
           {
-            "@type": "g:Vertex",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": -1
+            @type: g:Vertex,
+            @value: {
+              id: {
+                @type: g:Int64,
+                @value: 37
               },
-              "label": "Person"
+              label: Person
             }
           },
           {
-            "@type": "g:Vertex",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": -1
+            @type: g:Vertex,
+            @value: {
+              id: {
+                @type: g:Int64,
+                @value: 0
               },
-              "label": "Country"
+              label: Country
             }
           },
           {
-            "@type": "g:Vertex",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": -1
+            @type: g:Vertex,
+            @value: {
+              id: {
+                @type: g:Int64,
+                @value: 10
               },
-              "label": "Person"
+              label: Person
             }
           }
         ]
@@ -57,56 +54,53 @@
     }
   },
   {
-    "@type": "g:Path",
-    "@value": {
-      "labels": {
-        "@type": "g:List",
-        "@value": [
+    @type: g:Path,
+    @value: {
+      labels: {
+        @type: g:List,
+        @value: [
           {
-            "@type": "g:Set",
-            "@value": []
+            @type: g:Set
           },
           {
-            "@type": "g:Set",
-            "@value": []
+            @type: g:Set
           },
           {
-            "@type": "g:Set",
-            "@value": []
+            @type: g:Set
           }
         ]
       },
-      "objects": {
-        "@type": "g:List",
-        "@value": [
+      objects: {
+        @type: g:List,
+        @value: [
           {
-            "@type": "g:Vertex",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": -1
+            @type: g:Vertex,
+            @value: {
+              id: {
+                @type: g:Int64,
+                @value: 37
               },
-              "label": "Person"
+              label: Person
             }
           },
           {
-            "@type": "g:Vertex",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": -1
+            @type: g:Vertex,
+            @value: {
+              id: {
+                @type: g:Int64,
+                @value: 0
               },
-              "label": "Country"
+              label: Country
             }
           },
           {
-            "@type": "g:Vertex",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": -1
+            @type: g:Vertex,
+            @value: {
+              id: {
+                @type: g:Int64,
+                @value: 2
               },
-              "label": "Language"
+              label: Language
             }
           }
         ]
