@@ -17,12 +17,9 @@ namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
             {
             }
 
-            protected override SettingsTask InnerVerify<T>(T value)
-            {
-                return base
-                    .InnerVerify(value)
-                    .ScrubRegex(RelationIdRegex, "\"relationId\": \"scrubbed\"");
-            }
+            protected override SettingsTask InnerVerify(object? value) => base
+                .InnerVerify(value)
+                .ScrubRegex(RelationIdRegex, "\"relationId\": \"scrubbed\"");
         }
 
         public IntegrationTests(JanusGraphFixture fixture, ITestOutputHelper testOutputHelper) : base(
