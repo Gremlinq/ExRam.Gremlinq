@@ -157,7 +157,7 @@ jobs:
         name: test-windows-received-snapshots
 
     - name: Rename received files
-      run: find . -type f -name '*.received.*' | while read FILE ; do newfile="$(echo ${FILE} |sed -e 's/.DotNet7_0.received/.verified/')"; mv "${FILE}" "${newfile}"; done 
+      run: find . -type f -name '*.DotNet7_0.received.*' | while read FILE ; do newfile="$(echo ${FILE} |sed -e 's/.DotNet7_0.received/.verified/')"; mv "${FILE}" "${newfile}"; done 
 
     - name: Create snapshot changes pull request
       uses: peter-evans/create-pull-request@v4
