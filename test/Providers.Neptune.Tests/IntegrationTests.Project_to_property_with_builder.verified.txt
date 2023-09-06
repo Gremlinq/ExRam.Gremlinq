@@ -44,7 +44,7 @@
       "Age",
       {
         "@type": "g:Int32",
-        "@value": 0
+        "@value": -1
       }
     ]
   }
