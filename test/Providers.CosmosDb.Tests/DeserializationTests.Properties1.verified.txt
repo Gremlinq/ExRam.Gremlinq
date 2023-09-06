@@ -1,378 +1,378 @@
 ﻿[
   {
-    Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+    Id: Guid_1|PartitionKey,
     Label: PartitionKey,
     Properties: {},
     Value: PartitionKey
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_2,
     Label: CountryCallingCode,
     Properties: {},
     Value: +49
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+    Id: Guid_3|PartitionKey,
     Label: PartitionKey,
     Properties: {},
     Value: PartitionKey
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_4,
     Label: IetfLanguageTag,
     Properties: {},
     Value: en
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+    Id: Guid_5|PartitionKey,
     Label: PartitionKey,
     Properties: {},
     Value: PartitionKey
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_6,
     Label: Age,
     Properties: {},
     Value: 0
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+    Id: Guid_7|PartitionKey,
     Label: PartitionKey,
     Properties: {},
     Value: PartitionKey
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_8,
     Label: FoundingDate,
     Properties: {},
     Value: -62135596800000
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+    Id: Guid_9|PartitionKey,
     Label: PartitionKey,
     Properties: {},
     Value: PartitionKey
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_10,
     Label: Age,
     Properties: {},
     Value: 0
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_11,
     Label: Name,
     Properties: {},
     Value: Bob
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_12,
     Label: RegistrationDate,
     Properties: {},
     Value: 1586270616000
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+    Id: Guid_13|PartitionKey,
     Label: PartitionKey,
     Properties: {},
     Value: PartitionKey
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_14,
     Label: Age,
     Properties: {},
     Value: 0
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+    Id: Guid_15|PartitionKey,
     Label: PartitionKey,
     Properties: {},
     Value: PartitionKey
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+    Id: Guid_16|PartitionKey,
     Label: PartitionKey,
     Properties: {},
     Value: PartitionKey
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_17,
     Label: Age,
     Properties: {},
     Value: 0
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+    Id: Guid_18|PartitionKey,
     Label: PartitionKey,
     Properties: {},
     Value: PartitionKey
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+    Id: Guid_19|PartitionKey,
     Label: PartitionKey,
     Properties: {},
     Value: PartitionKey
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_20,
     Label: Age,
     Properties: {},
     Value: 0
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+    Id: Guid_21|PartitionKey,
     Label: PartitionKey,
     Properties: {},
     Value: PartitionKey
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+    Id: Guid_22|PartitionKey,
     Label: PartitionKey,
     Properties: {},
     Value: PartitionKey
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_23,
     Label: Age,
     Properties: {},
     Value: 0
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+    Id: Guid_24|PartitionKey,
     Label: PartitionKey,
     Properties: {},
     Value: PartitionKey
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_25,
     Label: FoundingDate,
     Properties: {},
     Value: -62135596800000
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+    Id: Guid_26|PartitionKey,
     Label: PartitionKey,
     Properties: {},
     Value: PartitionKey
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_27,
     Label: IetfLanguageTag,
     Properties: {},
     Value: en
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+    Id: Guid_28|PartitionKey,
     Label: PartitionKey,
     Properties: {},
     Value: PartitionKey
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_29,
     Label: CountryCallingCode,
     Properties: {},
     Value: +49
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+    Id: Guid_30|PartitionKey,
     Label: PartitionKey,
     Properties: {},
     Value: PartitionKey
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_31,
     Label: Age,
     Properties: {},
     Value: 0
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_32,
     Label: Name,
     Properties: {},
     Value: Bob
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_33,
     Label: RegistrationDate,
     Properties: {},
     Value: 1586270616000
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+    Id: Guid_34|PartitionKey,
     Label: PartitionKey,
     Properties: {},
     Value: PartitionKey
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_35,
     Label: Age,
     Properties: {},
     Value: 0
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+    Id: Guid_36|PartitionKey,
     Label: PartitionKey,
     Properties: {},
     Value: PartitionKey
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_37,
     Label: FoundingDate,
     Properties: {},
     Value: -62135596800000
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+    Id: Guid_38|PartitionKey,
     Label: PartitionKey,
     Properties: {},
     Value: PartitionKey
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_39,
     Label: IetfLanguageTag,
     Properties: {},
     Value: en
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+    Id: Guid_40|PartitionKey,
     Label: PartitionKey,
     Properties: {},
     Value: PartitionKey
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+    Id: Guid_41|PartitionKey,
     Label: PartitionKey,
     Properties: {},
     Value: PartitionKey
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_42,
     Label: Duration,
     Properties: {},
     Value: 7200000.0
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_43,
     Label: Enabled,
     Properties: {},
     Value: false
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_44,
     Label: StartTime,
     Properties: {},
     Value: 28800000.0
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+    Id: Guid_45|PartitionKey,
     Label: PartitionKey,
     Properties: {},
     Value: PartitionKey
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_46,
     Label: IetfLanguageTag,
     Properties: {},
     Value: en
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+    Id: Guid_47|PartitionKey,
     Label: PartitionKey,
     Properties: {},
     Value: PartitionKey
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_48,
     Label: IetfLanguageTag,
     Properties: {},
     Value: en
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+    Id: Guid_49|PartitionKey,
     Label: PartitionKey,
     Properties: {},
     Value: PartitionKey
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_50,
     Label: Age,
     Properties: {},
     Value: 0
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_51,
     Label: Image,
     Properties: {},
     Value: AQIDBAUGBwg=
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+    Id: Guid_52|PartitionKey,
     Label: PartitionKey,
     Properties: {},
     Value: PartitionKey
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_53,
     Label: Age,
     Properties: {},
     Value: 0
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_54,
     Label: Gender,
     Properties: {},
     Value: 1
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+    Id: Guid_55|PartitionKey,
     Label: PartitionKey,
     Properties: {},
     Value: PartitionKey
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_56,
     Label: Name,
     Properties: {},
     Value: Marko
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_57,
     Label: RegistrationDate,
     Properties: {},
     Value: 1586270616000
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+    Id: Guid_58|PartitionKey,
     Label: PartitionKey,
     Properties: {},
     Value: PartitionKey
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_59,
     Label: IetfLanguageTag,
     Properties: {},
     Value: en
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+    Id: Guid_60|PartitionKey,
     Label: PartitionKey,
     Properties: {},
     Value: PartitionKey
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+    Id: Guid_61|PartitionKey,
     Label: PartitionKey,
     Properties: {},
     Value: PartitionKey
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_62,
     Label: FoundingDate,
     Properties: {},
     Value: -62135596800000
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_63,
     Label: Locations,
     Properties: {
       ValidFrom: 1546304400000
@@ -380,25 +380,25 @@
     Value: Aachen
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+    Id: Guid_64|PartitionKey,
     Label: PartitionKey,
     Properties: {},
     Value: PartitionKey
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_65,
     Label: Name,
     Properties: {},
     Value: GER
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+    Id: Guid_66|PartitionKey,
     Label: PartitionKey,
     Properties: {},
     Value: PartitionKey
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_67,
     Label: Name,
     Properties: {
       de: Deutschland,
@@ -407,43 +407,43 @@
     Value: GER
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+    Id: Guid_68|PartitionKey,
     Label: PartitionKey,
     Properties: {},
     Value: PartitionKey
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_69,
     Label: FoundingDate,
     Properties: {},
     Value: -62135596800000
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_70,
     Label: PhoneNumbers,
     Properties: {},
     Value: +4912345
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_71,
     Label: PhoneNumbers,
     Properties: {},
     Value: +4923456
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+    Id: Guid_72|PartitionKey,
     Label: PartitionKey,
     Properties: {},
     Value: PartitionKey
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+    Id: Guid_73|PartitionKey,
     Label: PartitionKey,
     Properties: {},
     Value: PartitionKey
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_74,
     Label: lang,
     Properties: {},
     Value: en

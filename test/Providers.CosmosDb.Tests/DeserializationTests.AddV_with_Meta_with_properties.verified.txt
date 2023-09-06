@@ -1,14 +1,14 @@
 ﻿[
   {
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_2,
       Properties: {
         de: Deutschland,
         en: Germany
       },
       Value: GER
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_1,
     Label: Country
   }
 ]

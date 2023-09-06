@@ -2,11 +2,11 @@
   {
     Item1: {
       CountryCallingCode: +49,
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_1,
       Label: Country
     },
     Item2: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Id: Guid_1|PartitionKey,
       Label: PartitionKey,
       Properties: {},
       Value: PartitionKey
@@ -15,11 +15,11 @@
   {
     Item1: {
       IetfLanguageTag: en,
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_3,
       Label: Language
     },
     Item2: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Id: Guid_3|PartitionKey,
       Label: PartitionKey,
       Properties: {},
       Value: PartitionKey
@@ -27,11 +27,11 @@
   },
   {
     Item1: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_5,
       Label: Person
     },
     Item2: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Id: Guid_5|PartitionKey,
       Label: PartitionKey,
       Properties: {},
       Value: PartitionKey
@@ -39,11 +39,11 @@
   },
   {
     Item1: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_7,
       Label: Company
     },
     Item2: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Id: Guid_7|PartitionKey,
       Label: PartitionKey,
       Properties: {},
       Value: PartitionKey
@@ -53,14 +53,14 @@
     Item1: {
       RegistrationDate: 2020-04-07 14:43:36 +0,
       Name: {
-        Id: 00000000-0000-0000-0000-000000000000,
+        Id: Guid_11,
         Value: Bob
       },
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_9,
       Label: Person
     },
     Item2: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Id: Guid_9|PartitionKey,
       Label: PartitionKey,
       Properties: {},
       Value: PartitionKey
@@ -68,11 +68,11 @@
   },
   {
     Item1: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_13,
       Label: Person
     },
     Item2: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Id: Guid_13|PartitionKey,
       Label: PartitionKey,
       Properties: {},
       Value: PartitionKey
@@ -80,11 +80,11 @@
   },
   {
     Item1: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_15,
       Label: Country
     },
     Item2: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Id: Guid_15|PartitionKey,
       Label: PartitionKey,
       Properties: {},
       Value: PartitionKey
@@ -92,11 +92,11 @@
   },
   {
     Item1: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_16,
       Label: Person
     },
     Item2: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Id: Guid_16|PartitionKey,
       Label: PartitionKey,
       Properties: {},
       Value: PartitionKey
@@ -104,11 +104,11 @@
   },
   {
     Item1: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_18,
       Label: Country
     },
     Item2: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Id: Guid_18|PartitionKey,
       Label: PartitionKey,
       Properties: {},
       Value: PartitionKey
@@ -116,11 +116,11 @@
   },
   {
     Item1: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_19,
       Label: Person
     },
     Item2: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Id: Guid_19|PartitionKey,
       Label: PartitionKey,
       Properties: {},
       Value: PartitionKey
@@ -128,11 +128,11 @@
   },
   {
     Item1: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_21,
       Label: Country
     },
     Item2: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Id: Guid_21|PartitionKey,
       Label: PartitionKey,
       Properties: {},
       Value: PartitionKey
@@ -140,11 +140,11 @@
   },
   {
     Item1: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_22,
       Label: Person
     },
     Item2: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Id: Guid_22|PartitionKey,
       Label: PartitionKey,
       Properties: {},
       Value: PartitionKey
@@ -152,11 +152,11 @@
   },
   {
     Item1: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_24,
       Label: Company
     },
     Item2: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Id: Guid_24|PartitionKey,
       Label: PartitionKey,
       Properties: {},
       Value: PartitionKey
@@ -165,11 +165,11 @@
   {
     Item1: {
       IetfLanguageTag: en,
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_26,
       Label: Language
     },
     Item2: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Id: Guid_26|PartitionKey,
       Label: PartitionKey,
       Properties: {},
       Value: PartitionKey
@@ -178,11 +178,11 @@
   {
     Item1: {
       CountryCallingCode: +49,
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_28,
       Label: Country
     },
     Item2: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Id: Guid_28|PartitionKey,
       Label: PartitionKey,
       Properties: {},
       Value: PartitionKey
@@ -192,14 +192,14 @@
     Item1: {
       RegistrationDate: 2020-04-07 14:43:36 +0,
       Name: {
-        Id: 00000000-0000-0000-0000-000000000000,
+        Id: Guid_32,
         Value: Bob
       },
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_30,
       Label: Person
     },
     Item2: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Id: Guid_30|PartitionKey,
       Label: PartitionKey,
       Properties: {},
       Value: PartitionKey
@@ -207,11 +207,11 @@
   },
   {
     Item1: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_34,
       Label: Person
     },
     Item2: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Id: Guid_34|PartitionKey,
       Label: PartitionKey,
       Properties: {},
       Value: PartitionKey
@@ -219,11 +219,11 @@
   },
   {
     Item1: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_36,
       Label: Company
     },
     Item2: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Id: Guid_36|PartitionKey,
       Label: PartitionKey,
       Properties: {},
       Value: PartitionKey
@@ -232,11 +232,11 @@
   {
     Item1: {
       IetfLanguageTag: en,
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_38,
       Label: Language
     },
     Item2: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Id: Guid_38|PartitionKey,
       Label: PartitionKey,
       Properties: {},
       Value: PartitionKey
@@ -244,11 +244,11 @@
   },
   {
     Item1: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_40,
       Label: Language
     },
     Item2: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Id: Guid_40|PartitionKey,
       Label: PartitionKey,
       Properties: {},
       Value: PartitionKey
@@ -259,11 +259,11 @@
       Enabled: false,
       StartTime: 08:00:00,
       Duration: 02:00:00,
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_41,
       Label: TimeFrame
     },
     Item2: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Id: Guid_41|PartitionKey,
       Label: PartitionKey,
       Properties: {},
       Value: PartitionKey
@@ -272,11 +272,11 @@
   {
     Item1: {
       IetfLanguageTag: en,
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_45,
       Label: Language
     },
     Item2: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Id: Guid_45|PartitionKey,
       Label: PartitionKey,
       Properties: {},
       Value: PartitionKey
@@ -285,11 +285,11 @@
   {
     Item1: {
       IetfLanguageTag: en,
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_47,
       Label: Language
     },
     Item2: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Id: Guid_47|PartitionKey,
       Label: PartitionKey,
       Properties: {},
       Value: PartitionKey
@@ -298,11 +298,11 @@
   {
     Item1: {
       Image: AQIDBAUGBwg=,
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_49,
       Label: Person
     },
     Item2: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Id: Guid_49|PartitionKey,
       Label: PartitionKey,
       Properties: {},
       Value: PartitionKey
@@ -311,11 +311,11 @@
   {
     Item1: {
       Gender: Female,
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_52,
       Label: Person
     },
     Item2: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Id: Guid_52|PartitionKey,
       Label: PartitionKey,
       Properties: {},
       Value: PartitionKey
@@ -325,14 +325,14 @@
     Item1: {
       RegistrationDate: 2020-04-07 14:43:36 +0,
       Name: {
-        Id: 00000000-0000-0000-0000-000000000000,
+        Id: Guid_56,
         Value: Marko
       },
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_55,
       Label: Person
     },
     Item2: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Id: Guid_55|PartitionKey,
       Label: PartitionKey,
       Properties: {},
       Value: PartitionKey
@@ -341,11 +341,11 @@
   {
     Item1: {
       IetfLanguageTag: en,
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_58,
       Label: Language
     },
     Item2: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Id: Guid_58|PartitionKey,
       Label: PartitionKey,
       Properties: {},
       Value: PartitionKey
@@ -353,11 +353,11 @@
   },
   {
     Item1: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_60,
       Label: Language
     },
     Item2: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Id: Guid_60|PartitionKey,
       Label: PartitionKey,
       Properties: {},
       Value: PartitionKey
@@ -367,18 +367,18 @@
     Item1: {
       Locations: [
         {
-          Id: 00000000-0000-0000-0000-000000000000,
+          Id: Guid_63,
           Properties: {
             ValidFrom: 2019-01-01 01:00 +0
           },
           Value: Aachen
         }
       ],
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_61,
       Label: Company
     },
     Item2: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Id: Guid_61|PartitionKey,
       Label: PartitionKey,
       Properties: {},
       Value: PartitionKey
@@ -387,15 +387,15 @@
   {
     Item1: {
       Name: {
-        Id: 00000000-0000-0000-0000-000000000000,
+        Id: Guid_65,
         Properties: {},
         Value: GER
       },
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_64,
       Label: Country
     },
     Item2: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Id: Guid_64|PartitionKey,
       Label: PartitionKey,
       Properties: {},
       Value: PartitionKey
@@ -404,18 +404,18 @@
   {
     Item1: {
       Name: {
-        Id: 00000000-0000-0000-0000-000000000000,
+        Id: Guid_67,
         Properties: {
           de: Deutschland,
           en: Germany
         },
         Value: GER
       },
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_66,
       Label: Country
     },
     Item2: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Id: Guid_66|PartitionKey,
       Label: PartitionKey,
       Properties: {},
       Value: PartitionKey
@@ -427,11 +427,11 @@
         +4912345,
         +4923456
       ],
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_68,
       Label: Company
     },
     Item2: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Id: Guid_68|PartitionKey,
       Label: PartitionKey,
       Properties: {},
       Value: PartitionKey
@@ -439,11 +439,11 @@
   },
   {
     Item1: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_72,
       Label: Language
     },
     Item2: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Id: Guid_72|PartitionKey,
       Label: PartitionKey,
       Properties: {},
       Value: PartitionKey
@@ -451,11 +451,11 @@
   },
   {
     Item1: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_73,
       Label: Language
     },
     Item2: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
+      Id: Guid_73|PartitionKey,
       Label: PartitionKey,
       Properties: {},
       Value: PartitionKey

@@ -1,74 +1,74 @@
 ﻿[
   {
     Age: 36,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_1,
     Label: Person
   },
   {
     Age: 36,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_8,
       Value: Bob
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_6,
     Label: Person
   },
   {
     Age: 36,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_12,
     Label: Person
   },
   {
     Age: 36,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_16,
     Label: Person
   },
   {
     Age: 36,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_20,
     Label: Person
   },
   {
     Age: 36,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_24,
     Label: Person
   },
   {
     Age: 36,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_30,
       Value: Bob
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_28,
     Label: Person
   },
   {
     Age: 36,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_34,
     Label: Person
   },
   {
     Age: 36,
     Image: AQIDBAUGBwg=,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_38,
     Label: Person
   },
   {
     Age: 36,
     Gender: Female,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_43,
     Label: Person
   },
   {
     Age: 36,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_49,
       Value: Marko
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_48,
     Label: Person
   }
 ]

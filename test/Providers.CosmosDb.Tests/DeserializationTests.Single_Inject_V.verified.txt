@@ -2,230 +2,230 @@
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_3,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_1,
     Label: Country
   },
   {
     IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_4,
     Label: Language
   },
   {
     Age: 36,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_6,
     Label: Person
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_11,
     Label: Company
   },
   {
     Age: 36,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_15,
       Properties: {
         ValidFrom: 2020-04-07 14:43:36 +0
       },
       Value: Bob
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_13,
     Label: Person
   },
   {
     Age: 36,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_19,
     Label: Person
   },
   {
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_24,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_23,
     Label: Country
   },
   {
     Age: 36,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_25,
     Label: Person
   },
   {
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_30,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_29,
     Label: Country
   },
   {
     Age: 36,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_31,
     Label: Person
   },
   {
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_36,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_35,
     Label: Country
   },
   {
     Age: 36,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_37,
     Label: Person
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_41,
     Label: Company
   },
   {
     IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_43,
     Label: Language
   },
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_47,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_45,
     Label: Country
   },
   {
     Age: 36,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_50,
       Properties: {
         ValidFrom: 2020-04-07 14:43:36 +0
       },
       Value: Bob
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_48,
     Label: Person
   },
   {
     Age: 36,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_54,
     Label: Person
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_58,
     Label: Company
   },
   {
     IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_60,
     Label: Language
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_62,
     Label: Language
   },
   {
     Enabled: false,
     StartTime: 08:00:00,
     Duration: 02:00:00,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_63,
     Label: TimeFrame
   },
   {
     IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_67,
     Label: Language
   },
   {
     IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_69,
     Label: Language
   },
   {
     Age: 36,
     Image: AQIDBAUGBwg=,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_71,
     Label: Person
   },
   {
     Age: 36,
     Gender: Female,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_76,
     Label: Person
   },
   {
     Age: 36,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_82,
       Properties: {
         ValidFrom: 2020-04-07 14:43:36 +0
       },
       Value: Marko
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_81,
     Label: Person
   },
   {
     IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_87,
     Label: Language
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_89,
     Label: Language
   },
   {
     Locations: [
       {
-        Id: 00000000-0000-0000-0000-000000000000,
+        Id: Guid_92,
         Properties: {
           ValidFrom: 2019-01-01 01:00 +0
         },
         Value: Aachen
       }
     ],
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_90,
     Label: Company
   },
   {
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_94,
       Properties: {},
       Value: GER
     },
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_95,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_93,
     Label: Country
   },
   {
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_97,
       Properties: {
         de: Deutschland,
         en: Germany
@@ -233,13 +233,13 @@
       Value: GER
     },
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_98,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_96,
     Label: Country
   },
   {
@@ -247,15 +247,15 @@
       +4912345,
       +4923456
     ],
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_99,
     Label: Company
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_103,
     Label: Language
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_104,
     Label: Language
   }
 ]

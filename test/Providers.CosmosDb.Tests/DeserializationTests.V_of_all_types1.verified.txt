@@ -2,18 +2,18 @@
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_3,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_1,
     Label: Country
   },
   {
     IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_4,
     Label: Language
   },
   {
@@ -21,14 +21,14 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_12,
       Value: Marko
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_6,
     Label: Person
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_14,
     Label: Company
   },
   {
@@ -36,10 +36,10 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_18,
       Value: Marko
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_16,
     Label: Person
   },
   {
@@ -47,21 +47,21 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_28,
       Value: Marko
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_23,
     Label: Person
   },
   {
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_31,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_30,
     Label: Country
   },
   {
@@ -69,21 +69,21 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_37,
       Value: Marko
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_32,
     Label: Person
   },
   {
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_40,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_39,
     Label: Country
   },
   {
@@ -91,21 +91,21 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_46,
       Value: Marko
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_41,
     Label: Person
   },
   {
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_49,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_48,
     Label: Country
   },
   {
@@ -113,31 +113,31 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_55,
       Value: Marko
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_50,
     Label: Person
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_57,
     Label: Company
   },
   {
     IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_59,
     Label: Language
   },
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_63,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_61,
     Label: Country
   },
   {
@@ -145,10 +145,10 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_66,
       Value: Marko
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_64,
     Label: Person
   },
   {
@@ -156,40 +156,40 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_76,
       Value: Marko
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_71,
     Label: Person
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_78,
     Label: Company
   },
   {
     IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_80,
     Label: Language
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_82,
     Label: Language
   },
   {
     Enabled: false,
     StartTime: 08:00:00,
     Duration: 02:00:00,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_83,
     Label: TimeFrame
   },
   {
     IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_87,
     Label: Language
   },
   {
     IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_89,
     Label: Language
   },
   {
@@ -197,10 +197,10 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_96,
       Value: Marko
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_91,
     Label: Person
   },
   {
@@ -208,10 +208,10 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_103,
       Value: Marko
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_98,
     Label: Person
   },
   {
@@ -219,53 +219,53 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_106,
       Value: Marko
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_105,
     Label: Person
   },
   {
     IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_112,
     Label: Language
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_114,
     Label: Language
   },
   {
     Locations: [
       {
-        Id: 00000000-0000-0000-0000-000000000000,
+        Id: Guid_117,
         Properties: {
           ValidFrom: 2019-01-01 01:00 +0
         },
         Value: Aachen
       }
     ],
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_115,
     Label: Company
   },
   {
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_119,
       Properties: {},
       Value: GER
     },
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_120,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_118,
     Label: Country
   },
   {
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_122,
       Properties: {
         de: Deutschland,
         en: Germany
@@ -273,13 +273,13 @@
       Value: GER
     },
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_123,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_121,
     Label: Country
   },
   {
@@ -287,15 +287,15 @@
       +4912345,
       +4923456
     ],
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_124,
     Label: Company
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_128,
     Label: Language
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_129,
     Label: Language
   }
 ]

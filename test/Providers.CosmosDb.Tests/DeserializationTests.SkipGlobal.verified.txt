@@ -1,219 +1,219 @@
 ﻿[
   {
     IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_1,
     Label: Language
   },
   {
     Age: 36,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_3,
     Label: Person
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_8,
     Label: Company
   },
   {
     Age: 36,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_12,
       Properties: {
         ValidFrom: 2020-04-07 14:43:36 +0
       },
       Value: Bob
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_10,
     Label: Person
   },
   {
     Age: 36,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_16,
     Label: Person
   },
   {
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_21,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_20,
     Label: Country
   },
   {
     Age: 36,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_22,
     Label: Person
   },
   {
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_27,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_26,
     Label: Country
   },
   {
     Age: 36,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_28,
     Label: Person
   },
   {
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_33,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_32,
     Label: Country
   },
   {
     Age: 36,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_34,
     Label: Person
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_38,
     Label: Company
   },
   {
     IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_40,
     Label: Language
   },
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_44,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_42,
     Label: Country
   },
   {
     Age: 36,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_47,
       Properties: {
         ValidFrom: 2020-04-07 14:43:36 +0
       },
       Value: Bob
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_45,
     Label: Person
   },
   {
     Age: 36,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_51,
     Label: Person
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_55,
     Label: Company
   },
   {
     IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_57,
     Label: Language
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_59,
     Label: Language
   },
   {
     Enabled: false,
     StartTime: 08:00:00,
     Duration: 02:00:00,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_60,
     Label: TimeFrame
   },
   {
     IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_64,
     Label: Language
   },
   {
     IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_66,
     Label: Language
   },
   {
     Age: 36,
     Image: AQIDBAUGBwg=,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_68,
     Label: Person
   },
   {
     Age: 36,
     Gender: Female,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_73,
     Label: Person
   },
   {
     Age: 36,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_79,
       Properties: {
         ValidFrom: 2020-04-07 14:43:36 +0
       },
       Value: Marko
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_78,
     Label: Person
   },
   {
     IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_84,
     Label: Language
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_86,
     Label: Language
   },
   {
     Locations: [
       {
-        Id: 00000000-0000-0000-0000-000000000000,
+        Id: Guid_89,
         Properties: {
           ValidFrom: 2019-01-01 01:00 +0
         },
         Value: Aachen
       }
     ],
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_87,
     Label: Company
   },
   {
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_91,
       Properties: {},
       Value: GER
     },
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_92,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_90,
     Label: Country
   },
   {
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_94,
       Properties: {
         de: Deutschland,
         en: Germany
@@ -221,13 +221,13 @@
       Value: GER
     },
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_95,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_93,
     Label: Country
   },
   {
@@ -235,15 +235,15 @@
       +4912345,
       +4923456
     ],
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_96,
     Label: Company
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_100,
     Label: Language
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_101,
     Label: Language
   }
 ]

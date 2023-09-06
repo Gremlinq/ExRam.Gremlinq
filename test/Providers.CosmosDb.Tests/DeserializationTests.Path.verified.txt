@@ -9,20 +9,20 @@
       {
         RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
-          Id: 00000000-0000-0000-0000-000000000000,
+          Id: Guid_3,
           Value: Bob
         },
-        Id: 00000000-0000-0000-0000-000000000000,
+        Id: Guid_1,
         Label: Person
       },
       {
         CountryCallingCode: +49,
-        Id: 00000000-0000-0000-0000-000000000000,
+        Id: Guid_5,
         Label: Country
       },
       {
         IetfLanguageTag: en,
-        Id: 00000000-0000-0000-0000-000000000000,
+        Id: Guid_7,
         Label: Language
       }
     ]
@@ -37,24 +37,24 @@
       {
         RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
-          Id: 00000000-0000-0000-0000-000000000000,
+          Id: Guid_3,
           Value: Bob
         },
-        Id: 00000000-0000-0000-0000-000000000000,
+        Id: Guid_1,
         Label: Person
       },
       {
         CountryCallingCode: +49,
-        Id: 00000000-0000-0000-0000-000000000000,
+        Id: Guid_5,
         Label: Country
       },
       {
         RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
-          Id: 00000000-0000-0000-0000-000000000000,
+          Id: Guid_11,
           Value: Bob
         },
-        Id: 00000000-0000-0000-0000-000000000000,
+        Id: Guid_9,
         Label: Person
       }
     ]

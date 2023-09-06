@@ -1,59 +1,59 @@
 ﻿[
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_1,
     Label: Company
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_3,
     Label: Company
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_5,
     Label: Company
   },
   {
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_8,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_7,
     Label: Country
   },
   {
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_10,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_9,
     Label: Country
   },
   {
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_12,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_11,
     Label: Country
   },
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_15,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_13,
     Label: Country
   }
 ]

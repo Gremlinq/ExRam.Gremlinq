@@ -1,63 +1,63 @@
 ﻿[
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_1,
     Label: Person
   },
   {
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_5,
       Value: Bob
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_3,
     Label: Person
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_7,
     Label: Person
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_9,
     Label: Person
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_11,
     Label: Person
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_13,
     Label: Person
   },
   {
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_17,
       Value: Bob
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_15,
     Label: Person
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_19,
     Label: Person
   },
   {
     Image: AQIDBAUGBwg=,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_21,
     Label: Person
   },
   {
     Gender: Female,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_24,
     Label: Person
   },
   {
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_28,
       Value: Marko
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_27,
     Label: Person
   }
 ]

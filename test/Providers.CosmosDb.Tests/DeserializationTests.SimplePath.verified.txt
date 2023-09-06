@@ -1,20 +1,20 @@
 ﻿[
   {
     IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_1,
     Label: Language
   },
   {
     Age: 36,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_5,
       Properties: {
         ValidFrom: 2020-04-07 14:43:36 +0
       },
       Value: Bob
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_3,
     Label: Person
   }
 ]

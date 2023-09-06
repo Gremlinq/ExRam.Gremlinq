@@ -1,7 +1,7 @@
 ﻿[
   {
     IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_1,
     Label: Language
   },
   {
@@ -9,10 +9,10 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_5,
       Value: Marko
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_3,
     Label: Person
   },
   {
@@ -20,26 +20,26 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_13,
       Value: Marko
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_11,
     Label: Person
   },
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_20,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_18,
     Label: Country
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_21,
     Label: Company
   },
   {
@@ -47,33 +47,33 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_28,
       Value: Marko
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_23,
     Label: Person
   },
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_20,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_18,
     Label: Country
   },
   {
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_31,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_30,
     Label: Country
   },
   {
@@ -81,21 +81,21 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_37,
       Value: Marko
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_32,
     Label: Person
   },
   {
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_40,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_39,
     Label: Country
   },
   {
@@ -103,21 +103,21 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_46,
       Value: Marko
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_41,
     Label: Person
   },
   {
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_49,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_48,
     Label: Country
   },
   {
@@ -125,14 +125,14 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_55,
       Value: Marko
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_50,
     Label: Person
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_57,
     Label: Company
   },
   {
@@ -140,43 +140,43 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_64,
       Value: Marko
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_59,
     Label: Person
   },
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_68,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_66,
     Label: Country
   },
   {
     IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_69,
     Label: Language
   },
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_20,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_18,
     Label: Country
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_71,
     Label: Company
   },
   {
@@ -184,10 +184,10 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_78,
       Value: Marko
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_73,
     Label: Person
   }
 ]

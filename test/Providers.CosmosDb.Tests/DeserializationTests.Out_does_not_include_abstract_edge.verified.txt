@@ -1,31 +1,31 @@
 ﻿[
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_1,
     Label: Company
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_3,
     Label: Country
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_4,
     Label: Country
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_5,
     Label: Country
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_6,
     Label: Company
   },
   {
     CountryCallingCode: +49,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_8,
     Label: Country
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_10,
     Label: Company
   }
 ]

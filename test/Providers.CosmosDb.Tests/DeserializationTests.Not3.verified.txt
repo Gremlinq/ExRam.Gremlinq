@@ -1,98 +1,98 @@
 ﻿[
   {
     CountryCallingCode: +49,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_1,
     Label: Country
   },
   {
     IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_3,
     Label: Language
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_5,
     Label: Country
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_6,
     Label: Country
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_7,
     Label: Country
   },
   {
     IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_8,
     Label: Language
   },
   {
     CountryCallingCode: +49,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_10,
     Label: Country
   },
   {
     IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_12,
     Label: Language
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_14,
     Label: Language
   },
   {
     Enabled: false,
     StartTime: 08:00:00,
     Duration: 02:00:00,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_15,
     Label: TimeFrame
   },
   {
     IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_19,
     Label: Language
   },
   {
     IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_21,
     Label: Language
   },
   {
     IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_23,
     Label: Language
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_25,
     Label: Language
   },
   {
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_27,
       Properties: {},
       Value: GER
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_26,
     Label: Country
   },
   {
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_29,
       Properties: {
         de: Deutschland,
         en: Germany
       },
       Value: GER
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_28,
     Label: Country
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_30,
     Label: Language
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_31,
     Label: Language
   }
 ]

@@ -4,14 +4,14 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_7,
       Value: Marko
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_1,
     Label: Person
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_9,
     Label: Company
   },
   {
@@ -19,10 +19,10 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_13,
       Value: Marko
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_11,
     Label: Person
   },
   {
@@ -30,10 +30,10 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_23,
       Value: Marko
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_18,
     Label: Person
   },
   {
@@ -41,10 +41,10 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_30,
       Value: Marko
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_25,
     Label: Person
   },
   {
@@ -52,10 +52,10 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_37,
       Value: Marko
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_32,
     Label: Person
   },
   {
@@ -63,14 +63,14 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_44,
       Value: Marko
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_39,
     Label: Person
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_46,
     Label: Company
   },
   {
@@ -78,10 +78,10 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_50,
       Value: Marko
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_48,
     Label: Person
   },
   {
@@ -89,14 +89,14 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_60,
       Value: Marko
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_55,
     Label: Person
   },
   {
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_62,
     Label: Company
   },
   {
@@ -104,10 +104,10 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_69,
       Value: Marko
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_64,
     Label: Person
   },
   {
@@ -115,10 +115,10 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_76,
       Value: Marko
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_71,
     Label: Person
   },
   {
@@ -126,23 +126,23 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
+      Id: Guid_79,
       Value: Marko
     },
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_78,
     Label: Person
   },
   {
     Locations: [
       {
-        Id: 00000000-0000-0000-0000-000000000000,
+        Id: Guid_87,
         Properties: {
           ValidFrom: 2019-01-01 01:00 +0
         },
         Value: Aachen
       }
     ],
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_85,
     Label: Company
   },
   {
@@ -150,7 +150,7 @@
       +4912345,
       +4923456
     ],
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_88,
     Label: Company
   }
 ]

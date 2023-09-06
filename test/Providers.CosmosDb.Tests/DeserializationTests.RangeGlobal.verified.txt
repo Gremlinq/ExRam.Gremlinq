@@ -1,12 +1,12 @@
 ﻿[
   {
     IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_1,
     Label: Language
   },
   {
     Age: 36,
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_3,
     Label: Person
   }
 ]

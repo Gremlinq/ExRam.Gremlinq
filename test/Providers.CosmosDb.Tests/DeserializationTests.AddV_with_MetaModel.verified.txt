@@ -2,14 +2,14 @@
   {
     Locations: [
       {
-        Id: 00000000-0000-0000-0000-000000000000,
+        Id: Guid_3,
         Properties: {
           ValidFrom: 2019-01-01 01:00 +0
         },
         Value: Aachen
       }
     ],
-    Id: 00000000-0000-0000-0000-000000000000,
+    Id: Guid_1,
     Label: Company
   }
 ]
