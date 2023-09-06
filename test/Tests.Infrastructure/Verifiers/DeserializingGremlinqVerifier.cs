@@ -19,24 +19,19 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         {
             var environment = query.AsAdmin().Environment;
 
-            try
+            if (JsonConvert.DeserializeObject<JArray>(File.ReadAllText(Path.Combine(_context.SourceDirectory, "IntegrationTests" + "." + _context.MethodName + ".verified.txt"))) is { } jArray)
             {
-                if (JsonConvert.DeserializeObject<JArray>(File.ReadAllText(Path.Combine(_context.SourceDirectory, "IntegrationTests" + "." + _context.MethodName + "." + Namer.RuntimeAndVersion + ".verified.txt"))) is { } jArray)
-                    await base
-                        .InnerVerify(jArray
-                            .Where(obj => !(obj is JObject jObject && jObject.ContainsKey("serverException")))
-                            .Select(token => environment
-                                .Deserializer
-                                .TransformTo<TElement>()
-                                .From(token, environment))
-                            .ToArray())
-                        .DontScrubDateTimes()
-                        .DontScrubGuids()
-                        .DontIgnoreEmptyCollections();
-            }
-            catch (IOException)
-            {
-
+                await base
+                    .InnerVerify(jArray
+                        .Where(obj => !(obj is JObject jObject && jObject.ContainsKey("serverException")))
+                        .Select(token => environment
+                            .Deserializer
+                            .TransformTo<TElement>()
+                            .From(token, environment))
+                        .ToArray())
+                    .DontScrubDateTimes()
+                    .DontScrubGuids()
+                    .DontIgnoreEmptyCollections();
             }
         }
     }
