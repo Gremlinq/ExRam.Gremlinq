@@ -18,7 +18,7 @@
           "ValidFrom",
           {
             "@type": "g:Date",
-            "@value": 1546304400000
+            "@value": -1
           }
         ]
       }

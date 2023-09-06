@@ -11,11 +11,11 @@
       "outVLabel": "Country",
       "inV": {
         "@type": "g:Int64",
-        "@value": 10
+        "@value": -1
       },
       "outV": {
         "@type": "g:Int64",
-        "@value": 0
+        "@value": -1
       }
     }
   },
@@ -31,11 +31,11 @@
       "outVLabel": "Country",
       "inV": {
         "@type": "g:Int64",
-        "@value": 2
+        "@value": -1
       },
       "outV": {
         "@type": "g:Int64",
-        "@value": 0
+        "@value": -1
       }
     }
   },
@@ -108,7 +108,7 @@
               },
               "value": {
                 "@type": "g:Int32",
-                "@value": 0
+                "@value": -1
               },
               "label": "Age"
             }
@@ -129,11 +129,11 @@
       "outVLabel": "Person",
       "inV": {
         "@type": "g:Int64",
-        "@value": 5
+        "@value": -1
       },
       "outV": {
         "@type": "g:Int64",
-        "@value": 7
+        "@value": -1
       },
       "properties": {
         "Role": {
@@ -149,7 +149,7 @@
             "key": "From",
             "value": {
               "@type": "g:Date",
-              "@value": 1586270616000
+              "@value": -1
             }
           }
         },
@@ -159,7 +159,7 @@
             "key": "To",
             "value": {
               "@type": "g:Date",
-              "@value": 1586270616000
+              "@value": -1
             }
           }
         }
@@ -178,11 +178,11 @@
       "outVLabel": "Person",
       "inV": {
         "@type": "g:Int64",
-        "@value": 17
+        "@value": -1
       },
       "outV": {
         "@type": "g:Int64",
-        "@value": 15
+        "@value": -1
       }
     }
   },
@@ -205,7 +205,7 @@
               },
               "value": {
                 "@type": "g:Int32",
-                "@value": 0
+                "@value": -1
               },
               "label": "Age"
             }
@@ -226,11 +226,11 @@
       "outVLabel": "Person",
       "inV": {
         "@type": "g:Int64",
-        "@value": 21
+        "@value": -1
       },
       "outV": {
         "@type": "g:Int64",
-        "@value": 19
+        "@value": -1
       }
     }
   },
@@ -253,7 +253,7 @@
               },
               "value": {
                 "@type": "g:Int32",
-                "@value": 0
+                "@value": -1
               },
               "label": "Age"
             }
@@ -274,11 +274,11 @@
       "outVLabel": "Person",
       "inV": {
         "@type": "g:Int64",
-        "@value": 25
+        "@value": -1
       },
       "outV": {
         "@type": "g:Int64",
-        "@value": 23
+        "@value": -1
       },
       "properties": {
         "Since": {
@@ -287,7 +287,7 @@
             "key": "Since",
             "value": {
               "@type": "g:Date",
-              "@value": 1586270616000
+              "@value": -1
             }
           }
         }
@@ -313,7 +313,7 @@
               },
               "value": {
                 "@type": "g:Int32",
-                "@value": 0
+                "@value": -1
               },
               "label": "Age"
             }
@@ -341,7 +341,7 @@
               },
               "value": {
                 "@type": "g:Int32",
-                "@value": 0
+                "@value": -1
               },
               "label": "Age"
             }
@@ -362,11 +362,11 @@
       "outVLabel": "Person",
       "inV": {
         "@type": "g:Int64",
-        "@value": 27
+        "@value": -1
       },
       "outV": {
         "@type": "g:Int64",
-        "@value": 29
+        "@value": -1
       },
       "properties": {
         "Role": {
@@ -382,7 +382,7 @@
             "key": "From",
             "value": {
               "@type": "g:Date",
-              "@value": 1586270616000
+              "@value": -1
             }
           }
         },
@@ -392,7 +392,7 @@
             "key": "To",
             "value": {
               "@type": "g:Date",
-              "@value": 1586270616000
+              "@value": -1
             }
           }
         }
@@ -436,11 +436,11 @@
       "outVLabel": "Country",
       "inV": {
         "@type": "g:Int64",
-        "@value": 32
+        "@value": -1
       },
       "outV": {
         "@type": "g:Int64",
-        "@value": 34
+        "@value": -1
       }
     }
   },
@@ -456,11 +456,11 @@
       "outVLabel": "Person",
       "inV": {
         "@type": "g:Int64",
-        "@value": 0
+        "@value": -1
       },
       "outV": {
         "@type": "g:Int64",
-        "@value": 37
+        "@value": -1
       }
     }
   },
@@ -483,7 +483,7 @@
               },
               "value": {
                 "@type": "g:Int32",
-                "@value": 0
+                "@value": -1
               },
               "label": "Age"
             }
@@ -504,11 +504,11 @@
       "outVLabel": "Person",
       "inV": {
         "@type": "g:Int64",
-        "@value": 42
+        "@value": -1
       },
       "outV": {
         "@type": "g:Int64",
-        "@value": 44
+        "@value": -1
       },
       "properties": {
         "To": {
@@ -517,7 +517,7 @@
             "key": "To",
             "value": {
               "@type": "g:Date",
-              "@value": 1586270616000
+              "@value": -1
             }
           }
         }

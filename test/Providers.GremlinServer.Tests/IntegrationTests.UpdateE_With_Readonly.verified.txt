@@ -18,12 +18,12 @@
           "From",
           {
             "@type": "g:Date",
-            "@value": 1586270616000
+            "@value": -1
           },
           "To",
           {
             "@type": "g:Date",
-            "@value": 1586270616000
+            "@value": -1
           }
         ]
       }
@@ -46,7 +46,7 @@
           "To",
           {
             "@type": "g:Date",
-            "@value": 1586270616000
+            "@value": -1
           }
         ]
       }
@@ -71,12 +71,12 @@
           "From",
           {
             "@type": "g:Date",
-            "@value": 1586270616000
+            "@value": -1
           },
           "To",
           {
             "@type": "g:Date",
-            "@value": 1586270616000
+            "@value": -1
           }
         ]
       }

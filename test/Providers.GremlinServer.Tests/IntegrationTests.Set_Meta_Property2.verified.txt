@@ -18,7 +18,7 @@
           "ValidFrom",
           {
             "@type": "g:Date",
-            "@value": 1586270616000
+            "@value": -1
           }
         ]
       }
@@ -43,7 +43,7 @@
           "ValidFrom",
           {
             "@type": "g:Date",
-            "@value": 1586270616000
+            "@value": -1
           }
         ]
       }
@@ -68,7 +68,7 @@
           "ValidFrom",
           {
             "@type": "g:Date",
-            "@value": 1586270616000
+            "@value": -1
           }
         ]
       }

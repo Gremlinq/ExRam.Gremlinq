@@ -49,7 +49,7 @@
       "Item3",
       {
         "@type": "g:Int32",
-        "@value": 0
+        "@value": -1
       }
     ]
   }
