@@ -17,6 +17,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         protected SettingsTask InnerVerify<T>(T value)
         {
+            if (value is string stringValue)
+            {
+                value= (T)(object)this
+                    .Scrubbers()
+                    .Aggregate(stringValue, (s, func) => func(s));
+            }
+
             return Verifier
                 .Verify(value, sourceFile: _sourceFile);
         }
