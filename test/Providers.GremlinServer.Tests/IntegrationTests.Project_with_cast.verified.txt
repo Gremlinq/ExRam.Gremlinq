@@ -1,7 +1,7 @@
 ﻿[
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "in",
       "in_value",
       "out",
@@ -14,7 +14,7 @@
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "in",
       "in_value",
       "out",
@@ -27,7 +27,7 @@
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "in",
       "in_value",
       "out",
@@ -40,7 +40,7 @@
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "in",
       "in_value",
       "out",
@@ -53,7 +53,7 @@
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "in",
       "in_value",
       "out",
@@ -66,7 +66,7 @@
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "in",
       "in_value",
       "out",
@@ -79,7 +79,7 @@
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "in",
       "in_value",
       "out",
@@ -92,7 +92,7 @@
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "in",
       "in_value",
       "out",
@@ -105,7 +105,7 @@
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "in",
       "in_value",
       "out",
@@ -118,7 +118,7 @@
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "in",
       "in_value",
       "out",
@@ -131,7 +131,7 @@
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "in",
       "in_value",
       "out",

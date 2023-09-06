@@ -1,127 +1,127 @@
 ﻿[
   {
     "@type": "g:Map",
-    "@value": []
+    "value": -1[]
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "Item2",
       {
         "@type": "g:Int32",
-        "@value": 0
+        "value": -1
       }
     ]
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "Item2",
       {
         "@type": "g:Int32",
-        "@value": 0
+        "value": -1
       }
     ]
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "Item2",
       {
         "@type": "g:Int32",
-        "@value": 0
+        "value": -1
       }
     ]
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "Item2",
       {
         "@type": "g:Int32",
-        "@value": 0
+        "value": -1
       }
     ]
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "Item2",
       {
         "@type": "g:Int32",
-        "@value": 0
+        "value": -1
       }
     ]
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "Item2",
       {
         "@type": "g:Int32",
-        "@value": 0
+        "value": -1
       }
     ]
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "Item2",
       {
         "@type": "g:Int32",
-        "@value": 0
+        "value": -1
       }
     ]
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "Item2",
       {
         "@type": "g:Int32",
-        "@value": 0
+        "value": -1
       }
     ]
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "Item2",
       {
         "@type": "g:Int32",
-        "@value": 0
+        "value": -1
       }
     ]
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "Item1",
       {
         "@type": "g:Map",
-        "@value": [
+        "value": -1[
           "id",
           {
             "@type": "g:Int64",
-            "@value": -1
+            "value": -1
           },
           "label",
           "Country",
           "properties",
           {
             "@type": "g:Map",
-            "@value": [
+            "value": -1[
               "CountryCallingCode",
               {
                 "@type": "g:List",
-                "@value": [
+                "value": -1[
                   {
                     "@type": "g:Map",
-                    "@value": [
+                    "value": -1[
                       "id",
                       {
                         "@type": "g:Int64",
-                        "@value": -1
+                        "value": -1
                       },
                       "label",
                       "CountryCallingCode",
@@ -130,7 +130,7 @@
                       "properties",
                       {
                         "@type": "g:Map",
-                        "@value": []
+                        "value": -1[]
                       }
                     ]
                   }
@@ -143,7 +143,7 @@
       "Item2",
       {
         "@type": "g:Int32",
-        "@value": 0
+        "value": -1
       }
     ]
   }

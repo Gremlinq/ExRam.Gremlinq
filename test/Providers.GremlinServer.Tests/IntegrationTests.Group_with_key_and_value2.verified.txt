@@ -1,16 +1,16 @@
 ﻿[
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "TimeFrame",
       {
         "@type": "gx:Duration",
-        "@value": "PT8H"
+        "value": -1"PT8H"
       },
       "Company",
       {
         "@type": "g:Date",
-        "@value": -62135596800000
+        "value": -1-62135596800000
       },
       "Language",
       "en",
@@ -19,7 +19,7 @@
       "Person",
       {
         "@type": "g:Int32",
-        "@value": 1
+        "value": -1
       }
     ]
   }

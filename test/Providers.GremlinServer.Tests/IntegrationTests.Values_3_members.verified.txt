@@ -1,51 +1,51 @@
 ﻿[
   {
     "@type": "g:Int64",
-    "@value": 64
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 0
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 0
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 0
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 0
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 0
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 0
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 0
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 0
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 0
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 0
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 0
+    "value": -1
   },
   "Marko",
   "Marko",
@@ -60,42 +60,42 @@
   "Marko",
   {
     "@type": "g:Int64",
-    "@value": 7
+    "value": -1
   },
   {
     "@type": "g:Int64",
-    "@value": 10
+    "value": -1
   },
   {
     "@type": "g:Int64",
-    "@value": 15
+    "value": -1
   },
   {
     "@type": "g:Int64",
-    "@value": 19
+    "value": -1
   },
   {
     "@type": "g:Int64",
-    "@value": 23
+    "value": -1
   },
   {
     "@type": "g:Int64",
-    "@value": 29
+    "value": -1
   },
   {
     "@type": "g:Int64",
-    "@value": 37
+    "value": -1
   },
   {
     "@type": "g:Int64",
-    "@value": 44
+    "value": -1
   },
   {
     "@type": "g:Int64",
-    "@value": 58
+    "value": -1
   },
   {
     "@type": "g:Int64",
-    "@value": 61
+    "value": -1
   }
 ]

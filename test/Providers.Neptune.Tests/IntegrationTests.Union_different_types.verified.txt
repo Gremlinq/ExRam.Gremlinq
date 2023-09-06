@@ -1,24 +1,24 @@
 ﻿[
   {
     "@type": "g:Vertex",
-    "@value": {
+    "value": -1{
       "id": {
         "@type": "g:Int64",
-        "@value": -1
+        "value": -1
       },
       "label": "Company",
       "properties": {
         "FoundingDate": [
           {
             "@type": "g:VertexProperty",
-            "@value": {
+            "value": -1{
               "id": {
                 "@type": "g:Int64",
-                "@value": -1
+                "value": -1
               },
               "value": {
                 "@type": "g:Date",
-                "@value": -62135596800000
+                "value": -1-62135596800000
               },
               "label": "FoundingDate"
             }
@@ -29,70 +29,70 @@
   },
   {
     "@type": "g:Edge",
-    "@value": {
+    "value": -1{
       "id": {
         "@type": "g:Int64",
-        "@value": -1
+        "value": -1
       },
       "label": "LivesIn",
       "inVLabel": "Country",
       "outVLabel": "Person",
       "inV": {
         "@type": "g:Int64",
-        "@value": 17
+        "value": -1
       },
       "outV": {
         "@type": "g:Int64",
-        "@value": 15
+        "value": -1
       }
     }
   },
   {
     "@type": "g:Edge",
-    "@value": {
+    "value": -1{
       "id": {
         "@type": "g:Int64",
-        "@value": -1
+        "value": -1
       },
       "label": "LivesIn",
       "inVLabel": "Country",
       "outVLabel": "Person",
       "inV": {
         "@type": "g:Int64",
-        "@value": 21
+        "value": -1
       },
       "outV": {
         "@type": "g:Int64",
-        "@value": 19
+        "value": -1
       }
     }
   },
   {
     "@type": "g:Edge",
-    "@value": {
+    "value": -1{
       "id": {
         "@type": "g:Int64",
-        "@value": -1
+        "value": -1
       },
       "label": "LivesIn",
       "inVLabel": "Country",
       "outVLabel": "Person",
       "inV": {
         "@type": "g:Int64",
-        "@value": 25
+        "value": -1
       },
       "outV": {
         "@type": "g:Int64",
-        "@value": 23
+        "value": -1
       },
       "properties": {
         "Since": {
           "@type": "g:Property",
-          "@value": {
+          "value": -1{
             "key": "Since",
             "value": {
               "@type": "g:Date",
-              "@value": 1586270616000
+              "value": -1
             }
           }
         }
@@ -101,24 +101,24 @@
   },
   {
     "@type": "g:Vertex",
-    "@value": {
+    "value": -1{
       "id": {
         "@type": "g:Int64",
-        "@value": -1
+        "value": -1
       },
       "label": "Company",
       "properties": {
         "FoundingDate": [
           {
             "@type": "g:VertexProperty",
-            "@value": {
+            "value": -1{
               "id": {
                 "@type": "g:Int64",
-                "@value": -1
+                "value": -1
               },
               "value": {
                 "@type": "g:Date",
-                "@value": -62135596800000
+                "value": -1-62135596800000
               },
               "label": "FoundingDate"
             }
@@ -129,44 +129,44 @@
   },
   {
     "@type": "g:Edge",
-    "@value": {
+    "value": -1{
       "id": {
         "@type": "g:Int64",
-        "@value": -1
+        "value": -1
       },
       "label": "LivesIn",
       "inVLabel": "Country",
       "outVLabel": "Person",
       "inV": {
         "@type": "g:Int64",
-        "@value": 0
+        "value": -1
       },
       "outV": {
         "@type": "g:Int64",
-        "@value": 37
+        "value": -1
       }
     }
   },
   {
     "@type": "g:Vertex",
-    "@value": {
+    "value": -1{
       "id": {
         "@type": "g:Int64",
-        "@value": -1
+        "value": -1
       },
       "label": "Company",
       "properties": {
         "FoundingDate": [
           {
             "@type": "g:VertexProperty",
-            "@value": {
+            "value": -1{
               "id": {
                 "@type": "g:Int64",
-                "@value": -1
+                "value": -1
               },
               "value": {
                 "@type": "g:Date",
-                "@value": -62135596800000
+                "value": -1-62135596800000
               },
               "label": "FoundingDate"
             }

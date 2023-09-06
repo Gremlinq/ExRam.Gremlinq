@@ -1,169 +1,169 @@
 ﻿[
   {
     "@type": "g:Map",
-    "@value": []
+    "value": -1[]
   },
   {
     "@type": "g:Map",
-    "@value": []
+    "value": -1[]
   },
   {
     "@type": "g:Map",
-    "@value": []
+    "value": -1[]
   },
   {
     "@type": "g:Map",
-    "@value": []
+    "value": -1[]
   },
   {
     "@type": "g:Map",
-    "@value": []
+    "value": -1[]
   },
   {
     "@type": "g:Map",
-    "@value": []
+    "value": -1[]
   },
   {
     "@type": "g:Map",
-    "@value": []
+    "value": -1[]
   },
   {
     "@type": "g:Map",
-    "@value": []
+    "value": -1[]
   },
   {
     "@type": "g:Map",
-    "@value": []
+    "value": -1[]
   },
   {
     "@type": "g:Map",
-    "@value": []
+    "value": -1[]
   },
   {
     "@type": "g:Map",
-    "@value": []
+    "value": -1[]
   },
   {
     "@type": "g:Map",
-    "@value": []
+    "value": -1[]
   },
   {
     "@type": "g:Map",
-    "@value": []
+    "value": -1[]
   },
   {
     "@type": "g:Map",
-    "@value": []
+    "value": -1[]
   },
   {
     "@type": "g:Map",
-    "@value": []
+    "value": -1[]
   },
   {
     "@type": "g:Map",
-    "@value": []
+    "value": -1[]
   },
   {
     "@type": "g:Map",
-    "@value": []
+    "value": -1[]
   },
   {
     "@type": "g:Map",
-    "@value": []
+    "value": -1[]
   },
   {
     "@type": "g:Map",
-    "@value": []
+    "value": -1[]
   },
   {
     "@type": "g:Map",
-    "@value": []
+    "value": -1[]
   },
   {
     "@type": "g:Map",
-    "@value": []
+    "value": -1[]
   },
   {
     "@type": "g:Map",
-    "@value": []
+    "value": -1[]
   },
   {
     "@type": "g:Map",
-    "@value": []
+    "value": -1[]
   },
   {
     "@type": "g:Map",
-    "@value": []
+    "value": -1[]
   },
   {
     "@type": "g:Map",
-    "@value": []
+    "value": -1[]
   },
   {
     "@type": "g:Map",
-    "@value": []
+    "value": -1[]
   },
   {
     "@type": "g:Map",
-    "@value": []
+    "value": -1[]
   },
   {
     "@type": "g:Map",
-    "@value": []
+    "value": -1[]
   },
   {
     "@type": "g:Map",
-    "@value": []
+    "value": -1[]
   },
   {
     "@type": "g:Map",
-    "@value": []
+    "value": -1[]
   },
   {
     "@type": "g:Map",
-    "@value": []
+    "value": -1[]
   },
   {
     "@type": "g:Map",
-    "@value": []
+    "value": -1[]
   },
   {
     "@type": "g:Map",
-    "@value": []
+    "value": -1[]
   },
   {
     "@type": "g:Map",
-    "@value": []
+    "value": -1[]
   },
   {
     "@type": "g:Map",
-    "@value": []
+    "value": -1[]
   },
   {
     "@type": "g:Map",
-    "@value": []
+    "value": -1[]
   },
   {
     "@type": "g:Map",
-    "@value": []
+    "value": -1[]
   },
   {
     "@type": "g:Map",
-    "@value": []
+    "value": -1[]
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "ValidFrom",
       {
         "@type": "g:Date",
-        "@value": 1546304400000
+        "value": -1
       }
     ]
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "de",
       "Deutschland",
       "en",

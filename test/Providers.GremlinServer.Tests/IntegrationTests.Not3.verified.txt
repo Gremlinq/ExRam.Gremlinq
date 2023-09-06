@@ -1,29 +1,29 @@
 ﻿[
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "value": -1
       },
       "label",
       "Country",
       "properties",
       {
         "@type": "g:Map",
-        "@value": [
+        "value": -1[
           "CountryCallingCode",
           {
             "@type": "g:List",
-            "@value": [
+            "value": -1[
               {
                 "@type": "g:Map",
-                "@value": [
+                "value": -1[
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "value": -1
                   },
                   "label",
                   "CountryCallingCode",
@@ -32,7 +32,7 @@
                   "properties",
                   {
                     "@type": "g:Map",
-                    "@value": []
+                    "value": -1[]
                   }
                 ]
               }
@@ -44,29 +44,29 @@
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "value": -1
       },
       "label",
       "Language",
       "properties",
       {
         "@type": "g:Map",
-        "@value": [
+        "value": -1[
           "IetfLanguageTag",
           {
             "@type": "g:List",
-            "@value": [
+            "value": -1[
               {
                 "@type": "g:Map",
-                "@value": [
+                "value": -1[
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "value": -1
                   },
                   "label",
                   "IetfLanguageTag",
@@ -75,7 +75,7 @@
                   "properties",
                   {
                     "@type": "g:Map",
-                    "@value": []
+                    "value": -1[]
                   }
                 ]
               }
@@ -87,29 +87,29 @@
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "value": -1
       },
       "label",
       "Language",
       "properties",
       {
         "@type": "g:Map",
-        "@value": [
+        "value": -1[
           "IetfLanguageTag",
           {
             "@type": "g:List",
-            "@value": [
+            "value": -1[
               {
                 "@type": "g:Map",
-                "@value": [
+                "value": -1[
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "value": -1
                   },
                   "label",
                   "IetfLanguageTag",
@@ -118,7 +118,7 @@
                   "properties",
                   {
                     "@type": "g:Map",
-                    "@value": []
+                    "value": -1[]
                   }
                 ]
               }
@@ -130,46 +130,46 @@
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "value": -1
       },
       "label",
       "Language",
       "properties",
       {
         "@type": "g:Map",
-        "@value": []
+        "value": -1[]
       }
     ]
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "value": -1
       },
       "label",
       "Country",
       "properties",
       {
         "@type": "g:Map",
-        "@value": [
+        "value": -1[
           "Name",
           {
             "@type": "g:List",
-            "@value": [
+            "value": -1[
               {
                 "@type": "g:Map",
-                "@value": [
+                "value": -1[
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "value": -1
                   },
                   "label",
                   "Name",
@@ -178,7 +178,7 @@
                   "properties",
                   {
                     "@type": "g:Map",
-                    "@value": []
+                    "value": -1[]
                   }
                 ]
               }
@@ -190,29 +190,29 @@
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "value": -1
       },
       "label",
       "Country",
       "properties",
       {
         "@type": "g:Map",
-        "@value": [
+        "value": -1[
           "Name",
           {
             "@type": "g:List",
-            "@value": [
+            "value": -1[
               {
                 "@type": "g:Map",
-                "@value": [
+                "value": -1[
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "value": -1
                   },
                   "label",
                   "Name",
@@ -221,7 +221,7 @@
                   "properties",
                   {
                     "@type": "g:Map",
-                    "@value": [
+                    "value": -1[
                       "de",
                       "Deutschland",
                       "en",
@@ -238,63 +238,63 @@
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "value": -1
       },
       "label",
       "Country",
       "properties",
       {
         "@type": "g:Map",
-        "@value": []
+        "value": -1[]
       }
     ]
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "value": -1
       },
       "label",
       "Language",
       "properties",
       {
         "@type": "g:Map",
-        "@value": []
+        "value": -1[]
       }
     ]
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "value": -1
       },
       "label",
       "Language",
       "properties",
       {
         "@type": "g:Map",
-        "@value": [
+        "value": -1[
           "lang",
           {
             "@type": "g:List",
-            "@value": [
+            "value": -1[
               {
                 "@type": "g:Map",
-                "@value": [
+                "value": -1[
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "value": -1
                   },
                   "label",
                   "lang",
@@ -303,7 +303,7 @@
                   "properties",
                   {
                     "@type": "g:Map",
-                    "@value": []
+                    "value": -1[]
                   }
                 ]
               }
@@ -315,63 +315,63 @@
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "value": -1
       },
       "label",
       "Country",
       "properties",
       {
         "@type": "g:Map",
-        "@value": []
+        "value": -1[]
       }
     ]
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "value": -1
       },
       "label",
       "Country",
       "properties",
       {
         "@type": "g:Map",
-        "@value": []
+        "value": -1[]
       }
     ]
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "value": -1
       },
       "label",
       "Language",
       "properties",
       {
         "@type": "g:Map",
-        "@value": [
+        "value": -1[
           "IetfLanguageTag",
           {
             "@type": "g:List",
-            "@value": [
+            "value": -1[
               {
                 "@type": "g:Map",
-                "@value": [
+                "value": -1[
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "value": -1
                   },
                   "label",
                   "IetfLanguageTag",
@@ -380,7 +380,7 @@
                   "properties",
                   {
                     "@type": "g:Map",
-                    "@value": []
+                    "value": -1[]
                   }
                 ]
               }
@@ -392,29 +392,29 @@
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "value": -1
       },
       "label",
       "Country",
       "properties",
       {
         "@type": "g:Map",
-        "@value": [
+        "value": -1[
           "CountryCallingCode",
           {
             "@type": "g:List",
-            "@value": [
+            "value": -1[
               {
                 "@type": "g:Map",
-                "@value": [
+                "value": -1[
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "value": -1
                   },
                   "label",
                   "CountryCallingCode",
@@ -423,7 +423,7 @@
                   "properties",
                   {
                     "@type": "g:Map",
-                    "@value": []
+                    "value": -1[]
                   }
                 ]
               }
@@ -435,29 +435,29 @@
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "value": -1
       },
       "label",
       "Language",
       "properties",
       {
         "@type": "g:Map",
-        "@value": [
+        "value": -1[
           "IetfLanguageTag",
           {
             "@type": "g:List",
-            "@value": [
+            "value": -1[
               {
                 "@type": "g:Map",
-                "@value": [
+                "value": -1[
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "value": -1
                   },
                   "label",
                   "IetfLanguageTag",
@@ -466,7 +466,7 @@
                   "properties",
                   {
                     "@type": "g:Map",
-                    "@value": []
+                    "value": -1[]
                   }
                 ]
               }
@@ -478,58 +478,58 @@
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "value": -1
       },
       "label",
       "Language",
       "properties",
       {
         "@type": "g:Map",
-        "@value": []
+        "value": -1[]
       }
     ]
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "value": -1
       },
       "label",
       "TimeFrame",
       "properties",
       {
         "@type": "g:Map",
-        "@value": [
+        "value": -1[
           "StartTime",
           {
             "@type": "g:List",
-            "@value": [
+            "value": -1[
               {
                 "@type": "g:Map",
-                "@value": [
+                "value": -1[
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "value": -1
                   },
                   "label",
                   "StartTime",
                   "value",
                   {
                     "@type": "gx:Duration",
-                    "@value": "PT8H"
+                    "value": -1"PT8H"
                   },
                   "properties",
                   {
                     "@type": "g:Map",
-                    "@value": []
+                    "value": -1[]
                   }
                 ]
               }
@@ -538,14 +538,14 @@
           "Enabled",
           {
             "@type": "g:List",
-            "@value": [
+            "value": -1[
               {
                 "@type": "g:Map",
-                "@value": [
+                "value": -1[
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "value": -1
                   },
                   "label",
                   "Enabled",
@@ -554,7 +554,7 @@
                   "properties",
                   {
                     "@type": "g:Map",
-                    "@value": []
+                    "value": -1[]
                   }
                 ]
               }
@@ -563,26 +563,26 @@
           "Duration",
           {
             "@type": "g:List",
-            "@value": [
+            "value": -1[
               {
                 "@type": "g:Map",
-                "@value": [
+                "value": -1[
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "value": -1
                   },
                   "label",
                   "Duration",
                   "value",
                   {
                     "@type": "gx:Duration",
-                    "@value": "PT2H"
+                    "value": -1"PT2H"
                   },
                   "properties",
                   {
                     "@type": "g:Map",
-                    "@value": []
+                    "value": -1[]
                   }
                 ]
               }
@@ -594,29 +594,29 @@
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "value": -1
       },
       "label",
       "Language",
       "properties",
       {
         "@type": "g:Map",
-        "@value": [
+        "value": -1[
           "IetfLanguageTag",
           {
             "@type": "g:List",
-            "@value": [
+            "value": -1[
               {
                 "@type": "g:Map",
-                "@value": [
+                "value": -1[
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "value": -1
                   },
                   "label",
                   "IetfLanguageTag",
@@ -625,7 +625,7 @@
                   "properties",
                   {
                     "@type": "g:Map",
-                    "@value": []
+                    "value": -1[]
                   }
                 ]
               }
@@ -637,29 +637,29 @@
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "value": -1
       },
       "label",
       "Language",
       "properties",
       {
         "@type": "g:Map",
-        "@value": [
+        "value": -1[
           "IetfLanguageTag",
           {
             "@type": "g:List",
-            "@value": [
+            "value": -1[
               {
                 "@type": "g:Map",
-                "@value": [
+                "value": -1[
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "value": -1
                   },
                   "label",
                   "IetfLanguageTag",
@@ -668,7 +668,7 @@
                   "properties",
                   {
                     "@type": "g:Map",
-                    "@value": []
+                    "value": -1[]
                   }
                 ]
               }

@@ -10,267 +10,267 @@
   "",
   {
     "@type": "g:UUID",
-    "@value": "00000000-0000-0000-0000-000000000000"
+    "value": -1"00000000-0000-0000-0000-000000000000"
   },
   {
     "@type": "g:UUID",
-    "@value": "00000000-0000-0000-0000-000000000000"
+    "value": -1"00000000-0000-0000-0000-000000000000"
   },
   {
     "@type": "g:UUID",
-    "@value": "00000000-0000-0000-0000-000000000000"
+    "value": -1"00000000-0000-0000-0000-000000000000"
   },
   {
     "@type": "g:UUID",
-    "@value": "00000000-0000-0000-0000-000000000000"
+    "value": -1"00000000-0000-0000-0000-000000000000"
   },
   {
     "@type": "g:UUID",
-    "@value": "00000000-0000-0000-0000-000000000000"
+    "value": -1"00000000-0000-0000-0000-000000000000"
   },
   {
     "@type": "g:UUID",
-    "@value": "00000000-0000-0000-0000-000000000000"
+    "value": -1"00000000-0000-0000-0000-000000000000"
   },
   {
     "@type": "g:UUID",
-    "@value": "00000000-0000-0000-0000-000000000000"
+    "value": -1"00000000-0000-0000-0000-000000000000"
   },
   {
     "@type": "g:UUID",
-    "@value": "00000000-0000-0000-0000-000000000000"
+    "value": -1"00000000-0000-0000-0000-000000000000"
   },
   {
     "@type": "g:UUID",
-    "@value": "00000000-0000-0000-0000-000000000000"
+    "value": -1"00000000-0000-0000-0000-000000000000"
   },
   {
     "@type": "g:UUID",
-    "@value": "00000000-0000-0000-0000-000000000000"
+    "value": -1"00000000-0000-0000-0000-000000000000"
   },
   {
     "@type": "g:UUID",
-    "@value": "00000000-0000-0000-0000-000000000000"
+    "value": -1"00000000-0000-0000-0000-000000000000"
   },
   {
     "@type": "g:Date",
-    "@value": 1586270616000
+    "value": -1
   },
   {
     "@type": "g:Date",
-    "@value": 1586270616000
+    "value": -1
   },
   {
     "@type": "g:Date",
-    "@value": 1586270616000
+    "value": -1
   },
   {
     "@type": "g:Date",
-    "@value": 1586270616000
+    "value": -1
   },
   {
     "@type": "g:Date",
-    "@value": 1586270616000
+    "value": -1
   },
   {
     "@type": "g:Date",
-    "@value": 1586270616000
+    "value": -1
   },
   {
     "@type": "g:Date",
-    "@value": 1586270616000
+    "value": -1
   },
   {
     "@type": "g:Date",
-    "@value": 1586270616000
+    "value": -1
   },
   {
     "@type": "g:Date",
-    "@value": 1586270616000
+    "value": -1
   },
   {
     "@type": "g:Date",
-    "@value": 1586270616000
+    "value": -1
   },
   {
     "@type": "g:Date",
-    "@value": 1586270616000
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 36
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 36
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 36
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 36
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 36
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 36
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 36
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 36
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 36
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 36
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 36
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 36
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 36
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 36
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 36
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 36
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 36
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 36
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 36
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 36
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 36
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 36
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 0
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 0
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 0
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 0
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 0
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 0
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 0
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 0
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 0
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 0
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 0
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 21
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 21
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 21
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 21
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 21
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 21
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 21
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 21
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 21
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 21
+    "value": -1
   },
   {
     "@type": "g:Int32",
-    "@value": 21
+    "value": -1
   },
   "Marko",
   "Marko",
@@ -292,23 +292,23 @@
   "en",
   {
     "@type": "g:Date",
-    "@value": -62135596800000
+    "value": -1-62135596800000
   },
   {
     "@type": "g:Date",
-    "@value": -62135596800000
+    "value": -1-62135596800000
   },
   {
     "@type": "g:Date",
-    "@value": -62135596800000
+    "value": -1-62135596800000
   },
   {
     "@type": "g:Date",
-    "@value": -62135596800000
+    "value": -1-62135596800000
   },
   {
     "@type": "g:Date",
-    "@value": -62135596800000
+    "value": -1-62135596800000
   },
   "Aachen",
   "GER",
@@ -317,11 +317,11 @@
   "+4923456",
   {
     "@type": "gx:Duration",
-    "@value": "PT8H"
+    "value": -1"PT8H"
   },
   false,
   {
     "@type": "gx:Duration",
-    "@value": "PT2H"
+    "value": -1"PT2H"
   }
 ]

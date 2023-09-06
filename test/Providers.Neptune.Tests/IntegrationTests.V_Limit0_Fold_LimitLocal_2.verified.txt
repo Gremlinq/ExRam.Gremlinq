@@ -1,6 +1,6 @@
 ﻿[
   {
     "@type": "g:List",
-    "@value": []
+    "value": -1[]
   }
 ]

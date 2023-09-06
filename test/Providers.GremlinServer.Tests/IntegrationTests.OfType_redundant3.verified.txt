@@ -1,41 +1,41 @@
 ﻿[
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "value": -1
       },
       "label",
       "Company",
       "properties",
       {
         "@type": "g:Map",
-        "@value": [
+        "value": -1[
           "FoundingDate",
           {
             "@type": "g:List",
-            "@value": [
+            "value": -1[
               {
                 "@type": "g:Map",
-                "@value": [
+                "value": -1[
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "value": -1
                   },
                   "label",
                   "FoundingDate",
                   "value",
                   {
                     "@type": "g:Date",
-                    "@value": -62135596800000
+                    "value": -1-62135596800000
                   },
                   "properties",
                   {
                     "@type": "g:Map",
-                    "@value": []
+                    "value": -1[]
                   }
                 ]
               }
@@ -47,41 +47,41 @@
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "value": -1
       },
       "label",
       "Company",
       "properties",
       {
         "@type": "g:Map",
-        "@value": [
+        "value": -1[
           "FoundingDate",
           {
             "@type": "g:List",
-            "@value": [
+            "value": -1[
               {
                 "@type": "g:Map",
-                "@value": [
+                "value": -1[
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "value": -1
                   },
                   "label",
                   "FoundingDate",
                   "value",
                   {
                     "@type": "g:Date",
-                    "@value": -62135596800000
+                    "value": -1-62135596800000
                   },
                   "properties",
                   {
                     "@type": "g:Map",
-                    "@value": []
+                    "value": -1[]
                   }
                 ]
               }
@@ -90,14 +90,14 @@
           "Locations",
           {
             "@type": "g:List",
-            "@value": [
+            "value": -1[
               {
                 "@type": "g:Map",
-                "@value": [
+                "value": -1[
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "value": -1
                   },
                   "label",
                   "Locations",
@@ -106,11 +106,11 @@
                   "properties",
                   {
                     "@type": "g:Map",
-                    "@value": [
+                    "value": -1[
                       "ValidFrom",
                       {
                         "@type": "g:Date",
-                        "@value": 1546304400000
+                        "value": -1
                       }
                     ]
                   }
@@ -124,29 +124,29 @@
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "value": -1
       },
       "label",
       "Company",
       "properties",
       {
         "@type": "g:Map",
-        "@value": [
+        "value": -1[
           "PhoneNumbers",
           {
             "@type": "g:List",
-            "@value": [
+            "value": -1[
               {
                 "@type": "g:Map",
-                "@value": [
+                "value": -1[
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "value": -1
                   },
                   "label",
                   "PhoneNumbers",
@@ -155,17 +155,17 @@
                   "properties",
                   {
                     "@type": "g:Map",
-                    "@value": []
+                    "value": -1[]
                   }
                 ]
               },
               {
                 "@type": "g:Map",
-                "@value": [
+                "value": -1[
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "value": -1
                   },
                   "label",
                   "PhoneNumbers",
@@ -174,7 +174,7 @@
                   "properties",
                   {
                     "@type": "g:Map",
-                    "@value": []
+                    "value": -1[]
                   }
                 ]
               }
@@ -183,26 +183,26 @@
           "FoundingDate",
           {
             "@type": "g:List",
-            "@value": [
+            "value": -1[
               {
                 "@type": "g:Map",
-                "@value": [
+                "value": -1[
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "value": -1
                   },
                   "label",
                   "FoundingDate",
                   "value",
                   {
                     "@type": "g:Date",
-                    "@value": -62135596800000
+                    "value": -1-62135596800000
                   },
                   "properties",
                   {
                     "@type": "g:Map",
-                    "@value": []
+                    "value": -1[]
                   }
                 ]
               }
@@ -214,41 +214,41 @@
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "value": -1
       },
       "label",
       "Company",
       "properties",
       {
         "@type": "g:Map",
-        "@value": [
+        "value": -1[
           "FoundingDate",
           {
             "@type": "g:List",
-            "@value": [
+            "value": -1[
               {
                 "@type": "g:Map",
-                "@value": [
+                "value": -1[
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "value": -1
                   },
                   "label",
                   "FoundingDate",
                   "value",
                   {
                     "@type": "g:Date",
-                    "@value": -62135596800000
+                    "value": -1-62135596800000
                   },
                   "properties",
                   {
                     "@type": "g:Map",
-                    "@value": []
+                    "value": -1[]
                   }
                 ]
               }
@@ -260,41 +260,41 @@
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "value": -1
       },
       "label",
       "Company",
       "properties",
       {
         "@type": "g:Map",
-        "@value": [
+        "value": -1[
           "FoundingDate",
           {
             "@type": "g:List",
-            "@value": [
+            "value": -1[
               {
                 "@type": "g:Map",
-                "@value": [
+                "value": -1[
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "value": -1
                   },
                   "label",
                   "FoundingDate",
                   "value",
                   {
                     "@type": "g:Date",
-                    "@value": -62135596800000
+                    "value": -1-62135596800000
                   },
                   "properties",
                   {
                     "@type": "g:Map",
-                    "@value": []
+                    "value": -1[]
                   }
                 ]
               }

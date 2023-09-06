@@ -3,14 +3,14 @@
   "CountryCallingCode",
   {
     "@type": "g:Int64",
-    "@value": 1
+    "value": -1
   },
   "RegistrationDate",
   "RegistrationDate",
   "RegistrationDate",
   {
     "@type": "g:Int64",
-    "@value": 66
+    "value": -1
   },
   "Name",
   "Name",
@@ -19,7 +19,7 @@
   "Name",
   {
     "@type": "g:Int64",
-    "@value": 65
+    "value": -1
   },
   "IetfLanguageTag",
   "IetfLanguageTag",
@@ -29,11 +29,11 @@
   "IetfLanguageTag",
   {
     "@type": "g:Int64",
-    "@value": 3
+    "value": -1
   },
   {
     "@type": "g:Int64",
-    "@value": 68
+    "value": -1
   },
   "FoundingDate",
   "FoundingDate",
@@ -42,16 +42,16 @@
   "FoundingDate",
   {
     "@type": "g:Int64",
-    "@value": 6
+    "value": -1
   },
   {
     "@type": "g:Int64",
-    "@value": 71
+    "value": -1
   },
   "Locations",
   {
     "@type": "g:Int64",
-    "@value": 72
+    "value": -1
   },
   "Age",
   "Age",
@@ -65,138 +65,138 @@
   "Age",
   {
     "@type": "g:Int64",
-    "@value": 8
+    "value": -1
   },
   {
     "@type": "g:Int64",
-    "@value": 74
+    "value": -1
   },
   {
     "@type": "g:Int64",
-    "@value": 13
+    "value": -1
   },
   {
     "@type": "g:Int64",
-    "@value": 11
+    "value": -1
   },
   {
     "@type": "g:Int64",
-    "@value": 12
+    "value": -1
   },
   {
     "@type": "g:Int64",
-    "@value": 76
+    "value": -1
   },
   "PhoneNumbers",
   "PhoneNumbers",
   {
     "@type": "g:Int64",
-    "@value": 79
+    "value": -1
   },
   {
     "@type": "g:Int64",
-    "@value": 80
+    "value": -1
   },
   {
     "@type": "g:Int64",
-    "@value": 78
+    "value": -1
   },
   {
     "@type": "g:Int64",
-    "@value": 16
+    "value": -1
   },
   "lang",
   {
     "@type": "g:Int64",
-    "@value": 83
+    "value": -1
   },
   {
     "@type": "g:Int64",
-    "@value": 20
+    "value": -1
   },
   {
     "@type": "g:Int64",
-    "@value": 24
+    "value": -1
   },
   {
     "@type": "g:Int64",
-    "@value": 28
+    "value": -1
   },
   {
     "@type": "g:Int64",
-    "@value": 30
+    "value": -1
   },
   {
     "@type": "g:Int64",
-    "@value": 33
+    "value": -1
   },
   {
     "@type": "g:Int64",
-    "@value": 35
+    "value": -1
   },
   {
     "@type": "g:Int64",
-    "@value": 40
+    "value": -1
   },
   {
     "@type": "g:Int64",
-    "@value": 38
+    "value": -1
   },
   {
     "@type": "g:Int64",
-    "@value": 39
+    "value": -1
   },
   {
     "@type": "g:Int64",
-    "@value": 43
+    "value": -1
   },
   {
     "@type": "g:Int64",
-    "@value": 45
+    "value": -1
   },
   {
     "@type": "g:Int64",
-    "@value": 48
+    "value": -1
   },
   "StartTime",
   {
     "@type": "g:Int64",
-    "@value": 53
+    "value": -1
   },
   "Enabled",
   {
     "@type": "g:Int64",
-    "@value": 52
+    "value": -1
   },
   "Duration",
   {
     "@type": "g:Int64",
-    "@value": 51
+    "value": -1
   },
   {
     "@type": "g:Int64",
-    "@value": 55
+    "value": -1
   },
   {
     "@type": "g:Int64",
-    "@value": 57
+    "value": -1
   },
   "Image",
   {
     "@type": "g:Int64",
-    "@value": 60
+    "value": -1
   },
   {
     "@type": "g:Int64",
-    "@value": 59
+    "value": -1
   },
   "Gender",
   {
     "@type": "g:Int64",
-    "@value": 63
+    "value": -1
   },
   {
     "@type": "g:Int64",
-    "@value": 62
+    "value": -1
   }
 ]

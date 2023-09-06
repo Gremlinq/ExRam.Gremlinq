@@ -1,29 +1,29 @@
 ﻿[
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "value": -1
       },
       "label",
       "Country",
       "properties",
       {
         "@type": "g:Map",
-        "@value": [
+        "value": -1[
           "CountryCallingCode",
           {
             "@type": "g:List",
-            "@value": [
+            "value": -1[
               {
                 "@type": "g:Map",
-                "@value": [
+                "value": -1[
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "value": -1
                   },
                   "label",
                   "CountryCallingCode",
@@ -32,7 +32,7 @@
                   "properties",
                   {
                     "@type": "g:Map",
-                    "@value": []
+                    "value": -1[]
                   }
                 ]
               }
@@ -41,14 +41,14 @@
           "LocalizableDescription",
           {
             "@type": "g:List",
-            "@value": [
+            "value": -1[
               {
                 "@type": "g:Map",
-                "@value": [
+                "value": -1[
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "value": -1
                   },
                   "label",
                   "LocalizableDescription",
@@ -57,7 +57,7 @@
                   "properties",
                   {
                     "@type": "g:Map",
-                    "@value": [
+                    "value": -1[
                       "someKey",
                       "value"
                     ]
@@ -72,41 +72,41 @@
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "value": -1
       },
       "label",
       "Person",
       "properties",
       {
         "@type": "g:Map",
-        "@value": [
+        "value": -1[
           "GuidKey",
           {
             "@type": "g:List",
-            "@value": [
+            "value": -1[
               {
                 "@type": "g:Map",
-                "@value": [
+                "value": -1[
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "value": -1
                   },
                   "label",
                   "GuidKey",
                   "value",
                   {
                     "@type": "g:UUID",
-                    "@value": "00000000-0000-0000-0000-000000000000"
+                    "value": -1"00000000-0000-0000-0000-000000000000"
                   },
                   "properties",
                   {
                     "@type": "g:Map",
-                    "@value": []
+                    "value": -1[]
                   }
                 ]
               }
@@ -115,26 +115,26 @@
           "RegistrationDate",
           {
             "@type": "g:List",
-            "@value": [
+            "value": -1[
               {
                 "@type": "g:Map",
-                "@value": [
+                "value": -1[
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "value": -1
                   },
                   "label",
                   "RegistrationDate",
                   "value",
                   {
                     "@type": "g:Date",
-                    "@value": 1586270616000
+                    "value": -1
                   },
                   "properties",
                   {
                     "@type": "g:Map",
-                    "@value": []
+                    "value": -1[]
                   }
                 ]
               }
@@ -143,26 +143,26 @@
           "StringKey1",
           {
             "@type": "g:List",
-            "@value": [
+            "value": -1[
               {
                 "@type": "g:Map",
-                "@value": [
+                "value": -1[
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "value": -1
                   },
                   "label",
                   "StringKey1",
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": 36
+                    "value": -1
                   },
                   "properties",
                   {
                     "@type": "g:Map",
-                    "@value": []
+                    "value": -1[]
                   }
                 ]
               }
@@ -171,26 +171,26 @@
           "Age",
           {
             "@type": "g:List",
-            "@value": [
+            "value": -1[
               {
                 "@type": "g:Map",
-                "@value": [
+                "value": -1[
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "value": -1
                   },
                   "label",
                   "Age",
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": 36
+                    "value": -1
                   },
                   "properties",
                   {
                     "@type": "g:Map",
-                    "@value": [
+                    "value": -1[
                       "Meta",
                       "value"
                     ]
@@ -202,26 +202,26 @@
           "StringKey2",
           {
             "@type": "g:List",
-            "@value": [
+            "value": -1[
               {
                 "@type": "g:Map",
-                "@value": [
+                "value": -1[
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "value": -1
                   },
                   "label",
                   "StringKey2",
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": 36
+                    "value": -1
                   },
                   "properties",
                   {
                     "@type": "g:Map",
-                    "@value": []
+                    "value": -1[]
                   }
                 ]
               }
@@ -230,14 +230,14 @@
           "Name",
           {
             "@type": "g:List",
-            "@value": [
+            "value": -1[
               {
                 "@type": "g:Map",
-                "@value": [
+                "value": -1[
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "value": -1
                   },
                   "label",
                   "Name",
@@ -246,7 +246,7 @@
                   "properties",
                   {
                     "@type": "g:Map",
-                    "@value": []
+                    "value": -1[]
                   }
                 ]
               }

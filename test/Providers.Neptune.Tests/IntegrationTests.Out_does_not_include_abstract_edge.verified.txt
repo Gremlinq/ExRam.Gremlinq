@@ -1,36 +1,36 @@
 ﻿[
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "value": -1
       },
       "label",
       "Company",
       "properties",
       {
         "@type": "g:Map",
-        "@value": [
+        "value": -1[
           "FoundingDate",
           {
             "@type": "g:List",
-            "@value": [
+            "value": -1[
               {
                 "@type": "g:Map",
-                "@value": [
+                "value": -1[
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "value": -1
                   },
                   "label",
                   "FoundingDate",
                   "value",
                   {
                     "@type": "g:Date",
-                    "@value": -62135596800000
+                    "value": -1-62135596800000
                   }
                 ]
               }
@@ -42,87 +42,87 @@
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "value": -1
       },
       "label",
       "Country",
       "properties",
       {
         "@type": "g:Map",
-        "@value": []
+        "value": -1[]
       }
     ]
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "value": -1
       },
       "label",
       "Country",
       "properties",
       {
         "@type": "g:Map",
-        "@value": []
+        "value": -1[]
       }
     ]
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "value": -1
       },
       "label",
       "Country",
       "properties",
       {
         "@type": "g:Map",
-        "@value": []
+        "value": -1[]
       }
     ]
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "value": -1
       },
       "label",
       "Company",
       "properties",
       {
         "@type": "g:Map",
-        "@value": [
+        "value": -1[
           "FoundingDate",
           {
             "@type": "g:List",
-            "@value": [
+            "value": -1[
               {
                 "@type": "g:Map",
-                "@value": [
+                "value": -1[
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "value": -1
                   },
                   "label",
                   "FoundingDate",
                   "value",
                   {
                     "@type": "g:Date",
-                    "@value": -62135596800000
+                    "value": -1-62135596800000
                   }
                 ]
               }
@@ -134,29 +134,29 @@
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "value": -1
       },
       "label",
       "Country",
       "properties",
       {
         "@type": "g:Map",
-        "@value": [
+        "value": -1[
           "CountryCallingCode",
           {
             "@type": "g:List",
-            "@value": [
+            "value": -1[
               {
                 "@type": "g:Map",
-                "@value": [
+                "value": -1[
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "value": -1
                   },
                   "label",
                   "CountryCallingCode",
@@ -172,36 +172,36 @@
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "value": -1
       },
       "label",
       "Company",
       "properties",
       {
         "@type": "g:Map",
-        "@value": [
+        "value": -1[
           "FoundingDate",
           {
             "@type": "g:List",
-            "@value": [
+            "value": -1[
               {
                 "@type": "g:Map",
-                "@value": [
+                "value": -1[
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "value": -1
                   },
                   "label",
                   "FoundingDate",
                   "value",
                   {
                     "@type": "g:Date",
-                    "@value": -62135596800000
+                    "value": -1-62135596800000
                   }
                 ]
               }

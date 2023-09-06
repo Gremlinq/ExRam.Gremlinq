@@ -1,14 +1,14 @@
 ﻿[
   {
     "@type": "g:BulkSet",
-    "@value": [
+    "value": -1[
       {
         "@type": "g:Int64",
-        "@value": 1
+        "value": -1
       },
       {
         "@type": "g:Int64",
-        "@value": 11
+        "value": -1
       }
     ]
   }

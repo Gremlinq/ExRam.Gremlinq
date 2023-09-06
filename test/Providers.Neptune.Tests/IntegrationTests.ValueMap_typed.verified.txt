@@ -1,14 +1,14 @@
 ﻿[
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "Age",
       {
         "@type": "g:List",
-        "@value": [
+        "value": -1[
           {
             "@type": "g:Int32",
-            "@value": 21
+            "value": -1
           }
         ]
       }
@@ -16,14 +16,14 @@
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "Age",
       {
         "@type": "g:List",
-        "@value": [
+        "value": -1[
           {
             "@type": "g:Int32",
-            "@value": 21
+            "value": -1
           }
         ]
       }
@@ -31,14 +31,14 @@
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "Age",
       {
         "@type": "g:List",
-        "@value": [
+        "value": -1[
           {
             "@type": "g:Int32",
-            "@value": 21
+            "value": -1
           }
         ]
       }
@@ -46,14 +46,14 @@
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "Age",
       {
         "@type": "g:List",
-        "@value": [
+        "value": -1[
           {
             "@type": "g:Int32",
-            "@value": 21
+            "value": -1
           }
         ]
       }
@@ -61,14 +61,14 @@
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "Age",
       {
         "@type": "g:List",
-        "@value": [
+        "value": -1[
           {
             "@type": "g:Int32",
-            "@value": 21
+            "value": -1
           }
         ]
       }
@@ -76,14 +76,14 @@
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "Age",
       {
         "@type": "g:List",
-        "@value": [
+        "value": -1[
           {
             "@type": "g:Int32",
-            "@value": 21
+            "value": -1
           }
         ]
       }
@@ -91,14 +91,14 @@
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "Age",
       {
         "@type": "g:List",
-        "@value": [
+        "value": -1[
           {
             "@type": "g:Int32",
-            "@value": 21
+            "value": -1
           }
         ]
       }
@@ -106,14 +106,14 @@
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "Age",
       {
         "@type": "g:List",
-        "@value": [
+        "value": -1[
           {
             "@type": "g:Int32",
-            "@value": 21
+            "value": -1
           }
         ]
       }
@@ -121,14 +121,14 @@
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "Age",
       {
         "@type": "g:List",
-        "@value": [
+        "value": -1[
           {
             "@type": "g:Int32",
-            "@value": 21
+            "value": -1
           }
         ]
       }
@@ -136,14 +136,14 @@
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "Age",
       {
         "@type": "g:List",
-        "@value": [
+        "value": -1[
           {
             "@type": "g:Int32",
-            "@value": 21
+            "value": -1
           }
         ]
       }
@@ -151,14 +151,14 @@
   },
   {
     "@type": "g:Map",
-    "@value": [
+    "value": -1[
       "Age",
       {
         "@type": "g:List",
-        "@value": [
+        "value": -1[
           {
             "@type": "g:Int32",
-            "@value": 21
+            "value": -1
           }
         ]
       }
