@@ -2,7 +2,7 @@
 {
     public class GremlinQueryExecutionException : Exception
     {
-        public GremlinQueryExecutionException(GremlinQueryExecutionContext executionContext, Exception innerException) : this(executionContext, $"Executing query {executionContext.ExecutionId:N} failed.", innerException)
+        public GremlinQueryExecutionException(GremlinQueryExecutionContext executionContext, Exception innerException) : this(executionContext, $"Executing query {executionContext.ExecutionId:D} failed.", innerException)
         {
         }
 
