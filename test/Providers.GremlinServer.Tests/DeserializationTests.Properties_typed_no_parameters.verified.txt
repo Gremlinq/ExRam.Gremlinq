@@ -9,7 +9,7 @@
     Id: -1,
     Label: RegistrationDate,
     Properties: {},
-    Value: 1586270616000
+    Value: -1
   },
   {
     Id: -1,
@@ -45,7 +45,7 @@
     Id: -1,
     Label: Locations,
     Properties: {
-      ValidFrom: 2019-01-01 01:00 +0
+      ValidFrom: 1969-12-31 23:59:59.999 +0
     },
     Value: Aachen
   },
@@ -53,7 +53,7 @@
     Id: -1,
     Label: Age,
     Properties: {},
-    Value: 0
+    Value: -1
   },
   {
     Id: -1,
@@ -65,13 +65,13 @@
     Id: -1,
     Label: RegistrationDate,
     Properties: {},
-    Value: 1586270616000
+    Value: -1
   },
   {
     Id: -1,
     Label: Age,
     Properties: {},
-    Value: 0
+    Value: -1
   },
   {
     Id: -1,
@@ -110,7 +110,7 @@
     Id: -1,
     Label: Age,
     Properties: {},
-    Value: 0
+    Value: -1
   },
   {
     Id: -1,
@@ -122,13 +122,13 @@
     Id: -1,
     Label: Age,
     Properties: {},
-    Value: 0
+    Value: -1
   },
   {
     Id: -1,
     Label: Age,
     Properties: {},
-    Value: 0
+    Value: -1
   },
   {
     Id: -1,
@@ -140,7 +140,7 @@
     Id: -1,
     Label: Age,
     Properties: {},
-    Value: 0
+    Value: -1
   },
   {
     Id: -1,
@@ -158,13 +158,13 @@
     Id: -1,
     Label: RegistrationDate,
     Properties: {},
-    Value: 1586270616000
+    Value: -1
   },
   {
     Id: -1,
     Label: Age,
     Properties: {},
-    Value: 0
+    Value: -1
   },
   {
     Id: -1,
@@ -182,7 +182,7 @@
     Id: -1,
     Label: Age,
     Properties: {},
-    Value: 0
+    Value: -1
   },
   {
     Id: -1,
@@ -230,18 +230,18 @@
     Id: -1,
     Label: Age,
     Properties: {},
-    Value: 0
+    Value: -1
   },
   {
     Id: -1,
     Label: Gender,
     Properties: {},
-    Value: 1
+    Value: -1
   },
   {
     Id: -1,
     Label: Age,
     Properties: {},
-    Value: 0
+    Value: -1
   }
 ]

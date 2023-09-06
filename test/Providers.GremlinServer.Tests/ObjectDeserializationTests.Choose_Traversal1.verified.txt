@@ -1,6 +1,7 @@
 ﻿[
   {
-    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Age: -1,
+    RegistrationDate: 1969-12-31 23:59:59.999 +0,
     Name: {
       Id: -1,
       Label: Name,
@@ -24,6 +25,7 @@
     Label: Country
   },
   {
+    Age: -1,
     Id: -1,
     Label: Person
   },
@@ -32,6 +34,7 @@
     Label: Country
   },
   {
+    Age: -1,
     Id: -1,
     Label: Person
   },
@@ -40,6 +43,7 @@
     Label: Country
   },
   {
+    Age: -1,
     Id: -1,
     Label: Person
   },

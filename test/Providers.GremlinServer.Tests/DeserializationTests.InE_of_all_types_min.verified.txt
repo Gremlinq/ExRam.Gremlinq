@@ -9,8 +9,8 @@
   },
   {
     Role: Admin,
-    From: 2020-04-07 14:43:36 Utc,
-    To: 2020-04-07 14:43:36 Utc,
+    From: 1969-12-31 23:59:59.999 Utc,
+    To: 1969-12-31 23:59:59.999 Utc,
     Id: -1,
     Label: WorksFor
   },
@@ -28,15 +28,15 @@
   },
   {
     Since: {
-      Value: 2020-04-07 14:43:36 +0
+      Value: 1969-12-31 23:59:59.999 +0
     },
     Id: -1,
     Label: LivesIn
   },
   {
     Role: Admin,
-    From: 2020-04-07 14:43:36 Utc,
-    To: 2020-04-07 14:43:36 Utc,
+    From: 1969-12-31 23:59:59.999 Utc,
+    To: 1969-12-31 23:59:59.999 Utc,
     Id: -1,
     Label: WorksFor
   },
@@ -45,7 +45,7 @@
     Label: Speaks
   },
   {
-    To: 2020-04-07 14:43:36 Utc,
+    To: 1969-12-31 23:59:59.999 Utc,
     Id: -1,
     Label: WorksFor
   }

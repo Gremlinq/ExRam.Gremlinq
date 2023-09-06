@@ -1,7 +1,8 @@
 ﻿[
   {
     Item1: {
-      RegistrationDate: 2020-04-07 14:43:36 +0,
+      Age: -1,
+      RegistrationDate: 1969-12-31 23:59:59.999 +0,
       Name: {
         Id: -1,
         Label: Name,
@@ -12,7 +13,8 @@
       Label: Person
     },
     Item2: {
-      RegistrationDate: 2020-04-07 14:43:36 +0,
+      Age: -1,
+      RegistrationDate: 1969-12-31 23:59:59.999 +0,
       Name: {
         Id: -1,
         Label: Name,
@@ -22,63 +24,55 @@
       Id: -1,
       Label: Person
     },
-    Item3: 1
+    Item3: -1
   },
   {
-    Item3: 1
+    Item3: -1
   },
   {
-    Item3: 1
+    Item3: -1
   },
   {
-    Item3: 1
+    Item3: -1
   },
   {
-    Item3: 1
+    Item3: -1
   },
   {
-    Item3: 1
+    Item3: -1
   },
   {
-    Item3: 1
+    Item3: -1
   },
   {
-    Item3: 1
+    Item3: -1
   },
   {
-    Item3: 1
+    Item3: -1
   },
   {
-    Item3: 1
+    Item3: -1
   },
   {
-    Item3: 1
+    Item3: -1
   },
   {
-    Item3: 1
+    Item3: -1
   },
   {
-    Item3: 1
+    Item3: -1
   },
   {
-    Item3: 1
+    Item3: -1
   },
   {
-    Item3: 1
+    Item3: -1
   },
   {
-    Item3: 1
+    Item3: -1
   },
   {
-    Item3: 1
-  },
-  {
-    Item1: {
-      CountryCallingCode: +49,
-      Id: -1,
-      Label: Country
-    },
-    Item3: 1
+    Item3: -1
   },
   {
     Item1: {
@@ -86,77 +80,90 @@
       Id: -1,
       Label: Country
     },
-    Item3: 1
+    Item3: -1
   },
   {
     Item1: {
+      CountryCallingCode: +49,
+      Id: -1,
+      Label: Country
+    },
+    Item3: -1
+  },
+  {
+    Item1: {
+      Age: -1,
       Id: -1,
       Label: Person
     },
-    Item3: 1
+    Item3: -1
   },
   {
     Item2: {
       Id: -1,
       Label: Company
     },
-    Item3: 1
+    Item3: -1
   },
   {
     Item2: {
       Id: -1,
       Label: Country
     },
-    Item3: 1
+    Item3: -1
   },
   {
     Item1: {
+      Age: -1,
       Id: -1,
       Label: Person
     },
-    Item3: 1
+    Item3: -1
   },
   {
     Item2: {
       Id: -1,
       Label: Country
     },
-    Item3: 1
+    Item3: -1
   },
   {
     Item1: {
+      Age: -1,
       Id: -1,
       Label: Person
     },
-    Item3: 1
+    Item3: -1
   },
   {
     Item2: {
       Id: -1,
       Label: Country
     },
-    Item3: 1
+    Item3: -1
   },
   {
     Item1: {
+      Age: -1,
       Id: -1,
       Label: Person
     },
-    Item3: 1
+    Item3: -1
   },
   {
     Item1: {
+      Age: -1,
       Id: -1,
       Label: Person
     },
-    Item3: 1
+    Item3: -1
   },
   {
     Item2: {
       Id: -1,
       Label: Company
     },
-    Item3: 1
+    Item3: -1
   },
   {
     Item1: {
@@ -164,7 +171,7 @@
       Id: -1,
       Label: Country
     },
-    Item3: 1
+    Item3: -1
   },
   {
     Item2: {
@@ -172,7 +179,7 @@
       Id: -1,
       Label: Language
     },
-    Item3: 1
+    Item3: -1
   },
   {
     Item2: {
@@ -180,20 +187,21 @@
       Id: -1,
       Label: Country
     },
-    Item3: 1
+    Item3: -1
   },
   {
     Item1: {
+      Age: -1,
       Id: -1,
       Label: Person
     },
-    Item3: 1
+    Item3: -1
   },
   {
     Item2: {
       Id: -1,
       Label: Company
     },
-    Item3: 1
+    Item3: -1
   }
 ]

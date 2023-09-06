@@ -3,7 +3,7 @@
     Id: -1,
     Label: Name,
     Properties: {
-      ValidFrom: 2020-04-07 14:43:36 +0
+      ValidFrom: 1969-12-31 23:59:59.999 +0
     },
     Value: Marko
   },
@@ -11,7 +11,7 @@
     Id: -1,
     Label: Name,
     Properties: {
-      ValidFrom: 2020-04-07 14:43:36 +0
+      ValidFrom: 1969-12-31 23:59:59.999 +0
     },
     Value: Bob
   },
@@ -19,7 +19,7 @@
     Id: -1,
     Label: Name,
     Properties: {
-      ValidFrom: 2020-04-07 14:43:36 +0
+      ValidFrom: 1969-12-31 23:59:59.999 +0
     },
     Value: Bob
   }

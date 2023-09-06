@@ -13,7 +13,7 @@
     Item1: Person,
     Item2: [
       {
-        RegistrationDate: 2020-04-07 14:43:36 +0,
+        RegistrationDate: 1969-12-31 23:59:59.999 +0,
         Name: {
           Id: -1,
           Label: Name,
@@ -72,7 +72,7 @@
             Id: -1,
             Label: Locations,
             Properties: {
-              ValidFrom: 2019-01-01 01:00 +0
+              ValidFrom: 1969-12-31 23:59:59.999 +0
             },
             Value: Aachen
           }
@@ -86,6 +86,7 @@
     Item1: Person,
     Item2: [
       {
+        Age: -1,
         Id: -1,
         Label: Person
       }
@@ -110,7 +111,8 @@
     Item1: Person,
     Item2: [
       {
-        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Age: -1,
+        RegistrationDate: 1969-12-31 23:59:59.999 +0,
         Name: {
           Id: -1,
           Label: Name,
@@ -157,6 +159,7 @@
     Item1: Person,
     Item2: [
       {
+        Age: -1,
         Id: -1,
         Label: Person
       }
@@ -193,6 +196,7 @@
     Item1: Person,
     Item2: [
       {
+        Age: -1,
         Id: -1,
         Label: Person
       }
@@ -211,6 +215,7 @@
     Item1: Person,
     Item2: [
       {
+        Age: -1,
         Id: -1,
         Label: Person
       }
@@ -238,6 +243,7 @@
     Item1: Person,
     Item2: [
       {
+        Age: -1,
         Id: -1,
         Label: Person
       }
@@ -267,7 +273,8 @@
     Item1: Person,
     Item2: [
       {
-        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Age: -1,
+        RegistrationDate: 1969-12-31 23:59:59.999 +0,
         Name: {
           Id: -1,
           Label: Name,
@@ -292,6 +299,7 @@
     Item1: Person,
     Item2: [
       {
+        Age: -1,
         Id: -1,
         Label: Person
       }
@@ -352,6 +360,7 @@
     Item1: Person,
     Item2: [
       {
+        Age: -1,
         Image: AQIDBAUGBwg=,
         Id: -1,
         Label: Person
@@ -362,7 +371,8 @@
     Item1: Person,
     Item2: [
       {
-        Gender: Female,
+        Age: -1,
+        Gender: -1,
         Id: -1,
         Label: Person
       }
