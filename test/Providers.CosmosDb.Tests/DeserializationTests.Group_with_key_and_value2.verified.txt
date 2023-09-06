@@ -1,0 +1,9 @@
+﻿[
+  {
+    Company: +4923456,
+    Country: GER,
+    Language: en,
+    Person: 1586270616000,
+    TimeFrame: 28800000.0
+  }
+]
