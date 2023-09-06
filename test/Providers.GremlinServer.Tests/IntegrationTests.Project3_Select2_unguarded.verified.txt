@@ -9,7 +9,7 @@
           "id",
           {
             "@type": "g:Int64",
-            "@value": -1
+            "@value": 37
           },
           "label",
           "Person",
@@ -27,7 +27,7 @@
                       "id",
                       {
                         "@type": "g:Int64",
-                        "@value": -1
+                        "@value": 40
                       },
                       "label",
                       "RegistrationDate",
@@ -55,7 +55,7 @@
                       "id",
                       {
                         "@type": "g:Int64",
-                        "@value": -1
+                        "@value": 38
                       },
                       "label",
                       "Age",
@@ -83,7 +83,7 @@
                       "id",
                       {
                         "@type": "g:Int64",
-                        "@value": -1
+                        "@value": 39
                       },
                       "label",
                       "Name",
@@ -109,7 +109,7 @@
           "id",
           {
             "@type": "g:Int64",
-            "@value": -1
+            "@value": 10
           },
           "label",
           "Person",
@@ -127,7 +127,7 @@
                       "id",
                       {
                         "@type": "g:Int64",
-                        "@value": -1
+                        "@value": 13
                       },
                       "label",
                       "RegistrationDate",
@@ -155,7 +155,7 @@
                       "id",
                       {
                         "@type": "g:Int64",
-                        "@value": -1
+                        "@value": 11
                       },
                       "label",
                       "Age",
@@ -183,7 +183,7 @@
                       "id",
                       {
                         "@type": "g:Int64",
-                        "@value": -1
+                        "@value": 12
                       },
                       "label",
                       "Name",

@@ -5,7 +5,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "@value": 77
       },
       "label",
       "Company",
@@ -23,7 +23,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "@value": 79
                   },
                   "label",
                   "PhoneNumbers",
@@ -42,7 +42,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "@value": 80
                   },
                   "label",
                   "PhoneNumbers",
@@ -67,7 +67,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "@value": 78
                   },
                   "label",
                   "FoundingDate",
