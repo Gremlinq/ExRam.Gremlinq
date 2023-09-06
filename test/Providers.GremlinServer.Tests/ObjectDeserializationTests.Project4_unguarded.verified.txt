@@ -1,7 +1,8 @@
 ﻿[
   {
     Item1: {
-      RegistrationDate: 2020-04-07 14:43:36 +0,
+      Age: -1,
+      RegistrationDate: 1969-12-31 23:59:59.999 +0,
       Name: {
         Id: -1,
         Label: Name,
@@ -12,7 +13,8 @@
       Label: Person
     },
     Item2: {
-      RegistrationDate: 2020-04-07 14:43:36 +0,
+      Age: -1,
+      RegistrationDate: 1969-12-31 23:59:59.999 +0,
       Name: {
         Id: -1,
         Label: Name,
@@ -22,7 +24,7 @@
       Id: -1,
       Label: Person
     },
-    Item3: 1,
+    Item3: -1,
     Item4: {
       Id: -1,
       Label: CountryCallingCode,
@@ -31,12 +33,12 @@
     }
   },
   {
-    Item3: 1,
+    Item3: -1,
     Item4: {
       Id: -1,
       Label: RegistrationDate,
       Properties: {},
-      Value: 2020-04-07 14:43:36 +0
+      Value: 1969-12-31 23:59:59.999 +0
     }
   },
   {
@@ -45,7 +47,7 @@
       Id: -1,
       Label: Country
     },
-    Item3: 1,
+    Item3: -1,
     Item4: {
       Id: -1,
       Label: IetfLanguageTag,
@@ -54,7 +56,7 @@
     }
   },
   {
-    Item3: 1,
+    Item3: -1,
     Item4: {
       Id: -1,
       Label: IetfLanguageTag,
@@ -64,10 +66,11 @@
   },
   {
     Item1: {
+      Age: -1,
       Id: -1,
       Label: Person
     },
-    Item3: 1,
+    Item3: -1,
     Item4: {
       Id: -1,
       Label: FoundingDate,
@@ -76,16 +79,16 @@
     }
   },
   {
-    Item3: 1
+    Item3: -1
   },
   {
-    Item3: 1
+    Item3: -1
   },
   {
-    Item3: 1
+    Item3: -1
   },
   {
-    Item3: 1,
+    Item3: -1,
     Item4: {
       Id: -1,
       Label: FoundingDate,
@@ -98,16 +101,16 @@
       Id: -1,
       Label: Company
     },
-    Item3: 1,
+    Item3: -1,
     Item4: {
       Id: -1,
       Label: Age,
       Properties: {},
-      Value: 0
+      Value: -1
     }
   },
   {
-    Item3: 1,
+    Item3: -1,
     Item4: {
       Id: -1,
       Label: Name,
@@ -121,16 +124,16 @@
       Id: -1,
       Label: Country
     },
-    Item3: 1,
+    Item3: -1,
     Item4: {
       Id: -1,
       Label: RegistrationDate,
       Properties: {},
-      Value: 2020-04-07 14:43:36 +0
+      Value: 1969-12-31 23:59:59.999 +0
     }
   },
   {
-    Item3: 1,
+    Item3: -1,
     Item4: {
       Id: -1,
       Label: Name,
@@ -142,7 +145,7 @@
     }
   },
   {
-    Item3: 1,
+    Item3: -1,
     Item4: {
       Id: -1,
       Label: PhoneNumbers,
@@ -155,23 +158,24 @@
       Id: -1,
       Label: Country
     },
-    Item3: 1,
+    Item3: -1,
     Item4: {
       Id: -1,
       Label: Age,
       Properties: {},
-      Value: 0
+      Value: -1
     }
   },
   {
     Item1: {
+      Age: -1,
       Id: -1,
       Label: Person
     },
-    Item3: 1
+    Item3: -1
   },
   {
-    Item3: 1,
+    Item3: -1,
     Item4: {
       Id: -1,
       Label: lang,
@@ -184,47 +188,50 @@
       Id: -1,
       Label: Country
     },
-    Item3: 1,
+    Item3: -1,
     Item4: {
       Id: -1,
       Label: Age,
       Properties: {},
-      Value: 0
+      Value: -1
     }
   },
   {
     Item1: {
+      Age: -1,
       Id: -1,
       Label: Person
     },
-    Item3: 1
+    Item3: -1
   },
   {
     Item2: {
       Id: -1,
       Label: Country
     },
-    Item3: 1,
+    Item3: -1,
     Item4: {
       Id: -1,
       Label: Age,
       Properties: {},
-      Value: 0
+      Value: -1
     }
   },
   {
     Item1: {
+      Age: -1,
       Id: -1,
       Label: Person
     },
-    Item3: 1
+    Item3: -1
   },
   {
     Item1: {
+      Age: -1,
       Id: -1,
       Label: Person
     },
-    Item3: 1,
+    Item3: -1,
     Item4: {
       Id: -1,
       Label: FoundingDate,
@@ -237,12 +244,12 @@
       Id: -1,
       Label: Company
     },
-    Item3: 1,
+    Item3: -1,
     Item4: {
       Id: -1,
       Label: Age,
       Properties: {},
-      Value: 0
+      Value: -1
     }
   },
   {
@@ -251,7 +258,7 @@
       Id: -1,
       Label: Country
     },
-    Item3: 1,
+    Item3: -1,
     Item4: {
       Id: -1,
       Label: IetfLanguageTag,
@@ -265,7 +272,7 @@
       Id: -1,
       Label: Language
     },
-    Item3: 1,
+    Item3: -1,
     Item4: {
       Id: -1,
       Label: CountryCallingCode,
@@ -279,20 +286,21 @@
       Id: -1,
       Label: Country
     },
-    Item3: 1,
+    Item3: -1,
     Item4: {
       Id: -1,
       Label: RegistrationDate,
       Properties: {},
-      Value: 2020-04-07 14:43:36 +0
+      Value: 1969-12-31 23:59:59.999 +0
     }
   },
   {
     Item1: {
+      Age: -1,
       Id: -1,
       Label: Person
     },
-    Item3: 1,
+    Item3: -1,
     Item4: {
       Id: -1,
       Label: FoundingDate,
@@ -305,16 +313,16 @@
       Id: -1,
       Label: Company
     },
-    Item3: 1,
+    Item3: -1,
     Item4: {
       Id: -1,
       Label: Age,
       Properties: {},
-      Value: 0
+      Value: -1
     }
   },
   {
-    Item3: 1,
+    Item3: -1,
     Item4: {
       Id: -1,
       Label: IetfLanguageTag,
@@ -323,7 +331,7 @@
     }
   },
   {
-    Item3: 1,
+    Item3: -1,
     Item4: {
       Id: -1,
       Label: StartTime,
@@ -332,7 +340,7 @@
     }
   },
   {
-    Item3: 1,
+    Item3: -1,
     Item4: {
       Id: -1,
       Label: IetfLanguageTag,
@@ -341,7 +349,7 @@
     }
   },
   {
-    Item3: 1,
+    Item3: -1,
     Item4: {
       Id: -1,
       Label: IetfLanguageTag,
@@ -350,7 +358,7 @@
     }
   },
   {
-    Item3: 1,
+    Item3: -1,
     Item4: {
       Id: -1,
       Label: Image,
@@ -359,12 +367,12 @@
     }
   },
   {
-    Item3: 1,
+    Item3: -1,
     Item4: {
       Id: -1,
       Label: Gender,
       Properties: {},
-      Value: 1
+      Value: -1
     }
   }
 ]

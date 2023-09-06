@@ -4,7 +4,7 @@
       Id: -1,
       Label: RegistrationDate,
       Properties: {},
-      Value: 2020-04-07 14:43:36 +0
+      Value: 1969-12-31 23:59:59.999 +0
     }
   },
   {
@@ -12,12 +12,12 @@
       Id: -1,
       Label: Company
     },
-    Item3: 0,
+    Item3: -1,
     Item4: {
       Id: -1,
       Label: Age,
       Properties: {},
-      Value: 0
+      Value: -1
     }
   },
   {
@@ -26,12 +26,12 @@
       Id: -1,
       Label: Country
     },
-    Item3: 0,
+    Item3: -1,
     Item4: {
       Id: -1,
       Label: RegistrationDate,
       Properties: {},
-      Value: 2020-04-07 14:43:36 +0
+      Value: 1969-12-31 23:59:59.999 +0
     }
   },
   {
@@ -39,12 +39,12 @@
       Id: -1,
       Label: Country
     },
-    Item3: 0,
+    Item3: -1,
     Item4: {
       Id: -1,
       Label: Age,
       Properties: {},
-      Value: 0
+      Value: -1
     }
   },
   {
@@ -52,12 +52,12 @@
       Id: -1,
       Label: Country
     },
-    Item3: 0,
+    Item3: -1,
     Item4: {
       Id: -1,
       Label: Age,
       Properties: {},
-      Value: 0
+      Value: -1
     }
   },
   {
@@ -65,12 +65,12 @@
       Id: -1,
       Label: Country
     },
-    Item3: 0,
+    Item3: -1,
     Item4: {
       Id: -1,
       Label: Age,
       Properties: {},
-      Value: 0
+      Value: -1
     }
   },
   {
@@ -78,12 +78,12 @@
       Id: -1,
       Label: Company
     },
-    Item3: 0,
+    Item3: -1,
     Item4: {
       Id: -1,
       Label: Age,
       Properties: {},
-      Value: 0
+      Value: -1
     }
   },
   {
@@ -92,12 +92,12 @@
       Id: -1,
       Label: Country
     },
-    Item3: 0,
+    Item3: -1,
     Item4: {
       Id: -1,
       Label: RegistrationDate,
       Properties: {},
-      Value: 2020-04-07 14:43:36 +0
+      Value: 1969-12-31 23:59:59.999 +0
     }
   },
   {
@@ -105,16 +105,16 @@
       Id: -1,
       Label: Company
     },
-    Item3: 0,
+    Item3: -1,
     Item4: {
       Id: -1,
       Label: Age,
       Properties: {},
-      Value: 0
+      Value: -1
     }
   },
   {
-    Item3: 0,
+    Item3: -1,
     Item4: {
       Id: -1,
       Label: Image,
@@ -123,12 +123,12 @@
     }
   },
   {
-    Item3: 0,
+    Item3: -1,
     Item4: {
       Id: -1,
       Label: Gender,
       Properties: {},
-      Value: 1
+      Value: -1
     }
   }
 ]
