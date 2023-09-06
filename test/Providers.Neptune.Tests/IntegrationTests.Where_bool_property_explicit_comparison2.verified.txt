@@ -30,7 +30,7 @@
                   "value",
                   {
                     "@type": "g:Double",
-                    "@value": 28800000.0
+                    "@value": -1.0
                   }
                 ]
               }
@@ -73,7 +73,7 @@
                   "value",
                   {
                     "@type": "g:Double",
-                    "@value": 7200000.0
+                    "@value": -1.0
                   }
                 ]
               }

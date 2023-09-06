@@ -58,7 +58,7 @@
                   "value",
                   {
                     "@type": "g:Date",
-                    "@value": 1586270616000
+                    "@value": -1
                   },
                   "properties",
                   {
@@ -86,7 +86,7 @@
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": 36
+                    "@value": -1
                   },
                   "properties",
                   {
@@ -114,7 +114,7 @@
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": 36
+                    "@value": -1
                   },
                   "properties",
                   {
@@ -145,7 +145,7 @@
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": 36
+                    "@value": -1
                   },
                   "properties",
                   {
@@ -179,7 +179,7 @@
                       "ValidFrom",
                       {
                         "@type": "g:Date",
-                        "@value": 1586270616000
+                        "@value": -1
                       }
                     ]
                   }
@@ -405,7 +405,7 @@
                       "ValidFrom",
                       {
                         "@type": "g:Date",
-                        "@value": 1546304400000
+                        "@value": -1
                       }
                     ]
                   }
@@ -476,7 +476,7 @@
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": 36
+                    "@value": -1
                   },
                   "properties",
                   {
@@ -504,7 +504,7 @@
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": 36
+                    "@value": -1
                   },
                   "properties",
                   {
@@ -535,7 +535,7 @@
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": 36
+                    "@value": -1
                   },
                   "properties",
                   {
@@ -680,7 +680,7 @@
                   "value",
                   {
                     "@type": "g:Date",
-                    "@value": 1586270616000
+                    "@value": -1
                   },
                   "properties",
                   {
@@ -708,7 +708,7 @@
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": 36
+                    "@value": -1
                   },
                   "properties",
                   {
@@ -736,7 +736,7 @@
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": 36
+                    "@value": -1
                   },
                   "properties",
                   {
@@ -767,7 +767,7 @@
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": 36
+                    "@value": -1
                   },
                   "properties",
                   {
@@ -801,7 +801,7 @@
                       "ValidFrom",
                       {
                         "@type": "g:Date",
-                        "@value": 1586270616000
+                        "@value": -1
                       }
                     ]
                   }
@@ -1038,7 +1038,7 @@
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": 36
+                    "@value": -1
                   },
                   "properties",
                   {
@@ -1066,7 +1066,7 @@
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": 36
+                    "@value": -1
                   },
                   "properties",
                   {
@@ -1097,7 +1097,7 @@
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": 36
+                    "@value": -1
                   },
                   "properties",
                   {
@@ -1277,7 +1277,7 @@
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": 36
+                    "@value": -1
                   },
                   "properties",
                   {
@@ -1305,7 +1305,7 @@
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": 36
+                    "@value": -1
                   },
                   "properties",
                   {
@@ -1336,7 +1336,7 @@
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": 36
+                    "@value": -1
                   },
                   "properties",
                   {
@@ -1456,7 +1456,7 @@
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": 36
+                    "@value": -1
                   },
                   "properties",
                   {
@@ -1484,7 +1484,7 @@
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": 36
+                    "@value": -1
                   },
                   "properties",
                   {
@@ -1515,7 +1515,7 @@
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": 36
+                    "@value": -1
                   },
                   "properties",
                   {
@@ -1681,7 +1681,7 @@
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": 36
+                    "@value": -1
                   },
                   "properties",
                   {
@@ -1709,7 +1709,7 @@
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": 36
+                    "@value": -1
                   },
                   "properties",
                   {
@@ -1740,7 +1740,7 @@
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": 36
+                    "@value": -1
                   },
                   "properties",
                   {
@@ -1928,7 +1928,7 @@
                   "value",
                   {
                     "@type": "g:Date",
-                    "@value": 1586270616000
+                    "@value": -1
                   },
                   "properties",
                   {
@@ -1956,7 +1956,7 @@
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": 36
+                    "@value": -1
                   },
                   "properties",
                   {
@@ -1984,7 +1984,7 @@
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": 36
+                    "@value": -1
                   },
                   "properties",
                   {
@@ -2015,7 +2015,7 @@
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": 36
+                    "@value": -1
                   },
                   "properties",
                   {
@@ -2049,7 +2049,7 @@
                       "ValidFrom",
                       {
                         "@type": "g:Date",
-                        "@value": 1586270616000
+                        "@value": -1
                       }
                     ]
                   }
@@ -2166,7 +2166,7 @@
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": 36
+                    "@value": -1
                   },
                   "properties",
                   {
@@ -2194,7 +2194,7 @@
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": 36
+                    "@value": -1
                   },
                   "properties",
                   {
@@ -2225,7 +2225,7 @@
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": 36
+                    "@value": -1
                   },
                   "properties",
                   {
@@ -2544,7 +2544,7 @@
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": 36
+                    "@value": -1
                   },
                   "properties",
                   {
@@ -2600,7 +2600,7 @@
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": 36
+                    "@value": -1
                   },
                   "properties",
                   {
@@ -2631,7 +2631,7 @@
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": 36
+                    "@value": -1
                   },
                   "properties",
                   {
@@ -2705,7 +2705,7 @@
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": 36
+                    "@value": -1
                   },
                   "properties",
                   {
@@ -2733,7 +2733,7 @@
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": 1
+                    "@value": -1
                   },
                   "properties",
                   {
@@ -2761,7 +2761,7 @@
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": 36
+                    "@value": -1
                   },
                   "properties",
                   {
@@ -2792,7 +2792,7 @@
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": 36
+                    "@value": -1
                   },
                   "properties",
                   {

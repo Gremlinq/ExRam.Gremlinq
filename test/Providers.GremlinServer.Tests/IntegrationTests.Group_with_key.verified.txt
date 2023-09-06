@@ -222,7 +222,7 @@
                               "ValidFrom",
                               {
                                 "@type": "g:Date",
-                                "@value": 1546304400000
+                                "@value": -1
                               }
                             ]
                           }
@@ -1045,7 +1045,7 @@
                           "value",
                           {
                             "@type": "g:Date",
-                            "@value": 1586270616000
+                            "@value": -1
                           },
                           "properties",
                           {
@@ -1116,7 +1116,7 @@
                           "value",
                           {
                             "@type": "g:Int32",
-                            "@value": 0
+                            "@value": -1
                           },
                           "properties",
                           {
@@ -1162,7 +1162,7 @@
                           "value",
                           {
                             "@type": "g:Date",
-                            "@value": 1586270616000
+                            "@value": -1
                           },
                           "properties",
                           {
@@ -1190,7 +1190,7 @@
                           "value",
                           {
                             "@type": "g:Int32",
-                            "@value": 0
+                            "@value": -1
                           },
                           "properties",
                           {
@@ -1261,7 +1261,7 @@
                           "value",
                           {
                             "@type": "g:Int32",
-                            "@value": 0
+                            "@value": -1
                           },
                           "properties",
                           {
@@ -1307,7 +1307,7 @@
                           "value",
                           {
                             "@type": "g:Int32",
-                            "@value": 0
+                            "@value": -1
                           },
                           "properties",
                           {
@@ -1353,7 +1353,7 @@
                           "value",
                           {
                             "@type": "g:Int32",
-                            "@value": 0
+                            "@value": -1
                           },
                           "properties",
                           {
@@ -1399,7 +1399,7 @@
                           "value",
                           {
                             "@type": "g:Int32",
-                            "@value": 0
+                            "@value": -1
                           },
                           "properties",
                           {
@@ -1445,7 +1445,7 @@
                           "value",
                           {
                             "@type": "g:Date",
-                            "@value": 1586270616000
+                            "@value": -1
                           },
                           "properties",
                           {
@@ -1473,7 +1473,7 @@
                           "value",
                           {
                             "@type": "g:Int32",
-                            "@value": 0
+                            "@value": -1
                           },
                           "properties",
                           {
@@ -1544,7 +1544,7 @@
                           "value",
                           {
                             "@type": "g:Int32",
-                            "@value": 0
+                            "@value": -1
                           },
                           "properties",
                           {
@@ -1618,7 +1618,7 @@
                           "value",
                           {
                             "@type": "g:Int32",
-                            "@value": 0
+                            "@value": -1
                           },
                           "properties",
                           {
@@ -1664,7 +1664,7 @@
                           "value",
                           {
                             "@type": "g:Int32",
-                            "@value": 1
+                            "@value": -1
                           },
                           "properties",
                           {
@@ -1692,7 +1692,7 @@
                           "value",
                           {
                             "@type": "g:Int32",
-                            "@value": 0
+                            "@value": -1
                           },
                           "properties",
                           {
