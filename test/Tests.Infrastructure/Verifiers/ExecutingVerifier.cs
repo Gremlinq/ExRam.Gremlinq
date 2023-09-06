@@ -52,10 +52,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                     .ToArrayAsync(),
                 Formatting.Indented);
 
-            await base
-                .InnerVerify(serialized)
-                .ScrubRegex(IdRegex, "\"@value\": -1")
-                .ScrubGuids();
+            await this
+                .InnerVerify(serialized);
         }
+
+        protected override SettingsTask InnerVerify<T>(T value) => base
+            .InnerVerify(value)
+            .ScrubRegex(IdRegex, "\"@value\": -1")
+            .ScrubGuids();
     }
 }
