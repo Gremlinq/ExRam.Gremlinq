@@ -53,11 +53,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                     .ToArrayAsync(),
                 Formatting.Indented);
 
-            var scrubbed = this
-                .Scrubbers()
-                .Aggregate(serialized, (s, func) => func(s));
-
-            await InnerVerify(scrubbed);
+            await InnerVerify(serialized);
         }
 
         protected override IImmutableList<Func<string, string>> Scrubbers() => base
