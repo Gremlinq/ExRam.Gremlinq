@@ -3,7 +3,7 @@
     Id: -1,
     Label: Locations,
     Properties: {
-      ValidFrom: 2019-01-01 01:00 +0
+      ValidFrom: 1969-12-31 23:59:59.999 +0
     },
     Value: Aachen
   }

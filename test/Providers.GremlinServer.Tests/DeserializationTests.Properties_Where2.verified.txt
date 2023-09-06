@@ -3,60 +3,60 @@
     Id: -1,
     Label: Age,
     Properties: {},
-    Value: 0
+    Value: -1
   },
   {
     Id: -1,
     Label: Age,
     Properties: {},
-    Value: 0
+    Value: -1
   },
   {
     Id: -1,
     Label: Age,
     Properties: {},
-    Value: 0
+    Value: -1
   },
   {
     Id: -1,
     Label: Age,
     Properties: {},
-    Value: 0
+    Value: -1
   },
   {
     Id: -1,
     Label: Age,
     Properties: {},
-    Value: 0
+    Value: -1
   },
   {
     Id: -1,
     Label: Age,
     Properties: {},
-    Value: 0
+    Value: -1
   },
   {
     Id: -1,
     Label: Age,
     Properties: {},
-    Value: 0
+    Value: -1
   },
   {
     Id: -1,
     Label: Age,
     Properties: {},
-    Value: 0
+    Value: -1
   },
   {
     Id: -1,
     Label: Age,
     Properties: {},
-    Value: 0
+    Value: -1
   },
   {
     Id: -1,
     Label: Age,
     Properties: {},
-    Value: 0
+    Value: -1
   }
 ]

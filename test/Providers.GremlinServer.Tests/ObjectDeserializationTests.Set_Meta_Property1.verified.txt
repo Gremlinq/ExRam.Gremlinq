@@ -3,7 +3,7 @@
     Id: -1,
     Label: Name,
     Properties: {
-      metaKey: 1
+      metaKey: -1
     },
     Value: GER
   },
@@ -13,7 +13,7 @@
     Properties: {
       de: Deutschland,
       en: Germany,
-      metaKey: 1
+      metaKey: -1
     },
     Value: GER
   }

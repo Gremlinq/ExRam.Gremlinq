@@ -1,8 +1,8 @@
 ﻿[
   {
-    Age: 21,
-    Gender: Male,
-    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Age: -1,
+    Gender: -1,
+    RegistrationDate: 1969-12-31 23:59:59.999 +0,
     Name: {
       Id: -1,
       Label: Name,
@@ -13,9 +13,9 @@
     Label: Person
   },
   {
-    Age: 21,
-    Gender: Male,
-    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Age: -1,
+    Gender: -1,
+    RegistrationDate: 1969-12-31 23:59:59.999 +0,
     Name: {
       Id: -1,
       Label: Name,
@@ -26,9 +26,9 @@
     Label: Person
   },
   {
-    Age: 21,
-    Gender: Male,
-    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Age: -1,
+    Gender: -1,
+    RegistrationDate: 1969-12-31 23:59:59.999 +0,
     Name: {
       Id: -1,
       Label: Name,
@@ -39,9 +39,9 @@
     Label: Person
   },
   {
-    Age: 21,
-    Gender: Male,
-    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Age: -1,
+    Gender: -1,
+    RegistrationDate: 1969-12-31 23:59:59.999 +0,
     Name: {
       Id: -1,
       Label: Name,
@@ -52,9 +52,9 @@
     Label: Person
   },
   {
-    Age: 21,
-    Gender: Male,
-    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Age: -1,
+    Gender: -1,
+    RegistrationDate: 1969-12-31 23:59:59.999 +0,
     Name: {
       Id: -1,
       Label: Name,
@@ -65,9 +65,9 @@
     Label: Person
   },
   {
-    Age: 21,
-    Gender: Male,
-    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Age: -1,
+    Gender: -1,
+    RegistrationDate: 1969-12-31 23:59:59.999 +0,
     Name: {
       Id: -1,
       Label: Name,
@@ -78,9 +78,9 @@
     Label: Person
   },
   {
-    Age: 21,
-    Gender: Male,
-    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Age: -1,
+    Gender: -1,
+    RegistrationDate: 1969-12-31 23:59:59.999 +0,
     Name: {
       Id: -1,
       Label: Name,
@@ -91,9 +91,9 @@
     Label: Person
   },
   {
-    Age: 21,
-    Gender: Male,
-    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Age: -1,
+    Gender: -1,
+    RegistrationDate: 1969-12-31 23:59:59.999 +0,
     Name: {
       Id: -1,
       Label: Name,
@@ -104,9 +104,9 @@
     Label: Person
   },
   {
-    Age: 21,
-    Gender: Male,
-    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Age: -1,
+    Gender: -1,
+    RegistrationDate: 1969-12-31 23:59:59.999 +0,
     Name: {
       Id: -1,
       Label: Name,
@@ -117,9 +117,9 @@
     Label: Person
   },
   {
-    Age: 21,
-    Gender: Male,
-    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Age: -1,
+    Gender: -1,
+    RegistrationDate: 1969-12-31 23:59:59.999 +0,
     Name: {
       Id: -1,
       Label: Name,
@@ -130,9 +130,9 @@
     Label: Person
   },
   {
-    Age: 21,
-    Gender: Male,
-    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Age: -1,
+    Gender: -1,
+    RegistrationDate: 1969-12-31 23:59:59.999 +0,
     Name: {
       Id: -1,
       Label: Name,

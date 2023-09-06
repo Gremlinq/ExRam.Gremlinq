@@ -38,7 +38,7 @@
   {},
   {},
   {
-    ValidFrom: 1546304400000
+    ValidFrom: -1
   },
   {
     de: Deutschland,
