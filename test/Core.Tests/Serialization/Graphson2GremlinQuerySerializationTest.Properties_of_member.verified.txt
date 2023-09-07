@@ -1,59 +1,69 @@
 ﻿{
-  "@type": "g:Bytecode",
-  "@value": {
-    "step": [
-      [
-        "V"
-      ],
-      [
-        "hasLabel",
-        "Country"
-      ],
-      [
-        "properties",
-        "Name"
-      ],
-      [
-        "project",
-        "id",
-        "label",
-        "value",
-        "properties"
-      ],
-      [
-        "by",
-        {
-          "@type": "g:T",
-          "@value": "id"
-        }
-      ],
-      [
-        "by",
-        {
-          "@type": "g:T",
-          "@value": "label"
-        }
-      ],
-      [
-        "by",
-        {
-          "@type": "g:T",
-          "@value": "value"
-        }
-      ],
-      [
-        "by",
-        {
-          "@type": "g:Bytecode",
-          "@value": {
-            "step": [
-              [
-                "valueMap"
-              ]
-            ]
-          }
-        }
-      ]
-    ]
+  "requestId": "00000000-0000-0000-0000-000000000000",
+  "op": "bytecode",
+  "processor": "traversal",
+  "args": {
+    "gremlin": {
+      "@type": "g:Bytecode",
+      "@value": {
+        "step": [
+          [
+            "V"
+          ],
+          [
+            "hasLabel",
+            "Country"
+          ],
+          [
+            "properties",
+            "Name"
+          ],
+          [
+            "project",
+            "id",
+            "label",
+            "value",
+            "properties"
+          ],
+          [
+            "by",
+            {
+              "@type": "g:T",
+              "@value": "id"
+            }
+          ],
+          [
+            "by",
+            {
+              "@type": "g:T",
+              "@value": "label"
+            }
+          ],
+          [
+            "by",
+            {
+              "@type": "g:T",
+              "@value": "value"
+            }
+          ],
+          [
+            "by",
+            {
+              "@type": "g:Bytecode",
+              "@value": {
+                "step": [
+                  [
+                    "valueMap"
+                  ]
+                ]
+              }
+            }
+          ]
+        ]
+      }
+    },
+    "aliases": {
+      "g": "g"
+    }
   }
 }
