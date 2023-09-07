@@ -1,0 +1,25 @@
+﻿{
+  "requestId": "00000000-0000-0000-0000-000000000000",
+  "op": "eval",
+  "processor": "",
+  "args": {
+    "gremlin": "g.V().limit(_a).range(local,_a,_b).project(_c,_d,_e).by(id).by(label).by(__.properties().group().by(label).by(__.project(_c,_d,_f,_e).by(id).by(label).by(value).by(__.valueMap()).fold()))",
+    "bindings": {
+      "_a": {
+        "@type": "g:Int64",
+        "@value": 0
+      },
+      "_b": {
+        "@type": "g:Int64",
+        "@value": 1
+      },
+      "_c": "id",
+      "_d": "label",
+      "_e": "properties",
+      "_f": "value"
+    },
+    "aliases": {
+      "g": "g"
+    }
+  }
+}

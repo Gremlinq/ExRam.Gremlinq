@@ -1,0 +1,32 @@
+﻿{
+  "requestId": "00000000-0000-0000-0000-000000000000",
+  "op": "eval",
+  "processor": "",
+  "args": {
+    "gremlin": "g.inject(_a,_b,_c).fold().as(_d).V().hasLabel(_e).has(_f,__.where(within(_d))).project(_g,_h,_i).by(id).by(label).by(__.properties().group().by(label).by(__.project(_g,_h,_j,_i).by(id).by(label).by(value).by(__.valueMap()).fold()))",
+    "bindings": {
+      "_a": {
+        "@type": "g:Int32",
+        "@value": 1
+      },
+      "_b": {
+        "@type": "g:Int32",
+        "@value": 2
+      },
+      "_c": {
+        "@type": "g:Int32",
+        "@value": 3
+      },
+      "_d": "_a",
+      "_e": "Person",
+      "_f": "Age",
+      "_g": "id",
+      "_h": "label",
+      "_i": "properties",
+      "_j": "value"
+    },
+    "aliases": {
+      "g": "g"
+    }
+  }
+}

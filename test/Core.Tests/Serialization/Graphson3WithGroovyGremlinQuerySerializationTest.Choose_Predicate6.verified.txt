@@ -1,0 +1,27 @@
+﻿{
+  "requestId": "00000000-0000-0000-0000-000000000000",
+  "op": "eval",
+  "processor": "",
+  "args": {
+    "gremlin": "g.V().id().choose(gt(_a).and(lt(_b)).or(neq(_c)),__.constant(_d),__.constant(_e))",
+    "bindings": {
+      "_a": {
+        "@type": "g:Int32",
+        "@value": 0
+      },
+      "_b": {
+        "@type": "g:Int32",
+        "@value": 42
+      },
+      "_c": {
+        "@type": "g:Int32",
+        "@value": 37
+      },
+      "_d": true,
+      "_e": false
+    },
+    "aliases": {
+      "g": "g"
+    }
+  }
+}

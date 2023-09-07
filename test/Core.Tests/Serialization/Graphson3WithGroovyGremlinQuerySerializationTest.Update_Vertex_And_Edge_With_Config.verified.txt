@@ -1,0 +1,29 @@
+﻿{
+  "requestId": "00000000-0000-0000-0000-000000000000",
+  "op": "eval",
+  "processor": "",
+  "args": {
+    "gremlin": "g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d).drop()).property(single,_e,_f).property(single,_g,_h).outE(_i).property(_j,_h).project(_k,_l,_m).by(id).by(label).by(__.valueMap())",
+    "bindings": {
+      "_a": "Person",
+      "_b": "Image",
+      "_c": "PhoneNumbers",
+      "_d": "SomeObscureProperty",
+      "_e": "Gender",
+      "_f": 0,
+      "_g": "RegistrationDate",
+      "_h": {
+        "@type": "g:Date",
+        "@value": 1586270616000
+      },
+      "_i": "WorksFor",
+      "_j": "To",
+      "_k": "id",
+      "_l": "label",
+      "_m": "properties"
+    },
+    "aliases": {
+      "g": "g"
+    }
+  }
+}
