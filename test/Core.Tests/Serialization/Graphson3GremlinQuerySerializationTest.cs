@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq.Core.Tests
 {
     public sealed class Graphson3GremlinQuerySerializationTest : QueryExecutionTest
     {
-        public static readonly GraphSON3Writer GraphSon3Writer = new ();
+        private static readonly GraphSON3Writer GraphSon3Writer = new ();
 
         public Graphson3GremlinQuerySerializationTest(ITestOutputHelper testOutputHelper) : base(
             GremlinqFixture.Empty,
