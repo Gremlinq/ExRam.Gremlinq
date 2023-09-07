@@ -444,6 +444,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
                 .V<Person>()
                 .Map(__ => __
                     .Aggregate(stepLabel))
+                .Barrier()
                 .Select(stepLabel)
                 .Verify();
         }
