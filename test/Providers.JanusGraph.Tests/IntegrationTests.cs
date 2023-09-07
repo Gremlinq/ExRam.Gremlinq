@@ -1,5 +1,4 @@
-﻿using System.Collections.Immutable;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using ExRam.Gremlinq.Tests.Fixtures;
 using ExRam.Gremlinq.Tests.Infrastructure;
@@ -17,7 +16,7 @@ namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
             {
             }
 
-            protected override SettingsTask InnerVerify(object? value) => base
+            protected override SettingsTask InnerVerify<T>(ValueTask<T> value) => base
                 .InnerVerify(value)
                 .ScrubRegex(RelationIdRegex, "\"relationId\": \"scrubbed\"");
         }
