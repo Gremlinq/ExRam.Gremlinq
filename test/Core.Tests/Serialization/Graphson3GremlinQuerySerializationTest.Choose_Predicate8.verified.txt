@@ -1,61 +1,71 @@
 ﻿{
-  "@type": "g:Bytecode",
-  "@value": {
-    "step": [
-      [
-        "V"
-      ],
-      [
-        "hasLabel",
-        "Company",
-        "Country",
-        "Language",
-        "Person",
-        "TimeFrame"
-      ],
-      [
-        "choose",
-        {
-          "@type": "g:Bytecode",
-          "@value": {
-            "step": [
-              [
-                "has",
-                {
-                  "@type": "g:T",
-                  "@value": "id"
-                },
-                {
-                  "@type": "g:Int32",
-                  "@value": 42
-                }
-              ]
-            ]
-          }
-        },
-        {
-          "@type": "g:Bytecode",
-          "@value": {
-            "step": [
-              [
-                "constant",
-                true
-              ]
-            ]
-          }
-        },
-        {
-          "@type": "g:Bytecode",
-          "@value": {
-            "step": [
-              [
-                "constant",
-                false
-              ]
-            ]
-          }
-        }
-      ]
-    ]
+  "requestId": "00000000-0000-0000-0000-000000000000",
+  "op": "bytecode",
+  "processor": "traversal",
+  "args": {
+    "gremlin": {
+      "@type": "g:Bytecode",
+      "@value": {
+        "step": [
+          [
+            "V"
+          ],
+          [
+            "hasLabel",
+            "Company",
+            "Country",
+            "Language",
+            "Person",
+            "TimeFrame"
+          ],
+          [
+            "choose",
+            {
+              "@type": "g:Bytecode",
+              "@value": {
+                "step": [
+                  [
+                    "has",
+                    {
+                      "@type": "g:T",
+                      "@value": "id"
+                    },
+                    {
+                      "@type": "g:Int32",
+                      "@value": 42
+                    }
+                  ]
+                ]
+              }
+            },
+            {
+              "@type": "g:Bytecode",
+              "@value": {
+                "step": [
+                  [
+                    "constant",
+                    true
+                  ]
+                ]
+              }
+            },
+            {
+              "@type": "g:Bytecode",
+              "@value": {
+                "step": [
+                  [
+                    "constant",
+                    false
+                  ]
+                ]
+              }
+            }
+          ]
+        ]
+      }
+    },
+    "aliases": {
+      "g": "g"
+    }
   }
 }

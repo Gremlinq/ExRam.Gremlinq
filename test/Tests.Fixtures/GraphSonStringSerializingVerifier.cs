@@ -1,9 +1,9 @@
 ﻿using Gremlin.Net.Structure.IO.GraphSON;
 using ExRam.Gremlinq.Core.Transformation;
-using Gremlin.Net.Process.Traversal;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Tests.Infrastructure;
 using System.Runtime.CompilerServices;
+using Gremlin.Net.Driver.Messages;
 
 namespace ExRam.Gremlinq.Tests.Fixtures
 {
@@ -20,11 +20,13 @@ namespace ExRam.Gremlinq.Tests.Fixtures
         {
             var env = query.AsAdmin().Environment;
 
-            return InnerVerify(_writer
-                .WriteObject(env.Serializer
-                    .TransformTo<Bytecode>()
-                    .From(query, env))
-                .FormatJson());
+            return this
+                .InnerVerify(_writer
+                    .WriteObject(env.Serializer
+                        .TransformTo<RequestMessage>()
+                        .From(query, env))
+                .FormatJson())
+                .ScrubGuids();
         }
     }
 }

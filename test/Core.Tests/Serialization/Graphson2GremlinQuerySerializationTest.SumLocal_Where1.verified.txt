@@ -1,35 +1,45 @@
 ﻿{
-  "@type": "g:Bytecode",
-  "@value": {
-    "step": [
-      [
-        "V"
-      ],
-      [
-        "hasLabel",
-        "Person"
-      ],
-      [
-        "values",
-        "Age"
-      ],
-      [
-        "fold"
-      ],
-      [
-        "sum",
-        {
-          "@type": "g:Scope",
-          "@value": "local"
-        }
-      ],
-      [
-        "is",
-        {
-          "@type": "g:Int32",
-          "@value": 100
-        }
-      ]
-    ]
+  "requestId": "00000000-0000-0000-0000-000000000000",
+  "op": "bytecode",
+  "processor": "traversal",
+  "args": {
+    "gremlin": {
+      "@type": "g:Bytecode",
+      "@value": {
+        "step": [
+          [
+            "V"
+          ],
+          [
+            "hasLabel",
+            "Person"
+          ],
+          [
+            "values",
+            "Age"
+          ],
+          [
+            "fold"
+          ],
+          [
+            "sum",
+            {
+              "@type": "g:Scope",
+              "@value": "local"
+            }
+          ],
+          [
+            "is",
+            {
+              "@type": "g:Int32",
+              "@value": 100
+            }
+          ]
+        ]
+      }
+    },
+    "aliases": {
+      "g": "g"
+    }
   }
 }
