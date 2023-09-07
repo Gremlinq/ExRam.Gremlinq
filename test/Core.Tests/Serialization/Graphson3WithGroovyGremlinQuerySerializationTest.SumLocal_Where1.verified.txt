@@ -1,0 +1,19 @@
+﻿{
+  "requestId": "00000000-0000-0000-0000-000000000000",
+  "op": "eval",
+  "processor": "",
+  "args": {
+    "gremlin": "g.V().hasLabel(_a).values(_b).fold().sum(local).is(_c)",
+    "bindings": {
+      "_a": "Person",
+      "_b": "Age",
+      "_c": {
+        "@type": "g:Int32",
+        "@value": 100
+      }
+    },
+    "aliases": {
+      "g": "g"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+﻿{
+  "requestId": "00000000-0000-0000-0000-000000000000",
+  "op": "eval",
+  "processor": "",
+  "args": {
+    "gremlin": "g.inject(_a).local(__.V().drop())",
+    "bindings": {
+      "_a": {
+        "@type": "g:Int32",
+        "@value": 1
+      }
+    },
+    "aliases": {
+      "g": "g"
+    }
+  }
+}

@@ -1,0 +1,37 @@
+﻿{
+  "requestId": "00000000-0000-0000-0000-000000000000",
+  "op": "eval",
+  "processor": "",
+  "args": {
+    "gremlin": "g.addE(_a).property(_b,_c).property(_d,_e).property(_f,_c).to(__.addV(_g).property(single,_h,_i)).from(__.addV(_j).property(single,_k,_l)).project(_m,_n,_o).by(id).by(label).by(__.valueMap())",
+    "bindings": {
+      "_a": "WorksFor",
+      "_b": "From",
+      "_c": {
+        "@type": "g:Date",
+        "@value": 1586270616000
+      },
+      "_d": "Role",
+      "_e": "Admin",
+      "_f": "To",
+      "_g": "Company",
+      "_h": "FoundingDate",
+      "_i": {
+        "@type": "g:Date",
+        "@value": -62135596800000
+      },
+      "_j": "Person",
+      "_k": "Age",
+      "_l": {
+        "@type": "g:Int32",
+        "@value": 0
+      },
+      "_m": "id",
+      "_n": "label",
+      "_o": "properties"
+    },
+    "aliases": {
+      "g": "g"
+    }
+  }
+}

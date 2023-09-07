@@ -1,0 +1,16 @@
+﻿{
+  "requestId": "00000000-0000-0000-0000-000000000000",
+  "op": "eval",
+  "processor": "",
+  "args": {
+    "gremlin": "g.V().hasLabel(_a).union(__.id(),__.values(_b,_c))",
+    "bindings": {
+      "_a": "Person",
+      "_b": "Name",
+      "_c": "Gender"
+    },
+    "aliases": {
+      "g": "g"
+    }
+  }
+}

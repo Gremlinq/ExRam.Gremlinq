@@ -1,0 +1,18 @@
+﻿{
+  "requestId": "00000000-0000-0000-0000-000000000000",
+  "op": "eval",
+  "processor": "",
+  "args": {
+    "gremlin": "g.V().id().choose(eq(_a),__.constant(_b))",
+    "bindings": {
+      "_a": {
+        "@type": "g:Int32",
+        "@value": 42
+      },
+      "_b": true
+    },
+    "aliases": {
+      "g": "g"
+    }
+  }
+}
