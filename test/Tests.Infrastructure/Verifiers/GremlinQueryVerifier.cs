@@ -14,8 +14,9 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         public abstract Task Verify<TElement>(IGremlinQueryBase<TElement> query);
 
-
         protected SettingsTask InnerVerify<T>(T value) => InnerVerify(ValueTask.FromResult(value));
+
+        protected SettingsTask InnerVerify<T>(Task<T> task) => InnerVerify(new ValueTask<T>(task));
 
         protected virtual SettingsTask InnerVerify<T>(ValueTask<T> value) => Verifier
             .Verify(value, sourceFile: _sourceFile);
