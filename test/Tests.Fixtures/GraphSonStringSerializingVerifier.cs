@@ -4,12 +4,20 @@ using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Tests.Infrastructure;
 using System.Runtime.CompilerServices;
 using Gremlin.Net.Driver.Messages;
+using System.Text.Json;
+using System.Text.Encodings.Web;
 
 namespace ExRam.Gremlinq.Tests.Fixtures
 {
     public sealed class GraphSonStringSerializingVerifier : GremlinQueryVerifier
     {
         private readonly GraphSONWriter _writer;
+
+        private static readonly JsonSerializerOptions JsonOptions = new()
+        {
+            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+            WriteIndented = true
+        };
 
         public GraphSonStringSerializingVerifier(GraphSONWriter writer, [CallerFilePath] string sourceFile = "") : base(sourceFile)
         {
@@ -21,11 +29,11 @@ namespace ExRam.Gremlinq.Tests.Fixtures
             var env = query.AsAdmin().Environment;
 
             return this
-                .InnerVerify(_writer
-                    .WriteObject(env.Serializer
-                        .TransformTo<RequestMessage>()
-                        .From(query, env))
-                .FormatJson())
+                .InnerVerify(JsonSerializer
+                    .Serialize((object)_writer
+                        .ToDict(env.Serializer
+                            .TransformTo<RequestMessage>()
+                            .From(query, env)), JsonOptions))
                 .ScrubGuids();
         }
     }
