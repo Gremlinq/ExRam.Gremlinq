@@ -33,7 +33,7 @@
           EnumValue: single
         },
         GuidKey,
-        Guid_1
+        Expected Guid
       ]
     },
     {

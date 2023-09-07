@@ -25,7 +25,7 @@
               EnumValue: single
             },
             GuidKey,
-            Guid_2
+            Expected Guid
           ]
         },
         {

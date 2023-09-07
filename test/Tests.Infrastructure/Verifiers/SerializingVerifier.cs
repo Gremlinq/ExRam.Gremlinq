@@ -14,10 +14,12 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         {
             var env = query.AsAdmin().Environment;
 
-            return InnerVerify(env
-                .Serializer
-                .TransformTo<TSerialized>()
-                .From(query, env));
+            return this
+                .InnerVerify(env
+                    .Serializer
+                    .TransformTo<TSerialized>()
+                    .From(query, env))
+                .ScrubGuids();
         }
     }
 }
