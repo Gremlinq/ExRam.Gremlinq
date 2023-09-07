@@ -3005,10 +3005,13 @@ namespace ExRam.Gremlinq.Tests.TestCases
         [Fact]
         public virtual async Task Property_Guid_value()
         {
+            var guid = Guid.Parse("{AEBACDFB-2C00-4808-A8B6-8D62217A8059}");
+
             await _g
                 .V<Person>()
-                .Property("GuidKey", Guid.Parse("{AEBACDFB-2C00-4808-A8B6-8D62217A8059}"))
-                .Verify();
+                .Property("GuidKey", guid)
+                .Verify()
+                .AddNamedGuid(guid, "Expected Guid");
         }
 
         [Fact]

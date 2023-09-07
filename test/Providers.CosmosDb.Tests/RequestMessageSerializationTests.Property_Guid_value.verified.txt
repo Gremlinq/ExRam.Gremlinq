@@ -9,7 +9,7 @@
     bindings: {
       _a: Person,
       _b: GuidKey,
-      _c: Guid_2
+      _c: Expected Guid
     },
     gremlin: g.V().hasLabel(_a).property(single,_b,_c)
   }

@@ -3,7 +3,7 @@
   Bindings: {
     _a: Person,
     _b: GuidKey,
-    _c: Guid_1,
+    _c: Expected Guid,
     _d: id,
     _e: label,
     _f: properties,
