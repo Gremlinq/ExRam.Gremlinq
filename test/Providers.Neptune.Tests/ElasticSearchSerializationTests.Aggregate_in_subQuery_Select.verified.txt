@@ -41,6 +41,9 @@
       ]
     },
     {
+      OperatorName: barrier
+    },
+    {
       OperatorName: select,
       Arguments: [
         _c
