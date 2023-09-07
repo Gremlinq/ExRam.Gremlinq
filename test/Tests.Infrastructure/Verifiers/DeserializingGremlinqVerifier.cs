@@ -15,13 +15,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             _context = XunitContext.Register(testOutputHelper, sourceFile);
         }
 
-        public override async Task Verify<TElement>(IGremlinQueryBase<TElement> query)
+        public override SettingsTask Verify<TElement>(IGremlinQueryBase<TElement> query)
         {
             var environment = query.AsAdmin().Environment;
 
             if (JsonConvert.DeserializeObject<JArray>(File.ReadAllText(Path.Combine(_context.SourceDirectory, "IntegrationTests" + "." + _context.MethodName + ".verified.txt"))) is { } jArray)
             {
-                await base
+                return base
                     .InnerVerify(jArray
                         .Where(obj => !(obj is JObject jObject && jObject.ContainsKey("serverException")))
                         .Select(token => environment
@@ -33,6 +33,8 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
                     .DontScrubGuids()
                     .DontIgnoreEmptyCollections();
             }
+            else
+                throw new InvalidOperationException();
         }
     }
 }

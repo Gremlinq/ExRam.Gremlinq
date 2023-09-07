@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         {
         }
 
-        public override Task Verify<TElement>(IGremlinQueryBase<TElement> query)
+        public override SettingsTask Verify<TElement>(IGremlinQueryBase<TElement> query)
         {
             var env = query.AsAdmin().Environment;
 

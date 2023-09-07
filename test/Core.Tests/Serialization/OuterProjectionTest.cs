@@ -13,7 +13,7 @@ namespace ExRam.Gremlinq.Core.Tests
             {
             }
 
-            public override Task Verify<TElement>(IGremlinQueryBase<TElement> query) => InnerVerify(query.ToTraversal().Projection.ToTraversal(query.AsAdmin().Environment).Steps.ToArray());
+            public override SettingsTask Verify<TElement>(IGremlinQueryBase<TElement> query) => InnerVerify(query.ToTraversal().Projection.ToTraversal(query.AsAdmin().Environment).Steps.ToArray());
         }
 
         public OuterProjectionTest(ITestOutputHelper testOutputHelper) : base(GremlinqFixture.Empty, new ProjectionVerifier(), testOutputHelper)
