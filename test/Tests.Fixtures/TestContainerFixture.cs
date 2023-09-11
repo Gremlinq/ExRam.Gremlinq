@@ -11,7 +11,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
         protected TestContainerFixture(string image, int port, Func<IContainer, IGremlinQuerySource> sourceFactory) : this(
             new ContainerBuilder()
                 .WithImage(image)
-                .WithPortBinding(port)
+                .WithPortBinding(port, true)
                 .WithWaitStrategy(Wait
                     .ForUnixContainer()
                     .UntilPortIsAvailable(port))
