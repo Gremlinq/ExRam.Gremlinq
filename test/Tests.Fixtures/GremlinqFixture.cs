@@ -3,7 +3,7 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Tests.Fixtures
 {
-    public abstract class GremlinqFixture
+    public abstract class GremlinqFixture : IDisposable
     {
         private sealed class EmptyGremlinqTestFixture : GremlinqFixture
         {
@@ -19,6 +19,17 @@ namespace ExRam.Gremlinq.Tests.Fixtures
             GremlinQuerySource = source;
         }
 
+        public void Dispose()
+        {
+            Dispose(true);
+
+            GC.SuppressFinalize(this);
+        }
+
         public IGremlinQuerySource GremlinQuerySource { get; }
+
+        protected virtual void Dispose(bool disposing)
+        {
+        }
     }
 }
