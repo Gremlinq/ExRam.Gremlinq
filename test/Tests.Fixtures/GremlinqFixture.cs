@@ -14,9 +14,15 @@ namespace ExRam.Gremlinq.Tests.Fixtures
 
         public static readonly GremlinqFixture Empty = new EmptyGremlinqTestFixture();
 
-        protected GremlinqFixture(IGremlinQuerySource source)
+        private readonly Lazy<Task<IGremlinQuerySource>> _lazyGremlinQuerySource;
+
+        protected GremlinqFixture(IGremlinQuerySource source) : this(async () => source)
         {
-            GremlinQuerySource = source;
+        }
+
+        protected GremlinqFixture(Func<Task<IGremlinQuerySource>> sourceFactory)
+        {
+            _lazyGremlinQuerySource = new Lazy<Task<IGremlinQuerySource>>(sourceFactory, LazyThreadSafetyMode.ExecutionAndPublication);
         }
 
         public void Dispose()
@@ -38,6 +44,6 @@ namespace ExRam.Gremlinq.Tests.Fixtures
         {
         }
 
-        public IGremlinQuerySource GremlinQuerySource { get; }
+        public Task<IGremlinQuerySource> GremlinQuerySource { get => _lazyGremlinQuerySource.Value; }
     }
 }

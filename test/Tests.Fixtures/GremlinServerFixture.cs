@@ -20,13 +20,15 @@ namespace ExRam.Gremlinq.Tests.Fixtures
         {
         }
 
-        private GremlinServerFixture(IContainer container) : base(g
-            .UseGremlinServer(_ => _
-                .At(new UriBuilder("ws", container.Hostname, 8182).Uri)
-                .UseNewtonsoftJson()))
+        private GremlinServerFixture(IContainer container) : base(() => GetQuerySource(container))
         {
             _gremlinServerContainer = container;
         }
+
+        private static async Task<IGremlinQuerySource> GetQuerySource(IContainer container) => g
+            .UseGremlinServer(_ => _
+                .At(new UriBuilder("ws", container.Hostname, container.GetMappedPublicPort(8182)).Uri)
+                .UseNewtonsoftJson());
 
         public override async Task InitializeAsync()
         {
@@ -37,9 +39,9 @@ namespace ExRam.Gremlinq.Tests.Fixtures
 
         public override async Task DisposeAsync()
         {
-            await base.DisposeAsync();
-
             await _gremlinServerContainer.StopAsync();
+
+            await base.DisposeAsync();
         }
     }
 }
