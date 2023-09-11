@@ -13,9 +13,9 @@ namespace ExRam.Gremlinq.Tests.Fixtures
         public GremlinServerFixture() : this(new ContainerBuilder()
             .WithImage("tinkerpop/gremlin-server:3.7.0")
             .WithPortBinding(8182, 8182)
-            //.WithWaitStrategy(Wait
-            //    .ForUnixContainer()
-            //    .UntilPortIsAvailable(8182))
+            .WithWaitStrategy(Wait
+                .ForUnixContainer()
+                .UntilPortIsAvailable(8182))
             .Build())
         {
         }
@@ -33,7 +33,6 @@ namespace ExRam.Gremlinq.Tests.Fixtures
             await base.InitializeAsync();
 
             await _gremlinServerContainer.StartAsync();
-            await Task.Delay(TimeSpan.FromSeconds(15));
         }
 
         public override async Task DisposeAsync()
