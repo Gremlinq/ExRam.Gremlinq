@@ -4,7 +4,7 @@ using ExRam.Gremlinq.Core;
 
 namespace ExRam.Gremlinq.Tests.Fixtures
 {
-    public abstract class TestContainerFixture : GremlinqFixture
+    public abstract class TestContainerFixture : GremlinqFixture, IAsyncLifetime
     {
         private readonly IContainer _container;
 
@@ -25,18 +25,8 @@ namespace ExRam.Gremlinq.Tests.Fixtures
             _container = container;
         }
 
-        public override async Task InitializeAsync()
-        {
-            await base.InitializeAsync();
+        public async Task InitializeAsync() => await _container.StartAsync();
 
-            await _container.StartAsync();
-        }
-
-        public override async Task DisposeAsync()
-        {
-            await _container.StopAsync();
-
-            await base.DisposeAsync();
-        }
+        public async Task DisposeAsync() => await _container.StopAsync();
     }
 }
