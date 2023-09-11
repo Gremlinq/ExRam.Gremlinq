@@ -20,18 +20,22 @@ namespace ExRam.Gremlinq.Tests.TestCases
     {
         private static readonly string Id = "id";
 
-        protected readonly IGremlinQuerySource _g;
+        private readonly Lazy<IGremlinQuerySource> _lazyGremlinQuerySource;
 
         protected QueryExecutionTest(GremlinqFixture fixture, GremlinQueryVerifier verifier, ITestOutputHelper testOutputHelper) : base(verifier)
         {
-            _g = fixture.GremlinQuerySource.Result
-                .ConfigureEnvironment(env => env
-                    .ConfigureOptions(options => options
-                        .SetValue(GremlinqOption.StringComparisonTranslationStrictness, StringComparisonTranslationStrictness.Lenient))
-                    .LogToXunit(testOutputHelper)
-                    .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>(lookup => lookup
-                        .IncludeAssembliesOfBaseTypes())));
+            _lazyGremlinQuerySource = new Lazy<IGremlinQuerySource>(
+                () => fixture.GremlinQuerySource.Result
+                    .ConfigureEnvironment(env => env
+                        .ConfigureOptions(options => options
+                            .SetValue(GremlinqOption.StringComparisonTranslationStrictness, StringComparisonTranslationStrictness.Lenient))
+                        .LogToXunit(testOutputHelper)
+                        .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>(lookup => lookup
+                            .IncludeAssembliesOfBaseTypes()))),
+                LazyThreadSafetyMode.PublicationOnly);
         }
+
+        protected IGremlinQuerySource _g => _lazyGremlinQuerySource.Value;
 
         [Fact]
         public virtual async Task AddE_from_StepLabel()
