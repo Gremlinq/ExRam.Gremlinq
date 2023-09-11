@@ -22,7 +22,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
 
         private GremlinServerFixture(IContainer container) : base(g
             .UseGremlinServer(_ => _
-                .At("ws://" + container.Hostname + ":8182")
+                .At(new UriBuilder("ws", container.Hostname, 8182).Uri)
                 .UseNewtonsoftJson()))
         {
             _gremlinServerContainer = container;
