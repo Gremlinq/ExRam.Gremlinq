@@ -54,19 +54,6 @@ jobs:
 
   test-linux:
     runs-on: ubuntu-latest
-    services:
-      gremlinServer:
-        image: tinkerpop/gremlin-server:3.7.0
-        ports:
-          - 8182:8182
-      janusgraph:
-        image: janusgraph/janusgraph
-        ports:
-          - 8183:8182
-      neptune:
-        image: tinkerpop/gremlin-server:3.7.0
-        ports:
-          - 8184:8182
 
     steps:
     - name: Checkout
