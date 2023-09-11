@@ -12,7 +12,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
 
         public GremlinServerFixture() : this(new ContainerBuilder()
             .WithImage("tinkerpop/gremlin-server:3.7.0")
-            .WithPortBinding(8182, 8182)
+            .WithPortBinding(8182)
             .WithWaitStrategy(Wait
                 .ForUnixContainer()
                 .UntilPortIsAvailable(8182))
