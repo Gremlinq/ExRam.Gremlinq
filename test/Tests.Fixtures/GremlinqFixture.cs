@@ -3,7 +3,7 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Tests.Fixtures
 {
-    public abstract class GremlinqFixture : IDisposable, IAsyncLifetime
+    public abstract class GremlinqFixture
     {
         private sealed class EmptyGremlinqTestFixture : GremlinqFixture
         {
@@ -23,25 +23,6 @@ namespace ExRam.Gremlinq.Tests.Fixtures
         protected GremlinqFixture(Func<Task<IGremlinQuerySource>> sourceFactory)
         {
             _lazyGremlinQuerySource = new Lazy<Task<IGremlinQuerySource>>(sourceFactory, LazyThreadSafetyMode.ExecutionAndPublication);
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-
-            GC.SuppressFinalize(this);
-        }
-
-        public virtual async Task InitializeAsync()
-        {
-        }
-
-        public virtual async Task DisposeAsync()
-        {
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
         }
 
         public Task<IGremlinQuerySource> GremlinQuerySource { get => _lazyGremlinQuerySource.Value; }
