@@ -27,6 +27,12 @@ namespace ExRam.Gremlinq.Tests.Fixtures
 
         public async Task InitializeAsync() => await _container.StartAsync();
 
-        public async Task DisposeAsync() => await _container.StopAsync();
+        public async Task DisposeAsync()
+        {
+            await using (_container)
+            {
+                await _container.StopAsync();
+            }
+        }
     }
 }
