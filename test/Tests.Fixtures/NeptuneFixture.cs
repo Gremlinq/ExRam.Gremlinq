@@ -4,15 +4,12 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Tests.Fixtures
 {
-    public sealed class NeptuneFixture : TestContainerFixture
+    public sealed class NeptuneFixture : GremlinqFixture
     {
-        public NeptuneFixture() : base(
-            "tinkerpop/gremlin-server:3.7.0",
-            8182,
-            container => g
-                .UseNeptune(_ => _
-                    .At(new UriBuilder("ws", container.Hostname, container.GetMappedPublicPort(8182)).Uri)
-                    .UseNewtonsoftJson()))
+        public NeptuneFixture() : base(g
+            .UseNeptune(_ => _
+                .AtLocalhost()
+                .UseNewtonsoftJson()))
         {
         }
     }
