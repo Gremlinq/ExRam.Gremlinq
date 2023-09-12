@@ -9,6 +9,13 @@ namespace ExRam.Gremlinq.Core
 {
     public static class GremlinqOption
     {
+        public static readonly GremlinqOption<Traversal> VertexPropertyProjectionSteps = new(Traversal.Empty.Push(
+            new ProjectStep(ImmutableArray.Create("id", "label", "value", "properties")),
+            new ProjectStep.ByKeyStep(T.Id),
+            new ProjectStep.ByKeyStep(T.Label),
+            new ProjectStep.ByKeyStep(T.Value),
+            new ProjectStep.ByTraversalStep(new ValueMapStep(ImmutableArray<string>.Empty))));
+
         public static readonly GremlinqOption<Traversal> VertexProjectionSteps = new(Traversal.Empty.Push(
             new ProjectStep(ImmutableArray.Create("id", "label", "properties")),
             new ProjectStep.ByKeyStep(T.Id),
@@ -17,12 +24,7 @@ namespace ExRam.Gremlinq.Core
                 new PropertiesStep(ImmutableArray<string>.Empty),
                 GroupStep.Instance,
                 new GroupStep.ByKeyStep(T.Label),
-                new GroupStep.ByTraversalStep(Traversal.Empty.Push(
-                    new ProjectStep(ImmutableArray.Create("id", "label", "value", "properties")),
-                    new ProjectStep.ByKeyStep(T.Id),
-                    new ProjectStep.ByKeyStep(T.Label),
-                    new ProjectStep.ByKeyStep(T.Value),
-                    new ProjectStep.ByTraversalStep(new ValueMapStep(ImmutableArray<string>.Empty)),
+                new GroupStep.ByTraversalStep(VertexPropertyProjectionSteps.DefaultValue.Push(
                     FoldStep.Instance))))));
 
         public static readonly GremlinqOption<Traversal> VertexProjectionWithoutMetaPropertiesSteps = new(Traversal.Empty.Push(
@@ -39,13 +41,6 @@ namespace ExRam.Gremlinq.Core
                     new ProjectStep.ByKeyStep(T.Label),
                     new ProjectStep.ByKeyStep(T.Value),
                     FoldStep.Instance))))));
-
-        public static readonly GremlinqOption<Traversal> VertexPropertyProjectionSteps = new(Traversal.Empty.Push(
-            new ProjectStep(ImmutableArray.Create("id", "label", "value", "properties")),
-            new ProjectStep.ByKeyStep(T.Id),
-            new ProjectStep.ByKeyStep(T.Label),
-            new ProjectStep.ByKeyStep(T.Value),
-            new ProjectStep.ByTraversalStep(new ValueMapStep(ImmutableArray<string>.Empty))));
 
         public static readonly GremlinqOption<Traversal> VertexPropertyProjectionWithoutMetaPropertiesSteps = new(Traversal.Empty.Push(
             new ProjectStep(ImmutableArray.Create("id", "label", "value")),
