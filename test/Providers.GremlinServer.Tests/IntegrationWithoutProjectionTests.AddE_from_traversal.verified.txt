@@ -1,19 +1,22 @@
 ﻿[
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
+    "@type": "g:Edge",
+    "@value": {
+      "id": {
         "@type": "g:Int64",
         "@value": 14
       },
-      "label",
-      "LivesIn",
-      "properties",
-      {
-        "@type": "g:Map",
-        "@value": []
+      "label": "LivesIn",
+      "inVLabel": "Person",
+      "outVLabel": "Country",
+      "inV": {
+        "@type": "g:Int64",
+        "@value": 10
+      },
+      "outV": {
+        "@type": "g:Int64",
+        "@value": 0
       }
-    ]
+    }
   }
 ]

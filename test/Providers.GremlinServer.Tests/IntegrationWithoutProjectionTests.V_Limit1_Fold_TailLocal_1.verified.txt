@@ -1,78 +1,43 @@
 ﻿[
   {
-    "@type": "g:List",
-    "@value": [
-      {
-        "@type": "g:Map",
-        "@value": [
-          "id",
+    "@type": "g:Vertex",
+    "@value": {
+      "id": {
+        "@type": "g:Int64",
+        "@value": 0
+      },
+      "label": "Country",
+      "properties": {
+        "CountryCallingCode": [
           {
-            "@type": "g:Int64",
-            "@value": 0
-          },
-          "label",
-          "Country",
-          "properties",
-          {
-            "@type": "g:Map",
-            "@value": [
-              "CountryCallingCode",
-              {
-                "@type": "g:List",
-                "@value": [
-                  {
-                    "@type": "g:Map",
-                    "@value": [
-                      "id",
-                      {
-                        "@type": "g:Int64",
-                        "@value": 1
-                      },
-                      "label",
-                      "CountryCallingCode",
-                      "value",
-                      "+49",
-                      "properties",
-                      {
-                        "@type": "g:Map",
-                        "@value": []
-                      }
-                    ]
-                  }
-                ]
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 1
               },
-              "LocalizableDescription",
-              {
-                "@type": "g:List",
-                "@value": [
-                  {
-                    "@type": "g:Map",
-                    "@value": [
-                      "id",
-                      {
-                        "@type": "g:Int64",
-                        "@value": 129
-                      },
-                      "label",
-                      "LocalizableDescription",
-                      "value",
-                      "",
-                      "properties",
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "someKey",
-                          "value"
-                        ]
-                      }
-                    ]
-                  }
-                ]
+              "value": "+49",
+              "label": "CountryCallingCode"
+            }
+          }
+        ],
+        "LocalizableDescription": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 129
+              },
+              "value": "",
+              "label": "LocalizableDescription",
+              "properties": {
+                "someKey": "value"
               }
-            ]
+            }
           }
         ]
       }
-    ]
+    }
   }
 ]

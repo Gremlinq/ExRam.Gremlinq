@@ -13,6 +13,11 @@ namespace ExRam.Gremlinq.Tests.Fixtures
         protected override async Task<IGremlinQuerySource> TransformQuerySource(IContainer container, IConfigurableGremlinQuerySource g) => g
             .UseGremlinServer(_ => _
                 .At(new UriBuilder("ws", container.Hostname, container.GetMappedPublicPort(8182)).Uri)
-                .UseNewtonsoftJson());
+                .UseNewtonsoftJson())
+            .ConfigureEnvironment(env => env
+                .ConfigureOptions(options => options
+                    .SetValue(GremlinqOption.VertexProjectionSteps, Traversal.Empty)
+                    .SetValue(GremlinqOption.EdgeProjectionSteps, Traversal.Empty)
+                    .SetValue(GremlinqOption.VertexPropertyProjectionSteps, Traversal.Empty)));
     }
 }
