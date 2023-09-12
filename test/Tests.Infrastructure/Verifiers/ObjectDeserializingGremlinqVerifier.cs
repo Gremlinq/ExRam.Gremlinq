@@ -3,7 +3,8 @@ using ExRam.Gremlinq.Core;
 
 namespace ExRam.Gremlinq.Tests.Infrastructure
 {
-    public sealed class ObjectDeserializingGremlinqVerifier : DeserializingGremlinqVerifier
+    public sealed class ObjectDeserializingGremlinqVerifier<TIntegrationTest> : DeserializingGremlinqVerifier<TIntegrationTest>
+        where TIntegrationTest : GremlinqTestBase
     {
         public ObjectDeserializingGremlinqVerifier(ITestOutputHelper testOutputHelper, [CallerFilePath] string sourceFile = "") : base(testOutputHelper, sourceFile)
         {
