@@ -12,34 +12,28 @@ namespace ExRam.Gremlinq.Tests.Fixtures
         private static readonly string CosmosDbEmulatorCollectionName = "graph";
         private const string CosmosDbEmulatorAuthKey = "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==";
 
-        private readonly Task _task;
-
-        public CosmosDbFixture() : base()
+        protected override async Task<IGremlinQuerySource> TransformQuerySource(IConfigurableGremlinQuerySource g)
         {
-            _task = Task.Run(
-                async () =>
-                {
-                    var cosmosClient = new CosmosClient("https://localhost:8081", CosmosDbEmulatorAuthKey);
+            using (var cosmosClient = new CosmosClient("https://localhost:8081", CosmosDbEmulatorAuthKey))
+            {
+                await Policy
+                    .Handle<CosmosException>()
+                    .WaitAndRetry(8, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)))
+                    .Execute(async () =>
+                    {
+                        var database = await cosmosClient.CreateDatabaseIfNotExistsAsync(CosmosDbEmulatorDatabaseName, ThroughputProperties.CreateAutoscaleThroughput(40000));
 
-                    await Policy
-                        .Handle<CosmosException>()
-                        .WaitAndRetry(8, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)))
-                        .Execute(async () =>
-                        {
-                            var database = await cosmosClient.CreateDatabaseIfNotExistsAsync(CosmosDbEmulatorDatabaseName, ThroughputProperties.CreateAutoscaleThroughput(40000));
-                            await database.Database.CreateContainerIfNotExistsAsync(CosmosDbEmulatorCollectionName, "/PartitionKey");
-                        });
-                });
+                        await database.Database.CreateContainerIfNotExistsAsync(CosmosDbEmulatorCollectionName, "/PartitionKey");
+                    });
+
+                return g
+                    .UseCosmosDb(builder => builder
+                        .At(new Uri("ws://localhost:8901"), CosmosDbEmulatorDatabaseName, CosmosDbEmulatorCollectionName)
+                        .AuthenticateBy(CosmosDbEmulatorAuthKey)
+                        .UseNewtonsoftJson())
+                    .ConfigureEnvironment(env => env
+                        .AddFakePartitionKey());
+            }
         }
-
-        protected override async Task<IGremlinQuerySource> TransformQuerySource(IConfigurableGremlinQuerySource g) => g
-            .UseCosmosDb(builder => builder
-                .At(new Uri("ws://localhost:8901"), CosmosDbEmulatorDatabaseName, CosmosDbEmulatorCollectionName)
-                .AuthenticateBy(CosmosDbEmulatorAuthKey)
-                .UseNewtonsoftJson())
-            .ConfigureEnvironment(env => env
-                .AddFakePartitionKey());
-
-        public Task Create() => _task;
     }
 }

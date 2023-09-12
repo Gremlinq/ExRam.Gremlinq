@@ -11,7 +11,6 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
             new ExecutingVerifier(),
             testOutputHelper)
         {
-            fixture.Create().Wait();
         }
     }
 }
