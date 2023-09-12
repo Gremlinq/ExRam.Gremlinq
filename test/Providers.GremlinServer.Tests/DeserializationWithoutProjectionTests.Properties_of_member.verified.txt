@@ -1,0 +1,17 @@
+﻿[
+  {
+    Id: 74,
+    Label: Name,
+    Properties: {},
+    Value: GER
+  },
+  {
+    Id: 76,
+    Label: Name,
+    Properties: {
+      de: Deutschland,
+      en: Germany
+    },
+    Value: GER
+  }
+]

@@ -1,0 +1,19 @@
+﻿[
+  {
+    Id: 17,
+    Label: Country
+  },
+  {
+    Id: 21,
+    Label: Country
+  },
+  {
+    CountryCallingCode: +49,
+    Id: 0,
+    Label: Country
+  },
+  {
+    Id: 25,
+    Label: Country
+  }
+]

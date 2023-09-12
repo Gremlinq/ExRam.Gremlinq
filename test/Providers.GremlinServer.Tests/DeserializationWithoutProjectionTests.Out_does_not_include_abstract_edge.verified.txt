@@ -1,0 +1,31 @@
+﻿[
+  {
+    Id: 5,
+    Label: Company
+  },
+  {
+    Id: 17,
+    Label: Country
+  },
+  {
+    Id: 21,
+    Label: Country
+  },
+  {
+    Id: 25,
+    Label: Country
+  },
+  {
+    Id: 27,
+    Label: Company
+  },
+  {
+    CountryCallingCode: +49,
+    Id: 0,
+    Label: Country
+  },
+  {
+    Id: 42,
+    Label: Company
+  }
+]

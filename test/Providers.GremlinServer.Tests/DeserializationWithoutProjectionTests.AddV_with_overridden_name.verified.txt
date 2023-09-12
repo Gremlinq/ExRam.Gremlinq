@@ -1,0 +1,7 @@
+﻿[
+  {
+    IetfLanguageTag: en,
+    Id: 82,
+    Label: Language
+  }
+]

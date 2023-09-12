@@ -1,0 +1,71 @@
+﻿[
+  {
+    in!: {
+      RegistrationDate: 2020-04-07 14:43:36 +0,
+      Name: {
+        Id: 39,
+        Label: Name,
+        Value: Bob
+      },
+      Id: 37,
+      Label: Person
+    }
+  },
+  {
+    in!: {
+      CountryCallingCode: +49,
+      Id: 0,
+      Label: Country
+    }
+  },
+  {
+    in!: {
+      CountryCallingCode: +49,
+      Id: 0,
+      Label: Country
+    }
+  },
+  {
+    in!: {
+      Id: 7,
+      Label: Person
+    }
+  },
+  {
+    in!: {
+      Id: 15,
+      Label: Person
+    }
+  },
+  {
+    in!: {
+      Id: 19,
+      Label: Person
+    }
+  },
+  {
+    in!: {
+      Id: 23,
+      Label: Person
+    }
+  },
+  {
+    in!: {
+      Id: 29,
+      Label: Person
+    }
+  },
+  {
+    in!: {
+      CountryCallingCode: +49,
+      Id: 34,
+      Label: Country
+    }
+  },
+  {
+    in!: {
+      Id: 44,
+      Label: Person
+    }
+  }
+]

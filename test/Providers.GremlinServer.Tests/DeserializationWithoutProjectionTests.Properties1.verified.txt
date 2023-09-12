@@ -1,0 +1,247 @@
+﻿[
+  {
+    Id: 1,
+    Label: CountryCallingCode,
+    Properties: {},
+    Value: +49
+  },
+  {
+    Id: 66,
+    Label: RegistrationDate,
+    Properties: {},
+    Value: 2020-04-07 14:43:36 +0
+  },
+  {
+    Id: 65,
+    Label: Name,
+    Properties: {},
+    Value: Marko
+  },
+  {
+    Id: 3,
+    Label: IetfLanguageTag,
+    Properties: {},
+    Value: en
+  },
+  {
+    Id: 68,
+    Label: IetfLanguageTag,
+    Properties: {},
+    Value: en
+  },
+  {
+    Id: 6,
+    Label: FoundingDate,
+    Properties: {},
+    Value: 0001-01-01 +0
+  },
+  {
+    Id: 71,
+    Label: FoundingDate,
+    Properties: {},
+    Value: 0001-01-01 +0
+  },
+  {
+    Id: 72,
+    Label: Locations,
+    Properties: {
+      ValidFrom: 2019-01-01 01:00 +0
+    },
+    Value: Aachen
+  },
+  {
+    Id: 8,
+    Label: Age,
+    Properties: {},
+    Value: 0
+  },
+  {
+    Id: 74,
+    Label: Name,
+    Properties: {},
+    Value: GER
+  },
+  {
+    Id: 13,
+    Label: RegistrationDate,
+    Properties: {},
+    Value: 2020-04-07 14:43:36 +0
+  },
+  {
+    Id: 11,
+    Label: Age,
+    Properties: {},
+    Value: 0
+  },
+  {
+    Id: 12,
+    Label: Name,
+    Properties: {},
+    Value: Bob
+  },
+  {
+    Id: 76,
+    Label: Name,
+    Properties: {
+      de: Deutschland,
+      en: Germany
+    },
+    Value: GER
+  },
+  {
+    Id: 79,
+    Label: PhoneNumbers,
+    Properties: {},
+    Value: +4912345
+  },
+  {
+    Id: 80,
+    Label: PhoneNumbers,
+    Properties: {},
+    Value: +4923456
+  },
+  {
+    Id: 78,
+    Label: FoundingDate,
+    Properties: {},
+    Value: 0001-01-01 +0
+  },
+  {
+    Id: 16,
+    Label: Age,
+    Properties: {},
+    Value: 0
+  },
+  {
+    Id: 83,
+    Label: lang,
+    Properties: {},
+    Value: en
+  },
+  {
+    Id: 20,
+    Label: Age,
+    Properties: {},
+    Value: 0
+  },
+  {
+    Id: 24,
+    Label: Age,
+    Properties: {},
+    Value: 0
+  },
+  {
+    Id: 28,
+    Label: FoundingDate,
+    Properties: {},
+    Value: 0001-01-01 +0
+  },
+  {
+    Id: 30,
+    Label: Age,
+    Properties: {},
+    Value: 0
+  },
+  {
+    Id: 33,
+    Label: IetfLanguageTag,
+    Properties: {},
+    Value: en
+  },
+  {
+    Id: 35,
+    Label: CountryCallingCode,
+    Properties: {},
+    Value: +49
+  },
+  {
+    Id: 40,
+    Label: RegistrationDate,
+    Properties: {},
+    Value: 2020-04-07 14:43:36 +0
+  },
+  {
+    Id: 38,
+    Label: Age,
+    Properties: {},
+    Value: 0
+  },
+  {
+    Id: 39,
+    Label: Name,
+    Properties: {},
+    Value: Bob
+  },
+  {
+    Id: 43,
+    Label: FoundingDate,
+    Properties: {},
+    Value: 0001-01-01 +0
+  },
+  {
+    Id: 45,
+    Label: Age,
+    Properties: {},
+    Value: 0
+  },
+  {
+    Id: 48,
+    Label: IetfLanguageTag,
+    Properties: {},
+    Value: en
+  },
+  {
+    Id: 53,
+    Label: StartTime,
+    Properties: {},
+    Value: 08:00:00
+  },
+  {
+    Id: 52,
+    Label: Enabled,
+    Properties: {},
+    Value: false
+  },
+  {
+    Id: 51,
+    Label: Duration,
+    Properties: {},
+    Value: 02:00:00
+  },
+  {
+    Id: 55,
+    Label: IetfLanguageTag,
+    Properties: {},
+    Value: en
+  },
+  {
+    Id: 57,
+    Label: IetfLanguageTag,
+    Properties: {},
+    Value: en
+  },
+  {
+    Id: 60,
+    Label: Image,
+    Properties: {},
+    Value: AQIDBAUGBwg=
+  },
+  {
+    Id: 59,
+    Label: Age,
+    Properties: {},
+    Value: 0
+  },
+  {
+    Id: 63,
+    Label: Gender,
+    Properties: {},
+    Value: 1
+  },
+  {
+    Id: 62,
+    Label: Age,
+    Properties: {},
+    Value: 0
+  }
+]

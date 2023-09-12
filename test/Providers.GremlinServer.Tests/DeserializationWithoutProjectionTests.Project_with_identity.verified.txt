@@ -1,0 +1,401 @@
+﻿[
+  {
+    Item1: {
+      CountryCallingCode: +49,
+      Id: 0,
+      Label: Country
+    },
+    Item2: {
+      Id: 1,
+      Label: CountryCallingCode,
+      Properties: {},
+      Value: +49
+    }
+  },
+  {
+    Item1: {
+      RegistrationDate: 2020-04-07 14:43:36 +0,
+      Name: {
+        Id: 65,
+        Label: Name,
+        Value: Marko
+      },
+      Id: 64,
+      Label: Person
+    },
+    Item2: {
+      Id: 66,
+      Label: RegistrationDate,
+      Properties: {},
+      Value: 2020-04-07 14:43:36 +0
+    }
+  },
+  {
+    Item1: {
+      IetfLanguageTag: en,
+      Id: 2,
+      Label: Language
+    },
+    Item2: {
+      Id: 3,
+      Label: IetfLanguageTag,
+      Properties: {},
+      Value: en
+    }
+  },
+  {
+    Item1: {
+      IetfLanguageTag: en,
+      Id: 67,
+      Label: Language
+    },
+    Item2: {
+      Id: 68,
+      Label: IetfLanguageTag,
+      Properties: {},
+      Value: en
+    }
+  },
+  {
+    Item1: {
+      Id: 5,
+      Label: Company
+    },
+    Item2: {
+      Id: 6,
+      Label: FoundingDate,
+      Properties: {},
+      Value: 0001-01-01 +0
+    }
+  },
+  {
+    Item1: {
+      Locations: [
+        {
+          Id: 72,
+          Label: Locations,
+          Properties: {
+            ValidFrom: 2019-01-01 01:00 +0
+          },
+          Value: Aachen
+        }
+      ],
+      Id: 70,
+      Label: Company
+    },
+    Item2: {
+      Id: 71,
+      Label: FoundingDate,
+      Properties: {},
+      Value: 0001-01-01 +0
+    }
+  },
+  {
+    Item1: {
+      Id: 7,
+      Label: Person
+    },
+    Item2: {
+      Id: 8,
+      Label: Age,
+      Properties: {},
+      Value: 0
+    }
+  },
+  {
+    Item1: {
+      Name: {
+        Id: 74,
+        Label: Name,
+        Properties: {},
+        Value: GER
+      },
+      Id: 73,
+      Label: Country
+    },
+    Item2: {
+      Id: 74,
+      Label: Name,
+      Properties: {},
+      Value: GER
+    }
+  },
+  {
+    Item1: {
+      RegistrationDate: 2020-04-07 14:43:36 +0,
+      Name: {
+        Id: 12,
+        Label: Name,
+        Value: Bob
+      },
+      Id: 10,
+      Label: Person
+    },
+    Item2: {
+      Id: 13,
+      Label: RegistrationDate,
+      Properties: {},
+      Value: 2020-04-07 14:43:36 +0
+    }
+  },
+  {
+    Item1: {
+      Name: {
+        Id: 76,
+        Label: Name,
+        Properties: {
+          de: Deutschland,
+          en: Germany
+        },
+        Value: GER
+      },
+      Id: 75,
+      Label: Country
+    },
+    Item2: {
+      Id: 76,
+      Label: Name,
+      Properties: {
+        de: Deutschland,
+        en: Germany
+      },
+      Value: GER
+    }
+  },
+  {
+    Item1: {
+      PhoneNumbers: [
+        +4912345,
+        +4923456
+      ],
+      Id: 77,
+      Label: Company
+    },
+    Item2: {
+      Id: 79,
+      Label: PhoneNumbers,
+      Properties: {},
+      Value: +4912345
+    }
+  },
+  {
+    Item1: {
+      Id: 15,
+      Label: Person
+    },
+    Item2: {
+      Id: 16,
+      Label: Age,
+      Properties: {},
+      Value: 0
+    }
+  },
+  {
+    Item1: {
+      Id: 82,
+      Label: Language
+    },
+    Item2: {
+      Id: 83,
+      Label: lang,
+      Properties: {},
+      Value: en
+    }
+  },
+  {
+    Item1: {
+      Id: 19,
+      Label: Person
+    },
+    Item2: {
+      Id: 20,
+      Label: Age,
+      Properties: {},
+      Value: 0
+    }
+  },
+  {
+    Item1: {
+      Id: 23,
+      Label: Person
+    },
+    Item2: {
+      Id: 24,
+      Label: Age,
+      Properties: {},
+      Value: 0
+    }
+  },
+  {
+    Item1: {
+      Id: 27,
+      Label: Company
+    },
+    Item2: {
+      Id: 28,
+      Label: FoundingDate,
+      Properties: {},
+      Value: 0001-01-01 +0
+    }
+  },
+  {
+    Item1: {
+      Id: 29,
+      Label: Person
+    },
+    Item2: {
+      Id: 30,
+      Label: Age,
+      Properties: {},
+      Value: 0
+    }
+  },
+  {
+    Item1: {
+      IetfLanguageTag: en,
+      Id: 32,
+      Label: Language
+    },
+    Item2: {
+      Id: 33,
+      Label: IetfLanguageTag,
+      Properties: {},
+      Value: en
+    }
+  },
+  {
+    Item1: {
+      CountryCallingCode: +49,
+      Id: 34,
+      Label: Country
+    },
+    Item2: {
+      Id: 35,
+      Label: CountryCallingCode,
+      Properties: {},
+      Value: +49
+    }
+  },
+  {
+    Item1: {
+      RegistrationDate: 2020-04-07 14:43:36 +0,
+      Name: {
+        Id: 39,
+        Label: Name,
+        Value: Bob
+      },
+      Id: 37,
+      Label: Person
+    },
+    Item2: {
+      Id: 40,
+      Label: RegistrationDate,
+      Properties: {},
+      Value: 2020-04-07 14:43:36 +0
+    }
+  },
+  {
+    Item1: {
+      Id: 42,
+      Label: Company
+    },
+    Item2: {
+      Id: 43,
+      Label: FoundingDate,
+      Properties: {},
+      Value: 0001-01-01 +0
+    }
+  },
+  {
+    Item1: {
+      Id: 44,
+      Label: Person
+    },
+    Item2: {
+      Id: 45,
+      Label: Age,
+      Properties: {},
+      Value: 0
+    }
+  },
+  {
+    Item1: {
+      IetfLanguageTag: en,
+      Id: 47,
+      Label: Language
+    },
+    Item2: {
+      Id: 48,
+      Label: IetfLanguageTag,
+      Properties: {},
+      Value: en
+    }
+  },
+  {
+    Item1: {
+      Enabled: false,
+      StartTime: 08:00:00,
+      Duration: 02:00:00,
+      Id: 50,
+      Label: TimeFrame
+    },
+    Item2: {
+      Id: 53,
+      Label: StartTime,
+      Properties: {},
+      Value: 08:00:00
+    }
+  },
+  {
+    Item1: {
+      IetfLanguageTag: en,
+      Id: 54,
+      Label: Language
+    },
+    Item2: {
+      Id: 55,
+      Label: IetfLanguageTag,
+      Properties: {},
+      Value: en
+    }
+  },
+  {
+    Item1: {
+      IetfLanguageTag: en,
+      Id: 56,
+      Label: Language
+    },
+    Item2: {
+      Id: 57,
+      Label: IetfLanguageTag,
+      Properties: {},
+      Value: en
+    }
+  },
+  {
+    Item1: {
+      Image: AQIDBAUGBwg=,
+      Id: 58,
+      Label: Person
+    },
+    Item2: {
+      Id: 60,
+      Label: Image,
+      Properties: {},
+      Value: AQIDBAUGBwg=
+    }
+  },
+  {
+    Item1: {
+      Gender: Female,
+      Id: 61,
+      Label: Person
+    },
+    Item2: {
+      Id: 63,
+      Label: Gender,
+      Properties: {},
+      Value: 1
+    }
+  }
+]
