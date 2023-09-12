@@ -6,7 +6,8 @@ using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Tests.Infrastructure
 {
-    public class DeserializingGremlinqVerifier : GremlinQueryVerifier
+    public class DeserializingGremlinqVerifier<TIntegrationTest> : GremlinQueryVerifier
+        where TIntegrationTest : GremlinqTestBase
     {
         private readonly Context _context;
 
@@ -19,7 +20,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
         {
             var environment = query.AsAdmin().Environment;
 
-            if (JsonConvert.DeserializeObject<JArray>(File.ReadAllText(Path.Combine(_context.SourceDirectory, "IntegrationTests" + "." + _context.MethodName + ".verified.txt"))) is { } jArray)
+            if (JsonConvert.DeserializeObject<JArray>(File.ReadAllText(Path.Combine(_context.SourceDirectory, typeof(TIntegrationTest).Name + "." + _context.MethodName + ".verified.txt"))) is { } jArray)
             {
                 return base
                     .InnerVerify(jArray
