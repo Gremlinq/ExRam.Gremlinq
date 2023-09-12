@@ -3,28 +3,66 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Tests.Fixtures
 {
-    public abstract class GremlinqFixture
+    public abstract class GremlinqFixture : IAsyncLifetime
     {
         private sealed class EmptyGremlinqTestFixture : GremlinqFixture
         {
-            public EmptyGremlinqTestFixture() : base(g.ConfigureEnvironment(_ => _))
-            {
-            }
+            protected override async Task<IGremlinQuerySource> TransformQuerySource(IConfigurableGremlinQuerySource g) => g.ConfigureEnvironment(_ => _);
         }
 
         public static readonly GremlinqFixture Empty = new EmptyGremlinqTestFixture();
 
-        private readonly Lazy<Task<IGremlinQuerySource>> _lazyGremlinQuerySource;
+        private static readonly TaskCompletionSource<IGremlinQuerySource> Disposed = new ();
+        private TaskCompletionSource<IGremlinQuerySource>? _lazyQuerySource;
 
-        protected GremlinqFixture(IGremlinQuerySource source) : this(async () => source)
+        static GremlinqFixture()
         {
+            Disposed.TrySetException(new ObjectDisposedException(nameof(GremlinqFixture)));
         }
 
-        protected GremlinqFixture(Func<Task<IGremlinQuerySource>> sourceFactory)
+        protected abstract Task<IGremlinQuerySource> TransformQuerySource(IConfigurableGremlinQuerySource g);
+
+        public Task<IGremlinQuerySource> GremlinQuerySource => GetGremlinQuerySource();
+
+        private async Task<IGremlinQuerySource> GetGremlinQuerySource()
         {
-            _lazyGremlinQuerySource = new Lazy<Task<IGremlinQuerySource>>(sourceFactory, LazyThreadSafetyMode.ExecutionAndPublication);
+            if (Volatile.Read(ref _lazyQuerySource) is { } tcs)
+                return await tcs.Task;
+
+            var newTcs = new TaskCompletionSource<IGremlinQuerySource>();
+
+            if (Interlocked.CompareExchange(ref _lazyQuerySource, newTcs, null) == null)
+            {
+                try
+                {
+                    var g1 = await TransformQuerySource(g);
+                    newTcs.TrySetResult(g1);
+                }
+                catch (Exception ex)
+                {
+                    newTcs.TrySetException(ex);
+
+                    Interlocked.CompareExchange(ref _lazyQuerySource, null, newTcs);
+                }
+
+                return await newTcs.Task;
+            }
+            else
+                return await GetGremlinQuerySource();
         }
 
-        public Task<IGremlinQuerySource> GremlinQuerySource { get => _lazyGremlinQuerySource.Value; }
+        public async Task InitializeAsync()
+        {
+           
+        }
+
+        public async Task DisposeAsync()
+        {
+            if (Interlocked.Exchange(ref _lazyQuerySource, Disposed) is { } tcs && tcs != Disposed)
+            {
+                if (await tcs.Task is IAsyncDisposable disposable)
+                    await disposable.DisposeAsync();
+            }
+        }
     }
 }
