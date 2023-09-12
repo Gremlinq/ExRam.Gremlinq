@@ -1,77 +1,53 @@
 ﻿[
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
+    "@type": "g:VertexProperty",
+    "@value": {
+      "id": {
         "@type": "g:Int64",
         "@value": 65
       },
-      "label",
-      "Name",
-      "value",
-      "Marko",
-      "properties",
-      {
-        "@type": "g:Map",
-        "@value": [
-          "ValidFrom",
-          {
-            "@type": "g:Date",
-            "@value": 1586270616000
-          }
-        ]
+      "value": "Marko",
+      "label": "Name",
+      "properties": {
+        "ValidFrom": {
+          "@type": "g:Date",
+          "@value": 1586270616000
+        }
       }
-    ]
+    }
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
+    "@type": "g:VertexProperty",
+    "@value": {
+      "id": {
         "@type": "g:Int64",
         "@value": 12
       },
-      "label",
-      "Name",
-      "value",
-      "Bob",
-      "properties",
-      {
-        "@type": "g:Map",
-        "@value": [
-          "ValidFrom",
-          {
-            "@type": "g:Date",
-            "@value": 1586270616000
-          }
-        ]
+      "value": "Bob",
+      "label": "Name",
+      "properties": {
+        "ValidFrom": {
+          "@type": "g:Date",
+          "@value": 1586270616000
+        }
       }
-    ]
+    }
   },
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
+    "@type": "g:VertexProperty",
+    "@value": {
+      "id": {
         "@type": "g:Int64",
         "@value": 39
       },
-      "label",
-      "Name",
-      "value",
-      "Bob",
-      "properties",
-      {
-        "@type": "g:Map",
-        "@value": [
-          "ValidFrom",
-          {
-            "@type": "g:Date",
-            "@value": 1586270616000
-          }
-        ]
+      "value": "Bob",
+      "label": "Name",
+      "properties": {
+        "ValidFrom": {
+          "@type": "g:Date",
+          "@value": 1586270616000
+        }
       }
-    ]
+    }
   }
 ]

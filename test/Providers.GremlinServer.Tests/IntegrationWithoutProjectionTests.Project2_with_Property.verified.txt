@@ -4,47 +4,29 @@
     "@value": [
       "Item1",
       {
-        "@type": "g:Map",
-        "@value": [
-          "id",
-          {
+        "@type": "g:Vertex",
+        "@value": {
+          "id": {
             "@type": "g:Int64",
             "@value": 0
           },
-          "label",
-          "Country",
-          "properties",
-          {
-            "@type": "g:Map",
-            "@value": [
-              "CountryCallingCode",
+          "label": "Country",
+          "properties": {
+            "CountryCallingCode": [
               {
-                "@type": "g:List",
-                "@value": [
-                  {
-                    "@type": "g:Map",
-                    "@value": [
-                      "id",
-                      {
-                        "@type": "g:Int64",
-                        "@value": 1
-                      },
-                      "label",
-                      "CountryCallingCode",
-                      "value",
-                      "+49",
-                      "properties",
-                      {
-                        "@type": "g:Map",
-                        "@value": []
-                      }
-                    ]
-                  }
-                ]
+                "@type": "g:VertexProperty",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": 1
+                  },
+                  "value": "+49",
+                  "label": "CountryCallingCode"
+                }
               }
             ]
           }
-        ]
+        }
       },
       "Item2",
       {

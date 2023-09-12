@@ -1,73 +1,43 @@
 ﻿[
   {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
+    "@type": "g:Vertex",
+    "@value": {
+      "id": {
         "@type": "g:Int64",
         "@value": 5
       },
-      "label",
-      "Company",
-      "properties",
-      {
-        "@type": "g:Map",
-        "@value": [
-          "PhoneNumbers",
+      "label": "Company",
+      "properties": {
+        "PhoneNumbers": [
           {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 95
-                  },
-                  "label",
-                  "PhoneNumbers",
-                  "value",
-                  "+4912345",
-                  "properties",
-                  {
-                    "@type": "g:Map",
-                    "@value": []
-                  }
-                ]
-              }
-            ]
-          },
-          "FoundingDate",
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 95
+              },
+              "value": "+4912345",
+              "label": "PhoneNumbers"
+            }
+          }
+        ],
+        "FoundingDate": [
           {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 6
-                  },
-                  "label",
-                  "FoundingDate",
-                  "value",
-                  {
-                    "@type": "g:Date",
-                    "@value": -62135596800000
-                  },
-                  "properties",
-                  {
-                    "@type": "g:Map",
-                    "@value": []
-                  }
-                ]
-              }
-            ]
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 6
+              },
+              "value": {
+                "@type": "g:Date",
+                "@value": -62135596800000
+              },
+              "label": "FoundingDate"
+            }
           }
         ]
       }
-    ]
+    }
   }
 ]
