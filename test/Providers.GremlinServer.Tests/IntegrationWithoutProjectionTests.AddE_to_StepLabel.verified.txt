@@ -1,0 +1,19 @@
+﻿[
+  {
+    "@type": "g:Map",
+    "@value": [
+      "id",
+      {
+        "@type": "g:Int64",
+        "@value": 36
+      },
+      "label",
+      "Speaks",
+      "properties",
+      {
+        "@type": "g:Map",
+        "@value": []
+      }
+    ]
+  }
+]
