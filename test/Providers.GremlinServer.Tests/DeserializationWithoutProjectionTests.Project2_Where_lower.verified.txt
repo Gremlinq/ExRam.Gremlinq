@@ -1,0 +1,368 @@
+﻿[
+  {
+    Item1: Country,
+    Item2: [
+      {
+        CountryCallingCode: +49,
+        Id: 0,
+        Label: Country
+      }
+    ]
+  },
+  {
+    Item1: Person,
+    Item2: [
+      {
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 65,
+          Label: Name,
+          Value: Marko
+        },
+        Id: 64,
+        Label: Person
+      }
+    ]
+  },
+  {
+    Item1: Language,
+    Item2: [
+      {
+        IetfLanguageTag: en,
+        Id: 2,
+        Label: Language
+      }
+    ]
+  },
+  {
+    Item1: Language,
+    Item2: [
+      {
+        IetfLanguageTag: en,
+        Id: 67,
+        Label: Language
+      }
+    ]
+  },
+  {
+    Item1: Company,
+    Item2: [
+      {
+        Id: 5,
+        Label: Company
+      }
+    ]
+  },
+  {
+    Item1: Language,
+    Item2: [
+      {
+        Id: 69,
+        Label: Language
+      }
+    ]
+  },
+  {
+    Item1: Company,
+    Item2: [
+      {
+        Locations: [
+          {
+            Id: 72,
+            Label: Locations,
+            Properties: {
+              ValidFrom: 2019-01-01 01:00 +0
+            },
+            Value: Aachen
+          }
+        ],
+        Id: 70,
+        Label: Company
+      }
+    ]
+  },
+  {
+    Item1: Person,
+    Item2: [
+      {
+        Id: 7,
+        Label: Person
+      }
+    ]
+  },
+  {
+    Item1: Country,
+    Item2: [
+      {
+        Name: {
+          Id: 74,
+          Label: Name,
+          Properties: {},
+          Value: GER
+        },
+        Id: 73,
+        Label: Country
+      }
+    ]
+  },
+  {
+    Item1: Person,
+    Item2: [
+      {
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 12,
+          Label: Name,
+          Value: Bob
+        },
+        Id: 10,
+        Label: Person
+      }
+    ]
+  },
+  {
+    Item1: Country,
+    Item2: [
+      {
+        Name: {
+          Id: 76,
+          Label: Name,
+          Properties: {
+            de: Deutschland,
+            en: Germany
+          },
+          Value: GER
+        },
+        Id: 75,
+        Label: Country
+      }
+    ]
+  },
+  {
+    Item1: Company,
+    Item2: [
+      {
+        PhoneNumbers: [
+          +4912345,
+          +4923456
+        ],
+        Id: 77,
+        Label: Company
+      }
+    ]
+  },
+  {
+    Item1: Person,
+    Item2: [
+      {
+        Id: 15,
+        Label: Person
+      }
+    ]
+  },
+  {
+    Item1: Country,
+    Item2: [
+      {
+        Id: 17,
+        Label: Country
+      }
+    ]
+  },
+  {
+    Item1: Language,
+    Item2: [
+      {
+        Id: 81,
+        Label: Language
+      }
+    ]
+  },
+  {
+    Item1: Language,
+    Item2: [
+      {
+        Id: 82,
+        Label: Language
+      }
+    ]
+  },
+  {
+    Item1: Person,
+    Item2: [
+      {
+        Id: 19,
+        Label: Person
+      }
+    ]
+  },
+  {
+    Item1: Country,
+    Item2: [
+      {
+        Id: 21,
+        Label: Country
+      }
+    ]
+  },
+  {
+    Item1: Person,
+    Item2: [
+      {
+        Id: 23,
+        Label: Person
+      }
+    ]
+  },
+  {
+    Item1: Country,
+    Item2: [
+      {
+        Id: 25,
+        Label: Country
+      }
+    ]
+  },
+  {
+    Item1: Company,
+    Item2: [
+      {
+        Id: 27,
+        Label: Company
+      }
+    ]
+  },
+  {
+    Item1: Person,
+    Item2: [
+      {
+        Id: 29,
+        Label: Person
+      }
+    ]
+  },
+  {
+    Item1: Language,
+    Item2: [
+      {
+        IetfLanguageTag: en,
+        Id: 32,
+        Label: Language
+      }
+    ]
+  },
+  {
+    Item1: Country,
+    Item2: [
+      {
+        CountryCallingCode: +49,
+        Id: 34,
+        Label: Country
+      }
+    ]
+  },
+  {
+    Item1: Person,
+    Item2: [
+      {
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 39,
+          Label: Name,
+          Value: Bob
+        },
+        Id: 37,
+        Label: Person
+      }
+    ]
+  },
+  {
+    Item1: Company,
+    Item2: [
+      {
+        Id: 42,
+        Label: Company
+      }
+    ]
+  },
+  {
+    Item1: Person,
+    Item2: [
+      {
+        Id: 44,
+        Label: Person
+      }
+    ]
+  },
+  {
+    Item1: Language,
+    Item2: [
+      {
+        IetfLanguageTag: en,
+        Id: 47,
+        Label: Language
+      }
+    ]
+  },
+  {
+    Item1: Language,
+    Item2: [
+      {
+        Id: 49,
+        Label: Language
+      }
+    ]
+  },
+  {
+    Item1: TimeFrame,
+    Item2: [
+      {
+        Enabled: false,
+        StartTime: 08:00:00,
+        Duration: 02:00:00,
+        Id: 50,
+        Label: TimeFrame
+      }
+    ]
+  },
+  {
+    Item1: Language,
+    Item2: [
+      {
+        IetfLanguageTag: en,
+        Id: 54,
+        Label: Language
+      }
+    ]
+  },
+  {
+    Item1: Language,
+    Item2: [
+      {
+        IetfLanguageTag: en,
+        Id: 56,
+        Label: Language
+      }
+    ]
+  },
+  {
+    Item1: Person,
+    Item2: [
+      {
+        Image: AQIDBAUGBwg=,
+        Id: 58,
+        Label: Person
+      }
+    ]
+  },
+  {
+    Item1: Person,
+    Item2: [
+      {
+        Gender: Female,
+        Id: 61,
+        Label: Person
+      }
+    ]
+  }
+]

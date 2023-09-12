@@ -1,0 +1,86 @@
+﻿[
+  {
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: 296,
+      Label: Name,
+      Value: Marko
+    },
+    Id: 7,
+    Label: Person
+  },
+  {
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: 304,
+      Label: Name,
+      Value: Marko
+    },
+    Id: 15,
+    Label: Person
+  },
+  {
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: 308,
+      Label: Name,
+      Value: Marko
+    },
+    Id: 19,
+    Label: Person
+  },
+  {
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: 312,
+      Label: Name,
+      Value: Marko
+    },
+    Id: 23,
+    Label: Person
+  },
+  {
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: 316,
+      Label: Name,
+      Value: Marko
+    },
+    Id: 29,
+    Label: Person
+  },
+  {
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: 320,
+      Label: Name,
+      Value: Marko
+    },
+    Id: 37,
+    Label: Person
+  },
+  {
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: 324,
+      Label: Name,
+      Value: Marko
+    },
+    Id: 44,
+    Label: Person
+  }
+]

@@ -1,0 +1,9 @@
+﻿[
+  {
+    Company: 0001-01-01 +0,
+    Country: +49,
+    Language: en,
+    Person: 1,
+    TimeFrame: 08:00:00
+  }
+]

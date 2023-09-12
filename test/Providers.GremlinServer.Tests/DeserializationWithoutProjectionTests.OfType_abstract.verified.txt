@@ -1,0 +1,100 @@
+﻿[
+  {
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: 65,
+      Label: Name,
+      Value: Marko
+    },
+    Id: 64,
+    Label: Person
+  },
+  {
+    Id: 5,
+    Label: Company
+  },
+  {
+    Locations: [
+      {
+        Id: 72,
+        Label: Locations,
+        Properties: {
+          ValidFrom: 2019-01-01 01:00 +0
+        },
+        Value: Aachen
+      }
+    ],
+    Id: 70,
+    Label: Company
+  },
+  {
+    Id: 7,
+    Label: Person
+  },
+  {
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: 12,
+      Label: Name,
+      Value: Bob
+    },
+    Id: 10,
+    Label: Person
+  },
+  {
+    PhoneNumbers: [
+      +4912345,
+      +4923456
+    ],
+    Id: 77,
+    Label: Company
+  },
+  {
+    Id: 15,
+    Label: Person
+  },
+  {
+    Id: 19,
+    Label: Person
+  },
+  {
+    Id: 23,
+    Label: Person
+  },
+  {
+    Id: 27,
+    Label: Company
+  },
+  {
+    Id: 29,
+    Label: Person
+  },
+  {
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: 39,
+      Label: Name,
+      Value: Bob
+    },
+    Id: 37,
+    Label: Person
+  },
+  {
+    Id: 42,
+    Label: Company
+  },
+  {
+    Id: 44,
+    Label: Person
+  },
+  {
+    Image: AQIDBAUGBwg=,
+    Id: 58,
+    Label: Person
+  },
+  {
+    Gender: Female,
+    Id: 61,
+    Label: Person
+  }
+]

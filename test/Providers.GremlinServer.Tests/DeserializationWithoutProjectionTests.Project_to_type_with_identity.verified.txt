@@ -1,0 +1,280 @@
+﻿[
+  {
+    In: {
+      RegistrationDate: 2020-04-07 14:43:36 +0,
+      Name: {
+        Id: 65,
+        Label: Name,
+        Value: Marko
+      },
+      Id: 64,
+      Label: Person
+    },
+    Out: {
+      RegistrationDate: 2020-04-07 14:43:36 +0,
+      Name: {
+        Id: 65,
+        Label: Name,
+        Value: Marko
+      },
+      Id: 64,
+      Label: Person
+    },
+    Count: {
+      RegistrationDate: 2020-04-07 14:43:36 +0,
+      Name: {
+        Id: 65,
+        Label: Name,
+        Value: Marko
+      },
+      Id: 64,
+      Label: Person
+    },
+    Properties: {
+      RegistrationDate: 2020-04-07 14:43:36 +0,
+      Name: {
+        Id: 65,
+        Label: Name,
+        Value: Marko
+      },
+      Id: 64,
+      Label: Person
+    }
+  },
+  {
+    In: {
+      Id: 7,
+      Label: Person
+    },
+    Out: {
+      Id: 7,
+      Label: Person
+    },
+    Count: {
+      Id: 7,
+      Label: Person
+    },
+    Properties: {
+      Id: 7,
+      Label: Person
+    }
+  },
+  {
+    In: {
+      RegistrationDate: 2020-04-07 14:43:36 +0,
+      Name: {
+        Id: 12,
+        Label: Name,
+        Value: Bob
+      },
+      Id: 10,
+      Label: Person
+    },
+    Out: {
+      RegistrationDate: 2020-04-07 14:43:36 +0,
+      Name: {
+        Id: 12,
+        Label: Name,
+        Value: Bob
+      },
+      Id: 10,
+      Label: Person
+    },
+    Count: {
+      RegistrationDate: 2020-04-07 14:43:36 +0,
+      Name: {
+        Id: 12,
+        Label: Name,
+        Value: Bob
+      },
+      Id: 10,
+      Label: Person
+    },
+    Properties: {
+      RegistrationDate: 2020-04-07 14:43:36 +0,
+      Name: {
+        Id: 12,
+        Label: Name,
+        Value: Bob
+      },
+      Id: 10,
+      Label: Person
+    }
+  },
+  {
+    In: {
+      Id: 15,
+      Label: Person
+    },
+    Out: {
+      Id: 15,
+      Label: Person
+    },
+    Count: {
+      Id: 15,
+      Label: Person
+    },
+    Properties: {
+      Id: 15,
+      Label: Person
+    }
+  },
+  {
+    In: {
+      Id: 19,
+      Label: Person
+    },
+    Out: {
+      Id: 19,
+      Label: Person
+    },
+    Count: {
+      Id: 19,
+      Label: Person
+    },
+    Properties: {
+      Id: 19,
+      Label: Person
+    }
+  },
+  {
+    In: {
+      Id: 23,
+      Label: Person
+    },
+    Out: {
+      Id: 23,
+      Label: Person
+    },
+    Count: {
+      Id: 23,
+      Label: Person
+    },
+    Properties: {
+      Id: 23,
+      Label: Person
+    }
+  },
+  {
+    In: {
+      Id: 29,
+      Label: Person
+    },
+    Out: {
+      Id: 29,
+      Label: Person
+    },
+    Count: {
+      Id: 29,
+      Label: Person
+    },
+    Properties: {
+      Id: 29,
+      Label: Person
+    }
+  },
+  {
+    In: {
+      RegistrationDate: 2020-04-07 14:43:36 +0,
+      Name: {
+        Id: 39,
+        Label: Name,
+        Value: Bob
+      },
+      Id: 37,
+      Label: Person
+    },
+    Out: {
+      RegistrationDate: 2020-04-07 14:43:36 +0,
+      Name: {
+        Id: 39,
+        Label: Name,
+        Value: Bob
+      },
+      Id: 37,
+      Label: Person
+    },
+    Count: {
+      RegistrationDate: 2020-04-07 14:43:36 +0,
+      Name: {
+        Id: 39,
+        Label: Name,
+        Value: Bob
+      },
+      Id: 37,
+      Label: Person
+    },
+    Properties: {
+      RegistrationDate: 2020-04-07 14:43:36 +0,
+      Name: {
+        Id: 39,
+        Label: Name,
+        Value: Bob
+      },
+      Id: 37,
+      Label: Person
+    }
+  },
+  {
+    In: {
+      Id: 44,
+      Label: Person
+    },
+    Out: {
+      Id: 44,
+      Label: Person
+    },
+    Count: {
+      Id: 44,
+      Label: Person
+    },
+    Properties: {
+      Id: 44,
+      Label: Person
+    }
+  },
+  {
+    In: {
+      Image: AQIDBAUGBwg=,
+      Id: 58,
+      Label: Person
+    },
+    Out: {
+      Image: AQIDBAUGBwg=,
+      Id: 58,
+      Label: Person
+    },
+    Count: {
+      Image: AQIDBAUGBwg=,
+      Id: 58,
+      Label: Person
+    },
+    Properties: {
+      Image: AQIDBAUGBwg=,
+      Id: 58,
+      Label: Person
+    }
+  },
+  {
+    In: {
+      Gender: Female,
+      Id: 61,
+      Label: Person
+    },
+    Out: {
+      Gender: Female,
+      Id: 61,
+      Label: Person
+    },
+    Count: {
+      Gender: Female,
+      Id: 61,
+      Label: Person
+    },
+    Properties: {
+      Gender: Female,
+      Id: 61,
+      Label: Person
+    }
+  }
+]
