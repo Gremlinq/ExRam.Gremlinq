@@ -1,0 +1,144 @@
+﻿[
+  {
+    "@type": "g:Map",
+    "@value": [
+      "id",
+      {
+        "@type": "g:Int64",
+        "@value": 0
+      },
+      "label",
+      "Country",
+      "properties",
+      {
+        "@type": "g:Map",
+        "@value": [
+          "CountryCallingCode",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 1
+                  },
+                  "label",
+                  "CountryCallingCode",
+                  "value",
+                  "+49",
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": []
+                  }
+                ]
+              }
+            ]
+          },
+          "LocalizableDescription",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 129
+                  },
+                  "label",
+                  "LocalizableDescription",
+                  "value",
+                  "",
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": [
+                      "someKey",
+                      "value"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "id",
+      {
+        "@type": "g:Int64",
+        "@value": 34
+      },
+      "label",
+      "Country",
+      "properties",
+      {
+        "@type": "g:Map",
+        "@value": [
+          "CountryCallingCode",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 35
+                  },
+                  "label",
+                  "CountryCallingCode",
+                  "value",
+                  "+49",
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": []
+                  }
+                ]
+              }
+            ]
+          },
+          "LocalizableDescription",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 135
+                  },
+                  "label",
+                  "LocalizableDescription",
+                  "value",
+                  "",
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": [
+                      "someKey",
+                      "value"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
