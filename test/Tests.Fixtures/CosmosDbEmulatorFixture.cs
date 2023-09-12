@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
     public sealed class CosmosDbEmulatorFixture : GremlinqFixture
     {
         private const string CosmosDbEmulatorDatabaseName = "db";
-        private static readonly string CosmosDbEmulatorCollectionName = "graph";
+        private const string CosmosDbEmulatorCollectionName = "graph";
         private const string CosmosDbEmulatorAuthKey = "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==";
 
         protected override async Task<IGremlinQuerySource> TransformQuerySource(IConfigurableGremlinQuerySource g)
