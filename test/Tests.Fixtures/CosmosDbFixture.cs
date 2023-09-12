@@ -1,10 +1,8 @@
-﻿using System.Runtime.InteropServices;
-using ExRam.Gremlinq.Core;
+﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Providers.CosmosDb;
 using ExRam.Gremlinq.Providers.CosmosDb.Tests.Extensions;
 using Microsoft.Azure.Cosmos;
 using Polly;
-using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Tests.Fixtures
 {
@@ -16,13 +14,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
 
         private readonly Task _task;
 
-        public CosmosDbFixture() : base(g
-            .UseCosmosDb(builder => builder
-                .At(new Uri("ws://localhost:8901"), CosmosDbEmulatorDatabaseName, CosmosDbEmulatorCollectionName)
-                .AuthenticateBy(CosmosDbEmulatorAuthKey)
-                .UseNewtonsoftJson())
-            .ConfigureEnvironment(env => env
-                .AddFakePartitionKey()))
+        public CosmosDbFixture() : base()
         {
             _task = Task.Run(
                 async () =>
@@ -39,6 +31,14 @@ namespace ExRam.Gremlinq.Tests.Fixtures
                         });
                 });
         }
+
+        protected override async Task<IGremlinQuerySource> TransformQuerySource(IConfigurableGremlinQuerySource g) => g
+            .UseCosmosDb(builder => builder
+                .At(new Uri("ws://localhost:8901"), CosmosDbEmulatorDatabaseName, CosmosDbEmulatorCollectionName)
+                .AuthenticateBy(CosmosDbEmulatorAuthKey)
+                .UseNewtonsoftJson())
+            .ConfigureEnvironment(env => env
+                .AddFakePartitionKey());
 
         public Task Create() => _task;
     }

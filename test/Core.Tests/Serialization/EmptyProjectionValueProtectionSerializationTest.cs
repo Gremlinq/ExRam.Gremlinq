@@ -2,7 +2,6 @@
 using ExRam.Gremlinq.Tests.Infrastructure;
 using ExRam.Gremlinq.Tests.TestCases;
 using Gremlin.Net.Process.Traversal;
-using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
@@ -10,11 +9,9 @@ namespace ExRam.Gremlinq.Core.Tests
     {
         public sealed class EmptyProjectionValueProtectionFixture : GremlinqFixture
         {
-            public EmptyProjectionValueProtectionFixture() : base(g
+            protected override async Task<IGremlinQuerySource> TransformQuerySource(IConfigurableGremlinQuerySource g) => g
                 .ConfigureEnvironment(_ => _
-                    .ConfigureOptions(o => o.SetValue(GremlinqOption.EnableEmptyProjectionValueProtection, true))))
-            {
-            }
+                    .ConfigureOptions(o => o.SetValue(GremlinqOption.EnableEmptyProjectionValueProtection, true)));
         }
 
         public EmptyProjectionValueProtectionSerializationTest(EmptyProjectionValueProtectionFixture fixture, ITestOutputHelper testOutputHelper) : base(
