@@ -1,8 +1,8 @@
 ﻿[
   {
-    Age: -1,
-    Gender: -1,
-    Id: -1,
+    Age: 36,
+    Gender: Female,
+    Id: 61,
     Label: Person
   }
 ]

@@ -7,15 +7,15 @@
     ],
     objects: [
       {
-        Id: -1,
+        Id: 37,
         Label: Person
       },
       {
-        Id: -1,
+        Id: 0,
         Label: Country
       },
       {
-        Id: -1,
+        Id: 10,
         Label: Person
       }
     ]
@@ -28,15 +28,15 @@
     ],
     objects: [
       {
-        Id: -1,
+        Id: 37,
         Label: Person
       },
       {
-        Id: -1,
+        Id: 0,
         Label: Country
       },
       {
-        Id: -1,
+        Id: 2,
         Label: Language
       }
     ]

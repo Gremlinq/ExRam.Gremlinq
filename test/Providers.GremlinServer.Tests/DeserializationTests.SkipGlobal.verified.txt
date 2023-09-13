@@ -1,90 +1,90 @@
 ﻿[
   {
-    Age: -1,
-    RegistrationDate: 1969-12-31 23:59:59.999 +0,
+    Age: 36,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: -1,
+      Id: 65,
       Label: Name,
       Properties: {
-        ValidFrom: 1969-12-31 23:59:59.999 +0
+        ValidFrom: 2020-04-07 14:43:36 +0
       },
       Value: Marko
     },
-    Id: -1,
+    Id: 64,
     Label: Person
   },
   {
     IetfLanguageTag: en,
-    Id: -1,
+    Id: 2,
     Label: Language
   },
   {
     IetfLanguageTag: en,
-    Id: -1,
+    Id: 67,
     Label: Language
   },
   {
-    Id: -1,
+    Id: 5,
     Label: Company
   },
   {
-    Id: -1,
+    Id: 69,
     Label: Language
   },
   {
     Locations: [
       {
-        Id: -1,
+        Id: 72,
         Label: Locations,
         Properties: {
-          ValidFrom: 1969-12-31 23:59:59.999 +0
+          ValidFrom: 2019-01-01 01:00 +0
         },
         Value: Aachen
       }
     ],
-    Id: -1,
+    Id: 70,
     Label: Company
   },
   {
-    Age: -1,
-    Id: -1,
+    Age: 36,
+    Id: 7,
     Label: Person
   },
   {
     Name: {
-      Id: -1,
+      Id: 74,
       Label: Name,
       Properties: {},
       Value: GER
     },
     LocalizableDescription: {
-      Id: -1,
+      Id: 130,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: -1,
+    Id: 73,
     Label: Country
   },
   {
-    Age: -1,
-    RegistrationDate: 1969-12-31 23:59:59.999 +0,
+    Age: 36,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: -1,
+      Id: 12,
       Label: Name,
       Properties: {
-        ValidFrom: 1969-12-31 23:59:59.999 +0
+        ValidFrom: 2020-04-07 14:43:36 +0
       },
       Value: Bob
     },
-    Id: -1,
+    Id: 10,
     Label: Person
   },
   {
     Name: {
-      Id: -1,
+      Id: 76,
       Label: Name,
       Properties: {
         de: Deutschland,
@@ -93,14 +93,14 @@
       Value: GER
     },
     LocalizableDescription: {
-      Id: -1,
+      Id: 131,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: -1,
+    Id: 75,
     Label: Country
   },
   {
@@ -108,154 +108,154 @@
       +4912345,
       +4923456
     ],
-    Id: -1,
+    Id: 77,
     Label: Company
   },
   {
-    Age: -1,
-    Id: -1,
+    Age: 36,
+    Id: 15,
     Label: Person
   },
   {
     LocalizableDescription: {
-      Id: -1,
+      Id: 132,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: -1,
+    Id: 17,
     Label: Country
   },
   {
-    Id: -1,
+    Id: 81,
     Label: Language
   },
   {
-    Id: -1,
+    Id: 82,
     Label: Language
   },
   {
-    Age: -1,
-    Id: -1,
+    Age: 36,
+    Id: 19,
     Label: Person
   },
   {
     LocalizableDescription: {
-      Id: -1,
+      Id: 133,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: -1,
+    Id: 21,
     Label: Country
   },
   {
-    Age: -1,
-    Id: -1,
+    Age: 36,
+    Id: 23,
     Label: Person
   },
   {
     LocalizableDescription: {
-      Id: -1,
+      Id: 134,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: -1,
+    Id: 25,
     Label: Country
   },
   {
-    Id: -1,
+    Id: 27,
     Label: Company
   },
   {
-    Age: -1,
-    Id: -1,
+    Age: 36,
+    Id: 29,
     Label: Person
   },
   {
     IetfLanguageTag: en,
-    Id: -1,
+    Id: 32,
     Label: Language
   },
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: -1,
+      Id: 135,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: -1,
+    Id: 34,
     Label: Country
   },
   {
-    Age: -1,
-    RegistrationDate: 1969-12-31 23:59:59.999 +0,
+    Age: 36,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: -1,
+      Id: 39,
       Label: Name,
       Properties: {
-        ValidFrom: 1969-12-31 23:59:59.999 +0
+        ValidFrom: 2020-04-07 14:43:36 +0
       },
       Value: Bob
     },
-    Id: -1,
+    Id: 37,
     Label: Person
   },
   {
-    Id: -1,
+    Id: 42,
     Label: Company
   },
   {
-    Age: -1,
-    Id: -1,
+    Age: 36,
+    Id: 44,
     Label: Person
   },
   {
     IetfLanguageTag: en,
-    Id: -1,
+    Id: 47,
     Label: Language
   },
   {
-    Id: -1,
+    Id: 49,
     Label: Language
   },
   {
     Enabled: false,
     StartTime: 08:00:00,
     Duration: 02:00:00,
-    Id: -1,
+    Id: 50,
     Label: TimeFrame
   },
   {
     IetfLanguageTag: en,
-    Id: -1,
+    Id: 54,
     Label: Language
   },
   {
     IetfLanguageTag: en,
-    Id: -1,
+    Id: 56,
     Label: Language
   },
   {
-    Age: -1,
+    Age: 36,
     Image: AQIDBAUGBwg=,
-    Id: -1,
+    Id: 58,
     Label: Person
   },
   {
-    Age: -1,
-    Gender: -1,
-    Id: -1,
+    Age: 36,
+    Gender: Female,
+    Id: 61,
     Label: Person
   }
 ]

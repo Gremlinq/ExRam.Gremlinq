@@ -1,8 +1,7 @@
 ﻿[
   {
-    Age: -1,
     Image: AQIDBAUGBwg=,
-    Id: -1,
+    Id: 58,
     Label: Person
   }
 ]

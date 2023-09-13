@@ -1,62 +1,60 @@
 ﻿[
   {
     Item1: {
-      Age: -1,
-      RegistrationDate: 1969-12-31 23:59:59.999 +0,
+      RegistrationDate: 2020-04-07 14:43:36 +0,
       Name: {
-        Id: -1,
+        Id: 39,
         Label: Name,
         Value: Bob
       },
-      Id: -1,
+      Id: 37,
       Label: Person
     },
     Item2: {
-      Age: -1,
-      RegistrationDate: 1969-12-31 23:59:59.999 +0,
+      RegistrationDate: 2020-04-07 14:43:36 +0,
       Name: {
-        Id: -1,
+        Id: 12,
         Label: Name,
         Value: Bob
       },
-      Id: -1,
+      Id: 10,
       Label: Person
     },
-    Item3: -1,
+    Item3: 1,
     Item4: {
-      Id: -1,
+      Id: 1,
       Label: CountryCallingCode,
       Properties: {},
       Value: +49
     }
   },
   {
-    Item3: -1,
+    Item3: 1,
     Item4: {
-      Id: -1,
+      Id: 66,
       Label: RegistrationDate,
       Properties: {},
-      Value: 1969-12-31 23:59:59.999 +0
+      Value: 2020-04-07 14:43:36 +0
     }
   },
   {
     Item1: {
       CountryCallingCode: +49,
-      Id: -1,
+      Id: 0,
       Label: Country
     },
-    Item3: -1,
+    Item3: 1,
     Item4: {
-      Id: -1,
+      Id: 3,
       Label: IetfLanguageTag,
       Properties: {},
       Value: en
     }
   },
   {
-    Item3: -1,
+    Item3: 1,
     Item4: {
-      Id: -1,
+      Id: 68,
       Label: IetfLanguageTag,
       Properties: {},
       Value: en
@@ -64,31 +62,30 @@
   },
   {
     Item1: {
-      Age: -1,
-      Id: -1,
+      Id: 7,
       Label: Person
     },
-    Item3: -1,
+    Item3: 1,
     Item4: {
-      Id: -1,
+      Id: 6,
       Label: FoundingDate,
       Properties: {},
       Value: 0001-01-01 +0
     }
   },
   {
-    Item3: -1
+    Item3: 1
   },
   {
-    Item3: -1
+    Item3: 1
   },
   {
-    Item3: -1
+    Item3: 1
   },
   {
-    Item3: -1,
+    Item3: 1,
     Item4: {
-      Id: -1,
+      Id: 71,
       Label: FoundingDate,
       Properties: {},
       Value: 0001-01-01 +0
@@ -96,21 +93,21 @@
   },
   {
     Item2: {
-      Id: -1,
+      Id: 5,
       Label: Company
     },
-    Item3: -1,
+    Item3: 1,
     Item4: {
-      Id: -1,
+      Id: 8,
       Label: Age,
       Properties: {},
-      Value: -1
+      Value: 0
     }
   },
   {
-    Item3: -1,
+    Item3: 1,
     Item4: {
-      Id: -1,
+      Id: 74,
       Label: Name,
       Properties: {},
       Value: GER
@@ -119,21 +116,21 @@
   {
     Item1: {
       CountryCallingCode: +49,
-      Id: -1,
+      Id: 0,
       Label: Country
     },
-    Item3: -1,
+    Item3: 1,
     Item4: {
-      Id: -1,
+      Id: 13,
       Label: RegistrationDate,
       Properties: {},
-      Value: 1969-12-31 23:59:59.999 +0
+      Value: 2020-04-07 14:43:36 +0
     }
   },
   {
-    Item3: -1,
+    Item3: 1,
     Item4: {
-      Id: -1,
+      Id: 76,
       Label: Name,
       Properties: {
         de: Deutschland,
@@ -143,9 +140,9 @@
     }
   },
   {
-    Item3: -1,
+    Item3: 1,
     Item4: {
-      Id: -1,
+      Id: 79,
       Label: PhoneNumbers,
       Properties: {},
       Value: +4912345
@@ -153,29 +150,28 @@
   },
   {
     Item2: {
-      Id: -1,
+      Id: 17,
       Label: Country
     },
-    Item3: -1,
+    Item3: 1,
     Item4: {
-      Id: -1,
+      Id: 16,
       Label: Age,
       Properties: {},
-      Value: -1
+      Value: 0
     }
   },
   {
     Item1: {
-      Age: -1,
-      Id: -1,
+      Id: 15,
       Label: Person
     },
-    Item3: -1
+    Item3: 1
   },
   {
-    Item3: -1,
+    Item3: 1,
     Item4: {
-      Id: -1,
+      Id: 83,
       Label: lang,
       Properties: {},
       Value: en
@@ -183,55 +179,52 @@
   },
   {
     Item2: {
-      Id: -1,
+      Id: 21,
       Label: Country
     },
-    Item3: -1,
+    Item3: 1,
     Item4: {
-      Id: -1,
+      Id: 20,
       Label: Age,
       Properties: {},
-      Value: -1
+      Value: 0
     }
   },
   {
     Item1: {
-      Age: -1,
-      Id: -1,
+      Id: 19,
       Label: Person
     },
-    Item3: -1
+    Item3: 1
   },
   {
     Item2: {
-      Id: -1,
+      Id: 25,
       Label: Country
     },
-    Item3: -1,
+    Item3: 1,
     Item4: {
-      Id: -1,
+      Id: 24,
       Label: Age,
       Properties: {},
-      Value: -1
+      Value: 0
     }
   },
   {
     Item1: {
-      Age: -1,
-      Id: -1,
+      Id: 23,
       Label: Person
     },
-    Item3: -1
+    Item3: 1
   },
   {
     Item1: {
-      Age: -1,
-      Id: -1,
+      Id: 29,
       Label: Person
     },
-    Item3: -1,
+    Item3: 1,
     Item4: {
-      Id: -1,
+      Id: 28,
       Label: FoundingDate,
       Properties: {},
       Value: 0001-01-01 +0
@@ -239,26 +232,26 @@
   },
   {
     Item2: {
-      Id: -1,
+      Id: 27,
       Label: Company
     },
-    Item3: -1,
+    Item3: 1,
     Item4: {
-      Id: -1,
+      Id: 30,
       Label: Age,
       Properties: {},
-      Value: -1
+      Value: 0
     }
   },
   {
     Item1: {
       CountryCallingCode: +49,
-      Id: -1,
+      Id: 34,
       Label: Country
     },
-    Item3: -1,
+    Item3: 1,
     Item4: {
-      Id: -1,
+      Id: 33,
       Label: IetfLanguageTag,
       Properties: {},
       Value: en
@@ -267,12 +260,12 @@
   {
     Item2: {
       IetfLanguageTag: en,
-      Id: -1,
+      Id: 32,
       Label: Language
     },
-    Item3: -1,
+    Item3: 1,
     Item4: {
-      Id: -1,
+      Id: 35,
       Label: CountryCallingCode,
       Properties: {},
       Value: +49
@@ -281,26 +274,25 @@
   {
     Item2: {
       CountryCallingCode: +49,
-      Id: -1,
+      Id: 0,
       Label: Country
     },
-    Item3: -1,
+    Item3: 1,
     Item4: {
-      Id: -1,
+      Id: 40,
       Label: RegistrationDate,
       Properties: {},
-      Value: 1969-12-31 23:59:59.999 +0
+      Value: 2020-04-07 14:43:36 +0
     }
   },
   {
     Item1: {
-      Age: -1,
-      Id: -1,
+      Id: 44,
       Label: Person
     },
-    Item3: -1,
+    Item3: 1,
     Item4: {
-      Id: -1,
+      Id: 43,
       Label: FoundingDate,
       Properties: {},
       Value: 0001-01-01 +0
@@ -308,69 +300,69 @@
   },
   {
     Item2: {
-      Id: -1,
+      Id: 42,
       Label: Company
     },
-    Item3: -1,
+    Item3: 1,
     Item4: {
-      Id: -1,
+      Id: 45,
       Label: Age,
       Properties: {},
-      Value: -1
+      Value: 0
     }
   },
   {
-    Item3: -1,
+    Item3: 1,
     Item4: {
-      Id: -1,
+      Id: 48,
       Label: IetfLanguageTag,
       Properties: {},
       Value: en
     }
   },
   {
-    Item3: -1,
+    Item3: 1,
     Item4: {
-      Id: -1,
+      Id: 53,
       Label: StartTime,
       Properties: {},
       Value: 08:00:00
     }
   },
   {
-    Item3: -1,
+    Item3: 1,
     Item4: {
-      Id: -1,
+      Id: 55,
       Label: IetfLanguageTag,
       Properties: {},
       Value: en
     }
   },
   {
-    Item3: -1,
+    Item3: 1,
     Item4: {
-      Id: -1,
+      Id: 57,
       Label: IetfLanguageTag,
       Properties: {},
       Value: en
     }
   },
   {
-    Item3: -1,
+    Item3: 1,
     Item4: {
-      Id: -1,
+      Id: 60,
       Label: Image,
       Properties: {},
       Value: AQIDBAUGBwg=
     }
   },
   {
-    Item3: -1,
+    Item3: 1,
     Item4: {
-      Id: -1,
+      Id: 63,
       Label: Gender,
       Properties: {},
-      Value: -1
+      Value: 1
     }
   }
 ]

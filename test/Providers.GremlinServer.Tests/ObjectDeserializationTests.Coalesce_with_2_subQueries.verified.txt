@@ -1,97 +1,90 @@
 ﻿[
   {
-    Age: -1,
-    RegistrationDate: 1969-12-31 23:59:59.999 +0,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: -1,
+      Id: 12,
       Label: Name,
       Value: Bob
     },
-    Id: -1,
+    Id: 10,
     Label: Person
   },
   {
     IetfLanguageTag: en,
-    Id: -1,
+    Id: 2,
     Label: Language
   },
   {
     CountryCallingCode: +49,
-    Id: -1,
+    Id: 0,
     Label: Country
   },
   {
     CountryCallingCode: +49,
-    Id: -1,
+    Id: 0,
     Label: Country
   },
   {
     CountryCallingCode: +49,
-    Id: -1,
+    Id: 0,
     Label: Country
   },
   {
-    Age: -1,
-    Id: -1,
+    Id: 7,
     Label: Person
   },
   {
-    Id: -1,
+    Id: 5,
     Label: Company
   },
   {
-    Id: -1,
+    Id: 17,
     Label: Country
   },
   {
-    Age: -1,
-    Id: -1,
+    Id: 15,
     Label: Person
   },
   {
-    Id: -1,
+    Id: 21,
     Label: Country
   },
   {
-    Age: -1,
-    Id: -1,
+    Id: 19,
     Label: Person
   },
   {
-    Id: -1,
+    Id: 25,
     Label: Country
   },
   {
-    Age: -1,
-    Id: -1,
+    Id: 23,
     Label: Person
   },
   {
-    Age: -1,
-    Id: -1,
+    Id: 29,
     Label: Person
   },
   {
-    Id: -1,
+    Id: 27,
     Label: Company
   },
   {
     CountryCallingCode: +49,
-    Id: -1,
+    Id: 34,
     Label: Country
   },
   {
     IetfLanguageTag: en,
-    Id: -1,
+    Id: 32,
     Label: Language
   },
   {
-    Age: -1,
-    Id: -1,
+    Id: 44,
     Label: Person
   },
   {
-    Id: -1,
+    Id: 42,
     Label: Company
   }
 ]

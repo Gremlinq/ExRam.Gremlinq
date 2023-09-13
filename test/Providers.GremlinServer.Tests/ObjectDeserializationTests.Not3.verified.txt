@@ -1,36 +1,36 @@
 ﻿[
   {
     CountryCallingCode: +49,
-    Id: -1,
+    Id: 0,
     Label: Country
   },
   {
     IetfLanguageTag: en,
-    Id: -1,
+    Id: 2,
     Label: Language
   },
   {
     IetfLanguageTag: en,
-    Id: -1,
+    Id: 67,
     Label: Language
   },
   {
-    Id: -1,
+    Id: 69,
     Label: Language
   },
   {
     Name: {
-      Id: -1,
+      Id: 74,
       Label: Name,
       Properties: {},
       Value: GER
     },
-    Id: -1,
+    Id: 73,
     Label: Country
   },
   {
     Name: {
-      Id: -1,
+      Id: 76,
       Label: Name,
       Properties: {
         de: Deutschland,
@@ -38,63 +38,63 @@
       },
       Value: GER
     },
-    Id: -1,
+    Id: 75,
     Label: Country
   },
   {
-    Id: -1,
+    Id: 17,
     Label: Country
   },
   {
-    Id: -1,
+    Id: 81,
     Label: Language
   },
   {
-    Id: -1,
+    Id: 82,
     Label: Language
   },
   {
-    Id: -1,
+    Id: 21,
     Label: Country
   },
   {
-    Id: -1,
+    Id: 25,
     Label: Country
   },
   {
     IetfLanguageTag: en,
-    Id: -1,
+    Id: 32,
     Label: Language
   },
   {
     CountryCallingCode: +49,
-    Id: -1,
+    Id: 34,
     Label: Country
   },
   {
     IetfLanguageTag: en,
-    Id: -1,
+    Id: 47,
     Label: Language
   },
   {
-    Id: -1,
+    Id: 49,
     Label: Language
   },
   {
     Enabled: false,
     StartTime: 08:00:00,
     Duration: 02:00:00,
-    Id: -1,
+    Id: 50,
     Label: TimeFrame
   },
   {
     IetfLanguageTag: en,
-    Id: -1,
+    Id: 54,
     Label: Language
   },
   {
     IetfLanguageTag: en,
-    Id: -1,
+    Id: 56,
     Label: Language
   }
 ]

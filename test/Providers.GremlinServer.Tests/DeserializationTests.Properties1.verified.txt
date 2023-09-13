@@ -1,86 +1,86 @@
 ﻿[
   {
-    Id: -1,
+    Id: 1,
     Label: CountryCallingCode,
     Properties: {},
     Value: +49
   },
   {
-    Id: -1,
+    Id: 66,
     Label: RegistrationDate,
     Properties: {},
-    Value: 1969-12-31 23:59:59.999 +0
+    Value: 2020-04-07 14:43:36 +0
   },
   {
-    Id: -1,
+    Id: 65,
     Label: Name,
     Properties: {},
     Value: Marko
   },
   {
-    Id: -1,
+    Id: 3,
     Label: IetfLanguageTag,
     Properties: {},
     Value: en
   },
   {
-    Id: -1,
+    Id: 68,
     Label: IetfLanguageTag,
     Properties: {},
     Value: en
   },
   {
-    Id: -1,
+    Id: 6,
     Label: FoundingDate,
     Properties: {},
     Value: 0001-01-01 +0
   },
   {
-    Id: -1,
+    Id: 71,
     Label: FoundingDate,
     Properties: {},
     Value: 0001-01-01 +0
   },
   {
-    Id: -1,
+    Id: 72,
     Label: Locations,
     Properties: {
-      ValidFrom: 1969-12-31 23:59:59.999 +0
+      ValidFrom: 2019-01-01 01:00 +0
     },
     Value: Aachen
   },
   {
-    Id: -1,
+    Id: 8,
     Label: Age,
     Properties: {},
-    Value: -1
+    Value: 0
   },
   {
-    Id: -1,
+    Id: 74,
     Label: Name,
     Properties: {},
     Value: GER
   },
   {
-    Id: -1,
+    Id: 13,
     Label: RegistrationDate,
     Properties: {},
-    Value: 1969-12-31 23:59:59.999 +0
+    Value: 2020-04-07 14:43:36 +0
   },
   {
-    Id: -1,
+    Id: 11,
     Label: Age,
     Properties: {},
-    Value: -1
+    Value: 0
   },
   {
-    Id: -1,
+    Id: 12,
     Label: Name,
     Properties: {},
     Value: Bob
   },
   {
-    Id: -1,
+    Id: 76,
     Label: Name,
     Properties: {
       de: Deutschland,
@@ -89,159 +89,159 @@
     Value: GER
   },
   {
-    Id: -1,
+    Id: 79,
     Label: PhoneNumbers,
     Properties: {},
     Value: +4912345
   },
   {
-    Id: -1,
+    Id: 80,
     Label: PhoneNumbers,
     Properties: {},
     Value: +4923456
   },
   {
-    Id: -1,
+    Id: 78,
     Label: FoundingDate,
     Properties: {},
     Value: 0001-01-01 +0
   },
   {
-    Id: -1,
+    Id: 16,
     Label: Age,
     Properties: {},
-    Value: -1
+    Value: 0
   },
   {
-    Id: -1,
+    Id: 83,
     Label: lang,
     Properties: {},
     Value: en
   },
   {
-    Id: -1,
+    Id: 20,
     Label: Age,
     Properties: {},
-    Value: -1
+    Value: 0
   },
   {
-    Id: -1,
+    Id: 24,
     Label: Age,
     Properties: {},
-    Value: -1
+    Value: 0
   },
   {
-    Id: -1,
+    Id: 28,
     Label: FoundingDate,
     Properties: {},
     Value: 0001-01-01 +0
   },
   {
-    Id: -1,
+    Id: 30,
     Label: Age,
     Properties: {},
-    Value: -1
+    Value: 0
   },
   {
-    Id: -1,
+    Id: 33,
     Label: IetfLanguageTag,
     Properties: {},
     Value: en
   },
   {
-    Id: -1,
+    Id: 35,
     Label: CountryCallingCode,
     Properties: {},
     Value: +49
   },
   {
-    Id: -1,
+    Id: 40,
     Label: RegistrationDate,
     Properties: {},
-    Value: 1969-12-31 23:59:59.999 +0
+    Value: 2020-04-07 14:43:36 +0
   },
   {
-    Id: -1,
+    Id: 38,
     Label: Age,
     Properties: {},
-    Value: -1
+    Value: 0
   },
   {
-    Id: -1,
+    Id: 39,
     Label: Name,
     Properties: {},
     Value: Bob
   },
   {
-    Id: -1,
+    Id: 43,
     Label: FoundingDate,
     Properties: {},
     Value: 0001-01-01 +0
   },
   {
-    Id: -1,
+    Id: 45,
     Label: Age,
     Properties: {},
-    Value: -1
+    Value: 0
   },
   {
-    Id: -1,
+    Id: 48,
     Label: IetfLanguageTag,
     Properties: {},
     Value: en
   },
   {
-    Id: -1,
+    Id: 53,
     Label: StartTime,
     Properties: {},
     Value: 08:00:00
   },
   {
-    Id: -1,
+    Id: 52,
     Label: Enabled,
     Properties: {},
     Value: false
   },
   {
-    Id: -1,
+    Id: 51,
     Label: Duration,
     Properties: {},
     Value: 02:00:00
   },
   {
-    Id: -1,
+    Id: 55,
     Label: IetfLanguageTag,
     Properties: {},
     Value: en
   },
   {
-    Id: -1,
+    Id: 57,
     Label: IetfLanguageTag,
     Properties: {},
     Value: en
   },
   {
-    Id: -1,
+    Id: 60,
     Label: Image,
     Properties: {},
     Value: AQIDBAUGBwg=
   },
   {
-    Id: -1,
+    Id: 59,
     Label: Age,
     Properties: {},
-    Value: -1
+    Value: 0
   },
   {
-    Id: -1,
+    Id: 63,
     Label: Gender,
     Properties: {},
-    Value: -1
+    Value: 1
   },
   {
-    Id: -1,
+    Id: 62,
     Label: Age,
     Properties: {},
-    Value: -1
+    Value: 0
   }
 ]

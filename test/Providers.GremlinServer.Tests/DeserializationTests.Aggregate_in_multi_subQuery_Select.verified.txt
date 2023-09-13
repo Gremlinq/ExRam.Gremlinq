@@ -2,13 +2,13 @@
   {
     Item1: [
       {
-        RegistrationDate: 1969-12-31 23:59:59.999 +0,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
-          Id: -1,
+          Id: 65,
           Label: Name,
           Value: Marko
         },
-        Id: -1,
+        Id: 64,
         Label: Person
       }
     ],
@@ -17,18 +17,17 @@
   {
     Item1: [
       {
-        RegistrationDate: 1969-12-31 23:59:59.999 +0,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
-          Id: -1,
+          Id: 65,
           Label: Name,
           Value: Marko
         },
-        Id: -1,
+        Id: 64,
         Label: Person
       },
       {
-        Age: -1,
-        Id: -1,
+        Id: 7,
         Label: Person
       }
     ],
@@ -37,29 +36,27 @@
   {
     Item1: [
       {
-        RegistrationDate: 1969-12-31 23:59:59.999 +0,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
-          Id: -1,
+          Id: 65,
           Label: Name,
           Value: Marko
         },
-        Id: -1,
+        Id: 64,
         Label: Person
       },
       {
-        Age: -1,
-        Id: -1,
+        Id: 7,
         Label: Person
       },
       {
-        Age: -1,
-        RegistrationDate: 1969-12-31 23:59:59.999 +0,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
-          Id: -1,
+          Id: 12,
           Label: Name,
           Value: Bob
         },
-        Id: -1,
+        Id: 10,
         Label: Person
       }
     ],
@@ -68,34 +65,31 @@
   {
     Item1: [
       {
-        RegistrationDate: 1969-12-31 23:59:59.999 +0,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
-          Id: -1,
+          Id: 65,
           Label: Name,
           Value: Marko
         },
-        Id: -1,
+        Id: 64,
         Label: Person
       },
       {
-        Age: -1,
-        Id: -1,
+        Id: 7,
         Label: Person
       },
       {
-        Age: -1,
-        RegistrationDate: 1969-12-31 23:59:59.999 +0,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
-          Id: -1,
+          Id: 12,
           Label: Name,
           Value: Bob
         },
-        Id: -1,
+        Id: 10,
         Label: Person
       },
       {
-        Age: -1,
-        Id: -1,
+        Id: 15,
         Label: Person
       }
     ],
@@ -104,39 +98,35 @@
   {
     Item1: [
       {
-        RegistrationDate: 1969-12-31 23:59:59.999 +0,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
-          Id: -1,
+          Id: 65,
           Label: Name,
           Value: Marko
         },
-        Id: -1,
+        Id: 64,
         Label: Person
       },
       {
-        Age: -1,
-        Id: -1,
+        Id: 7,
         Label: Person
       },
       {
-        Age: -1,
-        RegistrationDate: 1969-12-31 23:59:59.999 +0,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
-          Id: -1,
+          Id: 12,
           Label: Name,
           Value: Bob
         },
-        Id: -1,
+        Id: 10,
         Label: Person
       },
       {
-        Age: -1,
-        Id: -1,
+        Id: 15,
         Label: Person
       },
       {
-        Age: -1,
-        Id: -1,
+        Id: 19,
         Label: Person
       }
     ],
@@ -145,44 +135,39 @@
   {
     Item1: [
       {
-        RegistrationDate: 1969-12-31 23:59:59.999 +0,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
-          Id: -1,
+          Id: 65,
           Label: Name,
           Value: Marko
         },
-        Id: -1,
+        Id: 64,
         Label: Person
       },
       {
-        Age: -1,
-        Id: -1,
+        Id: 7,
         Label: Person
       },
       {
-        Age: -1,
-        RegistrationDate: 1969-12-31 23:59:59.999 +0,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
-          Id: -1,
+          Id: 12,
           Label: Name,
           Value: Bob
         },
-        Id: -1,
+        Id: 10,
         Label: Person
       },
       {
-        Age: -1,
-        Id: -1,
+        Id: 15,
         Label: Person
       },
       {
-        Age: -1,
-        Id: -1,
+        Id: 19,
         Label: Person
       },
       {
-        Age: -1,
-        Id: -1,
+        Id: 23,
         Label: Person
       }
     ],
@@ -191,49 +176,43 @@
   {
     Item1: [
       {
-        RegistrationDate: 1969-12-31 23:59:59.999 +0,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
-          Id: -1,
+          Id: 65,
           Label: Name,
           Value: Marko
         },
-        Id: -1,
+        Id: 64,
         Label: Person
       },
       {
-        Age: -1,
-        Id: -1,
+        Id: 7,
         Label: Person
       },
       {
-        Age: -1,
-        RegistrationDate: 1969-12-31 23:59:59.999 +0,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
-          Id: -1,
+          Id: 12,
           Label: Name,
           Value: Bob
         },
-        Id: -1,
+        Id: 10,
         Label: Person
       },
       {
-        Age: -1,
-        Id: -1,
+        Id: 15,
         Label: Person
       },
       {
-        Age: -1,
-        Id: -1,
+        Id: 19,
         Label: Person
       },
       {
-        Age: -1,
-        Id: -1,
+        Id: 23,
         Label: Person
       },
       {
-        Age: -1,
-        Id: -1,
+        Id: 29,
         Label: Person
       }
     ],
@@ -242,60 +221,53 @@
   {
     Item1: [
       {
-        RegistrationDate: 1969-12-31 23:59:59.999 +0,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
-          Id: -1,
+          Id: 65,
           Label: Name,
           Value: Marko
         },
-        Id: -1,
+        Id: 64,
         Label: Person
       },
       {
-        Age: -1,
-        Id: -1,
+        Id: 7,
         Label: Person
       },
       {
-        Age: -1,
-        RegistrationDate: 1969-12-31 23:59:59.999 +0,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
-          Id: -1,
+          Id: 12,
           Label: Name,
           Value: Bob
         },
-        Id: -1,
+        Id: 10,
         Label: Person
       },
       {
-        Age: -1,
-        Id: -1,
+        Id: 15,
         Label: Person
       },
       {
-        Age: -1,
-        Id: -1,
+        Id: 19,
         Label: Person
       },
       {
-        Age: -1,
-        Id: -1,
+        Id: 23,
         Label: Person
       },
       {
-        Age: -1,
-        Id: -1,
+        Id: 29,
         Label: Person
       },
       {
-        Age: -1,
-        RegistrationDate: 1969-12-31 23:59:59.999 +0,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
-          Id: -1,
+          Id: 39,
           Label: Name,
           Value: Bob
         },
-        Id: -1,
+        Id: 37,
         Label: Person
       }
     ],
@@ -304,65 +276,57 @@
   {
     Item1: [
       {
-        RegistrationDate: 1969-12-31 23:59:59.999 +0,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
-          Id: -1,
+          Id: 65,
           Label: Name,
           Value: Marko
         },
-        Id: -1,
+        Id: 64,
         Label: Person
       },
       {
-        Age: -1,
-        Id: -1,
+        Id: 7,
         Label: Person
       },
       {
-        Age: -1,
-        RegistrationDate: 1969-12-31 23:59:59.999 +0,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
-          Id: -1,
+          Id: 12,
           Label: Name,
           Value: Bob
         },
-        Id: -1,
+        Id: 10,
         Label: Person
       },
       {
-        Age: -1,
-        Id: -1,
+        Id: 15,
         Label: Person
       },
       {
-        Age: -1,
-        Id: -1,
+        Id: 19,
         Label: Person
       },
       {
-        Age: -1,
-        Id: -1,
+        Id: 23,
         Label: Person
       },
       {
-        Age: -1,
-        Id: -1,
+        Id: 29,
         Label: Person
       },
       {
-        Age: -1,
-        RegistrationDate: 1969-12-31 23:59:59.999 +0,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
-          Id: -1,
+          Id: 39,
           Label: Name,
           Value: Bob
         },
-        Id: -1,
+        Id: 37,
         Label: Person
       },
       {
-        Age: -1,
-        Id: -1,
+        Id: 44,
         Label: Person
       }
     ],
@@ -371,71 +335,62 @@
   {
     Item1: [
       {
-        RegistrationDate: 1969-12-31 23:59:59.999 +0,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
-          Id: -1,
+          Id: 65,
           Label: Name,
           Value: Marko
         },
-        Id: -1,
+        Id: 64,
         Label: Person
       },
       {
-        Age: -1,
-        Id: -1,
+        Id: 7,
         Label: Person
       },
       {
-        Age: -1,
-        RegistrationDate: 1969-12-31 23:59:59.999 +0,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
-          Id: -1,
+          Id: 12,
           Label: Name,
           Value: Bob
         },
-        Id: -1,
+        Id: 10,
         Label: Person
       },
       {
-        Age: -1,
-        Id: -1,
+        Id: 15,
         Label: Person
       },
       {
-        Age: -1,
-        Id: -1,
+        Id: 19,
         Label: Person
       },
       {
-        Age: -1,
-        Id: -1,
+        Id: 23,
         Label: Person
       },
       {
-        Age: -1,
-        Id: -1,
+        Id: 29,
         Label: Person
       },
       {
-        Age: -1,
-        RegistrationDate: 1969-12-31 23:59:59.999 +0,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
-          Id: -1,
+          Id: 39,
           Label: Name,
           Value: Bob
         },
-        Id: -1,
+        Id: 37,
         Label: Person
       },
       {
-        Age: -1,
-        Id: -1,
+        Id: 44,
         Label: Person
       },
       {
-        Age: -1,
         Image: AQIDBAUGBwg=,
-        Id: -1,
+        Id: 58,
         Label: Person
       }
     ],
@@ -444,77 +399,67 @@
   {
     Item1: [
       {
-        RegistrationDate: 1969-12-31 23:59:59.999 +0,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
-          Id: -1,
+          Id: 65,
           Label: Name,
           Value: Marko
         },
-        Id: -1,
+        Id: 64,
         Label: Person
       },
       {
-        Age: -1,
-        Id: -1,
+        Id: 7,
         Label: Person
       },
       {
-        Age: -1,
-        RegistrationDate: 1969-12-31 23:59:59.999 +0,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
-          Id: -1,
+          Id: 12,
           Label: Name,
           Value: Bob
         },
-        Id: -1,
+        Id: 10,
         Label: Person
       },
       {
-        Age: -1,
-        Id: -1,
+        Id: 15,
         Label: Person
       },
       {
-        Age: -1,
-        Id: -1,
+        Id: 19,
         Label: Person
       },
       {
-        Age: -1,
-        Id: -1,
+        Id: 23,
         Label: Person
       },
       {
-        Age: -1,
-        Id: -1,
+        Id: 29,
         Label: Person
       },
       {
-        Age: -1,
-        RegistrationDate: 1969-12-31 23:59:59.999 +0,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
-          Id: -1,
+          Id: 39,
           Label: Name,
           Value: Bob
         },
-        Id: -1,
+        Id: 37,
         Label: Person
       },
       {
-        Age: -1,
-        Id: -1,
+        Id: 44,
         Label: Person
       },
       {
-        Age: -1,
         Image: AQIDBAUGBwg=,
-        Id: -1,
+        Id: 58,
         Label: Person
       },
       {
-        Age: -1,
-        Gender: -1,
-        Id: -1,
+        Gender: Female,
+        Id: 61,
         Label: Person
       }
     ],

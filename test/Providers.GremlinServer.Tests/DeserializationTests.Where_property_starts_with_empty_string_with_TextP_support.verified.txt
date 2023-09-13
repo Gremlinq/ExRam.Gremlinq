@@ -2,27 +2,27 @@
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: -1,
+      Id: 129,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: -1,
+    Id: 0,
     Label: Country
   },
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: -1,
+      Id: 135,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: -1,
+    Id: 34,
     Label: Country
   }
 ]

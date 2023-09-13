@@ -1,21 +1,21 @@
 ﻿[
   {
-    Age: -1,
-    RegistrationDate: 1969-12-31 23:59:59.999 +0,
+    Age: 36,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: -1,
+      Id: 12,
       Label: Name,
       Properties: {
-        ValidFrom: 1969-12-31 23:59:59.999 +0
+        ValidFrom: 2020-04-07 14:43:36 +0
       },
       Value: Bob
     },
-    Id: -1,
+    Id: 10,
     Label: Person
   },
   {
     IetfLanguageTag: en,
-    Id: -1,
+    Id: 2,
     Label: Language
   }
 ]

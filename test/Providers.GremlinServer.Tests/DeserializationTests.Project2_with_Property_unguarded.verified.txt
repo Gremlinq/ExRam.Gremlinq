@@ -1,38 +1,19 @@
 ﻿[
   {},
-  {
-    Item2: -1
-  },
-  {
-    Item2: -1
-  },
-  {
-    Item2: -1
-  },
-  {
-    Item2: -1
-  },
-  {
-    Item2: -1
-  },
-  {
-    Item2: -1
-  },
-  {
-    Item2: -1
-  },
-  {
-    Item2: -1
-  },
-  {
-    Item2: -1
-  },
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
   {
     Item1: {
       CountryCallingCode: +49,
-      Id: -1,
+      Id: 0,
       Label: Country
-    },
-    Item2: -1
+    }
   }
 ]
