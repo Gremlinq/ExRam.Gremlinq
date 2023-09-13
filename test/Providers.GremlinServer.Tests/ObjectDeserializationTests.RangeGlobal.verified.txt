@@ -5,7 +5,6 @@
     Name: {
       Id: -1,
       Label: Name,
-      Properties: {},
       Value: Marko
     },
     Id: -1,

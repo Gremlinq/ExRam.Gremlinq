@@ -82,6 +82,7 @@ namespace ExRam.Gremlinq.Core
         {
             return transformer
                 .Add(new NewtonsoftJsonSerializerConverterFactory())
+                .Add(new VertexPropertyPropertiesConverterFactory())
                 .Add(ConverterFactory
                     .Create<string, JToken>((str, _, _) => jsonSerializer
                         .Deserialize<JToken>(new JsonTextReader(new StringReader(str)))))
