@@ -21,7 +21,7 @@ namespace ExRam.Gremlinq.Core.Projections
 
             return (keyProjectionTraversal.Count == 0 && (maybeValueProjectionTraversal?.Count).GetValueOrDefault() == 0)
                 ? Traversal.Empty
-                : new LocalStep(Traversal
+                : new MapStep(Traversal
                     .Create(
                         4,
                         (keyProjectionTraversal, maybeValueProjectionTraversal),
