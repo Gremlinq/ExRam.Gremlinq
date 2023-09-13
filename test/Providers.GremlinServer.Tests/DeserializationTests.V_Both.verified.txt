@@ -1,208 +1,208 @@
 ﻿[
   {
-    Age: -1,
-    Gender: -1,
-    RegistrationDate: 1969-12-31 23:59:59.999 +0,
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: -1,
+      Id: 300,
       Label: Name,
       Value: Marko
     },
-    Id: -1,
+    Id: 10,
     Label: Person
   },
   {
     IetfLanguageTag: en,
-    Id: -1,
+    Id: 2,
     Label: Language
   },
   {
-    Age: -1,
-    Gender: -1,
-    RegistrationDate: 1969-12-31 23:59:59.999 +0,
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: -1,
+      Id: 320,
       Label: Name,
       Value: Marko
     },
-    Id: -1,
+    Id: 37,
     Label: Person
   },
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: -1,
+      Id: 129,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: -1,
+    Id: 0,
     Label: Country
   },
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: -1,
+      Id: 129,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: -1,
+    Id: 0,
     Label: Country
   },
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: -1,
+      Id: 129,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: -1,
+    Id: 0,
     Label: Country
   },
   {
-    Age: -1,
-    Gender: -1,
-    RegistrationDate: 1969-12-31 23:59:59.999 +0,
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: -1,
+      Id: 296,
       Label: Name,
       Value: Marko
     },
-    Id: -1,
+    Id: 7,
     Label: Person
   },
   {
-    Id: -1,
+    Id: 5,
     Label: Company
   },
   {
     LocalizableDescription: {
-      Id: -1,
+      Id: 132,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: -1,
+    Id: 17,
     Label: Country
   },
   {
-    Age: -1,
-    Gender: -1,
-    RegistrationDate: 1969-12-31 23:59:59.999 +0,
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: -1,
+      Id: 304,
       Label: Name,
       Value: Marko
     },
-    Id: -1,
+    Id: 15,
     Label: Person
   },
   {
     LocalizableDescription: {
-      Id: -1,
+      Id: 133,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: -1,
+    Id: 21,
     Label: Country
   },
   {
-    Age: -1,
-    Gender: -1,
-    RegistrationDate: 1969-12-31 23:59:59.999 +0,
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: -1,
+      Id: 308,
       Label: Name,
       Value: Marko
     },
-    Id: -1,
+    Id: 19,
     Label: Person
   },
   {
     LocalizableDescription: {
-      Id: -1,
+      Id: 134,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: -1,
+    Id: 25,
     Label: Country
   },
   {
-    Age: -1,
-    Gender: -1,
-    RegistrationDate: 1969-12-31 23:59:59.999 +0,
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: -1,
+      Id: 312,
       Label: Name,
       Value: Marko
     },
-    Id: -1,
+    Id: 23,
     Label: Person
   },
   {
-    Age: -1,
-    Gender: -1,
-    RegistrationDate: 1969-12-31 23:59:59.999 +0,
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: -1,
+      Id: 316,
       Label: Name,
       Value: Marko
     },
-    Id: -1,
+    Id: 29,
     Label: Person
   },
   {
-    Id: -1,
+    Id: 27,
     Label: Company
   },
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: -1,
+      Id: 135,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
       },
       Value: 
     },
-    Id: -1,
+    Id: 34,
     Label: Country
   },
   {
     IetfLanguageTag: en,
-    Id: -1,
+    Id: 32,
     Label: Language
   },
   {
-    Age: -1,
-    Gender: -1,
-    RegistrationDate: 1969-12-31 23:59:59.999 +0,
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: -1,
+      Id: 324,
       Label: Name,
       Value: Marko
     },
-    Id: -1,
+    Id: 44,
     Label: Person
   },
   {
-    Id: -1,
+    Id: 42,
     Label: Company
   }
 ]

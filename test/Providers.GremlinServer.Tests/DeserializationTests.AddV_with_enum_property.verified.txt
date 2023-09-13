@@ -1,8 +1,7 @@
 ﻿[
   {
-    Age: -1,
-    Gender: -1,
-    Id: -1,
+    Gender: Female,
+    Id: 61,
     Label: Person
   }
 ]

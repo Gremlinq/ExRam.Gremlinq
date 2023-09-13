@@ -1,98 +1,92 @@
 ﻿[
   {
-    Id: -1,
+    Id: 14,
     Label: LivesIn
   },
   {
-    Id: -1,
+    Id: 4,
     Label: Speaks
   },
   {
     CountryCallingCode: +49,
-    Id: -1,
+    Id: 0,
     Label: Country
   },
   {
     CountryCallingCode: +49,
-    Id: -1,
+    Id: 0,
     Label: Country
   },
   {
-    Age: -1,
-    Id: -1,
+    Id: 7,
     Label: Person
   },
   {
     Role: Admin,
-    From: 1969-12-31 23:59:59.999 Utc,
-    To: 1969-12-31 23:59:59.999 Utc,
-    Id: -1,
+    From: 2020-04-07 14:43:36 Utc,
+    To: 2020-04-07 14:43:36 Utc,
+    Id: 9,
     Label: WorksFor
   },
   {
-    Id: -1,
+    Id: 18,
     Label: LivesIn
   },
   {
-    Age: -1,
-    Id: -1,
+    Id: 15,
     Label: Person
   },
   {
-    Id: -1,
+    Id: 22,
     Label: LivesIn
   },
   {
-    Age: -1,
-    Id: -1,
+    Id: 19,
     Label: Person
   },
   {
     Since: {
-      Value: 1969-12-31 23:59:59.999 +0,
+      Value: 2020-04-07 14:43:36 +0,
       Key: Since
     },
-    Id: -1,
+    Id: 26,
     Label: LivesIn
   },
   {
-    Age: -1,
-    Id: -1,
+    Id: 23,
     Label: Person
   },
   {
-    Age: -1,
-    Id: -1,
+    Id: 29,
     Label: Person
   },
   {
     Role: Admin,
-    From: 1969-12-31 23:59:59.999 Utc,
-    To: 1969-12-31 23:59:59.999 Utc,
-    Id: -1,
+    From: 2020-04-07 14:43:36 Utc,
+    To: 2020-04-07 14:43:36 Utc,
+    Id: 31,
     Label: WorksFor
   },
   {
     CountryCallingCode: +49,
-    Id: -1,
+    Id: 34,
     Label: Country
   },
   {
-    Id: -1,
+    Id: 36,
     Label: Speaks
   },
   {
-    Id: -1,
+    Id: 41,
     Label: LivesIn
   },
   {
-    Age: -1,
-    Id: -1,
+    Id: 44,
     Label: Person
   },
   {
-    To: 1969-12-31 23:59:59.999 Utc,
-    Id: -1,
+    To: 2020-04-07 14:43:36 Utc,
+    Id: 46,
     Label: WorksFor
   }
 ]

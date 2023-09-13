@@ -1,134 +1,124 @@
 ﻿[
   {
     Item4: {
-      Id: -1,
+      Id: 66,
       Label: RegistrationDate,
       Properties: {},
-      Value: 1969-12-31 23:59:59.999 +0
+      Value: 2020-04-07 14:43:36 +0
     }
   },
   {
     Item2: {
-      Id: -1,
+      Id: 5,
       Label: Company
     },
-    Item3: -1,
     Item4: {
-      Id: -1,
+      Id: 8,
       Label: Age,
       Properties: {},
-      Value: -1
+      Value: 0
     }
   },
   {
     Item1: {
       CountryCallingCode: +49,
-      Id: -1,
+      Id: 0,
       Label: Country
     },
-    Item3: -1,
     Item4: {
-      Id: -1,
+      Id: 13,
       Label: RegistrationDate,
       Properties: {},
-      Value: 1969-12-31 23:59:59.999 +0
+      Value: 2020-04-07 14:43:36 +0
     }
   },
   {
     Item2: {
-      Id: -1,
+      Id: 17,
       Label: Country
     },
-    Item3: -1,
     Item4: {
-      Id: -1,
+      Id: 16,
       Label: Age,
       Properties: {},
-      Value: -1
+      Value: 0
     }
   },
   {
     Item2: {
-      Id: -1,
+      Id: 21,
       Label: Country
     },
-    Item3: -1,
     Item4: {
-      Id: -1,
+      Id: 20,
       Label: Age,
       Properties: {},
-      Value: -1
+      Value: 0
     }
   },
   {
     Item2: {
-      Id: -1,
+      Id: 25,
       Label: Country
     },
-    Item3: -1,
     Item4: {
-      Id: -1,
+      Id: 24,
       Label: Age,
       Properties: {},
-      Value: -1
+      Value: 0
     }
   },
   {
     Item2: {
-      Id: -1,
+      Id: 27,
       Label: Company
     },
-    Item3: -1,
     Item4: {
-      Id: -1,
+      Id: 30,
       Label: Age,
       Properties: {},
-      Value: -1
+      Value: 0
     }
   },
   {
     Item2: {
       CountryCallingCode: +49,
-      Id: -1,
+      Id: 0,
       Label: Country
     },
-    Item3: -1,
     Item4: {
-      Id: -1,
+      Id: 40,
       Label: RegistrationDate,
       Properties: {},
-      Value: 1969-12-31 23:59:59.999 +0
+      Value: 2020-04-07 14:43:36 +0
     }
   },
   {
     Item2: {
-      Id: -1,
+      Id: 42,
       Label: Company
     },
-    Item3: -1,
     Item4: {
-      Id: -1,
+      Id: 45,
       Label: Age,
       Properties: {},
-      Value: -1
+      Value: 0
     }
   },
   {
-    Item3: -1,
     Item4: {
-      Id: -1,
+      Id: 60,
       Label: Image,
       Properties: {},
       Value: AQIDBAUGBwg=
     }
   },
   {
-    Item3: -1,
     Item4: {
-      Id: -1,
+      Id: 63,
       Label: Gender,
       Properties: {},
-      Value: -1
+      Value: 1
     }
   }
 ]

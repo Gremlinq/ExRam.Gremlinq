@@ -1,20 +1,20 @@
 ﻿[
   {
-    Id: -1,
+    Id: 5,
     Label: Company
   },
   {
     Locations: [
       {
-        Id: -1,
+        Id: 72,
         Label: Locations,
         Properties: {
-          ValidFrom: 1969-12-31 23:59:59.999 +0
+          ValidFrom: 2019-01-01 01:00 +0
         },
         Value: Aachen
       }
     ],
-    Id: -1,
+    Id: 70,
     Label: Company
   },
   {
@@ -22,15 +22,15 @@
       +4912345,
       +4923456
     ],
-    Id: -1,
+    Id: 77,
     Label: Company
   },
   {
-    Id: -1,
+    Id: 27,
     Label: Company
   },
   {
-    Id: -1,
+    Id: 42,
     Label: Company
   }
 ]
