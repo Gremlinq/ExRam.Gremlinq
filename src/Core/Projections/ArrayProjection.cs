@@ -17,7 +17,7 @@ namespace ExRam.Gremlinq.Core.Projections
 
             if (inner.Count > 0)
             {
-                return new LocalStep(Traversal.Create(
+                return new MapStep(Traversal.Create(
                     inner.Count + 2,
                     inner,
                     static (steps, inner) =>

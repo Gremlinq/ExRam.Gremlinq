@@ -32,7 +32,7 @@
             }
           ],
           [
-            "local",
+            "map",
             {
               "@type": "g:Bytecode",
               "@value": {

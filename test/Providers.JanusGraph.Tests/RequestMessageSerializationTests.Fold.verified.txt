@@ -15,7 +15,7 @@
           OperatorName: fold
         },
         {
-          OperatorName: local,
+          OperatorName: map,
           Arguments: [
             {
               StepInstructions: [
