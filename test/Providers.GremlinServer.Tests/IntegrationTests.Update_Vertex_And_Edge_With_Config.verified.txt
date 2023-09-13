@@ -5,7 +5,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "@value": 9
       },
       "label",
       "WorksFor",
@@ -18,12 +18,12 @@
           "From",
           {
             "@type": "g:Date",
-            "@value": -1
+            "@value": 1586270616000
           },
           "To",
           {
             "@type": "g:Date",
-            "@value": -1
+            "@value": 1586270616000
           }
         ]
       }
@@ -35,7 +35,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "@value": 31
       },
       "label",
       "WorksFor",
@@ -48,12 +48,12 @@
           "From",
           {
             "@type": "g:Date",
-            "@value": -1
+            "@value": 1586270616000
           },
           "To",
           {
             "@type": "g:Date",
-            "@value": -1
+            "@value": 1586270616000
           }
         ]
       }
@@ -65,7 +65,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "@value": 46
       },
       "label",
       "WorksFor",
@@ -78,12 +78,12 @@
           "To",
           {
             "@type": "g:Date",
-            "@value": -1
+            "@value": 1586270616000
           },
           "From",
           {
             "@type": "g:Date",
-            "@value": -1
+            "@value": 1586270616000
           }
         ]
       }

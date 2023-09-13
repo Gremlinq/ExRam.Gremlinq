@@ -5,7 +5,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "@value": 50
       },
       "label",
       "TimeFrame",
@@ -23,7 +23,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "@value": 53
                   },
                   "label",
                   "StartTime",
@@ -51,7 +51,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "@value": 52
                   },
                   "label",
                   "Enabled",
@@ -76,7 +76,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "@value": 51
                   },
                   "label",
                   "Duration",

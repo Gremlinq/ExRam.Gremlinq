@@ -5,7 +5,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "@value": 0
       },
       "label",
       "Country",
@@ -23,7 +23,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "@value": 1
                   },
                   "label",
                   "CountryCallingCode",
@@ -43,7 +43,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "@value": 129
                   },
                   "label",
                   "LocalizableDescription",
@@ -63,7 +63,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "@value": 37
       },
       "label",
       "Person",
@@ -81,7 +81,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "@value": 91
                   },
                   "label",
                   "GuidKey",
@@ -104,14 +104,14 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "@value": 40
                   },
                   "label",
                   "RegistrationDate",
                   "value",
                   {
                     "@type": "g:Date",
-                    "@value": -1
+                    "@value": 1586270616000
                   }
                 ]
               }
@@ -127,14 +127,14 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "@value": 154
                   },
                   "label",
                   "StringKey1",
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": -1
+                    "@value": 36
                   }
                 ]
               }
@@ -150,14 +150,14 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "@value": 143
                   },
                   "label",
                   "Age",
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": -1
+                    "@value": 36
                   }
                 ]
               }
@@ -173,14 +173,14 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "@value": 165
                   },
                   "label",
                   "StringKey2",
                   "value",
                   {
                     "@type": "g:Int32",
-                    "@value": -1
+                    "@value": 36
                   }
                 ]
               }
@@ -196,7 +196,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": -1
+                    "@value": 39
                   },
                   "label",
                   "Name",

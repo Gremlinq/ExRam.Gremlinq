@@ -9,7 +9,7 @@
           "id",
           {
             "@type": "g:Int64",
-            "@value": -1
+            "@value": 0
           },
           "label",
           "Country",
@@ -27,7 +27,7 @@
                       "id",
                       {
                         "@type": "g:Int64",
-                        "@value": -1
+                        "@value": 1
                       },
                       "label",
                       "CountryCallingCode",
@@ -44,7 +44,7 @@
       "Item3",
       {
         "@type": "g:Int32",
-        "@value": -1
+        "@value": 0
       }
     ]
   }
