@@ -1,9 +1,12 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+
 using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Core.Transformation;
+using ExRam.Gremlinq.Support.NewtonsoftJson;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
@@ -19,6 +22,18 @@ namespace ExRam.Gremlinq.Core
                 #region Nested
                 private sealed class GremlinContractResolver : DefaultContractResolver
                 {
+                    private sealed class VertexPropertyPropertiesConverter<T> : JsonConverter<T>
+                    {
+                        public override T? ReadJson(JsonReader reader, Type objectType, T? existingValue, bool hasExistingValue, JsonSerializer serializer)
+                        {
+                            return serializer.Deserialize<VertexPropertyPropertiesWrapper<T>>(reader) is { HasValue: true, Value: { } value }
+                                ? value
+                                : default;
+                        }
+
+                        public override void WriteJson(JsonWriter writer, T? value, JsonSerializer serializer) => throw new NotImplementedException();
+                    }
+
                     private readonly IGraphElementPropertyModel _model;
 
                     public GremlinContractResolver(IGraphElementPropertyModel model)
@@ -44,6 +59,8 @@ namespace ExRam.Gremlinq.Core
                             {
                                 if (member.Name == nameof(VertexProperty<object>.Id) || member.Name == nameof(VertexProperty<object>.Label))
                                     property.Writable = true;
+                                else if (member is PropertyInfo propertyInfo && propertyInfo.Name == nameof(VertexProperty<object>.Properties) && !typeof(IDictionary<string, object>).IsAssignableFrom(propertyInfo.PropertyType))
+                                    property.Converter = (JsonConverter?)Activator.CreateInstance(typeof(VertexPropertyPropertiesConverter<>).MakeGenericType(propertyInfo.PropertyType));
                             }
                         }
 

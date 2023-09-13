@@ -19,7 +19,6 @@
     Name: {
       Id: -1,
       Label: Name,
-      Properties: {},
       Value: Marko
     },
     Id: -1,
@@ -30,7 +29,6 @@
     Name: {
       Id: -1,
       Label: Name,
-      Properties: {},
       Value: Marko
     },
     Id: -1,
@@ -41,7 +39,6 @@
     Name: {
       Id: -1,
       Label: Name,
-      Properties: {},
       Value: Marko
     },
     Id: -1,
@@ -194,7 +191,6 @@
     Name: {
       Id: -1,
       Label: Name,
-      Properties: {},
       Value: Bob
     },
     Id: -1,
@@ -206,7 +202,6 @@
     Name: {
       Id: -1,
       Label: Name,
-      Properties: {},
       Value: Bob
     },
     Id: -1,
@@ -218,7 +213,6 @@
     Name: {
       Id: -1,
       Label: Name,
-      Properties: {},
       Value: Bob
     },
     Id: -1,
@@ -455,7 +449,6 @@
     Name: {
       Id: -1,
       Label: Name,
-      Properties: {},
       Value: Bob
     },
     Id: -1,
@@ -467,7 +460,6 @@
     Name: {
       Id: -1,
       Label: Name,
-      Properties: {},
       Value: Bob
     },
     Id: -1,
@@ -479,7 +471,6 @@
     Name: {
       Id: -1,
       Label: Name,
-      Properties: {},
       Value: Bob
     },
     Id: -1,
