@@ -1,5 +1,4 @@
 ﻿using System.Runtime.CompilerServices;
-using System.Text.RegularExpressions;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Core.Transformation;
@@ -10,8 +9,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 {
     public class ExecutingVerifier : GremlinQueryVerifier
     {
-        private static readonly Regex IdRegex = new("\"@value\":[\\s]*[\\d]+", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-
         public ExecutingVerifier([CallerFilePath] string sourceFile = "") : base(sourceFile)
         {
         }
@@ -54,7 +51,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         protected override SettingsTask InnerVerify<T>(ValueTask<T> value) => base
             .InnerVerify(value)
-            //.ScrubRegex(IdRegex, "\"@value\": -1")
             .ScrubGuids();
     }
 }
