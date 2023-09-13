@@ -162,7 +162,7 @@
               ]
             },
             {
-              OperatorName: local,
+              OperatorName: map,
               Arguments: [
                 {
                   StepInstructions: [
@@ -305,7 +305,7 @@
               ]
             },
             {
-              OperatorName: local,
+              OperatorName: map,
               Arguments: [
                 {
                   StepInstructions: [

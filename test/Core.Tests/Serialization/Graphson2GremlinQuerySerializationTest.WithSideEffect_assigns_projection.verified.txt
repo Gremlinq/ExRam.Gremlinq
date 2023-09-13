@@ -30,7 +30,7 @@
             "_a"
           ],
           [
-            "local",
+            "map",
             {
               "@type": "g:Bytecode",
               "@value": {

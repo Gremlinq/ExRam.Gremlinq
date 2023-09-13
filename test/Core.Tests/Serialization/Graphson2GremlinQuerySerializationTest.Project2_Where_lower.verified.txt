@@ -105,7 +105,7 @@
                     "Item2"
                   ],
                   [
-                    "local",
+                    "map",
                     {
                       "@type": "g:Bytecode",
                       "@value": {
