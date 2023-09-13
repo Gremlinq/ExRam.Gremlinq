@@ -8,7 +8,7 @@
           "id",
           {
             "@type": "g:Int64",
-            "@value": -1
+            "@value": 0
           },
           "label",
           "Country",
@@ -26,7 +26,7 @@
                       "id",
                       {
                         "@type": "g:Int64",
-                        "@value": -1
+                        "@value": 1
                       },
                       "label",
                       "CountryCallingCode",
@@ -51,7 +51,7 @@
                       "id",
                       {
                         "@type": "g:Int64",
-                        "@value": -1
+                        "@value": 129
                       },
                       "label",
                       "LocalizableDescription",
@@ -79,7 +79,7 @@
           "id",
           {
             "@type": "g:Int64",
-            "@value": -1
+            "@value": 64
           },
           "label",
           "Person",
@@ -97,7 +97,7 @@
                       "id",
                       {
                         "@type": "g:Int64",
-                        "@value": -1
+                        "@value": 84
                       },
                       "label",
                       "GuidKey",
@@ -125,14 +125,14 @@
                       "id",
                       {
                         "@type": "g:Int64",
-                        "@value": -1
+                        "@value": 335
                       },
                       "label",
                       "RegistrationDate",
                       "value",
                       {
                         "@type": "g:Date",
-                        "@value": -1
+                        "@value": 1586270616000
                       },
                       "properties",
                       {
@@ -153,14 +153,14 @@
                       "id",
                       {
                         "@type": "g:Int64",
-                        "@value": -1
+                        "@value": 147
                       },
                       "label",
                       "StringKey1",
                       "value",
                       {
                         "@type": "g:Int32",
-                        "@value": -1
+                        "@value": 36
                       },
                       "properties",
                       {
@@ -181,14 +181,14 @@
                       "id",
                       {
                         "@type": "g:Int64",
-                        "@value": -1
+                        "@value": 334
                       },
                       "label",
                       "Gender",
                       "value",
                       {
                         "@type": "g:Int32",
-                        "@value": -1
+                        "@value": 0
                       },
                       "properties",
                       {
@@ -209,14 +209,14 @@
                       "id",
                       {
                         "@type": "g:Int64",
-                        "@value": -1
+                        "@value": 158
                       },
                       "label",
                       "StringKey2",
                       "value",
                       {
                         "@type": "g:Int32",
-                        "@value": -1
+                        "@value": 36
                       },
                       "properties",
                       {
@@ -237,14 +237,14 @@
                       "id",
                       {
                         "@type": "g:Int64",
-                        "@value": -1
+                        "@value": 290
                       },
                       "label",
                       "Age",
                       "value",
                       {
                         "@type": "g:Int32",
-                        "@value": -1
+                        "@value": 21
                       },
                       "properties",
                       {
@@ -265,7 +265,7 @@
                       "id",
                       {
                         "@type": "g:Int64",
-                        "@value": -1
+                        "@value": 292
                       },
                       "label",
                       "Name",

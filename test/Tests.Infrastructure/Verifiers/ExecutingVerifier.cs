@@ -54,7 +54,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         protected override SettingsTask InnerVerify<T>(ValueTask<T> value) => base
             .InnerVerify(value)
-            .ScrubRegex(IdRegex, "\"@value\": -1")
+            //.ScrubRegex(IdRegex, "\"@value\": -1")
             .ScrubGuids();
     }
 }

@@ -4,7 +4,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": -1
+        "@value": 5
       },
       "label": "Company",
       "properties": {
@@ -14,7 +14,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": -1
+                "@value": 6
               },
               "value": {
                 "@type": "g:Date",
@@ -32,18 +32,18 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": -1
+        "@value": 18
       },
       "label": "LivesIn",
       "inVLabel": "Country",
       "outVLabel": "Person",
       "inV": {
         "@type": "g:Int64",
-        "@value": -1
+        "@value": 17
       },
       "outV": {
         "@type": "g:Int64",
-        "@value": -1
+        "@value": 15
       }
     }
   },
@@ -52,18 +52,18 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": -1
+        "@value": 22
       },
       "label": "LivesIn",
       "inVLabel": "Country",
       "outVLabel": "Person",
       "inV": {
         "@type": "g:Int64",
-        "@value": -1
+        "@value": 21
       },
       "outV": {
         "@type": "g:Int64",
-        "@value": -1
+        "@value": 19
       }
     }
   },
@@ -72,18 +72,18 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": -1
+        "@value": 26
       },
       "label": "LivesIn",
       "inVLabel": "Country",
       "outVLabel": "Person",
       "inV": {
         "@type": "g:Int64",
-        "@value": -1
+        "@value": 25
       },
       "outV": {
         "@type": "g:Int64",
-        "@value": -1
+        "@value": 23
       },
       "properties": {
         "Since": {
@@ -92,7 +92,7 @@
             "key": "Since",
             "value": {
               "@type": "g:Date",
-              "@value": -1
+              "@value": 1586270616000
             }
           }
         }
@@ -104,7 +104,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": -1
+        "@value": 27
       },
       "label": "Company",
       "properties": {
@@ -114,7 +114,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": -1
+                "@value": 28
               },
               "value": {
                 "@type": "g:Date",
@@ -132,18 +132,18 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": -1
+        "@value": 41
       },
       "label": "LivesIn",
       "inVLabel": "Country",
       "outVLabel": "Person",
       "inV": {
         "@type": "g:Int64",
-        "@value": -1
+        "@value": 0
       },
       "outV": {
         "@type": "g:Int64",
-        "@value": -1
+        "@value": 37
       }
     }
   },
@@ -152,7 +152,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": -1
+        "@value": 42
       },
       "label": "Company",
       "properties": {
@@ -162,7 +162,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": -1
+                "@value": 43
               },
               "value": {
                 "@type": "g:Date",

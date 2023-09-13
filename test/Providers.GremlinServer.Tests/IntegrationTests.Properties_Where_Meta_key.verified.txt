@@ -5,7 +5,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": -1
+        "@value": 72
       },
       "label",
       "Locations",
@@ -18,7 +18,7 @@
           "ValidFrom",
           {
             "@type": "g:Date",
-            "@value": -1
+            "@value": 1546304400000
           }
         ]
       }
