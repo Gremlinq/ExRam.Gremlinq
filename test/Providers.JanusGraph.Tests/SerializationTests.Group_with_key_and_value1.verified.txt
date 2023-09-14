@@ -4,6 +4,12 @@
       OperatorName: V
     },
     {
+      OperatorName: hasLabel,
+      Arguments: [
+        Person
+      ]
+    },
+    {
       OperatorName: group
     },
     {
@@ -24,7 +30,16 @@
         {
           StepInstructions: [
             {
-              OperatorName: out
+              OperatorName: out,
+              Arguments: [
+                LivesIn
+              ]
+            },
+            {
+              OperatorName: hasLabel,
+              Arguments: [
+                Country
+              ]
             }
           ]
         }

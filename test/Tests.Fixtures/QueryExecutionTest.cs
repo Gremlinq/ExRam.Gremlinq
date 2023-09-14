@@ -1264,10 +1264,13 @@ namespace ExRam.Gremlinq.Tests.TestCases
         public virtual async Task Group_with_key_and_value1()
         {
             await _g
-                .V()
+                .V<Person>()
                 .Group(_ => _
-                    .ByKey(_ => _.Label())
-                    .ByValue(_ => _.Out()))
+                    .ByKey(_ => _
+                        .Label())
+                    .ByValue(_ => _
+                        .Out<LivesIn>()
+                        .OfType<Country>()))
                 .Verify();
         }
 

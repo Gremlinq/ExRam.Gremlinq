@@ -1,16 +1,10 @@
 ﻿[
   {
-    Country: [
-      {
-        IetfLanguageTag: en,
-        Id: 32,
-        Label: Language
-      }
-    ],
     Person: [
       {
-        Id: 42,
-        Label: Company
+        CountryCallingCode: +49,
+        Id: 0,
+        Label: Country
       }
     ]
   }

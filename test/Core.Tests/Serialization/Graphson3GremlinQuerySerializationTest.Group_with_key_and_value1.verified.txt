@@ -11,6 +11,10 @@
             "V"
           ],
           [
+            "hasLabel",
+            "Person"
+          ],
+          [
             "group"
           ],
           [
@@ -33,7 +37,12 @@
               "@value": {
                 "step": [
                   [
-                    "out"
+                    "out",
+                    "LivesIn"
+                  ],
+                  [
+                    "hasLabel",
+                    "Country"
                   ]
                 ]
               }
