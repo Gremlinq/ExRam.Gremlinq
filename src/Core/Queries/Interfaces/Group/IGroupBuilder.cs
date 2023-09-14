@@ -3,10 +3,10 @@
     public interface IGroupBuilder<TSourceElement, out TSourceQuery>
         where TSourceQuery : IGremlinQueryBase
     {
-        IGroupBuilderWithKey<TSourceQuery, TKey> ByKey<TKey>(Func<TSourceQuery, IGremlinQueryBase<TKey>> keySelector);
+        IGroupBuilderWithKey<TSourceElement, TSourceQuery, TKey> ByKey<TKey>(Func<TSourceQuery, IGremlinQueryBase<TKey>> keySelector);
     }
 
-    public interface IGroupBuilderWithKey<out TSourceQuery, TKey>
+    public interface IGroupBuilderWithKey<TSourceElement, out TSourceQuery, TKey>
         where TSourceQuery : IGremlinQueryBase
     {
         IGroupBuilderWithKeyAndValue<TKey, TValue> ByValue<TValue>(Func<TSourceQuery, IGremlinQueryBase<TValue>> valueSelector);

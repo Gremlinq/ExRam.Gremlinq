@@ -68,7 +68,7 @@ namespace ExRam.Gremlinq.Core
         IArrayGremlinQuery<TElement[], TElement, <#= iface #>> IGremlinQueryBaseRec<TElement, <#= iface #>>.Fold() => Fold<<#= iface #>>();
 
         IValueGremlinQuery<IDictionary<TNewKey, TNewValue>> IGremlinQueryBaseRec<TElement, <#= iface #>>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<TElement, <#= iface #>>, IGroupBuilderWithKeyAndValue<TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
-        IValueGremlinQuery<IDictionary<TNewKey, object>> IGremlinQueryBaseRec<TElement, <#= iface #>>.Group<TNewKey>(Func<IGroupBuilder<TElement, <#= iface #>>, IGroupBuilderWithKey<<#= iface #>, TNewKey>> groupBuilder) => Group(groupBuilder);
+        IValueGremlinQuery<IDictionary<TNewKey, object>> IGremlinQueryBaseRec<TElement, <#= iface #>>.Group<TNewKey>(Func<IGroupBuilder<TElement, <#= iface #>>, IGroupBuilderWithKey<TElement, <#= iface #>, TNewKey>> groupBuilder) => Group(groupBuilder);
 
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Identity() => Identity();
 
