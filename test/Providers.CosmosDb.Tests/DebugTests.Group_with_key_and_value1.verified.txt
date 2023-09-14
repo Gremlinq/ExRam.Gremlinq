@@ -1,1 +1,1 @@
-﻿g.V().group().by(__.label()).by(__.out())
+﻿g.V().hasLabel('Person').group().by(__.label()).by(__.out('LivesIn').hasLabel('Country'))
