@@ -164,7 +164,7 @@ namespace ExRam.Gremlinq.Core
         new IArrayGremlinQuery<TElement[], TElement, TSelf> ForceArray();
 
         IValueGremlinQuery<IDictionary<TNewKey, TNewValue>> Group<TNewKey, TNewValue>(Func<IGroupBuilder<TElement, TSelf>, IGroupBuilderWithKeyAndValue<TNewKey, TNewValue>> groupBuilder);
-        IValueGremlinQuery<IDictionary<TNewKey, object>> Group<TNewKey>(Func<IGroupBuilder<TElement, TSelf>, IGroupBuilderWithKey<TSelf, TNewKey>> groupBuilder);
+        IValueGremlinQuery<IDictionary<TNewKey, object>> Group<TNewKey>(Func<IGroupBuilder<TElement, TSelf>, IGroupBuilderWithKey<TElement, TSelf, TNewKey>> groupBuilder);
 
         TSelf Inject(params TElement[] elements);
 
