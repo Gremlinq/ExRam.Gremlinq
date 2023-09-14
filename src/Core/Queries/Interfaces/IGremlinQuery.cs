@@ -100,9 +100,6 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery FlatMap<TTargetQuery>(Func<TSelf, TTargetQuery> mapping) where TTargetQuery : IGremlinQueryBase;
 
-        IValueGremlinQuery<IDictionary<TNewKey, TNewValue>> Group<TNewKey, TNewValue>(Func<IGroupBuilder<TSelf>, IGroupBuilderWithKeyAndValue<TNewKey, TNewValue>> groupBuilder);
-        IValueGremlinQuery<IDictionary<TNewKey, object>> Group<TNewKey>(Func<IGroupBuilder<TSelf>, IGroupBuilderWithKey<TSelf, TNewKey>> groupBuilder);
-
         TSelf Identity();
 
         TSelf Limit(long count);
@@ -165,6 +162,9 @@ namespace ExRam.Gremlinq.Core
         IArrayGremlinQuery<TElement[], TElement, TSelf> Fold();
 
         new IArrayGremlinQuery<TElement[], TElement, TSelf> ForceArray();
+
+        IValueGremlinQuery<IDictionary<TNewKey, TNewValue>> Group<TNewKey, TNewValue>(Func<IGroupBuilder<TElement, TSelf>, IGroupBuilderWithKeyAndValue<TNewKey, TNewValue>> groupBuilder);
+        IValueGremlinQuery<IDictionary<TNewKey, object>> Group<TNewKey>(Func<IGroupBuilder<TElement, TSelf>, IGroupBuilderWithKey<TSelf, TNewKey>> groupBuilder);
 
         TSelf Inject(params TElement[] elements);
 
