@@ -22,39 +22,35 @@ namespace ExRam.Gremlinq.Core
                 _continuationBuilder = continuationBuilder;
             }
 
-            IGroupBuilderWithKey<TElement, GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TNewKey> IGroupBuilder<TElement, GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>.ByKey<TNewKey>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase<TNewKey>> keySelector)
+            public IGroupBuilderWithKey<TElement, GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TNewKey> ByKey<TNewKey>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase<TNewKey>> keySelector)
             {
                 return new GroupBuilder<TNewKey, object>(
                     _continuationBuilder
                         .With(keySelector));
             }
 
-            IGroupBuilderWithKeyAndValue<TKey, TNewValue> IGroupBuilderWithKey<TElement, GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TKey>.ByValue<TNewValue>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase<TNewValue>> valueSelector)
+            public IGroupBuilderWithKeyAndValue<TKey, TNewValue> ByValue<TNewValue>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase<TNewValue>> valueSelector)
             {
                 return new GroupBuilder<TKey, TNewValue>(
                     _continuationBuilder
                         .With(valueSelector));
             }
 
-            IValueGremlinQuery<IDictionary<TKey, TElement[]>> IGroupBuilderWithKey<TElement, GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TKey>.Build() => Build<TKey, TElement[]>();
+            IValueGremlinQuery<IDictionary<TKey, TElement[]>> IGroupBuilderWithKey<TElement, GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TKey>.Build() => ByValue(__ => __.Fold<IGremlinQueryBase>()).Build();
 
-            IValueGremlinQuery<IDictionary<TKey, TValue>> IGroupBuilderWithKeyAndValue<TKey, TValue>.Build() => Build<TKey, TValue>();
-
-            private IValueGremlinQuery<IDictionary<TNewKey, TNewValue>> Build<TNewKey, TNewValue>()
+            IValueGremlinQuery<IDictionary<TKey, TValue>> IGroupBuilderWithKeyAndValue<TKey, TValue>.Build()
             {
                 return _continuationBuilder
                     .Build(static (builder, traversals) =>
                     {
                         var keyTraversal = traversals[0];
-                        var maybeValueTraversal = traversals.Length > 1
-                            ? traversals[1]
-                            : default(Traversal?);
+                        var valueTraversal = traversals[1];
 
                         builder = builder
                             .AddStep(GroupStep.Instance)
                             .AddStep(new GroupStep.ByTraversalStep(keyTraversal));
 
-                        if (maybeValueTraversal is { } valueTraversal)
+                        if (valueTraversal is not [FoldStep])
                         {
                             builder = builder
                                 .AddStep(new GroupStep.ByTraversalStep(valueTraversal));
@@ -65,9 +61,9 @@ namespace ExRam.Gremlinq.Core
                                 static (projection, state) => projection
                                     .Group(
                                         state.keyTraversal.Projection,
-                                        state.maybeValueTraversal?.Projection ?? projection),
-                                (keyTraversal, maybeValueTraversal))
-                            .Build<IValueGremlinQuery<IDictionary<TNewKey, TNewValue>>>();
+                                        state.valueTraversal.Projection),
+                                (keyTraversal, valueTraversal))
+                            .Build<IValueGremlinQuery<IDictionary<TKey, TValue>>>();
                     });
             }
         }
