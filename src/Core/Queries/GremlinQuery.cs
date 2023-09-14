@@ -503,8 +503,12 @@ namespace ExRam.Gremlinq.Core
         private IValueGremlinQuery<IDictionary<TKey, TValue>> Group<TKey, TValue>(Func<IGroupBuilder<TElement, GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>, IGroupBuilderWithKeyAndValue<TKey, TValue>> projection) =>
             projection(new GroupBuilder<object, object>(Continue())).Build();
 
-        private IValueGremlinQuery<IDictionary<TKey, TElement[]>> Group<TKey>(Func<IGroupBuilder<TElement, GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>, IGroupBuilderWithKey<TElement, IGremlinQueryBase, TKey>> projection) =>
-            projection(new GroupBuilder<object, object>(Continue())).Build();
+        private IValueGremlinQuery<IDictionary<TKey, TElement[]>> Group<TKey>(Func<IGroupBuilder<TElement, GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>, IGroupBuilderWithKey<TElement, IGremlinQueryBase<TElement>, TKey>> projection) => new GroupBuilder<object, object>(Continue())
+            .Map(projection)
+            .ByValue(__ => __
+                .Cast<TElement>()
+                .Fold())
+            .Build();
 
         private GremlinQuery<object, object, object, object, object, object> Id() => this
             .Continue()

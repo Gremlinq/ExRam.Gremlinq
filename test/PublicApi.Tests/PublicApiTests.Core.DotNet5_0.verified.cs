@@ -595,7 +595,6 @@ namespace ExRam.Gremlinq.Core
     public interface IGroupBuilderWithKey<TSourceElement, out TSourceQuery, TKey>
         where out TSourceQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
     {
-        ExRam.Gremlinq.Core.IValueGremlinQuery<System.Collections.Generic.IDictionary<TKey, TSourceElement[]>> Build();
         ExRam.Gremlinq.Core.IGroupBuilderWithKeyAndValue<TKey, TValue> ByValue<TValue>(System.Func<TSourceQuery, ExRam.Gremlinq.Core.IGremlinQueryBase<TValue>> valueSelector);
     }
     public interface IGroupBuilder<TSourceElement, out TSourceQuery>
