@@ -172,9 +172,6 @@
                       ]
                     },
                     {
-                      OperatorName: unfold
-                    },
-                    {
                       OperatorName: map,
                       Arguments: [
                         {
@@ -298,9 +295,6 @@
                           ]
                         }
                       ]
-                    },
-                    {
-                      OperatorName: fold
                     }
                   ]
                 }

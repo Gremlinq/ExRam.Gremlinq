@@ -6,9 +6,9 @@ namespace ExRam.Gremlinq.Core.Projections
     public sealed class GroupProjection : Projection
     {
         private readonly Projection _keyProjection;
-        private readonly Projection? _valueProjection;
+        private readonly Projection _valueProjection;
 
-        internal GroupProjection(Projection keyProjection, Projection? valueProjection)
+        internal GroupProjection(Projection keyProjection, Projection valueProjection)
         {
             _keyProjection = keyProjection;
             _valueProjection = valueProjection;
@@ -17,17 +17,17 @@ namespace ExRam.Gremlinq.Core.Projections
         public override Traversal ToTraversal(IGremlinQueryEnvironment environment)
         {
             var keyProjectionTraversal = _keyProjection.ToTraversal(environment);
-            var maybeValueProjectionTraversal = _valueProjection?.ToTraversal(environment);
+            var valueProjectionTraversal = _valueProjection.ToTraversal(environment);
 
-            return (keyProjectionTraversal.Count == 0 && (maybeValueProjectionTraversal?.Count).GetValueOrDefault() == 0)
+            return (keyProjectionTraversal.Count == 0 && valueProjectionTraversal.Count == 0)
                 ? Traversal.Empty
                 : new MapStep(Traversal
                     .Create(
                         4,
-                        (keyProjectionTraversal, maybeValueProjectionTraversal),
+                        (keyProjectionTraversal, valueProjectionTraversal),
                         static (steps, state) =>
                         {
-                            var (keyProjectionTraversal, maybeValueProjectionTraversal) = state;
+                            var (keyProjectionTraversal, valueProjectionTraversal) = state;
 
                             steps[0] = UnfoldStep.Instance;
                             steps[1] = GroupStep.Instance;
@@ -44,22 +44,17 @@ namespace ExRam.Gremlinq.Core.Projections
                                             .CopyTo(steps[1..]);
                                     }));
 
-                            steps[3] = maybeValueProjectionTraversal is { } valueProjectionTraversal
-                                ? new GroupStep.ByTraversalStep(Traversal
-                                    .Create(
-                                        valueProjectionTraversal.Count + 3,
-                                        valueProjectionTraversal,
-                                        static (steps, valueProjectionTraversal) =>
-                                        {
-                                            steps[0] = new SelectColumnStep(Column.Values);
-                                            steps[1] = UnfoldStep.Instance;
-                                            
-                                            valueProjectionTraversal.Steps
-                                                .CopyTo(steps[2..]);
+                            steps[3] = new GroupStep.ByTraversalStep(Traversal
+                                .Create(
+                                    valueProjectionTraversal.Count + 1,
+                                    valueProjectionTraversal,
+                                    static (steps, valueProjectionTraversal) =>
+                                    {
+                                        steps[0] = new SelectColumnStep(Column.Values);
 
-                                            steps[^1] = FoldStep.Instance;
-                                        }))
-                                    : new GroupStep.ByTraversalStep(new SelectColumnStep(Column.Values));
+                                        valueProjectionTraversal.Steps
+                                            .CopyTo(steps[1..]);
+                                    }));
                         }));
         }
 

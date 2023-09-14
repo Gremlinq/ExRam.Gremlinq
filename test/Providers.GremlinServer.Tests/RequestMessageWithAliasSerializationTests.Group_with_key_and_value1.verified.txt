@@ -97,9 +97,6 @@
                           ]
                         },
                         {
-                          OperatorName: unfold
-                        },
-                        {
                           OperatorName: project,
                           Arguments: [
                             id,
@@ -208,9 +205,6 @@
                               ]
                             }
                           ]
-                        },
-                        {
-                          OperatorName: fold
                         }
                       ]
                     }
