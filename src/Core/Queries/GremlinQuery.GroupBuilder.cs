@@ -36,7 +36,7 @@ namespace ExRam.Gremlinq.Core
                         .With(valueSelector));
             }
 
-            IValueGremlinQuery<IDictionary<TKey, object>> IGroupBuilderWithKey<TElement, GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TKey>.Build() => Build<TKey, object>();
+            IValueGremlinQuery<IDictionary<TKey, TElement[]>> IGroupBuilderWithKey<TElement, GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TKey>.Build() => Build<TKey, TElement[]>();
 
             IValueGremlinQuery<IDictionary<TKey, TValue>> IGroupBuilderWithKeyAndValue<TKey, TValue>.Build() => Build<TKey, TValue>();
 

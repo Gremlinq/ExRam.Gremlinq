@@ -498,7 +498,7 @@ namespace ExRam.Gremlinq.Core
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
         ExRam.Gremlinq.Core.IArrayGremlinQuery<TElement[], TElement, TSelf> Fold();
         ExRam.Gremlinq.Core.IArrayGremlinQuery<TElement[], TElement, TSelf> ForceArray();
-        ExRam.Gremlinq.Core.IValueGremlinQuery<System.Collections.Generic.IDictionary<TNewKey, object>> Group<TNewKey>(System.Func<ExRam.Gremlinq.Core.IGroupBuilder<TElement, TSelf>, ExRam.Gremlinq.Core.IGroupBuilderWithKey<TElement, TSelf, TNewKey>> groupBuilder);
+        ExRam.Gremlinq.Core.IValueGremlinQuery<System.Collections.Generic.IDictionary<TNewKey, TElement[]>> Group<TNewKey>(System.Func<ExRam.Gremlinq.Core.IGroupBuilder<TElement, TSelf>, ExRam.Gremlinq.Core.IGroupBuilderWithKey<TElement, TSelf, TNewKey>> groupBuilder);
         ExRam.Gremlinq.Core.IValueGremlinQuery<System.Collections.Generic.IDictionary<TNewKey, TNewValue>> Group<TNewKey, TNewValue>(System.Func<ExRam.Gremlinq.Core.IGroupBuilder<TElement, TSelf>, ExRam.Gremlinq.Core.IGroupBuilderWithKeyAndValue<TNewKey, TNewValue>> groupBuilder);
         TSelf Inject(params TElement[] elements);
         TSelf Order(System.Func<ExRam.Gremlinq.Core.IOrderBuilder<TElement, TSelf>, ExRam.Gremlinq.Core.IOrderBuilderWithBy<TElement, TSelf>> projection);
@@ -595,7 +595,7 @@ namespace ExRam.Gremlinq.Core
     public interface IGroupBuilderWithKey<TSourceElement, out TSourceQuery, TKey>
         where out TSourceQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
     {
-        ExRam.Gremlinq.Core.IValueGremlinQuery<System.Collections.Generic.IDictionary<TKey, object>> Build();
+        ExRam.Gremlinq.Core.IValueGremlinQuery<System.Collections.Generic.IDictionary<TKey, TSourceElement[]>> Build();
         ExRam.Gremlinq.Core.IGroupBuilderWithKeyAndValue<TKey, TValue> ByValue<TValue>(System.Func<TSourceQuery, ExRam.Gremlinq.Core.IGremlinQueryBase<TValue>> valueSelector);
     }
     public interface IGroupBuilder<TSourceElement, out TSourceQuery>

@@ -11,7 +11,7 @@
     {
         IGroupBuilderWithKeyAndValue<TKey, TValue> ByValue<TValue>(Func<TSourceQuery, IGremlinQueryBase<TValue>> valueSelector);
 
-        IValueGremlinQuery<IDictionary<TKey, object>> Build();
+        IValueGremlinQuery<IDictionary<TKey, TSourceElement[]>> Build();
     }
 
     public interface IGroupBuilderWithKeyAndValue<TKey, TValue>
