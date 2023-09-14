@@ -1,12 +1,9 @@
 ﻿[
   {
-    Country: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Language
-    },
     Person: {
+      CountryCallingCode: +49,
       Id: 00000000-0000-0000-0000-000000000000,
-      Label: Company
+      Label: Country
     }
   }
 ]
