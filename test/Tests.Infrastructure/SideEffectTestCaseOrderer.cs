@@ -27,12 +27,17 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             return testCases
                 .Where(testCase =>
                 {
-                    return (testCase.TestMethod.TestClass.Class.Name is { } className && className.EndsWith(".IntegrationTests"))
-                        ? Environment.Version.Major == 7 && Environment.GetEnvironmentVariable($"Run{className.Split('.')[^3]}IntegrationTests") is { } env && bool.TryParse(env, out var enabled) && enabled
-                        : true;
+                    if (testCase.Traits.TryGetValue("Category", out var categories) && categories.Contains("IntegrationTest"))
+                    {
+                        if (testCase.DisplayName.Split('.') is [.., { } providerName, _, _, _])
+                            return Environment.Version.Major == 7 && Environment.GetEnvironmentVariable($"Run{providerName}IntegrationTests") is { } env && bool.TryParse(env, out var enabled) && enabled;
+                    }
+
+                    return true;
                 })
                 .OrderBy(x => x, TestCaseComparer<TTestCase>.Instance)
                 .ThenBy(x => x!.TestMethod.Method.Name, StringComparer.OrdinalIgnoreCase);
         }
+
     }
 }
