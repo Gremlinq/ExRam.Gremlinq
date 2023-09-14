@@ -4,6 +4,7 @@ using ExRam.Gremlinq.Tests.TestCases;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
+    [IntegrationTest]
     public sealed class IntegrationTests : QueryExecutionTest, IClassFixture<CosmosDbEmulatorFixture>
     {
         public IntegrationTests(CosmosDbEmulatorFixture fixture, ITestOutputHelper testOutputHelper) : base(

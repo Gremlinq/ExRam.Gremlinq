@@ -6,6 +6,7 @@ using FluentAssertions;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
+    [IntegrationTest]
     public sealed class IntegrationTests : QueryExecutionTest, IClassFixture<GremlinServerContainerFixture>
     {
         public IntegrationTests(GremlinServerContainerFixture fixture, ITestOutputHelper testOutputHelper) : base(
