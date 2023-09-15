@@ -1251,6 +1251,15 @@ namespace ExRam.Gremlinq.Tests.TestCases
         }
 
         [Fact]
+        public virtual async Task Group()
+        {
+            await _g
+                .V<Person>()
+                .Group()
+                .Verify();
+        }
+
+        [Fact]
         public virtual async Task Group_with_key()
         {
             await _g
