@@ -528,6 +528,7 @@ namespace ExRam.Gremlinq.Core
         ExRam.Gremlinq.Core.IVertexPropertyGremlinQuery<TElement, TValue> ForceVertexProperty<TValue>();
         ExRam.Gremlinq.Core.IVertexPropertyGremlinQuery<TElement, TValue, TMeta> ForceVertexProperty<TValue, TMeta>();
         ExRam.Gremlinq.Core.GremlinQueryAwaiter<TElement> GetAwaiter();
+        ExRam.Gremlinq.Core.IValueGremlinQuery<System.Collections.Generic.IDictionary<TElement, TElement[]>> Group();
         ExRam.Gremlinq.Core.IGremlinQuery<TElement> Lower();
         System.Collections.Generic.IAsyncEnumerable<TElement> ToAsyncEnumerable();
     }

@@ -54,6 +54,8 @@ namespace ExRam.Gremlinq.Core
     {
         new GremlinQueryAwaiter<TElement> GetAwaiter();
 
+        IValueGremlinQuery<IDictionary<TElement, TElement[]>> Group();
+
         IGremlinQuery<TElement> ForceBase();
         IEdgeGremlinQuery<TElement> ForceEdge();
         IValueGremlinQuery<TElement> ForceValue();
