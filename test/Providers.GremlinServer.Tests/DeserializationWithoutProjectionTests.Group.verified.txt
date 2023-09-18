@@ -4,18 +4,6 @@
       {
         RegistrationDate: 2020-04-07 14:43:36 +0,
         Name: {
-          Id: 39,
-          Label: Name,
-          Value: Bob
-        },
-        Id: 37,
-        Label: Person
-      }
-    ],
-    ExRam.Gremlinq.Tests.Entities.Person: [
-      {
-        RegistrationDate: 2020-04-07 14:43:36 +0,
-        Name: {
           Id: 65,
           Label: Name,
           Value: Marko
@@ -26,19 +14,19 @@
     ],
     ExRam.Gremlinq.Tests.Entities.Person: [
       {
-        RegistrationDate: 2020-04-07 14:43:36 +0,
-        Name: {
-          Id: 12,
-          Label: Name,
-          Value: Bob
-        },
-        Id: 10,
+        Id: 19,
         Label: Person
       }
     ],
     ExRam.Gremlinq.Tests.Entities.Person: [
       {
-        Id: 19,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 39,
+          Label: Name,
+          Value: Bob
+        },
+        Id: 37,
         Label: Person
       }
     ],
@@ -56,14 +44,13 @@
     ],
     ExRam.Gremlinq.Tests.Entities.Person: [
       {
-        Id: 15,
-        Label: Person
-      }
-    ],
-    ExRam.Gremlinq.Tests.Entities.Person: [
-      {
-        Gender: Female,
-        Id: 61,
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 12,
+          Label: Name,
+          Value: Bob
+        },
+        Id: 10,
         Label: Person
       }
     ],
@@ -76,13 +63,26 @@
     ],
     ExRam.Gremlinq.Tests.Entities.Person: [
       {
+        Id: 44,
+        Label: Person
+      }
+    ],
+    ExRam.Gremlinq.Tests.Entities.Person: [
+      {
         Id: 29,
         Label: Person
       }
     ],
     ExRam.Gremlinq.Tests.Entities.Person: [
       {
-        Id: 44,
+        Gender: Female,
+        Id: 61,
+        Label: Person
+      }
+    ],
+    ExRam.Gremlinq.Tests.Entities.Person: [
+      {
+        Id: 15,
         Label: Person
       }
     ]
