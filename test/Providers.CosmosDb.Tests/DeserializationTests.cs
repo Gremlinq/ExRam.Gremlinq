@@ -18,5 +18,11 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         {
             return base.Choose_Predicate2();
         }
+
+        [Fact(Skip = "CosmosDb maps from id to vertices instead of identity vertex to vertices.")]
+        public override Task Group()
+        {
+            return base.Group();
+        }
     }
 }
