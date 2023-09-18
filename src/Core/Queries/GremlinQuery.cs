@@ -695,7 +695,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> None() => this
             .Continue()
-            .Build(static builder => builder.OuterQuery.IsIdentity()
+            .Build(static builder => builder.OuterQuery.Steps.IsIdentity()
                 ? builder
                     .WithSteps(Traversal.Empty.Push(NoneStep.Instance))
                     .Build()

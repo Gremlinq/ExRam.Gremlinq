@@ -35,12 +35,5 @@ namespace ExRam.Gremlinq.Core
 
         internal static Traversal ToTraversal(this IGremlinQueryBase query) => query
             .AsAdmin().Steps;
-
-        internal static bool IsNone(this IGremlinQueryBase query) => query
-            .AsAdmin().Steps
-            .PeekOrDefault() is NoneStep;
-
-        internal static bool IsIdentity(this IGremlinQueryBase query) => query
-            .AsAdmin().Steps.Steps.IsEmpty;
     }
 }
