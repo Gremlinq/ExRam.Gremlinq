@@ -43,20 +43,21 @@ namespace ExRam.Gremlinq.Core
                     {
                         var keyTraversal = traversals[0];
                         var valueTraversal = traversals[1];
+                        var valueTraversalIsSingleFoldStep = valueTraversal is [FoldStep];
 
                         builder = builder
                             .AddStep(GroupStep.Instance);
 
-                        if (!keyTraversal.IsIdentity() || valueTraversal is not [FoldStep])
+                        if (!keyTraversal.IsIdentity() || !valueTraversalIsSingleFoldStep)
                         {
                             builder = builder
                                 .AddStep(new GroupStep.ByTraversalStep(keyTraversal));
-                        }
 
-                        if (valueTraversal is not [FoldStep])
-                        {
-                            builder = builder
-                                .AddStep(new GroupStep.ByTraversalStep(valueTraversal));
+                            if (!valueTraversalIsSingleFoldStep)
+                            {
+                                builder = builder
+                                    .AddStep(new GroupStep.ByTraversalStep(valueTraversal));
+                            }
                         }
 
                         return builder
