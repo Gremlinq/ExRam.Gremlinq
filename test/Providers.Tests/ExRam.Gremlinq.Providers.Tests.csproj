@@ -5,4 +5,8 @@
     <None Remove="*.received.json" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PublicApi.Tests\ExRam.Gremlinq.PublicApi.Tests.csproj" />
+  </ItemGroup>
+
 </Project>

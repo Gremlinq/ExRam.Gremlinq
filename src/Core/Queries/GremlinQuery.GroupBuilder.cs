@@ -45,8 +45,13 @@ namespace ExRam.Gremlinq.Core
                         var valueTraversal = traversals[1];
 
                         builder = builder
-                            .AddStep(GroupStep.Instance)
-                            .AddStep(new GroupStep.ByTraversalStep(keyTraversal));
+                            .AddStep(GroupStep.Instance);
+
+                        if (!keyTraversal.IsIdentity() || valueTraversal is not [FoldStep])
+                        {
+                            builder = builder
+                                .AddStep(new GroupStep.ByTraversalStep(keyTraversal));
+                        }
 
                         if (valueTraversal is not [FoldStep])
                         {

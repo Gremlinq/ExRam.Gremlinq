@@ -9,6 +9,6 @@
     bindings: {
       _a: Person
     },
-    gremlin: g.V().hasLabel(_a).group().by(__.identity())
+    gremlin: g.V().hasLabel(_a).group()
   }
 }

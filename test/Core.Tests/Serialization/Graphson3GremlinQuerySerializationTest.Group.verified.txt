@@ -18,19 +18,6 @@
             "group"
           ],
           [
-            "by",
-            {
-              "@type": "g:Bytecode",
-              "@value": {
-                "step": [
-                  [
-                    "identity"
-                  ]
-                ]
-              }
-            }
-          ],
-          [
             "map",
             {
               "@type": "g:Bytecode",

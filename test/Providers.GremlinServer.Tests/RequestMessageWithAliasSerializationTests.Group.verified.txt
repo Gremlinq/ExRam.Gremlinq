@@ -21,18 +21,6 @@
           OperatorName: group
         },
         {
-          OperatorName: by,
-          Arguments: [
-            {
-              StepInstructions: [
-                {
-                  OperatorName: identity
-                }
-              ]
-            }
-          ]
-        },
-        {
           OperatorName: map,
           Arguments: [
             {
