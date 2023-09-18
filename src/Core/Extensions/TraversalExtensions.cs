@@ -184,7 +184,7 @@ namespace ExRam.Gremlinq.Core
             return traversals;
         }
 
-        public static bool IsIdentity(this Traversal traversal) => traversal.Count == 0 || traversal is [IdentityStep];
+        public static bool IsIdentity(this Traversal traversal) => traversal.Count == 0 || (traversal is [IdentityStep, .. var remainder] && remainder.IsIdentity());
 
         public static bool IsNone(this Traversal traversal) => traversal.PeekOrDefault() is NoneStep;
 
