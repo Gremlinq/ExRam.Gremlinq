@@ -1,1 +1,1 @@
-﻿
+﻿[assembly: CollectionBehavior(DisableTestParallelization = true)]
