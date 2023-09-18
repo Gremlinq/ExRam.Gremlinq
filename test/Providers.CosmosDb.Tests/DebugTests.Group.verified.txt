@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Person').group().by(__.identity())
+﻿g.V().hasLabel('Person').group()

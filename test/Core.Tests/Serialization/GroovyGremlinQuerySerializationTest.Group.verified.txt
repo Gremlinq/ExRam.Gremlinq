@@ -1,5 +1,5 @@
 ﻿{
-  Script: g.V().hasLabel(_a).group().by(__.identity()).map(__.unfold().group().by(__.select(keys).project(_b,_c,_d).by(id).by(label).by(__.properties().group().by(label).by(__.project(_b,_c,_e,_d).by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.select(values).map(__.unfold().project(_b,_c,_d).by(id).by(label).by(__.properties().group().by(label).by(__.project(_b,_c,_e,_d).by(id).by(label).by(value).by(__.valueMap()).fold())).fold()))),
+  Script: g.V().hasLabel(_a).group().map(__.unfold().group().by(__.select(keys).project(_b,_c,_d).by(id).by(label).by(__.properties().group().by(label).by(__.project(_b,_c,_e,_d).by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.select(values).map(__.unfold().project(_b,_c,_d).by(id).by(label).by(__.properties().group().by(label).by(__.project(_b,_c,_e,_d).by(id).by(label).by(value).by(__.valueMap()).fold())).fold()))),
   Bindings: {
     _a: Person,
     _b: id,

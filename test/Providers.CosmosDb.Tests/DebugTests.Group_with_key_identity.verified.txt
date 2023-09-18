@@ -1,1 +1,1 @@
-﻿g.V().group().by(__.identity())
+﻿g.V().group()
