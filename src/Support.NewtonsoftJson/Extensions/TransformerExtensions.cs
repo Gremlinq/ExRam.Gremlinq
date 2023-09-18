@@ -117,7 +117,7 @@ namespace ExRam.Gremlinq.Core
                 .Add(new LabelLookupConverterFactory())
 
                 .Add(new TypedValueConverterFactory())
-                .Add(new MapConverterFactory())
+                .Add(new MapDeferralConverterFactory())
                 .Add(new MapToDictionaryConverterFactory())
                 .Add(new BulkSetConverterFactory())
                 .Add(new EnumerableConverterFactory())
