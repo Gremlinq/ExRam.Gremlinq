@@ -118,6 +118,7 @@ namespace ExRam.Gremlinq.Core
 
                 .Add(new TypedValueConverterFactory())
                 .Add(new MapConverterFactory())
+                .Add(new MapToDictionaryConverterFactory())
                 .Add(new BulkSetConverterFactory())
                 .Add(new EnumerableConverterFactory())
                 .Add(new NullableConverterFactory())
