@@ -3,15 +3,11 @@
   "op": "eval",
   "processor": "",
   "args": {
-    "gremlin": "g.V().hasLabel(_a).as(_b).V().hasLabel(_a).where(gte(_b)).by(_c).project(_d,_e,_f).by(id).by(label).by(__.properties().group().by(label).by(__.project(_d,_e,_g,_f).by(id).by(label).by(value).by(__.valueMap()).fold()))",
+    "gremlin": "g.V().hasLabel(_a).order().by(_b,asc).as(_c).map(__.V().hasLabel(_a).where(gte(_c)).by(_b).order().by(_b,asc).values(_b).fold())",
     "bindings": {
       "_a": "Person",
-      "_b": "_a",
-      "_c": "Age",
-      "_d": "id",
-      "_e": "label",
-      "_f": "properties",
-      "_g": "value"
+      "_b": "Age",
+      "_c": "_a"
     },
     "aliases": {
       "g": "g"

@@ -4062,12 +4062,13 @@ namespace ExRam.Gremlinq.Tests.TestCases
 
         [Fact]
         public virtual Task Where_property_equals_stepLabel() => _g
+            .Inject("en")
+            .As((__, l) => __
                 .V<Language>()
-                .Values(x => x.IetfLanguageTag)
-                .As((__, l) => __
-                    .V<Language>()
-                    .Where(l2 => l2.IetfLanguageTag == l.Value))
-                .Verify();
+                .Where(l2 => l2.IetfLanguageTag == l.Value)
+                .Order(b => b
+                    .By(x => x.Id)))
+            .Verify();
 
         [Fact]
         public virtual Task Where_property_equals_string() => _g
@@ -4170,21 +4171,30 @@ namespace ExRam.Gremlinq.Tests.TestCases
             .Where(t => t.Age > 36)
             .Verify();
 
+        //TODO: Add Persons with different ages.
         [Fact]
         public virtual Task Where_property_is_greater_than_or_equal_stepLabel() => _g
-            .V<Person>()
-            .Values(x => x.Age)
+            .Inject(20)
             .As((__, a) => __
                 .V<Person>()
-                .Where(l2 => l2.Age >= a.Value))
+                .Where(l2 => l2.Age >= a.Value)
+                .Values(x => x.Age))
             .Verify();
 
+        //TODO: Add Persons with different ages.
         [Fact]
         public virtual Task Where_property_is_greater_than_or_equal_stepLabel_value() => _g
             .V<Person>()
+            .Order(b => b
+                .By(x => x.Age))
             .As((__, person1) => __
-                .V<Person>()
-                .Where(person2 => person2.Age >= person1.Value.Age))
+                .Map(__ => __
+                    .V<Person>()
+                    .Where(person2 => person2.Age >= person1.Value.Age)
+                    .Order(b => b
+                        .By(x => x.Age))
+                    .Values(x => x.Age)
+                    .Fold()))
             .Verify();
 
         [Fact]
@@ -4208,13 +4218,14 @@ namespace ExRam.Gremlinq.Tests.TestCases
             .Where(t => t.Age < 36)
             .Verify();
 
+        //TODO: Add Persons with different ages.
         [Fact]
         public virtual Task Where_property_is_lower_than_or_equal_stepLabel() => _g
-            .V<Person>()
-            .Values(x => x.Age)
+            .Inject(36)
             .As((__, a) => __
                 .V<Person>()
-                .Where(l2 => l2.Age <= a.Value))
+                .Where(l2 => l2.Age <= a.Value)
+                .Values(x => x.Age))
             .Verify();
 
         [Fact]

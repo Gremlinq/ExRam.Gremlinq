@@ -8,9 +8,9 @@
     },
     bindings: {
       _a: Person,
-      _b: _a,
-      _c: Age
+      _b: Age,
+      _c: _a
     },
-    gremlin: g.V().hasLabel(_a).as(_b).V().hasLabel(_a).where(gte(_b)).by(_c)
+    gremlin: g.V().hasLabel(_a).order().by(_b,incr).as(_c).map(__.V().hasLabel(_a).where(gte(_c)).by(_b).order().by(_b,incr).values(_b).fold())
   }
 }

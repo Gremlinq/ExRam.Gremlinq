@@ -8,15 +8,8 @@
       "@value": {
         "step": [
           [
-            "V"
-          ],
-          [
-            "hasLabel",
-            "Language"
-          ],
-          [
-            "values",
-            "IetfLanguageTag"
+            "inject",
+            "en"
           ],
           [
             "as",
@@ -48,6 +41,20 @@
                   ]
                 ]
               }
+            }
+          ],
+          [
+            "order"
+          ],
+          [
+            "by",
+            {
+              "@type": "g:T",
+              "@value": "id"
+            },
+            {
+              "@type": "g:Order",
+              "@value": "asc"
             }
           ],
           [

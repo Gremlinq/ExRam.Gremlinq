@@ -15,122 +15,64 @@
             "Person"
           ],
           [
+            "order"
+          ],
+          [
+            "by",
+            "Age",
+            {
+              "@type": "g:Order",
+              "@value": "asc"
+            }
+          ],
+          [
             "as",
             "_a"
           ],
           [
-            "V"
-          ],
-          [
-            "hasLabel",
-            "Person"
-          ],
-          [
-            "where",
-            {
-              "@type": "g:P",
-              "@value": {
-                "predicate": "gte",
-                "value": "_a"
-              }
-            }
-          ],
-          [
-            "by",
-            "Age"
-          ],
-          [
-            "project",
-            "id",
-            "label",
-            "properties"
-          ],
-          [
-            "by",
-            {
-              "@type": "g:T",
-              "@value": "id"
-            }
-          ],
-          [
-            "by",
-            {
-              "@type": "g:T",
-              "@value": "label"
-            }
-          ],
-          [
-            "by",
+            "map",
             {
               "@type": "g:Bytecode",
               "@value": {
                 "step": [
                   [
-                    "properties"
+                    "V"
                   ],
                   [
-                    "group"
+                    "hasLabel",
+                    "Person"
                   ],
                   [
-                    "by",
+                    "where",
                     {
-                      "@type": "g:T",
-                      "@value": "label"
-                    }
-                  ],
-                  [
-                    "by",
-                    {
-                      "@type": "g:Bytecode",
+                      "@type": "g:P",
                       "@value": {
-                        "step": [
-                          [
-                            "project",
-                            "id",
-                            "label",
-                            "value",
-                            "properties"
-                          ],
-                          [
-                            "by",
-                            {
-                              "@type": "g:T",
-                              "@value": "id"
-                            }
-                          ],
-                          [
-                            "by",
-                            {
-                              "@type": "g:T",
-                              "@value": "label"
-                            }
-                          ],
-                          [
-                            "by",
-                            {
-                              "@type": "g:T",
-                              "@value": "value"
-                            }
-                          ],
-                          [
-                            "by",
-                            {
-                              "@type": "g:Bytecode",
-                              "@value": {
-                                "step": [
-                                  [
-                                    "valueMap"
-                                  ]
-                                ]
-                              }
-                            }
-                          ],
-                          [
-                            "fold"
-                          ]
-                        ]
+                        "predicate": "gte",
+                        "value": "_a"
                       }
                     }
+                  ],
+                  [
+                    "by",
+                    "Age"
+                  ],
+                  [
+                    "order"
+                  ],
+                  [
+                    "by",
+                    "Age",
+                    {
+                      "@type": "g:Order",
+                      "@value": "asc"
+                    }
+                  ],
+                  [
+                    "values",
+                    "Age"
+                  ],
+                  [
+                    "fold"
                   ]
                 ]
               }

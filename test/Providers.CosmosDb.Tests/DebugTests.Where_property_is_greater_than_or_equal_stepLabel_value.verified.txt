@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Person').as('_a').V().hasLabel('Person').where(gte('_a')).by('Age')
+﻿g.V().hasLabel('Person').order().by('Age',incr).as('_a').map(__.V().hasLabel('Person').where(gte('_a')).by('Age').order().by('Age',incr).values('Age').fold())
