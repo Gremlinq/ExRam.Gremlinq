@@ -7,10 +7,11 @@
       g: g
     },
     bindings: {
-      _a: Language,
-      _b: IetfLanguageTag,
-      _c: _a
+      _a: en,
+      _b: _a,
+      _c: Language,
+      _d: IetfLanguageTag
     },
-    gremlin: g.V().hasLabel(_a).values(_b).as(_c).V().hasLabel(_a).has(_b,__.where(eq(_c)))
+    gremlin: g.inject(_a).as(_b).V().hasLabel(_c).has(_d,__.where(eq(_b))).order().by(id,incr)
   }
 }

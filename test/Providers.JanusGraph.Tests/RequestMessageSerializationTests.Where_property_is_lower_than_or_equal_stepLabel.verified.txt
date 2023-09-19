@@ -9,18 +9,9 @@
     gremlin: {
       StepInstructions: [
         {
-          OperatorName: V
-        },
-        {
-          OperatorName: hasLabel,
+          OperatorName: inject,
           Arguments: [
-            Person
-          ]
-        },
-        {
-          OperatorName: values,
-          Arguments: [
-            Age
+            36
           ]
         },
         {
@@ -58,100 +49,9 @@
           ]
         },
         {
-          OperatorName: project,
+          OperatorName: values,
           Arguments: [
-            id,
-            label,
-            properties
-          ]
-        },
-        {
-          OperatorName: by,
-          Arguments: [
-            {
-              EnumName: T,
-              EnumValue: id
-            }
-          ]
-        },
-        {
-          OperatorName: by,
-          Arguments: [
-            {
-              EnumName: T,
-              EnumValue: label
-            }
-          ]
-        },
-        {
-          OperatorName: by,
-          Arguments: [
-            {
-              StepInstructions: [
-                {
-                  OperatorName: properties
-                },
-                {
-                  OperatorName: group
-                },
-                {
-                  OperatorName: by,
-                  Arguments: [
-                    {
-                      EnumName: T,
-                      EnumValue: label
-                    }
-                  ]
-                },
-                {
-                  OperatorName: by,
-                  Arguments: [
-                    {
-                      StepInstructions: [
-                        {
-                          OperatorName: project,
-                          Arguments: [
-                            id,
-                            label,
-                            value
-                          ]
-                        },
-                        {
-                          OperatorName: by,
-                          Arguments: [
-                            {
-                              EnumName: T,
-                              EnumValue: id
-                            }
-                          ]
-                        },
-                        {
-                          OperatorName: by,
-                          Arguments: [
-                            {
-                              EnumName: T,
-                              EnumValue: label
-                            }
-                          ]
-                        },
-                        {
-                          OperatorName: by,
-                          Arguments: [
-                            {
-                              EnumName: T,
-                              EnumValue: value
-                            }
-                          ]
-                        },
-                        {
-                          OperatorName: fold
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
+            Age
           ]
         }
       ]

@@ -9,18 +9,9 @@
     gremlin: {
       StepInstructions: [
         {
-          OperatorName: V
-        },
-        {
-          OperatorName: hasLabel,
+          OperatorName: inject,
           Arguments: [
-            Language
-          ]
-        },
-        {
-          OperatorName: values,
-          Arguments: [
-            IetfLanguageTag
+            en
           ]
         },
         {
@@ -54,6 +45,22 @@
                   ]
                 }
               ]
+            }
+          ]
+        },
+        {
+          OperatorName: order
+        },
+        {
+          OperatorName: by,
+          Arguments: [
+            {
+              EnumName: T,
+              EnumValue: id
+            },
+            {
+              EnumName: Order,
+              EnumValue: asc
             }
           ]
         },

@@ -26,127 +26,74 @@
       ]
     },
     {
+      OperatorName: order
+    },
+    {
+      OperatorName: by,
+      Arguments: [
+        Age,
+        {
+          EnumName: Order,
+          EnumValue: asc
+        }
+      ]
+    },
+    {
       OperatorName: as,
       Arguments: [
         _c
       ]
     },
     {
-      OperatorName: V
-    },
-    {
-      OperatorName: hasLabel,
-      Arguments: [
-        Person
-      ]
-    },
-    {
-      OperatorName: where,
-      Arguments: [
-        {
-          OperatorName: gte,
-          Value: _c
-        }
-      ]
-    },
-    {
-      OperatorName: by,
-      Arguments: [
-        Age
-      ]
-    },
-    {
-      OperatorName: project,
-      Arguments: [
-        id,
-        label,
-        properties
-      ]
-    },
-    {
-      OperatorName: by,
-      Arguments: [
-        {
-          EnumName: T,
-          EnumValue: id
-        }
-      ]
-    },
-    {
-      OperatorName: by,
-      Arguments: [
-        {
-          EnumName: T,
-          EnumValue: label
-        }
-      ]
-    },
-    {
-      OperatorName: by,
+      OperatorName: map,
       Arguments: [
         {
           StepInstructions: [
             {
-              OperatorName: properties
+              OperatorName: V
             },
             {
-              OperatorName: group
+              OperatorName: hasLabel,
+              Arguments: [
+                Person
+              ]
             },
             {
-              OperatorName: by,
+              OperatorName: where,
               Arguments: [
                 {
-                  EnumName: T,
-                  EnumValue: label
+                  OperatorName: gte,
+                  Value: _c
                 }
               ]
             },
             {
               OperatorName: by,
               Arguments: [
+                Age
+              ]
+            },
+            {
+              OperatorName: order
+            },
+            {
+              OperatorName: by,
+              Arguments: [
+                Age,
                 {
-                  StepInstructions: [
-                    {
-                      OperatorName: project,
-                      Arguments: [
-                        id,
-                        label,
-                        value
-                      ]
-                    },
-                    {
-                      OperatorName: by,
-                      Arguments: [
-                        {
-                          EnumName: T,
-                          EnumValue: id
-                        }
-                      ]
-                    },
-                    {
-                      OperatorName: by,
-                      Arguments: [
-                        {
-                          EnumName: T,
-                          EnumValue: label
-                        }
-                      ]
-                    },
-                    {
-                      OperatorName: by,
-                      Arguments: [
-                        {
-                          EnumName: T,
-                          EnumValue: value
-                        }
-                      ]
-                    },
-                    {
-                      OperatorName: fold
-                    }
-                  ]
+                  EnumName: Order,
+                  EnumValue: asc
                 }
               ]
+            },
+            {
+              OperatorName: values,
+              Arguments: [
+                Age
+              ]
+            },
+            {
+              OperatorName: fold
             }
           ]
         }

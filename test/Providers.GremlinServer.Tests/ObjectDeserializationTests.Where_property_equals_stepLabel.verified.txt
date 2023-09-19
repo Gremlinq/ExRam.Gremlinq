@@ -6,112 +6,7 @@
   },
   {
     IetfLanguageTag: en,
-    Id: 2,
-    Label: Language
-  },
-  {
-    IetfLanguageTag: en,
-    Id: 2,
-    Label: Language
-  },
-  {
-    IetfLanguageTag: en,
-    Id: 2,
-    Label: Language
-  },
-  {
-    IetfLanguageTag: en,
-    Id: 2,
-    Label: Language
-  },
-  {
-    IetfLanguageTag: en,
-    Id: 2,
-    Label: Language
-  },
-  {
-    IetfLanguageTag: en,
-    Id: 67,
-    Label: Language
-  },
-  {
-    IetfLanguageTag: en,
-    Id: 67,
-    Label: Language
-  },
-  {
-    IetfLanguageTag: en,
-    Id: 67,
-    Label: Language
-  },
-  {
-    IetfLanguageTag: en,
-    Id: 67,
-    Label: Language
-  },
-  {
-    IetfLanguageTag: en,
-    Id: 67,
-    Label: Language
-  },
-  {
-    IetfLanguageTag: en,
-    Id: 67,
-    Label: Language
-  },
-  {
-    IetfLanguageTag: en,
     Id: 32,
-    Label: Language
-  },
-  {
-    IetfLanguageTag: en,
-    Id: 32,
-    Label: Language
-  },
-  {
-    IetfLanguageTag: en,
-    Id: 32,
-    Label: Language
-  },
-  {
-    IetfLanguageTag: en,
-    Id: 32,
-    Label: Language
-  },
-  {
-    IetfLanguageTag: en,
-    Id: 32,
-    Label: Language
-  },
-  {
-    IetfLanguageTag: en,
-    Id: 32,
-    Label: Language
-  },
-  {
-    IetfLanguageTag: en,
-    Id: 47,
-    Label: Language
-  },
-  {
-    IetfLanguageTag: en,
-    Id: 47,
-    Label: Language
-  },
-  {
-    IetfLanguageTag: en,
-    Id: 47,
-    Label: Language
-  },
-  {
-    IetfLanguageTag: en,
-    Id: 47,
-    Label: Language
-  },
-  {
-    IetfLanguageTag: en,
-    Id: 47,
     Label: Language
   },
   {
@@ -126,57 +21,12 @@
   },
   {
     IetfLanguageTag: en,
-    Id: 54,
-    Label: Language
-  },
-  {
-    IetfLanguageTag: en,
-    Id: 54,
-    Label: Language
-  },
-  {
-    IetfLanguageTag: en,
-    Id: 54,
-    Label: Language
-  },
-  {
-    IetfLanguageTag: en,
-    Id: 54,
-    Label: Language
-  },
-  {
-    IetfLanguageTag: en,
-    Id: 54,
-    Label: Language
-  },
-  {
-    IetfLanguageTag: en,
     Id: 56,
     Label: Language
   },
   {
     IetfLanguageTag: en,
-    Id: 56,
-    Label: Language
-  },
-  {
-    IetfLanguageTag: en,
-    Id: 56,
-    Label: Language
-  },
-  {
-    IetfLanguageTag: en,
-    Id: 56,
-    Label: Language
-  },
-  {
-    IetfLanguageTag: en,
-    Id: 56,
-    Label: Language
-  },
-  {
-    IetfLanguageTag: en,
-    Id: 56,
+    Id: 67,
     Label: Language
   }
 ]

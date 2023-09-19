@@ -3,15 +3,16 @@
   "op": "eval",
   "processor": "",
   "args": {
-    "gremlin": "g.V().hasLabel(_a).values(_b).as(_c).V().hasLabel(_a).has(_b,__.where(eq(_c))).project(_d,_e,_f).by(id).by(label).by(__.properties().group().by(label).by(__.project(_d,_e,_g,_f).by(id).by(label).by(value).by(__.valueMap()).fold()))",
+    "gremlin": "g.inject(_a).as(_b).V().hasLabel(_c).has(_d,__.where(eq(_b))).order().by(id,asc).project(_e,_f,_g).by(id).by(label).by(__.properties().group().by(label).by(__.project(_e,_f,_h,_g).by(id).by(label).by(value).by(__.valueMap()).fold()))",
     "bindings": {
-      "_a": "Language",
-      "_b": "IetfLanguageTag",
-      "_c": "_a",
-      "_d": "id",
-      "_e": "label",
-      "_f": "properties",
-      "_g": "value"
+      "_a": "en",
+      "_b": "_a",
+      "_c": "Language",
+      "_d": "IetfLanguageTag",
+      "_e": "id",
+      "_f": "label",
+      "_g": "properties",
+      "_h": "value"
     },
     "aliases": {
       "g": "g"
