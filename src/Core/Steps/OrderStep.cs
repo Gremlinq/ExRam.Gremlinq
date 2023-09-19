@@ -11,16 +11,6 @@ namespace ExRam.Gremlinq.Core.Steps
             }
         }
 
-        public sealed class ByLambdaStep : ByStep
-        {
-            public ByLambdaStep(ILambda lambda) : base(SideEffectSemanticsChange.Write)
-            {
-                Lambda = lambda;
-            }
-
-            public ILambda Lambda { get; }
-        }
-
         public sealed class ByMemberStep : ByStep
         {
             public ByMemberStep(Key key, Order order)

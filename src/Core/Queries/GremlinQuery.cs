@@ -1169,14 +1169,6 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<VertexProperty<TNewPropertyValue>, object, object, TNewPropertyValue, object, object> VertexProperties<TNewPropertyValue>(Expression[] projections) => Properties<VertexProperty<TNewPropertyValue>, TNewPropertyValue, object>(Projection.VertexProperty, projections);
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Where(ILambda lambda) => this
-            .Continue()
-            .Build(
-                static (builder, lambda) => builder
-                    .AddStep(new FilterStep.ByLambdaStep(lambda))
-                    .Build(),
-                lambda);
-
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Where(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> filterContinuation) => this
             .Continue(ContinuationFlags.Filter)
             .With(filterContinuation)

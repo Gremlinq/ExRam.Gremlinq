@@ -4,7 +4,6 @@ using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Tests.Entities;
-using Gremlin.Net.Process.Traversal;
 using Gremlin.Net.Process.Traversal.Strategy.Decoration;
 using ExRam.Gremlinq.Core.Transformation;
 using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
@@ -911,13 +910,6 @@ namespace ExRam.Gremlinq.Tests.TestCases
             .Verify();
 
         [Fact]
-        public virtual Task FilterWithLambda() => _g
-            .V<Person>()
-            .Where(x => x.Name != null)
-            .Where(Lambda.Groovy("it.get().property('Name').value().length() == 2"))
-            .Verify();
-
-        [Fact]
         public virtual Task FlatMap() => _g
             .V<Person>()
             .FlatMap(__ => __.Out<WorksFor>())
@@ -1420,14 +1412,6 @@ namespace ExRam.Gremlinq.Tests.TestCases
             .Verify();
 
         [Fact]
-        public virtual Task OrderBy_lambda() => _g
-            .V<Person>()
-            .Where(x => x.Name != null)
-            .Order(b => b
-                .By(Lambda.Groovy("it.property('Name').value().length()")))
-            .Verify();
-
-        [Fact]
         public virtual Task OrderBy_member() => _g
             .V<Person>()
             .Where(x => x.Name != null)
@@ -1444,16 +1428,6 @@ namespace ExRam.Gremlinq.Tests.TestCases
             .Order(b => b
                 .By(x => x.Name)
                 .By(x => x.Age))
-            .Verify();
-
-        [Fact]
-        public virtual Task OrderBy_ThenBy_lambda() => _g
-            .V<Person>()
-            .Where(x => x.Name != null)
-            .Where(x => x.Values(y => y.Age))
-            .Order(b => b
-                .By(Lambda.Groovy("it.property('Name').value().length()"))
-                .By(Lambda.Groovy("it.property('Age').value()")))
             .Verify();
 
         [Fact]

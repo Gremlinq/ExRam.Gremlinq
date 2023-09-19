@@ -265,17 +265,6 @@
     }
   },
   {
-    Item1: FilterStep.ByLambdaStep,
-    Item2: {
-      Lambda: {
-        LambdaExpression: lambda,
-        Language: gremlin-groovy,
-        Arguments: -1
-      },
-      SideEffectSemanticsChange: Write
-    }
-  },
-  {
     Item1: FilterStep.ByTraversalStep,
     Item2: {
       Traversal: {
@@ -591,17 +580,6 @@
         EnumName: Scope,
         EnumValue: global
       }
-    }
-  },
-  {
-    Item1: OrderStep.ByLambdaStep,
-    Item2: {
-      Lambda: {
-        LambdaExpression: lambda,
-        Language: gremlin-groovy,
-        Arguments: -1
-      },
-      SideEffectSemanticsChange: Write
     }
   },
   {

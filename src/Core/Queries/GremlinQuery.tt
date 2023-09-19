@@ -124,7 +124,6 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<object> IGremlinQueryBaseRec<<#= iface #>>.Union(params Func<<#= iface #>, IGremlinQueryBase>[] unionTraversals) => Union<IGremlinQueryBase, IValueGremlinQuery<object>>(unionTraversals);
 
         <#= iface #> IGremlinQueryBaseRec<TElement, <#= iface #>>.Where(Expression<Func<TElement, bool>> predicate) => Where(predicate);
-        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Where(ILambda lambda) => Where(lambda);
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Where(Func<<#= iface #>, IGremlinQueryBase> filterTraversal) => Where(filterTraversal);
 
 <# } #>
