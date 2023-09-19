@@ -477,7 +477,6 @@ namespace ExRam.Gremlinq.Core
         ExRam.Gremlinq.Core.IValueGremlinQuery<object> Union(params System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase>[] traversals);
         TTargetQuery Union<TTargetQuery>(params System.Func<TSelf, TTargetQuery>[] unionTraversals)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
-        TSelf Where(Gremlin.Net.Process.Traversal.ILambda lambda);
         TSelf Where(System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase> filterTraversal);
     }
     public interface IGremlinQueryBaseRec<TElement, TSelf> : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TSelf>, ExRam.Gremlinq.Core.IGremlinQueryBase<TElement>, ExRam.Gremlinq.Core.IStartGremlinQuery
@@ -682,14 +681,12 @@ namespace ExRam.Gremlinq.Core
     public interface IOrderBuilder<out TSourceQuery>
         where out TSourceQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
     {
-        ExRam.Gremlinq.Core.IOrderBuilderWithBy<TSourceQuery> By(Gremlin.Net.Process.Traversal.ILambda lambda);
         ExRam.Gremlinq.Core.IOrderBuilderWithBy<TSourceQuery> By(System.Func<TSourceQuery, ExRam.Gremlinq.Core.IGremlinQueryBase> traversal);
         ExRam.Gremlinq.Core.IOrderBuilderWithBy<TSourceQuery> ByDescending(System.Func<TSourceQuery, ExRam.Gremlinq.Core.IGremlinQueryBase> traversal);
     }
     public interface IOrderBuilder<TElement, out TSourceQuery> : ExRam.Gremlinq.Core.IOrderBuilder<TSourceQuery>
         where out TSourceQuery : ExRam.Gremlinq.Core.IGremlinQueryBase<TElement>
     {
-        ExRam.Gremlinq.Core.IOrderBuilderWithBy<TElement, TSourceQuery> By(Gremlin.Net.Process.Traversal.ILambda lambda);
         ExRam.Gremlinq.Core.IOrderBuilderWithBy<TElement, TSourceQuery> By(System.Func<TSourceQuery, ExRam.Gremlinq.Core.IGremlinQueryBase> traversal);
         ExRam.Gremlinq.Core.IOrderBuilderWithBy<TElement, TSourceQuery> By(System.Linq.Expressions.Expression<System.Func<TElement, object?>> projection);
         ExRam.Gremlinq.Core.IOrderBuilderWithBy<TElement, TSourceQuery> ByDescending(System.Func<TSourceQuery, ExRam.Gremlinq.Core.IGremlinQueryBase> traversal);
@@ -1750,11 +1747,6 @@ namespace ExRam.Gremlinq.Core.Steps
     public abstract class FilterStep : ExRam.Gremlinq.Core.Steps.Step
     {
         protected FilterStep(ExRam.Gremlinq.Core.Steps.SideEffectSemanticsChange sideEffectSemanticsChange) { }
-        public sealed class ByLambdaStep : ExRam.Gremlinq.Core.Steps.FilterStep
-        {
-            public ByLambdaStep(Gremlin.Net.Process.Traversal.ILambda lambda) { }
-            public Gremlin.Net.Process.Traversal.ILambda Lambda { get; }
-        }
         public sealed class ByTraversalStep : ExRam.Gremlinq.Core.Steps.Step
         {
             public ByTraversalStep(ExRam.Gremlinq.Core.Traversal traversal) { }
@@ -1960,11 +1952,6 @@ namespace ExRam.Gremlinq.Core.Steps
         public static readonly ExRam.Gremlinq.Core.Steps.OrderStep Local;
         public OrderStep(Gremlin.Net.Process.Traversal.Scope scope) { }
         public Gremlin.Net.Process.Traversal.Scope Scope { get; }
-        public sealed class ByLambdaStep : ExRam.Gremlinq.Core.Steps.OrderStep.ByStep
-        {
-            public ByLambdaStep(Gremlin.Net.Process.Traversal.ILambda lambda) { }
-            public Gremlin.Net.Process.Traversal.ILambda Lambda { get; }
-        }
         public sealed class ByMemberStep : ExRam.Gremlinq.Core.Steps.OrderStep.ByStep
         {
             public ByMemberStep(ExRam.Gremlinq.Core.Key key, Gremlin.Net.Process.Traversal.Order order) { }

@@ -1,1 +1,0 @@
-﻿g.V().hasLabel('Person').has('Name').filter({it.get().property('Name').value().length() == 2})

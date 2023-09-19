@@ -110,10 +110,6 @@ namespace ExRam.Gremlinq.Core
                 {
                     return Write(t.EnumValue, stringBuilder);
                 }
-                case ILambda lambda:
-                {
-                    return WriteLambda(lambda.LambdaExpression, stringBuilder);
-                }
                 case string str when bindings == null:
                 {
                     return WriteQuoted(str, stringBuilder);
@@ -208,16 +204,6 @@ namespace ExRam.Gremlinq.Core
         {
             if (parameterIndex > 0)
                 stringBuilder.Append(',');
-
-            return new(false, _hasIdentifier);
-        }
-
-        private GroovyWriter WriteLambda(string lambda, StringBuilder stringBuilder)
-        {
-            stringBuilder
-                .Append('{')
-                .Append(lambda)
-                .Append('}');
 
             return new(false, _hasIdentifier);
         }

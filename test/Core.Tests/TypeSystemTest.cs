@@ -79,9 +79,6 @@ namespace ExRam.Gremlinq.Core.Tests
                     if (type == typeof(Cardinality))
                         return Cardinality.Single;
 
-                    if (type == typeof(ILambda))
-                        return Lambda.Groovy("lambda");
-
                     if (type == typeof(string))
                         return "string";
 

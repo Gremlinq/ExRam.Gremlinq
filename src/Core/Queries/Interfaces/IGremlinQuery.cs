@@ -139,7 +139,6 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery Union<TTargetQuery>(params Func<TSelf, TTargetQuery>[] unionTraversals) where TTargetQuery : IGremlinQueryBase;
         IValueGremlinQuery<object> Union(params Func<TSelf, IGremlinQueryBase>[] traversals);
 
-        TSelf Where(ILambda lambda);
         TSelf Where(Func<TSelf, IGremlinQueryBase> filterTraversal);
     }
 
