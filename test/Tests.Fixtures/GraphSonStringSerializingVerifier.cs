@@ -19,7 +19,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
             WriteIndented = true
         };
 
-        public GraphSonStringSerializingVerifier(GraphSONWriter writer, [CallerFilePath] string sourceFile = "") : base(sourceFile)
+        public GraphSonStringSerializingVerifier(GraphSONWriter writer, Func<SettingsTask, SettingsTask>? settingsTaskModifier = null, [CallerFilePath] string sourceFile = "") : base(settingsTaskModifier, sourceFile)
         {
             _writer = writer;
         }

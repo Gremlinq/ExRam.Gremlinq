@@ -11,7 +11,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
     {
         private readonly Context _context;
 
-        public DeserializingGremlinqVerifier(ITestOutputHelper testOutputHelper, [CallerFilePath] string sourceFile = "") : base(sourceFile)
+        public DeserializingGremlinqVerifier(ITestOutputHelper testOutputHelper, Func<SettingsTask, SettingsTask>? settingsTaskModifier = null, [CallerFilePath] string sourceFile = "") : base(settingsTaskModifier, sourceFile)
         {
             _context = XunitContext.Register(testOutputHelper, sourceFile);
         }

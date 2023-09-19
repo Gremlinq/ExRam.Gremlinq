@@ -5,7 +5,7 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 {
     public sealed class DebugGremlinQueryVerifier : GremlinQueryVerifier
     {
-        public DebugGremlinQueryVerifier([CallerFilePath] string sourceFile = "") : base(sourceFile)
+        public DebugGremlinQueryVerifier(Func<SettingsTask, SettingsTask>? settingsTaskModifier = null, [CallerFilePath] string sourceFile = "") : base(settingsTaskModifier, sourceFile)
         {
 
         }

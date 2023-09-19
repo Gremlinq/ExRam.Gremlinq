@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Core.Tests
     {
         private sealed class ProjectionVerifier : GremlinQueryVerifier
         {
-            public ProjectionVerifier([CallerFilePath] string sourceFile = "") : base(sourceFile)
+            public ProjectionVerifier(Func<SettingsTask, SettingsTask>? settingsTaskModifier = null, [CallerFilePath] string sourceFile = "") : base(settingsTaskModifier, sourceFile)
             {
             }
 
