@@ -4,10 +4,6 @@ namespace ExRam.Gremlinq.Core.Deserialization
 {
     public static class Deserializer
     {
-        public static readonly ITransformer Default = Transformer.Identity
-            .AddToStringFallback();
-
-        public static ITransformer AddToStringFallback(this ITransformer deserializer) => deserializer
-            .Add(new ToStringFallbackConverterFactory());
+        public static readonly ITransformer Default = Transformer.Identity;
     }
 }
