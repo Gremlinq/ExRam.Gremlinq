@@ -95,6 +95,6 @@ namespace ExRam.Gremlinq.Core.Transformation
         private static readonly ITransformer Empty = new TransformerImpl(ImmutableStack<IConverterFactory>.Empty);
 
         public static readonly ITransformer Identity = Empty
-            .Add(new IdentityConverterFactory());
+            .Add(IdentityConverterFactory.Instance);
     }
 }
