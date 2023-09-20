@@ -2226,7 +2226,7 @@ namespace ExRam.Gremlinq.Core.Transformation
     }
     public static class Transformer
     {
-        public static readonly ExRam.Gremlinq.Core.Transformation.ITransformer Identity;
+        public static readonly ExRam.Gremlinq.Core.Transformation.ITransformer Empty;
     }
     public static class TransformerClassExtensions
     {

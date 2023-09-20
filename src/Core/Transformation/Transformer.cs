@@ -61,6 +61,12 @@ namespace ExRam.Gremlinq.Core.Transformation
                         value = optionValue;
                         return true;
                     }
+
+                    if (source is TTarget target)
+                    {
+                        value = target;
+                        return true;
+                    }
                 }
 
                 value = default;
@@ -92,9 +98,6 @@ namespace ExRam.Gremlinq.Core.Transformation
             }
         }
 
-        internal static readonly ITransformer Empty = new TransformerImpl(ImmutableStack<IConverterFactory>.Empty);
-
-        public static readonly ITransformer Identity = Empty
-            .Add(IdentityConverterFactory.Instance);
+        public static readonly ITransformer Empty = new TransformerImpl(ImmutableStack<IConverterFactory>.Empty);
     }
 }

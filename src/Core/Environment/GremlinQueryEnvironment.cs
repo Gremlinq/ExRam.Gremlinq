@@ -92,9 +92,9 @@ namespace ExRam.Gremlinq.Core
 
         public static readonly IGremlinQueryEnvironment Empty = new GremlinQueryEnvironmentImpl(
             GraphModel.Empty,
-            Transformer.Identity,
+            Transformer.Empty,
             GremlinQueryExecutor.Empty,
-            Transformer.Identity,
+            Transformer.Empty,
             GremlinQueryDebugger.Groovy,
             FeatureSet.Full,
             GremlinqOptions.Empty,
