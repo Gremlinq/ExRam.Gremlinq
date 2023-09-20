@@ -3,7 +3,6 @@
     public static class Deserializer
     {
         public static readonly ExRam.Gremlinq.Core.Transformation.ITransformer Default;
-        public static ExRam.Gremlinq.Core.Transformation.ITransformer AddToStringFallback(this ExRam.Gremlinq.Core.Transformation.ITransformer deserializer) { }
     }
 }
 namespace ExRam.Gremlinq.Core
