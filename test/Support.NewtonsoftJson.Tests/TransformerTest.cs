@@ -16,7 +16,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public async Task Irrelevant()
         {
-            await Verify(Transformer.Identity
+            await Verify(Transformer.Empty
                 .Add(Create<JObject, string>((serialized, env, recurse) => "should not be here"))
                 .TryTransformTo<string>().From("serialized", GremlinQueryEnvironment.Empty));
         }
