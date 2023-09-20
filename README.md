@@ -15,10 +15,11 @@ ExRam.Gremlinq is a .NET object-graph-mapper for [Apache TinkerPop™](http://ti
 
 A sample project can be found at https://github.com/ExRam/ExRam.Gremlinq.Samples.
 
-## Commercial support
+## Paid support
 
-For commercial support, contact<br/>
-![#](https://raw.githubusercontent.com/ExRam/ExRam.Gremlinq/main/assets/SupportEmailAddress.png)
+Schedule a call with @danielcweber to get assistance with Gremlinq setup and configuration, query writing, debugging or review.
+
+[![#](https://img.shields.io/badge/Schedule%20a%20call-blue)](https://calendly.com/danielcweber/generalgremlinqsupport)
 
 ## Features
 
