@@ -5,11 +5,11 @@
 
 ExRam.Gremlinq is a .NET object-graph-mapper for [Apache TinkerPop™](http://tinkerpop.apache.org/) Gremlin enabled databases.
 
-![Downloads](https://img.shields.io/nuget/dt/ExRam.Gremlinq.Core)
-![Build status](https://img.shields.io/github/actions/workflow/status/ExRam/ExRam.Gremlinq/build.yml)
-[![codecov](https://img.shields.io/codecov/c/github/ExRam/ExRam.Gremlinq/branch/main?token=YrGnIo6XyH&logo=codecov)](https://codecov.io/github/ExRam/ExRam.Gremlinq)
-[![#](https://img.shields.io/nuget/v/ExRam.Gremlinq.Core.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Core)
-[![#](https://img.shields.io/nuget/vpre/ExRam.Gremlinq.Core.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Core)
+![Downloads](https://img.shields.io/nuget/dt/ExRam.Gremlinq.Core?style=flat-square)
+![Build status](https://img.shields.io/github/actions/workflow/status/ExRam/ExRam.Gremlinq/build.yml?style=flat-square)
+[![codecov](https://img.shields.io/codecov/c/github/ExRam/ExRam.Gremlinq/branch/main?token=YrGnIo6XyH&logo=codecov&style=flat-square)](https://codecov.io/github/ExRam/ExRam.Gremlinq)
+[![#](https://img.shields.io/nuget/v/ExRam.Gremlinq.Core?style=flat-square)](https://www.nuget.org/packages/ExRam.Gremlinq.Core)
+[![#](https://img.shields.io/nuget/vpre/ExRam.Gremlinq.Core?style=flat-square)](https://www.nuget.org/packages/ExRam.Gremlinq.Core)
 
 
 ## Sample project
