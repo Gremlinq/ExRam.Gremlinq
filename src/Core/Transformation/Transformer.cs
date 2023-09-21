@@ -45,7 +45,7 @@ namespace ExRam.Gremlinq.Core.Transformation
                 """);
         }
 
-        private sealed class TransformerImpl : ITransformer
+        private sealed class EmptyTransformer : ITransformer
         {
             private readonly struct Option<T>
             {
@@ -66,14 +66,14 @@ namespace ExRam.Gremlinq.Core.Transformation
             private readonly ImmutableStack<IConverterFactory> _converterFactories;
             private readonly ConcurrentDictionary<(IGremlinQueryEnvironment, Type, Type, Type), Delegate> _conversionDelegates = new();
 
-            public TransformerImpl(ImmutableStack<IConverterFactory> converterFactories)
+            public EmptyTransformer(ImmutableStack<IConverterFactory> converterFactories)
             {
                 _converterFactories = converterFactories;
             }
 
             public ITransformer Add(IConverterFactory converterFactory)
             {
-                return new TransformerImpl(_converterFactories.Push(converterFactory));
+                return new EmptyTransformer(_converterFactories.Push(converterFactory));
             }
 
             public bool TryTransform<TSource, TTarget>(TSource source, IGremlinQueryEnvironment environment, [NotNullWhen(true)] out TTarget? value)
@@ -87,7 +87,7 @@ namespace ExRam.Gremlinq.Core.Transformation
                             {
                                 var (environment, staticSerializedType, actualSerializedType, requestedType) = typeTuple;
 
-                                return (Delegate)typeof(TransformerImpl)
+                                return (Delegate)typeof(EmptyTransformer)
                                     .GetMethod(nameof(GetTransformationFunction), BindingFlags.Instance | BindingFlags.NonPublic)!
                                     .MakeGenericMethod(staticSerializedType, actualSerializedType, requestedType)
                                     .Invoke(@this, new object [] { environment })!;
@@ -136,7 +136,7 @@ namespace ExRam.Gremlinq.Core.Transformation
             }
         }
 
-        public static readonly ITransformer Empty = new TransformerImpl(ImmutableStack<IConverterFactory>.Empty);
+        public static readonly ITransformer Empty = new EmptyTransformer(ImmutableStack<IConverterFactory>.Empty);
 
         internal static readonly ITransformer Invalid = new InvalidTransformer();
     }
