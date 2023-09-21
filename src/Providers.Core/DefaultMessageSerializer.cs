@@ -18,8 +18,8 @@ namespace ExRam.Gremlinq.Providers.Core
             .TransformTo<byte[]>()
             .From(requestMessage, _environment);
 
-        public async Task<ResponseMessage<List<object>>?> DeserializeMessageAsync(byte[] message, CancellationToken ct) => message.Length == 0
-            ? null
-            : _environment.Deserializer.TryTransformTo<ResponseMessage<List<object>>>().From(message, _environment);
+        public async Task<ResponseMessage<List<object>>?> DeserializeMessageAsync(byte[] message, CancellationToken ct) => _environment.Deserializer
+            .TryTransformTo<ResponseMessage<List<object>>>()
+            .From(message, _environment);
     }
 }
