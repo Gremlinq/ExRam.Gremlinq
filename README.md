@@ -19,7 +19,7 @@ A sample project can be found at https://github.com/ExRam/ExRam.Gremlinq.Samples
 
 ## Paid support
 
-Schedule a call with [@danielcweber](https://github.com/danielcweber) to get assistance with Gremlinq setup and configuration, query writing, debugging or review.
+Schedule a video session with [@danielcweber](https://github.com/danielcweber) to get assistance with Gremlinq setup and configuration, query writing, debugging or review.
 
 [![#](https://img.shields.io/badge/Schedule%20a%20call-blue)](https://calendly.com/danielcweber/generalgremlinqsupport)
 
