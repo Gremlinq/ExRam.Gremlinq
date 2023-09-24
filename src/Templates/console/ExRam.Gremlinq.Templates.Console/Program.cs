@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Models;
-using ExRam.Gremlinq.Providers.WebSocket;
+using ExRam.Gremlinq.Providers.Core;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Templates.Console
