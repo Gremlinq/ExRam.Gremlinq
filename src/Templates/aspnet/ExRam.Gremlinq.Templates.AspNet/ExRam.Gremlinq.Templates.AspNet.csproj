@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ExRam.Gremlinq.Providers.TEMPLATEPROVIDER.AspNet" Version="12.*-preview.*" />
+  </ItemGroup>
+
+</Project>

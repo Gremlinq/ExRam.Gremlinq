@@ -1,0 +1,72 @@
+﻿{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Daniel Weber",
+  "classifications": [ "Common", "AspNet" ],
+  "identity": "ExRam.Gremlinq.Templates.AspNet",
+  "name": "Gremlinq Asp.NET app template",
+  "shortName": "gremlinq-aspnet",
+  "sourceName": "ExRam.Gremlinq.Templates.AspNet",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "symbols": {
+    "provider": {
+      "type": "parameter",
+      "datatype": "choice",
+      "defaultValue": "GremlinServer",
+      "replaces": "TEMPLATEPROVIDER",
+      "choices": [
+        {
+          "choice": "GremlinServer",
+          "description": "Gremlin Server"
+        },
+        {
+          "choice": "Neptune",
+          "description": "AWS Neptune"
+        },
+        {
+          "choice": "CosmosDb",
+          "description": "Azure CosmosDb"
+        },
+        {
+          "choice": "JanusGraph",
+          "description": "JanusGraph"
+        }
+      ]
+    },
+    "ProviderIsGremlinServer": {
+      "type": "computed",
+      "value": "(provider == \"GremlinServer\")"
+    },
+    "ProviderIsNeptune": {
+      "type": "computed",
+      "value": "(provider == \"Neptune\")"
+    },
+    "ProviderIsCosmosDb": {
+      "type": "computed",
+      "value": "(provider == \"CosmosDb\")"
+    },
+    "ProviderIsJanusGraph": {
+      "type": "computed",
+      "value": "(provider == \"JanusGraph\")"
+    }
+  },
+  "SpecialCustomOperations": {
+    "**/*.json": {
+      "operations": [
+        {
+          "type": "conditional",
+          "configuration": {
+            "if": [ "//if" ],
+            "else": [ "//else" ],
+            "elseif": [ "//elseif", "//elif" ],
+            "endif": [ "//endif" ],
+            "trim": "true",
+            "wholeLine": "true"
+          }
+        }
+      ]
+    }
+  }
+}

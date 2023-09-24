@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <Content Include="console\**\*" />
+    <Content Include="aspnet\**\*" />
   </ItemGroup>
 
 </Project>
