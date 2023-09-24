@@ -2,6 +2,10 @@
 {
     public class Edge
     {
-        public object? Id { get; set; }
+#if (ProviderIsGremlinServer)
+        public long Id { get; set; }
+#else
+        public string Id { get; set; }
+#endif
     }
 }
