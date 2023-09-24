@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ExRam.Gremlinq.Providers.TEMPLATEPROVIDER" Version="11.0.0" />
+    <PackageReference Include="ExRam.Gremlinq.Providers.TEMPLATEPROVIDER" Version="12.*-preview.*" />
   </ItemGroup>
 
 </Project>
