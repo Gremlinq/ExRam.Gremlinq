@@ -31,6 +31,7 @@ namespace ExRam.Gremlinq.Templates.Console
                     .AtLocalhost()))
 #endif
                 .ConfigureEnvironment(env => env
+                    .UseNewtonsoftJson()
                     .UseModel(GraphModel
                         .FromBaseTypes<Vertex, Edge>(lookup => lookup
 #if ProviderIsCosmosDb                   

@@ -1,4 +1,8 @@
-﻿using ExRam.Gremlinq.Core.AspNet;
+﻿using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Core.AspNet;
+using ExRam.Gremlinq.Core.Models;
+using ExRam.Gremlinq.Providers.Core.AspNet;
+using ExRam.Gremlinq.Templates.AspNet;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -8,13 +12,25 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services
     .AddGremlinq(setup => setup
 #if ProviderIsGremlinServer
-        .UseGremlinServer())
+        .UseGremlinServer(setup => setup
+            .UseNewtonsoftJson())
 #elif ProviderIsNeptune
-        .UseNeptune())
+        .UseNeptune(setup => setup
+            .UseNewtonsoftJson())
 #elif ProviderIsCosmosDb
-        .UseCosmosDb())
+        .UseCosmosDb<Vertex, Edge>(
+            x => x.PartitionKey!,
+            setup => setup
+                .UseNewtonsoftJson())
 #elif ProviderIsJanusGraph
-        .UseJanusGraph())
+        .UseJanusGraph(setup => setup
+            .UseNewtonsoftJson())
+#endif
+#if !ProviderIsCosmosDb                   
+        .ConfigureEnvironment(env => env
+            .UseModel(GraphModel
+                .FromBaseTypes<Vertex, Edge>(lookup => lookup
+                    .IncludeAssembliesOfBaseTypes()))))
 #endif
     .AddControllers();
 

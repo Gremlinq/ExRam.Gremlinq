@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="ExRam.Gremlinq.Providers.TEMPLATEPROVIDER.AspNet" Version="12.*-preview.*" />
+    <PackageReference Include="ExRam.Gremlinq.Support.NewtonsoftJson.AspNet" Version="12.*-preview.*" />
   </ItemGroup>
 
 </Project>
