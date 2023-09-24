@@ -6,7 +6,7 @@
         public string? Label { get; set; }
 
 #if (ProviderIsCosmosDb)
-        public string PartitionKey { get; set; } = "PartitionKey";
+        public string? PartitionKey { get; set; } = "PartitionKey";
 #endif
     }
 }

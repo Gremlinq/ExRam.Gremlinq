@@ -28,7 +28,7 @@ namespace ExRam.Gremlinq.Templates.Console
                     .AuthenticateBy("your auth key"))
 #elif ProviderIsJanusGraph
                 .UseJanusGraph(configurator => configurator
-                    .At(new Uri("wss://your.janusgraph.endpoint/")))
+                    .AtLocalhost()))
 #endif
                 .ConfigureEnvironment(env => env
                     .UseModel(GraphModel
