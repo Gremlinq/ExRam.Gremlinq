@@ -2,7 +2,11 @@
 {
     public class Vertex
     {
-        public object? Id { get; set; }
+#if (ProviderIsGremlinServer)
+        public long Id { get; set; }
+#else
+        public string Id { get; set; }
+#endif
 
 #if (ProviderIsCosmosDb)
         public string? PartitionKey { get; set; } = "PartitionKey";
