@@ -1,0 +1,55 @@
+﻿{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Me",
+  "classifications": [ "Common", "Console" ],
+  "identity": "ExRam.Gremlinq.Templates.Console",
+  "name": "Gremlinq console app template",
+  "shortName": "gremlinq-console",
+  "sourceName": "ExRam.Gremlinq.Templates.Console",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "symbols": {
+    "provider": {
+      "type": "parameter",
+      "datatype": "choice",
+      "defaultValue": "GremlinServer",
+      "replaces": "TEMPLATEPROVIDER",
+      "choices": [
+        {
+          "choice": "GremlinServer",
+          "description": "Gremlin Server"
+        },
+        {
+          "choice": "Neptune",
+          "description": "AWS Neptune"
+        },
+        {
+          "choice": "CosmosDb",
+          "description": "Azure CosmosDb"
+        },
+        {
+          "choice": "JanusGraph",
+          "description": "JanusGraph"
+        }
+      ]
+    },
+    "ProviderIsGremlinServer": {
+      "type": "computed",
+      "value": "(provider == \"GremlinServer\")"
+    },
+    "ProviderIsNeptune": {
+      "type": "computed",
+      "value": "(provider == \"Neptune\")"
+    },
+    "ProviderIsCosmosDb": {
+      "type": "computed",
+      "value": "(provider == \"CosmosDb\")"
+    },
+    "ProviderIsJanusGraph": {
+      "type": "computed",
+      "value": "(provider == \"JanusGraph\")"
+    }
+  }
+}
