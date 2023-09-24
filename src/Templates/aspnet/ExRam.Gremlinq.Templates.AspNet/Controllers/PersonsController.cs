@@ -5,7 +5,7 @@ using ExRam.Gremlinq.Core;
 namespace ExRam.Gremlinq.Templates.AspNet
 {
     [ApiController]
-    [Route("/Persons")]
+    [Route("/persons")]
     public class PersonsController : ControllerBase
     {
         private readonly IGremlinQuerySource _g;
@@ -20,8 +20,8 @@ namespace ExRam.Gremlinq.Templates.AspNet
             .V<Person>()
             .ToArrayAsync());
 
-        [HttpPost]
-        public async Task<IActionResult> Add(string name, int age) => Ok(await _g
+        [HttpPost("add")]
+        public async Task<IActionResult> Add([FromQuery] string name, [FromQuery] int age) => Ok(await _g
             .AddV(new Person { Name = name, Age = age })
             .FirstAsync());
     }
