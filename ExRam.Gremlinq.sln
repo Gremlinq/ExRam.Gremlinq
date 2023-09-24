@@ -93,7 +93,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Tests.Fixtures", "test\Tests.Fixtures\ExRam.Gremlinq.Tests.Fixtures.csproj", "{3CD96D76-0603-4FF5-B0EC-4D4095F3D8FA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Templates", "src\Templates\ExRam.Gremlinq.Templates.csproj", "{54321181-946B-4E49-B9E7-6CDDD3848220}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Templates", "templates\ExRam.Gremlinq.Templates.csproj", "{DE15975A-7750-49C9-B189-37D7BF826A18}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -253,10 +253,10 @@ Global
 		{3CD96D76-0603-4FF5-B0EC-4D4095F3D8FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3CD96D76-0603-4FF5-B0EC-4D4095F3D8FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3CD96D76-0603-4FF5-B0EC-4D4095F3D8FA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{54321181-946B-4E49-B9E7-6CDDD3848220}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{54321181-946B-4E49-B9E7-6CDDD3848220}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{54321181-946B-4E49-B9E7-6CDDD3848220}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{54321181-946B-4E49-B9E7-6CDDD3848220}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE15975A-7750-49C9-B189-37D7BF826A18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE15975A-7750-49C9-B189-37D7BF826A18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE15975A-7750-49C9-B189-37D7BF826A18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE15975A-7750-49C9-B189-37D7BF826A18}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
