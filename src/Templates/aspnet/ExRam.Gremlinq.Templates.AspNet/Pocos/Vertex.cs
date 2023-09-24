@@ -3,9 +3,9 @@
     public class Vertex
     {
 #if (ProviderIsGremlinServer || ProviderIsJanusGraph)
-        public long Id { get; set; }
+        public long? Id { get; set; }
 #else
-        public string Id { get; set; }
+        public string? Id { get; set; }
 #endif
 #if (ProviderIsCosmosDb)
 
