@@ -18,6 +18,13 @@ namespace ExRam.Gremlinq.Templates.AspNet
         [HttpGet]
         public async Task<IActionResult> Index() => Ok(await _g
             .V<Person>()
+            .Project(b => b
+                .ToDynamic()
+                .By("Person", __ => __)
+                .By("Pets", __ => __
+                    .Out<Owns>()
+                    .OfType<Pet>()
+                    .Fold()))
             .ToArrayAsync());
 
         [HttpPost("add")]
