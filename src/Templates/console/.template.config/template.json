@@ -1,6 +1,6 @@
 ﻿{
   "$schema": "http://json.schemastore.org/template",
-  "author": "Me",
+  "author": "Daniel Weber",
   "classifications": [ "Common", "Console" ],
   "identity": "ExRam.Gremlinq.Templates.Console",
   "name": "Gremlinq console app template",
