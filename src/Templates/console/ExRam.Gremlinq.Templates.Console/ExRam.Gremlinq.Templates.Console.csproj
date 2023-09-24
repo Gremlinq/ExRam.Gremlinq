@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="ExRam.Gremlinq.Providers.TEMPLATEPROVIDER" Version="12.*-preview.*" />
+    <PackageReference Include="ExRam.Gremlinq.Support.NewtonsoftJson" Version="12.*-preview.*" />
   </ItemGroup>
 
 </Project>
