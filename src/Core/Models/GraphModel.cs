@@ -55,7 +55,7 @@ namespace ExRam.Gremlinq.Core.Models
 
         public static IGraphModel FromBaseTypes<TVertexBaseType, TEdgeBaseType>(Func<IAssemblyLookupBuilder, IAssemblyLookupSet>? assemblyLookupTransformation = null)
         {
-            return FromBaseTypesImpl<TVertexBaseType, TEdgeBaseType>(assemblyLookupTransformation ?? (static _ => _.IncludeAssembliesFromAppDomain()));
+            return FromBaseTypesImpl<TVertexBaseType, TEdgeBaseType>(assemblyLookupTransformation ?? (static _ => _.IncludeAssembliesOfBaseTypes()));
         }
 
         private static IGraphModel FromBaseTypesImpl<TVertexBaseType, TEdgeBaseType>(Func<IAssemblyLookupBuilder, IAssemblyLookupSet> assemblyLookupTransformation)
