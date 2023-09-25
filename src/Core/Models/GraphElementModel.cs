@@ -70,8 +70,7 @@ namespace ExRam.Gremlinq.Core.Models
                                 .Select(static x => x!);
                         }
                     })
-                    .Where(type => type != typeof(TBaseType) && !type.IsNestedPrivate && typeof(TBaseType).IsAssignableFrom(type))
-                    .Where(static type => type is { IsClass: true, IsAbstract: false })),
+                    .Where(static type => type is { IsNestedPrivate: false, IsClass: true, IsAbstract: false } && type != typeof(TBaseType) && typeof(TBaseType).IsAssignableFrom(type))),
                 _metaDataOverrides);
 
             public IImmutableSet<Type> ElementTypes { get; }
