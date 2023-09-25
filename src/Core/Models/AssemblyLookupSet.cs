@@ -21,19 +21,6 @@ namespace ExRam.Gremlinq.Core.Models
             return IncludeAssemblies(_baseTypes.Select(static x => x.Assembly));
         }
 
-        public IAssemblyLookupSet IncludeAssembliesFromStackTrace()
-        {
-            return IncludeAssemblies(new StackTrace().GetFrames()
-                .Select(static frame => frame.GetMethod()?.DeclaringType?.Assembly)
-                .Where(static assembly => assembly != null)
-                .Select(static assembly => assembly!));
-        }
-
-        public IAssemblyLookupSet IncludeAssembliesFromAppDomain()
-        {
-            return IncludeAssemblies(AppDomain.CurrentDomain.GetAssemblies());
-        }
-
         public IAssemblyLookupSet IncludeAssemblies(params Assembly[] assemblies) => IncludeAssemblies(assemblies.AsEnumerable());
 
         public IAssemblyLookupSet IncludeAssemblies(IEnumerable<Assembly> assemblies)
