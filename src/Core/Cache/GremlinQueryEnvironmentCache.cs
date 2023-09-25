@@ -37,8 +37,8 @@ namespace ExRam.Gremlinq.Core
                             .Select(p => (
                                 property: p,
                                 key: closureEnvironment.GetCache().GetKey(p),
-                                serializationBehaviour: closureEnvironment.Model.PropertiesModel.MemberMetadata
-                                    .GetValueOrDefault(p, new MemberMetadata(p.Name)).SerializationBehaviour))
+                                serializationBehaviour: closureEnvironment.Model.PropertiesModel
+                                    .GetMetadata(p).SerializationBehaviour))
                             .OrderBy(static x => x.key)
                             .ToArray(),
                         _environment);
@@ -50,7 +50,7 @@ namespace ExRam.Gremlinq.Core
                 {
                     var name = closureMember.Name;
 
-                    if (model.MemberMetadata.TryGetValue(closureMember, out var metadata))
+                    if (model.GetMetadata(closureMember) is { } metadata)
                     {
                         if (metadata.Key.RawKey is T t)
                             return t;
@@ -64,7 +64,7 @@ namespace ExRam.Gremlinq.Core
                             ? T.Label
                             : default;
 
-                    return maybeDefaultT is { } defaultT && !model.MemberMetadata.Any(kvp => kvp.Value.Key.RawKey is T t && t.Equals(defaultT))
+                    return maybeDefaultT is { } defaultT && !model.Members.Any(memberInfo => model.GetMetadata(memberInfo).Key.RawKey is T t && t.Equals(defaultT))
                         ? defaultT
                         : name;
                 },

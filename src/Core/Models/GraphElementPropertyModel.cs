@@ -9,15 +9,17 @@ namespace ExRam.Gremlinq.Core.Models
     {
         private sealed class GraphElementPropertyModelImpl : IGraphElementPropertyModel
         {
+            private readonly IImmutableDictionary<MemberInfo, MemberMetadata> _metadata;
+
             public GraphElementPropertyModelImpl(IImmutableSet<MemberInfo> members, IImmutableDictionary<MemberInfo, MemberMetadata> metadata)
             {
                 Members = members;
-                MemberMetadata = metadata;
+                _metadata = metadata;
             }
 
             public IGraphElementPropertyModel ConfigureMemberMetadata(Func<IImmutableDictionary<MemberInfo, MemberMetadata>, IImmutableDictionary<MemberInfo, MemberMetadata>> transformation)
             {
-                return new GraphElementPropertyModelImpl(Members, transformation(MemberMetadata));
+                return new GraphElementPropertyModelImpl(Members, transformation(_metadata));
             }
 
             public IGraphElementPropertyModel ConfigureElement<TElement>(Func<IMemberMetadataConfigurator<TElement>, IMemberMetadataConfigurator<TElement>> transformation)
@@ -26,9 +28,11 @@ namespace ExRam.Gremlinq.Core.Models
                     metadata => transformation(new MemberMetadataConfigurator<TElement>()).Transform(metadata));
             }
 
-            public IImmutableSet<MemberInfo> Members { get; }
+            public MemberMetadata GetMetadata(MemberInfo memberInfo) => _metadata.TryGetValue(memberInfo, out var metadata)
+                ? metadata
+                : new MemberMetadata(memberInfo.Name);
 
-            public IImmutableDictionary<MemberInfo, MemberMetadata> MemberMetadata { get; }
+            public IImmutableSet<MemberInfo> Members { get; }
         }
 
         private sealed class InvalidGraphElementPropertyModel : IGraphElementPropertyModel
@@ -43,12 +47,9 @@ namespace ExRam.Gremlinq.Core.Models
                 throw new InvalidOperationException($"{nameof(ConfigureElement)} must not be called on {nameof(GraphElementPropertyModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
             }
 
-            public IImmutableDictionary<MemberInfo, MemberMetadata> MemberMetadata
+            public MemberMetadata GetMetadata(MemberInfo memberInfo)
             {
-                get
-                {
-                    throw new InvalidOperationException($"{nameof(MemberMetadata)} must not be called on {nameof(GraphElementPropertyModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
-                }
+                throw new InvalidOperationException($"{nameof(GetMetadata)} must not be called on {nameof(GraphElementPropertyModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
             }
 
             public IImmutableSet<MemberInfo> Members
