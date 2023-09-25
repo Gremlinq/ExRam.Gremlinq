@@ -59,7 +59,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task TryGetFilterLabels_does_not_include_abstract_type()
         {
             var model = GraphModel.FromBaseTypes<Vertex, Edge>(lookup => lookup
-                .IncludeAssembliesFromAppDomain());
+                .IncludeAssembliesOfBaseTypes());
 
             await Verify(model.VerticesModel
                 .TryGetFilterLabels(typeof(Authority), FilterLabelsVerbosity.Maximum) ?? ImmutableArray<string>.Empty);
