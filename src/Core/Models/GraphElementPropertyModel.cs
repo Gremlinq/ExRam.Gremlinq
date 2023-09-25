@@ -1,8 +1,7 @@
 ﻿using System.Collections.Immutable;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Runtime.CompilerServices;
-
 using ExRam.Gremlinq.Core.ExpressionParsing;
 
 namespace ExRam.Gremlinq.Core.Models
@@ -44,6 +43,16 @@ namespace ExRam.Gremlinq.Core.Models
                 return new GraphElementPropertyModelImpl(Members, overrides);
             }
 
+            public IGraphElementPropertyModel AddType(Type type)
+            {
+                return new GraphElementPropertyModelImpl(
+                    Members
+                        .AddRange(type
+                            .GetTypeHierarchy()
+                            .SelectMany(static type => type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly))),
+                    _metadata);
+            }
+
             public IImmutableSet<MemberInfo> Members { get; }
         }
 
@@ -64,6 +73,11 @@ namespace ExRam.Gremlinq.Core.Models
                 throw new InvalidOperationException($"{nameof(ConfigureMemberMetadata)} must not be called on {nameof(GraphElementPropertyModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
             }
 
+            public IGraphElementPropertyModel AddType(Type type)
+            {
+                throw new InvalidOperationException($"{nameof(AddType)} must not be called on {nameof(GraphElementPropertyModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
+            }
+
             public IImmutableSet<MemberInfo> Members
             {
                 get
@@ -79,6 +93,27 @@ namespace ExRam.Gremlinq.Core.Models
                 metadata => transformation(new MemberMetadataConfigurator<TElement>()).Transform(metadata));
         }
 
+        public static IGraphElementPropertyModel UseCamelCaseNames(this IGraphElementPropertyModel model)
+        {
+            return model.ConfigureNames(static (_, key) => key.RawKey is string name
+                ? name.ToCamelCase()
+                : key);
+        }
+
+        public static IGraphElementPropertyModel UseLowerCaseNames(this IGraphElementPropertyModel model)
+        {
+            return model.ConfigureNames(static (_, key) => key.RawKey is string name
+                ? name.ToLower()
+                : key);
+        }
+
+        internal static IGraphElementPropertyModel ConfigureNames(this IGraphElementPropertyModel model, Func<MemberInfo, Key, Key> transformation)
+        {
+            return model.ConfigureMemberMetadata((member, metadata) => new MemberMetadata(
+                transformation(member, metadata.Key),
+                metadata.SerializationBehaviour));
+        }
+
         internal static Key GetKey(this IGremlinQueryEnvironment environment, Expression expression)
         {
             var memberExpression = expression.AssumeMemberExpression();
@@ -90,14 +125,9 @@ namespace ExRam.Gremlinq.Core.Models
 
         internal static IGraphElementPropertyModel FromGraphElementModels(params IGraphElementModel[] models)
         {
-            return Empty
-                .ConfigureMemberMetadata(_ => _
-                    .AddRange(models
-                        .SelectMany(static model => model.ElementTypes)
-                        .SelectMany(static x => x.GetTypeHierarchy())
-                        .Distinct()
-                        .SelectMany(static type => type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly))
-                        .Select(static property => new KeyValuePair<MemberInfo, MemberMetadata>(property, new MemberMetadata(property.Name)))));
+            return models
+                .Aggregate(Empty, static (propertiesModel, elementModel) => elementModel.ElementTypes
+                    .Aggregate(propertiesModel, static (propertiesModel, type) => propertiesModel.AddType(type)));
         }
 
         internal static readonly IGraphElementPropertyModel Empty = new GraphElementPropertyModelImpl(

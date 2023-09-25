@@ -133,8 +133,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await Verify(GraphModel
                 .FromBaseTypes<Vertex, Edge>()
                 .ConfigureProperties(pm => pm
-                    .ConfigureMemberMetadata(m => m
-                        .UseCamelCaseNames()))
+                    .UseCamelCaseNames())
                 .PropertiesModel
                 .GetMetadata(typeof(Person).GetProperty(nameof(Person.RegistrationDate))!));
         }
@@ -145,8 +144,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await Verify(GraphModel
                 .FromBaseTypes<Vertex, Edge>()
                 .ConfigureProperties(pm => pm
-                    .ConfigureMemberMetadata(m => m
-                        .UseLowerCaseNames()))
+                    .UseLowerCaseNames())
                 .PropertiesModel
                 .GetMetadata(typeof(Person).GetProperty(nameof(Person.RegistrationDate))!));
         }
@@ -157,8 +155,7 @@ namespace ExRam.Gremlinq.Core.Tests
             var model = GraphModel
                 .FromBaseTypes<Vertex, Edge>()
                 .ConfigureProperties(pm => pm
-                    .ConfigureMemberMetadata(m => m
-                        .UseCamelCaseNames()));
+                    .UseCamelCaseNames());
 
             await Verify((
                 model
@@ -194,8 +191,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ConfigureElements(pm => pm
                     .UseCamelCaseLabels())
                 .ConfigureProperties(pm => pm
-                    .ConfigureMemberMetadata(m => m
-                        .UseCamelCaseNames()));
+                    .UseCamelCaseNames());
 
             await Verify((
                 model
@@ -212,8 +208,7 @@ namespace ExRam.Gremlinq.Core.Tests
             var model = GraphModel
                 .FromBaseTypes<Vertex, Edge>()
                 .ConfigureProperties(pm => pm
-                    .ConfigureMemberMetadata(m => m
-                        .UseCamelCaseNames()))
+                    .UseCamelCaseNames())
                 .ConfigureElements(em => em
                     .UseCamelCaseLabels());
 
@@ -303,8 +298,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ConfigureProperties(pm => pm
                     .ConfigureElement<Person>(conf => conf
                         .IgnoreAlways(p => p.Name))
-                    .ConfigureMemberMetadata(m => m
-                        .UseCamelCaseNames()))
+                    .UseCamelCaseNames())
                 .ConfigureElements(em => em
                     .UseCamelCaseLabels());
 
@@ -326,8 +320,7 @@ namespace ExRam.Gremlinq.Core.Tests
             var model = GraphModel
                 .FromBaseTypes<Vertex, Edge>()
                 .ConfigureProperties(pm => pm
-                    .ConfigureMemberMetadata(m => m
-                        .UseCamelCaseNames())
+                    .UseCamelCaseNames()
                     .ConfigureElement<Person>(conf => conf
                         .IgnoreAlways(p => p.Name)))
                 .ConfigureElements(em => em
