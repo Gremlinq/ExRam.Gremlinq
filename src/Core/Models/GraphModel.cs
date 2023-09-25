@@ -53,12 +53,7 @@ namespace ExRam.Gremlinq.Core.Models
             GraphElementModel.Invalid,
             GraphElementPropertyModel.Invalid);
 
-        public static IGraphModel FromBaseTypes<TVertexBaseType, TEdgeBaseType>(Func<IAssemblyLookupBuilder, IAssemblyLookupSet>? assemblyLookupTransformation = null)
-        {
-            return FromBaseTypesImpl<TVertexBaseType, TEdgeBaseType>(assemblyLookupTransformation ?? (static _ => _.IncludeAssembliesOfBaseTypes()));
-        }
-
-        private static IGraphModel FromBaseTypesImpl<TVertexBaseType, TEdgeBaseType>(Func<IAssemblyLookupBuilder, IAssemblyLookupSet> assemblyLookupTransformation)
+        public static IGraphModel FromBaseTypes<TVertexBaseType, TEdgeBaseType>()
         {
             if (typeof(TVertexBaseType).IsAssignableFrom(typeof(TEdgeBaseType)))
                 throw new ArgumentException($"{typeof(TVertexBaseType)} may not be in the inheritance hierarchy of {typeof(TEdgeBaseType)}.");
@@ -66,11 +61,8 @@ namespace ExRam.Gremlinq.Core.Models
             if (typeof(TEdgeBaseType).IsAssignableFrom(typeof(TVertexBaseType)))
                 throw new ArgumentException($"{typeof(TEdgeBaseType)} may not be in the inheritance hierarchy of {typeof(TVertexBaseType)}.");
 
-            var assemblies = assemblyLookupTransformation(new AssemblyLookupSet(new[] { typeof(TVertexBaseType), typeof(TEdgeBaseType) }, ImmutableHashSet<Assembly>.Empty))
-                .Assemblies;
-
-            var verticesModel = GraphElementModel.FromBaseType<TVertexBaseType>(assemblies);
-            var edgesModel = GraphElementModel.FromBaseType<TEdgeBaseType>(assemblies);
+            var verticesModel = GraphElementModel.FromBaseType<TVertexBaseType>();
+            var edgesModel = GraphElementModel.FromBaseType<TEdgeBaseType>();
 
             return new GraphModelImpl(
                 verticesModel,

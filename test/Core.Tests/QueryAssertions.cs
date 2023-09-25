@@ -14,8 +14,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g = g
                 .ConfigureEnvironment(_ => _
-                    .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>(lookup => lookup
-                        .IncludeAssembliesOfBaseTypes())));
+                    .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>()));
         }
 
         [ReleaseOnlyFact]

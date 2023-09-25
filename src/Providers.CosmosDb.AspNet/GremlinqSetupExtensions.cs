@@ -39,8 +39,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                 .UseCosmosDb(extraSetupAction)
                 .ConfigureEnvironment(env => env
                     .UseModel(GraphModel
-                        .FromBaseTypes<TVertex, TEdge>(lookup => lookup
-                            .IncludeAssembliesOfBaseTypes())
+                        .FromBaseTypes<TVertex, TEdge>()
                         .ConfigureProperties(model => model
                             .ConfigureElement<TVertex>(conf => conf
                                 .IgnoreOnUpdate(partitionKeyExpression)))));

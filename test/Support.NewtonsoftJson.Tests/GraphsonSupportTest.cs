@@ -40,8 +40,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
             _environment = g
                 .ConfigureEnvironment(env => env
                     .UseModel(GraphModel
-                        .FromBaseTypes<Vertex, Edge>(lookup => lookup
-                            .IncludeAssembliesOfBaseTypes()))
+                        .FromBaseTypes<Vertex, Edge>())
                     .UseNewtonsoftJson())
                 .AsAdmin()
                 .Environment;
