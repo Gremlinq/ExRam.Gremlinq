@@ -1436,7 +1436,7 @@ namespace ExRam.Gremlinq.Core.Models
     }
     public interface IGraphElementModel
     {
-        System.Collections.Immutable.ImmutableArray<System.Type> ElementTypes { get; }
+        System.Collections.Immutable.ImmutableHashSet<System.Type> ElementTypes { get; }
         ExRam.Gremlinq.Core.Models.IGraphElementModel ConfigureLabels(System.Func<System.Type, string, string> overrideTransformation);
         ExRam.Gremlinq.Core.Models.IGraphElementModel ConfigureMetadata(System.Type elementType, System.Func<ExRam.Gremlinq.Core.Models.ElementMetadata, ExRam.Gremlinq.Core.Models.ElementMetadata> metaDataTransformation);
         ExRam.Gremlinq.Core.Models.ElementMetadata GetMetadata(System.Type elementType);
