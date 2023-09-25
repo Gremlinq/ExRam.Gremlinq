@@ -9,14 +9,15 @@ namespace ExRam.Gremlinq.Core.Models
     {
         private sealed class GraphElementPropertyModelImpl : IGraphElementPropertyModel
         {
-            public GraphElementPropertyModelImpl(IImmutableDictionary<MemberInfo, MemberMetadata> metadata)
+            public GraphElementPropertyModelImpl(IImmutableSet<MemberInfo> members, IImmutableDictionary<MemberInfo, MemberMetadata> metadata)
             {
+                Members = members;
                 MemberMetadata = metadata;
             }
-            
+
             public IGraphElementPropertyModel ConfigureMemberMetadata(Func<IImmutableDictionary<MemberInfo, MemberMetadata>, IImmutableDictionary<MemberInfo, MemberMetadata>> transformation)
             {
-                return new GraphElementPropertyModelImpl(transformation(MemberMetadata));
+                return new GraphElementPropertyModelImpl(Members, transformation(MemberMetadata));
             }
 
             public IGraphElementPropertyModel ConfigureElement<TElement>(Func<IMemberMetadataConfigurator<TElement>, IMemberMetadataConfigurator<TElement>> transformation)
@@ -24,6 +25,8 @@ namespace ExRam.Gremlinq.Core.Models
                 return ConfigureMemberMetadata(
                     metadata => transformation(new MemberMetadataConfigurator<TElement>()).Transform(metadata));
             }
+
+            public IImmutableSet<MemberInfo> Members { get; }
 
             public IImmutableDictionary<MemberInfo, MemberMetadata> MemberMetadata { get; }
         }
@@ -45,6 +48,14 @@ namespace ExRam.Gremlinq.Core.Models
                 get
                 {
                     throw new InvalidOperationException($"{nameof(MemberMetadata)} must not be called on {nameof(GraphElementPropertyModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
+                }
+            }
+
+            public IImmutableSet<MemberInfo> Members
+            {
+                get
+                {
+                    throw new InvalidOperationException($"{nameof(Members)} must not be called on {nameof(GraphElementPropertyModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
                 }
             }
         }
@@ -71,6 +82,7 @@ namespace ExRam.Gremlinq.Core.Models
         }
 
         internal static readonly IGraphElementPropertyModel Empty = new GraphElementPropertyModelImpl(
+            ImmutableHashSet<MemberInfo>.Empty,
             ImmutableDictionary<MemberInfo, MemberMetadata>
                 .Empty
                 .WithComparers(MemberInfoEqualityComparer.Instance));

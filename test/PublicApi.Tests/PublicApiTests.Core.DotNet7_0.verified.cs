@@ -1431,6 +1431,7 @@ namespace ExRam.Gremlinq.Core.Models
     public interface IGraphElementPropertyModel
     {
         System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.Models.MemberMetadata> MemberMetadata { get; }
+        System.Collections.Immutable.IImmutableSet<System.Reflection.MemberInfo> Members { get; }
         ExRam.Gremlinq.Core.Models.IGraphElementPropertyModel ConfigureElement<TElement>(System.Func<ExRam.Gremlinq.Core.Models.IMemberMetadataConfigurator<TElement>, ExRam.Gremlinq.Core.Models.IMemberMetadataConfigurator<TElement>> transformation);
         ExRam.Gremlinq.Core.Models.IGraphElementPropertyModel ConfigureMemberMetadata(System.Func<System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.Models.MemberMetadata>, System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.Models.MemberMetadata>> transformation);
     }
