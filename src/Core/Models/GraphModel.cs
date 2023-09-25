@@ -1,5 +1,4 @@
-﻿using System.Collections.Immutable;
-using System.Reflection;
+﻿using System.Reflection;
 
 namespace ExRam.Gremlinq.Core.Models
 {
@@ -37,6 +36,9 @@ namespace ExRam.Gremlinq.Core.Models
                     EdgesModel,
                     transformation(PropertiesModel));
             }
+
+            public IGraphModel AddAssemblies(params Assembly[] assemblies) => this
+                .ConfigureElements(__ => __.AddAssemblies(assemblies));
 
             public IGraphElementModel VerticesModel { get; }
             public IGraphElementModel EdgesModel { get; }

@@ -1426,6 +1426,7 @@ namespace ExRam.Gremlinq.Core.Models
     public interface IGraphElementModel
     {
         System.Collections.Immutable.IImmutableSet<System.Type> ElementTypes { get; }
+        ExRam.Gremlinq.Core.Models.IGraphElementModel AddAssemblies(params System.Reflection.Assembly[] assemblies);
         ExRam.Gremlinq.Core.Models.IGraphElementModel ConfigureLabels(System.Func<System.Type, string, string> overrideTransformation);
         ExRam.Gremlinq.Core.Models.IGraphElementModel ConfigureMetadata(System.Type elementType, System.Func<ExRam.Gremlinq.Core.Models.ElementMetadata, ExRam.Gremlinq.Core.Models.ElementMetadata> metaDataTransformation);
         ExRam.Gremlinq.Core.Models.ElementMetadata GetMetadata(System.Type elementType);
@@ -1441,6 +1442,7 @@ namespace ExRam.Gremlinq.Core.Models
         ExRam.Gremlinq.Core.Models.IGraphElementModel EdgesModel { get; }
         ExRam.Gremlinq.Core.Models.IGraphElementPropertyModel PropertiesModel { get; }
         ExRam.Gremlinq.Core.Models.IGraphElementModel VerticesModel { get; }
+        ExRam.Gremlinq.Core.Models.IGraphModel AddAssemblies(params System.Reflection.Assembly[] assemblies);
         ExRam.Gremlinq.Core.Models.IGraphModel ConfigureEdges(System.Func<ExRam.Gremlinq.Core.Models.IGraphElementModel, ExRam.Gremlinq.Core.Models.IGraphElementModel> transformation);
         ExRam.Gremlinq.Core.Models.IGraphModel ConfigureProperties(System.Func<ExRam.Gremlinq.Core.Models.IGraphElementPropertyModel, ExRam.Gremlinq.Core.Models.IGraphElementPropertyModel> transformation);
         ExRam.Gremlinq.Core.Models.IGraphModel ConfigureVertices(System.Func<ExRam.Gremlinq.Core.Models.IGraphElementModel, ExRam.Gremlinq.Core.Models.IGraphElementModel> transformation);

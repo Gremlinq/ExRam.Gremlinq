@@ -9,6 +9,11 @@ namespace ExRam.Gremlinq.Core.Models
         {
             private readonly IImmutableDictionary<Type, ElementMetadata> _metaDataOverrides;
 
+            public GraphElementModelImpl() : this(ImmutableHashSet<Type>.Empty)
+            {
+
+            }
+
             public GraphElementModelImpl(IImmutableSet<Type> elementTypes) : this(elementTypes, ImmutableDictionary<Type, ElementMetadata>.Empty)
             {
             }
@@ -47,12 +52,36 @@ namespace ExRam.Gremlinq.Core.Models
                     : new ElementMetadata(elementType.Name)
                 : throw new ArgumentException();
 
+            public IGraphElementModel AddAssemblies(params Assembly[] assemblies) => new GraphElementModelImpl<TBaseType>(
+                ElementTypes.AddRange(assemblies
+                    .Distinct()
+                    .SelectMany(static assembly =>
+                    {
+                        try
+                        {
+                            return assembly
+                                .DefinedTypes
+                                .Select(static x => x.AsType());
+                        }
+                        catch (ReflectionTypeLoadException ex)
+                        {
+                            return ex.Types
+                                .Where(static x => x is not null)
+                                .Select(static x => x!);
+                        }
+                    })
+                    .Where(type => type != typeof(TBaseType) && !type.IsNestedPrivate && typeof(TBaseType).IsAssignableFrom(type))
+                    .Where(static type => type is { IsClass: true, IsAbstract: false })),
+                _metaDataOverrides);
+
             public IImmutableSet<Type> ElementTypes { get; }
         }
 
         private sealed class InvalidGraphElementModel : IGraphElementModel
         {
             public IImmutableSet<Type> ElementTypes => throw new InvalidOperationException($"{nameof(ElementTypes)} must not be called on {nameof(GraphElementModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
+
+            public IGraphElementModel AddAssemblies(params Assembly[] assemblies) => throw new InvalidOperationException($"{nameof(AddAssemblies)} must not be called on {nameof(GraphElementModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
 
             public IGraphElementModel ConfigureLabels(Func<Type, string, string> overrideTransformation) => throw new InvalidOperationException($"{nameof(ConfigureLabels)} must not be called on {nameof(GraphElementModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
 
@@ -64,6 +93,8 @@ namespace ExRam.Gremlinq.Core.Models
         private sealed class EmptyGraphElementModel : IGraphElementModel
         {
             public IImmutableSet<Type> ElementTypes => ImmutableHashSet<Type>.Empty;
+
+            public IGraphElementModel AddAssemblies(params Assembly[] assemblies) => throw new InvalidOperationException($"{nameof(AddAssemblies)} must not be called on {nameof(GraphElementModel)}.{nameof(Empty)}. Configure a valid model for the environment first.");
 
             public IGraphElementModel ConfigureLabels(Func<Type, string, string> overrideTransformation) => this;
 
@@ -90,30 +121,7 @@ namespace ExRam.Gremlinq.Core.Models
                     : labels;
         }
 
-        internal static IGraphElementModel FromBaseType<TType>()
-        {
-            return new GraphElementModelImpl<TType>(new[] { typeof(TType).Assembly }
-                .Distinct()
-                .SelectMany(static assembly =>
-                {
-                    try
-                    {
-                        return assembly
-                            .DefinedTypes
-                            .Select(static x => x.AsType());
-                    }
-                    catch (ReflectionTypeLoadException ex)
-                    {
-                        return ex.Types
-                            .Where(static x => x is not null)
-                            .Select(static x => x!);
-                    }
-                })
-                .Where(type => type != typeof(TType) && !type.IsNestedPrivate && typeof(TType).IsAssignableFrom(type))
-                .Prepend(typeof(TType))
-                .Where(static type => type is { IsClass: true, IsAbstract: false })
-                .ToImmutableHashSet());
-        }
+        internal static IGraphElementModel FromBaseType<TType>() => new GraphElementModelImpl<TType>().AddAssemblies(typeof(TType).Assembly);
 
         internal static ImmutableArray<string> GetFilterLabelsOrDefault(this IGraphElementModel model, Type type, FilterLabelsVerbosity verbosity) => model.TryGetFilterLabels(type, verbosity) ?? ImmutableArray.Create(type.Name);
     }
