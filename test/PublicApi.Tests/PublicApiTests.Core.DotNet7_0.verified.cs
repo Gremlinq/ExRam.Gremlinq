@@ -1408,10 +1408,6 @@ namespace ExRam.Gremlinq.Core.Models
     }
     public static class GraphElementModel
     {
-        public static readonly ExRam.Gremlinq.Core.Models.IGraphElementModel Empty;
-        public static readonly ExRam.Gremlinq.Core.Models.IGraphElementModel Invalid;
-        public static ExRam.Gremlinq.Core.Models.IGraphElementModel FromBaseType<TType>(System.Collections.Generic.IEnumerable<System.Reflection.Assembly>? assemblies) { }
-        public static System.Collections.Immutable.ImmutableArray<string>? TryGetFilterLabels(this ExRam.Gremlinq.Core.Models.IGraphElementModel model, System.Type type, ExRam.Gremlinq.Core.FilterLabelsVerbosity verbosity) { }
         public static ExRam.Gremlinq.Core.Models.IGraphElementModel UseCamelCaseLabels(this ExRam.Gremlinq.Core.Models.IGraphElementModel model) { }
         public static ExRam.Gremlinq.Core.Models.IGraphElementModel UseLowerCaseLabels(this ExRam.Gremlinq.Core.Models.IGraphElementModel model) { }
     }

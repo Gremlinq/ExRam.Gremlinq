@@ -72,10 +72,25 @@ namespace ExRam.Gremlinq.Core.Models
             public ElementMetadata GetMetadata(Type elementType) => new (elementType.Name);
         }
 
-        public static readonly IGraphElementModel Empty = new EmptyGraphElementModel();
-        public static readonly IGraphElementModel Invalid = new InvalidGraphElementModel();
+        internal static readonly IGraphElementModel Empty = new EmptyGraphElementModel();
+        internal static readonly IGraphElementModel Invalid = new InvalidGraphElementModel();
 
-        public static IGraphElementModel FromBaseType<TType>(IEnumerable<Assembly>? assemblies)
+        public static IGraphElementModel UseCamelCaseLabels(this IGraphElementModel model) => model.ConfigureLabels(static (_, proposedLabel) => proposedLabel.ToCamelCase());
+
+        public static IGraphElementModel UseLowerCaseLabels(this IGraphElementModel model) => model.ConfigureLabels(static (_, proposedLabel) => proposedLabel.ToLower());
+
+        internal static ImmutableArray<string>? TryGetFilterLabels(this IGraphElementModel model, Type type, FilterLabelsVerbosity verbosity)
+        {
+            var labels = model.GetCache().GetDerivedLabels(type);
+
+            return labels.IsEmpty
+                ? default(ImmutableArray<string>?)
+                : labels.Length == model.ElementTypes.Length && verbosity == FilterLabelsVerbosity.Minimum
+                    ? ImmutableArray<string>.Empty
+                    : labels;
+        }
+
+        internal static IGraphElementModel FromBaseType<TType>(IEnumerable<Assembly>? assemblies)
         {
             return new GraphElementModelImpl<TType>((assemblies ?? Enumerable.Empty<Assembly>())
                 .Distinct()
@@ -98,21 +113,6 @@ namespace ExRam.Gremlinq.Core.Models
                 .Prepend(typeof(TType))
                 .Where(static type => type is { IsClass: true, IsAbstract: false })
                 .ToImmutableArray());
-        }
-
-        public static IGraphElementModel UseCamelCaseLabels(this IGraphElementModel model) => model.ConfigureLabels(static (_, proposedLabel) => proposedLabel.ToCamelCase());
-
-        public static IGraphElementModel UseLowerCaseLabels(this IGraphElementModel model) => model.ConfigureLabels(static (_, proposedLabel) => proposedLabel.ToLower());
-
-        public static ImmutableArray<string>? TryGetFilterLabels(this IGraphElementModel model, Type type, FilterLabelsVerbosity verbosity)
-        {
-            var labels = model.GetCache().GetDerivedLabels(type);
-
-            return labels.IsEmpty
-                ? default(ImmutableArray<string>?)
-                : labels.Length == model.ElementTypes.Length && verbosity == FilterLabelsVerbosity.Minimum
-                    ? ImmutableArray<string>.Empty
-                    : labels;
         }
 
         internal static ImmutableArray<string> GetFilterLabelsOrDefault(this IGraphElementModel model, Type type, FilterLabelsVerbosity verbosity) => model.TryGetFilterLabels(type, verbosity) ?? ImmutableArray.Create(type.Name);
