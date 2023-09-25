@@ -13,29 +13,20 @@ namespace ExRam.Gremlinq.Core.Models
                 PropertiesModel = propertiesModel;
             }
 
-            public IGraphModel ConfigureVertices(Func<IGraphElementModel, IGraphElementModel> transformation)
-            {
-                return new GraphModelImpl(
-                    transformation(VerticesModel),
-                    EdgesModel,
-                    PropertiesModel);
-            }
+            public IGraphModel ConfigureVertices(Func<IGraphElementModel, IGraphElementModel> transformation) => new GraphModelImpl(
+                transformation(VerticesModel),
+                EdgesModel,
+                PropertiesModel);
 
-            public IGraphModel ConfigureEdges(Func<IGraphElementModel, IGraphElementModel> transformation)
-            {
-                return new GraphModelImpl(
-                    VerticesModel,
-                    transformation(EdgesModel),
-                    PropertiesModel);
-            }
+            public IGraphModel ConfigureEdges(Func<IGraphElementModel, IGraphElementModel> transformation) => new GraphModelImpl(
+                VerticesModel,
+                transformation(EdgesModel),
+                PropertiesModel);
 
-            public IGraphModel ConfigureProperties(Func<IGraphElementPropertyModel, IGraphElementPropertyModel> transformation)
-            {
-                return new GraphModelImpl(
-                    VerticesModel,
-                    EdgesModel,
-                    transformation(PropertiesModel));
-            }
+            public IGraphModel ConfigureProperties(Func<IGraphElementPropertyModel, IGraphElementPropertyModel> transformation) => new GraphModelImpl(
+                VerticesModel,
+                EdgesModel,
+                transformation(PropertiesModel));
 
             public IGraphModel AddAssemblies(params Assembly[] assemblies) => this
                 .ConfigureElements(__ => __.AddAssemblies(assemblies));
@@ -72,11 +63,8 @@ namespace ExRam.Gremlinq.Core.Models
                 GraphElementPropertyModel.FromGraphElementModels(verticesModel, edgesModel));
         }
 
-        public static IGraphModel ConfigureElements(this IGraphModel model, Func<IGraphElementModel, IGraphElementModel> transformation)
-        {
-            return model
-                .ConfigureVertices(transformation)
-                .ConfigureEdges(transformation);
-        }
+        public static IGraphModel ConfigureElements(this IGraphModel model, Func<IGraphElementModel, IGraphElementModel> transformation) => model
+            .ConfigureVertices(transformation)
+            .ConfigureEdges(transformation);
     }
 }
