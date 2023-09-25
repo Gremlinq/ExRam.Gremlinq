@@ -1,18 +1,16 @@
-﻿using System.Collections.Immutable;
-using System.Linq.Expressions;
-using System.Reflection;
+﻿using System.Linq.Expressions;
 
 namespace ExRam.Gremlinq.Core.Models
 {
     internal sealed class MemberMetadataConfigurator<TElement> : IMemberMetadataConfigurator<TElement>
     {
-        private readonly Func<IImmutableDictionary<MemberInfo, MemberMetadata>, IImmutableDictionary<MemberInfo, MemberMetadata>> _transformation;
+        private readonly Func<IGraphElementPropertyModel, IGraphElementPropertyModel> _transformation;
 
         public MemberMetadataConfigurator() : this(_ => _)
         {
         }
 
-        private MemberMetadataConfigurator(Func<IImmutableDictionary<MemberInfo, MemberMetadata>, IImmutableDictionary<MemberInfo, MemberMetadata>> transformation)
+        private MemberMetadataConfigurator(Func<IGraphElementPropertyModel, IGraphElementPropertyModel> transformation)
         {
             _transformation = transformation;
         }
@@ -41,19 +39,17 @@ namespace ExRam.Gremlinq.Core.Models
             propertyExpression,
             metaData => new MemberMetadata(metaData.Key, transformation(metaData.SerializationBehaviour)));
 
+        public IGraphElementPropertyModel Transform(IGraphElementPropertyModel model) => _transformation(model);
+
         private IMemberMetadataConfigurator<TElement> Configure<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression, Func<MemberMetadata, MemberMetadata> transformation)
         {
             var memberInfo = propertyExpression.Body.StripConvert() is MemberExpression memberExpression
                 ? memberExpression.Member
                 : throw new ExpressionNotSupportedException(propertyExpression);
 
-            return new MemberMetadataConfigurator<TElement>(metadataMap => _transformation(metadataMap).SetItem(
+            return new MemberMetadataConfigurator<TElement>(model => _transformation(model).ConfigureMemberMetadata(
                 memberInfo,
-                transformation(metadataMap.TryGetValue(memberInfo, out var metadata)
-                    ? metadata
-                    : new MemberMetadata(memberInfo.Name))));
+                metadata => transformation(metadata)));
         }
-
-        public IImmutableDictionary<MemberInfo, MemberMetadata> Transform(IImmutableDictionary<MemberInfo, MemberMetadata> metadata) => _transformation(metadata);
     }
 }

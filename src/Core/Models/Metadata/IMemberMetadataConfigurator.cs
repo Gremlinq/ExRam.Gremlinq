@@ -1,6 +1,4 @@
-﻿using System.Collections.Immutable;
-using System.Linq.Expressions;
-using System.Reflection;
+﻿using System.Linq.Expressions;
 
 namespace ExRam.Gremlinq.Core.Models
 {
@@ -16,6 +14,6 @@ namespace ExRam.Gremlinq.Core.Models
 
         IMemberMetadataConfigurator<TElement> ConfigureName<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression, string name);
 
-        IImmutableDictionary<MemberInfo, MemberMetadata> Transform(IImmutableDictionary<MemberInfo, MemberMetadata> metadata);
+        IGraphElementPropertyModel Transform(IGraphElementPropertyModel model);
     }
 }

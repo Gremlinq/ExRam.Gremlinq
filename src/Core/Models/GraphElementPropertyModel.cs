@@ -1,5 +1,4 @@
 ﻿using System.Collections.Immutable;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using ExRam.Gremlinq.Core.ExpressionParsing;
@@ -16,6 +15,15 @@ namespace ExRam.Gremlinq.Core.Models
             {
                 Members = members;
                 _metadata = metadata;
+            }
+
+            public IGraphElementPropertyModel ConfigureMemberMetadata(MemberInfo member, Func<MemberMetadata, MemberMetadata> transformation)
+            {
+                return new GraphElementPropertyModelImpl(
+                    Members,
+                    _metadata.SetItem(
+                        member,
+                        transformation(GetMetadata(member))));
             }
 
             public IGraphElementPropertyModel ConfigureMemberMetadata(Func<IImmutableDictionary<MemberInfo, MemberMetadata>, IImmutableDictionary<MemberInfo, MemberMetadata>> transformation)
@@ -53,22 +61,24 @@ namespace ExRam.Gremlinq.Core.Models
                     _metadata);
             }
 
+
+
             public IImmutableSet<MemberInfo> Members { get; }
         }
 
         private sealed class InvalidGraphElementPropertyModel : IGraphElementPropertyModel
         {
-            public IGraphElementPropertyModel ConfigureMemberMetadata(Func<IImmutableDictionary<MemberInfo, MemberMetadata>, IImmutableDictionary<MemberInfo, MemberMetadata>> transformation)
-            {
-                throw new InvalidOperationException($"{nameof(ConfigureMemberMetadata)} must not be called on {nameof(GraphElementPropertyModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
-            }
-
             public MemberMetadata GetMetadata(MemberInfo memberInfo)
             {
                 throw new InvalidOperationException($"{nameof(GetMetadata)} must not be called on {nameof(GraphElementPropertyModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
             }
 
             public IGraphElementPropertyModel ConfigureMemberMetadata(Func<MemberInfo, MemberMetadata, MemberMetadata> transformation)
+            {
+                throw new InvalidOperationException($"{nameof(ConfigureMemberMetadata)} must not be called on {nameof(GraphElementPropertyModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
+            }
+
+            public IGraphElementPropertyModel ConfigureMemberMetadata(MemberInfo member, Func<MemberMetadata, MemberMetadata> transformation)
             {
                 throw new InvalidOperationException($"{nameof(ConfigureMemberMetadata)} must not be called on {nameof(GraphElementPropertyModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
             }
@@ -89,8 +99,7 @@ namespace ExRam.Gremlinq.Core.Models
 
         public static IGraphElementPropertyModel ConfigureElement<TElement>(this IGraphElementPropertyModel propertiesModel, Func<IMemberMetadataConfigurator<TElement>, IMemberMetadataConfigurator<TElement>> transformation)
         {
-            return propertiesModel.ConfigureMemberMetadata(
-                metadata => transformation(new MemberMetadataConfigurator<TElement>()).Transform(metadata));
+            return transformation(new MemberMetadataConfigurator<TElement>()).Transform(propertiesModel);
         }
 
         public static IGraphElementPropertyModel UseCamelCaseNames(this IGraphElementPropertyModel model)
