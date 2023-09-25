@@ -27,10 +27,9 @@ namespace ExRam.Gremlinq.Core.Models
                 {
                     var newLabel = overrideTransformation(elementType, GetMetadata(elementType).Label);
 
-                    if (newLabel != elementType.Name)
-                        overrides = overrides.SetItem(elementType, new ElementMetadata(newLabel));
-                    else
-                        overrides = overrides.Remove(elementType);
+                    overrides = newLabel != elementType.Name
+                        ? overrides.SetItem(elementType, new ElementMetadata(newLabel))
+                        : overrides.Remove(elementType);
                 }
 
                 return new GraphElementModelImpl<TBaseType>(ElementTypes, overrides);
@@ -42,14 +41,11 @@ namespace ExRam.Gremlinq.Core.Models
                     elementType,
                     metadataTransformation(GetMetadata(elementType))));
 
-            public ElementMetadata GetMetadata(Type elementType)
-            {
-                return typeof(TBaseType).IsAssignableFrom(elementType)
-                    ? _metaDataOverrides.TryGetValue(elementType, out var elementMetadata)
-                        ? elementMetadata
-                        : new ElementMetadata(elementType.Name)
-                    :  throw new ArgumentException();
-            }
+            public ElementMetadata GetMetadata(Type elementType) => typeof(TBaseType).IsAssignableFrom(elementType)
+                ? _metaDataOverrides.TryGetValue(elementType, out var elementMetadata)
+                    ? elementMetadata
+                    : new ElementMetadata(elementType.Name)
+                : throw new ArgumentException();
 
             public ImmutableArray<Type> ElementTypes { get; }
         }
@@ -60,7 +56,7 @@ namespace ExRam.Gremlinq.Core.Models
 
             public IGraphElementModel ConfigureLabels(Func<Type, string, string> overrideTransformation) => throw new InvalidOperationException($"{nameof(ConfigureLabels)} must not be called on {nameof(GraphElementModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
 
-            public IGraphElementModel ConfigureMetadata(Type elemetType, Func<ElementMetadata, ElementMetadata> metaDataTransformation) => throw new InvalidOperationException($"{nameof(ConfigureMetadata)} must not be called on {nameof(GraphElementModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
+            public IGraphElementModel ConfigureMetadata(Type elementType, Func<ElementMetadata, ElementMetadata> metaDataTransformation) => throw new InvalidOperationException($"{nameof(ConfigureMetadata)} must not be called on {nameof(GraphElementModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
 
             public ElementMetadata GetMetadata(Type elementType) => throw new InvalidOperationException($"{nameof(GetMetadata)} must not be called on {nameof(GraphElementModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
         }
