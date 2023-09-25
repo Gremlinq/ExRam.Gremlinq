@@ -22,12 +22,6 @@ namespace ExRam.Gremlinq.Core.Models
                 return new GraphElementPropertyModelImpl(Members, transformation(_metadata));
             }
 
-            public IGraphElementPropertyModel ConfigureElement<TElement>(Func<IMemberMetadataConfigurator<TElement>, IMemberMetadataConfigurator<TElement>> transformation)
-            {
-                return ConfigureMemberMetadata(
-                    metadata => transformation(new MemberMetadataConfigurator<TElement>()).Transform(metadata));
-            }
-
             public MemberMetadata GetMetadata(MemberInfo memberInfo) => _metadata.TryGetValue(memberInfo, out var metadata)
                 ? metadata
                 : new MemberMetadata(memberInfo.Name);
@@ -42,11 +36,6 @@ namespace ExRam.Gremlinq.Core.Models
                 throw new InvalidOperationException($"{nameof(ConfigureMemberMetadata)} must not be called on {nameof(GraphElementPropertyModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
             }
 
-            public IGraphElementPropertyModel ConfigureElement<TElement>(Func<IMemberMetadataConfigurator<TElement>, IMemberMetadataConfigurator<TElement>> transformation)
-            {
-                throw new InvalidOperationException($"{nameof(ConfigureElement)} must not be called on {nameof(GraphElementPropertyModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
-            }
-
             public MemberMetadata GetMetadata(MemberInfo memberInfo)
             {
                 throw new InvalidOperationException($"{nameof(GetMetadata)} must not be called on {nameof(GraphElementPropertyModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
@@ -59,6 +48,12 @@ namespace ExRam.Gremlinq.Core.Models
                     throw new InvalidOperationException($"{nameof(Members)} must not be called on {nameof(GraphElementPropertyModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
                 }
             }
+        }
+
+        public static IGraphElementPropertyModel ConfigureElement<TElement>(this IGraphElementPropertyModel propertiesModel, Func<IMemberMetadataConfigurator<TElement>, IMemberMetadataConfigurator<TElement>> transformation)
+        {
+            return propertiesModel.ConfigureMemberMetadata(
+                metadata => transformation(new MemberMetadataConfigurator<TElement>()).Transform(metadata));
         }
 
         internal static Key GetKey(this IGremlinQueryEnvironment environment, Expression expression)
