@@ -21,8 +21,6 @@ namespace ExRam.Gremlinq.Core.Models
             return IncludeAssemblies(_baseTypes.Select(static x => x.Assembly));
         }
 
-        public IAssemblyLookupSet IncludeAssemblies(params Assembly[] assemblies) => IncludeAssemblies(assemblies.AsEnumerable());
-
         public IAssemblyLookupSet IncludeAssemblies(IEnumerable<Assembly> assemblies)
         {
             return new AssemblyLookupSet(
