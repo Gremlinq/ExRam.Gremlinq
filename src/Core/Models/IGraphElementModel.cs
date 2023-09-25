@@ -4,7 +4,7 @@ namespace ExRam.Gremlinq.Core.Models
 {
     public interface IGraphElementModel
     {
-        ImmutableHashSet<Type> ElementTypes { get; }
+        IImmutableSet<Type> ElementTypes { get; }
 
         ElementMetadata GetMetadata(Type elementType);
 

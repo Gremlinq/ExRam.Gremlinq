@@ -9,11 +9,11 @@ namespace ExRam.Gremlinq.Core.Models
         {
             private readonly IImmutableDictionary<Type, ElementMetadata> _metaDataOverrides;
 
-            public GraphElementModelImpl(ImmutableHashSet<Type> elementTypes) : this(elementTypes, ImmutableDictionary<Type, ElementMetadata>.Empty)
+            public GraphElementModelImpl(IImmutableSet<Type> elementTypes) : this(elementTypes, ImmutableDictionary<Type, ElementMetadata>.Empty)
             {
             }
 
-            public GraphElementModelImpl(ImmutableHashSet<Type> elementTypes, IImmutableDictionary<Type, ElementMetadata> metaDataOverrides)
+            public GraphElementModelImpl(IImmutableSet<Type> elementTypes, IImmutableDictionary<Type, ElementMetadata> metaDataOverrides)
             {
                 ElementTypes = elementTypes;
                 _metaDataOverrides = metaDataOverrides;
@@ -47,12 +47,12 @@ namespace ExRam.Gremlinq.Core.Models
                     : new ElementMetadata(elementType.Name)
                 : throw new ArgumentException();
 
-            public ImmutableHashSet<Type> ElementTypes { get; }
+            public IImmutableSet<Type> ElementTypes { get; }
         }
 
         private sealed class InvalidGraphElementModel : IGraphElementModel
         {
-            public ImmutableHashSet<Type> ElementTypes => throw new InvalidOperationException($"{nameof(ElementTypes)} must not be called on {nameof(GraphElementModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
+            public IImmutableSet<Type> ElementTypes => throw new InvalidOperationException($"{nameof(ElementTypes)} must not be called on {nameof(GraphElementModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
 
             public IGraphElementModel ConfigureLabels(Func<Type, string, string> overrideTransformation) => throw new InvalidOperationException($"{nameof(ConfigureLabels)} must not be called on {nameof(GraphElementModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
 
@@ -63,7 +63,7 @@ namespace ExRam.Gremlinq.Core.Models
 
         private sealed class EmptyGraphElementModel : IGraphElementModel
         {
-            public ImmutableHashSet<Type> ElementTypes => ImmutableHashSet<Type>.Empty;
+            public IImmutableSet<Type> ElementTypes => ImmutableHashSet<Type>.Empty;
 
             public IGraphElementModel ConfigureLabels(Func<Type, string, string> overrideTransformation) => this;
 
