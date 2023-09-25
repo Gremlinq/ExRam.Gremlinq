@@ -34,6 +34,8 @@ namespace ExRam.Gremlinq.Core.Models
             return IncludeAssemblies(AppDomain.CurrentDomain.GetAssemblies());
         }
 
+        public IAssemblyLookupSet IncludeAssemblies(params Assembly[] assemblies) => IncludeAssemblies(assemblies.AsEnumerable());
+
         public IAssemblyLookupSet IncludeAssemblies(IEnumerable<Assembly> assemblies)
         {
             return new AssemblyLookupSet(

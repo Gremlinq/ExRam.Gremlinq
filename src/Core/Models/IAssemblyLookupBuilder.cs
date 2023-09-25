@@ -7,6 +7,6 @@ namespace ExRam.Gremlinq.Core.Models
         IAssemblyLookupSet IncludeAssembliesOfBaseTypes();
         IAssemblyLookupSet IncludeAssembliesFromStackTrace();
         IAssemblyLookupSet IncludeAssembliesFromAppDomain();
-        IAssemblyLookupSet IncludeAssemblies(IEnumerable<Assembly> assemblies);
+        IAssemblyLookupSet IncludeAssemblies(params Assembly[] assemblies);
     }
 }

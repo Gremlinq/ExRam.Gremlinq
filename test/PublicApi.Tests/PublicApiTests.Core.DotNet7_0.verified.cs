@@ -1425,7 +1425,7 @@ namespace ExRam.Gremlinq.Core.Models
     }
     public interface IAssemblyLookupBuilder
     {
-        ExRam.Gremlinq.Core.Models.IAssemblyLookupSet IncludeAssemblies(System.Collections.Generic.IEnumerable<System.Reflection.Assembly> assemblies);
+        ExRam.Gremlinq.Core.Models.IAssemblyLookupSet IncludeAssemblies(params System.Reflection.Assembly[] assemblies);
         ExRam.Gremlinq.Core.Models.IAssemblyLookupSet IncludeAssembliesFromAppDomain();
         ExRam.Gremlinq.Core.Models.IAssemblyLookupSet IncludeAssembliesFromStackTrace();
         ExRam.Gremlinq.Core.Models.IAssemblyLookupSet IncludeAssembliesOfBaseTypes();
