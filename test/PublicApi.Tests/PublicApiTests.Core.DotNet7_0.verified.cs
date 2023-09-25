@@ -1431,7 +1431,7 @@ namespace ExRam.Gremlinq.Core.Models
     public interface IGraphElementPropertyModel
     {
         System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.Models.MemberMetadata> MemberMetadata { get; }
-        ExRam.Gremlinq.Core.Models.IGraphElementPropertyModel ConfigureElement<TElement>(System.Func<ExRam.Gremlinq.Core.Models.IMemberMetadataConfigurator<TElement>, System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.Models.MemberMetadata>> transformation);
+        ExRam.Gremlinq.Core.Models.IGraphElementPropertyModel ConfigureElement<TElement>(System.Func<ExRam.Gremlinq.Core.Models.IMemberMetadataConfigurator<TElement>, ExRam.Gremlinq.Core.Models.IMemberMetadataConfigurator<TElement>> transformation);
         ExRam.Gremlinq.Core.Models.IGraphElementPropertyModel ConfigureMemberMetadata(System.Func<System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.Models.MemberMetadata>, System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.Models.MemberMetadata>> transformation);
     }
     public interface IGraphModel
@@ -1444,13 +1444,14 @@ namespace ExRam.Gremlinq.Core.Models
         ExRam.Gremlinq.Core.Models.IGraphModel ConfigureProperties(System.Func<ExRam.Gremlinq.Core.Models.IGraphElementPropertyModel, ExRam.Gremlinq.Core.Models.IGraphElementPropertyModel> transformation);
         ExRam.Gremlinq.Core.Models.IGraphModel ConfigureVertices(System.Func<ExRam.Gremlinq.Core.Models.IGraphElementModel, ExRam.Gremlinq.Core.Models.IGraphElementModel> transformation);
     }
-    public interface IMemberMetadataConfigurator<TElement> : System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.Models.MemberMetadata>>, System.Collections.Generic.IReadOnlyCollection<System.Collections.Generic.KeyValuePair<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.Models.MemberMetadata>>, System.Collections.Generic.IReadOnlyDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.Models.MemberMetadata>, System.Collections.IEnumerable, System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.Models.MemberMetadata>
+    public interface IMemberMetadataConfigurator<TElement>
     {
         ExRam.Gremlinq.Core.Models.IMemberMetadataConfigurator<TElement> ConfigureName<TProperty>(System.Linq.Expressions.Expression<System.Func<TElement, TProperty>> propertyExpression, string name);
         ExRam.Gremlinq.Core.Models.IMemberMetadataConfigurator<TElement> IgnoreAlways<TProperty>(System.Linq.Expressions.Expression<System.Func<TElement, TProperty>> propertyExpression);
         ExRam.Gremlinq.Core.Models.IMemberMetadataConfigurator<TElement> IgnoreOnAdd<TProperty>(System.Linq.Expressions.Expression<System.Func<TElement, TProperty>> propertyExpression);
         ExRam.Gremlinq.Core.Models.IMemberMetadataConfigurator<TElement> IgnoreOnUpdate<TProperty>(System.Linq.Expressions.Expression<System.Func<TElement, TProperty>> propertyExpression);
         ExRam.Gremlinq.Core.Models.IMemberMetadataConfigurator<TElement> ResetSerializationBehaviour<TProperty>(System.Linq.Expressions.Expression<System.Func<TElement, TProperty>> propertyExpression);
+        System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.Models.MemberMetadata> Transform(System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.Models.MemberMetadata> metadata);
     }
     public readonly struct MemberMetadata
     {

@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 using System.Linq.Expressions;
 using System.Reflection;
 
@@ -7,11 +6,15 @@ namespace ExRam.Gremlinq.Core.Models
 {
     internal sealed class MemberMetadataConfigurator<TElement> : IMemberMetadataConfigurator<TElement>
     {
-        private readonly IImmutableDictionary<MemberInfo, MemberMetadata> _metadata;
+        private readonly Func<IImmutableDictionary<MemberInfo, MemberMetadata>, IImmutableDictionary<MemberInfo, MemberMetadata>> _transformation;
 
-        public MemberMetadataConfigurator(IImmutableDictionary<MemberInfo, MemberMetadata> metadata)
+        public MemberMetadataConfigurator() : this(_ => _)
         {
-            _metadata = metadata;
+        }
+
+        private MemberMetadataConfigurator(Func<IImmutableDictionary<MemberInfo, MemberMetadata>, IImmutableDictionary<MemberInfo, MemberMetadata>> transformation)
+        {
+            _transformation = transformation;
         }
 
         public IMemberMetadataConfigurator<TElement> IgnoreOnAdd<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression)
@@ -62,86 +65,13 @@ namespace ExRam.Gremlinq.Core.Models
                 ? memberExpression.Member
                 : throw new ExpressionNotSupportedException(propertyExpression);
 
-            return new MemberMetadataConfigurator<TElement>(_metadata.SetItem(
+            return new MemberMetadataConfigurator<TElement>(metadataMap => _transformation(metadataMap).SetItem(
                 memberInfo,
-                transformation(_metadata.TryGetValue(memberInfo, out var metadata)
+                transformation(metadataMap.TryGetValue(memberInfo, out var metadata)
                     ? metadata
                     : new MemberMetadata(memberInfo.Name))));
         }
 
-        #region Explicit
-        IEnumerator<KeyValuePair<MemberInfo, MemberMetadata>> IEnumerable<KeyValuePair<MemberInfo, MemberMetadata>>.GetEnumerator()
-        {
-            return _metadata.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return ((IEnumerable)_metadata).GetEnumerator();
-        }
-
-        int IReadOnlyCollection<KeyValuePair<MemberInfo, MemberMetadata>>.Count => _metadata.Count;
-
-        bool IReadOnlyDictionary<MemberInfo, MemberMetadata>.ContainsKey(MemberInfo key)
-        {
-            return _metadata.ContainsKey(key);
-        }
-
-        bool IReadOnlyDictionary<MemberInfo, MemberMetadata>.TryGetValue(MemberInfo key, out MemberMetadata value)
-        {
-            return _metadata.TryGetValue(key, out value);
-        }
-
-        MemberMetadata IReadOnlyDictionary<MemberInfo, MemberMetadata>.this[MemberInfo key] => _metadata[key];
-
-        IEnumerable<MemberInfo> IReadOnlyDictionary<MemberInfo, MemberMetadata>.Keys => _metadata.Keys;
-
-        IEnumerable<MemberMetadata> IReadOnlyDictionary<MemberInfo, MemberMetadata>.Values => _metadata.Values;
-
-        IImmutableDictionary<MemberInfo, MemberMetadata> IImmutableDictionary<MemberInfo, MemberMetadata>.Clear()
-        {
-            return _metadata.Clear();
-        }
-
-        IImmutableDictionary<MemberInfo, MemberMetadata> IImmutableDictionary<MemberInfo, MemberMetadata>.Add(MemberInfo key, MemberMetadata value)
-        {
-            return _metadata.Add(key, value);
-        }
-
-        IImmutableDictionary<MemberInfo, MemberMetadata> IImmutableDictionary<MemberInfo, MemberMetadata>.AddRange(IEnumerable<KeyValuePair<MemberInfo, MemberMetadata>> pairs)
-        {
-            return _metadata.AddRange(pairs);
-        }
-
-        IImmutableDictionary<MemberInfo, MemberMetadata> IImmutableDictionary<MemberInfo, MemberMetadata>.SetItem(MemberInfo key, MemberMetadata value)
-        {
-            return _metadata.SetItem(key, value);
-        }
-
-        IImmutableDictionary<MemberInfo, MemberMetadata> IImmutableDictionary<MemberInfo, MemberMetadata>.SetItems(IEnumerable<KeyValuePair<MemberInfo, MemberMetadata>> items)
-        {
-            return _metadata.SetItems(items);
-        }
-
-        IImmutableDictionary<MemberInfo, MemberMetadata> IImmutableDictionary<MemberInfo, MemberMetadata>.RemoveRange(IEnumerable<MemberInfo> keys)
-        {
-            return _metadata.RemoveRange(keys);
-        }
-
-        IImmutableDictionary<MemberInfo, MemberMetadata> IImmutableDictionary<MemberInfo, MemberMetadata>.Remove(MemberInfo key)
-        {
-            return _metadata.Remove(key);
-        }
-
-        bool IImmutableDictionary<MemberInfo, MemberMetadata>.Contains(KeyValuePair<MemberInfo, MemberMetadata> pair)
-        {
-            return _metadata.Contains(pair);
-        }
-
-        bool IImmutableDictionary<MemberInfo, MemberMetadata>.TryGetKey(MemberInfo equalKey, out MemberInfo actualKey)
-        {
-            return _metadata.TryGetKey(equalKey, out actualKey);
-        }
-        #endregion
+        public IImmutableDictionary<MemberInfo, MemberMetadata> Transform(IImmutableDictionary<MemberInfo, MemberMetadata> metadata) => _transformation(metadata);
     }
 }
