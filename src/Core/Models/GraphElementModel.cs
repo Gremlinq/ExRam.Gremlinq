@@ -12,11 +12,13 @@ namespace ExRam.Gremlinq.Core.Models
                 Metadata = metaData;
             }
 
-            public IGraphElementModel ConfigureMetadata(Func<IImmutableDictionary<Type, ElementMetadata>, IImmutableDictionary<Type, ElementMetadata>> transformation) => new GraphElementModelImpl(transformation(Metadata));
-
-            public IGraphElementModel ConfigureLabels(Func<Type, string, string> overrideTransformation) => ConfigureMetadata(_ => _.ToImmutableDictionary(
+            public IGraphElementModel ConfigureLabels(Func<Type, string, string> overrideTransformation) => new GraphElementModelImpl(Metadata.ToImmutableDictionary(
                 static kvp => kvp.Key,
                 kvp => new ElementMetadata(overrideTransformation(kvp.Key, kvp.Value.Label))));
+
+            public IGraphElementModel ConfigureMetadata(Type elementType, Func<ElementMetadata, ElementMetadata> metadataTransformation) => Metadata.TryGetValue(elementType, out var elementMetadata)
+                ? new GraphElementModelImpl(Metadata.SetItem(elementType, metadataTransformation(elementMetadata)))
+                : throw new ArgumentException();
 
             public IImmutableDictionary<Type, ElementMetadata> Metadata { get; }
         }
@@ -27,7 +29,7 @@ namespace ExRam.Gremlinq.Core.Models
 
             public IGraphElementModel ConfigureLabels(Func<Type, string, string> overrideTransformation) => throw new InvalidOperationException($"{nameof(ConfigureLabels)} must not be called on {nameof(GraphElementModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
 
-            public IGraphElementModel ConfigureMetadata(Func<IImmutableDictionary<Type, ElementMetadata>, IImmutableDictionary<Type, ElementMetadata>> transformation) => throw new InvalidOperationException($"{nameof(ConfigureMetadata)} must not be called on {nameof(GraphElementModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
+            public IGraphElementModel ConfigureMetadata(Type elemetType, Func<ElementMetadata, ElementMetadata> metaDataTransformation) => throw new InvalidOperationException($"{nameof(ConfigureMetadata)} must not be called on {nameof(GraphElementModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
         }
 
         public static readonly IGraphElementModel Empty = new GraphElementModelImpl(ImmutableDictionary<Type, ElementMetadata>.Empty);

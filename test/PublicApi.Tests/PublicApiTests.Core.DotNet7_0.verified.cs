@@ -1446,7 +1446,7 @@ namespace ExRam.Gremlinq.Core.Models
     {
         System.Collections.Immutable.IImmutableDictionary<System.Type, ExRam.Gremlinq.Core.Models.ElementMetadata> Metadata { get; }
         ExRam.Gremlinq.Core.Models.IGraphElementModel ConfigureLabels(System.Func<System.Type, string, string> overrideTransformation);
-        ExRam.Gremlinq.Core.Models.IGraphElementModel ConfigureMetadata(System.Func<System.Collections.Immutable.IImmutableDictionary<System.Type, ExRam.Gremlinq.Core.Models.ElementMetadata>, System.Collections.Immutable.IImmutableDictionary<System.Type, ExRam.Gremlinq.Core.Models.ElementMetadata>> transformation);
+        ExRam.Gremlinq.Core.Models.IGraphElementModel ConfigureMetadata(System.Type elementType, System.Func<ExRam.Gremlinq.Core.Models.ElementMetadata, ExRam.Gremlinq.Core.Models.ElementMetadata> metaDataTransformation);
     }
     public interface IGraphElementPropertyModel
     {

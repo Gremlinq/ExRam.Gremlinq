@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq.Core.Models
     {
         IImmutableDictionary<Type, ElementMetadata> Metadata { get; }
 
-        IGraphElementModel ConfigureMetadata(Func<IImmutableDictionary<Type, ElementMetadata>, IImmutableDictionary<Type, ElementMetadata>> transformation);
+        IGraphElementModel ConfigureMetadata(Type elementType, Func<ElementMetadata, ElementMetadata> metaDataTransformation);
 
         IGraphElementModel ConfigureLabels(Func<Type, string, string> overrideTransformation);
     }
