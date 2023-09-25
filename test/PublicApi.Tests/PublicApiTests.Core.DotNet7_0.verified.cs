@@ -1410,9 +1410,7 @@ namespace ExRam.Gremlinq.Core.Models
     {
         public static readonly ExRam.Gremlinq.Core.Models.IGraphElementModel Empty;
         public static readonly ExRam.Gremlinq.Core.Models.IGraphElementModel Invalid;
-        public static ExRam.Gremlinq.Core.Models.IGraphElementModel FromBaseType(System.Type baseType, System.Collections.Generic.IEnumerable<System.Reflection.Assembly>? assemblies) { }
-        public static ExRam.Gremlinq.Core.Models.IGraphElementModel FromBaseType<TType>(System.Collections.Generic.IEnumerable<System.Reflection.Assembly>? assemblies) { }
-        public static ExRam.Gremlinq.Core.Models.IGraphElementModel FromTypes(System.Collections.Generic.IEnumerable<System.Type> types) { }
+        public static ExRam.Gremlinq.Core.Models.IGraphElementModel FromBaseType<TBaseType>(System.Collections.Generic.IEnumerable<System.Reflection.Assembly>? assemblies) { }
         public static System.Collections.Immutable.ImmutableArray<string>? TryGetFilterLabels(this ExRam.Gremlinq.Core.Models.IGraphElementModel model, System.Type type, ExRam.Gremlinq.Core.FilterLabelsVerbosity verbosity) { }
         public static ExRam.Gremlinq.Core.Models.IGraphElementModel UseCamelCaseLabels(this ExRam.Gremlinq.Core.Models.IGraphElementModel model) { }
         public static ExRam.Gremlinq.Core.Models.IGraphElementModel UseLowerCaseLabels(this ExRam.Gremlinq.Core.Models.IGraphElementModel model) { }
@@ -1427,9 +1425,7 @@ namespace ExRam.Gremlinq.Core.Models
         public static readonly ExRam.Gremlinq.Core.Models.IGraphModel Empty;
         public static readonly ExRam.Gremlinq.Core.Models.IGraphModel Invalid;
         public static ExRam.Gremlinq.Core.Models.IGraphModel ConfigureElements(this ExRam.Gremlinq.Core.Models.IGraphModel model, System.Func<ExRam.Gremlinq.Core.Models.IGraphElementModel, ExRam.Gremlinq.Core.Models.IGraphElementModel> transformation) { }
-        public static ExRam.Gremlinq.Core.Models.IGraphModel FromBaseTypes(System.Type vertexBaseType, System.Type edgeBaseType, System.Func<ExRam.Gremlinq.Core.Models.IAssemblyLookupBuilder, ExRam.Gremlinq.Core.Models.IAssemblyLookupSet> assemblyLookupTransformation) { }
-        public static ExRam.Gremlinq.Core.Models.IGraphModel FromBaseTypes<TVertex, TEdge>(System.Func<ExRam.Gremlinq.Core.Models.IAssemblyLookupBuilder, ExRam.Gremlinq.Core.Models.IAssemblyLookupSet>? assemblyLookupTransformation = null) { }
-        public static ExRam.Gremlinq.Core.Models.IGraphModel FromTypes(System.Type[] vertexTypes, System.Type[] edgeTypes) { }
+        public static ExRam.Gremlinq.Core.Models.IGraphModel FromBaseTypes<TVertexBaseType, TEdgeBaseType>(System.Func<ExRam.Gremlinq.Core.Models.IAssemblyLookupBuilder, ExRam.Gremlinq.Core.Models.IAssemblyLookupSet>? assemblyLookupTransformation = null) { }
     }
     public interface IAssemblyLookupBuilder
     {
