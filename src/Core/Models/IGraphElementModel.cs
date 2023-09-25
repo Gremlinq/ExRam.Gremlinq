@@ -4,7 +4,9 @@ namespace ExRam.Gremlinq.Core.Models
 {
     public interface IGraphElementModel
     {
-        IImmutableDictionary<Type, ElementMetadata> Metadata { get; }
+        ImmutableArray<Type> ElementTypes { get; }
+
+        ElementMetadata GetMetadata(Type elementType);
 
         IGraphElementModel ConfigureMetadata(Type elementType, Func<ElementMetadata, ElementMetadata> metaDataTransformation);
 

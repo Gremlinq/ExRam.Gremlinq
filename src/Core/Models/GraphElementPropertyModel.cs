@@ -70,7 +70,7 @@ namespace ExRam.Gremlinq.Core.Models
             return Empty
                 .ConfigureMemberMetadata(_ => _
                     .AddRange(models
-                        .SelectMany(static model => model.Metadata.Keys)
+                        .SelectMany(static model => model.ElementTypes)
                         .SelectMany(static x => x.GetTypeHierarchy())
                         .Distinct()
                         .SelectMany(static type => type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly))

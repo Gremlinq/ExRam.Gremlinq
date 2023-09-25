@@ -21,15 +21,17 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                     environment,
                     static environment => environment.Model
                         .VerticesModel
-                        .Metadata
+                        .ElementTypes
+                        .Select(type => (Type: type, environment.Model.VerticesModel.GetMetadata(type).Label))
                         .Concat(environment.Model
                             .EdgesModel
-                            .Metadata)
-                        .GroupBy(static x => x.Value.Label)
+                            .ElementTypes
+                            .Select(type => (Type: type, environment.Model.EdgesModel.GetMetadata(type).Label)))
+                        .GroupBy(static x => x.Label)
                         .ToDictionary(
                             static group => group.Key,
                             static group => group
-                                .Select(static x => x.Key)
+                                .Select(static x => x.Type)
                                 .ToArray(),
                             StringComparer.OrdinalIgnoreCase));
             }

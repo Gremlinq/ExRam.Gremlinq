@@ -72,8 +72,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .FromBaseTypes<Vertex, Edge>(lookup => lookup
                     .IncludeAssembliesOfBaseTypes())
                 .VerticesModel
-                .Metadata
-                .GetValueOrDefault(typeof(Person)));
+                .GetMetadata(typeof(Person)));
         }
 
         [Fact]
@@ -83,19 +82,20 @@ namespace ExRam.Gremlinq.Core.Tests
                 .FromBaseTypes<Vertex, Edge>(lookup => lookup
                     .IncludeAssembliesOfBaseTypes())
                 .VerticesModel
-                .Metadata
-                .TryGetValue(typeof(VertexInsideHierarchy), out var _));
+                .GetMetadata(typeof(VertexInsideHierarchy)));
         }
 
         [Fact]
-        public async Task Outside_hierarchy()
+        public void Outside_hierarchy()
         {
-            await Verify(GraphModel
+            GraphModel
                 .FromBaseTypes<Vertex, Edge>(lookup => lookup
                     .IncludeAssembliesOfBaseTypes())
                 .VerticesModel
-                .Metadata
-                .TryGetValue(typeof(VertexOutsideHierarchy), out var _));
+                .Invoking(_ => _
+                    .GetMetadata(typeof(VertexOutsideHierarchy)))
+                .Should()
+                .Throw<ArgumentException>();
         }
 
         [Fact]
@@ -107,8 +107,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ConfigureElements(em => em
                     .UseLowerCaseLabels())
                 .VerticesModel
-                .Metadata
-                .GetValueOrDefault(typeof(Person)));
+                .GetMetadata(typeof(Person)));
         }
 
         [Fact]
@@ -120,8 +119,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ConfigureElements(em => em
                     .UseCamelCaseLabels())
                 .VerticesModel
-                .Metadata
-                .GetValueOrDefault(typeof(TimeFrame)));
+                .GetMetadata(typeof(TimeFrame)));
         }
 
         [Fact]
@@ -133,8 +131,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ConfigureElements(em => em
                     .UseCamelCaseLabels())
                 .EdgesModel
-                .Metadata
-                .GetValueOrDefault(typeof(LivesIn)));
+                .GetMetadata(typeof(LivesIn)));
         }
 
         [Fact]
@@ -178,8 +175,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await Verify((
                 model
                     .VerticesModel
-                    .Metadata
-                    .GetValueOrDefault(typeof(TimeFrame)),
+                    .GetMetadata(typeof(TimeFrame)),
                 model
                     .PropertiesModel
                     .MemberMetadata
@@ -198,8 +194,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await Verify((
                 model
                     .VerticesModel
-                    .Metadata
-                    .GetValueOrDefault(typeof(TimeFrame)),
+                    .GetMetadata(typeof(TimeFrame)),
                 model
                     .PropertiesModel
                     .MemberMetadata
@@ -221,8 +216,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await Verify((
                 model
                     .VerticesModel
-                    .Metadata
-                    .GetValueOrDefault(typeof(TimeFrame)),
+                    .GetMetadata(typeof(TimeFrame)),
                 model
                     .PropertiesModel
                     .MemberMetadata
@@ -244,8 +238,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await Verify((
                 model
                     .VerticesModel
-                    .Metadata
-                    .GetValueOrDefault(typeof(TimeFrame)),
+                    .GetMetadata(typeof(TimeFrame)),
                 model
                     .PropertiesModel
                     .MemberMetadata
@@ -367,8 +360,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await Verify((
                 model
                     .VerticesModel
-                    .Metadata
-                    .GetValueOrDefault(typeof(TimeFrame)),
+                    .GetMetadata(typeof(TimeFrame)),
                 model
                     .PropertiesModel
                     .MemberMetadata
@@ -396,8 +388,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await Verify((
                 model
                     .VerticesModel
-                    .Metadata
-                    .GetValueOrDefault(typeof(TimeFrame)),
+                    .GetMetadata(typeof(TimeFrame)),
                 model
                     .PropertiesModel
                     .MemberMetadata
