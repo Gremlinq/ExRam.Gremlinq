@@ -13,8 +13,6 @@ namespace ExRam.Gremlinq.Core.Models
 
         IGraphElementModel ConfigureMetadata(Type elementType, Func<ElementMetadata, ElementMetadata> metaDataTransformation);
 
-        IGraphElementModel ConfigureLabels(Func<Type, string, string> overrideTransformation);
-
         IImmutableSet<Type> ElementTypes { get; }
     }
 }
