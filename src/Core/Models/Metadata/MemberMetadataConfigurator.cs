@@ -17,47 +17,29 @@ namespace ExRam.Gremlinq.Core.Models
             _transformation = transformation;
         }
 
-        public IMemberMetadataConfigurator<TElement> IgnoreOnAdd<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression)
-        {
-            return SetSerializationBehaviour(
-                propertyExpression,
-                static behaviour => behaviour | SerializationBehaviour.IgnoreOnAdd);
-        }
+        public IMemberMetadataConfigurator<TElement> IgnoreOnAdd<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression) => SetSerializationBehaviour(
+            propertyExpression,
+            static behaviour => behaviour | SerializationBehaviour.IgnoreOnAdd);
 
-        public IMemberMetadataConfigurator<TElement> IgnoreOnUpdate<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression)
-        {
-            return SetSerializationBehaviour(
-                propertyExpression,
-                static behaviour => behaviour | SerializationBehaviour.IgnoreOnUpdate);
-        }
+        public IMemberMetadataConfigurator<TElement> IgnoreOnUpdate<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression) => SetSerializationBehaviour(
+            propertyExpression,
+            static behaviour => behaviour | SerializationBehaviour.IgnoreOnUpdate);
 
-        public IMemberMetadataConfigurator<TElement> IgnoreAlways<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression)
-        {
-            return SetSerializationBehaviour(
-                propertyExpression,
-                static behaviour => behaviour | SerializationBehaviour.IgnoreAlways);
-        }
+        public IMemberMetadataConfigurator<TElement> IgnoreAlways<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression) => SetSerializationBehaviour(
+            propertyExpression,
+            static behaviour => behaviour | SerializationBehaviour.IgnoreAlways);
 
-        public IMemberMetadataConfigurator<TElement> ResetSerializationBehaviour<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression)
-        {
-            return SetSerializationBehaviour(
-                propertyExpression,
-                static _ => SerializationBehaviour.Default);
-        }
+        public IMemberMetadataConfigurator<TElement> ResetSerializationBehaviour<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression) => SetSerializationBehaviour(
+            propertyExpression,
+            static _ => SerializationBehaviour.Default);
 
-        public IMemberMetadataConfigurator<TElement> ConfigureName<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression, string name)
-        {
-            return Configure(
-                propertyExpression,
-                metaData => new MemberMetadata(name, metaData.SerializationBehaviour));
-        }
+        public IMemberMetadataConfigurator<TElement> ConfigureName<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression, string name) => Configure(
+            propertyExpression,
+            metaData => new MemberMetadata(name, metaData.SerializationBehaviour));
 
-        public IMemberMetadataConfigurator<TElement> SetSerializationBehaviour<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression, Func<SerializationBehaviour, SerializationBehaviour> transformation)
-        {
-            return Configure(
-                propertyExpression,
-                metaData => new MemberMetadata(metaData.Key, transformation(metaData.SerializationBehaviour)));
-        }
+        public IMemberMetadataConfigurator<TElement> SetSerializationBehaviour<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression, Func<SerializationBehaviour, SerializationBehaviour> transformation) => Configure(
+            propertyExpression,
+            metaData => new MemberMetadata(metaData.Key, transformation(metaData.SerializationBehaviour)));
 
         private IMemberMetadataConfigurator<TElement> Configure<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression, Func<MemberMetadata, MemberMetadata> transformation)
         {
