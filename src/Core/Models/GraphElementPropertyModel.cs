@@ -1,6 +1,8 @@
 ﻿using System.Collections.Immutable;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Runtime.CompilerServices;
+
 using ExRam.Gremlinq.Core.ExpressionParsing;
 
 namespace ExRam.Gremlinq.Core.Models
@@ -26,6 +28,22 @@ namespace ExRam.Gremlinq.Core.Models
                 ? metadata
                 : new MemberMetadata(memberInfo.Name);
 
+            public IGraphElementPropertyModel ConfigureMemberMetadata(Func<MemberInfo, MemberMetadata, MemberMetadata> transformation)
+            {
+                var overrides = _metadata;
+
+                foreach (var member in Members)
+                {
+                    var newMetadata = transformation(member, GetMetadata(member));
+
+                    overrides = newMetadata.Key != member.Name || newMetadata.SerializationBehaviour != SerializationBehaviour.Default  //TODO: Equality operators
+                        ? overrides.SetItem(member, newMetadata)
+                        : overrides.Remove(member);
+                }
+
+                return new GraphElementPropertyModelImpl(Members, overrides);
+            }
+
             public IImmutableSet<MemberInfo> Members { get; }
         }
 
@@ -39,6 +57,11 @@ namespace ExRam.Gremlinq.Core.Models
             public MemberMetadata GetMetadata(MemberInfo memberInfo)
             {
                 throw new InvalidOperationException($"{nameof(GetMetadata)} must not be called on {nameof(GraphElementPropertyModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
+            }
+
+            public IGraphElementPropertyModel ConfigureMemberMetadata(Func<MemberInfo, MemberMetadata, MemberMetadata> transformation)
+            {
+                throw new InvalidOperationException($"{nameof(ConfigureMemberMetadata)} must not be called on {nameof(GraphElementPropertyModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
             }
 
             public IImmutableSet<MemberInfo> Members
