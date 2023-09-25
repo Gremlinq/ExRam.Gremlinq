@@ -9,35 +9,30 @@ namespace ExRam.Gremlinq.Core.Models
     {
         private sealed class GraphElementPropertyModelImpl : IGraphElementPropertyModel
         {
-            private readonly IImmutableDictionary<MemberInfo, MemberMetadata> _metadata;
+            private readonly IImmutableDictionary<MemberInfo, MemberMetadata> _metadataOverrides;
 
-            public GraphElementPropertyModelImpl(IImmutableSet<MemberInfo> members, IImmutableDictionary<MemberInfo, MemberMetadata> metadata)
+            public GraphElementPropertyModelImpl(IImmutableSet<MemberInfo> members, IImmutableDictionary<MemberInfo, MemberMetadata> metadataOverrides)
             {
                 Members = members;
-                _metadata = metadata;
+                _metadataOverrides = metadataOverrides;
             }
 
             public IGraphElementPropertyModel ConfigureMemberMetadata(MemberInfo member, Func<MemberMetadata, MemberMetadata> transformation)
             {
                 return new GraphElementPropertyModelImpl(
                     Members,
-                    _metadata.SetItem(
+                    _metadataOverrides.SetItem(
                         member,
                         transformation(GetMetadata(member))));
             }
 
-            public IGraphElementPropertyModel ConfigureMemberMetadata(Func<IImmutableDictionary<MemberInfo, MemberMetadata>, IImmutableDictionary<MemberInfo, MemberMetadata>> transformation)
-            {
-                return new GraphElementPropertyModelImpl(Members, transformation(_metadata));
-            }
-
-            public MemberMetadata GetMetadata(MemberInfo memberInfo) => _metadata.TryGetValue(memberInfo, out var metadata)
+            public MemberMetadata GetMetadata(MemberInfo memberInfo) => _metadataOverrides.TryGetValue(memberInfo, out var metadata)
                 ? metadata
                 : new MemberMetadata(memberInfo.Name);
 
             public IGraphElementPropertyModel ConfigureMemberMetadata(Func<MemberInfo, MemberMetadata, MemberMetadata> transformation)
             {
-                var overrides = _metadata;
+                var overrides = _metadataOverrides;
 
                 foreach (var member in Members)
                 {
@@ -58,10 +53,8 @@ namespace ExRam.Gremlinq.Core.Models
                         .AddRange(type
                             .GetTypeHierarchy()
                             .SelectMany(static type => type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly))),
-                    _metadata);
+                    _metadataOverrides);
             }
-
-
 
             public IImmutableSet<MemberInfo> Members { get; }
         }
