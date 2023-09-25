@@ -10,16 +10,9 @@
             SerializationBehaviour = serializationBehaviour;
         }
 
-        public Key Key
-        {
-            get
-            {
-                if (_key == null)
-                    throw new InvalidOperationException($"Cannot retrieve the {nameof(Key)} property of an uninitialized {nameof(MemberMetadata)} struct.");
-
-                return _key.Value;
-            }
-        }
+        public Key Key => _key is { } key
+            ? key
+            : throw new InvalidOperationException($"Cannot retrieve the {nameof(Key)} property of an uninitialized {nameof(MemberMetadata)} struct.");
 
         public SerializationBehaviour SerializationBehaviour { get; }
     }
