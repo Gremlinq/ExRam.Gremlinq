@@ -61,7 +61,18 @@ namespace ExRam.Gremlinq.Core.Models
             public ElementMetadata GetMetadata(Type elementType) => throw new InvalidOperationException($"{nameof(GetMetadata)} must not be called on {nameof(GraphElementModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
         }
 
-        public static readonly IGraphElementModel Empty = new GraphElementModelImpl<object>(ImmutableArray<Type>.Empty, ImmutableDictionary<Type, ElementMetadata>.Empty);
+        private sealed class EmptyGraphElementModel : IGraphElementModel
+        {
+            public ImmutableArray<Type> ElementTypes => ImmutableArray<Type>.Empty;
+
+            public IGraphElementModel ConfigureLabels(Func<Type, string, string> overrideTransformation) => this;
+
+            public IGraphElementModel ConfigureMetadata(Type elementType, Func<ElementMetadata, ElementMetadata> metaDataTransformation) => throw new InvalidOperationException($"{nameof(ConfigureMetadata)} must not be called on {nameof(GraphElementModel)}.{nameof(Empty)}. Configure a valid model for the environment first.");
+
+            public ElementMetadata GetMetadata(Type elementType) => new (elementType.Name);
+        }
+
+        public static readonly IGraphElementModel Empty = new EmptyGraphElementModel();
         public static readonly IGraphElementModel Invalid = new InvalidGraphElementModel();
 
         public static IGraphElementModel FromBaseType<TType>(IEnumerable<Assembly>? assemblies)
