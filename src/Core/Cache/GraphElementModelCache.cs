@@ -26,10 +26,7 @@ namespace ExRam.Gremlinq.Core
                         static (closureType, closureModel) => closureType
                             .GetTypeHierarchy()
                             .Where(static type => !type.IsAbstract)
-                            .Select(type =>
-                                closureModel.Metadata.TryGetValue(type, out var metadata)
-                                    ? metadata.Label
-                                    : null)
+                            .Select(type => closureModel.GetMetadata(type).Label)
                             .FirstOrDefault() ?? closureType.Name,
                         _model);
             }
@@ -39,9 +36,9 @@ namespace ExRam.Gremlinq.Core
                 return _derivedLabels
                     .GetOrAdd(
                         type,
-                        static (closureType, closureModel) => closureModel.Metadata
-                            .Where(kvp => !kvp.Key.IsAbstract && closureType.IsAssignableFrom(kvp.Key))
-                            .Select(static kvp => kvp.Value.Label)
+                        static (closureType, closureModel) => closureModel.ElementTypes
+                            .Where(elementType => !elementType.IsAbstract && closureType.IsAssignableFrom(elementType))
+                            .Select(elementType => closureModel.GetMetadata(elementType).Label)
                             .OrderBy(static x => x)
                             .ToImmutableArray(),
                         _model);

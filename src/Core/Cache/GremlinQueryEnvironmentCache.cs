@@ -20,8 +20,8 @@ namespace ExRam.Gremlinq.Core
                 _environment = environment;
 
                 ModelTypes = new HashSet<Type>(environment.Model
-                    .VerticesModel.Metadata.Keys
-                    .Concat(environment.Model.EdgesModel.Metadata.Keys));
+                    .VerticesModel.ElementTypes
+                    .Concat(environment.Model.EdgesModel.ElementTypes));
             }
 
             public (PropertyInfo propertyInfo, Key key, SerializationBehaviour serializationBehaviour)[] GetSerializationData(Type type)

@@ -1410,7 +1410,7 @@ namespace ExRam.Gremlinq.Core.Models
     {
         public static readonly ExRam.Gremlinq.Core.Models.IGraphElementModel Empty;
         public static readonly ExRam.Gremlinq.Core.Models.IGraphElementModel Invalid;
-        public static ExRam.Gremlinq.Core.Models.IGraphElementModel FromBaseType<TBaseType>(System.Collections.Generic.IEnumerable<System.Reflection.Assembly>? assemblies) { }
+        public static ExRam.Gremlinq.Core.Models.IGraphElementModel FromBaseType<TType>(System.Collections.Generic.IEnumerable<System.Reflection.Assembly>? assemblies) { }
         public static System.Collections.Immutable.ImmutableArray<string>? TryGetFilterLabels(this ExRam.Gremlinq.Core.Models.IGraphElementModel model, System.Type type, ExRam.Gremlinq.Core.FilterLabelsVerbosity verbosity) { }
         public static ExRam.Gremlinq.Core.Models.IGraphElementModel UseCamelCaseLabels(this ExRam.Gremlinq.Core.Models.IGraphElementModel model) { }
         public static ExRam.Gremlinq.Core.Models.IGraphElementModel UseLowerCaseLabels(this ExRam.Gremlinq.Core.Models.IGraphElementModel model) { }
@@ -1440,9 +1440,10 @@ namespace ExRam.Gremlinq.Core.Models
     }
     public interface IGraphElementModel
     {
-        System.Collections.Immutable.IImmutableDictionary<System.Type, ExRam.Gremlinq.Core.Models.ElementMetadata> Metadata { get; }
+        System.Collections.Immutable.ImmutableArray<System.Type> ElementTypes { get; }
         ExRam.Gremlinq.Core.Models.IGraphElementModel ConfigureLabels(System.Func<System.Type, string, string> overrideTransformation);
         ExRam.Gremlinq.Core.Models.IGraphElementModel ConfigureMetadata(System.Type elementType, System.Func<ExRam.Gremlinq.Core.Models.ElementMetadata, ExRam.Gremlinq.Core.Models.ElementMetadata> metaDataTransformation);
+        ExRam.Gremlinq.Core.Models.ElementMetadata GetMetadata(System.Type elementType);
     }
     public interface IGraphElementPropertyModel
     {
