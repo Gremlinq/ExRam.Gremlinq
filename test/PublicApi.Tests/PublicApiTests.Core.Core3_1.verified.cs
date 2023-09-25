@@ -1407,12 +1407,6 @@ namespace ExRam.Gremlinq.Core.Models
     }
     public static class GraphElementModel
     {
-        public static readonly ExRam.Gremlinq.Core.Models.IGraphElementModel Empty;
-        public static readonly ExRam.Gremlinq.Core.Models.IGraphElementModel Invalid;
-        public static ExRam.Gremlinq.Core.Models.IGraphElementModel FromBaseType(System.Type baseType, System.Collections.Generic.IEnumerable<System.Reflection.Assembly>? assemblies) { }
-        public static ExRam.Gremlinq.Core.Models.IGraphElementModel FromBaseType<TType>(System.Collections.Generic.IEnumerable<System.Reflection.Assembly>? assemblies) { }
-        public static ExRam.Gremlinq.Core.Models.IGraphElementModel FromTypes(System.Collections.Generic.IEnumerable<System.Type> types) { }
-        public static System.Collections.Immutable.ImmutableArray<string>? TryGetFilterLabels(this ExRam.Gremlinq.Core.Models.IGraphElementModel model, System.Type type, ExRam.Gremlinq.Core.FilterLabelsVerbosity verbosity) { }
         public static ExRam.Gremlinq.Core.Models.IGraphElementModel UseCamelCaseLabels(this ExRam.Gremlinq.Core.Models.IGraphElementModel model) { }
         public static ExRam.Gremlinq.Core.Models.IGraphElementModel UseLowerCaseLabels(this ExRam.Gremlinq.Core.Models.IGraphElementModel model) { }
     }
@@ -1426,13 +1420,11 @@ namespace ExRam.Gremlinq.Core.Models
         public static readonly ExRam.Gremlinq.Core.Models.IGraphModel Empty;
         public static readonly ExRam.Gremlinq.Core.Models.IGraphModel Invalid;
         public static ExRam.Gremlinq.Core.Models.IGraphModel ConfigureElements(this ExRam.Gremlinq.Core.Models.IGraphModel model, System.Func<ExRam.Gremlinq.Core.Models.IGraphElementModel, ExRam.Gremlinq.Core.Models.IGraphElementModel> transformation) { }
-        public static ExRam.Gremlinq.Core.Models.IGraphModel FromBaseTypes(System.Type vertexBaseType, System.Type edgeBaseType, System.Func<ExRam.Gremlinq.Core.Models.IAssemblyLookupBuilder, ExRam.Gremlinq.Core.Models.IAssemblyLookupSet> assemblyLookupTransformation) { }
-        public static ExRam.Gremlinq.Core.Models.IGraphModel FromBaseTypes<TVertex, TEdge>(System.Func<ExRam.Gremlinq.Core.Models.IAssemblyLookupBuilder, ExRam.Gremlinq.Core.Models.IAssemblyLookupSet>? assemblyLookupTransformation = null) { }
-        public static ExRam.Gremlinq.Core.Models.IGraphModel FromTypes(System.Type[] vertexTypes, System.Type[] edgeTypes) { }
+        public static ExRam.Gremlinq.Core.Models.IGraphModel FromBaseTypes<TVertexBaseType, TEdgeBaseType>(System.Func<ExRam.Gremlinq.Core.Models.IAssemblyLookupBuilder, ExRam.Gremlinq.Core.Models.IAssemblyLookupSet>? assemblyLookupTransformation = null) { }
     }
     public interface IAssemblyLookupBuilder
     {
-        ExRam.Gremlinq.Core.Models.IAssemblyLookupSet IncludeAssemblies(System.Collections.Generic.IEnumerable<System.Reflection.Assembly> assemblies);
+        ExRam.Gremlinq.Core.Models.IAssemblyLookupSet IncludeAssemblies(params System.Reflection.Assembly[] assemblies);
         ExRam.Gremlinq.Core.Models.IAssemblyLookupSet IncludeAssembliesFromAppDomain();
         ExRam.Gremlinq.Core.Models.IAssemblyLookupSet IncludeAssembliesFromStackTrace();
         ExRam.Gremlinq.Core.Models.IAssemblyLookupSet IncludeAssembliesOfBaseTypes();
@@ -1443,9 +1435,10 @@ namespace ExRam.Gremlinq.Core.Models
     }
     public interface IGraphElementModel
     {
-        System.Collections.Immutable.IImmutableDictionary<System.Type, ExRam.Gremlinq.Core.Models.ElementMetadata> Metadata { get; }
+        System.Collections.Immutable.ImmutableHashSet<System.Type> ElementTypes { get; }
         ExRam.Gremlinq.Core.Models.IGraphElementModel ConfigureLabels(System.Func<System.Type, string, string> overrideTransformation);
-        ExRam.Gremlinq.Core.Models.IGraphElementModel ConfigureMetadata(System.Func<System.Collections.Immutable.IImmutableDictionary<System.Type, ExRam.Gremlinq.Core.Models.ElementMetadata>, System.Collections.Immutable.IImmutableDictionary<System.Type, ExRam.Gremlinq.Core.Models.ElementMetadata>> transformation);
+        ExRam.Gremlinq.Core.Models.IGraphElementModel ConfigureMetadata(System.Type elementType, System.Func<ExRam.Gremlinq.Core.Models.ElementMetadata, ExRam.Gremlinq.Core.Models.ElementMetadata> metaDataTransformation);
+        ExRam.Gremlinq.Core.Models.ElementMetadata GetMetadata(System.Type elementType);
     }
     public interface IGraphElementPropertyModel
     {
