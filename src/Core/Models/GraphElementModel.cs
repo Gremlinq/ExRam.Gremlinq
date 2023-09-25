@@ -5,19 +5,19 @@ namespace ExRam.Gremlinq.Core.Models
 {
     public static class GraphElementModel
     {
-        private sealed class GraphElementModelImpl : IGraphElementModel
+        private sealed class GraphElementModelImpl<TBaseType> : IGraphElementModel
         {
             public GraphElementModelImpl(IImmutableDictionary<Type, ElementMetadata> metaData)
             {
                 Metadata = metaData;
             }
 
-            public IGraphElementModel ConfigureLabels(Func<Type, string, string> overrideTransformation) => new GraphElementModelImpl(Metadata.ToImmutableDictionary(
+            public IGraphElementModel ConfigureLabels(Func<Type, string, string> overrideTransformation) => new GraphElementModelImpl<TBaseType>(Metadata.ToImmutableDictionary(
                 static kvp => kvp.Key,
                 kvp => new ElementMetadata(overrideTransformation(kvp.Key, kvp.Value.Label))));
 
             public IGraphElementModel ConfigureMetadata(Type elementType, Func<ElementMetadata, ElementMetadata> metadataTransformation) => Metadata.TryGetValue(elementType, out var elementMetadata)
-                ? new GraphElementModelImpl(Metadata.SetItem(elementType, metadataTransformation(elementMetadata)))
+                ? new GraphElementModelImpl<TBaseType>(Metadata.SetItem(elementType, metadataTransformation(elementMetadata)))
                 : throw new ArgumentException();
 
             public IImmutableDictionary<Type, ElementMetadata> Metadata { get; }
@@ -32,26 +32,12 @@ namespace ExRam.Gremlinq.Core.Models
             public IGraphElementModel ConfigureMetadata(Type elemetType, Func<ElementMetadata, ElementMetadata> metaDataTransformation) => throw new InvalidOperationException($"{nameof(ConfigureMetadata)} must not be called on {nameof(GraphElementModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
         }
 
-        public static readonly IGraphElementModel Empty = new GraphElementModelImpl(ImmutableDictionary<Type, ElementMetadata>.Empty);
+        public static readonly IGraphElementModel Empty = new GraphElementModelImpl<object>(ImmutableDictionary<Type, ElementMetadata>.Empty);
         public static readonly IGraphElementModel Invalid = new InvalidGraphElementModel();
 
-        public static IGraphElementModel FromTypes(IEnumerable<Type> types)
+        public static IGraphElementModel FromBaseType<TBaseType>(IEnumerable<Assembly>? assemblies)
         {
-            return new GraphElementModelImpl(types
-                .Where(static type => type is { IsClass: true, IsAbstract: false })
-                .ToImmutableDictionary(
-                    static type => type,
-                    static type => new ElementMetadata(type.Name)));
-        }
-
-        public static IGraphElementModel FromBaseType<TType>(IEnumerable<Assembly>? assemblies)
-        {
-            return FromBaseType(typeof(TType), assemblies);
-        }
-
-        public static IGraphElementModel FromBaseType(Type baseType, IEnumerable<Assembly>? assemblies)
-        {
-            return FromTypes((assemblies ?? Enumerable.Empty<Assembly>())
+            return new GraphElementModelImpl<TBaseType>((assemblies ?? Enumerable.Empty<Assembly>())
                 .Distinct()
                 .SelectMany(static assembly =>
                 {
@@ -68,8 +54,12 @@ namespace ExRam.Gremlinq.Core.Models
                             .Select(static x => x!);
                     }
                 })
-                .Where(type => type != baseType && !type.IsNestedPrivate && baseType.IsAssignableFrom(type))
-                .Prepend(baseType));
+                .Where(type => type != typeof(TBaseType) && !type.IsNestedPrivate && typeof(TBaseType).IsAssignableFrom(type))
+                .Prepend(typeof(TBaseType))
+                .Where(static type => type is { IsClass: true, IsAbstract: false })
+                .ToImmutableDictionary(
+                    static type => type,
+                    static type => new ElementMetadata(type.Name)));
         }
 
         public static IGraphElementModel UseCamelCaseLabels(this IGraphElementModel model) => model.ConfigureLabels(static (_, proposedLabel) => proposedLabel.ToCamelCase());
