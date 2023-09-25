@@ -24,8 +24,6 @@ namespace ExRam.Gremlinq.Core.Models
                 _metaDataOverrides = metaDataOverrides;
             }
 
-            public IGraphElementModel ConfigureLabels(Func<Type, string, string> overrideTransformation) => ConfigureMetadata((type, metadata) => new ElementMetadata(overrideTransformation(type, metadata.Label)));
-
             public IGraphElementModel ConfigureMetadata(Func<Type, ElementMetadata, ElementMetadata> metaDataTransformation)
             {
                 var overrides = _metaDataOverrides;
@@ -84,8 +82,6 @@ namespace ExRam.Gremlinq.Core.Models
 
             public IGraphElementModel AddAssemblies(params Assembly[] assemblies) => throw new InvalidOperationException($"{nameof(AddAssemblies)} must not be called on {nameof(GraphElementModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
 
-            public IGraphElementModel ConfigureLabels(Func<Type, string, string> overrideTransformation) => throw new InvalidOperationException($"{nameof(ConfigureLabels)} must not be called on {nameof(GraphElementModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
-
             public IGraphElementModel ConfigureMetadata(Type elementType, Func<ElementMetadata, ElementMetadata> metaDataTransformation) => throw new InvalidOperationException($"{nameof(ConfigureMetadata)} must not be called on {nameof(GraphElementModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
 
             public IGraphElementModel ConfigureMetadata(Func<Type, ElementMetadata, ElementMetadata> metaDataTransformation) => throw new InvalidOperationException($"{nameof(ConfigureMetadata)} must not be called on {nameof(GraphElementModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
@@ -98,8 +94,6 @@ namespace ExRam.Gremlinq.Core.Models
             public IImmutableSet<Type> ElementTypes => ImmutableHashSet<Type>.Empty;
 
             public IGraphElementModel AddAssemblies(params Assembly[] assemblies) => throw new InvalidOperationException($"{nameof(AddAssemblies)} must not be called on {nameof(GraphElementModel)}.{nameof(Empty)}. Configure a valid model for the environment first.");
-
-            public IGraphElementModel ConfigureLabels(Func<Type, string, string> overrideTransformation) => this;
 
             public IGraphElementModel ConfigureMetadata(Type elementType, Func<ElementMetadata, ElementMetadata> metaDataTransformation) => throw new InvalidOperationException($"{nameof(ConfigureMetadata)} must not be called on {nameof(GraphElementModel)}.{nameof(Empty)}. Configure a valid model for the environment first.");
 
@@ -114,6 +108,8 @@ namespace ExRam.Gremlinq.Core.Models
         public static IGraphElementModel UseCamelCaseLabels(this IGraphElementModel model) => model.ConfigureLabels(static (_, proposedLabel) => proposedLabel.ToCamelCase());
 
         public static IGraphElementModel UseLowerCaseLabels(this IGraphElementModel model) => model.ConfigureLabels(static (_, proposedLabel) => proposedLabel.ToLower());
+
+        public static IGraphElementModel ConfigureLabels(this IGraphElementModel model, Func<Type, string, string> overrideTransformation) => model.ConfigureMetadata((type, metadata) => new ElementMetadata(overrideTransformation(type, metadata.Label)));
 
         internal static ImmutableArray<string>? TryGetFilterLabels(this IGraphElementModel model, Type type, FilterLabelsVerbosity verbosity)
         {

@@ -1408,6 +1408,7 @@ namespace ExRam.Gremlinq.Core.Models
     }
     public static class GraphElementModel
     {
+        public static ExRam.Gremlinq.Core.Models.IGraphElementModel ConfigureLabels(this ExRam.Gremlinq.Core.Models.IGraphElementModel model, System.Func<System.Type, string, string> overrideTransformation) { }
         public static ExRam.Gremlinq.Core.Models.IGraphElementModel UseCamelCaseLabels(this ExRam.Gremlinq.Core.Models.IGraphElementModel model) { }
         public static ExRam.Gremlinq.Core.Models.IGraphElementModel UseLowerCaseLabels(this ExRam.Gremlinq.Core.Models.IGraphElementModel model) { }
     }
@@ -1423,7 +1424,6 @@ namespace ExRam.Gremlinq.Core.Models
     {
         System.Collections.Immutable.IImmutableSet<System.Type> ElementTypes { get; }
         ExRam.Gremlinq.Core.Models.IGraphElementModel AddAssemblies(params System.Reflection.Assembly[] assemblies);
-        ExRam.Gremlinq.Core.Models.IGraphElementModel ConfigureLabels(System.Func<System.Type, string, string> overrideTransformation);
         ExRam.Gremlinq.Core.Models.IGraphElementModel ConfigureMetadata(System.Func<System.Type, ExRam.Gremlinq.Core.Models.ElementMetadata, ExRam.Gremlinq.Core.Models.ElementMetadata> metaDataTransformation);
         ExRam.Gremlinq.Core.Models.IGraphElementModel ConfigureMetadata(System.Type elementType, System.Func<ExRam.Gremlinq.Core.Models.ElementMetadata, ExRam.Gremlinq.Core.Models.ElementMetadata> metaDataTransformation);
         ExRam.Gremlinq.Core.Models.ElementMetadata GetMetadata(System.Type elementType);
