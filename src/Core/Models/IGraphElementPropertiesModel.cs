@@ -9,6 +9,8 @@ namespace ExRam.Gremlinq.Core.Models
 
         IGraphElementPropertyModel ConfigureElement<TElement>(Func<IMemberMetadataConfigurator<TElement>, IMemberMetadataConfigurator<TElement>> transformation);
 
+        IImmutableSet<MemberInfo> Members { get; }
+
         IImmutableDictionary<MemberInfo, MemberMetadata> MemberMetadata { get; }
     }
 }
