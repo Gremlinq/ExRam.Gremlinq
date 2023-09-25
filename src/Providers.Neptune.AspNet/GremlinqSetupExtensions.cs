@@ -45,8 +45,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                 .UseNeptune(extraSetupAction)
                 .ConfigureEnvironment(env => env
                     .UseModel(GraphModel
-                        .FromBaseTypes<TVertex, TEdge>(lookup => lookup
-                            .IncludeAssembliesOfBaseTypes())));
+                        .FromBaseTypes<TVertex, TEdge>()));
         }
     }
 }

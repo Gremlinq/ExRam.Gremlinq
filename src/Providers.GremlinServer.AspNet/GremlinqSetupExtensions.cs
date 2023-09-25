@@ -25,8 +25,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                 .UseGremlinServer(extraSetupAction)
                 .ConfigureEnvironment(env => env
                     .UseModel(GraphModel
-                        .FromBaseTypes<TVertex, TEdge>(lookup => lookup
-                            .IncludeAssembliesOfBaseTypes())));
+                        .FromBaseTypes<TVertex, TEdge>()));
         }
     }
 }

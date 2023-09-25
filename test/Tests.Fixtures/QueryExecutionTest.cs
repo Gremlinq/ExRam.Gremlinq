@@ -29,8 +29,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
                         .ConfigureOptions(options => options
                             .SetValue(GremlinqOption.StringComparisonTranslationStrictness, StringComparisonTranslationStrictness.Lenient))
                         .LogToXunit(testOutputHelper)
-                        .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>(lookup => lookup
-                            .IncludeAssembliesOfBaseTypes()))),
+                        .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>())),
                 LazyThreadSafetyMode.PublicationOnly);
         }
 
@@ -3766,8 +3765,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
         [Fact]
         public virtual Task Where_outside_model() => _g
             .ConfigureEnvironment(env => env
-                .UseModel(GraphModel.FromBaseTypes<VertexWithStringId, EdgeWithStringId>(lookup => lookup
-                    .IncludeAssembliesOfBaseTypes())))
+                .UseModel(GraphModel.FromBaseTypes<VertexWithStringId, EdgeWithStringId>()))
             .V<VertexWithStringId>()
             .Where(x => x.Id == (object)0)
             .Verify();

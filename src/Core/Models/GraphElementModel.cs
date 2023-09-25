@@ -90,9 +90,9 @@ namespace ExRam.Gremlinq.Core.Models
                     : labels;
         }
 
-        internal static IGraphElementModel FromBaseType<TType>(IEnumerable<Assembly>? assemblies)
+        internal static IGraphElementModel FromBaseType<TType>()
         {
-            return new GraphElementModelImpl<TType>((assemblies ?? Enumerable.Empty<Assembly>())
+            return new GraphElementModelImpl<TType>(new[] { typeof(TType).Assembly }
                 .Distinct()
                 .SelectMany(static assembly =>
                 {

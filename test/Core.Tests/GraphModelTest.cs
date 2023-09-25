@@ -58,8 +58,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public async Task TryGetFilterLabels_does_not_include_abstract_type()
         {
-            var model = GraphModel.FromBaseTypes<Vertex, Edge>(lookup => lookup
-                .IncludeAssembliesOfBaseTypes());
+            var model = GraphModel.FromBaseTypes<Vertex, Edge>();
 
             await Verify(model.VerticesModel
                 .TryGetFilterLabels(typeof(Authority), FilterLabelsVerbosity.Maximum) ?? ImmutableArray<string>.Empty);
@@ -69,8 +68,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Hierarchy_inside_model()
         {
             await Verify(GraphModel
-                .FromBaseTypes<Vertex, Edge>(lookup => lookup
-                    .IncludeAssembliesOfBaseTypes())
+                .FromBaseTypes<Vertex, Edge>()
                 .VerticesModel
                 .GetMetadata(typeof(Person)));
         }
@@ -79,8 +77,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Hierarchy_outside_model()
         {
             await Verify(GraphModel
-                .FromBaseTypes<Vertex, Edge>(lookup => lookup
-                    .IncludeAssembliesOfBaseTypes())
+                .FromBaseTypes<Vertex, Edge>()
                 .VerticesModel
                 .GetMetadata(typeof(VertexInsideHierarchy)));
         }
@@ -89,8 +86,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Outside_hierarchy()
         {
             GraphModel
-                .FromBaseTypes<Vertex, Edge>(lookup => lookup
-                    .IncludeAssembliesOfBaseTypes())
+                .FromBaseTypes<Vertex, Edge>()
                 .VerticesModel
                 .Invoking(_ => _
                     .GetMetadata(typeof(VertexOutsideHierarchy)))
@@ -102,8 +98,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Lowercase()
         {
             await Verify(GraphModel
-                .FromBaseTypes<Vertex, Edge>(lookup => lookup
-                    .IncludeAssembliesOfBaseTypes())
+                .FromBaseTypes<Vertex, Edge>()
                 .ConfigureElements(em => em
                     .UseLowerCaseLabels())
                 .VerticesModel
@@ -114,8 +109,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task CamelcaseLabel_Vertices()
         {
             await Verify(GraphModel
-                .FromBaseTypes<Vertex, Edge>(lookup => lookup
-                    .IncludeAssembliesOfBaseTypes())
+                .FromBaseTypes<Vertex, Edge>()
                 .ConfigureElements(em => em
                     .UseCamelCaseLabels())
                 .VerticesModel
@@ -126,8 +120,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Camelcase_Edges()
         {
             await Verify(GraphModel
-                .FromBaseTypes<Vertex, Edge>(lookup => lookup
-                    .IncludeAssembliesOfBaseTypes())
+                .FromBaseTypes<Vertex, Edge>()
                 .ConfigureElements(em => em
                     .UseCamelCaseLabels())
                 .EdgesModel
@@ -138,8 +131,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Camelcase_Identifier_By_MemberExpression()
         {
             await Verify(GraphModel
-                .FromBaseTypes<Vertex, Edge>(lookup => lookup
-                    .IncludeAssembliesOfBaseTypes())
+                .FromBaseTypes<Vertex, Edge>()
                 .ConfigureProperties(pm => pm
                     .ConfigureMemberMetadata(m => m
                         .UseCamelCaseNames()))
@@ -152,8 +144,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Lowercase_Identifier_By_ParameterExpression()
         {
             await Verify(GraphModel
-                .FromBaseTypes<Vertex, Edge>(lookup => lookup
-                    .IncludeAssembliesOfBaseTypes())
+                .FromBaseTypes<Vertex, Edge>()
                 .ConfigureProperties(pm => pm
                     .ConfigureMemberMetadata(m => m
                         .UseLowerCaseNames()))
@@ -166,8 +157,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Camelcase_Mixed_Mode_Label()
         {
             var model = GraphModel
-                .FromBaseTypes<Vertex, Edge>(lookup => lookup
-                    .IncludeAssembliesOfBaseTypes())
+                .FromBaseTypes<Vertex, Edge>()
                 .ConfigureProperties(pm => pm
                     .ConfigureMemberMetadata(m => m
                         .UseCamelCaseNames()));
@@ -186,8 +176,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Camelcase_Mixed_Mode_Identifier()
         {
             var model = GraphModel
-                .FromBaseTypes<Vertex, Edge>(lookup => lookup
-                    .IncludeAssembliesOfBaseTypes())
+                .FromBaseTypes<Vertex, Edge>()
                 .ConfigureElements(pm => pm
                     .UseCamelCaseLabels());
 
@@ -205,8 +194,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Camelcase_Mixed_Mode_Combined()
         {
             var model = GraphModel
-                .FromBaseTypes<Vertex, Edge>(lookup => lookup
-                    .IncludeAssembliesOfBaseTypes())
+                .FromBaseTypes<Vertex, Edge>()
                 .ConfigureElements(pm => pm
                     .UseCamelCaseLabels())
                 .ConfigureProperties(pm => pm
@@ -227,8 +215,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Camelcase_Mixed_Mode_Combined_Reversed()
         {
             var model = GraphModel
-                .FromBaseTypes<Vertex, Edge>(lookup => lookup
-                    .IncludeAssembliesOfBaseTypes())
+                .FromBaseTypes<Vertex, Edge>()
                 .ConfigureProperties(pm => pm
                     .ConfigureMemberMetadata(m => m
                         .UseCamelCaseNames()))
@@ -249,8 +236,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Configuration_IgnoreOnUpdate()
         {
             await Verify(GraphModel
-                .FromBaseTypes<Vertex, Edge>(lookup => lookup
-                    .IncludeAssembliesOfBaseTypes())
+                .FromBaseTypes<Vertex, Edge>()
                 .ConfigureProperties(pm => pm
                     .ConfigureElement<Person>(conf => conf
                         .IgnoreOnUpdate(p => p.Name)))
@@ -263,8 +249,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Configuration_can_be_found_for_base_class()
         {
             await Verify(GraphModel
-                .FromBaseTypes<Vertex, Edge>(lookup => lookup
-                    .IncludeAssembliesOfBaseTypes())
+                .FromBaseTypes<Vertex, Edge>()
                 .ConfigureProperties(pm => pm
                     .ConfigureElement<Person>(conf => conf
                         .IgnoreOnUpdate(p => p.Name)))
@@ -277,8 +262,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Configuration_can_be_found_for_derived_class()
         {
             await Verify(GraphModel
-                .FromBaseTypes<Vertex, Edge>(lookup => lookup
-                    .IncludeAssembliesOfBaseTypes())
+                .FromBaseTypes<Vertex, Edge>()
                 .ConfigureProperties(pm => pm
                     .ConfigureElement<Authority>(conf => conf
                         .IgnoreOnUpdate(p => p.Name)))
@@ -308,8 +292,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Configuration_IgnoreAlways()
         {
             await Verify(GraphModel
-                .FromBaseTypes<Vertex, Edge>(lookup => lookup
-                    .IncludeAssembliesOfBaseTypes())
+                .FromBaseTypes<Vertex, Edge>()
                 .ConfigureProperties(pm => pm
                     .ConfigureElement<Person>(conf => conf
                         .IgnoreAlways(p => p.Name)))
@@ -322,8 +305,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Configuration_IgnoreAlways_Id()
         {
             await Verify(GraphModel
-                .FromBaseTypes<Vertex, Edge>(lookup => lookup
-                    .IncludeAssembliesOfBaseTypes())
+                .FromBaseTypes<Vertex, Edge>()
                 .ConfigureProperties(pm => pm
                     .ConfigureElement<Vertex>(conf => conf
                         .IgnoreAlways(p => p.Id)))
@@ -336,8 +318,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Configuration_Unconfigured()
         {
             await Verify(GraphModel
-                .FromBaseTypes<Vertex, Edge>(lookup => lookup
-                    .IncludeAssembliesOfBaseTypes())
+                .FromBaseTypes<Vertex, Edge>()
                 .PropertiesModel
                 .MemberMetadata
                 .GetValueOrDefault(typeof(Person).GetProperty(nameof(Person.Name))!));
@@ -347,8 +328,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Configuration_Before_Model_Changes()
         {
             var model = GraphModel
-                .FromBaseTypes<Vertex, Edge>(lookup => lookup
-                    .IncludeAssembliesOfBaseTypes())
+                .FromBaseTypes<Vertex, Edge>()
                 .ConfigureProperties(pm => pm
                     .ConfigureElement<Person>(conf => conf
                         .IgnoreAlways(p => p.Name))
@@ -375,8 +355,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Configuration_After_Model_Changes()
         {
             var model = GraphModel
-                .FromBaseTypes<Vertex, Edge>(lookup => lookup
-                    .IncludeAssembliesOfBaseTypes())
+                .FromBaseTypes<Vertex, Edge>()
                 .ConfigureProperties(pm => pm
                     .ConfigureMemberMetadata(m => m
                         .UseCamelCaseNames())

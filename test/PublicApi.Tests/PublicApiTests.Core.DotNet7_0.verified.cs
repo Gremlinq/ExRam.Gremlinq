@@ -1421,15 +1421,7 @@ namespace ExRam.Gremlinq.Core.Models
         public static readonly ExRam.Gremlinq.Core.Models.IGraphModel Empty;
         public static readonly ExRam.Gremlinq.Core.Models.IGraphModel Invalid;
         public static ExRam.Gremlinq.Core.Models.IGraphModel ConfigureElements(this ExRam.Gremlinq.Core.Models.IGraphModel model, System.Func<ExRam.Gremlinq.Core.Models.IGraphElementModel, ExRam.Gremlinq.Core.Models.IGraphElementModel> transformation) { }
-        public static ExRam.Gremlinq.Core.Models.IGraphModel FromBaseTypes<TVertexBaseType, TEdgeBaseType>(System.Func<ExRam.Gremlinq.Core.Models.IAssemblyLookupBuilder, ExRam.Gremlinq.Core.Models.IAssemblyLookupSet>? assemblyLookupTransformation = null) { }
-    }
-    public interface IAssemblyLookupBuilder
-    {
-        ExRam.Gremlinq.Core.Models.IAssemblyLookupSet IncludeAssembliesOfBaseTypes();
-    }
-    public interface IAssemblyLookupSet : ExRam.Gremlinq.Core.Models.IAssemblyLookupBuilder
-    {
-        System.Collections.Immutable.IImmutableSet<System.Reflection.Assembly> Assemblies { get; }
+        public static ExRam.Gremlinq.Core.Models.IGraphModel FromBaseTypes<TVertexBaseType, TEdgeBaseType>() { }
     }
     public interface IGraphElementModel
     {
