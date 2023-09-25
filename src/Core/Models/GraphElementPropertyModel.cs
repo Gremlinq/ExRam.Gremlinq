@@ -49,13 +49,6 @@ namespace ExRam.Gremlinq.Core.Models
             }
         }
 
-        public static readonly IGraphElementPropertyModel Empty = new GraphElementPropertyModelImpl(
-            ImmutableDictionary<MemberInfo, MemberMetadata>
-                .Empty
-                .WithComparers(MemberInfoEqualityComparer.Instance));
-
-        public static readonly IGraphElementPropertyModel Invalid = new InvalidGraphElementPropertyModel();
-
         internal static Key GetKey(this IGremlinQueryEnvironment environment, Expression expression)
         {
             var memberExpression = expression.AssumeMemberExpression();
@@ -76,5 +69,12 @@ namespace ExRam.Gremlinq.Core.Models
                         .SelectMany(static type => type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly))
                         .Select(static property => new KeyValuePair<MemberInfo, MemberMetadata>(property, new MemberMetadata(property.Name)))));
         }
+
+        internal static readonly IGraphElementPropertyModel Empty = new GraphElementPropertyModelImpl(
+            ImmutableDictionary<MemberInfo, MemberMetadata>
+                .Empty
+                .WithComparers(MemberInfoEqualityComparer.Instance));
+
+        internal static readonly IGraphElementPropertyModel Invalid = new InvalidGraphElementPropertyModel();
     }
 }

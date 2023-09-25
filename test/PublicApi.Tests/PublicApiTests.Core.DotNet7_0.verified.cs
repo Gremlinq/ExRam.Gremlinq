@@ -1411,11 +1411,7 @@ namespace ExRam.Gremlinq.Core.Models
         public static ExRam.Gremlinq.Core.Models.IGraphElementModel UseCamelCaseLabels(this ExRam.Gremlinq.Core.Models.IGraphElementModel model) { }
         public static ExRam.Gremlinq.Core.Models.IGraphElementModel UseLowerCaseLabels(this ExRam.Gremlinq.Core.Models.IGraphElementModel model) { }
     }
-    public static class GraphElementPropertyModel
-    {
-        public static readonly ExRam.Gremlinq.Core.Models.IGraphElementPropertyModel Empty;
-        public static readonly ExRam.Gremlinq.Core.Models.IGraphElementPropertyModel Invalid;
-    }
+    public static class GraphElementPropertyModel { }
     public static class GraphModel
     {
         public static readonly ExRam.Gremlinq.Core.Models.IGraphModel Empty;
