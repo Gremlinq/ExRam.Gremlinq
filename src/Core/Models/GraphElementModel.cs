@@ -24,21 +24,7 @@ namespace ExRam.Gremlinq.Core.Models
                 _metaDataOverrides = metaDataOverrides;
             }
 
-            public IGraphElementModel ConfigureLabels(Func<Type, string, string> overrideTransformation)
-            {
-                var overrides = _metaDataOverrides;
-
-                foreach (var elementType in ElementTypes)
-                {
-                    var newLabel = overrideTransformation(elementType, GetMetadata(elementType).Label);
-
-                    overrides = newLabel != elementType.Name
-                        ? overrides.SetItem(elementType, new ElementMetadata(newLabel))
-                        : overrides.Remove(elementType);
-                }
-
-                return new GraphElementModelImpl<TBaseType>(ElementTypes, overrides);
-            }
+            public IGraphElementModel ConfigureLabels(Func<Type, string, string> overrideTransformation) => ConfigureMetadata((type, metadata) => new ElementMetadata(overrideTransformation(type, metadata.Label)));
 
             public IGraphElementModel ConfigureMetadata(Func<Type, ElementMetadata, ElementMetadata> metaDataTransformation)
             {
@@ -53,7 +39,7 @@ namespace ExRam.Gremlinq.Core.Models
                         : overrides.Remove(elementType);
                 }
 
-                throw new NotImplementedException();
+                return new GraphElementModelImpl<TBaseType>(ElementTypes, overrides);
             }
 
             public IGraphElementModel ConfigureMetadata(Type elementType, Func<ElementMetadata, ElementMetadata> metadataTransformation) => new GraphElementModelImpl<TBaseType>(
