@@ -29,7 +29,6 @@ namespace ExRam.Gremlinq.Core
                         type,
                         static (closureType, closureEnvironment) => closureType
                             .GetSerializableProperties()
-                            .Where(static p => p.GetMethod?.GetBaseDefinition() == p.GetMethod)
                             .Select(p => (
                                 property: p,
                                 metadata: closureEnvironment.GetCache().GetMetadata(p)))
