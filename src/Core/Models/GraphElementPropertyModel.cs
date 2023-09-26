@@ -1,7 +1,5 @@
 ﻿using System.Collections.Immutable;
-using System.Linq.Expressions;
 using System.Reflection;
-using ExRam.Gremlinq.Core.ExpressionParsing;
 
 namespace ExRam.Gremlinq.Core.Models
 {
@@ -49,10 +47,7 @@ namespace ExRam.Gremlinq.Core.Models
             public IGraphElementPropertyModel AddType(Type type)
             {
                 return new GraphElementPropertyModelImpl(
-                    Members
-                        .AddRange(type
-                            .GetTypeHierarchy()
-                            .SelectMany(static type => type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly))),
+                    Members.AddRange(type.GetSerializableProperties()),
                     _metadataOverrides);
             }
 

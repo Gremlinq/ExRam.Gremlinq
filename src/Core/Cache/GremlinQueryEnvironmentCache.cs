@@ -28,9 +28,7 @@ namespace ExRam.Gremlinq.Core
                     .GetOrAdd(
                         type,
                         static (closureType, closureEnvironment) => closureType
-                            .GetTypeHierarchy()
-                            .SelectMany(static typeInHierarchy => typeInHierarchy
-                                .GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly))
+                            .GetSerializableProperties()
                             .Where(static p => p.GetMethod?.GetBaseDefinition() == p.GetMethod)
                             .Select(p => (
                                 property: p,
