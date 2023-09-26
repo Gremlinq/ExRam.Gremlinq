@@ -30,7 +30,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 }
             };
 
-            return Verify(bytecode.ToGroovy(GremlinQueryEnvironment.Default));
+            return Verify(bytecode.ToGroovy(GremlinQueryEnvironment.Invalid));
         }
     }
 }

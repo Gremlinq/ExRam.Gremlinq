@@ -122,8 +122,7 @@ namespace ExRam.Gremlinq.Core
     }
     public static class GremlinQueryEnvironment
     {
-        public static readonly ExRam.Gremlinq.Core.IGremlinQueryEnvironment Default;
-        public static readonly ExRam.Gremlinq.Core.IGremlinQueryEnvironment Empty;
+        public static readonly ExRam.Gremlinq.Core.IGremlinQueryEnvironment Invalid;
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseDebugger(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.IGremlinQueryDebugger debugger) { }
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseDeserializer(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Transformation.ITransformer deserializer) { }
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseExecutor(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor executor) { }

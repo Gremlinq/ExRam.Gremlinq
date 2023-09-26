@@ -90,7 +90,7 @@ namespace ExRam.Gremlinq.Core
             public IImmutableSet<Type> NativeTypes { get; }
         }
 
-        public static readonly IGremlinQueryEnvironment Empty = new GremlinQueryEnvironmentImpl(
+        private static readonly IGremlinQueryEnvironment Empty = new GremlinQueryEnvironmentImpl(
             GraphModel.Empty,
             Transformer.Empty,
             GremlinQueryExecutor.Empty,
@@ -101,7 +101,7 @@ namespace ExRam.Gremlinq.Core
             ImmutableHashSet<Type>.Empty,
             NullLogger.Instance);
 
-        public static readonly IGremlinQueryEnvironment Default = Empty
+        public static readonly IGremlinQueryEnvironment Invalid = Empty
             .UseModel(GraphModel.Invalid)
             .UseSerializer(Serializer.Default)
             .UseExecutor(GremlinQueryExecutor.Invalid)
