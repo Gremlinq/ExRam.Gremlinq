@@ -27,9 +27,7 @@ namespace ExRam.Gremlinq.Core.Models
             public IGraphElementModel VerticesModel { get; }
         }
 
-        public static readonly IGraphModel Invalid = new GraphModelImpl(
-            GraphElementModel.Invalid,
-            GraphElementModel.Invalid);
+        public static readonly IGraphModel Invalid = new GraphModelImpl(GraphElementModel.Invalid, GraphElementModel.Invalid);
 
         public static IGraphModel FromBaseTypes<TVertexBaseType, TEdgeBaseType>()
         {
