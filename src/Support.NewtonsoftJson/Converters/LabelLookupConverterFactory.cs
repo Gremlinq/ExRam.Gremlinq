@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Core;
 using System.Runtime.CompilerServices;
+using ExRam.Gremlinq.Core.Models;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson
 {

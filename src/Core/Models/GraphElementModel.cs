@@ -33,7 +33,7 @@ namespace ExRam.Gremlinq.Core.Models
 
                 foreach (var elementType in ElementTypes)
                 {
-                    var newMetadata = metaDataTransformation(elementType, GetMetadata(elementType));
+                    var newMetadata = metaDataTransformation(elementType, this.GetMetadata(elementType));
 
                     overrides = newMetadata.Label != elementType.Name   //TODO: Equality operators
                         ? overrides.SetItem(elementType, newMetadata)
@@ -48,14 +48,14 @@ namespace ExRam.Gremlinq.Core.Models
                 Members,
                 _elementMetadataOverrides.SetItem(
                     elementType,
-                    metadataTransformation(GetMetadata(elementType))),
+                    metadataTransformation(this.GetMetadata(elementType))),
                 _memberMetadataOverrides);
 
-            public ElementMetadata GetMetadata(Type elementType) => typeof(TBaseType).IsAssignableFrom(elementType)
+            public ElementMetadata? TryGetMetadata(Type elementType) => typeof(TBaseType).IsAssignableFrom(elementType)
                 ? _elementMetadataOverrides.TryGetValue(elementType, out var elementMetadata)
                     ? elementMetadata
                     : new ElementMetadata(elementType.Name)
-                : throw new ArgumentException();
+                : default(ElementMetadata?);
 
             public IGraphElementModel AddAssemblies(params Assembly[] assemblies)
             {
@@ -145,7 +145,7 @@ namespace ExRam.Gremlinq.Core.Models
 
             public IGraphElementModel ConfigureMetadata(Func<Type, ElementMetadata, ElementMetadata> metaDataTransformation) => throw Throw(nameof(ConfigureMetadata));
 
-            public ElementMetadata GetMetadata(Type elementType) => throw Throw(nameof(GetMetadata));
+            public ElementMetadata? TryGetMetadata(Type elementType) => throw Throw(nameof(TryGetMetadata));
 
             public MemberMetadata? TryGetMetadata(MemberInfo memberInfo) => throw Throw(nameof(TryGetMetadata));
 
@@ -169,6 +169,8 @@ namespace ExRam.Gremlinq.Core.Models
         public static IGraphElementModel UseLowerCaseNames(this IGraphElementModel model) => model.ConfigureNames(static (_, key) => key.RawKey is string name
             ? name.ToLower()
             : key);
+
+        public static ElementMetadata GetMetadata(this IGraphElementModel model, Type elementType) => model.TryGetMetadata(elementType) ?? throw new ArgumentException();
 
         public static MemberMetadata GetMetadata(this IGraphElementModel model, MemberInfo memberInfo) => model.TryGetMetadata(memberInfo) ?? throw new ArgumentException();
 

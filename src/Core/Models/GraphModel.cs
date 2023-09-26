@@ -8,8 +8,8 @@ namespace ExRam.Gremlinq.Core.Models
         {
             public GraphModelImpl(IGraphElementModel verticesModel, IGraphElementModel edgesModel)
             {
-                VerticesModel = verticesModel;
                 EdgesModel = edgesModel;
+                VerticesModel = verticesModel;
             }
 
             public IGraphModel ConfigureVertices(Func<IGraphElementModel, IGraphElementModel> transformation) => new GraphModelImpl(
@@ -23,8 +23,8 @@ namespace ExRam.Gremlinq.Core.Models
             public IGraphModel AddAssemblies(params Assembly[] assemblies) => this
                 .ConfigureElements(__ => __.AddAssemblies(assemblies));
 
-            public IGraphElementModel VerticesModel { get; }
             public IGraphElementModel EdgesModel { get; }
+            public IGraphElementModel VerticesModel { get; }
         }
 
         public static readonly IGraphModel Invalid = new GraphModelImpl(
@@ -39,12 +39,9 @@ namespace ExRam.Gremlinq.Core.Models
             if (typeof(TEdgeBaseType).IsAssignableFrom(typeof(TVertexBaseType)))
                 throw new ArgumentException($"{typeof(TEdgeBaseType)} may not be in the inheritance hierarchy of {typeof(TVertexBaseType)}.");
 
-            var verticesModel = GraphElementModel.FromBaseType<TVertexBaseType>();
-            var edgesModel = GraphElementModel.FromBaseType<TEdgeBaseType>();
-
             return new GraphModelImpl(
-                verticesModel,
-                edgesModel);
+                GraphElementModel.FromBaseType<TVertexBaseType>(),
+                GraphElementModel.FromBaseType<TEdgeBaseType>());
         }
 
         public static IGraphModel ConfigureElements(this IGraphModel model, Func<IGraphElementModel, IGraphElementModel> transformation) => model
