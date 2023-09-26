@@ -11,7 +11,7 @@ namespace ExRam.Gremlinq.Core.Models
 
         IGraphElementPropertyModel ConfigureMemberMetadata(Func<MemberInfo, MemberMetadata, MemberMetadata> transformation);
 
-        MemberMetadata GetMetadata(MemberInfo memberInfo);
+        MemberMetadata? TryGetMetadata(MemberInfo memberInfo);
 
         IImmutableSet<MemberInfo> Members { get; }
     }
