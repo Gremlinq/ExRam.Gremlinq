@@ -1405,6 +1405,7 @@ namespace ExRam.Gremlinq.Core.Models
         public static ExRam.Gremlinq.Core.Models.IGraphElementModel ConfigureElement<TElement>(this ExRam.Gremlinq.Core.Models.IGraphElementModel model, System.Func<ExRam.Gremlinq.Core.Models.IMemberMetadataConfigurator<TElement>, ExRam.Gremlinq.Core.Models.IMemberMetadataConfigurator<TElement>> transformation) { }
         public static ExRam.Gremlinq.Core.Models.IGraphElementModel ConfigureLabels(this ExRam.Gremlinq.Core.Models.IGraphElementModel model, System.Func<System.Type, string, string> overrideTransformation) { }
         public static ExRam.Gremlinq.Core.Models.MemberMetadata GetMetadata(this ExRam.Gremlinq.Core.Models.IGraphElementModel model, System.Reflection.MemberInfo memberInfo) { }
+        public static ExRam.Gremlinq.Core.Models.ElementMetadata GetMetadata(this ExRam.Gremlinq.Core.Models.IGraphElementModel model, System.Type elementType) { }
         public static ExRam.Gremlinq.Core.Models.IGraphElementModel UseCamelCaseLabels(this ExRam.Gremlinq.Core.Models.IGraphElementModel model) { }
         public static ExRam.Gremlinq.Core.Models.IGraphElementModel UseCamelCaseNames(this ExRam.Gremlinq.Core.Models.IGraphElementModel model) { }
         public static ExRam.Gremlinq.Core.Models.IGraphElementModel UseLowerCaseLabels(this ExRam.Gremlinq.Core.Models.IGraphElementModel model) { }
@@ -1421,12 +1422,12 @@ namespace ExRam.Gremlinq.Core.Models
         System.Collections.Immutable.IImmutableSet<System.Type> ElementTypes { get; }
         System.Collections.Immutable.IImmutableSet<System.Reflection.MemberInfo> Members { get; }
         ExRam.Gremlinq.Core.Models.IGraphElementModel AddAssemblies(params System.Reflection.Assembly[] assemblies);
-        ExRam.Gremlinq.Core.Models.IGraphElementModel ConfigureMemberMetadata(System.Func<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.Models.MemberMetadata, ExRam.Gremlinq.Core.Models.MemberMetadata> transformation);
-        ExRam.Gremlinq.Core.Models.IGraphElementModel ConfigureMemberMetadata(System.Reflection.MemberInfo member, System.Func<ExRam.Gremlinq.Core.Models.MemberMetadata, ExRam.Gremlinq.Core.Models.MemberMetadata> transformation);
+        ExRam.Gremlinq.Core.Models.IGraphElementModel ConfigureMetadata(System.Func<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.Models.MemberMetadata, ExRam.Gremlinq.Core.Models.MemberMetadata> transformation);
         ExRam.Gremlinq.Core.Models.IGraphElementModel ConfigureMetadata(System.Func<System.Type, ExRam.Gremlinq.Core.Models.ElementMetadata, ExRam.Gremlinq.Core.Models.ElementMetadata> metaDataTransformation);
+        ExRam.Gremlinq.Core.Models.IGraphElementModel ConfigureMetadata(System.Reflection.MemberInfo member, System.Func<ExRam.Gremlinq.Core.Models.MemberMetadata, ExRam.Gremlinq.Core.Models.MemberMetadata> transformation);
         ExRam.Gremlinq.Core.Models.IGraphElementModel ConfigureMetadata(System.Type elementType, System.Func<ExRam.Gremlinq.Core.Models.ElementMetadata, ExRam.Gremlinq.Core.Models.ElementMetadata> metaDataTransformation);
-        ExRam.Gremlinq.Core.Models.ElementMetadata GetMetadata(System.Type elementType);
         ExRam.Gremlinq.Core.Models.MemberMetadata? TryGetMetadata(System.Reflection.MemberInfo memberInfo);
+        ExRam.Gremlinq.Core.Models.ElementMetadata? TryGetMetadata(System.Type elementType);
     }
     public interface IGraphModel
     {

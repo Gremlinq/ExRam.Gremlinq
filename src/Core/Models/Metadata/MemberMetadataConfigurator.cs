@@ -47,7 +47,7 @@ namespace ExRam.Gremlinq.Core.Models
                 ? memberExpression.Member
                 : throw new ExpressionNotSupportedException(propertyExpression);
 
-            return new MemberMetadataConfigurator<TElement>(model => _transformation(model).ConfigureMemberMetadata(
+            return new MemberMetadataConfigurator<TElement>(model => _transformation(model).ConfigureMetadata(
                 memberInfo,
                 metadata => transformation(metadata)));
         }
