@@ -20,7 +20,7 @@ namespace System
             return type
                 .GetTypeHierarchy()
                 .SelectMany(static type => type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly))
-                .Where(static p => p.GetMethod?.GetBaseDefinition() == p.GetMethod);
+                .Where(static p => p.GetMethod is { } getMethod && getMethod.GetBaseDefinition() == getMethod);
         }
     }
 }
