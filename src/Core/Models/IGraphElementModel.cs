@@ -7,8 +7,6 @@ namespace ExRam.Gremlinq.Core.Models
     {
         IGraphElementModel AddAssemblies(params Assembly[] assemblies);
 
-        ElementMetadata GetMetadata(Type elementType);
-
         IGraphElementModel ConfigureMetadata(Func<Type, ElementMetadata, ElementMetadata> metaDataTransformation);
 
         IGraphElementModel ConfigureMetadata(Type elementType, Func<ElementMetadata, ElementMetadata> metaDataTransformation);
@@ -18,6 +16,8 @@ namespace ExRam.Gremlinq.Core.Models
         IGraphElementModel ConfigureMemberMetadata(Func<MemberInfo, MemberMetadata, MemberMetadata> transformation);
 
         MemberMetadata? TryGetMetadata(MemberInfo memberInfo);
+
+        ElementMetadata? TryGetMetadata(Type elementType);
 
         IImmutableSet<Type> ElementTypes { get; }
 
