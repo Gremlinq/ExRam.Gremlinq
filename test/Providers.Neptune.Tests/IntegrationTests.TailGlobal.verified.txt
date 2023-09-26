@@ -5,7 +5,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 61
+        "@value": 62
       },
       "label",
       "Person",
@@ -23,7 +23,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 94
+                    "@value": 92
                   },
                   "label",
                   "GuidKey",
@@ -31,6 +31,29 @@
                   {
                     "@type": "g:UUID",
                     "@value": "00000000-0000-0000-0000-000000000000"
+                  }
+                ]
+              }
+            ]
+          },
+          "RegistrationDate",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 64
+                  },
+                  "label",
+                  "RegistrationDate",
+                  "value",
+                  {
+                    "@type": "g:Date",
+                    "@value": 1586270616000
                   }
                 ]
               }
@@ -46,7 +69,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 157
+                    "@value": 155
                   },
                   "label",
                   "StringKey1",
@@ -54,29 +77,6 @@
                   {
                     "@type": "g:Int32",
                     "@value": 36
-                  }
-                ]
-              }
-            ]
-          },
-          "Gender",
-          {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 63
-                  },
-                  "label",
-                  "Gender",
-                  "value",
-                  {
-                    "@type": "g:Int32",
-                    "@value": 1
                   }
                 ]
               }
@@ -92,7 +92,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 146
+                    "@value": 144
                   },
                   "label",
                   "Age",
@@ -115,7 +115,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 168
+                    "@value": 166
                   },
                   "label",
                   "StringKey2",
@@ -124,6 +124,26 @@
                     "@type": "g:Int32",
                     "@value": 36
                   }
+                ]
+              }
+            ]
+          },
+          "Name",
+          {
+            "@type": "g:List",
+            "@value": [
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 63
+                  },
+                  "label",
+                  "Name",
+                  "value",
+                  "Marko"
                 ]
               }
             ]

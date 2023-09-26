@@ -27,13 +27,54 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 129
+                "@value": 127
               },
               "value": "",
               "label": "LocalizableDescription",
               "properties": {
                 "someKey": "value"
               }
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "@type": "g:Vertex",
+    "@value": {
+      "id": {
+        "@type": "g:Int64",
+        "@value": 71
+      },
+      "label": "Country",
+      "properties": {
+        "LocalizableDescription": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 128
+              },
+              "value": "",
+              "label": "LocalizableDescription",
+              "properties": {
+                "someKey": "value"
+              }
+            }
+          }
+        ],
+        "Name": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 72
+              },
+              "value": "GER",
+              "label": "Name"
             }
           }
         ]
@@ -55,7 +96,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 130
+                "@value": 129
               },
               "value": "",
               "label": "LocalizableDescription",
@@ -72,47 +113,6 @@
               "id": {
                 "@type": "g:Int64",
                 "@value": 74
-              },
-              "value": "GER",
-              "label": "Name"
-            }
-          }
-        ]
-      }
-    }
-  },
-  {
-    "@type": "g:Vertex",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 75
-      },
-      "label": "Country",
-      "properties": {
-        "LocalizableDescription": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 131
-              },
-              "value": "",
-              "label": "LocalizableDescription",
-              "properties": {
-                "someKey": "value"
-              }
-            }
-          }
-        ],
-        "Name": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 76
               },
               "value": "GER",
               "label": "Name",
@@ -141,7 +141,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 132
+                "@value": 130
               },
               "value": "",
               "label": "LocalizableDescription",
@@ -169,7 +169,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 133
+                "@value": 131
               },
               "value": "",
               "label": "LocalizableDescription",
@@ -197,7 +197,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 134
+                "@value": 132
               },
               "value": "",
               "label": "LocalizableDescription",
@@ -238,7 +238,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 135
+                "@value": 133
               },
               "value": "",
               "label": "LocalizableDescription",

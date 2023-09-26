@@ -22,26 +22,9 @@
         "@value": 66
       },
       "label",
-      "RegistrationDate",
+      "IetfLanguageTag",
       "value",
-      {
-        "@type": "g:Date",
-        "@value": 1586270616000
-      }
-    ]
-  },
-  {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 65
-      },
-      "label",
-      "Name",
-      "value",
-      "Marko"
+      "en"
     ]
   },
   {
@@ -64,12 +47,29 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 68
+        "@value": 69
       },
       "label",
-      "IetfLanguageTag",
+      "FoundingDate",
       "value",
-      "en"
+      {
+        "@type": "g:Date",
+        "@value": -62135596800000
+      }
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "id",
+      {
+        "@type": "g:Int64",
+        "@value": 70
+      },
+      "label",
+      "Locations",
+      "value",
+      "Aachen"
     ]
   },
   {
@@ -95,14 +95,14 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 71
+        "@value": 8
       },
       "label",
-      "FoundingDate",
+      "Age",
       "value",
       {
-        "@type": "g:Date",
-        "@value": -62135596800000
+        "@type": "g:Int32",
+        "@value": 0
       }
     ]
   },
@@ -115,26 +115,9 @@
         "@value": 72
       },
       "label",
-      "Locations",
+      "Name",
       "value",
-      "Aachen"
-    ]
-  },
-  {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 8
-      },
-      "label",
-      "Age",
-      "value",
-      {
-        "@type": "g:Int32",
-        "@value": 0
-      }
+      "GER"
     ]
   },
   {
@@ -205,21 +188,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 76
-      },
-      "label",
-      "Name",
-      "value",
-      "GER"
-    ]
-  },
-  {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 79
+        "@value": 77
       },
       "label",
       "PhoneNumbers",
@@ -233,7 +202,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 80
+        "@value": 78
       },
       "label",
       "PhoneNumbers",
@@ -247,7 +216,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 78
+        "@value": 76
       },
       "label",
       "FoundingDate",
@@ -281,7 +250,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 83
+        "@value": 81
       },
       "label",
       "lang",
@@ -549,21 +518,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 57
-      },
-      "label",
-      "IetfLanguageTag",
-      "value",
-      "en"
-    ]
-  },
-  {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
-        "@value": 60
+        "@value": 58
       },
       "label",
       "Image",
@@ -577,7 +532,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 59
+        "@value": 57
       },
       "label",
       "Age",
@@ -594,7 +549,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 63
+        "@value": 61
       },
       "label",
       "Gender",
@@ -611,7 +566,7 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 62
+        "@value": 60
       },
       "label",
       "Age",
@@ -620,6 +575,37 @@
         "@type": "g:Int32",
         "@value": 0
       }
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "id",
+      {
+        "@type": "g:Int64",
+        "@value": 64
+      },
+      "label",
+      "RegistrationDate",
+      "value",
+      {
+        "@type": "g:Date",
+        "@value": 1586270616000
+      }
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "id",
+      {
+        "@type": "g:Int64",
+        "@value": 63
+      },
+      "label",
+      "Name",
+      "value",
+      "Marko"
     ]
   }
 ]

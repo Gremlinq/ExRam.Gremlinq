@@ -27,7 +27,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 129
+                "@value": 127
               },
               "value": "",
               "label": "LocalizableDescription",
@@ -45,116 +45,20 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 64
+        "@value": 65
       },
-      "label": "Person",
+      "label": "Language",
       "properties": {
-        "GuidKey": [
+        "IetfLanguageTag": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 84
+                "@value": 66
               },
-              "value": {
-                "@type": "g:UUID",
-                "@value": "00000000-0000-0000-0000-000000000000"
-              },
-              "label": "GuidKey"
-            }
-          }
-        ],
-        "RegistrationDate": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 335
-              },
-              "value": {
-                "@type": "g:Date",
-                "@value": 1586270616000
-              },
-              "label": "RegistrationDate"
-            }
-          }
-        ],
-        "StringKey1": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 147
-              },
-              "value": {
-                "@type": "g:Int32",
-                "@value": 36
-              },
-              "label": "StringKey1"
-            }
-          }
-        ],
-        "Gender": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 334
-              },
-              "value": {
-                "@type": "g:Int32",
-                "@value": 0
-              },
-              "label": "Gender"
-            }
-          }
-        ],
-        "StringKey2": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 158
-              },
-              "value": {
-                "@type": "g:Int32",
-                "@value": 36
-              },
-              "label": "StringKey2"
-            }
-          }
-        ],
-        "Age": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 290
-              },
-              "value": {
-                "@type": "g:Int32",
-                "@value": 21
-              },
-              "label": "Age"
-            }
-          }
-        ],
-        "Name": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 292
-              },
-              "value": "Marko",
-              "label": "Name"
+              "value": "en",
+              "label": "IetfLanguageTag"
             }
           }
         ]
@@ -193,18 +97,50 @@
         "@type": "g:Int64",
         "@value": 67
       },
-      "label": "Language",
+      "label": "Language"
+    }
+  },
+  {
+    "@type": "g:Vertex",
+    "@value": {
+      "id": {
+        "@type": "g:Int64",
+        "@value": 68
+      },
+      "label": "Company",
       "properties": {
-        "IetfLanguageTag": [
+        "FoundingDate": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 68
+                "@value": 69
               },
-              "value": "en",
-              "label": "IetfLanguageTag"
+              "value": {
+                "@type": "g:Date",
+                "@value": -62135596800000
+              },
+              "label": "FoundingDate"
+            }
+          }
+        ],
+        "Locations": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 70
+              },
+              "value": "Aachen",
+              "label": "Locations",
+              "properties": {
+                "ValidFrom": {
+                  "@type": "g:Date",
+                  "@value": 1546304400000
+                }
+              }
             }
           }
         ]
@@ -244,9 +180,120 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 69
+        "@value": 7
       },
-      "label": "Language"
+      "label": "Person",
+      "properties": {
+        "GuidKey": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 82
+              },
+              "value": {
+                "@type": "g:UUID",
+                "@value": "00000000-0000-0000-0000-000000000000"
+              },
+              "label": "GuidKey"
+            }
+          }
+        ],
+        "RegistrationDate": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 333
+              },
+              "value": {
+                "@type": "g:Date",
+                "@value": 1586270616000
+              },
+              "label": "RegistrationDate"
+            }
+          }
+        ],
+        "StringKey1": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 145
+              },
+              "value": {
+                "@type": "g:Int32",
+                "@value": 36
+              },
+              "label": "StringKey1"
+            }
+          }
+        ],
+        "Gender": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 332
+              },
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              },
+              "label": "Gender"
+            }
+          }
+        ],
+        "StringKey2": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 156
+              },
+              "value": {
+                "@type": "g:Int32",
+                "@value": 36
+              },
+              "label": "StringKey2"
+            }
+          }
+        ],
+        "Age": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 288
+              },
+              "value": {
+                "@type": "g:Int32",
+                "@value": 21
+              },
+              "label": "Age"
+            }
+          }
+        ],
+        "Name": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 290
+              },
+              "value": "Marko",
+              "label": "Name"
+            }
+          }
+        ]
+      }
     }
   },
   {
@@ -254,27 +301,27 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 70
+        "@value": 71
       },
-      "label": "Company",
+      "label": "Country",
       "properties": {
-        "FoundingDate": [
+        "LocalizableDescription": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 71
+                "@value": 128
               },
-              "value": {
-                "@type": "g:Date",
-                "@value": -62135596800000
-              },
-              "label": "FoundingDate"
+              "value": "",
+              "label": "LocalizableDescription",
+              "properties": {
+                "someKey": "value"
+              }
             }
           }
         ],
-        "Locations": [
+        "Name": [
           {
             "@type": "g:VertexProperty",
             "@value": {
@@ -282,13 +329,52 @@
                 "@type": "g:Int64",
                 "@value": 72
               },
-              "value": "Aachen",
-              "label": "Locations",
+              "value": "GER",
+              "label": "Name"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "@type": "g:Vertex",
+    "@value": {
+      "id": {
+        "@type": "g:Int64",
+        "@value": 73
+      },
+      "label": "Country",
+      "properties": {
+        "LocalizableDescription": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 129
+              },
+              "value": "",
+              "label": "LocalizableDescription",
               "properties": {
-                "ValidFrom": {
-                  "@type": "g:Date",
-                  "@value": 1546304400000
-                }
+                "someKey": "value"
+              }
+            }
+          }
+        ],
+        "Name": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 74
+              },
+              "value": "GER",
+              "label": "Name",
+              "properties": {
+                "de": "Deutschland",
+                "en": "Germany"
               }
             }
           }
@@ -301,7 +387,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 7
+        "@value": 10
       },
       "label": "Person",
       "properties": {
@@ -311,7 +397,180 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 85
+                "@value": 83
+              },
+              "value": {
+                "@type": "g:UUID",
+                "@value": "00000000-0000-0000-0000-000000000000"
+              },
+              "label": "GuidKey"
+            }
+          }
+        ],
+        "RegistrationDate": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 335
+              },
+              "value": {
+                "@type": "g:Date",
+                "@value": 1586270616000
+              },
+              "label": "RegistrationDate"
+            }
+          }
+        ],
+        "StringKey1": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 146
+              },
+              "value": {
+                "@type": "g:Int32",
+                "@value": 36
+              },
+              "label": "StringKey1"
+            }
+          }
+        ],
+        "Gender": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 334
+              },
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              },
+              "label": "Gender"
+            }
+          }
+        ],
+        "StringKey2": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 157
+              },
+              "value": {
+                "@type": "g:Int32",
+                "@value": 36
+              },
+              "label": "StringKey2"
+            }
+          }
+        ],
+        "Age": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 292
+              },
+              "value": {
+                "@type": "g:Int32",
+                "@value": 21
+              },
+              "label": "Age"
+            }
+          }
+        ],
+        "Name": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 294
+              },
+              "value": "Marko",
+              "label": "Name"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "@type": "g:Vertex",
+    "@value": {
+      "id": {
+        "@type": "g:Int64",
+        "@value": 75
+      },
+      "label": "Company",
+      "properties": {
+        "PhoneNumbers": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 77
+              },
+              "value": "+4912345",
+              "label": "PhoneNumbers"
+            }
+          },
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 78
+              },
+              "value": "+4923456",
+              "label": "PhoneNumbers"
+            }
+          }
+        ],
+        "FoundingDate": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 76
+              },
+              "value": {
+                "@type": "g:Date",
+                "@value": -62135596800000
+              },
+              "label": "FoundingDate"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "@type": "g:Vertex",
+    "@value": {
+      "id": {
+        "@type": "g:Int64",
+        "@value": 15
+      },
+      "label": "Person",
+      "properties": {
+        "GuidKey": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 84
               },
               "value": {
                 "@type": "g:UUID",
@@ -343,7 +602,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 148
+                "@value": 147
               },
               "value": {
                 "@type": "g:Int32",
@@ -375,7 +634,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 159
+                "@value": 158
               },
               "value": {
                 "@type": "g:Int32",
@@ -391,7 +650,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 294
+                "@value": 296
               },
               "value": {
                 "@type": "g:Int32",
@@ -407,7 +666,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 296
+                "@value": 298
               },
               "value": "Marko",
               "label": "Name"
@@ -422,7 +681,42 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 73
+        "@value": 79
+      },
+      "label": "Language"
+    }
+  },
+  {
+    "@type": "g:Vertex",
+    "@value": {
+      "id": {
+        "@type": "g:Int64",
+        "@value": 80
+      },
+      "label": "Language",
+      "properties": {
+        "lang": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 81
+              },
+              "value": "en",
+              "label": "lang"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "@type": "g:Vertex",
+    "@value": {
+      "id": {
+        "@type": "g:Int64",
+        "@value": 17
       },
       "label": "Country",
       "properties": {
@@ -441,19 +735,6 @@
               }
             }
           }
-        ],
-        "Name": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 74
-              },
-              "value": "GER",
-              "label": "Name"
-            }
-          }
         ]
       }
     }
@@ -463,7 +744,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 10
+        "@value": 19
       },
       "label": "Person",
       "properties": {
@@ -473,7 +754,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 86
+                "@value": 85
               },
               "value": {
                 "@type": "g:UUID",
@@ -505,7 +786,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 149
+                "@value": 148
               },
               "value": {
                 "@type": "g:Int32",
@@ -537,7 +818,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 160
+                "@value": 159
               },
               "value": {
                 "@type": "g:Int32",
@@ -553,7 +834,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 298
+                "@value": 300
               },
               "value": {
                 "@type": "g:Int32",
@@ -569,7 +850,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 300
+                "@value": 302
               },
               "value": "Marko",
               "label": "Name"
@@ -584,7 +865,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 75
+        "@value": 21
       },
       "label": "Country",
       "properties": {
@@ -603,23 +884,6 @@
               }
             }
           }
-        ],
-        "Name": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 76
-              },
-              "value": "GER",
-              "label": "Name",
-              "properties": {
-                "de": "Deutschland",
-                "en": "Germany"
-              }
-            }
-          }
         ]
       }
     }
@@ -629,59 +893,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 77
-      },
-      "label": "Company",
-      "properties": {
-        "PhoneNumbers": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 79
-              },
-              "value": "+4912345",
-              "label": "PhoneNumbers"
-            }
-          },
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 80
-              },
-              "value": "+4923456",
-              "label": "PhoneNumbers"
-            }
-          }
-        ],
-        "FoundingDate": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 78
-              },
-              "value": {
-                "@type": "g:Date",
-                "@value": -62135596800000
-              },
-              "label": "FoundingDate"
-            }
-          }
-        ]
-      }
-    }
-  },
-  {
-    "@type": "g:Vertex",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 15
+        "@value": 23
       },
       "label": "Person",
       "properties": {
@@ -691,7 +903,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 87
+                "@value": 86
               },
               "value": {
                 "@type": "g:UUID",
@@ -723,7 +935,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 150
+                "@value": 149
               },
               "value": {
                 "@type": "g:Int32",
@@ -755,7 +967,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 161
+                "@value": 160
               },
               "value": {
                 "@type": "g:Int32",
@@ -766,22 +978,6 @@
           }
         ],
         "Age": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 302
-              },
-              "value": {
-                "@type": "g:Int32",
-                "@value": 21
-              },
-              "label": "Age"
-            }
-          }
-        ],
-        "Name": [
           {
             "@type": "g:VertexProperty",
             "@value": {
@@ -789,338 +985,21 @@
                 "@type": "g:Int64",
                 "@value": 304
               },
-              "value": "Marko",
-              "label": "Name"
-            }
-          }
-        ]
-      }
-    }
-  },
-  {
-    "@type": "g:Vertex",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 17
-      },
-      "label": "Country",
-      "properties": {
-        "LocalizableDescription": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 132
-              },
-              "value": "",
-              "label": "LocalizableDescription",
-              "properties": {
-                "someKey": "value"
-              }
-            }
-          }
-        ]
-      }
-    }
-  },
-  {
-    "@type": "g:Vertex",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 81
-      },
-      "label": "Language"
-    }
-  },
-  {
-    "@type": "g:Vertex",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 82
-      },
-      "label": "Language",
-      "properties": {
-        "lang": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 83
-              },
-              "value": "en",
-              "label": "lang"
-            }
-          }
-        ]
-      }
-    }
-  },
-  {
-    "@type": "g:Vertex",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 19
-      },
-      "label": "Person",
-      "properties": {
-        "GuidKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 88
-              },
-              "value": {
-                "@type": "g:UUID",
-                "@value": "00000000-0000-0000-0000-000000000000"
-              },
-              "label": "GuidKey"
-            }
-          }
-        ],
-        "RegistrationDate": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 343
-              },
-              "value": {
-                "@type": "g:Date",
-                "@value": 1586270616000
-              },
-              "label": "RegistrationDate"
-            }
-          }
-        ],
-        "StringKey1": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 151
-              },
               "value": {
                 "@type": "g:Int32",
-                "@value": 36
+                "@value": 21
               },
-              "label": "StringKey1"
+              "label": "Age"
             }
           }
         ],
-        "Gender": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 342
-              },
-              "value": {
-                "@type": "g:Int32",
-                "@value": 0
-              },
-              "label": "Gender"
-            }
-          }
-        ],
-        "StringKey2": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 162
-              },
-              "value": {
-                "@type": "g:Int32",
-                "@value": 36
-              },
-              "label": "StringKey2"
-            }
-          }
-        ],
-        "Age": [
+        "Name": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
                 "@value": 306
-              },
-              "value": {
-                "@type": "g:Int32",
-                "@value": 21
-              },
-              "label": "Age"
-            }
-          }
-        ],
-        "Name": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 308
-              },
-              "value": "Marko",
-              "label": "Name"
-            }
-          }
-        ]
-      }
-    }
-  },
-  {
-    "@type": "g:Vertex",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 21
-      },
-      "label": "Country",
-      "properties": {
-        "LocalizableDescription": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 133
-              },
-              "value": "",
-              "label": "LocalizableDescription",
-              "properties": {
-                "someKey": "value"
-              }
-            }
-          }
-        ]
-      }
-    }
-  },
-  {
-    "@type": "g:Vertex",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 23
-      },
-      "label": "Person",
-      "properties": {
-        "GuidKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 89
-              },
-              "value": {
-                "@type": "g:UUID",
-                "@value": "00000000-0000-0000-0000-000000000000"
-              },
-              "label": "GuidKey"
-            }
-          }
-        ],
-        "RegistrationDate": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 345
-              },
-              "value": {
-                "@type": "g:Date",
-                "@value": 1586270616000
-              },
-              "label": "RegistrationDate"
-            }
-          }
-        ],
-        "StringKey1": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 152
-              },
-              "value": {
-                "@type": "g:Int32",
-                "@value": 36
-              },
-              "label": "StringKey1"
-            }
-          }
-        ],
-        "Gender": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 344
-              },
-              "value": {
-                "@type": "g:Int32",
-                "@value": 0
-              },
-              "label": "Gender"
-            }
-          }
-        ],
-        "StringKey2": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 163
-              },
-              "value": {
-                "@type": "g:Int32",
-                "@value": 36
-              },
-              "label": "StringKey2"
-            }
-          }
-        ],
-        "Age": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 310
-              },
-              "value": {
-                "@type": "g:Int32",
-                "@value": 21
-              },
-              "label": "Age"
-            }
-          }
-        ],
-        "Name": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 312
               },
               "value": "Marko",
               "label": "Name"
@@ -1145,7 +1024,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 134
+                "@value": 132
               },
               "value": "",
               "label": "LocalizableDescription",
@@ -1201,7 +1080,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 90
+                "@value": 87
               },
               "value": {
                 "@type": "g:UUID",
@@ -1217,7 +1096,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 347
+                "@value": 343
               },
               "value": {
                 "@type": "g:Date",
@@ -1233,7 +1112,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 153
+                "@value": 150
               },
               "value": {
                 "@type": "g:Int32",
@@ -1249,7 +1128,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 346
+                "@value": 342
               },
               "value": {
                 "@type": "g:Int32",
@@ -1265,7 +1144,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 164
+                "@value": 161
               },
               "value": {
                 "@type": "g:Int32",
@@ -1281,7 +1160,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 314
+                "@value": 308
               },
               "value": {
                 "@type": "g:Int32",
@@ -1297,7 +1176,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 316
+                "@value": 310
               },
               "value": "Marko",
               "label": "Name"
@@ -1360,7 +1239,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 135
+                "@value": 133
               },
               "value": "",
               "label": "LocalizableDescription",
@@ -1388,7 +1267,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 91
+                "@value": 88
               },
               "value": {
                 "@type": "g:UUID",
@@ -1404,7 +1283,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 349
+                "@value": 345
               },
               "value": {
                 "@type": "g:Date",
@@ -1420,7 +1299,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 154
+                "@value": 151
               },
               "value": {
                 "@type": "g:Int32",
@@ -1436,7 +1315,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 348
+                "@value": 344
               },
               "value": {
                 "@type": "g:Int32",
@@ -1452,7 +1331,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 165
+                "@value": 162
               },
               "value": {
                 "@type": "g:Int32",
@@ -1468,7 +1347,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 318
+                "@value": 312
               },
               "value": {
                 "@type": "g:Int32",
@@ -1484,7 +1363,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 320
+                "@value": 314
               },
               "value": "Marko",
               "label": "Name"
@@ -1537,7 +1416,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 92
+                "@value": 89
               },
               "value": {
                 "@type": "g:UUID",
@@ -1553,7 +1432,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 351
+                "@value": 347
               },
               "value": {
                 "@type": "g:Date",
@@ -1569,7 +1448,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 155
+                "@value": 152
               },
               "value": {
                 "@type": "g:Int32",
@@ -1585,7 +1464,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 350
+                "@value": 346
               },
               "value": {
                 "@type": "g:Int32",
@@ -1601,7 +1480,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 166
+                "@value": 163
               },
               "value": {
                 "@type": "g:Int32",
@@ -1617,7 +1496,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 322
+                "@value": 316
               },
               "value": {
                 "@type": "g:Int32",
@@ -1633,7 +1512,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 324
+                "@value": 318
               },
               "value": "Marko",
               "label": "Name"
@@ -1767,18 +1646,114 @@
         "@type": "g:Int64",
         "@value": 56
       },
-      "label": "Language",
+      "label": "Person",
       "properties": {
-        "IetfLanguageTag": [
+        "GuidKey": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 57
+                "@value": 90
               },
-              "value": "en",
-              "label": "IetfLanguageTag"
+              "value": {
+                "@type": "g:UUID",
+                "@value": "00000000-0000-0000-0000-000000000000"
+              },
+              "label": "GuidKey"
+            }
+          }
+        ],
+        "RegistrationDate": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 349
+              },
+              "value": {
+                "@type": "g:Date",
+                "@value": 1586270616000
+              },
+              "label": "RegistrationDate"
+            }
+          }
+        ],
+        "StringKey1": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 153
+              },
+              "value": {
+                "@type": "g:Int32",
+                "@value": 36
+              },
+              "label": "StringKey1"
+            }
+          }
+        ],
+        "Gender": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 348
+              },
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              },
+              "label": "Gender"
+            }
+          }
+        ],
+        "StringKey2": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 164
+              },
+              "value": {
+                "@type": "g:Int32",
+                "@value": 36
+              },
+              "label": "StringKey2"
+            }
+          }
+        ],
+        "Age": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 320
+              },
+              "value": {
+                "@type": "g:Int32",
+                "@value": 21
+              },
+              "label": "Age"
+            }
+          }
+        ],
+        "Name": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 322
+              },
+              "value": "Marko",
+              "label": "Name"
             }
           }
         ]
@@ -1790,7 +1765,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 58
+        "@value": 59
       },
       "label": "Person",
       "properties": {
@@ -1800,7 +1775,128 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 93
+                "@value": 91
+              },
+              "value": {
+                "@type": "g:UUID",
+                "@value": "00000000-0000-0000-0000-000000000000"
+              },
+              "label": "GuidKey"
+            }
+          }
+        ],
+        "RegistrationDate": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 351
+              },
+              "value": {
+                "@type": "g:Date",
+                "@value": 1586270616000
+              },
+              "label": "RegistrationDate"
+            }
+          }
+        ],
+        "StringKey1": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 154
+              },
+              "value": {
+                "@type": "g:Int32",
+                "@value": 36
+              },
+              "label": "StringKey1"
+            }
+          }
+        ],
+        "Gender": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 350
+              },
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              },
+              "label": "Gender"
+            }
+          }
+        ],
+        "StringKey2": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 165
+              },
+              "value": {
+                "@type": "g:Int32",
+                "@value": 36
+              },
+              "label": "StringKey2"
+            }
+          }
+        ],
+        "Age": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 324
+              },
+              "value": {
+                "@type": "g:Int32",
+                "@value": 21
+              },
+              "label": "Age"
+            }
+          }
+        ],
+        "Name": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 326
+              },
+              "value": "Marko",
+              "label": "Name"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "@type": "g:Vertex",
+    "@value": {
+      "id": {
+        "@type": "g:Int64",
+        "@value": 62
+      },
+      "label": "Person",
+      "properties": {
+        "GuidKey": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 92
               },
               "value": {
                 "@type": "g:UUID",
@@ -1832,7 +1928,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 156
+                "@value": 155
               },
               "value": {
                 "@type": "g:Int32",
@@ -1864,7 +1960,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 167
+                "@value": 166
               },
               "value": {
                 "@type": "g:Int32",
@@ -1875,22 +1971,6 @@
           }
         ],
         "Age": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 326
-              },
-              "value": {
-                "@type": "g:Int32",
-                "@value": 21
-              },
-              "label": "Age"
-            }
-          }
-        ],
-        "Name": [
           {
             "@type": "g:VertexProperty",
             "@value": {
@@ -1898,111 +1978,6 @@
                 "@type": "g:Int64",
                 "@value": 328
               },
-              "value": "Marko",
-              "label": "Name"
-            }
-          }
-        ]
-      }
-    }
-  },
-  {
-    "@type": "g:Vertex",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 61
-      },
-      "label": "Person",
-      "properties": {
-        "GuidKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 94
-              },
-              "value": {
-                "@type": "g:UUID",
-                "@value": "00000000-0000-0000-0000-000000000000"
-              },
-              "label": "GuidKey"
-            }
-          }
-        ],
-        "RegistrationDate": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 355
-              },
-              "value": {
-                "@type": "g:Date",
-                "@value": 1586270616000
-              },
-              "label": "RegistrationDate"
-            }
-          }
-        ],
-        "StringKey1": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 157
-              },
-              "value": {
-                "@type": "g:Int32",
-                "@value": 36
-              },
-              "label": "StringKey1"
-            }
-          }
-        ],
-        "Gender": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 354
-              },
-              "value": {
-                "@type": "g:Int32",
-                "@value": 0
-              },
-              "label": "Gender"
-            }
-          }
-        ],
-        "StringKey2": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 168
-              },
-              "value": {
-                "@type": "g:Int32",
-                "@value": 36
-              },
-              "label": "StringKey2"
-            }
-          }
-        ],
-        "Age": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 330
-              },
               "value": {
                 "@type": "g:Int32",
                 "@value": 21
@@ -2017,7 +1992,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 332
+                "@value": 330
               },
               "value": "Marko",
               "label": "Name"
