@@ -40,7 +40,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                 .ConfigureEnvironment(env => env
                     .UseModel(GraphModel
                         .FromBaseTypes<TVertex, TEdge>()
-                        .ConfigureProperties(model => model
+                        .ConfigureVertices(model => model
                             .ConfigureElement<TVertex>(conf => conf
                                 .IgnoreOnUpdate(partitionKeyExpression)))));
         }

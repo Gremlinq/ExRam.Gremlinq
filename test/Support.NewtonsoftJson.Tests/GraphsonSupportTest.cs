@@ -77,7 +77,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
             JToken.Parse("[ { \"id\": 13, \"label\": \"Person\", \"type\": \"vertex\", \"properties\": { \"replacement\": [ { \"id\": 1, \"value\": \"nameValue\" } ] } } ]"),
             _environment
                 .ConfigureModel(model => model
-                    .ConfigureProperties(prop => prop
+                    .ConfigureVertices(_ => _
                         .ConfigureElement<Person>(conf => conf
                             .ConfigureName(x => x.Name, "replacement")))));
 

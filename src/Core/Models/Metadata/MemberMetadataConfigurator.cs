@@ -4,13 +4,13 @@ namespace ExRam.Gremlinq.Core.Models
 {
     internal sealed class MemberMetadataConfigurator<TElement> : IMemberMetadataConfigurator<TElement>
     {
-        private readonly Func<IGraphElementPropertyModel, IGraphElementPropertyModel> _transformation;
+        private readonly Func<IGraphElementModel, IGraphElementModel> _transformation;
 
         public MemberMetadataConfigurator() : this(_ => _)
         {
         }
 
-        private MemberMetadataConfigurator(Func<IGraphElementPropertyModel, IGraphElementPropertyModel> transformation)
+        private MemberMetadataConfigurator(Func<IGraphElementModel, IGraphElementModel> transformation)
         {
             _transformation = transformation;
         }
@@ -39,7 +39,7 @@ namespace ExRam.Gremlinq.Core.Models
             propertyExpression,
             metaData => new MemberMetadata(metaData.Key, transformation(metaData.SerializationBehaviour)));
 
-        public IGraphElementPropertyModel Transform(IGraphElementPropertyModel model) => _transformation(model);
+        public IGraphElementModel Transform(IGraphElementModel model) => _transformation(model);
 
         private IMemberMetadataConfigurator<TElement> Configure<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression, Func<MemberMetadata, MemberMetadata> transformation)
         {

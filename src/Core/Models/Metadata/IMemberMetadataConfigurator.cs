@@ -14,6 +14,6 @@ namespace ExRam.Gremlinq.Core.Models
 
         IMemberMetadataConfigurator<TElement> ConfigureName<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression, string name);
 
-        IGraphElementPropertyModel Transform(IGraphElementPropertyModel model);
+        IGraphElementModel Transform(IGraphElementModel model);
     }
 }

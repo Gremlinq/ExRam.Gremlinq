@@ -132,9 +132,9 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await Verify(GraphModel
                 .FromBaseTypes<Vertex, Edge>()
-                .ConfigureProperties(pm => pm
+                .ConfigureElements(pm => pm
                     .UseCamelCaseNames())
-                .PropertiesModel
+                .VerticesModel
                 .GetMetadata(typeof(Person).GetProperty(nameof(Person.RegistrationDate))!));
         }
 
@@ -143,9 +143,9 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await Verify(GraphModel
                 .FromBaseTypes<Vertex, Edge>()
-                .ConfigureProperties(pm => pm
+                .ConfigureElements(pm => pm
                     .UseLowerCaseNames())
-                .PropertiesModel
+                .VerticesModel
                 .GetMetadata(typeof(Person).GetProperty(nameof(Person.RegistrationDate))!));
         }
 
@@ -154,7 +154,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             var model = GraphModel
                 .FromBaseTypes<Vertex, Edge>()
-                .ConfigureProperties(pm => pm
+                .ConfigureElements(pm => pm
                     .UseCamelCaseNames());
 
             await Verify((
@@ -162,7 +162,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .VerticesModel
                     .GetMetadata(typeof(TimeFrame)),
                 model
-                    .PropertiesModel
+                    .VerticesModel
                     .GetMetadata(typeof(Person).GetProperty(nameof(Person.RegistrationDate))!)));
         }
 
@@ -179,7 +179,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .VerticesModel
                     .GetMetadata(typeof(TimeFrame)),
                 model
-                    .PropertiesModel
+                    .VerticesModel
                     .GetMetadata(typeof(Person).GetProperty(nameof(Person.RegistrationDate))!)));
         }
 
@@ -189,8 +189,7 @@ namespace ExRam.Gremlinq.Core.Tests
             var model = GraphModel
                 .FromBaseTypes<Vertex, Edge>()
                 .ConfigureElements(pm => pm
-                    .UseCamelCaseLabels())
-                .ConfigureProperties(pm => pm
+                    .UseCamelCaseLabels()
                     .UseCamelCaseNames());
 
             await Verify((
@@ -198,7 +197,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .VerticesModel
                     .GetMetadata(typeof(TimeFrame)),
                 model
-                    .PropertiesModel
+                    .VerticesModel
                     .GetMetadata(typeof(Person).GetProperty(nameof(Person.RegistrationDate))!)));
         }
 
@@ -207,9 +206,8 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             var model = GraphModel
                 .FromBaseTypes<Vertex, Edge>()
-                .ConfigureProperties(pm => pm
-                    .UseCamelCaseNames())
-                .ConfigureElements(em => em
+                .ConfigureElements(pm => pm
+                    .UseCamelCaseNames()
                     .UseCamelCaseLabels());
 
             await Verify((
@@ -217,7 +215,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .VerticesModel
                     .GetMetadata(typeof(TimeFrame)),
                 model
-                    .PropertiesModel
+                    .VerticesModel
                     .GetMetadata(typeof(Person).GetProperty(nameof(Person.RegistrationDate))!)));
         }
 
@@ -226,10 +224,10 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await Verify(GraphModel
                 .FromBaseTypes<Vertex, Edge>()
-                .ConfigureProperties(pm => pm
+                .ConfigureVertices(_ => _
                     .ConfigureElement<Person>(conf => conf
                         .IgnoreOnUpdate(p => p.Name)))
-                .PropertiesModel
+                .VerticesModel
                 .GetMetadata(typeof(Person).GetProperty(nameof(Person.Name))!));
         }
 
@@ -238,10 +236,10 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await Verify(GraphModel
                 .FromBaseTypes<Vertex, Edge>()
-                .ConfigureProperties(pm => pm
+                .ConfigureVertices(pm => pm
                     .ConfigureElement<Person>(conf => conf
                         .IgnoreOnUpdate(p => p.Name)))
-                .PropertiesModel
+                .VerticesModel
                 .GetMetadata(typeof(Authority).GetProperty(nameof(Authority.Name))!));
         }
 
@@ -250,10 +248,10 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await Verify(GraphModel
                 .FromBaseTypes<Vertex, Edge>()
-                .ConfigureProperties(pm => pm
+                .ConfigureVertices(pm => pm
                     .ConfigureElement<Authority>(conf => conf
                         .IgnoreOnUpdate(p => p.Name)))
-                .PropertiesModel
+                .VerticesModel
                 .GetMetadata(typeof(Person).GetProperty(nameof(Person.Name))!));
         }
 
@@ -262,10 +260,10 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await Verify(GraphModel
                 .FromBaseTypes<Vertex, Edge>()
-                .ConfigureProperties(pm => pm
+                .ConfigureVertices(pm => pm
                     .ConfigureElement<Person>(conf => conf
                         .IgnoreAlways(p => p.Name)))
-                .PropertiesModel
+                .VerticesModel
                 .GetMetadata(typeof(Person).GetProperty(nameof(Person.Name))!));
         }
 
@@ -274,10 +272,10 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await Verify(GraphModel
                 .FromBaseTypes<Vertex, Edge>()
-                .ConfigureProperties(pm => pm
+                .ConfigureVertices(pm => pm
                     .ConfigureElement<Vertex>(conf => conf
                         .IgnoreAlways(p => p.Id)))
-                .PropertiesModel
+                .VerticesModel
                 .GetMetadata(typeof(Person).GetProperty(nameof(Person.Id))!));
         }
 
@@ -286,7 +284,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await Verify(GraphModel
                 .FromBaseTypes<Vertex, Edge>()
-                .PropertiesModel
+                .VerticesModel
                 .GetMetadata(typeof(Person).GetProperty(nameof(Person.Name))!));
         }
 
@@ -295,7 +293,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             var model = GraphModel
                 .FromBaseTypes<Vertex, Edge>()
-                .ConfigureProperties(pm => pm
+                .ConfigureVertices(pm => pm
                     .ConfigureElement<Person>(conf => conf
                         .IgnoreAlways(p => p.Name))
                     .UseCamelCaseNames())
@@ -307,10 +305,10 @@ namespace ExRam.Gremlinq.Core.Tests
                     .VerticesModel
                     .GetMetadata(typeof(TimeFrame)),
                 model
-                    .PropertiesModel
+                    .VerticesModel
                     .GetMetadata(typeof(Person).GetProperty(nameof(Person.RegistrationDate))!),
                 model
-                    .PropertiesModel
+                    .VerticesModel
                     .GetMetadata(typeof(Person).GetProperty(nameof(Person.Name))!)));
         }
 
@@ -319,22 +317,21 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             var model = GraphModel
                 .FromBaseTypes<Vertex, Edge>()
-                .ConfigureProperties(pm => pm
+                .ConfigureVertices(pm => pm
                     .UseCamelCaseNames()
+                    .UseCamelCaseLabels()
                     .ConfigureElement<Person>(conf => conf
-                        .IgnoreAlways(p => p.Name)))
-                .ConfigureElements(em => em
-                    .UseCamelCaseLabels());
+                        .IgnoreAlways(p => p.Name)));
 
             await Verify((
                 model
                     .VerticesModel
                     .GetMetadata(typeof(TimeFrame)),
                 model
-                    .PropertiesModel
+                    .VerticesModel
                     .GetMetadata(typeof(Person).GetProperty(nameof(Person.RegistrationDate))!),
                 model
-                    .PropertiesModel
+                    .VerticesModel
                     .GetMetadata(typeof(Person).GetProperty(nameof(Person.Name))!)));
         }
     }
