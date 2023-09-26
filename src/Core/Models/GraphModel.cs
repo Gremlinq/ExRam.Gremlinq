@@ -36,11 +36,6 @@ namespace ExRam.Gremlinq.Core.Models
             public IGraphElementPropertyModel PropertiesModel { get; }
         }
 
-        public static readonly IGraphModel Empty = new GraphModelImpl(
-            GraphElementModel.Empty,
-            GraphElementModel.Empty,
-            GraphElementPropertyModel.Empty);
-
         public static readonly IGraphModel Invalid = new GraphModelImpl(
             GraphElementModel.Invalid,
             GraphElementModel.Invalid,
