@@ -15,11 +15,11 @@ namespace Benchmarks
 
         public DeserializerBenchmarks()
         {
-            _oldDeserializer = GremlinQueryEnvironment.Default
+            _oldDeserializer = GremlinQueryEnvironment.Invalid
                .UseNewtonsoftJson()
                .Deserializer;
 
-            _newDeserializer = GremlinQueryEnvironment.Default
+            _newDeserializer = GremlinQueryEnvironment.Invalid
                ./*ShinyAndNew*/UseNewtonsoftJson()
                .Deserializer;
         }
@@ -28,14 +28,14 @@ namespace Benchmarks
         public void Old()
         {
             _oldDeserializer
-                .TryTransform<JObject, Person>(_source, GremlinQueryEnvironment.Empty, out _);
+                .TryTransform<JObject, Person>(_source, GremlinQueryEnvironment.Invalid, out _);
         }
 
         [Benchmark]
         public void New()
         {
             _newDeserializer
-                .TryTransform<JObject, Person>(_source, GremlinQueryEnvironment.Empty, out _);
+                .TryTransform<JObject, Person>(_source, GremlinQueryEnvironment.Invalid, out _);
         }
     }
 }

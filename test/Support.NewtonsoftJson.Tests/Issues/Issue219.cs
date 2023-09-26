@@ -14,7 +14,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
         [Fact]
         public Task Repro()
         {
-            var env = GremlinQueryEnvironment.Empty
+            var env = GremlinQueryEnvironment.Invalid
                 .UseNewtonsoftJson();
 
             var token = env

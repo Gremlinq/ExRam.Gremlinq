@@ -11,7 +11,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             Deserializer.Default
                 .Invoking(_ => _
-                    .TryTransformTo<string>().From(42, GremlinQueryEnvironment.Empty))
+                    .TryTransformTo<string>().From(42, GremlinQueryEnvironment.Invalid))
                 .Should()
                 .Throw<InvalidOperationException>();
         }
