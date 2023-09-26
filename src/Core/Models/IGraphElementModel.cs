@@ -11,9 +11,9 @@ namespace ExRam.Gremlinq.Core.Models
 
         IGraphElementModel ConfigureMetadata(Type elementType, Func<ElementMetadata, ElementMetadata> metaDataTransformation);
 
-        IGraphElementModel ConfigureMemberMetadata(MemberInfo member, Func<MemberMetadata, MemberMetadata> transformation);
+        IGraphElementModel ConfigureMetadata(MemberInfo member, Func<MemberMetadata, MemberMetadata> transformation);
 
-        IGraphElementModel ConfigureMemberMetadata(Func<MemberInfo, MemberMetadata, MemberMetadata> transformation);
+        IGraphElementModel ConfigureMetadata(Func<MemberInfo, MemberMetadata, MemberMetadata> transformation);
 
         MemberMetadata? TryGetMetadata(MemberInfo memberInfo);
 

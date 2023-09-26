@@ -94,7 +94,7 @@ namespace ExRam.Gremlinq.Core.Models
                     _memberMetadataOverrides);
             }
 
-            public IGraphElementModel ConfigureMemberMetadata(MemberInfo member, Func<MemberMetadata, MemberMetadata> transformation) => new GraphElementModelImpl<TBaseType>(
+            public IGraphElementModel ConfigureMetadata(MemberInfo member, Func<MemberMetadata, MemberMetadata> transformation) => new GraphElementModelImpl<TBaseType>(
                 ElementTypes,
                 Members,
                 _elementMetadataOverrides,
@@ -108,7 +108,7 @@ namespace ExRam.Gremlinq.Core.Models
                     ? MemberMetadata.Default(memberInfo.Name)
                     : default(MemberMetadata?);
 
-            public IGraphElementModel ConfigureMemberMetadata(Func<MemberInfo, MemberMetadata, MemberMetadata> transformation)
+            public IGraphElementModel ConfigureMetadata(Func<MemberInfo, MemberMetadata, MemberMetadata> transformation)
             {
                 var overrides = _memberMetadataOverrides;
 
@@ -137,9 +137,9 @@ namespace ExRam.Gremlinq.Core.Models
 
             public IGraphElementModel AddAssemblies(params Assembly[] assemblies) => throw Throw(nameof(AddAssemblies));
 
-            public IGraphElementModel ConfigureMemberMetadata(MemberInfo member, Func<MemberMetadata, MemberMetadata> transformation) => throw Throw(nameof(ConfigureMemberMetadata));
+            public IGraphElementModel ConfigureMetadata(MemberInfo member, Func<MemberMetadata, MemberMetadata> transformation) => throw Throw(nameof(ConfigureMetadata));
 
-            public IGraphElementModel ConfigureMemberMetadata(Func<MemberInfo, MemberMetadata, MemberMetadata> transformation) => throw Throw(nameof(ConfigureMemberMetadata));
+            public IGraphElementModel ConfigureMetadata(Func<MemberInfo, MemberMetadata, MemberMetadata> transformation) => throw Throw(nameof(ConfigureMetadata));
 
             public IGraphElementModel ConfigureMetadata(Type elementType, Func<ElementMetadata, ElementMetadata> metaDataTransformation) => throw Throw(nameof(ConfigureMetadata));
 
@@ -174,7 +174,7 @@ namespace ExRam.Gremlinq.Core.Models
 
         public static MemberMetadata GetMetadata(this IGraphElementModel model, MemberInfo memberInfo) => model.TryGetMetadata(memberInfo) ?? throw new ArgumentException();
 
-        internal static IGraphElementModel ConfigureNames(this IGraphElementModel model, Func<MemberInfo, Key, Key> transformation) => model.ConfigureMemberMetadata((member, metadata) => new MemberMetadata(
+        internal static IGraphElementModel ConfigureNames(this IGraphElementModel model, Func<MemberInfo, Key, Key> transformation) => model.ConfigureMetadata((member, metadata) => new MemberMetadata(
             transformation(member, metadata.Key),
             metadata.SerializationBehaviour));
 
