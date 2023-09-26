@@ -5,7 +5,7 @@ namespace ExRam.Gremlinq.Core
 {
     internal interface IGremlinQueryEnvironmentCache
     {
-        Key GetKey(MemberInfo member);
+        MemberMetadata GetMetadata(MemberInfo member);
         (PropertyInfo propertyInfo, Key key, SerializationBehaviour serializationBehaviour)[] GetSerializationData(Type type);
 
         HashSet<Type> ModelTypes { get; }

@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq.Core
         private sealed class GremlinQueryEnvironmentCacheImpl : IGremlinQueryEnvironmentCache
         {
             private readonly IGremlinQueryEnvironment _environment;
-            private readonly ConcurrentDictionary<MemberInfo, Key> _members = new();
+            private readonly ConcurrentDictionary<MemberInfo, MemberMetadata> _members = new();
             private readonly ConcurrentDictionary<Type, (PropertyInfo propertyInfo, Key key, SerializationBehaviour serializationBehaviour)[]> _typeProperties = new();
 
             public GremlinQueryEnvironmentCacheImpl(IGremlinQueryEnvironment environment)
@@ -34,7 +34,7 @@ namespace ExRam.Gremlinq.Core
                             .Where(static p => p.GetMethod?.GetBaseDefinition() == p.GetMethod)
                             .Select(p => (
                                 property: p,
-                                key: closureEnvironment.GetCache().GetKey(p),
+                                key: closureEnvironment.GetCache().GetMetadata(p).Key,
                                 serializationBehaviour: closureEnvironment.Model.PropertiesModel
                                     .GetMetadata(p).SerializationBehaviour))
                             .OrderBy(static x => x.key)
@@ -42,9 +42,9 @@ namespace ExRam.Gremlinq.Core
                         _environment);
             }
 
-            public Key GetKey(MemberInfo member) => _members.GetOrAdd(
+            public MemberMetadata GetMetadata(MemberInfo member) => _members.GetOrAdd(
                 member,
-                static (closureMember, model) => model.GetMetadata(closureMember).Key,
+                static (closureMember, model) => model.GetMetadata(closureMember),
                 _environment.Model.PropertiesModel);
 
             public HashSet<Type> ModelTypes { get; }
