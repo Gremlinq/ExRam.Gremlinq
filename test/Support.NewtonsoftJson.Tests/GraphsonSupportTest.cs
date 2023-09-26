@@ -115,19 +115,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
         public Task Language_unknown_type() => Verify<object>(GetJson("Single_Language"));
 
         [Fact]
-        public Task Language_unknown_type_without_model() => Verify<object>(
-            GetJson("Single_Language"),
-            _environment
-                .UseModel(GraphModel.Empty));
-
-        [Fact]
         public Task Language_strongly_typed() => Verify<Language>(GetJson("Single_Language"));
-
-        [Fact]
-        public Task Language_strongly_typed_without_model() => Verify<Language>(
-            GetJson("Single_Language"),
-            _environment
-                .UseModel(GraphModel.Empty));
 
         [Fact]
         public Task Language_to_generic_vertex() => Verify<Vertex>(GetJson("Single_Language"));

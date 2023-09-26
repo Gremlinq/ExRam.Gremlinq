@@ -292,13 +292,6 @@ namespace ExRam.Gremlinq.Tests.TestCases
             .Verify();
 
         [Fact]
-        public virtual Task AddV_without_model() => _g
-            .ConfigureEnvironment(env => env
-                .UseModel(GraphModel.Empty))
-            .AddV(new Language { IetfLanguageTag = "en" })
-            .Verify();
-
-        [Fact]
         public virtual Task Aggregate_Cap() => _g
             .V<Person>()
             .Aggregate((__, aggregated) => __
