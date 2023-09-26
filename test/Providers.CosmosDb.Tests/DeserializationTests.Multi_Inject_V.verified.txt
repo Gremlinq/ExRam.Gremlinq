@@ -107,11 +107,6 @@
     Label: Language
   },
   {
-    IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language
-  },
-  {
     Image: AQIDBAUGBwg=,
     Id: 00000000-0000-0000-0000-000000000000,
     Label: Person
@@ -297,11 +292,6 @@
     Label: Language
   },
   {
-    IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language
-  },
-  {
     Image: AQIDBAUGBwg=,
     Id: 00000000-0000-0000-0000-000000000000,
     Label: Person
@@ -480,11 +470,6 @@
     Duration: 02:00:00,
     Id: 00000000-0000-0000-0000-000000000000,
     Label: TimeFrame
-  },
-  {
-    IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language
   },
   {
     IetfLanguageTag: en,

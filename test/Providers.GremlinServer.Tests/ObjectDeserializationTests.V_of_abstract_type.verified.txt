@@ -1,24 +1,8 @@
 ﻿[
   {
-    Age: 21,
-    Gender: Male,
-    RegistrationDate: 2020-04-07 14:43:36 +0,
-    Name: {
-      Id: 292,
-      Label: Name,
-      Value: Marko
-    },
-    Id: 64,
-    Label: Person
-  },
-  {
-    Id: 5,
-    Label: Company
-  },
-  {
     Locations: [
       {
-        Id: 72,
+        Id: 70,
         Label: Locations,
         Properties: {
           ValidFrom: 2019-01-01 01:00 +0
@@ -26,7 +10,11 @@
         Value: Aachen
       }
     ],
-    Id: 70,
+    Id: 68,
+    Label: Company
+  },
+  {
+    Id: 5,
     Label: Company
   },
   {
@@ -34,7 +22,7 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 296,
+      Id: 290,
       Label: Name,
       Value: Marko
     },
@@ -46,7 +34,7 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 300,
+      Id: 294,
       Label: Name,
       Value: Marko
     },
@@ -58,7 +46,7 @@
       +4912345,
       +4923456
     ],
-    Id: 77,
+    Id: 75,
     Label: Company
   },
   {
@@ -66,7 +54,7 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 304,
+      Id: 298,
       Label: Name,
       Value: Marko
     },
@@ -78,7 +66,7 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 308,
+      Id: 302,
       Label: Name,
       Value: Marko
     },
@@ -90,7 +78,7 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 312,
+      Id: 306,
       Label: Name,
       Value: Marko
     },
@@ -106,7 +94,7 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 316,
+      Id: 310,
       Label: Name,
       Value: Marko
     },
@@ -118,7 +106,7 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 320,
+      Id: 314,
       Label: Name,
       Value: Marko
     },
@@ -134,7 +122,7 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 324,
+      Id: 318,
       Label: Name,
       Value: Marko
     },
@@ -146,11 +134,11 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 328,
+      Id: 322,
       Label: Name,
       Value: Marko
     },
-    Id: 58,
+    Id: 56,
     Label: Person
   },
   {
@@ -158,11 +146,23 @@
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 332,
+      Id: 326,
       Label: Name,
       Value: Marko
     },
-    Id: 61,
+    Id: 59,
+    Label: Person
+  },
+  {
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: 330,
+      Label: Name,
+      Value: Marko
+    },
+    Id: 62,
     Label: Person
   }
 ]

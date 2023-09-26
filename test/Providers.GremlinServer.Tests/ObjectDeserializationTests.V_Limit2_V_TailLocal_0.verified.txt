@@ -2,7 +2,7 @@
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 129,
+      Id: 127,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
@@ -13,15 +13,8 @@
     Label: Country
   },
   {
-    Age: 21,
-    Gender: Male,
-    RegistrationDate: 2020-04-07 14:43:36 +0,
-    Name: {
-      Id: 292,
-      Label: Name,
-      Value: Marko
-    },
-    Id: 64,
-    Label: Person
+    IetfLanguageTag: en,
+    Id: 65,
+    Label: Language
   }
 ]

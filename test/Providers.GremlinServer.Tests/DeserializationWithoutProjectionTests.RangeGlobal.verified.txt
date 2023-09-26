@@ -1,14 +1,8 @@
 ﻿[
   {
-    Age: 36,
-    RegistrationDate: 2020-04-07 14:43:36 +0,
-    Name: {
-      Id: 65,
-      Label: Name,
-      Value: Marko
-    },
-    Id: 64,
-    Label: Person
+    IetfLanguageTag: en,
+    Id: 65,
+    Label: Language
   },
   {
     IetfLanguageTag: en,

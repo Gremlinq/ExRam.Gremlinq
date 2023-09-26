@@ -2,7 +2,7 @@
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 129,
+      Id: 127,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
@@ -14,13 +14,34 @@
   },
   {
     Name: {
-      Id: 74,
+      Id: 72,
       Label: Name,
       Properties: {},
       Value: GER
     },
     LocalizableDescription: {
-      Id: 130,
+      Id: 128,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: 71,
+    Label: Country
+  },
+  {
+    Name: {
+      Id: 74,
+      Label: Name,
+      Properties: {
+        de: Deutschland,
+        en: Germany
+      },
+      Value: GER
+    },
+    LocalizableDescription: {
+      Id: 129,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
@@ -31,29 +52,8 @@
     Label: Country
   },
   {
-    Name: {
-      Id: 76,
-      Label: Name,
-      Properties: {
-        de: Deutschland,
-        en: Germany
-      },
-      Value: GER
-    },
     LocalizableDescription: {
-      Id: 131,
-      Label: LocalizableDescription,
-      Properties: {
-        someKey: value
-      },
-      Value: 
-    },
-    Id: 75,
-    Label: Country
-  },
-  {
-    LocalizableDescription: {
-      Id: 132,
+      Id: 130,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
@@ -65,7 +65,7 @@
   },
   {
     LocalizableDescription: {
-      Id: 133,
+      Id: 131,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
@@ -77,7 +77,7 @@
   },
   {
     LocalizableDescription: {
-      Id: 134,
+      Id: 132,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
@@ -90,7 +90,7 @@
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 135,
+      Id: 133,
       Label: LocalizableDescription,
       Properties: {
         someKey: value

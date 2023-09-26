@@ -1,6 +1,6 @@
 ﻿[
   {
-    Id: 72,
+    Id: 70,
     Label: Locations,
     Properties: {
       ValidFrom: 2019-01-01 01:00 +0

@@ -150,11 +150,6 @@
     Label: Language
   },
   {
-    IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language
-  },
-  {
     Age: 36,
     Image: AQIDBAUGBwg=,
     Id: 00000000-0000-0000-0000-000000000000,

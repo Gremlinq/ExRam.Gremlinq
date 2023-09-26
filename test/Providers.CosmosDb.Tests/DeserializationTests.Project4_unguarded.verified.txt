@@ -382,14 +382,5 @@
       Properties: {},
       Value: PartitionKey
     }
-  },
-  {
-    Item3: 1,
-    Item4: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
-      Label: PartitionKey,
-      Properties: {},
-      Value: PartitionKey
-    }
   }
 ]

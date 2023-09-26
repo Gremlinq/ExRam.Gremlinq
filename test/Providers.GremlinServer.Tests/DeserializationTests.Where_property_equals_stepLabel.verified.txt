@@ -21,12 +21,7 @@
   },
   {
     IetfLanguageTag: en,
-    Id: 56,
-    Label: Language
-  },
-  {
-    IetfLanguageTag: en,
-    Id: 67,
+    Id: 65,
     Label: Language
   }
 ]

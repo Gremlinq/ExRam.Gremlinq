@@ -284,19 +284,6 @@
   },
   {
     Item1: {
-      IetfLanguageTag: en,
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Language
-    },
-    Item2: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
-      Label: PartitionKey,
-      Properties: {},
-      Value: PartitionKey
-    }
-  },
-  {
-    Item1: {
       Image: AQIDBAUGBwg=,
       Id: 00000000-0000-0000-0000-000000000000,
       Label: Person
