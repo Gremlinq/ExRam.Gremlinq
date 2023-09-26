@@ -116,15 +116,6 @@ namespace ExRam.Gremlinq.Core.Models
                 metadata.SerializationBehaviour));
         }
 
-        internal static Key GetKey(this IGremlinQueryEnvironment environment, Expression expression)
-        {
-            var memberExpression = expression.AssumeMemberExpression();
-
-            return memberExpression.TryGetWellKnownMember() == WellKnownMember.PropertyValue && memberExpression.Expression is MemberExpression sourceMemberExpression
-                ? environment.GetCache().GetMetadata(sourceMemberExpression.Member).Key
-                : environment.GetCache().GetMetadata(memberExpression.Member).Key;
-        }
-
         internal static IGraphElementPropertyModel FromGraphElementModels(params IGraphElementModel[] models)
         {
             return models
