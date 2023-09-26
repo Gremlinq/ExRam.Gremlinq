@@ -150,7 +150,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
             await _g
                 .ConfigureEnvironment(env => env
                     .ConfigureModel(model => model
-                        .ConfigureProperties(_ => _
+                        .ConfigureEdges(edges => edges
                             .ConfigureElement<WorksFor>(conf => conf
                                 .IgnoreAlways(p => p.From)
                                 .IgnoreAlways(p => p.Role)))))
@@ -201,7 +201,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
             await _g
                 .ConfigureEnvironment(env => env
                     .ConfigureModel(model => model
-                        .ConfigureProperties(_ => _
+                        .ConfigureVertices(_ => _
                             .ConfigureElement<Person>(conf => conf
                                 .IgnoreAlways(p => p.Age)
                                 .IgnoreAlways(p => p.Gender)))))
@@ -213,7 +213,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
         public virtual Task AddV_with_ignored_id_property() => _g
             .ConfigureEnvironment(env => env
                 .ConfigureModel(model => model
-                    .ConfigureProperties(_ => _
+                    .ConfigureVertices(_ => _
                         .ConfigureElement<Language>(conf => conf
                             .IgnoreOnAdd(p => p.Id)))))
             .AddV(new Language { Id = 300, IetfLanguageTag = "en" })
@@ -223,7 +223,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
         public virtual Task AddV_with_ignored_property() => _g
             .ConfigureEnvironment(env => env
                 .ConfigureModel(model => model
-                    .ConfigureProperties(_ => _
+                    .ConfigureVertices(_ => _
                         .ConfigureElement<Language>(conf => conf
                             .IgnoreOnAdd(p => p.IetfLanguageTag)))))
             .AddV(new Language { IetfLanguageTag = "en" })
@@ -280,7 +280,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
         public virtual Task AddV_with_overridden_name() => _g
             .ConfigureEnvironment(env => env
                 .ConfigureModel(model => model
-                    .ConfigureProperties(propModel => propModel
+                    .ConfigureVertices(propModel => propModel
                         .ConfigureElement<Language>(conf => conf
                             .ConfigureName(x => x.IetfLanguageTag, "lang")))))
             .AddV(new Language { IetfLanguageTag = "en" })
@@ -2476,7 +2476,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
             await _g
                 .ConfigureEnvironment(env => env
                     .ConfigureModel(model => model
-                        .ConfigureProperties(_ => _
+                        .ConfigureEdges(_ => _
                             .ConfigureElement<WorksFor>(conf => conf
                                 .IgnoreOnUpdate(p => p.Id)))))
                 .ReplaceE(worksFor)
@@ -2503,7 +2503,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
             await _g
                 .ConfigureEnvironment(env => env
                     .ConfigureModel(model => model
-                        .ConfigureProperties(_ => _
+                        .ConfigureVertices(_ => _
                             .ConfigureElement<Person>(conf => conf
                                 .IgnoreOnUpdate(p => p.RegistrationDate)))))
                 .ReplaceV(person)
@@ -2798,10 +2798,11 @@ namespace ExRam.Gremlinq.Tests.TestCases
             await _g
                 .ConfigureEnvironment(env => env
                     .ConfigureModel(model => model
-                        .ConfigureProperties(_ => _
+                        .ConfigureVertices(_ => _
                             .ConfigureElement<Person>(conf => conf
                                 .IgnoreOnUpdate(p => p.Age)
-                                .IgnoreAlways(p => p.Name))
+                                .IgnoreAlways(p => p.Name)))
+                        .ConfigureEdges(_ => _
                             .ConfigureElement<WorksFor>(conf => conf
                                 .IgnoreAlways(p => p.From)
                                 .IgnoreOnUpdate(p => p.Role)))))
@@ -2820,7 +2821,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
             await _g
                 .ConfigureEnvironment(env => env
                     .ConfigureModel(model => model
-                        .ConfigureProperties(_ => _
+                        .ConfigureEdges(_ => _
                             .ConfigureElement<WorksFor>(conf => conf
                                 .IgnoreAlways(p => p.From)
                                 .IgnoreAlways(p => p.Role)))))
@@ -2837,7 +2838,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
             await _g
                 .ConfigureEnvironment(env => env
                     .ConfigureModel(model => model
-                        .ConfigureProperties(_ => _
+                        .ConfigureEdges(_ => _
                             .ConfigureElement<WorksFor>(conf => conf
                                 .IgnoreAlways(p => p.From)
                                 .IgnoreOnUpdate(p => p.Role)))))
@@ -2854,7 +2855,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
             await _g
                 .ConfigureEnvironment(env => env
                     .ConfigureModel(model => model
-                        .ConfigureProperties(_ => _
+                        .ConfigureEdges(_ => _
                             .ConfigureElement<WorksFor>(conf => conf
                                 .IgnoreOnUpdate(p => p.From)
                                 .IgnoreOnUpdate(p => p.Role)))))
@@ -2883,7 +2884,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
             await _g
                 .ConfigureEnvironment(env => env
                     .ConfigureModel(model => model
-                        .ConfigureProperties(_ => _
+                        .ConfigureVertices(_ => _
                             .ConfigureElement<Person>(conf => conf
                                 .IgnoreAlways(p => p.Age)
                                 .IgnoreAlways(p => p.Gender)))))
@@ -2901,7 +2902,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
             await _g
                 .ConfigureEnvironment(env => env
                     .ConfigureModel(model => model
-                        .ConfigureProperties(_ => _
+                        .ConfigureVertices(_ => _
                             .ConfigureElement<Person>(conf => conf
                                 .IgnoreOnUpdate(p => p.Age)
                                 .IgnoreAlways(p => p.Gender)))))
@@ -2919,7 +2920,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
             await _g
                 .ConfigureEnvironment(env => env
                     .ConfigureModel(model => model
-                        .ConfigureProperties(_ => _
+                        .ConfigureVertices(_ => _
                             .ConfigureElement<Person>(conf => conf
                                 .IgnoreOnUpdate(p => p.Age)
                                 .IgnoreOnUpdate(p => p.Gender)))))
@@ -2938,7 +2939,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
         public virtual Task V_IAuthority() => _g
             .ConfigureEnvironment(env => env
                 .ConfigureModel(model => model
-                    .ConfigureProperties(_ => _
+                    .ConfigureVertices(_ => _
                         .ConfigureElement<Authority>(__ => __
                             .ConfigureName(x => x.Name, "n")))))
             .V<IAuthority>()

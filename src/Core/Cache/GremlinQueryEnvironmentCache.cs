@@ -39,8 +39,8 @@ namespace ExRam.Gremlinq.Core
 
             public MemberMetadata GetMetadata(MemberInfo member) => _members.GetOrAdd(
                 member,
-                static (closureMember, model) => model.GetMetadata(closureMember),
-                _environment.Model.PropertiesModel);
+                static (closureMember, model) => model.VerticesModel.TryGetMetadata(closureMember) ?? model.EdgesModel.TryGetMetadata(closureMember) ?? MemberMetadata.Default(closureMember.Name),
+                _environment.Model);
 
             public HashSet<Type> ModelTypes { get; }
         }

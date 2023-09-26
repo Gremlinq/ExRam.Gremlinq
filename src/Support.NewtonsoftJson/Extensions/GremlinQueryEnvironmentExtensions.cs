@@ -34,9 +34,9 @@ namespace ExRam.Gremlinq.Core
                         public override void WriteJson(JsonWriter writer, T? value, JsonSerializer serializer) => throw new NotImplementedException();
                     }
 
-                    private readonly IGraphElementPropertyModel _model;
+                    private readonly IGraphModel _model;
 
-                    public GremlinContractResolver(IGraphElementPropertyModel model)
+                    public GremlinContractResolver(IGraphModel model)
                     {
                         _model = model;
                     }
@@ -45,7 +45,7 @@ namespace ExRam.Gremlinq.Core
                     {
                         var property = base.CreateProperty(member, memberSerialization);
 
-                        if (_model.GetMetadata(member) is { } metadata && metadata.Key.RawKey is string name)
+                        if ((_model.VerticesModel.TryGetMetadata(member) ?? _model.EdgesModel.TryGetMetadata(member)) is { } metadata && metadata.Key.RawKey is string name)
                             property.PropertyName = name;
 
                         if (member.DeclaringType is { } declaringType)
@@ -128,7 +128,7 @@ namespace ExRam.Gremlinq.Core
                     ITransformer deserializer)
                 {
                     DefaultValueHandling = defaultValueHandling;
-                    ContractResolver = new GremlinContractResolver(environment.Model.PropertiesModel);
+                    ContractResolver = new GremlinContractResolver(environment.Model);
                     Converters.Add(new JTokenConverterConverter(deserializer, environment));
                 }
             }

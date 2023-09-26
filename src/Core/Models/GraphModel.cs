@@ -6,40 +6,30 @@ namespace ExRam.Gremlinq.Core.Models
     {
         private sealed class GraphModelImpl : IGraphModel
         {
-            public GraphModelImpl(IGraphElementModel verticesModel, IGraphElementModel edgesModel, IGraphElementPropertyModel propertiesModel)
+            public GraphModelImpl(IGraphElementModel verticesModel, IGraphElementModel edgesModel)
             {
                 VerticesModel = verticesModel;
                 EdgesModel = edgesModel;
-                PropertiesModel = propertiesModel;
             }
 
             public IGraphModel ConfigureVertices(Func<IGraphElementModel, IGraphElementModel> transformation) => new GraphModelImpl(
                 transformation(VerticesModel),
-                EdgesModel,
-                PropertiesModel);
+                EdgesModel);
 
             public IGraphModel ConfigureEdges(Func<IGraphElementModel, IGraphElementModel> transformation) => new GraphModelImpl(
                 VerticesModel,
-                transformation(EdgesModel),
-                PropertiesModel);
-
-            public IGraphModel ConfigureProperties(Func<IGraphElementPropertyModel, IGraphElementPropertyModel> transformation) => new GraphModelImpl(
-                VerticesModel,
-                EdgesModel,
-                transformation(PropertiesModel));
+                transformation(EdgesModel));
 
             public IGraphModel AddAssemblies(params Assembly[] assemblies) => this
                 .ConfigureElements(__ => __.AddAssemblies(assemblies));
 
             public IGraphElementModel VerticesModel { get; }
             public IGraphElementModel EdgesModel { get; }
-            public IGraphElementPropertyModel PropertiesModel { get; }
         }
 
         public static readonly IGraphModel Invalid = new GraphModelImpl(
             GraphElementModel.Invalid,
-            GraphElementModel.Invalid,
-            GraphElementPropertyModel.Invalid);
+            GraphElementModel.Invalid);
 
         public static IGraphModel FromBaseTypes<TVertexBaseType, TEdgeBaseType>()
         {
@@ -54,8 +44,7 @@ namespace ExRam.Gremlinq.Core.Models
 
             return new GraphModelImpl(
                 verticesModel,
-                edgesModel,
-                GraphElementPropertyModel.FromGraphElementModels(verticesModel, edgesModel));
+                edgesModel);
         }
 
         public static IGraphModel ConfigureElements(this IGraphModel model, Func<IGraphElementModel, IGraphElementModel> transformation) => model
