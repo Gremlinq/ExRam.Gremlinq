@@ -28,7 +28,7 @@ namespace ExRam.Gremlinq.Core.Models
 
             public MemberMetadata GetMetadata(MemberInfo memberInfo) => _metadataOverrides.TryGetValue(memberInfo, out var metadata)
                 ? metadata
-                : new MemberMetadata(memberInfo.Name);
+                : MemberMetadata.Default(memberInfo.Name);
 
             public IGraphElementPropertyModel ConfigureMemberMetadata(Func<MemberInfo, MemberMetadata, MemberMetadata> transformation)
             {

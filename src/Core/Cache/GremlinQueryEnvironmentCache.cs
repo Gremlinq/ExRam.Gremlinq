@@ -1,9 +1,7 @@
 ﻿using System.Collections.Concurrent;
-using System.Collections.Immutable;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using ExRam.Gremlinq.Core.Models;
-using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -46,28 +44,7 @@ namespace ExRam.Gremlinq.Core
 
             public Key GetKey(MemberInfo member) => _members.GetOrAdd(
                 member,
-                static (closureMember, model) =>
-                {
-                    var name = closureMember.Name;
-
-                    if (model.GetMetadata(closureMember) is { } metadata)
-                    {
-                        if (metadata.Key.RawKey is T t)
-                            return t;
-
-                        name = (string)metadata.Key.RawKey;
-                    }
-
-                    var maybeDefaultT = "id".Equals(name, StringComparison.OrdinalIgnoreCase)
-                        ? T.Id
-                        : "label".Equals(name, StringComparison.OrdinalIgnoreCase)
-                            ? T.Label
-                            : default;
-
-                    return maybeDefaultT is { } defaultT && !model.Members.Any(memberInfo => model.GetMetadata(memberInfo).Key.RawKey is T t && t.Equals(defaultT))
-                        ? defaultT
-                        : name;
-                },
+                static (closureMember, model) => model.GetMetadata(closureMember).Key,
                 _environment.Model.PropertiesModel);
 
             public HashSet<Type> ModelTypes { get; }
