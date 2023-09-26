@@ -236,16 +236,6 @@
   },
   {
     "id": "00000000-0000-0000-0000-000000000000",
-    "value": "en",
-    "label": "IetfLanguageTag"
-  },
-  {
-    "id": "00000000-0000-0000-0000-000000000000|PartitionKey",
-    "value": "PartitionKey",
-    "label": "PartitionKey"
-  },
-  {
-    "id": "00000000-0000-0000-0000-000000000000",
     "value": 0,
     "label": "Age"
   },

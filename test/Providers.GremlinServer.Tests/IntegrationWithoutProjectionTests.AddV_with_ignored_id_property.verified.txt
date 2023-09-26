@@ -4,7 +4,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 67
+        "@value": 65
       },
       "label": "Language",
       "properties": {
@@ -14,7 +14,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 68
+                "@value": 66
               },
               "value": "en",
               "label": "IetfLanguageTag"

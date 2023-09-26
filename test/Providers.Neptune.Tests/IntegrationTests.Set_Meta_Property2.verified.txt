@@ -5,20 +5,6 @@
       "id",
       {
         "@type": "g:Int64",
-        "@value": 65
-      },
-      "label",
-      "Name",
-      "value",
-      "Marko"
-    ]
-  },
-  {
-    "@type": "g:Map",
-    "@value": [
-      "id",
-      {
-        "@type": "g:Int64",
         "@value": 12
       },
       "label",
@@ -39,6 +25,20 @@
       "Name",
       "value",
       "Bob"
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "id",
+      {
+        "@type": "g:Int64",
+        "@value": 63
+      },
+      "label",
+      "Name",
+      "value",
+      "Marko"
     ]
   }
 ]

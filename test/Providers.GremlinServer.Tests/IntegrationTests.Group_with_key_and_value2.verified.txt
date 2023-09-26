@@ -18,8 +18,8 @@
       "+49",
       "Person",
       {
-        "@type": "g:Int32",
-        "@value": 1
+        "@type": "g:Date",
+        "@value": 1586270616000
       }
     ]
   }

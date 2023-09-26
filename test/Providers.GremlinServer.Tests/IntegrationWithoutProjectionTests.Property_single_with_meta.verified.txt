@@ -4,7 +4,130 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 64
+        "@value": 7
+      },
+      "label": "Person",
+      "properties": {
+        "GuidKey": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 82
+              },
+              "value": {
+                "@type": "g:UUID",
+                "@value": "00000000-0000-0000-0000-000000000000"
+              },
+              "label": "GuidKey"
+            }
+          }
+        ],
+        "Age": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 134
+              },
+              "value": {
+                "@type": "g:Int32",
+                "@value": 36
+              },
+              "label": "Age",
+              "properties": {
+                "Meta": "value"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "@type": "g:Vertex",
+    "@value": {
+      "id": {
+        "@type": "g:Int64",
+        "@value": 10
+      },
+      "label": "Person",
+      "properties": {
+        "GuidKey": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 83
+              },
+              "value": {
+                "@type": "g:UUID",
+                "@value": "00000000-0000-0000-0000-000000000000"
+              },
+              "label": "GuidKey"
+            }
+          }
+        ],
+        "RegistrationDate": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 13
+              },
+              "value": {
+                "@type": "g:Date",
+                "@value": 1586270616000
+              },
+              "label": "RegistrationDate"
+            }
+          }
+        ],
+        "Age": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 135
+              },
+              "value": {
+                "@type": "g:Int32",
+                "@value": 36
+              },
+              "label": "Age",
+              "properties": {
+                "Meta": "value"
+              }
+            }
+          }
+        ],
+        "Name": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 12
+              },
+              "value": "Bob",
+              "label": "Name"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "@type": "g:Vertex",
+    "@value": {
+      "id": {
+        "@type": "g:Int64",
+        "@value": 15
       },
       "label": "Person",
       "properties": {
@@ -21,22 +144,6 @@
                 "@value": "00000000-0000-0000-0000-000000000000"
               },
               "label": "GuidKey"
-            }
-          }
-        ],
-        "RegistrationDate": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 66
-              },
-              "value": {
-                "@type": "g:Date",
-                "@value": 1586270616000
-              },
-              "label": "RegistrationDate"
             }
           }
         ],
@@ -58,19 +165,6 @@
               }
             }
           }
-        ],
-        "Name": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 65
-              },
-              "value": "Marko",
-              "label": "Name"
-            }
-          }
         ]
       }
     }
@@ -80,7 +174,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 7
+        "@value": 19
       },
       "label": "Person",
       "properties": {
@@ -127,7 +221,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 10
+        "@value": 23
       },
       "label": "Person",
       "properties": {
@@ -144,22 +238,6 @@
                 "@value": "00000000-0000-0000-0000-000000000000"
               },
               "label": "GuidKey"
-            }
-          }
-        ],
-        "RegistrationDate": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 13
-              },
-              "value": {
-                "@type": "g:Date",
-                "@value": 1586270616000
-              },
-              "label": "RegistrationDate"
             }
           }
         ],
@@ -181,19 +259,6 @@
               }
             }
           }
-        ],
-        "Name": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 12
-              },
-              "value": "Bob",
-              "label": "Name"
-            }
-          }
         ]
       }
     }
@@ -203,7 +268,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 15
+        "@value": 29
       },
       "label": "Person",
       "properties": {
@@ -250,7 +315,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 19
+        "@value": 37
       },
       "label": "Person",
       "properties": {
@@ -267,6 +332,22 @@
                 "@value": "00000000-0000-0000-0000-000000000000"
               },
               "label": "GuidKey"
+            }
+          }
+        ],
+        "RegistrationDate": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 40
+              },
+              "value": {
+                "@type": "g:Date",
+                "@value": 1586270616000
+              },
+              "label": "RegistrationDate"
             }
           }
         ],
@@ -288,6 +369,19 @@
               }
             }
           }
+        ],
+        "Name": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 39
+              },
+              "value": "Bob",
+              "label": "Name"
+            }
+          }
         ]
       }
     }
@@ -297,7 +391,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 23
+        "@value": 44
       },
       "label": "Person",
       "properties": {
@@ -344,7 +438,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 29
+        "@value": 56
       },
       "label": "Person",
       "properties": {
@@ -361,6 +455,22 @@
                 "@value": "00000000-0000-0000-0000-000000000000"
               },
               "label": "GuidKey"
+            }
+          }
+        ],
+        "Image": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 58
+              },
+              "value": {
+                "@type": "gx:ByteBuffer",
+                "@value": "AQIDBAUGBwg="
+              },
+              "label": "Image"
             }
           }
         ],
@@ -391,7 +501,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 37
+        "@value": 59
       },
       "label": "Person",
       "properties": {
@@ -411,19 +521,19 @@
             }
           }
         ],
-        "RegistrationDate": [
+        "Gender": [
           {
             "@type": "g:VertexProperty",
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 40
+                "@value": 61
               },
               "value": {
-                "@type": "g:Date",
-                "@value": 1586270616000
+                "@type": "g:Int32",
+                "@value": 1
               },
-              "label": "RegistrationDate"
+              "label": "Gender"
             }
           }
         ],
@@ -445,19 +555,6 @@
               }
             }
           }
-        ],
-        "Name": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 39
-              },
-              "value": "Bob",
-              "label": "Name"
-            }
-          }
         ]
       }
     }
@@ -467,7 +564,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 44
+        "@value": 62
       },
       "label": "Person",
       "properties": {
@@ -484,6 +581,22 @@
                 "@value": "00000000-0000-0000-0000-000000000000"
               },
               "label": "GuidKey"
+            }
+          }
+        ],
+        "RegistrationDate": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 64
+              },
+              "value": {
+                "@type": "g:Date",
+                "@value": 1586270616000
+              },
+              "label": "RegistrationDate"
             }
           }
         ],
@@ -505,99 +618,8 @@
               }
             }
           }
-        ]
-      }
-    }
-  },
-  {
-    "@type": "g:Vertex",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 58
-      },
-      "label": "Person",
-      "properties": {
-        "GuidKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 93
-              },
-              "value": {
-                "@type": "g:UUID",
-                "@value": "00000000-0000-0000-0000-000000000000"
-              },
-              "label": "GuidKey"
-            }
-          }
         ],
-        "Image": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 60
-              },
-              "value": {
-                "@type": "gx:ByteBuffer",
-                "@value": "AQIDBAUGBwg="
-              },
-              "label": "Image"
-            }
-          }
-        ],
-        "Age": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 145
-              },
-              "value": {
-                "@type": "g:Int32",
-                "@value": 36
-              },
-              "label": "Age",
-              "properties": {
-                "Meta": "value"
-              }
-            }
-          }
-        ]
-      }
-    }
-  },
-  {
-    "@type": "g:Vertex",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 61
-      },
-      "label": "Person",
-      "properties": {
-        "GuidKey": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 94
-              },
-              "value": {
-                "@type": "g:UUID",
-                "@value": "00000000-0000-0000-0000-000000000000"
-              },
-              "label": "GuidKey"
-            }
-          }
-        ],
-        "Gender": [
+        "Name": [
           {
             "@type": "g:VertexProperty",
             "@value": {
@@ -605,30 +627,8 @@
                 "@type": "g:Int64",
                 "@value": 63
               },
-              "value": {
-                "@type": "g:Int32",
-                "@value": 1
-              },
-              "label": "Gender"
-            }
-          }
-        ],
-        "Age": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 146
-              },
-              "value": {
-                "@type": "g:Int32",
-                "@value": 36
-              },
-              "label": "Age",
-              "properties": {
-                "Meta": "value"
-              }
+              "value": "Marko",
+              "label": "Name"
             }
           }
         ]

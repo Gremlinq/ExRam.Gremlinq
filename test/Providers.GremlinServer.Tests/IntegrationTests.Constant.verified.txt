@@ -130,9 +130,5 @@
   {
     "@type": "g:Int32",
     "@value": 42
-  },
-  {
-    "@type": "g:Int32",
-    "@value": 42
   }
 ]

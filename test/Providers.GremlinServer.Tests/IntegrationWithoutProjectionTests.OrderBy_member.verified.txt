@@ -118,7 +118,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 64
+        "@value": 62
       },
       "label": "Person",
       "properties": {
@@ -128,7 +128,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 66
+                "@value": 64
               },
               "value": {
                 "@type": "g:Date",
@@ -144,7 +144,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 65
+                "@value": 63
               },
               "value": "Marko",
               "label": "Name"

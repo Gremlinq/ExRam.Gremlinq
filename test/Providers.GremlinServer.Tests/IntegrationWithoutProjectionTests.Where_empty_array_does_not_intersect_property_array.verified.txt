@@ -4,6 +4,53 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
+        "@value": 68
+      },
+      "label": "Company",
+      "properties": {
+        "FoundingDate": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 69
+              },
+              "value": {
+                "@type": "g:Date",
+                "@value": -62135596800000
+              },
+              "label": "FoundingDate"
+            }
+          }
+        ],
+        "Locations": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 70
+              },
+              "value": "Aachen",
+              "label": "Locations",
+              "properties": {
+                "ValidFrom": {
+                  "@type": "g:Date",
+                  "@value": 1546304400000
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "@type": "g:Vertex",
+    "@value": {
+      "id": {
+        "@type": "g:Int64",
         "@value": 5
       },
       "label": "Company",
@@ -32,54 +79,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 70
-      },
-      "label": "Company",
-      "properties": {
-        "FoundingDate": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 71
-              },
-              "value": {
-                "@type": "g:Date",
-                "@value": -62135596800000
-              },
-              "label": "FoundingDate"
-            }
-          }
-        ],
-        "Locations": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 72
-              },
-              "value": "Aachen",
-              "label": "Locations",
-              "properties": {
-                "ValidFrom": {
-                  "@type": "g:Date",
-                  "@value": 1546304400000
-                }
-              }
-            }
-          }
-        ]
-      }
-    }
-  },
-  {
-    "@type": "g:Vertex",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 77
+        "@value": 75
       },
       "label": "Company",
       "properties": {
@@ -89,7 +89,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 79
+                "@value": 77
               },
               "value": "+4912345",
               "label": "PhoneNumbers"
@@ -100,7 +100,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 80
+                "@value": 78
               },
               "value": "+4923456",
               "label": "PhoneNumbers"
@@ -113,7 +113,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 78
+                "@value": 76
               },
               "value": {
                 "@type": "g:Date",

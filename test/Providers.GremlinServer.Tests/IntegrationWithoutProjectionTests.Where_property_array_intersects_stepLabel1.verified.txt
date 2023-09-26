@@ -4,7 +4,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 77
+        "@value": 75
       },
       "label": "Company",
       "properties": {
@@ -14,7 +14,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 79
+                "@value": 77
               },
               "value": "+4912345",
               "label": "PhoneNumbers"
@@ -25,7 +25,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 80
+                "@value": 78
               },
               "value": "+4923456",
               "label": "PhoneNumbers"
@@ -38,7 +38,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 78
+                "@value": 76
               },
               "value": {
                 "@type": "g:Date",

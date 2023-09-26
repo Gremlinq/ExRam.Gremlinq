@@ -21,7 +21,6 @@
   "Language",
   "TimeFrame",
   "Language",
-  "Language",
   "Person",
   "Person",
   "Person",

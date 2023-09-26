@@ -46,8 +46,6 @@
   "PartitionKey",
   "IetfLanguageTag",
   "PartitionKey",
-  "IetfLanguageTag",
-  "PartitionKey",
   "Age",
   "Image",
   "PartitionKey",
