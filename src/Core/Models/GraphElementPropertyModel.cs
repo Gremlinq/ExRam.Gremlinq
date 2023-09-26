@@ -21,10 +21,10 @@ namespace ExRam.Gremlinq.Core.Models
                     Members,
                     _metadataOverrides.SetItem(
                         member,
-                        transformation(GetMetadata(member))));
+                        transformation(this.GetMetadata(member))));
             }
 
-            public MemberMetadata GetMetadata(MemberInfo memberInfo) => _metadataOverrides.TryGetValue(memberInfo, out var metadata)
+            public MemberMetadata? TryGetMetadata(MemberInfo memberInfo) => _metadataOverrides.TryGetValue(memberInfo, out var metadata)
                 ? metadata
                 : MemberMetadata.Default(memberInfo.Name);
 
@@ -34,7 +34,7 @@ namespace ExRam.Gremlinq.Core.Models
 
                 foreach (var member in Members)
                 {
-                    var newMetadata = transformation(member, GetMetadata(member));
+                    var newMetadata = transformation(member, this.GetMetadata(member));
 
                     overrides = newMetadata.Key != member.Name || newMetadata.SerializationBehaviour != SerializationBehaviour.Default  //TODO: Equality operators
                         ? overrides.SetItem(member, newMetadata)
@@ -56,9 +56,9 @@ namespace ExRam.Gremlinq.Core.Models
 
         private sealed class InvalidGraphElementPropertyModel : IGraphElementPropertyModel
         {
-            public MemberMetadata GetMetadata(MemberInfo memberInfo)
+            public MemberMetadata? TryGetMetadata(MemberInfo memberInfo)
             {
-                throw new InvalidOperationException($"{nameof(GetMetadata)} must not be called on {nameof(GraphElementPropertyModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
+                throw new InvalidOperationException($"{nameof(TryGetMetadata)} must not be called on {nameof(GraphElementPropertyModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
             }
 
             public IGraphElementPropertyModel ConfigureMemberMetadata(Func<MemberInfo, MemberMetadata, MemberMetadata> transformation)
@@ -103,6 +103,8 @@ namespace ExRam.Gremlinq.Core.Models
                 ? name.ToLower()
                 : key);
         }
+
+        public static MemberMetadata GetMetadata(this IGraphElementPropertyModel model, MemberInfo memberInfo) => model.TryGetMetadata(memberInfo) ?? throw new ArgumentException();
 
         internal static IGraphElementPropertyModel ConfigureNames(this IGraphElementPropertyModel model, Func<MemberInfo, Key, Key> transformation)
         {
