@@ -4,6 +4,31 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
+        "@value": 65
+      },
+      "label": "Language",
+      "properties": {
+        "IetfLanguageTag": [
+          {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 66
+              },
+              "value": "en",
+              "label": "IetfLanguageTag"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "@type": "g:Vertex",
+    "@value": {
+      "id": {
+        "@type": "g:Int64",
         "@value": 2
       },
       "label": "Language",
@@ -31,22 +56,7 @@
         "@type": "g:Int64",
         "@value": 67
       },
-      "label": "Language",
-      "properties": {
-        "IetfLanguageTag": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 68
-              },
-              "value": "en",
-              "label": "IetfLanguageTag"
-            }
-          }
-        ]
-      }
+      "label": "Language"
     }
   },
   {
@@ -54,7 +64,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 69
+        "@value": 79
       },
       "label": "Language"
     }
@@ -64,17 +74,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 81
-      },
-      "label": "Language"
-    }
-  },
-  {
-    "@type": "g:Vertex",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 82
+        "@value": 80
       },
       "label": "Language",
       "properties": {
@@ -84,7 +84,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 83
+                "@value": 81
               },
               "value": "en",
               "label": "lang"
@@ -170,31 +170,6 @@
               "id": {
                 "@type": "g:Int64",
                 "@value": 55
-              },
-              "value": "en",
-              "label": "IetfLanguageTag"
-            }
-          }
-        ]
-      }
-    }
-  },
-  {
-    "@type": "g:Vertex",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 56
-      },
-      "label": "Language",
-      "properties": {
-        "IetfLanguageTag": [
-          {
-            "@type": "g:VertexProperty",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 57
               },
               "value": "en",
               "label": "IetfLanguageTag"

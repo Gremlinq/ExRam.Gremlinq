@@ -4,23 +4,6 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 65
-      },
-      "value": "Marko",
-      "label": "Name",
-      "properties": {
-        "ValidFrom": {
-          "@type": "g:Date",
-          "@value": 1586270616000
-        }
-      }
-    }
-  },
-  {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
         "@value": 12
       },
       "value": "Bob",
@@ -41,6 +24,23 @@
         "@value": 39
       },
       "value": "Bob",
+      "label": "Name",
+      "properties": {
+        "ValidFrom": {
+          "@type": "g:Date",
+          "@value": 1586270616000
+        }
+      }
+    }
+  },
+  {
+    "@type": "g:VertexProperty",
+    "@value": {
+      "id": {
+        "@type": "g:Int64",
+        "@value": 63
+      },
+      "value": "Marko",
       "label": "Name",
       "properties": {
         "ValidFrom": {

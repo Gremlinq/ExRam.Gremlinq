@@ -17,22 +17,8 @@
         "@type": "g:Int64",
         "@value": 66
       },
-      "value": {
-        "@type": "g:Date",
-        "@value": 1586270616000
-      },
-      "label": "RegistrationDate"
-    }
-  },
-  {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 65
-      },
-      "value": "Marko",
-      "label": "Name"
+      "value": "en",
+      "label": "IetfLanguageTag"
     }
   },
   {
@@ -51,10 +37,30 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 68
+        "@value": 69
       },
-      "value": "en",
-      "label": "IetfLanguageTag"
+      "value": {
+        "@type": "g:Date",
+        "@value": -62135596800000
+      },
+      "label": "FoundingDate"
+    }
+  },
+  {
+    "@type": "g:VertexProperty",
+    "@value": {
+      "id": {
+        "@type": "g:Int64",
+        "@value": 70
+      },
+      "value": "Aachen",
+      "label": "Locations",
+      "properties": {
+        "ValidFrom": {
+          "@type": "g:Date",
+          "@value": 1546304400000
+        }
+      }
     }
   },
   {
@@ -76,37 +82,6 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 71
-      },
-      "value": {
-        "@type": "g:Date",
-        "@value": -62135596800000
-      },
-      "label": "FoundingDate"
-    }
-  },
-  {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 72
-      },
-      "value": "Aachen",
-      "label": "Locations",
-      "properties": {
-        "ValidFrom": {
-          "@type": "g:Date",
-          "@value": 1546304400000
-        }
-      }
-    }
-  },
-  {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
         "@value": 8
       },
       "value": {
@@ -121,10 +96,25 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 74
+        "@value": 72
       },
       "value": "GER",
       "label": "Name"
+    }
+  },
+  {
+    "@type": "g:VertexProperty",
+    "@value": {
+      "id": {
+        "@type": "g:Int64",
+        "@value": 74
+      },
+      "value": "GER",
+      "label": "Name",
+      "properties": {
+        "de": "Deutschland",
+        "en": "Germany"
+      }
     }
   },
   {
@@ -171,22 +161,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 76
-      },
-      "value": "GER",
-      "label": "Name",
-      "properties": {
-        "de": "Deutschland",
-        "en": "Germany"
-      }
-    }
-  },
-  {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 79
+        "@value": 77
       },
       "value": "+4912345",
       "label": "PhoneNumbers"
@@ -197,7 +172,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 80
+        "@value": 78
       },
       "value": "+4923456",
       "label": "PhoneNumbers"
@@ -208,7 +183,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 78
+        "@value": 76
       },
       "value": {
         "@type": "g:Date",
@@ -236,7 +211,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 83
+        "@value": 81
       },
       "value": "en",
       "label": "lang"
@@ -453,18 +428,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 57
-      },
-      "value": "en",
-      "label": "IetfLanguageTag"
-    }
-  },
-  {
-    "@type": "g:VertexProperty",
-    "@value": {
-      "id": {
-        "@type": "g:Int64",
-        "@value": 60
+        "@value": 58
       },
       "value": {
         "@type": "gx:ByteBuffer",
@@ -478,7 +442,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 59
+        "@value": 57
       },
       "value": {
         "@type": "g:Int32",
@@ -492,7 +456,7 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 63
+        "@value": 61
       },
       "value": {
         "@type": "g:Int32",
@@ -506,13 +470,38 @@
     "@value": {
       "id": {
         "@type": "g:Int64",
-        "@value": 62
+        "@value": 60
       },
       "value": {
         "@type": "g:Int32",
         "@value": 0
       },
       "label": "Age"
+    }
+  },
+  {
+    "@type": "g:VertexProperty",
+    "@value": {
+      "id": {
+        "@type": "g:Int64",
+        "@value": 64
+      },
+      "value": {
+        "@type": "g:Date",
+        "@value": 1586270616000
+      },
+      "label": "RegistrationDate"
+    }
+  },
+  {
+    "@type": "g:VertexProperty",
+    "@value": {
+      "id": {
+        "@type": "g:Int64",
+        "@value": 63
+      },
+      "value": "Marko",
+      "label": "Name"
     }
   }
 ]

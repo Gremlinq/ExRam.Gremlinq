@@ -153,11 +153,8 @@
             "@type": "g:Int64",
             "@value": 66
           },
-          "value": {
-            "@type": "g:Date",
-            "@value": 1586270616000
-          },
-          "label": "RegistrationDate"
+          "value": "en",
+          "label": "IetfLanguageTag"
         }
       }
     ]
@@ -217,6 +214,36 @@
       {
         "@type": "g:Int64",
         "@value": 1
+      }
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "Item3",
+      {
+        "@type": "g:Int64",
+        "@value": 1
+      }
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "Item3",
+      {
+        "@type": "g:Int64",
+        "@value": 1
+      }
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "Item3",
+      {
+        "@type": "g:Int64",
+        "@value": 1
       },
       "Item4",
       {
@@ -224,10 +251,13 @@
         "@value": {
           "id": {
             "@type": "g:Int64",
-            "@value": 68
+            "@value": 69
           },
-          "value": "en",
-          "label": "IetfLanguageTag"
+          "value": {
+            "@type": "g:Date",
+            "@value": -62135596800000
+          },
+          "label": "FoundingDate"
         }
       }
     ]
@@ -276,61 +306,6 @@
           "id": {
             "@type": "g:Int64",
             "@value": 6
-          },
-          "value": {
-            "@type": "g:Date",
-            "@value": -62135596800000
-          },
-          "label": "FoundingDate"
-        }
-      }
-    ]
-  },
-  {
-    "@type": "g:Map",
-    "@value": [
-      "Item3",
-      {
-        "@type": "g:Int64",
-        "@value": 1
-      }
-    ]
-  },
-  {
-    "@type": "g:Map",
-    "@value": [
-      "Item3",
-      {
-        "@type": "g:Int64",
-        "@value": 1
-      }
-    ]
-  },
-  {
-    "@type": "g:Map",
-    "@value": [
-      "Item3",
-      {
-        "@type": "g:Int64",
-        "@value": 1
-      }
-    ]
-  },
-  {
-    "@type": "g:Map",
-    "@value": [
-      "Item3",
-      {
-        "@type": "g:Int64",
-        "@value": 1
-      },
-      "Item4",
-      {
-        "@type": "g:VertexProperty",
-        "@value": {
-          "id": {
-            "@type": "g:Int64",
-            "@value": 71
           },
           "value": {
             "@type": "g:Date",
@@ -409,10 +384,36 @@
         "@value": {
           "id": {
             "@type": "g:Int64",
-            "@value": 74
+            "@value": 72
           },
           "value": "GER",
           "label": "Name"
+        }
+      }
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "Item3",
+      {
+        "@type": "g:Int64",
+        "@value": 1
+      },
+      "Item4",
+      {
+        "@type": "g:VertexProperty",
+        "@value": {
+          "id": {
+            "@type": "g:Int64",
+            "@value": 74
+          },
+          "value": "GER",
+          "label": "Name",
+          "properties": {
+            "de": "Deutschland",
+            "en": "Germany"
+          }
         }
       }
     ]
@@ -482,33 +483,7 @@
         "@value": {
           "id": {
             "@type": "g:Int64",
-            "@value": 76
-          },
-          "value": "GER",
-          "label": "Name",
-          "properties": {
-            "de": "Deutschland",
-            "en": "Germany"
-          }
-        }
-      }
-    ]
-  },
-  {
-    "@type": "g:Map",
-    "@value": [
-      "Item3",
-      {
-        "@type": "g:Int64",
-        "@value": 1
-      },
-      "Item4",
-      {
-        "@type": "g:VertexProperty",
-        "@value": {
-          "id": {
-            "@type": "g:Int64",
-            "@value": 79
+            "@value": 77
           },
           "value": "+4912345",
           "label": "PhoneNumbers"
@@ -555,6 +530,28 @@
   {
     "@type": "g:Map",
     "@value": [
+      "Item3",
+      {
+        "@type": "g:Int64",
+        "@value": 1
+      },
+      "Item4",
+      {
+        "@type": "g:VertexProperty",
+        "@value": {
+          "id": {
+            "@type": "g:Int64",
+            "@value": 81
+          },
+          "value": "en",
+          "label": "lang"
+        }
+      }
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
       "Item1",
       {
         "@type": "g:Vertex",
@@ -588,28 +585,6 @@
       {
         "@type": "g:Int64",
         "@value": 1
-      }
-    ]
-  },
-  {
-    "@type": "g:Map",
-    "@value": [
-      "Item3",
-      {
-        "@type": "g:Int64",
-        "@value": 1
-      },
-      "Item4",
-      {
-        "@type": "g:VertexProperty",
-        "@value": {
-          "id": {
-            "@type": "g:Int64",
-            "@value": 83
-          },
-          "value": "en",
-          "label": "lang"
-        }
       }
     ]
   },
@@ -1209,29 +1184,7 @@
         "@value": {
           "id": {
             "@type": "g:Int64",
-            "@value": 57
-          },
-          "value": "en",
-          "label": "IetfLanguageTag"
-        }
-      }
-    ]
-  },
-  {
-    "@type": "g:Map",
-    "@value": [
-      "Item3",
-      {
-        "@type": "g:Int64",
-        "@value": 1
-      },
-      "Item4",
-      {
-        "@type": "g:VertexProperty",
-        "@value": {
-          "id": {
-            "@type": "g:Int64",
-            "@value": 60
+            "@value": 58
           },
           "value": {
             "@type": "gx:ByteBuffer",
@@ -1256,13 +1209,38 @@
         "@value": {
           "id": {
             "@type": "g:Int64",
-            "@value": 63
+            "@value": 61
           },
           "value": {
             "@type": "g:Int32",
             "@value": 1
           },
           "label": "Gender"
+        }
+      }
+    ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": [
+      "Item3",
+      {
+        "@type": "g:Int64",
+        "@value": 1
+      },
+      "Item4",
+      {
+        "@type": "g:VertexProperty",
+        "@value": {
+          "id": {
+            "@type": "g:Int64",
+            "@value": 64
+          },
+          "value": {
+            "@type": "g:Date",
+            "@value": 1586270616000
+          },
+          "label": "RegistrationDate"
         }
       }
     ]

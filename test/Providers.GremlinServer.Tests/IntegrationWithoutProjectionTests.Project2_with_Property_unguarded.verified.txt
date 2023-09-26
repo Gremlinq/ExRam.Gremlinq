@@ -1,10 +1,6 @@
 ﻿[
   {
     "@type": "g:Map",
-    "@value": []
-  },
-  {
-    "@type": "g:Map",
     "@value": [
       "Item2",
       {
@@ -128,5 +124,9 @@
         "@value": 0
       }
     ]
+  },
+  {
+    "@type": "g:Map",
+    "@value": []
   }
 ]

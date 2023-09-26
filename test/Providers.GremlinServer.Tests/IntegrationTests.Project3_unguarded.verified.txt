@@ -362,16 +362,6 @@
   {
     "@type": "g:Map",
     "@value": [
-      "Item3",
-      {
-        "@type": "g:Int64",
-        "@value": 1
-      }
-    ]
-  },
-  {
-    "@type": "g:Map",
-    "@value": [
       "Item1",
       {
         "@type": "g:Map",
