@@ -89,20 +89,6 @@ namespace ExRam.Gremlinq.Core.Models
             public ElementMetadata GetMetadata(Type elementType) => throw new InvalidOperationException($"{nameof(GetMetadata)} must not be called on {nameof(GraphElementModel)}.{nameof(Invalid)}. Configure a valid model for the environment first.");
         }
 
-        private sealed class EmptyGraphElementModel : IGraphElementModel
-        {
-            public IImmutableSet<Type> ElementTypes => ImmutableHashSet<Type>.Empty;
-
-            public IGraphElementModel AddAssemblies(params Assembly[] assemblies) => throw new InvalidOperationException($"{nameof(AddAssemblies)} must not be called on {nameof(GraphElementModel)}.{nameof(Empty)}. Configure a valid model for the environment first.");
-
-            public IGraphElementModel ConfigureMetadata(Type elementType, Func<ElementMetadata, ElementMetadata> metaDataTransformation) => throw new InvalidOperationException($"{nameof(ConfigureMetadata)} must not be called on {nameof(GraphElementModel)}.{nameof(Empty)}. Configure a valid model for the environment first.");
-
-            public IGraphElementModel ConfigureMetadata(Func<Type, ElementMetadata, ElementMetadata> metaDataTransformation) => throw new InvalidOperationException($"{nameof(ConfigureMetadata)} must not be called on {nameof(GraphElementModel)}.{nameof(Empty)}. Configure a valid model for the environment first.");
-
-            public ElementMetadata GetMetadata(Type elementType) => new (elementType.Name);
-        }
-
-        internal static readonly IGraphElementModel Empty = new EmptyGraphElementModel();
         internal static readonly IGraphElementModel Invalid = new InvalidGraphElementModel();
 
         public static IGraphElementModel UseCamelCaseLabels(this IGraphElementModel model) => model.ConfigureLabels(static (_, proposedLabel) => proposedLabel.ToCamelCase());
