@@ -48,13 +48,13 @@
     Value: 0
   },
   {
-    Id: 59,
+    Id: 57,
     Label: Age,
     Properties: {},
     Value: 0
   },
   {
-    Id: 62,
+    Id: 60,
     Label: Age,
     Properties: {},
     Value: 0

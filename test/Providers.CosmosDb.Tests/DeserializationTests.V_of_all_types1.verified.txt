@@ -188,11 +188,6 @@
     Label: Language
   },
   {
-    IetfLanguageTag: en,
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Language
-  },
-  {
     Age: 21,
     Gender: Male,
     RegistrationDate: 2020-04-07 14:43:36 +0,

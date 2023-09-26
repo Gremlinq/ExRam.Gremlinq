@@ -1,17 +1,8 @@
 ﻿[
   {
-    Age: 36,
-    RegistrationDate: 2020-04-07 14:43:36 +0,
-    Name: {
-      Id: 65,
-      Label: Name,
-      Properties: {
-        ValidFrom: 2020-04-07 14:43:36 +0
-      },
-      Value: Marko
-    },
-    Id: 64,
-    Label: Person
+    IetfLanguageTag: en,
+    Id: 65,
+    Label: Language
   },
   {
     IetfLanguageTag: en,
@@ -19,22 +10,13 @@
     Label: Language
   },
   {
-    IetfLanguageTag: en,
     Id: 67,
-    Label: Language
-  },
-  {
-    Id: 5,
-    Label: Company
-  },
-  {
-    Id: 69,
     Label: Language
   },
   {
     Locations: [
       {
-        Id: 72,
+        Id: 70,
         Label: Locations,
         Properties: {
           ValidFrom: 2019-01-01 01:00 +0
@@ -42,7 +24,11 @@
         Value: Aachen
       }
     ],
-    Id: 70,
+    Id: 68,
+    Label: Company
+  },
+  {
+    Id: 5,
     Label: Company
   },
   {
@@ -52,13 +38,34 @@
   },
   {
     Name: {
-      Id: 74,
+      Id: 72,
       Label: Name,
       Properties: {},
       Value: GER
     },
     LocalizableDescription: {
-      Id: 130,
+      Id: 128,
+      Label: LocalizableDescription,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: 71,
+    Label: Country
+  },
+  {
+    Name: {
+      Id: 74,
+      Label: Name,
+      Properties: {
+        de: Deutschland,
+        en: Germany
+      },
+      Value: GER
+    },
+    LocalizableDescription: {
+      Id: 129,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
@@ -83,32 +90,11 @@
     Label: Person
   },
   {
-    Name: {
-      Id: 76,
-      Label: Name,
-      Properties: {
-        de: Deutschland,
-        en: Germany
-      },
-      Value: GER
-    },
-    LocalizableDescription: {
-      Id: 131,
-      Label: LocalizableDescription,
-      Properties: {
-        someKey: value
-      },
-      Value: 
-    },
-    Id: 75,
-    Label: Country
-  },
-  {
     PhoneNumbers: [
       +4912345,
       +4923456
     ],
-    Id: 77,
+    Id: 75,
     Label: Company
   },
   {
@@ -117,8 +103,16 @@
     Label: Person
   },
   {
+    Id: 79,
+    Label: Language
+  },
+  {
+    Id: 80,
+    Label: Language
+  },
+  {
     LocalizableDescription: {
-      Id: 132,
+      Id: 130,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
@@ -129,21 +123,13 @@
     Label: Country
   },
   {
-    Id: 81,
-    Label: Language
-  },
-  {
-    Id: 82,
-    Label: Language
-  },
-  {
     Age: 36,
     Id: 19,
     Label: Person
   },
   {
     LocalizableDescription: {
-      Id: 133,
+      Id: 131,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
@@ -160,7 +146,7 @@
   },
   {
     LocalizableDescription: {
-      Id: 134,
+      Id: 132,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
@@ -187,7 +173,7 @@
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 135,
+      Id: 133,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
@@ -242,20 +228,29 @@
     Label: Language
   },
   {
-    IetfLanguageTag: en,
-    Id: 56,
-    Label: Language
-  },
-  {
     Age: 36,
     Image: AQIDBAUGBwg=,
-    Id: 58,
+    Id: 56,
     Label: Person
   },
   {
     Age: 36,
     Gender: Female,
-    Id: 61,
+    Id: 59,
+    Label: Person
+  },
+  {
+    Age: 36,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: 63,
+      Label: Name,
+      Properties: {
+        ValidFrom: 2020-04-07 14:43:36 +0
+      },
+      Value: Marko
+    },
+    Id: 62,
     Label: Person
   }
 ]

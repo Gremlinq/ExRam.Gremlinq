@@ -1,13 +1,5 @@
 ﻿[
   {
-    Item4: {
-      Id: 66,
-      Label: RegistrationDate,
-      Properties: {},
-      Value: 2020-04-07 14:43:36 +0
-    }
-  },
-  {
     Item2: {
       Id: 5,
       Label: Company
@@ -116,7 +108,7 @@
   {
     Item3: 0,
     Item4: {
-      Id: 60,
+      Id: 58,
       Label: Image,
       Properties: {},
       Value: AQIDBAUGBwg=
@@ -125,10 +117,18 @@
   {
     Item3: 0,
     Item4: {
-      Id: 63,
+      Id: 61,
       Label: Gender,
       Properties: {},
       Value: 1
+    }
+  },
+  {
+    Item4: {
+      Id: 64,
+      Label: RegistrationDate,
+      Properties: {},
+      Value: 2020-04-07 14:43:36 +0
     }
   }
 ]

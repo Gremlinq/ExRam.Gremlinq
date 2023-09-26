@@ -2,7 +2,7 @@
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 129,
+      Id: 127,
       Label: LocalizableDescription,
       Properties: {
         someKey: value
@@ -15,7 +15,7 @@
   {
     CountryCallingCode: +49,
     LocalizableDescription: {
-      Id: 135,
+      Id: 133,
       Label: LocalizableDescription,
       Properties: {
         someKey: value

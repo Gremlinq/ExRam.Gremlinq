@@ -6,31 +6,31 @@
   },
   {
     IetfLanguageTag: en,
-    Id: 2,
+    Id: 65,
     Label: Language
   },
   {
     IetfLanguageTag: en,
+    Id: 2,
+    Label: Language
+  },
+  {
     Id: 67,
     Label: Language
   },
   {
-    Id: 69,
-    Label: Language
-  },
-  {
     Name: {
-      Id: 74,
+      Id: 72,
       Label: Name,
       Properties: {},
       Value: GER
     },
-    Id: 73,
+    Id: 71,
     Label: Country
   },
   {
     Name: {
-      Id: 76,
+      Id: 74,
       Label: Name,
       Properties: {
         de: Deutschland,
@@ -38,20 +38,20 @@
       },
       Value: GER
     },
-    Id: 75,
+    Id: 73,
     Label: Country
+  },
+  {
+    Id: 79,
+    Label: Language
+  },
+  {
+    Id: 80,
+    Label: Language
   },
   {
     Id: 17,
     Label: Country
-  },
-  {
-    Id: 81,
-    Label: Language
-  },
-  {
-    Id: 82,
-    Label: Language
   },
   {
     Id: 21,
@@ -90,11 +90,6 @@
   {
     IetfLanguageTag: en,
     Id: 54,
-    Label: Language
-  },
-  {
-    IetfLanguageTag: en,
-    Id: 56,
     Label: Language
   }
 ]
