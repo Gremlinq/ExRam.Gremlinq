@@ -122,8 +122,7 @@ namespace ExRam.Gremlinq.Core
     }
     public static class GremlinQueryEnvironment
     {
-        public static readonly ExRam.Gremlinq.Core.IGremlinQueryEnvironment Default;
-        public static readonly ExRam.Gremlinq.Core.IGremlinQueryEnvironment Empty;
+        public static readonly ExRam.Gremlinq.Core.IGremlinQueryEnvironment Invalid;
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseDebugger(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.IGremlinQueryDebugger debugger) { }
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseDeserializer(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Transformation.ITransformer deserializer) { }
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseExecutor(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor executor) { }
@@ -1410,6 +1409,7 @@ namespace ExRam.Gremlinq.Core.Models
     public static class GraphElementPropertyModel
     {
         public static ExRam.Gremlinq.Core.Models.IGraphElementPropertyModel ConfigureElement<TElement>(this ExRam.Gremlinq.Core.Models.IGraphElementPropertyModel propertiesModel, System.Func<ExRam.Gremlinq.Core.Models.IMemberMetadataConfigurator<TElement>, ExRam.Gremlinq.Core.Models.IMemberMetadataConfigurator<TElement>> transformation) { }
+        public static ExRam.Gremlinq.Core.Models.MemberMetadata GetMetadata(this ExRam.Gremlinq.Core.Models.IGraphElementPropertyModel model, System.Reflection.MemberInfo memberInfo) { }
         public static ExRam.Gremlinq.Core.Models.IGraphElementPropertyModel UseCamelCaseNames(this ExRam.Gremlinq.Core.Models.IGraphElementPropertyModel model) { }
         public static ExRam.Gremlinq.Core.Models.IGraphElementPropertyModel UseLowerCaseNames(this ExRam.Gremlinq.Core.Models.IGraphElementPropertyModel model) { }
     }
@@ -1434,7 +1434,7 @@ namespace ExRam.Gremlinq.Core.Models
         ExRam.Gremlinq.Core.Models.IGraphElementPropertyModel AddType(System.Type type);
         ExRam.Gremlinq.Core.Models.IGraphElementPropertyModel ConfigureMemberMetadata(System.Func<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.Models.MemberMetadata, ExRam.Gremlinq.Core.Models.MemberMetadata> transformation);
         ExRam.Gremlinq.Core.Models.IGraphElementPropertyModel ConfigureMemberMetadata(System.Reflection.MemberInfo member, System.Func<ExRam.Gremlinq.Core.Models.MemberMetadata, ExRam.Gremlinq.Core.Models.MemberMetadata> transformation);
-        ExRam.Gremlinq.Core.Models.MemberMetadata GetMetadata(System.Reflection.MemberInfo memberInfo);
+        ExRam.Gremlinq.Core.Models.MemberMetadata? TryGetMetadata(System.Reflection.MemberInfo memberInfo);
     }
     public interface IGraphModel
     {
