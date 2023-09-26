@@ -41,13 +41,15 @@ namespace ExRam.Gremlinq.Core.Models
                 return new GraphElementModelImpl<TBaseType>(ElementTypes, Members, overrides, _memberMetadataOverrides);
             }
 
-            public IGraphElementModel ConfigureMetadata(Type elementType, Func<ElementMetadata, ElementMetadata> metadataTransformation) => new GraphElementModelImpl<TBaseType>(
-                ElementTypes,
-                Members,
-                _elementMetadataOverrides.SetItem(
-                    elementType,
-                    metadataTransformation(this.GetMetadata(elementType))),
-                _memberMetadataOverrides);
+            public IGraphElementModel ConfigureMetadata(Type elementType, Func<ElementMetadata, ElementMetadata> metadataTransformation) => typeof(TBaseType).IsAssignableFrom(elementType)
+                ? new GraphElementModelImpl<TBaseType>(
+                    ElementTypes,
+                    Members,
+                    _elementMetadataOverrides.SetItem(
+                        elementType,
+                        metadataTransformation(this.GetMetadata(elementType))),
+                    _memberMetadataOverrides)
+                : throw new InvalidOperationException();
 
             public ElementMetadata? TryGetMetadata(Type elementType) => typeof(TBaseType).IsAssignableFrom(elementType)
                 ? _elementMetadataOverrides.TryGetValue(elementType, out var elementMetadata)
@@ -92,13 +94,15 @@ namespace ExRam.Gremlinq.Core.Models
                     _memberMetadataOverrides);
             }
 
-            public IGraphElementModel ConfigureMetadata(MemberInfo member, Func<MemberMetadata, MemberMetadata> transformation) => new GraphElementModelImpl<TBaseType>(
-                ElementTypes,
-                Members,
-                _elementMetadataOverrides,
-                _memberMetadataOverrides.SetItem(
-                    member,
-                    transformation(this.GetMetadata(member))));
+            public IGraphElementModel ConfigureMetadata(MemberInfo member, Func<MemberMetadata, MemberMetadata> transformation) => typeof(TBaseType).IsAssignableFrom(member.DeclaringType)
+                ? new GraphElementModelImpl<TBaseType>(
+                    ElementTypes,
+                    Members,
+                    _elementMetadataOverrides,
+                    _memberMetadataOverrides.SetItem(
+                        member,
+                        transformation(this.GetMetadata(member))))
+                : throw new InvalidOperationException();
 
             public MemberMetadata? TryGetMetadata(MemberInfo memberInfo) => _memberMetadataOverrides.TryGetValue(memberInfo, out var metadata)
                 ? metadata
