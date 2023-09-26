@@ -1414,7 +1414,6 @@ namespace ExRam.Gremlinq.Core.Models
     }
     public static class GraphModel
     {
-        public static readonly ExRam.Gremlinq.Core.Models.IGraphModel Empty;
         public static readonly ExRam.Gremlinq.Core.Models.IGraphModel Invalid;
         public static ExRam.Gremlinq.Core.Models.IGraphModel ConfigureElements(this ExRam.Gremlinq.Core.Models.IGraphModel model, System.Func<ExRam.Gremlinq.Core.Models.IGraphElementModel, ExRam.Gremlinq.Core.Models.IGraphElementModel> transformation) { }
         public static ExRam.Gremlinq.Core.Models.IGraphModel FromBaseTypes<TVertexBaseType, TEdgeBaseType>() { }
