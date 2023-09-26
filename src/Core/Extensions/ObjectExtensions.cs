@@ -60,8 +60,8 @@ namespace ExRam.Gremlinq.Core
 
         public static object GetId(this object element, IGremlinQueryEnvironment environment)
         {
-            var (propertyInfo, _, _) = environment.GetCache().GetSerializationData(element.GetType())
-                .FirstOrDefault(static info => info.key.RawKey is T t && T.Id.Equals(t));
+            var (propertyInfo, _) = environment.GetCache().GetSerializationData(element.GetType())
+                .FirstOrDefault(static info => info.metadata.Key.RawKey is T t && T.Id.Equals(t));
 
             return propertyInfo?.GetValue(element) ?? throw new InvalidOperationException($"Unable to determine Id for {element}");
         }
@@ -85,18 +85,18 @@ namespace ExRam.Gremlinq.Core
             var serializationBehaviourOverrides = environment.Options
                 .GetValue(GremlinqOption.TSerializationBehaviourOverrides);
 
-            foreach (var (propertyInfo, key, serializationBehaviour) in environment.GetCache().GetSerializationData(obj.GetType()))
+            foreach (var (propertyInfo, metadata) in environment.GetCache().GetSerializationData(obj.GetType()))
             {
-                var actualSerializationBehaviour = serializationBehaviour;
+                var actualSerializationBehaviour = metadata.SerializationBehaviour;
 
-                if (key.RawKey is T t)
+                if (metadata.Key.RawKey is T t)
                 {
                     actualSerializationBehaviour |= serializationBehaviourOverrides
                         .GetValueOrDefault(t, SerializationBehaviour.Default);
                 }
 
                 if ((actualSerializationBehaviour & ignoreMask) == 0)
-                    yield return (key, propertyInfo.GetValue(obj));
+                    yield return (metadata.Key, propertyInfo.GetValue(obj));
             }
         }
     }
