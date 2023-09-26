@@ -4,9 +4,11 @@ namespace ExRam.Gremlinq.Core.Models
 {
     internal sealed class MemberMetadataConfigurator<TElement> : IMemberMetadataConfigurator<TElement>
     {
+        public static readonly MemberMetadataConfigurator<TElement> Identity = new ();
+
         private readonly Func<IGraphElementModel, IGraphElementModel> _transformation;
 
-        public MemberMetadataConfigurator() : this(_ => _)
+        private MemberMetadataConfigurator() : this(static _ => _)
         {
         }
 
@@ -49,7 +51,7 @@ namespace ExRam.Gremlinq.Core.Models
 
             return new MemberMetadataConfigurator<TElement>(model => _transformation(model).ConfigureMetadata(
                 memberInfo,
-                metadata => transformation(metadata)));
+                transformation));
         }
     }
 }

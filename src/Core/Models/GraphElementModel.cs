@@ -7,19 +7,17 @@ namespace ExRam.Gremlinq.Core.Models
     {
         private sealed class GraphElementModelImpl<TBaseType> : IGraphElementModel
         {
+            public static readonly IGraphElementModel Empty = new GraphElementModelImpl<TBaseType>();
+
             private readonly IImmutableDictionary<Type, ElementMetadata> _elementMetadataOverrides;
             private readonly IImmutableDictionary<MemberInfo, MemberMetadata> _memberMetadataOverrides;
 
-            public GraphElementModelImpl() : this(ImmutableHashSet<Type>.Empty, ImmutableHashSet<MemberInfo>.Empty)
+            private GraphElementModelImpl() : this(ImmutableHashSet<Type>.Empty, ImmutableHashSet<MemberInfo>.Empty, ImmutableDictionary<Type, ElementMetadata>.Empty, ImmutableDictionary<MemberInfo, MemberMetadata>.Empty.WithComparers(MemberInfoEqualityComparer.Instance))
             {
 
             }
 
-            public GraphElementModelImpl(IImmutableSet<Type> elementTypes, IImmutableSet<MemberInfo> members) : this(elementTypes, members, ImmutableDictionary<Type, ElementMetadata>.Empty, ImmutableDictionary<MemberInfo, MemberMetadata>.Empty.WithComparers(MemberInfoEqualityComparer.Instance))
-            {
-            }
-
-            public GraphElementModelImpl(IImmutableSet<Type> elementTypes, IImmutableSet<MemberInfo> members, IImmutableDictionary<Type, ElementMetadata> elementMetadataOverrides, IImmutableDictionary<MemberInfo, MemberMetadata> memberMetadataOverrides)
+            private GraphElementModelImpl(IImmutableSet<Type> elementTypes, IImmutableSet<MemberInfo> members, IImmutableDictionary<Type, ElementMetadata> elementMetadataOverrides, IImmutableDictionary<MemberInfo, MemberMetadata> memberMetadataOverrides)
             {
                 Members = members;
                 ElementTypes = elementTypes;
@@ -160,7 +158,7 @@ namespace ExRam.Gremlinq.Core.Models
 
         public static IGraphElementModel ConfigureLabels(this IGraphElementModel model, Func<Type, string, string> overrideTransformation) => model.ConfigureMetadata((type, metadata) => new ElementMetadata(overrideTransformation(type, metadata.Label)));
 
-        public static IGraphElementModel ConfigureElement<TElement>(this IGraphElementModel model, Func<IMemberMetadataConfigurator<TElement>, IMemberMetadataConfigurator<TElement>> transformation) => transformation(new MemberMetadataConfigurator<TElement>()).Transform(model);
+        public static IGraphElementModel ConfigureElement<TElement>(this IGraphElementModel model, Func<IMemberMetadataConfigurator<TElement>, IMemberMetadataConfigurator<TElement>> transformation) => transformation(MemberMetadataConfigurator<TElement>.Identity).Transform(model);
 
         public static IGraphElementModel UseCamelCaseNames(this IGraphElementModel model) => model.ConfigureNames(static (_, key) => key.RawKey is string name
             ? name.ToCamelCase()
@@ -189,7 +187,7 @@ namespace ExRam.Gremlinq.Core.Models
                     : labels;
         }
 
-        internal static IGraphElementModel FromBaseType<TType>() => new GraphElementModelImpl<TType>().AddAssemblies(typeof(TType).Assembly);
+        internal static IGraphElementModel FromBaseType<TType>() => GraphElementModelImpl<TType>.Empty.AddAssemblies(typeof(TType).Assembly);
 
         internal static ImmutableArray<string> GetFilterLabelsOrDefault(this IGraphElementModel model, Type type, FilterLabelsVerbosity verbosity) => model.TryGetFilterLabels(type, verbosity) ?? ImmutableArray.Create(type.Name);
     }

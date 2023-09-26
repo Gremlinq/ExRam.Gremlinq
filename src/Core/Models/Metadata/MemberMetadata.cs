@@ -12,9 +12,8 @@ namespace ExRam.Gremlinq.Core.Models
             SerializationBehaviour = serializationBehaviour;
         }
 
-        public Key Key => _key is { } key
-            ? key
-            : throw new InvalidOperationException($"Cannot retrieve the {nameof(Key)} property of an uninitialized {nameof(MemberMetadata)} struct.");
+        public Key Key => _key ?? throw new InvalidOperationException($"Cannot retrieve the {nameof(Key)} property of an uninitialized {nameof(MemberMetadata)} struct.");
+
         public SerializationBehaviour SerializationBehaviour { get; }
 
         public static MemberMetadata Default(string key) => new ("id".Equals(key, StringComparison.OrdinalIgnoreCase)
