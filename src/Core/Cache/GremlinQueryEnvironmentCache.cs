@@ -11,7 +11,7 @@ namespace ExRam.Gremlinq.Core
         {
             private readonly IGremlinQueryEnvironment _environment;
             private readonly ConcurrentDictionary<MemberInfo, MemberMetadata> _members = new();
-            private readonly ConcurrentDictionary<Type, (PropertyInfo propertyInfo, Key key, SerializationBehaviour serializationBehaviour)[]> _typeProperties = new();
+            private readonly ConcurrentDictionary<Type, (PropertyInfo propertyInfo, MemberMetadata metadata)[]> _typeProperties = new();
 
             public GremlinQueryEnvironmentCacheImpl(IGremlinQueryEnvironment environment)
             {
@@ -22,7 +22,7 @@ namespace ExRam.Gremlinq.Core
                     .Concat(environment.Model.EdgesModel.ElementTypes));
             }
 
-            public (PropertyInfo propertyInfo, Key key, SerializationBehaviour serializationBehaviour)[] GetSerializationData(Type type)
+            public (PropertyInfo propertyInfo, MemberMetadata metadata)[] GetSerializationData(Type type)
             {
                 return _typeProperties
                     .GetOrAdd(
@@ -34,10 +34,8 @@ namespace ExRam.Gremlinq.Core
                             .Where(static p => p.GetMethod?.GetBaseDefinition() == p.GetMethod)
                             .Select(p => (
                                 property: p,
-                                key: closureEnvironment.GetCache().GetMetadata(p).Key,
-                                serializationBehaviour: closureEnvironment.Model.PropertiesModel
-                                    .GetMetadata(p).SerializationBehaviour))
-                            .OrderBy(static x => x.key)
+                                metadata: closureEnvironment.GetCache().GetMetadata(p)))
+                            .OrderBy(static x => x.metadata.Key)
                             .ToArray(),
                         _environment);
             }
