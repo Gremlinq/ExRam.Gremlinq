@@ -41,7 +41,7 @@ namespace System
                             {
                                 var info = serializationData[i];
 
-                                if (info.metadata.Key.RawKey is T t && relevantT.Equals(t) && info.propertyInfo is { } propertyInfo)
+                                if (info.metadata.Key.RawKey is T t && relevantT.Equals(t) && info.propertyInfo is { CanWrite: true } propertyInfo)
                                 {
                                     return (Action<TElement, JToken, ITransformer>)typeof(Info<TElement>)
                                         .GetMethod(nameof(CreateSetter), BindingFlags.NonPublic | BindingFlags.Static)!
