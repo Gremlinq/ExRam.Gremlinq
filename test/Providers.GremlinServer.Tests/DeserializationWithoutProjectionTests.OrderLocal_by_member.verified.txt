@@ -2,16 +2,6 @@
   {
     RegistrationDate: 2020-04-07 14:43:36 +0,
     Name: {
-      Id: 65,
-      Label: Name,
-      Value: Marko
-    },
-    Id: 64,
-    Label: Person
-  },
-  {
-    RegistrationDate: 2020-04-07 14:43:36 +0,
-    Name: {
       Id: 12,
       Label: Name,
       Value: Bob
@@ -27,6 +17,16 @@
       Value: Bob
     },
     Id: 37,
+    Label: Person
+  },
+  {
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: 63,
+      Label: Name,
+      Value: Marko
+    },
+    Id: 62,
     Label: Person
   }
 ]

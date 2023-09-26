@@ -68,9 +68,6 @@
     Item3: 1
   },
   {
-    Item3: 1
-  },
-  {
     Item1: {
       CountryCallingCode: +49,
       Id: 0,

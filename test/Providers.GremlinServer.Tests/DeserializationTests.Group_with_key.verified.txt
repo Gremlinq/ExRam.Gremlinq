@@ -2,13 +2,9 @@
   {
     Company: [
       {
-        Id: 5,
-        Label: Company
-      },
-      {
         Locations: [
           {
-            Id: 72,
+            Id: 70,
             Label: Locations,
             Properties: {
               ValidFrom: 2019-01-01 01:00 +0
@@ -16,7 +12,11 @@
             Value: Aachen
           }
         ],
-        Id: 70,
+        Id: 68,
+        Label: Company
+      },
+      {
+        Id: 5,
         Label: Company
       },
       {
@@ -24,7 +24,7 @@
           +4912345,
           +4923456
         ],
-        Id: 77,
+        Id: 75,
         Label: Company
       },
       {
@@ -44,17 +44,17 @@
       },
       {
         Name: {
-          Id: 74,
+          Id: 72,
           Label: Name,
           Properties: {},
           Value: GER
         },
-        Id: 73,
+        Id: 71,
         Label: Country
       },
       {
         Name: {
-          Id: 76,
+          Id: 74,
           Label: Name,
           Properties: {
             de: Deutschland,
@@ -62,7 +62,7 @@
           },
           Value: GER
         },
-        Id: 75,
+        Id: 73,
         Label: Country
       },
       {
@@ -86,24 +86,24 @@
     Language: [
       {
         IetfLanguageTag: en,
-        Id: 2,
+        Id: 65,
         Label: Language
       },
       {
         IetfLanguageTag: en,
+        Id: 2,
+        Label: Language
+      },
+      {
         Id: 67,
         Label: Language
       },
       {
-        Id: 69,
+        Id: 79,
         Label: Language
       },
       {
-        Id: 81,
-        Label: Language
-      },
-      {
-        Id: 82,
+        Id: 80,
         Label: Language
       },
       {
@@ -124,24 +124,9 @@
         IetfLanguageTag: en,
         Id: 54,
         Label: Language
-      },
-      {
-        IetfLanguageTag: en,
-        Id: 56,
-        Label: Language
       }
     ],
     Person: [
-      {
-        RegistrationDate: 2020-04-07 14:43:36 +0,
-        Name: {
-          Id: 65,
-          Label: Name,
-          Value: Marko
-        },
-        Id: 64,
-        Label: Person
-      },
       {
         Id: 7,
         Label: Person
@@ -188,12 +173,22 @@
       },
       {
         Image: AQIDBAUGBwg=,
-        Id: 58,
+        Id: 56,
         Label: Person
       },
       {
         Gender: Female,
-        Id: 61,
+        Id: 59,
+        Label: Person
+      },
+      {
+        RegistrationDate: 2020-04-07 14:43:36 +0,
+        Name: {
+          Id: 63,
+          Label: Name,
+          Value: Marko
+        },
+        Id: 62,
         Label: Person
       }
     ],

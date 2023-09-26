@@ -7,15 +7,9 @@
   },
   {
     Id: 66,
-    Label: RegistrationDate,
+    Label: IetfLanguageTag,
     Properties: {},
-    Value: 2020-04-07 14:43:36 +0
-  },
-  {
-    Id: 65,
-    Label: Name,
-    Properties: {},
-    Value: Marko
+    Value: en
   },
   {
     Id: 3,
@@ -24,10 +18,18 @@
     Value: en
   },
   {
-    Id: 68,
-    Label: IetfLanguageTag,
+    Id: 69,
+    Label: FoundingDate,
     Properties: {},
-    Value: en
+    Value: 0001-01-01 +0
+  },
+  {
+    Id: 70,
+    Label: Locations,
+    Properties: {
+      ValidFrom: 2019-01-01 01:00 +0
+    },
+    Value: Aachen
   },
   {
     Id: 6,
@@ -36,29 +38,24 @@
     Value: 0001-01-01 +0
   },
   {
-    Id: 71,
-    Label: FoundingDate,
-    Properties: {},
-    Value: 0001-01-01 +0
-  },
-  {
-    Id: 72,
-    Label: Locations,
-    Properties: {
-      ValidFrom: 2019-01-01 01:00 +0
-    },
-    Value: Aachen
-  },
-  {
     Id: 8,
     Label: Age,
     Properties: {},
     Value: 0
   },
   {
-    Id: 74,
+    Id: 72,
     Label: Name,
     Properties: {},
+    Value: GER
+  },
+  {
+    Id: 74,
+    Label: Name,
+    Properties: {
+      de: Deutschland,
+      en: Germany
+    },
     Value: GER
   },
   {
@@ -80,28 +77,19 @@
     Value: Bob
   },
   {
-    Id: 76,
-    Label: Name,
-    Properties: {
-      de: Deutschland,
-      en: Germany
-    },
-    Value: GER
-  },
-  {
-    Id: 79,
+    Id: 77,
     Label: PhoneNumbers,
     Properties: {},
     Value: +4912345
   },
   {
-    Id: 80,
+    Id: 78,
     Label: PhoneNumbers,
     Properties: {},
     Value: +4923456
   },
   {
-    Id: 78,
+    Id: 76,
     Label: FoundingDate,
     Properties: {},
     Value: 0001-01-01 +0
@@ -113,7 +101,7 @@
     Value: 0
   },
   {
-    Id: 83,
+    Id: 81,
     Label: lang,
     Properties: {},
     Value: en
@@ -215,33 +203,39 @@
     Value: en
   },
   {
-    Id: 57,
-    Label: IetfLanguageTag,
-    Properties: {},
-    Value: en
-  },
-  {
-    Id: 60,
+    Id: 58,
     Label: Image,
     Properties: {},
     Value: AQIDBAUGBwg=
   },
   {
-    Id: 59,
+    Id: 57,
     Label: Age,
     Properties: {},
     Value: 0
   },
   {
-    Id: 63,
+    Id: 61,
     Label: Gender,
     Properties: {},
     Value: 1
   },
   {
-    Id: 62,
+    Id: 60,
     Label: Age,
     Properties: {},
     Value: 0
+  },
+  {
+    Id: 64,
+    Label: RegistrationDate,
+    Properties: {},
+    Value: 2020-04-07 14:43:36 +0
+  },
+  {
+    Id: 63,
+    Label: Name,
+    Properties: {},
+    Value: Marko
   }
 ]

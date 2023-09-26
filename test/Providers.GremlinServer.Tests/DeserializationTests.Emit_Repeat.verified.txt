@@ -1,15 +1,5 @@
 ﻿[
   {
-    RegistrationDate: 2020-04-07 14:43:36 +0,
-    Name: {
-      Id: 65,
-      Label: Name,
-      Value: Marko
-    },
-    Id: 64,
-    Label: Person
-  },
-  {
     Id: 7,
     Label: Person
   },
@@ -70,12 +60,22 @@
   },
   {
     Image: AQIDBAUGBwg=,
-    Id: 58,
+    Id: 56,
     Label: Person
   },
   {
     Gender: Female,
-    Id: 61,
+    Id: 59,
+    Label: Person
+  },
+  {
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: 63,
+      Label: Name,
+      Value: Marko
+    },
+    Id: 62,
     Label: Person
   }
 ]
