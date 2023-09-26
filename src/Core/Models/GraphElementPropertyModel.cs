@@ -121,8 +121,8 @@ namespace ExRam.Gremlinq.Core.Models
             var memberExpression = expression.AssumeMemberExpression();
 
             return memberExpression.TryGetWellKnownMember() == WellKnownMember.PropertyValue && memberExpression.Expression is MemberExpression sourceMemberExpression
-                ? environment.GetCache().GetKey(sourceMemberExpression.Member)
-                : environment.GetCache().GetKey(memberExpression.Member);
+                ? environment.GetCache().GetMetadata(sourceMemberExpression.Member).Key
+                : environment.GetCache().GetMetadata(memberExpression.Member).Key;
         }
 
         internal static IGraphElementPropertyModel FromGraphElementModels(params IGraphElementModel[] models)
