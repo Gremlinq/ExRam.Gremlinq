@@ -3,6 +3,8 @@
 using System.Collections;
 using System.Collections.Immutable;
 using System.Linq.Expressions;
+
+using ExRam.Gremlinq.Core.ExpressionParsing;
 using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Core.Projections;
@@ -61,7 +63,18 @@ namespace ExRam.Gremlinq.Core
             this,
             new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(Environment, Traversal.Empty.WithProjection(Steps.Projection), LabelProjections, QueryFlags.IsAnonymous), flags);
 
-        private Key GetKey(Expression projection) => Environment.GetKey(projection);
+        private Key GetKey(Expression expression)
+        {
+            var memberExpression = expression
+                .AssumeMemberExpression();
+
+            return Environment
+                .GetCache()
+                .GetMetadata(memberExpression.TryGetWellKnownMember() == WellKnownMember.PropertyValue && memberExpression.Expression is MemberExpression sourceMemberExpression
+                    ? sourceMemberExpression.Member
+                    : memberExpression.Member)
+                .Key;
+        }
 
         // ReSharper disable once SuggestBaseTypeForParameter
         private static IEnumerable<Step> GetStepsForKeys(IEnumerable<Key> keys)
