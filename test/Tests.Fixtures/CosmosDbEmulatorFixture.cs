@@ -29,12 +29,11 @@ namespace ExRam.Gremlinq.Tests.Fixtures
                     });
 
                 return g
-                    .UseCosmosDb<Vertex, Edge>(
-                        builder => builder
-                            .At(new Uri("ws://localhost:8901"), CosmosDbEmulatorDatabaseName, CosmosDbEmulatorCollectionName)
-                            .AuthenticateBy(CosmosDbEmulatorAuthKey)
-                            .WithPartitionKey(x => x.Label!)
-                            .UseNewtonsoftJson())
+                    .UseCosmosDb<Vertex, Edge>(conf => conf
+                        .At(new Uri("ws://localhost:8901"), CosmosDbEmulatorDatabaseName, CosmosDbEmulatorCollectionName)
+                        .AuthenticateBy(CosmosDbEmulatorAuthKey)
+                        .WithPartitionKey(x => x.Label!)
+                        .UseNewtonsoftJson())
                     .ConfigureEnvironment(env => env
                         .AddFakePartitionKey());
             }
