@@ -1,4 +1,5 @@
-﻿using ExRam.Gremlinq.Providers.Core;
+﻿using ExRam.Gremlinq.Core.Models;
+using ExRam.Gremlinq.Providers.Core;
 using ExRam.Gremlinq.Providers.JanusGraph;
 using Gremlin.Net.Driver;
 
@@ -26,12 +27,14 @@ namespace ExRam.Gremlinq.Core
             public IGremlinQuerySource Transform(IGremlinQuerySource source) => _webSocketProviderConfigurator.Transform(source);
         }
 
-        public static IGremlinQuerySource UseJanusGraph(this IConfigurableGremlinQuerySource source, Func<IJanusGraphConfigurator, IGremlinQuerySourceTransformation> configuratorTransformation)
+        public static IGremlinQuerySource UseJanusGraph<TVertexBase, TEdgeBase>(this IConfigurableGremlinQuerySource source, Func<IJanusGraphConfigurator, IGremlinQuerySourceTransformation> configuratorTransformation)
         {
             return configuratorTransformation
                 .Invoke(JanusGraphConfigurator.Default)
                 .Transform(source
                     .ConfigureEnvironment(environment => environment
+                        .UseModel(GraphModel
+                            .FromBaseTypes<TVertexBase, TEdgeBase>())
                         .ConfigureFeatureSet(featureSet => featureSet
                             .ConfigureGraphFeatures(_ => GraphFeatures.Computer | GraphFeatures.Transactions | GraphFeatures.ThreadedTransactions | GraphFeatures.Persistence)
                             .ConfigureVariableFeatures(_ => VariableFeatures.MapValues)
