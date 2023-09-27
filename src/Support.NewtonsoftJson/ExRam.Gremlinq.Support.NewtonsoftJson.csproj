@@ -13,6 +13,7 @@
   <ItemGroup>
     <Compile Include="..\Core\Cache\GremlinQueryEnvironmentCache.cs" Link="Cache\GremlinQueryEnvironmentCache.cs" />
     <Compile Include="..\Core\Cache\IGremlinQueryEnvironmentCache.cs" Link="Cache\IGremlinQueryEnvironmentCache.cs" />
+    <Compile Include="..\Core\Extensions\GraphElementModelExtensions.cs" Link="Extensions\GraphElementModelExtensions.cs" />
     <Compile Include="..\Core\Extensions\TypeExtensions.cs" Link="Extensions\TypeExtensions.cs" />
   </ItemGroup>
 

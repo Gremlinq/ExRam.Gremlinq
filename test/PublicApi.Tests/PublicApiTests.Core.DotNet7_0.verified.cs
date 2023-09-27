@@ -1404,12 +1404,11 @@ namespace ExRam.Gremlinq.Core.Models
     {
         public static ExRam.Gremlinq.Core.Models.IGraphElementModel ConfigureElement<TElement>(this ExRam.Gremlinq.Core.Models.IGraphElementModel model, System.Func<ExRam.Gremlinq.Core.Models.IMemberMetadataConfigurator<TElement>, ExRam.Gremlinq.Core.Models.IMemberMetadataConfigurator<TElement>> transformation) { }
         public static ExRam.Gremlinq.Core.Models.IGraphElementModel ConfigureLabels(this ExRam.Gremlinq.Core.Models.IGraphElementModel model, System.Func<System.Type, string, string> overrideTransformation) { }
-        public static ExRam.Gremlinq.Core.Models.MemberMetadata GetMetadata(this ExRam.Gremlinq.Core.Models.IGraphElementModel model, System.Reflection.MemberInfo memberInfo) { }
-        public static ExRam.Gremlinq.Core.Models.ElementMetadata GetMetadata(this ExRam.Gremlinq.Core.Models.IGraphElementModel model, System.Type elementType) { }
+        public static ExRam.Gremlinq.Core.Models.IGraphElementModel ConfigureMemberNames(this ExRam.Gremlinq.Core.Models.IGraphElementModel model, System.Func<System.Reflection.MemberInfo, string, string> transformation) { }
         public static ExRam.Gremlinq.Core.Models.IGraphElementModel UseCamelCaseLabels(this ExRam.Gremlinq.Core.Models.IGraphElementModel model) { }
-        public static ExRam.Gremlinq.Core.Models.IGraphElementModel UseCamelCaseNames(this ExRam.Gremlinq.Core.Models.IGraphElementModel model) { }
+        public static ExRam.Gremlinq.Core.Models.IGraphElementModel UseCamelCaseMemberNames(this ExRam.Gremlinq.Core.Models.IGraphElementModel model) { }
         public static ExRam.Gremlinq.Core.Models.IGraphElementModel UseLowerCaseLabels(this ExRam.Gremlinq.Core.Models.IGraphElementModel model) { }
-        public static ExRam.Gremlinq.Core.Models.IGraphElementModel UseLowerCaseNames(this ExRam.Gremlinq.Core.Models.IGraphElementModel model) { }
+        public static ExRam.Gremlinq.Core.Models.IGraphElementModel UseLowerCaseMemberNames(this ExRam.Gremlinq.Core.Models.IGraphElementModel model) { }
     }
     public static class GraphModel
     {
