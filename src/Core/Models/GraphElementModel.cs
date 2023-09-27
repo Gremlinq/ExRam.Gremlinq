@@ -138,9 +138,9 @@ namespace ExRam.Gremlinq.Core.Models
             public IImmutableSet<MemberInfo> Members { get; }
 
 
-            private static bool IsWithinModel(MemberInfo memberInfo) => memberInfo.DeclaringType is { } declaringType && IsWithinModel(declaringType);
+            private bool IsWithinModel(MemberInfo memberInfo) => memberInfo.DeclaringType is { } declaringType && IsWithinModel(declaringType);
 
-            private static bool IsWithinModel(Type type) => typeof(TBaseType).IsAssignableFrom(type);
+            private bool IsWithinModel(Type type) => typeof(TBaseType).IsAssignableFrom(type) && _assemblies.Contains(type.Assembly);
 
             private static T ThrowOutsideModel<T>() => throw new InvalidOperationException();
         }
