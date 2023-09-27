@@ -8,6 +8,7 @@ using ExRam.Gremlinq.Core.Execution;
 using Gremlin.Net.Driver.Exceptions;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using ExRam.Gremlinq.Core.Models;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -35,7 +36,7 @@ namespace ExRam.Gremlinq.Core
 
         private record struct NeptuneErrorResponse(string? requestId, string? code, string? detailedMessage);
 
-        public static IGremlinQuerySource UseNeptune(this IConfigurableGremlinQuerySource source, Func<INeptuneConfigurator, IGremlinQuerySourceTransformation> configuratorTransformation)
+        public static IGremlinQuerySource UseNeptune<TVertexBase, TEdgeBase>(this IConfigurableGremlinQuerySource source, Func<INeptuneConfigurator, IGremlinQuerySourceTransformation> configuratorTransformation)
         {
             var serializerOptions = new JsonSerializerOptions()
             {
@@ -50,6 +51,8 @@ namespace ExRam.Gremlinq.Core
                 .Invoke(NeptuneConfigurator.Default)
                 .Transform(source
                     .ConfigureEnvironment(environment => environment
+                        .UseModel(GraphModel
+                            .FromBaseTypes<TVertexBase, TEdgeBase>())
                         .ConfigureFeatureSet(featureSet => featureSet
                             .ConfigureGraphFeatures(_ => GraphFeatures.Transactions | GraphFeatures.Persistence | GraphFeatures.ConcurrentAccess)
                             .ConfigureVariableFeatures(_ => VariableFeatures.None)

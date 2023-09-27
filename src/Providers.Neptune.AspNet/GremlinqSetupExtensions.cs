@@ -1,18 +1,17 @@
-﻿using ExRam.Gremlinq.Core.Models;
-using ExRam.Gremlinq.Providers.Core.AspNet;
+﻿using ExRam.Gremlinq.Providers.Core.AspNet;
 using ExRam.Gremlinq.Providers.Neptune;
 
 namespace ExRam.Gremlinq.Core.AspNet
 {
     public static class GremlinqSetupExtensions
     {
-        public static GremlinqSetup UseNeptune(this GremlinqSetup setup, Action<ProviderSetup<INeptuneConfigurator>>? extraSetupAction = null)
+        public static GremlinqSetup UseNeptune<TVertexBase, TEdgeBase>(this GremlinqSetup setup, Action<ProviderSetup<INeptuneConfigurator>>? extraSetupAction = null)
         {
             return setup
                 .UseProvider(
                     "Neptune",
                     (source, configuratorTransformation) => source
-                        .UseNeptune(configuratorTransformation),
+                        .UseNeptune<TVertexBase, TEdgeBase>(configuratorTransformation),
                     setup => setup
                         .Configure()
                         .ConfigureWebSocket()
@@ -37,15 +36,6 @@ namespace ExRam.Gremlinq.Core.AspNet
                             return configurator;
                         }),
                     extraSetupAction);
-        }
-
-        public static GremlinqSetup UseNeptune<TVertex, TEdge>(this GremlinqSetup setup, Action<ProviderSetup<INeptuneConfigurator>>? extraSetupAction = null)
-        {
-            return setup
-                .UseNeptune(extraSetupAction)
-                .ConfigureEnvironment(env => env
-                    .UseModel(GraphModel
-                        .FromBaseTypes<TVertex, TEdge>()));
         }
     }
 }
