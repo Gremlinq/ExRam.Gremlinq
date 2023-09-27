@@ -1,4 +1,5 @@
-﻿using ExRam.Gremlinq.Providers.Core;
+﻿using ExRam.Gremlinq.Core.Models;
+using ExRam.Gremlinq.Providers.Core;
 using ExRam.Gremlinq.Providers.GremlinServer;
 using Gremlin.Net.Driver;
 
@@ -26,12 +27,14 @@ namespace ExRam.Gremlinq.Core
             public IGremlinQuerySource Transform(IGremlinQuerySource source) => _webSocketConfigurator.Transform(source);
         }
 
-        public static IGremlinQuerySource UseGremlinServer(this IConfigurableGremlinQuerySource source, Func<IGremlinServerConfigurator, IGremlinQuerySourceTransformation> configuratorTransformation)
+        public static IGremlinQuerySource UseGremlinServer<TVertexBase, TEdgeBase>(this IConfigurableGremlinQuerySource source, Func<IGremlinServerConfigurator, IGremlinQuerySourceTransformation> configuratorTransformation)
         {
             return configuratorTransformation
                 .Invoke(GremlinServerConfigurator.Default)
                 .Transform(source
                     .ConfigureEnvironment(environment => environment
+                        .UseModel(GraphModel
+                            .FromBaseTypes<TVertexBase, TEdgeBase>())
                         .ConfigureFeatureSet(featureSet => featureSet
                             .ConfigureGraphFeatures(graphFeatures => graphFeatures & ~(GraphFeatures.Transactions | GraphFeatures.ThreadedTransactions | GraphFeatures.ConcurrentAccess))
                             .ConfigureVertexFeatures(vertexFeatures => vertexFeatures & ~(VertexFeatures.Upsert | VertexFeatures.CustomIds))
