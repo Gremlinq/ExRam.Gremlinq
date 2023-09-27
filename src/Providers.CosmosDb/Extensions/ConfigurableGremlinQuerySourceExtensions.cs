@@ -12,14 +12,12 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class CosmosDbConfigurator : ICosmosDbConfigurator
         {
+            public static readonly CosmosDbConfigurator Default = new(WebSocketProviderConfigurator.Default, null, null, null);
+
             private readonly string? _authKey;
             private readonly string? _graphName;
             private readonly string? _databaseName;
             private readonly WebSocketProviderConfigurator _webSocketConfigurator;
-
-            public CosmosDbConfigurator() : this(new WebSocketProviderConfigurator(), null, null, null)
-            {
-            }
 
             private CosmosDbConfigurator(WebSocketProviderConfigurator webSocketProviderConfigurator, string? databaseName, string? graphName, string? authKey)
             {
@@ -86,7 +84,7 @@ namespace ExRam.Gremlinq.Core
         public static IGremlinQuerySource UseCosmosDb(this IConfigurableGremlinQuerySource source, Func<ICosmosDbConfigurator, IGremlinQuerySourceTransformation> configuratorTransformation)
         {
             return configuratorTransformation
-                .Invoke(new CosmosDbConfigurator())
+                .Invoke(CosmosDbConfigurator.Default)
                 .Transform(source
                     .ConfigureEnvironment(environment => environment
                         .ConfigureFeatureSet(featureSet => featureSet

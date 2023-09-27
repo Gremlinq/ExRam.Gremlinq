@@ -8,11 +8,9 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class GremlinServerConfigurator : IGremlinServerConfigurator
         {
-            private readonly WebSocketProviderConfigurator _webSocketConfigurator;
+            public static readonly GremlinServerConfigurator Default = new(WebSocketProviderConfigurator.Default);
 
-            public GremlinServerConfigurator() : this(new WebSocketProviderConfigurator())
-            {
-            }
+            private readonly WebSocketProviderConfigurator _webSocketConfigurator;
 
             private GremlinServerConfigurator(WebSocketProviderConfigurator webSocketConfigurator)
             {
@@ -31,7 +29,7 @@ namespace ExRam.Gremlinq.Core
         public static IGremlinQuerySource UseGremlinServer(this IConfigurableGremlinQuerySource source, Func<IGremlinServerConfigurator, IGremlinQuerySourceTransformation> configuratorTransformation)
         {
             return configuratorTransformation
-                .Invoke(new GremlinServerConfigurator())
+                .Invoke(GremlinServerConfigurator.Default)
                 .Transform(source
                     .ConfigureEnvironment(environment => environment
                         .ConfigureFeatureSet(featureSet => featureSet
