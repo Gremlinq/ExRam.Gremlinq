@@ -9,18 +9,21 @@ namespace ExRam.Gremlinq.Core.Models
         {
             public static readonly IGraphElementModel Empty = new GraphElementModelImpl<TBaseType>();
 
+            private readonly IImmutableSet<Assembly> _assemblies;
             private readonly IImmutableDictionary<Type, ElementMetadata> _elementMetadataOverrides;
             private readonly IImmutableDictionary<MemberInfo, MemberMetadata> _memberMetadataOverrides;
 
-            private GraphElementModelImpl() : this(ImmutableHashSet<Type>.Empty, ImmutableHashSet<MemberInfo>.Empty, ImmutableDictionary<Type, ElementMetadata>.Empty, ImmutableDictionary<MemberInfo, MemberMetadata>.Empty.WithComparers(MemberInfoEqualityComparer.Instance))
+            private GraphElementModelImpl() : this(ImmutableHashSet<Assembly>.Empty, ImmutableHashSet<Type>.Empty, ImmutableHashSet<MemberInfo>.Empty, ImmutableDictionary<Type, ElementMetadata>.Empty, ImmutableDictionary<MemberInfo, MemberMetadata>.Empty.WithComparers(MemberInfoEqualityComparer.Instance))
             {
 
             }
 
-            private GraphElementModelImpl(IImmutableSet<Type> elementTypes, IImmutableSet<MemberInfo> members, IImmutableDictionary<Type, ElementMetadata> elementMetadataOverrides, IImmutableDictionary<MemberInfo, MemberMetadata> memberMetadataOverrides)
+            private GraphElementModelImpl(IImmutableSet<Assembly> assemblies, IImmutableSet<Type> elementTypes, IImmutableSet<MemberInfo> members, IImmutableDictionary<Type, ElementMetadata> elementMetadataOverrides, IImmutableDictionary<MemberInfo, MemberMetadata> memberMetadataOverrides)
             {
                 Members = members;
                 ElementTypes = elementTypes;
+
+                _assemblies = assemblies;
                 _memberMetadataOverrides = memberMetadataOverrides;
                 _elementMetadataOverrides = elementMetadataOverrides;
             }
@@ -38,11 +41,12 @@ namespace ExRam.Gremlinq.Core.Models
                         : overrides.Remove(elementType);
                 }
 
-                return new GraphElementModelImpl<TBaseType>(ElementTypes, Members, overrides, _memberMetadataOverrides);
+                return new GraphElementModelImpl<TBaseType>(_assemblies, ElementTypes, Members, overrides, _memberMetadataOverrides);
             }
 
             public IGraphElementModel ConfigureMetadata(Type elementType, Func<ElementMetadata, ElementMetadata> metadataTransformation) => typeof(TBaseType).IsAssignableFrom(elementType)
                 ? new GraphElementModelImpl<TBaseType>(
+                    _assemblies,
                     ElementTypes,
                     Members,
                     _elementMetadataOverrides.SetItem(
@@ -59,10 +63,11 @@ namespace ExRam.Gremlinq.Core.Models
 
             public IGraphElementModel AddAssemblies(params Assembly[] assemblies)
             {
-                var newElementTypes = ElementTypes;
                 var newMembers = Members;
+                var newElementTypes = ElementTypes;
 
                 var types = assemblies
+                    .Where(assembly => !_assemblies.Contains(assembly))
                     .Distinct()
                     .SelectMany(static assembly =>
                     {
@@ -88,6 +93,7 @@ namespace ExRam.Gremlinq.Core.Models
                 }
 
                 return new GraphElementModelImpl<TBaseType>(
+                    _assemblies.AddRange(assemblies),
                     newElementTypes,
                     newMembers,
                     _elementMetadataOverrides,
@@ -96,6 +102,7 @@ namespace ExRam.Gremlinq.Core.Models
 
             public IGraphElementModel ConfigureMetadata(MemberInfo member, Func<MemberMetadata, MemberMetadata> transformation) => typeof(TBaseType).IsAssignableFrom(member.DeclaringType)
                 ? new GraphElementModelImpl<TBaseType>(
+                    _assemblies,
                     ElementTypes,
                     Members,
                     _elementMetadataOverrides,
@@ -123,7 +130,7 @@ namespace ExRam.Gremlinq.Core.Models
                         : overrides.Remove(member);
                 }
 
-                return new GraphElementModelImpl<TBaseType>(ElementTypes, Members, _elementMetadataOverrides, overrides);
+                return new GraphElementModelImpl<TBaseType>(_assemblies, ElementTypes, Members, _elementMetadataOverrides, overrides);
             }
 
             public IImmutableSet<Type> ElementTypes { get; }
