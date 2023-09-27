@@ -45,7 +45,7 @@ namespace ExRam.Gremlinq.Core
                     {
                         var property = base.CreateProperty(member, memberSerialization);
 
-                        if ((_model.VerticesModel.TryGetMetadata(member) ?? _model.EdgesModel.TryGetMetadata(member)) is { } metadata && metadata.Key.RawKey is string name)
+                        if ((_model.VerticesModel.TryGetMetadata(member) ?? _model.EdgesModel.TryGetMetadata(member)) is { Key.RawKey: string name })
                             property.PropertyName = name;
 
                         if (member.DeclaringType is { } declaringType)

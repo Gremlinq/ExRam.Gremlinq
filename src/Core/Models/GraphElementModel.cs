@@ -164,21 +164,13 @@ namespace ExRam.Gremlinq.Core.Models
 
         public static IGraphElementModel ConfigureElement<TElement>(this IGraphElementModel model, Func<IMemberMetadataConfigurator<TElement>, IMemberMetadataConfigurator<TElement>> transformation) => transformation(MemberMetadataConfigurator<TElement>.Identity).Transform(model);
 
-        public static IGraphElementModel UseCamelCaseNames(this IGraphElementModel model) => model.ConfigureNames(static (_, key) => key.RawKey is string name
-            ? name.ToCamelCase()
-            : key);
+        public static IGraphElementModel UseCamelCaseNames(this IGraphElementModel model) => model.ConfigureNames(static (_, name) => name.ToCamelCase());
 
-        public static IGraphElementModel UseLowerCaseNames(this IGraphElementModel model) => model.ConfigureNames(static (_, key) => key.RawKey is string name
-            ? name.ToLower()
-            : key);
+        public static IGraphElementModel UseLowerCaseNames(this IGraphElementModel model) => model.ConfigureNames(static (_, name) => name.ToLower());
 
         public static ElementMetadata GetMetadata(this IGraphElementModel model, Type elementType) => model.TryGetMetadata(elementType) ?? throw new ArgumentException();
 
         public static MemberMetadata GetMetadata(this IGraphElementModel model, MemberInfo memberInfo) => model.TryGetMetadata(memberInfo) ?? throw new ArgumentException();
-
-        internal static IGraphElementModel ConfigureNames(this IGraphElementModel model, Func<MemberInfo, Key, Key> transformation) => model.ConfigureMetadata((member, metadata) => new MemberMetadata(
-            transformation(member, metadata.Key),
-            metadata.SerializationBehaviour));
 
         internal static ImmutableArray<string>? TryGetFilterLabels(this IGraphElementModel model, Type type, FilterLabelsVerbosity verbosity)
         {
@@ -194,5 +186,11 @@ namespace ExRam.Gremlinq.Core.Models
         internal static IGraphElementModel FromBaseType<TType>() => GraphElementModelImpl<TType>.Empty.AddAssemblies(typeof(TType).Assembly);
 
         internal static ImmutableArray<string> GetFilterLabelsOrDefault(this IGraphElementModel model, Type type, FilterLabelsVerbosity verbosity) => model.TryGetFilterLabels(type, verbosity) ?? ImmutableArray.Create(type.Name);
+
+        private static IGraphElementModel ConfigureNames(this IGraphElementModel model, Func<MemberInfo, string, string> transformation) => model.ConfigureMetadata((member, metadata) => metadata.Key.RawKey is string name
+            ? new MemberMetadata(
+                transformation(member, name),
+                metadata.SerializationBehaviour)
+            : metadata);
     }
 }
