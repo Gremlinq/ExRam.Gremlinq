@@ -2,16 +2,16 @@
 {
     public static class ConfigurableGremlinQuerySourceExtensions
     {
-        public static ExRam.Gremlinq.Core.IGremlinQuerySource UseCosmosDb<TVertexBase, TEdgeBase>(this ExRam.Gremlinq.Core.IConfigurableGremlinQuerySource source, System.Linq.Expressions.Expression<System.Func<TVertexBase, object>> partitionKeyExpression, System.Func<ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator, ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation> configuratorTransformation) { }
+        public static ExRam.Gremlinq.Core.IGremlinQuerySource UseCosmosDb<TVertexBase, TEdgeBase>(this ExRam.Gremlinq.Core.IConfigurableGremlinQuerySource source, System.Linq.Expressions.Expression<System.Func<TVertexBase, object>> partitionKeyExpression, System.Func<ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator<TVertexBase>, ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation> configuratorTransformation) { }
     }
 }
 namespace ExRam.Gremlinq.Providers.CosmosDb
 {
     public static class CosmosDbConfiguratorExtensions
     {
-        public static ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator At(this ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator configurator, string uri, string databaseName, string graphName) { }
-        public static ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator At(this ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator configurator, System.Uri uri, string databaseName, string graphName) { }
-        public static ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator AtLocalhost(this ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator configurator, string databaseName, string graphName) { }
+        public static ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator<TVertexBase> At<TVertexBase>(this ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator<TVertexBase> configurator, string uri, string databaseName, string graphName) { }
+        public static ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator<TVertexBase> At<TVertexBase>(this ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator<TVertexBase> configurator, System.Uri uri, string databaseName, string graphName) { }
+        public static ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator<TVertexBase> AtLocalhost<TVertexBase>(this ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator<TVertexBase> configurator, string databaseName, string graphName) { }
     }
     public readonly struct CosmosDbKey
     {
@@ -20,10 +20,10 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
         public string Id { get; }
         public string? PartitionKey { get; }
     }
-    public interface ICosmosDbConfigurator : ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation, ExRam.Gremlinq.Core.IGremlinqConfigurator<ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator>, ExRam.Gremlinq.Providers.Core.IProviderConfigurator<ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator>, ExRam.Gremlinq.Providers.Core.IWebSocketProviderConfigurator<ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator>
+    public interface ICosmosDbConfigurator<TVertexBase> : ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation, ExRam.Gremlinq.Core.IGremlinqConfigurator<ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator<TVertexBase>>, ExRam.Gremlinq.Providers.Core.IProviderConfigurator<ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator<TVertexBase>>, ExRam.Gremlinq.Providers.Core.IWebSocketProviderConfigurator<ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator<TVertexBase>>
     {
-        ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator AuthenticateBy(string authKey);
-        ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator OnDatabase(string databaseName);
-        ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator OnGraph(string graphName);
+        ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator<TVertexBase> AuthenticateBy(string authKey);
+        ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator<TVertexBase> OnDatabase(string databaseName);
+        ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator<TVertexBase> OnGraph(string graphName);
     }
 }
