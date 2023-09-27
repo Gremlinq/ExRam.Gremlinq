@@ -29,14 +29,12 @@ namespace ExRam.Gremlinq.Core
             }
 
             public ICosmosDbConfigurator OnDatabase(string databaseName) => new CosmosDbConfigurator(
-                _webSocketConfigurator
-                    .ConfigureServer(server => server.WithUsername($"/dbs/{databaseName}/colls/{_graphName ?? string.Empty}")),
+                _webSocketConfigurator,
                 databaseName,
                 _graphName);
 
             public ICosmosDbConfigurator OnGraph(string graphName) => new CosmosDbConfigurator(
-                _webSocketConfigurator
-                    .ConfigureServer(server => server.WithUsername($"/dbs/{_databaseName ?? string.Empty}/colls/{graphName}")),
+                _webSocketConfigurator,
                 _databaseName,
                 graphName);
 
@@ -61,7 +59,22 @@ namespace ExRam.Gremlinq.Core
                 _databaseName,
                 _graphName);
 
-            public IGremlinQuerySource Transform(IGremlinQuerySource source) => _webSocketConfigurator.Transform(source);
+            public IGremlinQuerySource Transform(IGremlinQuerySource source)
+            {
+                if (_databaseName is { Length: > 0 } databaseName)
+                {
+                    if (_graphName is { Length: > 0 } graphName)
+                    {
+                        return _webSocketConfigurator
+                            .ConfigureServer(server => server.WithUsername($"/dbs/{databaseName}/colls/{graphName}"))
+                            .Transform(source);
+                    }
+
+                    throw new InvalidOperationException($"A valid graph name must be configured. Use {nameof(OnGraph)} on {nameof(ICosmosDbConfigurator)} to configure the CosmosDb graph name.");
+                }
+
+                throw new InvalidOperationException($"A valid database name must be configured. Use {nameof(OnDatabase)} on {nameof(ICosmosDbConfigurator)} to configure the CosmosDb database name.");
+            }
         }
 
         private class WorkaroundOrder : EnumWrapper, IComparator
