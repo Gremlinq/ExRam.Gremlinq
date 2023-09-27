@@ -28,39 +28,6 @@ namespace ExRam.Gremlinq.Core.Models
                 _elementMetadataOverrides = elementMetadataOverrides;
             }
 
-            public IGraphElementModel ConfigureMetadata(Func<Type, ElementMetadata, ElementMetadata> metaDataTransformation)
-            {
-                var overrides = _elementMetadataOverrides;
-
-                foreach (var elementType in ElementTypes)
-                {
-                    var newMetadata = metaDataTransformation(elementType, this.GetMetadata(elementType));
-
-                    overrides = newMetadata.Label != elementType.Name   //TODO: Equality operators
-                        ? overrides.SetItem(elementType, newMetadata)
-                        : overrides.Remove(elementType);
-                }
-
-                return new GraphElementModelImpl<TBaseType>(_assemblies, ElementTypes, Members, overrides, _memberMetadataOverrides);
-            }
-
-            public IGraphElementModel ConfigureMetadata(Type elementType, Func<ElementMetadata, ElementMetadata> metadataTransformation) => typeof(TBaseType).IsAssignableFrom(elementType)
-                ? new GraphElementModelImpl<TBaseType>(
-                    _assemblies,
-                    ElementTypes,
-                    Members,
-                    _elementMetadataOverrides.SetItem(
-                        elementType,
-                        metadataTransformation(this.GetMetadata(elementType))),
-                    _memberMetadataOverrides)
-                : throw new InvalidOperationException();
-
-            public ElementMetadata? TryGetMetadata(Type elementType) => typeof(TBaseType).IsAssignableFrom(elementType)
-                ? _elementMetadataOverrides.TryGetValue(elementType, out var elementMetadata)
-                    ? elementMetadata
-                    : new ElementMetadata(elementType.Name)
-                : default(ElementMetadata?);
-
             public IGraphElementModel AddAssemblies(params Assembly[] assemblies)
             {
                 var newMembers = Members;
@@ -100,22 +67,32 @@ namespace ExRam.Gremlinq.Core.Models
                     _memberMetadataOverrides);
             }
 
-            public IGraphElementModel ConfigureMetadata(MemberInfo member, Func<MemberMetadata, MemberMetadata> transformation) => typeof(TBaseType).IsAssignableFrom(member.DeclaringType)
+            public IGraphElementModel ConfigureMetadata(Func<Type, ElementMetadata, ElementMetadata> metaDataTransformation)
+            {
+                var overrides = _elementMetadataOverrides;
+
+                foreach (var elementType in ElementTypes)
+                {
+                    var newMetadata = metaDataTransformation(elementType, this.GetMetadata(elementType));
+
+                    overrides = newMetadata.Label != elementType.Name   //TODO: Equality operators
+                        ? overrides.SetItem(elementType, newMetadata)
+                        : overrides.Remove(elementType);
+                }
+
+                return new GraphElementModelImpl<TBaseType>(_assemblies, ElementTypes, Members, overrides, _memberMetadataOverrides);
+            }
+
+            public IGraphElementModel ConfigureMetadata(Type elementType, Func<ElementMetadata, ElementMetadata> metadataTransformation) => IsWithinModel(elementType)
                 ? new GraphElementModelImpl<TBaseType>(
                     _assemblies,
                     ElementTypes,
                     Members,
-                    _elementMetadataOverrides,
-                    _memberMetadataOverrides.SetItem(
-                        member,
-                        transformation(this.GetMetadata(member))))
-                : throw new InvalidOperationException();
-
-            public MemberMetadata? TryGetMetadata(MemberInfo memberInfo) => _memberMetadataOverrides.TryGetValue(memberInfo, out var metadata)
-                ? metadata
-                : typeof(TBaseType).IsAssignableFrom(memberInfo.DeclaringType)
-                    ? MemberMetadata.Default(memberInfo.Name)
-                    : default(MemberMetadata?);
+                    _elementMetadataOverrides.SetItem(
+                        elementType,
+                        metadataTransformation(this.GetMetadata(elementType))),
+                    _memberMetadataOverrides)
+                : ThrowOutsideModel<IGraphElementModel>();
 
             public IGraphElementModel ConfigureMetadata(Func<MemberInfo, MemberMetadata, MemberMetadata> transformation)
             {
@@ -133,9 +110,39 @@ namespace ExRam.Gremlinq.Core.Models
                 return new GraphElementModelImpl<TBaseType>(_assemblies, ElementTypes, Members, _elementMetadataOverrides, overrides);
             }
 
+            public IGraphElementModel ConfigureMetadata(MemberInfo member, Func<MemberMetadata, MemberMetadata> transformation) => IsWithinModel(member)
+                ? new GraphElementModelImpl<TBaseType>(
+                    _assemblies,
+                    ElementTypes,
+                    Members,
+                    _elementMetadataOverrides,
+                    _memberMetadataOverrides.SetItem(
+                        member,
+                        transformation(this.GetMetadata(member))))
+                : ThrowOutsideModel<IGraphElementModel>();
+
+            public MemberMetadata? TryGetMetadata(MemberInfo member) => _memberMetadataOverrides.TryGetValue(member, out var metadata)
+                ? metadata
+                : IsWithinModel(member)
+                    ? MemberMetadata.Default(member.Name)
+                    : default(MemberMetadata?);
+
+            public ElementMetadata? TryGetMetadata(Type elementType) => _elementMetadataOverrides.TryGetValue(elementType, out var elementMetadata)
+                ? elementMetadata
+                : IsWithinModel(elementType)
+                    ? new ElementMetadata(elementType.Name)
+                    : default(ElementMetadata?);
+
             public IImmutableSet<Type> ElementTypes { get; }
 
             public IImmutableSet<MemberInfo> Members { get; }
+
+
+            private static bool IsWithinModel(MemberInfo memberInfo) => memberInfo.DeclaringType is { } declaringType && IsWithinModel(declaringType);
+
+            private static bool IsWithinModel(Type type) => typeof(TBaseType).IsAssignableFrom(type);
+
+            private static T ThrowOutsideModel<T>() => throw new InvalidOperationException();
         }
 
         private sealed class InvalidGraphElementModel : IGraphElementModel
