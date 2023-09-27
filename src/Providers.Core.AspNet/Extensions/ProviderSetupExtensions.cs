@@ -82,13 +82,6 @@ namespace ExRam.Gremlinq.Providers.Core.AspNet
             return configurator;
         }
 
-        public static ProviderSetup<TConfigurator> Configure<TConfigurator>(this ProviderSetup<TConfigurator> setup, Func<TConfigurator, IProviderConfigurationSection, TConfigurator> extraConfiguration)
-           where TConfigurator : IProviderConfigurator<TConfigurator>
-        {
-            return setup
-                .Configure((configurator, _, providerSection) => extraConfiguration(configurator, providerSection.MergeWithGremlinqSection()));
-        }
-
         public static ProviderSetup<TConfigurator> Configure<TConfigurator>(this ProviderSetup<TConfigurator> setup, Func<TConfigurator, IGremlinqConfigurationSection, IProviderConfigurationSection, TConfigurator> extraConfiguration)
             where TConfigurator : IProviderConfigurator<TConfigurator>
         {
