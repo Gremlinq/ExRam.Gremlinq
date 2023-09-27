@@ -1,5 +1,6 @@
 ﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Providers.Core;
+using ExRam.Gremlinq.Tests.Entities;
 using ExRam.Gremlinq.Tests.Fixtures;
 
 namespace ExRam.Gremlinq.Providers.Neptune.Tests
@@ -7,7 +8,7 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
     public sealed class ElasticSearchNeptuneFixture : GremlinqFixture
     {
         protected override async Task<IGremlinQuerySource> TransformQuerySource(IConfigurableGremlinQuerySource g) => g
-            .UseNeptune(builder => builder
+            .UseNeptune<Vertex, Edge>(builder => builder
                 .AtLocalhost()
                 .UseElasticSearch(new Uri("http://elastic.search.server")));
     }
