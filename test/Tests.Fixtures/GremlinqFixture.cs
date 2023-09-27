@@ -1,4 +1,7 @@
 ﻿using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Core.Models;
+using ExRam.Gremlinq.Tests.Entities;
+
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Tests.Fixtures
@@ -36,7 +39,11 @@ namespace ExRam.Gremlinq.Tests.Fixtures
                 try
                 {
                     var g1 = await TransformQuerySource(g);
-                    newTcs.TrySetResult(g1);
+                    newTcs.TrySetResult(g1
+                        .ConfigureEnvironment(env => env
+                            .ConfigureModel(model => model == GraphModel.Invalid
+                                ? GraphModel.FromBaseTypes<Vertex, Edge>()
+                                : model)));
                 }
                 catch (Exception ex)
                 {
