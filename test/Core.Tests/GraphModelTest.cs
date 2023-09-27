@@ -338,18 +338,6 @@ namespace ExRam.Gremlinq.Core.Tests
 
             model
                 .VerticesModel
-                .TryGetMetadata(typeof(Person))
-                .Should()
-                .NotBeNull();
-
-            model
-                .VerticesModel
-                .TryGetMetadata(typeof(Person).GetProperty(nameof(Person.RegistrationDate))!)
-                .Should()
-                .NotBeNull();
-
-            model
-                .VerticesModel
                 .TryGetMetadata(typeof(VertexInsideHierarchy))
                 .Should()
                 .BeNull();
@@ -359,6 +347,26 @@ namespace ExRam.Gremlinq.Core.Tests
                 .TryGetMetadata(typeof(VertexInsideHierarchy).GetProperty(nameof(VertexInsideHierarchy.ExtraProperty))!)
                 .Should()
                 .BeNull();
+        }
+
+        [Fact]
+        public async Task AddAssemblies()
+        {
+            var model = GraphModel
+                .FromBaseTypes<Vertex, Edge>()
+                .AddAssemblies(typeof(VertexInsideHierarchy).Assembly);
+
+            model
+                .VerticesModel
+                .TryGetMetadata(typeof(VertexInsideHierarchy))
+                .Should()
+                .NotBeNull();
+
+            model
+                .VerticesModel
+                .TryGetMetadata(typeof(VertexInsideHierarchy).GetProperty(nameof(VertexInsideHierarchy.ExtraProperty))!)
+                .Should()
+                .NotBeNull();
         }
     }
 }
