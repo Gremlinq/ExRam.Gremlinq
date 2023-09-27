@@ -30,10 +30,10 @@ namespace ExRam.Gremlinq.Tests.Fixtures
 
                 return g
                     .UseCosmosDb<Vertex, Edge>(
-                        x => x.Label!,
                         builder => builder
                             .At(new Uri("ws://localhost:8901"), CosmosDbEmulatorDatabaseName, CosmosDbEmulatorCollectionName)
                             .AuthenticateBy(CosmosDbEmulatorAuthKey)
+                            .WithPartitionKey(x => x.Label!)
                             .UseNewtonsoftJson())
                     .ConfigureEnvironment(env => env
                         .AddFakePartitionKey());

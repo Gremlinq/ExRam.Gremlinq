@@ -15,49 +15,63 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class CosmosDbConfigurator<TVertexBase> : ICosmosDbConfigurator<TVertexBase>
         {
-            public static readonly CosmosDbConfigurator<TVertexBase> Default = new(WebSocketProviderConfigurator.Default, null, null);
+            public static readonly CosmosDbConfigurator<TVertexBase> Default = new(WebSocketProviderConfigurator.Default, null, null, null);
 
             private readonly string? _graphName;
             private readonly string? _databaseName;
             private readonly WebSocketProviderConfigurator _webSocketConfigurator;
+            private readonly Expression<Func<TVertexBase, object>>? _partitionKeyExpression;
 
-            private CosmosDbConfigurator(WebSocketProviderConfigurator webSocketProviderConfigurator, string? databaseName, string? graphName)
+            private CosmosDbConfigurator(WebSocketProviderConfigurator webSocketProviderConfigurator, string? databaseName, string? graphName, Expression<Func<TVertexBase, object>>? partitionKeyExpression)
             {
                 _graphName = graphName;
                 _databaseName = databaseName;
+                _partitionKeyExpression = partitionKeyExpression;
                 _webSocketConfigurator = webSocketProviderConfigurator;
             }
 
             public ICosmosDbConfigurator<TVertexBase> OnDatabase(string databaseName) => new CosmosDbConfigurator<TVertexBase>(
                 _webSocketConfigurator,
                 databaseName,
-                _graphName);
+                _graphName,
+                _partitionKeyExpression);
 
             public ICosmosDbConfigurator<TVertexBase> OnGraph(string graphName) => new CosmosDbConfigurator<TVertexBase>(
                 _webSocketConfigurator,
                 _databaseName,
-                graphName);
+                graphName,
+                _partitionKeyExpression);
 
             public ICosmosDbConfigurator<TVertexBase> AuthenticateBy(string authKey) => new CosmosDbConfigurator<TVertexBase>(
                 _webSocketConfigurator
                     .ConfigureServer(server => server.WithPassword(authKey)),
                 _databaseName,
-                _graphName);
+                _graphName,
+                _partitionKeyExpression);
 
             public ICosmosDbConfigurator<TVertexBase> ConfigureServer(Func<GremlinServer, GremlinServer> transformation) => new CosmosDbConfigurator<TVertexBase>(
                 _webSocketConfigurator.ConfigureServer(transformation),
                 _databaseName,
-                _graphName);
+                _graphName,
+                _partitionKeyExpression);
 
             public ICosmosDbConfigurator<TVertexBase> ConfigureClientFactory(Func<IGremlinClientFactory, IGremlinClientFactory> transformation) => new CosmosDbConfigurator<TVertexBase>(
                 _webSocketConfigurator.ConfigureClientFactory(transformation),
                 _databaseName,
-                _graphName);
+                _graphName,
+                _partitionKeyExpression);
 
             public ICosmosDbConfigurator<TVertexBase> ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> transformation) => new CosmosDbConfigurator<TVertexBase>(
                 _webSocketConfigurator.ConfigureQuerySource(transformation),
                 _databaseName,
-                _graphName);
+                _graphName,
+                _partitionKeyExpression);
+
+            public ICosmosDbConfigurator<TVertexBase> WithPartitionKey(Expression<Func<TVertexBase, object>> partitionKeyExpression) => new CosmosDbConfigurator<TVertexBase>(
+                _webSocketConfigurator,
+                _databaseName,
+                _graphName,
+                partitionKeyExpression);
 
             public IGremlinQuerySource Transform(IGremlinQuerySource source)
             {
@@ -65,9 +79,20 @@ namespace ExRam.Gremlinq.Core
                 {
                     if (_graphName is { Length: > 0 } graphName)
                     {
-                        return _webSocketConfigurator
-                            .ConfigureServer(server => server.WithUsername($"/dbs/{databaseName}/colls/{graphName}"))
-                            .Transform(source);
+                        if (_partitionKeyExpression is { } partitionKeyExpression)
+                        {
+                            return _webSocketConfigurator
+                                .ConfigureServer(server => server
+                                    .WithUsername($"/dbs/{databaseName}/colls/{graphName}"))
+                                .Transform(source
+                                    .ConfigureEnvironment(env => env
+                                        .ConfigureModel(model => model
+                                            .ConfigureVertices(model => model
+                                                .ConfigureElement<TVertexBase>(conf => conf
+                                                .IgnoreOnUpdate(partitionKeyExpression))))));
+                        }
+
+                        throw new InvalidOperationException($"A valid partition key must be configured. Use {nameof(WithPartitionKey)} on {nameof(ICosmosDbConfigurator<TVertexBase>)} to configure a CosmosDb partition key.");
                     }
 
                     throw new InvalidOperationException($"A valid graph name must be configured. Use {nameof(OnGraph)} on {nameof(ICosmosDbConfigurator<TVertexBase>)} to configure the CosmosDb graph name.");
@@ -89,17 +114,14 @@ namespace ExRam.Gremlinq.Core
 
         private static readonly NotStep NoneWorkaround = new(IdentityStep.Instance);
 
-        public static IGremlinQuerySource UseCosmosDb<TVertexBase, TEdgeBase>(this IConfigurableGremlinQuerySource source, Expression<Func<TVertexBase, object>> partitionKeyExpression, Func<ICosmosDbConfigurator<TVertexBase>, IGremlinQuerySourceTransformation> configuratorTransformation)
+        public static IGremlinQuerySource UseCosmosDb<TVertexBase, TEdgeBase>(this IConfigurableGremlinQuerySource source, Func<ICosmosDbConfigurator<TVertexBase>, IGremlinQuerySourceTransformation> configuratorTransformation)
         {
             return configuratorTransformation
                 .Invoke(CosmosDbConfigurator<TVertexBase>.Default)
                 .Transform(source
                     .ConfigureEnvironment(environment => environment
                         .UseModel(GraphModel
-                            .FromBaseTypes<TVertexBase, TEdgeBase>()
-                            .ConfigureVertices(model => model
-                                .ConfigureElement<TVertexBase>(conf => conf
-                                    .IgnoreOnUpdate(partitionKeyExpression))))
+                            .FromBaseTypes<TVertexBase, TEdgeBase>())
                         .ConfigureFeatureSet(featureSet => featureSet
                             .ConfigureGraphFeatures(_ => GraphFeatures.Transactions | GraphFeatures.Persistence | GraphFeatures.ConcurrentAccess)
                             .ConfigureVariableFeatures(_ => VariableFeatures.BooleanValues | VariableFeatures.IntegerValues | VariableFeatures.ByteValues | VariableFeatures.DoubleValues | VariableFeatures.FloatValues | VariableFeatures.IntegerValues | VariableFeatures.LongValues | VariableFeatures.StringValues)

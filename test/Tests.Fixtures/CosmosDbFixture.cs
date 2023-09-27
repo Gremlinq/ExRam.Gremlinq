@@ -9,9 +9,9 @@ namespace ExRam.Gremlinq.Tests.Fixtures
     {
         protected override async Task<IGremlinQuerySource> TransformQuerySource(IConfigurableGremlinQuerySource g) => g
             .UseCosmosDb<Vertex, Edge>(
-                vertex => vertex.Label!,
                 builder => builder
                     .AtLocalhost("db", "graph")
+                    .WithPartitionKey(x => x.Label!)
                     .UseNewtonsoftJson())
             .ConfigureEnvironment(env => env
                 .AddFakePartitionKey());
