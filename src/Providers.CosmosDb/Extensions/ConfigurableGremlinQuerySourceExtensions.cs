@@ -1,4 +1,7 @@
-﻿using ExRam.Gremlinq.Core.Steps;
+﻿using System.Linq.Expressions;
+
+using ExRam.Gremlinq.Core.Models;
+using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Providers.Core;
 using ExRam.Gremlinq.Providers.CosmosDb;
@@ -81,12 +84,17 @@ namespace ExRam.Gremlinq.Core
 
         private static readonly NotStep NoneWorkaround = new(IdentityStep.Instance);
 
-        public static IGremlinQuerySource UseCosmosDb(this IConfigurableGremlinQuerySource source, Func<ICosmosDbConfigurator, IGremlinQuerySourceTransformation> configuratorTransformation)
+        public static IGremlinQuerySource UseCosmosDb<TVertexBase, TEdgeBase>(this IConfigurableGremlinQuerySource source, Expression<Func<TVertexBase, object>> partitionKeyExpression, Func<ICosmosDbConfigurator, IGremlinQuerySourceTransformation> configuratorTransformation)
         {
             return configuratorTransformation
                 .Invoke(CosmosDbConfigurator.Default)
                 .Transform(source
                     .ConfigureEnvironment(environment => environment
+                        .UseModel(GraphModel
+                            .FromBaseTypes<TVertexBase, TEdgeBase>()
+                            .ConfigureVertices(model => model
+                                .ConfigureElement<TVertexBase>(conf => conf
+                                    .IgnoreOnUpdate(partitionKeyExpression))))
                         .ConfigureFeatureSet(featureSet => featureSet
                             .ConfigureGraphFeatures(_ => GraphFeatures.Transactions | GraphFeatures.Persistence | GraphFeatures.ConcurrentAccess)
                             .ConfigureVariableFeatures(_ => VariableFeatures.BooleanValues | VariableFeatures.IntegerValues | VariableFeatures.ByteValues | VariableFeatures.DoubleValues | VariableFeatures.FloatValues | VariableFeatures.IntegerValues | VariableFeatures.LongValues | VariableFeatures.StringValues)

@@ -2,7 +2,7 @@
 {
     public static class ConfigurableGremlinQuerySourceExtensions
     {
-        public static ExRam.Gremlinq.Core.IGremlinQuerySource UseCosmosDb(this ExRam.Gremlinq.Core.IConfigurableGremlinQuerySource source, System.Func<ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator, ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation> configuratorTransformation) { }
+        public static ExRam.Gremlinq.Core.IGremlinQuerySource UseCosmosDb<TVertexBase, TEdgeBase>(this ExRam.Gremlinq.Core.IConfigurableGremlinQuerySource source, System.Linq.Expressions.Expression<System.Func<TVertexBase, object>> partitionKeyExpression, System.Func<ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator, ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation> configuratorTransformation) { }
     }
 }
 namespace ExRam.Gremlinq.Providers.CosmosDb
