@@ -49,23 +49,19 @@ namespace ExRam.Gremlinq.Providers.Core.AspNet
             }
         }
 
-        public static ProviderSetup<TConfigurator> Configure<TConfigurator>(this ProviderSetup<TConfigurator> setup)
+        public static TConfigurator ConfigureBase<TConfigurator>(this TConfigurator configurator, IConfigurationSection section)
            where TConfigurator : IProviderConfigurator<TConfigurator>
         {
-            return setup
-                .Configure((configurator, providerSection) =>
-                {
-                    if (providerSection["Alias"] is { Length: > 0 } alias)
-                    {
-                        configurator = configurator
-                            .ConfigureQuerySource(source => source
-                                .ConfigureEnvironment(env => env
-                                    .ConfigureOptions(options => options
-                                        .SetValue(GremlinqOption.Alias, alias))));
-                    }
+            if (section["Alias"] is { Length: > 0 } alias)
+            {
+                configurator = configurator
+                    .ConfigureQuerySource(source => source
+                        .ConfigureEnvironment(env => env
+                            .ConfigureOptions(options => options
+                                .SetValue(GremlinqOption.Alias, alias))));
+            }
 
-                    return configurator;
-                });
+            return configurator;
         }
 
         public static TConfigurator ConfigureWebSocket<TConfigurator>(this TConfigurator configurator, IConfigurationSection section)
