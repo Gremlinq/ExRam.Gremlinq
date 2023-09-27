@@ -16,8 +16,13 @@ namespace ExRam.Gremlinq.Core.AspNet
                         .UseJanusGraph<TVertexBase, TEdgeBase>(configuratorTransformation),
                     setup => setup
                         .Configure()
-                        .ConfigureWebSocket()
-                        .Configure((configurator, section) => configuration?.Invoke(configurator, section) ?? configurator));
+                        .Configure((configurator, section) =>
+                        {
+                            configurator = configurator
+                                .ConfigureWebSocket(section);
+
+                            return configuration?.Invoke(configurator, section) ?? configurator;
+                        }));
         }
     }
 }

@@ -68,26 +68,22 @@ namespace ExRam.Gremlinq.Providers.Core.AspNet
                 });
         }
 
-        public static ProviderSetup<TConfigurator> ConfigureWebSocket<TConfigurator>(this ProviderSetup<TConfigurator> setup)
+        public static TConfigurator ConfigureWebSocket<TConfigurator>(this TConfigurator configurator, IConfigurationSection section)
            where TConfigurator : IWebSocketProviderConfigurator<TConfigurator>
         {
-            return setup
-                .Configure((configurator, providerSection) =>
-                {
-                    var authenticationSection = providerSection.GetSection("Authentication");
-                    var connectionPoolSection = providerSection.GetSection("ConnectionPool");
+            var authenticationSection = section.GetSection("Authentication");
+            var connectionPoolSection = section.GetSection("ConnectionPool");
 
-                    if (providerSection["Uri"] is { } uri)
-                        configurator = configurator.At(uri);
+            if (section["Uri"] is { } uri)
+                configurator = configurator.At(uri);
 
-                    configurator
-                        .ConfigureClientFactory(factory => new ConnectionPoolSettingsGremlinClientFactory(factory, connectionPoolSection));
+            configurator
+                .ConfigureClientFactory(factory => new ConnectionPoolSettingsGremlinClientFactory(factory, connectionPoolSection));
 
-                    if (authenticationSection["Username"] is { } username && authenticationSection["Password"] is { } password)
-                        configurator = configurator.AuthenticateBy(username, password);
+            if (authenticationSection["Username"] is { } username && authenticationSection["Password"] is { } password)
+                configurator = configurator.AuthenticateBy(username, password);
 
-                    return configurator;
-                });
+            return configurator;
         }
 
         public static ProviderSetup<TConfigurator> Configure<TConfigurator>(this ProviderSetup<TConfigurator> setup, Func<TConfigurator, IProviderConfigurationSection, TConfigurator> extraConfiguration)
