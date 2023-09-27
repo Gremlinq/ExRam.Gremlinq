@@ -15,10 +15,10 @@ namespace ExRam.Gremlinq.Core.AspNet
                     (source, configuratorTransformation) => source
                         .UseNeptune<TVertexBase, TEdgeBase>(configuratorTransformation),
                     setup => setup
-                        .Configure()
                         .Configure((configurator, providerSection) =>
                         {
                             configurator = configurator
+                                .ConfigureBase(providerSection)
                                 .ConfigureWebSocket(providerSection);
 
                             if (providerSection.GetSection("ElasticSearch") is { } elasticSearchSection)

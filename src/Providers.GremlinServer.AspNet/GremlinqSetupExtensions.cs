@@ -15,10 +15,10 @@ namespace ExRam.Gremlinq.Core.AspNet
                     (source, configuratorTransformation) => source
                         .UseGremlinServer<TVertex, TEdge>(configuratorTransformation),
                     setup => setup
-                        .Configure()
                         .Configure((configurator, section) =>
                         {
                             configurator = configurator
+                                .ConfigureBase(section)
                                 .ConfigureWebSocket(section);
 
                             return configuration?.Invoke(configurator, section) ?? configurator;
