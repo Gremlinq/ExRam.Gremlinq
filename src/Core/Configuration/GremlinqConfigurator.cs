@@ -2,13 +2,11 @@
 {
     public sealed class GremlinqConfigurator : IGremlinqConfigurator<GremlinqConfigurator>
     {
+        public static readonly GremlinqConfigurator Identity = new (_ => _);
+
         private readonly Func<IGremlinQuerySource, IGremlinQuerySource> _transformation;
 
-        public GremlinqConfigurator() : this(_ => _)
-        {
-        }
-
-        public GremlinqConfigurator(Func<IGremlinQuerySource, IGremlinQuerySource> transformation)
+        private GremlinqConfigurator(Func<IGremlinQuerySource, IGremlinQuerySource> transformation)
         {
             _transformation = transformation;
         }

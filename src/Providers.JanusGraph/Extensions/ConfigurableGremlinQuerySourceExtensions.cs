@@ -8,11 +8,9 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class JanusGraphConfigurator : IJanusGraphConfigurator
         {
-            private readonly WebSocketProviderConfigurator _webSocketProviderConfigurator;
+            public static readonly JanusGraphConfigurator Default = new (WebSocketProviderConfigurator.Default);
 
-            public JanusGraphConfigurator() : this(new WebSocketProviderConfigurator())
-            {
-            }
+            private readonly WebSocketProviderConfigurator _webSocketProviderConfigurator;
 
             private JanusGraphConfigurator(WebSocketProviderConfigurator webSocketProviderConfigurator)
             {
@@ -31,7 +29,7 @@ namespace ExRam.Gremlinq.Core
         public static IGremlinQuerySource UseJanusGraph(this IConfigurableGremlinQuerySource source, Func<IJanusGraphConfigurator, IGremlinQuerySourceTransformation> configuratorTransformation)
         {
             return configuratorTransformation
-                .Invoke(new JanusGraphConfigurator())
+                .Invoke(JanusGraphConfigurator.Default)
                 .Transform(source
                     .ConfigureEnvironment(environment => environment
                         .ConfigureFeatureSet(featureSet => featureSet

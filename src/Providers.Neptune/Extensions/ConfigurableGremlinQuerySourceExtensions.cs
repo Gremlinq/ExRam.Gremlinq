@@ -15,11 +15,9 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class NeptuneConfigurator : INeptuneConfigurator
         {
-            private readonly WebSocketProviderConfigurator _webSocketProviderConfigurator;
+            public static readonly NeptuneConfigurator Default = new (WebSocketProviderConfigurator.Default);
 
-            public NeptuneConfigurator() : this(new WebSocketProviderConfigurator())
-            {
-            }
+            private readonly WebSocketProviderConfigurator _webSocketProviderConfigurator;
 
             private NeptuneConfigurator(WebSocketProviderConfigurator webSocketProviderConfigurator)
             {
@@ -49,7 +47,7 @@ namespace ExRam.Gremlinq.Core
             };
             
             return configuratorTransformation
-                .Invoke(new NeptuneConfigurator())
+                .Invoke(NeptuneConfigurator.Default)
                 .Transform(source
                     .ConfigureEnvironment(environment => environment
                         .ConfigureFeatureSet(featureSet => featureSet
