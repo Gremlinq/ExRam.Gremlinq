@@ -2,7 +2,7 @@
 {
     public static class ConfigurableGremlinQuerySourceExtensions
     {
-        public static ExRam.Gremlinq.Core.IGremlinQuerySource UseCosmosDb<TVertexBase, TEdgeBase>(this ExRam.Gremlinq.Core.IConfigurableGremlinQuerySource source, System.Linq.Expressions.Expression<System.Func<TVertexBase, object>> partitionKeyExpression, System.Func<ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator<TVertexBase>, ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation> configuratorTransformation) { }
+        public static ExRam.Gremlinq.Core.IGremlinQuerySource UseCosmosDb<TVertexBase, TEdgeBase>(this ExRam.Gremlinq.Core.IConfigurableGremlinQuerySource source, System.Func<ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator<TVertexBase>, ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation> configuratorTransformation) { }
     }
 }
 namespace ExRam.Gremlinq.Providers.CosmosDb
@@ -25,5 +25,6 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
         ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator<TVertexBase> AuthenticateBy(string authKey);
         ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator<TVertexBase> OnDatabase(string databaseName);
         ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator<TVertexBase> OnGraph(string graphName);
+        ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator<TVertexBase> WithPartitionKey(System.Linq.Expressions.Expression<System.Func<TVertexBase, object>> partitionKeyExpression);
     }
 }

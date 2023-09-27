@@ -1,18 +1,17 @@
-﻿using System.Linq.Expressions;
-using ExRam.Gremlinq.Providers.Core.AspNet;
+﻿using ExRam.Gremlinq.Providers.Core.AspNet;
 using ExRam.Gremlinq.Providers.CosmosDb;
 
 namespace ExRam.Gremlinq.Core.AspNet
 {
     public static class GremlinqSetupExtensions
     {
-        public static GremlinqSetup UseCosmosDb<TVertexBase, TEdgeBase>(this GremlinqSetup setup, Expression<Func<TVertexBase, object>> partitionKeyExpression, Action<ProviderSetup<ICosmosDbConfigurator<TVertexBase>>>? extraSetupAction = null)
+        public static GremlinqSetup UseCosmosDb<TVertexBase, TEdgeBase>(this GremlinqSetup setup, Action<ProviderSetup<ICosmosDbConfigurator<TVertexBase>>>? extraSetupAction = null)
         {
             return setup
                 .UseProvider(
                     "CosmosDb",
                     (source, configuratorTransformation) => source
-                        .UseCosmosDb<TVertexBase, TEdgeBase>(partitionKeyExpression, configuratorTransformation),
+                        .UseCosmosDb<TVertexBase, TEdgeBase>(configuratorTransformation),
                     setup => setup
                         .Configure()
                         .ConfigureWebSocket()
