@@ -35,8 +35,7 @@ namespace ExRam.Gremlinq.Core.AspNet.Tests
                         "Provider1",
                         (source, _) => source
                             .ConfigureEnvironment(_ => _),
-                        setup => { },
-                        default!))
+                        setup => { }))
                 .BuildServiceProvider();
 
             _section = serviceCollection
