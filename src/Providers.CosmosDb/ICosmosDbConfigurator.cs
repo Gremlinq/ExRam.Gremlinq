@@ -2,12 +2,12 @@
 
 namespace ExRam.Gremlinq.Providers.CosmosDb
 {
-    public interface ICosmosDbConfigurator : IWebSocketProviderConfigurator<ICosmosDbConfigurator>
+    public interface ICosmosDbConfigurator<TVertexBase> : IWebSocketProviderConfigurator<ICosmosDbConfigurator<TVertexBase>>
     {
-        ICosmosDbConfigurator OnDatabase(string databaseName);
+        ICosmosDbConfigurator<TVertexBase> OnDatabase(string databaseName);
 
-        ICosmosDbConfigurator OnGraph(string graphName);
+        ICosmosDbConfigurator<TVertexBase> OnGraph(string graphName);
 
-        ICosmosDbConfigurator AuthenticateBy(string authKey);
+        ICosmosDbConfigurator<TVertexBase> AuthenticateBy(string authKey);
     }
 }

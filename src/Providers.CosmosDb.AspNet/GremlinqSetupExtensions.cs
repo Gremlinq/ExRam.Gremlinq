@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq.Core.AspNet
 {
     public static class GremlinqSetupExtensions
     {
-        public static GremlinqSetup UseCosmosDb<TVertexBase, TEdgeBase>(this GremlinqSetup setup, Expression<Func<TVertexBase, object>> partitionKeyExpression, Action<ProviderSetup<ICosmosDbConfigurator>>? extraSetupAction = null)
+        public static GremlinqSetup UseCosmosDb<TVertexBase, TEdgeBase>(this GremlinqSetup setup, Expression<Func<TVertexBase, object>> partitionKeyExpression, Action<ProviderSetup<ICosmosDbConfigurator<TVertexBase>>>? extraSetupAction = null)
         {
             return setup
                 .UseProvider(

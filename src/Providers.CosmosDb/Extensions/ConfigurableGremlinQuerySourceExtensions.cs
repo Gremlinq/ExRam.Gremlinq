@@ -13,9 +13,9 @@ namespace ExRam.Gremlinq.Core
 {
     public static class ConfigurableGremlinQuerySourceExtensions
     {
-        private sealed class CosmosDbConfigurator : ICosmosDbConfigurator
+        private sealed class CosmosDbConfigurator<TVertexBase> : ICosmosDbConfigurator<TVertexBase>
         {
-            public static readonly CosmosDbConfigurator Default = new(WebSocketProviderConfigurator.Default, null, null);
+            public static readonly CosmosDbConfigurator<TVertexBase> Default = new(WebSocketProviderConfigurator.Default, null, null);
 
             private readonly string? _graphName;
             private readonly string? _databaseName;
@@ -28,33 +28,33 @@ namespace ExRam.Gremlinq.Core
                 _webSocketConfigurator = webSocketProviderConfigurator;
             }
 
-            public ICosmosDbConfigurator OnDatabase(string databaseName) => new CosmosDbConfigurator(
+            public ICosmosDbConfigurator<TVertexBase> OnDatabase(string databaseName) => new CosmosDbConfigurator<TVertexBase>(
                 _webSocketConfigurator,
                 databaseName,
                 _graphName);
 
-            public ICosmosDbConfigurator OnGraph(string graphName) => new CosmosDbConfigurator(
+            public ICosmosDbConfigurator<TVertexBase> OnGraph(string graphName) => new CosmosDbConfigurator<TVertexBase>(
                 _webSocketConfigurator,
                 _databaseName,
                 graphName);
 
-            public ICosmosDbConfigurator AuthenticateBy(string authKey) => new CosmosDbConfigurator(
+            public ICosmosDbConfigurator<TVertexBase> AuthenticateBy(string authKey) => new CosmosDbConfigurator<TVertexBase>(
                 _webSocketConfigurator
                     .ConfigureServer(server => server.WithPassword(authKey)),
                 _databaseName,
                 _graphName);
 
-            public ICosmosDbConfigurator ConfigureServer(Func<GremlinServer, GremlinServer> transformation) => new CosmosDbConfigurator(
+            public ICosmosDbConfigurator<TVertexBase> ConfigureServer(Func<GremlinServer, GremlinServer> transformation) => new CosmosDbConfigurator<TVertexBase>(
                 _webSocketConfigurator.ConfigureServer(transformation),
                 _databaseName,
                 _graphName);
 
-            public ICosmosDbConfigurator ConfigureClientFactory(Func<IGremlinClientFactory, IGremlinClientFactory> transformation) => new CosmosDbConfigurator(
+            public ICosmosDbConfigurator<TVertexBase> ConfigureClientFactory(Func<IGremlinClientFactory, IGremlinClientFactory> transformation) => new CosmosDbConfigurator<TVertexBase>(
                 _webSocketConfigurator.ConfigureClientFactory(transformation),
                 _databaseName,
                 _graphName);
 
-            public ICosmosDbConfigurator ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> transformation) => new CosmosDbConfigurator(
+            public ICosmosDbConfigurator<TVertexBase> ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> transformation) => new CosmosDbConfigurator<TVertexBase>(
                 _webSocketConfigurator.ConfigureQuerySource(transformation),
                 _databaseName,
                 _graphName);
@@ -70,10 +70,10 @@ namespace ExRam.Gremlinq.Core
                             .Transform(source);
                     }
 
-                    throw new InvalidOperationException($"A valid graph name must be configured. Use {nameof(OnGraph)} on {nameof(ICosmosDbConfigurator)} to configure the CosmosDb graph name.");
+                    throw new InvalidOperationException($"A valid graph name must be configured. Use {nameof(OnGraph)} on {nameof(ICosmosDbConfigurator<TVertexBase>)} to configure the CosmosDb graph name.");
                 }
 
-                throw new InvalidOperationException($"A valid database name must be configured. Use {nameof(OnDatabase)} on {nameof(ICosmosDbConfigurator)} to configure the CosmosDb database name.");
+                throw new InvalidOperationException($"A valid database name must be configured. Use {nameof(OnDatabase)} on {nameof(ICosmosDbConfigurator<TVertexBase>)} to configure the CosmosDb database name.");
             }
         }
 
@@ -89,10 +89,10 @@ namespace ExRam.Gremlinq.Core
 
         private static readonly NotStep NoneWorkaround = new(IdentityStep.Instance);
 
-        public static IGremlinQuerySource UseCosmosDb<TVertexBase, TEdgeBase>(this IConfigurableGremlinQuerySource source, Expression<Func<TVertexBase, object>> partitionKeyExpression, Func<ICosmosDbConfigurator, IGremlinQuerySourceTransformation> configuratorTransformation)
+        public static IGremlinQuerySource UseCosmosDb<TVertexBase, TEdgeBase>(this IConfigurableGremlinQuerySource source, Expression<Func<TVertexBase, object>> partitionKeyExpression, Func<ICosmosDbConfigurator<TVertexBase>, IGremlinQuerySourceTransformation> configuratorTransformation)
         {
             return configuratorTransformation
-                .Invoke(CosmosDbConfigurator.Default)
+                .Invoke(CosmosDbConfigurator<TVertexBase>.Default)
                 .Transform(source
                     .ConfigureEnvironment(environment => environment
                         .UseModel(GraphModel
