@@ -1,6 +1,8 @@
 ﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Providers.CosmosDb;
 using ExRam.Gremlinq.Providers.CosmosDb.Tests.Extensions;
+using ExRam.Gremlinq.Tests.Entities;
+
 using Microsoft.Azure.Cosmos;
 using Polly;
 
@@ -27,10 +29,12 @@ namespace ExRam.Gremlinq.Tests.Fixtures
                     });
 
                 return g
-                    .UseCosmosDb(builder => builder
-                        .At(new Uri("ws://localhost:8901"), CosmosDbEmulatorDatabaseName, CosmosDbEmulatorCollectionName)
-                        .AuthenticateBy(CosmosDbEmulatorAuthKey)
-                        .UseNewtonsoftJson())
+                    .UseCosmosDb<Vertex, Edge>(
+                        x => x.Label!,
+                        builder => builder
+                            .At(new Uri("ws://localhost:8901"), CosmosDbEmulatorDatabaseName, CosmosDbEmulatorCollectionName)
+                            .AuthenticateBy(CosmosDbEmulatorAuthKey)
+                            .UseNewtonsoftJson())
                     .ConfigureEnvironment(env => env
                         .AddFakePartitionKey());
             }

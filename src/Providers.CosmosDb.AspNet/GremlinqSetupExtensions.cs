@@ -1,5 +1,4 @@
 ﻿using System.Linq.Expressions;
-using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Providers.Core.AspNet;
 using ExRam.Gremlinq.Providers.CosmosDb;
 
@@ -7,13 +6,13 @@ namespace ExRam.Gremlinq.Core.AspNet
 {
     public static class GremlinqSetupExtensions
     {
-        public static GremlinqSetup UseCosmosDb(this GremlinqSetup setup, Action<ProviderSetup<ICosmosDbConfigurator>>? extraSetupAction = null)
+        public static GremlinqSetup UseCosmosDb<TVertexBase, TEdgeBase>(this GremlinqSetup setup, Expression<Func<TVertexBase, object>> partitionKeyExpression, Action<ProviderSetup<ICosmosDbConfigurator>>? extraSetupAction = null)
         {
             return setup
                 .UseProvider(
                     "CosmosDb",
                     (source, configuratorTransformation) => source
-                        .UseCosmosDb(configuratorTransformation),
+                        .UseCosmosDb<TVertexBase, TEdgeBase>(partitionKeyExpression, configuratorTransformation),
                     setup => setup
                         .Configure()
                         .ConfigureWebSocket()
@@ -31,18 +30,6 @@ namespace ExRam.Gremlinq.Core.AspNet
                             return configurator;
                         }),
                     extraSetupAction);
-        }
-
-        public static GremlinqSetup UseCosmosDb<TVertex, TEdge>(this GremlinqSetup setup, Expression<Func<TVertex, object>> partitionKeyExpression, Action<ProviderSetup<ICosmosDbConfigurator>>? extraSetupAction = null)
-        {
-            return setup
-                .UseCosmosDb(extraSetupAction)
-                .ConfigureEnvironment(env => env
-                    .UseModel(GraphModel
-                        .FromBaseTypes<TVertex, TEdge>()
-                        .ConfigureVertices(model => model
-                            .ConfigureElement<TVertex>(conf => conf
-                                .IgnoreOnUpdate(partitionKeyExpression)))));
         }
     }
 }
