@@ -28,8 +28,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
                     .ConfigureEnvironment(env => env
                         .ConfigureOptions(options => options
                             .SetValue(GremlinqOption.StringComparisonTranslationStrictness, StringComparisonTranslationStrictness.Lenient))
-                        .LogToXunit(testOutputHelper)
-                        .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>())),
+                        .LogToXunit(testOutputHelper)),
                 LazyThreadSafetyMode.PublicationOnly);
         }
 
