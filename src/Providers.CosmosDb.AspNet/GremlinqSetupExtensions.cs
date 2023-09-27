@@ -15,9 +15,11 @@ namespace ExRam.Gremlinq.Core.AspNet
                         .UseCosmosDb<TVertexBase, TEdgeBase>(configuratorTransformation),
                     setup => setup
                         .Configure()
-                        .ConfigureWebSocket()
                         .Configure((configurator, providerSection) =>
                         {
+                            configurator = configurator
+                                .ConfigureWebSocket(providerSection);
+
                             if (providerSection["Database"] is { } databaseName)
                                 configurator = configurator.OnDatabase(databaseName);
 
