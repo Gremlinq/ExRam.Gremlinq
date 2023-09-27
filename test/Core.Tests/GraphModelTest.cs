@@ -69,10 +69,12 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public async Task Hierarchy_outside_model()
         {
-            await Verify(GraphModel
+            GraphModel
                 .FromBaseTypes<Vertex, Edge>()
                 .VerticesModel
-                .GetMetadata(typeof(VertexInsideHierarchy)));
+                .TryGetMetadata(typeof(VertexInsideHierarchy))
+                .Should()
+                .BeNull();
         }
 
         [Fact]
@@ -336,25 +338,25 @@ namespace ExRam.Gremlinq.Core.Tests
 
             model
                 .VerticesModel
-                .GetMetadata(typeof(Person))
+                .TryGetMetadata(typeof(Person))
                 .Should()
                 .NotBeNull();
 
             model
                 .VerticesModel
-                .GetMetadata(typeof(Person).GetProperty(nameof(Person.RegistrationDate))!)
+                .TryGetMetadata(typeof(Person).GetProperty(nameof(Person.RegistrationDate))!)
                 .Should()
                 .NotBeNull();
 
             model
                 .VerticesModel
-                .GetMetadata(typeof(VertexInsideHierarchy))
+                .TryGetMetadata(typeof(VertexInsideHierarchy))
                 .Should()
                 .BeNull();
 
             model
                 .VerticesModel
-                .GetMetadata(typeof(VertexInsideHierarchy).GetProperty(nameof(VertexInsideHierarchy.ExtraProperty))!)
+                .TryGetMetadata(typeof(VertexInsideHierarchy).GetProperty(nameof(VertexInsideHierarchy.ExtraProperty))!)
                 .Should()
                 .BeNull();
         }
