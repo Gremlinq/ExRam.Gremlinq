@@ -327,5 +327,36 @@ namespace ExRam.Gremlinq.Core.Tests
                     .VerticesModel
                     .GetMetadata(typeof(Person).GetProperty(nameof(Person.Name))!)));
         }
+
+        [Fact]
+        public async Task Elements_outside_of_assemblies()
+        {
+            var model = GraphModel
+                .FromBaseTypes<Vertex, Edge>();
+
+            model
+                .VerticesModel
+                .GetMetadata(typeof(Person))
+                .Should()
+                .NotBeNull();
+
+            model
+                .VerticesModel
+                .GetMetadata(typeof(Person).GetProperty(nameof(Person.RegistrationDate))!)
+                .Should()
+                .NotBeNull();
+
+            model
+                .VerticesModel
+                .GetMetadata(typeof(VertexInsideHierarchy))
+                .Should()
+                .BeNull();
+
+            model
+                .VerticesModel
+                .GetMetadata(typeof(VertexInsideHierarchy).GetProperty(nameof(VertexInsideHierarchy.ExtraProperty))!)
+                .Should()
+                .BeNull();
+        }
     }
 }
