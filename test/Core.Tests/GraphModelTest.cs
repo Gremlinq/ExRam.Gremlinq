@@ -8,14 +8,7 @@ namespace ExRam.Gremlinq.Core.Tests
 {
     public class GraphModelTest : VerifyBase
     {
-        private sealed class VertexOutsideHierarchy
-        {
-            public object? Id { get; set; }
-        }
 
-        private sealed class VertexInsideHierarchy : Vertex
-        {
-        }
 
         public GraphModelTest() : base()
         {
