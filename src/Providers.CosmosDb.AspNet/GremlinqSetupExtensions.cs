@@ -11,25 +11,23 @@ namespace ExRam.Gremlinq.Core.AspNet
             return setup
                 .UseProvider<ICosmosDbConfigurator<TVertexBase>>(
                     "CosmosDb",
-                    (source, configuratorTransformation) => source
-                        .UseCosmosDb<TVertexBase, TEdgeBase>(configuratorTransformation),
-                    setup => setup
-                        .Configure((configurator, providerSection) =>
+                    (source, section) => source
+                        .UseCosmosDb<TVertexBase, TEdgeBase>(configurator =>
                         {
                             configurator = configurator
-                                .ConfigureBase(providerSection)
-                                .ConfigureWebSocket(providerSection);
+                                .ConfigureBase(section)
+                                .ConfigureWebSocket(section);
 
-                            if (providerSection["Database"] is { } databaseName)
+                            if (section["Database"] is { } databaseName)
                                 configurator = configurator.OnDatabase(databaseName);
 
-                            if (providerSection["Graph"] is { } graphName)
+                            if (section["Graph"] is { } graphName)
                                 configurator = configurator.OnGraph(graphName);
 
-                            if (providerSection["AuthKey"] is { } authKey)
+                            if (section["AuthKey"] is { } authKey)
                                 configurator = configurator.AuthenticateBy(authKey);
 
-                            return configuration?.Invoke(configurator, providerSection) ?? configurator;
+                            return configuration?.Invoke(configurator, section) ?? configurator;
                         }));
         }
     }

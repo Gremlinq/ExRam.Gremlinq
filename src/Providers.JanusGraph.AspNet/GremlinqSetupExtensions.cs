@@ -12,10 +12,8 @@ namespace ExRam.Gremlinq.Core.AspNet
             return setup
                 .UseProvider<IJanusGraphConfigurator>(
                     "JanusGraph",
-                    (source, configuratorTransformation) => source
-                        .UseJanusGraph<TVertexBase, TEdgeBase>(configuratorTransformation),
-                    setup => setup
-                        .Configure((configurator, section) =>
+                    (source, section) => source
+                        .UseJanusGraph<TVertexBase, TEdgeBase>(configurator =>
                         {
                             configurator = configurator
                                 .ConfigureBase(section)

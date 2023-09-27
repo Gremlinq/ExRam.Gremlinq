@@ -12,10 +12,8 @@ namespace ExRam.Gremlinq.Core.AspNet
             return setup
                 .UseProvider<IGremlinServerConfigurator>(
                     "GremlinServer",
-                    (source, configuratorTransformation) => source
-                        .UseGremlinServer<TVertex, TEdge>(configuratorTransformation),
-                    setup => setup
-                        .Configure((configurator, section) =>
+                    (source, section) => source
+                        .UseGremlinServer<TVertex, TEdge>(configurator =>
                         {
                             configurator = configurator
                                 .ConfigureBase(section)
