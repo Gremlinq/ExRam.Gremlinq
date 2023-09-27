@@ -12,15 +12,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services
     .AddGremlinq(setup => setup
 #if ProviderIsGremlinServer
-        .UseGremlinServer(setup => setup
+        .UseGremlinServer<Vertex, Edge>(setup => setup
             .UseNewtonsoftJson())
 #elif ProviderIsNeptune
-        .UseNeptune(setup => setup
+        .UseNeptune<Vertex, Edge>(setup => setup
             .UseNewtonsoftJson())
 #elif ProviderIsCosmosDb
-        .UseCosmosDb<Vertex, Edge>(
-            x => x.PartitionKey!,
-            setup => setup
+        .UseCosmosDb<Vertex, Edge>(setup => setup
+            .Configure((configurator, providerSection) => configurator
+                .WithPartitionKey(x => x.PartitionKey)
                 .UseNewtonsoftJson())
 #elif ProviderIsJanusGraph
         .UseJanusGraph(setup => setup
