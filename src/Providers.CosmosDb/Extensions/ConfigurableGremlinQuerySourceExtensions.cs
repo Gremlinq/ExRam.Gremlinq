@@ -15,16 +15,14 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class CosmosDbConfigurator : ICosmosDbConfigurator
         {
-            public static readonly CosmosDbConfigurator Default = new(WebSocketProviderConfigurator.Default, null, null, null);
+            public static readonly CosmosDbConfigurator Default = new(WebSocketProviderConfigurator.Default, null, null);
 
-            private readonly string? _authKey;
             private readonly string? _graphName;
             private readonly string? _databaseName;
             private readonly WebSocketProviderConfigurator _webSocketConfigurator;
 
-            private CosmosDbConfigurator(WebSocketProviderConfigurator webSocketProviderConfigurator, string? databaseName, string? graphName, string? authKey)
+            private CosmosDbConfigurator(WebSocketProviderConfigurator webSocketProviderConfigurator, string? databaseName, string? graphName)
             {
-                _authKey = authKey;
                 _graphName = graphName;
                 _databaseName = databaseName;
                 _webSocketConfigurator = webSocketProviderConfigurator;
@@ -34,40 +32,34 @@ namespace ExRam.Gremlinq.Core
                 _webSocketConfigurator
                     .ConfigureServer(server => server.WithUsername($"/dbs/{databaseName}/colls/{_graphName ?? string.Empty}")),
                 databaseName,
-                _graphName,
-                _authKey);
+                _graphName);
 
             public ICosmosDbConfigurator OnGraph(string graphName) => new CosmosDbConfigurator(
                 _webSocketConfigurator
                     .ConfigureServer(server => server.WithUsername($"/dbs/{_databaseName ?? string.Empty}/colls/{graphName}")),
                 _databaseName,
-                graphName,
-                _authKey);
+                graphName);
 
             public ICosmosDbConfigurator AuthenticateBy(string authKey) => new CosmosDbConfigurator(
                 _webSocketConfigurator
                     .ConfigureServer(server => server.WithPassword(authKey)),
                 _databaseName,
-                _graphName,
-                authKey);
+                _graphName);
 
             public ICosmosDbConfigurator ConfigureServer(Func<GremlinServer, GremlinServer> transformation) => new CosmosDbConfigurator(
                 _webSocketConfigurator.ConfigureServer(transformation),
                 _databaseName,
-                _graphName,
-                _authKey);
+                _graphName);
 
             public ICosmosDbConfigurator ConfigureClientFactory(Func<IGremlinClientFactory, IGremlinClientFactory> transformation) => new CosmosDbConfigurator(
                 _webSocketConfigurator.ConfigureClientFactory(transformation),
                 _databaseName,
-                _graphName,
-                _authKey);
+                _graphName);
 
             public ICosmosDbConfigurator ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> transformation) => new CosmosDbConfigurator(
                 _webSocketConfigurator.ConfigureQuerySource(transformation),
                 _databaseName,
-                _graphName,
-                _authKey);
+                _graphName);
 
             public IGremlinQuerySource Transform(IGremlinQuerySource source) => _webSocketConfigurator.Transform(source);
         }
