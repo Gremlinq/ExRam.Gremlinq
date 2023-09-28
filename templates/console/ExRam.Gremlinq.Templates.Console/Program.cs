@@ -13,7 +13,7 @@ namespace ExRam.Gremlinq.Templates.Console
 
         public Program()
         {
-            var _g = g
+            _g = g
 #if ProviderIsGremlinServer
                 .UseGremlinServer(configurator => configurator
                     .AtLocalhost())
@@ -62,7 +62,7 @@ namespace ExRam.Gremlinq.Templates.Console
                 .FirstAsync();
             ********/
 
-            Console.WriteLine($"There are {petCount} pets in the database.");
+            System.Console.WriteLine($"There are {petCount} pets in the database.");
         }
 
         private static async Task Main()
@@ -71,8 +71,8 @@ namespace ExRam.Gremlinq.Templates.Console
 
             await program.Run();
 
-            Console.Write("Press any key...");
-            Console.Read();
+            System.Console.Write("Press any key...");
+            System.Console.Read();
         }
     }
 }
