@@ -1,13 +1,11 @@
 ﻿using ExRam.Gremlinq.Providers.Core.AspNet;
 using ExRam.Gremlinq.Providers.GremlinServer;
 
-using Microsoft.Extensions.Configuration;
-
 namespace ExRam.Gremlinq.Core.AspNet
 {
     public static class GremlinqSetupExtensions
     {
-        public static GremlinqSetup UseGremlinServer<TVertex, TEdge>(this GremlinqSetup setup, Func<IGremlinServerConfigurator, IConfigurationSection, IGremlinServerConfigurator>? configuratorTransformation = null)
+        public static GremlinqSetup UseGremlinServer<TVertex, TEdge>(this GremlinqSetup setup, Func<IGremlinServerConfigurator, IProviderConfigurationSection, IGremlinServerConfigurator>? configuratorTransformation = null)
         {
             return setup
                 .UseProvider<IGremlinServerConfigurator>(
@@ -16,7 +14,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                         .UseGremlinServer<TVertex, TEdge>(configurator =>
                         {
                             configurator = configurator
-                                .ConfigureBase(section)
+                                .ConfigureBase(section.GremlinqSection)
                                 .ConfigureWebSocket(section);
 
                             return configuratorTransformation?.Invoke(configurator, section) ?? configurator;

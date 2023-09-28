@@ -3,13 +3,12 @@ using System.Reflection;
 
 using ExRam.Gremlinq.Providers.Core.AspNet;
 using ExRam.Gremlinq.Providers.CosmosDb;
-using Microsoft.Extensions.Configuration;
 
 namespace ExRam.Gremlinq.Core.AspNet
 {
     public static class GremlinqSetupExtensions
     {
-        public static GremlinqSetup UseCosmosDb<TVertexBase, TEdgeBase>(this GremlinqSetup setup, Func<ICosmosDbConfigurator<TVertexBase>, IConfigurationSection, ICosmosDbConfigurator<TVertexBase>>? configuratorTransformation = null)
+        public static GremlinqSetup UseCosmosDb<TVertexBase, TEdgeBase>(this GremlinqSetup setup, Func<ICosmosDbConfigurator<TVertexBase>, IProviderConfigurationSection, ICosmosDbConfigurator<TVertexBase>>? configuratorTransformation = null)
         {
             return setup
                 .UseProvider<ICosmosDbConfigurator<TVertexBase>>(
@@ -18,7 +17,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                         .UseCosmosDb<TVertexBase, TEdgeBase>(configurator =>
                         {
                             configurator = configurator
-                                .ConfigureBase(section)
+                                .ConfigureBase(section.GremlinqSection)
                                 .ConfigureWebSocket(section);
 
                             if (section["Database"] is { } databaseName)

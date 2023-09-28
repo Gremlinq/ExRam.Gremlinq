@@ -7,7 +7,7 @@ namespace ExRam.Gremlinq.Core.AspNet
 {
     public static class GremlinqSetupExtensions
     {
-        public static GremlinqSetup UseNeptune<TVertexBase, TEdgeBase>(this GremlinqSetup setup, Func<INeptuneConfigurator, IConfigurationSection, INeptuneConfigurator>? configuratorTransformation = null)
+        public static GremlinqSetup UseNeptune<TVertexBase, TEdgeBase>(this GremlinqSetup setup, Func<INeptuneConfigurator, IProviderConfigurationSection, INeptuneConfigurator>? configuratorTransformation = null)
         {
             return setup
                 .UseProvider<INeptuneConfigurator>(
@@ -16,7 +16,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                         .UseNeptune<TVertexBase, TEdgeBase>(configurator =>
                         {
                             configurator = configurator
-                                .ConfigureBase(section)
+                                .ConfigureBase(section.GremlinqSection)
                                 .ConfigureWebSocket(section);
 
                             if (section.GetSection("ElasticSearch") is { } elasticSearchSection)

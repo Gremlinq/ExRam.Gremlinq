@@ -1,5 +1,7 @@
 ﻿using System.Net.WebSockets;
 using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Core.AspNet;
+
 using Gremlin.Net.Driver;
 using Microsoft.Extensions.Configuration;
 
@@ -30,7 +32,7 @@ namespace ExRam.Gremlinq.Providers.Core.AspNet
             }
         }
 
-        public static TConfigurator ConfigureBase<TConfigurator>(this TConfigurator configurator, IConfigurationSection section)
+        public static TConfigurator ConfigureBase<TConfigurator>(this TConfigurator configurator, IGremlinqConfigurationSection section)
             where TConfigurator : IProviderConfigurator<TConfigurator>
         {
             if (section["Alias"] is { Length: > 0 } alias)
@@ -45,7 +47,7 @@ namespace ExRam.Gremlinq.Providers.Core.AspNet
             return configurator;
         }
 
-        public static TConfigurator ConfigureWebSocket<TConfigurator>(this TConfigurator configurator, IConfigurationSection section)
+        public static TConfigurator ConfigureWebSocket<TConfigurator>(this TConfigurator configurator, IProviderConfigurationSection section)
             where TConfigurator : IWebSocketProviderConfigurator<TConfigurator>
         {
             var authenticationSection = section.GetSection("Authentication");
