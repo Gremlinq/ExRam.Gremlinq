@@ -7,7 +7,7 @@ using FluentAssertions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ExRam.Gremlinq.Providers.CosmosDb.AspNet.Tests
+namespace ExRam.Gremlinq.Providers.GremlinServer.AspNet.Tests
 {
     public class ConfigurationTests
     {
@@ -18,15 +18,11 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.AspNet.Tests
                 .AddSingleton<IConfiguration>(new ConfigurationBuilder()
                     .AddInMemoryCollection(new Dictionary<string, string?>
                     {
-                        { "Gremlinq:CosmosDb:Uri", "wss://your_cosmosdb-endpoint.gremlin.cosmos.azure.com:443/" },
-                        { "Gremlinq:CosmosDb:Database", "db" },
-                        { "Gremlinq:CosmosDb:Graph", "collection" },
-                        { "Gremlinq:CosmosDb:AuthKey", "yourAuthKey" }
+                        { "Gremlinq:GremlinServer:Uri", "wss://your_cosmosdb-endpoint.gremlin.cosmos.azure.com:443/" },
                     })
                     .Build())
                 .AddGremlinq(setup => setup
-                    .UseCosmosDb<Vertex, Edge>((conf, section) => conf
-                        .WithPartitionKey(x => x.Label!)))
+                    .UseGremlinServer<Vertex, Edge>())
                 .BuildServiceProvider()
                 .GetRequiredService<IGremlinQuerySource>()
                 .Should()
