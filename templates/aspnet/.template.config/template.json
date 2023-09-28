@@ -13,6 +13,7 @@
   "symbols": {
     "provider": {
       "type": "parameter",
+      "isRequired": true,
       "datatype": "choice",
       "defaultValue": "GremlinServer",
       "replaces": "TEMPLATEPROVIDER",
