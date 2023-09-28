@@ -62,7 +62,7 @@ namespace ExRam.Gremlinq.Core
                             .ToArray()
                         : Array.Empty<PropertyStep>();
 
-                    if (!add && key.RawKey is string rawStringKey && localPropertySteps.All(propertyStep => Cardinality.List.Equals(propertyStep.Cardinality)))
+                    if (!add && key.RawKey is string rawStringKey && localPropertySteps.All(static propertyStep => Cardinality.List.Equals(propertyStep.Cardinality)))
                         droppableKeys.Add(rawStringKey);
 
                     propertySteps.AddRange(localPropertySteps);

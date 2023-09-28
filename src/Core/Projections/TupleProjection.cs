@@ -60,7 +60,7 @@ namespace ExRam.Gremlinq.Core.Projections
                 })
                 .ToArray();
 
-            if (projectionTraversals.All(x => x.Count == overhead)) //TODO: static delegate!
+            if (projectionTraversals.AsSpan().All(static (x, overhead) => x.Count == overhead, overhead))
                 return Traversal.Empty;
 
             var projectStep = new ProjectStep(_projections
