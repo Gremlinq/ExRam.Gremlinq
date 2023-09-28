@@ -7,9 +7,7 @@
     }
     public static class GremlinqSetupExtensions
     {
-        public static ExRam.Gremlinq.Core.AspNet.GremlinqSetup ConfigureEnvironment(this ExRam.Gremlinq.Core.AspNet.GremlinqSetup setup, System.Func<ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.IGremlinQueryEnvironment> environmentTransformation) { }
         public static ExRam.Gremlinq.Core.AspNet.GremlinqSetup ConfigureQuerySource(this ExRam.Gremlinq.Core.AspNet.GremlinqSetup setup, System.Func<ExRam.Gremlinq.Core.IGremlinQuerySource, ExRam.Gremlinq.Core.IGremlinQuerySource> sourceTranformation) { }
-        public static ExRam.Gremlinq.Core.AspNet.GremlinqSetup RegisterTypes(this ExRam.Gremlinq.Core.AspNet.GremlinqSetup setup, System.Action<Microsoft.Extensions.DependencyInjection.IServiceCollection> registration) { }
         public static ExRam.Gremlinq.Core.AspNet.GremlinqSetup UseConfigurationSection(this ExRam.Gremlinq.Core.AspNet.GremlinqSetup setup, string sectionName) { }
     }
     public interface IGremlinqConfigurationSection : Microsoft.Extensions.Configuration.IConfiguration, Microsoft.Extensions.Configuration.IConfigurationSection { }

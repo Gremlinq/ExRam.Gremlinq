@@ -19,44 +19,18 @@ namespace ExRam.Gremlinq.Core.AspNet
             }
         }
 
-        private sealed class EnvironmentTransformation : IGremlinQuerySourceTransformation
-        {
-            private readonly Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> _environmentTransformation;
-
-            public EnvironmentTransformation(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> environmentTransformation)
-            {
-                _environmentTransformation = environmentTransformation;
-            }
-
-            public IGremlinQuerySource Transform(IGremlinQuerySource source)
-            {
-                return source.ConfigureEnvironment(_environmentTransformation);
-            }
-        }
-
         public static GremlinqSetup UseConfigurationSection(this GremlinqSetup setup, string sectionName)
         {
-            return setup.RegisterTypes(serviceCollection => serviceCollection
-                .AddSingleton(new GremlinqSetupInfo(sectionName)));
-        }
-
-        public static GremlinqSetup RegisterTypes(this GremlinqSetup setup, Action<IServiceCollection> registration)
-        {
-            registration(setup.ServiceCollection);
+            setup.ServiceCollection.AddSingleton(new GremlinqSetupInfo(sectionName));
 
             return setup;
         }
 
         public static GremlinqSetup ConfigureQuerySource(this GremlinqSetup setup, Func<IGremlinQuerySource, IGremlinQuerySource> sourceTranformation)
         {
-            return setup.RegisterTypes(serviceCollection => serviceCollection
-                .AddSingleton<IGremlinQuerySourceTransformation>(new SourceTransformation(sourceTranformation)));
-        }
+            setup.ServiceCollection.AddSingleton<IGremlinQuerySourceTransformation>(new SourceTransformation(sourceTranformation));
 
-        public static GremlinqSetup ConfigureEnvironment(this GremlinqSetup setup, Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> environmentTransformation)
-        {
-            return setup.RegisterTypes(serviceCollection => serviceCollection
-                .AddSingleton<IGremlinQuerySourceTransformation>(new EnvironmentTransformation(environmentTransformation)));
+            return setup;
         }
     }
 }
