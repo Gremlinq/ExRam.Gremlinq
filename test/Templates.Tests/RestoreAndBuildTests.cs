@@ -16,7 +16,7 @@ namespace ExRam.Gremlinq.Templates.Tests
         {
             await using (var tempDirectory = TempDirectory.NewTempDirectory())
             {
-                var project = await tempDirectory.DotnetNewAsync(template, name);
+                var project = await tempDirectory.DotnetNewAsync(template, name, new Dictionary<string, string> { { "provider", "GremlinServer" } });
 
                 await project.DotnetRestoreAsync();
                 await project.DotnetBuildAsync();
