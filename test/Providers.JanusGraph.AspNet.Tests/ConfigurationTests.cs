@@ -18,7 +18,7 @@ namespace ExRam.Gremlinq.Providers.JanusGraph.AspNet.Tests
                 .AddSingleton<IConfiguration>(new ConfigurationBuilder()
                     .AddInMemoryCollection(new Dictionary<string, string?>
                     {
-                        { "Gremlinq:JanusGraph:Uri", "wss://your_cosmosdb-endpoint.gremlin.cosmos.azure.com:443/" },
+                        { "Gremlinq:JanusGraph:Uri", "ws://localhost:8182/" },
                     })
                     .Build())
                 .AddGremlinq(setup => setup
