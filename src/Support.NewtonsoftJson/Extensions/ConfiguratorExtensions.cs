@@ -8,8 +8,7 @@
             return configurator
                 .ConfigureQuerySource(source => source
                     .ConfigureEnvironment(environment => environment
-                        .ConfigureDeserializer(transformer =>  transformer
-                            .UseNewtonsoftJson())));
+                        .UseNewtonsoftJson()));
         }
     }
 }
