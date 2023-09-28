@@ -31,7 +31,7 @@ namespace ExRam.Gremlinq.Providers.Core.AspNet
         }
 
         public static TConfigurator ConfigureBase<TConfigurator>(this TConfigurator configurator, IConfigurationSection section)
-           where TConfigurator : IProviderConfigurator<TConfigurator>
+            where TConfigurator : IProviderConfigurator<TConfigurator>
         {
             if (section["Alias"] is { Length: > 0 } alias)
             {
@@ -46,7 +46,7 @@ namespace ExRam.Gremlinq.Providers.Core.AspNet
         }
 
         public static TConfigurator ConfigureWebSocket<TConfigurator>(this TConfigurator configurator, IConfigurationSection section)
-           where TConfigurator : IWebSocketProviderConfigurator<TConfigurator>
+            where TConfigurator : IWebSocketProviderConfigurator<TConfigurator>
         {
             var authenticationSection = section.GetSection("Authentication");
             var connectionPoolSection = section.GetSection("ConnectionPool");
