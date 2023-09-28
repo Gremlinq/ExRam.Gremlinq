@@ -1,4 +1,7 @@
-﻿using ExRam.Gremlinq.Providers.Core.AspNet;
+﻿using System.Linq.Expressions;
+using System.Reflection;
+
+using ExRam.Gremlinq.Providers.Core.AspNet;
 using ExRam.Gremlinq.Providers.CosmosDb;
 using Microsoft.Extensions.Configuration;
 
@@ -26,6 +29,22 @@ namespace ExRam.Gremlinq.Core.AspNet
 
                             if (section["AuthKey"] is { } authKey)
                                 configurator = configurator.AuthenticateBy(authKey);
+
+                            if (section["PartitionKey"] is { Length: > 0 } partitionKey)
+                            {
+                                if (typeof(TVertexBase).GetProperty(partitionKey, BindingFlags.Instance | BindingFlags.Public) is { GetMethod: { } partitionKeyGetter })
+                                {
+                                    var parameterExpression = Expression.Parameter(typeof(TVertexBase));
+
+                                    var partitionKeyExpression = Expression.Lambda<Func<TVertexBase, object>>(
+                                        Expression.Convert(
+                                            Expression.Property(parameterExpression, partitionKeyGetter),
+                                            typeof(object)),
+                                        parameterExpression);
+
+                                    configurator = configurator.WithPartitionKey(partitionKeyExpression);
+                                }
+                            }
 
                             return configuratorTransformation?.Invoke(configurator, section) ?? configurator;
                         }));
