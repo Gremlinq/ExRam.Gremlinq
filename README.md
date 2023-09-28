@@ -17,83 +17,15 @@ ExRam.Gremlinq is a .NET object-graph-mapper for [Apache TinkerPop™](http://ti
 
 Install the Gremlinq templates package:
 
-   ```
+   ```sh
    > dotnet new install ExRam.Gremlinq.Templates
    ```
 
 There are two `dotnet new` templates included in the package: one for a simple console app and one that shows how to get things running on Asp.NET Core. Currently, there is out-of-the-box support for the generic Gremlin Server, AWS Neptune, Azure CosmosDb and JanusGraph.
 
-<details>
-  <summary>Console app for Gremlin Server</summary>
-
    ```sh
-   > dotnet new gremlinq-console -n Gremlinq.SampleApp --provider GremlinServer
+   > dotnet new gremlinq-console|gremlinq-aspnet --name GettingStartedWithGremlinq --provider GremlinServer|Neptune|CosmosDb|JanusGraph
    ```
-
-</details>
-
-<details>
-<summary>Console app for AWS Neptune</summary>
-
-   ```sh
-   > dotnet new gremlinq-console -n Gremlinq.SampleApp --provider Neptune
-   ```
-
-</details>
-
-<details>
-<summary>Console app for Azure CosmosDb</summary>
-
-   ```sh
-   > dotnet new gremlinq-console -n Gremlinq.SampleApp --provider CosmosDb
-   ```
-
-</details>
-
-<details>
-<summary>Console app for JanusGraph</summary>
-
-   ```sh
-   > dotnet new gremlinq-console -n Gremlinq.SampleApp --provider JanusGraph
-   ```
-
-</details>
-
-<details>
-<summary>Asp.NET Core app for Gremlin Server</summary>
-
-   ```sh
-   > dotnet new gremlinq-aspnet -n Gremlinq.SampleApp --provider GremlinServer
-   ```
-
-</details>
-
-<details>
-<summary>Asp.NET Core app for AWS Neptune</summary>
-
-   ```sh
-   > dotnet new gremlinq-aspnet -n Gremlinq.SampleApp --provider Neptune
-   ```
-
-</details>
-
-<details>
-<summary>Asp.NET Core app for Azure CosmosDb</summary>
-
-   ```sh
-   > dotnet new gremlinq-aspnet -n Gremlinq.SampleApp --provider CosmosDb
-   ```
-
-</details>
-
-<details>
-<summary>Asp.NET Core app for JanusGraph</summary>
-
-   ```sh
-   > dotnet new gremlinq-aspnet -n Gremlinq.SampleApp --provider JanusGraph
-   ```
-
-</details>
 
 # Paid support
 
