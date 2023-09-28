@@ -32,5 +32,27 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.AspNet.Tests
                 .Should()
                 .NotBeNull();
         }
+
+        [Fact]
+        public void Configuration_without_PartitionKey()
+        {
+            new ServiceCollection()
+                .AddSingleton<IConfiguration>(new ConfigurationBuilder()
+                    .AddInMemoryCollection(new Dictionary<string, string?>
+                    {
+                        { "Gremlinq:CosmosDb:Uri", "ws://localhost:8182/" },
+                        { "Gremlinq:CosmosDb:Database", "db" },
+                        { "Gremlinq:CosmosDb:Graph", "collection" },
+                        { "Gremlinq:CosmosDb:AuthKey", "yourAuthKey" }
+                    })
+                    .Build())
+                .AddGremlinq(setup => setup
+                    .UseCosmosDb<Vertex, Edge>())
+                .BuildServiceProvider()
+                .Invoking(_ => _
+                    .GetRequiredService<IGremlinQuerySource>())
+                .Should()
+                .Throw<InvalidOperationException>();
+        }
     }
 }
