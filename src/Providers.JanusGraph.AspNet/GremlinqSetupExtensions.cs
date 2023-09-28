@@ -7,7 +7,7 @@ namespace ExRam.Gremlinq.Core.AspNet
 {
     public static class GremlinqSetupExtensions
     {
-        public static GremlinqSetup UseJanusGraph<TVertexBase, TEdgeBase>(this GremlinqSetup setup, Func<IJanusGraphConfigurator, IConfigurationSection, IJanusGraphConfigurator>? configuration = null)
+        public static GremlinqSetup UseJanusGraph<TVertexBase, TEdgeBase>(this GremlinqSetup setup, Func<IJanusGraphConfigurator, IConfigurationSection, IJanusGraphConfigurator>? configuratorTransformation = null)
         {
             return setup
                 .UseProvider<IJanusGraphConfigurator>(
@@ -19,7 +19,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                                 .ConfigureBase(section)
                                 .ConfigureWebSocket(section);
 
-                            return configuration?.Invoke(configurator, section) ?? configurator;
+                            return configuratorTransformation?.Invoke(configurator, section) ?? configurator;
                         }));
         }
     }

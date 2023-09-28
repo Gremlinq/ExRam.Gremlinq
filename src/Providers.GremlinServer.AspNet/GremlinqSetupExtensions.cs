@@ -7,7 +7,7 @@ namespace ExRam.Gremlinq.Core.AspNet
 {
     public static class GremlinqSetupExtensions
     {
-        public static GremlinqSetup UseGremlinServer<TVertex, TEdge>(this GremlinqSetup setup, Func<IGremlinServerConfigurator, IConfigurationSection, IGremlinServerConfigurator>? configuration = null)
+        public static GremlinqSetup UseGremlinServer<TVertex, TEdge>(this GremlinqSetup setup, Func<IGremlinServerConfigurator, IConfigurationSection, IGremlinServerConfigurator>? configuratorTransformation = null)
         {
             return setup
                 .UseProvider<IGremlinServerConfigurator>(
@@ -19,7 +19,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                                 .ConfigureBase(section)
                                 .ConfigureWebSocket(section);
 
-                            return configuration?.Invoke(configurator, section) ?? configurator;
+                            return configuratorTransformation?.Invoke(configurator, section) ?? configurator;
                         }));
         }
     }
