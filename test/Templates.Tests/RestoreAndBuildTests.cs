@@ -6,17 +6,25 @@ namespace ExRam.Gremlinq.Templates.Tests
     {
         public RestoreAndBuildTests() => DotnetNew.InstallAsync<RestoreAndBuildTests>("ExRam.Gremlinq.sln").Wait();
 
-        [Fact]
-        public Task Gremlinq_Console() => Test("gremlinq-console", "Gremlinq.Console.Template.TestProject");
+        [Theory]
+        [InlineData("GremlinServer")]
+        [InlineData("CosmosDb")]
+        [InlineData("Neptune")]
+        [InlineData("JanusGraph")]
+        public Task Gremlinq_Console(string provider) => Test("gremlinq-console", "Gremlinq.Console.Template.TestProject", provider);
 
-        [Fact]
-        public Task Gremlinq_AspNet() => Test("gremlinq-aspnet", "Gremlinq.AspNet.Template.TestProject");
+        [Theory]
+        [InlineData("GremlinServer")]
+        [InlineData("CosmosDb")]
+        [InlineData("Neptune")]
+        [InlineData("JanusGraph")]
+        public Task Gremlinq_AspNet(string provider) => Test("gremlinq-aspnet", "Gremlinq.AspNet.Template.TestProject", provider);
 
-        private async Task Test(string template, string name)
+        private async Task Test(string template, string name, string provider)
         {
             await using (var tempDirectory = TempDirectory.NewTempDirectory())
             {
-                var project = await tempDirectory.DotnetNewAsync(template, name, new Dictionary<string, string> { { "provider", "GremlinServer" } });
+                var project = await tempDirectory.DotnetNewAsync(template, name, new Dictionary<string, string> { { "provider", provider } });
 
                 await project.DotnetRestoreAsync();
                 await project.DotnetBuildAsync();
