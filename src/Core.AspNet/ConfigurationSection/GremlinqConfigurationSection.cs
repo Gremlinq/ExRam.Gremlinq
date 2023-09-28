@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Core.AspNet
 
         public GremlinqConfigurationSection(GremlinqSetupInfo setupInfo, IConfiguration configuration)
         {
-            configuration = setupInfo.SectionName is { } sectionName
+            configuration = setupInfo.SectionName is { Length: > 0 } sectionName
                 ? configuration.GetSection(sectionName)
                 : configuration;
 
