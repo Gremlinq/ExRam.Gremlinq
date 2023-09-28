@@ -21,7 +21,7 @@ builder.Services
         .UseCosmosDb<Vertex, Edge>(
             x => x.PartitionKey!,
             setup => setup
-                .UseNewtonsoftJson())
+                .UseNewtonsoftJson()))
 #elif (provider == "JanusGraph")
         .UseJanusGraph(setup => setup
             .UseNewtonsoftJson())

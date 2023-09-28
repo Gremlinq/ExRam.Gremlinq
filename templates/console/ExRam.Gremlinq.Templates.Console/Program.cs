@@ -28,7 +28,7 @@ namespace ExRam.Gremlinq.Templates.Console
                     .AuthenticateBy("your auth key"))
 #elif (provider == "JanusGraph")
                 .UseJanusGraph(configurator => configurator
-                    .AtLocalhost()))
+                    .AtLocalhost())
 #endif
                 .ConfigureEnvironment(env => env
                     .UseNewtonsoftJson()
