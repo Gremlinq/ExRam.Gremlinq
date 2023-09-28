@@ -105,6 +105,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.Ja
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.Neptune.AspNet.Tests", "test\Providers.Neptune.AspNet.Tests\ExRam.Gremlinq.Providers.Neptune.AspNet.Tests.csproj", "{C89AACB2-8E6F-4E4F-8080-2EC5384442B7}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Templates.Tests", "test\Templates.Tests\ExRam.Gremlinq.Templates.Tests.csproj", "{91A64417-9E1C-407A-9982-D7A0CBAD2398}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -283,6 +285,10 @@ Global
 		{C89AACB2-8E6F-4E4F-8080-2EC5384442B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C89AACB2-8E6F-4E4F-8080-2EC5384442B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C89AACB2-8E6F-4E4F-8080-2EC5384442B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91A64417-9E1C-407A-9982-D7A0CBAD2398}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91A64417-9E1C-407A-9982-D7A0CBAD2398}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91A64417-9E1C-407A-9982-D7A0CBAD2398}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91A64417-9E1C-407A-9982-D7A0CBAD2398}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -325,6 +331,7 @@ Global
 		{17D887CA-C1E9-43DF-B0CF-2B9090CA6BE9} = {C85C1392-3E88-47C4-8CB0-CBFDB89B3D17}
 		{26FBECA9-A5F8-4339-B788-1DB3BD722188} = {C85C1392-3E88-47C4-8CB0-CBFDB89B3D17}
 		{C89AACB2-8E6F-4E4F-8080-2EC5384442B7} = {C85C1392-3E88-47C4-8CB0-CBFDB89B3D17}
+		{91A64417-9E1C-407A-9982-D7A0CBAD2398} = {4E6D1C9D-C1F7-43CF-99F7-9D610B3D1989}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7A76E21B-5855-4DA7-AAAE-4EBEE631CB3A}
