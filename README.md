@@ -13,22 +13,100 @@ ExRam.Gremlinq is a .NET object-graph-mapper for [Apache TinkerPop™](http://ti
 [![codecov](https://img.shields.io/codecov/c/github/ExRam/ExRam.Gremlinq/branch/main?token=YrGnIo6XyH&logo=codecov&style=flat-square)](https://codecov.io/github/ExRam/ExRam.Gremlinq)
 [![#](https://img.shields.io/github/sponsors/danielcweber?logo=githubsponsors&style=flat-square)](https://github.com/sponsors/danielcweber)
 
-## Sample project
+# Getting started
 
-A sample project can be found at https://github.com/ExRam/ExRam.Gremlinq.Samples.
+Install the Gremlinq templates package:
 
-## Paid support
+   ```
+   > dotnet new install ExRam.Gremlinq.Templates
+   ```
+
+There are two `dotnet new` templates included in the package: one for a simple console app and one that shows how to get things running on Asp.NET Core. Currently, there is out-of-the-box support for the generic Gremlin Server, AWS Neptune, Azure CosmosDb and JanusGraph.
+
+<details>
+  <summary>Console app for Gremlin Server</summary>
+
+   ```sh
+   > dotnet new gremlinq-console -n Gremlinq.SampleApp --provider GremlinServer
+   ```
+
+</details>
+
+<details>
+<summary>Console app for AWS Neptune</summary>
+
+   ```sh
+   > dotnet new gremlinq-console -n Gremlinq.SampleApp --provider Neptune
+   ```
+
+</details>
+
+<details>
+<summary>Console app for Azure CosmosDb</summary>
+
+   ```sh
+   > dotnet new gremlinq-console -n Gremlinq.SampleApp --provider CosmosDb
+   ```
+
+</details>
+
+<details>
+<summary>Console app for JanusGraph</summary>
+
+   ```sh
+   > dotnet new gremlinq-console -n Gremlinq.SampleApp --provider JanusGraph
+   ```
+
+</details>
+
+<details>
+<summary>Asp.NET Core app for Gremlin Server</summary>
+
+   ```sh
+   > dotnet new gremlinq-aspnet -n Gremlinq.SampleApp --provider GremlinServer
+   ```
+
+</details>
+
+<details>
+<summary>Asp.NET Core app for AWS Neptune</summary>
+
+   ```sh
+   > dotnet new gremlinq-aspnet -n Gremlinq.SampleApp --provider Neptune
+   ```
+
+</details>
+
+<details>
+<summary>Asp.NET Core app for Azure CosmosDb</summary>
+
+   ```sh
+   > dotnet new gremlinq-aspnet -n Gremlinq.SampleApp --provider CosmosDb
+   ```
+
+</details>
+
+<details>
+<summary>Asp.NET Core app for JanusGraph</summary>
+
+   ```sh
+   > dotnet new gremlinq-aspnet -n Gremlinq.SampleApp --provider JanusGraph
+   ```
+
+</details>
+
+# Paid support
 
 Schedule a video session with [@danielcweber](https://github.com/danielcweber) to get assistance with Gremlinq setup and configuration, query writing, debugging or review.
 
 [![#](https://img.shields.io/badge/Schedule%20a%20call-blue)](https://calendly.com/danielcweber/generalgremlinqsupport)
 
-## Features
+# Features
 
 The following snippets are part of the sample project mentioned above. They showcase
 some of the many features of ExRam.Gremlinq.
 
-#### Easily create vertices and edges
+### Easily create vertices and edges
 ``` csharp
     var marko = await _g
         .AddV(new Person { Name = "Marko", Age = 29 })
@@ -151,7 +229,7 @@ some of the many features of ExRam.Gremlinq.
         .FirstAsync();
 ```
 
-#### Build nice queries
+### Build nice queries
 From `marko`, walk all the `Knows` edges to all the `Persons`
 that he knows and order them by their names:
 
@@ -305,12 +383,3 @@ AWS Neptune since it doesn't support meta properties.
             .ToArrayAsync();
     }
 ```
-
-
-## Provider bindings
- - [Generic websocket](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.WebSocket)
- - [Gremlin Server](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.GremlinServer)
- - [Azure CosmosDB / CosmosDB Emulator](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.CosmosDb)
- - [JanusGraph](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.JanusGraph)
- - [AWS Neptune](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.Neptune)
-
