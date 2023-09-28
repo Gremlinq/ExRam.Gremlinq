@@ -14,19 +14,19 @@ namespace ExRam.Gremlinq.Templates.Console
         public Program()
         {
             _g = g
-#if ProviderIsGremlinServer
+#if (provider == "GremlinServer")
                 .UseGremlinServer(configurator => configurator
                     .AtLocalhost())
-#elif ProviderIsNeptune
+#elif (provider == "Neptune")
                 .UseNeptune(configurator => configurator
                     .At(new Uri("wss://your.neptune.endpoint/")))
-#elif ProviderIsCosmosDb
+#elif (provider == "CosmosDb")
                 .UseCosmosDb(configurator => configurator
                     .At(new Uri("wss://your.cosmosdb.endpoint/"))
                     .OnDatabase("your database name")
                     .OnGraph("your graph name")
                     .AuthenticateBy("your auth key"))
-#elif ProviderIsJanusGraph
+#elif (provider == "JanusGraph")
                 .UseJanusGraph(configurator => configurator
                     .AtLocalhost()))
 #endif
@@ -34,7 +34,7 @@ namespace ExRam.Gremlinq.Templates.Console
                     .UseNewtonsoftJson()
                     .UseModel(GraphModel
                         .FromBaseTypes<Vertex, Edge>(lookup => lookup
-#if ProviderIsCosmosDb                   
+#if (provider == "CosmosDb")                
                             .IncludeAssembliesOfBaseTypes())
                         //For CosmosDB, we exclude the 'PartitionKey' property from being included in updates.
                         .ConfigureProperties(model => model
