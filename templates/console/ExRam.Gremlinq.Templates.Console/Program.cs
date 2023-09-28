@@ -15,34 +15,23 @@ namespace ExRam.Gremlinq.Templates.Console
         {
             _g = g
 #if (provider == "GremlinServer")
-                .UseGremlinServer(configurator => configurator
+                .UseGremlinServer<Vertex, Edge>(configurator => configurator
                     .AtLocalhost())
 #elif (provider == "Neptune")
-                .UseNeptune(configurator => configurator
+                .UseNeptune<Vertex, Edge>(configurator => configurator
                     .At(new Uri("wss://your.neptune.endpoint/")))
 #elif (provider == "CosmosDb")
-                .UseCosmosDb(configurator => configurator
+                .UseCosmosDb<Vertex, Edge>(configurator => configurator
                     .At(new Uri("wss://your.cosmosdb.endpoint/"))
                     .OnDatabase("your database name")
                     .OnGraph("your graph name")
+                    .WithPartitionKey(x => x.PartitionKey)
                     .AuthenticateBy("your auth key"))
 #elif (provider == "JanusGraph")
-                .UseJanusGraph(configurator => configurator
+                .UseJanusGraph<Vertex, Edge>(configurator => configurator
                     .AtLocalhost())
 #endif
-                .ConfigureEnvironment(env => env
-                    .UseNewtonsoftJson()
-                    .UseModel(GraphModel
-                        .FromBaseTypes<Vertex, Edge>(lookup => lookup
-#if (provider == "CosmosDb")                
-                            .IncludeAssembliesOfBaseTypes())
-                        //For CosmosDB, we exclude the 'PartitionKey' property from being included in updates.
-                        .ConfigureProperties(model => model
-                            .ConfigureElement<Vertex>(conf => conf
-                                .IgnoreOnUpdate(x => x.PartitionKey)))));
-#else
-                            .IncludeAssembliesOfBaseTypes())));
-#endif
+                .UseNewtonsoftJson();
         }
 
         public async Task Run()
