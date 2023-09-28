@@ -18,7 +18,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.AspNet.Tests
                 .AddSingleton<IConfiguration>(new ConfigurationBuilder()
                     .AddInMemoryCollection(new Dictionary<string, string?>
                     {
-                        { "Gremlinq:CosmosDb:Uri", "wss://your_cosmosdb-endpoint.gremlin.cosmos.azure.com:443/" },
+                        { "Gremlinq:CosmosDb:Uri", "ws://localhost:8182/" },
                         { "Gremlinq:CosmosDb:Database", "db" },
                         { "Gremlinq:CosmosDb:Graph", "collection" },
                         { "Gremlinq:CosmosDb:AuthKey", "yourAuthKey" }

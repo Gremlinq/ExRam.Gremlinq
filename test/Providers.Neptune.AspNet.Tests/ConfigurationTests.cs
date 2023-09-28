@@ -18,7 +18,7 @@ namespace ExRam.Gremlinq.Providers.Neptune.AspNet.Tests
                 .AddSingleton<IConfiguration>(new ConfigurationBuilder()
                     .AddInMemoryCollection(new Dictionary<string, string?>
                     {
-                        { "Gremlinq:Neptune:Uri", "wss://your_cosmosdb-endpoint.gremlin.cosmos.azure.com:443/" },
+                        { "Gremlinq:Neptune:Uri", "ws://localhost:8182/" },
                     })
                     .Build())
                 .AddGremlinq(setup => setup
