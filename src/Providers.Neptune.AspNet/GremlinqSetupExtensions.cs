@@ -7,7 +7,7 @@ namespace ExRam.Gremlinq.Core.AspNet
 {
     public static class GremlinqSetupExtensions
     {
-        public static GremlinqSetup UseNeptune<TVertexBase, TEdgeBase>(this GremlinqSetup setup, Func<INeptuneConfigurator, IConfigurationSection, INeptuneConfigurator>? configuration = null)
+        public static GremlinqSetup UseNeptune<TVertexBase, TEdgeBase>(this GremlinqSetup setup, Func<INeptuneConfigurator, IConfigurationSection, INeptuneConfigurator>? configuratorTransformation = null)
         {
             return setup
                 .UseProvider<INeptuneConfigurator>(
@@ -35,7 +35,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                                 }
                             }
 
-                            return configuration?.Invoke(configurator, section) ?? configurator;
+                            return configuratorTransformation?.Invoke(configurator, section) ?? configurator;
                         }));
         }
     }

@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq.Core.AspNet
 {
     public static class GremlinqSetupExtensions
     {
-        public static GremlinqSetup UseCosmosDb<TVertexBase, TEdgeBase>(this GremlinqSetup setup, Func<ICosmosDbConfigurator<TVertexBase>, IConfigurationSection, ICosmosDbConfigurator<TVertexBase>>? configuration = null)
+        public static GremlinqSetup UseCosmosDb<TVertexBase, TEdgeBase>(this GremlinqSetup setup, Func<ICosmosDbConfigurator<TVertexBase>, IConfigurationSection, ICosmosDbConfigurator<TVertexBase>>? configuratorTransformation = null)
         {
             return setup
                 .UseProvider<ICosmosDbConfigurator<TVertexBase>>(
@@ -27,7 +27,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                             if (section["AuthKey"] is { } authKey)
                                 configurator = configurator.AuthenticateBy(authKey);
 
-                            return configuration?.Invoke(configurator, section) ?? configurator;
+                            return configuratorTransformation?.Invoke(configurator, section) ?? configurator;
                         }));
         }
     }
