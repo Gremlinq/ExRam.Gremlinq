@@ -12,6 +12,8 @@
         public static ExRam.Gremlinq.Providers.Core.AspNet.ProviderSetup<TProviderConfigurator> Configure<TProviderConfigurator, TProviderConfiguratorTransformation>(this ExRam.Gremlinq.Providers.Core.AspNet.ProviderSetup<TProviderConfigurator> setup)
             where TProviderConfigurator : ExRam.Gremlinq.Providers.Core.IProviderConfigurator<TProviderConfigurator>
             where TProviderConfiguratorTransformation :  class, ExRam.Gremlinq.Providers.Core.IProviderConfiguratorTransformation<TProviderConfigurator> { }
+        public static ExRam.Gremlinq.Providers.Core.AspNet.ProviderSetup<TProviderConfigurator> ConfigureQuerySource<TProviderConfigurator>(this ExRam.Gremlinq.Providers.Core.AspNet.ProviderSetup<TProviderConfigurator> setup, System.Func<ExRam.Gremlinq.Core.IGremlinQuerySource, ExRam.Gremlinq.Core.IGremlinQuerySource> sourceTranformation)
+            where TProviderConfigurator : ExRam.Gremlinq.Providers.Core.IProviderConfigurator<TProviderConfigurator> { }
     }
 }
 namespace ExRam.Gremlinq.Providers.Core.AspNet

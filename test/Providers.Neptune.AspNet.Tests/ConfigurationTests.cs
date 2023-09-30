@@ -22,7 +22,8 @@ namespace ExRam.Gremlinq.Providers.Neptune.AspNet.Tests
                     })
                     .Build())
                 .AddGremlinq(setup => setup
-                    .UseNeptune<Vertex, Edge>())
+                    .UseNeptune<Vertex, Edge>()
+                    .UseNewtonsoftJson())
                 .BuildServiceProvider()
                 .GetRequiredService<IGremlinQuerySource>()
                 .Should()
