@@ -13,22 +13,38 @@ namespace ExRam.Gremlinq.Core.AspNet
         {
             private readonly IProviderConfigurationSection _section;
             private readonly ProviderSetupInfo<TProviderConfigurator> _providerSetupInfo;
+            private readonly IEnumerable<IProviderConfiguratorTransformation<TProviderConfigurator>> _providerConfiguratorTransformations;
 
             public UseProviderGremlinQuerySourceTransformation(
                 IProviderConfigurationSection section,
-                ProviderSetupInfo<TProviderConfigurator> providerSetupInfo)
+                ProviderSetupInfo<TProviderConfigurator> providerSetupInfo,
+                IEnumerable<IProviderConfiguratorTransformation<TProviderConfigurator>> providerConfiguratorTransformations)
             {
                 _section = section;
                 _providerSetupInfo = providerSetupInfo;
+                _providerConfiguratorTransformations = providerConfiguratorTransformations;
             }
 
-            public IGremlinQuerySource Transform(IGremlinQuerySource source) => _providerSetupInfo.ProviderChoice(source, _section);
+            public IGremlinQuerySource Transform(IGremlinQuerySource source)
+            {
+                return _providerSetupInfo.ProviderChoice(
+                    source,
+                    configurator =>
+                    {
+                        foreach(var transformation in _providerConfiguratorTransformations)
+                        {
+                            configurator = transformation.Transform(configurator);
+                        }
+
+                        return configurator;
+                    });
+            }
         }
 
         public static ProviderSetup<TConfigurator> UseProvider<TConfigurator>(
             this GremlinqSetup setup,
             string sectionName,
-            Func<IConfigurableGremlinQuerySource, IProviderConfigurationSection, IGremlinQuerySource> providerChoice)
+            Func<IConfigurableGremlinQuerySource, Func<TConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource> providerChoice)
                 where TConfigurator : IProviderConfigurator<TConfigurator>
         {
             setup.ServiceCollection
