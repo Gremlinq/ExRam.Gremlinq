@@ -25,7 +25,7 @@ namespace ExRam.Gremlinq.Core.AspNet
             public IGremlinQuerySource Transform(IGremlinQuerySource source) => _providerSetupInfo.ProviderChoice(source, _section);
         }
 
-        public static GremlinqSetup UseProvider<TConfigurator>(
+        public static ProviderSetup<TConfigurator> UseProvider<TConfigurator>(
             this GremlinqSetup setup,
             string sectionName,
             Func<IConfigurableGremlinQuerySource, IProviderConfigurationSection, IGremlinQuerySource> providerChoice)
@@ -36,7 +36,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                 .AddSingleton<IGremlinQuerySourceTransformation, UseProviderGremlinQuerySourceTransformation<TConfigurator>>()
                 .AddSingleton<IProviderConfigurationSection, ProviderConfigurationSection<TConfigurator>>();
 
-            return setup;
+            return new ProviderSetup<TConfigurator>(setup.ServiceCollection);
         }
     }
 }
