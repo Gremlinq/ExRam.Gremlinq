@@ -8,6 +8,21 @@ namespace ExRam.Gremlinq.Core.AspNet
 {
     public static class ProviderSetupExtensions
     {
+        private sealed class SourceTransformation : IGremlinQuerySourceTransformation
+        {
+            private readonly Func<IGremlinQuerySource, IGremlinQuerySource> _sourceTransformation;
+
+            public SourceTransformation(Func<IGremlinQuerySource, IGremlinQuerySource> sourceTransformation)
+            {
+                _sourceTransformation = sourceTransformation;
+            }
+
+            public IGremlinQuerySource Transform(IGremlinQuerySource source)
+            {
+                return _sourceTransformation(source);
+            }
+        }
+
         private sealed class ExtraConfigurationProviderConfiguratorTransformation<TConfigurator> : IProviderConfiguratorTransformation<TConfigurator>
            where TConfigurator : IProviderConfigurator<TConfigurator>
         {
@@ -40,6 +55,14 @@ namespace ExRam.Gremlinq.Core.AspNet
             return new ProviderSetup<TProviderConfigurator>(setup
                 .ServiceCollection
                 .AddSingleton<IProviderConfiguratorTransformation<TProviderConfigurator>, TProviderConfiguratorTransformation>());
+        }
+
+        public static ProviderSetup<TProviderConfigurator> ConfigureQuerySource<TProviderConfigurator>(this ProviderSetup<TProviderConfigurator> setup, Func<IGremlinQuerySource, IGremlinQuerySource> sourceTranformation)
+            where TProviderConfigurator : IProviderConfigurator<TProviderConfigurator>
+        {
+            setup.ServiceCollection.AddSingleton<IGremlinQuerySourceTransformation>(new SourceTransformation(sourceTranformation));
+
+            return setup;
         }
     }
 }
