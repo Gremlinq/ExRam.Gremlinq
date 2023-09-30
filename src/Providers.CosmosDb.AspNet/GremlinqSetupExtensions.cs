@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq.Core.AspNet
 {
     public static class GremlinqSetupExtensions
     {
-        public static GremlinqSetup UseCosmosDb<TVertexBase, TEdgeBase>(this GremlinqSetup setup, Func<ICosmosDbConfigurator<TVertexBase>, IProviderConfigurationSection, ICosmosDbConfigurator<TVertexBase>>? configuratorTransformation = null)
+        public static ProviderSetup<ICosmosDbConfigurator<TVertexBase>> UseCosmosDb<TVertexBase, TEdgeBase>(this GremlinqSetup setup, Func<ICosmosDbConfigurator<TVertexBase>, IProviderConfigurationSection, ICosmosDbConfigurator<TVertexBase>>? configuratorTransformation = null)
         {
             return setup
                 .UseProvider<ICosmosDbConfigurator<TVertexBase>>(
