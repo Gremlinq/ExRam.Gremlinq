@@ -25,7 +25,8 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.AspNet.Tests
                     })
                     .Build())
                 .AddGremlinq(setup => setup
-                    .UseCosmosDb<Vertex, Edge>((conf, section) => conf
+                    .UseCosmosDb<Vertex, Edge>()
+                    .Configure((conf, section) => conf
                         .WithPartitionKey(x => x.Label!)))
                 .BuildServiceProvider()
                 .GetRequiredService<IGremlinQuerySource>()
