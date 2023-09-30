@@ -23,14 +23,23 @@ namespace ExRam.Gremlinq.Core.AspNet
             public TConfigurator Transform(TConfigurator configurator) => _extraConfiguration(configurator, _providerSection);
         }
 
-        public static ProviderSetup<TConfigurator> Configure<TConfigurator>(this ProviderSetup<TConfigurator> setup, Func<TConfigurator, IProviderConfigurationSection, TConfigurator> extraConfiguration)
-            where TConfigurator : IProviderConfigurator<TConfigurator>
+        public static ProviderSetup<TProviderConfigurator> Configure<TProviderConfigurator>(this ProviderSetup<TProviderConfigurator> setup, Func<TProviderConfigurator, IProviderConfigurationSection, TProviderConfigurator> extraConfiguration)
+            where TProviderConfigurator : IProviderConfigurator<TProviderConfigurator>
         {
-            return new ProviderSetup<TConfigurator>(setup
+            return new ProviderSetup<TProviderConfigurator>(setup
                 .ServiceCollection
-                .AddSingleton<IProviderConfiguratorTransformation<TConfigurator>>(serviceProvider => new ExtraConfigurationProviderConfiguratorTransformation<TConfigurator>(
+                .AddSingleton<IProviderConfiguratorTransformation<TProviderConfigurator>>(serviceProvider => new ExtraConfigurationProviderConfiguratorTransformation<TProviderConfigurator>(
                     serviceProvider.GetRequiredService<IProviderConfigurationSection>(),
                     extraConfiguration)));
+        }
+
+        public static ProviderSetup<TProviderConfigurator> Configure<TProviderConfigurator, TProviderConfiguratorTransformation>(this ProviderSetup<TProviderConfigurator> setup)
+            where TProviderConfigurator : IProviderConfigurator<TProviderConfigurator>
+            where TProviderConfiguratorTransformation : class, IProviderConfiguratorTransformation<TProviderConfigurator>
+        {
+            return new ProviderSetup<TProviderConfigurator>(setup
+                .ServiceCollection
+                .AddSingleton<IProviderConfiguratorTransformation<TProviderConfigurator>, TProviderConfiguratorTransformation>());
         }
     }
 }
