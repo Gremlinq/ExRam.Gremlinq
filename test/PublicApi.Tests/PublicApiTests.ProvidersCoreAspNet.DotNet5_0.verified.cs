@@ -7,8 +7,11 @@
     }
     public static class ProviderSetupExtensions
     {
-        public static ExRam.Gremlinq.Providers.Core.AspNet.ProviderSetup<TConfigurator> Configure<TConfigurator>(this ExRam.Gremlinq.Providers.Core.AspNet.ProviderSetup<TConfigurator> setup, System.Func<TConfigurator, ExRam.Gremlinq.Providers.Core.AspNet.IProviderConfigurationSection, TConfigurator> extraConfiguration)
-            where TConfigurator : ExRam.Gremlinq.Providers.Core.IProviderConfigurator<TConfigurator> { }
+        public static ExRam.Gremlinq.Providers.Core.AspNet.ProviderSetup<TProviderConfigurator> Configure<TProviderConfigurator>(this ExRam.Gremlinq.Providers.Core.AspNet.ProviderSetup<TProviderConfigurator> setup, System.Func<TProviderConfigurator, ExRam.Gremlinq.Providers.Core.AspNet.IProviderConfigurationSection, TProviderConfigurator> extraConfiguration)
+            where TProviderConfigurator : ExRam.Gremlinq.Providers.Core.IProviderConfigurator<TProviderConfigurator> { }
+        public static ExRam.Gremlinq.Providers.Core.AspNet.ProviderSetup<TProviderConfigurator> Configure<TProviderConfigurator, TProviderConfiguratorTransformation>(this ExRam.Gremlinq.Providers.Core.AspNet.ProviderSetup<TProviderConfigurator> setup)
+            where TProviderConfigurator : ExRam.Gremlinq.Providers.Core.IProviderConfigurator<TProviderConfigurator>
+            where TProviderConfiguratorTransformation :  class, ExRam.Gremlinq.Providers.Core.IProviderConfiguratorTransformation<TProviderConfigurator> { }
     }
 }
 namespace ExRam.Gremlinq.Providers.Core.AspNet
