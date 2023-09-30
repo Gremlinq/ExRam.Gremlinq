@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using System.Linq.Async;
+
 using ExRam.Gremlinq.Core.Projections;
 using ExRam.Gremlinq.Core.Steps;
 

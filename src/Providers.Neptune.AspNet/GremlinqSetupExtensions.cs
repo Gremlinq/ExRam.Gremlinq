@@ -1,8 +1,6 @@
 ﻿using ExRam.Gremlinq.Providers.Core.AspNet;
 using ExRam.Gremlinq.Providers.Neptune;
 
-using Microsoft.Extensions.Configuration;
-
 namespace ExRam.Gremlinq.Core.AspNet
 {
     public static class GremlinqSetupExtensions
