@@ -35,7 +35,7 @@ namespace ExRam.Gremlinq.Core.AspNet
             public IGremlinqProviderSetup<TConfigurator> Configure(Func<TConfigurator, IProviderConfigurationSection, TConfigurator> extraConfiguration)
             {
                 Services
-                    .AddSingleton<IProviderConfiguratorTransformation<TConfigurator>>(serviceProvider => new ExtraConfigurationProviderConfiguratorTransformation(
+                    .AddTransient<IProviderConfiguratorTransformation<TConfigurator>>(serviceProvider => new ExtraConfigurationProviderConfiguratorTransformation(
                         serviceProvider.GetRequiredService<IProviderConfigurationSection>(),
                         extraConfiguration));
 
@@ -46,7 +46,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                 where TProviderConfiguratorTransformation : class, IProviderConfiguratorTransformation<TConfigurator>
             {
                 Services
-                    .AddSingleton<IProviderConfiguratorTransformation<TConfigurator>, TProviderConfiguratorTransformation>();
+                    .AddTransient<IProviderConfiguratorTransformation<TConfigurator>, TProviderConfiguratorTransformation>();
 
                 return this;
             }
@@ -96,8 +96,8 @@ namespace ExRam.Gremlinq.Core.AspNet
         {
             setup.Services
                 .AddSingleton(new ProviderSetupInfo<TConfigurator>(sectionName, providerChoice))
-                .AddSingleton<IGremlinQuerySourceTransformation, UseProviderGremlinQuerySourceTransformation<TConfigurator>>()
-                .AddSingleton<IProviderConfigurationSection, ProviderConfigurationSection<TConfigurator>>();
+                .AddTransient<IGremlinQuerySourceTransformation, UseProviderGremlinQuerySourceTransformation<TConfigurator>>()
+                .AddTransient<IProviderConfigurationSection, ProviderConfigurationSection<TConfigurator>>();
 
             return new ProviderSetupImpl<TConfigurator>(setup);
         }
