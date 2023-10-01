@@ -9,8 +9,8 @@ namespace ExRam.Gremlinq.Core.AspNet
         {
             return setup
                 .UseProvider<INeptuneConfigurator>(
-                    "Neptune",
                     (source, configurationContinuation) => source.UseNeptune<TVertexBase, TEdgeBase>(configurationContinuation))
+                .FromSection("Neptune")
                 .Configure((configurator, section) =>
                 {
                     configurator = configurator

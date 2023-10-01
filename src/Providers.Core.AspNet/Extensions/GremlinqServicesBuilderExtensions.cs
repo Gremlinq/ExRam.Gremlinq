@@ -90,15 +90,13 @@ namespace ExRam.Gremlinq.Core.AspNet
 
         public static IGremlinqProviderServicesBuilder<TConfigurator> UseProvider<TConfigurator>(
             this IGremlinqServicesBuilder setup,
-            string sectionName,
             Func<IConfigurableGremlinQuerySource, Func<TConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource> providerChoice)
                 where TConfigurator : IProviderConfigurator<TConfigurator>
         {
             setup.Services
                 .AddTransient<IGremlinQuerySourceTransformation>(s => new UseProviderGremlinQuerySourceTransformation<TConfigurator>(
                     providerChoice,
-                    s.GetRequiredService<IEnumerable<IProviderConfiguratorTransformation<TConfigurator>>>()))
-                .AddSingleton<IProviderConfigurationSection>(s => new ProviderConfigurationSection<TConfigurator>(s.GetRequiredService<IGremlinqConfigurationSection>(), sectionName));
+                    s.GetRequiredService<IEnumerable<IProviderConfiguratorTransformation<TConfigurator>>>()));
 
             return new GremlinqProviderServicesBuilder<TConfigurator>(setup);
         }

@@ -12,8 +12,8 @@ namespace ExRam.Gremlinq.Core.AspNet
         {
             return setup
                 .UseProvider<ICosmosDbConfigurator<TVertexBase>>(
-                    "CosmosDb",
                     (source, configurationContinuation) => source.UseCosmosDb<TVertexBase, TEdgeBase>(configurationContinuation))
+                .FromSection("CosmosDb")
                 .Configure((configurator, section) =>
                 {
                     configurator = configurator
