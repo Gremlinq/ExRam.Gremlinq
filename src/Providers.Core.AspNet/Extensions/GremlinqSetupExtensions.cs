@@ -36,17 +36,17 @@ namespace ExRam.Gremlinq.Core.AspNet
         }
 
         public static ProviderSetup<TConfigurator> UseProvider<TConfigurator>(
-            this GremlinqSetup setup,
+            this IGremlinqSetup setup,
             string sectionName,
             Func<IConfigurableGremlinQuerySource, Func<TConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource> providerChoice)
                 where TConfigurator : IProviderConfigurator<TConfigurator>
         {
-            setup.ServiceCollection
+            setup.Services
                 .AddSingleton(new ProviderSetupInfo<TConfigurator>(sectionName, providerChoice))
                 .AddSingleton<IGremlinQuerySourceTransformation, UseProviderGremlinQuerySourceTransformation<TConfigurator>>()
                 .AddSingleton<IProviderConfigurationSection, ProviderConfigurationSection<TConfigurator>>();
 
-            return new ProviderSetup<TConfigurator>(setup.ServiceCollection);
+            return new ProviderSetup<TConfigurator>(setup.Services);
         }
     }
 }

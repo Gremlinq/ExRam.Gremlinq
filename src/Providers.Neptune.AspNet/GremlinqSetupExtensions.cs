@@ -5,7 +5,7 @@ namespace ExRam.Gremlinq.Core.AspNet
 {
     public static class GremlinqSetupExtensions
     {
-        public static ProviderSetup<INeptuneConfigurator> UseNeptune<TVertexBase, TEdgeBase>(this GremlinqSetup setup)
+        public static ProviderSetup<INeptuneConfigurator> UseNeptune<TVertexBase, TEdgeBase>(this IGremlinqSetup setup)
         {
             return setup
                 .UseProvider<INeptuneConfigurator>(
