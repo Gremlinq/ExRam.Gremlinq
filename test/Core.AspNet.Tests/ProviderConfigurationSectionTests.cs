@@ -32,7 +32,7 @@ namespace ExRam.Gremlinq.Core.AspNet.Tests
                    .Build())
                 .AddGremlinq(s => s
                     .UseProvider<IMyProviderConfigurator>(
-                        (source, continuation) => source
+                        source => _ => source
                             .ConfigureEnvironment(_ => _))
                     .FromSection("Provider1"))
                 .BuildServiceProvider();

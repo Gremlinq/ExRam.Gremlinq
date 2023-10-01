@@ -8,12 +8,12 @@ namespace ExRam.Gremlinq.Core.AspNet
         public static IGremlinqProviderServicesBuilder<IGremlinServerConfigurator> UseGremlinServer<TVertex, TEdge>(this IGremlinqServicesBuilder setup)
         {
             return setup
-                .UseProvider<IGremlinServerConfigurator>(
-                    (source, configurationContinuation) => source.UseGremlinServer<TVertex, TEdge>(configurationContinuation))
+                .UseProvider<IGremlinServerConfigurator>(source => source
+                    .UseGremlinServer<TVertex, TEdge>)
                 .FromSection("GremlinServer")
                 .Configure((configurator, section) => configurator
-                        .ConfigureBase(section.GremlinqSection)
-                        .ConfigureWebSocket(section));
+                    .ConfigureBase(section.GremlinqSection)
+                    .ConfigureWebSocket(section));
         }
     }
 }

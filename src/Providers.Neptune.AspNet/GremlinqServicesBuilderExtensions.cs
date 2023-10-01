@@ -8,8 +8,8 @@ namespace ExRam.Gremlinq.Core.AspNet
         public static IGremlinqProviderServicesBuilder<INeptuneConfigurator> UseNeptune<TVertexBase, TEdgeBase>(this IGremlinqServicesBuilder setup)
         {
             return setup
-                .UseProvider<INeptuneConfigurator>(
-                    (source, configurationContinuation) => source.UseNeptune<TVertexBase, TEdgeBase>(configurationContinuation))
+                .UseProvider<INeptuneConfigurator>(source => source
+                    .UseNeptune<TVertexBase, TEdgeBase>)
                 .FromSection("Neptune")
                 .Configure((configurator, section) =>
                 {

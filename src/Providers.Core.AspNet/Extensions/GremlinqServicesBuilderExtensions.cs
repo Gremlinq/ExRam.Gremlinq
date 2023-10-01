@@ -61,23 +61,23 @@ namespace ExRam.Gremlinq.Core.AspNet
             public IServiceCollection Services => _baseSetup.Services;
         }
 
-        private sealed class UseProviderGremlinQuerySourceTransformation<TProviderConfigurator> : IGremlinQuerySourceTransformation
-            where TProviderConfigurator : IProviderConfigurator<TProviderConfigurator>
+        private sealed class UseProviderGremlinQuerySourceTransformation<TConfigurator> : IGremlinQuerySourceTransformation
+            where TConfigurator : IProviderConfigurator<TConfigurator>
         {
-            private readonly IEnumerable<IProviderConfiguratorTransformation<TProviderConfigurator>> _providerConfiguratorTransformations;
-            private readonly Func<IConfigurableGremlinQuerySource, Func<TProviderConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource> _providerChoice;
+            private readonly IEnumerable<IProviderConfiguratorTransformation<TConfigurator>> _providerConfiguratorTransformations;
+            private readonly Func<IConfigurableGremlinQuerySource, Func<Func<TConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource>> _providerChoice;
 
             public UseProviderGremlinQuerySourceTransformation(
-                Func<IConfigurableGremlinQuerySource, Func<TProviderConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource> providerChoice,
-                IEnumerable<IProviderConfiguratorTransformation<TProviderConfigurator>> providerConfiguratorTransformations)
+                Func<IConfigurableGremlinQuerySource, Func<Func<TConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource>> providerChoice,
+                IEnumerable<IProviderConfiguratorTransformation<TConfigurator>> providerConfiguratorTransformations)
             {
                 _providerChoice = providerChoice;
                 _providerConfiguratorTransformations = providerConfiguratorTransformations;
             }
 
-            public IGremlinQuerySource Transform(IGremlinQuerySource source) => _providerChoice(
-                source,
-                configurator =>
+            public IGremlinQuerySource Transform(IGremlinQuerySource source) => _providerChoice
+                .Invoke(source)
+                .Invoke(configurator =>
                 {
                     foreach (var transformation in _providerConfiguratorTransformations)
                     {
@@ -90,7 +90,7 @@ namespace ExRam.Gremlinq.Core.AspNet
 
         public static IGremlinqProviderServicesBuilder<TConfigurator> UseProvider<TConfigurator>(
             this IGremlinqServicesBuilder setup,
-            Func<IConfigurableGremlinQuerySource, Func<TConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource> providerChoice)
+            Func<IConfigurableGremlinQuerySource, Func<Func<TConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource>> providerChoice)
                 where TConfigurator : IProviderConfigurator<TConfigurator>
         {
             setup.Services

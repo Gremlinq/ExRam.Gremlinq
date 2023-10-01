@@ -8,8 +8,8 @@ namespace ExRam.Gremlinq.Core.AspNet
         public static IGremlinqProviderServicesBuilder<IJanusGraphConfigurator> UseJanusGraph<TVertexBase, TEdgeBase>(this IGremlinqServicesBuilder setup)
         {
             return setup
-                .UseProvider<IJanusGraphConfigurator>(
-                    (source, configurationContinuation) => source.UseJanusGraph<TVertexBase, TEdgeBase>(configurationContinuation))
+                .UseProvider<IJanusGraphConfigurator>(source => source
+                    .UseJanusGraph<TVertexBase, TEdgeBase>)
                 .FromSection("JanusGraph")
                 .Configure((configurator, section) => configurator
                     .ConfigureBase(section.GremlinqSection)
