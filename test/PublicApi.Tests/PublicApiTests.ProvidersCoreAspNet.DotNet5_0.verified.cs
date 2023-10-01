@@ -2,22 +2,20 @@
 {
     public static class GremlinqSetupExtensions
     {
-        public static ExRam.Gremlinq.Providers.Core.AspNet.ProviderSetup<TConfigurator> UseProvider<TConfigurator>(this ExRam.Gremlinq.Core.AspNet.GremlinqSetup setup, string sectionName, System.Func<ExRam.Gremlinq.Core.IConfigurableGremlinQuerySource, System.Func<TConfigurator, ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation>, ExRam.Gremlinq.Core.IGremlinQuerySource> providerChoice)
+        public static ExRam.Gremlinq.Providers.Core.AspNet.IGremlinqProviderSetup<TConfigurator> UseProvider<TConfigurator>(this ExRam.Gremlinq.Core.AspNet.IGremlinqSetup setup, string sectionName, System.Func<ExRam.Gremlinq.Core.IConfigurableGremlinQuerySource, System.Func<TConfigurator, ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation>, ExRam.Gremlinq.Core.IGremlinQuerySource> providerChoice)
             where TConfigurator : ExRam.Gremlinq.Providers.Core.IProviderConfigurator<TConfigurator> { }
     }
-    public static class ProviderSetupExtensions
-    {
-        public static ExRam.Gremlinq.Providers.Core.AspNet.ProviderSetup<TProviderConfigurator> Configure<TProviderConfigurator>(this ExRam.Gremlinq.Providers.Core.AspNet.ProviderSetup<TProviderConfigurator> setup, System.Func<TProviderConfigurator, ExRam.Gremlinq.Providers.Core.AspNet.IProviderConfigurationSection, TProviderConfigurator> extraConfiguration)
-            where TProviderConfigurator : ExRam.Gremlinq.Providers.Core.IProviderConfigurator<TProviderConfigurator> { }
-        public static ExRam.Gremlinq.Providers.Core.AspNet.ProviderSetup<TProviderConfigurator> Configure<TProviderConfigurator, TProviderConfiguratorTransformation>(this ExRam.Gremlinq.Providers.Core.AspNet.ProviderSetup<TProviderConfigurator> setup)
-            where TProviderConfigurator : ExRam.Gremlinq.Providers.Core.IProviderConfigurator<TProviderConfigurator>
-            where TProviderConfiguratorTransformation :  class, ExRam.Gremlinq.Providers.Core.IProviderConfiguratorTransformation<TProviderConfigurator> { }
-        public static ExRam.Gremlinq.Providers.Core.AspNet.ProviderSetup<TProviderConfigurator> ConfigureQuerySource<TProviderConfigurator>(this ExRam.Gremlinq.Providers.Core.AspNet.ProviderSetup<TProviderConfigurator> setup, System.Func<ExRam.Gremlinq.Core.IGremlinQuerySource, ExRam.Gremlinq.Core.IGremlinQuerySource> sourceTranformation)
-            where TProviderConfigurator : ExRam.Gremlinq.Providers.Core.IProviderConfigurator<TProviderConfigurator> { }
-    }
+    public static class ProviderSetupExtensions { }
 }
 namespace ExRam.Gremlinq.Providers.Core.AspNet
 {
+    public interface IGremlinqProviderSetup<TConfigurator> : ExRam.Gremlinq.Core.AspNet.IGremlinqSetup
+        where TConfigurator : ExRam.Gremlinq.Providers.Core.IProviderConfigurator<TConfigurator>
+    {
+        ExRam.Gremlinq.Providers.Core.AspNet.IGremlinqProviderSetup<TConfigurator> Configure(System.Func<TConfigurator, ExRam.Gremlinq.Providers.Core.AspNet.IProviderConfigurationSection, TConfigurator> extraConfiguration);
+        ExRam.Gremlinq.Providers.Core.AspNet.IGremlinqProviderSetup<TConfigurator> Configure<TProviderConfiguratorTransformation>()
+            where TProviderConfiguratorTransformation :  class, ExRam.Gremlinq.Providers.Core.IProviderConfiguratorTransformation<TConfigurator>;
+    }
     public interface IProviderConfigurationSection : Microsoft.Extensions.Configuration.IConfiguration, Microsoft.Extensions.Configuration.IConfigurationSection
     {
         ExRam.Gremlinq.Core.AspNet.IGremlinqConfigurationSection GremlinqSection { get; }
@@ -28,11 +26,5 @@ namespace ExRam.Gremlinq.Providers.Core.AspNet
             where TConfigurator : ExRam.Gremlinq.Providers.Core.IProviderConfigurator<TConfigurator> { }
         public static TConfigurator ConfigureWebSocket<TConfigurator>(this TConfigurator configurator, ExRam.Gremlinq.Providers.Core.AspNet.IProviderConfigurationSection section)
             where TConfigurator : ExRam.Gremlinq.Providers.Core.IWebSocketProviderConfigurator<TConfigurator> { }
-    }
-    public readonly struct ProviderSetup<TConfigurator>
-        where TConfigurator : ExRam.Gremlinq.Providers.Core.IProviderConfigurator<TConfigurator>
-    {
-        public ProviderSetup(Microsoft.Extensions.DependencyInjection.IServiceCollection serviceCollection) { }
-        public Microsoft.Extensions.DependencyInjection.IServiceCollection ServiceCollection { get; }
     }
 }

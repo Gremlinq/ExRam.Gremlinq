@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Providers.Core.AspNet\ExRam.Gremlinq.Providers.Core.AspNet.csproj" />
+    <ProjectReference Include="..\Core.AspNet\ExRam.Gremlinq.Core.AspNet.csproj" />
     <ProjectReference Include="..\Support.NewtonsoftJson\ExRam.Gremlinq.Support.NewtonsoftJson.csproj" />
   </ItemGroup>
 
