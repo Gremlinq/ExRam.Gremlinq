@@ -10,7 +10,7 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtensions
     {
-        private sealed class GremlinqSetup : IGremlinqServicesBuilder
+        private sealed class GremlinqServicesBuilder : IGremlinqServicesBuilder
         {
             private sealed class SourceTransformation : IGremlinQuerySourceTransformation
             {
@@ -27,7 +27,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 }
             }
 
-            public GremlinqSetup(IServiceCollection services)
+            public GremlinqServicesBuilder(IServiceCollection services)
             {
                 Services = services;
             }
@@ -109,7 +109,7 @@ namespace Microsoft.Extensions.DependencyInjection
                     return querySource;
                 });
 
-            configuration(new GremlinqSetup(serviceCollection));
+            configuration(new GremlinqServicesBuilder(serviceCollection));
 
             return serviceCollection;
         }
