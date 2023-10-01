@@ -58,7 +58,7 @@ namespace ExRam.Gremlinq.Core.AspNet
             public IGremlinqServicesBuilder ConfigureQuerySource<TTransformation>()
                 where  TTransformation : class, IGremlinQuerySourceTransformation => _baseSetup.ConfigureQuerySource<TTransformation>();
 
-            public IServiceCollection Services => throw new NotImplementedException();
+            public IServiceCollection Services => _baseSetup.Services;
         }
 
         private sealed class UseProviderGremlinQuerySourceTransformation<TProviderConfigurator> : IGremlinQuerySourceTransformation
