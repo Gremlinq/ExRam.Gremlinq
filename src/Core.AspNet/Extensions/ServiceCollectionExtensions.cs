@@ -41,7 +41,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
             public IGremlinqSetup UseConfigurationSection(string sectionName)
             {
-                Services.AddTransient<IGremlinqConfigurationSection>(s => new GremlinqConfigurationSection(s.GetRequiredService<IConfiguration>(), sectionName));
+                Services.AddSingleton<IGremlinqConfigurationSection>(s => new GremlinqConfigurationSection(s.GetRequiredService<IConfiguration>(), sectionName));
 
                 return this;
             }
@@ -60,7 +60,7 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddGremlinq(this IServiceCollection serviceCollection, Action<IGremlinqSetup> configuration)
         {
             serviceCollection
-                .TryAddTransient<IGremlinqConfigurationSection>(s => new GremlinqConfigurationSection(s.GetRequiredService<IConfiguration>()));
+                .TryAddSingleton<IGremlinqConfigurationSection>(s => new GremlinqConfigurationSection(s.GetRequiredService<IConfiguration>()));
 
             serviceCollection
                 .TryAddSingleton(serviceProvider =>
