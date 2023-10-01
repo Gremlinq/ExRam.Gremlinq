@@ -3,7 +3,7 @@ using ExRam.Gremlinq.Providers.GremlinServer;
 
 namespace ExRam.Gremlinq.Core.AspNet
 {
-    public static class GremlinqSetupExtensions
+    public static class GremlinqServicesBuilderExtensions
     {
         public static IGremlinqProviderServicesBuilder<IGremlinServerConfigurator> UseGremlinServer<TVertex, TEdge>(this IGremlinqServicesBuilder setup)
         {

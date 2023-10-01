@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace ExRam.Gremlinq.Core.AspNet
 {
-    public static class GremlinqSetupExtensions
+    public static class GremlinqServicesBuilderExtensions
     {
         private sealed class GremlinqProviderServicesBuilder<TConfigurator> : IGremlinqProviderServicesBuilder<TConfigurator>
             where TConfigurator : IProviderConfigurator<TConfigurator>

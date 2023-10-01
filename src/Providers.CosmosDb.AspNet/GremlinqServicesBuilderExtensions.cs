@@ -6,7 +6,7 @@ using ExRam.Gremlinq.Providers.CosmosDb;
 
 namespace ExRam.Gremlinq.Core.AspNet
 {
-    public static class GremlinqSetupExtensions
+    public static class GremlinqServicesBuilderExtensions
     {
         public static IGremlinqProviderServicesBuilder<ICosmosDbConfigurator<TVertexBase>> UseCosmosDb<TVertexBase, TEdgeBase>(this IGremlinqServicesBuilder setup)
         {

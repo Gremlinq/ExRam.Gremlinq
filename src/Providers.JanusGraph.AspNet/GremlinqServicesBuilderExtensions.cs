@@ -3,7 +3,7 @@ using ExRam.Gremlinq.Providers.JanusGraph;
 
 namespace ExRam.Gremlinq.Core.AspNet
 {
-    public static class GremlinqSetupExtensions
+    public static class GremlinqServicesBuilderExtensions
     {
         public static IGremlinqProviderServicesBuilder<IJanusGraphConfigurator> UseJanusGraph<TVertexBase, TEdgeBase>(this IGremlinqServicesBuilder setup)
         {

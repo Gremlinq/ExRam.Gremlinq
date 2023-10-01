@@ -3,7 +3,7 @@ using ExRam.Gremlinq.Providers.Neptune;
 
 namespace ExRam.Gremlinq.Core.AspNet
 {
-    public static class GremlinqSetupExtensions
+    public static class GremlinqServicesBuilderExtensions
     {
         public static IGremlinqProviderServicesBuilder<INeptuneConfigurator> UseNeptune<TVertexBase, TEdgeBase>(this IGremlinqServicesBuilder setup)
         {
