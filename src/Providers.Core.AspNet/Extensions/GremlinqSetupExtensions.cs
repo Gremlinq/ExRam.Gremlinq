@@ -64,18 +64,18 @@ namespace ExRam.Gremlinq.Core.AspNet
         private sealed class UseProviderGremlinQuerySourceTransformation<TProviderConfigurator> : IGremlinQuerySourceTransformation
             where TProviderConfigurator : IProviderConfigurator<TProviderConfigurator>
         {
-            private readonly ProviderSetupInfo<TProviderConfigurator> _providerSetupInfo;
             private readonly IEnumerable<IProviderConfiguratorTransformation<TProviderConfigurator>> _providerConfiguratorTransformations;
+            private readonly Func<IConfigurableGremlinQuerySource, Func<TProviderConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource> _providerChoice;
 
             public UseProviderGremlinQuerySourceTransformation(
-                ProviderSetupInfo<TProviderConfigurator> providerSetupInfo,
+                Func<IConfigurableGremlinQuerySource, Func<TProviderConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource> providerChoice,
                 IEnumerable<IProviderConfiguratorTransformation<TProviderConfigurator>> providerConfiguratorTransformations)
             {
-                _providerSetupInfo = providerSetupInfo;
+                _providerChoice = providerChoice;
                 _providerConfiguratorTransformations = providerConfiguratorTransformations;
             }
 
-            public IGremlinQuerySource Transform(IGremlinQuerySource source) => _providerSetupInfo.ProviderChoice(
+            public IGremlinQuerySource Transform(IGremlinQuerySource source) => _providerChoice(
                 source,
                 configurator =>
                 {
@@ -95,8 +95,9 @@ namespace ExRam.Gremlinq.Core.AspNet
                 where TConfigurator : IProviderConfigurator<TConfigurator>
         {
             setup.Services
-                .AddSingleton(new ProviderSetupInfo<TConfigurator>(providerChoice))
-                .AddTransient<IGremlinQuerySourceTransformation, UseProviderGremlinQuerySourceTransformation<TConfigurator>>()
+                .AddTransient<IGremlinQuerySourceTransformation>(s => new UseProviderGremlinQuerySourceTransformation<TConfigurator>(
+                    providerChoice,
+                    s.GetRequiredService<IEnumerable<IProviderConfiguratorTransformation<TConfigurator>>>()))
                 .AddSingleton<IProviderConfigurationSection>(s => new ProviderConfigurationSection<TConfigurator>(s.GetRequiredService<IGremlinqConfigurationSection>(), sectionName));
 
             return new GremlinqProviderSetup<TConfigurator>(setup);
