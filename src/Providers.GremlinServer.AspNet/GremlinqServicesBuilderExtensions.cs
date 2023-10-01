@@ -11,9 +11,8 @@ namespace ExRam.Gremlinq.Core.AspNet
                 .UseProvider<IGremlinServerConfigurator>(source => source
                     .UseGremlinServer<TVertex, TEdge>)
                 .FromSection("GremlinServer")
-                .Configure((configurator, section) => configurator
-                    .ConfigureBase(section.GremlinqSection)
-                    .ConfigureWebSocket(section));
+                .ConfigureBase()
+                .ConfigureWebSocket();
         }
     }
 }

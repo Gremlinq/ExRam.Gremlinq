@@ -26,9 +26,9 @@ namespace ExRam.Gremlinq.Providers.Core.AspNet
     }
     public static class ProviderConfiguratorExtensions
     {
-        public static TConfigurator ConfigureBase<TConfigurator>(this TConfigurator configurator, ExRam.Gremlinq.Core.AspNet.IGremlinqConfigurationSection section)
+        public static ExRam.Gremlinq.Providers.Core.AspNet.IGremlinqProviderServicesBuilder<TConfigurator> ConfigureBase<TConfigurator>(this ExRam.Gremlinq.Providers.Core.AspNet.IGremlinqProviderServicesBuilder<TConfigurator> builder)
             where TConfigurator : ExRam.Gremlinq.Providers.Core.IProviderConfigurator<TConfigurator> { }
-        public static TConfigurator ConfigureWebSocket<TConfigurator>(this TConfigurator configurator, ExRam.Gremlinq.Providers.Core.AspNet.IProviderConfigurationSection section)
+        public static ExRam.Gremlinq.Providers.Core.AspNet.IGremlinqProviderServicesBuilder<TConfigurator> ConfigureWebSocket<TConfigurator>(this ExRam.Gremlinq.Providers.Core.AspNet.IGremlinqProviderServicesBuilder<TConfigurator> builder)
             where TConfigurator : ExRam.Gremlinq.Providers.Core.IWebSocketProviderConfigurator<TConfigurator> { }
     }
 }

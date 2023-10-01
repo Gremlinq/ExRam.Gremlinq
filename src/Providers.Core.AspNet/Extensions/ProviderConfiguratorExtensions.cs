@@ -1,6 +1,5 @@
 ﻿using System.Net.WebSockets;
 using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Core.AspNet;
 
 using Gremlin.Net.Driver;
 using Microsoft.Extensions.Configuration;
@@ -32,37 +31,45 @@ namespace ExRam.Gremlinq.Providers.Core.AspNet
             }
         }
 
-        public static TConfigurator ConfigureBase<TConfigurator>(this TConfigurator configurator, IGremlinqConfigurationSection section)
+        public static IGremlinqProviderServicesBuilder<TConfigurator> ConfigureBase<TConfigurator>(this IGremlinqProviderServicesBuilder<TConfigurator> builder)
             where TConfigurator : IProviderConfigurator<TConfigurator>
         {
-            if (section["Alias"] is { Length: > 0 } alias)
-            {
-                configurator = configurator
-                    .ConfigureQuerySource(source => source
-                        .ConfigureEnvironment(env => env
-                            .ConfigureOptions(options => options
-                                .SetValue(GremlinqOption.Alias, alias))));
-            }
+            return builder
+                .Configure((configurator, section) =>
+                {
+                    if (section.GremlinqSection["Alias"] is { Length: > 0 } alias)
+                    {
+                        configurator = configurator
+                            .ConfigureQuerySource(source => source
+                                .ConfigureEnvironment(env => env
+                                    .ConfigureOptions(options => options
+                                        .SetValue(GremlinqOption.Alias, alias))));
+                    }
 
-            return configurator;
+                    return configurator;
+                });
         }
 
-        public static TConfigurator ConfigureWebSocket<TConfigurator>(this TConfigurator configurator, IProviderConfigurationSection section)
+        public static IGremlinqProviderServicesBuilder<TConfigurator> ConfigureWebSocket<TConfigurator>(this IGremlinqProviderServicesBuilder<TConfigurator> builder)
             where TConfigurator : IWebSocketProviderConfigurator<TConfigurator>
         {
-            var authenticationSection = section.GetSection("Authentication");
-            var connectionPoolSection = section.GetSection("ConnectionPool");
+            return builder
+                .Configure((configurator, section) =>
+                {
+                    var authenticationSection = section.GetSection("Authentication");
+                    var connectionPoolSection = section.GetSection("ConnectionPool");
 
-            if (section["Uri"] is { } uri)
-                configurator = configurator.At(uri);
+                    if (section["Uri"] is { } uri)
+                        configurator = configurator.At(uri);
 
-            configurator
-                .ConfigureClientFactory(factory => new ConnectionPoolSettingsGremlinClientFactory(factory, connectionPoolSection));
+                    configurator
+                        .ConfigureClientFactory(factory => new ConnectionPoolSettingsGremlinClientFactory(factory, connectionPoolSection));
 
-            if (authenticationSection["Username"] is { } username && authenticationSection["Password"] is { } password)
-                configurator = configurator.AuthenticateBy(username, password);
+                    if (authenticationSection["Username"] is { } username && authenticationSection["Password"] is { } password)
+                        configurator = configurator.AuthenticateBy(username, password);
 
-            return configurator;
+                    return configurator;
+                });
         }
     }
 }

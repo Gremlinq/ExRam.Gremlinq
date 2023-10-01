@@ -11,12 +11,10 @@ namespace ExRam.Gremlinq.Core.AspNet
                 .UseProvider<INeptuneConfigurator>(source => source
                     .UseNeptune<TVertexBase, TEdgeBase>)
                 .FromSection("Neptune")
+                .ConfigureBase()
+                .ConfigureWebSocket()
                 .Configure((configurator, section) =>
                 {
-                    configurator = configurator
-                        .ConfigureBase(section.GremlinqSection)
-                        .ConfigureWebSocket(section);
-
                     if (section.GetSection("ElasticSearch") is { } elasticSearchSection)
                     {
                         if (bool.TryParse(elasticSearchSection["Enabled"], out var isEnabled) && isEnabled)
