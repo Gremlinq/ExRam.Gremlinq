@@ -47,7 +47,7 @@ namespace Microsoft.Extensions.DependencyInjection
             public IGremlinqSetup ConfigureQuerySource<TTransformation>()
                 where TTransformation : class, IGremlinQuerySourceTransformation
             {
-                Services.AddSingleton<IGremlinQuerySourceTransformation, TTransformation>();
+                Services.AddTransient<IGremlinQuerySourceTransformation, TTransformation>();
 
                 return this;
             }
@@ -61,7 +61,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 .TryAddSingleton(new GremlinqSetupInfo());
 
             serviceCollection
-                .TryAddSingleton<IGremlinqConfigurationSection, GremlinqConfigurationSection>();
+                .TryAddTransient<IGremlinqConfigurationSection, GremlinqConfigurationSection>();
 
             serviceCollection
                 .TryAddSingleton(serviceProvider =>
