@@ -95,9 +95,9 @@ namespace ExRam.Gremlinq.Core.AspNet
                 where TConfigurator : IProviderConfigurator<TConfigurator>
         {
             setup.Services
-                .AddSingleton(new ProviderSetupInfo<TConfigurator>(sectionName, providerChoice))
+                .AddSingleton(new ProviderSetupInfo<TConfigurator>(providerChoice))
                 .AddTransient<IGremlinQuerySourceTransformation, UseProviderGremlinQuerySourceTransformation<TConfigurator>>()
-                .AddTransient<IProviderConfigurationSection, ProviderConfigurationSection<TConfigurator>>();
+                .AddTransient<IProviderConfigurationSection>(s => new ProviderConfigurationSection<TConfigurator>(s.GetRequiredService<IGremlinqConfigurationSection>(), sectionName));
 
             return new GremlinqProviderSetup<TConfigurator>(setup);
         }

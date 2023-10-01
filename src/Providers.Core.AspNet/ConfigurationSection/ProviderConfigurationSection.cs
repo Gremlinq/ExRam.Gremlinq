@@ -12,11 +12,11 @@ namespace ExRam.Gremlinq.Core.AspNet
         private readonly IConfigurationSection _providerSection;
         private readonly IGremlinqConfigurationSection _gremlinqSection;
 
-        public ProviderConfigurationSection(IGremlinqConfigurationSection gremlinqSection, ProviderSetupInfo<TConfigurator> setupInfo)
+        public ProviderConfigurationSection(IGremlinqConfigurationSection gremlinqSection, string sectionName)
         {
             _gremlinqSection = gremlinqSection;
             _providerSection = gremlinqSection
-                .GetSection(setupInfo.SectionName);
+                .GetSection(sectionName);
         }
 
         IEnumerable<IConfigurationSection> IConfiguration.GetChildren() => _providerSection.GetChildren();
