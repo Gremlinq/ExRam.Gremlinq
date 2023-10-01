@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq.Core.AspNet
 {
     public static class GremlinqSetupExtensions
     {
-        private sealed class ProviderSetupImpl<TConfigurator> : IGremlinqProviderSetup<TConfigurator>
+        private sealed class GremlinqProviderSetup<TConfigurator> : IGremlinqProviderSetup<TConfigurator>
             where TConfigurator : IProviderConfigurator<TConfigurator>
         {
             private sealed class ExtraConfigurationProviderConfiguratorTransformation : IProviderConfiguratorTransformation<TConfigurator>
@@ -27,7 +27,7 @@ namespace ExRam.Gremlinq.Core.AspNet
 
             private readonly IGremlinqSetup _baseSetup;
 
-            public ProviderSetupImpl(IGremlinqSetup baseSetup)
+            public GremlinqProviderSetup(IGremlinqSetup baseSetup)
             {
                 _baseSetup = baseSetup;
             }
@@ -99,7 +99,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                 .AddTransient<IGremlinQuerySourceTransformation, UseProviderGremlinQuerySourceTransformation<TConfigurator>>()
                 .AddTransient<IProviderConfigurationSection, ProviderConfigurationSection<TConfigurator>>();
 
-            return new ProviderSetupImpl<TConfigurator>(setup);
+            return new GremlinqProviderSetup<TConfigurator>(setup);
         }
     }
 }
