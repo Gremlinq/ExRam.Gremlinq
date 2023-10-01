@@ -7,9 +7,9 @@ namespace ExRam.Gremlinq.Core.AspNet
     {
         private readonly IConfigurationSection _baseSection;
 
-        public GremlinqConfigurationSection(GremlinqSetupInfo setupInfo, IConfiguration configuration)
+        public GremlinqConfigurationSection(IConfiguration configuration, string? maybeSectionName = null)
         {
-            configuration = setupInfo.SectionName is { Length: > 0 } sectionName
+            configuration = maybeSectionName is { Length: > 0 } sectionName
                 ? configuration.GetSection(sectionName)
                 : configuration;
 

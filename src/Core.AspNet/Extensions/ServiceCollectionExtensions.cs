@@ -1,5 +1,7 @@
 ﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.AspNet;
+
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
@@ -39,7 +41,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
             public IGremlinqSetup UseConfigurationSection(string sectionName)
             {
-                Services.AddSingleton(new GremlinqSetupInfo(sectionName));
+                Services.AddTransient<IGremlinqConfigurationSection>(s => new GremlinqConfigurationSection(s.GetRequiredService<IConfiguration>(), sectionName));
 
                 return this;
             }
@@ -58,10 +60,7 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddGremlinq(this IServiceCollection serviceCollection, Action<IGremlinqSetup> configuration)
         {
             serviceCollection
-                .TryAddSingleton(new GremlinqSetupInfo());
-
-            serviceCollection
-                .TryAddTransient<IGremlinqConfigurationSection, GremlinqConfigurationSection>();
+                .TryAddTransient<IGremlinqConfigurationSection>(s => new GremlinqConfigurationSection(s.GetRequiredService<IConfiguration>()));
 
             serviceCollection
                 .TryAddSingleton(serviceProvider =>
