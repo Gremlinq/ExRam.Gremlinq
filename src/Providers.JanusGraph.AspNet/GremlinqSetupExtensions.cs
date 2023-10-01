@@ -5,7 +5,7 @@ namespace ExRam.Gremlinq.Core.AspNet
 {
     public static class GremlinqSetupExtensions
     {
-        public static IGremlinqProviderSetup<IJanusGraphConfigurator> UseJanusGraph<TVertexBase, TEdgeBase>(this IGremlinqSetup setup)
+        public static IGremlinqProviderServicesBuilder<IJanusGraphConfigurator> UseJanusGraph<TVertexBase, TEdgeBase>(this IGremlinqServicesBuilder setup)
         {
             return setup
                 .UseProvider<IJanusGraphConfigurator>(

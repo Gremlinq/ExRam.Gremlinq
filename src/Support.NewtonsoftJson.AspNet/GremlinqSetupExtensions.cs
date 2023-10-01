@@ -2,7 +2,7 @@
 {
     public static class GremlinqSetupExtensions
     {
-        public static IGremlinqSetup UseNewtonsoftJson(this IGremlinqSetup setup) => setup
+        public static IGremlinqServicesBuilder UseNewtonsoftJson(this IGremlinqServicesBuilder setup) => setup
             .ConfigureQuerySource(source => source
                 .UseNewtonsoftJson());
     }

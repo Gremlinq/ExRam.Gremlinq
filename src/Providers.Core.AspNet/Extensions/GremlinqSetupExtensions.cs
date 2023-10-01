@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq.Core.AspNet
 {
     public static class GremlinqSetupExtensions
     {
-        private sealed class GremlinqProviderSetup<TConfigurator> : IGremlinqProviderSetup<TConfigurator>
+        private sealed class GremlinqProviderSetup<TConfigurator> : IGremlinqProviderServicesBuilder<TConfigurator>
             where TConfigurator : IProviderConfigurator<TConfigurator>
         {
             private sealed class ExtraConfigurationProviderConfiguratorTransformation : IProviderConfiguratorTransformation<TConfigurator>
@@ -25,14 +25,14 @@ namespace ExRam.Gremlinq.Core.AspNet
                 public TConfigurator Transform(TConfigurator configurator) => _extraConfiguration(configurator, _providerSection);
             }
 
-            private readonly IGremlinqSetup _baseSetup;
+            private readonly IGremlinqServicesBuilder _baseSetup;
 
-            public GremlinqProviderSetup(IGremlinqSetup baseSetup)
+            public GremlinqProviderSetup(IGremlinqServicesBuilder baseSetup)
             {
                 _baseSetup = baseSetup;
             }
 
-            public IGremlinqProviderSetup<TConfigurator> Configure(Func<TConfigurator, IProviderConfigurationSection, TConfigurator> extraConfiguration)
+            public IGremlinqProviderServicesBuilder<TConfigurator> Configure(Func<TConfigurator, IProviderConfigurationSection, TConfigurator> extraConfiguration)
             {
                 Services
                     .AddTransient<IProviderConfiguratorTransformation<TConfigurator>>(serviceProvider => new ExtraConfigurationProviderConfiguratorTransformation(
@@ -42,7 +42,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                 return this;
             }
 
-            public IGremlinqProviderSetup<TConfigurator> Configure<TProviderConfiguratorTransformation>()
+            public IGremlinqProviderServicesBuilder<TConfigurator> Configure<TProviderConfiguratorTransformation>()
                 where TProviderConfiguratorTransformation : class, IProviderConfiguratorTransformation<TConfigurator>
             {
                 Services
@@ -51,11 +51,11 @@ namespace ExRam.Gremlinq.Core.AspNet
                 return this;
             }
 
-            public IGremlinqSetup ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> sourceTranformation) => _baseSetup.ConfigureQuerySource(sourceTranformation);
+            public IGremlinqServicesBuilder ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> sourceTranformation) => _baseSetup.ConfigureQuerySource(sourceTranformation);
 
-            public IGremlinqSetup UseConfigurationSection(string sectionName) => _baseSetup.UseConfigurationSection(sectionName);
+            public IGremlinqServicesBuilder UseConfigurationSection(string sectionName) => _baseSetup.UseConfigurationSection(sectionName);
 
-            public IGremlinqSetup ConfigureQuerySource<TTransformation>()
+            public IGremlinqServicesBuilder ConfigureQuerySource<TTransformation>()
                 where  TTransformation : class, IGremlinQuerySourceTransformation => _baseSetup.ConfigureQuerySource<TTransformation>();
 
             public IServiceCollection Services => throw new NotImplementedException();
@@ -88,8 +88,8 @@ namespace ExRam.Gremlinq.Core.AspNet
                 });
         }
 
-        public static IGremlinqProviderSetup<TConfigurator> UseProvider<TConfigurator>(
-            this IGremlinqSetup setup,
+        public static IGremlinqProviderServicesBuilder<TConfigurator> UseProvider<TConfigurator>(
+            this IGremlinqServicesBuilder setup,
             string sectionName,
             Func<IConfigurableGremlinQuerySource, Func<TConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource> providerChoice)
                 where TConfigurator : IProviderConfigurator<TConfigurator>

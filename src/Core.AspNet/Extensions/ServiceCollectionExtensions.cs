@@ -10,7 +10,7 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtensions
     {
-        private sealed class GremlinqSetup : IGremlinqSetup
+        private sealed class GremlinqSetup : IGremlinqServicesBuilder
         {
             private sealed class SourceTransformation : IGremlinQuerySourceTransformation
             {
@@ -32,21 +32,21 @@ namespace Microsoft.Extensions.DependencyInjection
                 Services = services;
             }
 
-            public IGremlinqSetup ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> sourceTranformation)
+            public IGremlinqServicesBuilder ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> sourceTranformation)
             {
                 Services.AddSingleton<IGremlinQuerySourceTransformation>(new SourceTransformation(sourceTranformation));
 
                 return this;
             }
 
-            public IGremlinqSetup UseConfigurationSection(string sectionName)
+            public IGremlinqServicesBuilder UseConfigurationSection(string sectionName)
             {
                 Services.AddSingleton<IGremlinqConfigurationSection>(s => new GremlinqConfigurationSection(s.GetRequiredService<IConfiguration>(), sectionName));
 
                 return this;
             }
 
-            public IGremlinqSetup ConfigureQuerySource<TTransformation>()
+            public IGremlinqServicesBuilder ConfigureQuerySource<TTransformation>()
                 where TTransformation : class, IGremlinQuerySourceTransformation
             {
                 Services.AddTransient<IGremlinQuerySourceTransformation, TTransformation>();
@@ -57,7 +57,7 @@ namespace Microsoft.Extensions.DependencyInjection
             public IServiceCollection Services { get; }
         }
 
-        public static IServiceCollection AddGremlinq(this IServiceCollection serviceCollection, Action<IGremlinqSetup> configuration)
+        public static IServiceCollection AddGremlinq(this IServiceCollection serviceCollection, Action<IGremlinqServicesBuilder> configuration)
         {
             serviceCollection
                 .TryAddSingleton<IGremlinqConfigurationSection>(s => new GremlinqConfigurationSection(s.GetRequiredService<IConfiguration>()));

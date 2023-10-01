@@ -5,7 +5,7 @@ namespace ExRam.Gremlinq.Core.AspNet
 {
     public static class GremlinqSetupExtensions
     {
-        public static IGremlinqProviderSetup<IGremlinServerConfigurator> UseGremlinServer<TVertex, TEdge>(this IGremlinqSetup setup)
+        public static IGremlinqProviderServicesBuilder<IGremlinServerConfigurator> UseGremlinServer<TVertex, TEdge>(this IGremlinqServicesBuilder setup)
         {
             return setup
                 .UseProvider<IGremlinServerConfigurator>(
