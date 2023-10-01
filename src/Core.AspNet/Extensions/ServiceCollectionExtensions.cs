@@ -8,7 +8,54 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddGremlinq(this IServiceCollection serviceCollection, Action<GremlinqSetup> configuration)
+        private sealed class GremlinqSetupImpl : IGremlinqSetup
+        {
+            private sealed class SourceTransformation : IGremlinQuerySourceTransformation
+            {
+                private readonly Func<IGremlinQuerySource, IGremlinQuerySource> _sourceTransformation;
+
+                public SourceTransformation(Func<IGremlinQuerySource, IGremlinQuerySource> sourceTransformation)
+                {
+                    _sourceTransformation = sourceTransformation;
+                }
+
+                public IGremlinQuerySource Transform(IGremlinQuerySource source)
+                {
+                    return _sourceTransformation(source);
+                }
+            }
+
+            public GremlinqSetupImpl(IServiceCollection services)
+            {
+                Services = services;
+            }
+
+            public IGremlinqSetup ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> sourceTranformation)
+            {
+                Services.AddSingleton<IGremlinQuerySourceTransformation>(new SourceTransformation(sourceTranformation));
+
+                return this;
+            }
+
+            public IGremlinqSetup UseConfigurationSection(string sectionName)
+            {
+                Services.AddSingleton(new GremlinqSetupInfo(sectionName));
+
+                return this;
+            }
+
+            public IGremlinqSetup ConfigureQuerySource<TTransformation>()
+                where TTransformation : class, IGremlinQuerySourceTransformation
+            {
+                Services.AddSingleton<IGremlinQuerySourceTransformation, TTransformation>();
+
+                return this;
+            }
+
+            public IServiceCollection Services { get; }
+        }
+
+        public static IServiceCollection AddGremlinq(this IServiceCollection serviceCollection, Action<IGremlinqSetup> configuration)
         {
             serviceCollection
                 .TryAddSingleton(new GremlinqSetupInfo());
@@ -63,7 +110,7 @@ namespace Microsoft.Extensions.DependencyInjection
                     return querySource;
                 });
 
-            configuration(new GremlinqSetup(serviceCollection));
+            configuration(new GremlinqSetupImpl(serviceCollection));
 
             return serviceCollection;
         }
