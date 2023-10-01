@@ -8,6 +8,59 @@ namespace ExRam.Gremlinq.Core.AspNet
 {
     public static class GremlinqSetupExtensions
     {
+        private sealed class ProviderSetupImpl<TConfigurator> : IGremlinqProviderSetup<TConfigurator>
+            where TConfigurator : IProviderConfigurator<TConfigurator>
+        {
+            private sealed class ExtraConfigurationProviderConfiguratorTransformation : IProviderConfiguratorTransformation<TConfigurator>
+            {
+                private readonly IProviderConfigurationSection _providerSection;
+                private readonly Func<TConfigurator, IProviderConfigurationSection, TConfigurator> _extraConfiguration;
+
+                public ExtraConfigurationProviderConfiguratorTransformation(IProviderConfigurationSection providerSection, Func<TConfigurator, IProviderConfigurationSection, TConfigurator> extraConfiguration)
+                {
+                    _providerSection = providerSection;
+                    _extraConfiguration = extraConfiguration;
+                }
+
+                public TConfigurator Transform(TConfigurator configurator) => _extraConfiguration(configurator, _providerSection);
+            }
+
+            private readonly IGremlinqSetup _baseSetup;
+
+            public ProviderSetupImpl(IGremlinqSetup baseSetup)
+            {
+                _baseSetup = baseSetup;
+            }
+
+            public IGremlinqProviderSetup<TConfigurator> Configure(Func<TConfigurator, IProviderConfigurationSection, TConfigurator> extraConfiguration)
+            {
+                Services
+                    .AddSingleton<IProviderConfiguratorTransformation<TConfigurator>>(serviceProvider => new ExtraConfigurationProviderConfiguratorTransformation(
+                        serviceProvider.GetRequiredService<IProviderConfigurationSection>(),
+                        extraConfiguration));
+
+                return this;
+            }
+
+            public IGremlinqProviderSetup<TConfigurator> Configure<TProviderConfiguratorTransformation>()
+                where TProviderConfiguratorTransformation : class, IProviderConfiguratorTransformation<TConfigurator>
+            {
+                Services
+                    .AddSingleton<IProviderConfiguratorTransformation<TConfigurator>, TProviderConfiguratorTransformation>();
+
+                return this;
+            }
+
+            public IGremlinqSetup ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> sourceTranformation) => _baseSetup.ConfigureQuerySource(sourceTranformation);
+
+            public IGremlinqSetup UseConfigurationSection(string sectionName) => _baseSetup.UseConfigurationSection(sectionName);
+
+            public IGremlinqSetup ConfigureQuerySource<TTransformation>()
+                where  TTransformation : class, IGremlinQuerySourceTransformation => _baseSetup.ConfigureQuerySource<TTransformation>();
+
+            public IServiceCollection Services => throw new NotImplementedException();
+        }
+
         private sealed class UseProviderGremlinQuerySourceTransformation<TProviderConfigurator> : IGremlinQuerySourceTransformation
             where TProviderConfigurator : IProviderConfigurator<TProviderConfigurator>
         {
@@ -35,7 +88,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                 });
         }
 
-        public static ProviderSetup<TConfigurator> UseProvider<TConfigurator>(
+        public static IGremlinqProviderSetup<TConfigurator> UseProvider<TConfigurator>(
             this IGremlinqSetup setup,
             string sectionName,
             Func<IConfigurableGremlinQuerySource, Func<TConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource> providerChoice)
@@ -46,7 +99,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                 .AddSingleton<IGremlinQuerySourceTransformation, UseProviderGremlinQuerySourceTransformation<TConfigurator>>()
                 .AddSingleton<IProviderConfigurationSection, ProviderConfigurationSection<TConfigurator>>();
 
-            return new ProviderSetup<TConfigurator>(setup.Services);
+            return new ProviderSetupImpl<TConfigurator>(setup);
         }
     }
 }
