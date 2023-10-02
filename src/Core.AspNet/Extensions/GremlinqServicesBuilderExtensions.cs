@@ -85,6 +85,20 @@ namespace ExRam.Gremlinq.Core.AspNet
                 });
         }
 
+        public static IGremlinqServicesBuilder ConfigureBase(this IGremlinqServicesBuilder builder) => builder
+            .ConfigureQuerySource((source, section) =>
+            {
+                if (section["Alias"] is { Length: > 0 } alias)
+                {
+                    return source
+                        .ConfigureEnvironment(env => env
+                            .ConfigureOptions(options => options
+                                .SetValue(GremlinqOption.Alias, alias)));
+                }
+
+                return source;
+            });
+
         public static IGremlinqServicesBuilder<TConfigurator> UseProvider<TConfigurator>(
             this IGremlinqServicesBuilder setup,
             Func<IConfigurableGremlinQuerySource, Func<Func<TConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource>> providerChoice)
@@ -96,25 +110,6 @@ namespace ExRam.Gremlinq.Core.AspNet
                     s.GetRequiredService<IEnumerable<IGremlinqConfiguratorTransformation<TConfigurator>>>()));
 
             return new GremlinqProviderServicesBuilder<TConfigurator>(setup);
-        }
-
-        public static IGremlinqServicesBuilder<TConfigurator> ConfigureBase<TConfigurator>(this IGremlinqServicesBuilder<TConfigurator> builder)
-            where TConfigurator : IGremlinqConfigurator<TConfigurator>
-        {
-            return builder
-                .Configure((configurator, section) =>
-                {
-                    if (section["Alias"] is { Length: > 0 } alias)
-                    {
-                        configurator = configurator
-                            .ConfigureQuerySource(source => source
-                                .ConfigureEnvironment(env => env
-                                    .ConfigureOptions(options => options
-                                        .SetValue(GremlinqOption.Alias, alias))));
-                    }
-
-                    return configurator;
-                });
         }
     }
 }

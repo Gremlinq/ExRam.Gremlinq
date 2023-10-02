@@ -7,9 +7,9 @@ namespace ExRam.Gremlinq.Core.AspNet
         public static IGremlinqServicesBuilder<IJanusGraphConfigurator> UseJanusGraph<TVertexBase, TEdgeBase>(this IGremlinqServicesBuilder setup)
         {
             return setup
+                .ConfigureBase()
                 .UseProvider<IJanusGraphConfigurator>(source => source
                     .UseJanusGraph<TVertexBase, TEdgeBase>)
-                .ConfigureBase()
                 .ConfigureWebSocket();
         }
     }
