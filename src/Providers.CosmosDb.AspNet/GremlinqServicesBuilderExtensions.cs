@@ -13,7 +13,7 @@ namespace ExRam.Gremlinq.Core.AspNet
             return setup
                 .UseProvider<ICosmosDbConfigurator<TVertexBase>>(source => source
                     .UseCosmosDb<TVertexBase, TEdgeBase>)
-                .FromSection("CosmosDb")
+                .FromProviderSection("CosmosDb")
                 .ConfigureBase()
                 .ConfigureWebSocket()
                 .Configure((configurator, section) =>

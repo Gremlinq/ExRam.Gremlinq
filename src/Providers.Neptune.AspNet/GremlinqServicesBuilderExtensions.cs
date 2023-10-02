@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq.Core.AspNet
             return setup
                 .UseProvider<INeptuneConfigurator>(source => source
                     .UseNeptune<TVertexBase, TEdgeBase>)
-                .FromSection("Neptune")
+                .FromProviderSection("Neptune")
                 .ConfigureBase()
                 .ConfigureWebSocket()
                 .Configure((configurator, section) =>

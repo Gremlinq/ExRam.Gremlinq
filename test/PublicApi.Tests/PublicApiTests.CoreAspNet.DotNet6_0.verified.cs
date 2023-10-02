@@ -8,7 +8,7 @@
         ExRam.Gremlinq.Core.AspNet.IGremlinqServicesBuilder ConfigureQuerySource(System.Func<ExRam.Gremlinq.Core.IGremlinQuerySource, Microsoft.Extensions.Configuration.IConfigurationSection, ExRam.Gremlinq.Core.IGremlinQuerySource> sourceTranformation);
         ExRam.Gremlinq.Core.AspNet.IGremlinqServicesBuilder ConfigureQuerySource<TTransformation>()
             where TTransformation :  class, ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation;
-        ExRam.Gremlinq.Core.AspNet.IGremlinqServicesBuilder UseConfigurationSection(string sectionName);
+        ExRam.Gremlinq.Core.AspNet.IGremlinqServicesBuilder FromBaseSection(string sectionName);
     }
     public interface IGremlinqServicesBuilder<TConfigurator> : ExRam.Gremlinq.Core.AspNet.IGremlinqServicesBuilder
         where TConfigurator : ExRam.Gremlinq.Core.IGremlinqConfigurator<TConfigurator>
@@ -16,6 +16,7 @@
         ExRam.Gremlinq.Core.AspNet.IGremlinqServicesBuilder<TConfigurator> Configure(System.Func<TConfigurator, Microsoft.Extensions.Configuration.IConfigurationSection, TConfigurator> extraConfiguration);
         ExRam.Gremlinq.Core.AspNet.IGremlinqServicesBuilder<TConfigurator> Configure<TConfiguratorTransformation>()
             where TConfiguratorTransformation :  class, ExRam.Gremlinq.Core.IGremlinqConfiguratorTransformation<TConfigurator>;
+        ExRam.Gremlinq.Core.AspNet.IGremlinqServicesBuilder<TConfigurator> FromProviderSection(string sectionName);
     }
 }
 namespace Microsoft.Extensions.DependencyInjection

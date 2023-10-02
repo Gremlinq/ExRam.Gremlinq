@@ -1,10 +1,5 @@
 ﻿namespace ExRam.Gremlinq.Core.AspNet
 {
-    public static class GremlinqProviderServicesBuilderExtensions
-    {
-        public static ExRam.Gremlinq.Core.AspNet.IGremlinqServicesBuilder<TConfigurator> FromSection<TConfigurator>(this ExRam.Gremlinq.Core.AspNet.IGremlinqServicesBuilder<TConfigurator> builder, string sectionName)
-            where TConfigurator : ExRam.Gremlinq.Core.IGremlinqConfigurator<TConfigurator> { }
-    }
     public static class GremlinqServicesBuilderExtensions
     {
         public static ExRam.Gremlinq.Core.AspNet.IGremlinqServicesBuilder<TConfigurator> UseProvider<TConfigurator>(this ExRam.Gremlinq.Core.AspNet.IGremlinqServicesBuilder setup, System.Func<ExRam.Gremlinq.Core.IConfigurableGremlinQuerySource, System.Func<System.Func<TConfigurator, ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation>, ExRam.Gremlinq.Core.IGremlinQuerySource>> providerChoice)

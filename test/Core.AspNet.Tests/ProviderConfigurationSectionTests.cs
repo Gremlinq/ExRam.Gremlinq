@@ -40,7 +40,7 @@ namespace ExRam.Gremlinq.Core.AspNet.Tests
                     .UseProvider<IMyProviderConfigurator>(
                         source => _ => source
                             .ConfigureEnvironment(_ => _))
-                    .FromSection("Provider1"))
+                    .FromProviderSection("Provider1"))
                 .BuildServiceProvider()
                 .GetRequiredService<IProviderConfigurationSection>();
 
@@ -56,7 +56,7 @@ namespace ExRam.Gremlinq.Core.AspNet.Tests
                     .UseProvider<IMyProviderConfigurator>(
                         source => _ => source
                             .ConfigureEnvironment(_ => _))
-                    .FromSection("Provider1"))
+                    .FromProviderSection("Provider1"))
                 .BuildServiceProvider()
                 .GetRequiredService<IProviderConfigurationSection>();
 
@@ -72,7 +72,7 @@ namespace ExRam.Gremlinq.Core.AspNet.Tests
                     .UseProvider<IMyProviderConfigurator>(
                         source => _ => source
                             .ConfigureEnvironment(_ => _))
-                    .FromSection("Provider1"))
+                    .FromProviderSection("Provider1"))
                 .BuildServiceProvider()
                 .GetRequiredService<IProviderConfigurationSection>();
 

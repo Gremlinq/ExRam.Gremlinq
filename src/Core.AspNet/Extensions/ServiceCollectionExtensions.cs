@@ -39,7 +39,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 return this;
             }
 
-            public IGremlinqServicesBuilder UseConfigurationSection(string sectionName)
+            public IGremlinqServicesBuilder FromBaseSection(string sectionName)
             {
                 Services
                     .AddSingleton(s => new GremlinqConfigurationSection(s.GetRequiredService<IConfiguration>(), sectionName))

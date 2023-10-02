@@ -4,6 +4,7 @@ using ExRam.Gremlinq.Providers.Core.AspNet;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace ExRam.Gremlinq.Core.AspNet
 {
@@ -33,6 +34,16 @@ namespace ExRam.Gremlinq.Core.AspNet
                 _baseSetup = baseSetup;
             }
 
+            public IGremlinqServicesBuilder<TConfigurator> FromProviderSection(string sectionName)
+            {
+                Services
+                    .AddSingleton(s => new ProviderConfigurationSection<TConfigurator>(s.GetRequiredService<IGremlinqConfigurationSection>(), sectionName))
+                    .AddSingleton<IProviderConfigurationSection>(s => s.GetRequiredService<ProviderConfigurationSection<TConfigurator>>())
+                    .TryAddTransient<IEffectiveGremlinqConfigurationSection>(s => s.GetRequiredService<ProviderConfigurationSection<TConfigurator>>());
+
+                return this;
+            }
+
             public IGremlinqServicesBuilder<TConfigurator> Configure(Func<TConfigurator, IConfigurationSection, TConfigurator> extraConfiguration)
             {
                 Services
@@ -54,7 +65,7 @@ namespace ExRam.Gremlinq.Core.AspNet
 
             public IGremlinqServicesBuilder ConfigureQuerySource(Func<IGremlinQuerySource, IConfigurationSection, IGremlinQuerySource> sourceTranformation) => _baseSetup.ConfigureQuerySource(sourceTranformation);
 
-            public IGremlinqServicesBuilder UseConfigurationSection(string sectionName) => _baseSetup.UseConfigurationSection(sectionName);
+            public IGremlinqServicesBuilder FromBaseSection(string sectionName) => _baseSetup.FromBaseSection(sectionName);
 
             public IGremlinqServicesBuilder ConfigureQuerySource<TTransformation>()
                 where  TTransformation : class, IGremlinQuerySourceTransformation => _baseSetup.ConfigureQuerySource<TTransformation>();
