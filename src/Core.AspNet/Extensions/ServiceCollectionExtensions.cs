@@ -15,10 +15,10 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             private sealed class SourceTransformation : IGremlinQuerySourceTransformation
             {
-                private readonly IEffectiveGremlinqConfigurationSection _section;
+                private readonly IGremlinqConfigurationSection _section;
                 private readonly Func<IGremlinQuerySource, IConfigurationSection, IGremlinQuerySource> _sourceTransformation;
 
-                public SourceTransformation(IEffectiveGremlinqConfigurationSection section, Func<IGremlinQuerySource, IConfigurationSection, IGremlinQuerySource> sourceTransformation)
+                public SourceTransformation(IGremlinqConfigurationSection section, Func<IGremlinQuerySource, IConfigurationSection, IGremlinQuerySource> sourceTransformation)
                 {
                     _section = section;
                     _sourceTransformation = sourceTransformation;
@@ -34,7 +34,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
             public IGremlinqServicesBuilder ConfigureQuerySource(Func<IGremlinQuerySource, IConfigurationSection, IGremlinQuerySource> sourceTranformation)
             {
-                Services.AddTransient<IGremlinQuerySourceTransformation>(s => new SourceTransformation(s.GetRequiredService<IEffectiveGremlinqConfigurationSection>(), sourceTranformation));
+                Services.AddTransient<IGremlinQuerySourceTransformation>(s => new SourceTransformation(s.GetRequiredService<IGremlinqConfigurationSection>(), sourceTranformation));
 
                 return this;
             }
@@ -42,9 +42,7 @@ namespace Microsoft.Extensions.DependencyInjection
             public IGremlinqServicesBuilder FromBaseSection(string sectionName)
             {
                 Services
-                    .AddSingleton(s => new GremlinqConfigurationSection(s.GetRequiredService<IConfiguration>(), sectionName))
-                    .AddSingleton<IGremlinqConfigurationSection>(s => s.GetRequiredService<GremlinqConfigurationSection>())
-                    .TryAddTransient<IEffectiveGremlinqConfigurationSection>(s => s.GetRequiredService<GremlinqConfigurationSection>());
+                    .AddSingleton<IGremlinqConfigurationSection>(s => new GremlinqConfigurationSection(s.GetRequiredService<IConfiguration>(), sectionName));
 
                 return this;
             }

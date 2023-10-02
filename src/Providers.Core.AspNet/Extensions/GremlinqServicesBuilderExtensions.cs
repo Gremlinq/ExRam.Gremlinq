@@ -15,10 +15,10 @@ namespace ExRam.Gremlinq.Core.AspNet
         {
             private sealed class ExtraConfigurationProviderConfiguratorTransformation : IGremlinqConfiguratorTransformation<TConfigurator>
             {
-                private readonly IEffectiveGremlinqConfigurationSection _section;
+                private readonly IGremlinqConfigurationSection _section;
                 private readonly Func<TConfigurator, IConfigurationSection, TConfigurator> _extraConfiguration;
 
-                public ExtraConfigurationProviderConfiguratorTransformation(IEffectiveGremlinqConfigurationSection providerSection, Func<TConfigurator, IConfigurationSection, TConfigurator> extraConfiguration)
+                public ExtraConfigurationProviderConfiguratorTransformation(IGremlinqConfigurationSection providerSection, Func<TConfigurator, IConfigurationSection, TConfigurator> extraConfiguration)
                 {
                     _section = providerSection;
                     _extraConfiguration = extraConfiguration;
@@ -38,7 +38,7 @@ namespace ExRam.Gremlinq.Core.AspNet
             {
                 Services
                     .AddTransient<IGremlinqConfiguratorTransformation<TConfigurator>>(serviceProvider => new ExtraConfigurationProviderConfiguratorTransformation(
-                        serviceProvider.GetRequiredService<IEffectiveGremlinqConfigurationSection>(),
+                        serviceProvider.GetRequiredService<IGremlinqConfigurationSection>(),
                         extraConfiguration));
 
                 return this;
