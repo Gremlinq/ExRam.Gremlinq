@@ -16,7 +16,6 @@
         ExRam.Gremlinq.Core.AspNet.IGremlinqServicesBuilder<TConfigurator> Configure(System.Func<TConfigurator, Microsoft.Extensions.Configuration.IConfigurationSection, TConfigurator> extraConfiguration);
         ExRam.Gremlinq.Core.AspNet.IGremlinqServicesBuilder<TConfigurator> Configure<TConfiguratorTransformation>()
             where TConfiguratorTransformation :  class, ExRam.Gremlinq.Core.IGremlinqConfiguratorTransformation<TConfigurator>;
-        ExRam.Gremlinq.Core.AspNet.IGremlinqServicesBuilder<TConfigurator> FromProviderSection(string sectionName);
     }
 }
 namespace Microsoft.Extensions.DependencyInjection

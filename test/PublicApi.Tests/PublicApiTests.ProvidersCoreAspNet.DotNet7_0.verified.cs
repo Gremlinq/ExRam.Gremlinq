@@ -8,7 +8,6 @@
 }
 namespace ExRam.Gremlinq.Providers.Core.AspNet
 {
-    public interface IProviderConfigurationSection : Microsoft.Extensions.Configuration.IConfiguration, Microsoft.Extensions.Configuration.IConfigurationSection { }
     public static class ProviderConfiguratorExtensions
     {
         public static ExRam.Gremlinq.Core.AspNet.IGremlinqServicesBuilder<TConfigurator> ConfigureBase<TConfigurator>(this ExRam.Gremlinq.Core.AspNet.IGremlinqServicesBuilder<TConfigurator> builder)

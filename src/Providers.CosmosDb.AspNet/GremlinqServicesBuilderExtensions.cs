@@ -13,21 +13,23 @@ namespace ExRam.Gremlinq.Core.AspNet
             return setup
                 .UseProvider<ICosmosDbConfigurator<TVertexBase>>(source => source
                     .UseCosmosDb<TVertexBase, TEdgeBase>)
-                .FromProviderSection("CosmosDb")
                 .ConfigureBase()
                 .ConfigureWebSocket()
-                .Configure((configurator, section) =>
+                .Configure((configurator, gremlinqSection) =>
                 {
-                    if (section["Database"] is { } databaseName)
+                    var providerSection = gremlinqSection
+                        .GetSection("CosmosDb");
+
+                    if (providerSection["Database"] is { } databaseName)
                         configurator = configurator.OnDatabase(databaseName);
 
-                    if (section["Graph"] is { } graphName)
+                    if (providerSection["Graph"] is { } graphName)
                         configurator = configurator.OnGraph(graphName);
 
-                    if (section["AuthKey"] is { } authKey)
+                    if (providerSection["AuthKey"] is { } authKey)
                         configurator = configurator.AuthenticateBy(authKey);
 
-                    if (section["PartitionKey"] is { Length: > 0 } partitionKey)
+                    if (providerSection["PartitionKey"] is { Length: > 0 } partitionKey)
                     {
                         if (typeof(TVertexBase).GetProperty(partitionKey, BindingFlags.Instance | BindingFlags.Public) is { GetMethod: { } partitionKeyGetter })
                         {

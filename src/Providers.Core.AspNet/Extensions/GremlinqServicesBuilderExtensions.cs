@@ -33,16 +33,6 @@ namespace ExRam.Gremlinq.Core.AspNet
                 _baseSetup = baseSetup;
             }
 
-            public IGremlinqServicesBuilder<TConfigurator> FromProviderSection(string sectionName)
-            {
-                Services
-                    .AddSingleton(s => new ProviderConfigurationSection<TConfigurator>(s.GetRequiredService<IGremlinqConfigurationSection>(), sectionName))
-                    .AddSingleton<IProviderConfigurationSection>(s => s.GetRequiredService<ProviderConfigurationSection<TConfigurator>>())
-                    .TryAddTransient<IEffectiveGremlinqConfigurationSection>(s => s.GetRequiredService<ProviderConfigurationSection<TConfigurator>>());
-
-                return this;
-            }
-
             public IGremlinqServicesBuilder<TConfigurator> Configure(Func<TConfigurator, IConfigurationSection, TConfigurator> extraConfiguration)
             {
                 Services
@@ -107,8 +97,7 @@ namespace ExRam.Gremlinq.Core.AspNet
             setup.Services
                 .AddTransient<IGremlinQuerySourceTransformation>(s => new UseProviderGremlinQuerySourceTransformation<TConfigurator>(
                     providerChoice,
-                    s.GetRequiredService<IEnumerable<IGremlinqConfiguratorTransformation<TConfigurator>>>()))
-                .AddSingleton<IProviderConfigurationSection, ProviderConfigurationSection<TConfigurator>>();
+                    s.GetRequiredService<IEnumerable<IGremlinqConfiguratorTransformation<TConfigurator>>>()));
 
             return new GremlinqProviderServicesBuilder<TConfigurator>(setup);
         }
