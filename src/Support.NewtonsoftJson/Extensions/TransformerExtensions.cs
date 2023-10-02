@@ -76,8 +76,6 @@ namespace ExRam.Gremlinq.Core
                 DateParseHandling = DateParseHandling.None
             });
 
-        private static readonly ConditionalWeakTable<ITransformer, ITransformer> ShortcutTransformers = new();
-
         public static ITransformer UseNewtonsoftJson(this ITransformer transformer)
         {
             return transformer
@@ -89,22 +87,7 @@ namespace ExRam.Gremlinq.Core
                 .Add(ConverterFactory
                     .Create<byte[], JToken>((bytes, _, _) => jsonSerializer
                         .Deserialize<JToken>(new JsonTextReader(new StreamReader(new MemoryStream(bytes))))))
-                .Add(ConverterFactory
-                    .Create<byte[], ResponseMessage<List<object>>>((message, env, recurse) =>
-                    {
-                        var token = recurse
-                            .TransformTo<JToken>()
-                            .From(message, env);
-
-                        return ShortcutTransformers
-                            .GetValue(
-                                recurse,
-                                static transformer => transformer
-                                    .Add(ConverterFactory
-                                        .Create<JToken, JToken>((token, env, recurse) => token)))
-                            .TransformTo<ResponseMessage<List<object>>>()
-                            .From(token, env);
-                    }))
+                .Add(new ResponseMessageConverterFactory())
                 .Add(new DictionaryConverterFactory())
                 .Add(new DynamicObjectConverterFactory())
                 .Add(new SingleItemArrayFallbackConverterFactory())
