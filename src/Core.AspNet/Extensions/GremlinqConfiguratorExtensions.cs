@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace ExRam.Gremlinq.Core.AspNet
 {
-    public static class GremlinqConfiguratorExtensions
+    internal static class GremlinqConfiguratorExtensions
     {
         private sealed class ConnectionPoolSettingsGremlinClientFactory : IGremlinClientFactory
         {
