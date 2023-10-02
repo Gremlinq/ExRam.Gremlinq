@@ -18,8 +18,6 @@ namespace ExRam.Gremlinq.Core.AspNet
     public interface IGremlinqServicesBuilder<TConfigurator> : IGremlinqServicesBuilder
      where TConfigurator : IGremlinqConfigurator<TConfigurator>
     {
-        IGremlinqServicesBuilder<TConfigurator> FromProviderSection(string sectionName);
-
         IGremlinqServicesBuilder<TConfigurator> Configure(Func<TConfigurator, IConfigurationSection, TConfigurator> extraConfiguration);
 
         IGremlinqServicesBuilder<TConfigurator> Configure<TConfiguratorTransformation>()

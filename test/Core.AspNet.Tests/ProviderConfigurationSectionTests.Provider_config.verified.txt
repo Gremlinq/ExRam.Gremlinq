@@ -1,4 +1,0 @@
-﻿{
-  Item3: provider1_value1,
-  Item4: provider1_value2
-}

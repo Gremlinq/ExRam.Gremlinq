@@ -1,5 +1,4 @@
-﻿using ExRam.Gremlinq.Providers.Core.AspNet;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ExRam.Gremlinq.Core.AspNet.Tests
@@ -38,10 +37,9 @@ namespace ExRam.Gremlinq.Core.AspNet.Tests
                 .AddGremlinq(s => s
                     .UseProvider<IMyProviderConfigurator>(
                         source => _ => source
-                            .ConfigureEnvironment(_ => _))
-                    .FromProviderSection("Provider1"))
+                            .ConfigureEnvironment(_ => _)))
                 .BuildServiceProvider()
-                .GetRequiredService<IProviderConfigurationSection>();
+                .GetRequiredService<IGremlinqConfigurationSection>();
 
             return Verify(section["Key"]);
         }
@@ -54,57 +52,11 @@ namespace ExRam.Gremlinq.Core.AspNet.Tests
                 .AddGremlinq(s => s
                     .UseProvider<IMyProviderConfigurator>(
                         source => _ => source
-                            .ConfigureEnvironment(_ => _))
-                    .FromProviderSection("Provider1"))
-                .BuildServiceProvider()
-                .GetRequiredService<IProviderConfigurationSection>();
-
-            return Verify(section.Value);
-        }
-
-        [Fact]
-        public Task Provider_config()
-        {
-            var section = new ServiceCollection()
-                .AddSingleton<IConfiguration>(_configurationRoot)
-                .AddGremlinq(s => s
-                    .UseProvider<IMyProviderConfigurator>(
-                        source => _ => source
-                            .ConfigureEnvironment(_ => _))
-                    .FromProviderSection("Provider1"))
-                .BuildServiceProvider()
-                .GetRequiredService<IProviderConfigurationSection>();
-
-            return Verify((
-                section["Gremlinq_key_1"],
-                section["Gremlinq_key_2"],
-
-                section["Provider1_key_1"],
-                section["Provider1_key_2"],
-                section["Provider2_key_1"],
-                section["Provider2_key_2"]));
-        }
-
-        [Fact]
-        public Task Provider_config_without_explicit_provider_section()
-        {
-            var section = new ServiceCollection()
-                .AddSingleton<IConfiguration>(_configurationRoot)
-                .AddGremlinq(s => s
-                    .UseProvider<IMyProviderConfigurator>(
-                        source => _ => source
                             .ConfigureEnvironment(_ => _)))
                 .BuildServiceProvider()
-                .GetRequiredService<IProviderConfigurationSection>();
+                .GetRequiredService<IGremlinqConfigurationSection>();
 
-            return Verify((
-                section["Gremlinq_key_1"],
-                section["Gremlinq_key_2"],
-
-                section["Provider1_key_1"],
-                section["Provider1_key_2"],
-                section["Provider2_key_1"],
-                section["Provider2_key_2"]));
+            return Verify(section.Value);
         }
     }
 }
