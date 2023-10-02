@@ -2,7 +2,7 @@
 
 namespace ExRam.Gremlinq.Core.AspNet
 {
-    public interface IGremlinqConfigurationSection : IConfigurationSection
+    internal interface IGremlinqConfigurationSection : IConfigurationSection
     {
 
     }
