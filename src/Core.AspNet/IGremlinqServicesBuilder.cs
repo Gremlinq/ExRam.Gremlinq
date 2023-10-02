@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq.Core.AspNet
 
         IGremlinqServicesBuilder UseConfigurationSection(string sectionName);
         
-        IGremlinqServicesBuilder ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> sourceTranformation);
+        IGremlinqServicesBuilder ConfigureQuerySource(Func<IGremlinQuerySource, IConfigurationSection, IGremlinQuerySource> sourceTranformation);
 
         IServiceCollection Services { get; }
     }

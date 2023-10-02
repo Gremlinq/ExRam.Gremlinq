@@ -52,7 +52,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                 return this;
             }
 
-            public IGremlinqServicesBuilder ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> sourceTranformation) => _baseSetup.ConfigureQuerySource(sourceTranformation);
+            public IGremlinqServicesBuilder ConfigureQuerySource(Func<IGremlinQuerySource, IConfigurationSection, IGremlinQuerySource> sourceTranformation) => _baseSetup.ConfigureQuerySource(sourceTranformation);
 
             public IGremlinqServicesBuilder UseConfigurationSection(string sectionName) => _baseSetup.UseConfigurationSection(sectionName);
 

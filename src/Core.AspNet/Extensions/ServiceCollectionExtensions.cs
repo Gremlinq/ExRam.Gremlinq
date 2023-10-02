@@ -4,7 +4,6 @@ using ExRam.Gremlinq.Core.AspNet;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Primitives;
 
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
@@ -16,17 +15,16 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             private sealed class SourceTransformation : IGremlinQuerySourceTransformation
             {
-                private readonly Func<IGremlinQuerySource, IGremlinQuerySource> _sourceTransformation;
+                private readonly IEffectiveGremlinqConfigurationSection _section;
+                private readonly Func<IGremlinQuerySource, IConfigurationSection, IGremlinQuerySource> _sourceTransformation;
 
-                public SourceTransformation(Func<IGremlinQuerySource, IGremlinQuerySource> sourceTransformation)
+                public SourceTransformation(IEffectiveGremlinqConfigurationSection section, Func<IGremlinQuerySource, IConfigurationSection, IGremlinQuerySource> sourceTransformation)
                 {
+                    _section = section;
                     _sourceTransformation = sourceTransformation;
                 }
 
-                public IGremlinQuerySource Transform(IGremlinQuerySource source)
-                {
-                    return _sourceTransformation(source);
-                }
+                public IGremlinQuerySource Transform(IGremlinQuerySource source) => _sourceTransformation(source, _section);
             }
 
             public GremlinqServicesBuilder(IServiceCollection services)
@@ -34,9 +32,9 @@ namespace Microsoft.Extensions.DependencyInjection
                 Services = services;
             }
 
-            public IGremlinqServicesBuilder ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> sourceTranformation)
+            public IGremlinqServicesBuilder ConfigureQuerySource(Func<IGremlinQuerySource, IConfigurationSection, IGremlinQuerySource> sourceTranformation)
             {
-                Services.AddSingleton<IGremlinQuerySourceTransformation>(new SourceTransformation(sourceTranformation));
+                Services.AddTransient<IGremlinQuerySourceTransformation>(s => new SourceTransformation(s.GetRequiredService<IEffectiveGremlinqConfigurationSection>(), sourceTranformation));
 
                 return this;
             }

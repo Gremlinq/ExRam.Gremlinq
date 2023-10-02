@@ -5,7 +5,7 @@
     public interface IGremlinqServicesBuilder
     {
         Microsoft.Extensions.DependencyInjection.IServiceCollection Services { get; }
-        ExRam.Gremlinq.Core.AspNet.IGremlinqServicesBuilder ConfigureQuerySource(System.Func<ExRam.Gremlinq.Core.IGremlinQuerySource, ExRam.Gremlinq.Core.IGremlinQuerySource> sourceTranformation);
+        ExRam.Gremlinq.Core.AspNet.IGremlinqServicesBuilder ConfigureQuerySource(System.Func<ExRam.Gremlinq.Core.IGremlinQuerySource, Microsoft.Extensions.Configuration.IConfigurationSection, ExRam.Gremlinq.Core.IGremlinQuerySource> sourceTranformation);
         ExRam.Gremlinq.Core.AspNet.IGremlinqServicesBuilder ConfigureQuerySource<TTransformation>()
             where TTransformation :  class, ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation;
         ExRam.Gremlinq.Core.AspNet.IGremlinqServicesBuilder UseConfigurationSection(string sectionName);
