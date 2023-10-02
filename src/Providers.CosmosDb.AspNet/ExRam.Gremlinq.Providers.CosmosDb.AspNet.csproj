@@ -13,8 +13,4 @@
     <ProjectReference Include="..\Providers.CosmosDb\ExRam.Gremlinq.Providers.CosmosDb.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Extensions\" />
-  </ItemGroup>
-
 </Project>
