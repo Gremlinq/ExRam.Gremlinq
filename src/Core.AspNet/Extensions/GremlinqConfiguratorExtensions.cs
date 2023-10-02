@@ -35,19 +35,24 @@ namespace ExRam.Gremlinq.Core.AspNet
         public static TConfigurator ConfigureWebSocket<TConfigurator>(this TConfigurator configurator, IConfigurationSection section)
             where TConfigurator : IWebSocketProviderConfigurator<TConfigurator>
         {
-            var authenticationSection = section.GetSection("Authentication");
             var connectionPoolSection = section.GetSection("ConnectionPool");
 
             if (section["Uri"] is { } uri)
                 configurator = configurator.At(uri);
 
-            configurator
-                .ConfigureClientFactory(factory => new ConnectionPoolSettingsGremlinClientFactory(factory, connectionPoolSection));
+            return connectionPoolSection.Exists()
+                ? configurator.ConfigureClientFactory(factory => new ConnectionPoolSettingsGremlinClientFactory(factory, connectionPoolSection))
+                : configurator;
+        }
 
-            if (authenticationSection["Username"] is { } username && authenticationSection["Password"] is { } password)
-                configurator = configurator.AuthenticateBy(username, password);
+        public static TConfigurator ConfigureBasicAuthentication<TConfigurator>(this TConfigurator configurator, IConfigurationSection section)
+            where TConfigurator : IWebSocketProviderConfigurator<TConfigurator>
+        {
+            var authenticationSection = section.GetSection("Authentication");
 
-            return configurator;
+            return authenticationSection["Username"] is { } username && authenticationSection["Password"] is { } password
+                ? configurator.AuthenticateBy(username, password)
+                : configurator;
         }
     }
 }
