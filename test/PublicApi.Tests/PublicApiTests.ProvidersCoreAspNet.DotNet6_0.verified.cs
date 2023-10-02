@@ -2,11 +2,7 @@
 {
     public static class GremlinqServicesBuilderExtensions
     {
-        public static ExRam.Gremlinq.Core.AspNet.IGremlinqServicesBuilder<TConfigurator> ConfigureBase<TConfigurator>(this ExRam.Gremlinq.Core.AspNet.IGremlinqServicesBuilder<TConfigurator> builder)
-            where TConfigurator : ExRam.Gremlinq.Core.IGremlinqConfigurator<TConfigurator> { }
         public static ExRam.Gremlinq.Core.AspNet.IGremlinqServicesBuilder<TConfigurator> ConfigureWebSocket<TConfigurator>(this ExRam.Gremlinq.Core.AspNet.IGremlinqServicesBuilder<TConfigurator> builder)
             where TConfigurator : ExRam.Gremlinq.Providers.Core.IWebSocketProviderConfigurator<TConfigurator> { }
-        public static ExRam.Gremlinq.Core.AspNet.IGremlinqServicesBuilder<TConfigurator> UseProvider<TConfigurator>(this ExRam.Gremlinq.Core.AspNet.IGremlinqServicesBuilder setup, System.Func<ExRam.Gremlinq.Core.IConfigurableGremlinQuerySource, System.Func<System.Func<TConfigurator, ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation>, ExRam.Gremlinq.Core.IGremlinQuerySource>> providerChoice)
-            where TConfigurator : ExRam.Gremlinq.Core.IGremlinqConfigurator<TConfigurator> { }
     }
 }
