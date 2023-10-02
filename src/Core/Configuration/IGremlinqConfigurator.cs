@@ -1,8 +1,8 @@
 ﻿namespace ExRam.Gremlinq.Core
 {
-    public interface IGremlinqConfigurator<out TConfigurator> : IGremlinQuerySourceTransformation
-        where TConfigurator : IGremlinqConfigurator<TConfigurator>
+    public interface IGremlinqConfigurator<out TSelf> : IGremlinQuerySourceTransformation
+        where TSelf : IGremlinqConfigurator<TSelf>
     {
-        TConfigurator ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> transformation);
+        TSelf ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> transformation);
     }
 }

@@ -4,11 +4,11 @@ using _GremlinServer = Gremlin.Net.Driver.GremlinServer;
 
 namespace ExRam.Gremlinq.Providers.Core
 {
-    public interface IWebSocketProviderConfigurator<out TConfigurator> : IGremlinqConfigurator<TConfigurator>
-        where TConfigurator : IGremlinqConfigurator<TConfigurator>
+    public interface IWebSocketProviderConfigurator<out TSelf> : IGremlinqConfigurator<TSelf>
+        where TSelf : IGremlinqConfigurator<TSelf>
     {
-        TConfigurator ConfigureServer(Func<_GremlinServer, _GremlinServer> transformation);
+        TSelf ConfigureServer(Func<_GremlinServer, _GremlinServer> transformation);
 
-        TConfigurator ConfigureClientFactory(Func<IGremlinClientFactory, IGremlinClientFactory> transformation);
+        TSelf ConfigureClientFactory(Func<IGremlinClientFactory, IGremlinClientFactory> transformation);
     }
 }

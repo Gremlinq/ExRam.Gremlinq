@@ -576,10 +576,10 @@ namespace ExRam.Gremlinq.Core
     {
         TConfigurator Transform(TConfigurator configurator);
     }
-    public interface IGremlinqConfigurator<out TConfigurator> : ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation
-        where out TConfigurator : ExRam.Gremlinq.Core.IGremlinqConfigurator<TConfigurator>
+    public interface IGremlinqConfigurator<out TSelf> : ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation
+        where out TSelf : ExRam.Gremlinq.Core.IGremlinqConfigurator<TSelf>
     {
-        TConfigurator ConfigureQuerySource(System.Func<ExRam.Gremlinq.Core.IGremlinQuerySource, ExRam.Gremlinq.Core.IGremlinQuerySource> transformation);
+        TSelf ConfigureQuerySource(System.Func<ExRam.Gremlinq.Core.IGremlinQuerySource, ExRam.Gremlinq.Core.IGremlinQuerySource> transformation);
     }
     public interface IGremlinqOption { }
     public interface IGremlinqOptions
