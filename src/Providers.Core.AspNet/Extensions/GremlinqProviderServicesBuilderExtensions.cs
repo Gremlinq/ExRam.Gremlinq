@@ -2,6 +2,7 @@
 using ExRam.Gremlinq.Providers.Core.AspNet;
 
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace ExRam.Gremlinq.Core.AspNet
 {
@@ -11,7 +12,9 @@ namespace ExRam.Gremlinq.Core.AspNet
             where TConfigurator : IGremlinqConfigurator<TConfigurator>
         {
             builder.Services
-                .AddSingleton<IProviderConfigurationSection>(s => new ProviderConfigurationSection<TConfigurator>(s.GetRequiredService<IGremlinqConfigurationSection>(), sectionName));
+                .AddSingleton(s => new ProviderConfigurationSection<TConfigurator>(s.GetRequiredService<IGremlinqConfigurationSection>(), sectionName))
+                .AddSingleton<IProviderConfigurationSection>(s => s.GetRequiredService<ProviderConfigurationSection<TConfigurator>>())
+                .TryAddTransient<IEffectiveGremlinqConfigurationSection>(s => s.GetRequiredService<ProviderConfigurationSection<TConfigurator>>());
 
             return builder;
         }

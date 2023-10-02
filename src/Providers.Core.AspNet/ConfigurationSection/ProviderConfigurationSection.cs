@@ -5,7 +5,7 @@ using Microsoft.Extensions.Primitives;
 
 namespace ExRam.Gremlinq.Core.AspNet
 {
-    internal sealed class ProviderConfigurationSection<TConfigurator> : IProviderConfigurationSection
+    internal sealed class ProviderConfigurationSection<TConfigurator> : IProviderConfigurationSection, IEffectiveGremlinqConfigurationSection
         where TConfigurator : IGremlinqConfigurator<TConfigurator>
     {
         private readonly IConfigurationSection _baseSection;

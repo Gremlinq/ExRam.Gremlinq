@@ -3,7 +3,7 @@ using Microsoft.Extensions.Primitives;
 
 namespace ExRam.Gremlinq.Core.AspNet
 {
-    internal sealed class GremlinqConfigurationSection : IGremlinqConfigurationSection
+    internal sealed class GremlinqConfigurationSection : IGremlinqConfigurationSection, IEffectiveGremlinqConfigurationSection
     {
         private readonly IConfigurationSection _baseSection;
 
