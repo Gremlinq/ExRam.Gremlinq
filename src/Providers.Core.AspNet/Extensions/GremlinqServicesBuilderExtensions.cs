@@ -97,7 +97,8 @@ namespace ExRam.Gremlinq.Core.AspNet
             setup.Services
                 .AddTransient<IGremlinQuerySourceTransformation>(s => new UseProviderGremlinQuerySourceTransformation<TConfigurator>(
                     providerChoice,
-                    s.GetRequiredService<IEnumerable<IProviderConfiguratorTransformation<TConfigurator>>>()));
+                    s.GetRequiredService<IEnumerable<IProviderConfiguratorTransformation<TConfigurator>>>()))
+                .AddSingleton<IProviderConfigurationSection, ProviderConfigurationSection<TConfigurator>>();
 
             return new GremlinqProviderServicesBuilder<TConfigurator>(setup);
         }

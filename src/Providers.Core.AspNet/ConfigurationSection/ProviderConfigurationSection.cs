@@ -9,34 +9,43 @@ namespace ExRam.Gremlinq.Core.AspNet
     internal sealed class ProviderConfigurationSection<TConfigurator> : IProviderConfigurationSection
         where TConfigurator : IProviderConfigurator<TConfigurator>
     {
-        private readonly IConfigurationSection _providerSection;
+        private readonly IConfigurationSection _baseSection;
 
-        public ProviderConfigurationSection(IGremlinqConfigurationSection gremlinqSection, string sectionName)
+        public ProviderConfigurationSection(IGremlinqConfigurationSection gremlinqSection) : this((IConfigurationSection)gremlinqSection)
         {
-            _providerSection = gremlinqSection
-                .GetSection(sectionName);
+
         }
 
-        IEnumerable<IConfigurationSection> IConfiguration.GetChildren() => _providerSection.GetChildren();
+        public ProviderConfigurationSection(IGremlinqConfigurationSection gremlinqSection, string sectionName) : this(gremlinqSection.GetSection(sectionName))
+        {
 
-        IChangeToken IConfiguration.GetReloadToken() => _providerSection.GetReloadToken();
+        }
 
-        IConfigurationSection IConfiguration.GetSection(string key) => _providerSection.GetSection(key);
+        private ProviderConfigurationSection(IConfigurationSection section)
+        {
+            _baseSection = section;
+        }
 
-        string IConfigurationSection.Key => _providerSection.Key;
+        IEnumerable<IConfigurationSection> IConfiguration.GetChildren() => _baseSection.GetChildren();
 
-        string IConfigurationSection.Path => _providerSection.Path;
+        IChangeToken IConfiguration.GetReloadToken() => _baseSection.GetReloadToken();
+
+        IConfigurationSection IConfiguration.GetSection(string key) => _baseSection.GetSection(key);
+
+        string IConfigurationSection.Key => _baseSection.Key;
+
+        string IConfigurationSection.Path => _baseSection.Path;
 
         string? IConfiguration.this[string key]
         {
-            get => _providerSection[key];
-            set => _providerSection[key] = value;
+            get => _baseSection[key];
+            set => _baseSection[key] = value;
         }
 
         string? IConfigurationSection.Value
         {
-            get => _providerSection.Value;
-            set => _providerSection.Value = value;
+            get => _baseSection.Value;
+            set => _baseSection.Value = value;
         }
     }
 }
