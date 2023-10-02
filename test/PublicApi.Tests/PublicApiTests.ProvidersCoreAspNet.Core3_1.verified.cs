@@ -3,7 +3,7 @@
     public static class GremlinqProviderServicesBuilderExtensions
     {
         public static ExRam.Gremlinq.Providers.Core.AspNet.IGremlinqProviderServicesBuilder<TConfigurator> FromSection<TConfigurator>(this ExRam.Gremlinq.Providers.Core.AspNet.IGremlinqProviderServicesBuilder<TConfigurator> builder, string sectionName)
-            where TConfigurator : ExRam.Gremlinq.Providers.Core.IProviderConfigurator<TConfigurator> { }
+            where TConfigurator : ExRam.Gremlinq.Core.IGremlinqConfigurator<TConfigurator> { }
     }
     public static class GremlinqServicesBuilderExtensions
     {
@@ -14,7 +14,7 @@
 namespace ExRam.Gremlinq.Providers.Core.AspNet
 {
     public interface IGremlinqProviderServicesBuilder<TConfigurator> : ExRam.Gremlinq.Core.AspNet.IGremlinqServicesBuilder
-        where TConfigurator : ExRam.Gremlinq.Providers.Core.IProviderConfigurator<TConfigurator>
+        where TConfigurator : ExRam.Gremlinq.Core.IGremlinqConfigurator<TConfigurator>
     {
         ExRam.Gremlinq.Providers.Core.AspNet.IGremlinqProviderServicesBuilder<TConfigurator> Configure(System.Func<TConfigurator, Microsoft.Extensions.Configuration.IConfigurationSection, TConfigurator> extraConfiguration);
         ExRam.Gremlinq.Providers.Core.AspNet.IGremlinqProviderServicesBuilder<TConfigurator> Configure<TConfiguratorTransformation>()

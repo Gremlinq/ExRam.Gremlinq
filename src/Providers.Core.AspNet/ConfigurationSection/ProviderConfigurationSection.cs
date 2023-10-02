@@ -1,5 +1,4 @@
 ﻿// ReSharper disable HeapView.PossibleBoxingAllocation
-using ExRam.Gremlinq.Providers.Core;
 using ExRam.Gremlinq.Providers.Core.AspNet;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Primitives;
@@ -7,7 +6,7 @@ using Microsoft.Extensions.Primitives;
 namespace ExRam.Gremlinq.Core.AspNet
 {
     internal sealed class ProviderConfigurationSection<TConfigurator> : IProviderConfigurationSection
-        where TConfigurator : IProviderConfigurator<TConfigurator>
+        where TConfigurator : IGremlinqConfigurator<TConfigurator>
     {
         private readonly IConfigurationSection _baseSection;
 
