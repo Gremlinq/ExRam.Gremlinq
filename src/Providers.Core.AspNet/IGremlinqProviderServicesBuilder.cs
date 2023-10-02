@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Providers.Core.AspNet
     {
         IGremlinqProviderServicesBuilder<TConfigurator> Configure(Func<TConfigurator, IConfigurationSection, TConfigurator> extraConfiguration);
 
-        IGremlinqProviderServicesBuilder<TConfigurator> Configure<TProviderConfiguratorTransformation>()
-            where TProviderConfiguratorTransformation : class, IGremlinqConfiguratorTransformation<TConfigurator>;
+        IGremlinqProviderServicesBuilder<TConfigurator> Configure<TConfiguratorTransformation>()
+            where TConfiguratorTransformation : class, IGremlinqConfiguratorTransformation<TConfigurator>;
     }
 }
