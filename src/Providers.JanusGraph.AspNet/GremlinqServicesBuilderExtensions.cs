@@ -10,7 +10,14 @@ namespace ExRam.Gremlinq.Core.AspNet
                 .ConfigureBase()
                 .UseProvider<IJanusGraphConfigurator>(source => source
                     .UseJanusGraph<TVertexBase, TEdgeBase>)
-                .ConfigureWebSocket();
+                .Configure((configurator, section) =>
+                {
+                    var providerSection = section
+                        .GetSection("JanusGraph");
+
+                    return configurator
+                        .ConfigureWebSocket(providerSection);
+                });
         }
     }
 }
