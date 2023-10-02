@@ -1,4 +1,5 @@
-﻿using ExRam.Gremlinq.Core.AspNet;
+﻿using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Core.AspNet;
 using Microsoft.Extensions.Configuration;
 
 namespace ExRam.Gremlinq.Providers.Core.AspNet
@@ -9,6 +10,6 @@ namespace ExRam.Gremlinq.Providers.Core.AspNet
         IGremlinqProviderServicesBuilder<TConfigurator> Configure(Func<TConfigurator, IConfigurationSection, TConfigurator> extraConfiguration);
 
         IGremlinqProviderServicesBuilder<TConfigurator> Configure<TProviderConfiguratorTransformation>()
-            where TProviderConfiguratorTransformation : class, IProviderConfiguratorTransformation<TConfigurator>;
+            where TProviderConfiguratorTransformation : class, IGremlinqConfiguratorTransformation<TConfigurator>;
     }
 }

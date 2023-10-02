@@ -10,11 +10,6 @@
     {
         Gremlin.Net.Driver.IGremlinClient Create(ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, Gremlin.Net.Driver.GremlinServer gremlinServer, Gremlin.Net.Driver.IMessageSerializer messageSerializer, Gremlin.Net.Driver.ConnectionPoolSettings connectionPoolSettings, System.Action<System.Net.WebSockets.ClientWebSocketOptions> webSocketConfiguration, string? sessionId = null);
     }
-    public interface IProviderConfiguratorTransformation<TConfigurator>
-        where TConfigurator : ExRam.Gremlinq.Providers.Core.IProviderConfigurator<TConfigurator>
-    {
-        TConfigurator Transform(TConfigurator configurator);
-    }
     public interface IProviderConfigurator<out TConfigurator> : ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation, ExRam.Gremlinq.Core.IGremlinqConfigurator<TConfigurator>
         where out TConfigurator : ExRam.Gremlinq.Providers.Core.IProviderConfigurator<TConfigurator> { }
     public interface IWebSocketProviderConfigurator<out TConfigurator> : ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation, ExRam.Gremlinq.Core.IGremlinqConfigurator<TConfigurator>, ExRam.Gremlinq.Providers.Core.IProviderConfigurator<TConfigurator>

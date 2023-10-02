@@ -571,6 +571,11 @@ namespace ExRam.Gremlinq.Core
     }
     public interface IGremlinQueryStrategy { }
     public interface IGremlinQuery<TElement> : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<ExRam.Gremlinq.Core.IGremlinQuery<TElement>>, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TElement, ExRam.Gremlinq.Core.IGremlinQuery<TElement>>, ExRam.Gremlinq.Core.IGremlinQueryBase<TElement>, ExRam.Gremlinq.Core.IStartGremlinQuery { }
+    public interface IGremlinqConfiguratorTransformation<TConfigurator>
+        where TConfigurator : ExRam.Gremlinq.Core.IGremlinqConfigurator<TConfigurator>
+    {
+        TConfigurator Transform(TConfigurator configurator);
+    }
     public interface IGremlinqConfigurator<out TConfigurator> : ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation
         where out TConfigurator : ExRam.Gremlinq.Core.IGremlinqConfigurator<TConfigurator>
     {

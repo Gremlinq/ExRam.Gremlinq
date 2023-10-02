@@ -12,7 +12,7 @@ namespace ExRam.Gremlinq.Core.AspNet
         private sealed class GremlinqProviderServicesBuilder<TConfigurator> : IGremlinqProviderServicesBuilder<TConfigurator>
             where TConfigurator : IProviderConfigurator<TConfigurator>
         {
-            private sealed class ExtraConfigurationProviderConfiguratorTransformation : IProviderConfiguratorTransformation<TConfigurator>
+            private sealed class ExtraConfigurationProviderConfiguratorTransformation : IGremlinqConfiguratorTransformation<TConfigurator>
             {
                 private readonly IConfigurationSection _section;
                 private readonly Func<TConfigurator, IConfigurationSection, TConfigurator> _extraConfiguration;
@@ -36,7 +36,7 @@ namespace ExRam.Gremlinq.Core.AspNet
             public IGremlinqProviderServicesBuilder<TConfigurator> Configure(Func<TConfigurator, IConfigurationSection, TConfigurator> extraConfiguration)
             {
                 Services
-                    .AddTransient<IProviderConfiguratorTransformation<TConfigurator>>(serviceProvider => new ExtraConfigurationProviderConfiguratorTransformation(
+                    .AddTransient<IGremlinqConfiguratorTransformation<TConfigurator>>(serviceProvider => new ExtraConfigurationProviderConfiguratorTransformation(
                         serviceProvider.GetService<IProviderConfigurationSection>() ?? (IConfigurationSection)serviceProvider.GetRequiredService<IGremlinqConfigurationSection>(),
                         extraConfiguration));
 
@@ -44,10 +44,10 @@ namespace ExRam.Gremlinq.Core.AspNet
             }
 
             public IGremlinqProviderServicesBuilder<TConfigurator> Configure<TProviderConfiguratorTransformation>()
-                where TProviderConfiguratorTransformation : class, IProviderConfiguratorTransformation<TConfigurator>
+                where TProviderConfiguratorTransformation : class, IGremlinqConfiguratorTransformation<TConfigurator>
             {
                 Services
-                    .AddTransient<IProviderConfiguratorTransformation<TConfigurator>, TProviderConfiguratorTransformation>();
+                    .AddTransient<IGremlinqConfiguratorTransformation<TConfigurator>, TProviderConfiguratorTransformation>();
 
                 return this;
             }
@@ -65,12 +65,12 @@ namespace ExRam.Gremlinq.Core.AspNet
         private sealed class UseProviderGremlinQuerySourceTransformation<TConfigurator> : IGremlinQuerySourceTransformation
             where TConfigurator : IProviderConfigurator<TConfigurator>
         {
-            private readonly IEnumerable<IProviderConfiguratorTransformation<TConfigurator>> _providerConfiguratorTransformations;
+            private readonly IEnumerable<IGremlinqConfiguratorTransformation<TConfigurator>> _providerConfiguratorTransformations;
             private readonly Func<IConfigurableGremlinQuerySource, Func<Func<TConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource>> _providerChoice;
 
             public UseProviderGremlinQuerySourceTransformation(
                 Func<IConfigurableGremlinQuerySource, Func<Func<TConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource>> providerChoice,
-                IEnumerable<IProviderConfiguratorTransformation<TConfigurator>> providerConfiguratorTransformations)
+                IEnumerable<IGremlinqConfiguratorTransformation<TConfigurator>> providerConfiguratorTransformations)
             {
                 _providerChoice = providerChoice;
                 _providerConfiguratorTransformations = providerConfiguratorTransformations;
@@ -97,7 +97,7 @@ namespace ExRam.Gremlinq.Core.AspNet
             setup.Services
                 .AddTransient<IGremlinQuerySourceTransformation>(s => new UseProviderGremlinQuerySourceTransformation<TConfigurator>(
                     providerChoice,
-                    s.GetRequiredService<IEnumerable<IProviderConfiguratorTransformation<TConfigurator>>>()))
+                    s.GetRequiredService<IEnumerable<IGremlinqConfiguratorTransformation<TConfigurator>>>()))
                 .AddSingleton<IProviderConfigurationSection, ProviderConfigurationSection<TConfigurator>>();
 
             return new GremlinqProviderServicesBuilder<TConfigurator>(setup);
