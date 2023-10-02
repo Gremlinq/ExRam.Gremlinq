@@ -1,5 +1,5 @@
 ﻿using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Providers.GremlinServer.AspNet.Extensions;
+using ExRam.Gremlinq.Core.AspNet;
 using ExRam.Gremlinq.Tests.Entities;
 
 using FluentAssertions;

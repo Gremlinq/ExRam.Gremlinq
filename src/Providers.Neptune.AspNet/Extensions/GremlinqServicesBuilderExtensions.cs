@@ -1,9 +1,7 @@
 ﻿using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Core.AspNet;
 using ExRam.Gremlinq.Providers.Neptune;
-using ExRam.Gremlinq.Providers.Neptune.AspNet.Extensions;
 
-namespace ExRam.Gremlinq.Providers.Neptune.AspNet.Extensions
+namespace ExRam.Gremlinq.Core.AspNet
 {
     public static class GremlinqServicesBuilderExtensions
     {
@@ -22,7 +20,9 @@ namespace ExRam.Gremlinq.Providers.Neptune.AspNet.Extensions
                         .ConfigureWebSocket(providerSection);
 
                     if (providerSection.GetSection("ElasticSearch") is { } elasticSearchSection)
+                    {
                         if (bool.TryParse(elasticSearchSection["Enabled"], out var isEnabled) && isEnabled)
+                        {
                             if (elasticSearchSection["EndPoint"] is { } endPoint && Uri.TryCreate(endPoint, UriKind.Absolute, out var uri))
                             {
                                 var indexConfiguration = Enum.TryParse<NeptuneElasticSearchIndexConfiguration>(elasticSearchSection["IndexConfiguration"], true, out var outVar)
@@ -32,6 +32,8 @@ namespace ExRam.Gremlinq.Providers.Neptune.AspNet.Extensions
                                 configurator = configurator
                                     .UseElasticSearch(uri, indexConfiguration);
                             }
+                        }
+                    }
 
                     return configurator;
                 });
