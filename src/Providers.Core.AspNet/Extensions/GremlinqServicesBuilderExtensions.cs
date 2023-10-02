@@ -1,9 +1,10 @@
 ﻿// ReSharper disable HeapView.PossibleBoxingAllocation
-using ExRam.Gremlinq.Providers.Core.AspNet;
+using ExRam.Gremlinq.Providers.Core;
+using Gremlin.Net.Driver;
+using System.Net.WebSockets;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace ExRam.Gremlinq.Core.AspNet
 {
@@ -89,6 +90,29 @@ namespace ExRam.Gremlinq.Core.AspNet
                 });
         }
 
+        private sealed class ConnectionPoolSettingsGremlinClientFactory : IGremlinClientFactory
+        {
+            private readonly IGremlinClientFactory _factory;
+            private readonly IConfigurationSection _section;
+
+            public ConnectionPoolSettingsGremlinClientFactory(IGremlinClientFactory factory, IConfigurationSection section)
+            {
+                _factory = factory;
+                _section = section;
+            }
+
+            public IGremlinClient Create(IGremlinQueryEnvironment environment, GremlinServer gremlinServer, IMessageSerializer messageSerializer, ConnectionPoolSettings connectionPoolSettings, Action<ClientWebSocketOptions> webSocketConfiguration, string? sessionId = null)
+            {
+                if (int.TryParse(_section[$"{nameof(ConnectionPoolSettings.MaxInProcessPerConnection)}"], out var maxInProcessPerConnection))
+                    connectionPoolSettings.MaxInProcessPerConnection = maxInProcessPerConnection;
+
+                if (int.TryParse(_section[$"{nameof(ConnectionPoolSettings.PoolSize)}"], out var poolSize))
+                    connectionPoolSettings.PoolSize = poolSize;
+
+                return _factory.Create(environment, gremlinServer, messageSerializer, connectionPoolSettings, webSocketConfiguration, sessionId);
+            }
+        }
+
         public static IGremlinqServicesBuilder<TConfigurator> UseProvider<TConfigurator>(
             this IGremlinqServicesBuilder setup,
             Func<IConfigurableGremlinQuerySource, Func<Func<TConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource>> providerChoice)
@@ -100,6 +124,47 @@ namespace ExRam.Gremlinq.Core.AspNet
                     s.GetRequiredService<IEnumerable<IGremlinqConfiguratorTransformation<TConfigurator>>>()));
 
             return new GremlinqProviderServicesBuilder<TConfigurator>(setup);
+        }
+
+        public static IGremlinqServicesBuilder<TConfigurator> ConfigureBase<TConfigurator>(this IGremlinqServicesBuilder<TConfigurator> builder)
+            where TConfigurator : IGremlinqConfigurator<TConfigurator>
+        {
+            return builder
+                .Configure((configurator, section) =>
+                {
+                    if (section["Alias"] is { Length: > 0 } alias)
+                    {
+                        configurator = configurator
+                            .ConfigureQuerySource(source => source
+                                .ConfigureEnvironment(env => env
+                                    .ConfigureOptions(options => options
+                                        .SetValue(GremlinqOption.Alias, alias))));
+                    }
+
+                    return configurator;
+                });
+        }
+
+        public static IGremlinqServicesBuilder<TConfigurator> ConfigureWebSocket<TConfigurator>(this IGremlinqServicesBuilder<TConfigurator> builder)
+            where TConfigurator : IWebSocketProviderConfigurator<TConfigurator>
+        {
+            return builder
+                .Configure((configurator, section) =>
+                {
+                    var authenticationSection = section.GetSection("Authentication");
+                    var connectionPoolSection = section.GetSection("ConnectionPool");
+
+                    if (section["Uri"] is { } uri)
+                        configurator = configurator.At(uri);
+
+                    configurator
+                        .ConfigureClientFactory(factory => new ConnectionPoolSettingsGremlinClientFactory(factory, connectionPoolSection));
+
+                    if (authenticationSection["Username"] is { } username && authenticationSection["Password"] is { } password)
+                        configurator = configurator.AuthenticateBy(username, password);
+
+                    return configurator;
+                });
         }
     }
 }
