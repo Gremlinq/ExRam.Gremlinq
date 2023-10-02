@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace ExRam.Gremlinq.Core.AspNet
 {
-    public static class GremlinqServicesBuilderExtensions
+    public static class GremlinqConfiguratorExtensions
     {
         private sealed class ConnectionPoolSettingsGremlinClientFactory : IGremlinClientFactory
         {
@@ -32,26 +32,22 @@ namespace ExRam.Gremlinq.Core.AspNet
             }
         }
 
-        public static IGremlinqServicesBuilder<TConfigurator> ConfigureWebSocket<TConfigurator>(this IGremlinqServicesBuilder<TConfigurator> builder)
+        public static TConfigurator ConfigureWebSocket<TConfigurator>(this TConfigurator configurator, IConfigurationSection section)
             where TConfigurator : IWebSocketProviderConfigurator<TConfigurator>
         {
-            return builder
-                .Configure((configurator, section) =>
-                {
-                    var authenticationSection = section.GetSection("Authentication");
-                    var connectionPoolSection = section.GetSection("ConnectionPool");
+            var authenticationSection = section.GetSection("Authentication");
+            var connectionPoolSection = section.GetSection("ConnectionPool");
 
-                    if (section["Uri"] is { } uri)
-                        configurator = configurator.At(uri);
+            if (section["Uri"] is { } uri)
+                configurator = configurator.At(uri);
 
-                    configurator
-                        .ConfigureClientFactory(factory => new ConnectionPoolSettingsGremlinClientFactory(factory, connectionPoolSection));
+            configurator
+                .ConfigureClientFactory(factory => new ConnectionPoolSettingsGremlinClientFactory(factory, connectionPoolSection));
 
-                    if (authenticationSection["Username"] is { } username && authenticationSection["Password"] is { } password)
-                        configurator = configurator.AuthenticateBy(username, password);
+            if (authenticationSection["Username"] is { } username && authenticationSection["Password"] is { } password)
+                configurator = configurator.AuthenticateBy(username, password);
 
-                    return configurator;
-                });
+            return configurator;
         }
     }
 }

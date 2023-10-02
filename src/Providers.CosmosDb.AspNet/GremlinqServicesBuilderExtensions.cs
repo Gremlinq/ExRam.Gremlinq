@@ -12,12 +12,14 @@ namespace ExRam.Gremlinq.Core.AspNet
             return setup
                 .ConfigureBase()
                 .UseProvider<ICosmosDbConfigurator<TVertexBase>>(source => source
-                    .UseCosmosDb<TVertexBase, TEdgeBase>)
-                .ConfigureWebSocket()
+                    .UseCosmosDb<TVertexBase, TEdgeBase>)  
                 .Configure((configurator, gremlinqSection) =>
                 {
                     var providerSection = gremlinqSection
                         .GetSection("CosmosDb");
+
+                    configurator = configurator
+                        .ConfigureWebSocket(providerSection);
 
                     if (providerSection["Database"] is { } databaseName)
                         configurator = configurator.OnDatabase(databaseName);
