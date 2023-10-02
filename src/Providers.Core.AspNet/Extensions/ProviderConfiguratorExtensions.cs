@@ -33,7 +33,7 @@ namespace ExRam.Gremlinq.Providers.Core.AspNet
         }
 
         public static IGremlinqServicesBuilder<TConfigurator> ConfigureBase<TConfigurator>(this IGremlinqServicesBuilder<TConfigurator> builder)
-            where TConfigurator : IProviderConfigurator<TConfigurator>
+            where TConfigurator : IGremlinqConfigurator<TConfigurator>
         {
             return builder
                 .Configure((configurator, section) =>

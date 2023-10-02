@@ -1,5 +1,4 @@
 ﻿// ReSharper disable HeapView.PossibleBoxingAllocation
-using ExRam.Gremlinq.Providers.Core;
 using ExRam.Gremlinq.Providers.Core.AspNet;
 
 using Microsoft.Extensions.Configuration;
@@ -11,7 +10,7 @@ namespace ExRam.Gremlinq.Core.AspNet
     public static class GremlinqServicesBuilderExtensions
     {
         private sealed class GremlinqProviderServicesBuilder<TConfigurator> : IGremlinqServicesBuilder<TConfigurator>
-            where TConfigurator : IProviderConfigurator<TConfigurator>
+            where TConfigurator : IGremlinqConfigurator<TConfigurator>
         {
             private sealed class ExtraConfigurationProviderConfiguratorTransformation : IGremlinqConfiguratorTransformation<TConfigurator>
             {
@@ -74,7 +73,7 @@ namespace ExRam.Gremlinq.Core.AspNet
         }
 
         private sealed class UseProviderGremlinQuerySourceTransformation<TConfigurator> : IGremlinQuerySourceTransformation
-            where TConfigurator : IProviderConfigurator<TConfigurator>
+            where TConfigurator : IGremlinqConfigurator<TConfigurator>
         {
             private readonly IEnumerable<IGremlinqConfiguratorTransformation<TConfigurator>> _providerConfiguratorTransformations;
             private readonly Func<IConfigurableGremlinQuerySource, Func<Func<TConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource>> _providerChoice;
@@ -103,7 +102,7 @@ namespace ExRam.Gremlinq.Core.AspNet
         public static IGremlinqServicesBuilder<TConfigurator> UseProvider<TConfigurator>(
             this IGremlinqServicesBuilder setup,
             Func<IConfigurableGremlinQuerySource, Func<Func<TConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource>> providerChoice)
-                where TConfigurator : IProviderConfigurator<TConfigurator>
+                where TConfigurator : IGremlinqConfigurator<TConfigurator>
         {
             setup.Services
                 .AddTransient<IGremlinQuerySourceTransformation>(s => new UseProviderGremlinQuerySourceTransformation<TConfigurator>(

@@ -1,5 +1,4 @@
-﻿using ExRam.Gremlinq.Providers.Core;
-using ExRam.Gremlinq.Providers.Core.AspNet;
+﻿using ExRam.Gremlinq.Providers.Core.AspNet;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -9,7 +8,7 @@ namespace ExRam.Gremlinq.Core.AspNet.Tests
     {
         private readonly IConfigurationRoot _configurationRoot;
 
-        private interface IMyProviderConfigurator : IProviderConfigurator<IMyProviderConfigurator>
+        private interface IMyProviderConfigurator : IGremlinqConfigurator<IMyProviderConfigurator>
         {
             
         }

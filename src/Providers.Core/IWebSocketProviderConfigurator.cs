@@ -1,9 +1,11 @@
-﻿using _GremlinServer = Gremlin.Net.Driver.GremlinServer;
+﻿using ExRam.Gremlinq.Core;
+
+using _GremlinServer = Gremlin.Net.Driver.GremlinServer;
 
 namespace ExRam.Gremlinq.Providers.Core
 {
-    public interface IWebSocketProviderConfigurator<out TConfigurator> : IProviderConfigurator<TConfigurator>
-        where TConfigurator : IProviderConfigurator<TConfigurator>
+    public interface IWebSocketProviderConfigurator<out TConfigurator> : IGremlinqConfigurator<TConfigurator>
+        where TConfigurator : IGremlinqConfigurator<TConfigurator>
     {
         TConfigurator ConfigureServer(Func<_GremlinServer, _GremlinServer> transformation);
 

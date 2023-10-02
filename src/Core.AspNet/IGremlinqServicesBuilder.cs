@@ -5,12 +5,12 @@ namespace ExRam.Gremlinq.Core.AspNet
 {
     public interface IGremlinqServicesBuilder
     {
-        IGremlinqServicesBuilder ConfigureQuerySource<TTransformation>()
-            where TTransformation : class, IGremlinQuerySourceTransformation;
-
         IGremlinqServicesBuilder FromBaseSection(string sectionName);
         
         IGremlinqServicesBuilder ConfigureQuerySource(Func<IGremlinQuerySource, IConfigurationSection, IGremlinQuerySource> sourceTranformation);
+
+        IGremlinqServicesBuilder ConfigureQuerySource<TTransformation>()
+            where TTransformation : class, IGremlinQuerySourceTransformation;
 
         IServiceCollection Services { get; }
     }
