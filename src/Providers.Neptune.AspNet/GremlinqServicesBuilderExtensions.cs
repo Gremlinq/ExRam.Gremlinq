@@ -7,9 +7,9 @@ namespace ExRam.Gremlinq.Core.AspNet
         public static IGremlinqServicesBuilder<INeptuneConfigurator> UseNeptune<TVertexBase, TEdgeBase>(this IGremlinqServicesBuilder setup)
         {
             return setup
+                .ConfigureBase()
                 .UseProvider<INeptuneConfigurator>(source => source
                     .UseNeptune<TVertexBase, TEdgeBase>)
-                .ConfigureBase()
                 .ConfigureWebSocket()
                 .Configure((configurator, gremlinqSection) =>
                 {

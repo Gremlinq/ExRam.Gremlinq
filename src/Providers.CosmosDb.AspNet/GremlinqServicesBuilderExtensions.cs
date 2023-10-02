@@ -10,9 +10,9 @@ namespace ExRam.Gremlinq.Core.AspNet
         public static IGremlinqServicesBuilder<ICosmosDbConfigurator<TVertexBase>> UseCosmosDb<TVertexBase, TEdgeBase>(this IGremlinqServicesBuilder setup)
         {
             return setup
+                .ConfigureBase()
                 .UseProvider<ICosmosDbConfigurator<TVertexBase>>(source => source
                     .UseCosmosDb<TVertexBase, TEdgeBase>)
-                .ConfigureBase()
                 .ConfigureWebSocket()
                 .Configure((configurator, gremlinqSection) =>
                 {
