@@ -10,11 +10,9 @@ namespace ExRam.Gremlinq.Core.AspNet
         where TConfigurator : IProviderConfigurator<TConfigurator>
     {
         private readonly IConfigurationSection _providerSection;
-        private readonly IGremlinqConfigurationSection _gremlinqSection;
 
         public ProviderConfigurationSection(IGremlinqConfigurationSection gremlinqSection, string sectionName)
         {
-            _gremlinqSection = gremlinqSection;
             _providerSection = gremlinqSection
                 .GetSection(sectionName);
         }
@@ -24,8 +22,6 @@ namespace ExRam.Gremlinq.Core.AspNet
         IChangeToken IConfiguration.GetReloadToken() => _providerSection.GetReloadToken();
 
         IConfigurationSection IConfiguration.GetSection(string key) => _providerSection.GetSection(key);
-
-        IGremlinqConfigurationSection IProviderConfigurationSection.GremlinqSection => _gremlinqSection;
 
         string IConfigurationSection.Key => _providerSection.Key;
 

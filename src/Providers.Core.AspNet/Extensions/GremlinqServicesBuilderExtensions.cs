@@ -2,6 +2,7 @@
 using ExRam.Gremlinq.Providers.Core;
 using ExRam.Gremlinq.Providers.Core.AspNet;
 
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ExRam.Gremlinq.Core.AspNet
@@ -13,16 +14,16 @@ namespace ExRam.Gremlinq.Core.AspNet
         {
             private sealed class ExtraConfigurationProviderConfiguratorTransformation : IProviderConfiguratorTransformation<TConfigurator>
             {
-                private readonly IProviderConfigurationSection _providerSection;
-                private readonly Func<TConfigurator, IProviderConfigurationSection, TConfigurator> _extraConfiguration;
+                private readonly IConfigurationSection _section;
+                private readonly Func<TConfigurator, IConfigurationSection, TConfigurator> _extraConfiguration;
 
-                public ExtraConfigurationProviderConfiguratorTransformation(IProviderConfigurationSection providerSection, Func<TConfigurator, IProviderConfigurationSection, TConfigurator> extraConfiguration)
+                public ExtraConfigurationProviderConfiguratorTransformation(IConfigurationSection providerSection, Func<TConfigurator, IConfigurationSection, TConfigurator> extraConfiguration)
                 {
-                    _providerSection = providerSection;
+                    _section = providerSection;
                     _extraConfiguration = extraConfiguration;
                 }
 
-                public TConfigurator Transform(TConfigurator configurator) => _extraConfiguration(configurator, _providerSection);
+                public TConfigurator Transform(TConfigurator configurator) => _extraConfiguration(configurator, _section);
             }
 
             private readonly IGremlinqServicesBuilder _baseSetup;
@@ -32,11 +33,11 @@ namespace ExRam.Gremlinq.Core.AspNet
                 _baseSetup = baseSetup;
             }
 
-            public IGremlinqProviderServicesBuilder<TConfigurator> Configure(Func<TConfigurator, IProviderConfigurationSection, TConfigurator> extraConfiguration)
+            public IGremlinqProviderServicesBuilder<TConfigurator> Configure(Func<TConfigurator, IConfigurationSection, TConfigurator> extraConfiguration)
             {
                 Services
                     .AddTransient<IProviderConfiguratorTransformation<TConfigurator>>(serviceProvider => new ExtraConfigurationProviderConfiguratorTransformation(
-                        serviceProvider.GetRequiredService<IProviderConfigurationSection>(),
+                        serviceProvider.GetService<IProviderConfigurationSection>() ?? (IConfigurationSection)serviceProvider.GetRequiredService<IGremlinqConfigurationSection>(),
                         extraConfiguration));
 
                 return this;

@@ -16,14 +16,11 @@ namespace ExRam.Gremlinq.Providers.Core.AspNet
     public interface IGremlinqProviderServicesBuilder<TConfigurator> : ExRam.Gremlinq.Core.AspNet.IGremlinqServicesBuilder
         where TConfigurator : ExRam.Gremlinq.Providers.Core.IProviderConfigurator<TConfigurator>
     {
-        ExRam.Gremlinq.Providers.Core.AspNet.IGremlinqProviderServicesBuilder<TConfigurator> Configure(System.Func<TConfigurator, ExRam.Gremlinq.Providers.Core.AspNet.IProviderConfigurationSection, TConfigurator> extraConfiguration);
+        ExRam.Gremlinq.Providers.Core.AspNet.IGremlinqProviderServicesBuilder<TConfigurator> Configure(System.Func<TConfigurator, Microsoft.Extensions.Configuration.IConfigurationSection, TConfigurator> extraConfiguration);
         ExRam.Gremlinq.Providers.Core.AspNet.IGremlinqProviderServicesBuilder<TConfigurator> Configure<TProviderConfiguratorTransformation>()
             where TProviderConfiguratorTransformation :  class, ExRam.Gremlinq.Providers.Core.IProviderConfiguratorTransformation<TConfigurator>;
     }
-    public interface IProviderConfigurationSection : Microsoft.Extensions.Configuration.IConfiguration, Microsoft.Extensions.Configuration.IConfigurationSection
-    {
-        ExRam.Gremlinq.Core.AspNet.IGremlinqConfigurationSection GremlinqSection { get; }
-    }
+    public interface IProviderConfigurationSection : Microsoft.Extensions.Configuration.IConfiguration, Microsoft.Extensions.Configuration.IConfigurationSection { }
     public static class ProviderConfiguratorExtensions
     {
         public static ExRam.Gremlinq.Providers.Core.AspNet.IGremlinqProviderServicesBuilder<TConfigurator> ConfigureBase<TConfigurator>(this ExRam.Gremlinq.Providers.Core.AspNet.IGremlinqProviderServicesBuilder<TConfigurator> builder)

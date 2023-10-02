@@ -37,7 +37,7 @@ namespace ExRam.Gremlinq.Providers.Core.AspNet
             return builder
                 .Configure((configurator, section) =>
                 {
-                    if (section.GremlinqSection["Alias"] is { Length: > 0 } alias)
+                    if (section["Alias"] is { Length: > 0 } alias)
                     {
                         configurator = configurator
                             .ConfigureQuerySource(source => source
