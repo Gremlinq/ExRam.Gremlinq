@@ -5,8 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="..\Core.AspNet\Extensions\GremlinqConfiguratorExtensions.cs" Link="Extensions\GremlinqConfiguratorExtensions.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Core.AspNet\ExRam.Gremlinq.Core.AspNet.csproj" />
     <ProjectReference Include="..\Providers.CosmosDb\ExRam.Gremlinq.Providers.CosmosDb.csproj" />
-    <ProjectReference Include="..\Providers.Core.AspNet\ExRam.Gremlinq.Providers.Core.AspNet.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Extensions\" />
   </ItemGroup>
 
 </Project>

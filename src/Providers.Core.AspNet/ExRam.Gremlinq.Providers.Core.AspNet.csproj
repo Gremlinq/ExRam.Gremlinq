@@ -9,4 +9,8 @@
     <ProjectReference Include="..\Providers.Core\ExRam.Gremlinq.Providers.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+  </ItemGroup>
+
 </Project>
