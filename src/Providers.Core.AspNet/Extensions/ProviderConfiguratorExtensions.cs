@@ -1,5 +1,6 @@
 ﻿using System.Net.WebSockets;
 using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Core.AspNet;
 
 using Gremlin.Net.Driver;
 using Microsoft.Extensions.Configuration;
@@ -31,7 +32,7 @@ namespace ExRam.Gremlinq.Providers.Core.AspNet
             }
         }
 
-        public static IGremlinqProviderServicesBuilder<TConfigurator> ConfigureBase<TConfigurator>(this IGremlinqProviderServicesBuilder<TConfigurator> builder)
+        public static IGremlinqServicesBuilder<TConfigurator> ConfigureBase<TConfigurator>(this IGremlinqServicesBuilder<TConfigurator> builder)
             where TConfigurator : IProviderConfigurator<TConfigurator>
         {
             return builder
@@ -50,7 +51,7 @@ namespace ExRam.Gremlinq.Providers.Core.AspNet
                 });
         }
 
-        public static IGremlinqProviderServicesBuilder<TConfigurator> ConfigureWebSocket<TConfigurator>(this IGremlinqProviderServicesBuilder<TConfigurator> builder)
+        public static IGremlinqServicesBuilder<TConfigurator> ConfigureWebSocket<TConfigurator>(this IGremlinqServicesBuilder<TConfigurator> builder)
             where TConfigurator : IWebSocketProviderConfigurator<TConfigurator>
         {
             return builder

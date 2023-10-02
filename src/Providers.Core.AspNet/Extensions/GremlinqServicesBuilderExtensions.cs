@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Core.AspNet
 {
     public static class GremlinqServicesBuilderExtensions
     {
-        private sealed class GremlinqProviderServicesBuilder<TConfigurator> : IGremlinqProviderServicesBuilder<TConfigurator>
+        private sealed class GremlinqProviderServicesBuilder<TConfigurator> : IGremlinqServicesBuilder<TConfigurator>
             where TConfigurator : IProviderConfigurator<TConfigurator>
         {
             private sealed class ExtraConfigurationProviderConfiguratorTransformation : IGremlinqConfiguratorTransformation<TConfigurator>
@@ -33,7 +33,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                 _baseSetup = baseSetup;
             }
 
-            public IGremlinqProviderServicesBuilder<TConfigurator> Configure(Func<TConfigurator, IConfigurationSection, TConfigurator> extraConfiguration)
+            public IGremlinqServicesBuilder<TConfigurator> Configure(Func<TConfigurator, IConfigurationSection, TConfigurator> extraConfiguration)
             {
                 Services
                     .AddTransient<IGremlinqConfiguratorTransformation<TConfigurator>>(serviceProvider => new ExtraConfigurationProviderConfiguratorTransformation(
@@ -43,7 +43,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                 return this;
             }
 
-            public IGremlinqProviderServicesBuilder<TConfigurator> Configure<TProviderConfiguratorTransformation>()
+            public IGremlinqServicesBuilder<TConfigurator> Configure<TProviderConfiguratorTransformation>()
                 where TProviderConfiguratorTransformation : class, IGremlinqConfiguratorTransformation<TConfigurator>
             {
                 Services
@@ -89,7 +89,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                 });
         }
 
-        public static IGremlinqProviderServicesBuilder<TConfigurator> UseProvider<TConfigurator>(
+        public static IGremlinqServicesBuilder<TConfigurator> UseProvider<TConfigurator>(
             this IGremlinqServicesBuilder setup,
             Func<IConfigurableGremlinQuerySource, Func<Func<TConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource>> providerChoice)
                 where TConfigurator : IProviderConfigurator<TConfigurator>

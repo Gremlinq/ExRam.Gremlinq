@@ -9,6 +9,13 @@
             where TTransformation :  class, ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation;
         ExRam.Gremlinq.Core.AspNet.IGremlinqServicesBuilder UseConfigurationSection(string sectionName);
     }
+    public interface IGremlinqServicesBuilder<TConfigurator> : ExRam.Gremlinq.Core.AspNet.IGremlinqServicesBuilder
+        where TConfigurator : ExRam.Gremlinq.Core.IGremlinqConfigurator<TConfigurator>
+    {
+        ExRam.Gremlinq.Core.AspNet.IGremlinqServicesBuilder<TConfigurator> Configure(System.Func<TConfigurator, Microsoft.Extensions.Configuration.IConfigurationSection, TConfigurator> extraConfiguration);
+        ExRam.Gremlinq.Core.AspNet.IGremlinqServicesBuilder<TConfigurator> Configure<TConfiguratorTransformation>()
+            where TConfiguratorTransformation :  class, ExRam.Gremlinq.Core.IGremlinqConfiguratorTransformation<TConfigurator>;
+    }
 }
 namespace Microsoft.Extensions.DependencyInjection
 {

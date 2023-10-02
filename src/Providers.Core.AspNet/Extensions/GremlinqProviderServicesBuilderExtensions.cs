@@ -7,7 +7,7 @@ namespace ExRam.Gremlinq.Core.AspNet
 {
     public static class GremlinqProviderServicesBuilderExtensions
     {
-        public static IGremlinqProviderServicesBuilder<TConfigurator> FromSection<TConfigurator>(this IGremlinqProviderServicesBuilder<TConfigurator> builder, string sectionName)
+        public static IGremlinqServicesBuilder<TConfigurator> FromSection<TConfigurator>(this IGremlinqServicesBuilder<TConfigurator> builder, string sectionName)
             where TConfigurator : IGremlinqConfigurator<TConfigurator>
         {
             builder.Services
