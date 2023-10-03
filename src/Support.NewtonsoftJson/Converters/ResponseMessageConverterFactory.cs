@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.Runtime.CompilerServices;
 
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Transformation;
@@ -35,7 +34,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
         public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
         {
             return typeof(TSource) == typeof(byte[]) && typeof(TTarget).IsGenericType && typeof(TTarget).GetGenericTypeDefinition() == typeof(ResponseMessage<>) && typeof(TTarget).GetGenericArguments() is [var dataType]
-                ? (IConverter<TSource, TTarget>?)(object?)Activator.CreateInstance(typeof(ResponseMessageConverter<>).MakeGenericType(dataType), environment)
+                ? (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(ResponseMessageConverter<>).MakeGenericType(dataType), environment)
                 : default;
         }
     }
