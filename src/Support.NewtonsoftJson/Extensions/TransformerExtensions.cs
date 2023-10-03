@@ -70,23 +70,23 @@ namespace ExRam.Gremlinq.Core
                     : default(TTarget?);
         }
 
-        private static readonly JsonSerializer jsonSerializer = JsonSerializer.Create(
-            new JsonSerializerSettings
-            {
-                DateParseHandling = DateParseHandling.None
-            });
-
         public static ITransformer UseNewtonsoftJson(this ITransformer transformer)
         {
             return transformer
                 .Add(new NewtonsoftJsonSerializerConverterFactory())
                 .Add(new VertexPropertyPropertiesConverterFactory())
                 .Add(ConverterFactory
-                    .Create<string, JToken>((str, _, _) => jsonSerializer
-                        .Deserialize<JToken>(new JsonTextReader(new StringReader(str)))))
+                    .Create<string, JToken>((str, _, _) => JToken.ReadFrom(
+                        new JsonTextReader(new StringReader(str))
+                        {
+                            DateParseHandling = DateParseHandling.None
+                        })))
                 .Add(ConverterFactory
-                    .Create<byte[], JToken>((bytes, _, _) => jsonSerializer
-                        .Deserialize<JToken>(new JsonTextReader(new StreamReader(new MemoryStream(bytes))))))
+                    .Create<byte[], JToken>((bytes, _, _) => JToken.ReadFrom(
+                        new JsonTextReader(new StreamReader(new MemoryStream(bytes)))
+                        {
+                            DateParseHandling = DateParseHandling.None
+                        })))
                 .Add(new ResponseMessageConverterFactory())
                 .Add(new DictionaryConverterFactory())
                 .Add(new DynamicObjectConverterFactory())
