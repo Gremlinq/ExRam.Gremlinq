@@ -12,8 +12,6 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 {
     internal sealed class ResponseMessageConverterFactory : IConverterFactory
     {
-        private static readonly ConditionalWeakTable<ITransformer, ITransformer> ShortcutTransformers = new();
-
         private sealed class ResponseMessageConverter<T> : IConverter<byte[], ResponseMessage<T>>
         {
             private readonly IGremlinQueryEnvironment _environment;
@@ -29,12 +27,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                     .TransformTo<JToken>()
                     .From(source, _environment);
 
-                return ShortcutTransformers
-                    .GetValue(
-                        recurse,
-                        static transformer => transformer
-                            .Add(ConverterFactory
-                                .Create<JToken, JToken>((token, env, recurse) => token)))
+                return recurse
                     .TryTransform(token, _environment, out value);
             }
         }
