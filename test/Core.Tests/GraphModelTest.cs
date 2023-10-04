@@ -8,8 +8,6 @@ namespace ExRam.Gremlinq.Core.Tests
 {
     public class GraphModelTest : VerifyBase
     {
-
-
         public GraphModelTest() : base()
         {
 
@@ -367,6 +365,18 @@ namespace ExRam.Gremlinq.Core.Tests
                 .TryGetMetadata(typeof(VertexInsideHierarchy).GetProperty(nameof(VertexInsideHierarchy.ExtraProperty))!)
                 .Should()
                 .NotBeNull();
+        }
+
+        [Fact]
+        public async Task Configuration_IgnoreAlways_Id_when_inheriting_from_Element()
+        {
+            await Verify(GraphModel
+                .FromBaseTypes<VertexElement, EdgeElement>()
+                .ConfigureVertices(pm => pm
+                    .ConfigureElement<VertexElement>(conf => conf
+                        .IgnoreAlways(p => p.Id)))
+                .VerticesModel
+                .GetMetadata(typeof(VertexElement).GetProperty(nameof(VertexElement.Id))!));
         }
     }
 }
