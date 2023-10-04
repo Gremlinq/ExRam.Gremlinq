@@ -1,0 +1,9 @@
+﻿{
+  Key: {
+    RawKey: {
+      EnumName: T,
+      EnumValue: id
+    }
+  },
+  SerializationBehaviour: IgnoreAlways
+}
