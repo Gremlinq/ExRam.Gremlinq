@@ -824,6 +824,14 @@ namespace ExRam.Gremlinq.Tests.TestCases
             .Verify();
 
         [Fact]
+        public virtual Task E_baseType_Properties() => _g
+            .E()
+            .AsAdmin()
+            .ChangeQueryType<IEdgeGremlinQueryBase>()
+            .Properties()
+            .Verify();
+
+        [Fact]
         public virtual Task E_Properties_member() => _g
             .E<LivesIn>()
             .Properties(x => x.Since!)
@@ -2933,6 +2941,46 @@ namespace ExRam.Gremlinq.Tests.TestCases
             .V()
             .Both<Edge>()
             .Verify();
+
+        [Fact]
+        public virtual Task V_BothV() => _g
+            .E()
+            .BothV()
+            .Verify();
+
+        [Fact]
+        public virtual Task V_Both_typed() => _g
+            .E()
+            .BothV<Person>()
+            .Verify();
+
+        [Fact]
+        public virtual Task V_InE_InV() => _g
+            .V()
+            .InE()
+            .InV()
+            .Verify();
+
+        [Fact]
+        public virtual Task V_InE_InV_typed() => _g
+            .V()
+            .InE()
+            .InV<Person>()
+            .Verify();
+
+        [Fact]
+        public virtual Task V_InE_OtherV() => _g
+           .V()
+           .InE()
+           .OtherV()
+           .Verify();
+
+        [Fact]
+        public virtual Task V_InE_OtherV_typed() => _g
+           .V()
+           .InE()
+           .OtherV<Person>()
+           .Verify();
 
         [Fact]
         public virtual Task V_IAuthority() => _g
