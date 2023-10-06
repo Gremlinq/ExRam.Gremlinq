@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks Condition="'$(Configuration)' == 'Release'" >netcoreapp3.1;net5.0;net6.0;net7.0</TargetFrameworks>
+    <DefineConstants Condition="'$(AutoVerify)' == 'true'">AUTO_VERIFY;$(DefineConstants)</DefineConstants>
   </PropertyGroup>
   
   <ItemGroup>
