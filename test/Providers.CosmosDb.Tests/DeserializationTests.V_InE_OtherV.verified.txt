@@ -1,0 +1,115 @@
+﻿[
+  {
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Value: Marko
+    },
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Person
+  },
+  {
+    CountryCallingCode: +49,
+    LocalizableDescription: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Country
+  },
+  {
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Value: Marko
+    },
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Person
+  },
+  {
+    CountryCallingCode: +49,
+    LocalizableDescription: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Country
+  },
+  {
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Value: Marko
+    },
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Person
+  },
+  {
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Value: Marko
+    },
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Person
+  },
+  {
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Value: Marko
+    },
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Person
+  },
+  {
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Value: Marko
+    },
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Person
+  },
+  {
+    CountryCallingCode: +49,
+    LocalizableDescription: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Country
+  },
+  {
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Value: Marko
+    },
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Person
+  }
+]

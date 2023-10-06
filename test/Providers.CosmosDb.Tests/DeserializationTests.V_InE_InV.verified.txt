@@ -1,0 +1,80 @@
+﻿[
+  {
+    CountryCallingCode: +49,
+    LocalizableDescription: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Country
+  },
+  {
+    IetfLanguageTag: en,
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Language
+  },
+  {
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Company
+  },
+  {
+    Age: 21,
+    Gender: Male,
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Value: Marko
+    },
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Person
+  },
+  {
+    LocalizableDescription: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Country
+  },
+  {
+    LocalizableDescription: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Country
+  },
+  {
+    LocalizableDescription: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Properties: {
+        someKey: value
+      },
+      Value: 
+    },
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Country
+  },
+  {
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Company
+  },
+  {
+    IetfLanguageTag: en,
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Language
+  },
+  {
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Company
+  }
+]
