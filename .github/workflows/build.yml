@@ -8,9 +8,6 @@ on:
   pull_request:
   workflow_call:
 
-env:
-  RunIntegrationTests: ${{ github.ref_name != 'main' || github.event_name == 'pull_request' }}
-
 jobs:
 
   build:
@@ -74,15 +71,15 @@ jobs:
     - name: Test
       run: dotnet test ./${{ github.event.repository.name }}.sln -c Release
       env:
-        RunGremlinServerIntegrationTests: ${{ env.RunIntegrationTests == 'true' }}
-        RunJanusGraphIntegrationTests: ${{ env.RunIntegrationTests == 'true' }}
-        RunNeptuneIntegrationTests: ${{ env.RunIntegrationTests == 'true' }}
+        RunGremlinServerIntegrationTests: 'true'
+        RunJanusGraphIntegrationTests: 'true'
+        RunNeptuneIntegrationTests: 'true'
 
     - name: Collect coverage
       uses: codecov/codecov-action@v3
 
     - name: Copy *.received-files to artifacts
-      if: ${{ always() && env.RunIntegrationTests == 'true' }}
+      if: ${{ always() }}
       uses: actions/upload-artifact@v3
       with:
         name: test-linux-received-snapshots
@@ -113,10 +110,10 @@ jobs:
     - name: Test
       run: dotnet test ./${{ github.event.repository.name }}.sln -c Release
       env:
-        RunCosmosDbIntegrationTests: ${{ env.RunIntegrationTests == 'true' }}
+        RunCosmosDbIntegrationTests: 'true'
 
     - name: Copy *.received-files to artifacts
-      if: ${{ always() && env.RunIntegrationTests == 'true' }}
+      if: ${{ always() }}
       uses: actions/upload-artifact@v3
       with:
         name: test-windows-received-snapshots
