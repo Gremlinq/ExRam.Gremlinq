@@ -99,5 +99,45 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ToTraversal()
                 .Projection);
         }
+
+        [Fact]
+        public void Lower_chain_from_value() => _g
+            .Inject(0)
+            .Lower();
+
+        [Fact]
+        public void Lower_chain_from_untyped_vertex() => _g
+            .V()
+            .Lower()
+            .Lower()
+            .Lower();
+
+        [Fact]
+        public void Lower_chain_from_typed_vertex() => _g
+            .V<Person>()
+            .Lower()
+            .Lower()
+            .Lower();
+
+        [Fact]
+        public void Lower_chain_from_untyped_edge() => _g
+            .E()
+            .Lower()
+            .Lower()
+            .Lower();
+
+        [Fact]
+        public void Lower_chain_from_typed_edge() => _g
+            .E<WorksFor>()
+            .Lower()
+            .Lower()
+            .Lower();
+
+        [Fact]
+        public void Lower_chain_from_array() => _g
+            .Inject(0)
+            .Fold()
+            .Lower()
+            .Lower();
     }
 }
