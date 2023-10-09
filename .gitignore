@@ -166,3 +166,5 @@ $RECYCLE.BIN/
 .DS_Store
 /packages
 
+# Codecov
+coverage.*.opencover.xml
