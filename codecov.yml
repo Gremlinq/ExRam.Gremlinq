@@ -1,0 +1,3 @@
+ignore:
+  - "src/Core/Queries/GremlinQuery.generated.cs"
+  - "src/Core/Queries/T4/ProjectBuilder.generated.cs"
