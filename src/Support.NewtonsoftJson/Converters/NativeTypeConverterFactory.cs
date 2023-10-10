@@ -18,23 +18,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
             public bool TryConvert(JValue serialized, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
             {
-                if (serialized.Value is TTarget serializedValue)
-                {
-                    value = serializedValue;
-                    return true;
-                }
-
-                if (_environment.SupportsType(typeof(TTarget)))
-                {
-                    if (serialized.ToObject<TTarget>() is { } convertedSerializedValue)
-                    {
-                        value = convertedSerializedValue;
-                        return true;
-                    }
-                }
-
-                value = default;
-                return false;
+                return recurse.TryTransform(serialized.Value, _environment, out value);
             }
         }
 
