@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.Runtime.CompilerServices;
 
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Transformation;
@@ -12,15 +11,6 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 {
     internal sealed class ResponseMessageConverterFactory : IConverterFactory
     {
-        private static readonly IConverterFactory JTokenIdentityConverterFactory;
-        private static readonly ConditionalWeakTable<ITransformer, ITransformer> ShortcutTransformers = new();
-
-        static ResponseMessageConverterFactory()
-        {
-            JTokenIdentityConverterFactory = ConverterFactory
-                .Create<JToken, JToken>((token, env, recurse) => token);
-        }
-
         private sealed class ResponseMessageConverter<T> : IConverter<byte[], ResponseMessage<T>>
         {
             private readonly IGremlinQueryEnvironment _environment;
@@ -36,11 +26,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                     .TransformTo<JToken>()
                     .From(source, _environment);
 
-                return ShortcutTransformers
-                    .GetValue(
-                        recurse,
-                        static transformer => transformer.Add(JTokenIdentityConverterFactory))
-                    .TryTransform(token, _environment, out value);
+                return recurse.TryTransform(token, _environment, out value);
             }
         }
 
