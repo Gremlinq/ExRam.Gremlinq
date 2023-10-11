@@ -1,0 +1,12 @@
+﻿[
+  {
+    Name: {
+      Id: 72,
+      Label: Name,
+      Properties: {},
+      Value: GER
+    },
+    Id: 71,
+    Label: Country
+  }
+]

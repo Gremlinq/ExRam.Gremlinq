@@ -1,0 +1,31 @@
+﻿[
+  {
+    Item1: {
+      RegistrationDate: 2020-04-07 14:43:36 +0,
+      Name: {
+        Id: 39,
+        Label: Name,
+        Value: Bob
+      },
+      Id: 37,
+      Label: Person
+    },
+    Item2: {
+      RegistrationDate: 2020-04-07 14:43:36 +0,
+      Name: {
+        Id: 12,
+        Label: Name,
+        Value: Bob
+      },
+      Id: 10,
+      Label: Person
+    },
+    Item3: 1,
+    Item4: {
+      Id: 1,
+      Label: CountryCallingCode,
+      Properties: {},
+      Value: +49
+    }
+  }
+]

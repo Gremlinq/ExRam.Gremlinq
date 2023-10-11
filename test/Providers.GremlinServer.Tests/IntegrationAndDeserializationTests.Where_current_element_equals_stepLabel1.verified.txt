@@ -1,0 +1,43 @@
+﻿[
+  {
+    IetfLanguageTag: en,
+    Id: 65,
+    Label: Language
+  },
+  {
+    IetfLanguageTag: en,
+    Id: 2,
+    Label: Language
+  },
+  {
+    Id: 67,
+    Label: Language
+  },
+  {
+    Id: 79,
+    Label: Language
+  },
+  {
+    Id: 80,
+    Label: Language
+  },
+  {
+    IetfLanguageTag: en,
+    Id: 32,
+    Label: Language
+  },
+  {
+    IetfLanguageTag: en,
+    Id: 47,
+    Label: Language
+  },
+  {
+    Id: 49,
+    Label: Language
+  },
+  {
+    IetfLanguageTag: en,
+    Id: 54,
+    Label: Language
+  }
+]

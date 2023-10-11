@@ -1,0 +1,29 @@
+﻿[
+  {
+    Id: 1,
+    Label: CountryCallingCode,
+    Properties: {},
+    Value: +49
+  },
+  {
+    Id: 72,
+    Label: Name,
+    Properties: {},
+    Value: GER
+  },
+  {
+    Id: 74,
+    Label: Name,
+    Properties: {
+      de: Deutschland,
+      en: Germany
+    },
+    Value: GER
+  },
+  {
+    Id: 35,
+    Label: CountryCallingCode,
+    Properties: {},
+    Value: +49
+  }
+]
