@@ -13,6 +13,9 @@ namespace ExRam.Gremlinq.Providers.Core
     {
         private sealed class WebSocketGremlinQueryExecutor : IGremlinQueryExecutor
         {
+            private static readonly IConverterFactory ObjectIdentityConverterFactory = ConverterFactory
+                .Create<object, object>((token, env, recurse) => token);
+
             private readonly GremlinServer _gremlinServer;
             private readonly IGremlinClientFactory _clientFactory;
             private readonly ConcurrentDictionary<IGremlinQueryEnvironment, IGremlinClient> _clients = new();
@@ -39,7 +42,9 @@ namespace ExRam.Gremlinq.Providers.Core
                             static (environment, executor) => executor._clientFactory.Create(
                                 environment,
                                 executor._gremlinServer,
-                                new DefaultMessageSerializer(environment),
+                                new DefaultMessageSerializer(environment
+                                    .ConfigureDeserializer(deserializer => deserializer
+                                        .Add(ObjectIdentityConverterFactory))),
                                 new ConnectionPoolSettings(),
                                 static _ => { }),
                             @this);
