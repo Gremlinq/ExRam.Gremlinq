@@ -1,0 +1,63 @@
+﻿[
+  {
+    RegistrationDate: 2020-04-07 14:43:36 +0,
+    Name: {
+      Id: 12,
+      Label: Name,
+      Value: Bob
+    },
+    Id: 10,
+    Label: Person
+  },
+  {
+    IetfLanguageTag: en,
+    Id: 2,
+    Label: Language
+  },
+  {
+    Id: 5,
+    Label: Company
+  },
+  {
+    Id: 17,
+    Label: Country
+  },
+  {
+    Id: 15,
+    Label: Person
+  },
+  {
+    Id: 21,
+    Label: Country
+  },
+  {
+    Id: 19,
+    Label: Person
+  },
+  {
+    Id: 25,
+    Label: Country
+  },
+  {
+    Id: 23,
+    Label: Person
+  },
+  {
+    Id: 27,
+    Label: Company
+  },
+  {
+    IetfLanguageTag: en,
+    Id: 32,
+    Label: Language
+  },
+  {
+    CountryCallingCode: +49,
+    Id: 0,
+    Label: Country
+  },
+  {
+    Id: 42,
+    Label: Company
+  }
+]
