@@ -11,6 +11,7 @@ using FluentAssertions;
 using ExRam.Gremlinq.Tests.Infrastructure;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Tests.Fixtures;
+using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Tests.TestCases
 {
@@ -4811,5 +4812,20 @@ namespace ExRam.Gremlinq.Tests.TestCases
             .WithSideEffect("sideEffectLabel", 36)
             .V()
             .Verify();
+
+        [Fact]
+        public virtual async Task RegisterNativeType()
+        {
+            await _g
+                .ConfigureEnvironment(env => env
+                    .RegisterNativeType(
+                        (languageCode, env, recurse) => languageCode.ToString().ToLower(),
+                        (valueToken, env, recurse) => Enum.TryParse<DateTimeKind>(valueToken.Value<string>(), true, out var res)
+                            ? res
+                            : default))
+                .Inject("Utc")
+                .Cast<DateTimeKind>()
+                .Verify();
+        }
     }
 }

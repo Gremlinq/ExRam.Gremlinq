@@ -1,0 +1,14 @@
+﻿{
+  "requestId": "00000000-0000-0000-0000-000000000000",
+  "op": "eval",
+  "processor": "",
+  "args": {
+    "gremlin": "g.inject(_a)",
+    "bindings": {
+      "_a": "Utc"
+    },
+    "aliases": {
+      "g": "g"
+    }
+  }
+}
