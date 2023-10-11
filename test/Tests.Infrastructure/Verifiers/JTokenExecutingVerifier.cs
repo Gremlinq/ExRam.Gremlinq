@@ -7,9 +7,9 @@ using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Tests.Infrastructure
 {
-    public class ExecutingVerifier : GremlinQueryVerifier
+    public class JTokenExecutingVerifier : GremlinQueryVerifier
     {
-        public ExecutingVerifier(Func<SettingsTask, SettingsTask>? settingsTaskModifier = null, [CallerFilePath] string sourceFile = "") : base(settingsTaskModifier, sourceFile)
+        public JTokenExecutingVerifier(Func<SettingsTask, SettingsTask>? settingsTaskModifier = null, [CallerFilePath] string sourceFile = "") : base(settingsTaskModifier, sourceFile)
         {
         }
 

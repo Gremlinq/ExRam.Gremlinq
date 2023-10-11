@@ -11,7 +11,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
     {
         public IntegrationTests(GremlinServerContainerFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
-            new ExecutingVerifier(),
+            new JTokenExecutingVerifier(),
             testOutputHelper)
         {
         }

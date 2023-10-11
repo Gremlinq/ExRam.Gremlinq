@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
     {
         public IntegrationTests(CosmosDbEmulatorFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
-            new ExecutingVerifier(),
+            new JTokenExecutingVerifier(),
             testOutputHelper)
         {
         }
