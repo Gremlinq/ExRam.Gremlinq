@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
     {
         public IntegrationWithoutProjectionTests(GremlinServerWithoutProjectionContainerFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
-            new ExecutingVerifier(),
+            new JTokenExecutingVerifier(),
             testOutputHelper)
         {
         }

@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
     {
         public IntegrationTests(NeptuneContainerFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
-            new ExecutingVerifier(),
+            new JTokenExecutingVerifier(),
             testOutputHelper)
         {
         }
