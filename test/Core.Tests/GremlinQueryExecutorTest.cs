@@ -42,5 +42,33 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Execute<object>(GremlinQueryExecutionContext.Create(_query))
                 .ToArrayAsync());
         }
+
+        [Fact]
+        public async Task TransformExecutionException()
+        {
+            var baseExecutor = Substitute.For<IGremlinQueryExecutor>();
+
+            baseExecutor
+                .Execute<object>(Arg.Any<GremlinQueryExecutionContext>())
+                .Returns(
+                    _ => AsyncEnumerableEx.Throw<object>(new GremlinQueryExecutionException(_.Arg<GremlinQueryExecutionContext>(), new DivideByZeroException())));
+
+            await baseExecutor
+                .TransformExecutionException(ex =>
+                {
+                    ex.InnerException
+                        .Should()
+                        .BeOfType<DivideByZeroException>();
+
+                    return new GremlinQueryExecutionException(ex.ExecutionContext, new ArrayTypeMismatchException());
+                })
+                .Execute<object>(GremlinQueryExecutionContext.Create(_query))
+                .Awaiting(x => x
+                    .ToArrayAsync())
+                .Should()
+                .ThrowAsync<GremlinQueryExecutionException>()
+                .WithInnerException<GremlinQueryExecutionException, ArrayTypeMismatchException>();
+
+        }
     }
 }
