@@ -17,50 +17,83 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
         }
 
         [Fact]
-        public async Task SingleAsync_throws_on_too_many_values()
-        {
-            await _g
-                .Inject(1, 2)
-                .Awaiting(_ => _
-                    .SingleAsync())
+        public async Task FirstAsync() => (await _g
+            .Inject(42)
+            .FirstAsync())
                 .Should()
-                .ThrowAsync<InvalidOperationException>();
-        }
+                .Be(42);
 
         [Fact]
-        public async Task SingleAsync_throws_on_too_few_values()
-        {
-            await _g
-                .Inject(1)
-                .None()
-                .Awaiting(_ => _
-                    .SingleAsync())
-                .Should()
-                .ThrowAsync<InvalidOperationException>();
-        }
+        public async Task FirstAsync_empty() => await _g
+            .Inject(42)
+            .None()
+            .Awaiting(_ => _
+                .FirstAsync())
+            .Should()
+            .ThrowAsync<InvalidOperationException>();
 
         [Fact]
-        public async Task SingleOrDefaultAsync_returns_default_on_too_many_values()
-        {
-            var result = await _g
-                .Inject(1, 2)
-                .SingleOrDefaultAsync();
+        public async Task FirstOrDefaultAsync() => (await _g
+            .Inject(42)
+            .FirstOrDefaultAsync())
+                .Should()
+                .Be(42);
 
-            result
+        [Fact]
+        public async Task FirstOrDefaultAsync_empty() => (await _g
+            .Inject(42)
+            .None()
+            .FirstOrDefaultAsync())
                 .Should()
                 .Be(0);
-        }
 
         [Fact]
-        public async Task SingleOrDefaultAsync_throws_on_too_few_values()
-        {
-            var result = await _g
-                .Inject(1)
-                .None()
-                .Awaiting(_ => _
-                    .SingleOrDefaultAsync())
+        public async Task SingleAsync() => (await _g
+           .Inject(42)
+           .SingleAsync())
+               .Should()
+               .Be(42);
+
+        [Fact]
+        public async Task SingleAsync_empty() => await _g
+            .Inject(42)
+            .None()
+            .Awaiting(_ => _
+                .SingleAsync())
+            .Should()
+            .ThrowAsync<InvalidOperationException>();
+
+
+        [Fact]
+        public async Task SingleAsync_two_elements() => await _g
+            .Inject(42, 43)
+            .Awaiting(_ => _
+                .SingleAsync())
+            .Should()
+            .ThrowAsync<InvalidOperationException>();
+
+        [Fact]
+        public async Task SingleOrDefaultAsync() => (await _g
+            .Inject(42)
+            .SingleOrDefaultAsync())
                 .Should()
-                .ThrowAsync<InvalidOperationException>();
-        }
+                .Be(42);
+
+        [Fact]
+        public async Task SingleOrDefaultAsync_empty() => (await _g
+            .Inject(42)
+            .None()
+            .SingleOrDefaultAsync())
+                .Should()
+                .Be(0);
+
+        [Fact]
+        public async Task SingleOrDefaultAsync_two_elements() => await _g
+            .Inject(42, 43)
+            .Awaiting(_ => _
+                .SingleOrDefaultAsync())
+            .Should()
+            .ThrowAsync<InvalidOperationException>();
+
     }
 }
