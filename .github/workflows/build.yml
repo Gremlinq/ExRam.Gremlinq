@@ -68,8 +68,11 @@ jobs:
           6
           7
 
+    - name: Build
+      run: dotnet build ./${{ github.event.repository.name }}.sln -c Release
+      
     - name: Test
-      run: dotnet test ./${{ github.event.repository.name }}.sln -c Release
+      run: dotnet test ./${{ github.event.repository.name }}.sln -c Release --no-build
       env:
         RunGremlinServerIntegrationTests: 'true'
         RunJanusGraphIntegrationTests: 'true'
@@ -107,8 +110,11 @@ jobs:
     - name: Start CosmosDb Emulator
       uses: Gremlinq/cosmos-emulator-github-action@EnableGremlin
 
+    - name: Build
+      run: dotnet build ./${{ github.event.repository.name }}.sln -c Release
+      
     - name: Test
-      run: dotnet test ./${{ github.event.repository.name }}.sln -c Release
+      run: dotnet test ./${{ github.event.repository.name }}.sln -c Release --no-build
       env:
         RunCosmosDbIntegrationTests: 'true'
 
