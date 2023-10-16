@@ -21,7 +21,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
             public bool TryConvert(JValue serialized, ITransformer recurse, out TStaticTarget value)
             {
-                if (_factory.Convert(serialized, _environment, recurse) is { } requested)
+                if (serialized.Value is { } serializedValue && _factory.Convert(serializedValue, _environment, recurse) is { } requested)
                 {
                     value = requested;
 
@@ -41,6 +41,6 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 : null;
         }
 
-        protected abstract TStaticTarget? Convert(JValue jValue, IGremlinQueryEnvironment environment, ITransformer recurse);
+        protected abstract TStaticTarget? Convert(object jValue, IGremlinQueryEnvironment environment, ITransformer recurse);
     }
 }

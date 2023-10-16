@@ -99,10 +99,11 @@ namespace ExRam.Gremlinq.Core
                 .Add(new BulkSetConverterFactory())
                 .Add(new EnumerableConverterFactory())
                 .Add(new NullableConverterFactory())
-                .Add(new NativeTypeConverterFactory())
+                
                 .Add(new TimeSpanConverterFactory())
                 .Add(new DateTimeOffsetConverterFactory())
-                .Add(new DateTimeConverterFactory());
+                .Add(new DateTimeConverterFactory())
+                .Add(new NativeTypeConverterFactory());
         }
 
         public static FluentForType TryTransformTo(this ITransformer deserializer, Type type) => new(deserializer, type);
