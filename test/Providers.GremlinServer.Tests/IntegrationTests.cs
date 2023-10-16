@@ -63,7 +63,6 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
             .Should()
             .ThrowAsync<InvalidOperationException>();
 
-
         [Fact]
         public async Task SingleAsync_two_elements() => await _g
             .Inject(42, 43)
@@ -95,5 +94,35 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
             .Should()
             .ThrowAsync<InvalidOperationException>();
 
+        [Fact]
+        public async Task LastAsync() => (await _g
+           .Inject(42, 43)
+           .LastAsync())
+               .Should()
+               .Be(43);
+
+        [Fact]
+        public async Task LastAsync_empty() => await _g
+            .Inject(42)
+            .None()
+            .Awaiting(_ => _
+                .LastAsync())
+            .Should()
+            .ThrowAsync<InvalidOperationException>();
+
+        [Fact]
+        public async Task LastOrDefaultAsync() => (await _g
+            .Inject(42, 43)
+            .LastOrDefaultAsync())
+                .Should()
+                .Be(43);
+
+        [Fact]
+        public async Task LastOrDefaultAsync_empty() => (await _g
+            .Inject(42)
+            .None()
+            .LastOrDefaultAsync())
+                .Should()
+                .Be(0);
     }
 }
