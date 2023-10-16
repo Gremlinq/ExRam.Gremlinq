@@ -32,6 +32,17 @@ namespace ExRam.Gremlinq.Core
             .ToAsyncEnumerable()
             .SingleOrDefaultAsync(ct);
 
+        public static ValueTask<TElement> LastAsync<TElement>(this IGremlinQueryBase<TElement> query, CancellationToken ct = default) => query
+            .Cast<TElement>()
+            .ToAsyncEnumerable()
+            .LastAsync(ct);
+
+        public static ValueTask<TElement?> LastOrDefaultAsync<TElement>(this IGremlinQueryBase<TElement> query, CancellationToken ct = default) => query
+            .Cast<TElement>()
+            .Limit(2)
+            .ToAsyncEnumerable()
+            .LastOrDefaultAsync(ct);
+
         internal static Traversal ToTraversal(this IGremlinQueryBase query) => query
             .AsAdmin().Steps;
     }
