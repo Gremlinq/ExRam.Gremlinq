@@ -74,12 +74,12 @@ namespace System.Linq.Async
             await using (var e = source.WithCancellation(ct).GetAsyncEnumerator())
             {
                 if (!await e.MoveNextAsync())
-                    throw new InvalidOperationException(NoElements);
+                    return default;
 
                 var result = e.Current;
 
                 if (await e.MoveNextAsync())
-                    return default;
+                    throw new InvalidOperationException(MoreThanOneElement);
 
                 return result;
             }
