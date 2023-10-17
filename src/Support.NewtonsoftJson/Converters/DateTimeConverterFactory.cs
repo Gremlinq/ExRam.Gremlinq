@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json.Linq;
-using System.Globalization;
 using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Core;
 
@@ -9,12 +8,10 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
     {
         protected override DateTime? Convert(JValue jValue, IGremlinQueryEnvironment environment, ITransformer recurse)
         {
-            return jValue.Value switch
+            return jValue switch
             {
-                DateTime dateTime => dateTime,
-                DateTimeOffset dateTimeOffset => dateTimeOffset.UtcDateTime,
-                string dateTimeString when DateTime.TryParse(dateTimeString, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out var parseResult) => parseResult,
-                _ when jValue.Type == JTokenType.Integer => new DateTime(DateTimeOffset.FromUnixTimeMilliseconds(jValue.Value<long>()).Ticks, DateTimeKind.Utc),
+                { Value: DateTime dateTime } => dateTime,
+                _ when recurse.TryTransform<JToken, DateTimeOffset>(jValue, environment, out var dateTimeOffset) => dateTimeOffset.UtcDateTime,
                 _ => default(DateTime?)
             };
         }
