@@ -98,8 +98,10 @@ namespace ExRam.Gremlinq.Core
                 .Add(new MapToDictionaryConverterFactory())
                 .Add(new BulkSetConverterFactory())
                 .Add(new EnumerableConverterFactory())
-                .Add(new NullableConverterFactory())
+
                 .Add(new NativeTypeConverterFactory())
+                .Add(new NullableConverterFactory())
+
                 .Add(new TimeSpanConverterFactory())
                 .Add(new DateTimeOffsetConverterFactory())
                 .Add(new DateTimeConverterFactory());
