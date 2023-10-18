@@ -1,7 +1,7 @@
 ﻿{
   "requestId": "00000000-0000-0000-0000-000000000000",
   "op": "eval",
-  "processor": "",
+  "processor": "traversal",
   "args": {
     "gremlin": "g.V().group().by(__.label()).by(__.values())",
     "bindings": {},
