@@ -300,6 +300,7 @@ namespace ExRam.Gremlinq.Core.Serialization
             .Add(ConverterFactory
                 .Create<GroovyGremlinQuery, RequestMessage.Builder>((query, env, _, _) => RequestMessage
                     .Build(Tokens.OpsEval)
+                    .Processor(Tokens.ProcessorTraversal)
                     .AddArgument(Tokens.ArgsGremlin, query.Script)
                     .AddArgument(Tokens.ArgsBindings, query.Bindings)
                     .AddAlias(env)))
