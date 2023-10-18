@@ -1,7 +1,7 @@
 ﻿{
   "requestId": "00000000-0000-0000-0000-000000000000",
   "op": "eval",
-  "processor": "",
+  "processor": "traversal",
   "args": {
     "gremlin": "g.V().hasLabel(_a).sideEffect(__.properties(_b,_c,_d).drop()).property(single,_e,_f).property(single,_g,_h).outE(_i).property(_j,_h).project(_k,_l,_m).by(id).by(label).by(__.valueMap())",
     "bindings": {

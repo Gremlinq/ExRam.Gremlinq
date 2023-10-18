@@ -1,7 +1,7 @@
 ﻿{
   "requestId": "00000000-0000-0000-0000-000000000000",
   "op": "eval",
-  "processor": "",
+  "processor": "traversal",
   "args": {
     "gremlin": "g.V().hasLabel(_a).has(_b,within(_c,_d,_e,_f,_g,_h,_i,_j,_k,_l,_m)).project(_n,_o,_p).by(id).by(label).by(__.properties().group().by(label).by(__.project(_n,_o,_q,_p).by(id).by(label).by(value).by(__.valueMap()).fold()))",
     "bindings": {
