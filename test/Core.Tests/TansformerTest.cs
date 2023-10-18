@@ -94,5 +94,61 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Add(Create<int, string>((serialized, env, _, recurse) => serialized.ToString()))
                 .TryTransformTo<string>().From("serialized", GremlinQueryEnvironment.Invalid));
         }
+
+        [Fact]
+        public async Task Defer()
+        {
+            await Verify(Transformer.Empty
+                .Add(Create<string, string>((serialized, env, _, recurse) => "overridden 1"))
+                .Add(Create<string, string>((serialized, env, defer, recurse) => "overridden 2" + " " + defer.TransformTo<string>().From(serialized, env)))
+                .TryTransformTo<string>().From("serialized", GremlinQueryEnvironment.Invalid));
+        }
+
+        [Fact]
+        public async Task Defer_3()
+        {
+            await Verify(Transformer.Empty
+                .Add(Create<string, string>((serialized, env, defer, recurse) => "3"))
+                .Add(Create<string, string>((serialized, env, defer, recurse) => "2 " + defer.TransformTo<string>().From(serialized, env)))
+                .Add(Create<string, string>((serialized, env, defer, recurse) => "1 " + defer.TransformTo<string>().From(serialized, env)))
+                .TryTransformTo<string>().From("serialized", GremlinQueryEnvironment.Invalid));
+        }
+
+        [Fact]
+        public async Task Defer_with_recurse()
+        {
+            await Verify(Transformer.Empty
+                .Add(Create<string, string>((serialized, env, _, recurse) => serialized switch
+                {
+                    "deferred" => recurse.TransformTo<string>().From("recursed", env),
+                    _ => throw new InvalidOperationException()
+                }))
+                .Add(Create<string, string>((serialized, env, defer, recurse) => serialized switch
+                {
+                    "serialized" => defer.TransformTo<string>().From("deferred", env),
+                    "recursed" => "success",
+                    _ => throw new InvalidOperationException()
+                }))
+                .TryTransformTo<string>().From("serialized", GremlinQueryEnvironment.Invalid));
+        }
+
+        [Fact]
+        public async Task Defer_with_recurse_different_types()
+        {
+            await Verify(Transformer.Empty
+                .Add(Create<int, string>((serialized, env, _, recurse) => serialized switch
+                {
+                    42 => recurse.TransformTo<string>().From(DateTime.Now, env),
+                    _ => throw new InvalidOperationException()
+                }))
+                .Add(Create<string, string>((serialized, env, defer, recurse) => serialized switch
+                {
+                    "serialized" => defer.TransformTo<string>().From(42, env),
+                    "recursed" => "success",
+                    _ => throw new InvalidOperationException()
+                }))
+                .Add(Create<DateTime, string>((serialized, env, defer, recurse) => "success"))
+                .TryTransformTo<string>().From("serialized", GremlinQueryEnvironment.Invalid));
+        }
     }
 }
