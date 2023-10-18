@@ -1,4 +1,7 @@
-﻿using ExRam.Gremlinq.Core.Execution;
+﻿using System.Reactive.Linq;
+using System.Reactive.Threading.Tasks;
+
+using ExRam.Gremlinq.Core.Execution;
 
 using FluentAssertions;
 
@@ -68,7 +71,43 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .ThrowAsync<GremlinQueryExecutionException>()
                 .WithInnerException<GremlinQueryExecutionException, ArrayTypeMismatchException>();
+        }
 
+        [Fact]
+        public async Task Serialize()
+        {
+            var state = 0;
+            var random = new Random(DateTime.UtcNow.Millisecond);
+            var baseExecutor = Substitute.For<IGremlinQueryExecutor>();
+
+            baseExecutor
+                .Execute<int>(Arg.Any<GremlinQueryExecutionContext>())
+                .Returns(Core());
+
+            var serialized = baseExecutor
+                .Serialize();
+
+            await Observable
+                .Range(1, 1000)
+                .SelectMany(x => serialized
+                    .Execute<int>(GremlinQueryExecutionContext.Create(_query))
+                    .ToObservable())
+                .LastOrDefaultAsync()
+                .ToTask();
+                    
+            async IAsyncEnumerable<int> Core()
+            {
+                Interlocked.CompareExchange(ref state, 1, 0)
+                    .Should()
+                    .Be(0);
+
+                yield return 42;
+                await Task.Delay(TimeSpan.FromMilliseconds(random.Next(5)));
+
+                Interlocked.CompareExchange(ref state, 0, 1)
+                    .Should()
+                    .Be(1);
+            }
         }
     }
 }

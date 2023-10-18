@@ -161,6 +161,39 @@ namespace ExRam.Gremlinq.Core.Execution
             }
         }
 
+        private sealed class SerializingGremlinQueryExecutor : IGremlinQueryExecutor
+        {
+            private readonly SemaphoreSlim _semaphore = new(1);
+            private readonly IGremlinQueryExecutor _baseExecutor;
+
+            public SerializingGremlinQueryExecutor(IGremlinQueryExecutor baseExecutor)
+            {
+                _baseExecutor = baseExecutor;
+            }
+
+            public IAsyncEnumerable<T> Execute<T>(GremlinQueryExecutionContext context)
+            {
+                return Core(context, this);
+
+                static async IAsyncEnumerable<T> Core(GremlinQueryExecutionContext context, SerializingGremlinQueryExecutor @this, [EnumeratorCancellation] CancellationToken ct = default)
+                {
+                    await @this._semaphore.WaitAsync(ct);
+
+                    try
+                    {
+                        await foreach (var item in @this._baseExecutor.Execute<T>(context).WithCancellation(ct).ConfigureAwait(false))
+                        {
+                            yield return item;
+                        }
+                    }
+                    finally
+                    {
+                        @this._semaphore.Release();
+                    }
+                }
+            }
+        }
+
         public static readonly IGremlinQueryExecutor Empty = new EmptyGremlinQueryExecutor();
 
         public static readonly IGremlinQueryExecutor Invalid = new InvalidGremlinQueryExecutor();
@@ -170,5 +203,7 @@ namespace ExRam.Gremlinq.Core.Execution
         public static IGremlinQueryExecutor TransformExecutionException(this IGremlinQueryExecutor executor, Func<GremlinQueryExecutionException, GremlinQueryExecutionException> exceptionTransformation) => new TransformExecutionExceptionGremlinQueryExecutor(executor, exceptionTransformation);
 
         public static IGremlinQueryExecutor RetryWithExponentialBackoff(this IGremlinQueryExecutor executor, Func<int, GremlinQueryExecutionException, bool> shouldRetry) => new ExponentialBackoffExecutor(executor, shouldRetry);
+
+        public static IGremlinQueryExecutor Serialize(this IGremlinQueryExecutor executor) => new SerializingGremlinQueryExecutor(executor);
     }
 }
