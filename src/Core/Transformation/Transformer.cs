@@ -2,6 +2,7 @@
 using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace ExRam.Gremlinq.Core.Transformation
 {
@@ -63,9 +64,10 @@ namespace ExRam.Gremlinq.Core.Transformation
                 public static Option<T> From(T value) => new(value);
             }
 
+            private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, ConcurrentDictionary<(Type, Type, Type), Delegate>> ConversionDelegates = new();
+
             private readonly EmptyTransformer _recurse;
             private readonly ImmutableStack<IConverterFactory> _converterFactories;
-            private readonly ConcurrentDictionary<(IGremlinQueryEnvironment, Type, Type, Type), Delegate> _conversionDelegates = new();
 
             public EmptyTransformer(ImmutableStack<IConverterFactory> converterFactories)
             {
@@ -87,19 +89,21 @@ namespace ExRam.Gremlinq.Core.Transformation
             {
                 if (source is { } actualSerialized)
                 {
-                    var maybeDeserializerDelegate = _conversionDelegates
+                    var maybeDeserializerDelegate = ConversionDelegates
+                        .GetOrCreateValue(environment)
                         .GetOrAdd(
-                            (environment, typeof(TSource), actualSerialized.GetType(), typeof(TTarget)),
-                            static (typeTuple, @this) =>
+                            (typeof(TSource), actualSerialized.GetType(), typeof(TTarget)),
+                            static (typeTuple, state) =>
                             {
-                                var (environment, staticSerializedType, actualSerializedType, requestedType) = typeTuple;
+                                var (@this, environment) = state;
+                                var (staticSerializedType, actualSerializedType, requestedType) = typeTuple;
 
                                 return (Delegate)typeof(EmptyTransformer)
                                     .GetMethod(nameof(GetTransformationFunction), BindingFlags.Instance | BindingFlags.NonPublic)!
                                     .MakeGenericMethod(staticSerializedType, actualSerializedType, requestedType)
                                     .Invoke(@this, new object [] { environment })!;
                             },
-                            this) as Func<TSource, Option<TTarget>>;
+                            (this, environment)) as Func<TSource, Option<TTarget>>;
 
                     if (maybeDeserializerDelegate is { } deserializerDelegate && deserializerDelegate(source) is { HasValue: true, Value: { } optionValue })
                     {
