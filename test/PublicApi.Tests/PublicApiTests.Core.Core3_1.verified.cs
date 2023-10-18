@@ -1205,6 +1205,7 @@ namespace ExRam.Gremlinq.Core.Execution
         public static readonly ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor Empty;
         public static readonly ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor Invalid;
         public static ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor RetryWithExponentialBackoff(this ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor executor, System.Func<int, ExRam.Gremlinq.Core.Execution.GremlinQueryExecutionException, bool> shouldRetry) { }
+        public static ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor Serialize(this ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor executor) { }
         public static ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor TransformExecutionException(this ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor executor, System.Func<ExRam.Gremlinq.Core.Execution.GremlinQueryExecutionException, ExRam.Gremlinq.Core.Execution.GremlinQueryExecutionException> exceptionTransformation) { }
         public static ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor TransformQuery(this ExRam.Gremlinq.Core.Execution.IGremlinQueryExecutor baseExecutor, System.Func<ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBase> transformation) { }
     }
