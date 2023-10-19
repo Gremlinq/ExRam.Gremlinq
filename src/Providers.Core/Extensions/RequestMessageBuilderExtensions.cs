@@ -1,6 +1,4 @@
-﻿using Gremlin.Net.Driver.Messages;
-
-namespace Gremlin.Net.Driver
+﻿namespace Gremlin.Net.Driver.Messages
 {
     internal static class RequestMessageBuilderExtensions
     {
