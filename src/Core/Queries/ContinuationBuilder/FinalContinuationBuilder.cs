@@ -72,7 +72,7 @@ namespace ExRam.Gremlinq.Core
 
         public GremlinQuery<object, object, object, object, object, object> AutoBuild() => Build<GremlinQuery<object, object, object, object, object, object>>();
 
-        public TNewTargetQuery Build<TNewTargetQuery>() where TNewTargetQuery : IGremlinQueryBase => With(
+        public TNewTargetQuery Build<TNewTargetQuery>() where TNewTargetQuery : IStartGremlinQuery => With(
             static (outer, steps, labelProjections, flags, _) => outer.CloneAs<TNewTargetQuery>(
                 steps,
                 labelProjections,
