@@ -13,7 +13,6 @@ namespace ExRam.Gremlinq.Core
         IGremlinQuerySource GetSource();
 
         Traversal Steps { get; }
-        Type ElementType { get; }
         IGremlinQueryEnvironment Environment { get; }
     }
 }
