@@ -284,9 +284,6 @@ namespace ExRam.Gremlinq.Core.Serialization
                             else
                                 AddStep(step, byteCode, isSourceStep, env, recurse);
                         }
-
-                        if (byteCode.StepInstructions.Count == 0)
-                            AddStep(IdentityStep.Instance, byteCode, false, env, recurse);
                     }
 
                     return new Bytecode()
