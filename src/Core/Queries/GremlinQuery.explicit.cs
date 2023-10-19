@@ -273,8 +273,6 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQueryEnvironment IGremlinQueryAdmin.Environment => Environment;
 
-        Type IGremlinQueryAdmin.ElementType { get => typeof(TElement); }
-
         IGremlinQueryAdmin IStartGremlinQuery.AsAdmin() => this;
 
         IEdgeGremlinQuery<TEdge> IStartGremlinQuery.AddE<TEdge>(TEdge edge) => AddE(edge);
