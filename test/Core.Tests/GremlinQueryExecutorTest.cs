@@ -15,7 +15,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         public GremlinQueryExecutorTest() : base()
         {
-            _query = GremlinQuerySource.g.ConfigureEnvironment(_ => _).V();
+            _query = GremlinQuerySource.g.V();
         }
 
         [Fact]
