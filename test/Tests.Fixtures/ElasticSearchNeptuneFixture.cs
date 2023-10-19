@@ -7,7 +7,7 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
 {
     public sealed class ElasticSearchNeptuneFixture : GremlinqFixture
     {
-        protected override async Task<IGremlinQuerySource> TransformQuerySource(IConfigurableGremlinQuerySource g) => g
+        protected override async Task<IGremlinQuerySource> TransformQuerySource(IGremlinQuerySource g) => g
             .UseNeptune<Vertex, Edge>(builder => builder
                 .AtLocalhost()
                 .UseElasticSearch(new Uri("http://elastic.search.server")));

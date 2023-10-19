@@ -36,7 +36,7 @@ namespace ExRam.Gremlinq.Core
 
         private record struct NeptuneErrorResponse(string? requestId, string? code, string? detailedMessage);
 
-        public static IGremlinQuerySource UseNeptune<TVertexBase, TEdgeBase>(this IConfigurableGremlinQuerySource source, Func<INeptuneConfigurator, IGremlinQuerySourceTransformation> configuratorTransformation)
+        public static IGremlinQuerySource UseNeptune<TVertexBase, TEdgeBase>(this IGremlinQuerySource source, Func<INeptuneConfigurator, IGremlinQuerySourceTransformation> configuratorTransformation)
         {
             var serializerOptions = new JsonSerializerOptions()
             {

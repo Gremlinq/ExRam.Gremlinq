@@ -27,7 +27,7 @@ namespace ExRam.Gremlinq.Core
             public IGremlinQuerySource Transform(IGremlinQuerySource source) => _webSocketProviderConfigurator.Transform(source);
         }
 
-        public static IGremlinQuerySource UseJanusGraph<TVertexBase, TEdgeBase>(this IConfigurableGremlinQuerySource source, Func<IJanusGraphConfigurator, IGremlinQuerySourceTransformation> configuratorTransformation)
+        public static IGremlinQuerySource UseJanusGraph<TVertexBase, TEdgeBase>(this IGremlinQuerySource source, Func<IJanusGraphConfigurator, IGremlinQuerySourceTransformation> configuratorTransformation)
         {
             return configuratorTransformation
                 .Invoke(JanusGraphConfigurator.Default)

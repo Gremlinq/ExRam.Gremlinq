@@ -11,7 +11,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
         {
         }
 
-        protected override async Task<IGremlinQuerySource> TransformQuerySource(IContainer container, IConfigurableGremlinQuerySource g) => g
+        protected override async Task<IGremlinQuerySource> TransformQuerySource(IContainer container, IGremlinQuerySource g) => g
             .UseGremlinServer<Vertex, Edge>(_ => _
                 .At(new UriBuilder("ws", container.Hostname, container.GetMappedPublicPort(8182)).Uri)
                 .UseNewtonsoftJson());

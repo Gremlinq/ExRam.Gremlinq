@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
 {
     public sealed class NeptuneFixture : GremlinqFixture
     {
-        protected override async Task<IGremlinQuerySource> TransformQuerySource(IConfigurableGremlinQuerySource g) => g
+        protected override async Task<IGremlinQuerySource> TransformQuerySource(IGremlinQuerySource g) => g
             .UseNeptune<Vertex, Edge>(_ => _
                 .AtLocalhost()
                 .UseNewtonsoftJson());

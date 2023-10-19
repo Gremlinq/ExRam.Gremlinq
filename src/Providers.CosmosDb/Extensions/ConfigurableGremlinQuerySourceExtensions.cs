@@ -114,7 +114,7 @@ namespace ExRam.Gremlinq.Core
 
         private static readonly NotStep NoneWorkaround = new(IdentityStep.Instance);
 
-        public static IGremlinQuerySource UseCosmosDb<TVertexBase, TEdgeBase>(this IConfigurableGremlinQuerySource source, Func<ICosmosDbConfigurator<TVertexBase>, IGremlinQuerySourceTransformation> configuratorTransformation)
+        public static IGremlinQuerySource UseCosmosDb<TVertexBase, TEdgeBase>(this IGremlinQuerySource source, Func<ICosmosDbConfigurator<TVertexBase>, IGremlinQuerySourceTransformation> configuratorTransformation)
         {
             return configuratorTransformation
                 .Invoke(CosmosDbConfigurator<TVertexBase>.Default)
