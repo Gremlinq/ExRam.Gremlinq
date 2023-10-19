@@ -45,7 +45,7 @@ namespace ExRam.Gremlinq.Core.Transformation
                 """);
         }
 
-        private sealed class EmptyTransformer : ITransformer
+        private sealed class TransformerImpl : ITransformer
         {
             private readonly struct Option<T>
             {
@@ -63,24 +63,24 @@ namespace ExRam.Gremlinq.Core.Transformation
                 public static Option<T> From(T value) => new(value);
             }
 
-            private readonly EmptyTransformer _recurse;
+            private readonly TransformerImpl _recurse;
             private readonly ImmutableStack<IConverterFactory> _converterFactories;
             private readonly ConcurrentDictionary<(IGremlinQueryEnvironment, Type, Type, Type), Delegate> _conversionDelegates = new();
 
-            public EmptyTransformer(ImmutableStack<IConverterFactory> converterFactories)
+            public TransformerImpl(ImmutableStack<IConverterFactory> converterFactories)
             {
                 _recurse = this;
                 _converterFactories = converterFactories;
             }
 
-            public EmptyTransformer(ImmutableStack<IConverterFactory> converterFactories, EmptyTransformer recurse) : this(converterFactories)
+            public TransformerImpl(ImmutableStack<IConverterFactory> converterFactories, TransformerImpl recurse) : this(converterFactories)
             {
                 _recurse = recurse;
             }
 
             public ITransformer Add(IConverterFactory converterFactory)
             {
-                return new EmptyTransformer(_converterFactories.Push(converterFactory));
+                return new TransformerImpl(_converterFactories.Push(converterFactory));
             }
 
             public bool TryTransform<TSource, TTarget>(TSource source, IGremlinQueryEnvironment environment, [NotNullWhen(true)] out TTarget? value)
@@ -94,7 +94,7 @@ namespace ExRam.Gremlinq.Core.Transformation
                             {
                                 var (environment, staticSerializedType, actualSerializedType, requestedType) = typeTuple;
 
-                                return (Delegate)typeof(EmptyTransformer)
+                                return (Delegate)typeof(TransformerImpl)
                                     .GetMethod(nameof(GetTransformationFunction), BindingFlags.Instance | BindingFlags.NonPublic)!
                                     .MakeGenericMethod(staticSerializedType, actualSerializedType, requestedType)
                                     .Invoke(@this, new object [] { environment })!;
@@ -121,7 +121,7 @@ namespace ExRam.Gremlinq.Core.Transformation
             private Func<TStaticSource, Option<TTarget>> GetTransformationFunction<TStaticSource, TActualSource, TTarget>(IGremlinQueryEnvironment environment)
                 where TActualSource : TStaticSource
             {
-                IEnumerable<(IConverter<TActualSource, TTarget> converter, EmptyTransformer overridden)> Converters()
+                IEnumerable<(IConverter<TActualSource, TTarget> converter, TransformerImpl overridden)> Converters()
                 {
                     var stack = _converterFactories;
 
@@ -130,7 +130,7 @@ namespace ExRam.Gremlinq.Core.Transformation
                         var previousStack = stack.Pop(out var converterFactory);
 
                         if (converterFactory.TryCreate<TActualSource, TTarget>(environment) is { } converter)
-                            yield return (converter, new EmptyTransformer(previousStack, this));
+                            yield return (converter, new TransformerImpl(previousStack, this));
 
                         stack = previousStack;
                     }
@@ -155,7 +155,7 @@ namespace ExRam.Gremlinq.Core.Transformation
             }
         }
 
-        public static readonly ITransformer Empty = new EmptyTransformer(ImmutableStack<IConverterFactory>.Empty);
+        public static readonly ITransformer Empty = new TransformerImpl(ImmutableStack<IConverterFactory>.Empty);
 
         internal static readonly ITransformer Invalid = new InvalidTransformer();
     }
