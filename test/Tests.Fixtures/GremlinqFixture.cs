@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
     {
         private sealed class EmptyGremlinqTestFixture : GremlinqFixture
         {
-            protected override async Task<IGremlinQuerySource> TransformQuerySource(IConfigurableGremlinQuerySource g) => g.ConfigureEnvironment(_ => _);
+            protected override async Task<IGremlinQuerySource> TransformQuerySource(IGremlinQuerySource g) => g.ConfigureEnvironment(_ => _);
         }
 
         public static readonly GremlinqFixture Empty = new EmptyGremlinqTestFixture();
@@ -23,7 +23,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
             Disposed.TrySetException(new ObjectDisposedException(nameof(GremlinqFixture)));
         }
 
-        protected abstract Task<IGremlinQuerySource> TransformQuerySource(IConfigurableGremlinQuerySource g);
+        protected abstract Task<IGremlinQuerySource> TransformQuerySource(IGremlinQuerySource g);
 
         public Task<IGremlinQuerySource> GremlinQuerySource => GetGremlinQuerySource();
 

@@ -14,7 +14,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
         private const string CosmosDbEmulatorCollectionName = "graph";
         private const string CosmosDbEmulatorAuthKey = "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==";
 
-        protected override async Task<IGremlinQuerySource> TransformQuerySource(IConfigurableGremlinQuerySource g)
+        protected override async Task<IGremlinQuerySource> TransformQuerySource(IGremlinQuerySource g)
         {
             using (var cosmosClient = new CosmosClient("https://localhost:8081", CosmosDbEmulatorAuthKey))
             {

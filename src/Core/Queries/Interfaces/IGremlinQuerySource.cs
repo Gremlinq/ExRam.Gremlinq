@@ -1,7 +1,9 @@
 ﻿namespace ExRam.Gremlinq.Core
 {
-    public interface IGremlinQuerySource : IConfigurableGremlinQuerySource, IStartGremlinQuery
+    public interface IGremlinQuerySource : IStartGremlinQuery
     {
+        IGremlinQuerySource ConfigureEnvironment(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> environmentTransformation);
+
         IGremlinQuerySource WithStrategy<TStrategy>(Func<IGremlinQuerySource, TStrategy> factory)
             where TStrategy : IGremlinQueryStrategy;
 
@@ -15,10 +17,5 @@
             where TQuery : IGremlinQueryBase;
 
         IGremlinQueryEnvironment Environment { get; }
-    }
-
-    public interface IConfigurableGremlinQuerySource
-    {
-        IGremlinQuerySource ConfigureEnvironment(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> environmentTransformation);
     }
 }

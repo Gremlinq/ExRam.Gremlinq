@@ -29,7 +29,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
 
             IGremlinQueryAdmin IStartGremlinQuery.AsAdmin() => _baseSource.AsAdmin();
 
-            IGremlinQuerySource IConfigurableGremlinQuerySource.ConfigureEnvironment(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> environmentTransformation) => _baseSource.ConfigureEnvironment(environmentTransformation);
+            IGremlinQuerySource IGremlinQuerySource.ConfigureEnvironment(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> environmentTransformation) => _baseSource.ConfigureEnvironment(environmentTransformation);
 
             IEdgeGremlinQuery<object> IStartGremlinQuery.E(object id) => _baseSource.E(id);
 
@@ -81,9 +81,9 @@ namespace ExRam.Gremlinq.Tests.Fixtures
             _image = image;
         }
 
-        protected abstract Task<IGremlinQuerySource> TransformQuerySource(IContainer container, IConfigurableGremlinQuerySource g);
+        protected abstract Task<IGremlinQuerySource> TransformQuerySource(IContainer container, IGremlinQuerySource g);
 
-        protected override sealed async Task<IGremlinQuerySource> TransformQuerySource(IConfigurableGremlinQuerySource g)
+        protected override sealed async Task<IGremlinQuerySource> TransformQuerySource(IGremlinQuerySource g)
         {
             var container = new ContainerBuilder()
                 .WithImage(_image)

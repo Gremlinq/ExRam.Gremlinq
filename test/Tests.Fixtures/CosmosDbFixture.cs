@@ -7,7 +7,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
 {
     public sealed class CosmosDbFixture : GremlinqFixture
     {
-        protected override async Task<IGremlinQuerySource> TransformQuerySource(IConfigurableGremlinQuerySource g) => g
+        protected override async Task<IGremlinQuerySource> TransformQuerySource(IGremlinQuerySource g) => g
             .UseCosmosDb<Vertex, Edge>(
                 builder => builder
                     .AtLocalhost("db", "graph")

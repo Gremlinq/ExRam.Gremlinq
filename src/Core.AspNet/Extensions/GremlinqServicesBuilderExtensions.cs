@@ -62,10 +62,10 @@ namespace ExRam.Gremlinq.Core.AspNet
             where TConfigurator : IGremlinqConfigurator<TConfigurator>
         {
             private readonly IEnumerable<IGremlinqConfiguratorTransformation<TConfigurator>> _providerConfiguratorTransformations;
-            private readonly Func<IConfigurableGremlinQuerySource, Func<Func<TConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource>> _providerChoice;
+            private readonly Func<IGremlinQuerySource, Func<Func<TConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource>> _providerChoice;
 
             public UseProviderGremlinQuerySourceTransformation(
-                Func<IConfigurableGremlinQuerySource, Func<Func<TConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource>> providerChoice,
+                Func<IGremlinQuerySource, Func<Func<TConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource>> providerChoice,
                 IEnumerable<IGremlinqConfiguratorTransformation<TConfigurator>> providerConfiguratorTransformations)
             {
                 _providerChoice = providerChoice;
@@ -101,7 +101,7 @@ namespace ExRam.Gremlinq.Core.AspNet
 
         public static IGremlinqServicesBuilder<TConfigurator> UseProvider<TConfigurator>(
             this IGremlinqServicesBuilder setup,
-            Func<IConfigurableGremlinQuerySource, Func<Func<TConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource>> providerChoice)
+            Func<IGremlinQuerySource, Func<Func<TConfigurator, IGremlinQuerySourceTransformation>, IGremlinQuerySource>> providerChoice)
                 where TConfigurator : IGremlinqConfigurator<TConfigurator>
         {
             setup.Services
