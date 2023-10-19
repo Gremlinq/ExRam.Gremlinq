@@ -1,6 +1,8 @@
 ﻿using System.Collections.Immutable;
+
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Serialization;
+
 using Gremlin.Net.Driver.Messages;
 using Gremlin.Net.Process.Traversal;
 
@@ -29,5 +31,11 @@ namespace Gremlin.Net.Driver
 
             return default;
         }
+
+        public static RequestMessage.Builder Rebuild(this RequestMessage message) => RequestMessage
+            .Build(message.Operation)
+            .OverrideRequestId(message.RequestId)
+            .Processor(message.Processor)
+            .AddArguments(message.Arguments);
     }
 }

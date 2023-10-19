@@ -94,8 +94,7 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         private static ITransformer AddBaseConverters(this ITransformer serializer) => serializer
             .Add(Chain<IGremlinQueryBase, Bytecode, GroovyGremlinQuery>())
-            .Add(Chain<IGremlinQueryBase, RequestMessage.Builder, RequestMessage>())
-            .Add(Chain<IGremlinQueryBase, Bytecode, RequestMessage.Builder>())
+            .Add(Chain<IGremlinQueryBase, Bytecode, RequestMessage>())
             .Add(Chain<IGremlinQueryBase, Traversal, Bytecode>())
 
             .Add(ConverterFactory
@@ -293,40 +292,38 @@ namespace ExRam.Gremlinq.Core.Serialization
                     return new Bytecode()
                         .Apply(byteCode => AddTraversal(traversal, byteCode, env, recurse));
                 }))
-            .Add(Chain<Bytecode, RequestMessage.Builder, RequestMessage>())
-
             .Add(ConverterFactory
                 .Create<Bytecode, GroovyGremlinQuery>((query, env, _, _) => query.ToGroovy(env)))
             .Add(ConverterFactory
-                .Create<GroovyGremlinQuery, RequestMessage.Builder>((query, env, _, _) => RequestMessage
+                .Create<GroovyGremlinQuery, RequestMessage>((query, env, _, _) => RequestMessage
                     .Build(Tokens.OpsEval)
                     .AddArgument(Tokens.ArgsGremlin, query.Script)
                     .AddArgument(Tokens.ArgsBindings, query.Bindings)
-                    .AddAlias(env)))
+                    .AddAlias(env)
+                    .Create()))
             .Add(ConverterFactory
-                .Create<Bytecode, RequestMessage.Builder>((bytecode, env, _, _) => RequestMessage
+                .Create<Bytecode, RequestMessage>((bytecode, env, _, _) => RequestMessage
                     .Build(Tokens.OpsBytecode)
                     .Processor(Tokens.ProcessorTraversal)
                     .AddArgument(Tokens.ArgsGremlin, bytecode)
-                    .AddAlias(env)))
+                    .AddAlias(env)
+                    .Create()))
             .Add(ConverterFactory
-                .Create<Bytecode, RequestMessage.Builder>((bytecode, env, _, recurse) =>
+                .Create<Bytecode, RequestMessage>((bytecode, env, _, recurse) =>
                 {
                     if (env.Options.GetValue(GremlinqOption.PreferGroovySerialization))
                     {
                         if (recurse.TryTransform(bytecode, env, out GroovyGremlinQuery groovyQuery))
                         {
-                            if (recurse.TryTransform(groovyQuery, env, out RequestMessage.Builder? builder))
+                            if (recurse.TryTransform(groovyQuery, env, out RequestMessage? message))
                             {
-                                return builder;
+                                return message;
                             }
                         }
                     }
 
                     return null;
                 }))
-            .Add(ConverterFactory
-                .Create<RequestMessage.Builder, RequestMessage>((builder, _, _, _) => builder.Create()))
             .Add(ConverterFactory
                 .Create<StepLabel, string>((stepLabel, _, _, _) =>
                 {
