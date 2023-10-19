@@ -49,12 +49,11 @@ namespace ExRam.Gremlinq.Providers.Core
                                 static _ => { }),
                             @this);
 
-                    var requestMessageBuilder = environment
+                    var requestMessage = environment
                         .Serializer
-                        .TransformTo<RequestMessage.Builder>()
-                        .From(context.Query, environment);
-
-                    var requestMessage = requestMessageBuilder
+                        .TransformTo<RequestMessage>()
+                        .From(context.Query, environment)
+                        .Rebuild()
                         .OverrideRequestId(context.ExecutionId)
                         .Create();
 
