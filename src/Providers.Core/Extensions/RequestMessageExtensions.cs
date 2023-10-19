@@ -6,7 +6,7 @@ using ExRam.Gremlinq.Core.Serialization;
 using Gremlin.Net.Driver.Messages;
 using Gremlin.Net.Process.Traversal;
 
-namespace Gremlin.Net.Driver
+namespace Gremlin.Net.Driver.Messages
 {
     internal static class RequestMessageExtensions
     {
