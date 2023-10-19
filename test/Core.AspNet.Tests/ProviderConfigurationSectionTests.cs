@@ -36,8 +36,7 @@ namespace ExRam.Gremlinq.Core.AspNet.Tests
                 .AddSingleton<IConfiguration>(_configurationRoot)
                 .AddGremlinq(s => s
                     .UseProvider<IMyProviderConfigurator>(
-                        source => _ => source
-                            .ConfigureEnvironment(_ => _)))
+                        source => _ => source))
                 .BuildServiceProvider()
                 .GetRequiredService<IGremlinqConfigurationSection>();
 
@@ -51,8 +50,7 @@ namespace ExRam.Gremlinq.Core.AspNet.Tests
                 .AddSingleton<IConfiguration>(_configurationRoot)
                 .AddGremlinq(s => s
                     .UseProvider<IMyProviderConfigurator>(
-                        source => _ => source
-                            .ConfigureEnvironment(_ => _)))
+                        source => _ => source))
                 .BuildServiceProvider()
                 .GetRequiredService<IGremlinqConfigurationSection>();
 

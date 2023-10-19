@@ -722,7 +722,6 @@ namespace ExRam.Gremlinq.Tests.TestCases
 
         [Fact]
         public virtual Task Coalesce_with_2_not_matching_subQueries() => _g
-            .ConfigureEnvironment(_ => _)
             .V()
             .Coalesce(
                 _ => _.OutE(),
@@ -731,7 +730,6 @@ namespace ExRam.Gremlinq.Tests.TestCases
 
         [Fact]
         public virtual Task Coalesce_with_2_subQueries() => _g
-            .ConfigureEnvironment(_ => _)
             .V()
             .Coalesce(
                 _ => _.Out(),

@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq.Tests.Fixtures
     {
         private sealed class EmptyGremlinqTestFixture : GremlinqFixture
         {
-            protected override async Task<IGremlinQuerySource> TransformQuerySource(IGremlinQuerySource g) => g.ConfigureEnvironment(_ => _);
+            protected override async Task<IGremlinQuerySource> TransformQuerySource(IGremlinQuerySource g) => g;
         }
 
         public static readonly GremlinqFixture Empty = new EmptyGremlinqTestFixture();
