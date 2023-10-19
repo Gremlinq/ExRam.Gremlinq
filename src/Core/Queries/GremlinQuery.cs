@@ -622,7 +622,7 @@ namespace ExRam.Gremlinq.Core
             .With(localTraversal)
             .Build(static (builder, continuationTraversal) =>
             {
-                if (continuationTraversal.Count > 0)
+                if (!continuationTraversal.IsIdentity())
                 {
                     builder = builder
                         .AddStep(new LocalStep(continuationTraversal))

@@ -1,7 +1,11 @@
-﻿namespace ExRam.Gremlinq.Core
+﻿using ExRam.Gremlinq.Core.Steps;
+
+namespace ExRam.Gremlinq.Core
 {
     internal static class ContinuationBuilderExtensions
     {
+        private static readonly Traversal IdentityTraversal = IdentityStep.Instance;
+
         public static TProjectedQuery Apply<TAnonymousQuery, TProjectedQuery, TState>(this Func<TAnonymousQuery, TState, TProjectedQuery> continuation, TAnonymousQuery anonymous, TState state)
             where TAnonymousQuery : IGremlinQueryBase
             where TProjectedQuery : IGremlinQueryBase
@@ -10,6 +14,11 @@
 
             if (continuedQuery is GremlinQueryBase queryBase && (queryBase.Flags & QueryFlags.IsAnonymous) == QueryFlags.None)
                 throw new InvalidOperationException("A query continuation must originate from the query that was passed to the continuation function. Did you accidentally use 'g' in the continuation?");
+
+            var admin = continuedQuery.AsAdmin();
+
+            if (admin.Steps.Count == 0)
+                return admin.ConfigureSteps<TProjectedQuery>(static traversal => IdentityTraversal.WithProjection(traversal.Projection));
 
             return continuedQuery;
         }
