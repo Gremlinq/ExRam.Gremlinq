@@ -83,17 +83,21 @@ namespace ExRam.Gremlinq.Tests.Fixtures
 
         protected abstract Task<IGremlinQuerySource> TransformQuerySource(IContainer container, IGremlinQuerySource g);
 
+        protected virtual ContainerBuilder CustomizeContainer(ContainerBuilder containerBuilder) => containerBuilder;
+
         protected override sealed async Task<IGremlinQuerySource> TransformQuerySource(IGremlinQuerySource g)
         {
-            var container = new ContainerBuilder()
-                .WithImage(_image)
-                .WithPortBinding(_port, true)
+            var container = this
+                .CustomizeContainer(new ContainerBuilder()
+                    .WithImage(_image)
+                    .WithPortBinding(_port, true))
                 .WithWaitStrategy(Wait
                     .ForUnixContainer()
                 .UntilPortIsAvailable(_port))
                 .Build();
 
-            await container.StartAsync();
+            await container
+                .StartAsync();
 
             return new ContainerAttachedGremlinQuerySource(container, await TransformQuerySource(container, g));
         }
