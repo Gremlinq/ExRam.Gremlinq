@@ -2,7 +2,7 @@ name: Cleanup
 
 on:
   registry_package:
-    types: [updated]
+    types: [published, updated]
 
 jobs:
   cleanup:
