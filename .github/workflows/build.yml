@@ -173,7 +173,7 @@ jobs:
     - name: Push NuGet packages to GitHub packages
       run: dotnet nuget push **/${{ github.event.repository.name }}.*.nupkg
         --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
-        --api-key ${{ secrets.GITHUB_TOKEN }}
+        --api-key ${{ secrets.PUSH_TO_PACKAGES_PAT }}
         --no-symbols
         --skip-duplicate
 
