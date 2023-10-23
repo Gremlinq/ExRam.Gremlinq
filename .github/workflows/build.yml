@@ -177,20 +177,6 @@ jobs:
         --no-symbols
         --skip-duplicate
 
-  cleanup:
-    needs: [ push ]
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        name: [ExRam.Gremlinq.Core, ExRam.Gremlinq.Core.AspNet, ExRam.Gremlinq.Providers.WebSocket, ExRam.Gremlinq.Providers.WebSocket.AspNet, ExRam.Gremlinq.Providers.Core, ExRam.Gremlinq.Providers.Neptune.AspNet, ExRam.Gremlinq.Providers.Neptune, ExRam.Gremlinq.Providers.Core.AspNet, ExRam.Gremlinq.Providers.CosmosDb, ExRam.Gremlinq.Providers.CosmosDb.AspNet, ExRam.Gremlinq.Providers.GremlinServer.AspNet, ExRam.Gremlinq.Providers.GremlinServer, ExRam.Gremlinq.Providers.JanusGraph.AspNet, ExRam.Gremlinq.Providers.JanusGraph]
-    
-    steps:
-    - uses: actions/delete-package-versions@v2
-      continue-on-error: true
-      with:
-        package-name: ${{ matrix.name }}
-        min-versions-to-keep: 10
-
   release:
     needs: [ build, test-linux, test-windows ]
     runs-on: ubuntu-latest

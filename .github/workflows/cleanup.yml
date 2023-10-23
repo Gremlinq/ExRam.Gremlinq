@@ -1,0 +1,17 @@
+name: Push
+
+on:
+  registry_package:
+    types: [published]
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/delete-package-versions@v4
+      with:
+        package-name: ${{ github.event.package.name }}
+        package-type: nuget
+        min-versions-to-keep: 10
+
