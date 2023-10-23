@@ -15,7 +15,6 @@ using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Tests.TestCases
 {
-    [TestCaseOrderer("ExRam.Gremlinq.Tests.Infrastructure.SideEffectTestCaseOrderer", "ExRam.Gremlinq.Tests.Infrastructure")]
     public abstract class QueryExecutionTest : GremlinqTestBase
     {
         private static readonly string Id = "id";
