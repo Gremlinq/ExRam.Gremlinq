@@ -46,9 +46,9 @@ namespace ExRam.Gremlinq.Core
 
         private static Traversal? RewriteForIsContext(this Traversal traversal, P? maybeExistingPredicate = null)
         {
-            if (traversal.Count >= 1)
+            if (traversal is [.., var lastStep])
             {
-                if (traversal[^1] is IsStep { Predicate: { } isPredicate })
+                if (lastStep is IsStep { Predicate: { } isPredicate })
                 {
                     if (maybeExistingPredicate is { } existingPredicate1)
                         isPredicate = isPredicate.And(existingPredicate1);
@@ -59,8 +59,8 @@ namespace ExRam.Gremlinq.Core
                 }
 
                 if (maybeExistingPredicate is { } existingPredicate2)
-                { 
-                    var newStep = traversal[^1] switch
+                {
+                    var newStep = lastStep switch
                     {
                         IdStep => new HasPredicateStep(T.Id, existingPredicate2),
                         LabelStep => new HasPredicateStep(T.Label, existingPredicate2),
@@ -70,18 +70,9 @@ namespace ExRam.Gremlinq.Core
 
                     if (newStep != null)
                     {
-                        return Traversal.Create(
-                            traversal.Count,
-                            (traversal, newStep),
-                            static (steps, state) =>
-                            {
-                                var (traversal, newStep) = state;
-
-                                traversal.Steps[..^1]
-                                    .CopyTo(steps);
-
-                                steps[^1] = newStep;
-                            });
+                        return traversal
+                            .Pop()
+                            .Push(newStep);
                     }
                 }
             }
@@ -91,13 +82,13 @@ namespace ExRam.Gremlinq.Core
 
         public static Projection LowestProjection(this Span<Traversal> traversals)
         {
-            if (traversals.Length > 0)
+            if (traversals is [var first, .. var remainder])
             {
-                var projection = traversals[0].Projection;
+                var projection = first.Projection;
 
-                for (var i = 1; i < traversals.Length; i++)
+                foreach (var traversal in remainder)
                 {
-                    projection = projection.Lowest(traversals[i].Projection);
+                    projection = projection.Lowest(traversal.Projection);
                 }
 
                 return projection;
