@@ -1,1 +1,1 @@
-﻿g.V().project('Item1','Item2').by(__.label()).by(__.fold()).where(__.select('Item2').count(local).is(3))
+﻿g.inject(42).project('Item1','Item2').by(__.constant('item1')).by(__.fold()).where(__.select('Item2').count(local).is(3))

@@ -1537,16 +1537,19 @@ namespace ExRam.Gremlinq.Tests.TestCases
         [Fact]
         public virtual Task Project_to_property_with_builder() => _g
             .V<Person>()
-            .Where(__ => __.In())
+            .Where(x => x.Age != 0)
+            .Order(b => b
+                .By(x => x.Age))
+            .Limit(1)
             .Project(_ => _
                 .ToDynamic()
-                .By("in!", __ => __.In())
+                .By("item1!", __ => __.Constant("item1"))
                 .By(x => x.Age))
             .Verify();
 
         [Fact]
         public virtual Task Project_to_type() => _g
-            .V<Person>()
+            .Inject(42)
             .Project(_ => _
                 .To<ProjectRecord>()
                 .By(x => x.In, __ => __.Constant("in_value"))
@@ -1557,7 +1560,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
 
         [Fact]
         public virtual Task Project_to_type_from_empty_traversal() => _g
-            .V()
+            .Inject(42)
             .Limit(0)
             .Project(_ => _
                 .To<ProjectRecordStruct>()
@@ -1569,7 +1572,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
 
         [Fact]
         public virtual Task Project_to_type_with_identity() => _g
-            .V<Person>()
+            .Inject(42)
             .Project(_ => _
                 .To<ProjectRecordStruct>()
                 .By(x => x.In, __ => __.Identity())
@@ -1580,7 +1583,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
 
         [Fact]
         public virtual Task Project_to_type_with_select() => _g
-            .V<Person>()
+            .Inject(42)
             .Project(_ => _
                 .To<ProjectRecord>()
                 .By(x => x.In, __ => __.Constant("in_value"))
@@ -1592,7 +1595,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
 
         [Fact]
         public virtual Task Project_to_type_with_struct() => _g
-            .V<Person>()
+            .Inject(42)
             .Project(_ => _
                 .To<ProjectRecordStruct>()
                 .By(x => x.In, __ => __.Constant("in_value"))
@@ -1603,7 +1606,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
 
         [Fact]
         public virtual Task Project_to_type_without_explicit_identity() => _g
-            .V<Person>()
+            .Inject(42)
             .Project(_ => _
                 .To<ProjectRecordStruct>()
                 .By(x => x.In, __ => __)
@@ -1614,30 +1617,26 @@ namespace ExRam.Gremlinq.Tests.TestCases
 
         [Fact]
         public virtual Task Project_with_builder_1() => _g
-            .V()
-            .Where(__ => __.In())
+            .Inject(42)
             .Project(_ => _
                 .ToDynamic()
-                .By("in!", __ => __.In()))
+                .By("item1!", __ => __.Constant("item1")))
             .Verify();
 
         [Fact]
         public virtual Task Project_with_builder_4() => _g
-            .V()
-            .Where(__ => __.In())
-            .Where(__ => __.Out())
-            .Where(__ => __.Properties())
+            .Inject(42)
             .Project(_ => _
                 .ToDynamic()
-                .By("in!", __ => __.In())
-                .By("out!", __ => __.Out())
-                .By("count!", __ => __.Count())
-                .By("properties!", __ => __.Properties()))
+                .By("item1!", __ => __.Constant("item1"))
+                .By("item2!", __ => __.Constant("item2"))
+                .By("item3!", __ => __.Constant("item3"))
+                .By("item4!", __ => __.Constant("item4")))
             .Verify();
 
         [Fact]
         public virtual Task Project_with_cast() => _g
-            .V<Person>()
+            .Inject(42)
             .Project(_ => _
                 .ToDynamic()
                 .By("in", __ => __.Constant("in_value"))
@@ -1649,64 +1648,59 @@ namespace ExRam.Gremlinq.Tests.TestCases
 
         [Fact]
         public virtual Task Project_with_identity() => _g
-            .V()
-            .Where(__ => __.Properties())
+            .Inject(42)
             .Project(__ => __
                 .ToTuple()
                 .By(__ => __)
-                .By(__ => __.Properties()))
+                .By(__ => __.Constant("item2")))
             .Verify();
 
         [Fact]
         public virtual Task Project_with_local() => _g
-            .V()
-            .Where(__ => __.Properties())
+            .Inject(42)
             .Project(__ => __
                 .ToDynamic()
                 .By("name", __ => __)
                 .By(__ => __
                     .Local(__ => __
-                        .Properties())))
+                        .Constant("item2"))))
             .Verify();
 
         [Fact]
         public virtual Task Project_with_named_identity() => _g
-            .V()
-            .Where(__ => __.Properties())
+            .Inject(42)
             .Project(__ => __
                 .ToDynamic()
                 .By("name", __ => __)
-                .By(__ => __.Properties()))
+                .By(__ => __.Constant("item2")))
             .Verify();
 
         [Fact]
         public virtual Task Project2() => _g
-            .V()
-            .Where(__ => __.In())
-            .Where(__ => __.Out())
+            .Inject(42)
             .Project(__ => __
                 .ToTuple()
-                .By(__ => __.In())
-                .By(__ => __.Out()))
+                .By(__ => __.Constant("item1"))
+                .By(__ => __.Constant("item2")))
             .Verify();
 
-        [Fact]
+        [Fact]  //TODO: Should this be named unguarded??
         public Task Project2_unguarded() => _g
             .ConfigureEnvironment(_ => _
                 .ConfigureOptions(o => o.SetValue(GremlinqOption.EnableEmptyProjectionValueProtection, true)))
-            .V()
+            .Inject(42)
             .Project(__ => __
                 .ToTuple()
-                .By(__ => __.In())
-                .By(__ => __.Out()))
+                .By(__ => __.Constant("item1"))
+                .By(__ => __.None()))
             .Verify();
 
         [Fact]
         public virtual Task Project2_Where() => _g
-            .V()
+            .Inject(42)
             .Project(__ => __
                 .ToTuple()
-                .By(__ => __.Label())
+                .By(__ => __.Constant("item1"))
                 .By(__ => __.Fold()))
             .Where(x => x.Item2.Length == 3)
             .Verify();
@@ -1714,10 +1708,10 @@ namespace ExRam.Gremlinq.Tests.TestCases
 #if (NET7_0_OR_GREATER) //TODO: What's up with them snapshots having a different order on < .NET 7 ?
         [Fact]
         public virtual Task Project2_Where_lower() => _g
-            .V()
+            .Inject(42)
             .Project(__ => __
                 .ToTuple()
-                .By(__ => __.Label())
+                .By(__ => __.Constant("item1"))
                 .By(__ => __.Fold()))
             .Where(x => x.Item2.Length < 3)
             .Cast<(string A, object[] B)>()
@@ -1727,11 +1721,13 @@ namespace ExRam.Gremlinq.Tests.TestCases
         [Fact]
         public virtual Task Project2_with_Property() => _g
             .V<Person>()
-            .Where(__ => __.In())
+            .Order(b => b
+                .By(x => x.Name))
+            .Limit(1)
             .Project(__ => __
                 .ToTuple()
-                .By(__ => __.In())
-                .By(__ => __.Age))
+                .By(__ => __.Constant("item1"))
+                .By(__ => __.Name))
             .Verify();
 
         [Fact]
@@ -1739,34 +1735,33 @@ namespace ExRam.Gremlinq.Tests.TestCases
             .ConfigureEnvironment(_ => _
                 .ConfigureOptions(o => o.SetValue(GremlinqOption.EnableEmptyProjectionValueProtection, true)))
             .V<Person>()
+            .Order(b => b
+                .By(x => x.Name))
+            .Limit(1)
             .Project(__ => __
                 .ToTuple()
-                .By(__ => __.In())
-                .By(__ => __.Age))
+                .By(__ => __.Constant("item1"))
+                .By(__ => __.Name))
             .Verify();
 
         [Fact]
         public virtual Task Project3() => _g
-            .V()
-            .Where(__ => __.In())
-            .Where(__ => __.Out())
+            .Inject(42)
             .Project(__ => __
                 .ToTuple()
-                .By(__ => __.In())
-                .By(__ => __.Out())
-                .By(__ => __.Count()))
+                .By(__ => __.Constant("item1"))
+                .By(__ => __.Constant("item2"))
+                .By(__ => __.Constant("item3")))
             .Verify();
 
         [Fact]
         public virtual Task Project3_Select1() => _g
-            .V()
-            .Where(__ => __.In())
-            .Where(__ => __.Out())
+            .Inject(42)
             .Project(__ => __
                 .ToTuple()
-                .By(__ => __.In())
-                .By(__ => __.Out())
-                .By(__ => __.Count()))
+                .By(__ => __.Constant("item1"))
+                .By(__ => __.Constant("item2"))
+                .By(__ => __.Constant("item3")))
             .Select(x => x.Item1)
             .Verify();
 
@@ -1774,25 +1769,23 @@ namespace ExRam.Gremlinq.Tests.TestCases
         public Task Project3_Select1_unguarded() => _g
             .ConfigureEnvironment(_ => _
                 .ConfigureOptions(o => o.SetValue(GremlinqOption.EnableEmptyProjectionValueProtection, true)))
-            .V()
+            .Inject(42)
             .Project(__ => __
                 .ToTuple()
-                .By(__ => __.In())
-                .By(__ => __.Out())
-                .By(__ => __.Count()))
+                .By(__ => __.Constant("item1"))
+                .By(__ => __.Constant("item2"))
+                .By(__ => __.Constant("item3")))
             .Select(x => x.Item1)
             .Verify();
 
         [Fact]
         public virtual Task Project3_Select2() => _g
-            .V()
-            .Where(__ => __.In())
-            .Where(__ => __.Out())
+            .Inject(42)
             .Project(__ => __
                 .ToTuple()
-                .By(__ => __.In())
-                .By(__ => __.Out())
-                .By(__ => __.Count()))
+                .By(__ => __.Constant("item1"))
+                .By(__ => __.Constant("item2"))
+                .By(__ => __.Constant("item3")))
             .Select(
                 x => x.Item1,
                 x => x.Item2)
@@ -1802,12 +1795,12 @@ namespace ExRam.Gremlinq.Tests.TestCases
         public Task Project3_Select2_unguarded() => _g
             .ConfigureEnvironment(_ => _
                 .ConfigureOptions(o => o.SetValue(GremlinqOption.EnableEmptyProjectionValueProtection, true)))
-            .V()
+            .Inject(42)
             .Project(__ => __
                 .ToTuple()
-                .By(__ => __.In())
-                .By(__ => __.Out())
-                .By(__ => __.Count()))
+                .By(__ => __.Constant("item1"))
+                .By(__ => __.Constant("item2"))
+                .By(__ => __.None()))
             .Select(
                 x => x.Item1,
                 x => x.Item2)
@@ -1817,36 +1810,38 @@ namespace ExRam.Gremlinq.Tests.TestCases
         public Task Project3_unguarded() => _g
             .ConfigureEnvironment(_ => _
                 .ConfigureOptions(o => o.SetValue(GremlinqOption.EnableEmptyProjectionValueProtection, true)))
-            .V()
+            .Inject(42)
             .Project(__ => __
                 .ToTuple()
-                .By(__ => __.In())
-                .By(__ => __.Out())
-                .By(__ => __.Count()))
+                .By(__ => __.Constant("item1"))
+                .By(__ => __.Constant("item2"))
+                .By(__ => __.None()))
             .Verify();
 
         [Fact]
         public virtual Task Project3_with_Property() => _g
             .V<Person>()
-            .Where(__ => __.In())
-            .Where(__ => __.Out())
+            .Order(b => b
+                .By(x => x.Name))
+            .Limit(1)
             .Project(__ => __
                 .ToTuple()
-                .By(__ => __.In())
-                .By(__ => __.Out())
-                .By(__ => __.Age))
+                .By(__ => __.Constant("item1"))
+                .By(__ => __.Constant("item2"))
+                .By(__ => __.Name))
             .Verify();
 
         [Fact]
         public virtual Task Project3_with_Property_Select2() => _g
             .V<Person>()
-            .Where(__ => __.In())
-            .Where(__ => __.Out())
+            .Order(b => b
+                .By(x => x.Name))
+            .Limit(1)
             .Project(__ => __
                 .ToTuple()
-                .By(__ => __.In())
-                .By(__ => __.Out())
-                .By(__ => __.Age))
+                .By(__ => __.Constant("item1"))
+                .By(__ => __.Constant("item2"))
+                .By(__ => __.Name))
             .Select(
                 x => x.Item1,
                 x => x.Item3)
@@ -1857,11 +1852,14 @@ namespace ExRam.Gremlinq.Tests.TestCases
             .ConfigureEnvironment(_ => _
                 .ConfigureOptions(o => o.SetValue(GremlinqOption.EnableEmptyProjectionValueProtection, true)))
             .V<Person>()
+            .Order(b => b
+                .By(x => x.Name))
+            .Limit(1)
             .Project(__ => __
                 .ToTuple()
-                .By(__ => __.In())
-                .By(__ => __.Out())
-                .By(__ => __.Age))
+                .By(__ => __.Constant("item1"))
+                .By(__ => __.Constant("item2"))
+                .By(__ => __.Name))
             .Select(
                 x => x.Item1,
                 x => x.Item3)
@@ -1869,43 +1867,40 @@ namespace ExRam.Gremlinq.Tests.TestCases
 
         [Fact]
         public virtual Task Project4() => _g
-            .V()
-            .Where(__ => __.In())
-            .Where(__ => __.Out())
-            .Where(__ => __.Properties())
+            .Inject(42)
             .Project(__ => __
                 .ToTuple()
-                .By(__ => __.In())
-                .By(__ => __.Out())
-                .By(__ => __.Count())
-                .By(__ => __.Properties()))
+                .By(__ => __.Constant("item1"))
+                .By(__ => __.Constant("item2"))
+                .By(__ => __.Constant("item3"))
+                .By(__ => __.Constant("item4")))
             .Verify();
 
         [Fact]
         public Task Project4_unguarded() => _g
             .ConfigureEnvironment(_ => _
                 .ConfigureOptions(o => o.SetValue(GremlinqOption.EnableEmptyProjectionValueProtection, true)))
-            .V()
+            .Inject(42)
             .Project(__ => __
                 .ToTuple()
-                .By(__ => __.In())
-                .By(__ => __.Out())
-                .By(__ => __.Count())
-                .By(__ => __.Properties()))
+                .By(__ => __.Constant("item1"))
+                .By(__ => __.Constant("item2"))
+                .By(__ => __.Constant("item3"))
+                .By(__ => __.None()))
             .Verify();
 
         [Fact]
         public virtual Task Project4_with_Property() => _g
             .V<Person>()
-            .Where(__ => __.In())
-            .Where(__ => __.Out())
-            .Where(__ => __.Properties())
+            .Order(b => b
+                .By(x => x.Name))
+            .Limit(1)
             .Project(__ => __
                 .ToTuple()
-                .By(__ => __.In())
-                .By(__ => __.Out())
-                .By(__ => __.Age)
-                .By(__ => __.Properties()))
+                .By(__ => __.Constant("item1"))
+                .By(__ => __.Constant("item2"))
+                .By(x => x.Name)
+                .By(__ => __.Constant("item4")))
             .Verify();
 
         [Fact]
@@ -1913,12 +1908,15 @@ namespace ExRam.Gremlinq.Tests.TestCases
             .ConfigureEnvironment(_ => _
                 .ConfigureOptions(o => o.SetValue(GremlinqOption.EnableEmptyProjectionValueProtection, true)))
             .V<Person>()
+            .Order(b => b
+                .By(x => x.Name))
+            .Limit(1)
             .Project(__ => __
                 .ToTuple()
-                .By(__ => __.In())
-                .By(__ => __.Out())
-                .By(__ => __.Age)
-                .By(__ => __.Properties()))
+                .By(__ => __.Constant("item1"))
+                .By(__ => __.Constant("item2"))
+                .By(x => x.Name)
+                .By(__ => __.Constant("item4")))
             .Verify();
 
         [Fact]

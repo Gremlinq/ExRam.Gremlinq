@@ -3,19 +3,21 @@
   "op": "eval",
   "processor": "",
   "args": {
-    "gremlin": "g.V().project(_a,_b,_c).by(__.in().limit(_d).fold()).by(__.out().limit(_d).fold()).by(__.count().limit(_d).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold())).project(_a,_b,_c).by(__.select(_a).project(_e,_f,_g).by(id).by(label).by(__.properties().group().by(label).by(__.project(_e,_f,_h,_g).by(id).by(label).by(value).by(__.valueMap()).fold())).fold()).by(__.select(_b).project(_e,_f,_g).by(id).by(label).by(__.properties().group().by(label).by(__.project(_e,_f,_h,_g).by(id).by(label).by(value).by(__.valueMap()).fold())).fold()).by(__.select(_c).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold()))",
+    "gremlin": "g.inject(_a).project(_b,_c,_d).by(__.constant(_e).limit(_f).fold()).by(__.constant(_g).limit(_f).fold()).by(__.none().limit(_f).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold()))",
     "bindings": {
-      "_a": "Item1",
-      "_b": "Item2",
-      "_c": "Item3",
-      "_d": {
+      "_a": {
+        "@type": "g:Int32",
+        "@value": 42
+      },
+      "_b": "Item1",
+      "_c": "Item2",
+      "_d": "Item3",
+      "_e": "item1",
+      "_f": {
         "@type": "g:Int64",
         "@value": 1
       },
-      "_e": "id",
-      "_f": "label",
-      "_g": "properties",
-      "_h": "value"
+      "_g": "item2"
     },
     "aliases": {
       "g": "g"

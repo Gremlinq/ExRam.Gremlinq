@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Person').project('In','Out','Count','Properties').by(__.constant('in_value')).by(__.constant('out_value')).by(__.constant('count_value')).by(__.constant('properties_value'))
+﻿g.inject(42).project('In','Out','Count','Properties').by(__.constant('in_value')).by(__.constant('out_value')).by(__.constant('count_value')).by(__.constant('properties_value'))

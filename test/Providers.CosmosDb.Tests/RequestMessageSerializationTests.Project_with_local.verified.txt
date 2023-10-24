@@ -7,9 +7,11 @@
       g: g
     },
     bindings: {
-      _a: name,
-      _b: Item2
+      _a: 42,
+      _b: name,
+      _c: Item2,
+      _d: item2
     },
-    gremlin: g.V().where(__.properties()).project(_a,_b).by(__.identity()).by(__.properties())
+    gremlin: g.inject(_a).project(_b,_c).by(__.identity()).by(__.constant(_d))
   }
 }
