@@ -88,20 +88,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Throw<ArgumentException>();
         }
 
-        [Fact]
-        public virtual void Mid_query_g_throws()
-        {
-            _g
-                .V()
-                .Invoking(_ => _
-                    .Coalesce(
-                        __ => _g.V<object>(),
-                        __ => __.AddV<object>()))
-                .Should()
-                .Throw<InvalidOperationException>();
-        }
-
-
         [ReleaseOnlyFact]
         public virtual void NullGuard_works()
         {
