@@ -32,7 +32,7 @@ namespace ExRam.Gremlinq.Core
 
         public static Traversal Rewrite(this Traversal traversal, ContinuationFlags flags)
         {
-            if (flags.HasFlag(ContinuationFlags.Filter))
+            if ((flags & ContinuationFlags.Filter) == ContinuationFlags.Filter)
             {
                 if (traversal is [FilterStep.ByTraversalStep filterStep])
                     return filterStep.Traversal.Rewrite(flags);
