@@ -943,20 +943,6 @@ namespace ExRam.Gremlinq.Tests.TestCases
             .Verify();
 
         [Fact]
-        public virtual Task ForceEdge_with_2_type_parameters_will_filter_labels_1() => _g
-            .E<LivesIn>()
-            .ForceEdge<Person, Country>()
-            .InV()
-            .Verify();
-
-        [Fact]
-        public virtual Task ForceEdge_with_2_type_parameters_will_filter_labels_2() => _g
-            .E<LivesIn>()
-            .ForceEdge<Person, Country>()
-            .OutV()
-            .Verify();
-
-        [Fact]
         public virtual Task Group() => _g
             .V<Person>()
             .Group()

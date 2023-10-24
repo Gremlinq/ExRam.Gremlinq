@@ -198,12 +198,7 @@ namespace ExRam.Gremlinq.Core
 
         IOutEdgeGremlinQuery<TElement, TNewOutVertex> IGremlinQueryBase<TElement>.ForceOutEdge<TNewOutVertex>() => CloneAs<IOutEdgeGremlinQuery<TElement, TNewOutVertex>>(maybeNewTraversal: Steps.WithProjection(Projection.Edge));
 
-        IEdgeGremlinQuery<TElement, TNewOutVertex, TNewInVertex> IGremlinQueryBase<TElement>.ForceEdge<TNewOutVertex, TNewInVertex>() => this
-            .Continue()
-            .Build(static builder => builder
-                .WithNewProjection(Projection.Edge)
-                .WithFlags(static flags => flags | QueryFlags.InAndOutVMustBeTypeFiltered)
-                .Build<IEdgeGremlinQuery<TElement, TNewOutVertex, TNewInVertex>>());
+        IEdgeGremlinQuery<TElement, TNewOutVertex, TNewInVertex> IGremlinQueryBase<TElement>.ForceEdge<TNewOutVertex, TNewInVertex>() => CloneAs<IEdgeGremlinQuery<TElement, TNewOutVertex, TNewInVertex>>(maybeNewTraversal: Steps.WithProjection(Projection.Edge));
 
         IValueGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceValue() => CloneAs<IValueGremlinQuery<TElement>>(maybeNewTraversal: Steps.WithProjection(Projection.Value));
 

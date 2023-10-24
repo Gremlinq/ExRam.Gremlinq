@@ -562,24 +562,14 @@ namespace ExRam.Gremlinq.Core
                     .AutoBuild<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(),
                 elements);
 
-        private GremlinQuery<TNewElement, object, object, object, object, object> InOutV<TNewElement>(Step step)
-        {
-            var mustBeFiltered = Flags.HasFlag(QueryFlags.InAndOutVMustBeTypeFiltered);
-
-            var ret = this
-                .Continue()
-                .Build(
-                    static (builder, step) => builder
-                        .AddStep(step)
-                        .WithNewProjection(Projection.Vertex)
-                        .WithFlags(static flags => flags & ~QueryFlags.InAndOutVMustBeTypeFiltered)
-                        .AutoBuild<TNewElement>(),
-                    step);
-
-            return mustBeFiltered
-                ? ret.OfVertexType<TNewElement>(true)
-                : ret;
-        }
+        private GremlinQuery<TNewElement, object, object, object, object, object> InOutV<TNewElement>(Step step) => this
+            .Continue()
+            .Build(
+                static (builder, step) => builder
+                    .AddStep(step)
+                    .WithNewProjection(Projection.Vertex)
+                    .AutoBuild<TNewElement>(),
+                step);
 
         private GremlinQuery<TNewElement, object, object, object, object, object> InV<TNewElement>() => InOutV<TNewElement>(InVStep.Instance);
 
