@@ -1,14 +1,13 @@
 ﻿{
-  Script: g.V().hasLabel(_a).filter(__.in()).filter(__.out()).project(_b,_c,_d).by(__.in()).by(__.out()).by(_e).select(_b,_d).project(_b,_d).by(__.select(_b).project(_f,_g,_h).by(id).by(label).by(__.properties().group().by(label).by(__.project(_f,_g,_i,_h).by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.select(_d)),
+  Script: g.V().hasLabel(_a).order().by(_b,asc).limit(_c).project(_d,_e,_f).by(__.constant(_g)).by(__.constant(_h)).by(_b).select(_d,_f),
   Bindings: {
     _a: Person,
-    _b: Item1,
-    _c: Item2,
-    _d: Item3,
-    _e: Age,
-    _f: id,
-    _g: label,
-    _h: properties,
-    _i: value
+    _b: Age,
+    _c: 1,
+    _d: Item1,
+    _e: Item2,
+    _f: Item3,
+    _g: item1,
+    _h: item2
   }
 }

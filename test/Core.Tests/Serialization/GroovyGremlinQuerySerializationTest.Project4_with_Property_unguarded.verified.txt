@@ -1,16 +1,15 @@
 ﻿{
-  Script: g.V().hasLabel(_a).project(_b,_c,_d,_e).by(__.in().limit(_f).fold()).by(__.out().limit(_f).fold()).by(__.values(_g).limit(_f).fold()).by(__.properties().limit(_f).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold())).project(_b,_c,_d,_e).by(__.select(_b).project(_h,_i,_j).by(id).by(label).by(__.properties().group().by(label).by(__.project(_h,_i,_k,_j).by(id).by(label).by(value).by(__.valueMap()).fold())).fold()).by(__.select(_c).project(_h,_i,_j).by(id).by(label).by(__.properties().group().by(label).by(__.project(_h,_i,_k,_j).by(id).by(label).by(value).by(__.valueMap()).fold())).fold()).by(__.select(_d).fold()).by(__.select(_e).project(_h,_i,_k,_j).by(id).by(label).by(value).by(__.valueMap()).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold())),
+  Script: g.V().hasLabel(_a).order().by(_b,asc).limit(_c).project(_d,_e,_f,_g).by(__.constant(_h).limit(_c).fold()).by(__.constant(_i).limit(_c).fold()).by(__.values(_b).limit(_c).fold()).by(__.constant(_j).limit(_c).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold())),
   Bindings: {
     _a: Person,
-    _b: Item1,
-    _c: Item2,
-    _d: Item3,
-    _e: Item4,
-    _f: 1,
-    _g: Age,
-    _h: id,
-    _i: label,
-    _j: properties,
-    _k: value
+    _b: Age,
+    _c: 1,
+    _d: Item1,
+    _e: Item2,
+    _f: Item3,
+    _g: Item4,
+    _h: item1,
+    _i: item2,
+    _j: item4
   }
 }

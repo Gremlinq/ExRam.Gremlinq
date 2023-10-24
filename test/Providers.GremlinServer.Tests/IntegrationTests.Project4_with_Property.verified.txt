@@ -1,1 +1,18 @@
-﻿[]
+﻿[
+  {
+    "@type": "g:Map",
+    "@value": [
+      "Item1",
+      "item1",
+      "Item2",
+      "item2",
+      "Item3",
+      {
+        "@type": "g:Int32",
+        "@value": 0
+      },
+      "Item4",
+      "item4"
+    ]
+  }
+]

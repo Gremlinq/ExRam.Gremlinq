@@ -22,6 +22,6 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 
         protected virtual SettingsTask InnerVerify<T>(ValueTask<T> value) => _settingsTaskModifier
             .Invoke(Verifier
-                .Verify(value, sourceFile: _sourceFile));
+                .Verify(value, sourceFile: _sourceFile).AutoVerify());
     }
 }
