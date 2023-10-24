@@ -15,7 +15,10 @@
     {
       OperatorName: by,
       Arguments: [
-        Name,
+        {
+          EnumName: T,
+          EnumValue: id
+        },
         {
           EnumName: Order,
           EnumValue: asc
@@ -69,7 +72,10 @@
     {
       OperatorName: by,
       Arguments: [
-        Name
+        {
+          EnumName: T,
+          EnumValue: id
+        }
       ]
     },
     {

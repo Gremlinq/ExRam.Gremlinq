@@ -19,7 +19,10 @@
           ],
           [
             "by",
-            "Name",
+            {
+              "@type": "g:T",
+              "@value": "id"
+            },
             {
               "@type": "g:Order",
               "@value": "asc"
@@ -68,7 +71,10 @@
           ],
           [
             "by",
-            "Name"
+            {
+              "@type": "g:T",
+              "@value": "id"
+            }
           ],
           [
             "select",

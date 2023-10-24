@@ -7,7 +7,10 @@
       "Item2",
       "item2",
       "Item3",
-      "Bob"
+      {
+        "@type": "g:Int64",
+        "@value": 7
+      }
     ]
   }
 ]

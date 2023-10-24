@@ -26,22 +26,15 @@
       ]
     },
     {
-      OperatorName: has,
-      Arguments: [
-        Age,
-        {
-          OperatorName: neq,
-          Value: 0
-        }
-      ]
-    },
-    {
       OperatorName: order
     },
     {
       OperatorName: by,
       Arguments: [
-        Age,
+        {
+          EnumName: T,
+          EnumValue: id
+        },
         {
           EnumName: Order,
           EnumValue: asc
@@ -58,7 +51,7 @@
       OperatorName: project,
       Arguments: [
         item1!,
-        Age
+        Id
       ]
     },
     {
@@ -79,7 +72,10 @@
     {
       OperatorName: by,
       Arguments: [
-        Age
+        {
+          EnumName: T,
+          EnumValue: id
+        }
       ]
     }
   ]

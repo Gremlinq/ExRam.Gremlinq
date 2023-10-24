@@ -3,17 +3,16 @@
   "op": "eval",
   "processor": "",
   "args": {
-    "gremlin": "g.V().hasLabel(_a).order().by(_b,asc).limit(_c).project(_d,_e).by(__.constant(_f).limit(_c).fold()).by(__.values(_b).limit(_c).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold()))",
+    "gremlin": "g.V().hasLabel(_a).order().by(id,asc).limit(_b).project(_c,_d).by(__.constant(_e).limit(_b).fold()).by(__.id().limit(_b).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold()))",
     "bindings": {
       "_a": "Person",
-      "_b": "Name",
-      "_c": {
+      "_b": {
         "@type": "g:Int64",
         "@value": 1
       },
-      "_d": "Item1",
-      "_e": "Item2",
-      "_f": "item1"
+      "_c": "Item1",
+      "_d": "Item2",
+      "_e": "item1"
     },
     "aliases": {
       "g": "g"

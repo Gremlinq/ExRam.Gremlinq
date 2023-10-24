@@ -19,7 +19,10 @@
           ],
           [
             "by",
-            "Name",
+            {
+              "@type": "g:T",
+              "@value": "id"
+            },
             {
               "@type": "g:Order",
               "@value": "asc"
@@ -68,8 +71,7 @@
               "@value": {
                 "step": [
                   [
-                    "values",
-                    "Name"
+                    "id"
                   ],
                   [
                     "limit",

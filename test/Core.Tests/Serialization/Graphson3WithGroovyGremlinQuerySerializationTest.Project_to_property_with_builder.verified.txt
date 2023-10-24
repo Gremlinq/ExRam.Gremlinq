@@ -3,20 +3,16 @@
   "op": "eval",
   "processor": "",
   "args": {
-    "gremlin": "g.V().hasLabel(_a).has(_b,neq(_c)).order().by(_b,asc).limit(_d).project(_e,_b).by(__.constant(_f)).by(_b)",
+    "gremlin": "g.V().hasLabel(_a).order().by(id,asc).limit(_b).project(_c,_d).by(__.constant(_e)).by(id)",
     "bindings": {
       "_a": "Person",
-      "_b": "Age",
-      "_c": {
-        "@type": "g:Int32",
-        "@value": 0
-      },
-      "_d": {
+      "_b": {
         "@type": "g:Int64",
         "@value": 1
       },
-      "_e": "item1!",
-      "_f": "item1"
+      "_c": "item1!",
+      "_d": "Id",
+      "_e": "item1"
     },
     "aliases": {
       "g": "g"
