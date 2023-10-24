@@ -262,7 +262,7 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuerySource IGremlinQueryAdmin.GetSource() => CloneAs<GremlinQuery<object, object, object, object, object, object>>(
             maybeNewTraversal: Traversal.Empty,
-            maybeNewQueryFlags: Flags & QueryFlags.IsMuted);
+            maybeNewQueryFlags: Flags);
 
         Traversal IGremlinQueryAdmin.Steps => Steps;
 

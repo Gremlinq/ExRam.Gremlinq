@@ -44,9 +44,7 @@
             0);
 
         public TNewQuery Build<TNewQuery, TState>(Func<FinalContinuationBuilder<TOuterQuery>, TState, TNewQuery> builderTransformation, TState state) => With(
-            static (outer, _, _, state) => (outer.Flags & QueryFlags.IsMuted) == QueryFlags.IsMuted
-                ? outer.CloneAs<TNewQuery>()
-                : state.builderTransformation(new FinalContinuationBuilder<TOuterQuery>(outer), state.state),
+            static (outer, _, _, state) => state.builderTransformation(new FinalContinuationBuilder<TOuterQuery>(outer), state.state),
             (builderTransformation, state));
 
         private TResult With<TState, TResult>(Func<TOuterQuery, TAnonymousQuery, ContinuationFlags, TState, TResult> continuation, TState state) => (_outer is { } outer && _anonymous is { } anonymous)

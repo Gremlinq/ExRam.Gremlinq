@@ -1161,13 +1161,6 @@ namespace ExRam.Gremlinq.Tests.TestCases
             .Verify();
 
         [Fact]
-        public virtual Task Mute() => _g
-            .V()
-            .Mute()
-            .AddV(new Language { IetfLanguageTag = "en" })
-            .Verify();
-
-        [Fact]
         public virtual Task Nested_contradicting_Select_operations_does_not_throw() => _g
             .V<Person>()
             .As((__, stepLabel1) => __
@@ -1539,17 +1532,6 @@ namespace ExRam.Gremlinq.Tests.TestCases
             .Out()
             .Out()
             .Path()
-            .Verify();
-
-        [Fact]
-        public virtual Task Project_on_muted() => _g
-            .V()
-            .Mute()
-            .Project(__ => __
-                .ToTuple()
-                .By(__ => __.In())
-                .By(__ => __.Out())
-                .By(__ => __.Count()))
             .Verify();
 
         [Fact]

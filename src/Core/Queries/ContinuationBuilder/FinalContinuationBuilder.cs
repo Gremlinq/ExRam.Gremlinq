@@ -27,9 +27,7 @@ namespace ExRam.Gremlinq.Core
 
         public FinalContinuationBuilder<TOuterQuery> AddStep<TStep>(TStep step)
              where TStep : Step => With(
-                static (outer, steps, labelProjections, flags, tuple) => outer.Flags.HasFlag(QueryFlags.IsMuted)
-                    ? tuple.@this
-                    : new(outer, steps.Push(tuple.step), labelProjections, flags),
+                static (outer, steps, labelProjections, flags, tuple) => new FinalContinuationBuilder<TOuterQuery>(outer, steps.Push(tuple.step), labelProjections, flags),
                 (@this: this, step));
 
         public FinalContinuationBuilder<TOuterQuery> WithSteps(Traversal newSteps) => With(
