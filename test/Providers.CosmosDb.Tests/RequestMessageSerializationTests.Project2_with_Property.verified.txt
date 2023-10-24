@@ -8,12 +8,11 @@
     },
     bindings: {
       _a: Person,
-      _b: Name,
-      _c: 1,
-      _d: Item1,
-      _e: Item2,
-      _f: item1
+      _b: 1,
+      _c: Item1,
+      _d: Item2,
+      _e: item1
     },
-    gremlin: g.V().hasLabel(_a).order().by(_b,incr).limit(_c).project(_d,_e).by(__.constant(_f)).by(_b)
+    gremlin: g.V().hasLabel(_a).order().by(id,incr).limit(_b).project(_c,_d).by(__.constant(_e)).by(id)
   }
 }
