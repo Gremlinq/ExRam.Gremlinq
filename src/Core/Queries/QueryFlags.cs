@@ -6,7 +6,6 @@
         None = 0,
 
         IsAnonymous = 2,
-        IsMuted = 4,
-        InAndOutVMustBeTypeFiltered = 8
+        IsMuted = 4
     }
 }
