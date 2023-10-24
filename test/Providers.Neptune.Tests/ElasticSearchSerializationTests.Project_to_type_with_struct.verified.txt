@@ -17,12 +17,9 @@
   ],
   StepInstructions: [
     {
-      OperatorName: V
-    },
-    {
-      OperatorName: hasLabel,
+      OperatorName: inject,
       Arguments: [
-        Person
+        42
       ]
     },
     {

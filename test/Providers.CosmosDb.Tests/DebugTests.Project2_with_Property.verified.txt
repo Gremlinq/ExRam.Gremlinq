@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Person').where(__.in()).project('Item1','Item2').by(__.in()).by('Age')
+﻿g.V().hasLabel('Person').has('Age',neq(0)).order().by('Age',incr).limit(1).project('Item1','Item2').by(__.constant('item1')).by('Age')

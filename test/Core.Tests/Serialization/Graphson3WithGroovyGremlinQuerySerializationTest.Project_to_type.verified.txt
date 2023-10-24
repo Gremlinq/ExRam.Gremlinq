@@ -3,9 +3,12 @@
   "op": "eval",
   "processor": "",
   "args": {
-    "gremlin": "g.V().hasLabel(_a).project(_b,_c,_d,_e).by(__.constant(_f)).by(__.constant(_g)).by(__.constant(_h)).by(__.constant(_i))",
+    "gremlin": "g.inject(_a).project(_b,_c,_d,_e).by(__.constant(_f)).by(__.constant(_g)).by(__.constant(_h)).by(__.constant(_i))",
     "bindings": {
-      "_a": "Person",
+      "_a": {
+        "@type": "g:Int32",
+        "@value": 42
+      },
       "_b": "In",
       "_c": "Out",
       "_d": "Count",

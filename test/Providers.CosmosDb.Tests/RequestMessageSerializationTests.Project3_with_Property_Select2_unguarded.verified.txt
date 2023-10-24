@@ -8,12 +8,15 @@
     },
     bindings: {
       _a: Person,
-      _b: Item1,
-      _c: Item2,
-      _d: Item3,
-      _e: 1,
-      _f: Age
+      _b: Age,
+      _c: 0,
+      _d: 1,
+      _e: Item1,
+      _f: Item2,
+      _g: Item3,
+      _h: item1,
+      _i: item2
     },
-    gremlin: g.V().hasLabel(_a).project(_b,_c,_d).by(__.in().limit(_e).fold()).by(__.out().limit(_e).fold()).by(__.values(_f).limit(_e).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold())).select(_b,_d)
+    gremlin: g.V().hasLabel(_a).has(_b,neq(_c)).order().by(_b,incr).limit(_d).project(_e,_f,_g).by(__.constant(_h).limit(_d).fold()).by(__.constant(_i).limit(_d).fold()).by(__.values(_b).limit(_d).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold())).select(_e,_g)
   }
 }

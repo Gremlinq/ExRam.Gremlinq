@@ -8,7 +8,11 @@
       "@value": {
         "step": [
           [
-            "V"
+            "inject",
+            {
+              "@type": "g:Int32",
+              "@value": 42
+            }
           ],
           [
             "project",
@@ -22,7 +26,8 @@
               "@value": {
                 "step": [
                   [
-                    "label"
+                    "constant",
+                    "item1"
                   ]
                 ]
               }
@@ -63,152 +68,6 @@
                     {
                       "@type": "g:Int32",
                       "@value": 3
-                    }
-                  ]
-                ]
-              }
-            }
-          ],
-          [
-            "project",
-            "Item1",
-            "Item2"
-          ],
-          [
-            "by",
-            {
-              "@type": "g:Bytecode",
-              "@value": {
-                "step": [
-                  [
-                    "select",
-                    "Item1"
-                  ]
-                ]
-              }
-            }
-          ],
-          [
-            "by",
-            {
-              "@type": "g:Bytecode",
-              "@value": {
-                "step": [
-                  [
-                    "select",
-                    "Item2"
-                  ],
-                  [
-                    "map",
-                    {
-                      "@type": "g:Bytecode",
-                      "@value": {
-                        "step": [
-                          [
-                            "unfold"
-                          ],
-                          [
-                            "project",
-                            "id",
-                            "label",
-                            "properties"
-                          ],
-                          [
-                            "by",
-                            {
-                              "@type": "g:T",
-                              "@value": "id"
-                            }
-                          ],
-                          [
-                            "by",
-                            {
-                              "@type": "g:T",
-                              "@value": "label"
-                            }
-                          ],
-                          [
-                            "by",
-                            {
-                              "@type": "g:Bytecode",
-                              "@value": {
-                                "step": [
-                                  [
-                                    "properties"
-                                  ],
-                                  [
-                                    "group"
-                                  ],
-                                  [
-                                    "by",
-                                    {
-                                      "@type": "g:T",
-                                      "@value": "label"
-                                    }
-                                  ],
-                                  [
-                                    "by",
-                                    {
-                                      "@type": "g:Bytecode",
-                                      "@value": {
-                                        "step": [
-                                          [
-                                            "project",
-                                            "id",
-                                            "label",
-                                            "value",
-                                            "properties"
-                                          ],
-                                          [
-                                            "by",
-                                            {
-                                              "@type": "g:T",
-                                              "@value": "id"
-                                            }
-                                          ],
-                                          [
-                                            "by",
-                                            {
-                                              "@type": "g:T",
-                                              "@value": "label"
-                                            }
-                                          ],
-                                          [
-                                            "by",
-                                            {
-                                              "@type": "g:T",
-                                              "@value": "value"
-                                            }
-                                          ],
-                                          [
-                                            "by",
-                                            {
-                                              "@type": "g:Bytecode",
-                                              "@value": {
-                                                "step": [
-                                                  [
-                                                    "valueMap"
-                                                  ]
-                                                ]
-                                              }
-                                            }
-                                          ],
-                                          [
-                                            "fold"
-                                          ]
-                                        ]
-                                      }
-                                    }
-                                  ]
-                                ]
-                              }
-                            }
-                          ],
-                          [
-                            "fold"
-                          ]
-                        ]
-                      }
                     }
                   ]
                 ]

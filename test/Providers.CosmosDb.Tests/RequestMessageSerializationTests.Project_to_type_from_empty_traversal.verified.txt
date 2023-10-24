@@ -7,12 +7,13 @@
       g: g
     },
     bindings: {
-      _a: 0,
-      _b: In,
-      _c: Out,
-      _d: Count,
-      _e: Properties
+      _a: 42,
+      _b: 0,
+      _c: In,
+      _d: Out,
+      _e: Count,
+      _f: Properties
     },
-    gremlin: g.V().limit(_a).project(_b,_c,_d,_e).by(__.identity()).by(__.identity()).by(__.identity()).by(__.identity())
+    gremlin: g.inject(_a).limit(_b).project(_c,_d,_e,_f).by(__.identity()).by(__.identity()).by(__.identity()).by(__.identity())
   }
 }

@@ -3,17 +3,23 @@
   "op": "eval",
   "processor": "",
   "args": {
-    "gremlin": "g.V().hasLabel(_a).filter(__.in()).filter(__.out()).project(_b,_c,_d).by(__.in()).by(__.out()).by(_e).project(_b,_c,_d).by(__.select(_b).project(_f,_g,_h).by(id).by(label).by(__.properties().group().by(label).by(__.project(_f,_g,_i,_h).by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.select(_c).project(_f,_g,_h).by(id).by(label).by(__.properties().group().by(label).by(__.project(_f,_g,_i,_h).by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.select(_d))",
+    "gremlin": "g.V().hasLabel(_a).has(_b,neq(_c)).order().by(_b,asc).limit(_d).project(_e,_f,_g).by(__.constant(_h)).by(__.constant(_i)).by(_b)",
     "bindings": {
       "_a": "Person",
-      "_b": "Item1",
-      "_c": "Item2",
-      "_d": "Item3",
-      "_e": "Age",
-      "_f": "id",
-      "_g": "label",
-      "_h": "properties",
-      "_i": "value"
+      "_b": "Age",
+      "_c": {
+        "@type": "g:Int32",
+        "@value": 0
+      },
+      "_d": {
+        "@type": "g:Int64",
+        "@value": 1
+      },
+      "_e": "Item1",
+      "_f": "Item2",
+      "_g": "Item3",
+      "_h": "item1",
+      "_i": "item2"
     },
     "aliases": {
       "g": "g"

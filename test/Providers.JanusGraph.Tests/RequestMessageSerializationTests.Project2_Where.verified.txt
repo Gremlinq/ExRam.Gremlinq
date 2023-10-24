@@ -9,7 +9,10 @@
     gremlin: {
       StepInstructions: [
         {
-          OperatorName: V
+          OperatorName: inject,
+          Arguments: [
+            42
+          ]
         },
         {
           OperatorName: project,
@@ -24,7 +27,10 @@
             {
               StepInstructions: [
                 {
-                  OperatorName: label
+                  OperatorName: constant,
+                  Arguments: [
+                    item1
+                  ]
                 }
               ]
             }
@@ -66,155 +72,6 @@
                   OperatorName: is,
                   Arguments: [
                     3
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          OperatorName: project,
-          Arguments: [
-            Item1,
-            Item2
-          ]
-        },
-        {
-          OperatorName: by,
-          Arguments: [
-            {
-              StepInstructions: [
-                {
-                  OperatorName: select,
-                  Arguments: [
-                    Item1
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          OperatorName: by,
-          Arguments: [
-            {
-              StepInstructions: [
-                {
-                  OperatorName: select,
-                  Arguments: [
-                    Item2
-                  ]
-                },
-                {
-                  OperatorName: map,
-                  Arguments: [
-                    {
-                      StepInstructions: [
-                        {
-                          OperatorName: unfold
-                        },
-                        {
-                          OperatorName: project,
-                          Arguments: [
-                            id,
-                            label,
-                            properties
-                          ]
-                        },
-                        {
-                          OperatorName: by,
-                          Arguments: [
-                            {
-                              EnumName: T,
-                              EnumValue: id
-                            }
-                          ]
-                        },
-                        {
-                          OperatorName: by,
-                          Arguments: [
-                            {
-                              EnumName: T,
-                              EnumValue: label
-                            }
-                          ]
-                        },
-                        {
-                          OperatorName: by,
-                          Arguments: [
-                            {
-                              StepInstructions: [
-                                {
-                                  OperatorName: properties
-                                },
-                                {
-                                  OperatorName: group
-                                },
-                                {
-                                  OperatorName: by,
-                                  Arguments: [
-                                    {
-                                      EnumName: T,
-                                      EnumValue: label
-                                    }
-                                  ]
-                                },
-                                {
-                                  OperatorName: by,
-                                  Arguments: [
-                                    {
-                                      StepInstructions: [
-                                        {
-                                          OperatorName: project,
-                                          Arguments: [
-                                            id,
-                                            label,
-                                            value
-                                          ]
-                                        },
-                                        {
-                                          OperatorName: by,
-                                          Arguments: [
-                                            {
-                                              EnumName: T,
-                                              EnumValue: id
-                                            }
-                                          ]
-                                        },
-                                        {
-                                          OperatorName: by,
-                                          Arguments: [
-                                            {
-                                              EnumName: T,
-                                              EnumValue: label
-                                            }
-                                          ]
-                                        },
-                                        {
-                                          OperatorName: by,
-                                          Arguments: [
-                                            {
-                                              EnumName: T,
-                                              EnumValue: value
-                                            }
-                                          ]
-                                        },
-                                        {
-                                          OperatorName: fold
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              ]
-                            }
-                          ]
-                        },
-                        {
-                          OperatorName: fold
-                        }
-                      ]
-                    }
                   ]
                 }
               ]

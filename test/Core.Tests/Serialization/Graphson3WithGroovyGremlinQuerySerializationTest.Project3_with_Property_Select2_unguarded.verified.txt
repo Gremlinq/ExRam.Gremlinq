@@ -3,21 +3,23 @@
   "op": "eval",
   "processor": "",
   "args": {
-    "gremlin": "g.V().hasLabel(_a).project(_b,_c,_d).by(__.in().limit(_e).fold()).by(__.out().limit(_e).fold()).by(__.values(_f).limit(_e).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold())).select(_b,_d).project(_b,_d).by(__.select(_b).project(_g,_h,_i).by(id).by(label).by(__.properties().group().by(label).by(__.project(_g,_h,_j,_i).by(id).by(label).by(value).by(__.valueMap()).fold())).fold()).by(__.select(_d).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold()))",
+    "gremlin": "g.V().hasLabel(_a).has(_b,neq(_c)).order().by(_b,asc).limit(_d).project(_e,_f,_g).by(__.constant(_h).limit(_d).fold()).by(__.constant(_i).limit(_d).fold()).by(__.values(_b).limit(_d).fold()).map(__.unfold().group().by(__.select(keys)).by(__.select(values).unfold())).select(_e,_g)",
     "bindings": {
       "_a": "Person",
-      "_b": "Item1",
-      "_c": "Item2",
-      "_d": "Item3",
-      "_e": {
+      "_b": "Age",
+      "_c": {
+        "@type": "g:Int32",
+        "@value": 0
+      },
+      "_d": {
         "@type": "g:Int64",
         "@value": 1
       },
-      "_f": "Age",
-      "_g": "id",
-      "_h": "label",
-      "_i": "properties",
-      "_j": "value"
+      "_e": "Item1",
+      "_f": "Item2",
+      "_g": "Item3",
+      "_h": "item1",
+      "_i": "item2"
     },
     "aliases": {
       "g": "g"

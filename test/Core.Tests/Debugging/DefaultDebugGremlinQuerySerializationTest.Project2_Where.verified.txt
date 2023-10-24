@@ -1,1 +1,1 @@
-﻿g.V().project('Item1','Item2').by(__.label()).by(__.fold()).filter(__.select('Item2').count(local).is(3)).project('Item1','Item2').by(__.select('Item1')).by(__.select('Item2').map(__.unfold().project('id','label','properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id','label','value','properties').by(id).by(label).by(value).by(__.valueMap()).fold())).fold()))
+﻿g.inject(42).project('Item1','Item2').by(__.constant('item1')).by(__.fold()).filter(__.select('Item2').count(local).is(3))

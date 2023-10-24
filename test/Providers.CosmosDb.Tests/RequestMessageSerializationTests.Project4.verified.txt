@@ -7,11 +7,16 @@
       g: g
     },
     bindings: {
-      _a: Item1,
-      _b: Item2,
-      _c: Item3,
-      _d: Item4
+      _a: 42,
+      _b: Item1,
+      _c: Item2,
+      _d: Item3,
+      _e: Item4,
+      _f: item1,
+      _g: item2,
+      _h: item3,
+      _i: item4
     },
-    gremlin: g.V().where(__.in()).where(__.out()).where(__.properties()).project(_a,_b,_c,_d).by(__.in()).by(__.out()).by(__.count()).by(__.properties())
+    gremlin: g.inject(_a).project(_b,_c,_d,_e).by(__.constant(_f)).by(__.constant(_g)).by(__.constant(_h)).by(__.constant(_i))
   }
 }

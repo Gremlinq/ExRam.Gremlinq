@@ -1,10 +1,14 @@
 ﻿{
-  Script: g.V().hasLabel(_a).where(__.in()).where(__.out()).project(_b,_c,_d).by(__.in()).by(__.out()).by(_e),
+  Script: g.V().hasLabel(_a).has(_b,neq(_c)).order().by(_b,incr).limit(_d).project(_e,_f,_g).by(__.constant(_h)).by(__.constant(_i)).by(_b),
   Bindings: {
     _a: Person,
-    _b: Item1,
-    _c: Item2,
-    _d: Item3,
-    _e: Age
+    _b: Age,
+    _c: 0,
+    _d: 1,
+    _e: Item1,
+    _f: Item2,
+    _g: Item3,
+    _h: item1,
+    _i: item2
   }
 }

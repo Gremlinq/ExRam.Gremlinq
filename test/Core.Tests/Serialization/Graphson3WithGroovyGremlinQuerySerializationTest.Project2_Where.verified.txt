@@ -3,18 +3,19 @@
   "op": "eval",
   "processor": "",
   "args": {
-    "gremlin": "g.V().project(_a,_b).by(__.label()).by(__.fold()).filter(__.select(_b).count(local).is(_c)).project(_a,_b).by(__.select(_a)).by(__.select(_b).map(__.unfold().project(_d,_e,_f).by(id).by(label).by(__.properties().group().by(label).by(__.project(_d,_e,_g,_f).by(id).by(label).by(value).by(__.valueMap()).fold())).fold()))",
+    "gremlin": "g.inject(_a).project(_b,_c).by(__.constant(_d)).by(__.fold()).filter(__.select(_c).count(local).is(_e))",
     "bindings": {
-      "_a": "Item1",
-      "_b": "Item2",
-      "_c": {
+      "_a": {
+        "@type": "g:Int32",
+        "@value": 42
+      },
+      "_b": "Item1",
+      "_c": "Item2",
+      "_d": "item1",
+      "_e": {
         "@type": "g:Int32",
         "@value": 3
-      },
-      "_d": "id",
-      "_e": "label",
-      "_f": "properties",
-      "_g": "value"
+      }
     },
     "aliases": {
       "g": "g"

@@ -1,10 +1,6 @@
 ﻿[
   {
     Age: 0,
-    in!: {
-      CountryCallingCode: +49,
-      Id: 0,
-      Label: Country
-    }
+    item1!: item1
   }
 ]
