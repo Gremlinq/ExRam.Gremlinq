@@ -1537,14 +1537,13 @@ namespace ExRam.Gremlinq.Tests.TestCases
         [Fact]
         public virtual Task Project_to_property_with_builder() => _g
             .V<Person>()
-            .Where(x => x.Age != 0)
             .Order(b => b
-                .By(x => x.Age))
+                .By(x => x.Id))
             .Limit(1)
             .Project(_ => _
                 .ToDynamic()
                 .By("item1!", __ => __.Constant("item1"))
-                .By(x => x.Age))
+                .By(x => x.Id!))
             .Verify();
 
         [Fact]
@@ -1722,12 +1721,12 @@ namespace ExRam.Gremlinq.Tests.TestCases
         public virtual Task Project2_with_Property() => _g
             .V<Person>()
             .Order(b => b
-                .By(x => x.Name))
+                .By(x => x.Id))
             .Limit(1)
             .Project(__ => __
                 .ToTuple()
                 .By(__ => __.Constant("item1"))
-                .By(__ => __.Name))
+                .By(__ => __.Id!))
             .Verify();
 
         [Fact]
@@ -1736,12 +1735,12 @@ namespace ExRam.Gremlinq.Tests.TestCases
                 .ConfigureOptions(o => o.SetValue(GremlinqOption.EnableEmptyProjectionValueProtection, true)))
             .V<Person>()
             .Order(b => b
-                .By(x => x.Name))
+                .By(x => x.Id))
             .Limit(1)
             .Project(__ => __
                 .ToTuple()
                 .By(__ => __.Constant("item1"))
-                .By(__ => __.Name))
+                .By(__ => __.Id!))
             .Verify();
 
         [Fact]
@@ -1822,26 +1821,26 @@ namespace ExRam.Gremlinq.Tests.TestCases
         public virtual Task Project3_with_Property() => _g
             .V<Person>()
             .Order(b => b
-                .By(x => x.Name))
+                .By(x => x.Id))
             .Limit(1)
             .Project(__ => __
                 .ToTuple()
                 .By(__ => __.Constant("item1"))
                 .By(__ => __.Constant("item2"))
-                .By(__ => __.Name))
+                .By(__ => __.Id!))
             .Verify();
 
         [Fact]
         public virtual Task Project3_with_Property_Select2() => _g
             .V<Person>()
             .Order(b => b
-                .By(x => x.Name))
+                .By(x => x.Id))
             .Limit(1)
             .Project(__ => __
                 .ToTuple()
                 .By(__ => __.Constant("item1"))
                 .By(__ => __.Constant("item2"))
-                .By(__ => __.Name))
+                .By(__ => __.Id!))
             .Select(
                 x => x.Item1,
                 x => x.Item3)
@@ -1853,13 +1852,13 @@ namespace ExRam.Gremlinq.Tests.TestCases
                 .ConfigureOptions(o => o.SetValue(GremlinqOption.EnableEmptyProjectionValueProtection, true)))
             .V<Person>()
             .Order(b => b
-                .By(x => x.Name))
+                .By(x => x.Id))
             .Limit(1)
             .Project(__ => __
                 .ToTuple()
                 .By(__ => __.Constant("item1"))
                 .By(__ => __.Constant("item2"))
-                .By(__ => __.Name))
+                .By(__ => __.Id!))
             .Select(
                 x => x.Item1,
                 x => x.Item3)
@@ -1893,13 +1892,13 @@ namespace ExRam.Gremlinq.Tests.TestCases
         public virtual Task Project4_with_Property() => _g
             .V<Person>()
             .Order(b => b
-                .By(x => x.Name))
+                .By(x => x.Id))
             .Limit(1)
             .Project(__ => __
                 .ToTuple()
                 .By(__ => __.Constant("item1"))
                 .By(__ => __.Constant("item2"))
-                .By(x => x.Name)
+                .By(x => x.Id!)
                 .By(__ => __.Constant("item4")))
             .Verify();
 
@@ -1909,13 +1908,13 @@ namespace ExRam.Gremlinq.Tests.TestCases
                 .ConfigureOptions(o => o.SetValue(GremlinqOption.EnableEmptyProjectionValueProtection, true)))
             .V<Person>()
             .Order(b => b
-                .By(x => x.Name))
+                .By(x => x.Id))
             .Limit(1)
             .Project(__ => __
                 .ToTuple()
                 .By(__ => __.Constant("item1"))
                 .By(__ => __.Constant("item2"))
-                .By(x => x.Name)
+                .By(x => x.Id!)
                 .By(__ => __.Constant("item4")))
             .Verify();
 

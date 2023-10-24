@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Person').order().by('Name',asc).limit(1).project('Item1','Item2','Item3','Item4').by(__.constant('item1')).by(__.constant('item2')).by('Name').by(__.constant('item4'))
+﻿g.V().hasLabel('Person').order().by(id,asc).limit(1).project('Item1','Item2','Item3','Item4').by(__.constant('item1')).by(__.constant('item2')).by(id).by(__.constant('item4'))

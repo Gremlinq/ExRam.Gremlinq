@@ -15,25 +15,14 @@
             "Person"
           ],
           [
-            "has",
-            "Age",
-            {
-              "@type": "g:P",
-              "@value": {
-                "predicate": "neq",
-                "value": {
-                  "@type": "g:Int32",
-                  "@value": 0
-                }
-              }
-            }
-          ],
-          [
             "order"
           ],
           [
             "by",
-            "Age",
+            {
+              "@type": "g:T",
+              "@value": "id"
+            },
             {
               "@type": "g:Order",
               "@value": "asc"
@@ -49,7 +38,7 @@
           [
             "project",
             "item1!",
-            "Age"
+            "Id"
           ],
           [
             "by",
@@ -67,7 +56,10 @@
           ],
           [
             "by",
-            "Age"
+            {
+              "@type": "g:T",
+              "@value": "id"
+            }
           ]
         ]
       }

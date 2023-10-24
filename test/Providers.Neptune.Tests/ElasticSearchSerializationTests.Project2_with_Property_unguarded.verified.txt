@@ -31,7 +31,10 @@
     {
       OperatorName: by,
       Arguments: [
-        Name,
+        {
+          EnumName: T,
+          EnumValue: id
+        },
         {
           EnumName: Order,
           EnumValue: asc
@@ -81,10 +84,7 @@
         {
           StepInstructions: [
             {
-              OperatorName: values,
-              Arguments: [
-                Name
-              ]
+              OperatorName: id
             },
             {
               OperatorName: limit,
