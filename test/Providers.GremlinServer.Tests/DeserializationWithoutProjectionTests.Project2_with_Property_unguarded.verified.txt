@@ -1,1 +1,8 @@
-﻿[]
+﻿[
+  {
+    Item1: item1,
+    Item2: {
+      Value: Bob
+    }
+  }
+]
