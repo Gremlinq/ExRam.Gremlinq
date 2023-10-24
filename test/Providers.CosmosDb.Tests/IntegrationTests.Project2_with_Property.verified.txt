@@ -1,1 +1,12 @@
-﻿[]
+﻿[
+  {
+    "serverException": {
+      "type": "GremlinQueryExecutionException",
+      "message": "Executing query 00000000-0000-0000-0000-000000000000 failed.",
+      "innerException": {
+        "type": "ResponseException",
+        "message": "ServerEvaluationError: \r\n\nActivityId : 00000000-0000-0000-0000-000000000000\nExceptionType : GraphRuntimeException\nExceptionMessage : \r\n\tGremlin Query Execution Error: Project By: Next: The provided traverser of key \"Item2\" maps to nothing.\n\tGremlinRequestId : 00000000-0000-0000-0000-000000000000\n\tContext : graphcompute\n\tScope : graphcomp-execquery\n\tGraphInterOpStatusCode : GraphRuntimeError\n\tHResult : 0x80131500\r\n"
+      }
+    }
+  }
+]
