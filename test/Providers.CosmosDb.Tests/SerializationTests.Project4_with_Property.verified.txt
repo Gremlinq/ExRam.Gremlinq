@@ -1,15 +1,14 @@
 ﻿{
-  Script: g.V().hasLabel(_a).order().by(_b,incr).limit(_c).project(_d,_e,_f,_g).by(__.constant(_h)).by(__.constant(_i)).by(_b).by(__.constant(_j)),
+  Script: g.V().hasLabel(_a).order().by(id,incr).limit(_b).project(_c,_d,_e,_f).by(__.constant(_g)).by(__.constant(_h)).by(id).by(__.constant(_i)),
   Bindings: {
     _a: Person,
-    _b: Name,
-    _c: 1,
-    _d: Item1,
-    _e: Item2,
-    _f: Item3,
-    _g: Item4,
-    _h: item1,
-    _i: item2,
-    _j: item4
+    _b: 1,
+    _c: Item1,
+    _d: Item2,
+    _e: Item3,
+    _f: Item4,
+    _g: item1,
+    _h: item2,
+    _i: item4
   }
 }
