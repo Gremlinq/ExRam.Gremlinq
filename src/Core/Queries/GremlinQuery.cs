@@ -676,13 +676,6 @@ namespace ExRam.Gremlinq.Core
                 .AddStep(MinStep.Local)
                 .AutoBuild<object, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>());
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Mute() => this
-            .Continue()
-            .Build(static builder => builder
-                .AddStep(NoneStep.Instance)
-                .WithFlags(static flags => flags | QueryFlags.IsMuted)
-                .Build());
-
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> None() => this
             .Continue()
             .Build(static builder => builder.OuterQuery.Steps.IsIdentity()

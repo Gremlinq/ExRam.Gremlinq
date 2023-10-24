@@ -30,10 +30,6 @@
                 static (outer, _, continuation, flags, state) =>
                 {
                     var (builderTransformation, innerState) = state;
-
-                    if (outer.Flags.HasFlag(QueryFlags.IsMuted))
-                        return outer.CloneAs<TNewQuery>();
-
                     var builder = new FinalContinuationBuilder<TOuterQuery>(outer);
 
                     if (continuation is GremlinQueryBase queryBase)

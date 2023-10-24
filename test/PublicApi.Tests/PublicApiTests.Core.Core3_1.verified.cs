@@ -453,7 +453,6 @@ namespace ExRam.Gremlinq.Core
         TSelf Loop(System.Func<ExRam.Gremlinq.Core.IStartLoopBuilder<TSelf>, ExRam.Gremlinq.Core.IFinalLoopBuilder<TSelf>> loopBuilderTransformation);
         TTargetQuery Map<TTargetQuery>(System.Func<TSelf, TTargetQuery> mapping)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
-        TSelf Mute();
         TSelf None();
         TSelf Not(System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase> notTraversal);
         TSelf Optional(System.Func<TSelf, TSelf> optionalTraversal);

@@ -34,10 +34,6 @@ namespace ExRam.Gremlinq.Core
                 static (outer, _, continuations, flags, state) =>
                 {
                     var (builderTransformation, innerState) = state;
-
-                    if (outer.Flags.HasFlag(QueryFlags.IsMuted))
-                        return outer.CloneAs<TNewQuery>();
-
                     var builder = new FinalContinuationBuilder<TOuterQuery>(outer);
 
                     using (var owner = MemoryPool<Traversal>.Shared.Rent(continuations.Count))
