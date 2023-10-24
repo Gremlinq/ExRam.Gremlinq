@@ -9,30 +9,9 @@
     gremlin: {
       StepInstructions: [
         {
-          OperatorName: V
-        },
-        {
-          OperatorName: filter,
+          OperatorName: inject,
           Arguments: [
-            {
-              StepInstructions: [
-                {
-                  OperatorName: in
-                }
-              ]
-            }
-          ]
-        },
-        {
-          OperatorName: filter,
-          Arguments: [
-            {
-              StepInstructions: [
-                {
-                  OperatorName: out
-                }
-              ]
-            }
+            42
           ]
         },
         {
@@ -49,150 +28,9 @@
             {
               StepInstructions: [
                 {
-                  OperatorName: in
-                }
-              ]
-            }
-          ]
-        },
-        {
-          OperatorName: by,
-          Arguments: [
-            {
-              StepInstructions: [
-                {
-                  OperatorName: out
-                }
-              ]
-            }
-          ]
-        },
-        {
-          OperatorName: by,
-          Arguments: [
-            {
-              StepInstructions: [
-                {
-                  OperatorName: count
-                }
-              ]
-            }
-          ]
-        },
-        {
-          OperatorName: project,
-          Arguments: [
-            Item1,
-            Item2,
-            Item3
-          ]
-        },
-        {
-          OperatorName: by,
-          Arguments: [
-            {
-              StepInstructions: [
-                {
-                  OperatorName: select,
+                  OperatorName: constant,
                   Arguments: [
-                    Item1
-                  ]
-                },
-                {
-                  OperatorName: project,
-                  Arguments: [
-                    id,
-                    label,
-                    properties
-                  ]
-                },
-                {
-                  OperatorName: by,
-                  Arguments: [
-                    {
-                      EnumName: T,
-                      EnumValue: id
-                    }
-                  ]
-                },
-                {
-                  OperatorName: by,
-                  Arguments: [
-                    {
-                      EnumName: T,
-                      EnumValue: label
-                    }
-                  ]
-                },
-                {
-                  OperatorName: by,
-                  Arguments: [
-                    {
-                      StepInstructions: [
-                        {
-                          OperatorName: properties
-                        },
-                        {
-                          OperatorName: group
-                        },
-                        {
-                          OperatorName: by,
-                          Arguments: [
-                            {
-                              EnumName: T,
-                              EnumValue: label
-                            }
-                          ]
-                        },
-                        {
-                          OperatorName: by,
-                          Arguments: [
-                            {
-                              StepInstructions: [
-                                {
-                                  OperatorName: project,
-                                  Arguments: [
-                                    id,
-                                    label,
-                                    value
-                                  ]
-                                },
-                                {
-                                  OperatorName: by,
-                                  Arguments: [
-                                    {
-                                      EnumName: T,
-                                      EnumValue: id
-                                    }
-                                  ]
-                                },
-                                {
-                                  OperatorName: by,
-                                  Arguments: [
-                                    {
-                                      EnumName: T,
-                                      EnumValue: label
-                                    }
-                                  ]
-                                },
-                                {
-                                  OperatorName: by,
-                                  Arguments: [
-                                    {
-                                      EnumName: T,
-                                      EnumValue: value
-                                    }
-                                  ]
-                                },
-                                {
-                                  OperatorName: fold
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      ]
-                    }
+                    item1
                   ]
                 }
               ]
@@ -205,106 +43,9 @@
             {
               StepInstructions: [
                 {
-                  OperatorName: select,
+                  OperatorName: constant,
                   Arguments: [
-                    Item2
-                  ]
-                },
-                {
-                  OperatorName: project,
-                  Arguments: [
-                    id,
-                    label,
-                    properties
-                  ]
-                },
-                {
-                  OperatorName: by,
-                  Arguments: [
-                    {
-                      EnumName: T,
-                      EnumValue: id
-                    }
-                  ]
-                },
-                {
-                  OperatorName: by,
-                  Arguments: [
-                    {
-                      EnumName: T,
-                      EnumValue: label
-                    }
-                  ]
-                },
-                {
-                  OperatorName: by,
-                  Arguments: [
-                    {
-                      StepInstructions: [
-                        {
-                          OperatorName: properties
-                        },
-                        {
-                          OperatorName: group
-                        },
-                        {
-                          OperatorName: by,
-                          Arguments: [
-                            {
-                              EnumName: T,
-                              EnumValue: label
-                            }
-                          ]
-                        },
-                        {
-                          OperatorName: by,
-                          Arguments: [
-                            {
-                              StepInstructions: [
-                                {
-                                  OperatorName: project,
-                                  Arguments: [
-                                    id,
-                                    label,
-                                    value
-                                  ]
-                                },
-                                {
-                                  OperatorName: by,
-                                  Arguments: [
-                                    {
-                                      EnumName: T,
-                                      EnumValue: id
-                                    }
-                                  ]
-                                },
-                                {
-                                  OperatorName: by,
-                                  Arguments: [
-                                    {
-                                      EnumName: T,
-                                      EnumValue: label
-                                    }
-                                  ]
-                                },
-                                {
-                                  OperatorName: by,
-                                  Arguments: [
-                                    {
-                                      EnumName: T,
-                                      EnumValue: value
-                                    }
-                                  ]
-                                },
-                                {
-                                  OperatorName: fold
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      ]
-                    }
+                    item2
                   ]
                 }
               ]
@@ -317,9 +58,9 @@
             {
               StepInstructions: [
                 {
-                  OperatorName: select,
+                  OperatorName: constant,
                   Arguments: [
-                    Item3
+                    item3
                   ]
                 }
               ]

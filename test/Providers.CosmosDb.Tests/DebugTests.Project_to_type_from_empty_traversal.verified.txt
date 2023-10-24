@@ -1,1 +1,1 @@
-﻿g.V().limit(0).project('In','Out','Count','Properties').by(__.identity()).by(__.identity()).by(__.identity()).by(__.identity())
+﻿g.inject(42).limit(0).project('In','Out','Count','Properties').by(__.identity()).by(__.identity()).by(__.identity()).by(__.identity())

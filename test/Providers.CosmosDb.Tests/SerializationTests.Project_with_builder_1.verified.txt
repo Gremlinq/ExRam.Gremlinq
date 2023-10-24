@@ -1,6 +1,8 @@
 ﻿{
-  Script: g.V().where(__.in()).project(_a).by(__.in()),
+  Script: g.inject(_a).project(_b).by(__.constant(_c)),
   Bindings: {
-    _a: in!
+    _a: 42,
+    _b: item1!,
+    _c: item1
   }
 }

@@ -1,15 +1,15 @@
 ﻿{
-  Script: g.V().hasLabel(_a).filter(__.in()).filter(__.out()).filter(__.properties()).project(_b,_c,_d,_e).by(__.in()).by(__.out()).by(_f).by(__.properties()).project(_b,_c,_d,_e).by(__.select(_b).project(_g,_h,_i).by(id).by(label).by(__.properties().group().by(label).by(__.project(_g,_h,_j,_i).by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.select(_c).project(_g,_h,_i).by(id).by(label).by(__.properties().group().by(label).by(__.project(_g,_h,_j,_i).by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.select(_d)).by(__.select(_e).project(_g,_h,_j,_i).by(id).by(label).by(value).by(__.valueMap())),
+  Script: g.V().hasLabel(_a).order().by(_b,asc).limit(_c).project(_d,_e,_f,_g).by(__.constant(_h)).by(__.constant(_i)).by(_b).by(__.constant(_j)),
   Bindings: {
     _a: Person,
-    _b: Item1,
-    _c: Item2,
-    _d: Item3,
-    _e: Item4,
-    _f: Age,
-    _g: id,
-    _h: label,
-    _i: properties,
-    _j: value
+    _b: Name,
+    _c: 1,
+    _d: Item1,
+    _e: Item2,
+    _f: Item3,
+    _g: Item4,
+    _h: item1,
+    _i: item2,
+    _j: item4
   }
 }

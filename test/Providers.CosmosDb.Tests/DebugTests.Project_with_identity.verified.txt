@@ -1,1 +1,1 @@
-﻿g.V().where(__.properties()).project('Item1','Item2').by(__.identity()).by(__.properties())
+﻿g.inject(42).project('Item1','Item2').by(__.identity()).by(__.constant('item2'))

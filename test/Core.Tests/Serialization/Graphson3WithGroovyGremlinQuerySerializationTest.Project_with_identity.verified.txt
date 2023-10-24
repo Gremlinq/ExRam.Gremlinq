@@ -3,14 +3,15 @@
   "op": "eval",
   "processor": "",
   "args": {
-    "gremlin": "g.V().filter(__.properties()).project(_a,_b).by(__.identity()).by(__.properties()).project(_a,_b).by(__.select(_a).project(_c,_d,_e).by(id).by(label).by(__.properties().group().by(label).by(__.project(_c,_d,_f,_e).by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.select(_b).project(_c,_d,_f,_e).by(id).by(label).by(value).by(__.valueMap()))",
+    "gremlin": "g.inject(_a).project(_b,_c).by(__.identity()).by(__.constant(_d))",
     "bindings": {
-      "_a": "Item1",
-      "_b": "Item2",
-      "_c": "id",
-      "_d": "label",
-      "_e": "properties",
-      "_f": "value"
+      "_a": {
+        "@type": "g:Int32",
+        "@value": 42
+      },
+      "_b": "Item1",
+      "_c": "Item2",
+      "_d": "item2"
     },
     "aliases": {
       "g": "g"

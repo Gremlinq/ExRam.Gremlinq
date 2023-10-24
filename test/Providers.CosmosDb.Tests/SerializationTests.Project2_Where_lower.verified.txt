@@ -1,8 +1,10 @@
 ﻿{
-  Script: g.V().project(_a,_b).by(__.label()).by(__.fold()).where(__.select(_b).count(local).is(lt(_c))),
+  Script: g.inject(_a).project(_b,_c).by(__.constant(_d)).by(__.fold()).where(__.select(_c).count(local).is(lt(_e))),
   Bindings: {
-    _a: Item1,
-    _b: Item2,
-    _c: 3
+    _a: 42,
+    _b: Item1,
+    _c: Item2,
+    _d: item1,
+    _e: 3
   }
 }

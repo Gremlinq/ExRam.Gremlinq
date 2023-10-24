@@ -1,7 +1,7 @@
 ﻿{
-  Script: g.V().hasLabel(_a).project(_b,_c,_d,_e).by(__.constant(_f)).by(__.constant(_g)).by(__.constant(_h)).by(__.constant(_i)),
+  Script: g.inject(_a).project(_b,_c,_d,_e).by(__.constant(_f)).by(__.constant(_g)).by(__.constant(_h)).by(__.constant(_i)),
   Bindings: {
-    _a: Person,
+    _a: 42,
     _b: In,
     _c: Out,
     _d: Count,

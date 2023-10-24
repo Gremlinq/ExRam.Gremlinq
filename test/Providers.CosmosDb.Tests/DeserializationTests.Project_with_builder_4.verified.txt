@@ -1,25 +1,8 @@
 ﻿[
   {
-    count!: 1,
-    in!: {
-      RegistrationDate: 2020-04-07 14:43:36 +0,
-      Name: {
-        Id: 00000000-0000-0000-0000-000000000000,
-        Value: Bob
-      },
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Person
-    },
-    out!: {
-      IetfLanguageTag: en,
-      Id: 00000000-0000-0000-0000-000000000000,
-      Label: Language
-    },
-    properties!: {
-      Id: 00000000-0000-0000-0000-000000000000|PartitionKey,
-      Label: PartitionKey,
-      Properties: {},
-      Value: PartitionKey
-    }
+    item1!: item1,
+    item2!: item2,
+    item3!: item3,
+    item4!: item4
   }
 ]

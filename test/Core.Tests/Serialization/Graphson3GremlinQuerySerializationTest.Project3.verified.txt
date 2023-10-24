@@ -8,32 +8,10 @@
       "@value": {
         "step": [
           [
-            "V"
-          ],
-          [
-            "filter",
+            "inject",
             {
-              "@type": "g:Bytecode",
-              "@value": {
-                "step": [
-                  [
-                    "in"
-                  ]
-                ]
-              }
-            }
-          ],
-          [
-            "filter",
-            {
-              "@type": "g:Bytecode",
-              "@value": {
-                "step": [
-                  [
-                    "out"
-                  ]
-                ]
-              }
+              "@type": "g:Int32",
+              "@value": 42
             }
           ],
           [
@@ -49,7 +27,8 @@
               "@value": {
                 "step": [
                   [
-                    "in"
+                    "constant",
+                    "item1"
                   ]
                 ]
               }
@@ -62,7 +41,8 @@
               "@value": {
                 "step": [
                   [
-                    "out"
+                    "constant",
+                    "item2"
                   ]
                 ]
               }
@@ -75,249 +55,8 @@
               "@value": {
                 "step": [
                   [
-                    "count"
-                  ]
-                ]
-              }
-            }
-          ],
-          [
-            "project",
-            "Item1",
-            "Item2",
-            "Item3"
-          ],
-          [
-            "by",
-            {
-              "@type": "g:Bytecode",
-              "@value": {
-                "step": [
-                  [
-                    "select",
-                    "Item1"
-                  ],
-                  [
-                    "project",
-                    "id",
-                    "label",
-                    "properties"
-                  ],
-                  [
-                    "by",
-                    {
-                      "@type": "g:T",
-                      "@value": "id"
-                    }
-                  ],
-                  [
-                    "by",
-                    {
-                      "@type": "g:T",
-                      "@value": "label"
-                    }
-                  ],
-                  [
-                    "by",
-                    {
-                      "@type": "g:Bytecode",
-                      "@value": {
-                        "step": [
-                          [
-                            "properties"
-                          ],
-                          [
-                            "group"
-                          ],
-                          [
-                            "by",
-                            {
-                              "@type": "g:T",
-                              "@value": "label"
-                            }
-                          ],
-                          [
-                            "by",
-                            {
-                              "@type": "g:Bytecode",
-                              "@value": {
-                                "step": [
-                                  [
-                                    "project",
-                                    "id",
-                                    "label",
-                                    "value",
-                                    "properties"
-                                  ],
-                                  [
-                                    "by",
-                                    {
-                                      "@type": "g:T",
-                                      "@value": "id"
-                                    }
-                                  ],
-                                  [
-                                    "by",
-                                    {
-                                      "@type": "g:T",
-                                      "@value": "label"
-                                    }
-                                  ],
-                                  [
-                                    "by",
-                                    {
-                                      "@type": "g:T",
-                                      "@value": "value"
-                                    }
-                                  ],
-                                  [
-                                    "by",
-                                    {
-                                      "@type": "g:Bytecode",
-                                      "@value": {
-                                        "step": [
-                                          [
-                                            "valueMap"
-                                          ]
-                                        ]
-                                      }
-                                    }
-                                  ],
-                                  [
-                                    "fold"
-                                  ]
-                                ]
-                              }
-                            }
-                          ]
-                        ]
-                      }
-                    }
-                  ]
-                ]
-              }
-            }
-          ],
-          [
-            "by",
-            {
-              "@type": "g:Bytecode",
-              "@value": {
-                "step": [
-                  [
-                    "select",
-                    "Item2"
-                  ],
-                  [
-                    "project",
-                    "id",
-                    "label",
-                    "properties"
-                  ],
-                  [
-                    "by",
-                    {
-                      "@type": "g:T",
-                      "@value": "id"
-                    }
-                  ],
-                  [
-                    "by",
-                    {
-                      "@type": "g:T",
-                      "@value": "label"
-                    }
-                  ],
-                  [
-                    "by",
-                    {
-                      "@type": "g:Bytecode",
-                      "@value": {
-                        "step": [
-                          [
-                            "properties"
-                          ],
-                          [
-                            "group"
-                          ],
-                          [
-                            "by",
-                            {
-                              "@type": "g:T",
-                              "@value": "label"
-                            }
-                          ],
-                          [
-                            "by",
-                            {
-                              "@type": "g:Bytecode",
-                              "@value": {
-                                "step": [
-                                  [
-                                    "project",
-                                    "id",
-                                    "label",
-                                    "value",
-                                    "properties"
-                                  ],
-                                  [
-                                    "by",
-                                    {
-                                      "@type": "g:T",
-                                      "@value": "id"
-                                    }
-                                  ],
-                                  [
-                                    "by",
-                                    {
-                                      "@type": "g:T",
-                                      "@value": "label"
-                                    }
-                                  ],
-                                  [
-                                    "by",
-                                    {
-                                      "@type": "g:T",
-                                      "@value": "value"
-                                    }
-                                  ],
-                                  [
-                                    "by",
-                                    {
-                                      "@type": "g:Bytecode",
-                                      "@value": {
-                                        "step": [
-                                          [
-                                            "valueMap"
-                                          ]
-                                        ]
-                                      }
-                                    }
-                                  ],
-                                  [
-                                    "fold"
-                                  ]
-                                ]
-                              }
-                            }
-                          ]
-                        ]
-                      }
-                    }
-                  ]
-                ]
-              }
-            }
-          ],
-          [
-            "by",
-            {
-              "@type": "g:Bytecode",
-              "@value": {
-                "step": [
-                  [
-                    "select",
-                    "Item3"
+                    "constant",
+                    "item3"
                   ]
                 ]
               }
