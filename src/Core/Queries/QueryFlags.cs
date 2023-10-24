@@ -5,7 +5,6 @@
     {
         None = 0,
 
-        IsAnonymous = 2,
         IsMuted = 4
     }
 }
