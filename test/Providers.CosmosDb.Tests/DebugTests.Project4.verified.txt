@@ -1,1 +1,1 @@
-﻿g.V().where(__.in()).where(__.out()).where(__.properties()).project('Item1','Item2','Item3','Item4').by(__.in()).by(__.out()).by(__.count()).by(__.properties())
+﻿g.inject(42).project('Item1','Item2','Item3','Item4').by(__.constant('item1')).by(__.constant('item2')).by(__.constant('item3')).by(__.constant('item4'))

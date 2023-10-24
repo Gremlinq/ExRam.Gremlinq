@@ -1,1 +1,1 @@
-﻿g.V().where(__.in()).project('in!').by(__.in())
+﻿g.inject(42).project('item1!').by(__.constant('item1'))

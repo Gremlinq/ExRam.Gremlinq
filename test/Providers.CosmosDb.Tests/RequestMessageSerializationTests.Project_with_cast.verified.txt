@@ -7,7 +7,7 @@
       g: g
     },
     bindings: {
-      _a: Person,
+      _a: 42,
       _b: in,
       _c: out,
       _d: count,
@@ -17,6 +17,6 @@
       _h: count_value,
       _i: properties_value
     },
-    gremlin: g.V().hasLabel(_a).project(_b,_c,_d,_e).by(__.constant(_f)).by(__.constant(_g)).by(__.constant(_h)).by(__.constant(_i))
+    gremlin: g.inject(_a).project(_b,_c,_d,_e).by(__.constant(_f)).by(__.constant(_g)).by(__.constant(_h)).by(__.constant(_i))
   }
 }

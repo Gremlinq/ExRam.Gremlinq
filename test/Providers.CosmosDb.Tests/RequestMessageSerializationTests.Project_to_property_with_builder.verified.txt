@@ -8,9 +8,11 @@
     },
     bindings: {
       _a: Person,
-      _b: in!,
-      _c: Age
+      _b: Age,
+      _c: 1,
+      _d: item1!,
+      _e: item1
     },
-    gremlin: g.V().hasLabel(_a).where(__.in()).project(_b,_c).by(__.in()).by(_c)
+    gremlin: g.V().hasLabel(_a).order().by(_b,incr).limit(_c).project(_d,_b).by(__.constant(_e)).by(_b)
   }
 }
