@@ -1,8 +1,1 @@
-﻿[
-  {
-    Item1: item1,
-    Item2: item2,
-    Item3: 0,
-    Item4: item4
-  }
-]
+﻿[]
