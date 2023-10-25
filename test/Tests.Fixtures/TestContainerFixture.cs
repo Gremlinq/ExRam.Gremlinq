@@ -17,8 +17,6 @@ namespace ExRam.Gremlinq.Tests.Fixtures
                 _baseSource = baseSource;
             }
 
-            IGremlinQueryEnvironment IGremlinQuerySource.Environment => _baseSource.Environment;
-
             IEdgeGremlinQuery<TEdge> IStartGremlinQuery.AddE<TEdge>(TEdge edge) => _baseSource.AddE(edge);
 
             IEdgeGremlinQuery<TEdge> IStartGremlinQuery.AddE<TEdge>() => _baseSource.AddE<TEdge>();
