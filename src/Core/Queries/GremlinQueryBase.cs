@@ -12,7 +12,7 @@ namespace ExRam.Gremlinq.Core
             IImmutableDictionary<StepLabel, LabelProjections>? maybeNewLabelProjections);
 
         private static readonly ConcurrentDictionary<Type, QueryContinuation?> QueryTypes = new();
-        private static readonly MethodInfo CreateFuncMethod = typeof(GremlinQueryBase).GetMethod(nameof(CreateFunc), BindingFlags.NonPublic | BindingFlags.Static)!;
+        private static readonly MethodInfo TryCreateQueryContinuationMethod = typeof(GremlinQueryBase).GetMethod(nameof(TryCreateQueryContinuation), BindingFlags.NonPublic | BindingFlags.Static)!;
 
         protected GremlinQueryBase(
             IGremlinQueryEnvironment environment,
@@ -38,7 +38,7 @@ namespace ExRam.Gremlinq.Core
                 {
                     if (closureType.IsGenericType && closureType.GetGenericTypeDefinition() == typeof(GremlinQuery<,,,,,>))
                     {
-                        return (QueryContinuation?)CreateFuncMethod
+                        return (QueryContinuation?)TryCreateQueryContinuationMethod
                             .MakeGenericMethod(
                                 closureType.GetGenericArguments())
                             .Invoke(null, new object?[] { closureType })!;
@@ -51,7 +51,7 @@ namespace ExRam.Gremlinq.Core
                     var metaType = GetMatchingType(closureType, "TMeta") ?? typeof(object);
                     var queryType = GetMatchingType(closureType, "TOriginalQuery") ?? typeof(object);
 
-                    return (QueryContinuation?)CreateFuncMethod
+                    return (QueryContinuation?)TryCreateQueryContinuationMethod
                         .MakeGenericMethod(
                             elementType,
                             outVertexType,
@@ -69,23 +69,20 @@ namespace ExRam.Gremlinq.Core
                 : throw new NotSupportedException($"Cannot change the query type to {targetQueryType}.");
         }
 
-        private static QueryContinuation? CreateFunc<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(Type targetQueryType)
+        private static QueryContinuation? TryCreateQueryContinuation<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(Type targetQueryType)
         {
             if (!targetQueryType.IsAssignableFrom(typeof(GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>)))
                 return null;
 
             return (existingQuery, maybeNewTraversal, maybeNewLabelProjections) =>
             {
-                var newTraversal = maybeNewTraversal ?? existingQuery.Steps;
-                var newLabelProjections = maybeNewLabelProjections ?? existingQuery.LabelProjections;
-
-                if (targetQueryType.IsInstanceOfType(existingQuery) && maybeNewTraversal == null && newLabelProjections == existingQuery.LabelProjections)
+                if (maybeNewTraversal == null && maybeNewLabelProjections == null && targetQueryType.IsInstanceOfType(existingQuery))
                     return (IGremlinQueryBase)existingQuery;
 
                 return new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(
                     existingQuery.Environment,
-                    newTraversal,
-                    newLabelProjections);
+                    maybeNewTraversal ?? existingQuery.Steps,
+                    maybeNewLabelProjections ?? existingQuery.LabelProjections);
             };
         }
 
