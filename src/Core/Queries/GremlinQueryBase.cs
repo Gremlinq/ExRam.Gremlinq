@@ -39,17 +39,16 @@ namespace ExRam.Gremlinq.Core
                     if (closureType.IsGenericType && closureType.GetGenericTypeDefinition() == typeof(GremlinQuery<,,,,,>))
                     {
                         return (QueryContinuation?)TryCreateQueryContinuationMethod
-                            .MakeGenericMethod(
-                                closureType.GetGenericArguments())
+                            .MakeGenericMethod(closureType.GetGenericArguments())
                             .Invoke(null, new object?[] { closureType })!;
                     }
 
-                    var elementType = GetMatchingType(closureType, "TElement", "TVertex", "TEdge", "TProperty", "TArray") ?? typeof(object);
-                    var outVertexType = GetMatchingType(closureType, "TOutVertex", "TAdjacentVertex") ?? typeof(object);
-                    var inVertexType = GetMatchingType(closureType, "TInVertex") ?? typeof(object);
-                    var scalarType = GetMatchingType(closureType, "TValue", "TArrayItem");
-                    var metaType = GetMatchingType(closureType, "TMeta") ?? typeof(object);
-                    var queryType = GetMatchingType(closureType, "TOriginalQuery") ?? typeof(object);
+                    var elementType = TryGetMatchingType(closureType, "TElement", "TVertex", "TEdge", "TProperty", "TArray") ?? typeof(object);
+                    var outVertexType = TryGetMatchingType(closureType, "TOutVertex", "TAdjacentVertex") ?? typeof(object);
+                    var inVertexType = TryGetMatchingType(closureType, "TInVertex") ?? typeof(object);
+                    var scalarType = TryGetMatchingType(closureType, "TValue", "TArrayItem");
+                    var metaType = TryGetMatchingType(closureType, "TMeta") ?? typeof(object);
+                    var queryType = TryGetMatchingType(closureType, "TOriginalQuery") ?? typeof(object);
 
                     return (QueryContinuation?)TryCreateQueryContinuationMethod
                         .MakeGenericMethod(
@@ -86,7 +85,7 @@ namespace ExRam.Gremlinq.Core
             };
         }
 
-        private static Type? GetMatchingType(Type interfaceType, params string[] argumentNames)
+        private static Type? TryGetMatchingType(Type interfaceType, params string[] argumentNames)
         {
             if (interfaceType.IsGenericType)
             {
