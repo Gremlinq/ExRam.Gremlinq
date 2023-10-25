@@ -8,51 +8,41 @@ namespace ExRam.Gremlinq.Core
         where TOuterQuery : GremlinQueryBase, IGremlinQueryBase
     {
         private readonly Traversal? _steps;
-        private readonly QueryFlags? _flags;
         private readonly TOuterQuery? _outer;
         private readonly IImmutableDictionary<StepLabel, LabelProjections>? _labelProjections;
 
-        public FinalContinuationBuilder(TOuterQuery outerQuery) : this(outerQuery, outerQuery.Steps, outerQuery.LabelProjections, outerQuery.Flags)
+        public FinalContinuationBuilder(TOuterQuery outerQuery) : this(outerQuery, outerQuery.Steps, outerQuery.LabelProjections)
         {
 
         }
 
-        public FinalContinuationBuilder(TOuterQuery outerQuery, Traversal steps, IImmutableDictionary<StepLabel, LabelProjections> labelProjections, QueryFlags flags)
+        public FinalContinuationBuilder(TOuterQuery outerQuery, Traversal steps, IImmutableDictionary<StepLabel, LabelProjections> labelProjections)
         {
             _steps = steps;
-            _flags = flags;
             _outer = outerQuery;
             _labelProjections = labelProjections;
         }
 
         public FinalContinuationBuilder<TOuterQuery> AddStep<TStep>(TStep step)
              where TStep : Step => With(
-                static (outer, steps, labelProjections, flags, tuple) => new FinalContinuationBuilder<TOuterQuery>(outer, steps.Push(tuple.step), labelProjections, flags),
+                static (outer, steps, labelProjections, tuple) => new FinalContinuationBuilder<TOuterQuery>(outer, steps.Push(tuple.step), labelProjections),
                 (@this: this, step));
 
         public FinalContinuationBuilder<TOuterQuery> WithSteps(Traversal newSteps) => With(
-            static (outer, _, labelProjections, flags, newSteps) => new FinalContinuationBuilder<TOuterQuery>(outer, newSteps, labelProjections, flags),
+            static (outer, _, labelProjections, newSteps) => new FinalContinuationBuilder<TOuterQuery>(outer, newSteps, labelProjections),
             newSteps);
 
         public FinalContinuationBuilder<TOuterQuery> WithSteps<TState>(Func<Traversal, TState, Traversal> traversalTransformation, TState state) => With(
-            static (outer, steps, labelProjections, flags, tuple) => new FinalContinuationBuilder<TOuterQuery>(outer, tuple.traversalTransformation(steps, tuple.state), labelProjections, flags),
+            static (outer, steps, labelProjections, tuple) => new FinalContinuationBuilder<TOuterQuery>(outer, tuple.traversalTransformation(steps, tuple.state), labelProjections),
             (traversalTransformation, state));
 
         public FinalContinuationBuilder<TOuterQuery> WithNewProjection<TState>(Func<Projection, TState, Projection> projectionTransformation, TState state) => With(
-            static (outer, steps, labelProjections, flags, tuple) => new FinalContinuationBuilder<TOuterQuery>(outer, steps.WithProjection(tuple.projectionTransformation(steps.Projection, tuple.state)), labelProjections, flags),
+            static (outer, steps, labelProjections, tuple) => new FinalContinuationBuilder<TOuterQuery>(outer, steps.WithProjection(tuple.projectionTransformation(steps.Projection, tuple.state)), labelProjections),
             (projectionTransformation, state));
 
         public FinalContinuationBuilder<TOuterQuery> WithNewLabelProjections<TState>(Func<IImmutableDictionary<StepLabel, LabelProjections>, TState, IImmutableDictionary<StepLabel, LabelProjections>> labelProjectionsTransformation, TState state) => With(
-            static (outer, steps, labelProjections, flags, tuple) => new FinalContinuationBuilder<TOuterQuery>(outer, steps, tuple.labelProjectionsTransformation(labelProjections, tuple.state), flags),
+            static (outer, steps, labelProjections, tuple) => new FinalContinuationBuilder<TOuterQuery>(outer, steps, tuple.labelProjectionsTransformation(labelProjections, tuple.state)),
             (labelProjectionsTransformation, state));
-
-        public FinalContinuationBuilder<TOuterQuery> WithFlags(Func<QueryFlags, QueryFlags> flagsProjection) => With(
-            static (outer, steps, labelProjections, flags, flagsProjection) => new FinalContinuationBuilder<TOuterQuery>(outer, steps, labelProjections, flagsProjection(flags)),
-            flagsProjection);
-
-        public FinalContinuationBuilder<TOuterQuery> WithFlags(QueryFlags newFlags) => With(
-            static (outer, steps, labelProjections, _, newFlags) => new FinalContinuationBuilder<TOuterQuery>(outer, steps, labelProjections, newFlags),
-            newFlags);
 
         public TOuterQuery Build() => Build<TOuterQuery>();
 
@@ -71,21 +61,20 @@ namespace ExRam.Gremlinq.Core
         public GremlinQuery<object, object, object, object, object, object> AutoBuild() => Build<GremlinQuery<object, object, object, object, object, object>>();
 
         public TNewTargetQuery Build<TNewTargetQuery>() where TNewTargetQuery : IStartGremlinQuery => With(
-            static (outer, steps, labelProjections, flags, _) => outer.CloneAs<TNewTargetQuery>(
+            static (outer, steps, labelProjections, _) => outer.CloneAs<TNewTargetQuery>(
                 steps,
-                labelProjections,
-                flags),
+                labelProjections),
             0);
 
-        private TResult With<TState, TResult>(Func<TOuterQuery, Traversal, IImmutableDictionary<StepLabel, LabelProjections>, QueryFlags, TState, TResult> continuation, TState state)
+        private TResult With<TState, TResult>(Func<TOuterQuery, Traversal, IImmutableDictionary<StepLabel, LabelProjections>, TState, TResult> continuation, TState state)
         {
-            return (_outer is { } outer && _steps is { } steps && _labelProjections is { } labelProjections && _flags is { } flags)
-                ? continuation(outer, steps, labelProjections, flags, state)
+            return (_outer is { } outer && _steps is { } steps && _labelProjections is { } labelProjections)
+                ? continuation(outer, steps, labelProjections, state)
                 : throw new InvalidOperationException();
         }
 
         public TOuterQuery OuterQuery => With(
-            static (outer, _, _, _, _) => outer,
+            static (outer, _, _, _) => outer,
             0);
     }
 }
