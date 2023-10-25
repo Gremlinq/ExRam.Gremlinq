@@ -1,4 +1,6 @@
-﻿using ExRam.Gremlinq.Core.Projections;
+﻿using System.Collections.Immutable;
+
+using ExRam.Gremlinq.Core.Projections;
 using ExRam.Gremlinq.Core.Steps;
 
 namespace ExRam.Gremlinq.Core
@@ -14,5 +16,6 @@ namespace ExRam.Gremlinq.Core
 
         Traversal Steps { get; }
         IGremlinQueryEnvironment Environment { get; }
+        IImmutableDictionary<object, object?> Metadata { get; }
     }
 }

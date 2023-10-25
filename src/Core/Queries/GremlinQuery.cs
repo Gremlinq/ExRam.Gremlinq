@@ -20,7 +20,8 @@ namespace ExRam.Gremlinq.Core
         public GremlinQuery(
             IGremlinQueryEnvironment environment,
             Traversal steps,
-            IImmutableDictionary<StepLabel, LabelProjections> labelProjections) : base(environment, steps, labelProjections)
+            IImmutableDictionary<StepLabel, LabelProjections> labelProjections,
+            IImmutableDictionary<object, object?> metadata) : base(environment, steps, labelProjections, metadata)
         {
 
         }

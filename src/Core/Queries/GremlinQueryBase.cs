@@ -17,9 +17,11 @@ namespace ExRam.Gremlinq.Core
         protected GremlinQueryBase(
             IGremlinQueryEnvironment environment,
             Traversal steps,
-            IImmutableDictionary<StepLabel, LabelProjections> labelProjections)
+            IImmutableDictionary<StepLabel, LabelProjections> labelProjections,
+            IImmutableDictionary<object, object?> metadata)
         {
             Steps = steps;
+            Metadata = metadata;
             Environment = environment;
             LabelProjections = labelProjections;
         }
@@ -81,7 +83,8 @@ namespace ExRam.Gremlinq.Core
                 return new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(
                     existingQuery.Environment,
                     maybeNewTraversal ?? existingQuery.Steps,
-                    maybeNewLabelProjections ?? existingQuery.LabelProjections);
+                    maybeNewLabelProjections ?? existingQuery.LabelProjections,
+                    existingQuery.Metadata);
             };
         }
 
@@ -107,6 +110,7 @@ namespace ExRam.Gremlinq.Core
 
         protected internal Traversal Steps { get; }
         protected internal IGremlinQueryEnvironment Environment { get; }
+        protected internal IImmutableDictionary<object, object?> Metadata { get; }
         protected internal IImmutableDictionary<StepLabel, LabelProjections> LabelProjections { get; }
     }
 }

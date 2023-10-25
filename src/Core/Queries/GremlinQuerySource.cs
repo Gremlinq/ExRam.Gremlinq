@@ -8,6 +8,7 @@ namespace ExRam.Gremlinq.Core
         public static readonly IGremlinQuerySource g = new GremlinQuery<object, object, object, object, object, object>(
             GremlinQueryEnvironment.Invalid,
             Traversal.Empty,
-            ImmutableDictionary<StepLabel, LabelProjections>.Empty);
+            ImmutableDictionary<StepLabel, LabelProjections>.Empty,
+            ImmutableDictionary<object, object?>.Empty);
     }
 }
