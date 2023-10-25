@@ -1,4 +1,6 @@
-﻿using DotNet.Testcontainers.Builders;
+﻿using System.Collections.Immutable;
+
+using DotNet.Testcontainers.Builders;
 using DotNet.Testcontainers.Containers;
 using ExRam.Gremlinq.Core;
 
@@ -60,6 +62,8 @@ namespace ExRam.Gremlinq.Tests.Fixtures
             IGremlinQuerySource IGremlinQuerySource.WithStrategy<TStrategy>(Func<IGremlinQuerySource, TStrategy> factory) => _baseSource.WithStrategy(factory);
 
             IGremlinQuerySource IGremlinQuerySource.WithStrategy<TStrategy>(TStrategy strategy) => _baseSource.WithStrategy(strategy);
+
+            IGremlinQuerySource IGremlinQuerySource.ConfigureMetadata(Func<IImmutableDictionary<object, object?>, IImmutableDictionary<object, object?>> metadataTransformation) => _baseSource.ConfigureMetadata(metadataTransformation);
 
             async ValueTask IAsyncDisposable.DisposeAsync()
             {
