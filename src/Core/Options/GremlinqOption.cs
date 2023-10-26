@@ -91,7 +91,7 @@ namespace ExRam.Gremlinq.Core
         public static readonly GremlinqOption<bool> PreferGroovySerialization = new(false);
     }
 
-    public class GremlinqOption<TValue> : IGremlinqOption
+    public class GremlinqOption<TValue>
     {
         public GremlinqOption(TValue defaultValue)
         {
