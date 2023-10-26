@@ -176,10 +176,10 @@ namespace ExRam.Gremlinq.Core
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.Traversal> VertexProjectionWithoutMetaPropertiesSteps;
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.Traversal> VertexPropertyProjectionSteps;
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.Traversal> VertexPropertyProjectionWithoutMetaPropertiesSteps;
+        public static ExRam.Gremlinq.Core.GremlinqOption<TValue> Create<TValue>(TValue defaultValue) { }
     }
-    public class GremlinqOption<TValue> : ExRam.Gremlinq.Core.IGremlinqOption
+    public sealed class GremlinqOption<TValue>
     {
-        public GremlinqOption(TValue defaultValue) { }
         public TValue DefaultValue { get; }
     }
     public static class GremlinqOptions
@@ -579,13 +579,12 @@ namespace ExRam.Gremlinq.Core
     {
         TSelf ConfigureQuerySource(System.Func<ExRam.Gremlinq.Core.IGremlinQuerySource, ExRam.Gremlinq.Core.IGremlinQuerySource> transformation);
     }
-    public interface IGremlinqOption { }
     public interface IGremlinqOptions
     {
         ExRam.Gremlinq.Core.IGremlinqOptions ConfigureValue<TValue>(ExRam.Gremlinq.Core.GremlinqOption<TValue> option, System.Func<TValue, TValue> configuration);
-        bool Contains(ExRam.Gremlinq.Core.IGremlinqOption option);
+        bool Contains<TValue>(ExRam.Gremlinq.Core.GremlinqOption<TValue> option);
         TValue GetValue<TValue>(ExRam.Gremlinq.Core.GremlinqOption<TValue> option);
-        ExRam.Gremlinq.Core.IGremlinqOptions Remove(ExRam.Gremlinq.Core.IGremlinqOption option);
+        ExRam.Gremlinq.Core.IGremlinqOptions Remove<TValue>(ExRam.Gremlinq.Core.GremlinqOption<TValue> option);
         ExRam.Gremlinq.Core.IGremlinqOptions SetValue<TValue>(ExRam.Gremlinq.Core.GremlinqOption<TValue> option, TValue value);
     }
     public interface IGroupBuilderWithKeyAndValue<TKey, TValue>
