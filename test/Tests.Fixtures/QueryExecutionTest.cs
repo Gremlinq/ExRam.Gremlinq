@@ -4706,25 +4706,6 @@ namespace ExRam.Gremlinq.Tests.TestCases
             .Verify();
 
         [Fact]
-        public virtual Task WithoutStrategies1() => _g
-            .WithoutStrategies(typeof(SubgraphStrategy))
-            .V()
-            .Verify();
-
-        [Fact]
-        public virtual Task WithoutStrategies2() => _g
-            .WithoutStrategies(typeof(SubgraphStrategy), typeof(ElementIdStrategy))
-            .V()
-            .Verify();
-
-        [Fact]
-        public virtual Task WithoutStrategies3() => _g
-            .WithoutStrategies(typeof(SubgraphStrategy))
-            .WithoutStrategies(typeof(ElementIdStrategy))
-            .V()
-            .Verify();
-
-        [Fact]
         public virtual async Task WithSideEffect_assigns_projection()
         {
             var stepLabel = new StepLabel<IArrayGremlinQuery<Person[], Person, IVertexGremlinQuery<Person>>, Person[]>();
