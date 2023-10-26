@@ -12,7 +12,7 @@ on:
 
 jobs:
 
-  build:
+  pack:
     if: ${{ github.event_name == 'push' }}
     runs-on: ubuntu-latest
 
@@ -165,7 +165,7 @@ jobs:
 
   push:
     if: ${{ github.event_name == 'push' && vars.PUSH_TO_GITHUB_PACKAGES == 'true' }}
-    needs: [ build, test-linux, test-windows ]
+    needs: [ pack, test-linux, test-windows ]
     runs-on: ubuntu-latest
 
     steps:
@@ -183,7 +183,7 @@ jobs:
 
   release:
     if: ${{ github.event_name == 'push' && github.ref_name != 'main' }}
-    needs: [ build, test-linux, test-windows ]
+    needs: [ pack, test-linux, test-windows ]
     runs-on: ubuntu-latest
 
     steps:
@@ -195,9 +195,9 @@ jobs:
       id: create_release
       uses: release-drafter/release-drafter@v5.22.0
       with:
-        name: ${{ github.event.repository.name }} ${{ needs.build.outputs.semVer2 }}
-        prerelease: ${{ needs.build.outputs.isPreviewRelease }}
-        tag: ${{ needs.build.outputs.semVer2 }}
+        name: ${{ github.event.repository.name }} ${{ needs.pack.outputs.semVer2 }}
+        prerelease: ${{ needs.pack.outputs.isPreviewRelease }}
+        tag: ${{ needs.pack.outputs.semVer2 }}
         commitish: ${{ github.ref }}
       env:
         GITHUB_TOKEN: ${{ secrets.CREATE_RELEASE_PAT }}
