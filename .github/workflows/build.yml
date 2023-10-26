@@ -53,7 +53,7 @@ jobs:
         if-no-files-found: error
 
   test-linux:
-    if: ${{ always() && github.event_name == 'merge_group' }}
+    if: ${{ github.event_name == 'merge_group' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -93,7 +93,7 @@ jobs:
         path: ./**/*.received.*
 
   test-windows:
-    if: ${{ always() && github.event_name == 'merge_group' }}
+    if: ${{ github.event_name == 'merge_group' }}
     runs-on: windows-2022
 
     steps:
