@@ -3,10 +3,11 @@
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Serialization;
 
+using Gremlin.Net.Driver;
 using Gremlin.Net.Driver.Messages;
 using Gremlin.Net.Process.Traversal;
 
-namespace Gremlin.Net.Driver.Messages
+namespace ExRam.Gremlinq.Providers.Core
 {
     internal static class RequestMessageExtensions
     {

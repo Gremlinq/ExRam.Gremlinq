@@ -1,5 +1,4 @@
-﻿using System.Linq.Async;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using Microsoft.Extensions.Logging;
 
 namespace ExRam.Gremlinq.Core.Execution

@@ -2,6 +2,8 @@
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Providers.Core;
 using ExRam.Gremlinq.Tests.Entities;
+using ExRam.Gremlinq.Providers.Neptune;
+using ExRam.Gremlinq.Support.NewtonsoftJson;
 
 namespace ExRam.Gremlinq.Tests.Fixtures
 {

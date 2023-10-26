@@ -1,5 +1,7 @@
 ﻿#if (!NET7_0_OR_GREATER)
-namespace System.Collections.Immutable
+using System.Collections.Immutable;
+
+namespace ExRam.Gremlinq.Core
 {
     internal static class ImmutableArrayExtensions
     {

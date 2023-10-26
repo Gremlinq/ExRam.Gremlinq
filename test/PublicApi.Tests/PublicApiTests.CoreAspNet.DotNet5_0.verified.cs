@@ -22,9 +22,6 @@
         ExRam.Gremlinq.Core.AspNet.IGremlinqServicesBuilder<TConfigurator> Configure<TConfiguratorTransformation>()
             where TConfiguratorTransformation :  class, ExRam.Gremlinq.Core.IGremlinqConfiguratorTransformation<TConfigurator>;
     }
-}
-namespace Microsoft.Extensions.DependencyInjection
-{
     public static class ServiceCollectionExtensions
     {
         public static Microsoft.Extensions.DependencyInjection.IServiceCollection AddGremlinq(this Microsoft.Extensions.DependencyInjection.IServiceCollection serviceCollection, System.Action<ExRam.Gremlinq.Core.AspNet.IGremlinqServicesBuilder> configuration) { }

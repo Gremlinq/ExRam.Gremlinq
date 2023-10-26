@@ -1,4 +1,6 @@
-﻿namespace ExRam.Gremlinq.Core.Execution
+﻿using ExRam.Gremlinq.Core.Execution;
+
+namespace ExRam.Gremlinq.Tests.Infrastructure
 {
     public static class GremlinQueryExecutorExtensions
     {

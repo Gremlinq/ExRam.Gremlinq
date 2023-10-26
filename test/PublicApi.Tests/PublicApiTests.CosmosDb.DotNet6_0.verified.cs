@@ -1,12 +1,9 @@
-﻿namespace ExRam.Gremlinq.Core
+﻿namespace ExRam.Gremlinq.Providers.CosmosDb
 {
     public static class ConfigurableGremlinQuerySourceExtensions
     {
         public static ExRam.Gremlinq.Core.IGremlinQuerySource UseCosmosDb<TVertexBase, TEdgeBase>(this ExRam.Gremlinq.Core.IGremlinQuerySource source, System.Func<ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator<TVertexBase>, ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation> configuratorTransformation) { }
     }
-}
-namespace ExRam.Gremlinq.Providers.CosmosDb
-{
     public static class CosmosDbConfiguratorExtensions
     {
         public static ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator<TVertexBase> At<TVertexBase>(this ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator<TVertexBase> configurator, string uri, string databaseName, string graphName) { }
