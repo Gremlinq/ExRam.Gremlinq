@@ -1,7 +1,6 @@
 ﻿// ReSharper disable ArrangeThisQualifier
 // ReSharper disable CoVariantArrayConversion
 using System.Collections.Immutable;
-using System.Linq.Async;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using ExRam.Gremlinq.Core.Execution;

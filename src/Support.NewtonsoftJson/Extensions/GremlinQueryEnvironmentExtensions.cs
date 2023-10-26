@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
+using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Core.Transformation;
@@ -11,7 +12,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 
-namespace ExRam.Gremlinq.Core
+namespace ExRam.Gremlinq.Support.NewtonsoftJson
 {
     public static class GremlinQueryEnvironmentExtensions
     {

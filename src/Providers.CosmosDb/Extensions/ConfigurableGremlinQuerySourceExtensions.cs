@@ -1,5 +1,6 @@
 ﻿using System.Linq.Expressions;
 
+using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Core.Transformation;
@@ -9,7 +10,7 @@ using Gremlin.Net.Driver;
 using Gremlin.Net.Process.Traversal;
 using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
 
-namespace ExRam.Gremlinq.Core
+namespace ExRam.Gremlinq.Providers.CosmosDb
 {
     public static class ConfigurableGremlinQuerySourceExtensions
     {

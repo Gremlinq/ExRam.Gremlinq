@@ -1,6 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 
-namespace System.Linq.Async
+namespace ExRam.Gremlinq.Core
 {
     internal static class AsyncEnumerable
     {

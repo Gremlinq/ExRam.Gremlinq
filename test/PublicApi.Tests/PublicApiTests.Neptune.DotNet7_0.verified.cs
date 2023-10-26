@@ -1,12 +1,9 @@
-﻿namespace ExRam.Gremlinq.Core
+﻿namespace ExRam.Gremlinq.Providers.Neptune
 {
     public static class ConfigurableGremlinQuerySourceExtensions
     {
         public static ExRam.Gremlinq.Core.IGremlinQuerySource UseNeptune<TVertexBase, TEdgeBase>(this ExRam.Gremlinq.Core.IGremlinQuerySource source, System.Func<ExRam.Gremlinq.Providers.Neptune.INeptuneConfigurator, ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation> configuratorTransformation) { }
     }
-}
-namespace ExRam.Gremlinq.Providers.Neptune
-{
     public interface INeptuneConfigurator : ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation, ExRam.Gremlinq.Core.IGremlinqConfigurator<ExRam.Gremlinq.Providers.Neptune.INeptuneConfigurator>, ExRam.Gremlinq.Providers.Core.IWebSocketProviderConfigurator<ExRam.Gremlinq.Providers.Neptune.INeptuneConfigurator> { }
     public static class NeptuneConfiguratorExtensions
     {

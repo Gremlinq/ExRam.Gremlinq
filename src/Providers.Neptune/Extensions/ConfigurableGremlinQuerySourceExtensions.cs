@@ -9,8 +9,9 @@ using Gremlin.Net.Driver.Exceptions;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using ExRam.Gremlinq.Core.Models;
+using ExRam.Gremlinq.Core;
 
-namespace ExRam.Gremlinq.Core
+namespace ExRam.Gremlinq.Providers.Neptune
 {
     public static class ConfigurableGremlinQuerySourceExtensions
     {

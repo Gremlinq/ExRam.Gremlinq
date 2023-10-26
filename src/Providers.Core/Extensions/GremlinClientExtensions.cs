@@ -1,9 +1,11 @@
 ﻿using System.Text.Json;
 using ExRam.Gremlinq.Core;
+
+using Gremlin.Net.Driver;
 using Gremlin.Net.Driver.Messages;
 using Microsoft.Extensions.Logging;
 
-namespace Gremlin.Net.Driver
+namespace ExRam.Gremlinq.Providers.Core
 {
     public static class GremlinClientExtensions
     {

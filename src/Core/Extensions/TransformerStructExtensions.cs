@@ -1,4 +1,6 @@
-﻿namespace ExRam.Gremlinq.Core.Transformation
+﻿using ExRam.Gremlinq.Core.Transformation;
+
+namespace ExRam.Gremlinq.Core
 {
     public static class TransformerStructExtensions
     {

@@ -1,7 +1,8 @@
 ﻿using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Core.AspNet;
 using ExRam.Gremlinq.Providers.GremlinServer;
 
-namespace ExRam.Gremlinq.Core.AspNet
+namespace ExRam.Gremlinq.Providers.GremlinServer.AspNet
 {
     public static class GremlinqServicesBuilderExtensions
     {

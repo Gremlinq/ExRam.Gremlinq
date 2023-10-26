@@ -1,6 +1,7 @@
-﻿using ExRam.Gremlinq.Core;
+﻿using Gremlin.Net.Driver;
+using Gremlin.Net.Driver.Messages;
 
-namespace Gremlin.Net.Driver.Messages
+namespace ExRam.Gremlinq.Core
 {
     internal static class RequestMessageBuilderExtensions
     {
