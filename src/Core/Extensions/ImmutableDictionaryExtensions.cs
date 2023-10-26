@@ -1,18 +1,19 @@
-﻿using System.Collections.Concurrent;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
+using System.Runtime.CompilerServices;
+
 using ExRam.Gremlinq.Core.Projections;
 
 namespace ExRam.Gremlinq.Core
 {
     internal static class ImmutableDictionaryExtensions
     {
-        private static readonly ConcurrentDictionary<object, object> FastDictionaries = new();
+        private static readonly ConditionalWeakTable<object, object> FastDictionaries = new();
 
         internal static IReadOnlyDictionary<TKey, TValue> Fast<TKey, TValue>(this IImmutableDictionary<TKey, TValue> dict)
             where TKey : notnull
         {
             return (IReadOnlyDictionary<TKey, TValue>)FastDictionaries
-                .GetOrAdd(
+                .GetValue(
                     dict,
                     static closureDict => ((IImmutableDictionary<TKey, TValue>)closureDict).ToDictionary(static x => x.Key, static x => x.Value));
         }
