@@ -2,7 +2,9 @@
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Transformation;
 
-namespace Newtonsoft.Json.Linq
+using Newtonsoft.Json.Linq;
+
+namespace ExRam.Gremlinq.Support.NewtonsoftJson
 {
     internal static class JTokenExtensions
     {

@@ -1,7 +1,7 @@
-﻿using ExRam.Gremlinq.Core;
+﻿using ExRam.Gremlinq.Core.AspNet;
 using ExRam.Gremlinq.Providers.JanusGraph;
 
-namespace ExRam.Gremlinq.Core.AspNet
+namespace ExRam.Gremlinq.Providers.JanusGraph.AspNet
 {
     public static class GremlinqServicesBuilderExtensions
     {

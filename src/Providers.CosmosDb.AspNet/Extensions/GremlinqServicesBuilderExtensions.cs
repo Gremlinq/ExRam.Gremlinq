@@ -1,9 +1,10 @@
 ﻿using System.Linq.Expressions;
 using System.Reflection;
 
+using ExRam.Gremlinq.Core.AspNet;
 using ExRam.Gremlinq.Providers.CosmosDb;
 
-namespace ExRam.Gremlinq.Core.AspNet
+namespace ExRam.Gremlinq.Providers.CosmosDb.AspNet
 {
     public static class GremlinqServicesBuilderExtensions
     {

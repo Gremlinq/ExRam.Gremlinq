@@ -1,6 +1,6 @@
 ﻿using _GremlinServer = Gremlin.Net.Driver.GremlinServer;
 
-namespace Gremlin.Net.Driver
+namespace ExRam.Gremlinq.Providers.Core
 {
     public static class GremlinServerExtensions
     {

@@ -1,5 +1,6 @@
 ﻿using System.Dynamic;
 
+using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Tests.Entities;
@@ -8,7 +9,7 @@ using FluentAssertions;
 using Newtonsoft.Json.Linq;
 using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
 
-namespace ExRam.Gremlinq.Core.Tests
+namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
 {
     public class TransformerTest : VerifyBase
     {

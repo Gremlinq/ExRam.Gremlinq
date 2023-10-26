@@ -5,7 +5,7 @@ using ExRam.Gremlinq.Core.Transformation;
 using Gremlin.Net.Process.Traversal;
 using Newtonsoft.Json.Linq;
 
-namespace System
+namespace ExRam.Gremlinq.Support.NewtonsoftJson
 {
     internal static class ObjectExtensions
     {

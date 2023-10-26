@@ -2,6 +2,7 @@
 using ExRam.Gremlinq.Providers.CosmosDb;
 using ExRam.Gremlinq.Providers.CosmosDb.Tests.Extensions;
 using ExRam.Gremlinq.Tests.Entities;
+using ExRam.Gremlinq.Support.NewtonsoftJson;
 
 namespace ExRam.Gremlinq.Tests.Fixtures
 {

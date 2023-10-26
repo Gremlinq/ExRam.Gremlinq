@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace VerifyTests
+namespace ExRam.Gremlinq.Tests.Infrastructure
 {
     public static class SettingsTaskExtensions
     {
