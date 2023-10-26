@@ -2,9 +2,6 @@ name: Build + Test
 
 on:
   push:
-    branches:
-      - main
-      - \d+\.x
   pull_request:
   merge_group:
   workflow_call:
