@@ -12,8 +12,8 @@ on:
 jobs:
 
   build:
-    runs-on: ubuntu-latest
     if: ${{ github.event_name == 'push' }}
+    runs-on: ubuntu-latest
 
     outputs:
       semVer2: ${{ steps.nbgv.outputs.SemVer2 }}
@@ -52,8 +52,8 @@ jobs:
         if-no-files-found: error
 
   test-linux:
-    runs-on: ubuntu-latest
     if: ${{ always() && github.event_name == 'merge_group' }}
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout
@@ -92,8 +92,8 @@ jobs:
         path: ./**/*.received.*
 
   test-windows:
-    runs-on: windows-2022
     if: ${{ always() && github.event_name == 'merge_group' }}
+    runs-on: windows-2022
 
     steps:
     - name: Checkout
@@ -163,9 +163,9 @@ jobs:
         branch-suffix: short-commit-hash
 
   push:
+    if: ${{ github.event_name == 'push' && vars.PUSH_TO_GITHUB_PACKAGES == 'true' }}
     needs: [ build, test-linux, test-windows ]
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' && vars.PUSH_TO_GITHUB_PACKAGES == 'true' }}
 
     steps:
 
@@ -181,9 +181,9 @@ jobs:
         --skip-duplicate
 
   release:
+    if: ${{ github.event_name == 'push' && github.ref_name != 'main' }}
     needs: [ build, test-linux, test-windows ]
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' && github.ref_name != 'main' }}
 
     steps:
     - uses: actions/download-artifact@v2
