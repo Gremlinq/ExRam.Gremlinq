@@ -12,6 +12,19 @@ on:
 
 jobs:
 
+  build:
+    if: ${{ github.event_name == 'pull_request' }}
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        submodules: 'true'
+
+    - name: Build
+      run: dotnet build ./${{ github.event.repository.name }}.sln -c Release
+
   pack:
     if: ${{ github.event_name == 'push' }}
     runs-on: ubuntu-latest
