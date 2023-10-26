@@ -9,14 +9,16 @@ namespace ExRam.Gremlinq.Core
 {
     public static class GremlinqOption
     {
-        public static readonly GremlinqOption<Traversal> VertexPropertyProjectionSteps = new(Traversal.Empty.Push(
+        public static GremlinqOption<TValue> Create<TValue>(TValue defaultValue) => GremlinqOption<TValue>.Create(defaultValue);
+
+        public static readonly GremlinqOption<Traversal> VertexPropertyProjectionSteps = Create(Traversal.Empty.Push(
             new ProjectStep(ImmutableArray.Create("id", "label", "value", "properties")),
             new ProjectStep.ByKeyStep(T.Id),
             new ProjectStep.ByKeyStep(T.Label),
             new ProjectStep.ByKeyStep(T.Value),
             new ProjectStep.ByTraversalStep(new ValueMapStep(ImmutableArray<string>.Empty))));
 
-        public static readonly GremlinqOption<Traversal> VertexProjectionSteps = new(Traversal.Empty.Push(
+        public static readonly GremlinqOption<Traversal> VertexProjectionSteps = Create(Traversal.Empty.Push(
             new ProjectStep(ImmutableArray.Create("id", "label", "properties")),
             new ProjectStep.ByKeyStep(T.Id),
             new ProjectStep.ByKeyStep(T.Label),
@@ -27,7 +29,7 @@ namespace ExRam.Gremlinq.Core
                 new GroupStep.ByTraversalStep(VertexPropertyProjectionSteps.DefaultValue.Push(
                     FoldStep.Instance))))));
 
-        public static readonly GremlinqOption<Traversal> VertexProjectionWithoutMetaPropertiesSteps = new(Traversal.Empty.Push(
+        public static readonly GremlinqOption<Traversal> VertexProjectionWithoutMetaPropertiesSteps = Create(Traversal.Empty.Push(
             new ProjectStep(ImmutableArray.Create("id", "label", "properties")),
             new ProjectStep.ByKeyStep(T.Id),
             new ProjectStep.ByKeyStep(T.Label),
@@ -42,19 +44,19 @@ namespace ExRam.Gremlinq.Core
                     new ProjectStep.ByKeyStep(T.Value),
                     FoldStep.Instance))))));
 
-        public static readonly GremlinqOption<Traversal> VertexPropertyProjectionWithoutMetaPropertiesSteps = new(Traversal.Empty.Push(
+        public static readonly GremlinqOption<Traversal> VertexPropertyProjectionWithoutMetaPropertiesSteps = Create(Traversal.Empty.Push(
             new ProjectStep(ImmutableArray.Create("id", "label", "value")),
             new ProjectStep.ByKeyStep(T.Id),
             new ProjectStep.ByKeyStep(T.Label),
             new ProjectStep.ByKeyStep(T.Value)));
 
-        public static readonly GremlinqOption<Traversal> EdgeProjectionSteps = new(Traversal.Empty.Push(
+        public static readonly GremlinqOption<Traversal> EdgeProjectionSteps = Create(Traversal.Empty.Push(
             new ProjectStep(ImmutableArray.Create("id", "label", "properties")),
             new ProjectStep.ByKeyStep(T.Id),
             new ProjectStep.ByKeyStep(T.Label),
             new ProjectStep.ByTraversalStep(new ValueMapStep(ImmutableArray<string>.Empty))));
 
-        public static readonly GremlinqOption<Traversal> EmptyProjectionProtectionDecoratorSteps = new(Traversal.Empty.Push(
+        public static readonly GremlinqOption<Traversal> EmptyProjectionProtectionDecoratorSteps = Create(Traversal.Empty.Push(
             new MapStep(Traversal.Empty.Push(
                 UnfoldStep.Instance,
                 GroupStep.Instance,
@@ -63,7 +65,7 @@ namespace ExRam.Gremlinq.Core
                     new SelectColumnStep(Column.Values),
                     UnfoldStep.Instance))))));
 
-        public static readonly GremlinqOption<IImmutableDictionary<T, SerializationBehaviour>> TSerializationBehaviourOverrides = new(
+        public static readonly GremlinqOption<IImmutableDictionary<T, SerializationBehaviour>> TSerializationBehaviourOverrides = Create<IImmutableDictionary<T, SerializationBehaviour>>(
             new Dictionary<T, SerializationBehaviour>
             {
                 { T.Key, SerializationBehaviour.IgnoreOnUpdate },
@@ -73,31 +75,33 @@ namespace ExRam.Gremlinq.Core
             }
             .ToImmutableDictionary());
 
-        public static readonly GremlinqOption<string> Alias = new("g");
+        public static readonly GremlinqOption<string> Alias = Create("g");
 
-        public static readonly GremlinqOption<bool> EnableEmptyProjectionValueProtection = new (false);
+        public static readonly GremlinqOption<bool> EnableEmptyProjectionValueProtection = Create(false);
 
-        public static readonly GremlinqOption<Func<StepLabel, Projection>> StepLabelProjectionFallback = new(
+        public static readonly GremlinqOption<Func<StepLabel, Projection>> StepLabelProjectionFallback = Create<Func<StepLabel, Projection>>(
             static _ => throw new InvalidOperationException($"Invalid use of unknown {nameof(StepLabel)} in {nameof(IGremlinQueryBase.Select)}. Make sure you only pass in a {nameof(StepLabel)} that comes from a previous {nameof(IGremlinQuery<int>.As)}, {nameof(IGremlinQuery<int>.Aggregate)} or {nameof(IGremlinQuerySource.WithSideEffect)}-continuation or has previously been passed to an appropriate overload of {nameof(IGremlinQuery<int>.As)}, {nameof(IGremlinQuery<int>.Aggregate)} or {nameof(IGremlinQuerySource.WithSideEffect)}."));
 
-        public static readonly GremlinqOption<FilterLabelsVerbosity> FilterLabelsVerbosity = new(Core.FilterLabelsVerbosity.Maximum);
-        public static readonly GremlinqOption<DisabledTextPredicates> DisabledTextPredicates = new(Core.DisabledTextPredicates.None);
-        public static readonly GremlinqOption<StringComparisonTranslationStrictness> StringComparisonTranslationStrictness = new(Core.StringComparisonTranslationStrictness.Strict);
+        public static readonly GremlinqOption<FilterLabelsVerbosity> FilterLabelsVerbosity = Create(Core.FilterLabelsVerbosity.Maximum);
+        public static readonly GremlinqOption<DisabledTextPredicates> DisabledTextPredicates = Create(Core.DisabledTextPredicates.None);
+        public static readonly GremlinqOption<StringComparisonTranslationStrictness> StringComparisonTranslationStrictness = Create(Core.StringComparisonTranslationStrictness.Strict);
 
-        public static readonly GremlinqOption<LogLevel> QueryLogLogLevel = new(LogLevel.Debug);
-        public static readonly GremlinqOption<QueryLogFormatting> QueryLogFormatting = new(Core.QueryLogFormatting.None);
-        public static readonly GremlinqOption<QueryLogVerbosity> QueryLogVerbosity = new(Core.QueryLogVerbosity.QueryOnly);
+        public static readonly GremlinqOption<LogLevel> QueryLogLogLevel = Create(LogLevel.Debug);
+        public static readonly GremlinqOption<QueryLogFormatting> QueryLogFormatting = Create(Core.QueryLogFormatting.None);
+        public static readonly GremlinqOption<QueryLogVerbosity> QueryLogVerbosity = Create(Core.QueryLogVerbosity.QueryOnly);
 
-        public static readonly GremlinqOption<bool> PreferGroovySerialization = new(false);
+        public static readonly GremlinqOption<bool> PreferGroovySerialization = Create(false);
     }
 
-    public class GremlinqOption<TValue>
+    public sealed class GremlinqOption<TValue>
     {
-        public GremlinqOption(TValue defaultValue)
+        private GremlinqOption(TValue defaultValue)
         {
             DefaultValue = defaultValue;
         }
 
         public TValue DefaultValue { get; }
+
+        internal static GremlinqOption<TValue> Create(TValue defaultValue) => new(defaultValue);
     }
 }
