@@ -1,6 +1,8 @@
 ﻿using System.Reflection;
 
-namespace ExRam.Gremlinq.Core.Models
+using ExRam.Gremlinq.Core.Models;
+
+namespace ExRam.Gremlinq.Core
 {
     internal static class GraphElementModelExtensions
     {

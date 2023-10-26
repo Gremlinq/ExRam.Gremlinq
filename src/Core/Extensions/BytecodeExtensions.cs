@@ -1,6 +1,8 @@
-﻿using Gremlin.Net.Process.Traversal;
+﻿using ExRam.Gremlinq.Core.Serialization;
 
-namespace ExRam.Gremlinq.Core.Serialization
+using Gremlin.Net.Process.Traversal;
+
+namespace ExRam.Gremlinq.Core
 {
     public static class BytecodeExtensions
     {

@@ -11,6 +11,7 @@ using FluentAssertions;
 using ExRam.Gremlinq.Tests.Infrastructure;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Tests.Fixtures;
+using ExRam.Gremlinq.Support.NewtonsoftJson;
 using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Tests.TestCases

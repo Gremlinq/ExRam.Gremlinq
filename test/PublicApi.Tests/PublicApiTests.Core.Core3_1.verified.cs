@@ -1,12 +1,9 @@
-﻿namespace ExRam.Gremlinq.Core.Deserialization
+﻿namespace ExRam.Gremlinq.Core
 {
-    public static class Deserializer
+    public static class BytecodeExtensions
     {
-        public static readonly ExRam.Gremlinq.Core.Transformation.ITransformer Default;
+        public static ExRam.Gremlinq.Core.Serialization.GroovyGremlinQuery ToGroovy(this Gremlin.Net.Process.Traversal.Bytecode bytecode, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, bool includeBindings = true) { }
     }
-}
-namespace ExRam.Gremlinq.Core
-{
     [System.Flags]
     public enum DisabledTextPredicates
     {
@@ -1082,6 +1079,37 @@ namespace ExRam.Gremlinq.Core
         Strict = 0,
         Lenient = 1,
     }
+    public static class TransformerClassExtensions
+    {
+        public static ExRam.Gremlinq.Core.TransformerClassExtensions.TryTransformToBuilder<TTarget> TryTransformTo<TTarget>(this ExRam.Gremlinq.Core.Transformation.ITransformer transformer)
+            where TTarget :  class { }
+        public readonly struct TryTransformToBuilder<TTarget>
+            where TTarget :  class
+        {
+            public TryTransformToBuilder(ExRam.Gremlinq.Core.Transformation.ITransformer transformer) { }
+            public TTarget? From<TSource>(TSource source, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
+        }
+    }
+    public static class TransformerExtensions
+    {
+        public static ExRam.Gremlinq.Core.TransformerExtensions.TransformToBuilder<TTarget> TransformTo<TTarget>(this ExRam.Gremlinq.Core.Transformation.ITransformer transformer) { }
+        public readonly struct TransformToBuilder<TTarget>
+        {
+            public TransformToBuilder(ExRam.Gremlinq.Core.Transformation.ITransformer transformer) { }
+            public TTarget From<TSource>(TSource source, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
+        }
+    }
+    public static class TransformerStructExtensions
+    {
+        public static ExRam.Gremlinq.Core.TransformerStructExtensions.TryTransformToBuilder<TTarget> TryTransformTo<TTarget>(this ExRam.Gremlinq.Core.Transformation.ITransformer transformer)
+            where TTarget :  struct { }
+        public readonly struct TryTransformToBuilder<TTarget>
+            where TTarget :  struct
+        {
+            public TryTransformToBuilder(ExRam.Gremlinq.Core.Transformation.ITransformer transformer) { }
+            public TTarget? From<TSource>(TSource source, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
+        }
+    }
     public readonly struct Traversal
     {
         public static readonly ExRam.Gremlinq.Core.Traversal Empty;
@@ -1177,6 +1205,13 @@ namespace ExRam.Gremlinq.Core
         DoubleValues = 16777216,
         IntegerValues = 33554432,
         All = 67108863,
+    }
+}
+namespace ExRam.Gremlinq.Core.Deserialization
+{
+    public static class Deserializer
+    {
+        public static readonly ExRam.Gremlinq.Core.Transformation.ITransformer Default;
     }
 }
 namespace ExRam.Gremlinq.Core.Execution
@@ -1539,10 +1574,6 @@ namespace ExRam.Gremlinq.Core.Projections
 }
 namespace ExRam.Gremlinq.Core.Serialization
 {
-    public static class BytecodeExtensions
-    {
-        public static ExRam.Gremlinq.Core.Serialization.GroovyGremlinQuery ToGroovy(this Gremlin.Net.Process.Traversal.Bytecode bytecode, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, bool includeBindings = true) { }
-    }
     public readonly struct GroovyExpression
     {
         public string Identifier { get; }
@@ -2204,36 +2235,5 @@ namespace ExRam.Gremlinq.Core.Transformation
     public static class Transformer
     {
         public static readonly ExRam.Gremlinq.Core.Transformation.ITransformer Empty;
-    }
-    public static class TransformerClassExtensions
-    {
-        public static ExRam.Gremlinq.Core.Transformation.TransformerClassExtensions.TryTransformToBuilder<TTarget> TryTransformTo<TTarget>(this ExRam.Gremlinq.Core.Transformation.ITransformer transformer)
-            where TTarget :  class { }
-        public readonly struct TryTransformToBuilder<TTarget>
-            where TTarget :  class
-        {
-            public TryTransformToBuilder(ExRam.Gremlinq.Core.Transformation.ITransformer transformer) { }
-            public TTarget? From<TSource>(TSource source, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
-        }
-    }
-    public static class TransformerExtensions
-    {
-        public static ExRam.Gremlinq.Core.Transformation.TransformerExtensions.TransformToBuilder<TTarget> TransformTo<TTarget>(this ExRam.Gremlinq.Core.Transformation.ITransformer transformer) { }
-        public readonly struct TransformToBuilder<TTarget>
-        {
-            public TransformToBuilder(ExRam.Gremlinq.Core.Transformation.ITransformer transformer) { }
-            public TTarget From<TSource>(TSource source, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
-        }
-    }
-    public static class TransformerStructExtensions
-    {
-        public static ExRam.Gremlinq.Core.Transformation.TransformerStructExtensions.TryTransformToBuilder<TTarget> TryTransformTo<TTarget>(this ExRam.Gremlinq.Core.Transformation.ITransformer transformer)
-            where TTarget :  struct { }
-        public readonly struct TryTransformToBuilder<TTarget>
-            where TTarget :  struct
-        {
-            public TryTransformToBuilder(ExRam.Gremlinq.Core.Transformation.ITransformer transformer) { }
-            public TTarget? From<TSource>(TSource source, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
-        }
     }
 }

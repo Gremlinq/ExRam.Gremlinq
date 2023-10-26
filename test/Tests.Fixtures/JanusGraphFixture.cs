@@ -2,6 +2,9 @@
 using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Providers.Core;
 using ExRam.Gremlinq.Tests.Entities;
+using ExRam.Gremlinq.Providers.JanusGraph;
+using ExRam.Gremlinq.Support.NewtonsoftJson;
+using ExRam.Gremlinq.Tests.Infrastructure;
 
 namespace ExRam.Gremlinq.Tests.Fixtures
 {

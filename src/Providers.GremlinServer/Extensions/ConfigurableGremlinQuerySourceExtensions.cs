@@ -1,9 +1,10 @@
-﻿using ExRam.Gremlinq.Core.Models;
+﻿using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Providers.Core;
 using ExRam.Gremlinq.Providers.GremlinServer;
-using Gremlin.Net.Driver;
+using _GremlinServer = Gremlin.Net.Driver.GremlinServer;
 
-namespace ExRam.Gremlinq.Core
+namespace ExRam.Gremlinq.Providers.GremlinServer
 {
     public static class ConfigurableGremlinQuerySourceExtensions
     {
@@ -22,7 +23,7 @@ namespace ExRam.Gremlinq.Core
 
             public IGremlinServerConfigurator ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> transformation) => new GremlinServerConfigurator(_webSocketConfigurator.ConfigureQuerySource(transformation));
 
-            public IGremlinServerConfigurator ConfigureServer(Func<GremlinServer, GremlinServer> transformation) => new GremlinServerConfigurator(_webSocketConfigurator.ConfigureServer(transformation));
+            public IGremlinServerConfigurator ConfigureServer(Func<_GremlinServer, _GremlinServer> transformation) => new GremlinServerConfigurator(_webSocketConfigurator.ConfigureServer(transformation));
 
             public IGremlinQuerySource Transform(IGremlinQuerySource source) => _webSocketConfigurator.Transform(source);
         }

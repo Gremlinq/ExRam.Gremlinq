@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace System
+namespace ExRam.Gremlinq.Core
 {
     internal static class TypeExtensions
     {

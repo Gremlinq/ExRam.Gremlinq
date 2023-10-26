@@ -1,7 +1,10 @@
 ﻿using ExRam.Gremlinq.Core.Steps;
+
+using Gremlin.Net.Process.Traversal;
+
 using _Step = ExRam.Gremlinq.Core.Steps.Step;
 
-namespace Gremlin.Net.Process.Traversal
+namespace ExRam.Gremlinq.Core
 {
     internal static class TExtensions
     {
