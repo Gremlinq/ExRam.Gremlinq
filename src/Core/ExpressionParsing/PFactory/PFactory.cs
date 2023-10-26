@@ -129,6 +129,6 @@ namespace ExRam.Gremlinq.Core.ExpressionParsing
 
         public static IPFactory Override(this IPFactory originalFactory, IPFactory overrideFactory) => new OverridePFactory(originalFactory, overrideFactory);
 
-        public static readonly GremlinqOption<IPFactory> PFactoryOption = new(Default);
+        public static readonly GremlinqOption<IPFactory> PFactoryOption = GremlinqOption.Create(Default);
     }
 }
