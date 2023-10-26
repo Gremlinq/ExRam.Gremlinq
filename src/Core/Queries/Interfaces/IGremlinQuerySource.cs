@@ -8,14 +8,6 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuerySource ConfigureMetadata(Func<IImmutableDictionary<object, object?>, IImmutableDictionary<object, object?>> metadataTransformation);
 
-        IGremlinQuerySource WithStrategy<TStrategy>(Func<IGremlinQuerySource, TStrategy> factory)
-            where TStrategy : IGremlinQueryStrategy;
-
-        IGremlinQuerySource WithStrategy<TStrategy>(TStrategy strategy)
-            where TStrategy : IGremlinQueryStrategy;
-
-        IGremlinQuerySource WithoutStrategies(params Type[] strategyTypes);
-
         IGremlinQuerySource WithSideEffect<TSideEffect>(StepLabel<TSideEffect> label, TSideEffect value);
 
         TQuery WithSideEffect<TSideEffect, TQuery>(TSideEffect value, Func<IGremlinQuerySource, StepLabel<TSideEffect>, TQuery> continuation)

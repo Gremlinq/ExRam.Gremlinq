@@ -263,22 +263,6 @@ namespace ExRam.Gremlinq.Core.Serialization
                                 AddStep(hasPredicateStep1, byteCode, isSourceStep, env, recurse);
                                 i = j - 1;
                             }
-                            else if (step is WithoutStrategiesStep withoutStrategiesStep1)
-                            {
-                                for (; j < steps.Length; j++)
-                                {
-                                    if (steps[j] is WithoutStrategiesStep withoutStrategiesStep2)
-                                    {
-                                        withoutStrategiesStep1 = new WithoutStrategiesStep(withoutStrategiesStep1.StrategyTypes.Concat(withoutStrategiesStep2.StrategyTypes).Distinct().ToImmutableArray());
-                                        continue;
-                                    }
-
-                                    break;
-                                }
-
-                                AddStep(withoutStrategiesStep1, byteCode, isSourceStep, env, recurse);
-                                i = j - 1;
-                            }
                             else if (step is InjectStep { Elements.Length: 1 } && i == 0 && steps.Length > 1 && (steps[1] is VStep || steps[1] is EStep))
                                 continue;
                             else
@@ -577,9 +561,7 @@ namespace ExRam.Gremlinq.Core.Serialization
             .Add<ValuesStep>((step, env, _, recurse) => CreateInstruction("values", recurse, env, step.Keys))
             .Add<VStep>((step, env, _, recurse) => CreateInstruction("V", recurse, env, step.Ids))
             .Add<WhereTraversalStep>((step, env, _, recurse) => CreateInstruction("where", recurse, env, step.Traversal))
-            .Add<WithoutStrategiesStep>((step, env, _, recurse) => CreateInstruction("withoutStrategies", recurse, env, step.StrategyTypes))
             .Add<WithSideEffectStep>((step, env, _, recurse) => CreateInstruction("withSideEffect", recurse, env, step.Label, step.Value))
-            .Add<WithStrategiesStep>((step, env, _, recurse) => throw new NotSupportedException($"{nameof(WithStrategiesStep)} is not supported."))
             .Add<WherePredicateStep>((step, env, _, recurse) => CreateInstruction("where", recurse, env, step.Predicate))
             .Add<WherePredicateStep.ByMemberStep>((step, env, _, recurse) => step.Key is { } key
                 ? CreateInstruction("by", recurse, env, key)

@@ -970,30 +970,10 @@
     }
   },
   {
-    Item1: WithoutStrategiesStep,
-    Item2: {
-      StrategyTypes: [
-        object,
-        object,
-        object
-      ]
-    }
-  },
-  {
     Item1: WithSideEffectStep,
     Item2: {
       Value: string,
       Label: {}
-    }
-  },
-  {
-    Item1: WithStrategiesStep,
-    Item2: {
-      Strategies: [
-        {},
-        {},
-        {}
-      ]
     }
   }
 ]

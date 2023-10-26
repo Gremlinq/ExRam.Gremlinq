@@ -53,15 +53,9 @@ namespace ExRam.Gremlinq.Tests.Fixtures
 
             IVertexGremlinQuery<TVertex> IStartGremlinQuery.V<TVertex>(params object[] ids) => _baseSource.V<TVertex>(ids);
 
-            IGremlinQuerySource IGremlinQuerySource.WithoutStrategies(params Type[] strategyTypes) => _baseSource.WithoutStrategies(strategyTypes);
-
             IGremlinQuerySource IGremlinQuerySource.WithSideEffect<TSideEffect>(StepLabel<TSideEffect> label, TSideEffect value) => _baseSource.WithSideEffect(label, value);
 
             TQuery IGremlinQuerySource.WithSideEffect<TSideEffect, TQuery>(TSideEffect value, Func<IGremlinQuerySource, StepLabel<TSideEffect>, TQuery> continuation) => _baseSource.WithSideEffect(value, continuation);
-
-            IGremlinQuerySource IGremlinQuerySource.WithStrategy<TStrategy>(Func<IGremlinQuerySource, TStrategy> factory) => _baseSource.WithStrategy(factory);
-
-            IGremlinQuerySource IGremlinQuerySource.WithStrategy<TStrategy>(TStrategy strategy) => _baseSource.WithStrategy(strategy);
 
             IGremlinQuerySource IGremlinQuerySource.ConfigureMetadata(Func<IImmutableDictionary<object, object?>, IImmutableDictionary<object, object?>> metadataTransformation) => _baseSource.ConfigureMetadata(metadataTransformation);
 
