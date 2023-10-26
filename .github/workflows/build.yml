@@ -23,7 +23,7 @@ jobs:
         submodules: 'true'
 
     - name: Build
-      run: dotnet build ./${{ github.event.repository.name }}.sln -c Release
+      run: dotnet build ./${{ github.event.repository.name }}.sln -c Release -p:IsPackable=false
 
   pack:
     if: ${{ github.event_name == 'push' }}
