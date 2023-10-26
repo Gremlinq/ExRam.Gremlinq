@@ -6,9 +6,9 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class GremlinqOptionsImpl : IGremlinqOptions
         {
-            private readonly IImmutableDictionary<IGremlinqOption, object> _dictionary;
+            private readonly IImmutableDictionary<object, object> _dictionary;
 
-            public GremlinqOptionsImpl(IImmutableDictionary<IGremlinqOption, object> dictionary)
+            public GremlinqOptionsImpl(IImmutableDictionary<object, object> dictionary)
             {
                 _dictionary = dictionary;
             }
@@ -19,7 +19,7 @@ namespace ExRam.Gremlinq.Core
                     ? (TValue)value
                     : option.DefaultValue;
 
-            public bool Contains(IGremlinqOption option) => _dictionary
+            public bool Contains<TValue>(GremlinqOption<TValue> option) => _dictionary
                 .Fast()
                 .ContainsKey(option);
 
@@ -32,9 +32,9 @@ namespace ExRam.Gremlinq.Core
 
             public IGremlinqOptions SetValue<TValue>(GremlinqOption<TValue> option, TValue value) => new GremlinqOptionsImpl(_dictionary.SetItem(option, value!));
 
-            public IGremlinqOptions Remove(IGremlinqOption option) => new GremlinqOptionsImpl(_dictionary.Remove(option));
+            public IGremlinqOptions Remove<TValue>(GremlinqOption<TValue> option) => new GremlinqOptionsImpl(_dictionary.Remove(option));
         }
 
-        public static readonly IGremlinqOptions Empty = new GremlinqOptionsImpl(ImmutableDictionary<IGremlinqOption, object>.Empty);
+        public static readonly IGremlinqOptions Empty = new GremlinqOptionsImpl(ImmutableDictionary<object, object>.Empty);
     }
 }
