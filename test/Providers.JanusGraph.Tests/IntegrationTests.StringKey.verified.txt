@@ -1,1 +1,12 @@
-﻿[]
+﻿[
+  {
+    "serverException": {
+      "type": "GremlinQueryExecutionException",
+      "message": "Executing query 00000000-0000-0000-0000-000000000000 failed.",
+      "innerException": {
+        "type": "ResponseException",
+        "message": "ServerError: For input string: \"id\""
+      }
+    }
+  }
+]

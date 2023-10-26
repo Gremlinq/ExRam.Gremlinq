@@ -5,7 +5,7 @@
       "message": "Executing query 00000000-0000-0000-0000-000000000000 failed.",
       "innerException": {
         "type": "ResponseException",
-        "message": "ServerSerializationError: Could not locate method: DefaultGraphTraversal.fail()"
+        "message": "ServerErrorFailStep: fail() step triggered"
       }
     }
   }
