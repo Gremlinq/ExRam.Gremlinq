@@ -29,7 +29,7 @@ namespace ExRam.Gremlinq.Core
             return stringBuilder.ToString();
         }
 
-        public static GroovyGremlinQuery ToGroovyGremlinQuery(Bytecode bytecode, IGremlinQueryEnvironment environment, bool includeBindings)
+        public static GroovyGremlinScript ToGroovyGremlinQuery(Bytecode bytecode, IGremlinQueryEnvironment environment, bool includeBindings)
         {
             var stringBuilder = new StringBuilder();
             var bindings = new Dictionary<object, Label>();
@@ -37,7 +37,7 @@ namespace ExRam.Gremlinq.Core
 
             groovyWriter.Append(bytecode, stringBuilder, bindings, environment);
 
-            return new GroovyGremlinQuery(
+            return new GroovyGremlinScript(
                 stringBuilder.ToString(),
                 includeBindings
                     ? bindings.ToDictionary(static kvp => (string)kvp.Value, static kvp => kvp.Key)

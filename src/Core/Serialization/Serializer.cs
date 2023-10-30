@@ -93,7 +93,7 @@ namespace ExRam.Gremlinq.Core.Serialization
             .AddDefaultStepConverters();
 
         private static ITransformer AddBaseConverters(this ITransformer serializer) => serializer
-            .Add(Chain<IGremlinQueryBase, Bytecode, GroovyGremlinQuery>())
+            .Add(Chain<IGremlinQueryBase, Bytecode, GroovyGremlinScript>())
             .Add(Chain<IGremlinQueryBase, Bytecode, RequestMessage>())
             .Add(Chain<IGremlinQueryBase, Traversal, Bytecode>())
 
@@ -274,9 +274,9 @@ namespace ExRam.Gremlinq.Core.Serialization
                         .Apply(byteCode => AddTraversal(traversal, byteCode, env, recurse));
                 }))
             .Add(ConverterFactory
-                .Create<Bytecode, GroovyGremlinQuery>((query, env, _, _) => query.ToGroovy(env)))
+                .Create<Bytecode, GroovyGremlinScript>((query, env, _, _) => query.ToGroovy(env)))
             .Add(ConverterFactory
-                .Create<GroovyGremlinQuery, RequestMessage>((query, env, _, _) => RequestMessage
+                .Create<GroovyGremlinScript, RequestMessage>((query, env, _, _) => RequestMessage
                     .Build(Tokens.OpsEval)
                     .AddArgument(Tokens.ArgsGremlin, query.Script)
                     .AddArgument(Tokens.ArgsBindings, query.Bindings)
@@ -294,7 +294,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                 {
                     if (env.Options.GetValue(GremlinqOption.PreferGroovySerialization))
                     {
-                        if (recurse.TryTransform(bytecode, env, out GroovyGremlinQuery groovyQuery))
+                        if (recurse.TryTransform(bytecode, env, out GroovyGremlinScript groovyQuery))
                         {
                             if (recurse.TryTransform(groovyQuery, env, out RequestMessage? message))
                             {
