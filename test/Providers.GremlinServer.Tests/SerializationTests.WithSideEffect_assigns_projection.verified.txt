@@ -24,6 +24,9 @@
       ]
     },
     {
+      OperatorName: fold
+    },
+    {
       OperatorName: select,
       Arguments: [
         _a

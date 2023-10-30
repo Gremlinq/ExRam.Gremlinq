@@ -1,1 +1,1 @@
-﻿g.V().hasLabel('Person').coalesce(__.aggregate('_a'),__.aggregate('_b')).project('Item1','Item2').by(__.select('_a')).by(__.select('_b'))
+﻿g.V().hasLabel('Person').coalesce(__.aggregate('_a'),__.aggregate('_b')).fold().project('Item1','Item2').by(__.select('_a')).by(__.select('_b'))

@@ -1,1 +1,1 @@
-﻿g.inject(36,37,38).V()
+﻿g.inject(36,37,38).V().hasLabel('Person')

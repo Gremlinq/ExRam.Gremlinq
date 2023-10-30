@@ -1,11 +1,9 @@
 ﻿[
   {
-    CountryCallingCode: +49,
     Id: 00000000-0000-0000-0000-000000000000,
     Label: Country
   },
   {
-    IetfLanguageTag: en,
     Id: 00000000-0000-0000-0000-000000000000,
     Label: Language
   },
@@ -59,12 +57,10 @@
     Label: Company
   },
   {
-    IetfLanguageTag: en,
     Id: 00000000-0000-0000-0000-000000000000,
     Label: Language
   },
   {
-    CountryCallingCode: +49,
     Id: 00000000-0000-0000-0000-000000000000,
     Label: Country
   },
@@ -86,7 +82,6 @@
     Label: Company
   },
   {
-    IetfLanguageTag: en,
     Id: 00000000-0000-0000-0000-000000000000,
     Label: Language
   },
@@ -95,14 +90,10 @@
     Label: Language
   },
   {
-    Enabled: false,
-    StartTime: 08:00:00,
-    Duration: 02:00:00,
     Id: 00000000-0000-0000-0000-000000000000,
     Label: TimeFrame
   },
   {
-    IetfLanguageTag: en,
     Id: 00000000-0000-0000-0000-000000000000,
     Label: Language
   },
@@ -126,7 +117,6 @@
     Label: Person
   },
   {
-    IetfLanguageTag: en,
     Id: 00000000-0000-0000-0000-000000000000,
     Label: Language
   },
@@ -135,17 +125,16 @@
     Label: Language
   },
   {
-    Locations: [
-      {
-        Id: 00000000-0000-0000-0000-000000000000,
-        Properties: {
-          ValidFrom: 2019-01-01 01:00 +0
-        },
-        Value: Aachen
-      }
-    ],
     Id: 00000000-0000-0000-0000-000000000000,
     Label: Company
+  },
+  {
+    Name: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Value: GER
+    },
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Country
   },
   {
     Name: {
@@ -157,21 +146,17 @@
     Label: Country
   },
   {
-    Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Properties: {
-        de: Deutschland,
-        en: Germany
-      },
-      Value: GER
-    },
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
-  },
-  {
     PhoneNumbers: [
-      +4912345,
-      +4923456
+      {
+        Id: 00000000-0000-0000-0000-000000000000,
+        Properties: {},
+        Value: +4912345
+      },
+      {
+        Id: 00000000-0000-0000-0000-000000000000,
+        Properties: {},
+        Value: +4923456
+      }
     ],
     Id: 00000000-0000-0000-0000-000000000000,
     Label: Company
@@ -185,12 +170,10 @@
     Label: Language
   },
   {
-    CountryCallingCode: +49,
     Id: 00000000-0000-0000-0000-000000000000,
     Label: Country
   },
   {
-    IetfLanguageTag: en,
     Id: 00000000-0000-0000-0000-000000000000,
     Label: Language
   },
@@ -244,12 +227,10 @@
     Label: Company
   },
   {
-    IetfLanguageTag: en,
     Id: 00000000-0000-0000-0000-000000000000,
     Label: Language
   },
   {
-    CountryCallingCode: +49,
     Id: 00000000-0000-0000-0000-000000000000,
     Label: Country
   },
@@ -271,7 +252,6 @@
     Label: Company
   },
   {
-    IetfLanguageTag: en,
     Id: 00000000-0000-0000-0000-000000000000,
     Label: Language
   },
@@ -280,14 +260,10 @@
     Label: Language
   },
   {
-    Enabled: false,
-    StartTime: 08:00:00,
-    Duration: 02:00:00,
     Id: 00000000-0000-0000-0000-000000000000,
     Label: TimeFrame
   },
   {
-    IetfLanguageTag: en,
     Id: 00000000-0000-0000-0000-000000000000,
     Label: Language
   },
@@ -311,7 +287,6 @@
     Label: Person
   },
   {
-    IetfLanguageTag: en,
     Id: 00000000-0000-0000-0000-000000000000,
     Label: Language
   },
@@ -320,17 +295,16 @@
     Label: Language
   },
   {
-    Locations: [
-      {
-        Id: 00000000-0000-0000-0000-000000000000,
-        Properties: {
-          ValidFrom: 2019-01-01 01:00 +0
-        },
-        Value: Aachen
-      }
-    ],
     Id: 00000000-0000-0000-0000-000000000000,
     Label: Company
+  },
+  {
+    Name: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Value: GER
+    },
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Country
   },
   {
     Name: {
@@ -342,21 +316,17 @@
     Label: Country
   },
   {
-    Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Properties: {
-        de: Deutschland,
-        en: Germany
-      },
-      Value: GER
-    },
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
-  },
-  {
     PhoneNumbers: [
-      +4912345,
-      +4923456
+      {
+        Id: 00000000-0000-0000-0000-000000000000,
+        Properties: {},
+        Value: +4912345
+      },
+      {
+        Id: 00000000-0000-0000-0000-000000000000,
+        Properties: {},
+        Value: +4923456
+      }
     ],
     Id: 00000000-0000-0000-0000-000000000000,
     Label: Company
@@ -370,12 +340,10 @@
     Label: Language
   },
   {
-    CountryCallingCode: +49,
     Id: 00000000-0000-0000-0000-000000000000,
     Label: Country
   },
   {
-    IetfLanguageTag: en,
     Id: 00000000-0000-0000-0000-000000000000,
     Label: Language
   },
@@ -429,12 +397,10 @@
     Label: Company
   },
   {
-    IetfLanguageTag: en,
     Id: 00000000-0000-0000-0000-000000000000,
     Label: Language
   },
   {
-    CountryCallingCode: +49,
     Id: 00000000-0000-0000-0000-000000000000,
     Label: Country
   },
@@ -456,7 +422,6 @@
     Label: Company
   },
   {
-    IetfLanguageTag: en,
     Id: 00000000-0000-0000-0000-000000000000,
     Label: Language
   },
@@ -465,14 +430,10 @@
     Label: Language
   },
   {
-    Enabled: false,
-    StartTime: 08:00:00,
-    Duration: 02:00:00,
     Id: 00000000-0000-0000-0000-000000000000,
     Label: TimeFrame
   },
   {
-    IetfLanguageTag: en,
     Id: 00000000-0000-0000-0000-000000000000,
     Label: Language
   },
@@ -496,7 +457,6 @@
     Label: Person
   },
   {
-    IetfLanguageTag: en,
     Id: 00000000-0000-0000-0000-000000000000,
     Label: Language
   },
@@ -505,17 +465,16 @@
     Label: Language
   },
   {
-    Locations: [
-      {
-        Id: 00000000-0000-0000-0000-000000000000,
-        Properties: {
-          ValidFrom: 2019-01-01 01:00 +0
-        },
-        Value: Aachen
-      }
-    ],
     Id: 00000000-0000-0000-0000-000000000000,
     Label: Company
+  },
+  {
+    Name: {
+      Id: 00000000-0000-0000-0000-000000000000,
+      Value: GER
+    },
+    Id: 00000000-0000-0000-0000-000000000000,
+    Label: Country
   },
   {
     Name: {
@@ -527,21 +486,17 @@
     Label: Country
   },
   {
-    Name: {
-      Id: 00000000-0000-0000-0000-000000000000,
-      Properties: {
-        de: Deutschland,
-        en: Germany
-      },
-      Value: GER
-    },
-    Id: 00000000-0000-0000-0000-000000000000,
-    Label: Country
-  },
-  {
     PhoneNumbers: [
-      +4912345,
-      +4923456
+      {
+        Id: 00000000-0000-0000-0000-000000000000,
+        Properties: {},
+        Value: +4912345
+      },
+      {
+        Id: 00000000-0000-0000-0000-000000000000,
+        Properties: {},
+        Value: +4923456
+      }
     ],
     Id: 00000000-0000-0000-0000-000000000000,
     Label: Company
