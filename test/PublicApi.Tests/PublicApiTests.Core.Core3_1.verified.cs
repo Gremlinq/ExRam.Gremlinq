@@ -2,7 +2,7 @@
 {
     public static class BytecodeExtensions
     {
-        public static ExRam.Gremlinq.Core.Serialization.GroovyGremlinScript ToGroovy(this Gremlin.Net.Process.Traversal.Bytecode bytecode, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, bool includeBindings = true) { }
+        public static ExRam.Gremlinq.Core.Serialization.GroovyGremlinScript ToGroovyScript(this Gremlin.Net.Process.Traversal.Bytecode bytecode, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, bool includeBindings = true) { }
     }
     [System.Flags]
     public enum DisabledTextPredicates

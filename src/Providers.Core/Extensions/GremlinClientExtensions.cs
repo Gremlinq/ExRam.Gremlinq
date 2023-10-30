@@ -97,7 +97,7 @@ namespace ExRam.Gremlinq.Providers.Core
                 {
                     if (environment.Logger.IsEnabled(logLevel))
                     {
-                        if (requestMessage.TryGetGroovyQuery(environment, includeBindings) is { } groovyQuery)
+                        if (requestMessage.TryGetGroovyScript(environment, includeBindings) is { } groovyQuery)
                         {
                             environment.Logger.Log(
                                 logLevel,

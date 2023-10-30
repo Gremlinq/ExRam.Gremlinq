@@ -274,7 +274,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                         .Apply(byteCode => AddTraversal(traversal, byteCode, env, recurse));
                 }))
             .Add(ConverterFactory
-                .Create<Bytecode, GroovyGremlinScript>((query, env, _, _) => query.ToGroovy(env)))
+                .Create<Bytecode, GroovyGremlinScript>((query, env, _, _) => query.ToGroovyScript(env)))
             .Add(ConverterFactory
                 .Create<GroovyGremlinScript, RequestMessage>((query, env, _, _) => RequestMessage
                     .Build(Tokens.OpsEval)

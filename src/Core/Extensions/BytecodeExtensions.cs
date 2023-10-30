@@ -6,6 +6,6 @@ namespace ExRam.Gremlinq.Core
 {
     public static class BytecodeExtensions
     {
-        public static GroovyGremlinScript ToGroovy(this Bytecode bytecode, IGremlinQueryEnvironment environment, bool includeBindings = true) => GroovyWriter.ToGroovyGremlinQuery(bytecode, environment, includeBindings);
+        public static GroovyGremlinScript ToGroovyScript(this Bytecode bytecode, IGremlinQueryEnvironment environment, bool includeBindings = true) => GroovyWriter.ToGroovyScript(bytecode, environment, includeBindings);
     }
 }

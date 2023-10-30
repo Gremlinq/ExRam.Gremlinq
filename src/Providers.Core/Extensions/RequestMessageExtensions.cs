@@ -11,12 +11,12 @@ namespace ExRam.Gremlinq.Providers.Core
 {
     internal static class RequestMessageExtensions
     {
-        public static GroovyGremlinScript? TryGetGroovyQuery(this RequestMessage requestMessage, IGremlinQueryEnvironment environment, bool includeBindings)
+        public static GroovyGremlinScript? TryGetGroovyScript(this RequestMessage requestMessage, IGremlinQueryEnvironment environment, bool includeBindings)
         {
             if (requestMessage.Operation == Tokens.OpsBytecode)
             {
                 if (requestMessage.Arguments.TryGetValue(Tokens.ArgsGremlin, out var bytecodeObject) && bytecodeObject is Bytecode bytecode)
-                    return bytecode.ToGroovy(environment, includeBindings);
+                    return bytecode.ToGroovyScript(environment, includeBindings);
             }
             else if (requestMessage.Operation == Tokens.OpsEval)
             {
