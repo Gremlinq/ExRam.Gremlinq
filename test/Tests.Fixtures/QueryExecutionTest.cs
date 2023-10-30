@@ -4712,6 +4712,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
                 .WithSideEffect(stepLabel, Array.Empty<Person>())
                 .V<Person>()
                 .Aggregate(stepLabel)
+                .Fold()
                 .Select(stepLabel)
                 .Verify();
         }

@@ -38,6 +38,9 @@
       ]
     },
     {
+      OperatorName: fold
+    },
+    {
       OperatorName: select,
       Arguments: [
         _c
