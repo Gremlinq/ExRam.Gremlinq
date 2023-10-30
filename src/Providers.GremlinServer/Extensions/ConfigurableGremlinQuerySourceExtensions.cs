@@ -1,7 +1,7 @@
 ﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Providers.Core;
-using ExRam.Gremlinq.Providers.GremlinServer;
+
 using _GremlinServer = Gremlin.Net.Driver.GremlinServer;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer

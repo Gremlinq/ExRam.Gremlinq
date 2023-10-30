@@ -1,7 +1,8 @@
 ﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Steps;
-using ExRam.Gremlinq.Core.Transformation;
+
 using Gremlin.Net.Process.Traversal;
+
 using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests.Extensions

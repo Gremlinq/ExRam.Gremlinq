@@ -1,7 +1,7 @@
 ﻿using System.Text;
 
 using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Core.Transformation;
+
 using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests

@@ -1,5 +1,4 @@
 ﻿using Gremlin.Net.Structure.IO.GraphSON;
-using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Tests.Infrastructure;
 using System.Runtime.CompilerServices;

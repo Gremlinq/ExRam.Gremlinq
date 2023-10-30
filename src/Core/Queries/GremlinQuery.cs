@@ -3,14 +3,17 @@
 using System.Collections.Immutable;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
+
 using ExRam.Gremlinq.Core.ExpressionParsing;
 using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Core.Projections;
 using ExRam.Gremlinq.Core.Steps;
-using ExRam.Gremlinq.Core.Transformation;
+
 using Gremlin.Net.Process.Traversal;
+
 using Microsoft.Extensions.Logging;
+
 using Path = ExRam.Gremlinq.Core.GraphElements.Path;
 
 namespace ExRam.Gremlinq.Core

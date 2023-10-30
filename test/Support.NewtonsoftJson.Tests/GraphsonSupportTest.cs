@@ -4,7 +4,6 @@ using Newtonsoft.Json.Linq;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Core.GraphElements;
 using Path = ExRam.Gremlinq.Core.GraphElements.Path;
 

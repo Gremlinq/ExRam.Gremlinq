@@ -5,9 +5,10 @@ using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Providers.Core;
-using ExRam.Gremlinq.Providers.CosmosDb;
+
 using Gremlin.Net.Driver;
 using Gremlin.Net.Process.Traversal;
+
 using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb

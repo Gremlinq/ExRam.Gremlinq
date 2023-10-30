@@ -6,7 +6,6 @@ using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Core.Transformation;
-using ExRam.Gremlinq.Support.NewtonsoftJson;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;

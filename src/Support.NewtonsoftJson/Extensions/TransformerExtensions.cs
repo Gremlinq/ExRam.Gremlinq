@@ -1,11 +1,9 @@
 ﻿using System.Collections.Concurrent;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Transformation;
-using ExRam.Gremlinq.Support.NewtonsoftJson;
-using Gremlin.Net.Driver.Messages;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 

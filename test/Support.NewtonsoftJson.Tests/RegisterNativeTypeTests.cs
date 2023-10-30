@@ -1,5 +1,5 @@
-﻿using ExRam.Gremlinq.Core;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
+
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests

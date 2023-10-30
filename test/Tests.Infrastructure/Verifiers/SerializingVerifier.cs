@@ -1,6 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
+
 using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Core.Transformation;
 
 namespace ExRam.Gremlinq.Tests.Infrastructure
 {

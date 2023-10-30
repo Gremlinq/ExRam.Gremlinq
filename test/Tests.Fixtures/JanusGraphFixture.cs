@@ -1,5 +1,4 @@
 ﻿using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Core.Execution;
 using ExRam.Gremlinq.Providers.Core;
 using ExRam.Gremlinq.Tests.Entities;
 using ExRam.Gremlinq.Providers.JanusGraph;

@@ -1,7 +1,7 @@
 ﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Providers.Core;
-using ExRam.Gremlinq.Providers.JanusGraph;
+
 using Gremlin.Net.Driver;
 
 namespace ExRam.Gremlinq.Providers.JanusGraph

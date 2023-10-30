@@ -1,7 +1,8 @@
 ﻿using System.Collections.Immutable;
 using System.Text;
+
 using ExRam.Gremlinq.Core.Serialization;
-using ExRam.Gremlinq.Core.Transformation;
+
 using Gremlin.Net.Process.Traversal;
 using Gremlin.Net.Process.Traversal.Strategy;
 

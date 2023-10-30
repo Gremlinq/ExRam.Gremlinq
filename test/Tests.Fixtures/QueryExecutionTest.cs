@@ -4,8 +4,6 @@ using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Tests.Entities;
-using Gremlin.Net.Process.Traversal.Strategy.Decoration;
-using ExRam.Gremlinq.Core.Transformation;
 using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
 using FluentAssertions;
 using ExRam.Gremlinq.Tests.Infrastructure;
