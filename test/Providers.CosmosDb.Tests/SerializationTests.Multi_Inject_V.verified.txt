@@ -1,8 +1,9 @@
 ﻿{
-  Script: g.inject(_a,_b,_c).V(),
+  Script: g.inject(_a,_b,_c).V().hasLabel(_d),
   Bindings: {
     _a: 36,
     _b: 37,
-    _c: 38
+    _c: 38,
+    _d: Person
   }
 }

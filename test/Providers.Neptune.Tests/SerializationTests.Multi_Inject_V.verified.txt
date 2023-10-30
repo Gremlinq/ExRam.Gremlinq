@@ -12,6 +12,12 @@
       OperatorName: V
     },
     {
+      OperatorName: hasLabel,
+      Arguments: [
+        Person
+      ]
+    },
+    {
       OperatorName: project,
       Arguments: [
         id,

@@ -9,8 +9,9 @@
     bindings: {
       _a: 36,
       _b: 37,
-      _c: 38
+      _c: 38,
+      _d: Person
     },
-    gremlin: g.inject(_a,_b,_c).V()
+    gremlin: g.inject(_a,_b,_c).V().hasLabel(_d)
   }
 }

@@ -40,6 +40,9 @@
             }
           ],
           [
+            "fold"
+          ],
+          [
             "project",
             "Item1",
             "Item2"

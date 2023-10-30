@@ -1,46 +1,37 @@
 ﻿[
   {
-    CountryCallingCode: +49,
     Id: 0,
     Label: Country
   },
   {
-    CountryCallingCode: +49,
     Id: 0,
     Label: Country
   },
   {
-    CountryCallingCode: +49,
     Id: 0,
     Label: Country
   },
   {
-    IetfLanguageTag: en,
     Id: 65,
     Label: Language
   },
   {
-    IetfLanguageTag: en,
     Id: 65,
     Label: Language
   },
   {
-    IetfLanguageTag: en,
     Id: 65,
     Label: Language
   },
   {
-    IetfLanguageTag: en,
     Id: 2,
     Label: Language
   },
   {
-    IetfLanguageTag: en,
     Id: 2,
     Label: Language
   },
   {
-    IetfLanguageTag: en,
     Id: 2,
     Label: Language
   },
@@ -57,44 +48,14 @@
     Label: Language
   },
   {
-    Locations: [
-      {
-        Id: 70,
-        Label: Locations,
-        Properties: {
-          ValidFrom: 2019-01-01 01:00 +0
-        },
-        Value: Aachen
-      }
-    ],
     Id: 68,
     Label: Company
   },
   {
-    Locations: [
-      {
-        Id: 70,
-        Label: Locations,
-        Properties: {
-          ValidFrom: 2019-01-01 01:00 +0
-        },
-        Value: Aachen
-      }
-    ],
     Id: 68,
     Label: Company
   },
   {
-    Locations: [
-      {
-        Id: 70,
-        Label: Locations,
-        Properties: {
-          ValidFrom: 2019-01-01 01:00 +0
-        },
-        Value: Aachen
-      }
-    ],
     Id: 68,
     Label: Company
   },
@@ -126,7 +87,6 @@
     Name: {
       Id: 72,
       Label: Name,
-      Properties: {},
       Value: GER
     },
     Id: 71,
@@ -136,7 +96,6 @@
     Name: {
       Id: 72,
       Label: Name,
-      Properties: {},
       Value: GER
     },
     Id: 71,
@@ -146,7 +105,6 @@
     Name: {
       Id: 72,
       Label: Name,
-      Properties: {},
       Value: GER
     },
     Id: 71,
@@ -156,10 +114,7 @@
     Name: {
       Id: 74,
       Label: Name,
-      Properties: {
-        de: Deutschland,
-        en: Germany
-      },
+      Properties: {},
       Value: GER
     },
     Id: 73,
@@ -169,10 +124,7 @@
     Name: {
       Id: 74,
       Label: Name,
-      Properties: {
-        de: Deutschland,
-        en: Germany
-      },
+      Properties: {},
       Value: GER
     },
     Id: 73,
@@ -182,10 +134,7 @@
     Name: {
       Id: 74,
       Label: Name,
-      Properties: {
-        de: Deutschland,
-        en: Germany
-      },
+      Properties: {},
       Value: GER
     },
     Id: 73,
@@ -223,24 +172,54 @@
   },
   {
     PhoneNumbers: [
-      +4912345,
-      +4923456
+      {
+        Id: 77,
+        Label: PhoneNumbers,
+        Properties: {},
+        Value: +4912345
+      },
+      {
+        Id: 78,
+        Label: PhoneNumbers,
+        Properties: {},
+        Value: +4923456
+      }
     ],
     Id: 75,
     Label: Company
   },
   {
     PhoneNumbers: [
-      +4912345,
-      +4923456
+      {
+        Id: 77,
+        Label: PhoneNumbers,
+        Properties: {},
+        Value: +4912345
+      },
+      {
+        Id: 78,
+        Label: PhoneNumbers,
+        Properties: {},
+        Value: +4923456
+      }
     ],
     Id: 75,
     Label: Company
   },
   {
     PhoneNumbers: [
-      +4912345,
-      +4923456
+      {
+        Id: 77,
+        Label: PhoneNumbers,
+        Properties: {},
+        Value: +4912345
+      },
+      {
+        Id: 78,
+        Label: PhoneNumbers,
+        Properties: {},
+        Value: +4923456
+      }
     ],
     Id: 75,
     Label: Company
@@ -366,32 +345,26 @@
     Label: Person
   },
   {
-    IetfLanguageTag: en,
     Id: 32,
     Label: Language
   },
   {
-    IetfLanguageTag: en,
     Id: 32,
     Label: Language
   },
   {
-    IetfLanguageTag: en,
     Id: 32,
     Label: Language
   },
   {
-    CountryCallingCode: +49,
     Id: 34,
     Label: Country
   },
   {
-    CountryCallingCode: +49,
     Id: 34,
     Label: Country
   },
   {
-    CountryCallingCode: +49,
     Id: 34,
     Label: Country
   },
@@ -450,17 +423,14 @@
     Label: Person
   },
   {
-    IetfLanguageTag: en,
     Id: 47,
     Label: Language
   },
   {
-    IetfLanguageTag: en,
     Id: 47,
     Label: Language
   },
   {
-    IetfLanguageTag: en,
     Id: 47,
     Label: Language
   },
@@ -477,38 +447,26 @@
     Label: Language
   },
   {
-    Enabled: false,
-    StartTime: 08:00:00,
-    Duration: 02:00:00,
     Id: 50,
     Label: TimeFrame
   },
   {
-    Enabled: false,
-    StartTime: 08:00:00,
-    Duration: 02:00:00,
     Id: 50,
     Label: TimeFrame
   },
   {
-    Enabled: false,
-    StartTime: 08:00:00,
-    Duration: 02:00:00,
     Id: 50,
     Label: TimeFrame
   },
   {
-    IetfLanguageTag: en,
     Id: 54,
     Label: Language
   },
   {
-    IetfLanguageTag: en,
     Id: 54,
     Label: Language
   },
   {
-    IetfLanguageTag: en,
     Id: 54,
     Label: Language
   },
