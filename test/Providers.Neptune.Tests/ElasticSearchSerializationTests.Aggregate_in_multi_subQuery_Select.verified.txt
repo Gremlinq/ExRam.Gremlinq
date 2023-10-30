@@ -51,6 +51,9 @@
       ]
     },
     {
+      OperatorName: fold
+    },
+    {
       OperatorName: project,
       Arguments: [
         Item1,

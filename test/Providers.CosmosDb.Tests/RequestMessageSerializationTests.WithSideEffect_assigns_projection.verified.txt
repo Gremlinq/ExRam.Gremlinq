@@ -10,6 +10,6 @@
       _a: _a,
       _c: Person
     },
-    gremlin: g.withSideEffect(_a,_b).V().hasLabel(_c).aggregate(_a).select(_a)
+    gremlin: g.withSideEffect(_a,_b).V().hasLabel(_c).aggregate(_a).fold().select(_a)
   }
 }
