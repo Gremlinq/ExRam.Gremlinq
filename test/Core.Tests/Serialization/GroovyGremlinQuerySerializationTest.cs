@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Core.Tests
     {
         public GroovyGremlinQuerySerializationTest(GroovyGremlinQuerySerializationFixture fixture, ITestOutputHelper testOutputHelper) : base(
             fixture,
-            new SerializingVerifier<GroovyGremlinQuery>(),
+            new SerializingVerifier<GroovyGremlinScript>(),
             testOutputHelper)
         {
         }

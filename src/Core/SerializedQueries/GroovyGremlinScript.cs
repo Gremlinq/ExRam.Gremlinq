@@ -1,11 +1,11 @@
 ﻿namespace ExRam.Gremlinq.Core.Serialization
 {
-    public readonly struct GroovyGremlinQuery
+    public readonly struct GroovyGremlinScript
     {
         private readonly string? _script;
         private readonly IReadOnlyDictionary<string, object>? _bindings;
 
-        public GroovyGremlinQuery(string script, IReadOnlyDictionary<string, object> bindings)
+        public GroovyGremlinScript(string script, IReadOnlyDictionary<string, object> bindings)
         {
             _script = script;
             _bindings = bindings;

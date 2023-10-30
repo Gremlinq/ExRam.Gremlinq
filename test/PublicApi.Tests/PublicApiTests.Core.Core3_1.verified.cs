@@ -2,7 +2,7 @@
 {
     public static class BytecodeExtensions
     {
-        public static ExRam.Gremlinq.Core.Serialization.GroovyGremlinQuery ToGroovy(this Gremlin.Net.Process.Traversal.Bytecode bytecode, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, bool includeBindings = true) { }
+        public static ExRam.Gremlinq.Core.Serialization.GroovyGremlinScript ToGroovy(this Gremlin.Net.Process.Traversal.Bytecode bytecode, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, bool includeBindings = true) { }
     }
     [System.Flags]
     public enum DisabledTextPredicates
@@ -1574,9 +1574,9 @@ namespace ExRam.Gremlinq.Core.Serialization
         public System.Collections.Immutable.ImmutableArray<Gremlin.Net.Process.Traversal.Instruction> Instructions { get; }
         public static ExRam.Gremlinq.Core.Serialization.GroovyExpression From(string identifier, System.Collections.Immutable.ImmutableArray<Gremlin.Net.Process.Traversal.Instruction> instructions) { }
     }
-    public readonly struct GroovyGremlinQuery
+    public readonly struct GroovyGremlinScript
     {
-        public GroovyGremlinQuery(string script, System.Collections.Generic.IReadOnlyDictionary<string, object> bindings) { }
+        public GroovyGremlinScript(string script, System.Collections.Generic.IReadOnlyDictionary<string, object> bindings) { }
         public System.Collections.Generic.IReadOnlyDictionary<string, object> Bindings { get; }
         public string Script { get; }
         public override string ToString() { }

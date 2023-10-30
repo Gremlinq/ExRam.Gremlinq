@@ -11,7 +11,7 @@ namespace ExRam.Gremlinq.Providers.Core
 {
     internal static class RequestMessageExtensions
     {
-        public static GroovyGremlinQuery? TryGetGroovyQuery(this RequestMessage requestMessage, IGremlinQueryEnvironment environment, bool includeBindings)
+        public static GroovyGremlinScript? TryGetGroovyQuery(this RequestMessage requestMessage, IGremlinQueryEnvironment environment, bool includeBindings)
         {
             if (requestMessage.Operation == Tokens.OpsBytecode)
             {
@@ -22,7 +22,7 @@ namespace ExRam.Gremlinq.Providers.Core
             {
                 if (requestMessage.Arguments.TryGetValue(Tokens.ArgsGremlin, out var scriptObject) && scriptObject is string script)
                 {
-                    return new GroovyGremlinQuery(
+                    return new GroovyGremlinScript(
                         script,
                         includeBindings && requestMessage.Arguments.TryGetValue(Tokens.ArgsBindings, out var bindingsObject) && bindingsObject is IReadOnlyDictionary<string, object> bindings
                             ? bindings
