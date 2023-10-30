@@ -346,6 +346,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
                         .Aggregate(stepLabel1),
                     __ => __
                         .Aggregate(stepLabel2))
+                .Fold()
                 .Select(stepLabel1, stepLabel2)
                 .Verify();
         }
@@ -384,6 +385,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
             await _g
                 .V<Person>()
                 .Aggregate(stepLabel)
+                .Fold()
                 .Select(stepLabel)
                 .Verify();
         }
@@ -1127,7 +1129,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
         [Fact]
         public virtual Task Multi_Inject_V() => _g
             .Inject(36, 37, 38)
-            .V()
+            .V<Person>()
             .Verify();
 
         [Fact]
@@ -3368,11 +3370,13 @@ namespace ExRam.Gremlinq.Tests.TestCases
         [Fact]
         public virtual Task V_of_all_types1() => _g
             .V<object>()
+            .Count()
             .Verify();
 
         [Fact]
         public virtual Task V_of_all_types2() => _g
             .V()
+            .Count()
             .Verify();
 
         [Fact]
@@ -3383,6 +3387,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
         [Fact]
         public virtual Task V_untyped() => _g
             .V()
+            .Count()
             .Verify();
 
         [Fact]
@@ -4505,6 +4510,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
                 .V<Person>()
                 .As((__, person2) => __
                     .Where(_ => person1.Value.Age >= person2.Value.Age)))
+            .Count()
             .Verify();
 
         [Fact]
@@ -4712,6 +4718,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
                 .WithSideEffect(stepLabel, Array.Empty<Person>())
                 .V<Person>()
                 .Aggregate(stepLabel)
+                .Fold()
                 .Select(stepLabel)
                 .Verify();
         }

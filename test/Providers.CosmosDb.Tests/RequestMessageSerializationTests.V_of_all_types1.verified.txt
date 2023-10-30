@@ -6,6 +6,6 @@
     aliases: {
       g: g
     },
-    gremlin: g.V()
+    gremlin: g.V().count()
   }
 }

@@ -26,6 +26,10 @@
             "V"
           ],
           [
+            "hasLabel",
+            "Person"
+          ],
+          [
             "project",
             "id",
             "label",

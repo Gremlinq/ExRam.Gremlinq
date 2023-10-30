@@ -13,6 +13,6 @@
       _d: Item1,
       _e: Item2
     },
-    gremlin: g.V().hasLabel(_a).coalesce(__.aggregate(_b),__.aggregate(_c)).project(_d,_e).by(__.select(_b)).by(__.select(_c))
+    gremlin: g.V().hasLabel(_a).coalesce(__.aggregate(_b),__.aggregate(_c)).fold().project(_d,_e).by(__.select(_b)).by(__.select(_c))
   }
 }
