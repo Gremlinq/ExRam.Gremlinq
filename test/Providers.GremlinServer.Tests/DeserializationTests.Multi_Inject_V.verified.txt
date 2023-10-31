@@ -1,77 +1,5 @@
 ﻿[
   {
-    Id: 0,
-    Label: Country
-  },
-  {
-    Id: 0,
-    Label: Country
-  },
-  {
-    Id: 0,
-    Label: Country
-  },
-  {
-    Id: 65,
-    Label: Language
-  },
-  {
-    Id: 65,
-    Label: Language
-  },
-  {
-    Id: 65,
-    Label: Language
-  },
-  {
-    Id: 2,
-    Label: Language
-  },
-  {
-    Id: 2,
-    Label: Language
-  },
-  {
-    Id: 2,
-    Label: Language
-  },
-  {
-    Id: 67,
-    Label: Language
-  },
-  {
-    Id: 67,
-    Label: Language
-  },
-  {
-    Id: 67,
-    Label: Language
-  },
-  {
-    Id: 68,
-    Label: Company
-  },
-  {
-    Id: 68,
-    Label: Company
-  },
-  {
-    Id: 68,
-    Label: Company
-  },
-  {
-    Id: 5,
-    Label: Company
-  },
-  {
-    Id: 5,
-    Label: Company
-  },
-  {
-    Id: 5,
-    Label: Company
-  },
-  {
     Id: 7,
     Label: Person
   },
@@ -82,63 +10,6 @@
   {
     Id: 7,
     Label: Person
-  },
-  {
-    Name: {
-      Id: 72,
-      Label: Name,
-      Value: GER
-    },
-    Id: 71,
-    Label: Country
-  },
-  {
-    Name: {
-      Id: 72,
-      Label: Name,
-      Value: GER
-    },
-    Id: 71,
-    Label: Country
-  },
-  {
-    Name: {
-      Id: 72,
-      Label: Name,
-      Value: GER
-    },
-    Id: 71,
-    Label: Country
-  },
-  {
-    Name: {
-      Id: 74,
-      Label: Name,
-      Properties: {},
-      Value: GER
-    },
-    Id: 73,
-    Label: Country
-  },
-  {
-    Name: {
-      Id: 74,
-      Label: Name,
-      Properties: {},
-      Value: GER
-    },
-    Id: 73,
-    Label: Country
-  },
-  {
-    Name: {
-      Id: 74,
-      Label: Name,
-      Properties: {},
-      Value: GER
-    },
-    Id: 73,
-    Label: Country
   },
   {
     RegistrationDate: 2020-04-07 14:43:36 +0,
@@ -171,60 +42,6 @@
     Label: Person
   },
   {
-    PhoneNumbers: [
-      {
-        Id: 77,
-        Label: PhoneNumbers,
-        Properties: {},
-        Value: +4912345
-      },
-      {
-        Id: 78,
-        Label: PhoneNumbers,
-        Properties: {},
-        Value: +4923456
-      }
-    ],
-    Id: 75,
-    Label: Company
-  },
-  {
-    PhoneNumbers: [
-      {
-        Id: 77,
-        Label: PhoneNumbers,
-        Properties: {},
-        Value: +4912345
-      },
-      {
-        Id: 78,
-        Label: PhoneNumbers,
-        Properties: {},
-        Value: +4923456
-      }
-    ],
-    Id: 75,
-    Label: Company
-  },
-  {
-    PhoneNumbers: [
-      {
-        Id: 77,
-        Label: PhoneNumbers,
-        Properties: {},
-        Value: +4912345
-      },
-      {
-        Id: 78,
-        Label: PhoneNumbers,
-        Properties: {},
-        Value: +4923456
-      }
-    ],
-    Id: 75,
-    Label: Company
-  },
-  {
     Id: 15,
     Label: Person
   },
@@ -235,42 +52,6 @@
   {
     Id: 15,
     Label: Person
-  },
-  {
-    Id: 79,
-    Label: Language
-  },
-  {
-    Id: 79,
-    Label: Language
-  },
-  {
-    Id: 79,
-    Label: Language
-  },
-  {
-    Id: 80,
-    Label: Language
-  },
-  {
-    Id: 80,
-    Label: Language
-  },
-  {
-    Id: 80,
-    Label: Language
-  },
-  {
-    Id: 17,
-    Label: Country
-  },
-  {
-    Id: 17,
-    Label: Country
-  },
-  {
-    Id: 17,
-    Label: Country
   },
   {
     Id: 19,
@@ -285,18 +66,6 @@
     Label: Person
   },
   {
-    Id: 21,
-    Label: Country
-  },
-  {
-    Id: 21,
-    Label: Country
-  },
-  {
-    Id: 21,
-    Label: Country
-  },
-  {
     Id: 23,
     Label: Person
   },
@@ -309,30 +78,6 @@
     Label: Person
   },
   {
-    Id: 25,
-    Label: Country
-  },
-  {
-    Id: 25,
-    Label: Country
-  },
-  {
-    Id: 25,
-    Label: Country
-  },
-  {
-    Id: 27,
-    Label: Company
-  },
-  {
-    Id: 27,
-    Label: Company
-  },
-  {
-    Id: 27,
-    Label: Company
-  },
-  {
     Id: 29,
     Label: Person
   },
@@ -343,30 +88,6 @@
   {
     Id: 29,
     Label: Person
-  },
-  {
-    Id: 32,
-    Label: Language
-  },
-  {
-    Id: 32,
-    Label: Language
-  },
-  {
-    Id: 32,
-    Label: Language
-  },
-  {
-    Id: 34,
-    Label: Country
-  },
-  {
-    Id: 34,
-    Label: Country
-  },
-  {
-    Id: 34,
-    Label: Country
   },
   {
     RegistrationDate: 2020-04-07 14:43:36 +0,
@@ -399,18 +120,6 @@
     Label: Person
   },
   {
-    Id: 42,
-    Label: Company
-  },
-  {
-    Id: 42,
-    Label: Company
-  },
-  {
-    Id: 42,
-    Label: Company
-  },
-  {
     Id: 44,
     Label: Person
   },
@@ -421,54 +130,6 @@
   {
     Id: 44,
     Label: Person
-  },
-  {
-    Id: 47,
-    Label: Language
-  },
-  {
-    Id: 47,
-    Label: Language
-  },
-  {
-    Id: 47,
-    Label: Language
-  },
-  {
-    Id: 49,
-    Label: Language
-  },
-  {
-    Id: 49,
-    Label: Language
-  },
-  {
-    Id: 49,
-    Label: Language
-  },
-  {
-    Id: 50,
-    Label: TimeFrame
-  },
-  {
-    Id: 50,
-    Label: TimeFrame
-  },
-  {
-    Id: 50,
-    Label: TimeFrame
-  },
-  {
-    Id: 54,
-    Label: Language
-  },
-  {
-    Id: 54,
-    Label: Language
-  },
-  {
-    Id: 54,
-    Label: Language
   },
   {
     Image: AQIDBAUGBwg=,
