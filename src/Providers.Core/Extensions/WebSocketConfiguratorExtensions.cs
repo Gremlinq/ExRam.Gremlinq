@@ -1,6 +1,4 @@
-﻿using Gremlin.Net.Driver;
-
-namespace ExRam.Gremlinq.Providers.Core
+﻿namespace ExRam.Gremlinq.Providers.Core
 {
     public static class WebSocketConfiguratorExtensions
     {
@@ -9,11 +7,6 @@ namespace ExRam.Gremlinq.Providers.Core
 
         public static TConfigurator AtLocalhost<TConfigurator>(this IWebSocketProviderConfigurator<TConfigurator> builder)
             where TConfigurator : IWebSocketProviderConfigurator<TConfigurator> => builder.At(new Uri("ws://localhost:8182"));
-
-        public static TConfigurator ConfigureMessageSerializer<TConfigurator>(this IWebSocketProviderConfigurator<TConfigurator> configurator, Func<IMessageSerializer, IMessageSerializer> transformation)
-            where TConfigurator : IWebSocketProviderConfigurator<TConfigurator> => configurator
-                .ConfigureClientFactory(factory => GremlinClientFactory
-                    .Create((environment, maybeSerializer, poolSettings, optionsTransformation) => factory.Create(environment, maybeSerializer is { } serializer ? transformation(serializer) : maybeSerializer, poolSettings, optionsTransformation)));
 
         public static TConfigurator At<TConfigurator>(this IWebSocketProviderConfigurator<TConfigurator> configurator, Uri uri)
             where TConfigurator : IWebSocketProviderConfigurator<TConfigurator> => configurator

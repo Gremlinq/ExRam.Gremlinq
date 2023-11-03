@@ -8,6 +8,6 @@ namespace ExRam.Gremlinq.Providers.Core
     {
         IGremlinClientFactory ConfigureServer(Func<GremlinServer, GremlinServer> transformation);
 
-        IGremlinClient Create(IGremlinQueryEnvironment environment, IMessageSerializer messageSerializer, ConnectionPoolSettings connectionPoolSettings, Action<ClientWebSocketOptions> webSocketConfiguration);
+        IGremlinClient Create(IGremlinQueryEnvironment environment, ConnectionPoolSettings connectionPoolSettings, Action<ClientWebSocketOptions> webSocketConfiguration);
     }
 }
