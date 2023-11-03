@@ -38,7 +38,11 @@ namespace ExRam.Gremlinq.Tests.Fixtures
             {
                 try
                 {
-                    var g1 = await TransformQuerySource(g);
+                    var g1 = await TransformQuerySource(g
+                        .ConfigureEnvironment(env => env
+                            .ConfigureOptions(options => options
+                                .SetValue(GremlinqOption.StringComparisonTranslationStrictness, StringComparisonTranslationStrictness.Lenient))));
+
                     newTcs.TrySetResult(g1
                         .ConfigureEnvironment(env => env
                             .ConfigureModel(model => model == GraphModel.Invalid
