@@ -1,6 +1,9 @@
 ﻿using System.Net.WebSockets;
 using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Core.Transformation;
+
 using Gremlin.Net.Driver;
+using Gremlin.Net.Driver.Messages;
 
 namespace ExRam.Gremlinq.Providers.Core
 {
@@ -8,6 +11,26 @@ namespace ExRam.Gremlinq.Providers.Core
     {
         private sealed class DefaultGremlinClientFactory : IGremlinClientFactory
         {
+            private sealed class DefaultMessageSerializer : IMessageSerializer
+            {
+                private readonly IGremlinQueryEnvironment _environment;
+
+                public DefaultMessageSerializer(IGremlinQueryEnvironment environment)
+                {
+                    _environment = environment;
+                }
+
+                public async Task<byte[]> SerializeMessageAsync(RequestMessage requestMessage, CancellationToken ct) => _environment.Serializer
+                    .TransformTo<byte[]>()
+                    .From(requestMessage, _environment);
+
+                public async Task<ResponseMessage<List<object>>?> DeserializeMessageAsync(byte[] message, CancellationToken ct) => _environment.Deserializer
+                    .TryTransformTo<ResponseMessage<List<object>>>()
+                    .From(message, _environment);
+            }
+
+            private static readonly IConverterFactory ObjectIdentityConverterFactory = ConverterFactory.Create<object, object>((token, _, _, _) => token);
+
             private readonly GremlinServer _server;
 
             public DefaultGremlinClientFactory() : this(new GremlinServer())
@@ -25,11 +48,13 @@ namespace ExRam.Gremlinq.Providers.Core
 
             public IGremlinClientFactory ConfigureServer(Func<GremlinServer, GremlinServer> transformation) => new DefaultGremlinClientFactory(transformation(_server));
 
-            public IGremlinClient Create(IGremlinQueryEnvironment _, IMessageSerializer messageSerializer, ConnectionPoolSettings connectionPoolSettings, Action<ClientWebSocketOptions> webSocketConfiguration)
+            public IGremlinClient Create(IGremlinQueryEnvironment environment, ConnectionPoolSettings connectionPoolSettings, Action<ClientWebSocketOptions> webSocketConfiguration)
             {
                 return new GremlinClient(
                     _server,
-                    messageSerializer,
+                    new DefaultMessageSerializer(environment
+                        .ConfigureDeserializer(deserializer => deserializer
+                            .Add(ObjectIdentityConverterFactory))),
                     connectionPoolSettings,
                     webSocketConfiguration);
             }
@@ -37,9 +62,9 @@ namespace ExRam.Gremlinq.Providers.Core
 
         private sealed class FuncGremlinClientFactory : IGremlinClientFactory
         {
-            private readonly Func<IGremlinQueryEnvironment, IMessageSerializer, ConnectionPoolSettings, Action<ClientWebSocketOptions>, IGremlinClient> _factory;
+            private readonly Func<IGremlinQueryEnvironment, ConnectionPoolSettings, Action<ClientWebSocketOptions>, IGremlinClient> _factory;
 
-            public FuncGremlinClientFactory(Func<IGremlinQueryEnvironment, IMessageSerializer, ConnectionPoolSettings, Action<ClientWebSocketOptions>, IGremlinClient> factory)
+            public FuncGremlinClientFactory(Func<IGremlinQueryEnvironment, ConnectionPoolSettings, Action<ClientWebSocketOptions>, IGremlinClient> factory)
             {
                 _factory = factory;
             }
@@ -50,19 +75,19 @@ namespace ExRam.Gremlinq.Providers.Core
                 throw new NotImplementedException();
             }
 
-            public IGremlinClient Create(IGremlinQueryEnvironment environment, IMessageSerializer messageSerializer, ConnectionPoolSettings connectionPoolSettings, Action<ClientWebSocketOptions> webSocketConfiguration) => _factory(environment, messageSerializer, connectionPoolSettings, webSocketConfiguration);
+            public IGremlinClient Create(IGremlinQueryEnvironment environment, ConnectionPoolSettings connectionPoolSettings, Action<ClientWebSocketOptions> webSocketConfiguration) => _factory(environment, connectionPoolSettings, webSocketConfiguration);
         }
 
         public static readonly IGremlinClientFactory Default = new DefaultGremlinClientFactory();
 
-        public static IGremlinClientFactory Create(Func<IGremlinQueryEnvironment, IMessageSerializer, ConnectionPoolSettings, Action<ClientWebSocketOptions>, IGremlinClient> factory) => new FuncGremlinClientFactory(factory);
+        public static IGremlinClientFactory Create(Func<IGremlinQueryEnvironment, ConnectionPoolSettings, Action<ClientWebSocketOptions>, IGremlinClient> factory) => new FuncGremlinClientFactory(factory);
 
-        public static IGremlinClientFactory ConfigureClient(this IGremlinClientFactory clientFactory, Func<IGremlinClient, IGremlinClient> clientTransformation) => Create((environment, serializer, poolSettings, optionsTransformation) => clientTransformation(clientFactory.Create(environment, serializer, poolSettings, optionsTransformation)));
+        public static IGremlinClientFactory ConfigureClient(this IGremlinClientFactory clientFactory, Func<IGremlinClient, IGremlinClient> clientTransformation) => Create((environment, poolSettings, optionsTransformation) => clientTransformation(clientFactory.Create(environment, poolSettings, optionsTransformation)));
 
         internal static IGremlinClientFactory Log(this IGremlinClientFactory clientFactory)
         {
-            return Create((environment, serializer, poolSettings, optionsTransformation) => clientFactory
-                .Create(environment, serializer, poolSettings, optionsTransformation)
+            return Create((environment, poolSettings, optionsTransformation) => clientFactory
+                .Create(environment, poolSettings, optionsTransformation)
                 .Log(environment));
         }
     }
