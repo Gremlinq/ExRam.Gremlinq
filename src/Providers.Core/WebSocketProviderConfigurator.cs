@@ -30,13 +30,10 @@ namespace ExRam.Gremlinq.Providers.Core
                         .AsAdmin()
                         .Environment;
 
-                    var client = @this._clients
-                        .GetOrAdd(
-                            environment,
-                            static (environment, executor) => executor._clientFactory.Create(
-                                environment,
-                                new ConnectionPoolSettings()),
-                            @this);
+                    var client = @this._clients.GetOrAdd(
+                        environment,
+                        static (environment, executor) => executor._clientFactory.Create(environment),
+                        @this);
 
                     var requestMessage = environment
                         .Serializer
