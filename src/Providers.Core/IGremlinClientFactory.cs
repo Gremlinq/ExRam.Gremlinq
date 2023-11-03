@@ -8,9 +8,9 @@ namespace ExRam.Gremlinq.Providers.Core
     {
         IGremlinClientFactory ConfigureServer(Func<GremlinServer, GremlinServer> transformation);
 
-        IGremlinClientFactory ConfigureWebSocketOptions(Action<ClientWebSocketOptions> optionsConfiguration);
+        IGremlinClientFactory ConfigureWebSocketOptions(Action<ClientWebSocketOptions> configuration);
 
-        IGremlinClientFactory ConfigureConnectionPool(Action<ConnectionPoolSettings> poolSettingsConfiguration);
+        IGremlinClientFactory ConfigureConnectionPool(Action<ConnectionPoolSettings> configuration);
 
         IGremlinClient Create(IGremlinQueryEnvironment environment);
     }
