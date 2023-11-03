@@ -23,11 +23,7 @@ namespace ExRam.Gremlinq.Tests.TestCases
         protected QueryExecutionTest(GremlinqFixture fixture, GremlinQueryVerifier verifier, ITestOutputHelper testOutputHelper) : base(verifier)
         {
             _lazyGremlinQuerySource = new Lazy<IGremlinQuerySource>(
-                () => fixture.GremlinQuerySource.Result
-                    .ConfigureEnvironment(env => env
-                        .ConfigureOptions(options => options
-                            .SetValue(GremlinqOption.StringComparisonTranslationStrictness, StringComparisonTranslationStrictness.Lenient))
-                        .LogToXunit(testOutputHelper)),
+                () => fixture.GremlinQuerySource.Result,
                 LazyThreadSafetyMode.PublicationOnly);
         }
 

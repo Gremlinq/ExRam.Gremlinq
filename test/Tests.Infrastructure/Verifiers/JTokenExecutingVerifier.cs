@@ -9,6 +9,8 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
 {
     public class JTokenExecutingVerifier : GremlinQueryVerifier
     {
+        private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, IGremlinQueryEnvironment> _environments = new();
+
         public JTokenExecutingVerifier(Func<SettingsTask, SettingsTask>? settingsTaskModifier = null, [CallerFilePath] string sourceFile = "") : base(settingsTaskModifier, sourceFile)
         {
         }
@@ -19,10 +21,13 @@ namespace ExRam.Gremlinq.Tests.Infrastructure
             await query
                 .AsAdmin()
                 .ChangeQueryType<IGremlinQuerySource>()
-                .ConfigureEnvironment(env => env
-                    .ConfigureDeserializer(d => d
-                        .Add(ConverterFactory
-                            .Create<JToken, JToken>((token, env, _, recurse) => token))))
+                .ConfigureEnvironment(env => _environments
+                    .GetValue(
+                        env,
+                        static env => env
+                            .ConfigureDeserializer(d => d
+                                .Add(ConverterFactory
+                                    .Create<JToken, JToken>((token, env, _, recurse) => token)))))
                 .AsAdmin()
                 .ChangeQueryType<IGremlinQueryBase<JToken>>()
                 .ToAsyncEnumerable()
