@@ -1,4 +1,5 @@
-﻿using System.Net.WebSockets;
+﻿using System;
+using System.Net.WebSockets;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Transformation;
 
@@ -86,48 +87,30 @@ namespace ExRam.Gremlinq.Providers.Core
             }
         }
 
-        //TODO: Func will man nicht mehr.
-        private sealed class FuncGremlinClientFactory : IGremlinClientFactory
+        private sealed class ConfigureClientGremlinClientFactory : IGremlinClientFactory
         {
-            private readonly Func<IGremlinQueryEnvironment, IGremlinClient> _factory;
+            private readonly IGremlinClientFactory _baseFactory;
+            private readonly Func<IGremlinClient, IGremlinQueryEnvironment, IGremlinClient> _clientTransformation;
 
-            public FuncGremlinClientFactory(Func<IGremlinQueryEnvironment, IGremlinClient> factory)
+            public ConfigureClientGremlinClientFactory(IGremlinClientFactory baseFactory, Func<IGremlinClient, IGremlinQueryEnvironment, IGremlinClient> clientTransformation)
             {
-                _factory = factory;
+                _baseFactory = baseFactory;
+                _clientTransformation = clientTransformation;
             }
 
-            public IGremlinClientFactory ConfigureConnectionPool(Action<ConnectionPoolSettings> poolSettingsConfiguration)
-            {
-                //TODO!!
-                throw new NotImplementedException();
-            }
+            public IGremlinClientFactory ConfigureConnectionPool(Action<ConnectionPoolSettings> poolSettingsConfiguration) => new ConfigureClientGremlinClientFactory(_baseFactory.ConfigureConnectionPool(poolSettingsConfiguration), _clientTransformation);
 
-            public IGremlinClientFactory ConfigureServer(Func<GremlinServer, GremlinServer> transformation)
-            {
-                //TODO!!
-                throw new NotImplementedException();
-            }
+            public IGremlinClientFactory ConfigureServer(Func<GremlinServer, GremlinServer> transformation) => new ConfigureClientGremlinClientFactory(_baseFactory.ConfigureServer(transformation), _clientTransformation);
 
-            public IGremlinClientFactory ConfigureWebSocketOptions(Action<ClientWebSocketOptions> optionsConfiguration)
-            {
-                //TODO!!!
-                throw new NotImplementedException();
-            }
+            public IGremlinClientFactory ConfigureWebSocketOptions(Action<ClientWebSocketOptions> optionsConfiguration) => new ConfigureClientGremlinClientFactory(_baseFactory.ConfigureWebSocketOptions(optionsConfiguration), _clientTransformation);
 
-            public IGremlinClient Create(IGremlinQueryEnvironment environment) => _factory(environment);
+            public IGremlinClient Create(IGremlinQueryEnvironment environment) => _clientTransformation(_baseFactory.Create(environment), environment);
         }
 
         public static readonly IGremlinClientFactory Default = new DefaultGremlinClientFactory();
 
-        public static IGremlinClientFactory Create(Func<IGremlinQueryEnvironment, IGremlinClient> factory) => new FuncGremlinClientFactory(factory);
+        public static IGremlinClientFactory ConfigureClient(this IGremlinClientFactory clientFactory, Func<IGremlinClient, IGremlinClient> clientTransformation) => new ConfigureClientGremlinClientFactory(clientFactory, (client, _) => clientTransformation(client));
 
-        public static IGremlinClientFactory ConfigureClient(this IGremlinClientFactory clientFactory, Func<IGremlinClient, IGremlinClient> clientTransformation) => Create((environment) => clientTransformation(clientFactory.Create(environment)));
-
-        internal static IGremlinClientFactory Log(this IGremlinClientFactory clientFactory)
-        {
-            return Create((environment) => clientFactory
-                .Create(environment)
-                .Log(environment));
-        }
+        internal static IGremlinClientFactory Log(this IGremlinClientFactory clientFactory) => new ConfigureClientGremlinClientFactory(clientFactory, (client, environment) => client.Log(environment));
     }
 }
