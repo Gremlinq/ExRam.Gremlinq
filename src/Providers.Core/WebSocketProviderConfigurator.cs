@@ -16,13 +16,11 @@ namespace ExRam.Gremlinq.Providers.Core
             private static readonly IConverterFactory ObjectIdentityConverterFactory = ConverterFactory
                 .Create<object, object>((token, _, _, _) => token);
 
-            private readonly GremlinServer _gremlinServer;
             private readonly IGremlinClientFactory _clientFactory;
             private readonly ConcurrentDictionary<IGremlinQueryEnvironment, IGremlinClient> _clients = new();
 
-            public WebSocketGremlinQueryExecutor(GremlinServer gremlinServer, IGremlinClientFactory clientFactory)
+            public WebSocketGremlinQueryExecutor(IGremlinClientFactory clientFactory)
             {
-                _gremlinServer = gremlinServer;
                 _clientFactory = clientFactory;
             }
 
@@ -41,7 +39,6 @@ namespace ExRam.Gremlinq.Providers.Core
                             environment,
                             static (environment, executor) => executor._clientFactory.Create(
                                 environment,
-                                executor._gremlinServer,
                                 new DefaultMessageSerializer(environment
                                     .ConfigureDeserializer(deserializer => deserializer
                                         .Add(ObjectIdentityConverterFactory))),
@@ -91,35 +88,25 @@ namespace ExRam.Gremlinq.Providers.Core
             }
         }
 
-        public static readonly WebSocketProviderConfigurator Default = new (GremlinqConfigurator.Identity, new GremlinServer(), GremlinClientFactory.Default);
+        public static readonly WebSocketProviderConfigurator Default = new (GremlinqConfigurator.Identity, GremlinClientFactory.Default);
 
-        private readonly GremlinServer _gremlinServer;
         private readonly IGremlinClientFactory _clientFactory;
         private readonly GremlinqConfigurator _gremlinqConfigurator;
 
         private WebSocketProviderConfigurator(
             GremlinqConfigurator gremlinqConfigurator,
-            GremlinServer gremlinServer,
             IGremlinClientFactory clientFactory)
         {
-            _gremlinServer = gremlinServer;
             _clientFactory = clientFactory;
             _gremlinqConfigurator = gremlinqConfigurator;
         }
 
-        public WebSocketProviderConfigurator ConfigureServer(Func<GremlinServer, GremlinServer> transformation) => new (
-            _gremlinqConfigurator,
-            transformation(_gremlinServer),
-            _clientFactory);
-
         public WebSocketProviderConfigurator ConfigureClientFactory(Func<IGremlinClientFactory, IGremlinClientFactory> transformation) => new (
             _gremlinqConfigurator,
-            _gremlinServer,
             transformation(_clientFactory));
 
         public WebSocketProviderConfigurator ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> transformation) => new(
             _gremlinqConfigurator.ConfigureQuerySource(transformation),
-            _gremlinServer,
             _clientFactory);
 
         public IGremlinQuerySource Transform(IGremlinQuerySource source) => _gremlinqConfigurator
@@ -127,10 +114,6 @@ namespace ExRam.Gremlinq.Providers.Core
                 .ConfigureEnvironment(environment => environment
                     .UseExecutor(Build())));
 
-        private IGremlinQueryExecutor Build() => !"ws".Equals(_gremlinServer.Uri.Scheme, StringComparison.OrdinalIgnoreCase) && !"wss".Equals(_gremlinServer.Uri.Scheme, StringComparison.OrdinalIgnoreCase)
-            ? throw new ArgumentException("Expected the Uri-Scheme to be either \"ws\" or \"wss\".")
-            : new WebSocketGremlinQueryExecutor(
-                _gremlinServer,
-                _clientFactory.Log());
+        private IGremlinQueryExecutor Build() => new WebSocketGremlinQueryExecutor(_clientFactory.Log());
     }
 }

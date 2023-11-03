@@ -20,7 +20,9 @@ namespace ExRam.Gremlinq.Core.AspNet
                 _section = section;
             }
 
-            public IGremlinClient Create(IGremlinQueryEnvironment environment, GremlinServer gremlinServer, IMessageSerializer messageSerializer, ConnectionPoolSettings connectionPoolSettings, Action<ClientWebSocketOptions> webSocketConfiguration)
+            public IGremlinClientFactory ConfigureServer(Func<GremlinServer, GremlinServer> transformation) => _factory.ConfigureServer(transformation);
+
+            public IGremlinClient Create(IGremlinQueryEnvironment environment, IMessageSerializer messageSerializer, ConnectionPoolSettings connectionPoolSettings, Action<ClientWebSocketOptions> webSocketConfiguration)
             {
                 if (int.TryParse(_section[$"{nameof(ConnectionPoolSettings.MaxInProcessPerConnection)}"], out var maxInProcessPerConnection))
                     connectionPoolSettings.MaxInProcessPerConnection = maxInProcessPerConnection;
@@ -28,7 +30,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                 if (int.TryParse(_section[$"{nameof(ConnectionPoolSettings.PoolSize)}"], out var poolSize))
                     connectionPoolSettings.PoolSize = poolSize;
 
-                return _factory.Create(environment, gremlinServer, messageSerializer, connectionPoolSettings, webSocketConfiguration);
+                return _factory.Create(environment, messageSerializer, connectionPoolSettings, webSocketConfiguration);
             }
         }
 

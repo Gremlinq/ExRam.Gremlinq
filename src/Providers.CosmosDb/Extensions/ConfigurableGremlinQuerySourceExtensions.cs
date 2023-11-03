@@ -46,13 +46,16 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
 
             public ICosmosDbConfigurator<TVertexBase> AuthenticateBy(string authKey) => new CosmosDbConfigurator<TVertexBase>(
                 _webSocketConfigurator
-                    .ConfigureServer(server => server.WithPassword(authKey)),
+                    .ConfigureClientFactory(factory => factory
+                        .ConfigureServer(server => server.WithPassword(authKey))),
                 _databaseName,
                 _graphName,
                 _partitionKeyExpression);
 
             public ICosmosDbConfigurator<TVertexBase> ConfigureServer(Func<GremlinServer, GremlinServer> transformation) => new CosmosDbConfigurator<TVertexBase>(
-                _webSocketConfigurator.ConfigureServer(transformation),
+                _webSocketConfigurator
+                    .ConfigureClientFactory(factory => factory
+                        .ConfigureServer(transformation)),
                 _databaseName,
                 _graphName,
                 _partitionKeyExpression);
@@ -84,8 +87,9 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
                         if (_partitionKeyExpression is { } partitionKeyExpression)
                         {
                             return _webSocketConfigurator
-                                .ConfigureServer(server => server
-                                    .WithUsername($"/dbs/{databaseName}/colls/{graphName}"))
+                                .ConfigureClientFactory(factory => factory
+                                    .ConfigureServer(server => server
+                                        .WithUsername($"/dbs/{databaseName}/colls/{graphName}")))
                                 .Transform(source
                                     .ConfigureEnvironment(env => env
                                         .ConfigureModel(model => model

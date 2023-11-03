@@ -2,8 +2,6 @@
 using ExRam.Gremlinq.Core.Models;
 using ExRam.Gremlinq.Providers.Core;
 
-using Gremlin.Net.Driver;
-
 namespace ExRam.Gremlinq.Providers.JanusGraph
 {
     public static class ConfigurableGremlinQuerySourceExtensions
@@ -20,8 +18,6 @@ namespace ExRam.Gremlinq.Providers.JanusGraph
             }
 
             public IJanusGraphConfigurator ConfigureClientFactory(Func<IGremlinClientFactory, IGremlinClientFactory> transformation) => new JanusGraphConfigurator(_webSocketProviderConfigurator.ConfigureClientFactory(transformation));
-
-            public IJanusGraphConfigurator ConfigureServer(Func<GremlinServer, GremlinServer> transformation) => new JanusGraphConfigurator(_webSocketProviderConfigurator.ConfigureServer(transformation));
 
             public IJanusGraphConfigurator ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> transformation) => new JanusGraphConfigurator(_webSocketProviderConfigurator.ConfigureQuerySource(transformation));
 
