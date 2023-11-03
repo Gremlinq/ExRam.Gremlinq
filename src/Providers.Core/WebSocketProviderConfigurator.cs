@@ -77,7 +77,7 @@ namespace ExRam.Gremlinq.Providers.Core
             }
         }
 
-        public static readonly WebSocketProviderConfigurator Default = new (GremlinqConfigurator.Identity, GremlinClientFactory.Default);
+        public static readonly WebSocketProviderConfigurator Default = new (GremlinqConfigurator.Identity, GremlinClientFactory.LocalHost);
 
         private readonly IGremlinClientFactory _clientFactory;
         private readonly GremlinqConfigurator _gremlinqConfigurator;
