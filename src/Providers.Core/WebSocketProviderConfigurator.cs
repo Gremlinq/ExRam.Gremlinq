@@ -2,7 +2,6 @@
 using System.Runtime.CompilerServices;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Execution;
-using ExRam.Gremlinq.Core.Transformation;
 using Gremlin.Net.Driver;
 using Gremlin.Net.Driver.Exceptions;
 using Gremlin.Net.Driver.Messages;
@@ -13,8 +12,6 @@ namespace ExRam.Gremlinq.Providers.Core
     {
         private sealed class WebSocketGremlinQueryExecutor : IGremlinQueryExecutor
         {
-
-
             private readonly IGremlinClientFactory _clientFactory;
             private readonly ConcurrentDictionary<IGremlinQueryEnvironment, IGremlinClient> _clients = new();
 
@@ -38,8 +35,7 @@ namespace ExRam.Gremlinq.Providers.Core
                             environment,
                             static (environment, executor) => executor._clientFactory.Create(
                                 environment,
-                                new ConnectionPoolSettings(),
-                                static _ => { }),
+                                new ConnectionPoolSettings()),
                             @this);
 
                     var requestMessage = environment
