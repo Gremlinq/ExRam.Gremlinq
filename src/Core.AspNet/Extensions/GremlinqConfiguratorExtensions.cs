@@ -1,45 +1,12 @@
 ﻿// ReSharper disable HeapView.PossibleBoxingAllocation
 using ExRam.Gremlinq.Providers.Core;
 using Gremlin.Net.Driver;
-using System.Net.WebSockets;
-
 using Microsoft.Extensions.Configuration;
 
 namespace ExRam.Gremlinq.Core.AspNet
 {
     internal static class GremlinqConfiguratorExtensions
     {
-        private sealed class ConnectionPoolSettingsGremlinClientFactory : IGremlinClientFactory
-        {
-            private readonly IGremlinClientFactory _factory;
-            private readonly IConfigurationSection _section;
-
-            public ConnectionPoolSettingsGremlinClientFactory(IGremlinClientFactory factory, IConfigurationSection section)
-            {
-                _factory = factory;
-                _section = section;
-            }
-
-            public IGremlinClientFactory ConfigureServer(Func<GremlinServer, GremlinServer> transformation) => _factory.ConfigureServer(transformation);
-
-            public IGremlinClientFactory ConfigureWebSocketOptions(Action<ClientWebSocketOptions> optionsConfiguration)
-            {
-                //TODO!!!!
-                throw new NotImplementedException();
-            }
-
-            public IGremlinClient Create(IGremlinQueryEnvironment environment, ConnectionPoolSettings connectionPoolSettings)
-            {
-                if (int.TryParse(_section[$"{nameof(ConnectionPoolSettings.MaxInProcessPerConnection)}"], out var maxInProcessPerConnection))
-                    connectionPoolSettings.MaxInProcessPerConnection = maxInProcessPerConnection;
-
-                if (int.TryParse(_section[$"{nameof(ConnectionPoolSettings.PoolSize)}"], out var poolSize))
-                    connectionPoolSettings.PoolSize = poolSize;
-
-                return _factory.Create(environment, connectionPoolSettings);
-            }
-        }
-
         public static TConfigurator ConfigureWebSocket<TConfigurator>(this TConfigurator configurator, IConfigurationSection section)
             where TConfigurator : IWebSocketProviderConfigurator<TConfigurator>
         {
@@ -48,9 +15,27 @@ namespace ExRam.Gremlinq.Core.AspNet
             if (section["Uri"] is { } uri)
                 configurator = configurator.At(uri);
 
-            return connectionPoolSection.Exists()
-                ? configurator.ConfigureClientFactory(factory => new ConnectionPoolSettingsGremlinClientFactory(factory, connectionPoolSection))
-                : configurator;
+            if (int.TryParse(connectionPoolSection[$"{nameof(ConnectionPoolSettings.MaxInProcessPerConnection)}"], out var maxInProcessPerConnection))
+            {
+                configurator = configurator
+                    .ConfigureClientFactory(factory => factory
+                        .ConfigureConnectionPool(poolSettings =>
+                        {
+                            poolSettings.MaxInProcessPerConnection = maxInProcessPerConnection;
+                        }));
+            }
+
+            if (int.TryParse(connectionPoolSection[$"{nameof(ConnectionPoolSettings.PoolSize)}"], out var poolSize))
+            {
+                configurator = configurator
+                    .ConfigureClientFactory(factory => factory
+                        .ConfigureConnectionPool(poolSettings =>
+                        {
+                            poolSettings.PoolSize = poolSize;
+                        }));
+            }
+
+            return configurator;
         }
 
         public static TConfigurator ConfigureBasicAuthentication<TConfigurator>(this TConfigurator configurator, IConfigurationSection section)
