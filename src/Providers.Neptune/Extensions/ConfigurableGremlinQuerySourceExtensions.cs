@@ -1,7 +1,6 @@
 ﻿using ExRam.Gremlinq.Core.Steps;
 using Gremlin.Net.Process.Traversal;
 using ExRam.Gremlinq.Core.Transformation;
-using Gremlin.Net.Driver;
 using ExRam.Gremlinq.Providers.Core;
 using ExRam.Gremlinq.Core.Execution;
 using Gremlin.Net.Driver.Exceptions;

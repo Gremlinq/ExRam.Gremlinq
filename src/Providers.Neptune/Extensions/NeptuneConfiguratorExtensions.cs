@@ -1,7 +1,7 @@
 ﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.ExpressionParsing;
 using ExRam.Gremlinq.Providers.Core;
-using Gremlin.Net.Driver;
+
 using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Providers.Neptune
@@ -86,8 +86,7 @@ namespace ExRam.Gremlinq.Providers.Neptune
                     .ConfigureOptions(options => options
                         .ConfigureValue(
                             PFactory.PFactoryOption,
-                            factory => factory
-                                .Override(new ElasticSearchAwarePFactory(_indexConfiguration)))));
+                            factory => factory.Override(new ElasticSearchAwarePFactory(_indexConfiguration)))));
 
             public INeptuneConfigurator ConfigureClientFactory(Func<IGremlinClientFactory, IGremlinClientFactory> transformation) => new ElasticSearchAwareNeptuneConfigurator(
                 _baseConfigurator.ConfigureClientFactory(transformation),
