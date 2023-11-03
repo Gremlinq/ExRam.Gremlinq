@@ -13,17 +13,19 @@ namespace ExRam.Gremlinq.Providers.Core
         public static TConfigurator ConfigureMessageSerializer<TConfigurator>(this IWebSocketProviderConfigurator<TConfigurator> configurator, Func<IMessageSerializer, IMessageSerializer> transformation)
             where TConfigurator : IWebSocketProviderConfigurator<TConfigurator> => configurator
                 .ConfigureClientFactory(factory => GremlinClientFactory
-                    .Create((environment, server, maybeSerializer, poolSettings, optionsTransformation) => factory.Create(environment, server, maybeSerializer is { } serializer ? transformation(serializer) : maybeSerializer, poolSettings, optionsTransformation)));
+                    .Create((environment, maybeSerializer, poolSettings, optionsTransformation) => factory.Create(environment, maybeSerializer is { } serializer ? transformation(serializer) : maybeSerializer, poolSettings, optionsTransformation)));
 
         public static TConfigurator At<TConfigurator>(this IWebSocketProviderConfigurator<TConfigurator> configurator, Uri uri)
             where TConfigurator : IWebSocketProviderConfigurator<TConfigurator> => configurator
-                .ConfigureServer(server => server
-                    .WithUri(uri));
+                .ConfigureClientFactory(factory => factory
+                    .ConfigureServer(server => server
+                        .WithUri(uri)));
 
         public static TConfigurator AuthenticateBy<TConfigurator>(this IWebSocketProviderConfigurator<TConfigurator> configurator, string username, string password)
             where TConfigurator : IWebSocketProviderConfigurator<TConfigurator> => configurator
-                .ConfigureServer(server => server
-                    .WithUsername(username)
-                    .WithPassword(password));
+                .ConfigureClientFactory(factory => factory
+                    .ConfigureServer(server => server
+                        .WithUsername(username)
+                        .WithPassword(password)));
     }
 }

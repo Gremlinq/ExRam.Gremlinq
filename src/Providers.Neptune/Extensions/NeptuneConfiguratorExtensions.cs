@@ -89,11 +89,6 @@ namespace ExRam.Gremlinq.Providers.Neptune
                             factory => factory
                                 .Override(new ElasticSearchAwarePFactory(_indexConfiguration)))));
 
-            public INeptuneConfigurator ConfigureServer(Func<GremlinServer, GremlinServer> transformation) => new ElasticSearchAwareNeptuneConfigurator(
-                _baseConfigurator.ConfigureServer(transformation),
-                _elasticSearchEndPoint,
-                _indexConfiguration);
-
             public INeptuneConfigurator ConfigureClientFactory(Func<IGremlinClientFactory, IGremlinClientFactory> transformation) => new ElasticSearchAwareNeptuneConfigurator(
                 _baseConfigurator.ConfigureClientFactory(transformation),
                 _elasticSearchEndPoint,

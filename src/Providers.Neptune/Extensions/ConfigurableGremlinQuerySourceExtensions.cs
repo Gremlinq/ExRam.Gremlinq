@@ -29,8 +29,6 @@ namespace ExRam.Gremlinq.Providers.Neptune
 
             public INeptuneConfigurator ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> transformation) => new NeptuneConfigurator(_webSocketProviderConfigurator.ConfigureQuerySource(transformation));
 
-            public INeptuneConfigurator ConfigureServer(Func<GremlinServer, GremlinServer> transformation) => new NeptuneConfigurator(_webSocketProviderConfigurator.ConfigureServer(transformation));
-
             public IGremlinQuerySource Transform(IGremlinQuerySource source) => _webSocketProviderConfigurator.Transform(source);
         }
 

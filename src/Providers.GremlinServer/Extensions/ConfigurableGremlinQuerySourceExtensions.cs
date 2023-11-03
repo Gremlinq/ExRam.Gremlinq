@@ -23,8 +23,6 @@ namespace ExRam.Gremlinq.Providers.GremlinServer
 
             public IGremlinServerConfigurator ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> transformation) => new GremlinServerConfigurator(_webSocketConfigurator.ConfigureQuerySource(transformation));
 
-            public IGremlinServerConfigurator ConfigureServer(Func<_GremlinServer, _GremlinServer> transformation) => new GremlinServerConfigurator(_webSocketConfigurator.ConfigureServer(transformation));
-
             public IGremlinQuerySource Transform(IGremlinQuerySource source) => _webSocketConfigurator.Transform(source);
         }
 
