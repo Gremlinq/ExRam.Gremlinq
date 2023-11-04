@@ -98,13 +98,6 @@ jobs:
     - name: Collect coverage
       uses: codecov/codecov-action@v3
 
-    - name: Copy *.received-files to artifacts
-      if: ${{ always() }}
-      uses: actions/upload-artifact@v3
-      with:
-        name: test-linux-received-snapshots
-        path: ./**/*.received.*
-
   test-windows:
     if: ${{ github.event_name == 'merge_group' }}
     runs-on: windows-2022
@@ -135,46 +128,6 @@ jobs:
       run: dotnet test ./${{ github.event.repository.name }}.sln -c Release --no-build
       env:
         RunCosmosDbIntegrationTests: 'true'
-
-    - name: Copy *.received-files to artifacts
-      if: ${{ always() }}
-      uses: actions/upload-artifact@v3
-      with:
-        name: test-windows-received-snapshots
-        path: ./**/*.received.*
-
-  create-snapshot-fix-pr:
-    if: ${{ always() && github.event_name == 'merge_group' }}
-    runs-on: ubuntu-latest
-    needs: [ test-linux, test-windows ]
-    env:
-      pr-message: 'Fix snapshots for #${{ github.event.number }}.'
-
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-
-    - uses: actions/download-artifact@v2
-      continue-on-error: true
-      with:
-        name: test-linux-received-snapshots
-        
-    - uses: actions/download-artifact@v2
-      continue-on-error: true
-      with:
-        name: test-windows-received-snapshots
-
-    - name: Rename received files
-      run: find . -type f -name '*.DotNet7_0.received.*' | while read FILE ; do newfile="$(echo ${FILE} |sed -e 's/.DotNet7_0.received/.verified/')"; mv "${FILE}" "${newfile}"; done 
-
-    - name: Create snapshot changes pull request
-      uses: peter-evans/create-pull-request@v4
-      with:
-        commit-message: ${{ env.pr-message }}
-        title: ${{ env.pr-message }}
-        body: ${{ env.pr-message }}
-        base: ${{ github.head_ref }}
-        branch-suffix: short-commit-hash
 
   push:
     if: ${{ vars.PUSH_TO_GITHUB_PACKAGES == 'true' }}
