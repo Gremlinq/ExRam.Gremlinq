@@ -1,13 +1,14 @@
 name: Test merge group
 
 on:
+  pull_request:
   merge_group:
     types: [checks_requested]
   workflow_call:
 
 jobs:
 
-  test-linux:
+  test-merge-group-linux:
     runs-on: ubuntu-latest
 
     steps:
@@ -39,7 +40,7 @@ jobs:
     - name: Collect coverage
       uses: codecov/codecov-action@v3
 
-  test-windows:
+  test-merge-group-windows:
     runs-on: windows-2022
 
     steps:
