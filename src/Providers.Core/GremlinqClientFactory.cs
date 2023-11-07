@@ -7,7 +7,7 @@ using Gremlin.Net.Driver.Messages;
 
 namespace ExRam.Gremlinq.Providers.Core
 {
-    public static class GremlinClientFactory
+    public static class GremlinqClientFactory
     {
         private sealed class GremlinqClientFactoryImpl : IGremlinqClientFactory
         {
