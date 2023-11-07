@@ -75,6 +75,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
         public static ITransformer UseNewtonsoftJson(this ITransformer transformer)
         {
             return transformer
+                .Add(new ByteArrayDeferralConverterFactory())
                 .Add(new NewtonsoftJsonSerializerConverterFactory())
                 .Add(new VertexPropertyPropertiesConverterFactory())
                 .Add(ConverterFactory
