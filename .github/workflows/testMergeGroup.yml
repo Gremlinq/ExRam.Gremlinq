@@ -2,7 +2,6 @@ name: Test merge group
 
 on:
   merge_group:
-    types: [checks_requested]
   workflow_call:
 
 jobs:
