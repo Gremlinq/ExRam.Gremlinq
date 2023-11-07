@@ -31,8 +31,6 @@ namespace ExRam.Gremlinq.Providers.Core
 
             public static readonly GremlinqClientFactoryImpl LocalHost = new (new GremlinServer(), _ => { }, _ => { });
 
-            private static readonly IConverterFactory ObjectIdentityConverterFactory = ConverterFactory.Create<object, object>((token, _, _, _) => token);
-
             private readonly GremlinServer _server;
             private readonly Action<ClientWebSocketOptions> _webSocketOptionsConfiguration;
             private readonly Action<ConnectionPoolSettings> _poolSettingsConfiguration;
@@ -75,8 +73,11 @@ namespace ExRam.Gremlinq.Providers.Core
 
                 return new WebSocketGremlinqClient(
                     _server.Uri, environment);
-                    //poolSettings,
-                    //options => _webSocketOptionsConfiguration(options));
+
+#if (!DEBUG)
+                poolSettings,
+                options => _webSocketOptionsConfiguration(options));
+#endif
             }
         }
 
