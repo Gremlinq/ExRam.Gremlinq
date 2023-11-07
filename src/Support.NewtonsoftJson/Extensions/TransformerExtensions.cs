@@ -76,8 +76,8 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 .Add(new NewtonsoftJsonSerializerConverterFactory())
                 .Add(new VertexPropertyPropertiesConverterFactory())
                 .Add(ConverterFactory
-                    .Create<byte[], JToken>((bytes, _, _, _) => JToken.ReadFrom(
-                        new JsonTextReader(new StreamReader(new MemoryStream(bytes)))
+                    .Create<ReadOnlyMemory<byte>, JToken>((bytes, _, _, _) => JToken.ReadFrom(
+                        new JsonTextReader(new StreamReader(new MemoryStream(bytes.ToArray()))) //TODO!!!
                         {
                             DateParseHandling = DateParseHandling.None
                         })))
