@@ -1,4 +1,5 @@
-﻿using System.Collections.Concurrent;
+﻿using System.Buffers;
+using System.Collections.Concurrent;
 using System.Net.WebSockets;
 
 using ExRam.Gremlinq.Core;
@@ -7,6 +8,21 @@ using Gremlin.Net.Driver.Messages;
 
 namespace ExRam.Gremlinq.Providers.Core
 {
+    internal static class MemoryPoolExtensions
+    {
+        public static IMemoryOwner<T> Double<T>(this MemoryPool<T> pool, IMemoryOwner<T> memory)
+        {
+            using (memory)
+            {
+                var newMemory = pool.Rent(memory.Memory.Length * 2);
+
+                memory.Memory.CopyTo(newMemory.Memory);
+
+                return newMemory;
+            }
+        }
+    }
+
     internal sealed class WebSocketGremlinqClient : IGremlinqClient
     {
         private ClientWebSocket? _client;
@@ -62,7 +78,7 @@ namespace ExRam.Gremlinq.Providers.Core
                         client.Options.SetRequestHeader("User-Agent", "ExRam.Gremlinq");
 
                         if (Interlocked.CompareExchange(ref _client, client, null) == null)
-                            await client.ConnectAsync(_uri, ct).ConfigureAwait(false);
+                            await client.ConnectAsync(_uri, ct);
                         else
                             client = null;
 
@@ -80,27 +96,35 @@ namespace ExRam.Gremlinq.Providers.Core
                 try
                 {
                     var read = 0;
-                    var bytes = new byte[16 * 1024];
-                    var result = await client.ReceiveAsync(bytes.AsMemory(), ct);
+                    var bytes = MemoryPool<byte>.Shared.Rent(2048);
 
-                    read = result.Count;
-
-                    while (!result.EndOfMessage)
+                    try
                     {
-                        var newBytes = new byte[bytes.Length * 2];
-                        bytes.AsSpan()[..result.Count].CopyTo(newBytes);
-                        bytes = newBytes;
+                        var result = await client.ReceiveAsync(bytes.Memory, ct);
 
-                        result = await client.ReceiveAsync(bytes.AsMemory()[result.Count..], ct);
+                        read = result.Count;
 
-                        read += result.Count;
+                        while (!result.EndOfMessage)
+                        {
+                            if (read == bytes.Memory.Length)
+                                bytes = MemoryPool<byte>.Shared.Double(bytes);
+
+                            result = await client.ReceiveAsync(bytes.Memory[read..], ct);
+                            read += result.Count;
+                        }
+
+                        var array = bytes.Memory[..read].ToArray();
+
+                        if (_environment.Deserializer.TryTransform(array, _environment, out ResponseMessage<List<object>>? responseMessage))
+                        {
+                            if (responseMessage.RequestId is { } requestId && _finishActions.TryRemove(requestId, out var finishAction))
+                                finishAction(array);
+                        }
                     }
-
-                    bytes = bytes.AsSpan().Slice(0, read).ToArray();
-
-                    if (_environment.Deserializer.TryTransform(bytes, _environment, out ResponseMessage<List<object>>? responseMessage))
-                        if (responseMessage.RequestId is { } requestId && _finishActions.TryRemove(requestId, out var finishAction))
-                            finishAction(bytes);
+                    finally
+                    {
+                        bytes.Dispose();
+                    }
                 }
                 finally
                 {
