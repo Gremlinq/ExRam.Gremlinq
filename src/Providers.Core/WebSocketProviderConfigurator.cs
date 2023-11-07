@@ -101,8 +101,6 @@ namespace ExRam.Gremlinq.Providers.Core
         public IGremlinQuerySource Transform(IGremlinQuerySource source) => _gremlinqConfigurator
             .Transform(source
                 .ConfigureEnvironment(environment => environment
-                    .UseExecutor(Build())));
-
-        private IGremlinQueryExecutor Build() => new WebSocketGremlinQueryExecutor(_clientFactory.Log());
+                    .UseExecutor(new WebSocketGremlinQueryExecutor(_clientFactory.Log()))));
     }
 }
