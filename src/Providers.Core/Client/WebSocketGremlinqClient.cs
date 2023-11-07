@@ -31,7 +31,7 @@ namespace ExRam.Gremlinq.Providers.Core
         private readonly SemaphoreSlim _sendLock = new(1);
         private readonly SemaphoreSlim _receiveLock = new(1);
         private readonly IGremlinQueryEnvironment _environment;
-        private readonly ConcurrentDictionary<Guid, Action<byte[]>> _finishActions = new();
+        private readonly ConcurrentDictionary<Guid, Action<ReadOnlyMemory<byte>>> _finishActions = new();
 
         public WebSocketGremlinqClient(Uri uri, IGremlinQueryEnvironment environment)
         {
@@ -113,12 +113,12 @@ namespace ExRam.Gremlinq.Providers.Core
                             read += result.Count;
                         }
 
-                        var array = bytes.Memory[..read].ToArray();
+                        var segment = (ReadOnlyMemory<byte>)bytes.Memory[..read];
 
-                        if (_environment.Deserializer.TryTransform(array, _environment, out ResponseMessage<List<object>>? responseMessage))
+                        if (_environment.Deserializer.TryTransform(segment, _environment, out ResponseMessage<List<object>>? responseMessage))
                         {
                             if (responseMessage.RequestId is { } requestId && _finishActions.TryRemove(requestId, out var finishAction))
-                                finishAction(array);
+                                finishAction(segment);
                         }
                     }
                     finally
