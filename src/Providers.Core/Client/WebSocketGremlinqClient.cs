@@ -39,20 +39,8 @@ namespace ExRam.Gremlinq.Providers.Core
                     {
                         if (_environment.Serializer.TryTransform(message, _environment, out byte[]? serializedRequest))
                         {
-                            _finishActions.TryAdd(
-                                message.RequestId,
-                                bytes =>
-                                {
-                                    try
-                                    {
-                                        if (_environment.Deserializer.TryTransform(bytes, _environment, out ResponseMessage<T>? response))
-                                            tcs.TrySetResult(response);
-                                    }
-                                    catch (Exception ex)
-                                    {
-                                        tcs.TrySetException(ex);
-                                    }
-                                });
+                            if (!AddCallback(message.RequestId, tcs))
+                                throw new InvalidOperationException();
 
                             await client.SendAsync(serializedRequest, WebSocketMessageType.Binary, true, ct);
                         }
@@ -101,6 +89,21 @@ namespace ExRam.Gremlinq.Providers.Core
         {
             _client?.Dispose();
         }
+
+        private bool AddCallback<T>(Guid requestId, TaskCompletionSource<ResponseMessage<T>> tcs) => _finishActions.TryAdd(
+            requestId,
+            bytes =>
+            {
+                try
+                {
+                    if (_environment.Deserializer.TryTransform(bytes, _environment, out ResponseMessage<T>? response))
+                        tcs.TrySetResult(response);
+                }
+                catch (Exception ex)
+                {
+                    tcs.TrySetException(ex);
+                }
+            });
     }
 }
 
