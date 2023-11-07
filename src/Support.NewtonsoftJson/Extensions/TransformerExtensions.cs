@@ -1,5 +1,7 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Reflection;
+using System.Runtime.InteropServices;
 
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Transformation;
@@ -76,11 +78,21 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 .Add(new NewtonsoftJsonSerializerConverterFactory())
                 .Add(new VertexPropertyPropertiesConverterFactory())
                 .Add(ConverterFactory
-                    .Create<ReadOnlyMemory<byte>, JToken>((bytes, _, _, _) => JToken.ReadFrom(
-                        new JsonTextReader(new StreamReader(new MemoryStream(bytes.ToArray()))) //TODO!!!
-                        {
-                            DateParseHandling = DateParseHandling.None
-                        })))
+                    .Create<ReadOnlyMemory<byte>, JToken>((memory, _, _, _) =>
+                    {
+                        var stream = default(Stream?);
+
+                        if (MemoryMarshal.TryGetArray(memory, out var segment))
+                            stream = new MemoryStream(segment.Array!, segment.Offset, segment.Count);
+                        else
+                            stream = new MemoryStream(memory.ToArray());
+
+                        return JToken.ReadFrom(
+                            new JsonTextReader(new StreamReader(stream))
+                            {
+                                DateParseHandling = DateParseHandling.None
+                            });
+                    }))
                 .Add(new ResponseMessageConverterFactory())
                 .Add(new DictionaryConverterFactory())
                 .Add(new DynamicObjectConverterFactory())
