@@ -1,0 +1,70 @@
+name: Test merge group
+
+on:
+  merge_group:
+    types: [checks_requested]
+  workflow_call:
+
+jobs:
+
+  test-linux:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+        submodules: 'true'
+        
+    - name: Setup .NET SDKs
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: |
+          3
+          5
+          6
+          7
+
+    - name: Build
+      run: dotnet build ./${{ github.event.repository.name }}.sln -c Release
+      
+    - name: Test
+      run: dotnet test ./${{ github.event.repository.name }}.sln -c Release --no-build
+      env:
+        RunGremlinServerIntegrationTests: 'true'
+        RunJanusGraphIntegrationTests: 'true'
+        RunNeptuneIntegrationTests: 'true'
+
+    - name: Collect coverage
+      uses: codecov/codecov-action@v3
+
+  test-windows:
+    runs-on: windows-2022
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+        submodules: 'true'
+
+    - name: Setup .NET SDKs
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: |
+          3
+          5
+          6
+          7
+          
+    - name: Start CosmosDb Emulator
+      uses: Gremlinq/cosmos-emulator-github-action@EnableGremlin
+
+    - name: Build
+      run: dotnet build ./${{ github.event.repository.name }}.sln -c Release
+      
+    - name: Test
+      run: dotnet test ./${{ github.event.repository.name }}.sln -c Release --no-build
+      env:
+        RunCosmosDbIntegrationTests: 'true'

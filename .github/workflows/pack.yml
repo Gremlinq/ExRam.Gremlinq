@@ -1,32 +1,15 @@
-name: Build + Test
+name: Pack and push to GitHub packages
 
 on:
   push:
     branches:
       - main
       - \d+\.x
-  pull_request:
-  merge_group:
-    types: [checks_requested]
   workflow_call:
 
 jobs:
 
-  build:
-    if: ${{ github.event_name == 'pull_request' }}
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-      with:
-        submodules: 'true'
-
-    - name: Build
-      run: dotnet build ./${{ github.event.repository.name }}.sln -c Release -p:IsPackable=false
-
   pack:
-    if: ${{ github.event_name == 'push' }}
     runs-on: ubuntu-latest
 
     outputs:
@@ -64,70 +47,6 @@ jobs:
         name: NuGetPackages
         path: ./**/${{ github.event.repository.name }}.*.nupkg
         if-no-files-found: error
-
-  test-linux:
-    if: ${{ github.event_name == 'merge_group' }}
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
-        submodules: 'true'
-        
-    - name: Setup .NET SDKs
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: |
-          3
-          5
-          6
-          7
-
-    - name: Build
-      run: dotnet build ./${{ github.event.repository.name }}.sln -c Release
-      
-    - name: Test
-      run: dotnet test ./${{ github.event.repository.name }}.sln -c Release --no-build
-      env:
-        RunGremlinServerIntegrationTests: 'true'
-        RunJanusGraphIntegrationTests: 'true'
-        RunNeptuneIntegrationTests: 'true'
-
-    - name: Collect coverage
-      uses: codecov/codecov-action@v3
-
-  test-windows:
-    if: ${{ github.event_name == 'merge_group' }}
-    runs-on: windows-2022
-
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
-        submodules: 'true'
-
-    - name: Setup .NET SDKs
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: |
-          3
-          5
-          6
-          7
-          
-    - name: Start CosmosDb Emulator
-      uses: Gremlinq/cosmos-emulator-github-action@EnableGremlin
-
-    - name: Build
-      run: dotnet build ./${{ github.event.repository.name }}.sln -c Release
-      
-    - name: Test
-      run: dotnet test ./${{ github.event.repository.name }}.sln -c Release --no-build
-      env:
-        RunCosmosDbIntegrationTests: 'true'
 
   push:
     if: ${{ vars.PUSH_TO_GITHUB_PACKAGES == 'true' }}
