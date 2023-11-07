@@ -7,18 +7,13 @@ using Gremlin.Net.Driver.Messages;
 
 namespace ExRam.Gremlinq.Providers.Core
 {
-    public interface IGremlinqClient : IDisposable
-    {
-        Task<ResponseMessage<T>> SendAsync<T>(RequestMessage message, CancellationToken ct);
-    }
-
     internal sealed class WebSocketGremlinqClient : IGremlinqClient
     {
         private ClientWebSocket? _client;
 
         private readonly Uri _uri;
-        private readonly SemaphoreSlim _sendLock = new (1);
-        private readonly SemaphoreSlim _receiveLock = new (1);
+        private readonly SemaphoreSlim _sendLock = new(1);
+        private readonly SemaphoreSlim _receiveLock = new(1);
         private readonly IGremlinQueryEnvironment _environment;
         private readonly ConcurrentDictionary<Guid, Action<byte[]>> _finishActions = new();
 
@@ -104,10 +99,8 @@ namespace ExRam.Gremlinq.Providers.Core
                     bytes = bytes.AsSpan().Slice(0, read).ToArray();
 
                     if (_environment.Deserializer.TryTransform(bytes, _environment, out ResponseMessage<List<object>>? responseMessage))
-                    {
                         if (responseMessage.RequestId is { } requestId && _finishActions.TryRemove(requestId, out var finishAction))
                             finishAction(bytes);
-                    }
                 }
                 finally
                 {
@@ -120,7 +113,7 @@ namespace ExRam.Gremlinq.Providers.Core
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            _client?.Dispose();
         }
     }
 }
