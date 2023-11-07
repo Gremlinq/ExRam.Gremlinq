@@ -8,6 +8,7 @@ using ExRam.Gremlinq.Core.Execution;
 using Gremlin.Net.Driver;
 using Gremlin.Net.Driver.Exceptions;
 using Gremlin.Net.Driver.Messages;
+using static Gremlin.Net.Driver.Messages.ResponseStatusCode;
 
 namespace ExRam.Gremlinq.Providers.Core
 {
@@ -54,6 +55,9 @@ namespace ExRam.Gremlinq.Providers.Core
                         maybeResults = await client
                             .SendAsync<List<object>>(requestMessage, ct)
                             .ConfigureAwait(false);
+
+                        if (maybeResults is { Status: { Code: { } code } status } && code is not Success and not NoContent and not PartialContent and not Authenticate)
+                            throw new ResponseException(code, status.Attributes, $"{status.Code}: {status.Message}");
                     }
                     catch (ConnectionClosedException ex)
                     {
