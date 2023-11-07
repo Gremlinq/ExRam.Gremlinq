@@ -11,7 +11,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 {
     internal sealed class ResponseMessageConverterFactory : IConverterFactory
     {
-        private sealed class ResponseMessageConverter<T> : IConverter<byte[], ResponseMessage<T>>
+        private sealed class ResponseMessageConverter<T> : IConverter<ReadOnlyMemory<byte>, ResponseMessage<T>>
         {
             private readonly IGremlinQueryEnvironment _environment;
 
@@ -20,7 +20,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 _environment = environment;
             }
 
-            public bool TryConvert(byte[] source, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out ResponseMessage<T>? value)
+            public bool TryConvert(ReadOnlyMemory<byte> source, ITransformer _, ITransformer recurse, [NotNullWhen(true)] out ResponseMessage<T>? value)
             {
                 var token = recurse
                     .TransformTo<JToken>()
@@ -32,7 +32,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 
         public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
         {
-            return typeof(TSource) == typeof(byte[]) && typeof(TTarget).IsGenericType && typeof(TTarget).GetGenericTypeDefinition() == typeof(ResponseMessage<>) && typeof(TTarget).GetGenericArguments() is [var dataType]
+            return typeof(TSource) == typeof(ReadOnlyMemory<byte>) && typeof(TTarget).IsGenericType && typeof(TTarget).GetGenericTypeDefinition() == typeof(ResponseMessage<>) && typeof(TTarget).GetGenericArguments() is [var dataType]
                 ? (IConverter<TSource, TTarget>?)Activator.CreateInstance(typeof(ResponseMessageConverter<>).MakeGenericType(dataType), environment)
                 : default;
         }

@@ -26,7 +26,7 @@ namespace ExRam.Gremlinq.Providers.Core
 
                 public async Task<ResponseMessage<List<object>>?> DeserializeMessageAsync(byte[] message, CancellationToken ct) => _environment.Deserializer
                     .TryTransformTo<ResponseMessage<List<object>>>()
-                    .From(message, _environment);
+                    .From((ReadOnlyMemory<byte>)message, _environment);
             }
 
             public static readonly GremlinClientFactoryImpl LocalHost = new (new GremlinServer(), _ => { }, _ => { });
