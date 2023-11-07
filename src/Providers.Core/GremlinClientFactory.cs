@@ -1,7 +1,5 @@
 ﻿using System.Net.WebSockets;
 using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Core.Transformation;
-
 using Gremlin.Net.Driver;
 using Gremlin.Net.Driver.Messages;
 
