@@ -17,7 +17,7 @@ namespace ExRam.Gremlinq.Providers.JanusGraph
                 _webSocketProviderConfigurator = webSocketProviderConfigurator;
             }
 
-            public IJanusGraphConfigurator ConfigureClientFactory(Func<IGremlinClientFactory, IGremlinClientFactory> transformation) => new JanusGraphConfigurator(_webSocketProviderConfigurator.ConfigureClientFactory(transformation));
+            public IJanusGraphConfigurator ConfigureClientFactory(Func<IGremlinqClientFactory, IGremlinqClientFactory> transformation) => new JanusGraphConfigurator(_webSocketProviderConfigurator.ConfigureClientFactory(transformation));
 
             public IJanusGraphConfigurator ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> transformation) => new JanusGraphConfigurator(_webSocketProviderConfigurator.ConfigureQuerySource(transformation));
 

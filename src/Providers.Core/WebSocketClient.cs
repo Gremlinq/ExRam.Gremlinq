@@ -7,7 +7,12 @@ using Gremlin.Net.Driver.Messages;
 
 namespace ExRam.Gremlinq.Providers.Core
 {
-    internal sealed class WebSocketClient
+    public interface IGremlinqClient : IDisposable
+    {
+        Task<ResponseMessage<T>> SendAsync<T>(RequestMessage message, CancellationToken ct);
+    }
+
+    internal sealed class WebSocketGremlinqClient : IGremlinqClient
     {
         private ClientWebSocket? _client;
 
@@ -17,7 +22,7 @@ namespace ExRam.Gremlinq.Providers.Core
         private readonly IGremlinQueryEnvironment _environment;
         private readonly ConcurrentDictionary<Guid, Action<byte[]>> _finishActions = new();
 
-        public WebSocketClient(Uri uri, IGremlinQueryEnvironment environment)
+        public WebSocketGremlinqClient(Uri uri, IGremlinQueryEnvironment environment)
         {
             _uri = uri;
             _environment = environment;
@@ -111,6 +116,11 @@ namespace ExRam.Gremlinq.Providers.Core
 
                 return await tcs.Task;
             }
+        }
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
         }
     }
 }
