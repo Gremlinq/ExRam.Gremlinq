@@ -22,7 +22,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson.Tests
             var token = env
                 .Deserializer
                 .TransformTo<JToken>()
-                .From((ReadOnlyMemory<byte>)Encoding.UTF8.GetBytes("\"2021-03-31T14:57:20.3482309Z\""), env);
+                .From(Encoding.UTF8.GetBytes("\"2021-03-31T14:57:20.3482309Z\""), env);
 
             return Verify(token.ToString());
         }
