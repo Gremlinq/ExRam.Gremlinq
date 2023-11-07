@@ -1,11 +1,9 @@
 ﻿using System.Collections.Concurrent;
-using System.Net.WebSockets;
 using System.Runtime.CompilerServices;
 
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Execution;
 
-using Gremlin.Net.Driver;
 using Gremlin.Net.Driver.Exceptions;
 using Gremlin.Net.Driver.Messages;
 using static Gremlin.Net.Driver.Messages.ResponseStatusCode;
@@ -22,7 +20,6 @@ namespace ExRam.Gremlinq.Providers.Core
             public WebSocketGremlinQueryExecutor(IGremlinqClientFactory clientFactory)
             {
                 _clientFactory = clientFactory;
-
             }
 
             public IAsyncEnumerable<T> Execute<T>(GremlinQueryExecutionContext context)
@@ -48,12 +45,12 @@ namespace ExRam.Gremlinq.Providers.Core
                         .OverrideRequestId(context.ExecutionId)
                         .Create();
 
-                    ResponseMessage<List<object>>? maybeResults;
+                    ResponseMessage<List<T>>? maybeResults;
 
                     try
                     {
                         maybeResults = await client
-                            .SendAsync<List<object>>(requestMessage, ct)
+                            .SendAsync<List<T>>(requestMessage, ct)
                             .ConfigureAwait(false);
 
                         if (maybeResults is { Status: { Code: { } code } status } && code is not Success and not NoContent and not PartialContent and not Authenticate)
@@ -76,9 +73,7 @@ namespace ExRam.Gremlinq.Providers.Core
                     {
                         foreach (var obj in data)
                         {
-                            yield return environment.Deserializer
-                                .TransformTo<T>()
-                                .From(obj, environment);
+                            yield return obj;
                         }
                     }
                 }
