@@ -52,9 +52,6 @@ namespace ExRam.Gremlinq.Providers.Core
                         maybeResults = await client
                             .SendAsync<List<T>>(requestMessage, ct)
                             .ConfigureAwait(false);
-
-                        if (maybeResults is { Status: { Code: { } code } status } && code is not Success and not NoContent and not PartialContent and not Authenticate)
-                            throw new ResponseException(code, status.Attributes, $"{status.Code}: {status.Message}");
                     }
                     catch (ConnectionClosedException ex)
                     {
@@ -64,10 +61,9 @@ namespace ExRam.Gremlinq.Providers.Core
                     {
                         throw new GremlinQueryExecutionException(context, ex);
                     }
-                    catch (ResponseException ex)
-                    {
-                        throw new GremlinQueryExecutionException(context, ex);
-                    }
+
+                    if (maybeResults is { Status: { Code: { } code } status } && code is not Success and not NoContent and not PartialContent and not Authenticate)
+                        throw new GremlinQueryExecutionException(context, new ResponseException(code, status.Attributes, $"{status.Code}: {status.Message}"));
 
                     if (maybeResults is { Result.Data: { } data })
                     {
