@@ -73,11 +73,6 @@ namespace ExRam.Gremlinq.Providers.Core
 
                 return new WebSocketGremlinqClient(
                     _server.Uri, environment);
-
-#if (!DEBUG)
-                poolSettings,
-                options => _webSocketOptionsConfiguration(options));
-#endif
             }
         }
 
