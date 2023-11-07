@@ -15,10 +15,10 @@ namespace ExRam.Gremlinq.Providers.Core
     {
         private sealed class WebSocketGremlinQueryExecutor : IGremlinQueryExecutor
         {
-            private readonly IGremlinClientFactory _clientFactory;
-            private readonly ConcurrentDictionary<IGremlinQueryEnvironment, WebSocketClient> _clients = new();
+            private readonly IGremlinqClientFactory _clientFactory;
+            private readonly ConcurrentDictionary<IGremlinQueryEnvironment, IGremlinqClient> _clients = new();
 
-            public WebSocketGremlinQueryExecutor(IGremlinClientFactory clientFactory)
+            public WebSocketGremlinQueryExecutor(IGremlinqClientFactory clientFactory)
             {
                 _clientFactory = clientFactory;
 
@@ -36,7 +36,7 @@ namespace ExRam.Gremlinq.Providers.Core
 
                     var client = @this._clients.GetOrAdd(
                         environment,
-                        static (environment, executor) => new WebSocketClient(new Uri("ws://localhost:8182/gremlin"), environment),// executor._clientFactory.Create(environment),
+                        static (environment, executor) => executor._clientFactory.Create(environment),
                         @this);
 
                     var requestMessage = environment
@@ -83,18 +83,18 @@ namespace ExRam.Gremlinq.Providers.Core
 
         public static readonly WebSocketProviderConfigurator Default = new (GremlinqConfigurator.Identity, GremlinClientFactory.LocalHost);
 
-        private readonly IGremlinClientFactory _clientFactory;
+        private readonly IGremlinqClientFactory _clientFactory;
         private readonly GremlinqConfigurator _gremlinqConfigurator;
 
         private WebSocketProviderConfigurator(
             GremlinqConfigurator gremlinqConfigurator,
-            IGremlinClientFactory clientFactory)
+            IGremlinqClientFactory clientFactory)
         {
             _clientFactory = clientFactory;
             _gremlinqConfigurator = gremlinqConfigurator;
         }
 
-        public WebSocketProviderConfigurator ConfigureClientFactory(Func<IGremlinClientFactory, IGremlinClientFactory> transformation) => new (
+        public WebSocketProviderConfigurator ConfigureClientFactory(Func<IGremlinqClientFactory, IGremlinqClientFactory> transformation) => new (
             _gremlinqConfigurator,
             transformation(_clientFactory));
 

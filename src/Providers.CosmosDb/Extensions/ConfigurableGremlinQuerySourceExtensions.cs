@@ -60,7 +60,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
                 _graphName,
                 _partitionKeyExpression);
 
-            public ICosmosDbConfigurator<TVertexBase> ConfigureClientFactory(Func<IGremlinClientFactory, IGremlinClientFactory> transformation) => new CosmosDbConfigurator<TVertexBase>(
+            public ICosmosDbConfigurator<TVertexBase> ConfigureClientFactory(Func<IGremlinqClientFactory, IGremlinqClientFactory> transformation) => new CosmosDbConfigurator<TVertexBase>(
                 _webSocketConfigurator.ConfigureClientFactory(transformation),
                 _databaseName,
                 _graphName,

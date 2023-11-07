@@ -17,7 +17,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer
                 _webSocketConfigurator = webSocketConfigurator;
             }
 
-            public IGremlinServerConfigurator ConfigureClientFactory(Func<IGremlinClientFactory, IGremlinClientFactory> transformation) => new GremlinServerConfigurator(_webSocketConfigurator.ConfigureClientFactory(transformation));
+            public IGremlinServerConfigurator ConfigureClientFactory(Func<IGremlinqClientFactory, IGremlinqClientFactory> transformation) => new GremlinServerConfigurator(_webSocketConfigurator.ConfigureClientFactory(transformation));
 
             public IGremlinServerConfigurator ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> transformation) => new GremlinServerConfigurator(_webSocketConfigurator.ConfigureQuerySource(transformation));
 
