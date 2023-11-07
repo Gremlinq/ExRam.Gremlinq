@@ -1,7 +1,10 @@
 ﻿using System.Collections.Concurrent;
+using System.Net.WebSockets;
 using System.Runtime.CompilerServices;
+
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Execution;
+
 using Gremlin.Net.Driver;
 using Gremlin.Net.Driver.Exceptions;
 using Gremlin.Net.Driver.Messages;
@@ -13,11 +16,12 @@ namespace ExRam.Gremlinq.Providers.Core
         private sealed class WebSocketGremlinQueryExecutor : IGremlinQueryExecutor
         {
             private readonly IGremlinClientFactory _clientFactory;
-            private readonly ConcurrentDictionary<IGremlinQueryEnvironment, IGremlinClient> _clients = new();
+            private readonly ConcurrentDictionary<IGremlinQueryEnvironment, WebSocketClient> _clients = new();
 
             public WebSocketGremlinQueryExecutor(IGremlinClientFactory clientFactory)
             {
                 _clientFactory = clientFactory;
+
             }
 
             public IAsyncEnumerable<T> Execute<T>(GremlinQueryExecutionContext context)
@@ -32,7 +36,7 @@ namespace ExRam.Gremlinq.Providers.Core
 
                     var client = @this._clients.GetOrAdd(
                         environment,
-                        static (environment, executor) => executor._clientFactory.Create(environment),
+                        static (environment, executor) => new WebSocketClient(new Uri("ws://localhost:8182/gremlin"), environment),// executor._clientFactory.Create(environment),
                         @this);
 
                     var requestMessage = environment
@@ -43,12 +47,12 @@ namespace ExRam.Gremlinq.Providers.Core
                         .OverrideRequestId(context.ExecutionId)
                         .Create();
 
-                    ResultSet<object>? maybeResults;
+                    ResponseMessage<List<object>>? maybeResults;
 
                     try
                     {
                         maybeResults = await client
-                            .SubmitAsync<object>(requestMessage, ct)
+                            .SendAsync<List<object>>(requestMessage, ct)
                             .ConfigureAwait(false);
                     }
                     catch (ConnectionClosedException ex)
@@ -64,9 +68,9 @@ namespace ExRam.Gremlinq.Providers.Core
                         throw new GremlinQueryExecutionException(context, ex);
                     }
 
-                    if (maybeResults is { } results)
+                    if (maybeResults is { Result.Data: { } data })
                     {
-                        foreach (var obj in results)
+                        foreach (var obj in data)
                         {
                             yield return environment.Deserializer
                                 .TransformTo<T>()
