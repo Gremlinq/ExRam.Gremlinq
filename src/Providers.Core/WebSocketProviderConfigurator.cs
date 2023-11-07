@@ -51,8 +51,7 @@ namespace ExRam.Gremlinq.Providers.Core
                     try
                     {
                         response = await client
-                            .SendAsync<List<T>>(requestMessage, ct)
-                            .ConfigureAwait(false);
+                            .SendAsync<List<T>>(requestMessage, ct);
                     }
                     catch (ConnectionClosedException ex)
                     {
