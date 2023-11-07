@@ -82,16 +82,21 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                     {
                         var stream = default(Stream?);
 
-                        if (MemoryMarshal.TryGetArray(memory, out var segment))
-                            stream = new MemoryStream(segment.Array!, segment.Offset, segment.Count);
+                        if (MemoryMarshal.TryGetArray(memory, out var segment) && segment is { Array: { } array })
+                            stream = new MemoryStream(array, segment.Offset, segment.Count);
                         else
                             stream = new MemoryStream(memory.ToArray());
 
-                        return JToken.ReadFrom(
-                            new JsonTextReader(new StreamReader(stream))
+                        using (stream)
+                        {
+                            using (var streamReader = new StreamReader(stream))
                             {
-                                DateParseHandling = DateParseHandling.None
-                            });
+                                using (var jsonTextReader = new JsonTextReader(streamReader) { DateParseHandling = DateParseHandling.None })
+                                {
+                                    return JToken.ReadFrom(jsonTextReader);
+                                }
+                            }
+                        }
                     }))
                 .Add(new ResponseMessageConverterFactory())
                 .Add(new DictionaryConverterFactory())
