@@ -1,4 +1,4 @@
-﻿using System.Buffers;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Net.WebSockets;
 
@@ -8,21 +8,6 @@ using Gremlin.Net.Driver.Messages;
 
 namespace ExRam.Gremlinq.Providers.Core
 {
-    internal static class MemoryPoolExtensions
-    {
-        public static IMemoryOwner<T> Double<T>(this MemoryPool<T> pool, IMemoryOwner<T> memory)
-        {
-            using (memory)
-            {
-                var newMemory = pool.Rent(memory.Memory.Length * 2);
-
-                memory.Memory.CopyTo(newMemory.Memory);
-
-                return newMemory;
-            }
-        }
-    }
-
     internal sealed class WebSocketGremlinqClient : IGremlinqClient
     {
         private ClientWebSocket? _client;
@@ -90,40 +75,17 @@ namespace ExRam.Gremlinq.Providers.Core
                     _sendLock.Release();
                 }
 
-
                 await _receiveLock.WaitAsync(ct);
 
                 try
                 {
-                    var read = 0;
-                    var bytes = MemoryPool<byte>.Shared.Rent(2048);
-
-                    try
+                    using (var bytes = await client.ReceiveAsync(ct))
                     {
-                        var result = await client.ReceiveAsync(bytes.Memory, ct);
-
-                        read = result.Count;
-
-                        while (!result.EndOfMessage)
-                        {
-                            if (read == bytes.Memory.Length)
-                                bytes = MemoryPool<byte>.Shared.Double(bytes);
-
-                            result = await client.ReceiveAsync(bytes.Memory[read..], ct);
-                            read += result.Count;
-                        }
-
-                        var segment = (ReadOnlyMemory<byte>)bytes.Memory[..read];
-
-                        if (_environment.Deserializer.TryTransform(segment, _environment, out ResponseMessage<List<object>>? responseMessage))
+                        if (_environment.Deserializer.TryTransform(bytes.Memory, _environment, out ResponseMessage<List<object>>? responseMessage))
                         {
                             if (responseMessage.RequestId is { } requestId && _finishActions.TryRemove(requestId, out var finishAction))
-                                finishAction(segment);
+                                finishAction(bytes.Memory);
                         }
-                    }
-                    finally
-                    {
-                        bytes.Dispose();
                     }
                 }
                 finally
@@ -141,3 +103,4 @@ namespace ExRam.Gremlinq.Providers.Core
         }
     }
 }
+
