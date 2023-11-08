@@ -36,6 +36,9 @@ namespace ExRam.Gremlinq.Providers.Core
             var client = _client;
             var tcs = new TaskCompletionSource<ResponseMessage<T>>();
 
+            if (!AddCallback(message.RequestId, tcs))
+                throw new InvalidOperationException();
+
             while (true)
             {
                 await _sendLock.WaitAsync(ct);
@@ -46,9 +49,6 @@ namespace ExRam.Gremlinq.Providers.Core
                     {
                         if (_environment.Serializer.TryTransform(message, _environment, out byte[]? serializedRequest))
                         {
-                            if (!AddCallback(message.RequestId, tcs))
-                                throw new InvalidOperationException();
-
                             await client.SendAsync(serializedRequest, WebSocketMessageType.Binary, true, ct);
                         }
                     }
