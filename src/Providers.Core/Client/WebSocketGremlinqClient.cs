@@ -14,18 +14,18 @@ namespace ExRam.Gremlinq.Providers.Core
 {
     internal sealed class WebSocketGremlinqClient : IGremlinqClient
     {
-        private interface IState
+        private interface IChannel
         {
             void Signal(ReadOnlyMemory<byte> bytes);
         }
 
-        private sealed class State<T> : IState, IAsyncEnumerable<ResponseMessage<T>>
+        private sealed class Channel<T> : IChannel, IAsyncEnumerable<ResponseMessage<T>>
         {
             private readonly SemaphoreSlim _semaphore = new(0);
             private readonly IGremlinQueryEnvironment _environment;
             private readonly ConcurrentQueue<object> _queue = new ();
 
-            public State(IGremlinQueryEnvironment environment)
+            public Channel(IGremlinQueryEnvironment environment)
             {
                 _environment = environment;
             }
@@ -78,7 +78,7 @@ namespace ExRam.Gremlinq.Providers.Core
         private readonly SemaphoreSlim _sendLock = new(1);
         private readonly SemaphoreSlim _receiveLock = new(1);
         private readonly IGremlinQueryEnvironment _environment;
-        private readonly ConcurrentDictionary<Guid, IState> _states = new();
+        private readonly ConcurrentDictionary<Guid, IChannel> _states = new();
 
         public WebSocketGremlinqClient(GremlinServer server, IGremlinQueryEnvironment environment)
         {
@@ -90,15 +90,15 @@ namespace ExRam.Gremlinq.Providers.Core
 
         public IAsyncEnumerable<ResponseMessage<T>> SubmitAsync<T>(RequestMessage message)
         {
-            return Core(message);
+            return Core(message, this);
 
-            async IAsyncEnumerable<ResponseMessage<T>> Core(RequestMessage message, [EnumeratorCancellation] CancellationToken ct = default)
+            static async IAsyncEnumerable<ResponseMessage<T>> Core(RequestMessage message, WebSocketGremlinqClient @this,[EnumeratorCancellation] CancellationToken ct = default)
             {
-                var state = new State<T>(_environment);
+                var state = new Channel<T>(@this._environment);
 
-                _states.TryAdd(message.RequestId, state);
+                @this._states.TryAdd(message.RequestId, state);
 
-                var loopTask = Loop(message, ct);
+                var loopTask = Loop(message, @this, ct);
 
                 try
                 {
@@ -113,13 +113,13 @@ namespace ExRam.Gremlinq.Providers.Core
                 }
             }
 
-            async Task Loop(RequestMessage message, CancellationToken ct)
+            static async Task Loop(RequestMessage message, WebSocketGremlinqClient @this, CancellationToken ct)
             {
-                await SendCore(message, ct);
+                await @this.SendCore(message, ct);
 
                 while (true)
                 {
-                    var (envelope, bytes) = await ReceiveCore(ct);
+                    var (envelope, bytes) = await @this.ReceiveCore(ct);
 
                     using (bytes)
                     {
@@ -130,19 +130,19 @@ namespace ExRam.Gremlinq.Providers.Core
                                 var authMessage = RequestMessage
                                     .Build(Tokens.OpsAuthentication)
                                     .Processor(Tokens.ProcessorTraversal)
-                                    .AddArgument(Tokens.ArgsSasl, Convert.ToBase64String(Encoding.UTF8.GetBytes($"\0{_server.Username}\0{_server.Password}")))
+                                    .AddArgument(Tokens.ArgsSasl, Convert.ToBase64String(Encoding.UTF8.GetBytes($"\0{@this._server.Username}\0{@this._server.Password}")))
                                     .Create();
 
-                                await SendCore(authMessage, ct);
+                                await @this.SendCore(authMessage, ct);
                             }
                             else if (statusCode == PartialContent)
                             {
-                                if (_states.TryGetValue(requestId, out var state))
+                                if (@this._states.TryGetValue(requestId, out var state))
                                     state.Signal(bytes.Memory);
                             }
                             else
                             {
-                                if (_states.TryRemove(requestId, out var state))
+                                if (@this._states.TryRemove(requestId, out var state))
                                     state.Signal(bytes.Memory);
 
                                 break;
