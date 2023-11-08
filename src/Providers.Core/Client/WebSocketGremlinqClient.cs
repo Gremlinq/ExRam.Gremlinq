@@ -39,6 +39,44 @@ namespace ExRam.Gremlinq.Providers.Core
             if (!AddCallback(message.RequestId, tcs))
                 throw new InvalidOperationException();
 
+            await SendCore(message, ct);
+
+            while (true)
+            {
+                var (envelope, bytes) = await ReceiveCore(ct);
+
+                using (bytes)
+                {
+                    if (envelope.Status is { Code: Authenticate })
+                    {
+                        var authMessage = RequestMessage
+                            .Build(Tokens.OpsAuthentication)
+                            .Processor(Tokens.ProcessorTraversal)
+                            .AddArgument(Tokens.ArgsSasl, Convert.ToBase64String(Encoding.UTF8.GetBytes($"\0{_server.Username}\0{_server.Password}")))
+                            .Create();
+
+                        await SendCore(authMessage, ct);
+                    }
+                    else
+                    {
+                        if (envelope.RequestId is { } requestId && _finishActions.TryRemove(requestId, out var finishAction))
+                            finishAction(bytes.Memory);
+
+                        break;
+                    }
+                }
+            }
+           
+            return await tcs.Task;
+        }
+
+        public void Dispose()
+        {
+            _client.Dispose();
+        }
+
+        private async Task SendCore(RequestMessage requestMessage, CancellationToken ct)
+        {
             await _sendLock.WaitAsync(ct);
 
             try
@@ -46,68 +84,35 @@ namespace ExRam.Gremlinq.Providers.Core
                 if (_client.State == WebSocketState.None)
                     await _client.ConnectAsync(_server.Uri, ct);
 
-                if (_environment.Serializer.TryTransform(message, _environment, out byte[]? serializedRequest))
+                if (_environment.Serializer.TryTransform(requestMessage, _environment, out byte[]? serializedRequest))
                     await _client.SendAsync(serializedRequest, WebSocketMessageType.Binary, true, ct);
             }
             finally
             {
                 _sendLock.Release();
             }
+        }
 
+        private async Task<(ResponseMessageEnvelope Envelope, ClientWebSocketExtensions.SlicedMemoryOwner Bytes)> ReceiveCore(CancellationToken ct)
+        {
             await _receiveLock.WaitAsync(ct);
 
             try
             {
-                while (true)
+                var bytes = await _client.ReceiveAsync(ct);
+
+                if (_environment.Deserializer.TryTransform(bytes.Memory, _environment, out ResponseMessageEnvelope responseMessageEnvelope))
+                    return (responseMessageEnvelope, bytes);
+
+                using (bytes)
                 {
-                    using (var bytes = await _client.ReceiveAsync(ct))
-                    {
-                        if (_environment.Deserializer.TryTransform(bytes.Memory, _environment, out ResponseMessageEnvelope responseMessageEnvelope))
-                        {
-                            if (responseMessageEnvelope.Status is { Code: Authenticate })
-                            {
-                                var authMessage = RequestMessage
-                                    .Build(Tokens.OpsAuthentication)
-                                    .Processor(Tokens.ProcessorTraversal)
-                                    .AddArgument(Tokens.ArgsSasl, Convert.ToBase64String(Encoding.UTF8.GetBytes($"\0{_server.Username}\0{_server.Password}")))
-                                    .Create();
-
-                                if (_environment.Serializer.TryTransform(authMessage, _environment, out byte[]? serializedRequest))
-                                {
-                                    await _sendLock.WaitAsync(ct);
-
-                                    try
-                                    {
-                                        await _client.SendAsync(serializedRequest, WebSocketMessageType.Binary, true, ct);
-                                    }
-                                    finally
-                                    {
-                                        _sendLock.Release();
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                if (responseMessageEnvelope.RequestId is { } requestId && _finishActions.TryRemove(requestId, out var finishAction))
-                                    finishAction(bytes.Memory);
-
-                                break;
-                            }
-                        }
-                    }
+                    throw new InvalidOperationException();
                 }
             }
             finally
             {
                 _receiveLock.Release();
             }
-
-            return await tcs.Task;
-        }
-
-        public void Dispose()
-        {
-            _client.Dispose();
         }
 
         private bool AddCallback<T>(Guid requestId, TaskCompletionSource<ResponseMessage<T>> tcs) => _finishActions.TryAdd(
