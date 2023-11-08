@@ -10,6 +10,8 @@ namespace ExRam.Gremlinq.Providers.Core
 {
     internal sealed class WebSocketGremlinqClient : IGremlinqClient
     {
+        private record struct ResponseMessageEnvelope(Guid? RequestId);
+
         private ClientWebSocket? _client;
 
         private readonly Uri _uri;
@@ -69,9 +71,9 @@ namespace ExRam.Gremlinq.Providers.Core
                 {
                     using (var bytes = await client.ReceiveAsync(ct))
                     {
-                        if (_environment.Deserializer.TryTransform(bytes.Memory, _environment, out ResponseMessage<List<object>>? responseMessage))
+                        if (_environment.Deserializer.TryTransform(bytes.Memory, _environment, out ResponseMessageEnvelope responseMessageEnvelope))
                         {
-                            if (responseMessage.RequestId is { } requestId && _finishActions.TryRemove(requestId, out var finishAction))
+                            if (responseMessageEnvelope.RequestId is { } requestId && _finishActions.TryRemove(requestId, out var finishAction))
                                 finishAction(bytes.Memory);
                         }
                     }
