@@ -57,7 +57,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             }
         }
 
-        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment) => typeof(TSource) == typeof(ReadOnlyMemory<byte>) && typeof(TTarget) == typeof(JToken)
+        public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment) => typeof(TSource) == typeof(ReadOnlyMemory<byte>)
            ? (IConverter<TSource, TTarget>)(object)new ByteArrayToJTokenDeferralConverter<TTarget>(environment)
            : default;
     }
