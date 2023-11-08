@@ -1,5 +1,4 @@
 ﻿using System.Collections.Concurrent;
-using System.Diagnostics;
 using System.Net.WebSockets;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -24,7 +23,7 @@ namespace ExRam.Gremlinq.Providers.Core
         {
             private readonly SemaphoreSlim _semaphore = new(0);
             private readonly IGremlinQueryEnvironment _environment;
-            private readonly ConcurrentQueue<object?> _queue = new ();
+            private readonly ConcurrentQueue<object> _queue = new ();
 
             public State(IGremlinQueryEnvironment environment)
             {
@@ -39,12 +38,6 @@ namespace ExRam.Gremlinq.Providers.Core
                     {
                         _queue.Enqueue(response);
                         _semaphore.Release();
-
-                        if (response.Status.Code != PartialContent)
-                        {
-                            _queue.Enqueue(null);
-                            _semaphore.Release();
-                        }
                     }
                 }
                 catch (Exception ex)
@@ -63,11 +56,14 @@ namespace ExRam.Gremlinq.Providers.Core
                     if (_queue.TryDequeue(out var item))
                     {
                         if (item is ResponseMessage<T> response)
+                        {
                             yield return response;
+
+                            if (response.Status.Code != PartialContent)
+                                break;
+                        }
                         else if (item is Exception ex)
                             throw ex;
-                        else
-                            yield break;
                     }
                 }
             }
@@ -104,19 +100,12 @@ namespace ExRam.Gremlinq.Providers.Core
 
                 var loopTask = Loop(message, ct);
 
-                try
+                await foreach (var response in state)
                 {
-                    await foreach(var response in state)
-                    {
-                        yield return response;
-                    }
+                    yield return response;
+                }
 
-                    await loopTask;
-                }
-                finally
-                {
-                    _states.TryRemove(message.RequestId, out _);
-                }
+                await loopTask;
             }
 
             async Task Loop(RequestMessage message, CancellationToken ct)
@@ -129,23 +118,30 @@ namespace ExRam.Gremlinq.Providers.Core
 
                     using (bytes)
                     {
-                        if (envelope.Status is { Code: Authenticate })
+                        if (envelope is { Status.Code: var statusCode, RequestId: { } requestId })
                         {
-                            var authMessage = RequestMessage
-                                .Build(Tokens.OpsAuthentication)
-                                .Processor(Tokens.ProcessorTraversal)
-                                .AddArgument(Tokens.ArgsSasl, Convert.ToBase64String(Encoding.UTF8.GetBytes($"\0{_server.Username}\0{_server.Password}")))
-                                .Create();
+                            if (statusCode == Authenticate)
+                            {
+                                var authMessage = RequestMessage
+                                    .Build(Tokens.OpsAuthentication)
+                                    .Processor(Tokens.ProcessorTraversal)
+                                    .AddArgument(Tokens.ArgsSasl, Convert.ToBase64String(Encoding.UTF8.GetBytes($"\0{_server.Username}\0{_server.Password}")))
+                                    .Create();
 
-                            await SendCore(authMessage, ct);
-                        }
-                        else
-                        {
-                            if (envelope.RequestId is { } requestId && _states.TryGetValue(requestId, out var state))
-                                state.Signal(bytes.Memory);
+                                await SendCore(authMessage, ct);
+                            }
+                            else if (statusCode == PartialContent)
+                            {
+                                if (_states.TryGetValue(requestId, out var state))
+                                    state.Signal(bytes.Memory);
+                            }
+                            else
+                            {
+                                if (_states.TryRemove(requestId, out var state))
+                                    state.Signal(bytes.Memory);
 
-                            if (envelope.Status?.Code is not PartialContent)
                                 break;
+                            }
                         }
                     }
                 }
