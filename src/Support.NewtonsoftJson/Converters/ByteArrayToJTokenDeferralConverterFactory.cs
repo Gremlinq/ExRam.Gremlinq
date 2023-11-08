@@ -35,11 +35,21 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                     {
                         using (var jsonTextReader = new JsonTextReader(streamReader) { DateParseHandling = DateParseHandling.None })
                         {
-                            value = JToken.ReadFrom(jsonTextReader);
-                            return true;
+                            try
+                            {
+                                value = JToken.ReadFrom(jsonTextReader);
+                                return true;
+                            }
+                            catch (JsonException)
+                            {
+
+                            }
                         }
                     }
                 }
+
+                value = default;
+                return false;
             }
         }
 
