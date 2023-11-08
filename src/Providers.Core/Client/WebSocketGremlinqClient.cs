@@ -1,5 +1,7 @@
 ﻿using System.Collections.Concurrent;
+using System.Diagnostics;
 using System.Net.WebSockets;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 using ExRam.Gremlinq.Core;
@@ -32,42 +34,47 @@ namespace ExRam.Gremlinq.Providers.Core
             _client.Options.SetRequestHeader("User-Agent", "ExRam.Gremlinq");
         }
 
-        public async Task<ResponseMessage<T>> SubmitAsync<T>(RequestMessage message, CancellationToken ct)
+        public IAsyncEnumerable<ResponseMessage<T>> SubmitAsync<T>(RequestMessage message)
         {
-            var tcs = new TaskCompletionSource<ResponseMessage<T>>();
+            return Core(message);
 
-            if (!AddCallback(message.RequestId, tcs))
-                throw new InvalidOperationException();
-
-            await SendCore(message, ct);
-
-            while (true)
+            async IAsyncEnumerable<ResponseMessage<T>> Core(RequestMessage message, [EnumeratorCancellation] CancellationToken ct = default)
             {
-                var (envelope, bytes) = await ReceiveCore(ct);
+                var tcs = new TaskCompletionSource<ResponseMessage<T>>();
 
-                using (bytes)
+                if (!AddCallback(message.RequestId, tcs))
+                    throw new InvalidOperationException();
+
+                await SendCore(message, ct);
+
+                while (true)
                 {
-                    if (envelope.Status is { Code: Authenticate })
-                    {
-                        var authMessage = RequestMessage
-                            .Build(Tokens.OpsAuthentication)
-                            .Processor(Tokens.ProcessorTraversal)
-                            .AddArgument(Tokens.ArgsSasl, Convert.ToBase64String(Encoding.UTF8.GetBytes($"\0{_server.Username}\0{_server.Password}")))
-                            .Create();
+                    var (envelope, bytes) = await ReceiveCore(ct);
 
-                        await SendCore(authMessage, ct);
-                    }
-                    else
+                    using (bytes)
                     {
-                        if (envelope.RequestId is { } requestId && _finishActions.TryRemove(requestId, out var finishAction))
-                            finishAction(bytes.Memory);
+                        if (envelope.Status is { Code: Authenticate })
+                        {
+                            var authMessage = RequestMessage
+                                .Build(Tokens.OpsAuthentication)
+                                .Processor(Tokens.ProcessorTraversal)
+                                .AddArgument(Tokens.ArgsSasl, Convert.ToBase64String(Encoding.UTF8.GetBytes($"\0{_server.Username}\0{_server.Password}")))
+                                .Create();
 
-                        break;
+                            await SendCore(authMessage, ct);
+                        }
+                        else
+                        {
+                            if (envelope.RequestId is { } requestId && _finishActions.TryRemove(requestId, out var finishAction))
+                                finishAction(bytes.Memory);
+
+                            break;
+                        }
                     }
                 }
+
+                yield return await tcs.Task;
             }
-           
-            return await tcs.Task;
         }
 
         public void Dispose()

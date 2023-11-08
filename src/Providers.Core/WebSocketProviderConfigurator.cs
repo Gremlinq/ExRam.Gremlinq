@@ -29,8 +29,6 @@ namespace ExRam.Gremlinq.Providers.Core
 
                 async static IAsyncEnumerable<T> Core(WebSocketGremlinQueryExecutor @this, GremlinQueryExecutionContext context, [EnumeratorCancellation] CancellationToken ct = default)
                 {
-                    var response = default(ResponseMessage<List<T>>?);
-
                     var environment = context.Query
                         .AsAdmin()
                         .Environment;
@@ -48,28 +46,36 @@ namespace ExRam.Gremlinq.Providers.Core
                         .OverrideRequestId(context.ExecutionId)
                         .Create();
 
-                    try
+                    await using (var e = client.SubmitAsync<List<T>>(requestMessage).GetAsyncEnumerator(ct))
                     {
-                        response = await client
-                            .SubmitAsync<List<T>>(requestMessage, ct);
-                    }
-                    catch (ConnectionClosedException ex)
-                    {
-                        throw new GremlinQueryExecutionException(context, ex);
-                    }
-                    catch (NoConnectionAvailableException ex)
-                    {
-                        throw new GremlinQueryExecutionException(context, ex);
-                    }
-
-                    if (response is { Status: { Code: { } code } status } && code is not Success and not NoContent and not PartialContent and not Authenticate)
-                        throw new GremlinQueryExecutionException(context, new ResponseException(code, status.Attributes, $"{status.Code}: {status.Message}"));
-
-                    if (response is { Result.Data: { } data })
-                    {
-                        foreach (var obj in data)
+                        while (true)
                         {
-                            yield return obj;
+                            try
+                            {
+                                if (!await e.MoveNextAsync())
+                                    break;
+                            }
+                            catch (ConnectionClosedException ex)
+                            {
+                                throw new GremlinQueryExecutionException(context, ex);
+                            }
+                            catch (NoConnectionAvailableException ex)
+                            {
+                                throw new GremlinQueryExecutionException(context, ex);
+                            }
+
+                            var response = e.Current;
+
+                            if (response is { Status: { Code: { } code } status } && code is not Success and not NoContent and not PartialContent and not Authenticate)
+                                throw new GremlinQueryExecutionException(context, new ResponseException(code, status.Attributes, $"{status.Code}: {status.Message}"));
+
+                            if (response is { Result.Data: { } data })
+                            {
+                                foreach (var obj in data)
+                                {
+                                    yield return obj;
+                                }
+                            }
                         }
                     }
                 }
