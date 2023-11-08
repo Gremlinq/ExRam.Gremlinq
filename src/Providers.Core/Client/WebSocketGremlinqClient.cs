@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
+using System.Diagnostics;
 using System.Net.WebSockets;
 using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 using System.Text;
 
 using ExRam.Gremlinq.Core;
@@ -16,11 +15,16 @@ namespace ExRam.Gremlinq.Providers.Core
 {
     internal sealed class WebSocketGremlinqClient : IGremlinqClient
     {
-        private sealed class State<T>
+        private interface IState
         {
+            void Signal(ReadOnlyMemory<byte> bytes);
+        }
+
+        private sealed class State<T> : IState, IAsyncEnumerable<ResponseMessage<T>>
+        {
+            private readonly SemaphoreSlim _semaphore = new(0);
             private readonly IGremlinQueryEnvironment _environment;
-            private readonly List<ResponseMessage<T>> _list = new ();
-            private readonly TaskCompletionSource<ResponseMessage<T>[]> _tcs = new ();
+            private readonly ConcurrentQueue<object?> _queue = new ();
 
             public State(IGremlinQueryEnvironment environment)
             {
@@ -33,19 +37,40 @@ namespace ExRam.Gremlinq.Providers.Core
                 {
                     if (_environment.Deserializer.TryTransform(bytes, _environment, out ResponseMessage<T>? response))
                     {
-                        _list.Add(response);
+                        _queue.Enqueue(response);
+                        _semaphore.Release();
 
                         if (response.Status.Code != PartialContent)
-                            _tcs.TrySetResult(_list.ToArray());
+                        {
+                            _queue.Enqueue(null);
+                            _semaphore.Release();
+                        }
                     }
                 }
                 catch (Exception ex)
                 {
-                    _tcs.TrySetException(ex);
+                    _queue.Enqueue(ex);
+                    _semaphore.Release();
                 }
             }
 
-            public Task<ResponseMessage<T>[]> Responses => _tcs.Task;
+            public async IAsyncEnumerator<ResponseMessage<T>> GetAsyncEnumerator(CancellationToken ct = default)
+            {
+                while (true)
+                {
+                    await _semaphore.WaitAsync(ct);
+
+                    if (_queue.TryDequeue(out var item))
+                    {
+                        if (item is ResponseMessage<T> response)
+                            yield return response;
+                        else if (item is Exception ex)
+                            throw ex;
+                        else
+                            yield break;
+                    }
+                }
+            }
         }
 
         private record struct ResponseMessageEnvelope(Guid? RequestId, ResponseStatus? Status);
@@ -57,7 +82,7 @@ namespace ExRam.Gremlinq.Providers.Core
         private readonly SemaphoreSlim _sendLock = new(1);
         private readonly SemaphoreSlim _receiveLock = new(1);
         private readonly IGremlinQueryEnvironment _environment;
-        private readonly ConcurrentDictionary<Guid, Action<ReadOnlyMemory<byte>>> _finishActions = new();
+        private readonly ConcurrentDictionary<Guid, IState> _states = new();
 
         public WebSocketGremlinqClient(GremlinServer server, IGremlinQueryEnvironment environment)
         {
@@ -75,13 +100,13 @@ namespace ExRam.Gremlinq.Providers.Core
             {
                 var state = new State<T>(_environment);
 
-                _finishActions.TryAdd(message.RequestId, state.Signal);
+                _states.TryAdd(message.RequestId, state);
 
                 var loopTask = Loop(message, ct);
 
                 try
                 {
-                    foreach(var response in await state.Responses)
+                    await foreach(var response in state)
                     {
                         yield return response;
                     }
@@ -90,7 +115,7 @@ namespace ExRam.Gremlinq.Providers.Core
                 }
                 finally
                 {
-                    _finishActions.TryRemove(message.RequestId, out _);
+                    _states.TryRemove(message.RequestId, out _);
                 }
             }
 
@@ -116,8 +141,8 @@ namespace ExRam.Gremlinq.Providers.Core
                         }
                         else
                         {
-                            if (envelope.RequestId is { } requestId && _finishActions.TryGetValue(requestId, out var finishAction))
-                                finishAction(bytes.Memory);
+                            if (envelope.RequestId is { } requestId && _states.TryGetValue(requestId, out var state))
+                                state.Signal(bytes.Memory);
 
                             if (envelope.Status?.Code is not PartialContent)
                                 break;
