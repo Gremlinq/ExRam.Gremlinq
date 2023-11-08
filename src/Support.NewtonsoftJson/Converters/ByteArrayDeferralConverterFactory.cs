@@ -42,11 +42,11 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
             }
         }
 
-        private sealed class DeferToJTokenConverter<TTarget> : IConverter<ReadOnlyMemory<byte>, TTarget>
+        private sealed class DeferToNewtonsoftConverter<TTarget> : IConverter<ReadOnlyMemory<byte>, TTarget>
         {
             private readonly IGremlinQueryEnvironment _environment;
 
-            public DeferToJTokenConverter(IGremlinQueryEnvironment environment)
+            public DeferToNewtonsoftConverter(IGremlinQueryEnvironment environment)
             {
                 _environment = environment;
             }
@@ -63,19 +63,11 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                     {
                         using (var jsonTextReader = new JsonTextReader(streamReader) { DateParseHandling = DateParseHandling.None })
                         {
-                            var maybeToken = default(JToken?);
-
-                            try
+                            if (_environment.GetJsonSerializer(recurse).Deserialize<TTarget>(jsonTextReader) is { } requestedValue)
                             {
-                                maybeToken = JToken.ReadFrom(jsonTextReader);
+                                value = requestedValue;
+                                return true;
                             }
-                            catch (JsonException)
-                            {
-
-                            }
-
-                            if (maybeToken is { } token)
-                                return recurse.TryTransform(token, _environment, out value);
                         }
                     }
                 }
@@ -88,7 +80,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
         public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment)
         {
             if (typeof(TSource) == typeof(ReadOnlyMemory<byte>))
-                return (IConverter<TSource, TTarget>)(object)new DeferToJTokenConverter<TTarget>(environment);
+                return (IConverter<TSource, TTarget>)(object)new DeferToNewtonsoftConverter<TTarget>(environment);
 
             if (typeof(TSource) == typeof(Memory<byte>))
                 return (IConverter<TSource, TTarget>)(object)new DeferFromMemoryConverter<TTarget>(environment);
