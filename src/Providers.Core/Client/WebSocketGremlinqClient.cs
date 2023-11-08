@@ -10,7 +10,9 @@ namespace ExRam.Gremlinq.Providers.Core
 {
     internal sealed class WebSocketGremlinqClient : IGremlinqClient
     {
-        private record struct ResponseMessageEnvelope(Guid? RequestId);
+        private record struct ResponseMessageEnvelope(Guid? RequestId, ResponseStatus? Status);
+
+        private record struct ResponseStatus(ResponseStatusCode code);
 
         private ClientWebSocket? _client;
 
