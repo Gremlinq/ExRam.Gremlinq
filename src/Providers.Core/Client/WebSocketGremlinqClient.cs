@@ -100,12 +100,17 @@ namespace ExRam.Gremlinq.Providers.Core
 
                 var loopTask = Loop(message, ct);
 
-                await foreach (var response in state)
+                try
                 {
-                    yield return response;
+                    await foreach (var response in state)
+                    {
+                        yield return response;
+                    }
                 }
-
-                await loopTask;
+                finally
+                {
+                    await loopTask;
+                }
             }
 
             async Task Loop(RequestMessage message, CancellationToken ct)
