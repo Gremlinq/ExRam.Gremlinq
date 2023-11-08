@@ -31,7 +31,7 @@ namespace ExRam.Gremlinq.Providers.Core
             _environment = environment;
         }
 
-        public async Task<ResponseMessage<T>> SendAsync<T>(RequestMessage message, CancellationToken ct)
+        public async Task<ResponseMessage<T>> SubmitAsync<T>(RequestMessage message, CancellationToken ct)
         {
             var client = _client;
             var tcs = new TaskCompletionSource<ResponseMessage<T>>();
