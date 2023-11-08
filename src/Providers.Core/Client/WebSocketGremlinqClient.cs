@@ -3,6 +3,7 @@ using System.Net.WebSockets;
 
 using ExRam.Gremlinq.Core;
 
+using Gremlin.Net.Driver;
 using Gremlin.Net.Driver.Messages;
 
 namespace ExRam.Gremlinq.Providers.Core
@@ -13,15 +14,15 @@ namespace ExRam.Gremlinq.Providers.Core
 
         private ClientWebSocket? _client;
 
-        private readonly Uri _uri;
+        private readonly GremlinServer _server;
         private readonly SemaphoreSlim _sendLock = new(1);
         private readonly SemaphoreSlim _receiveLock = new(1);
         private readonly IGremlinQueryEnvironment _environment;
         private readonly ConcurrentDictionary<Guid, Action<ReadOnlyMemory<byte>>> _finishActions = new();
 
-        public WebSocketGremlinqClient(Uri uri, IGremlinQueryEnvironment environment)
+        public WebSocketGremlinqClient(GremlinServer server, IGremlinQueryEnvironment environment)
         {
-            _uri = uri;
+            _server = server;
             _environment = environment;
         }
 
@@ -52,7 +53,7 @@ namespace ExRam.Gremlinq.Providers.Core
                         client.Options.SetRequestHeader("User-Agent", "ExRam.Gremlinq");
 
                         if (Interlocked.CompareExchange(ref _client, client, null) == null)
-                            await client.ConnectAsync(_uri, ct);
+                            await client.ConnectAsync(_server.Uri, ct);
                         else
                             client = null;
 
