@@ -1,10 +1,13 @@
 ﻿using System.Collections.Concurrent;
 using System.Net.WebSockets;
+using System.Text;
 
 using ExRam.Gremlinq.Core;
 
 using Gremlin.Net.Driver;
 using Gremlin.Net.Driver.Messages;
+
+using static Gremlin.Net.Driver.Messages.ResponseStatusCode;
 
 namespace ExRam.Gremlinq.Providers.Core
 {
@@ -12,7 +15,7 @@ namespace ExRam.Gremlinq.Providers.Core
     {
         private record struct ResponseMessageEnvelope(Guid? RequestId, ResponseStatus? Status);
 
-        private record struct ResponseStatus(ResponseStatusCode code);
+        private record struct ResponseStatus(ResponseStatusCode Code);
 
         private ClientWebSocket? _client;
 
@@ -71,12 +74,42 @@ namespace ExRam.Gremlinq.Providers.Core
 
                 try
                 {
-                    using (var bytes = await client.ReceiveAsync(ct))
+                    while (true)
                     {
-                        if (_environment.Deserializer.TryTransform(bytes.Memory, _environment, out ResponseMessageEnvelope responseMessageEnvelope))
+                        using (var bytes = await client.ReceiveAsync(ct))
                         {
-                            if (responseMessageEnvelope.RequestId is { } requestId && _finishActions.TryRemove(requestId, out var finishAction))
-                                finishAction(bytes.Memory);
+                            if (_environment.Deserializer.TryTransform(bytes.Memory, _environment, out ResponseMessageEnvelope responseMessageEnvelope))
+                            {
+                                if (responseMessageEnvelope.Status is { Code: Authenticate })
+                                {
+                                    var authMessage = RequestMessage
+                                        .Build(Tokens.OpsAuthentication)
+                                        .Processor(Tokens.ProcessorTraversal)
+                                        .AddArgument(Tokens.ArgsSasl, Convert.ToBase64String(Encoding.UTF8.GetBytes($"\0{_server.Username}\0{_server.Password}")))
+                                        .Create();
+
+                                    if (_environment.Serializer.TryTransform(authMessage, _environment, out byte[]? serializedRequest))
+                                    {
+                                        await _sendLock.WaitAsync(ct);
+
+                                        try
+                                        {
+                                            await client.SendAsync(serializedRequest, WebSocketMessageType.Binary, true, ct);
+                                        }
+                                        finally
+                                        {
+                                            _sendLock.Release();
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    if (responseMessageEnvelope.RequestId is { } requestId && _finishActions.TryRemove(requestId, out var finishAction))
+                                        finishAction(bytes.Memory);
+
+                                    break;
+                                }
+                            }
                         }
                     }
                 }
