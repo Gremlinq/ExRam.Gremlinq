@@ -4,8 +4,6 @@ using System.Runtime.InteropServices;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Transformation;
 
-using Newtonsoft.Json.Linq;
-
 using Newtonsoft.Json;
 
 namespace ExRam.Gremlinq.Support.NewtonsoftJson
