@@ -1,7 +1,8 @@
-﻿using System.Collections.Concurrent;
-using System.Diagnostics;
+﻿using System.Collections;
+using System.Collections.Concurrent;
 using System.Net.WebSockets;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Text;
 
 using ExRam.Gremlinq.Core;
@@ -15,6 +16,38 @@ namespace ExRam.Gremlinq.Providers.Core
 {
     internal sealed class WebSocketGremlinqClient : IGremlinqClient
     {
+        private sealed class State<T>
+        {
+            private readonly IGremlinQueryEnvironment _environment;
+            private readonly List<ResponseMessage<T>> _list = new ();
+            private readonly TaskCompletionSource<ResponseMessage<T>[]> _tcs = new ();
+
+            public State(IGremlinQueryEnvironment environment)
+            {
+                _environment = environment;
+            }
+
+            public void Signal(ReadOnlyMemory<byte> bytes)
+            {
+                try
+                {
+                    if (_environment.Deserializer.TryTransform(bytes, _environment, out ResponseMessage<T>? response))
+                    {
+                        _list.Add(response);
+
+                        if (response.Status.Code != PartialContent)
+                            _tcs.TrySetResult(_list.ToArray());
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _tcs.TrySetException(ex);
+                }
+            }
+
+            public Task<ResponseMessage<T>[]> Responses => _tcs.Task;
+        }
+
         private record struct ResponseMessageEnvelope(Guid? RequestId, ResponseStatus? Status);
 
         private record struct ResponseStatus(ResponseStatusCode Code);
@@ -40,11 +73,29 @@ namespace ExRam.Gremlinq.Providers.Core
 
             async IAsyncEnumerable<ResponseMessage<T>> Core(RequestMessage message, [EnumeratorCancellation] CancellationToken ct = default)
             {
-                var tcs = new TaskCompletionSource<ResponseMessage<T>>();
+                var state = new State<T>(_environment);
 
-                if (!AddCallback(message.RequestId, tcs))
-                    throw new InvalidOperationException();
+                _finishActions.TryAdd(message.RequestId, state.Signal);
 
+                var loopTask = Loop(message, ct);
+
+                try
+                {
+                    foreach(var response in await state.Responses)
+                    {
+                        yield return response;
+                    }
+
+                    await loopTask;
+                }
+                finally
+                {
+                    _finishActions.TryRemove(message.RequestId, out _);
+                }
+            }
+
+            async Task Loop(RequestMessage message, CancellationToken ct)
+            {
                 await SendCore(message, ct);
 
                 while (true)
@@ -65,15 +116,14 @@ namespace ExRam.Gremlinq.Providers.Core
                         }
                         else
                         {
-                            if (envelope.RequestId is { } requestId && _finishActions.TryRemove(requestId, out var finishAction))
+                            if (envelope.RequestId is { } requestId && _finishActions.TryGetValue(requestId, out var finishAction))
                                 finishAction(bytes.Memory);
 
-                            break;
+                            if (envelope.Status?.Code is not PartialContent)
+                                break;
                         }
                     }
                 }
-
-                yield return await tcs.Task;
             }
         }
 
@@ -121,21 +171,6 @@ namespace ExRam.Gremlinq.Providers.Core
                 _receiveLock.Release();
             }
         }
-
-        private bool AddCallback<T>(Guid requestId, TaskCompletionSource<ResponseMessage<T>> tcs) => _finishActions.TryAdd(
-            requestId,
-            bytes =>
-            {
-                try
-                {
-                    if (_environment.Deserializer.TryTransform(bytes, _environment, out ResponseMessage<T>? response))
-                        tcs.TrySetResult(response);
-                }
-                catch (Exception ex)
-                {
-                    tcs.TrySetException(ex);
-                }
-            });
     }
 }
 
