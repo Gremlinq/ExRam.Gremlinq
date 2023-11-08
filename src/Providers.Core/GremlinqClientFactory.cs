@@ -52,8 +52,7 @@ namespace ExRam.Gremlinq.Providers.Core
 
                 _poolSettingsConfiguration(poolSettings);
 
-                return new WebSocketGremlinqClient(
-                    _server.Uri, environment);
+                return new WebSocketGremlinqClient(_server, environment);
             }
         }
 
