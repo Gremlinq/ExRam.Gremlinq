@@ -80,12 +80,14 @@ namespace ExRam.Gremlinq.Providers.Core
         private readonly IGremlinQueryEnvironment _environment;
         private readonly ConcurrentDictionary<Guid, IChannel> _states = new();
 
-        public WebSocketGremlinqClient(GremlinServer server, IGremlinQueryEnvironment environment)
+        public WebSocketGremlinqClient(GremlinServer server, Action<ClientWebSocketOptions> optionsTransformation, IGremlinQueryEnvironment environment)
         {
             _server = server;
             _environment = environment;
 
             _client.Options.SetRequestHeader("User-Agent", "ExRam.Gremlinq");
+
+            optionsTransformation(_client.Options);
         }
 
         public IAsyncEnumerable<ResponseMessage<T>> SubmitAsync<T>(RequestMessage message)
