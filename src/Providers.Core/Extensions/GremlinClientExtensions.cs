@@ -21,9 +21,9 @@ namespace ExRam.Gremlinq.Providers.Core
                 _transformation = transformation;
             }
 
-            public async Task<ResponseMessage<TResult>> SendAsync<TResult>(RequestMessage requestMessage, CancellationToken ct)
+            public async Task<ResponseMessage<TResult>> SubmitAsync<TResult>(RequestMessage requestMessage, CancellationToken ct)
             {
-                return await _baseClient.SendAsync<TResult>(await _transformation(requestMessage), ct);
+                return await _baseClient.SubmitAsync<TResult>(await _transformation(requestMessage), ct);
             }
 
             public void Dispose() => _baseClient.Dispose();
@@ -40,9 +40,9 @@ namespace ExRam.Gremlinq.Providers.Core
                 _baseClient = baseClient;
             }
 
-            public async Task<ResponseMessage<TResult>> SendAsync<TResult>(RequestMessage requestMessage, CancellationToken ct)
+            public async Task<ResponseMessage<TResult>> SubmitAsync<TResult>(RequestMessage requestMessage, CancellationToken ct)
             {
-                var responseMessage = await _baseClient.SendAsync<TResult>(requestMessage, ct);
+                var responseMessage = await _baseClient.SubmitAsync<TResult>(requestMessage, ct);
 
                 _observer(requestMessage, responseMessage.Status.Attributes);
 
@@ -68,9 +68,9 @@ namespace ExRam.Gremlinq.Providers.Core
                 _logger = GetLoggingFunction(environment);
             }
 
-            public async Task<ResponseMessage<TResult>> SendAsync<TResult>(RequestMessage requestMessage, CancellationToken ct)
+            public async Task<ResponseMessage<TResult>> SubmitAsync<TResult>(RequestMessage requestMessage, CancellationToken ct)
             {
-                var task = _client.SendAsync<TResult>(requestMessage, ct);
+                var task = _client.SubmitAsync<TResult>(requestMessage, ct);
 
                 _logger(requestMessage);
 
