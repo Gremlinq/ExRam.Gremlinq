@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Runtime.CompilerServices;
+using System.Text.Json;
 
 using ExRam.Gremlinq.Core;
 
@@ -15,15 +16,23 @@ namespace ExRam.Gremlinq.Providers.Core
             private readonly IGremlinqClient _baseClient;
             private readonly Func<RequestMessage, Task<RequestMessage>> _transformation;
 
-            public RequestInterceptingGremlinClient(IGremlinqClient baseClient, Func<RequestMessage, Task<RequestMessage>> transformation)
+            public RequestInterceptingGremlinClient(IGremlinqClient baseClient, Func<RequestMessage, Task<RequestMessage>> transformation)//TODO: CancellationToken
             {
                 _baseClient = baseClient;
                 _transformation = transformation;
             }
 
-            public async Task<ResponseMessage<TResult>> SubmitAsync<TResult>(RequestMessage requestMessage, CancellationToken ct)
+            public IAsyncEnumerable<ResponseMessage<TResult>> SubmitAsync<TResult>(RequestMessage requestMessage)
             {
-                return await _baseClient.SubmitAsync<TResult>(await _transformation(requestMessage), ct);
+                return Core(requestMessage, this);
+
+                static async IAsyncEnumerable<ResponseMessage<TResult>> Core(RequestMessage requestMessage, RequestInterceptingGremlinClient @this, [EnumeratorCancellation] CancellationToken ct = default)
+                {
+                    await foreach(var item in @this._baseClient.SubmitAsync<TResult>(await @this._transformation(requestMessage)))
+                    {
+                        yield return item;
+                    }
+                }
             }
 
             public void Dispose() => _baseClient.Dispose();
@@ -40,13 +49,19 @@ namespace ExRam.Gremlinq.Providers.Core
                 _baseClient = baseClient;
             }
 
-            public async Task<ResponseMessage<TResult>> SubmitAsync<TResult>(RequestMessage requestMessage, CancellationToken ct)
+            public IAsyncEnumerable<ResponseMessage<TResult>> SubmitAsync<TResult>(RequestMessage requestMessage)
             {
-                var responseMessage = await _baseClient.SubmitAsync<TResult>(requestMessage, ct);
+                return Core(requestMessage, this);
 
-                _observer(requestMessage, responseMessage.Status.Attributes);
+                static async IAsyncEnumerable<ResponseMessage<TResult>> Core(RequestMessage requestMessage, ObserveResultStatusAttributesGremlinClient @this, [EnumeratorCancellation] CancellationToken ct = default)
+                {
+                    await foreach (var responseMessage in @this._baseClient.SubmitAsync<TResult>(requestMessage))
+                    {
+                        @this._observer(requestMessage, responseMessage.Status.Attributes);
 
-                return responseMessage;
+                        yield return responseMessage;
+                    }
+                }
             }
 
             public void Dispose() => _baseClient.Dispose();
@@ -68,21 +83,33 @@ namespace ExRam.Gremlinq.Providers.Core
                 _logger = GetLoggingFunction(environment);
             }
 
-            public async Task<ResponseMessage<TResult>> SubmitAsync<TResult>(RequestMessage requestMessage, CancellationToken ct)
+            public IAsyncEnumerable<ResponseMessage<TResult>> SubmitAsync<TResult>(RequestMessage requestMessage)
             {
-                var task = _client.SubmitAsync<TResult>(requestMessage, ct);
+                return Core(requestMessage, this);
 
-                _logger(requestMessage);
-
-                try
+                static async IAsyncEnumerable<ResponseMessage<TResult>> Core(RequestMessage requestMessage, LoggingGremlinQueryClient @this, [EnumeratorCancellation] CancellationToken ct = default)
                 {
-                    return await task;
-                }
-                catch (Exception ex)
-                {
-                    _environment.Logger.LogError(ex, "Execution of Gremlin query {RequestId} failed.", requestMessage.RequestId);
+                    @this._logger(requestMessage);
 
-                    throw;
+                    await using (var e = @this._client.SubmitAsync<TResult>(requestMessage).GetAsyncEnumerator(ct))
+                    {
+                        while (true)
+                        {
+                            try
+                            {
+                                if (!await e.MoveNextAsync())
+                                    break;
+                            }
+                            catch (Exception ex)
+                            {
+                                @this._environment.Logger.LogError(ex, "Execution of Gremlin query {RequestId} failed.", requestMessage.RequestId);
+
+                                throw;
+                            }
+
+                            yield return e.Current;
+                        }   
+                    }
                 }
             }
 
