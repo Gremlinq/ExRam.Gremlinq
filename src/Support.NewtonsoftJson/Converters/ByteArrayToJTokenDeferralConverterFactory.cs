@@ -11,7 +11,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
 {
     internal sealed class ByteArrayToJTokenDeferralConverterFactory : IConverterFactory
     {
-        private sealed class ByteArrayToJTokenDeferralConverter : IConverter<ReadOnlyMemory<byte>, JToken>
+        private sealed class ByteArrayToJTokenDeferralConverter<TTarget> : IConverter<ReadOnlyMemory<byte>, TTarget>
         {
             private readonly IGremlinQueryEnvironment _environment;
 
@@ -20,7 +20,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                 _environment = environment;
             }
 
-            public bool TryConvert(ReadOnlyMemory<byte> source, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out JToken? value)
+            public bool TryConvert(ReadOnlyMemory<byte> source, ITransformer defer, ITransformer recurse, [NotNullWhen(true)] out TTarget? value)
             {
                 var stream = default(Stream?);
 
@@ -35,15 +35,19 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
                     {
                         using (var jsonTextReader = new JsonTextReader(streamReader) { DateParseHandling = DateParseHandling.None })
                         {
+                            var maybeToken = default(JToken?);
+
                             try
                             {
-                                value = JToken.ReadFrom(jsonTextReader);
-                                return true;
+                                maybeToken = JToken.ReadFrom(jsonTextReader);
                             }
                             catch (JsonException)
                             {
 
                             }
+
+                            if (maybeToken is { } token)
+                                return recurse.TryTransform(token, _environment, out value);
                         }
                     }
                 }
@@ -54,7 +58,7 @@ namespace ExRam.Gremlinq.Support.NewtonsoftJson
         }
 
         public IConverter<TSource, TTarget>? TryCreate<TSource, TTarget>(IGremlinQueryEnvironment environment) => typeof(TSource) == typeof(ReadOnlyMemory<byte>) && typeof(TTarget) == typeof(JToken)
-           ? (IConverter<TSource, TTarget>)(object)new ByteArrayToJTokenDeferralConverter(environment)
+           ? (IConverter<TSource, TTarget>)(object)new ByteArrayToJTokenDeferralConverter<TTarget>(environment)
            : default;
     }
 }
