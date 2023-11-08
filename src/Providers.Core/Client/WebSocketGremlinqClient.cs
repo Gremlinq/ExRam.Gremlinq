@@ -92,8 +92,9 @@ namespace ExRam.Gremlinq.Providers.Core
         {
             return Core(message, this);
 
-            static async IAsyncEnumerable<ResponseMessage<T>> Core(RequestMessage message, WebSocketGremlinqClient @this,[EnumeratorCancellation] CancellationToken ct = default)
+            static async IAsyncEnumerable<ResponseMessage<T>> Core(RequestMessage message, WebSocketGremlinqClient @this, [EnumeratorCancellation] CancellationToken ct = default)
             {
+                var maybeException = default(Exception?);
                 var state = new Channel<T>(@this._environment);
 
                 @this._states.TryAdd(message.RequestId, state);
@@ -109,7 +110,22 @@ namespace ExRam.Gremlinq.Providers.Core
                 }
                 finally
                 {
-                    await loopTask;
+                    try
+                    {
+                        await loopTask;
+                    }
+                    catch (Exception ex)
+                    {
+                        maybeException = ex;
+                    }
+                }
+
+                if (maybeException is { } exception)
+                {
+                    using (@this)
+                    {
+                        throw new ObjectDisposedException(nameof(WebSocketGremlinqClient), exception);
+                    }
                 }
             }
 
