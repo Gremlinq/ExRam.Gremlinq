@@ -18,8 +18,8 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.AspNet
                         .GetSection("GremlinServer");
 
                     return configurator
-                        .ConfigureWebSocket<IGremlinServerConfigurator, IGremlinqClientFactory>(providerSection)
-                        .ConfigureBasicAuthentication<IGremlinServerConfigurator, IGremlinqClientFactory>(providerSection);
+                        .ConfigureWebSocket(providerSection)
+                        .ConfigureBasicAuthentication<IGremlinServerConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>>(providerSection);
                 });
         }
     }
