@@ -130,6 +130,8 @@ namespace ExRam.Gremlinq.Providers.Core
 
             static async IAsyncEnumerable<ResponseMessage<T>> Core(RequestMessage message, WebSocketGremlinqClient @this, [EnumeratorCancellation] CancellationToken ct = default)
             {
+                ct = CancellationTokenSource.CreateLinkedTokenSource(ct, @this._cts.Token).Token;
+
                 using (var channel = new Channel<T>(message.RequestId, @this._environment))
                 {
                     @this._channels.TryAdd(message.RequestId, channel);
@@ -196,7 +198,7 @@ namespace ExRam.Gremlinq.Providers.Core
                         @this._receiveLock.Release();
                     }
 
-                    await foreach (var response in channel.WithCancellation(CancellationTokenSource.CreateLinkedTokenSource(ct, @this._cts.Token).Token))
+                    await foreach (var response in channel.WithCancellation(ct))
                     {
                         yield return response;
                     }
