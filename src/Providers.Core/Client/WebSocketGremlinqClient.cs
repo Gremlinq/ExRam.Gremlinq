@@ -105,24 +105,6 @@ namespace ExRam.Gremlinq.Providers.Core
 
                 await @this.SendCore(message, ct);
 
-                await foreach (var response in @this.ReceiveLoop(channel).WithCancellation(ct))
-                {
-                    yield return response;
-                }
-            }
-        }
-
-        public void Dispose()
-        {
-            _client.Dispose();
-        }
-
-        private IAsyncEnumerable<ResponseMessage<T>> ReceiveLoop<T>(Channel<T> channel)
-        {
-            return Core(channel, this);
-
-            async static IAsyncEnumerable<ResponseMessage<T>> Core(Channel<T> channel, WebSocketGremlinqClient @this, [EnumeratorCancellation] CancellationToken ct = default)
-            {
                 await @this._receiveLock.WaitAsync(ct);
 
                 try
@@ -153,7 +135,11 @@ namespace ExRam.Gremlinq.Providers.Core
                                             yield return response;
 
                                         if (statusCode != PartialContent)
+                                        {
+                                            @this._channels.TryRemove(requestId, out _);
+
                                             yield break;
+                                        }
                                     }
                                     else if (statusCode == PartialContent)
                                     {
@@ -184,6 +170,11 @@ namespace ExRam.Gremlinq.Providers.Core
                     yield return response;
                 }
             }
+        }
+
+        public void Dispose()
+        {
+            _client.Dispose();
         }
 
         private async Task SendCore(RequestMessage requestMessage, CancellationToken ct)
