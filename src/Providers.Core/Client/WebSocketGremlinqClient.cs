@@ -206,8 +206,16 @@ namespace ExRam.Gremlinq.Providers.Core
 
         public void Dispose()
         {
-            _client.Dispose();
-            _cts.Cancel();
+            using (_receiveLock)
+            {
+                using (_sendLock)
+                {
+                    using (_client)
+                    {
+                        _cts.Cancel();
+                    }
+                }
+            }
         }
 
         private async Task SendCore(RequestMessage requestMessage, CancellationToken ct)
