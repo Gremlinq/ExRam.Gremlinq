@@ -1,4 +1,5 @@
 ﻿using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Tests.Entities;
 using ExRam.Gremlinq.Tests.Fixtures;
 using ExRam.Gremlinq.Tests.Infrastructure;
 using ExRam.Gremlinq.Tests.TestCases;
@@ -15,6 +16,32 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
             testOutputHelper)
         {
         }
+
+        [Fact]
+        public async Task Stress()
+        {
+            var tasks = Enumerable
+                .Range(0, 1000)
+                .Select(_ => _g
+                    .Inject(42)
+                    .ToArrayAsync()
+                    .AsTask())
+                .ToArray();
+
+            var arrays = await tasks
+                .ToAsyncEnumerable()
+                .SelectAwait(async x => await x)
+                .ToArrayAsync();
+
+            arrays
+                .Should()
+                .HaveCount(1000).And
+                .AllSatisfy(array => array
+                    .Should()
+                    .HaveCount(1).And
+                    .ContainSingle(x => x == 42));
+        }
+
 
         [Fact]
         public async Task FirstAsync() => (await _g
