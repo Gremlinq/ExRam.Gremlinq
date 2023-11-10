@@ -13,12 +13,12 @@ namespace ExRam.Gremlinq.Providers.Core
 {
     public sealed class WebSocketProviderConfigurator : IWebSocketProviderConfigurator<WebSocketProviderConfigurator>
     {
-        private sealed class WebSocketGremlinQueryExecutor : IGremlinQueryExecutor
+        private sealed class GremlinQueryExecutorImpl : IGremlinQueryExecutor
         {
             private readonly IGremlinqClientFactory _clientFactory;
             private readonly ConcurrentDictionary<IGremlinQueryEnvironment, IGremlinqClient> _clients = new();
 
-            public WebSocketGremlinQueryExecutor(IGremlinqClientFactory clientFactory)
+            public GremlinQueryExecutorImpl(IGremlinqClientFactory clientFactory)
             {
                 _clientFactory = clientFactory;
             }
@@ -27,7 +27,7 @@ namespace ExRam.Gremlinq.Providers.Core
             {
                 return Core(this, context);
 
-                async static IAsyncEnumerable<T> Core(WebSocketGremlinQueryExecutor @this, GremlinQueryExecutionContext context, [EnumeratorCancellation] CancellationToken ct = default)
+                async static IAsyncEnumerable<T> Core(GremlinQueryExecutorImpl @this, GremlinQueryExecutionContext context, [EnumeratorCancellation] CancellationToken ct = default)
                 {
                     var environment = context.Query
                         .AsAdmin()
@@ -106,6 +106,6 @@ namespace ExRam.Gremlinq.Providers.Core
         public IGremlinQuerySource Transform(IGremlinQuerySource source) => _gremlinqConfigurator
             .Transform(source
                 .ConfigureEnvironment(environment => environment
-                    .UseExecutor(new WebSocketGremlinQueryExecutor(_clientFactory.Log()))));
+                    .UseExecutor(new GremlinQueryExecutorImpl(_clientFactory.Log()))));
     }
 }
