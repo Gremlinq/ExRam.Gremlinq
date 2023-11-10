@@ -9,7 +9,7 @@ ExRam.Gremlinq is a .NET object-graph-mapper for [Apache TinkerPop™](http://ti
 ![Downloads](https://img.shields.io/nuget/dt/ExRam.Gremlinq.Core?style=flat-square&logo=nuget)
 [![#](https://img.shields.io/nuget/v/ExRam.Gremlinq.Core?style=flat-square&logo=nuget)](https://www.nuget.org/packages/ExRam.Gremlinq.Core)
 [![#](https://img.shields.io/nuget/vpre/ExRam.Gremlinq.Core?style=flat-square&logo=nuget)](https://www.nuget.org/packages/ExRam.Gremlinq.Core)
-![Build status](https://img.shields.io/github/actions/workflow/status/ExRam/ExRam.Gremlinq/build.yml?style=flat-square&logo=github)
+![Build status](https://img.shields.io/github/actions/workflow/status/ExRam/ExRam.Gremlinq/pack.yml?style=flat-square&logo=github)
 [![codecov](https://img.shields.io/codecov/c/github/ExRam/ExRam.Gremlinq/branch/main?token=YrGnIo6XyH&logo=codecov&style=flat-square)](https://codecov.io/github/ExRam/ExRam.Gremlinq)
 [![#](https://img.shields.io/github/sponsors/danielcweber?logo=githubsponsors&style=flat-square)](https://github.com/sponsors/danielcweber)
 
