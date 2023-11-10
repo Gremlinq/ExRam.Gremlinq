@@ -10,14 +10,20 @@ namespace ExRam.Gremlinq.Providers.Core
     internal sealed class WebSocketGremlinqClientPool : IGremlinqClient
     {
         private int _connectionIndex = 0;
-        private readonly IGremlinqClient[] _clients;
+        private readonly IGremlinqClient?[] _clients;
+        private readonly GremlinServer _server;
+        private readonly ConnectionPoolSettings _poolSettings;
+        private readonly Action<ClientWebSocketOptions> _optionsTransformation;
+        private readonly IGremlinQueryEnvironment _environment;
 
         public WebSocketGremlinqClientPool(GremlinServer server, ConnectionPoolSettings poolSettings, Action<ClientWebSocketOptions> optionsTransformation, IGremlinQueryEnvironment environment)
         {
-            _clients = Enumerable
-                .Range(0, poolSettings.PoolSize)
-                .Select(_ => new WebSocketGremlinqClient(server, optionsTransformation, environment))
-                .ToArray();
+            _server = server;
+            _poolSettings = poolSettings;
+            _optionsTransformation = optionsTransformation;
+            _environment = environment;
+
+            _clients = new IGremlinqClient?[poolSettings.PoolSize];
         }
 
         public IAsyncEnumerable<ResponseMessage<T>> SubmitAsync<T>(RequestMessage message)
@@ -28,18 +34,48 @@ namespace ExRam.Gremlinq.Providers.Core
             {
                 var slot = Math.Abs((Interlocked.Increment(ref @this._connectionIndex) - 1) % @this._clients.Length);
 
-                await foreach (var item in @this._clients[slot].SubmitAsync<T>(message).WithCancellation(ct))
+                while (true)
                 {
-                    yield return item;
+                    var maybeClient = @this._clients[slot];
+
+                    if (maybeClient is { } client)
+                    {
+                        await using (var e = client.SubmitAsync<T>(message).WithCancellation(ct).GetAsyncEnumerator())
+                        {
+                            while (true)
+                            {
+                                try
+                                {
+                                    if (!await e.MoveNextAsync())
+                                        break;
+                                }
+                                catch (Exception)
+                                {
+                                    using (client)
+                                    {
+                                        Interlocked.CompareExchange(ref @this._clients[slot], null, client);
+                                    }
+
+                                    throw;
+                                }
+
+                                yield return e.Current;
+                            }
+                        }
+
+                        yield break;
+                    }
+                    else
+                        Interlocked.CompareExchange(ref @this._clients[slot], new WebSocketGremlinqClient(@this._server, @this._optionsTransformation, @this._environment), null);
                 }
             }
         }
 
         public void Dispose()
         {
-            foreach(var client in _clients)
+            foreach (var client in _clients)
             {
-                client.Dispose();
+                client?.Dispose();
             }
         }
     }
