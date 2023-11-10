@@ -27,6 +27,102 @@ namespace ExRam.Gremlinq.Providers.Core
             public IGremlinqClient Create(IGremlinQueryEnvironment environment) => _clientTransformation(_baseFactory.Create(environment), environment);
         }
 
+        private sealed class PoolGremlinqClientFactory<TBaseFactory> : IPoolGremlinqClientFactory<TBaseFactory>
+            where TBaseFactory : IGremlinqClientFactory
+        {
+            private sealed class PoolGremlinqClient : IGremlinqClient
+            {
+                private int _connectionIndex = 0;
+                private readonly IGremlinqClient?[] _clients;
+                private readonly IGremlinqClientFactory _baseFactory;
+                private readonly IGremlinQueryEnvironment _environment;
+
+                public PoolGremlinqClient(IGremlinqClientFactory baseFactory, int poolSize, IGremlinQueryEnvironment environment)
+                {
+                    _baseFactory = baseFactory;
+                    _environment = environment;
+
+                    _clients = new IGremlinqClient?[poolSize];
+                }
+
+                public IAsyncEnumerable<ResponseMessage<T>> SubmitAsync<T>(RequestMessage message)
+                {
+                    return Core(message, this);
+
+                    static async IAsyncEnumerable<ResponseMessage<T>> Core(RequestMessage message, PoolGremlinqClient @this, [EnumeratorCancellation] CancellationToken ct = default)
+                    {
+                        var slot = Math.Abs((Interlocked.Increment(ref @this._connectionIndex) - 1) % @this._clients.Length);
+
+                        while (true)
+                        {
+                            var maybeClient = @this._clients[slot];
+
+                            if (maybeClient is { } client)
+                            {
+                                await using (var e = client.SubmitAsync<T>(message).WithCancellation(ct).GetAsyncEnumerator())
+                                {
+                                    while (true)
+                                    {
+                                        try
+                                        {
+                                            if (!await e.MoveNextAsync())
+                                                break;
+                                        }
+                                        catch (Exception)
+                                        {
+                                            using (client)
+                                            {
+                                                Interlocked.CompareExchange(ref @this._clients[slot], null, client);
+                                            }
+
+                                            throw;
+                                        }
+
+                                        yield return e.Current;
+                                    }
+                                }
+
+                                yield break;
+                            }
+                            else
+                                Interlocked.CompareExchange(ref @this._clients[slot], @this._baseFactory.Create(@this._environment), null);
+                        }
+                    }
+                }
+
+                public void Dispose()
+                {
+                    foreach (var client in _clients)
+                    {
+                        client?.Dispose();
+                    }
+                }
+            }
+
+            private readonly int _poolSize;
+            private readonly TBaseFactory _baseFactory;
+            private readonly int _maxInProcessPerConnection;
+
+            public PoolGremlinqClientFactory(TBaseFactory baseFactory) : this(baseFactory, 8, 16)
+            {
+            }
+
+            public PoolGremlinqClientFactory(TBaseFactory baseFactory, int poolSize, int maxInProcessPerConnection)
+            {
+                _poolSize = poolSize;
+                _baseFactory = baseFactory;
+                _maxInProcessPerConnection = maxInProcessPerConnection;
+            }
+
+            public IPoolGremlinqClientFactory<TBaseFactory> ConfigureBaseFactory(Func<TBaseFactory, TBaseFactory> transformation) => new PoolGremlinqClientFactory<TBaseFactory>(transformation(_baseFactory));
+
+            public IPoolGremlinqClientFactory<TBaseFactory> WithMaxInProcessPerConnection(int maxInProcessPerConnection) => new PoolGremlinqClientFactory<TBaseFactory>(_baseFactory, _poolSize, maxInProcessPerConnection);
+
+            public IPoolGremlinqClientFactory<TBaseFactory> WithPoolSize(int poolSize) => new PoolGremlinqClientFactory<TBaseFactory>(_baseFactory, poolSize, _maxInProcessPerConnection);
+
+            public IGremlinqClient Create(IGremlinQueryEnvironment environment) => new PoolGremlinqClient(_baseFactory, _poolSize, environment);
+        }
+
         private sealed class GremlinQueryExecutorImpl : IGremlinQueryExecutor
         {
             private readonly IGremlinqClientFactory _clientFactory;

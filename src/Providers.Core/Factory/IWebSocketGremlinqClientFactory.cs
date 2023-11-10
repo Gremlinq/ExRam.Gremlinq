@@ -8,6 +8,6 @@ namespace ExRam.Gremlinq.Providers.Core
     {
         IWebSocketGremlinqClientFactory ConfigureServer(Func<GremlinServer, GremlinServer> transformation);
 
-        IWebSocketGremlinqClientFactory ConfigureWebSocketOptions(Action<ClientWebSocketOptions> configuration);
+        IWebSocketGremlinqClientFactory ConfigureOptions(Action<ClientWebSocketOptions> configuration);
     }
 }
