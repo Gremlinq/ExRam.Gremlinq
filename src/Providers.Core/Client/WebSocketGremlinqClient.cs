@@ -136,71 +136,78 @@ namespace ExRam.Gremlinq.Providers.Core
                 {
                     @this._channels.TryAdd(message.RequestId, channel);
 
-                    await @this.SendCore(message, ct);
-
-                    await @this._receiveLock.WaitAsync(ct);
-
                     try
                     {
-                        while (true)
+                        await @this.SendCore(message, ct);
+
+                        await @this._receiveLock.WaitAsync(ct);
+
+                        try
                         {
-                            var bytes = await @this._client.ReceiveAsync(ct);
-
-                            using (bytes)
+                            while (true)
                             {
-                                if (@this._environment.Deserializer.TryTransform(bytes.Memory, @this._environment, out ResponseMessageEnvelope responseMessageEnvelope))
+                                var bytes = await @this._client.ReceiveAsync(ct);
+
+                                using (bytes)
                                 {
-                                    if (responseMessageEnvelope is { Status.Code: var statusCode, RequestId: { } requestId })
+                                    if (@this._environment.Deserializer.TryTransform(bytes.Memory, @this._environment, out ResponseMessageEnvelope responseMessageEnvelope))
                                     {
-                                        if (statusCode == Authenticate)
+                                        if (responseMessageEnvelope is { Status.Code: var statusCode, RequestId: { } requestId })
                                         {
-                                            var authMessage = RequestMessage
-                                                .Build(Tokens.OpsAuthentication)
-                                                .Processor(Tokens.ProcessorTraversal)
-                                                .AddArgument(Tokens.ArgsSasl, Convert.ToBase64String(Encoding.UTF8.GetBytes($"\0{@this._server.Username}\0{@this._server.Password}")))
-                                                .Create();
-
-                                            await @this.SendCore(authMessage, ct);
-                                        }
-                                        else if (channel.RequestId == requestId)
-                                        {
-                                            if (@this._environment.Deserializer.TryTransform(bytes.Memory, @this._environment, out ResponseMessage<T>? response))
-                                                yield return response;
-
-                                            if (statusCode != PartialContent)
+                                            if (statusCode == Authenticate)
                                             {
-                                                @this._channels.TryRemove(requestId, out _);
+                                                var authMessage = RequestMessage
+                                                    .Build(Tokens.OpsAuthentication)
+                                                    .Processor(Tokens.ProcessorTraversal)
+                                                    .AddArgument(Tokens.ArgsSasl, Convert.ToBase64String(Encoding.UTF8.GetBytes($"\0{@this._server.Username}\0{@this._server.Password}")))
+                                                    .Create();
 
-                                                yield break;
+                                                await @this.SendCore(authMessage, ct);
+                                            }
+                                            else if (channel.RequestId == requestId)
+                                            {
+                                                if (@this._environment.Deserializer.TryTransform(bytes.Memory, @this._environment, out ResponseMessage<T>? response))
+                                                    yield return response;
+
+                                                if (statusCode != PartialContent)
+                                                {
+                                                    @this._channels.TryRemove(requestId, out _);
+
+                                                    yield break;
+                                                }
+                                            }
+                                            else if (statusCode == PartialContent)
+                                            {
+                                                if (@this._channels.TryGetValue(requestId, out var otherChannel))
+                                                    otherChannel.Signal(bytes.Memory);
+                                            }
+                                            else
+                                            {
+                                                if (@this._channels.TryRemove(requestId, out var otherChannel))
+                                                    otherChannel.Signal(bytes.Memory);
+
+                                                break;
                                             }
                                         }
-                                        else if (statusCode == PartialContent)
-                                        {
-                                            if (@this._channels.TryGetValue(requestId, out var otherChannel))
-                                                otherChannel.Signal(bytes.Memory);
-                                        }
-                                        else
-                                        {
-                                            if (@this._channels.TryRemove(requestId, out var otherChannel))
-                                                otherChannel.Signal(bytes.Memory);
-
-                                            break;
-                                        }
                                     }
+                                    else
+                                        throw new InvalidOperationException();
                                 }
-                                else
-                                    throw new InvalidOperationException();
                             }
+                        }
+                        finally
+                        {
+                            @this._receiveLock.Release();
+                        }
+
+                        await foreach (var response in channel.WithCancellation(ct))
+                        {
+                            yield return response;
                         }
                     }
                     finally
                     {
-                        @this._receiveLock.Release();
-                    }
-
-                    await foreach (var response in channel.WithCancellation(ct))
-                    {
-                        yield return response;
+                        @this._channels.TryRemove(message.RequestId, out _);
                     }
                 }
             }
