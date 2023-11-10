@@ -15,16 +15,16 @@ namespace ExRam.Gremlinq.Providers.Neptune
     {
         private sealed class NeptuneConfigurator : INeptuneConfigurator
         {
-            public static readonly NeptuneConfigurator Default = new (ProviderConfigurator<IGremlinqClientFactory>.Default);
+            public static readonly NeptuneConfigurator Default = new (ProviderConfigurator.Default);
 
-            private readonly ProviderConfigurator<IGremlinqClientFactory> _webSocketProviderConfigurator;
+            private readonly ProviderConfigurator _webSocketProviderConfigurator;
 
-            private NeptuneConfigurator(ProviderConfigurator<IGremlinqClientFactory> webSocketProviderConfigurator)
+            private NeptuneConfigurator(ProviderConfigurator webSocketProviderConfigurator)
             {
                 _webSocketProviderConfigurator = webSocketProviderConfigurator;
             }
 
-            public INeptuneConfigurator ConfigureClientFactory(Func<IGremlinqClientFactory, IGremlinqClientFactory> transformation) => new NeptuneConfigurator(_webSocketProviderConfigurator.ConfigureClientFactory(transformation));
+            public INeptuneConfigurator ConfigureClientFactory(Func<IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> transformation) => new NeptuneConfigurator(_webSocketProviderConfigurator.ConfigureClientFactory(transformation));
 
             public INeptuneConfigurator ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> transformation) => new NeptuneConfigurator(_webSocketProviderConfigurator.ConfigureQuerySource(transformation));
 

@@ -6,6 +6,6 @@ namespace ExRam.Gremlinq.Providers.Core
         where TSelf : IGremlinqConfigurator<TSelf>
         where TClientFactory : IGremlinqClientFactory
     {
-        TSelf ConfigureClientFactory(Func<IGremlinqClientFactory, IGremlinqClientFactory> transformation);
+        TSelf ConfigureClientFactory(Func<TClientFactory, TClientFactory> transformation);
     }
 }

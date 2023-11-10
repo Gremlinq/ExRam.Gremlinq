@@ -8,16 +8,16 @@ namespace ExRam.Gremlinq.Providers.GremlinServer
     {
         private sealed class GremlinServerConfigurator : IGremlinServerConfigurator
         {
-            public static readonly GremlinServerConfigurator Default = new(ProviderConfigurator<IGremlinqClientFactory>.Default);
+            public static readonly GremlinServerConfigurator Default = new(ProviderConfigurator.Default);
 
-            private readonly ProviderConfigurator<IGremlinqClientFactory> _webSocketConfigurator;
+            private readonly ProviderConfigurator _webSocketConfigurator;
 
-            private GremlinServerConfigurator(ProviderConfigurator<IGremlinqClientFactory> webSocketConfigurator)
+            private GremlinServerConfigurator(ProviderConfigurator webSocketConfigurator)
             {
                 _webSocketConfigurator = webSocketConfigurator;
             }
 
-            public IGremlinServerConfigurator ConfigureClientFactory(Func<IGremlinqClientFactory, IGremlinqClientFactory> transformation) => new GremlinServerConfigurator(_webSocketConfigurator.ConfigureClientFactory(transformation));
+            public IGremlinServerConfigurator ConfigureClientFactory(Func<IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> transformation) => new GremlinServerConfigurator(_webSocketConfigurator.ConfigureClientFactory(transformation));
 
             public IGremlinServerConfigurator ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> transformation) => new GremlinServerConfigurator(_webSocketConfigurator.ConfigureQuerySource(transformation));
 

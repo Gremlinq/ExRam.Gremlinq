@@ -8,16 +8,16 @@ namespace ExRam.Gremlinq.Providers.JanusGraph
     {
         private sealed class JanusGraphConfigurator : IJanusGraphConfigurator
         {
-            public static readonly JanusGraphConfigurator Default = new (ProviderConfigurator<IGremlinqClientFactory>.Default);
+            public static readonly JanusGraphConfigurator Default = new (ProviderConfigurator.Default);
 
-            private readonly ProviderConfigurator<IGremlinqClientFactory> _webSocketProviderConfigurator;
+            private readonly ProviderConfigurator _webSocketProviderConfigurator;
 
-            private JanusGraphConfigurator(ProviderConfigurator<IGremlinqClientFactory> webSocketProviderConfigurator)
+            private JanusGraphConfigurator(ProviderConfigurator webSocketProviderConfigurator)
             {
                 _webSocketProviderConfigurator = webSocketProviderConfigurator;
             }
 
-            public IJanusGraphConfigurator ConfigureClientFactory(Func<IGremlinqClientFactory, IGremlinqClientFactory> transformation) => new JanusGraphConfigurator(_webSocketProviderConfigurator.ConfigureClientFactory(transformation));
+            public IJanusGraphConfigurator ConfigureClientFactory(Func<IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> transformation) => new JanusGraphConfigurator(_webSocketProviderConfigurator.ConfigureClientFactory(transformation));
 
             public IJanusGraphConfigurator ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> transformation) => new JanusGraphConfigurator(_webSocketProviderConfigurator.ConfigureQuerySource(transformation));
 

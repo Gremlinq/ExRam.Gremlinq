@@ -10,21 +10,21 @@ namespace ExRam.Gremlinq.Providers.Core
         where TBaseFactory : IGremlinqClientFactory
     {
         IPoolGremlinqClientFactory<TBaseFactory> ConfigureBaseFactory(Func<TBaseFactory, TBaseFactory> transformation);
+
+        IPoolGremlinqClientFactory<TBaseFactory> WithPoolSize(int poolSize);
+
+        IPoolGremlinqClientFactory<TBaseFactory> WithMaxInProcessPerConnection(int maxInProcessPerConnection);
     }
 
     public interface IWebSocketGremlinqClientFactory : IGremlinqClientFactory
     {
+        IWebSocketGremlinqClientFactory ConfigureServer(Func<GremlinServer, GremlinServer> transformation);
 
+        IWebSocketGremlinqClientFactory ConfigureWebSocketOptions(Action<ClientWebSocketOptions> configuration);
     }
 
     public interface IGremlinqClientFactory
     {
-        IGremlinqClientFactory ConfigureServer(Func<GremlinServer, GremlinServer> transformation);
-
-        IGremlinqClientFactory ConfigureWebSocketOptions(Action<ClientWebSocketOptions> configuration);
-
-        IGremlinqClientFactory ConfigureConnectionPool(Action<ConnectionPoolSettings> configuration);
-
         IGremlinqClient Create(IGremlinQueryEnvironment environment);
     }
 }
