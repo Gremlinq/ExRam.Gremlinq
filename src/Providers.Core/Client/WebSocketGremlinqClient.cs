@@ -164,29 +164,31 @@ namespace ExRam.Gremlinq.Providers.Core
 
                                                 await @this.SendCore(authMessage, ct);
                                             }
-                                            else if (channel.RequestId == requestId)
+                                            else
                                             {
-                                                if (@this._environment.Deserializer.TryTransform(bytes.Memory, @this._environment, out ResponseMessage<T>? response))
-                                                    yield return response;
+                                                if (channel.RequestId == requestId)
+                                                {
+                                                    if (@this._environment.Deserializer.TryTransform(bytes.Memory, @this._environment, out ResponseMessage<T>? response))
+                                                        yield return response;
+                                                }
+                                                else
+                                                {
+                                                    if (@this._channels.TryGetValue(requestId, out var otherChannel))
+                                                        otherChannel.Signal(bytes.Memory);
+                                                }
 
                                                 if (statusCode != PartialContent)
                                                 {
-                                                    @this._channels.TryRemove(requestId, out _);
+                                                    if (channel.RequestId != requestId)
+                                                    {
+                                                        await foreach (var response in channel.WithCancellation(ct))
+                                                        {
+                                                            yield return response;
+                                                        }
+                                                    }
 
                                                     yield break;
                                                 }
-                                            }
-                                            else if (statusCode == PartialContent)
-                                            {
-                                                if (@this._channels.TryGetValue(requestId, out var otherChannel))
-                                                    otherChannel.Signal(bytes.Memory);
-                                            }
-                                            else
-                                            {
-                                                if (@this._channels.TryRemove(requestId, out var otherChannel))
-                                                    otherChannel.Signal(bytes.Memory);
-
-                                                break;
                                             }
                                         }
                                     }
@@ -198,11 +200,6 @@ namespace ExRam.Gremlinq.Providers.Core
                         finally
                         {
                             @this._receiveLock.Release();
-                        }
-
-                        await foreach (var response in channel.WithCancellation(ct))
-                        {
-                            yield return response;
                         }
                     }
                     finally
