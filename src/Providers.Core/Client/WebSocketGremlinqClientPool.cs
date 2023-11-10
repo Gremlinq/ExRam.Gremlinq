@@ -28,16 +28,9 @@ namespace ExRam.Gremlinq.Providers.Core
             {
                 var slot = Math.Abs((Interlocked.Increment(ref @this._connectionIndex) - 1) % @this._clients.Length);
 
-                try
+                await foreach (var item in @this._clients[slot].SubmitAsync<T>(message).WithCancellation(ct))
                 {
-                    await foreach(var item in @this._clients[slot].SubmitAsync<T>(message).WithCancellation(ct))
-                    {
-                        yield return item;
-                    }
-                }
-                finally
-                {
-                    Interlocked.Decrement(ref @this._connectionIndex);
+                    yield return item;
                 }
             }
         }
