@@ -25,8 +25,9 @@ namespace ExRam.Gremlinq.Providers.Core
             private readonly IGremlinQueryEnvironment _environment;
             private readonly ConcurrentQueue<object> _queue = new ();
 
-            public Channel(IGremlinQueryEnvironment environment)
+            public Channel(Guid requestId, IGremlinQueryEnvironment environment)
             {
+                RequestId = requestId;
                 _environment = environment;
             }
 
@@ -67,6 +68,8 @@ namespace ExRam.Gremlinq.Providers.Core
                     }
                 }
             }
+
+            public Guid RequestId { get; }
         }
 
         private record struct ResponseMessageEnvelope(Guid? RequestId, ResponseStatus? Status);
@@ -96,39 +99,15 @@ namespace ExRam.Gremlinq.Providers.Core
 
             static async IAsyncEnumerable<ResponseMessage<T>> Core(RequestMessage message, WebSocketGremlinqClient @this, [EnumeratorCancellation] CancellationToken ct = default)
             {
-                var maybeException = default(Exception?);
-                var channel = new Channel<T>(@this._environment);
+                var channel = new Channel<T>(message.RequestId, @this._environment);
 
                 @this._channels.TryAdd(message.RequestId, channel);
 
                 await @this.SendCore(message, ct);
-                var loopTask = @this.ReceiveLoop(ct);
 
-                try
+                await foreach (var response in @this.ReceiveLoop(channel).WithCancellation(ct))
                 {
-                    await foreach (var response in channel)
-                    {
-                        yield return response;
-                    }
-                }
-                finally
-                {
-                    try
-                    {
-                        await loopTask;
-                    }
-                    catch (Exception ex)
-                    {
-                        maybeException = ex;
-                    }
-                }
-
-                if (maybeException is { } exception)
-                {
-                    using (@this)
-                    {
-                        throw new ObjectDisposedException(nameof(WebSocketGremlinqClient), exception);
-                    }
+                    yield return response;
                 }
             }
         }
@@ -136,6 +115,70 @@ namespace ExRam.Gremlinq.Providers.Core
         public void Dispose()
         {
             _client.Dispose();
+        }
+
+        private IAsyncEnumerable<ResponseMessage<T>> ReceiveLoop<T>(Channel<T> channel)
+        {
+            return Core(channel, this);
+
+            async static IAsyncEnumerable<ResponseMessage<T>> Core(Channel<T> channel, WebSocketGremlinqClient @this, [EnumeratorCancellation] CancellationToken ct = default)
+            {
+                await @this._receiveLock.WaitAsync(ct);
+
+                try
+                {
+                    while (true)
+                    {
+                        var (envelope, bytes) = await @this.ReceiveCore(ct);
+
+                        using (bytes)
+                        {
+                            if (envelope is { Status.Code: var statusCode, RequestId: { } requestId })
+                            {
+                                if (statusCode == Authenticate)
+                                {
+                                    var authMessage = RequestMessage
+                                        .Build(Tokens.OpsAuthentication)
+                                        .Processor(Tokens.ProcessorTraversal)
+                                        .AddArgument(Tokens.ArgsSasl, Convert.ToBase64String(Encoding.UTF8.GetBytes($"\0{@this._server.Username}\0{@this._server.Password}")))
+                                        .Create();
+
+                                    await @this.SendCore(authMessage, ct);
+                                }
+                                else if (channel.RequestId == requestId)
+                                {
+                                    if (@this._environment.Deserializer.TryTransform(bytes.Memory, @this._environment, out ResponseMessage<T>? response))
+                                        yield return response;
+
+                                    if (statusCode != PartialContent)
+                                        yield break;
+                                }
+                                else if (statusCode == PartialContent)
+                                {
+                                    if (@this._channels.TryGetValue(requestId, out var otherChannel))
+                                        otherChannel.Signal(bytes.Memory);
+                                }
+                                else
+                                {
+                                    if (@this._channels.TryRemove(requestId, out var otherChannel))
+                                        otherChannel.Signal(bytes.Memory);
+
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+                finally
+                {
+                    @this._receiveLock.Release();
+                }
+
+                await foreach (var response in channel)
+                {
+                    yield return response;
+                }
+            }
         }
 
         private async Task SendCore(RequestMessage requestMessage, CancellationToken ct)
@@ -156,62 +199,16 @@ namespace ExRam.Gremlinq.Providers.Core
             }
         }
 
-        private async Task ReceiveLoop(CancellationToken ct)
-        {
-            while (true)
-            {
-                var (envelope, bytes) = await ReceiveCore(ct);
-
-                using (bytes)
-                {
-                    if (envelope is { Status.Code: var statusCode, RequestId: { } requestId })
-                    {
-                        if (statusCode == Authenticate)
-                        {
-                            var authMessage = RequestMessage
-                                .Build(Tokens.OpsAuthentication)
-                                .Processor(Tokens.ProcessorTraversal)
-                                .AddArgument(Tokens.ArgsSasl, Convert.ToBase64String(Encoding.UTF8.GetBytes($"\0{_server.Username}\0{_server.Password}")))
-                                .Create();
-
-                            await SendCore(authMessage, ct);
-                        }
-                        else if (statusCode == PartialContent)
-                        {
-                            if (_channels.TryGetValue(requestId, out var channel))
-                                channel.Signal(bytes.Memory);
-                        }
-                        else
-                        {
-                            if (_channels.TryRemove(requestId, out var channel))
-                                channel.Signal(bytes.Memory);
-
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-
         private async Task<(ResponseMessageEnvelope Envelope, ClientWebSocketExtensions.SlicedMemoryOwner Bytes)> ReceiveCore(CancellationToken ct)
         {
-            await _receiveLock.WaitAsync(ct);
+            var bytes = await _client.ReceiveAsync(ct);
 
-            try
+            if (_environment.Deserializer.TryTransform(bytes.Memory, _environment, out ResponseMessageEnvelope responseMessageEnvelope))
+                return (responseMessageEnvelope, bytes);
+
+            using (bytes)
             {
-                var bytes = await _client.ReceiveAsync(ct);
-
-                if (_environment.Deserializer.TryTransform(bytes.Memory, _environment, out ResponseMessageEnvelope responseMessageEnvelope))
-                    return (responseMessageEnvelope, bytes);
-
-                using (bytes)
-                {
-                    throw new InvalidOperationException();
-                }
-            }
-            finally
-            {
-                _receiveLock.Release();
+                throw new InvalidOperationException();
             }
         }
     }
