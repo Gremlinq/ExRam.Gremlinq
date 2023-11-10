@@ -14,12 +14,12 @@ namespace ExRam.Gremlinq.Providers.Core
 {
     internal sealed class WebSocketGremlinqClient : IGremlinqClient
     {
-        private interface IChannel
+        private abstract class Channel
         {
-            void Signal(ReadOnlyMemory<byte> bytes);
+            public abstract void Signal(ReadOnlyMemory<byte> bytes);
         }
 
-        private sealed class Channel<T> : IChannel, IAsyncEnumerable<ResponseMessage<T>>, IDisposable
+        private sealed class Channel<T> : Channel, IAsyncEnumerable<ResponseMessage<T>>, IDisposable
         {
             private SemaphoreSlim? _semaphore;
             private ConcurrentQueue<object>? _queue;
@@ -32,7 +32,7 @@ namespace ExRam.Gremlinq.Providers.Core
                 _environment = environment;
             }
 
-            public void Signal(ReadOnlyMemory<byte> bytes)
+            public override void Signal(ReadOnlyMemory<byte> bytes)
             {
                 var (semaphore, queue) = GetTuple();
 
@@ -112,7 +112,7 @@ namespace ExRam.Gremlinq.Providers.Core
         private readonly SemaphoreSlim _receiveLock = new(1);
         private readonly CancellationTokenSource _cts = new();
         private readonly IGremlinQueryEnvironment _environment;
-        private readonly ConcurrentDictionary<Guid, IChannel> _channels = new();
+        private readonly ConcurrentDictionary<Guid, Channel> _channels = new();
 
         public WebSocketGremlinqClient(GremlinServer server, Action<ClientWebSocketOptions> optionsTransformation, IGremlinQueryEnvironment environment)
         {
