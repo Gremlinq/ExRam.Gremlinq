@@ -34,12 +34,14 @@ namespace ExRam.Gremlinq.Providers.Core
             {
                 private int _connectionIndex = 0;
                 private readonly IGremlinqClient?[] _clients;
+                private readonly int _maxInProcessPerConnection;    //TODO: use it.
                 private readonly IGremlinqClientFactory _baseFactory;
                 private readonly IGremlinQueryEnvironment _environment;
 
-                public PoolGremlinqClient(IGremlinqClientFactory baseFactory, int poolSize, IGremlinQueryEnvironment environment)
+                public PoolGremlinqClient(IGremlinqClientFactory baseFactory, int poolSize, int maxInProcessPerConnection, IGremlinQueryEnvironment environment)
                 {
                     _baseFactory = baseFactory;
+                    _maxInProcessPerConnection = maxInProcessPerConnection;
                     _environment = environment;
 
                     _clients = new IGremlinqClient?[poolSize];
@@ -120,7 +122,7 @@ namespace ExRam.Gremlinq.Providers.Core
 
             public IPoolGremlinqClientFactory<TBaseFactory> WithPoolSize(int poolSize) => new PoolGremlinqClientFactory<TBaseFactory>(_baseFactory, poolSize, _maxInProcessPerConnection);
 
-            public IGremlinqClient Create(IGremlinQueryEnvironment environment) => new PoolGremlinqClient(_baseFactory, _poolSize, environment);
+            public IGremlinqClient Create(IGremlinQueryEnvironment environment) => new PoolGremlinqClient(_baseFactory, _poolSize, _maxInProcessPerConnection, environment);
         }
 
         private sealed class GremlinQueryExecutorImpl : IGremlinQueryExecutor
