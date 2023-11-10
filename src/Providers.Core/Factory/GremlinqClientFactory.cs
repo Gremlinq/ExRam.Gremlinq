@@ -1,4 +1,5 @@
 ﻿using System.Collections.Concurrent;
+using System.Collections.Immutable;
 using System.Runtime.CompilerServices;
 
 using ExRam.Gremlinq.Core;
@@ -32,19 +33,68 @@ namespace ExRam.Gremlinq.Providers.Core
         {
             private sealed class PoolGremlinqClient : IGremlinqClient
             {
-                private int _connectionIndex = 0;
-                private readonly IGremlinqClient?[] _clients;
-                private readonly int _maxInProcessPerConnection;    //TODO: use it.
+                private sealed class Slot : IDisposable
+                {
+                    private readonly PoolGremlinqClient _poolClient;
+
+                    private IGremlinqClient? _subClient;
+
+                    public Slot(PoolGremlinqClient poolClient)
+                    {
+                        _poolClient = poolClient;
+                    }
+
+                    public IGremlinqClient GetClient()
+                    {
+                        if (_subClient is { } subClient)
+                        {
+                            return subClient != GremlinqClient.Disposed
+                                ? subClient
+                                : throw new ObjectDisposedException(nameof(Slot));
+                        }
+
+                        Interlocked.CompareExchange(ref _subClient, _poolClient._baseFactory.Create(_poolClient._environment), null);
+
+                        return GetClient();
+                    }
+
+                    public void Invalidate(IGremlinqClient client)
+                    {
+                        Interlocked.CompareExchange(ref _subClient, null, client);
+                    }
+
+                    public void Dispose()
+                    {
+                        if (Interlocked.Exchange(ref _subClient, GremlinqClient.Disposed) is { } subClient)
+                            subClient.Dispose();
+                    }
+                }
+
+                private ImmutableStack<Slot>? _slots;
+
                 private readonly IGremlinqClientFactory _baseFactory;
                 private readonly IGremlinQueryEnvironment _environment;
 
                 public PoolGremlinqClient(IGremlinqClientFactory baseFactory, int poolSize, int maxInProcessPerConnection, IGremlinQueryEnvironment environment)
                 {
                     _baseFactory = baseFactory;
-                    _maxInProcessPerConnection = maxInProcessPerConnection;
                     _environment = environment;
 
-                    _clients = new IGremlinqClient?[poolSize];
+                    var slotStack = ImmutableStack<Slot>.Empty;
+
+                    var slots = Enumerable.Range(0, poolSize)
+                        .Select(x => new Slot(this))
+                        .ToArray();
+
+                    for (var i = 0; i < maxInProcessPerConnection; i++)
+                    {
+                        foreach (var slot in slots)
+                        {
+                            slotStack = slotStack.Push(slot);
+                        }
+                    }
+
+                    _slots = slotStack;
                 }
 
                 public IAsyncEnumerable<ResponseMessage<T>> SubmitAsync<T>(RequestMessage message)
@@ -53,50 +103,85 @@ namespace ExRam.Gremlinq.Providers.Core
 
                     static async IAsyncEnumerable<ResponseMessage<T>> Core(RequestMessage message, PoolGremlinqClient @this, [EnumeratorCancellation] CancellationToken ct = default)
                     {
-                        var slot = Math.Abs((Interlocked.Increment(ref @this._connectionIndex) - 1) % @this._clients.Length);
-
-                        while (true)
+                        if (@this.TryGetSlot() is { } slot)
                         {
-                            var maybeClient = @this._clients[slot];
-
-                            if (maybeClient is { } client)
+                            try
                             {
-                                await using (var e = client.SubmitAsync<T>(message).WithCancellation(ct).GetAsyncEnumerator())
+                                var client = slot.GetClient();
+
+                                while (true)
                                 {
-                                    while (true)
+                                    await using (var e = client.SubmitAsync<T>(message).WithCancellation(ct).GetAsyncEnumerator())
                                     {
-                                        try
+                                        while (true)
                                         {
-                                            if (!await e.MoveNextAsync())
-                                                break;
-                                        }
-                                        catch (Exception)
-                                        {
-                                            using (client)
+                                            try
                                             {
-                                                Interlocked.CompareExchange(ref @this._clients[slot], null, client);
+                                                if (!await e.MoveNextAsync())
+                                                    break;
+                                            }
+                                            catch
+                                            {
+                                                slot.Invalidate(client);
+
+                                                throw;
                                             }
 
-                                            throw;
+                                            yield return e.Current;
                                         }
-
-                                        yield return e.Current;
                                     }
-                                }
 
-                                yield break;
+                                    yield break;
+                                }
                             }
-                            else
-                                Interlocked.CompareExchange(ref @this._clients[slot], @this._baseFactory.Create(@this._environment), null);
+                            finally
+                            {
+                                @this.ReturnSlot(slot);
+                            }
                         }
                     }
                 }
 
                 public void Dispose()
                 {
-                    foreach (var client in _clients)
+                    if (Interlocked.Exchange(ref _slots, null) is { } slots)
                     {
-                        client?.Dispose();
+                        foreach (var slot in slots)
+                        {
+                            slot.Dispose();
+                        }
+                    }
+                }
+
+                private Slot? TryGetSlot()
+                {
+                    while (true)
+                    {
+                        var currentSlots = _slots;
+
+                        if (currentSlots?.IsEmpty is false)
+                        {
+                            var newSlots = currentSlots.Pop(out var slot);
+
+                            if (Interlocked.CompareExchange(ref _slots, newSlots, currentSlots) == currentSlots)
+                                return slot;
+                        }
+
+                        return null;
+                    }
+                }
+
+                private void ReturnSlot(Slot slot)
+                {
+                    while (true)
+                    {
+                        var maybeCurrentSlots = _slots;
+
+                        if (maybeCurrentSlots is { } currentSlots)
+                        {
+                            if (Interlocked.CompareExchange(ref _slots, currentSlots.Push(slot), currentSlots) == currentSlots)
+                                return;
+                        }
                     }
                 }
             }
