@@ -101,7 +101,8 @@ namespace ExRam.Gremlinq.Providers.Core
 
                 @this._states.TryAdd(message.RequestId, state);
 
-                var loopTask = Loop(message, @this, ct);
+                await @this.SendCore(message, ct);
+                var loopTask = @this.ReceiveLoop(ct);
 
                 try
                 {
@@ -130,45 +131,6 @@ namespace ExRam.Gremlinq.Providers.Core
                     }
                 }
             }
-
-            static async Task Loop(RequestMessage message, WebSocketGremlinqClient @this, CancellationToken ct)
-            {
-                await @this.SendCore(message, ct);
-
-                while (true)
-                {
-                    var (envelope, bytes) = await @this.ReceiveCore(ct);
-
-                    using (bytes)
-                    {
-                        if (envelope is { Status.Code: var statusCode, RequestId: { } requestId })
-                        {
-                            if (statusCode == Authenticate)
-                            {
-                                var authMessage = RequestMessage
-                                    .Build(Tokens.OpsAuthentication)
-                                    .Processor(Tokens.ProcessorTraversal)
-                                    .AddArgument(Tokens.ArgsSasl, Convert.ToBase64String(Encoding.UTF8.GetBytes($"\0{@this._server.Username}\0{@this._server.Password}")))
-                                    .Create();
-
-                                await @this.SendCore(authMessage, ct);
-                            }
-                            else if (statusCode == PartialContent)
-                            {
-                                if (@this._states.TryGetValue(requestId, out var state))
-                                    state.Signal(bytes.Memory);
-                            }
-                            else
-                            {
-                                if (@this._states.TryRemove(requestId, out var state))
-                                    state.Signal(bytes.Memory);
-
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
         }
 
         public void Dispose()
@@ -191,6 +153,43 @@ namespace ExRam.Gremlinq.Providers.Core
             finally
             {
                 _sendLock.Release();
+            }
+        }
+
+        private async Task ReceiveLoop(CancellationToken ct)
+        {
+            while (true)
+            {
+                var (envelope, bytes) = await ReceiveCore(ct);
+
+                using (bytes)
+                {
+                    if (envelope is { Status.Code: var statusCode, RequestId: { } requestId })
+                    {
+                        if (statusCode == Authenticate)
+                        {
+                            var authMessage = RequestMessage
+                                .Build(Tokens.OpsAuthentication)
+                                .Processor(Tokens.ProcessorTraversal)
+                                .AddArgument(Tokens.ArgsSasl, Convert.ToBase64String(Encoding.UTF8.GetBytes($"\0{_server.Username}\0{_server.Password}")))
+                                .Create();
+
+                            await SendCore(authMessage, ct);
+                        }
+                        else if (statusCode == PartialContent)
+                        {
+                            if (_states.TryGetValue(requestId, out var state))
+                                state.Signal(bytes.Memory);
+                        }
+                        else
+                        {
+                            if (_states.TryRemove(requestId, out var state))
+                                state.Signal(bytes.Memory);
+
+                            break;
+                        }
+                    }
+                }
             }
         }
 
