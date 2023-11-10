@@ -2,7 +2,7 @@
 
 namespace ExRam.Gremlinq.Providers.Core
 {
-    public interface IWebSocketProviderConfigurator<out TSelf> : IGremlinqConfigurator<TSelf>
+    public interface IProviderConfigurator<out TSelf> : IGremlinqConfigurator<TSelf>
         where TSelf : IGremlinqConfigurator<TSelf>
     {
         TSelf ConfigureClientFactory(Func<IGremlinqClientFactory, IGremlinqClientFactory> transformation);

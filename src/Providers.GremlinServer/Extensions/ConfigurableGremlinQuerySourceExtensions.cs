@@ -8,11 +8,11 @@ namespace ExRam.Gremlinq.Providers.GremlinServer
     {
         private sealed class GremlinServerConfigurator : IGremlinServerConfigurator
         {
-            public static readonly GremlinServerConfigurator Default = new(WebSocketProviderConfigurator.Default);
+            public static readonly GremlinServerConfigurator Default = new(ProviderConfigurator.Default);
 
-            private readonly WebSocketProviderConfigurator _webSocketConfigurator;
+            private readonly ProviderConfigurator _webSocketConfigurator;
 
-            private GremlinServerConfigurator(WebSocketProviderConfigurator webSocketConfigurator)
+            private GremlinServerConfigurator(ProviderConfigurator webSocketConfigurator)
             {
                 _webSocketConfigurator = webSocketConfigurator;
             }

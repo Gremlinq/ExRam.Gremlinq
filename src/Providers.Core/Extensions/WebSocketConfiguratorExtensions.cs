@@ -2,20 +2,20 @@
 {
     public static class WebSocketConfiguratorExtensions
     {
-        public static TConfigurator At<TConfigurator>(this IWebSocketProviderConfigurator<TConfigurator> builder, string uri)
-            where TConfigurator : IWebSocketProviderConfigurator<TConfigurator> => builder.At(new Uri(uri));
+        public static TConfigurator At<TConfigurator>(this IProviderConfigurator<TConfigurator> builder, string uri)
+            where TConfigurator : IProviderConfigurator<TConfigurator> => builder.At(new Uri(uri));
 
-        public static TConfigurator AtLocalhost<TConfigurator>(this IWebSocketProviderConfigurator<TConfigurator> builder)
-            where TConfigurator : IWebSocketProviderConfigurator<TConfigurator> => builder.At(new Uri("ws://localhost:8182"));
+        public static TConfigurator AtLocalhost<TConfigurator>(this IProviderConfigurator<TConfigurator> builder)
+            where TConfigurator : IProviderConfigurator<TConfigurator> => builder.At(new Uri("ws://localhost:8182"));
 
-        public static TConfigurator At<TConfigurator>(this IWebSocketProviderConfigurator<TConfigurator> configurator, Uri uri)
-            where TConfigurator : IWebSocketProviderConfigurator<TConfigurator> => configurator
+        public static TConfigurator At<TConfigurator>(this IProviderConfigurator<TConfigurator> configurator, Uri uri)
+            where TConfigurator : IProviderConfigurator<TConfigurator> => configurator
                 .ConfigureClientFactory(factory => factory
                     .ConfigureServer(server => server
                         .WithUri(uri)));
 
-        public static TConfigurator AuthenticateBy<TConfigurator>(this IWebSocketProviderConfigurator<TConfigurator> configurator, string username, string password)
-            where TConfigurator : IWebSocketProviderConfigurator<TConfigurator> => configurator
+        public static TConfigurator AuthenticateBy<TConfigurator>(this IProviderConfigurator<TConfigurator> configurator, string username, string password)
+            where TConfigurator : IProviderConfigurator<TConfigurator> => configurator
                 .ConfigureClientFactory(factory => factory
                     .ConfigureServer(server => server
                         .WithUsername(username)

@@ -11,7 +11,7 @@ using static Gremlin.Net.Driver.Messages.ResponseStatusCode;
 
 namespace ExRam.Gremlinq.Providers.Core
 {
-    public sealed class WebSocketProviderConfigurator : IWebSocketProviderConfigurator<WebSocketProviderConfigurator>
+    public sealed class ProviderConfigurator : IProviderConfigurator<ProviderConfigurator>
     {
         private sealed class GremlinQueryExecutorImpl : IGremlinQueryExecutor
         {
@@ -82,12 +82,12 @@ namespace ExRam.Gremlinq.Providers.Core
             }
         }
 
-        public static readonly WebSocketProviderConfigurator Default = new (GremlinqConfigurator.Identity, GremlinqClientFactory.LocalHost);
+        public static readonly ProviderConfigurator Default = new (GremlinqConfigurator.Identity, GremlinqClientFactory.LocalHost);
 
         private readonly IGremlinqClientFactory _clientFactory;
         private readonly GremlinqConfigurator _gremlinqConfigurator;
 
-        private WebSocketProviderConfigurator(
+        private ProviderConfigurator(
             GremlinqConfigurator gremlinqConfigurator,
             IGremlinqClientFactory clientFactory)
         {
@@ -95,11 +95,11 @@ namespace ExRam.Gremlinq.Providers.Core
             _gremlinqConfigurator = gremlinqConfigurator;
         }
 
-        public WebSocketProviderConfigurator ConfigureClientFactory(Func<IGremlinqClientFactory, IGremlinqClientFactory> transformation) => new (
+        public ProviderConfigurator ConfigureClientFactory(Func<IGremlinqClientFactory, IGremlinqClientFactory> transformation) => new (
             _gremlinqConfigurator,
             transformation(_clientFactory));
 
-        public WebSocketProviderConfigurator ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> transformation) => new(
+        public ProviderConfigurator ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> transformation) => new(
             _gremlinqConfigurator.ConfigureQuerySource(transformation),
             _clientFactory);
 
