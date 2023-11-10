@@ -105,7 +105,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
                 }
 
                 throw new InvalidOperationException($"A valid database name must be configured. Use {nameof(OnDatabase)} on {nameof(ICosmosDbConfigurator<TVertexBase>)} to configure the CosmosDb database name.");
-            }
+            } 
         }
 
         private class WorkaroundOrder : EnumWrapper, IComparator
