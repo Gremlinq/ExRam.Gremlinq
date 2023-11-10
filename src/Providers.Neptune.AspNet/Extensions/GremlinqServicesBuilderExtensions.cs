@@ -1,5 +1,4 @@
 ﻿using ExRam.Gremlinq.Core.AspNet;
-using ExRam.Gremlinq.Providers.Core;
 using ExRam.Gremlinq.Providers.Neptune;
 
 namespace ExRam.Gremlinq.Providers.Neptune.AspNet
@@ -18,7 +17,7 @@ namespace ExRam.Gremlinq.Providers.Neptune.AspNet
                         .GetSection("Neptune");
 
                     configurator = configurator
-                        .ConfigureWebSocket<INeptuneConfigurator, IGremlinqClientFactory>(providerSection);
+                        .ConfigureWebSocket(providerSection);
 
                     if (providerSection.GetSection("ElasticSearch") is { } elasticSearchSection)
                     {

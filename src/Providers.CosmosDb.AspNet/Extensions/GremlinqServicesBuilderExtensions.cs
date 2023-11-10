@@ -21,7 +21,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.AspNet
                         .GetSection("CosmosDb");
 
                     configurator = configurator
-                        .ConfigureWebSocket<ICosmosDbConfigurator<TVertexBase>, IGremlinqClientFactory>(providerSection);
+                        .ConfigureWebSocket(providerSection);
 
                     if (providerSection["Database"] is { } databaseName)
                         configurator = configurator.OnDatabase(databaseName);
