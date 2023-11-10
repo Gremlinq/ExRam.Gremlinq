@@ -170,6 +170,9 @@ namespace ExRam.Gremlinq.Providers.Core
                                                 {
                                                     if (@this._environment.Deserializer.TryTransform(bytes.Memory, @this._environment, out ResponseMessage<T>? response))
                                                         yield return response;
+
+                                                    if (statusCode != PartialContent)
+                                                        yield break;
                                                 }
                                                 else
                                                 {
@@ -178,17 +181,7 @@ namespace ExRam.Gremlinq.Providers.Core
                                                 }
 
                                                 if (statusCode != PartialContent)
-                                                {
-                                                    if (channel.RequestId != requestId)
-                                                    {
-                                                        await foreach (var response in channel.WithCancellation(ct))
-                                                        {
-                                                            yield return response;
-                                                        }
-                                                    }
-
-                                                    yield break;
-                                                }
+                                                    break;
                                             }
                                         }
                                     }
@@ -200,6 +193,12 @@ namespace ExRam.Gremlinq.Providers.Core
                         finally
                         {
                             @this._receiveLock.Release();
+                        }
+
+                        //May not be withing receive-lock area.
+                        await foreach (var response in channel.WithCancellation(ct))
+                        {
+                            yield return response;
                         }
                     }
                     finally
