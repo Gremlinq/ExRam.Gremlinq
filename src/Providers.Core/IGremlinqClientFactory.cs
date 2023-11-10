@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Providers.Core
     public interface IPoolGremlinqClientFactory<TBaseFactory> : IGremlinqClientFactory
         where TBaseFactory : IGremlinqClientFactory
     {
-
+        IPoolGremlinqClientFactory<TBaseFactory> ConfigureBaseFactory(Func<TBaseFactory, TBaseFactory> transformation);
     }
 
     public interface IWebSocketGremlinqClientFactory : IGremlinqClientFactory
