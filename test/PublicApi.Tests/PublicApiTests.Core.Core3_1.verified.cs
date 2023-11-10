@@ -148,12 +148,6 @@
     {
         public static readonly ExRam.Gremlinq.Core.IGremlinQuerySource g;
     }
-    public sealed class GremlinqConfigurator : ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation, ExRam.Gremlinq.Core.IGremlinqConfigurator<ExRam.Gremlinq.Core.GremlinqConfigurator>
-    {
-        public static readonly ExRam.Gremlinq.Core.GremlinqConfigurator Identity;
-        public ExRam.Gremlinq.Core.GremlinqConfigurator ConfigureQuerySource(System.Func<ExRam.Gremlinq.Core.IGremlinQuerySource, ExRam.Gremlinq.Core.IGremlinQuerySource> transformation) { }
-        public ExRam.Gremlinq.Core.IGremlinQuerySource Transform(ExRam.Gremlinq.Core.IGremlinQuerySource source) { }
-    }
     public static class GremlinqOption
     {
         public static readonly ExRam.Gremlinq.Core.GremlinqOption<string> Alias;

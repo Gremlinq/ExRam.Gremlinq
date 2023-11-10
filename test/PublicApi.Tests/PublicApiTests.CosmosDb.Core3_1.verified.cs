@@ -17,7 +17,7 @@
         public string Id { get; }
         public string? PartitionKey { get; }
     }
-    public interface ICosmosDbConfigurator<TVertexBase> : ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation, ExRam.Gremlinq.Core.IGremlinqConfigurator<ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator<TVertexBase>>, ExRam.Gremlinq.Providers.Core.IWebSocketProviderConfigurator<ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator<TVertexBase>>
+    public interface ICosmosDbConfigurator<TVertexBase> : ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation, ExRam.Gremlinq.Core.IGremlinqConfigurator<ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator<TVertexBase>>, ExRam.Gremlinq.Providers.Core.IProviderConfigurator<ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator<TVertexBase>, ExRam.Gremlinq.Providers.Core.IPoolGremlinqClientFactory<ExRam.Gremlinq.Providers.Core.IWebSocketGremlinqClientFactory>>
     {
         ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator<TVertexBase> AuthenticateBy(string authKey);
         ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurator<TVertexBase> OnDatabase(string databaseName);
