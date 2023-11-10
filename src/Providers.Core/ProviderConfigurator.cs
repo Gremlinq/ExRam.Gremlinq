@@ -85,7 +85,7 @@ namespace ExRam.Gremlinq.Providers.Core
         private readonly IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory> _clientFactory;
         private readonly GremlinqConfigurator _gremlinqConfigurator;
 
-        public static readonly ProviderConfigurator Default = new (GremlinqConfigurator.Identity, GremlinqClientFactory.LocalHost.Pool());
+        public static readonly ProviderConfigurator Default = new (GremlinqConfigurator.Identity, WebSocketGremlinqClientFactory.LocalHost.Pool());
 
         private ProviderConfigurator(
             GremlinqConfigurator gremlinqConfigurator,
