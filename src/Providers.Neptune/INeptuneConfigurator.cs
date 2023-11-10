@@ -2,7 +2,7 @@
 
 namespace ExRam.Gremlinq.Providers.Neptune
 {
-    public interface INeptuneConfigurator : IWebSocketProviderConfigurator<INeptuneConfigurator>
+    public interface INeptuneConfigurator : IProviderConfigurator<INeptuneConfigurator>
     {
     }
 }

@@ -17,14 +17,14 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
     {
         private sealed class CosmosDbConfigurator<TVertexBase> : ICosmosDbConfigurator<TVertexBase>
         {
-            public static readonly CosmosDbConfigurator<TVertexBase> Default = new(WebSocketProviderConfigurator.Default, null, null, null);
+            public static readonly CosmosDbConfigurator<TVertexBase> Default = new(ProviderConfigurator.Default, null, null, null);
 
             private readonly string? _graphName;
             private readonly string? _databaseName;
-            private readonly WebSocketProviderConfigurator _webSocketConfigurator;
+            private readonly ProviderConfigurator _webSocketConfigurator;
             private readonly Expression<Func<TVertexBase, object>>? _partitionKeyExpression;
 
-            private CosmosDbConfigurator(WebSocketProviderConfigurator webSocketProviderConfigurator, string? databaseName, string? graphName, Expression<Func<TVertexBase, object>>? partitionKeyExpression)
+            private CosmosDbConfigurator(ProviderConfigurator webSocketProviderConfigurator, string? databaseName, string? graphName, Expression<Func<TVertexBase, object>>? partitionKeyExpression)
             {
                 _graphName = graphName;
                 _databaseName = databaseName;

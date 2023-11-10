@@ -4,7 +4,7 @@ using ExRam.Gremlinq.Providers.Core;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb
 {
-    public interface ICosmosDbConfigurator<TVertexBase> : IWebSocketProviderConfigurator<ICosmosDbConfigurator<TVertexBase>>
+    public interface ICosmosDbConfigurator<TVertexBase> : IProviderConfigurator<ICosmosDbConfigurator<TVertexBase>>
     {
         ICosmosDbConfigurator<TVertexBase> WithPartitionKey(Expression<Func<TVertexBase, object>> partitionKeyExpression);
 

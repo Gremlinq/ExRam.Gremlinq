@@ -15,11 +15,11 @@ namespace ExRam.Gremlinq.Providers.Neptune
     {
         private sealed class NeptuneConfigurator : INeptuneConfigurator
         {
-            public static readonly NeptuneConfigurator Default = new (WebSocketProviderConfigurator.Default);
+            public static readonly NeptuneConfigurator Default = new (ProviderConfigurator.Default);
 
-            private readonly WebSocketProviderConfigurator _webSocketProviderConfigurator;
+            private readonly ProviderConfigurator _webSocketProviderConfigurator;
 
-            private NeptuneConfigurator(WebSocketProviderConfigurator webSocketProviderConfigurator)
+            private NeptuneConfigurator(ProviderConfigurator webSocketProviderConfigurator)
             {
                 _webSocketProviderConfigurator = webSocketProviderConfigurator;
             }
