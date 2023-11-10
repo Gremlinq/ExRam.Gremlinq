@@ -130,7 +130,7 @@ namespace ExRam.Gremlinq.Providers.Core
 
             static async IAsyncEnumerable<ResponseMessage<T>> Core(RequestMessage message, WebSocketGremlinqClient @this, [EnumeratorCancellation] CancellationToken ct = default)
             {
-                ct = CancellationTokenSource.CreateLinkedTokenSource(ct, @this._cts.Token).Token;
+                ct = @this._cts.Token;
 
                 using (var channel = new Channel<T>(message.RequestId, @this._environment))
                 {
