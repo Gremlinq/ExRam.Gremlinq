@@ -11,8 +11,7 @@ using static Gremlin.Net.Driver.Messages.ResponseStatusCode;
 
 namespace ExRam.Gremlinq.Providers.Core
 {
-    public sealed class ProviderConfigurator<TClientFactory> : IProviderConfigurator<ProviderConfigurator<TClientFactory>, TClientFactory>
-        where TClientFactory : IGremlinqClientFactory
+    public sealed class ProviderConfigurator : IProviderConfigurator<ProviderConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>>
     {
         private sealed class GremlinQueryExecutorImpl : IGremlinQueryExecutor
         {
@@ -83,24 +82,24 @@ namespace ExRam.Gremlinq.Providers.Core
             }
         }
 
-        public static readonly ProviderConfigurator<IGremlinqClientFactory> Default = new (GremlinqConfigurator.Identity, GremlinqClientFactory.LocalHost);
-
-        private readonly IGremlinqClientFactory _clientFactory;
+        private readonly IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory> _clientFactory;
         private readonly GremlinqConfigurator _gremlinqConfigurator;
+
+        public static readonly ProviderConfigurator Default = new (GremlinqConfigurator.Identity, GremlinqClientFactory.LocalHost.Pool());
 
         private ProviderConfigurator(
             GremlinqConfigurator gremlinqConfigurator,
-            IGremlinqClientFactory clientFactory)
+            IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory> clientFactory)
         {
             _clientFactory = clientFactory;
             _gremlinqConfigurator = gremlinqConfigurator;
         }
 
-        public ProviderConfigurator<TClientFactory> ConfigureClientFactory(Func<IGremlinqClientFactory, IGremlinqClientFactory> transformation) => new (
+        public ProviderConfigurator ConfigureClientFactory(Func<IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> transformation) => new (
             _gremlinqConfigurator,
             transformation(_clientFactory));
 
-        public ProviderConfigurator<TClientFactory> ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> transformation) => new(
+        public ProviderConfigurator ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> transformation) => new(
             _gremlinqConfigurator.ConfigureQuerySource(transformation),
             _clientFactory);
 

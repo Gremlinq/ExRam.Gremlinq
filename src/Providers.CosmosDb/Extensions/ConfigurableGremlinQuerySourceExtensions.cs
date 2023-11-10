@@ -6,7 +6,6 @@ using ExRam.Gremlinq.Core.Steps;
 using ExRam.Gremlinq.Core.Transformation;
 using ExRam.Gremlinq.Providers.Core;
 
-using Gremlin.Net.Driver;
 using Gremlin.Net.Process.Traversal;
 
 using static ExRam.Gremlinq.Core.Transformation.ConverterFactory;
@@ -17,14 +16,14 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
     {
         private sealed class CosmosDbConfigurator<TVertexBase> : ICosmosDbConfigurator<TVertexBase>
         {
-            public static readonly CosmosDbConfigurator<TVertexBase> Default = new(ProviderConfigurator<IGremlinqClientFactory>.Default, null, null, null);
+            public static readonly CosmosDbConfigurator<TVertexBase> Default = new(ProviderConfigurator.Default, null, null, null);
 
             private readonly string? _graphName;
             private readonly string? _databaseName;
-            private readonly ProviderConfigurator<IGremlinqClientFactory> _webSocketConfigurator;
             private readonly Expression<Func<TVertexBase, object>>? _partitionKeyExpression;
+            private readonly ProviderConfigurator _webSocketConfigurator;
 
-            private CosmosDbConfigurator(ProviderConfigurator<IGremlinqClientFactory> webSocketProviderConfigurator, string? databaseName, string? graphName, Expression<Func<TVertexBase, object>>? partitionKeyExpression)
+            private CosmosDbConfigurator(ProviderConfigurator webSocketProviderConfigurator, string? databaseName, string? graphName, Expression<Func<TVertexBase, object>>? partitionKeyExpression)
             {
                 _graphName = graphName;
                 _databaseName = databaseName;
@@ -47,20 +46,13 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
             public ICosmosDbConfigurator<TVertexBase> AuthenticateBy(string authKey) => new CosmosDbConfigurator<TVertexBase>(
                 _webSocketConfigurator
                     .ConfigureClientFactory(factory => factory
-                        .ConfigureServer(server => server.WithPassword(authKey))),
+                        .ConfigureBaseFactory(factory => factory
+                            .ConfigureServer(server => server.WithPassword(authKey)))),
                 _databaseName,
                 _graphName,
                 _partitionKeyExpression);
 
-            public ICosmosDbConfigurator<TVertexBase> ConfigureServer(Func<GremlinServer, GremlinServer> transformation) => new CosmosDbConfigurator<TVertexBase>(
-                _webSocketConfigurator
-                    .ConfigureClientFactory(factory => factory
-                        .ConfigureServer(transformation)),
-                _databaseName,
-                _graphName,
-                _partitionKeyExpression);
-
-            public ICosmosDbConfigurator<TVertexBase> ConfigureClientFactory(Func<IGremlinqClientFactory, IGremlinqClientFactory> transformation) => new CosmosDbConfigurator<TVertexBase>(
+            public ICosmosDbConfigurator<TVertexBase> ConfigureClientFactory(Func<IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> transformation) => new CosmosDbConfigurator<TVertexBase>(
                 _webSocketConfigurator.ConfigureClientFactory(transformation),
                 _databaseName,
                 _graphName,
@@ -88,8 +80,9 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
                         {
                             return _webSocketConfigurator
                                 .ConfigureClientFactory(factory => factory
-                                    .ConfigureServer(server => server
-                                        .WithUsername($"/dbs/{databaseName}/colls/{graphName}")))
+                                    .ConfigureBaseFactory(factory => factory
+                                        .ConfigureServer(server => server
+                                            .WithUsername($"/dbs/{databaseName}/colls/{graphName}"))))
                                 .Transform(source
                                     .ConfigureEnvironment(env => env
                                         .ConfigureModel(model => model

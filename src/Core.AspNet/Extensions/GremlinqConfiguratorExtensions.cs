@@ -19,28 +19,21 @@ namespace ExRam.Gremlinq.Core.AspNet
             {
                 configurator = configurator
                     .ConfigureClientFactory(factory => factory
-                        .ConfigureConnectionPool(poolSettings =>
-                        {
-                            poolSettings.MaxInProcessPerConnection = maxInProcessPerConnection;
-                        }));
+                        .WithMaxInProcessPerConnection(maxInProcessPerConnection));
             }
 
             if (int.TryParse(connectionPoolSection[$"{nameof(ConnectionPoolSettings.PoolSize)}"], out var poolSize))
             {
                 configurator = configurator
                     .ConfigureClientFactory(factory => factory
-                        .ConfigureConnectionPool(poolSettings =>
-                        {
-                            poolSettings.PoolSize = poolSize;
-                        }));
+                        .WithPoolSize(poolSize));
             }
 
             return configurator;
         }
 
-        public static TConfigurator ConfigureBasicAuthentication<TConfigurator, TClientFactory>(this TConfigurator configurator, IConfigurationSection section)
-            where TConfigurator : IProviderConfigurator<TConfigurator, TClientFactory>
-            where TClientFactory : IGremlinqClientFactory
+        public static TConfigurator ConfigureBasicAuthentication<TConfigurator>(this TConfigurator configurator, IConfigurationSection section)
+            where TConfigurator : IProviderConfigurator<TConfigurator, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>>
         {
             var authenticationSection = section.GetSection("Authentication");
 
