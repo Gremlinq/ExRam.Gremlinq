@@ -78,7 +78,7 @@ namespace ExRam.Gremlinq.Providers.Core
         private readonly SemaphoreSlim _sendLock = new(1);
         private readonly SemaphoreSlim _receiveLock = new(1);
         private readonly IGremlinQueryEnvironment _environment;
-        private readonly ConcurrentDictionary<Guid, IChannel> _states = new();
+        private readonly ConcurrentDictionary<Guid, IChannel> _channels = new();
 
         public WebSocketGremlinqClient(GremlinServer server, Action<ClientWebSocketOptions> optionsTransformation, IGremlinQueryEnvironment environment)
         {
@@ -97,16 +97,16 @@ namespace ExRam.Gremlinq.Providers.Core
             static async IAsyncEnumerable<ResponseMessage<T>> Core(RequestMessage message, WebSocketGremlinqClient @this, [EnumeratorCancellation] CancellationToken ct = default)
             {
                 var maybeException = default(Exception?);
-                var state = new Channel<T>(@this._environment);
+                var channel = new Channel<T>(@this._environment);
 
-                @this._states.TryAdd(message.RequestId, state);
+                @this._channels.TryAdd(message.RequestId, channel);
 
                 await @this.SendCore(message, ct);
                 var loopTask = @this.ReceiveLoop(ct);
 
                 try
                 {
-                    await foreach (var response in state)
+                    await foreach (var response in channel)
                     {
                         yield return response;
                     }
@@ -178,13 +178,13 @@ namespace ExRam.Gremlinq.Providers.Core
                         }
                         else if (statusCode == PartialContent)
                         {
-                            if (_states.TryGetValue(requestId, out var state))
-                                state.Signal(bytes.Memory);
+                            if (_channels.TryGetValue(requestId, out var channel))
+                                channel.Signal(bytes.Memory);
                         }
                         else
                         {
-                            if (_states.TryRemove(requestId, out var state))
-                                state.Signal(bytes.Memory);
+                            if (_channels.TryRemove(requestId, out var channel))
+                                channel.Signal(bytes.Memory);
 
                             break;
                         }
