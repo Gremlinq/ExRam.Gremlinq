@@ -110,6 +110,7 @@ namespace ExRam.Gremlinq.Providers.Core
         private readonly ClientWebSocket _client = new();
         private readonly SemaphoreSlim _sendLock = new(1);
         private readonly SemaphoreSlim _receiveLock = new(1);
+        private readonly CancellationTokenSource _cts = new();
         private readonly IGremlinQueryEnvironment _environment;
         private readonly ConcurrentDictionary<Guid, IChannel> _channels = new();
 
@@ -195,7 +196,7 @@ namespace ExRam.Gremlinq.Providers.Core
                         @this._receiveLock.Release();
                     }
 
-                    await foreach (var response in channel)
+                    await foreach (var response in channel.WithCancellation(CancellationTokenSource.CreateLinkedTokenSource(ct, @this._cts.Token).Token))
                     {
                         yield return response;
                     }
@@ -206,6 +207,7 @@ namespace ExRam.Gremlinq.Providers.Core
         public void Dispose()
         {
             _client.Dispose();
+            _cts.Cancel();
         }
 
         private async Task SendCore(RequestMessage requestMessage, CancellationToken ct)
