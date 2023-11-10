@@ -129,43 +129,48 @@ namespace ExRam.Gremlinq.Providers.Core
                 {
                     while (true)
                     {
-                        var (envelope, bytes) = await @this.ReceiveCore(ct);
+                        var bytes = await @this._client.ReceiveAsync(ct);
 
                         using (bytes)
                         {
-                            if (envelope is { Status.Code: var statusCode, RequestId: { } requestId })
+                            if (@this._environment.Deserializer.TryTransform(bytes.Memory, @this._environment, out ResponseMessageEnvelope responseMessageEnvelope))
                             {
-                                if (statusCode == Authenticate)
+                                if (responseMessageEnvelope is { Status.Code: var statusCode, RequestId: { } requestId })
                                 {
-                                    var authMessage = RequestMessage
-                                        .Build(Tokens.OpsAuthentication)
-                                        .Processor(Tokens.ProcessorTraversal)
-                                        .AddArgument(Tokens.ArgsSasl, Convert.ToBase64String(Encoding.UTF8.GetBytes($"\0{@this._server.Username}\0{@this._server.Password}")))
-                                        .Create();
+                                    if (statusCode == Authenticate)
+                                    {
+                                        var authMessage = RequestMessage
+                                            .Build(Tokens.OpsAuthentication)
+                                            .Processor(Tokens.ProcessorTraversal)
+                                            .AddArgument(Tokens.ArgsSasl, Convert.ToBase64String(Encoding.UTF8.GetBytes($"\0{@this._server.Username}\0{@this._server.Password}")))
+                                            .Create();
 
-                                    await @this.SendCore(authMessage, ct);
-                                }
-                                else if (channel.RequestId == requestId)
-                                {
-                                    if (@this._environment.Deserializer.TryTransform(bytes.Memory, @this._environment, out ResponseMessage<T>? response))
-                                        yield return response;
+                                        await @this.SendCore(authMessage, ct);
+                                    }
+                                    else if (channel.RequestId == requestId)
+                                    {
+                                        if (@this._environment.Deserializer.TryTransform(bytes.Memory, @this._environment, out ResponseMessage<T>? response))
+                                            yield return response;
 
-                                    if (statusCode != PartialContent)
-                                        yield break;
-                                }
-                                else if (statusCode == PartialContent)
-                                {
-                                    if (@this._channels.TryGetValue(requestId, out var otherChannel))
-                                        otherChannel.Signal(bytes.Memory);
-                                }
-                                else
-                                {
-                                    if (@this._channels.TryRemove(requestId, out var otherChannel))
-                                        otherChannel.Signal(bytes.Memory);
+                                        if (statusCode != PartialContent)
+                                            yield break;
+                                    }
+                                    else if (statusCode == PartialContent)
+                                    {
+                                        if (@this._channels.TryGetValue(requestId, out var otherChannel))
+                                            otherChannel.Signal(bytes.Memory);
+                                    }
+                                    else
+                                    {
+                                        if (@this._channels.TryRemove(requestId, out var otherChannel))
+                                            otherChannel.Signal(bytes.Memory);
 
-                                    break;
+                                        break;
+                                    }
                                 }
                             }
+                            else
+                                throw new InvalidOperationException();
                         }
                     }
                 }
@@ -196,19 +201,6 @@ namespace ExRam.Gremlinq.Providers.Core
             finally
             {
                 _sendLock.Release();
-            }
-        }
-
-        private async Task<(ResponseMessageEnvelope Envelope, ClientWebSocketExtensions.SlicedMemoryOwner Bytes)> ReceiveCore(CancellationToken ct)
-        {
-            var bytes = await _client.ReceiveAsync(ct);
-
-            if (_environment.Deserializer.TryTransform(bytes.Memory, _environment, out ResponseMessageEnvelope responseMessageEnvelope))
-                return (responseMessageEnvelope, bytes);
-
-            using (bytes)
-            {
-                throw new InvalidOperationException();
             }
         }
     }
