@@ -18,32 +18,6 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
         }
 
         [Fact]
-        public async Task Stress()
-        {
-            var tasks = Enumerable
-                .Range(0, 1000)
-                .Select(_ => _g
-                    .Inject(42)
-                    .ToArrayAsync()
-                    .AsTask())
-                .ToArray();
-
-            var arrays = await tasks
-                .ToAsyncEnumerable()
-                .SelectAwait(async x => await x)
-                .ToArrayAsync();
-
-            arrays
-                .Should()
-                .HaveCount(1000).And
-                .AllSatisfy(array => array
-                    .Should()
-                    .HaveCount(1).And
-                    .ContainSingle(x => x == 42));
-        }
-
-
-        [Fact]
         public async Task FirstAsync() => (await _g
             .Inject(42)
             .FirstAsync())

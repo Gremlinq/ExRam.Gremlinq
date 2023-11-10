@@ -33,8 +33,8 @@
         where TBaseFactory : ExRam.Gremlinq.Providers.Core.IGremlinqClientFactory
     {
         ExRam.Gremlinq.Providers.Core.IPoolGremlinqClientFactory<TBaseFactory> ConfigureBaseFactory(System.Func<TBaseFactory, TBaseFactory> transformation);
-        ExRam.Gremlinq.Providers.Core.IPoolGremlinqClientFactory<TBaseFactory> WithMaxInProcessPerConnection(int maxInProcessPerConnection);
-        ExRam.Gremlinq.Providers.Core.IPoolGremlinqClientFactory<TBaseFactory> WithPoolSize(int poolSize);
+        ExRam.Gremlinq.Providers.Core.IPoolGremlinqClientFactory<TBaseFactory> WithMaxInProcessPerConnection(uint maxInProcessPerConnection);
+        ExRam.Gremlinq.Providers.Core.IPoolGremlinqClientFactory<TBaseFactory> WithPoolSize(uint poolSize);
     }
     public interface IProviderConfigurator<out TSelf, TClientFactory> : ExRam.Gremlinq.Core.IGremlinQuerySourceTransformation, ExRam.Gremlinq.Core.IGremlinqConfigurator<TSelf>
         where out TSelf : ExRam.Gremlinq.Core.IGremlinqConfigurator<TSelf>
