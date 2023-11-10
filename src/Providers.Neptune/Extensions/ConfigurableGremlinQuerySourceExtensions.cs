@@ -15,20 +15,31 @@ namespace ExRam.Gremlinq.Providers.Neptune
     {
         private sealed class NeptuneConfigurator : INeptuneConfigurator
         {
-            public static readonly NeptuneConfigurator Default = new (ProviderConfigurator.Default);
+            public static readonly NeptuneConfigurator Default = new(WebSocketGremlinqClientFactory.LocalHost.Pool(), _ => _);
 
-            private readonly ProviderConfigurator _webSocketProviderConfigurator;
+            private readonly Func<IGremlinQuerySource, IGremlinQuerySource> _querySourceTransformation;
+            private readonly IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory> _clientFactory;
 
-            private NeptuneConfigurator(ProviderConfigurator webSocketProviderConfigurator)
+            private NeptuneConfigurator(IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory> clientFactory, Func<IGremlinQuerySource, IGremlinQuerySource> querySourceTransformation)
             {
-                _webSocketProviderConfigurator = webSocketProviderConfigurator;
+                _clientFactory = clientFactory;
+                _querySourceTransformation = querySourceTransformation;
             }
 
-            public INeptuneConfigurator ConfigureClientFactory(Func<IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> transformation) => new NeptuneConfigurator(_webSocketProviderConfigurator.ConfigureClientFactory(transformation));
+            public INeptuneConfigurator ConfigureClientFactory(Func<IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> transformation) => new NeptuneConfigurator(
+                transformation(_clientFactory),
+                _querySourceTransformation);
 
-            public INeptuneConfigurator ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> transformation) => new NeptuneConfigurator(_webSocketProviderConfigurator.ConfigureQuerySource(transformation));
+            public INeptuneConfigurator ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> transformation) => new NeptuneConfigurator(
+                _clientFactory,
+                _ => transformation(_querySourceTransformation(_)));
 
-            public IGremlinQuerySource Transform(IGremlinQuerySource source) => _webSocketProviderConfigurator.Transform(source);
+            public IGremlinQuerySource Transform(IGremlinQuerySource source) => _querySourceTransformation
+                .Invoke(source
+                    .ConfigureEnvironment(environment => environment
+                        .UseExecutor(_clientFactory
+                            .Log()
+                            .ToExecutor())));
         }
 
         private record struct NeptuneErrorResponse(string? requestId, string? code, string? detailedMessage);

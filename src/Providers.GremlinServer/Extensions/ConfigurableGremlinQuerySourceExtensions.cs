@@ -8,20 +8,31 @@ namespace ExRam.Gremlinq.Providers.GremlinServer
     {
         private sealed class GremlinServerConfigurator : IGremlinServerConfigurator
         {
-            public static readonly GremlinServerConfigurator Default = new(ProviderConfigurator.Default);
+            public static readonly GremlinServerConfigurator Default = new(WebSocketGremlinqClientFactory.LocalHost.Pool(), _ => _);
 
-            private readonly ProviderConfigurator _webSocketConfigurator;
+            private readonly Func<IGremlinQuerySource, IGremlinQuerySource> _querySourceTransformation;
+            private readonly IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory> _clientFactory;
 
-            private GremlinServerConfigurator(ProviderConfigurator webSocketConfigurator)
+            private GremlinServerConfigurator(IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory> clientFactory, Func<IGremlinQuerySource, IGremlinQuerySource> querySourceTransformation)
             {
-                _webSocketConfigurator = webSocketConfigurator;
+                _clientFactory = clientFactory;
+                _querySourceTransformation = querySourceTransformation;
             }
 
-            public IGremlinServerConfigurator ConfigureClientFactory(Func<IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> transformation) => new GremlinServerConfigurator(_webSocketConfigurator.ConfigureClientFactory(transformation));
+            public IGremlinServerConfigurator ConfigureClientFactory(Func<IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> transformation) => new GremlinServerConfigurator(
+                transformation(_clientFactory),
+                _querySourceTransformation);
 
-            public IGremlinServerConfigurator ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> transformation) => new GremlinServerConfigurator(_webSocketConfigurator.ConfigureQuerySource(transformation));
+            public IGremlinServerConfigurator ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> transformation) => new GremlinServerConfigurator(
+                _clientFactory,
+                _ => transformation(_querySourceTransformation(_)));
 
-            public IGremlinQuerySource Transform(IGremlinQuerySource source) => _webSocketConfigurator.Transform(source);
+            public IGremlinQuerySource Transform(IGremlinQuerySource source) => _querySourceTransformation
+                .Invoke(source
+                    .ConfigureEnvironment(environment => environment
+                        .UseExecutor(_clientFactory
+                            .Log()
+                            .ToExecutor())));
         }
 
         public static IGremlinQuerySource UseGremlinServer<TVertexBase, TEdgeBase>(this IGremlinQuerySource source, Func<IGremlinServerConfigurator, IGremlinQuerySourceTransformation> configuratorTransformation)

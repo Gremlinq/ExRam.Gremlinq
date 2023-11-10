@@ -34,12 +34,9 @@ namespace ExRam.Gremlinq.Providers.Core
                     configuration(options);
                 });
 
-            public IGremlinqClient Create(IGremlinQueryEnvironment environment)
-            {
-                return new WebSocketGremlinqClient(_server, _webSocketOptionsConfiguration, environment);
-            }
+            public IGremlinqClient Create(IGremlinQueryEnvironment environment) => new WebSocketGremlinqClient(_server, _webSocketOptionsConfiguration, environment);
         }
 
-        internal static readonly IWebSocketGremlinqClientFactory LocalHost = WebSocketGremlinqClientFactoryImpl.LocalHost;
+        public static readonly IWebSocketGremlinqClientFactory LocalHost = WebSocketGremlinqClientFactoryImpl.LocalHost;
     }
 }
