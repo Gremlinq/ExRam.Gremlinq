@@ -19,11 +19,12 @@ namespace ExRam.Gremlinq.Providers.Core
             void Signal(ReadOnlyMemory<byte> bytes);
         }
 
-        private sealed class Channel<T> : IChannel, IAsyncEnumerable<ResponseMessage<T>>
+        private sealed class Channel<T> : IChannel, IAsyncEnumerable<ResponseMessage<T>>, IDisposable
         {
-            private readonly SemaphoreSlim _semaphore = new(0);
+            private SemaphoreSlim? _semaphore;
+            private ConcurrentQueue<object>? _queue;
+
             private readonly IGremlinQueryEnvironment _environment;
-            private readonly ConcurrentQueue<object> _queue = new ();
 
             public Channel(Guid requestId, IGremlinQueryEnvironment environment)
             {
@@ -33,28 +34,32 @@ namespace ExRam.Gremlinq.Providers.Core
 
             public void Signal(ReadOnlyMemory<byte> bytes)
             {
+                var (semaphore, queue) = GetTuple();
+
                 try
                 {
                     if (_environment.Deserializer.TryTransform(bytes, _environment, out ResponseMessage<T>? response))
                     {
-                        _queue.Enqueue(response);
-                        _semaphore.Release();
+                        queue.Enqueue(response);
+                        semaphore.Release();
                     }
                 }
                 catch (Exception ex)
                 {
-                    _queue.Enqueue(ex);
-                    _semaphore.Release();
+                    queue.Enqueue(ex);
+                    semaphore.Release();
                 }
             }
 
             public async IAsyncEnumerator<ResponseMessage<T>> GetAsyncEnumerator(CancellationToken ct = default)
             {
+                var (semaphore, queue) = GetTuple();
+
                 while (true)
                 {
-                    await _semaphore.WaitAsync(ct);
+                    await semaphore.WaitAsync(ct);
 
-                    if (_queue.TryDequeue(out var item))
+                    if (queue.TryDequeue(out var item))
                     {
                         if (item is ResponseMessage<T> response)
                         {
@@ -69,12 +74,37 @@ namespace ExRam.Gremlinq.Providers.Core
                 }
             }
 
+            private (SemaphoreSlim, ConcurrentQueue<object>) GetTuple()
+            {
+                if (_semaphore is { } semaphore)
+                {
+                    if (_queue is { } queue)
+                        return (semaphore, queue);
+
+                    Interlocked.CompareExchange(ref _queue, new ConcurrentQueue<object>(), null);
+                    return GetTuple();
+                }
+                else
+                {
+                    var newSemaphore = new SemaphoreSlim(0);
+                    if (Interlocked.CompareExchange(ref _semaphore, newSemaphore, null) != null)
+                        newSemaphore.Dispose();
+                }
+
+                return GetTuple();
+            }
+
+            public void Dispose()
+            {
+                _semaphore?.Dispose();
+            }
+
             public Guid RequestId { get; }
         }
 
-        private record struct ResponseMessageEnvelope(Guid? RequestId, ResponseStatus? Status);
-
         private record struct ResponseStatus(ResponseStatusCode Code);
+
+        private record struct ResponseMessageEnvelope(Guid? RequestId, ResponseStatus? Status);
 
         private readonly GremlinServer _server;
         private readonly ClientWebSocket _client = new();
@@ -99,75 +129,76 @@ namespace ExRam.Gremlinq.Providers.Core
 
             static async IAsyncEnumerable<ResponseMessage<T>> Core(RequestMessage message, WebSocketGremlinqClient @this, [EnumeratorCancellation] CancellationToken ct = default)
             {
-                var channel = new Channel<T>(message.RequestId, @this._environment);
-
-                @this._channels.TryAdd(message.RequestId, channel);
-
-                await @this.SendCore(message, ct);
-
-                await @this._receiveLock.WaitAsync(ct);
-
-                try
+                using (var channel = new Channel<T>(message.RequestId, @this._environment))
                 {
-                    while (true)
+                    @this._channels.TryAdd(message.RequestId, channel);
+
+                    await @this.SendCore(message, ct);
+
+                    await @this._receiveLock.WaitAsync(ct);
+
+                    try
                     {
-                        var bytes = await @this._client.ReceiveAsync(ct);
-
-                        using (bytes)
+                        while (true)
                         {
-                            if (@this._environment.Deserializer.TryTransform(bytes.Memory, @this._environment, out ResponseMessageEnvelope responseMessageEnvelope))
+                            var bytes = await @this._client.ReceiveAsync(ct);
+
+                            using (bytes)
                             {
-                                if (responseMessageEnvelope is { Status.Code: var statusCode, RequestId: { } requestId })
+                                if (@this._environment.Deserializer.TryTransform(bytes.Memory, @this._environment, out ResponseMessageEnvelope responseMessageEnvelope))
                                 {
-                                    if (statusCode == Authenticate)
+                                    if (responseMessageEnvelope is { Status.Code: var statusCode, RequestId: { } requestId })
                                     {
-                                        var authMessage = RequestMessage
-                                            .Build(Tokens.OpsAuthentication)
-                                            .Processor(Tokens.ProcessorTraversal)
-                                            .AddArgument(Tokens.ArgsSasl, Convert.ToBase64String(Encoding.UTF8.GetBytes($"\0{@this._server.Username}\0{@this._server.Password}")))
-                                            .Create();
-
-                                        await @this.SendCore(authMessage, ct);
-                                    }
-                                    else if (channel.RequestId == requestId)
-                                    {
-                                        if (@this._environment.Deserializer.TryTransform(bytes.Memory, @this._environment, out ResponseMessage<T>? response))
-                                            yield return response;
-
-                                        if (statusCode != PartialContent)
+                                        if (statusCode == Authenticate)
                                         {
-                                            @this._channels.TryRemove(requestId, out _);
+                                            var authMessage = RequestMessage
+                                                .Build(Tokens.OpsAuthentication)
+                                                .Processor(Tokens.ProcessorTraversal)
+                                                .AddArgument(Tokens.ArgsSasl, Convert.ToBase64String(Encoding.UTF8.GetBytes($"\0{@this._server.Username}\0{@this._server.Password}")))
+                                                .Create();
 
-                                            yield break;
+                                            await @this.SendCore(authMessage, ct);
+                                        }
+                                        else if (channel.RequestId == requestId)
+                                        {
+                                            if (@this._environment.Deserializer.TryTransform(bytes.Memory, @this._environment, out ResponseMessage<T>? response))
+                                                yield return response;
+
+                                            if (statusCode != PartialContent)
+                                            {
+                                                @this._channels.TryRemove(requestId, out _);
+
+                                                yield break;
+                                            }
+                                        }
+                                        else if (statusCode == PartialContent)
+                                        {
+                                            if (@this._channels.TryGetValue(requestId, out var otherChannel))
+                                                otherChannel.Signal(bytes.Memory);
+                                        }
+                                        else
+                                        {
+                                            if (@this._channels.TryRemove(requestId, out var otherChannel))
+                                                otherChannel.Signal(bytes.Memory);
+
+                                            break;
                                         }
                                     }
-                                    else if (statusCode == PartialContent)
-                                    {
-                                        if (@this._channels.TryGetValue(requestId, out var otherChannel))
-                                            otherChannel.Signal(bytes.Memory);
-                                    }
-                                    else
-                                    {
-                                        if (@this._channels.TryRemove(requestId, out var otherChannel))
-                                            otherChannel.Signal(bytes.Memory);
-
-                                        break;
-                                    }
                                 }
+                                else
+                                    throw new InvalidOperationException();
                             }
-                            else
-                                throw new InvalidOperationException();
                         }
                     }
-                }
-                finally
-                {
-                    @this._receiveLock.Release();
-                }
+                    finally
+                    {
+                        @this._receiveLock.Release();
+                    }
 
-                await foreach (var response in channel)
-                {
-                    yield return response;
+                    await foreach (var response in channel)
+                    {
+                        yield return response;
+                    }
                 }
             }
         }
