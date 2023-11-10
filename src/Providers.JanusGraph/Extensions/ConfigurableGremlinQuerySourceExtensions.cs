@@ -8,20 +8,31 @@ namespace ExRam.Gremlinq.Providers.JanusGraph
     {
         private sealed class JanusGraphConfigurator : IJanusGraphConfigurator
         {
-            public static readonly JanusGraphConfigurator Default = new (ProviderConfigurator.Default);
+            public static readonly JanusGraphConfigurator Default = new(WebSocketGremlinqClientFactory.LocalHost.Pool(), _ => _);
 
-            private readonly ProviderConfigurator _webSocketProviderConfigurator;
+            private readonly Func<IGremlinQuerySource, IGremlinQuerySource> _querySourceTransformation;
+            private readonly IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory> _clientFactory;
 
-            private JanusGraphConfigurator(ProviderConfigurator webSocketProviderConfigurator)
+            private JanusGraphConfigurator(IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory> clientFactory, Func<IGremlinQuerySource, IGremlinQuerySource> querySourceTransformation)
             {
-                _webSocketProviderConfigurator = webSocketProviderConfigurator;
+                _clientFactory = clientFactory;
+                _querySourceTransformation = querySourceTransformation;
             }
 
-            public IJanusGraphConfigurator ConfigureClientFactory(Func<IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> transformation) => new JanusGraphConfigurator(_webSocketProviderConfigurator.ConfigureClientFactory(transformation));
+            public IJanusGraphConfigurator ConfigureClientFactory(Func<IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>, IPoolGremlinqClientFactory<IWebSocketGremlinqClientFactory>> transformation) => new JanusGraphConfigurator(
+                transformation(_clientFactory),
+                _querySourceTransformation);
 
-            public IJanusGraphConfigurator ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> transformation) => new JanusGraphConfigurator(_webSocketProviderConfigurator.ConfigureQuerySource(transformation));
+            public IJanusGraphConfigurator ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> transformation) => new JanusGraphConfigurator(
+                _clientFactory,
+                _ => transformation(_querySourceTransformation(_)));
 
-            public IGremlinQuerySource Transform(IGremlinQuerySource source) => _webSocketProviderConfigurator.Transform(source);
+            public IGremlinQuerySource Transform(IGremlinQuerySource source) => _querySourceTransformation
+                .Invoke(source
+                    .ConfigureEnvironment(environment => environment
+                        .UseExecutor(_clientFactory
+                            .Log()
+                            .ToExecutor())));
         }
 
         public static IGremlinQuerySource UseJanusGraph<TVertexBase, TEdgeBase>(this IGremlinQuerySource source, Func<IJanusGraphConfigurator, IGremlinQuerySourceTransformation> configuratorTransformation)
