@@ -7,8 +7,9 @@ namespace ExRam.Gremlinq.Core.AspNet
 {
     internal static class GremlinqConfiguratorExtensions
     {
-        public static TConfigurator ConfigureWebSocket<TConfigurator>(this TConfigurator configurator, IConfigurationSection section)
-            where TConfigurator : IProviderConfigurator<TConfigurator>
+        public static TConfigurator ConfigureWebSocket<TConfigurator, TClientFactory>(this TConfigurator configurator, IConfigurationSection section)
+            where TConfigurator : IProviderConfigurator<TConfigurator, TClientFactory>
+            where TClientFactory : IGremlinqClientFactory
         {
             var connectionPoolSection = section.GetSection("ConnectionPool");
 
@@ -38,8 +39,9 @@ namespace ExRam.Gremlinq.Core.AspNet
             return configurator;
         }
 
-        public static TConfigurator ConfigureBasicAuthentication<TConfigurator>(this TConfigurator configurator, IConfigurationSection section)
-            where TConfigurator : IProviderConfigurator<TConfigurator>
+        public static TConfigurator ConfigureBasicAuthentication<TConfigurator, TClientFactory>(this TConfigurator configurator, IConfigurationSection section)
+            where TConfigurator : IProviderConfigurator<TConfigurator, TClientFactory>
+            where TClientFactory : IGremlinqClientFactory
         {
             var authenticationSection = section.GetSection("Authentication");
 

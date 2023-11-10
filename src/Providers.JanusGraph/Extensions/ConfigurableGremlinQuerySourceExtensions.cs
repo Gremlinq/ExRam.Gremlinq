@@ -8,11 +8,11 @@ namespace ExRam.Gremlinq.Providers.JanusGraph
     {
         private sealed class JanusGraphConfigurator : IJanusGraphConfigurator
         {
-            public static readonly JanusGraphConfigurator Default = new (ProviderConfigurator.Default);
+            public static readonly JanusGraphConfigurator Default = new (ProviderConfigurator<IGremlinqClientFactory>.Default);
 
-            private readonly ProviderConfigurator _webSocketProviderConfigurator;
+            private readonly ProviderConfigurator<IGremlinqClientFactory> _webSocketProviderConfigurator;
 
-            private JanusGraphConfigurator(ProviderConfigurator webSocketProviderConfigurator)
+            private JanusGraphConfigurator(ProviderConfigurator<IGremlinqClientFactory> webSocketProviderConfigurator)
             {
                 _webSocketProviderConfigurator = webSocketProviderConfigurator;
             }

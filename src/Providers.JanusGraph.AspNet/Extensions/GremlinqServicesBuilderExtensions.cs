@@ -1,4 +1,5 @@
 ﻿using ExRam.Gremlinq.Core.AspNet;
+using ExRam.Gremlinq.Providers.Core;
 using ExRam.Gremlinq.Providers.JanusGraph;
 
 namespace ExRam.Gremlinq.Providers.JanusGraph.AspNet
@@ -17,8 +18,8 @@ namespace ExRam.Gremlinq.Providers.JanusGraph.AspNet
                         .GetSection("JanusGraph");
 
                     return configurator
-                        .ConfigureWebSocket(providerSection)
-                        .ConfigureBasicAuthentication(providerSection);
+                        .ConfigureWebSocket<IJanusGraphConfigurator, IGremlinqClientFactory>(providerSection)
+                        .ConfigureBasicAuthentication<IJanusGraphConfigurator, IGremlinqClientFactory>(providerSection);
                 });
         }
     }

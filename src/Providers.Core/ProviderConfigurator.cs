@@ -11,7 +11,8 @@ using static Gremlin.Net.Driver.Messages.ResponseStatusCode;
 
 namespace ExRam.Gremlinq.Providers.Core
 {
-    public sealed class ProviderConfigurator : IProviderConfigurator<ProviderConfigurator>
+    public sealed class ProviderConfigurator<TClientFactory> : IProviderConfigurator<ProviderConfigurator<TClientFactory>, TClientFactory>
+        where TClientFactory : IGremlinqClientFactory
     {
         private sealed class GremlinQueryExecutorImpl : IGremlinQueryExecutor
         {
@@ -82,7 +83,7 @@ namespace ExRam.Gremlinq.Providers.Core
             }
         }
 
-        public static readonly ProviderConfigurator Default = new (GremlinqConfigurator.Identity, GremlinqClientFactory.LocalHost);
+        public static readonly ProviderConfigurator<IGremlinqClientFactory> Default = new (GremlinqConfigurator.Identity, GremlinqClientFactory.LocalHost);
 
         private readonly IGremlinqClientFactory _clientFactory;
         private readonly GremlinqConfigurator _gremlinqConfigurator;
@@ -95,11 +96,11 @@ namespace ExRam.Gremlinq.Providers.Core
             _gremlinqConfigurator = gremlinqConfigurator;
         }
 
-        public ProviderConfigurator ConfigureClientFactory(Func<IGremlinqClientFactory, IGremlinqClientFactory> transformation) => new (
+        public ProviderConfigurator<TClientFactory> ConfigureClientFactory(Func<IGremlinqClientFactory, IGremlinqClientFactory> transformation) => new (
             _gremlinqConfigurator,
             transformation(_clientFactory));
 
-        public ProviderConfigurator ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> transformation) => new(
+        public ProviderConfigurator<TClientFactory> ConfigureQuerySource(Func<IGremlinQuerySource, IGremlinQuerySource> transformation) => new(
             _gremlinqConfigurator.ConfigureQuerySource(transformation),
             _clientFactory);
 
