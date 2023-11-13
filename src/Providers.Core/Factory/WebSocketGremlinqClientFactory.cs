@@ -20,9 +20,6 @@ namespace ExRam.Gremlinq.Providers.Core
             {
                 private abstract class Channel
                 {
-                    private SemaphoreSlim? _semaphore;
-                    private ConcurrentQueue<object>? _queue;
-
                     protected Channel(Guid requestId, IGremlinQueryEnvironment environment)
                     {
                         RequestId = requestId;
@@ -31,81 +28,90 @@ namespace ExRam.Gremlinq.Providers.Core
 
                     public abstract void Signal(ReadOnlyMemory<byte> bytes);
 
-                    public void Dispose()
-                    {
-                        _semaphore?.Dispose();
-                    }
-
-                    protected (SemaphoreSlim, ConcurrentQueue<object>) GetTuple()
-                    {
-                        if (_semaphore is { } semaphore)
-                        {
-                            if (_queue is { } queue)
-                                return (semaphore, queue);
-
-                            Interlocked.CompareExchange(ref _queue, new ConcurrentQueue<object>(), null);
-                            return GetTuple();
-                        }
-                        else
-                        {
-                            var newSemaphore = new SemaphoreSlim(0);
-                            if (Interlocked.CompareExchange(ref _semaphore, newSemaphore, null) != null)
-                                newSemaphore.Dispose();
-                        }
-
-                        return GetTuple();
-                    }
-
                     public Guid RequestId { get; }
                     public IGremlinQueryEnvironment Environment { get; }
                 }
 
                 private sealed class Channel<T> : Channel, IAsyncEnumerable<ResponseMessage<T>>, IDisposable
                 {
+                    private sealed class MessageQueue
+                    {
+                        public void Signal(ResponseMessage<T> message)
+                        {
+                            Queue.Enqueue(message);
+                            Semaphore.Release();
+                        }
+
+                        public SemaphoreSlim Semaphore { get; } = new(0);
+                        public ConcurrentQueue<ResponseMessage<T>> Queue { get; } = new();
+                    }
+
+                    private readonly TaskCompletionSource<object> _tcs = new ();
+
                     public Channel(Guid requestId, IGremlinQueryEnvironment environment) : base(requestId, environment)
                     {
                     }
 
                     public override void Signal(ReadOnlyMemory<byte> bytes)
                     {
-                        var (semaphore, queue) = GetTuple();
+                        if (Environment.Deserializer.TryTransform(bytes, Environment, out ResponseMessage<T>? response))
+                            Signal(response);
+                        else
+                            throw new InvalidOperationException();
+                    }
 
-                        try
+                    private void Signal(ResponseMessage<T> response)
+                    {
+                        if (_tcs.Task.IsCompleted)
                         {
-                            if (Environment.Deserializer.TryTransform(bytes, Environment, out ResponseMessage<T>? response))
-                            {
-                                queue.Enqueue(response);
-                                semaphore.Release();
-                            }
+                            if (_tcs.Task.Result is MessageQueue messageQueue)
+                                messageQueue.Signal(response);
                         }
-                        catch (Exception ex)
+                        else if (response.Status.Code != PartialContent)
                         {
-                            queue.Enqueue(ex);
-                            semaphore.Release();
+                            _tcs.TrySetResult(response);
+                        }
+                        else
+                        {
+                            _tcs.TrySetResult(new MessageQueue());
+                            Signal(response);
                         }
                     }
 
                     public async IAsyncEnumerator<ResponseMessage<T>> GetAsyncEnumerator(CancellationToken ct = default)
                     {
-                        var (semaphore, queue) = GetTuple();
+                        var obj = await _tcs.Task;
 
-                        while (true)
+                        if (obj is ResponseMessage<T> reponseMessage)
+                            yield return reponseMessage;
+                        else if (obj is MessageQueue { Queue: var queue, Semaphore: var semaphore})
                         {
-                            await semaphore.WaitAsync(ct);
-
-                            if (queue.TryDequeue(out var item))
+                            while (true)
                             {
-                                if (item is ResponseMessage<T> response)
+                                await semaphore.WaitAsync(ct);
+
+                                if (queue.TryDequeue(out var response))
                                 {
                                     yield return response;
 
                                     if (response.Status.Code != PartialContent)
                                         break;
                                 }
-                                else if (item is Exception ex)
-                                    throw ex;
                             }
                         }
+                        else
+                            throw new InvalidOperationException();
+                    }
+
+                    public void Dispose()
+                    {
+                        if (_tcs.Task.IsCompletedSuccessfully)
+                        {
+                            if (_tcs.Task.Result is MessageQueue { Semaphore: var semaphore })
+                                semaphore.Dispose();
+                        }
+                        else if (!_tcs.Task.IsFaulted)
+                            _tcs.TrySetException(new ObjectDisposedException(nameof(Channel<T>)));
                     }
                 }
 
