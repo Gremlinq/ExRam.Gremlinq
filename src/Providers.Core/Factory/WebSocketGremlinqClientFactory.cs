@@ -1,5 +1,4 @@
 ﻿using System.Collections.Concurrent;
-using System.Diagnostics;
 using System.Net.WebSockets;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -17,24 +16,54 @@ namespace ExRam.Gremlinq.Providers.Core
     {
         private sealed class WebSocketGremlinqClientFactoryImpl : IWebSocketGremlinqClientFactory
         {
-            internal sealed class WebSocketGremlinqClient : IGremlinqClient
+            private sealed class WebSocketGremlinqClient : IGremlinqClient
             {
                 private abstract class Channel
-                {
-                    public abstract void Signal(ReadOnlyMemory<byte> bytes);
-                }
-
-                private sealed class Channel<T> : Channel, IAsyncEnumerable<ResponseMessage<T>>, IDisposable
                 {
                     private SemaphoreSlim? _semaphore;
                     private ConcurrentQueue<object>? _queue;
 
-                    private readonly IGremlinQueryEnvironment _environment;
-
-                    public Channel(Guid requestId, IGremlinQueryEnvironment environment)
+                    protected Channel(Guid requestId, IGremlinQueryEnvironment environment)
                     {
                         RequestId = requestId;
-                        _environment = environment;
+                        Environment = environment;
+                    }
+
+                    public abstract void Signal(ReadOnlyMemory<byte> bytes);
+
+                    public void Dispose()
+                    {
+                        _semaphore?.Dispose();
+                    }
+
+                    protected (SemaphoreSlim, ConcurrentQueue<object>) GetTuple()
+                    {
+                        if (_semaphore is { } semaphore)
+                        {
+                            if (_queue is { } queue)
+                                return (semaphore, queue);
+
+                            Interlocked.CompareExchange(ref _queue, new ConcurrentQueue<object>(), null);
+                            return GetTuple();
+                        }
+                        else
+                        {
+                            var newSemaphore = new SemaphoreSlim(0);
+                            if (Interlocked.CompareExchange(ref _semaphore, newSemaphore, null) != null)
+                                newSemaphore.Dispose();
+                        }
+
+                        return GetTuple();
+                    }
+
+                    public Guid RequestId { get; }
+                    public IGremlinQueryEnvironment Environment { get; }
+                }
+
+                private sealed class Channel<T> : Channel, IAsyncEnumerable<ResponseMessage<T>>, IDisposable
+                {
+                    public Channel(Guid requestId, IGremlinQueryEnvironment environment) : base(requestId, environment)
+                    {
                     }
 
                     public override void Signal(ReadOnlyMemory<byte> bytes)
@@ -43,7 +72,7 @@ namespace ExRam.Gremlinq.Providers.Core
 
                         try
                         {
-                            if (_environment.Deserializer.TryTransform(bytes, _environment, out ResponseMessage<T>? response))
+                            if (Environment.Deserializer.TryTransform(bytes, Environment, out ResponseMessage<T>? response))
                             {
                                 queue.Enqueue(response);
                                 semaphore.Release();
@@ -78,38 +107,12 @@ namespace ExRam.Gremlinq.Providers.Core
                             }
                         }
                     }
-
-                    private (SemaphoreSlim, ConcurrentQueue<object>) GetTuple()
-                    {
-                        if (_semaphore is { } semaphore)
-                        {
-                            if (_queue is { } queue)
-                                return (semaphore, queue);
-
-                            Interlocked.CompareExchange(ref _queue, new ConcurrentQueue<object>(), null);
-                            return GetTuple();
-                        }
-                        else
-                        {
-                            var newSemaphore = new SemaphoreSlim(0);
-                            if (Interlocked.CompareExchange(ref _semaphore, newSemaphore, null) != null)
-                                newSemaphore.Dispose();
-                        }
-
-                        return GetTuple();
-                    }
-
-                    public void Dispose()
-                    {
-                        _semaphore?.Dispose();
-                    }
-
-                    public Guid RequestId { get; }
                 }
 
                 private record struct ResponseStatus(ResponseStatusCode Code);
 
                 private record struct ResponseMessageEnvelope(Guid? RequestId, ResponseStatus? Status);
+
 
                 private readonly Task _loopTask;
                 private readonly GremlinServer _server;
@@ -124,12 +127,11 @@ namespace ExRam.Gremlinq.Providers.Core
                 {
                     _server = server;
                     _environment = environment;
+                    _loopTask = Loop(_cts.Token);
 
                     _client.Options.SetRequestHeader("User-Agent", "ExRam.Gremlinq");
 
                     optionsTransformation(_client.Options);
-
-                    _loopTask = Loop(_cts.Token);
                 }
 
                 public IAsyncEnumerable<ResponseMessage<T>> SubmitAsync<T>(RequestMessage message)
