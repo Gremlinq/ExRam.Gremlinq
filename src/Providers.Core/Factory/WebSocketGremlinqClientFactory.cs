@@ -126,7 +126,7 @@ namespace ExRam.Gremlinq.Providers.Core
                 private readonly SemaphoreSlim _sendLock = new(1);
                 private readonly CancellationTokenSource _cts = new();
                 private readonly IGremlinQueryEnvironment _environment;
-                private readonly TaskCompletionSource _startTcs = new();
+                private readonly TaskCompletionSource<int> _startTcs = new();
                 private readonly ConcurrentDictionary<Guid, Channel> _channels = new();
 
                 public WebSocketGremlinqClient(GremlinServer server, Action<ClientWebSocketOptions> optionsTransformation, IGremlinQueryEnvironment environment)
@@ -232,7 +232,7 @@ namespace ExRam.Gremlinq.Providers.Core
                         if (_client.State == WebSocketState.None)
                         {
                             await _client.ConnectAsync(_server.Uri, ct);
-                            _startTcs.TrySetResult();
+                            _startTcs.TrySetResult(0);
                         }
 
                         if (_environment.Serializer.TryTransform(requestMessage, _environment, out byte[]? serializedRequest))
