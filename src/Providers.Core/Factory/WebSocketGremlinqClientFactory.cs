@@ -1,4 +1,5 @@
 ﻿using System.Collections.Concurrent;
+using System.Diagnostics;
 using System.Net.WebSockets;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -110,12 +111,13 @@ namespace ExRam.Gremlinq.Providers.Core
 
                 private record struct ResponseMessageEnvelope(Guid? RequestId, ResponseStatus? Status);
 
+                private readonly Task _loopTask;
                 private readonly GremlinServer _server;
                 private readonly ClientWebSocket _client = new();
                 private readonly SemaphoreSlim _sendLock = new(1);
-                private readonly SemaphoreSlim _receiveLock = new(1);
                 private readonly CancellationTokenSource _cts = new();
                 private readonly IGremlinQueryEnvironment _environment;
+                private readonly TaskCompletionSource _startTcs = new();
                 private readonly ConcurrentDictionary<Guid, Channel> _channels = new();
 
                 public WebSocketGremlinqClient(GremlinServer server, Action<ClientWebSocketOptions> optionsTransformation, IGremlinQueryEnvironment environment)
@@ -126,6 +128,8 @@ namespace ExRam.Gremlinq.Providers.Core
                     _client.Options.SetRequestHeader("User-Agent", "ExRam.Gremlinq");
 
                     optionsTransformation(_client.Options);
+
+                    _loopTask = Loop(_cts.Token);
                 }
 
                 public IAsyncEnumerable<ResponseMessage<T>> SubmitAsync<T>(RequestMessage message)
@@ -134,80 +138,28 @@ namespace ExRam.Gremlinq.Providers.Core
 
                     static async IAsyncEnumerable<ResponseMessage<T>> Core(RequestMessage message, WebSocketGremlinqClient @this, [EnumeratorCancellation] CancellationToken ct = default)
                     {
-                        ct = @this._cts.Token;
+                        if (@this._loopTask.IsCompleted)
+                            await @this._loopTask;
 
                         using (var channel = new Channel<T>(message.RequestId, @this._environment))
                         {
-                            @this._channels.TryAdd(message.RequestId, channel);
-
-                            try
+                            using (var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(ct, @this._cts.Token))
                             {
-                                await @this.SendCore(message, ct);
-
-                                await @this._receiveLock.WaitAsync(ct);
+                                @this._channels.TryAdd(message.RequestId, channel);
 
                                 try
                                 {
-                                    while (true)
+                                    await @this.SendCore(message, ct);
+
+                                    await foreach (var item in channel.WithCancellation(linkedCts.Token))
                                     {
-                                        var bytes = await @this._client.ReceiveAsync(ct);
-
-                                        using (bytes)
-                                        {
-                                            if (@this._environment.Deserializer.TryTransform(bytes.Memory, @this._environment, out ResponseMessageEnvelope responseMessageEnvelope))
-                                            {
-                                                if (responseMessageEnvelope is { Status.Code: var statusCode, RequestId: { } requestId })
-                                                {
-                                                    if (statusCode == Authenticate)
-                                                    {
-                                                        var authMessage = RequestMessage
-                                                            .Build(Tokens.OpsAuthentication)
-                                                            .Processor(Tokens.ProcessorTraversal)
-                                                            .AddArgument(Tokens.ArgsSasl, Convert.ToBase64String(Encoding.UTF8.GetBytes($"\0{@this._server.Username}\0{@this._server.Password}")))
-                                                            .Create();
-
-                                                        await @this.SendCore(authMessage, ct);
-                                                    }
-                                                    else
-                                                    {
-                                                        if (channel.RequestId == requestId)
-                                                        {
-                                                            if (@this._environment.Deserializer.TryTransform(bytes.Memory, @this._environment, out ResponseMessage<T>? response))
-                                                                yield return response;
-
-                                                            if (statusCode != PartialContent)
-                                                                yield break;
-                                                        }
-                                                        else
-                                                        {
-                                                            if (@this._channels.TryGetValue(requestId, out var otherChannel))
-                                                                otherChannel.Signal(bytes.Memory);
-                                                        }
-
-                                                        if (statusCode != PartialContent)
-                                                            break;
-                                                    }
-                                                }
-                                            }
-                                            else
-                                                throw new InvalidOperationException();
-                                        }
+                                        yield return item;
                                     }
                                 }
                                 finally
                                 {
-                                    @this._receiveLock.Release();
+                                    @this._channels.TryRemove(message.RequestId, out _);
                                 }
-
-                                //May not be withing receive-lock area.
-                                await foreach (var response in channel.WithCancellation(ct))
-                                {
-                                    yield return response;
-                                }
-                            }
-                            finally
-                            {
-                                @this._channels.TryRemove(message.RequestId, out _);
                             }
                         }
                     }
@@ -215,13 +167,49 @@ namespace ExRam.Gremlinq.Providers.Core
 
                 public void Dispose()
                 {
-                    using (_receiveLock)
+                    using (_sendLock)
                     {
-                        using (_sendLock)
+                        using (_client)
                         {
-                            using (_client)
+                            _cts.Cancel();
+                            _startTcs.TrySetException(new ObjectDisposedException(nameof(WebSocketGremlinqClient)));
+                        }
+                    }
+                }
+
+                private async Task Loop(CancellationToken ct)
+                {
+                    await _startTcs.Task;
+
+                    using (this)
+                    {
+                        while (true)
+                        {
+                            var bytes = await _client.ReceiveAsync(ct);
+
+                            using (bytes)
                             {
-                                _cts.Cancel();
+                                if (_environment.Deserializer.TryTransform(bytes.Memory, _environment, out ResponseMessageEnvelope responseMessageEnvelope))
+                                {
+                                    if (responseMessageEnvelope is { Status.Code: var statusCode, RequestId: { } requestId })
+                                    {
+                                        if (statusCode == Authenticate)
+                                        {
+                                            var authMessage = RequestMessage
+                                                .Build(Tokens.OpsAuthentication)
+                                                .Processor(Tokens.ProcessorTraversal)
+                                                .AddArgument(Tokens.ArgsSasl, Convert.ToBase64String(Encoding.UTF8.GetBytes($"\0{_server.Username}\0{_server.Password}")))
+                                                .Create();
+
+                                            await SendCore(authMessage, ct);
+                                        }
+                                        else
+                                        {
+                                            if (_channels.TryGetValue(requestId, out var otherChannel))
+                                                otherChannel.Signal(bytes.Memory);
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -234,10 +222,19 @@ namespace ExRam.Gremlinq.Providers.Core
                     try
                     {
                         if (_client.State == WebSocketState.None)
+                        {
                             await _client.ConnectAsync(_server.Uri, ct);
+                            _startTcs.TrySetResult();
+                        }
 
                         if (_environment.Serializer.TryTransform(requestMessage, _environment, out byte[]? serializedRequest))
                             await _client.SendAsync(serializedRequest, WebSocketMessageType.Binary, true, ct);
+                    }
+                    catch
+                    {
+                        Dispose();
+
+                        throw;
                     }
                     finally
                     {
