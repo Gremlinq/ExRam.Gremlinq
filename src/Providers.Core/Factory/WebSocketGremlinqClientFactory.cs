@@ -62,20 +62,15 @@ namespace ExRam.Gremlinq.Providers.Core
 
                     private void Signal(ResponseMessage<T> response)
                     {
-                        if (_tcs.Task.IsCompleted)
+                        if (_tcs.Task.IsCompletedSuccessfully)
                         {
                             if (_tcs.Task.Result is MessageQueue messageQueue)
                                 messageQueue.Signal(response);
                         }
                         else if (response.Status.Code != PartialContent)
-                        {
                             _tcs.TrySetResult(response);
-                        }
-                        else
-                        {
-                            _tcs.TrySetResult(new MessageQueue());
+                        else if (_tcs.TrySetResult(new MessageQueue()))
                             Signal(response);
-                        }
                     }
 
                     public async IAsyncEnumerator<ResponseMessage<T>> GetAsyncEnumerator(CancellationToken ct = default)
@@ -111,7 +106,10 @@ namespace ExRam.Gremlinq.Providers.Core
                                 semaphore.Dispose();
                         }
                         else if (!_tcs.Task.IsFaulted)
-                            _tcs.TrySetException(new ObjectDisposedException(nameof(Channel<T>)));
+                        {
+                            if (!_tcs.TrySetException(new ObjectDisposedException(nameof(Channel<T>))))
+                                Dispose();
+                        }
                     }
                 }
 
