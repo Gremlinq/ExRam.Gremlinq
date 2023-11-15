@@ -118,20 +118,18 @@ namespace ExRam.Gremlinq.Providers.Core
                 private record struct ResponseMessageEnvelope(Guid? RequestId, ResponseStatus? Status);
 
 
-                private readonly Task _loopTask;
                 private readonly GremlinServer _server;
                 private readonly ClientWebSocket _client = new();
                 private readonly SemaphoreSlim _sendLock = new(1);
                 private readonly CancellationTokenSource _cts = new();
                 private readonly IGremlinQueryEnvironment _environment;
-                private readonly TaskCompletionSource<int> _startTcs = new();
+                private readonly TaskCompletionSource<Task> _loopTcs = new();
                 private readonly ConcurrentDictionary<Guid, Channel> _channels = new();
 
                 public WebSocketGremlinqClient(GremlinServer server, Action<ClientWebSocketOptions> optionsTransformation, IGremlinQueryEnvironment environment)
                 {
                     _server = server;
                     _environment = environment;
-                    _loopTask = Loop(_cts.Token);
 
                     _client.Options.SetRequestHeader("User-Agent", "ExRam.Gremlinq");
 
@@ -144,8 +142,8 @@ namespace ExRam.Gremlinq.Providers.Core
 
                     static async IAsyncEnumerable<ResponseMessage<T>> Core(RequestMessage message, WebSocketGremlinqClient @this, [EnumeratorCancellation] CancellationToken ct = default)
                     {
-                        if (@this._loopTask.IsCompleted)
-                            await @this._loopTask;
+                        if (@this._loopTcs.Task is { IsCompleted: true } loopTask)
+                            await loopTask;
 
                         using (var channel = new Channel<T>(message.RequestId, @this._environment))
                         {
@@ -155,7 +153,7 @@ namespace ExRam.Gremlinq.Providers.Core
 
                                 try
                                 {
-                                    await @this.SendCore(message, ct);
+                                    await @this.SendCore(message, linkedCts.Token);
 
                                     await foreach (var item in channel.WithCancellation(linkedCts.Token))
                                     {
@@ -177,19 +175,20 @@ namespace ExRam.Gremlinq.Providers.Core
                     {
                         using (_client)
                         {
-                            _cts.Cancel();
-                            _startTcs.TrySetException(new ObjectDisposedException(nameof(WebSocketGremlinqClient)));
+                            using (_cts)
+                            {
+                                _cts.Cancel();
+                                _loopTcs.TrySetException(new ObjectDisposedException(nameof(WebSocketGremlinqClient)));
+                            }
                         }
                     }
                 }
 
                 private async Task Loop(CancellationToken ct)
                 {
-                    await _startTcs.Task;
-
                     using (this)
                     {
-                        while (true)
+                        while (!ct.IsCancellationRequested)
                         {
                             var bytes = await _client.ReceiveAsync(ct);
 
@@ -230,7 +229,8 @@ namespace ExRam.Gremlinq.Providers.Core
                         if (_client.State == WebSocketState.None)
                         {
                             await _client.ConnectAsync(_server.Uri, ct);
-                            _startTcs.TrySetResult(0);
+
+                            _loopTcs.SetResult(Loop(_cts.Token));
                         }
 
                         if (_environment.Serializer.TryTransform(requestMessage, _environment, out byte[]? serializedRequest))
