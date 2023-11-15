@@ -12,6 +12,8 @@ namespace ExRam.Gremlinq.Providers.Core
 
             while (true)
             {
+                ct.ThrowIfCancellationRequested();
+
                 if (read == bytes.Memory.Length)
                     bytes = MemoryPool<byte>.Shared.Double(bytes);
 
