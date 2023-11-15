@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace ExRam.Gremlinq.Providers.Core
 {
-    public static class GremlinClientExtensions
+    public static class GremlinqClientExtensions
     {
         private sealed class RequestInterceptingGremlinqClient : IGremlinqClient
         {

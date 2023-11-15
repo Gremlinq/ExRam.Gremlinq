@@ -13,12 +13,12 @@ namespace ExRam.Gremlinq.Providers.Core
 {
     public static class GremlinqClientFactory
     {
-        private sealed class ConfigureClientGremlinClientFactory : IGremlinqClientFactory
+        private sealed class ConfigureClientGremlinqClientFactory : IGremlinqClientFactory
         {
             private readonly IGremlinqClientFactory _baseFactory;
             private readonly Func<IGremlinqClient, IGremlinQueryEnvironment, IGremlinqClient> _clientTransformation;
 
-            public ConfigureClientGremlinClientFactory(IGremlinqClientFactory baseFactory, Func<IGremlinqClient, IGremlinQueryEnvironment, IGremlinqClient> clientTransformation)
+            public ConfigureClientGremlinqClientFactory(IGremlinqClientFactory baseFactory, Func<IGremlinqClient, IGremlinQueryEnvironment, IGremlinqClient> clientTransformation)
             {
                 _baseFactory = baseFactory;
                 _clientTransformation = clientTransformation;
@@ -227,12 +227,12 @@ namespace ExRam.Gremlinq.Providers.Core
             }
         }
 
-        public static IGremlinqClientFactory ConfigureClient(this IGremlinqClientFactory clientFactory, Func<IGremlinqClient, IGremlinqClient> clientTransformation) => new ConfigureClientGremlinClientFactory(clientFactory, (client, _) => clientTransformation(client));
+        public static IGremlinqClientFactory ConfigureClient(this IGremlinqClientFactory clientFactory, Func<IGremlinqClient, IGremlinqClient> clientTransformation) => new ConfigureClientGremlinqClientFactory(clientFactory, (client, _) => clientTransformation(client));
 
         public static IPoolGremlinqClientFactory<TBaseFactory> Pool<TBaseFactory>(this TBaseFactory baseFactory)
             where TBaseFactory : IGremlinqClientFactory => new PoolGremlinqClientFactory<TBaseFactory>(baseFactory);
 
-        public static IGremlinqClientFactory Log(this IGremlinqClientFactory clientFactory) => new ConfigureClientGremlinClientFactory(clientFactory, (client, environment) => client.Log(environment));
+        public static IGremlinqClientFactory Log(this IGremlinqClientFactory clientFactory) => new ConfigureClientGremlinqClientFactory(clientFactory, (client, environment) => client.Log(environment));
 
         public static IGremlinQueryExecutor ToExecutor(this IGremlinqClientFactory clientFactory) => new GremlinQueryExecutorImpl(clientFactory);
     }
