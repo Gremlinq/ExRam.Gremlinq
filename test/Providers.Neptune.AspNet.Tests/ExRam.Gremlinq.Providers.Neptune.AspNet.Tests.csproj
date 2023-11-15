@@ -1,9 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
     <None Remove="*.verified.txt" />
     <None Remove="*.received.txt" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
     <ProjectReference Include="..\..\src\Providers.Neptune.AspNet\ExRam.Gremlinq.Providers.Neptune.AspNet.csproj" />
     <ProjectReference Include="..\..\src\Support.NewtonsoftJson.AspNet\ExRam.Gremlinq.Support.NewtonsoftJson.AspNet.csproj" />
