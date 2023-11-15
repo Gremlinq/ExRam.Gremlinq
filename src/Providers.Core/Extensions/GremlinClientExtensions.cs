@@ -143,9 +143,59 @@ namespace ExRam.Gremlinq.Providers.Core
             public void Dispose() => _client.Dispose();
         }
 
+        private sealed class ThrottledGremlinqClient : IGremlinqClient
+        {
+            private readonly SemaphoreSlim _semaphore;
+            private readonly IGremlinqClient _baseClient;
+            private readonly CancellationTokenSource _cts = new ();
+
+            public ThrottledGremlinqClient(IGremlinqClient baseClient, int maxConcurrency)
+            {
+                _baseClient = baseClient;
+                _semaphore = new SemaphoreSlim(maxConcurrency);
+            }
+
+            public void Dispose()
+            {
+                using (_cts)
+                {
+                    using (_baseClient)
+                    {
+                        _cts.Cancel();
+                    }
+                }
+            }
+
+            public IAsyncEnumerable<ResponseMessage<T>> SubmitAsync<T>(RequestMessage message)
+            {
+                return Core(message, this);
+
+                static async IAsyncEnumerable<ResponseMessage<T>> Core(RequestMessage message, ThrottledGremlinqClient @this, [EnumeratorCancellation] CancellationToken ct = default)
+                {
+                    var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(ct, @this._cts.Token);
+
+                    await @this._semaphore.WaitAsync(linkedCts.Token);
+
+                    try
+                    {
+                        await foreach (var item in @this._baseClient.SubmitAsync<T>(message).WithCancellation(linkedCts.Token))
+                        {
+                            yield return item;
+                        }
+                    }
+                    finally
+                    {
+                        @this._semaphore.Release();
+                    }
+                }
+            }
+        }
+
         public static IGremlinqClient TransformRequest(this IGremlinqClient client, Func<RequestMessage, Task<RequestMessage>> transformation) => new RequestInterceptingGremlinqClient(client, transformation);
 
         public static IGremlinqClient ObserveResultStatusAttributes(this IGremlinqClient client, Action<RequestMessage, IReadOnlyDictionary<string, object>> observer) => new ObserveResultStatusAttributesGremlinqClient(client, observer);
+
+        public static IGremlinqClient Throttle(this IGremlinqClient client, int maxConcurrency) => new ThrottledGremlinqClient(client, maxConcurrency);
 
         internal static IGremlinqClient Log(this IGremlinqClient client, IGremlinQueryEnvironment environment) => new LoggingGremlinqClient(client, environment);
     }
