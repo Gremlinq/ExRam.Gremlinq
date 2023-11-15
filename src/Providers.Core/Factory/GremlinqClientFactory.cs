@@ -33,48 +33,7 @@ namespace ExRam.Gremlinq.Providers.Core
         {
             private sealed class PoolGremlinqClient : IGremlinqClient
             {
-                private sealed class Slot : IDisposable
-                {
-                    private readonly PoolGremlinqClient _poolClient;
-
-                    private IGremlinqClient? _subClient;
-
-                    public Slot(PoolGremlinqClient poolClient)
-                    {
-                        _poolClient = poolClient;
-                    }
-
-                    public IGremlinqClient GetClient()
-                    {
-                        if (_subClient is { } subClient)
-                        {
-                            return subClient != GremlinqClient.Disposed
-                                ? subClient
-                                : throw new ObjectDisposedException(nameof(Slot));
-                        }
-
-                        var newClient = _poolClient._baseFactory
-                            .Create(_poolClient._environment)
-                            .Throttle(_poolClient._maxInProcessPerConnection);
-
-                        if (Interlocked.CompareExchange(ref _subClient, newClient, null) != null)
-                            newClient.Dispose();
-
-                        return GetClient();
-                    }
-
-                    public void Invalidate(IGremlinqClient client)
-                    {
-                        Interlocked.CompareExchange(ref _subClient, null, client);
-                    }
-
-                    public void Dispose()
-                    {
-                        Interlocked.Exchange(ref _subClient, GremlinqClient.Disposed)?.Dispose();
-                    }
-                }
-
-                private readonly Slot[] _slots;
+                private readonly IGremlinqClient?[] _slots;
                 private readonly int _maxInProcessPerConnection;
                 private readonly IGremlinqClientFactory _baseFactory;
                 private readonly IGremlinQueryEnvironment _environment;
@@ -87,13 +46,8 @@ namespace ExRam.Gremlinq.Providers.Core
                 {
                     _baseFactory = baseFactory;
                     _environment = environment;
-                    _slots = new Slot[poolSize];
+                    _slots = new IGremlinqClient?[poolSize];
                     _maxInProcessPerConnection = maxInProcessPerConnection;
-
-                    for (var i = 0 ; i < poolSize; i++)
-                    {
-                        _slots[i] = new Slot(this);
-                    }
                 }
 
                 public IAsyncEnumerable<ResponseMessage<T>> SubmitAsync<T>(RequestMessage message)
@@ -112,26 +66,48 @@ namespace ExRam.Gremlinq.Providers.Core
 
                                 if (currentRequestsInUse < 0 || currentRequestsInUse <= maxRequestsInUse || Interlocked.CompareExchange(ref @this._maxRequestsInUse, Math.Min(currentRequestsInUse, @this._slots.Length), maxRequestsInUse) == maxRequestsInUse)
                                 {
-                                    var slot = @this._slots[Math.Abs(Interlocked.Increment(ref @this._currentSlotIndex) % maxRequestsInUse)];
-                                    var client = slot.GetClient();
+                                    var slotIndex = Math.Abs(Interlocked.Increment(ref @this._currentSlotIndex) % maxRequestsInUse);
 
-                                    await using (var e = client.SubmitAsync<T>(message).WithCancellation(ct).GetAsyncEnumerator())
+                                    while (true)
                                     {
-                                        while (true)
+                                        if (Volatile.Read(ref @this._slots[slotIndex]) is { } client)
                                         {
-                                            try
-                                            {
-                                                if (!await e.MoveNextAsync())
-                                                    break;
-                                            }
-                                            catch
-                                            {
-                                                slot.Invalidate(client);
+                                            if (client == GremlinqClient.Disposed)
+                                                throw new ObjectDisposedException(nameof(PoolGremlinqClient));
 
-                                                throw;
+                                            await using (var e = client.SubmitAsync<T>(message).WithCancellation(ct).GetAsyncEnumerator())
+                                            {
+                                                while (true)
+                                                {
+                                                    try
+                                                    {
+                                                        if (!await e.MoveNextAsync())
+                                                            break;
+                                                    }
+                                                    catch
+                                                    {
+                                                        using (client)
+                                                        {
+                                                            Interlocked.CompareExchange(ref @this._slots[slotIndex], null, client);
+                                                        }
+
+                                                        throw;
+                                                    }
+
+                                                    yield return e.Current;
+                                                }
                                             }
 
-                                            yield return e.Current;
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            var newClient = @this._baseFactory
+                                                .Create(@this._environment)
+                                                .Throttle(@this._maxInProcessPerConnection);
+
+                                            if (Interlocked.CompareExchange(ref @this._slots[slotIndex], newClient, null) != null)
+                                                newClient.Dispose();
                                         }
                                     }
 
@@ -148,9 +124,9 @@ namespace ExRam.Gremlinq.Providers.Core
 
                 public void Dispose()
                 {
-                    foreach (var slot in _slots)
+                    for (var i = 0; i < _slots.Length; i++)
                     {
-                        slot.Dispose();
+                        Interlocked.Exchange(ref _slots[i], GremlinqClient.Disposed)?.Dispose();
                     }
                 }
             }
