@@ -5,8 +5,8 @@
     {
         IPoolGremlinqClientFactory<TBaseFactory> ConfigureBaseFactory(Func<TBaseFactory, TBaseFactory> transformation);
 
-        IPoolGremlinqClientFactory<TBaseFactory> WithPoolSize(uint poolSize);
+        IPoolGremlinqClientFactory<TBaseFactory> WithPoolSize(int poolSize);
 
-        IPoolGremlinqClientFactory<TBaseFactory> WithMaxInProcessPerConnection(uint maxInProcessPerConnection);
+        IPoolGremlinqClientFactory<TBaseFactory> WithMaxInProcessPerConnection(int maxInProcessPerConnection);
     }
 }

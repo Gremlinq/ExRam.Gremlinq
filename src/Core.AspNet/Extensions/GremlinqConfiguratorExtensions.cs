@@ -17,14 +17,14 @@ namespace ExRam.Gremlinq.Core.AspNet
             if (section["Uri"] is { } uri)
                 configurator = configurator.At(uri);
 
-            if (uint.TryParse(connectionPoolSection[$"{nameof(ConnectionPoolSettings.MaxInProcessPerConnection)}"], out var maxInProcessPerConnection))
+            if (int.TryParse(connectionPoolSection[$"{nameof(ConnectionPoolSettings.MaxInProcessPerConnection)}"], out var maxInProcessPerConnection))
             {
                 configurator = configurator
                     .ConfigureClientFactory(factory => factory
                         .WithMaxInProcessPerConnection(maxInProcessPerConnection));
             }
 
-            if (uint.TryParse(connectionPoolSection[$"{nameof(ConnectionPoolSettings.PoolSize)}"], out var poolSize))
+            if (int.TryParse(connectionPoolSection[$"{nameof(ConnectionPoolSettings.PoolSize)}"], out var poolSize))
             {
                 configurator = configurator
                     .ConfigureClientFactory(factory => factory
