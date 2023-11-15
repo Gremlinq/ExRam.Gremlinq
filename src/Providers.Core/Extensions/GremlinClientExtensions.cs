@@ -11,12 +11,12 @@ namespace ExRam.Gremlinq.Providers.Core
 {
     public static class GremlinClientExtensions
     {
-        private sealed class RequestInterceptingGremlinClient : IGremlinqClient
+        private sealed class RequestInterceptingGremlinqClient : IGremlinqClient
         {
             private readonly IGremlinqClient _baseClient;
             private readonly Func<RequestMessage, Task<RequestMessage>> _transformation;
 
-            public RequestInterceptingGremlinClient(IGremlinqClient baseClient, Func<RequestMessage, Task<RequestMessage>> transformation)//TODO: CancellationToken
+            public RequestInterceptingGremlinqClient(IGremlinqClient baseClient, Func<RequestMessage, Task<RequestMessage>> transformation)//TODO: CancellationToken
             {
                 _baseClient = baseClient;
                 _transformation = transformation;
@@ -26,7 +26,7 @@ namespace ExRam.Gremlinq.Providers.Core
             {
                 return Core(requestMessage, this);
 
-                static async IAsyncEnumerable<ResponseMessage<TResult>> Core(RequestMessage requestMessage, RequestInterceptingGremlinClient @this, [EnumeratorCancellation] CancellationToken ct = default)
+                static async IAsyncEnumerable<ResponseMessage<TResult>> Core(RequestMessage requestMessage, RequestInterceptingGremlinqClient @this, [EnumeratorCancellation] CancellationToken ct = default)
                 {
                     await foreach(var item in @this._baseClient.SubmitAsync<TResult>(await @this._transformation(requestMessage)))
                     {
@@ -38,12 +38,12 @@ namespace ExRam.Gremlinq.Providers.Core
             public void Dispose() => _baseClient.Dispose();
         }
 
-        private sealed class ObserveResultStatusAttributesGremlinClient : IGremlinqClient
+        private sealed class ObserveResultStatusAttributesGremlinqClient : IGremlinqClient
         {
             private readonly IGremlinqClient _baseClient;
             private readonly Action<RequestMessage, IReadOnlyDictionary<string, object>> _observer;
 
-            public ObserveResultStatusAttributesGremlinClient(IGremlinqClient baseClient, Action<RequestMessage, IReadOnlyDictionary<string, object>> observer)
+            public ObserveResultStatusAttributesGremlinqClient(IGremlinqClient baseClient, Action<RequestMessage, IReadOnlyDictionary<string, object>> observer)
             {
                 _observer = observer;
                 _baseClient = baseClient;
@@ -53,7 +53,7 @@ namespace ExRam.Gremlinq.Providers.Core
             {
                 return Core(requestMessage, this);
 
-                static async IAsyncEnumerable<ResponseMessage<TResult>> Core(RequestMessage requestMessage, ObserveResultStatusAttributesGremlinClient @this, [EnumeratorCancellation] CancellationToken ct = default)
+                static async IAsyncEnumerable<ResponseMessage<TResult>> Core(RequestMessage requestMessage, ObserveResultStatusAttributesGremlinqClient @this, [EnumeratorCancellation] CancellationToken ct = default)
                 {
                     await foreach (var responseMessage in @this._baseClient.SubmitAsync<TResult>(requestMessage))
                     {
@@ -67,7 +67,7 @@ namespace ExRam.Gremlinq.Providers.Core
             public void Dispose() => _baseClient.Dispose();
         }
 
-        private sealed class LoggingGremlinQueryClient : IGremlinqClient
+        private sealed class LoggingGremlinqClient : IGremlinqClient
         {
             private static readonly JsonSerializerOptions IndentedSerializerOptions = new() { WriteIndented = true };
             private static readonly JsonSerializerOptions NotIndentedSerializerOptions = new() { WriteIndented = false };
@@ -76,7 +76,7 @@ namespace ExRam.Gremlinq.Providers.Core
             private readonly Action<RequestMessage> _logger;
             private readonly IGremlinQueryEnvironment _environment;
 
-            public LoggingGremlinQueryClient(IGremlinqClient client, IGremlinQueryEnvironment environment)
+            public LoggingGremlinqClient(IGremlinqClient client, IGremlinQueryEnvironment environment)
             {
                 _client = client;
                 _environment = environment;
@@ -87,7 +87,7 @@ namespace ExRam.Gremlinq.Providers.Core
             {
                 return Core(requestMessage, this);
 
-                static async IAsyncEnumerable<ResponseMessage<TResult>> Core(RequestMessage requestMessage, LoggingGremlinQueryClient @this, [EnumeratorCancellation] CancellationToken ct = default)
+                static async IAsyncEnumerable<ResponseMessage<TResult>> Core(RequestMessage requestMessage, LoggingGremlinqClient @this, [EnumeratorCancellation] CancellationToken ct = default)
                 {
                     @this._logger(requestMessage);
 
@@ -143,10 +143,10 @@ namespace ExRam.Gremlinq.Providers.Core
             public void Dispose() => _client.Dispose();
         }
 
-        public static IGremlinqClient TransformRequest(this IGremlinqClient client, Func<RequestMessage, Task<RequestMessage>> transformation) => new RequestInterceptingGremlinClient(client, transformation);
+        public static IGremlinqClient TransformRequest(this IGremlinqClient client, Func<RequestMessage, Task<RequestMessage>> transformation) => new RequestInterceptingGremlinqClient(client, transformation);
 
-        public static IGremlinqClient ObserveResultStatusAttributes(this IGremlinqClient client, Action<RequestMessage, IReadOnlyDictionary<string, object>> observer) => new ObserveResultStatusAttributesGremlinClient(client, observer);
+        public static IGremlinqClient ObserveResultStatusAttributes(this IGremlinqClient client, Action<RequestMessage, IReadOnlyDictionary<string, object>> observer) => new ObserveResultStatusAttributesGremlinqClient(client, observer);
 
-        internal static IGremlinqClient Log(this IGremlinqClient client, IGremlinQueryEnvironment environment) => new LoggingGremlinQueryClient(client, environment);
+        internal static IGremlinqClient Log(this IGremlinqClient client, IGremlinQueryEnvironment environment) => new LoggingGremlinqClient(client, environment);
     }
 }
